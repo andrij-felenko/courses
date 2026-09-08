@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конвеєр аудиту ланцюга постачання та ліцензій (CI Acceptance Gate)</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Послідовно-паралельна верифікація lock-файлів, SBOM, ліцензій та вразливостей OSV</text>
+
+  <!-- ЕТАП 1: Frozen Lockfile -->
+  <rect x="20" y="68" width="160" height="302" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="28" y="88" font-size="13" font-weight="bold" fill="#2457d6">1. FROZEN LOCK</text>
+  <text x="28" y="104" font-size="12" fill="#6b7280">Цілісність коду</text>
+  <line x1="28" y1="112" x2="172" y2="112" stroke="#eaf0fd" stroke-width="1"/>
+  <text x="28" y="132" font-size="12" font-weight="bold" fill="#1a1a1a">Вхідні файли:</text>
+  <text x="28" y="150" font-size="12" fill="#1a1a1a">• poetry.lock</text>
+  <text x="28" y="168" font-size="12" fill="#1a1a1a">• package-lock</text>
+  <text x="28" y="186" font-size="12" fill="#1a1a1a">• Cargo.lock</text>
+  <text x="28" y="210" font-size="12" font-weight="bold" fill="#1a1a1a">Перевірки CI:</text>
+  <text x="28" y="228" font-size="12" fill="#2457d6">• sha256 хеші</text>
+  <text x="28" y="246" font-size="12" fill="#1a1a1a">• Без unpinned</text>
+  <text x="28" y="264" font-size="12" fill="#1a1a1a">  версій (^, ~)</text>
+  <text x="28" y="288" font-size="12" font-weight="bold" fill="#27ae60">• Детермінізм</text>
+  <text x="28" y="306" font-size="12" fill="#6b7280">  відтворюваної</text>
+  <text x="28" y="324" font-size="12" fill="#6b7280">  збірки в CI</text>
+  <text x="28" y="352" font-size="12" font-weight="bold" fill="#27ae60">СТАТУС: VALID</text>
+
+  <!-- ЕТАП 2: Генерація SBOM -->
+  <rect x="196" y="68" width="154" height="302" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="204" y="88" font-size="13" font-weight="bold" fill="#2457d6">2. ГЕНЕРАЦІЯ SBOM</text>
+  <text x="204" y="104" font-size="12" fill="#6b7280">Специфікація ПЗ</text>
+  <line x1="204" y1="112" x2="342" y2="112" stroke="#eaf0fd" stroke-width="1"/>
+  <text x="204" y="132" font-size="12" font-weight="bold" fill="#1a1a1a">Формати:</text>
+  <text x="204" y="150" font-size="12" fill="#1a1a1a">• CycloneDX JSON</text>
+  <text x="204" y="168" font-size="12" fill="#1a1a1a">• SPDX 2.3</text>
+  <text x="204" y="196" font-size="12" font-weight="bold" fill="#1a1a1a">Склад графа:</text>
+  <text x="204" y="214" font-size="12" fill="#1a1a1a">• Прямі пакети</text>
+  <text x="204" y="232" font-size="12" fill="#1a1a1a">• Транзитивні</text>
+  <text x="204" y="250" font-size="12" fill="#1a1a1a">  залежності</text>
+  <text x="204" y="274" font-size="12" font-weight="bold" fill="#2457d6">• Точні PURL</text>
+  <text x="204" y="292" font-size="12" fill="#6b7280">  pkg:pypi/requests</text>
+  <text x="204" y="310" font-size="12" fill="#6b7280">  @2.31.0</text>
+  <text x="204" y="352" font-size="12" font-weight="bold" fill="#27ae60">АРТЕФАКТ: sbom</text>
+
+  <!-- ЕТАП 3A: Аудит ліцензій -->
+  <rect x="366" y="68" width="200" height="144" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="376" y="88" font-size="13" font-weight="bold" fill="#2457d6">3A. АУДИТ ЛІЦЕНЗІЙ</text>
+  <text x="376" y="104" font-size="12" fill="#6b7280">Політика копілефту</text>
+  <line x1="376" y1="112" x2="556" y2="112" stroke="#eaf0fd" stroke-width="1"/>
+  <text x="376" y="130" font-size="12" font-weight="bold" fill="#27ae60">• Дозволено (WhiteList):</text>
+  <text x="376" y="148" font-size="12" fill="#27ae60">  MIT, Apache-2.0, BSD</text>
+  <text x="376" y="168" font-size="12" font-weight="bold" fill="#c0392b">• Заборонено (BlockList):</text>
+  <text x="376" y="186" font-size="12" fill="#c0392b">  GPLv3, AGPLv3 (копілефт)</text>
+  <text x="376" y="204" font-size="12" font-weight="bold" fill="#27ae60">ІЗОЛЯЦІЯ: 0 ризиків</text>
+
+  <!-- ЕТАП 3B: Сканування OSV -->
+  <rect x="366" y="226" width="200" height="144" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="376" y="246" font-size="13" font-weight="bold" fill="#2457d6">3B. СКАНУВАННЯ OSV</text>
+  <text x="376" y="262" font-size="12" fill="#6b7280">База CVE / GitHub Advisory</text>
+  <line x1="376" y1="270" x2="556" y2="270" stroke="#eaf0fd" stroke-width="1"/>
+  <text x="376" y="288" font-size="12" font-weight="bold" fill="#1a1a1a">• Перевірка PURL в базах</text>
+  <text x="376" y="306" font-size="12" fill="#1a1a1a">• Політика блокування:</text>
+  <text x="376" y="324" font-size="12" font-weight="bold" fill="#c0392b">  CVSS &gt;= 7.0 (High/Crit)</text>
+  <text x="376" y="342" font-size="12" fill="#6b7280">• Перевірка yanked-версій</text>
+  <text x="376" y="360" font-size="12" font-weight="bold" fill="#2457d6">ПОШУК: 0 Critical CVE</text>
+
+  <!-- ЕТАП 4: Звіт аудиту -->
+  <rect x="582" y="68" width="160" height="302" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="590" y="88" font-size="13" font-weight="bold" fill="#2457d6">4. ЗВІТ АУДИТУ</text>
+  <text x="590" y="104" font-size="12" fill="#6b7280">Агрегація даних</text>
+  <line x1="590" y1="112" x2="734" y2="112" stroke="#eaf0fd" stroke-width="1"/>
+  <text x="590" y="132" font-size="12" font-weight="bold" fill="#1a1a1a">Машинний JSON:</text>
+  <text x="590" y="150" font-size="12" fill="#1a1a1a">• audit-report.json</text>
+  <text x="590" y="174" font-size="12" font-weight="bold" fill="#1a1a1a">Метрики звіту:</text>
+  <text x="590" y="192" font-size="12" fill="#1a1a1a">• Total packages</text>
+  <text x="590" y="210" font-size="12" fill="#1a1a1a">• License counts</text>
+  <text x="590" y="228" font-size="12" fill="#1a1a1a">• CVE severities</text>
+  <text x="590" y="252" font-size="12" font-weight="bold" fill="#2457d6">Юридичний акт:</text>
+  <text x="590" y="270" font-size="12" fill="#6b7280">• sha256 хеш звіту</text>
+  <text x="590" y="288" font-size="12" fill="#6b7280">• Підпис для акта</text>
+  <text x="590" y="306" font-size="12" fill="#6b7280">  передачі робіт</text>
+  <text x="590" y="352" font-size="12" font-weight="bold" fill="#27ae60">ГОТОВО ДО ШЛЮЗУ</text>
+
+  <!-- ЕТАП 5A: Merge Unlocked -->
+  <rect x="758" y="68" width="182" height="144" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.8"/>
+  <text x="768" y="88" font-size="13" font-weight="bold" fill="#27ae60">5A. MERGE UNLOCKED</text>
+  <text x="768" y="104" font-size="12" fill="#27ae60">Шлюз відкрито</text>
+  <line x1="768" y1="112" x2="930" y2="112" stroke="#27ae60" stroke-width="1"/>
+  <text x="768" y="130" font-size="12" font-weight="bold" fill="#1a1a1a">Умови проходження:</text>
+  <text x="768" y="148" font-size="12" fill="#1a1a1a">• 0 High/Crit CVE</text>
+  <text x="768" y="166" font-size="12" fill="#1a1a1a">• 100% ліцензій у White</text>
+  <text x="768" y="184" font-size="12" fill="#1a1a1a">• Lockfile валідний</text>
+  <text x="768" y="202" font-size="12" font-weight="bold" fill="#27ae60">АКТ ПІДПИСАНО!</text>
+
+  <!-- ЕТАП 5B: Merge Blocked -->
+  <rect x="758" y="226" width="182" height="144" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="768" y="246" font-size="13" font-weight="bold" fill="#c0392b">5B. MERGE BLOCKED</text>
+  <text x="768" y="262" font-size="12" fill="#c0392b">Шлюз заблоковано</text>
+  <line x1="768" y1="270" x2="930" y2="270" stroke="#c0392b" stroke-width="1"/>
+  <text x="768" y="288" font-size="12" font-weight="bold" fill="#1a1a1a">Причини блокування:</text>
+  <text x="768" y="306" font-size="12" fill="#c0392b">• Знайдено AGPL/GPL</text>
+  <text x="768" y="324" font-size="12" fill="#c0392b">• Критична CVE &gt;= 7.0</text>
+  <text x="768" y="342" font-size="12" fill="#c0392b">• Неузгоджені хеші</text>
+  <text x="768" y="360" font-size="12" font-weight="bold" fill="#c0392b">ПРИЙМАННЯ ВІДХИЛЕНО</text>
+
+  <!-- З'ЄДНУВАЛЬНІ СТРІЛКИ В ПРОСВІТАХ -->
+  <!-- 1 -> 2 -->
+  <line x1="180" y1="219" x2="194" y2="219" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 2 -> 3A та 2 -> 3B -->
+  <line x1="350" y1="140" x2="364" y2="140" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="350" y1="298" x2="364" y2="298" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 3A -> 4 та 3B -> 4 -->
+  <line x1="566" y1="140" x2="580" y2="140" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="566" y1="298" x2="580" y2="298" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 4 -> 5A та 4 -> 5B -->
+  <line x1="742" y1="140" x2="756" y2="140" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="742" y1="298" x2="756" y2="298" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- НИЖНІЙ ПІДСУМКОВИЙ БЛОК -->
+  <rect x="20" y="380" width="920" height="58" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="34" y="401" font-size="12" font-weight="bold" fill="#1a1a1a">ПРИНЦИП АВТОМАТИЧНОГО ПРИЙМАННЯ: ЖОДНИХ СУБ'ЄКТИВНИХ ДОМОВЛЕНОСТЕЙ ТА РУЧНИХ ПОСТУПОК</text>
+  <text x="34" y="421" font-size="12" fill="#6b7280">Шлюз блокує мердж автоматично на рівні CI: захист від вірусного копілефту, підміни залежностей та вразливостей підрядника.</text>
+</svg>

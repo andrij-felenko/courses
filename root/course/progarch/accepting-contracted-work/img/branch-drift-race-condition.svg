@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Розрив актуальності гілок (Branch Drift Race Condition)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Без суворої перевірки (Strict Check) злиття двох зелених PR породжує семантичну аварію в main</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: БЕЗ STRICT CHECK (ПРОБЛЕМА) ==================== -->
+  <rect x="24" y="74" width="460" height="364" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="254" y="98" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">1. Без Strict Check: тихий семантичний конфлікт</text>
+  <text x="254" y="116" font-size="12" fill="#6b7280" text-anchor="middle">GitHub дозволяє злиття застарілої гілки зі старим зеленим CI</text>
+
+  <!-- Схема комітів панелі 1 -->
+  <!-- Базовий коміт C0 -->
+  <circle cx="56" cy="180" r="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="56" y="185" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">C0</text>
+  <text x="56" y="210" font-size="12" fill="#6b7280" text-anchor="middle">База</text>
+
+  <!-- Гілка PR A (вгору) -->
+  <path d="M68,172 C90,146 110,146 140,146" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <rect x="146" y="132" width="120" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="206" y="150" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">PR A: зміна API</text>
+
+  <!-- CI перевірка PR A (PASS) -->
+  <rect x="274" y="132" width="58" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="303" y="150" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">PASS ✓</text>
+
+  <!-- Гілка PR B (вниз) -->
+  <path d="M68,188 C90,214 110,214 140,214" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <rect x="146" y="200" width="120" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="206" y="218" font-size="12" fill="#1a1a1a" text-anchor="middle">PR B: старий API</text>
+
+  <!-- CI перевірка PR B (PASS на старій C0) -->
+  <rect x="274" y="200" width="58" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="303" y="218" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">PASS ✓</text>
+
+  <!-- Злиття PR A в main (C1) -->
+  <path d="M332,146 C354,146 364,170 376,176" fill="none" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <circle cx="388" cy="180" r="14" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="388" y="185" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">C1</text>
+  <text x="388" y="162" font-size="12" fill="#27ae60" text-anchor="middle">PR A в main</text>
+
+  <!-- Злиття PR B в main (C2) без перетестування -->
+  <path d="M332,214 C380,214 410,196 432,188" fill="none" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <circle cx="448" cy="180" r="14" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="448" y="185" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">C2</text>
+  <text x="448" y="210" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Аварія!</text>
+
+  <!-- Результат панелі 1 -->
+  <rect x="38" y="282" width="432" height="142" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="50" y="304" font-size="13" font-weight="700" fill="#c0392b">💥 Аварія в main: семантичний конфлікт</text>
+  <text x="50" y="326" font-size="12" fill="#1a1a1a">• Обидва PR мали зелений CI, бо тестувалися окремо на C0</text>
+  <text x="50" y="346" font-size="12" fill="#1a1a1a">• PR B викликає метод або схему, яку PR A щойно змінив</text>
+  <text x="50" y="366" font-size="12" fill="#6b7280">• Git зливає без текстових конфліктів (різні файли/рядки)</text>
+  <text x="50" y="386" font-size="12" font-weight="700" fill="#c0392b">• Головна гілка main зламана для всієї команди та клієнтів</text>
+  <text x="50" y="408" font-size="12" fill="#6b7280">Причина: відсутність суворої перевірки актуальності гілок</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: ІЗ STRICT CHECK (ЗАХИСТ) ==================== -->
+  <rect x="500" y="74" width="436" height="364" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="718" y="98" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">2. Із Strict Check: гарантія сумісності в CI</text>
+  <text x="718" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Require branch to be up to date before merging</text>
+
+  <!-- Схема комітів панелі 2 -->
+  <!-- Базовий коміт C0 -->
+  <circle cx="532" cy="180" r="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="532" y="185" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">C0</text>
+  <text x="532" y="210" font-size="12" fill="#6b7280" text-anchor="middle">База</text>
+
+  <!-- PR A злито в main (C1) -->
+  <path d="M546,172 C568,146 588,146 612,146" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <rect x="618" y="132" width="100" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="668" y="150" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">PR A злито ✓</text>
+
+  <path d="M718,146 C736,146 746,168 756,174" fill="none" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <circle cx="768" cy="180" r="14" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="768" y="185" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">C1</text>
+  <text x="768" y="162" font-size="12" fill="#27ae60" text-anchor="middle">Новий main</text>
+
+  <!-- PR B: блокування drift і вимога оновлення -->
+  <path d="M546,188 C568,214 588,214 612,214" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <rect x="618" y="200" width="108" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="672" y="218" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Out of date ⚠️</text>
+
+  <!-- Примусове оновлення PR B (rebase/merge C1) -->
+  <path d="M768,194 C768,214 756,214 740,214" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Повторний запуск CI над (C1 + PR B) -->
+  <rect x="796" y="200" width="124" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="858" y="218" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">CI FAIL: помилка ✗</text>
+
+  <!-- Результат панелі 2 -->
+  <rect x="514" y="282" width="408" height="142" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="526" y="304" font-size="13" font-weight="700" fill="#27ae60">✓ Захищений main: аварію відсічено на митниці</text>
+  <text x="526" y="326" font-size="12" fill="#1a1a1a">• Після злиття PR A платформа інвалідує статус PR B</text>
+  <text x="526" y="346" font-size="12" fill="#1a1a1a">• PR B зобов'язаний підтягнути C1 (Update branch / Rebase)</text>
+  <text x="526" y="366" font-size="12" fill="#2457d6">• CI перевіряє спільний стан і знаходить семантичну помилку</text>
+  <text x="526" y="386" font-size="12" font-weight="700" fill="#27ae60">• Злиття блокується до виправлення підрядником у PR B</text>
+  <text x="526" y="408" font-size="12" fill="#6b7280">Branch Ruleset гарантує безперервну стабільність main</text>
+</svg>

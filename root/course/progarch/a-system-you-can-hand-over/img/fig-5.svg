@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="26" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Теплова карта володіння кодом та матриця архітектурного ризику</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Виявлення критичних монополій знань (Truck Factor = 1), безпечних компонентів і сирітських зон репозиторію</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ТЕПЛОВА КАРТА (HEATMAP) ==================== -->
+  <rect x="24" y="66" width="510" height="366" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Заголовок лівої панелі -->
+  <text x="40" y="90" font-size="13" font-weight="700" fill="#1a1a1a">Теплова карта розподілу володіння кодом (DOA)</text>
+  <text x="40" y="106" font-size="12" fill="#6b7280">Частка авторів у підсистемах та відповідний показник Truck Factor</text>
+
+  <!-- Модуль 1: core/auth (Монополія) -->
+  <rect x="40" y="118" width="478" height="50" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="52" y="135" font-size="12" font-weight="700" fill="#c0392b">core/auth (Критичне ядро)</text>
+  <rect x="348" y="123" width="158" height="18" rx="3" fill="#fdecea"/>
+  <text x="427" y="136" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">TF = 1 (Монополія)</text>
+  <!-- Bar 200px: 92% red (184px), 8% gray (16px) -->
+  <rect x="52" y="143" width="184" height="15" rx="2" fill="#c0392b"/>
+  <rect x="236" y="143" width="16" height="15" rx="2" fill="#d0d7de"/>
+  <text x="260" y="155" font-size="12" fill="#1a1a1a">Dev A: 92% | Dev B: 8%</text>
+
+  <!-- Модуль 2: domain/billing (Монополія) -->
+  <rect x="40" y="180" width="478" height="50" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="52" y="197" font-size="12" font-weight="700" fill="#c0392b">domain/billing (Фінанси)</text>
+  <rect x="348" y="185" width="158" height="18" rx="3" fill="#fdecea"/>
+  <text x="427" y="198" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">TF = 1 (Монополія)</text>
+  <!-- Bar 200px: 85% red (170px), 15% gray (30px) -->
+  <rect x="52" y="205" width="170" height="15" rx="2" fill="#c0392b"/>
+  <rect x="222" y="205" width="30" height="15" rx="2" fill="#d0d7de"/>
+  <text x="260" y="217" font-size="12" fill="#1a1a1a">Dev A: 85% | Dev C: 15%</text>
+
+  <!-- Модуль 3: infra/db_cluster (Збалансовано) -->
+  <rect x="40" y="242" width="478" height="50" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="52" y="259" font-size="12" font-weight="700" fill="#27ae60">infra/db_cluster (Бази даних)</text>
+  <rect x="348" y="247" width="158" height="18" rx="3" fill="#e9f7ef"/>
+  <text x="427" y="260" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">TF = 3 (Збалансовано)</text>
+  <!-- Bar 200px: 52% green (104px), 38% blue (76px), 10% gray (20px) -->
+  <rect x="52" y="267" width="104" height="15" rx="2" fill="#27ae60"/>
+  <rect x="156" y="267" width="76" height="15" rx="2" fill="#2457d6"/>
+  <rect x="232" y="267" width="20" height="15" rx="2" fill="#d0d7de"/>
+  <text x="260" y="279" font-size="12" fill="#1a1a1a">Dev B: 52% | Dev C: 38%</text>
+
+  <!-- Модуль 4: api/gateway (Збалансовано) -->
+  <rect x="40" y="304" width="478" height="50" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="52" y="321" font-size="12" font-weight="700" fill="#27ae60">api/gateway (Мережевий шлюз)</text>
+  <rect x="348" y="309" width="158" height="18" rx="3" fill="#e9f7ef"/>
+  <text x="427" y="322" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">TF = 2 (Збалансовано)</text>
+  <!-- Bar 200px: 48% green (96px), 40% blue (80px), 12% gray (24px) -->
+  <rect x="52" y="329" width="96" height="15" rx="2" fill="#27ae60"/>
+  <rect x="148" y="329" width="80" height="15" rx="2" fill="#2457d6"/>
+  <rect x="228" y="329" width="24" height="15" rx="2" fill="#d0d7de"/>
+  <text x="260" y="341" font-size="12" fill="#1a1a1a">Dev C: 48% | Dev D: 40%</text>
+
+  <!-- Модуль 5: legacy/reports (Сирота) -->
+  <rect x="40" y="366" width="478" height="50" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1.2"/>
+  <text x="52" y="383" font-size="12" font-weight="700" fill="#d97706">legacy/reports (Звітність)</text>
+  <rect x="348" y="371" width="158" height="18" rx="3" fill="#fef3c7"/>
+  <text x="427" y="384" font-size="12" font-weight="700" fill="#d97706" text-anchor="middle">TF = 0 (Сирітська зона)</text>
+  <!-- Bar 200px: 100% hatched/decayed orange (200px) -->
+  <rect x="52" y="391" width="200" height="15" rx="2" fill="#d97706" opacity="0.6"/>
+  <text x="260" y="403" font-size="12" fill="#6b7280">Автори звільнені (Time Decay)</text>
+
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: МАТРИЦЯ РИЗИКУ ==================== -->
+  <rect x="550" y="66" width="386" height="366" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Заголовок правої панелі -->
+  <text x="566" y="90" font-size="13" font-weight="700" fill="#1a1a1a">Матриця архітектурного ризику</text>
+  <text x="566" y="106" font-size="12" fill="#6b7280">Правила приймання системи за категоріями</text>
+
+  <!-- Картка 1: Монополія -->
+  <rect x="566" y="118" width="354" height="88" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="578" y="136" font-size="12" font-weight="700" fill="#c0392b">МОНОПОЛІЯ: Truck Factor = 1 (Блокер)</text>
+  <text x="578" y="154" font-size="12" fill="#1a1a1a">• 1 автор володіє >80% коду підсистеми</text>
+  <text x="578" y="172" font-size="12" fill="#1a1a1a">• Вихід автора паралізує підтримку модуля</text>
+  <text x="578" y="190" font-size="12" font-weight="700" fill="#c0392b">• Дія: Заборона приймання, парний транзит</text>
+
+  <!-- Картка 2: Збалансовано -->
+  <rect x="566" y="218" width="354" height="88" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="578" y="236" font-size="12" font-weight="700" fill="#27ae60">ЗБАЛАНСОВАНО: Truck Factor ≥ 2 (Норма)</text>
+  <text x="578" y="254" font-size="12" fill="#1a1a1a">• ≥ 2 розробники мають DOA ≥ 30%</text>
+  <text x="578" y="272" font-size="12" fill="#1a1a1a">• Архітектурні знання дублюються в команді</text>
+  <text x="578" y="290" font-size="12" font-weight="700" fill="#27ae60">• Дія: Дозвіл на приймання компонента</text>
+
+  <!-- Картка 3: Сирітська зона -->
+  <rect x="566" y="318" width="354" height="98" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1.2"/>
+  <text x="578" y="338" font-size="12" font-weight="700" fill="#d97706">СИРІТСЬКА ЗОНА: Truck Factor = 0 (Ризик)</text>
+  <text x="578" y="358" font-size="12" fill="#1a1a1a">• Автори звільнені, знання згасли (Time Decay)</text>
+  <text x="578" y="376" font-size="12" fill="#1a1a1a">• Ніхто в команді не розуміє інваріанти</text>
+  <text x="578" y="396" font-size="12" font-weight="700" fill="#d97706">• Дія: Аудит коду, покриття тестами</text>
+
+
+  <!-- ==================== НИЖНІЙ БАНЕР: БАР'ЄР ПРИЙМАННЯ ==================== -->
+  <rect x="24" y="448" width="912" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="469" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">АРХІТЕКТУРНИЙ БАР'ЄР: СИСТЕМА НЕ ПРИЙМАЄТЬСЯ З МОДУЛЯМИ TRUCK FACTOR = 1</text>
+  <text x="480" y="489" font-size="12" fill="#1a1a1a" text-anchor="middle">Акт передачі підписується лише за відсутності монополій у ядрі та усунення сирітських зон</text>
+
+</svg>

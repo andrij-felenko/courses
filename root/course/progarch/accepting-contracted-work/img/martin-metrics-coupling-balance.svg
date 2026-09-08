@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Метрики Роберта Мартіна: Баланс зчеплення та абстрактності</text>
+  <text x="480" y="50" font-size="13" text-anchor="middle" fill="#6b7280">Вхідні (Ca) й вихідні (Ce) залежності визначають нестабільність I, а баланс A + I = 1 запобігає появі зон болю</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Аналіз зчеплення (Ca, Ce, I, A) -->
+  <rect x="30" y="70" width="440" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="42" y="82" width="416" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="250" y="105" font-size="14" font-weight="700" text-anchor="middle" fill="#2457d6">Аналіз зчеплення: Afferent (Ca) та Efferent (Ce)</text>
+
+  <!-- Граф залежностей пакета -->
+  <rect x="42" y="126" width="416" height="152" rx="6" fill="white" stroke="#d0d7de"/>
+
+  <!-- Клієнти ліворуч (Ca) -->
+  <rect x="54" y="138" width="105" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="106" y="158" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Клієнт A</text>
+
+  <rect x="54" y="180" width="105" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="106" y="200" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Клієнт B</text>
+
+  <rect x="54" y="222" width="105" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="106" y="242" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Клієнт C</text>
+
+  <text x="106" y="268" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Ca = 3 (вхідні)</text>
+
+  <!-- Стрілки Ca до пакета P -->
+  <line x1="159" y1="154" x2="191" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="159" y1="196" x2="191" y2="196" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="159" y1="238" x2="191" y2="212" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Центральний пакет P -->
+  <rect x="195" y="154" width="110" height="84" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="250" y="178" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Пакет P</text>
+  <text x="250" y="198" font-size="12" text-anchor="middle" fill="#6b7280">(підрядник)</text>
+  <text x="250" y="222" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Na / Nc = A</text>
+
+  <!-- Стрілки Ce від пакета P -->
+  <line x1="305" y1="180" x2="337" y2="168" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="305" y1="212" x2="337" y2="224" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Залежності праворуч (Ce) -->
+  <rect x="341" y="152" width="105" height="32" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="393" y="172" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">База даних</text>
+
+  <rect x="341" y="208" width="105" height="32" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="393" y="228" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Зовнішній API</text>
+
+  <text x="393" y="268" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Ce = 2 (вихідні)</text>
+
+  <!-- Картка математичних формул -->
+  <rect x="42" y="286" width="416" height="138" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="54" y="308" font-size="12" font-weight="700" fill="#1a1a1a">Нестабільність (Instability):</text>
+  <text x="54" y="328" font-size="12" fill="#2457d6">I = Ce / (Ca + Ce) = 2 / (3 + 2) = 0.40</text>
+  <text x="54" y="346" font-size="12" fill="#6b7280">• I = 0: стабільний (відповідальний, важко змінювати)</text>
+  <text x="54" y="364" font-size="12" fill="#6b7280">• I = 1: нестабільний (залежний, легко змінювати)</text>
+
+  <text x="54" y="390" font-size="12" font-weight="700" fill="#1a1a1a">Абстрактність (Abstractness):</text>
+  <text x="54" y="410" font-size="12" fill="#27ae60">A = Na / Nc (частка інтерфейсів у коді пакета)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Головна послідовність (A + I = 1) -->
+  <rect x="490" y="70" width="440" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="502" y="82" width="416" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="105" font-size="14" font-weight="700" text-anchor="middle" fill="#27ae60">Головна послідовність (A + I = 1) та зони ризику</text>
+
+  <!-- Картка графіка A-I -->
+  <rect x="502" y="126" width="416" height="206" rx="6" fill="white" stroke="#d0d7de"/>
+
+  <!-- Заголовок графіка -->
+  <text x="600" y="142" font-size="12" font-weight="700" fill="#27ae60">Головна послідовність (A + I = 1)</text>
+  <text x="510" y="142" font-size="12" font-weight="700" fill="#1a1a1a">A (0..1)</text>
+
+  <!-- Зона марності (угорі праворуч) -->
+  <rect x="765" y="154" width="100" height="36" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-dasharray="3,3"/>
+  <text x="815" y="176" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">Зона марності</text>
+
+  <!-- Зона болю (внизу ліворуч) -->
+  <rect x="585" y="248" width="90" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3"/>
+  <text x="630" y="270" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Зона болю</text>
+
+  <!-- Осі координат -->
+  <line x1="580" y1="290" x2="870" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="580" y1="290" x2="580" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Головна послідовність (діагональ) -->
+  <line x1="580" y1="150" x2="870" y2="290" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Досліджуваний пакет P на графіку -->
+  <circle cx="696" cy="206" r="5" fill="#2457d6" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="710" y="225" font-size="12" font-weight="700" fill="#2457d6">Пакет P (D ≈ 0)</text>
+
+  <!-- Підписи осей -->
+  <text x="572" y="154" font-size="12" text-anchor="end" fill="#6b7280">1</text>
+  <text x="572" y="290" font-size="12" text-anchor="end" fill="#6b7280">0</text>
+  <text x="580" y="306" font-size="12" text-anchor="middle" fill="#6b7280">0</text>
+  <text x="870" y="306" font-size="12" text-anchor="middle" fill="#6b7280">1</text>
+  <text x="725" y="322" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Нестабільність I (0 → 1)</text>
+
+  <!-- Картка Quality Gate у CI -->
+  <rect x="502" y="340" width="416" height="84" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="514" y="360" font-size="12" font-weight="700" fill="#27ae60">Критерій приймання коду на митниці CI (Quality Gate):</text>
+  <text x="514" y="379" font-size="12" fill="#1a1a1a">• Відхилення від балансу: D = |A + I - 1| (відстань до лінії)</text>
+  <text x="514" y="398" font-size="12" fill="#1a1a1a">• Поріг Definition of Done: D ≤ 0.20 (блокування відхилень)</text>
+  <text x="514" y="416" font-size="12" font-weight="700" fill="#27ae60">✔ Стабільний пакет підрядника захищений абстракціями</text>
+</svg>

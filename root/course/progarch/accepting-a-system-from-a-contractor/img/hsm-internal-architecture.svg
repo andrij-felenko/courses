@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Внутрішня архітектура криптопроцесора HSM</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Апаратна ізоляція обчислень, захист ключів у BBRAM та автономне обнулення (Zeroization)</text>
+
+  <!-- Кремнієвий кристал / Криптографічний периметр -->
+  <rect x="20" y="66" width="920" height="374" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Верхній захисний шар: Активна металева сітка (Active Shield) -->
+  <rect x="32" y="74" width="896" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="44" y="92" font-size="12" font-weight="bold" fill="#2457d6">АКТИВНА МЕТАЛЕВА СІТКА (ACTIVE SHIELD) — ЗАХИСНИЙ ШАР НАД КРИСТАЛОМ</text>
+  <text x="44" y="108" font-size="12" fill="#1a1a1a">Лабіринт мікропровідників із ВЧ-сигналом: миттєве виявлення розтину, кислотного травлення та мікрозондів</text>
+
+  <!-- КОЛОНКА 1: Зовнішній інтерфейс хоста -->
+  <rect x="32" y="130" width="168" height="300" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="42" y="149" font-size="13" font-weight="bold" fill="#1a1a1a">Зовнішній інтерфейс</text>
+  <text x="42" y="165" font-size="12" fill="#6b7280">Ізольований порт хоста</text>
+  <line x1="42" y1="174" x2="190" y2="174" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="42" y="192" font-size="12" font-weight="bold" fill="#1a1a1a">Фізичні шини:</text>
+  <text x="42" y="209" font-size="12" fill="#1a1a1a">• SPI / I2C / UART</text>
+  <text x="42" y="226" font-size="12" fill="#1a1a1a">• PCIe (для HSM-плат)</text>
+  <text x="42" y="248" font-size="12" font-weight="bold" fill="#1a1a1a">Стандарти API:</text>
+  <text x="42" y="265" font-size="12" fill="#1a1a1a">• PKCS#11 / KMIP</text>
+  <text x="42" y="282" font-size="12" fill="#1a1a1a">• JTAG заблоковано</text>
+
+  <!-- Вкладений блок: Криптографічний периметр -->
+  <rect x="40" y="300" width="152" height="120" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="48" y="318" font-size="12" font-weight="bold" fill="#c0392b">ПРАВИЛО ПЕРИМЕТРА:</text>
+  <text x="48" y="336" font-size="12" fill="#1a1a1a">Закриті ключі ніколи</text>
+  <text x="48" y="353" font-size="12" fill="#1a1a1a">не виходять назовні</text>
+  <text x="48" y="370" font-size="12" fill="#1a1a1a">у відкритому вигляді.</text>
+  <text x="48" y="392" font-size="12" font-weight="bold" fill="#27ae60">Тільки обчислення:</text>
+  <text x="48" y="409" font-size="12" fill="#27ae60">підпис / шифрування</text>
+
+  <!-- КОЛОНКА 2A: Апаратний TRNG -->
+  <rect x="214" y="130" width="248" height="142" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="226" y="150" font-size="13" font-weight="bold" fill="#2457d6">Апаратний TRNG</text>
+  <text x="226" y="166" font-size="12" fill="#6b7280">Генератор істинної ентропії</text>
+  <line x1="226" y1="174" x2="450" y2="174" stroke="#eaf0fd" stroke-width="1"/>
+  <text x="226" y="192" font-size="12" fill="#1a1a1a">• Фізичний квантовий та</text>
+  <text x="226" y="209" font-size="12" fill="#1a1a1a">  тепловий шум p-n переходу</text>
+  <text x="226" y="228" font-size="12" fill="#1a1a1a">• Апаратне тестування бітів</text>
+  <text x="226" y="245" font-size="12" fill="#1a1a1a">  на випадковість (NIST SP 800-90B)</text>
+  <text x="226" y="263" font-size="12" font-weight="bold" fill="#2457d6">• Генерація незламних ключів</text>
+
+  <!-- КОЛОНКА 2B: Криптографічний співпроцесор -->
+  <rect x="214" y="288" width="248" height="142" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="226" y="308" font-size="13" font-weight="bold" fill="#2457d6">Крипто-співпроцесор</text>
+  <text x="226" y="324" font-size="12" fill="#6b7280">Рушій обчислень сталого часу</text>
+  <line x1="226" y1="332" x2="450" y2="332" stroke="#eaf0fd" stroke-width="1"/>
+  <text x="226" y="350" font-size="12" fill="#1a1a1a">• RSA-4096 / ECC (ECDSA, Ed25519)</text>
+  <text x="226" y="368" font-size="12" fill="#1a1a1a">• Апаратний AES-GCM / SHA-2, SHA-3</text>
+  <text x="226" y="390" font-size="12" font-weight="bold" fill="#27ae60">• Constant-time execution:</text>
+  <text x="226" y="408" font-size="12" fill="#1a1a1a">  захист від DPA й timing attacks</text>
+  <text x="226" y="423" font-size="12" fill="#6b7280">  (однаковий час для будь-яких бітів)</text>
+
+  <!-- КОЛОНКА 3A: Пам'ять ключів BBRAM -->
+  <rect x="476" y="130" width="224" height="196" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="488" y="150" font-size="13" font-weight="bold" fill="#27ae60">Пам'ять ключів BBRAM</text>
+  <text x="488" y="166" font-size="12" fill="#6b7280">Battery-Backed Static RAM</text>
+  <line x1="488" y1="174" x2="688" y2="174" stroke="#e9f7ef" stroke-width="1"/>
+  <text x="488" y="192" font-size="12" fill="#1a1a1a">• Зберігання Root of Trust</text>
+  <text x="488" y="209" font-size="12" fill="#1a1a1a">  (майстер-ключі системи)</text>
+  <text x="488" y="228" font-size="12" font-weight="bold" fill="#2457d6">• Шифрування шин (Bus Enc):</text>
+  <text x="488" y="245" font-size="12" fill="#1a1a1a">  лінії даних захищені від зондів</text>
+  <text x="488" y="264" font-size="12" fill="#1a1a1a">• Енергозалежні комірки SRAM</text>
+  <text x="488" y="284" font-size="12" font-weight="bold" fill="#c0392b">• Підключення до схеми Zeroize:</text>
+  <text x="488" y="302" font-size="12" fill="#c0392b">  миттєвий розряд ємностей на GND</text>
+  <text x="488" y="318" font-size="12" fill="#6b7280">  (стирання ключів за менше 10 нс)</text>
+
+  <!-- КОЛОНКА 3B: Резервна батарея -->
+  <rect x="476" y="342" width="224" height="88" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="488" y="362" font-size="13" font-weight="bold" fill="#1a1a1a">Резервна батарея (V_BAT)</text>
+  <text x="488" y="378" font-size="12" fill="#6b7280">Автономне живлення кристала</text>
+  <text x="488" y="398" font-size="12" fill="#1a1a1a">• Утримання ключів до 10 років</text>
+  <text x="488" y="416" font-size="12" fill="#1a1a1a">• Робота датчиків без живлення хоста</text>
+
+  <!-- КОЛОНКА 4A: Датчики розтину -->
+  <rect x="714" y="130" width="214" height="154" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="726" y="150" font-size="13" font-weight="bold" fill="#c0392b">Датчики розтину (Tamper)</text>
+  <text x="726" y="166" font-size="12" fill="#6b7280">Моніторинг середовища</text>
+  <line x1="726" y1="174" x2="916" y2="174" stroke="#fdecea" stroke-width="1"/>
+  <text x="726" y="192" font-size="12" fill="#1a1a1a">• Контроль сітки (обрив / к.з.)</text>
+  <text x="726" y="210" font-size="12" fill="#1a1a1a">• Напруга (Voltage Glitching)</text>
+  <text x="726" y="228" font-size="12" fill="#1a1a1a">• Температура (кріоатака / жар)</text>
+  <text x="726" y="246" font-size="12" fill="#1a1a1a">• Фотодіоди (світловий розтин)</text>
+  <text x="726" y="268" font-size="12" font-weight="bold" fill="#c0392b">Сигнал тривоги при аномалії</text>
+
+  <!-- КОЛОНКА 4B: Схема Zeroization -->
+  <rect x="714" y="300" width="214" height="130" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="726" y="322" font-size="13" font-weight="bold" fill="#c0392b">Схема Zeroization</text>
+  <text x="726" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">Апаратне самознищення</text>
+  <line x1="726" y1="346" x2="916" y2="346" stroke="#c0392b" stroke-width="1"/>
+  <text x="726" y="364" font-size="12" font-weight="bold" fill="#c0392b">• Спрацьовування менше 10 нс</text>
+  <text x="726" y="382" font-size="12" fill="#1a1a1a">• Закорочування BBRAM на GND</text>
+  <text x="726" y="400" font-size="12" fill="#1a1a1a">• Кристал стає чистим (0 біт)</text>
+  <text x="726" y="418" font-size="12" fill="#6b7280">Фізично незворотний захист</text>
+
+  <!-- З'ЄДНУВАЛЬНІ СТРІЛКИ ТА ШИНИ (проходять у просвітах між блоками) -->
+  <!-- 1. Хост <-> Крипто-співпроцесор (просвіт x=200..214) -->
+  <line x1="200" y1="350" x2="213" y2="350" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="214" y1="365" x2="201" y2="365" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 2. TRNG -> Співпроцесор (просвіт y=272..288, x=338) -->
+  <line x1="338" y1="272" x2="338" y2="286" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 3. Співпроцесор <-> BBRAM (просвіт x=462..476, y=308) -->
+  <line x1="462" y1="308" x2="474" y2="308" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- 4. Батарея -> BBRAM (просвіт y=326..342, x=588) -->
+  <line x1="588" y1="342" x2="588" y2="328" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- 5. Сітка -> Датчики розтину (просвіт y=122..130, x=821) -->
+  <line x1="821" y1="122" x2="821" y2="128" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- 6. Датчики розтину -> Zeroization (просвіт y=284..300, x=821) -->
+  <line x1="821" y1="284" x2="821" y2="298" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- 7. Zeroization -> BBRAM аварійне скидання (просвіт x=700..714, y=316) -->
+  <line x1="714" y1="316" x2="702" y2="316" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+</svg>

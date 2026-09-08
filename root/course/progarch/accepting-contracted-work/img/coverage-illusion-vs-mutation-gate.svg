@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Ілюзія лінійного покриття проти мутаційного гейта якості</text>
+  <text x="480" y="50" font-size="13" text-anchor="middle" fill="#6b7280">95% покриття не гарантує перевірки бізнес-правил; лише мутанти доводять дієвість тестів</text>
+
+  <!-- ЛІВА КОЛОНКА: Ілюзія покриття -->
+  <rect x="30" y="70" width="430" height="366" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+
+  <rect x="42" y="82" width="406" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="245" y="105" font-size="14" font-weight="700" text-anchor="middle" fill="#c0392b">ІЛЮЗІЯ ПОКРИТТЯ (Line Coverage: 95%)</text>
+
+  <rect x="42" y="126" width="406" height="88" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="54" y="146" font-size="12" font-weight="700" fill="#1a1a1a">Фіктивний тест (перевірка виконання, а не логіки):</text>
+  <text x="54" y="167" font-size="12" fill="#6b7280">• Повний мокінг усіх залежностей (over-mocking)</text>
+  <text x="54" y="187" font-size="12" fill="#6b7280">• Виклик методу без асертів або assertNotNull(res)</text>
+  <text x="54" y="203" font-size="12" fill="#6b7280">• Рядки бізнес-правил виконані, але не перевірені</text>
+
+  <rect x="42" y="222" width="406" height="80" rx="6" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="54" y="242" font-size="12" font-weight="700" fill="#c0392b">Звіт стандартного лінійного покриття:</text>
+  <text x="54" y="263" font-size="12" fill="#1a1a1a">• Лічильник коду: 95% рядків стали зеленими</text>
+  <text x="54" y="283" font-size="12" fill="#1a1a1a">• Усі тести проходять (100% зелені галочки в CI)</text>
+
+  <rect x="42" y="310" width="406" height="114" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="54" y="331" font-size="12" font-weight="700" fill="#c0392b">Реальні наслідки для замовника:</text>
+  <text x="54" y="352" font-size="12" fill="#1a1a1a">✖ Помилка в обчисленні знижки чи ліміту проходить у прод</text>
+  <text x="54" y="372" font-size="12" fill="#1a1a1a">✖ Тест не реагує на зміну логіки (можна видалити код)</text>
+  <text x="54" y="393" font-size="12" fill="#1a1a1a">✖ Оплачено роботу за «зелений звіт», а не за якість</text>
+  <text x="54" y="413" font-size="12" font-weight="700" fill="#c0392b">Вердикт: Капітуляція якості перед цифрами звітів</text>
+
+  <!-- РОЗДІЛЮВАЧ VS -->
+  <rect x="465" y="240" width="30" height="24" rx="12" fill="#2457d6"/>
+  <text x="480" y="257" font-size="12" font-weight="700" text-anchor="middle" fill="white">VS</text>
+
+  <!-- ПРАВА КОЛОНКА: Мутаційний гейт -->
+  <rect x="500" y="70" width="430" height="366" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+
+  <rect x="512" y="82" width="406" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="715" y="105" font-size="14" font-weight="700" text-anchor="middle" fill="#27ae60">МУТАЦІЙНИЙ ГЕЙТ (Mutation Score: 85%)</text>
+
+  <rect x="512" y="126" width="406" height="88" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="524" y="146" font-size="12" font-weight="700" fill="#1a1a1a">Внесення штучних багів (мутантів):</text>
+  <text x="524" y="167" font-size="12" fill="#6b7280">• Заміна операторів: &gt; на &gt;=, &amp;&amp; на ||, + на -</text>
+  <text x="524" y="187" font-size="12" fill="#6b7280">• Інверсія булевих значень, видалення викликів сервісів</text>
+  <text x="524" y="203" font-size="12" fill="#2457d6">• Запуск тестів підрядника на кожній мутації</text>
+
+  <rect x="512" y="222" width="406" height="80" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="524" y="242" font-size="12" font-weight="700" fill="#27ae60">Реальна чутливість тестового набору:</text>
+  <text x="524" y="263" font-size="12" fill="#1a1a1a">• Тест упав = Мутант убитий (Killed) ✔ якісний тест</text>
+  <text x="524" y="283" font-size="12" fill="#1a1a1a">• Тест пройшов = Мутант вижив (Survived) ✖ фіктивний</text>
+
+  <rect x="512" y="310" width="406" height="114" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="524" y="331" font-size="12" font-weight="700" fill="#27ae60">Реальні наслідки для замовника:</text>
+  <text x="524" y="352" font-size="12" fill="#1a1a1a">✔ Блокування PR, якщо тест не ловить мутантів (Score &lt; 80%)</text>
+  <text x="524" y="372" font-size="12" fill="#1a1a1a">✔ Точний звіт підряднику: які рядки коду не перевірені</text>
+  <text x="524" y="393" font-size="12" fill="#1a1a1a">✔ Захист бізнес-правил від регресій і недбалих змін</text>
+  <text x="524" y="413" font-size="12" font-weight="700" fill="#27ae60">Вердикт: Об'єктивне алгоритмічне приймання коду</text>
+</svg>

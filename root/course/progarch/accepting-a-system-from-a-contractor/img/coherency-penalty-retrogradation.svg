@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+
+<defs>
+  <marker id="arr-axis" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+    <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+  </marker>
+</defs>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Механізм ретроградації: ціна когерентності в законі USL</text>
+<text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Зростання міжвузлових зв&#39;язків O(N²) перевершує корисні обчислення O(N) і обвалює пропускну здатність</text>
+
+<!-- ЛІВА ПАНЕЛЬ: Топологія зв'язків -->
+<rect x="24" y="68" width="446" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="247" y="96" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Зростання парних зв&#39;язків узгодження</text>
+<text x="247" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Кількість міжвузлових каналів: C = N(N-1)/2</text>
+
+<!-- Під-картка 1: N = 4 -->
+<rect x="44" y="130" width="406" height="136" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="58" y="154" font-size="13" font-weight="700" fill="#27ae60">N = 4 вузли (6 зв&#39;язків узгодження)</text>
+<text x="58" y="174" font-size="12" fill="#6b7280">Корисна робота O(N) значно більша за витрати</text>
+<text x="58" y="194" font-size="12" fill="#1a1a1a">Синхронізація стану не перевантажує мережу</text>
+<text x="58" y="214" font-size="12" font-weight="700" fill="#27ae60">Продуктивність зростає майже лінійно</text>
+
+<!-- Зв'язки N=4 -->
+<line x1="362" y1="160" x2="398" y2="160" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="410" y1="172" x2="410" y2="208" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="398" y1="220" x2="362" y2="220" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="350" y1="208" x2="350" y2="172" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="358" y1="168" x2="402" y2="212" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="402" y1="168" x2="358" y2="212" stroke="#27ae60" stroke-width="1.5"/>
+
+<!-- Вузли N=4 -->
+<circle cx="350" cy="160" r="12" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="350" y="164" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">1</text>
+<circle cx="410" cy="160" r="12" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="410" y="164" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">2</text>
+<circle cx="410" cy="220" r="12" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="410" y="224" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">3</text>
+<circle cx="350" cy="220" r="12" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="350" y="224" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">4</text>
+
+<!-- Під-картка 2: N = 6 -->
+<rect x="44" y="278" width="406" height="166" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="58" y="302" font-size="13" font-weight="700" fill="#c0392b">N = 6 вузлів (15 зв&#39;язків узгодження)</text>
+<text x="58" y="322" font-size="12" fill="#6b7280">Трафік узгодження зростає квадратично ~ N²</text>
+<text x="58" y="342" font-size="12" fill="#1a1a1a">Кожен вузол витрачає час на блокування</text>
+<text x="58" y="362" font-size="12" font-weight="700" fill="#c0392b">Шина когерентності перевантажена</text>
+<text x="58" y="382" font-size="12" fill="#c0392b">Більше вузлів = повільніша система!</text>
+
+<!-- 15 зв'язків N=6 (повний граф K6) -->
+<line x1="426" y1="360" x2="403" y2="320" stroke="#c0392b" stroke-width="1" stroke-opacity="0.6"/>
+<line x1="426" y1="360" x2="357" y2="320" stroke="#c0392b" stroke-width="1" stroke-opacity="0.6"/>
+<line x1="426" y1="360" x2="334" y2="360" stroke="#c0392b" stroke-width="1" stroke-opacity="0.6"/>
+<line x1="426" y1="360" x2="357" y2="400" stroke="#c0392b" stroke-width="1" stroke-opacity="0.6"/>
+<line x1="426" y1="360" x2="403" y2="400" stroke="#c0392b" stroke-width="1" stroke-opacity="0.6"/>
+
+<line x1="403" y1="320" x2="357" y2="320" stroke="#c0392b" stroke-width="1" stroke-opacity="0.6"/>
+<line x1="403" y1="320" x2="334" y2="360" stroke="#c0392b" stroke-width="1" stroke-opacity="0.6"/>
+<line x1="403" y1="320" x2="357" y2="400" stroke="#c0392b" stroke-width="1" stroke-opacity="0.6"/>
+<line x1="403" y1="320" x2="403" y2="400" stroke="#c0392b" stroke-width="1" stroke-opacity="0.6"/>
+
+<line x1="357" y1="320" x2="334" y2="360" stroke="#c0392b" stroke-width="1" stroke-opacity="0.6"/>
+<line x1="357" y1="320" x2="357" y2="400" stroke="#c0392b" stroke-width="1" stroke-opacity="0.6"/>
+<line x1="357" y1="320" x2="403" y2="400" stroke="#c0392b" stroke-width="1" stroke-opacity="0.6"/>
+
+<line x1="334" y1="360" x2="357" y2="400" stroke="#c0392b" stroke-width="1" stroke-opacity="0.6"/>
+<line x1="334" y1="360" x2="403" y2="400" stroke="#c0392b" stroke-width="1" stroke-opacity="0.6"/>
+
+<line x1="357" y1="400" x2="403" y2="400" stroke="#c0392b" stroke-width="1" stroke-opacity="0.6"/>
+
+<!-- Вузли N=6 -->
+<circle cx="426" cy="360" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="426" y="364" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">1</text>
+<circle cx="403" cy="320" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="403" y="324" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">2</text>
+<circle cx="357" cy="320" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="357" y="324" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">3</text>
+<circle cx="334" cy="360" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="334" y="364" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">4</text>
+<circle cx="357" cy="400" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="357" y="404" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">5</text>
+<circle cx="403" cy="400" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="403" y="404" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">6</text>
+
+
+<!-- ПРАВА ПАНЕЛЬ: Графік USL -->
+<rect x="490" y="68" width="446" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="713" y="96" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Закон USL: ретроградація через когерентність</text>
+<text x="713" y="114" font-size="12" fill="#6b7280" text-anchor="middle">X(N) = N / (1 + α(N-1) + β·N(N-1))</text>
+
+<!-- Графічна область -->
+<rect x="510" y="130" width="406" height="206" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+<!-- Зона ретроградації (підсвітка праворуч від N*) -->
+<rect x="690" y="145" width="200" height="155" fill="#fdecea" fill-opacity="0.45"/>
+
+<!-- Осі координат -->
+<line x1="540" y1="300" x2="890" y2="300" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+<line x1="540" y1="300" x2="540" y2="145" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+
+<!-- Підписи осей -->
+<text x="890" y="320" font-size="12" fill="#6b7280" text-anchor="end">Кількість вузлів (N)</text>
+<text x="548" y="142" font-size="12" fill="#6b7280" text-anchor="start">Продуктивність X(N)</text>
+
+<!-- Лінія 1: Ідеальне лінійне масштабування (закінчується до піку) -->
+<line x1="540" y1="300" x2="610" y2="210" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4 4"/>
+<text x="595" y="202" font-size="12" fill="#9ca3af">X = N</text>
+
+<!-- Лінія 2: Закон Амдала (лише серіалізація alpha, beta = 0) -->
+<path d="M 540 300 Q 640 225 885 220" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3"/>
+<text x="885" y="212" font-size="12" fill="#2457d6" text-anchor="end">Амдал (β=0): плато 1/α</text>
+
+<!-- Лінія 3: USL з ретроградацією (beta > 0) -->
+<path d="M 540 300 C 600 235 645 195 690 195 C 745 195 815 235 885 280" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+<!-- Вертикальна лінія піку N* -->
+<line x1="690" y1="195" x2="690" y2="300" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+<circle cx="690" cy="195" r="4" fill="#c0392b"/>
+
+<!-- Підписи піку N* (ліворуч від вертикалі 690) -->
+<text x="682" y="182" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">X_max</text>
+<text x="682" y="198" font-size="12" fill="#6b7280" text-anchor="end">N* = √((1-α)/β)</text>
+<text x="690" y="320" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">N*</text>
+
+<!-- Підпис зони ретроградації (всередині рожевої зони 690..890) -->
+<text x="800" y="166" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Зона ретроградації</text>
+<text x="800" y="184" font-size="12" fill="#c0392b" text-anchor="middle">(падіння швидкості)</text>
+
+<!-- Під-картка висновків для приймання -->
+<rect x="510" y="348" width="406" height="96" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="524" y="370" font-size="12" font-weight="700" fill="#1a1a1a">Критерій для приймання системи від підрядника:</text>
+<text x="524" y="390" font-size="12" fill="#27ae60">• До N*: корисне прискорення переважає витрати узгодження</text>
+<text x="524" y="410" font-size="12" fill="#c0392b">• Після N*: парний трафік O(N²) блокує систему (ретроградація)</text>
+<text x="524" y="430" font-size="12" fill="#6b7280">• Якщо β &gt; 0, стенд покаже: горизонтальне масштабування має межу</text>
+</svg>

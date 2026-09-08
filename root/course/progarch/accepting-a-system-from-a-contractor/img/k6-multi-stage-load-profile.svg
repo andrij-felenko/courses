@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Графік багатоетапного профілю навантаження в k6</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Послідовний перехід: димовий тест (Smoke), розгін (Ramp-up), стаціонарне плато та спуск (Ramp-down)</text>
+
+  <!-- ФОНОВІ ЗОНИ ЕТАПІВ НАВАНТАЖЕННЯ -->
+  <!-- Зона 1: Smoke (0..1 хв) -->
+  <rect x="85" y="80" width="82" height="200" fill="#f4f6f8" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <!-- Зона 2: Ramp-up (1..4 хв) -->
+  <rect x="167" y="80" width="246" height="200" fill="#eaf0fd" fill-opacity="0.4" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <!-- Зона 3: Plateau (4..9 хв) -->
+  <rect x="413" y="80" width="410" height="200" fill="#e9f7ef" fill-opacity="0.5" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <!-- Зона 4: Ramp-down (9..10 хв) -->
+  <rect x="823" y="80" width="82" height="200" fill="#f4f6f8" stroke="#d0d7de" stroke-dasharray="3,3"/>
+
+  <!-- СІТКА ТА ОСІ ГРАФІКА -->
+  <!-- Горизонтальні лінії сітки -->
+  <line x1="85" y1="80" x2="905" y2="80" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="85" y1="130" x2="905" y2="130" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="85" y1="180" x2="905" y2="180" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="85" y1="230" x2="905" y2="230" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Вісь Y та мітки (x=85) -->
+  <line x1="85" y1="80" x2="85" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="85" y="72" font-size="12" font-weight="bold" fill="#2457d6">VUs (користувачі)</text>
+  <text x="76" y="84" text-anchor="end" font-size="12" fill="#6b7280">100</text>
+  <text x="76" y="134" text-anchor="end" font-size="12" fill="#6b7280">75</text>
+  <text x="76" y="184" text-anchor="end" font-size="12" fill="#6b7280">50</text>
+  <text x="76" y="234" text-anchor="end" font-size="12" fill="#6b7280">25</text>
+  <text x="76" y="284" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <!-- Вісь X та мітки (y=280) -->
+  <line x1="85" y1="280" x2="905" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="85" y="296" text-anchor="middle" font-size="12" fill="#6b7280">0 хв</text>
+  <text x="167" y="296" text-anchor="middle" font-size="12" fill="#6b7280">1 хв</text>
+  <text x="413" y="296" text-anchor="middle" font-size="12" fill="#6b7280">4 хв</text>
+  <text x="823" y="296" text-anchor="middle" font-size="12" fill="#6b7280">9 хв</text>
+  <text x="905" y="296" text-anchor="middle" font-size="12" fill="#6b7280">10 хв</text>
+  <text x="918" y="284" font-size="12" font-weight="bold" fill="#6b7280">Час</text>
+
+  <!-- ПЛОЩА ТА КРИВА НАВАНТАЖЕННЯ -->
+  <polygon points="85,280 95,260 167,260 413,80 823,80 905,280 85,280" fill="#2457d6" fill-opacity="0.08"/>
+  <polyline points="85,280 95,260 167,260 413,80 823,80 905,280" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Вузлові точки кривої -->
+  <circle cx="95" cy="260" r="4" fill="#2457d6"/>
+  <circle cx="167" cy="260" r="4" fill="#2457d6"/>
+  <circle cx="413" cy="80" r="4" fill="#2457d6"/>
+  <circle cx="823" cy="80" r="4" fill="#2457d6"/>
+  <circle cx="905" cy="280" r="4" fill="#2457d6"/>
+
+  <!-- БЕЙДЖ: ВІКНО ПЕРЕВІРКИ SLA (на плато) -->
+  <rect x="488" y="94" width="260" height="42" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="618" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ВІКНО ПЕРЕВІРКИ SLA (СТАБІЛЬНІ 100 VUs)</text>
+  <text x="618" y="126" text-anchor="middle" font-size="12" fill="#1a1a1a">thresholds: p(95) менше 250ms, err менше 1%</text>
+
+  <!-- НИЖНІ КАРТКИ ЕТАПІВ -->
+  <!-- Картка 1: Smoke -->
+  <rect x="20" y="318" width="214" height="116" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="30" y="338" font-size="13" font-weight="bold" fill="#1a1a1a">1. Димовий тест (Smoke)</text>
+  <text x="30" y="356" font-size="12" fill="#2457d6">Ціль: 10 VUs (час 1 хв)</text>
+  <text x="30" y="376" font-size="12" fill="#1a1a1a">• Санітарна перевірка API</text>
+  <text x="30" y="394" font-size="12" fill="#1a1a1a">• 0% помилок конфігурації</text>
+  <text x="30" y="412" font-size="12" fill="#6b7280">• Швидкий відсів битих білдів</text>
+
+  <!-- Картка 2: Ramp-up -->
+  <rect x="248" y="318" width="214" height="116" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="258" y="338" font-size="13" font-weight="bold" fill="#2457d6">2. Розгін (Ramp-up)</text>
+  <text x="258" y="356" font-size="12" fill="#2457d6">Ціль: від 10 до 100 VUs (3 хв)</text>
+  <text x="258" y="376" font-size="12" fill="#1a1a1a">• Прогрів пулу з'єднань БД</text>
+  <text x="258" y="394" font-size="12" fill="#1a1a1a">• Перевірка автоскейлінгу HPA</text>
+  <text x="258" y="412" font-size="12" fill="#6b7280">• Запобігання холодному шоку</text>
+
+  <!-- Картка 3: Plateau -->
+  <rect x="476" y="318" width="236" height="116" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.8"/>
+  <text x="486" y="338" font-size="13" font-weight="bold" fill="#27ae60">3. Плато (Sustained Load)</text>
+  <text x="486" y="356" font-size="12" font-weight="bold" fill="#27ae60">Ціль: стабільні 100 VUs (5 хв)</text>
+  <text x="486" y="376" font-size="12" fill="#1a1a1a">• Оцінка SLA: p95 менше 250 мс</text>
+  <text x="486" y="394" font-size="12" fill="#1a1a1a">• Детекція витоків пам'яті (Leak)</text>
+  <text x="486" y="412" font-size="12" font-weight="bold" fill="#27ae60">• Критерій приймання підряду</text>
+
+  <!-- Картка 4: Ramp-down -->
+  <rect x="726" y="318" width="214" height="116" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="736" y="338" font-size="13" font-weight="bold" fill="#1a1a1a">4. Спуск (Ramp-down)</text>
+  <text x="736" y="356" font-size="12" fill="#6b7280">Ціль: від 100 до 0 VUs (1 хв)</text>
+  <text x="736" y="376" font-size="12" fill="#1a1a1a">• Граціозне закриття сесій</text>
+  <text x="736" y="394" font-size="12" fill="#1a1a1a">• Очищення пулів без витоків</text>
+  <text x="736" y="412" font-size="12" fill="#6b7280">• Перевірка залишку в чергах</text>
+</svg>

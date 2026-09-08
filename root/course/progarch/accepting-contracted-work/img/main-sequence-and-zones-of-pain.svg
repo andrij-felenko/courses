@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Фазова площина (I, A): зони болю, марності та метрика D</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Кількісна оцінка архітектури в CI: виявлення токсичного зсуву чужого коду за балансом A+I=1</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ФАЗОВА ПЛОЩИНА ==================== -->
+  <rect x="25" y="66" width="445" height="374" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="88" font-size="13" font-weight="700" fill="#1a1a1a">Фазова діаграма модульних залежностей</text>
+
+  <!-- Зона болю (прямокутник біля 0,0) -->
+  <rect x="120" y="315" width="105" height="85" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="130" y="335" font-size="12" font-weight="700" fill="#c0392b">ЗОНА БОЛЮ</text>
+  <text x="130" y="352" font-size="12" fill="#c0392b">(A=0, I=0)</text>
+  <text x="130" y="394" font-size="12" font-weight="700" fill="#c0392b">M₁: чужий код</text>
+
+  <!-- Зона марності (прямокутник біля 1,1) -->
+  <rect x="315" y="100" width="105" height="80" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="410" y="122" font-size="12" font-weight="700" fill="#6b7280" text-anchor="end">ЗОНА МАРНОСТІ</text>
+  <text x="410" y="140" font-size="12" fill="#6b7280" text-anchor="end">(A=1, I=1)</text>
+  <text x="410" y="158" font-size="12" fill="#6b7280" text-anchor="end">Пусті інтерфейси</text>
+
+  <!-- Головна послідовність A + I = 1 -->
+  <line x1="120" y1="100" x2="420" y2="400" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="270" y="215" font-size="12" font-weight="700" fill="#27ae60">A + I = 1</text>
+  <text x="270" y="232" font-size="12" fill="#27ae60">Головна лінія</text>
+
+  <!-- Осі координат -->
+  <!-- Вісь I (горизонтальна) -->
+  <line x1="110" y1="400" x2="435" y2="400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <!-- Вісь A (вертикальна) -->
+  <line x1="120" y1="410" x2="120" y2="85" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+
+  <!-- Мітки осей -->
+  <text x="105" y="404" font-size="12" fill="#1a1a1a" text-anchor="end">0</text>
+  <text x="105" y="104" font-size="12" fill="#1a1a1a" text-anchor="end">1</text>
+  <text x="120" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="420" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+
+  <text x="270" y="432" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Нестабільність I = Ce / (Ca + Ce)</text>
+  <text x="40" y="112" font-size="12" font-weight="700" fill="#1a1a1a">A (Абстрактність)</text>
+
+  <!-- Вектор відстані D (перпендикуляр) -->
+  <line x1="180" y1="365" x2="280" y2="265" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-accent)"/>
+  <text x="210" y="295" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">Вектор D = 0.70</text>
+
+  <!-- Точка M0 (початкова) -->
+  <circle cx="280" cy="260" r="6" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="294" y="256" font-size="12" font-weight="700" fill="#27ae60">M₀ (D ≈ 0)</text>
+
+  <!-- Точка M1 (після зсуву) -->
+  <circle cx="180" cy="375" r="6" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Траєкторія зсуву (дуга від M0 до M1) -->
+  <path d="M 274,265 Q 240,310 190,370" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="245" y="325" font-size="12" font-weight="700" fill="#c0392b">Токсичний зсув</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ПОЯСНЕННЯ ТА CI ГЕЙТ ==================== -->
+  <rect x="490" y="66" width="445" height="374" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Картка 1: Метрики -->
+  <rect x="505" y="80" width="415" height="102" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="518" y="102" font-size="13" font-weight="700" fill="#1a1a1a">1. Метрики зчеплення та абстрактності</text>
+  <text x="518" y="124" font-size="12" fill="#1a1a1a">• Нестабільність I: 0 = стабільне ядро, 1 = клієнтський шар</text>
+  <text x="518" y="144" font-size="12" fill="#1a1a1a">• Абстрактність A: частка інтерфейсів серед усіх типів модуля</text>
+  <text x="518" y="166" font-size="12" font-weight="700" fill="#2457d6">• Відстань D = |A + I - 1|: відхилення від ідеального балансу</text>
+
+  <!-- Картка 2: Чому чужий код сповзає в зону болю -->
+  <rect x="505" y="194" width="415" height="114" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="518" y="216" font-size="13" font-weight="700" fill="#c0392b">2. Механіка деградації через підрядника</text>
+  <text x="518" y="238" font-size="12" fill="#1a1a1a">• Впроваджено жорстку конкретику без інтерфейсів (A → 0)</text>
+  <text x="518" y="258" font-size="12" fill="#1a1a1a">• Інші модулі зав'язалися на нову реалізацію (Ca ↑, I → 0)</text>
+  <text x="518" y="278" font-size="12" fill="#1a1a1a">• Сповзання в Зону болю: код важко змінювати й тестувати</text>
+  <text x="518" y="296" font-size="12" font-weight="700" fill="#c0392b">Різкий стрибок метрики: ΔD = +0.70 (деградація)</text>
+
+  <!-- Картка 3: Автоматичний CI-гейт -->
+  <rect x="505" y="320" width="415" height="106" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="518" y="342" font-size="13" font-weight="700" fill="#27ae60">3. Митний поріг у CI (Definition of Done)</text>
+  <text x="518" y="364" font-size="12" font-weight="700" fill="#1a1a1a">• Поріг якості: допустиме відхилення D_max ≤ 0.20</text>
+  <text x="518" y="384" font-size="12" fill="#1a1a1a">• Пул-реквест підрядника автоматично блокується (D = 0.70)</text>
+  <text x="518" y="404" font-size="12" fill="#2457d6">Вимога бота: виділити інтерфейси та зняти жорстке зчеплення</text>
+  <text x="518" y="418" font-size="12" fill="#6b7280">Об'єктивна математична перевірка без суперечок</text>
+</svg>

@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Криптографічний шлюз приймання (Acceptance Gate Pipeline)</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Агрегація артефактів, SBOM, журналу нульового трафіку та тестів у машинний вердикт відчужуваності</text>
+
+  <!-- ================= КОЛОНКА 1: ДЖЕРЕЛА ДОКАЗІВ ================= -->
+  <rect x="25" y="68" width="290" height="297" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="88" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Джерела доказів (Evidence)</text>
+
+  <!-- 1.1 Хеші коду -->
+  <rect x="35" y="100" width="270" height="58" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="45" y="118" font-size="12" font-weight="bold" fill="#2457d6">Хеші коду (Git SHA-256)</text>
+  <text x="45" y="135" font-size="12" fill="#1a1a1a">Детермінована збірка бінарників</text>
+  <text x="45" y="150" font-size="12" fill="#6b7280">Фіксація відбитка вихідного коду</text>
+
+  <!-- 1.2 SBOM -->
+  <rect x="35" y="166" width="270" height="58" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="45" y="184" font-size="12" font-weight="bold" fill="#2457d6">Специфікація SBOM (CycloneDX)</text>
+  <text x="45" y="201" font-size="12" fill="#1a1a1a">Аудит 100% вендорингових пакетів</text>
+  <text x="45" y="216" font-size="12" fill="#6b7280">Відсутність вразливостей та CVE</text>
+
+  <!-- 1.3 Zero-Egress -->
+  <rect x="35" y="232" width="270" height="58" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="45" y="250" font-size="12" font-weight="bold" fill="#2457d6">Журнал Zero-Egress (eBPF)</text>
+  <text x="45" y="267" font-size="12" fill="#1a1a1a">0 байт вихідного трафіку на хости</text>
+  <text x="45" y="282" font-size="12" fill="#6b7280">Доказ повної мережевої ізоляції</text>
+
+  <!-- 1.4 Матриця тестів -->
+  <rect x="35" y="298" width="270" height="58" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="45" y="316" font-size="12" font-weight="bold" fill="#2457d6">Матриця тестів та мутацій</text>
+  <text x="45" y="333" font-size="12" fill="#1a1a1a">Smoke-тести 100% + MS &ge; 80%</text>
+  <text x="45" y="348" font-size="12" fill="#6b7280">Зворотний відкат міграцій БД</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="316" y1="228" x2="343" y2="228" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- ================= КОЛОНКА 2: КРИПТОГРАФІЧНИЙ АГРЕГАТОР ================= -->
+  <rect x="345" y="68" width="280" height="297" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="485" y="88" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Криптографічний агрегатор</text>
+  <rect x="405" y="98" width="160" height="20" rx="10" fill="#ffffff" stroke="#2457d6"/>
+  <text x="485" y="112" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Attestation &amp; Policy Engine</text>
+
+  <!-- Блок Атестації -->
+  <rect x="355" y="126" width="260" height="100" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="365" y="144" font-size="12" font-weight="bold" fill="#1a1a1a">Атестація цілісності (Attestation):</text>
+  <text x="365" y="162" font-size="12" fill="#1a1a1a">• Побудова дерева Меркла (Root)</text>
+  <text x="365" y="180" font-size="12" fill="#1a1a1a">• Підпис ключем стенда (Ed25519)</text>
+  <text x="365" y="198" font-size="12" fill="#6b7280">• Незмінний крипто-маніфест</text>
+  <text x="365" y="216" font-size="12" fill="#6b7280">• Захист від підробки звітів</text>
+
+  <!-- Блок Політик -->
+  <rect x="355" y="234" width="260" height="122" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="365" y="252" font-size="12" font-weight="bold" fill="#2457d6">Перевірка правил шлюзу (4 з 4):</text>
+  <text x="365" y="272" font-size="12" font-weight="bold" fill="#27ae60">[✓] SHA-256 збігається з релізом</text>
+  <text x="365" y="292" font-size="12" font-weight="bold" fill="#27ae60">[✓] SBOM: 0 заборонених ліцензій</text>
+  <text x="365" y="312" font-size="12" font-weight="bold" fill="#27ae60">[✓] Zero-Egress: TX = 0 байт</text>
+  <text x="365" y="332" font-size="12" font-weight="bold" fill="#27ae60">[✓] Тести: 100% та MS &ge; 80%</text>
+
+  <!-- Стрілки 2 -> 3 (PASS і FAIL) -->
+  <line x1="626" y1="178" x2="653" y2="178" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="626" y1="295" x2="653" y2="295" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- ================= КОЛОНКА 3: МАШИННИЙ ВЕРДИКТ ================= -->
+  <rect x="655" y="68" width="280" height="297" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="795" y="88" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Машинний вердикт шлюзу</text>
+  <rect x="715" y="98" width="160" height="20" rx="10" fill="#ffffff" stroke="#1a1a1a"/>
+  <text x="795" y="112" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Decoupled Acceptance</text>
+
+  <!-- Результат 1: СХВАЛЕНО -->
+  <rect x="665" y="126" width="260" height="104" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="675" y="146" font-size="12" font-weight="bold" fill="#27ae60">СХВАЛЕНО: ВІДЧУЖУВАНА (PASS)</text>
+  <text x="675" y="166" font-size="12" fill="#1a1a1a">• Усі 4 критерії виконано на 100%</text>
+  <text x="675" y="184" font-size="12" fill="#1a1a1a">• Система готова до автономної дії</text>
+  <text x="675" y="202" font-size="12" font-weight="bold" fill="#27ae60">• Генерується цифровий акт</text>
+  <text x="675" y="220" font-size="12" fill="#6b7280">• Дозвіл на виплату винагороди</text>
+
+  <!-- Результат 2: ВЕТО -->
+  <rect x="665" y="238" width="260" height="118" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="675" y="258" font-size="12" font-weight="bold" fill="#c0392b">ВЕТО: ЗАБЛОКОВАНО (FAIL)</text>
+  <text x="675" y="278" font-size="12" fill="#1a1a1a">• Порушено хоча б один критерій</text>
+  <text x="675" y="296" font-size="12" fill="#1a1a1a">• Виявлено неявні виклики або дірки</text>
+  <text x="675" y="314" font-size="12" font-weight="bold" fill="#c0392b">• Автоматичне юридичне вето</text>
+  <text x="675" y="334" font-size="12" fill="#c0392b">Виключає суб&apos;єктивний тиск</text>
+
+  <!-- ================= НИЖНІЙ БАР'ЄР ПРИЙМАННЯ ================= -->
+  <rect x="25" y="380" width="910" height="62" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="404" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принцип технічного суверенітету: приймання на основі доказів, а не обіцянок</text>
+  <text x="480" y="426" font-size="12" fill="#2457d6" text-anchor="middle">Машинний шлюз унеможливлює прийняття залежної системи: підпис накладається лише за повної математичної перевірки</text>
+</svg>

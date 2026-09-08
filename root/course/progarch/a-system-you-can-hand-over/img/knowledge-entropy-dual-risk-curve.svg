@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Крива подвійного ризику відчужуваності за ентропією знань</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">U-подібний компроміс між пасткою монополії (H -&gt; 0) та пасткою розпорошення відповідальності (H -&gt; 1)</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ГРАФІК КРИВИХ РИЗИКУ ==================== -->
+  <rect x="24" y="74" width="612" height="364" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="330" y="98" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">U-подібна крива сукупного інженерного ризику R(H)</text>
+
+  <!-- Легенда кривих -->
+  <rect x="38" y="110" width="584" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="48" y1="126" x2="68" y2="126" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="74" y="130" font-size="12" font-weight="700" fill="#1a1a1a">R_total (сукупний ризик)</text>
+
+  <line x1="230" y1="126" x2="250" y2="126" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,3"/>
+  <text x="256" y="130" font-size="12" fill="#c0392b">R_mono (монополія)</text>
+
+  <line x1="400" y1="126" x2="420" y2="126" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="5,3"/>
+  <text x="426" y="130" font-size="12" fill="#2457d6">R_diff (розпорошення)</text>
+
+  <!-- Безпечний коридор (0.35 .. 0.65) -->
+  <rect x="260" y="154" width="160" height="226" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="340" y="172" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Безпечний коридор</text>
+  <text x="340" y="188" font-size="12" fill="#27ae60" text-anchor="middle">H_norm ∈ [0.35 .. 0.65]</text>
+  <text x="340" y="204" font-size="12" fill="#6b7280" text-anchor="middle">Оптимум володіння</text>
+
+  <!-- Осі координат -->
+  <!-- Вісь Y (Ризик R) -->
+  <line x1="80" y1="380" x2="80" y2="154" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="88" y="164" font-size="12" font-weight="700" fill="#1a1a1a">Ризик R(H)</text>
+
+  <!-- Вісь X (Ентропія H_norm) -->
+  <line x1="80" y1="380" x2="600" y2="380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="600" y="374" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">Нормована ентропія H_norm</text>
+
+  <!-- Поділки осі X -->
+  <text x="80" y="398" font-size="12" fill="#6b7280" text-anchor="middle">0.0</text>
+  <text x="170" y="398" font-size="12" fill="#c0392b" text-anchor="middle">Пастка монополії</text>
+
+  <line x1="260" y1="380" x2="260" y2="385" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="260" y="398" font-size="12" fill="#27ae60" text-anchor="middle">0.35</text>
+
+  <line x1="340" y1="380" x2="340" y2="385" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="340" y="416" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">H* ≈ 0.50</text>
+
+  <line x1="420" y1="380" x2="420" y2="385" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="420" y="398" font-size="12" fill="#27ae60" text-anchor="middle">0.65</text>
+
+  <text x="500" y="398" font-size="12" fill="#c0392b" text-anchor="middle">Пастка розпорошення</text>
+  <line x1="580" y1="380" x2="580" y2="385" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="580" y="398" font-size="12" fill="#6b7280" text-anchor="middle">1.0</text>
+
+  <!-- Крива 1: R_mono(H) — спадна крива монополії -->
+  <path d="M96,180 C140,250 200,315 260,335 C320,355 420,370 580,376" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,3"/>
+
+  <!-- Крива 2: R_diff(H) — зростаюча крива розпорошення -->
+  <path d="M96,376 C200,370 300,355 380,335 C440,315 500,250 580,180" fill="none" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="5,3"/>
+
+  <!-- Крива 3: R_total(H) — U-подібна результуюча крива -->
+  <path d="M96,170 C140,230 220,290 340,290 C460,290 530,230 580,170" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Пунктир від мінімуму до осі X -->
+  <line x1="340" y1="290" x2="340" y2="380" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <!-- Точка мінімуму -->
+  <circle cx="340" cy="290" r="5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="340" y="280" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Мінімум ризику</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: АНАЛІЗ ТА CI GATE ==================== -->
+  <rect x="654" y="74" width="282" height="364" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="795" y="98" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Аналіз та порогові гейти</text>
+  <text x="795" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Оцінка відчужуваності коду</text>
+
+  <!-- Картка 1: Пастка монополії -->
+  <rect x="668" y="130" width="254" height="88" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="680" y="148" font-size="12" font-weight="700" fill="#c0392b">1. Пастка монополії (H &lt; 0.35):</text>
+  <text x="680" y="168" font-size="12" fill="#1a1a1a">• 1 розробник тримає 80–100% коду</text>
+  <text x="680" y="188" font-size="12" fill="#1a1a1a">• Відчужуваність = 0 (заручник автора)</text>
+  <text x="680" y="206" font-size="12" fill="#6b7280">• Bus Factor = 1: критичний ризик</text>
+
+  <!-- Картка 2: Пастка розпорошення -->
+  <rect x="668" y="226" width="254" height="88" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="668" y="244" font-size="12" font-weight="700" fill="#c0392b" text-indent="12">  2. Пастка розпорошення (H &gt; 0.65):</text>
+  <text x="680" y="264" font-size="12" fill="#1a1a1a">• Десятки випадкових контриб'юторів</text>
+  <text x="680" y="284" font-size="12" fill="#1a1a1a">• Відсутній архітектурний власник</text>
+  <text x="680" y="302" font-size="12" fill="#6b7280">• Експоненційне зростання дефектів</text>
+
+  <!-- Картка 3: Безпечний коридор -->
+  <rect x="668" y="322" width="254" height="104" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="795" y="342" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">3. Безпечний коридор (CI Gate)</text>
+  <text x="680" y="362" font-size="12" font-weight="700" fill="#1a1a1a">Норма: H_norm ∈ [0.35 .. 0.65]</text>
+  <text x="680" y="380" font-size="12" fill="#1a1a1a">• Збалансоване володіння кодом</text>
+  <text x="680" y="398" font-size="12" fill="#2457d6">• Наявний мажорний лід + бекап</text>
+  <text x="680" y="416" font-size="12" font-weight="700" fill="#27ae60">✓ Система готова до передачі</text>
+</svg>

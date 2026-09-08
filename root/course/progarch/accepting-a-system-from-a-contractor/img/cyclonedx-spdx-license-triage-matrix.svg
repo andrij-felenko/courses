@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Блок-схема ліцензійного аудиту стороннього коду (SPDX Triage)</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Розбір виразів SPDX та автоматична класифікація: дозволені, умовні та токсичні ліцензії</text>
+
+  <!-- СТОВПЕЦЬ 1: Вхідний SBOM -->
+  <rect x="24" y="68" width="176" height="356" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="34" y="88" font-size="13" font-weight="bold" fill="#1a1a1a">1. ВХІДНИЙ SBOM</text>
+  <text x="34" y="104" font-size="12" fill="#6b7280">Масив licenses[]</text>
+  <line x1="34" y1="112" x2="190" y2="112" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="34" y="132" font-size="12" font-weight="bold" fill="#1a1a1a">Джерело даних:</text>
+  <text x="34" y="150" font-size="12" fill="#1a1a1a">• CycloneDX JSON</text>
+  <text x="34" y="168" font-size="12" fill="#1a1a1a">• SPDX-ідентифікатори</text>
+  <text x="34" y="196" font-size="12" font-weight="bold" fill="#1a1a1a">Типові вирази:</text>
+  <text x="34" y="214" font-size="12" fill="#27ae60">• MIT</text>
+  <text x="34" y="232" font-size="12" fill="#27ae60">• Apache-2.0</text>
+  <text x="34" y="250" font-size="12" fill="#2457d6">• (MIT OR GPL-3.0)</text>
+  <text x="34" y="268" font-size="12" fill="#2457d6">• LGPL-3.0-only</text>
+  <text x="34" y="286" font-size="12" fill="#c0392b">• AGPL-3.0</text>
+  <text x="34" y="304" font-size="12" fill="#c0392b">• SSPL-1.0</text>
+  <text x="34" y="322" font-size="12" fill="#6b7280">• NOASSERTION</text>
+  <rect x="32" y="356" width="160" height="56" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="376" font-size="12" font-weight="bold" fill="#1a1a1a">ПАКЕТИ ПІДРЯДНИКА:</text>
+  <text x="40" y="394" font-size="12" fill="#6b7280">Прямі та транзитивні</text>
+
+  <!-- СТОВПЕЦЬ 2: Двигун розбору SPDX -->
+  <rect x="216" y="68" width="224" height="356" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="226" y="88" font-size="13" font-weight="bold" fill="#2457d6">2. ДВИГУН РОЗБОРУ SPDX</text>
+  <text x="226" y="104" font-size="12" fill="#6b7280">Парсинг логіки ліцензій</text>
+  <line x1="226" y1="112" x2="430" y2="112" stroke="#eaf0fd" stroke-width="1"/>
+  <text x="226" y="132" font-size="12" font-weight="bold" fill="#1a1a1a">Нормалізація AST:</text>
+  <text x="226" y="150" font-size="12" fill="#1a1a1a">• Побудова дерева виразу</text>
+  <text x="226" y="168" font-size="12" fill="#1a1a1a">• Звірка з каталогом SPDX ID</text>
+  <text x="226" y="196" font-size="12" font-weight="bold" fill="#2457d6">Правило OR (диз'юнкція):</text>
+  <text x="226" y="214" font-size="12" fill="#1a1a1a">• Достатньо однієї дозволеної</text>
+  <text x="226" y="232" font-size="12" fill="#27ae60">(A OR B) -&gt; обираємо чисту A</text>
+  <text x="226" y="260" font-size="12" font-weight="bold" fill="#c0392b">Правило AND (кон'юнкція):</text>
+  <text x="226" y="278" font-size="12" fill="#1a1a1a">• Усі гілки мають бути валідні</text>
+  <text x="226" y="296" font-size="12" fill="#c0392b">(A AND B) -&gt; якщо B збійна: FAIL</text>
+  <text x="226" y="324" font-size="12" font-weight="bold" fill="#1a1a1a">Оператор WITH (винятки):</text>
+  <text x="226" y="342" font-size="12" fill="#1a1a1a">• Classpath-exception тощо</text>
+  <rect x="224" y="366" width="208" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="232" y="384" font-size="12" font-weight="bold" fill="#2457d6">РЕЗУЛЬТАТ РОЗБОРУ:</text>
+  <text x="232" y="402" font-size="12" fill="#1a1a1a">Спрямування до кошика тріажу</text>
+
+  <!-- З'ЄДНУВАЛЬНІ СТРІЛКИ В ПРОСВІТАХ -->
+  <!-- 1 -> 2 (у просвіті x=200..216) -->
+  <line x1="200" y1="246" x2="214" y2="246" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 2 -> Кошик A (у просвіті x=440..456) -->
+  <line x1="440" y1="122" x2="454" y2="122" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- 2 -> Кошик B (у просвіті x=440..456) -->
+  <line x1="440" y1="246" x2="454" y2="246" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 2 -> Кошик C (у просвіті x=440..456) -->
+  <line x1="440" y1="370" x2="454" y2="370" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- КОШИК A: ДОЗВОЛЕНІ -->
+  <rect x="456" y="68" width="480" height="108" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.8"/>
+  <text x="468" y="90" font-size="13" font-weight="bold" fill="#27ae60">КОШИК A: ДОЗВОЛЕНІ ЛІЦЕНЗІЇ (WhiteList — Permissive)</text>
+  <text x="468" y="108" font-size="12" fill="#1a1a1a">• Список: MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC, CC0-1.0</text>
+  <text x="468" y="126" font-size="12" fill="#1a1a1a">• Суть: вільне комерційне використання, модифікація та закриття коду.</text>
+  <text x="468" y="144" font-size="12" fill="#6b7280">• Вимога: лише збереження повідомлення про авторське право.</text>
+  <text x="468" y="162" font-size="12" font-weight="bold" fill="#27ae60">ВЕРДИКТ: AUTO-APPROVE (шлюз відкрито, ризиків немає)</text>
+
+  <!-- КОШИК B: УМОВНІ ТА ПІДОЗРІЛІ -->
+  <rect x="456" y="192" width="480" height="108" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="468" y="214" font-size="13" font-weight="bold" fill="#2457d6">КОШИК B: УМОВНІ ТА ПІДОЗРІЛІ (Conditional / Weak Copyleft)</text>
+  <text x="468" y="232" font-size="12" fill="#1a1a1a">• Список: LGPL-2.1/3.0, MPL-2.0, EPL-2.0, NOASSERTION, LicenseRef-*</text>
+  <text x="468" y="250" font-size="12" fill="#1a1a1a">• Суть: слабкий копілефт; дозволено ТІЛЬКИ при динамічному лінкуванні.</text>
+  <text x="468" y="268" font-size="12" fill="#6b7280">• NOASSERTION: відсутній стандартний ідентифікатор у каталозі SPDX.</text>
+  <text x="468" y="286" font-size="12" font-weight="bold" fill="#2457d6">ВЕРДИКТ: MANUAL TRIAGE (потрібен дозвіл юриста або перевірка зв'язку)</text>
+
+  <!-- КОШИК C: ТОКСИЧНІ -->
+  <rect x="456" y="316" width="480" height="108" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="468" y="338" font-size="13" font-weight="bold" fill="#c0392b">КОШИК C: ТОКСИЧНІ ЛІЦЕНЗІЇ (BlockList — Strong Copyleft)</text>
+  <text x="468" y="356" font-size="12" fill="#1a1a1a">• Список: GPLv2/GPLv3, AGPLv3, SSPL-1.0, BSL-1.1, комерційні</text>
+  <text x="468" y="374" font-size="12" fill="#c0392b">• Небезпека: вірусне зараження — вимога відкрити весь закритий код!</text>
+  <text x="468" y="392" font-size="12" fill="#6b7280">• AGPL вимагає відкриття вихідників навіть при мережевому SaaS-допуску.</text>
+  <text x="468" y="410" font-size="12" font-weight="bold" fill="#c0392b">ВЕРДИКТ: BLOCK MERGE (шлюз заблоковано, приймання зупинено!)</text>
+</svg>

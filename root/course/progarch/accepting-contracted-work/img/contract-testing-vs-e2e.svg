@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Порівняння підходів інтеграції: E2E у стейджингу проти контрактів у CI</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Перехід від пізніх крихких наскрізних тестів до ізольованої верифікації контрактів на кожному коміті</text>
+
+  <!-- ==================== ЛІВА КОЛОНКА: E2E У СТЕЙДЖИНГУ ==================== -->
+  <rect x="20" y="76" width="450" height="452" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Плашка заголовка лівої колонки -->
+  <rect x="36" y="92" width="418" height="34" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="245" y="114" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Крихке наскрізне тестування (E2E) у стейджингу</text>
+
+  <!-- Схема зв'язків E2E -->
+  <rect x="36" y="138" width="418" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="158" font-size="12" font-weight="700" fill="#1a1a1a">Топологія спільного стейджингу (Tight Coupling):</text>
+
+  <!-- Вузол 1: Замовник -->
+  <rect x="48" y="172" width="120" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="108" y="190" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Замовник</text>
+  <text x="108" y="206" font-size="12" fill="#6b7280" text-anchor="middle">(Consumer)</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="168" y1="193" x2="198" y2="193" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- Вузол 2: Підрядник -->
+  <rect x="202" y="172" width="120" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="262" y="190" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Підрядник</text>
+  <text x="262" y="206" font-size="12" fill="#1a1a1a" text-anchor="middle">(Provider)</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="322" y1="193" x2="352" y2="193" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- Вузол 3: База / Сервіси -->
+  <rect x="356" y="172" width="86" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="399" y="190" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Спільна БД</text>
+  <text x="399" y="206" font-size="12" fill="#6b7280" text-anchor="middle">та API</text>
+
+  <!-- Текстовий блок уразливостей топології -->
+  <text x="48" y="238" font-size="12" fill="#c0392b">• Нестабільна мережа, флакаючі тести (Flakiness)</text>
+  <text x="48" y="258" font-size="12" fill="#c0392b">• Забруднення спільної тестової бази іншими командами</text>
+  <text x="48" y="278" font-size="12" fill="#6b7280">• Нерозв'язні суперечки: «у нас локально все працювало»</text>
+
+  <!-- Картка характеристик E2E -->
+  <rect x="36" y="302" width="418" height="210" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="48" y="324" font-size="12" font-weight="700" fill="#c0392b">Наслідки для приймання системи:</text>
+
+  <text x="48" y="348" font-size="12" font-weight="700" fill="#1a1a1a">1. Пізній зворотний зв'язок (Feedback Loop):</text>
+  <text x="48" y="366" font-size="12" fill="#6b7280">   Помилки виявляються через тижні перед підписанням акта</text>
+
+  <text x="48" y="390" font-size="12" font-weight="700" fill="#1a1a1a">2. Сліпа локалізація дефектів:</text>
+  <text x="48" y="408" font-size="12" fill="#6b7280">   Падіння E2E-тесту не дає точної причини збою в коді</text>
+
+  <text x="48" y="432" font-size="12" font-weight="700" fill="#1a1a1a">3. Висока вартість інфраструктури:</text>
+  <text x="48" y="450" font-size="12" fill="#6b7280">   Потребує утримання важкого повного стейджинг-кластера</text>
+
+  <text x="48" y="474" font-size="12" font-weight="700" fill="#1a1a1a">4. Суб'єктивність приймання:</text>
+  <text x="48" y="492" font-size="12" fill="#c0392b">   Відсутність юридично чіткого формального оракула якості</text>
+
+  <!-- ==================== ПРАВА КОЛОНКА: КОНТРАКТНА ВЕРИФІКАЦІЯ ==================== -->
+  <rect x="490" y="76" width="450" height="452" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Плашка заголовка правої колонки -->
+  <rect x="506" y="92" width="418" height="34" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="715" y="114" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Ізольована контрактна верифікація (CDC) у CI</text>
+
+  <!-- Схема контрактного контуру -->
+  <rect x="506" y="138" width="418" height="152" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="518" y="158" font-size="12" font-weight="700" fill="#1a1a1a">Двоетапний контур валідації (Pact Broker):</text>
+
+  <!-- Крок 1: Генерація контракту -->
+  <rect x="518" y="172" width="118" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="577" y="190" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">1. Consumer CI</text>
+  <text x="577" y="206" font-size="12" fill="#1a1a1a" text-anchor="middle">Генерація Pact</text>
+
+  <!-- Стрілка 1 -> Брокер -->
+  <line x1="636" y1="193" x2="666" y2="193" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Вузол: Брокер контрактів -->
+  <rect x="670" y="172" width="114" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="727" y="190" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Pact Broker</text>
+  <text x="727" y="206" font-size="12" fill="#6b7280" text-anchor="middle">Матриця версій</text>
+
+  <!-- Стрілка Брокер -> Provider -->
+  <line x1="784" y1="193" x2="814" y2="193" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Крок 2: Верифікація провайдера -->
+  <rect x="818" y="172" width="96" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="866" y="190" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">2. Provider CI</text>
+  <text x="866" y="206" font-size="12" fill="#1a1a1a" text-anchor="middle">Верифікація</text>
+
+  <!-- Текстовий блок переваг топології -->
+  <text x="518" y="238" font-size="12" fill="#27ae60">• Нуль зовнішніх залежностей: 100% швидкі ізольовані тести</text>
+  <text x="518" y="258" font-size="12" fill="#27ae60">• Контрактний diff показує точне розходження в полях JSON</text>
+  <text x="518" y="278" font-size="12" fill="#6b7280">• Автоматичний статус can-i-deploy до злиття коду</text>
+
+  <!-- Картка характеристик Контрактного тестування -->
+  <rect x="506" y="302" width="418" height="210" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="518" y="324" font-size="12" font-weight="700" fill="#27ae60">Переваги для приймального аудиту:</text>
+
+  <text x="518" y="348" font-size="12" font-weight="700" fill="#1a1a1a">1. Миттєвий зворотний зв'язок (Feedback Loop):</text>
+  <text x="518" y="366" font-size="12" fill="#6b7280">   Помилки сумісності виявляються за хвилини на кожному PR</text>
+
+  <text x="518" y="390" font-size="12" font-weight="700" fill="#1a1a1a">2. Абсолютна точність діагностики:</text>
+  <text x="518" y="408" font-size="12" fill="#6b7280">   Звіт шлюзу містить точну назву поля, метод і статус HTTP</text>
+
+  <text x="518" y="432" font-size="12" font-weight="700" fill="#1a1a1a">3. Нульова вартість середовища:</text>
+  <text x="518" y="450" font-size="12" fill="#6b7280">   Прогін здійснюється у звичайних легких контейнерах CI</text>
+
+  <text x="518" y="474" font-size="12" font-weight="700" fill="#1a1a1a">4. Формальний критерій у Definition of Done:</text>
+  <text x="518" y="492" font-size="12" font-weight="700" fill="#27ae60">   Юридичний захист замовника від підписання дефектного акта</text>
+</svg>

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Матриця верифікації діагностичних зондів (Startup, Liveness, Readiness)</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Розмежування контрактів зондів та виявлення фіктивних 200 OK при відмові залежностей</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Контракти зондів -->
+  <rect x="24" y="66" width="416" height="374" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="36" y="88" font-size="13" font-weight="bold" fill="#1a1a1a">КОНТРАКТИ ДІАГНОСТИЧНИХ ЗОНДІВ (K8S)</text>
+  <text x="36" y="104" font-size="12" fill="#6b7280">Розподіл зондів за фазами життєвого циклу контейнера</text>
+
+  <!-- Блок 1: Startup Probe -->
+  <rect x="34" y="114" width="396" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="44" y="132" font-size="12" font-weight="bold" fill="#2457d6">STARTUP PROBE — Початкова ініціалізація</text>
+  <text x="44" y="151" font-size="12" fill="#1a1a1a">• Мета: контроль прогріву кешів, конфігів та міграцій БД.</text>
+  <text x="44" y="170" font-size="12" fill="#1a1a1a">• Реакція: блокує інші зонди; збій викликає перезапуск.</text>
+  <text x="44" y="189" font-size="12" font-weight="bold" fill="#2457d6">• Захищає под від завчасного вбивства під час старту.</text>
+
+  <!-- Блок 2: Liveness Probe -->
+  <rect x="34" y="218" width="396" height="98" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="44" y="236" font-size="12" font-weight="bold" fill="#c0392b">LIVENESS PROBE — Живучість процесу (Deadlock)</text>
+  <text x="44" y="254" font-size="12" fill="#1a1a1a">• Мета: виявлення дедлоків та зависання event loop.</text>
+  <text x="44" y="272" font-size="12" font-weight="bold" fill="#c0392b">• ЗАБОРОНА опитування БД: ризик каскадного рестарту!</text>
+  <text x="44" y="290" font-size="12" fill="#1a1a1a">• Реакція: перезапуск контейнера (SIGTERM / SIGKILL).</text>
+  <text x="44" y="308" font-size="12" fill="#6b7280">• Контролює лише локальний стан самого процесу.</text>
+
+  <!-- Блок 3: Readiness Probe -->
+  <rect x="34" y="330" width="396" height="96" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="44" y="348" font-size="12" font-weight="bold" fill="#27ae60">READINESS PROBE — Готовність до трафіку</text>
+  <text x="44" y="366" font-size="12" fill="#1a1a1a">• Мета: перевірка зв'язку з БД, Redis та чергами.</text>
+  <text x="44" y="384" font-size="12" fill="#1a1a1a">• Реакція: зняття поду з балансувальника трафіку.</text>
+  <text x="44" y="402" font-size="12" font-weight="bold" fill="#27ae60">• Контейнер НЕ перезапускається: очікує відновлення бази.</text>
+  <text x="44" y="418" font-size="12" fill="#6b7280">• Захищає клієнтів від надсилання запитів на збійний под.</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Тестова матриця -->
+  <rect x="452" y="66" width="484" height="374" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="464" y="88" font-size="13" font-weight="bold" fill="#1a1a1a">ТЕСТОВА МАТРИЦЯ: ВИЯВЛЕННЯ ФІКТИВНИХ ЗОНДІВ</text>
+  <text x="464" y="104" font-size="12" fill="#6b7280">Приймальний контроль поведінки сервісу при відмові внутрішніх ресурсів</text>
+
+  <!-- Картка 1: Штатний стан -->
+  <rect x="462" y="114" width="464" height="92" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="472" y="132" font-size="12" font-weight="bold" fill="#27ae60">СЦЕНАРІЙ 1: Штатний стан (БД та кеш доступні)</text>
+  <text x="472" y="150" font-size="12" fill="#1a1a1a">• Liveness: 200 OK (процес живий) | Readiness: 200 OK (БД 12 мс)</text>
+  <text x="472" y="168" font-size="12" fill="#1a1a1a">• Дія k8s: трафік підключено (Endpoints активні). Робота в нормі.</text>
+  <text x="472" y="188" font-size="12" font-weight="bold" fill="#27ae60">• Вердикт приймання: ВАЛІДНО (поведінка коректна)</text>
+
+  <!-- Картка 2: Відмова бази (Чесний контракт) -->
+  <rect x="462" y="220" width="464" height="96" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="472" y="238" font-size="12" font-weight="bold" fill="#2457d6">СЦЕНАРІЙ 2: Відмова бази даних (Чесний контракт)</text>
+  <text x="472" y="256" font-size="12" fill="#1a1a1a">• Liveness: 200 OK (процес цілий — перезапуск НЕ потрібен)</text>
+  <text x="472" y="274" font-size="12" fill="#c0392b">• Readiness: 503 Service Unavailable (помилка підключення БД)</text>
+  <text x="472" y="292" font-size="12" fill="#1a1a1a">• Дія k8s: зняття трафіку з поду без перезапуску контейнера.</text>
+  <text x="472" y="308" font-size="12" font-weight="bold" fill="#2457d6">• Вердикт приймання: ВАЛІДНО (ізоляція та контракт дотримані)</text>
+
+  <!-- Картка 3: Фіктивний 200 OK -->
+  <rect x="462" y="330" width="464" height="96" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="472" y="348" font-size="12" font-weight="bold" fill="#c0392b">СЦЕНАРІЙ 3: Фіктивний 200 OK (Типова пастка підрядника)</text>
+  <text x="472" y="366" font-size="12" fill="#c0392b">• БД лежить, але Readiness повертає статичний 200 OK (hardcoded)!</text>
+  <text x="472" y="384" font-size="12" fill="#1a1a1a">• Наслідок: k8s шле запити на мертвий под; користувачі бачать 500.</text>
+  <text x="472" y="402" font-size="12" fill="#1a1a1a">• Маскує каскадну відмову за фіктивною «зеленою» вітриною.</text>
+  <text x="472" y="418" font-size="12" font-weight="bold" fill="#c0392b">• Вердикт приймання: БРАК — ШЛЮЗ ПРИЙМАННЯ ЗАБЛОКОВАНО!</text>
+</svg>

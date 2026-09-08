@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Механіка FreezingArchRule: захист архітектури від нових дефектів</text>
+  <text x="480" y="48" font-size="13" text-anchor="middle" fill="#6b7280">Спадковий борг фіксується в бейзлайні, а будь-які нові порушення підрядника блокують збірку в CI</text>
+
+  <!-- ЕТАП 1: Пул-реквест підрядника -->
+  <rect x="30" y="68" width="260" height="248" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="40" y="78" width="240" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="160" y="99" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">1. Пул-реквест підрядника</text>
+
+  <rect x="40" y="118" width="240" height="60" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="50" y="138" font-size="12" font-weight="700" fill="#1a1a1a">Зміни у кодовій базі:</text>
+  <text x="50" y="156" font-size="12" fill="#6b7280">• Спадковий код (legacy-модулі)</text>
+  <text x="50" y="172" font-size="12" fill="#2457d6">• Нові класи та методи від PR</text>
+
+  <rect x="40" y="186" width="240" height="118" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="50" y="206" font-size="12" font-weight="700" fill="#1a1a1a">Архітектурне правило:</text>
+  <text x="50" y="226" font-size="12" fill="#6b7280">layeredArchitecture()</text>
+  <text x="50" y="244" font-size="12" fill="#1a1a1a">• Контролери не лізуть у БД</text>
+  <text x="50" y="262" font-size="12" fill="#1a1a1a">• Домен не залежить від web</text>
+  <text x="50" y="284" font-size="12" font-weight="700" fill="#c0392b">Знайдено: 122 порушення</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="290" y1="192" x2="313" y2="192" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ЕТАП 2: Рушій FreezingArchRule -->
+  <rect x="315" y="68" width="330" height="248" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+
+  <rect x="325" y="78" width="310" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="99" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">2. Рушій FreezingArchRule</text>
+
+  <rect x="325" y="118" width="310" height="74" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="337" y="138" font-size="12" font-weight="700" fill="#2457d6">Baseline Store (дискове сховище):</text>
+  <text x="337" y="158" font-size="12" fill="#1a1a1a">• Зафіксовано в main: 120 відомих вад</text>
+  <text x="337" y="176" font-size="12" fill="#6b7280">• Сигнатури класів, методів і рядків</text>
+
+  <rect x="325" y="200" width="310" height="104" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="337" y="220" font-size="12" font-weight="700" fill="#1a1a1a">Диференційний аналіз порушень:</text>
+  <text x="337" y="240" font-size="12" fill="#27ae60">• 120 старих = Є в базі (прощаються)</text>
+  <text x="337" y="260" font-size="12" fill="#c0392b">• 2 нових = НЕМАЄ в базі (дефекти!)</text>
+  <text x="337" y="284" font-size="12" font-weight="700" fill="#1a1a1a">Формула: Нові = Знайдені - База</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="645" y1="192" x2="668" y2="192" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ЕТАП 3: Рішення CI Quality Gate -->
+  <rect x="670" y="68" width="260" height="248" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="680" y="78" width="240" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="800" y="99" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">3. Рішення CI Quality Gate</text>
+
+  <rect x="680" y="118" width="240" height="82" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="692" y="138" font-size="12" font-weight="700" fill="#27ae60">Нових порушень: 0 (PASS)</text>
+  <text x="692" y="158" font-size="12" fill="#1a1a1a">✔ Пул-реквест підрядника чистий</text>
+  <text x="692" y="174" font-size="12" fill="#6b7280">  Архітектуру не порушено</text>
+  <text x="692" y="190" font-size="12" fill="#27ae60">  Дозвіл на злиття в main</text>
+
+  <rect x="680" y="208" width="240" height="96" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="692" y="228" font-size="12" font-weight="700" fill="#c0392b">Нових порушень: +2 (FAIL)</text>
+  <text x="692" y="248" font-size="12" fill="#1a1a1a">✖ ЗБІРКУ ЗАБЛОКОВАНО В CI</text>
+  <text x="692" y="268" font-size="12" fill="#c0392b">• Підрядник додав прямий імпорт</text>
+  <text x="692" y="286" font-size="12" fill="#c0392b">• Автозвіт у PR із назвами класів</text>
+
+  <!-- НИЖНІЙ БЛОК: Принцип архітектурного храповика -->
+  <rect x="30" y="332" width="900" height="104" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="352" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Принцип архітектурного храповика (Ratchet Effect): чому це працює</text>
+
+  <rect x="44" y="362" width="424" height="64" rx="6" fill="white" stroke="#2457d6"/>
+  <text x="56" y="382" font-size="12" font-weight="700" fill="#2457d6">1. Безпечний старт без зупинки проєкту:</text>
+  <text x="56" y="400" font-size="12" fill="#1a1a1a">• Команда не змушена виправляти всі 120 спадкових багів</text>
+  <text x="56" y="416" font-size="12" fill="#6b7280">• Підрядник не виправдовує брак «чужим старим кодом»</text>
+
+  <rect x="482" y="362" width="436" height="64" rx="6" fill="white" stroke="#27ae60"/>
+  <text x="494" y="382" font-size="12" font-weight="700" fill="#27ae60">2. Односторонній рух якості (хвилеріз):</text>
+  <text x="494" y="400" font-size="12" fill="#1a1a1a">• Технічний борг може лише зменшуватися у репозиторії</text>
+  <text x="494" y="416" font-size="12" fill="#27ae60">✔ Виправлені старі баги автоматично зникають із бази</text>
+</svg>

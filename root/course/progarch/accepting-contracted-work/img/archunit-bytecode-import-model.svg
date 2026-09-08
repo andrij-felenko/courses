@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Архітектура аналізу байткоду в бібліотеці ArchUnit</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Від імпорту .class-файлів через ASM до графа JavaClasses та перевірки правил ArchRule</text>
+
+  <!-- ==================== ЗОНА 1: ВИЧИТУВАННЯ БАЙТКОДУ ==================== -->
+  <rect x="24" y="72" width="246" height="364" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="36" y="94" font-size="13" font-weight="700" fill="#1a1a1a">1. Вичитування байткоду</text>
+  <text x="36" y="112" font-size="12" fill="#6b7280">Джерела .class та парсер ASM</text>
+
+  <!-- Підкартка 1A: Джерела -->
+  <rect x="36" y="124" width="222" height="96" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="144" font-size="12" font-weight="700" fill="#1a1a1a">Файли та архіви коду:</text>
+  <text x="46" y="164" font-size="12" fill="#1a1a1a">• Каталоги: target/classes</text>
+  <text x="46" y="182" font-size="12" fill="#1a1a1a">• Бібліотеки: *.jar, *.war</text>
+  <text x="46" y="200" font-size="12" fill="#6b7280">• Без старту JVM та Spring</text>
+
+  <!-- Стрілка вниз всередині Зони 1 -->
+  <line x1="147" y1="222" x2="147" y2="238" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Підкартка 1B: ClassFileImporter -->
+  <rect x="36" y="242" width="222" height="180" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="46" y="262" font-size="12" font-weight="700" fill="#2457d6">ClassFileImporter (ASM):</text>
+  <text x="46" y="282" font-size="12" fill="#1a1a1a">new ClassFileImporter()</text>
+  <text x="46" y="300" font-size="12" fill="#2457d6">  .withImportOption(...)</text>
+  <text x="46" y="318" font-size="12" fill="#2457d6">  .importPackages("com.app")</text>
+
+  <text x="46" y="344" font-size="12" font-weight="700" fill="#1a1a1a">Особливості імпорту:</text>
+  <text x="46" y="362" font-size="12" fill="#1a1a1a">• Швидкий бінарний парсинг</text>
+  <text x="46" y="380" font-size="12" fill="#1a1a1a">• Фільтрація тестових класів</text>
+  <text x="46" y="398" font-size="12" fill="#6b7280">• Побудова зв'язків у пам'яті</text>
+
+  <!-- Стрілка із Зони 1 в Зону 2 -->
+  <line x1="270" y1="250" x2="296" y2="250" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- ==================== ЗОНА 2: ГРАФ JAVACLASSES ==================== -->
+  <rect x="300" y="72" width="330" height="364" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="312" y="94" font-size="13" font-weight="700" fill="#1a1a1a">2. Граф залежностей JavaClasses</text>
+  <text x="312" y="112" font-size="12" fill="#6b7280">Внутрішня об'єктна модель системи</text>
+
+  <!-- Підкартка 2A: Вершини моделі -->
+  <rect x="312" y="124" width="306" height="96" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="324" y="144" font-size="12" font-weight="700" fill="#1a1a1a">Вершини моделі (Елементи коду):</text>
+  <text x="324" y="164" font-size="12" fill="#1a1a1a">• JavaClass: ім'я, пакет, анотації, модифікатори</text>
+  <text x="324" y="182" font-size="12" fill="#1a1a1a">• JavaMethod / JavaConstructor: параметри, return</text>
+  <text x="324" y="200" font-size="12" fill="#1a1a1a">• JavaField: типи полів, статичні константи</text>
+
+  <!-- Підкартка 2B: Ребра залежностей -->
+  <rect x="312" y="232" width="306" height="190" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="324" y="252" font-size="12" font-weight="700" fill="#2457d6">Ребра графа (Типи залежностей):</text>
+  <text x="324" y="272" font-size="12" fill="#1a1a1a">1. MethodCall: виклики методів між класами</text>
+  <text x="324" y="290" font-size="12" fill="#1a1a1a">2. FieldAccess: пряме читання або запис поля</text>
+  <text x="324" y="308" font-size="12" fill="#1a1a1a">3. Inheritance: extends класу або implements</text>
+  <text x="324" y="326" font-size="12" fill="#1a1a1a">4. TypeDependency: типи параметрів та generics</text>
+
+  <rect x="324" y="340" width="282" height="70" rx="4" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="334" y="360" font-size="12" font-weight="700" fill="#2457d6">Інженерна перевага графа:</text>
+  <text x="334" y="378" font-size="12" fill="#1a1a1a">Фіксує навіть приховані виклики через lambdas,</text>
+  <text x="334" y="396" font-size="12" fill="#6b7280">анонімні класи та вкладені типи</text>
+
+  <!-- Стрілка із Зони 2 в Зону 3 -->
+  <line x1="630" y1="250" x2="656" y2="250" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- ==================== ЗОНА 3: ЗВІРКА З ARCHRULE ==================== -->
+  <rect x="660" y="72" width="276" height="364" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="672" y="94" font-size="13" font-weight="700" fill="#1a1a1a">3. Звірка з ArchRule</text>
+  <text x="672" y="112" font-size="12" fill="#6b7280">Декларативний DSL та митний гейт</text>
+
+  <!-- Підкартка 3A: ArchRule DSL -->
+  <rect x="672" y="124" width="252" height="96" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="682" y="144" font-size="12" font-weight="700" fill="#1a1a1a">Правило у формі Fluent DSL:</text>
+  <text x="682" y="164" font-size="12" fill="#2457d6">classes().that().resideIn("..domain..")</text>
+  <text x="682" y="182" font-size="12" fill="#2457d6">  .should().onlyDependOnClassesThat()</text>
+  <text x="682" y="200" font-size="12" fill="#2457d6">  .resideIn("..domain..", "java..")</text>
+
+  <!-- Стрілка вниз всередині Зони 3 -->
+  <line x1="798" y1="222" x2="798" y2="238" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Зелений блок: Успіх -->
+  <rect x="672" y="242" width="252" height="84" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="682" y="262" font-size="12" font-weight="700" fill="#27ae60">✓ 0 порушень: rule.check(classes)</text>
+  <text x="682" y="282" font-size="12" fill="#1a1a1a">Архітектурні інваріанти збережено</text>
+  <text x="682" y="300" font-size="12" fill="#27ae60">PR підрядника дозволено до злиття</text>
+  <text x="682" y="316" font-size="12" fill="#6b7280">Митний гейт CI: Exit Code 0</text>
+
+  <!-- Червоний блок: Порушення -->
+  <rect x="672" y="338" width="252" height="84" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="682" y="358" font-size="12" font-weight="700" fill="#c0392b">✗ AssertionError (Злиття блоковано)</text>
+  <text x="682" y="378" font-size="12" fill="#1a1a1a">Точний звіт: Order.java:42 викликає</text>
+  <text x="682" y="396" font-size="12" fill="#1a1a1a">заборонений клас PostgresRepo</text>
+  <text x="682" y="412" font-size="12" fill="#c0392b">Юридичний доказ дефекту для акта</text>
+</svg>

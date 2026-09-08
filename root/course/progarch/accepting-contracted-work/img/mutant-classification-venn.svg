@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Просторова класифікація мутантів для розрахунку Mutation Score</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл пулу мутацій на вбитих, вцілілих, еквівалентних та аварійних: що входить у чисельник і знаменник</text>
+
+  <!-- ==================== ЛІВА КОЛОНКА: ДІАГРАМА МНОЖИН МУТАНТІВ ==================== -->
+  <rect x="20" y="76" width="560" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="36" y="100" font-size="14" font-weight="700" fill="#1a1a1a">М — Загальна множина згенерованих мутацій (Total Mutants)</text>
+  <text x="36" y="118" font-size="12" fill="#6b7280">Увесь пул штучних синтаксичних дефектів, створених мутаційними операторами</text>
+
+  <!-- БЛОК 1: АВАРІЙНІ МУТАНТИ -->
+  <rect x="36" y="130" width="528" height="68" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="50" y="150" font-size="12" font-weight="700" fill="#6b7280">Аварійні мутанти (Stillborn / Crash / Compilation Errors)</text>
+  <text x="50" y="168" font-size="12" fill="#1a1a1a">• Синтаксичний брак, що не збирається або відсікається компілятором</text>
+  <text x="50" y="186" font-size="12" fill="#6b7280">• Не досягають запуску тестів і виключаються з бази аналізу якості</text>
+
+  <!-- БЛОК 2: ВАЛІДНІ МУТАНТИ -->
+  <rect x="36" y="210" width="528" height="302" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="50" y="232" font-size="13" font-weight="700" fill="#2457d6">Синтаксично валідні мутанти (M_valid = M - Stillborn)</text>
+  <text x="50" y="250" font-size="12" fill="#1a1a1a">Мутації, які успішно компілюються й виконуються тестовим набором</text>
+
+  <!-- ПІДБЛОК 2A: ЕКВІВАЛЕНТНІ МУТАНТИ -->
+  <rect x="50" y="262" width="500" height="76" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="5,3"/>
+  <text x="64" y="282" font-size="12" font-weight="700" fill="#1a1a1a">Еквівалентні мутанти (Equivalent, E) — семантично тотожні коду</text>
+  <text x="64" y="300" font-size="12" fill="#1a1a1a">• ∀ x: P'(x) = P(x) — не змінюють поведінку програми на жодних входах</text>
+  <text x="64" y="318" font-size="12" fill="#6b7280">• Жоден тест не може їх вбити; обов'язково віднімаються: (M - E)</text>
+
+  <!-- ПІДБЛОК 2B: ЖИТТЄЗДАТНІ МУТАНТИ (M - E) -->
+  <rect x="50" y="348" width="500" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="64" y="368" font-size="12" font-weight="700" fill="#1a1a1a">Життєздатні нееквівалентні дефекти (Killable: M - E = K + S)</text>
+
+  <!-- ВБИТІ МУТАНТИ -->
+  <rect x="62" y="378" width="232" height="108" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="74" y="398" font-size="12" font-weight="700" fill="#27ae60">Вбиті мутанти (Killed, K)</text>
+  <text x="74" y="418" font-size="12" fill="#1a1a1a">• Тести впали (AssertionError)</text>
+  <text x="74" y="436" font-size="12" fill="#1a1a1a">• Аварія чи таймаут прогону</text>
+  <text x="74" y="454" font-size="12" fill="#1a1a1a">• Дефект розкрито оракулом</text>
+  <text x="74" y="474" font-size="12" font-weight="700" fill="#27ae60">→ Чисельник формули MS (+)</text>
+
+  <!-- ВЦІЛІЛІ МУТАНТИ -->
+  <rect x="306" y="378" width="232" height="108" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="318" y="398" font-size="12" font-weight="700" fill="#c0392b">Вцілілі мутанти (Survived, S)</text>
+  <text x="318" y="418" font-size="12" fill="#1a1a1a">• Усі тести зелені (Passed)</text>
+  <text x="318" y="436" font-size="12" fill="#1a1a1a">• Зміна логіки проігнорована</text>
+  <text x="318" y="454" font-size="12" fill="#1a1a1a">• Немає перевірки оракулом</text>
+  <text x="318" y="474" font-size="12" font-weight="700" fill="#c0392b">→ Діра в тестовому наборі (!)</text>
+
+  <!-- ==================== ПРАВА КОЛОНКА: АНАЛІТИКА ТА ПРИЙМАННЯ ==================== -->
+  <!-- КАРТКА 1: ФОРМУЛА -->
+  <rect x="596" y="76" width="344" height="144" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="612" y="100" font-size="13" font-weight="700" fill="#2457d6">Формула Mutation Score (MS)</text>
+  <rect x="612" y="110" width="312" height="40" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="768" y="135" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">MS = K / (M - E) = K / (K + S)</text>
+  <text x="612" y="168" font-size="12" fill="#1a1a1a">• K — кількість вбитих мутантів (успіх)</text>
+  <text x="612" y="186" font-size="12" fill="#1a1a1a">• M - E — пул нееквівалентних мутацій (K + S)</text>
+  <text x="612" y="204" font-size="12" font-weight="600" fill="#2457d6">• Значення: 0.0 ≤ MS ≤ 1.0 (ціль: MS ≥ θ_MS)</text>
+
+  <!-- КАРТКА 2: ПАСТКА СИРОГО БАЛУ -->
+  <rect x="596" y="232" width="344" height="138" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="612" y="256" font-size="13" font-weight="700" fill="#1a1a1a">Пастка сирого мутаційного балу</text>
+  <text x="612" y="276" font-size="12" fill="#6b7280">Сирий бал MS_raw = K / M ігнорує E:</text>
+  <text x="612" y="296" font-size="12" fill="#1a1a1a">• Якщо M = 500, E = 80, а вбито K = 380:</text>
+  <text x="612" y="316" font-size="12" fill="#c0392b">  - Сирий бал: 380 / 500 = 76.0% (занижений)</text>
+  <text x="612" y="336" font-size="12" font-weight="700" fill="#27ae60">  - Істинний бал: 380 / 420 = 90.5% (реальний)</text>
+  <text x="612" y="356" font-size="12" fill="#6b7280">Різниця 14.5% — ризик хибних претензій</text>
+
+  <!-- КАРТКА 3: ПРИЙМАЛЬНИЙ ШЛЮЗ -->
+  <rect x="596" y="382" width="344" height="144" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="612" y="406" font-size="13" font-weight="700" fill="#27ae60">Вимоги приймання (Acceptance Gate)</text>
+  <text x="612" y="428" font-size="12" fill="#1a1a1a">1. Доменне ядро: поріг MS ≥ 0.80 (80%)</text>
+  <text x="612" y="446" font-size="12" fill="#1a1a1a">2. Інтеграційні шлюзи: поріг MS ≥ 0.70 (70%)</text>
+  <text x="612" y="464" font-size="12" fill="#1a1a1a">3. Усі вцілілі мутанти (S) у ядрі закриваються</text>
+  <text x="612" y="482" font-size="12" fill="#6b7280">4. Нерозв'язність за Тюрінгом: E калібрують</text>
+  <text x="612" y="500" font-size="12" fill="#6b7280">   евристиками або ручним аналізом вибірки</text>
+  <text x="612" y="518" font-size="12" font-weight="700" fill="#27ae60">✓ Звіт мутацій дає точні координати слабких місць</text>
+</svg>

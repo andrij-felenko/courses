@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Ізоляція діагностичних зондів під навантаженням: запобігання рестарт-шторму</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Спільний пул потоків спричиняє каскадну загибель подів; виділений контур гарантує стабільність</text>
+
+  <!-- ЛІВА КОЛОНКА: Спільний пул (Антипатерн) -->
+  <rect x="25" y="72" width="440" height="426" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок лівої колонки -->
+  <rect x="40" y="86" width="410" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="245" y="107" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Антипатерн: спільний пул потоків та ресурсів</text>
+
+  <!-- Блок архітектури лівої колонки -->
+  <rect x="40" y="126" width="410" height="146" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Джерела трафіку ліворуч -->
+  <rect x="52" y="138" width="112" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="108" y="156" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Трафік k6</text>
+  <text x="108" y="172" text-anchor="middle" font-size="12" fill="#6b7280">Стрес-навантаження</text>
+
+  <rect x="52" y="196" width="112" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="108" y="214" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Kubelet</text>
+  <text x="108" y="230" text-anchor="middle" font-size="12" fill="#6b7280">Зонди Liveness</text>
+
+  <!-- Контейнер сервісу -->
+  <rect x="206" y="136" width="232" height="126" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="322" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Сервіс підрядника (Под)</text>
+
+  <!-- Спільний пул всередині сервісу -->
+  <rect x="216" y="160" width="212" height="46" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="322" y="178" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Спільний пул потоків</text>
+  <text x="322" y="196" text-anchor="middle" font-size="12" fill="#c0392b">100% зайнято запитами</text>
+
+  <text x="322" y="226" text-anchor="middle" font-size="12" fill="#6b7280">Синхронний запит до БД зависає</text>
+  <text x="322" y="244" text-anchor="middle" font-size="12" fill="#c0392b">Зонд очікує в загальній черзі</text>
+
+  <!-- Стрілки лівої колонки -->
+  <line x1="166" y1="159" x2="214" y2="170" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="166" y1="217" x2="214" y2="194" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Блок наслідків лівої колонки -->
+  <rect x="40" y="280" width="410" height="206" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="300" font-size="13" font-weight="700" fill="#c0392b">Механізм каскадного колапсу:</text>
+
+  <rect x="52" y="312" width="386" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="64" y="331" font-size="12" font-weight="700" fill="#c0392b">1. Збій зонда:</text>
+  <text x="184" y="331" font-size="12" fill="#1a1a1a">Liveness блокується в черзі &gt; 1 с</text>
+
+  <rect x="52" y="348" width="386" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="64" y="367" font-size="12" font-weight="700" fill="#c0392b">2. Рестарт пода:</text>
+  <text x="184" y="367" font-size="12" fill="#1a1a1a">Kubelet надсилає SIGKILL живому поду</text>
+
+  <rect x="52" y="384" width="386" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="64" y="403" font-size="12" font-weight="700" fill="#c0392b">3. Лавина смертей:</text>
+  <text x="184" y="403" font-size="12" fill="#1a1a1a">Трафік падає на решту подів → колапс</text>
+
+  <!-- Підсумок лівої колонки -->
+  <rect x="52" y="422" width="386" height="52" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="64" y="442" font-size="12" fill="#1a1a1a">• Зонд убиває под замість сигналізування про чергу</text>
+  <text x="64" y="462" font-size="12" font-weight="700" fill="#c0392b">НАСЛІДОК: Повна втрата доступності (0% SLA в акті)</text>
+
+
+  <!-- ПРАВА КОЛОНКА: Ізольований контур (Патерн) -->
+  <rect x="495" y="72" width="440" height="426" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок правої колонки -->
+  <rect x="510" y="86" width="410" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="107" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Патерн: виділений порт та ізольований контур</text>
+
+  <!-- Блок архітектури правої колонки -->
+  <rect x="510" y="126" width="410" height="146" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Джерела трафіку праворуч -->
+  <rect x="522" y="138" width="112" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="578" y="156" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Трафік k6</text>
+  <text x="578" y="172" text-anchor="middle" font-size="12" fill="#6b7280">Стрес-навантаження</text>
+
+  <rect x="522" y="196" width="112" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="578" y="214" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Kubelet</text>
+  <text x="578" y="230" text-anchor="middle" font-size="12" fill="#6b7280">Зонди Liveness</text>
+
+  <!-- Контейнер сервісу праворуч -->
+  <rect x="676" y="136" width="232" height="126" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="792" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Ізольована архітектура (Под)</text>
+
+  <!-- Робочий пул (Порт 8080) -->
+  <rect x="686" y="158" width="212" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="792" y="174" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Робочий пул (Порт 8080)</text>
+  <text x="792" y="190" text-anchor="middle" font-size="12" fill="#6b7280">Обробка бізнес-запитів клієнтів</text>
+
+  <!-- Виділений контур (Порт 9090) -->
+  <rect x="686" y="202" width="212" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="792" y="218" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Контур діагностики (Порт 9090)</text>
+  <text x="792" y="234" text-anchor="middle" font-size="12" fill="#27ae60">Атомарні прапорці в оперативній пам'яті</text>
+
+  <text x="792" y="254" text-anchor="middle" font-size="12" fill="#6b7280">Зонди не залежать від черг і пулів</text>
+
+  <!-- Стрілки правої колонки -->
+  <line x1="636" y1="159" x2="684" y2="168" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="636" y1="217" x2="684" y2="217" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Блок наслідків правої колонки -->
+  <rect x="510" y="280" width="410" height="206" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="522" y="300" font-size="13" font-weight="700" fill="#27ae60">Механізм стабілізації та захисту подів:</text>
+
+  <rect x="522" y="312" width="386" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="534" y="331" font-size="12" font-weight="700" fill="#27ae60">1. Liveness зонд:</text>
+  <text x="650" y="331" font-size="12" fill="#1a1a1a">200 OK (&lt; 5 мс, процес живий)</text>
+
+  <rect x="522" y="348" width="386" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="534" y="367" font-size="12" font-weight="700" fill="#2457d6">2. Readiness зонд:</text>
+  <text x="650" y="367" font-size="12" fill="#1a1a1a">503 (сигнал перевантаження черги)</text>
+
+  <rect x="522" y="384" width="386" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="534" y="403" font-size="12" font-weight="700" fill="#27ae60">3. Бекпрешер:</text>
+  <text x="650" y="403" font-size="12" fill="#1a1a1a">Зняття трафіку без рестарту пода</text>
+
+  <!-- Підсумок правої колонки -->
+  <rect x="522" y="422" width="386" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="534" y="442" font-size="12" fill="#1a1a1a">• Контейнери не вбиваються — система самовідновлюється</text>
+  <text x="534" y="462" font-size="12" font-weight="700" fill="#27ae60">РЕЗУЛЬТАТ: Стійкість до сплесків та успішне приймання</text>
+</svg>

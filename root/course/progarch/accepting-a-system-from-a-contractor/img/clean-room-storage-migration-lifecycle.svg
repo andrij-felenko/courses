@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="26" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Життєвий цикл валідації міграцій БД у «чистій кімнаті»</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Двосторонній конвеєр (Up → Down → Up → Seed) на чистому сховищі усуває приховані ручні SQL-латки</text>
+
+  <!-- ==================== ВЕРХНЯ ПАНЕЛЬ: 5-ЕТАПНИЙ КОНВЕЄР МІГРАЦІЙ ==================== -->
+  <rect x="24" y="66" width="912" height="196" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Заголовок верхньої панелі -->
+  <text x="38" y="88" font-size="13" font-weight="700" fill="#1a1a1a">Конвеєр двосторонньої верифікації міграцій (Up → Down → Up → Seed)</text>
+  <text x="38" y="104" font-size="12" fill="#6b7280">Послідовний машинний прогін на чистому ефемерному екземплярі СКБД без участі людини</text>
+
+  <!-- КАРТКА 1: ЧИСТА БАЗА (v0) -->
+  <rect x="38" y="116" width="164" height="132" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="120" y="136" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">1. Чиста база (v0)</text>
+  <text x="120" y="156" font-size="12" fill="#1a1a1a" text-anchor="middle">Ефемерна СКБД</text>
+  <text x="120" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Порожня схема</text>
+  <text x="120" y="192" font-size="12" fill="#6b7280" text-anchor="middle">schema_version = 0</text>
+  <text x="120" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Нуль ручних таблиць</text>
+  <text x="120" y="228" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Стан: Clean Slate</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="202" y1="182" x2="214" y2="182" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- КАРТКА 2: НАКАТ UP (vN) -->
+  <rect x="218" y="116" width="164" height="132" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="300" y="136" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">2. Накат Up (vN)</text>
+  <text x="300" y="156" font-size="12" fill="#1a1a1a" text-anchor="middle">Прямий хід: 001..N</text>
+  <text x="300" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Створення таблиць</text>
+  <text x="300" y="192" font-size="12" fill="#6b7280" text-anchor="middle">Індекси, ключі FK</text>
+  <text x="300" y="210" font-size="12" fill="#6b7280" text-anchor="middle">schema_version = N</text>
+  <text x="300" y="228" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Статус: Застосовано</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="382" y1="182" x2="394" y2="182" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- КАРТКА 3: ТЕСТ ВІДКАТУ (DOWN) -->
+  <rect x="398" y="116" width="164" height="132" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="480" y="136" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">3. Тест відкату</text>
+  <text x="480" y="156" font-size="12" fill="#1a1a1a" text-anchor="middle">Зворотний хід: Down</text>
+  <text x="480" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Відкат: N -> N-k</text>
+  <text x="480" y="192" font-size="12" fill="#6b7280" text-anchor="middle">Тест скриптів down()</text>
+  <text x="480" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Видалення об'єктів</text>
+  <text x="480" y="228" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Контроль Rollback</text>
+
+  <!-- Стрілка 3 -> 4 -->
+  <line x1="562" y1="182" x2="574" y2="182" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- КАРТКА 4: ПОВТОРНИЙ UP -->
+  <rect x="578" y="116" width="164" height="132" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="660" y="136" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">4. Повторний Up</text>
+  <text x="660" y="156" font-size="12" fill="#1a1a1a" text-anchor="middle">Повторний рух: Up</text>
+  <text x="660" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Ідемпотентний накат</text>
+  <text x="660" y="192" font-size="12" fill="#6b7280" text-anchor="middle">Відновлення схеми</text>
+  <text x="660" y="210" font-size="12" fill="#6b7280" text-anchor="middle">schema_version = N</text>
+  <text x="660" y="228" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Тест: Ідемпотентно</text>
+
+  <!-- Стрілка 4 -> 5 -->
+  <line x1="742" y1="182" x2="754" y2="182" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- КАРТКА 5: ЗАСІВАННЯ БД -->
+  <rect x="758" y="116" width="164" height="132" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="840" y="136" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">5. Засівання БД</text>
+  <text x="840" y="156" font-size="12" fill="#1a1a1a" text-anchor="middle">Seed-дані (fixtures)</text>
+  <text x="840" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Детерміновані дані</text>
+  <text x="840" y="192" font-size="12" fill="#6b7280" text-anchor="middle">Валідація зв'язків</text>
+  <text x="840" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Готовність до тестів</text>
+  <text x="840" y="228" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Шлюз: ВІДКРИТО</text>
+
+
+  <!-- ==================== НИЖНІ ПАНЕЛІ: ПОРІВНЯННЯ ==================== -->
+
+  <!-- ЛІВА НИЖНЯ ПАНЕЛЬ: ТИПОВІ ПАСТКИ ПІДРЯДНИКА -->
+  <rect x="24" y="274" width="444" height="158" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  
+  <rect x="36" y="284" width="420" height="28" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="48" y="303" font-size="12" font-weight="700" fill="#c0392b">Типові дефекти передачі БД від підрядника (Showcase):</text>
+
+  <rect x="36" y="320" width="420" height="100" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="340" font-size="12" fill="#1a1a1a">• Ручні DDL-правки безпосередньо в базі на стенді виконавця</text>
+  <text x="48" y="358" font-size="12" fill="#1a1a1a">• Відсутність або неробочі зворотні методи down() / rollback</text>
+  <text x="48" y="376" font-size="12" fill="#1a1a1a">• Збиті лічильники послідовностей (sequences) та биті FK</text>
+  <text x="48" y="394" font-size="12" fill="#c0392b">• Недетерміновані міграції, що ламають чисте розгортання</text>
+
+
+  <!-- ПРАВА НИЖНЯ ПАНЕЛЬ: СТАНДАРТИ ЧИСТОЇ КІМНАТИ -->
+  <rect x="492" y="274" width="444" height="158" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+
+  <rect x="504" y="284" width="420" height="28" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="516" y="303" font-size="12" font-weight="700" fill="#27ae60">Стандарти валідації в контурі чистої кімнати (Harness):</text>
+
+  <rect x="504" y="320" width="420" height="100" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="340" font-size="12" fill="#1a1a1a">• Автономний запуск у чистому ефемерному контейнері</text>
+  <text x="516" y="358" font-size="12" fill="#1a1a1a">• Обов'язковий двосторонній цикл: 100% верифікація відкату</text>
+  <text x="516" y="376" font-size="12" fill="#1a1a1a">• Детерміновані seed-фікстури для повної відтворюваності</text>
+  <text x="516" y="394" font-size="12" fill="#27ae60">• Хеш-валідація фінального DDL проти еталонного контракту</text>
+
+
+  <!-- ==================== НИЖНІЙ БАНЕР: БАР'ЄР ПРИЙМАННЯ ==================== -->
+  <rect x="24" y="448" width="912" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="469" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">БАР'ЄР ПРИЙМАННЯ: ЖОДНА СИСТЕМА НЕ ПРИЙМАЄТЬСЯ БЕЗ ТЕСТУ ВІДКАТУ ТА ПОВТОРНОГО НАКАТУ</text>
+  <text x="480" y="489" font-size="12" fill="#1a1a1a" text-anchor="middle">Якщо міграція не відкочується чисто або вимагає ручних латок у СКБД — контракт вважається невиконаним</text>
+
+</svg>

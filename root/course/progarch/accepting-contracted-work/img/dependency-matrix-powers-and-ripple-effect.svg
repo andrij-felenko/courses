@@ -1,0 +1,216 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Степені матриці суміжності: виявлення циклів Tr(M^k) та Ripple Effect</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Діагональ степенів M^k виявляє зациклення довжини k, а сума степенів визначає каскадний радіус змін</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ГРАФ ТА МАТРИЦЯ M (k=1) ==================== -->
+  <rect x="24" y="74" width="270" height="364" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="159" y="98" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">1. Граф і пряма матриця M (k=1)</text>
+  <text x="159" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Безпосередні виклики між модулями</text>
+
+  <!-- Граф залежностей: 4 вузли -->
+  <!-- Ребра графа -->
+  <!-- A -> B -->
+  <line x1="96" y1="156" x2="214" y2="156" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- B -> C -->
+  <line x1="236" y1="172" x2="236" y2="204" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- C -> A (зворотний циклічний зв'язок) -->
+  <path d="M222,216 C176,192 140,180 96,164" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <!-- C -> D -->
+  <line x1="220" y1="228" x2="104" y2="228" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Вузли графа -->
+  <!-- Вузол A -->
+  <circle cx="80" cy="156" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="80" y="161" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">A</text>
+
+  <!-- Вузол B -->
+  <circle cx="236" cy="156" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="236" y="161" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">B</text>
+
+  <!-- Вузол C (учасник циклу) -->
+  <circle cx="236" cy="228" r="16" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="236" y="233" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">C</text>
+
+  <!-- Вузол D (листок) -->
+  <circle cx="80" cy="228" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="80" y="233" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">D</text>
+
+  <!-- Плашка циклу -->
+  <rect x="42" y="254" width="234" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="159" y="270" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Прихований цикл: A -&gt; B -&gt; C -&gt; A</text>
+
+  <!-- Матриця суміжності M -->
+  <rect x="58" y="290" width="202" height="96" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Заголовки стовпців -->
+  <text x="76" y="308" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">M</text>
+  <text x="114" y="308" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">A</text>
+  <text x="148" y="308" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">B</text>
+  <text x="182" y="308" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">C</text>
+  <text x="216" y="308" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">D</text>
+
+  <!-- Рядок A: 0, 1, 0, 0 -->
+  <text x="76" y="326" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">A</text>
+  <text x="114" y="326" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="148" y="326" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="182" y="326" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="216" y="326" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- Рядок B: 0, 0, 1, 0 -->
+  <text x="76" y="344" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">B</text>
+  <text x="114" y="344" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="148" y="344" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="182" y="344" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="216" y="344" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- Рядок C: 1, 0, 0, 1 -->
+  <text x="76" y="362" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">C</text>
+  <text x="114" y="362" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">1</text>
+  <text x="148" y="362" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="182" y="362" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="216" y="362" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">1</text>
+
+  <!-- Рядок D: 0, 0, 0, 0 -->
+  <text x="76" y="380" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">D</text>
+  <text x="114" y="380" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="148" y="380" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="182" y="380" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="216" y="380" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- Підсумок для M -->
+  <text x="159" y="406" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Tr(M) = 0 + 0 + 0 + 0 = 0</text>
+  <text x="159" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Діагональ чиста: прямих петель нема</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: СТЕПЕНІ МАТРИЦІ ТА СЛІД ==================== -->
+  <rect x="308" y="74" width="328" height="364" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="472" y="98" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">2. Степені матриці: шляхи довжини k</text>
+  <text x="472" y="116" font-size="12" fill="#6b7280" text-anchor="middle">M^k[i, j] = кількість шляхів від i до j довжиною k</text>
+
+  <!-- Підпанель M^2 -->
+  <rect x="318" y="128" width="148" height="144" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="392" y="146" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">M^2 (крок k = 2)</text>
+  <!-- Заголовки стовпців -->
+  <text x="350" y="166" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">A</text>
+  <text x="378" y="166" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">B</text>
+  <text x="406" y="166" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">C</text>
+  <text x="434" y="166" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">D</text>
+
+  <!-- Рядки M^2 -->
+  <text x="332" y="184" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">A</text>
+  <text x="350" y="184" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="378" y="184" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="406" y="184" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="434" y="184" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <text x="332" y="202" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">B</text>
+  <text x="350" y="202" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="378" y="202" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="406" y="202" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="434" y="202" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">1</text>
+
+  <text x="332" y="220" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">C</text>
+  <text x="350" y="220" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="378" y="220" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="406" y="220" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="434" y="220" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <text x="332" y="238" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">D</text>
+  <text x="350" y="238" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="378" y="238" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="406" y="238" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="434" y="238" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <text x="392" y="258" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Tr(M^2) = 0</text>
+
+  <!-- Підпанель M^3 (ВИЯВЛЕННЯ ЦИКЛУ) -->
+  <rect x="474" y="128" width="150" height="144" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="549" y="146" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">M^3 (крок k = 3: ЦИКЛ!)</text>
+  <!-- Заголовки стовпців -->
+  <text x="506" y="166" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">A</text>
+  <text x="534" y="166" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">B</text>
+  <text x="562" y="166" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">C</text>
+  <text x="590" y="166" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">D</text>
+
+  <!-- Рядки M^3 -->
+  <text x="488" y="184" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">A</text>
+  <text x="506" y="184" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">1</text>
+  <text x="534" y="184" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="562" y="184" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="590" y="184" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">1</text>
+
+  <text x="488" y="202" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">B</text>
+  <text x="506" y="202" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="534" y="202" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">1</text>
+  <text x="562" y="202" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="590" y="202" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <text x="488" y="220" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">C</text>
+  <text x="506" y="220" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="534" y="220" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="562" y="220" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">1</text>
+  <text x="590" y="220" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <text x="488" y="238" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">D</text>
+  <text x="506" y="238" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="534" y="238" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="562" y="238" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="590" y="238" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <text x="549" y="258" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Tr(M^3) = 3 &gt; 0 (цикл!)</text>
+
+  <!-- Блок аналізу сліду -->
+  <rect x="318" y="286" width="306" height="138" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="330" y="308" font-size="13" font-weight="700" fill="#1a1a1a">Теорема про слід степенів матриці:</text>
+  <text x="330" y="330" font-size="12" fill="#1a1a1a">• Tr(M^k) = сума елементів головної діагоналі</text>
+  <text x="330" y="350" font-size="12" fill="#6b7280">• Якщо Tr(M^k) = 0 для всіх k — граф є DAG без циклів</text>
+  <text x="330" y="370" font-size="12" font-weight="700" fill="#c0392b">• Tr(M^3) = 3 &gt; 0 викриває зациклення довжини 3</text>
+  <text x="330" y="390" font-size="12" fill="#1a1a1a">• Діагональні 1 у рядках A, B, C вказують на вузли циклу</text>
+  <text x="330" y="412" font-size="12" font-weight="700" fill="#2457d6">Шлюз CI: умова Tr(M^k) &gt; 0 автоматично відхиляє PR</text>
+
+  <!-- ==================== ПАНЕЛЬ 3: RIPPLE EFFECT ==================== -->
+  <rect x="648" y="74" width="288" height="364" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="792" y="98" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">3. Каскадний радіус (Ripple Effect)</text>
+  <text x="792" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Поширення змін через транзитивні степені</text>
+
+  <!-- Картка транзитивного замикання -->
+  <rect x="660" y="128" width="264" height="92" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="792" y="148" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Транзитивна досяжність R = ∑ M^k</text>
+  <text x="672" y="170" font-size="12" fill="#1a1a1a">• R = M + M^2 + M^3 + ... (замикання зв'язків)</text>
+  <text x="672" y="190" font-size="12" fill="#6b7280">• Оцінює радіус ураження при зміні контракту</text>
+  <text x="672" y="210" font-size="12" fill="#1a1a1a">• Модуль D: ізольований листок (радіус = 0)</text>
+
+  <!-- Хвилі поширення -->
+  <rect x="660" y="228" width="264" height="106" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="792" y="248" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Каскадні радіуси ураження графа</text>
+  <text x="672" y="270" font-size="12" font-weight="700" fill="#1a1a1a">k = 1 (M):</text>
+  <text x="748" y="270" font-size="12" fill="#6b7280">прямі клієнти модуля (25% системи)</text>
+  <text x="672" y="292" font-size="12" font-weight="700" fill="#1a1a1a">k = 2 (M^2):</text>
+  <text x="748" y="292" font-size="12" fill="#6b7280">опосередкований вплив (50%)</text>
+  <text x="672" y="314" font-size="12" font-weight="700" fill="#c0392b">k = 3 (M^3):</text>
+  <text x="748" y="314" font-size="12" font-weight="700" fill="#c0392b">циклічний резонанс: уражено 100%!</text>
+
+  <!-- Митний шлюз Acceptance Gate -->
+  <rect x="660" y="342" width="264" height="84" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="792" y="364" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Митний контроль CI (Quality Gate)</text>
+  <text x="792" y="384" font-size="12" fill="#1a1a1a" text-anchor="middle">Поріг: Ripple Index &lt;= 0.30 та Tr(M^k) = 0</text>
+  <text x="792" y="402" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">✓ Повний допуск пул-реквесту до злиття</text>
+  <text x="792" y="418" font-size="12" fill="#6b7280" text-anchor="middle">Захист від токсичних прихованих циклів</text>
+</svg>

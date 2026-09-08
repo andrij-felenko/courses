@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Митний аудит залежностей: конвеєр верифікації маніфесту в CI</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Виявлення diff, перевірка білого списку, аналіз ліцензій та блокування пакетів без схваленого ADR</text>
+
+  <!-- ==================== РЯДОК 1: ЕТАПИ МИТНОГО КОНТРОЛЮ ==================== -->
+
+  <!-- Блок 1: Diff у маніфесті -->
+  <rect x="30" y="75" width="205" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="42" y="98" font-size="13" font-weight="700" fill="#1a1a1a">1. Diff у маніфесті</text>
+  <text x="42" y="116" font-size="12" fill="#6b7280">Аналіз package.json / pom</text>
+
+  <rect x="40" y="128" width="185" height="70" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="50" y="150" font-size="12" font-weight="700" fill="#1a1a1a">Зміни в залежностях</text>
+  <text x="50" y="170" font-size="12" fill="#1a1a1a">• Виявлення нових пакетів</text>
+  <text x="50" y="188" font-size="12" fill="#6b7280">Контроль транзитивних ліб</text>
+
+  <rect x="40" y="206" width="185" height="66" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="50" y="226" font-size="12" font-weight="700" fill="#2457d6">Якщо нових немає:</text>
+  <text x="50" y="246" font-size="12" fill="#1a1a1a">Пропуск митниці (PASS)</text>
+  <text x="50" y="262" font-size="12" fill="#6b7280">Перехід до збірки коду</text>
+
+  <!-- Стрілка Блок 1 -> Блок 2 -->
+  <line x1="235" y1="163" x2="263" y2="163" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Блок 2: Білий список і ADR -->
+  <rect x="265" y="75" width="215" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="277" y="98" font-size="13" font-weight="700" fill="#1a1a1a">2. Білий список і ADR</text>
+  <text x="277" y="116" font-size="12" fill="#6b7280">Санкціонування пакета</text>
+
+  <rect x="275" y="128" width="195" height="70" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="285" y="150" font-size="12" font-weight="700" fill="#1a1a1a">Corporate Allowlist</text>
+  <text x="285" y="170" font-size="12" fill="#1a1a1a">• Пакет є в білому списку?</text>
+  <text x="285" y="188" font-size="12" fill="#27ae60">Так → перехід до кроку 3</text>
+
+  <rect x="275" y="206" width="195" height="66" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="285" y="226" font-size="12" font-weight="700" fill="#c0392b">Якщо пакета немає:</text>
+  <text x="285" y="246" font-size="12" fill="#1a1a1a">Пошук затвердженого ADR</text>
+  <text x="285" y="262" font-size="12" fill="#c0392b">Немає ADR → блокування</text>
+
+  <!-- Стрілка Блок 2 -> Блок 3 -->
+  <line x1="480" y1="163" x2="508" y2="163" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Блок 3: Ліцензійний аудит -->
+  <rect x="510" y="75" width="215" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="522" y="98" font-size="13" font-weight="700" fill="#1a1a1a">3. Ліцензійний аудит</text>
+  <text x="522" y="116" font-size="12" fill="#6b7280">Юридична чистота коду</text>
+
+  <rect x="520" y="128" width="195" height="70" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="530" y="150" font-size="12" font-weight="700" fill="#27ae60">Дозволені ліцензії</text>
+  <text x="530" y="170" font-size="12" fill="#1a1a1a">• MIT, Apache 2.0, BSD</text>
+  <text x="530" y="188" font-size="12" fill="#6b7280">Безпечні для продукту</text>
+
+  <rect x="520" y="206" width="195" height="66" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="530" y="226" font-size="12" font-weight="700" fill="#c0392b">Токсичний копілефт</text>
+  <text x="530" y="246" font-size="12" fill="#1a1a1a">• GPL v2/v3, AGPL, SSPL</text>
+  <text x="530" y="262" font-size="12" fill="#c0392b">Копілефт → блокування</text>
+
+  <!-- Стрілка Блок 3 -> Блок 4 -->
+  <line x1="725" y1="163" x2="753" y2="163" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 4: Схвалений допуск -->
+  <rect x="755" y="75" width="175" height="210" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="767" y="98" font-size="13" font-weight="700" fill="#27ae60">4. Митний допуск</text>
+  <text x="767" y="116" font-size="12" fill="#6b7280">Усі вимоги виконано</text>
+
+  <rect x="765" y="128" width="155" height="144" rx="6" fill="white" stroke="#27ae60"/>
+  <text x="775" y="152" font-size="12" font-weight="700" fill="#27ae60">✓ Допуск до злиття</text>
+  <text x="775" y="176" font-size="12" fill="#1a1a1a">• Пакети узгоджені</text>
+  <text x="775" y="198" font-size="12" fill="#1a1a1a">• Ліцензії чисті</text>
+  <text x="775" y="220" font-size="12" fill="#1a1a1a">• Є схвалений ADR</text>
+  <text x="775" y="244" font-size="12" fill="#27ae60">Дозвіл на код-рев'ю</text>
+  <text x="775" y="260" font-size="12" fill="#6b7280">PR готовий до merge</text>
+
+  <!-- ==================== СТРІЛКИ ВНИЗ: ПОРУШЕННЯ МИТНИХ ПРАВИЛ ==================== -->
+  <!-- Від Блоку 2 вниз -->
+  <line x1="372" y1="285" x2="372" y2="318" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Від Блоку 3 вниз -->
+  <line x1="617" y1="285" x2="617" y2="318" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- ==================== РЯДОК 2: НАСЛІДКИ ТА ЗАХИСТ ==================== -->
+
+  <!-- Блок 5: Архітектурний захист -->
+  <rect x="30" y="320" width="205" height="175" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="42" y="344" font-size="13" font-weight="700" fill="#2457d6">Архітектурний бар'єр</text>
+  <text x="42" y="362" font-size="12" fill="#6b7280">Мета митного контролю</text>
+  <text x="42" y="388" font-size="12" fill="#1a1a1a">• Захист від роздування коду</text>
+  <text x="42" y="410" font-size="12" fill="#1a1a1a">• Захист від атак supply chain</text>
+  <text x="42" y="432" font-size="12" fill="#1a1a1a">• Бар'єр для вірусних ліцензій</text>
+  <text x="42" y="454" font-size="12" fill="#1a1a1a">• Збереження контролю стеку</text>
+  <text x="42" y="478" font-size="12" font-weight="700" fill="#2457d6">Підрядник поважає правила</text>
+
+  <!-- Блок 6: Митне блокування PR -->
+  <rect x="265" y="320" width="320" height="175" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="277" y="344" font-size="13" font-weight="700" fill="#c0392b">Митне блокування (Customs Gate FAILED)</text>
+  <text x="277" y="362" font-size="12" fill="#6b7280">Автоматична зупинка несанкціонованого PR</text>
+
+  <rect x="275" y="372" width="300" height="110" rx="6" fill="white" stroke="#c0392b"/>
+  <text x="288" y="394" font-size="12" font-weight="700" fill="#c0392b">Статус злиття: ✗ BLOCKED</text>
+  <text x="288" y="416" font-size="12" fill="#1a1a1a">• Кнопка Merge у репозиторії вимкнена</text>
+  <text x="288" y="436" font-size="12" fill="#1a1a1a">• Фіксація несанкціонованої залежності</text>
+  <text x="288" y="456" font-size="12" fill="#c0392b">• Відхилення без суб'єктивних суперечок</text>
+  <text x="288" y="472" font-size="12" fill="#6b7280">Автоматичний захист кодової бази</text>
+
+  <!-- Стрілка Блок 6 -> Блок 7 -->
+  <line x1="585" y1="427" x2="613" y2="427" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Блок 7: Інлайн-коментар бота через API -->
+  <rect x="615" y="320" width="315" height="175" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="627" y="344" font-size="13" font-weight="700" fill="#2457d6">Інлайн-коментар бота через API</text>
+  <text x="627" y="362" font-size="12" fill="#6b7280">Алгоритмічний фідбек підряднику в PR</text>
+
+  <rect x="625" y="372" width="295" height="110" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="638" y="394" font-size="12" font-weight="700" fill="#2457d6">Повідомлення бота у diff маніфесту:</text>
+  <text x="638" y="416" font-size="12" fill="#c0392b">«Виявлено несанкціонований пакет: lib-xyz»</text>
+  <text x="638" y="436" font-size="12" fill="#1a1a1a">Для додавання нового пакета обов'язково:</text>
+  <text x="638" y="456" font-size="12" fill="#2457d6">1. Скласти ADR з технічним обґрунтуванням</text>
+  <text x="638" y="472" font-size="12" fill="#2457d6">2. Отримати схвалення архітектора»</text>
+</svg>

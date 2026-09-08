@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Матриця бар'єрів приймання системи (Bootstrap Acceptance Gates)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Автоматизована перевірка відчужуваності кодової бази з чистого аркуша в ізольованому стенді</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: МАТРИЦЯ 4 ГЕЙТІВ ==================== -->
+  <rect x="24" y="74" width="652" height="364" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="350" y="98" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Матриця наскрізної валідації в ізольованому стенді</text>
+  <text x="350" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Послідовне проходження автоматичних гейтів від стану «чистого аркуша»</text>
+
+  <!-- РЯДОК 1: ГЕЙТ ЗБІРКИ -->
+  <rect x="36" y="130" width="628" height="68" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="152" font-size="13" font-weight="700" fill="#2457d6">Гейт 1: Герметична збірка</text>
+  <text x="48" y="170" font-size="12" fill="#6b7280">Ізольований контейнер</text>
+  <text x="48" y="186" font-size="12" fill="#1a1a1a">Без кешу та локальних env</text>
+
+  <text x="236" y="152" font-size="12" font-weight="700" fill="#1a1a1a">Критерії відчужуваності:</text>
+  <text x="236" y="170" font-size="12" fill="#1a1a1a">• Фіксація версій у lockfile, аудит SBOM</text>
+  <text x="236" y="186" font-size="12" fill="#6b7280">• Блокування приватних пакетів і CVE</text>
+
+  <text x="536" y="167" font-size="12" font-weight="700" fill="#1a1a1a">SLA ≤ 90 с</text>
+  <rect x="600" y="150" width="54" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="627" y="167" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">PASS ✓</text>
+
+  <!-- РЯДОК 2: ГЕЙТ ІНФРАСТРУКТУРИ -->
+  <rect x="36" y="206" width="628" height="68" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="228" font-size="13" font-weight="700" fill="#2457d6">Гейт 2: Інфраструктура</text>
+  <text x="48" y="246" font-size="12" fill="#6b7280">Docker Compose / k8s</text>
+  <text x="48" y="262" font-size="12" fill="#1a1a1a">Підняття сервісів з нуля</text>
+
+  <text x="236" y="228" font-size="12" font-weight="700" fill="#1a1a1a">Критерії відчужуваності:</text>
+  <text x="236" y="246" font-size="12" fill="#1a1a1a">• Підняття БД, Redis та черг повідомлень</text>
+  <text x="236" y="262" font-size="12" fill="#6b7280">• Успішний healthcheck і готовність сервісів</text>
+
+  <text x="536" y="243" font-size="12" font-weight="700" fill="#1a1a1a">SLA ≤ 60 с</text>
+  <rect x="600" y="226" width="54" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="627" y="243" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">PASS ✓</text>
+
+  <!-- РЯДОК 3: ГЕЙТ СХЕМИ ТА ДАНИХ -->
+  <rect x="36" y="282" width="628" height="68" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="304" font-size="13" font-weight="700" fill="#2457d6">Гейт 3: Схема та дані</text>
+  <text x="48" y="322" font-size="12" fill="#6b7280">Міграції від V0 до V_max</text>
+  <text x="48" y="338" font-size="12" fill="#1a1a1a">Ідемпотентність і seed</text>
+
+  <text x="236" y="304" font-size="12" font-weight="700" fill="#1a1a1a">Критерії відчужуваності:</text>
+  <text x="236" y="322" font-size="12" fill="#1a1a1a">• Накатування міграцій без ручних правок</text>
+  <text x="236" y="338" font-size="12" fill="#6b7280">• Перевірка відкату (down) та seed-даних</text>
+
+  <text x="536" y="319" font-size="12" font-weight="700" fill="#1a1a1a">Rollback OK</text>
+  <rect x="600" y="302" width="54" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="627" y="319" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">PASS ✓</text>
+
+  <!-- РЯДОК 4: ГЕЙТ SMOKE-ТЕСТІВ -->
+  <rect x="36" y="358" width="628" height="68" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="380" font-size="13" font-weight="700" fill="#2457d6">Гейт 4: Smoke-тести</text>
+  <text x="48" y="398" font-size="12" fill="#6b7280">End-to-End сценарії</text>
+  <text x="48" y="414" font-size="12" fill="#1a1a1a">Критичні потоки API</text>
+
+  <text x="236" y="380" font-size="12" font-weight="700" fill="#1a1a1a">Критерії відчужуваності:</text>
+  <text x="236" y="398" font-size="12" fill="#1a1a1a">• Проходження операцій через публічні API</text>
+  <text x="236" y="414" font-size="12" fill="#6b7280">• Відсутність жорстко зашитих локальних шляхів/хостів</text>
+
+  <text x="536" y="395" font-size="12" font-weight="700" fill="#1a1a1a">100% Green</text>
+  <rect x="600" y="378" width="54" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="627" y="395" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">PASS ✓</text>
+
+  <!-- З'єднувальна стрілка до панелі звіту -->
+  <line x1="664" y1="280" x2="682" y2="280" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ПАСПОРТ ВІДЧУЖУВАНОСТІ ==================== -->
+  <rect x="692" y="74" width="244" height="364" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="814" y="98" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Паспорт відчужуваності</text>
+  <text x="814" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Handover Acceptance Report</text>
+
+  <!-- Картка 1: Підсумок перевірок -->
+  <rect x="704" y="130" width="220" height="74" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="716" y="148" font-size="12" font-weight="700" fill="#1a1a1a">Результати матриці:</text>
+  <text x="716" y="166" font-size="12" fill="#27ae60">✓ 1. Hermetic Build: OK</text>
+  <text x="716" y="182" font-size="12" fill="#27ae60">✓ 2. Infra Bootstrap: OK</text>
+  <text x="716" y="196" font-size="12" fill="#27ae60">✓ 3. Schema &amp; Smoke: OK</text>
+
+  <!-- Картка 2: Правило консенсусу -->
+  <rect x="704" y="212" width="220" height="92" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="716" y="230" font-size="12" font-weight="700" fill="#2457d6">Критерій відчужуваності:</text>
+  <text x="716" y="250" font-size="12" fill="#1a1a1a">Усі 4 гейти = PASS ✓</text>
+  <text x="716" y="270" font-size="12" fill="#6b7280">Якщо хоча б 1 FAIL —</text>
+  <text x="716" y="290" font-size="12" font-weight="700" fill="#c0392b">система НЕ є відчужуваною!</text>
+
+  <!-- Картка 3: Фінальний вердикт -->
+  <rect x="704" y="312" width="220" height="114" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="814" y="332" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">ВЕРДИКТ: ПРИЙНЯТО</text>
+  <text x="716" y="354" font-size="12" fill="#1a1a1a">• Повна автономність коду</text>
+  <text x="716" y="372" font-size="12" fill="#1a1a1a">• 0 прихованих залежностей</text>
+  <text x="716" y="390" font-size="12" fill="#6b7280">• Детерміноване розгортання</text>
+  <text x="716" y="410" font-size="12" font-weight="700" fill="#27ae60">Акт передачі затверджено</text>
+</svg>

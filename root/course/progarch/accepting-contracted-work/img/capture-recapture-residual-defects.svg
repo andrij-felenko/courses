@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модель Лінкольна-Петерсена: оцінка прихованих дефектів</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Гіперболічний колапс оцінки: катастрофічне зростання залишкових багів при падінні Mutation Score нижче 70%</text>
+
+  <!-- ==================== ЛІВА КОЛОНКА: ГРАФІК МОДЕЛІ ==================== -->
+  <rect x="20" y="76" width="580" height="452" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="36" y="100" font-size="14" font-weight="700" fill="#1a1a1a">Крива залишкових дефектів N_rem(MS) = n · (1 - MS) / MS</text>
+  <text x="36" y="118" font-size="12" fill="#6b7280">Розрахунок для системи з n = 8 знайденими дефектами під час аудиту</text>
+
+  <!-- СМУГИ ЗОН УГОРІ ПЛОТТЕРУ (над графіком) -->
+  <rect x="80" y="130" width="326" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="243" y="147" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Зона катастрофічного ризику: MS &lt; 70% (REJECT)</text>
+
+  <rect x="418" y="130" width="142" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="489" y="147" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Зона надійності: MS ≥ 70%</text>
+
+  <!-- ВЕРТИКАЛЬНА РОЗДІЛЬНА ЛІНІЯ ПОРОГУ 70% (x=416) -->
+  <line x1="416" y1="162" x2="416" y2="440" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5,4"/>
+
+  <!-- СІТКА ГРАФІКА (горизонтальні лінії) -->
+  <line x1="80" y1="440" x2="560" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="80" y1="370" x2="560" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="300" x2="560" y2="300" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="230" x2="560" y2="230" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="162" x2="560" y2="162" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- ВЕРТИКАЛЬНА ВІСЬ Y (x=80) -->
+  <line x1="80" y1="162" x2="80" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Позначки Y-осі (ліворуч від осі x=80) -->
+  <text x="72" y="444" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="72" y="374" font-size="12" fill="#6b7280" text-anchor="end">10</text>
+  <text x="72" y="304" font-size="12" fill="#6b7280" text-anchor="end">20</text>
+  <text x="72" y="234" font-size="12" fill="#6b7280" text-anchor="end">30</text>
+  <text x="72" y="166" font-size="12" fill="#6b7280" text-anchor="end">40+</text>
+
+  <!-- Підпис Y-осі -->
+  <text x="36" y="146" font-size="12" font-weight="700" fill="#1a1a1a">N_rem</text>
+
+  <!-- КРИВА ГІПЕРБОЛИ ЛІНКОЛЬНА-ПЕТЕРСЕНА -->
+  <path d="M160,162 C175,220 200,280 230,320 C260,360 300,390 350,410 C400,425 470,435 560,440" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- ТОЧКИ НА КРИВІЙ ТА ПІДПИСИ ЗНАЧЕНЬ -->
+  <!-- Точка 1: MS = 20% (x=176, y=210) -> N ≈ 32 -->
+  <circle cx="176" cy="210" r="4.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="186" y="206" font-size="12" font-weight="700" fill="#c0392b">MS 20%: N ≈ 32</text>
+
+  <!-- Точка 2: MS = 30% (x=230, y=320) -> N ≈ 19 -->
+  <circle cx="230" cy="320" r="4.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="240" y="316" font-size="12" font-weight="700" fill="#c0392b">MS 30%: N ≈ 19</text>
+
+  <!-- Точка 3: MS = 50% (x=330, y=400) -> N = 8 -->
+  <circle cx="330" cy="400" r="4.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="340" y="394" font-size="12" font-weight="700" fill="#c0392b">MS 50%: N = 8</text>
+
+  <!-- Точка 4: MS = 70% (x=416, y=424) -> N ≈ 3.4 (Порогова точка) -->
+  <circle cx="416" cy="424" r="5.5" fill="#2457d6" stroke="#ffffff" stroke-width="2"/>
+  <text x="348" y="432" font-size="12" font-weight="700" fill="#2457d6">MS 70%: N ≈ 3.4</text>
+
+  <!-- Точка 5: MS = 80% (x=464, y=434) -> N = 2.0 -->
+  <circle cx="464" cy="434" r="4.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="474" y="426" font-size="12" font-weight="700" fill="#27ae60">MS 80%: N = 2</text>
+
+  <!-- Точка 6: MS = 100% (x=560, y=440) -> N = 0 -->
+  <circle cx="560" cy="440" r="4.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Позначки X-осі (під лінією y=440) -->
+  <text x="80" y="462" font-size="12" fill="#6b7280" text-anchor="middle">0%</text>
+  <text x="176" y="462" font-size="12" fill="#6b7280" text-anchor="middle">20%</text>
+  <text x="272" y="462" font-size="12" fill="#6b7280" text-anchor="middle">40%</text>
+  <text x="368" y="462" font-size="12" fill="#6b7280" text-anchor="middle">60%</text>
+  <text x="416" y="480" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">70% (Поріг)</text>
+  <text x="464" y="462" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">80%</text>
+  <text x="560" y="462" font-size="12" fill="#6b7280" text-anchor="middle">100%</text>
+
+  <!-- Підпис X-осі -->
+  <text x="320" y="506" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Мутаційний бал тестового набору підрядника (Mutation Score, MS)</text>
+
+  <!-- ==================== ПРАВА КОЛОНКА: АНАЛІТИЧНІ КАРТКИ ==================== -->
+  <!-- КАРТКА 1: МАТЕМАТИЧНА МОДЕЛЬ -->
+  <rect x="616" y="76" width="324" height="142" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="632" y="100" font-size="13" font-weight="700" fill="#2457d6">Модель посіву дефектів Міллса</text>
+  <rect x="632" y="108" width="292" height="38" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="778" y="132" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">N_rem = n · (1 - MS) / MS</text>
+  <text x="632" y="164" font-size="12" fill="#1a1a1a">• n — кількість знайдених багів (тут n = 8)</text>
+  <text x="632" y="182" font-size="12" fill="#1a1a1a">• MS = s / S — мутаційна чутливість тестів</text>
+  <text x="632" y="200" font-size="12" fill="#6b7280">• s — вбиті мутанти, S — посіяні мутанти</text>
+
+  <!-- КАРТКА 2: ФЕНОМЕН 70% -->
+  <rect x="616" y="230" width="324" height="142" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="632" y="254" font-size="13" font-weight="700" fill="#c0392b">Чому поріг саме 70% (Критичний перегин)</text>
+  <text x="632" y="274" font-size="12" fill="#1a1a1a">• При MS ≥ 70%: нахил плавний, оцінка стійка</text>
+  <text x="632" y="292" font-size="12" fill="#1a1a1a">• При MS &lt; 70%: знаменник прямує до нуля,</text>
+  <text x="632" y="308" font-size="12" fill="#1a1a1a">  крива переходить у фазу вертикального злету</text>
+  <text x="632" y="328" font-size="12" fill="#c0392b">• Дисперсія Var(N) злітає в нескінченність</text>
+  <text x="632" y="348" font-size="12" fill="#6b7280">• Випадковий пропуск 1 мутанта ламає оцінку</text>
+
+  <!-- КАРТКА 3: ПРИЙМАЛЬНИЙ ШЛЮЗ -->
+  <rect x="616" y="384" width="324" height="144" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="632" y="408" font-size="13" font-weight="700" fill="#27ae60">Контрактний шлюз (Acceptance Gate)</text>
+  <text x="632" y="430" font-size="12" fill="#1a1a1a">1. MS ≥ 80%: ядро приймається без застережень</text>
+  <text x="632" y="448" font-size="12" fill="#1a1a1a">2. 70% ≤ MS &lt; 80%: допустимо для периферії</text>
+  <text x="632" y="466" font-size="12" fill="#c0392b">3. MS &lt; 70%: відхилення коду (REJECT_BUILD)</text>
+  <text x="632" y="486" font-size="12" fill="#6b7280">Слабкі тести не дають змоги довести надійність;</text>
+  <text x="632" y="504" font-size="12" font-weight="700" fill="#27ae60">✓ Замовник зупиняє підписання акта до правок</text>
+</svg>

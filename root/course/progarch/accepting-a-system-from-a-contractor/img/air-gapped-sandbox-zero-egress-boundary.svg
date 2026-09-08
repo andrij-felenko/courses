@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мережева ізоляція пісочниці: Zero-Egress та блокування викликів</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Герметичний контур (--network none): перехоплення сокетів та аудит несанкціонованих дзвінків додому</text>
+
+  <!-- ================= ЗОНА 1: ГЕРМЕТИЧНА ПІСОЧНИЦЯ ================= -->
+  <rect x="25" y="68" width="375" height="294" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="212" y="89" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Герметична пісочниця (Sandbox)</text>
+  <rect x="142" y="97" width="140" height="20" rx="10" fill="#ffffff" stroke="#2457d6"/>
+  <text x="212" y="111" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Контур: --network none</text>
+
+  <!-- Підпанель A: Дозволений локальний стек -->
+  <rect x="37" y="126" width="351" height="92" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="47" y="144" font-size="12" font-weight="bold" fill="#27ae60">Дозволена локальна взаємодія (Loopback only)</text>
+  <text x="47" y="162" font-size="12" fill="#1a1a1a">• Інтерфейс: lo (127.0.0.1) — внутрішні виклики</text>
+  <text x="47" y="180" font-size="12" fill="#1a1a1a">• Локальна тестова БД та моки залежностей</text>
+  <text x="47" y="198" font-size="12" fill="#6b7280">• Повна автономність підсистеми у вакуумі</text>
+
+  <!-- Підпанель B: Несанкціонований дзвінок додому -->
+  <rect x="37" y="228" width="351" height="120" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="47" y="246" font-size="12" font-weight="bold" fill="#c0392b">Несанкціонована спроба зв&apos;язку (Phone Home)</text>
+  <text x="47" y="266" font-size="12" fill="#1a1a1a">• Прихований виклик: telemetry.vendor.com</text>
+  <text x="47" y="286" font-size="12" fill="#1a1a1a">• Спроба відправки метрик / перевірки ліцензії</text>
+  <text x="47" y="306" font-size="12" font-weight="bold" fill="#c0392b">• Системний виклик ядра: sys_connect()</text>
+  <text x="47" y="328" font-size="12" fill="#6b7280">Трасування сокета через eBPF / auditd</text>
+
+  <!-- Стрілка блокування виклику з пісочниці у бар'єр -->
+  <line x1="388" y1="300" x2="418" y2="300" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- ================= ЗОНА 2: БАР'ЄР ПЕРЕХОПЛЕННЯ ================= -->
+  <rect x="420" y="68" width="230" height="294" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="535" y="89" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Бар&apos;єр перехоплення</text>
+  <rect x="465" y="97" width="140" height="20" rx="10" fill="#ffffff" stroke="#c0392b"/>
+  <text x="535" y="111" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">eBPF / Zero-Egress</text>
+
+  <!-- Блок опису блокування -->
+  <rect x="432" y="126" width="206" height="222" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="442" y="146" font-size="12" font-weight="bold" fill="#c0392b">РЕЗУЛЬТАТ БЛОКУВАННЯ:</text>
+  <text x="442" y="168" font-size="12" font-weight="bold" fill="#c0392b">Помилка: ENETUNREACH</text>
+  <text x="442" y="190" font-size="12" fill="#1a1a1a">• Інтерфейс eth0 відсутній</text>
+  <text x="442" y="210" font-size="12" fill="#1a1a1a">• Шлюз за замовчуванням: НІ</text>
+  <text x="442" y="230" font-size="12" fill="#1a1a1a">• Сокет негайно відхилено</text>
+  <text x="442" y="250" font-size="12" fill="#1a1a1a">• Стек виклику збережено</text>
+  <text x="442" y="272" font-size="12" fill="#6b7280">Перехоплення через ptrace</text>
+  <text x="442" y="292" font-size="12" fill="#6b7280">Фіксація порушення SLA</text>
+  <text x="442" y="322" font-size="12" font-weight="bold" fill="#c0392b">СТАТУС: ЗАБЛОКОВАНО</text>
+
+  <!-- Стрілка-бар'єр у зовнішній світ (перекреслена) -->
+  <line x1="650" y1="172" x2="668" y2="172" stroke="#c0392b" stroke-width="2" stroke-dasharray="3 3" marker-end="url(#arr-red)"/>
+
+  <!-- ================= ЗОНА 3: СЕРВЕРИ ПІДРЯДНИКА ТА АУДИТ ================= -->
+  <rect x="670" y="68" width="265" height="294" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="802" y="89" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Аудит та сервери підрядника</text>
+  <rect x="727" y="97" width="150" height="20" rx="10" fill="#ffffff" stroke="#6b7280"/>
+  <text x="802" y="111" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Зовнішнє середовище</text>
+
+  <!-- Підпанель: Хмара підрядника -->
+  <rect x="682" y="126" width="241" height="92" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="692" y="144" font-size="12" font-weight="bold" fill="#6b7280">Хмара підрядника (External)</text>
+  <text x="692" y="162" font-size="12" fill="#1a1a1a">• telemetry.vendor.com</text>
+  <text x="692" y="180" font-size="12" fill="#1a1a1a">• licensing.contractor.com</text>
+  <text x="692" y="198" font-size="12" font-weight="bold" fill="#c0392b">• Трафік: 0 B RX / 0 B TX</text>
+
+  <!-- Підпанель: Звіт аудиту -->
+  <rect x="682" y="228" width="241" height="120" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="692" y="246" font-size="12" font-weight="bold" fill="#c0392b">Звіт аудиту Zero-Egress:</text>
+  <text x="692" y="266" font-size="12" font-weight="bold" fill="#27ae60">TX трафік: 0 байт (PASSED)</text>
+  <text x="692" y="286" font-size="12" font-weight="bold" fill="#c0392b">Phone-home спроб: 1 (FAILED)</text>
+  <text x="692" y="306" font-size="12" fill="#1a1a1a">Викрито приховану залежність</text>
+  <text x="692" y="330" font-size="12" font-weight="bold" fill="#c0392b">Шлюз: ПРИЙМАННЯ ЗУПИНЕНО</text>
+
+  <!-- ================= НИЖНІЙ БАР'ЄР ПРИЙМАННЯ ================= -->
+  <rect x="25" y="378" width="910" height="64" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="402" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Критерій технічного суверенітету замовника (Zero-Egress Gate)</text>
+  <text x="480" y="424" font-size="12" fill="#2457d6" text-anchor="middle">Система приймається лише тоді, коли вона на 100% працездатна у герметичному вакуумі без неявних дзвінків додому</text>
+</svg>

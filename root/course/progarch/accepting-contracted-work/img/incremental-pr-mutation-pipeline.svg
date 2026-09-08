@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Інкрементальний мутаційний аналіз у конвеєрі CI</text>
+  <text x="480" y="48" font-size="13" text-anchor="middle" fill="#6b7280">Три ступені фільтрації скорочують час перевірки з годин до секунд без втрати глибини контролю</text>
+
+  <!-- ЕТАП 1: Відбір за Git Diff -->
+  <rect x="30" y="68" width="280" height="248" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="40" y="78" width="260" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="99" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">1. Відбір за Git Diff</text>
+
+  <rect x="40" y="118" width="260" height="64" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="52" y="138" font-size="12" font-weight="700" fill="#1a1a1a">Вхідні зміни PR (base..head):</text>
+  <text x="52" y="156" font-size="12" fill="#6b7280">• Змінено 42 рядки у 2 файлах</text>
+  <text x="52" y="172" font-size="12" fill="#6b7280">• 85 000 рядків не чіпаються</text>
+
+  <rect x="40" y="190" width="260" height="114" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="52" y="210" font-size="12" font-weight="700" fill="#2457d6">Мутації лише у diff hunks:</text>
+  <text x="52" y="230" font-size="12" fill="#1a1a1a">• Оператори: умови, межі, логіка</text>
+  <text x="52" y="250" font-size="12" fill="#27ae60">✔ Створено: 18 мутантів</text>
+  <text x="52" y="268" font-size="12" fill="#6b7280">  (замість 4 800+ по системі)</text>
+  <text x="52" y="290" font-size="12" font-weight="700" fill="#27ae60">Економія обчислень: 99.6%</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="310" y1="192" x2="338" y2="192" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ЕТАП 2: Матриця покриття -->
+  <rect x="340" y="68" width="280" height="248" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="350" y="78" width="260" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="99" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">2. Матриця покриття</text>
+
+  <rect x="350" y="118" width="260" height="64" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="362" y="138" font-size="12" font-weight="700" fill="#1a1a1a">Coverage Matrix (трасування):</text>
+  <text x="362" y="156" font-size="12" fill="#6b7280">• Загальний набір: 650 тестів</text>
+  <text x="362" y="172" font-size="12" fill="#6b7280">• Знято карту покриття рядків</text>
+
+  <rect x="350" y="190" width="260" height="114" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="362" y="210" font-size="12" font-weight="700" fill="#2457d6">Impacted Tests Selection:</text>
+  <text x="362" y="230" font-size="12" fill="#1a1a1a">• Для кожного мутанта відібрано</text>
+  <text x="362" y="248" font-size="12" fill="#1a1a1a">  лише тести, що покривають рядок</text>
+  <text x="362" y="270" font-size="12" fill="#27ae60">✔ Всього 2–4 тести на мутанта</text>
+  <text x="362" y="290" font-size="12" font-weight="700" fill="#27ae60">Відсіяно: 98% зайвих тестів</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="620" y1="192" x2="648" y2="192" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ЕТАП 3: Раннє переривання Fail-Fast -->
+  <rect x="650" y="68" width="280" height="248" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="660" y="78" width="260" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="790" y="99" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">3. Раннє переривання Fail-Fast</text>
+
+  <rect x="660" y="118" width="260" height="88" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="672" y="138" font-size="12" font-weight="700" fill="#27ae60">Зупинка на першому падінні:</text>
+  <text x="672" y="158" font-size="12" fill="#1a1a1a">• Тест упав = Мутант убитий</text>
+  <text x="672" y="176" font-size="12" fill="#6b7280">  Решта тестів скасовуються</text>
+  <text x="672" y="194" font-size="12" fill="#27ae60">✔ Економія часу в 3 рази</text>
+
+  <rect x="660" y="214" width="260" height="90" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="672" y="234" font-size="12" font-weight="700" fill="#c0392b">Fail-Fast поріг якості DoD:</text>
+  <text x="672" y="254" font-size="12" fill="#1a1a1a">• Якщо вижило понад 20% вад</text>
+  <text x="672" y="272" font-size="12" fill="#c0392b">• Негайний аборт конвеєра CI</text>
+  <text x="672" y="292" font-size="12" font-weight="700" fill="#c0392b">Результат: Швидка зупинка</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Порівняння ефективності -->
+  <rect x="30" y="332" width="900" height="104" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="352" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Порівняння ефективності: чому інкрементальний гейт придатний для кожного PR</text>
+
+  <rect x="44" y="362" width="424" height="64" rx="6" fill="white" stroke="#c0392b"/>
+  <text x="56" y="382" font-size="12" font-weight="700" fill="#c0392b">Без оптимізацій (Повний прогін):</text>
+  <text x="56" y="400" font-size="12" fill="#1a1a1a">• 4 800 мутантів × 650 тестів = 3 120 000 запусків</text>
+  <text x="56" y="416" font-size="12" fill="#6b7280">• Тривалість: ~3–4 години | Блокує роботу команди</text>
+
+  <rect x="482" y="362" width="436" height="64" rx="6" fill="white" stroke="#27ae60"/>
+  <text x="494" y="382" font-size="12" font-weight="700" fill="#27ae60">Інкрементальний гейт (PR Pipeline):</text>
+  <text x="494" y="400" font-size="12" fill="#1a1a1a">• 18 мутантів × 2 тести (в середньому) = 36 запусків</text>
+  <text x="494" y="416" font-size="12" fill="#27ae60">✔ Тривалість: 35–60 секунд | Миттєвий об'єктивний фідбек</text>
+</svg>

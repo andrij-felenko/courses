@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Митний гейт контрактної верифікації в CI підрядника (Can-I-Deploy)</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Автоматизоване блокування злиття пул-реквесту до підтвердження матриці сумісності у Pact Broker</text>
+
+  <!-- ==================== РЯДОК 1: КОНВЕЄР ВЕРИФІКАЦІЇ ==================== -->
+
+  <!-- Блок 1: Пул-реквест підрядника -->
+  <rect x="24" y="72" width="264" height="122" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="36" y="94" font-size="13" font-weight="700" fill="#1a1a1a">1. Пул-реквест підрядника (PR)</text>
+  <text x="36" y="112" font-size="12" fill="#6b7280">Новий код або модифікація API</text>
+  <rect x="36" y="122" width="240" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="141" font-size="12" fill="#1a1a1a">• Зміни бізнес-логіки та DTO</text>
+  <text x="46" y="157" font-size="12" fill="#1a1a1a">• Тригер вебхука CI-конвеєра</text>
+  <text x="46" y="173" font-size="12" fill="#2457d6">• PR очікує дозволу на злиття</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="288" y1="133" x2="320" y2="133" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="304" y="125" font-size="12" fill="#2457d6" text-anchor="middle">PR</text>
+
+  <!-- Блок 2: CI Provider Verification -->
+  <rect x="324" y="72" width="312" height="122" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="336" y="94" font-size="13" font-weight="700" fill="#2457d6">2. Provider Verification (CI)</text>
+  <text x="336" y="112" font-size="12" fill="#6b7280">Ізольоване тестування без стейджингу</text>
+  <rect x="336" y="122" width="288" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="346" y="141" font-size="12" fill="#1a1a1a">• Підйом емулятора API провайдера</text>
+  <text x="346" y="157" font-size="12" fill="#1a1a1a">• Відтворення реальних запитів Pact</text>
+  <text x="346" y="173" font-size="12" fill="#1a1a1a">• Валідація схем і кодів відповідей</text>
+
+  <!-- Стрілка 2 <-> 3 (верхня: контракт, нижня: звіт) -->
+  <line x1="670" y1="120" x2="638" y2="120" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="636" y1="152" x2="668" y2="152" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 3: Реєстр Pact Broker -->
+  <rect x="672" y="72" width="264" height="122" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="684" y="94" font-size="13" font-weight="700" fill="#1a1a1a">3. Реєстр Pact Broker</text>
+  <text x="684" y="112" font-size="12" fill="#6b7280">Матриця сумісності версій</text>
+  <rect x="684" y="122" width="240" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="694" y="141" font-size="12" fill="#1a1a1a">• Контракти Замовника (prod/stage)</text>
+  <text x="694" y="157" font-size="12" fill="#1a1a1a">• Таблиця матриці: Provider ↔ Client</text>
+  <text x="694" y="173" font-size="12" fill="#2457d6">• Фіксація статусів верифікацій</text>
+
+  <!-- Стрілка 3 -> Гейт (вертикальна) -->
+  <line x1="706" y1="194" x2="706" y2="218" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="716" y="210" font-size="12" fill="#6b7280">Статус матриці</text>
+
+  <!-- ==================== РЯДОК 2: МИТНИЙ ГЕЙТ ==================== -->
+  <rect x="180" y="222" width="600" height="68" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="242" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">МИТНИЙ ГЕЙТ У CI: pact-broker can-i-deploy</text>
+  <text x="480" y="260" font-size="12" fill="#2457d6" text-anchor="middle">pact-broker can-i-deploy --pacticipant Provider --version $GIT_SHA --to-environment prod</text>
+  <text x="480" y="278" font-size="12" fill="#6b7280" text-anchor="middle">Оракул приймання: опитування матриці сумісності брокера перед злиттям коду</text>
+
+  <!-- Стрілки від гейту до результатів -->
+  <!-- Стрілка вниз-ліворуч (FAIL) -->
+  <line x1="247" y1="290" x2="247" y2="316" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <text x="257" y="308" font-size="12" font-weight="700" fill="#c0392b">FAIL: Exit Code 1</text>
+
+  <!-- Стрілка вниз-праворуч (SUCCESS) -->
+  <line x1="713" y1="290" x2="713" y2="316" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <text x="723" y="308" font-size="12" font-weight="700" fill="#27ae60">SUCCESS: Exit Code 0</text>
+
+  <!-- ==================== РЯДОК 3: ВЕРДИКТИ ГЕЙТУ ==================== -->
+
+  <!-- Ліва панель: FAIL -->
+  <rect x="24" y="320" width="446" height="190" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="36" y="332" width="422" height="30" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="247" y="352" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Злиття заблоковано (Contract Breaking Change)</text>
+
+  <rect x="36" y="370" width="422" height="128" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="390" font-size="12" font-weight="700" fill="#c0392b">Діагностика порушення сумісності:</text>
+  <text x="48" y="408" font-size="12" fill="#1a1a1a">• Зміна типу поля: user_id очікувався int, отримано string</text>
+  <text x="48" y="426" font-size="12" fill="#1a1a1a">• Видалено обов'язковий ключ billing_address у тілі відповіді</text>
+  <text x="48" y="444" font-size="12" fill="#1a1a1a">• Зміна поведінки: метод повернув 404 замість узгодженого 400</text>
+  <text x="48" y="464" font-size="12" font-weight="700" fill="#c0392b">Наслідок для приймання:</text>
+  <text x="48" y="482" font-size="12" fill="#6b7280">GitHub/GitLab блокує PR; підрядник усуває баг без суперечок</text>
+
+  <!-- Права панель: SUCCESS -->
+  <rect x="490" y="320" width="446" height="190" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="502" y="332" width="422" height="30" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="713" y="352" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Дозвіл на злиття (100% Backward Compatible)</text>
+
+  <rect x="502" y="370" width="422" height="128" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="514" y="390" font-size="12" font-weight="700" fill="#27ae60">Підтвердження з боку матриці брокера:</text>
+  <text x="514" y="408" font-size="12" fill="#1a1a1a">• Усі контракти діючих сервісів Замовника успішно пройдено</text>
+  <text x="514" y="426" font-size="12" fill="#1a1a1a">• Додано нові необов'язкові поля без зламу існуючих клієнтів</text>
+  <text x="514" y="444" font-size="12" fill="#1a1a1a">• Повна зворотна сумісність із версіями у production та staging</text>
+  <text x="514" y="464" font-size="12" font-weight="700" fill="#27ae60">Наслідок для приймання:</text>
+  <text x="514" y="482" font-size="12" fill="#6b7280">Автоматичне розблокування Merge; гарантія бездефектності</text>
+</svg>

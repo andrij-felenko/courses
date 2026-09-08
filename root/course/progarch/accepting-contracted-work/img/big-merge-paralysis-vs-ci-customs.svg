@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Приймання чужого коду: параліч монолітного злиття проти CI-митниці</text>
+  <text x="480" y="50" font-size="13" text-anchor="middle" fill="#6b7280">Гігантський реліз наприкінці спринту руйнує архітектуру, щоденні малі фільтри гарантують якість</text>
+
+  <!-- ЛІВА КОЛОНКА: Параліч монолітного злиття -->
+  <rect x="30" y="72" width="430" height="362" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+
+  <rect x="42" y="84" width="406" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="245" y="107" font-size="14" font-weight="700" text-anchor="middle" fill="#c0392b">ПАРАЛІЧ ЗЛИТТЯ (Big Bang Merge)</text>
+
+  <rect x="42" y="128" width="406" height="60" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="54" y="148" font-size="12" font-weight="700" fill="#1a1a1a">1. Робота підрядника у відриві від мейну</text>
+  <text x="54" y="166" font-size="11" fill="#6b7280">• Накопичення сотень комітів за 3–4 тижні без інтеграції</text>
+  <text x="54" y="182" font-size="11" fill="#6b7280">• Дрейф архітектури, неконтрольовані сторонні бібліотеки</text>
+
+  <line x1="245" y1="194" x2="245" y2="208" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <rect x="42" y="214" width="406" height="68" rx="6" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="54" y="234" font-size="12" font-weight="700" fill="#c0392b">2. Мега-PR за день до здачі (+4 500 рядків)</text>
+  <text x="54" y="254" font-size="11" fill="#1a1a1a">• Конфлікти злиття, переплутані шари, токсичні ліцензії</text>
+  <text x="54" y="272" font-size="11" fill="#6b7280">• Ручне рев'ю неможливе: команда не бачить архітектурних дір</text>
+
+  <line x1="245" y1="288" x2="245" y2="300" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <rect x="42" y="306" width="406" height="114" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="54" y="328" font-size="12" font-weight="700" fill="#c0392b">3. Наслідки: Капітуляція перед дедлайном</text>
+  <text x="54" y="348" font-size="11" fill="#1a1a1a">✖ «Зливай як є, потім пофіксимо» — поступка під тиском термінів</text>
+  <text x="54" y="367" font-size="11" fill="#1a1a1a">✖ Архітектурна деградація, приховані баги та фальшиві мок-тести</text>
+  <text x="54" y="386" font-size="11" fill="#1a1a1a">✖ Внутрішня команда місяцями розгрібає технічний борг</text>
+  <text x="54" y="407" font-size="11" font-weight="700" fill="#c0392b">Результат: Втрата контролю над кодовою базою</text>
+
+  <!-- РОЗДІЛЮВАЧ VS -->
+  <rect x="465" y="240" width="30" height="24" rx="12" fill="#2457d6"/>
+  <text x="480" y="256" font-size="11" font-weight="700" text-anchor="middle" fill="white">VS</text>
+
+  <!-- ПРАВА КОЛОНКА: Автоматична митниця в CI -->
+  <rect x="500" y="72" width="430" height="362" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+
+  <rect x="512" y="84" width="406" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="715" y="107" font-size="14" font-weight="700" text-anchor="middle" fill="#27ae60">CI-МИТНИЦЯ (Acceptance Customs Gates)</text>
+
+  <rect x="512" y="128" width="406" height="60" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="524" y="148" font-size="12" font-weight="700" fill="#1a1a1a">1. Щоденні невеликі PR (до 200 рядків)</text>
+  <text x="524" y="166" font-size="11" fill="#6b7280">• Підрядник інтегрується безперервно, зміни локальні й осяжні</text>
+  <text x="524" y="182" font-size="11" fill="#27ae60">• Нульовий ризик накопичення прихованих конфліктів у системі</text>
+
+  <line x1="715" y1="194" x2="715" y2="208" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="512" y="214" width="406" height="68" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="524" y="234" font-size="12" font-weight="700" fill="#2457d6">2. Автоматичні ворота контролю (Quality Gates)</text>
+  <text x="524" y="254" font-size="11" fill="#1a1a1a">• Архітектурний лінтинг (заборона перехресних імпортів шарів)</text>
+  <text x="524" y="272" font-size="11" fill="#1a1a1a">• Контроль ліцензій, блокування вразливостей, мутаційні тести</text>
+
+  <line x1="715" y1="288" x2="715" y2="300" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="512" y="306" width="406" height="114" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="524" y="328" font-size="12" font-weight="700" fill="#27ae60">3. Наслідки: Об'єктивне безконфліктне приймання</text>
+  <text x="524" y="348" font-size="11" fill="#1a1a1a">✔ Машина блокує брак до ручного рев'ю — нуль суперечок</text>
+  <text x="524" y="367" font-size="11" fill="#1a1a1a">✔ Рев'ю зосереджене на бізнес-цінності, а не пошуку сміття</text>
+  <text x="524" y="386" font-size="11" fill="#1a1a1a">✔ Повний архітектурний суверенітет власного продукту</text>
+  <text x="524" y="407" font-size="11" font-weight="700" fill="#27ae60">Результат: Швидка інтеграція без деградації системи</text>
+</svg>

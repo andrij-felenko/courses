@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Чотирифазна модель виявлення відмов RIPR у тестуванні</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Досяжність рядка не гарантує виявлення помилки: необхідні послідовне інфікування, поширення та перевірка стану</text>
+
+  <!-- СТРІЛКИ ПЕРЕХОДУ МІЖ ФАЗАМИ -->
+  <line x1="234" y1="126" x2="254" y2="126" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="468" y1="126" x2="490" y2="126" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="704" y1="126" x2="724" y2="126" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ФАЗА 1: REACHABILITY -->
+  <rect x="24" y="76" width="208" height="276" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="88" width="76" height="22" rx="4" fill="#2457d6"/>
+  <text x="74" y="103" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ФАЗА 1: R</text>
+  <text x="120" y="104" font-size="12" font-weight="700" fill="#2457d6">Reachability</text>
+  <text x="36" y="130" font-size="14" font-weight="700" fill="#1a1a1a">Досяжність коду</text>
+
+  <rect x="36" y="142" width="184" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="46" y="160" font-size="12" font-weight="700" fill="#2457d6">Вхідний вплив:</text>
+  <text x="46" y="178" font-size="11" fill="#1a1a1a">Тест виконує ділянку</text>
+  <text x="46" y="194" font-size="11" fill="#1a1a1a">коду, де є мутація</text>
+  <text x="46" y="212" font-size="11" font-weight="700" fill="#2457d6">✓ Рядок покрито в CI</text>
+
+  <rect x="36" y="232" width="184" height="108" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="46" y="250" font-size="12" font-weight="700" fill="#c0392b">Бар'єр маскування:</text>
+  <text x="46" y="268" font-size="11" fill="#1a1a1a">Вхідні дані оминають</text>
+  <text x="46" y="284" font-size="11" fill="#1a1a1a">гілку з дефектом</text>
+  <text x="46" y="304" font-size="11" font-weight="700" fill="#c0392b">Наслідок:</text>
+  <text x="46" y="320" font-size="11" fill="#6b7280">Дефект не активовано</text>
+  <text x="46" y="333" font-size="11" font-weight="700" fill="#c0392b">Мутант спить</text>
+
+  <!-- ФАЗА 2: INFECTION -->
+  <rect x="258" y="76" width="208" height="276" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="270" y="88" width="70" height="22" rx="4" fill="#2457d6"/>
+  <text x="305" y="103" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ФАЗА 2: I</text>
+  <text x="348" y="104" font-size="12" font-weight="700" fill="#2457d6">Infection</text>
+  <text x="270" y="130" font-size="14" font-weight="700" fill="#1a1a1a">Інфікування стану</text>
+
+  <rect x="270" y="142" width="184" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="280" y="160" font-size="12" font-weight="700" fill="#2457d6">Зміна пам'яті:</text>
+  <text x="280" y="178" font-size="11" fill="#1a1a1a">Мутація псує значення</text>
+  <text x="280" y="194" font-size="11" fill="#1a1a1a">локальної змінної</text>
+  <text x="280" y="212" font-size="11" font-weight="700" fill="#2457d6">✓ Стан спотворено</text>
+
+  <rect x="270" y="232" width="184" height="108" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="280" y="250" font-size="12" font-weight="700" fill="#c0392b">Бар'єр маскування:</text>
+  <text x="280" y="268" font-size="11" fill="#1a1a1a">Дефект дає однакове</text>
+  <text x="280" y="284" font-size="11" fill="#1a1a1a">значення (x·1 при x=0)</text>
+  <text x="280" y="304" font-size="11" font-weight="700" fill="#c0392b">Наслідок:</text>
+  <text x="280" y="320" font-size="11" fill="#6b7280">Стан лишився чистим</text>
+  <text x="280" y="333" font-size="11" font-weight="700" fill="#c0392b">Мутант виживає</text>
+
+  <!-- ФАЗА 3: PROPAGATION -->
+  <rect x="494" y="76" width="208" height="276" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="506" y="88" width="76" height="22" rx="4" fill="#2457d6"/>
+  <text x="544" y="103" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ФАЗА 3: P</text>
+  <text x="590" y="104" font-size="12" font-weight="700" fill="#2457d6">Propagation</text>
+  <text x="506" y="130" font-size="14" font-weight="700" fill="#1a1a1a">Поширення дефекту</text>
+
+  <rect x="506" y="142" width="184" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="516" y="160" font-size="12" font-weight="700" fill="#2457d6">Трансляція назовні:</text>
+  <text x="516" y="178" font-size="11" fill="#1a1a1a">Хибний стан сягає</text>
+  <text x="516" y="194" font-size="11" fill="#1a1a1a">повернення з методу</text>
+  <text x="516" y="212" font-size="11" font-weight="700" fill="#2457d6">✓ Дефект у виході</text>
+
+  <rect x="506" y="232" width="184" height="108" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="516" y="250" font-size="12" font-weight="700" fill="#c0392b">Бар'єр маскування:</text>
+  <text x="516" y="268" font-size="11" fill="#1a1a1a">Помилка затирається</text>
+  <text x="516" y="284" font-size="11" fill="#1a1a1a">або гасне у дефолті</text>
+  <text x="516" y="304" font-size="11" font-weight="700" fill="#c0392b">Наслідок:</text>
+  <text x="516" y="320" font-size="11" fill="#6b7280">Вихід здається вірним</text>
+  <text x="516" y="333" font-size="11" font-weight="700" fill="#c0392b">Мутант виживає</text>
+
+  <!-- ФАЗА 4: REVEALABILITY -->
+  <rect x="728" y="76" width="208" height="276" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="740" y="88" width="76" height="22" rx="4" fill="#27ae60"/>
+  <text x="778" y="103" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ФАЗА 4: R</text>
+  <text x="824" y="104" font-size="12" font-weight="700" fill="#27ae60">Revealability</text>
+  <text x="740" y="130" font-size="14" font-weight="700" fill="#1a1a1a">Виявлення в тесті</text>
+
+  <rect x="740" y="142" width="184" height="80" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="750" y="160" font-size="12" font-weight="700" fill="#27ae60">Спрацювання асерту:</text>
+  <text x="750" y="178" font-size="11" fill="#1a1a1a">assert actual ≠ expected</text>
+  <text x="750" y="194" font-size="11" fill="#1a1a1a">Тест ЧЕРВОНІЄ (падає)</text>
+  <text x="750" y="212" font-size="11" font-weight="700" fill="#27ae60">★ МУТАНТ УБИТИЙ</text>
+
+  <rect x="740" y="232" width="184" height="108" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="750" y="250" font-size="12" font-weight="700" fill="#c0392b">Фіктивний тест:</text>
+  <text x="750" y="268" font-size="11" fill="#1a1a1a">Немає асерту або</text>
+  <text x="750" y="284" font-size="11" fill="#1a1a1a">звіряється не той стан</text>
+  <text x="750" y="304" font-size="11" font-weight="700" fill="#c0392b">Наслідок:</text>
+  <text x="750" y="320" font-size="11" fill="#6b7280">Тест лишається зеленим</text>
+  <text x="750" y="333" font-size="11" font-weight="700" fill="#c0392b">Мутант вижив (баг у проді)</text>
+
+  <!-- НИЖНІЙ ПОРІВНЯЛЬНИЙ БЛОК -->
+  <!-- Ліва панель: Рядкове покриття -->
+  <rect x="24" y="372" width="442" height="136" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="36" y="384" width="160" height="22" rx="4" fill="#c0392b"/>
+  <text x="116" y="399" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">РЯДКОВЕ ПОКРИТТЯ</text>
+  <text x="206" y="400" font-size="12" font-weight="700" fill="#c0392b">Перевіряє лише Фазу 1 (Reachability)</text>
+
+  <text x="36" y="426" font-size="11" fill="#1a1a1a">· Якщо рядок виконано — лічильник показує 100% покриття.</text>
+  <text x="36" y="444" font-size="11" fill="#1a1a1a">· Ігнорує стан: не бачить відсутності інфікування та втрати поширення.</text>
+  <text x="36" y="462" font-size="11" fill="#1a1a1a">· Тест без асертів дає повне покриття, створюючи ілюзію надійності.</text>
+  <text x="36" y="486" font-size="11" font-weight="700" fill="#c0392b">Висновок: Line Coverage не захищає від дефектів підрядника.</text>
+
+  <!-- Права панель: Мутаційний аналіз -->
+  <rect x="494" y="372" width="442" height="136" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="506" y="384" width="160" height="22" rx="4" fill="#27ae60"/>
+  <text x="586" y="399" text-anchor="middle" font-size="11" font-weight="700" fill="#ffffff">МУТАЦІЙНИЙ БАЛ</text>
+  <text x="676" y="400" font-size="12" font-weight="700" fill="#27ae60">Вимагає всіх 4 фаз (R ➔ I ➔ P ➔ R)</text>
+
+  <text x="506" y="426" font-size="11" fill="#1a1a1a">· Вносить штучний синтаксичний дефект (мутанта першого порядку).</text>
+  <text x="506" y="444" font-size="11" fill="#1a1a1a">· Мутант убитий лише якщо помилка спотворила стан і звалила тест.</text>
+  <text x="506" y="462" font-size="11" fill="#1a1a1a">· Mutation Score = K / (M - E) вимірює реальну пильність оракула.</text>
+  <text x="506" y="486" font-size="11" font-weight="700" fill="#27ae60">Висновок: об'єктивний математичний критерій приймання коду.</text>
+</svg>

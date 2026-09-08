@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="26" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Регресія USL та довірчий коридор приймання за SLA</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Аналітичний прогноз стелі X_max за вимірами малого стенда викриває неспроможність виконати контракт</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ГРАФІК РЕГРЕСІЇ ТА ДОВІРЧОГО КОРИДОРУ ==================== -->
+  <rect x="24" y="66" width="510" height="366" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Заголовок лівої панелі -->
+  <text x="40" y="90" font-size="13" font-weight="700" fill="#1a1a1a">Екстраполяція вимірів: Регресія USL та коридор 95%</text>
+  <text x="40" y="106" font-size="12" fill="#6b7280">Y: Пропускна здатність (тис. RPS) | X: Паралелізм N (вузли)</text>
+
+  <!-- Поле графіку: x=80..400 (w=320), y=130..310 (h=180) -->
+  <rect x="80" y="130" width="320" height="180" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Зона малого стенда підрядника (N=1..16) -->
+  <rect x="80" y="130" width="80" height="180" fill="#f4f6f8" opacity="0.6"/>
+  <text x="120" y="148" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Стенд тестів</text>
+  <text x="120" y="164" font-size="12" fill="#6b7280" text-anchor="middle">(N = 1..16)</text>
+
+  <!-- Цільова зона SLA за контрактом -->
+  <rect x="270" y="134" width="126" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="333" y="148" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Ціль SLA: 14k RPS</text>
+  <text x="333" y="161" font-size="12" fill="#27ae60" text-anchor="middle">при N = 48 вузлах</text>
+
+  <!-- Лінії сітки горизонтальні -->
+  <line x1="80" y1="265" x2="400" y2="265" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="220" x2="400" y2="220" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="175" x2="400" y2="175" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Лінії сітки вертикальні -->
+  <line x1="160" y1="130" x2="160" y2="310" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="240" y1="130" x2="240" y2="310" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <line x1="320" y1="130" x2="320" y2="310" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Довірчий коридор 95% (розширюється з ростом N) -->
+  <path d="M 85,296 C 120,238 180,188 240,184 C 300,186 350,192 400,196 L 400,222 C 350,218 300,212 240,204 C 180,210 120,246 85,302 Z" fill="#eaf0fd" opacity="0.75"/>
+
+  <!-- Регресійна крива USL (МНК модель) -->
+  <path d="M 80,310 C 120,242 180,198 240,194 C 290,195 345,202 400,209" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Точки експериментальних вимірів підрядника (N=1, 4, 8, 12, 16) -->
+  <circle cx="85" cy="299" r="3.5" fill="#2457d6"/>
+  <circle cx="100" cy="270" r="3.5" fill="#2457d6"/>
+  <circle cx="120" cy="242" r="3.5" fill="#2457d6"/>
+  <circle cx="140" cy="222" r="3.5" fill="#2457d6"/>
+  <circle cx="160" cy="210" r="3.5" fill="#2457d6"/>
+
+  <!-- Маркер піку X_max (N* = 32) -->
+  <circle cx="240" cy="194" r="4.5" fill="#c0392b"/>
+
+  <!-- Контрактна мета SLA (N=48, X=14k) -->
+  <circle cx="320" cy="153" r="5" fill="#27ae60"/>
+
+  <!-- Стрілка дефіциту продуктивності між ціллю SLA та реальною моделлю -->
+  <line x1="320" y1="159" x2="320" y2="194" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+
+  <!-- Підписи осей Y (ліворуч від x=80) -->
+  <text x="72" y="134" font-size="12" fill="#6b7280" text-anchor="end">16k</text>
+  <text x="72" y="179" font-size="12" fill="#6b7280" text-anchor="end">12k</text>
+  <text x="72" y="224" font-size="12" fill="#6b7280" text-anchor="end">8k</text>
+  <text x="72" y="269" font-size="12" fill="#6b7280" text-anchor="end">4k</text>
+  <text x="72" y="314" font-size="12" fill="#6b7280" text-anchor="end">0k</text>
+
+  <!-- Підписи осей X (під y=310) -->
+  <text x="80" y="326" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+  <text x="160" y="326" font-size="12" fill="#2457d6" text-anchor="middle">16</text>
+  <text x="240" y="326" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">N* = 32</text>
+  <text x="320" y="326" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">48 (SLA)</text>
+  <text x="400" y="326" font-size="12" fill="#6b7280" text-anchor="middle">64</text>
+
+  <!-- Легенда під графіком -->
+  <rect x="40" y="340" width="478" height="80" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <circle cx="58" cy="354" r="3.5" fill="#2457d6"/>
+  <text x="72" y="358" font-size="12" fill="#2457d6">Виміри підрядника: 5 точок на малому стенді (R² = 0.994)</text>
+
+  <line x1="50" y1="374" x2="68" y2="374" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="72" y="378" font-size="12" font-weight="700" fill="#c0392b">Регресія USL: пік Xmax = 10.4k RPS при N* = 32 вузлах</text>
+
+  <rect x="50" y="389" width="18" height="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="0.8"/>
+  <text x="72" y="398" font-size="12" fill="#6b7280">Довірчий коридор 95%: прогноз на 48 вузлах не перевищує 11.5k</text>
+
+  <circle cx="58" cy="413" r="4" fill="#27ae60"/>
+  <text x="72" y="416" font-size="12" font-weight="700" fill="#27ae60">Вимога SLA: 14.0k RPS при N = 48 (недосяжно, дефіцит > 4k)</text>
+
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: АНАЛІЗ ТА АУДИТ ==================== -->
+  <rect x="550" y="66" width="386" height="366" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Заголовок правої панелі -->
+  <text x="566" y="90" font-size="13" font-weight="700" fill="#1a1a1a">Математичний аудит приймання</text>
+  <text x="566" y="106" font-size="12" fill="#6b7280">Екстраполяція вимірів малого стенда на контракт</text>
+
+  <!-- Картка 1: Параметри МНК -->
+  <rect x="566" y="118" width="354" height="92" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="578" y="136" font-size="12" font-weight="700" fill="#2457d6">1. Калібрування USL за методом МНК:</text>
+  <text x="578" y="154" font-size="12" fill="#1a1a1a">• Контеншн α = 0.038 (3.8% серіалізації)</text>
+  <text x="578" y="172" font-size="12" fill="#1a1a1a">• Когерентність β = 0.00092 (парний обмін)</text>
+  <text x="578" y="190" font-size="12" fill="#6b7280">• Однорідна модель має високу збіжність на N ≤ 16</text>
+
+  <!-- Картка 2: Розрахунковий колапс -->
+  <rect x="566" y="222" width="354" height="92" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="578" y="240" font-size="12" font-weight="700" fill="#c0392b">2. Розрахунок точки зламу та стелі:</text>
+  <text x="578" y="258" font-size="12" fill="#c0392b">• Точка зламу: N* = √((1 - α)/β) = 32.3 вузли</text>
+  <text x="578" y="276" font-size="12" fill="#1a1a1a">• Стеля Xmax = 10.4k RPS (при N = 32)</text>
+  <text x="578" y="294" font-size="12" fill="#c0392b">• На N = 48: RPS спадає до 9.9k (ретроградація)</text>
+
+  <!-- Картка 3: Юридичний вердикт -->
+  <rect x="566" y="326" width="354" height="94" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="578" y="346" font-size="12" font-weight="700" fill="#c0392b">3. Вердикт приймально-здавальних тестів:</text>
+  <text x="578" y="366" font-size="12" fill="#1a1a1a">• Контрактна вимога SLA: 14.0k RPS на 48 вузлах</text>
+  <text x="578" y="384" font-size="12" fill="#c0392b">• Верхня межа довіри 95% = 11.5k &lt; 14.0k RPS</text>
+  <text x="578" y="402" font-size="12" font-weight="700" fill="#c0392b">• Рішення: Зупинити підписання фінального акта</text>
+
+
+  <!-- ==================== НИЖНІЙ БАНЕР: БАР'ЄР ПРИЙМАННЯ ==================== -->
+  <rect x="24" y="448" width="912" height="52" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="469" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">ВЕРДИКТ: ВІДМОВА В ПРИЙМАННІ ЧЕРЕЗ АНАЛІТИЧНО ДОВЕДЕНУ НЕСПРОМОЖНІСТЬ СИСТЕМИ</text>
+  <text x="480" y="489" font-size="12" fill="#1a1a1a" text-anchor="middle">Демонстрація підрядника на 16 вузлах приховує неминучий колапс при масштабуванні до контрактних 48 вузлів</text>
+
+</svg>

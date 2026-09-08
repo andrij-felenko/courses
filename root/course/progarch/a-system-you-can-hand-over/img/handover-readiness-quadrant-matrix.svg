@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Матриця готовності кодової бази до відчуження</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Квадранти ризику за нормованою ентропією H_norm та часткою володіння нової команди O_new</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: МАТРИЦЯ КВАДРАНТІВ ==================== -->
+  <rect x="24" y="74" width="612" height="364" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="330" y="98" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Квадранти володіння кодом та ентропії знань</text>
+
+  <!-- Квадрант 2 (Вгорі зліва): Внутрішня монополія -->
+  <rect x="96" y="126" width="238" height="116" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="215" y="146" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Внутрішня монополія</text>
+  <text x="215" y="164" font-size="12" fill="#6b7280" text-anchor="middle">O_new &gt; 50%, H &lt; 0.50 (Hero Trap)</text>
+  <text x="215" y="182" font-size="12" fill="#1a1a1a" text-anchor="middle">Знає лише 1 новий інженер</text>
+  <!-- Точка payment-gw -->
+  <circle cx="150" cy="208" r="6" fill="#2457d6"/>
+  <text x="162" y="212" font-size="12" font-weight="700" fill="#2457d6">payment-gw (H=0.2, O=85%)</text>
+
+  <!-- Квадрант 1 (Вгорі справа): Відчужений актив -->
+  <rect x="346" y="126" width="238" height="116" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="465" y="146" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">✓ Відчужений актив</text>
+  <text x="465" y="164" font-size="12" fill="#27ae60" text-anchor="middle">O_new &gt; 50%, H ∈ [0.35..0.65]</text>
+  <text x="465" y="182" font-size="12" fill="#1a1a1a" text-anchor="middle">Командний контроль + мажорний лід</text>
+  <!-- Точка core-api -->
+  <circle cx="400" cy="208" r="6" fill="#27ae60"/>
+  <text x="412" y="212" font-size="12" font-weight="700" fill="#27ae60">core-api (H=0.5, O=80%)</text>
+
+  <!-- Квадрант 3 (Внизу зліва): Вендорна пастка -->
+  <rect x="96" y="250" width="238" height="116" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="215" y="270" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Вендорна пастка</text>
+  <text x="215" y="288" font-size="12" fill="#c0392b" text-anchor="middle">O_new &lt; 50%, H &lt; 0.50 (Vendor Lock-in)</text>
+  <text x="215" y="306" font-size="12" fill="#1a1a1a" text-anchor="middle">Залежність від автора підрядника</text>
+  <!-- Точка auth-service -->
+  <circle cx="150" cy="332" r="6" fill="#c0392b"/>
+  <text x="162" y="336" font-size="12" font-weight="700" fill="#c0392b">auth-service (H=0.15, O=15%)</text>
+
+  <!-- Квадрант 4 (Внизу справа): Розпорошений хаос -->
+  <rect x="346" y="250" width="238" height="116" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="465" y="270" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Розпорошений хаос</text>
+  <text x="465" y="288" font-size="12" fill="#c0392b" text-anchor="middle">O_new &lt; 50%, H &gt; 0.50 (No Owner)</text>
+  <text x="465" y="306" font-size="12" fill="#1a1a1a" text-anchor="middle">Багато авторів, нуль овнерів, дефекти</text>
+  <!-- Точка legacy-billing -->
+  <circle cx="390" cy="332" r="6" fill="#c0392b"/>
+  <text x="402" y="336" font-size="12" font-weight="700" fill="#c0392b">legacy-billing (H=0.85, O=20%)</text>
+
+  <!-- Осі координат -->
+  <!-- Вісь Y (O_new) -->
+  <line x1="88" y1="370" x2="88" y2="120" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="88" y="114" font-size="12" font-weight="700" fill="#1a1a1a">Володіння нової команди O_new</text>
+  <text x="80" y="132" font-size="12" fill="#6b7280" text-anchor="end">100%</text>
+  <text x="80" y="254" font-size="12" fill="#6b7280" text-anchor="end">50%</text>
+  <text x="80" y="374" font-size="12" fill="#6b7280" text-anchor="end">0%</text>
+
+  <!-- Вісь X (H_norm) -->
+  <line x1="88" y1="370" x2="590" y2="370" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="590" y="364" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">Нормована ентропія H_norm</text>
+
+  <!-- Підписи на осі X -->
+  <text x="96" y="392" font-size="12" fill="#6b7280">0.0</text>
+  <text x="215" y="392" font-size="12" fill="#6b7280" text-anchor="middle">H &lt; 0.50 (Монополія)</text>
+  <text x="340" y="392" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">0.50</text>
+  <text x="465" y="392" font-size="12" fill="#6b7280" text-anchor="middle">H &gt; 0.50 (Розпорошення)</text>
+  <text x="580" y="392" font-size="12" fill="#6b7280" text-anchor="end">1.0</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: СТРАТЕГІЯ ТА ВЕРДИКТ ==================== -->
+  <rect x="654" y="74" width="282" height="364" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="795" y="98" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Стратегія передачі активу</text>
+  <text x="795" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Дії відповідно до квадрантів</text>
+
+  <!-- Картка 1: Q3 Вендорна пастка -->
+  <rect x="668" y="128" width="254" height="68" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="680" y="146" font-size="12" font-weight="700" fill="#c0392b">Вендорна пастка (Q3):</text>
+  <text x="680" y="164" font-size="12" fill="#1a1a1a">• Обов'язкове парне програмування</text>
+  <text x="680" y="182" font-size="12" fill="#6b7280">• Сесії передачі знань (KT)</text>
+
+  <!-- Картка 2: Q4 Розпорошений хаос -->
+  <rect x="668" y="202" width="254" height="68" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="680" y="220" font-size="12" font-weight="700" fill="#c0392b">Розпорошений хаос (Q4):</text>
+  <text x="680" y="238" font-size="12" fill="#1a1a1a">• Призначення єдиного техліда модуля</text>
+  <text x="680" y="256" font-size="12" fill="#6b7280">• Рефакторинг і видалення мертвого коду</text>
+
+  <!-- Картка 3: Q2 Внутрішня монополія -->
+  <rect x="668" y="276" width="254" height="68" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="680" y="294" font-size="12" font-weight="700" fill="#2457d6">Внутрішня монополія (Q2):</text>
+  <text x="680" y="312" font-size="12" fill="#1a1a1a">• Ротація завдань усередині команди</text>
+  <text x="680" y="330" font-size="12" fill="#6b7280">• Підвищення Bus Factor нової команди</text>
+
+  <!-- Картка 4: Критерій готовності до відчуження -->
+  <rect x="668" y="350" width="254" height="76" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="370" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Критерій приймання системи:</text>
+  <text x="795" y="390" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">100% модулів у зоні Q1 (Відчужені)</text>
+  <text x="795" y="410" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">✓ Дозвіл на підписання акта</text>
+</svg>

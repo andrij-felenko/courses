@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Ієрархія правил CODEOWNERS: пріоритет останнього збігу</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Правила обчислюються зверху вниз: перемагає останній за порядком відповідний шаблон (Last Match Wins)</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: КОНФІГУРАЦІЯ CODEOWNERS ==================== -->
+  <rect x="24" y="74" width="306" height="364" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="177" y="98" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">1. Файл .github/CODEOWNERS</text>
+  <text x="177" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Порядок рядків: від загального до конкретного</text>
+
+  <!-- Картка правила 1 -->
+  <rect x="38" y="132" width="278" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="150" font-size="12" font-weight="700" fill="#6b7280">L1:</text>
+  <text x="74" y="150" font-size="12" font-weight="700" fill="#1a1a1a">*</text>
+  <text x="110" y="150" font-size="12" fill="#2457d6">@org/core-team</text>
+  <text x="50" y="166" font-size="12" fill="#6b7280">Глобальний власник за замовчуванням</text>
+
+  <!-- Картка правила 2 -->
+  <rect x="38" y="184" width="278" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="202" font-size="12" font-weight="700" fill="#6b7280">L2:</text>
+  <text x="74" y="202" font-size="12" font-weight="700" fill="#1a1a1a">/src/</text>
+  <text x="120" y="202" font-size="12" fill="#2457d6">@org/dev-leads</text>
+  <text x="50" y="218" font-size="12" fill="#6b7280">Вихідний код усього додатку</text>
+
+  <!-- Картка правила 3 -->
+  <rect x="38" y="236" width="278" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="254" font-size="12" font-weight="700" fill="#6b7280">L3:</text>
+  <text x="74" y="254" font-size="12" font-weight="700" fill="#1a1a1a">/src/domain/</text>
+  <text x="156" y="254" font-size="12" fill="#2457d6">@arch-guild</text>
+  <text x="50" y="270" font-size="12" fill="#6b7280">Чиста доменна модель (високий захист)</text>
+
+  <!-- Картка правила 4 -->
+  <rect x="38" y="288" width="278" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="306" font-size="12" font-weight="700" fill="#6b7280">L4:</text>
+  <text x="74" y="306" font-size="12" font-weight="700" fill="#1a1a1a">/migrations/</text>
+  <text x="160" y="306" font-size="12" fill="#2457d6">@dba-team</text>
+  <text x="50" y="322" font-size="12" fill="#6b7280">Схеми БД та SQL-міграції</text>
+
+  <!-- Пояснювальна плашка напрямку -->
+  <rect x="38" y="342" width="278" height="82" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="50" y="364" font-size="12" font-weight="700" fill="#2457d6">Принцип оцінки GitHub:</text>
+  <text x="50" y="382" font-size="12" fill="#1a1a1a">Парсинг триває до кінця файлу.</text>
+  <text x="50" y="400" font-size="12" fill="#1a1a1a">Кожне наступне правило перекриває</text>
+  <text x="50" y="416" font-size="12" font-weight="700" fill="#2457d6">попереднє, якщо шаблон підходить!</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: ЗІСТАВЛЕННЯ З ФАЙЛАМИ PR ==================== -->
+  <rect x="346" y="74" width="294" height="364" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="493" y="98" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">2. Зіставлення змінених файлів PR</text>
+  <text x="493" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Визначення переможця для кожного шляху</text>
+
+  <!-- Файл PR 1 -->
+  <rect x="360" y="132" width="266" height="88" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="372" y="150" font-size="12" font-weight="700" fill="#1a1a1a">Файл: src/domain/order.ts</text>
+  <text x="372" y="168" font-size="12" fill="#6b7280">Підійшли: L1 (*), L2 (/src/), L3 (/domain/)</text>
+  <text x="372" y="186" font-size="12" fill="#6b7280">L1, L2 — перекриті більш пізнім L3</text>
+  <text x="372" y="206" font-size="12" font-weight="700" fill="#27ae60">Власник: @arch-guild (перемога L3)</text>
+
+  <!-- Файл PR 2 -->
+  <rect x="360" y="228" width="266" height="88" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="372" y="246" font-size="12" font-weight="700" fill="#1a1a1a">Файл: migrations/v2_up.sql</text>
+  <text x="372" y="264" font-size="12" fill="#6b7280">Підійшли: L1 (*), L4 (/migrations/)</text>
+  <text x="372" y="282" font-size="12" fill="#6b7280">L1 — перекритий останнім L4</text>
+  <text x="372" y="302" font-size="12" font-weight="700" fill="#27ae60">Власник: @dba-team (перемога L4)</text>
+
+  <!-- Файл PR 3 -->
+  <rect x="360" y="324" width="266" height="100" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="372" y="342" font-size="12" font-weight="700" fill="#1a1a1a">Файл: README.md</text>
+  <text x="372" y="360" font-size="12" fill="#6b7280">Підійшов лише L1 (*)</text>
+  <text x="372" y="378" font-size="12" fill="#6b7280">Специфічні правила не спрацювали</text>
+  <text x="372" y="398" font-size="12" font-weight="700" fill="#2457d6">Власник: @org/core-team (перемога L1)</text>
+  <text x="372" y="416" font-size="12" fill="#6b7280">Базовий фолбек репозиторію</text>
+
+  <!-- ==================== ПАНЕЛЬ 3: BRANCH RULESET / QUALITY GATE ==================== -->
+  <rect x="656" y="74" width="280" height="364" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="796" y="98" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">3. Бар'єр захисту Branch Ruleset</text>
+  <text x="796" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Об'єднання вимог рев'ю для пул-реквесту</text>
+
+  <!-- Блок списку необхідних апрувів -->
+  <rect x="670" y="132" width="252" height="136" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="682" y="152" font-size="13" font-weight="700" fill="#1a1a1a">Необхідні рев'ю (Required):</text>
+
+  <rect x="682" y="164" width="228" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="692" y="181" font-size="12" font-weight="700" fill="#2457d6">1. @arch-guild (код домену)</text>
+
+  <rect x="682" y="196" width="228" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="692" y="213" font-size="12" font-weight="700" fill="#2457d6">2. @dba-team (структура БД)</text>
+
+  <rect x="682" y="228" width="228" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="692" y="245" font-size="12" font-weight="700" fill="#2457d6">3. @org/core-team (документація)</text>
+
+  <text x="682" y="262" font-size="12" fill="#6b7280">Усі 3 групи мають дати схвалення!</text>
+
+  <!-- Стан блокування злиття -->
+  <rect x="670" y="278" width="252" height="66" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="796" y="298" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Злиття заблоковано: 0/3 апрувів</text>
+  <text x="796" y="316" font-size="12" fill="#1a1a1a" text-anchor="middle">Dismiss stale approvals: увімкнено</text>
+  <text x="796" y="334" font-size="12" fill="#6b7280" text-anchor="middle">Новий push скидає всі рецензії</text>
+
+  <!-- Захист від пастки порядку -->
+  <rect x="670" y="352" width="252" height="72" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="796" y="372" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Митне правило суверенітету</text>
+  <text x="796" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">Широкі правила — нагорі, вузькі — внизу</text>
+  <text x="796" y="408" font-size="12" fill="#6b7280" text-anchor="middle">Захист домену від підрядника гарантовано</text>
+</svg>

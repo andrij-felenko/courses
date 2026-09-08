@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Людські домовленості проти машинного правила CODEOWNERS</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Усні домовленості розмивають відповідальність, тоді як CODEOWNERS блокує несанкціонований мердж</text>
+
+  <!-- ЛІВА КОЛОНКА: Проблема / Людські домовленості -->
+  <rect x="30" y="75" width="435" height="365" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Заголовок лівої колонки -->
+  <rect x="45" y="90" width="405" height="32" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="111" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">УСНІ ДОМОВЛЕНОСТІ ТА ВРАЗЛИВИЙ РЕВ'Ю</text>
+
+  <!-- Блок 1 ліворуч: PR -->
+  <rect x="50" y="135" width="395" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="156" font-size="13" font-weight="700" fill="#1a1a1a">PR підрядника із чутливими змінами</text>
+  <text x="65" y="177" font-size="12" fill="#6b7280">Змінено файли: /src/domain/ та /migrations/</text>
+
+  <!-- Стрілка 1 ліворуч -->
+  <line x1="247" y1="195" x2="247" y2="213" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Блок 2 ліворуч: Людський фактор -->
+  <rect x="50" y="215" width="395" height="85" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="65" y="237" font-size="13" font-weight="700" fill="#c0392b">Суб'єктивний перегляд під тиском дедлайнів</text>
+  <text x="65" y="259" font-size="12" fill="#1a1a1a">• Прохання в чаті: «Глянь швиденько, терміново треба в реліз»</text>
+  <text x="65" y="281" font-size="12" fill="#1a1a1a">• Апрув ставиться будь-ким без залучення експертів домену</text>
+
+  <!-- Стрілка 2 ліворуч -->
+  <line x1="247" y1="300" x2="247" y2="318" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Блок 3 ліворуч: Наслідок -->
+  <rect x="50" y="320" width="395" height="105" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="65" y="332" width="220" height="22" rx="4" fill="#fdecea"/>
+  <text x="75" y="347" font-size="12" font-weight="700" fill="#c0392b">НЕЗАХИЩЕНЕ ЗЛИТТЯ (MERGED)</text>
+  <text x="65" y="375" font-size="12" fill="#1a1a1a">• Кнопка «Merge» доступна для випадкового схвалення</text>
+  <text x="65" y="396" font-size="12" fill="#1a1a1a">• Архітектурні межі та бізнес-правила порушено непомітно</text>
+  <text x="65" y="415" font-size="12" fill="#c0392b">• Відповідальність розпорошена: «хтось же апрувнув»</text>
+
+  <!-- ПРАВА КОЛОНКА: Розв'язок / Машинний бар'єр -->
+  <rect x="495" y="75" width="435" height="365" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Заголовок правої колонки -->
+  <rect x="510" y="90" width="405" height="32" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="111" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">CODEOWNERS + GITHUB BRANCH RULESET</text>
+
+  <!-- Блок 1 праворуч: Декларативні правила -->
+  <rect x="515" y="135" width="395" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="530" y="156" font-size="13" font-weight="700" fill="#1a1a1a">Декларативне закріплення зон володіння</text>
+  <text x="530" y="177" font-size="12" fill="#2457d6">.github/CODEOWNERS: /src/domain/ @arch-core</text>
+
+  <!-- Стрілка 1 праворуч -->
+  <line x1="712" y1="195" x2="712" y2="213" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 2 праворуч: Автоматичний контроль -->
+  <rect x="515" y="215" width="395" height="85" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="530" y="237" font-size="13" font-weight="700" fill="#27ae60">Машинний примус системи контролю версій</text>
+  <text x="530" y="259" font-size="12" fill="#1a1a1a">• Require review from Code Owners: обов'язковий аудит</text>
+  <text x="530" y="281" font-size="12" fill="#1a1a1a">• Dismiss stale approvals: скидання апруву при нових комітах</text>
+
+  <!-- Стрілка 2 праворуч -->
+  <line x1="712" y1="300" x2="712" y2="318" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 3 праворуч: Гарантований захист -->
+  <rect x="515" y="320" width="395" height="105" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="530" y="332" width="220" height="22" rx="4" fill="#e9f7ef"/>
+  <text x="540" y="347" font-size="12" font-weight="700" fill="#27ae60">ЗЛИТТЯ ЗАБЛОКОВАНО ДО АУДИТУ</text>
+  <text x="530" y="375" font-size="12" fill="#1a1a1a">• Кнопка «Merge» апаратно заблокована на рівні платформи</text>
+  <text x="530" y="396" font-size="12" fill="#1a1a1a">• Жоден чужий компроміс не проникне в кодову базу таємно</text>
+  <text x="530" y="415" font-size="12" fill="#27ae60">• Автоматичний захист архітектурних меж 24/7</text>
+</svg>

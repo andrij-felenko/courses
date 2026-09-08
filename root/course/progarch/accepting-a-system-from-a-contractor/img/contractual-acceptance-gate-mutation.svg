@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Автоматизований шлюз приймання коду (Acceptance Gate)</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Двоетапний математичний фільтр: мутаційний бал тестів та довірчий інтервал щільності дефектів</text>
+
+  <!-- ================= КОЛОНКА 1: ПОДАННЯ КОДУ ================= -->
+  <rect x="25" y="68" width="170" height="162" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="110" y="90" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Подання коду</text>
+  <line x1="35" y1="100" x2="185" y2="100" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="37" y="120" font-size="12" fill="#1a1a1a">Репозиторій підрядника</text>
+  <text x="37" y="139" font-size="12" fill="#1a1a1a">Зелений CI-конвеєр</text>
+  <text x="37" y="158" font-size="12" fill="#1a1a1a">Line Coverage: 95%</text>
+  <text x="37" y="177" font-size="12" fill="#6b7280">Ризик: фіктивні тести</text>
+  <text x="37" y="196" font-size="12" fill="#6b7280">без перевірки асертів</text>
+  <text x="37" y="215" font-size="12" font-weight="bold" fill="#2457d6">Вхід на аудит якості</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="196" y1="140" x2="223" y2="140" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ================= КОЛОНКА 2: ШЛЮЗ 1 (МУТАЦІЙНИЙ БАЛ) ================= -->
+  <rect x="225" y="68" width="230" height="162" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="340" y="90" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Шлюз 1: Мутаційний бал</text>
+  <line x1="235" y1="100" x2="445" y2="100" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="237" y="120" font-size="12" font-weight="bold" fill="#2457d6">Критерій: MS &ge; 80%</text>
+  <text x="237" y="139" font-size="12" fill="#1a1a1a">Формула: MS = K / (M - E)</text>
+  <text x="237" y="158" font-size="12" fill="#1a1a1a">Посів синтаксичних мутацій</text>
+  <text x="237" y="177" font-size="12" fill="#1a1a1a">Перевірка чутливості тестів</text>
+  <text x="237" y="196" font-size="12" fill="#6b7280">Викриває формальне покриття</text>
+  <text x="237" y="215" font-size="12" fill="#6b7280">Вимога: тести вбивають баги</text>
+
+  <!-- Стрілка 2 -> 3 (PASS) -->
+  <line x1="456" y1="140" x2="483" y2="140" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Стрілка 2 -> Вниз (FAIL) -->
+  <line x1="340" y1="231" x2="340" y2="263" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="352" y="251" font-size="12" font-weight="bold" fill="#c0392b">FAIL: MS &lt; 80%</text>
+
+  <!-- ================= КОЛОНКА 3: ШЛЮЗ 2 (ЩІЛЬНІСТЬ БАГІВ) ================= -->
+  <rect x="485" y="68" width="230" height="162" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="90" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Шлюз 2: Щільність багів</text>
+  <line x1="495" y1="100" x2="705" y2="100" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="497" y="120" font-size="12" font-weight="bold" fill="#2457d6">Критерій: D_верхнє &le; 0.5</text>
+  <text x="497" y="139" font-size="12" fill="#1a1a1a">Модель Міллса: N = (n · S) / s</text>
+  <text x="497" y="158" font-size="12" fill="#1a1a1a">Посів дефектів (Capture-Recapture)</text>
+  <text x="497" y="177" font-size="12" fill="#1a1a1a">95% довірчий інтервал для D</text>
+  <text x="497" y="196" font-size="12" fill="#6b7280">Нормалізація на 1000 LOC</text>
+  <text x="497" y="215" font-size="12" fill="#6b7280">Контроль прихованого пулу багів</text>
+
+  <!-- Стрілка 3 -> 4 (PASS) -->
+  <line x1="716" y1="140" x2="743" y2="140" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Стрілка 3 -> Вниз (FAIL) -->
+  <line x1="600" y1="231" x2="600" y2="263" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="612" y="251" font-size="12" font-weight="bold" fill="#c0392b">FAIL: D &gt; 0.5</text>
+
+  <!-- ================= КОЛОНКА 4: ФІНАЛЬНИЙ АКТ ================= -->
+  <rect x="745" y="68" width="190" height="162" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="840" y="90" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">4. Фінальний акт</text>
+  <line x1="755" y1="100" x2="925" y2="100" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="757" y="120" font-size="12" font-weight="bold" fill="#27ae60">Статус: СХВАЛЕНО</text>
+  <text x="757" y="139" font-size="12" fill="#1a1a1a">Підписання акта приймання</text>
+  <text x="757" y="158" font-size="12" fill="#1a1a1a">Виплата винагороди</text>
+  <text x="757" y="177" font-size="12" fill="#1a1a1a">Доведена зрілість коду</text>
+  <text x="757" y="196" font-size="12" fill="#6b7280">Перехід на баланс</text>
+  <text x="757" y="215" font-size="12" fill="#6b7280">Готовність до хостингу</text>
+
+  <!-- ================= БЛОК ВІДХИЛЕННЯ (REJECT) ================= -->
+  <rect x="225" y="265" width="490" height="98" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="470" y="285" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Блокування приймання: Акт НЕ підписується (REJECT)</text>
+  <line x1="240" y1="295" x2="700" y2="295" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="242" y="313" font-size="12" fill="#1a1a1a">• Провал Шлюзу 1 (MS &lt; 80%): тести формальні, не мають реальної чутливості</text>
+  <text x="242" y="331" font-size="12" fill="#1a1a1a">• Провал Шлюзу 2 (D &gt; 0.5): висока щільність прихованих дефектів у коді</text>
+  <text x="242" y="349" font-size="12" font-weight="bold" fill="#c0392b">Дія: повернення коду підряднику на доопрацювання за власний кошт</text>
+
+  <!-- ================= НИЖНІЙ БАР'ЄР ПРИЙМАННЯ ================= -->
+  <rect x="25" y="380" width="910" height="62" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="404" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контрактна фіксація шлюзу в Definition of Done та договорі підряду</text>
+  <text x="480" y="426" font-size="12" fill="#2457d6" text-anchor="middle">Фінальний акт підписується виключно за умови одночасного подолання обох математичних бар&apos;єрів</text>
+</svg>

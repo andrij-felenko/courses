@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Життєвий цикл перевірки пул-реквесту в Branch Rulesets</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Контроль змін підрядника: маршрутизація CODEOWNERS, CI-гейти та відкликання схвалень при push</text>
+
+  <!-- ==================== РЯДОК 1: ЕТАПИ ВАЛІДАЦІЇ PR ==================== -->
+
+  <!-- Блок 1: Подання PR -->
+  <rect x="25" y="68" width="205" height="222" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="92" font-size="13" font-weight="700" fill="#1a1a1a">1. Подання PR підрядником</text>
+  <text x="36" y="110" font-size="12" fill="#6b7280">Маршрутизація CODEOWNERS</text>
+
+  <rect x="35" y="122" width="185" height="84" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="45" y="142" font-size="12" font-weight="700" fill="#1a1a1a">Аналіз шляхів diff:</text>
+  <text x="45" y="162" font-size="12" fill="#1a1a1a">• /src/domain/ → @core-arch</text>
+  <text x="45" y="180" font-size="12" fill="#1a1a1a">• /migrations/ → @dba-team</text>
+  <text x="45" y="196" font-size="12" fill="#6b7280">Автопризначення власників</text>
+
+  <rect x="35" y="214" width="185" height="64" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="45" y="234" font-size="12" font-weight="700" fill="#c0392b">Статус: ✗ BLOCKED</text>
+  <text x="45" y="252" font-size="12" fill="#1a1a1a">Очікування CI та рев'ю</text>
+  <text x="45" y="268" font-size="12" fill="#6b7280">Кнопка Merge деактивована</text>
+
+  <!-- Стрілка Блок 1 -> Блок 2 -->
+  <line x1="230" y1="164" x2="253" y2="164" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Блок 2: CI статус-перевірки -->
+  <rect x="255" y="68" width="215" height="222" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="266" y="92" font-size="13" font-weight="700" fill="#1a1a1a">2. Статус-перевірки CI</text>
+  <text x="266" y="110" font-size="12" fill="#6b7280">Strict Status Checks</text>
+
+  <rect x="265" y="122" width="195" height="96" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="275" y="142" font-size="12" font-weight="700" fill="#1a1a1a">Обов'язкові конвеєри:</text>
+  <text x="275" y="162" font-size="12" fill="#27ae60">✓ Linters &amp; Architecture</text>
+  <text x="275" y="180" font-size="12" fill="#27ae60">✓ Unit &amp; Integration Tests</text>
+  <text x="275" y="198" font-size="12" fill="#27ae60">✓ Mutation Gate (Score ≥ 80%)</text>
+  <text x="275" y="212" font-size="12" fill="#6b7280">Всі обов'язкові чеки успішні</text>
+
+  <rect x="265" y="226" width="195" height="52" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="275" y="246" font-size="12" font-weight="700" fill="#27ae60">Усі CI-чеки зелені</text>
+  <text x="275" y="264" font-size="12" fill="#1a1a1a">Готово до ручного рев'ю</text>
+
+  <!-- Стрілка Блок 2 -> Блок 3 -->
+  <line x1="470" y1="164" x2="493" y2="164" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Блок 3: Рецензія власників -->
+  <rect x="495" y="68" width="215" height="222" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="506" y="92" font-size="13" font-weight="700" fill="#1a1a1a">3. Рецензія власників</text>
+  <text x="506" y="110" font-size="12" fill="#6b7280">Require Code Owner review</text>
+
+  <rect x="505" y="122" width="195" height="96" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="515" y="142" font-size="12" font-weight="700" fill="#1a1a1a">Вимоги до схвалення:</text>
+  <text x="515" y="162" font-size="12" fill="#1a1a1a">• Мінімум 2 схвалення</text>
+  <text x="515" y="180" font-size="12" fill="#1a1a1a">• Обов'язково від @core-arch</text>
+  <text x="515" y="200" font-size="12" fill="#27ae60">✓ Схвалено власником коду</text>
+  <text x="515" y="212" font-size="12" fill="#6b7280">Затверджено архітектором</text>
+
+  <rect x="505" y="226" width="195" height="52" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="515" y="246" font-size="12" font-weight="700" fill="#27ae60">Схвалення отримано</text>
+  <text x="515" y="264" font-size="12" fill="#1a1a1a">2/2 схвалень (апрув активний)</text>
+
+  <!-- Стрілка Блок 3 -> Блок 4 -->
+  <line x1="710" y1="164" x2="733" y2="164" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 4: Розблокування Merge -->
+  <rect x="735" y="68" width="200" height="222" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="746" y="92" font-size="13" font-weight="700" fill="#27ae60">4. Розблокування Merge</text>
+  <text x="746" y="110" font-size="12" fill="#6b7280">Всі умови виконано</text>
+
+  <rect x="745" y="122" width="180" height="90" rx="6" fill="white" stroke="#27ae60"/>
+  <text x="755" y="142" font-size="12" font-weight="700" fill="#27ae60">Правила задоволено:</text>
+  <text x="755" y="162" font-size="12" fill="#1a1a1a">✓ CODEOWNERS approved</text>
+  <text x="755" y="180" font-size="12" fill="#1a1a1a">✓ CI status checks passed</text>
+  <text x="755" y="198" font-size="12" fill="#1a1a1a">✓ Branch is up to date</text>
+
+  <rect x="745" y="222" width="180" height="56" rx="6" fill="#27ae60"/>
+  <text x="835" y="246" font-size="13" font-weight="700" fill="white" text-anchor="middle">✓ Merge pull request</text>
+  <text x="835" y="264" font-size="12" fill="white" text-anchor="middle">Злиття дозволено</text>
+
+  <!-- ==================== СТРІЛКИ ДЛЯ ВІДКЛИКАННЯ ПРИ PUSH ==================== -->
+  <!-- Від Блоку 3 вниз до контуру відкликання -->
+  <line x1="602" y1="290" x2="602" y2="313" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Від контуру відкликання вгору до Блоку 2 -->
+  <line x1="362" y1="315" x2="362" y2="292" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- ==================== РЯДОК 2: ЗАХИСНИЙ КОНТУР RULES ==================== -->
+
+  <!-- Ліва картка: Захист архітектури -->
+  <rect x="25" y="315" width="205" height="125" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="338" font-size="13" font-weight="700" fill="#2457d6">Захист архітектури</text>
+  <text x="36" y="362" font-size="12" fill="#1a1a1a">• Підрядник не може обійти</text>
+  <text x="36" y="380" font-size="12" fill="#1a1a1a">   рецензію власників домену</text>
+  <text x="36" y="402" font-size="12" fill="#1a1a1a">• Виключено підміну коду</text>
+  <text x="36" y="420" font-size="12" fill="#1a1a1a">   перед самим злиттям</text>
+
+  <!-- Центральна картка: Dismiss Stale Approvals -->
+  <rect x="255" y="315" width="455" height="125" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="270" y="338" font-size="13" font-weight="700" fill="#c0392b">Захисний контур: Dismiss Stale Approvals on Push</text>
+  <text x="270" y="356" font-size="12" fill="#6b7280">Автоматичне відкликання схвалень при внесенні нових комітів у PR</text>
+
+  <rect x="270" y="366" width="425" height="64" rx="6" fill="white" stroke="#c0392b"/>
+  <text x="282" y="386" font-size="12" font-weight="700" fill="#c0392b">• Підрядник робить новий git push після схвалення</text>
+  <text x="282" y="404" font-size="12" fill="#1a1a1a">• Ruleset миттєво анулює апруви: Approved → Review required</text>
+  <text x="282" y="420" font-size="12" fill="#2457d6">• CI статус-перевірки перезапускаються на новому коміті</text>
+
+  <!-- Права картка: Гарантія якості -->
+  <rect x="735" y="315" width="200" height="125" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="746" y="338" font-size="13" font-weight="700" fill="#2457d6">Гарантія безпеки</text>
+  <text x="746" y="362" font-size="12" fill="#1a1a1a">• Жодного неперевіреного</text>
+  <text x="746" y="380" font-size="12" fill="#1a1a1a">   коміту в main-гілці</text>
+  <text x="746" y="402" font-size="12" fill="#1a1a1a">• Декларативний контракт</text>
+  <text x="746" y="420" font-size="12" fill="#1a1a1a">   захищає продукт надійно</text>
+</svg>

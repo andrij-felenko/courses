@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="26" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Крива Лоренца та коефіцієнт Джині розподілу володіння кодом</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Математична оцінка відчужуваності модуля: ризик монополії знань проти розпорошення відповідальності</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ГРАФІК ЛОРЕНЦА ==================== -->
+  <rect x="24" y="66" width="454" height="366" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Заголовок лівої панелі -->
+  <text x="40" y="90" font-size="13" font-weight="700" fill="#1a1a1a">Розподіл внесків: Криві Лоренца та площі A/B</text>
+  <text x="40" y="106" font-size="12" fill="#6b7280">Вісь Y: частка внеску (%) | Вісь X: частка розробників (%)</text>
+
+  <!-- Поле графіку: x=86..396 (w=310), y=120..310 (h=190) -->
+  <rect x="86" y="120" width="310" height="190" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Сітка графіку (горизонтальні лінії) -->
+  <line x1="86" y1="262" x2="396" y2="262" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="86" y1="215" x2="396" y2="215" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="86" y1="168" x2="396" y2="168" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Сітка графіку (вертикальні лінії) -->
+  <line x1="163" y1="120" x2="163" y2="310" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="241" y1="120" x2="241" y2="310" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="318" y1="120" x2="318" y2="310" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Заливка площі нерівності A для збалансованого володіння -->
+  <path d="M 86,310 L 396,120 C 330,270 240,310 86,310 Z" fill="#e9f7ef"/>
+
+  <!-- 1. Лінія абсолютної рівності (G = 0, діагональ 45°) -->
+  <line x1="86" y1="310" x2="396" y2="120" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- 2. Крива монополії (G = 0.85, червона) -->
+  <path d="M 86,310 C 260,310 360,310 396,120" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- 3. Крива збалансованого володіння (G = 0.42, зелена) -->
+  <path d="M 86,310 C 240,310 330,270 396,120" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- 4. Крива розпорошення (G = 0.18, помаранчева пунктирна) -->
+  <path d="M 86,310 C 180,270 280,210 396,120" fill="none" stroke="#d97706" stroke-width="2" stroke-dasharray="5,3"/>
+
+  <!-- Підписи осей Y (ліворуч від x=86) -->
+  <text x="78" y="124" font-size="12" fill="#6b7280" text-anchor="end">100%</text>
+  <text x="78" y="172" font-size="12" fill="#6b7280" text-anchor="end">75%</text>
+  <text x="78" y="219" font-size="12" fill="#6b7280" text-anchor="end">50%</text>
+  <text x="78" y="266" font-size="12" fill="#6b7280" text-anchor="end">25%</text>
+  <text x="78" y="313" font-size="12" fill="#6b7280" text-anchor="end">0%</text>
+
+  <!-- Підписи осей X (під y=310) -->
+  <text x="86" y="326" font-size="12" fill="#6b7280" text-anchor="middle">0%</text>
+  <text x="163" y="326" font-size="12" fill="#6b7280" text-anchor="middle">25%</text>
+  <text x="241" y="326" font-size="12" fill="#6b7280" text-anchor="middle">50%</text>
+  <text x="318" y="326" font-size="12" fill="#6b7280" text-anchor="middle">75%</text>
+  <text x="396" y="326" font-size="12" fill="#6b7280" text-anchor="middle">100%</text>
+
+  <!-- Легенда під графіком (блок зі списком кривих) -->
+  <rect x="40" y="338" width="422" height="82" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  
+  <line x1="50" y1="352" x2="72" y2="352" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="78" y="356" font-size="12" font-weight="700" fill="#c0392b">Монополія (G = 0.85): один автор створив >85% коду</text>
+
+  <line x1="50" y1="372" x2="72" y2="372" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="78" y="376" font-size="12" font-weight="700" fill="#27ae60">Збалансоване (G = 0.42): є лідер і сильні помічники</text>
+
+  <line x1="50" y1="392" x2="72" y2="392" stroke="#d97706" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="78" y="396" font-size="12" fill="#d97706">Розпорошення (G = 0.18): відсутній явний власник</text>
+
+  <line x1="50" y1="410" x2="72" y2="410" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="78" y="414" font-size="12" fill="#6b7280">Лінія рівності (G = 0.00): ідеальний колективний код</text>
+
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: МАТЕМАТИЧНИЙ АНАЛІЗ ==================== -->
+  <rect x="494" y="66" width="442" height="366" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Картка 1: Геометричний сенс і формула Джині -->
+  <rect x="506" y="78" width="418" height="96" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="518" y="98" font-size="12" font-weight="700" fill="#2457d6">1. Формула Джині та геометрія площ (A / B)</text>
+  <text x="518" y="118" font-size="12" fill="#1a1a1a">• G = A / (A + B) = 2 · A, де A + B = 0.5 (трикутник)</text>
+  <text x="518" y="136" font-size="12" fill="#1a1a1a">• A — площа концентрації знань між діагоналлю й кривою</text>
+  <text x="518" y="154" font-size="12" fill="#6b7280">• G = 0 — рівномірність, G = 1 — повна абсолютна монополія</text>
+
+  <!-- Картка 2: Архітектурні режими володіння -->
+  <rect x="506" y="186" width="418" height="114" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="518" y="206" font-size="12" font-weight="700" fill="#1a1a1a">2. Три інженерні режими володіння модулем:</text>
+  <text x="518" y="226" font-size="12" fill="#c0392b">• G > 0.70 (Монополія): Truck Factor = 1, залежність від творця</text>
+  <text x="518" y="244" font-size="12" fill="#27ae60">• 0.35 ≤ G ≤ 0.55 (Оптимум): безпечний коридор передачі</text>
+  <text x="518" y="262" font-size="12" fill="#d97706">• G &lt; 0.25 (Колгосп): розмита відповідальність, сплеск дефектів</text>
+  <text x="518" y="280" font-size="12" fill="#6b7280">• Закон Брукса: розпорошення веде до деградації архітектури</text>
+
+  <!-- Картка 3: Поріг мажорних авторів -->
+  <rect x="506" y="312" width="418" height="108" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="518" y="332" font-size="12" font-weight="700" fill="#2457d6">3. Поріг мажорних авторів (Major Contributors):</text>
+  <text x="518" y="352" font-size="12" fill="#1a1a1a">• Поріг мажора: внесок ≥ 20% рядків (або DOA ≥ 3.2)</text>
+  <text x="518" y="370" font-size="12" fill="#1a1a1a">• Мінори (&lt; 5%): виправляють описки, не знають інваріантів</text>
+  <text x="518" y="388" font-size="12" fill="#1a1a1a">• Аудит відчуження: наявність ≥ 2 мажорів на модуль</text>
+  <text x="518" y="404" font-size="12" fill="#27ae60">• Гарантує успішний транзит знань при зміні підрядника</text>
+
+
+  <!-- ==================== НИЖНІЙ БАНЕР: ВИСНОВОК ==================== -->
+  <rect x="24" y="448" width="912" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="469" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">БЕЗПЕЧНИЙ ЕНТРОПІЙНИЙ КОРИДОР ВІДЧУЖУВАНОСТІ СИСТЕМИ: 0.35 ≤ G ≤ 0.55</text>
+  <text x="480" y="489" font-size="12" fill="#1a1a1a" text-anchor="middle">При G > 0.7 система критично залежна від підрядника, при G &lt; 0.25 відсутній власник інваріантів модуля</text>
+
+</svg>

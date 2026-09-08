@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Церемонія передачі контролю над HSM: поділ M-of-N та захищений канал</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Майстер-ключ не виходить за апаратний периметр; відновлення контролю потребує кворуму офіцерів</text>
+
+  <!-- ==================== 1. ЛІВА ПАНЕЛЬ: ХОСТ-СИСТЕМА ==================== -->
+  <rect x="24" y="66" width="240" height="428" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="36" y="78" width="216" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="98" font-size="13" font-weight="700" fill="#1a1a1a">1. Хост-система застосунку</text>
+
+  <!-- Блок: Застосунок -->
+  <rect x="36" y="118" width="216" height="66" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="136" font-size="12" font-weight="700" fill="#2457d6">Бізнес-сервіс (App Service)</text>
+  <text x="46" y="153" font-size="12" fill="#1a1a1a">• Виконує фінансові операції</text>
+  <text x="46" y="170" font-size="12" fill="#6b7280">• Запити підпису/шифрування</text>
+
+  <!-- Блок: Клієнтська бібліотека PKCS#11 -->
+  <rect x="36" y="194" width="216" height="66" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="212" font-size="12" font-weight="700" fill="#1a1a1a">Драйвер PKCS#11 / KMIP</text>
+  <text x="46" y="229" font-size="12" fill="#1a1a1a">• Формує крипто-сесію</text>
+  <text x="46" y="246" font-size="12" fill="#6b7280">• Маршрутизує виклики до HSM</text>
+
+  <!-- Блок: Захист від витоку в RAM -->
+  <rect x="36" y="270" width="216" height="96" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="46" y="290" font-size="12" font-weight="700" fill="#c0392b">Оперативна пам'ять (Host RAM)</text>
+  <text x="46" y="308" font-size="12" fill="#1a1a1a">• Майстер-ключ ВІДСУТНІЙ</text>
+  <text x="46" y="326" font-size="12" fill="#1a1a1a">• У пам'яті лише шифротексти</text>
+  <text x="46" y="344" font-size="12" fill="#c0392b">• Стійкість до дампів пам'яті</text>
+
+  <!-- Блок підсумку хоста -->
+  <rect x="36" y="376" width="216" height="106" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="46" y="396" font-size="12" font-weight="700" fill="#2457d6">Захищений канал (Secure Channel)</text>
+  <text x="46" y="414" font-size="12" fill="#1a1a1a">• Шифрування TLS / PCIe</text>
+  <text x="46" y="432" font-size="12" fill="#1a1a1a">• Захист від сніфінгу шини</text>
+  <text x="46" y="450" font-size="12" fill="#6b7280">• Автентифікація сторін</text>
+  <text x="46" y="468" font-size="12" fill="#2457d6">• Захист від атак MITM</text>
+
+  <!-- ==================== 2. ЦЕНТРАЛЬНА ПАНЕЛЬ: АПАРАТНИЙ КРИПТОПЕРИМЕТР HSM ==================== -->
+  <rect x="316" y="66" width="336" height="428" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="328" y="78" width="312" height="30" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="338" y="98" font-size="13" font-weight="700" fill="#2457d6">2. Фізичний криптопериметр HSM (FIPS 140-3)</text>
+
+  <!-- Внутрішній блок: TRNG -->
+  <rect x="328" y="118" width="312" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="338" y="136" font-size="12" font-weight="700" fill="#1a1a1a">Апаратний генератор ентропії (TRNG)</text>
+  <text x="338" y="154" font-size="12" fill="#6b7280">Джерело фізичного шуму для генерації ключів</text>
+
+  <!-- Внутрішній блок: Майстер-ключ -->
+  <rect x="328" y="180" width="312" height="66" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="338" y="200" font-size="12" font-weight="700" fill="#27ae60">Кореневий майстер-ключ (Root Key / KEK)</text>
+  <text x="338" y="218" font-size="12" fill="#1a1a1a">• Генерується всередині модуля під час церемонії</text>
+  <text x="338" y="236" font-size="12" fill="#6b7280">• Ніколи не експортується відкритим назовні</text>
+
+  <!-- Внутрішній блок: Схема Шаміра -->
+  <rect x="328" y="256" width="312" height="80" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="338" y="276" font-size="12" font-weight="700" fill="#2457d6">Рушій розділення секрету Шаміра (M-of-N)</text>
+  <text x="338" y="294" font-size="12" fill="#1a1a1a">• Розбиття майстер-ключа на N часток</text>
+  <text x="338" y="312" font-size="12" fill="#1a1a1a">• Будь-які M часток відновлюють доступ</text>
+  <text x="338" y="330" font-size="12" fill="#6b7280">• Окремі M-1 часток не розкривають секрет</text>
+
+  <!-- Внутрішній блок: Апаратний криптопроцесор -->
+  <rect x="328" y="346" width="312" height="66" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="338" y="366" font-size="12" font-weight="700" fill="#1a1a1a">Криптопроцесор (AES, RSA, ECC)</text>
+  <text x="338" y="384" font-size="12" fill="#1a1a1a">• Обчислення підписів всередині чіпа</text>
+  <text x="338" y="402" font-size="12" fill="#6b7280">• Аварійне обнулення (Zeroization) при зламі</text>
+
+  <!-- Внутрішній блок: Гарантія відчуження -->
+  <rect x="328" y="422" width="312" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="338" y="442" font-size="12" font-weight="700" fill="#27ae60">ГАРАНТІЯ ПРИЙМАННЯ ВІД ПІДРЯДНИКА:</text>
+  <text x="338" y="460" font-size="12" fill="#1a1a1a">Підрядник не зберігає копій майстер-ключів</text>
+
+  <!-- ==================== 3. ПРАВА ПАНЕЛЬ: ОФІЦЕРИ БЕЗПЕКИ ЗАМОВНИКА ==================== -->
+  <rect x="704" y="66" width="232" height="428" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="716" y="78" width="208" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="726" y="98" font-size="13" font-weight="700" fill="#1a1a1a">3. Кворум офіцерів (M-of-N)</text>
+
+  <!-- Офіцер безпеки 1 -->
+  <rect x="716" y="118" width="208" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="726" y="136" font-size="12" font-weight="700" fill="#1a1a1a">Офіцер безпеки 1 (Custody A)</text>
+  <text x="726" y="154" font-size="12" fill="#2457d6">• Частка S1 (Смарт-карта + PIN)</text>
+
+  <!-- Офіцер безпеки 2 -->
+  <rect x="716" y="180" width="208" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="726" y="198" font-size="12" font-weight="700" fill="#1a1a1a">Офіцер безпеки 2 (Custody B)</text>
+  <text x="726" y="216" font-size="12" fill="#2457d6">• Частка S2 (Смарт-карта + PIN)</text>
+
+  <!-- Офіцер безпеки 3 -->
+  <rect x="716" y="242" width="208" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="726" y="260" font-size="12" font-weight="700" fill="#1a1a1a">Офіцер безпеки 3 (Custody C)</text>
+  <text x="726" y="278" font-size="12" fill="#2457d6">• Частка S3 (Смарт-карта + PIN)</text>
+
+  <!-- Блок правила кворуму M-of-N -->
+  <rect x="716" y="304" width="208" height="92" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="726" y="324" font-size="12" font-weight="700" fill="#2457d6">Правило кворуму: 2 з 3</text>
+  <text x="726" y="342" font-size="12" fill="#1a1a1a">• Для відновлення модуля</text>
+  <text x="726" y="360" font-size="12" fill="#1a1a1a">  потрібно будь-які 2 карти</text>
+  <text x="726" y="378" font-size="12" fill="#6b7280">• Захист від втрати 1 особи</text>
+
+  <!-- Блок результату передачі контролю -->
+  <rect x="716" y="406" width="208" height="76" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="726" y="426" font-size="12" font-weight="700" fill="#27ae60">Акт передачі контролю:</text>
+  <text x="726" y="444" font-size="12" fill="#1a1a1a">Частки передано замовнику</text>
+  <text x="726" y="462" font-size="12" fill="#27ae60">Повний суверенітет замовника</text>
+
+  <!-- ==================== СТРІЛКИ ТА ЗВ'ЯЗКИ МІЖ ЗОНАМИ ==================== -->
+  <!-- Стрілки між Хостом і HSM (Захищений канал) -->
+  <line x1="264" y1="210" x2="310" y2="210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="290" y="196" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Запит</text>
+
+  <line x1="316" y1="240" x2="270" y2="240" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="290" y="258" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Підпис</text>
+
+  <!-- Стрілки розподілу часток Shamir від HSM до Офіцерів -->
+  <line x1="652" y1="144" x2="698" y2="144" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="678" y="136" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">S1</text>
+
+  <line x1="652" y1="206" x2="698" y2="206" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="678" y="198" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">S2</text>
+
+  <line x1="652" y1="268" x2="698" y2="268" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="678" y="260" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">S3</text>
+
+</svg>

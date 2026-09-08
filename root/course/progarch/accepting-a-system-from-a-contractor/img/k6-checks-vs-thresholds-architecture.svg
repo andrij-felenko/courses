@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потік даних у k6: від checks через метрики до thresholds</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Індивідуальні перевірки без зупинки тесту транслюються в метрики, що визначають системний код виходу</text>
+
+  <!-- ================= КОЛОНКА 1: ВИКОНАННЯ ТА CHECKS ================= -->
+  <rect x="25" y="68" width="210" height="297" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="88" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Виконання та Checks</text>
+  <rect x="50" y="98" width="160" height="20" rx="10" fill="#ffffff" stroke="#2457d6"/>
+  <text x="130" y="112" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пул віртуальних VUs</text>
+
+  <!-- Підпанель: Запити -->
+  <rect x="35" y="126" width="190" height="68" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="45" y="144" font-size="12" font-weight="bold" fill="#2457d6">Генерація запитів:</text>
+  <text x="45" y="162" font-size="12" fill="#1a1a1a">http.get('/api/orders')</text>
+  <text x="45" y="180" font-size="12" fill="#6b7280">Виконання транзакцій</text>
+
+  <!-- Підпанель: Checks -->
+  <rect x="35" y="202" width="190" height="152" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="45" y="220" font-size="12" font-weight="bold" fill="#1a1a1a">Локальні checks:</text>
+  <text x="45" y="238" font-size="12" fill="#1a1a1a">• 'status 200': true/false</text>
+  <text x="45" y="256" font-size="12" fill="#1a1a1a">• 'valid body': true/false</text>
+  <text x="45" y="278" font-size="12" font-weight="bold" fill="#c0392b">Властивість перевірок:</text>
+  <text x="45" y="296" font-size="12" font-weight="bold" fill="#c0392b">НЕ зупиняють тест</text>
+  <text x="45" y="314" font-size="12" font-weight="bold" fill="#c0392b">НЕ міняють exit code</text>
+  <text x="45" y="336" font-size="12" fill="#6b7280">Лише факт транзакції</text>
+
+  <!-- Стрілки 1 -> 2 -->
+  <line x1="236" y1="160" x2="253" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="236" y1="278" x2="253" y2="278" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ================= КОЛОНКА 2: НАКОПИЧЕННЯ МЕТРИК ================= -->
+  <rect x="255" y="68" width="215" height="297" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="362" y="88" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Накопичення метрик</text>
+  <rect x="282" y="98" width="160" height="20" rx="10" fill="#ffffff" stroke="#2457d6"/>
+  <text x="362" y="112" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">k6 Metrics Engine</text>
+
+  <!-- Підпанель: Метрика checks -->
+  <rect x="265" y="126" width="195" height="94" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="275" y="144" font-size="12" font-weight="bold" fill="#2457d6">Агрегація checks (Rate):</text>
+  <text x="275" y="164" font-size="12" font-weight="bold" fill="#27ae60">• checks: 99.4% успіху</text>
+  <text x="275" y="184" font-size="12" fill="#1a1a1a">• Підрахунок % провалів</text>
+  <text x="275" y="204" font-size="12" fill="#6b7280">• Частка валідних відповідей</text>
+
+  <!-- Підпанель: Системні метрики -->
+  <rect x="265" y="228" width="195" height="126" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="275" y="246" font-size="12" font-weight="bold" fill="#1a1a1a">Системні метрики:</text>
+  <text x="275" y="266" font-size="12" fill="#1a1a1a">• http_req_duration:</text>
+  <text x="287" y="284" font-size="12" font-weight="bold" fill="#2457d6">p(95) = 180 ms</text>
+  <text x="287" y="302" font-size="12" font-weight="bold" fill="#2457d6">p(99) = 310 ms</text>
+  <text x="275" y="322" font-size="12" fill="#1a1a1a">• http_req_failed:</text>
+  <text x="287" y="340" font-size="12" font-weight="bold" fill="#27ae60">rate = 0.2%</text>
+
+  <!-- Стрілки 2 -> 3 -->
+  <line x1="471" y1="173" x2="488" y2="173" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="471" y1="291" x2="488" y2="291" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ================= КОЛОНКА 3: ПРАВИЛА THRESHOLDS ================= -->
+  <rect x="490" y="68" width="220" height="297" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="600" y="88" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Правила Thresholds</text>
+  <rect x="520" y="98" width="160" height="20" rx="10" fill="#ffffff" stroke="#2457d6"/>
+  <text x="600" y="112" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Контрактні SLO / SLA</text>
+
+  <!-- Підпанель: Декларативні пороги -->
+  <rect x="500" y="126" width="200" height="114" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="510" y="144" font-size="12" font-weight="bold" fill="#2457d6">options.thresholds:</text>
+  <text x="510" y="164" font-size="12" fill="#1a1a1a">checks: ['rate &gt; 0.99']</text>
+  <text x="510" y="184" font-size="12" fill="#1a1a1a">http_req_duration:</text>
+  <text x="518" y="202" font-size="12" fill="#1a1a1a">['p(95) &lt; 300ms']</text>
+  <text x="518" y="220" font-size="12" fill="#1a1a1a">['p(99) &lt; 800ms']</text>
+
+  <!-- Підпанель: Зіставлення -->
+  <rect x="500" y="248" width="200" height="106" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="510" y="266" font-size="12" font-weight="bold" fill="#1a1a1a">Зіставлення з фактом:</text>
+  <text x="510" y="286" font-size="12" font-weight="bold" fill="#27ae60">[✓] 99.4% &gt; 99% PASS</text>
+  <text x="510" y="306" font-size="12" font-weight="bold" fill="#27ae60">[✓] p95 180ms &lt; 300 PASS</text>
+  <text x="510" y="326" font-size="12" font-weight="bold" fill="#27ae60">[✓] p99 310ms &lt; 800 PASS</text>
+  <text x="510" y="344" font-size="12" fill="#6b7280">Порушення = миттєвий FAIL</text>
+
+  <!-- Стрілки 3 -> 4 (PASS і FAIL) -->
+  <line x1="711" y1="179" x2="728" y2="179" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="711" y1="298" x2="728" y2="298" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- ================= КОЛОНКА 4: КОД ВИХОДУ ПРОЦЕСУ ================= -->
+  <rect x="730" y="68" width="205" height="297" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="832" y="88" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Код виходу процесу</text>
+  <rect x="752" y="98" width="160" height="20" rx="10" fill="#ffffff" stroke="#1a1a1a"/>
+  <text x="832" y="112" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Process Exit Code</text>
+
+  <!-- Результат PASS -->
+  <rect x="740" y="126" width="185" height="106" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="750" y="146" font-size="12" font-weight="bold" fill="#27ae60">Exit Code 0: УСПІХ</text>
+  <text x="750" y="166" font-size="12" fill="#1a1a1a">• Усі пороги виконано</text>
+  <text x="750" y="184" font-size="12" fill="#1a1a1a">• CI/CD: Зелений статус</text>
+  <text x="750" y="202" font-size="12" fill="#27ae60">• SLA підтверджено</text>
+  <text x="750" y="220" font-size="12" font-weight="bold" fill="#27ae60">• Акт приймання СХВАЛЕНО</text>
+
+  <!-- Результат FAIL -->
+  <rect x="740" y="242" width="185" height="112" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="750" y="262" font-size="12" font-weight="bold" fill="#c0392b">Exit Code 99: ВЕТО</text>
+  <text x="750" y="282" font-size="12" fill="#1a1a1a">• Порушено поріг SLO</text>
+  <text x="750" y="300" font-size="12" fill="#1a1a1a">• CI/CD: Пайплайн впав</text>
+  <text x="750" y="318" font-size="12" fill="#c0392b">• Деградація затримок</text>
+  <text x="750" y="338" font-size="12" font-weight="bold" fill="#c0392b">• Приймання БЛОКОВАНО</text>
+
+  <!-- ================= НИЖНІЙ БАР'ЄР ПРИЙМАННЯ ================= -->
+  <rect x="25" y="380" width="910" height="62" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="404" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інженерне розмежування: Checks для логіки, Thresholds для коду виходу в CI/CD</text>
+  <text x="480" y="426" font-size="12" fill="#2457d6" text-anchor="middle">Акт приймання не підписується на основі «зелених» checks: єдиним критерієм є подолання порогів thresholds</text>
+</svg>

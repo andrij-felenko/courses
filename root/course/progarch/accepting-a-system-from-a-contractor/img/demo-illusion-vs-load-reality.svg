@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="26" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Демо-ілюзія підрядника проти реальності навантаження</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Однокористувацький показ маскує вичерпання пулів з'єднань та стрибок латентності p95 під навантаженням</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ТЕПЛИЧНИЙ ПОКАЗ (ІЛЮЗІЯ) ==================== -->
+  <rect x="24" y="66" width="444" height="366" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Заголовок лівої панелі -->
+  <rect x="36" y="78" width="420" height="32" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="48" y="99" font-size="13" font-weight="700" fill="#2457d6">Тепличний показ підрядника (1 користувач / VU)</text>
+
+  <!-- Блок 1: Профіль трафіку -->
+  <rect x="36" y="124" width="420" height="62" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="142" font-size="12" font-weight="700" fill="#2457d6">1. Профіль трафіку (Manual Browser Click)</text>
+  <text x="48" y="158" font-size="12" fill="#1a1a1a">• 1 активний користувач, поодинокі запити з паузами</text>
+  <text x="48" y="174" font-size="12" fill="#6b7280">• Відсутність будь-якої конкуренції за спільні ресурси</text>
+
+  <!-- Блок 2: Стан пулів -->
+  <rect x="36" y="200" width="420" height="62" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="218" font-size="12" font-weight="700" fill="#2457d6">2. Стан інфраструктури та пулів БД</text>
+  <text x="48" y="234" font-size="12" fill="#1a1a1a">• Пул з'єднань БД: зайнято 1 із 20 (навантаження 5%)</text>
+  <text x="48" y="250" font-size="12" fill="#6b7280">• Черга очікування: 0 запитів, CPU = 4%, RAM вільна</text>
+
+  <!-- Блок 3: Оманливі метрики -->
+  <rect x="36" y="276" width="420" height="62" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="48" y="294" font-size="12" font-weight="700" fill="#27ae60">3. Виміряні метрики продуктивності</text>
+  <text x="48" y="310" font-size="12" fill="#1a1a1a">• Латентність відповіді: p95 = 25 мс (миттєвий відгук)</text>
+  <text x="48" y="326" font-size="12" fill="#27ae60">• Рівень помилок: Error Rate = 0.0% (всі запити 200 OK)</text>
+
+  <!-- Підсумок лівої панелі -->
+  <rect x="36" y="352" width="420" height="66" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="48" y="372" font-size="12" font-weight="700" fill="#2457d6">ОМАНЛИВИЙ ВИСНОВОК ПІДРЯДНИКА:</text>
+  <text x="48" y="390" font-size="12" fill="#1a1a1a">«Система працює блискавично, підписуйте акт приймання».</text>
+  <text x="48" y="406" font-size="12" fill="#6b7280">Пастка: приховані архітектурні ліміти залишаються непоміченими.</text>
+
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: РЕАЛЬНІСТЬ НАВАНТАЖЕННЯ (КОЛАПС) ==================== -->
+  <rect x="492" y="66" width="444" height="366" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+
+  <!-- Заголовок правої панелі -->
+  <rect x="504" y="78" width="420" height="32" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="516" y="99" font-size="13" font-weight="700" fill="#c0392b">Реальність навантаження k6 (500 паралельних VUs)</text>
+
+  <!-- Блок 1: Профіль навантаження -->
+  <rect x="504" y="124" width="420" height="62" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="142" font-size="12" font-weight="700" fill="#c0392b">1. Профіль трафіку (SLA Acceptance Suite)</text>
+  <text x="516" y="158" font-size="12" fill="#1a1a1a">• 500 віртуальних користувачів (VUs) одночасно</text>
+  <text x="516" y="174" font-size="12" fill="#6b7280">• Конкурентний доступ до спільних таблиць та блокувань</text>
+
+  <!-- Блок 2: Колапс пулу -->
+  <rect x="504" y="200" width="420" height="62" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="516" y="218" font-size="12" font-weight="700" fill="#c0392b">2. Колапс пулів та блокування ресурсів</text>
+  <text x="516" y="234" font-size="12" fill="#c0392b">• Пул з'єднань БД: 20 із 20 ВИЧЕРПАНО (Pool Exhaustion)</text>
+  <text x="516" y="250" font-size="12" fill="#1a1a1a">• Черга очікування: 480 запитів у тупику (Lock Contention)</text>
+
+  <!-- Блок 3: Деградація метрик -->
+  <rect x="504" y="276" width="420" height="62" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="516" y="294" font-size="12" font-weight="700" fill="#c0392b">3. Катастрофічна деградація метрик</text>
+  <text x="516" y="310" font-size="12" fill="#c0392b">• Латентність відповіді: p95 = 4850 мс (стрибок у 200 разів!)</text>
+  <text x="516" y="326" font-size="12" fill="#c0392b">• Рівень помилок: Error Rate = 34.2% (таймаути 504 Gateway)</text>
+
+  <!-- Підсумок правої панелі -->
+  <rect x="504" y="352" width="420" height="66" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="516" y="372" font-size="12" font-weight="700" fill="#c0392b">ОБ'ЄКТИВНИЙ ВЕРДИКТ ШЛЮЗУ CI:</text>
+  <text x="516" y="390" font-size="12" fill="#c0392b">REJECTED: Зрив контракту SLA (p95 &lt; 200 мс, помилки &lt; 1%).</text>
+  <text x="516" y="406" font-size="12" fill="#1a1a1a">Акт передачі заблоковано до усунення вузьких місць у БД.</text>
+
+
+  <!-- ==================== НИЖНІЙ БАНЕР: БАР'ЄР ПРИЙМАННЯ ==================== -->
+  <rect x="24" y="448" width="912" height="52" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="469" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">БАР'ЄР ПРИЙМАННЯ: ОДНОКОРИСТУВАЦЬКІ ДЕМОНСТРАЦІЇ НЕ Є ПІДСТАВОЮ ДЛЯ ПРИЙМАННЯ</text>
+  <text x="480" y="489" font-size="12" fill="#1a1a1a" text-anchor="middle">Акт підписується лише за результатами проходження автоматизованого навантажувального стрес-тесту k6</text>
+
+</svg>

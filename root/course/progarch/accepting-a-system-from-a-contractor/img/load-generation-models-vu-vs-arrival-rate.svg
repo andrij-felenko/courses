@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Моделі генерації навантаження: замкнена (VUs) проти відкритої (Arrival-Rate)</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Замкнений цикл блокується деградацією системи, відкритий — утримує цільову інтенсивність</text>
+
+  <!-- ЛІВА КОЛОНКА: Замкнена модель -->
+  <rect x="25" y="72" width="440" height="426" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок лівої колонки -->
+  <rect x="40" y="86" width="410" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="245" y="107" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Замкнена модель: віртуальні користувачі (VUs)</text>
+
+  <!-- Блок механізму лівої колонки -->
+  <rect x="40" y="126" width="410" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="52" y="146" width="130" height="52" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="117" y="167" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Пул воркерів VU</text>
+  <text x="117" y="185" text-anchor="middle" font-size="12" fill="#6b7280">Фіксовано N потоків</text>
+
+  <rect x="306" y="146" width="132" height="52" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="372" y="167" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Сервіс підрядника</text>
+  <text x="372" y="185" text-anchor="middle" font-size="12" fill="#c0392b">Затримка: 100мс → 8с</text>
+
+  <!-- Стрілки та підписи між блоками механізму -->
+  <text x="244" y="142" text-anchor="middle" font-size="12" fill="#1a1a1a">1. Запит</text>
+  <line x1="184" y1="160" x2="302" y2="160" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <line x1="304" y1="184" x2="186" y2="184" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="244" y="206" text-anchor="middle" font-size="12" fill="#c0392b">2. Блокування VU</text>
+
+  <text x="245" y="234" text-anchor="middle" font-size="12" fill="#6b7280">VU очікує відповіді і не надсилає нових запитів</text>
+
+  <!-- Блок часової шкали лівої колонки -->
+  <rect x="40" y="254" width="410" height="232" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="52" y="274" font-size="13" font-weight="700" fill="#c0392b">Феномен скоординованого упущення:</text>
+
+  <text x="52" y="298" font-size="12" fill="#1a1a1a">Розклад:</text>
+  <line x1="125" y1="294" x2="430" y2="294" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="140" cy="294" r="4" fill="#2457d6"/>
+  <circle cx="180" cy="294" r="4" fill="#2457d6"/>
+  <circle cx="220" cy="294" r="4" fill="#2457d6"/>
+  <circle cx="260" cy="294" r="4" fill="#2457d6"/>
+  <circle cx="300" cy="294" r="4" fill="#2457d6"/>
+  <circle cx="340" cy="294" r="4" fill="#2457d6"/>
+  <circle cx="380" cy="294" r="4" fill="#2457d6"/>
+  <circle cx="420" cy="294" r="4" fill="#2457d6"/>
+
+  <text x="52" y="336" font-size="12" fill="#c0392b">Реальність:</text>
+  <line x1="125" y1="332" x2="138" y2="332" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="140" cy="332" r="4" fill="#c0392b"/>
+
+  <rect x="146" y="320" width="144" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="218" y="336" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Зависання на 8 с</text>
+
+  <line x1="292" y1="332" x2="298" y2="332" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="300" y="320" width="136" height="24" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="368" y="336" text-anchor="middle" font-size="12" fill="#6b7280">6 запитів упущено</text>
+
+  <!-- Картка спотворення метрик (ліва) -->
+  <rect x="52" y="356" width="386" height="118" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="64" y="376" font-size="12" font-weight="700" fill="#c0392b">Спотворення результатів приймання:</text>
+  <text x="64" y="396" font-size="12" fill="#1a1a1a">• Інтенсивність падає: генератор сам «жаліє» систему</text>
+  <text x="64" y="416" font-size="12" fill="#1a1a1a">• У звіт потрапляє 1 затримка замість 7 накопичених</text>
+  <text x="64" y="436" font-size="12" fill="#1a1a1a">• Квантилі p95 та p99 занижені — фальшивий успіх тесту</text>
+  <text x="64" y="456" font-size="12" font-weight="700" fill="#c0392b">ВИСНОВОК: Ризик прийняти непрацездатну систему</text>
+
+
+  <!-- ПРАВА КОЛОНКА: Відкрита модель -->
+  <rect x="495" y="72" width="440" height="426" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок правої колонки -->
+  <rect x="510" y="86" width="410" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="107" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Відкрита модель: частота запитів (Arrival-Rate)</text>
+
+  <!-- Блок механізму правої колонки -->
+  <rect x="510" y="126" width="410" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="522" y="146" width="130" height="52" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="587" y="167" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Таймер ітерацій</text>
+  <text x="587" y="185" text-anchor="middle" font-size="12" fill="#6b7280">Фіксовано 100 RPS</text>
+
+  <rect x="776" y="146" width="132" height="52" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="842" y="167" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Сервіс підрядника</text>
+  <text x="842" y="185" text-anchor="middle" font-size="12" fill="#c0392b">Черга запитів росте</text>
+
+  <!-- Стрілки та підписи між блоками механізму правої колонки -->
+  <text x="713" y="142" text-anchor="middle" font-size="12" fill="#1a1a1a">1. Потік запитів</text>
+  <line x1="654" y1="160" x2="772" y2="160" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <line x1="654" y1="184" x2="772" y2="184" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="713" y="206" text-anchor="middle" font-size="12" fill="#27ae60">2. Динамічний пул</text>
+
+  <text x="715" y="234" text-anchor="middle" font-size="12" fill="#6b7280">Частота не залежить від часу відповіді сервера</text>
+
+  <!-- Блок часової шкали правої колонки -->
+  <rect x="510" y="254" width="410" height="232" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="522" y="274" font-size="13" font-weight="700" fill="#27ae60">Реалістичне навантаження та виявлення черг:</text>
+
+  <text x="522" y="298" font-size="12" fill="#1a1a1a">Розклад:</text>
+  <line x1="595" y1="294" x2="900" y2="294" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="610" cy="294" r="4" fill="#2457d6"/>
+  <circle cx="650" cy="294" r="4" fill="#2457d6"/>
+  <circle cx="690" cy="294" r="4" fill="#2457d6"/>
+  <circle cx="730" cy="294" r="4" fill="#2457d6"/>
+  <circle cx="770" cy="294" r="4" fill="#2457d6"/>
+  <circle cx="810" cy="294" r="4" fill="#2457d6"/>
+  <circle cx="850" cy="294" r="4" fill="#2457d6"/>
+  <circle cx="890" cy="294" r="4" fill="#2457d6"/>
+
+  <text x="522" y="336" font-size="12" fill="#27ae60">Реальність:</text>
+  <line x1="595" y1="332" x2="608" y2="332" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="610" cy="332" r="4" fill="#c0392b"/>
+
+  <rect x="616" y="320" width="130" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="681" y="336" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Зависання на 8 с</text>
+
+  <line x1="748" y1="332" x2="754" y2="332" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="756" y="320" width="150" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="831" y="336" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Черга: 6 у черзі</text>
+
+  <!-- Картка виявлення черг (права) -->
+  <rect x="522" y="356" width="386" height="118" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="534" y="376" font-size="12" font-weight="700" fill="#27ae60">Чесна фіксація метрик у CI/CD:</text>
+  <text x="534" y="396" font-size="12" fill="#1a1a1a">• Інтенсивність стабільна: тиск на сервіс зберігається</text>
+  <text x="534" y="416" font-size="12" fill="#1a1a1a">• Враховано час черги: затримка = сервіс + очікування</text>
+  <text x="534" y="436" font-size="12" fill="#1a1a1a">• Реальний сплеск p99: пороговий критерій зупиняє CI</text>
+  <text x="534" y="456" font-size="12" font-weight="700" fill="#27ae60">ВИСНОВОК: Об'єктивний шлюз приймання за SLA</text>
+</svg>

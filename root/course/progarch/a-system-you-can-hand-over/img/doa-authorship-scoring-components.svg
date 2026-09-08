@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Складові моделі ступеня авторства (Degree of Authorship, DOA)</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Математичний баланс первинного створення коду, власних доопрацювань та ерозії чужими змінами</text>
+
+  <!-- ==================== ВЕРХНІЙ БЛОК: ФОРМУЛА DOA ==================== -->
+  <rect x="24" y="68" width="912" height="62" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="88" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">ФОРМУЛА ОБЧИСЛЕННЯ СТУПЕНЯ АВТОРСТВА ДЛЯ ФАЙЛУ (FRITZ ET AL.):</text>
+  <text x="480" y="114" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">DOA(автор, файл) = +3.293 · FA + 1.098 · ln(1 + DL) - 0.164 · ln(1 + AC)</text>
+
+  <!-- ==================== СЕРЕДНІЙ РЯДОК: 3 КОМПОНЕНТИ ==================== -->
+
+  <!-- Колонка 1: FA -->
+  <rect x="24" y="142" width="288" height="174" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="36" y="154" width="264" height="28" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="168" y="173" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">1. FA: First Authorship (+3.293)</text>
+  <text x="36" y="202" font-size="12" font-weight="700" fill="#1a1a1a">Фундаментальний внесок творця:</text>
+  <text x="36" y="220" font-size="12" fill="#1a1a1a">• FA = 1, якщо розробник створив файл</text>
+  <text x="36" y="238" font-size="12" fill="#1a1a1a">• FA = 0 для всіх інших контриб'юторів</text>
+  <text x="36" y="256" font-size="12" fill="#6b7280">• Найвища базова вага в моделі</text>
+  <text x="36" y="278" font-size="12" font-weight="700" fill="#2457d6">Ефект: Творець архітектурного каркаса</text>
+  <text x="36" y="296" font-size="12" fill="#6b7280">зберігає знання про первинні інваріанти</text>
+
+  <!-- Колонка 2: DL -->
+  <rect x="336" y="142" width="288" height="174" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="348" y="154" width="264" height="28" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="173" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">2. DL: Deliveries (+1.098 · ln(1+DL))</text>
+  <text x="348" y="202" font-size="12" font-weight="700" fill="#1a1a1a">Накопичення досвіду змінами:</text>
+  <text x="348" y="220" font-size="12" fill="#1a1a1a">• DL = кількість власних комітів автора</text>
+  <text x="348" y="238" font-size="12" fill="#1a1a1a">• Кожна зміна оновлює ментальну модель</text>
+  <text x="348" y="256" font-size="12" fill="#6b7280">• Логарифмічний спад граничної користі</text>
+  <text x="348" y="278" font-size="12" font-weight="700" fill="#27ae60">Ефект: Перші 5 правок дають більше,</text>
+  <text x="348" y="296" font-size="12" fill="#6b7280">ніж наступні 50 рутинних оновлень</text>
+
+  <!-- Колонка 3: AC -->
+  <rect x="648" y="142" width="288" height="174" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="660" y="154" width="264" height="28" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="792" y="173" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">3. AC: Acceptances (-0.164 · ln(1+AC))</text>
+  <text x="660" y="202" font-size="12" font-weight="700" fill="#1a1a1a">Ерозія та розмивання авторства:</text>
+  <text x="660" y="220" font-size="12" fill="#1a1a1a">• AC = правки файлу іншими авторами</text>
+  <text x="660" y="238" font-size="12" fill="#1a1a1a">• Чужі зміни поступово розмивають контекст</text>
+  <text x="660" y="256" font-size="12" fill="#6b7280">• Демпфуючий від'ємний коефіцієнт</text>
+  <text x="660" y="278" font-size="12" font-weight="700" fill="#c0392b">Ефект: Без активної підтримки код</text>
+  <text x="660" y="296" font-size="12" fill="#6b7280">стає чужим навіть для його першотворця</text>
+
+  <!-- ==================== НИЖНІЙ РЯДОК: МЕЖА ТА АУДИТ ==================== -->
+
+  <!-- Ліва картка: Межа володіння -->
+  <rect x="24" y="328" width="446" height="130" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="36" y="348" font-size="13" font-weight="700" fill="#1a1a1a">Класифікація володіння файлом за порогом DOA</text>
+
+  <rect x="36" y="358" width="422" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="46" y="375" font-size="12" font-weight="700" fill="#27ae60">Головний власник (Primary Owner): DOA ≥ 3.293</text>
+  <text x="46" y="391" font-size="12" fill="#1a1a1a">Творець файлу або розробник із домінуючою часткою активних змін</text>
+
+  <rect x="36" y="406" width="422" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="46" y="423" font-size="12" font-weight="700" fill="#c0392b">Сирітський файл (Orphan): Жоден автор не має DOA ≥ 3.2</text>
+  <text x="46" y="439" font-size="12" fill="#1a1a1a">Код занедбано або знання розмито сторонніми дрібними правками</text>
+
+  <!-- Права картка: Аудит при передачі -->
+  <rect x="490" y="328" width="446" height="130" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="502" y="348" font-size="13" font-weight="700" fill="#2457d6">Застосування під час аудиту передачі системи (Handover)</text>
+  <text x="502" y="370" font-size="12" font-weight="700" fill="#1a1a1a">• Розрахунок фактора вантажівки (Truck Factor):</text>
+  <text x="514" y="386" font-size="12" fill="#6b7280">Знаходження найменшої групи авторів, що покривають понад 50% файлів</text>
+  <text x="502" y="408" font-size="12" font-weight="700" fill="#1a1a1a">• Аудит підрядника перед підписанням акта приймання:</text>
+  <text x="514" y="424" font-size="12" fill="#1a1a1a">Перевірка: чи передано знання замовнику (наявність вторинних власників)</text>
+  <text x="514" y="442" font-size="12" font-weight="700" fill="#27ae60">Захист: запобігання втраті працездатності після відходу підрядника</text>
+</svg>

@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="26" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Шлюз ліцензійної чистоти: CycloneDX SBOM та License Compliance Engine</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Аудит транзитивного дерева залежностей за PURL та фільтрація ліцензій за політиками SPDX</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ГРАФ КОМПОНЕНТІВ SBOM ==================== -->
+  <rect x="24" y="66" width="464" height="366" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Заголовок лівої панелі -->
+  <text x="38" y="90" font-size="13" font-weight="700" fill="#1a1a1a">1. Граф компонентів CycloneDX SBOM (PURL)</text>
+  <text x="38" y="106" font-size="12" fill="#6b7280">Дерево прямих і транзитивних залежностей з метаданими</text>
+
+  <!-- Корінь системи -->
+  <rect x="38" y="120" width="436" height="48" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="48" y="138" font-size="12" font-weight="700" fill="#2457d6">Корінь: com.acme/order-service@1.0.0 (Proprietary)</text>
+  <text x="48" y="154" font-size="12" fill="#6b7280">purl: pkg:maven/com.acme/order-service@1.0.0</text>
+
+  <!-- Пряма залежність 1 (MIT) -->
+  <rect x="60" y="180" width="414" height="46" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="70" y="198" font-size="12" font-weight="700" fill="#27ae60">pkg:pypi/fastapi@0.110.0 | SPDX: MIT (Схвалено)</text>
+  <text x="70" y="214" font-size="12" fill="#6b7280">SHA-256: e3b0c44298fc... | Пряма залежність</text>
+
+  <!-- Пряма залежність 2 (Apache-2.0) -->
+  <rect x="60" y="238" width="414" height="46" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="70" y="256" font-size="12" font-weight="700" fill="#2457d6">pkg:pypi/cryptography@42.0.5 | SPDX: Apache-2.0</text>
+  <text x="70" y="272" font-size="12" fill="#6b7280">Пряма залежність | Подвійна пермісивна ліцензія</text>
+
+  <!-- Транзитивна залежність (GPL-3.0 ТОКСИЧНА) -->
+  <rect x="80" y="296" width="394" height="54" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="90" y="314" font-size="12" font-weight="700" fill="#c0392b">pkg:pypi/toxic-helper@2.1.0 | SPDX: GPL-3.0-only</text>
+  <text x="90" y="330" font-size="12" fill="#c0392b">Транзитивна залежність | Вірусне зараження коду</text>
+  <text x="90" y="344" font-size="12" fill="#6b7280">Виявлено через розкриття повного дерева SBOM</text>
+
+  <!-- Підсумок аудиту SBOM -->
+  <rect x="38" y="362" width="436" height="56" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="380" font-size="12" font-weight="700" fill="#1a1a1a">Машинний аудит: 142 компоненти, глибина дерева = 3</text>
+  <text x="48" y="396" font-size="12" font-weight="700" fill="#c0392b">СТАТУС: ВИЯВЛЕНО 1 НЕВІДПОВІДНІСТЬ (GPL-3.0)</text>
+  <text x="48" y="410" font-size="12" fill="#6b7280">Хеші lock-файлу верифіковано проти офіційного реєстру</text>
+
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: LICENSE COMPLIANCE ENGINE ==================== -->
+  <rect x="504" y="66" width="432" height="366" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Заголовок правої панелі -->
+  <text x="518" y="90" font-size="13" font-weight="700" fill="#1a1a1a">2. License Compliance Engine (Фільтрація SPDX)</text>
+  <text x="518" y="106" font-size="12" fill="#6b7280">Автоматична класифікація ліцензій за політиками приймання</text>
+
+  <!-- Картка 1: Білий список -->
+  <rect x="518" y="120" width="404" height="66" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="528" y="138" font-size="12" font-weight="700" fill="#27ae60">БІЛИЙ СПИСОК (White List) — Схвалено</text>
+  <text x="528" y="156" font-size="12" fill="#1a1a1a">• MIT, Apache-2.0, BSD-2/3-Clause, ISC</text>
+  <text x="528" y="174" font-size="12" fill="#6b7280">• Повний дозвіл для пропрієтарного використання</text>
+
+  <!-- Картка 2: Умовний список -->
+  <rect x="518" y="198" width="404" height="66" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1.2"/>
+  <text x="528" y="216" font-size="12" font-weight="700" fill="#d97706">УМОВНИЙ СПИСОК (Conditional) — Ручний аудит</text>
+  <text x="528" y="234" font-size="12" fill="#1a1a1a">• LGPL-3.0, MPL-2.0, EPL-2.0</text>
+  <text x="528" y="252" font-size="12" fill="#6b7280">• Дозволено лише при динамічному лінкуванні</text>
+
+  <!-- Картка 3: Чорний список -->
+  <rect x="518" y="276" width="404" height="66" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="528" y="294" font-size="12" font-weight="700" fill="#c0392b">ЧОРНИЙ СПИСОК (Black List) — Блокування CI</text>
+  <text x="528" y="312" font-size="12" fill="#1a1a1a">• GPL-2.0/3.0, AGPL-3.0, SSPL, комерційні без ліцензій</text>
+  <text x="528" y="330" font-size="12" fill="#c0392b">• Вірусний копілефт: загроза розкриття коду замовника</text>
+
+  <!-- Картка 4: Вердикт шлюзу -->
+  <rect x="518" y="354" width="404" height="64" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="528" y="372" font-size="12" font-weight="700" fill="#c0392b">ШЛЮЗ ПРИЙМАННЯ: REJECTED (ПОМИЛКА CI)</text>
+  <text x="528" y="390" font-size="12" fill="#1a1a1a">• Виявлено toxic-helper під ліцензією GPL-3.0-only</text>
+  <text x="528" y="406" font-size="12" fill="#c0392b">• Дія: Акт передачі заблоковано до заміни бібліотеки</text>
+
+
+  <!-- ==================== НИЖНІЙ БАНЕР: БАР'ЄР ПРИЙМАННЯ ==================== -->
+  <rect x="24" y="448" width="912" height="52" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="469" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">ЮРИДИЧНИЙ БАР'ЄР: ЖОДЕН КОМПОНЕНТ ІЗ ЧОРНОГО СПИСКУ НЕ МОЖЕ БУТИ ПРИЙНЯТИЙ</text>
+  <text x="480" y="489" font-size="12" fill="#1a1a1a" text-anchor="middle">Вірусна ліцензія в транзитивній залежності інфікує весь пропрієтарний продукт замовника зобов'язанням відкрити код</text>
+
+</svg>

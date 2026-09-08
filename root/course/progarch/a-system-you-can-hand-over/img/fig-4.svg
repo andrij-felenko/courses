@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Життєвий цикл перевірки міграцій з чистого аркуша</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Автоматична валідація в CI: чистий старт → Migrate UP → Rollback DOWN → Re-apply UP → Seed &amp; Smoke</text>
+
+  <!-- ================= КРОК 1 ================= -->
+  <rect x="25" y="68" width="166" height="298" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="108" y="88" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Чистий старт</text>
+  <rect x="51" y="94" width="114" height="20" rx="10" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="108" y="108" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стан: v0 (Empty)</text>
+
+  <text x="37" y="136" font-size="12" font-weight="bold" fill="#6b7280">Дії стенда:</text>
+  <text x="37" y="154" font-size="12" fill="#1a1a1a">Ефемерний Docker</text>
+  <text x="37" y="172" font-size="12" fill="#1a1a1a">Порожня база даних</text>
+  <text x="37" y="190" font-size="12" fill="#1a1a1a">Без старих схем</text>
+  <text x="37" y="208" font-size="12" fill="#1a1a1a">Ізоляція від хоста</text>
+
+  <rect x="35" y="222" width="146" height="132" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="43" y="240" font-size="12" font-weight="bold" fill="#1a1a1a">Виявляє ризик:</text>
+  <text x="43" y="258" font-size="12" fill="#6b7280">Приховані локальні</text>
+  <text x="43" y="274" font-size="12" fill="#6b7280">таблиці й пакети,</text>
+  <text x="43" y="290" font-size="12" fill="#6b7280">які не зафіксовані</text>
+  <text x="43" y="306" font-size="12" fill="#6b7280">у репозиторії</text>
+  <text x="43" y="322" font-size="12" fill="#6b7280">підрядника.</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="193" y1="104" x2="208" y2="104" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ================= КРОК 2 ================= -->
+  <rect x="211" y="68" width="166" height="298" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="294" y="88" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Прямий прогін</text>
+  <rect x="237" y="94" width="114" height="20" rx="10" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="294" y="108" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Накат: v0 → vN</text>
+
+  <text x="223" y="136" font-size="12" font-weight="bold" fill="#2457d6">Дії стенда:</text>
+  <text x="223" y="154" font-size="12" fill="#1a1a1a">Міграції: 001 → vN</text>
+  <text x="223" y="172" font-size="12" fill="#1a1a1a">Створення таблиць</text>
+  <text x="223" y="190" font-size="12" fill="#1a1a1a">Індекси, типи, FK</text>
+  <text x="223" y="208" font-size="12" fill="#1a1a1a">Фіксація версій</text>
+
+  <rect x="221" y="222" width="146" height="132" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="229" y="240" font-size="12" font-weight="bold" fill="#2457d6">Виявляє ризик:</text>
+  <text x="229" y="258" font-size="12" fill="#6b7280">Збої у DDL-схемі,</text>
+  <text x="229" y="274" font-size="12" fill="#6b7280">пропущені типи,</text>
+  <text x="229" y="290" font-size="12" fill="#6b7280">помилки порядку</text>
+  <text x="229" y="306" font-size="12" fill="#6b7280">зовнішніх ключів</text>
+  <text x="229" y="322" font-size="12" fill="#6b7280">на чистій БД.</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="379" y1="104" x2="394" y2="104" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- ================= КРОК 3 ================= -->
+  <rect x="397" y="68" width="166" height="298" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="88" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Тест відкату</text>
+  <rect x="423" y="94" width="114" height="20" rx="10" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="108" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Відкат: vN → v0</text>
+
+  <text x="409" y="136" font-size="12" font-weight="bold" fill="#c0392b">Дії стенда:</text>
+  <text x="409" y="154" font-size="12" fill="#1a1a1a">Зворотний прогін</text>
+  <text x="409" y="172" font-size="12" fill="#1a1a1a">Міграції: vN → v0</text>
+  <text x="409" y="190" font-size="12" fill="#1a1a1a">DROP TABLE / VIEW</text>
+  <text x="409" y="208" font-size="12" fill="#1a1a1a">Очищення схеми</text>
+
+  <rect x="407" y="222" width="146" height="132" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="415" y="240" font-size="12" font-weight="bold" fill="#c0392b">Виявляє ризик:</text>
+  <text x="415" y="258" font-size="12" fill="#6b7280">Неробочі скрипти</text>
+  <text x="415" y="274" font-size="12" fill="#6b7280">відкату, «забуті»</text>
+  <text x="415" y="290" font-size="12" fill="#6b7280">колонки, таблиці,</text>
+  <text x="415" y="306" font-size="12" fill="#6b7280">тригери або типи,</text>
+  <text x="415" y="322" font-size="12" fill="#6b7280">що не видалилися.</text>
+
+  <!-- Стрілка 3 -> 4 -->
+  <line x1="565" y1="104" x2="580" y2="104" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ================= КРОК 4 ================= -->
+  <rect x="583" y="68" width="166" height="298" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="666" y="88" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Повторний UP</text>
+  <rect x="609" y="94" width="114" height="20" rx="10" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="666" y="108" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ідемпотентність</text>
+
+  <text x="595" y="136" font-size="12" font-weight="bold" fill="#2457d6">Дії стенда:</text>
+  <text x="595" y="154" font-size="12" fill="#1a1a1a">Другий накат: vN</text>
+  <text x="595" y="172" font-size="12" fill="#1a1a1a">Перевірка чистоти</text>
+  <text x="595" y="190" font-size="12" fill="#1a1a1a">Створення заново</text>
+  <text x="595" y="208" font-size="12" fill="#1a1a1a">Схема знову на vN</text>
+
+  <rect x="593" y="222" width="146" height="132" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="601" y="240" font-size="12" font-weight="bold" fill="#2457d6">Виявляє ризик:</text>
+  <text x="601" y="258" font-size="12" fill="#6b7280">Фантомні об&apos;єкти:</text>
+  <text x="601" y="274" font-size="12" fill="#6b7280">залишені послідов-</text>
+  <text x="601" y="290" font-size="12" fill="#6b7280">ності, типи ENUM,</text>
+  <text x="601" y="306" font-size="12" fill="#6b7280">що блокують нове</text>
+  <text x="601" y="322" font-size="12" fill="#6b7280">накатування DDL.</text>
+
+  <!-- Стрілка 4 -> 5 -->
+  <line x1="751" y1="104" x2="766" y2="104" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ================= КРОК 5 ================= -->
+  <rect x="769" y="68" width="166" height="298" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="852" y="88" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">5. Посів і Smoke</text>
+  <rect x="795" y="94" width="114" height="20" rx="10" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="852" y="108" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Seed &amp; Smoke OK</text>
+
+  <text x="781" y="136" font-size="12" font-weight="bold" fill="#27ae60">Дії стенда:</text>
+  <text x="781" y="154" font-size="12" fill="#1a1a1a">Посів seed data</text>
+  <text x="781" y="172" font-size="12" fill="#1a1a1a">Базові довідники</text>
+  <text x="781" y="190" font-size="12" fill="#1a1a1a">Smoke-тести API</text>
+  <text x="781" y="208" font-size="12" fill="#1a1a1a">Статус: УСПІХ</text>
+
+  <rect x="779" y="222" width="146" height="132" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="787" y="240" font-size="12" font-weight="bold" fill="#27ae60">Виявляє ризик:</text>
+  <text x="787" y="258" font-size="12" fill="#6b7280">Порожню систему,</text>
+  <text x="787" y="274" font-size="12" fill="#6b7280">биті констрейнти</text>
+  <text x="787" y="290" font-size="12" fill="#6b7280">та неможливість</text>
+  <text x="787" y="306" font-size="12" fill="#6b7280">запустити додаток</text>
+  <text x="787" y="322" font-size="12" fill="#6b7280">після міграцій.</text>
+
+  <!-- ================= НИЖНІЙ БАР'ЄР ПРИЙМАННЯ ================= -->
+  <rect x="25" y="380" width="910" height="62" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="404" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Критерій приймання: система відновлюється з абсолютного нуля без ручних виправлень</text>
+  <text x="480" y="426" font-size="12" fill="#6b7280" text-anchor="middle">Кожен реліз зобов&apos;язаний успішно пройти всі 5 етапів у герметичному середовищі CI перед злиттям</text>
+</svg>

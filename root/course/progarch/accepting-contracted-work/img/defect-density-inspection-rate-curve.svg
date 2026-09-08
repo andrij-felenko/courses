@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Визначення маркерів стрілок -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Залежність виявлення дефектів від темпу перегляду коду</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">При темпі понад 400 LOC/год увага рецензента згасає, а щільність знайдених багів експоненційно прямує до нуля</text>
+
+  <!-- ТРИ КОЛЬОРОВІ ЗОНИ НА ГРАФІКУ (фон) -->
+  <!-- Зона 1: Оптимум (0..200 LOC/год) -->
+  <rect x="80" y="80" width="200" height="200" fill="#e9f7ef"/>
+  <text x="180" y="98" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">ЗОНА 1: ОПТИМУМ</text>
+
+  <!-- Зона 2: Злам уваги (200..400 LOC/год) -->
+  <rect x="280" y="80" width="200" height="200" fill="#eaf0fd"/>
+  <text x="380" y="98" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">ЗОНА 2: ЗЛАМ УВАГИ</text>
+
+  <!-- Зона 3: Профанація (400..880 LOC/год) -->
+  <rect x="480" y="80" width="400" height="200" fill="#fdecea"/>
+  <text x="680" y="98" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ЗОНА 3: ПРОФАНАЦІЯ («LGTM»)</text>
+
+  <!-- Пунктирні вертикальні розділювачі зон -->
+  <line x1="280" y1="104" x2="280" y2="280" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="480" y1="104" x2="480" y2="280" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Горизонтальні лінії орієнтирів (сітка) -->
+  <line x1="80" y1="130" x2="880" y2="130" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,4"/>
+  <line x1="80" y1="180" x2="880" y2="180" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,4"/>
+  <line x1="80" y1="230" x2="880" y2="230" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,4"/>
+
+  <!-- КРИВА ЩІЛЬНОСТІ ДЕФЕКТІВ (акцентна синя крива) -->
+  <path d="M80,128 C180,132 240,142 300,165 C360,195 420,242 490,260 C580,272 720,276 880,276" fill="none" stroke="#2457d6" stroke-width="3.5"/>
+
+  <!-- Точки на кривій -->
+  <circle cx="180" cy="132" r="4.5" fill="#2457d6"/>
+  <circle cx="300" cy="165" r="4.5" fill="#2457d6"/>
+  <circle cx="490" cy="260" r="4.5" fill="#c0392b"/>
+
+  <!-- Підпис до кривої -->
+  <rect x="520" y="222" width="220" height="22" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="630" y="237" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Крива виявлення дефектів</text>
+
+  <!-- ОСІ КООРДИНАТ -->
+  <!-- Вісь Y -->
+  <line x1="80" y1="280" x2="80" y2="70" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <!-- Вісь X -->
+  <line x1="80" y1="280" x2="895" y2="280" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Засічки та підписи на осі Y -->
+  <line x1="75" y1="130" x2="80" y2="130" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="70" y="134" font-size="12" fill="#6b7280" text-anchor="end">25</text>
+
+  <line x1="75" y1="180" x2="80" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="70" y="184" font-size="12" fill="#6b7280" text-anchor="end">15</text>
+
+  <line x1="75" y1="230" x2="80" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="70" y="234" font-size="12" fill="#6b7280" text-anchor="end">5</text>
+
+  <line x1="75" y1="280" x2="80" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="70" y="284" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Назва осі Y -->
+  <text x="25" y="66" font-size="12" font-weight="700" fill="#1a1a1a">Щільність дефектів (багів / kLOC)</text>
+
+  <!-- Засічки та підписи на осі X -->
+  <line x1="280" y1="280" x2="280" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="280" y="299" font-size="12" fill="#6b7280" text-anchor="middle">200</text>
+
+  <line x1="480" y1="280" x2="480" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="299" font-size="12" fill="#6b7280" text-anchor="middle">400</text>
+
+  <line x1="680" y1="280" x2="680" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="680" y="299" font-size="12" fill="#6b7280" text-anchor="middle">600</text>
+
+  <line x1="880" y1="280" x2="880" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="880" y="299" font-size="12" fill="#6b7280" text-anchor="middle">800</text>
+
+  <!-- Назва осі X -->
+  <text x="480" y="316" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Темп перегляду коду (LOC / год)</text>
+
+  <!-- НИЖНІ КАРТКИ ЗОН -->
+  <!-- Картка 1: Оптимальна інспекція -->
+  <rect x="40" y="332" width="276" height="114" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="52" y="342" width="170" height="20" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="137" y="356" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">&lt; 200 LOC/год · ОПТИМУМ</text>
+  <text x="52" y="378" font-size="12" fill="#1a1a1a">• Глибокий когнітивний аналіз</text>
+  <text x="52" y="396" font-size="12" fill="#1a1a1a">• Виявлення архітектурних дірок</text>
+  <text x="52" y="414" font-size="12" fill="#1a1a1a">• Знаходять 70–90% усіх дефектів</text>
+  <text x="52" y="434" font-size="12" font-weight="700" fill="#27ae60">Рекомендований режим приймання</text>
+
+  <!-- Картка 2: Злам уваги -->
+  <rect x="342" y="332" width="276" height="114" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="354" y="342" width="170" height="20" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="439" y="356" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">200–400 LOC/год · ЗЛАМ</text>
+  <text x="354" y="378" font-size="12" fill="#1a1a1a">• Швидке виснаження уваги</text>
+  <text x="354" y="396" font-size="12" fill="#1a1a1a">• Фокус на стилі, а не на логіці</text>
+  <text x="354" y="414" font-size="12" fill="#1a1a1a">• Ефективність падає в 3–5 разів</text>
+  <text x="354" y="434" font-size="12" font-weight="700" fill="#2457d6">Критична межа якості рев'ю</text>
+
+  <!-- Картка 3: Профанація -->
+  <rect x="644" y="332" width="276" height="114" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="656" y="342" width="180" height="20" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="746" y="356" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">&gt; 500 LOC/год · ПРОФАНАЦІЯ</text>
+  <text x="656" y="378" font-size="12" fill="#1a1a1a">• Поверхневий швидкий скролінг</text>
+  <text x="656" y="396" font-size="12" fill="#1a1a1a">• Сліпе схвалення («Looks good»)</text>
+  <text x="656" y="414" font-size="12" fill="#1a1a1a">• Детекція багів прямує до 0</text>
+  <text x="656" y="434" font-size="12" font-weight="700" fill="#c0392b">Ілюзія контролю, витік багів</text>
+</svg>

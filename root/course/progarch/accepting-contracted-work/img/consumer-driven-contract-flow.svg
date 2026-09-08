@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Життєвий цикл контрактного тестування (Consumer-Driven Contracts)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Формування контракту споживачем, публікація в брокері та автоматична верифікація реалізації підрядника</text>
+
+  <!-- ==================== КОЛОНКА 1: СПОЖИВАЧ (ЗАМОВНИК) ==================== -->
+  <rect x="20" y="76" width="280" height="424" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="36" y="100" font-size="14" font-weight="700" fill="#1a1a1a">1. Споживач (Consumer / Замовник)</text>
+  <text x="36" y="118" font-size="12" fill="#6b7280">Формулювання вимог та генерація контракту</text>
+
+  <!-- Блок 1A: Модульні тести споживача -->
+  <rect x="36" y="134" width="248" height="96" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="48" y="154" font-size="13" font-weight="700" fill="#2457d6">Модульні тести клієнта (Pact DSL)</text>
+  <text x="48" y="174" font-size="12" fill="#1a1a1a">Визначення очікуваної поведінки API:</text>
+  <text x="48" y="192" font-size="12" fill="#6b7280">• Запит: GET /orders/42</text>
+  <text x="48" y="210" font-size="12" fill="#6b7280">• Очікувано: 200 OK, JSON { id, status }</text>
+
+  <!-- Стрілка 1A -> 1B -->
+  <line x1="160" y1="230" x2="160" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 1B: Генерація контракту -->
+  <rect x="36" y="254" width="248" height="96" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="48" y="274" font-size="13" font-weight="700" fill="#2457d6">Генерація артефакту Pact JSON</text>
+  <text x="48" y="294" font-size="12" fill="#1a1a1a">Тести проходять проти Mock Server:</text>
+  <text x="48" y="312" font-size="12" fill="#6b7280">• Створюється файл order-service.json</text>
+  <text x="48" y="332" font-size="12" font-weight="700" fill="#27ae60">✓ Контракт зафіксовано як код</text>
+
+  <!-- Стрілка 1B -> 1C -->
+  <line x1="160" y1="350" x2="160" y2="370" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 1C: Захист замовника -->
+  <rect x="36" y="374" width="248" height="108" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="48" y="396" font-size="13" font-weight="700" fill="#27ae60">Безпечна інтеграція замовника</text>
+  <text x="48" y="416" font-size="12" fill="#1a1a1a">Замовник захищений від зламу API:</text>
+  <text x="48" y="434" font-size="12" fill="#6b7280">• Немає потреби у важких E2E-стендах</text>
+  <text x="48" y="452" font-size="12" fill="#6b7280">• Несумісні зміни блокуються до релізу</text>
+  <text x="48" y="470" font-size="12" font-weight="700" fill="#27ae60">✓ Гарантія сумісності компонентів</text>
+
+  <!-- ==================== КОЛОНКА 2: PACT BROKER ==================== -->
+  <rect x="340" y="76" width="280" height="424" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="356" y="100" font-size="14" font-weight="700" fill="#1a1a1a">2. Реєстр контрактів (Pact Broker)</text>
+  <text x="356" y="118" font-size="12" fill="#6b7280">Централізований арбітр та стан сумісності</text>
+
+  <!-- Блок 2A: Webhook тригер -->
+  <rect x="356" y="134" width="248" height="96" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="368" y="154" font-size="13" font-weight="700" fill="#2457d6">Webhook / Тригер перевірки</text>
+  <text x="368" y="174" font-size="12" fill="#1a1a1a">Реакція на оновлення контракту:</text>
+  <text x="368" y="192" font-size="12" fill="#6b7280">• Відправка HTTP Webhook у CI підрядника</text>
+  <text x="368" y="210" font-size="12" fill="#6b7280">• Запуск перевірки версії провайдера</text>
+
+  <!-- Стрілка 2B -> 2A -->
+  <line x1="480" y1="254" x2="480" y2="234" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 2B: Сховище версій -->
+  <rect x="356" y="254" width="248" height="96" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="368" y="274" font-size="13" font-weight="700" fill="#2457d6">Сховище версій контрактів</text>
+  <text x="368" y="294" font-size="12" fill="#1a1a1a">Централізований облік специфікацій:</text>
+  <text x="368" y="312" font-size="12" fill="#6b7280">• Імутабельне збереження версій (SHA)</text>
+  <text x="368" y="330" font-size="12" fill="#6b7280">• Тегування за середовищами (main, prod)</text>
+
+  <!-- Блок 2C: Матриця can-i-deploy -->
+  <rect x="356" y="374" width="248" height="108" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="368" y="396" font-size="13" font-weight="700" fill="#1a1a1a">Матриця сумісності (can-i-deploy)</text>
+  <text x="368" y="416" font-size="12" fill="#1a1a1a">Арбітраж перед розгортанням:</text>
+  <text x="368" y="434" font-size="12" fill="#27ae60">✓ PASS: версії сумісні → дозвіл деплою</text>
+  <text x="368" y="452" font-size="12" fill="#c0392b">✗ FAIL: конфлікт схем → зупинка релізу</text>
+  <text x="368" y="470" font-size="12" fill="#6b7280">Автоматичний аудит контрактів у CI</text>
+
+  <!-- ==================== КОЛОНКА 3: ПОСТАЧАЛЬНИК (ПІДРЯДНИК) ==================== -->
+  <rect x="660" y="76" width="280" height="424" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="676" y="100" font-size="14" font-weight="700" fill="#1a1a1a">3. Постачальник (Provider / Підрядник)</text>
+  <text x="676" y="118" font-size="12" fill="#6b7280">Верифікація коду проти вимог замовника</text>
+
+  <!-- Блок 3A: Завантаження контракту в CI -->
+  <rect x="676" y="134" width="248" height="96" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="688" y="154" font-size="13" font-weight="700" fill="#2457d6">Завантаження контракту в CI</text>
+  <text x="688" y="174" font-size="12" fill="#1a1a1a">CI конвеєр підрядника вичитує:</text>
+  <text x="688" y="192" font-size="12" fill="#6b7280">• Останній погоджений pact з брокера</text>
+  <text x="688" y="210" font-size="12" fill="#6b7280">• Налаштовує стан бази (Provider States)</text>
+
+  <!-- Стрілка 3A -> 3B -->
+  <line x1="800" y1="230" x2="800" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 3B: Верифікація реального API -->
+  <rect x="676" y="254" width="248" height="96" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="688" y="274" font-size="13" font-weight="700" fill="#2457d6">Верифікація реального API</text>
+  <text x="688" y="294" font-size="12" fill="#1a1a1a">Pact надсилає запити в бекенд:</text>
+  <text x="688" y="312" font-size="12" fill="#6b7280">• Звірка статусів, хедерів та типів полів</text>
+  <text x="688" y="330" font-size="12" fill="#6b7280">• Виявлення неоголошених ламаючих змін</text>
+
+  <!-- Стрілка 3B -> 3C -->
+  <line x1="800" y1="350" x2="800" y2="370" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 3C: Контрактний гейт -->
+  <rect x="676" y="374" width="248" height="108" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="688" y="396" font-size="13" font-weight="700" fill="#1a1a1a">Контрактний гейт у CI підрядника</text>
+  <text x="688" y="416" font-size="12" fill="#27ae60">✓ Успіх: exit code 0 → злиття PR дозволено</text>
+  <text x="688" y="434" font-size="12" fill="#c0392b">✗ Злам: exit code 1 → блокування пул-реквесту</text>
+  <text x="688" y="454" font-size="12" fill="#1a1a1a">Публікація результатів у Pact Broker:</text>
+  <text x="688" y="470" font-size="12" fill="#2457d6">pact-provider-verifier --publish-results</text>
+
+  <!-- ==================== МІЖКОЛОНКОВІ ГОРИЗОНТАЛЬНІ ЗВ'ЯЗКИ ==================== -->
+  <!-- 1. Публікація контракту (1B -> 2B) -->
+  <line x1="284" y1="302" x2="352" y2="302" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="318" y="294" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">Publish</text>
+
+  <!-- 2. Webhook тригер (2A -> 3A) -->
+  <line x1="604" y1="182" x2="672" y2="182" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="638" y="174" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">Webhook</text>
+
+  <!-- 3. Публікація результатів верифікації (3C -> 2C) -->
+  <line x1="676" y1="428" x2="608" y2="428" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="642" y="420" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">Results</text>
+
+  <!-- 4. Статус готовності до експлуатації (2C -> 1C) -->
+  <line x1="356" y1="428" x2="288" y2="428" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="322" y="420" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">Verified</text>
+</svg>

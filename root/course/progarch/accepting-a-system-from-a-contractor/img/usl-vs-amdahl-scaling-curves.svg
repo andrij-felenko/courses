@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="26" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Порівняння законів масштабування: Амдал проти USL Гюнтера</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Асимптотичне плато (α) проти точки зламу N* та зони ретроградації (β) у розподіленій системі</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ГРАФІК КРИВИХ ==================== -->
+  <rect x="24" y="66" width="510" height="366" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Заголовок лівої панелі -->
+  <text x="40" y="90" font-size="13" font-weight="700" fill="#1a1a1a">Криві масштабування системи: X(N) vs N</text>
+  <text x="40" y="106" font-size="12" fill="#6b7280">Y: Пропускна здатність X(N) / X(1) | X: Кількість вузлів / потоків N</text>
+
+  <!-- Поле графіку: x=80..400 (w=320), y=130..310 (h=180) -->
+  <rect x="80" y="130" width="320" height="180" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Зона ретроградації: x=240..400 (N > N*) -->
+  <rect x="240" y="130" width="160" height="180" fill="#fdecea" opacity="0.6"/>
+  <text x="320" y="150" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Зона ретроградації (N > N*)</text>
+  <text x="320" y="168" font-size="12" fill="#c0392b" text-anchor="middle">Штраф когерентності β · N(N-1)</text>
+
+  <!-- Горизонтальні лінії сітки -->
+  <line x1="80" y1="274" x2="400" y2="274" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="238" x2="400" y2="238" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="202" x2="400" y2="202" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="166" x2="400" y2="166" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Вертикальні лінії сітки -->
+  <line x1="160" y1="130" x2="160" y2="310" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="240" y1="130" x2="240" y2="310" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <line x1="320" y1="130" x2="320" y2="310" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Асимптота Амдала (плато 1/alpha = 25) -->
+  <line x1="80" y1="130" x2="400" y2="130" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- 1. Лінійний ідеал (синій пунктир) -->
+  <line x1="80" y1="310" x2="205" y2="130" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- 2. Закон Амдала (помаранчева лінія, alpha=0.04) -->
+  <path d="M 80,310 C 120,265 180,225 240,207 C 300,192 350,183 400,179" fill="none" stroke="#d97706" stroke-width="2.5"/>
+
+  <!-- 3. Закон USL Гюнтера (червона лінія з піком і спадом, alpha=0.04, beta=0.00094) -->
+  <path d="M 80,310 C 130,265 185,242 240,237 C 295,237 350,246 400,257" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Точка зламу N* (пік USL) -->
+  <circle cx="240" cy="237" r="4.5" fill="#c0392b"/>
+
+  <!-- Підписи осей Y (ліворуч від x=80) -->
+  <text x="72" y="134" font-size="12" fill="#6b7280" text-anchor="end">25</text>
+  <text x="72" y="170" font-size="12" fill="#6b7280" text-anchor="end">20</text>
+  <text x="72" y="206" font-size="12" fill="#6b7280" text-anchor="end">15</text>
+  <text x="72" y="242" font-size="12" fill="#6b7280" text-anchor="end">10</text>
+  <text x="72" y="278" font-size="12" fill="#6b7280" text-anchor="end">5</text>
+  <text x="72" y="314" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Підписи осей X (під y=310) -->
+  <text x="80" y="326" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+  <text x="160" y="326" font-size="12" fill="#6b7280" text-anchor="middle">16</text>
+  <text x="240" y="326" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">N* = 32 (пік)</text>
+  <text x="320" y="326" font-size="12" fill="#6b7280" text-anchor="middle">48</text>
+  <text x="400" y="326" font-size="12" fill="#6b7280" text-anchor="middle">64</text>
+
+  <!-- Легенда під графіком -->
+  <rect x="40" y="340" width="478" height="80" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <line x1="52" y1="354" x2="74" y2="354" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="80" y="358" font-size="12" fill="#2457d6">Лінійний ідеал: α = 0, β = 0 (необмежене лінійне прискорення)</text>
+
+  <line x1="52" y1="374" x2="74" y2="374" stroke="#d97706" stroke-width="2.5"/>
+  <text x="80" y="378" font-size="12" fill="#d97706">Закон Амдала: α > 0, β = 0 (асимптотичне плато 1/α, без спаду)</text>
+
+  <line x1="52" y1="394" x2="74" y2="394" stroke="#c0392b" stroke-width="3"/>
+  <text x="80" y="398" font-size="12" font-weight="700" fill="#c0392b">Закон USL: α > 0, β > 0 (пік у точці N* з подальшим падінням RPS)</text>
+
+  <rect x="52" y="405" width="22" height="9" fill="#fdecea" stroke="#c0392b" stroke-width="0.8"/>
+  <text x="80" y="414" font-size="12" fill="#6b7280">Зона ретроградації: додавання вузлів руйнує продуктивність</text>
+
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: АНАЛІЗ ТА АУДИТ ==================== -->
+  <rect x="550" y="66" width="386" height="366" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Заголовок правої панелі -->
+  <text x="566" y="90" font-size="13" font-weight="700" fill="#1a1a1a">Математичний апарат USL (Гюнтер)</text>
+  <text x="566" y="106" font-size="12" fill="#6b7280">Параметри архітектурної перевірки системи</text>
+
+  <!-- Картка 1: Формула USL -->
+  <rect x="566" y="118" width="354" height="92" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="578" y="136" font-size="12" font-weight="700" fill="#2457d6">1. Рівняння відносного прискорення:</text>
+  <text x="578" y="154" font-size="12" fill="#1a1a1a">• X(N) = N / [1 + α(N - 1) + β · N(N - 1)]</text>
+  <text x="578" y="172" font-size="12" fill="#1a1a1a">• α — коефіцієнт серіалізації (черги, lock)</text>
+  <text x="578" y="190" font-size="12" fill="#6b7280">• β — штраф парної когерентності (кеш/БД)</text>
+
+  <!-- Картка 2: Розрахунок N* -->
+  <rect x="566" y="222" width="354" height="92" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="578" y="240" font-size="12" font-weight="700" fill="#c0392b">2. Критична точка насичення N*:</text>
+  <text x="578" y="258" font-size="12" font-weight="700" fill="#c0392b">• Точка зламу: N* = √((1 - α) / β)</text>
+  <text x="578" y="276" font-size="12" fill="#1a1a1a">• Стеля масштабування: Xmax = X(N*)</text>
+  <text x="578" y="294" font-size="12" fill="#1a1a1a">• При N > N* витрати на консенсус перевищують користь</text>
+
+  <!-- Картка 3: Аудит приймання -->
+  <rect x="566" y="326" width="354" height="94" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="578" y="346" font-size="12" font-weight="700" fill="#1a1a1a">3. Аудит приймання від підрядника:</text>
+  <text x="578" y="366" font-size="12" fill="#1a1a1a">• Калібрування α, β на малому стенді через МНК</text>
+  <text x="578" y="384" font-size="12" fill="#1a1a1a">• Екстраполяція до цільового навантаження за SLA</text>
+  <text x="578" y="402" font-size="12" font-weight="700" fill="#27ae60">• Вимога: N* > N_target з запасом ≥ 50%</text>
+
+
+  <!-- ==================== НИЖНІЙ БАНЕР: БАР'ЄР ПРИЙМАННЯ ==================== -->
+  <rect x="24" y="448" width="912" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="469" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">КОНТРАКТНИЙ БАР'ЄР USL: СИСТЕМА З РЕТРОГРАДАЦІЄЮ НЕ ПРИЙМАЄТЬСЯ В ЕКСПЛУАТАЦІЮ</text>
+  <text x="480" y="489" font-size="12" fill="#1a1a1a" text-anchor="middle">Якщо розрахована точка зламу N* менша за цільове навантаження, підрядник зобов'язаний усунути блокування</text>
+
+</svg>

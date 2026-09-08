@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Визначення маркерів стрілок -->
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Контроль архітектурних меж та напрямків імпортів у CI-гейті</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Дозволені залежності спрямовані ззовні всередину; зворотні та циклічні імпорти автоматично блокуються</text>
+
+  <!-- СТОВПЧИК 1: Infrastructure -->
+  <rect x="40" y="75" width="260" height="205" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="52" y="87" width="150" height="22" rx="4" fill="#eaf0fd"/>
+  <text x="127" y="102" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">INFRASTRUCTURE</text>
+  <text x="52" y="128" font-size="15" font-weight="700" fill="#1a1a1a">Шар інфраструктури</text>
+  <text x="52" y="146" font-size="12" fill="#6b7280">Зовнішній контур системи</text>
+  <text x="52" y="172" font-size="12" fill="#1a1a1a">• Драйвери СУБД, ORM, кеш</text>
+  <text x="52" y="192" font-size="12" fill="#1a1a1a">• HTTP/gRPC контролери та API</text>
+  <text x="52" y="212" font-size="12" fill="#1a1a1a">• Черги подій, сторонні сервіси</text>
+  <text x="52" y="232" font-size="12" fill="#1a1a1a">• Реалізація інтерфейсів портів</text>
+  <text x="52" y="258" font-size="12" fill="#6b7280">Змінний, залежить від технологій</text>
+
+  <!-- СТОВПЧИК 2: Application -->
+  <rect x="350" y="75" width="260" height="205" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="362" y="87" width="140" height="22" rx="4" fill="#eaf0fd"/>
+  <text x="432" y="102" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">APPLICATION</text>
+  <text x="362" y="128" font-size="15" font-weight="700" fill="#1a1a1a">Шар застосунку</text>
+  <text x="362" y="146" font-size="12" fill="#6b7280">Оркестрація та юзкейси</text>
+  <text x="362" y="172" font-size="12" fill="#1a1a1a">• Сценарії взаємодії Use Cases</text>
+  <text x="362" y="192" font-size="12" fill="#1a1a1a">• Команди, запити, DTO моделі</text>
+  <text x="362" y="212" font-size="12" fill="#1a1a1a">• Декларація портів-інтерфейсів</text>
+  <text x="362" y="232" font-size="12" fill="#1a1a1a">• Координація доменних об'єктів</text>
+  <text x="362" y="258" font-size="12" fill="#6b7280">Ізольований від конкретних СУБД</text>
+
+  <!-- СТОВПЧИК 3: Domain Core -->
+  <rect x="660" y="75" width="260" height="205" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="672" y="87" width="130" height="22" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="737" y="102" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">DOMAIN CORE</text>
+  <text x="672" y="128" font-size="15" font-weight="700" fill="#27ae60">Шар чистого домену</text>
+  <text x="672" y="146" font-size="12" fill="#6b7280">Суверенне ядро системи</text>
+  <text x="672" y="172" font-size="12" fill="#1a1a1a">• Доменні сутності та агрегати</text>
+  <text x="672" y="192" font-size="12" fill="#1a1a1a">• Чисті інваріанти бізнес-правил</text>
+  <text x="672" y="212" font-size="12" fill="#1a1a1a">• Об'єкти-значення (Value Objects)</text>
+  <text x="672" y="232" font-size="12" fill="#1a1a1a">• Нуль сторонніх залежностей</text>
+  <text x="672" y="258" font-size="12" font-weight="700" fill="#27ae60">Абсолютна відчужуваність ядра</text>
+
+  <!-- ЗВ'ЯЗКИ МІЖ 1 І 2 (gap x=300..350) -->
+  <!-- Дозволений імпорт Infra -> App -->
+  <line x1="302" y1="125" x2="346" y2="125" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="325" y="117" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">імпорт</text>
+
+  <!-- Заблокований імпорт App -> Infra -->
+  <line x1="348" y1="185" x2="304" y2="185" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="325" y="177" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">заборона</text>
+
+  <!-- ЗВ'ЯЗКИ МІЖ 2 І 3 (gap x=610..660) -->
+  <!-- Дозволений імпорт App -> Domain -->
+  <line x1="612" y1="125" x2="656" y2="125" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="635" y="117" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">імпорт</text>
+
+  <!-- Заблокований імпорт Domain -> App -->
+  <line x1="658" y1="185" x2="614" y2="185" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="635" y="177" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">заборона</text>
+
+  <!-- НИЖНІЙ БЛОК: Правила CI Acceptance Gate -->
+  <!-- Ліва картка: Дозволені залежності -->
+  <rect x="40" y="295" width="425" height="145" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="56" y="320" font-size="14" font-weight="700" fill="#27ae60">✓ Дозволені залежності (зовні всередину):</text>
+  <text x="56" y="344" font-size="12" fill="#1a1a1a">• Інфраструктура реалізує інтерфейси портів застосунку.</text>
+  <text x="56" y="364" font-size="12" fill="#1a1a1a">• Застосунок оперує сутностями та правилами домену.</text>
+  <text x="56" y="384" font-size="12" fill="#1a1a1a">• Потік керування інвертується через Dependency Inversion.</text>
+  <rect x="54" y="398" width="397" height="28" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="252" y="416" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Статус CI Gate: СХВАЛЕНО (exit code 0) — контракт чистий</text>
+
+  <!-- Права картка: Заблоковані токсичні зв'язки -->
+  <rect x="495" y="295" width="425" height="145" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="511" y="320" font-size="14" font-weight="700" fill="#c0392b">✗ Автоматично блоковані зв'язки (витоки деталей):</text>
+  <text x="511" y="344" font-size="12" fill="#1a1a1a">• Прямий імпорт інфраструктури в домен (SQL, HTTP, ORM).</text>
+  <text x="511" y="364" font-size="12" fill="#1a1a1a">• Зворотна залежність домену від сценаріїв застосунку.</text>
+  <text x="511" y="384" font-size="12" fill="#1a1a1a">• Будь-які циклічні імпорти між модулями підрядника.</text>
+  <rect x="509" y="398" width="397" height="28" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="707" y="416" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Статус CI Gate: ВІДХИЛЕНО (exit code 1) — PR заблоковано</text>
+</svg>

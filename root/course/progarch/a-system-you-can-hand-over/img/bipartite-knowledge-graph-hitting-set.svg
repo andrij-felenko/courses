@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Двочастковий граф знань та мінімальне покриття (Truck Factor)</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Задача Hitting Set: виявлення критичної когорти авторів, втрата якої паралізує понад 50% кодової бази</text>
+
+  <!-- ==================== ЗОНА ГРАФА: РОЗРОБНИКИ ТА ФАЙЛИ ==================== -->
+  <rect x="24" y="72" width="566" height="318" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="36" y="90" font-size="12" font-weight="700" fill="#1a1a1a">Розробники системи (D)</text>
+  <text x="400" y="90" font-size="12" font-weight="700" fill="#1a1a1a">Файли та модулі коду (F)</text>
+
+  <!-- РЕБРА ГРАФА (ЗВ'ЯЗКИ DOA >= 3.293) -->
+  <!-- Критичні зв'язки від d1 (червоні) -->
+  <line x1="216" y1="123" x2="400" y2="123" stroke="#c0392b" stroke-width="1.8"/>
+  <line x1="216" y1="123" x2="400" y2="173" stroke="#c0392b" stroke-width="1.8"/>
+  <line x1="216" y1="123" x2="400" y2="223" stroke="#c0392b" stroke-width="1.8"/>
+
+  <!-- Критичні зв'язки від d2 (червоні) -->
+  <line x1="216" y1="179" x2="400" y2="223" stroke="#c0392b" stroke-width="1.8"/>
+  <line x1="216" y1="179" x2="400" y2="273" stroke="#c0392b" stroke-width="1.8"/>
+  <line x1="216" y1="179" x2="400" y2="323" stroke="#c0392b" stroke-width="1.8"/>
+
+  <!-- Звичайні зв'язки від інших авторів (сірі) -->
+  <line x1="216" y1="235" x2="400" y2="323" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="216" y1="291" x2="400" y2="371" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="216" y1="347" x2="400" y2="371" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- КАРТКИ РОЗРОБНИКІВ (D) -->
+  <!-- d1: Критичний автор -->
+  <rect x="36" y="102" width="180" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="46" y="120" font-size="12" font-weight="700" fill="#c0392b">d1: Lead Dev (Критичний)</text>
+  <text x="46" y="136" font-size="12" fill="#1a1a1a">Покриває: f1, f2, f3 (50%)</text>
+
+  <!-- d2: Критичний автор -->
+  <rect x="36" y="158" width="180" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="46" y="176" font-size="12" font-weight="700" fill="#c0392b">d2: Senior Core (Критичний)</text>
+  <text x="46" y="192" font-size="12" fill="#1a1a1a">Покриває: f3, f4, f5 (50%)</text>
+
+  <!-- d3: Звичайний контриб'ютор -->
+  <rect x="36" y="214" width="180" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="232" font-size="12" font-weight="700" fill="#1a1a1a">d3: Developer B</text>
+  <text x="46" y="248" font-size="12" fill="#6b7280">Покриває: f5 (периферія)</text>
+
+  <!-- d4: Звичайний контриб'ютор -->
+  <rect x="36" y="270" width="180" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="288" font-size="12" font-weight="700" fill="#1a1a1a">d4: Developer C</text>
+  <text x="46" y="304" font-size="12" fill="#6b7280">Покриває: f6 (утиліти)</text>
+
+  <!-- d5: Новачок -->
+  <rect x="36" y="326" width="180" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="344" font-size="12" font-weight="700" fill="#1a1a1a">d5: Junior Dev</text>
+  <text x="46" y="360" font-size="12" fill="#6b7280">Покриває: f6 (документація)</text>
+
+  <!-- КАРТКИ ФАЙЛІВ (F) -->
+  <!-- f1: Захищений d1 -->
+  <rect x="400" y="104" width="180" height="38" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="410" y="120" font-size="12" font-weight="700" fill="#c0392b">f1: core/auth.py</text>
+  <text x="410" y="134" font-size="12" fill="#6b7280">Власник: d1 (DOA = 4.1)</text>
+
+  <!-- f2: Захищений d1 -->
+  <rect x="400" y="154" width="180" height="38" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="410" y="170" font-size="12" font-weight="700" fill="#c0392b">f2: domain/order.py</text>
+  <text x="410" y="184" font-size="12" fill="#6b7280">Власник: d1 (DOA = 3.8)</text>
+
+  <!-- f3: Спільний d1, d2 -->
+  <rect x="400" y="204" width="180" height="38" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="410" y="220" font-size="12" font-weight="700" fill="#c0392b">f3: domain/ledger.py</text>
+  <text x="410" y="234" font-size="12" fill="#6b7280">Власники: d1, d2</text>
+
+  <!-- f4: Захищений d2 -->
+  <rect x="400" y="254" width="180" height="38" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="410" y="270" font-size="12" font-weight="700" fill="#c0392b">f4: infra/database.py</text>
+  <text x="410" y="284" font-size="12" fill="#6b7280">Власник: d2 (DOA = 3.9)</text>
+
+  <!-- f5: Захищений d2, d3 -->
+  <rect x="400" y="304" width="180" height="38" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="410" y="320" font-size="12" font-weight="700" fill="#c0392b">f5: api/routes.py</text>
+  <text x="410" y="334" font-size="12" fill="#6b7280">Власники: d2, d3</text>
+
+  <!-- f6: Периферія -->
+  <rect x="400" y="352" width="180" height="38" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="410" y="368" font-size="12" font-weight="700" fill="#27ae60">f6: utils/logger.py</text>
+  <text x="410" y="382" font-size="12" fill="#6b7280">Власники: d4, d5 (безпечно)</text>
+
+  <!-- ВЕРДИКТ-ПЛАШКА ПІД ГРАФОМ -->
+  <rect x="24" y="400" width="566" height="60" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="307" y="422" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ВЕРДИКТ: Truck Factor = 2 (Критична когорта {d1, d2})</text>
+  <text x="307" y="442" font-size="12" fill="#1a1a1a" text-anchor="middle">Втрата лише двох авторів робить сиротами 5 із 6 файлів (83.3% системи > 50%)</text>
+
+  <!-- ==================== ПРАВА КОЛОНКА: АНАЛІЗ HITTING SET ==================== -->
+  <rect x="608" y="72" width="328" height="388" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="620" y="94" font-size="13" font-weight="700" fill="#1a1a1a">Математична модель Hitting Set</text>
+  <text x="620" y="112" font-size="12" fill="#6b7280">Комбінаторна оптимізація фактора вантажівки</text>
+
+  <!-- Картка 1: Формалізація графа -->
+  <rect x="620" y="124" width="304" height="96" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="630" y="144" font-size="12" font-weight="700" fill="#1a1a1a">1. Граф знань G = (D ∪ F, E):</text>
+  <text x="630" y="164" font-size="12" fill="#1a1a1a">• D — множина авторів коду</text>
+  <text x="630" y="182" font-size="12" fill="#1a1a1a">• F — множина файлів / модулів</text>
+  <text x="630" y="200" font-size="12" fill="#2457d6">• Ребро e(d, f) існує, якщо DOA(d, f) ≥ 3.2</text>
+
+  <!-- Картка 2: Жадібна евристика -->
+  <rect x="620" y="230" width="304" height="106" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="630" y="250" font-size="12" font-weight="700" fill="#2457d6">2. Жадібна евристика Hitting Set:</text>
+  <text x="630" y="270" font-size="12" fill="#1a1a1a">• Крок 1: вибір автора з макс. покриттям (d1)</text>
+  <text x="630" y="288" font-size="12" fill="#1a1a1a">• Крок 2: вибір автора для решти файлів (d2)</text>
+  <text x="630" y="306" font-size="12" fill="#1a1a1a">• Зупинка: сумарне покриття ≥ 50% файлів</text>
+  <text x="630" y="322" font-size="12" fill="#c0392b">• Результат: min |T| = 2 розробники</text>
+
+  <!-- Картка 3: Аудит передачі -->
+  <rect x="620" y="346" width="304" height="102" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="630" y="366" font-size="12" font-weight="700" fill="#1a1a1a">3. Аудит відчужуваності (Handover):</text>
+  <text x="630" y="386" font-size="12" fill="#1a1a1a">• TF = 1..2 вказує на критичну залежність</text>
+  <text x="630" y="404" font-size="12" fill="#1a1a1a">• Заборонено підписувати акт приймання</text>
+  <text x="630" y="422" font-size="12" fill="#27ae60">• Вимога: парна розробка та шеринг знань</text>
+  <text x="630" y="438" font-size="12" fill="#6b7280">для підвищення показника TF ≥ 3..4</text>
+</svg>

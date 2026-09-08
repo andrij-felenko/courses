@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Автоматизований зворотний зв'язок: мутаційний гейт у CI</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Блокування неякісного пул-реквесту підрядника та публікація інлайн-звіту про вижилих мутантів</text>
+
+  <!-- ==================== КОЛОНКА 1: ПІДРЯДНИК ==================== -->
+  <rect x="30" y="70" width="270" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="96" font-size="14" font-weight="700" fill="#1a1a1a">1. Пул-реквест підрядника</text>
+  <text x="45" y="114" font-size="12" fill="#6b7280">Подання коду на злиття в репозиторій</text>
+
+  <!-- Вміст PR -->
+  <rect x="45" y="128" width="240" height="106" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="58" y="150" font-size="13" font-weight="700" fill="#1a1a1a">Подані зміни (PR #142)</text>
+  <text x="58" y="172" font-size="12" fill="#1a1a1a">• src/auth/token-service.ts</text>
+  <text x="58" y="192" font-size="12" fill="#1a1a1a">• tests/token.spec.ts</text>
+  <text x="58" y="214" font-size="12" font-weight="700" fill="#27ae60">Покриття рядків: 100% (зелене)</text>
+
+  <!-- Прогалини в тестах -->
+  <rect x="45" y="246" width="240" height="114" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="58" y="268" font-size="13" font-weight="700" fill="#c0392b">Ілюзія надійності тестів</text>
+  <text x="58" y="290" font-size="12" fill="#1a1a1a">• Пропуск меж: &gt; замість &gt;=</text>
+  <text x="58" y="310" font-size="12" fill="#1a1a1a">• Моки без assert-перевірок</text>
+  <text x="58" y="330" font-size="12" fill="#1a1a1a">• Прохід рядків без валідації</text>
+  <text x="58" y="348" font-size="12" fill="#c0392b">Хибне відчуття готовності коду</text>
+
+  <!-- Відправка в CI -->
+  <rect x="45" y="372" width="240" height="74" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="58" y="394" font-size="13" font-weight="700" fill="#2457d6">Тригер CI-конвеєра</text>
+  <text x="58" y="414" font-size="12" fill="#1a1a1a">Подія: pull_request.opened</text>
+  <text x="58" y="432" font-size="12" fill="#6b7280">Автоматичний запуск контролю</text>
+
+  <!-- ==================== КОЛОНКА 2: МУТАЦІЙНИЙ ГЕЙТ CI ==================== -->
+  <rect x="335" y="70" width="290" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="350" y="96" font-size="14" font-weight="700" fill="#1a1a1a">2. Конвеєр CI: Мутаційний гейт</text>
+  <text x="350" y="114" font-size="12" fill="#6b7280">Автоматична оцінка стійкості тестів</text>
+
+  <!-- Етап 1: Unit-тести -->
+  <rect x="350" y="128" width="260" height="66" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="362" y="150" font-size="13" font-weight="700" fill="#1a1a1a">Крок 1: Запуск unit-тестів</text>
+  <text x="362" y="172" font-size="12" fill="#27ae60">✓ 42/42 пройдено (тести успішні)</text>
+  <text x="362" y="186" font-size="12" fill="#6b7280">100% рядків пройдено формально</text>
+
+  <!-- Стрілка Крок 1 -> Крок 2 -->
+  <line x1="480" y1="194" x2="480" y2="204" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+
+  <!-- Етап 2: Мутаційне тестування -->
+  <rect x="350" y="206" width="260" height="98" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="362" y="228" font-size="13" font-weight="700" fill="#1a1a1a">Крок 2: Мутаційний рушій</text>
+  <text x="362" y="248" font-size="12" fill="#1a1a1a">Внесено 20 мутацій у diff коду</text>
+  <text x="362" y="268" font-size="12" fill="#27ae60">Вбито тестами: 12 (60%)</text>
+  <text x="362" y="288" font-size="12" font-weight="700" fill="#c0392b">ВИЖИЛО МУТАНТІВ: 8 (40%)</text>
+
+  <!-- Стрілка Крок 2 -> Крок 3 -->
+  <line x1="480" y1="304" x2="480" y2="314" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+
+  <!-- Етап 3: Mutation Gate (DoD) -->
+  <rect x="350" y="316" width="260" height="130" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="362" y="338" font-size="13" font-weight="700" fill="#c0392b">Крок 3: Поріг якості (DoD Gate)</text>
+  <text x="362" y="360" font-size="12" fill="#1a1a1a">Вимога контракту: бал &gt;= 80%</text>
+  <text x="362" y="380" font-size="12" font-weight="700" fill="#c0392b">Фактичний бал: 60% (менше 80%)</text>
+  <text x="362" y="404" font-size="13" font-weight="700" fill="#c0392b">Вердикт: ✗ ГЕЙТ ПРОВАЛЕНО</text>
+  <text x="362" y="426" font-size="12" fill="#6b7280">Автоматичний фідбек через API</text>
+
+  <!-- ==================== КОЛОНКА 3: РЕАКЦІЯ ЧЕРЕЗ API ==================== -->
+  <rect x="660" y="70" width="270" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="675" y="96" font-size="14" font-weight="700" fill="#1a1a1a">3. Автоматичний фідбек (API)</text>
+  <text x="675" y="114" font-size="12" fill="#6b7280">Дії CI-бота в системі контролю версій</text>
+
+  <!-- Блокування PR -->
+  <rect x="675" y="128" width="240" height="66" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="688" y="150" font-size="13" font-weight="700" fill="#c0392b">Статус злиття: BLOCKED</text>
+  <text x="688" y="172" font-size="12" font-weight="700" fill="#c0392b">✗ Mutation Gate: FAILED (60%)</text>
+  <text x="688" y="186" font-size="12" fill="#6b7280">Кнопка «Merge» заблокована</text>
+
+  <!-- Інлайн-коментар бота -->
+  <rect x="675" y="206" width="240" height="152" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="688" y="228" font-size="13" font-weight="700" fill="#2457d6">Інлайн-коментар бота через API</text>
+  <text x="688" y="248" font-size="12" font-weight="700" fill="#c0392b">«Мутаційний бал: 60% (поріг 80%)</text>
+  <text x="688" y="266" font-size="12" fill="#1a1a1a">Непокриті мутації в коді PR:»</text>
+  <text x="688" y="288" font-size="12" fill="#2457d6">↳ token-service.ts: рядок 42</text>
+  <text x="702" y="306" font-size="12" fill="#6b7280">Зміна &gt; на &gt;=: тест пропущено</text>
+  <text x="688" y="328" font-size="12" fill="#2457d6">↳ token-service.ts: рядок 79</text>
+  <text x="702" y="346" font-size="12" fill="#6b7280">Видалено виклик: assert немає</text>
+
+  <!-- Результат для замовника -->
+  <rect x="675" y="370" width="240" height="76" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="688" y="392" font-size="13" font-weight="700" fill="#27ae60">Об'єктивне приймання</text>
+  <text x="688" y="412" font-size="12" fill="#1a1a1a">Жодних суб'єктивних дискусій</text>
+  <text x="688" y="430" font-size="12" fill="#6b7280">Підрядник додає цільові тести</text>
+
+  <!-- ==================== СТРІЛКИ ЗВ'ЯЗКУ МІЖ КОЛОНКАМИ ==================== -->
+  <!-- Стрілка 1: Відправка PR у CI -->
+  <line x1="285" y1="161" x2="348" y2="161" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="316" y="153" font-size="12" fill="#2457d6" text-anchor="middle">PR push</text>
+
+  <!-- Стрілка 2: Провал гейту веде до блокування та звіту -->
+  <!-- Гейт у Col 2 (x=610, y=380) -> Col 3 -->
+  <path d="M 610,360 L 642,360 L 642,161 L 673,161" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <path d="M 642,282 L 673,282" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- ==================== ПЕТЛЯ ЗВОРОТНОГО ЗВ'ЯЗКУ (ВНИЗУ) ==================== -->
+  <path d="M 795,446 L 795,498 L 165,498 L 165,456" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arr-accent)"/>
+  <text x="480" y="486" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Зворотний зв'язок: підрядник виправляє тести за точними координатами мутантів і оновлює PR</text>
+</svg>

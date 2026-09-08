@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біле полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення дискретного модуля безпеки (HSM)</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Апаратні інтерфейси: живлення з фільтрацією, шина даних з підтяжкою, лінія скидання та Tamper Loop</text>
+
+  <!-- ================= БЛОК 1: HOST MCU ================= -->
+  <rect x="35" y="70" width="190" height="295" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="92" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Керівний контролер</text>
+  <text x="130" y="108" font-size="12" fill="#6b7280" text-anchor="middle">Host MCU / SoC</text>
+  <line x1="45" y1="116" x2="215" y2="116" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Піни MCU -->
+  <text x="215" y="135" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">VDD (3.3V)</text>
+  <text x="215" y="175" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">I2C_SCL</text>
+  <text x="215" y="210" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">I2C_SDA</text>
+  <text x="215" y="250" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GPIO_RST_N</text>
+  <text x="215" y="295" font-size="12" fill="#6b7280" text-anchor="end">GPIO_ALERT</text>
+  <text x="215" y="345" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND</text>
+
+  <!-- ================= БЛОК 2: DISCRETE HSM ================= -->
+  <rect x="735" y="70" width="190" height="295" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="830" y="92" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль безпеки</text>
+  <text x="830" y="108" font-size="12" fill="#6b7280" text-anchor="middle">Discrete HSM / RoT</text>
+  <line x1="745" y1="116" x2="915" y2="116" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Піни HSM -->
+  <text x="745" y="135" font-size="12" font-weight="bold" fill="#c0392b">VCC (3.3V)</text>
+  <text x="745" y="175" font-size="12" font-weight="bold" fill="#2457d6">SCL</text>
+  <text x="745" y="210" font-size="12" font-weight="bold" fill="#2457d6">SDA</text>
+  <text x="745" y="250" font-size="12" font-weight="bold" fill="#1a1a1a">RST_N</text>
+  <text x="745" y="290" font-size="12" font-weight="bold" fill="#c0392b">TAMPER_OUT</text>
+  <text x="745" y="315" font-size="12" font-weight="bold" fill="#c0392b">TAMPER_IN</text>
+  <text x="745" y="345" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <!-- ================= СИГНАЛЬНІ ЛІНІЇ ================= -->
+
+  <!-- 1. Лінія живлення VDD (y = 131) -->
+  <line x1="225" y1="131" x2="735" y2="131" stroke="#c0392b" stroke-width="2"/>
+  <text x="350" y="124" font-size="12" font-weight="bold" fill="#c0392b">Лінія живлення +3.3V (VDD)</text>
+
+  <!-- Блокувальні конденсатори біля VCC HSM -->
+  <rect x="585" y="78" width="135" height="40" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="652" y="94" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Блокувальні C_dec</text>
+  <text x="652" y="110" font-size="12" fill="#1a1a1a" text-anchor="middle">100 nF + 10 µF кераміка</text>
+  <line x1="652" y1="118" x2="652" y2="131" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="652" cy="131" r="3" fill="#2457d6"/>
+
+  <!-- 2. Лінії шини I2C: SCL (171) та SDA (206) -->
+  <line x1="225" y1="171" x2="735" y2="171" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="440" y="165" font-size="12" font-weight="bold" fill="#2457d6">Шина I2C: SCL (Clock)</text>
+
+  <line x1="225" y1="206" x2="735" y2="206" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="440" y="200" font-size="12" font-weight="bold" fill="#2457d6">Шина I2C: SDA (Data)</text>
+
+  <!-- Підтягувальні резистори R_pu (x = 265..385, y = 142..164) -->
+  <rect x="255" y="142" width="130" height="22" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="320" y="158" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_pu: 2 × 4.7 кОм</text>
+  <line x1="320" y1="131" x2="320" y2="142" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="320" cy="131" r="3" fill="#c0392b"/>
+  <line x1="300" y1="164" x2="300" y2="171" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="300" cy="171" r="3" fill="#2457d6"/>
+  <line x1="340" y1="164" x2="340" y2="206" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="340" cy="206" r="3" fill="#2457d6"/>
+
+  <!-- 3. Лінія скидання RST_N (246) -->
+  <line x1="225" y1="246" x2="735" y2="246" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="238" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RST_N: Апаратне скидання (Active-Low, захист від збоїв)</text>
+
+  <!-- 4. Tamper Loop (Контур виявлення розкриття) -->
+  <!-- Рамка зони захисту -->
+  <rect x="360" y="272" width="365" height="54" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="542" y="286" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Захисний контур корпусу (Tamper Loop)</text>
+  <text x="542" y="318" font-size="12" fill="#1a1a1a" text-anchor="middle">Розрив контуру → Негайне апаратне обнулення ключів (Zeroization)</text>
+
+  <!-- Дроти петлі -->
+  <line x1="735" y1="286" x2="685" y2="286" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="375" y1="295" x2="375" y2="310" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="735" y1="311" x2="685" y2="311" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- 5. Лінія землі GND (341) -->
+  <line x1="225" y1="341" x2="735" y2="341" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="480" y="358" font-size="12" fill="#6b7280" text-anchor="middle">GND (Спільна шина заземлення низького імпедансу)</text>
+
+  <!-- ================= НИЖНІЙ БАР'ЄР ПРИЙМАННЯ ================= -->
+  <rect x="35" y="380" width="890" height="62" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="404" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Критерії приймання апаратного контуру безпеки від підрядника</text>
+  <text x="480" y="426" font-size="12" fill="#27ae60" text-anchor="middle">1. C_dec впритул до VCC (≤ 5 мм)  |  2. Номінали підтяжки шини (R_pu 4.7k)  |  3. Тест обнулення при розкритті</text>
+</svg>

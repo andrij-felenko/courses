@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Визначення маркерів стрілок -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Експоненційне згасання знання про кодову базу (Time Decay)</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">За відсутності регулярних правок DOA падає нижче критичного порогу за період напіврозпаду T½</text>
+
+  <!-- ФОНОВІ ЗОНИ НА ГРАФІКУ -->
+  <!-- Зона активного володіння (DOA > 50%) -->
+  <rect x="80" y="70" width="800" height="110" fill="#e9f7ef"/>
+  <text x="860" y="88" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">ЗОНА ВОЛОДІННЯ (DOA &gt; 50%)</text>
+
+  <!-- Зона відчуження та втрати контексту (DOA < 50%) -->
+  <rect x="80" y="180" width="800" height="100" fill="#fdecea"/>
+  <text x="860" y="272" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">ЗОНА ВІДЧУЖЕННЯ (ВТРАТА КОНТЕКСТУ)</text>
+
+  <!-- Формула експоненційного згасання (у верхньому лівому кутку графіка, далеко від кривої) -->
+  <rect x="95" y="76" width="165" height="20" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="177" y="90" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">K(t) = K₀ · 2^(-t / T½)</text>
+
+  <!-- ЛІНІЯ ПОРОГУ ВІДЧУЖЕННЯ (50% DOA) -->
+  <line x1="80" y1="180" x2="880" y2="180" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,4"/>
+  <text x="700" y="172" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Поріг збереження авторства (DOA = 50%)</text>
+
+  <!-- Вертикальні лінії періодів напіврозпаду T½ -->
+  <!-- t = T½ = 12 міс (x = 347) -->
+  <line x1="347" y1="70" x2="347" y2="280" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="347" y="65" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">t = T½</text>
+
+  <!-- t = 2 T½ = 24 міс (x = 613) -->
+  <line x1="613" y1="70" x2="613" y2="280" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="613" y="65" font-size="12" fill="#6b7280" text-anchor="middle">t = 2 T½</text>
+
+  <!-- КРИВА ЕКСПОНЕНЦІЙНОГО ЗГАСАННЯ -->
+  <!-- Від 100% (y=100 при x=80) через 50% (y=180 при x=347) до 25% (y=225 при x=613) і 12.5% (y=248 при x=880) -->
+  <path d="M80,100 C170,115 260,145 347,180 C440,215 520,230 613,242 C700,252 790,258 880,262" fill="none" stroke="#2457d6" stroke-width="3.5"/>
+
+  <!-- Ключові точки на кривій -->
+  <circle cx="80" cy="100" r="5" fill="#2457d6"/>
+  <circle cx="347" cy="180" r="5" fill="#c0392b"/>
+  <circle cx="613" cy="242" r="5" fill="#6b7280"/>
+
+  <!-- ОСІ КООРДИНАТ -->
+  <!-- Вісь Y -->
+  <line x1="80" y1="280" x2="80" y2="55" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <!-- Вісь X -->
+  <line x1="80" y1="280" x2="895" y2="280" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Засічки та підписи на осі Y -->
+  <line x1="75" y1="100" x2="80" y2="100" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="70" y="104" font-size="12" fill="#6b7280" text-anchor="end">100%</text>
+
+  <line x1="75" y1="140" x2="80" y2="140" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="70" y="144" font-size="12" fill="#6b7280" text-anchor="end">75%</text>
+
+  <line x1="75" y1="180" x2="80" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="70" y="184" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">50%</text>
+
+  <line x1="75" y1="220" x2="80" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="70" y="224" font-size="12" fill="#6b7280" text-anchor="end">25%</text>
+
+  <line x1="75" y1="280" x2="80" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="70" y="284" font-size="12" fill="#6b7280" text-anchor="end">0%</text>
+
+  <!-- Назва осі Y -->
+  <text x="30" y="48" font-size="12" font-weight="700" fill="#1a1a1a">Рівень знання (DOA)</text>
+
+  <!-- Засічки та підписи на осі X -->
+  <line x1="80" y1="280" x2="80" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="80" y="299" font-size="12" fill="#6b7280" text-anchor="middle">0 міс</text>
+
+  <line x1="213" y1="280" x2="213" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="213" y="299" font-size="12" fill="#6b7280" text-anchor="middle">6 міс</text>
+
+  <line x1="347" y1="280" x2="347" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="347" y="299" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">12 міс (T½)</text>
+
+  <line x1="480" y1="280" x2="480" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="299" font-size="12" fill="#6b7280" text-anchor="middle">18 міс</text>
+
+  <line x1="613" y1="280" x2="613" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="613" y="299" font-size="12" fill="#6b7280" text-anchor="middle">24 міс (2T½)</text>
+
+  <line x1="747" y1="280" x2="747" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="747" y="299" font-size="12" fill="#6b7280" text-anchor="middle">30 міс</text>
+
+  <line x1="880" y1="280" x2="880" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="880" y="299" font-size="12" fill="#6b7280" text-anchor="middle">36 міс (3T½)</text>
+
+  <!-- Назва осі X -->
+  <text x="480" y="316" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Час без участі розробника в коді (місяці)</text>
+
+  <!-- НИЖНІ КАРТКИ -->
+  <!-- Картка 1: Активне володіння -->
+  <rect x="40" y="332" width="276" height="114" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="52" y="342" width="185" height="20" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="144" y="356" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">t &lt; T½ · АКТИВНЕ ВОЛОДІННЯ</text>
+  <text x="52" y="378" font-size="12" fill="#1a1a1a">• DOA вище нормативного порогу</text>
+  <text x="52" y="396" font-size="12" fill="#1a1a1a">• Живий контекст архітектури</text>
+  <text x="52" y="414" font-size="12" fill="#1a1a1a">• Швидка модифікація без збоїв</text>
+  <text x="52" y="434" font-size="12" font-weight="700" fill="#27ae60">Команда контролює компонент</text>
+
+  <!-- Картка 2: Точка зламу -->
+  <rect x="342" y="332" width="276" height="114" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="354" y="342" width="185" height="20" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="446" y="356" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">t = T½ (12 міс) · ТОЧКА ЗЛАМУ</text>
+  <text x="354" y="378" font-size="12" fill="#1a1a1a">• Падіння знання рівно вдвічі</text>
+  <text x="354" y="396" font-size="12" fill="#1a1a1a">• Забування граничних умов</text>
+  <text x="354" y="414" font-size="12" fill="#1a1a1a">• Зростає час онбордингу колег</text>
+  <text x="354" y="434" font-size="12" font-weight="700" fill="#2457d6">Перетин порогу відчуження</text>
+
+  <!-- Картка 3: Амнезія / Legacy -->
+  <rect x="644" y="332" width="276" height="114" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="656" y="342" width="185" height="20" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="748" y="356" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">t &gt; 2 T½ · АМНЕЗІЯ («LEGACY»)</text>
+  <text x="656" y="378" font-size="12" fill="#1a1a1a">• DOA &lt; 25% (знання втрачено)</text>
+  <text x="656" y="396" font-size="12" fill="#1a1a1a">• Код стає чужим навіть автору</text>
+  <text x="656" y="414" font-size="12" fill="#1a1a1a">• Високий ризик регресійних багів</text>
+  <text x="656" y="434" font-size="12" font-weight="700" fill="#c0392b">Потребує повторного реверсу</text>
+</svg>

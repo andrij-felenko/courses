@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="26" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Дерево ухвалення рішень за протоколом CycloneDX VEX</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Класифікація статусів вразливості, інженерні обґрунтування та машинний шлюз приймання</text>
+
+  <!-- КОЛОНКА 1: Виявлення CVE -->
+  <rect x="25" y="70" width="170" height="292" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="25" y="70" width="170" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="110" y="93" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">1. Виявлення CVE</text>
+
+  <!-- Колонка 1 Внутрішній блок 1: SBOM -->
+  <rect x="35" y="116" width="150" height="106" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="43" y="136" font-size="12" font-weight="700" fill="#1a1a1a">Маніфест CycloneDX:</text>
+  <text x="43" y="155" font-size="12" fill="#1a1a1a">• Реєстр purl пакетів</text>
+  <text x="43" y="174" font-size="12" fill="#1a1a1a">• Контрольні хеші</text>
+  <text x="43" y="193" font-size="12" fill="#1a1a1a">• Граф залежностей</text>
+  <text x="43" y="212" font-size="12" fill="#6b7280">• Валідація JSON Schema</text>
+
+  <!-- Колонка 1 Внутрішній блок 2: Сканер -->
+  <rect x="35" y="234" width="150" height="114" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="43" y="254" font-size="12" font-weight="700" fill="#1a1a1a">Сканер вразливостей:</text>
+  <text x="43" y="274" font-size="12" fill="#1a1a1a">• Звірка з NVD / OSV</text>
+  <text x="43" y="293" font-size="12" fill="#c0392b">• Знайдено CVE у пакеті</text>
+  <text x="43" y="312" font-size="12" fill="#6b7280">• Сирий алерт сканера</text>
+  <text x="43" y="331" font-size="12" fill="#2457d6">• Старт VEX-тріажу</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="195" y1="216" x2="212" y2="216" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- КОЛОНКА 2: Інженерне дерево рішень -->
+  <rect x="215" y="70" width="220" height="292" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="215" y="70" width="220" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="325" y="93" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">2. Дерево перевірок</text>
+
+  <!-- Блок 1: Присутність коду -->
+  <rect x="225" y="114" width="200" height="68" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="233" y="133" font-size="12" font-weight="700" fill="#1a1a1a">Крок 1. Присутність коду:</text>
+  <text x="233" y="151" font-size="12" fill="#6b7280">Чи є код у бінарнику?</text>
+  <text x="233" y="169" font-size="12" fill="#1a1a1a">ТАК: спуск до кроку 2 ↓</text>
+
+  <!-- З'єднувач 1 -> 2 -->
+  <line x1="325" y1="182" x2="325" y2="194" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 2: Досяжність -->
+  <rect x="225" y="196" width="200" height="68" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="233" y="215" font-size="12" font-weight="700" fill="#1a1a1a">Крок 2. Досяжність коду:</text>
+  <text x="233" y="233" font-size="12" fill="#6b7280">Чи є шлях у Call Graph?</text>
+  <text x="233" y="251" font-size="12" fill="#1a1a1a">ТАК: спуск до кроку 3 ↓</text>
+
+  <!-- З'єднувач 2 -> 3 -->
+  <line x1="325" y1="264" x2="325" y2="276" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 3: Захист середовища -->
+  <rect x="225" y="278" width="200" height="70" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="233" y="297" font-size="12" font-weight="700" fill="#1a1a1a">Крок 3. Захист оточення:</text>
+  <text x="233" y="315" font-size="12" fill="#6b7280">Чи діє бар'єр WAF/OS?</text>
+  <text x="233" y="333" font-size="12" fill="#1a1a1a">НІ: загроза не знешкоджена</text>
+
+  <!-- Стрілки розгалуження з Колонки 2 до Колонки 3 -->
+  <!-- З Блоку 1 (НІ) -> not_affected (code_not_present) -->
+  <line x1="425" y1="148" x2="452" y2="148" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- З Блоку 2 (НІ) -> not_affected (code_not_reachable) -->
+  <line x1="425" y1="210" x2="452" y2="175" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- З Блоку 3 (ТАК) -> not_affected (protected_by_control) -->
+  <line x1="425" y1="298" x2="452" y2="202" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- З Блоку 3 (НІ) -> affected -->
+  <line x1="425" y1="330" x2="452" y2="330" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- КОЛОНКА 3: Статуси CycloneDX VEX -->
+  <rect x="455" y="70" width="225" height="292" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="455" y="70" width="225" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="567" y="93" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">3. Статуси CycloneDX VEX</text>
+
+  <!-- Блок VEX A: not_affected (Обґрунтування) -->
+  <rect x="465" y="114" width="205" height="118" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="475" y="133" font-size="12" font-weight="700" fill="#27ae60">Статус: not_affected</text>
+  <text x="475" y="151" font-size="12" fill="#1a1a1a">• code_not_present (не скомпільовано)</text>
+  <text x="475" y="169" font-size="12" fill="#1a1a1a">• code_not_reachable (мертвий код)</text>
+  <text x="475" y="187" font-size="12" fill="#1a1a1a">• protected_by_mitigating_control</text>
+  <text x="475" y="205" font-size="12" fill="#1a1a1a">• requires_configuration (вимкнено)</text>
+  <text x="475" y="222" font-size="12" fill="#6b7280">(обов'язковий доказ: Call Graph)</text>
+
+  <!-- Блок VEX B: in_investigation -->
+  <rect x="465" y="240" width="205" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="475" y="258" font-size="12" font-weight="700" fill="#2457d6">Статус: in_investigation</text>
+  <text x="475" y="276" font-size="12" fill="#1a1a1a">• Тріаж підрядника (SLA до 5 днів)</text>
+
+  <!-- Блок VEX C: affected -->
+  <rect x="465" y="296" width="205" height="52" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="475" y="315" font-size="12" font-weight="700" fill="#c0392b">Статус: affected</text>
+  <text x="475" y="333" font-size="12" fill="#1a1a1a">• Підтверджена експлуатованість</text>
+
+  <!-- Стрілки з Колонки 3 до Колонки 4 -->
+  <!-- not_affected -> PASS -->
+  <line x1="680" y1="173" x2="697" y2="173" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- affected -> FAIL -->
+  <line x1="680" y1="322" x2="697" y2="322" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- КОЛОНКА 4: Шлюз приймання в CI -->
+  <rect x="700" y="70" width="235" height="292" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="700" y="70" width="235" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="817" y="93" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">4. Шлюз приймання в CI</text>
+
+  <!-- Блок 4A: СХВАЛЕНО -->
+  <rect x="710" y="114" width="215" height="118" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="817" y="135" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">✓ СХВАЛЕНО (Gate PASS)</text>
+  <text x="720" y="156" font-size="12" font-weight="700" fill="#1a1a1a">Умови успішного пропуску:</text>
+  <text x="720" y="175" font-size="12" fill="#1a1a1a">• not_affected + докази тріажу</text>
+  <text x="720" y="194" font-size="12" fill="#1a1a1a">• fixed: CVE закрито патчем</text>
+  <text x="720" y="215" font-size="12" fill="#27ae60">• Фіксація VEX в аудиті релізу</text>
+
+  <!-- Блок 4B: БЛОКОВАНО -->
+  <rect x="710" y="240" width="215" height="108" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="817" y="261" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">✗ БЛОКОВАНО (Gate FAIL)</text>
+  <text x="720" y="282" font-size="12" font-weight="700" fill="#1a1a1a">Причини зупинки конвеєра:</text>
+  <text x="720" y="301" font-size="12" fill="#c0392b">• affected (експлуатована дірка)</text>
+  <text x="720" y="320" font-size="12" fill="#c0392b">• not_affected БЕЗ обґрунтування</text>
+  <text x="720" y="338" font-size="12" fill="#6b7280">• Прострочений SLA тріажу</text>
+
+  <!-- Нижня панель: Принцип технічного суверенітету -->
+  <rect x="25" y="378" width="910" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="401" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Машинний бар'єр VEX: декларація «not_affected» нікчемна без інженерного обґрунтування</text>
+  <text x="480" y="423" text-anchor="middle" font-size="12" fill="#1a1a1a">Шлюз приймання блокує реліз, якщо для відхиленої CVE відсутні Call Graph або докази захисних засобів</text>
+</svg>

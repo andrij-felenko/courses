@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Орієнтований граф транзитивних залежностей у CycloneDX</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Секція dependencies формує ациклічний граф зв'язків між компонентами через ключі bom-ref</text>
+
+  <!-- КОЛОНКА 1: КОРІНЬ СИСТЕМИ -->
+  <rect x="24" y="74" width="180" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="114" y="93" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">РІВЕНЬ 0: КОРІНЬ (ROOT)</text>
+
+  <!-- Кореневий сервіс -->
+  <rect x="24" y="174" width="180" height="96" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="34" y="184" width="84" height="18" rx="3" fill="#ffffff"/>
+  <text x="76" y="197" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">application</text>
+  <text x="34" y="220" font-size="12" font-weight="700" fill="#1a1a1a">order-service:2.4.0</text>
+  <text x="34" y="240" font-size="12" fill="#6b7280">bom-ref: "app-root"</text>
+  <text x="34" y="258" font-size="12" fill="#2457d6">ref: "app-root"</text>
+
+  <!-- КОЛОНКА 2: ПРЯМІ ЗАЛЕЖНОСТІ -->
+  <rect x="244" y="74" width="186" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="337" y="93" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">РІВЕНЬ 1: ПРЯМІ ЗАЛЕЖНОСТІ</text>
+
+  <!-- Компонент 1.1: spring-boot -->
+  <rect x="244" y="116" width="186" height="88" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="254" y="125" width="76" height="18" rx="3" fill="#f4f6f8"/>
+  <text x="292" y="138" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">framework</text>
+  <text x="254" y="160" font-size="12" font-weight="700" fill="#1a1a1a">spring-boot-web:3.2</text>
+  <text x="254" y="179" font-size="12" fill="#6b7280">bom-ref: "pkg:spring"</text>
+  <text x="254" y="196" font-size="12" fill="#2457d6">ref: "pkg:spring"</text>
+
+  <!-- Компонент 1.2: postgresql -->
+  <rect x="244" y="248" width="186" height="88" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="254" y="257" width="58" height="18" rx="3" fill="#f4f6f8"/>
+  <text x="283" y="270" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">library</text>
+  <text x="254" y="292" font-size="12" font-weight="700" fill="#1a1a1a">postgresql-jdbc:42.6</text>
+  <text x="254" y="311" font-size="12" fill="#6b7280">bom-ref: "pkg:pg-jdbc"</text>
+  <text x="254" y="328" font-size="12" fill="#2457d6">ref: "pkg:pg-jdbc"</text>
+
+  <!-- КОЛОНКА 3: ТРАНЗИТИВНІ ЗАЛЕЖНОСТІ (1-й крок) -->
+  <rect x="470" y="74" width="194" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="567" y="93" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">РІВЕНЬ 2: ТРАНЗИТИВНІ (L1)</text>
+
+  <!-- Компонент 2.1: spring-core -->
+  <rect x="470" y="116" width="194" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="137" font-size="12" font-weight="700" fill="#1a1a1a">spring-core:6.1.2</text>
+  <text x="480" y="156" font-size="12" fill="#6b7280">bom-ref: "pkg:spring-core"</text>
+  <text x="480" y="174" font-size="12" fill="#27ae60">листок графа (leaf node)</text>
+
+  <!-- Компонент 2.2: jackson-databind -->
+  <rect x="470" y="196" width="194" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="217" font-size="12" font-weight="700" fill="#1a1a1a">jackson-databind:2.15</text>
+  <text x="480" y="236" font-size="12" fill="#6b7280">bom-ref: "pkg:jackson-db"</text>
+  <text x="480" y="254" font-size="12" fill="#2457d6">ref: "pkg:jackson-db"</text>
+  <text x="480" y="272" font-size="12" fill="#6b7280">проміжний вузол графа</text>
+
+  <!-- Компонент 2.3: checker-qual -->
+  <rect x="470" y="294" width="194" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="315" font-size="12" font-weight="700" fill="#1a1a1a">checker-qual:3.31</text>
+  <text x="480" y="334" font-size="12" fill="#6b7280">bom-ref: "pkg:checker"</text>
+  <text x="480" y="352" font-size="12" fill="#27ae60">листок графа (leaf node)</text>
+
+  <!-- КОЛОНКА 4: ГЛИБИННІ ТРАНЗИТИВНІ ЗАЛЕЖНОСТІ -->
+  <rect x="704" y="74" width="232" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="820" y="93" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">РІВЕНЬ 3: ГЛИБИННИЙ АЙСБЕРГ</text>
+
+  <!-- Компонент 3.1: jackson-core -->
+  <rect x="704" y="146" width="232" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="714" y="167" font-size="12" font-weight="700" fill="#1a1a1a">jackson-core:2.15.2</text>
+  <text x="714" y="186" font-size="12" fill="#6b7280">bom-ref: "pkg:jackson-core"</text>
+  <text x="714" y="204" font-size="12" fill="#27ae60">листок графа (безпечний)</text>
+
+  <!-- Компонент 3.2: log4j-core (Вразливий вузол) -->
+  <rect x="704" y="226" width="232" height="134" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="714" y="236" width="180" height="20" rx="3" fill="#fdecea"/>
+  <text x="720" y="250" font-size="12" font-weight="700" fill="#c0392b">КРИТИЧНИЙ ДЕФЕКТ</text>
+  <text x="714" y="274" font-size="12" font-weight="700" fill="#1a1a1a">log4j-core:2.14.1</text>
+  <text x="714" y="293" font-size="12" fill="#6b7280">bom-ref: "pkg:log4j-core"</text>
+  <text x="714" y="312" font-size="12" font-weight="700" fill="#c0392b">CVE-2021-44228 (Log4Shell)</text>
+  <text x="714" y="331" font-size="12" fill="#c0392b">CVSS 10.0 Remote Code Exec</text>
+  <text x="714" y="350" font-size="12" fill="#6b7280">Транзитивна атака на корінь</text>
+
+  <!-- Стрілки зв'язків DAG -->
+  <!-- Рівень 0 -> Рівень 1 -->
+  <path d="M 204 206 H 224 V 160 H 236" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <path d="M 204 238 H 224 V 292 H 236" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-main)"/>
+
+  <!-- Рівень 1 -> Рівень 2 -->
+  <path d="M 430 146 H 450 V 146 H 462" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <path d="M 430 174 H 450 V 238 H 462" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <path d="M 430 292 H 450 V 327 H 462" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-main)"/>
+
+  <!-- Рівень 2 -> Рівень 3 -->
+  <path d="M 664 224 H 684 V 179 H 696" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <path d="M 664 252 H 684 V 285 H 696" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: СПЕЦИФІКАЦІЯ СХЕМИ CYCLONEDX -->
+  <rect x="24" y="386" width="440" height="130" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="406" font-size="12" font-weight="700" fill="#1a1a1a">Машинний контракт масиву dependencies</text>
+  <text x="36" y="426" font-size="12" fill="#2457d6">"dependencies": [</text>
+  <text x="36" y="444" font-size="12" fill="#1a1a1a">  { "ref": "app-root", "dependsOn": [</text>
+  <text x="36" y="462" font-size="12" fill="#1a1a1a">      "pkg:spring", "pkg:pg-jdbc" ] },</text>
+  <text x="36" y="480" font-size="12" fill="#1a1a1a">  { "ref": "pkg:spring", "dependsOn": [</text>
+  <text x="36" y="498" font-size="12" fill="#1a1a1a">      "pkg:spring-core", "pkg:jackson-db" ] } ]</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: АРХІТЕКТУРНІ ВИСНОВКИ ДЛЯ ШЛЮЗУ ПРИЙМАННЯ -->
+  <rect x="480" y="386" width="456" height="130" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="492" y="406" font-size="12" font-weight="700" fill="#27ae60">Інженерні інваріанти аудиту графа залежностей</text>
+  <text x="492" y="428" font-size="12" fill="#1a1a1a">• Однозначність bom-ref: ключ ref унікальний у маніфесті</text>
+  <text x="492" y="448" font-size="12" fill="#1a1a1a">• Ациклічність (DAG): заборонено цикли (A -> B -> A)</text>
+  <text x="492" y="468" font-size="12" fill="#1a1a1a">• Досяжність CVE: шлюз виявляє повний ланцюг виклику</text>
+  <text x="492" y="488" font-size="12" fill="#1a1a1a">• Автоматичне блокування: вразливий листок заражає корінь</text>
+  <text x="492" y="506" font-size="12" fill="#27ae60">• Гарантія чистоти: перевірка lockfile та геш-сум кожного вузла</text>
+</svg>

@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Деревоподібна структура документа CycloneDX JSON (SBOM)</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Конверт метаданих, реєстр компонентів, граф залежностей (DAG) та блок вразливостей (VEX)</text>
+
+  <!-- КОРЕНЕВИЙ КОНВЕРТ (ROOT SCHEMA ENVELOPE) -->
+  <rect x="20" y="66" width="920" height="38" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="32" y="90" font-size="12" font-weight="bold" fill="#2457d6">ROOT SCHEMA ENVELOPE: bomFormat="CycloneDX" | specVersion="1.5" | serialNumber="urn:uuid:..." | version=1</text>
+
+  <!-- З'ЄДНУВАЛЬНІ ЛІНІЇ ВІД ROOT ДО 4 РОЗДІЛІВ -->
+  <line x1="127" y1="104" x2="127" y2="112" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="364" y1="104" x2="364" y2="112" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="601" y1="104" x2="601" y2="112" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="831" y1="104" x2="831" y2="112" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- РОЗДІЛ 1: metadata -->
+  <rect x="20" y="114" width="214" height="322" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="30" y="134" font-size="13" font-weight="bold" fill="#2457d6">1. metadata</text>
+  <text x="30" y="150" font-size="12" fill="#6b7280">Паспорт та контекст збірки</text>
+  <line x1="30" y1="158" x2="224" y2="158" stroke="#eaf0fd" stroke-width="1"/>
+  <text x="30" y="178" font-size="12" font-weight="bold" fill="#1a1a1a">timestamp:</text>
+  <text x="30" y="196" font-size="12" fill="#6b7280">ISO-8601 (час аудиту)</text>
+  <text x="30" y="220" font-size="12" font-weight="bold" fill="#1a1a1a">tools:</text>
+  <text x="30" y="238" font-size="12" fill="#1a1a1a">cdxgen / syft / trivy</text>
+  <text x="30" y="262" font-size="12" font-weight="bold" fill="#1a1a1a">component (root):</text>
+  <text x="30" y="280" font-size="12" fill="#1a1a1a">type: "application"</text>
+  <text x="30" y="298" font-size="12" fill="#1a1a1a">name: "payment-service"</text>
+  <text x="30" y="316" font-size="12" fill="#1a1a1a">version: "2.4.0"</text>
+  <text x="30" y="340" font-size="12" font-weight="bold" fill="#1a1a1a">authors / supplier:</text>
+  <text x="30" y="358" font-size="12" fill="#1a1a1a">підрядник, контакти</text>
+  <rect x="28" y="380" width="198" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="36" y="398" font-size="12" font-weight="bold" fill="#2457d6">ФІКСАЦІЯ КОНТЕКСТУ:</text>
+  <text x="36" y="416" font-size="12" fill="#1a1a1a">Хто, коли і чим зібрав</text>
+
+  <!-- РОЗДІЛ 2: components[] -->
+  <rect x="248" y="114" width="232" height="322" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="258" y="134" font-size="13" font-weight="bold" fill="#2457d6">2. components[]</text>
+  <text x="258" y="150" font-size="12" fill="#6b7280">Реєстр усіх бібліотек</text>
+  <line x1="258" y1="158" x2="470" y2="158" stroke="#eaf0fd" stroke-width="1"/>
+  <text x="258" y="178" font-size="12" font-weight="bold" fill="#1a1a1a">bom-ref (унікальний ID):</text>
+  <text x="258" y="196" font-size="12" fill="#2457d6">pkg:pypi/urllib3@2.0.7</text>
+  <text x="258" y="220" font-size="12" font-weight="bold" fill="#1a1a1a">purl (Package URL):</text>
+  <text x="258" y="238" font-size="12" fill="#1a1a1a">pkg:pypi/requests@2.31.0</text>
+  <text x="258" y="262" font-size="12" font-weight="bold" fill="#1a1a1a">hashes (контрольні суми):</text>
+  <text x="258" y="280" font-size="12" fill="#27ae60">alg: "SHA-256", val: "94c8..."</text>
+  <text x="258" y="304" font-size="12" font-weight="bold" fill="#1a1a1a">licenses (SPDX каталог):</text>
+  <text x="258" y="322" font-size="12" fill="#27ae60">id: "Apache-2.0" (чисто)</text>
+  <text x="258" y="340" font-size="12" fill="#6b7280">scope: "required"</text>
+  <rect x="256" y="380" width="216" height="46" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="264" y="398" font-size="12" font-weight="bold" fill="#27ae60">ПАСПОРТ МОДУЛЯ:</text>
+  <text x="264" y="416" font-size="12" fill="#1a1a1a">Хеш, версія та ліцензія</text>
+
+  <!-- РОЗДІЛ 3: dependencies[] -->
+  <rect x="494" y="114" width="214" height="322" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="504" y="134" font-size="13" font-weight="bold" fill="#2457d6">3. dependencies[]</text>
+  <text x="504" y="150" font-size="12" fill="#6b7280">Орієнтований граф DAG</text>
+  <line x1="504" y1="158" x2="698" y2="158" stroke="#eaf0fd" stroke-width="1"/>
+  <text x="504" y="178" font-size="12" font-weight="bold" fill="#1a1a1a">Вузол графа (ref):</text>
+  <text x="504" y="196" font-size="12" fill="#2457d6">ref: "pkg:pypi/requests"</text>
+  <text x="504" y="220" font-size="12" font-weight="bold" fill="#1a1a1a">dependsOn (масив ребер):</text>
+  <text x="504" y="238" font-size="12" fill="#1a1a1a">• "pkg:pypi/urllib3"</text>
+  <text x="504" y="256" font-size="12" fill="#1a1a1a">• "pkg:pypi/certifi"</text>
+  <text x="504" y="274" font-size="12" fill="#1a1a1a">• "pkg:pypi/idna"</text>
+  <text x="504" y="298" font-size="12" font-weight="bold" fill="#1a1a1a">Транзитивність:</text>
+  <text x="504" y="316" font-size="12" fill="#1a1a1a">App до Service до Lib</text>
+  <text x="504" y="334" font-size="12" fill="#6b7280">Детекція прихованих ребер</text>
+  <text x="504" y="352" font-size="12" fill="#c0392b">Заборона циклів у графі</text>
+  <rect x="502" y="380" width="198" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="510" y="398" font-size="12" font-weight="bold" fill="#2457d6">ДЕРЕВО ПОСТАЧАННЯ:</text>
+  <text x="510" y="416" font-size="12" fill="#1a1a1a">Прямі та непрямі зв'язки</text>
+
+  <!-- РОЗДІЛ 4: vulnerabilities[] -->
+  <rect x="722" y="114" width="218" height="322" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="732" y="134" font-size="13" font-weight="bold" fill="#c0392b">4. vulnerabilities[]</text>
+  <text x="732" y="150" font-size="12" fill="#6b7280">Вразливості та VEX</text>
+  <line x1="732" y1="158" x2="930" y2="158" stroke="#fdecea" stroke-width="1"/>
+  <text x="732" y="178" font-size="12" font-weight="bold" fill="#c0392b">id: "CVE-2023-32681"</text>
+  <text x="732" y="196" font-size="12" fill="#6b7280">source: NVD / OSV.dev</text>
+  <text x="732" y="220" font-size="12" font-weight="bold" fill="#1a1a1a">ratings (CVSS):</text>
+  <text x="732" y="238" font-size="12" font-weight="bold" fill="#c0392b">score: 7.5 (HIGH)</text>
+  <text x="732" y="262" font-size="12" font-weight="bold" fill="#1a1a1a">affects (прив'язка):</text>
+  <text x="732" y="280" font-size="12" fill="#2457d6">ref: "pkg:pypi/requests"</text>
+  <text x="732" y="304" font-size="12" font-weight="bold" fill="#1a1a1a">analysis (VEX-статус):</text>
+  <text x="732" y="322" font-size="12" fill="#27ae60">state: "not_affected"</text>
+  <text x="732" y="340" font-size="12" fill="#6b7280">justification: "unused"</text>
+  <text x="732" y="358" font-size="12" fill="#1a1a1a">detail: функція не активна</text>
+  <rect x="730" y="380" width="202" height="46" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="738" y="398" font-size="12" font-weight="bold" fill="#c0392b">VEX ВЕРДИКТ:</text>
+  <text x="738" y="416" font-size="12" fill="#1a1a1a">Фільтрація хибних тривог</text>
+
+  <!-- ЗВ'ЯЗКИ МІЖ РОЗДІЛАМИ (у просвітах між колонками) -->
+  <!-- 2 -> 3 (bom-ref зв'язок) у просвіті x=480..494 -->
+  <line x1="480" y1="196" x2="492" y2="196" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- 3 -> 4 (affects зв'язок) у просвіті x=708..722 -->
+  <line x1="708" y1="280" x2="720" y2="280" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+</svg>

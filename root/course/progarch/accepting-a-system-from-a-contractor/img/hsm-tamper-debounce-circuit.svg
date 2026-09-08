@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="26" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вхідний каскад моніторингу тампера HSM: Debounce Circuit</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Фільтрація брязкоту контактів і завад через RC-ланку та тригер Шмітта для захисту від хибного обнулення ключів</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: СХЕМА ТА ОСЦИЛОГРАМИ ==================== -->
+  <rect x="24" y="66" width="560" height="366" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Заголовок лівої панелі -->
+  <text x="38" y="90" font-size="13" font-weight="700" fill="#1a1a1a">Принципова схема та осцилограми фільтрації</text>
+  <text x="38" y="106" font-size="12" fill="#6b7280">Послідовне перетворення шуму датчика на стабільний цифровий фронт</text>
+
+  <!-- БЛОК 1: ДАТЧИК ТАМПЕРА -->
+  <rect x="38" y="120" width="80" height="88" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="78" y="146" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Тампер</text>
+  <text x="78" y="164" font-size="12" fill="#1a1a1a" text-anchor="middle">Датчик (NC)</text>
+  <text x="78" y="182" font-size="12" fill="#6b7280" text-anchor="middle">на корпус</text>
+
+  <!-- З'єднувальна лінія 1 -->
+  <line x1="118" y1="164" x2="148" y2="164" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- БЛОК 2: RC-ФІЛЬТР ТА ПІДТЯЖКА -->
+  <rect x="156" y="120" width="160" height="88" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="236" y="140" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">RC-Фільтр низьких частот</text>
+  <text x="236" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">R_pull = 100 kΩ (до Vbat)</text>
+  <text x="236" y="176" font-size="12" fill="#1a1a1a" text-anchor="middle">R_filt = 10 kΩ</text>
+  <text x="236" y="194" font-size="12" fill="#1a1a1a" text-anchor="middle">C_filt = 100 nF (τ = 1 мс)</text>
+
+  <!-- З'єднувальна лінія 2 -->
+  <line x1="316" y1="164" x2="346" y2="164" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- БЛОК 3: ТРИГЕР ШМІТТА -->
+  <rect x="354" y="120" width="108" height="88" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="408" y="146" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Тригер Шмітта</text>
+  <text x="408" y="166" font-size="12" fill="#1a1a1a" text-anchor="middle">Гістерезис ΔV</text>
+  <text x="408" y="186" font-size="12" fill="#6b7280" text-anchor="middle">VT+ / VT-</text>
+
+  <!-- З'єднувальна лінія 3 -->
+  <line x1="462" y1="164" x2="484" y2="164" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- БЛОК 4: HSM ZEROIZE LOGIC -->
+  <rect x="492" y="120" width="80" height="88" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="532" y="146" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">HSM Core</text>
+  <text x="532" y="166" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Zeroize</text>
+  <text x="532" y="186" font-size="12" fill="#c0392b" text-anchor="middle">Знищення</text>
+
+
+  <!-- ==================== ОСЦИЛОГРАМИ СИГНАЛУ ==================== -->
+
+  <!-- Осцилограма A: Вхідний сигнал з брязкотом -->
+  <rect x="38" y="224" width="534" height="56" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="246" font-size="12" font-weight="700" fill="#c0392b">A. Сигнал датчика (Вхід):</text>
+  <text x="48" y="266" font-size="12" fill="#6b7280">Дребезг &lt; 5 мс + перешкоди</text>
+  <!-- Поле хвилі A -->
+  <rect x="236" y="232" width="324" height="40" rx="3" fill="#fdecea"/>
+  <path d="M 242,264 L 280,264 L 285,242 L 290,264 L 295,242 L 300,264 L 305,242 L 310,264 L 320,242 L 550,242" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Осцилограма B: Після RC-фільтра -->
+  <rect x="38" y="292" width="534" height="56" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="314" font-size="12" font-weight="700" fill="#2457d6">B. Після RC-фільтра:</text>
+  <text x="48" y="334" font-size="12" fill="#6b7280">Згладжена напруга VC(t)</text>
+  <!-- Поле хвилі B -->
+  <rect x="236" y="300" width="324" height="40" rx="3" fill="#eaf0fd"/>
+  <path d="M 242,332 L 280,332 C 320,332 360,310 420,310 L 550,310" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Осцилограма C: Вихід тригера Шмітта -->
+  <rect x="38" y="360" width="534" height="56" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="48" y="382" font-size="12" font-weight="700" fill="#27ae60">C. Вихід тригера Шмітта:</text>
+  <text x="48" y="402" font-size="12" fill="#6b7280">Чіткий цифровий сигнал</text>
+  <!-- Поле хвилі C -->
+  <rect x="236" y="368" width="324" height="40" rx="3" fill="#e9f7ef"/>
+  <path d="M 242,400 L 350,400 L 350,376 L 550,376" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: АНАЛІЗ ТА АУДИТ ==================== -->
+  <rect x="600" y="66" width="336" height="366" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Заголовок правої панелі -->
+  <text x="612" y="90" font-size="13" font-weight="700" fill="#1a1a1a">Принцип роботи та аудит</text>
+  <text x="612" y="106" font-size="12" fill="#6b7280">Вимоги до апаратного приймання HSM</text>
+
+  <!-- Картка 1: RC-Фільтр -->
+  <rect x="612" y="118" width="312" height="92" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="624" y="138" font-size="12" font-weight="700" fill="#2457d6">1. RC-фільтр низьких частот (ФНЧ):</text>
+  <text x="624" y="156" font-size="12" fill="#1a1a1a">• Постійна часу: τ = R · C = 1.0 мс</text>
+  <text x="624" y="174" font-size="12" fill="#1a1a1a">• R = 10 kΩ, C = 100 nF зрізають імпульси</text>
+  <text x="624" y="192" font-size="12" fill="#6b7280">• Фільтрація шумів живлення та EMI</text>
+
+  <!-- Картка 2: Тригер Шмітта -->
+  <rect x="612" y="222" width="312" height="92" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="624" y="242" font-size="12" font-weight="700" fill="#27ae60">2. Тригер Шмітта з гістерезисом:</text>
+  <text x="624" y="260" font-size="12" fill="#1a1a1a">• Поріг спрацьовування: VT+ = 2.0 В</text>
+  <text x="624" y="278" font-size="12" fill="#1a1a1a">• Поріг відпускання: VT- = 0.8 В (ΔV = 1.2 В)</text>
+  <text x="624" y="296" font-size="12" fill="#27ae60">• Усуває брязкіт на порозі перемикання</text>
+
+  <!-- Картка 3: Приймальний аудит -->
+  <rect x="612" y="326" width="312" height="92" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="624" y="346" font-size="12" font-weight="700" fill="#1a1a1a">3. Приймальний аудит підсистеми:</text>
+  <text x="624" y="366" font-size="12" fill="#1a1a1a">• Тест на вібраційну стійкість у стійці</text>
+  <text x="624" y="384" font-size="12" fill="#1a1a1a">• Тест на перепади шин резервного Vbat</text>
+  <text x="624" y="402" font-size="12" font-weight="700" fill="#27ae60">• Гарантія: нуль хибних Zeroize за 5 років</text>
+
+
+  <!-- ==================== НИЖНІЙ БАНЕР: БАР'ЄР ПРИЙМАННЯ ==================== -->
+  <rect x="24" y="448" width="912" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="469" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">АПАРАТНИЙ БАР'ЄР: ПРЯМЕ ПІДКЛЮЧЕННЯ ДАТЧИКА ТАМПЕРА ДО GPIO БЕЗ ДЕБАУНСА ЗАБОРОНЕНО</text>
+  <text x="480" y="489" font-size="12" fill="#1a1a1a" text-anchor="middle">Хибне спрацьовування від електромагнітної завади безповоротно знищує майстер-ключі й виводить сервер з ладу</text>
+
+</svg>

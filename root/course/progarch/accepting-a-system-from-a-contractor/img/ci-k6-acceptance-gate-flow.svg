@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="26" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Конвеєр приймального тестування k6 у CI/CD</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Автоматична оцінка SLO-порогів (Thresholds), блокування релізу при деградації та експорт звіту</text>
+
+  <!-- ЕТАП 1: Запуск k6 у CI -->
+  <rect x="25" y="70" width="195" height="290" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="25" y="70" width="195" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="122" y="93" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">1. Запуск тестів k6</text>
+
+  <!-- Етап 1 Внутрішній блок 1: Профілі -->
+  <rect x="35" y="118" width="175" height="110" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="138" font-size="12" font-weight="700" fill="#1a1a1a">Профілі навантаження:</text>
+  <text x="45" y="158" font-size="12" fill="#1a1a1a">• Smoke: димовий тест</text>
+  <text x="45" y="177" font-size="12" fill="#1a1a1a">• Load: базове SLA (VUs)</text>
+  <text x="45" y="196" font-size="12" fill="#1a1a1a">• Stress: пікова стійкість</text>
+  <text x="45" y="215" font-size="12" fill="#1a1a1a">• Soak: перевірка витоків</text>
+
+  <!-- Етап 1 Внутрішній блок 2: Параметризація -->
+  <rect x="35" y="240" width="175" height="106" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="260" font-size="12" font-weight="700" fill="#1a1a1a">Параметризація CI:</text>
+  <text x="45" y="280" font-size="12" fill="#6b7280">• Емуляція пулу клієнтів</text>
+  <text x="45" y="299" font-size="12" fill="#6b7280">• Генерація JWT-токенів</text>
+  <text x="45" y="318" font-size="12" fill="#6b7280">• Контрактні тестові дані</text>
+  <text x="45" y="337" font-size="12" fill="#6b7280">• Ізольоване середовище</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="220" y1="215" x2="240" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ЕТАП 2: Збір метрик та перевірок -->
+  <rect x="242" y="70" width="195" height="290" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="242" y="70" width="195" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="339" y="93" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">2. Збір та агрегація</text>
+
+  <!-- Етап 2 Внутрішній блок 1: Метрики -->
+  <rect x="252" y="118" width="175" height="110" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="262" y="138" font-size="12" font-weight="700" fill="#1a1a1a">Метрики продуктивності:</text>
+  <text x="262" y="158" font-size="12" fill="#1a1a1a">• http_req_duration</text>
+  <text x="274" y="177" font-size="12" fill="#6b7280">(p90, p95, p99 затримки)</text>
+  <text x="262" y="196" font-size="12" fill="#1a1a1a">• http_req_failed</text>
+  <text x="274" y="215" font-size="12" fill="#6b7280">(відсоток 4xx/5xx помилок)</text>
+
+  <!-- Етап 2 Внутрішній блок 2: Перевірки (Checks) -->
+  <rect x="252" y="240" width="175" height="106" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="262" y="260" font-size="12" font-weight="700" fill="#1a1a1a">Перевірки інваріантів:</text>
+  <text x="262" y="280" font-size="12" fill="#1a1a1a">• checks rate (успішність)</text>
+  <text x="262" y="299" font-size="12" fill="#6b7280">• Валідність схем відповідей</text>
+  <text x="262" y="318" font-size="12" fill="#6b7280">• Стан пулів з'єднань БД</text>
+  <text x="262" y="337" font-size="12" fill="#6b7280">• Зонди liveness/readiness</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="437" y1="215" x2="457" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ЕТАП 3: Шлюз оцінки порогів (SLO Gate) -->
+  <rect x="459" y="70" width="206" height="290" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="459" y="70" width="206" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="562" y="93" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">3. Оцінка Thresholds</text>
+
+  <!-- Етап 3 Внутрішній блок 1: Пороги SLO -->
+  <rect x="469" y="118" width="186" height="126" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="479" y="138" font-size="12" font-weight="700" fill="#1a1a1a">Контрактні SLO-пороги:</text>
+  <text x="479" y="158" font-size="12" fill="#1a1a1a">• p(95) &lt; 200 ms (ціль)</text>
+  <text x="479" y="177" font-size="12" fill="#1a1a1a">• p(99) &lt; 500 ms (хвіст)</text>
+  <text x="479" y="196" font-size="12" fill="#1a1a1a">• http_req_failed &lt; 0.1%</text>
+  <text x="479" y="215" font-size="12" fill="#1a1a1a">• checks rate &gt; 99.9%</text>
+  <text x="479" y="234" font-size="12" fill="#6b7280">• відсутність витоків RAM</text>
+
+  <!-- Етап 3 Внутрішній блок 2: Машинне рішення -->
+  <rect x="469" y="254" width="186" height="92" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="479" y="274" font-size="12" font-weight="700" fill="#1a1a1a">Машинна верифікація:</text>
+  <text x="479" y="294" font-size="12" fill="#6b7280">Двійкова оцінка k6:</text>
+  <text x="479" y="313" font-size="12" fill="#27ae60">Exit 0: повна відповідність</text>
+  <text x="479" y="332" font-size="12" fill="#c0392b">Exit 99: порушення SLO</text>
+
+  <!-- Розгалуження: Стрілка ВЕРХ (PASS) -->
+  <line x1="665" y1="140" x2="717" y2="140" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="691" y="132" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">PASS</text>
+
+  <!-- Розгалуження: Стрілка НИЗ (FAIL) -->
+  <line x1="665" y1="290" x2="717" y2="290" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="691" y="282" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">FAIL</text>
+
+  <!-- ЕТАП 4A: Успіх (Exit Code 0) -->
+  <rect x="725" y="70" width="210" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="735" y="80" width="190" height="28" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="830" y="99" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Exit 0: SLO виконано</text>
+  <text x="740" y="125" font-size="12" font-weight="700" fill="#1a1a1a">Експорт аудиту приймання:</text>
+  <text x="740" y="145" font-size="12" fill="#1a1a1a">• Звіт k6 (JUnit, JSON, HTML)</text>
+  <text x="740" y="164" font-size="12" fill="#1a1a1a">• Підтвердження відповідності</text>
+  <text x="740" y="183" font-size="12" fill="#27ae60">• Схвалення акта приймання</text>
+
+  <!-- ЕТАП 4B: Блокування (Exit Code 99) -->
+  <rect x="725" y="225" width="210" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="735" y="235" width="190" height="28" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="830" y="254" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Exit 99: Порушення SLO</text>
+  <text x="740" y="280" font-size="12" font-weight="700" fill="#1a1a1a">Автоблокування конвеєра:</text>
+  <text x="740" y="300" font-size="12" fill="#1a1a1a">• Збірку CI зупинено (Failed)</text>
+  <text x="740" y="319" font-size="12" fill="#1a1a1a">• Дамп дефектів та розривів</text>
+  <text x="740" y="338" font-size="12" fill="#c0392b">• Відхилення акта підрядника</text>
+
+  <!-- Нижня панель: Принцип технічного суверенітету -->
+  <rect x="25" y="378" width="910" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="401" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Машинний бар'єр приймання: технічний суверенітет замовника без людського фактора</text>
+  <text x="480" y="423" text-anchor="middle" font-size="12" fill="#1a1a1a">Невідповідність будь-якому порогу k6 блокує конвеєр доставки й унеможливлює приймання крихких рішень</text>
+</svg>

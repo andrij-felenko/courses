@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Динаміка когнітивної уваги рецензента під час перегляду коду</text>
+  <text x="480" y="48" font-size="13" text-anchor="middle" fill="#6b7280">Увага стрімко падає після 60 хвилин, обґрунтовуючи ліміт сесії t ≤ 60 хв та обсяг зрізу S ≤ 300 LOC</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Графік спаду уваги -->
+  <rect x="30" y="70" width="565" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="42" y="82" width="541" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="312" y="105" font-size="14" font-weight="700" text-anchor="middle" fill="#2457d6">Крива спаду уваги та щільності виявлення дефектів</text>
+
+  <!-- Картка графіка -->
+  <rect x="42" y="126" width="541" height="298" rx="6" fill="white" stroke="#d0d7de"/>
+
+  <!-- Зелена зона (Ефективне рев'ю 0-60 хв) -->
+  <rect x="110" y="180" width="215" height="180" fill="#e9f7ef" fill-opacity="0.5"/>
+
+  <!-- Червона зона (Втома та деградація 60-120 хв) -->
+  <rect x="325" y="180" width="215" height="180" fill="#fdecea" fill-opacity="0.5"/>
+
+  <!-- Картка напису для червоної зони (угорі, де крива ще не проходить) -->
+  <rect x="380" y="136" width="195" height="42" rx="4" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="477" y="154" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Зона втоми (t &gt; 60 хв)</text>
+  <text x="477" y="170" font-size="12" text-anchor="middle" fill="#1a1a1a">Спад до &lt; 20% | Синдром LGTM</text>
+
+  <!-- Картка напису для зеленої зони (внизу, де крива проходить високо вгорі) -->
+  <rect x="120" y="270" width="195" height="42" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="217" y="288" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Ефективна зона (t ≤ 60 хв)</text>
+  <text x="217" y="304" font-size="12" text-anchor="middle" fill="#1a1a1a">S ≤ 300 LOC | Виявлення 80–95%</text>
+
+  <!-- Позначка критичного ліміту 60 хв -->
+  <rect x="275" y="132" width="100" height="26" rx="4" fill="#c0392b"/>
+  <text x="325" y="150" font-size="12" font-weight="700" text-anchor="middle" fill="white">Ліміт: 60 хв</text>
+
+  <!-- Пунктирна лінія порогу на 60 хв -->
+  <line x1="325" y1="160" x2="325" y2="360" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- Крива спаду концентрації уваги -->
+  <path d="M 110,189 C 180,191 250,200 325,225 C 380,245 420,310 540,342" fill="none" stroke="#2457d6" stroke-width="3.5"/>
+
+  <!-- Точки на кривій -->
+  <circle cx="110" cy="189" r="4" fill="#2457d6"/>
+  <circle cx="325" cy="225" r="5" fill="#c0392b" stroke="white" stroke-width="2"/>
+  <circle cx="432" cy="315" r="4" fill="#c0392b"/>
+  <circle cx="540" cy="342" r="4" fill="#c0392b"/>
+
+  <!-- Осі координат -->
+  <line x1="110" y1="360" x2="110" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="110" y1="360" x2="545" y2="360" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Позначки осі Y -->
+  <text x="50" y="142" font-size="12" font-weight="700" fill="#1a1a1a">Увага / баги</text>
+  <text x="102" y="184" font-size="12" text-anchor="end" fill="#6b7280">100%</text>
+  <text x="102" y="229" font-size="12" text-anchor="end" fill="#6b7280">75%</text>
+  <text x="102" y="274" font-size="12" text-anchor="end" fill="#6b7280">50%</text>
+  <text x="102" y="319" font-size="12" text-anchor="end" fill="#6b7280">25%</text>
+  <text x="102" y="364" font-size="12" text-anchor="end" fill="#6b7280">0%</text>
+
+  <!-- Позначки осі X -->
+  <text x="110" y="378" font-size="12" text-anchor="middle" fill="#6b7280">0 хв</text>
+  <text x="218" y="378" font-size="12" text-anchor="middle" fill="#6b7280">30 хв</text>
+  <text x="325" y="378" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">60 хв</text>
+  <text x="432" y="378" font-size="12" text-anchor="middle" fill="#6b7280">90 хв</text>
+  <text x="540" y="378" font-size="12" text-anchor="middle" fill="#6b7280">120 хв</text>
+  <text x="325" y="404" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Час безперервного перегляду t (хвилини)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Нормативи та наслідки -->
+  <rect x="615" y="70" width="315" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="627" y="82" width="291" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="772" y="105" font-size="14" font-weight="700" text-anchor="middle" fill="#2457d6">Правила приймання в CI/CD</text>
+
+  <!-- Картка 1: Нормативи DoD -->
+  <rect x="627" y="126" width="291" height="136" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="639" y="148" font-size="12" font-weight="700" fill="#27ae60">Нормативи для підрядника (DoD):</text>
+  <text x="639" y="170" font-size="12" font-weight="700" fill="#1a1a1a">• Ліміт розміру: S ≤ 300 LOC</text>
+  <text x="639" y="188" font-size="12" fill="#6b7280">  Пул-реквест осяжний для однієї сесії</text>
+  <text x="639" y="210" font-size="12" font-weight="700" fill="#1a1a1a">• Ліміт часу: t ≤ 60 хв</text>
+  <text x="639" y="228" font-size="12" fill="#6b7280">  Обов'язкова перерва між рев'ю</text>
+  <text x="639" y="248" font-size="12" fill="#27ae60">✔ Темп: 200–300 рядків коду на годину</text>
+
+  <!-- Картка 2: Пастка великого злиття -->
+  <rect x="627" y="270" width="291" height="154" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="639" y="292" font-size="12" font-weight="700" fill="#c0392b">Пастка великого злиття (PR &gt; 1000 LOC):</text>
+  <text x="639" y="314" font-size="12" fill="#1a1a1a">• Час перегляду перевищує 3–5 годин</text>
+  <text x="639" y="334" font-size="12" fill="#1a1a1a">• Когнітивне виснаження інженера</text>
+  <text x="639" y="356" font-size="12" font-weight="700" fill="#c0392b">✖ Синдром "Looks Good To Me":</text>
+  <text x="639" y="376" font-size="12" fill="#c0392b">  Рецензент скролить код без аналізу</text>
+  <text x="639" y="394" font-size="12" fill="#6b7280">  80% дефектів потрапляють у прод</text>
+  <text x="639" y="414" font-size="12" font-weight="700" fill="#c0392b">Вердикт: Автоблокування PR &gt; 300 LOC</text>
+</svg>

@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="26" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Ілюзія демо-стенда проти стенда «чистої кімнати» (Clean-Room)</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Верифікація технічного суверенітету: чому приймання вимагає ізольованого контуру з повітряним проміжком</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ДЕМО-СТЕНД (АНТИПАТЕРН) ==================== -->
+  <rect x="24" y="66" width="444" height="366" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+
+  <!-- Заголовок лівої панелі -->
+  <rect x="36" y="78" width="420" height="32" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="48" y="99" font-size="13" font-weight="700" fill="#c0392b">Тепличний демо-стенд підрядника (Ілюзія успіху)</text>
+
+  <!-- Блок 1: Неявні залежності -->
+  <rect x="36" y="124" width="420" height="62" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="142" font-size="12" font-weight="700" fill="#c0392b">1. Приховані зовнішні підпори та VPN</text>
+  <text x="48" y="158" font-size="12" fill="#1a1a1a">• Неявні мережеві запити до внутрішніх серверів виконавця</text>
+  <text x="48" y="174" font-size="12" fill="#6b7280">• Залежність від незадокументованих DNS, токенів та сервісів</text>
+
+  <!-- Блок 2: Прогріте середовище -->
+  <rect x="36" y="200" width="420" height="62" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="218" font-size="12" font-weight="700" fill="#c0392b">2. «Прогріте» середовище та ручні латки в БД</text>
+  <text x="48" y="234" font-size="12" fill="#1a1a1a">• База наповнена вручну, міграції з нуля не запускалися</text>
+  <text x="48" y="250" font-size="12" fill="#6b7280">• Локальні кеші приховують відсутність вихідних репозиторіїв</text>
+
+  <!-- Блок 3: Фіктивні Health Checks -->
+  <rect x="36" y="276" width="420" height="62" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="294" font-size="12" font-weight="700" fill="#c0392b">3. Фіктивні перевірки здоров'я (Health Fake)</text>
+  <text x="48" y="310" font-size="12" fill="#1a1a1a">• Статус 200 OK повертається без перевірки реальних баз</text>
+  <text x="48" y="326" font-size="12" fill="#6b7280">• Каскадні збої маскуються внутрішніми статичними заглушками</text>
+
+  <!-- Підсумок лівої панелі -->
+  <rect x="36" y="352" width="420" height="66" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="48" y="372" font-size="12" font-weight="700" fill="#c0392b">НАСЛІДОК ДЛЯ ЗАМОВНИКА:</text>
+  <text x="48" y="390" font-size="12" fill="#1a1a1a">Повна втрата працездатності після розриву з підрядником.</text>
+  <text x="48" y="406" font-size="12" fill="#c0392b">Код неможливо зібрати та експлуатувати автономно.</text>
+
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ЧИСТА КІМНАТА (СТАНДАРТ) ==================== -->
+  <rect x="492" y="66" width="444" height="366" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+
+  <!-- Заголовок правої панелі -->
+  <rect x="504" y="78" width="420" height="32" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="516" y="99" font-size="13" font-weight="700" fill="#27ae60">Автономний стенд «чистої кімнати» (Clean-Room)</text>
+
+  <!-- Блок 1: Повітряний проміжок -->
+  <rect x="504" y="124" width="420" height="62" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="142" font-size="12" font-weight="700" fill="#27ae60">1. Ізоляція з повітряним проміжком (Air Gap)</text>
+  <text x="516" y="158" font-size="12" fill="#1a1a1a">• Повне блокування доступу до мережі та серверів виконавця</text>
+  <text x="516" y="174" font-size="12" fill="#6b7280">• Будь-який неоголошений мережевий виклик обриває приймання</text>
+
+  <!-- Блок 2: Детермінована збірка -->
+  <rect x="504" y="200" width="420" height="62" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="218" font-size="12" font-weight="700" fill="#27ae60">2. Детерміноване розгортання та чиста БД</text>
+  <text x="516" y="234" font-size="12" fill="#1a1a1a">• Складання виключно з переданого репозиторію за lockfile</text>
+  <text x="516" y="250" font-size="12" fill="#6b7280">• Накатування міграцій з нуля + seed-дані + перевірка відкату</text>
+
+  <!-- Блок 3: Наскрізні тести та аудит -->
+  <rect x="504" y="276" width="420" height="62" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="294" font-size="12" font-weight="700" fill="#27ae60">3. Наскрізні тести та машинний аудит</text>
+  <text x="516" y="310" font-size="12" fill="#1a1a1a">• Реальні E2E smoke-тести проти живих компонентів</text>
+  <text x="516" y="326" font-size="12" fill="#6b7280">• Автоматичне відкриття шлюзу приймання без участі людей</text>
+
+  <!-- Підсумок правої панелі -->
+  <rect x="504" y="352" width="420" height="66" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="516" y="372" font-size="12" font-weight="700" fill="#27ae60">ГАРАНТІЯ ТЕХНІЧНОГО СУВЕРЕНІТЕТУ:</text>
+  <text x="516" y="390" font-size="12" fill="#1a1a1a">100% незалежність від розробників і серверів підрядника.</text>
+  <text x="516" y="406" font-size="12" fill="#27ae60">Готовність системи до тривалої автономної експлуатації.</text>
+
+
+  <!-- ==================== НИЖНІЙ БАНЕР: БАР'ЄР ПРИЙМАННЯ ==================== -->
+  <rect x="24" y="448" width="912" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="469" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">ГОЛОВНИЙ ПРИНЦИП ПРИЙМАННЯ: СИСТЕМА ПЕРЕВІРЯЄТЬСЯ ЛИШЕ В ЧИСТІЙ КІМНАТІ</text>
+  <text x="480" y="489" font-size="12" fill="#1a1a1a" text-anchor="middle">Якщо продукт не здатний запуститися з нуля в ізольованому контурі без мережі підрядника — приймання блокується</text>
+
+</svg>

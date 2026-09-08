@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Захист шарів архітектури через Fluent DSL: layeredArchitecture()</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Декларативна ізоляція доменного ядра від адаптерів представлення та інфраструктури в ArchUnit</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ШАРИ АРХІТЕКТУРИ ==================== -->
+  <rect x="24" y="72" width="440" height="390" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="36" y="94" font-size="13" font-weight="700" fill="#1a1a1a">Архітектурні шари системи (Clean Architecture)</text>
+  <text x="36" y="112" font-size="12" fill="#6b7280">Напрямки допустимих та заборонених міжшарових зв'язків</text>
+
+  <!-- Шар 1: Presentation -->
+  <rect x="36" y="126" width="416" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="146" font-size="12" font-weight="700" fill="#1a1a1a">Шар представлення (Presentation):</text>
+  <text x="48" y="164" font-size="12" fill="#6b7280">Пакети: ..presentation.. | Контролери, DTO, адаптери введення</text>
+
+  <!-- Стрілка 1 -> 2 (дозволено) -->
+  <line x1="244" y1="178" x2="244" y2="198" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="254" y="192" font-size="12" fill="#27ae60">Дозволено виклик сервісів</text>
+
+  <!-- Шар 2: Application -->
+  <rect x="36" y="202" width="416" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="222" font-size="12" font-weight="700" fill="#1a1a1a">Шар застосунку (Application):</text>
+  <text x="48" y="240" font-size="12" fill="#6b7280">Пакети: ..application.. | Сценарії використання (Use Cases)</text>
+
+  <!-- Стрілка 2 -> 3 (дозволено) -->
+  <line x1="244" y1="254" x2="244" y2="274" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="254" y="268" font-size="12" fill="#27ae60">Дозволено використання домену</text>
+
+  <!-- Шар 3: Domain Core -->
+  <rect x="36" y="278" width="416" height="66" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="48" y="298" font-size="12" font-weight="700" fill="#2457d6">ДОМЕННЕ ЯДРО (Domain Core) — Захищена зона:</text>
+  <text x="48" y="316" font-size="12" fill="#1a1a1a">Пакети: ..domain.. | Сутності, Value Objects, бізнес-правила</text>
+  <text x="48" y="332" font-size="12" fill="#2457d6">Інваріант: НУЛЬ зовнішніх залежностей від бібліотек чи фреймворків</text>
+
+  <!-- Заборонений зв'язок Domain -> Infrastructure -->
+  <line x1="86" y1="344" x2="86" y2="374" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="96" y="364" font-size="12" font-weight="700" fill="#c0392b">ЗАБОРОНЕНО: Прямий імпорт Domain → Infrastructure</text>
+
+  <!-- Шар 4: Infrastructure -->
+  <rect x="36" y="378" width="416" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="398" font-size="12" font-weight="700" fill="#1a1a1a">Шар інфраструктури (Infrastructure):</text>
+  <text x="48" y="416" font-size="12" fill="#6b7280">Пакети: ..infrastructure.. | Бази даних, SQL, Spring, зовнішні API</text>
+  <text x="48" y="434" font-size="12" fill="#c0392b">Правило IoC: Тільки інфраструктура реалізує інтерфейси домену</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ARCHUNIT DSL ==================== -->
+  <rect x="488" y="72" width="448" height="390" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="500" y="94" font-size="13" font-weight="700" fill="#2457d6">Декларативні ланцюжки ArchUnit: layeredArchitecture()</text>
+  <text x="500" y="112" font-size="12" fill="#6b7280">Специфікація меж коду та автоматичний оракул для CI</text>
+
+  <!-- Картка 1: Декларація шарів -->
+  <rect x="500" y="126" width="424" height="114" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="512" y="146" font-size="12" font-weight="700" fill="#1a1a1a">1. Декларація шарів (Package Selectors):</text>
+  <text x="512" y="166" font-size="12" fill="#2457d6">layeredArchitecture().consideringAllDependencies()</text>
+  <text x="512" y="184" font-size="12" fill="#2457d6">  .layer("Presentation").definedBy("..presentation..")</text>
+  <text x="512" y="202" font-size="12" fill="#2457d6">  .layer("Application").definedBy("..application..")</text>
+  <text x="512" y="220" font-size="12" fill="#2457d6">  .layer("Domain").definedBy("..domain..")</text>
+  <text x="512" y="234" font-size="12" fill="#2457d6">  .layer("Infrastructure").definedBy("..infrastructure..")</text>
+
+  <!-- Картка 2: Правила доступу -->
+  <rect x="500" y="250" width="424" height="116" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="512" y="270" font-size="12" font-weight="700" fill="#2457d6">2. Правила доступу між шарами (Access Constraints):</text>
+  <text x="512" y="290" font-size="12" fill="#1a1a1a">  .whereLayer("Presentation").mayNotBeAccessedByAnyLayer()</text>
+  <text x="512" y="308" font-size="12" font-weight="700" fill="#27ae60">  .whereLayer("Domain").mayOnlyBeAccessedByLayers(</text>
+  <text x="512" y="324" font-size="12" font-weight="700" fill="#27ae60">      "Application", "Infrastructure")</text>
+  <text x="512" y="342" font-size="12" fill="#c0392b">  .whereLayer("Infrastructure").mayOnlyBeAccessedByLayers("Application")</text>
+  <text x="512" y="358" font-size="12" fill="#6b7280">  // захищає чисте доменне ядро від фреймворків і БД</text>
+
+  <!-- Картка 3: Результат у CI -->
+  <rect x="500" y="378" width="424" height="72" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="512" y="398" font-size="12" font-weight="700" fill="#1a1a1a">Ефект для інженерного приймання коду:</text>
+  <text x="512" y="418" font-size="12" fill="#1a1a1a">• Підрядник не може таємно пов'язати домен із базою даних</text>
+  <text x="512" y="436" font-size="12" fill="#27ae60">• CI автоматично блокує PR при першому ж забороненому імпорті</text>
+</svg>

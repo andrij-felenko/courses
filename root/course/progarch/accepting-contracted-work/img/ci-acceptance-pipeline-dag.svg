@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Граф виконання завдань митного конвеєра в CI (Acceptance DAG)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Паралельний машинний контроль пул-реквесту підрядника, декорування зауважень та розблокування CODEOWNERS</text>
+
+  <!-- ==================== ЕТАП 1: ВХІДНИЙ ТРИГЕР (PR) ==================== -->
+  <rect x="24" y="200" width="136" height="92" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="92" y="222" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Пул-реквест PR</text>
+  <text x="92" y="242" font-size="12" fill="#1a1a1a" text-anchor="middle">Код підрядника</text>
+  <text x="92" y="260" font-size="12" fill="#6b7280" text-anchor="middle">contractor -> main</text>
+  <text x="92" y="278" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Подія: push / PR</text>
+
+  <!-- СТРІЛКИ ВІД ТРИГЕРА ДО 4 ПАРАЛЕЛЬНИХ ПОТОКІВ -->
+  <path d="M160,246 C178,246 178,120 190,120" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M160,246 C178,246 178,204 190,204" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M160,246 C178,246 178,288 190,288" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M160,246 C178,246 178,372 190,372" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ==================== ЕТАП 2: 4 ПАРАЛЕЛЬНІ ПОТОКИ МИТНОГО КОНТРОЛЮ ==================== -->
+  <!-- 1. Архітектурний лінтинг -->
+  <rect x="196" y="84" width="350" height="72" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="210" y="106" font-size="13" font-weight="700" fill="#2457d6">1. Архітектурний лінтинг (ArchUnit / Rules)</text>
+  <text x="210" y="126" font-size="12" fill="#1a1a1a">Захист доменних шарів та чистоти коду</text>
+  <text x="210" y="144" font-size="12" fill="#6b7280">Domain не залежить від адаптерів інфраструктури</text>
+
+  <!-- 2. Аудит маніфестів -->
+  <rect x="196" y="168" width="350" height="72" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="210" y="190" font-size="13" font-weight="700" fill="#2457d6">2. Митний аудит маніфестів (Supply Chain)</text>
+  <text x="210" y="210" font-size="12" fill="#1a1a1a">Аудит SBOM та блокування токсичних ліцензій</text>
+  <text x="210" y="228" font-size="12" fill="#6b7280">Заборона неоголошених GPL-пакетів та CVE-загроз</text>
+
+  <!-- 3. Статичний аналіз коду -->
+  <rect x="196" y="252" width="350" height="72" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="210" y="274" font-size="13" font-weight="700" fill="#2457d6">3. Статичний аналіз коду та якість</text>
+  <text x="210" y="294" font-size="12" fill="#1a1a1a">Контроль дублювання коду, стилю та конвенцій</text>
+  <text x="210" y="312" font-size="12" fill="#6b7280">Виявлення вразливостей, токенів та витоків паролів</text>
+
+  <!-- 4. Мутаційне тестування -->
+  <rect x="196" y="336" width="350" height="72" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="210" y="358" font-size="13" font-weight="700" fill="#2457d6">4. Мутаційне тестування (Stryker Mutator)</text>
+  <text x="210" y="378" font-size="12" fill="#1a1a1a">Диференційний аналіз тестів над змінами git diff</text>
+  <text x="210" y="396" font-size="12" fill="#6b7280">Контроль надійності тестів: Mutation Score >= 80%</text>
+
+  <!-- СТРІЛКИ ВІД 4 ПОТОКІВ ДО МИТНОГО ШЛЮЗУ -->
+  <path d="M546,120 C564,120 564,246 574,246" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M546,204 C564,204 564,246 574,246" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M546,288 C564,288 564,246 574,246" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M546,372 C564,372 564,246 574,246" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ==================== ЕТАП 3: ФІНАЛЬНИЙ МИТНИЙ ШЛЮЗ ==================== -->
+  <rect x="580" y="176" width="148" height="140" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="654" y="200" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Митний шлюз CI</text>
+  <text x="654" y="220" font-size="12" fill="#1a1a1a" text-anchor="middle">Definition of Done</text>
+  <text x="654" y="244" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">✓ Усі 4 PASS</text>
+  <text x="654" y="262" font-size="12" fill="#6b7280" text-anchor="middle">(exit code 0)</text>
+  <text x="654" y="284" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">✗ Хоча б 1 FAIL</text>
+  <text x="654" y="302" font-size="12" fill="#6b7280" text-anchor="middle">(блок злиття exit 1)</text>
+
+  <!-- СТРІЛКИ ВІД ШЛЮЗУ ДО ВИХІДНИХ ДІЙ -->
+  <path d="M728,246 C744,246 744,188 756,188" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M728,246 C744,246 744,304 756,304" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ==================== ЕТАП 4: ФІНАЛЬНІ ДІЇ ШЛЮЗУ ==================== -->
+  <!-- 4A: Декорування PR -->
+  <rect x="762" y="140" width="174" height="96" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="849" y="162" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Декорування PR</text>
+  <text x="849" y="182" font-size="12" fill="#1a1a1a" text-anchor="middle">Коментар бота в PR:</text>
+  <text x="849" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Точні інженерні підказки</text>
+  <text x="849" y="218" font-size="12" fill="#2457d6" text-anchor="middle">Без зайвих суперечок</text>
+
+  <!-- 4B: Активація CODEOWNERS -->
+  <rect x="762" y="256" width="174" height="96" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="849" y="278" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">CODEOWNERS</text>
+  <text x="849" y="298" font-size="12" fill="#1a1a1a" text-anchor="middle">Розблокування рев'ю:</text>
+  <text x="849" y="316" font-size="12" fill="#6b7280" text-anchor="middle">Призначення рев'юерів</text>
+  <text x="849" y="334" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">✓ Дозвіл на злиття в main</text>
+</svg>

@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="26" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Оцінка параметрів SRGM та залишковий пул дефектів</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Модель Гоела-Окумото: асимптота загальних дефектів a викриває 55 прихованих помилок на момент здачі</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ГРАФІК SRGM ==================== -->
+  <rect x="24" y="66" width="510" height="366" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Заголовок лівої панелі -->
+  <text x="40" y="90" font-size="13" font-weight="700" fill="#1a1a1a">Динаміка накопичених відмов m(t) та залишок N_res</text>
+  <text x="40" y="106" font-size="12" fill="#6b7280">Y: Накопичені дефекти m(t) | X: Час навантажувальних тестів (дні)</text>
+
+  <!-- Поле графіку: x=80..400 (w=320), y=120..310 (h=190) -->
+  <rect x="80" y="120" width="320" height="190" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Зона тестів підрядника: x=80..240 (t=0..30) -->
+  <rect x="80" y="120" width="160" height="190" fill="#f4f6f8" opacity="0.6"/>
+  <text x="160" y="138" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Журнал тестів підрядника (t ≤ 30)</text>
+
+  <!-- Залишковий пул дефектів (зона між асимптотою a=200 та кривою m(t)) -->
+  <path d="M 240,150 L 400,150 L 400,162 C 350,168 290,181 240,194 Z" fill="#fdecea"/>
+
+  <!-- Лінії сітки горизонтальні -->
+  <line x1="80" y1="270" x2="400" y2="270" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="230" x2="400" y2="230" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="190" x2="400" y2="190" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Асимптота a = 200 (червона пунктирна) -->
+  <line x1="80" y1="150" x2="400" y2="150" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Лінії сітки вертикальні -->
+  <line x1="160" y1="120" x2="160" y2="310" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="240" y1="120" x2="240" y2="310" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <line x1="320" y1="120" x2="320" y2="310" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Апроксимаційна крива моделі Гоела-Окумото (m(t)) -->
+  <!-- Емпірична частина (суцільна синя) -->
+  <path d="M 80,310 C 120,265 170,225 240,194" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- Прогнозна екстраполяція (штрихова синя) -->
+  <path d="M 240,194 C 290,181 350,168 400,162" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="5,3"/>
+
+  <!-- Емпіричні точки з журналу дефектів підрядника -->
+  <circle cx="107" cy="279" r="3.5" fill="#2457d6"/>
+  <circle cx="133" cy="254" r="3.5" fill="#2457d6"/>
+  <circle cx="160" cy="234" r="3.5" fill="#2457d6"/>
+  <circle cx="187" cy="218" r="3.5" fill="#2457d6"/>
+  <circle cx="213" cy="205" r="3.5" fill="#2457d6"/>
+  <circle cx="240" cy="194" r="4.5" fill="#c0392b"/>
+
+  <!-- Вимірник залишкового пулу дефектів на t = 30 -->
+  <line x1="248" y1="154" x2="248" y2="190" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Підписи осей Y (ліворуч від x=80) -->
+  <text x="72" y="154" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">a = 200</text>
+  <text x="72" y="194" font-size="12" fill="#6b7280" text-anchor="end">150</text>
+  <text x="72" y="234" font-size="12" fill="#6b7280" text-anchor="end">100</text>
+  <text x="72" y="274" font-size="12" fill="#6b7280" text-anchor="end">50</text>
+  <text x="72" y="314" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Підписи осей X (під y=310) -->
+  <text x="80" y="326" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="160" y="326" font-size="12" fill="#6b7280" text-anchor="middle">15</text>
+  <text x="240" y="326" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">t = 30 (здача)</text>
+  <text x="320" y="326" font-size="12" fill="#6b7280" text-anchor="middle">45</text>
+  <text x="400" y="326" font-size="12" fill="#6b7280" text-anchor="middle">60 (мета)</text>
+
+  <!-- Легенда під графіком -->
+  <rect x="40" y="340" width="478" height="80" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <circle cx="58" cy="354" r="3.5" fill="#2457d6"/>
+  <text x="72" y="358" font-size="12" fill="#2457d6">Емпіричні дані: 145 виявлених дефектів за 30 днів тестів</text>
+
+  <line x1="50" y1="374" x2="68" y2="374" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="72" y="378" font-size="12" font-weight="700" fill="#c0392b">Асимптота a = 200: повний розрахунковий обсяг багів у коді</text>
+
+  <rect x="50" y="389" width="18" height="10" fill="#fdecea" stroke="#c0392b" stroke-width="0.8"/>
+  <text x="72" y="398" font-size="12" font-weight="700" fill="#c0392b">Залишковий пул N_res = 55 помилок (27.5% прихованих дефектів)</text>
+
+  <line x1="50" y1="412" x2="68" y2="412" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="72" y="416" font-size="12" fill="#6b7280">Прогноз дотестування: досягнення порогу DoD вимагає ще 30 днів</text>
+
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: МАТЕМАТИЧНИЙ АНАЛІЗ ==================== -->
+  <rect x="550" y="66" width="386" height="366" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Заголовок правої панелі -->
+  <text x="566" y="90" font-size="13" font-weight="700" fill="#1a1a1a">Математична модель Гоела-Окумото</text>
+  <text x="566" y="106" font-size="12" fill="#6b7280">Оцінка параметрів за методом MLE</text>
+
+  <!-- Картка 1: Параметри моделі -->
+  <rect x="566" y="118" width="354" height="92" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="578" y="136" font-size="12" font-weight="700" fill="#2457d6">1. Оцінка параметрів (MLE калібрування):</text>
+  <text x="578" y="154" font-size="12" fill="#1a1a1a">• Модель: m(t) = a · (1 - e^(-b·t))</text>
+  <text x="578" y="172" font-size="12" fill="#1a1a1a">• Оцінка пулу: a = 200 дефектів у коді</text>
+  <text x="578" y="190" font-size="12" fill="#6b7280">• Інтенсивність: b = 0.043 1/день (швидкість QA)</text>
+
+  <!-- Картка 2: Залишковий пул -->
+  <rect x="566" y="222" width="354" height="92" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="578" y="240" font-size="12" font-weight="700" fill="#c0392b">2. Розрахунок залишкового пулу N_res:</text>
+  <text x="578" y="258" font-size="12" fill="#c0392b">• N_residual(t) = a - m(t) = a · e^(-b·t)</text>
+  <text x="578" y="276" font-size="12" fill="#1a1a1a">• На день t = 30: виявлено 145 дефектів</text>
+  <text x="578" y="294" font-size="12" fill="#c0392b">• Залишилося: N_res = 55 багів (27.5% пулу!)</text>
+
+  <!-- Картка 3: Stopping Rule -->
+  <rect x="566" y="326" width="354" height="94" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="578" y="346" font-size="12" font-weight="700" fill="#c0392b">3. Правило зупинки (Stopping Rule в DoD):</text>
+  <text x="578" y="366" font-size="12" fill="#1a1a1a">• Контрактний поріг: N_residual ≤ 10 (m ≥ 95%)</text>
+  <text x="578" y="384" font-size="12" fill="#1a1a1a">• Потрібний час тестів: t_target = 70 днів</text>
+  <text x="578" y="402" font-size="12" font-weight="700" fill="#c0392b">• Рішення: Заблокувати приймання до t_target</text>
+
+
+  <!-- ==================== НИЖНІЙ БАНЕР: БАР'ЄР ПРИЙМАННЯ ==================== -->
+  <rect x="24" y="448" width="912" height="52" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="469" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">БАР'ЄР SRGM: ПРИЙМАННЯ БЛОКУЄТЬСЯ ЧЕРЕЗ КРИТИЧНИЙ ОБСЯГ ПРИХОВАНИХ ДЕФЕКТІВ</text>
+  <text x="480" y="489" font-size="12" fill="#1a1a1a" text-anchor="middle">Нуль відкритих тікетів у підрядника — це ілюзія: 55 прихованих багів вибухнуть під промисловим навантаженням</text>
+
+</svg>

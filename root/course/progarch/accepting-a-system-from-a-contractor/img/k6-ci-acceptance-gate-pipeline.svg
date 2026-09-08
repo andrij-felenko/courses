@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="26" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Наскрізний навантажувальний шлюз k6 у конвеєрі CI</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Автоматизована верифікація контрактних SLA: перевірка порогів thresholds та машинне підписання акта</text>
+
+  <!-- ==================== ВЕРХНЯ ПАНЕЛЬ: ГРАФ ЕТАПІВ НАВАНТАЖУВАЛЬНОГО ШЛЮЗУ ==================== -->
+  <rect x="24" y="66" width="912" height="206" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Заголовок верхньої панелі -->
+  <text x="38" y="88" font-size="13" font-weight="700" fill="#1a1a1a">Наскрізний граф виконання навантажувального шлюзу (CI Pipeline Stages)</text>
+  <text x="38" y="104" font-size="12" fill="#6b7280">Від розгортання чистого стенда до формування підписаного аудиторського звіту</text>
+
+  <!-- ЕТАП 1: СТЕНД ПРИЙМАННЯ -->
+  <rect x="38" y="116" width="206" height="136" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="141" y="136" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">1. Стенд приймання</text>
+  <text x="141" y="156" font-size="12" fill="#1a1a1a" text-anchor="middle">Ефемерний контур CI</text>
+  <text x="141" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Чиста СКБД + seed-дані</text>
+  <text x="141" y="192" font-size="12" fill="#6b7280" text-anchor="middle">Запуск сервісів системи</text>
+  <text x="141" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Readiness check: 200 OK</text>
+  <text x="141" y="234" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Стан: ГОТОВИЙ</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="244" y1="184" x2="258" y2="184" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ЕТАП 2: ПРОГІН K6 СЦЕНАРІЮ -->
+  <rect x="264" y="116" width="206" height="136" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="367" y="136" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">2. Прогін k6 сценарію</text>
+  <text x="367" y="156" font-size="12" fill="#1a1a1a" text-anchor="middle">Фаза прогріву (Ramp-up)</text>
+  <text x="367" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Цільове навантаження VUs</text>
+  <text x="367" y="192" font-size="12" fill="#6b7280" text-anchor="middle">Генератор arrival-rate</text>
+  <text x="367" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Валідація через checks</text>
+  <text x="367" y="234" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Стан: НАВАНТАЖЕННЯ</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="470" y1="184" x2="484" y2="184" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ЕТАП 3: ОЦІНКА THRESHOLDS -->
+  <rect x="490" y="116" width="206" height="136" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="593" y="136" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">3. Оцінка Thresholds</text>
+  <text x="593" y="156" font-size="12" fill="#1a1a1a" text-anchor="middle">http_req_failed &lt; 1%</text>
+  <text x="593" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">p(95) &lt; 200 мс (SLO)</text>
+  <text x="593" y="192" font-size="12" fill="#6b7280" text-anchor="middle">p(99) &lt; 500 мс (SLA)</text>
+  <text x="593" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Перевірка exit code</text>
+  <text x="593" y="234" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Стан: УСПІШНО (0)</text>
+
+  <!-- Стрілка 3 -> 4 -->
+  <line x1="696" y1="184" x2="710" y2="184" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ЕТАП 4: МАШИННИЙ АУДИТ ТА АКТ -->
+  <rect x="716" y="116" width="206" height="136" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="819" y="136" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">4. Машинний аудит</text>
+  <text x="819" y="156" font-size="12" fill="#1a1a1a" text-anchor="middle">Звіт summary.json</text>
+  <text x="819" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Хеш-фіксація артефакту</text>
+  <text x="819" y="192" font-size="12" fill="#6b7280" text-anchor="middle">Відкриття Gate в CI</text>
+  <text x="819" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Підстава для оплати</text>
+  <text x="819" y="234" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Шлюз: ВІДКРИТО</text>
+
+
+  <!-- ==================== НИЖНІ ПАНЕЛІ: ПРАВИЛА ТА ГРАНИЧНІ ВИПАДКИ ==================== -->
+
+  <!-- ЛІВА НИЖНЯ ПАНЕЛЬ: CHECKS VS THRESHOLDS -->
+  <rect x="24" y="284" width="444" height="148" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <rect x="36" y="294" width="420" height="28" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="48" y="313" font-size="12" font-weight="700" fill="#2457d6">Розмежування checks (валідація) та thresholds (шлюз):</text>
+
+  <rect x="36" y="330" width="420" height="90" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="350" font-size="12" fill="#1a1a1a">• checks: перевіряють коректність відповідей без зупинки тесту</text>
+  <text x="48" y="368" font-size="12" fill="#1a1a1a">• thresholds: агрегують показники SLA/SLO за весь період прогону</text>
+  <text x="48" y="386" font-size="12" fill="#1a1a1a">• Порушення threshold негайно повертає код виходу 99 (Fail CI)</text>
+  <text x="48" y="404" font-size="12" fill="#2457d6">• Гарантія: усунення людського фактора та тиску менеджменту</text>
+
+
+  <!-- ПРАВА НИЖНЯ ПАНЕЛЬ: ГРАНИЧНІ ВИПАДКИ -->
+  <rect x="492" y="284" width="444" height="148" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <rect x="504" y="294" width="420" height="28" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="516" y="313" font-size="12" font-weight="700" fill="#27ae60">Граничні умови приймального контролю продуктивності:</text>
+
+  <rect x="504" y="330" width="420" height="90" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="350" font-size="12" fill="#1a1a1a">• Ізоляція прогріву: відсікання JIT та кешу через abortOnFail</text>
+  <text x="516" y="368" font-size="12" fill="#1a1a1a">• Виявлення tail latency: контроль p99/p99.9 замість середніх avg</text>
+  <text x="516" y="386" font-size="12" fill="#1a1a1a">• Контроль генератора k6: CPU &lt; 80% (захист від викривлень)</text>
+  <text x="516" y="404" font-size="12" fill="#27ae60">• Незмінність: криптографічний хеш summary.json іде в акт</text>
+
+
+  <!-- ==================== НИЖНІЙ БАНЕР: БАР'ЄР ПРИЙМАННЯ ==================== -->
+  <rect x="24" y="448" width="912" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="469" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">МАШИННИЙ БАР'ЄР ПРИЙМАННЯ: АКТ ПІДПИСУЄТЬСЯ ВИКЛЮЧНО ЗА ЗВІТОМ K6 EXIT CODE 0</text>
+  <text x="480" y="489" font-size="12" fill="#1a1a1a" text-anchor="middle">Жодні паперові запевнення підрядника не замінюють строге виконання порогових критеріїв p95/p99 у CI</text>
+
+</svg>

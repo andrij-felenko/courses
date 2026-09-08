@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модель Міллса (Capture-Recapture): оцінка прихованих дефектів</text>
+<text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Частка виловлених мутацій s/S розкриває справжню кількість реальних багів: N = n · S / s</text>
+
+<!-- ЛІВА ПАНЕЛЬ: Множини дефектів -->
+<rect x="24" y="68" width="446" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="247" y="96" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Співвідношення вилову дефектів</text>
+<text x="247" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Тестовий набір виявляє однакову частку штучних і реальних вад</text>
+
+<!-- Під-картка 1: Штучні мутації S -->
+<rect x="44" y="130" width="406" height="144" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="58" y="152" font-size="13" font-weight="700" fill="#2457d6">1. Контрольний посів: штучні мутації (S)</text>
+<text x="58" y="170" font-size="12" fill="#6b7280">Внесення синтаксичних мутацій у кодову базу (S відоме)</text>
+
+<!-- Сегменти смуги S -->
+<rect x="58" y="184" width="150" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="133" y="205" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">s (вбиті мутанти)</text>
+
+<rect x="216" y="184" width="220" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="326" y="205" font-size="12" fill="#6b7280" text-anchor="middle">S - s (пропущені мутанти)</text>
+
+<text x="58" y="240" font-size="12" font-weight="700" fill="#2457d6">Ефективність тестів (мутаційний бал):</text>
+<text x="58" y="258" font-size="12" fill="#1a1a1a">Чутливість вилову тестів = s / S</text>
+
+<!-- Під-картка 2: Реальні дефекти N -->
+<rect x="44" y="286" width="406" height="158" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="58" y="308" font-size="13" font-weight="700" fill="#c0392b">2. Реальні дефекти системи (N — шукане)</text>
+<text x="58" y="326" font-size="12" fill="#6b7280">Приховані баги в коді, що передається від підрядника</text>
+
+<!-- Сегменти смуги N -->
+<rect x="58" y="340" width="150" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="133" y="361" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">n (виявлені баги)</text>
+
+<rect x="216" y="340" width="220" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="326" y="361" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">N - n (приховані баги!)</text>
+
+<text x="58" y="396" font-size="12" font-weight="700" fill="#c0392b">Залишковий ризик системи:</text>
+<text x="58" y="416" font-size="12" fill="#1a1a1a">Кожен пропущений мутант вказує на сліпу зону для багів</text>
+<text x="58" y="434" font-size="12" fill="#6b7280">Співвідношення часток: n / N = s / S</text>
+
+
+<!-- ПРАВА ПАНЕЛЬ: Розрахунок і критерій -->
+<rect x="490" y="68" width="446" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="713" y="96" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Математичний апарат оцінки Міллса</text>
+<text x="713" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Формула Лінкольна — Петерсена та приймальний розрахунок</text>
+
+<!-- Картка 1: Формула та числовий приклад -->
+<rect x="510" y="130" width="406" height="186" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="524" y="152" font-size="13" font-weight="700" fill="#1a1a1a">Рівняння вилову-повторного вилову:</text>
+
+<!-- Блок формули -->
+<rect x="524" y="162" width="378" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="713" y="185" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">N = (n · S) / s   ⇒   Залишкові = n · (S / s - 1)</text>
+
+<text x="524" y="216" font-size="12" font-weight="700" fill="#1a1a1a">Числовий приклад аудиту підсистеми:</text>
+<text x="524" y="236" font-size="12" fill="#6b7280">• Посіяно мутацій: S = 100 | Тестами вбито: s = 40 (бал 40%)</text>
+<text x="524" y="254" font-size="12" fill="#6b7280">• Знайдено реальних дефектів: n = 12</text>
+<text x="524" y="274" font-size="12" font-weight="700" fill="#c0392b">• Оцінка повної кількості багів: N = 12 · 100 / 40 = 30 багів</text>
+<text x="524" y="294" font-size="12" font-weight="700" fill="#c0392b">• Прихованих залишкових багів у коді: 30 - 12 = 18 багів!</text>
+
+<!-- Картка 2: Приймальний шлюз -->
+<rect x="510" y="328" width="406" height="116" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="524" y="350" font-size="13" font-weight="700" fill="#1a1a1a">Приймальний шлюз замовника (Acceptance Gate):</text>
+<text x="524" y="372" font-size="12" fill="#27ae60">1. Мутаційний поріг (MS ≥ θ): вимагати чутливість тестів s/S &gt; 80%</text>
+<text x="524" y="392" font-size="12" fill="#c0392b">2. Стеля щільності дефектів: D = N / KLOC ≤ допустима норма</text>
+<text x="524" y="412" font-size="12" fill="#1a1a1a">3. Захист від ілюзії покриття: line coverage 80% ≠ надійність</text>
+<text x="524" y="430" font-size="12" fill="#6b7280">Аргумент зупинки приймання: висока щільність залишкових багів</text>
+</svg>

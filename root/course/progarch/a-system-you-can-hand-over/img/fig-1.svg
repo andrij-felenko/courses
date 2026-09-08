@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Життєвий цикл ADR та збереження архітектурного контексту</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Від фіксації проблеми до заміщення новим рішенням: відчужуваність інваріантів для нової команди</text>
+
+  <!-- ================= КАРТКА 1: SUPERSEDED ADR ================= -->
+  <rect x="25" y="68" width="385" height="210" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="38" y="91" font-size="13" font-weight="bold" fill="#1a1a1a">doc/adr/0005-sync-rest-api.md</text>
+  <rect x="305" y="77" width="95" height="20" rx="10" fill="#c0392b"/>
+  <text x="352" y="91" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">SUPERSEDED</text>
+
+  <line x1="38" y1="104" x2="400" y2="104" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="38" y="123" font-size="12" font-weight="bold" fill="#6b7280">Контекст (2024):</text>
+  <text x="145" y="123" font-size="12" fill="#1a1a1a">MVP, швидкий вихід на ринок</text>
+
+  <text x="38" y="142" font-size="12" font-weight="bold" fill="#6b7280">Рішення:</text>
+  <text x="100" y="142" font-size="12" fill="#1a1a1a">Синхронні HTTP/REST виклики між сервісами</text>
+
+  <text x="38" y="161" font-size="12" font-weight="bold" fill="#6b7280">Наслідки:</text>
+  <text x="108" y="161" font-size="12" fill="#1a1a1a">Швидкий старт, але жорстке часове зчеплення</text>
+
+  <rect x="36" y="174" width="363" height="92" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="46" y="193" font-size="12" font-weight="bold" fill="#c0392b">Статус оновлено: Superseded by ADR-0012</text>
+  <text x="46" y="211" font-size="12" fill="#6b7280">Причина заміни: не витримує пікових навантажень</text>
+  <text x="46" y="229" font-size="12" fill="#1a1a1a">Історія збережена: нова команда бачить межі MVP</text>
+  <text x="46" y="247" font-size="12" fill="#6b7280">Команда у CLI: adr link 5 &quot;Superseded by&quot; 12</text>
+
+  <!-- ================= ЦЕНТРАЛЬНА ЗОНА ЗВ'ЯЗУВАННЯ ================= -->
+  <text x="480" y="110" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">superseded by</text>
+  <line x1="418" y1="120" x2="542" y2="120" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="425" y="137" width="110" height="26" rx="13" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="154" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">adr new -s 5</text>
+
+  <line x1="542" y1="180" x2="418" y2="180" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="480" y="200" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">supersedes</text>
+
+  <text x="480" y="232" font-size="12" fill="#1a1a1a" text-anchor="middle">Двонаправлений</text>
+  <text x="480" y="248" font-size="12" fill="#6b7280" text-anchor="middle">машинний лінк</text>
+
+  <!-- ================= КАРТКА 2: ACCEPTED ADR ================= -->
+  <rect x="550" y="68" width="385" height="210" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="563" y="91" font-size="13" font-weight="bold" fill="#1a1a1a">doc/adr/0012-event-bus.md</text>
+  <rect x="830" y="77" width="95" height="20" rx="10" fill="#27ae60"/>
+  <text x="877" y="91" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">ACCEPTED</text>
+
+  <line x1="563" y1="104" x2="925" y2="104" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="563" y="123" font-size="12" font-weight="bold" fill="#6b7280">Контекст (2026):</text>
+  <text x="670" y="123" font-size="12" fill="#1a1a1a">Масштабування до 100k запитів/сек</text>
+
+  <text x="563" y="142" font-size="12" font-weight="bold" fill="#6b7280">Рішення:</text>
+  <text x="625" y="142" font-size="12" fill="#1a1a1a">Асинхронна шина подій (Event-Driven)</text>
+
+  <text x="563" y="161" font-size="12" font-weight="bold" fill="#6b7280">Наслідки:</text>
+  <text x="633" y="161" font-size="12" fill="#1a1a1a">Повне розчеплення, кінцева узгодженість</text>
+
+  <rect x="561" y="174" width="363" height="92" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="571" y="193" font-size="12" font-weight="bold" fill="#27ae60">Статус: Accepted (Supersedes ADR-0005)</text>
+  <text x="571" y="211" font-size="12" fill="#6b7280">Цінність: зафіксовано нові архітектурні інваріанти</text>
+  <text x="571" y="229" font-size="12" fill="#1a1a1a">Нова команда: знає причину заміни синхронного REST</text>
+  <text x="571" y="247" font-size="12" fill="#6b7280">Автоматичний аудит: adr generate toc &amp;&amp; graph</text>
+
+  <!-- ================= НИЖНЯ ПАНЕЛЬ: ВІДЧУЖУВАНІСТЬ ЗНАНЬ ================= -->
+  <rect x="25" y="290" width="910" height="152" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="310" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Збереження неявного знання (Tacit Knowledge) як машинний бар&apos;єр передачі коду</text>
+
+  <!-- Колонка 1 -->
+  <rect x="37" y="322" width="280" height="108" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="49" y="342" font-size="12" font-weight="bold" fill="#1a1a1a">1. Незмінність історії</text>
+  <text x="49" y="362" font-size="12" fill="#6b7280">Старі записи не видаляються,</text>
+  <text x="49" y="380" font-size="12" fill="#6b7280">а отримують статус Superseded.</text>
+  <text x="49" y="398" font-size="12" fill="#1a1a1a">Запобігає повторенню помилок</text>
+  <text x="49" y="416" font-size="12" fill="#1a1a1a">та археології в комітах Git.</text>
+
+  <!-- Колонка 2 -->
+  <rect x="340" y="322" width="280" height="108" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="352" y="342" font-size="12" font-weight="bold" fill="#2457d6">2. Фіксація компромісів</text>
+  <text x="352" y="362" font-size="12" fill="#6b7280">Код фіксує лише кінцевий стан;</text>
+  <text x="352" y="380" font-size="12" fill="#6b7280">ADR фіксує відкинуті варіанти.</text>
+  <text x="352" y="398" font-size="12" fill="#1a1a1a">Нова команда знає межі рішень</text>
+  <text x="352" y="416" font-size="12" fill="#1a1a1a">і не зламає інваріанти системи.</text>
+
+  <!-- Колонка 3 -->
+  <rect x="643" y="322" width="280" height="108" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="655" y="342" font-size="12" font-weight="bold" fill="#27ae60">3. Машинний аудит у CI</text>
+  <text x="655" y="362" font-size="12" fill="#6b7280">adr-tools будує граф рішень:</text>
+  <text x="655" y="380" font-size="12" fill="#6b7280">відсутні розірвані посилання.</text>
+  <text x="655" y="398" font-size="12" fill="#1a1a1a">Обов&apos;язковий бар&apos;єр приймання:</text>
+  <text x="655" y="416" font-size="12" fill="#1a1a1a">зміна коду вимагає валідного ADR.</text>
+</svg>

@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Карта відмов та тупикових станів CODEOWNERS</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Типові помилки конфігурації, що призводять до дедлоків злиття або прихованого витоку коду в main</text>
+
+  <!-- ==================== КОЛОНКА 1: ПОРОЖНЯ КОМАНДА ==================== -->
+  <rect x="24" y="74" width="292" height="364" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="170" y="98" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">1. Порожня команда (0 осіб)</text>
+  <text x="170" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Дедлок: нікому надати рецензію</text>
+
+  <!-- Картка тригера -->
+  <rect x="36" y="132" width="268" height="74" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="150" font-size="12" font-weight="700" fill="#1a1a1a">Тригер конфігурації:</text>
+  <text x="48" y="168" font-size="12" fill="#2457d6">/domain/ @org/arch-leads</text>
+  <text x="48" y="188" font-size="12" fill="#c0392b">Склад команди: 0 активних осіб</text>
+
+  <!-- Картка поведінки платформи -->
+  <rect x="36" y="214" width="268" height="102" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="48" y="232" font-size="12" font-weight="700" fill="#c0392b">Поведінка GitHub Ruleset:</text>
+  <text x="48" y="252" font-size="12" fill="#1a1a1a">• Вимагає апрув від призначеної групи</text>
+  <text x="48" y="272" font-size="12" fill="#1a1a1a">• Оскільки учасників нема — рев'ю</text>
+  <text x="48" y="290" font-size="12" fill="#1a1a1a">  фізично неможливо отримати</text>
+  <text x="48" y="308" font-size="12" font-weight="700" fill="#c0392b">Блокування: постійний дедлок PR</text>
+
+  <!-- Картка запобігання -->
+  <rect x="36" y="324" width="268" height="102" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="48" y="342" font-size="12" font-weight="700" fill="#27ae60">Захист та вирішення:</text>
+  <text x="48" y="362" font-size="12" fill="#1a1a1a">• Мінімум 2 активні особи в групі</text>
+  <text x="48" y="382" font-size="12" fill="#1a1a1a">• Fallback: резервна група ескалації</text>
+  <text x="48" y="402" font-size="12" fill="#6b7280">• CI-скрипт аудиту розміру команд</text>
+  <text x="48" y="418" font-size="12" font-weight="700" fill="#27ae60">Гарантія наявності рев'юерів</text>
+
+  <!-- ==================== КОЛОНКА 2: ВІДСУТНІСТЬ ПРАВ WRITE ==================== -->
+  <rect x="334" y="74" width="292" height="364" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="480" y="98" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">2. Відсутність прав Write</text>
+  <text x="480" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Апрув поставлено, але не враховано</text>
+
+  <!-- Картка тригера -->
+  <rect x="346" y="132" width="268" height="74" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="358" y="150" font-size="12" font-weight="700" fill="#1a1a1a">Тригер конфігурації:</text>
+  <text x="358" y="168" font-size="12" fill="#2457d6">/docs/ @contractor-qa</text>
+  <text x="358" y="188" font-size="12" fill="#c0392b">Рівень доступу: Read / Triage</text>
+
+  <!-- Картка поведінки платформи -->
+  <rect x="346" y="214" width="268" height="102" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="358" y="232" font-size="12" font-weight="700" fill="#c0392b">Поведінка GitHub Ruleset:</text>
+  <text x="358" y="252" font-size="12" fill="#1a1a1a">• Користувач тисне зелену кнопку</text>
+  <text x="358" y="272" font-size="12" fill="#1a1a1a">• GitHub показує зелений значок,</text>
+  <text x="358" y="290" font-size="12" font-weight="700" fill="#c0392b">  але НЕ зараховує як Code Owner!</text>
+  <text x="358" y="308" font-size="12" fill="#1a1a1a">Вимога: обов'язкові права Write</text>
+
+  <!-- Картка запобігання -->
+  <rect x="346" y="324" width="268" height="102" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="358" y="342" font-size="12" font-weight="700" fill="#27ae60">Захист та вирішення:</text>
+  <text x="358" y="362" font-size="12" fill="#1a1a1a">• Аудит ролей у репозиторії</text>
+  <text x="358" y="382" font-size="12" fill="#1a1a1a">• Надання ролі Write власникам коду</text>
+  <text x="358" y="402" font-size="12" fill="#6b7280">• Усунення псевдо-власників із прав</text>
+  <text x="358" y="418" font-size="12" font-weight="700" fill="#27ae60">Легітимність обов'язкового рев'ю</text>
+
+  <!-- ==================== КОЛОНКА 3: МОВЧАЗНІ СИНТАКСИЧНІ ПОМИЛКИ ==================== -->
+  <rect x="644" y="74" width="292" height="364" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="790" y="98" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">3. Мовчазні помилки синтаксису</text>
+  <text x="790" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Зламаний захист без попередження</text>
+
+  <!-- Картка тригера -->
+  <rect x="656" y="132" width="268" height="74" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="668" y="150" font-size="12" font-weight="700" fill="#1a1a1a">Синтаксичні огріхи:</text>
+  <text x="668" y="168" font-size="12" fill="#c0392b">[domain] @arch (немає слешів)</text>
+  <text x="668" y="188" font-size="12" fill="#c0392b">/src/ arch-team (пропущено @)</text>
+
+  <!-- Картка поведінки платформи -->
+  <rect x="656" y="214" width="268" height="102" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="668" y="232" font-size="12" font-weight="700" fill="#c0392b">Поведінка GitHub Ruleset:</text>
+  <text x="668" y="252" font-size="12" fill="#1a1a1a">• Платформа мовчки ігнорує рядок</text>
+  <text x="668" y="272" font-size="12" fill="#1a1a1a">• Немає жодного еррора чи ворнінга</text>
+  <text x="668" y="290" font-size="12" fill="#1a1a1a">• Файли каталогу втрачають власника</text>
+  <text x="668" y="308" font-size="12" font-weight="700" fill="#c0392b">Небезпека: витік коду підрядника!</text>
+
+  <!-- Картка запобігання -->
+  <rect x="656" y="324" width="268" height="102" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="668" y="342" font-size="12" font-weight="700" fill="#27ae60">Захист та вирішення:</text>
+  <text x="668" y="362" font-size="12" fill="#1a1a1a">• Action codeowners-validator в CI</text>
+  <text x="668" y="382" font-size="12" fill="#1a1a1a">• Автоматична перевірка синтаксису</text>
+  <text x="668" y="402" font-size="12" fill="#6b7280">• Блокування PR при друкарських помилках</text>
+  <text x="668" y="418" font-size="12" font-weight="700" fill="#27ae60">100% покриття правил у main</text>
+</svg>

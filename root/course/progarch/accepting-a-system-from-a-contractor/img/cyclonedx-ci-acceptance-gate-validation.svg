@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Конвеєр валідації CycloneDX SBOM у CI/CD: митний шлюз приймання</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Поетапна фільтрація стороннього коду: схема, ліцензійна чистота та цілісність залежностей</text>
+
+  <!-- ВЕРХНЯ ПАНЕЛЬ: Етапи конвеєра -->
+  <rect x="25" y="72" width="910" height="258" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="98" font-size="13" font-weight="700" fill="#1a1a1a">Послідовні фази автоматизованого аудиту SBOM підрядника:</text>
+
+  <!-- Етап 0: Вхідний маніфест -->
+  <rect x="45" y="114" width="175" height="196" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="55" y="124" width="155" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="132" y="141" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Маніфест підрядника</text>
+
+  <text x="57" y="168" font-size="12" font-weight="700" fill="#1a1a1a">cyclonedx.json</text>
+  <text x="57" y="188" font-size="12" fill="#6b7280">• bomFormat: 1.5/1.6</text>
+  <text x="57" y="208" font-size="12" fill="#6b7280">• components[]</text>
+  <text x="57" y="228" font-size="12" fill="#6b7280">• purl та версії</text>
+  <text x="57" y="248" font-size="12" fill="#6b7280">• hashes (sha256)</text>
+  <text x="57" y="268" font-size="12" fill="#6b7280">• licenses (SPDX)</text>
+  <text x="57" y="288" font-size="12" fill="#6b7280">• dependencies graph</text>
+
+  <!-- Стрілка 0 -> 1 -->
+  <line x1="220" y1="212" x2="248" y2="212" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Етап 1: Валідація схеми -->
+  <rect x="250" y="114" width="200" height="196" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="260" y="124" width="180" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="350" y="141" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">1. Синтаксис і схема</text>
+
+  <text x="262" y="168" font-size="12" font-weight="700" fill="#1a1a1a">CycloneDX JSON Schema</text>
+  <text x="262" y="188" font-size="12" fill="#6b7280">• Валідація структури JSON</text>
+  <text x="262" y="208" font-size="12" fill="#6b7280">• Обов'язковість purl</text>
+  <text x="262" y="228" font-size="12" fill="#6b7280">• Унікальність bom-ref</text>
+  <text x="262" y="248" font-size="12" fill="#6b7280">• Відсутність розривів графа</text>
+
+  <rect x="260" y="260" width="180" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="350" y="276" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Fail-Fast при помилці</text>
+  <text x="350" y="292" text-anchor="middle" font-size="12" fill="#c0392b">Синтаксичний дефект</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="450" y1="212" x2="478" y2="212" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Етап 2: Ліцензійний аудит -->
+  <rect x="480" y="114" width="210" height="196" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="490" y="124" width="190" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="585" y="141" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">2. Ліцензійний аудит</text>
+
+  <text x="492" y="168" font-size="12" font-weight="700" fill="#1a1a1a">SPDX Policy Engine</text>
+  <text x="492" y="188" font-size="12" fill="#27ae60">✔ Дозволені (Whitelist):</text>
+  <text x="502" y="208" font-size="12" fill="#1a1a1a">MIT, Apache-2.0, BSD-3</text>
+  <text x="492" y="228" font-size="12" fill="#c0392b">✖ Заборонені (Blacklist):</text>
+  <text x="502" y="248" font-size="12" fill="#1a1a1a">GPL-3.0, AGPL (копілефт)</text>
+
+  <rect x="490" y="260" width="190" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="585" y="276" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Захист інтелектуальних прав</text>
+  <text x="585" y="292" text-anchor="middle" font-size="12" fill="#c0392b">Юридичний стоп-кран</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="690" y1="212" x2="718" y2="212" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Етап 3: Контроль цілісності -->
+  <rect x="720" y="114" width="195" height="196" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="730" y="124" width="175" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="817" y="141" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">3. Контроль цілісності</text>
+
+  <text x="732" y="168" font-size="12" font-weight="700" fill="#1a1a1a">Lockfile &amp; Hash Audit</text>
+  <text x="732" y="188" font-size="12" fill="#6b7280">• Звірка з poetry/npm lock</text>
+  <text x="732" y="208" font-size="12" fill="#6b7280">• Контроль SHA-256 сум</text>
+  <text x="732" y="228" font-size="12" fill="#6b7280">• Сканування CVE + VEX</text>
+  <text x="732" y="248" font-size="12" fill="#6b7280">• Перевірка вендорингу</text>
+
+  <rect x="730" y="260" width="175" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="817" y="276" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Захист від supply chain</text>
+  <text x="817" y="292" text-anchor="middle" font-size="12" fill="#2457d6">Аудит невідповідностей</text>
+
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Результати приймання (Exit Code) -->
+  <!-- Ліва картка: Блокування (Exit 1) -->
+  <rect x="25" y="342" width="440" height="152" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="42" y="366" font-size="13" font-weight="700" fill="#c0392b">⛔ Порушення: Acceptance Gate зупиняє CI (Exit 1)</text>
+
+  <text x="42" y="390" font-size="12" fill="#1a1a1a">• Невалідна JSON-схема: пропущені purl або циклічні bom-ref</text>
+  <text x="42" y="410" font-size="12" fill="#1a1a1a">• Вірусна ліцензія (GPL/AGPL) загрожує комерційному продукту</text>
+  <text x="42" y="430" font-size="12" fill="#1a1a1a">• Невідповідність хешів: реальний артефакт відрізняється</text>
+  <text x="42" y="452" font-size="12" font-weight="700" fill="#c0392b">ДІЯ: Відхилення PR, відкриття блокуючого дефекту підряднику</text>
+  <text x="42" y="472" font-size="12" fill="#6b7280">Акт прийому-передачі блокується автоматично, без участі людини</text>
+
+  <!-- Права картка: Успіх (Exit 0) -->
+  <rect x="495" y="342" width="440" height="152" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="512" y="366" font-size="13" font-weight="700" fill="#27ae60">✔ Успіх: SBOM верифіковано, зелений коридор (Exit 0)</text>
+
+  <text x="512" y="390" font-size="12" fill="#1a1a1a">• 100% валідність за схемою CycloneDX v1.5 / v1.6</text>
+  <text x="512" y="410" font-size="12" fill="#1a1a1a">• Усі ліцензії в білому списку (MIT, Apache-2.0, BSD-3)</text>
+  <text x="512" y="430" font-size="12" fill="#1a1a1a">• Контрольні суми збігаються, граф залежностей детермінований</text>
+  <text x="512" y="452" font-size="12" font-weight="700" fill="#27ae60">ДІЯ: Підписання аудиторського акта приймання (HMAC-SHA256)</text>
+  <text x="512" y="472" font-size="12" fill="#6b7280">Дозвіл на перехід до приймальних навантажувальних випробувань</text>
+</svg>
