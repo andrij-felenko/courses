@@ -56,6 +56,12 @@ if (!onlyPending) {
     console.log(`${flag} ${String(s.id).padEnd(72)} ${String(s.type || "").padEnd(8)} ${stageOf(s).padEnd(9)} запитів ${String(s.calls || 0).padStart(3)}${sz}${err}`);
   }
   console.log(`\nодиниць ${states.length} · завершено ${states.filter((s) => s.done).length} · з помилкою ${states.filter((s) => s.error).length} · без відповіді запитів ${pending.length}`);
+  /* Завершено батч чи ні — каже позначка, а не тиша в теці. */
+  const mark = path.join(dir, "done.json");
+  if (fs.existsSync(mark)) {
+    let m = {}; try { m = JSON.parse(fs.readFileSync(mark, "utf8")); } catch { }
+    console.log(`✅ БАТЧ ЗАВЕРШЕНО ${m.at ? m.at.slice(0, 16).replace("T", " ") : ""} — ${m.manifest || "маніфест записано"}`);
+  } else console.log("⏳ батч не завершено: позначки done.json ще немає — запити ще будуть");
 }
 if (pending.length) {
   console.log(onlyPending ? "" : "\nчекають на відповідь:");

@@ -66,7 +66,7 @@ function args(argv) {
     const a = argv[i];
     if (!a.startsWith("--")) throw new Error(`не розумію: ${a}`);
     const k = a.slice(2);
-    if (k === "dry") { o.dry = true; continue; }
+    if (k === "dry" || k === "allow-dirty") { o[k] = true; continue; }
     const v = argv[i + 1];
     if (v === undefined || v.startsWith("--")) throw new Error(`${a} без значення`);
     o[k] = v; i++;
@@ -82,6 +82,14 @@ async function main(argv) {
   const addrList = rawAddrs.map((s) => s.trim()).filter(Boolean);
   if (!o.id && !addrList.length && (!o.book || (!o.topic && !o.topics)))
     throw new Error("потрібно --book <книга> --topic <тема>, --addr <адреса,…>, або --id <хеш> для підняття");
+
+  /* ⛔ КОНВЕЄР ІДЕ ЛИШЕ НА ЗАКОМІЧЕНОМУ КОДІ. Правила й скрипти правив не тільки автор:
+     відповідач дописував собі прапорці й «лагодив» відповіді скриптами. Незакомічена
+     зміна в `writer_ua/` — стоп із переліком: людина або комітить, або відкидає. */
+  const dirty = require("child_process").spawnSync("git", ["status", "--porcelain", "--", "writer_ua"],
+    { cwd: path.join(O.INWORK, ".."), encoding: "utf8" });
+  if (dirty.status === 0 && dirty.stdout.trim() && !o["allow-dirty"])
+    throw new Error(`writer_ua/ змінено без коміту — конвеєр іде лише на закоміченому коді:\n${dirty.stdout.trim()}\nзакоміть або відкинь зміни (--allow-dirty вимикає перевірку)`);
 
   const rawTopics = o.topics ? o.topics.split(",") : (o.topic ? o.topic.split(",") : []);
   const topicList = rawTopics.map((s) => s.trim()).filter(Boolean);

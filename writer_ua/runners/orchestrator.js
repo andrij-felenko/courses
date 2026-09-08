@@ -538,6 +538,16 @@ async function run(o) {
   if (!routed && done.length) flag.push("ЖОДНОЇ операції не записано — перевір toOps і формат результату");
 
   report.manifest = `записано за завершеними (${routed} з ${done.length})` + (flag.length ? `; ${flag.join("; ")}` : "");
+
+  /* ── ПОЗНАЧКА КІНЦЯ ── Батч завершено ⟺ є `done.json`. Той, хто відповідає на запити,
+     не мусить угадувати, чи «все готово», по тиші в теці: доки файла немає — батч іде,
+     і запити ще будуть. Стіна ліміту позначки не ставить: той самий хеш піднімає прогін. */
+  try {
+    fs.writeFileSync(path.join(dir, "done.json"), JSON.stringify({
+      id, at: new Date().toISOString(), done: done.length, failed: failed.length,
+      paused: report.paused.length, manifest: report.manifest,
+    }, null, 1) + "\n", "utf8");
+  } catch (e) { notes.push(`позначку done.json не записано — ${msgOf(e)}`); }
   return report;
 }
 
