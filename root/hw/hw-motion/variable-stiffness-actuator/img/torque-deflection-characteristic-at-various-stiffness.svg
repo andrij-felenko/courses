@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-axis-9" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сімейство статичних характеристик момент–деформація T(theta)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Керування жорсткістю шляхом зміни коефіцієнта попереднього натягу sigma</text>
+
+  <!-- Left: Family of Curves Area -->
+  <rect x="40" y="80" width="560" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Coordinate Axes -->
+  <line x1="80" y1="250" x2="560" y2="250" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis-9)"/>
+  <line x1="300" y1="400" x2="300" y2="105" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis-9)"/>
+  <text x="550" y="270" font-size="12" font-weight="bold" fill="#1a1a1a">theta [рад]</text>
+  <text x="315" y="115" font-size="12" font-weight="bold" fill="#1a1a1a">Torque T [Н·м]</text>
+
+  <!-- High Stiffness Curve (sigma_high) -->
+  <path d="M 220,380 Q 280,310 300,250 Q 320,190 380,120" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <text x="390" y="130" font-size="12" font-weight="bold" fill="#c0392b">sigma_high (жорсткий режим)</text>
+
+  <!-- Medium Stiffness Curve (sigma_med) -->
+  <path d="M 170,360 Q 260,300 300,250 Q 340,200 430,140" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="440" y="155" font-size="12" font-weight="bold" fill="#2457d6">sigma_med (номінальний)</text>
+
+  <!-- Low Stiffness Curve (sigma_low) -->
+  <path d="M 120,330 Q 230,280 300,250 Q 370,220 480,170" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="490" y="185" font-size="12" font-weight="bold" fill="#27ae60">sigma_low (м'який режим)</text>
+
+  <!-- Tangent line showing physical stiffness -->
+  <line x1="280" y1="280" x2="360" y2="160" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="210" y="200" font-size="11" fill="#6b7280">Дотична: K = dT/d(theta)</text>
+
+  <!-- Right: Explanation & Physics Panel -->
+  <rect x="620" y="80" width="300" height="345" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="770" y="110" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Аналіз поведінки VSA</text>
+
+  <rect x="635" y="130" width="270" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="770" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Визначення жорсткості:</text>
+  <text x="770" y="174" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">K(theta, sigma) = partial T / partial theta</text>
+  <text x="770" y="196" font-size="11" fill="#6b7280" text-anchor="middle">Нахил кривої змінюється при зміні sigma</text>
+
+  <rect x="635" y="225" width="270" height="95" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="770" y="247" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">М'який режим (sigma_low):</text>
+  <text x="770" y="267" font-size="11" fill="#1a1a1a" text-anchor="middle">• Безпечний контакт із людиною (HRI)</text>
+  <text x="770" y="285" font-size="11" fill="#1a1a1a" text-anchor="middle">• Поглинання ударів та збурень</text>
+  <text x="770" y="303" font-size="11" fill="#6b7280" text-anchor="middle">• Висока енергоємність пружин</text>
+
+  <rect x="635" y="330" width="270" height="80" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="770" y="352" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Жорсткий режим (sigma_high):</text>
+  <text x="770" y="372" font-size="11" fill="#1a1a1a" text-anchor="middle">• Прецизійне позиціювання ланки</text>
+  <text x="770" y="390" font-size="11" fill="#6b7280" text-anchor="middle">• Широка смуга пропускання за частотою</text>
+</svg>

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-force-lw" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розрахункова балочна модель зуба за Льюїсом</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Вписана парабола однакового опору вигину та визначення небезпечного перерізу ніжки зуба</text>
+
+  <!-- Left: Cantilever Beam & Parabola Area -->
+  <rect x="40" y="80" width="550" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Symmetrical Gear Tooth Outline -->
+  <path d="M 180,380 Q 220,260 280,160 L 340,160 Q 400,260 440,380 Z" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Inscribed Parabola of Constant Bending Strength -->
+  <path d="M 215,350 Q 310,160 405,350" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="310" y="315" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Парабола однакового опору</text>
+
+  <!-- Tangential Load at Tip -->
+  <line x1="220" y1="160" x2="275" y2="160" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-force-lw)"/>
+  <text x="240" y="145" font-size="12" font-weight="bold" fill="#c0392b">F_t</text>
+
+  <!-- Dangerous Cross Section Line -->
+  <line x1="215" y1="350" x2="405" y2="350" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="310" y="370" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Небезпечний переріз s_F</text>
+
+  <!-- Right: Theory & Equations Panel -->
+  <rect x="610" y="80" width="310" height="345" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="765" y="110" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Формула Льюїса</text>
+
+  <rect x="625" y="130" width="280" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="765" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Класичний згин зуба (1892):</text>
+  <text x="765" y="174" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">sigma_F = F_t / (b * m * Y_F)</text>
+  <text x="765" y="196" font-size="11" fill="#6b7280" text-anchor="middle">де Y_F — безрозмірний фактор форми зуба</text>
+
+  <rect x="625" y="225" width="280" height="95" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="765" y="247" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сучасна модифікація ISO 6336:</text>
+  <text x="765" y="268" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">sigma_F = (F_t / (b * m_n)) * Y_F * Y_S * Y_beta</text>
+  <text x="765" y="290" font-size="11" fill="#1a1a1a" text-anchor="middle">Враховує коефіцієнт концентрації Y_S</text>
+  <text x="765" y="306" font-size="11" fill="#6b7280" text-anchor="middle">та кут нахилу лінії зуба Y_beta</text>
+
+  <rect x="625" y="330" width="280" height="80" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="765" y="352" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Критерій витривалості на згин:</text>
+  <text x="765" y="375" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">sigma_F &lt;= sigma_FP = sigma_FE / S_F</text>
+  <text x="765" y="393" font-size="11" fill="#6b7280" text-anchor="middle">Коефіцієнт запасу S_F &gt;= 1,4...1,6</text>
+</svg>

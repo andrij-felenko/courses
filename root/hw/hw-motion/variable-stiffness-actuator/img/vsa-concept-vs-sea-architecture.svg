@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-flow-10" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green-10" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняльна архітектура: приводи SEA проти VSA</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Фіксована серійна піддатливість проти незалежного двомоторного керування жорсткістю</text>
+
+  <!-- Top: SEA Architecture Area -->
+  <rect x="40" y="80" width="880" height="155" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="105" font-size="14" font-weight="bold" fill="#2457d6">Архітектура SEA (Series Elastic Actuator) — 1 ступінь вільності (лише позиція)</text>
+
+  <!-- SEA Blocks -->
+  <rect x="60" y="125" width="130" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="155" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сервомотор</text>
+  <text x="125" y="175" font-size="11" fill="#6b7280" text-anchor="middle">theta_m</text>
+
+  <line x1="190" y1="160" x2="230" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-flow-10)"/>
+
+  <rect x="230" y="125" width="130" height="70" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="295" y="155" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Редуктор</text>
+  <text x="295" y="175" font-size="11" fill="#6b7280" text-anchor="middle">коефіцієнт N</text>
+
+  <line x1="360" y1="160" x2="400" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-flow-10)"/>
+
+  <rect x="400" y="125" width="180" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="490" y="152" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Фіксована пружина K</text>
+  <text x="490" y="172" font-size="11" fill="#c0392b" text-anchor="middle">K = const (незмінна)</text>
+
+  <line x1="580" y1="160" x2="620" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-flow-10)"/>
+
+  <rect x="620" y="125" width="130" height="70" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="685" y="155" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Датчик сили</text>
+  <text x="685" y="175" font-size="11" fill="#6b7280" text-anchor="middle">tau = K * delta_theta</text>
+
+  <line x1="750" y1="160" x2="790" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-flow-10)"/>
+
+  <rect x="790" y="125" width="110" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="845" y="155" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихідна ланка</text>
+  <text x="845" y="175" font-size="11" fill="#6b7280" text-anchor="middle">q_link</text>
+
+  <!-- Bottom: VSA Architecture Area -->
+  <rect x="40" y="255" width="880" height="175" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="60" y="280" font-size="14" font-weight="bold" fill="#27ae60">Архітектура VSA (Variable Stiffness Actuator) — 2 незалежні ступені (позиція + жорсткість)</text>
+
+  <!-- Motor 1 (Position) -->
+  <rect x="60" y="295" width="170" height="55" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="145" y="320" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Мотор 1: Положення</text>
+  <text x="145" y="338" font-size="11" fill="#6b7280" text-anchor="middle">Задає траєкторію q_link</text>
+
+  <!-- Motor 2 (Stiffness) -->
+  <rect x="60" y="360" width="170" height="55" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="145" y="385" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Мотор 2: Жорсткість</text>
+  <text x="145" y="403" font-size="11" fill="#6b7280" text-anchor="middle">Задає натяг пружин sigma</text>
+
+  <line x1="230" y1="322" x2="330" y2="345" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-flow-10)"/>
+  <line x1="230" y1="387" x2="330" y2="365" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green-10)"/>
+
+  <!-- Nonlinear Elastic Mechanism -->
+  <rect x="330" y="310" width="260" height="90" rx="6" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="460" y="340" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Нелінійний блок жорсткості</text>
+  <text x="460" y="362" font-size="11" fill="#1a1a1a" text-anchor="middle">Кулачок або важіль зі змінним плечем</text>
+  <text x="460" y="382" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">K(sigma) = f(motor_2) in [K_min, K_max]</text>
+
+  <line x1="590" y1="355" x2="650" y2="355" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green-10)"/>
+
+  <!-- Decoupled Output -->
+  <rect x="650" y="310" width="250" height="90" rx="6" fill="white" stroke="#27ae60" stroke-width="2"/>
+  <text x="775" y="340" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихідний суглоб робота</text>
+  <text x="775" y="362" font-size="11" fill="#1a1a1a" text-anchor="middle">Безпечна взаємодія (кобот)</text>
+  <text x="775" y="382" font-size="11" fill="#6b7280" text-anchor="middle">Вибухові рухи (стрибки, кидки)</text>
+</svg>

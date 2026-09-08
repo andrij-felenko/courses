@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-axis" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-force" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еліпсоїд декартової жорсткості на робочому органі маніпулятора</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Просторова анізотропія жорсткості: півосі задаються власними векторами матриці K_x</text>
+
+  <!-- Left: Ellipsoid Visualization Area -->
+  <rect x="40" y="80" width="530" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- End Effector tool representation -->
+  <rect x="180" y="220" width="70" height="40" rx="4" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="250" y1="240" x2="300" y2="240" stroke="#1a1a1a" stroke-width="4"/>
+  <circle cx="300" cy="240" r="8" fill="#2457d6"/>
+  <text x="215" y="210" font-size="11" fill="#6b7280" text-anchor="middle">Фланець</text>
+
+  <!-- Cartesian Axes at Tool Center Point (TCP) -->
+  <line x1="300" y1="240" x2="510" y2="240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="515" y="245" font-size="12" font-weight="bold" fill="#1a1a1a">X</text>
+
+  <line x1="300" y1="240" x2="300" y2="105" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="300" y="98" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Z</text>
+
+  <!-- Stiffness Ellipsoid -->
+  <!-- Major axis along X (stiff), minor along Z (compliant) -->
+  <ellipse cx="300" cy="240" rx="140" ry="65" fill="#eaf0fd" fill-opacity="0.6" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Principal axes indicators: text placed safely above ellipse -->
+  <line x1="300" y1="240" x2="440" y2="240" stroke="#2457d6" stroke-width="2" stroke-dasharray="3,3"/>
+  <rect x="330" y="140" width="160" height="26" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="410" y="157" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">k_x (висока жорсткість)</text>
+
+  <line x1="300" y1="240" x2="300" y2="175" stroke="#2457d6" stroke-width="2" stroke-dasharray="3,3"/>
+  <rect x="80" y="140" width="150" height="26" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="155" y="157" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">k_z (податлива вісь)</text>
+
+  <!-- External force vector -->
+  <line x1="440" y1="240" x2="490" y2="210" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-force)"/>
+  <text x="495" y="200" font-size="12" font-weight="bold" fill="#c0392b">F_ext</text>
+
+  <!-- Displacement note -->
+  <rect x="60" y="340" width="220" height="65" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="362" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Закон імпедансу:</text>
+  <text x="170" y="385" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">F_ext = K_x * delta_x</text>
+
+  <!-- Right: Theory and Application Panel -->
+  <rect x="590" y="80" width="330" height="345" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="755" y="110" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Якобіанне відображення</text>
+
+  <rect x="610" y="130" width="290" height="95" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="755" y="155" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Трансформація жорсткості:</text>
+  <text x="755" y="180" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">K_x = J(q)^(-T) * K_q * J(q)^(-1)</text>
+  <text x="755" y="205" font-size="11" fill="#6b7280" text-anchor="middle">де J(q) — геометричний якобіан руки</text>
+
+  <rect x="610" y="245" width="290" height="160" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="755" y="270" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Практичне налаштування осей:</text>
+  <text x="625" y="295" font-size="12" fill="#1a1a1a">• Вісь X: висока жорсткість (1000 Н/м)</text>
+  <text x="625" y="315" font-size="12" fill="#6b7280">  прецизійне ведення вздовж траєкторії</text>
+  <text x="625" y="340" font-size="12" fill="#1a1a1a">• Вісь Z: низька жорсткість (100 Н/м)</text>
+  <text x="625" y="360" font-size="12" fill="#6b7280">  м'яке прилягання без руйнування деталі</text>
+  <text x="625" y="385" font-size="11" fill="#27ae60">Ідеально для шліфування та збирання</text>
+</svg>

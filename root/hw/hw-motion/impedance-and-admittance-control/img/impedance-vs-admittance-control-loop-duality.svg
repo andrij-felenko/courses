@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дуальність контурів імпедансного та адмітансного керування</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Імпеданс сприймає рух і формує зусилля; адмітанс вимірює силу і коригує траєкторію</text>
+
+  <!-- Left Panel: Impedance -->
+  <rect x="40" y="80" width="430" height="345" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="255" y="110" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Імпедансне керування (Impedance)</text>
+
+  <rect x="60" y="130" width="390" height="60" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="255" y="154" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхід: Зміщення позиції x(t)</text>
+  <text x="255" y="174" font-size="12" fill="#6b7280" text-anchor="middle">Похибка деформації e = x_d - x</text>
+
+  <line x1="255" y1="190" x2="255" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="60" y="220" width="390" height="75" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="255" y="244" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Імпедансний закон (Z-оператор)</text>
+  <text x="255" y="266" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">F_cmd = M * dde + B * de + K * e</text>
+  <text x="255" y="284" font-size="11" fill="#6b7280" text-anchor="middle">Вихід: Сила або момент електродвигуна</text>
+
+  <rect x="60" y="315" width="390" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="75" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">Характеристики імпедансу:</text>
+  <text x="75" y="360" font-size="12" fill="#1a1a1a">• Приводи: Direct Drive та QDD (квазіпрямі)</text>
+  <text x="75" y="380" font-size="12" fill="#1a1a1a">• Контакт із жорстким середовищем без втрати стійкості</text>
+  <text x="75" y="398" font-size="11" fill="#2457d6">• Висока смуга пропускання за зусиллям (&gt; 500 Гц)</text>
+
+  <!-- Right Panel: Admittance -->
+  <rect x="490" y="80" width="430" height="345" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="705" y="110" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Адмітансне керування (Admittance)</text>
+
+  <rect x="510" y="130" width="390" height="60" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="705" y="154" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхід: Зовнішня сила F_ext(t)</text>
+  <text x="705" y="174" font-size="12" fill="#6b7280" text-anchor="middle">Вимірювання шестиосьовим датчиком F/T</text>
+
+  <line x1="705" y1="190" x2="705" y2="215" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="510" y="220" width="390" height="75" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="705" y="244" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Адмітансний фільтр (Y-оператор)</text>
+  <text x="705" y="266" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">delta_x(s) = F_ext(s) / (M*s^2 + B*s + K)</text>
+  <text x="705" y="284" font-size="11" fill="#6b7280" text-anchor="middle">Вихід: Модифікована траєкторія x_cmd = x_d + delta_x</text>
+
+  <rect x="510" y="315" width="390" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">Характеристики адмітансу:</text>
+  <text x="525" y="360" font-size="12" fill="#1a1a1a">• Приводи: Важкі маніпулятори з хвильовими редукторами</text>
+  <text x="525" y="380" font-size="12" fill="#1a1a1a">• Жорсткий внутрішній контур стеження за позицією</text>
+  <text x="525" y="398" font-size="11" fill="#27ae60">• Висока чутливість до сил при прецизійному збиранні</text>
+</svg>

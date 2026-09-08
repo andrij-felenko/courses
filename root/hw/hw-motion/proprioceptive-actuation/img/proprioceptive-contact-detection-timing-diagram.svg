@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-time" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма детекції контакту за похідною струму</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Стрибок похідної dIq/dt дозволяє зафіксувати зіткнення лапи за 2 мілісекунди</text>
+
+  <!-- Track 1: Сила контакту F_contact -->
+  <rect x="40" y="80" width="600" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="105" font-size="13" font-weight="bold" fill="#c0392b">Сила контакту F_ext [Н]</text>
+  <line x1="60" y1="160" x2="620" y2="160" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-time)"/>
+  <line x1="60" y1="160" x2="60" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="60" y1="155" x2="280" y2="155" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M 280,155 Q 310,125 360,122 L 600,122" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="370" y="138" font-size="12" fill="#c0392b">Удар об камінь (t_0)</text>
+
+  <!-- Track 2: Похідна струму dIq/dt -->
+  <rect x="40" y="190" width="600" height="105" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="215" font-size="13" font-weight="bold" fill="#2457d6">Похідна струму dIq/dt [А/с]</text>
+  <line x1="60" y1="280" x2="620" y2="280" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-time)"/>
+  <line x1="60" y1="285" x2="60" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="60" y1="250" x2="600" y2="250" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="520" y="245" font-size="11" fill="#6b7280">Поріг спрацьовування</text>
+  <line x1="60" y1="280" x2="280" y2="280" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 280,280 L 300,230 L 330,280 L 600,280" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="310" y="225" font-size="12" font-weight="bold" fill="#2457d6">Сплеск dIq/dt</text>
+
+  <!-- Track 3: Логічний прапор контакту -->
+  <rect x="40" y="310" width="600" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="335" font-size="13" font-weight="bold" fill="#27ae60">Прапор Contact_Detected [0 / 1]</text>
+  <line x1="60" y1="390" x2="620" y2="390" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-time)"/>
+  <line x1="60" y1="390" x2="60" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="60" y1="385" x2="315" y2="385" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="315" y1="385" x2="315" y2="355" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="315" y1="355" x2="600" y2="355" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="330" y="370" font-size="12" font-weight="bold" fill="#27ae60">Контакт підтверджено (1)</text>
+
+  <!-- Timing delta indicator -->
+  <line x1="280" y1="80" x2="280" y2="405" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="315" y1="190" x2="315" y2="405" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  
+  <rect x="270" y="415" width="60" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="300" y="432" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">2 мс</text>
+
+  <!-- Right sidebar explanations -->
+  <rect x="660" y="80" width="260" height="325" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="790" y="112" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Алгоритм детекції</text>
+
+  <rect x="675" y="130" width="230" height="75" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="155" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Опитування струму</text>
+  <text x="790" y="175" font-size="12" fill="#6b7280" text-anchor="middle">Частота FOC 10–20 кГц</text>
+  <text x="790" y="192" font-size="12" fill="#6b7280" text-anchor="middle">Фільтрація шуму шунтів</text>
+
+  <rect x="675" y="215" width="230" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="240" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Диференціювання</text>
+  <text x="790" y="260" font-size="12" fill="#1a1a1a" text-anchor="middle">dIq/dt &gt; Поріг зіткнення</text>
+  <text x="790" y="278" font-size="12" fill="#6b7280" text-anchor="middle">Відсікання плавних прискорень</text>
+
+  <rect x="675" y="310" width="230" height="80" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="335" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Реакція контролера</text>
+  <text x="790" y="355" font-size="12" fill="#1a1a1a" text-anchor="middle">Миттєве перемикання MPC</text>
+  <text x="790" y="372" font-size="12" fill="#6b7280" text-anchor="middle">Час реакції менше 2 мс</text>
+</svg>

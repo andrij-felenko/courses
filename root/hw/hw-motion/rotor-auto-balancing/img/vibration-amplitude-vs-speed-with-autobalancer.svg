@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-axis-vib" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Амплітудно-частотна характеристика ротора з автобалансиром</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Резонансний пік та ефективність ліквідації вібрацій у надкритичній зоні обертання</text>
+
+  <!-- Left: AЧХ Plot Area -->
+  <rect x="40" y="80" width="550" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Plot Axes -->
+  <line x1="80" y1="380" x2="560" y2="380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis-vib)"/>
+  <line x1="80" y1="380" x2="80" y2="105" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis-vib)"/>
+  <text x="540" y="398" font-size="11" font-weight="bold" fill="#1a1a1a">omega / omega_cr</text>
+  <text x="90" y="115" font-size="11" font-weight="bold" fill="#1a1a1a">Амплітуда X [мкм]</text>
+
+  <!-- Critical Frequency Marker (omega/omega_cr = 1.0 at x=230) -->
+  <line x1="230" y1="120" x2="230" y2="380" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="230" y="398" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">1,0 (резонанс)</text>
+
+  <!-- Threshold Frequency Marker (sqrt(2) approx 1.41 at x=310) -->
+  <line x1="310" y1="120" x2="310" y2="380" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="310" y="398" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">sqrt(2)</text>
+
+  <!-- Stable Zone Highlight Box -->
+  <path d="M 310,120 h 220 v 260 h -220 z" fill="#e9f7ef" fill-opacity="0.5"/>
+  <text x="420" y="138" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Зона автобалансування (X &lt; 5 мкм)</text>
+
+  <!-- Curve 1: Without Balancer (Red dashed) -->
+  <path d="M 80,375 Q 180,360 215,220 Q 230,135 245,220 Q 280,320 530,330" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="430" y="318" font-size="11" font-weight="bold" fill="#c0392b">Без балансира</text>
+
+  <!-- Curve 2: With Ball Auto-Balancer (Green solid) -->
+  <path d="M 80,375 Q 180,360 215,240 Q 230,165 245,240 Q 275,340 310,365 L 530,375" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <text x="400" y="360" font-size="11" font-weight="bold" fill="#27ae60">З автобалансиром</text>
+
+  <!-- Right: Technical Details Panel -->
+  <rect x="610" y="80" width="310" height="345" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="765" y="110" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Аналіз ефективності</text>
+
+  <rect x="625" y="130" width="280" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="765" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Резонансний перехід:</text>
+  <text x="765" y="172" font-size="11" fill="#1a1a1a" text-anchor="middle">При розгоні кульки частково підсилюють</text>
+  <text x="765" y="190" font-size="11" fill="#1a1a1a" text-anchor="middle">пік (ефект Зоммерфельда), тому потрібен</text>
+  <text x="765" y="206" font-size="11" fill="#c0392b" text-anchor="middle">достатній крутний момент двигуна</text>
+
+  <rect x="625" y="225" width="280" height="95" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="765" y="247" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Робочий надкритичний діапазон:</text>
+  <text x="765" y="268" font-size="11" fill="#1a1a1a" text-anchor="middle">При omega &gt; 1,41 * omega_cr кульки</text>
+  <text x="765" y="286" font-size="11" fill="#27ae60" text-anchor="middle">фіксуються у протифазі, придушуючи</text>
+  <text x="765" y="304" font-size="11" fill="#27ae60" text-anchor="middle">вібрації на 90...95% до рівня &lt; 5 мкм</text>
+
+  <rect x="625" y="330" width="280" height="80" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="765" y="352" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стійкість до зміни дисбалансу:</text>
+  <text x="765" y="372" font-size="11" fill="#1a1a1a" text-anchor="middle">Миттєве підстроювання при налипанні бруду</text>
+  <text x="765" y="390" font-size="11" fill="#6b7280" text-anchor="middle">або нерівномірному зносі робочого колеса</text>
+</svg>

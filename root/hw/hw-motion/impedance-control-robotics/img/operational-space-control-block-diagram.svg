@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структурна схема імпедансу в операційному просторі</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Декартове завдання транслюється в моменти суглобів через транспонований якобіан</text>
+
+  <!-- Block 1: Trajectory Planner -->
+  <rect x="40" y="140" width="130" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="105" y="172" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Планувальник</text>
+  <text x="105" y="195" font-size="12" fill="#2457d6" text-anchor="middle">x_d, dx_d</text>
+  <text x="105" y="213" font-size="11" fill="#6b7280" text-anchor="middle">Декартова поза</text>
+
+  <line x1="170" y1="185" x2="215" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Comparator circle -->
+  <circle cx="230" cy="185" r="14" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="230" y="190" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">+</text>
+
+  <line x1="245" y1="185" x2="280" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 2: Operational Space Impedance -->
+  <rect x="280" y="140" width="170" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="365" y="168" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Декартовий імпеданс</text>
+  <text x="365" y="192" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">F_task = D*de + K*e</text>
+  <text x="365" y="212" font-size="11" fill="#6b7280" text-anchor="middle">Декартова сила інструмента</text>
+
+  <line x1="450" y1="185" x2="485" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 3: Jacobian Transpose -->
+  <rect x="485" y="140" width="130" height="90" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="550" y="168" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Якобіан</text>
+  <text x="550" y="192" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">tau = J(q)^T * F</text>
+  <text x="550" y="212" font-size="11" fill="#6b7280" text-anchor="middle">Шарнірні моменти</text>
+
+  <line x1="615" y1="185" x2="655" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Adder circle for gravity compensation -->
+  <circle cx="670" cy="185" r="14" fill="white" stroke="#27ae60" stroke-width="2"/>
+  <text x="670" y="190" font-size="16" font-weight="bold" fill="#27ae60" text-anchor="middle">+</text>
+
+  <line x1="685" y1="185" x2="720" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 4: Robot / Manipulator -->
+  <rect x="720" y="140" width="190" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="815" y="168" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Маніпулятор</text>
+  <text x="815" y="192" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M(q)*ddq + C*dq + g = tau</text>
+  <text x="815" y="212" font-size="11" fill="#6b7280" text-anchor="middle">Суглобові координати q</text>
+
+  <!-- Gravity & Dynamics Compensation Block -->
+  <rect x="485" y="280" width="170" height="75" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="570" y="306" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Компенсація динаміки</text>
+  <text x="570" y="328" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">g(q) + C(q, dq)*dq</text>
+  <text x="570" y="345" font-size="10" fill="#6b7280" text-anchor="middle">Гравітація та Коріоліс</text>
+
+  <line x1="655" y1="315" x2="670" y2="315" stroke="#27ae60" stroke-width="2"/>
+  <line x1="670" y1="315" x2="670" y2="202" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Forward Kinematics Feedback Loop -->
+  <rect x="280" y="280" width="170" height="75" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="365" y="306" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пряма кінематика</text>
+  <text x="365" y="328" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">x = FK(q), J = J(q)</text>
+  <text x="365" y="345" font-size="10" fill="#6b7280" text-anchor="middle">Зворотний зв'язок</text>
+
+  <!-- Feedback lines -->
+  <line x1="815" y1="230" x2="815" y2="390" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="815" y1="390" x2="365" y2="390" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="365" y1="390" x2="365" y2="360" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <line x1="280" y1="315" x2="230" y2="315" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="230" y1="315" x2="230" y2="202" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="220" y="260" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">-</text>
+</svg>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-force-12" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механіка контакту Герца: Кулькова (ШВП) проти Роликової (ШРВП)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Точковий контакт еліпса напружень проти лінійного контакту прямокутної смуги</text>
+
+  <!-- Left: Ball Screw Point Contact Area -->
+  <rect x="40" y="80" width="425" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="252" y="110" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Кулькова пара ШВП (Точковий)</text>
+
+  <!-- Ball drawing -->
+  <circle cx="252" cy="180" r="45" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <line x1="252" y1="100" x2="252" y2="130" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-force-12)"/>
+  <text x="270" y="120" font-size="11" font-weight="bold" fill="#c0392b">F_load</text>
+
+  <!-- Elliptical contact patch -->
+  <ellipse cx="252" cy="235" rx="22" ry="7" fill="#c0392b"/>
+  <text x="252" y="260" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Еліпс контакту (мала площа A)</text>
+
+  <rect x="60" y="280" width="385" height="130" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="75" y="305" font-size="12" font-weight="bold" fill="#c0392b">Напруження за Герцом (ШВП):</text>
+  <text x="75" y="327" font-size="13" font-weight="bold" fill="#c0392b">sigma_H = (3 * F / (2 * pi * a * b)) ~ 2500...3500 МПа</text>
+  <text x="75" y="350" font-size="11" fill="#1a1a1a">• Висока концентрація напружень у центрі еліпса</text>
+  <text x="75" y="368" font-size="11" fill="#1a1a1a">• Схильність до пітінгу та втоми під ударами</text>
+  <text x="75" y="388" font-size="11" fill="#6b7280">• Обмежена максимальна динамічна вантажопідйомність</text>
+
+  <!-- Right: Roller Screw Line Contact Area -->
+  <rect x="495" y="80" width="425" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="707" y="110" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Роликова пара ШРВП (Лінійний)</text>
+
+  <!-- Roller cylinder (side view) -->
+  <path d="M 647,150 h 120 v 60 h -120 z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <line x1="707" y1="100" x2="707" y2="130" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-force-12)"/>
+  <text x="725" y="120" font-size="11" font-weight="bold" fill="#c0392b">F_load</text>
+
+  <!-- Rectangular contact strip -->
+  <path d="M 647,230 h 120 v 10 h -120 z" fill="#27ae60"/>
+  <text x="707" y="260" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Прямокутна смуга контакту (велика площа A)</text>
+
+  <rect x="515" y="280" width="385" height="130" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="530" y="305" font-size="12" font-weight="bold" fill="#27ae60">Напруження за Герцом (ШРВП):</text>
+  <text x="530" y="327" font-size="13" font-weight="bold" fill="#27ae60">sigma_H = sqrt(F * E* / (pi * L * R_eff)) ~ 900...1400 МПа</text>
+  <text x="530" y="350" font-size="11" fill="#1a1a1a">• Рівномірний розподіл зусилля вздовж усієї лінії L</text>
+  <text x="530" y="368" font-size="11" fill="#27ae60">• Зниження пікових контактних напружень удвічі</text>
+  <text x="530" y="388" font-size="11" fill="#6b7280">• Екстремальна стійкість до ударів та вібрацій</text>
+</svg>

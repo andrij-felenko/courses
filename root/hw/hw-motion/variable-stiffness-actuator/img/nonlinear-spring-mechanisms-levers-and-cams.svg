@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-cam-8" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-lever-8" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механізми реалізації змінної жорсткості (VSA)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Кулачкові профілі зі змінним радіусом та важелі зі зміщенням точки опори</text>
+
+  <!-- Left: Cam Mechanism Area -->
+  <rect x="40" y="80" width="425" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="252" y="110" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Схема А: Нелінійний кулачок</text>
+
+  <!-- Cam Profile -->
+  <path d="M 210,240 Q 252,170 294,240 Q 252,310 210,240 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="252" cy="240" r="8" fill="#1a1a1a"/>
+  <text x="252" y="260" font-size="11" fill="#1a1a1a" text-anchor="middle">Вісь обертання</text>
+
+  <!-- Follower Roller and Spring -->
+  <circle cx="252" cy="160" r="14" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 252,146 v -35" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="275" y="130" font-size="11" font-weight="bold" fill="#c0392b">Пружина натягу</text>
+
+  <rect x="60" y="295" width="385" height="110" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="75" y="320" font-size="12" font-weight="bold" fill="#2457d6">Принцип роботи кулачка:</text>
+  <text x="75" y="340" font-size="11" fill="#1a1a1a">• Профіль кулачка задає нелінійну функцію R(theta)</text>
+  <text x="75" y="358" font-size="11" fill="#1a1a1a">• Сила пружини зростає непропорційно куту відхилення</text>
+  <text x="75" y="376" font-size="11" fill="#6b7280">• Додатковий мотор змінює базове стиснення пружини</text>
+  <text x="75" y="394" font-size="11" fill="#2457d6">Жорсткість K(theta) = d(Torque) / d(theta)</text>
+
+  <!-- Right: Variable Lever Arm Area -->
+  <rect x="495" y="80" width="425" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="707" y="110" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Схема Б: Важіль зі змінною опорою</text>
+
+  <!-- Lever Bar -->
+  <line x1="530" y1="210" x2="880" y2="210" stroke="#1a1a1a" stroke-width="6"/>
+
+  <!-- Movable Pivot (Triangle) -->
+  <polygon points="680,210 670,240 690,240" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="680" y="258" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Рухома опора (сервопривод)</text>
+
+  <!-- Spring at end -->
+  <line x1="860" y1="210" x2="860" y2="160" stroke="#c0392b" stroke-width="3"/>
+  <text x="860" y="150" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Пружина K</text>
+
+  <!-- Load at other end -->
+  <line x1="550" y1="210" x2="550" y2="250" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-cam-8)"/>
+  <text x="550" y="270" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">F_out</text>
+
+  <rect x="515" y="295" width="385" height="110" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="530" y="320" font-size="12" font-weight="bold" fill="#27ae60">Принцип важеля зі змінним плечем:</text>
+  <text x="530" y="340" font-size="11" fill="#1a1a1a">• Сервомотор зміщує точку опори вздовж стрижня</text>
+  <text x="530" y="358" font-size="11" fill="#1a1a1a">• Передавальне відношення плечей n = L1 / L2</text>
+  <text x="530" y="376" font-size="11" fill="#27ae60">Ефективна жорсткість: K_eff = K_spring * (L1 / L2)^2</text>
+  <text x="530" y="394" font-size="11" fill="#6b7280">Діапазон регулювання жорсткості до 1:20 за частки секунди</text>
+</svg>

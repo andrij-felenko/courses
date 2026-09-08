@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ковзний горизонт планування Convex MPC у локомоції</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Оптимізація сил опор на горизонті H кроків з оновленням на частоті 50 Гц</text>
+
+  <!-- Top: Receding Horizon Diagram -->
+  <rect x="40" y="80" width="880" height="150" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Горизонт прогнозування H = 16 кроків (інтервал часу 0,4 с)</text>
+
+  <!-- Block u0 (Active command) -->
+  <rect x="60" y="125" width="130" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="125" y="152" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Крок t_0 (u_0*)</text>
+  <text x="125" y="174" font-size="11" fill="#1a1a1a" text-anchor="middle">Застосовується</text>
+  <text x="125" y="192" font-size="11" fill="#1a1a1a" text-anchor="middle">до інверторів</text>
+
+  <!-- Blocks u1..uH (Predicted future) -->
+  <rect x="205" y="125" width="700" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="555" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Прогнозована майбутня траєкторія сил u_1* ... u_15*</text>
+  <text x="555" y="176" font-size="12" fill="#1a1a1a" text-anchor="middle">Розв'язок задачі QP відкидається на наступному такті та перераховується заново</text>
+  <text x="555" y="196" font-size="11" fill="#6b7280" text-anchor="middle">Кожен блок dt = 25 мс, сумарний горизонт T_horiz = 400 мс</text>
+
+  <!-- Bottom: Closed-loop pipeline (4 stages) -->
+  <!-- Stage 1 -->
+  <rect x="40" y="250" width="200" height="170" rx="8" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="280" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Оцінка стану</text>
+  <text x="140" y="310" font-size="12" fill="#6b7280" text-anchor="middle">Опитування IMU</text>
+  <text x="140" y="330" font-size="12" fill="#6b7280" text-anchor="middle">та енкодерів лап</text>
+  <text x="140" y="360" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вектор стану x_k</text>
+  <text x="140" y="380" font-size="11" fill="#6b7280" text-anchor="middle">Позиція й швидкість</text>
+
+  <line x1="240" y1="335" x2="265" y2="335" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage 2 -->
+  <rect x="270" y="250" width="200" height="170" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="370" y="280" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Оптимізація QP</text>
+  <text x="370" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">Формування QP</text>
+  <text x="370" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">з конусами тертя</text>
+  <text x="370" y="360" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Солвер OSQP / qpOASES</text>
+  <text x="370" y="380" font-size="11" fill="#1a1a1a" text-anchor="middle">Час розв'язку 2-4 мс</text>
+
+  <line x1="470" y1="335" x2="495" y2="335" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage 3 -->
+  <rect x="500" y="250" width="200" height="170" rx="8" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="600" y="280" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Моментний закон</text>
+  <text x="600" y="310" font-size="12" fill="#6b7280" text-anchor="middle">Транспонований</text>
+  <text x="600" y="330" font-size="12" fill="#6b7280" text-anchor="middle">якобіан кінцівок</text>
+  <text x="600" y="360" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">tau = J_leg^T * f_0*</text>
+  <text x="600" y="380" font-size="11" fill="#6b7280" text-anchor="middle">Команда струму FOC</text>
+
+  <line x1="700" y1="335" x2="725" y2="335" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage 4 -->
+  <rect x="730" y="250" width="190" height="170" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="825" y="280" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">4. Зсув такту</text>
+  <text x="825" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">Зсув горизонту</text>
+  <text x="825" y="330" font-size="12" fill="#1a1a1a" text-anchor="middle">на 1 крок уперед</text>
+  <text x="825" y="360" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Оновлення 50 Гц</text>
+  <text x="825" y="380" font-size="11" fill="#1a1a1a" text-anchor="middle">Зворотний зв'язок</text>
+</svg>

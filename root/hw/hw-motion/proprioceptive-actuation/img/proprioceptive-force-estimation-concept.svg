@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пропріоцептивна оцінка сили контакту за квадратурним струмом</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Зовнішній контактний імпульс передається через прозорий редуктор у стрибок струму FOC</text>
+
+  <!-- Panel 1: Механічний контакт -->
+  <rect x="40" y="90" width="260" height="320" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="170" y="122" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Зовнішній ударний контакт</text>
+  
+  <rect x="60" y="145" width="220" height="75" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="172" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінцівка робота (лапа)</text>
+  <text x="170" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Раптовий удар об жорсткий камінь</text>
+
+  <rect x="60" y="240" width="220" height="95" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="268" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Сила реакції опори</text>
+  <text x="170" y="294" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">F_ext (стрибок зусилля)</text>
+  <text x="170" y="318" font-size="12" fill="#6b7280" text-anchor="middle">t_rise &lt; 2-5 мілісекунд</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="300" y1="250" x2="340" y2="250" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+  <text x="320" y="238" font-size="12" fill="#2457d6" text-anchor="middle">J^T * F</text>
+
+  <!-- Panel 2: QDD редуктор -->
+  <rect x="350" y="90" width="260" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="122" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Квазіпрямий привід QDD</text>
+
+  <rect x="370" y="145" width="220" height="75" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="172" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Низький коефіцієнт редукції</text>
+  <text x="480" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Передавальне число i = 6:1 ... 9:1</text>
+
+  <rect x="370" y="240" width="220" height="95" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="268" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Механічна прозорість</text>
+  <text x="480" y="294" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">tau_rotor = tau_ext / i</text>
+  <text x="480" y="318" font-size="12" fill="#6b7280" text-anchor="middle">Мінімальне сухе тертя й люфт</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="610" y1="250" x2="650" y2="250" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+  <text x="630" y="238" font-size="12" fill="#2457d6" text-anchor="middle">1 / k_t</text>
+
+  <!-- Panel 3: FOC контролер -->
+  <rect x="660" y="90" width="260" height="320" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="122" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Векторний інвертор FOC</text>
+
+  <rect x="680" y="145" width="220" height="75" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="172" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вимірювання струмів фаз</text>
+  <text x="790" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Шунти та перетворення Парка</text>
+
+  <rect x="680" y="240" width="220" height="95" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="268" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Стрибок струму статора</text>
+  <text x="790" y="294" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Delta Iq = tau_rotor / k_t</text>
+  <text x="790" y="318" font-size="12" fill="#6b7280" text-anchor="middle">Оцінка сили за 100-200 мкс</text>
+</svg>

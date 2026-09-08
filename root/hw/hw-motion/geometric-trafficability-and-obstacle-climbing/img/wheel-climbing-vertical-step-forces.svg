@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-norm-st" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-fric-st" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-g-st" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Силовий баланс подолання вертикального уступу</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Взаємодія колеса з кутом сходинки: нормальна реакція N, зчеплення F_t та перекидний момент</text>
+
+  <!-- Left: Force Diagram Area -->
+  <rect x="40" y="80" width="560" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Vertical Step Geometry -->
+  <path d="M 60,370 L 320,370 L 320,240 L 560,240" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="340" y="270" font-size="12" font-weight="bold" fill="#1a1a1a">Уступ h_step</text>
+
+  <!-- Wheel resting on the corner (x=320, y=240) -->
+  <circle cx="260" cy="200" r="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="260" cy="200" r="8" fill="#1a1a1a"/>
+  <text x="210" y="205" font-size="11" font-weight="bold" fill="#1a1a1a">Вісь O</text>
+
+  <!-- Gravity force arrow at axle -->
+  <line x1="260" y1="200" x2="260" y2="270" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-g-st)"/>
+  <text x="270" y="260" font-size="11" font-weight="bold" fill="#c0392b">F_g = m * g</text>
+
+  <!-- Contact point at corner (320, 240) -->
+  <circle cx="320" cy="240" r="5" fill="#c0392b"/>
+
+  <!-- Normal reaction force pointing to axle O -->
+  <line x1="320" y1="240" x2="270" y2="207" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-norm-st)"/>
+  <text x="210" y="140" font-size="11" font-weight="bold" fill="#2457d6">Реакція N</text>
+
+  <!-- Friction force along tangent -->
+  <line x1="320" y1="240" x2="350" y2="195" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-fric-st)"/>
+  <text x="360" y="215" font-size="11" font-weight="bold" fill="#27ae60">F_тяга</text>
+
+  <!-- Right: Mechanics & Equations Panel -->
+  <rect x="620" y="80" width="300" height="345" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="770" y="110" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Математика підйому</text>
+
+  <rect x="635" y="130" width="270" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="770" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кут контакту з кутом:</text>
+  <text x="770" y="174" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">cos(alpha) = 1 - h_step / R</text>
+  <text x="770" y="196" font-size="11" fill="#6b7280" text-anchor="middle">Зі зростанням h плече сили тяги падає</text>
+
+  <rect x="635" y="225" width="270" height="95" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="770" y="247" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Умова заїзду на уступ:</text>
+  <text x="770" y="268" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">T_wheel / R &gt;= G * sin(alpha) / (cos + mu*sin)</text>
+  <text x="770" y="290" font-size="11" fill="#1a1a1a" text-anchor="middle">Потрібне високе зчеплення mu &gt;= 0,8</text>
+  <text x="770" y="306" font-size="11" fill="#6b7280" text-anchor="middle">та крутний момент для витискання колеса</text>
+
+  <rect x="635" y="330" width="270" height="80" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="770" y="352" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Гранична висота h_max:</text>
+  <text x="770" y="372" font-size="11" fill="#1a1a1a" text-anchor="middle">• Ведене колесо: h &lt; 0,3 * R</text>
+  <text x="770" y="390" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">• Ведуче колесо: h &lt; 0,6...0,8 * R</text>
+</svg>
