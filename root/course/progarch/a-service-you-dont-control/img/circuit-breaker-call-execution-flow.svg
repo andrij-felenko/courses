@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="520" fill="white"/>
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+</defs>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="38" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Потік виконання захищеного виклику Circuit Breaker</text>
+<text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Миттєве відсікання викликів (Fast Fail) у стані OPEN та безпечна деградація через Fallback</text>
+
+<!-- ==================== ВЕРХНІЙ РЯД: ІНІЦІАЦІЯ ТА ШЛЮЗ АВТОМАТА ==================== -->
+
+<!-- БЛОК 1: ВХІДНИЙ ЗАХИЩЕНИЙ ВИКЛИК -->
+<rect x="40" y="82" width="210" height="146" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="50" y="94" width="130" height="22" rx="4" fill="#2457d6"/>
+<text x="115" y="110" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ВХІДНИЙ ВИКЛИК</text>
+<text x="50" y="131" font-size="13" font-weight="700" fill="#2457d6">Захищений execute()</text>
+<rect x="50" y="138" width="190" height="80" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="0.8"/>
+<text x="58" y="156" font-size="12" fill="#1a1a1a">· Дія action() на виконання</text>
+<text x="58" y="174" font-size="12" fill="#1a1a1a">· Ліміт таймауту виклику</text>
+<text x="58" y="192" font-size="12" fill="#2457d6">· Обробник fallback()</text>
+<text x="58" y="208" font-size="12" fill="#6b7280">· trace_id для трейсингу</text>
+
+<!-- Зв'язок 1 -> 2: Клієнт передає виклик у шлюз -->
+<line x1="250" y1="155" x2="292" y2="155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<text x="275" y="141" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">виклик</text>
+
+<!-- БЛОК 2: ШЛЮЗ АВТОМАТА СТАНІВ -->
+<rect x="300" y="82" width="360" height="146" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="312" y="94" width="165" height="22" rx="4" fill="#1a1a1a"/>
+<text x="394" y="110" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ШЛЮЗ АВТОМАТА СТАНІВ</text>
+<text x="312" y="131" font-size="13" font-weight="700" fill="#1a1a1a">Перевірка допуску до виконання</text>
+<rect x="312" y="138" width="336" height="80" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+<text x="322" y="156" font-size="12" fill="#27ae60">· CLOSED: поріг відмов у нормі → дозвіл виклику</text>
+<text x="322" y="174" font-size="12" fill="#2457d6">· HALF_OPEN: пробний режим → обмежені спроби</text>
+<text x="322" y="192" font-size="12" font-weight="700" fill="#c0392b">· OPEN: поріг перевищено → ЛАНЦЮГ РОЗІМКНЕНО</text>
+<text x="322" y="208" font-size="12" fill="#6b7280">· Оцінка ковзного вікна помилок (Ring Buffer)</text>
+
+<!-- Зв'язок 2 -> 3: Якщо стан OPEN -> відсічка -->
+<line x1="660" y1="155" x2="702" y2="155" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+<text x="685" y="141" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">OPEN</text>
+
+<!-- БЛОК 3: НЕГАЙНА ВІДМОВА (FAST FAIL) -->
+<rect x="710" y="82" width="210" height="146" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="720" y="94" width="135" height="22" rx="4" fill="#c0392b"/>
+<text x="787" y="110" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">FAST FAIL (ВІДСІЧКА)</text>
+<text x="720" y="131" font-size="13" font-weight="700" fill="#c0392b">Негайна відмова</text>
+<rect x="720" y="138" width="190" height="80" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="0.8"/>
+<text x="728" y="156" font-size="12" fill="#1a1a1a">· Мережевий сокет не чіпають</text>
+<text x="728" y="174" font-size="12" font-weight="700" fill="#c0392b">· Нульова затримка (0 ms)</text>
+<text x="728" y="192" font-size="12" fill="#1a1a1a">· CallNotPermittedException</text>
+<text x="728" y="208" font-size="12" fill="#6b7280">· Захист пулу потоків</text>
+
+<!-- ==================== ВЕРТИКАЛЬНІ ПЕРЕХОДИ МІЖ РЯДАМИ ==================== -->
+
+<!-- Зв'язок 2 -> 4: Дозвіл на мережевий виклик -->
+<line x1="480" y1="228" x2="480" y2="268" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+<text x="490" y="252" font-size="12" font-weight="700" fill="#27ae60">CLOSED / Пробний дозвіл</text>
+
+<!-- Зв'язок 3 -> 5: Fast Fail передає виняток у Fallback -->
+<line x1="770" y1="228" x2="770" y2="268" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+<text x="780" y="252" font-size="12" font-weight="700" fill="#c0392b">Швидкий виняток</text>
+
+<!-- ==================== НИЖНІЙ РЯД: ВИКОНАННЯ, УСПІХ ТА FALLBACK ==================== -->
+
+<!-- БЛОК 4: ВИКОНАННЯ ТА ПЕРЕХОПЛЕННЯ ЗБОЇВ -->
+<rect x="300" y="276" width="360" height="174" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="312" y="288" width="185" height="22" rx="4" fill="#2457d6"/>
+<text x="404" y="304" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ВИКОНАННЯ З ПЕРЕХОПЛЕННЯМ</text>
+<text x="312" y="325" font-size="13" font-weight="700" fill="#1a1a1a">Захищений мережевий виклик</text>
+<rect x="312" y="332" width="336" height="106" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+<text x="322" y="350" font-size="12" fill="#1a1a1a">· Виклик action() через захищений мережевий сокет</text>
+<text x="322" y="370" font-size="12" fill="#1a1a1a">· Переривання виклику за максимальним таймаутом</text>
+<text x="322" y="390" font-size="12" fill="#27ae60">· УСПІХ → реєстрація в ковзному вікні (Success)</text>
+<text x="322" y="410" font-size="12" fill="#c0392b">· ЗБІЙ (5xx, Timeout, IO) → перехоплення винятку</text>
+<text x="322" y="428" font-size="12" fill="#6b7280">· Оновлення Failure Rate для автомата станів CB</text>
+
+<!-- Зв'язок 4 -> 5: Збій або таймаут передається у Fallback -->
+<line x1="660" y1="385" x2="702" y2="385" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+<text x="685" y="371" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Збій</text>
+
+<!-- БЛОК 5: РЕЗЕРВНИЙ СЦЕНАРІЙ (FALLBACK) -->
+<rect x="710" y="276" width="210" height="174" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="720" y="288" width="130" height="22" rx="4" fill="#2457d6"/>
+<text x="785" y="304" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">РЕЗЕРВ (FALLBACK)</text>
+<text x="720" y="325" font-size="13" font-weight="700" fill="#2457d6">Керована деградація</text>
+<rect x="720" y="332" width="190" height="106" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="0.8"/>
+<text x="728" y="352" font-size="12" fill="#1a1a1a">· Виклик fallback(error)</text>
+<text x="728" y="372" font-size="12" fill="#2457d6">· Кешовані чи дефолтні дані</text>
+<text x="728" y="392" font-size="12" fill="#1a1a1a">· Відкладена черга подій</text>
+<text x="728" y="412" font-size="12" fill="#27ae60">· Клієнт уникає аварії</text>
+<text x="728" y="428" font-size="12" fill="#6b7280">· Graceful degradation</text>
+
+<!-- Зв'язок 4 -> 6: Успіх повертається клієнту -->
+<line x1="300" y1="385" x2="258" y2="385" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+<text x="275" y="371" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">200 OK</text>
+
+<!-- БЛОК 6: ШТАТНИЙ РЕЗУЛЬТАТ -->
+<rect x="40" y="276" width="210" height="174" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="50" y="288" width="145" height="22" rx="4" fill="#27ae60"/>
+<text x="122" y="304" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ШТАТНИЙ РЕЗУЛЬТАТ</text>
+<text x="50" y="325" font-size="13" font-weight="700" fill="#27ae60">Успішна відповідь</text>
+<rect x="50" y="332" width="190" height="106" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="0.8"/>
+<text x="58" y="352" font-size="12" fill="#1a1a1a">· Валідні доменні дані</text>
+<text x="58" y="372" font-size="12" fill="#27ae60">· Фіксація успіху у вікні</text>
+<text x="58" y="392" font-size="12" fill="#1a1a1a">· HALF_OPEN → CLOSED</text>
+<text x="58" y="412" font-size="12" fill="#27ae60">· Нуль сторонніх помилок</text>
+<text x="58" y="428" font-size="12" fill="#6b7280">· Штатна робота системи</text>
+
+<!-- ==================== ПІДСУМКОВИЙ ІНВАРІАНТ ==================== -->
+<rect x="40" y="468" width="880" height="32" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="480" y="489" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Інваріант надійності: Fast Fail відсікає запити у стані OPEN без навантаження мережі, а Fallback гарантує керовану деградацію.</text>
+
+</svg>

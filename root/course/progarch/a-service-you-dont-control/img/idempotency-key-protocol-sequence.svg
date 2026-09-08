@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" width="960" height="580" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="580" fill="white"/>
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+</defs>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="35" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Протокол Idempotency-Key: життєвий цикл запитів та обробка колізій</text>
+<text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Атомарна фіксація, блокування гонитви (409) та відхилення зміненого тіла (422) гарантують одноразовість</text>
+
+<!-- Заголовки учасників -->
+<rect x="90" y="74" width="140" height="32" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="160" y="95" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Клієнт (Client)</text>
+
+<rect x="400" y="74" width="200" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="500" y="95" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">API-сервер / Шлюз</text>
+
+<rect x="720" y="74" width="200" height="32" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="820" y="95" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Сховище ключів (Store)</text>
+
+<!-- Лінії життя учасників -->
+<line x1="160" y1="106" x2="160" y2="512" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="500" y1="106" x2="500" y2="512" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="820" y1="106" x2="820" y2="512" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+<!-- СЦЕНАРІЙ 1: Первинний запит -->
+<text x="35" y="138" font-size="12" font-weight="700" fill="#2457d6">СЦЕНАРІЙ 1</text>
+<text x="35" y="154" font-size="12" fill="#6b7280">Первинний виклик</text>
+
+<line x1="160" y1="142" x2="492" y2="142" stroke="#2457d6" stroke-width="1.6" marker-end="url(#arr-blue)"/>
+<text x="330" y="134" font-size="12" fill="#1a1a1a" text-anchor="middle">POST /charges (Key: K1, Hash: H1)</text>
+
+<line x1="500" y1="164" x2="812" y2="164" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arr-blue)"/>
+<text x="660" y="156" font-size="12" fill="#2457d6" text-anchor="middle">INSERT key=K1 (фіксація: PROCESSING)</text>
+
+<line x1="820" y1="188" x2="508" y2="188" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arr-green)"/>
+<text x="660" y="180" font-size="12" fill="#27ae60" text-anchor="middle">UPDATE status: COMPLETED (кеш Resp1)</text>
+
+<line x1="500" y1="210" x2="168" y2="210" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arr-green)"/>
+<text x="330" y="202" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">200 OK (Платіж створено, оригінал)</text>
+
+<!-- Розділювач 1-2 -->
+<line x1="30" y1="224" x2="930" y2="224" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,4"/>
+
+<!-- СЦЕНАРІЙ 2: Паралельний виклик (409 Conflict) -->
+<text x="35" y="248" font-size="12" font-weight="700" fill="#c0392b">СЦЕНАРІЙ 2</text>
+<text x="35" y="264" font-size="12" fill="#6b7280">Запит у польоті</text>
+
+<line x1="160" y1="252" x2="492" y2="252" stroke="#1a1a1a" stroke-width="1.6" marker-end="url(#arr)"/>
+<text x="330" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">POST /charges (Key: K1) [виклик у польоті]</text>
+
+<line x1="500" y1="274" x2="812" y2="274" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arr-red)"/>
+<text x="660" y="266" font-size="12" fill="#c0392b" text-anchor="middle">SELECT key=K1 → стан PROCESSING (замок)</text>
+
+<line x1="500" y1="298" x2="168" y2="298" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arr-red)"/>
+<text x="330" y="290" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">409 Conflict (Запит у процесі обробки)</text>
+
+<!-- Розділювач 2-3 -->
+<line x1="30" y1="314" x2="930" y2="314" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,4"/>
+
+<!-- СЦЕНАРІЙ 3: Повторний виклик / Cached Replay -->
+<text x="35" y="342" font-size="12" font-weight="700" fill="#27ae60">СЦЕНАРІЙ 3</text>
+<text x="35" y="358" font-size="12" fill="#6b7280">Повторний ретрай</text>
+
+<line x1="160" y1="346" x2="492" y2="346" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arr-green)"/>
+<text x="330" y="338" font-size="12" fill="#1a1a1a" text-anchor="middle">POST /charges (Key: K1) [повторний запит]</text>
+
+<line x1="500" y1="368" x2="812" y2="368" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arr-green)"/>
+<text x="660" y="360" font-size="12" fill="#27ae60" text-anchor="middle">SELECT key=K1 → стан COMPLETED (є Resp1)</text>
+
+<line x1="500" y1="392" x2="168" y2="392" stroke="#27ae60" stroke-width="1.6" marker-end="url(#arr-green)"/>
+<text x="330" y="384" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">200 OK (Cached Replay — копія з кешу)</text>
+
+<!-- Розділювач 3-4 -->
+<line x1="30" y1="408" x2="930" y2="408" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,4"/>
+
+<!-- СЦЕНАРІЙ 4: Підміна тіла / Fingerprint Mismatch -->
+<text x="35" y="438" font-size="12" font-weight="700" fill="#c0392b">СЦЕНАРІЙ 4</text>
+<text x="35" y="454" font-size="12" fill="#6b7280">Підміна тіла</text>
+
+<line x1="160" y1="442" x2="492" y2="442" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arr-red)"/>
+<text x="330" y="434" font-size="12" fill="#1a1a1a" text-anchor="middle">POST /charges (Key: K1) [змінене тіло H2]</text>
+
+<line x1="500" y1="464" x2="812" y2="464" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arr-red)"/>
+<text x="660" y="456" font-size="12" fill="#c0392b" text-anchor="middle">Звірка: H2 != H1 (колізія параметрів)</text>
+
+<line x1="500" y1="488" x2="168" y2="488" stroke="#c0392b" stroke-width="1.6" marker-end="url(#arr-red)"/>
+<text x="330" y="480" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">422 Unprocessable (Невідповідність тіла)</text>
+
+<!-- Підсумковий висновок -->
+<rect x="30" y="524" width="900" height="34" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="480" y="546" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Ключове правило: одна мутація на один ключ. Будь-які повтори повертають кеш, колізії блокуються (409/422).</text>
+
+</svg>

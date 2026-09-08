@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="36" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Анатомія адаптера антикорупційного шару (ACL Adapter)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Ізоляція чистого домену від непідконтрольної зовнішньої служби через декомпозицію обов&#39;язків</text>
+
+  <!-- ЛІВА КОЛОНКА: ДОМЕННЕ ЯДРО -->
+  <rect x="30" y="85" width="200" height="385" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="130" y="112" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">Доменне ядро</text>
+  <text x="130" y="130" font-size="12" fill="#27ae60" font-weight="600" text-anchor="middle">Чиста бізнес-модель</text>
+
+  <!-- Картка: Платіжна служба -->
+  <rect x="45" y="145" width="170" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="170" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Платіжна служба</text>
+  <text x="130" y="190" font-size="12" fill="#6b7280" text-anchor="middle">OrderPaymentService</text>
+  <text x="130" y="206" font-size="11" fill="#2457d6" text-anchor="middle">charge(PaymentIntent)</text>
+
+  <!-- Картка: Порт інтерфейсу -->
+  <rect x="45" y="235" width="170" height="95" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="130" y="258" font-size="11" fill="#27ae60" font-weight="700" text-anchor="middle">«Port Interface»</text>
+  <text x="130" y="278" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">PaymentGateway</text>
+  <text x="130" y="298" font-size="11" fill="#6b7280" text-anchor="middle">Вхідний доменний контракт:</text>
+  <text x="130" y="315" font-size="11" fill="#1a1a1a" text-anchor="middle">+ execute(cmd): Receipt</text>
+
+  <!-- Картка: Чисті типи -->
+  <rect x="45" y="345" width="170" height="105" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="368" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Чисті сутності й типи</text>
+  <text x="130" y="388" font-size="11" fill="#6b7280" text-anchor="middle">• PaymentIntent, Money</text>
+  <text x="130" y="406" font-size="11" fill="#6b7280" text-anchor="middle">• Receipt, TransactionId</text>
+  <text x="130" y="424" font-size="11" fill="#c0392b" text-anchor="middle">• PaymentDeclinedError</text>
+
+  <!-- ЦЕНТРАЛЬНА КОЛОНКА: АДАПТЕР АНТИКОРУПЦІЙНОГО ШАРУ -->
+  <rect x="260" y="85" width="440" height="385" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="112" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">Адаптер антикорупційного шару (ACL Adapter)</text>
+  <text x="480" y="130" font-size="12" fill="#2457d6" font-weight="600" text-anchor="middle">Односторонній бар&#39;єр трансляції • Dependency Inversion</text>
+
+  <!-- Блок 1: Реалізація порту -->
+  <rect x="280" y="145" width="400" height="65" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="168" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Реалізація порту: StripePaymentAdapter</text>
+  <text x="480" y="188" font-size="11" fill="#6b7280" text-anchor="middle">implements PaymentGateway • Оркеструє мапінг, виклики та класифікацію</text>
+
+  <!-- Блок 2: Транслятор моделей -->
+  <rect x="280" y="225" width="190" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="375" y="248" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. Транслятор моделей</text>
+  <text x="375" y="265" font-size="11" fill="#2457d6" font-weight="600" text-anchor="middle">Model Mapper</text>
+  <text x="375" y="285" font-size="11" fill="#6b7280" text-anchor="middle">• PaymentIntent → VendorDTO</text>
+  <text x="375" y="303" font-size="11" fill="#6b7280" text-anchor="middle">• VendorResponse → Receipt</text>
+  <text x="375" y="321" font-size="11" fill="#27ae60" text-anchor="middle">Відсікання вендорного сміття</text>
+
+  <!-- Блок 3: Обробник помилок -->
+  <rect x="490" y="225" width="190" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="585" y="248" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">3. Обробник помилок</text>
+  <text x="585" y="265" font-size="11" fill="#c0392b" font-weight="600" text-anchor="middle">Error Classifier</text>
+  <text x="585" y="285" font-size="11" fill="#6b7280" text-anchor="middle">• HTTP 402 → PaymentDeclined</text>
+  <text x="585" y="303" font-size="11" fill="#6b7280" text-anchor="middle">• HTTP 429/5xx → TimeoutError</text>
+  <text x="585" y="321" font-size="11" fill="#c0392b" text-anchor="middle">Ізоляція сирих статусів і кодів</text>
+
+  <!-- Блок 4: Клієнт протоколу -->
+  <rect x="280" y="355" width="400" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="378" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">4. Клієнтський фасад протоколу: StripeGatewayClient</text>
+  <text x="480" y="398" font-size="11" fill="#6b7280" text-anchor="middle">Мережевий транспорт: HTTP/REST або SDK • Автентифікація: Bearer Token / API-Key</text>
+  <text x="480" y="416" font-size="11" fill="#6b7280" text-anchor="middle">Криптопідписи запитів • Таймаути сокетів • Заголовки Idempotency-Key</text>
+  <text x="480" y="434" font-size="11" fill="#2457d6" text-anchor="middle">Серійні виклики через низькорівневий сокет або HTTP-клієнт</text>
+
+  <!-- ПРАВА КОЛОНКА: ЗОВНІШНЯ СЛУЖБА -->
+  <rect x="730" y="85" width="200" height="385" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="830" y="112" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">Зовнішня служба</text>
+  <text x="830" y="130" font-size="12" fill="#c0392b" font-weight="600" text-anchor="middle">Непідконтрольний вендор</text>
+
+  <!-- Картка: Вендорний API -->
+  <rect x="745" y="145" width="170" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="830" y="170" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вендорний API</text>
+  <text x="830" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Stripe / LiqPay / Adyen</text>
+  <text x="830" y="206" font-size="11" fill="#c0392b" text-anchor="middle">v1/charges, v2/checkout</text>
+
+  <!-- Картка: Чужі типи -->
+  <rect x="745" y="235" width="170" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="830" y="258" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Чужі формати й типи</text>
+  <text x="830" y="278" font-size="11" fill="#6b7280" text-anchor="middle">• raw_cents, curr_iso</text>
+  <text x="830" y="296" font-size="11" fill="#6b7280" text-anchor="middle">• stripe_cust_id, meta</text>
+  <text x="830" y="314" font-size="11" fill="#c0392b" text-anchor="middle">Шумні та зайві поля</text>
+
+  <!-- Картка: Збої та помилки -->
+  <rect x="745" y="345" width="170" height="105" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="830" y="368" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Сирі коди й збої</text>
+  <text x="830" y="388" font-size="11" fill="#6b7280" text-anchor="middle">• HTTP 402 card_declined</text>
+  <text x="830" y="406" font-size="11" fill="#6b7280" text-anchor="middle">• HTTP 429 rate_limit</text>
+  <text x="830" y="424" font-size="11" fill="#c0392b" text-anchor="middle">• Зміни контрактів версій</text>
+
+  <!-- МІЖБЛОЧНІ ЗВ'ЯЗКИ ТА СТРІЛКИ -->
+  <!-- 1. Виклик домену до адаптера -->
+  <line x1="215" y1="182" x2="272" y2="182" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="245" y="174" font-size="10" fill="#2457d6" font-weight="600" text-anchor="middle">виклик</text>
+
+  <!-- 2. Реалізація інтерфейсу порту (імплементація) -->
+  <line x1="280" y1="282" x2="223" y2="282" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-green)"/>
+  <text x="248" y="274" font-size="10" fill="#27ae60" font-weight="600" text-anchor="middle">реалізує</text>
+
+  <!-- Внутрішні потоки ACL -->
+  <!-- Порт до Мапера -->
+  <line x1="375" y1="210" x2="375" y2="217" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- Мапер до Gateway Client -->
+  <line x1="375" y1="340" x2="375" y2="347" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- Gateway Client до Класифікатора помилок -->
+  <line x1="585" y1="355" x2="585" y2="348" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <!-- Класифікатор помилок до Порту -->
+  <line x1="585" y1="225" x2="585" y2="218" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Виклики до Зовнішньої служби -->
+  <!-- Запит Gateway Client -> Vendor API -->
+  <line x1="680" y1="385" x2="737" y2="385" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="708" y="377" font-size="10" fill="#c0392b" font-weight="600" text-anchor="middle">HTTP POST</text>
+
+  <!-- Відповідь Vendor API -> Gateway Client -->
+  <line x1="745" y1="415" x2="688" y2="415" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="712" y="432" font-size="10" fill="#2457d6" font-weight="600" text-anchor="middle">200 / 4xx</text>
+
+</svg>

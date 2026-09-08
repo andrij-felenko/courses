@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Конвеєр телеметрії запобіжника (Circuit Breaker Telemetry Pipeline)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Вимірювання затримок, оновлення ковзного вікна та експорт у Prometheus і OpenTelemetry</text>
+
+  <!-- ==================== КОЛОНКА 1: ВИКОНАННЯ ТА ВИМІР ==================== -->
+  <rect x="20" y="75" width="215" height="335" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="127" y="95" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Виконання та вимір</text>
+  <text x="127" y="112" font-size="10" font-weight="600" fill="#2457d6" text-anchor="middle">Перехоплювач викликів (Sensor)</text>
+
+  <!-- Картка 1A -->
+  <rect x="28" y="125" width="199" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="143" font-size="11" font-weight="700" fill="#2457d6">Замір тривалості (Latency):</text>
+  <text x="36" y="161" font-size="10" fill="#1a1a1a">• StopWatch: час виклику t_call</text>
+  <text x="36" y="177" font-size="10" fill="#1a1a1a">• Порівняння зі slowCallDuration</text>
+  <text x="36" y="191" font-size="10" fill="#6b7280">Виявлення "підвисань" служби</text>
+
+  <!-- Картка 1B -->
+  <rect x="28" y="217" width="199" height="88" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="235" font-size="11" font-weight="700" fill="#1a1a1a">Класифікація результату:</text>
+  <text x="36" y="253" font-size="10" fill="#27ae60">• SUCCESS: 200 OK (t &lt; поріг)</text>
+  <text x="36" y="269" font-size="10" fill="#c0392b">• ERROR: 5xx, таймаут, мережа</text>
+  <text x="36" y="285" font-size="10" fill="#2457d6">• SLOW: t >= slowCallDuration</text>
+  <text x="36" y="297" font-size="10" fill="#6b7280">• NOT_PERMITTED: Fast Fail</text>
+
+  <!-- Картка 1C -->
+  <rect x="28" y="317" width="199" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="335" font-size="11" font-weight="700" fill="#1a1a1a">Контекст трасування:</text>
+  <text x="36" y="353" font-size="10" fill="#1a1a1a">• Фіксація TraceID / SpanID</text>
+  <text x="36" y="369" font-size="10" fill="#1a1a1a">• Збереження при Fast Fail</text>
+  <text x="36" y="383" font-size="10" fill="#2457d6">Передача в Fallback-метод</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="235" y1="130" x2="251" y2="130" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+
+  <!-- ==================== КОЛОНКА 2: КОВЗНЕ ВІКНО ==================== -->
+  <rect x="255" y="75" width="215" height="335" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="362" y="95" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. Ковзне вікно</text>
+  <text x="362" y="112" font-size="10" font-weight="600" fill="#2457d6" text-anchor="middle">Агрегатор статистики (Engine)</text>
+
+  <!-- Картка 2A -->
+  <rect x="263" y="125" width="199" height="80" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="271" y="143" font-size="11" font-weight="700" fill="#2457d6">Буферизація вибірки:</text>
+  <text x="271" y="161" font-size="10" fill="#1a1a1a">• Count-based: останні N викликів</text>
+  <text x="271" y="177" font-size="10" fill="#1a1a1a">• Time-based: останні T секунд</text>
+  <text x="271" y="191" font-size="10" fill="#6b7280">Кільцевий масив (RingBuffer)</text>
+
+  <!-- Картка 2B -->
+  <rect x="263" y="217" width="199" height="88" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="271" y="235" font-size="11" font-weight="700" fill="#2457d6">Обчислення коефіцієнтів:</text>
+  <text x="271" y="253" font-size="10" font-weight="700" fill="#c0392b">• failure_rate = Errors / Total</text>
+  <text x="271" y="269" font-size="10" font-weight="700" fill="#2457d6">• slow_rate = Slow / Total</text>
+  <text x="271" y="285" font-size="10" fill="#1a1a1a">• Перевірка minNumberOfCalls</text>
+  <text x="271" y="297" font-size="10" fill="#6b7280">Ізоляція від малих вибірок</text>
+
+  <!-- Картка 2C -->
+  <rect x="263" y="317" width="199" height="80" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="271" y="335" font-size="11" font-weight="700" fill="#27ae60">Емісія подій (Events):</text>
+  <text x="271" y="353" font-size="10" font-weight="700" fill="#1a1a1a">• OnStateTransitionEvent</text>
+  <text x="271" y="369" font-size="10" fill="#1a1a1a">• OnFailureRateExceeded</text>
+  <text x="271" y="383" font-size="10" fill="#27ae60">Тригер зміни стану автомата</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="470" y1="130" x2="486" y2="130" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+
+  <!-- ==================== КОЛОНКА 3: ЕКСПОРТ ==================== -->
+  <rect x="490" y="75" width="215" height="335" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="597" y="95" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">3. Експорт телеметрії</text>
+  <text x="597" y="112" font-size="10" font-weight="600" fill="#6b7280" text-anchor="middle">Prometheus &amp; OpenTelemetry</text>
+
+  <!-- Картка 3A: Prometheus -->
+  <rect x="498" y="125" width="199" height="125" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="506" y="143" font-size="11" font-weight="700" fill="#2457d6">Метрики Prometheus:</text>
+  <text x="506" y="161" font-size="10" font-weight="700" fill="#1a1a1a">• cb_state{state="open"}</text>
+  <text x="514" y="175" font-size="10" fill="#6b7280">Gauge: 0 або 1 (стан)</text>
+  <text x="506" y="193" font-size="10" font-weight="700" fill="#1a1a1a">• cb_failure_rate</text>
+  <text x="514" y="207" font-size="10" fill="#6b7280">Gauge: % помилок у вікні</text>
+  <text x="506" y="225" font-size="10" font-weight="700" fill="#1a1a1a">• cb_not_permitted_total</text>
+  <text x="514" y="239" font-size="10" fill="#6b7280">Counter: лічильник Fast Fail</text>
+
+  <!-- Картка 3B: OpenTelemetry -->
+  <rect x="498" y="262" width="199" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="506" y="280" font-size="11" font-weight="700" fill="#27ae60">OpenTelemetry (OTLP):</text>
+  <text x="506" y="298" font-size="10" font-weight="700" fill="#1a1a1a">• Spans з тегами атрибутів:</text>
+  <text x="514" y="314" font-size="10" fill="#6b7280">circuit_breaker.name="api"</text>
+  <text x="514" y="328" font-size="10" fill="#6b7280">circuit_breaker.state="OPEN"</text>
+  <text x="506" y="346" font-size="10" font-weight="700" fill="#1a1a1a">• Span Events:</text>
+  <text x="514" y="362" font-size="10" fill="#c0392b">event="state_transition"</text>
+  <text x="514" y="378" font-size="10" fill="#2457d6">event="fallback_executed"</text>
+
+  <!-- Стрілка 3 -> 4 -->
+  <line x1="705" y1="130" x2="721" y2="130" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+
+  <!-- ==================== КОЛОНКА 4: СПОСТЕРЕЖУВАНІСТЬ ==================== -->
+  <rect x="725" y="75" width="215" height="335" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="832" y="95" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">4. Спостережуваність</text>
+  <text x="832" y="112" font-size="10" font-weight="600" fill="#27ae60" text-anchor="middle">Дашборди, Алерти, Аудит</text>
+
+  <!-- Картка 4A -->
+  <rect x="733" y="125" width="199" height="80" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="741" y="143" font-size="11" font-weight="700" fill="#27ae60">Grafana Dashboards:</text>
+  <text x="741" y="161" font-size="10" fill="#1a1a1a">• Графік Failure Rate vs Поріг</text>
+  <text x="741" y="177" font-size="10" fill="#1a1a1a">• Візуальний статус контуру</text>
+  <text x="741" y="191" font-size="10" fill="#6b7280">Гістограма латентності p95/p99</text>
+
+  <!-- Картка 4B -->
+  <rect x="733" y="217" width="199" height="88" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="741" y="235" font-size="11" font-weight="700" fill="#c0392b">Alertmanager (Чергові):</text>
+  <text x="741" y="253" font-size="10" font-weight="700" fill="#c0392b">• Critical: CB_State == OPEN</text>
+  <text x="741" y="269" font-size="10" fill="#1a1a1a">• Warning: HighFailureRate (>40%)</text>
+  <text x="741" y="285" font-size="10" fill="#6b7280">Миттєвий пейджер інженеру</text>
+  <text x="741" y="297" font-size="10" fill="#6b7280">Автоматичний інцидент</text>
+
+  <!-- Картка 4C -->
+  <rect x="733" y="317" width="199" height="80" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="741" y="335" font-size="11" font-weight="700" fill="#2457d6">Jaeger / Tempo (Траси):</text>
+  <text x="741" y="353" font-size="10" fill="#1a1a1a">• Аналіз кореневої причини (RCA)</text>
+  <text x="741" y="369" font-size="10" fill="#1a1a1a">• Візуалізація Fast Fail (0 ms)</text>
+  <text x="741" y="383" font-size="10" fill="#27ae60">Підтвердження запуску Fallback</text>
+
+
+  <!-- ==================== НИЖНІЙ БАНЕР ==================== -->
+  <rect x="20" y="425" width="920" height="53" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="480" y="445" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">Ключова цінність телеметрії: Фіксація деградації постачальника до того, як вона спричинить збій системи</text>
+  <text x="480" y="463" font-size="10" fill="#6b7280" text-anchor="middle">Зв'язка Prometheus (метрики відмов) + OpenTelemetry (трасування Fast Fail) локалізує проблему за секунди</text>
+
+</svg>

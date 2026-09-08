@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Таксономія помилок на межі антикорупційного адаптера (ACL)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Класифікація сирих збоїв мережі та HTTP-статусів на відновлювані, бізнес-відхилення та контрактні</text>
+
+  <!-- ==================== ВЕРХНІЙ БАНЕР: ПОТІК КЛАСИФІКАЦІЇ ==================== -->
+  <rect x="20" y="70" width="920" height="52" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Вузол 1: Сирі збої -->
+  <rect x="28" y="75" width="220" height="42" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="138" y="93" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">Сирі збої чужої служби</text>
+  <text x="138" y="108" font-size="10" fill="#6b7280" text-anchor="middle">Мережеві таймаути, 4xx, 5xx, вендорні DTO</text>
+
+  <!-- Стрілка 1 -->
+  <line x1="248" y1="96" x2="285" y2="96" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Вузол 2: Класифікатор ACL -->
+  <rect x="289" y="75" width="290" height="42" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="434" y="93" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">Класифікатор помилок ACL-адаптера</text>
+  <text x="434" y="108" font-size="10" fill="#1a1a1a" text-anchor="middle">Аналіз кодів, заголовків, retry-after та типів</text>
+
+  <!-- Стрілка 2 -->
+  <line x1="579" y1="96" x2="616" y2="96" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Вузол 3: Доменне ядро -->
+  <rect x="620" y="75" width="312" height="42" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="776" y="93" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">Чисте доменне ядро застосунку</text>
+  <text x="776" y="108" font-size="10" fill="#1a1a1a" text-anchor="middle">Отримує лише типізовані доменні винятки</text>
+
+
+  <!-- ==================== СТОВПЧИК 1: ВІДНОВЛЮВАНІ ЗБОЇ ==================== -->
+  <rect x="20" y="134" width="293" height="344" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="166" y="154" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Відновлювані транспортні збої</text>
+  <text x="166" y="172" font-size="10" font-weight="600" fill="#2457d6" text-anchor="middle">Transient / Network Failures • Тимчасовий збій</text>
+
+  <!-- Картка 1A: Симптоми -->
+  <rect x="30" y="188" width="273" height="90" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="38" y="206" font-size="11" font-weight="700" fill="#2457d6">Сирі симптоми та коди:</text>
+  <text x="38" y="224" font-size="10" fill="#1a1a1a">• Мережа: SocketTimeout, ConnectionRefused</text>
+  <text x="38" y="240" font-size="10" fill="#1a1a1a">• HTTP: 502 Bad Gateway, 503 Unavailable</text>
+  <text x="38" y="256" font-size="10" fill="#1a1a1a">• HTTP: 504 Gateway Timeout, 429 Rate Limit</text>
+  <text x="38" y="270" font-size="10" fill="#6b7280">Перебої каналу або тимчасове перевантаження</text>
+
+  <!-- Картка 1B: Реакція -->
+  <rect x="30" y="290" width="273" height="90" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="38" y="308" font-size="11" font-weight="700" fill="#2457d6">Архітектурна реакція:</text>
+  <text x="38" y="326" font-size="10" font-weight="700" fill="#27ae60">• Retry: Експоненційний відкат із джитером</text>
+  <text x="38" y="342" font-size="10" fill="#1a1a1a">• Circuit Breaker: облік збою для розриву кола</text>
+  <text x="38" y="358" font-size="10" fill="#1a1a1a">• При вичерпанні спроб: Fallback / Failover</text>
+  <text x="38" y="372" font-size="10" fill="#6b7280">Автоматичне відновлення без участі людини</text>
+
+  <!-- Картка 1C: Домен -->
+  <rect x="30" y="392" width="273" height="76" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="38" y="410" font-size="11" font-weight="700" fill="#27ae60">Типізація в доменному ядрі:</text>
+  <text x="38" y="428" font-size="10" font-weight="700" fill="#1a1a1a">Виняток: TransientProviderException</text>
+  <text x="38" y="444" font-size="10" fill="#1a1a1a">• Сигнал домену: «Спробуй пізніше»</text>
+  <text x="38" y="458" font-size="10" fill="#27ae60">Домен вільний від знання про сокети та HTTP</text>
+
+
+  <!-- ==================== СТОВПЧИК 2: БІЗНЕС-ВІДХИЛЕННЯ ==================== -->
+  <rect x="333" y="134" width="294" height="344" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="154" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. Бізнес-відхилення провайдера</text>
+  <text x="480" y="172" font-size="10" font-weight="600" fill="#27ae60" text-anchor="middle">Domain / Business Rejections • Відмова за правилами</text>
+
+  <!-- Картка 2A: Симптоми -->
+  <rect x="343" y="188" width="274" height="90" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="351" y="206" font-size="11" font-weight="700" fill="#27ae60">Сирі симптоми та коди:</text>
+  <text x="351" y="224" font-size="10" fill="#1a1a1a">• HTTP: 402 Payment Required, 404 Not Found</text>
+  <text x="351" y="240" font-size="10" fill="#1a1a1a">• HTTP: 422 Unprocessable Entity</text>
+  <text x="351" y="256" font-size="10" fill="#1a1a1a">• Вендорний JSON: {"code": "card_declined"}</text>
+  <text x="351" y="270" font-size="10" fill="#6b7280">Служба працює, але операція неприпустима</text>
+
+  <!-- Картка 2B: Реакція -->
+  <rect x="343" y="290" width="274" height="90" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="351" y="308" font-size="11" font-weight="700" fill="#27ae60">Архітектурна реакція:</text>
+  <text x="351" y="326" font-size="10" font-weight="700" fill="#c0392b">• Retry: СУВОРО ЗАБОРОНЕНО повторювати</text>
+  <text x="351" y="342" font-size="10" fill="#1a1a1a">• Circuit Breaker: НЕ розриває контур (успіх L7)</text>
+  <text x="351" y="358" font-size="10" fill="#1a1a1a">• Нормалізація в доменні статуси замовлення</text>
+  <text x="351" y="372" font-size="10" fill="#6b7280">Повторний запит дасть ту саму відмову</text>
+
+  <!-- Картка 2C: Домен -->
+  <rect x="343" y="392" width="274" height="76" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="351" y="410" font-size="11" font-weight="700" fill="#27ae60">Типізація в доменному ядрі:</text>
+  <text x="351" y="428" font-size="10" font-weight="700" fill="#1a1a1a">Доменні типи: InsufficientFunds, CardExpired</text>
+  <text x="351" y="444" font-size="10" fill="#1a1a1a">• Повернення бізнес-результату клієнту</text>
+  <text x="351" y="458" font-size="10" fill="#27ae60">Домен оперує власною мовою (Ubiquitous Lang)</text>
+
+
+  <!-- ==================== СТОВПЧИК 3: КОНТРАКТНІ ЗБОЇ ==================== -->
+  <rect x="647" y="134" width="293" height="344" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="793" y="154" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">3. Контрактні та фатальні збої</text>
+  <text x="793" y="172" font-size="10" font-weight="600" fill="#c0392b" text-anchor="middle">Contract / Fatal Errors • Несумісність або баг</text>
+
+  <!-- Картка 3A: Симптоми -->
+  <rect x="657" y="188" width="273" height="90" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="665" y="206" font-size="11" font-weight="700" fill="#c0392b">Сирі симптоми та коди:</text>
+  <text x="665" y="224" font-size="10" fill="#1a1a1a">• HTTP: 400 Bad Request (невалідна схема)</text>
+  <text x="665" y="240" font-size="10" fill="#1a1a1a">• HTTP: 401 Unauthorized, 403 Forbidden</text>
+  <text x="665" y="256" font-size="10" fill="#1a1a1a">• JSONDecodeError, несподіваний формат полів</text>
+  <text x="665" y="270" font-size="10" fill="#6b7280">Прострочені ключі, баг коду або дрифт схеми</text>
+
+  <!-- Картка 3B: Реакція -->
+  <rect x="657" y="290" width="273" height="90" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="665" y="308" font-size="11" font-weight="700" fill="#c0392b">Архітектурна реакція:</text>
+  <text x="665" y="326" font-size="10" font-weight="700" fill="#c0392b">• Retry: СУВОРО ЗАБОРОНЕНО повторювати</text>
+  <text x="665" y="342" font-size="10" font-weight="700" fill="#c0392b">• Alert: Негайний критичний інцидент інженерам</text>
+  <text x="665" y="358" font-size="10" fill="#1a1a1a">• Circuit Breaker: безсилий проти багів контракту</text>
+  <text x="665" y="372" font-size="10" fill="#6b7280">Вимагає правки коду або оновлення ключів</text>
+
+  <!-- Картка 3C: Домен -->
+  <rect x="657" y="392" width="273" height="76" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="665" y="410" font-size="11" font-weight="700" fill="#c0392b">Типізація в доменному ядрі:</text>
+  <text x="665" y="428" font-size="10" font-weight="700" fill="#1a1a1a">Виняток: FatalContractViolationException</text>
+  <text x="665" y="444" font-size="10" fill="#1a1a1a">• Фатальна помилка інтеграції</text>
+  <text x="665" y="458" font-size="10" fill="#c0392b">Захищає базу даних від запису сміття</text>
+
+</svg>

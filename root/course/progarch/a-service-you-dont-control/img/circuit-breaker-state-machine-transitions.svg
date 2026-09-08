@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Автомат станів запобіжника (Circuit Breaker State Machine)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Переходи між CLOSED, OPEN, HALF_OPEN та форсованими режимами під впливом порогів і таймерів</text>
+
+  <!-- ==================== ТИР 1: ТРІО ОПЕРАЦІЙНИХ СТАНІВ ==================== -->
+
+  <!-- Вузол 1: CLOSED -->
+  <rect x="20" y="75" width="270" height="88" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="155" y="95" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">CLOSED (Замкнено)</text>
+  <text x="30" y="114" font-size="10" fill="#1a1a1a">• Штатний режим: 100% трафіку</text>
+  <text x="30" y="130" font-size="10" fill="#1a1a1a">• Ковзне вікно: облік % помилок</text>
+  <text x="30" y="146" font-size="10" fill="#6b7280">• Поріг затримок (slow call rate)</text>
+
+  <!-- Стрілка 1 -> 2 (CLOSED -> OPEN) -->
+  <line x1="290" y1="110" x2="340" y2="110" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="317" y="102" font-size="10" font-weight="700" fill="#c0392b" text-anchor="middle">Збій >= 50%</text>
+
+  <!-- Вузол 2: OPEN -->
+  <rect x="345" y="75" width="270" height="88" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="95" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">OPEN (Розімкнено)</text>
+  <text x="355" y="114" font-size="10" fill="#1a1a1a">• Fast Fail: 0% викликів назовні</text>
+  <text x="355" y="130" font-size="10" fill="#1a1a1a">• Виняток: CallNotPermitted</text>
+  <text x="355" y="146" font-size="10" font-weight="600" fill="#c0392b">• Негайний перехід на Fallback</text>
+
+  <!-- Стрілка 2 -> 3 (OPEN -> HALF_OPEN, Таймер) -->
+  <line x1="615" y1="98" x2="665" y2="98" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="642" y="91" font-size="10" font-weight="700" fill="#2457d6" text-anchor="middle">Таймер 60 с</text>
+
+  <!-- Стрілка 3 -> 2 (HALF_OPEN -> OPEN, Збій проби) -->
+  <line x1="670" y1="130" x2="620" y2="130" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="642" y="144" font-size="10" font-weight="700" fill="#c0392b" text-anchor="middle">Збій проби</text>
+
+  <!-- Вузол 3: HALF_OPEN -->
+  <rect x="670" y="75" width="270" height="88" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="805" y="95" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">HALF_OPEN (Зондування)</text>
+  <text x="680" y="114" font-size="10" fill="#1a1a1a">• Пробний пул: фіксована квота</text>
+  <text x="680" y="130" font-size="10" fill="#1a1a1a">• Решта запитів: Fast Fail</text>
+  <text x="680" y="146" font-size="10" fill="#2457d6">• Перевірка здоров'я провайдера</text>
+
+  <!-- Зворотний обхід: HALF_OPEN -> CLOSED (Знизу під вузлом OPEN) -->
+  <line x1="805" y1="163" x2="805" y2="183" stroke="#27ae60" stroke-width="2"/>
+  <line x1="805" y1="183" x2="155" y2="183" stroke="#27ae60" stroke-width="2"/>
+  <line x1="155" y1="183" x2="155" y2="168" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="178" font-size="10" font-weight="700" fill="#27ae60" text-anchor="middle">Пробні виклики успішні (failureRate &lt; threshold) -> Відновлення у CLOSED</text>
+
+
+  <!-- ==================== ТИР 2: ФОРСОВАНІ РЕЖИМИ (CONTROL PLANE) ==================== -->
+
+  <!-- Картка FORCED_CLOSED -->
+  <rect x="20" y="200" width="445" height="74" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="32" y="218" font-size="11" font-weight="700" fill="#27ae60">FORCED_CLOSED (Адміністративний обхід розмикання)</text>
+  <text x="32" y="235" font-size="10" fill="#1a1a1a">• Примусовий пропуск 100% запитів попри збої (деактивація захисту)</text>
+  <text x="32" y="250" font-size="10" fill="#6b7280">• Застосування: регламентні роботи, деплой, навантажувальне тестування</text>
+  <text x="32" y="265" font-size="10" font-weight="600" fill="#27ae60">Control Plane: POST /circuitbreaker/{name}/force_close | reset</text>
+
+  <!-- Картка FORCED_OPEN -->
+  <rect x="495" y="200" width="445" height="74" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="507" y="218" font-size="11" font-weight="700" fill="#c0392b">FORCED_OPEN (Адміністративне аварійне блокування)</text>
+  <text x="507" y="235" font-size="10" fill="#1a1a1a">• Миттєве розмикання: 100% викликів у Fast Fail без таймерів відновлення</text>
+  <text x="507" y="250" font-size="10" fill="#6b7280">• Застосування: глобальна аварія партнера, блокування лавинних збитків</text>
+  <text x="507" y="265" font-size="10" font-weight="600" fill="#c0392b">Control Plane: POST /circuitbreaker/{name}/force_open | reset</text>
+
+
+  <!-- ==================== ТИР 3: МАТРИЦЯ ПОВЕДІНКОВИХ КОНТРАКТІВ ==================== -->
+  <rect x="20" y="290" width="920" height="188" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="480" y="309" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Інженерний контракт станів: поведінка, метрики та крайові умови</text>
+
+  <!-- Картка 1: CLOSED -->
+  <rect x="30" y="320" width="215" height="146" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="137" y="338" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">CLOSED (Штатний)</text>
+  <text x="38" y="356" font-size="10" font-weight="700" fill="#1a1a1a">• Трафік: 100% запитів</text>
+  <text x="38" y="372" font-size="10" fill="#1a1a1a">Ковзне вікно (sliding window):</text>
+  <text x="38" y="388" font-size="10" fill="#6b7280">останні N викликів або секунд</text>
+  <text x="38" y="406" font-size="10" font-weight="700" fill="#1a1a1a">• Умова розмикання:</text>
+  <text x="38" y="422" font-size="10" fill="#c0392b">failureRate >= 50%</text>
+  <text x="38" y="438" font-size="10" fill="#c0392b">або slowCallRate >= 50%</text>
+  <text x="38" y="454" font-size="10" fill="#6b7280">при minCalls >= 20</text>
+
+  <!-- Картка 2: OPEN -->
+  <rect x="257" y="320" width="215" height="146" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="364" y="338" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">OPEN (Захист)</text>
+  <text x="265" y="356" font-size="10" font-weight="700" fill="#1a1a1a">• Трафік: 0% назовні</text>
+  <text x="265" y="372" font-size="10" fill="#1a1a1a">Миттєвий Fast Fail:</text>
+  <text x="265" y="388" font-size="10" fill="#6b7280">CallNotPermittedException</text>
+  <text x="265" y="406" font-size="10" font-weight="700" fill="#1a1a1a">• Активація Fallback:</text>
+  <text x="265" y="422" font-size="10" fill="#1a1a1a">Кеш, дефолтні дані, черга</text>
+  <text x="265" y="440" font-size="10" font-weight="700" fill="#2457d6">• Таймер очікування:</text>
+  <text x="265" y="454" font-size="10" fill="#2457d6">waitDuration (напр. 60 с)</text>
+
+  <!-- Картка 3: HALF_OPEN -->
+  <rect x="484" y="320" width="215" height="146" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="591" y="338" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">HALF_OPEN (Проба)</text>
+  <text x="492" y="356" font-size="10" font-weight="700" fill="#1a1a1a">• Обмежений пул:</text>
+  <text x="492" y="372" font-size="10" fill="#1a1a1a">permittedCalls (напр. 10)</text>
+  <text x="492" y="388" font-size="10" fill="#6b7280">Захист від лавинного напливу</text>
+  <text x="492" y="406" font-size="10" font-weight="700" fill="#1a1a1a">• Розгалуження:</text>
+  <text x="492" y="422" font-size="10" fill="#27ae60">Успіх -> перехід у CLOSED</text>
+  <text x="492" y="438" font-size="10" fill="#c0392b">Збій -> перехід у OPEN</text>
+  <text x="492" y="454" font-size="10" fill="#6b7280">Миттєве повторне розмикання</text>
+
+  <!-- Картка 4: FORCED MODES -->
+  <rect x="711" y="320" width="217" height="146" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="819" y="338" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">FORCED (Control Plane)</text>
+  <text x="719" y="356" font-size="10" font-weight="700" fill="#1a1a1a">• Адмін-керування:</text>
+  <text x="719" y="372" font-size="10" fill="#1a1a1a">Зміна режиму без рестарту</text>
+  <text x="719" y="390" font-size="10" font-weight="700" fill="#c0392b">• FORCED_OPEN:</text>
+  <text x="719" y="406" font-size="10" fill="#6b7280">Блокування при аварії партнера</text>
+  <text x="719" y="424" font-size="10" font-weight="700" fill="#27ae60">• FORCED_CLOSED:</text>
+  <text x="719" y="440" font-size="10" fill="#6b7280">Примусовий пропуск викликів</text>
+  <text x="719" y="454" font-size="10" fill="#2457d6">Скидання: reset -> CLOSED</text>
+
+</svg>

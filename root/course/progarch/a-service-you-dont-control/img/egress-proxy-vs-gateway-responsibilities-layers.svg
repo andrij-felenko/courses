@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Розподіл шарів відповідальності: Egress Proxy проти Application Gateway</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Інфраструктурний мережевий захист L4/L7 проти доменної стійкості та антикорупційного шару L7</text>
+
+  <!-- ==================== СТОВПЧИК 1: APPLICATION GATEWAY ==================== -->
+  <rect x="30" y="75" width="435" height="280" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247" y="98" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">L7 Прикладний шлюз (Application Gateway)</text>
+  <text x="247" y="116" font-size="11" font-weight="600" fill="#2457d6" text-anchor="middle">Доменний рубіж оборони • Робота з бізнес-семантикою</text>
+
+  <!-- Картка 1A: ACL -->
+  <rect x="45" y="130" width="405" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="150" font-size="12" font-weight="700" fill="#1a1a1a">1. Антикорупційний шар (ACL) та нормалізація</text>
+  <text x="55" y="168" font-size="11" fill="#1a1a1a">• Мапінг чужих DTO у внутрішні доменні типи та Value Objects</text>
+  <text x="55" y="184" font-size="11" fill="#6b7280">• Відсікання надлишкових полів та санітизація чужої відповіді</text>
+
+  <!-- Картка 1B: Стійкість -->
+  <rect x="45" y="205" width="405" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="225" font-size="12" font-weight="700" fill="#1a1a1a">2. Запобіжник (Circuit Breaker) та ізоляція (Bulkhead)</text>
+  <text x="55" y="243" font-size="11" fill="#1a1a1a">• Розривання викликів при сплеску доменних помилок і таймаутів</text>
+  <text x="55" y="259" font-size="11" fill="#6b7280">• Перебірки: ізоляція пулів потоків для запобігання каскадам</text>
+
+  <!-- Картка 1C: Контракти -->
+  <rect x="45" y="280" width="405" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="300" font-size="12" font-weight="700" fill="#1a1a1a">3. Контроль ідемпотентності та керована деградація</text>
+  <text x="55" y="318" font-size="11" fill="#1a1a1a">• Протокол Idempotency-Key, зліпок запиту та Cached Replay</text>
+  <text x="55" y="334" font-size="11" fill="#27ae60">• Сценарії Fallback і перемикання на резервного провайдера</text>
+
+  <!-- ==================== СТОВПЧИК 2: EGRESS PROXY ==================== -->
+  <rect x="495" y="75" width="435" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="98" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">L4/L7 Вихідний проксі (Egress Proxy)</text>
+  <text x="712" y="116" font-size="11" font-weight="600" fill="#6b7280" text-anchor="middle">Мережевий периметр кластера • Транспортна безпека</text>
+
+  <!-- Картка 2A: Статичні IP -->
+  <rect x="510" y="130" width="405" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="150" font-size="12" font-weight="700" fill="#1a1a1a">1. Фіксація статичних IP під партнерські списки</text>
+  <text x="520" y="168" font-size="11" fill="#1a1a1a">• Пул постійних вихідних IP для білих списків (IP Whitelisting)</text>
+  <text x="520" y="184" font-size="11" fill="#6b7280">• Egress Gateway замість випадкових адрес pod-ів кластера</text>
+
+  <!-- Картка 2B: mTLS і секрети -->
+  <rect x="510" y="205" width="405" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="225" font-size="12" font-weight="700" fill="#1a1a1a">2. Термінація mTLS та ін&#39;єкція облікових даних</text>
+  <text x="520" y="243" font-size="11" fill="#1a1a1a">• Взаємна автентифікація mTLS із сертифікатами зовнішніх банків</text>
+  <text x="520" y="259" font-size="11" fill="#6b7280">• Підстановка секретних ключів API без їх видачі застосункам</text>
+
+  <!-- Картка 2C: DLP і аудит -->
+  <rect x="510" y="280" width="405" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="300" font-size="12" font-weight="700" fill="#1a1a1a">3. Захист від витоку даних (DLP) та аудит трафіку</text>
+  <text x="520" y="318" font-size="11" fill="#1a1a1a">• Data Loss Prevention: жорстке обмеження цільових FQDN-доменів</text>
+  <text x="520" y="334" font-size="11" fill="#6b7280">• Централізоване логування з&#39;єднань, обсягів байтів і затримок</text>
+
+  <!-- ==================== НИЖНІЙ БЛОК: ДВОКОНТУРНИЙ ЛАНЦЮГ ==================== -->
+  <rect x="30" y="370" width="900" height="95" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="480" y="388" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">Двоконтурний вихідний ланцюг: послідовна взаємодія компонентів</text>
+
+  <!-- Вузол 1: Сервіс -->
+  <rect x="45" y="398" width="155" height="55" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="122" y="418" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">Доменний сервіс</text>
+  <text x="122" y="436" font-size="10" fill="#6b7280" text-anchor="middle">Чиста бізнес-логіка</text>
+
+  <!-- Стрілка 1 -->
+  <line x1="200" y1="425" x2="242" y2="425" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="221" y="418" font-size="10" font-weight="700" fill="#2457d6" text-anchor="middle">виклик</text>
+
+  <!-- Вузол 2: Application Gateway -->
+  <rect x="245" y="398" width="225" height="55" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="357" y="418" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Application Gateway (L7)</text>
+  <text x="357" y="436" font-size="10" font-weight="700" fill="#2457d6" text-anchor="middle">ACL • Circuit Breaker • Idempotency</text>
+
+  <!-- Стрілка 2 -->
+  <line x1="470" y1="425" x2="512" y2="425" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="491" y="418" font-size="10" font-weight="700" fill="#2457d6" text-anchor="middle">HTTP</text>
+
+  <!-- Вузол 3: Egress Proxy -->
+  <rect x="515" y="398" width="225" height="55" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="627" y="418" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. Egress Proxy (L4/L7)</text>
+  <text x="627" y="436" font-size="10" font-weight="700" fill="#6b7280" text-anchor="middle">Static IP • mTLS • DLP • Аудит</text>
+
+  <!-- Стрілка 3 -->
+  <line x1="740" y1="425" x2="782" y2="425" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="761" y="418" font-size="10" font-weight="700" fill="#c0392b" text-anchor="middle">mTLS</text>
+
+  <!-- Вузол 4: Зовнішня служба -->
+  <rect x="785" y="398" width="130" height="55" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="850" y="418" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">Зовнішня служба</text>
+  <text x="850" y="436" font-size="10" fill="#c0392b" text-anchor="middle">Stripe / Банк / API</text>
+
+</svg>

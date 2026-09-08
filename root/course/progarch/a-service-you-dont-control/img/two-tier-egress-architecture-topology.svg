@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Топологія двоконтурного захисного периметра (Two-Tier Egress)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Двоконтурна топологія: Прямий потік запиту (Кроки 1–4) та Зворотний потік відповіді (Кроки 5–8)</text>
+
+  <!-- ==================== ЗОНА 1: ДОМЕННИЙ СЕРВІС ==================== -->
+  <rect x="20" y="72" width="185" height="406" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="112" y="92" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Доменний сервіс</text>
+  <text x="112" y="108" font-size="10" fill="#6b7280" text-anchor="middle">Внутрішній довірчий контур</text>
+
+  <!-- Картка 1: Прямий запит -->
+  <rect x="30" y="122" width="165" height="163" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="112" y="142" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">КРОК 1: Бізнес-подія</text>
+  <text x="38" y="164" font-size="10" font-weight="700" fill="#1a1a1a">• Початок операції:</text>
+  <text x="46" y="180" font-size="10" fill="#1a1a1a">Команда сплатити рахунок</text>
+  <text x="38" y="202" font-size="10" font-weight="700" fill="#1a1a1a">• Чиста доменна модель:</text>
+  <text x="46" y="218" font-size="10" fill="#6b7280">Сутність Order(id, sum)</text>
+  <text x="38" y="240" font-size="10" font-weight="700" fill="#1a1a1a">• Безпека секретів:</text>
+  <text x="46" y="256" font-size="10" fill="#6b7280">Не знає ключів і DTO банку</text>
+  <text x="46" y="272" font-size="10" font-weight="700" fill="#2457d6">Виклик PaymentGateway</text>
+
+  <!-- Картка 8: Зворотна відповідь -->
+  <rect x="30" y="298" width="165" height="168" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="112" y="318" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">КРОК 8: Результат</text>
+  <text x="38" y="340" font-size="10" font-weight="700" fill="#1a1a1a">• Доменний результат:</text>
+  <text x="46" y="356" font-size="10" fill="#1a1a1a">PaymentResult.Success</text>
+  <text x="46" y="372" font-size="10" fill="#6b7280">або чистий DomainError</text>
+  <text x="38" y="394" font-size="10" font-weight="700" fill="#1a1a1a">• Оновлення стану:</text>
+  <text x="46" y="410" font-size="10" fill="#1a1a1a">Фіксація оплати в БД</text>
+  <text x="38" y="432" font-size="10" font-weight="700" fill="#27ae60">• Стійкість:</text>
+  <text x="46" y="448" font-size="10" fill="#27ae60">Повна ізоляція від чужих змін</text>
+
+
+  <!-- ==================== ЗОНА 2: КОНТУР 1 — ПРИКЛАДНИЙ ШЛЮЗ ==================== -->
+  <rect x="225" y="72" width="255" height="406" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="352" y="92" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Контур 1: Прикладний шлюз</text>
+  <text x="352" y="108" font-size="10" font-weight="600" fill="#2457d6" text-anchor="middle">L7 Application Gateway • Доменна стійкість</text>
+
+  <!-- Картка 2: Прямий захист -->
+  <rect x="235" y="122" width="235" height="163" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="352" y="142" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">КРОК 2: Доменний захист (L7)</text>
+  <text x="243" y="164" font-size="10" font-weight="700" fill="#1a1a1a">• Запобіжник (Circuit Breaker):</text>
+  <text x="251" y="180" font-size="10" fill="#1a1a1a">Перевірка: якщо Open — негайний Fail</text>
+  <text x="243" y="202" font-size="10" font-weight="700" fill="#1a1a1a">• Контроль ідемпотентності:</text>
+  <text x="251" y="218" font-size="10" fill="#1a1a1a">Генерація Idempotency-Key (UUIDv4)</text>
+  <text x="243" y="240" font-size="10" font-weight="700" fill="#1a1a1a">• Антикорупційний шар (ACL):</text>
+  <text x="251" y="256" font-size="10" fill="#1a1a1a">Order -> ForeignBankRequestDTO</text>
+  <text x="251" y="272" font-size="10" fill="#6b7280">Ізоляція пулів потоків (Bulkhead)</text>
+
+  <!-- Картка 7: Зворотна нормалізація -->
+  <rect x="235" y="298" width="235" height="168" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="352" y="318" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">КРОК 7: Обробка та трансляція</text>
+  <text x="243" y="340" font-size="10" font-weight="700" fill="#1a1a1a">• Класифікація статусів:</text>
+  <text x="251" y="356" font-size="10" fill="#1a1a1a">5xx -> збій CB; 4xx -> бізнес-помилка</text>
+  <text x="243" y="378" font-size="10" font-weight="700" fill="#1a1a1a">• Нормалізація та санітизація (ACL):</text>
+  <text x="251" y="394" font-size="10" fill="#1a1a1a">ForeignBankDTO -> PaymentResult</text>
+  <text x="243" y="416" font-size="10" font-weight="700" fill="#1a1a1a">• Fallback і деградація:</text>
+  <text x="251" y="432" font-size="10" fill="#1a1a1a">Кеш відповіді за Idempotency-Key</text>
+  <text x="251" y="448" font-size="10" fill="#27ae60">При збої: перемикання на резерв</text>
+
+
+  <!-- ==================== ЗОНА 3: КОНТУР 2 — EGRESS PROXY ==================== -->
+  <rect x="500" y="72" width="245" height="406" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="622" y="92" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Контур 2: Egress Proxy</text>
+  <text x="622" y="108" font-size="10" font-weight="600" fill="#6b7280" text-anchor="middle">L4/L7 Egress Gateway • Мережевий периметр</text>
+
+  <!-- Картка 3: Мережевий вихід -->
+  <rect x="510" y="122" width="225" height="163" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="622" y="142" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">КРОК 3: Мережевий захист</text>
+  <text x="518" y="164" font-size="10" font-weight="700" fill="#1a1a1a">• FQDN-фільтрація (DLP):</text>
+  <text x="526" y="180" font-size="10" fill="#1a1a1a">Дозвіл лише на api.partner-bank.com</text>
+  <text x="518" y="202" font-size="10" font-weight="700" fill="#1a1a1a">• Ін'єкція облікових даних:</text>
+  <text x="526" y="218" font-size="10" fill="#1a1a1a">Підстановка токена з Secret Store</text>
+  <text x="518" y="240" font-size="10" font-weight="700" fill="#1a1a1a">• Термінація mTLS та NAT:</text>
+  <text x="526" y="256" font-size="10" fill="#1a1a1a">Сертифікат банку + фіксований IP</text>
+  <text x="526" y="272" font-size="10" fill="#6b7280">Вихід із дозволеного білого пулу</text>
+
+  <!-- Картка 6: Мережевий аудит -->
+  <rect x="510" y="298" width="225" height="168" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="622" y="318" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">КРОК 6: Транспортний аудит</text>
+  <text x="518" y="340" font-size="10" font-weight="700" fill="#1a1a1a">• Термінація TLS-обгортки:</text>
+  <text x="526" y="356" font-size="10" fill="#1a1a1a">Розшифрування зовнішнього mTLS</text>
+  <text x="518" y="378" font-size="10" font-weight="700" fill="#1a1a1a">• Мережевий аудит і телеметрія:</text>
+  <text x="526" y="394" font-size="10" fill="#1a1a1a">Лог обсягу байтів, латентності, кодів</text>
+  <text x="518" y="416" font-size="10" font-weight="700" fill="#1a1a1a">• Захист від ексфільтрації даних:</text>
+  <text x="526" y="432" font-size="10" fill="#1a1a1a">Блокування невідомих заголовків</text>
+  <text x="526" y="448" font-size="10" font-weight="700" fill="#2457d6">Передача сирого HTTP в Контур 1</text>
+
+
+  <!-- ==================== ЗОНА 4: ЗОВНІШНЯ СЛУЖБА ==================== -->
+  <rect x="765" y="72" width="175" height="406" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="852" y="92" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Зовнішня служба</text>
+  <text x="852" y="108" font-size="10" font-weight="600" fill="#c0392b" text-anchor="middle">Непідконтрольний партнер</text>
+
+  <!-- Картка 4: Зовнішній прийом -->
+  <rect x="775" y="122" width="155" height="163" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="852" y="142" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">КРОК 4: Прийом API</text>
+  <text x="783" y="164" font-size="10" font-weight="700" fill="#1a1a1a">• Перевірка IP:</text>
+  <text x="791" y="180" font-size="10" fill="#1a1a1a">Звірка з білим списком</text>
+  <text x="783" y="202" font-size="10" font-weight="700" fill="#1a1a1a">• Перевірка mTLS:</text>
+  <text x="791" y="218" font-size="10" fill="#1a1a1a">Клієнтський сертифікат</text>
+  <text x="783" y="240" font-size="10" font-weight="700" fill="#1a1a1a">• Процесинг банку:</text>
+  <text x="791" y="256" font-size="10" fill="#1a1a1a">Авторизація транзакції</text>
+  <text x="791" y="272" font-size="10" fill="#6b7280">Зовнішній бізнес-стан</text>
+
+  <!-- Картка 5: Зовнішня відповідь -->
+  <rect x="775" y="298" width="155" height="168" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="852" y="318" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">КРОК 5: Відповідь API</text>
+  <text x="783" y="340" font-size="10" font-weight="700" fill="#1a1a1a">• Формат відповіді:</text>
+  <text x="791" y="356" font-size="10" fill="#1a1a1a">JSON / XML з кодами банку</text>
+  <text x="783" y="378" font-size="10" font-weight="700" fill="#1a1a1a">• Статуси провайдера:</text>
+  <text x="791" y="394" font-size="10" fill="#1a1a1a">HTTP 200 / 402 / 503</text>
+  <text x="783" y="416" font-size="10" font-weight="700" fill="#c0392b">• Ризик збою:</text>
+  <text x="791" y="432" font-size="10" fill="#c0392b">Мережевий таймаут</text>
+  <text x="791" y="448" font-size="10" fill="#6b7280">або затримка понад SLA</text>
+
+
+  <!-- ==================== СТРІЛКИ: ПРЯМИЙ ХІД (ЗАПИТ) ==================== -->
+  <text x="215" y="193" font-size="10" font-weight="700" fill="#2457d6" text-anchor="middle">gRPC</text>
+  <line x1="195" y1="200" x2="231" y2="200" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <text x="490" y="193" font-size="10" font-weight="700" fill="#2457d6" text-anchor="middle">HTTP</text>
+  <line x1="470" y1="200" x2="506" y2="200" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <text x="755" y="193" font-size="10" font-weight="700" fill="#c0392b" text-anchor="middle">mTLS</text>
+  <line x1="735" y1="200" x2="771" y2="200" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- ==================== СТРІЛКИ: ЗВОРОТНИЙ ХІД (ВІДПОВІДЬ) ==================== -->
+  <text x="755" y="373" font-size="10" font-weight="700" fill="#6b7280" text-anchor="middle">mTLS</text>
+  <line x1="775" y1="380" x2="739" y2="380" stroke="#6b7280" stroke-width="2.5" marker-end="url(#arr-gray)"/>
+
+  <text x="490" y="373" font-size="10" font-weight="700" fill="#2457d6" text-anchor="middle">HTTP</text>
+  <line x1="510" y1="380" x2="474" y2="380" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <text x="215" y="373" font-size="10" font-weight="700" fill="#27ae60" text-anchor="middle">gRPC</text>
+  <line x1="235" y1="380" x2="199" y2="380" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+</svg>

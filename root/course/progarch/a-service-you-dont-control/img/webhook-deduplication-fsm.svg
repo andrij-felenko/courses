@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="510" fill="white"/>
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+</defs>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Кінцевий автомат дедуплікації подій (Webhook Ingestion FSM)</text>
+<text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Атомарна фіксація event_id та квітування 200 OK на дублікати захищають від подвійних мутацій</text>
+
+<!-- ==================== ВЕРХНЯ ЧАСТИНА: ОСНОВНИЙ КОНТУР СТАНІВ ==================== -->
+
+<!-- СТАН 1: RECEIVED -->
+<rect x="40" y="78" width="230" height="152" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="52" y="90" width="115" height="22" rx="4" fill="#2457d6"/>
+<text x="109" y="106" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">RECEIVED</text>
+<text x="52" y="128" font-size="13" font-weight="700" fill="#2457d6">Зафіксовано в буфері</text>
+<rect x="52" y="136" width="206" height="82" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="0.8"/>
+<text x="60" y="154" font-size="12" fill="#1a1a1a">· Вхідний HTTP POST вебхука</text>
+<text x="60" y="172" font-size="12" fill="#1a1a1a">· Перевірено HMAC і штамп</text>
+<text x="60" y="190" font-size="12" fill="#2457d6">· INSERT event_id (первинний)</text>
+<text x="60" y="208" font-size="12" fill="#6b7280">· Задача в черзі, Fast Ack</text>
+
+<!-- Перехід 1 -> 2: Воркер зняв задачу -->
+<line x1="270" y1="154" x2="357" y2="154" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<text x="317" y="128" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Воркер зняв</text>
+<text x="317" y="144" font-size="12" fill="#6b7280" text-anchor="middle">задачу</text>
+
+<!-- СТАН 2: PROCESSING -->
+<rect x="365" y="78" width="230" height="152" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="377" y="90" width="125" height="22" rx="4" fill="#1a1a1a"/>
+<text x="439" y="106" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">PROCESSING</text>
+<text x="377" y="128" font-size="13" font-weight="700" fill="#1a1a1a">Доменна обробка</text>
+<rect x="377" y="136" width="206" height="82" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+<text x="385" y="154" font-size="12" fill="#1a1a1a">· Воркер обробляє подію</text>
+<text x="385" y="172" font-size="12" fill="#1a1a1a">· Трансляція через шар ACL</text>
+<text x="385" y="190" font-size="12" fill="#2457d6">· Локальна бізнес-транзакція</text>
+<text x="385" y="208" font-size="12" fill="#c0392b">· Фатальний збій → FAILED</text>
+
+<!-- Перехід 2 -> 3: Фіксація мутації -->
+<line x1="595" y1="154" x2="682" y2="154" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+<text x="642" y="128" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Мутацію</text>
+<text x="642" y="144" font-size="12" fill="#6b7280" text-anchor="middle">зафіксовано</text>
+
+<!-- СТАН 3: PROCESSED -->
+<rect x="690" y="78" width="230" height="152" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="702" y="90" width="120" height="22" rx="4" fill="#27ae60"/>
+<text x="762" y="106" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">PROCESSED</text>
+<text x="702" y="128" font-size="13" font-weight="700" fill="#27ae60">Успішно завершено</text>
+<rect x="702" y="136" width="206" height="82" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="0.8"/>
+<text x="710" y="154" font-size="12" fill="#1a1a1a">· Бізнес-мутації збережено</text>
+<text x="710" y="172" font-size="12" fill="#1a1a1a">· Виклики та чеки виконано</text>
+<text x="710" y="190" font-size="12" fill="#27ae60">· Повторна обробка закрита</text>
+<text x="710" y="208" font-size="12" fill="#27ae60">· Термінальний стан успіху</text>
+
+<!-- ==================== ЗВ'ЯЗОК ДО ДУБЛІКАТІВ ==================== -->
+<!-- Стрілка колізії event_id вниз від RECEIVED -->
+<line x1="155" y1="230" x2="155" y2="262" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)" stroke-dasharray="4,3"/>
+<text x="165" y="250" font-size="12" font-weight="700" fill="#c0392b">ON CONFLICT: дублікат event_id</text>
+
+<!-- ==================== НИЖНЯ ЧАСТИНА: ПЕРЕХОПЛЕННЯ ТА 200 OK ==================== -->
+
+<!-- БЛОК L: Перехоплення дублікатів -->
+<rect x="40" y="270" width="400" height="175" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="52" y="282" width="230" height="22" rx="4" fill="#c0392b"/>
+<text x="167" y="298" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ПЕРЕХОПЛЕННЯ ДУБЛІКАТА</text>
+<text x="52" y="320" font-size="13" font-weight="700" fill="#c0392b">Блокування повторного виконання</text>
+<rect x="52" y="328" width="376" height="104" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="0.8"/>
+<text x="62" y="348" font-size="12" fill="#1a1a1a">· Вставка відхилена СУБД (рядок з event_id вже існує)</text>
+<text x="62" y="368" font-size="12" fill="#1a1a1a">· Зчитування статусу: PROCESSING (в польоті) чи PROCESSED</text>
+<text x="62" y="388" font-size="12" font-weight="700" fill="#c0392b">· ЖОДНОЇ повторної постановки події у внутрішню чергу</text>
+<text x="62" y="408" font-size="12" font-weight="700" fill="#c0392b">· Доменні мутації та списання коштів НЕ викликаються</text>
+<text x="62" y="424" font-size="12" fill="#6b7280">· Запобігання подвійним операціям при доставці at-least-once</text>
+
+<!-- Стрілка від Перехоплення до 200 OK -->
+<line x1="440" y1="365" x2="512" y2="365" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+<text x="480" y="342" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Квітування</text>
+<text x="480" y="358" font-size="12" fill="#6b7280" text-anchor="middle">без повтору</text>
+
+<!-- БЛОК R: Закон підтвердження 200 OK -->
+<rect x="520" y="270" width="400" height="175" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="532" y="282" width="200" height="22" rx="4" fill="#27ae60"/>
+<text x="632" y="298" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ЗАКОН ПІДТВЕРДЖЕННЯ 200 OK</text>
+<text x="532" y="320" font-size="13" font-weight="700" fill="#27ae60">Гасіння ретраїв провайдера</text>
+<rect x="532" y="328" width="376" height="104" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="0.8"/>
+<text x="542" y="348" font-size="12" fill="#1a1a1a">· Відповідь провайдеру: HTTP 200 OK (або 202 Accepted)</text>
+<text x="542" y="368" font-size="12" fill="#1a1a1a">· Зовнішній оркестратор вважає доставку завершеною</text>
+<text x="542" y="388" font-size="12" font-weight="700" fill="#27ae60">· Провайдер зупиняє експоненційні повторні спроби</text>
+<text x="542" y="408" font-size="12" fill="#1a1a1a">· Код помилки (409/500) спровокував би шторм ретраїв</text>
+<text x="542" y="424" font-size="12" fill="#6b7280">· Захист внутрішньої інфраструктури від колапсу потоків</text>
+
+<!-- ==================== ПІДСУМКОВИЙ ІНВАРІАНТ ==================== -->
+<rect x="40" y="460" width="880" height="34" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="480" y="482" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Інваріант межі: дублікати квітуються статусом 200 OK для гасіння ретраїв, але ніколи не потрапляють у доменне ядро.</text>
+
+</svg>

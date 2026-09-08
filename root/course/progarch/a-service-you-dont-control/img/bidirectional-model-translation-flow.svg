@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="36" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Двосторонній потік трансляції моделей в ACL-адаптері</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Пряма адаптація доменного наміру у вендорний запит та зворотне очищення відповіді від чужого сміття</text>
+
+  <!-- ==================== КОЛОНКА 1: ДОМЕННЕ ЯДРО ==================== -->
+  <rect x="30" y="85" width="230" height="385" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="145" y="112" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">Доменне ядро</text>
+  <text x="145" y="128" font-size="12" fill="#27ae60" font-weight="600" text-anchor="middle">Власна чиста онтологія</text>
+
+  <!-- Верхня картка: Доменний намір -->
+  <rect x="45" y="145" width="200" height="140" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="145" y="168" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Доменний намір (Команда)</text>
+  <text x="145" y="186" font-size="11" fill="#27ae60" font-weight="600" text-anchor="middle">PaymentIntent</text>
+  <text x="55" y="208" font-size="11" fill="#6b7280">• order_id: OrderId</text>
+  <text x="55" y="226" font-size="11" fill="#1a1a1a">• amount: Money(1250.00, UAH)</text>
+  <text x="55" y="244" font-size="11" fill="#6b7280">• customer: CustomerEmail</text>
+  <text x="145" y="272" font-size="10" fill="#27ae60" font-weight="700" text-anchor="middle">Чисті типи бізнес-моделі</text>
+
+  <!-- Нижня картка: Доменна квитанція -->
+  <rect x="45" y="305" width="200" height="145" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="145" y="328" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">4. Чистий результат домену</text>
+  <text x="145" y="346" font-size="11" fill="#27ae60" font-weight="600" text-anchor="middle">PaymentReceipt</text>
+  <text x="55" y="368" font-size="11" fill="#6b7280">• receipt_id: ReceiptId</text>
+  <text x="55" y="386" font-size="11" fill="#1a1a1a">• paid_amount: Money(1250.00)</text>
+  <text x="55" y="404" font-size="11" fill="#27ae60">• status: PaymentStatus.PAID</text>
+  <text x="145" y="434" font-size="10" fill="#27ae60" font-weight="700" text-anchor="middle">Незмінний чистий результат</text>
+
+  <!-- ==================== КОЛОНКА 2: ACL АДАПТЕР ==================== -->
+  <rect x="300" y="85" width="360" height="385" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="112" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">Адаптер антикорупційного шару (ACL)</text>
+  <text x="480" y="128" font-size="12" fill="#2457d6" font-weight="600" text-anchor="middle">Двостороння ізоляція та нормалізація</text>
+
+  <!-- Верхня картка: Пряма трансляція -->
+  <rect x="315" y="145" width="330" height="140" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="480" y="168" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. Пряма трансляція (Outbound Mapper)</text>
+  <text x="480" y="186" font-size="11" fill="#2457d6" font-weight="600" text-anchor="middle">PaymentIntent → VendorRequest</text>
+  <text x="325" y="208" font-size="11" fill="#1a1a1a">• Конвертація одиниць: UAH 1250.00 → 125000 коп.</text>
+  <text x="325" y="226" font-size="11" fill="#6b7280">• Трансляція назв полів: order_id → reference_id</text>
+  <text x="325" y="244" font-size="11" fill="#6b7280">• Ін&#39;єкція метаданих та ключа Idempotency-Key</text>
+  <text x="480" y="272" font-size="10" fill="#2457d6" font-weight="700" text-anchor="middle">Нормалізація під контракт вендора</text>
+
+  <!-- Нижня картка: Зворотна санітизація -->
+  <rect x="315" y="305" width="330" height="145" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="480" y="328" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">3. Зворотна санітизація (Inbound Sanitizer)</text>
+  <text x="480" y="346" font-size="11" fill="#2457d6" font-weight="600" text-anchor="middle">VendorResponse → PaymentReceipt</text>
+  <text x="325" y="368" font-size="11" fill="#c0392b">✂ ВІДСІКАННЯ: fee, balance_txn, risk_score, refunds</text>
+  <text x="325" y="386" font-size="11" fill="#27ae60">• Нормалізація: &#39;succeeded&#39; → PaymentStatus.PAID</text>
+  <text x="325" y="404" font-size="11" fill="#1a1a1a">• Зворотний перерахунок: 125000 коп. → Money</text>
+  <text x="480" y="434" font-size="10" fill="#27ae60" font-weight="700" text-anchor="middle">Захист бізнес-ядра від чужого сміття</text>
+
+  <!-- ==================== КОЛОНКА 3: ЗОВНІШНІЙ ВЕНДОР ==================== -->
+  <rect x="700" y="85" width="230" height="385" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="815" y="112" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">Зовнішня служба</text>
+  <text x="815" y="128" font-size="12" fill="#c0392b" font-weight="600" text-anchor="middle">Непідконтрольний API</text>
+
+  <!-- Верхня картка: Вендорний Payload -->
+  <rect x="715" y="145" width="200" height="140" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="815" y="168" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вендорний Payload</text>
+  <text x="815" y="186" font-size="11" fill="#c0392b" font-weight="600" text-anchor="middle">POST /v1/charges</text>
+  <text x="725" y="208" font-size="11" fill="#1a1a1a">• &quot;amount&quot;: 125000</text>
+  <text x="725" y="226" font-size="11" fill="#6b7280">• &quot;currency&quot;: &quot;uah&quot;</text>
+  <text x="725" y="244" font-size="11" fill="#6b7280">• &quot;reference_id&quot;: &quot;ORD-902&quot;</text>
+  <text x="815" y="272" font-size="10" fill="#c0392b" font-weight="700" text-anchor="middle">Вендорний формат даних</text>
+
+  <!-- Нижня картка: Сира відповідь зі сміттям -->
+  <rect x="715" y="305" width="200" height="145" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="815" y="328" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Сира відповідь (30+ полів)</text>
+  <text x="815" y="346" font-size="11" fill="#c0392b" font-weight="600" text-anchor="middle">HTTP 200 OK Response</text>
+  <text x="725" y="368" font-size="11" fill="#27ae60">• &quot;status&quot;: &quot;succeeded&quot;</text>
+  <text x="725" y="386" font-size="11" fill="#c0392b">• &quot;fee_cents&quot;: 3125</text>
+  <text x="725" y="404" font-size="11" fill="#c0392b">• &quot;risk_score&quot;: 14, &quot;tid&quot;: ...</text>
+  <text x="815" y="434" font-size="10" fill="#c0392b" font-weight="700" text-anchor="middle">Шумні надлишкові поля</text>
+
+  <!-- ==================== ГОРИЗОНТАЛЬНІ ЗВ'ЯЗКИ ТА СТРІЛКИ ==================== -->
+  <!-- Верхній потік: Зліва направо (Запит) -->
+  <line x1="245" y1="210" x2="307" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="276" y="202" font-size="10" font-weight="700" fill="#2457d6" text-anchor="middle">намір</text>
+
+  <line x1="645" y1="210" x2="707" y2="210" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="676" y="202" font-size="10" font-weight="700" fill="#c0392b" text-anchor="middle">запит</text>
+
+  <!-- Нижній потік: Справа наліво (Відповідь) -->
+  <line x1="715" y1="375" x2="653" y2="375" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="676" y="367" font-size="10" font-weight="700" fill="#c0392b" text-anchor="middle">відповідь</text>
+
+  <line x1="315" y1="375" x2="253" y2="375" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="276" y="367" font-size="10" font-weight="700" fill="#27ae60" text-anchor="middle">квитанція</text>
+
+</svg>

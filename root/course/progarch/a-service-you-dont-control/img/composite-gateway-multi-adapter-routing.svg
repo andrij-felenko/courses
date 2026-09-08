@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="36" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Мультипровайдерний композитний шлюз (Failover Routing)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Перемикання на резервний ACL-адаптер без змін у бізнес-ядрі через єдиний доменний порт</text>
+
+  <!-- ==================== ЗОНА 1: ДОМЕННЕ ЯДРО ==================== -->
+  <rect x="30" y="85" width="180" height="385" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="120" y="112" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">Доменне ядро</text>
+  <text x="120" y="128" font-size="12" fill="#27ae60" font-weight="600" text-anchor="middle">Чиста онтологія</text>
+
+  <!-- Картка: Прикладна служба -->
+  <rect x="45" y="150" width="150" height="125" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="174" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Платіжна служба</text>
+  <text x="120" y="192" font-size="11" fill="#6b7280" text-anchor="middle">OrderPaymentService</text>
+  <text x="120" y="212" font-size="11" fill="#2457d6" text-anchor="middle">charge(PaymentIntent)</text>
+  <text x="120" y="238" font-size="10" fill="#27ae60" font-weight="600" text-anchor="middle">• Нуль вендорного коду</text>
+  <text x="120" y="256" font-size="10" fill="#6b7280" text-anchor="middle">• Єдиний вхідний порт</text>
+
+  <!-- Картка: Інтерфейс порту -->
+  <rect x="45" y="295" width="150" height="140" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="120" y="320" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">«Port Interface»</text>
+  <text x="120" y="340" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">PaymentGateway</text>
+  <text x="120" y="362" font-size="11" fill="#1a1a1a" text-anchor="middle">+ charge(cmd): Receipt</text>
+  <text x="120" y="386" font-size="10" fill="#6b7280" text-anchor="middle">Контракт домену для</text>
+  <text x="120" y="402" font-size="10" fill="#6b7280" text-anchor="middle">всіх адаптерів</text>
+  <text x="120" y="422" font-size="10" font-weight="700" fill="#27ae60" text-anchor="middle">Взаємозамінність</text>
+
+  <!-- ==================== ЗОНА 2: КОМПОЗИТНИЙ ШЛЮЗ ТА ПУЛ АДАПТЕРІВ ==================== -->
+  <rect x="235" y="85" width="510" height="385" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="490" y="112" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">Композитний шлюз та пул ACL-адаптерів</text>
+  <text x="490" y="128" font-size="12" fill="#2457d6" font-weight="600" text-anchor="middle">Маршрутизація викликів • Failover • Circuit Breaker</text>
+
+  <!-- Підблок: Композитний роутер -->
+  <rect x="250" y="145" width="150" height="305" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="325" y="170" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Композитний шлюз</text>
+  <text x="325" y="188" font-size="11" font-weight="600" fill="#2457d6" text-anchor="middle">CompositeGateway</text>
+  <text x="325" y="206" font-size="10" fill="#6b7280" text-anchor="middle">implements PaymentGateway</text>
+
+  <text x="325" y="235" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">Стратегія вибору:</text>
+  <text x="325" y="255" font-size="11" fill="#2457d6" text-anchor="middle">1. Спроба в Primary</text>
+  <text x="325" y="273" font-size="11" fill="#c0392b" text-anchor="middle">2. Збій / таймаут 5xx</text>
+  <text x="325" y="291" font-size="11" fill="#27ae60" text-anchor="middle">3. Failover у Fallback</text>
+
+  <text x="325" y="325" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">Запобіжник (Circuit):</text>
+  <text x="325" y="345" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">• Primary: OPEN ⚠</text>
+  <text x="325" y="363" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">• Fallback: CLOSED ✓</text>
+
+  <text x="325" y="398" font-size="10" font-weight="700" fill="#2457d6" text-anchor="middle">Прозоре перемикання</text>
+  <text x="325" y="416" font-size="10" fill="#6b7280" text-anchor="middle">без викидання помилки</text>
+  <text x="325" y="432" font-size="10" fill="#6b7280" text-anchor="middle">в доменне ядро</text>
+
+  <!-- Підблок: Первинний адаптер Stripe -->
+  <rect x="420" y="145" width="310" height="140" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="575" y="168" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Первинний адаптер: StripeAdapter</text>
+  <text x="575" y="186" font-size="10" fill="#6b7280" text-anchor="middle">implements PaymentGateway</text>
+  <text x="435" y="208" font-size="11" fill="#1a1a1a">• StripeModelMapper (UAH → cents)</text>
+  <text x="435" y="226" font-size="11" fill="#1a1a1a">• StripeErrorClassifier (402, 429)</text>
+  <text x="435" y="244" font-size="11" fill="#1a1a1a">• StripeGatewayClient (TLS, HMAC)</text>
+  <text x="575" y="272" font-size="10" font-weight="700" fill="#c0392b" text-anchor="middle">⚠ СТАН: Таймаут / 503 Service Unavailable</text>
+
+  <!-- Підблок: Резервний адаптер Adyen -->
+  <rect x="420" y="305" width="310" height="145" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="575" y="328" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Резервний адаптер: AdyenAdapter</text>
+  <text x="575" y="346" font-size="10" fill="#6b7280" text-anchor="middle">implements PaymentGateway</text>
+  <text x="435" y="368" font-size="11" fill="#1a1a1a">• AdyenModelMapper (специфічний DTO)</text>
+  <text x="435" y="386" font-size="11" fill="#1a1a1a">• AdyenErrorClassifier (коди Adyen)</text>
+  <text x="435" y="404" font-size="11" fill="#1a1a1a">• AdyenGatewayClient (REST API)</text>
+  <text x="575" y="434" font-size="10" font-weight="700" fill="#27ae60" text-anchor="middle">✓ СТАН: Працює штатно • Прийняв перемикання</text>
+
+  <!-- ==================== ЗОНА 3: ЗОВНІШНІ ПРОВАЙДЕРИ ==================== -->
+  <rect x="770" y="85" width="160" height="385" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="850" y="112" font-size="15" font-weight="700" fill="#1a1a1a" text-anchor="middle">Зовнішні API</text>
+  <text x="850" y="128" font-size="12" fill="#c0392b" font-weight="600" text-anchor="middle">Провайдери</text>
+
+  <!-- Картка: Stripe API -->
+  <rect x="780" y="145" width="140" height="140" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="850" y="170" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Stripe API</text>
+  <text x="850" y="190" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">Первинний</text>
+  <text x="850" y="212" font-size="10" fill="#6b7280" text-anchor="middle">api.stripe.com</text>
+  <text x="850" y="236" font-size="10" font-weight="700" fill="#c0392b" text-anchor="middle">❌ ЗБІЙ СЕРВЕРА</text>
+  <text x="850" y="254" font-size="10" fill="#c0392b" text-anchor="middle">503 Unavailable</text>
+  <text x="850" y="272" font-size="10" fill="#6b7280" text-anchor="middle">Таймаут сокета</text>
+
+  <!-- Картка: Adyen API -->
+  <rect x="780" y="305" width="140" height="145" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="850" y="330" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Adyen API</text>
+  <text x="850" y="350" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">Резервний</text>
+  <text x="850" y="372" font-size="10" fill="#6b7280" text-anchor="middle">checkout-adyen.com</text>
+  <text x="850" y="398" font-size="10" font-weight="700" fill="#27ae60" text-anchor="middle">✓ ДОСТУПНИЙ</text>
+  <text x="850" y="418" font-size="10" font-weight="700" fill="#27ae60" text-anchor="middle">200 OK Authorised</text>
+  <text x="850" y="438" font-size="10" fill="#27ae60" text-anchor="middle">Оплата успішна</text>
+
+  <!-- ==================== ЗВ'ЯЗКИ ТА СТРІЛКИ ==================== -->
+  <!-- 1. Виклик доменного сервісу в композитний шлюз -->
+  <line x1="195" y1="210" x2="242" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="218" y="202" font-size="10" font-weight="700" fill="#2457d6" text-anchor="middle">виклик</text>
+
+  <!-- 2. Реалізація інтерфейсу порту -->
+  <line x1="250" y1="365" x2="203" y2="365" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-green)"/>
+  <text x="223" y="357" font-size="10" font-weight="700" fill="#27ae60" text-anchor="middle">реалізує</text>
+
+  <!-- 3. Маршрутизація від роутера до первинного адаптера -->
+  <line x1="400" y1="210" x2="412" y2="210" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- 4. Маршрутизація від роутера до резервного адаптера -->
+  <line x1="400" y1="380" x2="412" y2="380" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- 5. Виклики до зовнішніх API -->
+  <line x1="730" y1="210" x2="772" y2="210" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="751" y="202" font-size="10" font-weight="700" fill="#c0392b" text-anchor="middle">збій 5xx</text>
+
+  <line x1="730" y1="380" x2="772" y2="380" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="751" y="372" font-size="10" font-weight="700" fill="#27ae60" text-anchor="middle">успіх 200</text>
+
+</svg>

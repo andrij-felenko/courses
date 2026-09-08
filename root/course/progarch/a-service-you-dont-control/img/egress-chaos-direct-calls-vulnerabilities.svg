@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Хаос прямих викликів: вразливості неконтрольованого вихідного трафіку</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Прямі звернення до сторонніх API спричиняють збої IP-фільтрації, витік секретів і колапс потоків</text>
+
+  <!-- ==================== ВЕРХНІЙ ЯРУС: ВНУТРІШНІЙ КОНТУР, ХАОС, ПАРТНЕРИ ==================== -->
+
+  <!-- ЛІВА КОЛОНКА: Внутрішній контур -->
+  <rect x="30" y="75" width="310" height="236" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="85" width="160" height="22" rx="4" fill="#6b7280"/>
+  <text x="122" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ВНУТРІШНІЙ КОНТУР</text>
+  <text x="212" y="101" font-size="12" font-weight="600" fill="#1a1a1a">Autoscaling Pods</text>
+
+  <!-- Сервіс 1: Billing Service -->
+  <rect x="42" y="114" width="286" height="58" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="54" y="132" font-size="13" font-weight="700" fill="#1a1a1a">Billing Service</text>
+  <text x="54" y="150" font-size="12" fill="#c0392b">Динамічний IP: 10.244.12.84 (змінний пул)</text>
+  <text x="54" y="166" font-size="12" fill="#6b7280">Локальний env-секрет у контейнері</text>
+
+  <!-- Сервіс 2: Order Service -->
+  <rect x="42" y="178" width="286" height="58" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="54" y="196" font-size="13" font-weight="700" fill="#1a1a1a">Order Service</text>
+  <text x="54" y="214" font-size="12" fill="#c0392b">Зашитий API Token стороннього шлюзу</text>
+  <text x="54" y="230" font-size="12" fill="#6b7280">Пул клієнтських ключів без ротації</text>
+
+  <!-- Сервіс 3: Notification Worker -->
+  <rect x="42" y="242" width="286" height="58" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="54" y="260" font-size="13" font-weight="700" fill="#1a1a1a">Notification Worker</text>
+  <text x="54" y="278" font-size="12" fill="#c0392b">Пул потоків блокується на сокетах</text>
+  <text x="54" y="294" font-size="12" fill="#6b7280">Синхронне очікування без таймаутів</text>
+
+  <!-- ЦЕНТРАЛЬНА ЗОНА: Хаос викликів -->
+  <rect x="380" y="85" width="200" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="101" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">ХАОС ПРЯМИХ ВИКЛИКІВ</text>
+
+  <!-- Стрілка 1 (Динамічний IP) -->
+  <line x1="328" y1="143" x2="388" y2="143" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3"/>
+  <rect x="390" y="131" width="180" height="24" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="147" text-anchor="middle" font-size="12" font-weight="600" fill="#c0392b">Динамічний IP → 403 Reject</text>
+  <line x1="572" y1="143" x2="624" y2="143" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-red)"/>
+
+  <!-- Стрілка 2 (Витік секретів) -->
+  <line x1="328" y1="207" x2="384" y2="207" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3"/>
+  <rect x="386" y="195" width="188" height="24" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="211" text-anchor="middle" font-size="12" font-weight="600" fill="#c0392b">Розпорошений секрет API</text>
+  <line x1="576" y1="207" x2="624" y2="207" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-red)"/>
+
+  <!-- Стрілка 3 (Каскадний блок) -->
+  <line x1="328" y1="271" x2="388" y2="271" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3"/>
+  <rect x="390" y="259" width="180" height="24" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="275" text-anchor="middle" font-size="12" font-weight="600" fill="#c0392b">Зависання 30+ с → Block</text>
+  <line x1="572" y1="271" x2="624" y2="271" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-red)"/>
+
+  <!-- ПРАВА КОЛОНКА: Партнери -->
+  <rect x="620" y="75" width="310" height="236" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="632" y="85" width="165" height="22" rx="4" fill="#c0392b"/>
+  <text x="714" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ЗОВНІШНІ ПАРТНЕРИ</text>
+  <text x="805" y="101" font-size="12" font-weight="600" fill="#1a1a1a">Third-Party APIs</text>
+
+  <!-- Партнер 1: Банківський процесинг -->
+  <rect x="632" y="114" width="286" height="58" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="644" y="132" font-size="13" font-weight="700" fill="#c0392b">Банківський процесинг</text>
+  <text x="644" y="150" font-size="12" fill="#1a1a1a">Вимога: фіксований статичний IP</text>
+  <text x="644" y="166" font-size="12" fill="#c0392b">Збій: блокує нові поди (IP Whitelist)</text>
+
+  <!-- Партнер 2: Платіжний шлюз -->
+  <rect x="632" y="178" width="286" height="58" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="644" y="196" font-size="13" font-weight="700" fill="#c0392b">Платіжний шлюз</text>
+  <text x="644" y="214" font-size="12" fill="#1a1a1a">Вимога: секретний API Token / mTLS</text>
+  <text x="644" y="230" font-size="12" fill="#c0392b">Збій: витік ключа з будь-якого пода</text>
+
+  <!-- Партнер 3: SMS / Email провайдер -->
+  <rect x="632" y="242" width="286" height="58" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="644" y="260" font-size="13" font-weight="700" fill="#c0392b">SMS / Email провайдер</text>
+  <text x="644" y="278" font-size="12" fill="#1a1a1a">Нестабільний зв'язок і socket stalls</text>
+  <text x="644" y="294" font-size="12" fill="#c0392b">Збій: затримує відповіді на десятки секунд</text>
+
+  <!-- ==================== НИЖНІЙ ЯРУС: ТРИ ВРАЗЛИВОСТІ ==================== -->
+
+  <!-- Картка 1: Динамічні IP -->
+  <rect x="30" y="325" width="290" height="130" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="42" y="347" font-size="13" font-weight="700" fill="#c0392b">1. Динамічні IP vs Whitelist</text>
+  <text x="42" y="367" font-size="12" fill="#1a1a1a">• Нові поди отримують випадкові IP</text>
+  <text x="42" y="385" font-size="12" fill="#1a1a1a">• Партнерський фаєрвол скидає сесії</text>
+  <text x="42" y="403" font-size="12" fill="#6b7280">• Помилка 403 / Drops на нових вузлах</text>
+  <text x="42" y="423" font-size="12" font-weight="600" fill="#2457d6">• Рішення: Egress Proxy зі Static IP</text>
+  <text x="42" y="441" font-size="12" fill="#6b7280">  Централізована фіксація виходу</text>
+
+  <!-- Картка 2: Витік секретів -->
+  <rect x="335" y="325" width="290" height="130" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="347" y="347" font-size="13" font-weight="700" fill="#c0392b">2. Витік облікових даних</text>
+  <text x="347" y="367" font-size="12" fill="#1a1a1a">• Токени й ключі продубльовані в подах</text>
+  <text x="347" y="385" font-size="12" fill="#1a1a1a">• Злам одного пода розкриває весь доступ</text>
+  <text x="347" y="403" font-size="12" fill="#6b7280">• Неможливо швидко й безшовно ротувати</text>
+  <text x="347" y="423" font-size="12" font-weight="600" fill="#2457d6">• Рішення: Шлюз з ін'єкцією секретів</text>
+  <text x="347" y="441" font-size="12" fill="#6b7280">  Поди не мають прямих вендор-токенів</text>
+
+  <!-- Картка 3: Каскадні блокування -->
+  <rect x="640" y="325" width="290" height="130" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="652" y="347" font-size="13" font-weight="700" fill="#c0392b">3. Каскадні блокування сервісів</text>
+  <text x="652" y="367" font-size="12" fill="#1a1a1a">• Зависання сокета блокує HTTP-пул</text>
+  <text x="652" y="385" font-size="12" fill="#1a1a1a">• Вичерпання потоків (Thread Exhaustion)</text>
+  <text x="652" y="403" font-size="12" fill="#6b7280">• Лавинний збій висхідних служб</text>
+  <text x="652" y="423" font-size="12" font-weight="600" fill="#2457d6">• Рішення: Circuit Breaker та Bulkhead</text>
+  <text x="652" y="441" font-size="12" fill="#6b7280">  Fail-fast та ізоляція контурів відмови</text>
+
+</svg>
