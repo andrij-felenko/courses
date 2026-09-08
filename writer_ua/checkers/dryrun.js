@@ -128,7 +128,7 @@ const ctx = {
 
 (async () => {
   try {
-    const r = await A.algorithm(u, ctx, { ask: fake, status: "recheck" });
+    const r = await A.algorithm(u, ctx, { ask: fake, status: "done" });
     console.log("\n── результат ──");
     console.log("файл:", r.file);
     console.log("ops:", JSON.stringify(r.ops));

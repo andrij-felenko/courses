@@ -115,7 +115,8 @@ async function main(argv) {
       const dir = path.join(ctx.run.dir, unit.id.replace(/[^\w.-]+/g, "_"));
       return algorithm(unit, ctx, {
         ask: ask ? ask(dir) : dryAsk(dir),
-        status: o.status || "recheck",
+        /* Написане конвеєром — готова робота: done, не recheck (автор, 08.09). */
+        status: o.status || "done",
       });
     },
     /* Кінець батчу: кожна нова тема проти написаних вставок — запити в теці `_batch`. */

@@ -611,7 +611,7 @@ async function algorithm(unit, ctx, o = {}) {
 
   /* ── 10 · ЗАВЕРШЕННЯ · операції в маніфест, базова ─────────────────────── */
   if (!ctx.get("ops")) {
-    const ops = [...LOC.ops(u, o.status || "recheck"), ...((ctx.get("topics") || {}).ops || [])];
+    const ops = [...LOC.ops(u, o.status || "done"), ...((ctx.get("topics") || {}).ops || [])];
     if (article && !u.insert) {
       const total = words(fs.readFileSync(path.join(MF.ROOT, ctx.get("assembly").file), "utf8"));
       const needBasic = total > LOC.BANDS.basic[3] * BASIC_OVER || !!st.basic;
