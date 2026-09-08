@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Автоматична митниця CI для коду підрядника</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Багатошаровий конвеєр перевірок атомарного PR відсікає архітектурну ерозію та фіктивні тести</text>
+
+  <!-- Блок: PR підрядника -->
+  <rect x="40" y="96" width="145" height="236" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="52" y="108" width="121" height="28" rx="4" fill="#2457d6"/>
+  <text x="112" y="127" font-size="12" font-weight="bold" text-anchor="middle" fill="white">PR підрядника</text>
+
+  <text x="52" y="156" font-size="12" font-weight="bold" fill="#2457d6">Вхідний внесок</text>
+  <text x="52" y="174" font-size="12" fill="#1a1a1a">• Мала порція</text>
+  <text x="52" y="192" font-size="12" fill="#6b7280">  (до 300 рядків)</text>
+  <text x="52" y="214" font-size="12" fill="#1a1a1a">• Щоденний ритм</text>
+  <text x="52" y="232" font-size="12" fill="#6b7280">  без ізоляції</text>
+  <text x="52" y="254" font-size="12" fill="#1a1a1a">• Модульні тести</text>
+  <text x="52" y="272" font-size="12" fill="#6b7280">  від підрядника</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="185" y1="214" x2="204" y2="214" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Рубіж 1: Архітектурний лінтинг -->
+  <rect x="211" y="96" width="162" height="236" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="223" y="108" width="138" height="28" rx="4" fill="#2457d6"/>
+  <text x="292" y="127" font-size="12" font-weight="bold" text-anchor="middle" fill="white">1. Архітектура</text>
+
+  <text x="223" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">Контроль меж</text>
+  <text x="223" y="174" font-size="12" fill="#1a1a1a">• ArchUnit перевірки</text>
+  <text x="223" y="192" font-size="12" fill="#1a1a1a">• Заборона спагеті-</text>
+  <text x="223" y="210" font-size="12" fill="#1a1a1a">  залежностей</text>
+  <text x="223" y="232" font-size="12" fill="#1a1a1a">• Чистота шарів</text>
+  <text x="223" y="250" font-size="12" fill="#6b7280">  (домен ізольовано)</text>
+  <text x="223" y="274" font-size="12" fill="#c0392b">Збій: PR відхилено</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="373" y1="214" x2="392" y2="214" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Рубіж 2: Ліцензії та безпека -->
+  <rect x="399" y="96" width="162" height="236" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="411" y="108" width="138" height="28" rx="4" fill="#2457d6"/>
+  <text x="480" y="127" font-size="12" font-weight="bold" text-anchor="middle" fill="white">2. Безпека й ліцензії</text>
+
+  <text x="411" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">Аудит залежностей</text>
+  <text x="411" y="174" font-size="12" fill="#1a1a1a">• Аналіз маніфестів</text>
+  <text x="411" y="192" font-size="12" fill="#1a1a1a">• Блокування копілефту</text>
+  <text x="411" y="210" font-size="12" fill="#6b7280">  (GPL / AGPL ризики)</text>
+  <text x="411" y="232" font-size="12" fill="#1a1a1a">• Сканування CVE</text>
+  <text x="411" y="250" font-size="12" fill="#6b7280">  на вразливості</text>
+  <text x="411" y="274" font-size="12" fill="#c0392b">Збій: PR відхилено</text>
+
+  <!-- Стрілка 3 -> 4 -->
+  <line x1="561" y1="214" x2="580" y2="214" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Рубіж 3: Мутаційні тести -->
+  <rect x="587" y="96" width="162" height="236" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="599" y="108" width="138" height="28" rx="4" fill="#2457d6"/>
+  <text x="668" y="127" font-size="12" font-weight="bold" text-anchor="middle" fill="white">3. Мутаційні тести</text>
+
+  <text x="599" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">Якість перевірок</text>
+  <text x="599" y="174" font-size="12" fill="#1a1a1a">• Штучні мутації коду</text>
+  <text x="599" y="192" font-size="12" fill="#1a1a1a">• Виявлення фіктивних</text>
+  <text x="599" y="210" font-size="12" fill="#6b7280">  тестів без assert</text>
+  <text x="599" y="232" font-size="12" fill="#1a1a1a">• Захист від імітації</text>
+  <text x="599" y="250" font-size="12" fill="#6b7280">  покриття coverage</text>
+  <text x="599" y="274" font-size="12" fill="#c0392b">Збій: PR відхилено</text>
+
+  <!-- Стрілка 4 -> 5 -->
+  <line x1="749" y1="214" x2="768" y2="214" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Фінал: Регресія замовника й Trunk -->
+  <rect x="775" y="96" width="145" height="236" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="787" y="108" width="121" height="28" rx="4" fill="#27ae60"/>
+  <text x="847" y="127" font-size="12" font-weight="bold" text-anchor="middle" fill="white">4. Спільний Trunk</text>
+
+  <text x="787" y="156" font-size="12" font-weight="bold" fill="#27ae60">Прийняття в код</text>
+  <text x="787" y="174" font-size="12" fill="#1a1a1a">• Закриті тести</text>
+  <text x="787" y="192" font-size="12" fill="#6b7280">  замовника пройдено</text>
+  <text x="787" y="214" font-size="12" fill="#1a1a1a">• Автоматичне злиття</text>
+  <text x="787" y="232" font-size="12" fill="#6b7280">  в головну гілку</text>
+  <text x="787" y="254" font-size="12" fill="#27ae60">• Гарантія якості</text>
+  <text x="787" y="272" font-size="12" fill="#6b7280">  на кожному комміті</text>
+
+  <!-- Нижня панель висновку -->
+  <rect x="40" y="352" width="880" height="88" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="60" y="378" font-size="13" font-weight="bold" fill="#2457d6">Захист інтересів замовника через CI-митницю:</text>
+  <text x="60" y="400" font-size="12" fill="#1a1a1a">1. Машинний бінарний вердикт усуває суб'єктивні торги: код або відповідає архітектурним правилам, або відхиляється.</text>
+  <text x="60" y="420" font-size="12" fill="#1a1a1a">2. Закриті регресійні тести та мутаційний контроль не дозволяють сторонній команді імітувати якість виконання договору.</text>
+</svg>

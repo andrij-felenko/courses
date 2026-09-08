@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Continuous Integration проти Continuous Isolation</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Зелені тести в ізольованій гілці створюють ілюзію безпеки, але маскують катастрофу злиття</text>
+
+  <!-- Ліва панель: Continuous Isolation (Проблема) -->
+  <rect x="40" y="96" width="425" height="344" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="56" y="112" width="393" height="32" rx="4" fill="#c0392b"/>
+  <text x="252" y="134" font-size="13" font-weight="bold" text-anchor="middle" fill="white">Continuous Isolation (Карго-культ «зелених пайплайнів»)</text>
+
+  <rect x="56" y="156" width="393" height="74" rx="4" fill="white" stroke="#e0b4b0"/>
+  <text x="72" y="178" font-size="12" font-weight="bold" fill="#c0392b">Ізольована кількатижнева гілка / форк</text>
+  <text x="72" y="198" font-size="12" fill="#1a1a1a">Підрядник працює у вакуумі 3–4 тижні без злиття;</text>
+  <text x="72" y="218" font-size="12" fill="#6b7280">сервер автоматизації показує зелені галочки лише для гілки</text>
+
+  <rect x="56" y="242" width="393" height="84" rx="4" fill="white" stroke="#e0b4b0"/>
+  <text x="72" y="264" font-size="12" font-weight="bold" fill="#c0392b">Невидимий дрейф основного коду (Trunk)</text>
+  <text x="72" y="284" font-size="12" fill="#1a1a1a">Поки гілка «зелена», основна кодова база пішла вперед;</text>
+  <text x="72" y="304" font-size="12" fill="#1a1a1a">змінилися схеми даних, контракти та спільні модулі,</text>
+  <text x="72" y="320" font-size="12" fill="#6b7280">але ізольований код про це нічого не знає</text>
+
+  <rect x="56" y="338" width="393" height="84" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="72" y="360" font-size="12" font-weight="bold" fill="#c0392b">Фінал: Пастка гігантського PR (Merge Hell)</text>
+  <text x="72" y="380" font-size="12" fill="#1a1a1a">Запит на 15 000 рядків за день до закриття етапу;</text>
+  <text x="72" y="400" font-size="12" fill="#1a1a1a">сотні семантичних конфліктів і параліч релізу замовника</text>
+
+  <!-- Права панель: Continuous Integration (Розв'язок) -->
+  <rect x="495" y="96" width="425" height="344" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="511" y="112" width="393" height="32" rx="4" fill="#27ae60"/>
+  <text x="707" y="134" font-size="13" font-weight="bold" text-anchor="middle" fill="white">Continuous Integration (Інженерна дисципліна)</text>
+
+  <rect x="511" y="156" width="393" height="74" rx="4" fill="white" stroke="#bce7cf"/>
+  <text x="527" y="178" font-size="12" font-weight="bold" fill="#27ae60">Єдина спільна магістраль (Trunk-Based)</text>
+  <text x="527" y="198" font-size="12" fill="#1a1a1a">Усі розробники щодня взаємодіють з єдиним trunk;</text>
+  <text x="527" y="218" font-size="12" fill="#6b7280">постійне підтягування свіжих змін усуває розрив коду</text>
+
+  <rect x="511" y="242" width="393" height="84" rx="4" fill="white" stroke="#bce7cf"/>
+  <text x="527" y="264" font-size="12" font-weight="bold" fill="#27ae60">Малі атомарні комміти щодня</text>
+  <text x="527" y="284" font-size="12" fill="#1a1a1a">Порції по 200–300 рядків коду кілька разів на добу;</text>
+  <text x="527" y="304" font-size="12" fill="#1a1a1a">дельта змін мінімальна, конфлікти злиття тривіальні</text>
+  <text x="527" y="320" font-size="12" fill="#2457d6">й розв'язуються за лічені хвилини</text>
+
+  <rect x="511" y="338" width="393" height="84" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="527" y="360" font-size="12" font-weight="bold" fill="#27ae60">Результат: Завжди готова до випуску система</text>
+  <text x="527" y="380" font-size="12" fill="#1a1a1a">Повний набір автоматичних тестів на кожному кроці;</text>
+  <text x="527" y="400" font-size="12" fill="#1a1a1a">нуль прихованого боргу, передбачуване приймання робіт</text>
+</svg>

@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Цикл роботи фонового демона CruiseControl (2001)</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Автономний цикл опитування репозиторію, збірки в Ant, прогону JUnit та сповіщення команди</text>
+
+  <!-- Крок 1: Опитування репозиторію -->
+  <rect x="40" y="96" width="195" height="236" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="52" y="108" width="171" height="28" rx="4" fill="#2457d6"/>
+  <text x="137" y="127" font-size="12" font-weight="bold" text-anchor="middle" fill="white">1. Детекція змін</text>
+
+  <text x="52" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">Репозиторій версій</text>
+  <text x="52" y="174" font-size="12" fill="#1a1a1a">• Сервер CVS / SVN</text>
+  <text x="52" y="192" font-size="12" fill="#1a1a1a">• Постійне опитування</text>
+  <text x="52" y="210" font-size="12" fill="#6b7280">  (polling daemon)</text>
+  <text x="52" y="232" font-size="12" fill="#2457d6">• Фіксація комміту</text>
+  <text x="52" y="250" font-size="12" fill="#1a1a1a">  автоматично запускає</text>
+  <text x="52" y="268" font-size="12" fill="#1a1a1a">  новий цикл перевірки</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="235" y1="214" x2="260" y2="214" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Крок 2: Збірка в Apache Ant -->
+  <rect x="268" y="96" width="195" height="236" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="280" y="108" width="171" height="28" rx="4" fill="#2457d6"/>
+  <text x="365" y="127" font-size="12" font-weight="bold" text-anchor="middle" fill="white">2. Ізольована збірка</text>
+
+  <text x="280" y="156" font-size="12" font-weight="bold" fill="#2457d6">Нейтральний білд</text>
+  <text x="280" y="174" font-size="12" fill="#1a1a1a">• Чистий checkout у</text>
+  <text x="280" y="192" font-size="12" fill="#1a1a1a">  робочий каталог демона</text>
+  <text x="280" y="214" font-size="12" fill="#1a1a1a">• Виклик Apache Ant</text>
+  <text x="280" y="232" font-size="12" fill="#1a1a1a">• Компіляція вихідників</text>
+  <text x="280" y="254" font-size="12" fill="#2457d6">Виключає відмовки</text>
+  <text x="280" y="272" font-size="12" fill="#6b7280">«на моїй машині працює»</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="463" y1="214" x2="488" y2="214" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Крок 3: Виконання JUnit -->
+  <rect x="496" y="96" width="195" height="236" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="508" y="108" width="171" height="28" rx="4" fill="#2457d6"/>
+  <text x="593" y="127" font-size="12" font-weight="bold" text-anchor="middle" fill="white">3. Верифікація тестів</text>
+
+  <text x="508" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">Тестовий набір JUnit</text>
+  <text x="508" y="174" font-size="12" fill="#1a1a1a">• Виконання 100% тестів</text>
+  <text x="508" y="192" font-size="12" fill="#1a1a1a">• Перевірка інваріантів</text>
+  <text x="508" y="210" font-size="12" fill="#1a1a1a">• Контроль регресій</text>
+  <text x="508" y="236" font-size="12" fill="#2457d6">Вимога Фаулера:</text>
+  <text x="508" y="254" font-size="12" fill="#1a1a1a">тривалість циклу</text>
+  <text x="508" y="272" font-size="12" fill="#6b7280">не більше 10 хвилин</text>
+
+  <!-- Розгалуження стрілок 3 -> 4A і 3 -> 4B -->
+  <path d="M 691 168 L 715 168" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 691 260 L 715 260" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Крок 4A: Успіх (Зелений) -->
+  <rect x="724" y="96" width="195" height="112" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="736" y="108" width="171" height="24" rx="4" fill="#27ae60"/>
+  <text x="821" y="125" font-size="12" font-weight="bold" text-anchor="middle" fill="white">Збірка успішна</text>
+  <text x="736" y="152" font-size="12" font-weight="bold" fill="#27ae60">• Артефакт на вебсервер</text>
+  <text x="736" y="170" font-size="12" fill="#1a1a1a">• Зелена лава-лампа в кімнаті</text>
+  <text x="736" y="188" font-size="12" fill="#6b7280">• Код готовий до релізу</text>
+
+  <!-- Крок 4B: Збій (Червоний) -->
+  <rect x="724" y="220" width="195" height="112" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="736" y="232" width="171" height="24" rx="4" fill="#c0392b"/>
+  <text x="821" y="249" font-size="12" font-weight="bold" text-anchor="middle" fill="white">Збірка зламана</text>
+  <text x="736" y="274" font-size="12" font-weight="bold" fill="#c0392b">• Email автору зі стектрейсом</text>
+  <text x="736" y="292" font-size="12" fill="#1a1a1a">• Червона лава-лампа</text>
+  <text x="736" y="310" font-size="12" fill="#6b7280">• Негайне лагодження білда</text>
+
+  <!-- Нижня панель інваріантів -->
+  <rect x="40" y="352" width="879" height="88" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="60" y="378" font-size="13" font-weight="bold" fill="#2457d6">Нейтральний рефері інженерної якості:</text>
+  <text x="60" y="400" font-size="12" fill="#1a1a1a">1. CruiseControl повністю вилучив процес верифікації коду з людських рук, усунувши випадкові забування перевірок.</text>
+  <text x="60" y="420" font-size="12" fill="#1a1a1a">2. Публічний статус збірки (візуальні індикатори в офісі) створив колективну відповідальність за працездатність trunk.</text>
+</svg>

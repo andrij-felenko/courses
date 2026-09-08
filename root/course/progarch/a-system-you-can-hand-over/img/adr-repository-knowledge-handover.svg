@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Передача системи: застаріла wiki проти журналів архітектурних рішень (ADR)</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">ADR зберігає живу історію компромісів у git поруч із кодом замість відірваної мертвої документації</text>
+
+  <!-- Ліва панель: Без ADR (Проблема) -->
+  <rect x="40" y="96" width="425" height="344" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="56" y="112" width="393" height="32" rx="4" fill="#c0392b"/>
+  <text x="252" y="134" font-size="13" font-weight="bold" text-anchor="middle" fill="white">Передача без ADR: Пастка мертвої wiki</text>
+
+  <rect x="56" y="156" width="393" height="74" rx="4" fill="white" stroke="#e0b4b0"/>
+  <text x="72" y="178" font-size="12" font-weight="bold" fill="#c0392b">Відірвана документація у Confluence / wiki</text>
+  <text x="72" y="198" font-size="12" fill="#1a1a1a">Специфікації «згнили» окремо від кодової бази;</text>
+  <text x="72" y="218" font-size="12" fill="#6b7280">тексти описують стан дворічної давнини й вводять в оману</text>
+
+  <rect x="56" y="242" width="393" height="84" rx="4" fill="white" stroke="#e0b4b0"/>
+  <text x="72" y="264" font-size="12" font-weight="bold" fill="#c0392b">Страх перед кодом і втрата контексту</text>
+  <text x="72" y="284" font-size="12" fill="#1a1a1a">Нова команда не знає, чому обрано складне рішення;</text>
+  <text x="72" y="304" font-size="12" fill="#1a1a1a">інженери бояться чіпати неочевидні ділянки коду,</text>
+  <text x="72" y="320" font-size="12" fill="#6b7280">або марнують час на небезпечні сліпі переписування</text>
+
+  <rect x="56" y="338" width="393" height="84" rx="4" fill="white" stroke="#fdecea" stroke="#c0392b"/>
+  <text x="72" y="360" font-size="12" font-weight="bold" fill="#c0392b">Наслідок для замовника</text>
+  <text x="72" y="380" font-size="12" fill="#1a1a1a">Повна залежність від попередніх авторів (Bus Factor = 1);</text>
+  <text x="72" y="400" font-size="12" fill="#1a1a1a">величезні витрати на повторний аналіз системи з нуля</text>
+
+  <!-- Права панель: З ADR (Розв'язок) -->
+  <rect x="495" y="96" width="425" height="344" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="511" y="112" width="393" height="32" rx="4" fill="#27ae60"/>
+  <text x="707" y="134" font-size="13" font-weight="bold" text-anchor="middle" fill="white">Передача з ADR: Відчужуване знання в git</text>
+
+  <rect x="511" y="156" width="393" height="74" rx="4" fill="white" stroke="#bce7cf"/>
+  <text x="527" y="178" font-size="12" font-weight="bold" fill="#27ae60">Каталог docs/adr/*.md поруч із кодом</text>
+  <text x="527" y="198" font-size="12" fill="#1a1a1a">Файли Markdown живуть у тій самій гілці репозиторію;</text>
+  <text x="527" y="218" font-size="12" fill="#6b7280">будь-яка зміна курсу фіксується атомарним коммітом</text>
+
+  <rect x="511" y="242" width="393" height="84" rx="4" fill="white" stroke="#bce7cf"/>
+  <text x="527" y="264" font-size="12" font-weight="bold" fill="#27ae60">Чіткий контекст компромісів і наслідків</text>
+  <text x="527" y="284" font-size="12" fill="#1a1a1a">Кожен ADR фіксує проблему, обраний варіант і ціну;</text>
+  <text x="527" y="304" font-size="12" fill="#1a1a1a">нові розробники одразу розуміють обмеження архітектури</text>
+  <text x="527" y="320" font-size="12" fill="#2457d6">та спираються на перевірені автоматичні тести в CI</text>
+
+  <rect x="511" y="338" width="393" height="84" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="527" y="360" font-size="12" font-weight="bold" fill="#27ae60">Результат передачі</text>
+  <text x="527" y="380" font-size="12" fill="#1a1a1a">Безшовне підхоплення проєкту новою командою;</text>
+  <text x="527" y="400" font-size="12" fill="#1a1a1a">знання не випаровується при зміні підрядника чи людей</text>
+</svg>

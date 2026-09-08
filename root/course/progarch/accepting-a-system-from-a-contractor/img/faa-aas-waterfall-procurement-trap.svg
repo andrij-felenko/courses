@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Монолітна пастка замовлення системи FAA AAS (1981–1994)</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Передавання монолітного ТЗ без власної експертизи та контуру збірки створило прірву між папером і кодом</text>
+
+  <!-- Колонка 1: FAA (Замовник) -->
+  <rect x="40" y="96" width="270" height="344" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="56" y="112" width="238" height="32" rx="4" fill="#6b7280"/>
+  <text x="175" y="134" font-size="13" font-weight="bold" text-anchor="middle" fill="white">FAA (Замовник без експертизи)</text>
+
+  <rect x="56" y="156" width="238" height="110" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="175" y="178" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Монолітне ТЗ на «7 дев'яток»</text>
+  <text x="175" y="200" font-size="12" text-anchor="middle" fill="#1a1a1a">Вимога не більше 3 с простою на рік</text>
+  <text x="175" y="220" font-size="12" text-anchor="middle" fill="#1a1a1a">без розуміння ціни узгодженості;</text>
+  <text x="175" y="240" font-size="12" text-anchor="middle" fill="#c0392b">сотні нових правок під час робіт</text>
+
+  <rect x="56" y="278" width="238" height="142" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="175" y="300" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Ілюзія паперового контролю</text>
+  <text x="175" y="322" font-size="12" text-anchor="middle" fill="#1a1a1a">Приймання робіт за томами звітів</text>
+  <text x="175" y="342" font-size="12" text-anchor="middle" fill="#1a1a1a">і формальними чеклістами;</text>
+  <text x="175" y="364" font-size="12" text-anchor="middle" fill="#1a1a1a">повна відсутність власної інженерної</text>
+  <text x="175" y="386" font-size="12" text-anchor="middle" fill="#6b7280">команди та наскрізного аудиту коду</text>
+
+  <!-- Стрілка від 1 до 2 -->
+  <line x1="310" y1="268" x2="335" y2="268" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Колонка 2: Прірва відсутності контуру збірки -->
+  <rect x="345" y="96" width="270" height="344" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="361" y="112" width="238" height="32" rx="4" fill="#c0392b"/>
+  <text x="480" y="134" font-size="13" font-weight="bold" text-anchor="middle" fill="white">Прірва приймання (Без контуру CI)</text>
+
+  <rect x="361" y="156" width="238" height="110" rx="4" fill="white" stroke="#e0b4b0"/>
+  <text x="480" y="178" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Чорна скринька водоспаду</text>
+  <text x="480" y="200" font-size="12" text-anchor="middle" fill="#1a1a1a">Немає вертикальних зрізів системи;</text>
+  <text x="480" y="220" font-size="12" text-anchor="middle" fill="#1a1a1a">покази на штучних стендах підрядника</text>
+  <text x="480" y="240" font-size="12" text-anchor="middle" fill="#c0392b">замість бойових тестів на залізі</text>
+
+  <rect x="361" y="278" width="238" height="142" rx="4" fill="white" stroke="#e0b4b0"/>
+  <text x="480" y="300" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Пастка незворотних витрат</text>
+  <text x="480" y="322" font-size="12" text-anchor="middle" fill="#1a1a1a">Бюджет зріс із $2,5 млрд до $7+ млрд;</text>
+  <text x="480" y="342" font-size="12" text-anchor="middle" fill="#1a1a1a">страх визнати провал змушував</text>
+  <text x="480" y="364" font-size="12" text-anchor="middle" fill="#1a1a1a">доливати нові мільярди в безнадійну</text>
+  <text x="480" y="386" font-size="12" text-anchor="middle" fill="#c0392b">монолітну архітектурну модель</text>
+
+  <!-- Стрілка від 2 до 3 -->
+  <line x1="615" y1="268" x2="640" y2="268" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Колонка 3: IBM (Підрядник) -->
+  <rect x="650" y="96" width="270" height="344" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="666" y="112" width="238" height="32" rx="4" fill="#6b7280"/>
+  <text x="785" y="134" font-size="13" font-weight="bold" text-anchor="middle" fill="white">IBM (Підрядник у глухому куті)</text>
+
+  <rect x="666" y="156" width="238" height="110" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="785" y="178" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Алгоритмічний колапс</text>
+  <text x="785" y="200" font-size="12" text-anchor="middle" fill="#1a1a1a">Розподілений консенсус на ранній Ada;</text>
+  <text x="785" y="220" font-size="12" text-anchor="middle" fill="#1a1a1a">широкомовні шторми сповіщень</text>
+  <text x="785" y="240" font-size="12" text-anchor="middle" fill="#c0392b">перевантажували процесори станцій</text>
+
+  <rect x="666" y="278" width="238" height="142" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="785" y="300" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Фінал: Списання $2,6 млрд</text>
+  <text x="785" y="322" font-size="12" text-anchor="middle" fill="#1a1a1a">У 1994 році програму зупинено;</text>
+  <text x="785" y="342" font-size="12" text-anchor="middle" fill="#1a1a1a">жодна станція не вийшла на чергування;</text>
+  <text x="785" y="364" font-size="12" text-anchor="middle" fill="#2457d6">урок: замовник зобов'язаний мати власний</text>
+  <text x="785" y="386" font-size="12" text-anchor="middle" fill="#2457d6">контур збірки та приймати код малими кроками</text>
+</svg>

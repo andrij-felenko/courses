@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Протокол інтеграційного токена в Extreme Programming</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Фізичний маркер черги та правило 10 хвилин гарантують атомарне злиття та чисту магістраль</text>
+
+  <!-- Крок 1: Робоча станція -->
+  <rect x="40" y="96" width="195" height="236" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="52" y="108" width="171" height="28" rx="4" fill="#2457d6"/>
+  <text x="137" y="127" font-size="12" font-weight="bold" text-anchor="middle" fill="white">1. Робоча станція</text>
+
+  <text x="52" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">Пара розробників</text>
+  <text x="52" y="174" font-size="12" fill="#1a1a1a">• Написано нову задачу</text>
+  <text x="52" y="192" font-size="12" fill="#1a1a1a">• Локальні модульні тести</text>
+  <text x="52" y="210" font-size="12" fill="#27ae60">  проходять успішно</text>
+  <text x="52" y="232" font-size="12" fill="#6b7280">• Правка готова до злиття</text>
+  <text x="52" y="250" font-size="12" fill="#6b7280">  (до 50–100 рядків коду)</text>
+  <text x="52" y="274" font-size="12" fill="#2457d6">Заборона: прямий пуш</text>
+  <text x="52" y="292" font-size="12" fill="#6b7280">у спільну гілку зі столу</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="235" y1="214" x2="260" y2="214" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Крок 2: Захоплення токена -->
+  <rect x="268" y="96" width="195" height="236" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="280" y="108" width="171" height="28" rx="4" fill="#2457d6"/>
+  <text x="365" y="127" font-size="12" font-weight="bold" text-anchor="middle" fill="white">2. Фізичний токен</text>
+
+  <text x="280" y="156" font-size="12" font-weight="bold" fill="#2457d6">Маркер монополії</text>
+  <text x="280" y="174" font-size="12" fill="#1a1a1a">• М'яка іграшка чи курка</text>
+  <text x="280" y="192" font-size="12" fill="#1a1a1a">• Лише один токен у кімнаті</text>
+  <text x="280" y="210" font-size="12" fill="#1a1a1a">• Виключає паралельне</text>
+  <text x="280" y="228" font-size="12" fill="#1a1a1a">  конфліктне злиття</text>
+  <text x="280" y="254" font-size="12" fill="#2457d6">Якщо токен зайнятий —</text>
+  <text x="280" y="272" font-size="12" fill="#1a1a1a">пара чекає звільнення</text>
+  <text x="280" y="290" font-size="12" fill="#6b7280">інтеграційної машини</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="463" y1="214" x2="488" y2="214" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Крок 3: Інтеграційна машина -->
+  <rect x="496" y="96" width="195" height="236" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="508" y="108" width="171" height="28" rx="4" fill="#2457d6"/>
+  <text x="593" y="127" font-size="12" font-weight="bold" text-anchor="middle" fill="white">3. Виділена машина</text>
+
+  <text x="508" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">Нейтральне середовище</text>
+  <text x="508" y="174" font-size="12" fill="#1a1a1a">• Окремий спільний ПК</text>
+  <text x="508" y="192" font-size="12" fill="#1a1a1a">• Оновлення з репозиторію</text>
+  <text x="508" y="210" font-size="12" fill="#1a1a1a">• Вливання коду пари</text>
+  <text x="508" y="228" font-size="12" fill="#1a1a1a">• Запуск 100% тестів</text>
+  <text x="508" y="246" font-size="12" fill="#6b7280">  (SUnit / JUnit)</text>
+  <text x="508" y="274" font-size="12" fill="#2457d6">Час прогону тестів:</text>
+  <text x="508" y="292" font-size="12" fill="#6b7280">не більше 5–10 хвилин</text>
+
+  <!-- Розгалуження стрілок 3 -> 4A і 3 -> 4B -->
+  <path d="M 691 168 L 715 168" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 691 260 L 715 260" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Крок 4A: Успіх (Зелений) -->
+  <rect x="724" y="96" width="195" height="112" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="736" y="108" width="171" height="24" rx="4" fill="#27ae60"/>
+  <text x="821" y="125" font-size="12" font-weight="bold" text-anchor="middle" fill="white">Всі тести зелені (100%)</text>
+  <text x="736" y="152" font-size="12" font-weight="bold" fill="#27ae60">• Фіксація комміту в trunk</text>
+  <text x="736" y="170" font-size="12" fill="#1a1a1a">• Токен повертається</text>
+  <text x="736" y="188" font-size="12" fill="#6b7280">• Наступна пара заходить</text>
+
+  <!-- Крок 4B: Збій (Червоний) -->
+  <rect x="724" y="220" width="195" height="112" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="736" y="232" width="171" height="24" rx="4" fill="#c0392b"/>
+  <text x="821" y="249" font-size="12" font-weight="bold" text-anchor="middle" fill="white">Тест упав (Червоний)</text>
+  <text x="736" y="274" font-size="12" font-weight="bold" fill="#c0392b">• Правило 10 хвилин на фікс</text>
+  <text x="736" y="292" font-size="12" fill="#1a1a1a">• Якщо ні — повний REVERT</text>
+  <text x="736" y="310" font-size="12" fill="#6b7280">• Токен звільняється для інших</text>
+
+  <!-- Нижня панель інваріантів -->
+  <rect x="40" y="352" width="879" height="88" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="60" y="378" font-size="13" font-weight="bold" fill="#2457d6">Інженерні інваріанти протоколу XP:</text>
+  <text x="60" y="400" font-size="12" fill="#1a1a1a">1. Магістраль завжди в працездатному стані: жоден комміт не потрапляє в репозиторій без проходження 100% тестів.</text>
+  <text x="60" y="420" font-size="12" fill="#1a1a1a">2. Фізичний токен ліквідує гонитву розробників; правило 10 хвилин забороняє блокувати конвеєр незавершеним дебагом.</text>
+</svg>

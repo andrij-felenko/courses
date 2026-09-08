@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Еволюція ритмів інтеграції: від каскадного пекла до CI</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Скорочення циклу зворотного зв'язку від місяців до хвилин усуває накопичення прихованих дефектів</text>
+
+  <!-- Колонка 1: Квартальне злиття (Проблема) -->
+  <rect x="40" y="96" width="275" height="344" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="52" y="110" width="251" height="34" rx="4" fill="#c0392b"/>
+  <text x="177" y="132" font-size="13" font-weight="bold" text-anchor="middle" fill="white">Квартальне злиття (Waterfall)</text>
+
+  <rect x="52" y="156" width="251" height="66" rx="4" fill="white" stroke="#e0b4b0"/>
+  <text x="64" y="176" font-size="12" font-weight="bold" fill="#c0392b">Періодичність і спосіб</text>
+  <text x="64" y="196" font-size="12" fill="#1a1a1a">Один раз на 3–12 місяців;</text>
+  <text x="64" y="212" font-size="12" fill="#6b7280">робота в ізольованих гілках</text>
+
+  <rect x="52" y="232" width="251" height="92" rx="4" fill="white" stroke="#e0b4b0"/>
+  <text x="64" y="252" font-size="12" font-weight="bold" fill="#c0392b">Зворотний зв'язок</text>
+  <text x="64" y="272" font-size="12" fill="#1a1a1a">Місяці невідомості;</text>
+  <text x="64" y="290" font-size="12" fill="#1a1a1a">проблеми виявляються лише на</text>
+  <text x="64" y="308" font-size="12" fill="#6b7280">фінальній фазі інтеграції</text>
+
+  <rect x="52" y="334" width="251" height="92" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="64" y="354" font-size="12" font-weight="bold" fill="#c0392b">Наслідки для системи</text>
+  <text x="64" y="374" font-size="12" fill="#1a1a1a">«Інтеграційне пекло»;</text>
+  <text x="64" y="392" font-size="12" fill="#1a1a1a">масові конфлікти інтерфейсів,</text>
+  <text x="64" y="410" font-size="12" fill="#6b7280">зрив термінів і бюджетів</text>
+
+  <!-- Колонка 2: Щоденна збірка (Проміжний етап) -->
+  <rect x="342" y="96" width="275" height="344" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="354" y="110" width="251" height="34" rx="4" fill="#2457d6"/>
+  <text x="479" y="132" font-size="13" font-weight="bold" text-anchor="middle" fill="white">Щоденна збірка (Microsoft)</text>
+
+  <rect x="354" y="156" width="251" height="66" rx="4" fill="white" stroke="#c2d5f8"/>
+  <text x="366" y="176" font-size="12" font-weight="bold" fill="#2457d6">Періодичність і спосіб</text>
+  <text x="366" y="196" font-size="12" fill="#1a1a1a">Щоночі (опівночі);</text>
+  <text x="366" y="212" font-size="12" fill="#6b7280">єдина магістраль у репозиторії</text>
+
+  <rect x="354" y="232" width="251" height="92" rx="4" fill="white" stroke="#c2d5f8"/>
+  <text x="366" y="252" font-size="12" font-weight="bold" fill="#2457d6">Зворотний зв'язок</text>
+  <text x="366" y="272" font-size="12" fill="#1a1a1a">До 24 годин (наступного ранку);</text>
+  <text x="366" y="290" font-size="12" fill="#1a1a1a">швидка локалізація свіжих</text>
+  <text x="366" y="308" font-size="12" fill="#6b7280">помилок компіляції за добу</text>
+
+  <rect x="354" y="334" width="251" height="92" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="366" y="354" font-size="12" font-weight="bold" fill="#2457d6">Обмеження підходу</text>
+  <text x="366" y="374" font-size="12" fill="#1a1a1a">Поверховий димовий тест;</text>
+  <text x="366" y="392" font-size="12" fill="#1a1a1a">бізнес-логіка не захищена,</text>
+  <text x="366" y="410" font-size="12" fill="#6b7280">зламаний білд блокує день</text>
+
+  <!-- Колонка 3: Неперервна інтеграція (Розв'язок) -->
+  <rect x="645" y="96" width="275" height="344" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="657" y="110" width="251" height="34" rx="4" fill="#27ae60"/>
+  <text x="782" y="132" font-size="13" font-weight="bold" text-anchor="middle" fill="white">Неперервна інтеграція (CI / XP)</text>
+
+  <rect x="657" y="156" width="251" height="66" rx="4" fill="white" stroke="#bce7cf"/>
+  <text x="669" y="176" font-size="12" font-weight="bold" fill="#27ae60">Періодичність і спосіб</text>
+  <text x="669" y="196" font-size="12" fill="#1a1a1a">Кілька разів на день;</text>
+  <text x="669" y="212" font-size="12" fill="#6b7280">малі комміти прямо в main</text>
+
+  <rect x="657" y="232" width="251" height="92" rx="4" fill="white" stroke="#bce7cf"/>
+  <text x="669" y="252" font-size="12" font-weight="bold" fill="#27ae60">Зворотний зв'язок</text>
+  <text x="669" y="272" font-size="12" fill="#1a1a1a">10–15 хвилин після комміту;</text>
+  <text x="669" y="290" font-size="12" fill="#1a1a1a">автоматичний запуск демона</text>
+  <text x="669" y="308" font-size="12" fill="#6b7280">на кожен внесений комміт</text>
+
+  <rect x="657" y="334" width="251" height="92" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="669" y="354" font-size="12" font-weight="bold" fill="#27ae60">Результат для системи</text>
+  <text x="669" y="374" font-size="12" fill="#1a1a1a">Тотальний захист тестів;</text>
+  <text x="669" y="392" font-size="12" fill="#1a1a1a">архітектурні контракти діють,</text>
+  <text x="669" y="410" font-size="12" fill="#6b7280">підрядник не накопичує ризик</text>
+</svg>

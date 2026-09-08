@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Каскадні залежності хмари AWS під час колапсу S3 (28 лютого 2017)</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Приховані синхронні та циклічні зв'язки паралізували обчислення, керування та статусний моніторинг</text>
+
+  <!-- Центральний блок: S3 (Епіцентр збою) -->
+  <rect x="40" y="100" width="260" height="340" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="56" y="116" width="228" height="32" rx="4" fill="#c0392b"/>
+  <text x="170" y="138" font-size="14" font-weight="bold" text-anchor="middle" fill="white">Amazon S3 (US-EAST-1)</text>
+
+  <rect x="56" y="160" width="228" height="80" rx="4" fill="white" stroke="#e0b4b0"/>
+  <text x="170" y="182" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Індексна підсистема</text>
+  <text x="170" y="202" font-size="12" text-anchor="middle" fill="#1a1a1a">Команда зняла сервери білінгу,</text>
+  <text x="170" y="222" font-size="12" text-anchor="middle" fill="#1a1a1a">але помилково вимкнула індекс</text>
+
+  <rect x="56" y="252" width="228" height="80" rx="4" fill="white" stroke="#e0b4b0"/>
+  <text x="170" y="274" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Підсистема розміщення (Placement)</text>
+  <text x="170" y="294" font-size="12" text-anchor="middle" fill="#1a1a1a">Втрата кворуму та зв'язку</text>
+  <text x="170" y="314" font-size="12" text-anchor="middle" fill="#1a1a1a">зупинила запис нових об'єктів</text>
+
+  <rect x="56" y="344" width="228" height="80" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="170" y="366" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Наслідок для клієнтів</text>
+  <text x="170" y="386" font-size="12" text-anchor="middle" fill="#1a1a1a">Помилки 500 / 503 Internal Error</text>
+  <text x="170" y="406" font-size="12" text-anchor="middle" fill="#1a1a1a">на всі GET/PUT запити регіону</text>
+
+  <!-- Стрілки каскаду від S3 вправо -->
+  <line x1="300" y1="160" x2="370" y2="140" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="300" y1="210" x2="370" y2="210" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="300" y1="270" x2="370" y2="280" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="300" y1="330" x2="370" y2="350" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="300" y1="380" x2="370" y2="415" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Блок каскадних відмов інфраструктури -->
+  <!-- 1. EC2 -->
+  <rect x="380" y="100" width="260" height="66" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="396" y="124" font-size="13" font-weight="bold" fill="#1a1a1a">Amazon EC2 (Віртуальні машини)</text>
+  <text x="396" y="144" font-size="12" fill="#c0392b">Синхронна залежність: AMI-образи</text>
+  <text x="396" y="158" font-size="12" fill="#6b7280">Неможливо запустити новий інстанс</text>
+
+  <!-- 2. EBS -->
+  <rect x="380" y="176" width="260" height="66" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="396" y="200" font-size="13" font-weight="bold" fill="#1a1a1a">Amazon EBS (Блокові диски)</text>
+  <text x="396" y="220" font-size="12" fill="#c0392b">Синхронна залежність: снепшоти й метадані</text>
+  <text x="396" y="234" font-size="12" fill="#6b7280">Виділення нових томів паралізовано</text>
+
+  <!-- 3. Lambda -->
+  <rect x="380" y="252" width="260" height="66" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="396" y="276" font-size="13" font-weight="bold" fill="#1a1a1a">AWS Lambda (Безсерверні функції)</text>
+  <text x="396" y="296" font-size="12" fill="#c0392b">Синхронна залежність: архіви коду в S3</text>
+  <text x="396" y="310" font-size="12" fill="#6b7280">Холодний старт функцій падає з таймаутом</text>
+
+  <!-- 4. Management Console -->
+  <rect x="380" y="328" width="260" height="66" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="396" y="352" font-size="13" font-weight="bold" fill="#1a1a1a">AWS Management Console</text>
+  <text x="396" y="372" font-size="12" fill="#c0392b">Залежність: статичні бандли JS/CSS</text>
+  <text x="396" y="386" font-size="12" fill="#6b7280">Інженери не можуть увійти в вебінтерфейс</text>
+
+  <!-- 5. Зовнішні сервіси -->
+  <rect x="380" y="404" width="260" height="48" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="396" y="424" font-size="13" font-weight="bold" fill="#1a1a1a">Інтернет-сервіси (Slack, Trello...)</text>
+  <text x="396" y="442" font-size="12" fill="#c0392b">Каскадний збій тисяч SaaS-платформ світу</text>
+
+  <!-- Стрілки вправо до циклічної пастки моніторингу -->
+  <line x1="640" y1="133" x2="690" y2="180" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="640" y1="361" x2="690" y2="260" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Права колонка: Парадокс моніторингу та циклічна залежність -->
+  <rect x="700" y="100" width="230" height="340" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="716" y="116" width="198" height="32" rx="4" fill="#2457d6"/>
+  <text x="815" y="138" font-size="13" font-weight="bold" text-anchor="middle" fill="white">Циклічна залежність моніторингу</text>
+
+  <rect x="716" y="160" width="198" height="110" rx="4" fill="white" stroke="#b8ccf8"/>
+  <text x="815" y="182" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Service Health Dashboard</text>
+  <text x="815" y="202" font-size="12" text-anchor="middle" fill="#1a1a1a">Статусна панель показувала</text>
+  <text x="815" y="222" font-size="12" text-anchor="middle" fill="#27ae60">«Все працює нормально»,</text>
+  <text x="815" y="242" font-size="12" text-anchor="middle" fill="#1a1a1a">бо іконки аварії жили в S3</text>
+  <text x="815" y="258" font-size="12" text-anchor="middle" fill="#c0392b">(не могли завантажитися)</text>
+
+  <rect x="716" y="282" width="198" height="88" rx="4" fill="white" stroke="#b8ccf8"/>
+  <text x="815" y="304" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Інженерний глухий кут</text>
+  <text x="815" y="324" font-size="12" text-anchor="middle" fill="#1a1a1a">Команда сповіщала світ</text>
+  <text x="815" y="344" font-size="12" text-anchor="middle" fill="#1a1a1a">через зовнішній Twitter,</text>
+  <text x="815" y="360" font-size="12" text-anchor="middle" fill="#1a1a1a">бо власні канали лягли</text>
+
+  <rect x="716" y="380" width="198" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="815" y="400" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Архітектурний урок</text>
+  <text x="815" y="418" font-size="12" text-anchor="middle" fill="#1a1a1a">Моніторинг мусить бути автономним</text>
+</svg>
