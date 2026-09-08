@@ -615,8 +615,13 @@ async function algorithm(unit, ctx, o = {}) {
     if (article && !u.insert) {
       const total = words(fs.readFileSync(path.join(MF.ROOT, ctx.get("assembly").file), "utf8"));
       const needBasic = total > LOC.BANDS.basic[3] * BASIC_OVER || !!st.basic;
+      /* ⛔ ЛИШЕ З `empty` У `pending`, А НЕ БЕЗУМОВНО. Операції всіх одиниць лягають у
+         маніфест разом наприкінці, у порядку черги; при піднятті батчу базова стоїть у
+         черзі ПЕРЕД детальною (за іменем файла стану), і безумовний «pending» детальної
+         затирав щойно записаний «done» базової. Заміряно: три базові hw-motion з готовими
+         файлами лишились pending. */
       ops.push(needBasic
-        ? { op: "status", slug: u.slug, ver: "basic", status: "pending" }
+        ? { op: "status-if", slug: u.slug, ver: "basic", from: "empty", to: "pending" }
         : { op: "status-if", slug: u.slug, ver: "basic", from: "pending", to: "empty" });
       if (needBasic) ctx.enqueue([{ ...LOC.unitOf(u.book, u.slug, "basic", "базова"), parent: u.id }]);
     }
