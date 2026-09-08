@@ -78,14 +78,27 @@ function args(argv) {
 
 async function main(argv) {
   const o = args(argv);
-  if (!o.id && (!o.book || (!o.topic && !o.topics)))
-    throw new Error("потрібно --book <книга> --topic <тема>, або --id <хеш> для підняття");
+  const rawAddrs = o.addrs ? o.addrs.split(",") : (o.addr ? o.addr.split(",") : []);
+  const addrList = rawAddrs.map((s) => s.trim()).filter(Boolean);
+  if (!o.id && !addrList.length && (!o.book || (!o.topic && !o.topics)))
+    throw new Error("потрібно --book <книга> --topic <тема>, --addr <адреса,…>, або --id <хеш> для підняття");
 
   const rawTopics = o.topics ? o.topics.split(",") : (o.topic ? o.topic.split(",") : []);
   const topicList = rawTopics.map((s) => s.trim()).filter(Boolean);
-  const units = o.book && topicList.length
-    ? topicList.map((t) => LOC.unitOf(o.book, t, o.type || "article"))
-    : [];
+  let units = [];
+  if (addrList.length) {
+    const U = require("../local/lib/units.js");
+    const got = U.byAddrs(addrList);
+    if (got.missing.length) throw new Error(`не знайдено адрес: ${got.missing.join(", ")}`);
+    /* Адреса версії — це тип «article»/«basic» зі своєю версією й файлом теми, а не тип
+       на ім'я «detailed»: такого типу правил немає, і файл звався б `detailed.md`. Вставка
+       за адресою опису не має — його дає лише етап 2; ціль складеться з самої назви. */
+    units = got.units.map((u) => u.part === "detailed" ? LOC.unitOf(u.book, u.slug)
+      : u.part === "basic" ? LOC.unitOf(u.book, u.slug, "basic", "базова")
+        : LOC.unitOf(u.book, u.slug, u.insert || u.part, "", u.part));
+  } else if (o.book && topicList.length) {
+    units = topicList.map((t) => LOC.unitOf(o.book, t, o.type || "article"));
+  }
   const ask = loadAsk(o.ask);
 
   const say = (e) => {
