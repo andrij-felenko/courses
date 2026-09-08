@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Знецінення резервування через фактор спільних відмов (β-модель)</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Навіть 2–5% спільних збоїв (DNS, дата-центр, мережа) нейтралізують виграш від другого каналу</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Координатний графік -->
+  <rect x="24" y="70" width="580" height="388" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="40" y="94" font-size="14" font-weight="700" fill="#1a1a1a">Деградація доступності дубльованої системи</text>
+  <text x="40" y="112" font-size="12" fill="#6b7280">Сімейство кривих залежно від частки корельованих збоїв β</text>
+
+  <!-- Легенда кривих -->
+  <rect x="330" y="82" width="258" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <line x1="340" y1="100" x2="356" y2="100" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="348" cy="100" r="3" fill="#2457d6"/>
+  <text x="362" y="104" font-size="11" font-weight="700" fill="#2457d6">2×99.9%</text>
+
+  <line x1="418" y1="100" x2="434" y2="100" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="426" cy="100" r="3" fill="#27ae60"/>
+  <text x="440" y="104" font-size="11" font-weight="700" fill="#27ae60">2×99.5%</text>
+
+  <line x1="496" y1="100" x2="512" y2="100" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="504" cy="100" r="3" fill="#c0392b"/>
+  <text x="518" y="104" font-size="11" font-weight="700" fill="#c0392b">2×99.0%</text>
+
+  <!-- Базові лінії графіка -->
+  <line x1="75" y1="370" x2="555" y2="370" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Засічки осі Y (ліворуч) -->
+  <line x1="70" y1="140" x2="75" y2="140" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="70" y1="217" x2="75" y2="217" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="70" y1="293" x2="75" y2="293" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="70" y1="370" x2="75" y2="370" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Мітки осі Y (доступність A_sys ліворуч) -->
+  <text x="66" y="144" text-anchor="end" font-size="11" font-weight="700" fill="#1a1a1a">100.0%</text>
+  <text x="66" y="221" text-anchor="end" font-size="11" fill="#6b7280">99.95%</text>
+  <text x="66" y="297" text-anchor="end" font-size="11" fill="#6b7280">99.90%</text>
+  <text x="66" y="374" text-anchor="end" font-size="11" fill="#6b7280">99.85%</text>
+
+  <!-- Засічки осі Y (простій праворуч) -->
+  <line x1="555" y1="140" x2="560" y2="140" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="555" y1="217" x2="560" y2="217" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="555" y1="293" x2="560" y2="293" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="555" y1="370" x2="560" y2="370" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Мітки осі Y (простій праворуч) -->
+  <text x="566" y="144" font-size="11" fill="#6b7280">0 хв/міс</text>
+  <text x="566" y="221" font-size="11" fill="#6b7280">22 хв</text>
+  <text x="566" y="297" font-size="11" fill="#6b7280">43 хв</text>
+  <text x="566" y="374" font-size="11" fill="#6b7280">65 хв</text>
+
+  <!-- Еталонна лінія одиночного сервісу 99.9% (без дублювання) -->
+  <line x1="75" y1="293" x2="555" y2="293" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="80" y="287" font-size="10" fill="#6b7280">Одиночний сервіс 99.9% (без резерву, простій 43.2 хв)</text>
+
+  <!-- Крива 1: 2 x 99.9% (Синя) -->
+  <polyline points="95,140 185,143 275,146 365,149 455,152 545,155" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="95" cy="140" r="4" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="185" cy="143" r="3.5" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="275" cy="146" r="3.5" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="365" cy="149" r="3.5" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="455" cy="152" r="3.5" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="545" cy="155" r="4" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Крива 2: 2 x 99.5% (Зелена) -->
+  <polyline points="95,144 185,159 275,174 365,189 455,205 545,220" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="95" cy="144" r="4" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="185" cy="159" r="3.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="275" cy="174" r="3.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="365" cy="189" r="3.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="455" cy="205" r="3.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="545" cy="220" r="4" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Крива 3: 2 x 99.0% (Червона) -->
+  <polyline points="95,155 185,185 275,215 365,246 455,276 545,306" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="95" cy="155" r="4" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="185" cy="185" r="3.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="275" cy="215" r="3.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="365" cy="246" r="3.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="455" cy="276" r="3.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="545" cy="306" r="4" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Точка перетину з одиночним сервісом (N=2 гірше за N=1 при β > 8.5%) -->
+  <circle cx="508" cy="293" r="5" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+  <rect x="360" y="318" width="186" height="34" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="453" y="332" text-anchor="middle" font-size="10" font-weight="700" fill="#c0392b">Точка інверсії (β ≈ 8.5%):</text>
+  <text x="453" y="346" text-anchor="middle" font-size="10" fill="#c0392b">2×99.0% стає ГІРШИМ за 1×99.9%</text>
+
+  <!-- Засічки осі X -->
+  <line x1="95" y1="370" x2="95" y2="375" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="185" y1="370" x2="185" y2="375" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="275" y1="370" x2="275" y2="375" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="365" y1="370" x2="365" y2="375" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="455" y1="370" x2="455" y2="375" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="545" y1="370" x2="545" y2="375" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Підписи значень осі X -->
+  <text x="95" y="388" text-anchor="middle" font-size="11" font-weight="700" fill="#27ae60">0.00 (0%)</text>
+  <text x="185" y="388" text-anchor="middle" font-size="11" fill="#6b7280">0.02 (2%)</text>
+  <text x="275" y="388" text-anchor="middle" font-size="11" fill="#6b7280">0.04 (4%)</text>
+  <text x="365" y="388" text-anchor="middle" font-size="11" fill="#6b7280">0.06 (6%)</text>
+  <text x="455" y="388" text-anchor="middle" font-size="11" fill="#6b7280">0.08 (8%)</text>
+  <text x="545" y="388" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">0.10 (10%)</text>
+
+  <!-- Назва осі X -->
+  <text x="320" y="410" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Частка спільних відмов β (Common Cause Factor)</text>
+
+  <!-- Пояснювальний бейдж внизу графіка -->
+  <rect x="40" y="422" width="548" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="314" y="439" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">Чим вищий β-фактор, тим швидше надлишковий канал перетворюється на фікцію</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Архітектурні висновки -->
+  <rect x="620" y="70" width="316" height="388" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="636" y="94" font-size="14" font-weight="700" fill="#1a1a1a">Модель β-фактора Флемінґа</text>
+  <text x="636" y="112" font-size="12" fill="#6b7280">Анатомія корельованих збоїв (CCF)</text>
+
+  <!-- Картка 1: Формула недоступності -->
+  <rect x="636" y="126" width="284" height="88" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="648" y="146" font-size="13" font-weight="700" fill="#2457d6">Рівняння дубльованої системи</text>
+  <text x="648" y="167" font-size="12" font-weight="700" fill="#1a1a1a">U_sys = β · U₀ + (1 - β)² · U₀²</text>
+  <text x="648" y="187" font-size="11" fill="#6b7280">Доданок β·U₀ лінійний і швидко домінує</text>
+  <text x="648" y="202" font-size="11" fill="#6b7280">над квадратичним незалежним добутком</text>
+
+  <!-- Картка 2: Ефект прихованої залежності -->
+  <rect x="636" y="224" width="284" height="106" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="648" y="244" font-size="13" font-weight="700" fill="#c0392b">Ефект прихованої залежності</text>
+  <text x="648" y="265" font-size="11" fill="#1a1a1a">· При β = 0: простій 2.6 с/міс (ідеал)</text>
+  <text x="648" y="283" font-size="11" fill="#1a1a1a">· При β = 0.02: простій 54 с (у 20 разів!)</text>
+  <text x="648" y="301" font-size="11" font-weight="700" fill="#c0392b">· При β = 0.10: простій 4.3 хв (у 100 разів!)</text>
+  <text x="648" y="320" font-size="11" font-weight="700" fill="#c0392b">99% надійності з'їдає спільна причина</text>
+
+  <!-- Картка 3: Джерела спільних збоїв -->
+  <rect x="636" y="340" width="284" height="106" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="648" y="360" font-size="13" font-weight="700" fill="#c0392b">Джерела спільних збоїв (CCF)</text>
+  <text x="648" y="380" font-size="11" fill="#1a1a1a">· Спільний хмарний регіон (us-east-1)</text>
+  <text x="648" y="398" font-size="11" fill="#1a1a1a">· Спільний DNS (Cloudflare / Route53)</text>
+  <text x="648" y="416" font-size="11" fill="#1a1a1a">· Однаковий клієнтський SDK або bug</text>
+  <text x="648" y="434" font-size="11" font-weight="700" fill="#c0392b">Без диверсифікації дубль не рятує</text>
+</svg>

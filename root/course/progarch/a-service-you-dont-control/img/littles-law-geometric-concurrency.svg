@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-axis" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red-start" markerWidth="7" markerHeight="7" refX="1" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L1,3.5 L7,6 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-end" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L6,3.5 L0,6 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="7" markerHeight="7" refX="1" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L1,3.5 L7,6 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-end" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L6,3.5 L0,6 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Геометричне виведення закону Літтла: інтегральні криві A(t) та D(t)</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Вертикальний переріз дає одночасність L(t), горизонтальний — затримку W(t), а площа — сумарний час утримання воркерів</text>
+
+  <!-- ==================== ЛІВА ЧАСТИНА: ГРАФІК A(t) І D(t) ==================== -->
+  <rect x="24" y="74" width="580" height="426" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Затінена площа між кривими A(t) та D(t) -->
+  <!-- A(t) йде: (90,360) -> (170,300) -> (270,230) -> (380,165) -> (490,120) -> (540,105) -->
+  <!-- D(t) йде: (150,360) -> (230,310) -> (330,245) -> (430,195) -> (520,150) -> (540,140) -->
+  <path d="M 90,360 L 170,300 L 270,230 L 380,165 L 490,120 L 540,105 L 540,140 L 520,150 L 430,195 L 330,245 L 230,310 L 150,360 Z" fill="#eaf0fd"/>
+
+  <!-- Сітка графіка (пунктирні напрямні) -->
+  <line x1="90" y1="300" x2="550" y2="300" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="90" y1="240" x2="550" y2="240" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="90" y1="180" x2="550" y2="180" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="90" y1="120" x2="550" y2="120" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Осі координат -->
+  <!-- Вісь X (Час t) -->
+  <line x1="85" y1="360" x2="565" y2="360" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-axis)"/>
+  <text x="560" y="380" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Час t</text>
+
+  <!-- Вісь Y (Кількість запитів N) -->
+  <line x1="90" y1="365" x2="90" y2="92" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-axis)"/>
+  <text x="86" y="86" text-anchor="start" font-size="12" font-weight="700" fill="#1a1a1a">Кількість N(t)</text>
+
+  <!-- Початок координат 0 -->
+  <text x="80" y="375" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <!-- Крива надходження A(t) (синя) -->
+  <path d="M 90,360 L 170,300 L 270,230 L 380,165 L 490,120 L 540,105" fill="none" stroke="#2457d6" stroke-width="2.6"/>
+  <circle cx="170" cy="300" r="3.5" fill="#2457d6"/>
+  <circle cx="270" cy="230" r="3.5" fill="#2457d6"/>
+  <circle cx="380" cy="165" r="3.5" fill="#2457d6"/>
+  <circle cx="490" cy="120" r="3.5" fill="#2457d6"/>
+
+  <!-- Крива вибуття D(t) (зелена) -->
+  <path d="M 150,360 L 230,310 L 330,245 L 430,195 L 520,150 L 540,140" fill="none" stroke="#27ae60" stroke-width="2.6"/>
+  <circle cx="150" cy="360" r="3.5" fill="#27ae60"/>
+  <circle cx="230" cy="310" r="3.5" fill="#27ae60"/>
+  <circle cx="330" cy="245" r="3.5" fill="#27ae60"/>
+  <circle cx="430" cy="195" r="3.5" fill="#27ae60"/>
+  <circle cx="520" cy="150" r="3.5" fill="#27ae60"/>
+
+  <!-- Написи кривих на графіку -->
+  <text x="475" y="102" font-size="13" font-weight="700" fill="#2457d6">A(t) — надходження</text>
+  <text x="455" y="215" font-size="13" font-weight="700" fill="#27ae60">D(t) — вибуття</text>
+
+  <!-- Підпис площі всередині затіненої зони -->
+  <rect x="235" y="272" width="165" height="24" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="317" y="288" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Площа = ∫ L(t) dt = ∑ Wᵢ</text>
+
+  <!-- ==================== ПЕРЕРІЗИ: ВЕРТИКАЛЬНИЙ ТА ГОРИЗОНТАЛЬНИЙ ==================== -->
+
+  <!-- 1. ВЕРТИКАЛЬНИЙ ПЕРЕРІЗ при t_k = 370 -->
+  <!-- A(370) ≈ 171, D(370) ≈ 227 -->
+  <line x1="370" y1="360" x2="370" y2="171" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2,2"/>
+  <text x="370" y="376" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">tₖ</text>
+
+  <!-- Стрілка L(t_k) -->
+  <line x1="370" y1="174" x2="370" y2="224" stroke="#c0392b" stroke-width="2.2" marker-start="url(#arr-red-start)" marker-end="url(#arr-red-end)"/>
+  <rect x="376" y="187" width="94" height="20" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="423" y="201" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">L(tₖ) запитів</text>
+
+  <!-- 2. ГОРИЗОНТАЛЬНИЙ ПЕРЕРІЗ при рівні i (y=240) -->
+  <!-- A перетинає y=240 при x=256, D перетинає y=240 при x=340 -->
+  <line x1="90" y1="240" x2="256" y2="240" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="2,2"/>
+  <text x="82" y="244" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">i-й</text>
+
+  <!-- Стрілка W_i -->
+  <line x1="259" y1="240" x2="337" y2="240" stroke="#27ae60" stroke-width="2.2" marker-start="url(#arr-green-start)" marker-end="url(#arr-green-end)"/>
+  <rect x="268" y="214" width="60" height="20" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="298" y="228" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Wᵢ с</text>
+
+  <!-- Позначення кінця спостереження T на осі X -->
+  <line x1="530" y1="360" x2="530" y2="366" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="530" y="380" text-anchor="middle" font-size="12" fill="#6b7280">T</text>
+
+  <!-- Нижня анотація під графіком -->
+  <rect x="36" y="412" width="556" height="74" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="50" y="432" font-size="12" font-weight="700" fill="#1a1a1a">Геометричний баланс черги:</text>
+  <text x="50" y="450" font-size="12" fill="#1a1a1a">· Вертикальний розрив L(t) = A(t) - D(t) показує миттєве число зайнятих потоків</text>
+  <text x="50" y="468" font-size="12" fill="#6b7280">· Горизонтальний розрив Wᵢ = t_вих - t_вх фіксує повну затримку i-го запиту</text>
+
+  <!-- ==================== ПРАВА ЧАСТИНА: МАТЕМАТИЧНІ ПАНЕЛІ ==================== -->
+
+  <!-- Панель 1: Вертикальний зріз L(t) -->
+  <rect x="620" y="74" width="316" height="130" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="632" y="86" width="150" height="22" rx="4" fill="#c0392b"/>
+  <text x="707" y="101" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ВЕРТИКАЛЬНИЙ ЗРІЗ</text>
+  <text x="790" y="102" font-size="13" font-weight="700" fill="#c0392b">L(t) = A(t) - D(t)</text>
+
+  <rect x="632" y="116" width="292" height="76" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="644" y="136" font-size="12" font-weight="700" fill="#1a1a1a">Кількість паралельних запитів</text>
+  <text x="644" y="154" font-size="12" fill="#1a1a1a">У моделі thread-per-request — це потоки,</text>
+  <text x="644" y="172" font-size="12" fill="#c0392b">що зависли в очікуванні сокета провайдера</text>
+
+  <!-- Панель 2: Горизонтальний зріз W(t) -->
+  <rect x="620" y="218" width="316" height="130" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="632" y="230" width="160" height="22" rx="4" fill="#27ae60"/>
+  <text x="712" y="245" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ГОРИЗОНТАЛЬНИЙ ЗРІЗ</text>
+  <text x="800" y="246" font-size="13" font-weight="700" fill="#27ae60">Wᵢ = t_вих - t_вх</text>
+
+  <rect x="632" y="260" width="292" height="76" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="644" y="280" font-size="12" font-weight="700" fill="#1a1a1a">Тривалість обробки запиту</text>
+  <text x="644" y="298" font-size="12" fill="#1a1a1a">Повний час перебування в системі:</text>
+  <text x="644" y="316" font-size="12" fill="#27ae60">включає час черги та мережеву затримку</text>
+
+  <!-- Панель 3: Тотожність площ і закон Літтла -->
+  <rect x="620" y="362" width="316" height="138" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="632" y="374" width="150" height="22" rx="4" fill="#2457d6"/>
+  <text x="707" y="389" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ТОТОЖНІСТЬ ПЛОЩ</text>
+  <text x="790" y="390" font-size="13" font-weight="700" fill="#2457d6">L = λ · W</text>
+
+  <rect x="632" y="404" width="292" height="84" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="644" y="424" font-size="12" font-weight="700" fill="#2457d6">Площа = L̄ · T = N · W̄</text>
+  <text x="644" y="442" font-size="12" fill="#1a1a1a">Ділення на T дає інваріант: L̄ = (N/T) · W̄</text>
+  <text x="644" y="460" font-size="12" fill="#1a1a1a">При зростанні W у K разів, L росте в K разів</text>
+  <text x="644" y="478" font-size="12" fill="#c0392b">Зависання зовнішнього API блокує пул!</text>
+
+</svg>

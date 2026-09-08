@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Дилема ненадійного каналу: таймаут і подвійне списання</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Обрив зв'язку на зворотному шляху перетворює наївний ретрай клієнта на катастрофічну повторну мутацію</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Діаграма послідовності збою -->
+  <rect x="24" y="70" width="600" height="388" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="40" y="94" font-size="14" font-weight="700" fill="#1a1a1a">Хронологія збою: втрата відповіді та наївний ретрай</text>
+  <text x="40" y="112" font-size="12" fill="#6b7280">Взаємодія клієнта та сервера без ключа ідемпотентності (Idempotency-Key)</text>
+
+  <!-- Шапки ліній життя (Actors) -->
+  <!-- Клієнт -->
+  <rect x="65" y="126" width="130" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="130" y="146" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Клієнт (Магазин)</text>
+
+  <!-- Сервер -->
+  <rect x="415" y="126" width="130" height="32" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="480" y="146" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Платіжний сервер</text>
+
+  <!-- Вертикальні лінії життя (розбиті на сегменти, щоб не різати текст) -->
+  <!-- Лінія клієнта (x=130) -->
+  <line x1="130" y1="158" x2="130" y2="252" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="130" y1="292" x2="130" y2="408" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Лінія сервера (x=480) -->
+  <line x1="480" y1="158" x2="480" y2="198" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="480" y1="236" x2="480" y2="333" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="480" y1="375" x2="480" y2="408" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- КРОК 1: Первинний запит -->
+  <line x1="130" y1="175" x2="472" y2="200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="305" y="170" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">1. Спроба 1: POST /charge ($100)</text>
+
+  <!-- Стан сервера 1: Успішне списання $100 -->
+  <rect x="474" y="198" width="12" height="38" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="495" y="196" width="115" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="552" y="213" text-anchor="middle" font-size="11" font-weight="700" fill="#27ae60">Платіж №1: $100</text>
+  <text x="552" y="229" text-anchor="middle" font-size="11" fill="#1a1a1a">Списано з картки</text>
+
+  <!-- КРОК 2: Обрив зворотної відповіді -->
+  <line x1="480" y1="236" x2="322" y2="250" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <circle cx="310" cy="250" r="12" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="303" y1="243" x2="317" y2="257" stroke="#c0392b" stroke-width="2"/>
+  <line x1="317" y1="243" x2="303" y2="257" stroke="#c0392b" stroke-width="2"/>
+  <text x="310" y="278" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">2. Обрив зв'язку: HTTP 200 втрачено!</text>
+
+  <!-- Стан клієнта: Таймаут і невизначеність -->
+  <rect x="60" y="254" width="140" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="130" y="270" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">Socket Timeout</text>
+  <text x="130" y="285" text-anchor="middle" font-size="11" fill="#1a1a1a">Стан платежу невідомий</text>
+
+  <!-- КРОК 3: Наївний повтор без ключа -->
+  <line x1="130" y1="310" x2="472" y2="335" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arr-red)"/>
+  <text x="305" y="304" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">3. Наївний ретрай: POST /charge ($100)</text>
+
+  <!-- Стан сервера 2: Катастрофічне повторне списання -->
+  <rect x="474" y="333" width="12" height="42" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="495" y="333" width="115" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="552" y="350" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">Платіж №2: $100</text>
+  <text x="552" y="366" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">РАЗОМ: $200!</text>
+
+  <!-- КРОК 4: Відповідь на другий платіж -->
+  <line x1="480" y1="375" x2="138" y2="395" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="305" y="370" text-anchor="middle" font-size="11" fill="#2457d6">4. HTTP 200 OK (Квитанція на транзакцію №2)</text>
+
+  <!-- Підсумковий бейдж катастрофи -->
+  <rect x="40" y="418" width="568" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="324" y="436" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">Катастрофа: подвійне списання $200 через нездатність розрізнити збій мережі</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Архітектурний розбір -->
+  <rect x="640" y="70" width="296" height="388" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="656" y="94" font-size="14" font-weight="700" fill="#1a1a1a">Анатомія мережевої дилеми</text>
+  <text x="656" y="112" font-size="12" fill="#6b7280">Чому ретраї небезпечні без ідемпотентності</text>
+
+  <!-- Картка 1: Дилема двох генералів -->
+  <rect x="656" y="126" width="264" height="96" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="668" y="146" font-size="13" font-weight="700" fill="#c0392b">Дилема двох генералів</text>
+  <text x="668" y="166" font-size="11" fill="#1a1a1a">При таймауті клієнт не знає, де збій:</text>
+  <text x="668" y="184" font-size="11" fill="#6b7280">· Запит НЕ дійшов (гроші не списано)</text>
+  <text x="668" y="202" font-size="11" font-weight="700" fill="#c0392b">· Відповідь зникла (гроші списано!)</text>
+
+  <!-- Картка 2: Ціна наївного ретраю -->
+  <rect x="656" y="232" width="264" height="96" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="668" y="252" font-size="13" font-weight="700" fill="#c0392b">Ціна наївного ретраю</text>
+  <text x="668" y="272" font-size="11" fill="#1a1a1a">· Подвійне списання з рахунку клієнта</text>
+  <text x="668" y="290" font-size="11" fill="#1a1a1a">· Чарджбеки, скарги та штрафи банків</text>
+  <text x="668" y="308" font-size="11" font-weight="700" fill="#c0392b">· Розходження фінансових балансів</text>
+
+  <!-- Картка 3: Патерн Idempotency-Key -->
+  <rect x="656" y="338" width="264" height="108" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="668" y="358" font-size="13" font-weight="700" fill="#27ae60">Розв'язок: Idempotency-Key</text>
+  <text x="668" y="378" font-size="11" fill="#1a1a1a">· Клієнт передає унікальний UUID токен</text>
+  <text x="668" y="396" font-size="11" fill="#1a1a1a">· Сервер кешує результат першої спроби</text>
+  <text x="668" y="414" font-size="11" font-weight="700" fill="#27ae60">· Повтор повертає збережену квитанцію</text>
+  <text x="668" y="432" font-size="11" fill="#27ae60">без створення повторної мутації!</text>
+</svg>

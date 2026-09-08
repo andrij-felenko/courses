@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Блок-схема надійності (RBD): комбінована послідовно-паралельна топологія</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Послідовні ланки перемножують доступність, а паралельне резервування перемножує ймовірності відмови</text>
+
+  <!-- ==================== ВЕРХНЯ ЧАСТИНА: СХЕМА RBD ==================== -->
+
+  <!-- Велика панель контуру RBD -->
+  <rect x="24" y="74" width="912" height="268" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Вхідний термінал -->
+  <circle cx="50" cy="205" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="50" y="209" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">IN</text>
+  <text x="50" y="235" text-anchor="middle" font-size="12" fill="#6b7280">Вхід</text>
+
+  <!-- З'єднувач IN -> Вхідний шлюз -->
+  <line x1="64" y1="205" x2="86" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 1: API Gateway (послідовний) -->
+  <rect x="88" y="165" width="124" height="80" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="96" y="173" width="108" height="20" rx="4" fill="#eaf0fd"/>
+  <text x="150" y="187" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">API-шлюз</text>
+  <text x="150" y="211" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">A₁ = 99.99%</text>
+  <text x="150" y="231" text-anchor="middle" font-size="12" fill="#6b7280">U₁ = 0.0001</text>
+
+  <!-- З'єднувач Блок 1 -> Блок 2 -->
+  <line x1="212" y1="205" x2="236" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 2: Сервіс замовлень (послідовний) -->
+  <rect x="238" y="165" width="134" height="80" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="246" y="173" width="118" height="20" rx="4" fill="#eaf0fd"/>
+  <text x="305" y="187" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Ядро системи</text>
+  <text x="305" y="211" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">A₂ = 99.95%</text>
+  <text x="305" y="231" text-anchor="middle" font-size="12" fill="#6b7280">U₂ = 0.0005</text>
+
+  <!-- З'єднувач Блок 2 -> Розгалуження паралельної підсистеми -->
+  <line x1="372" y1="205" x2="402" y2="205" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- ПАРАЛЕЛЬНА ПІДСИСТЕМА: Контур резервування -->
+  <rect x="406" y="88" width="310" height="236" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="561" y="106" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">ПАРАЛЕЛЬНЕ РЕЗЕРВУВАННЯ (1 з 2)</text>
+
+  <!-- Точка розгалуження -->
+  <circle cx="402" cy="205" r="4" fill="#2457d6"/>
+  <!-- Лінії розгалуження на гілки -->
+  <path d="M 402,205 L 420,205 L 420,150 L 438,150" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 402,205 L 420,205 L 420,260 L 438,260" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Гілка 1: Основний провайдер (Шлюз A) -->
+  <rect x="440" y="118" width="230" height="64" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="555" y="138" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Основний шлюз (Провайдер A)</text>
+  <text x="555" y="156" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">A_p1 = 99.00%</text>
+  <text x="555" y="173" text-anchor="middle" font-size="12" fill="#c0392b">U_p1 = 1 - A_p1 = 0.0100 (1%)</text>
+
+  <!-- Гілка 2: Резервний провайдер (Шлюз B) -->
+  <rect x="440" y="228" width="230" height="64" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="555" y="248" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Резервний шлюз (Провайдер B)</text>
+  <text x="555" y="266" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">A_p2 = 99.00%</text>
+  <text x="555" y="283" text-anchor="middle" font-size="12" fill="#2457d6">U_p2 = 1 - A_p2 = 0.0100 (1%)</text>
+
+  <!-- Лінії зведення гілок -->
+  <path d="M 670,150 L 690,150 L 690,205 L 718,205" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 670,260 L 690,260 L 690,205 L 718,205" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <!-- Точка зведення -->
+  <circle cx="720" cy="205" r="4" fill="#27ae60"/>
+
+  <!-- Формула паралельного контуру -->
+  <text x="561" y="310" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">A_шлюзів = 1 - (U_p1 · U_p2) = 1 - 0.0001 = 99.99%</text>
+
+  <!-- З'єднувач Паралельна підсистема -> Блок 3 -->
+  <line x1="722" y1="205" x2="746" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 3: База даних (послідовний) -->
+  <rect x="748" y="165" width="124" height="80" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="756" y="173" width="108" height="20" rx="4" fill="#eaf0fd"/>
+  <text x="810" y="187" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">База даних</text>
+  <text x="810" y="211" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">A₃ = 99.99%</text>
+  <text x="810" y="231" text-anchor="middle" font-size="12" fill="#6b7280">U₃ = 0.0001</text>
+
+  <!-- З'єднувач Блок 3 -> OUT -->
+  <line x1="872" y1="205" x2="894" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Вихідний термінал -->
+  <circle cx="908" cy="205" r="14" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="908" y="209" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">OUT</text>
+  <text x="908" y="235" text-anchor="middle" font-size="12" fill="#27ae60">Успіх</text>
+
+  <!-- ==================== НИЖНЯ ЧАСТИНА: ПОРІВНЯЛЬНИЙ АНАЛІЗ ==================== -->
+
+  <!-- Ліва картка: Без резервування -->
+  <rect x="24" y="356" width="446" height="144" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="36" y="366" width="180" height="22" rx="4" fill="#c0392b"/>
+  <text x="126" y="381" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ПОСЛІДОВНИЙ ЛАНЦЮГ</text>
+  <text x="226" y="382" font-size="12" font-weight="700" fill="#c0392b">Без резервування провайдера</text>
+
+  <rect x="36" y="396" width="422" height="92" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="48" y="416" font-size="12" fill="#1a1a1a">Формула: A_сумарне = A₁ · A₂ · A_p1 · A₃</text>
+  <text x="48" y="434" font-size="12" font-weight="700" fill="#c0392b">A = 0.9999 · 0.9995 · 0.9900 · 0.9999 = 98.93%</text>
+  <text x="48" y="452" font-size="12" fill="#6b7280">Допустимий простій: ~93.6 години на рік</text>
+  <text x="48" y="472" font-size="12" fill="#c0392b">⚠ Слабкий зовнішній провайдер обвалив надійність усієї системи</text>
+
+  <!-- Права картка: З резервуванням -->
+  <rect x="490" y="356" width="446" height="144" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="502" y="366" width="180" height="22" rx="4" fill="#27ae60"/>
+  <text x="592" y="381" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">КОМБІНОВАНА ТОПОЛОГІЯ</text>
+  <text x="692" y="382" font-size="12" font-weight="700" fill="#27ae60">Паралельне резервування шлюзів</text>
+
+  <rect x="502" y="396" width="422" height="92" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="514" y="416" font-size="12" fill="#1a1a1a">Формула: A_сумарне = A₁ · A₂ · [1 - (1 - A_p1)(1 - A_p2)] · A₃</text>
+  <text x="514" y="434" font-size="12" font-weight="700" fill="#27ae60">A = 0.9999 · 0.9995 · 0.9999 · 0.9999 = 99.92%</text>
+  <text x="514" y="452" font-size="12" fill="#6b7280">Допустимий простій: ~7.0 годин на рік</text>
+  <text x="514" y="472" font-size="12" fill="#27ae60">✓ Доступність зросла з 98.93% до 99.92% (виграш 86.6 год надійності)</text>
+
+</svg>

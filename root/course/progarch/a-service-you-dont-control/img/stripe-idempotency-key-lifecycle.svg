@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Життєвий цикл ключа ідемпотентності на сервері (Stripe Pattern)</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Атомарне блокування в польоті, перевірка зліпка (fingerprint) та replay збереженої відповіді в транзакції БД</text>
+
+  <!-- ==================== ВЕРХНЯ ЧАСТИНА: АРХІТЕКТУРНИЙ КОНТУР ==================== -->
+  <rect x="24" y="74" width="912" height="276" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- -------------------- КОЛОНКА 1: КЛІЄНТСЬКИЙ ЗАПИТ І ЗЛІПОК -------------------- -->
+  <!-- Блок 1A: HTTP-запит -->
+  <rect x="38" y="86" width="186" height="110" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="48" y="96" width="120" height="20" rx="3" fill="#2457d6"/>
+  <text x="108" y="110" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">1. ВХІДНИЙ ЗАПИТ</text>
+  <text x="48" y="132" font-size="12" font-weight="700" fill="#1a1a1a">POST /v1/charges</text>
+  <text x="48" y="150" font-size="12" font-weight="700" fill="#2457d6">Idempotency-Key: k_1</text>
+  <text x="48" y="168" font-size="12" fill="#6b7280">Body: {amount: 5000}</text>
+  <text x="48" y="186" font-size="12" fill="#6b7280">Генерується клієнтом</text>
+
+  <!-- Блок 1B: Обчислення зліпка (Fingerprint) -->
+  <rect x="38" y="208" width="186" height="74" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="48" y="218" width="110" height="18" rx="3" fill="#2457d6"/>
+  <text x="103" y="231" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ЗЛІПОК (HASH)</text>
+  <text x="48" y="254" font-size="12" font-weight="700" fill="#1a1a1a">SHA256(path + body)</text>
+  <text x="48" y="272" font-size="12" fill="#6b7280">Контроль незмінності</text>
+
+  <!-- Стрілка від Запиту до БД ідемпотентності -->
+  <line x1="224" y1="141" x2="256" y2="141" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- -------------------- КОЛОНКА 2: БАЗА ІДЕМПОТЕНТНОСТІ (ПЕРЕВІРКА І БЛОКУВАННЯ) -------------------- -->
+  <rect x="258" y="86" width="212" height="250" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="268" y="96" width="192" height="20" rx="3" fill="#1a1a1a"/>
+  <text x="364" y="110" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">2. БАЗА ІДЕМПОТЕНТНОСТІ</text>
+
+  <!-- 2A: Новий ключ -->
+  <rect x="268" y="124" width="192" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="276" y="142" font-size="12" font-weight="700" fill="#27ae60">Ключ новий (NEW)</text>
+  <text x="276" y="160" font-size="12" fill="#1a1a1a">status: 'started' (замок)</text>
+
+  <!-- 2B: Повторний запит (Replay) -->
+  <rect x="268" y="184" width="192" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="276" y="202" font-size="12" font-weight="700" fill="#2457d6">Ключ є + зліпок збігся</text>
+  <text x="276" y="220" font-size="12" fill="#1a1a1a">status: 'finished' (replay)</text>
+
+  <!-- 2C: Конфлікт або гонка -->
+  <rect x="268" y="244" width="192" height="82" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="276" y="262" font-size="12" font-weight="700" fill="#c0392b">Конфлікт або гонка:</text>
+  <text x="276" y="280" font-size="12" fill="#c0392b">· В польоті → 409 Conflict</text>
+  <text x="276" y="298" font-size="12" fill="#c0392b">· Інше тіло → 400 Bad Req</text>
+  <text x="276" y="316" font-size="12" fill="#6b7280">Блокує подвійні мутації</text>
+
+  <!-- Стрілка від Нового ключа до Транзакції -->
+  <line x1="460" y1="150" x2="492" y2="150" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Траєкторія ретраю від 2B в обхід транзакції -->
+  <line x1="460" y1="210" x2="477" y2="210" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="477" y1="210" x2="477" y2="286" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="477" y1="286" x2="492" y2="286" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- -------------------- КОЛОНКА 3: АТОМАРНА ТРАНЗАКЦІЯ ТА МУТАЦІЯ -------------------- -->
+  <rect x="494" y="86" width="212" height="150" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="504" y="96" width="192" height="20" rx="3" fill="#2457d6"/>
+  <text x="600" y="110" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">3. АТОМАРНА ТРАНЗАКЦІЯ</text>
+
+  <!-- 3A: Платіжний виклик -->
+  <rect x="504" y="122" width="192" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="512" y="139" font-size="12" font-weight="700" fill="#1a1a1a">Виклик платіжного API</text>
+  <text x="512" y="155" font-size="12" fill="#6b7280">Списання коштів з картки</text>
+
+  <!-- 3B: Фіксація в БД -->
+  <rect x="504" y="170" width="192" height="56" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="512" y="188" font-size="12" font-weight="700" fill="#27ae60">COMMIT у БД (атомарно):</text>
+  <text x="512" y="204" font-size="12" fill="#1a1a1a">status='finished', res=200</text>
+  <text x="512" y="218" font-size="12" fill="#6b7280">Збереження тіла відповіді</text>
+
+  <!-- 3C: Блок обходу мутації для Replay -->
+  <rect x="494" y="248" width="212" height="78" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <rect x="504" y="256" width="150" height="18" rx="3" fill="#2457d6"/>
+  <text x="579" y="269" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ОБХІД МУТАЦІЇ</text>
+  <text x="504" y="290" font-size="12" font-weight="700" fill="#2457d6">Платіж НЕ викликається</text>
+  <text x="504" y="306" font-size="12" fill="#1a1a1a">Читання збереженого JSON</text>
+  <text x="504" y="320" font-size="12" fill="#27ae60">✓ Захист від подвійного зняття</text>
+
+  <!-- Стрілка від Транзакції до Первинної відповіді -->
+  <line x1="706" y1="141" x2="728" y2="141" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Стрілка від Обходу до Replay відповіді -->
+  <line x1="706" y1="287" x2="728" y2="287" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- -------------------- КОЛОНКА 4: ВІДПОВІДІ КЛІЄНТУ -------------------- -->
+  <!-- 4A: Первинна відповідь -->
+  <rect x="730" y="86" width="194" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="740" y="96" width="130" height="20" rx="3" fill="#27ae60"/>
+  <text x="805" y="110" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">4A. ПЕРВИННИЙ OK</text>
+  <text x="740" y="132" font-size="12" font-weight="700" fill="#27ae60">HTTP 200 OK</text>
+  <text x="740" y="150" font-size="12" fill="#1a1a1a">Тіло: {charge_id: "ch_1"}</text>
+  <text x="740" y="168" font-size="12" fill="#6b7280">Свіжа транзакція</text>
+  <text x="740" y="186" font-size="12" fill="#27ae60">Гроші списано 1 раз</text>
+
+  <!-- 4B: Replay відповідь -->
+  <rect x="730" y="214" width="194" height="112" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="740" y="224" width="150" height="20" rx="3" fill="#2457d6"/>
+  <text x="815" y="238" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">4B. REPLAY ВІДПОВІДЬ</text>
+  <text x="740" y="260" font-size="12" font-weight="700" fill="#2457d6">HTTP 200 OK (з кешу БД)</text>
+  <text x="740" y="278" font-size="12" font-weight="700" fill="#2457d6">Idempotency-Replayed: true</text>
+  <text x="740" y="296" font-size="12" fill="#1a1a1a">Тіло ідентичне першому</text>
+  <text x="740" y="314" font-size="12" fill="#27ae60">✓ Без повторного списання</text>
+
+  <!-- ==================== НИЖНЯ ЧАСТИНА: ТРИ СТОВПИ ІДЕМПОТЕНТНОСТІ ==================== -->
+
+  <!-- Картка 1: Первинна мутація -->
+  <rect x="24" y="362" width="296" height="136" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="34" y="372" width="160" height="20" rx="3" fill="#2457d6"/>
+  <text x="114" y="386" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">1. ПЕРВИННА МУТАЦІЯ</text>
+  <text x="204" y="386" font-size="12" font-weight="700" fill="#2457d6">status: started</text>
+
+  <rect x="34" y="398" width="276" height="90" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="44" y="418" font-size="12" fill="#1a1a1a">· Свіжий ключ Idempotency-Key</text>
+  <text x="44" y="436" font-size="12" fill="#1a1a1a">· Атомарний замок 'started' у БД</text>
+  <text x="44" y="454" font-size="12" fill="#1a1a1a">· Виконання списання в банку</text>
+  <text x="44" y="472" font-size="12" fill="#2457d6">· Фіксація результату в finished</text>
+
+  <!-- Картка 2: Безпечний ретрай -->
+  <rect x="332" y="362" width="296" height="136" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="342" y="372" width="160" height="20" rx="3" fill="#27ae60"/>
+  <text x="422" y="386" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">2. БЕЗПЕЧНИЙ РЕТРАЙ</text>
+  <text x="512" y="386" font-size="12" font-weight="700" fill="#27ae60">Replay з БД</text>
+
+  <rect x="342" y="398" width="276" height="90" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="352" y="418" font-size="12" fill="#1a1a1a">· Мережевий збій на зворотному шляху</text>
+  <text x="352" y="436" font-size="12" fill="#1a1a1a">· Повтор запиту з тим самим ключем</text>
+  <text x="352" y="454" font-size="12" fill="#1a1a1a">· Сервер повертає кешовану відповідь</text>
+  <text x="352" y="472" font-size="12" fill="#27ae60">✓ Банк не викликається, гроші цілі</text>
+
+  <!-- Картка 3: Захист від гонок -->
+  <rect x="640" y="362" width="296" height="136" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="650" y="372" width="160" height="20" rx="3" fill="#c0392b"/>
+  <text x="730" y="386" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">3. ЗАХИСТ ВІД ГОНОК</text>
+  <text x="820" y="386" font-size="12" font-weight="700" fill="#c0392b">409 / 400 коди</text>
+
+  <rect x="650" y="398" width="276" height="90" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="660" y="418" font-size="12" fill="#1a1a1a">· Паралельний дубль у польоті → 409</text>
+  <text x="660" y="436" font-size="12" fill="#1a1a1a">· Підміна параметрів запиту → 400</text>
+  <text x="660" y="454" font-size="12" fill="#1a1a1a">· Замок у БД запобігає race condition</text>
+  <text x="660" y="472" font-size="12" font-weight="700" fill="#c0392b">⚠ Захист від подвійних списань</text>
+
+</svg>

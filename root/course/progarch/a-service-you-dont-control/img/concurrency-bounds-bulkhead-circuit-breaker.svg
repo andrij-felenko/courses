@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Стабілізація одночасності: Таймаут, Bulkhead та Circuit Breaker</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Три рубежі захисту закону Літтла (L = λW): обмеження затримки, квотування воркерів та швидка відмова</text>
+
+  <!-- КОЛОНКА 1: Жорсткий таймаут -->
+  <rect x="24" y="70" width="290" height="388" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка Колонки 1 -->
+  <rect x="36" y="82" width="266" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="169" y="105" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">1. Жорсткий таймаут</text>
+
+  <!-- Формула Колонки 1 -->
+  <rect x="36" y="126" width="266" height="72" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="145" font-size="11" fill="#6b7280">Обмеження стелі затримки W:</text>
+  <text x="48" y="165" font-size="13" font-weight="700" fill="#2457d6">L_max = λ · T_timeout</text>
+  <text x="48" y="183" font-size="11" fill="#1a1a1a">Гарантує: W ≤ T_to для всіх викликів</text>
+
+  <!-- Симуляція Колонки 1 -->
+  <rect x="36" y="206" width="266" height="126" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="224" font-size="11" font-weight="700" fill="#1a1a1a">Пул воркерів (λ = 100, T_to = 0.5 с):</text>
+
+  <!-- Смуга воркерів 1 -->
+  <rect x="48" y="234" width="60" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="78" y="252" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">50 (25%)</text>
+  <rect x="112" y="234" width="178" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="201" y="252" text-anchor="middle" font-size="11" font-weight="700" fill="#27ae60">150 вільних (75%)</text>
+
+  <text x="48" y="280" font-size="11" fill="#1a1a1a">· Стеля зайнятості: L_max = 50 потоків</text>
+  <text x="48" y="298" font-size="11" font-weight="700" fill="#27ae60">· 150 потоків врятовано для сервера</text>
+  <text x="48" y="316" font-size="11" fill="#6b7280">· Завислі сокети рвуться за 500 мс</text>
+
+  <!-- Результат Колонки 1 -->
+  <rect x="36" y="340" width="266" height="106" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="48" y="360" font-size="12" font-weight="700" fill="#2457d6">Архітектурний результат:</text>
+  <text x="48" y="379" font-size="11" fill="#1a1a1a">· Запобігає повному вичерпанню пулу</text>
+  <text x="48" y="397" font-size="11" fill="#1a1a1a">· Стабілізує обсяг незавершених дій</text>
+  <text x="48" y="417" font-size="11" font-weight="700" fill="#2457d6">Мінус: клієнт чекає повні 0.5 с</text>
+  <text x="48" y="433" font-size="11" fill="#6b7280">навіть якщо чужий сервіс уже впав</text>
+
+  <!-- КОЛОНКА 2: Перебірки (Bulkhead) -->
+  <rect x="335" y="70" width="290" height="388" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка Колонки 2 -->
+  <rect x="347" y="82" width="266" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="480" y="105" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">2. Перебірки (Bulkhead)</text>
+
+  <!-- Формула Колонки 2 -->
+  <rect x="347" y="126" width="266" height="72" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="359" y="145" font-size="11" fill="#6b7280">Фізичний розподіл ресурсів:</text>
+  <text x="359" y="165" font-size="13" font-weight="700" fill="#27ae60">C_pool = C_loc + C_ext</text>
+  <text x="359" y="183" font-size="11" fill="#1a1a1a">Ізоляція відмов: L_ext ≤ C_ext</text>
+
+  <!-- Симуляція Колонки 2 -->
+  <rect x="347" y="206" width="266" height="126" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="359" y="224" font-size="11" font-weight="700" fill="#1a1a1a">Квоти (C_ext = 30, C_loc = 170):</text>
+
+  <!-- Смуга воркерів 2 -->
+  <rect x="359" y="234" width="44" height="28" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="381" y="252" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">30</text>
+  <rect x="407" y="234" width="194" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="504" y="252" text-anchor="middle" font-size="11" font-weight="700" fill="#27ae60">170 локальних воркерів</text>
+
+  <text x="359" y="280" font-size="11" fill="#c0392b">· Чужий збій блокує лише квоту C_ext</text>
+  <text x="359" y="298" font-size="11" font-weight="700" fill="#27ae60">· 170 потоків 100% захищені перебіркою</text>
+  <text x="359" y="316" font-size="11" fill="#6b7280">· Локальні операції не деградують</text>
+
+  <!-- Результат Колонки 2 -->
+  <rect x="347" y="340" width="266" height="106" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="359" y="360" font-size="12" font-weight="700" fill="#27ae60">Архітектурний результат:</text>
+  <text x="359" y="379" font-size="11" fill="#1a1a1a">· Повна ізоляція домену відмов</text>
+  <text x="359" y="397" font-size="11" fill="#1a1a1a">· Швидкі ендпойнти не голодують</text>
+  <text x="359" y="417" font-size="11" font-weight="700" fill="#27ae60">Мінус: статичний розподіл пулу</text>
+  <text x="359" y="433" font-size="11" fill="#6b7280">невикористана квота не перерозподіляється</text>
+
+  <!-- КОЛОНКА 3: Circuit Breaker -->
+  <rect x="646" y="70" width="290" height="388" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка Колонки 3 -->
+  <rect x="658" y="82" width="266" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="791" y="105" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">3. Circuit Breaker</text>
+
+  <!-- Формула Колонки 3 -->
+  <rect x="658" y="126" width="266" height="72" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="670" y="145" font-size="11" fill="#6b7280">Миттєва відмова у стані OPEN:</text>
+  <text x="670" y="165" font-size="13" font-weight="700" fill="#c0392b">W → 0  ⟹  L = λ·W → 0</text>
+  <text x="670" y="183" font-size="11" fill="#1a1a1a">Обнулення затримки: швидкий Fail-Fast</text>
+
+  <!-- Симуляція Колонки 3 -->
+  <rect x="658" y="206" width="266" height="126" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="670" y="224" font-size="11" font-weight="700" fill="#1a1a1a">Стан OPEN: сокети відімкнено:</text>
+
+  <!-- Смуга воркерів 3 -->
+  <rect x="670" y="234" width="242" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="791" y="252" text-anchor="middle" font-size="11" font-weight="700" fill="#27ae60">200 воркерів вільні (100%)</text>
+
+  <text x="670" y="280" font-size="11" fill="#c0392b">· Стан OPEN: виклики не йдуть у мережу</text>
+  <text x="670" y="298" font-size="11" font-weight="700" fill="#27ae60">· Затримка W ≈ 0.1 мс (L = 100·0.0001 ≈ 0)</text>
+  <text x="670" y="316" font-size="11" fill="#6b7280">· Повертає 503 або Fallback миттєво</text>
+
+  <!-- Результат Колонки 3 -->
+  <rect x="658" y="340" width="266" height="106" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="670" y="360" font-size="12" font-weight="700" fill="#c0392b">Архітектурний результат:</text>
+  <text x="670" y="379" font-size="11" fill="#1a1a1a">· Миттєва реанімація вебсервера</text>
+  <text x="670" y="397" font-size="11" fill="#1a1a1a">· Знімає навантаження з чужої служби</text>
+  <text x="670" y="417" font-size="11" font-weight="700" fill="#c0392b">Плюс: автоперевірка у Half-Open</text>
+  <text x="670" y="433" font-size="11" fill="#6b7280">для автоматичного замикання контуру</text>
+</svg>

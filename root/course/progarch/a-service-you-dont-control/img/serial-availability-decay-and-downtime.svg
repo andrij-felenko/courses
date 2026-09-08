@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Деградація доступності та ріст простою в послідовному ланцюгу</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Перемноження доступностей (A = 0.999ᴺ) збільшує щомісячний простій від 43 хвилин до понад 7 годин</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Координатний графік -->
+  <rect x="24" y="70" width="580" height="388" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="40" y="94" font-size="14" font-weight="700" fill="#1a1a1a">Динаміка втрати надійності: N залежностей по 99.9%</text>
+  <text x="40" y="112" font-size="12" fill="#6b7280">Синхронні виклики: будь-який збій зупиняє весь ланцюг транзакції</text>
+
+  <!-- Легенда графіка -->
+  <rect x="360" y="82" width="228" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="372" y="94" width="12" height="12" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="390" y="104" font-size="11" font-weight="700" fill="#c0392b">Простій (год/міс)</text>
+  <line x1="486" y1="100" x2="506" y2="100" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="496" cy="100" r="3.5" fill="#2457d6"/>
+  <text x="514" y="104" font-size="11" font-weight="700" fill="#2457d6">SLA A_сумарна</text>
+
+  <!-- Горизонтальна базова лінія -->
+  <line x1="75" y1="370" x2="550" y2="370" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Засічки осі Y -->
+  <line x1="70" y1="150" x2="75" y2="150" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="70" y1="205" x2="75" y2="205" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="70" y1="260" x2="75" y2="260" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="70" y1="315" x2="75" y2="315" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Мітки осі Y (ліворуч) -->
+  <text x="66" y="154" text-anchor="end" font-size="11" fill="#6b7280">8 год</text>
+  <text x="66" y="209" text-anchor="end" font-size="11" fill="#6b7280">6 год</text>
+  <text x="66" y="264" text-anchor="end" font-size="11" fill="#6b7280">4 год</text>
+  <text x="66" y="319" text-anchor="end" font-size="11" fill="#6b7280">2 год</text>
+  <text x="66" y="374" text-anchor="end" font-size="11" fill="#6b7280">0 год</text>
+
+  <!-- Стовпчики простою для N = 1 .. 10 -->
+  <rect x="94" y="350" width="22" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="139" y="330" width="22" height="40" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="184" y="311" width="22" height="59" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="229" y="291" width="22" height="79" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="274" y="271" width="22" height="99" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="319" y="251" width="22" height="119" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="364" y="232" width="22" height="138" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="409" y="212" width="22" height="158" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="454" y="192" width="22" height="178" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="499" y="173" width="22" height="197" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+
+  <!-- Лінія спадання доступності A_total -->
+  <polyline points="105,350 150,330 195,311 240,291 285,271 330,251 375,232 420,212 465,192 510,173" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Точки на графіку -->
+  <circle cx="105" cy="350" r="4" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="150" cy="330" r="3.5" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="195" cy="311" r="3.5" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="240" cy="291" r="3.5" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="285" cy="271" r="4" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="330" cy="251" r="3.5" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="375" cy="232" r="3.5" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="420" cy="212" r="3.5" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="465" cy="192" r="3.5" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="510" cy="173" r="4" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Ключові числові плашки над точками N=1, N=5, N=10 -->
+  <!-- N=1 -->
+  <rect x="80" y="304" width="50" height="34" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="105" y="318" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">99.9%</text>
+  <text x="105" y="332" text-anchor="middle" font-size="10" fill="#c0392b">43 хв</text>
+
+  <!-- N=5 -->
+  <rect x="260" y="225" width="50" height="34" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="285" y="239" text-anchor="middle" font-size="11" font-weight="700" fill="#2457d6">99.5%</text>
+  <text x="285" y="253" text-anchor="middle" font-size="10" fill="#c0392b">3.6 год</text>
+
+  <!-- N=10 -->
+  <rect x="485" y="127" width="50" height="34" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="510" y="141" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">99.0%</text>
+  <text x="510" y="155" text-anchor="middle" font-size="10" fill="#c0392b">7.2 год</text>
+
+  <!-- Підписи значень N по осі X -->
+  <text x="105" y="388" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">1</text>
+  <text x="150" y="388" text-anchor="middle" font-size="12" fill="#6b7280">2</text>
+  <text x="195" y="388" text-anchor="middle" font-size="12" fill="#6b7280">3</text>
+  <text x="240" y="388" text-anchor="middle" font-size="12" fill="#6b7280">4</text>
+  <text x="285" y="388" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">5</text>
+  <text x="330" y="388" text-anchor="middle" font-size="12" fill="#6b7280">6</text>
+  <text x="375" y="388" text-anchor="middle" font-size="12" fill="#6b7280">7</text>
+  <text x="420" y="388" text-anchor="middle" font-size="12" fill="#6b7280">8</text>
+  <text x="465" y="388" text-anchor="middle" font-size="12" fill="#6b7280">9</text>
+  <text x="510" y="388" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">10</text>
+
+  <!-- Назва осі X -->
+  <text x="307" y="410" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Кількість послідовних залежностей у ланцюгу (N)</text>
+
+  <!-- Пояснювальний бейдж внизу графіка -->
+  <rect x="40" y="422" width="535" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="307" y="439" text-anchor="middle" font-size="11" font-weight="700" fill="#c0392b">Кожен новий синхронний виклик спалює частину вашого SLA та множить ризик простою</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Архітектурні висновки -->
+  <rect x="620" y="70" width="316" height="388" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="636" y="94" font-size="14" font-weight="700" fill="#1a1a1a">Математичні висновки для SLA</text>
+  <text x="636" y="112" font-size="12" fill="#6b7280">Чому не можна гарантувати те, чим не керуєш</text>
+
+  <!-- Картка 1: Формула перемноження -->
+  <rect x="636" y="126" width="284" height="88" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="648" y="146" font-size="13" font-weight="700" fill="#2457d6">Формула складеної надійності</text>
+  <text x="648" y="167" font-size="12" font-weight="700" fill="#1a1a1a">A_ланцюга = A₁ · A₂ · ... · Aₙ = Aᴺ</text>
+  <text x="648" y="187" font-size="11" fill="#6b7280">Сумарна доступність завжди СТРОГО нижча</text>
+  <text x="648" y="202" font-size="11" fill="#6b7280">за надійність найслабшої ланки в ланцюгу</text>
+
+  <!-- Картка 2: Ілюзія трьох дев'яток -->
+  <rect x="636" y="224" width="284" height="106" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="648" y="244" font-size="13" font-weight="700" fill="#c0392b">Ілюзія «чистих трьох дев'яток»</text>
+  <text x="648" y="265" font-size="11" fill="#1a1a1a">· 1 сервіс: 99.90%  →  43 хв простою/міс</text>
+  <text x="648" y="283" font-size="11" fill="#1a1a1a">· 5 сервісів: 99.50%  →  3.6 год простою/міс</text>
+  <text x="648" y="301" font-size="11" font-weight="700" fill="#c0392b">· 10 сервісів: 99.00%  →  7.2 год простою/міс</text>
+  <text x="648" y="320" font-size="11" font-weight="700" fill="#c0392b">Втрачено цілу дев'ятку надійності!</text>
+
+  <!-- Картка 3: Архітектурний розв'язок -->
+  <rect x="636" y="340" width="284" height="106" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="648" y="360" font-size="13" font-weight="700" fill="#27ae60">Архітектурний захист</text>
+  <text x="648" y="380" font-size="11" fill="#1a1a1a">· Асинхронний розрив (черги / Outbox)</text>
+  <text x="648" y="398" font-size="11" fill="#1a1a1a">· Резервування каналів: A = 1 - (1-p)²</text>
+  <text x="648" y="416" font-size="11" fill="#1a1a1a">· Граційна деградація (кеш / fallback)</text>
+  <text x="648" y="434" font-size="11" font-weight="700" fill="#27ae60">Виводить чужі збої з критичного шляху</text>
+</svg>

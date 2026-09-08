@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Голодування потоків у змішаному трафіку (Thread Starvation)</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Через закон Літтла L = λ · W міноритарні 10% повільних викликів захоплюють 98.2% пулу воркерів</text>
+
+  <!-- ==================== ВЕРХНЯ ЧАСТИНА: АРХІТЕКТУРНА СХЕМА ==================== -->
+  <rect x="24" y="74" width="912" height="268" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- -------------------- РЯДОК 1: ПОВІЛЬНИЙ ШЛЯХ (КЛАС A - ПАРАЗИТАРНИЙ) -------------------- -->
+
+  <!-- 1. Лівий блок: 10% повільний трафік -->
+  <rect x="38" y="94" width="190" height="106" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="48" y="104" width="112" height="20" rx="3" fill="#c0392b"/>
+  <text x="104" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">10% ТРАФІКУ</text>
+  <text x="48" y="142" font-size="12" font-weight="700" fill="#1a1a1a">Повільні (Платіж)</text>
+  <text x="48" y="158" font-size="12" fill="#6b7280">λ = 20 зап/с</text>
+  <text x="48" y="174" font-size="12" fill="#6b7280">W = 5000 мс (5 с)</text>
+  <text x="48" y="190" font-size="12" font-weight="700" fill="#c0392b">L = 100 воркерів</text>
+
+  <!-- Стрілка від 10% трафіку до пулу воркерів -->
+  <line x1="228" y1="147" x2="258" y2="147" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- 2. Центральний блок: 98.2% пулу захоплено повільними викликами -->
+  <rect x="260" y="94" width="416" height="106" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="270" y="104" width="220" height="20" rx="3" fill="#c0392b"/>
+  <text x="380" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">СПІЛЬНИЙ ПУЛ: 98.2% ПОГЛИНУТО</text>
+  <text x="270" y="142" font-size="12" font-weight="700" fill="#c0392b">98 воркерів зі 100 заблоковано на сокетах провайдера</text>
+  <text x="270" y="158" font-size="12" fill="#1a1a1a">Закон Літтла: L_A = 20 зап/с · 5.0 с = 100 воркерів</text>
+  <text x="270" y="174" font-size="12" fill="#6b7280">Потоки висять у стані очікування відповіді (I/O wait)</text>
+  <text x="270" y="190" font-size="12" font-weight="700" fill="#c0392b">⚠ Паразитарне вичерпання спільного пулу сервера</text>
+
+  <!-- Стрілка від пулу до зовнішньої служби -->
+  <line x1="676" y1="147" x2="706" y2="147" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- 3. Правий блок: Чужа служба (API) -->
+  <rect x="708" y="94" width="214" height="106" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="718" y="104" width="112" height="20" rx="3" fill="#c0392b"/>
+  <text x="774" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ЧУЖА СЛУЖБА</text>
+  <text x="718" y="142" font-size="12" font-weight="700" fill="#c0392b">Сторонній платіжний API</text>
+  <text x="718" y="158" font-size="12" fill="#6b7280">Затримка: W = 5 000 мс</text>
+  <text x="718" y="174" font-size="12" fill="#c0392b">Деградація сокетів</text>
+  <text x="718" y="190" font-size="12" fill="#6b7280">Блокує чужі потоки</text>
+
+  <!-- -------------------- РЯДОК 2: ШВИДКИЙ ШЛЯХ (КЛАС B - ЖЕРТВА ГОЛОДУВАННЯ) -------------------- -->
+
+  <!-- 1. Лівий блок: 90% швидкий трафік -->
+  <rect x="38" y="214" width="190" height="114" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="48" y="224" width="112" height="20" rx="3" fill="#27ae60"/>
+  <text x="104" y="238" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">90% ТРАФІКУ</text>
+  <text x="48" y="262" font-size="12" font-weight="700" fill="#1a1a1a">Швидкі (Каталог)</text>
+  <text x="48" y="278" font-size="12" fill="#6b7280">λ = 180 зап/с</text>
+  <text x="48" y="294" font-size="12" fill="#6b7280">W = 10 мс (0.01 с)</text>
+  <text x="48" y="310" font-size="12" font-weight="700" fill="#27ae60">L = 1.8 воркера</text>
+
+  <!-- Стрілка від швидкого трафіку у чергу (блокування) -->
+  <line x1="228" y1="271" x2="258" y2="271" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- 2A. Центральний блок: Вхідна черга сервера (застряглі швидкі запити) -->
+  <rect x="260" y="214" width="180" height="114" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <rect x="270" y="224" width="120" height="20" rx="3" fill="#c0392b"/>
+  <text x="330" y="238" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ВХІДНА ЧЕРГА</text>
+  <text x="350" y="262" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">ГОЛОДУВАННЯ ПОТОКІВ</text>
+  <text x="350" y="278" text-anchor="middle" font-size="12" fill="#1a1a1a">90% швидких запитів</text>
+  <text x="350" y="294" text-anchor="middle" font-size="12" fill="#1a1a1a">чекають у черзі</text>
+  <text x="350" y="310" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">і відпадають за 504</text>
+
+  <!-- 2B. Центральний блок: Залишок пулу для швидких викликів -->
+  <rect x="452" y="214" width="224" height="114" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="462" y="224" width="150" height="20" rx="3" fill="#27ae60"/>
+  <text x="537" y="238" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ЗАЛИШОК ПУЛУ: 1.8%</text>
+  <text x="464" y="262" font-size="12" font-weight="700" fill="#27ae60">Лише ~2 вільні воркери (1.8%)</text>
+  <text x="464" y="278" font-size="12" fill="#1a1a1a">L_B = 180 · 0.01 = 1.8 воркера</text>
+  <text x="464" y="294" font-size="12" fill="#6b7280">Швидкість черги: +178 зап/с</text>
+  <text x="464" y="310" font-size="12" font-weight="700" fill="#c0392b">Катастрофічний дефіцит</text>
+
+  <!-- Стрілка від залишку пулу до локальної БД -->
+  <line x1="676" y1="271" x2="706" y2="271" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+  <!-- 3. Правий блок: Локальна БД (Здорова, але недоступна через голодування воркерів) -->
+  <rect x="708" y="214" width="214" height="114" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="718" y="224" width="112" height="20" rx="3" fill="#27ae60"/>
+  <text x="774" y="238" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ЛОКАЛЬНА БД</text>
+  <text x="718" y="262" font-size="12" font-weight="700" fill="#27ae60">Каталог і кеш товарів</text>
+  <text x="718" y="278" font-size="12" fill="#6b7280">Затримка: W = 10 мс</text>
+  <text x="718" y="294" font-size="12" fill="#27ae60">✓ Здорова й швидка,</text>
+  <text x="718" y="310" font-size="12" fill="#6b7280">але виклики не доходять</text>
+
+  <!-- ==================== НИЖНЯ ЧАСТИНА: МАТЕМАТИКА ТА АРХІТЕКТУРНИЙ ЗАХИСТ ==================== -->
+
+  <!-- Ліва картка: Математика монополізації -->
+  <rect x="24" y="354" width="446" height="144" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="36" y="366" width="190" height="22" rx="4" fill="#c0392b"/>
+  <text x="131" y="381" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">МАТЕМАТИКА ПАРАДОКСУ</text>
+  <text x="236" y="382" font-size="12" font-weight="700" fill="#c0392b">Закон Літтла L = λ · W</text>
+
+  <rect x="36" y="396" width="422" height="92" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="48" y="416" font-size="12" fill="#1a1a1a">L_A / L_B = (p · W_A) / ((1 - p) · W_B) = (0.1·5) / (0.9·0.01)</text>
+  <text x="48" y="434" font-size="12" fill="#1a1a1a">L_A / L_B = 0.5 / 0.009 ≈ 55.5 (співвідношення воркерів)</text>
+  <text x="48" y="452" font-size="12" fill="#1a1a1a">Повільні: L_A = 100 воркерів (98.2% місткості пулу)</text>
+  <text x="48" y="472" font-size="12" font-weight="700" fill="#c0392b">⚠ 500-кратна затримка витісняє 90% швидких запитів</text>
+
+  <!-- Права картка: Архітектурний захист (Bulkhead) -->
+  <rect x="490" y="354" width="446" height="144" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="502" y="366" width="190" height="22" rx="4" fill="#27ae60"/>
+  <text x="597" y="381" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">АРХІТЕКТУРНИЙ ЗАХИСТ</text>
+  <text x="702" y="382" font-size="12" font-weight="700" fill="#27ae60">Bulkhead та таймаути</text>
+
+  <rect x="502" y="396" width="422" height="92" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="514" y="416" font-size="12" fill="#1a1a1a">1. Перебірки (Bulkhead): окремий ізольований пул для API</text>
+  <text x="514" y="434" font-size="12" fill="#1a1a1a">2. Квота воркерів: швидкий каталог має гарантовані потоки</text>
+  <text x="514" y="452" font-size="12" fill="#1a1a1a">3. Таймаут T_out: обмежує стелю L_max = λ · T_timeout</text>
+  <text x="514" y="472" font-size="12" font-weight="700" fill="#27ae60">✓ 90% локальних користувачів зберігають SLA при збоях API</text>
+
+</svg>
