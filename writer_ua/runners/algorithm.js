@@ -36,6 +36,8 @@ const BASIC_OVER = 1.5;      // детальна довша за стелю ба
 const KEEP_SHARE = 0.9;      // відповідь, що з'їла більше десятої частини прози, не приймається
 const GROUPS = { 1: 2, 2: 3, 3: 5 };   // груп письма за рівнем, коли каркас їх не дав; 5 на рівні 3 — автор
 const IMP = { "висока": 3, "середня": 2, "низька": 1 };
+/* Етап 2 відповідає на п'ять питань — по одному на тип вставки (автор, 08.09); блоки з `inserts.md`. */
+const INSERT_QUESTIONS = ["ЧИ Є ІСТОРІЯ", "ЧИ Є МАТЕМАТИКА", "ЧИ Є ПРОЄКТ", "ЧИ Є КОМПОНЕНТ", "ЧИ Є API"];
 
 /** Обов'язкові блоки: немає — це помилка кроку, а не привід вгадувати. */
 function need(res, tags, where) {
@@ -262,7 +264,12 @@ async function algorithm(unit, ctx, o = {}) {
   if (article && !ctx.get("structure")) {
     const res = await ctx.call("структура", () => ask(P.structure(u, { goal: goal.text, books: LOC.books() }), "структура"));
     const b = R.blocks(res);
-    const st = { inserts: R.inserts(b["ВСТАВКИ"] || ""), newTopics: R.topics(b["НОВІ ТЕМИ"] || ""), basic: R.yes(b["БАЗОВА"]) };
+    /* Вставки — з п'яти відповідей, по одній на тип (і зі старого списку, якщо трапиться);
+       рядок «нема: чому» розбір відкидає сам. Одне ім'я двічі — одна вставка. */
+    const seenIns = new Set();
+    const inserts = R.inserts([...INSERT_QUESTIONS, "ВСТАВКИ"].map((t) => b[t] || "").join("\n"))
+      .filter((x) => { const k = `${x.insert}-${x.name}`; return !seenIns.has(k) && seenIns.add(k); });
+    const st = { inserts, newTopics: R.topics(b["НОВІ ТЕМИ"] || ""), basic: R.yes(b["БАЗОВА"]) };
     ctx.set("structure", st);
     /* Вставки — у чергу одразу, паралельно: стаття на них не чекає. */
     if (st.inserts.length)
