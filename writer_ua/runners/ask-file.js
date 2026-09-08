@@ -31,6 +31,7 @@ const path = require("path");
 const WAIT = Number(process.env.ASK_WAIT_MS) || 60 * 60 * 1000;
 const POLL = Number(process.env.ASK_POLL_MS) || 1500;
 const STABLE = Number(process.env.ASK_STABLE_MS) || 120 * 1000;
+const BEAT = Number(process.env.ASK_BEAT_MS) || 60 * 1000;     // як часто казати «живий» під час чекання
 
 /**
  * ⛔ ВІДПОВІДЬ ГОТОВА ⟺ ЗАКРИТО КОЖЕН БЛОК, ЯКИЙ ПРОСИТЬ КОНТРАКТ. Непорожнього файла
@@ -117,10 +118,16 @@ module.exports.make = function make(dir) {
     }
 
     fs.writeFileSync(askFile, prompt, "utf8");
-    process.stdout.write(`\n[ЗАПИТ] ${label}\n[ФАЙЛ]  ${askFile}\n[ЧЕКАЮ] ${ansFile}\n`);
+    /* Цей вивід — єдине, що бачить відповідач, тож тут і наказ йому: кожен запит —
+       окремому субагентові, нічого не вирішувати самому (автор, 08.09). */
+    process.stdout.write(
+      `\n[ЗАПИТ] ${label}\n[ФАЙЛ]  ${askFile}\n[ЧЕКАЮ] ${ansFile}\n` +
+      `[ДІЯ]   запусти на цей файл ОКРЕМОГО субагента: він читає запит цілком і пише відповідь у файл-відповідь. ` +
+      `Сам нічого не вирішуй і не вигадуй замість нього — усе потрібне є в запиті. ` +
+      `Процес чекає на відповідь до ${Math.round(WAIT / 60000)} хв; він живий, не зупиняй його.\n`);
 
-    const until = Date.now() + WAIT;
-    let last = null, since = 0;
+    const until = Date.now() + WAIT, started = Date.now();
+    let last = null, since = 0, beat = Date.now();
     while (Date.now() < until) {
       if (fs.existsSync(ansFile)) {
         const txt = fs.readFileSync(ansFile, "utf8");
@@ -129,6 +136,14 @@ module.exports.make = function make(dir) {
            половиною тексту. Читаємо один раз і віддаємо саме прочитане. */
         if (txt !== last) { last = txt; since = Date.now(); }
         if (ready(txt, tags, Date.now() - since)) { process.stdout.write(`[ВІДПОВІДЬ] ${label} — ${txt.length} симв.\n`); return txt; }
+      }
+      /* Тиша в терміналі відповідач читає як «скрипт завис» і вбиває процес. Тому раз на
+         хвилину — що процес живий, скільки чекає і чого саме ще бракує у відповіді. */
+      if (Date.now() - beat >= BEAT) {
+        beat = Date.now();
+        const open = last === null ? null : tags.filter((t) => !closedTags(last).has(t));
+        process.stdout.write(`[ЧЕКАЮ ДАЛІ] ${label} — ${Math.round((Date.now() - started) / 60000)} хв; процес живий, не зупиняй; ` +
+          (open === null ? "файла відповіді ще немає" : open.length ? `у відповіді ще не закрито: ${open.join(", ")}` : "відповідь є, чекаю, поки файл перестане мінятись") + "\n");
       }
       await sleep(POLL);
     }
