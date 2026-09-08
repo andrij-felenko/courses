@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Подолання автобусного фактора: еволюція відчужуваності Python</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Перехід від залежності від автора до розподіленої мережі та процесів PEP через воркшоп NIST</text>
+
+  <!-- Зв'язувальні стрілки між етапами -->
+  <line x1="314" y1="282" x2="330" y2="282" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="629" y1="282" x2="645" y2="282" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- КОЛОНКА 1: Проблема (Bus Factor = 1) -->
+  <rect x="20" y="80" width="290" height="398" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  
+  <rect x="34" y="96" width="130" height="26" rx="4" fill="#c0392b"/>
+  <text x="99" y="113" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">BUS FACTOR = 1</text>
+  <text x="34" y="142" font-size="14" font-weight="700" fill="#c0392b">Ізольована монополія (1994)</text>
+
+  <!-- Картка 1.1 -->
+  <rect x="34" y="156" width="262" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="176" font-size="13" font-weight="700" fill="#1a1a1a">Єдиний автор (CWI, Амстердам)</text>
+  <text x="46" y="196" font-size="12" fill="#6b7280">· Гвідо ван Россум розробляє сам</text>
+  <text x="46" y="214" font-size="12" fill="#6b7280">· Архітектура й збірка — в голові</text>
+  <text x="46" y="232" font-size="12" fill="#6b7280">· Немає зовнішніх мейнтейнерів</text>
+
+  <!-- Картка 1.2 -->
+  <rect x="34" y="260" width="262" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="280" font-size="13" font-weight="700" fill="#1a1a1a">Організаційний глухий кут</text>
+  <text x="46" y="300" font-size="12" fill="#6b7280">· Майкл Маклей хоче впровадити Python</text>
+  <text x="46" y="318" font-size="12" fill="#6b7280">· Керівництво NIST боїться залежності</text>
+  <text x="46" y="336" font-size="12" fill="#c0392b">· comp.lang.python: «If Guido hit by bus?»</text>
+
+  <!-- Картка 1.3 -->
+  <rect x="34" y="364" width="262" height="98" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="384" font-size="13" font-weight="700" fill="#c0392b">Ризик невідчужуваності</text>
+  <text x="46" y="404" font-size="12" fill="#6b7280">· Втрата розробника = смерть системи</text>
+  <text x="46" y="422" font-size="12" fill="#6b7280">· Нуль взаємозамінності в коді</text>
+  <text x="46" y="440" font-size="12" fill="#6b7280">· Блокування впровадження в держпроєкти</text>
+
+  <!-- КОЛОНКА 2: Каталізатор (NIST 1994-1995) -->
+  <rect x="335" y="80" width="290" height="398" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <rect x="349" y="96" width="145" height="26" rx="4" fill="#2457d6"/>
+  <text x="421" y="113" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">КАТАЛІЗАТОР NIST</text>
+  <text x="349" y="142" font-size="14" font-weight="700" fill="#2457d6">Передача знань (1994–1995)</text>
+
+  <!-- Картка 2.1 -->
+  <rect x="349" y="156" width="262" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="361" y="176" font-size="13" font-weight="700" fill="#1a1a1a">Гостьовий дослідник у NIST</text>
+  <text x="361" y="196" font-size="12" fill="#6b7280">· Осінь 1994: Гвідо прибуває до США</text>
+  <text x="361" y="214" font-size="12" fill="#6b7280">· 2 місяці роботи в Гейтерсбурзі</text>
+  <text x="361" y="232" font-size="12" fill="#6b7280">· Пряма передача знань команді NIST</text>
+
+  <!-- Картка 2.2 -->
+  <rect x="349" y="260" width="262" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="361" y="280" font-size="13" font-weight="700" fill="#1a1a1a">First Python Workshop (1994)</text>
+  <text x="361" y="300" font-size="12" fill="#6b7280">· 15–16 листопада 1994 року в NIST</text>
+  <text x="361" y="318" font-size="12" fill="#6b7280">· ~20 інженерів розбирають ядро мови</text>
+  <text x="361" y="336" font-size="12" fill="#2457d6">· Перші зовнішні модифікації сирців</text>
+
+  <!-- Картка 2.3 -->
+  <rect x="349" y="364" width="262" height="98" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="361" y="384" font-size="13" font-weight="700" fill="#2457d6">Перша інституціоналізація</text>
+  <text x="361" y="404" font-size="12" fill="#6b7280">· Заснування асоціації PSA (1995)</text>
+  <text x="361" y="422" font-size="12" fill="#6b7280">· Перехід до CNRI (Боб Кан)</text>
+  <text x="361" y="440" font-size="12" fill="#6b7280">· Руйнування монополії однієї установи</text>
+
+  <!-- КОЛОНКА 3: Розв'язок (Bus Factor >> 1) -->
+  <rect x="650" y="80" width="290" height="398" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <rect x="664" y="96" width="130" height="26" rx="4" fill="#27ae60"/>
+  <text x="729" y="113" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">BUS FACTOR ≫ 1</text>
+  <text x="664" y="142" font-size="14" font-weight="700" fill="#27ae60">Відчужувана система (2000+)</text>
+
+  <!-- Картка 3.1 -->
+  <rect x="664" y="156" width="262" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="676" y="176" font-size="13" font-weight="700" fill="#1a1a1a">Стандарт PEP 1 (2000)</text>
+  <text x="676" y="196" font-size="12" fill="#6b7280">· Python Enhancement Proposals</text>
+  <text x="676" y="214" font-size="12" fill="#6b7280">· Публічні інженерні специфікації</text>
+  <text x="676" y="232" font-size="12" fill="#6b7280">· Архітектурне знання відчужене в текст</text>
+
+  <!-- Картка 3.2 -->
+  <rect x="664" y="260" width="262" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="676" y="280" font-size="13" font-weight="700" fill="#1a1a1a">Фонд PSF (2001)</text>
+  <text x="676" y="300" font-size="12" fill="#6b7280">· Python Software Foundation</text>
+  <text x="676" y="318" font-size="12" fill="#6b7280">· Юридичний та фінансовий захист</text>
+  <text x="676" y="336" font-size="12" fill="#27ae60">· Права на мову належать спільноті</text>
+
+  <!-- Картка 3.3 -->
+  <rect x="664" y="364" width="262" height="98" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="676" y="384" font-size="13" font-weight="700" fill="#27ae60">Steering Council (PEP 13, 2018)</text>
+  <text x="676" y="404" font-size="12" fill="#6b7280">· Гвідо складає повноваження BDFL</text>
+  <text x="676" y="422" font-size="12" fill="#6b7280">· Колегіальне виборне керівництво</text>
+  <text x="676" y="440" font-size="12" fill="#6b7280">· Система повністю відчужувана</text>
+</svg>

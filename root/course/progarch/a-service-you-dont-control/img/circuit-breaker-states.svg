@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+</defs>
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="38" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Стани вимикача навантаження (Circuit Breaker)</text>
+<text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Автоматичне розмикання під час збою та безпечне зондування при відновленні</text>
+
+<!-- Стан 1: Closed -->
+<rect x="70" y="100" width="260" height="170" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="200" y="130" text-anchor="middle" font-size="15" font-weight="700" fill="#27ae60">Замкнено (Closed)</text>
+<text x="200" y="152" text-anchor="middle" font-size="12" fill="#6b7280">Нормальний стан системи</text>
+
+<rect x="85" y="170" width="230" height="85" rx="6" fill="#ffffff" stroke="#27ae60"/>
+<text x="200" y="195" text-anchor="middle" font-size="12" fill="#1a1a1a">Всі виклики проходять до API</text>
+<text x="200" y="217" text-anchor="middle" font-size="12" fill="#1a1a1a">Моніторинг частки помилок</text>
+<text x="200" y="239" text-anchor="middle" font-size="12" fill="#27ae60">Помилок менше за поріг (50%)</text>
+
+<!-- Перехід Closed -> Open -->
+<line x1="330" y1="150" x2="620" y2="150" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+<text x="475" y="138" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Помилки перевищили поріг (> 50%)</text>
+<text x="475" y="170" text-anchor="middle" font-size="12" fill="#6b7280">Ланцюг миттєво розмикається</text>
+
+<!-- Стан 2: Open -->
+<rect x="630" y="100" width="260" height="170" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="760" y="130" text-anchor="middle" font-size="15" font-weight="700" fill="#c0392b">Розімкнено (Open)</text>
+<text x="760" y="152" text-anchor="middle" font-size="12" fill="#6b7280">Аварійний режим ізоляції</text>
+
+<rect x="645" y="170" width="230" height="85" rx="6" fill="#ffffff" stroke="#c0392b"/>
+<text x="760" y="195" text-anchor="middle" font-size="12" fill="#1a1a1a">Запити не йдуть назовні</text>
+<text x="760" y="217" text-anchor="middle" font-size="12" fill="#c0392b">Миттєва відмова (Fast-Fail)</text>
+<text x="760" y="239" text-anchor="middle" font-size="12" fill="#6b7280">Таймер очікування: 30–60 с</text>
+
+<!-- Перехід Open -> Half-Open -->
+<line x1="640" y1="270" x2="550" y2="295" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<text x="635" y="315" text-anchor="middle" font-size="12" fill="#2457d6">Сплив таймаут</text>
+
+<!-- Перехід Half-Open -> Open -->
+<line x1="610" y1="360" x2="740" y2="270" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-red)"/>
+<text x="745" y="340" text-anchor="middle" font-size="12" fill="#c0392b">Невдача проби</text>
+
+<!-- Стан 3: Half-Open -->
+<rect x="350" y="295" width="260" height="145" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="480" y="322" text-anchor="middle" font-size="15" font-weight="700" fill="#2457d6">Напіврозімкнено (Half-Open)</text>
+<text x="480" y="342" text-anchor="middle" font-size="12" fill="#6b7280">Пробне тестування каналу</text>
+
+<rect x="365" y="355" width="230" height="70" rx="6" fill="#ffffff" stroke="#2457d6"/>
+<text x="480" y="380" text-anchor="middle" font-size="12" fill="#1a1a1a">Пропуск 1 пробного запиту</text>
+<text x="480" y="405" text-anchor="middle" font-size="12" fill="#2457d6">Перевірка відповіді сервісу</text>
+
+<!-- Перехід Half-Open -> Closed -->
+<line x1="350" y1="350" x2="240" y2="270" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+<text x="240" y="320" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Проба успішна</text>
+<text x="240" y="338" text-anchor="middle" font-size="12" fill="#6b7280">Повне відновлення</text>
+
+</svg>

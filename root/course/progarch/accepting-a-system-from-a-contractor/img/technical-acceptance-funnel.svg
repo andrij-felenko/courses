@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr-flow" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+</defs>
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="38" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Воронка технічного приймання системи</text>
+<text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Поетапна верифікація від автономної збірки до навантаження й готовності моніторингу</text>
+
+<!-- Етап 1 -->
+<rect x="32" y="105" width="155" height="255" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="109" y="133" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">1. Чиста збірка</text>
+<text x="109" y="152" text-anchor="middle" font-size="12" fill="#6b7280">В контурі замовника</text>
+<rect x="42" y="170" width="135" height="175" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<text x="109" y="196" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Критерії:</text>
+<text x="109" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">Клон із git</text>
+<text x="109" y="248" text-anchor="middle" font-size="12" fill="#1a1a1a">make setup</text>
+<text x="109" y="274" text-anchor="middle" font-size="12" fill="#1a1a1a">Чиста БД</text>
+<text x="109" y="300" text-anchor="middle" font-size="12" fill="#1a1a1a">Міграції без ручних</text>
+<text x="109" y="318" text-anchor="middle" font-size="12" fill="#1a1a1a">виправлень</text>
+
+<line x1="187" y1="230" x2="215" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-flow)"/>
+
+<!-- Етап 2 -->
+<rect x="217" y="105" width="155" height="255" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="294" y="133" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">2. Безпека</text>
+<text x="294" y="152" text-anchor="middle" font-size="12" fill="#6b7280">Аудит залежностей</text>
+<rect x="227" y="170" width="135" height="175" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<text x="294" y="196" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Критерії:</text>
+<text x="294" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">Сканування CVE</text>
+<text x="294" y="248" text-anchor="middle" font-size="12" fill="#1a1a1a">Ліцензії (SCA)</text>
+<text x="294" y="274" text-anchor="middle" font-size="12" fill="#1a1a1a">Без вірусних ліцензій</text>
+<text x="294" y="300" text-anchor="middle" font-size="12" fill="#1a1a1a">SAST-аналіз</text>
+<text x="294" y="318" text-anchor="middle" font-size="12" fill="#1a1a1a">статичного коду</text>
+
+<line x1="372" y1="230" x2="400" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-flow)"/>
+
+<!-- Етап 3 -->
+<rect x="402" y="105" width="155" height="255" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="479" y="133" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">3. Інваріанти</text>
+<text x="479" y="152" text-anchor="middle" font-size="12" fill="#6b7280">Якість перевірок</text>
+<rect x="412" y="170" width="135" height="175" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<text x="479" y="196" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Критерії:</text>
+<text x="479" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">Контрактні тести</text>
+<text x="479" y="248" text-anchor="middle" font-size="12" fill="#1a1a1a">Мутаційний бал</text>
+<text x="479" y="266" text-anchor="middle" font-size="12" fill="#2457d6">> 75%</text>
+<text x="479" y="295" text-anchor="middle" font-size="12" fill="#1a1a1a">Граничні умови</text>
+<text x="479" y="318" text-anchor="middle" font-size="12" fill="#1a1a1a">та винятки</text>
+
+<line x1="557" y1="230" x2="585" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-flow)"/>
+
+<!-- Етап 4 -->
+<rect x="587" y="105" width="155" height="255" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="664" y="133" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">4. Стрес-тест</text>
+<text x="664" y="152" text-anchor="middle" font-size="12" fill="#6b7280">Продуктивність</text>
+<rect x="597" y="170" width="135" height="175" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<text x="664" y="196" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Критерії:</text>
+<text x="664" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">Піковий трафік</text>
+<text x="664" y="248" text-anchor="middle" font-size="12" fill="#1a1a1a">p99 < 500мс</text>
+<text x="664" y="274" text-anchor="middle" font-size="12" fill="#1a1a1a">Без витоків пам'яті</text>
+<text x="664" y="300" text-anchor="middle" font-size="12" fill="#1a1a1a">Тест деградації</text>
+<text x="664" y="318" text-anchor="middle" font-size="12" fill="#1a1a1a">і затримок</text>
+
+<line x1="742" y1="230" x2="770" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-flow)"/>
+
+<!-- Етап 5 -->
+<rect x="772" y="105" width="155" height="255" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="849" y="133" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">5. Моніторинг</text>
+<text x="849" y="152" text-anchor="middle" font-size="12" fill="#6b7280">Експлуатація</text>
+<rect x="782" y="170" width="135" height="175" rx="6" fill="#ffffff" stroke="#27ae60"/>
+<text x="849" y="196" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Критерії:</text>
+<text x="849" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">Метрики RED/USE</text>
+<text x="849" y="248" text-anchor="middle" font-size="12" fill="#1a1a1a">Алерти в чат</text>
+<text x="849" y="274" text-anchor="middle" font-size="12" fill="#1a1a1a">Готові Runbooks</text>
+<text x="849" y="300" text-anchor="middle" font-size="12" fill="#27ae60">Підписання Акта</text>
+<text x="849" y="318" text-anchor="middle" font-size="12" fill="#27ae60">приймання</text>
+
+<!-- Нижня підсумкова панель -->
+<rect x="32" y="380" width="895" height="48" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+<text x="480" y="409" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Лише успішне проходження всіх 5 рубежів воронки дає право прийняти систему на баланс</text>
+
+</svg>

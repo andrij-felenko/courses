@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="38" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Монолітний пул-реквест проти потоку малих змін</text>
+<text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Відкладання інтеграції на фінал веде до кризи, регулярні невеликі PR гарантують контроль</text>
+
+<!-- Ліва колонка: Монолітний PR -->
+<rect x="50" y="95" width="415" height="340" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="257" y="125" text-anchor="middle" font-size="15" font-weight="700" fill="#c0392b">Монолітний PR (Big Bang Merge)</text>
+<text x="257" y="145" text-anchor="middle" font-size="12" fill="#6b7280">Один гігантський реквест наприкінці етапу</text>
+
+<rect x="68" y="165" width="379" height="65" rx="6" fill="#ffffff" stroke="#c0392b"/>
+<text x="85" y="190" font-size="13" font-weight="700" fill="#c0392b">Обсяг змін: +15 000 рядків коду</text>
+<text x="85" y="212" font-size="12" fill="#1a1a1a">300 змінених файлів, сотні конфліктів злиття (merge conflicts)</text>
+
+<rect x="68" y="240" width="379" height="65" rx="6" fill="#ffffff" stroke="#c0392b"/>
+<text x="85" y="265" font-size="13" font-weight="700" fill="#c0392b">Формальне або поверхневе рев'ю</text>
+<text x="85" y="287" font-size="12" fill="#1a1a1a">Неможливо якісно перевірити таку масу коду, апрув «наосліп»</text>
+
+<rect x="68" y="315" width="379" height="65" rx="6" fill="#ffffff" stroke="#c0392b"/>
+<text x="85" y="340" font-size="13" font-weight="700" fill="#c0392b">Результат: Параліч і регресії</text>
+<text x="85" y="362" font-size="12" fill="#c0392b">Критичні дефекти виявляються вже в продакшені</text>
+
+<text x="257" y="415" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Втрата контролю над якістю та зрив дедлайнів</text>
+
+<!-- Права колонка: Потік малих змін -->
+<rect x="495" y="95" width="415" height="340" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="702" y="125" text-anchor="middle" font-size="15" font-weight="700" fill="#27ae60">Потік малих змін (Continuous Flow)</text>
+<text x="702" y="145" text-anchor="middle" font-size="12" fill="#6b7280">Регулярні атомарні порції коду щодня</text>
+
+<rect x="513" y="165" width="379" height="65" rx="6" fill="#ffffff" stroke="#27ae60"/>
+<text x="530" y="190" font-size="13" font-weight="700" fill="#27ae60">Обсяг: 300–400 рядків на PR</text>
+<text x="530" y="212" font-size="12" fill="#1a1a1a">Чіткий фокус, легке виявлення логічних помилок і дрейфу</text>
+
+<rect x="513" y="240" width="379" height="65" rx="6" fill="#ffffff" stroke="#27ae60"/>
+<text x="530" y="265" font-size="13" font-weight="700" fill="#27ae60">Швидкий зворотний зв'язок</text>
+<text x="530" y="287" font-size="12" fill="#1a1a1a">Код-рев'ю протягом 24 годин, постійний контакт із підрядником</text>
+
+<rect x="513" y="315" width="379" height="65" rx="6" fill="#ffffff" stroke="#27ae60"/>
+<text x="530" y="340" font-size="13" font-weight="700" fill="#27ae60">Результат: Безперервна якість</text>
+<text x="530" y="362" font-size="12" fill="#27ae60">Код зливається в основну гілку без стресу та регресій</text>
+
+<text x="702" y="415" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Повний контроль над архітектурною цілісністю</text>
+
+</svg>

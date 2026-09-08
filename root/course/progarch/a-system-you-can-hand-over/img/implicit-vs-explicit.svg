@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="38" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Токсична прив'язка проти відчужуваної системи</text>
+<text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Неявне знання блокує передачу, тоді як стандартизований код та інфраструктура дають автономність</text>
+
+<!-- Ліва панель: Токсична система -->
+<rect x="50" y="95" width="415" height="340" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="257" y="125" text-anchor="middle" font-size="15" font-weight="700" fill="#c0392b">Токсична система (Неявне знання)</text>
+<text x="257" y="145" text-anchor="middle" font-size="12" fill="#6b7280">Критична залежність від авторів коду</text>
+
+<rect x="68" y="165" width="379" height="65" rx="6" fill="#ffffff" stroke="#c0392b"/>
+<text x="85" y="190" font-size="13" font-weight="700" fill="#c0392b">Ручне середовище й налаштування</text>
+<text x="85" y="212" font-size="12" fill="#1a1a1a">Секрети в особистих чатах, запуск залежить від ОС автора</text>
+
+<rect x="68" y="240" width="379" height="65" rx="6" fill="#ffffff" stroke="#c0392b"/>
+<text x="85" y="265" font-size="13" font-weight="700" fill="#c0392b">Приховані компроміси й мотивація</text>
+<text x="85" y="287" font-size="12" fill="#1a1a1a">Чому так спроєктовано — знає лише розробник, який пішов</text>
+
+<rect x="68" y="315" width="379" height="65" rx="6" fill="#ffffff" stroke="#c0392b"/>
+<text x="85" y="340" font-size="13" font-weight="700" fill="#c0392b">Наслідок: Bus Factor = 1</text>
+<text x="85" y="362" font-size="12" fill="#c0392b">Будь-яка передача блокує роботу на місяці</text>
+
+<text x="257" y="415" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Високий ризик втрати працездатності продукту</text>
+
+<!-- Права панель: Відчужувана система -->
+<rect x="495" y="95" width="415" height="340" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="702" y="125" text-anchor="middle" font-size="15" font-weight="700" fill="#27ae60">Відчужувана система (Явний код)</text>
+<text x="702" y="145" text-anchor="middle" font-size="12" fill="#6b7280">Автономність нової команди з першого дня</text>
+
+<rect x="513" y="165" width="379" height="65" rx="6" fill="#ffffff" stroke="#27ae60"/>
+<text x="530" y="190" font-size="13" font-weight="700" fill="#27ae60">Детермінована інфраструктура (IaC)</text>
+<text x="530" y="212" font-size="12" fill="#1a1a1a">make setup, Docker, розгортання з нуля менше ніж за 30 хв</text>
+
+<rect x="513" y="240" width="379" height="65" rx="6" fill="#ffffff" stroke="#27ae60"/>
+<text x="530" y="265" font-size="13" font-weight="700" fill="#27ae60">Реєстр рішень (ADR) та Runbooks</text>
+<text x="530" y="287" font-size="12" fill="#1a1a1a">Причини вибору технологій та чіткі інструкції з ліквідації аварій</text>
+
+<rect x="513" y="315" width="379" height="65" rx="6" fill="#ffffff" stroke="#27ae60"/>
+<text x="530" y="340" font-size="13" font-weight="700" fill="#27ae60">Результат: Time to First Commit менше 4 годин</text>
+<text x="530" y="362" font-size="12" fill="#27ae60">Нова команда самостійно розвиває систему без автора</text>
+
+<text x="702" y="415" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Передбачуваний життєвий цикл та впевненість у змінах</text>
+
+</svg>

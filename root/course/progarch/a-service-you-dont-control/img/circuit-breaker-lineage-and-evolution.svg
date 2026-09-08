@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+</defs>
+<rect x="0" y="0" width="960" height="510" fill="white"/>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Родовід Circuit Breaker: від електротехніки до Service Mesh</text>
+<text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Еволюція захисту від каскадних збоїв: від фізичного вимикача до прозорого sidecar-проксі</text>
+
+<!-- Колонка 1: Електротехніка -->
+<rect x="30" y="86" width="210" height="272" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="40" y="96" width="190" height="46" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="135" y="114" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">1. ЕЛЕКТРОТЕХНІКА</text>
+<text x="135" y="132" text-anchor="middle" font-size="12" fill="#6b7280">Фізичний вимикач (XIX ст.)</text>
+
+<rect x="40" y="154" width="190" height="90" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<text x="135" y="172" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Захист від перевантаження</text>
+<text x="135" y="192" text-anchor="middle" font-size="12" fill="#6b7280">Біметалева пластина / реле</text>
+<text x="135" y="210" text-anchor="middle" font-size="12" fill="#6b7280">Розрив ланцюга при КЗ</text>
+<text x="135" y="228" text-anchor="middle" font-size="12" fill="#c0392b">Порятунок мережі від вогню</text>
+
+<rect x="40" y="256" width="190" height="92" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="135" y="274" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Програмна аналогія</text>
+<text x="135" y="294" text-anchor="middle" font-size="12" fill="#1a1a1a">Струм КЗ = лавина запитів</text>
+<text x="135" y="312" text-anchor="middle" font-size="12" fill="#6b7280">Пожежа = параліч OS і JVM</text>
+<text x="135" y="330" text-anchor="middle" font-size="12" fill="#6b7280">Ціна: відсікти споживача</text>
+
+<!-- Стрілка 1 -> 2 -->
+<line x1="244" y1="221" x2="256" y2="221" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+<!-- Колонка 2: Release It! -->
+<rect x="260" y="86" width="210" height="272" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="270" y="96" width="190" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="365" y="114" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">2. «RELEASE IT!» (2007)</text>
+<text x="365" y="132" text-anchor="middle" font-size="12" fill="#6b7280">Майкл Найґард (патерн у ПЗ)</text>
+
+<rect x="270" y="154" width="190" height="90" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<text x="365" y="172" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Автомат трьох станів (FSM)</text>
+<text x="365" y="192" text-anchor="middle" font-size="12" fill="#27ae60">Closed: нормальний потік</text>
+<text x="365" y="210" text-anchor="middle" font-size="12" fill="#c0392b">Open: миттєва відсічка</text>
+<text x="365" y="228" text-anchor="middle" font-size="12" fill="#2457d6">Half-Open: пробний тест</text>
+
+<rect x="270" y="256" width="190" height="92" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="365" y="274" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Егоїстичний захист</text>
+<text x="365" y="294" text-anchor="middle" font-size="12" fill="#1a1a1a">Захист сокетів і потоків</text>
+<text x="365" y="312" text-anchor="middle" font-size="12" fill="#6b7280">Fail-Fast: швидка відмова</text>
+<text x="365" y="330" text-anchor="middle" font-size="12" fill="#6b7280">В ансамблі з Bulkhead</text>
+
+<!-- Стрілка 2 -> 3 -->
+<line x1="474" y1="221" x2="486" y2="221" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+<!-- Колонка 3: Netflix Hystrix -->
+<rect x="490" y="86" width="210" height="272" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="500" y="96" width="190" height="46" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="595" y="114" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">3. NETFLIX HYSTRIX (2012)</text>
+<text x="595" y="132" text-anchor="middle" font-size="12" fill="#6b7280">Хмарні мікросервіси</text>
+
+<rect x="500" y="154" width="190" height="90" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<text x="595" y="172" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Бібліотечна реалізація</text>
+<text x="595" y="192" text-anchor="middle" font-size="12" fill="#6b7280">Ізоляція через семафори</text>
+<text x="595" y="210" text-anchor="middle" font-size="12" fill="#6b7280">Ковзне вікно метрик 10 с</text>
+<text x="595" y="228" text-anchor="middle" font-size="12" fill="#27ae60">Вбудований fallback-сценарій</text>
+
+<rect x="500" y="256" width="190" height="92" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="595" y="274" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Розвінчання міфу</text>
+<text x="595" y="294" text-anchor="middle" font-size="12" fill="#c0392b">Netflix НЕ винайшов патерн</text>
+<text x="595" y="312" text-anchor="middle" font-size="12" fill="#6b7280">Масштабував ідею Найґарда</text>
+<text x="595" y="330" text-anchor="middle" font-size="12" fill="#6b7280">Мінус: прив'язка до JVM-коду</text>
+
+<!-- Стрілка 3 -> 4 -->
+<line x1="704" y1="221" x2="716" y2="221" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+<!-- Колонка 4: Service Mesh -->
+<rect x="720" y="86" width="210" height="272" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="730" y="96" width="190" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="825" y="114" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">4. SERVICE MESH (2018+)</text>
+<text x="825" y="132" text-anchor="middle" font-size="12" fill="#6b7280">Envoy / Istio (інфраструктура)</text>
+
+<rect x="730" y="154" width="190" height="90" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<text x="825" y="172" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Рівень проксі (L7-Sidecar)</text>
+<text x="825" y="192" text-anchor="middle" font-size="12" fill="#6b7280">Outlier Detection на проксі</text>
+<text x="825" y="210" text-anchor="middle" font-size="12" fill="#6b7280">Викидання збійних хостів</text>
+<text x="825" y="228" text-anchor="middle" font-size="12" fill="#27ae60">Zero-Code: нуль коду в додатку</text>
+
+<rect x="730" y="256" width="190" height="92" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="825" y="274" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Повна екстерналізація</text>
+<text x="825" y="294" text-anchor="middle" font-size="12" fill="#1a1a1a">Політика в YAML-конфігурації</text>
+<text x="825" y="312" text-anchor="middle" font-size="12" fill="#6b7280">Незалежність від мови стеку</text>
+<text x="825" y="330" text-anchor="middle" font-size="12" fill="#6b7280">Централізоване керування</text>
+
+<!-- Нижня панель: фундаментальні зміни -->
+<rect x="30" y="372" width="900" height="122" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="480" y="394" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">ДВА ФУНДАМЕНТАЛЬНІ ЗСУВИ В АРХІТЕКТУРІ СТІЙКОСТІ</text>
+
+<rect x="44" y="406" width="426" height="74" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+<text x="257" y="426" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">1. Зміна парадигми: Fail-Fast</text>
+<text x="257" y="447" text-anchor="middle" font-size="12" fill="#1a1a1a">Замість нескінченного очікування сторонньої служби —</text>
+<text x="257" y="466" text-anchor="middle" font-size="12" fill="#6b7280">миттєвий розрив ланцюга та керована деградація (Fallback)</text>
+
+<rect x="490" y="406" width="426" height="74" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+<text x="703" y="426" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">2. Зміна локалізації: Від коду до Mesh</text>
+<text x="703" y="447" text-anchor="middle" font-size="12" fill="#1a1a1a">Від ручних обгорток у коді (2007) і SDK (Hystrix, 2012) —</text>
+<text x="703" y="466" text-anchor="middle" font-size="12" fill="#6b7280">до прозорого розмикання трафіку інфраструктурою (Envoy)</text>
+
+</svg>

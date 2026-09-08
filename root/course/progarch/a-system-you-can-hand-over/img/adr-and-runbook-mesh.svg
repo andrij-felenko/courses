@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+</defs>
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="38" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Тріада відчужуваності: Код, ADR та Runbooks</text>
+<text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Поєднання реалізації з контекстом рішень та інструкціями для експлуатації</text>
+
+<!-- Колонка 1: Кодова база -->
+<rect x="50" y="95" width="260" height="265" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="180" y="125" text-anchor="middle" font-size="15" font-weight="700" fill="#2457d6">Кодова база (ЩО)</text>
+<text x="180" y="145" text-anchor="middle" font-size="12" fill="#6b7280">Виконавчий код системи</text>
+
+<rect x="65" y="165" width="230" height="75" rx="6" fill="#ffffff" stroke="#2457d6"/>
+<text x="80" y="190" font-size="12" font-weight="700" fill="#1a1a1a">Модулі та інтеграції</text>
+<text x="80" y="210" font-size="12" fill="#6b7280">Чіткі контракти API</text>
+<text x="80" y="228" font-size="12" fill="#2457d6">// див. ADR-004 у шапці</text>
+
+<rect x="65" y="250" width="230" height="85" rx="6" fill="#ffffff" stroke="#2457d6"/>
+<text x="80" y="275" font-size="12" font-weight="700" fill="#1a1a1a">Автотести та лінтери</text>
+<text x="80" y="295" font-size="12" fill="#6b7280">Захист інваріантів</text>
+<text x="80" y="315" font-size="12" fill="#6b7280">Мутаційний бал > 75%</text>
+
+<!-- Стрілка Код -> ADR -->
+<line x1="310" y1="200" x2="350" y2="200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+<!-- Колонка 2: ADR -->
+<rect x="350" y="95" width="260" height="265" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="480" y="125" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">Реєстр рішень (ЧОМУ)</text>
+<text x="480" y="145" text-anchor="middle" font-size="12" fill="#6b7280">Архітектурний контекст (ADR)</text>
+
+<rect x="365" y="165" width="230" height="75" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<text x="380" y="190" font-size="12" font-weight="700" fill="#1a1a1a">Обґрунтування вибору</text>
+<text x="380" y="210" font-size="12" fill="#6b7280">Відхилені альтернативи</text>
+<text x="380" y="228" font-size="12" fill="#6b7280">Компроміси та межі рішення</text>
+
+<rect x="365" y="250" width="230" height="85" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<text x="380" y="275" font-size="12" font-weight="700" fill="#1a1a1a">Імутабельність історії</text>
+<text x="380" y="295" font-size="12" fill="#6b7280">Зберігання в git разом з кодом</text>
+<text x="380" y="315" font-size="12" fill="#1a1a1a">Швидкий онбординг лідів</text>
+
+<!-- Стрілка ADR -> Runbooks -->
+<line x1="610" y1="200" x2="650" y2="200" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+<!-- Колонка 3: Runbooks -->
+<rect x="650" y="95" width="260" height="265" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="780" y="125" text-anchor="middle" font-size="15" font-weight="700" fill="#27ae60">Runbooks (ЯК)</text>
+<text x="780" y="145" text-anchor="middle" font-size="12" fill="#6b7280">Експлуатація без авторів</text>
+
+<rect x="665" y="165" width="230" height="75" rx="6" fill="#ffffff" stroke="#27ae60"/>
+<text x="680" y="190" font-size="12" font-weight="700" fill="#1a1a1a">Реагування на алерти</text>
+<text x="680" y="210" font-size="12" fill="#6b7280">Посилання з дашбордів</text>
+<text x="680" y="228" font-size="12" fill="#27ae60">Покрокові алгоритми дій</text>
+
+<rect x="665" y="250" width="230" height="85" rx="6" fill="#ffffff" stroke="#27ae60"/>
+<text x="680" y="275" font-size="12" font-weight="700" fill="#1a1a1a">Регулярні регламенти</text>
+<text x="680" y="295" font-size="12" fill="#6b7280">Бекапи та відновлення</text>
+<text x="680" y="315" font-size="12" fill="#6b7280">Ротація секретів та ключів</text>
+
+<!-- Нижня сполучна панель -->
+<rect x="50" y="380" width="860" height="50" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+<text x="180" y="410" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Код фіксує стан системи</text>
+<text x="480" y="410" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">ADR розкриває архітектурний намір</text>
+<text x="780" y="410" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Runbook дає впевненість на чергуванні</text>
+
+</svg>

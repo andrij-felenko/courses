@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+</defs>
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="38" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Каскадна відмова через повільну зовнішню службу</text>
+<text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Зависання стороннього API вичерпує пул потоків бекенду й блокує всіх клієнтів</text>
+
+<!-- Блок 1: Клієнти -->
+<rect x="40" y="90" width="230" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="155" y="122" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">Клієнти сервісу</text>
+<text x="155" y="142" text-anchor="middle" font-size="12" fill="#6b7280">Вхідний трафік системи</text>
+
+<rect x="58" y="165" width="194" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+<text x="155" y="191" text-anchor="middle" font-size="12" fill="#1a1a1a">Запит: Каталог товарів</text>
+
+<rect x="58" y="220" width="194" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+<text x="155" y="246" text-anchor="middle" font-size="12" fill="#1a1a1a">Запит: Оплата замовлення</text>
+
+<rect x="58" y="275" width="194" height="42" rx="6" fill="#fdecea" stroke="#c0392b"/>
+<text x="155" y="301" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Нові запити: Відмова</text>
+
+<text x="155" y="346" text-anchor="middle" font-size="12" fill="#c0392b">Помилка 504 Gateway Timeout</text>
+<text x="155" y="366" text-anchor="middle" font-size="12" fill="#6b7280">Сервіс не відповідає користувачу</text>
+
+<!-- Стрілка Клієнти -> Бекенд -->
+<line x1="270" y1="235" x2="320" y2="235" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<text x="295" y="222" text-anchor="middle" font-size="12" fill="#2457d6">Запити</text>
+
+<!-- Блок 2: Власний бекенд -->
+<rect x="330" y="90" width="310" height="290" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="485" y="122" text-anchor="middle" font-size="15" font-weight="700" fill="#c0392b">Власний бекенд-сервіс</text>
+<text x="485" y="142" text-anchor="middle" font-size="12" fill="#6b7280">Пул робочих потоків (100% завантаження)</text>
+
+<rect x="348" y="165" width="274" height="42" rx="6" fill="#ffffff" stroke="#c0392b"/>
+<text x="485" y="191" text-anchor="middle" font-size="12" fill="#c0392b">Потік 1: завис на socket.read (30с)</text>
+
+<rect x="348" y="215" width="274" height="42" rx="6" fill="#ffffff" stroke="#c0392b"/>
+<text x="485" y="241" text-anchor="middle" font-size="12" fill="#c0392b">Потік 2: очікує відповіді провайдера</text>
+
+<rect x="348" y="265" width="274" height="42" rx="6" fill="#ffffff" stroke="#c0392b"/>
+<text x="485" y="291" text-anchor="middle" font-size="12" fill="#c0392b">Потік N: очікує TCP-підключення</text>
+
+<text x="485" y="346" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Пул потоків повністю паралізовано</text>
+<text x="485" y="366" text-anchor="middle" font-size="12" fill="#6b7280">Черга заблокована через одну інтеграцію</text>
+
+<!-- Стрілка Бекенд -> Сторонній API -->
+<line x1="640" y1="235" x2="680" y2="235" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+<text x="660" y="222" text-anchor="middle" font-size="12" fill="#c0392b">Виклик</text>
+
+<!-- Блок 3: Сторонній сервіс -->
+<rect x="690" y="90" width="230" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="805" y="122" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">Сторонній сервіс</text>
+<text x="805" y="142" text-anchor="middle" font-size="12" fill="#6b7280">Хмарний або платіжний API</text>
+
+<rect x="708" y="165" width="194" height="85" rx="6" fill="#fdecea" stroke="#c0392b"/>
+<text x="805" y="195" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Аварія на боці провайдера</text>
+<text x="805" y="215" text-anchor="middle" font-size="12" fill="#c0392b">Латентність зросла до 60с</text>
+<text x="805" y="235" text-anchor="middle" font-size="12" fill="#6b7280">Втрата пакетів у мережі</text>
+
+<rect x="708" y="265" width="194" height="80" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<text x="805" y="295" text-anchor="middle" font-size="12" fill="#1a1a1a">Поза зоною контролю</text>
+<text x="805" y="315" text-anchor="middle" font-size="12" fill="#6b7280">Неможливо перезапустити</text>
+<text x="805" y="333" text-anchor="middle" font-size="12" fill="#6b7280">Немає доступу до логів</text>
+
+<!-- Нижня підсумкова плашка -->
+<rect x="60" y="402" width="840" height="38" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+<text x="480" y="426" text-anchor="middle" font-size="12" fill="#1a1a1a">Висновок: відсутність ізоляції та жорстких таймаутів перетворює збій одного зовнішнього API на зупинку всієї системи</text>
+</svg>

@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-cascade" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Каскадний колапс HealthCare.gov: анатомія відмови 1 жовтня 2013 року</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Як обов'язкова попередня реєстрація та блокування в БД лавиноподібно паралізували весь портал</text>
+
+  <!-- Стрілки каскаду між етапами -->
+  <line x1="237" y1="215" x2="253" y2="215" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-cascade)"/>
+  <line x1="472" y1="215" x2="488" y2="215" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-cascade)"/>
+  <line x1="707" y1="215" x2="723" y2="215" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-cascade)"/>
+
+  <!-- ЕТАП 1: Бар'єр реєстрації -->
+  <rect x="20" y="80" width="215" height="295" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="32" y="92" width="75" height="24" rx="4" fill="#2457d6"/>
+  <text x="69" y="108" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ЕТАП 1</text>
+  <text x="32" y="134" font-size="14" font-weight="700" fill="#1a1a1a">Вхідний бар'єр</text>
+
+  <rect x="32" y="146" width="191" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="42" y="167" font-size="13" font-weight="700" fill="#1a1a1a">Вимога CMS</text>
+  <text x="42" y="187" font-size="12" fill="#6b7280">· Скасовано анонімність</text>
+  <text x="42" y="205" font-size="12" fill="#6b7280">· Обов'язкова реєстрація</text>
+  <text x="42" y="223" font-size="12" fill="#6b7280">· 100% потоку — на логін</text>
+
+  <rect x="32" y="250" width="191" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="42" y="271" font-size="13" font-weight="700" fill="#c0392b">Фокусований удар</text>
+  <text x="42" y="291" font-size="12" fill="#6b7280">· Наплив користувачів</text>
+  <text x="42" y="309" font-size="12" fill="#6b7280">· Немає черг очікування</text>
+  <text x="42" y="327" font-size="12" fill="#6b7280">· Без рейт-лімітів</text>
+  <text x="42" y="345" font-size="12" fill="#c0392b">· Трафік у вузьке горло</text>
+
+  <!-- ЕТАП 2: Вузьке горло EIDM -->
+  <rect x="255" y="80" width="215" height="295" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="267" y="92" width="75" height="24" rx="4" fill="#c0392b"/>
+  <text x="304" y="108" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ЕТАП 2</text>
+  <text x="267" y="134" font-size="14" font-weight="700" fill="#c0392b">Сервіс EIDM</text>
+
+  <rect x="267" y="146" width="191" height="92" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="277" y="167" font-size="13" font-weight="700" fill="#1a1a1a">Вузьке горло (QSSI)</text>
+  <text x="277" y="187" font-size="12" fill="#6b7280">· Створення акаунтів</text>
+  <text x="277" y="205" font-size="12" fill="#6b7280">· Синхронний шлюз</text>
+  <text x="277" y="223" font-size="12" fill="#6b7280">· Важке хешування</text>
+
+  <rect x="267" y="250" width="191" height="110" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="277" y="271" font-size="13" font-weight="700" fill="#c0392b">Черга зависає</text>
+  <text x="277" y="291" font-size="12" fill="#6b7280">· Запити накопичуються</text>
+  <text x="277" y="309" font-size="12" fill="#6b7280">· Latency зростає до 60+ с</text>
+  <text x="277" y="327" font-size="12" fill="#6b7280">· Потоки вичерпано</text>
+  <text x="277" y="345" font-size="12" fill="#c0392b">· Сервіс перестає дихати</text>
+
+  <!-- ЕТАП 3: Блокування Oracle DB -->
+  <rect x="490" y="80" width="215" height="295" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="502" y="92" width="75" height="24" rx="4" fill="#c0392b"/>
+  <text x="539" y="108" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ЕТАП 3</text>
+  <text x="502" y="134" font-size="14" font-weight="700" fill="#c0392b">Oracle Database</text>
+
+  <rect x="502" y="146" width="191" height="92" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="512" y="167" font-size="13" font-weight="700" fill="#1a1a1a">Блокування в БД</text>
+  <text x="512" y="187" font-size="12" fill="#6b7280">· Синхронний запис</text>
+  <text x="512" y="205" font-size="12" fill="#6b7280">· Локи рядків та таблиць</text>
+  <text x="512" y="223" font-size="12" fill="#6b7280">· Масові deadlocks</text>
+
+  <rect x="502" y="250" width="191" height="110" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="512" y="271" font-size="13" font-weight="700" fill="#c0392b">Колапс пулу з'єднань</text>
+  <text x="512" y="291" font-size="12" fill="#6b7280">· Connection pool вичерпано</text>
+  <text x="512" y="309" font-size="12" fill="#6b7280">· Нові конекти відкинуто</text>
+  <text x="512" y="327" font-size="12" fill="#6b7280">· БД не відповідає</text>
+  <text x="512" y="345" font-size="12" fill="#c0392b">· Глухий клінч сховища</text>
+
+  <!-- ЕТАП 4: Каскадний колапс -->
+  <rect x="725" y="80" width="215" height="295" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="737" y="92" width="75" height="24" rx="4" fill="#c0392b"/>
+  <text x="774" y="108" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ЕТАП 4</text>
+  <text x="737" y="134" font-size="14" font-weight="700" fill="#c0392b">Повний параліч</text>
+
+  <rect x="737" y="146" width="191" height="92" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="747" y="167" font-size="13" font-weight="700" fill="#1a1a1a">Нуль таймаутів</text>
+  <text x="747" y="187" font-size="12" fill="#6b7280">· FFM чекає EIDM вічно</text>
+  <text x="747" y="205" font-size="12" fill="#6b7280">· Немає Circuit Breaker</text>
+  <text x="747" y="223" font-size="12" fill="#6b7280">· Без fallback-логіки</text>
+
+  <rect x="737" y="250" width="191" height="110" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="747" y="271" font-size="13" font-weight="700" fill="#c0392b">Лавинна відмова</text>
+  <text x="747" y="291" font-size="12" fill="#6b7280">· Падіння нод CGI FFM</text>
+  <text x="747" y="309" font-size="12" fill="#6b7280">· Збій усіх 55+ модулів</text>
+  <text x="747" y="327" font-size="12" fill="#6b7280">· Параліч Data Hub</text>
+  <text x="747" y="345" font-size="12" fill="#c0392b">· Крах HealthCare.gov</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Архітектурний висновок -->
+  <rect x="20" y="392" width="920" height="88" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="34" y="402" width="175" height="22" rx="4" fill="#c0392b"/>
+  <text x="121" y="417" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">АРХІТЕКТУРНИЙ ВИСНОВОК</text>
+  <text x="218" y="418" font-size="13" font-weight="700" fill="#c0392b">Відсутність захисних бар'єрів перетворила локальний збій на системний крах</text>
+  <text x="34" y="442" font-size="12" fill="#1a1a1a">· Відсутність Circuit Breaker та Fail-Fast: зависання EIDM по ланцюжку вичерпало всі потоки веб-серверів порталу</text>
+  <text x="34" y="462" font-size="12" fill="#6b7280">· Відсутність стрес-тестів: жоден модуль не перевірявся на поведінку при вичерпанні з'єднань з базою даних</text>
+</svg>

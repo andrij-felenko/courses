@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Три складові програми Trilogy та розрив синхронізації</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Форсування розробки VCF у відриві від інфраструктури розірвало зв'язок між залізом і софтом</text>
+
+  <!-- СТОВП 1: IPC (Апаратне забезпечення) -->
+  <rect x="40" y="72" width="276" height="162" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="52" y="84" width="115" height="22" rx="4" fill="#eaf0fd"/>
+  <text x="109" y="99" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">IPC · ЗАЛІЗО</text>
+  <text x="52" y="126" font-size="15" font-weight="700" fill="#1a1a1a">Information Presentation</text>
+  <text x="52" y="144" font-size="12" fill="#6b7280">Апаратна база 56 офісів ФБР</text>
+  <text x="52" y="170" font-size="12" fill="#1a1a1a">• 30 000+ нових робочих ПК</text>
+  <text x="52" y="190" font-size="12" fill="#1a1a1a">• Сервери, сканери, принтери</text>
+  <text x="52" y="210" font-size="12" fill="#1a1a1a">• Підрядник: DynCorp ($290M)</text>
+
+  <!-- СТОВП 2: TPN (Мережева інфраструктура) -->
+  <rect x="342" y="72" width="276" height="162" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="354" y="84" width="115" height="22" rx="4" fill="#eaf0fd"/>
+  <text x="411" y="99" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">TPN · МЕРЕЖА</text>
+  <text x="354" y="126" font-size="15" font-weight="700" fill="#1a1a1a">Transportation Network</text>
+  <text x="354" y="144" font-size="12" fill="#6b7280">Мережа передачі даних</text>
+  <text x="354" y="170" font-size="12" fill="#1a1a1a">• Захищена WAN для офісів ФБР</text>
+  <text x="354" y="190" font-size="12" fill="#1a1a1a">• Шифрування та маршрутизація</text>
+  <text x="354" y="210" font-size="12" fill="#1a1a1a">• Підрядник: CSC ($140M)</text>
+
+  <!-- СТОВП 3: UAC / VCF (Програмне забезпечення) -->
+  <rect x="644" y="72" width="276" height="162" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="656" y="84" width="135" height="22" rx="4" fill="#ffffff" stroke="#c0392b"/>
+  <text x="723" y="99" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">UAC / VCF · СОФТ</text>
+  <text x="656" y="126" font-size="15" font-weight="700" fill="#c0392b">Virtual Case File</text>
+  <text x="656" y="144" font-size="12" fill="#6b7280">Прикладне ПЗ для справ</text>
+  <text x="656" y="170" font-size="12" fill="#1a1a1a">• Моноліт на 700 000+ рядків</text>
+  <text x="656" y="190" font-size="12" fill="#1a1a1a">• Заміна застарілої бази ACS</text>
+  <text x="656" y="210" font-size="12" fill="#1a1a1a">• Підрядник: SAIC ($170M)</text>
+
+  <!-- ПАНЕЛЬ СИНХРОНІЗАЦІЇ 1: Базовий шар (IPC + TPN) -->
+  <rect x="40" y="246" width="578" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="329" y="268" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">✓ Базова інфраструктура: синхронізоване розгортання (2001–2003)</text>
+
+  <!-- СИМВОЛ РОЗРИВУ -->
+  <path d="M633,250 L627,263 L635,263 L629,276" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- ПАНЕЛЬ СИНХРОНІЗАЦІЇ 2: Розрив VCF -->
+  <rect x="644" y="246" width="276" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="782" y="268" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">⚡ «Fast Track»: розрив зв'язку</text>
+
+  <!-- НИЖНІЙ БЛОК 1: Доля фундаменту -->
+  <rect x="40" y="292" width="578" height="146" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="56" y="314" font-size="14" font-weight="700" fill="#1a1a1a">Синхронізація фундаменту (IPC залізо + TPN мережа)</text>
+  <text x="56" y="338" font-size="12" fill="#1a1a1a">• Постачання «заліза» (ПК, сервери) та прокладання WAN-каналів велися поетапно.</text>
+  <text x="56" y="358" font-size="12" fill="#1a1a1a">• Приймання було відчужуваним: обладнання фізично тестувалося на майданчиках ФБР.</text>
+  <text x="56" y="378" font-size="12" fill="#1a1a1a">• Проте базова платформа остаточно стабілізувалася лише наприкінці 2003 року.</text>
+  <rect x="54" y="396" width="550" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="329" y="414" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Фундамент був готовий прийняти софт, але не мав робочої програми для розгортання</text>
+
+  <!-- НИЖНІЙ БЛОК 2: Крах софтової частини -->
+  <rect x="644" y="292" width="276" height="146" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="656" y="314" font-size="14" font-weight="700" fill="#c0392b">Розрив синхронізації (VCF)</text>
+  <text x="656" y="338" font-size="12" fill="#1a1a1a">• Софт писали без робочої бази</text>
+  <text x="656" y="358" font-size="12" fill="#1a1a1a">• 36 переглядів вимог без тестів</text>
+  <text x="656" y="378" font-size="12" fill="#1a1a1a">• Моноліт упав під час інтеграції</text>
+  <rect x="656" y="396" width="252" height="28" rx="4" fill="#ffffff" stroke="#c0392b"/>
+  <text x="782" y="414" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">✗ 100% списання: $170M збитків</text>
+</svg>

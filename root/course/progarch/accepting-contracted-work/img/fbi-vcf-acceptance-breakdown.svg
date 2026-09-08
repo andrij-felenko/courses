@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Анатомія збою приймання: катастрофа FBI Virtual Case File</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Розрив взаємодії через відсутність контрактних тестів та архітектурних швів</text>
+
+  <!-- Пунктирні лінії розриву між колонками -->
+  <line x1="312" y1="220" x2="333" y2="220" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,2"/>
+  <line x1="627" y1="220" x2="648" y2="220" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,2"/>
+
+  <!-- КОЛОНКА 1: Замовник (ФБР) -->
+  <rect x="20" y="78" width="290" height="286" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <rect x="34" y="90" width="115" height="24" rx="4" fill="#2457d6"/>
+  <text x="91" y="106" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ЗАМОВНИК</text>
+  <text x="34" y="132" font-size="14" font-weight="700" fill="#1a1a1a">ФБР: Вимоги на папері</text>
+
+  <!-- Картка 1.1 -->
+  <rect x="34" y="144" width="262" height="96" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="165" font-size="13" font-weight="700" fill="#1a1a1a">Паперові специфікації</text>
+  <text x="46" y="185" font-size="12" fill="#6b7280">· 800+ сторінок суперечливих вимог</text>
+  <text x="46" y="203" font-size="12" fill="#6b7280">· Постійний churn (лавина змін)</text>
+  <text x="46" y="221" font-size="12" fill="#6b7280">· Відсутність пріоритетів і меж</text>
+
+  <!-- Картка 1.2 -->
+  <rect x="34" y="252" width="262" height="98" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="273" font-size="13" font-weight="700" fill="#c0392b">Відсутність критеріїв</text>
+  <text x="46" y="293" font-size="12" fill="#6b7280">· Нуль автоматизованих тестів ФБР</text>
+  <text x="46" y="311" font-size="12" fill="#6b7280">· Приймання відклали на фінал</text>
+  <text x="46" y="329" font-size="12" fill="#6b7280">· Втрата власної технічної експертизи</text>
+
+  <!-- КОЛОНКА 2: Розрив (Точка збою) -->
+  <rect x="335" y="78" width="290" height="286" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <rect x="349" y="90" width="130" height="24" rx="4" fill="#c0392b"/>
+  <text x="414" y="106" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ТОЧКА ЗБОЮ</text>
+  <text x="349" y="132" font-size="14" font-weight="700" fill="#c0392b">Розрив: Нуль швів і тестів</text>
+
+  <!-- Картка 2.1 -->
+  <rect x="349" y="144" width="262" height="96" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="361" y="165" font-size="13" font-weight="700" fill="#c0392b">Відсутність контрактів</text>
+  <text x="361" y="185" font-size="12" fill="#6b7280">· Жодних контрактних автотестів</text>
+  <text x="361" y="203" font-size="12" fill="#6b7280">· Немає перевірки API між шарами</text>
+  <text x="361" y="221" font-size="12" fill="#6b7280">· Вимоги не транслювалися в код</text>
+
+  <!-- Картка 2.2 -->
+  <rect x="349" y="252" width="262" height="98" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="361" y="273" font-size="13" font-weight="700" fill="#c0392b">Відсутність швів (Seams)</text>
+  <text x="361" y="293" font-size="12" fill="#6b7280">· Немає точок ізоляції компонентів</text>
+  <text x="361" y="311" font-size="12" fill="#6b7280">· Неможливо тестувати підсистеми</text>
+  <text x="361" y="329" font-size="12" fill="#6b7280">· Немає тестових дублерів (mocks)</text>
+
+  <!-- КОЛОНКА 3: Підрядник (SAIC) -->
+  <rect x="650" y="78" width="290" height="286" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="664" y="90" width="115" height="24" rx="4" fill="#6b7280"/>
+  <text x="721" y="106" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ПІДРЯДНИК</text>
+  <text x="664" y="132" font-size="14" font-weight="700" fill="#1a1a1a">SAIC: Залповий моноліт</text>
+
+  <!-- Картка 3.1 -->
+  <rect x="664" y="144" width="262" height="96" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="676" y="165" font-size="13" font-weight="700" fill="#1a1a1a">Некерована кодова база</text>
+  <text x="676" y="185" font-size="12" fill="#6b7280">· 700 000+ рядків спагеті-коду</text>
+  <text x="676" y="203" font-size="12" fill="#6b7280">· Тісне зв'язування з БД Oracle</text>
+  <text x="676" y="221" font-size="12" fill="#6b7280">· Жорсткі апаратні залежності</text>
+
+  <!-- Картка 3.2 -->
+  <rect x="664" y="252" width="262" height="98" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="676" y="273" font-size="13" font-weight="700" fill="#c0392b">Ілюзія готовності</text>
+  <text x="676" y="293" font-size="12" fill="#6b7280">· Звіти про 90% замість релізу</text>
+  <text x="676" y="311" font-size="12" fill="#6b7280">· Маскування дефектів у ядрі</text>
+  <text x="676" y="329" font-size="12" fill="#6b7280">· Спроба здачі без CI/CD валідації</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Результат катастрофи -->
+  <rect x="20" y="380" width="920" height="100" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="36" y="403" font-size="13" font-weight="700" fill="#c0392b">НАСЛІДОК РОЗРИВУ: КАТАСТРОФА ПРИЙМАННЯ ТА СПИСАННЯ ПРОЄКТУ</text>
+
+  <!-- Підкартка 1 -->
+  <rect x="34" y="414" width="436" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="433" font-size="12" font-weight="700" fill="#1a1a1a">Аудит Aerospace Corp (грудень 2004):</text>
+  <text x="46" y="452" font-size="12" fill="#6b7280">400+ критичних дефектів; архітектура не підлягає супроводу</text>
+
+  <!-- Підкартка 2 -->
+  <rect x="486" y="414" width="436" height="54" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="498" y="433" font-size="12" font-weight="700" fill="#c0392b">Остаточне рішення ФБР (квітень 2005):</text>
+  <text x="498" y="452" font-size="12" fill="#1a1a1a">Повне списання кодової бази VCF, втрата $170 000 000 і 4 років роботи</text>
+</svg>

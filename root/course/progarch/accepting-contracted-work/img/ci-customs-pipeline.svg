@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+</defs>
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="38" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Конвеєр автоматичної митниці в CI</text>
+<text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Багаторівневий фільтр контролю якості зовнішнього коду перед злиттям у репозиторій</text>
+
+<!-- Етап 1: Ліцензії -->
+<rect x="28" y="105" width="200" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="128" y="133" text-anchor="middle" font-size="14" font-weight="700" fill="#2457d6">1. Ліцензії та безпека</text>
+<text x="128" y="152" text-anchor="middle" font-size="12" fill="#6b7280">SCA-сканування</text>
+
+<rect x="40" y="170" width="176" height="180" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<text x="128" y="196" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Вимоги:</text>
+<text x="128" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">Перевірка нових пакетів</text>
+<text x="128" y="248" text-anchor="middle" font-size="12" fill="#1a1a1a">Блок копілефту (AGPL)</text>
+<text x="128" y="274" text-anchor="middle" font-size="12" fill="#1a1a1a">База вразливостей CVE</text>
+<text x="128" y="300" text-anchor="middle" font-size="12" fill="#1a1a1a">Контроль хешів</text>
+<text x="128" y="322" text-anchor="middle" font-size="12" fill="#6b7280">у lock-файлах</text>
+
+<!-- Стрілка 1 -> 2 -->
+<line x1="228" y1="235" x2="261" y2="235" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+<!-- Етап 2: Архітектурний лінтинг -->
+<rect x="263" y="105" width="200" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="363" y="133" text-anchor="middle" font-size="14" font-weight="700" fill="#2457d6">2. Архітектурний лінтинг</text>
+<text x="363" y="152" text-anchor="middle" font-size="12" fill="#6b7280">Статичні правила</text>
+
+<rect x="275" y="170" width="176" height="180" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<text x="363" y="196" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Вимоги:</text>
+<text x="363" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">Ізоляція шарів домену</text>
+<text x="363" y="248" text-anchor="middle" font-size="12" fill="#1a1a1a">Без циклічних імпортів</text>
+<text x="363" y="274" text-anchor="middle" font-size="12" fill="#1a1a1a">Конвенції найменування</text>
+<text x="363" y="300" text-anchor="middle" font-size="12" fill="#1a1a1a">Заборона прямого</text>
+<text x="363" y="322" text-anchor="middle" font-size="12" fill="#6b7280">доступу до чужої БД</text>
+
+<!-- Стрілка 2 -> 3 -->
+<line x1="463" y1="235" x2="496" y2="235" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+<!-- Етап 3: Тести граничних умов -->
+<rect x="498" y="105" width="200" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="598" y="133" text-anchor="middle" font-size="14" font-weight="700" fill="#2457d6">3. Тести та мутації</text>
+<text x="598" y="152" text-anchor="middle" font-size="12" fill="#6b7280">Перевірка стійкості</text>
+
+<rect x="510" y="170" width="176" height="180" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+<text x="598" y="196" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Вимоги:</text>
+<text x="598" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">Граничні та хибні дані</text>
+<text x="598" y="248" text-anchor="middle" font-size="12" fill="#1a1a1a">Обробка помилок API</text>
+<text x="598" y="274" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Мутаційний бал > 75%</text>
+<text x="598" y="300" text-anchor="middle" font-size="12" fill="#1a1a1a">Висока якість тестів</text>
+<text x="598" y="322" text-anchor="middle" font-size="12" fill="#6b7280">без фіктивних моків</text>
+
+<!-- Стрілка 3 -> 4 -->
+<line x1="698" y1="235" x2="731" y2="235" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+<!-- Етап 4: Фінальний гейт -->
+<rect x="733" y="105" width="200" height="260" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="833" y="133" text-anchor="middle" font-size="14" font-weight="700" fill="#27ae60">4. Код-рев'ю</text>
+<text x="833" y="152" text-anchor="middle" font-size="12" fill="#6b7280">Внутрішній інженер</text>
+
+<rect x="745" y="170" width="176" height="180" rx="6" fill="#ffffff" stroke="#27ae60"/>
+<text x="833" y="196" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Вимоги:</text>
+<text x="833" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">Перевірка логіки бізнесу</text>
+<text x="833" y="248" text-anchor="middle" font-size="12" fill="#1a1a1a">Відповідь за 24 години</text>
+<text x="833" y="274" text-anchor="middle" font-size="12" fill="#1a1a1a">Апрув від техліда</text>
+<text x="833" y="300" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Злиття в main</text>
+<text x="833" y="322" text-anchor="middle" font-size="12" fill="#27ae60">Автодеплой на стейдж</text>
+
+<!-- Нижня підсумкова панель -->
+<rect x="28" y="380" width="905" height="48" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+<text x="480" y="409" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Автоматизована митниця відсікає технічний борг і чужі дефекти до їх потрапляння в репозиторій</text>
+
+</svg>

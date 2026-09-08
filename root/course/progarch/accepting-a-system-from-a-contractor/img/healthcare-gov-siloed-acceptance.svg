@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Схема силосного приймання: катастрофа HealthCare.gov</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Підрядники звітують про успіх в ізоляції за повної відсутності наскрізного інтеграційного контуру</text>
+
+  <!-- Пунктирні бар'єри ізоляції між підрядниками -->
+  <line x1="322" y1="100" x2="322" y2="260" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <line x1="637" y1="100" x2="637" y2="260" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- КОЛОНКА 1: FFM (CGI Federal) -->
+  <rect x="20" y="78" width="290" height="198" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="34" y="90" width="125" height="24" rx="4" fill="#2457d6"/>
+  <text x="96" y="106" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">CGI FEDERAL</text>
+  <text x="34" y="132" font-size="14" font-weight="700" fill="#1a1a1a">Модуль FFM (Портал)</text>
+
+  <rect x="34" y="144" width="262" height="68" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="165" font-size="13" font-weight="700" fill="#1a1a1a">Штучний локальний стенд</text>
+  <text x="46" y="185" font-size="12" fill="#6b7280">· Моки замість реального EIDM</text>
+  <text x="46" y="202" font-size="12" fill="#6b7280">· Ізольовані юніт-тести UI</text>
+
+  <rect x="34" y="222" width="262" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="165" y="247" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">✔ Звіт: 100% тестів FFM складено</text>
+
+  <!-- КОЛОНКА 2: EIDM (QSSI) -->
+  <rect x="335" y="78" width="290" height="198" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="349" y="90" width="125" height="24" rx="4" fill="#2457d6"/>
+  <text x="411" y="106" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">QSSI</text>
+  <text x="349" y="132" font-size="14" font-weight="700" fill="#1a1a1a">Модуль EIDM (Логін)</text>
+
+  <rect x="349" y="144" width="262" height="68" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="361" y="165" font-size="13" font-weight="700" fill="#1a1a1a">Штучний локальний стенд</text>
+  <text x="361" y="185" font-size="12" fill="#6b7280">· Тести без черг та навантаження</text>
+  <text x="361" y="202" font-size="12" fill="#6b7280">· Одиничні синтетичні запити</text>
+
+  <rect x="349" y="222" width="262" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="247" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">✔ Звіт: 100% тестів EIDM складено</text>
+
+  <!-- КОЛОНКА 3: Data Hub (QSSI / Equifax) -->
+  <rect x="650" y="78" width="290" height="198" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="664" y="90" width="125" height="24" rx="4" fill="#2457d6"/>
+  <text x="726" y="106" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">QSSI / EQUIFAX</text>
+  <text x="664" y="132" font-size="14" font-weight="700" fill="#1a1a1a">Federal Data Hub (Дані)</text>
+
+  <rect x="664" y="144" width="262" height="68" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="676" y="165" font-size="13" font-weight="700" fill="#1a1a1a">Штучний локальний стенд</text>
+  <text x="676" y="185" font-size="12" fill="#6b7280">· Синтетичні моки IRS / SSA</text>
+  <text x="676" y="202" font-size="12" fill="#6b7280">· Нуль затримок зовнішніх мереж</text>
+
+  <rect x="664" y="222" width="262" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="795" y="247" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">✔ Звіт: 100% тестів Hub складено</text>
+
+  <!-- СЕРЕДНЯ ПАНЕЛЬ: Замовник CMS -->
+  <rect x="20" y="288" width="920" height="86" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="34" y="298" width="135" height="22" rx="4" fill="#6b7280"/>
+  <text x="101" y="313" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ЗАМОВНИК: CMS</text>
+  <text x="180" y="314" font-size="13" font-weight="700" fill="#1a1a1a">Формальне приймання за паперовими звітами підрядників</text>
+  <text x="34" y="338" font-size="12" fill="#6b7280">· CMS взяла роль генерального інтегратора без власної інженерної команди та тестового контуру</text>
+  <text x="34" y="356" font-size="12" fill="#6b7280">· Приймання зведено до галочок у звітах: сума «зелених» модулів помилково вважалася робочою системою</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Реальний стан і крах -->
+  <rect x="20" y="384" width="920" height="96" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="34" y="394" width="160" height="22" rx="4" fill="#c0392b"/>
+  <text x="114" y="409" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">РЕАЛЬНІСТЬ ТА КРАХ</text>
+  <text x="204" y="410" font-size="13" font-weight="700" fill="#c0392b">Наскрізний інтеграційний контур був повністю відсутній</text>
+  <text x="34" y="434" font-size="12" fill="#1a1a1a">· Жодного спільного стрес-тесту FFM ↔ EIDM ↔ Data Hub у єдиному бойовому середовищі до дня запуску</text>
+  <text x="34" y="454" font-size="12" fill="#c0392b">· 1 жовтня 2013: обов'язкова реєстрація спрямувала весь трафік в EIDM → параліч БД і крах порталу</text>
+</svg>

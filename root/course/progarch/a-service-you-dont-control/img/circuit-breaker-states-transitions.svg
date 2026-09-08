@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Скінченний автомат Circuit Breaker: стани та переходи</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Три стани автомата за Майклом Найґардом: Closed, Open та Half-Open</text>
+
+  <!-- ЛІНІЇ ПЕРЕХОДІВ -->
+
+  <!-- 1. Closed -> Open (Поріг помилок) -->
+  <line x1="310" y1="135" x2="645" y2="135" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="480" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Поріг помилок перевищено (напр. > 50%)</text>
+  <text x="480" y="152" text-anchor="middle" font-size="12" fill="#6b7280">Миттєве розмикання ланцюга (Fail-Fast)</text>
+
+  <!-- 2. Open -> Half-Open (Таймаут очікування) -->
+  <path d="M 740,240 L 740,380 L 625,380" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="755" y="305" font-size="12" font-weight="700" fill="#2457d6">Сплив таймаут</text>
+  <text x="755" y="323" font-size="12" fill="#6b7280">Очікування 30–60 с</text>
+
+  <!-- 3. Half-Open -> Closed (Успішні проби) -->
+  <path d="M 340,380 L 180,380 L 180,245" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="165" y="305" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">Проби успішні</text>
+  <text x="165" y="323" text-anchor="end" font-size="12" fill="#6b7280">Скидання лічильника</text>
+
+  <!-- 4. Half-Open -> Open (Помилка пробного запиту) -->
+  <path d="M 520,310 L 520,210 L 645,210" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="580" y="195" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Помилка проби</text>
+  <text x="580" y="228" text-anchor="middle" font-size="12" fill="#6b7280">Повторне розмикання</text>
+
+  <!-- СТАН 1: Closed -->
+  <rect x="40" y="90" width="270" height="150" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="54" y="102" width="110" height="24" rx="4" fill="#27ae60"/>
+  <text x="109" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">CLOSED</text>
+  <text x="54" y="144" font-size="14" font-weight="700" fill="#27ae60">Замкнено (Норма)</text>
+
+  <rect x="54" y="156" width="242" height="72" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="66" y="176" font-size="12" fill="#1a1a1a">· Усі виклики проходять до служби</text>
+  <text x="66" y="194" font-size="12" fill="#6b7280">· Моніторинг відсотка збоїв у вікні</text>
+  <text x="66" y="212" font-size="12" fill="#27ae60">· Рівень помилок нижчий за ліміт</text>
+
+  <!-- СТАН 2: Open -->
+  <rect x="650" y="90" width="270" height="150" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="664" y="102" width="110" height="24" rx="4" fill="#c0392b"/>
+  <text x="719" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">OPEN</text>
+  <text x="664" y="144" font-size="14" font-weight="700" fill="#c0392b">Розімкнено (Захист)</text>
+
+  <rect x="664" y="156" width="242" height="72" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="676" y="176" font-size="12" fill="#1a1a1a">· Зовнішній API повністю відсічено</text>
+  <text x="676" y="194" font-size="12" fill="#c0392b">· Швидка відмова без очікування сокета</text>
+  <text x="676" y="212" font-size="12" fill="#6b7280">· Відлік таймера сну (Sleep Window)</text>
+
+  <!-- СТАН 3: Half-Open -->
+  <rect x="340" y="310" width="280" height="150" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="354" y="322" width="120" height="24" rx="4" fill="#2457d6"/>
+  <text x="414" y="338" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">HALF-OPEN</text>
+  <text x="354" y="364" font-size="14" font-weight="700" fill="#2457d6">Напіврозімкнено (Зондування)</text>
+
+  <rect x="354" y="376" width="252" height="72" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="366" y="396" font-size="12" fill="#1a1a1a">· Пропуск пробних запитів (1..3)</text>
+  <text x="366" y="414" font-size="12" fill="#2457d6">· Перевірка працездатності служби</text>
+  <text x="366" y="432" font-size="12" fill="#6b7280">· Решта запитів отримує швидкий fallback</text>
+</svg>
