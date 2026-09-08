@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Хронологія розвитку ESP: від модема до RISC-V</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Поділ лінійок на ядра Xtensa для мультимедіа та відкритий RISC-V для сучасного IoT</text>
+
+  <!-- Top Container: Xtensa Branch -->
+  <rect x="40" y="80" width="880" height="145" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="55" y="102" font-size="13" font-weight="bold" fill="#2457d6">Гілка Xtensa — фокус на обчислення, класичний Bluetooth, DSP та векторні інструкції</text>
+
+  <rect x="55" y="115" width="195" height="95" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="65" y="135" font-size="13" font-weight="bold" fill="#2457d6">ESP8266 (2014)</text>
+  <text x="65" y="157" font-size="12" fill="#1a1a1a">Ядро: L106, 80/160 МГц</text>
+  <text x="65" y="175" font-size="12" fill="#1a1a1a">Радіо: Wi-Fi 4 (b/g/n)</text>
+  <text x="65" y="193" font-size="12" fill="#6b7280">Перший дешевий Wi-Fi міст</text>
+
+  <rect x="270" y="115" width="195" height="95" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="280" y="135" font-size="13" font-weight="bold" fill="#2457d6">ESP32 (2016)</text>
+  <text x="280" y="157" font-size="12" fill="#1a1a1a">Ядро: Dual LX6, 240 МГц</text>
+  <text x="280" y="175" font-size="12" fill="#1a1a1a">Радіо: Wi-Fi + BT Classic/BLE</text>
+  <text x="280" y="193" font-size="12" fill="#6b7280">Золотий стандарт DIY та IoT</text>
+
+  <rect x="485" y="115" width="195" height="95" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="495" y="135" font-size="13" font-weight="bold" fill="#2457d6">ESP32-S2 (2020)</text>
+  <text x="495" y="157" font-size="12" fill="#1a1a1a">Ядро: Single LX7, 240 МГц</text>
+  <text x="495" y="175" font-size="12" fill="#1a1a1a">Радіо: Wi-Fi 4 (без BLE)</text>
+  <text x="495" y="193" font-size="12" fill="#6b7280">Апаратний USB OTG контролер</text>
+
+  <rect x="700" y="115" width="205" height="95" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="710" y="135" font-size="13" font-weight="bold" fill="#2457d6">ESP32-S3 (2022)</text>
+  <text x="710" y="157" font-size="12" fill="#1a1a1a">Ядро: Dual LX7 + AI Vector</text>
+  <text x="710" y="175" font-size="12" fill="#1a1a1a">Радіо: Wi-Fi 4 + BLE 5 Mesh</text>
+  <text x="710" y="193" font-size="12" fill="#6b7280">Розпізнавання голосу/зображень</text>
+
+  <!-- Bottom Container: RISC-V Branch -->
+  <rect x="40" y="240" width="880" height="145" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="55" y="262" font-size="13" font-weight="bold" fill="#27ae60">Гілка RISC-V — відкрита архітектура, менша площа кристала, нові протоколи зв'язку</text>
+
+  <rect x="55" y="275" width="195" height="95" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="65" y="295" font-size="13" font-weight="bold" fill="#27ae60">ESP32-C3 (2020)</text>
+  <text x="65" y="317" font-size="12" fill="#1a1a1a">Ядро: RISC-V, 160 МГц</text>
+  <text x="65" y="335" font-size="12" fill="#1a1a1a">Радіо: Wi-Fi 4 + BLE 5</text>
+  <text x="65" y="353" font-size="12" fill="#6b7280">Сучасна заміна для ESP8266</text>
+
+  <rect x="270" y="275" width="195" height="95" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="280" y="295" font-size="13" font-weight="bold" fill="#27ae60">ESP32-C6 (2022)</text>
+  <text x="280" y="317" font-size="12" fill="#1a1a1a">Ядро: RISC-V, 160 МГц</text>
+  <text x="280" y="335" font-size="12" fill="#1a1a1a">Радіо: Wi-Fi 6, 802.15.4</text>
+  <text x="280" y="353" font-size="12" fill="#6b7280">Підтримка Matter і Thread</text>
+
+  <rect x="485" y="275" width="195" height="95" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="495" y="295" font-size="13" font-weight="bold" fill="#27ae60">ESP32-H2 (2023)</text>
+  <text x="495" y="317" font-size="12" fill="#1a1a1a">Ядро: RISC-V, 96 МГц</text>
+  <text x="495" y="335" font-size="12" fill="#1a1a1a">Радіо: Zigbee / Thread / BLE</text>
+  <text x="495" y="353" font-size="12" fill="#6b7280">Без Wi-Fi, мінімальний струм</text>
+
+  <rect x="700" y="275" width="205" height="95" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="710" y="295" font-size="13" font-weight="bold" fill="#27ae60">ESP32-P4 (2024)</text>
+  <text x="710" y="317" font-size="12" fill="#1a1a1a">Ядро: Dual RISC-V, 400 МГц</text>
+  <text x="710" y="335" font-size="12" fill="#1a1a1a">Інтерфейс: MIPI CSI/DSI</text>
+  <text x="710" y="353" font-size="12" fill="#6b7280">Без радіомодема, кодек H.264</text>
+
+  <!-- Bottom Banner -->
+  <rect x="40" y="400" width="880" height="42" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="426" text-anchor="middle" font-size="13" fill="#1a1a1a">Перехід на RISC-V дозволив зменшити роялті та чітко розмежувати чипи за призначенням</text>
+</svg>

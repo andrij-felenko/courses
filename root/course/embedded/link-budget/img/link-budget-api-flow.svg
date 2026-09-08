@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Потік даних API бюджету радіолінії</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Перетворення параметрів тракту й метрик RSSI/SNR на команди адаптивного керування потужністю</text>
+
+  <!-- Card 1: Static Config -->
+  <rect x="40" y="90" width="190" height="270" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="135" y="122" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Параметри лінії</text>
+  <rect x="55" y="140" width="160" height="60" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="135" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">link_config_t</text>
+  <text x="135" y="185" text-anchor="middle" font-size="12" fill="#6b7280">Частота й дистанція</text>
+  <rect x="55" y="215" width="160" height="60" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="135" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Антени й кабелі</text>
+  <text x="135" y="260" text-anchor="middle" font-size="12" fill="#6b7280">Підсилення та втрати</text>
+  <text x="135" y="310" text-anchor="middle" font-size="12" fill="#1a1a1a">Статичні константи</text>
+  <text x="135" y="330" text-anchor="middle" font-size="12" fill="#6b7280">апаратного дизайну</text>
+
+  <line x1="230" y1="225" x2="262" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Card 2: Telemetry -->
+  <rect x="270" y="90" width="190" height="270" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="365" y="122" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">2. Телеметрія Rx</text>
+  <rect x="285" y="140" width="160" height="60" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="365" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Рівень RSSI</text>
+  <text x="365" y="185" text-anchor="middle" font-size="12" fill="#6b7280">Сила сигналу (дБм)</text>
+  <rect x="285" y="215" width="160" height="60" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="365" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Показник SNR</text>
+  <text x="365" y="260" text-anchor="middle" font-size="12" fill="#6b7280">Співвідношення сигнал/шум</text>
+  <text x="365" y="310" text-anchor="middle" font-size="12" fill="#1a1a1a">Дані з трансивера</text>
+  <text x="365" y="330" text-anchor="middle" font-size="12" fill="#6b7280">для кожного пакета</text>
+
+  <line x1="460" y1="225" x2="492" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Card 3: Core Calculations -->
+  <rect x="500" y="90" width="190" height="270" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="595" y="122" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">3. Розрахунок</text>
+  <rect x="515" y="140" width="160" height="60" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="595" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">calc_fspl()</text>
+  <text x="595" y="185" text-anchor="middle" font-size="12" fill="#6b7280">Згасання сигналу (дБ)</text>
+  <rect x="515" y="215" width="160" height="60" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="595" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">calc_margin()</text>
+  <text x="595" y="260" text-anchor="middle" font-size="12" fill="#6b7280">Запас = RSSI - Поріг</text>
+  <text x="595" y="310" text-anchor="middle" font-size="12" fill="#1a1a1a">Математичне ядро</text>
+  <text x="595" y="330" text-anchor="middle" font-size="12" fill="#6b7280">оцінки стабільності</text>
+
+  <line x1="690" y1="225" x2="722" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Card 4: ATPC Output -->
+  <rect x="730" y="90" width="190" height="270" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="825" y="122" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">4. Керування ATPC</text>
+  <rect x="745" y="140" width="160" height="60" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="825" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Корекція Tx Power</text>
+  <text x="825" y="185" text-anchor="middle" font-size="12" fill="#6b7280">Зниження або підйом</text>
+  <rect x="745" y="215" width="160" height="60" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="825" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Діагностика</text>
+  <text x="825" y="260" text-anchor="middle" font-size="12" fill="#6b7280">Попередження збоїв</text>
+  <text x="825" y="310" text-anchor="middle" font-size="12" fill="#1a1a1a">Виконавча дія</text>
+  <text x="825" y="330" text-anchor="middle" font-size="12" fill="#6b7280">у циклі прошивки</text>
+
+  <!-- Summary Footer -->
+  <rect x="40" y="390" width="880" height="42" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="416" text-anchor="middle" font-size="13" fill="#1a1a1a">API пов'язує фізичні характеристики тракту з динамічним енергозбереженням передавача</text>
+</svg>

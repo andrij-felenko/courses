@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розмотування стека в GDB: зіставлення дампа з DWARF</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Відновлення ланцюжка викликів функцій за адресами повернення у збереженому фреймі</text>
+
+  <!-- Left Container: Core Dump RAM -->
+  <rect x="50" y="85" width="380" height="310" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Стек задачі в пам'яті дампа (Core Dump)</text>
+
+  <rect x="70" y="130" width="340" height="70" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="85" y="153" font-size="12" font-weight="bold" fill="#c0392b">Frame #0: SP = 0x20001F80, PC = 0x080012BC</text>
+  <text x="85" y="173" font-size="12" fill="#1a1a1a">Локальні змінні: ptr = 0x00000000, len = 64</text>
+  <text x="85" y="189" font-size="12" fill="#6b7280">Точка падіння (розіменування NULL-вказівника)</text>
+
+  <rect x="70" y="215" width="340" height="68" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="85" y="238" font-size="12" font-weight="bold" fill="#2457d6">Frame #1: SP = 0x20001FA8, LR = 0x08000EE4</text>
+  <text x="85" y="258" font-size="12" fill="#1a1a1a">Адреса повернення у викликаючу функцію</text>
+  <text x="85" y="274" font-size="12" fill="#6b7280">Аргумент: packet_t* = 0x20000420</text>
+
+  <rect x="70" y="298" width="340" height="68" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="85" y="321" font-size="12" font-weight="bold" fill="#1a1a1a">Frame #2: SP = 0x20001FD0, LR = 0x08000412</text>
+  <text x="85" y="341" font-size="12" fill="#1a1a1a">Точка входу задачі FreeRTOS (Task Loop)</text>
+  <text x="85" y="357" font-size="12" fill="#6b7280">Ім'я: "net_rx_task", дескриптор: TCB #3</text>
+
+  <!-- Connecting Arrows -->
+  <line x1="410" y1="165" x2="522" y2="165" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="410" y1="249" x2="522" y2="249" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="410" y1="332" x2="522" y2="332" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- Right Container: ELF Symbols -->
+  <rect x="530" y="85" width="380" height="310" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="720" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Символи прошивки (firmware.elf / DWARF)</text>
+
+  <rect x="550" y="130" width="340" height="70" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="565" y="153" font-size="12" font-weight="bold" fill="#c0392b">0x080012BC -> network.c:142</text>
+  <text x="565" y="173" font-size="12" fill="#1a1a1a">uint8_t val = *ptr;  /* КРИТИЧНИЙ ЗБІЙ */</text>
+  <text x="565" y="189" font-size="12" fill="#6b7280">Функція: parse_header()</text>
+
+  <rect x="550" y="215" width="340" height="68" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="565" y="238" font-size="12" font-weight="bold" fill="#2457d6">0x08000EE4 -> app_tasks.c:88</text>
+  <text x="565" y="258" font-size="12" fill="#1a1a1a">res = parse_header(pkt);</text>
+  <text x="565" y="274" font-size="12" fill="#6b7280">Функція: network_worker_task()</text>
+
+  <rect x="550" y="298" width="340" height="68" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="565" y="321" font-size="12" font-weight="bold" fill="#1a1a1a">0x08000412 -> tasks.c:1150</text>
+  <text x="565" y="341" font-size="12" fill="#1a1a1a">pxTaskCode( pvParameters );</text>
+  <text x="565" y="357" font-size="12" fill="#6b7280">Функція: prvTaskExitError()</text>
+
+  <!-- Summary Footer -->
+  <rect x="50" y="410" width="860" height="38" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="434" text-anchor="middle" font-size="13" fill="#1a1a1a">GDB розмотує збережені стек-покажчики та зіставляє адреси з вихідним сирцевим кодом</text>
+</svg>

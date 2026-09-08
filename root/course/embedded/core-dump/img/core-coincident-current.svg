@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-axis" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Принцип збігу струмів у феритовій пам'яті</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Половинний струм I/2 не змінює намагніченість; стан перемикає лише сума I на перетині</text>
+
+  <!-- Left Card: Core Matrix -->
+  <rect x="40" y="85" width="430" height="310" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="255" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Матриця осердь (вибірка координатною сіткою)</text>
+
+  <!-- Horizontal Wires -->
+  <line x1="80" y1="160" x2="420" y2="160" stroke="#d0d7de" stroke-width="2"/>
+  <text x="70" y="164" font-size="12" fill="#6b7280" text-anchor="end">X1</text>
+
+  <line x1="80" y1="235" x2="420" y2="235" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="70" y="239" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">X2 (I/2)</text>
+
+  <line x1="80" y1="310" x2="420" y2="310" stroke="#d0d7de" stroke-width="2"/>
+  <text x="70" y="314" font-size="12" fill="#6b7280" text-anchor="end">X3</text>
+
+  <!-- Vertical Wires -->
+  <line x1="145" y1="130" x2="145" y2="340" stroke="#d0d7de" stroke-width="2"/>
+  <text x="145" y="360" font-size="12" fill="#6b7280" text-anchor="middle">Y1</text>
+
+  <line x1="250" y1="130" x2="250" y2="340" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="250" y="360" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Y2 (I/2)</text>
+
+  <line x1="355" y1="130" x2="355" y2="340" stroke="#d0d7de" stroke-width="2"/>
+  <text x="355" y="360" font-size="12" fill="#6b7280" text-anchor="middle">Y3</text>
+
+  <!-- Unselected Cores -->
+  <circle cx="145" cy="160" r="16" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="250" cy="160" r="16" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="355" cy="160" r="16" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
+
+  <circle cx="145" cy="235" r="16" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="355" cy="235" r="16" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+
+  <circle cx="145" cy="310" r="16" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="250" cy="310" r="16" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="355" cy="310" r="16" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- SELECTED CORE AT (250, 235) -->
+  <circle cx="250" cy="235" r="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="3"/>
+  <text x="250" y="239" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Σ = I</text>
+  <text x="250" y="275" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Перемикання</text>
+
+  <!-- Right Card: Hysteresis Loop -->
+  <rect x="490" y="85" width="430" height="310" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="705" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Прямокутна петля гістерезису фериту</text>
+
+  <!-- Axes -->
+  <line x1="530" y1="235" x2="850" y2="235" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="850" y="222" font-size="12" fill="#1a1a1a" text-anchor="end">H (поле / струм)</text>
+
+  <line x1="700" y1="350" x2="700" y2="130" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="700" y="122" font-size="12" fill="#1a1a1a" text-anchor="middle">B (намагніченість)</text>
+
+  <!-- Rectangular Loop -->
+  <path d="M 640 170 L 760 170 Q 775 170 775 185 L 775 285 Q 775 300 760 300 L 640 300 Q 625 300 625 285 L 625 185 Q 625 170 640 170 Z" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Remanence Points -->
+  <text x="690" y="165" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Стан «1» (+Br)</text>
+  <text x="690" y="315" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">Стан «0» (-Br)</text>
+
+  <!-- Threshold Markers -->
+  <line x1="740" y1="230" x2="740" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="740" y="255" font-size="12" fill="#6b7280" text-anchor="middle">I/2 (&lt; Hc)</text>
+  <text x="740" y="270" font-size="12" fill="#c0392b" text-anchor="middle">Без змін</text>
+
+  <line x1="775" y1="230" x2="775" y2="240" stroke="#2457d6" stroke-width="2"/>
+  <text x="805" y="255" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I (&gt; Hc)</text>
+  <text x="805" y="270" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Перекид</text>
+
+  <!-- Summary Footer -->
+  <rect x="40" y="410" width="880" height="38" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="434" text-anchor="middle" font-size="13" fill="#1a1a1a">Координатна сітка дротів дозволяє адресувати окремий біт без окремого транзистора на кожне осердя</text>
+</svg>

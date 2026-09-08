@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Закон обернених квадратів: розширення сферичного фронту</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Енергія випромінювання розподіляється по поверхні сфери; густина потужності спадає як 1/r²</text>
+
+  <!-- Main Illustration Panel -->
+  <rect x="40" y="80" width="880" height="305" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Radiation Cone Rays -->
+  <line x1="120" y1="210" x2="840" y2="120" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="120" y1="210" x2="840" y2="300" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Tx Source -->
+  <circle cx="120" cy="210" r="14" fill="#2457d6"/>
+  <text x="120" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Антена Tx</text>
+  <text x="120" y="192" text-anchor="middle" font-size="12" fill="#6b7280">Джерело Pt</text>
+
+  <!-- Station 1: 1R -->
+  <rect x="310" y="180" width="40" height="60" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="330" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Відстань 1·R</text>
+  <text x="330" y="286" text-anchor="middle" font-size="12" fill="#6b7280">Площа: 1·A</text>
+  <text x="330" y="302" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Густина: S</text>
+
+  <!-- Station 2: 2R -->
+  <rect x="490" y="150" width="80" height="120" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="530" y1="150" x2="530" y2="270" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="490" y1="210" x2="570" y2="210" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="530" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Відстань 2·R</text>
+  <text x="530" y="311" text-anchor="middle" font-size="12" fill="#6b7280">Площа: 4·A</text>
+  <text x="530" y="327" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Густина: S / 4 (-6 дБ)</text>
+
+  <!-- Station 3: 3R -->
+  <rect x="710" y="120" width="120" height="180" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="750" y1="120" x2="750" y2="300" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="790" y1="120" x2="790" y2="300" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="710" y1="180" x2="830" y2="180" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="710" y1="240" x2="830" y2="240" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="770" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Відстань 3·R</text>
+  <text x="770" y="341" text-anchor="middle" font-size="12" fill="#6b7280">Площа: 9·A</text>
+  <text x="770" y="357" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Густина: S / 9 (-9.5 дБ)</text>
+
+  <!-- Formula Callout Top Left -->
+  <rect x="55" y="95" width="220" height="48" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="65" y="114" font-size="12" font-weight="bold" fill="#1a1a1a">Густина потоку енергії:</text>
+  <text x="65" y="132" font-size="12" fill="#2457d6">S = Pt / (4 · π · r²)</text>
+
+  <!-- Bottom Banner -->
+  <rect x="40" y="400" width="880" height="42" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="426" text-anchor="middle" font-size="13" fill="#1a1a1a">Втрати FSPL зумовлені не поглинанням середовища, а геометричним розсіюванням хвилі у просторі</text>
+</svg>
