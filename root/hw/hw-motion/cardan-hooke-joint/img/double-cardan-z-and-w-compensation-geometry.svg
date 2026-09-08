@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топології повної компенсації пульсацій: Z-подібна та W-подібна схеми</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Рівність кутів beta1 = beta2 та копланарність внутрішніх вилок забезпечують сталу швидкість omega3 = omega1</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Z-схема -->
+  <rect x="30" y="75" width="435" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="45" y="87" width="405" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="104" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Z-подібна топологія (паралельні осі валів)</text>
+
+  <!-- Схема Z-вала -->
+  <rect x="45" y="122" width="405" height="150" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Вал 1 (вхідний, верхня лінія) -->
+  <line x1="60" y1="160" x2="150" y2="160" stroke="#2457d6" stroke-width="6"/>
+  <circle cx="150" cy="160" r="7" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="70" y="148" font-size="11" font-weight="bold" fill="#2457d6">Вал 1 (вхід)</text>
+
+  <!-- Проміжний вал 2 (нахилений під кутом beta1 вниз) -->
+  <line x1="150" y1="160" x2="310" y2="230" stroke="#e67e22" stroke-width="6"/>
+  <circle cx="310" cy="230" r="7" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Вал 3 (вихідний, нижня лінія, паралельна валу 1) -->
+  <line x1="310" y1="230" x2="420" y2="230" stroke="#27ae60" stroke-width="6"/>
+  <text x="340" y="252" font-size="11" font-weight="bold" fill="#27ae60">Вал 3 (вихід)</text>
+
+  <!-- Осі та кути -->
+  <!-- Пунктир продовження осі 1 -->
+  <line x1="150" y1="160" x2="220" y2="160" stroke="#6b7280" stroke-dasharray="3 3" stroke-width="1"/>
+  <text x="180" y="150" font-size="11" fill="#c0392b">beta1</text>
+
+  <!-- Пунктир продовження осі 3 -->
+  <line x1="240" y1="230" x2="310" y2="230" stroke="#6b7280" stroke-dasharray="3 3" stroke-width="1"/>
+  <text x="265" y="246" font-size="11" fill="#c0392b">beta2</text>
+
+  <!-- Підпис проміжного вала знизу зліва -->
+  <text x="160" y="235" font-size="11" font-weight="bold" fill="#e67e22">Проміжний вал</text>
+  <text x="160" y="250" font-size="10" fill="#6b7280">(вилки копланарні)</text>
+
+  <!-- Опис параметрів Z-схеми -->
+  <rect x="45" y="282" width="405" height="140" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="304" font-size="12" font-weight="bold" fill="#2457d6">Кінематичні характеристики:</text>
+  <text x="60" y="324" font-size="11" fill="#1a1a1a">• Осі вала 1 та вала 3 суворо паралельні в просторі</text>
+  <text x="60" y="342" font-size="11" fill="#1a1a1a">• Кути зламу рівні за величиною: beta1 = beta2</text>
+  <text x="60" y="360" font-size="11" fill="#27ae60">• Швидкість виходу стала: omega3 = omega1</text>
+  <text x="60" y="380" font-size="11" font-weight="bold" fill="#1a1a1a">Типове застосування:</text>
+  <text x="60" y="400" font-size="11" fill="#6b7280">Карданні передачі задньопривідних авто (КПП - задній міст)</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: W-схема -->
+  <rect x="495" y="75" width="435" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="510" y="87" width="405" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="104" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2. W-подібна топологія (перетинні осі валів)</text>
+
+  <!-- Схема W-вала -->
+  <rect x="510" y="122" width="405" height="150" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Вал 1 (вхідний, нахилений вниз-праворуч) -->
+  <line x1="530" y1="160" x2="610" y2="210" stroke="#2457d6" stroke-width="6"/>
+  <circle cx="610" cy="210" r="7" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="540" y="150" font-size="11" font-weight="bold" fill="#2457d6">Вал 1 (вхід)</text>
+
+  <!-- Проміжний вал 2 (горизонтальний по центру) -->
+  <line x1="610" y1="210" x2="770" y2="210" stroke="#e67e22" stroke-width="6"/>
+  <circle cx="770" cy="210" r="7" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="690" y="196" font-size="11" font-weight="bold" fill="#e67e22" text-anchor="middle">Проміжний вал</text>
+
+  <!-- Вал 3 (вихідний, нахилений вгору-праворуч, симетрично) -->
+  <line x1="770" y1="210" x2="850" y2="160" stroke="#27ae60" stroke-width="6"/>
+  <text x="815" y="150" font-size="11" font-weight="bold" fill="#27ae60">Вал 3 (вихід)</text>
+
+  <!-- Осі та кути -->
+  <!-- Продовження осі 1 -->
+  <line x1="610" y1="210" x2="670" y2="248" stroke="#6b7280" stroke-dasharray="3 3" stroke-width="1"/>
+  <text x="645" y="262" font-size="11" fill="#c0392b">beta1</text>
+
+  <!-- Продовження осі 3 -->
+  <line x1="710" y1="248" x2="770" y2="210" stroke="#6b7280" stroke-dasharray="3 3" stroke-width="1"/>
+  <text x="725" y="262" font-size="11" fill="#c0392b">beta2</text>
+
+  <!-- Точка перетину осей угорі -->
+  <circle cx="690" cy="110" r="3" fill="#6b7280"/>
+  <text x="690" y="138" font-size="11" fill="#6b7280" text-anchor="middle">Точка перетину осей</text>
+
+  <!-- Опис параметрів W-схеми -->
+  <rect x="510" y="282" width="405" height="140" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="304" font-size="12" font-weight="bold" fill="#27ae60">Кінематичні характеристики:</text>
+  <text x="525" y="324" font-size="11" fill="#1a1a1a">• Осі вала 1 та вала 3 перетинаються у вершині трикутника</text>
+  <text x="525" y="342" font-size="11" fill="#1a1a1a">• Повна геометрична дзеркальна симетрія: beta1 = beta2</text>
+  <text x="525" y="360" font-size="11" fill="#27ae60">• Повна компенсація пульсацій швидкості: omega3 = omega1</text>
+  <text x="525" y="380" font-weight="bold" font-size="11" fill="#1a1a1a">Типове застосування:</text>
+  <text x="525" y="400" font-size="11" fill="#6b7280">Шарнірно-зчленовані шасі тракторів, спецтехніка, причепи</text>
+</svg>

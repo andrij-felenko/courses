@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Кінематика колісної осі в повороті: радіуси траєкторій та пробуксовування</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">При жорсткому з'єднанні коліс однаковий кут обертання викликає поздовжнє ковзання шин</text>
+
+  <!-- Left Panel: Kinematics of pure rolling (Differential) -->
+  <rect x="30" y="75" width="435" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="45" y="90" width="405" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="247" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Вільне кочення з диференціалом: чисте кочення</text>
+
+  <!-- Left Center Turn Point (middle left) -->
+  <circle cx="65" cy="290" r="4" fill="#6b7280"/>
+  <text x="65" y="315" text-anchor="middle" font-size="12" fill="#6b7280">МЦП</text>
+
+  <!-- Trajectory Arcs Left: from (65, 290) -->
+  <path d="M 65,290 A 150 150 0 0 1 200,185" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <path d="M 65,290 A 260 260 0 0 1 310,155" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Axle connection -->
+  <line x1="200" y1="185" x2="310" y2="155" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="255" y="165" text-anchor="middle" font-size="12" fill="#1a1a1a">Колія B</text>
+
+  <!-- Wheels Left -->
+  <!-- Inner Wheel -->
+  <rect x="185" y="177" width="30" height="16" rx="2" fill="#2457d6"/>
+  <line x1="200" y1="177" x2="200" y2="148" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="175" y="165" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">v_in</text>
+
+  <!-- Outer Wheel -->
+  <rect x="295" y="147" width="30" height="16" rx="2" fill="#2457d6"/>
+  <line x1="310" y1="147" x2="310" y2="122" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="350" y="145" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">v_out</text>
+
+  <!-- Left Info box placed at the bottom -->
+  <rect x="45" y="350" width="405" height="70" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="60" y="372" font-size="12" fill="#1a1a1a">Кутові швидкості адаптуються: omega_out &gt; omega_in</text>
+  <text x="60" y="392" font-size="12" fill="#1a1a1a">Лінійні швидкості точні: v_in = omega_in · R, v_out = omega_out · R</text>
+  <text x="60" y="410" font-size="12" font-weight="bold" fill="#27ae60">Ковзання шин відсутнє: s = 0 (ідеальне кочення)</text>
+
+
+  <!-- Right Panel: Rigid Axle (Spool / no differential) -->
+  <rect x="495" y="75" width="435" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="510" y="90" width="405" height="30" rx="4" fill="#fdecea"/>
+  <text x="712" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Жорсткий вал без диференціала: конфлікт швидкостей</text>
+
+  <!-- Right Center Turn Point -->
+  <circle cx="530" cy="290" r="4" fill="#6b7280"/>
+  <text x="530" y="315" text-anchor="middle" font-size="12" fill="#6b7280">МЦП</text>
+
+  <!-- Trajectory Arcs Right -->
+  <path d="M 530,290 A 150 150 0 0 1 665,185" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <path d="M 530,290 A 260 260 0 0 1 775,155" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Axle connection -->
+  <line x1="665" y1="185" x2="775" y2="155" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="720" y="165" text-anchor="middle" font-size="12" fill="#1a1a1a">Суцільний вал</text>
+
+  <!-- Wheels Right -->
+  <!-- Inner Wheel (slipping: forced forward) -->
+  <rect x="650" y="177" width="30" height="16" rx="2" fill="#c0392b"/>
+  <line x1="665" y1="177" x2="665" y2="148" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="640" y="165" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">v_kin</text>
+
+  <!-- Outer Wheel (braked: slipping backward) -->
+  <rect x="760" y="147" width="30" height="16" rx="2" fill="#c0392b"/>
+  <line x1="775" y1="147" x2="775" y2="122" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="815" y="145" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">v_kin</text>
+
+  <!-- Right Info box placed at the bottom -->
+  <rect x="510" y="350" width="405" height="70" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="525" y="372" font-size="12" fill="#c0392b">Кутові швидкості рівні: omega_in = omega_out = omega_axle</text>
+  <text x="525" y="392" font-size="12" fill="#c0392b">Внутрішнє колесо буксує, зовнішнє гальмує та стирається</text>
+  <text x="525" y="410" font-size="12" font-weight="bold" fill="#c0392b">Циркуляція замкненої паразитної потужності</text>
+
+</svg>

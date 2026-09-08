@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електрична схема підключення FOC-драйвера, двигуна та SPI-енкодера</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Швидкісний 14-бітний цифровий зворотний зв'язок кута ротора та трифазний міст інвертора</text>
+
+  <!-- Left Block: Magnetic Encoder AS5047P -->
+  <rect x="30" y="85" width="220" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="100" width="190" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="140" y="121" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Магнітний енкодер</text>
+  <text x="140" y="150" font-size="12" fill="#1a1a1a" text-anchor="middle">AS5047P (14 біт)</text>
+
+  <rect x="45" y="170" width="190" height="150" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="195" font-size="12" fill="#2457d6">MOSI (Data In)</text>
+  <text x="60" y="225" font-size="12" fill="#27ae60">MISO (Data Out)</text>
+  <text x="60" y="255" font-size="12" fill="#1a1a1a">SCK (Clock 10 МГц)</text>
+  <text x="60" y="285" font-size="12" fill="#c0392b">CSn (Chip Select)</text>
+  <text x="60" y="310" font-size="12" fill="#6b7280">VCC (3.3V) / GND</text>
+
+  <text x="140" y="355" font-size="12" fill="#6b7280" text-anchor="middle">Діаметральний магніт</text>
+  <text x="140" y="375" font-size="12" fill="#6b7280" text-anchor="middle">на валу двигуна</text>
+
+  <!-- Middle Block: FOC Controller Board -->
+  <rect x="340" y="85" width="280" height="340" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="115" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Плата FOC-контролера</text>
+  <text x="480" y="135" font-size="12" fill="#1a1a1a" text-anchor="middle">(STM32F4 / ESP32 / SimpleFOC)</text>
+
+  <!-- Sub-block MCU -->
+  <rect x="360" y="155" width="240" height="110" rx="6" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="178" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер (MCU)</text>
+  <text x="480" y="200" font-size="12" fill="#1a1a1a" text-anchor="middle">Трансформації Парка/Кларка</text>
+  <text x="480" y="222" font-size="12" fill="#27ae60" text-anchor="middle">PID-контур струму Iq (20 кГц)</text>
+  <text x="480" y="244" font-size="12" fill="#6b7280" text-anchor="middle">ШІМ-генератор просторового вектора</text>
+
+  <!-- Sub-block Inverter (MOSFETs) -->
+  <rect x="360" y="280" width="240" height="125" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="303" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Силовий 3-фазний інвертор</text>
+  <text x="480" y="325" font-size="12" fill="#1a1a1a" text-anchor="middle">6 × N-канальних MOSFET</text>
+  <text x="480" y="347" font-size="12" fill="#1a1a1a" text-anchor="middle">Струмові шунти (In-line / Low-side)</text>
+  <text x="480" y="370" font-size="12" fill="#c0392b" text-anchor="middle">Живлення V_bus: 24В..48В DC</text>
+
+  <!-- Right Block: BLDC Motor -->
+  <rect x="710" y="85" width="220" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="725" y="100" width="190" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="820" y="121" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Безколекторний мотор</text>
+  <text x="820" y="150" font-size="12" fill="#1a1a1a" text-anchor="middle">QDD Torque Motor</text>
+
+  <rect x="725" y="170" width="190" height="150" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="740" y="205" font-size="14" font-weight="bold" fill="#c0392b">Фаза U</text>
+  <text x="740" y="245" font-size="14" font-weight="bold" fill="#2457d6">Фаза V</text>
+  <text x="740" y="285" font-size="14" font-weight="bold" fill="#27ae60">Фаза W</text>
+
+  <text x="820" y="360" font-size="12" fill="#6b7280" text-anchor="middle">Низький фазовий опір</text>
+  <text x="820" y="380" font-size="12" fill="#6b7280" text-anchor="middle">R_phase ≈ 0.1..0.3 Ом</text>
+
+  <!-- SPI bus connection lines (Left to Middle) -->
+  <line x1="250" y1="210" x2="340" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="295" y="202" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SPI Bus</text>
+
+  <!-- 3-Phase power lines (Middle to Right) -->
+  <line x1="600" y1="340" x2="710" y2="340" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="655" y="332" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">U, V, W</text>
+</svg>

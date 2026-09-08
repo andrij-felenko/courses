@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Парадокс вільного диференціала: нульова реакція та втрата тяги</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Момент на обох колесах строго рівний меншому з опорних моментів: T_dry = T_ice</text>
+
+  <!-- Left Panel: Wheel on Ice (Slipping) -->
+  <rect x="30" y="75" width="435" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="45" y="90" width="405" height="30" rx="4" fill="#fdecea"/>
+  <text x="247" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Ліве колесо: слизький лід (mu = 0.05)</text>
+
+  <!-- Wheel graphic Left -->
+  <rect x="180" y="145" width="135" height="55" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="247" y="177" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Колесо на льоду</text>
+
+  <!-- Angular velocity arrow (Fast spin) -->
+  <line x1="247" y1="200" x2="247" y2="245" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="260" y="230" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">omega_ice = 2 · omega_H</text>
+
+  <!-- Ground contact Left (Ice) -->
+  <rect x="100" y="260" width="295" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="275" text-anchor="middle" font-size="12" fill="#2457d6">Зледеніле покриття (опір прямує до 0)</text>
+
+  <!-- Torque Left -->
+  <rect x="45" y="300" width="405" height="120" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="60" y="325" font-size="13" font-weight="bold" fill="#c0392b">Крутний момент: T_ice = F_z · mu_ice · R ≈ 0</text>
+  <text x="60" y="350" font-size="12" fill="#1a1a1a">Колесо вільно буксує без опору ґрунту.</text>
+  <text x="60" y="372" font-size="12" fill="#1a1a1a">Сателіти диференціала обертаються з максимальною швидкістю.</text>
+  <text x="60" y="395" font-size="12" font-weight="bold" fill="#c0392b">Корисна сила тяги: F_тяга_1 ≈ 0 Н</text>
+
+
+  <!-- Right Panel: Wheel on Dry Asphalt (Stuck!) -->
+  <rect x="495" y="75" width="435" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="510" y="90" width="405" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="712" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Праве колесо: сухий асфальт (mu = 0.85)</text>
+
+  <!-- Wheel graphic Right -->
+  <rect x="645" y="145" width="135" height="55" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="712" y="177" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Колесо на асфальті</text>
+
+  <!-- Angular velocity Right (Stationary) -->
+  <line x1="712" y1="200" x2="712" y2="225" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="712" cy="235" r="4" fill="#6b7280"/>
+  <text x="725" y="230" text-anchor="start" font-size="12" font-weight="bold" fill="#6b7280">omega_dry = 0 (стоїть!)</text>
+
+  <!-- Ground contact Right (Asphalt) -->
+  <rect x="565" y="260" width="295" height="20" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="712" y="275" text-anchor="middle" font-size="12" fill="#1a1a1a">Сухий асфальт з ідеальним зчепленням</text>
+
+  <!-- Torque Right -->
+  <rect x="510" y="300" width="405" height="120" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="525" y="325" font-size="13" font-weight="bold" fill="#c0392b">Парадокс: T_dry = T_ice ≈ 0 (закон 50:50!)</text>
+  <text x="525" y="350" font-size="12" fill="#1a1a1a">Попри потенційну здатність передати високий момент,</text>
+  <text x="525" y="372" font-size="12" fill="#1a1a1a">диференціал обмежує момент величиною буксуючого колеса.</text>
+  <text x="525" y="395" font-size="12" font-weight="bold" fill="#c0392b">Машина повністю втрачає хід: F_сумарна ≈ 0 Н</text>
+
+</svg>

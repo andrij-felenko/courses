@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460">
+  <defs>
+    <marker id="arr6" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue6" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green6" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="460" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Кінематичний вивід зміни кута установки лопаті від нахилу тарілки</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Проєкція просторового перекосу перетворює обертання на гармонічний рух тяги лопаті</text>
+
+  <!-- Left Panel: Geometry -->
+  <rect x="25" y="75" width="275" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Геометрія тарілки</text>
+  <text x="40" y="122" font-size="12" fill="#6b7280">Параметри тривимірного шарніра</text>
+
+  <text x="40" y="152" font-size="11" fill="#1a1a1a">• R_sp : радіус шарнірів тяг на тарілці</text>
+  <text x="40" y="172" font-size="11" fill="#1a1a1a">• gamma : кут нахилу тарілки перекосу</text>
+  <text x="40" y="192" font-size="11" fill="#1a1a1a">• L_horn : довжина важеля повороту цапфи</text>
+  <text x="40" y="212" font-size="11" fill="#1a1a1a">• psi : кут азимута точки кріплення</text>
+
+  <rect x="38" y="245" width="249" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="48" y="268" font-size="12" font-weight="bold" fill="#2457d6">Вертикальний хід тяги:</text>
+  <text x="48" y="290" font-size="11" fill="#1a1a1a">Delta_z(psi) = R_sp · tan(gamma) ·</text>
+  <text x="48" y="308" font-size="11" fill="#1a1a1a">             · sin(psi)</text>
+  <text x="48" y="330" font-size="11" fill="#6b7280">Для малих кутів: tan(gamma) ≈ gamma</text>
+
+  <text x="40" y="390" font-size="11" font-weight="bold" fill="#2457d6">Зв'язок координат:</text>
+  <text x="40" y="410" font-size="11" fill="#6b7280">Гармонічна проєкція вектора</text>
+
+  <!-- Center Panel: Spatial Diagram -->
+  <rect x="315" y="75" width="330" height="365" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Просторова схема перекосу</text>
+
+  <!-- Vertical Shaft (Mast) -->
+  <rect x="472" y="130" width="16" height="240" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="395" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Ось щогли Z</text>
+
+  <!-- Neutral Horizontal Plane (dashed) -->
+  <line x1="360" y1="240" x2="600" y2="240" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="360" y="235" font-size="10" fill="#6b7280">Нейтраль (gamma=0)</text>
+
+  <!-- Tilted Swashplate (polygon inclined by 12 deg) -->
+  <polygon points="380,265 580,215 580,227 380,277" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Похилена тарілка</text>
+
+  <!-- Tilt Angle Arc gamma at left -->
+  <path d="M390,240 A90,90 0 0,1 392,262" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="365" y="258" font-size="10" font-weight="bold" fill="#2457d6">gamma</text>
+
+  <!-- Pushrod at right edge (x=570) -->
+  <line x1="570" y1="217" x2="570" y2="150" stroke="#27ae60" stroke-width="2.5" marker-start="url(#arr-green6)"/>
+  <text x="595" y="180" font-size="11" font-weight="bold" fill="#27ae60">Тяга</text>
+
+  <!-- Delta_z Dimension at right edge -->
+  <line x1="605" y1="240" x2="605" y2="217" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr6)" marker-end="url(#arr6)"/>
+  <text x="615" y="232" font-size="10" font-weight="bold" fill="#1a1a1a">Delta_z</text>
+
+  <!-- Radius dimension R_sp -->
+  <line x1="480" y1="315" x2="570" y2="315" stroke="#6b7280" stroke-width="1" marker-start="url(#arr6)" marker-end="url(#arr6)"/>
+  <text x="525" y="330" text-anchor="middle" font-size="10" fill="#6b7280">R_sp</text>
+
+  <!-- Right Panel: Analytical Blade Law -->
+  <rect x="660" y="75" width="275" height="365" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="675" y="102" font-size="14" font-weight="bold" fill="#27ae60">Закон зміни кроку</text>
+  <text x="675" y="122" font-size="12" fill="#6b7280">Перетворення переміщення в кут</text>
+
+  <text x="675" y="152" font-size="11" fill="#1a1a1a">• Поворот комля лопаті на цапфі:</text>
+  <text x="675" y="172" font-size="11" fill="#1a1a1a">  Delta_theta ≈ Delta_z(psi) / L_horn</text>
+  <text x="675" y="192" font-size="11" fill="#1a1a1a">• Амплітуда циклічного кроку:</text>
+  <text x="675" y="212" font-size="11" fill="#1a1a1a">  Theta_1 = (R_sp / L_horn) · gamma</text>
+
+  <rect x="673" y="245" width="249" height="110" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="683" y="268" font-size="12" font-weight="bold" fill="#27ae60">Повний закон кроку:</text>
+  <text x="683" y="290" font-size="11" fill="#1a1a1a">theta(psi) = theta_0 +</text>
+  <text x="683" y="308" font-size="11" fill="#1a1a1a">  + theta_1c · cos(psi) +</text>
+  <text x="683" y="326" font-size="11" fill="#1a1a1a">  + theta_1s · sin(psi)</text>
+
+  <text x="675" y="390" font-size="11" font-weight="bold" fill="#27ae60">Чистота гармоніки:</text>
+  <text x="675" y="410" font-size="11" fill="#6b7280">Відсутність вищих паразитних частот</text>
+</svg>

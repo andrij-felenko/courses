@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Динаміка SEA: механічна фільтрація ударів та смуга пропускання зусилля</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Пружина зрізає високочастотний ударний пік сили, захищаючи зубчасте зачеплення</text>
+
+  <!-- Left: Time Response to Impact -->
+  <rect x="30" y="75" width="435" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="45" y="90" width="405" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="247" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Часова реакція на контактний удар (Impact Response)</text>
+
+  <!-- Axes Left -->
+  <line x1="70" y1="310" x2="415" y2="310" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="70" y1="310" x2="70" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="415" y="330" text-anchor="end" font-size="12" fill="#1a1a1a">Час t, мс</text>
+  <text x="65" y="130" text-anchor="end" font-size="12" fill="#1a1a1a">Сила F(t)</text>
+
+  <!-- Rigid Actuator Impact Curve (Red sharp spike) -->
+  <path d="M 70,310 L 95,310 L 105,150 L 115,310 L 400,310" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="120" y="150" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Жорсткий привід: пік F_peak</text>
+
+  <!-- SEA Compliant Curve (Blue smooth curve) -->
+  <path d="M 70,310 L 95,310 Q 150,220 210,235 T 320,310 L 400,310" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <text x="215" y="225" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">SEA: плавне наростання</text>
+
+  <!-- Info box Left -->
+  <rect x="45" y="340" width="405" height="75" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="60" y="362" font-size="12" font-weight="bold" fill="#c0392b">Жорсткий привід: удар зупиняє N²·J_m за 2 мс (злам зубів)</text>
+  <text x="60" y="382" font-size="12" font-weight="bold" fill="#2457d6">Привід SEA: пружина k_s розтягує контакт у часі (40–80 мс)</text>
+  <text x="60" y="400" font-size="12" fill="#27ae60">Пікова контактна сила зменшується у 5–10 разів.</text>
+
+
+  <!-- Right: Bode Plot / Bandwidth Limit -->
+  <rect x="495" y="75" width="435" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="510" y="90" width="405" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="712" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Амплітудно-частотна характеристика (ЛАЧХ) зусилля</text>
+
+  <!-- Axes Right -->
+  <line x1="535" y1="310" x2="885" y2="310" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="535" y1="310" x2="535" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="885" y="330" text-anchor="end" font-size="12" fill="#1a1a1a">Частота f, Гц</text>
+  <text x="530" y="130" text-anchor="end" font-size="12" fill="#1a1a1a">|F_out/F_cmd|</text>
+
+  <!-- Resonance line -->
+  <line x1="745" y1="160" x2="745" y2="310" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="755" y="155" text-anchor="start" font-size="12" fill="#6b7280">f_res = sqrt(k_s/J_L)</text>
+
+  <!-- Small Signal Bandwidth Curve (Green) -->
+  <path d="M 535,175 L 680,175 Q 715,150 745,190 T 800,285 L 860,305" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="550" y="165" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Малий сигнал (f_bw ~ 16 Гц)</text>
+
+  <!-- Large Signal Saturated Bandwidth Curve (Red) -->
+  <path d="M 535,210 L 590,210 Q 620,230 645,265 T 720,305 L 860,310" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="550" y="200" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Великий сигнал (4 Гц, ліміт швидкості)</text>
+
+  <!-- Info box Right -->
+  <rect x="510" y="340" width="405" height="75" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="525" y="362" font-size="12" font-weight="bold" fill="#1a1a1a">Межа за насиченням швидкості ротора двигуна:</text>
+  <text x="525" y="382" font-size="12" fill="#1a1a1a">f_large = (k_s · omega_max) / (2π · N · T_0)</text>
+  <text x="525" y="400" font-size="12" font-weight="bold" fill="#c0392b">Смуга великих зусиль падає обернено амплітуді T_0.</text>
+
+</svg>

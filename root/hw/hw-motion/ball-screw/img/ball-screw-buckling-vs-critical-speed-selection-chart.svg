@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діаграма вибору робочої зони ШВП: стійкість вигину та критична частота</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Збільшення робочої довжини вала обмежує граничну швидкість і допустиме осьове зусилля за квадратичним законом</text>
+
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- ЛІВА ЧАСТИНА: Графік вибору робочого поля -->
+  <rect x="30" y="75" width="580" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок графіка -->
+  <text x="50" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Поле допустимих параметрів ШВП (L vs n, F)</text>
+  <text x="50" y="120" font-size="12" fill="#6b7280">Співвідношення між довжиною гвинта L та робочою зоною</text>
+
+  <!-- Зони на графіку -->
+  <!-- Небезпечна зона вигину та резонансу (верхній правий сектор) -->
+  <path d="M 120 150 L 560 150 L 560 360 L 460 360 C 380 340 280 270 120 150 Z" fill="#fdecea"/>
+
+  <!-- Безпечна зона (зелена під кривою) -->
+  <path d="M 120 360 L 120 150 C 280 270 380 340 460 360 Z" fill="#e9f7ef"/>
+
+  <!-- Осі координат -->
+  <line x1="120" y1="360" x2="570" y2="360" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <line x1="120" y1="360" x2="120" y2="140" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+
+  <!-- Позначки-засічки по осі Y -->
+  <line x1="115" y1="300" x2="120" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="115" y1="240" x2="120" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="115" y1="180" x2="120" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Позначки-засічки по осі X -->
+  <line x1="220" y1="360" x2="220" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="330" y1="360" x2="330" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="440" y1="360" x2="440" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="530" y1="360" x2="530" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Підписи осей координат -->
+  <text x="560" y="385" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Довжина гвинта L (мм)</text>
+  <text x="110" y="140" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Частота n / Сила F</text>
+
+  <!-- Числові позначки по осі L -->
+  <text x="120" y="378" font-size="11" fill="#6b7280" text-anchor="middle">200</text>
+  <text x="220" y="378" font-size="11" fill="#6b7280" text-anchor="middle">500</text>
+  <text x="330" y="378" font-size="11" fill="#6b7280" text-anchor="middle">1000</text>
+  <text x="440" y="378" font-size="11" fill="#6b7280" text-anchor="middle">1500</text>
+  <text x="530" y="378" font-size="11" fill="#6b7280" text-anchor="middle">2000</text>
+
+  <!-- Числові позначки по осі Y -->
+  <text x="110" y="304" font-size="11" fill="#6b7280" text-anchor="end">25%</text>
+  <text x="110" y="244" font-size="11" fill="#6b7280" text-anchor="end">50%</text>
+  <text x="110" y="184" font-size="11" fill="#6b7280" text-anchor="end">75%</text>
+
+  <!-- Крива критичної частоти n_cr (синя) -->
+  <path d="M 140 160 Q 240 230 530 350" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Крива ейлерового вигину F_cr (червона) -->
+  <path d="M 120 180 Q 210 260 480 358" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 3"/>
+
+  <!-- Підписи кривих (плашки з чіткими координатами) -->
+  <rect x="290" y="165" width="260" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="420" y="181" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Критична частота: n_cr ~ d_r / L^2</text>
+
+  <rect x="290" y="196" width="260" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="420" y="212" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Стійкість до вигину: F_cr ~ d_r^4 / L^2</text>
+
+  <!-- Підпис зон -->
+  <rect x="135" y="300" width="180" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="225" y="317" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">БЕЗПЕЧНА РОБОЧА ЗОНА</text>
+  <text x="225" y="332" font-size="11" fill="#27ae60" text-anchor="middle">n &lt;= 0.8 n_cr та F &lt;= 0.5 F_cr</text>
+
+  <rect x="360" y="235" width="180" height="38" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="450" y="251" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">ЗОНА ВІДМОВИ</text>
+  <text x="450" y="265" font-size="10" fill="#c0392b" text-anchor="middle">Резонанс вала або вигин</text>
+
+  <!-- ПРАВА ЧАСТИНА: Вплив типу закріплення опор -->
+  <rect x="630" y="75" width="300" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="645" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Коефіцієнти закріплення опор</text>
+  <text x="645" y="120" font-size="12" fill="#6b7280">Вплив схеми встановлення на n_cr та F_cr</text>
+
+  <!-- Блок 1: Жорстко - Жорстко -->
+  <rect x="645" y="132" width="270" height="66" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="655" y="150" font-size="12" font-weight="bold" fill="#27ae60">1. Жорстко - Жорстко (Fixed-Fixed)</text>
+  <text x="655" y="168" font-size="11" fill="#1a1a1a">Коефіцієнт частоти: lambda_n = 2.27 (макс. об/хв)</text>
+  <text x="655" y="184" font-size="11" fill="#1a1a1a">Коефіцієнт вигину: lambda_k = 4.00 (макс. навантаження)</text>
+
+  <!-- Блок 2: Жорстко - Оперто -->
+  <rect x="645" y="208" width="270" height="66" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="655" y="226" font-size="12" font-weight="bold" fill="#2457d6">2. Жорстко - Оперто (Fixed-Supported)</text>
+  <text x="655" y="244" font-size="11" fill="#1a1a1a">Коефіцієнт частоти: lambda_n = 1.56 (оптимально)</text>
+  <text x="655" y="260" font-size="11" fill="#1a1a1a">Коефіцієнт вигину: lambda_k = 2.05 (поширено)</text>
+
+  <!-- Блок 3: Оперто - Оперто -->
+  <rect x="645" y="284" width="270" height="66" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="655" y="302" font-size="12" font-weight="bold" fill="#1a1a1a">3. Оперто - Оперто (Supported-Supported)</text>
+  <text x="655" y="320" font-size="11" fill="#1a1a1a">Коефіцієнт частоти: lambda_n = 1.00 (базовий)</text>
+  <text x="655" y="336" font-size="11" fill="#1a1a1a">Коефіцієнт вигину: lambda_k = 1.00 (базовий)</text>
+
+  <!-- Блок 4: Інженерне правило -->
+  <rect x="645" y="360" width="270" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="655" y="380" font-size="11" font-weight="bold" fill="#2457d6">Інженерний висновок:</text>
+  <text x="655" y="396" font-size="11" fill="#1a1a1a">Жорсткі опори з двох боків збільшують</text>
+  <text x="655" y="411" font-size="11" fill="#1a1a1a">допустиму силу в 4 рази, а швидкість у 2.27 р.</text>
+</svg>

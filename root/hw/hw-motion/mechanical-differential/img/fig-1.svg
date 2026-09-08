@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-m" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-b" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="24" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конічний диференціал Онесіфора Пеккера (патент 1827 року)</text>
+  <text x="480" y="44" text-anchor="middle" font-size="13" fill="#6b7280">Водило передає крутний момент від парової машини, а конічні сателіти розподіляють швидкість між півосями</text>
+
+  <!-- LEFT PANEL: Historic Context & Components -->
+  <rect x="25" y="62" width="250" height="380" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="35" y="72" width="230" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="150" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Історична схема Пеккера (1827)</text>
+
+  <rect x="35" y="110" width="230" height="65" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="128" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">Приводний вінець / шків:</text>
+  <text x="45" y="145" text-anchor="start" font-size="11" fill="#475569">• Приводиться паровою машиною</text>
+  <text x="45" y="160" text-anchor="start" font-size="11" fill="#475569">• Обертає корпус водила (omega_0)</text>
+
+  <rect x="35" y="185" width="230" height="75" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="203" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">Конічні сателіти (Satellites):</text>
+  <text x="45" y="220" text-anchor="start" font-size="11" fill="#475569">• Встановлені на радіальних осях</text>
+  <text x="45" y="235" text-anchor="start" font-size="11" fill="#475569">• Обертаються разом із водилом</text>
+  <text x="45" y="250" text-anchor="start" font-size="11" fill="#475569">• Обертаються навколо власних осей</text>
+
+  <rect x="35" y="270" width="230" height="70" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="288" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">Півосьові шестерні (Sun gears):</text>
+  <text x="45" y="305" text-anchor="start" font-size="11" fill="#475569">• З'єднані з колесами воза</text>
+  <text x="45" y="320" text-anchor="start" font-size="11" fill="#2457d6">• Дозволяють різницю швидкостей</text>
+
+  <rect x="35" y="350" width="230" height="72" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="45" y="368" text-anchor="start" font-size="11" font-weight="bold" fill="#2457d6">Кінематичне рівняння:</text>
+  <text x="45" y="388" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">omega_carrier = (omega_L + omega_R) / 2</text>
+  <text x="45" y="405" text-anchor="start" font-size="11" fill="#475569">Сума швидкостей коліс константна</text>
+
+
+  <!-- CENTER: Mechanical Cross-section Diagram -->
+  <!-- Main Axle Centerline -->
+  <line x1="285" y1="230" x2="675" y2="230" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <!-- Left Half-Shaft (Axle to Left Wheel) -->
+  <rect x="295" y="224" width="135" height="12" fill="#e5e7eb" stroke="#475569" stroke-width="1.5"/>
+  <text x="345" y="215" text-anchor="middle" font-size="11" font-weight="bold" fill="#475569">Ліва піввісь</text>
+
+  <!-- Right Half-Shaft (Axle to Right Wheel) -->
+  <rect x="530" y="224" width="135" height="12" fill="#e5e7eb" stroke="#475569" stroke-width="1.5"/>
+  <text x="615" y="215" text-anchor="middle" font-size="11" font-weight="bold" fill="#475569">Права піввісь</text>
+
+  <!-- Left Sun Gear (Bevel gear attached to left shaft) -->
+  <polygon points="430,195 455,205 455,255 430,265" fill="#93c5fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="420" y="185" text-anchor="end" font-size="10" font-weight="bold" fill="#2457d6">Шестерня (L)</text>
+
+  <!-- Right Sun Gear (Bevel gear attached to right shaft) -->
+  <polygon points="530,195 505,205 505,255 530,265" fill="#93c5fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="540" y="185" text-anchor="start" font-size="10" font-weight="bold" fill="#2457d6">Шестерня (R)</text>
+
+  <!-- Carrier Case (Водило) - Frame around center -->
+  <!-- Upper arm of carrier -->
+  <rect x="472" y="110" width="16" height="40" fill="#cbd5e1" stroke="#334155" stroke-width="1.5"/>
+  <!-- Lower arm of carrier -->
+  <rect x="472" y="310" width="16" height="40" fill="#cbd5e1" stroke="#334155" stroke-width="1.5"/>
+  <!-- Outer ring/casing bridges -->
+  <path d="M 472,110 L 400,110 L 400,165" fill="none" stroke="#334155" stroke-width="2"/>
+  <path d="M 488,110 L 560,110 L 560,165" fill="none" stroke="#334155" stroke-width="2"/>
+  <path d="M 472,350 L 400,350 L 400,295" fill="none" stroke="#334155" stroke-width="2"/>
+  <path d="M 488,350 L 560,350 L 560,295" fill="none" stroke="#334155" stroke-width="2"/>
+
+  <!-- External Drive Pulley / Ring Gear (Вхідний привод водила) -->
+  <rect x="382" y="90" width="196" height="16" rx="2" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="480" y="82" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e293b">Приводний зубчастий вінець водила</text>
+
+  <!-- Top Satellite Bevel Pinion (Meshes with left and right sun gears) -->
+  <polygon points="455,150 505,150 495,185 465,185" fill="#fca5a5" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="480" cy="165" r="3" fill="#c0392b"/>
+  <text x="515" y="168" text-anchor="start" font-size="10" font-weight="bold" fill="#c0392b">Сателіт</text>
+
+  <!-- Bottom Satellite Bevel Pinion -->
+  <polygon points="465,275 495,275 505,310 455,310" fill="#fca5a5" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="480" cy="295" r="3" fill="#c0392b"/>
+  <text x="515" y="295" text-anchor="start" font-size="10" font-weight="bold" fill="#c0392b">Сателіт</text>
+
+  <!-- Central Satellite Pin / Axis -->
+  <line x1="480" y1="145" x2="480" y2="315" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+  <!-- Left Wheel (Schematic at left end) -->
+  <rect x="290" y="160" width="10" height="140" rx="3" fill="#334155"/>
+  <text x="295" y="152" text-anchor="middle" font-size="10" font-weight="bold" fill="#334155">Колесо L</text>
+
+  <!-- Right Wheel (Schematic at right end) -->
+  <rect x="660" y="160" width="10" height="140" rx="3" fill="#334155"/>
+  <text x="665" y="152" text-anchor="middle" font-size="10" font-weight="bold" fill="#334155">Колесо R</text>
+
+
+  <!-- RIGHT PANEL: Turning Kinematics & Significance -->
+  <rect x="685" y="62" width="250" height="380" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="695" y="72" width="230" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="810" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Кінематика повороту воза</text>
+
+  <rect x="695" y="110" width="230" height="65" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="705" y="128" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">Прямолінійний рух:</text>
+  <text x="705" y="145" text-anchor="start" font-size="11" fill="#475569">• Сателіти не обертаються на осях</text>
+  <text x="705" y="160" text-anchor="start" font-size="11" fill="#475569">• omega_L = omega_R = omega_carrier</text>
+
+  <rect x="695" y="185" width="230" height="75" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="705" y="203" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">Рух у криволінійному повороті:</text>
+  <text x="705" y="220" text-anchor="start" font-size="11" fill="#475569">• Зовнішнє колесо: omega_R = omega + Dw</text>
+  <text x="705" y="235" text-anchor="start" font-size="11" fill="#475569">• Внутрішнє колесо: omega_L = omega - Dw</text>
+  <text x="705" y="250" text-anchor="start" font-size="11" fill="#475569">• Сателіт обертається зі швидкістю Dw</text>
+
+  <rect x="695" y="270" width="230" height="70" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="705" y="288" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">Історичне значення винаходу:</text>
+  <text x="705" y="305" text-anchor="start" font-size="11" fill="#475569">• Усунув проковзування коліс по бруківці</text>
+  <text x="705" y="320" text-anchor="start" font-size="11" fill="#2457d6">• Став базою для всіх автодиференціалів</text>
+
+  <rect x="695" y="350" width="230" height="72" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="705" y="368" text-anchor="start" font-size="11" font-weight="bold" fill="#27ae60">Розподіл крутного моменту:</text>
+  <text x="705" y="388" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">T_left = T_right = T_in / 2</text>
+  <text x="705" y="405" text-anchor="start" font-size="11" fill="#475569">Ідеальний симетричний розподіл тяги</text>
+</svg>

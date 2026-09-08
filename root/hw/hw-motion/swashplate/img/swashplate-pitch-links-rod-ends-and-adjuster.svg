@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-b" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-k" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-r" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструкція регульованої тяги кроку лопаті (pitch link)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Диференціальний талреп забезпечує мікрометричне тарування довжини та нульового кута атаки лопатей</text>
+
+  <!-- Left Card: Pitch Link Mechanical Anatomy -->
+  <rect x="30" y="75" width="460" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="260" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Будова та кінематика тяги повороту лопаті</text>
+
+  <!-- Top Rod End (Upper Heim Joint) -->
+  <circle cx="260" cy="135" r="22" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="260" cy="135" r="11" fill="#fed7aa" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="310" y="139" font-size="12" font-weight="bold" fill="#2457d6">Шарнір цапфи лопаті (ШС)</text>
+
+  <!-- Upper Threaded Shank (Right-hand thread M12) -->
+  <rect x="250" y="157" width="20" height="45" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <line x1="250" y1="168" x2="270" y2="168" stroke="#64748b" stroke-width="1"/>
+  <line x1="250" y1="178" x2="270" y2="178" stroke="#64748b" stroke-width="1"/>
+  <line x1="250" y1="188" x2="270" y2="188" stroke="#64748b" stroke-width="1"/>
+  <text x="310" y="179" font-size="11" fill="#475569">Права різьба (RH)</text>
+
+  <!-- Upper Jam Nut -->
+  <rect x="244" y="202" width="32" height="12" rx="2" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+  <text x="310" y="212" font-size="11" fill="#334155">Верхня контргайка</text>
+
+  <!-- Central Hexagonal Turnbuckle Body -->
+  <rect x="242" y="214" width="36" height="75" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="254" y1="214" x2="254" y2="289" stroke="#93c5fd" stroke-width="1"/>
+  <line x1="266" y1="214" x2="266" y2="289" stroke="#93c5fd" stroke-width="1"/>
+  <text x="310" y="246" font-size="12" font-weight="bold" fill="#2457d6">Талреп (муфта)</text>
+  <text x="310" y="264" font-size="11" fill="#6b7280">Обертання змінює довжину</text>
+
+  <!-- Lower Jam Nut -->
+  <rect x="244" y="289" width="32" height="12" rx="2" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+  <text x="310" y="299" font-size="11" fill="#334155">Нижня контргайка</text>
+
+  <!-- Lower Threaded Shank (Left-hand thread M12-LH) -->
+  <rect x="250" y="301" width="20" height="45" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <line x1="250" y1="312" x2="270" y2="312" stroke="#64748b" stroke-width="1"/>
+  <line x1="250" y1="322" x2="270" y2="322" stroke="#64748b" stroke-width="1"/>
+  <line x1="250" y1="332" x2="270" y2="332" stroke="#64748b" stroke-width="1"/>
+  <text x="310" y="323" font-size="11" fill="#475569">Ліва різьба (LH)</text>
+
+  <!-- Bottom Rod End (Lower Heim Joint) -->
+  <circle cx="260" cy="368" r="22" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="260" cy="368" r="11" fill="#fed7aa" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="310" y="372" font-size="12" font-weight="bold" fill="#c0392b">Шарнір обертової тарілки</text>
+
+  <!-- Force and adjustment indicators on left side of link -->
+  <!-- Tension / Compression dynamic arrows -->
+  <line x1="170" y1="180" x2="170" y2="140" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-r)"/>
+  <line x1="170" y1="320" x2="170" y2="360" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-r)"/>
+  <text x="170" y="246" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Змінне</text>
+  <text x="170" y="262" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">±12.5 кН</text>
+
+  <!-- Right Card: Engineering Specifications and Calibration -->
+  <rect x="510" y="75" width="420" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="720" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Технічні вимоги та процес регулювання</text>
+
+  <rect x="530" y="125" width="380" height="85" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="545" y="147" font-size="13" font-weight="bold" fill="#2457d6">1. Диференціальне регулювання:</text>
+  <text x="545" y="169" font-size="12" fill="#1a1a1a">• 1 оберт муфти талрепа зміщує довжину на 2.5 мм</text>
+  <text x="545" y="189" font-size="12" fill="#1a1a1a">• Забезпечує зміну кута установки лопаті на 1.2°</text>
+
+  <rect x="530" y="225" width="380" height="85" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="545" y="247" font-size="13" font-weight="bold" fill="#27ae60">2. Сферичний діапазон артикуляції:</text>
+  <text x="545" y="269" font-size="12" fill="#1a1a1a">• Кутовий перекіс головки без заклинювання: ±15°</text>
+  <text x="545" y="289" font-size="12" fill="#1a1a1a">• Тефлоновий лайнер PTFE: не вимагає мастила</text>
+
+  <rect x="530" y="325" width="380" height="95" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="545" y="347" font-size="13" font-weight="bold" fill="#1a1a1a">3. Надійність та безпека:</text>
+  <text x="545" y="369" font-size="12" fill="#1a1a1a">• Втомна міцність тяги: не менше 10⁷ циклів</text>
+  <text x="545" y="389" font-size="12" fill="#1a1a1a">• Фіксація контровочним дротом після затяжки</text>
+  <text x="545" y="407" font-size="11" fill="#6b7280">Запобігає самовільному розкручуванню від вібрацій</text>
+</svg>

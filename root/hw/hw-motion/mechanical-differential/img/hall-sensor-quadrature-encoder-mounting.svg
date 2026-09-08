@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Монтаж квадратурних датчиків Холла та магнітних кілець на півосях</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Симетричне зняття кутових швидкостей лівого і правого бортів для виявлення буксування коліс</text>
+
+  <!-- Left Axle Panel -->
+  <rect x="30" y="75" width="435" height="255" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="90" width="405" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="111" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Ліва піввісь: сенсорний вузол</text>
+
+  <!-- Shaft and Magnetic Ring Diagram -->
+  <rect x="60" y="145" width="220" height="30" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="170" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">Сталева піввісь d = 12 мм</text>
+
+  <!-- Multi-pole Ring -->
+  <rect x="280" y="130" width="50" height="60" rx="4" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="305" y="165" font-size="12" font-weight="bold" fill="white" text-anchor="middle">N-S</text>
+  <text x="305" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Магнітне кільце</text>
+
+  <!-- Hall Sensor Board -->
+  <rect x="270" y="235" width="130" height="75" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="335" y="258" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Плата Hall-датчиків</text>
+  <text x="335" y="278" font-size="12" fill="#1a1a1a" text-anchor="middle">Канали A та B (90°)</text>
+  <text x="335" y="298" font-size="12" fill="#27ae60" text-anchor="middle">Зазор delta = 1.0..1.5 мм</text>
+
+  <!-- Right Axle Panel -->
+  <rect x="495" y="75" width="435" height="255" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="90" width="405" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="111" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Права піввісь: сенсорний вузол</text>
+
+  <!-- Shaft and Magnetic Ring Diagram -->
+  <rect x="680" y="145" width="220" height="30" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="790" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">Сталева піввісь d = 12 мм</text>
+
+  <!-- Multi-pole Ring -->
+  <rect x="630" y="130" width="50" height="60" rx="4" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="655" y="165" font-size="12" font-weight="bold" fill="white" text-anchor="middle">N-S</text>
+  <text x="655" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Магнітне кільце</text>
+
+  <!-- Hall Sensor Board -->
+  <rect x="560" y="235" width="130" height="75" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="625" y="258" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Плата Hall-датчиків</text>
+  <text x="625" y="278" font-size="12" fill="#1a1a1a" text-anchor="middle">Канали A та B (90°)</text>
+  <text x="625" y="298" font-size="12" fill="#2457d6" text-anchor="middle">Зазор delta = 1.0..1.5 мм</text>
+
+  <!-- Bottom Comparison / Logic Panel -->
+  <rect x="30" y="345" width="900" height="95" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="370" font-size="13" font-weight="bold" fill="#1a1a1a">Обробка сигналів мікроконтролером (FSM детекції пробуксовки):</text>
+  <text x="50" y="392" font-size="12" fill="#2457d6">• Швидкість лівого колеса omega_L та правого omega_R обраховуються апаратними таймерами за фронтами A/B.</text>
+  <text x="50" y="412" font-size="12" fill="#27ae60">• Роздільна здатність: 64 магнітні полюси дають 256 квадратурних імпульсів за оберт колеса (точність 1.4°).</text>
+  <text x="50" y="430" font-size="12" fill="#6b7280">• При перевищенні порогу різниці швидкостей |omega_L - omega_R| &gt; Delta_slip вмикається соленоїд блокування.</text>
+</svg>

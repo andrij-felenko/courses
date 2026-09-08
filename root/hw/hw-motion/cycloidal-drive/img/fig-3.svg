@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-m2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-g2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-r2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="24" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Критерій підрізання та сингулярності циклоїдного профілю</text>
+  <text x="480" y="44" text-anchor="middle" font-size="13" fill="#6b7280">Для уникнення петель і загострень радіус ролика r_pin не повинен перевищувати радіус кривини rho_min</text>
+
+  <!-- LEFT PANEL: Correct Profile -->
+  <rect x="25" y="58" width="445" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="68" width="415" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="247" y="86" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Коректний профіль: плавна еквідистанта (rho_min > r_pin)</text>
+
+  <!-- Base Epitrochoid Lobe -->
+  <path d="M 70,260 Q 150,140 247,150 Q 345,160 425,260" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="140" y="160" text-anchor="end" font-size="11" fill="#6b7280">Епітрохоїда</text>
+
+  <!-- Smooth Equidistant Cycloidal Tooth -->
+  <path d="M 80,290 C 150,175 190,185 247,185 C 305,185 345,175 415,290" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <text x="247" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Плавна западина зуба</text>
+
+  <!-- Radius of Curvature Circle -->
+  <circle cx="247" cy="130" r="55" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="247" y1="130" x2="247" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-g2)"/>
+  <text x="255" y="155" text-anchor="start" font-size="11" font-weight="bold" fill="#2457d6">rho_min = 55 мм</text>
+
+  <!-- Mating Pin Roller -->
+  <circle cx="247" cy="155" r="30" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <text x="247" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#d97706">Ролик r_pin = 30 мм &lt; rho_min</text>
+  <text x="247" y="295" text-anchor="middle" font-size="11" fill="#27ae60">Безперервний плавний контакт без клину</text>
+
+  <!-- Left Bottom Summary -->
+  <rect x="35" y="342" width="425" height="88" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="360" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Геометрична умова працездатності:</text>
+  <text x="45" y="378" text-anchor="start" font-size="11" fill="#1a1a1a">• Радіус кривини теоретичної кривої скрізь перевищує радіус ролика</text>
+  <text x="45" y="396" text-anchor="start" font-size="11" fill="#1a1a1a">• Еквідистанта зберігає гладкість C1 та C2 без точок звороту</text>
+  <text x="45" y="414" text-anchor="start" font-size="11" fill="#27ae60">• Гарантується відсутність кромочного сколювання та заклинювання</text>
+
+
+  <!-- RIGHT PANEL: Undercutting and Singularity -->
+  <rect x="490" y="58" width="445" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="505" y="68" width="415" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712" y="86" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Підрізання профілю: сингулярність (rho_min &lt;= r_pin)</text>
+
+  <!-- Base Epitrochoid with sharp curvature -->
+  <path d="M 535,260 Q 615,140 712,150 Q 810,160 890,260" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Undercut Profile with Cusps and Self-Intersecting Loop -->
+  <path d="M 545,290 C 610,180 670,225 730,175 C 720,240 680,240 694,175 C 754,225 815,180 880,290" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Warning Callouts -->
+  <circle cx="694" cy="175" r="4" fill="#c0392b"/>
+  <circle cx="730" cy="175" r="4" fill="#c0392b"/>
+  <text x="712" y="150" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Загострення (Cusp / дзьоб)</text>
+
+  <!-- Self-intersection node -->
+  <circle cx="712" cy="205" r="5" fill="#1a1a1a"/>
+  <text x="712" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Самоперетин (петля)</text>
+
+  <!-- Oversized Pin Roller attempting to enter -->
+  <circle cx="712" cy="140" r="45" fill="none" stroke="#d97706" stroke-width="2" stroke-dasharray="5 3"/>
+  <text x="815" y="130" text-anchor="start" font-size="11" font-weight="bold" fill="#d97706">r_pin &gt; rho_min</text>
+  <text x="712" y="275" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Геометрична колізія: ролик заклинює</text>
+  <text x="712" y="295" text-anchor="middle" font-size="11" fill="#6b7280">Вершина ролика впирається в загострені кромки</text>
+
+  <!-- Right Bottom Summary -->
+  <rect x="500" y="342" width="425" height="88" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="510" y="360" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Наслідки порушення критерію:</text>
+  <text x="510" y="378" text-anchor="start" font-size="11" fill="#1a1a1a">• Еквідистанта утворює внутрішню петлю самоперетину</text>
+  <text x="510" y="396" text-anchor="start" font-size="11" fill="#1a1a1a">• Обробка на верстаті зрізає петлю, утворюючи гострий неробочий кут</text>
+  <text x="510" y="414" text-anchor="start" font-size="11" fill="#c0392b">• Неминуче заклинювання ролика та катастрофічне руйнування</text>
+</svg>

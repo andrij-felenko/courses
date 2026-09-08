@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Будова та магнітний контур безкорпусного torque-двигуна (QDD)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Зовнішній багатополюсний ротор NdFeB, концентровані зубцеві обмотки та наскрізний порожнистий вал</text>
+
+  <!-- Left Panel: Motor Cross-section Anatomy -->
+  <rect x="30" y="75" width="435" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="90" width="405" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="111" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Радіальна архітектура «pancake» (Outrunner)</text>
+
+  <!-- Concentric Rings / Architecture Diagram -->
+  <!-- Outer Rotor Shell -->
+  <circle cx="247" cy="245" r="115" fill="none" stroke="#6b7280" stroke-width="12"/>
+  <!-- Magnets -->
+  <circle cx="247" cy="245" r="102" fill="none" stroke="#c0392b" stroke-width="8" stroke-dasharray="14 4"/>
+  <!-- Air Gap -->
+  <circle cx="247" cy="245" r="94" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="3 3"/>
+  <!-- Stator Teeth with Coils -->
+  <circle cx="247" cy="245" r="82" fill="none" stroke="#27ae60" stroke-width="16" stroke-dasharray="16 5"/>
+  <!-- Stator Yoke -->
+  <circle cx="247" cy="245" r="66" fill="none" stroke="#d0d7de" stroke-width="10"/>
+  <!-- Large Hollow Bore -->
+  <circle cx="247" cy="245" r="54" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="247" y="242" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порожнистий</text>
+  <text x="247" y="258" font-size="12" fill="#6b7280" text-anchor="middle">отвір (Bore)</text>
+
+  <!-- Annotations around concentric diagram -->
+  <text x="45" y="145" font-size="12" font-weight="bold" fill="#6b7280">1. Сталеве ярмо ротора</text>
+  <text x="45" y="170" font-size="12" font-weight="bold" fill="#c0392b">2. Неодимові магніти (NdFeB)</text>
+  <text x="45" y="380" font-size="12" font-weight="bold" fill="#2457d6">3. Повітряний зазор delta = 0.5..1.0 мм</text>
+  <text x="45" y="405" font-size="12" font-weight="bold" fill="#27ae60">4. Зубці статора з обмотками фаз</text>
+
+  <!-- Right Panel: Magnetic Flux & Key Physics -->
+  <rect x="495" y="75" width="435" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="90" width="405" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712" y="111" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Чому високий крутний момент без редуктора</text>
+
+  <!-- Concept 1: Large Gap Radius -->
+  <rect x="510" y="135" width="405" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="158" font-size="13" font-weight="bold" fill="#2457d6">1. Великий діаметр повітряного зазору D_gap:</text>
+  <text x="525" y="178" font-size="12" fill="#1a1a1a">Крутний момент T = F_tan · (D_gap / 2) пропорційний радіусу зазору.</text>
+  <text x="525" y="198" font-size="12" fill="#6b7280">Широкий плаский мотор дає в 3–5 разів більший момент за довгий вузький.</text>
+
+  <!-- Concept 2: High Pole Count -->
+  <rect x="510" y="230" width="405" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="253" font-size="13" font-weight="bold" fill="#27ae60">2. Багатополюсний магнітний контур (2p = 20..40):</text>
+  <text x="525" y="273" font-size="12" fill="#1a1a1a">Тонке ярмо статора і ротора знижує масу заліза на 40%.</text>
+  <text x="525" y="293" font-size="12" fill="#6b7280">Короткий магнітний шлях мінімізує потік розсіювання та насичення.</text>
+
+  <!-- Concept 3: Hollow Shaft Advantage -->
+  <rect x="510" y="325" width="405" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="525" y="348" font-size="13" font-weight="bold" fill="#27ae60">3. Інтеграція в суглоби роботів:</text>
+  <text x="525" y="368" font-size="12" fill="#1a1a1a">Порожнистий центр вміщує планетарну ступінь або кабельну трасу.</text>
+  <text x="525" y="388" font-size="12" fill="#1a1a1a">Пряме кріплення ротора до ланки виключає проміжні вали й люфти.</text>
+  <text x="525" y="406" font-size="12" fill="#6b7280">Прямий тепловий контакт із рамою швидко відводить джоулеве тепло.</text>
+</svg>

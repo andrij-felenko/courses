@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схеми закріплення вала ШВП: стійкість Ейлера та критична швидкість</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Тип опор визначає допустиме осьове зусилля стиску та поріг виникнення резонансного биття</text>
+
+  <!-- Панель 1: Фіксована - Вільна -->
+  <rect x="30" y="75" width="286" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="87" width="262" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="173" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Фіксована — Вільна (Fixed-Free)</text>
+
+  <!-- Схема 1: Опори та прогин вала -->
+  <rect x="45" y="130" width="256" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Жорстка опора зліва -->
+  <rect x="55" y="170" width="24" height="50" rx="2" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="67" y="162" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Фікс.</text>
+
+  <!-- Вільний кінець справа (без опори) -->
+  <circle cx="270" cy="195" r="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="270" y="162" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">Вільний</text>
+
+  <!-- Вигнута вісь вала -->
+  <path d="M 79 195 C 140 195, 210 225, 270 232" fill="none" stroke="#c0392b" stroke-width="3" stroke-dasharray="5,3"/>
+  <line x1="79" y1="195" x2="270" y2="195" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Сила стиску P -->
+  <path d="M 288 232 L 273 232" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="173" y="255" text-anchor="middle" font-size="11" fill="#6b7280">Консольний вигин 1-ї форми</text>
+
+  <!-- Опис 1 -->
+  <text x="45" y="284" font-size="12" font-weight="bold" fill="#1a1a1a">Коефіцієнти формул:</text>
+  <text x="45" y="302" font-size="12" fill="#1a1a1a">• Коефіцієнт стійкості: fk = 0.25</text>
+  <text x="45" y="320" font-size="12" fill="#1a1a1a">• Коефіцієнт частоти: fc = 0.45</text>
+  <text x="45" y="338" font-size="12" fill="#1a1a1a">• Розрахункова довжина: l_eff = 2.0 · L</text>
+
+  <rect x="42" y="354" width="262" height="74" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="372" font-size="11" font-weight="bold" fill="#c0392b">Стійкість:</text>
+  <text x="120" y="372" font-size="11" fill="#1a1a1a">Мінімальна (база 1x)</text>
+  <text x="50" y="392" font-size="11" font-weight="bold" fill="#2457d6">Швидкість:</text>
+  <text x="120" y="392" font-size="11" fill="#1a1a1a">Лише повільні короткі ходи</text>
+  <text x="50" y="412" font-size="11" font-weight="bold" fill="#27ae60">Застосування:</text>
+  <text x="135" y="412" font-size="11" fill="#1a1a1a">Вертикальні приводи Z</text>
+
+
+  <!-- Панель 2: Фіксована - Плаваюча -->
+  <rect x="337" y="75" width="286" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="349" y="87" width="262" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Фіксована — Плаваюча (Supported)</text>
+
+  <!-- Схема 2: Опори та прогин вала -->
+  <rect x="352" y="130" width="256" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Жорстка опора зліва -->
+  <rect x="362" y="170" width="24" height="50" rx="2" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="374" y="162" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Фікс.</text>
+
+  <!-- Плаваюча радіальна опора справа -->
+  <rect x="568" y="176" width="20" height="38" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="578" y="162" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Плав.</text>
+
+  <!-- Вигнута симетрично вісь -->
+  <path d="M 386 195 Q 480 230 568 195" fill="none" stroke="#2457d6" stroke-width="3" stroke-dasharray="5,3"/>
+  <line x1="386" y1="195" x2="568" y2="195" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Сила стиску P -->
+  <path d="M 598 195 L 590 195" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="255" text-anchor="middle" font-size="11" fill="#6b7280">Синусоїдальний вигин полухвилі</text>
+
+  <!-- Опис 2 -->
+  <text x="352" y="284" font-size="12" font-weight="bold" fill="#1a1a1a">Коефіцієнти формул:</text>
+  <text x="352" y="302" font-size="12" fill="#1a1a1a">• Коефіцієнт стійкості: fk = 2.05</text>
+  <text x="352" y="320" font-size="12" fill="#1a1a1a">• Коефіцієнт частоти: fc = 3.92</text>
+  <text x="352" y="338" font-size="12" fill="#1a1a1a">• Розрахункова довжина: l_eff = 0.7 · L</text>
+
+  <rect x="349" y="354" width="262" height="74" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="357" y="372" font-size="11" font-weight="bold" fill="#c0392b">Стійкість:</text>
+  <text x="427" y="372" font-size="11" fill="#1a1a1a">Вища у 8 разів (8.2x)</text>
+  <text x="357" y="392" font-size="11" font-weight="bold" fill="#2457d6">Швидкість:</text>
+  <text x="427" y="392" font-size="11" fill="#1a1a1a">Вища у 8.7 разів за консоль</text>
+  <text x="357" y="412" font-size="11" font-weight="bold" fill="#27ae60">Застосування:</text>
+  <text x="442" y="412" font-size="11" fill="#1a1a1a">Універсальний стандарт ЧПК</text>
+
+
+  <!-- Панель 3: Фіксована - Фіксована -->
+  <rect x="644" y="75" width="286" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="656" y="87" width="262" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="787" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Фіксована — Фіксована (Fixed-Fixed)</text>
+
+  <!-- Схема 3: Опори та прогин вала -->
+  <rect x="659" y="130" width="256" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Жорстка опора зліва -->
+  <rect x="669" y="170" width="24" height="50" rx="2" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="681" y="162" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Фікс.</text>
+
+  <!-- Жорстка опора справа -->
+  <rect x="875" y="170" width="24" height="50" rx="2" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="887" y="162" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Фікс.</text>
+
+  <!-- Хвиля вигину з нульовим кутом на кінцях -->
+  <path d="M 693 195 C 730 195, 750 218, 787 218 C 824 218, 844 195, 875 195" fill="none" stroke="#27ae60" stroke-width="3" stroke-dasharray="5,3"/>
+  <line x1="693" y1="195" x2="875" y2="195" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Сила стиску P -->
+  <path d="M 908 195 L 900 195" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="787" y="255" text-anchor="middle" font-size="11" fill="#6b7280">Двостороння жорстка заробка</text>
+
+  <!-- Опис 3 -->
+  <text x="659" y="284" font-size="12" font-weight="bold" fill="#1a1a1a">Коефіцієнти формул:</text>
+  <text x="659" y="302" font-size="12" fill="#1a1a1a">• Коефіцієнт стійкості: fk = 4.00</text>
+  <text x="659" y="320" font-size="12" fill="#1a1a1a">• Коефіцієнт частоти: fc = 5.99</text>
+  <text x="659" y="338" font-size="12" fill="#1a1a1a">• Розрахункова довжина: l_eff = 0.5 · L</text>
+
+  <rect x="656" y="354" width="262" height="74" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="664" y="372" font-size="11" font-weight="bold" fill="#c0392b">Стійкість:</text>
+  <text x="734" y="372" font-size="11" fill="#1a1a1a">Максимальна у 16 разів (16x)</text>
+  <text x="664" y="392" font-size="11" font-weight="bold" fill="#2457d6">Швидкість:</text>
+  <text x="734" y="392" font-size="11" fill="#1a1a1a">Найвища (дозволяє натяг)</text>
+  <text x="664" y="412" font-size="11" font-weight="bold" fill="#27ae60">Застосування:</text>
+  <text x="749" y="412" font-size="11" fill="#1a1a1a">Високошвидкісні верстати</text>
+</svg>

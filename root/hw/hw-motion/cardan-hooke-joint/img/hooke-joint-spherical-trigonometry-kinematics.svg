@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінематичне виведення кутів повороту шарніра Гука на одиничній сфері</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Ортогональність шипів хрестовини формує прямокутний сферичний трикутник: tan(phi2) = tan(phi1) · cos(alpha)</text>
+
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- ЛІВА ПАНЕЛЬ: Одинична сфера -->
+  <rect x="30" y="75" width="560" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="50" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Геометрія сферичного трикутника</text>
+  <text x="50" y="120" font-size="12" fill="#6b7280">Траєкторії шипів хрестовини на поверхні сфери радіуса R = 1</text>
+
+  <!-- Контур одиничної сфери: центр (260, 260), радіус 120 -->
+  <circle cx="260" cy="260" r="120" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Екватор (площина ведучого вала 1, горизонтальна еліпсна лінія) -->
+  <ellipse cx="260" cy="260" rx="120" ry="25" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Похиле велике коло (площина веденого вала 2 під кутом alpha = 25 deg) -->
+  <path d="M 140 260 C 140 220 380 200 380 260 C 380 320 140 300 140 260 Z" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Осі валів -->
+  <!-- Вісь 1 (вертикальна до екватора: z-вісь) -->
+  <line x1="260" y1="260" x2="260" y2="120" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="250" y="130" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="end">Вісь вала 1</text>
+
+  <!-- Вісь 2 (нахилена на alpha = 25 deg праворуч) -->
+  <line x1="260" y1="260" x2="315" y2="125" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="325" y="130" font-size="11" font-weight="bold" fill="#c0392b">Вісь вала 2</text>
+
+  <!-- Кут зламу alpha біля вершини осей -->
+  <path d="M 260 170 A 90 90 0 0 1 280 172" fill="none" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="270" y="162" font-size="11" font-weight="bold" fill="#1a1a1a">alpha</text>
+
+  <!-- Точка P1 (шип ведучої вилки на екваторі): (360, 268) -->
+  <circle cx="360" cy="268" r="5" fill="#2457d6"/>
+  <text x="375" y="272" font-size="11" font-weight="bold" fill="#2457d6">P1 (вал 1)</text>
+
+  <!-- Точка P2 (шип веденої вилки на похилому колі): (295, 218) -->
+  <circle cx="295" cy="218" r="5" fill="#c0392b"/>
+  <text x="285" y="210" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="end">P2 (вал 2)</text>
+
+  <!-- Дуга хрестовини між P1 та P2: рівно 90 deg -->
+  <path d="M 360 268 Q 340 235 295 218" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Плашка дуги 90 deg праворуч від кола -->
+  <rect x="365" y="225" width="80" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="405" y="240" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Дуга 90°</text>
+
+  <!-- Підписи кутів зліва від кола (з text-anchor="end" до x=130) -->
+  <text x="130" y="245" font-size="11" fill="#2457d6" text-anchor="end">Кут phi1</text>
+  <text x="130" y="295" font-size="11" fill="#c0392b" text-anchor="end">Кут phi2</text>
+
+  <!-- Плашка формули знизу -->
+  <rect x="50" y="360" width="520" height="58" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="65" y="382" font-size="12" font-weight="bold" fill="#27ae60">Рівняння кінематичного зв'язку кутів повороту:</text>
+  <text x="65" y="402" font-size="12" font-weight="bold" fill="#1a1a1a">tan(phi2) = tan(phi1) · cos(alpha)   [за теоремою сферичних трикутників]</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Аналітичне доведення -->
+  <rect x="610" y="75" width="320" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="625" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Математичне виведення</text>
+  <text x="625" y="120" font-size="12" fill="#6b7280">Строгий тригонометричний зв'язок</text>
+
+  <!-- Крок 1 -->
+  <rect x="625" y="132" width="290" height="66" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="635" y="150" font-size="12" font-weight="bold" fill="#1a1a1a">1. Ортогональність шипів:</text>
+  <text x="635" y="168" font-size="11" fill="#1a1a1a">Вектори шипів хрестовини e1 і e2</text>
+  <text x="635" y="184" font-size="11" fill="#2457d6">строго перпендикулярні: e1 · e2 = 0</text>
+
+  <!-- Крок 2 -->
+  <rect x="625" y="208" width="290" height="66" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="635" y="226" font-size="12" font-weight="bold" fill="#1a1a1a">2. Сферичний трикутник:</text>
+  <text x="635" y="244" font-size="11" fill="#1a1a1a">У сферичному трикутнику з кутом alpha</text>
+  <text x="635" y="260" font-size="11" fill="#1a1a1a">і прямим кутом при вершині шипа</text>
+
+  <!-- Крок 3 -->
+  <rect x="625" y="284" width="290" height="66" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="635" y="302" font-size="12" font-weight="bold" fill="#1a1a1a">3. Правило Непера:</text>
+  <text x="635" y="320" font-size="11" fill="#1a1a1a">sin(90 - alpha) = cot(phi1) · tan(phi2)</text>
+  <text x="635" y="336" font-size="11" fill="#27ae60">cos(alpha) = tan(phi2) / tan(phi1)</text>
+
+  <!-- Крок 4 -->
+  <rect x="625" y="360" width="290" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="635" y="380" font-size="11" font-weight="bold" fill="#2457d6">Фізичний наслідок:</text>
+  <text x="635" y="396" font-size="11" fill="#1a1a1a">Кут phi2 циклічно випереджає і</text>
+  <text x="635" y="411" font-size="11" fill="#1a1a1a">відстає від phi1 двічі за один оберт</text>
+</svg>

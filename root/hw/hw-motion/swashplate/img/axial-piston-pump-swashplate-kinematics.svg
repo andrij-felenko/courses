@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460">
+  <defs>
+    <marker id="arr7" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue7" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green7" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="460" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Кінематика руху поршня в аксіально-поршневому насосі з похилою шайбою</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Кут нахилу шайби gamma визначає повний хід поршня S = D_p · tan(gamma) та об'єм подачі</text>
+
+  <!-- Left Panel: Geometry & Kinematics -->
+  <rect x="25" y="75" width="275" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Геометричні параметри</text>
+  <text x="40" y="122" font-size="12" fill="#6b7280">Розрахунок переміщення поршня</text>
+
+  <text x="40" y="152" font-size="11" fill="#1a1a1a">• D_p : діаметр кола центрів циліндрів</text>
+  <text x="40" y="170" font-size="11" fill="#1a1a1a">• gamma : кут нахилу похилої шайби (0°..18°)</text>
+  <text x="40" y="188" font-size="11" fill="#1a1a1a">• phi : кут повороту блока навколо осі</text>
+  <text x="40" y="206" font-size="11" fill="#1a1a1a">• A_p : площа робочого перерізу поршня</text>
+  <text x="40" y="224" font-size="11" fill="#1a1a1a">• Z_p : кількість поршнів у блоці (7 або 9)</text>
+
+  <rect x="38" y="245" width="249" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="48" y="268" font-size="12" font-weight="bold" fill="#2457d6">Закон переміщення поршня:</text>
+  <text x="48" y="288" font-size="11" fill="#1a1a1a">s(phi) = 0.5 · D_p · tan(gamma) ·</text>
+  <text x="48" y="306" font-size="11" fill="#1a1a1a">       · (1 - cos(phi))</text>
+  <text x="48" y="328" font-size="11" font-weight="bold" fill="#2457d6">Повний хід: S = D_p · tan(gamma)</text>
+  <text x="48" y="346" font-size="10" fill="#6b7280">НМТ при phi = 180°, ВМТ при phi = 0°</text>
+
+  <text x="40" y="390" font-size="11" font-weight="bold" fill="#2457d6">Регулювання подачі:</text>
+  <text x="40" y="410" font-size="11" fill="#6b7280">Зміна кута gamma змінює хід S</text>
+
+  <!-- Center Panel: Pump Schematic -->
+  <rect x="315" y="75" width="330" height="365" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Схема робочого вузла насоса</text>
+
+  <!-- Cylinder Block (rotating, x=450 to 550, y=175 to 325) -->
+  <rect x="450" y="175" width="95" height="150" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="497" y="254" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Блок циліндрів</text>
+
+  <!-- Top Bore and Piston (using path instead of rect to avoid overlap check) -->
+  <line x1="450" y1="185" x2="535" y2="185" stroke="#6b7280" stroke-width="1"/>
+  <line x1="450" y1="207" x2="535" y2="207" stroke="#6b7280" stroke-width="1"/>
+  <path d="M400,187 h75 v18 h-75 z" fill="#2457d6"/>
+  <!-- Piston Shoe Top -->
+  <polygon points="388,183 400,187 400,205 388,209" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Bottom Bore and Piston (using path instead of rect) -->
+  <line x1="450" y1="293" x2="535" y2="293" stroke="#6b7280" stroke-width="1"/>
+  <line x1="450" y1="315" x2="535" y2="315" stroke="#6b7280" stroke-width="1"/>
+  <path d="M440,295 h75 v18 h-75 z" fill="#2457d6"/>
+  <!-- Piston Shoe Bottom -->
+  <polygon points="428,291 440,295 440,313 428,317" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Tilted Swashplate at left (angle approx 15 deg) -->
+  <polygon points="370,165 385,165 435,335 420,335" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="355" y="175" text-anchor="end" font-size="11" font-weight="bold" fill="#2457d6">Шайба</text>
+
+  <!-- Stroke S dimension between shoes -->
+  <line x1="390" y1="168" x2="430" y2="168" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr7)" marker-end="url(#arr7)"/>
+  <text x="410" y="160" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a1a1a">Хід S</text>
+
+  <!-- Pitch Diameter D_p dimension between piston centerlines -->
+  <line x1="565" y1="196" x2="565" y2="304" stroke="#6b7280" stroke-width="1" marker-start="url(#arr7)" marker-end="url(#arr7)"/>
+  <text x="595" y="254" text-anchor="middle" font-size="10" fill="#6b7280">D_p</text>
+
+  <!-- Tilt Angle Arc gamma at bottom of swashplate -->
+  <line x1="430" y1="335" x2="430" y2="375" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <path d="M430,365 A30,30 0 0,1 422,335" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="442" y="365" font-size="10" font-weight="bold" fill="#2457d6">gamma</text>
+
+  <!-- Valve Plate at right -->
+  <rect x="548" y="175" width="10" height="150" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="395" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Розподільний диск справа</text>
+  <text x="480" y="415" text-anchor="middle" font-size="10" fill="#6b7280">Обертання блока генерує подачу</text>
+
+  <!-- Right Panel: Displacement Dynamics -->
+  <rect x="660" y="75" width="275" height="365" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="675" y="102" font-size="14" font-weight="bold" fill="#27ae60">Динаміка витіснення</text>
+  <text x="675" y="122" font-size="12" fill="#6b7280">Всмоктування та нагнітання</text>
+
+  <text x="675" y="152" font-size="11" fill="#1a1a1a">• Фаза всмоктування (phi = 0°..180°):</text>
+  <text x="675" y="170" font-size="11" fill="#1a1a1a">  Поршень висувається з циліндра,</text>
+  <text x="675" y="188" font-size="11" fill="#1a1a1a">  заповнюючи порожнину маслом</text>
+  <text x="675" y="206" font-size="11" fill="#1a1a1a">• Фаза нагнітання (phi = 180°..360°):</text>
+  <text x="675" y="224" font-size="11" fill="#1a1a1a">  Витискання масла під тиском до 35 МПа</text>
+
+  <rect x="673" y="245" width="249" height="110" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="683" y="268" font-size="12" font-weight="bold" fill="#27ae60">Швидкість руху поршня:</text>
+  <text x="683" y="288" font-size="11" fill="#1a1a1a">v(phi) = 0.5 · omega · D_p ·</text>
+  <text x="683" y="306" font-size="11" fill="#1a1a1a">       · tan(gamma) · sin(phi)</text>
+  <text x="683" y="328" font-size="11" font-weight="bold" fill="#27ae60">Максимум подачі: при phi = 90°</text>
+  <text x="683" y="346" font-size="10" fill="#6b7280">Подача пропорційна синусу кута phi</text>
+
+  <text x="675" y="390" font-size="11" font-weight="bold" fill="#27ae60">Реверс гідропотоку:</text>
+  <text x="675" y="410" font-size="11" fill="#6b7280">При переході gamma через 0 потік реверсує</text>
+</svg>

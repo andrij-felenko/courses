@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460" viewBox="0 0 960 460">
+  <defs>
+    <marker id="arrFbd" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrRed" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#dc2626"/>
+    </marker>
+    <marker id="arrDark" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+
+  <!-- Main Title -->
+  <text x="30" y="32" font-family="sans-serif" font-size="18" font-weight="bold" fill="#0f172a">Розрахункова динамічна модель приводу SEA: дві маси та пружний зв'язок</text>
+  <text x="30" y="52" font-family="sans-serif" font-size="12" fill="#475569">Структурна схема взаємодії ротора (J_m, b_m), редуктора (N:1), торсіонної пружини (k_s, b_s) та навантаження (J_L, b_L)</text>
+
+  <!-- Top Block Diagram Box -->
+  <rect x="30" y="68" width="900" height="152" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+
+  <!-- 1. Motor Rotor Box -->
+  <rect x="50" y="85" width="130" height="75" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="65" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0369a1">Ротор двигуна</text>
+  <text x="65" y="125" font-family="sans-serif" font-size="11" fill="#0c4a6e">Інерція: J_m</text>
+  <text x="65" y="143" font-family="sans-serif" font-size="11" fill="#0c4a6e">Тертя: b_m, кут: θ_m</text>
+
+  <!-- Torque In Arrow -->
+  <line x1="15" y1="122" x2="46" y2="122" stroke="#2563eb" stroke-width="2.5" marker-end="url(#arrFbd)"/>
+  <text x="15" y="112" font-family="sans-serif" font-size="11" font-weight="bold" fill="#2563eb">τ_m</text>
+
+  <!-- Connecting Shaft to Gearbox -->
+  <line x1="180" y1="122" x2="226" y2="122" stroke="#334155" stroke-width="3" marker-end="url(#arrDark)"/>
+  <text x="188" y="112" font-family="sans-serif" font-size="10" fill="#64748b">θ_m</text>
+
+  <!-- 2. Gearbox Box -->
+  <rect x="230" y="90" width="110" height="65" rx="6" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="245" y="112" font-family="sans-serif" font-size="12" font-weight="bold" fill="#334155">Редуктор</text>
+  <text x="245" y="132" font-family="sans-serif" font-size="11" fill="#475569">Передаточне N:1</text>
+  <text x="245" y="147" font-family="sans-serif" font-size="10" fill="#64748b">θ_gear = θ_m / N</text>
+
+  <!-- Connecting Shaft to Spring -->
+  <line x1="340" y1="122" x2="396" y2="122" stroke="#334155" stroke-width="3" marker-end="url(#arrDark)"/>
+
+  <!-- 3. Elastic Element Box (SEA Spring) -->
+  <rect x="400" y="80" width="230" height="85" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="415" y="100" font-family="sans-serif" font-size="12" font-weight="bold" fill="#92400e">Пружний елемент (SEA)</text>
+  <!-- Spring Graphic -->
+  <path d="M420,122 Q428,105 436,122 T452,122 T468,122 T484,122 T500,122" fill="none" stroke="#d97706" stroke-width="3"/>
+  <!-- Damper Graphic -->
+  <line x1="520" y1="112" x2="550" y2="112" stroke="#64748b" stroke-width="2"/>
+  <line x1="535" y1="105" x2="535" y2="120" stroke="#64748b" stroke-width="2"/>
+  <rect x="545" y="106" width="16" height="12" rx="1" fill="none" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="561" y1="112" x2="585" y2="112" stroke="#64748b" stroke-width="2"/>
+  <text x="420" y="145" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b45309">Жорсткість: k_s, демпфування: b_s</text>
+  <text x="420" y="158" font-family="sans-serif" font-size="10" fill="#92400e">Пружний момент: τ_s = k_s·(θ_m/N - θ_L)</text>
+
+  <!-- Connecting Shaft to Load -->
+  <line x1="630" y1="122" x2="686" y2="122" stroke="#334155" stroke-width="3" marker-end="url(#arrDark)"/>
+  <text x="645" y="112" font-family="sans-serif" font-size="10" fill="#64748b">τ_s, θ_L</text>
+
+  <!-- 4. Load Inertia Box -->
+  <rect x="690" y="85" width="130" height="75" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="705" y="105" font-family="sans-serif" font-size="12" font-weight="bold" fill="#15803d">Навантаження</text>
+  <text x="705" y="125" font-family="sans-serif" font-size="11" fill="#14532d">Інерція: J_L</text>
+  <text x="705" y="143" font-family="sans-serif" font-size="11" fill="#14532d">Тертя: b_L, кут: θ_L</text>
+
+  <!-- External Torque Arrow -->
+  <line x1="820" y1="122" x2="876" y2="122" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arrRed)"/>
+  <text x="835" y="112" font-family="sans-serif" font-size="11" font-weight="bold" fill="#dc2626">τ_ext</text>
+
+  <!-- Summary equation of system -->
+  <text x="50" y="200" font-family="sans-serif" font-size="11" fill="#334155">Власна резонансна частота навантаження на пружині: ω_n = sqrt(k_s / J_L) [рад/с]</text>
+
+  <!-- Bottom Panel 1: Rotor Dynamics (Left) -->
+  <rect x="30" y="232" width="440" height="198" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="30" y="232" width="440" height="30" rx="8" fill="#e0f2fe"/>
+  <text x="45" y="252" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0369a1">Підсистема 1: Приведений ротор двигуна (J_m, b_m)</text>
+
+  <text x="45" y="280" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0f172a">Диференціальне рівняння руху ротора:</text>
+  <rect x="45" y="290" width="410" height="28" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+  <text x="55" y="309" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0369a1">J_m · θ̈_m + b_m · θ̇_m = τ_m - (τ_s / N)</text>
+
+  <text x="45" y="338" font-family="sans-serif" font-size="11" fill="#334155">• τ_m — рушійний електромагнітний момент статора двигуна</text>
+  <text x="45" y="356" font-family="sans-serif" font-size="11" fill="#334155">• τ_s / N — зворотний момент реакції пружини через редуктор</text>
+  <text x="45" y="374" font-family="sans-serif" font-size="11" fill="#334155">• J_m · θ̈_m — інерційний опір прискоренню ротора</text>
+  <text x="45" y="392" font-family="sans-serif" font-size="11" fill="#334155">• b_m · θ̇_m — втрати на в'язке тертя в підшипниках ротора</text>
+  <text x="45" y="414" font-family="sans-serif" font-size="10" fill="#64748b">Редукція збільшує приведений до виходу момент інерції ротора: J_eff = J_m · N²</text>
+
+  <!-- Bottom Panel 2: Load Dynamics (Right) -->
+  <rect x="490" y="232" width="440" height="198" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="490" y="232" width="440" height="30" rx="8" fill="#dcfce7"/>
+  <text x="505" y="252" font-family="sans-serif" font-size="12" font-weight="bold" fill="#15803d">Підсистема 2: Вихідне навантаження (J_L, b_L)</text>
+
+  <text x="505" y="280" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0f172a">Диференціальне рівняння руху навантаження:</text>
+  <rect x="505" y="290" width="410" height="28" rx="4" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+  <text x="515" y="309" font-family="sans-serif" font-size="12" font-weight="bold" fill="#15803d">J_L · θ̈_L + b_L · θ̇_L = τ_s - τ_ext</text>
+
+  <text x="505" y="338" font-family="sans-serif" font-size="11" fill="#334155">• τ_s — пружний момент, прикладений до шарніра: k_s·(θ_m/N - θ_L)</text>
+  <text x="505" y="356" font-family="sans-serif" font-size="11" fill="#334155">• τ_ext — зовнішній момент збурення або контакт із середовищем</text>
+  <text x="505" y="374" font-family="sans-serif" font-size="11" fill="#334155">• J_L · θ̈_L — інерційний момент ланки робота чи маніпулятора</text>
+  <text x="505" y="392" font-family="sans-serif" font-size="11" fill="#334155">• b_L · θ̇_L — конструкційне в'язке тертя в шарнірі навантаження</text>
+  <text x="505" y="414" font-family="sans-serif" font-size="10" fill="#64748b">Ударне навантаження τ_ext ізольоване від ротора пружною ланкою k_s</text>
+</svg>

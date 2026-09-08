@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структурна блок-схема замкненого контуру керування зусиллям SEA</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Каскадне керування: ПІД-регулятор сили формує завдання швидкості або струму для двигуна</text>
+
+  <!-- Control Architecture Diagram Box -->
+  <rect x="30" y="75" width="900" height="230" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="45" y="90" width="870" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="480" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Контур зворотного зв'язку за пружною деформацією (1 кГц) та струмом (20 кГц)</text>
+
+  <!-- Input Summing Junction (Error calculation) -->
+  <circle cx="95" cy="180" r="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="95" y="184" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">∑</text>
+  <!-- Input reference tau_ref -->
+  <line x1="40" y1="180" x2="79" y2="180" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="45" y="165" font-size="12" font-weight="bold" fill="#2457d6">tau_ref</text>
+
+  <!-- Error signal -->
+  <line x1="109" y1="180" x2="155" y2="180" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="132" y="172" text-anchor="middle" font-size="12" fill="#6b7280">e_tau</text>
+
+  <!-- Block: Force PID Controller -->
+  <rect x="155" y="150" width="120" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="215" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">ПІД-ланка</text>
+  <text x="215" y="195" text-anchor="middle" font-size="12" fill="#6b7280">K_p + K_i/s + K_d·s</text>
+
+  <!-- Velocity / Current command -->
+  <line x1="275" y1="180" x2="330" y2="180" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="302" y="172" text-anchor="middle" font-size="12" fill="#6b7280">i_cmd</text>
+
+  <!-- Block: FOC Current Loop + BLDC Motor -->
+  <rect x="330" y="150" width="140" height="60" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="400" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Двигун BLDC</text>
+  <text x="400" y="195" text-anchor="middle" font-size="12" fill="#6b7280">Контур FOC (20 кГц)</text>
+
+  <!-- Motor torque -->
+  <line x1="470" y1="180" x2="520" y2="180" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="495" y="172" text-anchor="middle" font-size="12" fill="#6b7280">tau_m</text>
+
+  <!-- Block: Reduction Gearbox N:1 -->
+  <rect x="520" y="150" width="115" height="60" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="577" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Редуктор N:1</text>
+  <text x="577" y="195" text-anchor="middle" font-size="12" fill="#6b7280">θ_g = θ_m / N</text>
+
+  <!-- Gear output angle -->
+  <line x1="635" y1="180" x2="685" y2="180" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="660" y="172" text-anchor="middle" font-size="12" fill="#6b7280">θ_g</text>
+
+  <!-- Block: Compliant Series Spring -->
+  <rect x="685" y="150" width="115" height="60" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="742" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Пружина k_s</text>
+  <text x="742" y="195" text-anchor="middle" font-size="12" fill="#6b7280">Δθ = θ_g - θ_L</text>
+
+  <!-- Output Torque to Load -->
+  <line x1="800" y1="180" x2="880" y2="180" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="840" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">tau_out</text>
+  <text x="840" y="200" text-anchor="middle" font-size="12" fill="#1a1a1a">Навантаження</text>
+
+  <!-- Feedback branch from spring encoders -->
+  <line x1="742" y1="210" x2="742" y2="270" stroke="#2457d6" stroke-width="2"/>
+  <line x1="742" y1="270" x2="95" y2="270" stroke="#2457d6" stroke-width="2"/>
+  <line x1="95" y1="270" x2="95" y2="196" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="420" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Виміряний крутний момент: tau_meas = k_s · (θ_g - θ_L) [2 енкодери]</text>
+
+
+  <!-- Bottom 3 Information Cards -->
+  <!-- Card 1 -->
+  <rect x="30" y="320" width="280" height="115" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="342" font-size="13" font-weight="bold" fill="#2457d6">1. Сенсорний зворотний зв'язок</text>
+  <text x="45" y="365" font-size="12" fill="#1a1a1a">Різниця показів двох енкодерів</text>
+  <text x="45" y="385" font-size="12" fill="#1a1a1a">виключає потребу в тензодатчиках:</text>
+  <text x="45" y="407" font-size="12" font-weight="bold" fill="#2457d6">високий SNR без шумів ШІМ.</text>
+
+  <!-- Card 2 -->
+  <rect x="340" y="320" width="280" height="115" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="355" y="342" font-size="13" font-weight="bold" fill="#27ae60">2. Внутрішній контур струму FOC</text>
+  <text x="355" y="365" font-size="12" fill="#1a1a1a">Швидкий контур струму (10–20 кГц)</text>
+  <text x="355" y="385" font-size="12" fill="#1a1a1a">компенсує проти-ЕРС та тертя,</text>
+  <text x="355" y="407" font-size="12" font-weight="bold" fill="#27ae60">лінеаризуючи джерело моменту.</text>
+
+  <!-- Card 3 -->
+  <rect x="650" y="320" width="280" height="115" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="665" y="342" font-size="13" font-weight="bold" fill="#c0392b">3. Прямий зв'язок за швидкістю</text>
+  <text x="665" y="365" font-size="12" fill="#1a1a1a">Velocity feedforward dθ_L/dt</text>
+  <text x="665" y="385" font-size="12" fill="#1a1a1a">підтримує стале стиснення пружини</text>
+  <text x="665" y="407" font-size="12" font-weight="bold" fill="#c0392b">при різкому русі кінцівки.</text>
+
+</svg>

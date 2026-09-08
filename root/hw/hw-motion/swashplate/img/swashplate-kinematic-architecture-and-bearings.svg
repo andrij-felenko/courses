@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="24" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Кінематична архітектура та вузли автомата перекосу</text>
+  <text x="480" y="44" text-anchor="middle" font-size="13" fill="#6b7280">Сферичний повзун uniball, нерухоме й обертове кільця, дуплексний підшипник і повідці</text>
+
+  <!-- LEFT COLUMN: Stationary Frame Callouts -->
+  <rect x="25" y="62" width="250" height="380" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="35" y="72" width="230" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="150" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Нерухома підсистема (Fuselage)</text>
+
+  <rect x="35" y="110" width="230" height="60" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="128" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">Нерухоме кільце тарілки:</text>
+  <text x="45" y="145" text-anchor="start" font-size="11" fill="#475569">• Сприймає зусилля від 3 сервоприводів</text>
+  <text x="45" y="160" text-anchor="start" font-size="11" fill="#475569">• Утримується ножицями від провороту</text>
+
+  <rect x="35" y="180" width="230" height="65" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="198" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">Нерухомі ножиці (Scissors):</text>
+  <text x="45" y="215" text-anchor="start" font-size="11" fill="#475569">• Дволанковий шарнірний важіль</text>
+  <text x="45" y="230" text-anchor="start" font-size="11" fill="#475569">• Фіксує азимут нерухомого кільця</text>
+
+  <rect x="35" y="255" width="230" height="85" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="273" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">Кульовий повзун (Uniball):</text>
+  <text x="45" y="290" text-anchor="start" font-size="11" fill="#475569">• Циліндрична гільза: хід вздовж Z</text>
+  <text x="45" y="305" text-anchor="start" font-size="11" fill="#475569">• Сферична куля: вільне гойдання</text>
+  <text x="45" y="320" text-anchor="start" font-size="11" fill="#2457d6">• PTFE самозмащувальний шарнір</text>
+
+  <rect x="35" y="350" width="230" height="72" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="45" y="368" text-anchor="start" font-size="11" font-weight="bold" fill="#2457d6">Сервоприводи керування:</text>
+  <text x="45" y="385" text-anchor="start" font-size="11" fill="#1a1a1a">• 3 незалежні виконавчі штоки</text>
+  <text x="45" y="400" text-anchor="start" font-size="11" fill="#1a1a1a">• Задають висоту Z та нахил кутів</text>
+
+
+  <!-- CENTER: Mechanical Cross-Section / Assembly -->
+  <!-- Mast Centerline -->
+  <line x1="480" y1="58" x2="480" y2="88" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <line x1="480" y1="120" x2="480" y2="200" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <line x1="480" y1="310" x2="480" y2="395" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <!-- Upper Mast Tube: above hub -->
+  <rect x="468" y="65" width="24" height="28" fill="#e5e7eb" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Rotor Hub upper outline -->
+  <rect x="390" y="93" width="180" height="22" rx="3" fill="#334155" stroke="#1e293b" stroke-width="1.5"/>
+  <text x="480" y="108" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Втулка несучого гвинта</text>
+
+  <!-- Middle Mast Tube: below hub, above uniball -->
+  <rect x="468" y="115" width="24" height="85" fill="#e5e7eb" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Pitch Horns on Hub -->
+  <rect x="350" y="100" width="40" height="8" fill="#475569"/>
+  <rect x="570" y="100" width="40" height="8" fill="#475569"/>
+
+  <!-- Central Uniball sleeve & sphere -->
+  <rect x="458" y="205" width="44" height="100" rx="3" fill="#cbd5e1" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="480" cy="255" r="28" fill="#e2e8f0" stroke="#334155" stroke-width="2"/>
+  <text x="480" y="259" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e293b">Uniball</text>
+
+  <!-- Lower Mast Tube: below uniball, above actuator label -->
+  <rect x="468" y="310" width="24" height="80" fill="#e5e7eb" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Swashplate Rings Assembly (Horizontal Cross-section) -->
+  <!-- Non-rotating inner ring wings -->
+  <rect x="330" y="248" width="124" height="20" rx="3" fill="#94a3b8" stroke="#334155" stroke-width="1.5"/>
+  <rect x="506" y="248" width="124" height="20" rx="3" fill="#94a3b8" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Duplex Angular Contact Ball Bearing -->
+  <circle cx="365" cy="242" r="6" fill="#fbbf24" stroke="#b45309" stroke-width="1.5"/>
+  <circle cx="385" cy="242" r="6" fill="#fbbf24" stroke="#b45309" stroke-width="1.5"/>
+  <circle cx="575" cy="242" r="6" fill="#fbbf24" stroke="#b45309" stroke-width="1.5"/>
+  <circle cx="595" cy="242" r="6" fill="#fbbf24" stroke="#b45309" stroke-width="1.5"/>
+
+  <!-- Rotating outer ring wings -->
+  <rect x="330" y="222" width="124" height="16" rx="3" fill="#93c5fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="506" y="222" width="124" height="16" rx="3" fill="#93c5fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Labels on wings -->
+  <text x="392" y="214" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">Обертове кільце</text>
+  <text x="580" y="280" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e293b">Нерухоме кільце</text>
+
+  <!-- Pitch links from rotating ring to hub horns -->
+  <line x1="355" y1="222" x2="355" y2="112" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue2)"/>
+  <line x1="620" y1="222" x2="620" y2="112" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue2)"/>
+  <text x="345" y="165" text-anchor="end" font-size="11" font-weight="bold" fill="#2457d6">Тяга кроку</text>
+  <text x="630" y="165" text-anchor="start" font-size="11" font-weight="bold" fill="#2457d6">Тяга кроку</text>
+
+  <!-- Rotating Drive Scissors -->
+  <line x1="492" y1="118" x2="535" y2="168" stroke="#1e40af" stroke-width="3"/>
+  <line x1="535" y1="168" x2="512" y2="222" stroke="#1e40af" stroke-width="3"/>
+  <circle cx="492" cy="118" r="3.5" fill="#1e40af"/>
+  <circle cx="535" cy="168" r="3.5" fill="#1e40af"/>
+  <circle cx="512" cy="222" r="3.5" fill="#1e40af"/>
+
+  <!-- Stationary Drive Scissors -->
+  <line x1="330" y1="268" x2="305" y2="330" stroke="#475569" stroke-width="3"/>
+  <line x1="305" y1="330" x2="330" y2="385" stroke="#475569" stroke-width="3"/>
+  <circle cx="330" cy="268" r="3.5" fill="#475569"/>
+  <circle cx="305" cy="330" r="3.5" fill="#475569"/>
+  <circle cx="330" cy="385" r="3.5" fill="#475569"/>
+
+  <!-- Lower Servo Actuator Rods -->
+  <line x1="435" y1="385" x2="435" y2="272" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green2)"/>
+  <line x1="525" y1="385" x2="525" y2="272" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green2)"/>
+  <text x="480" y="415" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Сервоприводи (до корпусу)</text>
+
+
+  <!-- RIGHT COLUMN: Rotating Frame Callouts -->
+  <rect x="685" y="62" width="250" height="380" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="695" y="72" width="230" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="810" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Обертова підсистема (Rotor)</text>
+
+  <rect x="695" y="110" width="230" height="60" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="705" y="128" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">Тяги кроку (Pitch Links):</text>
+  <text x="705" y="145" text-anchor="start" font-size="11" fill="#475569">• Жорсткі регульовані штанги</text>
+  <text x="705" y="160" text-anchor="start" font-size="11" fill="#475569">• Шарнірні наконечники ШС (uniball)</text>
+
+  <rect x="695" y="180" width="230" height="65" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="705" y="198" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">Обертові ножиці (Scissors):</text>
+  <text x="705" y="215" text-anchor="start" font-size="11" fill="#475569">• Передають обертання від щогли</text>
+  <text x="705" y="230" text-anchor="start" font-size="11" fill="#475569">• Дозволяють осьовий хід і нахил</text>
+
+  <rect x="695" y="255" width="230" height="85" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="705" y="273" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">Дуплексний підшипник:</text>
+  <text x="705" y="290" text-anchor="start" font-size="11" fill="#475569">• Дворядний радіально-упорний</text>
+  <text x="705" y="305" text-anchor="start" font-size="11" fill="#475569">• Тонкостінний кульковий шарнір</text>
+  <text x="705" y="320" text-anchor="start" font-size="11" fill="#b45309">• Сприймає осьові й моментні сили</text>
+
+  <rect x="695" y="350" width="230" height="72" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="705" y="368" text-anchor="start" font-size="11" font-weight="bold" fill="#27ae60">Кінематичний зв'язок:</text>
+  <text x="705" y="385" text-anchor="start" font-size="11" fill="#1a1a1a">• Обертається разом із лопатями</text>
+  <text x="705" y="400" text-anchor="start" font-size="11" fill="#1a1a1a">• Модулює кут атаки кожної лопаті</text>
+</svg>

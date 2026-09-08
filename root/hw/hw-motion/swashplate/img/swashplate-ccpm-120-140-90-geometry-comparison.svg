@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460">
+  <defs>
+    <marker id="arr8" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue8" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="460" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Геометрія підключення сервоприводів автомата перекосу eCCPM</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Порівняння конфігурацій розташування тяг керування тарілкою: 120°, 140° та 90° (вид зверху)</text>
+
+  <!-- Panel 1: CCPM 120 -->
+  <rect x="25" y="75" width="285" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="167" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">CCPM 120° (симетрична)</text>
+  <text x="167" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Рівномірний крок 120°</text>
+
+  <!-- Swashplate Ring 120 -->
+  <circle cx="167" cy="205" r="45" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <circle cx="167" cy="205" r="8" fill="#1a1a1a"/>
+
+  <!-- Servos 120 -->
+  <!-- S1 (Aft/Pitch): top (167, 160) -->
+  <circle cx="167" cy="160" r="7" fill="#2457d6"/>
+  <text x="167" y="150" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">S1 (тангаж)</text>
+
+  <!-- S2 (Front-Left): (128, 227) -->
+  <circle cx="128" cy="227" r="7" fill="#2457d6"/>
+  <text x="118" y="242" text-anchor="end" font-size="10" font-weight="bold" fill="#2457d6">S2 (ліве)</text>
+
+  <!-- S3 (Front-Right): (206, 227) -->
+  <circle cx="206" cy="227" r="7" fill="#2457d6"/>
+  <text x="216" y="242" text-anchor="start" font-size="10" font-weight="bold" fill="#2457d6">S3 (праве)</text>
+
+  <rect x="38" y="265" width="259" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="288" font-size="11" font-weight="bold" fill="#1a1a1a">• Ідеальна кутова симетрія</text>
+  <text x="48" y="306" font-size="11" fill="#1a1a1a">• Однакове навантаження 3 серво</text>
+  <text x="48" y="324" font-size="11" fill="#1a1a1a">• Матриця: sin(60°) = 0.866</text>
+  <text x="48" y="342" font-size="11" fill="#6b7280">• Базовий світовий стандарт</text>
+
+  <text x="167" y="395" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Кут між тягами: 120°</text>
+  <text x="167" y="415" text-anchor="middle" font-size="10" fill="#6b7280">Висока механічна надійність</text>
+
+  <!-- Panel 2: CCPM 140 -->
+  <rect x="335" y="75" width="285" height="365" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="477" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">CCPM 140° (оптимізована)</text>
+  <text x="477" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Зсув бічних точок на 140°</text>
+
+  <!-- Swashplate Ring 140 -->
+  <circle cx="477" cy="205" r="45" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <circle cx="477" cy="205" r="8" fill="#1a1a1a"/>
+
+  <!-- Servos 140 -->
+  <!-- S1 (Aft/Pitch): top (477, 160) -->
+  <circle cx="477" cy="160" r="7" fill="#2457d6"/>
+  <text x="477" y="150" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">S1 (тангаж)</text>
+
+  <!-- S2 (Left-Lateral, shifted back): (435, 220) -->
+  <circle cx="435" cy="220" r="7" fill="#2457d6"/>
+  <text x="425" y="235" text-anchor="end" font-size="10" font-weight="bold" fill="#2457d6">S2 (140°)</text>
+
+  <!-- S3 (Right-Lateral, shifted back): (519, 220) -->
+  <circle cx="519" cy="220" r="7" fill="#2457d6"/>
+  <text x="529" y="235" text-anchor="start" font-size="10" font-weight="bold" fill="#2457d6">S3 (140°)</text>
+
+  <rect x="348" y="265" width="259" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="358" y="288" font-size="11" font-weight="bold" fill="#2457d6">• Мінімум крос-зв'язків</text>
+  <text x="358" y="306" font-size="11" fill="#1a1a1a">• Лінійний тангаж без дрейфу крену</text>
+  <text x="358" y="324" font-size="11" fill="#1a1a1a">• Матриця: sin(70°) = 0.940</text>
+  <text x="358" y="342" font-size="11" fill="#6b7280">• Оптимально для пілотажних БПЛА</text>
+
+  <text x="477" y="395" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Кут між тягами: 140°</text>
+  <text x="477" y="415" text-anchor="middle" font-size="10" fill="#6b7280">Найкраща лінійність відгуку</text>
+
+  <!-- Panel 3: CCPM 90 -->
+  <rect x="645" y="75" width="285" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="787" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">CCPM 90° (ортогональна)</text>
+  <text x="787" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Роздільні осі X / Y</text>
+
+  <!-- Swashplate Ring 90 -->
+  <circle cx="787" cy="205" r="45" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <circle cx="787" cy="205" r="8" fill="#1a1a1a"/>
+
+  <!-- Servos 90 -->
+  <!-- S1 (Pitch): top (787, 160) -->
+  <circle cx="787" cy="160" r="7" fill="#2457d6"/>
+  <text x="787" y="150" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">S1 (тангаж)</text>
+
+  <!-- S2 (Roll Left): (742, 205) -->
+  <circle cx="742" cy="205" r="7" fill="#2457d6"/>
+  <text x="732" y="210" text-anchor="end" font-size="10" font-weight="bold" fill="#2457d6">S2 (крен)</text>
+
+  <!-- S3 (Roll Right): (832, 205) -->
+  <circle cx="832" cy="205" r="7" fill="#2457d6"/>
+  <text x="842" y="210" text-anchor="start" font-size="10" font-weight="bold" fill="#2457d6">S3 (крен)</text>
+
+  <rect x="658" y="265" width="259" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="668" y="288" font-size="11" font-weight="bold" fill="#1a1a1a">• Ортогональні незалежні осі</text>
+  <text x="668" y="306" font-size="11" fill="#1a1a1a">• Найпростіша арифметика</text>
+  <text x="668" y="324" font-size="11" fill="#1a1a1a">• Нерівне плече зусиль</text>
+  <text x="668" y="342" font-size="11" fill="#6b7280">• Потребує потужнішого серво S1</text>
+
+  <text x="787" y="395" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Кут між осями: 90°</text>
+  <text x="787" y="415" text-anchor="middle" font-size="10" fill="#6b7280">Пряме керування без синусів</text>
+</svg>

@@ -129,8 +129,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-frameless-torque-motor.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-reflected-inertia-and-transparency.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-qdd-mit-cheetah.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-qdd-actuator-module.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "mechanical-differential",
@@ -139,8 +163,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-limited-slip-differential.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-differential-pecqueur-cletrac.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-differential-kinematics-bias-ratio.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-robot-differential-steering.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "cycloidal-drive",
@@ -149,8 +197,32 @@
             "status": "empty"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-cycloidal-drive-braren.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cycloidal-profile-geometry.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-precision-rv-gearbox.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-3d-printed-cycloid-drive.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "cycloidal-speed-reducer",
@@ -211,11 +283,35 @@
           "slug": "swashplate",
           "title": "Автомат перекосу (swashplate)",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-swashplate-uniball-and-pitch-links.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-swashplate-haffner-pescara-to-sikorsky.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-swashplate-phase-lag-and-blade-pitch-kinematics.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-swashplate-cyclic-collective-mixer.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "tiahy-kachalky-i-liuft-rulovoi-poverkhni",
@@ -284,6 +380,74 @@
           "slug": "cardan-hooke-joint",
           "title": "Карданний шарнір Гука: нерівномірність передачі, пульсація швидкості та здвоєні схеми",
           "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-universal-joint-and-cv-joint-types.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-cardano-hooke-and-automotive-driveshafts.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-cardan-nonuniformity-and-double-frequency-pulsation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cardan-kinematics-and-vibration-simulator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "ball-screw",
+          "title": "Кулькова гвинтова пара (ШВП) та ходовий гвинт: класи точності, попередній натяг і кінематика люфту",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-ball-nut-circulation-and-preload-types.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-ball-screw-from-steering-to-cnc.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ball-screw-buckling-and-critical-speed.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-ball-screw-selection-calculator.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "roller-screw",
+          "title": "Роликогвинтова передача (ШРВП)",
+          "basic": {
             "status": "empty"
           },
           "detailed": {
@@ -291,8 +455,18 @@
           }
         },
         {
-          "slug": "ball-screw",
-          "title": "Кулькова гвинтова пара (ШВП) та ходовий гвинт: класи точності, попередній натяг і кінематика люфту",
+          "slug": "torque-vectoring",
+          "title": "Векторизація крутного моменту",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "axial-piston-pump-swashplate",
+          "title": "Аксіально-поршневий гідронасос із похилою шайбою",
           "basic": {
             "status": "empty"
           },

@@ -269,6 +269,46 @@
           "detailed": {
             "status": "pending"
           }
+        },
+        {
+          "slug": "impedance-and-admittance-control",
+          "title": "Імпедансне та адмітансне керування приводами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "impedance-control-robotics",
+          "title": "Керування імпедансом та піддатливістю в робототехніці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "convex-mpc-locomotion",
+          "title": "Опукле керування з прогнозуванням моделей у робототехніці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "passivity-based-control",
+          "title": "Керування на основі пасивності в робототехніці",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -310,6 +350,40 @@
         {
           "slug": "series-elastic-actuator",
           "title": "Серійний пружний актуатор (SEA)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "comp": [
+            {
+              "file": "comp-custom-torsion-springs.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-sea-pratt-williamson.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-sea-dynamics-and-bandwidth.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-rotary-sea-module.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "variable-stiffness-actuator",
+          "title": "Актуатор зі змінною жорсткістю (VSA)",
           "basic": {
             "status": "empty"
           },

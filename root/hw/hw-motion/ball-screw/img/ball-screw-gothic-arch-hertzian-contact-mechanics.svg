@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Геометрія контакту в готичній арці та еліпс пружних напружень Герца</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Двоточковий контакт кульки під кутом 45° формує просторовий еліпс тиску та пружне зближення</text>
+
+  <!-- Панель 1: Готична арка канавки ШВП -->
+  <rect x="30" y="75" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="87" width="411" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Переріз профілю «Готична арка» (Gothic Arch)</text>
+
+  <!-- Схема канавки та кульки -->
+  <rect x="45" y="130" width="405" height="210" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Профіль канавки: дві перехресні дуги з радіусом Rg > Rb -->
+  <path d="M 80 150 C 130 180, 190 270, 247 285 C 304 270, 364 180, 414 150" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Зазор у дні канавки -->
+  <path d="M 235 285 Q 247 296 259 285" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="247" y="310" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Зазор для змащення на дні</text>
+
+  <!-- Кулька радіуса Rb -->
+  <circle cx="247" cy="215" r="60" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="247" cy="215" r="3" fill="#2457d6"/>
+  <text x="247" y="205" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Центр кульки</text>
+
+  <!-- Точки контакту ліворуч і праворуч -->
+  <circle cx="195" cy="245" r="5" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="299" cy="245" r="5" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Лінії контакту під кутом 45 градусів -->
+  <line x1="165" y1="262" x2="247" y2="215" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2"/>
+  <line x1="329" y1="262" x2="247" y2="215" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2"/>
+
+  <!-- Стрілки контактної сили Fn -->
+  <path d="M 165 262 L 188 249" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="145" y="278" font-size="12" font-weight="bold" fill="#c0392b">Fn (45°)</text>
+
+  <path d="M 329 262 L 306 249" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="315" y="278" font-size="12" font-weight="bold" fill="#c0392b">Fn (45°)</text>
+
+  <!-- Опис параметрів канавки -->
+  <rect x="42" y="352" width="411" height="76" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="372" font-size="12" font-weight="bold" fill="#1a1a1a">Геометричні інваріанти зачеплення:</text>
+  <text x="52" y="392" font-size="11" fill="#1a1a1a">• Радіус канавки Rg = (0.52..0.54) · d_кульки (корекція конфорності)</text>
+  <text x="52" y="412" font-size="11" fill="#1a1a1a">• Кут контакту α = 45° забезпечує рівну радіальну та осьову жорсткість</text>
+
+
+  <!-- Панель 2: Еліпс Герца та епюра тиску -->
+  <rect x="495" y="75" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="507" y="87" width="411" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Еліпс пружного контакту та епюра тиску Герца</text>
+
+  <!-- Схема еліпса Герца -->
+  <rect x="510" y="130" width="405" height="210" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Площадка контакту: еліпс із півосями a і b -->
+  <ellipse cx="712" cy="255" rx="90" ry="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Осі еліпса -->
+  <line x1="622" y1="255" x2="802" y2="255" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="712" y1="223" x2="712" y2="287" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="795" y="250" font-size="11" font-weight="bold" fill="#2457d6">Велика піввісь a</text>
+  <text x="720" y="280" font-size="11" font-weight="bold" fill="#2457d6">Мала піввісь b</text>
+
+  <!-- Епюра параболічного контактного тиску p(x,y) -->
+  <path d="M 622 255 C 645 160, 780 160, 802 255" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="712" y1="255" x2="712" y2="178" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="712" cy="178" r="4" fill="#27ae60"/>
+  <text x="712" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Піковий контактний тиск p_max</text>
+
+  <!-- Опис розрахунку Герца -->
+  <rect x="507" y="352" width="411" height="76" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="517" y="372" font-size="12" font-weight="bold" fill="#1a1a1a">Механіка контактної деформації Герца:</text>
+  <text x="517" y="392" font-size="11" fill="#1a1a1a">• Піковий тиск: p_max = 1.5 · Fn / (π · a · b) ≤ 3500 МПа</text>
+  <text x="517" y="412" font-size="11" fill="#1a1a1a">• Пружне зближення кульки й доріжки: δ = c · Fn^(2/3)</text>
+</svg>

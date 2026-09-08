@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-d1" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-b1" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-r1" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-g1" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Методи попереднього натягу гайок ШВП та петля пружного гістерезису</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Конструктивні схеми вибору люфту та крива осьової жорсткості із втратами на мікропроковзування</text>
+
+  <!-- LEFT PANEL: Preload Methods -->
+  <rect x="30" y="75" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="50" y="92" width="395" height="30" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="112" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Конструктивні методи створення натягу</text>
+
+  <!-- Method 1: Double Nut with Spacer -->
+  <rect x="50" y="132" width="395" height="64" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="152" font-size="13" font-weight="bold" fill="#1a1a1a">1. Здвоєна гайка з прокладкою (Double Nut)</text>
+  <text x="65" y="172" font-size="12" fill="#6b7280">Дві напівгайки розпираються шліфованим кільцем-шайбою</text>
+  <text x="65" y="188" font-size="12" fill="#27ae60">Найвища жорсткість; регулювання сили товщиною шайби</text>
+
+  <!-- Method 2: Lead Shift in Single Nut -->
+  <rect x="50" y="206" width="395" height="64" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="226" font-size="13" font-weight="bold" fill="#1a1a1a">2. Зсув кроку різьби (Lead Shift Single Nut)</text>
+  <text x="65" y="246" font-size="12" fill="#6b7280">Одинарна гайка: центральний виток зміщений на крок ΔP</text>
+  <text x="65" y="262" font-size="12" fill="#2457d6">Компактна довжина без прокладок; заводське шліфування</text>
+
+  <!-- Method 3: Oversized Balls 4-point contact -->
+  <rect x="50" y="280" width="395" height="64" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="300" font-size="13" font-weight="bold" fill="#1a1a1a">3. Кульки збільшеного діаметра (Oversized Balls)</text>
+  <text x="65" y="320" font-size="12" fill="#6b7280">Селективний підбір кульок з натягом у готичній арці</text>
+  <text x="65" y="336" font-size="12" fill="#c0392b">Чотириточковий контакт: підвищене тертя вертіння</text>
+
+  <!-- Bottom note on left panel -->
+  <rect x="50" y="354" width="395" height="72" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="65" y="374" font-size="12" font-weight="bold" fill="#c0392b">• Оптимальний натяг: F_pre = 0.05–0.08 · C_a</text>
+  <text x="65" y="394" font-size="12" fill="#6b7280">• Перенатяг понад 10% різко скорочує довговічність L_10</text>
+  <text x="65" y="414" font-size="12" fill="#6b7280">• Критична сила розмикання стику: F_відриву ≈ 2.83 · F_pre</text>
+
+
+  <!-- RIGHT PANEL: Hysteresis & Stiffness Curve -->
+  <rect x="495" y="75" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="515" y="92" width="395" height="30" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="112" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Петля пружного гістерезису та осьова жорсткість</text>
+
+  <!-- Graph Axes Area: origin at (570, 310) -->
+  <!-- X axis: Deformation delta (мкм) -->
+  <line x1="560" y1="310" x2="860" y2="310" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-d1)"/>
+  <text x="865" y="326" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">δ (деформація)</text>
+
+  <!-- Y axis: Axial Force Fa (кН) -->
+  <line x1="570" y1="320" x2="570" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-d1)"/>
+  <text x="540" y="132" font-size="12" font-weight="bold" fill="#1a1a1a">Fa</text>
+
+  <!-- Zero Backlash with Preload Curve (Non-linear Hertzian) -->
+  <!-- Loading curve (blue) -->
+  <path d="M 570 310 Q 640 290 700 240 Q 770 190 850 155" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- Unloading curve with hysteresis lag (green) -->
+  <path d="M 850 155 Q 785 210 715 260 Q 650 305 570 310" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="5,3"/>
+
+  <!-- Curve labels -->
+  <text x="770" y="175" font-size="11" font-weight="bold" fill="#2457d6">Навантаження</text>
+  <text x="740" y="275" font-size="11" font-weight="bold" fill="#27ae60">Розвантаження</text>
+
+  <!-- Hysteresis gap indicator -->
+  <line x1="705" y1="242" x2="713" y2="258" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="590" y="200" font-size="11" font-weight="bold" fill="#c0392b">Гістерезис (втрати)</text>
+
+  <!-- Preload Point F_pre -->
+  <line x1="565" y1="260" x2="715" y2="260" stroke="#6b7280" stroke-dasharray="3,3"/>
+  <text x="525" y="264" font-size="11" fill="#6b7280">F_pre</text>
+
+  <!-- High Stiffness tangent slope indication -->
+  <line x1="680" y1="270" x2="800" y2="180" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <text x="780" y="210" font-size="11" font-weight="bold" fill="#c0392b">K = dF/dδ</text>
+
+  <!-- Bottom note on right panel -->
+  <rect x="515" y="340" width="395" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="530" y="362" font-size="12" font-weight="bold" fill="#1a1a1a">• Попередній натяг переводить контакт у круту зону Герца</text>
+  <text x="530" y="382" font-size="12" fill="#6b7280">• Жорсткість зростає у 2–3 рази порівняно з ненатягнутою парою</text>
+  <text x="530" y="402" font-size="12" fill="#6b7280">• Площа всередині петлі — робота сил тертя мікроковзання</text>
+  <text x="530" y="420" font-size="12" fill="#27ae60">• Люфт відсутній при реверсі: повна точність позиціонування</text>
+</svg>

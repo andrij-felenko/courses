@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння контакту та сил: ходовий гвинт ковзання проти кулькової пари (ШВП)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Тертя ковзання клинового профілю (ККД 20–40%) проти точкового кочення кульки (ККД понад 90%)</text>
+
+  <!-- LEFT PANEL: Lead Screw -->
+  <rect x="30" y="75" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="50" y="92" width="395" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="113" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Ходовий гвинт ковзання: трапецеїдальне різьблення</text>
+
+  <!-- Lead Screw Geometry Drawing Area -->
+  <!-- Nut Body -->
+  <path d="M 60 150 L 415 150 L 415 190 L 330 190 L 260 255 L 170 190 L 60 190 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <!-- Screw Thread Tooth -->
+  <path d="M 120 310 L 340 310 L 340 265 L 270 200 L 210 200 L 150 265 L 120 265 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Flank Contact Zone (highlight red) -->
+  <line x1="270" y1="200" x2="310" y2="185" stroke="#c0392b" stroke-width="4"/>
+
+  <!-- Force Vectors at Flank -->
+  <!-- Normal force Fn -->
+  <line x1="290" y1="192" x2="330" y2="162" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <!-- Friction force Ff -->
+  <line x1="290" y1="192" x2="255" y2="205" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <!-- Axial drive force Fa -->
+  <line x1="290" y1="192" x2="290" y2="155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Labels for forces -->
+  <text x="338" y="175" font-size="12" font-weight="bold" fill="#1a1a1a">Fn (нормаль)</text>
+  <text x="170" y="240" font-size="12" font-weight="bold" fill="#c0392b">F_тер = μ·Fn</text>
+  <text x="235" y="148" font-size="12" font-weight="bold" fill="#2457d6">Fa (осьова сила)</text>
+
+  <!-- Explanatory badges / notes at bottom of left panel -->
+  <rect x="50" y="325" width="395" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="348" font-size="12" font-weight="bold" fill="#1a1a1a">• Площинний контакт: високе питоме тертя (μ ≈ 0.10–0.20)</text>
+  <text x="65" y="370" font-size="12" fill="#6b7280">• Ефект stick-slip (ривки при повільних мікроподачах)</text>
+  <text x="65" y="392" font-size="12" fill="#6b7280">• Швидке абразивне зношування та поява мертвого ходу</text>
+  <text x="65" y="414" font-size="12" fill="#c0392b">• Низький ККД: від 20% до 40% (самогальмування)</text>
+
+
+  <!-- RIGHT PANEL: Ball Screw -->
+  <rect x="495" y="75" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="515" y="92" width="395" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="113" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Кулькова гвинтова пара (ШВП): тертя кочення</text>
+
+  <!-- Ball Screw Geometry Drawing Area -->
+  <!-- Nut Flange/Groove section -->
+  <path d="M 540 145 L 880 145 L 880 185 Q 712 175 712 210 Q 712 175 540 185 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Screw Shaft Groove -->
+  <path d="M 540 310 L 880 310 L 880 270 Q 712 280 712 250 Q 712 280 540 270 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Ball (Circle) -->
+  <circle cx="712" cy="230" r="30" fill="#ffffff" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="712" cy="230" r="3.5" fill="#27ae60"/>
+
+  <!-- Contact Points (Gothic Arch Contact Ellipses) -->
+  <circle cx="693" cy="211" r="5" fill="#c0392b"/>
+  <circle cx="731" cy="249" r="5" fill="#c0392b"/>
+
+  <!-- Normal force line at 45 deg -->
+  <line x1="693" y1="211" x2="731" y2="249" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="712" y1="230" x2="745" y2="197" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="760" y="195" font-size="12" font-weight="bold" fill="#27ae60">Q (нормаль 45°)</text>
+
+  <!-- Rolling rotation arrow -->
+  <path d="M 698 220 A 15 15 0 0 1 726 220" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="660" y="170" font-size="12" font-weight="bold" fill="#2457d6">ω_кочення</text>
+
+  <!-- Explanatory badges / notes at bottom of right panel -->
+  <rect x="515" y="325" width="395" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="530" y="348" font-size="12" font-weight="bold" fill="#1a1a1a">• Точковий контакт кульок: чисте кочення (μ_коч ≈ 0.002)</text>
+  <text x="530" y="370" font-size="12" fill="#6b7280">• Абсолютна відсутність явища stick-slip на мікроподачах</text>
+  <text x="530" y="392" font-size="12" fill="#6b7280">• Можливість повного вибору люфту попереднім натягом</text>
+  <text x="530" y="414" font-size="12" fill="#27ae60">• Високий ККД: понад 90–96% (легкий плавний зворотний хід)</text>
+</svg>

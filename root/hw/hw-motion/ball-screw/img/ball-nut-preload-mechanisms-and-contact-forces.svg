@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Методи попереднього натягу в кулькових гайках ШВП</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Вибір люфту та створення контактного зусилля: здвоєна гайка, зміщення кроку та різнорозмірні кульки</text>
+
+  <!-- Панель 1: Здвоєна гайка (Double Nut) -->
+  <rect x="30" y="75" width="286" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="87" width="262" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="173" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">1. Здвоєна гайка з прокладкою</text>
+
+  <!-- Схема 1 -->
+  <rect x="45" y="130" width="256" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Дві секції гайки -->
+  <rect x="55" y="142" width="105" height="70" rx="4" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="107" y="162" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Гайка A (тягне)</text>
+  <circle cx="85" cy="188" r="7" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="125" cy="188" r="7" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Регулювальна шайба / прокладка між ними -->
+  <rect x="165" y="142" width="16" height="70" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="173" y="222" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">Шайба</text>
+
+  <rect x="186" y="142" width="105" height="70" rx="4" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="238" y="162" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Гайка B (штовхає)</text>
+  <circle cx="215" cy="188" r="7" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="255" cy="188" r="7" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Вектори сил розпирання -->
+  <path d="M 155 178 L 138 178" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 190 178 L 206 178" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Вал гвинта -->
+  <line x1="55" y1="230" x2="291" y2="230" stroke="#9ca3af" stroke-width="12" stroke-linecap="round"/>
+  <text x="173" y="255" text-anchor="middle" font-size="11" fill="#6b7280">Осьовий вал ШВП</text>
+
+  <!-- Опис 1 -->
+  <text x="45" y="284" font-size="12" font-weight="bold" fill="#1a1a1a">Характеристики методу:</text>
+  <text x="45" y="302" font-size="12" fill="#1a1a1a">• 2-точковий контакт кульок у пазах</text>
+  <text x="45" y="320" font-size="12" fill="#1a1a1a">• Натяг регулюється товщиною шайби</text>
+  <text x="45" y="338" font-size="12" fill="#1a1a1a">• Зусилля натягу F_pr до 10% від C_a</text>
+
+  <rect x="42" y="354" width="262" height="74" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="372" font-size="11" font-weight="bold" fill="#2457d6">Жорсткість:</text>
+  <text x="130" y="372" font-size="11" fill="#1a1a1a">Найвища осьова жорсткість</text>
+  <text x="50" y="392" font-size="11" font-weight="bold" fill="#27ae60">Застосування:</text>
+  <text x="130" y="392" font-size="11" fill="#1a1a1a">Важкі фрезерні верстати ЧПК</text>
+  <text x="50" y="412" font-size="11" font-weight="bold" fill="#c0392b">Обмеження:</text>
+  <text x="130" y="412" font-size="11" fill="#1a1a1a">Подвійна довжина вузла</text>
+
+
+  <!-- Панель 2: Зміщення кроку (Lead Shift) -->
+  <rect x="337" y="75" width="286" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="349" y="87" width="262" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">2. Одинарна зі зміщенням кроку</text>
+
+  <!-- Схема 2 -->
+  <rect x="352" y="130" width="256" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Єдиний монолітний корпус гайки -->
+  <rect x="362" y="142" width="236" height="70" rx="4" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="160" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Монолітне тіло зі зсувом ΔP</text>
+
+  <!-- Ліва та права зони контакту -->
+  <circle cx="395" cy="188" r="7" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="430" cy="188" r="7" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="530" cy="188" r="7" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="565" cy="188" r="7" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Зсув кроку по центру гайки -->
+  <line x1="480" y1="165" x2="480" y2="171" stroke="#27ae60" stroke-width="2" stroke-dasharray="2,2"/>
+  <text x="480" y="181" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">ΔP</text>
+  <line x1="480" y1="184" x2="480" y2="210" stroke="#27ae60" stroke-width="2" stroke-dasharray="2,2"/>
+  <path d="M 465 198 L 445 198" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 495 198 L 515 198" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Вал гвинта -->
+  <line x1="362" y1="230" x2="598" y2="230" stroke="#9ca3af" stroke-width="12" stroke-linecap="round"/>
+  <text x="480" y="255" text-anchor="middle" font-size="11" fill="#6b7280">Осьовий вал ШВП</text>
+
+  <!-- Опис 2 -->
+  <text x="352" y="284" font-size="12" font-weight="bold" fill="#1a1a1a">Характеристики методу:</text>
+  <text x="352" y="302" font-size="12" fill="#1a1a1a">• Зсув кроку різьби в центрі на мікрони</text>
+  <text x="352" y="320" font-size="12" fill="#1a1a1a">• Збереження компактної довжини</text>
+  <text x="352" y="338" font-size="12" fill="#1a1a1a">• Натяг закладається під час шліфування</text>
+
+  <rect x="349" y="354" width="262" height="74" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="357" y="372" font-size="11" font-weight="bold" fill="#2457d6">Жорсткість:</text>
+  <text x="437" y="372" font-size="11" fill="#1a1a1a">Висока, близька до здвоєної</text>
+  <text x="357" y="392" font-size="11" font-weight="bold" fill="#27ae60">Застосування:</text>
+  <text x="437" y="392" font-size="11" fill="#1a1a1a">Компактні осі прецизійних ЧПК</text>
+  <text x="357" y="412" font-size="11" font-weight="bold" fill="#c0392b">Обмеження:</text>
+  <text x="437" y="412" font-size="11" fill="#1a1a1a">Неможливість регулювання в цеху</text>
+
+
+  <!-- Панель 3: Різнорозмірні кульки (Oversized Balls) -->
+  <rect x="644" y="75" width="286" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="656" y="87" width="262" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="787" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">3. Збільшені кульки (Радіальний)</text>
+
+  <!-- Схема 3 -->
+  <rect x="659" y="130" width="256" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Тіло гайки -->
+  <rect x="669" y="142" width="236" height="70" rx="4" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="787" y="160" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">4-точковий арочний контакт</text>
+
+  <!-- Кульки збільшеного діаметра -->
+  <circle cx="705" cy="188" r="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="750" cy="188" r="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="820" cy="188" r="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="865" cy="188" r="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- 4 вектори контактних сил на одній кульці -->
+  <path d="M 778 178 L 784 184" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <path d="M 796 178 L 790 184" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <path d="M 778 198 L 784 192" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <path d="M 796 198 L 790 192" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <circle cx="787" cy="188" r="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Вал гвинта -->
+  <line x1="669" y1="230" x2="905" y2="230" stroke="#9ca3af" stroke-width="12" stroke-linecap="round"/>
+  <text x="787" y="255" text-anchor="middle" font-size="11" fill="#6b7280">Осьовий вал ШВП</text>
+
+  <!-- Опис 3 -->
+  <text x="659" y="284" font-size="12" font-weight="bold" fill="#1a1a1a">Характеристики методу:</text>
+  <text x="659" y="302" font-size="12" fill="#1a1a1a">• Діаметр кульок більший за зазор паза</text>
+  <text x="659" y="320" font-size="12" fill="#1a1a1a">• Готична арка: 4 точки контакту</text>
+  <text x="659" y="338" font-size="12" fill="#1a1a1a">• Створення легкого натягу F_pr ≤ 3% C_a</text>
+
+  <rect x="656" y="354" width="262" height="74" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="664" y="372" font-size="11" font-weight="bold" fill="#2457d6">Жорсткість:</text>
+  <text x="744" y="372" font-size="11" fill="#1a1a1a">Помірна, обмежена проковзуванням</text>
+  <text x="664" y="392" font-size="11" font-weight="bold" fill="#27ae60">Застосування:</text>
+  <text x="744" y="392" font-size="11" fill="#1a1a1a">Приводи подачі загального призначення</text>
+  <text x="664" y="412" font-size="11" font-weight="bold" fill="#c0392b">Обмеження:</text>
+  <text x="744" y="412" font-size="11" fill="#1a1a1a">Диференціальне тертя кочення</text>
+</svg>

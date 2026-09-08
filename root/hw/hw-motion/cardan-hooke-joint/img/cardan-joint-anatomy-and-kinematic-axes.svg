@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Анатомія та кінематичні осі одинарного карданного шарніра Гука</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Просторова взаємодія вилок, цапф хрестовини з голчастими підшипниками та кута зламу осей α</text>
+
+  <!-- Центральна область: схема шарніра -->
+  <rect x="40" y="82" width="590" height="350" rx="8" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Осі обертання валів (штрихові лінії) -->
+  <!-- Вісь вала 1 (розбита на частини, щоб не перетинати вал і написи) -->
+  <line x1="50" y1="250" x2="70" y2="250" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <line x1="200" y1="250" x2="300" y2="250" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <line x1="340" y1="250" x2="580" y2="250" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6,4"/>
+  
+  <!-- Вісь вала 2 (під кутом alpha = 24 градуси) -->
+  <line x1="340" y1="241" x2="430" y2="201" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,4"/>
+  <line x1="550" y1="147" x2="600" y2="125" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Дуга кута зламу alpha -->
+  <path d="M 460,250 A 140,140 0 0,0 448,193" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="475" y="215" font-size="14" font-weight="bold" fill="#c0392b">Кут зламу α</text>
+
+  <!-- Вал 1 (ведучий) -->
+  <rect x="70" y="236" width="130" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="135" y="215" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Ведучий вал 1</text>
+  <text x="135" y="195" text-anchor="middle" font-size="12" fill="#2457d6">ω₁ = const (вісь e₁)</text>
+
+  <!-- Ведуча вилка (вилка 1) -->
+  <path d="M 200,236 L 250,210 L 295,210 L 295,226 L 260,226 L 225,244 L 225,256 L 260,274 L 295,274 L 295,290 L 250,290 L 200,264 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Хрестовина: центр (320, 250) -->
+  <circle cx="320" cy="250" r="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="320" cy="250" r="4" fill="#1a1a1a"/>
+
+  <!-- Вертикальні цапфи хрестовини (вилка 1) -->
+  <line x1="320" y1="170" x2="320" y2="330" stroke="#1a1a1a" stroke-width="10" stroke-linecap="round"/>
+  <!-- Чашки голчастих підшипників вилки 1 -->
+  <rect x="306" y="166" width="28" height="22" rx="3" fill="#dbeafe" stroke="#2457d6" stroke-width="2"/>
+  <rect x="306" y="312" width="28" height="22" rx="3" fill="#dbeafe" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Похилі цапфи хрестовини (вилка 2) -->
+  <line x1="292" y1="186" x2="348" y2="314" stroke="#1a1a1a" stroke-width="10" stroke-linecap="round"/>
+  <!-- Чашки голчастих підшипників вилки 2 -->
+  <rect x="276" y="174" width="26" height="20" rx="3" fill="#dcfce7" stroke="#27ae60" stroke-width="2"/>
+  <rect x="338" y="304" width="26" height="20" rx="3" fill="#dcfce7" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Ведена вилка (вилка 2) -->
+  <path d="M 440,197 L 390,165 L 340,165 L 340,181 L 380,181 L 415,203 L 415,213 L 380,235 L 340,235 L 340,251 L 390,251 L 440,219 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Вал 2 (ведений) -->
+  <path d="M 434,188 L 536,143 L 546,165 L 444,210 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="510" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Ведений вал 2</text>
+  <text x="510" y="97" text-anchor="middle" font-size="12" fill="#27ae60">ω₂(φ₁) (вісь e₂)</text>
+
+  <!-- Підписи елементів у зоні схеми -->
+  <!-- Голчастий підшипник -->
+  <line x1="320" y1="155" x2="320" y2="125" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="320" y1="125" x2="230" y2="125" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="220" y="129" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Голчасті підшипники цапф</text>
+
+  <!-- Хрестовина -->
+  <line x1="320" y1="345" x2="320" y2="375" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="320" y1="375" x2="240" y2="375" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="230" y="379" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Хрестовина (Spider / Cross)</text>
+
+  <!-- Бокові пояснювальні картки праворуч -->
+  <!-- Картка 1: Ведуча вилка -->
+  <rect x="650" y="82" width="280" height="78" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="665" y="104" font-size="13" font-weight="bold" fill="#2457d6">Ведуча вилка (вал 1, e₁)</text>
+  <text x="665" y="124" font-size="12" fill="#1a1a1a">Обертається зі швидкістю ω₁ = const.</text>
+  <text x="665" y="142" font-size="12" fill="#6b7280">Задає вісь гойдання першої пари цапф.</text>
+
+  <!-- Картка 2: Хрестовина -->
+  <rect x="650" y="168" width="280" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="665" y="190" font-size="13" font-weight="bold" fill="#1a1a1a">Хрестовина та підшипники</text>
+  <text x="665" y="210" font-size="12" fill="#1a1a1a">4 цапфи з голчастими підшипниками.</text>
+  <text x="665" y="228" font-size="12" fill="#1a1a1a">Осі цапф взаємно перпендикулярні.</text>
+  <text x="665" y="246" font-size="12" fill="#6b7280">Передають крутний момент через злам.</text>
+
+  <!-- Картка 3: Ведена вилка -->
+  <rect x="650" y="266" width="280" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="665" y="288" font-size="13" font-weight="bold" fill="#27ae60">Ведена вилка (вал 2, e₂)</text>
+  <text x="665" y="308" font-size="12" fill="#1a1a1a">Нахилена на кут зламу α до вала 1.</text>
+  <text x="665" y="326" font-size="12" fill="#1a1a1a">Миттєва швидкість пульсує: ω₂(φ₁).</text>
+  <text x="665" y="344" font-size="12" fill="#6b7280">Коефіцієнт передачі: i₁₂(φ₁).</text>
+
+  <!-- Картка 4: Кінематичний ефект -->
+  <rect x="650" y="364" width="280" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="665" y="386" font-size="13" font-weight="bold" fill="#c0392b">Кінематична нерівномірність</text>
+  <text x="665" y="404" font-size="12" fill="#1a1a1a">Подвійна пульсація швидкості за оберт:</text>
+  <text x="665" y="422" font-size="12" fill="#1a1a1a">ω₁ · cos(α) ≤ ω₂ ≤ ω₁ / cos(α)</text>
+</svg>

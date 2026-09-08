@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Кінематична схема симетричного конічного диференціала</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Швидкість водила дорівнює півсумі швидкостей півосей, а крутний момент ділиться порівну 50:50</text>
+
+  <!-- Left: Kinematic Architecture Diagram -->
+  <rect x="30" y="75" width="530" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="45" y="90" width="500" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="295" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Кінематичний ланцюг: головна передача, чашка та сателіти</text>
+
+  <!-- Input drive: Pinion gear -->
+  <rect x="50" y="242" width="60" height="26" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="80" y="259" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Ведуча</text>
+  <line x1="50" y1="255" x2="35" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="40" y="235" font-size="12" fill="#6b7280">Вхід ω_in, T_in</text>
+
+  <!-- Crown gear (ring gear) connected to carrier -->
+  <rect x="130" y="180" width="24" height="150" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="142" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вінець</text>
+
+  <!-- Differential Case / Carrier (Водило H) -->
+  <rect x="170" y="145" width="250" height="220" rx="6" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="295" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Корпус диференціала / водило (H) з частотою ω_H</text>
+
+  <!-- Upper Satellite (Сателіт 1) -->
+  <polygon points="275,160 315,160 305,195 285,195" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="295" y1="150" x2="295" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="295" y="218" text-anchor="middle" font-size="12" fill="#1a1a1a">Сателіт 1</text>
+
+  <!-- Lower Satellite (Сателіт 2) -->
+  <polygon points="285,315 305,315 315,350 275,350" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="295" y1="305" x2="295" y2="360" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="295" y="300" text-anchor="middle" font-size="12" fill="#1a1a1a">Сателіт 2</text>
+
+  <!-- Left Side Gear (Ліва півосьова шестерня) -->
+  <polygon points="205,235 240,245 240,265 205,275" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="170" y1="255" x2="205" y2="255" stroke="#1a1a1a" stroke-width="4"/>
+  <line x1="170" y1="255" x2="155" y2="255" stroke="#1a1a1a" stroke-width="4"/>
+  <!-- Left axle exit -->
+  <text x="185" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Шестерня 1</text>
+  <text x="185" y="312" text-anchor="middle" font-size="12" fill="#2457d6">ω_1, T_1</text>
+
+  <!-- Right Side Gear (Права півосьова шестерня) -->
+  <polygon points="385,235 350,245 350,265 385,275" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="385" y1="255" x2="445" y2="255" stroke="#1a1a1a" stroke-width="4"/>
+  <line x1="445" y1="255" x2="495" y2="255" stroke="#1a1a1a" stroke-width="4" marker-end="url(#arr)"/>
+  <text x="405" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Шестерня 2</text>
+  <text x="405" y="312" text-anchor="middle" font-size="12" fill="#2457d6">ω_2, T_2</text>
+
+  <!-- Left axle arrow -->
+  <line x1="155" y1="255" x2="135" y2="255" stroke="#1a1a1a" stroke-width="4"/>
+  <!-- Meshing indicators -->
+  <line x1="240" y1="245" x2="285" y2="195" stroke="#27ae60" stroke-width="2"/>
+  <line x1="350" y1="245" x2="305" y2="195" stroke="#27ae60" stroke-width="2"/>
+  <line x1="240" y1="265" x2="285" y2="315" stroke="#27ae60" stroke-width="2"/>
+  <line x1="350" y1="265" x2="305" y2="315" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Bottom note in left panel -->
+  <rect x="45" y="380" width="500" height="40" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="55" y="405" font-size="12" fill="#1a1a1a">Конічне зачеплення забезпечує симетричну кутову передачу без люфтів</text>
+
+
+  <!-- Right: Kinematic Formulas & Operating Modes -->
+  <rect x="580" y="75" width="350" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="595" y="90" width="320" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="755" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Кінематичні та силові співвідношення</text>
+
+  <!-- Formula Card 1: Willis equation -->
+  <rect x="595" y="130" width="320" height="65" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="610" y="150" font-size="12" font-weight="bold" fill="#1a1a1a">Формула Вілліса (симетрія z1 = z2):</text>
+  <text x="610" y="170" font-size="13" font-weight="bold" fill="#2457d6">omega_H = (omega_1 + omega_2) / 2</text>
+  <text x="610" y="186" font-size="12" fill="#6b7280">Швидкість водила — півсума півосей</text>
+
+  <!-- Formula Card 2: Torque split -->
+  <rect x="595" y="205" width="320" height="65" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="610" y="225" font-size="12" font-weight="bold" fill="#1a1a1a">Розподіл крутного моменту:</text>
+  <text x="610" y="245" font-size="13" font-weight="bold" fill="#2457d6">T_1 = T_2 = 0.5 · T_H</text>
+  <text x="610" y="261" font-size="12" fill="#6b7280">Момент ділиться строго 50:50</text>
+
+  <!-- Formula Card 3: Modes -->
+  <rect x="595" y="280" width="320" height="140" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="610" y="300" font-size="12" font-weight="bold" fill="#1a1a1a">Характерні режими руху:</text>
+  <text x="610" y="322" font-size="12" fill="#27ae60">1. Пряма: omega_1 = omega_2 = omega_H (сателіти нерухомі)</text>
+  <text x="610" y="342" font-size="12" fill="#2457d6">2. Поворот: omega_1 != omega_2, сателіти провертаються</text>
+  <text x="610" y="362" font-size="12" fill="#c0392b">3. Буксування: одне колесо буксує (T_1 = 0)</text>
+  <text x="610" y="380" font-size="12" fill="#c0392b">   -&gt; T_2 = T_1 = 0 (повна втрата тяги авто!)</text>
+
+</svg>

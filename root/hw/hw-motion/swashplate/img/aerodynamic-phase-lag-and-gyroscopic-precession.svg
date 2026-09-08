@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-m1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-b1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-r1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-g1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="24" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Фазове запізнення маху лопаті на 90° та аеродинамічна прецесія</text>
+  <text x="480" y="44" text-anchor="middle" font-size="13" fill="#6b7280">Максимальний підйом лопаті відстає від точки максимального кута атаки рівно на чверть оберту</text>
+
+  <!-- LEFT PANEL: Top-down Azimuth Disk View -->
+  <rect x="25" y="58" width="445" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="68" width="415" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="86" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Азимутальний розподіл сил та відгуку лопаті</text>
+
+  <!-- Rotor Disk Circle (Top View) -->
+  <circle cx="247" cy="210" r="105" fill="white" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <!-- Rotor Hub -->
+  <circle cx="247" cy="210" r="12" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+  <!-- Rotation arrow CCW -->
+  <path d="M 230,120 A 90 90 0 0 0 160,190" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-m1)"/>
+  <text x="185" y="145" text-anchor="end" font-size="11" font-weight="bold" fill="#1a1a1a">Обертання Omega</text>
+
+  <!-- Cardinal Axes -->
+  <line x1="247" y1="95" x2="247" y2="325" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="132" y1="210" x2="362" y2="210" stroke="#cbd5e1" stroke-width="1"/>
+
+  <!-- Azimuth labels -->
+  <!-- 0 deg (Front / Nose) -->
+  <text x="247" y="112" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">psi = 0° (Ніс)</text>
+  <text x="247" y="125" text-anchor="middle" font-size="10" fill="#2457d6">Мін. мах (beta_min)</text>
+
+  <!-- 90 deg (Advancing / Right) -->
+  <text x="355" y="198" text-anchor="start" font-size="11" font-weight="bold" fill="#c0392b">psi = 90°</text>
+  <text x="355" y="212" text-anchor="start" font-size="10" font-weight="bold" fill="#c0392b">Макс. крок theta_max</text>
+  <text x="355" y="225" text-anchor="start" font-size="10" fill="#c0392b">Макс. сила F_aero ↑</text>
+
+  <!-- 180 deg (Aft / Tail) -->
+  <text x="247" y="305" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">psi = 180° (Хвіст)</text>
+  <text x="247" y="318" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">Макс. мах (beta_max)</text>
+
+  <!-- 270 deg (Retreating / Left) -->
+  <text x="140" y="198" text-anchor="end" font-size="11" font-weight="bold" fill="#475569">psi = 270°</text>
+  <text x="140" y="212" text-anchor="end" font-size="10" fill="#475569">Мін. крок theta_min</text>
+  <text x="140" y="225" text-anchor="end" font-size="10" fill="#475569">Мін. сила F_aero ↓</text>
+
+  <!-- 90 deg Phase Lag Arc (from 90 to 180 deg) -->
+  <path d="M 335,210 A 88 88 0 0 1 247,298" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-b1)"/>
+  <text x="315" y="275" text-anchor="start" font-size="11" font-weight="bold" fill="#2457d6">Зсув фази 90°</text>
+
+  <!-- Left Bottom Summary -->
+  <rect x="35" y="342" width="425" height="88" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="360" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Фізичний механізм резонансного запізнення:</text>
+  <text x="45" y="378" text-anchor="start" font-size="11" fill="#1a1a1a">• Маховий рух лопаті є коливальною системою другого порядку</text>
+  <text x="45" y="396" text-anchor="start" font-size="11" fill="#1a1a1a">• Власна частота маху дорівнює частоті обертання: omega_n ≈ Omega</text>
+  <text x="45" y="414" text-anchor="start" font-size="11" fill="#6b7280">• При резонансі пік відхилення відстає від піка сили рівно на 90°</text>
+
+
+  <!-- RIGHT PANEL: Waveform / Harmonic Phase Shift -->
+  <rect x="490" y="58" width="445" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="505" y="68" width="415" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712" y="86" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Хвильовий зсув кроку theta(psi) та маху beta(psi)</text>
+
+  <!-- Graph Axes -->
+  <!-- Horizontal Axis (Azimuth psi: 0 to 360) -->
+  <line x1="530" y1="210" x2="895" y2="210" stroke="#6b7280" stroke-width="1.5"/>
+  <!-- Vertical Axis -->
+  <line x1="550" y1="110" x2="550" y2="310" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Azimuth Ticks -->
+  <line x1="550" y1="206" x2="550" y2="214" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="635" y1="206" x2="635" y2="214" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="720" y1="206" x2="720" y2="214" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="805" y1="206" x2="805" y2="214" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="890" y1="206" x2="890" y2="214" stroke="#6b7280" stroke-width="1.5"/>
+
+  <text x="550" y="226" text-anchor="middle" font-size="10" fill="#6b7280">0°</text>
+  <text x="635" y="226" text-anchor="middle" font-size="10" fill="#6b7280">90°</text>
+  <text x="720" y="226" text-anchor="middle" font-size="10" fill="#6b7280">180°</text>
+  <text x="805" y="226" text-anchor="middle" font-size="10" fill="#6b7280">270°</text>
+  <text x="890" y="226" text-anchor="middle" font-size="10" fill="#6b7280">360°</text>
+
+  <!-- Curve 1: Aerodynamic Pitch theta(psi) ~ sin(psi) -> peak at 90 (635) -->
+  <path d="M 550,210 Q 592,140 635,140 Q 678,140 720,210 Q 762,280 805,280 Q 848,280 890,210" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="635" cy="140" r="4" fill="#c0392b"/>
+  <text x="635" y="128" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Пік сили (90°)</text>
+
+  <!-- Curve 2: Flapping displacement beta(psi) ~ -cos(psi) -> peak at 180 (720) -->
+  <path d="M 550,280 Q 592,280 635,210 Q 678,140 720,140 Q 762,140 805,210 Q 848,280 890,280" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6 3"/>
+  <circle cx="720" cy="140" r="4" fill="#27ae60"/>
+  <text x="720" y="128" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Пік маху (180°)</text>
+
+  <!-- Lag dimension line between peaks at 140 -->
+  <line x1="635" y1="140" x2="720" y2="140" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="677" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Dpsi = 90°</text>
+
+  <!-- Legend inside right box -->
+  <line x1="560" y1="265" x2="590" y2="265" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="600" y="269" text-anchor="start" font-size="11" font-weight="bold" fill="#c0392b">Крок лопаті theta(psi) (збудження)</text>
+
+  <line x1="560" y1="285" x2="590" y2="285" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6 3"/>
+  <text x="600" y="289" text-anchor="start" font-size="11" font-weight="bold" fill="#27ae60">Кут маху beta(psi) (відгук лопаті)</text>
+
+  <!-- Right Bottom Summary -->
+  <rect x="500" y="342" width="425" height="88" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="510" y="360" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Інженерний наслідок для автомата перекосу:</text>
+  <text x="510" y="378" text-anchor="start" font-size="11" fill="#1a1a1a">• Щоб нахилити ротор уперед (ніс вниз), мах має бути макс. позаду (180°)</text>
+  <text x="510" y="396" text-anchor="start" font-size="11" fill="#1a1a1a">• Крок лопаті потрібно збільшити заздалегідь на правому боці (90°)</text>
+  <text x="510" y="414" text-anchor="start" font-size="11" fill="#6b7280">• Тяги автомата перекосу конструктивно розвертають на кут випередження</text>
+</svg>

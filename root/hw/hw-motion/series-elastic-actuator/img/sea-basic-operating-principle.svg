@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Кінематична та силова схема серійного пружного актуатора (SEA)</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Два енкодери положення вимірюють пружний прогин: крутний момент tau = k_s · (theta_g - theta_L)</text>
+
+  <!-- Architecture Panel Top -->
+  <rect x="30" y="75" width="900" height="200" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="45" y="90" width="870" height="30" rx="4" fill="#eaf0fd"/>
+  <text x="480" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Послідовне механічне коло: двигун, редуктор, торсійна пружина та навантаження</text>
+
+  <!-- Block 1: Motor -->
+  <rect x="55" y="145" width="130" height="70" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="120" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Двигун BLDC</text>
+  <text x="120" y="195" text-anchor="middle" font-size="12" fill="#6b7280">J_m, tau_m</text>
+
+  <!-- Shaft 1 -->
+  <line x1="185" y1="180" x2="235" y2="180" stroke="#1a1a1a" stroke-width="4"/>
+
+  <!-- Block 2: Gearbox -->
+  <rect x="235" y="140" width="130" height="80" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="300" y="172" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Редуктор N:1</text>
+  <text x="300" y="192" text-anchor="middle" font-size="12" fill="#6b7280">Хвильовий / План.</text>
+
+  <!-- Shaft 2 with Encoder 1 -->
+  <line x1="365" y1="180" x2="480" y2="180" stroke="#1a1a1a" stroke-width="4"/>
+  <circle cx="420" cy="180" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="420" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Енкодер 1</text>
+  <text x="420" y="215" text-anchor="middle" font-size="12" fill="#2457d6">theta_gear</text>
+
+  <!-- Block 3: Series Spring -->
+  <rect x="480" y="150" width="150" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 500,180 C 520,160 520,200 540,180 C 560,160 560,200 580,180 C 600,160 600,200 620,180" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <text x="555" y="142" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Пружина k_s</text>
+  <text x="555" y="230" text-anchor="middle" font-size="12" fill="#2457d6">Деформація Δθ</text>
+
+  <!-- Shaft 3 with Encoder 2 -->
+  <line x1="630" y1="180" x2="745" y2="180" stroke="#1a1a1a" stroke-width="4"/>
+  <circle cx="685" cy="180" r="16" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="685" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Енкодер 2</text>
+  <text x="685" y="215" text-anchor="middle" font-size="12" fill="#27ae60">theta_load</text>
+
+  <!-- Block 4: Load -->
+  <rect x="745" y="145" width="160" height="70" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="825" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Навантаження</text>
+  <text x="825" y="195" text-anchor="middle" font-size="12" fill="#6b7280">Ланка маніпулятора</text>
+
+
+  <!-- Bottom 3 Cards: Principles & Control -->
+  <!-- Card 1: Hooke Law Sensing -->
+  <rect x="30" y="295" width="280" height="140" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="320" font-size="13" font-weight="bold" fill="#2457d6">1. Вимірювання моменту:</text>
+  <text x="45" y="345" font-size="13" font-weight="bold" fill="#1a1a1a">tau_out = k_s · (theta_g - theta_L)</text>
+  <text x="45" y="370" font-size="12" fill="#1a1a1a">Вимірювання сили зведено до</text>
+  <text x="45" y="390" font-size="12" fill="#1a1a1a">надійного цифрового зчитування</text>
+  <text x="45" y="410" font-size="12" fill="#2457d6">кутового прогину енкодерами.</text>
+
+  <!-- Card 2: Mechanical Low-pass Filtering -->
+  <rect x="340" y="295" width="280" height="140" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="355" y="320" font-size="13" font-weight="bold" fill="#27ae60">2. Фільтрація ударів:</text>
+  <text x="355" y="345" font-size="13" font-weight="bold" fill="#1a1a1a">E_pot = 0.5 · k_s · (Δθ)²</text>
+  <text x="355" y="370" font-size="12" fill="#1a1a1a">Ударний імпульс від контакту</text>
+  <text x="355" y="390" font-size="12" fill="#1a1a1a">поглинається пружиною і не</text>
+  <text x="355" y="410" font-size="12" fill="#27ae60">ламає зуби редуктора N:1.</text>
+
+  <!-- Card 3: Passive Compliance & Safety -->
+  <rect x="650" y="295" width="280" height="140" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="665" y="320" font-size="13" font-weight="bold" fill="#c0392b">3. Травмобезпечність:</text>
+  <text x="665" y="345" font-size="13" font-weight="bold" fill="#1a1a1a">Z_out(jω) &lt;&lt; Z_rigid(jω)</text>
+  <text x="665" y="370" font-size="12" fill="#1a1a1a">Привід володіє природною</text>
+  <text x="665" y="390" font-size="12" fill="#1a1a1a">піддатливістю при зіткненні</text>
+  <text x="665" y="410" font-size="12" fill="#c0392b">з людиною або перешкодою.</text>
+
+</svg>

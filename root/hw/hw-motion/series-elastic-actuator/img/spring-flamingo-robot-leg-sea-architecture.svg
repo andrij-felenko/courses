@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460" viewBox="0 0 960 460">
+  <defs>
+    <marker id="arrFlam" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#0284c7"/>
+    </marker>
+    <marker id="arrRedF" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#dc2626"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+
+  <!-- Main Title -->
+  <text x="30" y="32" font-family="sans-serif" font-size="18" font-weight="bold" fill="#0f172a">Кінематична схема ноги робота Spring Flamingo (MIT, 1995)</text>
+  <text x="30" y="52" font-family="sans-serif" font-size="12" fill="#475569">Реалізація серійного пружного актуатора (SEA) на основі КГП та пружин для керування колінним суглобом</text>
+
+  <!-- Left: Kinematic Leg Graphic Box -->
+  <rect x="30" y="70" width="450" height="365" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="30" y="70" width="450" height="30" rx="8" fill="#e0f2fe"/>
+  <text x="45" y="90" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0369a1">Кінематичний ланцюг кінцівки та вузол колінного приводу</text>
+
+  <!-- Hip Base Frame -->
+  <rect x="110" y="110" width="60" height="20" rx="4" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <circle cx="140" cy="120" r="6" fill="#0284c7"/>
+  <text x="50" y="124" font-family="sans-serif" font-size="11" font-weight="bold" fill="#334155">Таз (Hip)</text>
+
+  <!-- Thigh Link (Стегно) -->
+  <line x1="140" y1="120" x2="190" y2="250" stroke="#334155" stroke-width="6"/>
+  <text x="85" y="190" font-family="sans-serif" font-size="11" fill="#475569">Стегно (Thigh)</text>
+
+  <!-- Actuator Body mounted along thigh -->
+  <!-- DC Motor -->
+  <rect x="155" y="130" width="34" height="25" rx="2" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1"/>
+  <text x="195" y="145" font-family="sans-serif" font-size="10" fill="#1d4ed8">DC двигун + енкодер</text>
+
+  <!-- Ball Screw (КГП) -->
+  <line x1="172" y1="155" x2="185" y2="195" stroke="#64748b" stroke-width="3"/>
+  <text x="195" y="175" font-family="sans-serif" font-size="10" fill="#64748b">КГП (гвинт + гайка)</text>
+
+  <!-- Dual Compression Spring Block -->
+  <rect x="175" y="195" width="22" height="35" rx="2" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <path d="M186,197 Q192,203 186,209 T186,221 T186,228" fill="none" stroke="#d97706" stroke-width="2"/>
+  <text x="202" y="210" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b45309">Пружини стиску k_s</text>
+  <text x="202" y="224" font-family="sans-serif" font-size="10" fill="#059669">Датчик ходу Δx</text>
+
+  <!-- Pushrod to Knee Lever -->
+  <line x1="186" y1="230" x2="202" y2="255" stroke="#0284c7" stroke-width="2.5"/>
+
+  <!-- Knee Joint (Коліно) -->
+  <circle cx="190" cy="250" r="9" fill="#f1f5f9" stroke="#334155" stroke-width="2"/>
+  <circle cx="190" cy="250" r="4" fill="#0284c7"/>
+  <text x="65" y="255" font-family="sans-serif" font-size="11" font-weight="bold" fill="#334155">Коліно (Knee)</text>
+
+  <!-- Knee Lever Arm -->
+  <line x1="190" y1="250" x2="202" y2="255" stroke="#ef4444" stroke-width="3"/>
+  <text x="210" y="260" font-family="sans-serif" font-size="10" fill="#ef4444">Важіль r_knee</text>
+
+  <!-- Shank Link (Гомілка) -->
+  <line x1="190" y1="250" x2="240" y2="370" stroke="#334155" stroke-width="5"/>
+  <text x="130" y="325" font-family="sans-serif" font-size="11" fill="#475569">Гомілка (Shank)</text>
+
+  <!-- Ankle Joint & Foot -->
+  <circle cx="240" cy="370" r="5" fill="#334155"/>
+  <text x="140" y="375" font-family="sans-serif" font-size="11" fill="#334155">Гомілковостоп</text>
+  <!-- Foot plate -->
+  <line x1="210" y1="395" x2="280" y2="395" stroke="#0f172a" stroke-width="5"/>
+  <text x="135" y="405" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0f172a">Стопа (Foot)</text>
+
+  <!-- Ground Contact Reaction Force -->
+  <line x1="245" y1="435" x2="245" y2="402" stroke="#dc2626" stroke-width="2.5" marker-end="url(#arrRedF)"/>
+  <text x="255" y="426" font-family="sans-serif" font-size="10" font-weight="bold" fill="#dc2626">F_contact (удар)</text>
+
+  <!-- Right: Info Panel 1 (Knee Actuator Specs) -->
+  <rect x="500" y="70" width="430" height="175" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="500" y="70" width="430" height="30" rx="8" fill="#f1f5f9"/>
+  <text x="515" y="90" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0f172a">Параметри лінійного приводу коліна Spring Flamingo</text>
+
+  <text x="515" y="118" font-family="sans-serif" font-size="11" fill="#334155">• <tspan font-weight="bold">Електродвигун:</tspan> колекторний DC двигун постійного струму</text>
+  <text x="515" y="136" font-family="sans-serif" font-size="11" fill="#334155">• <tspan font-weight="bold">Передача:</tspan> кульково-гвинтова пара (КГП) із малим кроком</text>
+  <text x="515" y="154" font-family="sans-serif" font-size="11" fill="#334155">• <tspan font-weight="bold">Пружний блок:</tspan> тандем попередньо стиснутих витих пружин</text>
+  <text x="515" y="172" font-family="sans-serif" font-size="11" fill="#334155">• <tspan font-weight="bold">Сенсор зусилля:</tspan> лінійний потенціометр (вимірює стиск Δx)</text>
+  <text x="515" y="192" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0369a1">Розрахунок сили тяги: F_knee = k_s · Δx</text>
+  <text x="515" y="210" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0369a1">Обертовий момент суглоба: τ_knee = F_knee · r_knee · sin(α)</text>
+  <text x="515" y="228" font-family="sans-serif" font-size="10" fill="#64748b">Точність вимірювання сили сягає 1-2% без використання тензомостів</text>
+
+  <!-- Right: Info Panel 2 (Robotics Significance) -->
+  <rect x="500" y="255" width="430" height="180" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="500" y="255" width="430" height="30" rx="8" fill="#fef3c7"/>
+  <text x="515" y="275" font-family="sans-serif" font-size="12" font-weight="bold" fill="#92400e">Інженерний прорив лабораторії MIT Leg Lab (1995)</text>
+
+  <text x="515" y="303" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0f172a">1. Захист трансмісії від ударного руйнування:</text>
+  <text x="515" y="320" font-family="sans-serif" font-size="11" fill="#334155">Удар стопи об поверхню поглинається пружиною, тому імпульс</text>
+  <text x="515" y="336" font-family="sans-serif" font-size="11" fill="#334155">не передається на тендітні зуби редуктора і не ламає КГП.</text>
+
+  <text x="515" y="360" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0f172a">2. Рекуперація кінетичної енергії ходьби:</text>
+  <text x="515" y="377" font-family="sans-serif" font-size="11" fill="#334155">Частина енергії фази приземлення зберігається в стиснутій пружині</text>
+  <text x="515" y="393" font-family="sans-serif" font-size="11" fill="#334155">та повертається для відштовхування ноги при переході в політ.</text>
+
+  <text x="515" y="415" font-family="sans-serif" font-size="10" fill="#15803d">Успішна ходьба Spring Flamingo довела життєздатність концепції SEA у світі робототехніки</text>
+</svg>

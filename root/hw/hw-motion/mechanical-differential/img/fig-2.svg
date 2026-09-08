@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Силова рівновага сателіта та коефіцієнт блокування TBR</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл крутних моментів між півосями через внутрішнє тертя в конічному зачепленні</text>
+
+  <!-- Left Panel: Satellite Free-body Diagram -->
+  <rect x="30" y="75" width="435" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="90" width="405" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="111" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Силовий баланс конічного сателіта</text>
+
+  <!-- Central Satellite Diagram -->
+  <polygon points="200,160 294,160 277,240 217,240" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="247" y="205" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Сателіт</text>
+
+  <!-- Forces acting on satellite -->
+  <!-- Axial separation force -->
+  <line x1="247" y1="160" x2="247" y2="125" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="255" y="140" font-size="12" font-weight="bold" fill="#c0392b">F_thrust (розпір)</text>
+
+  <!-- Contact forces from side gears -->
+  <line x1="170" y1="200" x2="205" y2="200" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="187" y="190" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">F_1 (ліва)</text>
+
+  <line x1="324" y1="200" x2="289" y2="200" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="307" y="190" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">F_2 (права)</text>
+
+  <!-- Spherical Backing Washer -->
+  <path d="M 190 155 Q 247 145 304 155" fill="none" stroke="#6b7280" stroke-width="4"/>
+  <text x="247" y="265" font-size="12" fill="#6b7280" text-anchor="middle">Сферична опорна шайба тертя</text>
+
+  <!-- Friction Equations Box in Left Panel -->
+  <rect x="45" y="285" width="405" height="135" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="310" font-size="12" font-weight="bold" fill="#1a1a1a">Складові сили в конічному зачепленні:</text>
+  <text x="60" y="333" font-size="12" fill="#2457d6">• Окружна тангенціальна сила: F_tan = 2 · T_in / D_pitch</text>
+  <text x="60" y="356" font-size="12" fill="#c0392b">• Осьова сила розпору: F_thrust = F_tan · tg(alpha_gear) · sin(delta_cone)</text>
+  <text x="60" y="379" font-size="12" fill="#27ae60">• Торцьовий момент тертя: M_fric = mu_wash · F_thrust · R_wash</text>
+  <text x="60" y="402" font-size="12" fill="#6b7280">• Чим вищий вхідний момент T_in, тим сильніше тертя блокування.</text>
+
+  <!-- Right Panel: Torque Bias Ratio (TBR) Hysteresis -->
+  <rect x="495" y="75" width="435" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="90" width="405" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712" y="111" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Петля блокування TBR (Torque Bias Ratio)</text>
+
+  <!-- Graphic Box -->
+  <rect x="510" y="135" width="405" height="135" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="160" font-size="13" font-weight="bold" fill="#1a1a1a">Аналітичний розрахунок TBR:</text>
+  <text x="525" y="185" font-size="12" fill="#2457d6">TBR = T_high / T_low = (1 + K_fric) / (1 - K_fric)</text>
+  <text x="525" y="210" font-size="12" fill="#1a1a1a">де K_fric — зведений коефіцієнт тертя чашки та сателітів.</text>
+  <text x="525" y="235" font-size="12" fill="#27ae60">• Вільний симетричний диференціал: TBR ≈ 1.1 .. 1.4</text>
+  <text x="525" y="255" font-size="12" fill="#c0392b">• Диференціал підвищеного тертя (LSD): TBR ≈ 2.5 .. 4.0</text>
+
+  <!-- Summary Cards -->
+  <rect x="510" y="285" width="195" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="607" y="310" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Відкритий диференціал</text>
+  <text x="607" y="335" font-size="12" fill="#1a1a1a" text-anchor="middle">TBR = 1.0</text>
+  <text x="607" y="360" font-size="12" fill="#6b7280" text-anchor="middle">Якщо одне колесо буксує,</text>
+  <text x="607" y="380" font-size="12" fill="#6b7280" text-anchor="middle">тяга іншого падає до нуля.</text>
+  <text x="607" y="405" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Втрата мобільності</text>
+
+  <rect x="720" y="285" width="195" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="817" y="310" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Самоблокований LSD</text>
+  <text x="817" y="335" font-size="12" fill="#1a1a1a" text-anchor="middle">TBR = 3.0</text>
+  <text x="817" y="360" font-size="12" fill="#6b7280" text-anchor="middle">Колесо зі зчепленням</text>
+  <text x="817" y="380" font-size="12" fill="#6b7280" text-anchor="middle">отримує до 75% тяги.</text>
+  <text x="817" y="405" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Автономна тяга</text>
+</svg>

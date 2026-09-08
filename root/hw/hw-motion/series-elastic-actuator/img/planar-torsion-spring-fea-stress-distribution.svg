@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460" viewBox="0 0 960 460">
+  <defs>
+    <linearGradient id="feaGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#2563eb"/>
+      <stop offset="25%" stop-color="#06b6d4"/>
+      <stop offset="50%" stop-color="#10b981"/>
+      <stop offset="75%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#dc2626"/>
+    </linearGradient>
+    <marker id="arrFea" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#b45309"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+
+  <!-- Main Title -->
+  <text x="30" y="32" font-family="sans-serif" font-size="18" font-weight="bold" fill="#0f172a">Розподіл еквівалентних напружень за фон Мізесом у торсіонному диску SEA</text>
+  <text x="30" y="52" font-family="sans-serif" font-size="12" fill="#475569">Аналіз методом скінченних елементів (FEA) при граничному крутному моменті 50 Н·м (матеріал Ti-6Al-4V)</text>
+
+  <!-- Left: FEA Visualization Box -->
+  <rect x="30" y="70" width="540" height="365" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="30" y="70" width="540" height="30" rx="8" fill="#e0f2fe"/>
+  <text x="45" y="90" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0369a1">Топологія диска та кольорова мапа механічних напружень</text>
+
+  <!-- Disc Geometry (Center at 270, 260) -->
+  <!-- Outer Ring (Low stress: Blue/Cyan) -->
+  <circle cx="270" cy="260" r="135" fill="#e2e8f0" stroke="#60a5fa" stroke-width="12"/>
+  <circle cx="270" cy="260" r="141" fill="none" stroke="#93c5fd" stroke-width="2"/>
+  <!-- Bolt holes on outer rim -->
+  <circle cx="270" cy="125" r="4" fill="#334155"/>
+  <circle cx="270" cy="395" r="4" fill="#334155"/>
+  <circle cx="135" cy="260" r="4" fill="#334155"/>
+  <circle cx="405" cy="260" r="4" fill="#334155"/>
+  <circle cx="174" cy="164" r="4" fill="#334155"/>
+  <circle cx="366" cy="164" r="4" fill="#334155"/>
+  <circle cx="174" cy="356" r="4" fill="#334155"/>
+  <circle cx="366" cy="356" r="4" fill="#334155"/>
+
+  <!-- Inner Hub (Low-Med stress: Cyan/Green) -->
+  <circle cx="270" cy="260" r="40" fill="#a7f3d0" stroke="#10b981" stroke-width="6"/>
+  <!-- Center bore (white) -->
+  <circle cx="270" cy="260" r="20" fill="#ffffff" stroke="#64748b" stroke-width="2"/>
+  <text x="256" y="264" font-family="sans-serif" font-size="10" fill="#475569">Вал</text>
+
+  <!-- 4 S-curved spokes (Cross flexure) -->
+  <!-- Spoke 1 (Up) -->
+  <path d="M270,220 C265,175 310,175 270,131" fill="none" stroke="#f59e0b" stroke-width="12"/>
+  <path d="M270,220 C265,175 310,175 270,131" fill="none" stroke="#dc2626" stroke-width="3.5"/>
+  <!-- Spoke 2 (Down) -->
+  <path d="M270,300 C275,345 230,345 270,389" fill="none" stroke="#f59e0b" stroke-width="12"/>
+  <path d="M270,300 C275,345 230,345 270,389" fill="none" stroke="#dc2626" stroke-width="3.5"/>
+  <!-- Spoke 3 (Left) -->
+  <path d="M230,260 C185,265 185,220 141,260" fill="none" stroke="#f59e0b" stroke-width="12"/>
+  <path d="M230,260 C185,265 185,220 141,260" fill="none" stroke="#dc2626" stroke-width="3.5"/>
+  <!-- Spoke 4 (Right) -->
+  <path d="M310,260 C355,255 355,300 399,260" fill="none" stroke="#f59e0b" stroke-width="12"/>
+  <path d="M310,260 C355,255 355,300 399,260" fill="none" stroke="#dc2626" stroke-width="3.5"/>
+
+  <!-- Torque Arrow on Center Hub -->
+  <path d="M250,230 A35,35 0 0,1 295,230" fill="none" stroke="#b45309" stroke-width="3" marker-end="url(#arrFea)"/>
+  <text x="250" y="220" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b45309">τ = 50 Н·м</text>
+
+  <!-- Fillet stress concentration callout placed safely above disc -->
+  <rect x="330" y="105" width="165" height="34" rx="4" fill="#fef2f2" stroke="#f87171" stroke-width="1"/>
+  <text x="338" y="120" font-family="sans-serif" font-size="10" font-weight="bold" fill="#b91c1c">Пік: σ_max = 620 МПа</text>
+  <text x="338" y="132" font-family="sans-serif" font-size="10" fill="#991b1b">Концентратор у галтелях</text>
+  <line x1="330" y1="122" x2="300" y2="185" stroke="#dc2626" stroke-width="1.5"/>
+  <circle cx="300" cy="185" r="3" fill="#dc2626"/>
+
+  <!-- Low stress outer ring callout placed safely at top-left -->
+  <rect x="45" y="105" width="130" height="34" rx="4" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
+  <text x="52" y="120" font-family="sans-serif" font-size="10" font-weight="bold" fill="#1d4ed8">Обід: σ ≤ 50 МПа</text>
+  <text x="52" y="132" font-family="sans-serif" font-size="10" fill="#2563eb">Місце кріплення болтів</text>
+  <line x1="175" y1="122" x2="200" y2="145" stroke="#2563eb" stroke-width="1.5"/>
+  <circle cx="200" cy="145" r="3" fill="#2563eb"/>
+
+  <!-- Color Scale Bar (x=505, y=110 to 350) -->
+  <rect x="510" y="110" width="16" height="240" rx="3" fill="url(#feaGradient)" stroke="#94a3b8" stroke-width="1"/>
+  <text x="495" y="105" font-family="sans-serif" font-size="10" font-weight="bold" fill="#0f172a">МПа</text>
+  <text x="532" y="118" font-family="sans-serif" font-size="10" fill="#dc2626">700</text>
+  <text x="532" y="170" font-family="sans-serif" font-size="10" fill="#ea580c">500</text>
+  <text x="532" y="230" font-family="sans-serif" font-size="10" fill="#16a34a">350</text>
+  <text x="532" y="290" font-family="sans-serif" font-size="10" fill="#0284c7">200</text>
+  <text x="532" y="350" font-family="sans-serif" font-size="10" fill="#2563eb">50</text>
+
+  <!-- Right: Info & Engineering Metrics Panel -->
+  <rect x="590" y="70" width="340" height="365" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="590" y="70" width="340" height="30" rx="8" fill="#f1f5f9"/>
+  <text x="605" y="90" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0f172a">Критерії міцності та параметри FEA</text>
+
+  <text x="605" y="120" font-family="sans-serif" font-size="11" fill="#334155">• <tspan font-weight="bold">Матеріал:</tspan> титановий сплав Ti-6Al-4V (ВТ6)</text>
+  <text x="605" y="138" font-family="sans-serif" font-size="11" fill="#334155">• <tspan font-weight="bold">Границя текучості:</tspan> σ_y = 830 МПа</text>
+  <text x="605" y="156" font-family="sans-serif" font-size="11" fill="#334155">• <tspan font-weight="bold">Пікове напруження:</tspan> σ_max = 620 МПа</text>
+  <text x="605" y="174" font-family="sans-serif" font-size="11" fill="#334155">• <tspan font-weight="bold">Запас міцності:</tspan> n = σ_y / σ_max = 1.34</text>
+  <text x="605" y="192" font-family="sans-serif" font-size="11" fill="#334155">• <tspan font-weight="bold">Втомна міцність (10⁷):</tspan> σ_fatigue ≈ 450 МПа</text>
+  <text x="605" y="210" font-family="sans-serif" font-size="11" fill="#334155">• <tspan font-weight="bold">Крутильна жорсткість:</tspan> k_s = 240 Н·м/рад</text>
+  <text x="605" y="228" font-family="sans-serif" font-size="11" fill="#334155">• <tspan font-weight="bold">Кут скручування:</tspan> Δθ = 11.9° при 50 Н·м</text>
+
+  <rect x="605" y="245" width="310" height="1" fill="#cbd5e1"/>
+
+  <text x="605" y="268" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0369a1">Оптимізація концентраторів:</text>
+  <text x="605" y="290" font-family="sans-serif" font-size="11" fill="#334155">1. Радіус галтелей спиць R = 2.5–3.0 мм</text>
+  <text x="605" y="307" font-family="sans-serif" font-size="11" fill="#334155">   зменшує піковий стрес на 35% порівняно з R=1.0.</text>
+  <text x="605" y="327" font-family="sans-serif" font-size="11" fill="#334155">2. Електроерозійна різка (EDM) дротом</text>
+  <text x="605" y="344" font-family="sans-serif" font-size="11" fill="#334155">   гарантує шорсткість Ra ≤ 0.8 мкм без мікротріщин.</text>
+  <text x="605" y="364" font-family="sans-serif" font-size="11" fill="#334155">3. Симетричне 4-променеве розташування спиць</text>
+  <text x="605" y="381" font-family="sans-serif" font-size="11" fill="#334155">   повністю компенсує радіальні паразитні сили.</text>
+
+  <rect x="605" y="398" width="310" height="24" rx="4" fill="#dcfce7"/>
+  <text x="615" y="414" font-family="sans-serif" font-size="10" font-weight="bold" fill="#15803d">Конструкція витримує понад 1 000 000 циклів</text>
+</svg>

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-b" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-k" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструкція центрального сферичного шарніра uniball автомата перекосу</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Сферичний uniball забезпечує три ступені вільності: осьовий рух колективного кроку та карданні кутові нахили</text>
+
+  <!-- Left Panel: Kinematic degrees of freedom -->
+  <rect x="30" y="75" width="280" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінематичні ступені вільності</text>
+
+  <rect x="45" y="120" width="250" height="85" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="55" y="142" font-size="13" font-weight="bold" fill="#2457d6">1. Осьовий зсув Z (колектив):</text>
+  <text x="55" y="164" font-size="12" fill="#1a1a1a">Ковзання гільзи по щоглі вгору/вниз</text>
+  <text x="55" y="184" font-size="12" fill="#1a1a1a">Змінює кут установки всіх лопатей</text>
+
+  <rect x="45" y="220" width="250" height="85" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="55" y="242" font-size="13" font-weight="bold" fill="#27ae60">2. Кутові нахили α та β (циклік):</text>
+  <text x="55" y="264" font-size="12" fill="#1a1a1a">Обертання сфери вкладиша в гнізді</text>
+  <text x="55" y="284" font-size="12" fill="#1a1a1a">Керує тангажем та креном ротора</text>
+
+  <rect x="45" y="320" width="250" height="95" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="342" font-size="13" font-weight="bold" fill="#1a1a1a">3. Обмеження кута нахилу:</text>
+  <text x="55" y="364" font-size="12" fill="#1a1a1a">Максимальний перекіс тарілки: ±12°</text>
+  <text x="55" y="384" font-size="12" fill="#1a1a1a">Антифрикційне покриття: PTFE liner</text>
+  <text x="55" y="402" font-size="12" fill="#6b7280">Ресурс втулки: до 2500 льотних годин</text>
+
+  <!-- Center-Right: Cross-section Diagram -->
+  <rect x="330" y="75" width="600" height="360" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="630" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструктивний розріз вузла uniball та тарілок перекосу</text>
+
+  <!-- Central rotor shaft (mast) -->
+  <rect x="610" y="120" width="40" height="295" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="630" y1="115" x2="630" y2="420" stroke="#94a3b8" stroke-dasharray="6,4" stroke-width="1"/>
+
+  <!-- Sliding sleeve -->
+  <rect x="595" y="160" width="15" height="220" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <rect x="650" y="160" width="15" height="220" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+
+  <!-- Spherical Ball (Uniball core) -->
+  <circle cx="630" cy="270" r="55" fill="#fed7aa" stroke="#ea580c" stroke-width="2"/>
+
+  <!-- PTFE liner layer -->
+  <circle cx="630" cy="270" r="58" fill="none" stroke="#f97316" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Inner spherical socket ring (stationary ring carrier) -->
+  <!-- Left wing -->
+  <path d="M430,250 L575,250 A55,55 0 0,1 580,290 L430,290 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Right wing -->
+  <path d="M680,250 L825,250 L825,290 L685,290 A55,55 0 0,1 680,250 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Angular-contact duplex ball bearing -->
+  <rect x="445" y="225" width="50" height="25" fill="#f1f5f9" stroke="#64748b" stroke-width="1"/>
+  <circle cx="458" cy="237" r="6" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+  <circle cx="482" cy="237" r="6" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+
+  <rect x="760" y="225" width="50" height="25" fill="#f1f5f9" stroke="#64748b" stroke-width="1"/>
+  <circle cx="773" cy="237" r="6" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+  <circle cx="797" cy="237" r="6" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+
+  <!-- Rotating ring (outer/top swashplate) -->
+  <path d="M415,200 L505,200 L505,225 L415,225 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M750,200 L840,200 L840,225 L750,225 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Pitch links and servo control rods -->
+  <!-- Top pitch link rods (to rotating blades) -->
+  <line x1="430" y1="200" x2="430" y2="140" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-b)"/>
+  <line x1="825" y1="200" x2="825" y2="140" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-b)"/>
+
+  <!-- Bottom control pushrods (from non-rotating actuators) -->
+  <line x1="445" y1="370" x2="445" y2="290" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-k)"/>
+  <line x1="810" y1="370" x2="810" y2="290" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-k)"/>
+
+  <!-- Labels on Diagram (positioned carefully with clearance) -->
+  <text x="430" y="132" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Тяга до лопаті</text>
+  <text x="825" y="132" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Тяга до лопаті</text>
+
+  <!-- Side labels for rings with ample clearance -->
+  <text x="345" y="212" font-size="11" font-weight="bold" fill="#2457d6">Обертове кільце</text>
+  <text x="345" y="272" font-size="11" font-weight="bold" fill="#c0392b">Нерухоме кільце</text>
+
+  <text x="445" y="390" font-size="12" fill="#c0392b" text-anchor="middle">Шток привода</text>
+  <text x="810" y="390" font-size="12" fill="#c0392b" text-anchor="middle">Шток привода</text>
+
+  <text x="630" y="136" font-size="12" font-weight="bold" fill="#334155" text-anchor="middle">Вал ротора (щогла)</text>
+  <text x="630" y="266" font-size="12" font-weight="bold" fill="#ea580c" text-anchor="middle">Куля uniball</text>
+  <text x="630" y="282" font-size="11" fill="#9a3412" text-anchor="middle">(тефлон PTFE)</text>
+
+  <!-- Duplex bearing label on right side -->
+  <text x="846" y="241" font-size="12" fill="#475569">Підшипник</text>
+</svg>

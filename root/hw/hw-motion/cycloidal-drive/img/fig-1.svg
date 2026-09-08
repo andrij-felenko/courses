@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біле тло -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Поздовжній розріз прецизійного робототехнічного редуктора RV</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Двоступенева схема: центральна сонячна шестерня, колінчасті вали та пара протифазних циклоїдних дисків</text>
+
+  <!-- Ліва панель: Схема розрізу редуктора -->
+  <rect x="30" y="75" width="460" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="260" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Конструктивне компонування в розрізі</text>
+
+  <!-- Зовнішній корпус із роликовими пальцями -->
+  <rect x="50" y="125" width="420" height="285" rx="5" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Верхній колінчастий вал (ексцентриковий) -->
+  <rect x="130" y="145" width="260" height="35" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="260" y="167" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Колінчастий вал 1 (верхній)</text>
+
+  <!-- Верхня частина циклоїдних дисків -->
+  <rect x="220" y="185" width="30" height="45" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="235" y="212" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Диск 1</text>
+
+  <rect x="265" y="185" width="30" height="45" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="280" y="212" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Диск 2</text>
+
+  <!-- Центральний вхідний вал (сонячна шестерня) -->
+  <rect x="70" y="240" width="380" height="35" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="260" y="262" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Вхідний вал із сонячною шестернею</text>
+
+  <!-- Нижня частина циклоїдних дисків -->
+  <rect x="220" y="285" width="30" height="45" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="235" y="312" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Диск 1</text>
+
+  <rect x="265" y="285" width="30" height="45" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="280" y="312" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Диск 2</text>
+
+  <!-- Нижній колінчастий вал (ексцентриковий) -->
+  <rect x="130" y="340" width="260" height="35" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="260" y="362" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Колінчастий вал 2 (нижній)</text>
+
+  <!-- Головні опорні підшипники великого діаметра -->
+  <rect x="65" y="145" width="40" height="85" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="85" y="192" text-anchor="middle" font-size="10" fill="#6b7280">Опора А</text>
+
+  <rect x="410" y="145" width="40" height="85" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="430" y="192" text-anchor="middle" font-size="10" fill="#6b7280">Опора B</text>
+
+  <rect x="65" y="290" width="40" height="85" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="85" y="337" text-anchor="middle" font-size="10" fill="#6b7280">Опора C</text>
+
+  <rect x="410" y="290" width="40" height="85" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="430" y="337" text-anchor="middle" font-size="10" fill="#6b7280">Опора D</text>
+
+
+  <!-- Права панель: Двоступенева архітектура та переваги -->
+  <rect x="510" y="75" width="420" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="720" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Переваги схеми RV у промислових роботах</text>
+
+  <!-- Ступінь 1 -->
+  <rect x="530" y="125" width="380" height="70" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="545" y="148" font-size="12" font-weight="bold" fill="#2457d6">1-й ступінь: Циліндрична передача</text>
+  <text x="545" y="168" font-size="11" fill="#1a1a1a">Вхідна шестерня обертає шестерні 2-3 колінчастих валів</text>
+  <text x="545" y="186" font-size="11" fill="#6b7280">Знижує частоту обертання ексцентриків у 3-5 разів</text>
+
+  <!-- Ступінь 2 -->
+  <rect x="530" y="205" width="380" height="70" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="545" y="228" font-size="12" font-weight="bold" fill="#27ae60">2-й ступінь: Подвійний циклоїдний ряд</text>
+  <text x="545" y="248" font-size="11" fill="#1a1a1a">Колінвали приводять протифазні диски по роликовому вінцю</text>
+  <text x="545" y="266" font-size="11" fill="#6b7280">Загальне передавальне число досягає i = 80:1..160:1</text>
+
+  <!-- Опорні підшипники та жорсткість -->
+  <rect x="530" y="285" width="380" height="65" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="545" y="308" font-size="12" font-weight="bold" fill="#1a1a1a">Екстремальна жорсткість на згин</text>
+  <text x="545" y="328" font-size="11" fill="#1a1a1a">Широка база інтегрованих підшипників сприймає великі моменти сили</text>
+
+  <!-- Стійкість до ударів -->
+  <rect x="530" y="360" width="380" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="720" y="385" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Витримує ударні навантаження до 500% від номіналу</text>
+  <text x="720" y="403" text-anchor="middle" font-size="11" fill="#1a1a1a">Нульовий люфт (кут втрати менше 1 кутової мінути)</text>
+</svg>

@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-d1" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-b1" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-r1" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-g1" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Злам евольвентного зуба від згину проти стискання циклоїдного зачеплення</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Консольний згинальний удар на одиночний зуб (злам) проти багатоконтактного стискання роликів (до 500% перевантаження)</text>
+
+  <!-- LEFT PANEL: Involute Gear Tooth Failure -->
+  <rect x="30" y="75" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="50" y="92" width="395" height="30" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="112" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Евольвентне зачеплення: згин і злам зуба</text>
+
+  <!-- Gear Body & Tooth Cantilever -->
+  <!-- Gear rim base -->
+  <rect x="80" y="270" width="335" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Single Cantilever Tooth -->
+  <path d="M 200 270 Q 210 200 220 150 L 275 150 Q 285 200 295 270 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Tooth Root Fillet Stress & Crack (highlight red) -->
+  <path d="M 195 270 Q 200 260 205 255" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <!-- Crack line -->
+  <line x1="200" y1="268" x2="230" y2="248" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="2,2"/>
+  <text x="100" y="255" font-size="11" font-weight="bold" fill="#c0392b">Втомна тріщина</text>
+
+  <!-- Shock Impact Force at Tooth Tip -->
+  <line x1="140" y1="170" x2="215" y2="170" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-r1)"/>
+  <text x="135" y="160" font-size="12" font-weight="bold" fill="#c0392b">F_удар (консоль)</text>
+
+  <!-- Bending Moment Arrow M_bend -->
+  <path d="M 265 240 A 20 20 0 0 1 235 255" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-r1)"/>
+  <text x="305" y="248" font-size="11" font-weight="bold" fill="#c0392b">M_згин = F·h</text>
+
+  <!-- Single tooth contact indicator -->
+  <text x="247" y="140" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1–2 пари зубів у контакті</text>
+
+  <!-- Bottom Badges / Summary Left -->
+  <rect x="50" y="325" width="395" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="348" font-size="12" font-weight="bold" fill="#1a1a1a">• Зуб працює як консольна балка на згинання</text>
+  <text x="65" y="370" font-size="12" fill="#6b7280">• Пікова концентрація розтягувальних напруг у ніжці зуба</text>
+  <text x="65" y="392" font-size="12" fill="#6b7280">• Коефіцієнт перекриття малий: все навантаження на один зуб</text>
+  <text x="65" y="414" font-size="12" fill="#c0392b">• Миттєвий крихкий зріз зуба при динамічному ударі</text>
+
+
+  <!-- RIGHT PANEL: Cycloidal Drive Multi-pin Compression -->
+  <rect x="495" y="75" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="515" y="92" width="395" height="30" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="112" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Циклоїдний редуктор: стискальний багатоконтакт</text>
+
+  <!-- Cycloid Disc Lobe (curved wave profile) -->
+  <path d="M 535 285 Q 575 285 615 230 Q 655 175 712 175 Q 770 175 810 230 Q 850 285 890 285" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="712" y="270" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Епітрохоїдний диск Брарена</text>
+
+  <!-- Multiple Ring Pins in Contact (Compressive load) -->
+  <!-- Pin 1 -->
+  <circle cx="585" cy="210" r="16" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <line x1="575" y1="223" x2="595" y2="198" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-g1)"/>
+
+  <!-- Pin 2 (Apex) -->
+  <circle cx="712" cy="162" r="16" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <line x1="712" y1="178" x2="712" y2="150" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-g1)"/>
+
+  <!-- Pin 3 -->
+  <circle cx="840" cy="210" r="16" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <line x1="850" y1="223" x2="830" y2="198" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-g1)"/>
+
+  <!-- Force Distribution Arrows / Labels -->
+  <text x="540" y="195" font-size="11" font-weight="bold" fill="#27ae60">F_1 (стиск)</text>
+  <text x="712" y="140" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">F_2 (головне)</text>
+  <text x="825" y="195" font-size="11" font-weight="bold" fill="#27ae60">F_3 (стиск)</text>
+
+  <!-- Note: 30-50% pins simultaneous in contact -->
+  <rect x="580" y="218" width="265" height="24" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="234" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Одночасно в зачепленні 30–50% зубів!</text>
+
+  <!-- Bottom Badges / Summary Right -->
+  <rect x="515" y="325" width="395" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="530" y="348" font-size="12" font-weight="bold" fill="#1a1a1a">• Контакт чистого стискання роликів у впадинах диска</text>
+  <text x="530" y="370" font-size="12" fill="#6b7280">• Відсутність згинальних напруг консольного типу</text>
+  <text x="530" y="392" font-size="12" fill="#6b7280">• Навантаження розподіляється між десятками роликів вінця</text>
+  <text x="530" y="414" font-size="12" fill="#27ae60">• Витримує короткочасні ударні перевантаження до 500%</text>
+</svg>

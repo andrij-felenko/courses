@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння конструкції та кінематики шарнірів передачі обертання</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Від несинхронного одинарного кардана до синхронних кулькових і триподних шарнірів рівних кутових швидкостей</text>
+
+  <!-- 4 КАРТКИ-КОЛОНКИ -->
+
+  <!-- Колонка 1: Одинарний кардан Гука -->
+  <rect x="24" y="75" width="216" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="36" y="87" width="192" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="132" y="104" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Шарнір Гука (Кардан)</text>
+
+  <!-- Схема перерізу 1 -->
+  <rect x="36" y="122" width="192" height="130" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Ведуча вилка -->
+  <path d="M 50 160 L 80 160 L 80 145 L 105 145 L 105 155 L 92 155 L 92 205 L 105 205 L 105 215 L 80 215 L 80 200 L 50 200 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <!-- Ведена вилка під кутом -->
+  <path d="M 214 195 L 186 182 L 179 196 L 157 186 L 153 195 L 164 200 L 140 244 L 151 249 L 155 240 L 177 250 L 171 264 L 199 227 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <!-- Хрестовина -->
+  <circle cx="125" cy="180" r="14" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="121" y="152" width="8" height="56" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="97" y="176" width="56" height="8" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="132" y="244" font-size="11" fill="#6b7280" text-anchor="middle">Хрестовина на вальцях</text>
+
+  <!-- Параметри 1 -->
+  <text x="44" y="272" font-size="11" font-weight="bold" fill="#1a1a1a">Кінематика: несинхронна</text>
+  <text x="44" y="288" font-size="11" fill="#c0392b">Пульсація: 2/rev (omega~cos)</text>
+  <text x="44" y="306" font-size="11" fill="#1a1a1a">Робочий кут: beta &lt;= 15 deg</text>
+  <text x="44" y="324" font-size="11" fill="#1a1a1a">Осьовий хід: відсутній (0)</text>
+  <text x="44" y="342" font-size="11" fill="#1a1a1a">ККД: 98.5% (тертя кочення)</text>
+
+  <rect x="36" y="360" width="192" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="44" y="378" font-size="11" font-weight="bold" fill="#c0392b">Застосування:</text>
+  <text x="44" y="394" font-size="11" fill="#1a1a1a">Карданні вали вантажівок,</text>
+  <text x="44" y="409" font-size="11" fill="#1a1a1a">промислові трансмісії</text>
+
+
+  <!-- Колонка 2: Спарений здвоєний кардан -->
+  <rect x="256" y="75" width="216" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="268" y="87" width="192" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="364" y="104" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Здвоєний кардан</text>
+
+  <!-- Схема перерізу 2 -->
+  <rect x="268" y="122" width="192" height="130" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Дві хрестовини в спільній обоймі -->
+  <rect x="325" y="150" width="78" height="60" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+  <circle cx="340" cy="180" r="10" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="388" cy="180" r="10" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Центрувальна кулька між вилками -->
+  <circle cx="364" cy="180" r="5" fill="#2457d6"/>
+  <path d="M 280 180 L 330 180" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 398 180 L 448 195" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="364" y="235" font-size="11" fill="#6b7280" text-anchor="middle">Центрувальне яблуко</text>
+
+  <!-- Параметри 2 -->
+  <text x="276" y="272" font-size="11" font-weight="bold" fill="#1a1a1a">Кінематика: квазі-ШРКШ</text>
+  <text x="276" y="288" font-size="11" fill="#27ae60">Пульсація: взаємно згасає</text>
+  <text x="276" y="306" font-size="11" fill="#1a1a1a">Робочий кут: beta &lt;= 30 deg</text>
+  <text x="276" y="324" font-size="11" fill="#1a1a1a">Осьовий хід: відсутній (0)</text>
+  <text x="276" y="342" font-size="11" fill="#1a1a1a">ККД: 97.0% (подвійні втрати)</text>
+
+  <rect x="268" y="360" width="192" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="276" y="378" font-size="11" font-weight="bold" fill="#2457d6">Застосування:</text>
+  <text x="276" y="394" font-size="11" fill="#1a1a1a">Позашляховики 4x4, ліфтовані</text>
+  <text x="276" y="409" font-size="11" fill="#1a1a1a">підвіски, кермові вали</text>
+
+
+  <!-- Колонка 3: Кульковий ШРКШ Рцеппи -->
+  <rect x="488" y="75" width="216" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="500" y="87" width="192" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="596" y="104" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3. ШРКШ Рцеппи (6 кульок)</text>
+
+  <!-- Схема перерізу 3 -->
+  <rect x="500" y="122" width="192" height="130" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Зовнішня сферична чаша -->
+  <path d="M 545 145 C 640 145 640 215 545 215 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <!-- Внутрішня зірочка -->
+  <circle cx="585" cy="180" r="22" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <!-- Кульки в бісекторній площині -->
+  <circle cx="585" cy="154" r="7" fill="#27ae60" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="585" cy="206" r="7" fill="#27ae60" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="563" cy="180" r="7" fill="#27ae60" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="607" cy="180" r="7" fill="#27ae60" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="596" y="244" font-size="11" fill="#6b7280" text-anchor="middle">Бісекторний сепаратор</text>
+
+  <!-- Параметри 3 -->
+  <text x="508" y="272" font-size="11" font-weight="bold" fill="#1a1a1a">Кінематика: чистий ШРКШ</text>
+  <text x="508" y="288" font-size="11" fill="#27ae60">Пульсація: повна відсутність</text>
+  <text x="508" y="306" font-size="11" fill="#1a1a1a">Робочий кут: beta &lt;= 48 deg</text>
+  <text x="508" y="324" font-size="11" fill="#1a1a1a">Осьовий хід: фіксований (0)</text>
+  <text x="508" y="342" font-size="11" fill="#1a1a1a">ККД: 96.5% (герметичний)</text>
+
+  <rect x="500" y="360" width="192" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="508" y="378" font-size="11" font-weight="bold" fill="#27ae60">Застосування:</text>
+  <text x="508" y="394" font-size="11" fill="#1a1a1a">Зовнішні шарніри керованих</text>
+  <text x="508" y="409" font-size="11" fill="#1a1a1a">коліс автомобілів (колеса)</text>
+
+
+  <!-- Колонка 4: Триподний шарнір -->
+  <rect x="720" y="75" width="216" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="732" y="87" width="192" height="26" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="828" y="104" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Триподний шарнір</text>
+
+  <!-- Схема перерізу 4 -->
+  <rect x="732" y="122" width="192" height="130" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Тюльпан (корпус із 3 пазами) -->
+  <circle cx="828" cy="180" r="38" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <!-- Трипроменева зірочка з роликами -->
+  <circle cx="828" cy="180" r="8" fill="#1a1a1a"/>
+  <!-- 3 ролики (0, 120, 240 deg) -->
+  <circle cx="828" cy="155" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <circle cx="806" cy="193" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <circle cx="850" cy="193" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="828" y="244" font-size="11" fill="#6b7280" text-anchor="middle">Плунжерні сфероролики</text>
+
+  <!-- Параметри 4 -->
+  <text x="740" y="272" font-size="11" font-weight="bold" fill="#1a1a1a">Кінематика: плунжерний ШРКШ</text>
+  <text x="740" y="288" font-size="11" fill="#27ae60">Пульсація: практично нуль</text>
+  <text x="740" y="306" font-size="11" fill="#1a1a1a">Робочий кут: beta &lt;= 25 deg</text>
+  <text x="740" y="324" font-size="11" fill="#2457d6">Осьовий хід: до +-45 мм</text>
+  <text x="740" y="342" font-size="11" fill="#1a1a1a">ККД: 98.0% (низьке тертя)</text>
+
+  <rect x="732" y="360" width="192" height="60" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="740" y="378" font-size="11" font-weight="bold" fill="#1a1a1a">Застосування:</text>
+  <text x="740" y="394" font-size="11" fill="#1a1a1a">Внутрішні шарніри півосей біля</text>
+  <text x="740" y="409" font-size="11" fill="#1a1a1a">КПП при ходах підвіски</text>
+</svg>

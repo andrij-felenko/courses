@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Тло -->
+  <rect width="960" height="460" fill="#ffffff" />
+
+  <!-- Верхня шапка -->
+  <rect x="30" y="16" width="900" height="52" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5" />
+  <text x="50" y="38" font-size="16" font-weight="bold" fill="#0f172a">Конічний симетричний диференціал Онесіфора Пеккера (1827)</text>
+  <text x="50" y="56" font-size="12" fill="#475569">Кінематичне розгалуження потужності на дві півосі для парових екіпажів без пробуксовки коліс</text>
+
+  <!-- Ліва панель: Кінематична схема диференціала -->
+  <rect x="30" y="78" width="470" height="362" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+  <text x="50" y="104" font-size="14" font-weight="bold" fill="#0f172a">Кінематика конічного зачеплення Пеккера</text>
+  <text x="50" y="122" font-size="11" fill="#64748b">Обертове водило (чашка) та взаємно рухомі сателіти й півосі</text>
+
+  <!-- Чашка диференціала (водило) -->
+  <rect x="180" y="140" width="170" height="216" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="2" />
+  <text x="265" y="162" font-size="12" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Чашка диференціала</text>
+  <text x="265" y="178" font-size="11" fill="#3b82f6" text-anchor="middle">Водило: ω_carrier, T_input</text>
+
+  <!-- Верхній сателіт -->
+  <rect x="225" y="190" width="80" height="40" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" />
+  <text x="265" y="210" font-size="11" font-weight="bold" fill="#b45309" text-anchor="middle">Сателіт 1</text>
+  <text x="265" y="224" font-size="10" fill="#78350f" text-anchor="middle">вільне обертання</text>
+
+  <!-- Нижній сателіт -->
+  <rect x="225" y="300" width="80" height="40" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" />
+  <text x="265" y="320" font-size="11" font-weight="bold" fill="#b45309" text-anchor="middle">Сателіт 2</text>
+  <text x="265" y="334" font-size="10" fill="#78350f" text-anchor="middle">конічні зубці</text>
+
+  <!-- Палець сателітів (вісь водила) -->
+  <path d="M 265 230 L 265 300" stroke="#94a3b8" stroke-width="2" stroke-dasharray="3,3" />
+
+  <!-- Ліва піввісь і шестерня -->
+  <rect x="55" y="235" width="115" height="70" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" />
+  <text x="112" y="258" font-size="12" font-weight="bold" fill="#0f172a" text-anchor="middle">Ліва піввісь</text>
+  <text x="112" y="274" font-size="11" fill="#334155" text-anchor="middle">ω_left, T_left</text>
+  <text x="112" y="292" font-size="10" fill="#64748b" text-anchor="middle">До лівого колеса</text>
+
+  <!-- Права піввісь і шестерня -->
+  <rect x="360" y="235" width="125" height="70" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" />
+  <text x="422" y="258" font-size="12" font-weight="bold" fill="#0f172a" text-anchor="middle">Права піввісь</text>
+  <text x="422" y="274" font-size="11" fill="#334155" text-anchor="middle">ω_right, T_right</text>
+  <text x="422" y="292" font-size="10" fill="#64748b" text-anchor="middle">До правого колеса</text>
+
+  <!-- Нижній підпис лівої панелі -->
+  <rect x="55" y="370" width="420" height="56" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+  <text x="265" y="400" font-size="11" font-weight="bold" fill="#0f172a" text-anchor="middle">Кінематичний зв'язок: ω_carrier = (ω_left + ω_right) / 2</text>
+  <text x="265" y="416" font-size="10" fill="#64748b" text-anchor="middle">Сателіти не обертаються на осях під час руху по прямій дорозі</text>
+
+  <!-- Права панель: 3 аналітичні блоки -->
+  <!-- Блок 1: Винахід Пеккера та порятунок коліс -->
+  <rect x="515" y="78" width="415" height="114" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+  <text x="535" y="104" font-size="13" font-weight="bold" fill="#0f172a">1. Винахід Онесіфора Пеккера (1827)</text>
+  <text x="535" y="126" font-size="11" fill="#334155">• Проблема суцільної осі: різниця шляхів на повороті Δs = B_track · θ</text>
+  <text x="535" y="144" font-size="11" fill="#334155">• Конічний диференціал дозволяє колесам котитися без пробуксовки</text>
+  <text x="535" y="162" font-size="11" fill="#16a34a" font-weight="bold">• Збереження спиць, шин і дорожнього полотна парових диліжансів</text>
+  <text x="535" y="180" font-size="10" fill="#64748b">Перше серійне застосування механізму з двома ступенями вільності</text>
+
+  <!-- Блок 2: Розподіл крутних моментів -->
+  <rect x="515" y="202" width="415" height="114" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+  <text x="535" y="228" font-size="13" font-weight="bold" fill="#0f172a">2. Суворий розподіл моменту: T_left = T_right</text>
+  <text x="535" y="250" font-size="11" fill="#334155">• Симетричний диференціал завжди ділить вхідний момент навпіл:</text>
+  <text x="535" y="268" font-size="11" fill="#2563eb" font-weight="bold">  T_left = T_right = 0.5 · T_input</text>
+  <text x="535" y="286" font-size="11" fill="#334155">• Вільний поворот конічних сателітів вирівнює тангенціальні сили</text>
+  <text x="535" y="304" font-size="10" fill="#64748b">Рівність моментів гарантує відсутність ривків керма при маневруванні</text>
+
+  <!-- Блок 3: Вразливість вільного диференціала -->
+  <rect x="515" y="326" width="415" height="114" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+  <text x="535" y="352" font-size="13" font-weight="bold" fill="#0f172a">3. Проблема буксування на слизькій дорозі</text>
+  <text x="535" y="374" font-size="11" fill="#334155">• Якщо одне колесо потрапляє на лід, його зчеплення T_slip падає до 0</text>
+  <text x="535" y="392" font-size="11" fill="#dc2626" font-weight="bold">• Момент на сухому колесі також обнуляється: T_dry = T_slip ≈ 0</text>
+  <text x="535" y="410" font-size="11" fill="#334155">• Колесо на кризі крутиться з 2·ω_carrier, а машина залишається на місці</text>
+  <text x="535" y="428" font-size="10" fill="#64748b">Це стимулювало створення самоблокованих систем (LSD, Torsen)</text>
+</svg>

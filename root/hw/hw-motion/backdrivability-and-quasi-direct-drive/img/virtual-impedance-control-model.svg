@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біле тло -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Модель віртуального механічного імпедансу (Impedance Control)</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Програмна емуляція пружини k_p та демпфера k_d без фізичних пружних елементів у приводі</text>
+
+  <!-- Ліва панель: Механічна еквівалентна схема -->
+  <rect x="30" y="75" width="440" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Еквівалентна динамічна модель</text>
+
+  <!-- Нерухома опора (база / бажана траєкторія theta_des) -->
+  <line x1="60" y1="130" x2="60" y2="380" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="50" y1="150" x2="60" y2="140" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="50" y1="180" x2="60" y2="170" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="50" y1="210" x2="60" y2="200" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="50" y1="240" x2="60" y2="230" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="50" y1="270" x2="60" y2="260" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="50" y1="300" x2="60" y2="290" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="50" y1="330" x2="60" y2="320" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="50" y1="360" x2="60" y2="350" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="45" y="125" text-anchor="end" font-size="11" font-weight="bold" fill="#1a1a1a">Опора</text>
+
+  <!-- Віртуальна пружина K_p -->
+  <path d="M 60,190 L 110,190 L 125,170 L 145,210 L 165,170 L 185,210 L 205,170 L 225,210 L 240,190 L 290,190" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="175" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Пружина K_p</text>
+  <text x="175" y="235" text-anchor="middle" font-size="11" fill="#6b7280">Пружність зв'язку</text>
+
+  <!-- Віртуальний демпфер K_d -->
+  <line x1="60" y1="310" x2="140" y2="310" stroke="#27ae60" stroke-width="2"/>
+  <rect x="140" y="290" width="50" height="40" fill="white" stroke="#27ae60" stroke-width="2"/>
+  <line x1="165" y1="295" x2="165" y2="325" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="165" y1="310" x2="290" y2="310" stroke="#27ae60" stroke-width="2"/>
+  <text x="165" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Демпфер K_d</text>
+  <text x="165" y="350" text-anchor="middle" font-size="11" fill="#6b7280">В'язке розсіювання</text>
+
+  <!-- Тіло ланки (еквівалентна маса M / інерція J) -->
+  <rect x="290" y="150" width="80" height="200" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="330" y="245" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Ланка</text>
+  <text x="330" y="265" text-anchor="middle" font-size="11" fill="#1a1a1a">theta_act</text>
+
+  <!-- Зовнішня сила взаємодії F_ext -->
+  <line x1="450" y1="250" x2="380" y2="250" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="420" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">F_ext / T_ext</text>
+
+
+  <!-- Права панель: Рівняння та програмний алгоритм -->
+  <rect x="490" y="75" width="440" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Закон керування моментом двигуна</text>
+
+  <!-- Формула моменту -->
+  <rect x="510" y="125" width="400" height="80" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="710" y="152" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">tau = K_p · (theta_des - theta) + K_d · (omega_des - omega)</text>
+  <text x="710" y="180" text-anchor="middle" font-size="11" fill="#6b7280">Розрахований момент транслюється в цільовий струм Iq = tau / (i · K_t)</text>
+
+  <!-- Властивості віртуального імпедансу -->
+  <rect x="510" y="220" width="400" height="60" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="243" font-size="12" font-weight="bold" fill="#27ae60">Програмна зміна жорсткості на льоту</text>
+  <text x="525" y="263" font-size="11" fill="#1a1a1a">М'який дотик при пошуку поверхні, тверда опора при поштовху</text>
+
+  <rect x="510" y="295" width="400" height="60" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="318" font-size="12" font-weight="bold" fill="#2457d6">Стабільність без затримок датчиків</text>
+  <text x="525" y="338" font-size="11" fill="#1a1a1a">Безпосередній відгук струмового контуру частотою 10-20 кГц</text>
+
+  <rect x="510" y="370" width="400" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">QDD поводиться як регульована пружина з демпфером</text>
+</svg>

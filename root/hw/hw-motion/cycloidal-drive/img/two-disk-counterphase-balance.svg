@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біле тло -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Динамічне балансування парою протифазних циклоїдних дисків (180°)</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Два ідентичні диски на протилежних ексцентриках компенсують відцентрові сили інерції F_cf1 + F_cf2 = 0</text>
+
+  <!-- Ліва панель: Схема зсуву 180° на валу -->
+  <rect x="30" y="75" width="450" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="255" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Геометрія протифазного ексцентрикового вала</text>
+
+  <!-- Вісь обертання редуктора -->
+  <line x1="60" y1="255" x2="450" y2="255" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="65" y="215" font-size="11" font-weight="bold" fill="#1a1a1a">Головна вісь O</text>
+
+  <!-- Диск 1 (зсув вгору на +e, x=140..220, y=145..325, cy=235) -->
+  <rect x="140" y="145" width="80" height="180" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="180" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Диск 1</text>
+  <text x="180" y="195" text-anchor="middle" font-size="10" fill="#1a1a1a">Ексцентрик +e</text>
+
+  <!-- Вектор сили інерції диска 1 (вгору) -->
+  <line x1="180" y1="145" x2="180" y2="105" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="195" y="120" font-size="11" font-weight="bold" fill="#c0392b">F_cf1 (вгору)</text>
+
+  <!-- Проміжна розпірна втулка між дисками -->
+  <rect x="220" y="235" width="40" height="40" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Диск 2 (зсув вниз на -e, x=260..340, y=185..365, cy=275) -->
+  <rect x="260" y="185" width="80" height="180" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="300" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Диск 2</text>
+  <text x="300" y="345" text-anchor="middle" font-size="10" fill="#1a1a1a">Ексцентрик -e</text>
+
+  <!-- Вектор сили інерції диска 2 (вниз) -->
+  <line x1="300" y1="365" x2="300" y2="405" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="315" y="395" font-size="11" font-weight="bold" fill="#2457d6">F_cf2 (вниз)</text>
+
+  <!-- Підшипники вала зліва і справа -->
+  <rect x="80" y="230" width="35" height="50" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="375" y="230" width="35" height="50" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="97" y="295" text-anchor="middle" font-size="10" fill="#6b7280">Опора 1</text>
+  <text x="392" y="295" text-anchor="middle" font-size="10" fill="#6b7280">Опора 2</text>
+
+
+  <!-- Права панель: Динамічний аналіз та вібрації -->
+  <rect x="500" y="75" width="430" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Фізика динамічного врівноваження</text>
+
+  <rect x="520" y="125" width="390" height="85" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="715" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Рівновага відцентрових сил</text>
+  <text x="715" y="172" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Sigma F = m · omega² · e + m · omega² · (-e) = 0</text>
+  <text x="715" y="195" text-anchor="middle" font-size="11" fill="#6b7280">Сумарна радіальна вібраційна сила на підшипниках вала дорівнює нулю</text>
+
+  <rect x="520" y="225" width="390" height="95" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="535" y="248" font-size="12" font-weight="bold" fill="#2457d6">Залишковий динамічний момент</text>
+  <text x="535" y="268" font-size="11" fill="#1a1a1a">Оскільки диски рознесені вздовж осі на відстань L_disk, виникає пара сил:</text>
+  <text x="535" y="288" font-size="12" font-weight="bold" fill="#1a1a1a">M_couple = F_cf · L_disk = m · omega² · e · L_disk</text>
+  <text x="535" y="308" font-size="11" fill="#6b7280">Для його мінімізації диски розміщують впритул або додають противаги</text>
+
+  <rect x="520" y="335" width="390" height="80" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="535" y="360" font-size="12" font-weight="bold" fill="#1a1a1a">Подвоєння несучої здатності</text>
+  <text x="535" y="380" font-size="11" fill="#1a1a1a">Два диски працюють паралельно, вдвічі зменшуючи контактний тиск</text>
+  <text x="535" y="398" font-size="11" fill="#1a1a1a">на роликах та збільшуючи крутильну жорсткість редуктора на 100%</text>
+</svg>

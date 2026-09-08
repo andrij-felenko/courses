@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Компенсація нерівномірності в карданних передачах: конфігурації Z та W</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Умови повної взаємної компенсації пульсацій: рівність кутів зламу α₁ = α₂ та синфазність вилок</text>
+
+  <!-- Панель 1: Z-подібна конфігурація (зліва) -->
+  <rect x="40" y="82" width="425" height="260" rx="8" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+  <text x="252" y="106" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Z-подібна схема (паралельні осі валів)</text>
+
+  <!-- Осі Z-схеми -->
+  <line x1="60" y1="140" x2="350" y2="140" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="160" y1="270" x2="430" y2="270" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <!-- Проміжний вал Z-схеми під кутом alpha -->
+  <line x1="180" y1="140" x2="320" y2="270" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Вал 1 (ведучий) Z-схеми -->
+  <rect x="65" y="130" width="100" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="115" y="124" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вал 1 (e₁)</text>
+  <text x="115" y="165" text-anchor="middle" font-size="11" fill="#6b7280">ω₁ = const</text>
+
+  <!-- Шарнір 1 Z-схеми -->
+  <circle cx="180" cy="140" r="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="180" cy="140" r="3" fill="#1a1a1a"/>
+  <!-- Кут alpha_1 -->
+  <path d="M 220,140 A 40,40 0 0,1 208,168" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="228" y="162" font-size="12" font-weight="bold" fill="#c0392b">α₁</text>
+
+  <!-- Проміжний вал Z-схеми -->
+  <text x="205" y="210" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Проміжний вал</text>
+  <text x="205" y="227" text-anchor="end" font-size="11" fill="#2457d6">пульсація ω_пром(t)</text>
+
+  <!-- Шарнір 2 Z-схеми -->
+  <circle cx="320" cy="270" r="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="320" cy="270" r="3" fill="#1a1a1a"/>
+  <!-- Кут alpha_2 -->
+  <path d="M 280,270 A 40,40 0 0,1 292,242" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="272" y="252" font-size="12" font-weight="bold" fill="#c0392b">α₂</text>
+
+  <!-- Вал 2 (ведений) Z-схеми -->
+  <rect x="335" y="260" width="90" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="380" y="254" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вал 2 (e₂)</text>
+  <text x="380" y="295" text-anchor="middle" font-size="11" fill="#27ae60">ω₂ = ω₁ = const</text>
+
+  <!-- Підпис правила Z-схеми -->
+  <text x="252" y="328" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Умова: α₁ = α₂, осі e₁ та e₂ паралельні</text>
+
+
+  <!-- Панель 2: W-подібна конфігурація (справа) -->
+  <rect x="495" y="82" width="425" height="260" rx="8" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+  <text x="707" y="106" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">W-подібна схема (перетинні осі валів)</text>
+
+  <!-- Осі W-схеми -->
+  <line x1="515" y1="140" x2="800" y2="140" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="775" y1="140" x2="885" y2="140" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <!-- Проміжний вал W-схеми -->
+  <line x1="635" y1="140" x2="775" y2="270" stroke="#27ae60" stroke-width="2.5"/>
+  <!-- Вісь вала 2 W-схеми йде вгору під кутом alpha_2 = alpha_1 -->
+  <line x1="775" y1="270" x2="895" y2="155" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Вал 1 W-схеми -->
+  <rect x="520" y="130" width="100" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="570" y="124" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вал 1 (e₁)</text>
+  <text x="570" y="165" text-anchor="middle" font-size="11" fill="#6b7280">ω₁ = const</text>
+
+  <!-- Шарнір 1 W-схеми -->
+  <circle cx="635" cy="140" r="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="635" cy="140" r="3" fill="#1a1a1a"/>
+  <!-- Кут alpha_1 -->
+  <path d="M 675,140 A 40,40 0 0,1 663,168" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="683" y="162" font-size="12" font-weight="bold" fill="#c0392b">α₁</text>
+
+  <!-- Проміжний вал W-схеми -->
+  <text x="660" y="210" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Проміжний вал</text>
+  <text x="660" y="227" text-anchor="end" font-size="11" fill="#27ae60">пульсація ω_пром(t)</text>
+
+  <!-- Шарнір 2 W-схеми -->
+  <circle cx="775" cy="270" r="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="775" cy="270" r="3" fill="#1a1a1a"/>
+  <!-- Кут alpha_2 -->
+  <path d="M 805,245 A 40,40 0 0,1 815,235" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="815" y="255" font-size="12" font-weight="bold" fill="#c0392b">α₂</text>
+
+  <!-- Вал 2 W-схеми -->
+  <rect x="800" y="195" width="90" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="845" y="189" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вал 2 (e₂)</text>
+  <text x="845" y="230" text-anchor="middle" font-size="11" fill="#27ae60">ω₂ = ω₁ = const</text>
+
+  <!-- Підпис правила W-схеми -->
+  <text x="707" y="328" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Умова: α₁ = α₂, осі перетинаються дзеркально</text>
+
+
+  <!-- Нижня панель критеріїв синхронізації -->
+  <rect x="40" y="355" width="880" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="60" y="378" font-size="13" font-weight="bold" fill="#1a1a1a">Три золоті правила повної кінематичної компенсації подвійної пульсації:</text>
+  
+  <text x="60" y="398" font-size="12" fill="#1a1a1a">1. Рівність кутів: α₁ = α₂ (допустима розбіжність між шарнірами &lt; 1°)</text>
+  <text x="60" y="416" font-size="12" fill="#1a1a1a">2. Синфазність: вилки проміжного вала лежать в одній спільній площині</text>
+  <text x="60" y="434" font-size="12" fill="#1a1a1a">3. Компланарність: осі ведучого, проміжного та веденого валів лежать в одній площині</text>
+</svg>

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Тло -->
+  <rect width="960" height="460" fill="#ffffff" />
+
+  <!-- Верхня шапка -->
+  <rect x="30" y="16" width="900" height="52" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5" />
+  <text x="50" y="38" font-size="16" font-weight="bold" fill="#0f172a">Диференціал підвищеного тертя Torsen Вернона Глісмана (1958)</text>
+  <text x="50" y="56" font-size="12" fill="#475569">Принцип автоматичного пропорційного блокування через уповільнене тертя та розклинювання черв'яків</text>
+
+  <!-- Ліва панель: Кінематика черв'ячного зачеплення Torsen -->
+  <rect x="30" y="78" width="470" height="362" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+  <text x="50" y="104" font-size="14" font-weight="bold" fill="#0f172a">Геометрія черв'ячних пар Invex / Torsen Type 1</text>
+  <text x="50" y="122" font-size="11" fill="#64748b">Перехресні осі сателітів, розклинювання в гніздах корпусу</text>
+
+  <!-- Корпус диференціала Torsen -->
+  <rect x="55" y="140" width="420" height="200" rx="8" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" />
+  <text x="265" y="164" font-size="12" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Обертовий корпус (водило) Torsen</text>
+
+  <!-- Лівий черв'як півосі -->
+  <rect x="75" y="180" width="110" height="66" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" />
+  <text x="130" y="208" font-size="11" font-weight="bold" fill="#b45309" text-anchor="middle">Черв'як лівої осі</text>
+  <text x="130" y="226" font-size="10" fill="#78350f" text-anchor="middle">гвинтова нарізка</text>
+
+  <!-- Правий черв'як півосі -->
+  <rect x="345" y="180" width="110" height="66" rx="6" fill="#fef3c7" stroke="#d97706" stroke-width="1.5" />
+  <text x="400" y="208" font-size="11" font-weight="bold" fill="#b45309" text-anchor="middle">Черв'як правої осі</text>
+  <text x="400" y="226" font-size="10" fill="#78350f" text-anchor="middle">гвинтова нарізка</text>
+
+  <!-- Парні черв'ячні колеса (сателіти з прямозубим зачепленням між собою) -->
+  <rect x="200" y="180" width="130" height="66" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5" />
+  <text x="265" y="204" font-size="11" font-weight="bold" fill="#15803d" text-anchor="middle">Сателіти (Element)</text>
+  <text x="265" y="220" font-size="10" fill="#166534" text-anchor="middle">черв'ячно-циліндричні</text>
+  <text x="265" y="234" font-size="10" fill="#166534" text-anchor="middle">перехресні осі</text>
+
+  <!-- Зони осьового розклинювання та тертя -->
+  <rect x="75" y="260" width="380" height="66" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+  <text x="265" y="282" font-size="11" font-weight="bold" fill="#dc2626" text-anchor="middle">Ефект уповільненого тертя при появі різниці швидкостей:</text>
+  <text x="265" y="298" font-size="10" fill="#334155" text-anchor="middle">Осьові сили F_thrust притискають торці черв'яків до стінок чашки</text>
+  <text x="265" y="314" font-size="10" fill="#2563eb" font-weight="bold" text-anchor="middle">Миттєве механічне блокування без запізнення та без електроніки</text>
+
+  <!-- Нижня плашка лівої панелі -->
+  <rect x="55" y="352" width="420" height="74" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1" />
+  <text x="70" y="374" font-size="11" font-weight="bold" fill="#0f172a">Коефіцієнт блокування (Torque Bias Ratio):</text>
+  <text x="70" y="394" font-size="11" fill="#2563eb" font-weight="bold">TBR = T_чiпке / T_слизьке = 3:1 .. 5:1</text>
+  <text x="70" y="414" font-size="10" fill="#64748b">До 75–80% моменту спрямовується на колесо з надійним зчепленням</text>
+
+  <!-- Права панель: 3 аналітичні блоки -->
+  <!-- Блок 1: Трибологія черв'ячного зачеплення -->
+  <rect x="515" y="78" width="415" height="114" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+  <text x="535" y="104" font-size="13" font-weight="bold" fill="#0f172a">1. Патент Вернона Глісмана (1958)</text>
+  <text x="535" y="126" font-size="11" fill="#334155">• Використання несиметричного ККД черв'ячної передачі</text>
+  <text x="535" y="144" font-size="11" fill="#334155">• Прямий рух (колесо від черв'яка): ККД високий, вільний поворот</text>
+  <text x="535" y="162" font-size="11" fill="#16a34a" font-weight="bold">• Зворотний рух (черв'як від колеса): різке гальмування через тертя</text>
+  <text x="535" y="180" font-size="10" fill="#64748b">Назва Torsen походить від Torque Sensing (відчуття моменту)</text>
+
+  <!-- Блок 2: Динаміка перерозподілу тяги -->
+  <rect x="515" y="202" width="415" height="114" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+  <text x="535" y="228" font-size="13" font-weight="bold" fill="#0f172a">2. Плавний пропорційний перерозподіл</text>
+  <text x="535" y="250" font-size="11" fill="#334155">• Немає дискретних станів «відкрито / заблоковано» як у муфтах</text>
+  <text x="535" y="268" font-size="11" fill="#334155">• Ступінь блокування суворо пропорційний величині вхідного моменту</text>
+  <text x="535" y="286" font-size="11" fill="#2563eb" font-weight="bold">• Відсутність ривків у трансмісії під час швидкісного маневру</text>
+  <text x="535" y="304" font-size="10" fill="#64748b">Швидкість спрацьовування дорівнює швидкості пружної деформації металу</text>
+
+  <!-- Блок 3: Легендарна спадщина в Quattro -->
+  <rect x="515" y="326" width="415" height="114" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+  <text x="535" y="352" font-size="13" font-weight="bold" fill="#0f172a">3. Інженерний вплив на повнопривідні авто</text>
+  <text x="535" y="374" font-size="11" fill="#334155">• Torsen став міжосьовим серцем системи Audi Quattro (1986+)</text>
+  <text x="535" y="392" font-size="11" fill="#dc2626" font-weight="bold">• Відсутність зношуваних фрикційних дисків забезпечує ресурс > 300 000 км</text>
+  <text x="535" y="410" font-size="11" fill="#334155">• Не блокується під час гальмування, сумісний з системами ABS / ESP</text>
+  <text x="535" y="428" font-size="10" fill="#64748b">Широко використовується в роботизованих повнопривідних шасі</text>
+</svg>

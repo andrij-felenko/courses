@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Алгоритм вибору ШВП та зв'язок профілю руху з навантаженням</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Трапецеїдальний профіль швидкості визначає динамічні сили інерції та еквівалентне навантаження Fm</text>
+
+  <!-- Панель 1: Блок-схема вибору -->
+  <rect x="30" y="75" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="87" width="411" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Покроковий алгоритм верифікації ШВП</text>
+
+  <!-- Блоки алгоритму -->
+  <!-- Блок 1 -->
+  <rect x="52" y="130" width="391" height="40" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="62" y="154" font-size="12" font-weight="bold" fill="#2457d6">1. Вихідні дані:</text>
+  <text x="175" y="154" font-size="12" fill="#1a1a1a">Маса m, хід L, профіль v(t), сила різання</text>
+
+  <path d="M 247 170 L 247 182" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Блок 2 -->
+  <rect x="52" y="184" width="391" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="62" y="208" font-size="12" font-weight="bold" fill="#1a1a1a">2. Кінематика:</text>
+  <text x="175" y="208" font-size="12" fill="#1a1a1a">Крок різьби Ph, оберти n, перевірка d · n</text>
+
+  <path d="M 247 224 L 247 236" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Блок 3 -->
+  <rect x="52" y="238" width="391" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="62" y="262" font-size="12" font-weight="bold" fill="#c0392b">3. Механічні межі:</text>
+  <text x="195" y="262" font-size="12" fill="#1a1a1a">Биття n_cr та стійкість Ейлера F_cr</text>
+
+  <path d="M 247 278 L 247 290" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Блок 4 -->
+  <rect x="52" y="292" width="391" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="62" y="316" font-size="12" font-weight="bold" fill="#27ae60">4. Довговічність:</text>
+  <text x="185" y="316" font-size="12" fill="#1a1a1a">Еквівалентне Fm, ресурс L_10 (ISO 3408)</text>
+
+  <path d="M 247 332 L 247 344" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Блок 5 -->
+  <rect x="52" y="346" width="391" height="40" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="62" y="370" font-size="12" font-weight="bold" fill="#2457d6">5. Тепловий розрахунок:</text>
+  <text x="228" y="370" font-size="12" fill="#1a1a1a">ΔL = α·L·ΔT, попередній натяг</text>
+
+  <rect x="52" y="396" width="391" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="247" y="417" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Результат: готовий перевірений типорозмір ШВП</text>
+
+
+  <!-- Панель 2: Профіль швидкості та навантаження -->
+  <rect x="495" y="75" width="435" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="507" y="87" width="411" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="107" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Трапецеїдальний цикл руху та еквівалентна сила Fm</text>
+
+  <rect x="510" y="130" width="405" height="210" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Осі графіка -->
+  <line x1="550" y1="310" x2="885" y2="310" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="895" y="314" font-size="11" fill="#1a1a1a">Час t</text>
+  <line x1="550" y1="310" x2="550" y2="145" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="525" y="152" font-size="11" fill="#1a1a1a">v, F</text>
+
+  <!-- Крива швидкості v(t) - синя трапеція -->
+  <path d="M 550 310 L 615 175 L 750 175 L 815 310" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="670" y="165" font-size="11" font-weight="bold" fill="#2457d6">Швидкість v(t)</text>
+
+  <!-- Фази руху -->
+  <line x1="615" y1="310" x2="615" y2="175" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="750" y1="310" x2="750" y2="175" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="575" y="325" font-size="10" fill="#6b7280">Розгін t1</text>
+  <text x="670" y="325" font-size="10" fill="#6b7280">Рух t2</text>
+  <text x="770" y="325" font-size="10" fill="#6b7280">Гальмування t3</text>
+
+  <!-- Ступінчастий графік сили F(t) - червона лінія -->
+  <path d="M 550 200 L 615 200 L 615 245 L 750 245 L 750 280 L 815 280" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="560" y="192" font-size="11" font-weight="bold" fill="#c0392b">F1 (розгін)</text>
+  <text x="640" y="238" font-size="11" font-weight="bold" fill="#c0392b">F2 (різання)</text>
+  <text x="755" y="272" font-size="11" font-weight="bold" fill="#c0392b">F3 (гальмування)</text>
+
+  <!-- Рівень еквівалентної сили Fm - зелений пунктир -->
+  <line x1="550" y1="225" x2="815" y2="225" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="825" y="228" font-size="11" font-weight="bold" fill="#27ae60">Fm (екв.)</text>
+
+  <!-- Опис формули Fm -->
+  <rect x="507" y="352" width="411" height="76" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="517" y="372" font-size="12" font-weight="bold" fill="#1a1a1a">Розрахунок динамічного еквівалента ISO 3408:</text>
+  <text x="517" y="392" font-size="11" fill="#1a1a1a">• Еквівалентна сила: Fm = [ (∑ Fi³ · ni · qi) / nm ]^(1/3)</text>
+  <text x="517" y="412" font-size="11" fill="#1a1a1a">• Номінальний ресурс: L_10 = (Ca / Fm)³ · 10⁶ обертів</text>
+</svg>

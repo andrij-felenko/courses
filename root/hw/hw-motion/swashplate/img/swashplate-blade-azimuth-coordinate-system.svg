@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460">
+  <defs>
+    <marker id="arr4" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue4" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red4" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="460" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Азимутальна система координат ротора та положення лопатей</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Кут азимута psi визначає миттєвий циклічний крок theta(psi) та маховий кут beta(psi)</text>
+
+  <!-- Left Panel: Coordinate Reference -->
+  <rect x="25" y="75" width="275" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Азимутальний кут psi</text>
+  <text x="40" y="122" font-size="12" fill="#6b7280">Положення відносно осі апарата</text>
+
+  <text x="40" y="152" font-size="11" fill="#1a1a1a">• psi = 0° : напрямок на хвіст (aft)</text>
+  <text x="40" y="172" font-size="11" fill="#1a1a1a">• psi = 90° : правий борт (наступаюча)</text>
+  <text x="40" y="192" font-size="11" fill="#1a1a1a">• psi = 180° : напрямок на ніс (forward)</text>
+  <text x="40" y="212" font-size="11" fill="#1a1a1a">• psi = 270° : лівий борт (відступаюча)</text>
+  <text x="40" y="232" font-size="11" fill="#1a1a1a">• Обертання: проти стрілки годинника</text>
+
+  <rect x="38" y="255" width="249" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="48" y="278" font-size="12" font-weight="bold" fill="#2457d6">Гармонічний закон кроку:</text>
+  <text x="48" y="300" font-size="11" fill="#1a1a1a">theta(psi) = theta_0 -</text>
+  <text x="48" y="318" font-size="11" fill="#1a1a1a">  - A_1 · cos(psi) - B_1 · sin(psi)</text>
+  <text x="48" y="342" font-size="11" fill="#6b7280">theta_0: спільний крок ротора</text>
+
+  <text x="40" y="390" font-size="11" font-weight="bold" fill="#2457d6">A_1, B_1: коефіцієнти</text>
+  <text x="40" y="410" font-size="11" fill="#6b7280">Поздовжній і боковий циклічний крок</text>
+
+  <!-- Center Panel: Rotor Disc Coordinates -->
+  <rect x="315" y="75" width="330" height="365" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Диск несучого ротора</text>
+
+  <!-- Flight Direction Arrow (Forward) -->
+  <line x1="480" y1="150" x2="480" y2="120" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue4)"/>
+  <text x="480" y="116" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">Ніс (psi = 180°)</text>
+
+  <!-- Compass Axes -->
+  <circle cx="480" cy="250" r="85" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="480" y1="165" x2="480" y2="335" stroke="#6b7280" stroke-width="1"/>
+  <line x1="395" y1="250" x2="565" y2="250" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Compass Labels -->
+  <text x="575" y="254" font-size="11" font-weight="bold" fill="#27ae60">90°</text>
+  <text x="365" y="254" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">270°</text>
+  <text x="480" y="352" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">Хвіст (0°)</text>
+
+  <!-- Center Hub -->
+  <circle cx="480" cy="250" r="14" fill="#2457d6"/>
+
+  <!-- Rotating Blade Vector at psi = 45 deg (between 0 and 90) -->
+  <line x1="480" y1="250" x2="540" y2="190" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+  
+  <!-- Azimuth Arc psi -->
+  <path d="M480,290 A40,40 0 0,0 508,278" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue4)"/>
+  <text x="515" y="300" font-size="11" font-weight="bold" fill="#2457d6">psi</text>
+
+  <!-- Rotation Direction Omega -->
+  <path d="M480,180 A70,70 0 0,0 430,200" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr4)"/>
+  <text x="440" y="175" font-size="11" font-weight="bold" fill="#1a1a1a">Omega</text>
+
+  <text x="480" y="390" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Площина обертання диска</text>
+  <text x="480" y="410" text-anchor="middle" font-size="10" fill="#6b7280">Кут атаки змінюється кожен оберт</text>
+
+  <!-- Right Panel: Degrees of Freedom -->
+  <rect x="660" y="75" width="275" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="675" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Кути рухів лопаті</text>
+  <text x="675" y="122" font-size="12" fill="#6b7280">Три шарніри втулки ротора</text>
+
+  <text x="675" y="152" font-size="11" fill="#1a1a1a">• Обертання навколо осі: theta(psi)</text>
+  <text x="675" y="172" font-size="11" fill="#1a1a1a">• Маховий рух вгору-вниз: beta(psi)</text>
+  <text x="675" y="192" font-size="11" fill="#1a1a1a">• Коливання в площині: zeta(psi)</text>
+  <text x="675" y="212" font-size="11" fill="#1a1a1a">• Відцентрова жорсткість утримує диск</text>
+  <text x="675" y="232" font-size="11" fill="#1a1a1a">• Власна частота маху: omega_n ≈ Omega</text>
+
+  <rect x="673" y="255" width="249" height="105" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="683" y="278" font-size="12" font-weight="bold" fill="#c0392b">Фазове запізнення маху:</text>
+  <text x="683" y="298" font-size="11" fill="#1a1a1a">Через резонанс відгук лопаті</text>
+  <text x="683" y="316" font-size="11" fill="#1a1a1a">на зміну підйомної сили відстає</text>
+  <text x="683" y="334" font-size="11" fill="#1a1a1a">на 90° за кутом азимута psi:</text>
+  <text x="683" y="352" font-size="11" fill="#1a1a1a">Delta_psi_lag ≈ 90°</text>
+
+  <text x="675" y="390" font-size="11" font-weight="bold" fill="#c0392b">Наслідок для автомата:</text>
+  <text x="675" y="410" font-size="11" fill="#6b7280">Тяги перекосу зміщують на 90°</text>
+</svg>

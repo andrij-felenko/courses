@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Тло -->
+  <rect width="960" height="460" fill="#ffffff" />
+
+  <!-- Верхня шапка -->
+  <rect x="30" y="16" width="900" height="52" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5" />
+  <text x="50" y="38" font-size="16" font-weight="bold" fill="#0f172a">Керований подвійний диференціал Cletrac Ролліна Вайта (1916)</text>
+  <text x="50" y="56" font-size="12" fill="#475569">Регенеративний поворот гусеничних машин без розриву тяги та без фрикційного розсіювання тепла</text>
+
+  <!-- Ліва панель: Кінематична схема Cletrac -->
+  <rect x="30" y="78" width="470" height="362" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+  <text x="50" y="104" font-size="14" font-weight="bold" fill="#0f172a">Кінематика планетарного перерозподілу швидкостей</text>
+  <text x="50" y="122" font-size="11" fill="#64748b">Центральний диференціал + два бортові планетарні ряди з гальмами</text>
+
+  <!-- Центральний вхідний диференціал -->
+  <rect x="185" y="140" width="160" height="66" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" />
+  <text x="265" y="166" font-size="12" font-weight="bold" fill="#1d4ed8" text-anchor="middle">Головний диференціал</text>
+  <text x="265" y="184" font-size="11" fill="#3b82f6" text-anchor="middle">Вхід двигуна: v_0</text>
+
+  <!-- Лівий бортовий планетарний ряд -->
+  <rect x="55" y="222" width="180" height="88" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" />
+  <text x="145" y="246" font-size="12" font-weight="bold" fill="#0f172a" text-anchor="middle">Лівий планетарний ряд</text>
+  <text x="145" y="264" font-size="11" fill="#334155" text-anchor="middle">Гусениця: v_left</text>
+  <!-- Гальмівний барабан лівий -->
+  <rect x="70" y="274" width="150" height="26" rx="3" fill="#fee2e2" stroke="#dc2626" stroke-width="1" />
+  <text x="145" y="292" font-size="10" font-weight="bold" fill="#991b1b" text-anchor="middle">Гальмівний барабан борту</text>
+
+  <!-- Правий бортовий планетарний ряд -->
+  <rect x="295" y="222" width="180" height="88" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5" />
+  <text x="385" y="246" font-size="12" font-weight="bold" fill="#0f172a" text-anchor="middle">Правий планетарний ряд</text>
+  <text x="385" y="264" font-size="11" fill="#334155" text-anchor="middle">Гусениця: v_right</text>
+  <!-- Гальмівний барабан правий -->
+  <rect x="310" y="274" width="150" height="26" rx="3" fill="#fee2e2" stroke="#dc2626" stroke-width="1" />
+  <text x="385" y="292" font-size="10" font-weight="bold" fill="#991b1b" text-anchor="middle">Гальмівний барабан борту</text>
+
+  <!-- Нижній блок лівої панелі: формула швидкостей -->
+  <rect x="55" y="324" width="420" height="102" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+  <text x="70" y="348" font-size="11" font-weight="bold" fill="#0f172a">Кінематичні співвідношення при затисканні гальма борту:</text>
+  <text x="70" y="370" font-size="11" fill="#dc2626" font-weight="bold">• Внутрішня гусениця сповільнюється: v_inner = v_0 · (1 - k_cletrac)</text>
+  <text x="70" y="390" font-size="11" fill="#16a34a" font-weight="bold">• Зовнішня гусениця прискорюється:   v_outer = v_0 · (1 + k_cletrac)</text>
+  <text x="70" y="410" font-size="10" fill="#64748b">Сумарний потік потужності зберігається на 100%: енергія перетікає на зовнішній борт</text>
+
+  <!-- Права панель: 3 аналітичні блоки -->
+  <!-- Блок 1: Проблема бортових фрикціонів -->
+  <rect x="515" y="78" width="415" height="114" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+  <text x="535" y="104" font-size="13" font-weight="bold" fill="#0f172a">1. Тракторна криза Першої світової</text>
+  <text x="535" y="126" font-size="11" fill="#334155">• Бортові фрикціони спалювали 50–70% потужності двигуна в гальмах</text>
+  <text x="535" y="144" font-size="11" fill="#334155">• При відключенні борту швидкість падала вдвічі, машина втрачала тягу</text>
+  <text x="535" y="162" font-size="11" fill="#dc2626" font-weight="bold">• Трактори миттєво грузли в багнюці та глухнули при спробі повороту</text>
+  <text x="535" y="180" font-size="10" fill="#64748b">Стрічкові гальма зношувалися за лічені дні інтенсивної експлуатації</text>
+
+  <!-- Блок 2: Революція Ролліна Вайта (Cletrac) -->
+  <rect x="515" y="202" width="415" height="114" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+  <text x="535" y="228" font-size="13" font-weight="bold" fill="#0f172a">2. Регенеративний поворот Cletrac (1916)</text>
+  <text x="535" y="250" font-size="11" fill="#334155">• Потужність не розривається, а передається через сонячні шестерні</text>
+  <text x="535" y="268" font-size="11" fill="#334155">• Внутрішня гусениця не блокується намертво, а продовжує тягнути</text>
+  <text x="535" y="286" font-size="11" fill="#16a34a" font-weight="bold">• Збереження тяги дозволяє трактору впевнено долати рідке болото</text>
+  <text x="535" y="304" font-size="10" fill="#64748b">Фіксований радіус повороту R = B_track / (2 · k_cletrac) без заносів</text>
+
+  <!-- Блок 3: Військова спадщина та роботи -->
+  <rect x="515" y="326" width="415" height="114" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" />
+  <text x="535" y="352" font-size="13" font-weight="bold" fill="#0f172a">3. Застосування в бронетехніці та робототехніці</text>
+  <text x="535" y="374" font-size="11" fill="#334155">• Схема Cletrac стояла на тягачах M2/M4 High-Speed Tractor та танках Stuart</text>
+  <text x="535" y="392" font-size="11" fill="#2563eb" font-weight="bold">• Стала основою сучасних механізмів передач і поворотів (МПП)</text>
+  <text x="535" y="410" font-size="11" fill="#334155">• Застосовується у важких безпілотних гусеничних платформах розмінування</text>
+  <text x="535" y="428" font-size="10" fill="#64748b">Вища енергоефективність батарейного живлення порівняно з чистим skid-steer</text>
+</svg>

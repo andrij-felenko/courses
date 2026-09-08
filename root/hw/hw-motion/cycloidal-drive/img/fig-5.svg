@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr5" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-b5" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-r5" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Стенд вимірювання кутового люфту та крутильного гістерезису</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Визначення мертвого ходу та жорсткості редуктора важільним методом з індикатором 0.01 мм</text>
+
+  <!-- LEFT PANEL: Test Rig Diagram -->
+  <rect x="30" y="75" width="435" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Схема випробувального стенда</text>
+
+  <!-- Gearbox Housing clamped -->
+  <path d="M 60 140 L 170 140 L 170 240 L 60 240 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="115" y="175" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Корпус</text>
+  <text x="115" y="195" text-anchor="middle" font-size="10" fill="#6b7280">(затиснутий)</text>
+
+  <!-- Input locked -->
+  <line x1="40" y1="190" x2="60" y2="190" stroke="#c0392b" stroke-width="4"/>
+  <text x="50" y="260" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">Вхід заблоковано</text>
+
+  <!-- Output Flange with Lever Arm -->
+  <circle cx="170" cy="190" r="14" fill="#2457d6"/>
+  <!-- Lever arm going right -->
+  <line x1="170" y1="190" x2="380" y2="190" stroke="#2457d6" stroke-width="4"/>
+  <circle cx="380" cy="190" r="5" fill="#2457d6"/>
+  <text x="275" y="180" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Важіль L = 200 мм</text>
+
+  <!-- Dial Indicator -->
+  <path d="M 330 115 L 370 115 L 370 155 L 330 155 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="350" cy="135" r="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <!-- Needle -->
+  <line x1="350" y1="135" x2="356" y2="128" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Stylus -->
+  <line x1="350" y1="155" x2="350" y2="188" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr5)"/>
+  <text x="350" y="105" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a1a1a">Індикатор</text>
+
+  <!-- Load Force -->
+  <line x1="380" y1="200" x2="380" y2="245" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-r5)"/>
+  <text x="390" y="230" font-size="11" font-weight="bold" fill="#c0392b">+F (вантаж)</text>
+
+  <!-- Explanatory Box Left -->
+  <path d="M 45 285 L 450 285 L 450 415 L 45 415 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="310" font-size="12" font-weight="bold" fill="#1a1a1a">• Методика вимірювання:</text>
+  <text x="70" y="330" font-size="11" fill="#1a1a1a">1. Вхідний вал редуктора жорстко стопориться</text>
+  <text x="70" y="350" font-size="11" fill="#1a1a1a">2. До фланця кріпиться важіль L з індикатором 0.01 мм</text>
+  <text x="70" y="370" font-size="11" fill="#6b7280">3. Прикладають реверсивний момент ±T_nom</text>
+  <text x="70" y="392" font-size="11" font-weight="bold" fill="#2457d6">4. Кут повороту: da = dL / L [рад]</text>
+
+
+  <!-- RIGHT PANEL: Hysteresis Curve -->
+  <rect x="495" y="75" width="435" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Петля крутильного гістерезису</text>
+
+  <!-- Coordinate Axes -->
+  <line x1="535" y1="200" x2="890" y2="200" stroke="#6b7280" stroke-width="1"/>
+  <line x1="712" y1="120" x2="712" y2="165" stroke="#6b7280" stroke-width="1"/>
+  <line x1="712" y1="210" x2="712" y2="270" stroke="#6b7280" stroke-width="1"/>
+  <text x="895" y="204" font-size="10" font-weight="bold" fill="#6b7280">Кут da</text>
+  <text x="712" y="115" text-anchor="middle" font-size="10" font-weight="bold" fill="#6b7280">Момент T</text>
+
+  <!-- Hysteresis Loop Curves -->
+  <!-- Top loading curve -->
+  <path d="M 640 225 C 675 220, 695 200, 712 175 C 730 150, 760 140, 800 135" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <!-- Bottom unloading curve -->
+  <path d="M 800 135 C 765 140, 745 180, 712 215 C 685 240, 660 250, 624 255" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Backlash width marker around zero -->
+  <line x1="695" y1="195" x2="729" y2="195" stroke="#c0392b" stroke-width="2"/>
+  <text x="740" y="190" font-size="10" font-weight="bold" fill="#c0392b">Люфт jt</text>
+
+  <!-- Explanatory Box Right -->
+  <path d="M 510 285 L 915 285 L 915 415 L 510 415 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="310" font-size="12" font-weight="bold" fill="#1a1a1a">• Розрахункові параметри редуктора:</text>
+  <text x="535" y="330" font-size="11" fill="#c0392b">Кутовий люфт jt = da · (180 · 60 / pi) [arcmin]</text>
+  <text x="535" y="350" font-size="11" fill="#1a1a1a">Для 3D-друку: jt = 4..8 arcmin (через допуски штифтів)</text>
+  <text x="535" y="370" font-size="11" fill="#1a1a1a">Для промислових RV: jt &lt; 1.0 arcmin (нульовий люфт)</text>
+  <text x="535" y="392" font-size="11" font-weight="bold" fill="#27ae60">Крутильна жорсткість Kt = dT / da [Н·м/arcmin]</text>
+</svg>

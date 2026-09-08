@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біле тло -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура квазіпрямого привода (QDD): інтеграція двигуна та редуктора</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Безкорпусний pancake-мотор великого діаметра та співвісний одноступеневий планетарний редуктор 6:1</text>
+
+  <!-- Ліва панель: Поперечний розріз конструкції -->
+  <rect x="30" y="75" width="480" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="270" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Компонування вузла в розрізі (осьова симетрія)</text>
+
+  <!-- Секція двигуна (верхня половина розрізу) -->
+  <rect x="50" y="125" width="440" height="135" rx="5" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="270" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Електродвигун великого діаметра (Pancake motor)</text>
+
+  <!-- Лівий статор -->
+  <rect x="65" y="155" width="55" height="90" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="92" y="195" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Статор</text>
+  <text x="92" y="215" text-anchor="middle" font-size="10" fill="#1a1a1a">Обмотки</text>
+
+  <!-- Лівий ротор -->
+  <rect x="130" y="165" width="25" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="142" y="205" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">N/S</text>
+
+  <!-- Центральний наскрізний отвір у двигуні -->
+  <rect x="175" y="155" width="190" height="90" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="270" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Наскрізний отвір</text>
+  <text x="270" y="215" text-anchor="middle" font-size="11" fill="#2457d6">Hollow Shaft</text>
+
+  <!-- Правий ротор -->
+  <rect x="385" y="165" width="25" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="397" y="205" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">N/S</text>
+
+  <!-- Правий статор -->
+  <rect x="420" y="155" width="55" height="90" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="447" y="195" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Статор</text>
+  <text x="447" y="215" text-anchor="middle" font-size="10" fill="#1a1a1a">Обмотки</text>
+
+
+  <!-- Секція планетарного редуктора 6:1 (нижня половина) -->
+  <rect x="50" y="275" width="440" height="140" rx="5" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="270" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Інтегрований планетарний редуктор 6:1</text>
+
+  <!-- Сонячна шестерня -->
+  <rect x="65" y="315" width="95" height="85" rx="3" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="112" y="350" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Сонце</text>
+  <text x="112" y="370" text-anchor="middle" font-size="10" fill="#1a1a1a">Вхід ротора</text>
+
+  <!-- Сателіти та водило -->
+  <rect x="175" y="315" width="190" height="85" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="270" y="350" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Сателіти на водилі</text>
+  <text x="270" y="370" text-anchor="middle" font-size="11" fill="#1a1a1a">Вихідний фланець 6:1</text>
+
+  <!-- Коронний вінець -->
+  <rect x="380" y="315" width="95" height="85" rx="3" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="427" y="350" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Корона</text>
+  <text x="427" y="370" text-anchor="middle" font-size="10" fill="#1a1a1a">Нерухома</text>
+
+
+  <!-- Права панель: Переваги інтегрованої компоновки -->
+  <rect x="530" y="75" width="400" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="730" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Ключові інженерні особливості</text>
+
+  <rect x="550" y="125" width="360" height="65" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="565" y="148" font-size="12" font-weight="bold" fill="#2457d6">Великий діаметр зазору R_gap (pancake)</text>
+  <text x="565" y="168" font-size="11" fill="#1a1a1a">Високий власний момент без видовження ротора вздовж осі</text>
+
+  <rect x="550" y="200" width="360" height="65" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="565" y="223" font-size="12" font-weight="bold" fill="#27ae60">Компактна одноступенева планетарка 6:1</text>
+  <text x="565" y="243" font-size="11" fill="#1a1a1a">ККД понад 92%, мінімальний кутовий люфт та низьке тертя</text>
+
+  <rect x="550" y="275" width="360" height="65" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="565" y="298" font-size="12" font-weight="bold" fill="#c0392b">Наскрізний центральний отвір</text>
+  <text x="565" y="318" font-size="11" fill="#1a1a1a">Прокладання джгутів живлення та кабелів енкодера через суглоб</text>
+
+  <rect x="550" y="350" width="360" height="65" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="565" y="373" font-size="12" font-weight="bold" fill="#1a1a1a">Прямий монтаж вихідного підшипника</text>
+  <text x="565" y="393" font-size="11" fill="#6b7280">Тонкостінний перехресно-роликовий підшипник сприймає згин</text>
+</svg>

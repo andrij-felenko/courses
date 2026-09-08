@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принцип самоблокування черв'ячного диференціала Torsen Глісмана</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Невзаємне тертя черв'ячних пар: перерозподіл тяги TBR до 4:1 без розриву потоку потужності</text>
+
+  <!-- Left Panel: Kinematic Locking Principle -->
+  <rect x="30" y="75" width="435" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="90" width="405" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="111" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Кінематичне розклинювання черв'ячної пари</text>
+
+  <!-- Diagram: Worm wheel and Worm satellite -->
+  <rect x="60" y="140" width="160" height="100" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="165" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Черв'ячне колесо</text>
+  <text x="140" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">(напівосьове)</text>
+  <text x="140" y="215" font-size="12" fill="#6b7280" text-anchor="middle">Кут підйому gamma ≈ 35°</text>
+
+  <!-- Arrow between gears -->
+  <path d="M225 190 L265 190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="275" y="140" width="175" height="100" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="362" y="165" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Сателіт-черв'як</text>
+  <text x="362" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">(у корпусі диференціала)</text>
+  <text x="362" y="215" font-size="12" fill="#6b7280" text-anchor="middle">Косозубе сполучення</text>
+
+  <!-- Comparison boxes inside Left Panel -->
+  <rect x="45" y="255" width="405" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="60" y="278" font-size="12" font-weight="bold" fill="#27ae60">Прямий рух (колесо повертає черв'як):</text>
+  <text x="60" y="298" font-size="12" fill="#1a1a1a">Черв'як легко обертається від колеса при повороті машини.</text>
+  <text x="60" y="316" font-size="12" fill="#6b7280">Кут підйому gamma &gt; кута тертя rho: вільна диференціація швидкостей.</text>
+
+  <rect x="45" y="345" width="405" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="60" y="368" font-size="12" font-weight="bold" fill="#c0392b">Зворотний рух і буксування (черв'як намагається крутити колесо):</text>
+  <text x="60" y="388" font-size="12" fill="#1a1a1a">Осьові сили F_thrust притискають сателіти до стінок корпусу.</text>
+  <text x="60" y="406" font-size="12" fill="#6b7280">Колосальне тертя блокує випереджальне обертання буксуючого колеса.</text>
+
+  <!-- Right Panel: Torque Distribution & TBR -->
+  <rect x="495" y="75" width="435" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="90" width="405" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712" y="111" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Баланс крутних моментів (Torque Bias Ratio)</text>
+
+  <!-- Slipping vs Grip comparison -->
+  <rect x="510" y="135" width="195" height="125" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="607" y="160" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Буксуюче колесо (лід)</text>
+  <text x="607" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">Момент опору T_low</text>
+  <text x="607" y="210" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">20% моменту</text>
+  <text x="607" y="240" font-size="12" fill="#6b7280" text-anchor="middle">Не розкручується в холосту</text>
+
+  <rect x="720" y="135" width="195" height="125" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="817" y="160" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Колесо зчеплення (асфальт)</text>
+  <text x="817" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">Тяговий момент T_high</text>
+  <text x="817" y="210" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">80% моменту</text>
+  <text x="817" y="240" font-size="12" fill="#6b7280" text-anchor="middle">T_high = TBR · T_low</text>
+
+  <!-- Formula block in Right Panel -->
+  <rect x="510" y="275" width="405" height="145" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="300" font-size="13" font-weight="bold" fill="#1a1a1a">Коефіцієнт блокування TBR (Torque Bias Ratio):</text>
+  <text x="525" y="325" font-size="12" fill="#2457d6">TBR = T_high / T_low = (1 + f_thrust) / (1 - f_thrust) ≈ 3.0 .. 5.0</text>
+  <text x="525" y="352" font-size="12" fill="#1a1a1a">• Повна механічна автономність: спрацьовує миттєво без електроніки</text>
+  <text x="525" y="374" font-size="12" fill="#1a1a1a">• М'яке блокування: немає ривків і ударних навантажень на піввісь</text>
+  <text x="525" y="396" font-size="12" fill="#6b7280">• Якщо одне колесо в повітрі (T_low = 0): тяга зникає (потрібне EDC)</text>
+</svg>

@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-m2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-b2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-r2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-g2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="24" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Будова аксіально-поршневого гідронасоса з похилою шайбою</text>
+  <text x="480" y="44" text-anchor="middle" font-size="13" fill="#6b7280">Кут нахилу шайби alpha визначає робочий хід поршнів s та об'ємну подачу насоса</text>
+
+  <!-- LEFT COLUMN: Stationary Housing & Swashplate Callouts -->
+  <rect x="25" y="62" width="235" height="380" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="35" y="72" width="215" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="142" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вузол похилої шайби</text>
+
+  <rect x="35" y="110" width="215" height="65" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="128" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">Похила шайба (Swashplate):</text>
+  <text x="45" y="145" text-anchor="start" font-size="11" fill="#475569">• Не обертається разом із блоком</text>
+  <text x="45" y="160" text-anchor="start" font-size="11" fill="#475569">• Нахиляється на кут alpha = 0..18°</text>
+
+  <rect x="35" y="185" width="215" height="75" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="203" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">Гідростатичні башмаки:</text>
+  <text x="45" y="220" text-anchor="start" font-size="11" fill="#475569">• Сферичні шарніри на поршнях</text>
+  <text x="45" y="235" text-anchor="start" font-size="11" fill="#475569">• Гідростатичне розвантаження</text>
+  <text x="45" y="250" text-anchor="start" font-size="11" fill="#475569">• Ковзають по дзеркалу шайби</text>
+
+  <rect x="35" y="270" width="215" height="70" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="288" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">Сервопоршень керування:</text>
+  <text x="45" y="305" text-anchor="start" font-size="11" fill="#475569">• Змінює кут нахилу шайби</text>
+  <text x="45" y="320" text-anchor="start" font-size="11" fill="#2457d6">• Регулює подачу Q від 0 до Q_max</text>
+
+  <rect x="35" y="350" width="215" height="72" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="45" y="368" text-anchor="start" font-size="11" font-weight="bold" fill="#2457d6">Закон ходу поршня:</text>
+  <text x="45" y="388" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">s = 2 * R_p * tan(alpha)</text>
+  <text x="45" y="405" text-anchor="start" font-size="11" fill="#475569">Хід пропорційний тангенсу alpha</text>
+
+
+  <!-- CENTER: Mechanical Cross-section of Pump -->
+  <!-- Shaft Axis (Centerline) -->
+  <line x1="280" y1="230" x2="685" y2="230" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <!-- Drive Shaft (extends to the right from valve plate, no overlap with block) -->
+  <rect x="620" y="222" width="65" height="16" fill="#e5e7eb" stroke="#475569" stroke-width="1.5"/>
+  <text x="650" y="215" text-anchor="middle" font-size="11" font-weight="bold" fill="#475569">Вал</text>
+
+  <!-- Rotating Cylinder Block -->
+  <rect x="470" y="125" width="130" height="210" rx="3" fill="#cbd5e1" stroke="#334155" stroke-width="2"/>
+  <text x="535" y="140" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e293b">Блок циліндрів</text>
+
+  <!-- Upper Bore & Piston (Top: Piston pushed in / TDC) -->
+  <rect x="475" y="145" width="105" height="24" fill="#f8fafc" stroke="#64748b" stroke-width="1"/>
+  <rect x="415" y="147" width="53" height="20" rx="2" fill="#94a3b8" stroke="#334155" stroke-width="1.5"/>
+  <!-- Piston Shoe Top -->
+  <circle cx="410" cy="157" r="7" fill="#fbbf24" stroke="#b45309" stroke-width="1.5"/>
+  <polygon points="398,145 408,143 408,171 398,169" fill="#fbbf24" stroke="#b45309" stroke-width="1.5"/>
+
+  <!-- Lower Bore & Piston (Bottom: Piston pulled out / BDC) -->
+  <rect x="475" y="291" width="105" height="24" fill="#f8fafc" stroke="#64748b" stroke-width="1"/>
+  <rect x="345" y="293" width="123" height="20" rx="2" fill="#94a3b8" stroke="#334155" stroke-width="1.5"/>
+  <!-- Piston Shoe Bottom -->
+  <circle cx="340" cy="303" r="7" fill="#fbbf24" stroke="#b45309" stroke-width="1.5"/>
+  <polygon points="328,291 338,289 338,317 328,315" fill="#fbbf24" stroke="#b45309" stroke-width="1.5"/>
+
+  <!-- Swashplate (Tilted by angle alpha ~ 15 deg) -->
+  <polygon points="390,115 410,119 340,345 320,341" fill="#93c5fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="365" y="105" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Шайба</text>
+
+  <!-- Vertical Reference Line & Tilt Angle alpha -->
+  <line x1="375" y1="120" x2="375" y2="340" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="350" y="360" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Кут alpha</text>
+
+  <!-- Piston Stroke Dimension s -->
+  <line x1="415" y1="180" x2="345" y2="180" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-r2)" marker-end="url(#arr-r2)"/>
+  <text x="380" y="195" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Хід поршня s</text>
+
+  <!-- Valve Plate (Distribution disc at right of cylinder block) -->
+  <rect x="600" y="125" width="20" height="210" rx="2" fill="#475569" stroke="#1e293b" stroke-width="1.5"/>
+  <!-- Suction and Discharge Ports -->
+  <rect x="604" y="145" width="12" height="45" fill="#ef4444"/>
+  <rect x="604" y="270" width="12" height="45" fill="#3b82f6"/>
+  <text x="618" y="138" text-anchor="start" font-size="10" font-weight="bold" fill="#ef4444">Нагнітання</text>
+  <text x="618" y="332" text-anchor="start" font-size="10" font-weight="bold" fill="#3b82f6">Всмоктування</text>
+
+
+  <!-- RIGHT COLUMN: Operating Principle Callouts -->
+  <rect x="700" y="62" width="235" height="380" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="710" y="72" width="215" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="817" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Кінематика нагнітання</text>
+
+  <rect x="710" y="110" width="215" height="65" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="720" y="128" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">Обертання блоку (Omega):</text>
+  <text x="720" y="145" text-anchor="start" font-size="11" fill="#475569">• Поршні обертаються разом із валом</text>
+  <text x="720" y="160" text-anchor="start" font-size="11" fill="#475569">• Башмаки ковзають по похилій шайбі</text>
+
+  <rect x="710" y="185" width="215" height="75" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="720" y="203" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">Зворотно-поступальний рух:</text>
+  <text x="720" y="220" text-anchor="start" font-size="11" fill="#475569">• 0°..180°: висування (всмоктування)</text>
+  <text x="720" y="235" text-anchor="start" font-size="11" fill="#475569">• 180°..360°: всування (нагнітання)</text>
+  <text x="720" y="250" text-anchor="start" font-size="11" fill="#475569">• Швидкість: v = R*Omega*tan(alpha)*sin</text>
+
+  <rect x="710" y="270" width="215" height="70" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="720" y="288" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">Регулювання подачі:</text>
+  <text x="720" y="305" text-anchor="start" font-size="11" fill="#475569">• alpha = 0: нульовий хід, Q = 0</text>
+  <text x="720" y="320" text-anchor="start" font-size="11" fill="#2457d6">• Реверс alpha: реверс потоку рідини</text>
+
+  <rect x="710" y="350" width="215" height="72" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="720" y="368" text-anchor="start" font-size="11" font-weight="bold" fill="#27ae60">Продуктивність насоса:</text>
+  <text x="720" y="388" text-anchor="start" font-size="11" font-weight="bold" fill="#1a1a1a">Q = z * V_cyl * n * eta_v</text>
+  <text x="720" y="405" text-anchor="start" font-size="11" fill="#475569">Плавне безинерційне регулювання</text>
+</svg>

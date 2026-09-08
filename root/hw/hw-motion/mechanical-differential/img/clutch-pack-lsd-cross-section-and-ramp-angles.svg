@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструкція дискового LSD: нажимні чашки, рампи та фрикціони</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Розклинювання хрестовини сателітів кутовими скосами чашок при передачі крутного моменту</text>
+
+  <!-- Left Panel: Cross-Section Scheme -->
+  <rect x="30" y="75" width="435" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="90" width="405" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="111" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Механізм розклинювання рампи</text>
+
+  <!-- V-Ramp Diagram -->
+  <polygon points="170,160 210,210 170,260 140,260 180,210 140,160" fill="#2457d6"/>
+  <polygon points="324,160 284,210 324,260 354,260 314,210 354,160" fill="#2457d6"/>
+  <!-- Cross pin inside V-ramp -->
+  <circle cx="247" cy="210" r="28" fill="white" stroke="#c0392b" stroke-width="3"/>
+  <text x="247" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Шип</text>
+
+  <text x="247" y="150" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кут рампи theta_ramp</text>
+  <text x="247" y="275" font-size="12" fill="#6b7280" text-anchor="middle">Осьовий розсув нажимних чашок</text>
+
+  <!-- Ramp Explanation Box -->
+  <rect x="45" y="295" width="405" height="125" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="320" font-size="12" font-weight="bold" fill="#1a1a1a">Залежність осьового зусилля від кута рампи:</text>
+  <text x="60" y="343" font-size="12" fill="#2457d6">• F_thrust = (T_in / (2 · R_cross)) · ctg(theta_ramp)</text>
+  <text x="60" y="366" font-size="12" fill="#1a1a1a">• Гострий кут 30°: агресивне блокування (високий коефіцієнт TBR)</text>
+  <text x="60" y="388" font-size="12" fill="#1a1a1a">• Тупий кут 60°: м'яке підблокування для міського режиму</text>
+  <text x="60" y="408" font-size="12" fill="#6b7280">• Схеми 1-way (лише розгін), 1.5-way та 2-way (розгін і гальмування)</text>
+
+  <!-- Right Panel: Clutch Pack Stack -->
+  <rect x="495" y="75" width="435" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="90" width="405" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712" y="111" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Пакет фрикційних дисків</text>
+
+  <!-- Stack Representation -->
+  <rect x="530" y="145" width="16" height="110" fill="#1a1a1a"/>
+  <rect x="555" y="145" width="16" height="110" fill="#27ae60"/>
+  <rect x="580" y="145" width="16" height="110" fill="#1a1a1a"/>
+  <rect x="605" y="145" width="16" height="110" fill="#27ae60"/>
+  <rect x="630" y="145" width="16" height="110" fill="#1a1a1a"/>
+  <rect x="655" y="145" width="16" height="110" fill="#27ae60"/>
+  <rect x="680" y="145" width="16" height="110" fill="#1a1a1a"/>
+
+  <text x="790" y="170" font-size="12" font-weight="bold" fill="#1a1a1a">• Чорні диски:</text>
+  <text x="790" y="190" font-size="12" fill="#6b7280">зовнішні шліци (корпус)</text>
+  <text x="790" y="220" font-size="12" font-weight="bold" fill="#27ae60">• Зелені диски:</text>
+  <text x="790" y="240" font-size="12" fill="#6b7280">внутрішні шліци (піввісь)</text>
+
+  <!-- Formula and Properties Box -->
+  <rect x="510" y="280" width="405" height="140" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="305" font-size="12" font-weight="bold" fill="#1a1a1a">Момент тертя блокування пакета дисків:</text>
+  <text x="525" y="330" font-size="12" fill="#2457d6">T_friction = z_friction · mu · F_thrust · R_mean</text>
+  <text x="525" y="355" font-size="12" fill="#1a1a1a">• z_friction — кількість поверхонь тертя (6..12 пар)</text>
+  <text x="525" y="377" font-size="12" fill="#1a1a1a">• mu — коефіцієнт тертя у мастилі з LSD-присадками (0.08..0.12)</text>
+  <text x="525" y="400" font-size="12" fill="#6b7280">• Пружини Бельвіля створюють початковий статичний натяг</text>
+</svg>

@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біле тло -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Планетарна кінематика зачеплення циклоїдного диска з роликовим вінцем</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Один оберт ексцентрика зміщує диск на один зуб у зворотному напрямку: i = N_teeth / (N_pins - N_teeth)</text>
+
+  <!-- Ліва панель: Схема зачеплення (вид з торця) -->
+  <rect x="30" y="75" width="450" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="255" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Геометрія планетарного обкочування</text>
+
+  <!-- Нерухомий зовнішній корпус (статорне кільце) -->
+  <circle cx="255" cy="255" r="140" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Роликові пальці (N_pins = 12, по колу R=125) -->
+  <!-- 12 роликів -->
+  <circle cx="380" cy="255" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="363" cy="317" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="317" cy="363" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="255" cy="380" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="193" cy="363" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="147" cy="317" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="130" cy="255" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="147" cy="193" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="193" cy="147" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="255" cy="130" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="317" cy="147" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="363" cy="193" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Циклоїдний диск (зміщений ексцентриситетом e=12 вправо-вгору, cx=263, cy=247, r=105) -->
+  <circle cx="265" cy="245" r="105" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="265" y="225" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Циклоїдний диск</text>
+  <text x="265" y="240" text-anchor="middle" font-size="11" fill="#27ae60">11 виступів (N_teeth = 11)</text>
+
+  <!-- Центр корпусу O1 -->
+  <circle cx="255" cy="255" r="3" fill="#1a1a1a"/>
+  <line x1="255" y1="255" x2="265" y2="245" stroke="#c0392b" stroke-width="2"/>
+  <!-- Центр диска O2 -->
+  <circle cx="265" cy="245" r="3" fill="#c0392b"/>
+
+  <!-- Вектор ексцентриситету e -->
+  <text x="285" y="260" font-size="11" font-weight="bold" fill="#c0392b">e</text>
+
+  <!-- Стрілка обертання ексцентрика (за годинниковою) -->
+  <path d="M 235,225 A 25 25 0 0 1 275,225" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="255" y="210" text-anchor="middle" font-size="10" fill="#c0392b">Вхід вала (n_in)</text>
+
+  <!-- Стрілка повільного обертання диска (проти годинникової) -->
+  <path d="M 220,335 A 80 80 0 0 1 310,335" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="265" y="355" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Редуковане обертання (n_out)</text>
+
+
+  <!-- Права панель: Кінематичний розрахунок та принципи -->
+  <rect x="500" y="75" width="430" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Кінематичні інваріанти зачеплення</text>
+
+  <!-- Блок формули редукції -->
+  <rect x="520" y="125" width="390" height="85" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="715" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">i = - N_teeth / (N_pins - N_teeth) = - 11 / (12 - 11) = -11:1</text>
+  <text x="715" y="175" text-anchor="middle" font-size="11" fill="#1a1a1a">Різниця кількості зубів завжди дорівнює одиниці: N_pins - N_teeth = 1</text>
+  <text x="715" y="195" text-anchor="middle" font-size="11" fill="#6b7280">Знак «мінус» вказує на зворотний напрямок обертання диска відносно вала</text>
+
+  <!-- Блок пояснення руху -->
+  <rect x="520" y="225" width="390" height="95" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="535" y="248" font-size="12" font-weight="bold" fill="#27ae60">Багатопарний контакт зачеплення</text>
+  <text x="535" y="268" font-size="11" fill="#1a1a1a">Одночасно передають зусилля до 30-50% роликів у зоні натискання</text>
+  <text x="535" y="288" font-size="11" fill="#1a1a1a">Відсутність згинальних напружень на одному зубі запобігає зламу</text>
+  <text x="535" y="308" font-size="11" fill="#6b7280">Навантаження сприймається на стиск через рідинний клин мастила</text>
+
+  <!-- Блок висновку -->
+  <rect x="520" y="335" width="390" height="80" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="535" y="360" font-size="12" font-weight="bold" fill="#2457d6">Кінематичний ефект</text>
+  <text x="535" y="380" font-size="11" fill="#1a1a1a">За один повний оберт ексцентрика 360° диск повертається рівно на</text>
+  <text x="535" y="398" font-size="11" font-weight="bold" fill="#1a1a1a">кутовий крок 1 зуба: alpha = 360° / N_teeth = 360° / 11 = 32.72°</text>
+</svg>

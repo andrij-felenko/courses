@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460" viewBox="0 0 960 460">
+  <defs>
+    <marker id="arrExp" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+
+  <!-- Main Title -->
+  <text x="30" y="32" font-family="sans-serif" font-size="18" font-weight="bold" fill="#0f172a">Вибух-схема ротаційного модуля серійного пружного привода (R-SEA)</text>
+  <text x="30" y="52" font-family="sans-serif" font-size="12" fill="#475569">Взаємне розташування компонентів уздовж осі збирання: безколекторний двигун, редуктор, торсіонний диск та подвійні енкодери</text>
+
+  <!-- Central Assembly Axis Line -->
+  <line x1="40" y1="210" x2="920" y2="210" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="8,5"/>
+
+  <!-- Component 1: Frameless BLDC Motor (x=60 to 180, center 120) -->
+  <text x="70" y="100" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0369a1">1. BLDC Двигун</text>
+  <text x="65" y="116" font-family="sans-serif" font-size="10" fill="#475569">Безкорпусний статор</text>
+  <rect x="60" y="135" width="110" height="145" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <!-- Rotor hollow core -->
+  <rect x="85" y="165" width="60" height="90" rx="4" fill="#bae6fd" stroke="#0369a1" stroke-width="1.5"/>
+  <circle cx="115" cy="210" r="14" fill="#ffffff" stroke="#0284c7" stroke-width="2"/>
+  <text x="65" y="298" font-family="sans-serif" font-size="10" fill="#334155">• Порожнистий вал</text>
+  <text x="65" y="313" font-family="sans-serif" font-size="10" fill="#334155">• Прямий монтаж</text>
+
+  <!-- Component 2: Primary Magnetic Encoder PCB (x=215 to 275, center 245) -->
+  <text x="195" y="100" font-family="sans-serif" font-size="12" font-weight="bold" fill="#15803d">2. Енкодер ротора</text>
+  <text x="200" y="116" font-family="sans-serif" font-size="10" fill="#475569">IC AS5047P (SPI)</text>
+  <rect x="215" y="160" width="55" height="100" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <circle cx="242" cy="210" r="10" fill="#86efac" stroke="#15803d" stroke-width="1.5"/>
+  <text x="205" y="298" font-family="sans-serif" font-size="10" fill="#334155">• Кут ротора θ_m</text>
+  <text x="205" y="313" font-family="sans-serif" font-size="10" fill="#334155">• Контур FOC 20 кГц</text>
+
+  <!-- Component 3: Harmonic / Strain Wave Gearbox (x=315 to 445, center 380) -->
+  <text x="320" y="100" font-family="sans-serif" font-size="12" font-weight="bold" fill="#334155">3. Редуктор 50:1</text>
+  <text x="325" y="116" font-family="sans-serif" font-size="10" fill="#475569">Хвильовий вузол</text>
+  <rect x="315" y="135" width="125" height="155" rx="8" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+  <rect x="340" y="150" width="75" height="120" rx="4" fill="#e2e8f0" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="377" cy="210" r="16" fill="#ffffff" stroke="#475569" stroke-width="2"/>
+  <text x="320" y="308" font-family="sans-serif" font-size="10" fill="#334155">• Нульовий люфт</text>
+  <text x="320" y="323" font-family="sans-serif" font-size="10" fill="#334155">• Вихідний фланець</text>
+
+  <!-- Component 4: Planar Torsion Spring Disc (x=485 to 615, center 550) -->
+  <text x="495" y="100" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b45309">4. Пружний диск SEA</text>
+  <text x="500" y="116" font-family="sans-serif" font-size="10" fill="#475569">Титан Ti-6Al-4V</text>
+  <rect x="485" y="135" width="125" height="155" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <!-- Inner hub & spoke graphics -->
+  <circle cx="547" cy="210" r="48" fill="none" stroke="#b45309" stroke-width="6"/>
+  <circle cx="547" cy="210" r="16" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+  <line x1="547" y1="168" x2="547" y2="194" stroke="#d97706" stroke-width="4"/>
+  <line x1="547" y1="226" x2="547" y2="252" stroke="#d97706" stroke-width="4"/>
+  <line x1="505" y1="210" x2="531" y2="210" stroke="#d97706" stroke-width="4"/>
+  <line x1="563" y1="210" x2="589" y2="210" stroke="#d97706" stroke-width="4"/>
+  <text x="495" y="308" font-family="sans-serif" font-size="10" fill="#334155">• Жорсткість k_s</text>
+  <text x="495" y="323" font-family="sans-serif" font-size="10" fill="#334155">• Деформація Δθ</text>
+
+  <!-- Component 5: Secondary Joint Encoder (x=645 to 705, center 675) -->
+  <text x="625" y="100" font-family="sans-serif" font-size="12" font-weight="bold" fill="#15803d">5. Енкодер суглоба</text>
+  <text x="635" y="116" font-family="sans-serif" font-size="10" fill="#475569">IC AS5047P (SPI)</text>
+  <rect x="645" y="160" width="55" height="100" rx="4" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+  <circle cx="672" cy="210" r="10" fill="#86efac" stroke="#15803d" stroke-width="1.5"/>
+  <text x="630" y="298" font-family="sans-serif" font-size="10" fill="#334155">• Кут навантаження θ_L</text>
+  <text x="630" y="313" font-family="sans-serif" font-size="10" fill="#334155">• Зовнішній вихід</text>
+
+  <!-- Component 6: Output Flange & Cross-Roller Bearing (x=735 to 895, center 815) -->
+  <text x="740" y="100" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1d4ed8">6. Вихідний вузол</text>
+  <text x="745" y="116" font-family="sans-serif" font-size="10" fill="#475569">Перехресний підшипник</text>
+  <rect x="735" y="135" width="155" height="160" rx="8" fill="#f8fafc" stroke="#2563eb" stroke-width="2"/>
+  <rect x="760" y="150" width="105" height="130" rx="4" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <circle cx="812" cy="210" r="24" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+  <text x="745" y="308" font-family="sans-serif" font-size="10" fill="#334155">• Висока радіальна жорсткість</text>
+  <text x="745" y="323" font-family="sans-serif" font-size="10" fill="#334155">• Кріплення кінцевої ланки</text>
+
+  <!-- Bottom Panel: Torque Calculation Formula & Architecture -->
+  <rect x="30" y="348" width="900" height="85" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="45" y="372" font-family="sans-serif" font-size="12" font-weight="bold" fill="#0f172a">Принцип вимірювання крутного моменту за різницею показів двох енкодерів:</text>
+  <text x="45" y="393" font-family="sans-serif" font-size="12" font-weight="bold" fill="#b45309">τ_joint = k_s · ( (θ_m / N) - θ_L )</text>
+  <text x="45" y="412" font-family="sans-serif" font-size="11" fill="#334155">• Енкодер 1 (θ_m) комутує струми обмоток мотора у контурі FOC (20 кГц) без затримок від податливості пружини.</text>
+  <text x="45" y="426" font-family="sans-serif" font-size="11" fill="#334155">• Енкодер 2 (θ_L) дає абсолютний кут ланки робота; різниця з редукованим валом визначає зусилля з похибкою &lt; 1.5%.</text>
+</svg>

@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структурна схема контуру віртуального імпедансу QDD-привода</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Програмне моделювання пружності та демпфування через безсенсорний зворотний зв'язок струму Iq</text>
+
+  <!-- Block 1: Target Position Input -->
+  <rect x="30" y="100" width="140" height="80" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="100" y="132" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цільова поза</text>
+  <text x="100" y="155" font-size="12" fill="#2457d6" text-anchor="middle">theta_target</text>
+
+  <line x1="170" y1="140" x2="220" y2="140" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Summing Junction 1 (Error) -->
+  <circle cx="235" cy="140" r="14" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="235" y="145" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Σ</text>
+
+  <line x1="249" y1="140" x2="300" y2="140" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="275" y="132" font-size="12" fill="#6b7280" text-anchor="middle">e_theta</text>
+
+  <!-- Block 2: Virtual Impedance (Spring-Damper Law) -->
+  <rect x="300" y="90" width="220" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="410" y="118" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Віртуальний імпеданс</text>
+  <text x="410" y="142" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T_cmd = K_v · e_theta - D_v · omega</text>
+  <text x="410" y="168" font-size="12" fill="#6b7280" text-anchor="middle">K_v: пружність, D_v: демпфування</text>
+
+  <line x1="520" y1="140" x2="570" y2="140" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="545" y="132" font-size="12" fill="#6b7280" text-anchor="middle">T_cmd</text>
+
+  <!-- Block 3: Torque-to-Current Mapping -->
+  <rect x="570" y="100" width="150" height="80" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="645" y="132" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Перерахунок струму</text>
+  <text x="645" y="155" font-size="12" fill="#1a1a1a" text-anchor="middle">I_q = T_cmd / (K_t · N)</text>
+
+  <line x1="720" y1="140" x2="770" y2="140" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="745" y="132" font-size="12" fill="#6b7280" text-anchor="middle">I_q_ref</text>
+
+  <!-- Block 4: FOC Current Control & Actuator -->
+  <rect x="770" y="90" width="160" height="100" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="850" y="118" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">QDD Актюатор</text>
+  <text x="850" y="142" font-size="12" fill="#1a1a1a" text-anchor="middle">FOC + Мотор + Редуктор</text>
+  <text x="850" y="168" font-size="12" fill="#6b7280" text-anchor="middle">Вихідний фланець шарніра</text>
+
+  <!-- Feedback Path (Bottom) -->
+  <line x1="850" y1="190" x2="850" y2="280" stroke="#2457d6" stroke-width="2"/>
+  <line x1="850" y1="280" x2="235" y2="280" stroke="#2457d6" stroke-width="2"/>
+  <line x1="235" y1="280" x2="235" y2="155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="540" y="272" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зворотний зв'язок: кут ротора theta та швидкість omega від енкодера</text>
+
+  <!-- Bottom Panel: Physical Interaction Explanation -->
+  <rect x="30" y="320" width="900" height="110" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">Реакція на зовнішній дотик людини або перешкоди:</text>
+  <text x="50" y="372" font-size="12" fill="#1a1a1a">• Якщо людина штовхає ланку робота, виникає кутове зміщення delta_theta.</text>
+  <text x="50" y="393" font-size="12" fill="#2457d6">• Контролер миттєво генерує пропорційний опір T_cmd, імітуючи механічну пружину без фізичних датчиків сили.</text>
+  <text x="50" y="414" font-size="12" fill="#27ae60">• Зниження K_v робить шарнір м'яким і повністю безпечним для колаборативної взаємодії.</text>
+</svg>

@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="24" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Спільний (Collective) та циклічний (Cyclic) крок автомата перекосу</text>
+  <text x="480" y="44" text-anchor="middle" font-size="13" fill="#6b7280">Вертикальний зсув регулює загальну тягу; кутовий нахил генерує керуючий момент крену й тангажу</text>
+
+  <!-- LEFT PANEL: Collective Pitch -->
+  <rect x="25" y="58" width="445" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="68" width="415" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="86" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Спільний крок: вертикальне зміщення тарілки</text>
+
+  <!-- Collective Thrust arrow -->
+  <line x1="247" y1="125" x2="247" y2="102" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="255" y="115" text-anchor="start" font-size="11" font-weight="bold" fill="#2457d6">Тяга T_rotor зростає</text>
+
+  <!-- Rotor Head / Hub -->
+  <rect x="187" y="130" width="120" height="14" rx="3" fill="#475569" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Left Blade -->
+  <polygon points="187,133 75,126 75,140 187,141" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <text x="130" y="120" text-anchor="middle" font-size="11" fill="#1a1a1a">Лопать (270 deg)</text>
+
+  <!-- Right Blade -->
+  <polygon points="307,133 419,126 419,140 307,141" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <text x="365" y="120" text-anchor="middle" font-size="11" fill="#1a1a1a">Лопать (90 deg)</text>
+
+  <!-- Rotor Mast tube & axis -->
+  <line x1="247" y1="144" x2="247" y2="305" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <rect x="237" y="144" width="20" height="160" fill="#e5e7eb" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Swashplate assembly (Initial position ghosted) -->
+  <rect x="145" y="275" width="204" height="10" rx="2" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="355" y="283" text-anchor="start" font-size="11" fill="#94a3b8">Початковий рівень</text>
+
+  <!-- Swashplate assembly (Raised position) -->
+  <rect x="145" y="232" width="204" height="10" rx="2" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <rect x="155" y="228" width="184" height="4" fill="#2457d6"/>
+  <rect x="145" y="218" width="204" height="10" rx="2" fill="#93c5fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="247" cy="230" r="15" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Pitch links from rotating ring to blade horns -->
+  <line x1="170" y1="218" x2="170" y2="147" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <line x1="324" y1="218" x2="324" y2="147" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="165" y="185" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">+dz_col</text>
+  <text x="329" y="185" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">+dz_col</text>
+
+  <!-- Actuator rods from below (collective input) -->
+  <line x1="165" y1="305" x2="165" y2="247" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <line x1="329" y1="305" x2="329" y2="247" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="247" y="325" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Вхід сервоприводів: синхронний підйом +dz</text>
+
+  <!-- Left Summary Box -->
+  <rect x="35" y="342" width="425" height="88" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="360" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Кінематичний ефект спільного кроку:</text>
+  <text x="45" y="378" text-anchor="start" font-size="11" fill="#1a1a1a">• Усі тяги зміщуються на однакову відстань: dz1 = dz2 = dz_col</text>
+  <text x="45" y="396" text-anchor="start" font-size="11" fill="#1a1a1a">• Кут установки всіх лопатей однаковий: theta(psi) = theta0 + dtheta</text>
+  <text x="45" y="414" text-anchor="start" font-size="11" fill="#6b7280">• Вектор тяги ротора спрямований суворо вздовж осі щогли</text>
+
+
+  <!-- RIGHT PANEL: Cyclic Pitch -->
+  <rect x="490" y="58" width="445" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="505" y="68" width="415" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712" y="86" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Циклічний крок: кутовий нахил тарілки</text>
+
+  <!-- Tilted Thrust vector -->
+  <line x1="712" y1="125" x2="685" y2="102" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="675" y="112" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">Нахил вектора тяги</text>
+
+  <!-- Rotor Head / Hub -->
+  <rect x="652" y="130" width="120" height="14" rx="3" fill="#475569" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Left Blade (High Pitch / Flap Up) -->
+  <polygon points="652,133 540,114 540,128 652,141" fill="#fca5a5" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="590" y="108" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Крок більший (+dtheta)</text>
+
+  <!-- Right Blade (Low Pitch / Flap Down) -->
+  <polygon points="772,133 884,138 884,152 772,141" fill="#93c5fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="835" y="168" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Крок менший (-dtheta)</text>
+
+  <!-- Rotor Mast tube & axis -->
+  <line x1="712" y1="144" x2="712" y2="305" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <rect x="702" y="144" width="20" height="160" fill="#e5e7eb" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Center Uniball spherical pivot -->
+  <circle cx="712" cy="235" r="15" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Tilted Swashplate (Tilt angle alpha) -->
+  <polygon points="612,240 812,210 812,220 612,250" fill="#fca5a5" stroke="#c0392b" stroke-width="1.5"/>
+  <polygon points="612,252 812,222 812,232 612,262" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Tilt angle arc & label -->
+  <line x1="612" y1="235" x2="812" y2="235" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="820" y="222" text-anchor="start" font-size="11" font-weight="bold" fill="#c0392b">Кут нахилу alpha</text>
+
+  <!-- Pitch links with differential displacement -->
+  <line x1="635" y1="242" x2="635" y2="147" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <line x1="789" y1="213" x2="789" y2="147" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="630" y="190" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Підйом +dz</text>
+  <text x="794" y="190" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Опускання -dz</text>
+
+  <!-- Servo actuator inputs (differential) -->
+  <line x1="630" y1="305" x2="630" y2="267" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <line x1="794" y1="275" x2="794" y2="305" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="712" y="325" text-anchor="middle" font-size="11" font-weight="bold" fill="#475569">Диференціальний хід приводів: створення нахилу</text>
+
+  <!-- Right Summary Box -->
+  <rect x="500" y="342" width="425" height="88" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="510" y="360" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Кінематичний ефект циклічного кроку:</text>
+  <text x="510" y="378" text-anchor="start" font-size="11" fill="#1a1a1a">• Гармонічна зміна кута: theta(psi) = theta0 + A1*cos(psi) + B1*sin(psi)</text>
+  <text x="510" y="396" text-anchor="start" font-size="11" fill="#1a1a1a">• Нахил площини обертання кінців лопатей (tip-path plane)</text>
+  <text x="510" y="414" text-anchor="start" font-size="11" fill="#6b7280">• Створення горизонтальної сили та моментів крену й тангажу</text>
+</svg>

@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460" viewBox="0 0 960 460">
+  <defs>
+    <marker id="arr1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#059669"/>
+    </marker>
+    <marker id="arr3" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#d97706"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+
+  <!-- Main Title -->
+  <text x="30" y="32" font-family="sans-serif" font-size="18" font-weight="bold" fill="#0f172a">Еволюція форми пружних елементів серійних актуаторів (SEA)</text>
+  <text x="30" y="52" font-family="sans-serif" font-size="12" fill="#475569">Від громіздких циліндричних витих пружин 1995 року до інтегрованих плоских торсіонних дисків</text>
+
+  <!-- Panel 1: Linear Spring Pack (MIT 1995) -->
+  <rect x="30" y="70" width="280" height="365" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="30" y="70" width="280" height="32" rx="8" fill="#e0f2fe"/>
+  <text x="45" y="92" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0369a1">1. Лінійний пружинний блок (1995)</text>
+
+  <!-- Graphic 1: Linear Spring Pack -->
+  <rect x="45" y="115" width="250" height="120" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+  <!-- Ball screw housing -->
+  <rect x="55" y="145" width="55" height="40" rx="3" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <text x="60" y="169" font-family="sans-serif" font-size="10" fill="#1e293b">Привід</text>
+  <!-- Shaft -->
+  <line x1="110" y1="165" x2="280" y2="165" stroke="#64748b" stroke-width="3"/>
+  <!-- Central flange -->
+  <rect x="180" y="135" width="12" height="60" rx="2" fill="#0284c7" stroke="#0369a1" stroke-width="1"/>
+  <!-- Left spring -->
+  <path d="M120,165 Q125,145 130,165 T140,165 T150,165 T160,165 T170,165 T180,165" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+  <!-- Right spring -->
+  <path d="M192,165 Q197,145 202,165 T212,165 T222,165 T232,165 T242,165 T252,165" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+  <!-- Sensor LVDT -->
+  <line x1="130" y1="210" x2="240" y2="210" stroke="#059669" stroke-width="2" stroke-dasharray="3,3"/>
+  <circle cx="185" cy="210" r="4" fill="#059669"/>
+  <text x="135" y="226" font-family="sans-serif" font-size="10" fill="#059669">Датчик деформації Δx (LVDT)</text>
+
+  <!-- Labels for Panel 1 -->
+  <text x="45" y="258" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0f172a">Конструктивні особливості:</text>
+  <text x="45" y="278" font-family="sans-serif" font-size="11" fill="#334155">• Пара протилежних пружин стиску</text>
+  <text x="45" y="296" font-family="sans-serif" font-size="11" fill="#334155">• Кульково-гвинтова передача (КГП)</text>
+  <text x="45" y="314" font-family="sans-serif" font-size="11" fill="#334155">• Перетворення руху: оберт → тяга</text>
+
+  <text x="45" y="344" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b91c1c">Недоліки архітектури:</text>
+  <text x="45" y="364" font-family="sans-serif" font-size="11" fill="#334155">• Значні поздовжні габарити й вага</text>
+  <text x="45" y="382" font-family="sans-serif" font-size="11" fill="#334155">• Люфти в шарнірах та напрямних</text>
+  <text x="45" y="400" font-family="sans-serif" font-size="11" fill="#334155">• Складний монтаж у шарнір робота</text>
+
+  <!-- Panel 2: Planar Spiral / Cantilever Flexures -->
+  <rect x="340" y="70" width="280" height="365" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="340" y="70" width="280" height="32" rx="8" fill="#dcfce7"/>
+  <text x="355" y="92" font-family="sans-serif" font-size="13" font-weight="bold" fill="#15803d">2. Плоскі балки та спіралі</text>
+
+  <!-- Graphic 2: Planar flexure -->
+  <rect x="355" y="115" width="250" height="120" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+  <!-- Outer ring -->
+  <circle cx="480" cy="175" r="45" fill="none" stroke="#64748b" stroke-width="4"/>
+  <!-- Center hub -->
+  <circle cx="480" cy="175" r="14" fill="#cbd5e1" stroke="#334155" stroke-width="2"/>
+  <!-- Curved spiral arms -->
+  <path d="M480,161 C510,160 520,185 524,188" fill="none" stroke="#059669" stroke-width="3"/>
+  <path d="M480,189 C450,190 440,165 436,162" fill="none" stroke="#059669" stroke-width="3"/>
+  <path d="M466,175 C465,205 490,215 493,219" fill="none" stroke="#059669" stroke-width="3"/>
+  <path d="M494,175 C495,145 470,135 467,131" fill="none" stroke="#059669" stroke-width="3"/>
+  <text x="390" y="228" font-family="sans-serif" font-size="10" fill="#059669">Архімедові спіральні пружні балки</text>
+
+  <!-- Labels for Panel 2 -->
+  <text x="355" y="258" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0f172a">Конструктивні особливості:</text>
+  <text x="355" y="278" font-family="sans-serif" font-size="11" fill="#334155">• Монолітна електроерозійна різка (EDM)</text>
+  <text x="355" y="296" font-family="sans-serif" font-size="11" fill="#334155">• Пружинна сталь або титан (Ti-6Al-4V)</text>
+  <text x="355" y="314" font-family="sans-serif" font-size="11" fill="#334155">• Монтаж безпосередньо на вихідний вал</text>
+
+  <text x="355" y="344" font-family="sans-serif" font-size="11" font-weight="bold" fill="#b91c1c">Недоліки архітектури:</text>
+  <text x="355" y="364" font-family="sans-serif" font-size="11" fill="#334155">• Паразитний радіальний зсув при крученні</text>
+  <text x="355" y="382" font-family="sans-serif" font-size="11" fill="#334155">• Асиметричний розподіл механічних напруг</text>
+  <text x="355" y="400" font-family="sans-serif" font-size="11" fill="#334155">• Чутливість до позаплощинних згинань</text>
+
+  <!-- Panel 3: Multi-spoke Torsion Disc -->
+  <rect x="650" y="70" width="280" height="365" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="650" y="70" width="280" height="32" rx="8" fill="#fef3c7"/>
+  <text x="665" y="92" font-family="sans-serif" font-size="13" font-weight="bold" fill="#b45309">3. Торсіонний диск (Сучасний)</text>
+
+  <!-- Graphic 3: Multi-spoke disc -->
+  <rect x="665" y="115" width="250" height="120" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/>
+  <!-- Outer rim -->
+  <circle cx="790" cy="175" r="48" fill="none" stroke="#334155" stroke-width="5"/>
+  <!-- Inner hub -->
+  <circle cx="790" cy="175" r="16" fill="#fef3c7" stroke="#b45309" stroke-width="2"/>
+  <!-- Radial symmetric spokes (cross + diagonal) -->
+  <line x1="790" y1="127" x2="790" y2="159" stroke="#d97706" stroke-width="4"/>
+  <line x1="790" y1="191" x2="790" y2="223" stroke="#d97706" stroke-width="4"/>
+  <line x1="742" y1="175" x2="774" y2="175" stroke="#d97706" stroke-width="4"/>
+  <line x1="806" y1="175" x2="838" y2="175" stroke="#d97706" stroke-width="4"/>
+  <text x="690" y="228" font-family="sans-serif" font-size="10" fill="#b45309">Симетричні пружні промені на зсув</text>
+
+  <!-- Labels for Panel 3 -->
+  <text x="665" y="258" font-family="sans-serif" font-size="11" font-weight="bold" fill="#0f172a">Конструктивні переваги:</text>
+  <text x="665" y="278" font-family="sans-serif" font-size="11" fill="#334155">• Чисте кручення без радіального зміщення</text>
+  <text x="665" y="296" font-family="sans-serif" font-size="11" fill="#334155">• Величезна радіальна та осьова жорсткість</text>
+  <text x="665" y="314" font-family="sans-serif" font-size="11" fill="#334155">• Інтеграція двох енкодерів (до/після пружини)</text>
+
+  <text x="665" y="344" font-family="sans-serif" font-size="11" font-weight="bold" fill="#15803d">Сфери застосування:</text>
+  <text x="665" y="364" font-family="sans-serif" font-size="11" fill="#334155">• Колаборативні роботи (Cobots, Franka)</text>
+  <text x="665" y="382" font-family="sans-serif" font-size="11" fill="#334155">• Антропоморфні екзоскелети та протези</text>
+  <text x="665" y="400" font-family="sans-serif" font-size="11" fill="#334155">• Крокуючі роботи нового покоління</text>
+</svg>

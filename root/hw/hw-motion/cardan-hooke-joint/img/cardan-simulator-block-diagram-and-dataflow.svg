@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="17" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура симулятора та потік даних: кінематика, динаміка та спектральний аналіз</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Наскрізний ланцюг обчислень від геометричних кутів карданного валопроводу до гармонік FFT</text>
+
+  <!-- БЛОК 1: Вхідні параметри -->
+  <rect x="25" y="75" width="205" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="37" y="87" width="181" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="127" y="104" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Вхідна конфігурація</text>
+
+  <rect x="37" y="123" width="181" height="135" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="142" font-size="11" font-weight="bold" fill="#1a1a1a">Геометрія трансмісії:</text>
+  <text x="48" y="162" font-size="11" fill="#1a1a1a">• beta1: кут 1-го шарніра</text>
+  <text x="48" y="180" font-size="11" fill="#1a1a1a">• beta2: кут 2-го шарніра</text>
+  <text x="48" y="198" font-size="11" fill="#1a1a1a">• gamma: розфазування вилок</text>
+  <text x="48" y="216" font-size="11" fill="#1a1a1a">• Схема: Z, W або 1 шарнір</text>
+  <text x="48" y="244" font-size="10" fill="#6b7280">(Z-схема: beta1=beta2, g=0)</text>
+
+  <rect x="37" y="270" width="181" height="150" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="290" font-size="11" font-weight="bold" fill="#1a1a1a">Динамічні параметри:</text>
+  <text x="48" y="310" font-size="11" fill="#1a1a1a">• omega1: вхідна швидкість</text>
+  <text x="48" y="328" font-size="11" fill="#1a1a1a">• J_load: інерція навантаження</text>
+  <text x="48" y="348" font-size="11" font-weight="bold" fill="#1a1a1a">Параметри дискретизації:</text>
+  <text x="48" y="368" font-size="11" fill="#1a1a1a">• N: кількість точок/оберт</text>
+  <text x="48" y="386" font-size="11" fill="#1a1a1a">• dt = d_phi / omega1</text>
+  <text x="48" y="406" font-size="10" fill="#6b7280">Синхронний крок у часі</text>
+
+  <!-- СТРІЛКА 1 -> 2 -->
+  <line x1="230" y1="250" x2="252" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- БЛОК 2: Кінематичне ядро -->
+  <rect x="257" y="75" width="225" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="269" y="87" width="201" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="369" y="104" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Кінематичний розрахунок</text>
+
+  <rect x="269" y="123" width="201" height="135" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="279" y="142" font-size="11" font-weight="bold" fill="#2457d6">Шарнір 1 (вхід - проміжний):</text>
+  <text x="279" y="162" font-size="11" fill="#1a1a1a">• phi2 = atan2(sin*cos, cos)</text>
+  <text x="279" y="180" font-size="11" fill="#1a1a1a">• i1 = cos_b / (1 - s^2*sin^2)</text>
+  <text x="279" y="198" font-size="11" fill="#1a1a1a">• omega2 = omega1 * i1</text>
+  <text x="279" y="222" font-size="11" font-weight="bold" fill="#e67e22">Фазовий зсув вилки:</text>
+  <text x="279" y="242" font-size="11" fill="#1a1a1a">• phi2_fork = phi2 + pi/2 + g</text>
+
+  <rect x="269" y="270" width="201" height="150" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="279" y="290" font-size="11" font-weight="bold" fill="#27ae60">Шарнір 2 (проміжний - вихід):</text>
+  <text x="279" y="310" font-size="11" fill="#1a1a1a">• phi3 = single_phi2(phi2_fork)</text>
+  <text x="279" y="328" font-size="11" fill="#1a1a1a">• i2 = single_ratio(phi2_fork)</text>
+  <text x="279" y="348" font-size="11" fill="#1a1a1a">• omega3 = omega2 * i2</text>
+  <text x="279" y="374" font-size="11" font-weight="bold" fill="#1a1a1a">Результуюча швидкість:</text>
+  <text x="279" y="394" font-size="11" fill="#27ae60">• omega_out = omega3(t)</text>
+  <text x="279" y="410" font-size="10" fill="#6b7280">Стала швидкість при gamma=0</text>
+
+  <!-- СТРІЛКА 2 -> 3 -->
+  <line x1="482" y1="250" x2="504" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- БЛОК 3: Динаміка та моменти -->
+  <rect x="509" y="75" width="205" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="521" y="87" width="181" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="611" y="104" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Динаміка навантаження</text>
+
+  <rect x="521" y="123" width="181" height="135" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="531" y="142" font-size="11" font-weight="bold" fill="#1a1a1a">Кутове прискорення:</text>
+  <text x="531" y="162" font-size="11" fill="#1a1a1a">• d(omega)/dt аналітичне</text>
+  <text x="531" y="180" font-size="11" fill="#1a1a1a">• або скінченні різниці</text>
+  <text x="531" y="198" font-size="11" fill="#1a1a1a">• alpha_out = dw_out / dt</text>
+  <text x="531" y="222" font-size="11" font-weight="bold" fill="#c0392b">Динамічний момент:</text>
+  <text x="531" y="242" font-size="11" fill="#c0392b">• T_dyn = J_load * alpha_out</text>
+
+  <rect x="521" y="270" width="181" height="150" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="531" y="290" font-size="11" font-weight="bold" fill="#1a1a1a">Критерії вібрацій:</text>
+  <text x="531" y="310" font-size="11" fill="#1a1a1a">• delta = (w_max - w_min)/w1</text>
+  <text x="531" y="330" font-size="11" fill="#1a1a1a">• Знакозмінний крутний пік</text>
+  <text x="531" y="350" font-size="11" fill="#1a1a1a">• T_dyn_peak = max(|T_dyn|)</text>
+  <text x="531" y="374" font-size="11" font-weight="bold" fill="#1a1a1a">Втома матеріалу:</text>
+  <text x="531" y="394" font-size="11" fill="#6b7280">Пульсації напружень зсуву</text>
+  <text x="531" y="410" font-size="10" fill="#6b7280">в шліцах та хрестовині</text>
+
+  <!-- СТРІЛКА 3 -> 4 -->
+  <line x1="714" y1="250" x2="736" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- БЛОК 4: Спектральний аналіз FFT -->
+  <rect x="741" y="75" width="194" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="753" y="87" width="170" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="838" y="104" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">4. Спектральний аналіз FFT</text>
+
+  <rect x="753" y="123" width="170" height="135" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="763" y="142" font-size="11" font-weight="bold" fill="#1a1a1a">Перетворення Фур'є:</text>
+  <text x="763" y="162" font-size="11" fill="#1a1a1a">• ДПФ / FFT сигналу w(t)</text>
+  <text x="763" y="180" font-size="11" fill="#1a1a1a">• Видалення сталої DC</text>
+  <text x="763" y="198" font-size="11" fill="#1a1a1a">• Розрахунок амплітуд</text>
+  <text x="763" y="216" font-size="11" fill="#1a1a1a">• Частотна сітка f_k</text>
+  <text x="763" y="242" font-size="10" fill="#6b7280">Крок f_0 = rpm / 60 Гц</text>
+
+  <rect x="753" y="270" width="170" height="150" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="763" y="290" font-size="11" font-weight="bold" fill="#1a1a1a">Детекція гармонік:</text>
+  <text x="763" y="310" font-size="11" fill="#c0392b">• 2/rev: головна пульсація</text>
+  <text x="763" y="328" font-size="11" fill="#1a1a1a">• 4/rev: вища гармоніка</text>
+  <text x="763" y="352" font-size="11" font-weight="bold" fill="#27ae60">Оцінка якості:</text>
+  <text x="763" y="372" font-size="11" fill="#27ae60">• Z-схема: 2/rev = 0 рад/с</text>
+  <text x="763" y="390" font-size="11" fill="#c0392b">• 90° брак: 2/rev = 2x пік</text>
+  <text x="763" y="410" font-size="10" fill="#6b7280">Контроль крутильного резонансу</text>
+</svg>

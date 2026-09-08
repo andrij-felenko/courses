@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Скінченний автомат (FSM) активного підблокування диференціала</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Алгоритм перемикання станів за порогом пробуксовки коліс з тепловим захистом дисків</text>
+
+  <!-- State 1: OPEN -->
+  <rect x="50" y="110" width="180" height="110" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="140" y="140" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">1. OPEN (Вільний)</text>
+  <text x="140" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">ШІМ струму = 0%</text>
+  <text x="140" y="185" font-size="12" fill="#6b7280" text-anchor="middle">Пробуксовка &lt; 10%</text>
+  <text x="140" y="205" font-size="12" fill="#27ae60" text-anchor="middle">Штатний рух</text>
+
+  <!-- Arrow State 1 -> State 2 -->
+  <line x1="230" y1="165" x2="350" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="290" y="155" font-size="12" fill="#2457d6" text-anchor="middle">Slip ≥ 10%</text>
+
+  <!-- State 2: PARTIAL LOCK -->
+  <rect x="360" y="110" width="220" height="110" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="470" y="140" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. PARTIAL (Частковий)</text>
+  <text x="470" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">ШІМ струму: 20%..70%</text>
+  <text x="470" y="185" font-size="12" fill="#6b7280" text-anchor="middle">10% ≤ Slip &lt; 30%</text>
+  <text x="470" y="205" font-size="12" fill="#2457d6" text-anchor="middle">Плавне змикання</text>
+
+  <!-- Arrow State 2 -> State 3 -->
+  <line x1="580" y1="165" x2="700" y2="165" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="640" y="155" font-size="12" fill="#c0392b" text-anchor="middle">Slip ≥ 30%</text>
+
+  <!-- State 3: FULL LOCK -->
+  <rect x="710" y="110" width="200" height="110" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="810" y="140" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">3. LOCKED (Жорсткий)</text>
+  <text x="810" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">ШІМ струму = 100%</text>
+  <text x="810" y="185" font-size="12" fill="#6b7280" text-anchor="middle">Повне зчеплення дисків</text>
+  <text x="810" y="205" font-size="12" fill="#c0392b" text-anchor="middle">Тяга 50/50%</text>
+
+  <!-- State 4: THERMAL PROTECTION (Bottom Center) -->
+  <rect x="360" y="270" width="220" height="95" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="470" y="298" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Тепловий захист</text>
+  <text x="470" y="322" font-size="12" fill="#c0392b" text-anchor="middle">Буксування &gt; 10 с: T_clutch &gt; 120°C</text>
+  <text x="470" y="344" font-size="12" fill="#6b7280" text-anchor="middle">Примусове скидання ШІМ до 15%</text>
+
+  <!-- Transition lines to Thermal Protection -->
+  <line x1="470" y1="220" x2="470" y2="270" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ABS Override Banner -->
+  <rect x="50" y="380" width="860" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="405" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Пріоритетне скидання блокування: тригер ABS_ACTIVE</text>
+  <text x="480" y="425" font-size="12" fill="#1a1a1a" text-anchor="middle">При екстреному гальмуванні муфта миттєво розмикається (PWM = 0) для незалежної роботи ABS.</text>
+</svg>

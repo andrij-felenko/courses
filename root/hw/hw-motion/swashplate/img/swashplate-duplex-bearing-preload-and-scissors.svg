@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-b" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-g" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-k" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дуплексний підшипник автомата перекосу та ножичні компенсатори</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Попередній натяг усуває осьовий люфт, а шліц-ножиці передають обертання при довільному нахилі тарілки</text>
+
+  <!-- Left Card: Duplex Bearing Preload (O-scheme / DB) -->
+  <rect x="30" y="75" width="435" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дуплексний підшипник: схема DB (O-подібна)</text>
+
+  <!-- Bearing Cross Section Diagram -->
+  <!-- Outer ring (attached to rotating swashplate) -->
+  <rect x="80" y="125" width="335" height="45" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Обертове кільце тарілки (зовнішня обойма)</text>
+
+  <!-- Bearing Balls and Contact Angles -->
+  <!-- Left Row Ball -->
+  <circle cx="170" cy="210" r="28" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+  <circle cx="170" cy="210" r="14" fill="#f1f5f9" stroke="#64748b" stroke-width="1"/>
+  <!-- Contact Line 1 (angle 35 deg, DB scheme) -->
+  <line x1="140" y1="245" x2="200" y2="175" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- Right Row Ball -->
+  <circle cx="325" cy="210" r="28" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+  <circle cx="325" cy="210" r="14" fill="#f1f5f9" stroke="#64748b" stroke-width="1"/>
+  <!-- Contact Line 2 (angle 35 deg, DB scheme) -->
+  <line x1="355" y1="245" x2="295" y2="175" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- Preload force arrows (axial squeeze) -->
+  <line x1="130" y1="210" x2="100" y2="210" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-k)"/>
+  <line x1="365" y1="210" x2="395" y2="210" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-k)"/>
+  <text x="247" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Кут контакту α = 35°</text>
+
+  <!-- Inner ring (attached to stationary swashplate) -->
+  <rect x="80" y="250" width="335" height="45" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247" y="277" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Нерухоме кільце тарілки (внутрішня обойма)</text>
+
+  <!-- Preload Description Block -->
+  <rect x="50" y="310" width="395" height="110" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="332" font-size="12" font-weight="bold" fill="#1a1a1a">Переваги попереднього натягу DB:</text>
+  <text x="65" y="354" font-size="12" fill="#1a1a1a">• Висока кутова жорсткість на перекидання від лопатей</text>
+  <text x="65" y="374" font-size="12" fill="#1a1a1a">• Нульовий осьовий та радіальний люфт у зазорі підшипника</text>
+  <text x="65" y="394" font-size="12" fill="#1a1a1a">• Гарантована точність передачі циклічного кроку ±0.05°</text>
+  <text x="65" y="412" font-size="11" fill="#6b7280">Осьове зусилля натягу регулюється тарованою гайкою або пружинами</text>
+
+  <!-- Right Card: Drive Scissors Mechanism -->
+  <rect x="495" y="75" width="435" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ножичний компенсатор (drive scissors)</text>
+
+  <!-- Scissors Kinematic Diagram -->
+  <!-- Top Attachment (Rotor mast hub) -->
+  <rect x="650" y="125" width="125" height="30" rx="3" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+  <text x="712" y="145" font-size="12" font-weight="bold" fill="#334155" text-anchor="middle">Втулка ротора</text>
+
+  <!-- Top Arm (Link 1) -->
+  <line x1="680" y1="155" x2="620" y2="215" stroke="#2457d6" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="680" cy="155" r="5" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Knee Joint (Hinge pin) -->
+  <circle cx="620" cy="215" r="8" fill="#fed7aa" stroke="#ea580c" stroke-width="2"/>
+  <text x="560" y="219" font-size="12" font-weight="bold" fill="#ea580c">Шарнір</text>
+
+  <!-- Bottom Arm (Link 2) -->
+  <line x1="620" y1="215" x2="680" y2="275" stroke="#2457d6" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="680" cy="275" r="5" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Bottom Attachment (Rotating swashplate) -->
+  <rect x="650" y="275" width="125" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="712" y="295" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Обертова тарілка</text>
+
+  <!-- Rotation and Travel Indicators -->
+  <!-- Rotation sync -->
+  <line x1="790" y1="140" x2="840" y2="140" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-g)"/>
+  <text x="850" y="144" font-size="12" font-weight="bold" fill="#27ae60">Синхронне ω</text>
+
+  <!-- Free vertical travel Z -->
+  <line x1="790" y1="215" x2="790" y2="175" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-b)"/>
+  <line x1="790" y1="215" x2="790" y2="255" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-b)"/>
+  <text x="800" y="219" font-size="12" fill="#2457d6">Хід Z (колектив)</text>
+
+  <!-- Scissors Description Block -->
+  <rect x="515" y="315" width="395" height="105" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="530" y="337" font-size="12" font-weight="bold" fill="#1a1a1a">Функції шліц-ножиць у системі:</text>
+  <text x="530" y="359" font-size="12" fill="#1a1a1a">• Передають крутний момент 1:1 без кутового проковзування</text>
+  <text x="530" y="379" font-size="12" fill="#1a1a1a">• Дозволяють вертикальний хід Z без опору та заклинювання</text>
+  <text x="530" y="399" font-size="12" fill="#1a1a1a">• Не обмежують вільний кутовий нахил тарілки на uniball</text>
+</svg>
