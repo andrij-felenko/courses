@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Епюри струмів і напруг зворотньоходового перетворювача (Flyback)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Прямий хід накопичує енергію в трансформаторі, а зворотний хід передає її у вторинне коло</text>
+
+  <!-- Головна панель осцилограм -->
+  <rect x="30" y="80" width="620" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Вертикальні роздільники фаз: Прямий хід (T_on) та Зворотний хід (T_off) -->
+  <line x1="140" y1="100" x2="140" y2="410" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="280" y1="100" x2="280" y2="410" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="440" y1="100" x2="440" y2="410" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="580" y1="100" x2="580" y2="410" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Підписи зон угорі графіка -->
+  <rect x="145" y="95" width="130" height="22" rx="3" fill="#eaf0fd"/>
+  <text x="210" y="111" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Прямий хід (T_on)</text>
+
+  <rect x="285" y="95" width="150" height="22" rx="3" fill="#e9f7ef"/>
+  <text x="360" y="111" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Зворотний хід (T_off)</text>
+
+  <!-- Епюра 1: Стан ключа V_gate (y: 130..180) -->
+  <text x="50" y="150" font-size="12" font-weight="bold" fill="#1a1a1a">V_gate</text>
+  <text x="50" y="166" font-size="11" fill="#6b7280">(Ключ)</text>
+
+  <line x1="100" y1="175" x2="600" y2="175" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- П-подібний імпульс: 140..280 HIGH, 280..580 LOW -->
+  <polyline points="100,175 140,175 140,135 280,135 280,175 580,175" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="210" y="130" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Ключ ВВІМКНЕНО</text>
+
+  <!-- Епюра 2: Струми I_pri та I_sec (y: 195..280) -->
+  <text x="50" y="225" font-size="12" font-weight="bold" fill="#1a1a1a">I_обмоток</text>
+  <text x="50" y="242" font-size="11" fill="#6b7280">(Струм)</text>
+
+  <line x1="100" y1="275" x2="600" y2="275" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- I_pri: пилка від 0 (x=140) до I_pk (x=280, y=205), далі 0 -->
+  <polyline points="100,275 140,275 280,205 280,275 580,275" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="145" y="200" font-size="11" font-weight="bold" fill="#2457d6">I_pri (накопичення)</text>
+
+  <!-- I_sec: від I_sec_pk (x=280, y=205) спадає до 0 (x=440, y=275) -->
+  <polyline points="140,275 280,275 280,205 440,275 580,275" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="350" y="200" font-size="11" font-weight="bold" fill="#27ae60">I_sec (віддача)</text>
+
+  <!-- Епюра 3: Напруга стоку ключа V_DS (y: 295..405) -->
+  <text x="50" y="340" font-size="12" font-weight="bold" fill="#1a1a1a">V_DS</text>
+  <text x="50" y="356" font-size="11" fill="#6b7280">(Стік)</text>
+
+  <line x1="100" y1="395" x2="600" y2="395" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- V_DS: t=140..280 0V; t=280 сплеск V_spike до y=310, далі поличка V_bus+V_ro y=335 до 440, далі коливання і V_bus y=365 -->
+  <polyline points="100,365 140,365 140,395 280,395 280,310 295,335 440,335 445,355 455,370 470,365 580,365" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <text x="210" y="415" font-size="11" fill="#6b7280" text-anchor="middle">V_DS ≈ 0 В</text>
+  <text x="310" y="305" font-size="11" font-weight="bold" fill="#c0392b">Сплеск L_leak</text>
+  <text x="350" y="355" font-size="11" fill="#c0392b">V_bus + V_ro</text>
+
+  <!-- Права панель: Фізика процесів і формули -->
+  <rect x="670" y="80" width="260" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="800" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фази перетворення</text>
+
+  <!-- Фаза 1 -->
+  <rect x="685" y="125" width="230" height="85" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="695" y="145" font-size="12" font-weight="bold" fill="#2457d6">1. Накопичення енергії:</text>
+  <text x="695" y="165" font-size="11" fill="#1a1a1a">• Ключ закрито на землю</text>
+  <text x="695" y="182" font-size="11" fill="#1a1a1a">• Енергія магнітного поля:</text>
+  <text x="695" y="200" font-size="11" font-weight="bold" fill="#2457d6">E = (L_pri · I_pk²) / 2</text>
+
+  <!-- Фаза 2 -->
+  <rect x="685" y="220" width="230" height="95" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="695" y="240" font-size="12" font-weight="bold" fill="#27ae60">2. Віддача у навантаження:</text>
+  <text x="695" y="260" font-size="11" fill="#1a1a1a">• Ключ розімкнено</text>
+  <text x="695" y="278" font-size="11" fill="#1a1a1a">• ЕРС відкриває вторинний діод</text>
+  <text x="695" y="296" font-size="11" fill="#1a1a1a">• Струм заряджає конденсатор</text>
+
+  <!-- Снаббер -->
+  <rect x="685" y="325" width="230" height="90" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="695" y="345" font-size="12" font-weight="bold" fill="#c0392b">3. Захист ключа RCD:</text>
+  <text x="695" y="365" font-size="11" fill="#1a1a1a">• Індуктивність розсіювання</text>
+  <text x="695" y="382" font-size="11" fill="#1a1a1a">  створює високовольтний пік</text>
+  <text x="695" y="402" font-size="11" font-weight="bold" fill="#c0392b">• Снаббер зрізає V_spike</text>
+</svg>

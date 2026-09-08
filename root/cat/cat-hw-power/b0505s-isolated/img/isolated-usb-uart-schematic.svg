@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема ізольованого перехідника USB-UART (B0505S + ADuM1201)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Модуль B0505S живить ізольовану частину, а магнітний ізолятор розв'язує лінії RX/TX</text>
+
+  <!-- Розділовий бар'єр по центру -->
+  <line x1="480" y1="85" x2="480" y2="425" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,6"/>
+  <text x="480" y="105" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Бар'єр 1500 В DC</text>
+
+  <!-- Ліва панель: Контур GND1 (ПК / USB) -->
+  <rect x="40" y="90" width="410" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="118" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Неізольований бік ПК (GND1)</text>
+
+  <!-- USB порт -->
+  <rect x="60" y="145" width="75" height="115" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="97" y="175" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">USB-A</text>
+  <text x="97" y="200" font-size="12" fill="#1a1a1a" text-anchor="middle">D+ / D-</text>
+  <text x="97" y="225" font-size="12" fill="#6b7280" text-anchor="middle">+5V USB</text>
+  <text x="97" y="245" font-size="12" fill="#6b7280" text-anchor="middle">GND1</text>
+
+  <!-- USB-UART мікросхема CH340G -->
+  <rect x="165" y="145" width="105" height="115" rx="6" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="217" y="175" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CH340G</text>
+  <text x="217" y="195" font-size="12" fill="#6b7280" text-anchor="middle">USB-UART</text>
+  <text x="260" y="222" font-size="12" fill="#2457d6" text-anchor="end">TXD</text>
+  <text x="260" y="244" font-size="12" fill="#2457d6" text-anchor="end">RXD</text>
+
+  <!-- З'єднання USB до CH340 -->
+  <line x1="135" y1="185" x2="165" y2="185" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="135" y1="205" x2="165" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- ADuM1201 первинна сторона -->
+  <rect x="300" y="145" width="130" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="365" y="170" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ADuM1201 (1)</text>
+  <text x="310" y="195" font-size="12" fill="#1a1a1a">VDD1</text>
+  <text x="310" y="215" font-size="12" fill="#1a1a1a">VIA (TX)</text>
+  <text x="310" y="235" font-size="12" fill="#1a1a1a">VOB (RX)</text>
+  <text x="310" y="252" font-size="12" fill="#1a1a1a">GND1</text>
+
+  <!-- Лінії від CH340 до ADuM1201 -->
+  <line x1="270" y1="218" x2="300" y2="218" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="270" y1="238" x2="300" y2="238" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- B0505S первинна сторона -->
+  <rect x="230" y="295" width="200" height="95" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="330" y="325" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">B0505S (Вхід)</text>
+  <text x="245" y="352" font-size="12" fill="#1a1a1a">Pin 2: +Vin (+5V)</text>
+  <text x="245" y="375" font-size="12" fill="#1a1a1a">Pin 1: -Vin (GND1)</text>
+
+  <!-- Шини живлення входу -->
+  <line x1="97" y1="260" x2="97" y2="348" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="97" y1="348" x2="230" y2="348" stroke="#1a1a1a" stroke-width="2"/>
+
+  <line x1="80" y1="260" x2="80" y2="372" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="80" y1="372" x2="230" y2="372" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Права панель: Контур GND2 (Ціль / Ізольовано) -->
+  <rect x="510" y="90" width="410" height="330" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="715" y="118" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Ізольований бік пристрою (GND2)</text>
+
+  <!-- ADuM1201 вторинна сторона -->
+  <rect x="530" y="145" width="130" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="595" y="170" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ADuM1201 (2)</text>
+  <text x="650" y="195" font-size="12" fill="#27ae60" text-anchor="end">VDD2</text>
+  <text x="650" y="215" font-size="12" fill="#27ae60" text-anchor="end">VOA (TX)</text>
+  <text x="650" y="235" font-size="12" fill="#27ae60" text-anchor="end">VIB (RX)</text>
+  <text x="650" y="252" font-size="12" fill="#1a1a1a" text-anchor="end">GND2</text>
+
+  <!-- Магнітний зв'язок через бар'єр (ADuM1201) -->
+  <line x1="430" y1="210" x2="530" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="530" y1="230" x2="430" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="195" font-size="12" fill="#2457d6" text-anchor="middle">iCoupler</text>
+
+  <!-- B0505S вторинна сторона -->
+  <rect x="530" y="295" width="200" height="95" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="630" y="325" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">B0505S (Вихід)</text>
+  <text x="715" y="352" font-size="12" fill="#27ae60" text-anchor="end">Pin 4: +Vo (+5V)</text>
+  <text x="715" y="375" font-size="12" fill="#1a1a1a" text-anchor="end">Pin 3: -Vo (GND2)</text>
+
+  <!-- Передача живлення через бар'єр (B0505S) -->
+  <line x1="430" y1="348" x2="530" y2="348" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="340" font-size="12" fill="#27ae60" text-anchor="middle">1 Вт ISO</text>
+
+  <!-- Вихідна колодка UART (Header) -->
+  <rect x="760" y="145" width="140" height="245" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="830" y="175" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихідний роз'єм</text>
+  <text x="830" y="195" font-size="12" fill="#6b7280" text-anchor="middle">UART Header</text>
+
+  <!-- Клеми на виході -->
+  <circle cx="785" cy="225" r="4" fill="#27ae60"/>
+  <text x="800" y="229" font-size="12" fill="#1a1a1a">TXD_ISO</text>
+
+  <circle cx="785" cy="265" r="4" fill="#27ae60"/>
+  <text x="800" y="269" font-size="12" fill="#1a1a1a">RXD_ISO</text>
+
+  <circle cx="785" cy="330" r="4" fill="#27ae60"/>
+  <text x="800" y="334" font-size="12" fill="#27ae60">+5V_ISO</text>
+
+  <circle cx="785" cy="370" r="4" fill="#1a1a1a"/>
+  <text x="800" y="374" font-size="12" fill="#1a1a1a">GND2</text>
+
+  <!-- Лінії від ADuM1201 та B0505S до колодки -->
+  <line x1="660" y1="215" x2="781" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="660" y1="235" x2="781" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="730" y1="348" x2="781" y2="330" stroke="#27ae60" stroke-width="2"/>
+  <line x1="730" y1="372" x2="781" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+</svg>

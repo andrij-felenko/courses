@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція підвищувачів: біполярний MC34063 проти польового MT3608</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Перехід з 50 кГц на 1.2 МГц зменшив розмір дроселя та конденсаторів у 10 разів, піднявши ККД до 93%</text>
+
+  <!-- Ліва панель: MC34063 -->
+  <rect x="30" y="80" width="435" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="108" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Ера MC34063 (1980-ті роки, 50 кГц)</text>
+
+  <!-- Спрощена плата MC34063 -->
+  <rect x="55" y="125" width="385" height="155" rx="6" fill="#1e293b" stroke="#0f172a" stroke-width="1.5"/>
+  <text x="247" y="148" font-size="12" font-weight="bold" fill="#fca5a5" text-anchor="middle">Типова плата MC34063 (~50 × 30 мм)</text>
+
+  <!-- Мікросхема DIP-8 -->
+  <rect x="75" y="165" width="70" height="45" rx="3" fill="#111827" stroke="#9ca3af" stroke-width="1"/>
+  <text x="110" y="192" font-size="11" fill="white" text-anchor="middle">DIP-8</text>
+
+  <!-- Масивний дросель 150-220 мкГн -->
+  <circle cx="215" cy="187" r="28" fill="#b45309" stroke="#78350f" stroke-width="1.5"/>
+  <text x="215" y="184" font-size="11" font-weight="bold" fill="white" text-anchor="middle">220 мкГн</text>
+  <text x="215" y="198" font-size="10" fill="#fef3c7" text-anchor="middle">Тор 15мм</text>
+
+  <!-- Електролітичні конденсатори -->
+  <circle cx="310" cy="187" r="26" fill="#3b82f6" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="310" y="183" font-size="11" font-weight="bold" fill="white" text-anchor="middle">470 мкФ</text>
+  <text x="310" y="197" font-size="10" fill="white" text-anchor="middle">Електроліт</text>
+
+  <!-- Діод 1N5819 -->
+  <rect x="365" y="172" width="55" height="30" rx="3" fill="#374151" stroke="#6b7280" stroke-width="1"/>
+  <text x="392" y="191" font-size="10" fill="white" text-anchor="middle">1N5819</text>
+
+  <text x="247" y="260" font-size="11" fill="#fca5a5" text-anchor="middle">Низька частота вимагає громіздких котушок та електролітів</text>
+
+  <!-- Характеристики MC34063 -->
+  <rect x="50" y="295" width="395" height="120" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="65" y="318" font-size="12" font-weight="bold" fill="#c0392b">Технологічні обмеження MC34063:</text>
+  <text x="65" y="338" font-size="11" fill="#1a1a1a">• Біполярний ключ Дарлінгтона: падіння V_sat = 1.0–1.3 В</text>
+  <text x="65" y="358" font-size="11" fill="#1a1a1a">• Частота комутації: всього 33–50 кГц (висока індуктивність)</text>
+  <text x="65" y="378" font-size="11" fill="#1a1a1a">• Низький ККД: 65–75% (суттєвий нагрів мікросхеми)</text>
+  <text x="65" y="398" font-size="11" fill="#c0392b">• Громіздкі габарити, не поміщається в компактні корпуси</text>
+
+  <!-- Права панель: MT3608 -->
+  <rect x="495" y="80" width="435" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="108" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Ера MT3608 (Сучасність, 1.2 МГц)</text>
+
+  <!-- Спрощена плата MT3608 -->
+  <rect x="555" y="140" width="315" height="125" rx="6" fill="#1e3a8a" stroke="#172554" stroke-width="1.5"/>
+  <text x="712" y="160" font-size="12" font-weight="bold" fill="#93c5fd" text-anchor="middle">Мініатюрна плата MT3608 (36 × 17 мм)</text>
+
+  <!-- Контролер SOT-23-6 -->
+  <rect x="585" y="180" width="35" height="28" rx="2" fill="#111827" stroke="#9ca3af" stroke-width="1"/>
+  <text x="602" y="198" font-size="10" fill="white" text-anchor="middle">SOT</text>
+
+  <!-- SMD Дросель 22 мкГн -->
+  <rect x="640" y="175" width="45" height="38" rx="3" fill="#374151" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="662" y="198" font-size="11" font-weight="bold" fill="white" text-anchor="middle">220</text>
+
+  <!-- Керамічний конденсатор MLCC -->
+  <rect x="705" y="182" width="22" height="24" rx="2" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <text x="716" y="198" font-size="10" fill="white" text-anchor="middle">C</text>
+
+  <!-- Діод SS34 -->
+  <rect x="745" y="180" width="32" height="28" rx="2" fill="#1f2937" stroke="#4b5563" stroke-width="1"/>
+  <text x="761" y="198" font-size="10" fill="white" text-anchor="middle">SS34</text>
+
+  <!-- Підлаштовник W3296 -->
+  <rect x="795" y="175" width="55" height="38" rx="2" fill="#2563eb" stroke="#1d4ed8" stroke-width="1"/>
+  <circle cx="835" cy="194" r="6" fill="#facc15"/>
+  <text x="815" y="198" font-size="10" fill="white">104</text>
+
+  <text x="712" y="245" font-size="11" fill="#93c5fd" text-anchor="middle">Частота 1.2 МГц дозволила перейти на мініатюрні SMD-компоненти</text>
+
+  <!-- Характеристики MT3608 -->
+  <rect x="515" y="295" width="395" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="530" y="318" font-size="12" font-weight="bold" fill="#27ae60">Переваги технології КМОН MT3608:</text>
+  <text x="530" y="338" font-size="11" fill="#1a1a1a">• Вбудований польовий N-MOSFET з опором R_DS = 80 мОм</text>
+  <text x="530" y="358" font-size="11" fill="#1a1a1a">• Частота комутації 1.2 МГц: дросель зменшився з 220 до 22 мкГн</text>
+  <text x="530" y="378" font-size="11" fill="#1a1a1a">• Керамічні конденсатори MLCC замість громіздких електролітів</text>
+  <text x="530" y="398" font-size="11" font-weight="bold" fill="#27ae60">• Високий ККД до 93–97% та розмір із поштову марку</text>
+</svg>

@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний та програмний інтерфейс підвищувача MT3608</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Моніторинг шини до 28 В через дільник 11:1, розрахунок струму котушки та керування піном EN з ключем навантаження</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Вхід і керування МК -->
+  <rect x="30" y="70" width="280" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="82" width="256" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="170" y="103" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Керуючий мікроконтролер (MCU)</text>
+
+  <rect x="45" y="125" width="250" height="58" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="55" y="145" font-size="12" font-weight="bold" fill="#1a1a1a">Джерело енергії (Батарея):</text>
+  <text x="55" y="165" font-size="12" fill="#6b7280">Li-Ion 3.7 В (3.0–4.2 В) або 5 В USB</text>
+
+  <rect x="45" y="195" width="250" height="85" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="55" y="215" font-size="12" font-weight="bold" fill="#1a1a1a">Вивід GPIO Enable (EN):</text>
+  <text x="55" y="235" font-size="12" fill="#1a1a1a">LOW = Сплячий режим (&lt; 1 мкА)</text>
+  <text x="55" y="255" font-size="12" fill="#27ae60">HIGH = Запуск ШІМ 1.2 МГц</text>
+  <text x="55" y="272" font-size="12" fill="#c0392b">Увага: струм через діод не переривається!</text>
+
+  <rect x="45" y="292" width="250" height="125" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="55" y="312" font-size="12" font-weight="bold" fill="#27ae60">Оцінка струму індуктивності:</text>
+  <text x="55" y="332" font-size="12" fill="#1a1a1a">Розрахунок коефіцієнта D = 1 - Vin/Vout</text>
+  <text x="55" y="352" font-size="12" fill="#1a1a1a">I_вхід = I_вихід / (1 - D)</text>
+  <text x="55" y="372" font-size="12" fill="#c0392b">Стеля: 1.8 А (запобігання насиченню)</text>
+  <text x="55" y="392" font-size="12" fill="#6b7280">Захист акумулятора від просідання</text>
+
+  <!-- ЦЕНТРАЛЬНА ПАНЕЛЬ: Модуль MT3608 -->
+  <rect x="340" y="70" width="280" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="352" y="82" width="256" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="103" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль MT3608 Boost</text>
+
+  <rect x="355" y="125" width="250" height="60" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="365" y="145" font-size="12" font-weight="bold" fill="#1a1a1a">Вхідні площадки IN+ / IN-:</text>
+  <text x="365" y="165" font-size="12" fill="#2457d6">Діапазон вхідної напруги: 2.0–24 В</text>
+
+  <rect x="355" y="195" width="250" height="95" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="365" y="215" font-size="12" font-weight="bold" fill="#1a1a1a">Силова комутація 1.2 МГц:</text>
+  <text x="365" y="235" font-size="12" fill="#1a1a1a">Дросель 22 мкГн + діод SS34</text>
+  <text x="365" y="255" font-size="12" fill="#1a1a1a">Вбудований ключ MOSFET (80 мОм)</text>
+  <text x="365" y="275" font-size="12" fill="#c0392b">Піковий струм ключа: 2.0 А</text>
+
+  <rect x="355" y="302" width="250" height="115" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="365" y="322" font-size="12" font-weight="bold" fill="#1a1a1a">Дільник вимірювання (К = 11.0):</text>
+  <text x="365" y="342" font-size="12" fill="#1a1a1a">R1 = 100 кОм (до OUT+)</text>
+  <text x="365" y="362" font-size="12" fill="#1a1a1a">R2 = 10 кОм (до GND)</text>
+  <text x="365" y="382" font-size="12" fill="#27ae60">При 28 В на виході: на АЦП 2.54 В</text>
+  <text x="365" y="402" font-size="12" fill="#6b7280">Безпечний діапазон для входу 3.3 В</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Вихід і навантаження -->
+  <rect x="650" y="70" width="280" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="662" y="82" width="256" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="790" y="103" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Високовольтне навантаження</text>
+
+  <rect x="665" y="125" width="250" height="85" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="675" y="145" font-size="12" font-weight="bold" fill="#c0392b">Повний вимикач (Load Switch):</text>
+  <text x="675" y="165" font-size="12" fill="#1a1a1a">P-MOSFET ключ на 30 В (AO3407A)</text>
+  <text x="675" y="185" font-size="12" fill="#1a1a1a">Розриває ланцюг діода Шотткі</text>
+  <text x="675" y="202" font-size="12" fill="#27ae60">Забезпечує справжні 0 В у вимкненні</text>
+
+  <rect x="665" y="222" width="250" height="95" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="675" y="242" font-size="12" font-weight="bold" fill="#1a1a1a">Споживачі високої напруги:</text>
+  <text x="675" y="262" font-size="12" fill="#1a1a1a">Світлодіодна стрічка (12 В)</text>
+  <text x="675" y="282" font-size="12" fill="#1a1a1a">Датчики 4–20 мА (24 В)</text>
+  <text x="675" y="302" font-size="12" fill="#6b7280">Міні-помпи та соленоїди (9–12 В)</text>
+
+  <rect x="665" y="327" width="250" height="90" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="675" y="347" font-size="12" font-weight="bold" fill="#1a1a1a">Захист від перенапруги (OVP):</text>
+  <text x="675" y="367" font-size="12" fill="#c0392b">Поріг відсікання: Vout &gt; 28.5 В</text>
+  <text x="675" y="387" font-size="12" fill="#1a1a1a">Миттєве скидання EN у логічний 0</text>
+  <text x="675" y="405" font-size="12" fill="#6b7280">Захист вихідних конденсаторів</text>
+
+  <!-- Стрілки зв'язку -->
+  <line x1="295" y1="230" x2="355" y2="230" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="605" y1="240" x2="665" y2="170" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="355" y1="360" x2="295" y2="360" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+</svg>

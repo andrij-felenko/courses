@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Навантажувальна характеристика B0505S-1W</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">На холостому ході напруга зростає до 6.5 В; робочий діапазон 5 В починається від струму 20 мА</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: ГРАФІК -->
+  <rect x="30" y="72" width="540" height="364" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">1. Залежність вихідної напруги V_out від струму I_out</text>
+
+  <!-- Зони на графіку -->
+  <!-- Небезпечна зона 0..20 мА -->
+  <rect x="100" y="125" width="80" height="215" fill="#fdecea" opacity="0.8"/>
+  <text x="140" y="320" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Закидання</text>
+  <text x="140" y="333" font-size="11" fill="#c0392b" text-anchor="middle">&lt; 10%</text>
+
+  <!-- Робоча зона 20..200 мА -->
+  <rect x="180" y="125" width="340" height="215" fill="#e9f7ef" opacity="0.6"/>
+  <text x="350" y="145" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Нормований робочий діапазон (10% ... 100% I_nom)</text>
+
+  <!-- Горизонтальні лінії сітки напруги -->
+  <!-- 6.5 В -->
+  <line x1="100" y1="130" x2="520" y2="130" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <text x="90" y="134" font-size="12" fill="#6b7280" text-anchor="end">6.5 В</text>
+
+  <!-- 6.0 В -->
+  <line x1="100" y1="170" x2="520" y2="170" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <text x="90" y="174" font-size="12" fill="#6b7280" text-anchor="end">6.0 В</text>
+
+  <!-- 5.5 В (верхня межа норми) -->
+  <line x1="100" y1="210" x2="520" y2="210" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <text x="90" y="214" font-size="12" fill="#6b7280" text-anchor="end">5.5 В</text>
+
+  <!-- 5.0 В (номінал) -->
+  <line x1="100" y1="250" x2="520" y2="250" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="90" y="254" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">5.0 В</text>
+
+  <!-- 4.5 В -->
+  <line x1="100" y1="290" x2="520" y2="290" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <text x="90" y="294" font-size="12" fill="#6b7280" text-anchor="end">4.5 В</text>
+
+  <!-- Осі координат -->
+  <line x1="100" y1="340" x2="530" y2="340" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="100" y1="340" x2="100" y2="115" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Позначки осі X -->
+  <text x="100" y="358" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <line x1="180" y1="340" x2="180" y2="345" stroke="#1a1a1a"/>
+  <text x="180" y="358" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">20 мА</text>
+  <text x="180" y="372" font-size="11" fill="#c0392b" text-anchor="middle">(10%)</text>
+
+  <line x1="265" y1="340" x2="265" y2="345" stroke="#1a1a1a"/>
+  <text x="265" y="358" font-size="12" fill="#6b7280" text-anchor="middle">60 мА</text>
+
+  <line x1="350" y1="340" x2="350" y2="345" stroke="#1a1a1a"/>
+  <text x="350" y="358" font-size="12" fill="#6b7280" text-anchor="middle">100 мА</text>
+  <text x="350" y="372" font-size="11" fill="#6b7280" text-anchor="middle">(50%)</text>
+
+  <line x1="500" y1="340" x2="500" y2="345" stroke="#1a1a1a"/>
+  <text x="500" y="358" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">200 мА</text>
+  <text x="500" y="372" font-size="11" fill="#27ae60" text-anchor="middle">(100%)</text>
+
+  <!-- Підпис осі X -->
+  <text x="510" y="395" font-size="12" fill="#1a1a1a" text-anchor="end">Струм навантаження I_out</text>
+
+  <!-- Крива характеристики V_out -->
+  <path d="M 100 135 C 130 145 160 215 180 235 C 230 248 350 252 500 265" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="100" cy="135" r="4" fill="#c0392b"/>
+  <circle cx="180" cy="235" r="4" fill="#2457d6"/>
+  <circle cx="500" cy="265" r="4" fill="#27ae60"/>
+
+  <text x="145" y="125" font-size="11" font-weight="bold" fill="#c0392b">6.45 В (XX)</text>
+  <text x="195" y="228" font-size="11" font-weight="bold" fill="#2457d6">5.15 В</text>
+  <text x="470" y="285" font-size="11" font-weight="bold" fill="#27ae60">4.85 В</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: СПОСІБ ЗАХИСТУ -->
+  <rect x="590" y="72" width="340" height="364" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="610" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">2. Рішення: баластне навантаження</text>
+
+  <!-- Схема підключення баласту -->
+  <rect x="610" y="120" width="300" height="150" rx="6" fill="white" stroke="#d0d7de"/>
+
+  <!-- Джерело B0505S -->
+  <rect x="625" y="145" width="85" height="100" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="667" y="185" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">B0505S</text>
+  <text x="667" y="205" font-size="11" fill="#6b7280" text-anchor="middle">Вихід</text>
+
+  <!-- Лінії +5V та 0V -->
+  <line x1="710" y1="165" x2="880" y2="165" stroke="#27ae60" stroke-width="2"/>
+  <line x1="710" y1="225" x2="880" y2="225" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Резистор баласту R_dummy -->
+  <rect x="765" y="175" width="24" height="40" fill="#fff9db" stroke="#f59f00" stroke-width="1.5"/>
+  <line x1="777" y1="165" x2="777" y2="175" stroke="#27ae60" stroke-width="2"/>
+  <line x1="777" y1="215" x2="777" y2="225" stroke="#6b7280" stroke-width="2"/>
+
+  <text x="750" y="198" font-size="11" font-weight="bold" fill="#d97706" text-anchor="end">R_dummy</text>
+  <text x="750" y="212" font-size="10" fill="#6b7280" text-anchor="end">470 Ом</text>
+
+  <!-- Вихід на схему -->
+  <circle cx="880" cy="165" r="3" fill="#27ae60"/>
+  <circle cx="880" cy="225" r="3" fill="#6b7280"/>
+  <text x="890" y="169" font-size="12" font-weight="bold" fill="#27ae60">+5V</text>
+  <text x="890" y="229" font-size="12" font-weight="bold" fill="#6b7280">GND2</text>
+
+  <!-- Розрахунок баласту -->
+  <rect x="610" y="285" width="300" height="135" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="625" y="308" font-size="12" font-weight="bold" fill="#1a1a1a">Розрахунок баластного резистора:</text>
+  <text x="625" y="330" font-size="12" fill="#1a1a1a">• R_dummy = U_out / I_min = 5 В / 20 мА = 250 Ом</text>
+  <text x="625" y="352" font-size="12" fill="#1a1a1a">• Практичний вибір: 330–470 Ом (струм 11–15 мА)</text>
+  <text x="625" y="374" font-size="12" fill="#6b7280">• Розсіювана потужність: P = U² / R ≈ 50–75 мВт</text>
+  <text x="625" y="396" font-size="12" font-weight="bold" fill="#27ae60">• Вихідна напруга гарантовано не перевищить 5.25 В</text>
+</svg>

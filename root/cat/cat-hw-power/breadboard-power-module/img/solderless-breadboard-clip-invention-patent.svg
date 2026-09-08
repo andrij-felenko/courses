@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пружинний контакт безпаяльної плати: патент US3883209A</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Винахід Рональда Портуґала (1971): пружні нікельовані ламелі для рейок живлення та сигналів</text>
+
+  <!-- Ліва панель: Одиничний 5-контактний затискач -->
+  <rect x="40" y="80" width="410" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">5-точковий сигнальний затискач (Tie-Point Clip)</text>
+
+  <!-- Профіль затискача в розрізі -->
+  <rect x="90" y="130" width="310" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Вивід деталі (ніжка) що вставляється зверху -->
+  <line x1="245" y1="135" x2="245" y2="185" stroke="#c0392b" stroke-width="3"/>
+  <text x="255" y="150" font-size="11" font-weight="bold" fill="#c0392b">Вивід деталі (AWG 22–26)</text>
+
+  <!-- Дві пружні ламелі затискача -->
+  <!-- Ліва ламель -->
+  <path d="M 215 250 L 215 210 Q 215 190 238 190 Q 230 200 230 250 Z" fill="#d97706" stroke="#b45309" stroke-width="1.5"/>
+  <!-- Права ламель -->
+  <path d="M 275 250 L 275 210 Q 275 190 252 190 Q 260 200 260 250 Z" fill="#d97706" stroke="#b45309" stroke-width="1.5"/>
+  <!-- Основа кліпси -->
+  <rect x="210" y="250" width="70" height="12" rx="2" fill="#b45309"/>
+
+  <!-- Виносні стрілки з підписами збоку -->
+  <line x1="320" y1="195" x2="265" y2="195" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="325" y="198" font-size="11" fill="#1a1a1a">Зона стискання</text>
+
+  <line x1="165" y1="230" x2="210" y2="230" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="100" y="233" font-size="11" fill="#b45309">Пружна бронза</text>
+
+  <!-- Опис винаходу ліворуч -->
+  <rect x="55" y="295" width="380" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="70" y="320" font-size="12" font-weight="bold" fill="#2457d6">Анатомія винаходу Рональда Портуґала:</text>
+  <text x="70" y="342" font-size="12" fill="#1a1a1a">• Штампована пружинна фосфориста бронза або нейзильбер</text>
+  <text x="70" y="364" font-size="12" fill="#1a1a1a">• 5 пар контактних губок об'єднані спільною шиною внизу</text>
+  <text x="70" y="386" font-size="12" fill="#1a1a1a">• Стандартний крок 0.1 дюйма (2.54 мм) під виводи DIP-мікросхем</text>
+  <text x="70" y="406" font-size="12" fill="#27ae60">• Забезпечує до 10 000 циклів вставляння без деформації</text>
+
+  <!-- Права панель: Поздовжня рейка живлення -->
+  <rect x="480" y="80" width="440" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="700" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Подовжена рейка живлення макетної плати (Power Bus)</text>
+
+  <!-- Довга металева рейка живлення -->
+  <rect x="500" y="130" width="400" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Суцільна смуга контактних пар -->
+  <rect x="520" y="235" width="360" height="15" rx="2" fill="#b45309"/>
+  <text x="700" y="265" font-size="11" fill="#6b7280" text-anchor="middle">Суцільна шина об'єднує 25 або 50 точок уздовж усієї довжини плати</text>
+
+  <!-- Групи контактів рейки -->
+  <!-- Контакт 1 -->
+  <rect x="535" y="180" width="16" height="55" rx="2" fill="#d97706" stroke="#b45309"/>
+  <circle cx="543" cy="165" r="5" fill="#c0392b"/>
+
+  <!-- Контакт 2 -->
+  <rect x="575" y="180" width="16" height="55" rx="2" fill="#d97706" stroke="#b45309"/>
+  <circle cx="583" cy="165" r="5" fill="#c0392b"/>
+
+  <!-- Контакт 3 -->
+  <rect x="615" y="180" width="16" height="55" rx="2" fill="#d97706" stroke="#b45309"/>
+  <circle cx="623" cy="165" r="5" fill="#c0392b"/>
+
+  <!-- Контакт 4 -->
+  <rect x="655" y="180" width="16" height="55" rx="2" fill="#d97706" stroke="#b45309"/>
+  <circle cx="663" cy="165" r="5" fill="#c0392b"/>
+
+  <!-- Контакт 5 -->
+  <rect x="695" y="180" width="16" height="55" rx="2" fill="#d97706" stroke="#b45309"/>
+  <circle cx="703" cy="165" r="5" fill="#c0392b"/>
+
+  <!-- Контакт 6 -->
+  <rect x="735" y="180" width="16" height="55" rx="2" fill="#d97706" stroke="#b45309"/>
+  <circle cx="743" cy="165" r="5" fill="#c0392b"/>
+
+  <!-- Контакт 7 -->
+  <rect x="775" y="180" width="16" height="55" rx="2" fill="#d97706" stroke="#b45309"/>
+  <circle cx="783" cy="165" r="5" fill="#c0392b"/>
+
+  <!-- Контакт 8 -->
+  <rect x="815" y="180" width="16" height="55" rx="2" fill="#d97706" stroke="#b45309"/>
+  <circle cx="823" cy="165" r="5" fill="#c0392b"/>
+
+  <!-- Вставляння штиря MB102 -->
+  <line x1="543" y1="135" x2="543" y2="155" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="630" y="145" font-size="11" font-weight="bold" fill="#2457d6">Штир живлення модуля MB102</text>
+
+  <!-- Опис рейки живлення праворуч -->
+  <rect x="495" y="295" width="410" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="510" y="320" font-size="12" font-weight="bold" fill="#27ae60">Як MB102 використовує рейки патенту:</text>
+  <text x="510" y="342" font-size="12" fill="#1a1a1a">• Модуль фіксується штирями прямо у перші 4 гнізда рейки</text>
+  <text x="510" y="364" font-size="12" fill="#1a1a1a">• Роздає стабільні 5 В або 3.3 В на весь ланцюг без жодного дроту</text>
+  <text x="510" y="386" font-size="12" fill="#1a1a1a">• Опір контакту затискача: &lt; 10 мОм при чистому металі</text>
+  <text x="510" y="406" font-size="12" fill="#c0392b">• Окислення ламелей з часом викликає просідання живлення</text>
+</svg>

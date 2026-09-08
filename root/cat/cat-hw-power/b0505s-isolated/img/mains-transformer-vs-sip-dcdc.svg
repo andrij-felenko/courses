@@ -1,0 +1,53 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Гальванічна розв'язка 1 Вт: трансформатор 50 Гц проти SIP B0505S</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Перехід на високу частоту комутації зменшує об'єм ізолюючого вузла у понад 100 разів</text>
+
+  <!-- Ліва панель: Низькочастотний трансформатор 50 Гц -->
+  <rect x="50" y="90" width="415" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="257" y="120" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залізний трансформатор 50 Гц</text>
+  <text x="257" y="142" font-size="12" fill="#c0392b" text-anchor="middle">Низька частота → громіздке залізне осердя</text>
+
+  <!-- Ілюстрація габаритів трансформатора -->
+  <rect x="145" y="160" width="225" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="257" y="200" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Сталеве Ш-осердя</text>
+  <text x="257" y="225" font-size="12" fill="#1a1a1a" text-anchor="middle">Трансформаторні пластини</text>
+  <text x="257" y="248" font-size="12" fill="#6b7280" text-anchor="middle">Тисячі витків тонкого мідного дроту</text>
+  <text x="257" y="272" font-size="12" fill="#c0392b" text-anchor="middle">Габарити: ~45 × 40 × 35 мм</text>
+
+  <!-- Параметри 50 Гц рішення -->
+  <rect x="70" y="310" width="375" height="105" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="85" y="335" font-size="12" fill="#1a1a1a">• Робоча частота: 50–60 Гц (мережа AC)</text>
+  <text x="85" y="360" font-size="12" fill="#1a1a1a">• Маса вузла: 120–160 грамів</text>
+  <text x="85" y="385" font-size="12" fill="#1a1a1a">• Об'єм: ~60–80 см³ (+ міст, електроліт, 7805)</text>
+
+  <!-- Права панель: DC-DC конвертер B0505S -->
+  <rect x="495" y="90" width="415" height="340" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="702" y="120" font-size="16" font-weight="bold" fill="#27ae60" text-anchor="middle">DC-DC модуль B0505S-1W</text>
+  <text x="702" y="142" font-size="12" fill="#27ae60" text-anchor="middle">Висока частота 100+ кГц → мікротороїд</text>
+
+  <!-- Ілюстрація габаритів модуля SIP-4 -->
+  <rect x="635" y="195" width="135" height="70" rx="4" fill="#f4f6f8" stroke="#27ae60" stroke-width="2"/>
+  <text x="702" y="225" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">B0505S-1W</text>
+  <text x="702" y="248" font-size="12" fill="#1a1a1a" text-anchor="middle">Корпус SIP-4</text>
+
+  <!-- Ніжки SIP-4 -->
+  <line x1="660" y1="265" x2="660" y2="285" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="685" y1="265" x2="685" y2="285" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="715" y1="265" x2="715" y2="285" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="740" y1="265" x2="740" y2="285" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="702" y="175" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Габарити: 11.5 × 6.0 × 10.0 мм</text>
+
+  <!-- Параметри B0505S -->
+  <rect x="515" y="310" width="375" height="105" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="530" y="335" font-size="12" fill="#1a1a1a">• Робоча частота: 100–150 кГц (інвертор Роєра)</text>
+  <text x="530" y="360" font-size="12" fill="#1a1a1a">• Маса вузла: лише 1.2 грама (у 100 разів легше)</text>
+  <text x="530" y="385" font-size="12" fill="#1a1a1a">• Об'єм: ~0.7 см³ (ізоляція 1000–1500 V DC)</text>
+</svg>

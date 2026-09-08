@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еквівалентна теплова схема стабілізатора AMS1117 (SOT-223)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Тепловий опір кристал-середовище 90 °C/W перетворює падіння напруги на нагрів кристала</text>
+
+  <!-- Ліва панель: Фізичний розріз SOT-223 -->
+  <rect x="40" y="80" width="410" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструкція корпусу SOT-223 та тепловідвід</text>
+
+  <!-- Корпус мікросхеми -->
+  <rect x="130" y="130" width="230" height="90" rx="4" fill="#2c3e50" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="245" y="160" font-size="12" fill="#bdc3c7" text-anchor="middle">Пластиковий корпус (епоксидний компаунд)</text>
+
+  <!-- Кремнієвий кристал -->
+  <rect x="195" y="172" width="100" height="32" rx="3" fill="#c0392b" stroke="#962d22" stroke-width="1.5"/>
+  <text x="245" y="193" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Кристал (T_j)</text>
+
+  <!-- Мідний тепловідвідний таб -->
+  <rect x="100" y="232" width="290" height="20" rx="2" fill="#d35400" stroke="#a04000" stroke-width="1.5"/>
+  <text x="245" y="247" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Мідний фланець (Tab / Pin 2 / Vout) — T_c</text>
+
+  <!-- Друкована плата PCB FR4 -->
+  <rect x="70" y="264" width="350" height="30" rx="3" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <text x="245" y="284" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Мідний полігон плати MB102 (охолодження) — T_pcb</text>
+
+  <!-- Навколишнє повітря -->
+  <rect x="70" y="310" width="350" height="104" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="245" y="335" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Навколишнє повітря: T_a = 25 °C</text>
+  <text x="90" y="362" font-size="12" fill="#1a1a1a">• SOT-223 віддає тепло переважно через Tab у мідь плати</text>
+  <text x="90" y="384" font-size="12" fill="#1a1a1a">• Мала площа міді на платі MB102 обмежує розсіювання</text>
+  <text x="90" y="404" font-size="12" fill="#c0392b">• Без радіатора: гранична потужність лише ~1.1 Вт!</text>
+
+  <!-- Права панель: Еквівалентна теплова схема -->
+  <rect x="480" y="80" width="440" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="700" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електрична аналогія (Тепловий закон Ома)</text>
+
+  <!-- Вузол 1: Джерело тепла / Кристал -->
+  <circle cx="560" cy="155" r="22" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="560" y="153" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">P_loss</text>
+  <text x="560" y="167" font-size="11" fill="#c0392b" text-anchor="middle">Джерело</text>
+
+  <!-- Лінія до Tj -->
+  <line x1="582" y1="155" x2="630" y2="155" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Вузол Tj -->
+  <circle cx="640" cy="155" r="5" fill="#c0392b"/>
+  <text x="655" y="150" font-size="12" font-weight="bold" fill="#c0392b">Вузол T_j (Кристал: макс. 125 °C)</text>
+
+  <!-- Резистор R_theta_jc -->
+  <line x1="640" y1="160" x2="640" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="625" y="190" width="30" height="45" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="670" y="210" font-size="12" font-weight="bold" fill="#2457d6">θ_jc ≈ 15 °C/W</text>
+  <text x="670" y="226" font-size="11" fill="#6b7280">(кристал → корпус/таб)</text>
+
+  <!-- Вузол Tc -->
+  <line x1="640" y1="235" x2="640" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="640" cy="265" r="5" fill="#2457d6"/>
+  <text x="655" y="260" font-size="12" font-weight="bold" fill="#2457d6">Вузол T_c (Фланець / Tab)</text>
+
+  <!-- Резистор R_theta_ca -->
+  <line x1="640" y1="270" x2="640" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="625" y="300" width="30" height="45" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="670" y="320" font-size="12" font-weight="bold" fill="#2457d6">θ_ca ≈ 75 °C/W</text>
+  <text x="670" y="336" font-size="11" fill="#6b7280">(таб → плата → повітря)</text>
+
+  <!-- Лінія до Ta (Земля) -->
+  <line x1="640" y1="345" x2="640" y2="375" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="615" y1="375" x2="665" y2="375" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="623" y1="380" x2="657" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="632" y1="385" x2="648" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="670" y="380" font-size="12" font-weight="bold" fill="#27ae60">Опора: T_a = 25 °C (Середовище)</text>
+
+  <!-- Формула внизу правої панелі -->
+  <rect x="495" y="398" width="410" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="700" y="414" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">T_j = T_a + P_loss · (θ_jc + θ_ca) = T_a + P_loss · θ_ja</text>
+</svg>

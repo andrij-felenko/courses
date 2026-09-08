@@ -1,0 +1,80 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність вихідного струму MT3608 від напруги (Vin = 3.7 В)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Через струмовий ліміт ключа 2 А вихідний струм стрімко падає при зростанні Vout</text>
+
+  <!-- Область графіка -->
+  <rect x="90" y="95" width="530" height="295" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Зона небезпечного навантаження (перегрів) -->
+  <path d="M 150,167 Q 227,264 284,289 T 513,334 L 590,342 L 590,110 L 150,110 Z" fill="#fdecea" opacity="0.7"/>
+  <text x="440" y="145" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона перевантаження ключа (>2 А)</text>
+
+  <!-- Зона безпечної роботи -->
+  <path d="M 150,167 Q 227,264 284,289 T 513,334 L 590,342 L 590,370 L 150,370 Z" fill="#e9f7ef" opacity="0.6"/>
+  <text x="240" y="345" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Безпечна тривала робота</text>
+
+  <!-- Сітка Y -->
+  <line x1="120" y1="305" x2="600" y2="305" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="120" y1="240" x2="600" y2="240" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="120" y1="175" x2="600" y2="175" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="120" y1="110" x2="600" y2="110" stroke="#d0d7de" stroke-dasharray="4,4"/>
+
+  <!-- Осі координат -->
+  <line x1="120" y1="370" x2="600" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="120" y1="370" x2="120" y2="100" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Підписи осі Y (Струм) -->
+  <text x="110" y="374" font-size="12" fill="#6b7280" text-anchor="end">0.0 А</text>
+  <text x="110" y="309" font-size="12" fill="#6b7280" text-anchor="end">0.4 А</text>
+  <text x="110" y="244" font-size="12" fill="#6b7280" text-anchor="end">0.8 А</text>
+  <text x="110" y="179" font-size="12" fill="#6b7280" text-anchor="end">1.2 А</text>
+  <text x="110" y="114" font-size="12" fill="#6b7280" text-anchor="end">1.6 А</text>
+  <text x="120" y="88" font-size="12" font-weight="bold" fill="#1a1a1a">I_out (А)</text>
+
+  <!-- Підписи осі X (Напруга) -->
+  <text x="150" y="392" font-size="12" fill="#6b7280" text-anchor="middle">5 В</text>
+  <text x="227" y="392" font-size="12" fill="#6b7280" text-anchor="middle">9 В</text>
+  <text x="284" y="392" font-size="12" fill="#6b7280" text-anchor="middle">12 В</text>
+  <text x="399" y="392" font-size="12" fill="#6b7280" text-anchor="middle">18 В</text>
+  <text x="513" y="392" font-size="12" fill="#6b7280" text-anchor="middle">24 В</text>
+  <text x="590" y="392" font-size="12" fill="#6b7280" text-anchor="middle">28 В</text>
+  <text x="600" y="414" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">V_out (В)</text>
+
+  <!-- Крива I_out_max -->
+  <path d="M 150,167 C 190,225 240,270 284,289 C 340,312 430,328 513,334 L 590,342" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Вузли на кривій -->
+  <circle cx="150" cy="167" r="5" fill="#2457d6"/>
+  <text x="175" y="165" font-size="12" font-weight="bold" fill="#2457d6">1.25 А (5 В)</text>
+
+  <circle cx="284" cy="289" r="5" fill="#2457d6"/>
+  <text x="305" y="280" font-size="12" font-weight="bold" fill="#2457d6">0.50 А (12 В)</text>
+
+  <circle cx="513" cy="334" r="5" fill="#2457d6"/>
+  <text x="513" y="320" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0.22 А (24 В)</text>
+
+  <!-- Права панель із числовими даними -->
+  <rect x="650" y="95" width="280" height="68" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="665" y="120" font-size="13" font-weight="bold" fill="#2457d6">Вихід 5 В (USB / MCU):</text>
+  <text x="665" y="145" font-size="12" fill="#1a1a1a">I_out до 1.25 А (P_out ≈ 6.2 Вт)</text>
+
+  <rect x="650" y="173" width="280" height="68" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="665" y="198" font-size="13" font-weight="bold" fill="#2457d6">Вихід 12 В (Реле / LED):</text>
+  <text x="665" y="223" font-size="12" fill="#1a1a1a">I_out до 0.50 А (P_out ≈ 6.0 Вт)</text>
+
+  <rect x="650" y="251" width="280" height="68" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="665" y="276" font-size="13" font-weight="bold" fill="#2457d6">Вихід 24 В (Датчики 4-20 мА):</text>
+  <text x="665" y="301" font-size="12" fill="#1a1a1a">I_out до 0.22 А (P_out ≈ 5.3 Вт)</text>
+
+  <rect x="650" y="329" width="280" height="61" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="665" y="352" font-size="12" font-weight="bold" fill="#c0392b">Пастка початківців:</text>
+  <text x="665" y="374" font-size="12" fill="#1a1a1a">2 А — це струм ключа, а не виходу!</text>
+</svg>

@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-yellow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#f1c40f"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Топологія друкованої плати: бар'єр ізоляції та фрезерований пропил</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Розділення високої й низької напруги та ліквідація поверхневого трекінгу під HLK-PM</text>
+
+  <!-- PCB Board Simulation Area -->
+  <rect x="50" y="75" width="860" height="245" rx="8" fill="#1b381b" stroke="#122412" stroke-width="2"/>
+  <text x="75" y="98" font-size="12" font-weight="700" fill="#8bc34a">Двошаровий склотекстоліт FR-4 (товщина 1.6 мм)</text>
+
+  <!-- HIGH VOLTAGE COPPER ZONE (LEFT) -->
+  <rect x="70" y="115" width="280" height="185" rx="6" fill="#781a1a" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="210" y="135" font-size="13" font-weight="700" fill="#ffcdd2" text-anchor="middle">ВИСОКОВОЛЬТНА ЗОНА (220 В AC)</text>
+
+  <!-- Copper Pours AC -->
+  <rect x="90" y="155" width="160" height="22" rx="4" fill="#d35400"/>
+  <text x="170" y="171" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Доріжка фази Live</text>
+
+  <rect x="90" y="245" width="160" height="22" rx="4" fill="#2980b9"/>
+  <text x="170" y="261" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Доріжка нуля Neutral</text>
+
+  <!-- AC Connection Wires from Pours to Pads -->
+  <line x1="250" y1="166" x2="298" y2="166" stroke="#f1c40f" stroke-width="3"/>
+  <line x1="250" y1="256" x2="298" y2="256" stroke="#f1c40f" stroke-width="3"/>
+
+  <!-- Pad 1 AC-L -->
+  <circle cx="310" cy="166" r="10" fill="#f1c40f" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="310" cy="166" r="4" fill="#1b381b"/>
+  <text x="310" y="148" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Пін 1 (L)</text>
+
+  <!-- Pad 2 AC-N -->
+  <circle cx="310" cy="256" r="10" fill="#f1c40f" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="310" cy="256" r="4" fill="#1b381b"/>
+  <text x="310" y="282" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Пін 2 (N)</text>
+
+
+  <!-- LOW VOLTAGE COPPER ZONE (RIGHT) -->
+  <rect x="610" y="115" width="280" height="185" rx="6" fill="#145214" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="750" y="135" font-size="13" font-weight="700" fill="#c8e6c9" text-anchor="middle">НИЗЬКОВОЛЬТНА ЗОНА (DC 5 В)</text>
+
+  <!-- DC Connection Wires from Pads to Pours -->
+  <line x1="662" y1="166" x2="710" y2="166" stroke="#27ae60" stroke-width="3"/>
+  <line x1="662" y1="256" x2="710" y2="256" stroke="#16a085" stroke-width="3"/>
+
+  <!-- Pad 4 +Vo -->
+  <circle cx="650" cy="166" r="10" fill="#f1c40f" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="650" cy="166" r="4" fill="#1b381b"/>
+  <text x="650" y="148" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Пін 4 (+Vo)</text>
+
+  <!-- Pad 3 -Vo -->
+  <circle cx="650" cy="256" r="10" fill="#f1c40f" stroke="#ffffff" stroke-width="2"/>
+  <circle cx="650" cy="256" r="4" fill="#1b381b"/>
+  <text x="650" y="282" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Пін 3 (GND)</text>
+
+  <!-- Copper Pours DC -->
+  <rect x="710" y="155" width="160" height="22" rx="4" fill="#27ae60"/>
+  <text x="790" y="171" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Шина +5 В (до МК)</text>
+
+  <rect x="710" y="245" width="160" height="22" rx="4" fill="#16a085"/>
+  <text x="790" y="261" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Шина GND (земля)</text>
+
+
+  <!-- HLK-PM OUTLINE OVERLAY (SILKSCREEN) -->
+  <rect x="290" y="125" width="380" height="165" rx="6" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="480" y="142" font-size="12" fill="#ffffff" text-anchor="middle">Проєкція корпусу HLK-PM (34 × 20.2 мм)</text>
+
+  <!-- MILLING ISOLATION SLOT (MIDDLE CUTOUT) -->
+  <rect x="470" y="152" width="20" height="110" rx="4" fill="#ffffff" stroke="#e74c3c" stroke-width="2"/>
+
+  <!-- Slot Callout Label -->
+  <text x="480" y="282" font-size="12" font-weight="700" fill="#ffcdd2" text-anchor="middle">Фрезерований паз (паз 2 мм)</text>
+  <text x="480" y="300" font-size="12" fill="#8bc34a" text-anchor="middle">Повітряний бар'єр замість FR-4</text>
+
+  <!-- Dimension line above slot -->
+  <line x1="330" y1="108" x2="630" y2="108" stroke="#f1c40f" stroke-width="1.5"/>
+  <line x1="330" y1="103" x2="330" y2="113" stroke="#f1c40f" stroke-width="1.5"/>
+  <line x1="630" y1="103" x2="630" y2="113" stroke="#f1c40f" stroke-width="1.5"/>
+  <text x="480" y="102" font-size="12" font-weight="700" fill="#f1c40f" text-anchor="middle">Ізоляційний проміжок: 15.24 мм</text>
+
+  <!-- EXPLANATORY CARDS BELOW -->
+  <rect x="50" y="340" width="270" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="185" y="364" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Повітряний зазор (Clearance)</text>
+  <text x="65" y="388" font-size="12" fill="#1a1a1a">• Відстань по прямій у повітрі</text>
+  <text x="65" y="408" font-size="12" fill="#1a1a1a">• Норма для 250 В AC: від 3.5 мм</text>
+  <text x="65" y="426" font-size="12" fill="#1a1a1a">• Захищає від іскрового пробою</text>
+
+  <rect x="345" y="340" width="270" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="364" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Шлях витоку (Creepage)</text>
+  <text x="360" y="388" font-size="12" fill="#1a1a1a">• Відстань уздовж поверхні плати</text>
+  <text x="360" y="408" font-size="12" fill="#1a1a1a">• Норма для 250 В AC: від 6.0 мм</text>
+  <text x="360" y="426" font-size="12" fill="#1a1a1a">• Небезпека: волога, пил і нагар</text>
+
+  <rect x="640" y="340" width="270" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="775" y="364" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Фрезерований паз (Slot)</text>
+  <text x="655" y="388" font-size="12" fill="#1a1a1a">• Фізичний пропил склотекстоліту</text>
+  <text x="655" y="408" font-size="12" fill="#1a1a1a">• Перериває шлях поверхневого струму</text>
+  <text x="655" y="426" font-size="12" fill="#1a1a1a">• Рівень безпеки: медичний / Class II</text>
+</svg>

@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Небезпека дзеркального встановлення модуля MB102</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Помилка орієнтації подає на шини живлення зворотну полярність і випалює схему</text>
+
+  <!-- LEFT PANEL: CORRECT -->
+  <rect x="40" y="75" width="420" height="380" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="2"/>
+  <rect x="40" y="75" width="420" height="36" rx="8" fill="#e9f7ef"/>
+  <text x="250" y="99" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">ШТАТНЕ ВСТАНОВЛЕННЯ (ПРАВИЛЬНО)</text>
+
+  <!-- Left: Module Representation -->
+  <rect x="65" y="130" width="130" height="150" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="155" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Модуль MB102</text>
+  <text x="130" y="175" font-size="12" fill="#6b7280" text-anchor="middle">Вихідні піни</text>
+
+  <circle cx="180" cy="205" r="5" fill="#c0392b"/>
+  <text x="168" y="209" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">Пін + (VCC)</text>
+
+  <circle cx="180" cy="250" r="5" fill="#2457d6"/>
+  <text x="168" y="254" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">Пін - (GND)</text>
+
+  <!-- Left: Breadboard Rails -->
+  <rect x="235" y="130" width="200" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="335" y="152" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Рейка макетної плати</text>
+
+  <!-- Red Rail (+) -->
+  <rect x="250" y="195" width="170" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="260" cy="205" r="4" fill="#c0392b"/>
+  <text x="275" y="210" font-size="12" font-weight="700" fill="#c0392b">Червона шина (+5V)</text>
+
+  <!-- Blue Rail (-) -->
+  <rect x="250" y="240" width="170" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <circle cx="260" cy="250" r="4" fill="#2457d6"/>
+  <text x="275" y="255" font-size="12" font-weight="700" fill="#2457d6">Синя шина (GND)</text>
+
+  <!-- Connection lines left -->
+  <line x1="185" y1="205" x2="256" y2="205" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="185" y1="250" x2="256" y2="250" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Left Result Box -->
+  <rect x="65" y="300" width="370" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="250" y="325" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Полярність збігається з маркуванням</text>
+  <text x="80" y="352" font-size="12" fill="#1a1a1a">• На червоній шині діє потенціал +5.0 В</text>
+  <text x="80" y="375" font-size="12" fill="#1a1a1a">• На синій шині діє потенціал 0 В (земля)</text>
+  <text x="80" y="398" font-size="12" fill="#1a1a1a">• Напруга на мікросхемах: VCC - GND = +5.0 В</text>
+  <text x="80" y="421" font-size="12" font-weight="700" fill="#27ae60">Результат: безпечна робота всієї схеми</text>
+
+
+  <!-- RIGHT PANEL: MIRRORED ERROR -->
+  <rect x="500" y="75" width="420" height="380" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="2"/>
+  <rect x="500" y="75" width="420" height="36" rx="8" fill="#fdecea"/>
+  <text x="710" y="99" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">ДЗЕРКАЛЬНЕ ВСТАНОВЛЕННЯ (АВАРІЯ!)</text>
+
+  <!-- Right: Module Representation (Rotated/Inverted) -->
+  <rect x="525" y="130" width="130" height="150" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="590" y="155" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Модуль MB102</text>
+  <text x="590" y="175" font-size="12" fill="#6b7280" text-anchor="middle">Перевернуто 180°</text>
+
+  <circle cx="640" cy="205" r="5" fill="#2457d6"/>
+  <text x="628" y="209" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">Пін - (GND)</text>
+
+  <circle cx="640" cy="250" r="5" fill="#c0392b"/>
+  <text x="628" y="254" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">Пін + (VCC)</text>
+
+  <!-- Right: Breadboard Rails -->
+  <rect x="695" y="130" width="200" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="795" y="152" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Рейка макетної плати</text>
+
+  <!-- Red Rail (+) -->
+  <rect x="710" y="195" width="170" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="720" cy="205" r="4" fill="#c0392b"/>
+  <text x="735" y="210" font-size="12" font-weight="700" fill="#c0392b">Червона шина (+)</text>
+
+  <!-- Blue Rail (-) -->
+  <rect x="710" y="240" width="170" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <circle cx="720" cy="250" r="4" fill="#2457d6"/>
+  <text x="735" y="255" font-size="12" font-weight="700" fill="#2457d6">Синя шина (-)</text>
+
+  <!-- Cross connection lines right -->
+  <line x1="645" y1="205" x2="716" y2="205" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="645" y1="250" x2="716" y2="250" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Right Result Box -->
+  <rect x="525" y="300" width="370" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="710" y="325" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Переполюсовка: полярність змінено на 180°</text>
+  <text x="540" y="352" font-size="12" fill="#1a1a1a">• На червоній шині (+) тепер 0 В (земля модуля)</text>
+  <text x="540" y="375" font-size="12" fill="#1a1a1a">• На синій шині (-) тепер потенціал +5.0 В</text>
+  <text x="540" y="398" font-size="12" fill="#1a1a1a">• Напруга на ніжках мікросхем: VCC - GND = -5.0 В</text>
+  <text x="540" y="421" font-size="12" font-weight="700" fill="#c0392b">Результат: пробій транзисторів і вибух конденсаторів</text>
+</svg>

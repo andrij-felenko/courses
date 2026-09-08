@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крива залежності ККД B0505S-1W від струму навантаження</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Постійні втрати холостого ходу P_idle (150 мВт) обвалюють ККД при струмах менше 20 мА</text>
+
+  <!-- Область графіка -->
+  <rect x="90" y="95" width="530" height="295" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Зона низького ККД (<20 мА) -->
+  <rect x="120" y="110" width="50" height="260" fill="#fdecea" opacity="0.8"/>
+  <text x="145" y="128" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона &lt;10%</text>
+
+  <!-- Зона оптимального ККД (>20 мА) -->
+  <rect x="170" y="110" width="430" height="260" fill="#e9f7ef" opacity="0.6"/>
+  <text x="385" y="128" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Оптимальний робочий діапазон (ККД 75–82%)</text>
+
+  <!-- Сітка графіка Y (ККД %) -->
+  <line x1="120" y1="318" x2="600" y2="318" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="120" y1="266" x2="600" y2="266" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="120" y1="214" x2="600" y2="214" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="120" y1="162" x2="600" y2="162" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <line x1="120" y1="110" x2="600" y2="110" stroke="#d0d7de" stroke-dasharray="4,4"/>
+
+  <!-- Осі координат -->
+  <line x1="120" y1="370" x2="600" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="120" y1="370" x2="120" y2="100" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Підписи осі Y (ККД) -->
+  <text x="110" y="374" font-size="12" fill="#6b7280" text-anchor="end">0%</text>
+  <text x="110" y="322" font-size="12" fill="#6b7280" text-anchor="end">20%</text>
+  <text x="110" y="270" font-size="12" fill="#6b7280" text-anchor="end">40%</text>
+  <text x="110" y="218" font-size="12" fill="#6b7280" text-anchor="end">60%</text>
+  <text x="110" y="166" font-size="12" fill="#6b7280" text-anchor="end">80%</text>
+  <text x="110" y="114" font-size="12" fill="#6b7280" text-anchor="end">100%</text>
+  <text x="120" y="88" font-size="12" font-weight="bold" fill="#1a1a1a">ККД (η)</text>
+
+  <!-- Підписи осі X (Струм мА) -->
+  <text x="120" y="392" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="170" y="392" font-size="12" fill="#6b7280" text-anchor="middle">20</text>
+  <text x="240" y="392" font-size="12" fill="#6b7280" text-anchor="middle">50</text>
+  <text x="360" y="392" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+  <text x="480" y="392" font-size="12" fill="#6b7280" text-anchor="middle">150</text>
+  <text x="600" y="392" font-size="12" fill="#6b7280" text-anchor="middle">200</text>
+  <text x="600" y="414" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">I_out (мА)</text>
+
+  <!-- Крива ККД -->
+  <path d="M 120,370 C 135,330 150,260 170,235 C 210,185 280,166 360,162 C 450,158 530,156 600,158" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Точка перегину 20 мА -->
+  <circle cx="170" cy="235" r="5" fill="#c0392b"/>
+  <text x="180" y="225" font-size="12" font-weight="bold" fill="#c0392b">52% (20 мА)</text>
+
+  <!-- Точка 100 мА -->
+  <circle cx="360" cy="162" r="5" fill="#2457d6"/>
+  <text x="360" y="190" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">79% (100 мА)</text>
+
+  <!-- Точка 200 мА (пік) -->
+  <circle cx="600" cy="158" r="5" fill="#27ae60"/>
+  <text x="590" y="148" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">81% (200 мА / 1 Вт)</text>
+
+  <!-- Права інформаційна панель -->
+  <rect x="650" y="95" width="280" height="68" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="665" y="120" font-size="13" font-weight="bold" fill="#2457d6">Втрати холостого ходу:</text>
+  <text x="665" y="145" font-size="12" fill="#1a1a1a">P_idle ≈ 150 мВт (I_in ≈ 30 мА)</text>
+
+  <rect x="650" y="173" width="280" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="665" y="198" font-size="13" font-weight="bold" fill="#c0392b">Поріг мінімуму 10%:</text>
+  <text x="665" y="223" font-size="12" fill="#1a1a1a">При I_out &lt; 20 мА ККД падає нижче 50%</text>
+
+  <rect x="650" y="251" width="280" height="68" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="665" y="276" font-size="13" font-weight="bold" fill="#27ae60">Номінальний режим 1 Вт:</text>
+  <text x="665" y="301" font-size="12" fill="#1a1a1a">I_out = 100–200 мА, ККД 78–82%</text>
+
+  <rect x="650" y="329" width="280" height="61" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="665" y="352" font-size="12" font-weight="bold" fill="#2457d6">Порада для мікрострумів:</text>
+  <text x="665" y="374" font-size="12" fill="#1a1a1a">Баластний резистор 240 Ом (20 мА)</text>
+</svg>

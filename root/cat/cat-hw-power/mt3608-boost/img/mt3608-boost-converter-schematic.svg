@@ -1,0 +1,116 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема модуля підвищувача MT3608</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Дільник R1/R2 стабілізує напругу виходу через опорний рівень V_FB = 0.6 В</text>
+
+  <!-- Верхня силова шина -->
+  <line x1="64" y1="130" x2="200" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="290" y1="130" x2="420" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="450" y1="130" x2="876" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Нижня шина GND -->
+  <line x1="64" y1="390" x2="876" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Клеми входу -->
+  <circle cx="60" cy="130" r="4" fill="#2457d6"/>
+  <text x="60" y="105" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">IN+ (2-24V)</text>
+  <circle cx="60" cy="390" r="4" fill="#1a1a1a"/>
+  <text x="60" y="418" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IN- (GND)</text>
+
+  <!-- Клеми виходу -->
+  <circle cx="880" cy="130" r="4" fill="#27ae60"/>
+  <text x="880" y="105" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">OUT+ (до 28V)</text>
+  <circle cx="880" cy="390" r="4" fill="#1a1a1a"/>
+  <text x="880" y="418" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">OUT- (GND)</text>
+
+  <!-- Вхідний конденсатор Cin -->
+  <circle cx="130" cy="130" r="3" fill="#1a1a1a"/>
+  <line x1="130" y1="130" x2="130" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="110" y="205" width="40" height="50" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="130" y="226" font-size="12" fill="#1a1a1a" text-anchor="middle">Cin</text>
+  <text x="130" y="244" font-size="12" fill="#6b7280" text-anchor="middle">22 мкФ</text>
+  <line x1="130" y1="255" x2="130" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="130" cy="390" r="3" fill="#1a1a1a"/>
+
+  <!-- Дросель L1 -->
+  <rect x="200" y="105" width="90" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="245" y="126" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">L1</text>
+  <text x="245" y="144" font-size="12" fill="#6b7280" text-anchor="middle">22 мкГн</text>
+
+  <!-- SW вузол -->
+  <circle cx="360" cy="130" r="3" fill="#1a1a1a"/>
+  <text x="360" y="105" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SW Вузол</text>
+
+  <!-- Діод Шотткі D1 -->
+  <polygon points="420,115 450,130 420,145" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <line x1="450" y1="115" x2="450" y2="145" stroke="#27ae60" stroke-width="2"/>
+  <text x="435" y="105" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D1 SS34</text>
+
+  <!-- Вихідний конденсатор Cout -->
+  <circle cx="550" cy="130" r="3" fill="#1a1a1a"/>
+  <line x1="550" y1="130" x2="550" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="530" y="205" width="40" height="50" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="550" y="226" font-size="12" fill="#1a1a1a" text-anchor="middle">Cout</text>
+  <text x="550" y="244" font-size="12" fill="#6b7280" text-anchor="middle">22 мкФ</text>
+  <line x1="550" y1="255" x2="550" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="550" cy="390" r="3" fill="#1a1a1a"/>
+
+  <!-- Дільник R1/R2 -->
+  <circle cx="670" cy="130" r="3" fill="#1a1a1a"/>
+  <line x1="670" y1="130" x2="670" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="645" y="175" width="50" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="670" y="196" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R1 Pot</text>
+  <text x="670" y="214" font-size="12" fill="#6b7280" text-anchor="middle">100 кОм</text>
+
+  <line x1="670" y1="225" x2="670" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="670" cy="250" r="4" fill="#2457d6"/>
+
+  <rect x="645" y="275" width="50" height="50" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="670" y="296" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R2</text>
+  <text x="670" y="314" font-size="12" fill="#6b7280" text-anchor="middle">2.2 кОм</text>
+  <line x1="670" y1="325" x2="670" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="670" cy="390" r="3" fill="#1a1a1a"/>
+
+  <!-- Чип MT3608 -->
+  <rect x="260" y="200" width="180" height="140" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="350" y="226" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">MT3608 (1.2 МГц)</text>
+
+  <!-- Лінії до чипа: IN і EN -->
+  <circle cx="170" cy="130" r="3" fill="#1a1a1a"/>
+  <line x1="170" y1="130" x2="170" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="170" y1="255" x2="260" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="170" cy="255" r="3" fill="#1a1a1a"/>
+  <line x1="170" y1="255" x2="170" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="170" y1="290" x2="260" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+
+  <text x="270" y="260" font-size="12" fill="#1a1a1a">5: IN</text>
+  <text x="270" y="295" font-size="12" fill="#1a1a1a">4: EN</text>
+  <text x="270" y="325" font-size="12" fill="#6b7280">6: NC</text>
+
+  <!-- Лінія SW -->
+  <line x1="360" y1="130" x2="360" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="360" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">1: SW (Ключ 2А)</text>
+
+  <!-- Лінія FB від дільника -->
+  <line x1="645" y1="250" x2="440" y2="250" stroke="#2457d6" stroke-width="2"/>
+  <text x="430" y="285" font-size="12" fill="#2457d6" text-anchor="end">3: FB (0.6 В)</text>
+
+  <!-- Лінія GND від чипа -->
+  <text x="430" y="320" font-size="12" fill="#1a1a1a" text-anchor="end">2: GND</text>
+  <line x1="440" y1="315" x2="480" y2="315" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="480" y1="315" x2="480" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="480" cy="390" r="3" fill="#1a1a1a"/>
+
+  <!-- Блок розрахунку формули -->
+  <rect x="730" y="200" width="215" height="115" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="837" y="226" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формула стабілізації:</text>
+  <text x="837" y="254" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">V_out = 0.6 · (1 + R1/R2)</text>
+  <text x="837" y="282" font-size="12" fill="#6b7280" text-anchor="middle">При R1 = 42 кОм → 12 В</text>
+</svg>

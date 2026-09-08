@@ -301,11 +301,35 @@
           "slug": "mt3608-boost",
           "title": "MT3608 — підвищувач 2 А / 28 В",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-boost-converter-development.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-boost-converter-duty-cycle-and-current.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-battery-powered-12v-portable-device.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-boost-control.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "xl6009-boost",
@@ -341,11 +365,35 @@
           "slug": "b0505s-isolated",
           "title": "B0505S-1W — ізольований DC-DC 5 В → 5 В",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-galvanic-isolation-evolution.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-isolation-and-efficiency-losses.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-isolated-usb-uart-dongle.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-isolated-power.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "dual-rail-converter",
@@ -387,6 +435,16 @@
           },
           "detailed": {
             "status": "done"
+          }
+        },
+        {
+          "slug": "ams1117-linear-regulator",
+          "title": "AMS1117 — лінійний стабілізатор з малим падінням напруги (LDO)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
           }
         }
       ]
@@ -455,21 +513,69 @@
           "slug": "breadboard-power-module",
           "title": "Модуль живлення для макетної плати",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-mb102-and-breadboard-prototyping.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-ldo-thermal-dissipation-and-efficiency.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-breadboard-lab-bench-power.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-rail-control.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "hlk-pm-mains",
           "title": "HLK-PM01/PM03/PM12 — живлення від 220 В",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-ac-dc-miniaturization-flyback.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-flyback-converter-parameters.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-safe-mains-relay-node.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-mains-power-node.md",
+              "status": "done"
+            }
+          ]
         }
       ]
     }

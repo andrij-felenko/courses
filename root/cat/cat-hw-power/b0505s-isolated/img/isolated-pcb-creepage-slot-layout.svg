@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія ізоляційного прорізу (Creepage Slot) на платі</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Фрезерований паз у склотекстоліті під корпусами усуває витік струму по поверхні</text>
+
+  <!-- Друкована плата FR-4 -->
+  <rect x="80" y="90" width="800" height="340" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Лівий полігон міді (GND1) -->
+  <rect x="100" y="110" width="320" height="300" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="260" y="138" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Полігон GND1 (Неізольований бік)</text>
+  <text x="260" y="160" font-size="12" fill="#6b7280" text-anchor="middle">USB роз'єм, контролер CH340G</text>
+
+  <!-- Правий полігон міді (GND2) -->
+  <rect x="540" y="110" width="320" height="300" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="700" y="138" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Полігон GND2 (Ізольований бік)</text>
+  <text x="700" y="160" font-size="12" fill="#6b7280" text-anchor="middle">Цільовий UART клемник, пристрій</text>
+
+  <!-- Верхній сегмент прорізу -->
+  <rect x="465" y="110" width="30" height="50" rx="3" fill="white" stroke="#c0392b" stroke-width="2"/>
+  <line x1="472" y1="120" x2="488" y2="136" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="472" y1="140" x2="488" y2="156" stroke="#c0392b" stroke-width="1.5"/>
+
+  <line x1="480" y1="160" x2="480" y2="175" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+
+  <!-- ADuM1201 верхи над пазом -->
+  <rect x="435" y="175" width="90" height="55" rx="4" fill="#2c3e50" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="206" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ADuM1201</text>
+
+  <!-- Ніжки ADuM1201 -->
+  <line x1="420" y1="185" x2="435" y2="185" stroke="#7f8c8d" stroke-width="4"/>
+  <line x1="420" y1="197" x2="435" y2="197" stroke="#7f8c8d" stroke-width="4"/>
+  <line x1="420" y1="209" x2="435" y2="209" stroke="#7f8c8d" stroke-width="4"/>
+  <line x1="420" y1="221" x2="435" y2="221" stroke="#7f8c8d" stroke-width="4"/>
+
+  <line x1="525" y1="185" x2="540" y2="185" stroke="#7f8c8d" stroke-width="4"/>
+  <line x1="525" y1="197" x2="540" y2="197" stroke="#7f8c8d" stroke-width="4"/>
+  <line x1="525" y1="209" x2="540" y2="209" stroke="#7f8c8d" stroke-width="4"/>
+  <line x1="525" y1="221" x2="540" y2="221" stroke="#7f8c8d" stroke-width="4"/>
+
+  <line x1="480" y1="230" x2="480" y2="245" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+
+  <!-- Середній сегмент прорізу -->
+  <rect x="465" y="245" width="30" height="36" rx="3" fill="white" stroke="#c0392b" stroke-width="2"/>
+  <line x1="472" y1="253" x2="488" y2="269" stroke="#c0392b" stroke-width="1.5"/>
+
+  <line x1="480" y1="281" x2="480" y2="295" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+
+  <!-- B0505S знизу над пазом -->
+  <rect x="425" y="295" width="110" height="70" rx="4" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="332" font-size="12" font-weight="bold" fill="white" text-anchor="middle">B0505S-1W</text>
+  <text x="480" y="348" font-size="12" fill="#eaf0fd" text-anchor="middle">SIP-4 Модуль</text>
+
+  <!-- Ніжки B0505S -->
+  <line x1="410" y1="315" x2="425" y2="315" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="410" y1="345" x2="425" y2="345" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="535" y1="315" x2="550" y2="315" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="535" y1="345" x2="550" y2="345" stroke="#1a1a1a" stroke-width="3"/>
+
+  <line x1="480" y1="365" x2="480" y2="379" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+
+  <!-- Нижній сегмент прорізу -->
+  <rect x="465" y="379" width="30" height="31" rx="3" fill="white" stroke="#c0392b" stroke-width="2"/>
+  <line x1="472" y1="387" x2="488" y2="403" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Пояснювальний текст знизу -->
+  <text x="480" y="426" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Фрезерований паз (ширина 2 мм)</text>
+
+  <!-- Ліва картка пояснення -->
+  <rect x="115" y="200" width="290" height="180" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="225" font-size="13" font-weight="bold" fill="#1a1a1a">Чому зазору на платі замало?</text>
+  <text x="130" y="250" font-size="12" fill="#1a1a1a">• Пил, волога й залишки флюсу з часом</text>
+  <text x="130" y="270" font-size="12" fill="#1a1a1a">  утворюють струмопровідний місток.</text>
+  <text x="130" y="295" font-size="12" fill="#1a1a1a">• Висока напруга (кіловольти) викликає</text>
+  <text x="130" y="315" font-size="12" fill="#1a1a1a">  поверхневий пробій (трекінг).</text>
+  <text x="130" y="340" font-size="12" fill="#c0392b">• Без прорізу: шлях витоку = лише 6 мм</text>
+  <text x="130" y="362" font-size="12" fill="#27ae60">• З пазом: шлях у повітрі &gt; 16 мм!</text>
+
+  <!-- Права картка пояснення -->
+  <rect x="555" y="200" width="290" height="180" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="570" y="225" font-size="13" font-weight="bold" fill="#27ae60">Правила трасування бар'єра:</text>
+  <text x="570" y="250" font-size="12" fill="#1a1a1a">• Жодних доріжок під корпусом розв'язки!</text>
+  <text x="570" y="275" font-size="12" fill="#1a1a1a">• Паз проходить крізь усі шари плати.</text>
+  <text x="570" y="300" font-size="12" fill="#1a1a1a">• Мінімальна ширина фрези: 1.5–2.0 мм.</text>
+  <text x="570" y="325" font-size="12" fill="#1a1a1a">• Відступ міді від краю паза: ≥ 1.0 мм.</text>
+  <text x="570" y="355" font-size="12" fill="#2457d6">• Забезпечує захист стандарту IEC 60950.</text>
+</svg>

@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний та програмний інтерфейс супервізора живлення MB102</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Дільник напруги передає стан шини на АЦП, а мікроконтролер відключає навантаження до апаратного скидання</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Модуль MB102 -->
+  <rect x="30" y="70" width="270" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="82" width="246" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="165" y="103" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль живлення MB102</text>
+
+  <rect x="45" y="125" width="240" height="48" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="55" y="143" font-size="12" font-weight="bold" fill="#1a1a1a">Вхід первинного живлення:</text>
+  <text x="55" y="161" font-size="12" fill="#6b7280">DC 6.5–12 В або USB 5.0 В</text>
+
+  <rect x="45" y="183" width="240" height="52" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="55" y="201" font-size="12" font-weight="bold" fill="#1a1a1a">Стабілізатори AMS1117:</text>
+  <text x="55" y="221" font-size="12" fill="#6b7280">Шина 5.0 В та шина 3.3 В</text>
+
+  <rect x="45" y="245" width="240" height="70" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="55" y="265" font-size="12" font-weight="bold" fill="#1a1a1a">Силова рейка живлення 5 В</text>
+  <text x="55" y="283" font-size="12" fill="#6b7280">Струм до 700 мА (піковий)</text>
+  <text x="55" y="301" font-size="12" fill="#c0392b">Тепловий ліміт: 150 мА при 12 В</text>
+
+  <!-- Дільник напруги -->
+  <rect x="45" y="325" width="240" height="90" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="55" y="345" font-size="12" font-weight="bold" fill="#27ae60">Резистивний дільник (К = 3.0):</text>
+  <text x="55" y="365" font-size="12" fill="#1a1a1a">R1 = 20 кОм (до шини 5 В)</text>
+  <text x="55" y="385" font-size="12" fill="#1a1a1a">R2 = 10 кОм (до GND)</text>
+  <text x="55" y="405" font-size="12" fill="#6b7280">Вихід: 0..1.67 В (безпечно для АЦП)</text>
+
+  <!-- ЦЕНТРАЛЬНА ПАНЕЛЬ: Мікроконтролер -->
+  <rect x="330" y="70" width="300" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="342" y="82" width="276" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="103" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер (MCU)</text>
+
+  <rect x="345" y="125" width="270" height="52" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="355" y="145" font-size="12" font-weight="bold" fill="#1a1a1a">Пін АЦП (ADC Input):</text>
+  <text x="355" y="165" font-size="12" fill="#2457d6">Вибірка кожні 10 мс + EMA-фільтр</text>
+
+  <rect x="345" y="187" width="270" height="118" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="355" y="206" font-size="12" font-weight="bold" fill="#1a1a1a">Супервізор Brown-out (алгоритм):</text>
+  <text x="355" y="226" font-size="12" fill="#27ae60">5.00 В — Робочий стан шини</text>
+  <text x="355" y="246" font-size="12" fill="#c0392b">4.65 В — Поріг тривоги (відключення)</text>
+  <text x="355" y="266" font-size="12" fill="#6b7280">4.30 В — Апаратне скидання MCU (BOD)</text>
+  <text x="355" y="286" font-size="12" fill="#1a1a1a">Запас до перезавантаження: 0.35 В</text>
+
+  <rect x="345" y="315" width="270" height="60" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="355" y="335" font-size="12" font-weight="bold" fill="#1a1a1a">Пін Load Gate (GPIO Вихід):</text>
+  <text x="355" y="355" font-size="12" fill="#1a1a1a">LOW = Ключ відкрито (живлення подано)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Кероване навантаження та реакція -->
+  <rect x="660" y="70" width="270" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="672" y="82" width="246" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="795" y="103" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Ключ і навантаження</text>
+
+  <rect x="675" y="125" width="240" height="62" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="685" y="145" font-size="12" font-weight="bold" fill="#2457d6">Силовий ключ (P-MOSFET):</text>
+  <text x="685" y="165" font-size="12" fill="#1a1a1a">IRLML6402 / AO3401A</text>
+  <text x="685" y="181" font-size="12" fill="#6b7280">Комутує лінію +5V навантаження</text>
+
+  <rect x="675" y="197" width="240" height="52" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="685" y="217" font-size="12" font-weight="bold" fill="#1a1a1a">Споживачі високого струму:</text>
+  <text x="685" y="237" font-size="12" fill="#6b7280">Wi-Fi модуль, радіо NRF24, реле</text>
+
+  <!-- Графік Brown-out -->
+  <rect x="675" y="259" width="240" height="156" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="685" y="278" font-size="12" font-weight="bold" fill="#c0392b">Часова реакція на просідання:</text>
+
+  <!-- Вісь напруги графіка -->
+  <line x1="690" y1="340" x2="900" y2="340" stroke="#6b7280" stroke-width="1"/>
+  <line x1="690" y1="340" x2="690" y2="290" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Лінії рівнів -->
+  <line x1="690" y1="318" x2="900" y2="318" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="690" y1="334" x2="900" y2="334" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Крива напруги шини (не перетинає текст) -->
+  <path d="M 690 295 L 725 295 L 745 328 L 765 310 L 795 295 L 900 295" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Підписи графіку (винесені суворо нижче осі) -->
+  <text x="685" y="360" font-size="12" fill="#2457d6">Синя лінія: реальна напруга 5V шини</text>
+  <text x="685" y="380" font-size="12" fill="#c0392b">Пунктир 4.65 В: відсікання навантаження</text>
+  <text x="685" y="400" font-size="12" fill="#6b7280">Сірий 4.30 В: скид MCU (не досягнуто!)</text>
+
+  <!-- Стрілки зв'язку між панелями -->
+  <line x1="285" y1="370" x2="345" y2="155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="615" y1="345" x2="675" y2="155" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+</svg>

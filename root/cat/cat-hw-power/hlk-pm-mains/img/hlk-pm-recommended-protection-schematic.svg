@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Рекомендована схема захисного та фільтруючого обв'язування HLK-PM</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Запобіжник, NTC-термістор, варистор MOV на вході 220 В та вихідний LC-фільтр</text>
+
+  <!-- Background Zones -->
+  <!-- High Voltage Zone Background -->
+  <rect x="25" y="75" width="370" height="250" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="210" y="98" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">ВИСОКОВОЛЬТНА ЗОНА (AC 220 В)</text>
+
+  <!-- Low Voltage Zone Background -->
+  <rect x="625" y="75" width="310" height="250" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="780" y="98" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">БЕЗПЕЧНА НИЗЬКОВОЛЬТНА ЗОНА (DC)</text>
+
+  <!-- Central HLK-PM Module Body -->
+  <rect x="420" y="115" width="180" height="190" rx="8" fill="#2c3e50" stroke="#1a252f" stroke-width="2"/>
+  <text x="510" y="145" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">HLK-PM01</text>
+  <text x="510" y="195" font-size="12" font-weight="700" fill="#f1c40f" text-anchor="middle">AC-DC MODULE</text>
+  <text x="510" y="215" font-size="12" fill="#ecf0f1" text-anchor="middle">Flyback Topology</text>
+  <text x="510" y="235" font-size="12" fill="#bdc3c7" text-anchor="middle">Isolation: 3000V AC</text>
+
+  <!-- Module Pin Circles and Labels -->
+  <!-- Pin 1 AC-L -->
+  <circle cx="420" cy="165" r="6" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="432" y="170" font-size="12" font-weight="700" fill="#ffffff">1 AC(L)</text>
+
+  <!-- Pin 2 AC-N -->
+  <circle cx="420" cy="265" r="6" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="432" y="270" font-size="12" font-weight="700" fill="#ffffff">2 AC(N)</text>
+
+  <!-- Pin 4 +Vo -->
+  <circle cx="600" cy="165" r="6" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="588" y="170" font-size="12" font-weight="700" fill="#ffffff" text-anchor="end">+Vo 4</text>
+
+  <!-- Pin 3 -Vo -->
+  <circle cx="600" cy="265" r="6" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="588" y="270" font-size="12" font-weight="700" fill="#ffffff" text-anchor="end">-Vo 3</text>
+
+  <!-- SCHEMATIC WIRING: MAINS INPUT -->
+  <!-- Input Terminals -->
+  <circle cx="45" cy="165" r="5" fill="#c0392b"/>
+  <text x="45" y="135" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">LINE (L)</text>
+  <text x="45" y="150" font-size="12" fill="#6b7280" text-anchor="middle">~220 В</text>
+
+  <circle cx="45" cy="265" r="5" fill="#1a1a1a"/>
+  <text x="45" y="290" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">NEUTRAL</text>
+  <text x="45" y="305" font-size="12" fill="#6b7280" text-anchor="middle">(N)</text>
+
+  <!-- Line (L) Wires & Components -->
+  <line x1="50" y1="165" x2="95" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Fuse F1 -->
+  <rect x="95" y="157" width="50" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="95" y1="165" x2="145" y2="165" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="120" y="140" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">F1 1A/250V</text>
+  <text x="120" y="195" font-size="12" fill="#6b7280" text-anchor="middle">Запобіжник</text>
+
+  <line x1="145" y1="165" x2="190" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- NTC Thermistor -->
+  <rect x="190" y="157" width="46" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="186" y1="177" x2="240" y2="153" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="213" y="140" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">NTC 5D-9</text>
+  <text x="213" y="195" font-size="12" fill="#6b7280" text-anchor="middle">5 Ом термістор</text>
+
+  <!-- Wire from NTC to MOV node and module -->
+  <line x1="236" y1="165" x2="310" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="310" cy="165" r="3.5" fill="#1a1a1a"/>
+  <line x1="310" y1="165" x2="414" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Neutral (N) Wire -->
+  <line x1="50" y1="265" x2="310" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="310" cy="265" r="3.5" fill="#1a1a1a"/>
+  <line x1="310" y1="265" x2="414" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- MOV Varistor between L and N at x=310 -->
+  <line x1="310" y1="165" x2="310" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="296" y="195" width="28" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="290" y1="240" x2="330" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="290" y1="240" x2="290" y2="246" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="310" y1="235" x2="310" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="336" y="210" font-size="12" font-weight="700" fill="#1a1a1a">MOV 10D471K</text>
+  <text x="336" y="228" font-size="12" fill="#6b7280">Варистор 470 В</text>
+
+  <!-- SCHEMATIC WIRING: OUTPUT DC FILTER -->
+  <!-- Wire from Pin 4 +Vo -->
+  <line x1="606" y1="165" x2="660" y2="165" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="660" cy="165" r="3.5" fill="#27ae60"/>
+
+  <!-- Capacitor C1 (Electrolytic 220uF Low-ESR) at x=660 -->
+  <line x1="660" y1="165" x2="660" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="646" y1="195" x2="674" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="646" y="201" width="28" height="4" fill="#1a1a1a"/>
+  <line x1="660" y1="205" x2="660" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="660" cy="265" r="3.5" fill="#2457d6"/>
+  <text x="636" y="210" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">C1 220мкФ</text>
+  <text x="636" y="228" font-size="12" fill="#6b7280" text-anchor="end">Low-ESR</text>
+
+  <!-- Inductor L1 on + rail -->
+  <line x1="660" y1="165" x2="700" y2="165" stroke="#27ae60" stroke-width="2"/>
+  <!-- Inductor bumps -->
+  <path d="M 700,165 A 10,10 0 0,1 720,165 A 10,10 0 0,1 740,165 A 10,10 0 0,1 760,165" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="730" y="140" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">L1 4.7мкГн</text>
+  <text x="730" y="195" font-size="12" fill="#6b7280" text-anchor="middle">Дросель ВЧ</text>
+
+  <line x1="760" y1="165" x2="800" y2="165" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="800" cy="165" r="3.5" fill="#27ae60"/>
+
+  <!-- Capacitor C2 (Ceramic 0.1uF) at x=800 -->
+  <line x1="800" y1="165" x2="800" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="788" y1="200" x2="812" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="788" y1="206" x2="812" y2="206" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="800" y1="206" x2="800" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="800" cy="265" r="3.5" fill="#2457d6"/>
+  <text x="822" y="210" font-size="12" font-weight="700" fill="#1a1a1a">C2 0.1мкФ</text>
+  <text x="822" y="228" font-size="12" fill="#6b7280">Кераміка</text>
+
+  <!-- Output Lines to Terminals -->
+  <line x1="800" y1="165" x2="860" y2="165" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="860" cy="165" r="5" fill="#27ae60"/>
+  <text x="872" y="160" font-size="12" font-weight="700" fill="#27ae60">+5 В DC</text>
+  <text x="872" y="176" font-size="12" fill="#6b7280">вихід</text>
+
+  <!-- Ground Wire from Pin 3 -Vo -->
+  <line x1="606" y1="265" x2="860" y2="265" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="860" cy="265" r="5" fill="#2457d6"/>
+  <text x="872" y="260" font-size="12" font-weight="700" fill="#2457d6">GND 0 В</text>
+  <text x="872" y="276" font-size="12" fill="#6b7280">земля</text>
+
+  <!-- BOTTOM EXPLANATORY PANELS -->
+  <rect x="25" y="345" width="285" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="167" y="368" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Вхідний мережевий захист</text>
+  <text x="37" y="392" font-size="12" fill="#1a1a1a">• F1 (1A): знеструмлює мережу при КЗ</text>
+  <text x="37" y="412" font-size="12" fill="#1a1a1a">• NTC (5 Ом): обмежує пусковий струм</text>
+  <text x="37" y="430" font-size="12" fill="#1a1a1a">• MOV (470V): зрізає сплески перенапруги</text>
+
+  <rect x="325" y="345" width="310" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="368" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Гальванічна розв'язка</text>
+  <text x="337" y="392" font-size="12" fill="#1a1a1a">• Бар'єр 3000 В AC між мережею та DC</text>
+  <text x="337" y="412" font-size="12" fill="#1a1a1a">• На платі: проріз або зазор від 6 мм</text>
+  <text x="337" y="430" font-size="12" fill="#1a1a1a">• Заборонено спільне земляне з'єднання</text>
+
+  <rect x="650" y="345" width="285" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="792" y="368" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Вихідна фільтрація пульсацій</text>
+  <text x="662" y="392" font-size="12" fill="#1a1a1a">• C1 (220 мкФ): згладжує 100 Гц</text>
+  <text x="662" y="412" font-size="12" fill="#1a1a1a">• L1-C2 фільтр: гасить шум 65 кГц</text>
+  <text x="662" y="430" font-size="12" fill="#1a1a1a">• Пульсації падають з 150 мВ до 30 мВ</text>
+</svg>

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Конструкція, габарити та цоколівка модуля HLK-PM</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Герметичний корпус 34×20×15 мм, вхід AC 100–240 В, вихід DC та призначення виводів</text>
+
+  <!-- LEFT PANEL: MODULE DRAWING (TOP VIEW & PINS) -->
+  <rect x="40" y="75" width="450" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="265" y="102" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">ВИГЛЯД ЗВЕРХУ ТА РОЗТАШУВАННЯ ПІНІВ</text>
+
+  <!-- Module Body Outline (34mm x 20mm scale) -->
+  <rect x="120" y="140" width="280" height="190" rx="6" fill="#2c3e50" stroke="#1a252f" stroke-width="2"/>
+
+  <!-- Silk Screen on Module -->
+  <text x="260" y="180" font-size="16" font-weight="700" fill="#ffffff" text-anchor="middle">Hi-Link</text>
+  <text x="260" y="205" font-size="13" font-weight="700" fill="#f1c40f" text-anchor="middle">HLK-PM01</text>
+  <text x="260" y="235" font-size="12" fill="#ecf0f1" text-anchor="middle">AC: 100–240V ~ 50/60Hz</text>
+  <text x="260" y="258" font-size="12" fill="#ecf0f1" text-anchor="middle">DC: 5V === 600mA</text>
+  <text x="260" y="285" font-size="12" fill="#bdc3c7" text-anchor="middle">CE  RoHS  (Isolation 3000V)</text>
+
+  <!-- Dimension arrows -->
+  <text x="260" y="130" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Довжина корпусу: 34.0 мм</text>
+  <text x="85" y="240" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">20.2 мм</text>
+
+  <!-- AC Input Pins (Left) -->
+  <circle cx="120" cy="185" r="7" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="105" y="190" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">AC (L)</text>
+
+  <circle cx="120" cy="285" r="7" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="105" y="290" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">AC (N)</text>
+
+  <!-- DC Output Pins (Right) -->
+  <circle cx="400" cy="200" r="7" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="415" y="205" font-size="12" font-weight="700" fill="#2457d6">Вихід -V0 (GND)</text>
+
+  <circle cx="400" cy="270" r="7" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="415" y="275" font-size="12" font-weight="700" fill="#27ae60">Вихід +V0 (+5V)</text>
+
+  <!-- Insulation Barrier Callout below module -->
+  <rect x="65" y="355" width="400" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="265" y="380" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Гальванічний бар'єр ізоляції: > 15 мм</text>
+  <text x="80" y="405" font-size="12" fill="#1a1a1a">• Високовольтні піни AC фізично віддалені від пінів DC</text>
+  <text x="80" y="428" font-size="12" fill="#1a1a1a">• Монолітне заливання теплопровідним компаундом</text>
+
+
+  <!-- RIGHT PANEL: PINOUT DETAILS & SPECS -->
+  <rect x="510" y="75" width="410" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="715" y="102" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">ХАРАКТЕРИСТИКИ ТА ЦОКОЛІВКА</text>
+
+  <!-- Table of Pins -->
+  <rect x="530" y="125" width="370" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="545" y="150" font-size="13" font-weight="700" fill="#1a1a1a">Пін 1 (AC-L):</text>
+  <text x="645" y="150" font-size="12" fill="#1a1a1a">Фаза мережі 220 В (Live)</text>
+
+  <text x="545" y="180" font-size="13" font-weight="700" fill="#1a1a1a">Пін 2 (AC-N):</text>
+  <text x="645" y="180" font-size="12" fill="#1a1a1a">Нуль мережі 220 В (Neutral)</text>
+
+  <text x="545" y="210" font-size="13" font-weight="700" fill="#1a1a1a">Пін 3 (-V0):</text>
+  <text x="645" y="210" font-size="12" fill="#1a1a1a">Мінус виходу DC (спільна земля)</text>
+
+  <text x="545" y="240" font-size="13" font-weight="700" fill="#1a1a1a">Пін 4 (+V0):</text>
+  <text x="645" y="240" font-size="12" fill="#1a1a1a">Плюс стабілізованого виходу DC</text>
+
+  <text x="545" y="263" font-size="12" fill="#6b7280">Крок між пінами: 5.08 мм</text>
+
+  <!-- Family Comparison -->
+  <rect x="530" y="290" width="370" height="165" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="315" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Модельний ряд серії HLK-PM (3 Вт):</text>
+
+  <text x="545" y="345" font-size="12" fill="#1a1a1a">• <tspan font-weight="700">HLK-PM01:</tspan> вихід 5.0 В, струм 600 мА (живлення реле й МК)</text>
+  <text x="545" y="375" font-size="12" fill="#1a1a1a">• <tspan font-weight="700">HLK-PM03:</tspan> вихід 3.3 В, струм 900 мА (чипи ESP32, STM32)</text>
+  <text x="545" y="405" font-size="12" fill="#1a1a1a">• <tspan font-weight="700">HLK-PM12:</tspan> вихід 12.0 В, струм 250 мА (замки, потужні реле)</text>
+  <text x="545" y="435" font-size="12" fill="#6b7280">• Робочий діапазон: вхід 90–264 В AC, ККД близько 70%</text>
+</svg>

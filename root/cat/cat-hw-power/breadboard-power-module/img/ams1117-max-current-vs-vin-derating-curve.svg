@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зниження допустимого струму AMS1117 від вхідної напруги</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Зростання вхідної напруги з 7 В до 12 В знижує максимальний робочий струм більш ніж утричі</text>
+
+  <!-- Панель графіка ліворуч -->
+  <rect x="40" y="80" width="580" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Координатні осі -->
+  <!-- Вісь Y: 100 до 370 px (висота 270 px) -->
+  <line x1="110" y1="380" x2="110" y2="105" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="75" y="115" font-size="12" font-weight="bold" fill="#1a1a1a">I_out, мА</text>
+
+  <!-- Вісь X: 110 до 590 px (довжина 480 px) -->
+  <line x1="110" y1="380" x2="595" y2="380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="560" y="405" font-size="12" font-weight="bold" fill="#1a1a1a">V_in, В</text>
+
+  <!-- Сітка по Y (0, 200, 400, 600, 800 мА) -->
+  <!-- 800 mA -> y = 135 -->
+  <line x1="105" y1="135" x2="580" y2="135" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="100" y="139" font-size="11" fill="#6b7280" text-anchor="end">800</text>
+
+  <!-- 600 mA -> y = 196 -->
+  <line x1="105" y1="196" x2="580" y2="196" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="100" y="200" font-size="11" fill="#6b7280" text-anchor="end">600</text>
+
+  <!-- 400 mA -> y = 258 -->
+  <line x1="105" y1="258" x2="580" y2="258" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="100" y="262" font-size="11" fill="#6b7280" text-anchor="end">400</text>
+
+  <!-- 200 mA -> y = 319 -->
+  <line x1="105" y1="319" x2="580" y2="319" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="100" y="323" font-size="11" fill="#6b7280" text-anchor="end">200</text>
+
+  <!-- 0 mA -> y = 380 -->
+  <text x="100" y="384" font-size="11" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Сітка по X (6.5V, 8V, 10V, 12V, 15V) -->
+  <!-- 6.5V -> x = 140 -->
+  <line x1="140" y1="380" x2="140" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="140" y="400" font-size="11" fill="#6b7280" text-anchor="middle">6.5 В</text>
+
+  <!-- 8.0V -> x = 220 -->
+  <line x1="220" y1="380" x2="220" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="220" y="400" font-size="11" fill="#6b7280" text-anchor="middle">8 В</text>
+
+  <!-- 10V -> x = 330 -->
+  <line x1="330" y1="380" x2="330" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="330" y="400" font-size="11" fill="#6b7280" text-anchor="middle">10 В</text>
+
+  <!-- 12V -> x = 440 -->
+  <line x1="440" y1="380" x2="440" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="440" y="400" font-size="11" fill="#c0392b" font-weight="bold" text-anchor="middle">12 В</text>
+
+  <!-- 15V -> x = 550 -->
+  <line x1="550" y1="380" x2="550" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="550" y="400" font-size="11" fill="#6b7280" text-anchor="middle">15 В</text>
+
+  <!-- Крива 5.0V (Синя) -->
+  <!-- 6.5V -> 740mA (y=153); 7V(167)->555mA(y=210); 9V(275)->278mA(y=295); 12V(440)->159mA(y=331); 15V(550)->111mA(y=346) -->
+  <path d="M 140 153 C 180 220, 260 290, 440 331 L 550 346" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="140" cy="153" r="4" fill="#2457d6"/>
+  <circle cx="440" cy="331" r="4" fill="#2457d6"/>
+
+  <!-- Крива 3.3V (Червона) -->
+  <!-- 6.5V -> 347mA (y=274); 7V(167)->300mA(y=288); 9V(275)->195mA(y=320); 12V(440)->128mA(y=341); 15V(550)->95mA(y=351) -->
+  <path d="M 140 274 C 200 310, 300 330, 440 341 L 550 351" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="140" cy="274" r="4" fill="#c0392b"/>
+  <circle cx="440" cy="341" r="4" fill="#c0392b"/>
+
+  <!-- Підписи кривих прямо на графіку -->
+  <text x="250" y="240" font-size="12" font-weight="bold" fill="#2457d6">Вихід 5.0 В (AMS1117-5.0)</text>
+  <text x="250" y="315" font-size="12" font-weight="bold" fill="#c0392b">Вихід 3.3 В (AMS1117-3.3)</text>
+
+  <!-- Маркер 12V небезпеки -->
+  <line x1="440" y1="135" x2="440" y2="380" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <rect x="360" y="145" width="160" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="440" y="162" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Живлення 12 В:</text>
+  <text x="440" y="177" font-size="11" fill="#c0392b" text-anchor="middle">макс. струм &lt; 160 мА!</text>
+
+  <!-- Права панель: Інженерні висновки та розрахунки -->
+  <rect x="640" y="80" width="280" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="780" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Теплові межі MB102</text>
+
+  <!-- Блок формули -->
+  <rect x="655" y="125" width="250" height="65" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="665" y="145" font-size="11" font-weight="bold" fill="#2457d6">Гранична потужність:</text>
+  <text x="665" y="163" font-size="11" fill="#1a1a1a">P_max = (125°C - 25°C) / 90°C/W</text>
+  <text x="665" y="180" font-size="11" font-weight="bold" fill="#27ae60">P_loss_max ≈ 1.11 Вт</text>
+
+  <!-- Таблиця режимів -->
+  <rect x="655" y="200" width="250" height="110" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="665" y="220" font-size="11" font-weight="bold" fill="#1a1a1a">Допустимий струм (5 В):</text>
+  <text x="665" y="240" font-size="11" fill="#27ae60">• При 7.0 В: I_out = 550 мА (η = 71%)</text>
+  <text x="665" y="260" font-size="11" fill="#1a1a1a">• При 9.0 В: I_out = 280 мА (η = 55%)</text>
+  <text x="665" y="280" font-size="11" fill="#c0392b">• При 12 В: I_out = 160 мА (η = 42%)</text>
+  <text x="665" y="300" font-size="11" fill="#c0392b">• При 15 В: I_out = 110 мА (η = 33%)</text>
+
+  <!-- Висновок -->
+  <rect x="655" y="320" width="250" height="95" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="665" y="340" font-size="11" font-weight="bold" fill="#27ae60">Практичне правило:</text>
+  <text x="665" y="360" font-size="11" fill="#1a1a1a">Для макета оптимальний блок</text>
+  <text x="665" y="378" font-size="11" fill="#1a1a1a">живлення на 6.5–7.5 В. Адаптер</text>
+  <text x="665" y="396" font-size="11" fill="#c0392b">12 В перетворює плату на пічку.</text>
+</svg>

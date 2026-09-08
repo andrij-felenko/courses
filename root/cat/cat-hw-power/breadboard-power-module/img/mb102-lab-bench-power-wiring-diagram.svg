@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Монтажна схема лабораторного стенда: MB102 + INA219 + МК</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Підключення датчика струму в розрив плюсової лінії живлення зі зчитуванням через шину I2C</text>
+
+  <!-- Блок 1: Модуль живлення MB102 (ліворуч угорі) -->
+  <rect x="30" y="80" width="260" height="175" rx="6" fill="#1e3a8a" stroke="#172554" stroke-width="1.5"/>
+  <text x="160" y="106" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Модуль живлення MB102</text>
+
+  <!-- Гніздо живлення DC -->
+  <rect x="45" y="125" width="45" height="45" rx="3" fill="#111827" stroke="#9ca3af" stroke-width="1"/>
+  <text x="67" y="152" font-size="11" fill="white" text-anchor="middle">DC 9V</text>
+
+  <!-- Кнопка -->
+  <circle cx="125" cy="148" r="12" fill="#dc2626"/>
+
+  <!-- Вихідні штирі MB102 -->
+  <rect x="220" y="125" width="55" height="45" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="235" cy="138" r="4" fill="#c0392b"/>
+  <text x="245" y="142" font-size="11" font-weight="bold" fill="#c0392b">V+</text>
+  <circle cx="235" cy="158" r="4" fill="#1e40af"/>
+  <text x="245" y="162" font-size="11" font-weight="bold" fill="#1e40af">GND</text>
+
+  <text x="160" y="235" font-size="11" fill="#93c5fd" text-anchor="middle">Встановлено джампер на 5.0 В</text>
+
+  <!-- Блок 2: Модуль INA219 (центр угорі) -->
+  <rect x="340" y="80" width="260" height="175" rx="6" fill="#065f46" stroke="#064e3b" stroke-width="1.5"/>
+  <text x="470" y="106" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Модуль датчика INA219</text>
+
+  <!-- Клеми шунта Vin+ та Vin- -->
+  <rect x="355" y="125" width="65" height="45" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="370" cy="138" r="4" fill="#c0392b"/>
+  <text x="380" y="142" font-size="10" font-weight="bold" fill="#c0392b">VIN+</text>
+  <circle cx="370" cy="158" r="4" fill="#27ae60"/>
+  <text x="380" y="162" font-size="10" font-weight="bold" fill="#27ae60">VIN-</text>
+
+  <!-- Гребінка I2C -->
+  <rect x="475" y="125" width="110" height="60" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="485" y="140" font-size="10" fill="#1a1a1a">VCC (5V)</text>
+  <text x="485" y="154" font-size="10" fill="#1a1a1a">GND</text>
+  <text x="485" y="168" font-size="10" fill="#2457d6">SCL (A5)</text>
+  <text x="485" y="180" font-size="10" fill="#2457d6">SDA (A4)</text>
+
+  <text x="470" y="235" font-size="11" fill="#a7f3d0" text-anchor="middle">Вбудований прецизійний шунт 0.1 Ом</text>
+
+  <!-- Блок 3: Мікроконтролер Arduino Nano (праворуч угорі) -->
+  <rect x="650" y="80" width="275" height="175" rx="6" fill="#1e293b" stroke="#0f172a" stroke-width="1.5"/>
+  <text x="787" y="106" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Мікроконтролер (Arduino / ESP)</text>
+
+  <!-- Піни МК -->
+  <rect x="670" y="125" width="105" height="75" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="680" y="142" font-size="11" fill="#1a1a1a">A4 (SDA)</text>
+  <text x="680" y="160" font-size="11" fill="#1a1a1a">A5 (SCL)</text>
+  <text x="680" y="178" font-size="11" fill="#c0392b">5V / GND</text>
+  <text x="680" y="195" font-size="11" fill="#d97706">D3 (Зумер)</text>
+
+  <!-- OLED Дисплей міні -->
+  <rect x="795" y="125" width="115" height="65" rx="3" fill="#111827" stroke="#4b5563" stroke-width="1"/>
+  <text x="852" y="146" font-size="10" fill="#38bdf8" text-anchor="middle">OLED I2C</text>
+  <text x="852" y="164" font-size="11" font-weight="bold" fill="#4ade80" text-anchor="middle">5.01V 120mA</text>
+  <text x="852" y="180" font-size="10" fill="#facc15" text-anchor="middle">601 mW</text>
+
+  <!-- Блок 4: Макетна плата MB-102 (внизу) -->
+  <rect x="30" y="275" width="895" height="155" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="300" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Безпаяльна макетна плата MB-102 (Навантаження)</text>
+
+  <!-- Верхня рейка живлення макета -->
+  <rect x="50" y="315" width="855" height="24" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="332" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Захищена шина живлення VCC (+5.0 В через шунт INA219)</text>
+
+  <!-- Нижня рейка GND макета -->
+  <rect x="50" y="350" width="855" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="367" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Спільна шина заземлення GND (MB102 + INA219 + МК)</text>
+
+  <!-- Підписи з'єднань -->
+  <text x="70" y="405" font-size="12" fill="#1a1a1a">• Вихід V+ з MB102 іде на клему VIN+ датчика INA219</text>
+  <text x="500" y="405" font-size="12" fill="#27ae60">• Вихід VIN- живить плюсову рейку макетної плати</text>
+  <text x="70" y="423" font-size="12" fill="#2457d6">• Шина I2C (SDA/SCL) об'єднує датчик INA219 та екран із мікроконтролером</text>
+</svg>
