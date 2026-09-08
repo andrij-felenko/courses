@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <text x="480" y="36" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Будова хвильового редуктора: дві фази зачеплення Flexspline</text>
+  <text x="480" y="58" fill="#6b7280" font-size="13" text-anchor="middle">Обертання еліптичного хвильового генератора переміщує дві протилежні зони зачеплення, спричиняючи відносний зсув стакана</text>
+
+  <!-- Панель 1 -->
+  <rect x="30" y="80" width="435" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="110" fill="#2457d6" font-size="14" font-weight="bold" text-anchor="middle">Фаза 1: генератор вертикально (θ = 0°)</text>
+
+  <circle cx="247" cy="245" r="95" fill="none" stroke="#6b7280" stroke-width="10" stroke-dasharray="4,3"/>
+  <circle cx="247" cy="245" r="102" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+  <ellipse cx="247" cy="245" rx="72" ry="95" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+  <ellipse cx="247" cy="245" rx="48" ry="72" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="247" cy="245" r="18" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="247" cy="245" r="3" fill="#1a1a1a"/>
+
+  <rect x="167" y="126" width="160" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="247" y="140" fill="#27ae60" font-size="11" font-weight="bold" text-anchor="middle">Повне зачеплення (100%)</text>
+
+  <rect x="167" y="344" width="160" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="247" y="358" fill="#27ae60" font-size="11" font-weight="bold" text-anchor="middle">Повне зачеплення (100%)</text>
+
+  <text x="135" y="249" fill="#c0392b" font-size="11" font-weight="bold" text-anchor="end">Зазор ◄</text>
+  <text x="360" y="249" fill="#c0392b" font-size="11" font-weight="bold" text-anchor="start">► Зазор</text>
+  <text x="247" y="405" fill="#6b7280" font-size="12" text-anchor="middle">Контакт у 2 зонах по вертикальній осі</text>
+
+  <!-- Панель 2 -->
+  <rect x="495" y="80" width="435" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="110" fill="#2457d6" font-size="14" font-weight="bold" text-anchor="middle">Фаза 2: поворот генератора на 90° (θ = 90°)</text>
+
+  <circle cx="712" cy="245" r="95" fill="none" stroke="#6b7280" stroke-width="10" stroke-dasharray="4,3"/>
+  <circle cx="712" cy="245" r="102" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+  <ellipse cx="712" cy="245" rx="95" ry="72" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+  <ellipse cx="712" cy="245" rx="72" ry="48" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="712" cy="245" r="18" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="712" cy="245" r="3" fill="#1a1a1a"/>
+
+  <text x="712" y="150" fill="#c0392b" font-size="11" font-weight="bold" text-anchor="middle">▲ Зазор (зуби розчеплені)</text>
+  <text x="712" y="354" fill="#c0392b" font-size="11" font-weight="bold" text-anchor="middle">▼ Зазор (зуби розчеплені)</text>
+
+  <rect x="532" y="235" width="80" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="572" y="249" fill="#27ae60" font-size="11" font-weight="bold" text-anchor="middle">Контакт ►</text>
+
+  <rect x="812" y="235" width="80" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="852" y="249" fill="#27ae60" font-size="11" font-weight="bold" text-anchor="middle">◄ Контакт</text>
+  <text x="712" y="405" fill="#6b7280" font-size="12" text-anchor="middle">Зсув Flexspline на кут Δφ проти обертання</text>
+</svg>

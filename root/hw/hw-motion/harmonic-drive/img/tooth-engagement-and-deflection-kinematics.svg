@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <text x="480" y="36" fill="#1a1a1a" font-size="18" font-weight="bold" text-anchor="middle">Кінематика зачеплення зубів хвильової передачі за периметром деформації</text>
+  <text x="480" y="58" fill="#6b7280" font-size="13" text-anchor="middle">Зміна радіального зміщення стакана від максимуму на великій осі до повного виходу на малій осі</text>
+
+  <!-- Панель 1: Велика вісь -->
+  <rect x="30" y="80" width="280" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="110" fill="#2457d6" font-size="14" font-weight="bold" text-anchor="middle">Велика вісь (θ = 0°)</text>
+  <rect x="70" y="125" width="200" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="170" y="140" fill="#27ae60" font-size="11" font-weight="bold" text-anchor="middle">Повне зачеплення (100%)</text>
+
+  <!-- Схема зубів великої осі -->
+  <text x="170" y="170" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">Circular Spline (жорсткий)</text>
+  <g transform="translate(0, 0)">
+    <path d="M 70,185 L 95,185 L 115,225 L 140,225 L 160,185 L 180,185 L 200,225 L 225,225 L 245,185 L 270,185" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+    <path d="M 70,290 L 95,290 L 115,250 L 140,250 L 160,290 L 180,290 L 200,250 L 225,250 L 245,290 L 270,290" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  </g>
+  <text x="170" y="315" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">Flexspline (глибокий вхід)</text>
+
+  <text x="170" y="355" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">Радіальний прогин: w = w_0</text>
+  <text x="170" y="380" fill="#6b7280" font-size="11" text-anchor="middle">Двосторонній контакт профілів</text>
+  <text x="170" y="402" fill="#6b7280" font-size="11" text-anchor="middle">Передача корисного моменту</text>
+
+  <!-- Панель 2: Фаза входу 45° -->
+  <rect x="340" y="80" width="280" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="110" fill="#2457d6" font-size="14" font-weight="bold" text-anchor="middle">Перехідна зона (θ = 45°)</text>
+  <rect x="380" y="125" width="200" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="140" fill="#2457d6" font-size="11" font-weight="bold" text-anchor="middle">Вхід / вихід із зачеплення</text>
+
+  <text x="480" y="170" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">Circular Spline</text>
+  <g transform="translate(0, 0)">
+    <path d="M 380,185 L 405,185 L 425,225 L 450,225 L 470,185 L 490,185 L 510,225 L 535,225 L 555,185 L 580,185" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+    <path d="M 380,305 L 405,305 L 425,265 L 450,265 L 470,305 L 490,305 L 510,265 L 535,265 L 555,305 L 580,305" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  </g>
+  <text x="480" y="330" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">Flexspline (частковий контакт)</text>
+
+  <text x="480" y="355" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">Радіальний прогин: w ≈ 0.5·w_0</text>
+  <text x="480" y="380" fill="#6b7280" font-size="11" text-anchor="middle">Одностороннє ковзання кромки</text>
+  <text x="480" y="402" fill="#6b7280" font-size="11" text-anchor="middle">Плавне розвантаження зуба</text>
+
+  <!-- Панель 3: Мала вісь -->
+  <rect x="650" y="80" width="280" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="110" fill="#2457d6" font-size="14" font-weight="bold" text-anchor="middle">Мала вісь (θ = 90°)</text>
+  <rect x="690" y="125" width="200" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="140" fill="#c0392b" font-size="11" font-weight="bold" text-anchor="middle">Повне розчеплення (0%)</text>
+
+  <text x="790" y="170" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">Circular Spline</text>
+  <g transform="translate(0, 0)">
+    <path d="M 690,185 L 715,185 L 735,225 L 760,225 L 780,185 L 800,185 L 820,225 L 845,225 L 865,185 L 890,185" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+    <path d="M 690,325 L 715,325 L 735,285 L 760,285 L 780,325 L 800,325 L 820,285 L 845,285 L 865,325 L 890,325" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  </g>
+  <text x="790" y="350" fill="#2457d6" font-size="12" font-weight="bold" text-anchor="middle">Flexspline (повний зазор)</text>
+
+  <text x="790" y="375" fill="#1a1a1a" font-size="12" font-weight="bold" text-anchor="middle">Радіальний зазор: Δ = 2·w_0</text>
+  <text x="790" y="398" fill="#6b7280" font-size="11" text-anchor="middle">Вершини зубів повністю вийшли</text>
+  <text x="790" y="418" fill="#6b7280" font-size="11" text-anchor="middle">Вільний перебіг без тертя</text>
+</svg>

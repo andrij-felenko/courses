@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr2" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr2-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr2-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr2-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Фон -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Консольне та двоопорне (кошикове) водило сателітів</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Двоопорний кошик усуває вигин осей сателітів під навантаженням та запобігає сколюванню зубів</text>
+
+  <!-- Панель 1: Консольне водило -->
+  <rect x="30" y="75" width="435" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Консольне базування осей</text>
+  <text x="247" y="122" text-anchor="middle" font-size="12" fill="#c0392b">Одностороннє закріплення: ризик пружного вигину</text>
+
+  <!-- Схема консольного вузла -->
+  <!-- Базова щока водила ліворуч -->
+  <rect x="140" y="140" width="22" height="100" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Вісь сателіта лінією (товщина 16) -->
+  <line x1="162" y1="190" x2="302" y2="190" stroke="#1a1a1a" stroke-width="16"/>
+  <!-- Сателіт на осі -->
+  <rect x="195" y="155" width="75" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Сила реакції та вигин осі -->
+  <line x1="232" y1="135" x2="232" y2="152" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr2-red)"/>
+  <text x="240" y="145" font-size="12" font-weight="bold" fill="#c0392b">F_radial</text>
+
+  <!-- Стрілка вигину -->
+  <line x1="300" y1="195" x2="318" y2="210" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr2-red)"/>
+  <text x="325" y="215" font-size="12" fill="#c0392b">Кутовий перекіс</text>
+
+  <!-- Блок опису 1 -->
+  <rect x="50" y="260" width="395" height="155" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="287" font-size="13" font-weight="bold" fill="#c0392b">Недоліки консольного водила:</text>
+  <text x="70" y="312" font-size="12" fill="#1a1a1a">• Опора осі сателіта лише з одного боку фланця</text>
+  <text x="70" y="334" font-size="12" fill="#1a1a1a">• Пружний вигин консольної осі під моментом навантаження</text>
+  <text x="70" y="356" font-size="12" fill="#c0392b">• Концентрація напружень на кромках зубів</text>
+  <text x="70" y="378" font-size="12" fill="#1a1a1a">• Знижена крутильна жорсткість усього редуктора</text>
+  <text x="70" y="398" font-size="12" fill="#6b7280">Застосування: економічні приводи малої потужності</text>
+
+  <!-- Панель 2: Кошикове водило -->
+  <rect x="495" y="75" width="435" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Двоопорне кошикове водило (Cage)</text>
+  <text x="712" y="122" text-anchor="middle" font-size="12" fill="#27ae60">Дві інтегровані щоки: нульовий вигин осі</text>
+
+  <!-- Схема кошикового вузла -->
+  <!-- Ліва щока водила -->
+  <rect x="590" y="140" width="22" height="100" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Права щока водила -->
+  <rect x="765" y="140" width="22" height="100" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Вісь сателіта між двома щоками лінією -->
+  <line x1="612" y1="190" x2="765" y2="190" stroke="#1a1a1a" stroke-width="16"/>
+  <!-- Сателіт на голчастих підшипниках -->
+  <rect x="645" y="155" width="87" height="70" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Голчасті підшипники (позначення валиків) -->
+  <line x1="655" y1="190" x2="722" y2="190" stroke="#27ae60" stroke-width="4" stroke-dasharray="5,4"/>
+
+  <!-- Симетричне навантаження -->
+  <line x1="688" y1="135" x2="688" y2="152" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr2-green)"/>
+  <text x="696" y="145" font-size="12" font-weight="bold" fill="#27ae60">F_radial</text>
+
+  <text x="688" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Симетрична опора на дві щоки</text>
+
+  <!-- Блок опису 2 -->
+  <rect x="515" y="260" width="395" height="155" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="535" y="287" font-size="13" font-weight="bold" fill="#27ae60">Переваги двоопорного кошика:</text>
+  <text x="535" y="312" font-size="12" fill="#1a1a1a">• Обидва кінці осі жорстко зафіксовані в монолітному кошику</text>
+  <text x="535" y="334" font-size="12" fill="#1a1a1a">• Відсутність кутового перекосу осі під максимальним моментом</text>
+  <text x="535" y="356" font-size="12" fill="#27ae60">• Рівномірний розподіл плями контакту по всій ширині вінця</text>
+  <text x="535" y="378" font-size="12" fill="#2457d6">• Повноголчасті вальниці забезпечують максимальну ємність</text>
+  <text x="535" y="398" font-size="12" fill="#6b7280">Застосування: прецизійні серворедуктори (люфт &lt; 1–3')</text>
+</svg>

@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr3" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr3-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr3-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Фон -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Геометричні умови синтезу планетарного ряду</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Три обов'язкові інженерні умови монтажу: співвісність, сусідство та правильне збирання</text>
+
+  <!-- Панель 1: Співвісність -->
+  <rect x="25" y="75" width="290" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Умова співвісності</text>
+  <text x="170" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Рівність міжосьових відстаней</text>
+
+  <!-- Корона r=68 -->
+  <circle cx="170" cy="205" r="68" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="4,4"/>
+  <!-- Сателіт r=24 на y=161 -->
+  <circle cx="170" cy="161" r="24" fill="white" stroke="#6b7280" stroke-width="2"/>
+  <!-- Сонце r=20 на y=205 -->
+  <circle cx="170" cy="205" r="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <!-- Осі та відстань -->
+  <line x1="170" y1="205" x2="170" y2="161" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="170" cy="205" r="3" fill="#2457d6"/>
+  <circle cx="170" cy="161" r="3" fill="#27ae60"/>
+
+  <text x="42" y="185" font-size="12" font-weight="bold" fill="#27ae60">a_w</text>
+  <text x="205" y="165" font-size="12" fill="#6b7280">Сателіт z_g</text>
+  <text x="205" y="210" font-size="12" fill="#2457d6">Сонце z_a</text>
+
+  <!-- Блок формули 1 -->
+  <rect x="40" y="285" width="260" height="135" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="310" font-size="13" font-weight="bold" fill="#2457d6">z_b = z_a + 2 · z_g</text>
+  <text x="55" y="333" font-size="12" fill="#1a1a1a">• Спільна вісь сонця й корони</text>
+  <text x="55" y="355" font-size="12" fill="#1a1a1a">• a_w(сонце) = a_w(корона)</text>
+  <text x="55" y="377" font-size="12" fill="#1a1a1a">• Для незміщених коліс</text>
+  <text x="55" y="399" font-size="12" fill="#27ae60">Забезпечує монтаж коліс</text>
+
+  <!-- Панель 2: Сусідство -->
+  <rect x="335" y="75" width="290" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Умова сусідства</text>
+  <text x="480" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Зазор між сусідніми сателітами</text>
+
+  <!-- Два сусідніх сателіти r=26 на x=448 та x=512 (просвіт 12 px) -->
+  <circle cx="448" cy="195" r="26" fill="white" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="512" cy="195" r="26" fill="white" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="448" cy="195" r="3" fill="#1a1a1a"/>
+  <circle cx="512" cy="195" r="3" fill="#1a1a1a"/>
+
+  <!-- Зазор між вершинами -->
+  <line x1="474" y1="195" x2="486" y2="195" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Зазор &gt; 0</text>
+  <text x="480" y="245" text-anchor="middle" font-size="12" fill="#6b7280">Відстань осей: 2·a_w·sin(π/k)</text>
+
+  <!-- Блок формули 2 -->
+  <rect x="350" y="285" width="260" height="135" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="365" y="310" font-size="13" font-weight="bold" fill="#27ae60">sin(π/k) &gt; d_ag / (2 · a_w)</text>
+  <text x="365" y="333" font-size="12" fill="#1a1a1a">• Вершини зубів не торкаються</text>
+  <text x="365" y="355" font-size="12" fill="#1a1a1a">• Обмежує число сателітів k</text>
+  <text x="365" y="377" font-size="12" fill="#1a1a1a">• Типово: k = 3, 4 або 5</text>
+  <text x="365" y="399" font-size="12" fill="#2457d6">Запобігає заклинюванню</text>
+
+  <!-- Панель 3: Збирання -->
+  <rect x="645" y="75" width="290" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">3. Умова збирання</text>
+  <text x="790" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Сумісність за кутовим кроком</text>
+
+  <!-- Схема 3 сателітів під 120° -->
+  <circle cx="790" cy="195" r="42" fill="none" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="790" y1="195" x2="790" y2="153" stroke="#27ae60" stroke-width="2"/>
+  <line x1="790" y1="195" x2="754" y2="216" stroke="#27ae60" stroke-width="2"/>
+  <line x1="790" y1="195" x2="826" y2="216" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="790" cy="153" r="14" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="754" cy="216" r="14" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="826" cy="216" r="14" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="790" cy="195" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <text x="790" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Кут 2π / k (120°)</text>
+  <text x="790" y="255" text-anchor="middle" font-size="12" fill="#6b7280">k = 3 рівновіддалені сателіти</text>
+
+  <!-- Блок формули 3 -->
+  <rect x="660" y="285" width="260" height="135" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="675" y="310" font-size="13" font-weight="bold" fill="#2457d6">(z_a + z_b) / k = Integer</text>
+  <text x="675" y="333" font-size="12" fill="#1a1a1a">• Одночасний вхід у зачеплення</text>
+  <text x="675" y="355" font-size="12" fill="#1a1a1a">• Зуби точно збігаються з западинами</text>
+  <text x="675" y="377" font-size="12" fill="#1a1a1a">• Якщо не ділиться — збирання</text>
+  <text x="675" y="399" font-size="12" fill="#c0392b">  фізично неможливе</text>
+</svg>

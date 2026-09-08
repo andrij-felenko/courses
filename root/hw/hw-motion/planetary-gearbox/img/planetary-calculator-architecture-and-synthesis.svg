@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Фон -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура інженерного калькулятора планетарного редуктора</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Послідовний конвеєр перевірки геометричних умов монтажу, розрахунку міцності та аналізу динаміки</text>
+
+  <!-- Блок 1: Вхідні параметри -->
+  <rect x="25" y="75" width="205" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="127" y="102" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Вхідні параметри</text>
+  <text x="127" y="120" text-anchor="middle" font-size="11" fill="#6b7280">Синтез геометрії</text>
+
+  <rect x="35" y="135" width="185" height="155" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="158" font-size="12" fill="#1a1a1a">• Модуль зачеплення m</text>
+  <text x="45" y="180" font-size="12" fill="#1a1a1a">• Зуби z_a, z_b, z_g</text>
+  <text x="45" y="202" font-size="12" fill="#1a1a1a">• Кількість сателітів k</text>
+  <text x="45" y="224" font-size="12" fill="#1a1a1a">• Ширина вінця b</text>
+  <text x="45" y="246" font-size="12" fill="#1a1a1a">• Крутний момент T_out</text>
+  <text x="45" y="268" font-size="12" fill="#1a1a1a">• Частота обертання n_in</text>
+
+  <rect x="35" y="305" width="185" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="45" y="328" font-size="11" font-weight="bold" fill="#2457d6">Вихідні величини:</text>
+  <text x="45" y="350" font-size="11" fill="#1a1a1a">Ділильні діаметри d,</text>
+  <text x="45" y="370" font-size="11" fill="#1a1a1a">міжосьова відстань a_w,</text>
+  <text x="45" y="390" font-size="11" fill="#1a1a1a">передавальне число i</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="230" y1="210" x2="255" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 2: Перевірка монтажу -->
+  <rect x="260" y="75" width="205" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="362" y="102" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">2. Умови монтажу</text>
+  <text x="362" y="120" text-anchor="middle" font-size="11" fill="#6b7280">Кінематичні фільтри</text>
+
+  <rect x="270" y="135" width="185" height="155" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="280" y="158" font-size="12" font-weight="bold" fill="#1a1a1a">Перевірка 3 умов:</text>
+  <text x="280" y="180" font-size="11" fill="#1a1a1a">1. Співвісність:</text>
+  <text x="280" y="198" font-size="11" fill="#2457d6">   z_b = z_a + 2·z_g</text>
+  <text x="280" y="218" font-size="11" fill="#1a1a1a">2. Збирання:</text>
+  <text x="280" y="236" font-size="11" fill="#2457d6">   (z_a + z_b) / k = Int</text>
+  <text x="280" y="256" font-size="11" fill="#1a1a1a">3. Сусідство:</text>
+  <text x="280" y="274" font-size="11" fill="#27ae60">   Зазор сателітів &gt; 0</text>
+
+  <rect x="270" y="305" width="185" height="115" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="280" y="328" font-size="11" font-weight="bold" fill="#1a1a1a">Валідація схеми:</text>
+  <text x="280" y="350" font-size="11" fill="#1a1a1a">Якщо умова порушена —</text>
+  <text x="280" y="370" font-size="11" fill="#c0392b">викидається виняток</text>
+  <text x="280" y="390" font-size="11" fill="#c0392b">SynthesisError</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="465" y1="210" x2="490" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 3: Розрахунок міцності -->
+  <rect x="495" y="75" width="205" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="597" y="102" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">3. Аналіз міцності</text>
+  <text x="597" y="120" text-anchor="middle" font-size="11" fill="#6b7280">Льюїс та Герц</text>
+
+  <rect x="505" y="135" width="185" height="155" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="515" y="158" font-size="12" font-weight="bold" fill="#1a1a1a">Критерії руйнування:</text>
+  <text x="515" y="180" font-size="11" fill="#1a1a1a">• Згинальні напруження:</text>
+  <text x="515" y="198" font-size="11" fill="#2457d6">   σ_F = (F_t · Y_F) / (b·m)</text>
+  <text x="515" y="218" font-size="11" fill="#1a1a1a">• Контактні за Герцом:</text>
+  <text x="515" y="236" font-size="11" fill="#2457d6">   σ_H = Z_H·Z_E·sqrt(...)</text>
+  <text x="515" y="256" font-size="11" fill="#1a1a1a">• Неоднаковість потоку:</text>
+  <text x="515" y="274" font-size="11" fill="#6b7280">   множник K_γ (1.1...1.2)</text>
+
+  <rect x="505" y="305" width="185" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="515" y="328" font-size="11" font-weight="bold" fill="#2457d6">Запаси міцності:</text>
+  <text x="515" y="350" font-size="11" fill="#1a1a1a">Згинальний: S_F ≥ 1.5</text>
+  <text x="515" y="370" font-size="11" fill="#1a1a1a">Контактний: S_H ≥ 1.25</text>
+  <text x="515" y="390" font-size="11" fill="#27ae60">Ресурс: L_10h годин</text>
+
+  <!-- Стрілка 3 -> 4 -->
+  <line x1="700" y1="210" x2="725" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 4: Динаміка та звіт -->
+  <rect x="730" y="75" width="205" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="832" y="102" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">4. Динаміка та звіт</text>
+  <text x="832" y="120" text-anchor="middle" font-size="11" fill="#6b7280">Підсумок розрахунку</text>
+
+  <rect x="740" y="135" width="185" height="155" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="750" y="158" font-size="12" font-weight="bold" fill="#1a1a1a">Динамічні показники:</text>
+  <text x="750" y="180" font-size="11" fill="#1a1a1a">• Зведена інерція J_eq</text>
+  <text x="750" y="202" font-size="11" fill="#1a1a1a">• Кутовий люфт j_t</text>
+  <text x="750" y="224" font-size="11" fill="#1a1a1a">• Крутильна жорсткість C_t</text>
+  <text x="750" y="246" font-size="11" fill="#1a1a1a">• ККД ступеня η</text>
+  <text x="750" y="268" font-size="11" fill="#27ae60">• Резонансна частота ω_n</text>
+
+  <rect x="740" y="305" width="185" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="750" y="328" font-size="11" font-weight="bold" fill="#27ae60">Формування звіту:</text>
+  <text x="750" y="350" font-size="11" fill="#1a1a1a">Таблиця параметрів,</text>
+  <text x="750" y="370" font-size="11" fill="#1a1a1a">вердикт Pass / Fail,</text>
+  <text x="750" y="390" font-size="11" fill="#27ae60">експорт у JSON / Dict</text>
+</svg>

@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr-main" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Кінематична схема планетарного редуктора</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Розподіл швидкостей та векторів сил зачеплення між сонцем, сателітами і коронною шестернею</text>
+
+  <!-- LEFT VISUAL PANEL: Kinematic arrangement -->
+  <rect x="24" y="80" width="510" height="356" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Fixed Ring Gear outer boundary & pitch circle -->
+  <circle cx="260" cy="246" r="142" fill="none" stroke="#d0d7de" stroke-width="8"/>
+  <circle cx="260" cy="246" r="136" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Carrier (Водило) - triangle linking centers -->
+  <polygon points="260,152 176,293 344,293" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3"/>
+  <circle cx="260" cy="246" r="6" fill="#2457d6"/>
+
+  <!-- Sun Gear (Сонце) at center -->
+  <circle cx="260" cy="246" r="46" fill="#ffffff" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="260" y="250" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Сонце zs</text>
+
+  <!-- 3 Satellites (Сателіти) -->
+  <!-- Satellite 1: Top (260, 152) -->
+  <circle cx="260" cy="152" r="46" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="260" cy="152" r="4" fill="#1a1a1a"/>
+  <text x="260" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Сателіт 1</text>
+  <text x="260" y="162" text-anchor="middle" font-size="12" fill="#6b7280">zp</text>
+
+  <!-- Satellite 2: Bottom-Left (176, 293) -->
+  <circle cx="176" cy="293" r="46" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="176" cy="293" r="4" fill="#1a1a1a"/>
+  <text x="176" y="297" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Сателіт 2</text>
+
+  <!-- Satellite 3: Bottom-Right (344, 293) -->
+  <circle cx="344" cy="293" r="46" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="344" cy="293" r="4" fill="#1a1a1a"/>
+  <text x="344" y="297" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Сателіт 3</text>
+
+  <!-- Force & Velocity vectors on Top Satellite -->
+  <!-- Tangential contact force at bottom mesh (sun contact y=198) -->
+  <line x1="260" y1="198" x2="305" y2="198" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <!-- Pin force at carrier pin (center y=152) -->
+  <line x1="260" y1="152" x2="298" y2="152" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <!-- Velocity vector at pin -->
+  <line x1="260" y1="152" x2="222" y2="152" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Annotations on visual diagram -->
+  <text x="312" y="202" font-size="12" font-weight="bold" fill="#c0392b">Ft</text>
+  <text x="304" y="156" font-size="12" font-weight="bold" fill="#27ae60">Fc</text>
+  <text x="216" y="156" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">vc</text>
+
+  <!-- Fixed Ring note -->
+  <text x="260" y="98" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Нерухома корона zr (ωr = 0, v = 0)</text>
+
+  <!-- Bottom diagram labels (split into 2 non-overlapping lines) -->
+  <text x="44" y="405" font-size="12" fill="#6b7280">● Водило (c): синій трикутник</text>
+  <text x="270" y="405" font-size="12" fill="#c0392b">● Контактна сила Ft (сонце-сателіт)</text>
+  <text x="44" y="423" font-size="12" fill="#27ae60">● Сила на палець водила Fc = 2·Ft</text>
+  <text x="270" y="423" font-size="12" fill="#2457d6">● Швидкість центру сателіта vc = vs/2</text>
+
+  <!-- RIGHT CARDS: Kinematic & Force Formulas -->
+  <!-- Card 1: Willis kinematics -->
+  <rect x="554" y="80" width="382" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="554" y="80" width="382" height="28" rx="6" fill="#eaf0fd"/>
+  <text x="568" y="99" font-size="13" font-weight="bold" fill="#2457d6">1. Кінематика за формулою Вілліса</text>
+  <text x="568" y="128" font-size="12" fill="#1a1a1a">Передавальне число при зафіксованій короні (ωr = 0):</text>
+  <text x="568" y="148" font-size="13" font-weight="bold" fill="#2457d6">i = ωs / ωc = 1 + (zr / zs)</text>
+  <text x="568" y="168" font-size="12" fill="#6b7280">Водило обертається синфазно із сонцем зі зниженою швидкістю</text>
+
+  <!-- Card 2: Force & Moment balance -->
+  <rect x="554" y="200" width="382" height="112" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="554" y="200" width="382" height="28" rx="6" fill="#e9f7ef"/>
+  <text x="568" y="219" font-size="13" font-weight="bold" fill="#27ae60">2. Баланс сил і поділ крутного моменту</text>
+  <text x="568" y="248" font-size="12" fill="#1a1a1a">Крутний момент симетрично ділиться між k сателітами:</text>
+  <text x="568" y="268" font-size="13" font-weight="bold" fill="#27ae60">Ft = Ts / (k · rs)  |  Fc = 2 · Ft</text>
+  <text x="568" y="292" font-size="12" fill="#6b7280">При k = 3 радіальні сили на валу сонця взаємно компенсуються</text>
+
+  <!-- Card 3: Velocity profile -->
+  <rect x="554" y="326" width="382" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="554" y="326" width="382" height="28" rx="6" fill="#f4f6f8"/>
+  <text x="568" y="345" font-size="13" font-weight="bold" fill="#1a1a1a">3. Профіль лінійних швидкостей</text>
+  <text x="568" y="374" font-size="12" fill="#1a1a1a">Точка контакту сателіта з короною — миттєвий центр (v = 0):</text>
+  <text x="568" y="394" font-size="13" font-weight="bold" fill="#1a1a1a">vc = vs / 2 = (ωs · rs) / 2</text>
+  <text x="568" y="418" font-size="12" fill="#6b7280">Швидкість осі сателіта строго дорівнює половині швидкості сонця</text>
+</svg>

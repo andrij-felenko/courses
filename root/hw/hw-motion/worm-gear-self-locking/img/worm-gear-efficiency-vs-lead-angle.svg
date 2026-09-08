@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr1" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr1-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr1-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Фон -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Залежність прямого та зворотного ККД від кута підйому витка</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Зворотний ККД стає від'ємним при γ ≤ ρ, що визначає зону надійного самогальмування</text>
+
+  <!-- Панель графіка ліворуч -->
+  <rect x="30" y="80" width="530" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Зона самогальмування (заливка фону графіка) -->
+  <rect x="90" y="110" width="90" height="270" fill="#e9f7ef" opacity="0.6"/>
+  <text x="135" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Зона γ ≤ ρ</text>
+
+  <!-- Сітка графіка -->
+  <line x1="90" y1="330" x2="520" y2="330" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="90" y1="280" x2="520" y2="280" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="90" y1="230" x2="520" y2="230" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="90" y1="180" x2="520" y2="180" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="90" y1="130" x2="520" y2="130" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Лінія нульового ККД -->
+  <line x1="90" y1="300" x2="520" y2="300" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="65" y="304" font-size="12" fill="#6b7280">0%</text>
+
+  <!-- Вісь Y -->
+  <line x1="90" y1="380" x2="90" y2="105" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr1)"/>
+  <text x="50" y="115" font-size="12" font-weight="bold" fill="#1a1a1a">ККД η</text>
+  <text x="55" y="234" font-size="12" fill="#6b7280">50%</text>
+  <text x="50" y="144" font-size="12" fill="#6b7280">100%</text>
+  <text x="50" y="364" font-size="12" fill="#c0392b">-30%</text>
+
+  <!-- Вісь X -->
+  <line x1="90" y1="300" x2="530" y2="300" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr1)"/>
+  <text x="535" y="315" font-size="12" font-weight="bold" fill="#1a1a1a">Кут γ</text>
+  <text x="180" y="318" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ρ (6°)</text>
+  <text x="270" y="318" text-anchor="middle" font-size="12" fill="#6b7280">12°</text>
+  <text x="360" y="318" text-anchor="middle" font-size="12" fill="#6b7280">20°</text>
+  <text x="450" y="318" text-anchor="middle" font-size="12" fill="#6b7280">30°</text>
+
+  <!-- Крива прямого ККД (синя) -->
+  <path d="M 90 300 Q 140 220 220 180 T 500 145" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <text x="410" y="160" font-size="12" font-weight="bold" fill="#2457d6">Прямий ККД (η_dir)</text>
+
+  <!-- Крива зворотного ККД (червона) -->
+  <path d="M 90 375 Q 130 365 180 300 T 500 175" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <text x="410" y="205" font-size="12" font-weight="bold" fill="#c0392b">Зворотний ККД (η_rev)</text>
+
+  <!-- Права панель із поясненнями -->
+  <rect x="580" y="80" width="350" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Блок 1: Самогальмування -->
+  <rect x="600" y="100" width="310" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="615" y="125" font-size="14" font-weight="bold" fill="#27ae60">Самогальмівний режим (γ ≤ ρ)</text>
+  <text x="615" y="150" font-size="12" fill="#1a1a1a">• Однозахідні черв'яки (z1 = 1, γ ≈ 3°...5°)</text>
+  <text x="615" y="172" font-size="12" fill="#1a1a1a">• Зворотний ККД від'ємний: η_rev ≤ 0</text>
+  <text x="615" y="194" font-size="12" fill="#1a1a1a">• Момент від колеса спричиняє заклинювання</text>
+  <text x="615" y="216" font-size="12" font-weight="bold" fill="#27ae60">Прямий ККД знижений: η ≈ 45%...65%</text>
+
+  <!-- Блок 2: Несамогальмівний режим -->
+  <rect x="600" y="255" width="310" height="150" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="615" y="280" font-size="14" font-weight="bold" fill="#c0392b">Вільний зворотний хід (γ > ρ)</text>
+  <text x="615" y="305" font-size="12" fill="#1a1a1a">• Багатозахідні черв'яки (z1 = 2...4, γ ≥ 12°)</text>
+  <text x="615" y="327" font-size="12" fill="#1a1a1a">• Зворотний ККД додатний: η_rev > 0</text>
+  <text x="615" y="349" font-size="12" fill="#1a1a1a">• Привід обертається назад під навантаженням</text>
+  <text x="615" y="371" font-size="12" font-weight="bold" fill="#2457d6">Високий прямий ККД: η ≈ 75%...90%</text>
+  <text x="615" y="393" font-size="12" fill="#c0392b">Обов'язкове додаткове гальмо!</text>
+</svg>

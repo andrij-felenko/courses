@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr-main" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема двоступеневого каскадування редуктора</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">З'єднання водила першого ступеня з сонцем другого у спільному вінці</text>
+
+  <!-- LEFT VISUAL PANEL: Longitudinal cascade scheme -->
+  <rect x="24" y="80" width="510" height="356" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Common Housing / Ring gear outer tube -->
+  <rect x="90" y="120" width="370" height="240" rx="4" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="90" y="120" width="370" height="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="90" y="338" width="370" height="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="275" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Спільний нерухомий вінець корпусу (zr)</text>
+
+  <!-- Centerline of rotation (shortened so it doesn't cross labels) -->
+  <line x1="145" y1="240" x2="265" y2="240" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="8,4"/>
+
+  <!-- STAGE 1 (Швидкісний ступінь) -->
+  <!-- Input shaft as thick line -->
+  <line x1="44" y1="240" x2="110" y2="240" stroke="#2457d6" stroke-width="10"/>
+  <text x="74" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вхід вала</text>
+
+  <!-- Sun 1 -->
+  <rect x="110" y="215" width="28" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="124" y="244" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">zs1</text>
+
+  <!-- Satellites 1 (Top and Bottom) -->
+  <rect x="110" y="146" width="28" height="60" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="110" y="274" width="28" height="60" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Carrier 1 & intermediate shaft connecting to Sun 2 -->
+  <path d="M124,146 L154,146 L154,235 L270,235 L270,210" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <path d="M124,334 L154,334 L154,245 L270,245 L270,270" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <text x="195" y="196" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Водило c1 → Сонце zs2</text>
+
+  <!-- STAGE 2 (Силовий ступінь) -->
+  <!-- Sun 2 (wider, larger load) -->
+  <rect x="270" y="210" width="36" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="288" y="244" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">zs2</text>
+
+  <!-- Satellites 2 (Top and Bottom, wider gear face b2 > b1) -->
+  <rect x="270" y="146" width="36" height="60" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="270" y="274" width="36" height="60" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Carrier 2 connecting to Output shaft -->
+  <path d="M288,146 L326,146 L326,235 L420,235" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+  <path d="M288,334 L326,334 L326,245 L420,245" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+  <!-- Output shaft as line -->
+  <line x1="420" y1="240" x2="480" y2="240" stroke="#1a1a1a" stroke-width="14"/>
+  <text x="450" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вихідний вал</text>
+
+  <!-- Stage labels at top of visual panel -->
+  <text x="138" y="106" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Ступінь 1 (i1, швидкісний)</text>
+  <text x="312" y="106" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Ступінь 2 (i2, силовий)</text>
+
+  <!-- Bottom legend in panel -->
+  <text x="44" y="392" font-size="12" fill="#2457d6">● Синій колір: сонячні шестерні (вхідні ланки ступенів)</text>
+  <text x="44" y="410" font-size="12" fill="#27ae60">● Зелений контур: проміжний вал (водило c1 обертає сонце zs2)</text>
+  <text x="44" y="428" font-size="12" fill="#1a1a1a">● Ширший вінець у ступені 2: розрахований на високий момент T2 = T1·i1</text>
+
+  <!-- RIGHT CARDS: Engineering calculation rules -->
+  <!-- Card 1: Total gear ratio -->
+  <rect x="554" y="80" width="382" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="554" y="80" width="382" height="28" rx="6" fill="#eaf0fd"/>
+  <text x="568" y="99" font-size="13" font-weight="bold" fill="#2457d6">1. Загальне передавальне число</text>
+  <text x="568" y="128" font-size="12" fill="#1a1a1a">Добуток передавальних чисел окремих ступенів:</text>
+  <text x="568" y="148" font-size="13" font-weight="bold" fill="#2457d6">itotal = i1 · i2 = (1 + zr/zs1) · (1 + zr/zs2)</text>
+  <text x="568" y="168" font-size="12" fill="#6b7280">Забезпечує високі передавальні числа 25..100 у компактному об'ємі</text>
+
+  <!-- Card 2: Torque multiplication and tooth sizing -->
+  <rect x="554" y="200" width="382" height="112" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="554" y="200" width="382" height="28" rx="6" fill="#e9f7ef"/>
+  <text x="568" y="219" font-size="13" font-weight="bold" fill="#27ae60">2. Зростання моменту та ширина вінця</text>
+  <text x="568" y="248" font-size="12" fill="#1a1a1a">Момент на 2-му ступені кратний коефіцієнту передачі:</text>
+  <text x="568" y="268" font-size="13" font-weight="bold" fill="#27ae60">T2 = Tin · i1 · η1  |  b2 &gt; b1</text>
+  <text x="568" y="292" font-size="12" fill="#6b7280">Для витримки напружень Герца сателіти 2-го ступеня роблять ширшими</text>
+
+  <!-- Card 3: Total efficiency & losses -->
+  <rect x="554" y="326" width="382" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="554" y="326" width="382" height="28" rx="6" fill="#f4f6f8"/>
+  <text x="568" y="345" font-size="13" font-weight="bold" fill="#1a1a1a">3. Загальний ККД каскаду</text>
+  <text x="568" y="374" font-size="12" fill="#1a1a1a">Сумарний ККД дорівнює добутку ККД послідовних ступенів:</text>
+  <text x="568" y="394" font-size="13" font-weight="bold" fill="#1a1a1a">ηtotal = η1 · η2 ≈ 0.97 · 0.97 ≈ 0.94</text>
+  <text x="568" y="418" font-size="12" fill="#6b7280">Теплові втрати концентруються переважно на повільному 2-му ступені</text>
+</svg>

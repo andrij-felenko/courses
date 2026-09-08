@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr1" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr1-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr1-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr1-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Фон -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Епіциклічний механізм Антикітерського пристрою</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Штифт і радіальний паз зі зміщеними осями моделюють нерівномірний рух Місяця за Гіппархом</text>
+
+  <!-- Панель 1: Кінематична схема зачеплення зі штифтом і пазом -->
+  <rect x="30" y="75" width="460" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="260" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Кінематика вузла зубчастих коліс k1 та k2</text>
+  <text x="260" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Зсув центрів O1 та O2 генерує гармонічну варіацію швидкості</text>
+
+  <!-- Колесо k1: центр O1 (255, 210), r=65 -->
+  <circle cx="255" cy="210" r="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="255" cy="210" r="4" fill="#2457d6"/>
+
+  <!-- Колесо k2: центр O2 (267, 210), r=65 (ексцентриситет e = 12 px) -->
+  <circle cx="267" cy="210" r="65" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3"/>
+  <circle cx="267" cy="210" r="4" fill="#27ae60"/>
+
+  <!-- Ексцентриситет e -->
+  <line x1="255" y1="210" x2="267" y2="210" stroke="#c0392b" stroke-width="2"/>
+  <text x="261" y="198" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">e</text>
+
+  <!-- Радіальний паз на k2 та штифт на k1 на положенні (295, 160) -->
+  <line x1="267" y1="210" x2="310" y2="145" stroke="#27ae60" stroke-width="6" stroke-linecap="round"/>
+  <line x1="267" y1="210" x2="310" y2="145" stroke="white" stroke-width="2"/>
+  <!-- Штифт (pin) на k1 -->
+  <circle cx="295" cy="165" r="5" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Підписи елементів -->
+  <text x="50" y="160" font-size="12" font-weight="bold" fill="#2457d6">Колесо k1 (вісь O1)</text>
+  <text x="50" y="180" font-size="12" fill="#6b7280">Ведуче рівномірне обертання</text>
+
+  <text x="50" y="240" font-size="12" font-weight="bold" fill="#27ae60">Колесо k2 (вісь O2)</text>
+  <text x="50" y="260" font-size="12" fill="#6b7280">Ведене колесо з радіальним пазом</text>
+
+  <text x="325" y="155" font-size="12" font-weight="bold" fill="#c0392b">Штифт у пазу</text>
+  <text x="325" y="175" font-size="12" fill="#6b7280">Ковзає радіально</text>
+
+  <text x="260" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Змінне плече: r(θ) = R0 ± e · cos(θ)</text>
+  <text x="260" y="335" text-anchor="middle" font-size="12" fill="#6b7280">Швидкість вихідного вала періодично коливається</text>
+
+  <!-- Панель 2: Науковий контекст та модель Гіппарха -->
+  <rect x="510" y="75" width="420" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="720" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Астрономічний та інженерний зміст</text>
+  <text x="720" y="122" text-anchor="middle" font-size="12" fill="#27ae60">Перший в історії механічний аналоговий комп'ютер</text>
+
+  <!-- Блок опису моделі -->
+  <rect x="530" y="145" width="380" height="130" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="548" y="172" font-size="13" font-weight="bold" fill="#2457d6">Теорія епіциклів Гіппарха (II ст. до н.е.):</text>
+  <text x="548" y="196" font-size="12" fill="#1a1a1a">• Місяць рухається еліптичною орбітою з різною швидкістю</text>
+  <text x="548" y="218" font-size="12" fill="#1a1a1a">• У перигеї супутник рухається швидше, в апогеї — повільніше</text>
+  <text x="548" y="240" font-size="12" fill="#1a1a1a">• Механізм зі штифтом і пазом створює точну синусоїдальну</text>
+  <text x="548" y="260" font-size="12" fill="#27ae60">  поправку до середнього кутового положення</text>
+
+  <!-- Блок конструктивних висновків -->
+  <rect x="530" y="290" width="380" height="130" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="548" y="315" font-size="13" font-weight="bold" fill="#1a1a1a">Технологічні особливості артефакту:</text>
+  <text x="548" y="338" font-size="12" fill="#1a1a1a">• Бронзові шестерні з трикутними зубами (кут 60°)</text>
+  <text x="548" y="360" font-size="12" fill="#1a1a1a">• Повний вузол встановлено на обертовій платформі (водилі)</text>
+  <text x="548" y="382" font-size="12" fill="#1a1a1a">• Моделює прецесію лінії апсид (період 8.88 року)</text>
+  <text x="548" y="404" font-size="12" fill="#6b7280">Знайдений біля острова Антикітера, датується ~150–100 рр. до н.е.</text>
+</svg>

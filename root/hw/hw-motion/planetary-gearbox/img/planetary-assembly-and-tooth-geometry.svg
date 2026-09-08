@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr2-main" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr2-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr2-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Геометричні умови збирання та сусідства сателітів</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Умови співвісності, сусідства та збирання зубів при симетричному розміщенні</text>
+
+  <!-- LEFT VISUAL PANEL: Geometry scheme -->
+  <rect x="24" y="80" width="510" height="356" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Sun pitch circle -->
+  <circle cx="260" cy="246" r="46" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="260" y="250" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Сонце rs</text>
+
+  <!-- Carrier circle (orbit of satellite centers) aw = 92 -->
+  <circle cx="260" cy="246" r="92" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Ring pitch circle rr = 138 -->
+  <circle cx="260" cy="246" r="138" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Center distance line from center to Top Satellite -->
+  <line x1="260" y1="246" x2="260" y2="154" stroke="#2457d6" stroke-width="2"/>
+  <!-- Center distance line from center to Bottom-Right Satellite -->
+  <line x1="260" y1="246" x2="340" y2="292" stroke="#2457d6" stroke-width="2"/>
+  <!-- Center distance line from center to Bottom-Left Satellite -->
+  <line x1="260" y1="246" x2="180" y2="292" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- 3 Satellite pitch & tip circles -->
+  <!-- Top Satellite: center (260, 154) -->
+  <circle cx="260" cy="154" r="46" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="260" cy="154" r="52" fill="none" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="260" cy="154" r="3" fill="#1a1a1a"/>
+
+  <!-- Bottom-Left Satellite: center (180, 292) -->
+  <circle cx="180" cy="292" r="46" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="180" cy="292" r="52" fill="none" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="180" cy="292" r="3" fill="#1a1a1a"/>
+
+  <!-- Bottom-Right Satellite: center (340, 292) -->
+  <circle cx="340" cy="292" r="46" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="340" cy="292" r="52" fill="none" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <circle cx="340" cy="292" r="3" fill="#1a1a1a"/>
+
+  <!-- Neighbor clearance delta between Sat 2 and Sat 3 -->
+  <line x1="232" y1="292" x2="288" y2="292" stroke="#27ae60" stroke-width="2"/>
+  <text x="260" y="310" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Зазор Δ &gt; 0</text>
+
+  <!-- Center distance label -->
+  <text x="272" y="202" font-size="12" font-weight="bold" fill="#2457d6">aw</text>
+
+  <!-- Angular spacing arc & label -->
+  <text x="210" y="235" font-size="12" fill="#6b7280">γ = 120°</text>
+
+  <!-- Top note -->
+  <text x="260" y="98" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Ділильні кола зачеплення (модуль m)</text>
+
+  <!-- Legend in visual panel (two non-overlapping rows) -->
+  <text x="44" y="405" font-size="12" fill="#1a1a1a">● Чорне коло: ділильне коло (d = m·z)</text>
+  <text x="280" y="405" font-size="12" fill="#c0392b">● Червоний пунктир: вершини (da)</text>
+  <text x="44" y="423" font-size="12" fill="#27ae60">● Зелений відрізок: зазор сусідства Δ</text>
+  <text x="280" y="423" font-size="12" fill="#2457d6">● Міжосьова відстань: aw = m·(zs+zp)/2</text>
+
+  <!-- RIGHT CARDS: 3 Geometric Conditions -->
+  <!-- Card 1: Coaxiality -->
+  <rect x="554" y="80" width="382" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="554" y="80" width="382" height="28" rx="6" fill="#eaf0fd"/>
+  <text x="568" y="99" font-size="13" font-weight="bold" fill="#2457d6">1. Умова співвісності коліс</text>
+  <text x="568" y="128" font-size="12" fill="#1a1a1a">Міжосьові відстані сонце-сателіт і сателіт-корона рівні:</text>
+  <text x="568" y="148" font-size="13" font-weight="bold" fill="#2457d6">aw = m·(zs + zp)/2 = m·(zr - zp)/2</text>
+  <text x="568" y="168" font-size="12" fill="#6b7280">Звідси число зубів вінця: zr = zs + 2·zp (при x = 0)</text>
+
+  <!-- Card 2: Neighboring condition -->
+  <rect x="554" y="200" width="382" height="112" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="554" y="200" width="382" height="28" rx="6" fill="#e9f7ef"/>
+  <text x="568" y="219" font-size="13" font-weight="bold" fill="#27ae60">2. Умова сусідства (неперетинання)</text>
+  <text x="568" y="248" font-size="12" fill="#1a1a1a">Вершини сусідніх сателітів не повинні торкатися:</text>
+  <text x="568" y="268" font-size="13" font-weight="bold" fill="#27ae60">da,p &lt; 2·aw · sin(π / k) - Δmin</text>
+  <text x="568" y="292" font-size="12" fill="#6b7280">Гарантує мінімальний боковий зазор Δmin ≥ 0.5·m між сателітами</text>
+
+  <!-- Card 3: Assembly condition -->
+  <rect x="554" y="326" width="382" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="554" y="326" width="382" height="28" rx="6" fill="#f4f6f8"/>
+  <text x="568" y="345" font-size="13" font-weight="bold" fill="#1a1a1a">3. Умова збирання зубів</text>
+  <text x="568" y="374" font-size="12" fill="#1a1a1a">Для рівномірного кута γ = 2π / k між сателітами:</text>
+  <text x="568" y="394" font-size="13" font-weight="bold" fill="#1a1a1a">(zs + zr) / k = ціле число</text>
+  <text x="568" y="418" font-size="12" fill="#6b7280">Забезпечує одночасне входження зубів у зачеплення</text>
+</svg>

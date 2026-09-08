@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Фон -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розклад сил у черв'ячному зачепленні та умова самогальмування</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">При прямому ході кут підйому долає тертя; при зворотному ході тиск спрямований у конус тертя</text>
+
+  <!-- Ліва панель: Прямий рух -->
+  <rect x="30" y="80" width="435" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="48" y="96" width="399" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="118" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Прямий хід: ведучий черв'як крутить колесо</text>
+
+  <!-- Графіка лівої панелі: Похила площина витка -->
+  <path d="M 80 270 L 360 270 L 360 215 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  
+  <!-- Повзун (зуб колеса) -->
+  <polygon points="180,250 260,235 275,195 195,210" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="235" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Зуб колеса</text>
+
+  <!-- Кут підйому гамма -->
+  <path d="M 140 270 A 60 60 0 0 0 135 259" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="155" y="264" font-size="13" font-weight="bold" fill="#2457d6">γ</text>
+
+  <!-- Вектори сил лівої панелі -->
+  <!-- Ft1: Окружна сила черв'яка -->
+  <line x1="275" y1="195" x2="365" y2="195" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="310" y="180" font-size="12" font-weight="bold" fill="#2457d6">Ft1 (рушійна)</text>
+
+  <!-- Fa1: Осьова сила черв'яка = Ft2 колеса -->
+  <line x1="235" y1="195" x2="235" y2="140" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-main)"/>
+  <text x="245" y="150" font-size="12" font-weight="bold" fill="#1a1a1a">Fa1 = Ft2</text>
+
+  <!-- Fn: Нормальна сила зачеплення -->
+  <line x1="205" y1="195" x2="175" y2="140" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-main)"/>
+  <text x="150" y="145" font-size="12" fill="#6b7280">Fn</text>
+
+  <!-- Напрямок ковзання -->
+  <text x="75" y="305" font-size="12" fill="#6b7280">Виток черв'яка штовхає зуб уздовж лінії зачеплення</text>
+
+  <!-- Підсумок лівої панелі -->
+  <rect x="48" y="340" width="399" height="66" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="364" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ККД прямого ходу: η = tan(γ) / tan(γ + ρ)</text>
+  <text x="247" y="390" text-anchor="middle" font-size="12" fill="#27ae60">Рух передається за будь-якого кута підйому γ > 0</text>
+
+
+  <!-- Права панель: Зворотний рух і самогальмування -->
+  <rect x="495" y="80" width="435" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="513" y="96" width="399" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712" y="118" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Зворотний хід: спроба обертання від колеса</text>
+
+  <!-- Графіка правої панелі -->
+  <path d="M 545 270 L 825 270 L 825 215 Z" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Повзун (зуб колеса тисне вниз/вбік) -->
+  <polygon points="645,250 725,235 740,195 660,210" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="700" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Зуб колеса</text>
+
+  <!-- Кут тертя rho та кут підйому gamma -->
+  <path d="M 605 270 A 60 60 0 0 0 600 259" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="620" y="264" font-size="13" font-weight="bold" fill="#c0392b">γ ≤ ρ</text>
+
+  <!-- Сила навантаження від колеса F_load -->
+  <line x1="700" y1="140" x2="700" y2="195" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="710" y="155" font-size="12" font-weight="bold" fill="#c0392b">F_load (тиск на виток)</text>
+
+  <!-- Сила тертя блокує рух -->
+  <line x1="660" y1="245" x2="590" y2="258" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-main)"/>
+  <text x="540" y="250" font-size="12" font-weight="bold" fill="#1a1a1a">F_тертя</text>
+
+  <!-- Пояснювальний текст клину -->
+  <text x="540" y="305" font-size="12" fill="#c0392b">Кут нахилу менший за кут тертя: виникає клин</text>
+
+  <!-- Підсумок правої панелі -->
+  <rect x="513" y="340" width="399" height="66" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="364" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Умова самогальмування: γ ≤ ρ  або  tan(γ) ≤ μ</text>
+  <text x="712" y="390" text-anchor="middle" font-size="12" fill="#c0392b">Зворотний рух неможливий: черв'як заклинює</text>
+</svg>

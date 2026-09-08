@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr2" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr2-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr2-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr2-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Фон -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Планетарна трансмісія автомобіля Ford Model T</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Перемикання передач без зчеплення: затискання гальмівних стрічок на барабанах</text>
+
+  <!-- Панель 1: Схема барабанів та потрійних сателітів -->
+  <rect x="30" y="75" width="460" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="260" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Кінематична схема трансмісії Ford T</text>
+  <text x="260" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Маховик двигуна є водилом для блока з трьох сателітів</text>
+
+  <!-- Вхідний вал (маховик-водило) ліворуч -->
+  <line x1="50" y1="210" x2="110" y2="210" stroke="#2457d6" stroke-width="6"/>
+  <text x="50" y="195" font-size="12" font-weight="bold" fill="#2457d6">Вал двигуна</text>
+
+  <!-- Маховик (flywheel) як водило -->
+  <line x1="110" y1="140" x2="110" y2="280" stroke="#2457d6" stroke-width="8"/>
+  <text x="110" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Маховик (водило)</text>
+
+  <!-- Вісь потрійного сателіта закріплена на маховику -->
+  <line x1="110" y1="155" x2="260" y2="155" stroke="#1a1a1a" stroke-width="4"/>
+
+  <!-- Блок із трьох сателітів (satellites) -->
+  <circle cx="150" cy="155" r="16" fill="white" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="195" cy="155" r="20" fill="white" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="240" cy="155" r="14" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Три барабани зі стрічками: 1) Реверс, 2) Низька передача, 3) Гальмо -->
+  <!-- Барабан 1: Реверс (червоний) -->
+  <circle cx="150" cy="210" r="30" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <!-- Стрічка барабана 1 -->
+  <path d="M 120 205 A 30 30 0 0 1 180 205" fill="none" stroke="#c0392b" stroke-width="5"/>
+  <text x="150" y="255" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Барабан 1</text>
+  <text x="150" y="270" text-anchor="middle" font-size="10" fill="#c0392b">(Реверс)</text>
+
+  <!-- Барабан 2: Низька передача (зелений) -->
+  <circle cx="210" cy="210" r="30" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <path d="M 180 205 A 30 30 0 0 1 240 205" fill="none" stroke="#27ae60" stroke-width="5"/>
+  <text x="210" y="255" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Барабан 2</text>
+  <text x="210" y="270" text-anchor="middle" font-size="10" fill="#27ae60">(Низька)</text>
+
+  <!-- Барабан 3: Гальмо (чорний) -->
+  <circle cx="270" cy="210" r="30" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+  <path d="M 240 205 A 30 30 0 0 1 300 205" fill="none" stroke="#1a1a1a" stroke-width="5"/>
+  <text x="270" y="255" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Барабан 3</text>
+  <text x="270" y="270" text-anchor="middle" font-size="10" fill="#1a1a1a">(Гальмо)</text>
+
+  <!-- Вихідний карданний вал -->
+  <line x1="300" y1="210" x2="450" y2="210" stroke="#1a1a1a" stroke-width="6" marker-end="url(#arr2)"/>
+  <text x="375" y="195" font-size="12" font-weight="bold" fill="#1a1a1a">Карданний вал</text>
+
+  <!-- Пояснення внизу панелі 1 -->
+  <rect x="50" y="300" width="420" height="120" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="325" font-size="12" font-weight="bold" fill="#1a1a1a">Особливість кінематики:</text>
+  <text x="65" y="347" font-size="12" fill="#1a1a1a">• Сателіти трьох ступенів виготовлені як один суцільний блок</text>
+  <text x="65" y="369" font-size="12" fill="#1a1a1a">• Маховик обертає осі сателітів із частотою колінчастого вала</text>
+  <text x="65" y="391" font-size="12" fill="#27ae60">• Зуби перебувають у постійному зачепленні — нуль ударів</text>
+
+  <!-- Панель 2: Режими керування педалями -->
+  <rect x="510" y="75" width="420" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="720" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Логіка керування передачами</text>
+  <text x="720" y="122" text-anchor="middle" font-size="12" fill="#2457d6">Три педалі підлоги керують фрикційними стрічками</text>
+
+  <!-- Режим 1: Низька передача (Low Gear) -->
+  <rect x="530" y="145" width="380" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="545" y="168" font-size="13" font-weight="bold" fill="#27ae60">1. Низька передача (Low Gear, 2.75 : 1)</text>
+  <text x="545" y="188" font-size="12" fill="#1a1a1a">Ліва педаль натиснута: затискає стрічку барабана 2</text>
+
+  <!-- Режим 2: Пряма висока передача (High Gear) -->
+  <rect x="530" y="215" width="380" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="545" y="238" font-size="13" font-weight="bold" fill="#2457d6">2. Пряма передача (High Gear, 1 : 1)</text>
+  <text x="545" y="258" font-size="12" fill="#1a1a1a">Педаль відпущена: дискове зчеплення блокує всю систему</text>
+
+  <!-- Режим 3: Задній хід (Reverse) -->
+  <rect x="530" y="285" width="380" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="545" y="308" font-size="13" font-weight="bold" fill="#c0392b">3. Задній хід (Reverse, 4.00 : 1)</text>
+  <text x="545" y="328" font-size="12" fill="#1a1a1a">Середня педаль: затискає стрічку барабана реверсу 1</text>
+
+  <!-- Режим 4: Гальмо трансмісії -->
+  <rect x="530" y="355" width="380" height="60" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="545" y="378" font-size="13" font-weight="bold" fill="#1a1a1a">4. Ножне гальмо (Transmission Brake)</text>
+  <text x="545" y="398" font-size="12" fill="#1a1a1a">Права педаль: стягує стрічку барабана 3 на вихідному валу</text>
+</svg>
