@@ -73,6 +73,16 @@
               "recode": true
             }
           ]
+        },
+        {
+          "slug": "gpio-glitch-prevention",
+          "title": "Запобігання перехідним імпульсним завадам на лініях GPIO",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -93,6 +103,16 @@
         {
           "slug": "bitbang-protocol",
           "title": "Bit-bang протоколи на GPIO",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "hardware-timer-one-pulse-mode",
+          "title": "Апаратний таймер у режимі одиничного імпульсу (One-Pulse Mode)",
           "basic": {
             "status": "empty"
           },
@@ -357,6 +377,42 @@
               "level": 2
             }
           ]
+        },
+        {
+          "slug": "dma-spi-display-transfer",
+          "title": "Передавання графічних буферів через SPI з апаратним DMA",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "display-hardware-scrolling",
+          "title": "Апаратний скролінг графічних контролерів дисплеїв",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "audio-output",
+      "title": "Звук і аудіотракт",
+      "topics": [
+        {
+          "slug": "audio-dac-dma-streaming",
+          "title": "Потокова передача аудіоданих через ЦАП і DMA",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     }
