@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Злам монолітної конструкції при заміні комунікацій</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Замуровані в бетон кабелі руйнують каркас; розв'язка через канали зберігає тривку основу</text>
+
+  <!-- Ліва колонка: Проблема -->
+  <rect x="30" y="78" width="435" height="397" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247.5" y="104" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Зрощення темпів: кабелі в бетоні</text>
+  <text x="247.5" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Неможливо оновити дріт без руйнування каркаса</text>
+
+  <rect x="50" y="136" width="395" height="50" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247.5" y="156" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потреба змін: заміна мережевих кабелів</text>
+  <text x="247.5" y="173" font-size="12" fill="#c0392b" text-anchor="middle">Швидкий темп: 3–5 років (нові протоколи та знос)</text>
+
+  <line x1="247.5" y1="186" x2="247.5" y2="216" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="265" y="205" font-size="12" fill="#c0392b" text-anchor="start">силовий демонтаж</text>
+
+  <rect x="50" y="218" width="395" height="104" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <text x="247.5" y="238" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Несуча монолітна стіна (Structure / темп: 50+ років)</text>
+  
+  <rect x="65" y="250" width="365" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="269" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Руйнівне тертя: спроба витягти кабель кришить бетон</text>
+  
+  <text x="247.5" y="303" font-size="12" fill="#c0392b" text-anchor="middle">Тріщини в несучій конструкції → аварійний стан</text>
+
+  <line x1="247.5" y1="322" x2="247.5" y2="352" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="265" y="341" font-size="12" fill="#c0392b" text-anchor="start">наслідок</text>
+
+  <rect x="50" y="354" width="395" height="106" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="375" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Архітектурний колапс моноліту</text>
+  <text x="247.5" y="396" font-size="12" fill="#1a1a1a" text-anchor="middle">1. Заміна протоколу ламає ядро та структуру БД</text>
+  <text x="247.5" y="416" font-size="12" fill="#1a1a1a" text-anchor="middle">2. Довгий простій системи через дрібну локальну правку</text>
+  <text x="247.5" y="436" font-size="12" fill="#6b7280" text-anchor="middle">3. Повільний шар блокує розвиток швидкого</text>
+
+  <!-- Права колонка: Розв'язок -->
+  <rect x="495" y="78" width="435" height="397" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="104" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Розв'язка шарів: незалежний кабель-канал</text>
+  <text x="712.5" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Кабелі замінюються за хвилини без впливу на стіни</text>
+
+  <rect x="515" y="136" width="395" height="50" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712.5" y="156" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потреба змін: новий кабель / протокол</text>
+  <text x="712.5" y="173" font-size="12" fill="#27ae60" text-anchor="middle">Швидкий темп: 3–5 років (вільна еволюція без ризику)</text>
+
+  <line x1="712.5" y1="186" x2="712.5" y2="216" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="730" y="205" font-size="12" fill="#27ae60" text-anchor="start">вільна заміна</text>
+
+  <rect x="515" y="218" width="395" height="104" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="238" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Несуча монолітна стіна (Structure / темп: 50+ років)</text>
+  
+  <rect x="530" y="250" width="365" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712.5" y="269" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кабельний канал: площина зсуву (Shearing Layer)</text>
+  
+  <text x="712.5" y="303" font-size="12" fill="#27ae60" text-anchor="middle">Кабель перетягується вільно без дотику до бетону</text>
+
+  <line x1="712.5" y1="322" x2="712.5" y2="352" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="730" y="341" font-size="12" fill="#27ae60" text-anchor="start">результат</text>
+
+  <rect x="515" y="354" width="395" height="106" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="375" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Автономія темпів (Pace Layering)</text>
+  <text x="712.5" y="396" font-size="12" fill="#1a1a1a" text-anchor="middle">1. Протокол змінюється без перебудови ядра</text>
+  <text x="712.5" y="416" font-size="12" fill="#1a1a1a" text-anchor="middle">2. Нульовий простій (Zero Downtime) конструкції</text>
+  <text x="712.5" y="436" font-size="12" fill="#6b7280" text-anchor="middle">3. Швидке адаптується, повільне тримає основу</text>
+</svg>

@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Header & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура буфера ізоляції стану (State Isolation Buffer)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Розчеплення темпів: швидке читання з кешу та захищена черга команд для пристроїв</text>
+
+  <!-- Left Block: UI & Automations (Fast Pace) -->
+  <rect x="40" y="110" width="200" height="310" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="40" y="110" width="200" height="32" rx="8" fill="#2457d6"/>
+  <text x="140" y="131" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">UI та Автоматизації</text>
+
+  <rect x="50" y="155" width="180" height="250" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="140" y="175" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Високий темп (Fast Pace)</text>
+  <line x1="58" y1="185" x2="222" y2="185" stroke="#d0d7de"/>
+  <text x="58" y="205" font-size="12" fill="#1a1a1a">• Web / Mobile UI</text>
+  <text x="58" y="225" font-size="12" fill="#1a1a1a">• Webhook Triggers</text>
+  <text x="58" y="245" font-size="12" fill="#1a1a1a">• Часті запити стану</text>
+  <text x="58" y="265" font-size="12" fill="#1a1a1a">• Лавини команд</text>
+  <line x1="58" y1="280" x2="222" y2="280" stroke="#d0d7de"/>
+  <text x="58" y="300" font-size="12" fill="#c0392b" font-weight="bold">• Потребує швидкого</text>
+  <text x="58" y="320" font-size="12" fill="#c0392b" font-weight="bold">  відгуку без затримок</text>
+  <line x1="58" y1="335" x2="222" y2="335" stroke="#d0d7de"/>
+  <text x="140" y="396" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Динамічна периферія</text>
+
+  <!-- Flow 1: Read Path (UI -> Cache) -->
+  <path d="M 240 190 L 332 190" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="286" y="175" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1. Читання</text>
+
+  <!-- Flow 2: Write Path (UI -> Actuator Queue) -->
+  <path d="M 240 340 L 332 340" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="286" y="325" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Команди</text>
+
+  <!-- Center Block: State Isolation Buffer (ACL) -->
+  <rect x="320" y="110" width="320" height="310" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <rect x="320" y="110" width="320" height="32" rx="8" fill="#2457d6"/>
+  <text x="480" y="131" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Буфер ізоляції стану (State Buffer)</text>
+
+  <!-- Component 1: StateSnapshotCache -->
+  <rect x="335" y="155" width="290" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="335" y="155" width="290" height="26" rx="6" fill="#27ae60"/>
+  <text x="480" y="172" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">StateSnapshotCache (Швидке читання)</text>
+  <text x="345" y="198" font-size="12" fill="#1a1a1a">• Канонічний кеш знімків стану</text>
+  <text x="345" y="218" font-size="12" fill="#27ae60" font-weight="bold">• Миттєве читання стану (0 ms)</text>
+  <text x="345" y="238" font-size="12" fill="#6b7280">• Асинхронне оновлення з телеметрії</text>
+
+  <!-- Component 2: ThrottledActuatorQueue -->
+  <rect x="335" y="285" width="290" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="335" y="285" width="290" height="26" rx="6" fill="#2457d6"/>
+  <text x="480" y="302" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">ThrottledActuatorQueue (Буферизація)</text>
+  <text x="345" y="328" font-size="12" fill="#1a1a1a">• Асинхронна черга команд запису</text>
+  <text x="345" y="348" font-size="12" fill="#2457d6" font-weight="bold">• Rate Limiting &amp; Дедуплікація</text>
+  <text x="345" y="368" font-size="12" fill="#6b7280">• Захист пристроїв від піків</text>
+
+  <!-- Flow 3: Telemetry Updates (Hardware -> Cache) -->
+  <path d="M 720 210 L 628 210" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-green)"/>
+  <text x="674" y="195" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">4. Статус</text>
+
+  <!-- Flow 4: Throttled Commands (Queue -> Hardware) -->
+  <path d="M 625 340 L 712 340" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="668.5" y="325" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Доставка</text>
+
+  <!-- Right Block: Physical Hardware / Actuators (Slow Pace) -->
+  <rect x="720" y="110" width="200" height="310" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="720" y="110" width="200" height="32" rx="8" fill="#d0d7de"/>
+  <text x="820" y="131" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ядро обладнання</text>
+
+  <rect x="730" y="155" width="180" height="250" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="820" y="175" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Повільний темп (Slow Pace)</text>
+  <line x1="738" y1="185" x2="902" y2="185" stroke="#d0d7de"/>
+  <text x="738" y="205" font-size="12" fill="#1a1a1a">• Smart Locks / Relays</text>
+  <text x="738" y="225" font-size="12" fill="#1a1a1a">• HVAC Controls</text>
+  <text x="738" y="245" font-size="12" fill="#1a1a1a">• IoT Sensors</text>
+  <text x="738" y="265" font-size="12" fill="#1a1a1a">• Знос реле/приводів</text>
+  <line x1="738" y1="280" x2="902" y2="280" stroke="#d0d7de"/>
+  <text x="738" y="300" font-size="12" fill="#27ae60" font-weight="bold">• Захищено від лавин</text>
+  <text x="738" y="320" font-size="12" fill="#27ae60" font-weight="bold">  перевантажень</text>
+  <line x1="738" y1="335" x2="902" y2="335" stroke="#d0d7de"/>
+  <text x="820" y="396" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізичні пристрої</text>
+
+  <!-- Bottom Summary Banner -->
+  <rect x="40" y="445" width="880" height="45" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="466" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат архітектури буферизації:</text>
+  <text x="480" y="484" font-size="12" fill="#1a1a1a" text-anchor="middle">UI отримує миттєвий відгук з кешу, а обладнання надійно захищене від зносу та лавинних перевантажень</text>
+</svg>

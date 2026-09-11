@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-axis" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">U-подібна долина ціни межі: компроміс латентності та обсягу даних</text>
+  <text x="480" y="66" text-anchor="middle" font-size="13" fill="#6b7280">Сукупний час оптимізується на дні долини між балакучими викликами та роздутими пакунками</text>
+
+  <!-- Осі координат -->
+  <line x1="90" y1="390" x2="90" y2="105" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <line x1="90" y1="390" x2="748" y2="390" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+
+  <!-- Підпис осі Y -->
+  <text x="76" y="114" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Час T</text>
+
+  <!-- Позначення зон «стін» зліва та справа -->
+  <text x="145" y="96" font-size="13" font-weight="bold" fill="#c0392b">«Стіна латентності»</text>
+  <text x="145" y="120" font-size="12" fill="#6b7280">Надмірна балакучість (N=1)</text>
+
+  <text x="620" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">«Стіна пропускної здатності»</text>
+  <text x="620" y="120" text-anchor="middle" font-size="12" fill="#6b7280">Надвибірка байтів, очікування накопичення пачки</text>
+
+  <!-- Пунктирна висхідна пряма: плата за байти -->
+  <path d="M 140,360 L 740,205" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Пунктирна спадна крива: латентність викликів -->
+  <path d="M 140,150 C 220,300 310,345 740,360" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Результуюча суцільна U-подібна крива (долина ціни) -->
+  <path d="M 140,140 C 210,225 300,240 400,240 C 500,240 640,215 740,185" fill="none" stroke="#1a1a1a" stroke-width="3.5"/>
+
+  <!-- Вертикальна лінія оптимуму від кривої до осі X -->
+  <line x1="400" y1="247" x2="400" y2="390" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Точка дна оптимуму -->
+  <circle cx="400" cy="240" r="5" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Підписи дна оптимуму над точкою -->
+  <text x="400" y="172" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">ДНО ДОЛИНИ ЦІНИ (ОПТИМУМ)</text>
+  <text x="400" y="197" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">▼ Точка B*: мінімальний час</text>
+  <text x="400" y="221" text-anchor="middle" font-size="12" fill="#6b7280">Адаптивне мікропакетування</text>
+
+  <!-- Підписи ліній праворуч біля кінців графіків -->
+  <text x="755" y="185" font-size="12" font-weight="bold" fill="#1a1a1a">Сукупна ціна (U-крива)</text>
+  <text x="755" y="209" font-size="12" font-weight="bold" fill="#c0392b">Плата за байти (O(N))</text>
+  <text x="755" y="364" font-size="12" font-weight="bold" fill="#2457d6">Латентність (RTT / N)</text>
+
+  <!-- Підписи осі X внизу -->
+  <text x="400" y="416" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">B* (Оптимальний розмір пачки)</text>
+  <text x="400" y="441" text-anchor="middle" font-size="12" fill="#6b7280">Ступінь агрегації запитів (кількість операцій у пачці)</text>
+  <text x="400" y="466" text-anchor="middle" font-size="12" fill="#1a1a1a">◄ Поодинокі виклики (N=1) ───────────────── Роздуті DTO / Пакети (N ≫ 1) ►</text>
+</svg>

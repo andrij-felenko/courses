@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 485" width="960" height="485" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="485" fill="white"/>
+
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Еволюційний зсув DTO: від мережевої оптимізації до внутрішнього карго-культу</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Як патерн подолання мережевих затримок перетворився на баласт перекладання даних усередині одного процесу</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Первинне призначення DTO -->
+  <rect x="30" y="75" width="435" height="388" rx="8" fill="#fcfdfd" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="45" y="88" width="250" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="170" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ОРИГІНАЛЬНЕ ПРИЗНАЧЕННЯ (1990-ті)</text>
+
+  <text x="45" y="130" font-size="14" font-weight="bold" fill="#1a1a1a">Фізична мережева межа між машинами</text>
+  <text x="45" y="147" font-size="12" fill="#6b7280">Виправдана ціна: подолання затримки 10–50 мс на виклик</text>
+
+  <!-- Хост А: Клієнт -->
+  <rect x="45" y="165" width="135" height="225" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="112" y="188" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Клієнт (Хост А)</text>
+  <text x="112" y="205" text-anchor="middle" font-size="12" fill="#6b7280">Окремий процес / ПК</text>
+
+  <rect x="55" y="220" width="115" height="155" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="112" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Шар представлення</text>
+  <text x="112" y="265" text-anchor="middle" font-size="11" fill="#6b7280">Один мережевий</text>
+  <text x="112" y="280" text-anchor="middle" font-size="11" fill="#6b7280">запит на екран</text>
+  <text x="112" y="315" text-anchor="middle" font-size="11" fill="#1a1a1a">Отримує DTO</text>
+  <text x="112" y="332" text-anchor="middle" font-size="11" fill="#6b7280">й виводить дані</text>
+  <text x="112" y="358" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">1 раунд-тріп RTT</text>
+
+  <!-- Хост B: Сервер -->
+  <rect x="315" y="165" width="135" height="225" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="382" y="188" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Сервер (Хост B)</text>
+  <text x="382" y="205" text-anchor="middle" font-size="12" fill="#6b7280">EJB / App Server</text>
+
+  <rect x="325" y="220" width="115" height="155" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="382" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Внутрішній домен</text>
+  <text x="382" y="265" text-anchor="middle" font-size="11" fill="#1a1a1a">Entity Beans / Домен</text>
+  <text x="382" y="285" text-anchor="middle" font-size="11" fill="#2457d6">Прямі виклики у RAM</text>
+  <text x="382" y="302" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">БЕЗ внутрішніх DTO!</text>
+  <text x="382" y="335" text-anchor="middle" font-size="11" fill="#6b7280">DTO збирається лише</text>
+  <text x="382" y="352" text-anchor="middle" font-size="11" fill="#6b7280">на межі сокета</text>
+
+  <!-- Фізична мережа -->
+  <line x1="247" y1="175" x2="247" y2="385" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="247" y="170" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">ФІЗИЧНА МЕРЕЖА</text>
+
+  <!-- Пакет DTO через мережу -->
+  <path d="M 325,285 L 295,285" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="200" y="260" width="95" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Пакет DTO</text>
+  <text x="247" y="298" text-anchor="middle" font-size="11" fill="#1a1a1a">Серіалізація</text>
+  <path d="M 200,285 L 170,285" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Підсумок лівої панелі -->
+  <rect x="45" y="405" width="405" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="247" y="423" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">DTO виправдано ізолює мережеву затримку між хостами</text>
+  <text x="247" y="440" text-anchor="middle" font-size="12" fill="#1a1a1a">Усередині сервера об'єкти спілкуються напряму без зайвих копій</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Карго-культ -->
+  <rect x="495" y="75" width="435" height="388" rx="8" fill="#fcfdfd" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="510" y="88" width="250" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="635" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">КАРГО-КУЛЬТ (МОНОЛІТНИЙ ПРОЦЕС)</text>
+
+  <text x="510" y="130" font-size="14" font-weight="bold" fill="#1a1a1a">Штампування DTO на кожному внутрішньому кроці</text>
+  <text x="510" y="147" font-size="12" fill="#6b7280">Виклик у пам'яті коштує 2 наносекунди, але дані копіюють тричі</text>
+
+  <!-- Єдиний монолітний процес -->
+  <rect x="510" y="165" width="405" height="225" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="712" y="186" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Єдиний процес ОС та спільна оперативна пам'ять (RAM)</text>
+
+  <!-- Колонка 1: Web / API -->
+  <rect x="525" y="200" width="105" height="155" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="577" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Шар Web / API</text>
+  <text x="577" y="240" text-anchor="middle" font-size="11" fill="#6b7280">Контролери</text>
+  <rect x="535" y="260" width="85" height="42" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="577" y="278" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">ApiDTO</text>
+  <text x="577" y="293" text-anchor="middle" font-size="11" fill="#1a1a1a">поля об'єкта</text>
+  <text x="577" y="325" text-anchor="middle" font-size="11" fill="#6b7280">виклик методу</text>
+  <text x="577" y="340" text-anchor="middle" font-size="11" fill="#27ae60">за 2 нс (у RAM)</text>
+
+  <!-- Мапінг 1 -->
+  <path d="M 632,281 L 658,281" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="645" y="274" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">мапінг</text>
+
+  <!-- Колонка 2: Сервіси -->
+  <rect x="660" y="200" width="105" height="155" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="712" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Шар сервісів</text>
+  <text x="712" y="240" text-anchor="middle" font-size="11" fill="#6b7280">Ділова логіка</text>
+  <rect x="670" y="260" width="85" height="42" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="712" y="278" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">ServiceDTO</text>
+  <text x="712" y="293" text-anchor="middle" font-size="11" fill="#1a1a1a">поля об'єкта</text>
+  <text x="712" y="325" text-anchor="middle" font-size="11" fill="#6b7280">виклик методу</text>
+  <text x="712" y="340" text-anchor="middle" font-size="11" fill="#27ae60">за 2 нс (у RAM)</text>
+
+  <!-- Мапінг 2 -->
+  <path d="M 767,281 L 793,281" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="780" y="274" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">мапінг</text>
+
+  <!-- Колонка 3: Сховище / Entity -->
+  <rect x="795" y="200" width="105" height="155" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="847" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Шар сховища</text>
+  <text x="847" y="240" text-anchor="middle" font-size="11" fill="#6b7280">ORM / База даних</text>
+  <rect x="805" y="260" width="85" height="42" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="847" y="278" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">DbEntity</text>
+  <text x="847" y="293" text-anchor="middle" font-size="11" fill="#1a1a1a">поля об'єкта</text>
+  <text x="847" y="325" text-anchor="middle" font-size="11" fill="#6b7280">доступ до стану</text>
+  <text x="847" y="340" text-anchor="middle" font-size="11" fill="#27ae60">прямий у RAM</text>
+
+  <text x="712" y="378" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Три дублікати полів у спільній пам'яті за повної відсутності мережі</text>
+
+  <!-- Підсумок правої панелі -->
+  <rect x="510" y="405" width="405" height="46" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="712" y="423" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Мережі немає, але бойлерплейт і overhead зросли втричі</text>
+  <text x="712" y="440" text-anchor="middle" font-size="12" fill="#1a1a1a">Allocation churn, навантаження на GC та деградація інкапсуляції заради мапінгу</text>
+</svg>

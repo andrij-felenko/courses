@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-up" markerWidth="9" markerHeight="9" refX="4" refY="1.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,8 L4,0 L8,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-right" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Масштаб турботи: компроміси Rate Limiter на трьох рівнях</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Зростання масштабу від процесу до планети вимагає жертвувати або затримкою, або строгістю гарантій</text>
+
+  <!-- Верхня панель: Графік кумулятивного зростання складності -->
+  <rect x="25" y="74" width="910" height="170" rx="8" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="96" font-size="12" font-weight="bold" fill="#1a1a1a">КУМУЛЯТИВНЕ ЗРОСТАННЯ СКЛАДНОСТІ ТА ТРЕЙД-ОФФИ МАСШТАБУ</text>
+
+  <!-- Осі координат графіка -->
+  <text x="110" y="110" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">Складність</text>
+  <line x1="110" y1="115" x2="110" y2="215" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-up)"/>
+  <line x1="110" y1="215" x2="910" y2="215" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-right)"/>
+  <text x="910" y="232" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="end">Масштаб системи →</text>
+
+  <!-- Горизонтальні пунктирні рівні складності (через path) -->
+  <path d="M 110 180 L 900 180 M 110 145 L 900 145" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3" fill="none"/>
+  <text x="105" y="184" font-size="10" fill="#6b7280" text-anchor="end">Помірна</text>
+  <text x="105" y="149" font-size="10" fill="#6b7280" text-anchor="end">Висока</text>
+
+  <!-- Крива кумулятивної складності (через path) -->
+  <path d="M 177.5 195 Q 400 185 480 160 T 782.5 125" stroke="#2457d6" stroke-width="3" fill="none"/>
+
+  <!-- Вузли на кривій складності -->
+  <!-- Вузол 1: Процес -->
+  <circle cx="177.5" cy="195" r="6" fill="#27ae60" stroke="white" stroke-width="2"/>
+  <rect x="132" y="165" width="91" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="177.5" y="179" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">1x (Базова)</text>
+
+  <!-- Вузол 2: Кластер -->
+  <circle cx="480" cy="160" r="6" fill="#2457d6" stroke="white" stroke-width="2"/>
+  <rect x="431" y="130" width="98" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="144" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">4x (Помірна)</text>
+
+  <!-- Вузол 3: Планета -->
+  <circle cx="782.5" cy="125" r="6" fill="#c0392b" stroke="white" stroke-width="2"/>
+  <rect x="716" y="95" width="133" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="782.5" y="109" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">10x (Екстремальна)</text>
+
+  <!-- Нижні картки: 3 рівні та детальні трейд-оффи -->
+
+  <!-- Картка 1: Процес (In-Memory) -->
+  <rect x="35" y="258" width="285" height="232" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="45" y="268" width="265" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="177.5" y="285" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">1. ПРОЦЕС: IN-MEMORY ATOMICS</text>
+
+  <!-- Вісь 1: Затримка -->
+  <text x="47" y="312" font-size="11" font-weight="bold" fill="#1a1a1a">⏱ Затримка:</text>
+  <text x="140" y="312" font-size="11" font-weight="bold" fill="#27ae60">&lt; 1 мкс (RAM / CAS)</text>
+
+  <!-- Вісь 2: Ціна I/O -->
+  <text x="47" y="332" font-size="11" font-weight="bold" fill="#1a1a1a">🌐 Ціна I/O:</text>
+  <text x="140" y="332" font-size="11" fill="#1a1a1a">0 (без мережевих викликів)</text>
+
+  <!-- Вісь 3: Строгість -->
+  <text x="47" y="352" font-size="11" font-weight="bold" fill="#1a1a1a">🔒 Строгість:</text>
+  <text x="140" y="352" font-size="11" fill="#1a1a1a">Сувора локальна (Atomics)</text>
+
+  <line x1="47" y1="364" x2="308" y2="364" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Характеристики -->
+  <text x="47" y="382" font-size="11" fill="#6b7280">• Механізм: AtomicLong / Mutex</text>
+  <text x="47" y="400" font-size="11" fill="#6b7280">• Відмова: скидання при рестарті</text>
+  <text x="47" y="418" font-size="11" fill="#6b7280">• Обмеження: ізольовано в процесі</text>
+
+  <!-- Підсумок картки 1 -->
+  <rect x="45" y="432" width="265" height="46" rx="4" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="450" font-size="11" font-weight="bold" fill="#27ae60">Перевага: нульова затримка</text>
+  <text x="55" y="468" font-size="11" fill="#6b7280">Ціна: N нод = N-кратний сумарний ліміт</text>
+
+  <!-- Картка 2: Кластер (Redis) -->
+  <rect x="337" y="258" width="286" height="232" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="347" y="268" width="266" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="285" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">2. КЛАСТЕР: REDIS SLIDING WINDOW</text>
+
+  <!-- Вісь 1: Затримка -->
+  <text x="349" y="312" font-size="11" font-weight="bold" fill="#1a1a1a">⏱ Затримка:</text>
+  <text x="442" y="312" font-size="11" font-weight="bold" fill="#2457d6">1–5 мс (LAN RTT до Redis)</text>
+
+  <!-- Вісь 2: Ціна I/O -->
+  <text x="349" y="332" font-size="11" font-weight="bold" fill="#1a1a1a">🌐 Ціна I/O:</text>
+  <text x="442" y="332" font-size="11" fill="#1a1a1a">1 мережевий RPC на запит</text>
+
+  <!-- Вісь 3: Строгість -->
+  <text x="349" y="352" font-size="11" font-weight="bold" fill="#1a1a1a">🔒 Строгість:</text>
+  <text x="442" y="352" font-size="11" fill="#1a1a1a">Сувора кластерна (Lua)</text>
+
+  <line x1="349" y1="364" x2="611" y2="364" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Характеристики -->
+  <text x="349" y="382" font-size="11" fill="#6b7280">• Механізм: Redis zset + Lua atomic</text>
+  <text x="349" y="400" font-size="11" fill="#6b7280">• Відмова: вибір Fail-Open / Fail-Closed</text>
+  <text x="349" y="418" font-size="11" fill="#6b7280">• Обмеження: Redis стає SPOF / ботлнеком</text>
+
+  <!-- Підсумок картки 2 -->
+  <rect x="347" y="432" width="266" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="357" y="450" font-size="11" font-weight="bold" fill="#2457d6">Перевага: єдиний спільний ліміт</text>
+  <text x="357" y="468" font-size="11" fill="#6b7280">Ціна: навантаження на Redis = RPS API</text>
+
+  <!-- Картка 3: Планета (Global Edge) -->
+  <rect x="640" y="258" width="285" height="232" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="650" y="268" width="265" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="782.5" y="285" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">3. ПЛАНЕТА: GLOBAL EDGE WORKERS</text>
+
+  <!-- Вісь 1: Затримка -->
+  <text x="652" y="312" font-size="11" font-weight="bold" fill="#1a1a1a">⏱ Затримка:</text>
+  <text x="745" y="312" font-size="11" font-weight="bold" fill="#c0392b">10–80 мс (WAN / sync)</text>
+
+  <!-- Вісь 2: Ціна I/O -->
+  <text x="652" y="332" font-size="11" font-weight="bold" fill="#1a1a1a">🌐 Ціна I/O:</text>
+  <text x="745" y="332" font-size="11" fill="#1a1a1a">Батчинг квот (bg sync)</text>
+
+  <!-- Вісь 3: Строгість -->
+  <text x="652" y="352" font-size="11" font-weight="bold" fill="#1a1a1a">🔒 Строгість:</text>
+  <text x="745" y="352" font-size="11" fill="#c0392b">Eventual (переліміти)</text>
+
+  <line x1="652" y1="364" x2="913" y2="364" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Характеристики -->
+  <text x="652" y="382" font-size="11" fill="#6b7280">• Механізм: PoP лічильники + CRDT</text>
+  <text x="652" y="400" font-size="11" fill="#6b7280">• Відмова: спліт-брейн при ізоляції</text>
+  <text x="652" y="418" font-size="11" fill="#6b7280">• Обмеження: затримка світла між PoP</text>
+
+  <!-- Підсумок картки 3 -->
+  <rect x="650" y="432" width="265" height="46" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="660" y="450" font-size="11" font-weight="bold" fill="#c0392b">Перевага: захист на межі планети</text>
+  <text x="660" y="468" font-size="11" fill="#6b7280">Ціна: неможливість суворої одномоментності</text>
+</svg>

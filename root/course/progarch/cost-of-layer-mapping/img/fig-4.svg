@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Вимивання кешу процесора (L1/L2/L3) транзитними DTO</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Мапінг шарів генерує сміття: пауза STW витісняє робочі дані, спричиняючи колапс кешу й сплеск p99</text>
+
+  <!-- Стовпчик 1: Гарячий кеш -->
+  <rect x="30" y="80" width="288" height="332" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="44" y="92" width="260" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="174" y="112" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">1. Робочий стан: «Гарячий» кеш</text>
+  <text x="174" y="130" text-anchor="middle" font-size="12" fill="#6b7280">Високий Hit Rate, швидкий доступ</text>
+
+  <rect x="44" y="154" width="260" height="160" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="174" y="173" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Кеш ЦП (L1d / L2 / L3)</text>
+
+  <rect x="54" y="181" width="240" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="174" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">L1d: Бізнес-сутності (~1 нс)</text>
+
+  <rect x="54" y="227" width="240" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="174" y="248" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">L2: Активні агрегати (~4 нс)</text>
+
+  <rect x="54" y="273" width="240" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="174" y="294" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">L3: Спільні структури (~12 нс)</text>
+
+  <rect x="44" y="326" width="260" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="174" y="347" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Попадання (Hit Rate): ~95–98%</text>
+  <text x="174" y="367" text-anchor="middle" font-size="12" fill="#27ae60">Затримка доступу: ~1–4 нс</text>
+  <text x="174" y="387" text-anchor="middle" font-size="12" fill="#6b7280">Конвеєр ЦП працює без простоїв</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="322" y1="117" x2="332" y2="117" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- Стовпчик 2: Шторм DTO та STW -->
+  <rect x="336" y="80" width="288" height="332" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="350" y="92" width="260" height="50" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="112" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">2. Мапінг шарів + Пауза STW</text>
+  <text x="480" y="130" text-anchor="middle" font-size="12" fill="#6b7280">Лавина DTO та обхід графа GC</text>
+
+  <rect x="350" y="154" width="260" height="160" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="173" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Вимивання кешу (Pollution)</text>
+
+  <rect x="360" y="181" width="240" height="34" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">L1d: Транзитні DTO (мапінг)</text>
+
+  <rect x="360" y="227" width="240" height="34" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="248" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">L2: Тимчасові списки DTO</text>
+
+  <rect x="360" y="273" width="240" height="34" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="294" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">L3: Сканування купи (Mark STW)</text>
+
+  <rect x="350" y="326" width="260" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="347" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Витіснення даних: ~100% ліній</text>
+  <text x="480" y="367" text-anchor="middle" font-size="12" fill="#1a1a1a">Потоки бізнесу заморожено (STW)</text>
+  <text x="480" y="387" text-anchor="middle" font-size="12" fill="#6b7280">Young Gen переповнено сміттям</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="628" y1="117" x2="638" y2="117" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- Стовпчик 3: Холодний кеш після STW -->
+  <rect x="642" y="80" width="288" height="332" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="656" y="92" width="260" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="786" y="112" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3. Відновлення: «Холодний» кеш</text>
+  <text x="786" y="130" text-anchor="middle" font-size="12" fill="#6b7280">Шквал промахів і стрибок p99</text>
+
+  <rect x="656" y="154" width="260" height="160" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="786" y="173" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Каскад промахів кешу (Misses)</text>
+
+  <rect x="666" y="181" width="240" height="34" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="786" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">L1d Miss: пошук у L2 (+4 нс)</text>
+
+  <rect x="666" y="227" width="240" height="34" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="786" y="248" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">L2 Miss: пошук у L3 (+12 нс)</text>
+
+  <rect x="666" y="273" width="240" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="786" y="294" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">L3 Miss: доступ до DRAM (+70 нс)</text>
+
+  <rect x="656" y="326" width="260" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="786" y="347" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Промахи кешу (Miss): ~80–90%</text>
+  <text x="786" y="367" text-anchor="middle" font-size="12" fill="#c0392b">Штраф DRAM: ~60–100 нс на доступ</text>
+  <text x="786" y="387" text-anchor="middle" font-size="12" fill="#6b7280">Memory Stalls: колапс p99 затримок</text>
+
+  <!-- Нижня підсумкова панель -->
+  <rect x="30" y="426" width="900" height="66" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="44" y="438" width="168" height="42" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="128" y="455" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Архітектурна</text>
+  <text x="128" y="471" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">розплата за DTO</text>
+
+  <text x="226" y="452" font-size="12" fill="#1a1a1a">Мапінг об'єктів крізь шари створює лавину сміття: Young Gen змушує GC зупиняти світ (STW).</text>
+  <text x="226" y="472" font-size="12" fill="#6b7280">Обхід купи вимиває кеш L1/L2/L3 — після STW бізнес-код простоює в очікуванні RAM (штраф ~60–100 нс).</text>
+</svg>

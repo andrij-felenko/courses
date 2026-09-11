@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 508" width="960" height="508" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="508" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Різнотемпові CI/CD конвеєри та архітектурний linter у Digital Homes</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Ізоляція швидкостей доставки: щоденний реліз периферії, захищений реліз-поїзд ядра та блокування інверсій у CI</text>
+
+  <!-- 1. ШВИДКИЙ КОНВЕЄР (ПЕРИФЕРІЯ) -->
+  <rect x="36" y="78" width="888" height="118" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="52" y="86" width="194" height="20" rx="4" fill="#2457d6"/>
+  <text x="149" y="101" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ШВИДКИЙ КОНВЕЄР (UI, ХМАРА)</text>
+  <text x="258" y="101" font-size="12" font-weight="bold" fill="#2457d6">Репозиторій dh-periphery • Ритм: щоденні автономні релізи</text>
+
+  <!-- Етапи швидкого конвеєра -->
+  <rect x="52" y="120" width="246" height="64" rx="6" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="64" y="138" font-size="12" font-weight="bold" fill="#1a1a1a">1. Unit &amp; Lint (2 хв)</text>
+  <text x="64" y="156" font-size="12" fill="#6b7280">Швидкі тести бізнес-сценаріїв</text>
+  <text x="64" y="172" font-size="12" fill="#2457d6">Ізольовані mock-контракти</text>
+
+  <line x1="308" y1="152" x2="326" y2="152" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="336" y="120" width="246" height="64" rx="6" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="348" y="138" font-size="12" font-weight="bold" fill="#1a1a1a">2. Контрактні тести (3 хв)</text>
+  <text x="348" y="156" font-size="12" fill="#6b7280">Перевірка сумісності з ядром</text>
+  <text x="348" y="172" font-size="12" fill="#2457d6">Валідація схеми OpenAPI/gRPC</text>
+
+  <line x1="592" y1="152" x2="610" y2="152" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="620" y="120" width="288" height="64" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="632" y="138" font-size="12" font-weight="bold" fill="#27ae60">3. Щоденний реліз (15 хв)</text>
+  <text x="632" y="156" font-size="12" fill="#6b7280">Канарейка 5% → реліз у хмару</text>
+  <text x="632" y="172" font-size="12" fill="#27ae60">Автоматичний швидкий відкат</text>
+
+  <!-- 2. АРХІТЕКТУРНИЙ ЛІНТЕР У CI -->
+  <rect x="36" y="210" width="888" height="118" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Модуль лінтера -->
+  <rect x="52" y="222" width="246" height="94" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="62" y="230" width="168" height="20" rx="3" fill="#1a1a1a"/>
+  <text x="146" y="244" font-size="12" font-weight="bold" fill="white" text-anchor="middle">АРХІТЕКТУРНИЙ LINTER</text>
+  <text x="62" y="266" font-size="12" font-weight="bold" fill="#1a1a1a">Контроль матриці темпів у CI</text>
+  <text x="62" y="284" font-size="12" fill="#6b7280">Аналіз графа імпортів на PR</text>
+  <text x="62" y="302" font-size="12" fill="#1a1a1a">Блокує інверсію залежностей</text>
+
+  <!-- Дозволений виклик -->
+  <rect x="314" y="222" width="286" height="94" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="326" y="230" width="124" height="20" rx="3" fill="#27ae60"/>
+  <text x="388" y="244" font-size="12" font-weight="bold" fill="white" text-anchor="middle">✅ ДОЗВОЛЕНО</text>
+  <text x="326" y="266" font-size="12" font-weight="bold" fill="#27ae60">Периферія → Ядро (спадний виклик)</text>
+  <text x="326" y="284" font-size="12" fill="#1a1a1a">Швидкий шар викликає стабільний API</text>
+  <text x="326" y="302" font-size="12" fill="#6b7280">Сумісність гарантована контрактом</text>
+
+  <!-- Заблокований виклик -->
+  <rect x="616" y="222" width="292" height="94" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="628" y="230" width="144" height="20" rx="3" fill="#c0392b"/>
+  <text x="700" y="244" font-size="12" font-weight="bold" fill="white" text-anchor="middle">⛔ ЗАБЛОКОВАНО</text>
+  <text x="628" y="266" font-size="12" font-weight="bold" fill="#c0392b">Ядро → Периферія (інверсія темпу)</text>
+  <text x="628" y="284" font-size="12" fill="#1a1a1a">Повільне ядро імпортує мінливий шар</text>
+  <text x="628" y="302" font-size="12" font-weight="bold" fill="#c0392b">CI зупиняє білд: помилка архітектури</text>
+
+  <!-- 3. ПОВІЛЬНИЙ КОНВЕЄР (ЯДРО ШЛЮЗУ) -->
+  <rect x="36" y="342" width="888" height="142" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="52" y="350" width="206" height="20" rx="4" fill="#6b7280"/>
+  <text x="155" y="365" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ПОВІЛЬНЕ ЯДРО (ШЛЮЗ, ДРАЙВЕРИ)</text>
+  <text x="270" y="365" font-size="12" font-weight="bold" fill="#1a1a1a">Репозиторій dh-core • Ритм: стабільний релізний поїзд (квартальний / LTS)</text>
+
+  <!-- Етапи повільного конвеєра -->
+  <rect x="52" y="384" width="246" height="86" rx="6" fill="white" stroke="#6b7280" stroke-width="1"/>
+  <text x="64" y="403" font-size="12" font-weight="bold" fill="#1a1a1a">1. Статичний аналіз (30 хв)</text>
+  <text x="64" y="421" font-size="12" fill="#6b7280">Formal verification &amp; Sonar/Clippy</text>
+  <text x="64" y="439" font-size="12" fill="#1a1a1a">Покриття безпекових інваріантів</text>
+  <text x="64" y="455" font-size="12" fill="#2457d6">Перевірка відсутності регресій</text>
+
+  <line x1="308" y1="427" x2="326" y2="427" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <rect x="336" y="384" width="246" height="86" rx="6" fill="white" stroke="#6b7280" stroke-width="1"/>
+  <text x="348" y="403" font-size="12" font-weight="bold" fill="#1a1a1a">2. HIL-тестування (4 год)</text>
+  <text x="348" y="421" font-size="12" fill="#6b7280">Hardware-in-the-Loop симуляція</text>
+  <text x="348" y="439" font-size="12" fill="#1a1a1a">Стенди Zigbee/Matter та реле</text>
+  <text x="348" y="455" font-size="12" fill="#2457d6">Стрес-тести відмов живлення</text>
+
+  <line x1="592" y1="427" x2="610" y2="427" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <rect x="620" y="384" width="288" height="86" rx="6" fill="white" stroke="#6b7280" stroke-width="1"/>
+  <text x="632" y="403" font-size="12" font-weight="bold" fill="#1a1a1a">3. Релізний поїзд (2 тижні)</text>
+  <text x="632" y="421" font-size="12" fill="#6b7280">Ступеневе OTA: 1% → 10% → 100%</text>
+  <text x="632" y="439" font-size="12" fill="#1a1a1a">Моніторинг телеметрії шлюзів</text>
+  <text x="632" y="455" font-size="12" fill="#27ae60">Підтверджена відмовостійкість</text>
+</svg>

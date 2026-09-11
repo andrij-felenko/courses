@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Матриця стратегій деградації (Fallback) та прапорець IsFallback</text>
+  <text x="480" y="66" text-anchor="middle" font-size="13" fill="#6b7280">Збій межі безпечно перенаправляється на запасний варіант із явної позначкою деградації</text>
+
+  <!-- ЯРУС 1: Збійний запит і диспетчер деградації -->
+  <rect x="180" y="86" width="600" height="62" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="111" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ЗБІЙ ПЕРЕТИНУ МЕЖІ: ТАЙМАУТ / РОЗРИВ КОЛА / ВІДМОВА СЕРВІСУ</text>
+  <text x="480" y="135" text-anchor="middle" font-size="12" fill="#6b7280">Диспетчер деградації перемикає потік на один із 4 обробників Fallback</text>
+
+  <!-- Розподільча шина розгалуження -->
+  <line x1="480" y1="148" x2="480" y2="162" stroke="#2457d6" stroke-width="2"/>
+  <line x1="142" y1="162" x2="818" y2="162" stroke="#2457d6" stroke-width="2"/>
+  <line x1="142" y1="162" x2="142" y2="178" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="368" y1="162" x2="368" y2="178" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="593" y1="162" x2="593" y2="178" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="818" y1="162" x2="818" y2="178" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ЯРУС 2: Чотири картки стратегій деградації -->
+  <!-- Картка 1: ДЕФОЛТ -->
+  <rect x="40" y="180" width="205" height="180" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 40,220 V 186 A 6,6 0 0 1 46,180 H 239 A 6,6 0 0 1 245,186 V 220 Z" fill="#2457d6"/>
+  <text x="142" y="206" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">1. ДЕФОЛТ (DEFAULT)</text>
+  <text x="54" y="244" font-size="12" font-weight="bold" fill="#2457d6">● Безпечна константа</text>
+  <text x="54" y="268" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Суть:</tspan> фіксоване DTO</text>
+  <text x="54" y="292" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Приклад:</tspan> пустий список</text>
+  <text x="54" y="316" font-size="12" fill="#6b7280"><tspan font-weight="bold">Затримка:</tspan> 0 мс (в пам'яті)</text>
+  <text x="142" y="344" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">100% Доступність</text>
+
+  <!-- Картка 2: СТАРИЙ КЕШ -->
+  <rect x="265" y="180" width="205" height="180" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 265,220 V 186 A 6,6 0 0 1 271,180 H 464 A 6,6 0 0 1 470,186 V 220 Z" fill="#2457d6"/>
+  <text x="368" y="206" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">2. КЕШ (STALE CACHE)</text>
+  <text x="279" y="244" font-size="12" font-weight="bold" fill="#2457d6">● Прострочений TTL</text>
+  <text x="279" y="268" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Суть:</tspan> stale-while-err</text>
+  <text x="279" y="292" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Приклад:</tspan> профіль юзера</text>
+  <text x="279" y="316" font-size="12" fill="#6b7280"><tspan font-weight="bold">Ризик:</tspan> застарілі дані</text>
+  <text x="368" y="344" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Багата відповідь</text>
+
+  <!-- Картка 3: ХОЛОСТИЙ ХІД (NO-OP) -->
+  <rect x="490" y="180" width="205" height="180" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 490,220 V 186 A 6,6 0 0 1 496,180 H 689 A 6,6 0 0 1 695,186 V 220 Z" fill="#2457d6"/>
+  <text x="593" y="206" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">3. NO-OP (ПРОПУСК)</text>
+  <text x="504" y="244" font-size="12" font-weight="bold" fill="#2457d6">● Тиха деградація</text>
+  <text x="504" y="268" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Суть:</tspan> ігнорування дії</text>
+  <text x="504" y="292" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Приклад:</tspan> аудит, push</text>
+  <text x="504" y="316" font-size="12" fill="#6b7280"><tspan font-weight="bold">Транзакція:</tspan> без збою</text>
+  <text x="593" y="344" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Ізоляція побічних дій</text>
+
+  <!-- Картка 4: ВТОРИННЕ ДЖЕРЕЛО -->
+  <rect x="715" y="180" width="205" height="180" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 715,220 V 186 A 6,6 0 0 1 721,180 H 914 A 6,6 0 0 1 920,186 V 220 Z" fill="#2457d6"/>
+  <text x="818" y="206" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">4. ВТОРИННЕ ДЖЕРЕЛО</text>
+  <text x="729" y="244" font-size="12" font-weight="bold" fill="#2457d6">● Резервний бекенд</text>
+  <text x="729" y="268" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Суть:</tspan> failover-ресурс</text>
+  <text x="729" y="292" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Приклад:</tspan> Read-репліка</text>
+  <text x="729" y="316" font-size="12" fill="#6b7280"><tspan font-weight="bold">Ціна:</tspan> лаг реплікації</text>
+  <text x="818" y="344" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Повна функціональність</text>
+
+  <!-- Збірна шина до єдиного контракту -->
+  <line x1="142" y1="360" x2="142" y2="378" stroke="#27ae60" stroke-width="2"/>
+  <line x1="368" y1="360" x2="368" y2="378" stroke="#27ae60" stroke-width="2"/>
+  <line x1="593" y1="360" x2="593" y2="378" stroke="#27ae60" stroke-width="2"/>
+  <line x1="818" y1="360" x2="818" y2="378" stroke="#27ae60" stroke-width="2"/>
+  <line x1="142" y1="378" x2="818" y2="378" stroke="#27ae60" stroke-width="2"/>
+  <line x1="480" y1="378" x2="480" y2="392" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- ЯРУС 3: Єдиний контракт відповіді з прапорцем IsFallback -->
+  <rect x="50" y="394" width="860" height="90" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="419" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">ЄДИНИЙ КОНТРАКТ ВІДПОВІДІ: Response&lt;T&gt; { Data: ..., IsFallback: true }</text>
+  <text x="480" y="444" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">✔ IsFallback = true (явний прапорець)   ●   Status = Degraded   ●   Reason = "CircuitBreakerOpen"</text>
+  <text x="480" y="469" text-anchor="middle" font-size="12" fill="#6b7280">Викликач отримує дані без каскадного краху й точно знає, що відповідь є результатом деградації</text>
+</svg>

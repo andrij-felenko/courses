@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White background rect -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Метрики кодової бази: до та після усунення транзитних шарів</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Безпечна ліквідація анемічних посередників скорочує баластний код без втрати інваріантів</text>
+
+  <!-- Left Panel: Before (Overengineered) -->
+  <rect x="30" y="80" width="405" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="106" font-size="14" font-weight="bold" fill="#c0392b">До: Надмірно ускладнена система</text>
+  <text x="45" y="126" font-size="12" fill="#6b7280">Анемічні сервіси, пусте копіювання, мок-тести</text>
+
+  <!-- Left Row 1: Files / Classes -->
+  <rect x="42" y="138" width="381" height="58" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="56" y="163" font-size="13" font-weight="bold" fill="#c0392b">42 класи: надлишковий стек</text>
+  <text x="56" y="183" font-size="12" fill="#6b7280">Контролери, DTO, пусті сервіси, менеджери, DAO</text>
+
+  <!-- Left Row 2: Interfaces -->
+  <rect x="42" y="208" width="381" height="58" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="56" y="233" font-size="13" font-weight="bold" fill="#c0392b">14 дзеркальних інтерфейсів (1:1)</text>
+  <text x="56" y="253" font-size="12" fill="#6b7280">Фіктивна «ізоляція» без жодної другої реалізації</text>
+
+  <!-- Left Row 3: Mapping Lines -->
+  <rect x="42" y="278" width="381" height="58" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="56" y="303" font-size="13" font-weight="bold" fill="#c0392b">1 250 рядків мапінгу та DTO</text>
+  <text x="56" y="323" font-size="12" fill="#6b7280">Порожнє копіювання полів між 4 проміжними класами</text>
+
+  <!-- Left Row 4: Mock Tests -->
+  <rect x="42" y="348" width="381" height="58" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="56" y="373" font-size="13" font-weight="bold" fill="#c0392b">85 мок-тестів на делегування</text>
+  <text x="56" y="393" font-size="12" fill="#6b7280">Тести verify(dao).find(): 0 перевірок бізнес-правил</text>
+
+  <!-- Center Transition Badges -->
+  <text x="480" y="116" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ефект</text>
+
+  <!-- Badge 1 -->
+  <rect x="448" y="149" width="64" height="36" rx="18" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="173" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">-57%</text>
+
+  <!-- Badge 2 -->
+  <rect x="448" y="219" width="64" height="36" rx="18" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="243" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">-100%</text>
+
+  <!-- Badge 3 -->
+  <rect x="448" y="289" width="64" height="36" rx="18" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="313" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">-91%</text>
+
+  <!-- Badge 4 -->
+  <rect x="448" y="359" width="64" height="36" rx="18" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="383" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">-86%</text>
+
+  <!-- Right Panel: After (Clean Pragmatic) -->
+  <rect x="525" y="80" width="405" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="540" y="106" font-size="14" font-weight="bold" fill="#27ae60">Після: Прагматична архітектура</text>
+  <text x="540" y="126" font-size="12" fill="#6b7280">Безпечне спрощення без втрати інваріантів</text>
+
+  <!-- Right Row 1: Files / Classes -->
+  <rect x="537" y="138" width="381" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="551" y="163" font-size="13" font-weight="bold" fill="#27ae60">18 класів: вертикальні зрізи</text>
+  <text x="551" y="183" font-size="12" fill="#1a1a1a">Контролери, цільові DTO та прямі репозиторії</text>
+
+  <!-- Right Row 2: Interfaces -->
+  <rect x="537" y="208" width="381" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="551" y="233" font-size="13" font-weight="bold" fill="#27ae60">0 фіктивних інтерфейсів</text>
+  <text x="551" y="253" font-size="12" fill="#1a1a1a">Пряме використання класів; контракт — за потребою</text>
+
+  <!-- Right Row 3: Mapping Lines -->
+  <rect x="537" y="278" width="381" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="551" y="303" font-size="13" font-weight="bold" fill="#27ae60">110 рядків мапінгу (SQL-проєкції)</text>
+  <text x="551" y="323" font-size="12" fill="#1a1a1a">Zero-copy: вибірка з БД одразу у вихідну структуру</text>
+
+  <!-- Right Row 4: Mock Tests -->
+  <rect x="537" y="348" width="381" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="551" y="373" font-size="13" font-weight="bold" fill="#27ae60">12 інтеграційних сценаріїв</text>
+  <text x="551" y="393" font-size="12" fill="#1a1a1a">Наскрізна верифікація інваріантів та контрактів API</text>
+
+  <!-- Bottom Summary Cards -->
+  <!-- Bottom Card 1 -->
+  <rect x="30" y="436" width="290" height="100" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="44" y="461" font-size="13" font-weight="bold" fill="#c0392b">Зупинка «дробової хірургії»</text>
+  <text x="44" y="479" font-size="12" fill="#6b7280">Радіус впливу змін (blast radius):</text>
+  <text x="44" y="497" font-size="12" fill="#1a1a1a">Додавання нового поля раніше</text>
+  <text x="44" y="515" font-size="12" fill="#1a1a1a">вимагало правки 6 шарів замість 1</text>
+
+  <!-- Bottom Card 2 -->
+  <rect x="335" y="436" width="290" height="100" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="349" y="461" font-size="13" font-weight="bold" fill="#2457d6">Ліквідація баласту в памʼяті</text>
+  <text x="349" y="479" font-size="12" fill="#6b7280">Ефективність процесора і купи:</text>
+  <text x="349" y="497" font-size="12" fill="#1a1a1a">Усунуто 4 проміжні алокації DTO</text>
+  <text x="349" y="515" font-size="12" fill="#1a1a1a">та навантаження на Garbage Collector</text>
+
+  <!-- Bottom Card 3 -->
+  <rect x="640" y="436" width="290" height="100" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="654" y="461" font-size="13" font-weight="bold" fill="#27ae60">Тести з реальною цінністю</text>
+  <text x="654" y="479" font-size="12" fill="#6b7280">Перехід від моків до контрактів:</text>
+  <text x="654" y="497" font-size="12" fill="#1a1a1a">100% тестів перевіряють інваріанти,</text>
+  <text x="654" y="515" font-size="12" fill="#1a1a1a">а не виклики методів-посередників</text>
+</svg>

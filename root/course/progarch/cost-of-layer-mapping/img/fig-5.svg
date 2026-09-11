@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Самопідсилюваний цикл колапсу пропускної здатності (Death Spiral)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Як навантаження на пам'ять перетворює черги запитів на шторм Full GC та обнуляє продуктивність</text>
+
+  <!-- ============================================================ -->
+  <!-- ВЕРХНІЙ РЯДОК: ЕТАПИ 1 -> 2 -> 3                             -->
+  <!-- ============================================================ -->
+
+  <!-- БЛОК 1: Черги викликів -->
+  <rect x="30" y="76" width="280" height="130" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="30" y="76" width="280" height="24" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="170" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1. РОЗРОСТАННЯ ЧЕРГ ВИКЛИКІВ</text>
+  <text x="42" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">• Сплеск RPS чи затримка БД</text>
+  <text x="42" y="136" font-size="12" fill="#6b7280">• Запити зависають у чергах потоків</text>
+  <text x="42" y="154" font-size="12" fill="#6b7280">• Накопичення пулів очікування</text>
+  <text x="42" y="174" font-size="12" font-weight="bold" fill="#c0392b">• Inflight-запити зростають у 10–50×</text>
+  <text x="42" y="194" font-size="12" fill="#6b7280">(високий рівень паралелізму)</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="310" y1="141" x2="338" y2="141" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- БЛОК 2: Роздування часу життя DTO -->
+  <rect x="340" y="76" width="280" height="130" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="340" y="76" width="280" height="24" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2. РОЗДУВАННЯ ЧАСУ ЖИТТЯ DTO</text>
+  <text x="352" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">• Затримка обробки запиту зростає</text>
+  <text x="352" y="136" font-size="12" fill="#6b7280">• Графи DTO живуть сотні мілісекунд</text>
+  <text x="352" y="154" font-size="12" fill="#6b7280">• Об'єкти утримуються в стеку викликів</text>
+  <text x="352" y="174" font-size="12" font-weight="bold" fill="#c0392b">• Злам гіпотези поколінь (Gen Hyp)</text>
+  <text x="352" y="194" font-size="12" fill="#6b7280">(короткоживучі DTO не вмирають вчасно)</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="620" y1="141" x2="648" y2="141" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- БЛОК 3: Виживання у Young Gen -->
+  <rect x="650" y="76" width="280" height="130" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="650" y="76" width="280" height="24" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">3. ВИЖИВАННЯ У YOUNG GEN</text>
+  <text x="662" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">• Minor GC спрацьовує дуже часто</text>
+  <text x="662" y="136" font-size="12" fill="#c0392b">• DTO досяжні з активних потоків!</text>
+  <text x="662" y="154" font-size="12" fill="#6b7280">• Замість 95% смертності виживає 70%</text>
+  <text x="662" y="174" font-size="12" font-weight="bold" fill="#c0392b">• Переповнення Survivor-просторів</text>
+  <text x="662" y="194" font-size="12" fill="#c0392b">(колапс буферів S0 та S1)</text>
+
+  <!-- Спуск 3 -> 4 (вертикальна стрілка вниз) -->
+  <line x1="790" y1="206" x2="790" y2="244" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- ============================================================ -->
+  <!-- НИЖНІЙ РЯДОК: ЕТАПИ 4 <- 5 <- 6                             -->
+  <!-- ============================================================ -->
+
+  <!-- БЛОК 4: Шторм у Old Gen -->
+  <rect x="650" y="246" width="280" height="130" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="650" y="246" width="280" height="24" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="263" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">4. ПЕРЕДЧАСНИЙ ШТОРМ В OLD GEN</text>
+  <text x="662" y="288" font-size="12" font-weight="bold" fill="#c0392b">• Аварійний скид (Premature Tenuring)</text>
+  <text x="662" y="306" font-size="12" fill="#1a1a1a">• Tenuring threshold падає до 1</text>
+  <text x="662" y="324" font-size="12" fill="#6b7280">• Мільйони DTO витісняються в Old Gen</text>
+  <text x="662" y="344" font-size="12" font-weight="bold" fill="#c0392b">• DTO миттєво стають мертвим сміттям</text>
+  <text x="662" y="362" font-size="12" fill="#6b7280">(засмічення пулу старого покоління)</text>
+
+  <!-- Стрілка 4 -> 5 (ліворуч) -->
+  <line x1="650" y1="311" x2="622" y2="311" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- БЛОК 5: Паузи Full GC (STW) -->
+  <rect x="340" y="246" width="280" height="130" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="340" y="246" width="280" height="24" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="263" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">5. ПАУЗИ FULL GC (STOP-THE-WORLD)</text>
+  <text x="352" y="288" font-size="12" font-weight="bold" fill="#c0392b">• Мажорні збірки через брак Old Gen</text>
+  <text x="352" y="306" font-size="12" fill="#1a1a1a">• Паузи Stop-the-World по 1–5 секунд</text>
+  <text x="352" y="324" font-size="12" fill="#c0392b">• Повна заморозка мутаторних потоків</text>
+  <text x="352" y="344" font-size="12" font-weight="bold" fill="#c0392b">• CPU на 90–99% спалюється на GC</text>
+  <text x="352" y="362" font-size="12" fill="#6b7280">(бізнес-обчислення витіснено)</text>
+
+  <!-- Стрілка 5 -> 6 (ліворуч) -->
+  <line x1="340" y1="311" x2="312" y2="311" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- БЛОК 6: Обнулення Goodput -->
+  <rect x="30" y="246" width="280" height="130" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="30" y="246" width="280" height="24" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="170" y="263" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">6. ОБНУЛЕННЯ GOODPUT ТА КОЛАПС</text>
+  <text x="42" y="288" font-size="12" font-weight="bold" fill="#c0392b">• Масові таймаути клієнтських запитів</text>
+  <text x="42" y="306" font-size="12" fill="#1a1a1a">• Корисна пропускна здатність → 0</text>
+  <text x="42" y="324" font-size="12" fill="#6b7280">• Клієнти повторюють невдалі виклики</text>
+  <text x="42" y="344" font-size="12" font-weight="bold" fill="#c0392b">• Ще більше запитів стає в чергу!</text>
+  <text x="42" y="362" font-size="12" fill="#c0392b">(запуск нового руйнівного кола)</text>
+
+  <!-- Замикання петлі 6 -> 1 (вертикальна стрілка вгору) -->
+  <line x1="170" y1="246" x2="170" y2="208" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- ============================================================ -->
+  <!-- НИЖНІ ПАНЕЛІ: ТОЧКА ЗЛАМУ ТА ІНЖЕНЕРНИЙ РОЗВ'ЯЗОК            -->
+  <!-- ============================================================ -->
+
+  <!-- Нижня панель 1: Динаміка точки зламу -->
+  <rect x="30" y="390" width="440" height="144" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="30" y="390" width="440" height="24" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="250" y="407" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ДИНАМІКА ТОЧКИ ЗЛАМУ (THROUGHPUT COLLAPSE)</text>
+
+  <text x="44" y="430" font-size="12" font-weight="bold" fill="#1a1a1a">Формула корисної продуктивності (Goodput):</text>
+  <text x="44" y="448" font-size="12" fill="#2457d6">Goodput = RPS_total × (1 - GC_Pause_Ratio) × (1 - Timeout_Rate)</text>
+  <text x="44" y="468" font-size="12" fill="#1a1a1a">• За межею насичення час у паузах GC сягає 80–95%.</text>
+  <text x="44" y="488" font-size="12" fill="#c0392b">• Нелінійний обрив: збільшення навантаження не сповільнює,</text>
+  <text x="44" y="506" font-size="12" fill="#c0392b">  а миттєво обнуляє корисне опрацювання бізнес-запитів.</text>
+  <text x="44" y="524" font-size="12" fill="#6b7280">• Додаткові ядра CPU лише розширюють зону блокувань GC.</text>
+
+  <!-- Нижня панель 2: Як розірвати цикл -->
+  <rect x="490" y="390" width="440" height="144" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="490" y="390" width="440" height="24" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="407" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ЯК РОЗІРВАТИ САМОПІДСИЛЮВАНИЙ ЦИКЛ</text>
+
+  <text x="504" y="430" font-size="12" font-weight="bold" fill="#27ae60">Інженерні запобіжники проти петлі колапсу:</text>
+  <text x="504" y="450" font-size="12" fill="#1a1a1a">• 1. Backpressure &amp; Load Shedding: скидання на вході.</text>
+  <text x="504" y="470" font-size="12" fill="#1a1a1a">• 2. Ліміти черг: обмеження пулів (без роздуття).</text>
+  <text x="504" y="490" font-size="12" fill="#2457d6">• 3. Zero-Copy DTO: усунення транзитних мапінгів.</text>
+  <text x="504" y="510" font-size="12" fill="#27ae60">• 4. Circuit Breaker: fail-fast при сплеску p99.</text>
+  <text x="504" y="526" font-size="12" fill="#6b7280">• Захищає рантайм від неконтрольованого шторму.</text>
+</svg>

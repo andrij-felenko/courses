@@ -59,6 +59,16 @@
               "recode": true
             }
           ]
+        },
+        {
+          "slug": "domain-cleavage-lines",
+          "title": "Лінії природного розлому системи",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -121,6 +131,16 @@
         {
           "ref": "sf-apps/dto",
           "title": "DTO"
+        },
+        {
+          "slug": "graphql-selective-queries",
+          "title": "Селективні запити GraphQL: декларативний вибір полів проти надвибірки",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -399,6 +419,16 @@
         {
           "ref": "sf-apps/gof-behavioral-microcatalog",
           "title": "Решта поведінкових оглядово (Інтерпретатор, Знімок)"
+        },
+        {
+          "slug": "anti-corruption-layer-pattern",
+          "title": "Антикорупційний шар",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -514,6 +544,16 @@
         {
           "ref": "sf-release/static-analysis",
           "title": "Статичний аналіз"
+        },
+        {
+          "slug": "query-counter-testing",
+          "title": "Автоматизоване тестування кількості SQL-запитів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -547,11 +587,51 @@
           "slug": "cost-of-a-boundary",
           "title": "Ціна межі",
           "basic": {
-            "status": "empty"
+            "status": "pending"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-cost-valley-batching-model.md",
+              "status": "done"
+            },
+            {
+              "file": "math-tail-latency-boundary-amplification.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-posix-cross-process-channel.md",
+              "status": "done"
+            },
+            {
+              "file": "api-boundary-resilience-contract.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-microkernel-ipc-evolution.md",
+              "status": "done"
+            },
+            {
+              "file": "hist-transparent-rpc-illusion.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-adaptive-cost-valley-gateway.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-boundary-cost-benchmarking.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "dh-testability-refactor",
@@ -575,6 +655,46 @@
               "recode": true
             }
           ]
+        },
+        {
+          "slug": "domain-boundary-ratio",
+          "title": "Коефіцієнт корисної роботи до вартості межі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "goroutine-channel-overhead",
+          "title": "Ціна алокацій каналів та перемикання горутин",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "zero-copy-ipc",
+          "title": "Механізми нульового копіювання між процесами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "zero-copy-deserialization",
+          "title": "Серіалізація без копіювання пам'яті: FlatBuffers і Cap'n Proto",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -845,6 +965,16 @@
               "recode": true
             }
           ]
+        },
+        {
+          "slug": "syscall-overhead-context-switch",
+          "title": "Накладні витрати системних викликів та перемикання контексту ядра",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     }

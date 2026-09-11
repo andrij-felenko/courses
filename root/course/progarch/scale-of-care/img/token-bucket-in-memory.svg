@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="490" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Локальний Token Bucket у пам'яті процесу: мікросекундний потік та межі надійності</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Атомарні операції CAS забезпечують затримку &lt; 1 мкс без I/O, але стан втрачається під час перезапуску</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: АРХІТЕКТУРА ПРОЦЕСУ -->
+  <rect x="28" y="78" width="570" height="390" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="313" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура In-Memory Token Bucket у межах процесу</text>
+  <text x="313" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Синхронізація через L1/L3 кеш CPU без звернень до мережі чи диска</text>
+
+  <!-- Контур процесу (RAM) -->
+  <rect x="42" y="132" width="542" height="232" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Заголовок усередині контуру процесу -->
+  <text x="56" y="156" font-size="13" font-weight="bold" fill="#2457d6">Пам'ять процесу (ОЗП / RAM хоста)</text>
+
+  <!-- Вхідний запит -->
+  <rect x="54" y="176" width="116" height="84" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="112" y="210" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний запит</text>
+  <text x="112" y="230" font-size="12" fill="#6b7280" text-anchor="middle">HTTP / gRPC</text>
+
+  <!-- Стрілка: Запит -> Бакет -->
+  <line x1="170" y1="218" x2="208" y2="218" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Блок атомарного бакета -->
+  <rect x="210" y="170" width="206" height="96" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="313" y="191" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Атомарний Token Bucket</text>
+  <text x="313" y="210" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AtomicLong tokens = 10</text>
+  <text x="313" y="229" font-size="12" fill="#2457d6" text-anchor="middle">CAS: compare-and-swap</text>
+  <text x="313" y="248" font-size="12" fill="#6b7280" text-anchor="middle">Затримка: ~15-40 нс (No I/O)</text>
+
+  <!-- Стрілки рішення -->
+  <!-- Дозволено (вгору вправо) -->
+  <path d="M 416,204 L 434,185 L 446,185" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <!-- Відхилено (вниз вправо) -->
+  <path d="M 416,232 L 434,251 L 446,251" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Рішення 1: Дозволено -->
+  <rect x="448" y="162" width="124" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="510" y="181" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">200 OK (allow)</text>
+  <text x="510" y="198" font-size="12" fill="#27ae60" text-anchor="middle">tokens.decrement()</text>
+
+  <!-- Рішення 2: Відхилено -->
+  <rect x="448" y="228" width="124" height="46" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="510" y="247" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">429 Too Many Req</text>
+  <text x="510" y="264" font-size="12" fill="#c0392b" text-anchor="middle">Ліміт вичерпано</text>
+
+  <!-- Механізм Lazy Refill всередині процесу -->
+  <rect x="54" y="294" width="518" height="58" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="313" y="316" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механізм поповнення: лінивий розрахунок (Lazy Refill)</text>
+  <text x="313" y="336" font-size="12" fill="#6b7280" text-anchor="middle">tokens = min(cap, tokens + Δt · rate) — без фонових таймерів</text>
+
+  <!-- Блок перезапуску (Crash / Data Loss) -->
+  <rect x="42" y="378" width="542" height="74" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="313" y="400" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Точка відмови: втрата стану при перезапуску процесу (Ephemeral State)</text>
+  <text x="313" y="419" font-size="12" fill="#1a1a1a" text-anchor="middle">SIGKILL / OOM / Рестарт контейнера повністю стирає лічильники в RAM</text>
+  <text x="313" y="437" font-size="12" fill="#c0392b" text-anchor="middle">Наслідок: раптове обнулення лімітів і ризик сплеску (burst spike)</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: АРХІТЕКТУРНИЙ АНАЛІЗ ТА ВЛАСТИВОСТІ -->
+  <rect x="618" y="78" width="314" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="775" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Властивості та архітектурний масштаб</text>
+  <text x="775" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Локальний контур vs розподілений захист</text>
+
+  <!-- Картка 1: Швидкість (Zero-I/O) -->
+  <rect x="630" y="132" width="290" height="68" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="775" y="152" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Мікросекундна затримка (Zero I/O)</text>
+  <text x="775" y="171" font-size="12" fill="#1a1a1a" text-anchor="middle">• Затримка 15–40 нс: без сокетів та I/O</text>
+  <text x="775" y="189" font-size="12" fill="#6b7280" text-anchor="middle">• Швидкість обмежена лише кешем CPU</text>
+
+  <!-- Картка 2: Атомарність (CAS) -->
+  <rect x="630" y="214" width="290" height="68" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="775" y="234" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Атомарні примітиви (CAS)</text>
+  <text x="775" y="253" font-size="12" fill="#1a1a1a" text-anchor="middle">• Lock-free: AtomicLong / CMPXCHG</text>
+  <text x="775" y="271" font-size="12" fill="#6b7280" text-anchor="middle">• Потокобезпека без м'ютексів та локів</text>
+
+  <!-- Картка 3: Ефемерність -->
+  <rect x="630" y="296" width="290" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="775" y="316" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ефемерність стану (Data Loss)</text>
+  <text x="775" y="335" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">• Рестарт скидає лічильник до максимуму</text>
+  <text x="775" y="353" font-size="12" fill="#6b7280" text-anchor="middle">• Ризик лавинного трафіку (burst spike)</text>
+
+  <!-- Картка 4: Межа N реплік -->
+  <rect x="630" y="378" width="290" height="72" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="775" y="399" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Межа масштабу: N реплік</text>
+  <text x="775" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">• N інстансів множать ліміт на N разів</text>
+  <text x="775" y="437" font-size="12" fill="#6b7280" text-anchor="middle">• Для спільного ліміту потрібен Redis</text>
+</svg>

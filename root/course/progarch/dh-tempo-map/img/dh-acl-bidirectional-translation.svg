@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Антикорупційний шар (ACL): двостороння трансляція моделі</text>
+  <text x="480" y="64" font-size="13" fill="#6b7280" text-anchor="middle">Ізоляція чистої доменної моделі від хаосу пропрієтарних протоколів сенсорів та виконавчих пристроїв</text>
+  <rect x="25" y="86" width="220" height="358" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="25" y="86" width="220" height="34" rx="8" fill="#fdecea"/>
+  <text x="135" y="108" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Зовнішні пристрої</text>
+  <rect x="295" y="86" width="370" height="358" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <rect x="295" y="86" width="370" height="34" rx="8" fill="#eaf0fd"/>
+  <text x="480" y="108" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Антикорупційний шар (ACL / Adapter)</text>
+  <rect x="715" y="86" width="220" height="358" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="715" y="86" width="220" height="34" rx="8" fill="#e9f7ef"/>
+  <text x="825" y="108" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Доменне ядро</text>
+  <text x="480" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. ВХІДНИЙ ПОТІК: ТЕЛЕМЕТРІЯ ТА ПОДІЇ СЕНСОРІВ</text>
+  <rect x="37" y="148" width="196" height="114" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="47" y="168" font-size="12" font-weight="bold" fill="#c0392b">Tuya Zigbee Сенсор</text>
+  <text x="47" y="188" font-size="12" fill="#6b7280">Пропрієтарний JSON:</text>
+  <text x="47" y="206" font-size="12" fill="#1a1a1a">{"dev_id": "0x4A1",</text>
+  <text x="47" y="224" font-size="12" fill="#1a1a1a"> "t_raw": 2185, "b": 1}</text>
+  <text x="47" y="244" font-size="12" font-weight="bold" fill="#c0392b">! Сирий формат вендора</text>
+  <line x1="233" y1="205" x2="303" y2="205" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="270" y="195" font-size="12" fill="#c0392b" text-anchor="middle">байти</text>
+  <rect x="307" y="148" width="346" height="114" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="319" y="168" font-size="12" font-weight="bold" fill="#2457d6">DeviceTelemetryTranslator</text>
+  <text x="319" y="188" font-size="12" fill="#1a1a1a">• Парсинг пакету та валідація чексуми</text>
+  <text x="319" y="206" font-size="12" fill="#1a1a1a">• Нормалізація: 2185 ➔ 21.85 °C (одиниці SI)</text>
+  <text x="319" y="224" font-size="12" fill="#1a1a1a">• Резолв сутності: 0x4A1 ➔ DeviceId(104)</text>
+  <text x="319" y="244" font-size="12" font-weight="bold" fill="#27ae60">✓ Захист від вендорних аномалій</text>
+  <line x1="653" y1="205" x2="723" y2="205" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="690" y="195" font-size="12" fill="#27ae60" text-anchor="middle">подія</text>
+  <rect x="727" y="148" width="196" height="114" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="737" y="168" font-size="12" font-weight="bold" fill="#27ae60">Канонічна подія</text>
+  <text x="737" y="188" font-size="12" fill="#6b7280">TemperatureSampled:</text>
+  <text x="737" y="206" font-size="12" fill="#1a1a1a">Room: LivingRoom</text>
+  <text x="737" y="224" font-size="12" fill="#1a1a1a">Value: 21.85 °C</text>
+  <text x="737" y="244" font-size="12" font-weight="bold" fill="#27ae60">✓ Чистий доменний тип</text>
+  <text x="480" y="286" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2. ВИХІДНИЙ ПОТІК: ДЕЛЕГУВАННЯ КОМАНД АКТЮАТОРАМ</text>
+  <rect x="727" y="296" width="196" height="114" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="737" y="316" font-size="12" font-weight="bold" fill="#27ae60">Доменна команда</text>
+  <text x="737" y="336" font-size="12" fill="#6b7280">SetRelayTargetState:</text>
+  <text x="737" y="354" font-size="12" fill="#1a1a1a">Actuator: BoilerRelay</text>
+  <text x="737" y="372" font-size="12" fill="#1a1a1a">State: Enabled</text>
+  <text x="737" y="392" font-size="12" font-weight="bold" fill="#27ae60">✓ Семантика системи</text>
+  <line x1="727" y1="353" x2="657" y2="353" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="690" y="343" font-size="12" fill="#2457d6" text-anchor="middle">наказ</text>
+  <rect x="307" y="296" width="346" height="114" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="319" y="316" font-size="12" font-weight="bold" fill="#2457d6">ActuatorCommandTranslator</text>
+  <text x="319" y="336" font-size="12" fill="#1a1a1a">• Мапінг сутності ➔ апаратна адреса каналу</text>
+  <text x="319" y="354" font-size="12" fill="#1a1a1a">• Формування фрейму Modbus RTU / RS-485</text>
+  <text x="319" y="372" font-size="12" fill="#1a1a1a">• Розрахунок контрольної суми CRC16</text>
+  <text x="319" y="392" font-size="12" font-weight="bold" fill="#2457d6">✓ Ізоляція апаратного кодування</text>
+  <line x1="307" y1="353" x2="237" y2="353" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="270" y="343" font-size="12" fill="#c0392b" text-anchor="middle">кадр</text>
+  <rect x="37" y="296" width="196" height="114" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="47" y="316" font-size="12" font-weight="bold" fill="#c0392b">Modbus Силове реле</text>
+  <text x="47" y="336" font-size="12" fill="#6b7280">Двійковий фрейм:</text>
+  <text x="47" y="354" font-size="12" fill="#1a1a1a">[0x01, 0x05, 0x00, 0x02]</text>
+  <text x="47" y="372" font-size="12" fill="#1a1a1a">CRC: 0x8C, 0x0A</text>
+  <text x="47" y="392" font-size="12" font-weight="bold" fill="#c0392b">! Низькорівневий дріт</text>
+  <rect x="25" y="458" width="910" height="68" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="37" y="478" font-size="13" font-weight="bold" fill="#27ae60">Архітектурна гарантія шва ізоляції (ACL):</text>
+  <text x="37" y="498" font-size="12" fill="#1a1a1a">• Зміна постачальника чи прошивки пристроїв оновлює виключно адаптерний шар трансляції</text>
+  <text x="37" y="514" font-size="12" fill="#1a1a1a">• Доменне ядро оперує виключно чистими типами й повністю захищене від вендорних форматів</text>
+</svg>

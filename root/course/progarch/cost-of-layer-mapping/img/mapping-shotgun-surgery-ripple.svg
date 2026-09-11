@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дріб'язкова хірургія (Shotgun Surgery) та непомітна втрата даних</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Додавання поля targetHumidity зачіпає шість класів; пропуск у мапері призводить до тихої втрати даних</text>
+  <rect x="24" y="80" width="200" height="178" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="24" y="80" width="200" height="28" rx="6" fill="#e2e8f0"/>
+  <rect x="24" y="102" width="200" height="6" fill="#e2e8f0"/>
+  <text x="34" y="98" font-size="12" font-weight="bold" fill="#2457d6">1. API Request DTO</text>
+  <text x="34" y="124" font-size="13" font-weight="bold" fill="#1a1a1a">ClimateRequestDto</text>
+  <text x="34" y="146" font-size="12" fill="#6b7280">zoneId: string</text>
+  <text x="34" y="164" font-size="12" fill="#6b7280">targetTemp: float</text>
+  <rect x="30" y="174" width="188" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="36" y="190" font-size="12" font-weight="bold" fill="#2457d6">+ targetHumidity: float</text>
+  <text x="34" y="222" font-size="12" fill="#6b7280">Правка 1: вхідний JSON</text>
+  <text x="34" y="240" font-size="12" fill="#6b7280">розширено клієнтом</text>
+  <line x1="224" y1="169" x2="252" y2="169" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="256" y="80" width="204" height="178" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="256" y="80" width="204" height="28" rx="6" fill="#e2e8f0"/>
+  <rect x="256" y="102" width="204" height="6" fill="#e2e8f0"/>
+  <text x="266" y="98" font-size="12" font-weight="bold" fill="#2457d6">2. Мапер 1 (Inbound)</text>
+  <text x="266" y="124" font-size="13" font-weight="bold" fill="#1a1a1a">InboundMapper</text>
+  <text x="266" y="146" font-size="12" fill="#6b7280">toCommand(dto):</text>
+  <text x="266" y="164" font-size="12" fill="#6b7280">  cmd.temp = dto.temp</text>
+  <rect x="262" y="174" width="192" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="268" y="190" font-size="12" font-weight="bold" fill="#2457d6">+ cmd.hum = dto.hum</text>
+  <text x="266" y="222" font-size="12" fill="#6b7280">Правка 2: ручний копір</text>
+  <text x="266" y="240" font-size="12" fill="#6b7280">перекладання у команду</text>
+  <line x1="460" y1="169" x2="488" y2="169" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="492" y="80" width="200" height="178" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="492" y="80" width="200" height="28" rx="6" fill="#e2e8f0"/>
+  <rect x="492" y="102" width="200" height="6" fill="#e2e8f0"/>
+  <text x="502" y="98" font-size="12" font-weight="bold" fill="#2457d6">3. Application Command</text>
+  <text x="502" y="124" font-size="13" font-weight="bold" fill="#1a1a1a">SetClimateCommand</text>
+  <text x="502" y="146" font-size="12" fill="#6b7280">zoneId: ZoneId</text>
+  <text x="502" y="164" font-size="12" fill="#6b7280">targetTemp: float</text>
+  <rect x="498" y="174" width="188" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="504" y="190" font-size="12" font-weight="bold" fill="#2457d6">+ targetHumidity: float</text>
+  <text x="502" y="222" font-size="12" fill="#6b7280">Правка 3: контракт шару</text>
+  <text x="502" y="240" font-size="12" fill="#6b7280">застосунку розширено</text>
+  <line x1="692" y1="169" x2="720" y2="169" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="724" y="80" width="212" height="178" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="724" y="80" width="212" height="28" rx="6" fill="#e2e8f0"/>
+  <rect x="724" y="102" width="212" height="6" fill="#e2e8f0"/>
+  <text x="734" y="98" font-size="12" font-weight="bold" fill="#2457d6">4. Domain Aggregate</text>
+  <text x="734" y="124" font-size="13" font-weight="bold" fill="#1a1a1a">ClimateZone</text>
+  <text x="734" y="146" font-size="12" fill="#6b7280">_targetTemp: float</text>
+  <rect x="730" y="154" width="200" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="736" y="170" font-size="12" font-weight="bold" fill="#2457d6">+ _targetHumidity: float</text>
+  <text x="736" y="188" font-size="12" fill="#2457d6">+ setClimate(..., hum)</text>
+  <text x="734" y="222" font-size="12" fill="#6b7280">Правка 4: стан агрегату</text>
+  <text x="734" y="240" font-size="12" fill="#6b7280">та перевірка інваріантів</text>
+  <line x1="830" y1="258" x2="830" y2="282" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <rect x="656" y="286" width="280" height="178" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="656" y="286" width="280" height="28" rx="6" fill="#fadbd8"/>
+  <rect x="656" y="308" width="280" height="6" fill="#fadbd8"/>
+  <text x="666" y="304" font-size="12" font-weight="bold" fill="#c0392b">5. Мапер 2 (Persistence) — ЗБІЙ!</text>
+  <text x="666" y="330" font-size="13" font-weight="bold" fill="#1a1a1a">PersistenceMapper</text>
+  <text x="666" y="352" font-size="12" fill="#6b7280">toEntity(zone):</text>
+  <text x="666" y="370" font-size="12" fill="#6b7280">  e.target_temp = zone.temp</text>
+  <rect x="662" y="380" width="268" height="42" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="670" y="397" font-size="12" font-weight="bold" fill="#c0392b">// targetHumidity ПРОПУЩЕНО!</text>
+  <text x="670" y="414" font-size="12" fill="#c0392b">// компілятор мовчить (null-safe)</text>
+  <text x="666" y="442" font-size="12" font-weight="bold" fill="#c0392b">ВТРАТА ДАНИХ: поле забули</text>
+  <text x="666" y="458" font-size="12" fill="#c0392b">скопіювати у сутність БД</text>
+  <line x1="656" y1="375" x2="628" y2="375" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <rect x="344" y="286" width="280" height="178" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="344" y="286" width="280" height="28" rx="6" fill="#e2e8f0"/>
+  <rect x="344" y="308" width="280" height="6" fill="#e2e8f0"/>
+  <text x="354" y="304" font-size="12" font-weight="bold" fill="#2457d6">6. Infrastructure / DB Entity</text>
+  <text x="354" y="330" font-size="13" font-weight="bold" fill="#1a1a1a">ClimateZoneEntity (ORM)</text>
+  <text x="354" y="352" font-size="12" fill="#6b7280">target_temp: 21.5</text>
+  <rect x="350" y="362" width="268" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="358" y="379" font-size="12" font-weight="bold" fill="#c0392b">+ target_humidity = NULL</text>
+  <text x="358" y="396" font-size="12" fill="#c0392b">(правка 5 була, але мапер пустий)</text>
+  <text x="354" y="442" font-size="12" fill="#6b7280">Правка 5: стовпець створено,</text>
+  <text x="354" y="458" font-size="12" fill="#6b7280">але в БД записано NULL</text>
+  <line x1="344" y1="375" x2="316" y2="375" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <rect x="24" y="286" width="288" height="178" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="24" y="286" width="288" height="28" rx="6" fill="#e2e8f0"/>
+  <rect x="24" y="308" width="288" height="6" fill="#e2e8f0"/>
+  <text x="34" y="304" font-size="12" font-weight="bold" fill="#2457d6">7. Presentation / Response</text>
+  <text x="34" y="330" font-size="13" font-weight="bold" fill="#1a1a1a">ClimateResponseDto</text>
+  <text x="34" y="352" font-size="12" fill="#6b7280">temperature: 21.5</text>
+  <rect x="30" y="362" width="276" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="38" y="379" font-size="12" font-weight="bold" fill="#c0392b">+ targetHumidity: null</text>
+  <text x="38" y="396" font-size="12" fill="#c0392b">Статус відповіді: 200 OK</text>
+  <text x="34" y="442" font-size="12" fill="#6b7280">Правка 6: клієнт очікує 50%,</text>
+  <text x="34" y="458" font-size="12" fill="#6b7280">але отримує null без жодної помилки</text>
+  <rect x="24" y="486" width="912" height="52" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="502" font-size="12" font-weight="bold" fill="#1a1a1a">Висновки для архітектури: ціна ізоляції шарів</text>
+  <text x="36" y="518" font-size="12" fill="#6b7280">1 концептуальна зміна спричинила правки у 6 класах і 2 маперах (дріб'язкова хірургія). Пропуск рядка в ручному мапері</text>
+  <text x="36" y="532" font-size="12" fill="#6b7280">не викликає помилок компілятора й призводить до тихої деградації даних у сховищі при успішних відповідях API.</text>
+</svg>

@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Реакція міжпроцесної межі на раптове падіння процесу-партнера</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Захист від SIGPIPE через MSG_NOSIGNAL та маркер EOF усувають каскадні аварії відправника</text>
+
+  <!-- TOP PANEL: Initial Crash & Kernel Socket State -->
+  <rect x="30" y="80" width="900" height="96" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Top Left: Crash of Process B -->
+  <rect x="44" y="92" width="280" height="72" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="56" y="112" font-size="12" font-weight="bold" fill="#c0392b">1. Аварійний збій процесу B</text>
+  <text x="56" y="130" font-size="12" fill="#1a1a1a">SIGSEGV / abort() / раптовий exit</text>
+  <text x="56" y="148" font-size="12" fill="#6b7280">Ядро автоматично закриває fd сокета B</text>
+
+  <!-- Arrow between top cards -->
+  <line x1="334" y1="128" x2="366" y2="128" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Top Right: Kernel Socket State -->
+  <rect x="376" y="92" width="540" height="72" rx="6" fill="white" stroke="#2457d6"/>
+  <text x="390" y="112" font-size="12" font-weight="bold" fill="#2457d6">2. Стан сокета в ядрі ОС (Розрив каналу зв'язку)</text>
+  <text x="390" y="130" font-size="12" fill="#1a1a1a">• Черга читання процесу A: виставляється маркер завершення EOF (0 байт)</text>
+  <text x="390" y="148" font-size="12" fill="#1a1a1a">• Черга запису процесу A: канал розірвано (Broken Pipe, читачів немає)</text>
+
+  <!-- BOTTOM LEFT PANEL: READ PATH (recvmsg) -->
+  <rect x="30" y="192" width="370" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="44" y="204" width="180" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="134" y="220" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ШЛЯХ ЧИТАННЯ (RECV)</text>
+  <text x="44" y="244" font-size="13" font-weight="bold" fill="#1a1a1a">Виявлення через маркер EOF</text>
+
+  <!-- Step 1 in read -->
+  <rect x="44" y="256" width="342" height="60" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="56" y="276" font-size="12" font-weight="bold" fill="#1a1a1a">Процес A чекає відповідь або подію</text>
+  <text x="56" y="294" font-size="12" fill="#2457d6">ssize_t n = recvmsg(sock_fd, &amp;msg, 0);</text>
+
+  <!-- Step 2 in read -->
+  <rect x="44" y="328" width="342" height="72" rx="6" fill="white" stroke="#27ae60"/>
+  <text x="56" y="348" font-size="12" font-weight="bold" fill="#27ae60">Результат виклику: n == 0 (маркер EOF)</text>
+  <text x="56" y="366" font-size="12" fill="#1a1a1a">Ядро сигналізує: віддалений кінець закрився</text>
+  <text x="56" y="384" font-size="12" fill="#6b7280">Помилка не генерується, потік читання вичерпано</text>
+
+  <!-- Step 3 in read (Outcome) -->
+  <rect x="44" y="412" width="342" height="84" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="56" y="432" font-size="12" font-weight="bold" fill="#27ae60">✓ Детермінована реакція процесу A:</text>
+  <text x="56" y="450" font-size="12" fill="#1a1a1a">• Закриття локального сокета close(sock_fd)</text>
+  <text x="56" y="468" font-size="12" fill="#1a1a1a">• Очищення буферів, перезапуск процесу B</text>
+  <text x="56" y="484" font-size="12" fill="#27ae60" font-weight="bold">Безпечне завершення без аварій відправника</text>
+
+  <!-- BOTTOM RIGHT PANEL: WRITE PATH (sendmsg) -->
+  <rect x="420" y="192" width="510" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="434" y="204" width="180" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="524" y="220" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ШЛЯХ ЗАПИСУ (SEND)</text>
+  <text x="434" y="244" font-size="13" font-weight="bold" fill="#1a1a1a">Спроба відправити дані в розірваний сокет</text>
+
+  <!-- Unsafe Path Box -->
+  <rect x="434" y="256" width="482" height="114" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="446" y="266" width="190" height="22" rx="4" fill="#c0392b"/>
+  <text x="541" y="281" text-anchor="middle" font-size="12" font-weight="bold" fill="white">✕ ДЕФОЛТ: НЕБЕЗПЕЧНИЙ ШЛЯХ</text>
+
+  <text x="446" y="304" font-size="12" font-weight="bold" fill="#1a1a1a">sendmsg(sock_fd, &amp;msg, 0);  /* прапор за замовчуванням */</text>
+  <text x="446" y="322" font-size="12" fill="#c0392b">1. Ядро ОС відправляє сигнал SIGPIPE процесу A</text>
+  <text x="446" y="340" font-size="12" fill="#c0392b">2. Стандартна реакція процесу на SIGPIPE — негайне аварійне завершення</text>
+  <text x="446" y="358" font-size="12" font-weight="bold" fill="#c0392b">✕ Крах процесу A (падіння одного компонента руйнує всю систему)</text>
+
+  <!-- Safe Path Box -->
+  <rect x="434" y="382" width="482" height="114" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="446" y="392" width="200" height="22" rx="4" fill="#27ae60"/>
+  <text x="546" y="407" text-anchor="middle" font-size="12" font-weight="bold" fill="white">✓ ЗАХИСТ: СТІЙКА МЕЖА</text>
+
+  <text x="446" y="430" font-size="12" font-weight="bold" fill="#1a1a1a">sendmsg(sock_fd, &amp;msg, MSG_NOSIGNAL);  /* або SIG_IGN */</text>
+  <text x="446" y="448" font-size="12" fill="#27ae60">1. Ядро НЕ генерує SIGPIPE, а повертає -1</text>
+  <text x="446" y="466" font-size="12" fill="#1a1a1a">2. Системний статус errno = EPIPE або ECONNRESET</text>
+  <text x="446" y="484" font-size="12" font-weight="bold" fill="#27ae60">✓ Процес A живий: обробляє EPIPE, ізолює аварію, не падає</text>
+</svg>

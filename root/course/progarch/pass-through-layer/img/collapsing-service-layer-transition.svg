@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="#ffffff"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Згортання сервісного шару: перехід від закритої моделі до відкритої</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Усунення анемічних посередників дозволяє контролеру читати дані напряму без транзитного коду</text>
+
+  <!-- LEFT PANEL: Closed 3-Tier Model (Problem) -->
+  <rect x="25" y="75" width="445" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">ДО: Закрита 3-шарова структура</text>
+  <rect x="310" y="88" width="145" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="382" y="104" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Анемічний транзит</text>
+
+  <!-- Left: Controller -->
+  <rect x="45" y="125" width="405" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="147" font-size="13" font-weight="bold" fill="#2457d6">OrderController</text>
+  <text x="60" y="167" font-size="12" fill="#6b7280">GET /orders/{id} → orderService.getOrder(id)</text>
+
+  <!-- Left Arrow 1 -->
+  <line x1="247" y1="185" x2="247" y2="209" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="260" y="202" font-size="12" fill="#c0392b">Обов'язковий транзит</text>
+
+  <!-- Left: Pass-through Service -->
+  <rect x="45" y="215" width="405" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="60" y="237" font-size="13" font-weight="bold" fill="#c0392b">OrderService (пасивний посередник)</text>
+  <text x="60" y="257" font-size="12" fill="#1a1a1a">getOrder(id) => orderRepo.findById(id) // Нуль логіки</text>
+  <text x="60" y="275" font-size="12" fill="#6b7280">Дзеркальний інтерфейс + пустий DTO-мапінг + фіктивний тест</text>
+
+  <!-- Left Arrow 2 -->
+  <line x1="247" y1="290" x2="247" y2="314" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="260" y="307" font-size="12" fill="#c0392b">Холосте перенаправлення</text>
+
+  <!-- Left: Repository -->
+  <rect x="45" y="320" width="405" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="342" font-size="13" font-weight="bold" fill="#1a1a1a">OrderRepository</text>
+  <text x="60" y="362" font-size="12" fill="#6b7280">findById(id) → прямий запит до бази даних</text>
+
+  <!-- Left: Summary Box -->
+  <rect x="45" y="395" width="405" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="415" font-size="12" font-weight="bold" fill="#c0392b">Ціна закритості:</text>
+  <text x="180" y="415" font-size="12" fill="#1a1a1a">×3 зайвих файли на кожен CRUD-запит</text>
+  <text x="60" y="434" font-size="12" fill="#6b7280">«Дробова хірургія»: зміна поля вимагає правок у 5 файлах</text>
+  <text x="60" y="450" font-size="12" fill="#6b7280">Тести мокують сервіс, перевіряючи лише факт перенаправлення</text>
+
+  <!-- RIGHT PANEL: Open Architecture (Solution) -->
+  <rect x="490" y="75" width="445" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="510" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">ПІСЛЯ: Відкрита шарова архітектура</text>
+  <rect x="785" y="88" width="135" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="852" y="104" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Прямий потік</text>
+
+  <!-- Right: Controller -->
+  <rect x="510" y="125" width="405" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="525" y="147" font-size="13" font-weight="bold" fill="#2457d6">OrderController</text>
+  <text x="525" y="167" font-size="12" fill="#6b7280">Обробляє HTTP-запит і вибирає оптимальний шлях</text>
+
+  <!-- Direct Arrow (Read path) -->
+  <line x1="535" y1="185" x2="535" y2="314" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="548" y="240" font-size="12" font-weight="bold" fill="#27ae60">Прямий запит (Читання / CRUD)</text>
+  <text x="548" y="258" font-size="12" fill="#6b7280">Усунуто анемічний шар</text>
+  <text x="548" y="274" font-size="12" fill="#6b7280">Мінус 3 транзитні класи</text>
+
+  <!-- Domain Service Box (Mutation / Complex logic path) -->
+  <rect x="765" y="215" width="150" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="840" y="237" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">OrderDomainService</text>
+  <text x="840" y="255" text-anchor="middle" font-size="12" fill="#1a1a1a">Лише складна логіка:</text>
+  <text x="840" y="273" text-anchor="middle" font-size="12" fill="#6b7280">інваріанти, списання</text>
+
+  <!-- Arrow to Domain Service -->
+  <line x1="840" y1="185" x2="840" y2="209" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Arrow from Domain Service to Repo -->
+  <line x1="840" y1="290" x2="840" y2="314" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Right: Repository -->
+  <rect x="510" y="320" width="405" height="60" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="342" font-size="13" font-weight="bold" fill="#27ae60">OrderRepository</text>
+  <text x="525" y="362" font-size="12" fill="#6b7280">Обслуговує і прямі виклики контролера, і доменні сервіси</text>
+
+  <!-- Right: Summary Box -->
+  <rect x="510" y="395" width="405" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="415" font-size="12" font-weight="bold" fill="#27ae60">Переваги відкритої моделі:</text>
+  <text x="700" y="415" font-size="12" fill="#1a1a1a">кодова база менша на 30–40%</text>
+  <text x="525" y="434" font-size="12" fill="#1a1a1a">• Читання не потребує проміжних класів і порожніх DTO</text>
+  <text x="525" y="450" font-size="12" fill="#27ae60">• Доменний сервіс лише для нетривіальної бізнес-логіки</text>
+</svg>

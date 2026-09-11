@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">6 S Зсувних шарів Стюарта Бренда та темпи змін у ПЗ</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Швидкі шари експериментують і адаптуються, повільні — стабілізують і зберігають цілісність</text>
+
+  <!-- LEFT PANEL: 6 S Layers Stack -->
+  <rect x="25" y="70" width="555" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Pace Gradient Line & Axis Labels -->
+  <line x1="52" y1="100" x2="52" y2="440" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="52" y="86" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Швидко</text>
+  <text x="52" y="465" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Повільно</text>
+
+  <!-- 6 Horizontal Layer Cards -->
+
+  <!-- Layer 1: STUFF -->
+  <rect x="90" y="85" width="470" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="105" y="106" font-size="13" font-weight="bold" fill="#2457d6">1. STUFF (Речі &amp; Тимчасовий стан)</text>
+  <text x="105" y="124" font-size="12" fill="#1a1a1a">UI-компоненти, кеш, сесії | Темп: дні – тижні</text>
+
+  <!-- Layer 2: SPACE PLAN -->
+  <rect x="90" y="150" width="470" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="105" y="171" font-size="13" font-weight="bold" fill="#1a1a1a">2. SPACE PLAN (Планування &amp; Сценарії)</text>
+  <text x="105" y="189" font-size="12" fill="#6b7280">Прикладні юзкейси, бізнес-процеси | Темп: місяці</text>
+
+  <!-- Layer 3: SERVICES -->
+  <rect x="90" y="215" width="470" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="105" y="236" font-size="13" font-weight="bold" fill="#1a1a1a">3. SERVICES (Сервіси &amp; Комунікації)</text>
+  <text x="105" y="254" font-size="12" fill="#6b7280">API, сервіси, схеми БД, брокери | Темп: 7–15 років</text>
+
+  <!-- Layer 4: SKIN -->
+  <rect x="90" y="280" width="470" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="105" y="301" font-size="13" font-weight="bold" fill="#1a1a1a">4. SKIN (Оболонка &amp; Зовнішні протоколи)</text>
+  <text x="105" y="319" font-size="12" fill="#6b7280">Шлюзи, зовнішні стандарти, контракти | Темп: 20–30 років</text>
+
+  <!-- Layer 5: STRUCTURE -->
+  <rect x="90" y="345" width="470" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="105" y="366" font-size="13" font-weight="bold" fill="#1a1a1a">5. STRUCTURE (Структура &amp; Фундамент)</text>
+  <text x="105" y="384" font-size="12" fill="#6b7280">Доменна модель, ядра систем, рантайми | Темп: 30–300 років</text>
+
+  <!-- Layer 6: SITE -->
+  <rect x="90" y="410" width="470" height="52" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="105" y="431" font-size="13" font-weight="bold" fill="#1a1a1a">6. SITE (Місце &amp; Бізнес-контекст)</text>
+  <text x="105" y="449" font-size="12" fill="#6b7280">Організаційний домен, межі ринку | Темп: вічність</text>
+
+  <!-- RIGHT PANEL: Shear Friction & Pace Layering -->
+  <rect x="595" y="70" width="340" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Top Box: Shear Friction Hazard -->
+  <rect x="610" y="85" width="310" height="185" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="625" y="108" font-size="13" font-weight="bold" fill="#c0392b">⚡ Зсувне тертя (Shear Friction)</text>
+  <text x="625" y="130" font-size="12" fill="#1a1a1a">Виникає на межі шарів із різними</text>
+  <text x="625" y="148" font-size="12" fill="#1a1a1a">циклами змін (напр. UI та DB Schema).</text>
+  <text x="625" y="170" font-size="12" fill="#c0392b">Пряме жорстке зв'язування викликає</text>
+  <text x="625" y="188" font-size="12" fill="#c0392b">параліч випусків або поломку ядра.</text>
+  <text x="625" y="212" font-size="12" fill="#6b7280">Приклад: спільна БД для всіх шарів.</text>
+  <text x="625" y="230" font-size="12" fill="#6b7280">Створює нездоланне архітектурне тертя.</text>
+
+  <!-- Bottom Box: Pace Layering Solution -->
+  <rect x="610" y="285" width="310" height="195" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="625" y="308" font-size="13" font-weight="bold" fill="#27ae60">✓ Темпова розв'язка (Pace Layering)</text>
+  <text x="625" y="330" font-size="12" font-weight="bold" fill="#27ae60">1. Шов зрізу (Buffer / DTO):</text>
+  <text x="625" y="348" font-size="12" fill="#1a1a1a">   ізолює швидкі релізи від ядра.</text>
+  <text x="625" y="372" font-size="12" font-weight="bold" fill="#27ae60">2. Повільний шар стабілізує:</text>
+  <text x="625" y="390" font-size="12" fill="#1a1a1a">   це захист цілісності, а не застій.</text>
+  <text x="625" y="414" font-size="12" font-weight="bold" fill="#27ae60">3. Автономність годинників:</text>
+  <text x="625" y="432" font-size="12" fill="#1a1a1a">   кожен шар розгортається у своєму темпі.</text>
+  <text x="625" y="458" font-size="12" fill="#6b7280">Забезпечує еволюційність систем.</text>
+</svg>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Шлях даних: Unix Domain Socket проти Shared Memory</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Спільна пам'ять усуває системні виклики та подвійне копіювання через ядро ОС</text>
+
+  <!-- LEFT PANEL: Unix Domain Socket -->
+  <rect x="30" y="82" width="435" height="415" rx="8" fill="#fcfcfc" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Header Left -->
+  <rect x="45" y="95" width="405" height="44" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="113" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Unix Domain Socket (UDS)</text>
+  <text x="247.5" y="129" text-anchor="middle" font-size="11" fill="#c0392b">Подвійне копіювання • Оверхед sys_write / sys_read</text>
+
+  <!-- Process A Box (Left) -->
+  <rect x="45" y="152" width="405" height="73" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="57" y="169" font-size="12" font-weight="bold" fill="#1a1a1a">Процес A (User Space)</text>
+  <rect x="60" y="179" width="150" height="36" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="135" y="201" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Буфер A</text>
+  <text x="345" y="201" text-anchor="middle" font-size="12" fill="#1a1a1a">write(fd, buf, len)</text>
+
+  <!-- Arrow 1 (Left) -->
+  <path d="M 180 215 L 180 273" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="172" y="246" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">1. copy_from_user</text>
+
+  <!-- Kernel Space Box -->
+  <rect x="45" y="239" width="405" height="120" rx="6" fill="#fdecea" fill-opacity="0.3" stroke="#c0392b" stroke-dasharray="4 4"/>
+  <text x="438" y="256" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Ядро ОС (Kernel Space)</text>
+  <rect x="120" y="275" width="250" height="48" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="245" y="294" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Буфер сокета в ядрі (sk_buff)</text>
+  <text x="245" y="311" text-anchor="middle" font-size="11" fill="#6b7280">Копіювання з/в простір користувача</text>
+
+  <!-- Arrow 2 (Left) -->
+  <path d="M 310 323 L 310 389" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="318" y="358" text-anchor="start" font-size="11" font-weight="bold" fill="#c0392b">2. copy_to_user</text>
+
+  <!-- Process B Box (Left) -->
+  <rect x="45" y="373" width="405" height="73" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="57" y="390" font-size="12" font-weight="bold" fill="#1a1a1a">Процес B (User Space)</text>
+  <text x="145" y="422" text-anchor="middle" font-size="12" fill="#1a1a1a">read(fd, buf, len)</text>
+  <rect x="280" y="392" width="150" height="36" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="355" y="414" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Буфер B</text>
+
+  <!-- Summary Banner Left -->
+  <rect x="45" y="460" width="405" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="477" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Вартість: 2× копіювання в пам'яті + 2× системних виклики</text>
+
+  <!-- RIGHT PANEL: Shared Memory -->
+  <rect x="495" y="82" width="435" height="415" rx="8" fill="#fcfcfc" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Header Right -->
+  <rect x="510" y="95" width="405" height="44" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="113" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Спільна пам'ять (Shared Memory / mmap)</text>
+  <text x="712.5" y="129" text-anchor="middle" font-size="11" fill="#27ae60">Нульове копіювання (Zero-copy) • Без системних викликів</text>
+
+  <!-- Process A Box (Right) -->
+  <rect x="510" y="152" width="405" height="73" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="522" y="169" font-size="12" font-weight="bold" fill="#1a1a1a">Процес A (User Space)</text>
+  <rect x="525" y="179" width="150" height="36" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="600" y="201" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Віртуальна адреса A</text>
+  <text x="810" y="201" text-anchor="middle" font-size="12" fill="#1a1a1a">*shm_ptr = data</text>
+
+  <!-- Arrow 1 (Right) -->
+  <path d="M 645 215 L 645 273" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="637" y="246" text-anchor="end" font-size="11" font-weight="bold" fill="#27ae60">Прямий запис (0 copy)</text>
+
+  <!-- Shared RAM Box -->
+  <rect x="510" y="239" width="405" height="120" rx="6" fill="#e9f7ef" fill-opacity="0.5" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="903" y="256" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">Спільна сторінка RAM</text>
+  <rect x="585" y="275" width="250" height="48" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="710" y="294" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Спільний кільцевий буфер</text>
+  <text x="710" y="311" text-anchor="middle" font-size="11" fill="#6b7280">Обидва процеси бачать ту саму RAM</text>
+
+  <!-- Arrow 2 (Right) -->
+  <path d="M 775 323 L 775 389" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="783" y="358" text-anchor="start" font-size="11" font-weight="bold" fill="#27ae60">Пряме читання (0 copy)</text>
+
+  <!-- Process B Box (Right) -->
+  <rect x="510" y="373" width="405" height="73" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="522" y="390" font-size="12" font-weight="bold" fill="#1a1a1a">Процес B (User Space)</text>
+  <text x="610" y="422" text-anchor="middle" font-size="12" fill="#1a1a1a">val = *shm_ptr</text>
+  <rect x="745" y="392" width="150" height="36" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="820" y="414" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Віртуальна адреса B</text>
+
+  <!-- Summary Banner Right -->
+  <rect x="510" y="460" width="405" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="477" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Вартість: 0× копіювання через ядро + 0× системних викликів</text>
+</svg>

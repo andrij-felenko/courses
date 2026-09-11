@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 524" width="960" height="524" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="524" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінцевий автомат саги: прямий хід T1–T3 та зворотна компенсація C2–C1</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Семантичний податок межі: відсутність ACID вимагає явного зворотного розгортання при збої T3</text>
+
+  <!-- Головна панель (три сервісні зони) -->
+  <rect x="24" y="68" width="912" height="346" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- ==================== СЕРВІС 1: ЗАМОВЛЕННЯ ==================== -->
+  <rect x="38" y="78" width="284" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="180" y="96" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">СЕРВІС ЗАМОВЛЕНЬ (ORDERS)</text>
+
+  <!-- T1: Створення замовлення -->
+  <rect x="44" y="116" width="272" height="114" rx="6" fill="white" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="44" y="116" width="272" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="180" y="133" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Транзакція T1: Створення</text>
+  <text x="54" y="156" font-size="12" fill="#1a1a1a">• Локальний коміт у БД замовлень</text>
+  <text x="54" y="176" font-size="12" fill="#2457d6">• Стан: PENDING (очікує оплати)</text>
+  <text x="54" y="196" font-size="12" fill="#6b7280">• Тип: компенсовна (Compensable)</text>
+  <text x="54" y="216" font-size="12" fill="#1a1a1a">• Подія: OrderCreated → виклик T2</text>
+
+  <!-- Проміжний стан сервісу 1 -->
+  <text x="54" y="254" font-size="12" fill="#6b7280">Семантичний стан сутності:</text>
+  <text x="54" y="274" font-size="12" font-weight="bold" fill="#1a1a1a">Створено → Анульовано</text>
+
+  <!-- C1: Скасування замовлення -->
+  <rect x="44" y="292" width="272" height="114" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="44" y="292" width="272" height="24" rx="4" fill="#e9f7ef"/>
+  <text x="180" y="309" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Компенсація C1: Скасування (Фінал)</text>
+  <text x="54" y="332" font-size="12" fill="#1a1a1a">• Семантичний відкат транзакції T1</text>
+  <text x="54" y="352" font-size="12" fill="#1a1a1a">• Анулювання замовлення в системі</text>
+  <text x="54" y="372" font-size="12" font-weight="bold" fill="#27ae60">• Стан: CANCELLED (анульовано)</text>
+  <text x="54" y="392" font-size="12" font-weight="bold" fill="#27ae60">• Узгоджений фінал саги досягнуто</text>
+
+  <!-- ==================== СЕРВІС 2: ОПЛАТА ==================== -->
+  <rect x="338" y="78" width="284" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="96" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">СЕРВІС ОПЛАТИ (PAYMENTS)</text>
+
+  <!-- T2: Блокування коштів -->
+  <rect x="344" y="116" width="272" height="114" rx="6" fill="white" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="344" y="116" width="272" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="480" y="133" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Транзакція T2: Блокування</text>
+  <text x="354" y="156" font-size="12" fill="#1a1a1a">• Локальний коміт у БД платежів</text>
+  <text x="354" y="176" font-size="12" fill="#2457d6">• Стан: HELD (кошти заморожено)</text>
+  <text x="354" y="196" font-size="12" fill="#6b7280">• Тип: компенсовна (Compensable)</text>
+  <text x="354" y="216" font-size="12" fill="#1a1a1a">• Подія: PaymentHeld → виклик T3</text>
+
+  <!-- Проміжний стан сервісу 2 -->
+  <text x="354" y="254" font-size="12" fill="#6b7280">Семантичний стан сутності:</text>
+  <text x="354" y="274" font-size="12" font-weight="bold" fill="#1a1a1a">Заблоковано → Розблоковано</text>
+
+  <!-- C2: Зняття блокування коштів -->
+  <rect x="344" y="292" width="272" height="114" rx="6" fill="white" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="344" y="292" width="272" height="24" rx="4" fill="#fdecea"/>
+  <text x="480" y="309" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Компенсація C2: Повернення коштів</text>
+  <text x="354" y="332" font-size="12" fill="#1a1a1a">• Семантичний відкат транзакції T2</text>
+  <text x="354" y="352" font-size="12" fill="#c0392b">• Зняття блокування (Refund hold)</text>
+  <text x="354" y="372" font-size="12" fill="#1a1a1a">• Стан: REFUNDED (кошти знято)</text>
+  <text x="354" y="392" font-size="12" font-weight="bold" fill="#2457d6">• Вимога: сувора ідемпотентність</text>
+
+  <!-- ==================== СЕРВІС 3: ДОСТАВКА ==================== -->
+  <rect x="638" y="78" width="284" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="780" y="96" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">СЕРВІС ДОСТАВКИ (DELIVERY)</text>
+
+  <!-- T3: Спроба доставки (Pivot) -->
+  <rect x="644" y="116" width="272" height="114" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="644" y="116" width="272" height="24" rx="4" fill="#fdecea"/>
+  <text x="780" y="133" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Транзакція T3: Доставка (Pivot)</text>
+  <text x="654" y="156" font-size="12" fill="#1a1a1a">• Спроба резервування кур'єра</text>
+  <text x="654" y="176" font-size="12" font-weight="bold" fill="#c0392b">• ЗБІЙ: Відмова сервісу / Timeout</text>
+  <text x="654" y="196" font-size="12" fill="#c0392b">• Стан: FAILED (коміту не було)</text>
+  <text x="654" y="216" font-size="12" fill="#6b7280">• Поворотна точка: старт відкату</text>
+
+  <!-- Тригер компенсації (Подія збою) -->
+  <rect x="644" y="242" width="272" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="780" y="264" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ТРИГЕР ЗБОЮ: Запуск відкату C2 → C1</text>
+
+  <!-- Координатор саги (Режим відкату) -->
+  <rect x="644" y="292" width="272" height="114" rx="6" fill="white" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="644" y="292" width="272" height="24" rx="4" fill="#fdecea"/>
+  <text x="780" y="309" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Координатор саги (Rollback)</text>
+  <text x="654" y="332" font-size="12" fill="#1a1a1a">• Фіксація збою доставки T3</text>
+  <text x="654" y="352" font-size="12" fill="#c0392b">• Стан саги: COMPENSATING</text>
+  <text x="654" y="372" font-size="12" font-weight="bold" fill="#c0392b">• Виклик C2: скасування платежу</text>
+  <text x="654" y="392" font-size="12" fill="#6b7280">• Відсутність ACID: явний відкат</text>
+
+  <!-- ==================== СТРІЛКИ ПЕРЕХОДІВ ==================== -->
+  <!-- Прямий хід: T1 -> T2 -->
+  <line x1="316" y1="173" x2="342" y2="173" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- Прямий хід: T2 -> T3 -->
+  <line x1="616" y1="173" x2="642" y2="173" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- Перехід до збою: T3 -> Тригер -->
+  <line x1="780" y1="230" x2="780" y2="240" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <!-- Перехід до координатора: Тригер -> Координатор -->
+  <line x1="780" y1="278" x2="780" y2="290" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <!-- Зворотний хід: Координатор -> C2 -->
+  <line x1="644" y1="349" x2="618" y2="349" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <!-- Зворотний хід: C2 -> C1 -->
+  <line x1="344" y1="349" x2="318" y2="349" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- ==================== НИЖНІЙ ПІДСУМОК ==================== -->
+  <rect x="24" y="428" width="912" height="72" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="38" y="447" font-size="12" font-weight="bold" fill="#2457d6">АРХІТЕКТУРНИЙ ВИСНОВОК (СЕМАНТИЧНИЙ ПОДАТОК МЕЖІ):</text>
+  <text x="38" y="467" font-size="12" fill="#1a1a1a">1. Немає автоматичного відкату: кожен крок T потребує парної дії C з обов'язковою ідемпотентністю й повторами.</text>
+  <text x="38" y="487" font-size="12" fill="#6b7280">2. Проміжні аномалії: до завершення C1/C2 інші клієнти бачать брудні дані (гроші заморожено, замовлення висить).</text>
+</svg>

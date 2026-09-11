@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок -->
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дві катастрофи перетину межі: стіна латентності проти стіни пропускної здатності</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Поштучні запити захлинаються в накладних витратах RTT, а роздутий DTO забиває канал баластом надвибірки</text>
+
+  <!-- ЛІВА КОЛОНКА: Стіна латентності -->
+  <rect x="30" y="75" width="365" height="345" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="50" y="98" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">1. СТІНА ЛАТЕНТНОСТІ (CHATTY CALLS)</text>
+  <text x="50" y="115" font-size="12" fill="#6b7280" text-anchor="start">Поштучні дрібні виклики (N = 1)</text>
+
+  <!-- Клієнт ліворуч -->
+  <rect x="50" y="130" width="110" height="55" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="105" y="150" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Клієнт</text>
+  <text x="105" y="168" font-size="12" fill="#6b7280" text-anchor="middle">100 запитів</text>
+
+  <!-- Сервер ліворуч -->
+  <rect x="265" y="130" width="115" height="55" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="322" y="150" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сервер / БД</text>
+  <text x="322" y="168" font-size="12" fill="#6b7280" text-anchor="middle">Обробка по 1 шт.</text>
+
+  <!-- Потік дрібних стрілок RTT -->
+  <line x1="160" y1="142" x2="263" y2="142" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="160" y1="157" x2="263" y2="157" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="160" y1="172" x2="263" y2="172" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="212" y="137" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">100 × RTT</text>
+
+  <!-- Блок витрат ліворуч -->
+  <rect x="50" y="200" width="325" height="110" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="65" y="222" font-size="12" fill="#1a1a1a" text-anchor="start">• 95% трафіку — накладні заголовки TCP/HTTP.</text>
+  <text x="65" y="244" font-size="12" fill="#1a1a1a" text-anchor="start">• Кожен виклик платить повний поріг T_fixed.</text>
+  <text x="65" y="266" font-size="12" fill="#1a1a1a" text-anchor="start">• Серійне очікування: 100 × 20 мс = 2000 мс.</text>
+  <text x="65" y="288" font-size="12" fill="#1a1a1a" text-anchor="start">• Вичерпання сокетів та пулів з'єднань.</text>
+
+  <!-- Симптом ліворуч -->
+  <rect x="50" y="325" width="325" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="212" y="348" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Симптом: висока затримка при мізерних даних</text>
+
+  <!-- ЦЕНТРАЛЬНА ЗОНА: Розрив і знак питання -->
+  <rect x="410" y="75" width="140" height="345" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="480" y="100" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">РОЗРИВ</text>
+  <text x="480" y="155" font-size="42" font-weight="bold" fill="#2457d6" text-anchor="middle">?</text>
+  <text x="480" y="185" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ДЕ БАЛАНС?</text>
+  <text x="480" y="205" font-size="12" fill="#6b7280" text-anchor="middle">Оптимальне</text>
+  <text x="480" y="222" font-size="12" fill="#6b7280" text-anchor="middle">дно долини N*</text>
+
+  <!-- Блок рішення в центрі -->
+  <rect x="420" y="245" width="120" height="90" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="265" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">РІШЕННЯ:</text>
+  <text x="480" y="285" font-size="12" fill="#1a1a1a" text-anchor="middle">Мікропакети N*</text>
+  <text x="480" y="303" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+ проекція полів</text>
+  <text x="480" y="321" font-size="12" fill="#6b7280" text-anchor="middle">(field masking)</text>
+
+  <!-- Напрямки виходу -->
+  <text x="480" y="356" font-size="12" fill="#c0392b" text-anchor="middle">← N замалий</text>
+  <text x="480" y="374" font-size="12" fill="#c0392b" text-anchor="middle">N завеликий →</text>
+
+  <!-- ПРАВА КОЛОНКА: Стіна пропускної здатності -->
+  <rect x="565" y="75" width="365" height="345" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="585" y="98" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">2. СТІНА ПРОПУСКНОЇ ЗДАТНОСТІ</text>
+  <text x="585" y="115" font-size="12" fill="#6b7280" text-anchor="start">Монолітний роздутий DTO (Overfetching)</text>
+
+  <!-- Клієнт праворуч -->
+  <rect x="585" y="130" width="110" height="55" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="640" y="150" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Клієнт</text>
+  <text x="640" y="168" font-size="12" fill="#6b7280" text-anchor="middle">Треба 2 поля</text>
+
+  <!-- Сервер праворуч -->
+  <rect x="800" y="130" width="115" height="55" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="857" y="150" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сервер / БД</text>
+  <text x="857" y="168" font-size="12" fill="#6b7280" text-anchor="middle">Шле весь DTO</text>
+
+  <!-- Масивна стрілка баласту праворуч -->
+  <line x1="800" y1="157" x2="697" y2="157" stroke="#c0392b" stroke-width="4" marker-end="url(#arr-red)"/>
+  <text x="747" y="145" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">10 МБ баласту</text>
+
+  <!-- Блок витрат праворуч -->
+  <rect x="585" y="200" width="325" height="110" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="595" y="222" font-size="12" fill="#1a1a1a" text-anchor="start">• Передавання гігантських JSON із надвибіркою.</text>
+  <text x="595" y="244" font-size="12" fill="#1a1a1a" text-anchor="start">• Величезні буфери в пам'яті та довгі паузи GC.</text>
+  <text x="595" y="266" font-size="12" fill="#1a1a1a" text-anchor="start">• Блокування черги черговими великими пакетами.</text>
+  <text x="595" y="288" font-size="12" fill="#1a1a1a" text-anchor="start">• При збої пересилається весь масив даних наново.</text>
+
+  <!-- Симптом праворуч -->
+  <rect x="585" y="325" width="325" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="747" y="348" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Симптом: забитий канал мережі та параліч RAM</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Інженерний висновок -->
+  <rect x="30" y="432" width="900" height="108" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="452" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ІНЖЕНЕРНИЙ ВИСНОВОК: ДИНАМІЧНИЙ КОНТУР КЕРУВАННЯ МЕЖЕЮ</text>
+  <text x="50" y="474" font-size="12" fill="#1a1a1a" text-anchor="start">• Адаптивне мікропакетування згортає потік поодиноких викликів у пачки N* за ковзним таймером.</text>
+  <text x="50" y="494" font-size="12" fill="#1a1a1a" text-anchor="start">• Вибіркова проекція полів (field masking) відсікає до 90% баласту монолітного DTO.</text>
+  <text x="50" y="514" font-size="12" fill="#1a1a1a" text-anchor="start">• Архітектура не повинна жити на жодному зі схилів: крайня фрагментація так само згубна, як і надвибірка.</text>
+</svg>

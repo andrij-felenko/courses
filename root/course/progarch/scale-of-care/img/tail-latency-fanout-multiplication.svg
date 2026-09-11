@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White background rect -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мультиплікація хвоста затримок у віялових викликах (Fan-out)</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Закон Діна: 1% аномалій вузла (p99) сповільнює 63.2% системних запитів за fan-out M=100</text>
+
+  <!-- Left Panel: Fan-out Architecture -->
+  <rect x="30" y="80" width="410" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="106" font-size="14" font-weight="bold" fill="#1a1a1a">Віяловий виклик (Fan-out до M вузлів)</text>
+  <text x="45" y="126" font-size="12" fill="#6b7280">Час відповіді системи = max(T1, T2, ... TM)</text>
+
+  <!-- Top Gateway Box -->
+  <rect x="45" y="136" width="380" height="36" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="58" y="160" font-size="12" font-weight="bold" fill="#2457d6">Клієнтський запит ➔ API Gateway / Orchestrator</text>
+
+  <!-- Parallel Branch Boxes -->
+  <!-- Node 1 -->
+  <rect x="45" y="184" width="380" height="36" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="58" y="208" font-size="12" font-weight="bold" fill="#27ae60">Вузол 1 (Shard 1): 4 мс</text>
+  <text x="412" y="208" font-size="12" fill="#27ae60" text-anchor="end">99% норма</text>
+
+  <!-- Node 2 -->
+  <rect x="45" y="232" width="380" height="36" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="58" y="256" font-size="12" font-weight="bold" fill="#27ae60">Вузол 2 (Shard 2): 5 мс</text>
+  <text x="412" y="256" font-size="12" fill="#27ae60" text-anchor="end">99% норма</text>
+
+  <!-- Node 3 -->
+  <rect x="45" y="280" width="380" height="36" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="58" y="304" font-size="12" font-weight="bold" fill="#27ae60">Вузол 3 (Shard 3): 6 мс</text>
+  <text x="412" y="304" font-size="12" fill="#27ae60" text-anchor="end">99% норма</text>
+
+  <!-- Node M (Outlier) -->
+  <rect x="45" y="328" width="380" height="36" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="58" y="352" font-size="12" font-weight="bold" fill="#c0392b">Вузол M (Shard M): 520 мс</text>
+  <text x="412" y="352" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">1% викид (GC/хвіст)</text>
+
+  <!-- Left Bottom Result Box -->
+  <rect x="45" y="376" width="380" height="36" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="58" y="400" font-size="12" font-weight="bold" fill="#c0392b">Затримка клієнта: max(Ti) = 520 мс (блокування)</text>
+
+  <!-- Right Panel: Graph -->
+  <rect x="460" y="80" width="470" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="475" y="106" font-size="14" font-weight="bold" fill="#1a1a1a">Закон Діна: мультиплікація затримок на хвості</text>
+  <text x="475" y="126" font-size="12" fill="#6b7280">Ймовірність затримки системи: P = 1 - (1 - p)^M (при p = 1%)</text>
+
+  <!-- Horizontal Grid Lines (using path) -->
+  <path d="M530,322 L880,322 M530,284 L880,284 M530,246 L880,246 M530,208 L880,208 M530,170 L880,170" fill="none" stroke="#e1e4e8" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- Plot Axes -->
+  <!-- Y Axis Line -->
+  <line x1="530" y1="160" x2="530" y2="360" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- X Axis Line -->
+  <line x1="530" y1="360" x2="880" y2="360" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Y Axis Tick Labels (x=516, text-anchor="end") -->
+  <text x="516" y="364" font-size="12" fill="#6b7280" text-anchor="end">0%</text>
+  <text x="516" y="326" font-size="12" fill="#6b7280" text-anchor="end">20%</text>
+  <text x="516" y="288" font-size="12" fill="#6b7280" text-anchor="end">40%</text>
+  <text x="516" y="250" font-size="12" fill="#6b7280" text-anchor="end">60%</text>
+  <text x="516" y="212" font-size="12" fill="#6b7280" text-anchor="end">80%</text>
+  <text x="516" y="174" font-size="12" fill="#6b7280" text-anchor="end">100%</text>
+
+  <!-- X Axis Tick Labels (y=386: dy to axis y=360 is 14px >= 12px) -->
+  <text x="530" y="386" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+  <text x="618" y="386" font-size="12" fill="#6b7280" text-anchor="middle">50</text>
+  <text x="705" y="386" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">100</text>
+  <text x="792" y="386" font-size="12" fill="#6b7280" text-anchor="middle">150</text>
+  <text x="880" y="386" font-size="12" fill="#6b7280" text-anchor="middle">200</text>
+  <text x="705" y="408" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кількість паралельних вузлів M</text>
+
+  <!-- Curve Path for p=0.01 -->
+  <path d="M530,358 Q618,285 705,240 T880,195" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Dashed Guides for M=100 -->
+  <line x1="705" y1="240" x2="705" y2="360" stroke="#c0392b" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <line x1="530" y1="240" x2="705" y2="240" stroke="#c0392b" stroke-dasharray="4,4" stroke-width="1.5"/>
+
+  <!-- Point Marker at M=100 -->
+  <circle cx="705" cy="240" r="5" fill="#c0392b"/>
+
+  <!-- Callout Box for M=100 -->
+  <rect x="545" y="145" width="230" height="58" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="558" y="170" font-size="12" font-weight="bold" fill="#c0392b">M = 100: P_tail = 63.2%</text>
+  <text x="558" y="190" font-size="12" fill="#1a1a1a">1% аномалій гальмує 63% запитів</text>
+
+  <!-- Callout Arrow -->
+  <line x1="705" y1="203" x2="705" y2="230" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Bottom Summary Cards -->
+  <!-- Card 1 -->
+  <rect x="30" y="438" width="290" height="100" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="44" y="463" font-size="13" font-weight="bold" fill="#c0392b">Ілюзія незалежних вузлів</text>
+  <text x="44" y="481" font-size="12" fill="#6b7280">Чому 99% надійності — це пастка:</text>
+  <text x="44" y="499" font-size="12" fill="#1a1a1a">Затримка всього виклику дорівнює</text>
+  <text x="44" y="517" font-size="12" fill="#1a1a1a">часу найповільнішого з M сервісів</text>
+
+  <!-- Card 2 -->
+  <rect x="335" y="438" width="290" height="100" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="349" y="463" font-size="13" font-weight="bold" fill="#2457d6">Математика Джеффрі Діна</text>
+  <text x="349" y="481" font-size="12" fill="#6b7280">The Tail at Scale (CACM 2013):</text>
+  <text x="349" y="499" font-size="12" fill="#1a1a1a">P_sys = 1 - (1 - p)^M. При p=0.01</text>
+  <text x="349" y="517" font-size="12" fill="#1a1a1a">та M=100: P = 1 - 0.99^100 ≈ 63.2%</text>
+
+  <!-- Card 3 -->
+  <rect x="640" y="438" width="290" height="100" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="654" y="463" font-size="13" font-weight="bold" fill="#27ae60">Імовірнісна стійкість</text>
+  <text x="654" y="481" font-size="12" fill="#6b7280">Тактики боротьби з хвостом:</text>
+  <text x="654" y="499" font-size="12" fill="#1a1a1a">Hedged requests (дублювання в хвості),</text>
+  <text x="654" y="517" font-size="12" fill="#1a1a1a">жорсткі таймаути й часткові відповіді</text>
+</svg>

@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Семантична ціна розрізання межі: деградація інваріантів та втрата атомарності</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл системи руйнує прямі типи мови й спільну транзакцію пам'яті, змушуючи будувати DTO, ACL та саги</text>
+
+  <!-- ==================== ЛІВА КОЛОНКА: ДО РОЗРІЗАННЯ ==================== -->
+  <rect x="24" y="70" width="416" height="466" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі -->
+  <rect x="38" y="84" width="388" height="30" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="232" y="104" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ДО РОЗРІЗАННЯ: ЄДИНИЙ АДРЕСНИЙ ПРОСТІР</text>
+
+  <!-- Блок 1: Сутності та прямі типи -->
+  <rect x="38" y="126" width="388" height="138" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="232" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Строгі інваріанти типів та прямі посилання в пам'яті</text>
+
+  <!-- Сутність Order -->
+  <rect x="48" y="156" width="142" height="96" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="119" y="174" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сутність Order</text>
+  <text x="56" y="194" font-size="12" fill="#1a1a1a">- Id: OrderId</text>
+  <text x="56" y="212" font-size="12" fill="#1a1a1a">- Status: Status</text>
+  <text x="56" y="230" font-size="12" fill="#1a1a1a">- Total: Money</text>
+
+  <!-- Стрілка прямого посилання в купі -->
+  <line x1="190" y1="203" x2="272" y2="203" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="231" y="195" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">вказівник</text>
+
+  <!-- Сутність Account -->
+  <rect x="274" y="156" width="142" height="96" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="345" y="174" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сутність Account</text>
+  <text x="282" y="194" font-size="12" fill="#1a1a1a">- Id: AccountId</text>
+  <text x="282" y="212" font-size="12" fill="#1a1a1a">- Balance: Money</text>
+  <text x="282" y="230" font-size="12" fill="#1a1a1a">- Debits: List</text>
+
+  <!-- Блок 2: Атомарна транзакція в пам'яті -->
+  <rect x="38" y="276" width="388" height="118" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="232" y="295" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Атомарна зміна в пам'яті (Єдина транзакція / Mutex)</text>
+
+  <rect x="52" y="306" width="360" height="76" rx="4" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1"/>
+  <text x="62" y="326" font-size="12" fill="#1a1a1a">Початковий стан T₀: Order(New), Account(1000 грн)</text>
+  <text x="62" y="346" font-size="12" font-weight="bold" fill="#27ae60">[Атомарна мутація в пам'яті: збій = повний відкат]</text>
+  <text x="62" y="366" font-size="12" fill="#1a1a1a">Кінцевий стан T₁:  Order(Paid), Account(700 грн)</text>
+
+  <!-- Блок 3: Гарантії цілісності -->
+  <rect x="38" y="406" width="388" height="116" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="52" y="426" font-size="12" font-weight="bold" fill="#27ae60">Гарантії нерозрізаної моделі</text>
+  <text x="52" y="446" font-size="12" fill="#1a1a1a">• Гарантія компілятора: інваріанти типів мови</text>
+  <text x="52" y="468" font-size="12" fill="#1a1a1a">• Атомарність All-or-Nothing: без напівстанів</text>
+  <text x="52" y="490" font-size="12" fill="#1a1a1a">• Передача за посиланням у купі (наносекунди)</text>
+  <text x="52" y="510" font-size="12" fill="#1a1a1a">• Єдиний домен відмов: спільний життєвий цикл</text>
+
+  <!-- ==================== ПРАВА КОЛОНКА: ПІСЛЯ РОЗРІЗАННЯ ==================== -->
+  <rect x="460" y="70" width="476" height="466" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі -->
+  <rect x="474" y="84" width="448" height="30" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="698" y="104" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">ПІСЛЯ РОЗРІЗАННЯ: СЕМАНТИЧНА МЕЖА Й РОЗРИВ МОДЕЛІ</text>
+
+  <!-- Блок 1: Розділені компоненти та межа -->
+  <rect x="474" y="126" width="448" height="146" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="698" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розрізання на сервіси: примітивізація типів та шари ACL</text>
+
+  <!-- Компонент A -->
+  <rect x="484" y="156" width="116" height="104" rx="4" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="542" y="174" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сервіс Order</text>
+  <text x="542" y="192" font-size="12" fill="#1a1a1a" text-anchor="middle">OrderEntity</text>
+  <text x="542" y="214" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">[Шар ACL]</text>
+  <text x="542" y="232" font-size="12" fill="#6b7280" text-anchor="middle">Order → DTO</text>
+
+  <!-- Стрілка від A до Межі -->
+  <line x1="600" y1="203" x2="618" y2="203" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Семантична межа -->
+  <rect x="620" y="156" width="156" height="104" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="698" y="174" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">МЕЖА (IPC/HTTP)</text>
+  <text x="698" y="194" font-size="12" fill="#1a1a1a" text-anchor="middle">Об'єкт OrderDTO</text>
+  <text x="698" y="212" font-size="12" fill="#6b7280" text-anchor="middle">{id: str, amt: dec}</text>
+  <text x="698" y="230" font-size="12" fill="#c0392b" text-anchor="middle">(втрата типів Money)</text>
+
+  <!-- Стрілка від Межі до B -->
+  <line x1="776" y1="203" x2="794" y2="203" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Компонент B -->
+  <rect x="796" y="156" width="116" height="104" rx="4" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="854" y="174" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сервіс Payment</text>
+  <text x="854" y="192" font-size="12" fill="#1a1a1a" text-anchor="middle">AccountEntity</text>
+  <text x="854" y="214" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">[Шар ACL]</text>
+  <text x="854" y="232" font-size="12" fill="#6b7280" text-anchor="middle">DTO → Command</text>
+
+  <!-- Блок 2: Неузгоджений стан та саги -->
+  <rect x="474" y="284" width="448" height="110" rx="6" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="698" y="303" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Втрата атомарності: виникнення неузгодженого стану</text>
+
+  <rect x="486" y="314" width="424" height="68" rx="4" fill="#fdecea" stroke="#d0d7de" stroke-width="1"/>
+  <text x="496" y="332" font-size="12" fill="#c0392b">1. Стан розійшовся: Order створено, але виклик Payment впав</text>
+  <text x="496" y="350" font-size="12" fill="#1a1a1a">2. Проміжний напівстан: замовлення є, а оплату не списано!</text>
+  <text x="496" y="368" font-size="12" font-weight="bold" fill="#2457d6">3. Необхідна компенсуюча транзакція (Saga) для скасування</text>
+
+  <!-- Блок 3: Семантичний податок -->
+  <rect x="474" y="406" width="448" height="116" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="488" y="426" font-size="12" font-weight="bold" fill="#c0392b">Семантичний податок розподіленої межі</text>
+  <text x="488" y="446" font-size="12" fill="#1a1a1a">• Заміна доменних типів на пласкі структури DTO</text>
+  <text x="488" y="468" font-size="12" fill="#1a1a1a">• Повторна валідація інваріантів у кожному шарі ACL</text>
+  <text x="488" y="490" font-size="12" fill="#1a1a1a">• Втрата ACID: перехід до Eventual Consistency</text>
+  <text x="488" y="510" font-size="12" fill="#1a1a1a">• Тягар саг, дедуплікації та компенсуючих дій</text>
+</svg>

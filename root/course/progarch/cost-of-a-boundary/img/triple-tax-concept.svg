@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 525" width="960" height="525" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="525" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Потрійний податок архітектурної межі (Triple Tax)</text>
+  <text x="480" y="66" text-anchor="middle" font-size="13" fill="#6b7280">За ізоляцію компонентів система одночасно розплачується затримкою, процесором та пам'яттю</text>
+
+  <!-- Верхня панель: Подія перетину межі -->
+  <rect x="50" y="86" width="860" height="68" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="111" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">ПЕРЕТИН МЕЖІ ІЗОЛЯЦІЇ (черга повідомлень / сокет / локальний RPC)</text>
+  <text x="480" y="136" text-anchor="middle" font-size="12" fill="#6b7280">Виклик залишає спільну пам'ять: плата стягується трьома ресурсами одночасно</text>
+
+  <!-- Три спрямовані стрілки одночасного стягнення податку -->
+  <line x1="183" y1="154" x2="183" y2="190" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <line x1="480" y1="154" x2="480" y2="190" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <line x1="777" y1="154" x2="777" y2="190" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Картка 1: ЗАРИМКА (LATENCY) -->
+  <rect x="50" y="192" width="266" height="228" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 50,232 V 200 A 8,8 0 0 1 58,192 H 308 A 8,8 0 0 1 316,200 V 232 Z" fill="#c0392b"/>
+  <text x="183" y="217" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">1. ЗАРИМКА (LATENCY)</text>
+  <text x="66" y="257" font-size="12" font-weight="bold" fill="#c0392b">⏱ Стрибок: від 2 нс до 1–10 мс</text>
+  <text x="66" y="282" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Джерело:</tspan> черги та сокети</text>
+  <text x="66" y="307" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Механізм:</tspan> перемикання ядер</text>
+  <text x="66" y="332" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Мережа:</tspan> RTT, буфери TCP/IP</text>
+  <text x="66" y="357" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Наслідок:</tspan> простій потоків p99</text>
+  <text x="183" y="395" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ВТРАТА: ЧАС ОЧІКУВАННЯ</text>
+
+  <!-- Картка 2: ПРОЦЕСОР (CPU OVERHEAD) -->
+  <rect x="347" y="192" width="266" height="228" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 347,232 V 200 A 8,8 0 0 1 355,192 H 605 A 8,8 0 0 1 613,200 V 232 Z" fill="#c0392b"/>
+  <text x="480" y="217" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">2. ПРОЦЕСОР (CPU OVERHEAD)</text>
+  <text x="363" y="257" font-size="12" font-weight="bold" fill="#c0392b">⚙ До 70–90% нецільових тактів</text>
+  <text x="363" y="282" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Джерело:</tspan> маршалінг даних</text>
+  <text x="363" y="307" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Механізм:</tspan> парсинг JSON / Proto</text>
+  <text x="363" y="332" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Ядро:</tspan> системні виклики ОС</text>
+  <text x="363" y="357" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Наслідок:</tspan> спалювання ядер CPU</text>
+  <text x="480" y="395" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ВТРАТА: ОБЧИСЛЮВАЛЬНІ ТАКТИ</text>
+
+  <!-- Картка 3: ПАМ'ЯТЬ (ALLOCATIONS & GC) -->
+  <rect x="644" y="192" width="266" height="228" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 644,232 V 200 A 8,8 0 0 1 652,192 H 902 A 8,8 0 0 1 910,200 V 232 Z" fill="#c0392b"/>
+  <text x="777" y="217" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">3. ПАМ'ЯТЬ (ALLOCATIONS &amp; GC)</text>
+  <text x="660" y="257" font-size="12" font-weight="bold" fill="#c0392b">📦 Лавина проміжних об'єктів</text>
+  <text x="660" y="282" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Джерело:</tspan> копіювання буферів</text>
+  <text x="660" y="307" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Механізм:</tspan> створення string/byte</text>
+  <text x="660" y="332" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Кеш:</tspan> промахи L1/L2/L3 (misses)</text>
+  <text x="660" y="357" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Наслідок:</tspan> тиск на GC і купа</text>
+  <text x="777" y="395" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ВТРАТА: ПРОПУСКНА ЗДАТНІСТЬ</text>
+
+  <!-- Нижня панель: Висновок про одночасну сплату -->
+  <rect x="50" y="436" width="860" height="64" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="461" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ОДНОЧАСНА СПЛАТА: система розплачується всіма трьома ресурсами за кожен виклик</text>
+  <text x="480" y="486" text-anchor="middle" font-size="12" fill="#6b7280">Архітектурна ізоляція дає автономію команд, але фізично множить витрати заліза</text>
+</svg>

@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-direct" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-vtable" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Виконання виклику на конвеєрі CPU: Прямий перехід vs Vtable</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Прямий виклик відомий при збірці, а непрямий вимагає читання Vtable і ризикує скиданням конвеєра при промасі iBTB</text>
+
+  <rect x="24" y="75" width="444" height="445" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="36" y="87" width="420" height="36" rx="6" fill="#27ae60"/>
+  <text x="246" y="110" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">1. Прямий виклик: CALL 0x401200</text>
+
+  <rect x="36" y="135" width="420" height="55" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="48" y="153" font-size="12" font-weight="bold" fill="#1a1a1a">Команда в коді (Direct Call):</text>
+  <text x="48" y="174" font-size="12" fill="#27ae60" font-family="monospace">call 0x401200  ; Пряма адреса фіксована</text>
+
+  <text x="36" y="212" font-size="13" font-weight="bold" fill="#1a1a1a">Етапи конвеєра (Pipeline Flow):</text>
+
+  <rect x="36" y="225" width="420" height="40" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="48" y="250" font-size="12" fill="#1a1a1a">Fetch: BTB знає точну адресу 0x401200</text>
+
+  <line x1="246" y1="265" x2="246" y2="278" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-direct)"/>
+
+  <rect x="36" y="280" width="420" height="40" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="48" y="305" font-size="12" fill="#1a1a1a">Decode &amp; Execute: Прямий перехід без затримок</text>
+
+  <line x1="246" y1="320" x2="246" y2="333" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-direct)"/>
+
+  <rect x="36" y="335" width="420" height="40" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="48" y="360" font-size="12" font-weight="bold" fill="#27ae60">Результат: Неперервний потік (0 stalls)</text>
+
+  <rect x="36" y="390" width="420" height="118" rx="6" fill="#ffffff" stroke="#27ae60" stroke-dasharray="4 4"/>
+  <text x="48" y="412" font-size="13" font-weight="bold" fill="#27ae60">Характеристики прямого виклику:</text>
+  <text x="48" y="433" font-size="12" fill="#1a1a1a">• Доступ до пам'яті для адреси: 0 (вбудована в код)</text>
+  <text x="48" y="454" font-size="12" fill="#1a1a1a">• Прогнозування переходу: ~100% точності (BTB)</text>
+  <text x="48" y="475" font-size="12" fill="#1a1a1a">• Inline-оптимізація: Можлива (усуває call повністю)</text>
+  <text x="48" y="496" font-size="12" font-weight="bold" fill="#27ae60">• Накладні витрати CPU: ~0 нс</text>
+
+  <rect x="492" y="75" width="444" height="445" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="504" y="87" width="420" height="36" rx="6" fill="#c0392b"/>
+  <text x="714" y="110" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">2. Непрямий виклик: CALL [RAX + 0x18]</text>
+
+  <rect x="504" y="135" width="420" height="75" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <rect x="516" y="148" width="108" height="52" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="570" y="166" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Об'єкт (Heap)</text>
+  <text x="570" y="185" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">vptr: 0x8000</text>
+
+  <line x1="624" y1="174" x2="648" y2="174" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="650" y="142" width="130" height="64" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="715" y="157" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Vtable (0x8000)</text>
+  <text x="715" y="173" font-size="11" fill="#6b7280" text-anchor="middle">[0]: fnA()</text>
+  <text x="715" y="191" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">[3]: 0x401200</text>
+
+  <line x1="780" y1="174" x2="802" y2="174" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-vtable)"/>
+
+  <rect x="804" y="148" width="108" height="52" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="858" y="166" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Код функції</text>
+  <text x="858" y="185" font-size="11" fill="#1a1a1a" font-family="monospace" text-anchor="middle">0x401200</text>
+
+  <text x="504" y="228" font-size="13" font-weight="bold" fill="#1a1a1a">Поліморфний виклик (імовірність промаху iBTB):</text>
+
+  <rect x="504" y="240" width="420" height="40" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="516" y="265" font-size="12" fill="#6b7280">Fetch: Спекуляція за старою адресою iBTB</text>
+
+  <line x1="714" y1="280" x2="714" y2="293" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-vtable)"/>
+
+  <rect x="504" y="295" width="420" height="40" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="516" y="320" font-size="12" font-weight="bold" fill="#c0392b">Execute &amp; Read: Vtable розкриває 0x401200 -&gt; ПРОМАХ!</text>
+
+  <line x1="714" y1="335" x2="714" y2="348" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-vtable)"/>
+
+  <rect x="504" y="350" width="420" height="40" rx="4" fill="#c0392b"/>
+  <text x="516" y="375" font-size="12" font-weight="bold" fill="#ffffff">Pipeline Flush: Очищення конвеєра (+15–20 тактів)</text>
+
+  <rect x="504" y="402" width="420" height="118" rx="6" fill="#ffffff" stroke="#c0392b" stroke-dasharray="4 4"/>
+  <text x="516" y="422" font-size="13" font-weight="bold" fill="#c0392b">Характеристики непрямого виклику:</text>
+  <text x="516" y="443" font-size="12" fill="#1a1a1a">• Читання пам'яті: 2 розіменування (vptr + vtable slot)</text>
+  <text x="516" y="464" font-size="12" fill="#1a1a1a">• Ризик Cache Miss: Холодне Vtable додає ~50-200 тактів</text>
+  <text x="516" y="485" font-size="12" fill="#1a1a1a">• Інлайнінг блоковано: Складність Devirtualization</text>
+  <text x="516" y="506" font-size="12" font-weight="bold" fill="#c0392b">• Штраф при промасі: ~5-10 нс (15-20+ CPU cycles lost)</text>
+</svg>

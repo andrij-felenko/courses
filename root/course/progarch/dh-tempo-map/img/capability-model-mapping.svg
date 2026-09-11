@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White background rect -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модель можливостей: нормалізація Zigbee та Matter у канонічний знімок стану</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Абстрагування пропрієтарних апаратних протоколів у типізовані риси захищає швидкі споживачі</text>
+
+  <!-- Panel 1: Proprietary Hardware Protocols -->
+  <rect x="30" y="80" width="270" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="44" y="105" font-size="13" font-weight="bold" fill="#1a1a1a">Пропрієтарні протоколи</text>
+  <text x="44" y="125" font-size="12" fill="#6b7280">Різнорідне апаратне середовище:</text>
+
+  <!-- Card 1A: Zigbee Device -->
+  <rect x="44" y="138" width="242" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="56" y="162" font-size="12" font-weight="bold" fill="#2457d6">Zigbee пристрій (ZCL Cluster)</text>
+  <text x="56" y="180" font-size="12" fill="#1a1a1a">• Кластер 0x0006: On/Off (0x01)</text>
+  <text x="56" y="198" font-size="12" fill="#1a1a1a">• Кластер 0x0402: Temp (2150)</text>
+  <text x="56" y="216" font-size="12" fill="#6b7280">• Бінарний формат IEEE 802.15.4</text>
+  <text x="56" y="234" font-size="12" fill="#c0392b">• Специфіка прошивки вендора</text>
+
+  <!-- Card 1B: Matter Device -->
+  <rect x="44" y="270" width="242" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="56" y="294" font-size="12" font-weight="bold" fill="#2457d6">Matter пристрій (Thread / IP)</text>
+  <text x="56" y="312" font-size="12" fill="#1a1a1a">• Endpoint 1: Thermostat 0x0201</text>
+  <text x="56" y="330" font-size="12" fill="#1a1a1a">• LocalTemperature: 21.5°C</text>
+  <text x="56" y="348" font-size="12" fill="#6b7280">• TLV-структура поверх IPv6/UDP</text>
+  <text x="56" y="366" font-size="12" fill="#c0392b">• Підписки подій через CoAP</text>
+
+  <!-- Connectors: Panel 1 to Panel 2 -->
+  <line x1="300" y1="195" x2="324" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="300" y1="325" x2="324" y2="325" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Panel 2: Capability & Trait Dispatcher -->
+  <rect x="330" y="80" width="300" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="345" y="105" font-size="13" font-weight="bold" fill="#1a1a1a">Диспетчер можливостей (Traits)</text>
+  <text x="345" y="125" font-size="12" fill="#6b7280">Нормалізація в доменні властивості:</text>
+
+  <!-- Card 2A: Switchable Trait -->
+  <rect x="345" y="138" width="270" height="76" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="357" y="162" font-size="12" font-weight="bold" fill="#2457d6">Риса: Switchable (Живлення)</text>
+  <text x="357" y="180" font-size="12" fill="#1a1a1a">• power: ON (канонічний boolean)</text>
+  <text x="357" y="198" font-size="12" fill="#6b7280">• Трансляція команд setPower(bool)</text>
+
+  <!-- Card 2B: Temperature Trait -->
+  <rect x="345" y="226" width="270" height="76" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="357" y="250" font-size="12" font-weight="bold" fill="#27ae60">Риса: TemperatureSensor (Термо)</text>
+  <text x="357" y="268" font-size="12" fill="#1a1a1a">• current: 21.5 °C (шкалювання 100x)</text>
+  <text x="357" y="286" font-size="12" fill="#6b7280">• Фільтрація шумів та одиниці СІ</text>
+
+  <!-- Card 2C: Thermostat Trait -->
+  <rect x="345" y="314" width="270" height="96" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="357" y="338" font-size="12" font-weight="bold" fill="#2457d6">Риса: Thermostat (Клімат-контроль)</text>
+  <text x="357" y="356" font-size="12" fill="#1a1a1a">• target: 22.0 °C | mode: COOL</text>
+  <text x="357" y="374" font-size="12" fill="#1a1a1a">• state: IDLE | fan: AUTO</text>
+  <text x="357" y="392" font-size="12" fill="#6b7280">• Перевірка апаратних інваріантів</text>
+
+  <!-- Connectors: Panel 2 to Panel 3 -->
+  <line x1="630" y1="250" x2="654" y2="250" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-success)"/>
+
+  <!-- Panel 3: Canonical State Snapshot DTO -->
+  <rect x="660" y="80" width="270" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="674" y="105" font-size="13" font-weight="bold" fill="#1a1a1a">Канонічний знімок стану</text>
+  <text x="674" y="125" font-size="12" fill="#6b7280">Стандартизований DTO для клієнтів:</text>
+
+  <!-- DTO Snapshot Card -->
+  <rect x="674" y="138" width="242" height="156" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="686" y="162" font-size="12" font-weight="bold" fill="#2457d6">DeviceSnapshotDTO</text>
+  <text x="686" y="180" font-size="12" fill="#1a1a1a">id: "climate.hall.01"</text>
+  <text x="686" y="198" font-size="12" fill="#27ae60">online: true | version: 142</text>
+  <text x="686" y="216" font-size="12" fill="#1a1a1a">traits: {</text>
+  <text x="686" y="234" font-size="12" fill="#1a1a1a">  switch: "ON", temp: 21.5,</text>
+  <text x="686" y="252" font-size="12" fill="#1a1a1a">  target: 22.0, mode: "COOL" }</text>
+  <text x="686" y="270" font-size="12" fill="#6b7280">updated_at: 10:41:02.120Z</text>
+
+  <!-- Fast Consumers Card -->
+  <rect x="674" y="308" width="242" height="98" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="686" y="332" font-size="12" font-weight="bold" fill="#27ae60">Швидкі споживачі стану:</text>
+  <text x="686" y="350" font-size="12" fill="#1a1a1a">• Мобільний додаток (UI 60 fps)</text>
+  <text x="686" y="368" font-size="12" fill="#1a1a1a">• Двигун сценаріїв автоматизації</text>
+  <text x="686" y="386" font-size="12" fill="#6b7280">• Читання з кешу без опиту радіо</text>
+
+  <!-- Bottom Summary Cards -->
+  <rect x="30" y="440" width="290" height="100" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="44" y="465" font-size="13" font-weight="bold" fill="#2457d6">Повільний темп (Апаратний)</text>
+  <text x="44" y="483" font-size="12" fill="#6b7280">Фізичні пристрої та радіоканали:</text>
+  <text x="44" y="501" font-size="12" fill="#1a1a1a">Батарейні сенсори, сплячий режим,</text>
+  <text x="44" y="519" font-size="12" fill="#1a1a1a">вузька пропускна здатність Zigbee</text>
+
+  <rect x="335" y="440" width="290" height="100" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="349" y="465" font-size="13" font-weight="bold" fill="#27ae60">Шов стабільності (Антикорупція)</text>
+  <text x="349" y="483" font-size="12" fill="#6b7280">Канонічний контракт можливостей:</text>
+  <text x="349" y="501" font-size="12" fill="#1a1a1a">Ізолює клієнтів від змін заліза,</text>
+  <text x="349" y="519" font-size="12" fill="#1a1a1a">дозволяє замінювати протоколи</text>
+
+  <rect x="640" y="440" width="290" height="100" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="654" y="465" font-size="13" font-weight="bold" fill="#2457d6">Швидкий темп (Споживачі)</text>
+  <text x="654" y="483" font-size="12" fill="#6b7280">Інтерфейси та хмарна аналітика:</text>
+  <text x="654" y="501" font-size="12" fill="#1a1a1a">Миттєве опитування кешу памʼяті,</text>
+  <text x="654" y="519" font-size="12" fill="#1a1a1a">незалежний цикл частих релізів</text>
+</svg>

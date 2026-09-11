@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ізоляція інфраструктури: чистий потік даних через межу шарування</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Репозиторій виконує проєкцію в межах сесії БД і повертає DTO, унеможливлюючи N+1 та протікання ORM</text>
+
+  <!-- MAIN CONTAINERS -->
+  <!-- Left Container: Infrastructure Layer -->
+  <rect x="40" y="75" width="410" height="315" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="52" y="87" width="386" height="26" rx="4" fill="#fdecea"/>
+  <text x="245" y="104" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">ІНФРАСТРУКТУРНИЙ АДАПТЕР (СЕСІЯ БД &amp; ORM)</text>
+
+  <!-- DB Context Block -->
+  <rect x="55" y="125" width="165" height="245" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="137" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DbContext / ORM</text>
+
+  <rect x="65" y="158" width="145" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="137" y="174" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">База даних (SQL)</text>
+  <text x="137" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Таблиці Orders, Items</text>
+
+  <line x1="137" y1="200" x2="137" y2="216" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <rect x="65" y="222" width="145" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3 3"/>
+  <text x="137" y="238" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ORM Entities</text>
+  <text x="137" y="254" font-size="12" fill="#1a1a1a" text-anchor="middle">OrderEntity (Proxy)</text>
+  <text x="137" y="270" font-size="12" fill="#6b7280" text-anchor="middle">IQueryable / Session</text>
+
+  <text x="137" y="304" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">🔒 Заблоковано</text>
+  <text x="137" y="322" font-size="12" fill="#6b7280" text-anchor="middle">не перетинає межу</text>
+  <text x="137" y="338" font-size="12" fill="#6b7280" text-anchor="middle">інфраструктури</text>
+
+  <!-- Repository Block -->
+  <rect x="235" y="125" width="200" height="245" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="335" y="145" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">OrderRepository</text>
+  <text x="335" y="161" font-size="12" fill="#1a1a1a" text-anchor="middle">Явна проєкція у DTO</text>
+
+  <line x1="210" y1="252" x2="230" y2="252" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="245" y="172" width="180" height="110" rx="4" fill="#ffffff" stroke="#27ae60" stroke-dasharray="2 2"/>
+  <text x="253" y="190" font-size="12" font-weight="bold" fill="#2457d6">.Select(e =&gt; new</text>
+  <text x="263" y="208" font-size="12" font-weight="bold" fill="#27ae60">OrderDto {</text>
+  <text x="273" y="226" font-size="12" fill="#1a1a1a">Id = e.Id,</text>
+  <text x="273" y="244" font-size="12" fill="#1a1a1a">Total = e.Total</text>
+  <text x="263" y="262" font-size="12" font-weight="bold" fill="#27ae60">})</text>
+  <text x="253" y="276" font-size="12" font-weight="bold" fill="#2457d6">.ToList();</text>
+
+  <rect x="245" y="292" width="180" height="65" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="335" y="310" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Незмінна колекція DTO</text>
+  <text x="335" y="328" font-size="12" fill="#1a1a1a" text-anchor="middle">List&lt;OrderDto&gt;</text>
+  <text x="335" y="344" font-size="12" fill="#6b7280" text-anchor="middle">Запит виконано в БД</text>
+
+  <!-- CENTRAL ARCHITECTURAL BOUNDARY -->
+  <line x1="480" y1="75" x2="480" y2="390" stroke="#27ae60" stroke-width="3" stroke-dasharray="6 4"/>
+
+  <!-- Stopped Leakage Warning Pill -->
+  <rect x="440" y="125" width="80" height="35" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="140" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ СТОП</text>
+  <text x="480" y="154" font-size="12" fill="#c0392b" text-anchor="middle">IQueryable</text>
+
+  <!-- Boundary Label Pill -->
+  <rect x="435" y="215" width="90" height="40" rx="20" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+  <text x="480" y="232" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">МЕЖА</text>
+  <text x="480" y="246" font-size="12" fill="#ffffff" text-anchor="middle">ШАРУВАННЯ</text>
+
+  <!-- Allowed Flow Arrow across boundary -->
+  <line x1="425" y1="325" x2="522" y2="325" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="475" y="314" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">OrderDto[] (Чисті дані)</text>
+
+  <!-- Right Container: Presentation Layer -->
+  <rect x="510" y="75" width="410" height="315" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="522" y="87" width="386" height="26" rx="4" fill="#eaf0fd"/>
+  <text x="715" y="104" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ШАР ПРЕДСТАВЛЕННЯ &amp; ПРИКЛАДНИЙ ШАР</text>
+
+  <!-- Controller Block -->
+  <rect x="530" y="125" width="200" height="245" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="630" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">OrdersController</text>
+  <text x="630" y="161" font-size="12" fill="#1a1a1a" text-anchor="middle">Оперує виключно DTO</text>
+
+  <rect x="540" y="172" width="180" height="110" rx="4" fill="#ffffff" stroke="#2457d6" stroke-dasharray="2 2"/>
+  <text x="548" y="190" font-size="12" font-weight="bold" fill="#2457d6">GetOrders() {</text>
+  <text x="558" y="208" font-size="12" fill="#1a1a1a">var dtos = repo</text>
+  <text x="574" y="226" font-size="12" fill="#27ae60">.GetOrders();</text>
+  <text x="558" y="244" font-size="12" fill="#1a1a1a">return Ok(dtos);</text>
+  <text x="548" y="262" font-size="12" font-weight="bold" fill="#2457d6">}</text>
+  <text x="548" y="276" font-size="12" fill="#6b7280">// Без SQL у контролері!</text>
+
+  <rect x="540" y="292" width="180" height="65" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="630" y="310" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Стабільний контракт API</text>
+  <text x="630" y="328" font-size="12" fill="#1a1a1a" text-anchor="middle">JSON Response</text>
+  <text x="630" y="344" font-size="12" fill="#27ae60" text-anchor="middle">Безпечна серіалізація</text>
+
+  <!-- Client Block -->
+  <rect x="745" y="125" width="160" height="245" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="825" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Клієнт API / UI</text>
+
+  <line x1="730" y1="248" x2="742" y2="248" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="755" y="165" width="140" height="190" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="825" y="188" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Швидка відповідь</text>
+  <text x="825" y="206" font-size="12" fill="#6b7280" text-anchor="middle">Фіксований 1 запит</text>
+  <text x="825" y="234" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Без N+1 лавини</text>
+  <text x="825" y="252" font-size="12" fill="#6b7280" text-anchor="middle">Дані завантажено</text>
+  <text x="825" y="280" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Захист полів</text>
+  <text x="825" y="298" font-size="12" fill="#6b7280" text-anchor="middle">Немає витоку паролів</text>
+  <text x="825" y="314" font-size="12" fill="#6b7280" text-anchor="middle">чи хешів з DB</text>
+
+  <!-- BOTTOM SUMMARY CARDS -->
+  <!-- Card 1 -->
+  <rect x="40" y="405" width="280" height="110" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <rect x="50" y="415" width="260" height="22" rx="4" fill="#ffffff"/>
+  <text x="180" y="431" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1. ЛОКАЛІЗАЦІЯ СЕСІЇ ТА SQL</text>
+  <text x="52" y="452" font-size="12" fill="#1a1a1a">• DbContext закривається в репозиторії</text>
+  <text x="52" y="470" font-size="12" fill="#1a1a1a">• Виключено ObjectDisposedException</text>
+  <text x="52" y="488" font-size="12" fill="#6b7280">• SQL-запит виконується одразу</text>
+
+  <!-- Card 2 -->
+  <rect x="340" y="405" width="280" height="110" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <rect x="350" y="415" width="260" height="22" rx="4" fill="#ffffff"/>
+  <text x="480" y="431" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2. УСУНЕННЯ ПРОБЛЕМ И N+1</text>
+  <text x="352" y="452" font-size="12" fill="#1a1a1a">• .Select() робить проєкцію в БД</text>
+  <text x="352" y="470" font-size="12" fill="#1a1a1a">• Жодного лінивого завантаження в UI</text>
+  <text x="352" y="488" font-size="12" fill="#6b7280">• Контрольований та передбачуваний SQL</text>
+
+  <!-- Card 3 -->
+  <rect x="640" y="405" width="280" height="110" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="650" y="415" width="260" height="22" rx="4" fill="#ffffff"/>
+  <text x="780" y="431" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3. СТАБІЛЬНІСТЬ КОНТРАКТУ DTO</text>
+  <text x="652" y="452" font-size="12" fill="#1a1a1a">• Зміни колонок БД не ламають API</text>
+  <text x="652" y="470" font-size="12" fill="#1a1a1a">• Ізоляція приватних/внутрішніх полів</text>
+  <text x="652" y="488" font-size="12" fill="#6b7280">• Контролер оперує лише незмінними DTO</text>
+</svg>

@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Стратегії відступу: синхронні піки проти випадкового дрижання (Jitter)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Синхронні таймери перевантажують відновлюваний сервіс; рандомізація пауз розмиває сплески</text>
+
+  <!-- TOP PANEL: Pure Exponential Backoff -->
+  <rect x="30" y="74" width="900" height="214" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="46" y="86" width="160" height="24" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="126" y="102" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ЧИСТИЙ ВІДСТУП</text>
+  <text x="220" y="102" font-size="13" font-weight="bold" fill="#1a1a1a">Фіксовані інтервали 2ⁿ: клієнти синхронізуються у шторм</text>
+  <text x="914" y="102" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">✕ Повторний колапс (Thundering Herd)</text>
+
+  <!-- Top: Client tracks -->
+  <text x="50" y="130" font-size="12" fill="#6b7280">Клієнт A</text>
+  <line x1="150" y1="126" x2="890" y2="126" stroke="#d0d7de" stroke-dasharray="2 2"/>
+  <text x="50" y="148" font-size="12" fill="#6b7280">Клієнт B</text>
+  <line x1="150" y1="144" x2="890" y2="144" stroke="#d0d7de" stroke-dasharray="2 2"/>
+  <text x="50" y="166" font-size="12" fill="#6b7280">Клієнт C</text>
+  <line x1="150" y1="162" x2="890" y2="162" stroke="#d0d7de" stroke-dasharray="2 2"/>
+
+  <!-- Top: Request dots on tracks -->
+  <circle cx="180" cy="126" r="4" fill="#c0392b"/>
+  <circle cx="180" cy="144" r="4" fill="#c0392b"/>
+  <circle cx="180" cy="162" r="4" fill="#c0392b"/>
+
+  <circle cx="280" cy="126" r="4" fill="#c0392b"/>
+  <circle cx="280" cy="144" r="4" fill="#c0392b"/>
+  <circle cx="280" cy="162" r="4" fill="#c0392b"/>
+
+  <circle cx="480" cy="126" r="4" fill="#c0392b"/>
+  <circle cx="480" cy="144" r="4" fill="#c0392b"/>
+  <circle cx="480" cy="162" r="4" fill="#c0392b"/>
+
+  <circle cx="880" cy="126" r="4" fill="#c0392b"/>
+  <circle cx="880" cy="144" r="4" fill="#c0392b"/>
+  <circle cx="880" cy="162" r="4" fill="#c0392b"/>
+
+  <!-- Top: Inner card chart -->
+  <rect x="46" y="176" width="868" height="98" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="56" y="196" font-size="12" font-weight="bold" fill="#1a1a1a">Навантаження</text>
+  <text x="56" y="210" font-size="12" fill="#6b7280">на сервіс</text>
+  <text x="165" y="228" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Ліміт місткості</text>
+
+  <!-- Top: Capacity line -->
+  <line x1="170" y1="224" x2="890" y2="224" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Top: Load Bars -->
+  <rect x="168" y="196" width="24" height="58" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="180" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">3× збій</text>
+
+  <rect x="268" y="196" width="24" height="58" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="280" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">3× пік</text>
+
+  <rect x="468" y="196" width="24" height="58" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">3× пік</text>
+
+  <rect x="868" y="196" width="24" height="58" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="880" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">3× пік</text>
+
+  <!-- Top: Idle notes -->
+  <text x="230" y="246" text-anchor="middle" font-size="12" fill="#6b7280">простій</text>
+  <text x="380" y="246" text-anchor="middle" font-size="12" fill="#6b7280">простій</text>
+  <text x="680" y="246" text-anchor="middle" font-size="12" fill="#6b7280">простій (нульове використання ресурсів)</text>
+
+  <!-- Top: Time axis -->
+  <line x1="170" y1="254" x2="890" y2="254" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="180" y1="254" x2="180" y2="257" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="280" y1="254" x2="280" y2="257" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="380" y1="254" x2="380" y2="257" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="480" y1="254" x2="480" y2="257" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="580" y1="254" x2="580" y2="257" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="680" y1="254" x2="680" y2="257" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="780" y1="254" x2="780" y2="257" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="880" y1="254" x2="880" y2="257" stroke="#1a1a1a" stroke-width="1"/>
+
+  <text x="180" y="271" text-anchor="middle" font-size="12" fill="#6b7280">0 с</text>
+  <text x="280" y="271" text-anchor="middle" font-size="12" fill="#6b7280">1 с</text>
+  <text x="380" y="271" text-anchor="middle" font-size="12" fill="#6b7280">2 с</text>
+  <text x="480" y="271" text-anchor="middle" font-size="12" fill="#6b7280">3 с</text>
+  <text x="580" y="271" text-anchor="middle" font-size="12" fill="#6b7280">4 с</text>
+  <text x="680" y="271" text-anchor="middle" font-size="12" fill="#6b7280">5 с</text>
+  <text x="780" y="271" text-anchor="middle" font-size="12" fill="#6b7280">6 с</text>
+  <text x="880" y="271" text-anchor="middle" font-size="12" fill="#6b7280">7 с</text>
+
+  <!-- BOTTOM PANEL: Exponential Backoff with Jitter -->
+  <rect x="30" y="304" width="900" height="214" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="46" y="316" width="160" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="126" y="332" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ВІДСТУП ІЗ JITTER</text>
+  <text x="220" y="332" font-size="13" font-weight="bold" fill="#1a1a1a">Випадковий розкид [0, 2ⁿ]: запити розсіюються у часі</text>
+  <text x="914" y="332" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">✓ Рівномірний потік (сервіс одужує)</text>
+
+  <!-- Bottom: Client tracks -->
+  <text x="50" y="360" font-size="12" fill="#6b7280">Клієнт A</text>
+  <line x1="150" y1="356" x2="890" y2="356" stroke="#d0d7de" stroke-dasharray="2 2"/>
+  <text x="50" y="378" font-size="12" fill="#6b7280">Клієнт B</text>
+  <line x1="150" y1="374" x2="890" y2="374" stroke="#d0d7de" stroke-dasharray="2 2"/>
+  <text x="50" y="396" font-size="12" fill="#6b7280">Клієнт C</text>
+  <line x1="150" y1="392" x2="890" y2="392" stroke="#d0d7de" stroke-dasharray="2 2"/>
+
+  <!-- Bottom: Request dots on tracks -->
+  <!-- Initial failure at t=0 -->
+  <circle cx="180" cy="356" r="4" fill="#c0392b"/>
+  <circle cx="180" cy="374" r="4" fill="#c0392b"/>
+  <circle cx="180" cy="392" r="4" fill="#c0392b"/>
+
+  <!-- Retries with Jitter (green) -->
+  <circle cx="215" cy="356" r="4" fill="#27ae60"/>
+  <circle cx="340" cy="356" r="4" fill="#27ae60"/>
+  <circle cx="570" cy="356" r="4" fill="#27ae60"/>
+
+  <circle cx="275" cy="374" r="4" fill="#27ae60"/>
+  <circle cx="460" cy="374" r="4" fill="#27ae60"/>
+  <circle cx="840" cy="374" r="4" fill="#27ae60"/>
+
+  <circle cx="245" cy="392" r="4" fill="#27ae60"/>
+  <circle cx="400" cy="392" r="4" fill="#27ae60"/>
+  <circle cx="680" cy="392" r="4" fill="#27ae60"/>
+
+  <!-- Bottom: Inner card chart -->
+  <rect x="46" y="406" width="868" height="98" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="56" y="426" font-size="12" font-weight="bold" fill="#1a1a1a">Навантаження</text>
+  <text x="56" y="440" font-size="12" fill="#6b7280">на сервіс</text>
+  <text x="165" y="458" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">Безпечний ліміт</text>
+
+  <!-- Bottom: Capacity line -->
+  <line x1="170" y1="454" x2="890" y2="454" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Bottom: Load bars -->
+  <!-- Initial failure bar (3x) -->
+  <rect x="168" y="426" width="24" height="58" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="180" y="422" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">3× збій</text>
+
+  <!-- Scattered single bars (1x) -->
+  <rect x="209" y="464" width="12" height="20" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="239" y="464" width="12" height="20" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="269" y="464" width="12" height="20" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <rect x="334" y="464" width="12" height="20" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="394" y="464" width="12" height="20" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="454" y="464" width="12" height="20" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <rect x="564" y="464" width="12" height="20" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="674" y="464" width="12" height="20" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="834" y="464" width="12" height="20" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Bottom: Safe load note -->
+  <text x="520" y="428" text-anchor="middle" font-size="12" fill="#27ae60" font-weight="bold">Поодинокі спроби (1×) розмиті в часі: навантаження завжди нижче порогу</text>
+
+  <!-- Bottom: Time axis -->
+  <line x1="170" y1="484" x2="890" y2="484" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="180" y1="484" x2="180" y2="487" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="280" y1="484" x2="280" y2="487" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="380" y1="484" x2="380" y2="487" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="480" y1="484" x2="480" y2="487" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="580" y1="484" x2="580" y2="487" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="680" y1="484" x2="680" y2="487" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="780" y1="484" x2="780" y2="487" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="880" y1="484" x2="880" y2="487" stroke="#1a1a1a" stroke-width="1"/>
+
+  <text x="180" y="501" text-anchor="middle" font-size="12" fill="#6b7280">0 с</text>
+  <text x="280" y="501" text-anchor="middle" font-size="12" fill="#6b7280">1 с</text>
+  <text x="380" y="501" text-anchor="middle" font-size="12" fill="#6b7280">2 с</text>
+  <text x="480" y="501" text-anchor="middle" font-size="12" fill="#6b7280">3 с</text>
+  <text x="580" y="501" text-anchor="middle" font-size="12" fill="#6b7280">4 с</text>
+  <text x="680" y="501" text-anchor="middle" font-size="12" fill="#6b7280">5 с</text>
+  <text x="780" y="501" text-anchor="middle" font-size="12" fill="#6b7280">6 с</text>
+  <text x="880" y="501" text-anchor="middle" font-size="12" fill="#6b7280">7 с</text>
+</svg>

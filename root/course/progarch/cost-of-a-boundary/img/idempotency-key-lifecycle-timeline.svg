@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Життєвий цикл ключа ідемпотентності на системній межі</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Атомарний лізинг PENDING блокує гонитву запитів; збережений стан COMPLETED повертає кеш без повторних дій</text>
+
+  <!-- TOP PANEL: Phase 1 (Initial Execution & Lease) -->
+  <rect x="30" y="78" width="900" height="206" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Top Header Badge & Title -->
+  <rect x="44" y="90" width="210" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="149" y="106" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ФАЗА 1: ПЕРВИННИЙ ЗАПИТ</text>
+  <text x="268" y="106" font-size="13" font-weight="bold" fill="#1a1a1a">Захоплення лізингу, виконання та збереження результату</text>
+  <rect x="726" y="90" width="190" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="821" y="106" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Ключ: PENDING → COMPLETED</text>
+
+  <!-- Top Card 1: Client Request -->
+  <rect x="44" y="128" width="190" height="136" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="54" y="148" font-size="12" font-weight="bold" fill="#1a1a1a">1. Запит клієнта</text>
+  <text x="54" y="170" font-size="12" fill="#2457d6">POST /api/payments</text>
+  <text x="54" y="190" font-size="12" font-weight="bold" fill="#1a1a1a">Key: "k-901"</text>
+  <text x="54" y="210" font-size="12" fill="#6b7280">Клієнт генерує унікальний</text>
+  <text x="54" y="226" font-size="12" fill="#6b7280">UUID для операції</text>
+  <text x="54" y="246" font-size="12" fill="#6b7280">Статус: новий виклик</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="238" y1="196" x2="267" y2="196" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Top Card 2: PENDING Lease -->
+  <rect x="271" y="128" width="190" height="136" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="281" y="138" width="100" height="20" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="331" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">2. PENDING</text>
+  <text x="281" y="174" font-size="12" font-weight="bold" fill="#c0392b">SETNX k-901 PENDING</text>
+  <text x="281" y="192" font-size="12" fill="#1a1a1a">Атомарне взяття лізингу</text>
+  <text x="281" y="210" font-size="12" fill="#6b7280">TTL лізингу: 30 с</text>
+  <text x="281" y="228" font-size="12" fill="#6b7280">Паралельні запити</text>
+  <text x="281" y="244" font-size="12" font-weight="bold" fill="#c0392b">блокуються (код 409)</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="465" y1="196" x2="494" y2="196" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Top Card 3: Business Execution -->
+  <rect x="498" y="128" width="190" height="136" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="508" y="148" font-size="12" font-weight="bold" fill="#1a1a1a">3. Виконання дії</text>
+  <text x="508" y="170" font-size="12" fill="#2457d6">Платіжний сервіс</text>
+  <text x="508" y="190" font-size="12" fill="#1a1a1a">Списання коштів з балансу</text>
+  <text x="508" y="210" font-size="12" fill="#6b7280">Транзакція в базі даних</text>
+  <text x="508" y="228" font-size="12" font-weight="bold" fill="#27ae60">Операція успішна</text>
+  <text x="508" y="246" font-size="12" fill="#6b7280">Отримано тіло відповіді</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="692" y1="196" x2="721" y2="196" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Top Card 4: COMPLETED Storage -->
+  <rect x="725" y="128" width="190" height="136" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="735" y="138" width="120" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="795" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">4. COMPLETED</text>
+  <text x="735" y="174" font-size="12" font-weight="bold" fill="#27ae60">SET k-901 COMPLETED</text>
+  <text x="735" y="192" font-size="12" fill="#1a1a1a">Збереження тіла відповіді</text>
+  <text x="735" y="210" font-size="12" fill="#6b7280">TTL кешу: 24 години</text>
+  <text x="735" y="228" font-size="12" font-weight="bold" fill="#27ae60">200 OK → клієнту</text>
+  <text x="735" y="244" font-size="12" fill="#6b7280">Лізинг завершено успішно</text>
+
+  <!-- BOTTOM PANEL: Phase 2 (Retried Request & Cached Return) -->
+  <rect x="30" y="300" width="900" height="206" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Bottom Header Badge & Title -->
+  <rect x="44" y="312" width="210" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="149" y="328" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ФАЗА 2: ПОВТОРНИЙ ЗАПИТ</text>
+  <text x="268" y="328" font-size="13" font-weight="bold" fill="#1a1a1a">Перехоплення повтору (Retry), оминання логіки та віддача кешу</text>
+  <rect x="726" y="312" width="190" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="821" y="328" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Стан: COMPLETED (Кеш)</text>
+
+  <!-- Bottom Card 1: Retried Request -->
+  <rect x="44" y="350" width="190" height="136" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="54" y="370" font-size="12" font-weight="bold" fill="#1a1a1a">1. Повторний виклик</text>
+  <text x="54" y="392" font-size="12" fill="#2457d6">POST /api/payments</text>
+  <text x="54" y="412" font-size="12" font-weight="bold" fill="#1a1a1a">Key: "k-901" (той самий)</text>
+  <text x="54" y="432" font-size="12" fill="#6b7280">Мережевий таймаут / retry</text>
+  <text x="54" y="448" font-size="12" fill="#6b7280">Клієнт не знає результату</text>
+  <text x="54" y="466" font-size="12" fill="#c0392b">первинної спроби</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="238" y1="418" x2="267" y2="418" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Bottom Card 2: Key Lookup -->
+  <rect x="271" y="350" width="190" height="136" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="281" y="370" font-size="12" font-weight="bold" fill="#2457d6">2. Перевірка ключа</text>
+  <text x="281" y="392" font-size="12" font-weight="bold" fill="#2457d6">GET k-901</text>
+  <text x="281" y="412" font-size="12" fill="#1a1a1a">Сховище повертає запис:</text>
+  <text x="281" y="432" font-size="12" font-weight="bold" fill="#27ae60">status: COMPLETED</text>
+  <text x="281" y="448" font-size="12" fill="#6b7280">Запис уже сформовано,</text>
+  <text x="281" y="466" font-size="12" fill="#27ae60">тіло відповіді в кеші</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="465" y1="418" x2="494" y2="418" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Bottom Card 3: Bypass Business Logic -->
+  <rect x="498" y="350" width="190" height="136" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="508" y="370" font-size="12" font-weight="bold" fill="#27ae60">3. Оминання логіки</text>
+  <text x="508" y="392" font-size="12" font-weight="bold" fill="#27ae60">Виклик перехоплено!</text>
+  <text x="508" y="412" font-size="12" fill="#1a1a1a">Ділова логіка НЕ працює</text>
+  <text x="508" y="432" font-size="12" fill="#6b7280">Нуль повторних списань</text>
+  <text x="508" y="448" font-size="12" fill="#6b7280">Повна ізоляція від</text>
+  <text x="508" y="466" font-size="12" font-weight="bold" fill="#27ae60">побічних ефектів</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="692" y1="418" x2="721" y2="418" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Bottom Card 4: Cached Response -->
+  <rect x="725" y="350" width="190" height="136" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="735" y="370" font-size="12" font-weight="bold" fill="#27ae60">4. Віддача з кешу</text>
+  <text x="735" y="392" font-size="12" font-weight="bold" fill="#27ae60">200 OK (кеш зі сховища)</text>
+  <text x="735" y="412" font-size="12" fill="#1a1a1a">Idempotent-Replay: true</text>
+  <text x="735" y="432" font-size="12" fill="#6b7280">Ідентичне тіло відповіді</text>
+  <text x="735" y="448" font-size="12" fill="#6b7280">Клієнт отримує успіх,</text>
+  <text x="735" y="466" font-size="12" font-weight="bold" fill="#27ae60">операція не повторена</text>
+</svg>

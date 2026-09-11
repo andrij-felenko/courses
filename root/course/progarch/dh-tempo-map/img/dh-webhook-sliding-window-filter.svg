@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Фільтрація телеметрії епсилон-вікном у Digital Homes</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Шум АЦП поглинається у ковзному вікні, а доменні події генеруються лише при значущих змінах</text>
+
+  <!-- Main Chart Area Panel -->
+  <rect x="40" y="70" width="880" height="350" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+
+  <!-- Legend Box -->
+  <rect x="60" y="82" width="840" height="30" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  
+  <line x1="75" y1="97" x2="105" y2="97" stroke="#c0392b" stroke-width="2"/>
+  <text x="112" y="101" font-size="12" fill="#1a1a1a">Сирий вебхук-сигнал (шум АЦП)</text>
+
+  <line x1="335" y1="97" x2="365" y2="97" stroke="#27ae60" stroke-width="3"/>
+  <text x="372" y="101" font-size="12" fill="#1a1a1a">Згладжений доменний стан (канонічний кеш)</text>
+
+  <rect x="665" y="90" width="22" height="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2" rx="2"/>
+  <text x="695" y="101" font-size="12" fill="#1a1a1a">Вікно нечутливості (±ε)</text>
+
+  <!-- Grid Lines & Axis Ticks -->
+  <line x1="120" y1="170" x2="880" y2="170" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="112" y="174" text-anchor="end" font-size="12" fill="#6b7280">24.0°C</text>
+
+  <line x1="120" y1="300" x2="880" y2="300" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="112" y="304" text-anchor="end" font-size="12" fill="#6b7280">20.0°C</text>
+
+  <!-- Epsilon Corridor 1 (around 20.0°C) -->
+  <rect x="120" y="280" width="280" height="40" fill="#eaf0fd" fill-opacity="0.7" stroke="#2457d6" stroke-width="1" stroke-dasharray="4 3" rx="4"/>
+  <text x="128" y="275" font-size="12" fill="#2457d6">+ε (20.5°C)</text>
+  <text x="128" y="335" font-size="12" fill="#2457d6">-ε (19.5°C)</text>
+
+  <!-- Epsilon Corridor 2 (around 24.0°C) -->
+  <rect x="400" y="150" width="470" height="40" fill="#eaf0fd" fill-opacity="0.7" stroke="#2457d6" stroke-width="1" stroke-dasharray="4 3" rx="4"/>
+  <text x="408" y="145" font-size="12" fill="#2457d6">+ε (24.5°C)</text>
+  <text x="408" y="205" font-size="12" fill="#2457d6">-ε (23.5°C)</text>
+
+  <!-- Axes -->
+  <line x1="120" y1="380" x2="120" y2="128" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="115" y="125" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Температура (°C)</text>
+
+  <line x1="120" y1="380" x2="890" y2="380" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="880" y="398" text-anchor="end" font-size="12" fill="#6b7280">Час t (потік вебхуків)</text>
+
+  <!-- Raw Signal (Noisy Red Path) -->
+  <path d="M 120,300 L 135,292 L 150,308 L 165,286 L 180,314 L 195,295 L 210,318 L 225,288 L 240,306 L 255,294 L 270,312 L 285,287 L 300,305 L 315,291 L 330,316 L 345,289 L 360,307 L 375,293 L 390,300 L 400,272 L 410,230 L 420,185 L 430,165 L 445,178 L 460,156 L 475,182 L 490,162 L 505,176 L 520,158 L 535,174 L 550,164 L 565,184 L 580,159 L 595,175 L 610,163 L 625,178 L 640,157 L 655,172 L 670,161 L 685,179 L 700,160 L 715,176 L 730,164 L 745,181 L 760,158 L 775,173 L 790,166 L 805,177 L 820,162 L 835,171 L 850,165 L 865,174" fill="none" stroke="#c0392b" stroke-width="2" stroke-linejoin="round" opacity="0.85"/>
+
+  <!-- Filtered Output Signal (Green Step Path) -->
+  <path d="M 120,300 L 400,300 L 400,170 L 870,170" fill="none" stroke="#27ae60" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Step Trigger Point Dot -->
+  <circle cx="400" cy="170" r="5" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Vertical Event Line -->
+  <line x1="400" y1="130" x2="400" y2="380" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Callout Badge 1: Noise Suppression -->
+  <rect x="180" y="215" width="210" height="44" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="285" y="232" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Шум АЦП у межах ±ε</text>
+  <text x="285" y="248" text-anchor="middle" font-size="12" fill="#c0392b">ігнорується (без подій)</text>
+  <line x1="285" y1="259" x2="285" y2="283" stroke="#c0392b" stroke-width="1" stroke-dasharray="2 2" marker-end="url(#arr-red)"/>
+
+  <!-- Callout Badge 2: Event Trigger -->
+  <rect x="415" y="225" width="250" height="46" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="540" y="243" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вихід за межі вікна (&gt; +ε)</text>
+  <text x="540" y="261" text-anchor="middle" font-size="12" fill="#1a1a1a">Подія: TemperatureChanged(24°C)</text>
+  <line x1="415" y1="248" x2="403" y2="248" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Callout Badge 3: New Steady State -->
+  <rect x="620" y="290" width="240" height="44" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="740" y="307" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Нове канонічне значення</text>
+  <text x="740" y="323" text-anchor="middle" font-size="12" fill="#2457d6">встановлено на 24.0°C</text>
+  <line x1="740" y1="290" x2="740" y2="195" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Bottom Summary Bar -->
+  <rect x="40" y="435" width="880" height="45" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="480" y="462" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Архітектурний результат: фільтр ізолює ядро від лавини вебхуків, передаючи тільки фактичні зміни стану.</text>
+</svg>

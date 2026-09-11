@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Анемічний ланцюжок: 5 ланок механічного перенаправлення</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Контролер, сервіс і репозиторій з інтерфейсами транслюють однаковий аргумент (id) без додавання логіки</text>
+
+  <!-- Верхня панель: ланцюжок викликів -->
+  <rect x="25" y="74" width="910" height="272" rx="8" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовки архітектурних шарів -->
+  <rect x="35" y="86" width="150" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="110" y="103" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">WEB-ШАР (API)</text>
+
+  <rect x="209" y="86" width="339" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="378.5" y="103" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">СЕРВІСНИЙ ШАР (ПАСИВНИЙ ПОСЕРЕДНИК)</text>
+
+  <rect x="572" y="86" width="339" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="741.5" y="103" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">ШАР ДАНИХ (PERSISTENCE)</text>
+
+  <!-- 1. Контролер -->
+  <rect x="35" y="126" width="150" height="206" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="45" y="136" width="130" height="22" rx="3" fill="#eaf0fd"/>
+  <text x="110" y="151" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">1. HTTP-КОНТРОЛЕР</text>
+  <text x="110" y="174" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ClimateController</text>
+  <line x1="45" y1="185" x2="175" y2="185" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="202" font-size="11" font-weight="bold" fill="#2457d6">@Get(':id')</text>
+  <text x="45" y="218" font-size="11" fill="#1a1a1a">getById(id: string)</text>
+  <line x1="45" y1="228" x2="175" y2="228" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="246" font-size="11" fill="#6b7280">// виклик сервісу:</text>
+  <text x="45" y="262" font-size="11" font-family="monospace" fill="#1a1a1a">srv.getById(id)</text>
+  <text x="45" y="295" font-size="11" fill="#6b7280">← результат:</text>
+  <text x="45" y="311" font-size="11" font-weight="bold" fill="#2457d6">DeviceDto</text>
+
+  <!-- Стрілка 1 -> 2 з параметром id -->
+  <text x="197" y="194" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">id</text>
+  <line x1="185" y1="200" x2="209" y2="200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="209" y1="290" x2="185" y2="290" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+
+  <!-- 2. Інтерфейс сервісу -->
+  <rect x="209" y="126" width="150" height="206" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="219" y="136" width="130" height="22" rx="3" fill="#f4f6f8"/>
+  <text x="284" y="151" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">2. ІНТЕРФЕЙС СЕРВІСУ</text>
+  <text x="284" y="174" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IClimateService</text>
+  <line x1="219" y1="185" x2="349" y2="185" stroke="#d0d7de" stroke-width="1"/>
+  <text x="219" y="202" font-size="11" fill="#6b7280">// контракт методу:</text>
+  <text x="219" y="218" font-size="11" fill="#1a1a1a">getById(id):</text>
+  <text x="219" y="234" font-size="11" font-weight="bold" fill="#2457d6">  DeviceDto</text>
+  <line x1="219" y1="244" x2="349" y2="244" stroke="#d0d7de" stroke-width="1"/>
+  <text x="219" y="262" font-size="11" fill="#c0392b">1 реалізація 1-в-1</text>
+  <text x="219" y="278" font-size="11" fill="#6b7280">фіктивна абстракція</text>
+  <text x="219" y="311" font-size="11" fill="#6b7280">← DeviceDto</text>
+
+  <!-- Стрілка 2 -> 3 з параметром id -->
+  <text x="371" y="194" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">id</text>
+  <line x1="359" y1="200" x2="383" y2="200" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="383" y1="290" x2="359" y2="290" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+
+  <!-- 3. Анемічний сервіс (ПРОБЛЕМА) -->
+  <rect x="383" y="126" width="165" height="206" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="393" y="136" width="145" height="22" rx="3" fill="#fbd5d0"/>
+  <text x="465.5" y="151" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">3. АНЕМІЧНИЙ СЕРВІС</text>
+  <text x="465.5" y="174" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ClimateServiceImpl</text>
+  <line x1="393" y1="185" x2="538" y2="185" stroke="#f5c2bc" stroke-width="1"/>
+  <text x="393" y="202" font-size="11" font-weight="bold" fill="#c0392b">getById(id: string)</text>
+  <text x="393" y="218" font-size="11" fill="#1a1a1a">{ return this.repo</text>
+  <text x="393" y="234" font-size="11" fill="#1a1a1a">    .getById(id); }</text>
+  <line x1="393" y1="244" x2="538" y2="244" stroke="#f5c2bc" stroke-width="1"/>
+  <text x="393" y="262" font-size="11" font-weight="bold" fill="#c0392b">⛔ 0 правил і перевірок</text>
+  <text x="393" y="278" font-size="11" fill="#c0392b">⛔ Пасивний посередник</text>
+  <text x="393" y="311" font-size="11" fill="#6b7280">← транзит без змін</text>
+
+  <!-- Стрілка 3 -> 4 з параметром id -->
+  <text x="560" y="194" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">id</text>
+  <line x1="548" y1="200" x2="572" y2="200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="572" y1="290" x2="548" y2="290" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+
+  <!-- 4. Інтерфейс репозиторію -->
+  <rect x="572" y="126" width="150" height="206" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="582" y="136" width="130" height="22" rx="3" fill="#f4f6f8"/>
+  <text x="647" y="151" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">4. ІНТЕРФЕЙС РЕПО</text>
+  <text x="647" y="174" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IClimateRepository</text>
+  <line x1="582" y1="185" x2="712" y2="185" stroke="#d0d7de" stroke-width="1"/>
+  <text x="582" y="202" font-size="11" fill="#6b7280">// контракт доступу:</text>
+  <text x="582" y="218" font-size="11" fill="#1a1a1a">getById(id):</text>
+  <text x="582" y="234" font-size="11" font-weight="bold" fill="#2457d6">  DeviceEntity</text>
+  <line x1="582" y1="244" x2="712" y2="244" stroke="#d0d7de" stroke-width="1"/>
+  <text x="582" y="262" font-size="11" fill="#6b7280">Дзеркальний метод</text>
+  <text x="582" y="278" font-size="11" fill="#6b7280">під конкретну СУБД</text>
+  <text x="582" y="311" font-size="11" fill="#6b7280">← DeviceEntity</text>
+
+  <!-- Стрілка 4 -> 5 з параметром id -->
+  <text x="734" y="194" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">id</text>
+  <line x1="722" y1="200" x2="746" y2="200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="746" y1="290" x2="722" y2="290" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+
+  <!-- 5. Репозиторій -->
+  <rect x="746" y="126" width="165" height="206" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="756" y="136" width="145" height="22" rx="3" fill="#eaf0fd"/>
+  <text x="828.5" y="151" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">5. РЕПОЗИТОРІЙ (БД)</text>
+  <text x="828.5" y="174" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ClimateRepository</text>
+  <line x1="756" y1="185" x2="901" y2="185" stroke="#d0d7de" stroke-width="1"/>
+  <text x="756" y="202" font-size="11" font-weight="bold" fill="#2457d6">SQL-виконавець:</text>
+  <text x="756" y="218" font-size="11" font-family="monospace" fill="#1a1a1a">SELECT * FROM</text>
+  <text x="756" y="234" font-size="11" font-family="monospace" fill="#1a1a1a">devices WHERE</text>
+  <text x="756" y="250" font-size="11" font-family="monospace" fill="#2457d6">id = :id</text>
+  <line x1="756" y1="260" x2="901" y2="260" stroke="#d0d7de" stroke-width="1"/>
+  <text x="756" y="278" font-size="11" fill="#27ae60">Реальна дія: I/O</text>
+  <text x="756" y="294" font-size="11" fill="#6b7280">зчитування з диска</text>
+  <text x="756" y="311" font-size="11" fill="#6b7280">← рядок таблиці</text>
+
+  <!-- Нижня панель: аналіз бюрократії -->
+  <rect x="25" y="360" width="910" height="130" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="380" font-size="12" font-weight="bold" fill="#1a1a1a">АНАТОМІЯ АНЕМІЧНОЇ БЮРОКРАТІЇ ТА ЇЇ НАСЛІДКИ В СИСТЕМІ</text>
+
+  <!-- Картка 1: Дзеркальні інтерфейси -->
+  <rect x="35" y="392" width="285" height="88" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="47" y="412" font-size="12" font-weight="bold" fill="#1a1a1a">1. Дзеркальні інтерфейси</text>
+  <text x="47" y="430" font-size="11" fill="#6b7280">• IService дублює методи IRepo 1-в-1</text>
+  <text x="47" y="448" font-size="11" fill="#6b7280">• 100% інтерфейсів мають лише 1 клас</text>
+  <text x="47" y="466" font-size="11" fill="#6b7280">• Фіктивна абстракція без поліморфізму</text>
+
+  <!-- Картка 2: Пасивне перенаправлення -->
+  <rect x="337" y="392" width="286" height="88" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="349" y="412" font-size="12" font-weight="bold" fill="#c0392b">2. Пасивне перенаправлення</text>
+  <text x="349" y="430" font-size="11" fill="#c0392b">• Метод сервісу: return repo.getById(id)</text>
+  <text x="349" y="448" font-size="11" fill="#c0392b">• Нуль валідації, правил чи мутацій</text>
+  <text x="349" y="466" font-size="11" fill="#c0392b">• Посередник без бізнес-відповідальності</text>
+
+  <!-- Картка 3: Дробова хірургія -->
+  <rect x="640" y="392" width="285" height="88" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="652" y="412" font-size="12" font-weight="bold" fill="#1a1a1a">3. Дробова хірургія (TCO)</text>
+  <text x="652" y="430" font-size="11" fill="#6b7280">• Зміна 1 поля змушує правити 5 файлів</text>
+  <text x="652" y="448" font-size="11" fill="#6b7280">• Тести перевіряють лише факт виклику</text>
+  <text x="652" y="466" font-size="11" fill="#6b7280">• Зайві DTO-мапери без трансформацій</text>
+</svg>

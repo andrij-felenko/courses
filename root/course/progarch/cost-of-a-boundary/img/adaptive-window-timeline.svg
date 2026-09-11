@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма адаптивного вікна очікування (Adaptive Micro-Batching)</text>
+  <text x="480" y="66" text-anchor="middle" font-size="13" fill="#6b7280">Низький потік відправляється без затримок, а під час сплеску пачка обмежується стелею SLA</text>
+
+  <!-- ПАНЕЛЬ 1: НИЗЬКИЙ ПОТІК -->
+  <rect x="50" y="86" width="860" height="154" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="70" y="112" font-size="13" font-weight="bold" fill="#2457d6">1. Низький потік: поодинокі запити → нульова штучна затримка</text>
+
+  <text x="70" y="159" font-size="12" font-weight="bold" fill="#1a1a1a">Потік викликів</text>
+  <line x1="210" y1="155" x2="840" y2="155" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="848" y="159" font-size="12" fill="#6b7280">Час t</text>
+
+  <!-- Подія 1: r1 -->
+  <circle cx="260" cy="155" r="5" fill="#2457d6"/>
+  <text x="260" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Запит r₁</text>
+  <rect x="260" y="165" width="40" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="300" y1="155" x2="300" y2="185" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="280" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">W_min (таймаут 0 мс)</text>
+
+  <!-- Подія 2: r2 -->
+  <circle cx="560" cy="155" r="5" fill="#2457d6"/>
+  <text x="560" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Запит r₂</text>
+  <rect x="560" y="165" width="40" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="600" y1="155" x2="600" y2="185" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="580" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">W_min (негайний скид)</text>
+
+  <!-- Підсумок режиму 1 -->
+  <text x="760" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✔ Пачка N = 1</text>
+  <text x="760" y="175" text-anchor="middle" font-size="12" fill="#6b7280">Штучна затримка: 0 мс</text>
+  <text x="760" y="200" text-anchor="middle" font-size="12" fill="#6b7280">Мінімальний SLA latency</text>
+
+  <!-- ПАНЕЛЬ 2: СПЛЕСК НАВАНТАЖЕННЯ -->
+  <rect x="50" y="258" width="860" height="192" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="70" y="284" font-size="13" font-weight="bold" fill="#c0392b">2. Сплеск навантаження: адаптивне пакетування та стеля SLA</text>
+  <text x="600" y="284" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">СТЕЛЯ SLA (T_ceiling)</text>
+
+  <text x="70" y="334" font-size="12" font-weight="bold" fill="#1a1a1a">Сплеск трафіку</text>
+  <line x1="210" y1="330" x2="840" y2="330" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="848" y="334" font-size="12" fill="#6b7280">Час t</text>
+
+  <!-- Сценарій A: Заповнення пачки до N_max -->
+  <circle cx="250" cy="330" r="4" fill="#c0392b"/>
+  <circle cx="270" cy="330" r="4" fill="#c0392b"/>
+  <circle cx="290" cy="330" r="4" fill="#c0392b"/>
+  <circle cx="310" cy="330" r="4" fill="#c0392b"/>
+  <text x="280" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Густий потік r₁..r₄</text>
+  <rect x="250" y="340" width="60" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="310" y1="330" x2="310" y2="365" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="280" y="385" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Скид: N = N_max (4)</text>
+  <text x="280" y="410" text-anchor="middle" font-size="12" fill="#6b7280">Пачка заповнена раніше стелі</text>
+  <text x="280" y="435" text-anchor="middle" font-size="12" fill="#6b7280">1 мережевий виклик замість 4</text>
+
+  <!-- Сценарій B: Стеля таймауту Latency Ceiling -->
+  <circle cx="480" cy="330" r="4" fill="#c0392b"/>
+  <circle cx="510" cy="330" r="4" fill="#c0392b"/>
+  <text x="495" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Запити r₁, r₂</text>
+  <rect x="480" y="340" width="120" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="600" y1="298" x2="600" y2="330" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <line x1="600" y1="330" x2="600" y2="365" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="540" y="385" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Скид: Таймаут T_ceiling</text>
+  <text x="540" y="410" text-anchor="middle" font-size="12" fill="#6b7280">Вікно впирається у стелю затримки</text>
+  <text x="540" y="435" text-anchor="middle" font-size="12" fill="#6b7280">Гарантія дотримання SLA клієнта</text>
+
+  <!-- Підсумок режиму 2 -->
+  <text x="770" y="350" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✔ Оптимізація RTT</text>
+  <text x="770" y="375" text-anchor="middle" font-size="12" fill="#6b7280">Амортизація витрат межі</text>
+  <text x="770" y="400" text-anchor="middle" font-size="12" fill="#6b7280">Захист від накопичення черги</text>
+
+  <!-- Підсумкове правило -->
+  <text x="480" y="480" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Правило шлюзу: Flush відбувається або за розміром (N = N_max), або за стелею часу (t ≥ T_ceiling)</text>
+</svg>

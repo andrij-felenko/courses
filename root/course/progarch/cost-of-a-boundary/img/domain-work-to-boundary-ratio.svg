@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Ефективність системи від коефіцієнта R (Tдомену / Tмежі)</text>
+  <text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Винесення межі виправдане лише тоді, коли доменна робота суттєво перевищує накладні витрати</text>
+
+  <rect x="40" y="80" width="880" height="440" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="160" y="130" width="200" height="280" fill="#fdecea" fill-opacity="0.5"/>
+  <rect x="360" y="130" width="260" height="280" fill="#ffffff" fill-opacity="0.7"/>
+  <rect x="620" y="130" width="260" height="280" fill="#e9f7ef" fill-opacity="0.5"/>
+
+  <line x1="160" y1="130" x2="880" y2="130" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <line x1="160" y1="200" x2="165" y2="200" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="355" y1="200" x2="880" y2="200" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <line x1="160" y1="270" x2="640" y2="270" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="865" y1="270" x2="880" y2="270" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <line x1="160" y1="340" x2="380" y2="340" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="600" y1="340" x2="880" y2="340" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <line x1="360" y1="130" x2="360" y2="410" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <line x1="620" y1="130" x2="620" y2="410" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <line x1="160" y1="410" x2="160" y2="115" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="160" y1="410" x2="895" y2="410" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <text x="50" y="112" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Ефективність η</text>
+  <text x="148" y="134" text-anchor="end" font-size="12" fill="#6b7280">100%</text>
+  <text x="148" y="204" text-anchor="end" font-size="12" fill="#6b7280">75%</text>
+  <text x="148" y="274" text-anchor="end" font-size="12" fill="#6b7280">50%</text>
+  <text x="148" y="344" text-anchor="end" font-size="12" fill="#6b7280">25%</text>
+  <text x="148" y="414" text-anchor="end" font-size="12" fill="#6b7280">0%</text>
+
+  <line x1="160" y1="410" x2="160" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="160" y="432" text-anchor="middle" font-size="12" fill="#1a1a1a">0</text>
+
+  <line x1="360" y1="410" x2="360" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="360" y="432" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">R = 1</text>
+
+  <line x1="620" y1="410" x2="620" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="620" y="432" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">R = 10</text>
+
+  <line x1="850" y1="410" x2="850" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="850" y="432" text-anchor="middle" font-size="12" fill="#1a1a1a">R → ∞</text>
+
+  <text x="520" y="456" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Співвідношення роботи до межі: R = Tдомену / Tмежі</text>
+
+  <path d="M 160 410 C 230 360, 290 290, 360 270 C 450 245, 540 180, 620 155.5 C 700 138, 780 134, 880 133" fill="none" stroke="#2457d6" stroke-width="3.5"/>
+
+  <circle cx="360" cy="270" r="5" fill="#2457d6" stroke="#ffffff" stroke-width="2"/>
+  <text x="350" y="258" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">(R=1, 50%)</text>
+
+  <circle cx="620" cy="155.5" r="5" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+  <text x="605" y="146" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">(R=10, 91%)</text>
+
+  <rect x="165" y="138" width="190" height="96" rx="6" fill="#ffffff" fill-opacity="0.95" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="260" y="158" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Податкова пастка</text>
+  <text x="260" y="176" text-anchor="middle" font-size="12" fill="#6b7280">R &lt; 1 (Tмежі &gt; Tдомену)</text>
+  <text x="260" y="194" text-anchor="middle" font-size="12" fill="#1a1a1a">Витрати межі домінують;</text>
+  <text x="260" y="214" text-anchor="middle" font-size="12" fill="#1a1a1a">оверхед пригнічує корисність</text>
+
+  <rect x="380" y="295" width="220" height="96" rx="6" fill="#ffffff" fill-opacity="0.95" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="490" y="315" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Архітектурний сумнів</text>
+  <text x="490" y="333" text-anchor="middle" font-size="12" fill="#6b7280">1 ≤ R ≤ 10</text>
+  <text x="490" y="351" text-anchor="middle" font-size="12" fill="#1a1a1a">Компромісна зона:</text>
+  <text x="490" y="371" text-anchor="middle" font-size="12" fill="#1a1a1a">витрати зіставні з користю</text>
+
+  <rect x="640" y="235" width="225" height="96" rx="6" fill="#ffffff" fill-opacity="0.95" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="752" y="255" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Доменна домінація</text>
+  <text x="752" y="273" text-anchor="middle" font-size="12" fill="#6b7280">R &gt; 10 (Tдомену » Tмежі)</text>
+  <text x="752" y="291" text-anchor="middle" font-size="12" fill="#1a1a1a">Податок межі розчиняється;</text>
+  <text x="752" y="311" text-anchor="middle" font-size="12" fill="#1a1a1a">ізоляція архітектурно виправдана</text>
+
+  <rect x="160" y="474" width="720" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="4,4" stroke-width="1"/>
+  <text x="520" y="495" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Формула корисної ефективності: η = Tдомену / (Tдомену + Tмежі) = R / (R + 1)</text>
+</svg>

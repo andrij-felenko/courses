@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектурна будова Anti-Corruption Layer (ACL) у Digital Homes</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Ізоляція консервативного ядра від мінливих зовнішніх API через ланцюг «фасад – транслятор – адаптер»</text>
+
+  <!-- 1. ЗОВНІШНІЙ МІНЛИВИЙ ПРОВАЙДЕР -->
+  <rect x="36" y="80" width="888" height="74" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="52" y="90" width="160" height="20" rx="3" fill="#c0392b"/>
+  <text x="132" y="104" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ЗОВНІШНІЙ ПРОВАЙДЕР</text>
+  <rect x="226" y="90" width="140" height="20" rx="3" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="296" y="104" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ВОЛАТИЛЬНИЙ ТЕМП</text>
+  <text x="380" y="104" font-size="13" font-weight="bold" fill="#1a1a1a">OpenWeather / DynamicTariff Cloud API (зміни щотижня)</text>
+  <text x="52" y="132" font-size="12" fill="#1a1a1a">Нестабільний формат DTO: {"temp_f": 72.5, "cond_id": 302, "dt": 1699901} • Ризик раптових змін схеми</text>
+
+  <!-- Стрілка передачі сирого DTO до ACL -->
+  <line x1="480" y1="156" x2="480" y2="180" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="496" y="172" font-size="12" font-weight="bold" fill="#c0392b">Зовнішній DTO (сирий JSON)</text>
+
+  <!-- 2. АНТИКОРУПЦІЙНИЙ ШАР (ACL) -->
+  <rect x="36" y="184" width="888" height="176" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="52" y="196" width="220" height="22" rx="4" fill="#2457d6"/>
+  <text x="162" y="211" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ANTI-CORRUPTION LAYER (ACL)</text>
+  <text x="284" y="211" font-size="12" font-weight="bold" fill="#1a1a1a">Ізолювальний буфер: трансляція та локалізація зовнішніх змін</text>
+
+  <!-- Блок 1: Фасад -->
+  <rect x="52" y="230" width="256" height="114" rx="6" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <rect x="64" y="240" width="90" height="20" rx="3" fill="#2457d6"/>
+  <text x="109" y="254" font-size="12" font-weight="bold" fill="white" text-anchor="middle">1. ФАСАД</text>
+  <text x="162" y="255" font-size="12" font-weight="bold" fill="#1a1a1a">Network &amp; SDK</text>
+  <text x="64" y="278" font-size="12" fill="#1a1a1a">Єдина точка входу до API</text>
+  <text x="64" y="296" font-size="12" fill="#6b7280">Приховує HTTP, токени, REST</text>
+  <text x="64" y="314" font-size="12" fill="#6b7280">Таймаути, retry, кеш запитів</text>
+  <text x="64" y="332" font-size="12" fill="#2457d6">Видає сирий WeatherDTO</text>
+
+  <line x1="312" y1="287" x2="330" y2="287" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 2: Транслятор -->
+  <rect x="336" y="230" width="256" height="114" rx="6" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <rect x="348" y="240" width="124" height="20" rx="3" fill="#2457d6"/>
+  <text x="410" y="254" font-size="12" font-weight="bold" fill="white" text-anchor="middle">2. ТРАНСЛЯТОР</text>
+  <text x="480" y="255" font-size="12" font-weight="bold" fill="#1a1a1a">Data Mapper</text>
+  <text x="348" y="278" font-size="12" fill="#1a1a1a">Мапінг: DTO → Domain Entity</text>
+  <text x="348" y="296" font-size="12" fill="#6b7280">Конвертація: °F → °C, шкали</text>
+  <text x="348" y="314" font-size="12" fill="#6b7280">Нормалізація кодів і значень</text>
+  <text x="348" y="332" font-size="12" fill="#27ae60">Валідація інваріантів ядра</text>
+
+  <line x1="596" y1="287" x2="614" y2="287" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 3: Адаптер -->
+  <rect x="620" y="230" width="288" height="114" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <rect x="632" y="240" width="104" height="20" rx="3" fill="#27ae60"/>
+  <text x="684" y="254" font-size="12" font-weight="bold" fill="white" text-anchor="middle">3. АДАПТЕР</text>
+  <text x="744" y="255" font-size="12" font-weight="bold" fill="#1a1a1a">Port Impl</text>
+  <text x="632" y="278" font-size="12" fill="#1a1a1a">Реалізує: implements IWeatherPort</text>
+  <text x="632" y="296" font-size="12" fill="#6b7280">Адаптує виклик до мови ядра</text>
+  <text x="632" y="314" font-size="12" fill="#6b7280">Повна ізоляція: ядро без SDK</text>
+  <text x="632" y="332" font-size="12" fill="#27ae60">Повертає сутність домену</text>
+
+  <!-- Стрілка передачі доменної сутності до ядра -->
+  <line x1="480" y1="362" x2="480" y2="386" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="496" y="378" font-size="12" font-weight="bold" fill="#27ae60">Чиста доменна сутність (OutdoorCondition)</text>
+
+  <!-- 3. КОНСЕРВАТИВНЕ ЯДРО -->
+  <rect x="36" y="390" width="888" height="74" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="52" y="400" width="160" height="20" rx="3" fill="#27ae60"/>
+  <text x="132" y="414" font-size="12" font-weight="bold" fill="white" text-anchor="middle">КОНСЕРВАТИВНЕ ЯДРО</text>
+  <rect x="226" y="400" width="140" height="20" rx="3" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="296" y="414" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">СТАБІЛЬНИЙ ТЕМП</text>
+  <text x="380" y="414" font-size="13" font-weight="bold" fill="#1a1a1a">ThermostatCore &amp; ClimateAutomation (реліз 1–2 роки)</text>
+  <text x="52" y="442" font-size="12" fill="#1a1a1a">Сутність OutdoorCondition { tempCelsius: 22.5, isSunny: true } • Нуль змін при оновленні хмари</text>
+
+  <!-- НИЖНІЙ БАНЕР: ПРИНЦИП ЗАХИСТУ -->
+  <rect x="36" y="476" width="888" height="42" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="48" y="485" width="140" height="24" rx="4" fill="#1a1a1a"/>
+  <text x="118" y="501" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ПРИНЦИП ЗАХИСТУ</text>
+  <text x="200" y="501" font-size="12" fill="#1a1a1a">Будь-які зовнішні зміни схеми API локалізуються в трансляторі ACL. Ядро залишається незмінним і стабільним.</text>
+</svg>

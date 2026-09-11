@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Штраф непрямого виклику: промах передбачувача та очищення конвеєра</text>
+  <text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Поліморфний виклик через vtable спричиняє промах BTB і скидання 15–20 тактів спекулятивних інструкцій</text>
+
+  <!-- ГОЛОВНА ПАНЕЛЬ: КОНВЕЄР ПРОЦЕСОРА -->
+  <rect x="25" y="80" width="910" height="255" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="45" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Конвеєр процесора під час непрямого виклику: call [rax + 16]</text>
+  <rect x="755" y="84" width="160" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="835" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Штраф: 15–20 тактів</text>
+
+  <!-- СТАДІЇ КОНВЕЄРА (4 блоки) -->
+
+  <!-- Стадія 1: Fetch -->
+  <rect x="45" y="120" width="195" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="142" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1. ВИБІРКА (FETCH)</text>
+  <text x="142" y="157" text-anchor="middle" font-size="12" fill="#1a1a1a">Передбачувач BTB</text>
+  <text x="142" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Хибний прогноз адреси</text>
+  <text x="142" y="193" text-anchor="middle" font-size="12" fill="#6b7280">Спекулятивний потік</text>
+
+  <line x1="240" y1="167" x2="268" y2="167" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Стадія 2: Decode -->
+  <rect x="270" y="120" width="195" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="367" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">2. ДЕКОДУВАННЯ (DECODE)</text>
+  <text x="367" y="157" text-anchor="middle" font-size="12" fill="#1a1a1a">Розбір інструкцій</text>
+  <text x="367" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Хибна гілка виконання</text>
+  <text x="367" y="193" text-anchor="middle" font-size="12" fill="#6b7280">Марні мікрооперації</text>
+
+  <line x1="465" y1="167" x2="493" y2="167" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Стадія 3: Dispatch -->
+  <rect x="495" y="120" width="195" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="592" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">3. ДИСПЕТЧЕР (ROB)</text>
+  <text x="592" y="157" text-anchor="middle" font-size="12" fill="#1a1a1a">Буфер перевпорядкування</text>
+  <text x="592" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">15–20 інструкцій у черзі</text>
+  <text x="592" y="193" text-anchor="middle" font-size="12" fill="#6b7280">Очікують підтвердження</text>
+
+  <line x1="690" y1="167" x2="718" y2="167" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Стадія 4: Execute -->
+  <rect x="720" y="120" width="195" height="95" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="817" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">4. ВИКОНАННЯ (EXECUTE)</text>
+  <text x="817" y="157" text-anchor="middle" font-size="12" fill="#2457d6">Зчитування vtable[16]</text>
+  <text x="817" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ПРОМАХ! Факт != Прогноз</text>
+  <text x="817" y="193" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">СИГНАЛ: PIPELINE FLUSH</text>
+
+  <!-- Зворотна хвиля очищення (Flush Wave) -->
+  <text x="480" y="238" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ОЧИЩЕННЯ КОНВЕЄРА (FLUSH): Усі спекулятивні інструкції скасовано</text>
+  <line x1="817" y1="248" x2="147" y2="248" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arr-red)"/>
+
+  <!-- Плашка простою (15-20 тактів) -->
+  <rect x="135" y="265" width="690" height="55" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="286" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ШТРАФ ПРОСТОЮ: 15–20 тактів процесора змарновано (Bubble / Pipeline Stall)</text>
+  <text x="480" y="306" text-anchor="middle" font-size="12" fill="#1a1a1a">Конвеєр порожній: вибірка починається спочатку за реальною адресою з пам'яті</text>
+
+  <!-- НИЖНІ ПОЯСНЮВАЛЬНІ КАРТКИ (3 шт) -->
+
+  <!-- Картка 1: Непрямий виклик -->
+  <rect x="25" y="350" width="293" height="175" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="374" font-size="13" font-weight="bold" fill="#2457d6">1. Непрямий перехід vtable</text>
+  <text x="40" y="398" font-size="12" font-weight="bold" fill="#1a1a1a">Команда:</text>
+  <text x="105" y="398" font-size="12" fill="#2457d6">call [rax + 16] (vptr -&gt; func)</text>
+  <text x="40" y="422" font-size="12" font-weight="bold" fill="#1a1a1a">Проблема:</text>
+  <text x="105" y="422" font-size="12" fill="#1a1a1a">адреса невідома до читання</text>
+  <text x="40" y="446" font-size="12" fill="#1a1a1a">Об'єктний поліморфізм ховає</text>
+  <text x="40" y="466" font-size="12" fill="#1a1a1a">цільову функцію в пам'яті ОЗП</text>
+  <text x="171" y="500" text-anchor="middle" font-size="12" font-style="italic" fill="#6b7280">Ціна динамічного диспетчера</text>
+
+  <!-- Картка 2: Промах BTB -->
+  <rect x="333" y="350" width="294" height="175" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="348" y="374" font-size="13" font-weight="bold" fill="#c0392b">2. Промах передбачувача (BTB)</text>
+  <text x="348" y="398" font-size="12" font-weight="bold" fill="#1a1a1a">BTB буфер:</text>
+  <text x="425" y="398" font-size="12" fill="#1a1a1a">кешує попередній перехід</text>
+  <text x="348" y="422" font-size="12" font-weight="bold" fill="#c0392b">Збій прогнозу:</text>
+  <text x="445" y="422" font-size="12" fill="#c0392b">мегаморфний виклик</text>
+  <text x="348" y="446" font-size="12" fill="#1a1a1a">Різні типи в одному циклі збивають</text>
+  <text x="348" y="466" font-size="12" fill="#1a1a1a">історію передбачувача переходів</text>
+  <text x="480" y="500" text-anchor="middle" font-size="12" font-style="italic" fill="#c0392b">Спекуляція йде хибним шляхом</text>
+
+  <!-- Картка 3: Інженерний наслідок -->
+  <rect x="642" y="350" width="293" height="175" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="657" y="374" font-size="13" font-weight="bold" fill="#27ae60">3. Інженерний наслідок</text>
+  <text x="657" y="398" font-size="12" font-weight="bold" fill="#1a1a1a">Втрата:</text>
+  <text x="715" y="398" font-size="12" font-weight="bold" fill="#c0392b">15–20 невикористаних тактів</text>
+  <text x="657" y="422" font-size="12" font-weight="bold" fill="#1a1a1a">Неможливо:</text>
+  <text x="740" y="422" font-size="12" fill="#1a1a1a">інлайнінг (вбудовування)</text>
+  <text x="657" y="446" font-size="12" fill="#1a1a1a">Компілятор не оптимізує тіло</text>
+  <text x="657" y="466" font-size="12" font-weight="bold" fill="#27ae60">Розв'язок: DOD / мономорфізм</text>
+  <text x="788" y="500" text-anchor="middle" font-size="12" font-style="italic" fill="#6b7280">Плата за інтерфейсну ізоляцію</text>
+</svg>

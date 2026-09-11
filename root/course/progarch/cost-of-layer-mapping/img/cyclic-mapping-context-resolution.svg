@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розв'язання циклічних посилань під час мапінгу через @Context</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Карта ідентичності перехоплює зворотні посилання й повертає готовий DTO замість рекурсії</text>
+
+  <!-- Колонка 1: Доменні сутності -->
+  <rect x="40" y="84" width="240" height="372" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="40" y="84" width="240" height="32" rx="8" fill="#eaf0fd"/>
+  <text x="160" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Доменні сутності</text>
+
+  <!-- Entity 1: Parent -->
+  <rect x="56" y="130" width="208" height="92" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="56" y="130" width="208" height="24" rx="6" fill="#eaf0fd"/>
+  <text x="160" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ParentEntity (id: 1)</text>
+  <text x="68" y="170" font-size="12" fill="#1a1a1a">title: "Головний офіс"</text>
+  <text x="68" y="190" font-size="12" fill="#1a1a1a">children: List&lt;ChildEntity&gt;</text>
+  <text x="68" y="210" font-size="12" fill="#6b7280">ref: @0x4a12</text>
+
+  <!-- Зв'язки між сутностями -->
+  <line x1="126" y1="222" x2="126" y2="282" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="112" y="256" text-anchor="end" font-size="12" fill="#2457d6">children</text>
+
+  <line x1="194" y1="288" x2="194" y2="228" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="208" y="256" font-size="12" font-weight="bold" fill="#c0392b">parent</text>
+
+  <!-- Entity 2: Child -->
+  <rect x="56" y="288" width="208" height="92" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="56" y="288" width="208" height="24" rx="6" fill="#eaf0fd"/>
+  <text x="160" y="304" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ChildEntity (id: 10)</text>
+  <text x="68" y="328" font-size="12" fill="#1a1a1a">name: "Відділ продажів"</text>
+  <text x="68" y="348" font-size="12" font-weight="bold" fill="#c0392b">parent: ParentEntity</text>
+  <text x="68" y="368" font-size="12" fill="#6b7280">ref: @0x8b34</text>
+
+  <!-- Примітка Колонки 1 -->
+  <rect x="56" y="394" width="208" height="48" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="160" y="412" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Двобічний зв'язок</text>
+  <text x="160" y="430" text-anchor="middle" font-size="12" fill="#6b7280">Взаємні посилання сутностей</text>
+
+  <!-- Колонка 2: Контекст мапінгу -->
+  <rect x="300" y="84" width="360" height="372" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="300" y="84" width="360" height="32" rx="8" fill="#e9f7ef"/>
+  <text x="480" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">2. Контекст мапінгу (@Context)</text>
+
+  <!-- Identity Map Table -->
+  <rect x="316" y="130" width="328" height="116" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="316" y="130" width="328" height="24" rx="6" fill="#e9f7ef"/>
+  <text x="480" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Карта ідентичності (knownInstances)</text>
+
+  <text x="326" y="174" font-size="12" font-family="monospace" fill="#2457d6">ParentEntity @0x4a12</text>
+  <text x="472" y="174" font-size="12" fill="#6b7280">►</text>
+  <text x="492" y="174" font-size="12" font-family="monospace" fill="#27ae60">ParentDto @0x9f01</text>
+  <text x="326" y="192" font-size="12" fill="#6b7280">Крок 1: зареєстровано Parent</text>
+
+  <text x="326" y="214" font-size="12" font-family="monospace" fill="#2457d6">ChildEntity  @0x8b34</text>
+  <text x="472" y="214" font-size="12" fill="#6b7280">►</text>
+  <text x="492" y="214" font-size="12" font-family="monospace" fill="#27ae60">ChildDto  @0x7c22</text>
+  <text x="326" y="232" font-size="12" fill="#6b7280">Крок 2: зареєстровано Child</text>
+
+  <!-- Перевірка зворотного посилання -->
+  <rect x="316" y="260" width="328" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="480" y="278" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Мапінг child.parent: пошук у карті</text>
+  <text x="480" y="294" text-anchor="middle" font-size="12" font-family="monospace" fill="#2457d6">context.getMappedInstance(parentEntity)</text>
+
+  <!-- Успішне перехоплення (Cache Hit) -->
+  <rect x="316" y="316" width="328" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="326" y="336" font-size="12" font-weight="bold" fill="#27ae60">✓ ЗНАЙДЕНО В КАРТІ (Cache Hit):</text>
+  <text x="326" y="354" font-size="12" fill="#1a1a1a">Повертає вже наявний ParentDto @0x9f01</text>
+  <text x="326" y="368" font-size="12" fill="#6b7280">Цикл безпечно закрито, нової копії немає</text>
+
+  <!-- Заблокована рекурсія -->
+  <rect x="316" y="386" width="328" height="56" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="326" y="404" font-size="12" font-weight="bold" fill="#c0392b">✗ БЕЗ @CONTEXT (Зациклення):</text>
+  <text x="326" y="422" font-size="12" fill="#1a1a1a">toParentDto() ──► toChildDto() (рекурсія)</text>
+  <text x="326" y="436" font-size="12" font-weight="bold" fill="#c0392b">Аварія: java.lang.StackOverflowError</text>
+
+  <!-- Колонка 3: Цільові DTO -->
+  <rect x="680" y="84" width="240" height="372" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="680" y="84" width="240" height="32" rx="8" fill="#e9f7ef"/>
+  <text x="800" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">3. Сформовані DTO</text>
+
+  <!-- DTO 1: Parent -->
+  <rect x="696" y="130" width="208" height="92" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="696" y="130" width="208" height="24" rx="6" fill="#e9f7ef"/>
+  <text x="800" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ParentDto (id: 1)</text>
+  <text x="708" y="170" font-size="12" fill="#1a1a1a">title: "Головний офіс"</text>
+  <text x="708" y="190" font-size="12" fill="#1a1a1a">children: List&lt;ChildDto&gt;</text>
+  <text x="708" y="210" font-size="12" fill="#6b7280">ref: @0x9f01</text>
+
+  <!-- Зв'язки між DTO -->
+  <line x1="766" y1="222" x2="766" y2="282" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="752" y="256" text-anchor="end" font-size="12" fill="#27ae60">children</text>
+
+  <line x1="834" y1="288" x2="834" y2="228" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="848" y="256" font-size="12" font-weight="bold" fill="#27ae60">parent</text>
+
+  <!-- DTO 2: Child -->
+  <rect x="696" y="288" width="208" height="92" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="696" y="288" width="208" height="24" rx="6" fill="#e9f7ef"/>
+  <text x="800" y="304" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ChildDto (id: 10)</text>
+  <text x="708" y="328" font-size="12" fill="#1a1a1a">name: "Відділ продажів"</text>
+  <text x="708" y="348" font-size="12" font-weight="bold" fill="#27ae60">parent: ParentDto</text>
+  <text x="708" y="368" font-size="12" fill="#6b7280">ref: @0x9f01 (той самий!)</text>
+
+  <!-- Примітка Колонки 3 -->
+  <rect x="696" y="394" width="208" height="48" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="800" y="412" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Цілісний DTO-граф</text>
+  <text x="800" y="430" text-anchor="middle" font-size="12" fill="#6b7280">Один спільний ParentDto</text>
+
+  <!-- Стрілки між колонками (перенесення) -->
+  <line x1="264" y1="176" x2="310" y2="176" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="264" y1="334" x2="310" y2="218" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="644" y1="345" x2="690" y2="345" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Нижній підсумковий банер -->
+  <rect x="40" y="474" width="880" height="34" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="496" text-anchor="middle" font-size="12" fill="#1a1a1a">Карта ідентичності перетворює рекурсивний спуск на пошук у кеші, зберігаючи топологію графа об'єктів</text>
+</svg>

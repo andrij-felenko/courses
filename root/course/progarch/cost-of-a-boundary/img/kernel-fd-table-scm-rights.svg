@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Передача файлового дескриптора між процесами через SCM_RIGHTS</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Ядро створює новий локальний дескриптор, що посилається на той самий системний об'єкт struct file</text>
+
+  <!-- COLUMN 1: PROCESS A -->
+  <rect x="30" y="82" width="250" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="42" y="94" width="130" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="107" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ПРОЦЕС A</text>
+  <text x="42" y="132" font-size="12" fill="#6b7280">Адресний простір A (PID 101)</text>
+
+  <!-- Process A fdtable card -->
+  <rect x="42" y="146" width="226" height="244" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="54" y="168" font-size="13" font-weight="bold" fill="#1a1a1a">Таблиця fd (fdtable)</text>
+
+  <!-- Rows in fdtable A -->
+  <rect x="54" y="180" width="202" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="64" y="196" font-size="12" fill="#6b7280">fd 0: stdin</text>
+
+  <rect x="54" y="218" width="202" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="64" y="234" font-size="12" fill="#6b7280">fd 1: stdout</text>
+
+  <rect x="54" y="256" width="202" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="64" y="272" font-size="12" fill="#6b7280">fd 2: stderr</text>
+
+  <rect x="54" y="294" width="202" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="64" y="310" font-size="12" font-weight="bold" fill="#2457d6">fd 3: unix_sock (канал)</text>
+
+  <rect x="54" y="332" width="202" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="64" y="348" font-size="12" font-weight="bold" fill="#c0392b">fd 4: file_fd (передається)</text>
+  <text x="64" y="362" font-size="12" fill="#6b7280">→ спільна struct file</text>
+
+  <!-- Process A sendmsg note -->
+  <rect x="42" y="404" width="226" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="54" y="422" font-size="12" font-weight="bold" fill="#1a1a1a">sendmsg(fd 3, &amp;msg, 0)</text>
+  <text x="54" y="438" font-size="12" fill="#6b7280">cmsg: SCM_RIGHTS = [4]</text>
+
+  <!-- COLUMN 2: KERNEL SPACE -->
+  <rect x="305" y="82" width="350" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="317" y="94" width="180" height="24" rx="4" fill="#f4f6f8" stroke="#1a1a1a"/>
+  <text x="407" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ПРОСТІР ЯДРА (KERNEL)</text>
+  <text x="317" y="132" font-size="12" fill="#6b7280">Керування спільними файловими структурами</text>
+
+  <!-- Kernel socket buffer card -->
+  <rect x="317" y="146" width="326" height="82" rx="6" fill="white" stroke="#2457d6"/>
+  <text x="329" y="166" font-size="12" font-weight="bold" fill="#2457d6">Буфер сокета: передача SCM_RIGHTS</text>
+  <text x="329" y="184" font-size="12" fill="#1a1a1a">1. Ядро бере struct file* за номером fd 4</text>
+  <text x="329" y="200" font-size="12" fill="#1a1a1a">2. Збільшує лічильник посилань f_count++</text>
+  <text x="329" y="216" font-size="12" font-weight="bold" fill="#27ae60">3. Виділяє новий вільний fd 7 для процесу B</text>
+
+  <!-- Kernel Open File Table card -->
+  <rect x="317" y="242" width="326" height="152" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="329" y="262" font-size="13" font-weight="bold" fill="#27ae60">struct file (системний об'єкт файлу)</text>
+  <text x="329" y="278" font-size="12" fill="#6b7280">Єдиний спільний екземпляр у пам'яті ядра</text>
+
+  <!-- Fields inside struct file -->
+  <rect x="329" y="284" width="302" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="339" y="300" font-size="12" font-weight="bold" fill="#27ae60">f_count = 2 (посилання: A.fd4 + B.fd7)</text>
+
+  <rect x="329" y="322" width="302" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="339" y="338" font-size="12" fill="#1a1a1a">f_pos = 1024 (спільний зсув читання/запису)</text>
+
+  <rect x="329" y="360" width="302" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="339" y="376" font-size="12" fill="#1a1a1a">f_inode → struct inode (дані на диску)</text>
+
+  <!-- Kernel Note bottom -->
+  <rect x="317" y="408" width="326" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="329" y="426" font-size="12" font-weight="bold" fill="#1a1a1a">Файловий дескриптор — лише локальний індекс</text>
+  <text x="329" y="442" font-size="12" fill="#6b7280">Справжній стан (зсув, блокування) живе в ядрі</text>
+
+  <!-- COLUMN 3: PROCESS B -->
+  <rect x="680" y="82" width="250" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="692" y="94" width="130" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="757" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ПРОЦЕС B</text>
+  <text x="692" y="132" font-size="12" fill="#6b7280">Адресний простір B (PID 204)</text>
+
+  <!-- Process B fdtable card -->
+  <rect x="692" y="146" width="226" height="244" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="704" y="168" font-size="13" font-weight="bold" fill="#1a1a1a">Таблиця fd (fdtable)</text>
+
+  <!-- Rows in fdtable B -->
+  <rect x="704" y="180" width="202" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="714" y="196" font-size="12" fill="#6b7280">fd 0: stdin</text>
+
+  <rect x="704" y="218" width="202" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="714" y="234" font-size="12" fill="#6b7280">fd 1: stdout</text>
+
+  <rect x="704" y="256" width="202" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="714" y="272" font-size="12" fill="#6b7280">fd 2: stderr</text>
+
+  <rect x="704" y="294" width="202" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="714" y="310" font-size="12" font-weight="bold" fill="#2457d6">fd 3: unix_sock (канал)</text>
+
+  <rect x="704" y="332" width="202" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="714" y="348" font-size="12" font-weight="bold" fill="#27ae60">fd 7: новий fd (отримано)</text>
+  <text x="714" y="362" font-size="12" fill="#6b7280">→ та сама struct file</text>
+
+  <!-- Process B recvmsg note -->
+  <rect x="692" y="404" width="226" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="704" y="422" font-size="12" font-weight="bold" fill="#1a1a1a">recvmsg(fd 3, &amp;msg, 0)</text>
+  <text x="704" y="438" font-size="12" font-weight="bold" fill="#27ae60">отримано новий fd = 7</text>
+
+  <!-- CONNECTING PATHS -->
+  <!-- Socketpair flow (blue) -->
+  <path d="M 256 306 L 285 306 L 285 187 L 313 187" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 643 187 L 670 187 L 670 306 L 700 306" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Pointer from Process A fd 4 to struct file (red) -->
+  <path d="M 256 351 L 292 351 L 292 296 L 325 296" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+
+  <!-- Pointer from Process B fd 7 to struct file (green) -->
+  <path d="M 704 351 L 665 351 L 665 296 L 633 296" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+</svg>

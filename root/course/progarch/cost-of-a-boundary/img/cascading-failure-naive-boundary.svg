@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  <text x="480" y="39" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Каскадний колапс через наївний блокуючий виклик</text>
+  <text x="480" y="59" font-size="13" fill="#6b7280" text-anchor="middle">Зависання віддаленого вузла поглинає пул потоків викликача та паралізує всю систему</text>
+  <!-- Ліва панель: Сервіс-викликач -->
+  <rect x="28" y="76" width="426" height="362" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="28" y="76" width="426" height="48" rx="8" fill="#fdecea"/>
+  <line x1="28" y1="124" x2="454" y2="124" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="97" font-size="14" font-weight="bold" fill="#c0392b">Сервіс-викликач (API Gateway / Оркестратор)</text>
+  <text x="44" y="114" font-size="12" fill="#6b7280">Спільний пул потоків паралізується очікуванням межі</text>
+  <rect x="44" y="138" width="394" height="186" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="56" y="157" font-size="12" font-weight="bold" fill="#c0392b">Пул робочих потоків (Thread Pool: 4 / 4 заблоковано)</text>
+  <rect x="54" y="170" width="374" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="62" y="188" font-size="12" font-weight="bold" fill="#c0392b">Потік 1: [БЛОКОВАНО]</text>
+  <text x="420" y="188" font-size="12" fill="#c0392b" text-anchor="end">очікує Сервіс B (52 с) ➔</text>
+  <rect x="54" y="208" width="374" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="62" y="226" font-size="12" font-weight="bold" fill="#c0392b">Потік 2: [БЛОКОВАНО]</text>
+  <text x="420" y="226" font-size="12" fill="#c0392b" text-anchor="end">очікує Сервіс B (38 с) ➔</text>
+  <rect x="54" y="246" width="374" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="62" y="264" font-size="12" font-weight="bold" fill="#c0392b">Потік 3: [БЛОКОВАНО]</text>
+  <text x="420" y="264" font-size="12" fill="#c0392b" text-anchor="end">очікує Сервіс B (19 с) ➔</text>
+  <rect x="54" y="284" width="374" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="62" y="302" font-size="12" font-weight="bold" fill="#c0392b">Потік 4: [БЛОКОВАНО]</text>
+  <text x="420" y="302" font-size="12" fill="#c0392b" text-anchor="end">очікує Сервіс B (4 с) ➔</text>
+  <rect x="44" y="338" width="394" height="88" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="56" y="358" font-size="12" font-weight="bold" fill="#c0392b">Колапс: 100% пулу вичерпано на одному сервісі</text>
+  <text x="56" y="377" font-size="12" fill="#1a1a1a">• Нові запити відкидаються (HTTP 503 / черга повна)</text>
+  <text x="56" y="395" font-size="12" fill="#1a1a1a">• Падають навіть інші ендпоінти (Users, Catalog)</text>
+  <text x="56" y="413" font-size="12" fill="#6b7280">• Частковий збій перетворився на повний колапс</text>
+  <!-- Межа між сервісами -->
+  <line x1="480" y1="130" x2="480" y2="430" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="454" y1="183" x2="506" y2="183" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="454" y1="221" x2="506" y2="221" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="454" y1="259" x2="506" y2="259" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="454" y1="297" x2="506" y2="297" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <!-- Права панель: Віддалений сервіс B -->
+  <rect x="506" y="76" width="426" height="362" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="506" y="76" width="426" height="48" rx="8" fill="#fdecea"/>
+  <line x1="506" y1="124" x2="932" y2="124" stroke="#d0d7de" stroke-width="1"/>
+  <text x="522" y="97" font-size="14" font-weight="bold" fill="#c0392b">Віддалений сервіс B (Джерело деградації)</text>
+  <text x="522" y="114" font-size="12" fill="#6b7280">Тихе зависання: затримка росте до нескінченності</text>
+  <rect x="522" y="138" width="394" height="76" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="534" y="158" font-size="12" font-weight="bold" fill="#c0392b">Стан сервісу: Латентність ➔ ∞ (Fail-Silent)</text>
+  <text x="534" y="178" font-size="12" fill="#1a1a1a">• Причина: deadlock БД, вичерпання пулу, GC-лаг</text>
+  <text x="534" y="198" font-size="12" fill="#6b7280">• Пакети не йдуть, але TCP-сокет лишається відкритим</text>
+  <rect x="522" y="228" width="394" height="96" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="534" y="248" font-size="12" font-weight="bold" fill="#c0392b">Завислі з'єднання на боці Сервісу B:</text>
+  <text x="534" y="268" font-size="12" fill="#1a1a1a">• 4 виклики зависли у синхронному очікуванні</text>
+  <text x="534" y="288" font-size="12" fill="#1a1a1a">• Сервіс B не повертає ні відповіді, ні RST / HTTP 500</text>
+  <text x="534" y="308" font-size="12" fill="#c0392b">• Без таймауту викликач приречений чекати нескінченно</text>
+  <rect x="522" y="338" width="394" height="88" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="534" y="358" font-size="12" font-weight="bold" fill="#1a1a1a">Чому тихе зависання гірше за швидкий збій?</text>
+  <text x="534" y="377" font-size="12" fill="#6b7280">• Швидкий збій (Fail-Fast) одразу звільняє потік</text>
+  <text x="534" y="395" font-size="12" fill="#6b7280">• Зависання (Slowdown) діє як пастка для ресурсів</text>
+  <text x="534" y="413" font-size="12" fill="#c0392b">• «Повільність — це найнебезпечніша форма відмови»</text>
+  <!-- Підсумковий висновок унизу: 3 механізми захисту -->
+  <rect x="28" y="450" width="904" height="88" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="470" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Як запобігти каскадному колапсу (Контракт захищеної межі):</text>
+  <text x="44" y="490" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">1. Жорсткі таймаути (Timeouts):</tspan> ліміт очікування (наприклад 500 мс) замість нескінченного зависання</text>
+  <text x="44" y="508" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">2. Ізоляція відсіками (Bulkheads):</tspan> окремий ліміт потоків для Сервісу B, щоб захистити решту системи</text>
+  <text x="44" y="526" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">3. Розмикач ланцюга (Circuit Breaker):</tspan> швидка відмова (Fast-Fail) та fallback при повторюваних збоях</text>
+</svg>

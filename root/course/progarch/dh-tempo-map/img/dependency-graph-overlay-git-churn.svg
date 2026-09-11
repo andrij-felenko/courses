@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналіз темпів: Накладання Git-метрик churn на граф залежностей</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Архітектурний лінтер блокує ребра залежностей від повільних модулів ядра до швидкозмінної периферії</text>
+
+  <!-- LEFT PANEL: Dependency Graph with Git Churn Overlay -->
+  <rect x="25" y="70" width="585" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Node 1: Fast UI (Top-Left) -->
+  <rect x="45" y="100" width="220" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="155" y="122" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ui-dashboard</text>
+  <text x="155" y="144" font-size="12" fill="#2457d6" text-anchor="middle">🔥 Churn: 142 коміти/міс</text>
+
+  <!-- Node 2: Moderate Telemetry (Top-Right) -->
+  <rect x="370" y="100" width="220" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="122" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">device-telemetry</text>
+  <text x="480" y="144" font-size="12" fill="#6b7280" text-anchor="middle">⚡ Churn: 38 комітів/міс</text>
+
+  <!-- Node 3: Slow Core Billing (Bottom-Left) -->
+  <rect x="45" y="270" width="220" height="60" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="155" y="292" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">billing-core</text>
+  <text x="155" y="314" font-size="12" fill="#27ae60" text-anchor="middle">🛡️ Churn: 3 коміти/міс</text>
+
+  <!-- Node 4: Slow Core Identity (Bottom-Right) -->
+  <rect x="370" y="270" width="220" height="60" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="292" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">account-identity</text>
+  <text x="480" y="314" font-size="12" fill="#27ae60" text-anchor="middle">🛡️ Churn: 1 коміт/міс</text>
+
+  <!-- Edge 1: UI -> Billing (Legal) -->
+  <line x1="100" y1="160" x2="100" y2="262" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="110" y="206" font-size="12" fill="#27ae60">✓ Дозволено</text>
+  <text x="110" y="224" font-size="12" fill="#27ae60">(Швидкий → Повільний)</text>
+
+  <!-- Edge 2: Telemetry -> Identity (Legal) -->
+  <line x1="520" y1="160" x2="520" y2="262" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="530" y="215" font-size="12" fill="#27ae60">✓ Дозволено</text>
+
+  <!-- Edge 3: Identity -> UI (Illegal Inversion) -->
+  <line x1="370" y1="270" x2="273" y2="168" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5,3" marker-end="url(#arr-red)"/>
+  <text x="325" y="190" font-size="12" font-weight="bold" fill="#c0392b">⛔ ЗАБОРОНЕНО:</text>
+  <text x="325" y="208" font-size="12" font-weight="bold" fill="#c0392b">Інверсія темпу</text>
+
+  <!-- Bottom Explanation Banner -->
+  <rect x="45" y="355" width="545" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="376" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">Аналіз Git-churn:</tspan> обчислення частоти комітів по кожному модулю</text>
+  <text x="60" y="398" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">Правило зсуву:</tspan> Ребро A → B заборонене, якщо Churn(A) &lt;&lt; Churn(B)</text>
+  <text x="60" y="420" font-size="12" fill="#6b7280">Повільне ядро не може імпортувати швидкозмінний UI/периферію</text>
+
+  <!-- RIGHT PANEL: CI/CD Linter Audit Result -->
+  <rect x="630" y="70" width="305" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Top Red Box: CI/CD Build Audit -->
+  <rect x="645" y="85" width="275" height="190" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="660" y="108" font-size="13" font-weight="bold" fill="#c0392b">❌ CI/CD Build FAILED</text>
+  <text x="660" y="130" font-size="12" font-weight="bold" fill="#1a1a1a">[Tempo Linter Audit]</text>
+  <text x="660" y="150" font-size="12" fill="#c0392b">Pace Inversion Detected!</text>
+  <text x="660" y="172" font-size="12" fill="#1a1a1a">account-identity (τ=1)</text>
+  <text x="660" y="192" font-size="12" fill="#c0392b">  └─&gt; imports ui-dashboard (τ=142)</text>
+  <text x="660" y="218" font-size="12" fill="#c0392b">Помилка: Ядро системи зачеплено</text>
+  <text x="660" y="238" font-size="12" fill="#c0392b">волатильним компонентом UI.</text>
+  <text x="660" y="260" font-size="12" fill="#6b7280">PR заблоковано автоматично.</text>
+
+  <!-- Bottom Green Box: Architecture Protection -->
+  <rect x="645" y="290" width="275" height="150" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="660" y="313" font-size="13" font-weight="bold" fill="#27ae60">✓ Захист архітектури</text>
+  <text x="660" y="335" font-size="12" fill="#1a1a1a">• Запобігає випадковому</text>
+  <text x="660" y="353" font-size="12" fill="#1a1a1a">  протіканню шкідливих імпортів</text>
+  <text x="660" y="375" font-size="12" fill="#27ae60">• Зберігає автономність темпів</text>
+  <text x="660" y="395" font-size="12" fill="#27ae60">• Захищає ядро від регресій</text>
+  <text x="660" y="422" font-size="12" fill="#6b7280">Автоматичний контроль у CI/CD</text>
+</svg>

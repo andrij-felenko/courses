@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="490" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Скидання навантаження (Load Shedding) та маршрутизація в DLQ</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Захист виконавчого ядра від переповнення черги та ізоляція збійних команд</text>
+
+  <!-- КОЛОНКА 1: ВХІДНІ ПОВІДОМЛЕННЯ -->
+  <rect x="25" y="78" width="205" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="127.5" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідні повідомлення</text>
+  <text x="127.5" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Піковий сплеск (Burst)</text>
+
+  <!-- Блок 1.1: Критичні команди -->
+  <rect x="37" y="135" width="181" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="127.5" y="154" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Критичні команди</text>
+  <rect x="47" y="161" width="161" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="127.5" y="181" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">LockDoor, ShutOffGas</text>
+
+  <!-- Блок 1.2: Спам / низький пріоритет -->
+  <rect x="37" y="213" width="181" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="127.5" y="232" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Спам вимірів та слайдерів</text>
+  <rect x="47" y="239" width="161" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="127.5" y="259" font-size="12" fill="#c0392b" text-anchor="middle">SliderMove=81, 82, 83...</text>
+
+  <!-- Блок 1.3: Збійні повідомлення -->
+  <rect x="37" y="291" width="181" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="127.5" y="310" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Збійні команди</text>
+  <rect x="47" y="317" width="161" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="127.5" y="337" font-size="12" fill="#2457d6" text-anchor="middle">TTL expired / Бита схема</text>
+
+  <!-- Блок 1.4: Статистика сплеску -->
+  <rect x="37" y="369" width="181" height="89" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="127.5" y="391" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стан навантаження</text>
+  <text x="127.5" y="411" font-size="12" fill="#6b7280" text-anchor="middle">• Вхідний потік: 500 msg/s</text>
+  <text x="127.5" y="429" font-size="12" fill="#6b7280" text-anchor="middle">• Ліміт ядра: 50 msg/s</text>
+  <text x="127.5" y="447" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">• Сплеск у 10 разів більше</text>
+
+
+  <!-- Стрілка з Колонки 1 в Колонку 2 -->
+  <line x1="230" y1="188" x2="253" y2="188" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+
+  <!-- КОЛОНКА 2: ШИНА ІЗОЛЯЦІЇ ТЕМПІВ -->
+  <rect x="255" y="78" width="445" height="392" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="477.5" y="103" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина ізоляції темпів (Tempo Buffer)</text>
+  <text x="477.5" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Контроль заповнення, черги та селективне скидання</text>
+
+  <!-- Блок 2.1: Стан черги -->
+  <rect x="269" y="135" width="417" height="106" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="477.5" y="154" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кільцева черга команд (Ring Buffer, місткість = 100)</text>
+  <text x="477.5" y="170" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ПЕРЕПОВНЕННЯ: Заповнено 100/100 (High Watermark 100%)</text>
+
+  <!-- 4 комірки буфера з просвітами по 14px -->
+  <rect x="283" y="178" width="86" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="326" y="198" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">cmd_1</text>
+  <text x="326" y="218" font-size="12" fill="#27ae60" text-anchor="middle">Критична</text>
+
+  <rect x="383" y="178" width="86" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="426" y="198" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">cmd_2</text>
+  <text x="426" y="218" font-size="12" fill="#27ae60" text-anchor="middle">Критична</text>
+
+  <rect x="483" y="178" width="86" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="526" y="198" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">cmd_99</text>
+  <text x="526" y="218" font-size="12" fill="#2457d6" text-anchor="middle">Хвіст черги</text>
+
+  <rect x="583" y="178" width="86" height="52" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="626" y="198" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">cmd_100+</text>
+  <text x="626" y="218" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Скидання</text>
+
+
+  <!-- Блок 2.2: Load Shedding -->
+  <rect x="269" y="253" width="417" height="98" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="477.5" y="273" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Політика скидання: Drop Tail / Low Priority Shedding</text>
+  <text x="477.5" y="294" font-size="12" fill="#1a1a1a" text-anchor="middle">• Низькопріоритетний потік відкидається без збереження</text>
+  <text x="477.5" y="314" font-size="12" fill="#c0392b" text-anchor="middle">• Сигнал зворотного тиску клієнту: HTTP 429</text>
+  <text x="477.5" y="334" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">• Ядро захищене від OOM, критичні команди в черзі</text>
+
+
+  <!-- Блок 2.3: DLQ Routing -->
+  <rect x="269" y="363" width="417" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="477.5" y="383" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фільтрація та перенаправлення в Dead-Letter Queue</text>
+  <text x="477.5" y="404" font-size="12" fill="#1a1a1a" text-anchor="middle">• Прострочені за TTL або пошкоджені команди відсікаються</text>
+  <text x="477.5" y="424" font-size="12" fill="#2457d6" text-anchor="middle">• Збійні повідомлення не блокують основну чергу</text>
+  <text x="477.5" y="444" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">• Перенесення в DLQ для аудиту та аналізу інцидентів</text>
+
+
+  <!-- Стрілки з Колонки 2 в Колонку 3 -->
+  <line x1="700" y1="188" x2="723" y2="188" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="700" y1="302" x2="723" y2="302" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="700" y1="410" x2="723" y2="410" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+
+  <!-- КОЛОНКА 3: РЕЗУЛЬТАТИ РОЗПОДІЛУ -->
+  <rect x="725" y="78" width="210" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="830" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл результатів</text>
+  <text x="830" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Сегрегація потоків даних</text>
+
+  <!-- Блок 3.1: Виконавче ядро -->
+  <rect x="737" y="135" width="186" height="106" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="830" y="156" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Виконавче ядро</text>
+  <text x="830" y="175" font-size="12" fill="#6b7280" text-anchor="middle">Апаратні реле й приводи</text>
+  <rect x="747" y="184" width="166" height="46" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="830" y="204" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Стабільні 50 msg/s</text>
+  <text x="830" y="221" font-size="12" fill="#1a1a1a" text-anchor="middle">Нуль збоїв, захист шини</text>
+
+  <!-- Блок 3.2: Скинуті повідомлення -->
+  <rect x="737" y="253" width="186" height="98" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="830" y="273" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Скинуто (Shedding)</text>
+  <text x="830" y="292" font-size="12" fill="#6b7280" text-anchor="middle">Відхилено ~440 msg/s</text>
+  <rect x="747" y="301" width="166" height="40" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="830" y="320" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">✕ Скидання спаму</text>
+  <text x="830" y="334" font-size="12" fill="#c0392b" text-anchor="middle">HTTP 429 Too Many Req</text>
+
+  <!-- Блок 3.3: Dead-Letter Queue -->
+  <rect x="737" y="363" width="186" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="830" y="383" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Dead-Letter Queue</text>
+  <text x="830" y="402" font-size="12" fill="#6b7280" text-anchor="middle">Ізольоване сховище DLQ</text>
+  <rect x="747" y="411" width="166" height="38" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="830" y="429" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">⚠ 10 msg/s на аудит</text>
+  <text x="830" y="443" font-size="12" fill="#2457d6" text-anchor="middle">Помилки схеми / TTL=0</text>
+</svg>

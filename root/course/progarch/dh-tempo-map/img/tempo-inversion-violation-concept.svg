@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Концепція інверсії темпу змін (Tempo Inversion)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Порушення правильного напрямку залежностей дестабілізує повільне ядро системи через імпорт волатильних периферійних модулів</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: ПОРУШЕННЯ (Інверсія темпу) -->
+  <rect x="30" y="85" width="435" height="390" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247" y="115" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ Порушення (Інверсія темпу)</text>
+  <text x="247" y="135" font-size="12" fill="#1a1a1a" text-anchor="middle">Повільне ядро залежить від швидкої периферії</text>
+
+  <!-- Повільне ядро (згори в порушенні) -->
+  <rect x="70" y="155" width="355" height="75" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247" y="178" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Повільне ядро (SecurityCore)</text>
+  <text x="247" y="198" font-size="12" fill="#1a1a1a" text-anchor="middle">Темп: Низький (1 коміт/місяць) · Критичне ядро</text>
+  <text x="247" y="216" font-size="11" fill="#6b7280" text-anchor="middle">Очікувана нестабільність I = 0.2</text>
+
+  <!-- Стрілка інверсованого імпорту (згори вниз) -->
+  <line x1="247" y1="230" x2="247" y2="302" stroke="#c0392b" stroke-width="3" stroke-dasharray="6,3" marker-end="url(#arr-red)"/>
+  <text x="237" y="268" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="end">🚫 ПОМИЛКОВИЙ ІМПОРТ</text>
+  <text x="257" y="268" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">import { PromoBanner } from 'ui'</text>
+
+  <!-- Швидка периферія (знизу в порушенні) -->
+  <rect x="70" y="310" width="355" height="75" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247" y="333" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Швидка периферія (Mobile UI / Promo)</text>
+  <text x="247" y="353" font-size="12" fill="#1a1a1a" text-anchor="middle">Темп: Високий (50 комітів/тиждень) · Волатильний UI</text>
+  <text x="247" y="371" font-size="11" fill="#6b7280" text-anchor="middle">Нестабільність I = 0.9</text>
+
+  <!-- Блок наслідків порушення -->
+  <rect x="70" y="398" width="355" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="418" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">💥 Наслідок: Дестабілізація релізів</text>
+  <text x="247" y="436" font-size="11" fill="#1a1a1a" text-anchor="middle">Кожна точкова зміна в UI змушує тестувати</text>
+  <text x="247" y="452" font-size="11" fill="#1a1a1a" text-anchor="middle">та перезбирати критичне ядро безпеки!</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: НОРМА (Збереження градієнта стабільності) -->
+  <rect x="495" y="85" width="435" height="390" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712" y="115" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">✔ Норма (Градієнт стабільності)</text>
+  <text x="712" y="135" font-size="12" fill="#1a1a1a" text-anchor="middle">Швидка периферія залежить від повільного ядра</text>
+
+  <!-- Швидка периферія (згори в нормі) -->
+  <rect x="535" y="155" width="355" height="75" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="712" y="178" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Швидка периферія (Mobile UI)</text>
+  <text x="712" y="198" font-size="12" fill="#1a1a1a" text-anchor="middle">Темп: Високий (50 комітів/тиждень) · Волатильний UI</text>
+  <text x="712" y="216" font-size="11" fill="#6b7280" text-anchor="middle">Нестабільність I = 0.9</text>
+
+  <!-- Стрілка правильного імпорту (згори вниз до ядра) -->
+  <line x1="712" y1="230" x2="712" y2="302" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="702" y="268" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="end">ПРАВИЛЬНИЙ ІМПОРТ (SDP)</text>
+  <text x="722" y="268" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">import { SecurityService } from 'core'</text>
+
+  <!-- Повільне ядро (знизу в нормі) -->
+  <rect x="535" y="310" width="355" height="75" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712" y="333" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Повільне ядро (SecurityCore)</text>
+  <text x="712" y="353" font-size="12" fill="#1a1a1a" text-anchor="middle">Темп: Низький (1 коміт/місяць) · Критичне ядро</text>
+  <text x="712" y="371" font-size="11" fill="#6b7280" text-anchor="middle">Нестабільність I = 0.2</text>
+
+  <!-- Блок переваг норми -->
+  <rect x="535" y="398" width="355" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="418" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">🛡 Автономність та стабільність</text>
+  <text x="712" y="436" font-size="11" fill="#1a1a1a" text-anchor="middle">Зміни в UI не чіпають ядро; ядро не знає про UI.</text>
+  <text x="712" y="452" font-size="11" fill="#6b7280" text-anchor="middle">Лінтер CI/CD блокує будь-які інверсії!</text>
+</svg>

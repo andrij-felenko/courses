@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-axis" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Долина ціни батчингу: зміщення оптимуму між масштабами</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Чим вища фіксована затримка межі (T_fixed), тим далі вправо зміщується дно долини N*</text>
+
+  <!-- Зони неефективності -->
+  <text x="150" y="112" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Стіна латентності</text>
+  <text x="150" y="126" text-anchor="middle" font-size="12" fill="#c0392b">домінує T_fixed / N</text>
+
+  <text x="495" y="112" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Стіна буферизації</text>
+  <text x="495" y="126" text-anchor="middle" font-size="12" fill="#c0392b">домінує штраф γ · N</text>
+
+  <!-- Осі координат -->
+  <line x1="75" y1="410" x2="75" y2="95" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <line x1="75" y1="410" x2="560" y2="410" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+
+  <!-- Заголовки осей -->
+  <text x="75" y="82" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Питомі витрати C(N)</text>
+  <text x="315" y="455" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Розмір батчу N (логарифмічна шкала)</text>
+
+  <!-- Засічка осі Y -->
+  <line x1="70" y1="320" x2="75" y2="320" stroke="#6b7280"/>
+  <text x="65" y="324" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">C_min</text>
+
+  <!-- Засічки осі X -->
+  <line x1="85" y1="410" x2="85" y2="415" stroke="#6b7280"/>
+  <text x="85" y="428" text-anchor="middle" font-size="12" fill="#6b7280">1</text>
+
+  <line x1="195" y1="410" x2="195" y2="415" stroke="#6b7280"/>
+  <text x="195" y="428" text-anchor="middle" font-size="12" fill="#6b7280">10</text>
+
+  <line x1="305" y1="410" x2="305" y2="415" stroke="#6b7280"/>
+  <text x="305" y="428" text-anchor="middle" font-size="12" fill="#6b7280">100</text>
+
+  <line x1="415" y1="410" x2="415" y2="415" stroke="#6b7280"/>
+  <text x="415" y="428" text-anchor="middle" font-size="12" fill="#6b7280">1K</text>
+
+  <line x1="525" y1="410" x2="525" y2="415" stroke="#6b7280"/>
+  <text x="525" y="428" text-anchor="middle" font-size="12" fill="#6b7280">10K</text>
+
+  <!-- Вертикальні напрямні до оптимумів N* -->
+  <line x1="217" y1="325" x2="217" y2="410" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="350" y1="325" x2="350" y2="410" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="482" y1="325" x2="482" y2="410" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Крива 1: Системний виклик (Зелена) -->
+  <path d="M 85,140 C 110,230 160,320 217,320 C 270,320 330,240 380,150" stroke="#27ae60" stroke-width="3" fill="none"/>
+  <circle cx="217" cy="320" r="5" fill="#27ae60" stroke="white" stroke-width="2"/>
+  <text x="217" y="278" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Системний виклик</text>
+  <text x="217" y="294" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">N* ≈ 16</text>
+
+  <!-- Крива 2: Локальна БД / IPC (Синя) -->
+  <path d="M 180,140 C 210,230 290,320 350,320 C 410,320 470,240 510,150" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <circle cx="350" cy="320" r="5" fill="#2457d6" stroke="white" stroke-width="2"/>
+  <text x="350" y="278" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Локальна БД / IPC</text>
+  <text x="350" y="294" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">N* ≈ 256</text>
+
+  <!-- Крива 3: Глобальна мережа (Червона) -->
+  <path d="M 310,140 C 340,230 420,320 482,320 C 510,320 535,270 545,220" stroke="#c0392b" stroke-width="3" fill="none"/>
+  <circle cx="482" cy="320" r="5" fill="#c0392b" stroke="white" stroke-width="2"/>
+  <text x="482" y="278" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Глобальна мережа</text>
+  <text x="482" y="294" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">N* ≈ 4096</text>
+
+  <!-- Панель 1: Системний виклик -->
+  <rect x="590" y="95" width="345" height="110" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="605" y1="116" x2="635" y2="116" stroke="#27ae60" stroke-width="3"/>
+  <text x="645" y="120" font-size="13" font-weight="bold" fill="#27ae60">1. Системний виклик (Ядро / OS)</text>
+  <text x="605" y="142" font-size="12" font-weight="bold" fill="#1a1a1a">T_fixed ≈ 100–300 нс  |  N* ≈ 16–64</text>
+  <text x="605" y="160" font-size="12" fill="#6b7280">Перемикання контексту ядра (ring 0).</text>
+  <text x="605" y="176" font-size="12" fill="#6b7280">Виграш батчингу: буферизований I/O,</text>
+  <text x="605" y="192" font-size="12" fill="#1a1a1a">writev / epoll знімають накладні такти.</text>
+
+  <!-- Панель 2: Локальна БД -->
+  <rect x="590" y="217" width="345" height="110" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="605" y1="238" x2="635" y2="238" stroke="#2457d6" stroke-width="3"/>
+  <text x="645" y="242" font-size="13" font-weight="bold" fill="#2457d6">2. Локальна БД / IPC (Диск / Сокет)</text>
+  <text x="605" y="264" font-size="12" font-weight="bold" fill="#1a1a1a">T_fixed ≈ 0.5–2 мс  |  N* ≈ 100–500</text>
+  <text x="605" y="282" font-size="12" fill="#6b7280">Скидання буферів fsync та парсинг SQL.</text>
+  <text x="605" y="298" font-size="12" fill="#6b7280">Виграш: амортизація дискового I/O</text>
+  <text x="605" y="314" font-size="12" fill="#1a1a1a">через групову фіксацію (group commit).</text>
+
+  <!-- Панель 3: Глобальна мережа -->
+  <rect x="590" y="339" width="345" height="110" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="605" y1="360" x2="635" y2="360" stroke="#c0392b" stroke-width="3"/>
+  <text x="645" y="364" font-size="13" font-weight="bold" fill="#c0392b">3. Глобальна мережа (WAN / Хмара)</text>
+  <text x="605" y="386" font-size="12" font-weight="bold" fill="#1a1a1a">T_fixed ≈ 50–200 мс  |  N* ≈ 1000–5000</text>
+  <text x="605" y="404" font-size="12" fill="#6b7280">RTT через оптоволокно та TLS-хендшейк.</text>
+  <text x="605" y="420" font-size="12" fill="#6b7280">Виграш: пакування тисяч записів у DTO;</text>
+  <text x="605" y="436" font-size="12" fill="#1a1a1a">поштучні виклики паралізують систему.</text>
+</svg>

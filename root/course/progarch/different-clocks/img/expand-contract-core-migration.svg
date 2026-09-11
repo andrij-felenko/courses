@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <text x="480" y="34" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Еволюція консервативного ядра: патерн Expand and Contract</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Швидкі клієнти мігрують у власному темпі без синхронного блокування повільного ядра</text>
+  <path d="M 312,270 L 333,270" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <path d="M 627,270 L 648,270" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <rect x="25" y="76" width="280" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="165" y="100" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">1. РОЗШИРЕННЯ (EXPAND)</text>
+  <text x="165" y="118" font-size="12" text-anchor="middle" fill="#6b7280">Ядро додає новий контракт V2</text>
+  <rect x="41" y="130" width="118" height="56" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="100" y="152" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Клієнт А (Web)</text>
+  <text x="100" y="170" font-size="12" text-anchor="middle" fill="#2457d6">швидкий темп</text>
+  <rect x="171" y="130" width="118" height="56" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="230" y="152" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Клієнт Б (Batch)</text>
+  <text x="230" y="170" font-size="12" text-anchor="middle" fill="#6b7280">повільний темп</text>
+  <rect x="41" y="220" width="118" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="100" y="243" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Фасад V1</text>
+  <text x="100" y="262" font-size="12" text-anchor="middle" fill="#6b7280">робочий</text>
+  <rect x="171" y="220" width="118" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="230" y="243" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Фасад V2</text>
+  <text x="230" y="262" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">+ розширено</text>
+  <path d="M 100,186 L 100,218" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <path d="M 210,186 L 130,218" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <rect x="35" y="308" width="260" height="180" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="330" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Консервативне ядро</text>
+  <text x="165" y="346" font-size="12" text-anchor="middle" fill="#6b7280">повільний темп релізів</text>
+  <rect x="41" y="356" width="114" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="98" y="376" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Контракт V1</text>
+  <text x="98" y="392" font-size="12" text-anchor="middle" fill="#6b7280">стара схема</text>
+  <rect x="175" y="356" width="114" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="232" y="376" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Контракт V2</text>
+  <text x="232" y="392" font-size="12" text-anchor="middle" fill="#27ae60">нова схема (+)</text>
+  <path d="M 98,278 L 98,354" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <path d="M 232,278 L 232,354" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-green)"/>
+  <rect x="45" y="416" width="240" height="24" rx="4" fill="#f4f6f8"/>
+  <text x="165" y="432" font-size="12" text-anchor="middle" fill="#1a1a1a">Ядро обслуговує обидві схеми</text>
+  <rect x="340" y="76" width="280" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="100" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">2. МІГРАЦІЯ (MIGRATE)</text>
+  <text x="480" y="118" font-size="12" text-anchor="middle" fill="#6b7280">Асинхронний перехід клієнтів</text>
+  <rect x="356" y="130" width="118" height="56" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="415" y="152" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Клієнт А (Web)</text>
+  <text x="415" y="170" font-size="12" text-anchor="middle" fill="#2457d6">швидкий темп</text>
+  <rect x="486" y="130" width="118" height="56" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="545" y="152" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Клієнт Б (Batch)</text>
+  <text x="545" y="170" font-size="12" text-anchor="middle" fill="#6b7280">повільний темп</text>
+  <rect x="356" y="220" width="118" height="58" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="415" y="243" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Фасад V1</text>
+  <text x="415" y="262" font-size="12" text-anchor="middle" fill="#c0392b">deprecated</text>
+  <rect x="486" y="220" width="118" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="545" y="243" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Фасад V2</text>
+  <text x="545" y="262" font-size="12" text-anchor="middle" fill="#27ae60">активний</text>
+  <path d="M 435,186 L 515,218" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <path d="M 525,186 L 435,218" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <rect x="350" y="308" width="260" height="180" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="330" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Консервативне ядро</text>
+  <text x="480" y="346" font-size="12" text-anchor="middle" fill="#6b7280">повільний темп релізів</text>
+  <rect x="356" y="356" width="114" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="413" y="376" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Контракт V1</text>
+  <text x="413" y="392" font-size="12" text-anchor="middle" fill="#c0392b">deprecated</text>
+  <rect x="490" y="356" width="114" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="547" y="376" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Контракт V2</text>
+  <text x="547" y="392" font-size="12" text-anchor="middle" fill="#27ae60">активний</text>
+  <path d="M 413,278 L 413,354" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <path d="M 547,278 L 547,354" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <rect x="360" y="416" width="240" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="480" y="432" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Паралельна робота двох версій</text>
+  <rect x="655" y="76" width="280" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="795" y="100" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">3. ЗГОРТАННЯ (CONTRACT)</text>
+  <text x="795" y="118" font-size="12" text-anchor="middle" fill="#6b7280">Застарілий V1 остаточно вилучено</text>
+  <rect x="671" y="130" width="118" height="56" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="730" y="152" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Клієнт А (Web)</text>
+  <text x="730" y="170" font-size="12" text-anchor="middle" fill="#2457d6">швидкий темп</text>
+  <rect x="801" y="130" width="118" height="56" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="860" y="152" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Клієнт Б (Batch)</text>
+  <text x="860" y="170" font-size="12" text-anchor="middle" fill="#6b7280">повільний темп</text>
+  <rect x="671" y="220" width="118" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="730" y="243" font-size="12" text-anchor="middle" fill="#6b7280">Фасад V1</text>
+  <text x="730" y="262" font-size="12" text-anchor="middle" fill="#c0392b">вилучено [x]</text>
+  <rect x="801" y="220" width="118" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="860" y="243" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Фасад V2</text>
+  <text x="860" y="262" font-size="12" text-anchor="middle" fill="#27ae60">канонічний</text>
+  <path d="M 750,186 L 835,218" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <path d="M 860,186 L 860,218" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <rect x="665" y="308" width="260" height="180" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="795" y="330" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Консервативне ядро</text>
+  <text x="795" y="346" font-size="12" text-anchor="middle" fill="#6b7280">повільний темп релізів</text>
+  <rect x="671" y="356" width="114" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="728" y="376" font-size="12" text-anchor="middle" fill="#6b7280">Контракт V1</text>
+  <text x="728" y="392" font-size="12" text-anchor="middle" fill="#c0392b">видалено з ядра</text>
+  <rect x="805" y="356" width="114" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="862" y="376" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Контракт V2</text>
+  <text x="862" y="392" font-size="12" text-anchor="middle" fill="#27ae60">єдиний канон</text>
+  <path d="M 862,278 L 862,354" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <rect x="675" y="416" width="240" height="24" rx="4" fill="#e9f7ef"/>
+  <text x="795" y="432" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Борг очищено, ядро стабільне</text>
+</svg>

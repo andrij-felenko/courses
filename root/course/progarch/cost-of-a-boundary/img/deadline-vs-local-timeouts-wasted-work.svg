@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White background rect -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-error" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Локальні таймаути проти наскрізного дедлайну</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Наскрізний дедлайн зупиняє весь ланцюжок вузлів, запобігаючи спалюванню ресурсів на покинуті запити</text>
+
+  <!-- ==================== TOP PANEL: LOCAL TIMEOUTS (PROBLEM) ==================== -->
+  <rect x="30" y="78" width="900" height="212" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="46" y="99" font-size="13" font-weight="bold" fill="#c0392b">НЕ ТАК: ІЗОЛЬОВАНІ ЛОКАЛЬНІ ТАЙМАУТИ — СПАЛЮВАННЯ РЕСУРСІВ (WASTED WORK)</text>
+  <text x="46" y="117" font-size="12" fill="#6b7280">Кожен вузол має власний таймер; клієнт відпадає, але внутрішні сервіси продовжують даремну роботу</text>
+
+  <!-- Top Row: 4 Service Cards + Callout -->
+  <!-- Node 1: Client -->
+  <rect x="46" y="132" width="130" height="144" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="152" font-size="12" font-weight="bold" fill="#1a1a1a">1. Клієнт</text>
+  <text x="54" y="172" font-size="12" fill="#6b7280">Ліміт: 1000 мс</text>
+  <text x="54" y="196" font-size="12" font-weight="bold" fill="#c0392b">Таймаут!</text>
+  <text x="54" y="216" font-size="12" fill="#1a1a1a">• Розірвав лінк</text>
+  <text x="54" y="236" font-size="12" fill="#1a1a1a">• Запит покинуто</text>
+  <text x="54" y="258" font-size="12" fill="#6b7280">Відповідь не чекає</text>
+
+  <!-- Arrow 1 -> 2 (Timeout happened) -->
+  <line x1="176" y1="204" x2="224" y2="204" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-error)"/>
+
+  <!-- Node 2: Service A -->
+  <rect x="226" y="132" width="145" height="144" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="234" y="152" font-size="12" font-weight="bold" fill="#1a1a1a">2. Сервіс A (Шлюз)</text>
+  <text x="234" y="172" font-size="12" fill="#6b7280">Ліміт: 1500 мс</text>
+  <text x="234" y="196" font-size="12" fill="#c0392b">• Віддав 504 Gateway</text>
+  <text x="234" y="216" font-size="12" fill="#1a1a1a">• Не знає про відхід</text>
+  <text x="234" y="236" font-size="12" fill="#1a1a1a">• Виклик до B триває</text>
+  <text x="234" y="258" font-size="12" fill="#6b7280">Немає скасування ➔</text>
+
+  <!-- Arrow 2 -> 3 (Zombie request travels) -->
+  <line x1="371" y1="204" x2="419" y2="204" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-error)"/>
+
+  <!-- Node 3: Service B -->
+  <rect x="421" y="132" width="155" height="144" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="429" y="152" font-size="12" font-weight="bold" fill="#c0392b">3. Сервіс B (Логіка)</text>
+  <text x="429" y="172" font-size="12" fill="#6b7280">Ліміт: 2500 мс</text>
+  <text x="429" y="196" font-size="12" font-weight="bold" fill="#c0392b">ЗОМБІ-ОБЧИСЛЕННЯ:</text>
+  <text x="429" y="216" font-size="12" fill="#1a1a1a">• Спалює CPU і RAM</text>
+  <text x="429" y="236" font-size="12" fill="#1a1a1a">• Рахує для мертвого</text>
+  <text x="429" y="258" font-size="12" fill="#c0392b">Витрачає ресурс ➔</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="576" y1="204" x2="624" y2="204" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-error)"/>
+
+  <!-- Node 4: Database / Service C -->
+  <rect x="626" y="132" width="155" height="144" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="634" y="152" font-size="12" font-weight="bold" fill="#c0392b">4. База даних / С</text>
+  <text x="634" y="172" font-size="12" fill="#6b7280">Ліміт: 5000 мс</text>
+  <text x="634" y="196" font-size="12" font-weight="bold" fill="#c0392b">БЛОКУВАННЯ:</text>
+  <text x="634" y="216" font-size="12" fill="#1a1a1a">• Тримає зʼєднання</text>
+  <text x="634" y="236" font-size="12" fill="#1a1a1a">• Вантажить диски I/O</text>
+  <text x="634" y="258" font-size="12" fill="#c0392b">Результат непотрібен</text>
+
+  <!-- Callout Panel (Right) -->
+  <rect x="796" y="132" width="118" height="144" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="804" y="152" font-size="12" font-weight="bold" fill="#c0392b">Шкода кластеру:</text>
+  <text x="804" y="176" font-size="12" fill="#1a1a1a">• Забитий пул</text>
+  <text x="804" y="198" font-size="12" fill="#1a1a1a">• Каскадний збій</text>
+  <text x="804" y="220" font-size="12" fill="#1a1a1a">• Марні гроші</text>
+  <text x="804" y="246" font-size="12" font-weight="bold" fill="#c0392b">Колапс черг</text>
+
+  <!-- ==================== BOTTOM PANEL: DEADLINE PROPAGATION (SOLUTION) ==================== -->
+  <rect x="30" y="304" width="900" height="236" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="46" y="325" font-size="13" font-weight="bold" fill="#27ae60">ТАК: НАСКРІЗНИЙ ДЕДЛАЙН (DEADLINE PROPAGATION) — МИТТЄВЕ СКАСУВАННЯ</text>
+  <text x="46" y="343" font-size="12" fill="#6b7280">Єдиний абсолютний дедлайн передається в заголовках; вичерпання зупиняє роботу на всіх вузлах</text>
+
+  <!-- Bottom Row: 4 Service Cards + Callout -->
+  <!-- Node 1: Client -->
+  <rect x="46" y="356" width="130" height="130" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="54" y="376" font-size="12" font-weight="bold" fill="#1a1a1a">1. Клієнт</text>
+  <text x="54" y="396" font-size="12" fill="#2457d6">Дедлайн: now + 1с</text>
+  <text x="54" y="418" font-size="12" fill="#1a1a1a">• Передає ліміт</text>
+  <text x="54" y="438" font-size="12" fill="#1a1a1a">• Контекст-токен</text>
+  <text x="54" y="462" font-size="12" fill="#6b7280">Шле дедлайн ➔</text>
+
+  <!-- Arrow 1 -> 2 (Propagating deadline) -->
+  <line x1="176" y1="421" x2="224" y2="421" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Node 2: Service A -->
+  <rect x="226" y="356" width="145" height="130" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="234" y="376" font-size="12" font-weight="bold" fill="#1a1a1a">2. Сервіс A (Шлюз)</text>
+  <text x="234" y="396" font-size="12" fill="#2457d6">Залишок: 850 мс</text>
+  <text x="234" y="418" font-size="12" fill="#1a1a1a">• Час вичерпано!</text>
+  <text x="234" y="438" font-size="12" font-weight="bold" fill="#27ae60">• Шле скасування</text>
+  <text x="234" y="462" font-size="12" fill="#27ae60">Abort signal ➔ B</text>
+
+  <!-- Arrow 2 -> 3 (Abort signal) -->
+  <line x1="371" y1="421" x2="419" y2="421" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-success)"/>
+
+  <!-- Node 3: Service B -->
+  <rect x="421" y="356" width="155" height="130" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="429" y="376" font-size="12" font-weight="bold" fill="#27ae60">3. Сервіс B (Логіка)</text>
+  <text x="429" y="396" font-size="12" fill="#6b7280">Залишок: 0 мс</text>
+  <text x="429" y="418" font-size="12" font-weight="bold" fill="#27ae60">МИТТЄВИЙ СТОП:</text>
+  <text x="429" y="438" font-size="12" fill="#1a1a1a">• Зупиняє роботу</text>
+  <text x="429" y="462" font-size="12" fill="#27ae60">Не викликає БД</text>
+
+  <!-- Arrow 3 -> 4 (Blocked - No call made) -->
+  <line x1="576" y1="421" x2="624" y2="421" stroke="#6b7280" stroke-width="2" stroke-dasharray="3,2"/>
+
+  <!-- Node 4: Database / Service C -->
+  <rect x="626" y="356" width="155" height="130" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="634" y="376" font-size="12" font-weight="bold" fill="#27ae60">4. База даних / С</text>
+  <text x="634" y="396" font-size="12" fill="#27ae60">Навантаження: 0%</text>
+  <text x="634" y="418" font-size="12" font-weight="bold" fill="#27ae60">СПАСІННЯ РЕСУРСІВ:</text>
+  <text x="634" y="438" font-size="12" fill="#1a1a1a">• Запит не надходив</text>
+  <text x="634" y="462" font-size="12" fill="#27ae60">Пул зʼєднань чистий</text>
+
+  <!-- Callout Panel (Right) -->
+  <rect x="796" y="356" width="118" height="130" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="804" y="376" font-size="12" font-weight="bold" fill="#27ae60">Ефект захисту:</text>
+  <text x="804" y="398" font-size="12" fill="#1a1a1a">• Нуль зомбі</text>
+  <text x="804" y="418" font-size="12" fill="#1a1a1a">• Ресурси вільні</text>
+  <text x="804" y="438" font-size="12" fill="#1a1a1a">• Чистий кластер</text>
+  <text x="804" y="462" font-size="12" font-weight="bold" fill="#27ae60">Стійкість 100%</text>
+
+  <!-- Summary Banner at bottom of panel 2 -->
+  <rect x="46" y="502" width="868" height="26" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="520" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Запізнілий результат має нульову цінність, але повну ціну обчислень. Наскрізний дедлайн анулює цю ціну.</text>
+</svg>

@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Вузькі місця Mach IPC: чому мікроядро втрачало 100 мкс</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Подвійне копіювання буферів, перезавантаження CR3 та скидання TLB на кожному виклику</text>
+
+  <!-- СЕКЦІЯ 1: ПРОХОДЖЕННЯ ЗАПИТУ (АРХІТЕКТУРА МІКРОЯДРА) -->
+
+  <!-- Процес-клієнт (User Space / Ring 3) -->
+  <rect x="30" y="74" width="420" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="30" y="74" width="420" height="24" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="240" y="91" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ПРОЦЕС-КЛІЄНТ (User Space / Ring 3, CR3_Клієнт)</text>
+  <rect x="50" y="112" width="160" height="36" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="130" y="127" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Буфер клієнта</text>
+  <text x="130" y="141" text-anchor="middle" font-size="12" fill="#6b7280">Дані запиту в RAM</text>
+  <text x="230" y="127" font-size="12" fill="#1a1a1a">Ініціація виклику IPC</text>
+  <text x="230" y="143" font-size="12" fill="#c0392b">Системний трап: Ring 3 → Ring 0</text>
+
+  <!-- Зона відсутності прямого доступу між процесами -->
+  <text x="480" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Ізоляція</text>
+  <text x="480" y="134" text-anchor="middle" font-size="12" fill="#6b7280">Немає прямої</text>
+  <text x="480" y="148" text-anchor="middle" font-size="12" fill="#6b7280">пам'яті</text>
+
+  <!-- Процес-сервер (User Space / Ring 3) -->
+  <rect x="510" y="74" width="420" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="510" y="74" width="420" height="24" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="720" y="91" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ПРОЦЕС-СЕРВЕР (User Space / Ring 3, CR3_Сервер)</text>
+  <text x="530" y="127" font-size="12" fill="#1a1a1a">Обробка сервісного запиту</text>
+  <text x="530" y="143" font-size="12" fill="#c0392b">Повернення: Ring 0 → Ring 3</text>
+  <rect x="750" y="112" width="160" height="36" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="830" y="127" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Буфер сервера</text>
+  <text x="830" y="141" text-anchor="middle" font-size="12" fill="#6b7280">Отримані дані в RAM</text>
+
+  <!-- Лінія межі привілеїв Ring 3 / Ring 0 -->
+  <line x1="30" y1="176" x2="930" y2="176" stroke="#c0392b" stroke-dasharray="6,4" stroke-width="1.5"/>
+
+  <!-- Панель мікроядра Mach (Kernel Space / Ring 0) -->
+  <rect x="30" y="188" width="900" height="160" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="30" y="188" width="900" height="24" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="205" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">МІКРОЯДРО MACH (ПРОСТІР ЯДРА / RING 0) — ПОСЕРЕДНИК І ВУЗЬКЕ МІСЦЕ</text>
+
+  <!-- Внутрішні блоки ядра Mach -->
+  <!-- Етап 1: Копіювання 1 -->
+  <rect x="44" y="226" width="196" height="108" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <rect x="44" y="226" width="196" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="142" y="241" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">1. Копіювання в ядро</text>
+  <text x="142" y="262" text-anchor="middle" font-size="12" fill="#1a1a1a">З пам'яті клієнта в RAM ядра</text>
+  <text x="142" y="280" text-anchor="middle" font-size="12" fill="#6b7280">Перевірка адреси й прав</text>
+  <text x="142" y="298" text-anchor="middle" font-size="12" fill="#c0392b">Податок: цикли копіювання</text>
+  <text x="142" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Повне дублювання байтів</text>
+
+  <!-- Етап 2: Черга порту ядра -->
+  <rect x="256" y="226" width="196" height="108" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <rect x="256" y="226" width="196" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="354" y="241" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2. Черга порту ядра</text>
+  <text x="354" y="262" text-anchor="middle" font-size="12" fill="#1a1a1a">Mach Port: трансляція прав</text>
+  <text x="354" y="280" text-anchor="middle" font-size="12" fill="#6b7280">Пошук черги сервера</text>
+  <text x="354" y="298" text-anchor="middle" font-size="12" fill="#1a1a1a">Блокування структури порту</text>
+  <text x="354" y="322" text-anchor="middle" font-size="12" fill="#6b7280">Очікування планувальника</text>
+
+  <!-- Етап 3: Перемикання CR3 та скидання TLB -->
+  <rect x="468" y="226" width="236" height="108" rx="4" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="468" y="226" width="236" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="586" y="241" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">3. Зміна CR3 та скидання TLB</text>
+  <text x="586" y="262" text-anchor="middle" font-size="12" fill="#1a1a1a">mov cr3, reg: CR3_A → CR3_B</text>
+  <rect x="480" y="272" width="212" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="586" y="287" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⚠️ TLB FLUSH: кеш адрес скинуто!</text>
+  <text x="586" y="310" text-anchor="middle" font-size="12" fill="#c0392b">Спустошення кешу даних L1/L2</text>
+  <text x="586" y="326" text-anchor="middle" font-size="12" fill="#6b7280">Хвиля промахів трансляції пам'яті</text>
+
+  <!-- Етап 4: Копіювання 2 -->
+  <rect x="720" y="226" width="196" height="108" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <rect x="720" y="226" width="196" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="818" y="241" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">4. Копіювання з ядра</text>
+  <text x="818" y="262" text-anchor="middle" font-size="12" fill="#1a1a1a">З буфера ядра в буфер сервера</text>
+  <text x="818" y="280" text-anchor="middle" font-size="12" fill="#6b7280">Запис у новий простір адрес</text>
+  <text x="818" y="298" text-anchor="middle" font-size="12" fill="#c0392b">Повторне навантаження шини</text>
+  <text x="818" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Повернення в Ring 3 сервера</text>
+
+  <!-- Горизонтальні стрілки потоку між етапами ядра -->
+  <line x1="240" y1="280" x2="252" y2="280" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="452" y1="280" x2="464" y2="280" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="704" y1="280" x2="716" y2="280" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Вертикальні стрілки через межу кілець -->
+  <line x1="130" y1="148" x2="130" y2="222" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="818" y1="226" x2="818" y2="152" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- СЕКЦІЯ 2: ТРИ ВУЗЬКІ МІСЦЯ ТА 100 МКС (НИЖНІ КАРТКИ) -->
+
+  <!-- Картка 1: Податок на копіювання -->
+  <rect x="30" y="362" width="290" height="172" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="30" y="362" width="290" height="28" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="175" y="381" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">1. ПОДАТОК НА КОПІЮВАННЯ</text>
+  <text x="44" y="405" font-size="12" font-weight="bold" fill="#1a1a1a">• Подвійне копіювання на фазу:</text>
+  <text x="44" y="422" font-size="12" fill="#1a1a1a">  Запит: Клієнт → Ядро → Сервер</text>
+  <text x="44" y="439" font-size="12" fill="#1a1a1a">  Відповідь: Сервер → Ядро → Клієнт</text>
+  <text x="44" y="460" font-size="12" font-weight="bold" fill="#c0392b">• 4 повних копіювання на RPC!</text>
+  <text x="44" y="478" font-size="12" fill="#6b7280">  Дані двічі проганяються крізь шину</text>
+  <text x="44" y="495" font-size="12" fill="#6b7280">  RAM замість передачі в регістрах CPU</text>
+  <text x="44" y="518" font-size="12" fill="#c0392b">  Колосальний оверхед на великих DTO</text>
+
+  <!-- Картка 2: Скандал з TLB та кешем -->
+  <rect x="335" y="362" width="290" height="172" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="335" y="362" width="290" height="28" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="381" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">2. СКАНДАЛ З TLB ТА КЕШЕМ</text>
+  <text x="349" y="405" font-size="12" font-weight="bold" fill="#1a1a1a">• Перезавантаження регістра CR3:</text>
+  <text x="349" y="422" font-size="12" fill="#1a1a1a">  Зміна кореня дворівневої таблиці</text>
+  <text x="349" y="442" font-size="12" font-weight="bold" fill="#c0392b">• Апаратний TLB Flush на x86:</text>
+  <text x="349" y="460" font-size="12" fill="#6b7280">  Ануляція кешу трансляцій віртуальних</text>
+  <text x="349" y="478" font-size="12" fill="#6b7280">  адрес (десятки тактів на кожен промах)</text>
+  <text x="349" y="498" font-size="12" font-weight="bold" fill="#c0392b">• Забруднення кешу даних L1/L2:</text>
+  <text x="349" y="518" font-size="12" fill="#6b7280">  Витіснення робочого набору сервера</text>
+
+  <!-- Картка 3: Ціна виклику: > 100 мкс -->
+  <rect x="640" y="362" width="290" height="172" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="640" y="362" width="290" height="28" rx="6" fill="#1a1a1a" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="785" y="381" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">3. ЦІНА ВИКЛИКУ: > 100 МКС</text>
+  <text x="654" y="405" font-size="12" font-weight="bold" fill="#1a1a1a">• 4 переходи кілець (Ring 3 ↔ 0):</text>
+  <text x="654" y="422" font-size="12" fill="#c0392b">  ~20–25 мкс (трапи й диспетчеризація)</text>
+  <text x="654" y="442" font-size="12" font-weight="bold" fill="#1a1a1a">• 4 копіювання буферів у RAM:</text>
+  <text x="654" y="460" font-size="12" fill="#c0392b">  ~30–35 мкс (пропускна здатність шини)</text>
+  <text x="654" y="480" font-size="12" font-weight="bold" fill="#1a1a1a">• Штраф TLB Misses + Cold Cache:</text>
+  <text x="654" y="498" font-size="12" fill="#c0392b">  ~45–50 мкс (повторне читання з RAM)</text>
+  <text x="654" y="520" font-size="12" font-weight="bold" fill="#c0392b">Разом: 100–120 мкс (у 1000× повільніше!)</text>
+</svg>

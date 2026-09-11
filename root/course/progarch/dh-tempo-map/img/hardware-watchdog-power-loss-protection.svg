@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Апаратний захист від збою живлення (PLP) та сторожовий таймер</text>
+  <text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Резервне живлення конденсаторів дозволяє зберегти флеш-пам'ять, поки WDT блокує передчасне перезавантаження</text>
+
+  <!-- Ліва колонка: Апаратна схема -->
+  <rect x="40" y="82" width="420" height="372" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="40" y="82" width="420" height="32" rx="8" fill="#eaf0fd"/>
+  <text x="250" y="103" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Апаратна схема взаємодії вузлів</text>
+
+  <!-- Вхідне живлення -->
+  <rect x="56" y="128" width="112" height="56" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="112" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вхід 12V DC</text>
+  <text x="112" y="168" text-anchor="middle" font-size="12" fill="#6b7280">Основне живлення</text>
+
+  <!-- Стрілка 12V -> PLP -->
+  <line x1="168" y1="156" x2="204" y2="156" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Схема PLP -->
+  <rect x="212" y="126" width="232" height="66" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="212" y="126" width="232" height="22" rx="6" fill="#27ae60"/>
+  <text x="328" y="141" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Схема захисту PLP (Holdup)</text>
+  <text x="222" y="164" font-size="12" fill="#1a1a1a">• Суперконденсатори (3.3V)</text>
+  <text x="222" y="182" font-size="12" fill="#27ae60" font-weight="bold">• Детектор PFI: резерв 40 мс</text>
+
+  <!-- Сигнали від PLP вниз -->
+  <!-- V_hold лінія живлення -->
+  <line x1="280" y1="192" x2="280" y2="216" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="286" y="208" font-size="12" font-weight="bold" fill="#27ae60">3.3V</text>
+
+  <!-- PFI_NMI сигнал тривоги -->
+  <line x1="146" y1="190" x2="146" y2="216" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="152" y="208" font-size="12" font-weight="bold" fill="#c0392b">NMI</text>
+
+  <!-- Хост-процесор -->
+  <rect x="56" y="222" width="180" height="98" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="56" y="222" width="180" height="22" rx="6" fill="#eaf0fd"/>
+  <text x="146" y="237" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Хост-процесор (SoC)</text>
+  <text x="66" y="260" font-size="12" fill="#1a1a1a">• Отримує NMI-переривання</text>
+  <text x="66" y="278" font-size="12" fill="#1a1a1a">• Flush дискових кешів ФС</text>
+  <text x="66" y="296" font-size="12" fill="#2457d6" font-weight="bold">• WDI сигнал до WDT</text>
+  <text x="66" y="312" font-size="12" fill="#6b7280">Безпечний Halt процесора</text>
+
+  <!-- Сигнали між SoC та WDT -->
+  <line x1="236" y1="260" x2="258" y2="260" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="258" y1="284" x2="242" y2="284" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Сторожовий таймер WDT -->
+  <rect x="264" y="222" width="180" height="98" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="264" y="222" width="180" height="22" rx="6" fill="#fdecea"/>
+  <text x="354" y="237" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Сторожовий таймер WDT</text>
+  <text x="274" y="260" font-size="12" fill="#1a1a1a">• Очікує WDI heartbeat</text>
+  <text x="274" y="278" font-size="12" fill="#c0392b" font-weight="bold">• Заморожується при PFI</text>
+  <text x="274" y="296" font-size="12" fill="#1a1a1a">• Блокує хибний ребут</text>
+  <text x="274" y="312" font-size="12" fill="#6b7280">Дозволяє системі заснути</text>
+
+  <!-- Шина пам'яті вниз -->
+  <line x1="146" y1="320" x2="146" y2="340" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="152" y="334" font-size="12" fill="#2457d6">SYNC</text>
+
+  <!-- Сховище eMMC / Flash -->
+  <rect x="56" y="346" width="388" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="56" y="346" width="388" height="22" rx="6" fill="#f4f6f8"/>
+  <text x="250" y="361" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Енергонезалежна пам'ять (eMMC / SLC Flash)</text>
+  <text x="68" y="386" font-size="12" fill="#27ae60" font-weight="bold">Аварійний флаш: завершення запису FTL-кешу</text>
+  <text x="68" y="406" font-size="12" fill="#1a1a1a">Захист від пошкодження метаданих пам'яті</text>
+  <text x="68" y="426" font-size="12" fill="#6b7280">Цілісність прошивки та журналу шлюзу</text>
+
+  <!-- Права колонка: Часова діаграма -->
+  <rect x="480" y="82" width="440" height="372" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="480" y="82" width="440" height="32" rx="8" fill="#eaf0fd"/>
+  <text x="700" y="103" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Часова діаграма аварійного відключення</text>
+
+  <!-- Сигнал 1: V_in -->
+  <text x="572" y="146" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">V_in (12V)</text>
+  <path d="M580,140 L680,140 L684,158 L896,158" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="696" y="148" font-size="12" font-weight="bold" fill="#c0392b">Збій живлення</text>
+
+  <!-- Сигнал 2: V_hold -->
+  <text x="572" y="194" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">V_hold (3.3V)</text>
+  <path d="M580,188 L810,188 C835,188 855,206 880,206 L896,206" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <rect x="684" y="172" width="120" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-dasharray="2 2"/>
+  <text x="744" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Hold-up: 40 мс</text>
+
+  <!-- Сигнал 3: PFI / NMI -->
+  <text x="572" y="244" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">PFI / NMI</text>
+  <path d="M580,238 L680,238 L684,254 L896,254" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="696" y="246" font-size="12" font-weight="bold" fill="#2457d6">NMI-тригер аварії</text>
+
+  <!-- Сигнал 4: Watchdog -->
+  <text x="572" y="294" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Watchdog</text>
+  <path d="M580,298 L596,298 L596,286 L600,286 L600,298 L626,298 L626,286 L630,286 L630,298 L656,298 L656,286 L660,286 L660,298 L680,298" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="680" y1="298" x2="896" y2="298" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 2"/>
+  <text x="746" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">WDT блоковано</text>
+
+  <!-- Сигнал 5: eMMC Bus -->
+  <text x="572" y="346" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">eMMC Bus</text>
+  <rect x="580" y="334" width="90" height="20" rx="2" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="625" y="348" text-anchor="middle" font-size="12" fill="#1a1a1a">Звичайний I/O</text>
+
+  <rect x="684" y="334" width="120" height="20" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="744" y="348" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">FLUSH &amp; UNMOUNT</text>
+
+  <rect x="818" y="334" width="76" height="20" rx="2" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="856" y="348" text-anchor="middle" font-size="12" fill="#6b7280">БЕЗПЕЧНО</text>
+
+  <!-- Маркери часу t0 і t1 -->
+  <line x1="680" y1="124" x2="680" y2="366" stroke="#c0392b" stroke-dasharray="3 3" stroke-width="1.5"/>
+  <text x="680" y="380" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">t0: Аварія 12V</text>
+
+  <line x1="810" y1="124" x2="810" y2="366" stroke="#27ae60" stroke-dasharray="3 3" stroke-width="1.5"/>
+  <text x="810" y="380" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">t1: Запис завершено</text>
+
+  <!-- Пояснення в правій панелі -->
+  <rect x="496" y="398" width="408" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="700" y="414" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Координація PLP та сторожового таймера:</text>
+  <text x="700" y="430" text-anchor="middle" font-size="12" fill="#1a1a1a">PLP надає 40 мс на флаш, блокуючи хибний рестарт WDT</text>
+
+  <!-- Нижній підсумковий банер -->
+  <rect x="40" y="472" width="880" height="36" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="495" text-anchor="middle" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">Висновок:</tspan> Апаратна пара PLP+WDT гарантує атомарність скидання стану без ризику пошкодження мікропрограми хабу</text>
+</svg>

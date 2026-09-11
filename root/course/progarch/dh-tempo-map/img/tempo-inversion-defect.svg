@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дефект інверсії темпів: залежність стабільного ядра від мінливої хмари</text>
+  <text x="480" y="59" font-size="13" fill="#6b7280" text-anchor="middle">Прямий виклик зовнішнього API хмарних тарифів із ядра термостата паралізує опалення при збої мережі</text>
+
+  <!-- ЛІВА КОЛОНКА: Архітектурний дефект -->
+  <rect x="36" y="80" width="434" height="306" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="54" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Архітектурна інверсія темпів</text>
+  <text x="54" y="123" font-size="12" fill="#6b7280">Порушення природного напрямку залежностей між шарами</text>
+
+  <!-- Швидкий хмарний компонент -->
+  <rect x="54" y="132" width="398" height="64" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="66" y="140" width="150" height="20" rx="3" fill="#2457d6"/>
+  <text x="141" y="154" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ШВИДКИЙ ШАР (ХМАРА)</text>
+  <text x="228" y="155" font-size="13" font-weight="bold" fill="#1a1a1a">Сервіс динамічних тарифів</text>
+  <text x="66" y="173" font-size="12" fill="#1a1a1a">• Зміни API: щотижня, сторонній постачальник</text>
+  <text x="66" y="187" font-size="12" fill="#6b7280">• Потребує постійного інтернет-з'єднання</text>
+
+  <!-- Заборонена висхідна стрілка (ліворуч) та бейдж попередження (праворуч від неї) -->
+  <line x1="88" y1="242" x2="88" y2="204" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <rect x="108" y="210" width="344" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="116" y="226" font-size="12" font-weight="bold" fill="#c0392b">⛔ ЗАБОРОНЕНИЙ ВИСХІДНИЙ ВИКЛИК (HTTP)</text>
+
+  <!-- Повільне ядро термостата -->
+  <rect x="54" y="246" width="398" height="64" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="66" y="254" width="150" height="20" rx="3" fill="#c0392b"/>
+  <text x="141" y="268" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ПОВІЛЬНЕ ЯДРО (ШЛЮЗ)</text>
+  <text x="228" y="269" font-size="13" font-weight="bold" fill="#1a1a1a">Термостат клімат-контролю</text>
+  <text x="66" y="287" font-size="12" fill="#1a1a1a">• Ритм змін: 1–2 роки, критична безпека</text>
+  <text x="66" y="301" font-size="12" font-weight="bold" fill="#c0392b">• Безпосередньо викликає TariffAPI.getRate()</text>
+
+  <!-- Підсумок лівої колонки -->
+  <text x="54" y="338" font-size="12" font-weight="bold" fill="#c0392b">Дефект: повільне ядро заблоковане на зовнішньому сервісі</text>
+  <text x="54" y="356" font-size="12" fill="#6b7280">Збій хмари паралізує автономну роботу контролера опалення</text>
+
+  <!-- ПРАВА КОЛОНКА: Поширення збою -->
+  <rect x="490" y="80" width="434" height="306" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="508" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Каскадне поширення відмови</text>
+  <text x="508" y="123" font-size="12" fill="#6b7280">Як помилка мінливої периферії зупиняє фізичний котел</text>
+
+  <!-- Крок 1 -->
+  <rect x="508" y="136" width="398" height="50" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="528" cy="161" r="11" fill="#c0392b"/>
+  <text x="528" y="165" font-size="12" font-weight="bold" fill="white" text-anchor="middle">1</text>
+  <text x="548" y="153" font-size="12" font-weight="bold" fill="#c0392b">Збій хмарного API або обрив мережі</text>
+  <text x="548" y="171" font-size="12" fill="#1a1a1a">Сервіс тарифів повертає 504 Timeout або недосяжний</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="707" y1="188" x2="707" y2="198" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Крок 2 -->
+  <rect x="508" y="200" width="398" height="50" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="528" cy="225" r="11" fill="#c0392b"/>
+  <text x="528" y="229" font-size="12" font-weight="bold" fill="white" text-anchor="middle">2</text>
+  <text x="548" y="217" font-size="12" font-weight="bold" fill="#c0392b">Синхронне зависання ядра термостата</text>
+  <text x="548" y="235" font-size="12" fill="#1a1a1a">Потік контролера заблоковано очікуванням сокета</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="707" y1="252" x2="707" y2="262" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Крок 3 -->
+  <rect x="508" y="264" width="398" height="50" rx="6" fill="#c0392b" stroke="#962d22" stroke-width="1"/>
+  <circle cx="528" cy="289" r="11" fill="white"/>
+  <text x="528" y="293" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3</text>
+  <text x="548" y="281" font-size="12" font-weight="bold" fill="white">Аварійний колапс системи опалення</text>
+  <text x="548" y="299" font-size="12" fill="#fdecea">Котел не вмикається; контур опалення будинку охолоджується</text>
+
+  <!-- Підсумок правої колонки -->
+  <text x="508" y="338" font-size="12" font-weight="bold" fill="#c0392b">Результат: некритична хмара паралізувала опалення</text>
+  <text x="508" y="356" font-size="12" fill="#6b7280">Через збій стороннього API замерзає реальний будинок</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Архітектурне правило розв'язання -->
+  <rect x="36" y="402" width="888" height="58" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="52" y="417" width="136" height="28" rx="4" fill="#27ae60"/>
+  <text x="120" y="435" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ПРАВИЛО ТЕМПІВ</text>
+  <text x="202" y="426" font-size="12" font-weight="bold" fill="#1a1a1a">Повільні компоненти ядра ніколи не викликають швидку периферію синхронно.</text>
+  <text x="202" y="445" font-size="12" fill="#27ae60">Розв'язок: інверсія залежностей — термостат читає локальний кеш, а хмара оновлює його у фоні.</text>
+</svg>

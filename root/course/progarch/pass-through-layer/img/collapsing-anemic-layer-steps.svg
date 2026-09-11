@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Покрокове згортання анемічного «шару-прокладки» (Pass-Through Layer)</text>
+  <text x="480" y="64" font-size="13" fill="#6b7280" text-anchor="middle">Усунення ритуальних сервісів і DTO спрощує систему та замінює тавтологічні моки на справжні інтеграційні тести</text>
+  <rect x="30" y="86" width="415" height="398" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="30" y="86" width="415" height="34" rx="8" fill="#fdecea"/>
+  <text x="45" y="108" font-size="14" font-weight="bold" fill="#c0392b">1. ДО: Надлишкова анемічна прокладка</text>
+  <rect x="42" y="132" width="391" height="46" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="150" font-size="12" font-weight="bold" fill="#2457d6">UserController</text>
+  <text x="54" y="167" font-size="12" fill="#1a1a1a">return service.getUser(id); // Лише перенаправляє</text>
+  <line x1="237" y1="178" x2="237" y2="192" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="42" y="196" width="391" height="58" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="54" y="214" font-size="12" font-weight="bold" fill="#c0392b">UserService (Порожній сервіс-прокладка)</text>
+  <text x="54" y="232" font-size="12" fill="#c0392b">• return repo.findById(id); // нуль бізнес-логіки</text>
+  <text x="54" y="247" font-size="12" fill="#6b7280">• Дублює DTO 1:1, створює фіктивні інтерфейси</text>
+  <line x1="237" y1="254" x2="237" y2="268" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <rect x="42" y="272" width="391" height="46" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="290" font-size="12" font-weight="bold" fill="#1a1a1a">UserRepository</text>
+  <text x="54" y="307" font-size="12" fill="#1a1a1a">SELECT * FROM users WHERE id = :id</text>
+  <rect x="42" y="332" width="391" height="140" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="54" y="352" font-size="12" font-weight="bold" fill="#c0392b">❌ Тавтологічний мок-тест (Тестує мок, а не логіку):</text>
+  <text x="54" y="372" font-size="12" fill="#1a1a1a">when(repo.findById(1)).thenReturn(user);</text>
+  <text x="54" y="392" font-size="12" fill="#1a1a1a">res = service.getUser(1);</text>
+  <text x="54" y="412" font-size="12" font-weight="bold" fill="#c0392b">verify(repo).findById(1); // Фіктивна перевірка!</text>
+  <text x="54" y="434" font-size="12" fill="#6b7280">⚠️ 4 однакові файли правилися б для 1 нового поля!</text>
+  <text x="54" y="454" font-size="12" fill="#6b7280">• Зміна реалізації ламає тест навіть без дефектів</text>
+  <line x1="453" y1="225" x2="507" y2="225" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="480" y="215" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">4 кроки</text>
+  <rect x="515" y="86" width="415" height="398" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <rect x="515" y="86" width="415" height="34" rx="8" fill="#e9f7ef"/>
+  <text x="530" y="108" font-size="14" font-weight="bold" fill="#27ae60">2. ПІСЛЯ: 4 кроки згортання анемічного шару</text>
+  <rect x="527" y="132" width="391" height="50" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="539" y="150" font-size="12" font-weight="bold" fill="#27ae60">Крок 1: Специфічні вибірки в сховище</text>
+  <text x="539" y="168" font-size="12" fill="#1a1a1a">• Перенесено кастомний SQL у UserRepository.findActive()</text>
+  <rect x="527" y="196" width="391" height="50" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="539" y="214" font-size="12" font-weight="bold" fill="#27ae60">Крок 2: Випрямлення виклику Controller ➔ Repo</text>
+  <text x="539" y="232" font-size="12" fill="#1a1a1a">• Контролер читає дані напряму зі сховища (Open Layer)</text>
+  <rect x="527" y="260" width="391" height="50" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="539" y="278" font-size="12" font-weight="bold" fill="#27ae60">Крок 3: Ліквідація дубльованих DTO</text>
+  <text x="539" y="296" font-size="12" fill="#1a1a1a">• Видалено дублюючі ServiceDTO 1:1, повертається Entity</text>
+  <rect x="527" y="324" width="391" height="148" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="539" y="344" font-size="12" font-weight="bold" fill="#27ae60">Крок 4: Справжній Інтеграційний тест (Testcontainers):</text>
+  <text x="539" y="366" font-size="12" fill="#1a1a1a">db.insert(user); // Реальна БД у тесті</text>
+  <text x="539" y="386" font-size="12" font-weight="bold" fill="#2457d6">res = controller.getUser(user.id);</text>
+  <text x="539" y="406" font-size="12" font-weight="bold" fill="#27ae60">assert(res.status == 200 &amp;&amp; res.body.name == "Іван");</text>
+  <text x="539" y="428" font-size="12" font-weight="bold" fill="#27ae60">✅ Справжня перевірка SQL, схеми та серіалізації!</text>
+  <text x="539" y="448" font-size="12" fill="#6b7280">• Ліквідовано крихкі моки, що дублювали реалізацію</text>
+  <rect x="30" y="498" width="900" height="42" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="45" y1="519" x2="75" y2="519" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="85" y="523" font-size="12" fill="#c0392b" font-weight="bold">❌ Анемічний pass-through виклик (порожня прокладка)</text>
+  <line x1="475" y1="519" x2="505" y2="519" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="515" y="523" font-size="12" fill="#27ae60" font-weight="bold">✅ Прямий потік виклику &amp; реальні інтеграційні тести</text>
+</svg>

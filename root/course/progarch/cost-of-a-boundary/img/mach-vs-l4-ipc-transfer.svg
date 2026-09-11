@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-solution" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-problem" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Передача IPC: важке копіювання Mach проти апаратних регістрів L4</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Пряма передача аргументів у регістрах CPU усуває копіювання в пам'ять і скидання TLB</text>
+
+  <!-- Ліва панель: Mach -->
+  <rect x="28" y="80" width="442" height="336" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="28" y="80" width="442" height="48" rx="8" fill="#fdecea"/>
+  <text x="249" y="102" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Mach IPC: Подвійне копіювання в пам'ять</text>
+  <text x="249" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Буфери ядра, контекст-свіч і скидання TLB</text>
+
+  <!-- Mach: Рівень 1 (Відправник) -->
+  <rect x="44" y="140" width="410" height="55" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="56" y="158" font-size="12" font-weight="bold" fill="#1a1a1a">1. Відправник: Процес A</text>
+  <rect x="56" y="166" width="160" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="136" y="180" font-size="12" fill="#c0392b" text-anchor="middle">Буфер даних (RAM)</text>
+  <text x="240" y="180" font-size="12" fill="#6b7280">Виклик msg_send()</text>
+
+  <!-- Mach: Стрілка copyin у проміжку 195-219 -->
+  <line x1="136" y1="195" x2="136" y2="217" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-problem)"/>
+  <text x="155" y="210" font-size="12" font-weight="bold" fill="#c0392b">copyin: копіювання в ядро</text>
+
+  <!-- Mach: Рівень 2 (Ядро) -->
+  <rect x="44" y="219" width="410" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="56" y="236" font-size="12" font-weight="bold" fill="#c0392b">2. Простір ядра Mach</text>
+  <rect x="56" y="246" width="160" height="28" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="136" y="264" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Черга ядра (копія)</text>
+  <rect x="236" y="246" width="206" height="28" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="339" y="264" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Скид TLB (reload CR3)</text>
+
+  <!-- Mach: Стрілка copyout у проміжку 284-308 -->
+  <line x1="136" y1="284" x2="136" y2="306" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-problem)"/>
+  <text x="155" y="299" font-size="12" font-weight="bold" fill="#c0392b">copyout: копіювання з ядра</text>
+
+  <!-- Mach: Рівень 3 (Отримувач) -->
+  <rect x="44" y="308" width="410" height="55" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="56" y="326" font-size="12" font-weight="bold" fill="#1a1a1a">3. Отримувач: Процес B</text>
+  <rect x="56" y="334" width="160" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="136" y="348" font-size="12" fill="#c0392b" text-anchor="middle">Буфер даних (RAM)</text>
+  <text x="240" y="348" font-size="12" fill="#6b7280">Виклик msg_receive()</text>
+
+  <!-- Mach: Підсумкова плашка -->
+  <rect x="44" y="375" width="410" height="35" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="249" y="390" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Разом у Mach: 2 повних копіювання + скидання TLB</text>
+  <text x="249" y="404" font-size="12" fill="#c0392b" text-anchor="middle">Ціна межі: ~800–2000 тактів CPU на кожне IPC</text>
+
+  <!-- Права панель: L4 -->
+  <rect x="490" y="80" width="442" height="336" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="490" y="80" width="442" height="48" rx="8" fill="#e9f7ef"/>
+  <text x="711" y="102" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">L4 IPC: Пряма передача в регістрах CPU</text>
+  <text x="711" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Нуль копіювань у пам'ять, спільний контекст без скиду TLB</text>
+
+  <!-- L4: Рівень 1 (Відправник) -->
+  <rect x="506" y="140" width="410" height="55" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="518" y="158" font-size="12" font-weight="bold" fill="#1a1a1a">1. Відправник: Процес A</text>
+  <rect x="518" y="166" width="160" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="598" y="180" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Запис у регістри CPU</text>
+  <text x="702" y="180" font-size="12" font-weight="bold" fill="#27ae60">Пам'ять RAM не задіяна</text>
+
+  <!-- L4: Стрілка у проміжку 195-219 -->
+  <line x1="598" y1="195" x2="598" y2="217" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-solution)"/>
+  <text x="618" y="210" font-size="12" font-weight="bold" fill="#27ae60">0 копіювань: аргументи в CPU</text>
+
+  <!-- L4: Рівень 2 (Регістри CPU) -->
+  <rect x="506" y="219" width="410" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="518" y="236" font-size="12" font-weight="bold" fill="#27ae60">2. Апаратні регістри CPU (L4 перемикає лише потік)</text>
+  <rect x="518" y="246" width="38" height="28" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="537" y="264" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">EAX</text>
+  <rect x="570" y="246" width="38" height="28" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="589" y="264" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">EDX</text>
+  <rect x="622" y="246" width="38" height="28" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="641" y="264" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">EBX</text>
+  <rect x="674" y="246" width="38" height="28" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="693" y="264" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ESI</text>
+  <rect x="724" y="246" width="180" height="28" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="814" y="264" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">TLB гарячий (без скиду CR3)</text>
+
+  <!-- L4: Стрілка у проміжку 284-308 -->
+  <line x1="598" y1="284" x2="598" y2="306" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-solution)"/>
+  <text x="618" y="299" font-size="12" font-weight="bold" fill="#27ae60">пряме зчитування з тих самих регістрів</text>
+
+  <!-- L4: Рівень 3 (Отримувач) -->
+  <rect x="506" y="308" width="410" height="55" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="518" y="326" font-size="12" font-weight="bold" fill="#1a1a1a">3. Отримувач: Процес B</text>
+  <rect x="518" y="334" width="160" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="598" y="348" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Читання з регістрів CPU</text>
+  <text x="702" y="348" font-size="12" font-weight="bold" fill="#27ae60">Миттєвий доступ (0 циклів RAM)</text>
+
+  <!-- L4: Підсумкова плашка -->
+  <rect x="506" y="375" width="410" height="35" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="711" y="390" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Разом у L4: 0 копіювань у пам'ять + збережений TLB</text>
+  <text x="711" y="404" font-size="12" fill="#27ae60" text-anchor="middle">Ціна межі: 10–20 тактів CPU (у 100 разів швидше за Mach!)</text>
+
+  <!-- Нижня зведена панель -->
+  <rect x="28" y="428" width="904" height="92" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="480" y1="438" x2="480" y2="510" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Колонка 1: Mach -->
+  <text x="46" y="448" font-size="12" font-weight="bold" fill="#c0392b">Фізична ціна межі Mach:</text>
+  <text x="46" y="468" font-size="12" fill="#1a1a1a">• Пам'ять: 2 повних копіювання байтів (User → Kernel → User)</text>
+  <text x="46" y="486" font-size="12" fill="#1a1a1a">• TLB та кеш: скидання CR3, холодний TLB, вимивання L1/L2</text>
+  <text x="46" y="504" font-size="12" fill="#6b7280">• Затримка: ~120 мкс (мікроядра вважалися безнадійно повільними)</text>
+
+  <!-- Колонка 2: L4 -->
+  <text x="498" y="448" font-size="12" font-weight="bold" fill="#27ae60">Фізична ціна межі L4 (принцип Йохена Лідтке):</text>
+  <text x="498" y="468" font-size="12" fill="#1a1a1a">• Пам'ять: 0 копіювань, аргументи передаються в регістрах CPU</text>
+  <text x="498" y="486" font-size="12" fill="#1a1a1a">• TLB та кеш: без перезавантаження CR3, кеші лишаються гарячими</text>
+  <text x="498" y="504" font-size="12" fill="#6b7280">• Затримка: ~1,5 мкс (доведено: мікроядро може бути надшвидким)</text>
+</svg>

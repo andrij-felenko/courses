@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Нормальний градієнт темпів проти Інверсії темпів (Reverse Pressure)</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Швидкі компоненти мають залежати від повільних; зворотна залежність руйнує стабільне ядро</text>
+
+  <!-- LEFT COLUMN: Normal Tempo Gradient -->
+  <rect x="25" y="70" width="440" height="385" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="2"/>
+  <rect x="25" y="70" width="440" height="36" rx="8" fill="#e9f7ef"/>
+  <text x="245" y="93" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Нормальний градієнт: τ(Швидкий) → τ(Повільний)</text>
+
+  <!-- Fast UI Node (Left) -->
+  <rect x="145" y="118" width="200" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="245" y="137" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Швидкий UI (Мобільний)</text>
+  <text x="245" y="154" font-size="12" fill="#6b7280" text-anchor="middle">Волатильність τ = 0.9 (тижні)</text>
+
+  <!-- Arrow 1 (Left) -->
+  <line x1="245" y1="166" x2="245" y2="196" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="255" y="185" font-size="12" fill="#27ae60">Залежить від (SDP)</text>
+
+  <!-- App Service Node (Left) -->
+  <rect x="145" y="202" width="200" height="48" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="221" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сервіс сценаріїв</text>
+  <text x="245" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Волатильність τ = 0.4 (місяці)</text>
+
+  <!-- Arrow 2 (Left) -->
+  <line x1="245" y1="250" x2="245" y2="280" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="255" y="269" font-size="12" fill="#27ae60">Залежить від</text>
+
+  <!-- Conservative Core Node (Left) -->
+  <rect x="145" y="286" width="200" height="48" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="245" y="305" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Консервативне Ядро</text>
+  <text x="245" y="322" font-size="12" fill="#6b7280" text-anchor="middle">Стабільність τ = 0.05 (роки)</text>
+
+  <!-- Summary Panel (Left) -->
+  <rect x="45" y="348" width="400" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="368" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">✓ Дотримано SDP:</tspan> залежності спрямовані в бік стабільності</text>
+  <text x="60" y="390" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">✓ Ізоляція змін:</tspan> часті релізи UI не зачіпають доменне ядро</text>
+  <text x="60" y="412" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">✓ Нуль хвильового ефекту:</tspan> P(ripple) → 0 для ядра</text>
+  <text x="60" y="432" font-size="12" fill="#6b7280">Гармонія темпів: ядро не зазнає дестабілізації</text>
+
+  <!-- RIGHT COLUMN: Tempo Gradient Inversion -->
+  <rect x="495" y="70" width="440" height="385" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="2"/>
+  <rect x="495" y="70" width="440" height="36" rx="8" fill="#fdecea"/>
+  <text x="715" y="93" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Інверсія темпів: τ(Повільний) → τ(Швидкий)</text>
+
+  <!-- Fast UI Node (Right) -->
+  <rect x="570" y="118" width="200" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="670" y="137" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Швидкий UI (Мобільний)</text>
+  <text x="670" y="154" font-size="12" fill="#c0392b" text-anchor="middle">Висока частота змін τ = 0.9</text>
+
+  <!-- App Service Node (Right) -->
+  <rect x="570" y="202" width="200" height="48" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="670" y="221" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сервіс сценаріїв</text>
+  <text x="670" y="238" font-size="12" fill="#c0392b" text-anchor="middle">Дестабілізовано τ_eff ↑</text>
+
+  <!-- Conservative Core Node (Right) -->
+  <rect x="570" y="286" width="200" height="48" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="670" y="305" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Консервативне Ядро</text>
+  <text x="670" y="322" font-size="12" fill="#c0392b" text-anchor="middle">Постійний ризик збоїв</text>
+
+  <!-- Inverted Arrow Path (Right) -->
+  <path d="M 770,310 L 790,310 L 790,142 L 778,142" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" fill="none" marker-end="url(#arr-red)"/>
+  <text x="800" y="220" font-size="12" font-weight="bold" fill="#c0392b">❌ Зворотний тиск</text>
+  <text x="800" y="238" font-size="12" fill="#c0392b">(інверсія темпів)</text>
+
+  <!-- Summary Panel (Right) -->
+  <rect x="515" y="348" width="400" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="530" y="368" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">❌ Порушено SDP:</tspan> повільний шар залежить від волатильного</text>
+  <text x="530" y="390" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">❌ Хвильовий ефект:</tspan> кожна зміна в UI ламає ядро системи</text>
+  <text x="530" y="412" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">❌ Нестабільне ядро:</tspan> I = Ce/(Ca+Ce) → 1 паралізує релізи</text>
+  <text x="530" y="432" font-size="12" fill="#6b7280">Дефект: зсувне тертя руйнує довговічний фундамент</text>
+</svg>

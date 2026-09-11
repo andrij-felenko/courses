@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="540" fill="white"/>
+<defs>
+  <linearGradient id="spectrum-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#27ae60"/>
+    <stop offset="50%" stop-color="#2457d6"/>
+    <stop offset="100%" stop-color="#c0392b"/>
+  </linearGradient>
+</defs>
+<text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Спектр рівнів ізоляції архітектурних меж</text>
+<text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Підвищення ступеня ізоляції експоненційно збільшує фізичну латентність перетину межі</text>
+<text x="30" y="72" font-size="12" font-weight="bold" fill="#27ae60">Низька ізоляція (спільна пам'ять)</text>
+<text x="480" y="72" font-size="12" fill="#6b7280" text-anchor="middle">Зростання надійності та фізичної вартості →</text>
+<text x="930" y="72" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Повна ізоляція (фізична мережа)</text>
+<rect x="30" y="80" width="900" height="4" rx="2" fill="url(#spectrum-grad)"/>
+<rect x="30" y="96" width="168" height="360" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="68" y="108" width="92" height="22" rx="11" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="114" y="123" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Рівень 1</text>
+<text x="114" y="150" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прямий виклик</text>
+<text x="114" y="166" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">функції (CPU)</text>
+<line x1="44" y1="178" x2="184" y2="178" stroke="#d0d7de" stroke-width="1"/>
+<text x="114" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Межа ізоляції:</text>
+<text x="114" y="212" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Простори імен</text>
+<text x="114" y="236" font-size="12" fill="#6b7280" text-anchor="middle">Механізм обміну:</text>
+<text x="114" y="252" font-size="12" fill="#1a1a1a" text-anchor="middle">Регістри CPU</text>
+<text x="114" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">та стек пам'яті</text>
+<text x="114" y="292" font-size="12" fill="#6b7280" text-anchor="middle">Модель відмови:</text>
+<text x="114" y="308" font-size="12" fill="#1a1a1a" text-anchor="middle">Виняток у пам'яті</text>
+<rect x="40" y="326" width="148" height="118" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="114" y="348" font-size="12" fill="#6b7280" text-anchor="middle">Базова затримка:</text>
+<text x="114" y="374" font-size="16" font-weight="bold" fill="#27ae60" text-anchor="middle">~0.5 – 1 нс</text>
+<line x1="52" y1="388" x2="176" y2="388" stroke="#27ae60" stroke-opacity="0.3" stroke-width="1"/>
+<text x="114" y="406" font-size="12" fill="#6b7280" text-anchor="middle">Масштаб ціни:</text>
+<text x="114" y="426" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">1× (база)</text>
+<rect x="213" y="96" width="168" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="251" y="108" width="92" height="22" rx="11" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="297" y="123" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Рівень 2</text>
+<text x="297" y="150" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Поліморфний</text>
+<text x="297" y="166" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">виклик vtable</text>
+<line x1="227" y1="178" x2="367" y2="178" stroke="#d0d7de" stroke-width="1"/>
+<text x="297" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Межа ізоляції:</text>
+<text x="297" y="212" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтерфейси в коді</text>
+<text x="297" y="236" font-size="12" fill="#6b7280" text-anchor="middle">Механізм обміну:</text>
+<text x="297" y="252" font-size="12" fill="#1a1a1a" text-anchor="middle">Розіменування</text>
+<text x="297" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">вказівника vtable</text>
+<text x="297" y="292" font-size="12" fill="#6b7280" text-anchor="middle">Модель відмови:</text>
+<text x="297" y="308" font-size="12" fill="#1a1a1a" text-anchor="middle">Виняток у пам'яті</text>
+<rect x="223" y="326" width="148" height="118" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="297" y="348" font-size="12" fill="#6b7280" text-anchor="middle">Базова затримка:</text>
+<text x="297" y="374" font-size="16" font-weight="bold" fill="#27ae60" text-anchor="middle">~2 – 5 нс</text>
+<line x1="235" y1="388" x2="359" y2="388" stroke="#27ae60" stroke-opacity="0.3" stroke-width="1"/>
+<text x="297" y="406" font-size="12" fill="#6b7280" text-anchor="middle">Масштаб ціни:</text>
+<text x="297" y="426" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">5× від бази</text>
+<rect x="396" y="96" width="168" height="360" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="434" y="108" width="92" height="22" rx="11" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="480" y="123" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рівень 3</text>
+<text x="480" y="150" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Черга подій</text>
+<text x="480" y="166" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">між потоками</text>
+<line x1="410" y1="178" x2="550" y2="178" stroke="#d0d7de" stroke-width="1"/>
+<text x="480" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Межа ізоляції:</text>
+<text x="480" y="212" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Межа потоків</text>
+<text x="480" y="236" font-size="12" fill="#6b7280" text-anchor="middle">Механізм обміну:</text>
+<text x="480" y="252" font-size="12" fill="#1a1a1a" text-anchor="middle">Кеші L1–L3 та</text>
+<text x="480" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">бар'єр пам'яті</text>
+<text x="480" y="292" font-size="12" fill="#6b7280" text-anchor="middle">Модель відмови:</text>
+<text x="480" y="308" font-size="12" fill="#1a1a1a" text-anchor="middle">Переповнення черги</text>
+<rect x="406" y="326" width="148" height="118" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="480" y="348" font-size="12" fill="#6b7280" text-anchor="middle">Базова затримка:</text>
+<text x="480" y="374" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">~20 – 100 нс</text>
+<line x1="418" y1="388" x2="542" y2="388" stroke="#2457d6" stroke-opacity="0.3" stroke-width="1"/>
+<text x="480" y="406" font-size="12" fill="#6b7280" text-anchor="middle">Масштаб ціни:</text>
+<text x="480" y="426" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">100× від бази</text>
+<rect x="579" y="96" width="168" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="617" y="108" width="92" height="22" rx="11" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="663" y="123" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Рівень 4</text>
+<text x="663" y="150" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Локальний IPC</text>
+<text x="663" y="166" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">між процесами</text>
+<line x1="593" y1="178" x2="733" y2="178" stroke="#d0d7de" stroke-width="1"/>
+<text x="663" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Межа ізоляції:</text>
+<text x="663" y="212" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Адресний простір</text>
+<text x="663" y="236" font-size="12" fill="#6b7280" text-anchor="middle">Механізм обміну:</text>
+<text x="663" y="252" font-size="12" fill="#1a1a1a" text-anchor="middle">Syscall ядра та</text>
+<text x="663" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">перемикання MMU</text>
+<text x="663" y="292" font-size="12" fill="#6b7280" text-anchor="middle">Модель відмови:</text>
+<text x="663" y="308" font-size="12" fill="#1a1a1a" text-anchor="middle">Обрив сокета / крах</text>
+<rect x="589" y="326" width="148" height="118" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="663" y="348" font-size="12" fill="#6b7280" text-anchor="middle">Базова затримка:</text>
+<text x="663" y="374" font-size="16" font-weight="bold" fill="#c0392b" text-anchor="middle">~2 – 10 мкс</text>
+<line x1="601" y1="388" x2="725" y2="388" stroke="#c0392b" stroke-opacity="0.3" stroke-width="1"/>
+<text x="663" y="406" font-size="12" fill="#6b7280" text-anchor="middle">Масштаб ціни:</text>
+<text x="663" y="426" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">10 000× від бази</text>
+<rect x="762" y="96" width="168" height="360" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="800" y="108" width="92" height="22" rx="11" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="846" y="123" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Рівень 5</text>
+<text x="846" y="150" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мережевий RPC</text>
+<text x="846" y="166" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">між вузлами</text>
+<line x1="776" y1="178" x2="916" y2="178" stroke="#d0d7de" stroke-width="1"/>
+<text x="846" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Межа ізоляції:</text>
+<text x="846" y="212" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізичні сервери</text>
+<text x="846" y="236" font-size="12" fill="#6b7280" text-anchor="middle">Механізм обміну:</text>
+<text x="846" y="252" font-size="12" fill="#1a1a1a" text-anchor="middle">Стек TCP/IP та</text>
+<text x="846" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">серіалізація DTO</text>
+<text x="846" y="292" font-size="12" fill="#6b7280" text-anchor="middle">Модель відмови:</text>
+<text x="846" y="308" font-size="12" fill="#1a1a1a" text-anchor="middle">Тризначна логіка</text>
+<rect x="772" y="326" width="148" height="118" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="846" y="348" font-size="12" fill="#6b7280" text-anchor="middle">Базова затримка:</text>
+<text x="846" y="374" font-size="16" font-weight="bold" fill="#c0392b" text-anchor="middle">~10 – 50 мс</text>
+<line x1="784" y1="388" x2="908" y2="388" stroke="#c0392b" stroke-opacity="0.3" stroke-width="1"/>
+<text x="846" y="406" font-size="12" fill="#6b7280" text-anchor="middle">Масштаб ціни:</text>
+<text x="846" y="426" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">50 000 000×</text>
+<rect x="30" y="470" width="900" height="52" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="480" y="492" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ціна ізоляції: кожне підвищення захищеності межі коштує на 2–3 порядки більшої фізичної затримки</text>
+<text x="480" y="510" font-size="12" fill="#6b7280" text-anchor="middle">Перехід від виклику в регістрах CPU до мережевого RPC уповільнює виклик у 50 000 000 разів (від 1 нс до 50 мс)</text>
+</svg>

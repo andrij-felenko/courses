@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" width="960" height="470" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="470" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Закрита vs Відкрита модель шарів: усунення «шарів-прокладок»</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Ослаблення шарування дозволяє запитам читання оминати порожні сервіси без втрати системної цілісності</text>
+
+  <!-- Left Panel: Closed Layering (Problem) -->
+  <rect x="40" y="75" width="420" height="335" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="98" font-size="15" font-weight="bold" text-anchor="middle" fill="#c0392b">Закрита модель (Closed Layering)</text>
+  <text x="250" y="116" font-size="12" text-anchor="middle" fill="#6b7280">Суворий прохід крізь кожен шар для будь-якої операції</text>
+
+  <!-- Left Layer 1: Presentation -->
+  <rect x="65" y="138" width="370" height="60" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="160" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Контролер (UserController)</text>
+  <text x="250" y="180" font-size="12" text-anchor="middle" fill="#6b7280">GET /users/{id} ➔ викликає UserService.getUser(id)</text>
+
+  <!-- Arrow 1 Down -->
+  <line x1="250" y1="198" x2="250" y2="220" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Left Layer 2: Pass-through Service (Problem) -->
+  <rect x="65" y="222" width="370" height="64" rx="6" ry="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="80" y="243" font-size="13" font-weight="bold" fill="#c0392b">🛑 Порожній сервіс (Pass-Through Layer)</text>
+  <text x="80" y="263" font-size="12" fill="#1a1a1a">return repo.findById(id); // Жодної логіки</text>
+  <text x="250" y="278" font-size="12" font-style="italic" text-anchor="middle" fill="#c0392b">(Дублювання методів та зайвий мапінг)</text>
+
+  <!-- Arrow 2 Down -->
+  <line x1="250" y1="286" x2="250" y2="308" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Left Layer 3: Repository -->
+  <rect x="65" y="310" width="370" height="56" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="332" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Репозиторій (UserRepository)</text>
+  <text x="250" y="350" font-size="12" text-anchor="middle" fill="#6b7280">SQL / ORM виклики до бази даних</text>
+
+  <text x="250" y="392" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">⚠️ Зайва бюрократія та подвійна робота на кожному запиті</text>
+
+  <!-- Right Panel: Relaxed Layering (Solution) -->
+  <rect x="500" y="75" width="420" height="335" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="98" font-size="15" font-weight="bold" text-anchor="middle" fill="#27ae60">Відкрита модель (Relaxed Layering)</text>
+  <text x="710" y="116" font-size="12" text-anchor="middle" fill="#6b7280">Прямі шляхи читання • Сервіс лише для логіки</text>
+
+  <!-- Right Layer 1: Presentation -->
+  <rect x="525" y="138" width="370" height="60" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="160" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Контролер (UserController)</text>
+  <text x="710" y="180" font-size="12" text-anchor="middle" fill="#6b7280">Розділення Read / Write шляхів</text>
+
+  <!-- Write Flow Arrow (Blue down to Service) -->
+  <line x1="615" y1="198" x2="615" y2="220" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Right Layer 2: Service for Write operations only -->
+  <rect x="525" y="222" width="180" height="64" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="615" y="243" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">UserService (Write)</text>
+  <text x="615" y="263" font-size="12" text-anchor="middle" fill="#1a1a1a">Валідація &amp; транзакції</text>
+
+  <!-- Write Flow Arrow (Blue down from Service to Repo) -->
+  <line x1="615" y1="286" x2="615" y2="308" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Direct Read Bypass Label & Line (Green) -->
+  <text x="770" y="254" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">⚡ Прямий запит (GET)</text>
+  <text x="770" y="272" font-size="12" text-anchor="middle" fill="#27ae60">(Оминає сервіс)</text>
+
+  <line x1="855" y1="198" x2="855" y2="308" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6,3" marker-end="url(#arr-green)"/>
+
+  <!-- Right Layer 3: Repository -->
+  <rect x="525" y="310" width="370" height="56" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="332" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Репозиторій (UserRepository)</text>
+  <text x="710" y="350" font-size="12" text-anchor="middle" fill="#6b7280">Пряма вибірка даних для відображення</text>
+
+  <text x="710" y="392" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">✅ Мінімальний код, висока швидкість та нуль фіктивних шарів</text>
+
+  <!-- Bottom Summary Banner -->
+  <rect x="40" y="425" width="880" height="32" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="446" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">💡 Шар має виправдовувати своє існування: додавати валідацію, транзакції або безпеку</text>
+</svg>

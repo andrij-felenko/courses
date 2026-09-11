@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок для кабельних магістралей -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Планетарний масштаб: швидкість світла та межі синхронності</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Фізична затримка в оптоволокні (RTT) унеможливлює глобальну синхронну консистентність без затримок у сотні мілісекунд</text>
+
+  <!-- Головна панель карти топології магістралей -->
+  <rect x="30" y="75" width="900" height="305" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="97" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">МІЖКОНТИНЕНТАЛЬНІ ОПТИЧНІ МАГІСТРАЛІ ТА ЧАС ПОШИРЕННЯ СИГНАЛУ (RTT)</text>
+
+  <!-- Оптичні магістральні лінії (транзитні кабелі) -->
+  <!-- 1. Нью-Йорк - Лондон -->
+  <line x1="185" y1="168" x2="285" y2="168" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <!-- 2. Лондон - Токіо -->
+  <line x1="420" y1="168" x2="520" y2="168" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <!-- 3. Токіо - Сідней -->
+  <line x1="655" y1="168" x2="758" y2="168" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,4"/>
+
+  <!-- 4. Нью-Йорк - Токіо (через Тихий океан) -->
+  <line x1="117" y1="197" x2="140" y2="259" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+  <line x1="340" y1="259" x2="587" y2="197" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- 5. Лондон - Сідней (антиподи) -->
+  <line x1="352" y1="197" x2="480" y2="259" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <line x1="720" y1="259" x2="828" y2="217" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- Вузловий хаб 1: Нью-Йорк -->
+  <rect x="50" y="125" width="135" height="72" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="117" y="147" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Нью-Йорк (США)</text>
+  <text x="117" y="165" font-size="12" fill="#6b7280" text-anchor="middle">Північна Америка</text>
+  <text x="117" y="183" font-size="12" fill="#2457d6" font-weight="600" text-anchor="middle">AWS us-east / GCP</text>
+
+  <!-- Бейдж RTT: Нью-Йорк - Лондон -->
+  <rect x="200" y="118" width="70" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="235" y="134" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">~70 мс</text>
+  <text x="235" y="149" font-size="12" fill="#6b7280" text-anchor="middle">5 570 км</text>
+
+  <!-- Вузловий хаб 2: Лондон -->
+  <rect x="285" y="125" width="135" height="72" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="352" y="147" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Лондон (Британія)</text>
+  <text x="352" y="165" font-size="12" fill="#6b7280" text-anchor="middle">Західна Європа</text>
+  <text x="352" y="183" font-size="12" fill="#2457d6" font-weight="600" text-anchor="middle">AWS eu-west / GCP</text>
+
+  <!-- Бейдж RTT: Лондон - Токіо -->
+  <rect x="435" y="118" width="70" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="470" y="134" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">~210 мс</text>
+  <text x="470" y="149" font-size="12" fill="#6b7280" text-anchor="middle">9 600 км</text>
+
+  <!-- Вузловий хаб 3: Токіо -->
+  <rect x="520" y="125" width="135" height="72" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="587" y="147" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Токіо (Японія)</text>
+  <text x="587" y="165" font-size="12" fill="#6b7280" text-anchor="middle">Східна Азія</text>
+  <text x="587" y="183" font-size="12" fill="#2457d6" font-weight="600" text-anchor="middle">AWS ap-northeast</text>
+
+  <!-- Бейдж RTT: Токіо - Сідней -->
+  <rect x="672" y="118" width="70" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="707" y="134" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">~105 мс</text>
+  <text x="707" y="149" font-size="12" fill="#6b7280" text-anchor="middle">7 800 км</text>
+
+  <!-- Вузловий хаб 4: Сідней -->
+  <rect x="758" y="145" width="140" height="72" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="828" y="167" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сідней (Австралія)</text>
+  <text x="828" y="185" font-size="12" fill="#6b7280" text-anchor="middle">Південна півкуля</text>
+  <text x="828" y="203" font-size="12" fill="#2457d6" font-weight="600" text-anchor="middle">AWS ap-southeast</text>
+
+  <!-- Довгострокові магістральні бейджі (другий ряд) -->
+  <!-- Бейдж RTT: Нью-Йорк - Токіо -->
+  <rect x="140" y="240" width="200" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="240" y="256" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Нью-Йорк ↔ Токіо: ~145 мс</text>
+  <text x="240" y="271" font-size="12" fill="#6b7280" text-anchor="middle">Тихий океан: 10 800 км</text>
+
+  <!-- Бейдж RTT: Лондон - Сідней -->
+  <rect x="480" y="240" width="240" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="600" y="256" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Лондон ↔ Сідней: ~260 мс (антиподи)</text>
+  <text x="600" y="271" font-size="12" fill="#6b7280" text-anchor="middle">Антиподи: 17 000 км у склі</text>
+
+  <!-- Інформаційний банер у нижній частині карти -->
+  <rect x="50" y="310" width="860" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="65" y="329" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">⚠️ ФІЗИЧНИЙ ФАКТ: Світло у вакуумі — 300 км/мс, в оптоволокні — лише ~204 км/мс (коефіцієнт заломлення скла n ≈ 1.47)</text>
+  <text x="65" y="347" font-size="12" fill="#1a1a1a" text-anchor="start">Вигини океанського дна додають ще 20–30% до геодезичної дуги. Зменшити цей RTT неможливо жодним алгоритмом.</text>
+
+  <!-- Нижні картки: Фізика vs Архітектура -->
+  <!-- Ліва картка: Фізичні обмеження -->
+  <rect x="30" y="395" width="440" height="145" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="418" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">ФІЗИКА МЕРЕЖІ ТА ВИТРАТИ RTT</text>
+  <text x="50" y="434" font-size="12" fill="#6b7280" text-anchor="start">(Фундаментальні обмеження апаратного масштабу)</text>
+  <text x="50" y="454" font-size="12" fill="#1a1a1a" text-anchor="start">• 1 RTT Нью-Йорк–Лондон: мінімум 70 мс у найкращих кабелях.</text>
+  <text x="50" y="474" font-size="12" fill="#1a1a1a" text-anchor="start">• 1 RTT Лондон–Сідней: ~260 мс (лише час польоту фотонів).</text>
+  <text x="50" y="494" font-size="12" fill="#1a1a1a" text-anchor="start">• Міжконтинентальний виклик у 1 000 000 разів повільніший за RAM.</text>
+  <text x="50" y="514" font-size="12" fill="#1a1a1a" text-anchor="start">• Черги комутаторів та буфери TCP додають ще 10–40 мс латентності.</text>
+
+  <!-- Права картка: Архітектурні наслідки -->
+  <rect x="490" y="395" width="440" height="145" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="510" y="418" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">КАТАСТРОФА СИНХРОННОГО КОНСЕНСУСУ</text>
+  <text x="510" y="434" font-size="12" fill="#6b7280" text-anchor="start">(Чому строга консистентність не масштабується глобально)</text>
+  <text x="510" y="454" font-size="12" fill="#1a1a1a" text-anchor="start">• Синхронний 2PC / Raft вимагає 2 RTT (підготовка + фіксація).</text>
+  <text x="510" y="474" font-size="12" fill="#1a1a1a" text-anchor="start">• Запис із кворумом між Лондоном і Сіднеєм триває 500–700+ мс.</text>
+  <text x="510" y="494" font-size="12" fill="#1a1a1a" text-anchor="start">• Блокування рядків на такий час руйнує пропускну здатність бази.</text>
+  <text x="510" y="514" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">• Вихід: локальна автономія, поділ правди, асинхронність і CRDT.</text>
+</svg>

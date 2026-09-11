@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 488" width="960" height="488" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="488" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія стабільних залежностей та інверсія інтерфейсів (SDP &amp; DIP)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Напрямок залежностей завжди веде до зниження метрики нестабільності: від I = 1.0 до I = 0.0</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Ієрархія шарів за метрикою I -->
+  <rect x="36" y="80" width="434" height="316" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="54" y="104" font-size="14" font-weight="bold" fill="#1a1a1a">Ієрархія шарів за метрикою нестабільності I</text>
+  <text x="54" y="122" font-size="12" fill="#6b7280">Залежності спадають у напрямку зростання стабільності</text>
+
+  <!-- 1. Волатильний шар (UI / Адаптери) -->
+  <rect x="54" y="134" width="398" height="64" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="66" y="142" width="76" height="20" rx="3" fill="#2457d6"/>
+  <text x="104" y="156" font-size="12" font-weight="bold" fill="white" text-anchor="middle">I = 1.00</text>
+  <text x="152" y="157" font-size="12" font-weight="bold" fill="#1a1a1a">Волатильна периферія (UI, Адаптери)</text>
+  <text x="66" y="176" font-size="12" fill="#1a1a1a">Мобільний клієнт, REST/MQTT контролери</text>
+  <text x="66" y="190" font-size="12" fill="#6b7280">Ca = 0, Ce = 4 (максимальна нестабільність)</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="80" y1="202" x2="80" y2="214" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="96" y="212" font-size="12" font-weight="bold" fill="#27ae60">↓ Залежність (import)</text>
+
+  <!-- 2. Проміжний шар (Use Cases) -->
+  <rect x="54" y="218" width="398" height="64" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="66" y="226" width="76" height="20" rx="3" fill="#6b7280"/>
+  <text x="104" y="240" font-size="12" font-weight="bold" fill="white" text-anchor="middle">I = 0.40</text>
+  <text x="152" y="241" font-size="12" font-weight="bold" fill="#1a1a1a">Сервіси застосунку (Use Cases)</text>
+  <text x="66" y="260" font-size="12" fill="#1a1a1a">Оркестрація автоматизацій, сценарії дому</text>
+  <text x="66" y="274" font-size="12" fill="#6b7280">Ca = 3, Ce = 2 (помірна стабільність)</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="80" y1="286" x2="80" y2="298" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="96" y="296" font-size="12" font-weight="bold" fill="#27ae60">↓ Залежність (import)</text>
+
+  <!-- 3. Доменне ядро -->
+  <rect x="54" y="302" width="398" height="64" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="66" y="310" width="76" height="20" rx="3" fill="#27ae60"/>
+  <text x="104" y="324" font-size="12" font-weight="bold" fill="white" text-anchor="middle">I = 0.00</text>
+  <text x="152" y="325" font-size="12" font-weight="bold" fill="#1a1a1a">Доменне ядро (Стан, Інваріанти)</text>
+  <text x="66" y="344" font-size="12" fill="#1a1a1a">Канонічний стан пристроїв, правила безпеки</text>
+  <text x="66" y="358" font-size="12" fill="#27ae60">Ca = 5, Ce = 0 (максимальна стабільність)</text>
+
+  <text x="54" y="386" font-size="12" font-weight="bold" fill="#27ae60">Правило SDP: залежності йдуть лише в бік зменшення I</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Розвертання залежності (DIP) -->
+  <rect x="490" y="80" width="434" height="316" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="508" y="104" font-size="14" font-weight="bold" fill="#1a1a1a">Розвертання зв'язку через інверсію інтерфейсу</text>
+  <text x="508" y="122" font-size="12" fill="#6b7280">Як ядро взаємодіє з периферією, не порушуючи стабільність</text>
+
+  <!-- Адаптер периферії -->
+  <rect x="508" y="134" width="398" height="64" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="520" y="142" width="76" height="20" rx="3" fill="#2457d6"/>
+  <text x="558" y="156" font-size="12" font-weight="bold" fill="white" text-anchor="middle">I = 1.00</text>
+  <text x="606" y="157" font-size="12" font-weight="bold" fill="#1a1a1a">Хмарний адаптер (MqttNotifierAdapter)</text>
+  <text x="520" y="176" font-size="12" fill="#1a1a1a">Реалізує інтерфейс ядра: implements INotifier</text>
+  <text x="520" y="190" font-size="12" fill="#6b7280">Зміни у протоколі хмари не впливають на ядро</text>
+
+  <!-- Зона стику: два протилежні вектори -->
+  <line x1="560" y1="244" x2="560" y2="208" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="574" y="222" font-size="12" font-weight="bold" fill="#2457d6">Потік виклику ↑</text>
+  <text x="574" y="238" font-size="12" fill="#6b7280">runtime сигнал</text>
+
+  <line x1="740" y1="208" x2="740" y2="244" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="754" y="222" font-size="12" font-weight="bold" fill="#27ae60">Залежність коду ↓</text>
+  <text x="754" y="238" font-size="12" fill="#27ae60">implements (SDP OK)</text>
+
+  <!-- Доменне ядро з портом -->
+  <rect x="508" y="252" width="398" height="114" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+
+  <!-- Вкладений порт -->
+  <rect x="520" y="260" width="374" height="42" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <rect x="530" y="266" width="60" height="18" rx="3" fill="#27ae60"/>
+  <text x="560" y="280" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ПОРТ</text>
+  <text x="600" y="280" font-size="12" font-weight="bold" fill="#27ae60">&lt;&lt;interface&gt;&gt; INotifierPort (I = 0.00)</text>
+  <text x="530" y="296" font-size="12" fill="#6b7280">Стабільний контракт, належить виключно ядру</text>
+
+  <!-- Текст термостата всередині ядра -->
+  <text x="520" y="322" font-size="12" font-weight="bold" fill="#1a1a1a">Термостат ядра (ThermostatCore, I = 0.00)</text>
+  <text x="520" y="340" font-size="12" fill="#1a1a1a">Викликає метод порту: port.notifyAlert()</text>
+  <text x="520" y="356" font-size="12" fill="#27ae60">Ядро не залежить від зовнішніх бібліотек та сокетів</text>
+
+  <text x="508" y="386" font-size="12" font-weight="bold" fill="#27ae60">Результат: потік керування йде назовні, а залежність — всередину</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Формула та архітектурне правило -->
+  <rect x="36" y="410" width="888" height="54" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="50" y="422" width="168" height="28" rx="4" fill="#27ae60"/>
+  <text x="134" y="440" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ФОРМУЛА ТА ПРАВИЛО</text>
+  <text x="230" y="430" font-size="12" font-weight="bold" fill="#1a1a1a">Метрика нестабільності: I = Ce / (Ca + Ce). Залежності спрямовані від більшого I до меншого I.</text>
+  <text x="230" y="449" font-size="12" fill="#27ae60">Інверсія залежностей (DIP) дозволяє ядру ініціювати виклики без порушення принципу стабільності (SDP).</text>
+</svg>

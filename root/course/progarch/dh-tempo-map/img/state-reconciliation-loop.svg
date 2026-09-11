@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Цикл узгодження станів (State Reconciliation Loop)</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Швидкий інтерфейс фіксує намір, буфер утримує розбіжність до апаратного звіту або таймауту</text>
+
+  <!-- Лінії життя (Lifelines) -->
+  <line x1="120" y1="102" x2="120" y2="490" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="360" y1="102" x2="360" y2="490" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="600" y1="102" x2="600" y2="490" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="840" y1="102" x2="840" y2="490" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Заголовки учасників -->
+  <rect x="45" y="66" width="150" height="36" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="120" y="80" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Клієнт / UI</text>
+  <text x="120" y="94" text-anchor="middle" font-size="12" fill="#6b7280">Швидкий темп</text>
+
+  <rect x="275" y="66" width="170" height="36" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="80" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Буфер узгодження</text>
+  <text x="360" y="94" text-anchor="middle" font-size="12" fill="#6b7280">Ізолювальний буфер</text>
+
+  <rect x="515" y="66" width="170" height="36" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="600" y="80" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Апаратний драйвер</text>
+  <text x="600" y="94" text-anchor="middle" font-size="12" fill="#6b7280">Адаптер протоколу</text>
+
+  <rect x="755" y="66" width="170" height="36" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="840" y="80" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Фізичний пристрій</text>
+  <text x="840" y="94" text-anchor="middle" font-size="12" fill="#6b7280">Повільний темп</text>
+
+  <!-- Крок 1: Команда від клієнта -->
+  <text x="240" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1. Команда: set_target("CLOSED")</text>
+  <line x1="120" y1="125" x2="351" y2="125" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Крок 2: Фіксація розбіжності в буфері -->
+  <rect x="250" y="133" width="220" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="360" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Фіксація розбіжності станів:</text>
+  <text x="360" y="157" text-anchor="middle" font-size="12" fill="#1a1a1a">target = CLOSED | actual = OPEN</text>
+
+  <!-- Крок 3: Асинхронна відповідь UI -->
+  <text x="240" y="175" text-anchor="middle" font-size="12" fill="#6b7280">2. Асинхронна відповідь: PENDING</text>
+  <line x1="360" y1="183" x2="129" y2="183" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+
+  <!-- Крок 4: Диспетчеризація на драйвер -->
+  <text x="480" y="197" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">3. dispatch_command(CLOSED)</text>
+  <line x1="360" y1="205" x2="591" y2="205" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Крок 5: Відправка у фізичне середовище -->
+  <text x="720" y="219" text-anchor="middle" font-size="12" fill="#1a1a1a">4. Фізичний кадр (RS-485 / Zigbee)</text>
+  <line x1="600" y1="227" x2="831" y2="227" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Апаратна затримка виконання -->
+  <rect x="835" y="227" width="10" height="36" fill="#d0d7de"/>
+  <rect x="695" y="235" width="135" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="762" y="251" text-anchor="middle" font-size="12" fill="#6b7280">Повільний рух (3–5 с)</text>
+
+  <!-- Альтернативний блок alt (Сценарій А vs Сценарій Б) -->
+  <rect x="40" y="270" width="880" height="220" rx="6" fill="#fcfdfe" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="270" width="46" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="63" y="283" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">alt</text>
+
+  <!-- Сценарій А: Успіх -->
+  <text x="96" y="286" font-size="12" font-weight="bold" fill="#27ae60">[ Сценарій А: Успішне апаратне узгодження ]</text>
+
+  <text x="720" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">5a. Звіт сенсора: положення CLOSED</text>
+  <line x1="840" y1="308" x2="609" y2="308" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <text x="480" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">6a. actual_state_reported("CLOSED")</text>
+  <line x1="600" y1="330" x2="369" y2="330" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="250" y="338" width="220" height="18" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="360" y="352" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">target == actual → УЗГОДЖЕНО</text>
+
+  <text x="240" y="372" text-anchor="middle" font-size="12" fill="#27ae60">7a. Подія: Стан узгоджено (CLOSED)</text>
+  <line x1="360" y1="380" x2="129" y2="380" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Роздільник гілок -->
+  <line x1="40" y1="394" x2="920" y2="394" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- Сценарій Б: Збій / таймаут -->
+  <text x="96" y="410" font-size="12" font-weight="bold" fill="#c0392b">[ Сценарій Б: Обрив зв'язку / заклинювання приводу ]</text>
+
+  <rect x="250" y="418" width="220" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="360" y="431" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">5b. Спрацював таймаут (10 с)</text>
+  <text x="360" y="443" text-anchor="middle" font-size="12" fill="#c0392b">Розбіжність не усунуто → ЗБІЙ</text>
+
+  <text x="240" y="462" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">6b. Збій таймауту: відкат до OPEN</text>
+  <line x1="360" y1="470" x2="129" y2="470" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Підсумкова панель принципу -->
+  <rect x="40" y="504" width="880" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="525" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Ключовий принцип: швидкий шар фіксує намір миттєво, а буфер ізолює розбіжність до фізичного звіту</text>
+</svg>

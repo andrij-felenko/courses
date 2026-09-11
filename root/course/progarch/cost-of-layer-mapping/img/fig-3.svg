@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Механізм передчасного підвищення об'єктів (Premature Tenuring)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Шквал транзитних DTO переповнює Survivor-буфер і скидає сміття в Old Gen, провокуючи Full GC</text>
+
+  <!-- ============================================================ -->
+  <!-- ВЕРХНЯ ЧАСТИНА: АРХІТЕКТУРА ПОКОЛІНЬ ПАМ'ЯТІ                 -->
+  <!-- ============================================================ -->
+
+  <!-- 1. Джерело алокацій (Шлюз / Шаровий мапінг) -->
+  <rect x="30" y="76" width="190" height="274" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="30" y="76" width="190" height="24" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="125" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ДЖЕРЕЛО АЛОКАЦІЙ</text>
+
+  <!-- Блок 1.1: Шаровий мапінг -->
+  <rect x="42" y="112" width="166" height="104" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="125" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Шаровий мапінг DTO</text>
+  <text x="52" y="150" font-size="12" fill="#1a1a1a">• Високий вхідний RPS</text>
+  <text x="52" y="168" font-size="12" fill="#1a1a1a">• Глибокі графи даних</text>
+  <text x="52" y="186" font-size="12" fill="#6b7280">• Копіювання на межах:</text>
+  <text x="52" y="204" font-size="12" fill="#2457d6">  Entity → Model → DTO</text>
+
+  <!-- Блок 1.2: Шквал короткоживучих об'єктів -->
+  <rect x="42" y="228" width="166" height="110" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="125" y="246" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Шквал DTO (Churn)</text>
+  <text x="52" y="266" font-size="12" fill="#1a1a1a">• Сотні тисяч DTO/сек</text>
+  <text x="52" y="284" font-size="12" fill="#6b7280">• Життя — мілісекунди</text>
+  <text x="52" y="302" font-size="12" fill="#6b7280">• Спрямовуються в Eden</text>
+  <text x="52" y="322" font-size="12" font-weight="bold" fill="#c0392b">Тиск на пам'ять ↑↑</text>
+
+  <!-- Стрілка від Джерела до Eden -->
+  <line x1="220" y1="195" x2="246" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 2. Молоде покоління (Young Generation) -->
+  <rect x="234" y="76" width="392" height="274" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="234" y="76" width="392" height="24" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="430" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">МОЛОДЕ ПОКОЛІННЯ (YOUNG GENERATION)</text>
+
+  <!-- 2.1 Eden Space -->
+  <rect x="246" y="112" width="170" height="226" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="246" y="112" width="170" height="24" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="331" y="129" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">EDEN SPACE</text>
+
+  <text x="256" y="152" font-size="12" font-weight="bold" fill="#1a1a1a">• Нові алокації DTO</text>
+  <text x="256" y="170" font-size="12" fill="#6b7280">  заповнюють простір</text>
+  <text x="256" y="188" font-size="12" fill="#6b7280">  за мілісекунди</text>
+  <text x="256" y="210" font-size="12" font-weight="bold" fill="#c0392b">• Часті Minor GC</text>
+  <text x="256" y="228" font-size="12" fill="#6b7280">  (десятки разів на сек)</text>
+  <text x="256" y="250" font-size="12" font-weight="bold" fill="#1a1a1a">• Inflight-запити:</text>
+  <text x="256" y="268" font-size="12" fill="#6b7280">  DTO ще активні в стеку</text>
+  <text x="256" y="286" font-size="12" fill="#6b7280">  до завершення запиту</text>
+  <text x="256" y="310" font-size="12" font-weight="bold" fill="#2457d6">Живі DTO йдуть в S0 →</text>
+
+  <!-- Стрілка з Eden в Survivor -->
+  <line x1="416" y1="195" x2="444" y2="195" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- 2.2 Survivor Spaces (S0 / S1) -->
+  <rect x="444" y="112" width="170" height="226" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="444" y="112" width="170" height="24" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="529" y="129" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">SURVIVOR (S0 / S1)</text>
+
+  <text x="454" y="152" font-size="12" font-weight="bold" fill="#1a1a1a">• Буфер виживання</text>
+  <text x="454" y="170" font-size="12" fill="#6b7280">  для зрілих об'єктів</text>
+  <text x="454" y="194" font-size="12" font-weight="bold" fill="#c0392b">💥 ПЕРЕПОВНЕННЯ!</text>
+  <text x="454" y="212" font-size="12" fill="#c0392b">  Об'єм живих DTO</text>
+  <text x="454" y="230" font-size="12" fill="#c0392b">  перевищує розмір S0</text>
+  <text x="454" y="254" font-size="12" font-weight="bold" fill="#1a1a1a">• Колапс порогу віку:</text>
+  <text x="454" y="272" font-size="12" fill="#6b7280">  TenuringThreshold → 1</text>
+  <text x="454" y="296" font-size="12" font-weight="bold" fill="#c0392b">Аварійний викид DTO</text>
+  <text x="454" y="314" font-size="12" font-weight="bold" fill="#c0392b">прямо в Old Gen ➔</text>
+
+  <!-- Стрілка аварійної промоції з Survivor в Old Gen -->
+  <line x1="614" y1="195" x2="646" y2="195" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- 3. Старше покоління (Old Generation / Tenured) -->
+  <rect x="646" y="76" width="284" height="274" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="646" y="76" width="284" height="24" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="788" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">СТАРШЕ ПОКОЛІННЯ (OLD GEN / TENURED)</text>
+
+  <!-- Блок 3.1: Передчасне підвищення -->
+  <rect x="658" y="112" width="260" height="104" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="788" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Передчасна промоція (Premature)</text>
+  <text x="668" y="150" font-size="12" fill="#1a1a1a">• Незрілі DTO потрапляють в Old Gen</text>
+  <text x="668" y="168" font-size="12" fill="#c0392b">• Відмирають одразу після запиту</text>
+  <text x="668" y="186" font-size="12" fill="#6b7280">• Мертвий непотріб осідає в Old Gen</text>
+  <text x="668" y="204" font-size="12" font-weight="bold" fill="#c0392b">Швидке захаращення пулу пам'яті</text>
+
+  <!-- Блок 3.2: Катастрофа Full GC -->
+  <rect x="658" y="228" width="260" height="110" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="788" y="246" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">💥 КАТАСТРОФА: FULL GC</text>
+  <text x="668" y="266" font-size="12" font-weight="bold" fill="#c0392b">• Stop-the-World паузи (0.5–2 сек!)</text>
+  <text x="668" y="284" font-size="12" fill="#1a1a1a">• Повна зупинка всіх робочих потоків</text>
+  <text x="668" y="302" font-size="12" fill="#c0392b">• Спалах затримок tail latency p99</text>
+  <text x="668" y="322" font-size="12" font-weight="bold" fill="#c0392b">Колапс пропускної здатності системи</text>
+
+  <!-- ============================================================ -->
+  <!-- НИЖНІ ПАНЕЛІ: ЛАНЦЮГОВА РЕАКЦІЯ ТА АРХІТЕКТУРНИЙ ЗАХИСТ     -->
+  <!-- ============================================================ -->
+
+  <!-- Нижня панель 1: Ланцюгова реакція аварії -->
+  <rect x="30" y="364" width="440" height="170" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="30" y="364" width="440" height="24" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="250" y="381" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ЛАНЦЮГОВА РЕАКЦІЯ ПЕРЕДЧАСНОГО ПІДВИЩЕННЯ</text>
+
+  <text x="44" y="406" font-size="12" fill="#1a1a1a">• 1. Мапінг плодить сотні тисяч DTO щосекунди.</text>
+  <text x="44" y="426" font-size="12" fill="#1a1a1a">• 2. Eden переповнюється, викликаючи частий Minor GC.</text>
+  <text x="44" y="446" font-size="12" fill="#6b7280">• 3. Inflight: частина DTO ще активна під час GC.</text>
+  <text x="44" y="466" font-size="12" fill="#c0392b">• 4. Об'єм живих DTO перевищує буфер Survivor S0/S1.</text>
+  <text x="44" y="486" font-size="12" font-weight="bold" fill="#c0392b">• 5. Поріг віку падає: DTO скидаються в Old Gen.</text>
+  <text x="44" y="508" font-size="12" fill="#6b7280">• 6. DTO відмирають у Old Gen, створюючи баласт.</text>
+  <text x="44" y="524" font-size="12" font-weight="bold" fill="#c0392b">• Результат: неминучий Full GC з довгими паузами STW.</text>
+
+  <!-- Нижня панель 2: Архітектурний захист -->
+  <rect x="490" y="364" width="440" height="170" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="490" y="364" width="440" height="24" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="381" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">НАСЛІДКИ ДЛЯ СИСТЕМИ ТА АРХІТЕКТУРНИЙ ЗАХИСТ</text>
+
+  <text x="504" y="406" font-size="12" font-weight="bold" fill="#c0392b">• Злам Gen-гіпотези: сміття потрапляє в Old Gen.</text>
+  <text x="504" y="426" font-size="12" fill="#1a1a1a">• Замість дешевого Minor GC виникає дорогий Full GC.</text>
+  <text x="504" y="446" font-size="12" fill="#c0392b">• Деградація p99/p99.9: зависання через Stop-the-World.</text>
+  <text x="504" y="470" font-size="12" font-weight="bold" fill="#27ae60">Архітектурні контрзаходи проти Premature Tenuring:</text>
+  <text x="504" y="490" font-size="12" fill="#27ae60">• Zero-Copy: усунення транзитних копій між шарами.</text>
+  <text x="504" y="508" font-size="12" fill="#1a1a1a">• Сплощення моделей даних: без глибоких графів.</text>
+  <text x="504" y="524" font-size="12" fill="#6b7280">• Пулінг об'єктів для гарячих структур даних.</text>
+</svg>

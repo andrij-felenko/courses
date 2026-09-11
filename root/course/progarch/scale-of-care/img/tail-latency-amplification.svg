@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Каскадне роздування хвостових затримок за Джеффом Діном</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">При паралельному виконанні 100 викликів локальна P99-затримка у 1% сповільнює 63% запитів користувача</text>
+
+  <!-- Ліва панель: Графік кривої роздування -->
+  <rect x="30" y="80" width="535" height="356" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="297" y="104" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ймовірність зіткнутися з P99-затримкою: P = 1 - 0.99^M</text>
+  <text x="297" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Затримка всього запиту визначається найповільнішим паралельним викликом</text>
+
+  <!-- Горизонтальні сіткові лінії графіка -->
+  <line x1="90" y1="145" x2="520" y2="145" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="90" y1="201" x2="520" y2="201" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="90" y1="258" x2="520" y2="258" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="90" y1="314" x2="520" y2="314" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="90" y1="370" x2="520" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Вертикальна вісь Y -->
+  <line x1="90" y1="145" x2="90" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Підписи осі Y -->
+  <text x="82" y="149" font-size="12" fill="#6b7280" text-anchor="end">80%</text>
+  <text x="82" y="205" font-size="12" fill="#6b7280" text-anchor="end">60%</text>
+  <text x="82" y="262" font-size="12" fill="#6b7280" text-anchor="end">40%</text>
+  <text x="82" y="318" font-size="12" fill="#6b7280" text-anchor="end">20%</text>
+  <text x="82" y="374" font-size="12" fill="#6b7280" text-anchor="end">0%</text>
+
+  <!-- Затінення області під кривою -->
+  <path d="M 90 370 L 111.5 356.2 L 133.0 343.1 L 154.5 330.7 L 176.0 318.8 L 219.0 296.8 L 262.0 276.9 L 305.0 258.9 L 348.0 242.7 L 391.0 227.9 L 434.0 214.6 L 477.0 202.5 L 520.0 191.7 L 520 370 Z" fill="#fdecea"/>
+
+  <!-- Пунктирні проєкції для ключових точок -->
+  <line x1="305" y1="258.9" x2="305" y2="370" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="90" y1="258.9" x2="305" y2="258.9" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <line x1="520" y1="191.7" x2="520" y2="370" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="90" y1="191.7" x2="520" y2="191.7" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Основна крива роздування -->
+  <path d="M 90 370 L 111.5 356.2 L 133.0 343.1 L 154.5 330.7 L 176.0 318.8 L 219.0 296.8 L 262.0 276.9 L 305.0 258.9 L 348.0 242.7 L 391.0 227.9 L 434.0 214.6 L 477.0 202.5 L 520.0 191.7" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Точка 1: M = 1 -->
+  <circle cx="94.3" cy="367.2" r="4.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="104" y="362" font-size="12" font-weight="bold" fill="#27ae60">1% (M=1)</text>
+
+  <!-- Точка 2: M = 10 -->
+  <circle cx="133" cy="343.1" r="4.5" fill="#1a1a1a" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="142" y="336" font-size="12" font-weight="bold" fill="#1a1a1a">9.6% (M=10)</text>
+
+  <!-- Точка 3: M = 50 -->
+  <rect x="250" y="222" width="110" height="24" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="305" y="238" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">39.5% (M=50)</text>
+  <circle cx="305" cy="258.9" r="5" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Точка 4: M = 100 -->
+  <rect x="415" y="152" width="105" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="467" y="170" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">63.4% (M=100)</text>
+  <circle cx="520" cy="191.7" r="5.5" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Позначки осі X -->
+  <text x="90" y="388" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="133" y="388" font-size="12" fill="#6b7280" text-anchor="middle">10</text>
+  <text x="198" y="388" font-size="12" fill="#6b7280" text-anchor="middle">25</text>
+  <text x="305" y="388" font-size="12" fill="#6b7280" text-anchor="middle">50</text>
+  <text x="413" y="388" font-size="12" fill="#6b7280" text-anchor="middle">75</text>
+  <text x="520" y="388" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+
+  <!-- Підпис осі X -->
+  <text x="305" y="412" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кількість паралельних підзапитів (M)</text>
+
+  <!-- Права панель: Механіка та розрахунки -->
+  <rect x="590" y="80" width="340" height="356" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="760" y="104" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">МЕХАНІКА РОЗДУВАННЯ ЗАТРИМОК</text>
+  <text x="760" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Ефект «The Tail at Scale» (Jeff Dean)</text>
+
+  <!-- Блок формули -->
+  <rect x="605" y="136" width="310" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="760" y="154" font-size="12" fill="#6b7280" text-anchor="middle">Ймовірність затримки всього запиту:</text>
+  <text x="760" y="174" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">P(хвіст) = 1 - (1 - p)^M</text>
+  <text x="760" y="192" font-size="12" fill="#6b7280" text-anchor="middle">де p = 0.01 (P99-затримка одного виклику)</text>
+
+  <!-- Таблиця розрахунку -->
+  <rect x="605" y="214" width="310" height="132" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="620" y="233" font-size="12" font-weight="bold" fill="#6b7280">Виклики (M)</text>
+  <text x="715" y="233" font-size="12" font-weight="bold" fill="#6b7280">Формула</text>
+  <text x="835" y="233" font-size="12" font-weight="bold" fill="#6b7280">P(хвіст)</text>
+  <line x1="615" y1="242" x2="905" y2="242" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="620" y="260" font-size="12" fill="#1a1a1a">M = 1</text>
+  <text x="715" y="260" font-size="12" fill="#6b7280">1 - 0.99¹</text>
+  <text x="835" y="260" font-size="12" font-weight="bold" fill="#27ae60">1.0%</text>
+
+  <text x="620" y="282" font-size="12" fill="#1a1a1a">M = 10</text>
+  <text x="715" y="282" font-size="12" fill="#6b7280">1 - 0.99¹⁰</text>
+  <text x="835" y="282" font-size="12" font-weight="bold" fill="#1a1a1a">9.6%</text>
+
+  <text x="620" y="304" font-size="12" fill="#1a1a1a">M = 50</text>
+  <text x="715" y="304" font-size="12" fill="#6b7280">1 - 0.99⁵⁰</text>
+  <text x="835" y="304" font-size="12" font-weight="bold" fill="#c0392b">39.5%</text>
+
+  <!-- Рядок M = 100 з підсвічуванням -->
+  <rect x="612" y="315" width="296" height="24" rx="3" fill="#fdecea"/>
+  <text x="620" y="331" font-size="12" font-weight="bold" fill="#c0392b">M = 100</text>
+  <text x="715" y="331" font-size="12" font-weight="bold" fill="#c0392b">1 - 0.99¹⁰⁰</text>
+  <text x="835" y="331" font-size="13" font-weight="bold" fill="#c0392b">63.4%</text>
+
+  <!-- Блок архітектурного висновку -->
+  <rect x="605" y="358" width="310" height="64" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="760" y="377" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Парадокс хвостових затримок:</text>
+  <text x="760" y="394" font-size="12" fill="#1a1a1a" text-anchor="middle">1% локального браку затримки стає</text>
+  <text x="760" y="410" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">63% сповільнень для користувача</text>
+</svg>

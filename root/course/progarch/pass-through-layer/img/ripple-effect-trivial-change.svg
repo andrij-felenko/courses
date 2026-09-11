@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="490" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шар-прокладка: ефект хвилі від тривіальної зміни</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Додавання batteryLevel вимагає дублювання поля у 7 файлах (3 DTO та 4 класах)</text>
+
+  <!-- ================= 7 CARDS PIPELINE ================= -->
+
+  <!-- CARD 1: DeviceResponseDto (DTO 1) -->
+  <rect x="20" y="84" width="120" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="80" y="102" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DeviceResponse</text>
+  <text x="80" y="118" font-size="12" fill="#6b7280" text-anchor="middle">(DTO 1 · Web)</text>
+
+  <rect x="20" y="126" width="120" height="264" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="80" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Response DTO</text>
+  <text x="80" y="170" font-size="12" fill="#6b7280" text-anchor="middle">val id: Long</text>
+  <text x="80" y="188" font-size="12" fill="#6b7280" text-anchor="middle">val name: String</text>
+
+  <rect x="26" y="202" width="108" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="80" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+ batteryLevel</text>
+  <text x="80" y="240" font-size="12" fill="#c0392b" text-anchor="middle">: Int</text>
+
+  <text x="80" y="366" font-size="12" fill="#6b7280" text-anchor="middle">Мапінг #3</text>
+
+  <!-- Arrow 2 -> 1 -->
+  <line x1="151" y1="229" x2="142" y2="229" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+
+  <!-- CARD 2: DeviceController (Class 1) -->
+  <rect x="153" y="84" width="120" height="42" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="213" y="102" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DeviceController</text>
+  <text x="213" y="118" font-size="12" fill="#6b7280" text-anchor="middle">(Class 1 · Web)</text>
+
+  <rect x="153" y="126" width="120" height="264" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="213" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Controller</text>
+  <text x="213" y="170" font-size="12" fill="#6b7280" text-anchor="middle">getDevice(id)</text>
+  <text x="213" y="188" font-size="12" fill="#6b7280" text-anchor="middle">-> AppDto</text>
+
+  <rect x="159" y="202" width="108" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="213" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Прокидання</text>
+  <text x="213" y="240" font-size="12" fill="#c0392b" text-anchor="middle">batteryLevel</text>
+
+  <text x="213" y="366" font-size="12" fill="#6b7280" text-anchor="middle">Транзит</text>
+
+  <!-- Arrow 3 -> 2 -->
+  <line x1="284" y1="229" x2="275" y2="229" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+
+  <!-- CARD 3: DeviceAppDto (DTO 2) -->
+  <rect x="286" y="84" width="120" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="346" y="102" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DeviceAppDto</text>
+  <text x="346" y="118" font-size="12" fill="#6b7280" text-anchor="middle">(DTO 2 · App)</text>
+
+  <rect x="286" y="126" width="120" height="264" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="346" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">App DTO</text>
+  <text x="346" y="170" font-size="12" fill="#6b7280" text-anchor="middle">val id: Long</text>
+  <text x="346" y="188" font-size="12" fill="#6b7280" text-anchor="middle">val name: String</text>
+
+  <rect x="292" y="202" width="108" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="346" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+ batteryLevel</text>
+  <text x="346" y="240" font-size="12" fill="#c0392b" text-anchor="middle">: Int</text>
+
+  <text x="346" y="366" font-size="12" fill="#6b7280" text-anchor="middle">Мапінг #2</text>
+
+  <!-- Arrow 4 -> 3 -->
+  <line x1="417" y1="229" x2="408" y2="229" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+
+  <!-- CARD 4: DeviceService (Class 2 - PASS THROUGH) -->
+  <rect x="419" y="84" width="120" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="479" y="102" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">DeviceService</text>
+  <text x="479" y="118" font-size="12" fill="#c0392b" text-anchor="middle">(Class 2 · Pass)</text>
+
+  <rect x="419" y="126" width="120" height="264" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="479" y="146" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Шар-прокладка</text>
+  <text x="479" y="170" font-size="12" fill="#6b7280" text-anchor="middle">repo.find(id)</text>
+  <text x="479" y="188" font-size="12" fill="#6b7280" text-anchor="middle">-> mapToApp()</text>
+
+  <rect x="425" y="202" width="108" height="54" fill="white" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="479" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ Порожній</text>
+  <text x="479" y="240" font-size="12" fill="#c0392b" text-anchor="middle">транзит!</text>
+
+  <text x="479" y="366" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Без логіки!</text>
+
+  <!-- Arrow 5 -> 4 -->
+  <line x1="550" y1="229" x2="541" y2="229" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+
+  <!-- CARD 5: Device Domain Model (Class 3) -->
+  <rect x="552" y="84" width="120" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="612" y="102" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DeviceDomain</text>
+  <text x="612" y="118" font-size="12" fill="#6b7280" text-anchor="middle">(Class 3 · Domain)</text>
+
+  <rect x="552" y="126" width="120" height="264" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="612" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Domain Model</text>
+  <text x="612" y="170" font-size="12" fill="#6b7280" text-anchor="middle">val id: Long</text>
+  <text x="612" y="188" font-size="12" fill="#6b7280" text-anchor="middle">val name: String</text>
+
+  <rect x="558" y="202" width="108" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="612" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+ batteryLevel</text>
+  <text x="612" y="240" font-size="12" fill="#c0392b" text-anchor="middle">: Int</text>
+
+  <text x="612" y="366" font-size="12" fill="#6b7280" text-anchor="middle">Сутність</text>
+
+  <!-- Arrow 6 -> 5 -->
+  <line x1="683" y1="229" x2="674" y2="229" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+
+  <!-- CARD 6: DeviceEntity (DTO 3) -->
+  <rect x="685" y="84" width="120" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="745" y="102" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DeviceEntity</text>
+  <text x="745" y="118" font-size="12" fill="#6b7280" text-anchor="middle">(DTO 3 · Infra)</text>
+
+  <rect x="685" y="126" width="120" height="264" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="745" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ORM Entity</text>
+  <text x="745" y="170" font-size="12" fill="#6b7280" text-anchor="middle">val id: Long</text>
+  <text x="745" y="188" font-size="12" fill="#6b7280" text-anchor="middle">val name: String</text>
+
+  <rect x="691" y="202" width="108" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="745" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+ batteryLevel</text>
+  <text x="745" y="240" font-size="12" fill="#c0392b" text-anchor="middle">: Int</text>
+
+  <text x="745" y="366" font-size="12" fill="#6b7280" text-anchor="middle">Мапінг #1</text>
+
+  <!-- Arrow 7 -> 6 -->
+  <line x1="816" y1="229" x2="807" y2="229" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+
+  <!-- CARD 7: DeviceRepository (Class 4) -->
+  <rect x="818" y="84" width="120" height="42" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="878" y="102" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DeviceRepo</text>
+  <text x="878" y="118" font-size="12" fill="#6b7280" text-anchor="middle">(Class 4 · DB)</text>
+
+  <rect x="818" y="126" width="120" height="264" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="878" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DB Repository</text>
+  <text x="878" y="170" font-size="12" fill="#6b7280" text-anchor="middle">SELECT FROM</text>
+  <text x="878" y="188" font-size="12" fill="#6b7280" text-anchor="middle">devices_table</text>
+
+  <rect x="824" y="202" width="108" height="54" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="878" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+ battery_level</text>
+  <text x="878" y="240" font-size="12" fill="#c0392b" text-anchor="middle">INT (DB)</text>
+
+  <text x="878" y="366" font-size="12" fill="#6b7280" text-anchor="middle">Джерело БД</text>
+
+
+  <!-- ================= SUMMARY PROBLEM & SOLUTION BANNER ================= -->
+  <rect x="20" y="404" width="918" height="68" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="8"/>
+  <text x="479" y="426" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ Проблема: 7 точок правки коду та 3 рівні мапінгу для транзитного прокидання одного поля</text>
+  <text x="479" y="448" font-size="12" fill="#1a1a1a" text-anchor="middle">Рішення: відкрита шарова модель для читання (CQRS) усуває шар-прокладку і зайві DTO</text>
+</svg>

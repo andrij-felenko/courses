@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-solution" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-problem" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Покрокова ліквідація штучної межі: від мікросервісів до моноліту</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Вилучення мережевого транспорту зберігає інтерфейси, але повертає атомарність та нульову латентність</text>
+
+  <!-- Панель 1: Початковий стан -->
+  <rect x="28" y="82" width="280" height="332" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="28" y="82" width="280" height="32" rx="8" fill="#fdecea"/>
+  <text x="168" y="103" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Штучна мережева межа</text>
+  <text x="168" y="125" font-size="12" fill="#6b7280" text-anchor="middle">2 окремі сервіси у різних процесах</text>
+
+  <!-- Сервіс 1 -->
+  <rect x="42" y="138" width="252" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="54" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">Сервіс замовлень</text>
+  <text x="54" y="172" font-size="12" fill="#6b7280">Процес 1 (Окремий вузол)</text>
+  <rect x="52" y="180" width="232" height="18" rx="3" fill="#fdecea"/>
+  <text x="168" y="193" font-size="12" fill="#c0392b" text-anchor="middle">HTTP-клієнт + DTO-мапер</text>
+
+  <!-- Мережева межа -->
+  <rect x="42" y="218" width="252" height="42" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="168" y="234" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Мережа: TCP / HTTP / JSON</text>
+  <text x="168" y="250" font-size="12" fill="#c0392b" text-anchor="middle">Маршалінг, латентність 25 мс</text>
+
+  <!-- Сервіс 2 -->
+  <rect x="42" y="274" width="252" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="52" y="278" width="232" height="18" rx="3" fill="#fdecea"/>
+  <text x="168" y="291" font-size="12" fill="#c0392b" text-anchor="middle">REST-контролер + DTO-парсер</text>
+  <text x="54" y="314" font-size="12" font-weight="bold" fill="#1a1a1a">Сервіс складів</text>
+  <text x="54" y="330" font-size="12" fill="#6b7280">Процес 2 (Окремий вузол)</text>
+
+  <!-- Проблема блоку 1 -->
+  <rect x="42" y="352" width="252" height="56" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="54" y="370" font-size="12" font-weight="bold" fill="#c0392b">Проблема архітектури:</text>
+  <text x="54" y="386" font-size="12" fill="#1a1a1a">• Подвійна серіалізація DTO</text>
+  <text x="54" y="401" font-size="12" fill="#1a1a1a">• Розподілена транзакція (Saga)</text>
+
+  <!-- Стрілка переходу 1 -> 2 -->
+  <line x1="310" y1="238" x2="324" y2="238" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Панель 2: Рефакторинг -->
+  <rect x="328" y="82" width="304" height="332" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="328" y="82" width="304" height="32" rx="8" fill="#eaf0fd"/>
+  <text x="480" y="103" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Покроковий рефакторинг</text>
+  <text x="480" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Ліквідація транспорту без зміни логіки</text>
+
+  <!-- Крок 1 -->
+  <rect x="342" y="138" width="276" height="56" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="354" y="156" font-size="12" font-weight="bold" fill="#2457d6">Крок 1: Введення інтерфейсу</text>
+  <text x="354" y="172" font-size="12" fill="#1a1a1a">Виділення контракту IInventoryService</text>
+  <text x="354" y="188" font-size="12" fill="#6b7280">Клієнт залежить від інтерфейсу, а не URL</text>
+
+  <!-- Стрілка кроку 1 -> 2 -->
+  <line x1="480" y1="195" x2="480" y2="206" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Крок 2 -->
+  <rect x="342" y="208" width="276" height="56" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="354" y="226" font-size="12" font-weight="bold" fill="#c0392b">Крок 2: Вилучення транспорту</text>
+  <text x="354" y="242" font-size="12" fill="#1a1a1a">Демонтаж контролерів та DTO-маперів</text>
+  <text x="354" y="258" font-size="12" fill="#c0392b">Видалено HTTP-стек та серіалізацію</text>
+
+  <!-- Стрілка кроку 2 -> 3 -->
+  <line x1="480" y1="265" x2="480" y2="276" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Крок 3 -->
+  <rect x="342" y="278" width="276" height="56" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="354" y="296" font-size="12" font-weight="bold" fill="#27ae60">Крок 3: In-Memory підключення</text>
+  <text x="354" y="312" font-size="12" fill="#1a1a1a">Пряма ін'єкція залежності (DI) у пам'яті</text>
+  <text x="354" y="328" font-size="12" fill="#6b7280">Реалізація модуля у тому самому процесі</text>
+
+  <!-- Правило блоку 2 -->
+  <rect x="342" y="350" width="276" height="58" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="354" y="368" font-size="12" font-weight="bold" fill="#2457d6">Головне правило рефакторингу:</text>
+  <text x="354" y="385" font-size="12" fill="#1a1a1a">Межа лишається логічною (інтерфейс),</text>
+  <text x="354" y="401" font-size="12" fill="#1a1a1a">але зникає фізично (мережа/процес)</text>
+
+  <!-- Стрілка переходу 2 -> 3 -->
+  <line x1="634" y1="238" x2="648" y2="238" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-solution)"/>
+
+  <!-- Панель 3: Результат -->
+  <rect x="652" y="82" width="280" height="332" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="652" y="82" width="280" height="32" rx="8" fill="#e9f7ef"/>
+  <text x="792" y="103" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Модульний моноліт</text>
+  <text x="792" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Спільний адресний простір (1 процес)</text>
+
+  <!-- Єдиний процес -->
+  <rect x="666" y="138" width="252" height="196" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="666" y="138" width="252" height="22" rx="6" fill="#e9f7ef"/>
+  <text x="792" y="153" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Єдиний процес ОС (In-Process Call)</text>
+
+  <!-- Модуль 1 -->
+  <rect x="678" y="168" width="228" height="46" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="690" y="186" font-size="12" font-weight="bold" fill="#1a1a1a">Модуль замовлень</text>
+  <text x="690" y="202" font-size="12" fill="#6b7280">Викликає IInventoryService</text>
+
+  <!-- Межа в пам'яті -->
+  <rect x="678" y="222" width="228" height="30" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="792" y="241" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">In-Memory виклик (&lt; 10 нс, 0 мс)</text>
+
+  <!-- Модуль 2 -->
+  <rect x="678" y="260" width="228" height="46" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="690" y="278" font-size="12" font-weight="bold" fill="#1a1a1a">Модуль складів</text>
+  <text x="690" y="294" font-size="12" fill="#6b7280">Реалізує IInventoryService</text>
+
+  <!-- ACID транзакція -->
+  <rect x="678" y="312" width="228" height="18" rx="3" fill="#e9f7ef"/>
+  <text x="792" y="325" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Спільна ACID-транзакція в БД</text>
+
+  <!-- Результат блоку 3 -->
+  <rect x="666" y="350" width="252" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="678" y="368" font-size="12" font-weight="bold" fill="#27ae60">Результат ліквідації межі:</text>
+  <text x="678" y="385" font-size="12" fill="#1a1a1a">• Відновлено 100% атомарність</text>
+  <text x="678" y="401" font-size="12" fill="#1a1a1a">• Накладні витрати зведено до 0</text>
+
+  <!-- Нижня зведена панель -->
+  <rect x="28" y="426" width="904" height="86" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="318" y1="436" x2="318" y2="502" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="642" y1="436" x2="642" y2="502" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Колонка 1 зведення -->
+  <text x="44" y="448" font-size="12" font-weight="bold" fill="#c0392b">Ціна мережевої межі:</text>
+  <text x="44" y="468" font-size="12" fill="#1a1a1a">• Латентність: 10–50 мс на виклик</text>
+  <text x="44" y="488" font-size="12" fill="#1a1a1a">• Ненадійність: таймаути, 2PC / Saga</text>
+  <text x="44" y="504" font-size="12" fill="#6b7280">• DTO-мапінг та копіювання пам'яті</text>
+
+  <!-- Колонка 2 зведення -->
+  <text x="334" y="448" font-size="12" font-weight="bold" fill="#2457d6">Ключовий принцип переходу:</text>
+  <text x="334" y="468" font-size="12" fill="#1a1a1a">• Контракт інтерфейсу не змінюється</text>
+  <text x="334" y="488" font-size="12" fill="#1a1a1a">• Вилучаються контролери і серіалізація</text>
+  <text x="334" y="504" font-size="12" fill="#6b7280">• Бізнес-код ізольовано за інтерфейсом</text>
+
+  <!-- Колонка 3 зведення -->
+  <text x="658" y="448" font-size="12" font-weight="bold" fill="#27ae60">Виграш модульного моноліту:</text>
+  <text x="658" y="468" font-size="12" fill="#1a1a1a">• Латентність: &lt; 10 нс (виклик функції)</text>
+  <text x="658" y="488" font-size="12" fill="#1a1a1a">• Атомарність: пряма ACID-транзакція</text>
+  <text x="658" y="504" font-size="12" fill="#6b7280">• Нульові витрати на перетин межі</text>
+</svg>

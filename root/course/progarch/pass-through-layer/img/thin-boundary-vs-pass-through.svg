@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фіктивний посередник проти виправданої системної межі</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Цінність шару визначається не кількістю рядків, а системними обов'язками, які він утримує</text>
+
+  <!-- Ліва колонка: Проблема -->
+  <rect x="30" y="78" width="435" height="400" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247.5" y="104" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Порожній шар-прокладка (Pass-Through)</text>
+  <text x="247.5" y="124" font-size="12" fill="#6b7280" text-anchor="middle">Механічна трансляція виклику без доданої вартості</text>
+
+  <rect x="50" y="142" width="395" height="54" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247.5" y="163" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Веб-контролер (Controller)</text>
+  <text x="247.5" y="181" font-size="12" fill="#6b7280" text-anchor="middle">Отримує запит клієнта: GetRoom(id)</text>
+
+  <line x1="247.5" y1="196" x2="247.5" y2="234" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="265" y="219" font-size="12" fill="#c0392b" text-anchor="start">виклик 1:1</text>
+
+  <rect x="50" y="236" width="395" height="76" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="247.5" y="258" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Сервіс-прокладка (RoomService)</text>
+  <text x="247.5" y="277" font-size="12" fill="#1a1a1a" text-anchor="middle">return _repository.GetById(id);</text>
+  <text x="247.5" y="296" font-size="12" fill="#c0392b" text-anchor="middle">Нуль логіки, валідації чи транзакцій</text>
+
+  <line x1="247.5" y1="312" x2="247.5" y2="350" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="265" y="335" font-size="12" fill="#c0392b" text-anchor="start">дублювання виклику</text>
+
+  <rect x="50" y="352" width="395" height="54" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247.5" y="373" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Репозиторій (RoomRepository)</text>
+  <text x="247.5" y="391" font-size="12" fill="#6b7280" text-anchor="middle">Прямий SQL-запит до сховища даних</text>
+
+  <rect x="50" y="420" width="395" height="44" rx="6" fill="#fff5f5" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="437" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Синхронне тертя: зміна одного поля вимагає</text>
+  <text x="247.5" y="453" font-size="12" fill="#6b7280" text-anchor="middle">редагування трьох шарів без доданої вартості</text>
+
+  <!-- Права колонка: Розв'язок -->
+  <rect x="495" y="78" width="435" height="400" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="104" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Виправдана тонка межа (Thin Boundary)</text>
+  <text x="712.5" y="124" font-size="12" fill="#6b7280" text-anchor="middle">Короткий метод, що гарантує системні інваріанти</text>
+
+  <rect x="515" y="142" width="395" height="54" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712.5" y="163" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Веб-контролер (Controller)</text>
+  <text x="712.5" y="181" font-size="12" fill="#6b7280" text-anchor="middle">Транслює HTTP у доменну команду</text>
+
+  <line x1="712.5" y1="196" x2="712.5" y2="234" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)\"/>
+  <text x="730" y="219" font-size="12" fill="#27ae60" text-anchor="start">доменна команда</text>
+
+  <rect x="515" y="236" width="395" height="168" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="256" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Тонкий сервіс (RoomCommandService)</text>
+
+  <rect x="527" y="266" width="371" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="537" y="289" font-size="12" fill="#1a1a1a" text-anchor="start">1. Авторизація: перевірка прав суб'єкта на приміщення</text>
+
+  <rect x="527" y="314" width="371" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="537" y="337" font-size="12" fill="#1a1a1a" text-anchor="start">2. Транзакція: атомарне оновлення агрегату в БД</text>
+
+  <rect x="527" y="362" width="371" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="537" y="385" font-size="12" fill="#1a1a1a" text-anchor="start">3. Інтеграція: публікація доменної події в шину</text>
+
+  <rect x="515" y="420" width="395" height="44" rx="6" fill="#eafaf1" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="437" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Системна стійкість: захист інваріантів</text>
+  <text x="712.5" y="453" font-size="12" fill="#6b7280" text-anchor="middle">Межа не за розміром коду, а за наслідками для системи</text>
+</svg>

@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Анатомія процесу: спільна пам'ять, кеші L1–L3 та межі збоїв</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Спільний адресний простір дає наносекундний доступ, але перетворює процес на монолітний домен збоїв</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Апаратний рівень ієрархії пам'яті -->
+  <rect x="24" y="84" width="436" height="434" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="24" y="84" width="436" height="34" rx="8" fill="#eaf0fd"/>
+  <text x="40" y="106" font-size="14" font-weight="bold" fill="#2457d6">Апаратний рівень: ЦП та ієрархія кешів</text>
+
+  <!-- Ядро 0 -->
+  <rect x="40" y="130" width="194" height="96" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="137" y="149" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Ядро 0 (Потік 1)</text>
+  <rect x="52" y="156" width="170" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="137" y="173" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">L1 Кеш (~1 нс, 64 КБ)</text>
+  <rect x="52" y="194" width="170" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="137" y="211" font-size="12" fill="#1a1a1a" text-anchor="middle">L2 Кеш (~4 нс, 512 КБ)</text>
+
+  <!-- Ядро 1 -->
+  <rect x="250" y="130" width="194" height="96" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="347" y="149" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Ядро 1 (Потік 2)</text>
+  <rect x="262" y="156" width="170" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="347" y="173" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">L1 Кеш (~1 нс, 64 КБ)</text>
+  <rect x="262" y="194" width="170" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="347" y="211" font-size="12" fill="#1a1a1a" text-anchor="middle">L2 Кеш (~4 нс, 512 КБ)</text>
+
+  <!-- Апаратні лінії доступу до L3 -->
+  <line x1="137" y1="226" x2="137" y2="242" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="347" y1="226" x2="347" y2="242" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Спільний L3 кеш -->
+  <rect x="40" y="246" width="404" height="42" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="242" y="265" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Спільний L3 Кеш (~15 нс, 16–64 МБ, шина MESI)</text>
+  <text x="242" y="281" font-size="12" fill="#6b7280" text-anchor="middle">Апаратна когерентність між ядрами кристала</text>
+
+  <!-- Фізична пам'ять RAM -->
+  <line x1="242" y1="288" x2="242" y2="298" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <rect x="40" y="302" width="404" height="44" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="242" y="321" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізична пам'ять (RAM DDR4 / DDR5)</text>
+  <text x="242" y="338" font-size="12" fill="#6b7280" text-anchor="middle">Затримка: 50–80 нс • Пропускна здатність: десятки ГБ/с</text>
+
+  <!-- Блок прямого розіменування -->
+  <rect x="40" y="360" width="404" height="142" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="56" y="382" font-size="13" font-weight="bold" fill="#27ae60">⚡ Пряме розіменування вказівників (*ptr)</text>
+  <text x="56" y="404" font-size="12" fill="#1a1a1a">• Нуль копіювань: передача адреси через регістр</text>
+  <text x="56" y="424" font-size="12" fill="#1a1a1a">• Без серіалізації: пряме читання структур з ОЗП</text>
+  <text x="56" y="444" font-size="12" fill="#1a1a1a">• Наносекундний відгук: від 1 нс (L1) до 60 нс (RAM)</text>
+  <text x="56" y="468" font-size="12" font-weight="bold" fill="#27ae60">Ціна швидкості: відсутність ізоляції модулів у пам'яті</text>
+  <text x="56" y="488" font-size="12" fill="#6b7280">Будь-який потік може модифікувати спільний об'єкт</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Віртуальний адресний простір процесу -->
+  <rect x="476" y="84" width="460" height="434" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="476" y="84" width="460" height="34" rx="8" fill="#eaf0fd"/>
+  <text x="492" y="106" font-size="14" font-weight="bold" fill="#2457d6">Адресний простір процесу (Virtual Memory)</text>
+
+  <!-- Стеки потоків -->
+  <rect x="492" y="130" width="206" height="96" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="595" y="149" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стеки потоків (Stacks)</text>
+  <rect x="502" y="156" width="186" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="595" y="173" font-size="12" fill="#1a1a1a" text-anchor="middle">Потік 1: локальні кадри</text>
+  <rect x="502" y="194" width="186" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="595" y="211" font-size="12" fill="#1a1a1a" text-anchor="middle">Потік 2: локальні кадри</text>
+
+  <!-- Стрілка розіменування зі стека в купу -->
+  <line x1="688" y1="173" x2="706" y2="173" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Спільна купа Heap -->
+  <rect x="714" y="130" width="206" height="96" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="817" y="149" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Спільна купа (Shared Heap)</text>
+  <text x="726" y="172" font-size="12" fill="#1a1a1a">• Об'єкти бізнес-домену</text>
+  <text x="726" y="191" font-size="12" fill="#1a1a1a">• Спільні кеші та буфери</text>
+  <text x="726" y="212" font-size="12" font-weight="bold" fill="#2457d6">Прямий доступ за *ptr</text>
+
+  <!-- Сегменти коду та глобальних даних -->
+  <rect x="492" y="238" width="428" height="32" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="706" y="259" font-size="12" fill="#1a1a1a" text-anchor="middle">Сегменти процесу: Глобальні дані (Data/BSS) • Машинний код (Text)</text>
+
+  <!-- Монолітний домен збоїв -->
+  <rect x="492" y="282" width="428" height="112" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="508" y="304" font-size="13" font-weight="bold" fill="#c0392b">⚠️ Монолітний домен збоїв (Zero Spatial Isolation)</text>
+  <text x="508" y="326" font-size="12" fill="#1a1a1a">• Збій пам'яті (SIGSEGV, use-after-free) вбиває весь процес</text>
+  <text x="508" y="346" font-size="12" fill="#1a1a1a">• Неперехоплений виняток або паніка зупиняє всі потоки</text>
+  <text x="508" y="368" font-size="12" font-weight="bold" fill="#c0392b">Аварія другорядного модуля кладе всю програму</text>
+  <text x="508" y="386" font-size="12" fill="#6b7280">Спільна пам'ять позбавлена внутрішніх захисних стін</text>
+
+  <!-- Захисна межа віртуальної пам'яті ОС -->
+  <rect x="492" y="406" width="428" height="96" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="508" y="428" font-size="13" font-weight="bold" fill="#2457d6">🛡️ Захисна межа віртуальної пам'яті ОС (MMU)</text>
+  <text x="508" y="450" font-size="12" fill="#1a1a1a">• Таблиці сторінок ОС ізолюють процес від інших PID</text>
+  <text x="508" y="470" font-size="12" fill="#1a1a1a">• Спроба доступу до чужого простору дає Page Fault</text>
+  <text x="508" y="492" font-size="12" font-weight="bold" fill="#2457d6">Ізоляція діє МІЖ процесами, а не всередині процесу</text>
+</svg>

@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Замкнений контур регулятора ціни межі (Cost Valley Controller)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Динамічне втримання системи на дні долини ціни через зворотний зв'язок затримки й черги</text>
+
+  <!-- ============================================================ -->
+  <!-- ВЕРХНЯ ПОЛОВИНА: КОНТУР ДАНИХ (FORWARD DATA PLANE)           -->
+  <!-- ============================================================ -->
+
+  <!-- 1. Клієнтський шлюз (Client Gateway) -->
+  <rect x="30" y="76" width="540" height="196" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="30" y="76" width="540" height="24" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="300" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">КЛІЄНТСЬКИЙ ШЛЮЗ: КОНВЕЄР АДАПТИВНОГО ФОРМУВАННЯ НАВАНТАЖЕННЯ</text>
+
+  <!-- Блок 1.1: Вхідний буфер -->
+  <rect x="42" y="114" width="162" height="146" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="123" y="132" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">1. Вхідний буфер</text>
+  <text x="52" y="152" font-size="12" fill="#6b7280">• Потік викликів</text>
+  <text x="52" y="170" font-size="12" fill="#6b7280">• Черга FIFO</text>
+  <text x="52" y="188" font-size="12" fill="#6b7280">• Буферизація сплесків</text>
+  <text x="52" y="214" font-size="12" font-weight="bold" fill="#2457d6">Метрика: глибина Q</text>
+  <text x="52" y="232" font-size="12" fill="#6b7280">вимір у часі</text>
+
+  <!-- Стрілка 1.1 -> 1.2 -->
+  <line x1="204" y1="185" x2="218" y2="185" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Блок 1.2: Пакетувальник -->
+  <rect x="218" y="114" width="164" height="146" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="300" y="132" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2. Мікропакетувальник</text>
+  <text x="228" y="152" font-size="12" fill="#1a1a1a">• Вікно очікування W</text>
+  <text x="228" y="170" font-size="12" fill="#6b7280">  (діапазон 2–20 мс)</text>
+  <text x="228" y="188" font-size="12" fill="#1a1a1a">• Поріг пачки B</text>
+  <text x="228" y="206" font-size="12" fill="#6b7280">  (ліміт 5–50 шт)</text>
+  <text x="228" y="230" font-size="12" font-weight="bold" fill="#27ae60">Керовані параметри</text>
+  <text x="228" y="248" font-size="12" fill="#27ae60">динамічно з контуру</text>
+
+  <!-- Стрілка 1.2 -> 1.3 -->
+  <line x1="382" y1="185" x2="396" y2="185" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Блок 1.3: Маска полів -->
+  <rect x="396" y="114" width="162" height="146" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="477" y="132" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">3. Проєкція DTO</text>
+  <text x="406" y="152" font-size="12" fill="#6b7280">• Маска вибірки</text>
+  <text x="406" y="170" font-size="12" fill="#6b7280">• Фільтрація полів</text>
+  <text x="406" y="188" font-size="12" fill="#6b7280">• Без надвибірки</text>
+  <text x="406" y="214" font-size="12" font-weight="bold" fill="#2457d6">Ефект: стиснення DTO</text>
+  <text x="406" y="232" font-size="12" fill="#6b7280">менше байтів у шов</text>
+
+  <!-- 2. Архітектурна межа (Boundary Zone) -->
+  <rect x="584" y="76" width="130" height="196" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <rect x="584" y="76" width="130" height="24" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="649" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">АРХІТЕКТУРНА МЕЖА</text>
+  <text x="649" y="122" text-anchor="middle" font-size="12" fill="#c0392b">Мережевий RPC / IPC</text>
+  <text x="649" y="140" text-anchor="middle" font-size="12" fill="#6b7280">Податок латентності</text>
+  <text x="649" y="158" text-anchor="middle" font-size="12" fill="#6b7280">Базовий RTT ~1 мс</text>
+
+  <!-- Стрілка крізь межу (Gateway -> Service) -->
+  <line x1="558" y1="185" x2="728" y2="185" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="649" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Пакети DTO →</text>
+
+  <text x="649" y="214" text-anchor="middle" font-size="12" fill="#6b7280">Маршалінг / Сокет</text>
+  <text x="649" y="232" text-anchor="middle" font-size="12" fill="#6b7280">Копіювання ядра ОС</text>
+  <text x="649" y="250" text-anchor="middle" font-size="12" fill="#c0392b">Бар'єр ізоляції</text>
+
+  <!-- 3. Цільовий сервіс (Target Service) -->
+  <rect x="728" y="76" width="202" height="196" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="728" y="76" width="202" height="24" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="829" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ЦІЛЬОВИЙ СЕРВІС / ДОМЕН</text>
+  <rect x="740" y="114" width="178" height="146" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="829" y="132" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Серверна обробка</text>
+  <text x="750" y="152" font-size="12" fill="#6b7280">• Пакетний API ендпоінт</text>
+  <text x="750" y="170" font-size="12" fill="#6b7280">• Демаршалінг масиву DTO</text>
+  <text x="750" y="188" font-size="12" fill="#1a1a1a">• Оновлення замовлень</text>
+  <text x="750" y="206" font-size="12" fill="#6b7280">• Транзакція в БД</text>
+  <text x="750" y="230" font-size="12" font-weight="bold" fill="#2457d6">Формування відповіді</text>
+  <text x="750" y="248" font-size="12" fill="#2457d6">і міток часу RTT</text>
+
+  <!-- ============================================================ -->
+  <!-- СПУСК ТЕЛЕМЕТРІЇ: З Сервісу в Датчик (Вниз)                   -->
+  <!-- ============================================================ -->
+  <line x1="829" y1="260" x2="829" y2="308" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="837" y="288" font-size="12" font-weight="bold" fill="#2457d6">Відповіді + RTT</text>
+
+  <!-- ============================================================ -->
+  <!-- НИЖНЯ ПОЛОВИНА: КОНТУР КЕРУВАННЯ (FEEDBACK CONTROL PLANE)    -->
+  <!-- ============================================================ -->
+
+  <!-- 4. Правий блок: Датчик телеметрії та стан Долини Ціни -->
+  <rect x="684" y="310" width="246" height="226" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="684" y="310" width="246" height="24" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="807" y="327" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ДАТЧИК ТА СТАН ДОЛИНИ ЦІНИ</text>
+
+  <!-- 4.1 Датчик телеметрії -->
+  <rect x="696" y="348" width="222" height="80" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="807" y="366" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Датчик телеметрії шлюзу</text>
+  <text x="706" y="386" font-size="12" fill="#1a1a1a">• Вимір RTT пакету (мс)</text>
+  <text x="706" y="404" font-size="12" fill="#1a1a1a">• Глибина черги буфера Q</text>
+  <text x="706" y="420" font-size="12" fill="#6b7280">• Потік байтів через шов</text>
+
+  <!-- 4.2 Долина ціни (U-valley concept card) -->
+  <rect x="696" y="442" width="222" height="82" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="807" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">U-подібна долина ціни</text>
+  <text x="706" y="478" font-size="12" fill="#c0392b">← Стіна затримки (дрібні)</text>
+  <text x="706" y="496" font-size="12" font-weight="bold" fill="#27ae60">★ Дно долини: мінімум ціни</text>
+  <text x="706" y="514" font-size="12" fill="#c0392b">→ Стіна смуги (роздуті)</text>
+
+  <!-- Стрілка від Датчика ліворуч у Контролер -->
+  <line x1="696" y1="388" x2="668" y2="388" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 5. Лівий великий блок: Cost Valley Controller -->
+  <rect x="30" y="310" width="638" height="226" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="30" y="310" width="638" height="24" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="349" y="327" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">КОНТУР ЗВОРОТНОГО ЗВ'ЯЗКУ: COST VALLEY CONTROLLER</text>
+
+  <!-- 5.1 Блок аналізу дрейфу (праворуч всередині контролера) -->
+  <rect x="460" y="348" width="196" height="176" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="558" y="366" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">1. Детектор схилу</text>
+  <text x="470" y="386" font-size="12" font-weight="bold" fill="#c0392b">• Схил латентності:</text>
+  <text x="470" y="404" font-size="12" fill="#6b7280">  Q пуста, але RTT росте</text>
+  <text x="470" y="422" font-size="12" fill="#6b7280">  (забагато дрібних дій)</text>
+  <text x="470" y="444" font-size="12" font-weight="bold" fill="#c0392b">• Схил пропускності:</text>
+  <text x="470" y="462" font-size="12" fill="#6b7280">  пакет > MTU, затримка</text>
+  <text x="470" y="480" font-size="12" fill="#6b7280">  (роздутість, надвибірка)</text>
+  <text x="470" y="504" font-size="12" font-weight="bold" fill="#2457d6">Похибка e(t) відхилення</text>
+
+  <!-- Стрілка 5.1 -> 5.2 (ліворуч) -->
+  <line x1="460" y1="436" x2="444" y2="436" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- 5.2 Блок алгоритму регулювання (посередині всередині контролера) -->
+  <rect x="250" y="348" width="194" height="176" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="347" y="366" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2. Алгоритм адаптації</text>
+  <text x="260" y="386" font-size="12" font-weight="bold" fill="#1a1a1a">Розрахунок дельти:</text>
+  <text x="260" y="406" font-size="12" fill="#1a1a1a">• dW = α · (Q_t - Q)</text>
+  <text x="260" y="424" font-size="12" fill="#6b7280">  підстроювання таймера</text>
+  <text x="260" y="446" font-size="12" fill="#1a1a1a">• dB = β · (RTT_t - RTT)</text>
+  <text x="260" y="464" font-size="12" fill="#6b7280">  підстроювання ліміту</text>
+  <text x="260" y="488" font-size="12" font-weight="bold" fill="#27ae60">Критерій збіжності:</text>
+  <text x="260" y="506" font-size="12" fill="#27ae60">мінімум витрат на дні</text>
+
+  <!-- Стрілка 5.2 -> 5.3 (ліворуч) -->
+  <line x1="250" y1="436" x2="234" y2="436" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- 5.3 Виконавчий блок регулятора (ліворуч всередині контролера) -->
+  <rect x="42" y="348" width="192" height="176" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="138" y="366" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">3. Виконавчий блок</text>
+  <text x="52" y="386" font-size="12" font-weight="bold" fill="#27ae60">Керуючий сигнал:</text>
+  <text x="52" y="406" font-size="12" fill="#1a1a1a">• W = clamp(W + dW)</text>
+  <text x="52" y="424" font-size="12" fill="#6b7280">  вікно очікування</text>
+  <text x="52" y="446" font-size="12" fill="#1a1a1a">• B = clamp(B + dB)</text>
+  <text x="52" y="464" font-size="12" fill="#6b7280">  поріг мікропачки</text>
+  <text x="52" y="486" font-size="12" fill="#1a1a1a">• Mask: проєкція DTO</text>
+  <text x="52" y="506" font-size="12" font-weight="bold" fill="#27ae60">Миттєве застосування</text>
+
+  <!-- ============================================================ -->
+  <!-- ЗАМИКАННЯ КОНТУРУ: З Виконавчого блоку ВГОРУ у Шлюз          -->
+  <!-- ============================================================ -->
+  <line x1="138" y1="310" x2="138" y2="291" stroke="#27ae60" stroke-width="2"/>
+  <line x1="138" y1="291" x2="300" y2="291" stroke="#27ae60" stroke-width="2"/>
+  <line x1="300" y1="291" x2="300" y2="274" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="219" y="286" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Керування: W та B ↑</text>
+</svg>

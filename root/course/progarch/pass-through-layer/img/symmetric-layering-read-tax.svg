@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Податок на читання (Read Tax) у симетричній шаровій архітектурі</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Проходження простих вибірок крізь усі шари вимагає марного мапінгу та створення 4 копій однакових даних</text>
+
+  <!-- Layer Cards Pipeline -->
+  <!-- Card 1: Presentation -->
+  <rect x="40" y="90" width="190" height="215" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <path d="M 40,98 A 8,8 0 0 1 48,90 L 222,90 A 8,8 0 0 1 230,90 L 230,122 L 40,122 Z" fill="#eaf0fd"/>
+  <line x1="40" y1="122" x2="230" y2="122" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="135" y="111" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Presentation</text>
+  <text x="135" y="138" text-anchor="middle" font-size="11" fill="#6b7280">Web Controller</text>
+  <text x="135" y="155" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">UserController</text>
+
+  <rect x="50" y="170" width="170" height="90" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="135" y="188" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Копія #4 (Web DTO)</text>
+  <text x="135" y="206" text-anchor="middle" font-size="11" fill="#1a1a1a">UserResponseDTO</text>
+  <text x="135" y="224" text-anchor="middle" font-size="10" fill="#6b7280">{ id, name, email }</text>
+  <text x="135" y="248" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">120 B в пам'яті</text>
+
+  <text x="135" y="294" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Фінальна відповідь</text>
+
+  <!-- Card 2: App Service -->
+  <rect x="270" y="90" width="190" height="215" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <path d="M 270,98 A 8,8 0 0 1 278,90 L 452,90 A 8,8 0 0 1 460,90 L 460,122 L 270,122 Z" fill="#eaf0fd"/>
+  <line x1="270" y1="122" x2="460" y2="122" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="365" y="111" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. App Service</text>
+  <text x="365" y="138" text-anchor="middle" font-size="11" fill="#6b7280">Pass-Through Proxy</text>
+  <text x="365" y="155" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">UserService</text>
+
+  <rect x="280" y="170" width="170" height="90" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="365" y="188" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Копія #3 (Service DTO)</text>
+  <text x="365" y="206" text-anchor="middle" font-size="11" fill="#1a1a1a">UserServiceDTO</text>
+  <text x="365" y="224" text-anchor="middle" font-size="10" fill="#6b7280">{ id, name, email }</text>
+  <text x="365" y="248" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">120 B в пам'яті</text>
+
+  <text x="365" y="294" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Посередник (no-op)</text>
+
+  <!-- Card 3: Domain Model -->
+  <rect x="500" y="90" width="190" height="215" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <path d="M 500,98 A 8,8 0 0 1 508,90 L 682,90 A 8,8 0 0 1 690,90 L 690,122 L 500,122 Z" fill="#eaf0fd"/>
+  <line x1="500" y1="122" x2="690" y2="122" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="595" y="111" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3. Domain Model</text>
+  <text x="595" y="138" text-anchor="middle" font-size="11" fill="#6b7280">Domain Aggregate</text>
+  <text x="595" y="155" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">User Aggregate</text>
+
+  <rect x="510" y="170" width="170" height="90" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="595" y="188" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Копія #2 (Aggregate)</text>
+  <text x="595" y="206" text-anchor="middle" font-size="11" fill="#1a1a1a">User (Rich Model)</text>
+  <text x="595" y="224" text-anchor="middle" font-size="10" fill="#c0392b">0 правил перевірено</text>
+  <text x="595" y="248" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">280 B в пам'яті</text>
+
+  <text x="595" y="294" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Марний агрегат</text>
+
+  <!-- Card 4: Database / ORM -->
+  <rect x="730" y="90" width="190" height="215" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <path d="M 730,98 A 8,8 0 0 1 738,90 L 912,90 A 8,8 0 0 1 920,90 L 920,122 L 730,122 Z" fill="#eaf0fd"/>
+  <line x1="730" y1="122" x2="920" y2="122" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="825" y="111" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">4. DB &amp; ORM</text>
+  <text x="825" y="138" text-anchor="middle" font-size="11" fill="#6b7280">Persistence Store</text>
+  <text x="825" y="155" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">UserRepository</text>
+
+  <rect x="740" y="170" width="170" height="90" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="6"/>
+  <text x="825" y="188" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Копія #1 (ORM Entity)</text>
+  <text x="825" y="206" text-anchor="middle" font-size="11" fill="#1a1a1a">UserEntity</text>
+  <text x="825" y="224" text-anchor="middle" font-size="10" fill="#c0392b">15 полів + 4 JOIN</text>
+  <text x="825" y="248" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">360 B в пам'яті</text>
+
+  <text x="825" y="294" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Надлишковий SELECT</text>
+
+  <!-- Query Forward Flow Arrows -->
+  <line x1="230" y1="145" x2="262" y2="145" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="460" y1="145" x2="492" y2="145" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="690" y1="145" x2="722" y2="145" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Return Mapping Arrows (Red Read Tax Return Path) -->
+  <line x1="740" y1="215" x2="718" y2="215" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="510" y1="215" x2="488" y2="215" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="280" y1="215" x2="258" y2="215" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Read Tax Summary Badge -->
+  <rect x="140" y="318" width="680" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="480" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">💸 ПОДАТОК НА ЧИТАННЯ: 4 транзитні копії у пам'яті + 3 мапінги за 1 запит читання</text>
+
+  <!-- Bottom Panel Left: Problem -->
+  <rect x="40" y="362" width="420" height="173" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="8"/>
+  <text x="55" y="384" font-size="13" font-weight="bold" fill="#c0392b">🚫 Чому симетричне читання неефективне:</text>
+  <text x="55" y="406" font-size="11" fill="#1a1a1a">• Марне створення важких доменних об'єктів без перевірки правил</text>
+  <text x="55" y="424" font-size="11" fill="#1a1a1a">• Дублювання однакових полів у 4 схожих класах (DTO-близнюках)</text>
+  <text x="55" y="442" font-size="11" fill="#1a1a1a">• Лавина короткоживучих об'єктів навантажує збирач сміття (GC)</text>
+  <text x="55" y="460" font-size="11" fill="#1a1a1a">• Зміна одного поля вимагає правки 4 файлів у всіх шарах</text>
+  
+  <rect x="55" y="475" width="390" height="45" fill="white" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="65" y="492" font-size="11" font-weight="bold" fill="#c0392b">Системний наслідок:</text>
+  <text x="65" y="508" font-size="11" fill="#1a1a1a">Високий накладний кошторис (overhead) та повільний p99</text>
+
+  <!-- Bottom Panel Right: Solution -->
+  <rect x="500" y="362" width="420" height="173" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <text x="515" y="384" font-size="13" font-weight="bold" fill="#27ae60">✅ Альтернатива: Read Bypass (CQRS):</text>
+  <text x="515" y="406" font-size="11" fill="#1a1a1a">• Пряма вибірка зі сховища у підсумковий UserReadModel</text>
+  <text x="515" y="424" font-size="11" fill="#1a1a1a">• Повне усунення доменного шару та сервісів з тракту читання</text>
+  <text x="515" y="442" font-size="11" fill="#1a1a1a">• Лише 1 алокація об'єкта замість 4 (нуль мапінгового сміття)</text>
+  <text x="515" y="460" font-size="11" fill="#1a1a1a">• Вибірка лише потрібних колонок (без важких ORM JOIN)</text>
+  
+  <rect x="515" y="475" width="390" height="45" fill="white" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="525" y="492" font-size="11" font-weight="bold" fill="#27ae60">Результат:</text>
+  <text x="525" y="508" font-size="11" fill="#1a1a1a">Максимальна швидкість вибірки без пасуючих шарів</text>
+</svg>

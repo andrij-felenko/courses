@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Спектр внутрішніх годинників системи Digital Homes</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Частота змін обернено пропорційна вартості дефекту: від апаратного ядра до інтерфейсу</text>
+
+  <!-- ВЕРХНЯ ОСЬ: Частота змін -->
+  <text x="480" y="80" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зростання частоти змін (прискорення циклу релізів) →</text>
+  <line x1="36" y1="92" x2="924" y2="92" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- КОЛОНКА 1: Апаратне забезпечення -->
+  <rect x="24" y="106" width="216" height="304" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="38" y="118" width="188" height="24" rx="4" fill="#c0392b"/>
+  <text x="132" y="134" font-size="12" font-weight="bold" fill="white" text-anchor="middle">АПАРАТНИЙ ШАР</text>
+
+  <text x="38" y="162" font-size="13" font-weight="bold" fill="#1a1a1a">Годинник: 1–3 роки</text>
+  <text x="38" y="178" font-size="12" fill="#6b7280">Сертифікація заліза</text>
+
+  <line x1="38" y1="190" x2="218" y2="190" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="38" y="210" font-size="12" font-weight="bold" fill="#1a1a1a">Компоненти:</text>
+  <text x="38" y="228" font-size="12" fill="#1a1a1a">• Мікроконтролери шлюзу</text>
+  <text x="38" y="246" font-size="12" fill="#1a1a1a">• Радіомодулі Zigbee</text>
+  <text x="38" y="264" font-size="12" fill="#1a1a1a">• Силові реле та датчики</text>
+
+  <line x1="38" y1="276" x2="218" y2="276" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="38" y="296" font-size="12" font-weight="bold" fill="#c0392b">Вартість помилки:</text>
+  <text x="38" y="314" font-size="12" fill="#c0392b">• Відкликання пристроїв</text>
+  <text x="38" y="332" font-size="12" fill="#c0392b">• Пожежна небезпека</text>
+  <text x="38" y="350" font-size="12" fill="#c0392b">• Вигоряння контактів</text>
+  <text x="38" y="368" font-size="12" fill="#6b7280">Виправлення через OTA</text>
+
+  <!-- КОЛОНКА 2: Ядро та модель стану -->
+  <rect x="256" y="106" width="216" height="304" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="270" y="118" width="188" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="364" y="134" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ЯДРО СТАНУ</text>
+
+  <text x="270" y="162" font-size="13" font-weight="bold" fill="#1a1a1a">Годинник: 3–6 місяців</text>
+  <text x="270" y="178" font-size="12" fill="#6b7280">Прошивка шлюзу, RTOS</text>
+
+  <line x1="270" y1="190" x2="450" y2="190" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="270" y="210" font-size="12" font-weight="bold" fill="#1a1a1a">Компоненти:</text>
+  <text x="270" y="228" font-size="12" fill="#1a1a1a">• Канонічний DTO стану</text>
+  <text x="270" y="246" font-size="12" fill="#1a1a1a">• Диспетчер команд</text>
+  <text x="270" y="264" font-size="12" fill="#1a1a1a">• Політики безпеки</text>
+
+  <line x1="270" y1="276" x2="450" y2="276" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="270" y="296" font-size="12" font-weight="bold" fill="#1a1a1a">Вартість помилки:</text>
+  <text x="270" y="314" font-size="12" fill="#1a1a1a">• Розсинхрон стану</text>
+  <text x="270" y="332" font-size="12" fill="#1a1a1a">• Збої опалення</text>
+  <text x="270" y="350" font-size="12" fill="#1a1a1a">• Зависання черги подій</text>
+  <text x="270" y="368" font-size="12" fill="#6b7280">Стендове тестування</text>
+
+  <!-- КОЛОНКА 3: Автоматизації -->
+  <rect x="488" y="106" width="216" height="304" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="502" y="118" width="188" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="596" y="134" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">АВТОМАТИЗАЦІЇ</text>
+
+  <text x="502" y="162" font-size="13" font-weight="bold" fill="#1a1a1a">Годинник: 1–3 тижні</text>
+  <text x="502" y="178" font-size="12" fill="#6b7280">Сценарії та правила</text>
+
+  <line x1="502" y1="190" x2="682" y2="190" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="502" y="210" font-size="12" font-weight="bold" fill="#1a1a1a">Компоненти:</text>
+  <text x="502" y="228" font-size="12" fill="#1a1a1a">• Рушій бізнес-правил</text>
+  <text x="502" y="246" font-size="12" fill="#1a1a1a">• Планувальники клімату</text>
+  <text x="502" y="264" font-size="12" fill="#1a1a1a">• Агрегація телеметрії</text>
+
+  <line x1="502" y1="276" x2="682" y2="276" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="502" y="296" font-size="12" font-weight="bold" fill="#1a1a1a">Вартість помилки:</text>
+  <text x="502" y="314" font-size="12" fill="#1a1a1a">• Неспрацювання правил</text>
+  <text x="502" y="332" font-size="12" fill="#1a1a1a">• Затримка освітлення</text>
+  <text x="502" y="350" font-size="12" fill="#1a1a1a">• Помилкові спрацювання</text>
+  <text x="502" y="368" font-size="12" fill="#6b7280">Швидка правка скриптів</text>
+
+  <!-- КОЛОНКА 4: Користувацький UI -->
+  <rect x="720" y="106" width="216" height="304" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="734" y="118" width="188" height="24" rx="4" fill="#2457d6"/>
+  <text x="828" y="134" font-size="12" font-weight="bold" fill="white" text-anchor="middle">КЛІЄНТСЬКИЙ UI</text>
+
+  <text x="734" y="162" font-size="13" font-weight="bold" fill="#1a1a1a">Годинник: дні та години</text>
+  <text x="734" y="178" font-size="12" fill="#6b7280">Мобільні екрани, віджети</text>
+
+  <line x1="734" y1="190" x2="914" y2="190" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="734" y="210" font-size="12" font-weight="bold" fill="#1a1a1a">Компоненти:</text>
+  <text x="734" y="228" font-size="12" fill="#1a1a1a">• Віджети мобільного UI</text>
+  <text x="734" y="246" font-size="12" fill="#1a1a1a">• Хмарні інтеграції</text>
+  <text x="734" y="264" font-size="12" fill="#1a1a1a">• Голосові асистенти</text>
+
+  <line x1="734" y1="276" x2="914" y2="276" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="734" y="296" font-size="12" font-weight="bold" fill="#2457d6">Вартість помилки:</text>
+  <text x="734" y="314" font-size="12" fill="#2457d6">• Візуальний дефект UI</text>
+  <text x="734" y="332" font-size="12" fill="#2457d6">• Помилка рендерингу</text>
+  <text x="734" y="350" font-size="12" fill="#2457d6">• Незручність клієнта</text>
+  <text x="734" y="368" font-size="12" fill="#6b7280">Швидкий хотфікс у коді</text>
+
+  <!-- НИЖНЯ ОСЬ: Вартість дефекту -->
+  <rect x="24" y="422" width="912" height="42" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="440" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">← Зростання вартості помилки, складності виправлення та фізичної інерції</text>
+  <line x1="920" y1="452" x2="38" y2="452" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+</svg>

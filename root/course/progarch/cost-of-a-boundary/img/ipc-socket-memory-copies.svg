@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  <text x="480" y="39" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ціна міжпроцесної межі: шлях даних через Unix Domain Socket</text>
+  <text x="480" y="59" font-size="13" fill="#6b7280" text-anchor="middle">Навіть на одному хості сокет вимагає двох копіювань пам'яті, системних викликів та перемикання контексту</text>
+  <!-- Колонка 1: Процес 1 (Клієнт) -->
+  <rect x="28" y="76" width="252" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="28" y="76" width="252" height="48" rx="8" fill="#eaf0fd"/>
+  <line x1="28" y1="124" x2="280" y2="124" stroke="#d0d7de" stroke-width="1"/>
+  <text x="42" y="97" font-size="14" font-weight="bold" fill="#2457d6">Процес 1: Клієнт</text>
+  <text x="42" y="114" font-size="12" fill="#6b7280">Простір користувача (Ring 3)</text>
+  <rect x="40" y="138" width="228" height="84" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="52" y="158" font-size="12" font-weight="bold" fill="#2457d6">Буфер пам'яті клієнта (RAM)</text>
+  <text x="52" y="177" font-size="12" fill="#1a1a1a">• Адреса: 0x7ffd... (віртуальна)</text>
+  <text x="52" y="195" font-size="12" fill="#1a1a1a">• Дані: Order { ID, Items }</text>
+  <text x="52" y="212" font-size="12" fill="#6b7280">• Тіло повідомлення: 240 байт</text>
+  <rect x="40" y="236" width="228" height="90" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="52" y="256" font-size="12" font-weight="bold" fill="#c0392b">Системний виклик write()</text>
+  <text x="52" y="276" font-size="12" font-weight="bold" fill="#1a1a1a">write(sock_fd, buf, 240)</text>
+  <text x="52" y="295" font-size="12" fill="#c0392b">• Перехід: Ring 3 ➔ Ring 0</text>
+  <text x="52" y="313" font-size="12" fill="#6b7280">• Збереження регістрів CPU</text>
+  <rect x="40" y="340" width="228" height="82" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="52" y="360" font-size="12" font-weight="bold" fill="#1a1a1a">Стан після виклику:</text>
+  <text x="52" y="380" font-size="12" fill="#6b7280">• Потік засинає в ядрі</text>
+  <text x="52" y="399" font-size="12" fill="#6b7280">• Очікує відповіді через read()</text>
+  <text x="52" y="415" font-size="12" fill="#6b7280">• Блокування до сигналу ОС</text>
+  <!-- Колонка 2: Ядро ОС (Kernel Space) -->
+  <rect x="300" y="76" width="360" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="300" y="76" width="360" height="48" rx="8" fill="#fdecea"/>
+  <line x1="300" y1="124" x2="660" y2="124" stroke="#d0d7de" stroke-width="1"/>
+  <text x="314" y="97" font-size="14" font-weight="bold" fill="#c0392b">Ядро ОС (Kernel Space — Ring 0)</text>
+  <text x="314" y="114" font-size="12" fill="#6b7280">Керування сокетом, пам'яттю та планувальником</text>
+  <rect x="312" y="138" width="336" height="64" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="324" y="158" font-size="12" font-weight="bold" fill="#c0392b">Копіювання №1: User ➔ Kernel RAM</text>
+  <text x="324" y="177" font-size="12" fill="#1a1a1a">• Читання з буфера клієнта через шину RAM</text>
+  <text x="324" y="193" font-size="12" fill="#6b7280">• Запис у чергу сокета ядра (sk_buff, 240 B)</text>
+  <rect x="312" y="214" width="336" height="62" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="324" y="234" font-size="12" font-weight="bold" fill="#2457d6">Буфер сокета ядра (Unix Socket Queue)</text>
+  <text x="324" y="253" font-size="12" fill="#1a1a1a">• Буфер у пам'яті ядра: sk_buff (FIFO-черга)</text>
+  <text x="324" y="269" font-size="12" fill="#6b7280">• Пакет утримується під контролем ядра ОС</text>
+  <rect x="312" y="288" width="336" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="324" y="308" font-size="12" font-weight="bold" fill="#c0392b">Перемикання контексту (Context Switch)</text>
+  <text x="324" y="327" font-size="12" fill="#1a1a1a">• Зміна таблиць сторінок пам'яті (CR3)</text>
+  <text x="324" y="345" font-size="12" fill="#6b7280">• Скидання TLB та втрата гарячого кешу L1/L2</text>
+  <rect x="312" y="368" width="336" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="324" y="388" font-size="12" font-weight="bold" fill="#c0392b">Копіювання №2: Kernel ➔ User RAM</text>
+  <text x="324" y="407" font-size="12" fill="#1a1a1a">• CPU зчитує байти з sk_buff ядра</text>
+  <text x="324" y="422" font-size="12" fill="#6b7280">• Запис у буфер сервера через шину RAM</text>
+  <!-- Колонка 3: Процес 2 (Сервер) -->
+  <rect x="680" y="76" width="252" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="680" y="76" width="252" height="48" rx="8" fill="#e9f7ef"/>
+  <line x1="680" y1="124" x2="932" y2="124" stroke="#d0d7de" stroke-width="1"/>
+  <text x="694" y="97" font-size="14" font-weight="bold" fill="#27ae60">Процес 2: Сервер</text>
+  <text x="694" y="114" font-size="12" fill="#6b7280">Простір користувача (Ring 3)</text>
+  <rect x="692" y="138" width="228" height="84" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="704" y="158" font-size="12" font-weight="bold" fill="#1a1a1a">Пробудження сервера:</text>
+  <text x="704" y="177" font-size="12" fill="#6b7280">• Потік розблоковується ядром</text>
+  <text x="704" y="195" font-size="12" fill="#6b7280">• Сигнал готовності в сокеті</text>
+  <text x="704" y="212" font-size="12" fill="#6b7280">• Планувальник надає квант CPU</text>
+  <rect x="692" y="236" width="228" height="90" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="704" y="256" font-size="12" font-weight="bold" fill="#c0392b">Системний виклик read()</text>
+  <text x="704" y="276" font-size="12" font-weight="bold" fill="#1a1a1a">read(sock_fd, buf, 240)</text>
+  <text x="704" y="295" font-size="12" fill="#c0392b">• Перехід: Ring 3 ➔ Ring 0</text>
+  <text x="704" y="313" font-size="12" fill="#6b7280">• Повернення в Ring 3 із даними</text>
+  <rect x="692" y="340" width="228" height="82" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="704" y="360" font-size="12" font-weight="bold" fill="#27ae60">Буфер пам'яті сервера (RAM)</text>
+  <text x="704" y="380" font-size="12" fill="#1a1a1a">• Адреса: 0x7ffc... (віртуальна)</text>
+  <text x="704" y="399" font-size="12" fill="#1a1a1a">• Отримано копію: 240 байт</text>
+  <text x="704" y="415" font-size="12" fill="#27ae60">• Запуск валідації замовлення</text>
+  <line x1="280" y1="170" x2="300" y2="170" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="280" y1="281" x2="300" y2="281" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="660" y1="281" x2="680" y2="281" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="660" y1="398" x2="680" y2="398" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <!-- Підсумковий блок: Анатомія ціни IPC -->
+  <rect x="28" y="448" width="904" height="90" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="468" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Анатомія ціни міжпроцесної межі (IPC Tax Summary):</text>
+  <text x="44" y="488" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">• 2 системні виклики (write + read):</tspan> подвійний перехід CPU Ring 3 ➔ Ring 0 ➔ Ring 3 (~1–2 мкс)</text>
+  <text x="44" y="506" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">• 2 копіювання пам'яті через RAM:</tspan> клієнт ➔ буфер ядра (sk_buff) ➔ сервер, втрата гарячого кешу L1/L2 (~3–6 мкс)</text>
+  <text x="44" y="524" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">• Перемикання контексту ОС:</tspan> скидання TLB, зміна CR3 та прогрів пам'яті (~10–15 мкс, разом ~15–25 мкс vs 5 нс у пам'яті)</text>
+</svg>

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-axis" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Універсальний закон масштабованості Ніла Гюнтера (USL)</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Міжвузлова когерентність (β) спричиняє ретроградний спад продуктивності після точки N_max</text>
+
+  <!-- Написи в зоні ретроградного спаду (N > N_max) -->
+  <text x="425" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Зона ретроградного спаду</text>
+  <text x="425" y="141" text-anchor="middle" font-size="12" fill="#c0392b">(N > N_max: спад через O(N²))</text>
+
+  <!-- Осі координат -->
+  <line x1="75" y1="410" x2="75" y2="95" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <line x1="75" y1="410" x2="550" y2="410" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+
+  <!-- Заголовки осей -->
+  <text x="75" y="82" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Продуктивність C(N)</text>
+  <text x="440" y="460" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Кількість вузлів (N)</text>
+
+  <!-- Засічки осі Y -->
+  <line x1="70" y1="410" x2="75" y2="410" stroke="#6b7280"/>
+  <text x="62" y="414" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <line x1="70" y1="340" x2="75" y2="340" stroke="#6b7280"/>
+  <text x="62" y="344" text-anchor="end" font-size="12" fill="#6b7280">4</text>
+
+  <line x1="70" y1="270" x2="75" y2="270" stroke="#6b7280"/>
+  <text x="62" y="274" text-anchor="end" font-size="12" fill="#6b7280">8</text>
+
+  <line x1="70" y1="200" x2="75" y2="200" stroke="#6b7280"/>
+  <text x="62" y="204" text-anchor="end" font-size="12" fill="#6b7280">12</text>
+
+  <line x1="70" y1="130" x2="75" y2="130" stroke="#6b7280"/>
+  <text x="62" y="134" text-anchor="end" font-size="12" fill="#6b7280">16</text>
+
+  <!-- Засічки осі X -->
+  <line x1="187" y1="410" x2="187" y2="415" stroke="#6b7280"/>
+  <text x="187" y="430" text-anchor="middle" font-size="12" fill="#6b7280">8</text>
+
+  <line x1="299" y1="410" x2="299" y2="415" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="299" y="430" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">N_max = 16</text>
+
+  <line x1="411" y1="410" x2="411" y2="415" stroke="#6b7280"/>
+  <text x="411" y="430" text-anchor="middle" font-size="12" fill="#6b7280">24</text>
+
+  <line x1="523" y1="410" x2="523" y2="415" stroke="#6b7280"/>
+  <text x="523" y="430" text-anchor="middle" font-size="12" fill="#6b7280">32</text>
+
+  <!-- Вертикальна лінія від піку до осі X -->
+  <line x1="299" y1="305" x2="299" y2="410" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Крива 1: Ідеальне лінійне масштабування -->
+  <line x1="75" y1="410" x2="299" y2="130" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <text x="280" y="120" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">Лінійне: C(N) = N</text>
+
+  <!-- Крива 2: Закон Амдала (контеншн α) -->
+  <path d="M 75,410 C 110,365 145,325 187,300.6 C 225,278 260,252 299,235.0 C 338,218 375,202 411,191.2 C 448,180 485,170 523,159.9" stroke="#2457d6" stroke-width="3" fill="none"/>
+
+  <!-- Крива 3: Закон Гюнтера USL (когерентність β) -->
+  <path d="M 75,410 C 110,370 145,335 187,316.9 C 225,302 265,300 299,300.6 C 335,301 375,305 411,308.3 C 448,311 485,316 523,319.9" stroke="#c0392b" stroke-width="3" fill="none"/>
+
+  <!-- Точка максимуму N_max -->
+  <circle cx="299" cy="300.6" r="5" fill="#c0392b" stroke="white" stroke-width="2"/>
+  <text x="340" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Пік N_max = 16</text>
+
+  <!-- Панель 1: Ідеальне масштабування -->
+  <rect x="575" y="95" width="360" height="95" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="595" y1="116" x2="625" y2="116" stroke="#27ae60" stroke-width="3" stroke-dasharray="6,4"/>
+  <text x="635" y="120" font-size="13" font-weight="bold" fill="#27ae60">1. Лінійне масштабування</text>
+  <text x="595" y="142" font-size="12" font-weight="bold" fill="#1a1a1a">C(N) = N  (α = 0, β = 0)</text>
+  <text x="595" y="160" font-size="12" fill="#6b7280">Повна відсутність черг і синхронізацій.</text>
+  <text x="595" y="176" font-size="12" fill="#6b7280">Кожен новий вузол додає 100% користі.</text>
+
+  <!-- Панель 2: Закон Амдала -->
+  <rect x="575" y="206" width="360" height="110" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="595" y1="227" x2="625" y2="227" stroke="#2457d6" stroke-width="3"/>
+  <text x="635" y="231" font-size="13" font-weight="bold" fill="#2457d6">2. Закон Амдала: контеншн</text>
+  <text x="595" y="253" font-size="12" font-weight="bold" fill="#1a1a1a">C(N) = N / (1 + α(N - 1))</text>
+  <text x="595" y="271" font-size="12" fill="#6b7280">Контеншн (α): черги до спільного ресурсу.</text>
+  <text x="595" y="287" font-size="12" fill="#6b7280">Продуктивність насичується асимптотою 1/α.</text>
+  <text x="595" y="303" font-size="12" fill="#6b7280">Спад відсутній: нові вузли стають марними.</text>
+
+  <!-- Панель 3: Закон Гюнтера USL -->
+  <rect x="575" y="332" width="360" height="125" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="595" y1="353" x2="625" y2="353" stroke="#c0392b" stroke-width="3"/>
+  <text x="635" y="357" font-size="13" font-weight="bold" fill="#c0392b">3. Закон Гюнтера (USL): когерентність</text>
+  <text x="595" y="379" font-size="12" font-weight="bold" fill="#1a1a1a">C(N) = N / (1 + α(N - 1) + βN(N - 1))</text>
+  <text x="595" y="397" font-size="12" font-weight="bold" fill="#c0392b">Точка максимуму: N_max ≈ √((1 - α) / β)</text>
+  <text x="595" y="413" font-size="12" fill="#6b7280">Когерентність (β): парні зв'язки O(N²).</text>
+  <text x="595" y="429" font-size="12" fill="#6b7280">Після N_max витрати на узгодження більші</text>
+  <text x="595" y="445" font-size="12" fill="#6b7280">за корисну роботу: настає ретроградний спад.</text>
+</svg>

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="24" y="72" width="912" height="98" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <rect x="36" y="96" width="430" height="62" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <rect x="478" y="96" width="446" height="62" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <rect x="24" y="182" width="912" height="94" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <rect x="36" y="206" width="530" height="58" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <rect x="578" y="206" width="346" height="58" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <rect x="24" y="288" width="912" height="50" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="6"/>
+  <rect x="24" y="350" width="912" height="148" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <rect x="36" y="376" width="530" height="110" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <rect x="578" y="376" width="346" height="110" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <rect x="24" y="510" width="912" height="28" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="480" y="38" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold">Бар'єр персистентності: мутація пам'яті, page cache та fsync у WAL</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Блокуючий fsync перетворює наносекундну мутацію в пам'яті на мілісекундну фіксацію на диску</text>
+  <text x="36" y="88" font-size="12" fill="#2457d6" font-weight="bold">1. Простір користувача: оперативна пам'ять процесу СУБД (RAM)</text>
+  <text x="924" y="88" font-size="12" fill="#2457d6" text-anchor="end" font-weight="bold">Затримка: ~10–50 нс (RAM / CPU Cache)</text>
+  <text x="48" y="114" font-size="12" fill="#1a1a1a" font-weight="bold">Буферний пул: мутація сторінки даних (Dirty Page)</text>
+  <text x="48" y="132" font-size="12" fill="#6b7280">• Зміна значень рядків у пам'яті (B-Tree Data Page)</text>
+  <text x="48" y="148" font-size="12" fill="#6b7280">• Сторінка залишається брудною; на диск ще не скидається</text>
+  <text x="490" y="114" font-size="12" fill="#2457d6" font-weight="bold">Буфер журналу в пам'яті (Log Buffer)</text>
+  <text x="490" y="132" font-size="12" fill="#1a1a1a">• Формування бінарного запису транзакції: Redo/Undo</text>
+  <text x="490" y="148" font-size="12" fill="#2457d6">• Готовність до виклику системного запису write(wal_fd)</text>
+  <text x="36" y="198" font-size="12" fill="#1a1a1a" font-weight="bold">2. Простір ядра ОС: системний кеш сторінок (Page Cache)</text>
+  <text x="924" y="198" font-size="12" fill="#c0392b" text-anchor="end" font-weight="bold">Затримка write(): ~1–5 мкс (Пам'ять ядра)</text>
+  <text x="48" y="224" font-size="12" fill="#1a1a1a" font-weight="bold">Кеш сторінок ядра (Page Cache): сторінки WAL у пам'яті ОС</text>
+  <text x="48" y="242" font-size="12" fill="#1a1a1a">• write() скопіював буфер у ядро та повернув керування</text>
+  <text x="48" y="258" font-size="12" fill="#c0392b">• Оманлива безпека: дані все ще в леткій пам'яті (DRAM)!</text>
+  <text x="590" y="224" font-size="12" fill="#c0392b" font-weight="bold">⚡ Зона ризику втрати даних</text>
+  <text x="590" y="242" font-size="12" fill="#c0392b">Крах операційної системи чи збій живлення</text>
+  <text x="590" y="258" font-size="12" fill="#c0392b">миттєво знищує всі нескинуті сторінки!</text>
+  <text x="480" y="308" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="bold">БАР'ЄР ПЕРСИСТЕНТНОСТІ: СИСТЕМНИЙ ВИКЛИК fsync(wal_fd) / fdatasync</text>
+  <text x="480" y="326" font-size="12" fill="#1a1a1a" text-anchor="middle">Блокуюча затримка: зупинка потоку на 0.5–10 мс до фізичного скидання черг і кешу контролера диска</text>
+  <text x="36" y="368" font-size="12" fill="#27ae60" font-weight="bold">3. Енергонезалежний накопичувач (SSD / NVMe / HDD Disk)</text>
+  <text x="924" y="368" font-size="12" fill="#27ae60" text-anchor="end" font-weight="bold">Гарантія Durability: стійкість до збою живлення</text>
+  <text x="48" y="396" font-size="12" fill="#27ae60" font-weight="bold">Журнал WAL (Write-Ahead Log) — Критичний шлях фіксації</text>
+  <text x="48" y="416" font-size="12" fill="#1a1a1a">• Послідовний дозапис (Sequential Append): блок за блоком у кінець файла</text>
+  <text x="48" y="434" font-size="12" fill="#1a1a1a">• Фізичний запис у комірки пам'яті (Flash NAND / Магнітні пластини)</text>
+  <text x="48" y="452" font-size="12" fill="#27ae60" font-weight="bold">✓ Після успішного fsync транзакцію зафіксовано (COMMIT Durable)</text>
+  <text x="48" y="470" font-size="12" fill="#6b7280">• Послідовний доступ мінімізує оверхед та час очікування fsync</text>
+  <text x="590" y="396" font-size="12" fill="#1a1a1a" font-weight="bold">Файли даних (Data Files / B-Tree)</text>
+  <text x="590" y="416" font-size="12" fill="#1a1a1a">• Асинхронний фоновий скид (Checkpoint)</text>
+  <text x="590" y="434" font-size="12" fill="#6b7280">• Випадковий запис (Random I/O сторінок)</text>
+  <text x="590" y="452" font-size="12" fill="#27ae60">• НЕ блокує фіксацію транзакції</text>
+  <text x="590" y="470" font-size="12" fill="#6b7280">• При збої сторінки відновлюються з WAL</text>
+  <text x="480" y="528" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="bold">Архітектурний висновок: Послідовний WAL + fsync роблять транзакцію надійною без очікування повільного Random I/O</text>
+</svg>

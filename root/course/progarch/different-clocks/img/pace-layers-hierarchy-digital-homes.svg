@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ієрархія зсувних шарів (Pace Layers) у Digital Homes</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Розподіл підсистем за внутрішніми годинниками та чотирма ключовими архітектурними драйверами</text>
+
+  <!-- 1. SYSTEMS OF INNOVATION (ШВИДКИЙ ШАР) -->
+  <rect x="36" y="78" width="888" height="126" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="52" y="86" width="190" height="20" rx="4" fill="#2457d6"/>
+  <text x="147" y="101" font-size="12" font-weight="bold" fill="white" text-anchor="middle">SYSTEMS OF INNOVATION</text>
+  <rect x="256" y="86" width="156" height="20" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="334" y="101" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ШВИДКИЙ ГОДИННИК</text>
+  <text x="430" y="101" font-size="12" fill="#1a1a1a">Компоненти: мобільний додаток, кастомні віджети UI, голосові команди</text>
+
+  <!-- 4 драйвери шару інновацій -->
+  <rect x="52" y="120" width="200" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="62" y="136" font-size="12" font-weight="bold" fill="#6b7280">1. Джерело вимог</text>
+  <text x="62" y="154" font-size="12" font-weight="bold" fill="#1a1a1a">Користувачі та ринок</text>
+  <text x="62" y="172" font-size="12" fill="#6b7280">Експерименти, дизайн</text>
+
+  <rect x="270" y="120" width="200" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="280" y="136" font-size="12" font-weight="bold" fill="#6b7280">2. Ціна збою</text>
+  <text x="280" y="154" font-size="12" font-weight="bold" fill="#27ae60">Низька (локальний)</text>
+  <text x="280" y="172" font-size="12" fill="#6b7280">Помилка не шкодить дому</text>
+
+  <rect x="488" y="120" width="200" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="498" y="136" font-size="12" font-weight="bold" fill="#6b7280">3. Цикл даних</text>
+  <text x="498" y="154" font-size="12" font-weight="bold" fill="#1a1a1a">Ефемерний (хвилини)</text>
+  <text x="498" y="172" font-size="12" fill="#6b7280">Сесії, тимчасовий кеш</text>
+
+  <rect x="706" y="120" width="200" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="716" y="136" font-size="12" font-weight="bold" fill="#6b7280">4. Періодичність релізів</text>
+  <text x="716" y="154" font-size="12" font-weight="bold" fill="#2457d6">Щодня – щотижня</text>
+  <text x="716" y="172" font-size="12" fill="#6b7280">Швидкі ітерації та AB</text>
+
+  <!-- 2. SYSTEMS OF DIFFERENTIATION (СЕРЕДНІЙ ШАР) -->
+  <rect x="36" y="218" width="888" height="126" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="52" y="226" width="216" height="20" rx="4" fill="#1a1a1a"/>
+  <text x="160" y="241" font-size="12" font-weight="bold" fill="white" text-anchor="middle">SYSTEMS OF DIFFERENTIATION</text>
+  <rect x="282" y="226" width="156" height="20" rx="4" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="360" y="241" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">СЕРЕДНІЙ ГОДИННИК</text>
+  <text x="456" y="241" font-size="12" fill="#1a1a1a">Компоненти: рушій автоматизацій (Rule Engine), оптимізація енергії</text>
+
+  <!-- 4 драйвери шару диференціації -->
+  <rect x="52" y="260" width="200" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="62" y="276" font-size="12" font-weight="bold" fill="#6b7280">1. Джерело вимог</text>
+  <text x="62" y="294" font-size="12" font-weight="bold" fill="#1a1a1a">Бізнес і продуктологи</text>
+  <text x="62" y="312" font-size="12" fill="#6b7280">Алгоритми та тарифи</text>
+
+  <rect x="270" y="260" width="200" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="280" y="276" font-size="12" font-weight="bold" fill="#6b7280">2. Ціна збою</text>
+  <text x="280" y="294" font-size="12" font-weight="bold" fill="#1a1a1a">Помірна (дискомфорт)</text>
+  <text x="280" y="312" font-size="12" fill="#6b7280">Збій графіка нагріву</text>
+
+  <rect x="488" y="260" width="200" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="498" y="276" font-size="12" font-weight="bold" fill="#6b7280">3. Цикл даних</text>
+  <text x="498" y="294" font-size="12" font-weight="bold" fill="#1a1a1a">Місяці – сезони</text>
+  <text x="498" y="312" font-size="12" fill="#6b7280">Розклади та профілі</text>
+
+  <rect x="706" y="260" width="200" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="716" y="276" font-size="12" font-weight="bold" fill="#6b7280">4. Періодичність релізів</text>
+  <text x="716" y="294" font-size="12" font-weight="bold" fill="#1a1a1a">Щомісяця – щокварталу</text>
+  <text x="716" y="312" font-size="12" fill="#6b7280">Планові бізнес-релізи</text>
+
+  <!-- 3. SYSTEMS OF RECORD (ПОВІЛЬНИЙ ШАР) -->
+  <rect x="36" y="358" width="888" height="126" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="52" y="366" width="180" height="20" rx="4" fill="#6b7280"/>
+  <text x="142" y="381" font-size="12" font-weight="bold" fill="white" text-anchor="middle">SYSTEMS OF RECORD</text>
+  <rect x="246" y="366" width="156" height="20" rx="4" fill="white" stroke="#6b7280" stroke-width="1"/>
+  <text x="324" y="381" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">ПОВІЛЬНИЙ ГОДИННИК</text>
+  <text x="420" y="381" font-size="12" fill="#1a1a1a">Компоненти: драйвери заліза (Zigbee/Matter), модель стану, котел</text>
+
+  <!-- 4 драйвери шару обліку -->
+  <rect x="52" y="400" width="200" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="62" y="416" font-size="12" font-weight="bold" fill="#6b7280">1. Джерело вимог</text>
+  <text x="62" y="434" font-size="12" font-weight="bold" fill="#1a1a1a">Стандарти та фізика</text>
+  <text x="62" y="452" font-size="12" fill="#6b7280">Специфікації заліза</text>
+
+  <rect x="270" y="400" width="200" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="280" y="416" font-size="12" font-weight="bold" fill="#6b7280">2. Ціна збою</text>
+  <text x="280" y="434" font-size="12" font-weight="bold" fill="#c0392b">Критична (небезпека)</text>
+  <text x="280" y="452" font-size="12" fill="#c0392b">Замерзання труб, пожежа</text>
+
+  <rect x="488" y="400" width="200" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="498" y="416" font-size="12" font-weight="bold" fill="#6b7280">3. Цикл даних</text>
+  <text x="498" y="434" font-size="12" font-weight="bold" fill="#1a1a1a">Роки (довговічні)</text>
+  <text x="498" y="452" font-size="12" fill="#6b7280">Журнали аудіту та стан</text>
+
+  <rect x="706" y="400" width="200" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="716" y="416" font-size="12" font-weight="bold" fill="#6b7280">4. Періодичність релізів</text>
+  <text x="716" y="434" font-size="12" font-weight="bold" fill="#6b7280">Півроку – роки (LTS)</text>
+  <text x="716" y="452" font-size="12" fill="#6b7280">Сувора сертифікація</text>
+
+  <!-- НИЖНІЙ БАНЕР: АРХІТЕКТУРНИЙ ВИСНОВОК -->
+  <rect x="36" y="498" width="888" height="40" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="46" y="506" width="130" height="24" rx="4" fill="#27ae60"/>
+  <text x="111" y="522" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ВИСНОВОК</text>
+  <text x="188" y="522" font-size="12" fill="#1a1a1a">Залежності мають іти виключно згори донизу: швидкі шари спираються на стабільні повільні, а не навпаки.</text>
+</svg>

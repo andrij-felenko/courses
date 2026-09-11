@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Анатомія бенчмарк-стенда для вимірювання ціни межі</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Ізоляція на одному ядрі CPU усуває мережевий шум і показує чисті витрати межі</text>
+
+  <!-- Main Isolated Rig Container -->
+  <rect x="30" y="75" width="900" height="455" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+
+  <!-- Top Badges Inside Main Panel -->
+  <!-- Badge 1: Single Core Rig -->
+  <rect x="45" y="88" width="420" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="55" y="106" font-size="12" font-weight="bold" fill="#2457d6">ВУЗОЛ ВИМІРЮВАННЯ: Single CPU Core (Affinity Pinning)</text>
+
+  <!-- Badge 2: External Noise Excluded -->
+  <rect x="485" y="88" width="430" height="28" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3" rx="4"/>
+  <text x="495" y="106" font-size="12" font-weight="bold" fill="#c0392b">✖ ЗОВНІШНЄ СЕРЕДОВИЩЕ: Мережевий шум та jitter OS — ВІДТНУТО</text>
+
+  <!-- ================= ROW 1: EXECUTION PIPELINE ================= -->
+
+  <!-- Block 1: Load Generator -->
+  <rect x="50" y="135" width="180" height="165" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <rect x="50" y="135" width="180" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="140" y="156" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Генератор навантаження</text>
+
+  <text x="62" y="186" font-size="12" font-weight="bold" fill="#1a1a1a">1. Цикл ітерацій</text>
+  <text x="62" y="204" font-size="12" fill="#6b7280">• 10⁶–10⁷ викликів</text>
+  <text x="62" y="222" font-size="12" fill="#6b7280">• Однопотоковий запуск</text>
+
+  <text x="62" y="248" font-size="12" font-weight="bold" fill="#1a1a1a">2. Фіксований стан</text>
+  <text x="62" y="266" font-size="12" fill="#6b7280">• Без OS scheduling</text>
+  <text x="62" y="284" font-size="12" fill="#6b7280">• Одне ядро (pinned)</text>
+
+  <!-- Arrow 1: Generator -> Warmup -->
+  <line x1="230" y1="210" x2="272" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="251" y="200" font-size="12" fill="#2457d6" text-anchor="middle">Потік</text>
+
+  <!-- Block 2: Warmup Phase -->
+  <rect x="280" y="135" width="230" height="165" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5 4" rx="6"/>
+  <rect x="280" y="135" width="230" height="32" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="395" y="156" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Фаза прогріву (Warmup)</text>
+
+  <text x="292" y="184" font-size="12" font-weight="bold" fill="#c0392b">[Відкинуті вимірювання]</text>
+  <text x="292" y="204" font-size="12" fill="#1a1a1a">• JIT-компіляція &amp; OSR</text>
+  <text x="292" y="222" font-size="12" fill="#6b7280">• Завантаження кєшів CPU</text>
+  <text x="292" y="240" font-size="12" fill="#6b7280">• Нехтування перших N викликів</text>
+  <text x="292" y="274" font-size="12" font-weight="bold" fill="#27ae60">✓ Мета: Стабілізація JIT &amp; GC</text>
+
+  <!-- Arrow 2: Warmup -> Software Boundary -->
+  <line x1="510" y1="210" x2="552" y2="210" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="531" y="200" font-size="12" fill="#27ae60" text-anchor="middle">Тест</text>
+
+  <!-- Block 3: Software Boundary under Test -->
+  <rect x="560" y="135" width="340" height="165" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <rect x="560" y="135" width="340" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="730" y="156" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Софтверна межа (Under Test)</text>
+
+  <!-- Mini Grid inside Block 3: 4 Boundary Levels -->
+  <rect x="572" y="178" width="152" height="40" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="578" y="194" font-size="12" font-weight="bold" fill="#1a1a1a">1. Direct / Interface</text>
+  <text x="578" y="210" font-size="12" fill="#6b7280">   (0 ns маршалінгу)</text>
+
+  <rect x="736" y="178" width="152" height="40" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="742" y="194" font-size="12" font-weight="bold" fill="#1a1a1a">2. Queue (Thread)</text>
+  <text x="742" y="210" font-size="12" fill="#6b7280">   (Черга + Context)</text>
+
+  <rect x="572" y="226" width="152" height="40" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="578" y="242" font-size="12" font-weight="bold" fill="#1a1a1a">3. IPC Socket</text>
+  <text x="578" y="258" font-size="12" fill="#6b7280">   (Domain Socket)</text>
+
+  <rect x="736" y="226" width="152" height="40" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="742" y="242" font-size="12" font-weight="bold" fill="#1a1a1a">4. Local RPC</text>
+  <text x="742" y="258" font-size="12" fill="#6b7280">   (HTTP / gRPC)</text>
+
+  <text x="572" y="288" font-size="12" font-weight="bold" fill="#2457d6">Потрійний податок: Затримка + CPU + Алокації</text>
+
+  <!-- ================= ROW 2: SETTINGS & MEASUREMENT PROBES ================= -->
+
+  <!-- Block 4: Core Settings -->
+  <rect x="50" y="330" width="180" height="165" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="50" y="330" width="180" height="32" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="140" y="351" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Налаштування ядра</text>
+
+  <text x="62" y="380" font-size="12" font-weight="bold" fill="#1a1a1a">• OS Isolation:</text>
+  <text x="62" y="398" font-size="12" fill="#6b7280">  isolcpus = 1</text>
+  <text x="62" y="422" font-size="12" font-weight="bold" fill="#1a1a1a">• CPU Frequency:</text>
+  <text x="62" y="440" font-size="12" fill="#6b7280">  governor = performance</text>
+  <text x="62" y="474" font-size="12" font-weight="bold" fill="#27ae60">✓ Усунуто шум OS</text>
+
+  <!-- Block 5: Latency Probe -->
+  <rect x="280" y="330" width="290" height="165" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <rect x="280" y="330" width="290" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="425" y="351" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Вимірювач затримок (Latency Probe)</text>
+
+  <text x="292" y="380" font-size="12" font-weight="bold" fill="#1a1a1a">• Таймер високої точності:</text>
+  <text x="302" y="398" font-size="12" fill="#6b7280">  RDTSC / System.nanoTime()</text>
+  <text x="292" y="422" font-size="12" font-weight="bold" fill="#1a1a1a">• Одиниці вимірювання:</text>
+  <text x="302" y="440" font-size="12" fill="#6b7280">  ns / µs (чистий час перетину)</text>
+  <text x="292" y="474" font-size="12" font-weight="bold" fill="#27ae60">• Фіксація p50, p99, p99.9</text>
+
+  <!-- Block 6: Allocation Tracker -->
+  <rect x="610" y="330" width="290" height="165" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <rect x="610" y="330" width="290" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="755" y="351" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Лічильник алокацій (Allocations)</text>
+
+  <text x="622" y="380" font-size="12" font-weight="bold" fill="#1a1a1a">• Профілювання купи (Heap):</text>
+  <text x="632" y="398" font-size="12" fill="#6b7280">  ThreadAllocatedBytes / Profiler</text>
+  <text x="622" y="422" font-size="12" font-weight="bold" fill="#1a1a1a">• Обсяг на операцію:</text>
+  <text x="632" y="440" font-size="12" fill="#6b7280">  Bytes / Op (буфери маршалінгу)</text>
+  <text x="622" y="474" font-size="12" font-weight="bold" fill="#27ae60">• Оцінка тиску на Garbage Collector</text>
+
+  <!-- Probe Connection Lines to Software Boundary -->
+  <!-- Latency Probe Connection Line -->
+  <path d="M 425,330 L 425,312 L 640,312 L 640,300" stroke="#27ae60" stroke-width="2" stroke-dasharray="4 3" fill="none" marker-end="url(#arr-green)"/>
+  <text x="532" y="308" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Замір затримки (ns)</text>
+
+  <!-- Allocation Tracker Connection Line -->
+  <line x1="755" y1="330" x2="755" y2="300" stroke="#27ae60" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-green)"/>
+  <text x="763" y="318" font-size="12" font-weight="bold" fill="#27ae60">Замір алокацій (B/op)</text>
+</svg>

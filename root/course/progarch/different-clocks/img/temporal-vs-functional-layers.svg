@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  <text x="480" y="34" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Двовимірна матриця архітектури: функції проти темпу змін</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Функціональні шари та темпи змін ортогональні: у кожному шарі є швидкі, середні й повільні складові</text>
+  <rect x="25" y="78" width="138" height="392" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="94" y="100" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">ТЕМП ЗМІН (ЯК ЧАСТО)</text>
+  <path d="M 46,450 L 46,122" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="58" y="164" font-size="12" font-weight="700" fill="#2457d6">Швидкий</text>
+  <text x="58" y="180" font-size="12" fill="#6b7280">дні, тижні</text>
+  <text x="58" y="286" font-size="12" font-weight="700" fill="#1a1a1a">Середній</text>
+  <text x="58" y="302" font-size="12" fill="#6b7280">місяці</text>
+  <text x="58" y="408" font-size="12" font-weight="700" fill="#1a1a1a">Повільний</text>
+  <text x="58" y="424" font-size="12" fill="#6b7280">роки, епохи</text>
+  <rect x="175" y="78" width="246" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="298" y="98" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">1. Інтерфейс (Представлення)</text>
+  <rect x="432" y="78" width="246" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="555" y="98" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">2. Бізнес-правила (Домен)</text>
+  <rect x="689" y="78" width="246" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="812" y="98" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">3. Збереження (Дані)</text>
+  <rect x="175" y="118" width="246" height="108" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="189" y="140" font-size="13" font-weight="700" fill="#2457d6">Експериментальний UI</text>
+  <text x="189" y="162" font-size="12" fill="#1a1a1a">• A/B-тести, банери, промо-лендинги</text>
+  <text x="189" y="182" font-size="12" fill="#6b7280">• Тимчасові форми та опитування</text>
+  <text x="189" y="210" font-size="12" font-style="italic" fill="#2457d6">→ ізольовано від основного ядра</text>
+  <rect x="432" y="118" width="246" height="108" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="446" y="140" font-size="13" font-weight="700" fill="#2457d6">Динамічні правила</text>
+  <text x="446" y="162" font-size="12" fill="#1a1a1a">• Святкові знижки, тарифи-акції</text>
+  <text x="446" y="182" font-size="12" fill="#6b7280">• Маркетингові пілотні кампанії</text>
+  <text x="446" y="210" font-size="12" font-style="italic" fill="#2457d6">→ винесено в DSL або конфіги</text>
+  <rect x="689" y="118" width="246" height="108" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="703" y="140" font-size="13" font-weight="700" fill="#2457d6">Ефемерне сховище</text>
+  <text x="703" y="162" font-size="12" fill="#1a1a1a">• Сесійний кеш Redis, кошики покупок</text>
+  <text x="703" y="182" font-size="12" fill="#6b7280">• Тимчасові буфери, швидкі логи</text>
+  <text x="703" y="210" font-size="12" font-style="italic" fill="#2457d6">→ втрата не руйнує цілісність</text>
+  <rect x="175" y="240" width="246" height="108" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="189" y="262" font-size="13" font-weight="700" fill="#1a1a1a">Продуктовий UI</text>
+  <text x="189" y="284" font-size="12" fill="#1a1a1a">• Особистий кабінет користувача</text>
+  <text x="189" y="304" font-size="12" fill="#6b7280">• Каталог товарів, флоу замовлення</text>
+  <text x="189" y="332" font-size="12" font-style="italic" fill="#1a1a1a">→ релізи за продуктовими спринтами</text>
+  <rect x="432" y="240" width="246" height="108" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="446" y="262" font-size="13" font-weight="700" fill="#1a1a1a">Операційні процеси</text>
+  <text x="446" y="284" font-size="12" fill="#1a1a1a">• Калькуляція кошика, скоринг</text>
+  <text x="446" y="304" font-size="12" fill="#6b7280">• Маршрутизація замовлень клієнта</text>
+  <text x="446" y="332" font-size="12" font-style="italic" fill="#1a1a1a">→ еволюціонує разом із бізнесом</text>
+  <rect x="689" y="240" width="246" height="108" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="703" y="262" font-size="13" font-weight="700" fill="#1a1a1a">Операційна база даних</text>
+  <text x="703" y="284" font-size="12" fill="#1a1a1a">• Реляційні таблиці замовлень і клієнтів</text>
+  <text x="703" y="304" font-size="12" fill="#6b7280">• Пошукові індекси, репліки читання</text>
+  <text x="703" y="332" font-size="12" font-style="italic" fill="#1a1a1a">→ планові версійні міграції схеми</text>
+  <rect x="175" y="362" width="246" height="108" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="189" y="384" font-size="13" font-weight="700" fill="#1a1a1a">Базова дизайн-система</text>
+  <text x="189" y="406" font-size="12" fill="#1a1a1a">• Фундаментальна сітка, типографіка</text>
+  <text x="189" y="426" font-size="12" fill="#6b7280">• Компоненти доступності (a11y)</text>
+  <text x="189" y="454" font-size="12" font-style="italic" fill="#1a1a1a">→ стабільна основа на роки</text>
+  <rect x="432" y="362" width="246" height="108" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="446" y="384" font-size="13" font-weight="700" fill="#1a1a1a">Інваріанти бізнес-домену</text>
+  <text x="446" y="406" font-size="12" fill="#1a1a1a">• Подвійний запис у бухгалтерії</text>
+  <text x="446" y="426" font-size="12" fill="#6b7280">• Фіскальні закони, непорушний баланс</text>
+  <text x="446" y="454" font-size="12" font-style="italic" fill="#1a1a1a">→ консервативні закони системи</text>
+  <rect x="689" y="362" width="246" height="108" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="703" y="384" font-size="13" font-weight="700" fill="#1a1a1a">Головна книга (Ledger)</text>
+  <text x="703" y="406" font-size="12" fill="#1a1a1a">• Аудит-лог, транзакційний журнал</text>
+  <text x="703" y="426" font-size="12" fill="#6b7280">• Первинні незмінні фінансові записи</text>
+  <text x="703" y="454" font-size="12" font-style="italic" fill="#1a1a1a">→ append-only; зберігається десятиліттями</text>
+  <rect x="25" y="494" width="910" height="28" rx="4" fill="#f4f6f8"/>
+  <text x="480" y="513" font-size="12" text-anchor="middle" fill="#1a1a1a">Архітектурний висновок: <tspan font-weight="700">темп змін ортогональний функціям</tspan> — нарізка лише за функціональними рівнями не захищає ядро від частих коливань</text>
+</svg>

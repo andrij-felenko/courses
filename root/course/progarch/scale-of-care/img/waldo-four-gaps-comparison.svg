@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Чотири прірви Вальдо: локальний виклик проти мережевого</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Нездоланні фізичні межі руйнують ілюзію прозорості та змінюють масштаб турботи</text>
+
+  <!-- ЛІВА КОЛОНКА: ЛОКАЛЬНИЙ ВИКЛИК -->
+  <rect x="28" y="78" width="440" height="407" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="248" y="103" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Локальний виклик методу (In-Memory)</text>
+  <text x="248" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Єдиний адресний простір процесу на одній машині</text>
+
+  <!-- Рядок 1: Пам'ять -->
+  <rect x="40" y="130" width="416" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="149" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">1. Адресний простір: Спільна пам'ять</text>
+  <text x="52" y="172" font-size="12" fill="#1a1a1a" text-anchor="start">• Прямий доступ за вказівником, нуль накладних копій</text>
+
+  <!-- Рядок 2: Затримка -->
+  <rect x="40" y="200" width="416" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="219" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">2. Затримка: Детермінована (~1–10 нс)</text>
+  <text x="52" y="242" font-size="12" fill="#1a1a1a" text-anchor="start">• Виклик функції через стек CPU, стабільний час виконання</text>
+
+  <!-- Рядок 3: Стан -->
+  <rect x="40" y="270" width="416" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="289" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">3. Глобальний стан: Єдиний та узгоджений</text>
+  <text x="52" y="312" font-size="12" fill="#1a1a1a" text-anchor="start">• Спільний апаратний годинник, миттєва консистентність</text>
+
+  <!-- Рядок 4: Відмови -->
+  <rect x="40" y="340" width="416" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="359" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">4. Модель збоїв: Повний крах (All-or-Nothing)</text>
+  <text x="52" y="382" font-size="12" fill="#1a1a1a" text-anchor="start">• Процес або працює, або падає цілком; стан очевидний</text>
+
+  <!-- Рядок 5: Масштаб турботи -->
+  <rect x="40" y="410" width="416" height="63" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="52" y="431" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Масштаб турботи: Алгоритми та типи</text>
+  <text x="52" y="454" font-size="12" fill="#1a1a1a" text-anchor="start">• Коректність інваріантів даних, типів та оптимізація CPU</text>
+
+
+  <!-- ПРАВА КОЛОНКА: ВІДДАЛЕНИЙ ВИКЛИК -->
+  <rect x="492" y="78" width="440" height="407" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="712" y="103" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Віддалений мережевий виклик (RPC / Network)</text>
+  <text x="712" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Розподілені машини, з'єднані ненадійною мережею</text>
+
+  <!-- Рядок 1: Пам'ять -->
+  <rect x="504" y="130" width="416" height="58" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="516" y="149" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">1. Адресний простір: Розділена пам'ять</text>
+  <text x="516" y="172" font-size="12" fill="#1a1a1a" text-anchor="start">• Вказівники недійсні: серіалізація, копіювання, мапінг DTO</text>
+
+  <!-- Рядок 2: Затримка -->
+  <rect x="504" y="200" width="416" height="58" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="516" y="219" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">2. Затримка: Недетермінована (~10–100+ мс)</text>
+  <text x="516" y="242" font-size="12" fill="#1a1a1a" text-anchor="start">• Джиттер, мережеві черги; уповільнення у 10⁴–10⁶ разів</text>
+
+  <!-- Рядок 3: Стан -->
+  <rect x="504" y="270" width="416" height="58" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="516" y="289" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">3. Глобальний стан: Відсутній</text>
+  <text x="516" y="312" font-size="12" fill="#1a1a1a" text-anchor="start">• Годинники розсинхронізовані, стан компонентів відносний</text>
+
+  <!-- Рядок 4: Відмови -->
+  <rect x="504" y="340" width="416" height="58" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="516" y="359" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">4. Модель збоїв: Частинні відмови (Partial Failures)</text>
+  <text x="516" y="382" font-size="12" fill="#c0392b" text-anchor="start">• Невідомо: впав вузол чи втрачено пакет (невизначеність)</text>
+
+  <!-- Рядок 5: Масштаб турботи -->
+  <rect x="504" y="410" width="416" height="63" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="516" y="431" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Масштаб турботи: Фізика розподіленості</text>
+  <text x="516" y="454" font-size="12" fill="#1a1a1a" text-anchor="start">• Таймаути, ретраї, ідемпотентність та розриви мережі</text>
+</svg>

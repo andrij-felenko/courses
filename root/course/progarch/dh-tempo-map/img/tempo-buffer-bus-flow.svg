@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектурний буфер темпів: потік сигналів між UI та радіошиною</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Асинхронні черги й лімітери захищають залізо від сплесків, а кеш стану дає швидке читання для UI</text>
+
+  <!-- ЛІВА КОЛОНКА: Швидкий шар -->
+  <rect x="40" y="85" width="180" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="55" y="98" width="150" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="130" y="114" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ШВИДКИЙ ШАР</text>
+  <text x="130" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">UI та автоматизації</text>
+  <text x="130" y="155" text-anchor="middle" font-size="12" fill="#6b7280">Частота: 100–1000 оп/с</text>
+
+  <!-- Картка: Команди UI -->
+  <rect x="55" y="180" width="150" height="105" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="130" y="205" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Команди UI</text>
+  <text x="130" y="225" text-anchor="middle" font-size="12" fill="#6b7280">Імпульсні кліки,</text>
+  <text x="130" y="243" text-anchor="middle" font-size="12" fill="#6b7280">тригери скриптів,</text>
+  <text x="130" y="261" text-anchor="middle" font-size="12" fill="#6b7280">вебхуки (сплески)</text>
+
+  <!-- Картка: Запити стану -->
+  <rect x="55" y="330" width="150" height="115" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="130" y="355" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Запити стану</text>
+  <text x="130" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Миттєве читання</text>
+  <text x="130" y="395" text-anchor="middle" font-size="12" fill="#6b7280">без очікування радіо</text>
+  <text x="130" y="415" text-anchor="middle" font-size="12" fill="#6b7280">(затримка 1–5 мс)</text>
+
+  <!-- ЦЕНТРАЛЬНА КОЛОНКА: Буфер темпів (TempoBufferBus) -->
+  <rect x="250" y="85" width="460" height="385" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <rect x="270" y="98" width="180" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="360" y="114" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">БУФЕР ТЕМПІВ (BUS)</text>
+  <text x="560" y="114" text-anchor="middle" font-size="12" fill="#6b7280">Амортизація швидкостей та ізоляція</text>
+
+  <!-- Верхня смуга: Шлях команд (Downstream) -->
+  <rect x="265" y="135" width="430" height="150" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="280" y="154" font-size="12" font-weight="bold" fill="#1a1a1a">Шлях запису: фільтрація, буферизація та лімітування</text>
+
+  <!-- Етап 1: Дедуплікатор -->
+  <rect x="278" y="168" width="120" height="102" rx="5" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="338" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Дедуплікатор</text>
+  <text x="338" y="210" text-anchor="middle" font-size="12" fill="#6b7280">Ковзне вікно</text>
+  <text x="338" y="230" text-anchor="middle" font-size="12" fill="#6b7280">Схлопує повторні</text>
+  <text x="338" y="250" text-anchor="middle" font-size="12" fill="#6b7280">однакові кліки</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="398" y1="219" x2="422" y2="219" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Етап 2: Буферна черга -->
+  <rect x="425" y="168" width="120" height="102" rx="5" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="485" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Буферна черга</text>
+  <text x="485" y="210" text-anchor="middle" font-size="12" fill="#1a1a1a">FIFO / Priority</text>
+  <text x="485" y="230" text-anchor="middle" font-size="12" fill="#6b7280">Згладжує піки,</text>
+  <text x="485" y="250" text-anchor="middle" font-size="12" fill="#6b7280">скидає за TTL</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="545" y1="219" x2="569" y2="219" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Етап 3: Лімітер темпу -->
+  <rect x="572" y="168" width="112" height="102" rx="5" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="628" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Лімітер темпу</text>
+  <text x="628" y="210" text-anchor="middle" font-size="12" fill="#6b7280">Token Bucket</text>
+  <text x="628" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Cooldown 500мс</text>
+  <text x="628" y="250" text-anchor="middle" font-size="12" fill="#6b7280">Захист реле</text>
+
+  <!-- Нижня смуга: Шлях читання (Upstream) -->
+  <rect x="265" y="300" width="430" height="155" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="280" y="320" font-size="12" font-weight="bold" fill="#1a1a1a">Шлях читання: кеш канонічного стану (розрив залежності)</text>
+
+  <!-- Кеш стану -->
+  <rect x="280" y="335" width="400" height="105" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="360" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Кеш знімків стану (In-Memory State Cache)</text>
+  <text x="480" y="382" text-anchor="middle" font-size="12" fill="#1a1a1a">Зберігає останній підтверджений стан сенсорів і приводів</text>
+  <text x="480" y="402" text-anchor="middle" font-size="12" fill="#2457d6">UI читає стан за 1–5 мс без звернення до повільних радіошин</text>
+  <text x="480" y="422" text-anchor="middle" font-size="12" fill="#6b7280">Оновлюється асинхронно телеметрією від апаратного ядра</text>
+
+  <!-- ПРАВА КОЛОНКА: Повільний апаратний шар -->
+  <rect x="740" y="85" width="180" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="755" y="98" width="150" height="22" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="830" y="114" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ПОВІЛЬНИЙ ШАР</text>
+  <text x="830" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Апаратне ядро та шини</text>
+  <text x="830" y="155" text-anchor="middle" font-size="12" fill="#6b7280">Затримка: 50–300 мс</text>
+
+  <!-- Картка: Апаратні приводи -->
+  <rect x="755" y="180" width="150" height="105" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="830" y="205" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Апаратні приводи</text>
+  <text x="830" y="225" text-anchor="middle" font-size="12" fill="#6b7280">Реле, термостати,</text>
+  <text x="830" y="243" text-anchor="middle" font-size="12" fill="#6b7280">мотори жалюзі</text>
+  <text x="830" y="261" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">(розмірений темп)</text>
+
+  <!-- Картка: Польові радіошини -->
+  <rect x="755" y="330" width="150" height="115" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="830" y="355" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Польові радіошини</text>
+  <text x="830" y="375" text-anchor="middle" font-size="12" fill="#6b7280">Zigbee, Z-Wave, BLE</text>
+  <text x="830" y="395" text-anchor="middle" font-size="12" fill="#6b7280">Телеметрія сенсорів,</text>
+  <text x="830" y="415" text-anchor="middle" font-size="12" fill="#6b7280">повільні оновлення</text>
+
+  <!-- МІЖКОЛОНКОВІ СТРІЛКИ ТА ПІДПИСИ -->
+  <!-- 1. Dispatch: UI -> Buffer -->
+  <line x1="205" y1="225" x2="275" y2="225" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="240" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Dispatch</text>
+
+  <!-- 2. Throttled: Buffer -> Hardware -->
+  <line x1="684" y1="225" x2="752" y2="225" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="718" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Розмірено</text>
+
+  <!-- 3. Telemetry: Hardware -> State Cache -->
+  <line x1="755" y1="385" x2="683" y2="385" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="718" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Телеметрія</text>
+
+  <!-- 4. Read: State Cache -> UI -->
+  <line x1="280" y1="385" x2="208" y2="385" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="243" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1–5 мс</text>
+</svg>

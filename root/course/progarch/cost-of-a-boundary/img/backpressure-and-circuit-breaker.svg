@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White background rect -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-error" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дворівневий захист межі: зворотний тиск та розрив ланцюга</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Зворотний тиск береже памʼять шлюзу на вході, а розрив ланцюга береже віддалену межу на виході</text>
+
+  <!-- Column 1: Clients / Inbound Traffic -->
+  <rect x="30" y="80" width="145" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="42" y="104" font-size="13" font-weight="bold" fill="#1a1a1a">Вхідний потік</text>
+  <text x="42" y="122" font-size="12" fill="#6b7280">Клієнтські запити</text>
+
+  <rect x="40" y="140" width="125" height="110" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="48" y="160" font-size="12" font-weight="bold" fill="#2457d6">Сплеск трафіку:</text>
+  <text x="48" y="180" font-size="12" fill="#1a1a1a">• Паралельні дії</text>
+  <text x="48" y="200" font-size="12" fill="#1a1a1a">• Темп > ліміту</text>
+  <text x="48" y="220" font-size="12" fill="#1a1a1a">• Непередбачувано</text>
+  <text x="48" y="238" font-size="12" fill="#6b7280">Потік на межу ➔</text>
+
+  <rect x="40" y="264" width="125" height="145" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="48" y="284" font-size="12" font-weight="bold" fill="#c0392b">Реакція клієнта:</text>
+  <text x="48" y="304" font-size="12" fill="#1a1a1a">• Отримує 429/503</text>
+  <text x="48" y="324" font-size="12" fill="#1a1a1a">• Вмикає відступ</text>
+  <text x="48" y="344" font-size="12" fill="#1a1a1a">• Пауза з jitter</text>
+  <text x="48" y="364" font-size="12" fill="#1a1a1a">• Знижує частоту</text>
+  <text x="48" y="390" font-size="12" fill="#6b7280">Саморегуляція</text>
+
+  <!-- Connection between Col 1 and Col 2 -->
+  <line x1="175" y1="195" x2="193" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="195" y1="336" x2="177" y2="336" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-error)"/>
+
+  <!-- Column 2: Gateway & Bounded Queue & Backpressure -->
+  <rect x="195" y="80" width="275" height="345" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="208" y="104" font-size="13" font-weight="bold" fill="#2457d6">Клієнтський шлюз (Шов межі)</text>
+  <text x="208" y="122" font-size="12" fill="#6b7280">Обмежена черга памʼяті та Backpressure</text>
+
+  <rect x="207" y="140" width="251" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="217" y="160" font-size="12" font-weight="bold" fill="#1a1a1a">Обмежений буфер памʼяті:</text>
+  <rect x="220" y="172" width="66" height="24" rx="4" fill="#c0392b"/>
+  <text x="253" y="188" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Req 1</text>
+  <rect x="300" y="172" width="66" height="24" rx="4" fill="#c0392b"/>
+  <text x="333" y="188" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Req 2</text>
+  <rect x="380" y="172" width="66" height="24" rx="4" fill="#c0392b"/>
+  <text x="413" y="188" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Req N</text>
+  <text x="217" y="218" font-size="12" font-weight="bold" fill="#c0392b">Всі слоти зайнято (100% FULL)</text>
+  <text x="217" y="238" font-size="12" fill="#6b7280">Запобігає вичерпанню RAM (OOM)</text>
+
+  <rect x="207" y="264" width="251" height="145" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="217" y="284" font-size="12" font-weight="bold" fill="#c0392b">Зворотний тиск (Backpressure):</text>
+  <text x="217" y="304" font-size="12" fill="#1a1a1a">• Скидання запитів (Load Shedding)</text>
+  <text x="217" y="324" font-size="12" fill="#1a1a1a">• Миттєва відмова 429 / 503</text>
+  <text x="217" y="344" font-size="12" fill="#1a1a1a">• Черга не росте нескінченно вглиб</text>
+  <text x="217" y="364" font-size="12" fill="#1a1a1a">• Зберігає ресурси вузла шлюзу</text>
+  <text x="217" y="392" font-size="12" font-weight="bold" fill="#27ae60">Вхідний захист: порятунок памʼяті</text>
+
+  <!-- Connection between Col 2 and Col 3 -->
+  <line x1="470" y1="195" x2="488" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="490" y1="336" x2="472" y2="336" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-error)"/>
+
+  <!-- Column 3: Circuit Breaker -->
+  <rect x="490" y="80" width="250" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="503" y="104" font-size="13" font-weight="bold" fill="#1a1a1a">Запобіжник (Circuit Breaker)</text>
+  <text x="503" y="122" font-size="12" fill="#6b7280">Вихідний захист віддаленої межі</text>
+
+  <rect x="502" y="140" width="226" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="512" y="160" font-size="12" font-weight="bold" fill="#1a1a1a">Поточний стан автомату:</text>
+  <rect x="512" y="172" width="206" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="615" y="192" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">СТАН: РОЗІМКНЕНО (OPEN)</text>
+  <text x="512" y="222" font-size="12" fill="#1a1a1a">• Вікно відмов: понад 50% збоїв</text>
+  <text x="512" y="240" font-size="12" fill="#6b7280">• Таймер охолодження до проби</text>
+
+  <rect x="502" y="264" width="226" height="145" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="512" y="284" font-size="12" font-weight="bold" fill="#2457d6">Ізоляція віддаленого вузла:</text>
+  <text x="512" y="304" font-size="12" fill="#1a1a1a">• Ланцюг Open: виклики зупинено</text>
+  <text x="512" y="324" font-size="12" fill="#1a1a1a">• Fast-fail: миттєва відмова</text>
+  <text x="512" y="344" font-size="12" fill="#1a1a1a">• Нуль запитів у перевантаження</text>
+  <text x="512" y="364" font-size="12" fill="#1a1a1a">• Дає час відновлення системі</text>
+  <text x="512" y="392" font-size="12" font-weight="bold" fill="#27ae60">Вихідний захист: порятунок межі</text>
+
+  <!-- Connection between Col 3 and Col 4: Blocked -->
+  <line x1="740" y1="195" x2="758" y2="195" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,2"/>
+
+  <!-- Column 4: Remote Degraded Boundary -->
+  <rect x="760" y="80" width="170" height="345" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="772" y="104" font-size="13" font-weight="bold" fill="#c0392b">Віддалена межа</text>
+  <text x="772" y="122" font-size="12" fill="#6b7280">Зовнішня система</text>
+
+  <rect x="772" y="140" width="146" height="110" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="780" y="160" font-size="12" font-weight="bold" fill="#c0392b">Статус вузла:</text>
+  <text x="780" y="180" font-size="12" font-weight="bold" fill="#c0392b">• ДЕГРАДАЦІЯ</text>
+  <text x="780" y="200" font-size="12" fill="#1a1a1a">• Завислі сокети</text>
+  <text x="780" y="220" font-size="12" fill="#1a1a1a">• Таймаути викликів</text>
+  <text x="780" y="240" font-size="12" fill="#6b7280">• Помилки 503 / 504</text>
+
+  <rect x="772" y="264" width="146" height="145" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="780" y="284" font-size="12" font-weight="bold" fill="#27ae60">Ефект щита CB:</text>
+  <text x="780" y="304" font-size="12" fill="#1a1a1a">• Трафік зрізано</text>
+  <text x="780" y="324" font-size="12" fill="#1a1a1a">• Без лавини хвиль</text>
+  <text x="780" y="344" font-size="12" fill="#1a1a1a">• Пул потоків остиг</text>
+  <text x="780" y="364" font-size="12" fill="#1a1a1a">• Вузол оживає</text>
+  <text x="780" y="392" font-size="12" font-weight="bold" fill="#27ae60">Колапс відвернено</text>
+
+  <!-- Bottom Summary Cards -->
+  <rect x="30" y="445" width="290" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="44" y="466" font-size="13" font-weight="bold" fill="#2457d6">1. Зворотний тиск (Вхідний захист)</text>
+  <text x="44" y="486" font-size="12" fill="#6b7280">Обмежує буфер памʼяті шлюзу:</text>
+  <text x="44" y="504" font-size="12" fill="#1a1a1a">скидає зайві запити (Load Shedding),</text>
+  <text x="44" y="522" font-size="12" fill="#1a1a1a">захищає процес від переповнення памʼяті</text>
+
+  <rect x="335" y="445" width="290" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="349" y="466" font-size="13" font-weight="bold" fill="#c0392b">2. Розрив ланцюга (Вихідний захист)</text>
+  <text x="349" y="486" font-size="12" fill="#6b7280">Ізолює віддалену систему за швом:</text>
+  <text x="349" y="504" font-size="12" fill="#1a1a1a">при деградації партнера розмикає ланцюг,</text>
+  <text x="349" y="522" font-size="12" fill="#1a1a1a">зупиняє запити й відвертає повний крах</text>
+
+  <rect x="640" y="445" width="290" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="654" y="466" font-size="13" font-weight="bold" fill="#27ae60">3. Спільна самостабілізація</text>
+  <text x="654" y="486" font-size="12" fill="#6b7280">Повний замкнений контур регулювання:</text>
+  <text x="654" y="504" font-size="12" fill="#1a1a1a">CB відсікає приречені виклики, а тиск</text>
+  <text x="654" y="522" font-size="12" fill="#1a1a1a">змушує клієнтів зменшити навантаження</text>
+</svg>

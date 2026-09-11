@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Висхідні сповіщення: узгодження стану та відкат оптимістичного UI</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Апаратні збої передаються нагору через події без створення зворотних залежностей ядра від UI</text>
+
+  <!-- РІВЕНЬ 1: Швидкий шар (UI) -->
+  <rect x="50" y="85" width="860" height="100" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="65" y="93" width="115" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="122" y="109" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ШВИДКИЙ ШАР</text>
+  <text x="195" y="109" font-size="13" font-weight="bold" fill="#1a1a1a">Клієнтський UI: оптимістичне оновлення та узгодження</text>
+
+  <!-- Картка 1: Оптимістичний клік -->
+  <rect x="65" y="118" width="380" height="58" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="255" y="139" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1. Користувач натискає перемикач → UI стає [ON]</text>
+  <text x="255" y="161" text-anchor="middle" font-size="12" fill="#6b7280">Миттєвий відгук 0 мс. Команда надсилається в шину</text>
+
+  <!-- Картка 2: Відкат стану -->
+  <rect x="515" y="118" width="380" height="58" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="705" y="139" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">4. Отримано подію збою → Відкат тумблера в [OFF]</text>
+  <text x="705" y="161" text-anchor="middle" font-size="12" fill="#6b7280">Узгодження: сповіщення «Пристрій недосяжний»</text>
+
+  <!-- Стрілка 1: Команда (Рівень 1 -> Рівень 2) -->
+  <line x1="255" y1="176" x2="255" y2="228" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="240" y="206" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">Команда</text>
+
+  <!-- Стрілка 5: Підписка на подію (Рівень 2 -> Рівень 1) -->
+  <line x1="705" y1="230" x2="705" y2="182" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="720" y="206" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Підписка</text>
+
+  <!-- РІВЕНЬ 2: Шина ізоляції темпів -->
+  <rect x="50" y="220" width="860" height="80" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <rect x="65" y="228" width="130" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="130" y="243" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ШИНА ІЗОЛЯЦІЇ</text>
+  <text x="210" y="243" font-size="13" font-weight="bold" fill="#1a1a1a">TempoBufferBus: розв'язання темпових залежностей</text>
+
+  <!-- Канал 1: Черга команд -->
+  <rect x="65" y="252" width="380" height="40" rx="5" fill="#ffffff" stroke="#2457d6" stroke-dasharray="4 3"/>
+  <text x="255" y="277" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Черга команд (FIFO / Cooldown): Dispatch</text>
+
+  <!-- Канал 2: Топік подій -->
+  <rect x="515" y="252" width="380" height="40" rx="5" fill="#ffffff" stroke="#27ae60" stroke-dasharray="4 3"/>
+  <text x="705" y="277" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Топік подій (Pub/Sub): PublishEvent(Failed)</text>
+
+  <!-- Стрілка 2: Вичитка команди (Рівень 2 -> Рівень 3) -->
+  <line x1="255" y1="292" x2="255" y2="344" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="240" y="322" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">Вичитка</text>
+
+  <!-- Стрілка 4: Публікація збою (Рівень 3 -> Рівень 2) -->
+  <line x1="705" y1="346" x2="705" y2="298" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="720" y="322" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Публікація</text>
+
+  <!-- РІВЕНЬ 3: Повільне апаратне ядро -->
+  <rect x="50" y="335" width="860" height="110" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="65" y="343" width="125" height="22" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="127" y="359" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ПОВІЛЬНЕ ЯДРО</text>
+  <text x="205" y="359" font-size="13" font-weight="bold" fill="#1a1a1a">Апаратні драйвери: консервативні цикли без висхідних зв'язків</text>
+
+  <!-- Картка 1: Апаратна відправка -->
+  <rect x="65" y="368" width="380" height="65" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="255" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">2. Драйвер вичитує команду та надсилає радіопакет</text>
+  <text x="255" y="412" text-anchor="middle" font-size="12" fill="#6b7280">Zigbee / Z-Wave: передача фрейму на фізичне реле</text>
+
+  <!-- Горизонтальна стрілка: Фізичний збій -->
+  <line x1="445" y1="400" x2="512" y2="400" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="480" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Збій</text>
+
+  <!-- Картка 2: Реєстрація збою та випуск події -->
+  <rect x="515" y="368" width="380" height="65" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="705" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">3. Фізичний тайм-аут: реле не відповіло (Timeout)</text>
+  <text x="705" y="412" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Ядро публікує подію в топік замість виклику UI</text>
+</svg>

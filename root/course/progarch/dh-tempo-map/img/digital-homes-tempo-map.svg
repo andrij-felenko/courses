@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Карта темпів Digital Homes: темпові шари та залежності</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Швидкі шари залежать від повільних; залежність у зворотному напрямку руйнує стабільність ядра</text>
+
+  <!-- ШАР 1: Швидкий -->
+  <rect x="50" y="88" width="620" height="115" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="65" y="98" width="115" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="122" y="114" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ШВИДКИЙ ШАР</text>
+  <text x="195" y="114" font-size="14" font-weight="bold" fill="#1a1a1a">Користувацька периферія та сценарії</text>
+  <text x="655" y="114" text-anchor="end" font-size="12" fill="#6b7280">Темп: дні – тижні</text>
+
+  <rect x="65" y="130" width="184" height="60" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="157" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Автоматизації</text>
+  <text x="157" y="172" text-anchor="middle" font-size="12" fill="#6b7280">Скрипти, тригери, правила</text>
+
+  <rect x="268" y="130" width="184" height="60" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="360" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Клієнтський UI</text>
+  <text x="360" y="172" text-anchor="middle" font-size="12" fill="#6b7280">Мобільні й веб-панелі</text>
+
+  <rect x="471" y="130" width="184" height="60" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="563" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Хмарні інтеграції</text>
+  <text x="563" y="172" text-anchor="middle" font-size="12" fill="#6b7280">Вебхуки, асистенти</text>
+
+  <!-- Стрілки від Шару 1 до Буфера -->
+  <line x1="157" y1="203" x2="157" y2="213" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="360" y1="203" x2="360" y2="213" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="563" y1="203" x2="563" y2="213" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Асинхронний буферний шов -->
+  <rect x="50" y="215" width="620" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="360" y="238" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Асинхронний буферний шов: TempoBufferBus (дедуплікація, ліміти, TTL)</text>
+
+  <!-- Стрілки від Буфера до Шару 2 -->
+  <line x1="157" y1="251" x2="157" y2="262" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="360" y1="251" x2="360" y2="262" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="563" y1="251" x2="563" y2="262" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ШАР 2: Помірний -->
+  <rect x="50" y="264" width="620" height="115" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="65" y="274" width="115" height="22" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="122" y="290" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ПОМІРНИЙ ШАР</text>
+  <text x="195" y="290" font-size="14" font-weight="bold" fill="#1a1a1a">Сервіси координації та бізнес-правила</text>
+  <text x="655" y="290" text-anchor="end" font-size="12" fill="#6b7280">Темп: місяці</text>
+
+  <rect x="65" y="306" width="184" height="60" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="157" y="328" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Оркестрація</text>
+  <text x="157" y="348" text-anchor="middle" font-size="12" fill="#6b7280">Координація кімнат і зон</text>
+
+  <rect x="268" y="306" width="184" height="60" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="360" y="328" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Політики комфорту</text>
+  <text x="360" y="348" text-anchor="middle" font-size="12" fill="#6b7280">Клімат-контроль, графіки</text>
+
+  <rect x="471" y="306" width="184" height="60" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="563" y="328" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Служба сповіщень</text>
+  <text x="563" y="348" text-anchor="middle" font-size="12" fill="#6b7280">Агрегація подій хабу</text>
+
+  <!-- Стрілки від Шару 2 до Шару 3 -->
+  <line x1="157" y1="381" x2="157" y2="412" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="360" y1="381" x2="360" y2="412" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="563" y1="381" x2="563" y2="412" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ШАР 3: Повільний фундамент -->
+  <rect x="50" y="416" width="620" height="115" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <rect x="65" y="426" width="125" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="127" y="442" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ПОВІЛЬНИЙ ШАР</text>
+  <text x="205" y="442" font-size="14" font-weight="bold" fill="#1a1a1a">Апаратне ядро та модель стану</text>
+  <text x="655" y="442" text-anchor="end" font-size="12" fill="#6b7280">Темп: роки (фундамент)</text>
+
+  <rect x="65" y="458" width="184" height="60" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="157" y="480" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Канонічний стан</text>
+  <text x="157" y="500" text-anchor="middle" font-size="12" fill="#6b7280">Єдине джерело правди</text>
+
+  <rect x="268" y="458" width="184" height="60" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="360" y="480" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Драйвери пристроїв</text>
+  <text x="360" y="500" text-anchor="middle" font-size="12" fill="#6b7280">Zigbee, Z-Wave, BLE</text>
+
+  <rect x="471" y="458" width="184" height="60" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="563" y="480" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Політики безпеки</text>
+  <text x="563" y="500" text-anchor="middle" font-size="12" fill="#6b7280">Доступ та шифрування</text>
+
+  <!-- ПРАВА КОЛОНКА: Напрямок залежностей -->
+  <rect x="690" y="88" width="230" height="443" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="805" y="114" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Напрямок залежностей</text>
+
+  <!-- Блок: ДОЗВОЛЕНО -->
+  <rect x="705" y="128" width="200" height="188" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="805" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">✓ ДОЗВОЛЕНО</text>
+  <text x="805" y="166" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Спадні залежності</text>
+  <line x1="805" y1="176" x2="805" y2="212" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="805" y="232" text-anchor="middle" font-size="12" fill="#1a1a1a">Швидкі компоненти знають</text>
+  <text x="805" y="250" text-anchor="middle" font-size="12" fill="#1a1a1a">контракти повільного ядра.</text>
+  <text x="805" y="272" text-anchor="middle" font-size="12" fill="#27ae60">Стабільність непорушна</text>
+  <text x="805" y="290" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">при оновленнях UI.</text>
+
+  <!-- Блок: ЗАБОРОНЕНО -->
+  <rect x="705" y="328" width="200" height="191" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="805" y="348" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">✗ ЗАБОРОНЕНО</text>
+  <text x="805" y="366" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Інверсія темпу</text>
+  <line x1="805" y1="408" x2="805" y2="378" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="805" y="428" text-anchor="middle" font-size="12" fill="#1a1a1a">Ядро знає про швидкі</text>
+  <text x="805" y="446" text-anchor="middle" font-size="12" fill="#1a1a1a">сценарії чи виклики UI.</text>
+  <text x="805" y="468" text-anchor="middle" font-size="12" fill="#c0392b">Зміни UI ламають драйвери</text>
+  <text x="805" y="486" text-anchor="middle" font-size="12" fill="#c0392b">та виснажують ядро.</text>
+  <text x="805" y="506" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">(Каскадний колапс)</text>
+</svg>

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="490" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Універсальний закон масштабованості (USL): оптимум та ретроградна зона</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Після точки N_max витрати на узгодження стану спричиняють спад продуктивності C'(N) &lt; 0</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: ГРАФІК USL -->
+  <rect x="28" y="78" width="592" height="392" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="324" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометричне дослідження кривої USL: C(N) від N</text>
+
+  <!-- Сітка та осі координат -->
+  <!-- Вісь X (N) -->
+  <line x1="90" y1="405" x2="570" y2="405" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="575" y="409" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">N</text>
+
+  <!-- Вісь Y (C) -->
+  <line x1="90" y1="405" x2="90" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="90" y="125" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C(N)</text>
+
+  <!-- Позначка 0 -->
+  <text x="80" y="418" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Пунктир проекцій N_max та C_max -->
+  <line x1="292" y1="214" x2="292" y2="405" stroke="#2457d6" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="90" y1="214" x2="292" y2="214" stroke="#2457d6" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="292" y="422" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">N_max ~ 22</text>
+  <text x="80" y="218" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">C_max</text>
+
+  <!-- 1. Ідеальна лінійна крива: C(N) = N -->
+  <line x1="90" y1="405" x2="182" y2="165" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="182" y="152" font-size="12" fill="#6b7280" text-anchor="middle">C(N) = N (ідеал)</text>
+
+  <!-- 2. Закон Амдала (β = 0) -->
+  <path d="M 90,405 Q 180,240 560,195" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="560" y="185" font-size="12" fill="#2457d6" text-anchor="end">Закон Амдала (β = 0)</text>
+
+  <!-- 3. Крива USL (β > 0) з піком і спадом -->
+  <path d="M 90,405 C 150,290 220,214 292,214 C 360,214 440,235 560,255" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Точка оптимуму (N_max, C_max) -->
+  <circle cx="292" cy="214" r="5" fill="#2457d6"/>
+  <!-- Дотична в точці оптимуму -->
+  <line x1="262" y1="214" x2="322" y2="214" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="292" y="185" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Оптимум: C'(N)=0</text>
+
+  <!-- Підпис лінійної зони -->
+  <text x="236" y="360" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Лінійна зона</text>
+  <text x="236" y="378" font-size="12" fill="#27ae60" text-anchor="middle">C(N) ~ N</text>
+
+  <!-- РЕТРОГРАДНА ЗОНА: ЗАГОЛОВОК, ДОТИЧНА ТА ПІДПИСИ -->
+  <text x="440" y="145" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ретроградна зона (N &gt; N_max)</text>
+
+  <!-- Дотична в ретроградній зоні: від'ємний нахил -->
+  <line x1="390" y1="230" x2="470" y2="246" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="440" y="270" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Дотична C'(N) &lt; 0 (спад)</text>
+
+  <!-- Крива USL і Штраф когерентності -->
+  <text x="560" y="295" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Крива USL (β &gt; 0)</text>
+  <text x="440" y="325" font-size="12" fill="#c0392b" text-anchor="middle">Штраф когерентності ~ β·N²</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: АНАЛІЗ ЗОН ТА ВИСНОВКИ -->
+  <rect x="640" y="78" width="292" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="786" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналіз зон масштабованості</text>
+  <text x="786" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Фізичний зміст моделі Ніла Гюнтера</text>
+
+  <!-- Картка 1: Формула USL -->
+  <rect x="652" y="130" width="268" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="786" y="150" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рівняння USL (Gunther)</text>
+  <text x="786" y="169" font-size="12" fill="#1a1a1a" text-anchor="middle">C(N) = N / [1 + α(N-1) + βN(N-1)]</text>
+  <text x="786" y="188" font-size="12" fill="#6b7280" text-anchor="middle">α — черги/захист, β — когерентність</text>
+
+  <!-- Картка 2: Точка максимуму -->
+  <rect x="652" y="214" width="268" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="786" y="234" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Точка максимуму: N_max = √(1/β)</text>
+  <text x="786" y="253" font-size="12" fill="#1a1a1a" text-anchor="middle">• Границя зростання: похідна C'(N) = 0</text>
+  <text x="786" y="272" font-size="12" fill="#2457d6" text-anchor="middle">• Пік корисної віддачі системи</text>
+
+  <!-- Картка 3: Ретроградна зона -->
+  <rect x="652" y="298" width="268" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="786" y="318" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ретроградна зона: N &gt; N_max</text>
+  <text x="786" y="337" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">• Спад швидкості: дотична C'(N) &lt; 0</text>
+  <text x="786" y="356" font-size="12" fill="#c0392b" text-anchor="middle">• Синхронізація O(N²) душить вузли</text>
+
+  <!-- Картка 4: Архітектурна пастка -->
+  <rect x="652" y="382" width="268" height="72" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="786" y="403" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Архітектурна пастка масштабу</text>
+  <text x="786" y="422" font-size="12" fill="#1a1a1a" text-anchor="middle">Штучне дроблення на мікросервіси</text>
+  <text x="786" y="441" font-size="12" fill="#6b7280" text-anchor="middle">вмикає коефіцієнт β та руйнує систему</text>
+</svg>

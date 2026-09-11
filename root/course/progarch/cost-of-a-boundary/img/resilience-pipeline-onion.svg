@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Концентричний ланцюг захисту межі (Resilience Pipeline Onion)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Багатошаровий захист: від зовнішнього Fallback до покрокового сокетного таймауту</text>
+
+  <!-- ============================================================ -->
+  <!-- ЛІВА ЧАСТИНА: КОНЦЕНТРИЧНІ ШАРИ (ONION LAYERS)               -->
+  <!-- ============================================================ -->
+
+  <!-- ШАР 1: Fallback (найбільший зовнішній прямокутник) -->
+  <rect x="30" y="76" width="540" height="458" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="30" y="76" width="540" height="24" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="300" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ШАР 1: FALLBACK HANDLER (РЕЗЕРВНИЙ ВАРІАНТ / ДЕГРАДАЦІЯ)</text>
+
+  <!-- ШАР 2: Circuit Breaker (вкладений у Шар 1) -->
+  <rect x="44" y="114" width="512" height="406" rx="7" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="44" y="114" width="512" height="24" rx="7" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="300" y="131" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ШАР 2: CIRCUIT BREAKER (АВТОМАТ РОЗРИВУ ЛАНЦЮГА)</text>
+
+  <!-- ШАР 3: Загальний таймаут / Дедлайн (вкладений у Шар 2) -->
+  <rect x="58" y="152" width="484" height="354" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="58" y="152" width="484" height="24" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="300" y="169" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ШАР 3: TOTAL TIMEOUT (ЗАГАЛЬНИЙ ДЕДЛАЙН ОПЕРАЦІЇ)</text>
+
+  <!-- ШАР 4: Retry + Jitter (вкладений у Шар 3) -->
+  <rect x="72" y="190" width="456" height="302" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="72" y="190" width="456" height="24" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="300" y="207" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ШАР 4: RETRY LOOP (ПОВТОРИ З ЕКСПОНЕНЦІЙНИМ JITTER)</text>
+
+  <!-- ШАР 5: Сокетний таймаут (вкладений у Шар 4) -->
+  <rect x="86" y="228" width="428" height="250" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="86" y="228" width="428" height="24" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="300" y="245" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ШАР 5: PER-ATTEMPT SOCKET TIMEOUT (ТАЙМАУТ СПРОБИ)</text>
+
+  <!-- ЯДРО: Ненадійна системна межа (вкладена у Шар 5) -->
+  <rect x="100" y="266" width="400" height="198" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <rect x="100" y="266" width="400" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="300" y="283" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ЯДРО: НЕНАДІЙНИЙ ВІДДАЛЕНИЙ ВИКЛИК (REMOTE RPC)</text>
+
+  <!-- Вміст ядра: Блок віддаленого шва -->
+  <rect x="114" y="302" width="372" height="68" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="300" y="320" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Фізична межа: мережевий сокет / RPC</text>
+  <text x="124" y="340" font-size="12" fill="#6b7280">• Ризики: пакети губляться, вузол завис у дедлоку</text>
+  <text x="124" y="358" font-size="12" fill="#6b7280">• Невизначеність затримки та відмова цільового сервісу</text>
+
+  <!-- Вміст ядра: Наскрізний контекст -->
+  <rect x="114" y="384" width="372" height="68" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="300" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Наскрізний контекст виконання</text>
+  <text x="124" y="422" font-size="12" fill="#1a1a1a">• Idempotency-Key: захист від повторних списань</text>
+  <text x="124" y="440" font-size="12" fill="#1a1a1a">• TraceID: наскрізна кореляція в системі</text>
+
+  <!-- ============================================================ -->
+  <!-- ПРАВА ЧАСТИНА: АНАТОМІЯ ТА ДИНАМІКА ШАРІВ (3 КАРТКИ)         -->
+  <!-- ============================================================ -->
+
+  <!-- Картка 1: Шари 1–2 (Зовнішній контур) -->
+  <rect x="590" y="76" width="340" height="142" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="590" y="76" width="340" height="24" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="760" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ШАРИ 1–2: СИСТЕМНИЙ ЗАХИСТ</text>
+
+  <text x="602" y="118" font-size="12" font-weight="bold" fill="#2457d6">1. Fallback Handler (зовнішній шар):</text>
+  <text x="602" y="136" font-size="12" fill="#1a1a1a">• Активація при вичерпанні лімітів або збої</text>
+  <text x="602" y="152" font-size="12" fill="#6b7280">• Повертає кешовані дані чи безпечний дефолт</text>
+
+  <text x="602" y="174" font-size="12" font-weight="bold" fill="#c0392b">2. Circuit Breaker (автомат захисту):</text>
+  <text x="602" y="192" font-size="12" fill="#1a1a1a">• Стани: Closed → Open (при >50% помилок)</text>
+  <text x="602" y="208" font-size="12" fill="#6b7280">• Швидкий fail-fast захищає від каскадних аварій</text>
+
+  <!-- Картка 2: Шари 3–4 (Середній контур) -->
+  <rect x="590" y="230" width="340" height="142" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="590" y="230" width="340" height="24" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="760" y="247" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ШАРИ 3–4: ТАЙМІНГ ТА ПОВТОРИ</text>
+
+  <text x="602" y="272" font-size="12" font-weight="bold" fill="#2457d6">3. Total Timeout / Дедлайн (шар 3):</text>
+  <text x="602" y="290" font-size="12" fill="#1a1a1a">• Жорсткий верхній ліміт усієї операції (2000 мс)</text>
+  <text x="602" y="306" font-size="12" fill="#6b7280">• Охоплює всі спроби й очікування backoff</text>
+
+  <text x="602" y="328" font-size="12" font-weight="bold" fill="#27ae60">4. Retry Loop + Jitter (шар 4):</text>
+  <text x="602" y="346" font-size="12" fill="#1a1a1a">• Тільки для збоїв 503, 429 та таймаутів</text>
+  <text x="602" y="362" font-size="12" fill="#6b7280">• Jitter усуває синхронні хвилі запитів</text>
+
+  <!-- Картка 3: Шар 5 та ієрархія (Внутрішній контур) -->
+  <rect x="590" y="384" width="340" height="150" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="590" y="384" width="340" height="24" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="760" y="401" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ШАР 5: СОКЕТНИЙ РІВЕНЬ ТА ІЄРАРХІЯ</text>
+
+  <text x="602" y="426" font-size="12" font-weight="bold" fill="#1a1a1a">5. Per-Attempt Socket Timeout:</text>
+  <text x="602" y="444" font-size="12" fill="#1a1a1a">• Connect (200 мс) + Read/Write (500 мс)</text>
+  <text x="602" y="460" font-size="12" fill="#6b7280">• Швидко обриває сокет для нової спроби</text>
+
+  <text x="602" y="484" font-size="12" font-weight="bold" fill="#c0392b">Золоте правило вкладеності дедлайнів:</text>
+  <text x="602" y="502" font-size="12" font-weight="bold" fill="#2457d6">Total Timeout > N × (Socket Timeout + Backoff)</text>
+  <text x="602" y="520" font-size="12" fill="#6b7280">• Покроковий таймаут ЗАВЖДИ менший за загальний!</text>
+</svg>

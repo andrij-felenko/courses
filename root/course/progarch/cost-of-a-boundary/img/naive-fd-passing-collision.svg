@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Колізія дескрипторів при наївній передачі числа (Raw FD Passing)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Дескриптор — локальний індекс процесу: передача числа 7 спричиняє запис у чужий файл БД</text>
+
+  <!-- ============================================================ -->
+  <!-- ЛІВА КОЛОНКА: ПРОЦЕС A (ВІДПРАВНИК)                          -->
+  <!-- ============================================================ -->
+  <rect x="30" y="76" width="295" height="294" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="30" y="76" width="295" height="24" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="177" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ПРОЦЕС A: ВІДПРАВНИК (PID 1042)</text>
+
+  <!-- Таблиця дескрипторів A -->
+  <rect x="42" y="112" width="271" height="136" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="177" y="128" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Таблиця дескрипторів процесу A</text>
+
+  <text x="52" y="148" font-size="12" fill="#6b7280">fd 0: stdin</text>
+  <text x="52" y="164" font-size="12" fill="#6b7280">fd 1: stdout / fd 2: stderr</text>
+  <text x="52" y="180" font-size="12" fill="#6b7280">fd 3..6: внутрішні канали / пайпи</text>
+
+  <!-- Рядок fd 7 у процесі A -->
+  <rect x="48" y="190" width="259" height="46" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="56" y="208" font-size="12" font-weight="bold" fill="#2457d6">fd 7 → Мережевий сокет</text>
+  <text x="56" y="226" font-size="12" fill="#2457d6">TCP-з'єднання (192.168.1.50:443)</text>
+
+  <!-- Блок відправки в процесі A -->
+  <rect x="42" y="260" width="271" height="98" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="52" y="278" font-size="12" font-weight="bold" fill="#2457d6">Наївна спроба передачі:</text>
+  <text x="52" y="296" font-size="12" fill="#1a1a1a">int fd = 7;</text>
+  <text x="52" y="314" font-size="12" fill="#1a1a1a">send(sock, &amp;fd, sizeof(fd), 0);</text>
+  <text x="52" y="336" font-size="12" fill="#6b7280">(передається лише 4 байти числа 7)</text>
+
+  <!-- ============================================================ -->
+  <!-- ЦЕНТРАЛЬНА КОЛОНКА: IPC КАНАЛ (НАЇВНА ПЕРЕДАЧА)             -->
+  <!-- ============================================================ -->
+  <rect x="339" y="76" width="282" height="294" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <rect x="339" y="76" width="282" height="24" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">МІЖПРОЦЕСНИЙ ШОВ: IPC КАНАЛ</text>
+
+  <!-- Блок наївного пакету даних -->
+  <rect x="355" y="120" width="250" height="74" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Корисне навантаження IPC</text>
+  <text x="480" y="158" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Пакет даних: [ 0x07 0x00 0x00 0x00 ]</text>
+  <text x="480" y="178" text-anchor="middle" font-size="12" fill="#c0392b">Число 7 передане як текст/байти</text>
+
+  <!-- Стрілка від A до IPC пакету -->
+  <line x1="313" y1="157" x2="355" y2="157" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Стрілка від IPC пакету до B -->
+  <line x1="605" y1="157" x2="647" y2="157" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Пояснення в каналі -->
+  <rect x="355" y="210" width="250" height="148" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ПРИЧИНА КАТАСТРОФИ</text>
+  <text x="365" y="248" font-size="12" fill="#1a1a1a">• Ядро ОС бачить лише байти,</text>
+  <text x="365" y="266" font-size="12" fill="#1a1a1a">  а не перенесення дескриптора</text>
+  <text x="365" y="284" font-size="12" fill="#6b7280">• Таблиці FDT строго ізольовані</text>
+  <text x="365" y="302" font-size="12" fill="#6b7280">• Втрачено контекст сокета</text>
+  <text x="365" y="326" font-size="12" font-weight="bold" fill="#c0392b">⛔ Не викликано SCM_RIGHTS</text>
+  <text x="365" y="344" font-size="12" fill="#6b7280">(запис ядра не клоновано)</text>
+
+  <!-- ============================================================ -->
+  <!-- ПРАВА КОЛОНКА: ПРОЦЕС B (ОДЕРЖУВАЧ / КАТАСТРОФА)            -->
+  <!-- ============================================================ -->
+  <rect x="635" y="76" width="295" height="294" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="635" y="76" width="295" height="24" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="782" y="93" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ПРОЦЕС B: ОДЕРЖУВАЧ (PID 2088)</text>
+
+  <!-- Таблиця дескрипторів B -->
+  <rect x="647" y="112" width="271" height="136" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="782" y="128" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Таблиця дескрипторів процесу B</text>
+
+  <text x="657" y="148" font-size="12" fill="#6b7280">fd 0: stdin</text>
+  <text x="657" y="164" font-size="12" fill="#6b7280">fd 1: stdout / fd 2: stderr</text>
+  <text x="657" y="180" font-size="12" fill="#6b7280">fd 3..6: інші файли / сокети</text>
+
+  <!-- Рядок fd 7 у процесі B (Колізія!) -->
+  <rect x="653" y="190" width="259" height="46" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="661" y="208" font-size="12" font-weight="bold" fill="#c0392b">fd 7 → ФАЙЛ БАЗИ ДАНИХ!</text>
+  <text x="661" y="226" font-size="12" font-weight="bold" fill="#c0392b">/var/data/production.db (відкритий rw)</text>
+
+  <!-- Блок катастрофи в процесі B -->
+  <rect x="647" y="260" width="271" height="98" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="657" y="278" font-size="12" font-weight="bold" fill="#c0392b">Отримання і запис:</text>
+  <text x="657" y="296" font-size="12" fill="#1a1a1a">recv(sock, &amp;fd, sizeof(fd), 0); // fd=7</text>
+  <text x="657" y="314" font-size="12" fill="#c0392b">write(7, net_data, len); // fd=7!</text>
+  <text x="657" y="336" font-size="12" font-weight="bold" fill="#c0392b">💥 ТИХЕ РУЙНУВАННЯ ФАЙЛУ БД!</text>
+
+  <!-- ============================================================ -->
+  <!-- НИЖНІ ПАНЕЛІ: ПОРІВНЯННЯ НАЇВНОГО ПІДХОДУ ТА SCM_RIGHTS     -->
+  <!-- ============================================================ -->
+
+  <!-- Картка 1: Пояснення антипатерну -->
+  <rect x="30" y="384" width="440" height="150" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="30" y="384" width="440" height="24" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="250" y="401" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">АНТИПАТЕРН: НАЇВНА ПЕРЕДАЧА ЦІЛОГО ЧИСЛА</text>
+
+  <text x="44" y="426" font-size="12" fill="#1a1a1a">• Дескриптор у POSIX — це лише індекс у масиві files_struct.</text>
+  <text x="44" y="446" font-size="12" fill="#1a1a1a">• Число 7 у процесі A не має стосунку до числа 7 у процесі B.</text>
+  <text x="44" y="466" font-size="12" fill="#6b7280">• Процес B пише трафік у випадковий файл під цим номером.</text>
+  <text x="44" y="486" font-size="12" font-weight="bold" fill="#c0392b">• Наслідок: тихе пошкодження даних та аварія сховища.</text>
+  <text x="44" y="508" font-size="12" fill="#6b7280">• Межа процесу ізолює власні простори дескрипторів.</text>
+
+  <!-- Картка 2: Правильне рішення SCM_RIGHTS -->
+  <rect x="490" y="384" width="440" height="150" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="490" y="384" width="440" height="24" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="401" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ПРАВИЛЬНЕ РІШЕННЯ: SCM_RIGHTS (FILE PASSING)</text>
+
+  <text x="504" y="426" font-size="12" fill="#1a1a1a">• Використання sendmsg/recvmsg з блоком cmsghdr.</text>
+  <text x="504" y="446" font-size="12" fill="#1a1a1a">• Ядро ОС перехоплює fd і клонує базовий struct file.</text>
+  <text x="504" y="466" font-size="12" fill="#27ae60">• Ядро виділяє новий вільний індекс у процесі B (fd 12).</text>
+  <text x="504" y="486" font-size="12" font-weight="bold" fill="#27ae60">• Безпека: процеси розділяють один сокет без колізій.</text>
+  <text x="504" y="508" font-size="12" fill="#6b7280">• Цілісність файлу бази даних гарантовано збережена.</text>
+</svg>

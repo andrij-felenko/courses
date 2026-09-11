@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-problem" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ампліфікація хвостової затримки при синхронному розгалуженні (Fan-out)</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Опитування 10 швидких сервісів (p99 = 100 мс) підвищує ризик хвостового гальмування з 1% до 9,56%</text>
+
+  <!-- Ліва панель: топологія -->
+  <rect x="28" y="82" width="440" height="432" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="48" y="106" font-size="14" font-weight="bold" fill="#1a1a1a">Топологія каскадного розгалуження (k = 10)</text>
+  <text x="48" y="124" font-size="12" fill="#6b7280">1 вхідний запит паралельно викликає 10 мікросервісів</text>
+
+  <!-- Мережева межа -->
+  <text x="334" y="143" font-size="12" fill="#6b7280" text-anchor="middle">Межа мережі</text>
+  <line x1="334" y1="150" x2="334" y2="416" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Клієнт -->
+  <rect x="48" y="150" width="102" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="99" y="169" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Клієнт</text>
+  <text x="99" y="185" font-size="12" fill="#6b7280" text-anchor="middle">Вхідний запит</text>
+
+  <!-- Стрілка Клієнт -> Шлюз -->
+  <line x1="150" y1="173" x2="194" y2="173" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- API-шлюз -->
+  <rect x="200" y="150" width="112" height="46" rx="6" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="256" y="169" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">API-шлюз</text>
+  <text x="256" y="185" font-size="12" fill="#ffffff" text-anchor="middle">Оркестратор</text>
+
+  <!-- Розгалуження до сервісів -->
+  <!-- Сервіс 1 -->
+  <path d="M 312,173 C 328,173 328,167 346,167" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <rect x="352" y="150" width="102" height="34" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="403" y="164" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сервіс 1</text>
+  <text x="403" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">p50 = 10 мс</text>
+
+  <!-- Сервіс 2 -->
+  <path d="M 312,173 C 328,173 328,213 346,213" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <rect x="352" y="196" width="102" height="34" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="403" y="210" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сервіс 2</text>
+  <text x="403" y="224" font-size="12" fill="#1a1a1a" text-anchor="middle">p50 = 12 мс</text>
+
+  <!-- Сервіси 3-6 -->
+  <path d="M 312,173 C 328,173 328,257 346,257" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <rect x="352" y="242" width="102" height="30" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="403" y="261" font-size="12" fill="#6b7280" text-anchor="middle">• • • Сервіси 3–6</text>
+
+  <!-- Сервіс 7 (Сплеск затримки) -->
+  <path d="M 312,173 C 328,173 328,306 346,306" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-problem)"/>
+  <rect x="352" y="284" width="102" height="44" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="403" y="301" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сервіс 7 (СПЛЕСК)</text>
+  <text x="403" y="316" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">120 мс (GC-пауза)</text>
+
+  <!-- Сервіси 8-9 -->
+  <path d="M 312,173 C 328,173 328,355 346,355" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <rect x="352" y="340" width="102" height="30" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="403" y="359" font-size="12" fill="#6b7280" text-anchor="middle">• • • Сервіси 8–9</text>
+
+  <!-- Сервіс 10 -->
+  <path d="M 312,173 C 328,173 328,399 346,399" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <rect x="352" y="382" width="102" height="34" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="403" y="396" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сервіс 10</text>
+  <text x="403" y="410" font-size="12" fill="#1a1a1a" text-anchor="middle">p50 = 11 мс</text>
+
+  <!-- Підсумковий банер лівої панелі -->
+  <rect x="48" y="428" width="400" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="248" y="448" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">T_sys = max(T₁, T₂, ..., T₁₀) = 120 мс</text>
+  <text x="248" y="466" font-size="12" fill="#1a1a1a" text-anchor="middle">9 швидких сервісів завершили роботу за 10–15 мс,</text>
+  <text x="248" y="484" font-size="12" fill="#1a1a1a" text-anchor="middle">але шлюз заблоковано до відповіді найповільнішого</text>
+
+  <!-- Права панель: математика і графік -->
+  <rect x="492" y="82" width="440" height="432" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="512" y="106" font-size="14" font-weight="bold" fill="#1a1a1a">Розподіл затримки: закон добутку F_sys(t) = [F(t)]ᵏ</text>
+  <text x="512" y="124" font-size="12" fill="#6b7280">Піднесення до степеня k деформує розподіл затримки праворуч</text>
+
+  <!-- Блок графіка -->
+  <rect x="508" y="142" width="408" height="180" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Легенда графіка -->
+  <line x1="522" y1="154" x2="538" y2="154" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="542" y="158" font-size="12" fill="#1a1a1a">F(t)</text>
+  <line x1="585" y1="154" x2="601" y2="154" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="605" y="158" font-size="12" fill="#1a1a1a">[F(t)]¹⁰</text>
+
+  <!-- Осі координат -->
+  <line x1="552" y1="280" x2="720" y2="280" stroke="#9ca3af" stroke-width="1.2"/>
+  <line x1="552" y1="280" x2="552" y2="172" stroke="#9ca3af" stroke-width="1.2"/>
+  <text x="544" y="166" font-size="12" fill="#6b7280" text-anchor="end">F(t)</text>
+
+  <!-- Позначки на осі Y -->
+  <text x="544" y="284" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="544" y="230" font-size="12" fill="#6b7280" text-anchor="end">0.5</text>
+  <text x="544" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">0.99</text>
+
+  <!-- Позначки на осі X -->
+  <text x="610" y="295" font-size="12" fill="#6b7280" text-anchor="middle">20</text>
+  <text x="660" y="295" font-size="12" fill="#6b7280" text-anchor="middle">50</text>
+  <text x="715" y="295" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">100 мс</text>
+
+  <!-- Пунктирна лінія 100 мс -->
+  <line x1="715" y1="172" x2="715" y2="280" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Крива для 1 виклику (синя) -->
+  <path d="M 552,280 C 570,280 590,230 610,215 C 635,198 670,186 715,180" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="715" cy="180" r="4" fill="#2457d6"/>
+
+  <!-- Крива для 10 викликів (червона) -->
+  <path d="M 552,280 C 600,280 630,275 660,245 C 685,220 700,205 715,195" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="715" cy="195" r="4" fill="#c0392b"/>
+
+  <!-- Виносна панель значень при 100 мс (без ліній, вільна від контурів) -->
+  <rect x="730" y="150" width="176" height="162" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="818" y="170" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зріз на 100 мс (p99):</text>
+  <text x="740" y="192" font-size="12" font-weight="bold" fill="#2457d6">1 виклик: F = 99,0%</text>
+  <text x="740" y="208" font-size="12" fill="#2457d6">Хвіст: 1 - 0,99 = 1%</text>
+  <text x="740" y="234" font-size="12" font-weight="bold" fill="#c0392b">10 викликів: F = 90,4%</text>
+  <text x="740" y="252" font-size="12" font-weight="bold" fill="#c0392b">Хвіст: 1 - 0,904 = 9,56%</text>
+  <text x="740" y="272" font-size="12" fill="#c0392b">Ризик зріс у ~10 разів!</text>
+  <text x="740" y="292" font-size="12" fill="#6b7280">Формула: 1 - (0,99)¹⁰</text>
+
+  <!-- Порівняльні картки під графіком -->
+  <!-- Картка 1: хвіст затримки -->
+  <rect x="508" y="334" width="198" height="164" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="508" y="334" width="198" height="28" rx="6" fill="#fdecea"/>
+  <text x="607" y="353" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Хвостова затримка (p99)</text>
+
+  <text x="518" y="376" font-size="12" fill="#6b7280">1 виклик (поріг 100 мс):</text>
+  <text x="518" y="394" font-size="12" font-weight="bold" fill="#27ae60">P(хвіст) = 1% (1 зі 100)</text>
+
+  <text x="518" y="422" font-size="12" fill="#6b7280">10 паралельних викликів:</text>
+  <text x="518" y="440" font-size="12" fill="#1a1a1a">P = 1 - 0,99¹⁰ ≈ 9,56%</text>
+  <text x="518" y="460" font-size="13" font-weight="bold" fill="#c0392b">Майже кожен 10-й запит!</text>
+  <text x="518" y="480" font-size="12" fill="#c0392b">Ризик зріс майже в 10 разів</text>
+
+  <!-- Картка 2: доступність -->
+  <rect x="718" y="334" width="198" height="164" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="718" y="334" width="198" height="28" rx="6" fill="#fdecea"/>
+  <text x="817" y="353" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сумарна доступність (SLA)</text>
+
+  <text x="728" y="376" font-size="12" fill="#6b7280">1 сервіс (три дев'ятки):</text>
+  <text x="728" y="394" font-size="12" font-weight="bold" fill="#27ae60">A = 99,9% (1 збій на 1000)</text>
+
+  <text x="728" y="422" font-size="12" fill="#6b7280">10 синхронних меж:</text>
+  <text x="728" y="440" font-size="12" fill="#1a1a1a">A_sys = 0,999¹⁰ ≈ 99,0%</text>
+  <text x="728" y="460" font-size="13" font-weight="bold" fill="#c0392b">1 відмова на 100 запитів!</text>
+  <text x="728" y="480" font-size="12" fill="#c0392b">Збої почастішали в 10 разів</text>
+</svg>

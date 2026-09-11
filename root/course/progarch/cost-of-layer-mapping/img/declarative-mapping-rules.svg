@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Декларативні правила мапінгу: трансформація полів на межі шарів</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Зіставлення 1-в-1, перенаправлення, ігнорування та типізовані конвертери без рефлексії</text>
+
+  <!-- КОЛОНКА 1: Джерело (UserEntity) -->
+  <rect x="30" y="78" width="205" height="342" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="132" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Джерело: UserEntity</text>
+  <text x="132" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Доменний шар (сутність)</text>
+
+  <!-- Поле 1 джерела: id -->
+  <rect x="40" y="136" width="185" height="48" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="50" y="155" font-size="13" font-weight="bold" fill="#1a1a1a">id: UUID</text>
+  <text x="50" y="173" font-size="12" fill="#6b7280">первинний ключ</text>
+
+  <!-- Поле 2 джерела: externalCode -->
+  <rect x="40" y="200" width="185" height="48" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="50" y="219" font-size="13" font-weight="bold" fill="#1a1a1a">externalCode: String</text>
+  <text x="50" y="237" font-size="12" fill="#6b7280">зовнішній код</text>
+
+  <!-- Поле 3 джерела: passwordHash -->
+  <rect x="40" y="264" width="185" height="48" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="50" y="283" font-size="13" font-weight="bold" fill="#c0392b">passwordHash: String</text>
+  <text x="50" y="301" font-size="12" fill="#c0392b">конфіденційний хеш</text>
+
+  <!-- Поле 4 джерела: statusCode -->
+  <rect x="40" y="328" width="185" height="48" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="50" y="347" font-size="13" font-weight="bold" fill="#1a1a1a">statusCode: Int</text>
+  <text x="50" y="365" font-size="12" fill="#6b7280">числовий статус (0, 1, 2)</text>
+
+
+  <!-- КОЛОНКА 2: Декларативний мапер (@Mapper) -->
+  <rect x="250" y="78" width="460" height="342" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="102" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">@Mapper: Специфікація перекладу між шарами</text>
+  <text x="480" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Правила перетворення полів, що транслюються у строгий код</text>
+
+  <!-- Правило 1: 1-в-1 автокопіювання -->
+  <rect x="265" y="136" width="430" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="277" y="155" font-size="13" font-weight="bold" fill="#27ae60">1. Автоматичний мапінг 1-в-1</text>
+  <text x="277" y="173" font-size="12" fill="#1a1a1a">Збіг імен і типів: dto.setId(entity.getId())</text>
+
+  <!-- Правило 2: Явне перенаправлення -->
+  <rect x="265" y="200" width="430" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="277" y="219" font-size="13" font-weight="bold" fill="#2457d6">2. Явне перенаправлення через @Mapping</text>
+  <text x="277" y="237" font-size="12" fill="#1a1a1a">@Mapping(source = "externalCode", target = "code")</text>
+
+  <!-- Правило 3: Ігнорування -->
+  <rect x="265" y="264" width="430" height="48" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="277" y="283" font-size="13" font-weight="bold" fill="#c0392b">3. Ігнорування непотрібних властивостей</text>
+  <text x="277" y="301" font-size="12" fill="#1a1a1a">@Mapping(target = "passwordHash", ignore = true) — захист від витоку</text>
+
+  <!-- Правило 4: Кастомне перетворення -->
+  <rect x="265" y="328" width="430" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="277" y="347" font-size="13" font-weight="bold" fill="#2457d6">4. Кастомне перетворення несумісних типів</text>
+  <text x="277" y="365" font-size="12" fill="#1a1a1a">@Mapping(qualifiedByName = "toStatus") · перетворення Int у StatusEnum</text>
+
+
+  <!-- КОЛОНКА 3: Ціль (UserResponseDto) -->
+  <rect x="725" y="78" width="205" height="342" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="827" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ціль: UserResponseDto</text>
+  <text x="827" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Зовнішній контракт API</text>
+
+  <!-- Поле 1 цілі: id -->
+  <rect x="735" y="136" width="185" height="48" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="745" y="155" font-size="13" font-weight="bold" fill="#1a1a1a">id: UUID</text>
+  <text x="745" y="173" font-size="12" fill="#6b7280">ідентифікатор</text>
+
+  <!-- Поле 2 цілі: code -->
+  <rect x="735" y="200" width="185" height="48" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="745" y="219" font-size="13" font-weight="bold" fill="#1a1a1a">code: String</text>
+  <text x="745" y="237" font-size="12" fill="#6b7280">публічний код</text>
+
+  <!-- Поле 3 цілі: пропущене поле (ізоляція) -->
+  <rect x="735" y="264" width="185" height="48" rx="4" fill="#ffffff" stroke="#27ae60" stroke-dasharray="3 3"/>
+  <text x="745" y="283" font-size="13" font-weight="bold" fill="#27ae60">поле відсутнє в DTO</text>
+  <text x="745" y="301" font-size="12" fill="#27ae60">стан захищено від витоку</text>
+
+  <!-- Поле 4 цілі: status -->
+  <rect x="735" y="328" width="185" height="48" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="745" y="347" font-size="13" font-weight="bold" fill="#1a1a1a">status: StatusEnum</text>
+  <text x="745" y="365" font-size="12" fill="#6b7280">строгий перелік статусів</text>
+
+
+  <!-- ЗВ'ЯЗУВАЛЬНІ СТРІЛКИ -->
+  <!-- Рядок 1: id -> Правило 1 -> id -->
+  <line x1="225" y1="160" x2="263" y2="160" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="695" y1="160" x2="733" y2="160" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Рядок 2: externalCode -> Правило 2 -> code -->
+  <line x1="225" y1="224" x2="263" y2="224" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="695" y1="224" x2="733" y2="224" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Рядок 3: passwordHash -> Правило 3 (зупинка) -->
+  <line x1="225" y1="288" x2="263" y2="288" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="695" y1="288" x2="715" y2="288" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <circle cx="720" cy="288" r="4" fill="#c0392b"/>
+
+  <!-- Рядок 4: statusCode -> Правило 4 -> status -->
+  <line x1="225" y1="352" x2="263" y2="352" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="695" y1="352" x2="733" y2="352" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Результат компіляції -->
+  <rect x="30" y="434" width="900" height="106" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="50" y="456" font-size="14" font-weight="bold" fill="#1a1a1a">Результат збірки: Прямий згенерований Java/C# код без рефлексії</text>
+  
+  <rect x="50" y="466" width="860" height="34" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="60" y="488" font-size="12" fill="#2457d6">dto.setId(src.getId());  dto.setCode(src.getExternalCode());  dto.setStatus(toStatus(src.getStatusCode()));</text>
+
+  <text x="50" y="522" font-size="12" font-weight="bold" fill="#27ae60">Compile-Time Safety: невідповідність типів чи забуті поля виявляються під час компіляції проєкту</text>
+</svg>

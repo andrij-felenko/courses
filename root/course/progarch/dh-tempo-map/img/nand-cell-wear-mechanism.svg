@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Знос комірки NAND Flash: деградація тунельного діелектрика</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Накопичення пасток заряду та витік електронів (SILC) при циклічному тунелюванні Фаулера-Нордгейма</text>
+
+  <!-- LEFT PANEL: PHYSICAL STRUCTURE -->
+  <rect x="24" y="80" width="436" height="416" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Left Header -->
+  <rect x="36" y="92" width="412" height="40" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="242" y="117" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Структура транзистора Floating-Gate NAND</text>
+
+  <!-- Layer 1: Control Gate -->
+  <rect x="90" y="144" width="304" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="242" y="163" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Керуючий затвор (Control Gate)</text>
+  <text x="242" y="179" text-anchor="middle" font-size="12" fill="#6b7280">Полікремній • Напруга програмування (+20 В)</text>
+
+  <!-- Layer 2: IPD / ONO -->
+  <rect x="90" y="198" width="304" height="24" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="242" y="215" text-anchor="middle" font-size="12" fill="#6b7280">Міжзатворна ізоляція (IPD / ONO-діелектрик)</text>
+
+  <!-- Layer 3: Floating Gate -->
+  <rect x="90" y="234" width="304" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="242" y="253" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Плаваючий затвор (Floating Gate)</text>
+  <text x="242" y="269" text-anchor="middle" font-size="12" fill="#1a1a1a">Ізольований провідник • Зберігає заряд (e⁻)</text>
+
+  <!-- Layer 4: Tunnel Oxide -->
+  <rect x="90" y="290" width="304" height="32" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="242" y="311" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Тунельний оксид SiO₂ (8–10 нм) • Зона зносу</text>
+
+  <!-- Layer 5: Substrate -->
+  <rect x="60" y="334" width="364" height="76" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <!-- Source -->
+  <rect x="72" y="346" width="90" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="117" y="369" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Витік (n⁺)</text>
+  <!-- Drain -->
+  <rect x="322" y="346" width="90" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="367" y="369" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Стік (n⁺)</text>
+  <!-- Channel / Substrate labels -->
+  <text x="242" y="362" text-anchor="middle" font-size="12" fill="#6b7280">Канал провідності</text>
+  <text x="242" y="380" text-anchor="middle" font-size="12" fill="#1a1a1a">Підкладка p-типу (p-Si)</text>
+
+  <!-- Left Footer Card -->
+  <rect x="36" y="422" width="412" height="62" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="48" y="444" font-size="12" font-weight="bold" fill="#2457d6">Цикли P/E (Program / Erase):</text>
+  <text x="48" y="466" font-size="12" fill="#1a1a1a">Висока напруга (до 20 В) змушує e⁻ тунелювати крізь SiO₂</text>
+
+  <!-- RIGHT PANEL: WEAR MECHANISM -->
+  <rect x="500" y="80" width="436" height="416" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Right Header -->
+  <rect x="512" y="92" width="412" height="40" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="718" y="117" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Накопичення дефектів та деградація</text>
+
+  <!-- Right Card 1: Fresh Cell -->
+  <rect x="512" y="144" width="412" height="104" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="524" y="166" font-size="13" font-weight="bold" fill="#27ae60">1. Свіжа комірка (0 – 100 циклів P/E)</text>
+  <text x="524" y="188" font-size="12" fill="#1a1a1a">• Чиста кристалічна ґратка діелектрика SiO₂</text>
+  <text x="524" y="208" font-size="12" fill="#1a1a1a">• Оборотне квантове тунелювання Фаулера-Нордгейма</text>
+  <text x="524" y="228" font-size="12" fill="#27ae60">✔ Стабільне утримання заряду (Data Retention > 10 років)</text>
+
+  <!-- Right Card 2: Worn Cell -->
+  <rect x="512" y="260" width="412" height="120" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="524" y="282" font-size="13" font-weight="bold" fill="#c0392b">2. Зношена комірка (накопичення дефектів)</text>
+  <text x="524" y="304" font-size="12" fill="#c0392b">• Розрив зв'язків Si-O: утворення пасток заряду (traps)</text>
+  <text x="524" y="324" font-size="12" fill="#c0392b">• Застряглі електрони зміщують поріг (Vth shift)</text>
+  <text x="524" y="344" font-size="12" fill="#c0392b">• Струм витоку SILC: витік заряду з Floating Gate</text>
+  <text x="524" y="364" font-size="12" fill="#c0392b">✖ Ризик спотворення бітів (Bit Flip) та втрати даних</text>
+
+  <!-- Right Card 3: Gateway Architecture Impact -->
+  <rect x="512" y="392" width="412" height="92" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="524" y="414" font-size="13" font-weight="bold" fill="#2457d6">Архітектурні наслідки для IoT Gateway</text>
+  <text x="524" y="436" font-size="12" fill="#1a1a1a">• Wear Leveling контролера для вирівнювання зносу</text>
+  <text x="524" y="456" font-size="12" fill="#1a1a1a">• Мінімізація частих sync-записів логів у Flash-пам'ять</text>
+  <text x="524" y="476" font-size="12" fill="#1a1a1a">• Консервативний темп релізів прошивок (OTA-безпека)</text>
+
+  <!-- Connecting pointer from Tunnel Oxide to Degradation card -->
+  <line x1="460" y1="306" x2="494" y2="306" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+</svg>

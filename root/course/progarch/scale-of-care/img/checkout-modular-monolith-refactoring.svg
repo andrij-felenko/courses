@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 555" width="960" height="555" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Полотно -->
+  <rect x="0" y="0" width="960" height="555" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цільова архітектура: рефакторинг Checkout у модульний моноліт</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Три ізольовані модулі в одному процесі ОС: локальна ACID-транзакція та in-memory шина подій</text>
+
+  <!-- Головний контур: Єдиний процес застосунку -->
+  <rect x="30" y="78" width="900" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="104" font-size="14" font-weight="bold" fill="#1a1a1a">Єдиний процес застосунку: Модульний моноліт Checkout</text>
+
+  <rect x="695" y="88" width="215" height="24" rx="12" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="802" y="104" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0 мс мережі • 1 процес ОС</text>
+
+  <!-- Верхній ярус: Внутрішньопроцесна шина подій -->
+  <rect x="50" y="126" width="860" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="70" y="147" font-size="13" font-weight="bold" fill="#2457d6">Внутрішньопроцесна шина подій (In-Memory Event Bus)</text>
+  <text x="70" y="165" font-size="12" fill="#6b7280">Асинхронна доставка типізованих подій (OrderPlacedEvent) без JSON-серіалізації та черг</text>
+
+  <!-- Стрілки між шиною подій та модулями -->
+  <line x1="185" y1="206" x2="185" y2="184" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-accent)"/>
+  <line x1="480" y1="178" x2="480" y2="200" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-accent)"/>
+  <line x1="775" y1="178" x2="775" y2="200" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-accent)"/>
+
+  <!-- Середній ярус: 3 ізольовані модулі -->
+  <!-- Модуль 1: Замовлення -->
+  <rect x="50" y="206" width="270" height="135" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="65" y="231" font-size="13" font-weight="bold" fill="#1a1a1a">1. Модуль замовлень (Orders)</text>
+  <text x="65" y="253" font-size="12" fill="#6b7280">• Агрегат Order &amp; OrderItems</text>
+  <text x="65" y="273" font-size="12" fill="#6b7280">• Перевірка статусів і сум</text>
+  <text x="65" y="293" font-size="12" fill="#6b7280">• Публікація OrderCreatedEvent</text>
+  <text x="65" y="323" font-size="12" font-weight="bold" fill="#2457d6">Шов: IOrderService</text>
+
+  <!-- Модуль 2: Склад -->
+  <rect x="345" y="206" width="270" height="135" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="231" font-size="13" font-weight="bold" fill="#1a1a1a">2. Модуль складу (Inventory)</text>
+  <text x="360" y="253" font-size="12" fill="#6b7280">• Агрегат StockItem (залишки)</text>
+  <text x="360" y="273" font-size="12" fill="#6b7280">• Атомарне резервування товарів</text>
+  <text x="360" y="293" font-size="12" fill="#6b7280">• Захист від подвійного продажу</text>
+  <text x="360" y="323" font-size="12" font-weight="bold" fill="#2457d6">Шов: IInventoryService</text>
+
+  <!-- Модуль 3: Платежі -->
+  <rect x="640" y="206" width="270" height="135" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="655" y="231" font-size="13" font-weight="bold" fill="#1a1a1a">3. Модуль платежів (Payments)</text>
+  <text x="655" y="253" font-size="12" fill="#6b7280">• Агрегат PaymentTransaction</text>
+  <text x="655" y="273" font-size="12" fill="#6b7280">• Авторизація та статус оплати</text>
+  <text x="655" y="293" font-size="12" fill="#6b7280">• Збереження реквізитів транзакції</text>
+  <text x="655" y="323" font-size="12" font-weight="bold" fill="#2457d6">Шов: IPaymentService</text>
+
+  <!-- Стрілки від модулів до ACID-транзакції -->
+  <line x1="185" y1="341" x2="185" y2="364" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="480" y1="341" x2="480" y2="364" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="775" y1="341" x2="775" y2="364" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Нижній ярус: Локальна ACID-транзакція -->
+  <rect x="50" y="370" width="860" height="72" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="70" y="392" font-size="13" font-weight="bold" fill="#27ae60">Спільна локальна ACID-транзакція (Спільне підключення до БД)</text>
+  <text x="70" y="411" font-size="12" fill="#1a1a1a">Атомарна операція: створення замовлення + резерв товарів + запис платежу в межах одного Commit</text>
+  <text x="70" y="429" font-size="12" fill="#6b7280">Гарантія узгодженості (All-or-Nothing) без 2PC, без розподілених саг і без частинних відмов</text>
+
+  <!-- Нижня панель: Порівняння результатів рефакторингу -->
+  <rect x="30" y="476" width="900" height="54" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="50" y="498" font-size="12" font-weight="bold" fill="#c0392b">Було (мікросервіси):</text>
+  <text x="50" y="517" font-size="12" fill="#6b7280">3 процеси, RTT 80–150 мс, таймаути, саги</text>
+
+  <line x1="330" y1="486" x2="330" y2="520" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="350" y="498" font-size="12" font-weight="bold" fill="#27ae60">Стало (модульний моноліт):</text>
+  <text x="350" y="517" font-size="12" fill="#1a1a1a">1 процес, прямі виклики 0.5 нс, ACID &lt; 5 мс</text>
+
+  <line x1="640" y1="486" x2="640" y2="520" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="660" y="498" font-size="12" font-weight="bold" fill="#2457d6">Архітектурний виграш:</text>
+  <text x="660" y="517" font-size="12" fill="#1a1a1a">Нуль частинних відмов, P99 падає на 95%</text>
+</svg>

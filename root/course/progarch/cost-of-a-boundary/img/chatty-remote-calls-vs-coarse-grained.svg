@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  <text x="480" y="39" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Балакучий інтерфейс проти крупнозернистого контракту</text>
+  <text x="480" y="59" font-size="13" fill="#6b7280" text-anchor="middle">Мережева межа карає за дрібні виклики: одиничний DTO усуває лавину раунд-тріпів</text>
+  <!-- Ліва панель: Балакучий RPC -->
+  <rect x="28" y="76" width="440" height="402" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="28" y="76" width="440" height="48" rx="8" fill="#fdecea"/>
+  <line x1="28" y1="124" x2="468" y2="124" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="97" font-size="14" font-weight="bold" fill="#c0392b">Балакучий об'єкт (Chatty RPC — CORBA / DCOM / RMI)</text>
+  <text x="44" y="114" font-size="12" fill="#6b7280">Ілюзія прозорості: кожен виклик гетера перетинає мережу</text>
+  <!-- Права панель: Крупнозернистий DTO -->
+  <rect x="492" y="76" width="440" height="402" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="492" y="76" width="440" height="48" rx="8" fill="#e9f7ef"/>
+  <line x1="492" y1="124" x2="932" y2="124" stroke="#d0d7de" stroke-width="1"/>
+  <text x="508" y="97" font-size="14" font-weight="bold" fill="#27ae60">Крупнозернистий контракт (Coarse-Grained DTO)</text>
+  <text x="508" y="114" font-size="12" fill="#6b7280">Визнання межі: один запит забирає повний серіалізований знімок</text>
+  <rect x="44" y="136" width="90" height="28" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="89" y="154" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Клієнт</text>
+  <rect x="362" y="136" width="90" height="28" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="407" y="154" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сервер</text>
+  <line x1="89" y1="164" x2="89" y2="368" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="407" y1="164" x2="407" y2="368" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="91" y1="182" x2="403" y2="182" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="248" y="177" font-size="12" fill="#c0392b" text-anchor="middle">1. getName()</text>
+  <line x1="405" y1="208" x2="93" y2="208" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+  <text x="248" y="203" font-size="12" fill="#1a1a1a" text-anchor="middle">return "Іван"  [25 мс]</text>
+  <line x1="91" y1="234" x2="403" y2="234" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="248" y="229" font-size="12" fill="#c0392b" text-anchor="middle">2. getAddress()</text>
+  <line x1="405" y1="260" x2="93" y2="260" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+  <text x="248" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">return "Київ"  [25 мс]</text>
+  <line x1="91" y1="286" x2="403" y2="286" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="248" y="281" font-size="12" fill="#c0392b" text-anchor="middle">3. getBalance()</text>
+  <line x1="405" y1="312" x2="93" y2="312" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+  <text x="248" y="307" font-size="12" fill="#1a1a1a" text-anchor="middle">return 15000 грн  [25 мс]</text>
+  <line x1="91" y1="338" x2="403" y2="338" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="248" y="333" font-size="12" fill="#c0392b" text-anchor="middle">4. getStatus()</text>
+  <line x1="405" y1="364" x2="93" y2="364" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+  <text x="248" y="359" font-size="12" fill="#1a1a1a" text-anchor="middle">return "Active"  [25 мс]</text>
+  <rect x="38" y="378" width="420" height="92" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="248" y="398" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Підсумок: 4 раунд-тріпи = 100 мс очікування</text>
+  <text x="248" y="417" font-size="12" fill="#1a1a1a" text-anchor="middle">• Простій CPU: ~300 000 000 тактів у блокованому стані</text>
+  <text x="248" y="435" font-size="12" fill="#1a1a1a" text-anchor="middle">• Крихкість: 4 точки відмови, загроза розсинхрону даних</text>
+  <text x="248" y="453" font-size="12" fill="#6b7280" text-anchor="middle">• Пастка: метод оманливо виглядає локальним</text>
+  <rect x="508" y="136" width="90" height="28" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="553" y="154" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Клієнт</text>
+  <rect x="826" y="136" width="90" height="28" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="871" y="154" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сервер</text>
+  <line x1="553" y1="164" x2="553" y2="368" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="871" y1="164" x2="871" y2="368" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="555" y1="182" x2="867" y2="182" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="712" y="176" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">getCustomerProfile(customerId)</text>
+  <rect x="592" y="202" width="240" height="92" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="604" y="221" font-size="12" font-weight="bold" fill="#2457d6">DTO: CustomerProfileDto</text>
+  <line x1="592" y1="228" x2="832" y2="228" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="604" y="245" font-size="12" fill="#1a1a1a">name: "Іван"</text>
+  <text x="604" y="263" font-size="12" fill="#1a1a1a">address: "Київ", balance: 15000</text>
+  <text x="604" y="281" font-size="12" fill="#1a1a1a">status: "Active"</text>
+  <line x1="869" y1="326" x2="557" y2="326" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-green)"/>
+  <text x="712" y="320" font-size="12" fill="#27ae60" text-anchor="middle">return CustomerProfileDto  [25 мс]</text>
+  <text x="712" y="348" font-size="12" fill="#6b7280" text-anchor="middle">(єдиний серіалізований знімок усіх даних)</text>
+  <rect x="502" y="378" width="420" height="92" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712" y="398" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Підсумок: 1 раунд-тріп = 25 мс (-75% затримки)</text>
+  <text x="712" y="417" font-size="12" fill="#1a1a1a" text-anchor="middle">• Економія CPU: потік не блокується на кожному полі</text>
+  <text x="712" y="435" font-size="12" fill="#1a1a1a" text-anchor="middle">• Атомарність: 1 точка відмови — отримали або все, або нічого</text>
+  <text x="712" y="453" font-size="12" fill="#6b7280" text-anchor="middle">• Явна межа: передається знімок, а не живий об'єкт</text>
+  <!-- Підсумковий висновок унизу -->
+  <rect x="28" y="490" width="904" height="48" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="510" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектурне правило (Waldo, Birrell &amp; Nelson):</text>
+  <text x="480" y="528" font-size="12" fill="#6b7280" text-anchor="middle">Мережева межа карає за балакучі виклики — архітектура вимагає передачі крупнозернистих знімків даних (DTO).</text>
+</svg>

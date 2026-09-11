@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="#ffffff"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Універсальний закон масштабованості: три режими продуктивності</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Закон Амдала веде до плато серіалізації (α), а закон USL — до ретроградного спаду через когерентність (β)</text>
+
+  <!-- LEFT PANEL: Coordinate Plot -->
+  <rect x="25" y="75" width="585" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Retrograde Zone Explanation Box -->
+  <rect x="280" y="340" width="285" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="295" y="360" font-size="12" font-weight="bold" fill="#c0392b">Зона ретроградного спаду (N &gt; N_max):</text>
+  <text x="295" y="378" font-size="12" fill="#c0392b">Квадратичний штраф когерентності β·N²</text>
+  <text x="295" y="394" font-size="12" fill="#6b7280">Кожен новий вузол сповільнює систему</text>
+
+  <!-- Amdahl Saturation Line (Asymptote) -->
+  <line x1="260" y1="148" x2="560" y2="148" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="375" y="140" font-size="12" font-weight="bold" fill="#2457d6">Асимптота 1/α (плато насичення)</text>
+
+  <!-- Drop line from USL Peak -->
+  <line x1="255" y1="265" x2="255" y2="420" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Axes -->
+  <line x1="85" y1="420" x2="575" y2="420" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="85" y1="420" x2="85" y2="105" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Axis Labels -->
+  <text x="85" y="96" font-size="12" font-weight="bold" fill="#1a1a1a">Продуктивність C(N)</text>
+  <text x="575" y="438" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Кількість вузлів N →</text>
+  <text x="78" y="424" text-anchor="end" font-size="12" fill="#6b7280">1</text>
+  <text x="255" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">N_max</text>
+
+  <!-- Curve 1: Ideal Linear (Green) -->
+  <line x1="85" y1="420" x2="215" y2="135" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <text x="145" y="125" font-size="12" font-weight="bold" fill="#27ae60">Ідеал: C(N) = N</text>
+
+  <!-- Curve 2: Amdahl Law (Blue) -->
+  <path d="M 85 420 C 130 310, 190 220, 270 180 C 350 155, 440 150, 560 149" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="320" y="195" font-size="12" font-weight="bold" fill="#2457d6">Закон Амдала (насичення)</text>
+  <text x="320" y="213" font-size="12" fill="#6b7280">Втрати на серіалізацію черг (α)</text>
+
+  <!-- Curve 3: USL Gunther (Red) -->
+  <path d="M 85 420 C 130 320, 190 265, 255 265 C 330 265, 420 300, 560 330" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="255" cy="265" r="4.5" fill="#c0392b"/>
+  <text x="255" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Пік USL (C_max)</text>
+
+  <!-- RIGHT PANEL: Explanations -->
+  <rect x="630" y="75" width="305" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Card 1: Ideal -->
+  <rect x="645" y="88" width="275" height="80" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="660" y="108" font-size="13" font-weight="bold" fill="#27ae60">1. Ідеал: C(N) = N</text>
+  <text x="660" y="128" font-size="12" font-weight="bold" fill="#1a1a1a">α = 0, β = 0 (Shared Nothing)</text>
+  <text x="660" y="146" font-size="12" fill="#6b7280">Вузли повністю незалежні.</text>
+  <text x="660" y="160" font-size="12" fill="#6b7280">Подвоєння вузлів подвоює швидкість.</text>
+
+  <!-- Card 2: Amdahl -->
+  <rect x="645" y="180" width="275" height="92" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="660" y="200" font-size="13" font-weight="bold" fill="#2457d6">2. Закон Амдала (Контеншн)</text>
+  <text x="660" y="220" font-size="12" font-weight="bold" fill="#1a1a1a">α &gt; 0, β = 0 (Плато 1/α)</text>
+  <text x="660" y="238" font-size="12" fill="#1a1a1a">Втрати на серіалізацію:</text>
+  <text x="660" y="254" font-size="12" fill="#6b7280">черги до спільних локів, БД, дисків.</text>
+  <text x="660" y="268" font-size="12" fill="#6b7280">Продуктивність впирається в стелю.</text>
+
+  <!-- Card 3: USL Gunther -->
+  <rect x="645" y="284" width="275" height="105" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="660" y="304" font-size="13" font-weight="bold" fill="#c0392b">3. Закон USL (Когерентність)</text>
+  <text x="660" y="324" font-size="12" font-weight="bold" fill="#c0392b">α &gt; 0, β &gt; 0 (Ретроградний спад)</text>
+  <text x="660" y="342" font-size="12" fill="#1a1a1a">Квадратичний оверхед O(N²):</text>
+  <text x="660" y="358" font-size="12" fill="#6b7280">інвалідація кешів, консенсус, gossip.</text>
+  <text x="660" y="374" font-size="12" fill="#c0392b">При N &gt; N_max система колапсує!</text>
+
+  <!-- Card 4: Architecture Conclusion -->
+  <rect x="645" y="401" width="275" height="64" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="660" y="420" font-size="12" font-weight="bold" fill="#1a1a1a">Архітектурний висновок:</text>
+  <text x="660" y="438" font-size="12" fill="#6b7280">Мережевий розподіл вмикає β-штраф.</text>
+  <text x="660" y="454" font-size="12" fill="#27ae60">Зменшуй координацію, а не додавай CPU.</text>
+</svg>

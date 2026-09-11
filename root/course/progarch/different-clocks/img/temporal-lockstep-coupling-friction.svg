@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зчеплення компонентів із різними темпами (temporal lockstep)</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Прямолінійне зчеплення підсистем змушує швидку периферію чекати квартальних тестів ядра</text>
+
+  <!-- Головний монолітний контейнер -->
+  <rect x="30" y="78" width="900" height="325" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="50" y="98" font-size="12" font-weight="bold" fill="#6b7280">СПІЛЬНИЙ МОНОЛІТНИЙ РЕПОЗИТОРІЙ ТА РЕЛІЗНИЙ КОНВЕЄР</text>
+
+  <!-- Підсистема 1: Мобільний додаток -->
+  <rect x="55" y="110" width="250" height="125" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="67" y="120" width="115" height="22" rx="11" fill="#eaf0fd"/>
+  <text x="124" y="136" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ТИЖНЕВИЙ ТЕМП</text>
+  <text x="67" y="162" font-size="15" font-weight="bold" fill="#1a1a1a">Мобільний додаток</text>
+  <text x="67" y="182" font-size="12" fill="#6b7280">Часті зміни UI, віджетів та екранів</text>
+  <rect x="67" y="196" width="226" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="75" y="213" font-size="12" font-weight="bold" fill="#c0392b">● Правка 1 поля у віджеті</text>
+
+  <!-- Підсистема 2: API погодних тарифів -->
+  <rect x="55" y="250" width="250" height="125" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="67" y="260" width="165" height="22" rx="11" fill="#eaf0fd"/>
+  <text x="149" y="276" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">НЕПЕРЕДБАЧУВАНИЙ ТЕМП</text>
+  <text x="67" y="302" font-size="15" font-weight="bold" fill="#1a1a1a">API погодних тарифів</text>
+  <text x="67" y="322" font-size="12" fill="#6b7280">Зовнішній постачальник даних</text>
+  <rect x="67" y="336" width="226" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="75" y="353" font-size="12" font-weight="bold" fill="#c0392b">● Дрейф схеми стороннього API</text>
+
+  <!-- Середній блок: Пряме зчеплення -->
+  <rect x="340" y="140" width="240" height="215" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="340" y="140" width="240" height="28" rx="6" fill="#fdecea"/>
+  <text x="460" y="159" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ПРЯМЕ ЗЧЕПЛЕННЯ (LOCKSTEP)</text>
+  <text x="460" y="188" font-size="12" fill="#1a1a1a" text-anchor="middle">Спільні моделі DTO та схеми</text>
+  <text x="460" y="208" font-size="12" fill="#6b7280" text-anchor="middle">Єдиний конвеєр компіляції</text>
+  <line x1="360" y1="222" x2="560" y2="222" stroke="#d0d7de" stroke-width="1"/>
+  <text x="460" y="242" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Каскадна інвалідація коду</text>
+  <text x="460" y="262" font-size="12" fill="#c0392b" text-anchor="middle">Зміна типу ламає весь граф</text>
+  <text x="460" y="288" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Тертя зчеплення (Friction)</text>
+  <text x="460" y="308" font-size="12" fill="#6b7280" text-anchor="middle">Швидкість падає до повільного</text>
+
+  <!-- Стрілки від периферії до середнього блоку -->
+  <line x1="305" y1="209" x2="338" y2="209" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="305" y1="349" x2="338" y2="349" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Стрілка від середнього блоку до ядра -->
+  <text x="596" y="238" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">каскад</text>
+  <line x1="580" y1="247" x2="613" y2="247" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Підсистема 3: Ядро білінгу й автоматизації -->
+  <rect x="615" y="110" width="295" height="265" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <rect x="630" y="120" width="145" height="22" rx="11" fill="#fdecea"/>
+  <text x="702" y="136" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">КВАРТАЛЬНИЙ ЦИКЛ</text>
+  <text x="630" y="162" font-size="15" font-weight="bold" fill="#1a1a1a">Ядро білінгу й безпеки</text>
+  <text x="630" y="182" font-size="12" fill="#6b7280">Автоматизація, облік, захист</text>
+  <text x="630" y="200" font-size="12" fill="#6b7280">Ціна помилки: критична (майно)</text>
+
+  <!-- Внутрішній блок блокування в ядрі -->
+  <rect x="630" y="216" width="265" height="145" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="642" y="236" font-size="12" font-weight="bold" fill="#c0392b">⚠ ВИМОГА РЕГЛАМЕНТУ:</text>
+  <text x="642" y="256" font-size="12" fill="#1a1a1a">3 тижні регресійних тестів</text>
+  <text x="642" y="274" font-size="12" fill="#1a1a1a">на стендах фізичного заліза</text>
+  <line x1="642" y1="286" x2="883" y2="286" stroke="#d0d7de" stroke-width="1"/>
+  <text x="642" y="306" font-size="12" font-weight="bold" fill="#c0392b">НАСЛІДОК ДЛЯ РЕЛІЗУ:</text>
+  <text x="642" y="326" font-size="12" fill="#c0392b">Випуск UI заморожено на місяць</text>
+  <text x="642" y="344" font-size="12" fill="#6b7280">Ядро постійно дестабілізується</text>
+
+  <!-- Нижня панель: Каскад наслідків -->
+  <rect x="30" y="415" width="900" height="105" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="50" y="434" font-size="12" font-weight="bold" fill="#c0392b">КАСКАД ПЕРЕСКЛАДАННЯ ТА БЛОКУВАННЯ РЕЛІЗІВ (COUPLING FRICTION):</text>
+
+  <!-- Крок 1 -->
+  <rect x="50" y="445" width="195" height="65" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="60" y="462" font-size="12" font-weight="bold" fill="#2457d6">1. Локальна зміна</text>
+  <text x="60" y="479" font-size="12" fill="#1a1a1a">Правка одного поля</text>
+  <text x="60" y="496" font-size="12" fill="#6b7280">у віджеті термостата</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="247" y1="477" x2="269" y2="477" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Крок 2 -->
+  <rect x="271" y="445" width="195" height="65" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="281" y="462" font-size="12" font-weight="bold" fill="#c0392b">2. Інвалідація збірки</text>
+  <text x="281" y="479" font-size="12" fill="#1a1a1a">Зміна сигнатури ламає</text>
+  <text x="281" y="496" font-size="12" fill="#6b7280">спільні типи моноліту</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="468" y1="477" x2="490" y2="477" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Крок 3 -->
+  <rect x="492" y="445" width="195" height="65" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="502" y="462" font-size="12" font-weight="bold" fill="#c0392b">3. Регресія ядра</text>
+  <text x="502" y="479" font-size="12" fill="#1a1a1a">Повний прогін 3-тижневих</text>
+  <text x="502" y="496" font-size="12" fill="#6b7280">тестів білінгу й реле</text>
+
+  <!-- Стрілка 3 -> 4 -->
+  <line x1="689" y1="477" x2="711" y2="477" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Крок 4 -->
+  <rect x="713" y="445" width="195" height="65" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="723" y="462" font-size="12" font-weight="bold" fill="#c0392b">4. Параліч випуску</text>
+  <text x="723" y="479" font-size="12" fill="#1a1a1a">Реліз UI заблоковано:</text>
+  <text x="723" y="496" font-size="12" font-weight="bold" fill="#c0392b">поїзд чекає повільного</text>
+</svg>

@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-solution" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Результати стрес-тесту буфера ізоляції темпів</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Згашування лавинного шторму вебхуків (50) до доменних оновлень (5) та захист реле (8 з 10 загашено)</text>
+
+  <!-- З'єднувальні стрілки та написи між панелями -->
+  <line x1="299" y1="218" x2="344" y2="218" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+  <text x="322" y="203" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ACL</text>
+
+  <line x1="614" y1="218" x2="659" y2="218" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-solution)"/>
+  <text x="637" y="203" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Реле</text>
+
+  <!-- ПАНЕЛЬ 1: Вхідний шторм вебхуків -->
+  <rect x="35" y="82" width="260" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="47" y="94" width="236" height="42" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="165" y="111" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">1. ВХІДНИЙ ШТОРМ</text>
+  <text x="165" y="128" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">50 вебхуків / сек</text>
+
+  <rect x="47" y="148" width="236" height="140" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="165" y="165" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Сирий потік телеметрії</text>
+
+  <rect x="80" y="173" width="170" height="22" rx="4" fill="#fdecea"/>
+  <text x="165" y="188" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Висока частота / Дребезг</text>
+
+  <!-- Візуалізація сплеску імпульсів (без перетинів із текстом) -->
+  <line x1="57" y1="270" x2="273" y2="270" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="61" y1="270" x2="61" y2="220" stroke="#c0392b" stroke-width="2"/>
+  <line x1="69" y1="270" x2="69" y2="205" stroke="#c0392b" stroke-width="2"/>
+  <line x1="77" y1="270" x2="77" y2="235" stroke="#c0392b" stroke-width="2"/>
+  <line x1="85" y1="270" x2="85" y2="210" stroke="#c0392b" stroke-width="2"/>
+  <line x1="93" y1="270" x2="93" y2="225" stroke="#c0392b" stroke-width="2"/>
+  <line x1="101" y1="270" x2="101" y2="205" stroke="#c0392b" stroke-width="2"/>
+  <line x1="109" y1="270" x2="109" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <line x1="117" y1="270" x2="117" y2="215" stroke="#c0392b" stroke-width="2"/>
+  <line x1="125" y1="270" x2="125" y2="220" stroke="#c0392b" stroke-width="2"/>
+  <line x1="133" y1="270" x2="133" y2="205" stroke="#c0392b" stroke-width="2"/>
+  <line x1="141" y1="270" x2="141" y2="235" stroke="#c0392b" stroke-width="2"/>
+  <line x1="149" y1="270" x2="149" y2="210" stroke="#c0392b" stroke-width="2"/>
+  <line x1="157" y1="270" x2="157" y2="225" stroke="#c0392b" stroke-width="2"/>
+  <line x1="165" y1="270" x2="165" y2="205" stroke="#c0392b" stroke-width="2"/>
+  <line x1="173" y1="270" x2="173" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <line x1="181" y1="270" x2="181" y2="215" stroke="#c0392b" stroke-width="2"/>
+  <line x1="189" y1="270" x2="189" y2="220" stroke="#c0392b" stroke-width="2"/>
+  <line x1="197" y1="270" x2="197" y2="205" stroke="#c0392b" stroke-width="2"/>
+  <line x1="205" y1="270" x2="205" y2="235" stroke="#c0392b" stroke-width="2"/>
+  <line x1="213" y1="270" x2="213" y2="210" stroke="#c0392b" stroke-width="2"/>
+  <line x1="221" y1="270" x2="221" y2="225" stroke="#c0392b" stroke-width="2"/>
+  <line x1="229" y1="270" x2="229" y2="205" stroke="#c0392b" stroke-width="2"/>
+  <line x1="237" y1="270" x2="237" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <line x1="245" y1="270" x2="245" y2="215" stroke="#c0392b" stroke-width="2"/>
+  <line x1="253" y1="270" x2="253" y2="220" stroke="#c0392b" stroke-width="2"/>
+  <line x1="261" y1="270" x2="261" y2="205" stroke="#c0392b" stroke-width="2"/>
+  <line x1="269" y1="270" x2="269" y2="230" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Картка метрик Панелі 1 -->
+  <rect x="47" y="298" width="236" height="132" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="59" y="322" font-size="12" font-weight="bold" fill="#1a1a1a">Джерело:</text>
+  <text x="130" y="322" font-size="12" fill="#6b7280">Зовнішні датчики</text>
+
+  <text x="59" y="347" font-size="12" font-weight="bold" fill="#1a1a1a">Інтервал:</text>
+  <text x="130" y="347" font-size="12" fill="#6b7280">10–20 мс (сплеск)</text>
+
+  <text x="59" y="372" font-size="12" font-weight="bold" fill="#1a1a1a">Ризик:</text>
+  <text x="130" y="372" font-size="12" fill="#c0392b">Перевантаження ядра</text>
+
+  <text x="59" y="397" font-size="12" font-weight="bold" fill="#1a1a1a">Стан:</text>
+  <text x="130" y="397" font-size="12" fill="#c0392b">Нестабільні дані</text>
+
+  <!-- ПАНЕЛЬ 2: Буфер ізоляції темпів -->
+  <rect x="350" y="82" width="260" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="362" y="94" width="236" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="111" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. БУФЕР ІЗОЛЯЦІЇ (ACL)</text>
+  <text x="480" y="128" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">5 доменних оновлень</text>
+
+  <rect x="362" y="148" width="236" height="140" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="166" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Знімки стану та черга подій</text>
+
+  <!-- 5 доменних оновлень -->
+  <rect x="374" y="178" width="212" height="17" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="191" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Доменне оновлення #1</text>
+
+  <rect x="374" y="199" width="212" height="17" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="212" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Доменне оновлення #2</text>
+
+  <rect x="374" y="220" width="212" height="17" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="233" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Доменне оновлення #3</text>
+
+  <rect x="374" y="241" width="212" height="17" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="254" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Доменне оновлення #4</text>
+
+  <rect x="374" y="262" width="212" height="17" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="275" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Доменне оновлення #5</text>
+
+  <!-- Картка метрик Панелі 2 -->
+  <rect x="362" y="298" width="236" height="132" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="374" y="322" font-size="12" font-weight="bold" fill="#1a1a1a">Механізм:</text>
+  <text x="442" y="322" font-size="12" fill="#6b7280">Кеш + Асинхронна черга</text>
+
+  <text x="374" y="347" font-size="12" font-weight="bold" fill="#1a1a1a">Дедуплікація:</text>
+  <text x="470" y="347" font-size="12" fill="#2457d6">Стиснення 10 : 1</text>
+
+  <text x="374" y="372" font-size="12" font-weight="bold" fill="#1a1a1a">Вихід:</text>
+  <text x="442" y="372" font-size="12" fill="#2457d6">5 канонічних подій</text>
+
+  <text x="374" y="397" font-size="12" font-weight="bold" fill="#1a1a1a">Гарантія:</text>
+  <text x="442" y="397" font-size="12" fill="#27ae60">Ізоляція від шторму</text>
+
+  <!-- ПАНЕЛЬ 3: Фізичне реле -->
+  <rect x="665" y="82" width="260" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="677" y="94" width="236" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="111" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">3. ФІЗИЧНЕ РЕЛЕ</text>
+  <text x="795" y="128" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">8 із 10 перемикань загашено</text>
+
+  <rect x="677" y="148" width="236" height="140" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="795" y="166" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Фільтрація дребезгу контакту</text>
+
+  <!-- Блок А: Загашено перемикань -->
+  <rect x="689" y="178" width="212" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="795" y="195" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Загашено: 8 із 10 перемикань</text>
+  <text x="795" y="213" font-size="12" fill="#6b7280" text-anchor="middle">Поглинуто гістерезисом (80%)</text>
+
+  <!-- Блок Б: Виконано перемикань -->
+  <rect x="689" y="233" width="212" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="795" y="250" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Виконано: 2 фізичні перемикання</text>
+  <text x="795" y="267" font-size="12" fill="#27ae60" text-anchor="middle">Збережено ресурс контакту</text>
+
+  <!-- Картка метрик Панелі 3 -->
+  <rect x="677" y="298" width="236" height="132" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="689" y="322" font-size="12" font-weight="bold" fill="#1a1a1a">Загашено:</text>
+  <text x="765" y="322" font-size="12" fill="#c0392b">8 з 10 команд (80%)</text>
+
+  <text x="689" y="347" font-size="12" font-weight="bold" fill="#1a1a1a">Фізичні клацання:</text>
+  <text x="812" y="347" font-size="12" fill="#27ae60">Лише 2 зміни</text>
+
+  <text x="689" y="372" font-size="12" font-weight="bold" fill="#1a1a1a">Ефект:</text>
+  <text x="765" y="372" font-size="12" fill="#27ae60">Захист контакту реле</text>
+
+  <text x="689" y="397" font-size="12" font-weight="bold" fill="#1a1a1a">Надійність:</text>
+  <text x="770" y="397" font-size="12" fill="#27ae60">Безпечний режим</text>
+
+  <!-- Підсумкова плашка -->
+  <rect x="35" y="452" width="890" height="28" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="470" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Результат ACL: 50 вхідних вебхуків → 5 доменних подій → 2 фізичні комутації (8 перемикань реле загашено)</text>
+</svg>

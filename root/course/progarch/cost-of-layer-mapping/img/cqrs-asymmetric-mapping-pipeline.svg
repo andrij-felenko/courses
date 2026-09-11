@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Асиметричний конвеєр CQRS: тракт запису проти швидкісного читання</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Ізоляція захищає бізнес-правила на записі, а пряма проєкція знімає податок на читання</text>
+  <rect x="24" y="80" width="166" height="178" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="24" y="80" width="166" height="28" rx="6" fill="#e2e8f0"/>
+  <rect x="24" y="102" width="166" height="6" fill="#e2e8f0"/>
+  <text x="34" y="98" font-size="12" font-weight="bold" fill="#2457d6">1. Презентація</text>
+  <text x="34" y="124" font-size="13" font-weight="bold" fill="#1a1a1a">Request DTO</text>
+  <text x="34" y="146" font-size="12" fill="#6b7280">POST /climate</text>
+  <text x="34" y="164" font-size="12" fill="#6b7280">zoneId, temp, hum</text>
+  <rect x="30" y="174" width="154" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="36" y="190" font-size="12" font-weight="bold" fill="#2457d6">Валідація схеми</text>
+  <text x="34" y="222" font-size="12" fill="#6b7280">Зовнішній формат</text>
+  <text x="34" y="240" font-size="12" fill="#6b7280">незалежний від БД</text>
+  <line x1="190" y1="169" x2="208" y2="169" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="210" y="80" width="166" height="178" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="210" y="80" width="166" height="28" rx="6" fill="#e2e8f0"/>
+  <rect x="210" y="102" width="166" height="6" fill="#e2e8f0"/>
+  <text x="220" y="98" font-size="12" font-weight="bold" fill="#2457d6">2. Застосунок</text>
+  <text x="220" y="124" font-size="13" font-weight="bold" fill="#1a1a1a">Command Handler</text>
+  <text x="220" y="146" font-size="12" fill="#6b7280">Inbound Mapping</text>
+  <text x="220" y="164" font-size="12" fill="#6b7280">SetClimateCmd</text>
+  <rect x="216" y="174" width="154" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="222" y="190" font-size="12" font-weight="bold" fill="#2457d6">Трансляція типів</text>
+  <text x="220" y="222" font-size="12" fill="#6b7280">Мапінг 1: DTO -> Cmd</text>
+  <text x="220" y="240" font-size="12" fill="#6b7280">захист API-контракту</text>
+  <line x1="376" y1="169" x2="394" y2="169" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="396" y="80" width="176" height="178" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="396" y="80" width="176" height="28" rx="6" fill="#eaf0fd"/>
+  <rect x="396" y="102" width="176" height="6" fill="#eaf0fd"/>
+  <text x="406" y="98" font-size="12" font-weight="bold" fill="#2457d6">3. Доменна модель</text>
+  <text x="406" y="124" font-size="13" font-weight="bold" fill="#1a1a1a">ClimateZone</text>
+  <text x="406" y="146" font-size="12" fill="#6b7280">Агрегат домену</text>
+  <rect x="402" y="156" width="164" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="408" y="173" font-size="12" font-weight="bold" fill="#27ae60">ЗАХИСТ ПРАВИЛ</text>
+  <text x="408" y="190" font-size="12" fill="#27ae60">Перевірка інваріантів</text>
+  <text x="406" y="222" font-size="12" fill="#6b7280">Повна ізоляція стану</text>
+  <text x="406" y="240" font-size="12" fill="#6b7280">і бізнес-логіки</text>
+  <line x1="572" y1="169" x2="590" y2="169" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="592" y="80" width="176" height="178" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="592" y="80" width="176" height="28" rx="6" fill="#e2e8f0"/>
+  <rect x="592" y="102" width="176" height="6" fill="#e2e8f0"/>
+  <text x="602" y="98" font-size="12" font-weight="bold" fill="#2457d6">4. Інфраструктура</text>
+  <text x="602" y="124" font-size="13" font-weight="bold" fill="#1a1a1a">Persistence ORM</text>
+  <text x="602" y="146" font-size="12" fill="#6b7280">ZoneEntity (ORM)</text>
+  <rect x="598" y="156" width="164" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="604" y="173" font-size="12" font-weight="bold" fill="#c0392b">Мапінг 2: Entity</text>
+  <text x="604" y="190" font-size="12" fill="#c0392b">ціна: алокації в купі</text>
+  <text x="602" y="222" font-size="12" fill="#6b7280">Перекладання полів</text>
+  <text x="602" y="240" font-size="12" fill="#6b7280">для збереження</text>
+  <line x1="768" y1="169" x2="786" y2="169" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="788" y="80" width="148" height="178" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="788" y="80" width="148" height="28" rx="6" fill="#e2e8f0"/>
+  <rect x="788" y="102" width="148" height="6" fill="#e2e8f0"/>
+  <text x="798" y="98" font-size="12" font-weight="bold" fill="#2457d6">5. Сховище</text>
+  <text x="798" y="124" font-size="13" font-weight="bold" fill="#1a1a1a">База даних</text>
+  <text x="798" y="146" font-size="12" fill="#6b7280">climate_zones</text>
+  <text x="798" y="164" font-size="12" fill="#6b7280">INSERT / UPDATE</text>
+  <rect x="794" y="174" width="136" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="800" y="190" font-size="12" font-weight="bold" fill="#2457d6">ACID-запис</text>
+  <text x="798" y="222" font-size="12" fill="#6b7280">Фіксація стану</text>
+  <text x="798" y="240" font-size="12" fill="#6b7280">із гарантіями</text>
+  <rect x="24" y="286" width="166" height="178" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="24" y="286" width="166" height="28" rx="6" fill="#e2e8f0"/>
+  <rect x="24" y="308" width="166" height="6" fill="#e2e8f0"/>
+  <text x="34" y="304" font-size="12" font-weight="bold" fill="#27ae60">1. Презентація</text>
+  <text x="34" y="330" font-size="13" font-weight="bold" fill="#1a1a1a">Response DTO</text>
+  <text x="34" y="352" font-size="12" fill="#6b7280">GET /climate</text>
+  <text x="34" y="370" font-size="12" fill="#6b7280">200 OK (JSON)</text>
+  <rect x="30" y="380" width="154" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="36" y="396" font-size="12" font-weight="bold" fill="#27ae60">Готовий для UI</text>
+  <text x="34" y="428" font-size="12" fill="#6b7280">Плоский DTO під</text>
+  <text x="34" y="446" font-size="12" fill="#6b7280">потреби клієнта</text>
+  <line x1="210" y1="375" x2="192" y2="375" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <rect x="210" y="286" width="166" height="178" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="210" y="286" width="166" height="28" rx="6" fill="#e2e8f0"/>
+  <rect x="210" y="308" width="166" height="6" fill="#e2e8f0"/>
+  <text x="220" y="304" font-size="12" font-weight="bold" fill="#27ae60">2. Застосунок</text>
+  <text x="220" y="330" font-size="13" font-weight="bold" fill="#1a1a1a">Query Handler</text>
+  <text x="220" y="352" font-size="12" fill="#6b7280">Fast-Path Handler</text>
+  <text x="220" y="370" font-size="12" fill="#6b7280">ZoneQuery</text>
+  <rect x="216" y="380" width="154" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="222" y="396" font-size="12" font-weight="bold" fill="#27ae60">Без транзакцій</text>
+  <text x="220" y="428" font-size="12" fill="#6b7280">Прямий диспетчер</text>
+  <text x="220" y="446" font-size="12" fill="#6b7280">без бізнес-правил</text>
+  <line x1="396" y1="375" x2="378" y2="375" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <rect x="396" y="286" width="176" height="178" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <rect x="396" y="286" width="176" height="28" rx="6" fill="#d4efdf"/>
+  <rect x="396" y="308" width="176" height="6" fill="#d4efdf"/>
+  <text x="406" y="304" font-size="12" font-weight="bold" fill="#27ae60">3. Домен оминається</text>
+  <text x="406" y="330" font-size="13" font-weight="bold" fill="#27ae60">Обхід домену</text>
+  <text x="406" y="352" font-size="12" fill="#1a1a1a">Немає зміни стану</text>
+  <rect x="402" y="362" width="164" height="42" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="408" y="379" font-size="12" font-weight="bold" fill="#27ae60">0 АЛОКАЦІЙ GC</text>
+  <text x="408" y="396" font-size="12" fill="#27ae60">0 проміжних маперів</text>
+  <text x="406" y="428" font-size="12" font-weight="bold" fill="#27ae60">ЗНЯТО ПОДАТОК</text>
+  <text x="406" y="446" font-size="12" fill="#27ae60">на читання даних</text>
+  <line x1="592" y1="375" x2="574" y2="375" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <rect x="592" y="286" width="176" height="178" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="592" y="286" width="176" height="28" rx="6" fill="#e2e8f0"/>
+  <rect x="592" y="308" width="176" height="6" fill="#e2e8f0"/>
+  <text x="602" y="304" font-size="12" font-weight="bold" fill="#27ae60">4. Пряма проєкція</text>
+  <text x="602" y="330" font-size="13" font-weight="bold" fill="#1a1a1a">Direct SQL Proj</text>
+  <text x="602" y="352" font-size="12" fill="#6b7280">Dapper / Raw SQL</text>
+  <rect x="598" y="362" width="164" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="604" y="379" font-size="12" font-weight="bold" fill="#27ae60">Пряма проєкція</text>
+  <text x="604" y="396" font-size="12" fill="#27ae60">SQL -> Response DTO</text>
+  <text x="602" y="428" font-size="12" fill="#6b7280">Без ORM і маперів,</text>
+  <text x="602" y="446" font-size="12" fill="#6b7280">максимальна швидкість</text>
+  <line x1="788" y1="375" x2="770" y2="375" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <rect x="788" y="286" width="148" height="178" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="788" y="286" width="148" height="28" rx="6" fill="#e2e8f0"/>
+  <rect x="788" y="308" width="148" height="6" fill="#e2e8f0"/>
+  <text x="798" y="304" font-size="12" font-weight="bold" fill="#27ae60">5. Сховище</text>
+  <text x="798" y="330" font-size="13" font-weight="bold" fill="#1a1a1a">База даних</text>
+  <text x="798" y="352" font-size="12" fill="#6b7280">climate_zones</text>
+  <text x="798" y="370" font-size="12" fill="#6b7280">SELECT id, temp...</text>
+  <rect x="794" y="380" width="136" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="800" y="396" font-size="12" font-weight="bold" fill="#27ae60">Index Only Scan</text>
+  <text x="798" y="428" fill="#6b7280" font-size="12">Швидка вибірка без</text>
+  <text x="798" y="446" fill="#6b7280" font-size="12">блокувань таблиць</text>
+  <rect x="24" y="486" width="912" height="52" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="502" font-size="12" font-weight="bold" fill="#1a1a1a">Архітектурний баланс CQRS: виправдана ізоляція проти надлишкового мапінгу</text>
+  <text x="36" y="518" font-size="12" fill="#6b7280">Тракт запису захищає інваріанти бізнес-моделі через агрегати та мапери меж (ціна: бойлерплейт і алокації);</text>
+  <text x="36" y="532" font-size="12" fill="#6b7280">тракт читання (Fast-Path) усуває податок на мапінг через пряму проєкцію SQL у DTO без створення доменних об'єктів.</text>
+</svg>

@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Графова формалізація: транзитний вузол проти захисного бар'єра</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Вузол із deg⁻=1 та deg⁺=1 без трансформації даних є топологічно надлишковим і підлягає редукції</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Транзитний вузол v_t (Проблема) -->
+  <rect x="25" y="82" width="445" height="284" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <rect x="38" y="94" width="230" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="153" y="110" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ТРАНЗИТНИЙ ВУЗОЛ (ПРОКЛАДКА)</text>
+  <text x="278" y="110" font-size="12" fill="#6b7280">Вироджений ланцюг</text>
+
+  <!-- Граф викликів транзитного вузла -->
+  <rect x="38" y="130" width="110" height="64" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="93" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v_in (API)</text>
+  <text x="93" y="172" font-size="12" fill="#6b7280" text-anchor="middle">Контролер</text>
+
+  <!-- Стрілка 1 -> vt -->
+  <line x1="148" y1="162" x2="198" y2="162" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="173" y="152" font-size="11" fill="#c0392b" text-anchor="middle">x</text>
+
+  <!-- Вузол vt -->
+  <rect x="204" y="130" width="114" height="64" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="261" y="150" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">v_t (Сервіс)</text>
+  <text x="261" y="168" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">f(x) = x (id)</text>
+  <text x="261" y="184" font-size="11" fill="#c0392b" text-anchor="middle">deg⁻=1, deg⁺=1</text>
+
+  <!-- Стрілка vt -> v_out -->
+  <line x1="318" y1="162" x2="344" y2="162" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="331" y="152" font-size="11" fill="#c0392b" text-anchor="middle">x</text>
+
+  <!-- Вузол v_out -->
+  <rect x="350" y="130" width="108" height="64" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="404" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v_out (Repo)</text>
+  <text x="404" y="172" font-size="12" fill="#6b7280" text-anchor="middle">Сховище</text>
+
+  <!-- Картка математичних властивостей vt -->
+  <rect x="38" y="208" width="420" height="86" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="228" font-size="12" font-weight="bold" fill="#c0392b">Математичні ознаки фіктивного вузла:</text>
+  <text x="50" y="248" font-size="12" fill="#1a1a1a">• Нульовий приріст інформації: ΔI = H(x) - H(f(x)) = 0</text>
+  <text x="50" y="268" font-size="12" fill="#1a1a1a">• Тотожний оператор: f = id, копіювання без мутацій</text>
+  <text x="50" y="286" font-size="11" fill="#6b7280">• Зайве подовження графа: шлях d(v_in, v_out) = 2</text>
+
+  <!-- Результат редукції -->
+  <rect x="38" y="308" width="420" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="50" y="326" font-size="12" font-weight="bold" fill="#c0392b">Операція: стягування ребер (Edge Contraction)</text>
+  <text x="50" y="342" font-size="11" fill="#6b7280">Видалення v_t зберігає еквівалентність графа та поведінку</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Системний бар'єр v_b (Розв'язок / Захист) -->
+  <rect x="490" y="82" width="445" height="284" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="503" y="94" width="230" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="618" y="110" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">СИСТЕМНИЙ БАР'ЄР (МЕЖА)</text>
+  <text x="743" y="110" font-size="12" fill="#6b7280">Координація дій</text>
+
+  <!-- Граф викликів захисного бар'єра -->
+  <rect x="503" y="136" width="90" height="64" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="548" y="164" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v_in (API)</text>
+  <text x="548" y="184" font-size="11" fill="#6b7280" text-anchor="middle">Команда</text>
+
+  <!-- Стрілка v_in -> vb -->
+  <line x1="593" y1="168" x2="625" y2="168" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Вузол vb -->
+  <rect x="631" y="130" width="130" height="76" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="696" y="150" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">v_b (Бар'єр)</text>
+  <text x="696" y="168" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">deg⁻=1, deg⁺=3</text>
+  <text x="696" y="184" font-size="11" fill="#1a1a1a" text-anchor="middle">f(x) ≠ id (ACID)</text>
+  <text x="696" y="198" font-size="11" fill="#6b7280" text-anchor="middle">Транзакція + Auth</text>
+
+  <!-- Стрілки від vb до 3 залежностей -->
+  <line x1="761" y1="142" x2="795" y2="132" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="761" y1="168" x2="795" y2="168" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="761" y1="194" x2="795" y2="204" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Вузли залежностей -->
+  <rect x="801" y="120" width="122" height="22" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="862" y="136" font-size="11" fill="#1a1a1a" text-anchor="middle">v_auth (Безпека)</text>
+
+  <rect x="801" y="156" width="122" height="22" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="862" y="172" font-size="11" fill="#1a1a1a" text-anchor="middle">v_repo (Агрегат)</text>
+
+  <rect x="801" y="192" width="122" height="22" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="862" y="208" font-size="11" fill="#1a1a1a" text-anchor="middle">v_outbox (Події)</text>
+
+  <!-- Картка системних гарантій vb -->
+  <rect x="503" y="228" width="420" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="515" y="246" font-size="12" font-weight="bold" fill="#27ae60">Системні гарантії справжнього бар'єра:</text>
+  <text x="515" y="264" font-size="11" fill="#1a1a1a">• Трансформація: f(x) забезпечує бізнес-інваріанти</text>
+  <text x="515" y="282" font-size="11" fill="#1a1a1a">• Координація: атомарність транзакції та ізоляція орендарів</text>
+
+  <!-- Результат ліквідації -->
+  <rect x="503" y="308" width="420" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="515" y="326" font-size="12" font-weight="bold" fill="#27ae60">Тест на ліквідацію: стягування ЗАБОРОНЕНО</text>
+  <text x="515" y="342" font-size="11" fill="#6b7280">Усунення v_b руйнує цілісність даних і безпеку</text>
+
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Топологічний критерій -->
+  <rect x="25" y="380" width="910" height="126" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="40" y="392" width="260" height="24" rx="4" fill="#2457d6"/>
+  <text x="170" y="408" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">ФОРМАЛЬНИЙ ТОПОЛОГІЧНИЙ КРИТЕРІЙ</text>
+
+  <text x="315" y="409" font-size="13" font-weight="bold" fill="#1a1a1a">Визначення прокладки через властивості графа викликів DAG</text>
+
+  <!-- 3 картки критерію -->
+  <rect x="40" y="428" width="280" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="446" font-size="12" font-weight="bold" fill="#c0392b">1. Ступені входу і виходу</text>
+  <text x="52" y="464" font-size="12" fill="#1a1a1a">deg⁻(v) = 1 та deg⁺(v) = 1</text>
+  <text x="52" y="482" font-size="11" fill="#6b7280">ознака лінійного транзитного вузла</text>
+
+  <rect x="340" y="428" width="280" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="352" y="446" font-size="12" font-weight="bold" fill="#c0392b">2. Оператор тотожності</text>
+  <text x="352" y="464" font-size="12" fill="#1a1a1a">f(x) = x, приріст інформації ΔI = 0</text>
+  <text x="352" y="482" font-size="11" fill="#6b7280">немає інваріантів, валідації чи транзакцій</text>
+
+  <rect x="640" y="428" width="280" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="652" y="446" font-size="12" font-weight="bold" fill="#27ae60">3. Топологічна редукція</text>
+  <text x="652" y="464" font-size="12" fill="#1a1a1a">Стягування ребер зберігає семантику</text>
+  <text x="652" y="482" font-size="11" fill="#6b7280">зупиняє хвильовий ефект змін у контрактах</text>
+</svg>

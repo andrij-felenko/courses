@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Спектр затримок виклику та апаратна підлога процесора</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Ізоляція пам'яті має фізичну ціну: L4 сягає межі кремнію, Mach додає софтовий баласт, а мережа змінює масштаб</text>
+
+  <!-- Верхня шкала порядків величин -->
+  <rect x="30" y="76" width="900" height="60" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="135" y="96" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">~1 нс (10⁰ нс)</text>
+  <text x="365" y="96" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">~100 нс (10² нс)</text>
+  <text x="595" y="96" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">~100 мкс (10⁵ нс)</text>
+  <text x="825" y="96" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">~10 мс (10⁷ нс)</text>
+
+  <circle cx="135" cy="114" r="5" fill="#6b7280"/>
+  <line x1="145" y1="114" x2="222" y2="114" stroke="#d0d7de" stroke-width="2"/>
+
+  <rect x="226" y="103" width="48" height="22" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="119" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">×100</text>
+
+  <line x1="278" y1="114" x2="355" y2="114" stroke="#d0d7de" stroke-width="2"/>
+  <circle cx="365" cy="114" r="7" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+  <line x1="376" y1="114" x2="450" y2="114" stroke="#d0d7de" stroke-width="2"/>
+
+  <rect x="454" y="103" width="52" height="22" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="119" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">×1000</text>
+
+  <line x1="510" y1="114" x2="585" y2="114" stroke="#d0d7de" stroke-width="2"/>
+  <circle cx="595" cy="114" r="7" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+  <line x1="606" y1="114" x2="683" y2="114" stroke="#d0d7de" stroke-width="2"/>
+
+  <rect x="687" y="103" width="46" height="22" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="710" y="119" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">×500</text>
+
+  <line x1="737" y1="114" x2="815" y2="114" stroke="#d0d7de" stroke-width="2"/>
+  <circle cx="825" cy="114" r="5" fill="#2457d6"/>
+
+  <!-- Картка 1: Локальний виклик -->
+  <rect x="30" y="150" width="210" height="265" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="42" y="160" width="186" height="26" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="135" y="178" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">~0.5 – 2 нс (кілька тактів)</text>
+  <text x="135" y="206" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Виклик функції</text>
+  <text x="135" y="224" text-anchor="middle" font-size="12" fill="#6b7280">Спільний адресний простір</text>
+  <rect x="42" y="236" width="186" height="126" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="258" font-size="12" fill="#1a1a1a">• Інструкція CPU: CALL</text>
+  <text x="52" y="282" font-size="12" fill="#1a1a1a">• Дані в L1 / регістрах</text>
+  <text x="52" y="306" font-size="12" fill="#1a1a1a">• Без зміни стеків і Ring 3</text>
+  <text x="52" y="330" font-size="12" fill="#1a1a1a">• Спільна пам'ять процесу</text>
+  <text x="52" y="352" font-size="12" fill="#6b7280">• Нульова ізоляція збоїв</text>
+  <rect x="42" y="370" width="186" height="36" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="135" y="385" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Межа: компілятор</text>
+  <text x="135" y="399" text-anchor="middle" font-size="12" fill="#1a1a1a">Спільний краш при збої</text>
+
+  <!-- Картка 2: Мікроядро L4 / seL4 -->
+  <rect x="260" y="150" width="210" height="265" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="272" y="160" width="186" height="26" rx="5" fill="#27ae60"/>
+  <text x="365" y="178" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">~50 – 100 нс (100–300 тактів)</text>
+  <text x="365" y="206" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Мікроядро L4 / seL4</text>
+  <text x="365" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Апаратна підлога процесора</text>
+  <rect x="272" y="236" width="186" height="126" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="282" y="258" font-size="12" fill="#1a1a1a">• SYSENTER / SYSEXIT</text>
+  <text x="282" y="282" font-size="12" fill="#1a1a1a">• Обмін через регістри CPU</text>
+  <text x="282" y="306" font-size="12" fill="#1a1a1a">• Прямий перехід потоку</text>
+  <text x="282" y="330" font-size="12" fill="#1a1a1a">• Збереження тегів TLB</text>
+  <text x="282" y="352" font-size="12" fill="#27ae60">• Повна ізоляція пам'яті</text>
+  <rect x="272" y="370" width="186" height="36" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="365" y="385" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Фізична межа кремнію</text>
+  <text x="365" y="399" text-anchor="middle" font-size="12" fill="#1a1a1a">Швидше софтом не зробити</text>
+
+  <!-- Картка 3: Мікроядро Mach -->
+  <rect x="490" y="150" width="210" height="265" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="502" y="160" width="186" height="26" rx="5" fill="#c0392b"/>
+  <text x="595" y="178" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">~100 мкс (100 000 нс)</text>
+  <text x="595" y="206" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Мікроядро Mach</text>
+  <text x="595" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Архітектурний баласт</text>
+  <rect x="502" y="236" width="186" height="126" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="512" y="258" font-size="12" fill="#1a1a1a">• Копіювання через ядро</text>
+  <text x="512" y="282" font-size="12" fill="#1a1a1a">• Скидання TLB під час CR3</text>
+  <text x="512" y="306" font-size="12" fill="#1a1a1a">• Каскади системних викликів</text>
+  <text x="512" y="330" font-size="12" fill="#1a1a1a">• Зайва робота диспетчера</text>
+  <text x="512" y="352" font-size="12" fill="#c0392b">• Міф про повільність IPC</text>
+  <rect x="502" y="370" width="186" height="36" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="595" y="385" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Помилка реалізації</text>
+  <text x="595" y="399" text-anchor="middle" font-size="12" fill="#1a1a1a">1000× оверхед над залізом</text>
+
+  <!-- Картка 4: Мережевий RPC -->
+  <rect x="720" y="150" width="210" height="265" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="732" y="160" width="186" height="26" rx="5" fill="#2457d6"/>
+  <text x="825" y="178" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">~10 – 50 мс (10⁷ нс)</text>
+  <text x="825" y="206" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Мережевий RPC</text>
+  <text x="825" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Розподілена межа вузлів</text>
+  <rect x="732" y="236" width="186" height="126" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="742" y="258" font-size="12" fill="#1a1a1a">• Серіалізація в байти DTO</text>
+  <text x="742" y="282" font-size="12" fill="#1a1a1a">• Стеки TCP/IP та сокети ОС</text>
+  <text x="742" y="306" font-size="12" fill="#1a1a1a">• Фізичні світчі й кабелі</text>
+  <text x="742" y="330" font-size="12" fill="#1a1a1a">• Ризик втрати пакетів</text>
+  <text x="742" y="352" font-size="12" fill="#2457d6">• Часткові збої й таймаути</text>
+  <rect x="732" y="370" width="186" height="36" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="825" y="385" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Світ іншої фізики</text>
+  <text x="825" y="399" text-anchor="middle" font-size="12" fill="#1a1a1a">Таймаут замість крашу</text>
+
+  <!-- Нижня підсумкова панель -->
+  <rect x="30" y="428" width="900" height="50" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="42" y="437" width="165" height="32" rx="5" fill="#2457d6"/>
+  <text x="124" y="457" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Архітектурний закон:</text>
+  <text x="220" y="448" font-size="12" font-weight="bold" fill="#1a1a1a">Ізоляція процесів коштує мінімум ~100 нс (Ring 3 → Ring 0). Дрібнити модулі нижче цієї межі — марнотратство,</text>
+  <text x="220" y="466" font-size="12" fill="#6b7280">а повільність Mach була наслідком поганого коду: L4 довів, що граничну швидкість IPC обмежує лише кремній.</text>
+</svg>

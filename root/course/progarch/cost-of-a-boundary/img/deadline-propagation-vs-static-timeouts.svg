@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Поширення дедлайну проти статичних таймаутів</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Передача залишкового бюджету часу відсікає марну роботу для запитів, які клієнт уже скинув</text>
+
+  <!-- 1. ВЕРХНЯ ПАНЕЛЬ: Статичні таймаути -->
+  <rect x="30" y="85" width="900" height="183" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <text x="50" y="112" font-size="14" font-weight="bold" fill="#c0392b">1. Статичні локальні таймаути (кожен вузол має власний ізольований ліміт 1000 мс)</text>
+
+  <!-- Вузли верхньої панелі -->
+  <rect x="55" y="125" width="140" height="66" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="125" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Клієнт</text>
+  <text x="125" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Обрив на 300 мс</text>
+  <text x="125" y="179" text-anchor="middle" font-size="12" fill="#6b7280">(клієнт пішов)</text>
+
+  <line x1="195" y1="158" x2="293" y2="158" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <rect x="295" y="125" width="140" height="66" rx="6" fill="white" stroke="#6b7280" stroke-width="1"/>
+  <text x="365" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Шлюз API</text>
+  <text x="365" y="165" text-anchor="middle" font-size="12" fill="#1a1a1a">Обробка: 250 мс</text>
+  <text x="365" y="179" text-anchor="middle" font-size="12" fill="#6b7280">викликає далі...</text>
+
+  <line x1="435" y1="158" x2="533" y2="158" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <rect x="535" y="125" width="140" height="66" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="605" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Сервіс B</text>
+  <text x="605" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Марна робота!</text>
+  <text x="605" y="179" text-anchor="middle" font-size="12" fill="#6b7280">таймаут 1000 мс</text>
+
+  <line x1="675" y1="158" x2="773" y2="158" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <rect x="775" y="125" width="140" height="66" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="845" y="148" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">База даних</text>
+  <text x="845" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Марна робота!</text>
+  <text x="845" y="179" text-anchor="middle" font-size="12" fill="#6b7280">важкий SQL-запит</text>
+
+  <!-- Підсумок верхньої панелі -->
+  <rect x="55" y="203" width="860" height="52" rx="6" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="70" y="227" font-size="12" font-weight="bold" fill="#c0392b">Наслідок статичних таймаутів: паразитна витрата ресурсів (Ghost Work)</text>
+  <text x="70" y="243" font-size="12" fill="#6b7280">Клієнт уже пішов на 300 мс, але Сервіс B і БД спалюють потоки й блокують таблиці ще 750 мс.</text>
+
+  <!-- 2. НИЖНЯ ПАНЕЛЬ: Поширення дедлайну -->
+  <rect x="30" y="280" width="900" height="185" rx="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <text x="50" y="306" font-size="14" font-weight="bold" fill="#27ae60">2. Поширення дедлайну (Deadline Propagation: передача залишкового бюджету T_rem)</text>
+
+  <!-- Вузли нижньої панелі -->
+  <rect x="55" y="320" width="140" height="66" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="125" y="343" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Клієнт</text>
+  <text x="125" y="360" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Бюджет: 300 мс</text>
+  <text x="125" y="374" text-anchor="middle" font-size="12" fill="#6b7280">(дедлайн у контексті)</text>
+
+  <line x1="195" y1="353" x2="293" y2="353" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="295" y="320" width="140" height="66" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="365" y="343" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Шлюз API</text>
+  <text x="365" y="360" text-anchor="middle" font-size="12" fill="#1a1a1a">Витрачено: 250 мс</text>
+  <text x="365" y="374" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Залишок: 50 мс</text>
+
+  <line x1="435" y1="353" x2="533" y2="353" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="535" y="320" width="140" height="66" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="605" y="343" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Сервіс B</text>
+  <text x="605" y="360" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Скидання: 50 &lt; 100 мс</text>
+  <text x="605" y="374" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Fail Fast (миттєво)</text>
+
+  <!-- Перекреслена лінія виклику до БД -->
+  <line x1="675" y1="353" x2="775" y2="353" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4"/>
+  <circle cx="725" cy="353" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="719" y1="347" x2="731" y2="359" stroke="#c0392b" stroke-width="2"/>
+  <line x1="719" y1="359" x2="731" y2="347" stroke="#c0392b" stroke-width="2"/>
+
+  <rect x="775" y="320" width="140" height="66" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="845" y="343" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">База даних</text>
+  <text x="845" y="360" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Ресурс захищено!</text>
+  <text x="845" y="374" text-anchor="middle" font-size="12" fill="#6b7280">0% навантаження</text>
+
+  <!-- Підсумок нижньої панелі -->
+  <rect x="55" y="398" width="860" height="52" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="70" y="422" font-size="12" font-weight="bold" fill="#27ae60">Виграш поширення дедлайну: захист ресурсів та ліквідація черг</text>
+  <text x="70" y="438" font-size="12" fill="#6b7280">Сервіс B бачить, що лишилося лише 50 мс, і миттєво повертає 504, не чіпаючи базу даних і черги.</text>
+</svg>

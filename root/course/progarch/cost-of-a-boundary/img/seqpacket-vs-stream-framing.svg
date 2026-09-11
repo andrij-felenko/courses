@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 515" width="960" height="515" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="515" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">SOCK_STREAM проти SOCK_SEQPACKET: збереження меж повідомлень</text>
+  <text x="480" y="66" text-anchor="middle" font-size="13" fill="#6b7280">STREAM зливає байти й вимагає прикладного кадрування, SEQPACKET зберігає межі викликів</text>
+
+  <!-- ПАНЕЛЬ 1: SOCK_STREAM -->
+  <rect x="50" y="86" width="860" height="174" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="70" y="112" font-size="13" font-weight="bold" fill="#c0392b">SOCK_STREAM (Потоковий сокет): відсутність меж запису в ядрі</text>
+
+  <!-- Відправник (Stream) -->
+  <rect x="70" y="128" width="190" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Відправник (2 виклики)</text>
+  <text x="165" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">write(msg1) ──▶ [50B]</text>
+  <text x="165" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">write(msg2) ──▶ [80B]</text>
+
+  <!-- Стрілка передачі 1 -->
+  <line x1="260" y1="184" x2="322" y2="184" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- Буфер ядра (Stream) -->
+  <rect x="330" y="128" width="300" height="118" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Буфер ядра: байти склеєні разом</text>
+
+  <rect x="350" y="166" width="100" height="42" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="400" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">msg1 (50B)</text>
+
+  <rect x="450" y="166" width="160" height="42" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="530" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">msg2 (80B)</text>
+
+  <text x="480" y="232" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">✖ Межі між викликами відсутні</text>
+
+  <!-- Стрілка вичитки 1 -->
+  <line x1="630" y1="187" x2="692" y2="187" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- Отримувач (Stream) -->
+  <rect x="700" y="128" width="190" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="795" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Отримувач (Сервер)</text>
+  <text x="795" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">read(100B) ──▶ Змішано</text>
+  <text x="795" y="208" text-anchor="middle" font-size="12" fill="#6b7280">50B з msg1 + 50B з msg2</text>
+  <text x="795" y="232" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Кадрування: Length-Prefix</text>
+
+  <!-- ПАНЕЛЬ 2: SOCK_SEQPACKET -->
+  <rect x="50" y="276" width="860" height="174" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="70" y="302" font-size="13" font-weight="bold" fill="#27ae60">SOCK_SEQPACKET (Пакетний сокет): збереження меж повідомлень ядром ОС</text>
+
+  <!-- Відправник (Seqpacket) -->
+  <rect x="70" y="318" width="190" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="342" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Відправник (2 виклики)</text>
+  <text x="165" y="372" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">write(msg1) ──▶ [50B]</text>
+  <text x="165" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">write(msg2) ──▶ [80B]</text>
+
+  <!-- Стрілка передачі 2 -->
+  <line x1="260" y1="377" x2="322" y2="377" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- Буфер ядра (Seqpacket) -->
+  <rect x="330" y="318" width="300" height="118" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="342" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Буфер ядра: окремі записи (Records)</text>
+
+  <rect x="350" y="356" width="110" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="405" y="382" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Пакет 1 (50B)</text>
+
+  <line x1="475" y1="356" x2="475" y2="398" stroke="#27ae60" stroke-width="2" stroke-dasharray="3,3"/>
+
+  <rect x="490" y="356" width="120" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="550" y="382" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Пакет 2 (80B)</text>
+
+  <text x="480" y="422" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✔ Ядро зберігає межі кожного запису</text>
+
+  <!-- Стрілка вичитки 2 -->
+  <line x1="630" y1="377" x2="692" y2="377" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- Отримувач (Seqpacket) -->
+  <rect x="700" y="318" width="190" height="118" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="342" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Отримувач (Сервер)</text>
+  <text x="795" y="372" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">recv() ──▶ Пакет 1 (50B)</text>
+  <text x="795" y="398" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">recv() ──▶ Пакет 2 (80B)</text>
+  <text x="795" y="422" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Кадрування не потрібне</text>
+
+  <!-- Підсумковий висновок -->
+  <text x="480" y="480" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Висновок: SEQPACKET усуває парсинг кадрування в user space, зберігаючи надійність і порядок TCP</text>
+</svg>

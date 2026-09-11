@@ -12,13 +12,19 @@
       "topics": [
         {
           "slug": "different-clocks",
-          "title": "Різні частини — різні годинники",
+          "title": "Пастка спільного поїзда: чому ламаються релізи Digital Homes",
           "basic": {
-            "status": "empty"
+            "status": "pending"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-shearing-layers-in-software.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "ref": "sf-apps/logical-coupling",
@@ -35,6 +41,52 @@
         {
           "slug": "dh-tempo-map",
           "title": "Карта темпів Digital Homes",
+          "basic": {
+            "status": "pending"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-canonical-device-state.md",
+              "status": "done"
+            },
+            {
+              "file": "api-tempo-buffer-bus.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-tempo-gradient-metrics.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-dh-state-isolation-buffer.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-git-tempo-inversion-linter.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "git-churn-analysis",
+          "title": "Аналіз волатильності коду за Git",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "pace-layering-architecture",
+          "title": "Шарування за темпами змін: проблема прихованої інверсії залежностей",
           "basic": {
             "status": "empty"
           },
@@ -56,31 +108,93 @@
           "slug": "cost-of-layer-mapping",
           "title": "Ціна мапінгу між шарами",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-schema-mapping-morphisms.md",
+              "status": "done"
+            },
+            {
+              "file": "math-allocation-churn-model.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-dto-remote-to-inprocess.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-declarative-mapper-interface.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "layer-leakage",
           "title": "Протікання шару",
           "basic": {
-            "status": "empty"
+            "status": "pending"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-law-of-leaky-abstractions.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-dsm-layer-coupling.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-refactoring-leaky-orm-boundary.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "pass-through-layer",
           "title": "Шар, що лише передає далі",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "hist": [
+            {
+              "file": "hist-layered-dogma-and-middleman.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-call-chain-graph-reduction.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-cqrs-read-bypass.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-collapsing-anemic-service.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "ref": "sf-apps/anemic-domain-model",
@@ -89,6 +203,96 @@
         {
           "ref": "sf-apps/end-to-end-argument",
           "title": "Наскрізний аргумент"
+        },
+        {
+          "slug": "vertical-slice-architecture",
+          "title": "Архітектура вертикальних зрізів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "zero-allocation-design",
+          "title": "Архітектура з нульовими алокаціями (Zero-Allocation)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "object-pooling-patterns",
+          "title": "Патерни пулів об'єктів та життєвий цикл буферів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "transaction-boundary-management",
+          "title": "Керування транзакційними межами",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "relaxed-layered-architecture",
+          "title": "Відкрита шарова архітектура",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "cqrs-read-projection",
+          "title": "Проєкція даних у CQRS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "shotgun-surgery",
+          "title": "Дробова хірургія в шаровій архітектурі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "unit-of-work-pattern",
+          "title": "Патерн Unit of Work",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "application-service",
+          "title": "Застосунковий сервіс",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -171,6 +375,16 @@
               "recode": true
             }
           ]
+        },
+        {
+          "slug": "dh-egress-actuator-protocol-mapping",
+          "title": "Трансляція доменних команд у протоколи актуаторів",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
         }
       ]
     },
@@ -258,6 +472,26 @@
         {
           "slug": "dh-turn-on-light-end-to-end",
           "title": "DH: «увімкнути світло» від краю до краю",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "cqrs-architectural-pattern",
+          "title": "Архітектурний шаблон CQRS",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "cqrs-pattern",
+          "title": "Розділення відповідальності команд і запитів (CQRS)",
           "basic": {
             "status": "empty"
           },
@@ -358,6 +592,16 @@
         {
           "slug": "error-translation-at-boundary",
           "title": "Переклад помилки на межі",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "result-pattern-domain-errors",
+          "title": "Шаблон Result для доменних помилок",
           "basic": {
             "status": "empty"
           },

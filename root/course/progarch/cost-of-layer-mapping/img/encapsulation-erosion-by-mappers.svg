@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Ерозія інкапсуляції під тиском автоматичного мапінгу</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Вимога відкритих сетерів для мапера перетворює захищений агрегат на анемічну структуру</text>
+
+  <!-- Ліва колонка: Захищений доменний агрегат -->
+  <rect x="30" y="85" width="380" height="415" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="30" y="85" width="380" height="40" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="220" y="103" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">ЗАХИЩЕНИЙ АГРЕГАТ ДОМЕНУ</text>
+  <text x="220" y="118" text-anchor="middle" font-size="12" fill="#1a1a1a">Повна інкапсуляція та непорушні інваріанти</text>
+
+  <!-- Ліва колонка: Блок 1 (стан) -->
+  <rect x="45" y="138" width="350" height="85" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="55" y="154" font-size="12" font-weight="bold" fill="#27ae60">Закритий внутрішній стан:</text>
+  <text x="55" y="172" font-size="12" fill="#1a1a1a" font-family="Consolas, monospace">- private Temperature _target;</text>
+  <text x="55" y="188" font-size="12" fill="#1a1a1a" font-family="Consolas, monospace">- private Temperature _current;</text>
+  <text x="55" y="204" font-size="12" fill="#1a1a1a" font-family="Consolas, monospace">- private ThermostatMode _mode;</text>
+
+  <!-- Ліва колонка: Блок 2 (поведінка) -->
+  <rect x="45" y="236" width="350" height="135" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="55" y="252" font-size="12" font-weight="bold" fill="#27ae60">Контрольовані бізнес-методи:</text>
+  <text x="55" y="270" font-size="12" fill="#1a1a1a" font-family="Consolas, monospace">+ Thermostat(Id id, Temperature init)</text>
+  <text x="65" y="286" font-size="12" fill="#6b7280">// Заборона неініціалізованого стану</text>
+  <text x="55" y="304" font-size="12" fill="#1a1a1a" font-family="Consolas, monospace">+ SetTarget(Temperature newTarget)</text>
+  <text x="65" y="320" font-size="12" fill="#27ae60">↳ перевірка: 10°C ≤ target ≤ 35°C</text>
+  <text x="65" y="336" font-size="12" fill="#27ae60">↳ заборона зміни під час аварії</text>
+  <text x="55" y="354" font-size="12" fill="#1a1a1a" font-family="Consolas, monospace">+ TriggerEmergencyHalt()</text>
+
+  <!-- Ліва колонка: Блок 3 (висновки) -->
+  <rect x="45" y="384" width="350" height="100" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="55" y="403" font-size="12" font-weight="bold" fill="#27ae60">Гарантії інкапсуляції:</text>
+  <text x="55" y="423" font-size="12" fill="#1a1a1a">✓ Стан завжди валідний від створення</text>
+  <text x="55" y="443" font-size="12" fill="#1a1a1a">✓ Мутації лише через бізнес-методи</text>
+  <text x="55" y="463" font-size="12" fill="#1a1a1a">✓ Жоден код ззовні не зламає стан</text>
+
+  <!-- Центральна частина: Стрілка та вимоги мапера -->
+  <text x="480" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ТИСК МАПЕРА</text>
+  <line x1="412" y1="165" x2="544" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="424" y="195" width="112" height="195" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ВИМОГИ</text>
+  <text x="480" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">МАПЕРА:</text>
+
+  <text x="432" y="250" font-size="12" font-weight="bold" fill="#1a1a1a">• new()</text>
+  <text x="432" y="264" font-size="12" fill="#6b7280">порожній ctor</text>
+
+  <text x="432" y="286" font-size="12" font-weight="bold" fill="#1a1a1a">• set_*</text>
+  <text x="432" y="300" font-size="12" fill="#6b7280">сетери полів</text>
+
+  <text x="432" y="322" font-size="12" font-weight="bold" fill="#1a1a1a">• рефлексія</text>
+  <text x="432" y="336" font-size="12" fill="#6b7280">обхід правил</text>
+
+  <text x="432" y="358" font-size="12" font-weight="bold" fill="#1a1a1a">• DTO-копії</text>
+  <text x="432" y="372" font-size="12" fill="#6b7280">дублювання</text>
+
+  <!-- Права колонка: Деградована модель -->
+  <rect x="550" y="85" width="380" height="415" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="550" y="85" width="380" height="40" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="740" y="103" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ДЕГРАДОВАНА АНЕМІЧНА МОДЕЛЬ</text>
+  <text x="740" y="118" text-anchor="middle" font-size="12" fill="#1a1a1a">Відкриті сетери заради зручності мапера</text>
+
+  <!-- Права колонка: Блок 1 (стан) -->
+  <rect x="565" y="138" width="350" height="85" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="575" y="154" font-size="12" font-weight="bold" fill="#c0392b">Відкриті публічні властивості:</text>
+  <text x="575" y="172" font-size="12" fill="#1a1a1a" font-family="Consolas, monospace">+ Temperature Target { get; set; }</text>
+  <text x="575" y="188" font-size="12" fill="#1a1a1a" font-family="Consolas, monospace">+ Temperature Current { get; set; }</text>
+  <text x="575" y="204" font-size="12" fill="#1a1a1a" font-family="Consolas, monospace">+ ThermostatMode Mode { get; set; }</text>
+
+  <!-- Права колонка: Блок 2 (компроміси) -->
+  <rect x="565" y="236" width="350" height="135" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="575" y="252" font-size="12" font-weight="bold" fill="#c0392b">Компроміси під рефлексію:</text>
+  <text x="575" y="270" font-size="12" fill="#c0392b" font-family="Consolas, monospace">+ Thermostat() { }</text>
+  <text x="585" y="286" font-size="12" fill="#c0392b">// Порожній ctor для мапера</text>
+  <text x="575" y="304" font-size="12" fill="#6b7280">// Бізнес-методи втрачено: логіку винесено</text>
+  <text x="585" y="320" font-size="12" fill="#c0392b">↳ сетер дозволяє будь-що: target = -500°C</text>
+  <text x="585" y="336" font-size="12" fill="#c0392b">↳ перевірка інваріантів розмазана по коду</text>
+  <text x="575" y="354" font-size="12" fill="#6b7280">// Об'єкт — пасивний «мішок даних»</text>
+
+  <!-- Права колонка: Блок 3 (наслідки) -->
+  <rect x="565" y="384" width="350" height="100" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="575" y="403" font-size="12" font-weight="bold" fill="#c0392b">Наслідки для архітектури:</text>
+  <text x="575" y="423" font-size="12" fill="#1a1a1a">✗ Можливий напівпорожній / битий стан</text>
+  <text x="575" y="443" font-size="12" fill="#1a1a1a">✗ Інваріанти втрачено заради копіювання</text>
+  <text x="575" y="463" font-size="12" fill="#1a1a1a">✗ Домен перетворено на пасивну структуру</text>
+</svg>

@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White background rect -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-error" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Круговий мапінг між шарами: категорний розрив тотожності</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Через звужувальну проєкцію зворотна функція стає частковою: g ∘ f ≠ id_D без повної бієкції</text>
+
+  <!-- Left Panel: Domain Space (D) -->
+  <rect x="30" y="80" width="330" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="44" y="104" font-size="13" font-weight="bold" fill="#1a1a1a">Простір домену: Обʼєкт D</text>
+  <text x="44" y="122" font-size="12" fill="#6b7280">Багата доменна модель із інваріантами</text>
+
+  <rect x="44" y="138" width="302" height="130" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="54" y="158" font-size="12" font-weight="bold" fill="#2457d6">Властивості типу-добутку D:</text>
+  <text x="54" y="178" font-size="12" fill="#1a1a1a">• Суворі типи: Money, Currency, Email</text>
+  <text x="54" y="198" font-size="12" fill="#1a1a1a">• Інваріанти сутності (balance >= 0)</text>
+  <text x="54" y="218" font-size="12" fill="#1a1a1a">• Прихований стан та бізнес-поведінка</text>
+  <text x="54" y="244" font-size="12" fill="#2457d6">Розмірність простору: Dim(D) = N</text>
+
+  <rect x="44" y="282" width="302" height="127" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="54" y="302" font-size="12" font-weight="bold" fill="#c0392b">Результат кругового циклу (g ∘ f):</text>
+  <text x="54" y="324" font-size="12" font-weight="bold" fill="#c0392b">• g(f(d)) ≠ d : втрата семантики</text>
+  <text x="54" y="344" font-size="12" fill="#1a1a1a">• Розрив тотожності: g ∘ f ≠ id_D</text>
+  <text x="54" y="366" font-size="12" fill="#6b7280">• Втрачено незворотні деталі моделі</text>
+  <text x="54" y="390" font-size="12" font-weight="bold" fill="#c0392b">Діаграма НЕ комутує на id_D</text>
+
+  <!-- Center Corridor: Morphisms & Commutative Arrows -->
+  <!-- Forward Morphism f -->
+  <line x1="360" y1="170" x2="600" y2="170" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="480" y="154" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">f: D ➔ T (звужувальна проєкція)</text>
+  <text x="480" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Стискання простору станів</text>
+
+  <!-- Center Non-commutative Box -->
+  <rect x="385" y="212" width="190" height="64" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="232" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">g ∘ f ≠ id_D</text>
+  <text x="480" y="250" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розрив тотожності</text>
+  <text x="480" y="266" font-size="12" fill="#6b7280" text-anchor="middle">Немає повної бієкції</text>
+
+  <!-- Backward Partial Morphism g -->
+  <line x1="600" y1="310" x2="360" y2="310" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arr-error)"/>
+  <text x="480" y="296" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">g: T ⇸ D (часткова функція)</text>
+  <text x="480" y="332" font-size="12" fill="#c0392b" text-anchor="middle">g(t) = ⊥ на невалідних даних</text>
+
+  <!-- Right Panel: DTO Space (T) -->
+  <rect x="600" y="80" width="330" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="614" y="104" font-size="13" font-weight="bold" fill="#1a1a1a">Простір DTO: Обʼєкт T</text>
+  <text x="614" y="122" font-size="12" fill="#6b7280">Пласка транзитна структура без інваріантів</text>
+
+  <rect x="614" y="138" width="302" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="624" y="158" font-size="12" font-weight="bold" fill="#1a1a1a">Властивості типу DTO:</text>
+  <text x="624" y="178" font-size="12" fill="#1a1a1a">• Примітивні типи: number, string</text>
+  <text x="624" y="198" font-size="12" fill="#1a1a1a">• Відкриті поля (анемічна структура)</text>
+  <text x="624" y="218" font-size="12" fill="#1a1a1a">• Нуль інкапсуляції та захисту даних</text>
+  <text x="624" y="244" font-size="12" fill="#6b7280">Звужена розмірність: Dim(T) &lt; Dim(D)</text>
+
+  <rect x="614" y="282" width="302" height="127" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="624" y="302" font-size="12" font-weight="bold" fill="#c0392b">Проблема частковості функції g:</text>
+  <text x="624" y="324" font-size="12" fill="#1a1a1a">• T містить невалідні стани (amount &lt; 0)</text>
+  <text x="624" y="344" font-size="12" fill="#c0392b">• Для них g(t) = ⊥ (помилка мапінгу)</text>
+  <text x="624" y="366" font-size="12" fill="#1a1a1a">• Необхідна повторна ручна валідація</text>
+  <text x="624" y="390" font-size="12" font-weight="bold" fill="#c0392b">g не визначена на всьому просторі T</text>
+
+  <!-- Bottom Summary Cards -->
+  <rect x="30" y="445" width="290" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="44" y="466" font-size="13" font-weight="bold" fill="#2457d6">1. Критерій ізоморфізму</text>
+  <text x="44" y="486" font-size="12" fill="#6b7280">Умова збереження тотожності:</text>
+  <text x="44" y="504" font-size="12" fill="#1a1a1a">g ∘ f = id_D можливо тільки тоді, коли f</text>
+  <text x="44" y="522" font-size="12" fill="#1a1a1a">є повною бієкцією (ізоморфізмом типів)</text>
+
+  <rect x="335" y="445" width="290" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="349" y="466" font-size="13" font-weight="bold" fill="#c0392b">2. Частковість функції g</text>
+  <text x="349" y="486" font-size="12" fill="#6b7280">Неможливість безпечного повернення:</text>
+  <text x="349" y="504" font-size="12" fill="#1a1a1a">DTO містить стани поза інваріантами,</text>
+  <text x="349" y="522" font-size="12" fill="#1a1a1a">тому функція g(t) визначена не скрізь</text>
+
+  <rect x="640" y="445" width="290" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="654" y="466" font-size="13" font-weight="bold" fill="#27ae60">3. Ціна архітектурного шва</text>
+  <text x="654" y="486" font-size="12" fill="#6b7280">Практичний архітектурний висновок:</text>
+  <text x="654" y="504" font-size="12" fill="#1a1a1a">Мапінг потрібен лише на межах системи;</text>
+  <text x="654" y="522" font-size="12" fill="#1a1a1a">без нової форми це зайве джерело багів</text>
+</svg>

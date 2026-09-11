@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розподіл CPU та пам'яті в HTTP/JSON: інфраструктурний шум проти домену</text>
+  <text x="480" y="66" text-anchor="middle" font-size="13" fill="#6b7280">99% ресурсів спалюється на пакування та передачу, і лише 1% припадає на корисну логіку</text>
+
+  <!-- Підписи над пропорційною смугою -->
+  <text x="476" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">99% — ІНФРАСТРУКТУРНИЙ ШУМ МЕЖІ (HTTP + СТЕК + JSON)</text>
+  <text x="896" y="96" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1% Домен</text>
+
+  <!-- Пропорційна шкала розподілу 100% ресурсів -->
+  <rect x="60" y="110" width="840" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="60" y="110" width="454" height="40" fill="#2457d6"/>
+  <rect x="514" y="110" width="378" height="40" fill="#c0392b"/>
+  <rect x="892" y="110" width="8" height="40" fill="#27ae60"/>
+
+  <text x="287" y="135" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">HTTP-роутер, сокети та стек TCP: 54%</text>
+  <text x="703" y="135" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Парсинг JSON і купа: 45%</text>
+
+  <!-- Картка 1: HTTP та TCP (54%) -->
+  <rect x="50" y="180" width="266" height="220" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 50,220 V 188 A 8,8 0 0 1 58,180 H 308 A 8,8 0 0 1 316,188 V 220 Z" fill="#2457d6"/>
+  <text x="183" y="205" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">HTTP ТА СТЕК TCP: 54%</text>
+  <text x="66" y="244" font-size="12" font-weight="bold" fill="#2457d6">● Мережева інфраструктура ОС</text>
+  <text x="66" y="269" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Ядро:</tspan> сокети, виклики read/write</text>
+  <text x="66" y="294" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Протокол:</tspan> парсинг HTTP-заголовків</text>
+  <text x="66" y="319" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Роутер:</tspan> пошук URL та мідлвари</text>
+  <text x="66" y="344" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Пам'ять:</tspan> буфери кадрів і сокетів</text>
+  <text x="183" y="380" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">ЧАСТКА: 54% ЧАСУ ТА CPU</text>
+
+  <!-- Картка 2: JSON та алокації (45%) -->
+  <rect x="347" y="180" width="266" height="220" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 347,220 V 188 A 8,8 0 0 1 355,180 H 605 A 8,8 0 0 1 613,188 V 220 Z" fill="#c0392b"/>
+  <text x="480" y="205" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">ПАРСИНГ JSON ТА КУПА: 45%</text>
+  <text x="363" y="244" font-size="12" font-weight="bold" fill="#c0392b">● Маршалінг та алокації об'єктів</text>
+  <text x="363" y="269" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Десеріалізація:</tspan> парсинг тексту</text>
+  <text x="363" y="294" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Рефлексія:</tspan> зіставлення полів DTO</text>
+  <text x="363" y="319" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Купа:</tspan> створення string та byte[]</text>
+  <text x="363" y="344" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">GC-тиск:</tspan> збирання сотень об'єктів</text>
+  <text x="480" y="380" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ЧАСТКА: 45% АЛОКАЦІЙ І CPU</text>
+
+  <!-- Картка 3: Доменна логіка (1%) -->
+  <rect x="644" y="180" width="266" height="220" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 644,220 V 188 A 8,8 0 0 1 652,180 H 902 A 8,8 0 0 1 910,188 V 220 Z" fill="#27ae60"/>
+  <text x="777" y="205" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">ДОМЕННА РОБОТА: ЛИШЕ 1%</text>
+  <text x="660" y="244" font-size="12" font-weight="bold" fill="#27ae60">● Реальна бізнес-операція</text>
+  <text x="660" y="269" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Дія:</tspan> order.Status = Paid</text>
+  <text x="660" y="294" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Перевірка:</tspan> if order.CanPay()</text>
+  <text x="660" y="319" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Алокації:</tspan> 0 байтів (робота в стеку)</text>
+  <text x="660" y="344" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Час:</tspan> ~2–5 наносекунд CPU</text>
+  <text x="777" y="380" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">КОРИСНА РОБОТА: 1% РЕСУРСІВ</text>
+
+  <!-- Нижня панель: Висновок -->
+  <rect x="50" y="418" width="860" height="64" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="443" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ВИСНОВОК: 99% ресурсів сервісу поглинає інфраструктурний шум протоколу межі</text>
+  <text x="480" y="468" text-anchor="middle" font-size="12" fill="#6b7280">На 1 наносекунду корисної доменної зміни припадає 99 наносекунд маршалінгу та сокетів</text>
+</svg>

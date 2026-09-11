@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 525" width="960" height="525" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="525" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Геометрична неін'єктивність проєкції: втрата інформації при мапінгу в DTO</text>
+  <text x="480" y="66" text-anchor="middle" font-size="13" fill="#6b7280">Відкидання виміру інваріанта склеює різні доменні стани в один образ, роблячи мапінг необоротним</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: 3D-простір доменної моделі -->
+  <rect x="50" y="86" width="395" height="334" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="70" y="112" font-size="13" font-weight="bold" fill="#2457d6">1. Простір доменної моделі (3D: X, Y + Інваріант Z)</text>
+  <text x="70" y="136" font-size="12" fill="#6b7280">Різні точки A та B мають однакові координати полів (x, y)</text>
+
+  <!-- 3D Осі координат -->
+  <line x1="110" y1="350" x2="110" y2="175" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="125" y="172" font-size="12" font-weight="bold" fill="#2457d6">Z (Інваріант)</text>
+
+  <line x1="110" y1="350" x2="250" y2="400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="265" y="404" font-size="12" font-weight="bold" fill="#1a1a1a">X (Поле 1)</text>
+
+  <line x1="110" y1="350" x2="270" y2="300" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="284" y="296" font-size="12" font-weight="bold" fill="#1a1a1a">Y (Поле 2)</text>
+
+  <!-- Волокно проєкції та поверхня інваріанта -->
+  <path d="M 160,230 Q 210,195 260,210 T 360,225" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="248" y="226" text-anchor="end" font-size="12" fill="#27ae60">Поверхня інваріанта</text>
+  <text x="248" y="250" text-anchor="end" font-size="12" fill="#6b7280">Волокно π⁻¹</text>
+
+  <line x1="260" y1="360" x2="260" y2="195" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Тінь на площині XY -->
+  <circle cx="260" cy="360" r="4" fill="#6b7280"/>
+  <text x="278" y="364" font-size="12" fill="#6b7280">(x₀, y₀, 0)</text>
+
+  <!-- Точка A: валідний стан -->
+  <circle cx="260" cy="210" r="6" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+  <text x="278" y="214" font-size="12" font-weight="bold" fill="#27ae60">A (x₀, y₀, z₁) ✔ Валідний</text>
+
+  <!-- Точка B: неперевірений стан -->
+  <circle cx="260" cy="280" r="6" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+  <text x="278" y="284" font-size="12" font-weight="bold" fill="#c0392b">B (x₀, y₀, z₂) ✖ Чернетка</text>
+
+  <!-- ЦЕНТРАЛЬНИЙ КАНАЛ: Оператор проєкції -->
+  <line x1="455" y1="245" x2="530" y2="245" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="492" y="232" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Проєкція π</text>
+  <text x="492" y="269" text-anchor="middle" font-size="12" fill="#6b7280">(скидання Z)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: 2D-площина плаского DTO -->
+  <rect x="540" y="86" width="370" height="334" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="560" y="112" font-size="13" font-weight="bold" fill="#c0392b">2. Площина DTO (2D: лише поля X, Y)</text>
+  <text x="560" y="136" font-size="12" fill="#6b7280">Точки A та B склеюються в одну точку P'</text>
+
+  <!-- 2D Осі координат -->
+  <line x1="590" y1="360" x2="860" y2="360" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="860" y="384" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">X (Поле 1)</text>
+
+  <line x1="590" y1="360" x2="590" y2="175" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="605" y="172" font-size="12" font-weight="bold" fill="#1a1a1a">Y (Поле 2)</text>
+
+  <!-- Склеєна точка P' -->
+  <circle cx="720" cy="260" r="7" fill="#c0392b" stroke="#ffffff" stroke-width="2.5"/>
+  <text x="720" y="215" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Колапс: π(A) = π(B) = P'</text>
+  <text x="720" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">DTO { x₀, y₀ } (без інваріанта)</text>
+
+  <text x="720" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">✖ Необоротність втрати інформації:</text>
+  <text x="720" y="319" text-anchor="middle" font-size="12" fill="#6b7280">π⁻¹(P') не знає, чи це стан A, чи B</text>
+  <text x="720" y="343" text-anchor="middle" font-size="12" fill="#6b7280">Зворотний мапінг не може гарантувати інваріант</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Теоретичний підсумок -->
+  <rect x="50" y="434" width="860" height="66" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="459" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ТЕОРЕМА МЕЖІ: звужувальна проєкція (dim DTO &lt; dim Domain) не має лівого оберненого</text>
+  <text x="480" y="484" text-anchor="middle" font-size="12" fill="#6b7280">Зворотний мапінг DTO → Domain є частковою функцією та вимагає обов'язкової повторної валідації</text>
+</svg>

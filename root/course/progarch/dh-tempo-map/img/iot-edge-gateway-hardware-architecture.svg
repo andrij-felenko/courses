@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратна організація периферійного шлюзу (IoT Edge Gateway)</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Поєднання хост-процесора, криптомодуля, пам'яті та сторожових схем забезпечує автономність і надійність</text>
+
+  <!-- LEFT PANEL: Gateway PCB & Hardware Components -->
+  <rect x="25" y="70" width="620" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Radio Transceivers (Top Center) -->
+  <rect x="220" y="85" width="220" height="55" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="330" y="105" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Радіотрансивери</text>
+  <text x="330" y="125" font-size="12" fill="#6b7280" text-anchor="middle">Zigbee 3.0 / Thread / Wi-Fi</text>
+  <line x1="330" y1="140" x2="330" y2="163" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Secure Element (Top Left) -->
+  <rect x="45" y="100" width="150" height="70" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="120" y="122" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Secure Element</text>
+  <text x="120" y="142" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратні ключі (I²C)</text>
+  <text x="120" y="158" font-size="12" fill="#6b7280" text-anchor="middle">[Захист пристрою]</text>
+  <path d="M 195,140 L 210,140 L 210,200 L 218,200" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Central Node: Host CPU / SoC -->
+  <rect x="220" y="165" width="220" height="120" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="330" y="192" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Host CPU / SoC</text>
+  <text x="330" y="212" font-size="12" fill="#1a1a1a" text-anchor="middle">ARM Cortex / Linux OS</text>
+  <text x="330" y="230" font-size="12" fill="#1a1a1a" text-anchor="middle">Edge Runtime &amp; Engine</text>
+  <text x="330" y="252" font-size="12" fill="#6b7280" text-anchor="middle">[Центральний координатор]</text>
+
+  <!-- Flash Memory (Top Right) -->
+  <rect x="465" y="100" width="160" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="545" y="122" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Флеш-пам'ять</text>
+  <text x="545" y="142" font-size="12" fill="#1a1a1a" text-anchor="middle">eMMC / Dual Boot</text>
+  <text x="545" y="158" font-size="12" fill="#6b7280" text-anchor="middle">[А/В оновлення]</text>
+  <path d="M 465,140 L 450,140 L 450,200 L 442,200" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- Watchdog Timer (Bottom Left) -->
+  <rect x="45" y="280" width="150" height="70" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="120" y="302" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Watchdog Timer</text>
+  <text x="120" y="322" font-size="12" fill="#1a1a1a" text-anchor="middle">Авто-перезапуск</text>
+  <text x="120" y="338" font-size="12" fill="#6b7280" text-anchor="middle">[Захист від зависань]</text>
+  <path d="M 195,315 L 210,315 L 210,250 L 218,250" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Power Subsystem (Bottom Right) -->
+  <rect x="465" y="280" width="160" height="70" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="545" y="302" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Блок живлення</text>
+  <text x="545" y="322" font-size="12" fill="#1a1a1a" text-anchor="middle">PMIC &amp; SuperCap</text>
+  <text x="545" y="338" font-size="12" fill="#6b7280" text-anchor="middle">[Захист від збоїв 220В]</text>
+  <path d="M 465,315 L 450,315 L 450,250 L 442,250" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- External Field Buses (Bottom Center) -->
+  <rect x="220" y="375" width="220" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="330" y="396" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішні інтерфейси</text>
+  <text x="330" y="416" font-size="12" fill="#6b7280" text-anchor="middle">Ethernet / RS-485 / GPIO</text>
+  <line x1="330" y1="375" x2="330" y2="287" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- RIGHT PANEL: Field Reliability & Design Tactics -->
+  <rect x="660" y="70" width="275" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Top Red Box: Field Risks -->
+  <rect x="675" y="85" width="245" height="175" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="690" y="108" font-size="13" font-weight="bold" fill="#c0392b">⚡ Польові ризики</text>
+  <text x="690" y="130" font-size="12" fill="#1a1a1a">• Знос накопичувача:</text>
+  <text x="690" y="148" font-size="12" fill="#6b7280">  обмежені цикли eMMC</text>
+  <text x="690" y="170" font-size="12" fill="#1a1a1a">• Раптові вимкнення 220В:</text>
+  <text x="690" y="188" font-size="12" fill="#c0392b">  ризик псування файлової системи</text>
+  <text x="690" y="210" font-size="12" fill="#1a1a1a">• Ризик оновлення ПО:</text>
+  <text x="690" y="228" font-size="12" fill="#c0392b">  "зацеглювання" хабу</text>
+  <text x="690" y="248" font-size="12" fill="#6b7280">Потребує повільного темпу релізів</text>
+
+  <!-- Bottom Green Box: Protective Tactics -->
+  <rect x="675" y="275" width="245" height="165" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="690" y="298" font-size="13" font-weight="bold" fill="#27ae60">✓ Захисні тактики</text>
+  <text x="690" y="320" font-size="12" fill="#1a1a1a">1. Dual Boot (A/B partitioning):</text>
+  <text x="690" y="338" font-size="12" fill="#27ae60">   безпечний відкат прошивки</text>
+  <text x="690" y="360" font-size="12" fill="#1a1a1a">2. Read-Only RootFS:</text>
+  <text x="690" y="378" font-size="12" fill="#27ae60">   мінімізація записів у пам'ять</text>
+  <text x="690" y="400" font-size="12" fill="#1a1a1a">3. Hardware Watchdog:</text>
+  <text x="690" y="418" font-size="12" fill="#27ae60">   гарантоване відновлення</text>
+</svg>

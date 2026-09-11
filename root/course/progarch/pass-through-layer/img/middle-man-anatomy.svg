@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-danger" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Анатомія «шару-прокладки» (Pass-Through Layer / Middle Man)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Повноцінний сервіс додає вартість логікою; шар-прокладка лише дублює інтерфейс</text>
+
+  <!-- Left Panel: Valid Service -->
+  <rect x="30" y="82" width="435" height="415" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="45" y="96" width="405" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="247.5" y="115" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Повноцінний сервіс (Додана вартість)</text>
+
+  <!-- Left Card 1: Controller -->
+  <rect x="45" y="136" width="405" height="45" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="55" y="162" font-size="12" font-weight="bold" fill="#1a1a1a">Controller.createOrder(dto)</text>
+  <text x="310" y="162" font-size="12" fill="#6b7280">Вхідний запит</text>
+
+  <!-- Arrow 1 Down -->
+  <path d="M 247.5,181 L 247.5,198" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Left Card 2: OrderService Logic -->
+  <rect x="45" y="200" width="405" height="155" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="55" y="220" font-size="12" font-weight="bold" fill="#27ae60">OrderService.createOrder(cmd)</text>
+  
+  <text x="55" y="245" font-size="12" fill="#1a1a1a">1. Валідація: dto.validate() &amp; перевірка лімітів</text>
+  <text x="55" y="270" font-size="12" fill="#1a1a1a">2. Інваріант: checkInventory() &amp; calculateDiscount()</text>
+  <text x="55" y="295" font-size="12" fill="#1a1a1a">3. Мутація стану: order.setStatus(PAID)</text>
+  <text x="55" y="320" font-size="12" font-weight="bold" fill="#2457d6">4. Делегування: repo.save(order)</text>
+
+  <rect x="240" y="322" width="195" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="337.5" y="337" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Власна відповідальність</text>
+
+  <!-- Arrow 2 Down -->
+  <path d="M 247.5,355 L 247.5,370" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Left Card 3: Repository -->
+  <rect x="45" y="372" width="405" height="45" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="55" y="398" font-size="12" font-weight="bold" fill="#1a1a1a">OrderRepository.save(order)</text>
+  <text x="310" y="398" font-size="12" fill="#6b7280">Доступ до даних</text>
+
+  <!-- Left Status Badge -->
+  <rect x="45" y="430" width="405" height="38" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="247.5" y="453" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Виправданий шар: висока згуртованість логіки</text>
+
+  <!-- Right Panel: Pass-Through Service (Middle Man) -->
+  <rect x="495" y="82" width="435" height="415" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="510" y="96" width="405" height="28" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="712.5" y="115" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Шар-прокладка (Пасивний транслятор)</text>
+
+  <!-- Right Card 1: Controller -->
+  <rect x="510" y="136" width="405" height="45" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="520" y="162" font-size="12" font-weight="bold" fill="#1a1a1a">Controller.getUserById(id)</text>
+  <text x="775" y="162" font-size="12" fill="#6b7280">Вхідний запит</text>
+
+  <!-- Arrow 1 Down Red -->
+  <path d="M 712.5,181 L 712.5,198" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-danger)"/>
+
+  <!-- Right Card 2: Pass-Through UserService -->
+  <rect x="510" y="200" width="405" height="155" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="520" y="220" font-size="12" font-weight="bold" fill="#c0392b">UserService (1:1 прокидання викликів)</text>
+  
+  <text x="520" y="245" font-size="12" fill="#c0392b">User findById(id) → return repo.findById(id);</text>
+  <text x="520" y="270" font-size="12" fill="#c0392b">void save(user)    → repo.save(user);</text>
+  <text x="520" y="295" font-size="12" fill="#c0392b">void delete(id)   → repo.delete(id);</text>
+
+  <rect x="705" y="322" width="195" height="22" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="802.5" y="337" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚡ 0 доданої вартості</text>
+
+  <!-- Arrow 2 Down Red -->
+  <path d="M 712.5,355 L 712.5,370" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-danger)"/>
+
+  <!-- Right Card 3: UserRepository -->
+  <rect x="510" y="372" width="405" height="45" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="520" y="398" font-size="12" font-weight="bold" fill="#1a1a1a">UserRepository.findById(id)</text>
+  <text x="775" y="398" font-size="12" fill="#6b7280">Доступ до даних</text>
+
+  <!-- Right Status Badge -->
+  <rect x="510" y="430" width="405" height="38" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="712.5" y="453" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠ Антипатерн: зайвий шар дублює інтерфейс репозиторію</text>
+</svg>

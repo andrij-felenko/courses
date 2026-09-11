@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3.5 L0,7 Z" fill="#d0d7de"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Спектр масштабу турботи та еволюція доменів відмов</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Підйом шкалою масштабу збільшує затримку від наносекунд до місяців і додає нові класи відмов</text>
+
+  <!-- Top Axis Arrow -->
+  <line x1="35" y1="78" x2="923" y2="78" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="480" y="70" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зростання затримок, складності та накопичення класів відмов →</text>
+
+  <!-- 6 Column Cards -->
+
+  <!-- Card 1: Register / CPU -->
+  <rect x="35" y="95" width="138" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="35" y="95" width="138" height="32" rx="8" fill="#eaf0fd"/>
+  <text x="104" y="116" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Регістр / CPU</text>
+  <rect x="43" y="134" width="122" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="104" y="149" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">⏱ ~0.5 – 1 нс</text>
+  
+  <text x="104" y="180" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рядок коду</text>
+  <text x="104" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Інструкції CPU</text>
+  
+  <text x="104" y="230" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Домен відмов:</text>
+  <text x="104" y="246" font-size="12" fill="#c0392b" text-anchor="middle">Збій живлення</text>
+  <text x="104" y="262" font-size="12" fill="#c0392b" text-anchor="middle">Псування біта</text>
+  
+  <text x="104" y="298" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Гарантія:</text>
+  <text x="104" y="314" font-size="12" fill="#27ae60" text-anchor="middle">Детермінізм</text>
+  <text x="104" y="330" font-size="12" fill="#27ae60" text-anchor="middle">Атомарність ALU</text>
+
+  <!-- Card 2: Process / RAM -->
+  <rect x="185" y="95" width="138" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="185" y="95" width="138" height="32" rx="8" fill="#eaf0fd"/>
+  <text x="254" y="116" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Процес / RAM</text>
+  <rect x="193" y="134" width="122" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="254" y="149" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">⏱ ~10 – 100 нс</text>
+  
+  <text x="254" y="180" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль / Стек</text>
+  <text x="254" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Об'єкти в купі</text>
+  
+  <text x="254" y="230" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Домен відмов:</text>
+  <text x="254" y="246" font-size="12" fill="#c0392b" text-anchor="middle">NullPointer / OOM</text>
+  <text x="254" y="262" font-size="12" fill="#c0392b" text-anchor="middle">Паніка процесу</text>
+  
+  <text x="254" y="298" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Гарантія:</text>
+  <text x="254" y="314" font-size="12" fill="#27ae60" text-anchor="middle">Спільна пам'ять</text>
+  <text x="254" y="330" font-size="12" fill="#27ae60" text-anchor="middle">Без таймаутів</text>
+
+  <!-- Card 3: Storage / DB -->
+  <rect x="335" y="95" width="138" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="335" y="95" width="138" height="32" rx="8" fill="#eaf0fd"/>
+  <text x="404" y="116" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Сховище / DB</text>
+  <rect x="343" y="134" width="122" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="404" y="149" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">⏱ ~1 – 10 мс</text>
+  
+  <text x="404" y="180" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Диск / Таблиці</text>
+  <text x="404" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Сутності й ACID</text>
+  
+  <text x="404" y="230" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Домен відмов:</text>
+  <text x="404" y="246" font-size="12" fill="#c0392b" text-anchor="middle">Збій транзакції</text>
+  <text x="404" y="262" font-size="12" fill="#c0392b" text-anchor="middle">Псування диска</text>
+  
+  <text x="404" y="298" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Гарантія:</text>
+  <text x="404" y="314" font-size="12" fill="#27ae60" text-anchor="middle">ACID-транзакції</text>
+  <text x="404" y="330" font-size="12" fill="#27ae60" text-anchor="middle">Надійність (D)</text>
+
+  <!-- Card 4: Network Nodes / Cluster -->
+  <rect x="485" y="95" width="138" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="485" y="95" width="138" height="32" rx="8" fill="#eaf0fd"/>
+  <text x="554" y="116" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">4. Мережеві вузли</text>
+  <rect x="493" y="134" width="122" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="554" y="149" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">⏱ ~10 – 100 мс</text>
+  
+  <text x="554" y="180" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікросервіси</text>
+  <text x="554" y="196" font-size="12" fill="#6b7280" text-anchor="middle">RPC / HTTP API</text>
+  
+  <text x="554" y="230" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Домен відмов:</text>
+  <text x="554" y="246" font-size="12" fill="#c0392b" text-anchor="middle">Мережевий таймаут</text>
+  <text x="554" y="262" font-size="12" fill="#c0392b" text-anchor="middle">Втрата пакетів</text>
+  
+  <text x="554" y="298" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Тактика:</text>
+  <text x="554" y="314" font-size="12" fill="#27ae60" text-anchor="middle">Таймаут + Retries</text>
+  <text x="554" y="330" font-size="12" fill="#27ae60" text-anchor="middle">Ідемпотентність</text>
+
+  <!-- Card 5: Planet / Edge -->
+  <rect x="635" y="95" width="138" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="635" y="95" width="138" height="32" rx="8" fill="#eaf0fd"/>
+  <text x="704" y="116" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">5. Планета / Edge</text>
+  <rect x="643" y="134" width="122" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="704" y="149" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">⏱ ~100 – 300 мс</text>
+  
+  <text x="704" y="180" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мультирегіон</text>
+  <text x="704" y="196" font-size="12" fill="#6b7280" text-anchor="middle">CDN / Edge Workers</text>
+  
+  <text x="704" y="230" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Домен відмов:</text>
+  <text x="704" y="246" font-size="12" fill="#c0392b" text-anchor="middle">Затримка світла</text>
+  <text x="704" y="262" font-size="12" fill="#c0392b" text-anchor="middle">Аварія регіону</text>
+  
+  <text x="704" y="298" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Тактика:</text>
+  <text x="704" y="314" font-size="12" fill="#27ae60" text-anchor="middle">Eventual Consistency</text>
+  <text x="704" y="330" font-size="12" fill="#27ae60" text-anchor="middle">CAP-теорема</text>
+
+  <!-- Card 6: Organization / Teams -->
+  <rect x="785" y="95" width="138" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="785" y="95" width="138" height="32" rx="8" fill="#eaf0fd"/>
+  <text x="854" y="116" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">6. Команди / Org</text>
+  <rect x="793" y="134" width="122" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="854" y="149" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">⏱ дні – місяці</text>
+  
+  <text x="854" y="180" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура компанії</text>
+  <text x="854" y="196" font-size="12" fill="#6b7280" text-anchor="middle">Межі володіння</text>
+  
+  <text x="854" y="230" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Домен відмов:</text>
+  <text x="854" y="246" font-size="12" fill="#c0392b" text-anchor="middle">Закон Конвея</text>
+  <text x="854" y="262" font-size="12" fill="#c0392b" text-anchor="middle">Конфлікт цілей</text>
+  
+  <text x="854" y="298" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Тактика:</text>
+  <text x="854" y="314" font-size="12" fill="#27ae60" text-anchor="middle">Версіонування API</text>
+  <text x="854" y="330" font-size="12" fill="#27ae60" text-anchor="middle">Team Topologies</text>
+
+  <!-- Flow Connector Arrows between Cards -->
+  <line x1="174" y1="210" x2="184" y2="210" stroke="#d0d7de" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="324" y1="210" x2="334" y2="210" stroke="#d0d7de" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="474" y1="210" x2="484" y2="210" stroke="#d0d7de" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="624" y1="210" x2="634" y2="210" stroke="#d0d7de" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="774" y1="210" x2="784" y2="210" stroke="#d0d7de" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Bottom Panel: Takeaways & Hazards -->
+  <rect x="35" y="400" width="888" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Bottom Left: Scale Mismatch Hazard -->
+  <rect x="50" y="412" width="420" height="96" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="65" y="432" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">❌ Небезпека: Масштабовий перекос</text>
+  <text x="65" y="454" font-size="12" fill="#1a1a1a" text-anchor="start">Спроба вирішити локальний баг модульності передчасним</text>
+  <text x="65" y="472" font-size="12" fill="#1a1a1a" text-anchor="start">розділенням на мікросервіси плодить випадкову складність.</text>
+  <text x="65" y="490" font-size="12" fill="#c0392b" text-anchor="start">Ніякі інструменти вищих шарів не лікують поганий код.</text>
+
+  <!-- Bottom Right: Architectural Compass -->
+  <rect x="488" y="412" width="420" height="96" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="503" y="432" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">✓ Зріле рішення: Архітектурний компас</text>
+  <text x="503" y="454" font-size="12" fill="#1a1a1a" text-anchor="start">Точне визначення масштабу, де насправді живе задача,</text>
+  <text x="503" y="472" font-size="12" fill="#1a1a1a" text-anchor="start">та застосування тактик суворо відповідно до цього рівня.</text>
+  <text x="503" y="490" font-size="12" fill="#27ae60" text-anchor="start">Гарантує довготривалу чистоту та еволюційність системи.</text>
+</svg>

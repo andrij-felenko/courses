@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема A/B оновлення шлюзу з автоматичним відкатом</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Запис у неактивний слот, контроль сторожового таймера та миттєвий відкат при збої</text>
+
+  <!-- Ліва колонка: Успіх -->
+  <rect x="30" y="78" width="435" height="397" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="247.5" y="104" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Сценарій 1: Успішна валідація (Слот B)</text>
+  <text x="247.5" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Нова версія підтвердила працездатність і стала постійною</text>
+
+  <rect x="50" y="136" width="395" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247.5" y="154" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Флеш-пам'ять eMMC: розділи A / B</text>
+  <rect x="65" y="164" width="175" height="32" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="152.5" y="184" font-size="12" fill="#1a1a1a" text-anchor="middle">Слот A (v1.4, поточний)</text>
+  <rect x="255" y="164" width="175" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="342.5" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Слот B (v1.5, запис OTA)</text>
+
+  <line x1="247.5" y1="206" x2="247.5" y2="236" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="265" y="224" font-size="12" fill="#27ae60" text-anchor="start">старт: boot=B, спроб=3</text>
+
+  <rect x="50" y="238" width="395" height="88" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="247.5" y="256" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Пробний запуск і сторожовий таймер</text>
+  <rect x="65" y="266" width="365" height="50" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247.5" y="285" font-size="12" fill="#1a1a1a" text-anchor="middle">Ядро завантажилось, сервіси автоматики активні</text>
+  <text x="247.5" y="303" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Скидання Watchdog та виклик mark-successful</text>
+
+  <line x1="247.5" y1="326" x2="247.5" y2="356" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="265" y="344" font-size="12" fill="#27ae60" text-anchor="start">успіх: стан закріплено</text>
+
+  <rect x="50" y="358" width="395" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247.5" y="378" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: Слот B став основним</text>
+  <text x="247.5" y="400" font-size="12" fill="#1a1a1a" text-anchor="middle">• Прапорець successful = true, Слот B активний</text>
+  <text x="247.5" y="420" font-size="12" fill="#1a1a1a" text-anchor="middle">• Слот A стає резервом для наступного OTA</text>
+  <text x="247.5" y="440" font-size="12" fill="#6b7280" text-anchor="middle">• Нульовий час простою локальної автоматики</text>
+
+  <!-- Права колонка: Збій і відкат -->
+  <rect x="495" y="78" width="435" height="397" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="712.5" y="104" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Сценарій 2: Збій і автоматичний відкат</text>
+  <text x="712.5" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Аварія нової прошивки не призводить до втрати шлюзу</text>
+
+  <rect x="515" y="136" width="395" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712.5" y="154" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Флеш-пам'ять eMMC: розділи A / B</text>
+  <rect x="530" y="164" width="175" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="617.5" y="184" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Слот A (v1.4, робочий)</text>
+  <rect x="720" y="164" width="175" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="807.5" y="184" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Слот B (v1.5, дефект)</text>
+
+  <line x1="712.5" y1="206" x2="712.5" y2="236" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="730" y="224" font-size="12" fill="#c0392b" text-anchor="start">старт: boot=B, спроб=3</text>
+
+  <rect x="515" y="238" width="395" height="88" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <text x="712.5" y="256" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Критичний збій або зависання ядра</text>
+  <rect x="530" y="266" width="365" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712.5" y="285" font-size="12" fill="#c0392b" text-anchor="middle">Kernel Panic або дефект → таймер не скинуто</text>
+  <text x="712.5" y="303" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Watchdog перезавантажує шлюз (спроб = 0)</text>
+
+  <line x1="712.5" y1="326" x2="712.5" y2="356" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="730" y="344" font-size="12" fill="#c0392b" text-anchor="start">відкат: запуск Слота A</text>
+
+  <rect x="515" y="358" width="395" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712.5" y="378" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Результат: автоматичний відкат (Anti-Brick)</text>
+  <text x="712.5" y="400" font-size="12" fill="#1a1a1a" text-anchor="middle">• Завантажувач перемикає назад boot_slot = A</text>
+  <text x="712.5" y="420" font-size="12" fill="#1a1a1a" text-anchor="middle">• Шлюз оживає на стабільній прошивці v1.4</text>
+  <text x="712.5" y="440" font-size="12" fill="#6b7280" text-anchor="middle">• Захист: пристрій не перетворюється на «цеглину»</text>
+</svg>

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Асиметрія CQRS: обхід доменного шару при читанні (Read Bypass)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Команди проходять повний доменний захист, а запити читають напряму з бази у DTO</text>
+
+  <!-- Top Component: Controller / API Layer -->
+  <rect x="40" y="82" width="880" height="52" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="113" font-size="13" font-weight="bold" fill="#1a1a1a">Клієнт / API Controller</text>
+  <text x="250" y="113" font-size="12" font-weight="bold" fill="#2457d6">POST /orders (Мутація)</text>
+  <text x="670" y="113" font-size="12" font-weight="bold" fill="#27ae60">GET /orders (Вибірка)</text>
+
+  <!-- Left Panel: Command Path -->
+  <rect x="40" y="150" width="425" height="265" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="55" y="174" font-size="13" font-weight="bold" fill="#2457d6">Потік команд (Command Path)</text>
+  <text x="55" y="192" font-size="12" fill="#6b7280">(Повний доменний захист інваріантів)</text>
+
+  <!-- Box 1: CommandHandler -->
+  <rect x="55" y="206" width="395" height="45" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <text x="65" y="233" font-size="12" font-weight="bold" fill="#2457d6">OrderCommandHandler.handle(cmd)</text>
+
+  <!-- Box 2: Domain Aggregate -->
+  <rect x="55" y="271" width="395" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="65" y="293" font-size="12" font-weight="bold" fill="#2457d6">Order Aggregate (Доменний захист)</text>
+  <text x="65" y="315" font-size="12" fill="#1a1a1a">✓ Валідація бізнес-правил &amp; зміна стану</text>
+
+  <!-- Box 3: Repository -->
+  <rect x="55" y="351" width="395" height="45" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="65" y="378" font-size="12" font-weight="bold" fill="#1a1a1a">OrderRepository.save(order)</text>
+
+  <!-- Right Panel: Query Path (Read Bypass) -->
+  <rect x="495" y="150" width="425" height="265" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="510" y="174" font-size="13" font-weight="bold" fill="#27ae60">Потік запитів (Query Read-Bypass)</text>
+  <text x="510" y="192" font-size="12" fill="#6b7280">(Пряме зчитування без посередників)</text>
+
+  <!-- Bypass Box (Dashed Container) -->
+  <rect x="510" y="206" width="395" height="125" rx="6" fill="#ffffff" stroke="#27ae60" stroke-dasharray="5 4"/>
+  <text x="520" y="228" font-size="12" font-weight="bold" fill="#27ae60">ОБХІД ДОМЕННОГО ШАРУ (Bypass)</text>
+  <text x="520" y="253" font-size="12" fill="#6b7280">⚡ 0 бізнес-правил (читання не змінює стан)</text>
+  <text x="520" y="278" font-size="12" fill="#6b7280">⚡ Прямий проекційний виклик у DTO</text>
+  <text x="520" y="303" font-size="12" font-weight="bold" fill="#27ae60">✓ Усунуто шар-прокладку (Pass-Through)</text>
+
+  <!-- Box 2: Query Reader -->
+  <rect x="510" y="351" width="395" height="45" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="520" y="378" font-size="12" font-weight="bold" fill="#27ae60">OrderQueryReader.fetchDTO() → OrderDTO</text>
+
+  <!-- Bottom Panel: Database -->
+  <rect x="40" y="432" width="880" height="58" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="466" font-size="13" font-weight="bold" fill="#1a1a1a">Сховище даних (БД)</text>
+  <text x="250" y="466" font-size="12" font-weight="bold" fill="#2457d6">Запис: Таблиці сутностей (Write Model)</text>
+  <text x="630" y="466" font-size="12" font-weight="bold" fill="#27ae60">Читання: Read Views / DTO Projection</text>
+
+  <!-- Flow Arrows: Command Path -->
+  <path d="M 280,134 L 280,206" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <path d="M 252,251 L 252,271" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <path d="M 252,331 L 252,351" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <path d="M 252,396 L 252,432" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Flow Arrows: Query Path (Direct Bypass Flow) -->
+  <path d="M 708,134 L 708,351" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-success)"/>
+  <text x="718" y="278" font-size="12" font-weight="bold" fill="#27ae60">Direct Read</text>
+  <path d="M 708,396 L 708,432" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-success)"/>
+</svg>

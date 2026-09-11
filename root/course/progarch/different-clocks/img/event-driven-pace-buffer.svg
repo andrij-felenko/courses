@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Асинхронний буфер темпів: Transactional Outbox та вітрини читання</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Транзакційне ядро фіксує події в Outbox, а вітрини CQRS асинхронно будують моделі без блокування</text>
+
+  <!-- ================= ЗОНА 1: ПОВІЛЬНЕ ЯДРО ================= -->
+  <rect x="30" y="85" width="280" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Транзакційне ядро (ACID)</text>
+  <text x="170" y="130" text-anchor="middle" font-size="12" fill="#6b7280">Повільний темп: місяці / роки</text>
+
+  <!-- Сервіс ядра -->
+  <rect x="50" y="145" width="240" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Сервіс ядра (Бізнес-логіка)</text>
+  <text x="170" y="195" text-anchor="middle" font-size="12" fill="#6b7280">Обробка команд замовлень</text>
+
+  <!-- Стрілка до БД -->
+  <line x1="130" y1="215" x2="130" y2="243" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="140" y="233" text-anchor="start" font-size="12" fill="#2457d6">1 транзакція</text>
+
+  <!-- Локальна БД ядра -->
+  <rect x="50" y="245" width="240" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="267" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Локальна БД ядра</text>
+
+  <!-- Таблиця orders -->
+  <rect x="65" y="277" width="210" height="50" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="170" y="297" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Таблиця: orders</text>
+  <text x="170" y="315" text-anchor="middle" font-size="12" fill="#6b7280">Нормалізований стан</text>
+
+  <!-- Таблиця outbox_events -->
+  <rect x="65" y="337" width="210" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="357" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Таблиця: outbox_events</text>
+  <text x="170" y="375" text-anchor="middle" font-size="12" fill="#6b7280">Локальний лог подій</text>
+
+  <!-- Плашка статусу ядра -->
+  <rect x="50" y="408" width="240" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="170" y="426" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ Запис у локальний Outbox</text>
+
+  <!-- ================= ЗОНА 2: БУФЕР ТЕМПІВ ================= -->
+  <rect x="340" y="85" width="280" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Асинхронна шина темпів</text>
+  <text x="480" y="130" text-anchor="middle" font-size="12" fill="#6b7280">Буфер і розв'язка навантаження</text>
+
+  <!-- Брокер повідомлень -->
+  <rect x="360" y="145" width="240" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="173" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Брокер повідомлень</text>
+  <text x="480" y="195" text-anchor="middle" font-size="12" fill="#1a1a1a">Kafka / RabbitMQ (Топік)</text>
+  <text x="480" y="215" text-anchor="middle" font-size="12" fill="#6b7280">Гасіння пікових сплесків</text>
+
+  <!-- Стрілка зчитування з Outbox -->
+  <line x1="275" y1="362" x2="358" y2="362" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="317" y="352" text-anchor="middle" font-size="12" fill="#2457d6">1. Poll / CDC</text>
+
+  <!-- Outbox Relay -->
+  <rect x="360" y="335" width="240" height="65" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="360" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Outbox Relay (Worker)</text>
+  <text x="480" y="380" text-anchor="middle" font-size="12" fill="#6b7280">Асинхронне читання логу</text>
+
+  <!-- Стрілка публікації в брокер -->
+  <line x1="480" y1="335" x2="480" y2="237" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="492" y="285" text-anchor="start" font-size="12" fill="#2457d6">2. Публікація</text>
+
+  <!-- Плашка буфера -->
+  <rect x="360" y="408" width="240" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="426" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Буфер темпів і черга</text>
+
+  <!-- ================= ЗОНА 3: ВІТРИНИ ЧИТАННЯ (CQRS) ================= -->
+  <rect x="650" y="85" width="280" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="112" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Вітрини читання (CQRS)</text>
+  <text x="790" y="130" text-anchor="middle" font-size="12" fill="#6b7280">Швидкий темп: дні / години</text>
+
+  <!-- Стрілка від брокера до проєктора -->
+  <line x1="600" y1="185" x2="668" y2="185" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="635" y="175" text-anchor="middle" font-size="12" fill="#2457d6">3. Подія</text>
+
+  <!-- Проєктор подій -->
+  <rect x="670" y="145" width="240" height="70" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="173" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Проєктор подій (Consumer)</text>
+  <text x="790" y="195" text-anchor="middle" font-size="12" fill="#6b7280">Асинхронна побудова моделі</text>
+
+  <!-- Стрілка від проєктора до БД читання -->
+  <line x1="740" y1="215" x2="740" y2="233" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="750" y="227" text-anchor="start" font-size="12" fill="#27ae60">4. Запис</text>
+
+  <!-- База вітрин читання -->
+  <rect x="670" y="235" width="240" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="257" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Вітрина читання (Read DB)</text>
+  <text x="790" y="277" text-anchor="middle" font-size="12" fill="#1a1a1a">Redis / Elasticsearch / DTO</text>
+
+  <!-- Стрілка від БД до UI -->
+  <line x1="740" y1="300" x2="740" y2="323" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="750" y="315" text-anchor="start" font-size="12" fill="#6b7280">5. Запит</text>
+
+  <!-- Клієнтські інтерфейси -->
+  <rect x="670" y="325" width="240" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="350" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Мобільні клієнти та Web UI</text>
+  <text x="790" y="372" text-anchor="middle" font-size="12" fill="#6b7280">Миттєве читання без ядра</text>
+
+  <!-- Плашка відсутності блокування -->
+  <rect x="670" y="408" width="240" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="426" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⛔ Жодного блокування ядра</text>
+
+  <!-- ================= ПІДСУМКОВА ПАНЕЛЬ ================= -->
+  <rect x="30" y="460" width="900" height="46" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="488" text-anchor="middle" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">Архітектурний ефект:</tspan> <tspan fill="#1a1a1a">Транзакційне ядро захищене від перевантажень швидкого UI, а вітрини читання розвиваються у власному темпі.</tspan></text>
+</svg>

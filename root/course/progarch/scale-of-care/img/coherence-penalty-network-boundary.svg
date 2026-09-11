@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="#ffffff"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Штраф когерентності (β) при перетині фізичних меж системи</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Перехід від багатоядерного CPU до кластера і хмари збільшує β та різко зсуває N_max вліво</text>
+
+  <!-- LEFT PANEL: Coordinate Plot -->
+  <rect x="25" y="75" width="585" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Effect Box in upper-left sky -->
+  <rect x="110" y="115" width="220" height="66" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="125" y="135" font-size="12" font-weight="bold" fill="#c0392b">Ефект фізичної межі:</text>
+  <text x="125" y="153" font-size="12" font-weight="bold" fill="#c0392b">Зсув N_max: 57 → 17 → 5</text>
+  <text x="125" y="169" font-size="12" fill="#6b7280">Когерентність обвалює пік</text>
+
+  <!-- Axes -->
+  <line x1="85" y1="420" x2="575" y2="420" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="85" y1="420" x2="85" y2="105" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Axis Labels -->
+  <text x="85" y="96" font-size="12" font-weight="bold" fill="#1a1a1a">Продуктивність C(N)</text>
+  <text x="78" y="424" text-anchor="end" font-size="12" fill="#6b7280">1</text>
+  <text x="330" y="456" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Кількість вузлів / ядер (N) →</text>
+
+  <!-- Drop line 1 (CPU): x=515 -->
+  <line x1="515" y1="138" x2="515" y2="420" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="515" y="436" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">N_max ≈ 57</text>
+
+  <!-- Drop line 2 (LAN): x=208 -->
+  <line x1="208" y1="294" x2="208" y2="420" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="208" y="436" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">N_max ≈ 17</text>
+
+  <!-- Drop line 3 (WAN): x=119 -->
+  <line x1="119" y1="373" x2="119" y2="420" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="119" y="436" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">N_max ≈ 5</text>
+
+  <!-- Curve 1: Multi-core CPU (Green) -->
+  <path d="M 90 402 C 220 280, 360 160, 515 138 C 535 136, 555 137, 570 140" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="515" cy="138" r="4.5" fill="#27ae60"/>
+  <text x="450" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">CPU: β ≈ 0.0003 (Апаратний snooping)</text>
+
+  <!-- Curve 2: LAN Cluster (Blue) -->
+  <path d="M 90 402 C 130 340, 170 294, 208 294 C 270 294, 380 330, 570 352" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="208" cy="294" r="4.5" fill="#2457d6"/>
+  <text x="280" y="278" font-size="12" font-weight="bold" fill="#2457d6">LAN: β ≈ 0.0035 (Мережеві RPC)</text>
+
+  <!-- Curve 3: Cloud WAN (Red) -->
+  <path d="M 90 402 C 100 385, 110 373, 119 373 C 140 373, 200 405, 570 413" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="119" cy="373" r="4.5" fill="#c0392b"/>
+  <text x="225" y="375" font-size="12" font-weight="bold" fill="#c0392b">WAN: β ≈ 0.04 (Хмара / Консенсус)</text>
+
+  <!-- RIGHT PANEL: Comparison Cards -->
+  <rect x="630" y="75" width="305" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Card 1: Multi-core CPU -->
+  <rect x="645" y="88" width="275" height="84" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="660" y="108" font-size="13" font-weight="bold" fill="#27ae60">1. Багатоядерний CPU</text>
+  <text x="660" y="126" font-size="12" font-weight="bold" fill="#1a1a1a">β ≈ 0.0001 • Апаратний snooping</text>
+  <text x="660" y="144" font-size="12" fill="#6b7280">Спільна шина / L3-кеш (~10 нс).</text>
+  <text x="660" y="160" font-size="12" fill="#27ae60">N_max &gt; 60 ядер: високий масштаб.</text>
+
+  <!-- Card 2: LAN Cluster -->
+  <rect x="645" y="184" width="275" height="84" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="660" y="204" font-size="13" font-weight="bold" fill="#2457d6">2. Локальна мережа (LAN)</text>
+  <text x="660" y="222" font-size="12" font-weight="bold" fill="#1a1a1a">β ≈ 0.003 • Мережеві RPC</text>
+  <text x="660" y="240" font-size="12" fill="#6b7280">Затримка ~0.5–1 мс, TCP-пакети.</text>
+  <text x="660" y="256" font-size="12" fill="#2457d6">N_max ≈ 15–20: помірний спад.</text>
+
+  <!-- Card 3: Distributed Cloud -->
+  <rect x="645" y="280" width="275" height="96" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="660" y="300" font-size="13" font-weight="bold" fill="#c0392b">3. Розподілена хмара (WAN)</text>
+  <text x="660" y="318" font-size="12" font-weight="bold" fill="#c0392b">β ≈ 0.04 • Гео-синхронізація</text>
+  <text x="660" y="336" font-size="12" fill="#1a1a1a">Затримка 50–100 мс, консенсус.</text>
+  <text x="660" y="352" font-size="12" fill="#c0392b">N_max ≈ 4–6: передчасний колапс!</text>
+  <text x="660" y="368" font-size="12" fill="#6b7280">Квадратичний вибух повідомлень.</text>
+
+  <!-- Card 4: Architecture Conclusion -->
+  <rect x="645" y="388" width="275" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="660" y="408" font-size="12" font-weight="bold" fill="#1a1a1a">Ціна архітектурної межі:</text>
+  <text x="660" y="426" font-size="12" fill="#6b7280">Перетин межі процесу множить β.</text>
+  <text x="660" y="442" font-size="12" fill="#6b7280">Розподіленість вимагає шардування,</text>
+  <text x="660" y="456" font-size="12" fill="#27ae60">а не наївного додавання реплік.</text>
+</svg>

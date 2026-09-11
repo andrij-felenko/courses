@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="48" y="68" width="864" height="38" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <rect x="24" y="124" width="444" height="376" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <rect x="36" y="134" width="420" height="42" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <rect x="492" y="124" width="444" height="376" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5" rx="8"/>
+  <rect x="504" y="134" width="420" height="42" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <rect x="36" y="188" width="420" height="68" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <rect x="504" y="188" width="420" height="68" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <rect x="36" y="268" width="420" height="68" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <rect x="504" y="268" width="420" height="68" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <rect x="36" y="348" width="420" height="68" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <rect x="504" y="348" width="420" height="68" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <rect x="36" y="428" width="420" height="66" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <rect x="504" y="428" width="420" height="66" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <rect x="24" y="512" width="912" height="28" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <line x1="246" y1="106" x2="246" y2="122" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="714" y1="106" x2="714" y2="122" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="480" y1="134" x2="480" y2="494" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="480" y="38" font-size="18" fill="#1a1a1a" text-anchor="middle" font-weight="bold">Прірва між локальним і віддаленим викликом (маніфест Волдо)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Мережа руйнує ілюзію прозорості: чотири розриви, які неможливо приховати за синтаксисом функції</text>
+  <text x="480" y="86" font-size="12" fill="#2457d6" text-anchor="middle" font-weight="bold">Ілюзія синтаксичної прозорості (RPC): const result = await service.calculateTariff(homeId, data);</text>
+  <text x="480" y="100" font-size="12" fill="#1a1a1a" text-anchor="middle">Синтаксис функції ідентичний, але за ним криється фундаментальна фізична прірва між двома світами:</text>
+  <text x="246" y="151" font-size="13" fill="#27ae60" text-anchor="middle" font-weight="bold">Локальний виклик у пам'яті (In-Memory Call)</text>
+  <text x="246" y="167" font-size="12" fill="#1a1a1a" text-anchor="middle">Єдиний адресний простір ядра ОС, спільна пам'ять процесу</text>
+  <text x="714" y="151" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="bold">Віддалений мережевий виклик (RPC / REST)</text>
+  <text x="714" y="167" font-size="12" fill="#1a1a1a" text-anchor="middle">Фізично розділені вузли, зв'язок через ненадійну мережу</text>
+  <text x="48" y="206" font-size="12" fill="#27ae60" font-weight="bold">1. Пам'ять: спільний адресний простір</text>
+  <text x="48" y="226" font-size="12" fill="#1a1a1a">• Передавання посилання в купі (pointer), 0 копіювань</text>
+  <text x="48" y="244" font-size="12" fill="#6b7280">• Сувора узгодженість типів мовою програмування</text>
+  <text x="516" y="206" font-size="12" fill="#c0392b" font-weight="bold">1. Пам'ять: розімкнені простори та серіалізація</text>
+  <text x="516" y="226" font-size="12" fill="#c0392b">• Обов'язкова серіалізація об'єктів у байти (JSON/DTO)</text>
+  <text x="516" y="244" font-size="12" fill="#6b7280">• Ризик розходження схем, версіонування та втрати типів</text>
+  <text x="48" y="286" font-size="12" fill="#27ae60" font-weight="bold">2. Затримка: наносекунди (детермінована)</text>
+  <text x="48" y="306" font-size="12" fill="#1a1a1a">• ~10–50 нс (зсув покажчика стека, кеш L1/L2)</text>
+  <text x="48" y="324" font-size="12" fill="#6b7280">• Час відгуку передбачуваний, джитер практично нульовий</text>
+  <text x="516" y="286" font-size="12" fill="#c0392b" font-weight="bold">2. Затримка: мілісекунди (прірва в 10⁵–10⁶ разів)</text>
+  <text x="516" y="306" font-size="12" fill="#c0392b">• 5–200+ мс (пакети, фізичні комутатори, черги ОС)</text>
+  <text x="516" y="324" font-size="12" fill="#6b7280">• Непередбачуваний джитер і загроза лавинних таймаутів</text>
+  <text x="48" y="366" font-size="12" fill="#27ae60" font-weight="bold">3. Життєвий цикл: спільна доля (Fate Sharing)</text>
+  <text x="48" y="386" font-size="12" fill="#1a1a1a">• Все або нічого: процес або живий цілком, або впав цілком</text>
+  <text x="48" y="404" font-size="12" fill="#6b7280">• Не буває ситуації, коли функція зникла посеред роботи</text>
+  <text x="516" y="366" font-size="12" fill="#c0392b" font-weight="bold">3. Життєвий цикл: частинна відмова (Partial Failure)</text>
+  <text x="516" y="386" font-size="12" fill="#c0392b">• Клієнт живий, а сервер завис або недоступний</text>
+  <text x="516" y="404" font-size="12" fill="#6b7280">• Мережеве розділення: невідомо, виконано дію чи ні</text>
+  <text x="48" y="446" font-size="12" fill="#27ae60" font-weight="bold">4. Семантика: строго один раз (Exactly Once)</text>
+  <text x="48" y="466" font-size="12" fill="#1a1a1a">• Виклик повертає результат або кидає локальний виняток</text>
+  <text x="48" y="484" font-size="12" fill="#6b7280">• Стан завжди однозначний, повтори виклику непотрібні</text>
+  <text x="516" y="446" font-size="12" fill="#c0392b" font-weight="bold">4. Семантика: невизначеність (At-Least / At-Most)</text>
+  <text x="516" y="466" font-size="12" fill="#c0392b">• Таймаут не означає відсутність результату на сервері</text>
+  <text x="516" y="484" font-size="12" fill="#6b7280">• Потребує ключів ідемпотентності, retry та Circuit Breaker</text>
+  <text x="480" y="530" font-size="12" fill="#1a1a1a" text-anchor="middle" font-weight="bold">Висновок Волдо: Мережа — це не повільна пам'ять; спроба приховати її за фасадом RPC веде до прихованих аварій</text>
+</svg>

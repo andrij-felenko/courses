@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конвеєр CI/CD: Лінтер темпів змін (Tempo Linter)</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Автоматична перевірка Pull Request виявляє інверсію темпів і блокує збірку до усунення порушення</text>
+
+  <!-- STAGE 1: PR Creation -->
+  <rect x="25" y="80" width="195" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="25" y="80" width="195" height="32" rx="8" fill="#eaf0fd"/>
+  <text x="122" y="101" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Створення PR</text>
+
+  <rect x="37" y="125" width="171" height="50" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="122" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">git push origin</text>
+  <text x="122" y="163" font-size="12" fill="#6b7280" text-anchor="middle">feature/core-refactor</text>
+
+  <rect x="37" y="190" width="171" height="135" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="122" y="210" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зміни коду:</text>
+  <text x="122" y="230" font-size="12" fill="#c0392b" text-anchor="middle">+ import ui.UIWidget</text>
+  <text x="122" y="248" font-size="12" fill="#c0392b" text-anchor="middle">у core.DomainEntity</text>
+  <text x="122" y="275" font-size="12" fill="#6b7280" text-anchor="middle">[Тригер CI-пайплайну]</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="220" y1="210" x2="252" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- STAGE 2: Tempo Linter Analysis -->
+  <rect x="260" y="80" width="205" height="260" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <rect x="260" y="80" width="205" height="32" rx="8" fill="#eaf0fd"/>
+  <text x="362" y="101" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Аналіз Tempo Linter</text>
+
+  <rect x="272" y="125" width="181" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="362" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Git Churn Parser</text>
+  <text x="362" y="163" font-size="12" fill="#6b7280" text-anchor="middle">τ(Core)=0.05 vs τ(UI)=0.9</text>
+
+  <rect x="272" y="190" width="181" height="135" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="362" y="210" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Правило інверсії:</text>
+  <text x="362" y="230" font-size="12" fill="#1a1a1a" text-anchor="middle">IF τ(caller) &lt; τ(callee)</text>
+  <text x="362" y="248" font-size="12" fill="#c0392b" text-anchor="middle">THEN VIOLATION!</text>
+  <text x="362" y="275" font-size="12" fill="#c0392b" text-anchor="middle">Виявлено: 1 дефект</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="465" y1="210" x2="497" y2="210" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- STAGE 3: Build Verdict -->
+  <rect x="505" y="80" width="195" height="260" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="505" y="80" width="195" height="32" rx="8" fill="#fdecea"/>
+  <text x="602" y="101" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Вердикт CI/CD</text>
+
+  <rect x="517" y="125" width="171" height="50" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="602" y="145" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">❌ BUILD FAILED</text>
+  <text x="602" y="163" font-size="12" fill="#c0392b" text-anchor="middle">Exit code 1</text>
+
+  <rect x="517" y="190" width="171" height="135" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="602" y="210" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Блокування:</text>
+  <text x="602" y="230" font-size="12" fill="#c0392b" text-anchor="middle">Merge заборонено</text>
+  <text x="602" y="248" font-size="12" fill="#1a1a1a" text-anchor="middle">Захист гілки main</text>
+  <text x="602" y="275" font-size="12" fill="#6b7280" text-anchor="middle">Генерація звіту</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="700" y1="210" x2="732" y2="210" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- STAGE 4: PR Report -->
+  <rect x="740" y="80" width="195" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="740" y="80" width="195" height="32" rx="8" fill="#eaf0fd"/>
+  <text x="837" y="101" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">4. Звіт у PR (Comment)</text>
+
+  <rect x="752" y="125" width="171" height="200" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="837" y="145" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">[Tempo Defect]</text>
+  <text x="837" y="168" font-size="12" fill="#1a1a1a" text-anchor="middle">Core (τ=0.05)</text>
+  <text x="837" y="186" font-size="12" fill="#c0392b" text-anchor="middle">└─&gt; UIWidget (τ=0.9)</text>
+  <text x="837" y="212" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Рекомендація:</text>
+  <text x="837" y="230" font-size="12" fill="#1a1a1a" text-anchor="middle">Використайте DTO /</text>
+  <text x="837" y="248" font-size="12" fill="#1a1a1a" text-anchor="middle">Event/Interface шов</text>
+  <text x="837" y="275" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">[Розв'язка темпів]</text>
+
+  <!-- BOTTOM PANEL: Impact & Benefits -->
+  <rect x="25" y="360" width="915" height="95" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Danger Without Linter (Bottom Left) -->
+  <rect x="40" y="372" width="430" height="71" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="55" y="392" font-size="13" font-weight="bold" fill="#c0392b">❌ Небезпека без лінтера</text>
+  <text x="55" y="412" font-size="12" fill="#1a1a1a">Непомічене протікання залежностей руйнує стабільність</text>
+  <text x="55" y="430" font-size="12" fill="#c0392b">ядра і перетворює моноліт на зв'язану «павутину».</text>
+
+  <!-- Benefit With Fitness Function (Bottom Right) -->
+  <rect x="490" y="372" width="430" height="71" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="505" y="392" font-size="13" font-weight="bold" fill="#27ae60">✓ Ефект Фітнес-функції</text>
+  <text x="505" y="412" font-size="12" fill="#1a1a1a">Автоматичний контроль в CI/CD утримує межі темпів</text>
+  <text x="505" y="430" font-size="12" fill="#27ae60">без необхідності ручного рецензування архітектури.</text>
+</svg>

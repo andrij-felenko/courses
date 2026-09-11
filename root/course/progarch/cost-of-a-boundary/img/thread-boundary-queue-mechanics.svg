@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Анатомія міжпотокової черги: чому перетин межі коштує мікросекунди</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Атоміки, інвалідація кеш-ліній (MESI), системні виклики та планувальник ОС перетворюють 1 нс на 1–2 мкс</text>
+
+  <!-- ЯРУС 1: АРХІТЕКТУРА ТА ФІЗИКА ПЕРЕДАЧІ -->
+
+  <!-- Ліва колонка: Клієнтський потік (Core 1) -->
+  <rect x="30" y="74" width="260" height="292" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="30" y="74" width="260" height="26" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="160" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">КЛІЄНТСЬКИЙ ПОТІК (CORE 1)</text>
+
+  <rect x="42" y="112" width="236" height="68" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="160" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">L1/L2 Кеш Ядра 1</text>
+  <text x="160" y="148" text-anchor="middle" font-size="12" fill="#1a1a1a">Стан лінії: [M] Modified</text>
+  <text x="160" y="166" text-anchor="middle" font-size="12" fill="#6b7280">Дані повідомлення підготовлені</text>
+
+  <rect x="42" y="192" width="236" height="162" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="212" font-size="12" font-weight="bold" fill="#1a1a1a">Кроки відправки:</text>
+  <text x="54" y="232" font-size="12" fill="#c0392b">1. Захоплення mutex (CAS):</text>
+  <text x="54" y="248" font-size="12" fill="#6b7280">• lock cmpxchg (затримка шини)</text>
+  <text x="54" y="270" font-size="12" fill="#1a1a1a">2. Запис у буфер черги:</text>
+  <text x="54" y="286" font-size="12" fill="#6b7280">• копіювання DTO-повідомлення</text>
+  <text x="54" y="308" font-size="12" fill="#c0392b">3. Сигнал cond_var (wake):</text>
+  <text x="54" y="324" font-size="12" fill="#6b7280">• виклик sys_futex у ядрі ОС</text>
+  <text x="54" y="342" font-size="12" fill="#2457d6">4. Звільнення mutex</text>
+
+  <!-- Центральна колонка: Буфер та когерентність кешів -->
+  <rect x="306" y="74" width="348" height="292" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="306" y="74" width="348" height="26" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">СИНХРОНІЗАЦІЯ КЕШІВ (CACHE COHERENCE)</text>
+
+  <rect x="318" y="112" width="324" height="68" rx="4" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Спільний блокувальний буфер черги</text>
+  <rect x="330" y="142" width="60" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="360" y="158" text-anchor="middle" font-size="12" fill="#2457d6">msg 1</text>
+  <rect x="402" y="142" width="60" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="432" y="158" text-anchor="middle" font-size="12" fill="#2457d6">msg 2</text>
+  <rect x="474" y="142" width="60" height="24" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="504" y="158" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">new !</text>
+  <rect x="546" y="142" width="84" height="24" rx="3" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="588" y="158" text-anchor="middle" font-size="12" fill="#6b7280">вільно</text>
+
+  <rect x="318" y="192" width="324" height="162" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <rect x="318" y="192" width="324" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="207" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Між'ядерний бар'єр: протокол MESI</text>
+  <text x="330" y="230" font-size="12" font-weight="bold" fill="#c0392b">⚡ Cache Line Bouncing (шторм шини):</text>
+  <text x="330" y="248" font-size="12" fill="#1a1a1a">• Кеш-лінія з чергою та mutex мігрує</text>
+  <text x="330" y="266" font-size="12" fill="#1a1a1a">  між ядрами через шину Interconnect</text>
+  <text x="330" y="288" font-size="12" font-weight="bold" fill="#c0392b">⚠️ Інвалідація кешу (Invalidation):</text>
+  <text x="330" y="306" font-size="12" fill="#6b7280">• Запис Ядра 1 скидає лінію Ядра 2 в стан [I]</text>
+  <text x="330" y="324" font-size="12" fill="#6b7280">• Ядро 2 змушене читати з L3/RAM (~40–80 нс)</text>
+  <text x="330" y="342" font-size="12" fill="#c0392b">• Memory Barrier скидає конвеєр CPU</text>
+
+  <!-- Права колонка: Воркер-потік (Core 2) -->
+  <rect x="670" y="74" width="260" height="292" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="670" y="74" width="260" height="26" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="800" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ВОРКЕР-ПОТІК (CORE 2)</text>
+
+  <rect x="682" y="112" width="236" height="68" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="800" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">L1/L2 Кеш Ядра 2</text>
+  <text x="800" y="148" text-anchor="middle" font-size="12" fill="#c0392b">Стан лінії: [I] Invalidated</text>
+  <text x="800" y="166" text-anchor="middle" font-size="12" fill="#c0392b">Промах кешу (Cache Cold Miss)</text>
+
+  <rect x="682" y="192" width="236" height="162" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="694" y="212" font-size="12" font-weight="bold" fill="#1a1a1a">Кроки обробки:</text>
+  <text x="694" y="232" font-size="12" fill="#c0392b">1. Пробудження ОС (Scheduler):</text>
+  <text x="694" y="248" font-size="12" fill="#6b7280">• context switch: 1–3 мкс</text>
+  <text x="694" y="270" font-size="12" fill="#c0392b">2. Захоплення mutex (CAS):</text>
+  <text x="694" y="286" font-size="12" fill="#6b7280">• боротьба за лінію кешу</text>
+  <text x="694" y="308" font-size="12" fill="#1a1a1a">3. Читання DTO з черги:</text>
+  <text x="694" y="324" font-size="12" fill="#c0392b">• промах L1/L2, підтяжка з L3</text>
+  <text x="694" y="342" font-size="12" fill="#27ae60">4. Виконання бізнес-логіки</text>
+
+  <!-- Стрілки між колонками -->
+  <line x1="278" y1="146" x2="310" y2="146" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="642" y1="146" x2="674" y2="146" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ЯРУС 2: ЧОТИРИ ДЖЕРЕЛА ЗАТРИМКИ -->
+
+  <!-- Картка 1: Атоміки -->
+  <rect x="30" y="380" width="214" height="154" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="30" y="380" width="214" height="24" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="137" y="396" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">1. АТОМІКИ ТА М'ЮТЕКСИ</text>
+  <text x="42" y="420" font-size="12" font-weight="bold" fill="#1a1a1a">• Ціна: ~15–40 нс</text>
+  <text x="42" y="438" font-size="12" fill="#1a1a1a">Інструкція lock cmpxchg</text>
+  <text x="42" y="456" font-size="12" fill="#6b7280">блокує шину та зливає</text>
+  <text x="42" y="474" font-size="12" fill="#6b7280">буфер запису (store buffer)</text>
+  <text x="42" y="496" font-size="12" fill="#c0392b">• При конкуренції (contention)</text>
+  <text x="42" y="514" font-size="12" fill="#c0392b">  ціна зростає до 200+ нс</text>
+
+  <!-- Картка 2: Шторм кеш-ліній -->
+  <rect x="259" y="380" width="214" height="154" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="259" y="380" width="214" height="24" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="366" y="396" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">2. ШТОРМ КЕШ-ЛІНІЙ</text>
+  <text x="271" y="420" font-size="12" font-weight="bold" fill="#1a1a1a">• Ціна: ~40–100 нс</text>
+  <text x="271" y="438" font-size="12" fill="#1a1a1a">Cache Line Bouncing:</text>
+  <text x="271" y="456" font-size="12" fill="#6b7280">передача 64 байтів між</text>
+  <text x="271" y="474" font-size="12" fill="#6b7280">кешами ядер крізь шину</text>
+  <text x="271" y="496" font-size="12" fill="#c0392b">• Інвалідація L1/L2 змушує</text>
+  <text x="271" y="514" font-size="12" fill="#c0392b">  читати payload з L3/RAM</text>
+
+  <!-- Картка 3: Планувальник ОС -->
+  <rect x="488" y="380" width="214" height="154" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="488" y="380" width="214" height="24" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="595" y="396" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">3. ПЛАНУВАЛЬНИК ОС</text>
+  <text x="500" y="420" font-size="12" font-weight="bold" fill="#1a1a1a">• Ціна: ~800–2500 нс</text>
+  <text x="500" y="438" font-size="12" fill="#1a1a1a">Якщо воркер спав:</text>
+  <text x="500" y="456" font-size="12" fill="#6b7280">системний виклик futex,</text>
+  <text x="500" y="474" font-size="12" fill="#6b7280">перемикання контексту ядра</text>
+  <text x="500" y="496" font-size="12" fill="#c0392b">• Головне джерело стрибка</text>
+  <text x="500" y="514" font-size="12" fill="#c0392b">  затримки в мікросекунди</text>
+
+  <!-- Картка 4: Підсумок -->
+  <rect x="717" y="380" width="213" height="154" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="717" y="380" width="213" height="24" rx="6" fill="#1a1a1a" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="823" y="396" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">4. ПІДСУМОК МЕЖІ</text>
+  <text x="729" y="420" font-size="12" font-weight="bold" fill="#27ae60">Прямий виклик: ~1 нс</text>
+  <text x="729" y="438" font-size="12" fill="#6b7280">регістри CPU, стек у L1</text>
+  <text x="729" y="460" font-size="12" font-weight="bold" fill="#c0392b">Черга потоку: 1–2 мкс</text>
+  <text x="729" y="478" font-size="12" fill="#c0392b">стрибок у 1000–2000 разів!</text>
+  <text x="729" y="500" font-size="12" font-weight="bold" fill="#1a1a1a">Висновок:</text>
+  <text x="729" y="516" font-size="12" fill="#6b7280">межа потоку не є безплатною</text>
+</svg>

@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Спектр стратегій мапінгу та темпи змін шарів</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Окремий шар моделей виправданий лише тоді, коли сусідні шари змінюються з різною швидкістю</text>
+
+  <!-- Верхній індикатор осі спектра -->
+  <rect x="28" y="72" width="904" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="89" font-size="12" fill="#27ae60">⟵ Однаковий темп змін</text>
+  <text x="480" y="89" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Спектр різниці темпів змін компонентів («годинників»)</text>
+  <text x="920" y="89" font-size="12" fill="#c0392b" text-anchor="end">Радикальна різниця темпів ⟶</text>
+
+  <!-- ================= СТРАТЕГІЯ 1: ПРЯМІ ПРОЄКЦІЇ ================= -->
+  <rect x="28" y="110" width="904" height="112" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Колонка 1.1: Темпи змін -->
+  <rect x="38" y="118" width="230" height="96" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="50" y="134" font-size="12" font-weight="bold" fill="#27ae60">1. Прямі проєкції</text>
+  <text x="50" y="150" font-size="12" font-weight="bold" fill="#1a1a1a">Годинники: однаковий темп</text>
+  <text x="50" y="168" font-size="12" fill="#6b7280">• Схема таблиці й UI стабільні</text>
+  <text x="50" y="185" font-size="12" fill="#6b7280">• Зміни вносяться разом</text>
+  <text x="50" y="202" font-size="12" fill="#27ae60">Різниця темпів: мінімальна</text>
+
+  <!-- Колонка 1.2: Схема потоку -->
+  <rect x="280" y="118" width="360" height="96" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="292" y="136" font-size="12" font-weight="bold" fill="#1a1a1a">Архітектурний потік даних:</text>
+  
+  <rect x="292" y="146" width="105" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="344" y="167" font-size="12" fill="#1a1a1a" text-anchor="middle">Таблиця БД</text>
+  
+  <line x1="403" y1="163" x2="515" y2="163" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="459" y="157" font-size="12" fill="#27ae60" text-anchor="middle">SELECT DTO</text>
+  
+  <rect x="521" y="146" width="105" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="573" y="167" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Read DTO</text>
+
+  <text x="292" y="202" font-size="12" fill="#27ae60">0 проміжних моделей • 0 маперів • нуль алокацій</text>
+
+  <!-- Колонка 1.3: Оцінка -->
+  <rect x="652" y="118" width="270" height="96" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="664" y="136" font-size="12" font-weight="bold" fill="#1a1a1a">Властивості та сфера:</text>
+  <text x="664" y="154" font-size="12" fill="#1a1a1a">✓ Нульовий бойлерплейт, немає GC-тиску</text>
+  <text x="664" y="172" font-size="12" fill="#1a1a1a">✓ Сфера: CQRS Query, звіти, дашборди</text>
+  <text x="664" y="189" font-size="12" fill="#6b7280">• Обмеження: схема БД не ізольована</text>
+  <text x="664" y="205" font-size="12" fill="#6b7280">• Не підходить для бізнес-транзакцій</text>
+
+  <!-- ================= СТРАТЕГІЯ 2: МЕЖОВА ІЗОЛЯЦІЯ ================= -->
+  <rect x="28" y="238" width="904" height="112" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Колонка 2.1: Темпи змін -->
+  <rect x="38" y="246" width="230" height="96" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="50" y="262" font-size="12" font-weight="bold" fill="#2457d6">2. Межова ізоляція</text>
+  <text x="50" y="278" font-size="12" font-weight="bold" fill="#1a1a1a">Годинники: помірна різниця</text>
+  <text x="50" y="296" font-size="12" fill="#6b7280">• Публічний API стабільний (роками)</text>
+  <text x="50" y="313" font-size="12" fill="#6b7280">• Домен розвивається щоспринту</text>
+  <text x="50" y="330" font-size="12" fill="#2457d6">Різниця темпів: середня</text>
+
+  <!-- Колонка 2.2: Схема потоку -->
+  <rect x="280" y="246" width="360" height="96" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="292" y="264" font-size="12" font-weight="bold" fill="#1a1a1a">Архітектурний потік даних:</text>
+
+  <rect x="292" y="274" width="112" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="348" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">Доменний стан</text>
+  
+  <line x1="410" y1="291" x2="508" y2="291" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="459" y="285" font-size="12" fill="#2457d6" text-anchor="middle">API Mapper</text>
+  
+  <rect x="514" y="274" width="112" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="570" y="295" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Публічний DTO</text>
+
+  <text x="292" y="330" font-size="12" fill="#2457d6">Мапінг лише на периметрі • єдина модель усередині</text>
+
+  <!-- Колонка 2.3: Оцінка -->
+  <rect x="652" y="246" width="270" height="96" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="664" y="264" font-size="12" font-weight="bold" fill="#1a1a1a">Властивості та сфера:</text>
+  <text x="664" y="282" font-size="12" fill="#1a1a1a">✓ Захист публічного контракту API</text>
+  <text x="664" y="300" font-size="12" fill="#1a1a1a">✓ Сфера: типові сервіси (80% коду)</text>
+  <text x="664" y="317" font-size="12" fill="#6b7280">• Помірні витрати: мапінг на виході</text>
+  <text x="664" y="333" font-size="12" fill="#6b7280">• Оптимальний інженерний баланс</text>
+
+  <!-- ================= СТРАТЕГІЯ 3: ПОВНЕ РОЗЧЕПЛЕННЯ ================= -->
+  <rect x="28" y="366" width="904" height="112" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Колонка 3.1: Темпи змін -->
+  <rect x="38" y="374" width="230" height="96" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="50" y="390" font-size="12" font-weight="bold" fill="#c0392b">3. Повне розчеплення</text>
+  <text x="50" y="406" font-size="12" font-weight="bold" fill="#1a1a1a">Годинники: радикальна різниця</text>
+  <text x="50" y="424" font-size="12" fill="#6b7280">• БД, домен і клієнти автономні</text>
+  <text x="50" y="441" font-size="12" fill="#6b7280">• Різні команди та релізи</text>
+  <text x="50" y="458" font-size="12" fill="#c0392b">Різниця темпів: максимальна</text>
+
+  <!-- Колонка 3.2: Схема потоку -->
+  <rect x="280" y="374" width="360" height="96" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="292" y="392" font-size="12" font-weight="bold" fill="#1a1a1a">Архітектурний потік даних:</text>
+
+  <rect x="288" y="402" width="68" height="34" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="322" y="423" font-size="12" fill="#1a1a1a" text-anchor="middle">Entity</text>
+  
+  <line x1="360" y1="419" x2="378" y2="419" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="384" y="402" width="68" height="34" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="418" y="423" font-size="12" fill="#1a1a1a" text-anchor="middle">Domain</text>
+
+  <line x1="456" y1="419" x2="474" y2="419" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="480" y="402" width="68" height="34" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="514" y="423" font-size="12" fill="#1a1a1a" text-anchor="middle">Command</text>
+
+  <line x1="552" y1="419" x2="570" y2="419" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="576" y="402" width="58" height="34" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="605" y="423" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">DTO</text>
+
+  <text x="292" y="458" font-size="12" fill="#c0392b">4 моделі • 3 мапери на сутність • GC-алокації</text>
+
+  <!-- Колонка 3.3: Оцінка -->
+  <rect x="652" y="374" width="270" height="96" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="664" y="392" font-size="12" font-weight="bold" fill="#1a1a1a">Властивості та сфера:</text>
+  <text x="664" y="410" font-size="12" fill="#1a1a1a">✓ Повна автономність інваріантів</text>
+  <text x="664" y="428" font-size="12" fill="#1a1a1a">✓ Сфера: складні ядра та платформи</text>
+  <text x="664" y="445" font-size="12" fill="#c0392b">• Максимальний бойлерплейт і GC churn</text>
+  <text x="664" y="461" font-size="12" fill="#6b7280">• Виправдано за різних команд і релізів</text>
+
+  <!-- ================= НИЖНІЙ ВИСНОВОК ================= -->
+  <rect x="28" y="494" width="904" height="44" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="521" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Правило годинників: що більша різниця темпів змін між шарами, то більш виправданою є окрема модель.</text>
+</svg>

@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Антикорупційний шар: захист ядра від мінливих зовнішніх API</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Адаптери поглинають зміни сторонніх хмар і транслюють їх у канонічні внутрішні команди</text>
+
+  <!-- ЛІВА КОЛОНКА: Сторонні хмари -->
+  <rect x="40" y="85" width="210" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="55" y="98" width="180" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="145" y="114" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">СТОРОННІ ХМАРИ (ШВИДКО)</text>
+  <text x="145" y="136" text-anchor="middle" font-size="12" fill="#6b7280">Мінливі формати та API</text>
+
+  <!-- Картка 1: Google Home -->
+  <rect x="55" y="152" width="180" height="75" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="145" y="173" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Google Home API</text>
+  <text x="145" y="191" text-anchor="middle" font-size="12" fill="#c0392b">Зміна схеми JSON (v1→v2)</text>
+  <text x="145" y="209" text-anchor="middle" font-size="12" fill="#6b7280">Специфічні DTO команд</text>
+
+  <!-- Картка 2: HomeKit -->
+  <rect x="55" y="242" width="180" height="75" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="145" y="263" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Apple HomeKit</text>
+  <text x="145" y="281" text-anchor="middle" font-size="12" fill="#1a1a1a">HAP-протокол та Matter</text>
+  <text x="145" y="299" text-anchor="middle" font-size="12" fill="#6b7280">Чужі назви характеристик</text>
+
+  <!-- Картка 3: Хмарні вебхуки -->
+  <rect x="55" y="332" width="180" height="75" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="145" y="353" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Хмарні вебхуки</text>
+  <text x="145" y="371" text-anchor="middle" font-size="12" fill="#1a1a1a">OpenWeather, IFTTT</text>
+  <text x="145" y="389" text-anchor="middle" font-size="12" fill="#6b7280">Непередбачуваний темп</text>
+
+  <!-- ЦЕНТРАЛЬНА КОЛОНКА: Антикорупційний шар (ACL) -->
+  <rect x="290" y="85" width="380" height="370" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <rect x="310" y="98" width="190" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="405" y="114" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">АНТИКОРУПЦІЙНИЙ ШАР</text>
+  <text x="575" y="114" text-anchor="middle" font-size="12" fill="#6b7280">Ізоляція та трансляція</text>
+
+  <!-- Адаптер 1: GoogleHomeAdapter -->
+  <rect x="305" y="152" width="350" height="75" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="480" y="173" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">GoogleHomeAdapter (ACL)</text>
+  <text x="480" y="191" text-anchor="middle" font-size="12" fill="#1a1a1a">Парсить чужий JSON та ізолює зміну полів v1/v2</text>
+  <text x="480" y="209" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">→ Мапить у SetDeviceStateCommand</text>
+
+  <!-- Адаптер 2: HomeKitAdapter -->
+  <rect x="305" y="242" width="350" height="75" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="480" y="263" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">HomeKitAdapter (ACL)</text>
+  <text x="480" y="281" text-anchor="middle" font-size="12" fill="#1a1a1a">Транслює HAP-характеристики у канонічні типи</text>
+  <text x="480" y="299" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">→ Мапить у ToggleActuatorCommand</text>
+
+  <!-- Адаптер 3: WeatherWebhookAdapter -->
+  <rect x="305" y="332" width="350" height="75" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="480" y="353" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">WeatherWebhookAdapter (ACL)</text>
+  <text x="480" y="371" text-anchor="middle" font-size="12" fill="#1a1a1a">Нормалізує одиниці виміру (°F→°C, гПа→мм)</text>
+  <text x="480" y="389" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">→ Мапить у IngestTelemetryEvent</text>
+
+  <!-- Захисний бар'єр знизу -->
+  <rect x="305" y="417" width="350" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="434" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ Захисний бар'єр: ядро не залежить від змін хмар</text>
+
+  <!-- ПРАВА КОЛОНКА: Канонічне ядро -->
+  <rect x="710" y="85" width="210" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="725" y="98" width="180" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="815" y="114" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">КАНОНІЧНЕ ЯДРО</text>
+  <text x="815" y="136" text-anchor="middle" font-size="12" fill="#6b7280">Стабільні контракти хабу</text>
+
+  <!-- Картка: Канонічні команди -->
+  <rect x="725" y="152" width="180" height="110" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="815" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Канонічні команди</text>
+  <text x="815" y="195" text-anchor="middle" font-size="12" fill="#6b7280">Типізовані DTO ядра:</text>
+  <text x="815" y="213" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">SetDeviceState</text>
+  <text x="815" y="231" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ToggleActuator</text>
+  <text x="815" y="249" text-anchor="middle" font-size="12" fill="#6b7280">(Темп змін: роки)</text>
+
+  <!-- Картка: TempoBufferBus & Стан -->
+  <rect x="725" y="280" width="180" height="127" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="815" y="303" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">TempoBufferBus</text>
+  <text x="815" y="323" text-anchor="middle" font-size="12" fill="#1a1a1a">Канонічна черга</text>
+  <text x="815" y="343" text-anchor="middle" font-size="12" fill="#1a1a1a">Канонічний стан</text>
+  <text x="815" y="363" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Чиста доменна модель</text>
+  <text x="815" y="383" text-anchor="middle" font-size="12" fill="#6b7280">без чужих залежностей</text>
+
+  <!-- МІЖКОЛОНКОВІ СТРІЛКИ ТА ПІДПИСИ -->
+  <!-- 1. Google Home -> Adapter 1 -->
+  <line x1="235" y1="189" x2="302" y2="189" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="270" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">API v2</text>
+
+  <!-- 2. HomeKit -> Adapter 2 -->
+  <line x1="235" y1="279" x2="302" y2="279" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="270" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">HAP</text>
+
+  <!-- 3. Webhook -> Adapter 3 -->
+  <line x1="235" y1="369" x2="302" y2="369" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="270" y="360" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">HTTP</text>
+
+  <!-- 4. Adapter 1 -> Core -->
+  <line x1="655" y1="189" x2="722" y2="189" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="690" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Канон</text>
+
+  <!-- 5. Adapter 2 -> Core -->
+  <line x1="655" y1="279" x2="722" y2="279" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="690" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Канон</text>
+
+  <!-- 6. Adapter 3 -> Core -->
+  <line x1="655" y1="369" x2="722" y2="369" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="690" y="360" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Канон</text>
+</svg>

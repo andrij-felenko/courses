@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Штучні межі проти природних розломів: архітектурний поділ Digital Home</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Межа виправдана різницею життєвих циклів та ізоляцією крахів, а не технічним розшаруванням</text>
+
+  <!-- ==================== ВГОРІ: ШТУЧНИЙ ПОДІЛ ЗА ТЕХНІЧНИМИ ШАРАМИ ==================== -->
+  <rect x="24" y="72" width="912" height="214" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі -->
+  <rect x="36" y="84" width="888" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="103" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ШТУЧНИЙ ПОДІЛ ЗА ТЕХНІЧНИМИ ШАРАМИ: ОДНАКОВИЙ ТЕМП ЗМІН, ПОТРІЙНИЙ ПОДАТОК БЕЗ ПЕРЕВАГ</text>
+
+  <!-- Шар 1: UI / Контролери -->
+  <rect x="36" y="122" width="200" height="96" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="136" y="142" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шар UI / Контролери</text>
+  <text x="136" y="160" font-size="12" fill="#6b7280" text-anchor="middle">Обробка HTTP-запитів</text>
+  <text x="136" y="182" font-size="12" fill="#c0392b" text-anchor="middle">Темп змін: разом із ядром</text>
+  <text x="136" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">Зміна DTO при кожній правці</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="236" y1="170" x2="256" y2="170" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Шар 2: Бізнес-правила -->
+  <rect x="258" y="122" width="200" height="96" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="358" y="142" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шар бізнес-правил</text>
+  <text x="358" y="160" font-size="12" fill="#6b7280" text-anchor="middle">Логіка автоматизації</text>
+  <text x="358" y="182" font-size="12" fill="#c0392b" text-anchor="middle">Темп змін: разом із UI та БД</text>
+  <text x="358" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">Втрата прямого типу мови</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="458" y1="170" x2="478" y2="170" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Шар 3: База даних -->
+  <rect x="480" y="122" width="200" height="96" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="580" y="142" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шар доступу до даних</text>
+  <text x="580" y="160" font-size="12" fill="#6b7280" text-anchor="middle">Репозиторії та SQL</text>
+  <text x="580" y="182" font-size="12" fill="#c0392b" text-anchor="middle">Темп змін: разом із правилами</text>
+  <text x="580" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">Втрата транзакції ACID</text>
+
+  <!-- Картка наслідків -->
+  <rect x="696" y="122" width="228" height="96" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="708" y="142" font-size="12" font-weight="bold" fill="#c0392b">Наслідки штучної межі:</text>
+  <text x="708" y="164" font-size="12" fill="#1a1a1a">• Жорстке зчеплення версій</text>
+  <text x="708" y="184" font-size="12" fill="#1a1a1a">• Потрійний податок (RTT, DTO)</text>
+  <text x="708" y="204" font-size="12" fill="#c0392b">• Крах сервісу ламає весь ланцюг</text>
+
+  <!-- Підсумок вгорі -->
+  <rect x="36" y="228" width="888" height="44" rx="4" fill="#fdecea" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="255" font-size="12" fill="#c0392b" text-anchor="middle">Антипатерн: рознесення шарів за межі процесу без різниці життєвих циклів породжує розподілений моноліт</text>
+
+  <!-- ==================== ВНИЗУ: ПРИРОДНИЙ РОЗЛОМ ЗА ЖИТТЄВИМ ЦИКЛОМ ==================== -->
+  <rect x="24" y="300" width="912" height="236" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі -->
+  <rect x="36" y="312" width="888" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="331" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ПРИРОДНИЙ РОЗЛОМ ЗА ЖИТТЄВИМ ЦИКЛОМ: ІЗОЛЯЦІЯ НЕСТАБІЛЬНОСТІ ТА ЗАХИСТ ЯДРА</text>
+
+  <!-- Компонент 1: Стабільне ядро -->
+  <rect x="36" y="350" width="310" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="191" y="370" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Стабільне ядро (Core Engine)</text>
+  <text x="191" y="388" font-size="12" fill="#6b7280" text-anchor="middle">Сценарії автоматизації, клімат-контроль</text>
+  <text x="48" y="410" font-size="12" fill="#1a1a1a">• Повільний темп змін (квартальні релізи)</text>
+  <text x="48" y="430" font-size="12" fill="#1a1a1a">• Критична доступність ядра (SLA 99.99%)</text>
+  <text x="48" y="450" font-size="12" fill="#27ae60">• Повна ізоляція від збоїв стороннього коду</text>
+
+  <!-- Стрілка 1 -> Межа -->
+  <line x1="346" y1="405" x2="358" y2="405" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Природна межа / Пісочниця -->
+  <rect x="360" y="350" width="210" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="465" y="370" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ПРИРОДНА МЕЖА (IPC)</text>
+  <text x="465" y="388" font-size="12" fill="#6b7280" text-anchor="middle">Суворий бінарний контракт</text>
+  <text x="465" y="410" font-size="12" fill="#1a1a1a" text-anchor="middle">Асинхронний обмін подіями</text>
+  <text x="465" y="430" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Бар'єр крахів (Crash Barrier)</text>
+  <text x="465" y="450" font-size="12" fill="#1a1a1a" text-anchor="middle">Захист пам'яті ядра</text>
+
+  <!-- Стрілка Межа -> 2 -->
+  <line x1="570" y1="405" x2="582" y2="405" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Компонент 2: Нестабільні драйвери -->
+  <rect x="584" y="350" width="340" height="110" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="754" y="370" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Нестабільні драйвери (Device Drivers)</text>
+  <text x="754" y="388" font-size="12" fill="#6b7280" text-anchor="middle">Плагіни Zigbee, BLE, сторонні датчики</text>
+  <text x="596" y="410" font-size="12" fill="#1a1a1a">• Швидкий темп змін (щотижневі оновлення)</text>
+  <text x="596" y="430" font-size="12" fill="#c0392b">• Високий ризик краху (помилки в драйвері)</text>
+  <text x="596" y="450" font-size="12" fill="#27ae60">• Автоперезапуск процесу без шкоди для ядра</text>
+
+  <!-- Підсумок внизу -->
+  <rect x="36" y="474" width="888" height="46" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="502" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Виправдана межа: захищає життєво важливе ядро від нестабільної периферії завдяки різниці життєвих циклів</text>
+</svg>

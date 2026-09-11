@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Долина ціни: баланс між латентністю та пропускною здатністю</text>
+  <text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Оптимальний розмір пакунка N* мінімізує сумарні витрати між балакучими викликами та надвибіркою</text>
+
+  <!-- ГОЛОВНА ПАНЕЛЬ ГРАФІКА -->
+  <rect x="25" y="80" width="910" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="45" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">U-подібна інженерна крива витрат на перетин межі</text>
+  <rect x="755" y="82" width="160" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="835" y="98" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Ціна перетину межі</text>
+
+  <!-- 3 плашки зон (y = 118 to 164) — ЧІТКО НАД КРИВОЮ (крива починається нижче y=185) -->
+  <rect x="135" y="118" width="220" height="46" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="245" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">СТІНА ЛАТЕНТНОСТІ</text>
+  <text x="245" y="154" text-anchor="middle" font-size="12" fill="#6b7280">T_fixed переважає (chatty calls)</text>
+
+  <rect x="390" y="118" width="220" height="46" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="500" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ДОЛИНА ЦІНИ (N*)</text>
+  <text x="500" y="154" text-anchor="middle" font-size="12" fill="#27ae60">Мінімум накладних витрат</text>
+
+  <rect x="645" y="118" width="220" height="46" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="755" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">СТІНА ПРОПУСКНОЇ ЗДАТНОСТІ</text>
+  <text x="755" y="154" text-anchor="middle" font-size="12" fill="#6b7280">Надвибірка, забивання буферів</text>
+
+  <!-- Оси координат -->
+  <line x1="135" y1="340" x2="135" y2="185" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="135" y="179" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Ціна / од.</text>
+
+  <line x1="135" y1="340" x2="880" y2="340" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="880" y="358" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Розмір пакунка N (Batch size) -></text>
+  <text x="125" y="356" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <!-- ГОЛОВНА U-ПОДІБНА КРИВА (від 180,190 до 820,190) -->
+  <path d="M 180 190 C 280 290, 400 290, 500 290 C 600 290, 720 290, 820 190" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Оптимальна точка N* -->
+  <line x1="500" y1="290" x2="500" y2="340" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="500" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">N* (Оптимум)</text>
+
+  <line x1="500" y1="290" x2="135" y2="290" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="125" y="294" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">C_min</text>
+
+  <circle cx="500" cy="290" r="6" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+  <text x="500" y="278" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Дно долини (C_min)</text>
+
+  <!-- НИЖНІ КАРТКИ ПОЯСНЕННЯ (3 шт) -->
+
+  <!-- Картка 1: Стіна латентності -->
+  <rect x="25" y="395" width="293" height="130" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="40" y="418" font-size="13" font-weight="bold" fill="#c0392b">1. Стіна латентності (N ≪ N*)</text>
+  <text x="40" y="442" font-size="12" font-weight="bold" fill="#1a1a1a">Причина:</text>
+  <text x="100" y="442" font-size="12" fill="#1a1a1a">дрібні балакучі виклики (chatty)</text>
+  <text x="40" y="466" font-size="12" font-weight="bold" fill="#1a1a1a">Механіка:</text>
+  <text x="105" y="466" font-size="12" fill="#1a1a1a">фіксований RTT на кожен пакет</text>
+  <text x="40" y="490" font-size="12" font-weight="bold" fill="#c0392b">Наслідок:</text>
+  <text x="105" y="490" font-size="12" fill="#c0392b">час марнується на перемикання</text>
+  <text x="171" y="512" text-anchor="middle" font-size="12" font-style="italic" fill="#6b7280">1000 викликів по 1 байту = простій</text>
+
+  <!-- Картка 2: Долина ціни -->
+  <rect x="333" y="395" width="294" height="130" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="348" y="418" font-size="13" font-weight="bold" fill="#27ae60">2. Долина ціни (Робоча точка N*)</text>
+  <text x="348" y="442" font-size="12" font-weight="bold" fill="#1a1a1a">Баланс:</text>
+  <text x="405" y="442" font-size="12" fill="#1a1a1a">амортизація RTT без надлишку</text>
+  <text x="348" y="466" font-size="12" font-weight="bold" fill="#1a1a1a">Механіка:</text>
+  <text x="415" y="466" font-size="12" fill="#1a1a1a">пакетування (batching) команд</text>
+  <text x="348" y="490" font-size="12" font-weight="bold" fill="#27ae60">Наслідок:</text>
+  <text x="415" y="490" font-size="12" font-weight="bold" fill="#27ae60">мінімальна ціна за одиницю</text>
+  <text x="480" y="512" text-anchor="middle" font-size="12" font-style="italic" fill="#6b7280">1 пакунок із 50 команд = оптимум</text>
+
+  <!-- Картка 3: Стіна смуги -->
+  <rect x="642" y="395" width="293" height="130" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="657" y="418" font-size="13" font-weight="bold" fill="#c0392b">3. Стіна смуги (N ≫ N*)</text>
+  <text x="657" y="442" font-size="12" font-weight="bold" fill="#1a1a1a">Причина:</text>
+  <text x="717" y="442" font-size="12" fill="#1a1a1a">надвибірка та мегапакунки</text>
+  <text x="657" y="466" font-size="12" font-weight="bold" fill="#1a1a1a">Механіка:</text>
+  <text x="722" y="466" font-size="12" fill="#1a1a1a">переповнення буферів TCP/пам'яті</text>
+  <text x="657" y="490" font-size="12" font-weight="bold" fill="#c0392b">Наслідок:</text>
+  <text x="722" y="490" font-size="12" fill="#c0392b">дорогий ретрай при втраті пакета</text>
+  <text x="788" y="512" text-anchor="middle" font-size="12" font-style="italic" fill="#6b7280">1 пакунок на 100 МБ = таймаут і збій</text>
+</svg>

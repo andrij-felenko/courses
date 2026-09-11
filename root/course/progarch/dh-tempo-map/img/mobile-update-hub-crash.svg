@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Жорсткий зв'язок різнотемпових частин: віджет ламає апаратний шлюз</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Пряма залежність швидкого шару від повільного призводить до аварійного збою та блокування релізів</text>
+
+  <!-- ЛІВИЙ БЛОК: Швидкий темп (Мобільний UI) -->
+  <rect x="36" y="86" width="370" height="248" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="52" y="102" width="130" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="117" y="118" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ШВИДКИЙ ТЕМП</text>
+
+  <text x="52" y="148" font-size="16" font-weight="bold" fill="#1a1a1a">Мобільний застосунок (UI)</text>
+  <text x="52" y="168" font-size="12" fill="#6b7280">Ритм змін: щотижневі релізи та нові фічі</text>
+
+  <rect x="52" y="186" width="338" height="132" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="68" y="210" font-size="13" font-weight="bold" fill="#1a1a1a">Новий віджет керування вітальнею</text>
+  <text x="68" y="232" font-size="12" fill="#1a1a1a">• Опитує стан пристроїв кожні 500 мс</text>
+  <text x="68" y="254" font-size="12" fill="#1a1a1a">• Напряму смикає радіодрайвер шлюзу</text>
+  <text x="68" y="276" font-size="12" font-weight="bold" fill="#c0392b">• Вимагає нових полів у сирому протоколі</text>
+  <text x="68" y="298" font-size="12" fill="#6b7280">Без канонічного API та кешування в пам'яті</text>
+
+  <!-- ЦЕНТРАЛЬНА ЗОНА: Зчеплення та конфлікт -->
+  <!-- Верхня стрілка: Високочастотні запити -->
+  <text x="478" y="172" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Коротке опитування</text>
+  <text x="478" y="188" font-size="12" fill="#c0392b" text-anchor="middle">(short polling)</text>
+  <line x1="414" y1="202" x2="542" y2="202" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="478" y="222" font-size="12" fill="#6b7280" text-anchor="middle">без буфера та черг</text>
+
+  <!-- Конфліктна іконка -->
+  <circle cx="478" cy="248" r="14" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="478" y="253" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">✕</text>
+
+  <!-- Нижня стрілка: Збій та блокування -->
+  <text x="478" y="280" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Аварійний збій</text>
+  <line x1="542" y1="292" x2="414" y2="292" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="478" y="312" font-size="12" fill="#6b7280" text-anchor="middle">тайм-аути в UI</text>
+
+  <!-- ПРАВИЙ БЛОК: Повільний темп (Апаратний шлюз) -->
+  <rect x="554" y="86" width="370" height="248" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="570" y="102" width="140" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="640" y="118" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ПОВІЛЬНИЙ ТЕМП</text>
+
+  <text x="570" y="148" font-size="16" font-weight="bold" fill="#1a1a1a">Апаратний шлюз (Gateway)</text>
+  <text x="570" y="168" font-size="12" fill="#6b7280">Ритм змін: 3–6 місяців (прошивка, RTOS)</text>
+
+  <rect x="570" y="186" width="338" height="132" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="586" y="210" font-size="13" font-weight="bold" fill="#c0392b">Колапс радіомодуля Zigbee</text>
+  <text x="586" y="232" font-size="12" fill="#1a1a1a">• Переповнення кільцевих буферів RAM</text>
+  <text x="586" y="254" font-size="12" fill="#1a1a1a">• Шторм повторних маршрутизацій мережі</text>
+  <text x="586" y="276" font-size="12" font-weight="bold" fill="#c0392b">• Розряджання батарейок CR2032 у датчиках</text>
+  <text x="586" y="298" font-size="12" fill="#6b7280">Фізичний координатор перестає реагувати</text>
+
+  <!-- НИЖНІЙ БЛОК: Заморожування циклу релізів -->
+  <rect x="36" y="350" width="888" height="106" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <rect x="56" y="366" width="168" height="24" rx="4" fill="#c0392b"/>
+  <text x="140" y="382" font-size="12" font-weight="bold" fill="white" text-anchor="middle">НАСЛІДОК ДЛЯ РЕЛІЗІВ</text>
+
+  <text x="240" y="383" font-size="15" font-weight="bold" fill="#c0392b">Повний параліч випуску: швидкий годинник заблоковано повільним</text>
+
+  <text x="56" y="416" font-size="12" fill="#1a1a1a">• Оновлення мобільного віджета вимагає зміни сирих структур прошивки та тритижневого тестування заліза</text>
+  <text x="56" y="436" font-size="12" fill="#1a1a1a">• Жорстке зчеплення змушує щотижневий мобільний реліз чекати багатомісячного циклу сертифікації шлюзу</text>
+</svg>

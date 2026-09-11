@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="490" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Реактивний потік телеметрії: злиття вимірів та захист тривог</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Злиття (conflation) відкидає надлишкові числа, а черга аварій гарантує доставку під зворотним тиском</text>
+
+  <!-- КОЛОНКА 1: ДЖЕРЕЛА ТЕЛЕМЕТРІЇ -->
+  <rect x="25" y="78" width="205" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="127.5" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратні джерела</text>
+  <text x="127.5" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Фізичні сенсори та шини</text>
+
+  <!-- Блок 1.1: Датчик температури -->
+  <rect x="37" y="135" width="181" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="127.5" y="154" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Потік числових даних</text>
+  <text x="127.5" y="172" font-size="12" fill="#6b7280" text-anchor="middle">Високий темп (~10 Гц)</text>
+  <rect x="47" y="182" width="161" height="47" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="127.5" y="202" font-size="12" fill="#2457d6" text-anchor="middle">T₁: 21.2° → T₂: 21.5°</text>
+  <text x="127.5" y="220" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T₃: 21.8° → T₄: 22.0°</text>
+
+  <!-- Блок 1.2: Аварійний датчик -->
+  <rect x="37" y="253" width="181" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="127.5" y="272" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Критичні події (тривоги)</text>
+  <text x="127.5" y="290" font-size="12" fill="#6b7280" text-anchor="middle">Спорадичний темп</text>
+  <rect x="47" y="300" width="161" height="47" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="127.5" y="320" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚡ LeakAlarm (витік)</text>
+  <text x="127.5" y="338" font-size="12" fill="#c0392b" text-anchor="middle">🔥 SmokeAlert (дим)</text>
+
+  <!-- Блок 1.3: Примітка темпу джерел -->
+  <rect x="37" y="371" width="181" height="87" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="127.5" y="393" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Характеристика джерел</text>
+  <text x="127.5" y="414" font-size="12" fill="#6b7280" text-anchor="middle">• Некеровані сплески</text>
+  <text x="127.5" y="432" font-size="12" fill="#6b7280" text-anchor="middle">• Повна автономність</text>
+  <text x="127.5" y="450" font-size="12" fill="#6b7280" text-anchor="middle">• Ризик переповнення черг</text>
+
+
+  <!-- Стрілки між Колонкою 1 і Колонкою 2 -->
+  <line x1="230" y1="188" x2="266" y2="188" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="230" y1="306" x2="266" y2="306" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+
+  <!-- КОЛОНКА 2: РЕАКТИВНИЙ БУФЕР СТАНУ (API) -->
+  <rect x="268" y="78" width="424" height="392" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="103" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Реактивний буфер канонічного API</text>
+  <text x="480" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Ізоляція темпів, злиття числових значень та збереження тривог</text>
+
+  <!-- Блок 2.1: Злиття (Conflation) -->
+  <rect x="282" y="135" width="396" height="106" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="154" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Канал вимірів: Злиття (Conflation / LWW)</text>
+  
+  <!-- Застарілі (скинуті) -->
+  <rect x="294" y="165" width="186" height="64" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 2"/>
+  <text x="387" y="191" font-size="12" fill="#c0392b" text-anchor="middle">Застарілі: T₁, T₂, T₃</text>
+  <text x="387" y="213" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">✕ Скинуто (витіснено)</text>
+
+  <!-- Свіже значення -->
+  <rect x="492" y="165" width="174" height="64" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="579" y="191" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Останнє: T₄ (22.0°C)</text>
+  <text x="579" y="213" font-size="12" fill="#1a1a1a" text-anchor="middle">Розмір осередку = 1</text>
+
+
+  <!-- Блок 2.2: Черга без втрат (FIFO) -->
+  <rect x="282" y="253" width="396" height="106" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="272" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Канал аварій: Гарантована черга (Lossless FIFO)</text>
+
+  <!-- Елементи черги -->
+  <rect x="294" y="283" width="112" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="350" y="309" font-size="12" fill="#6b7280" text-anchor="middle">Резерв FIFO</text>
+
+  <rect x="418" y="283" width="120" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="478" y="309" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2: SmokeAlert</text>
+
+  <rect x="550" y="283" width="116" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="608" y="309" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1: LeakAlarm</text>
+
+  <text x="480" y="347" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">100% збереження: жодна подія не скидається</text>
+
+
+  <!-- Блок 2.3: Механізм Backpressure -->
+  <rect x="282" y="371" width="396" height="87" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="393" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Диспетчер зворотного тиску (Backpressure)</text>
+  <text x="480" y="413" font-size="12" fill="#1a1a1a" text-anchor="middle">• Без запиту: виміри зливаються, черга чекає</text>
+  <text x="480" y="432" font-size="12" fill="#6b7280" text-anchor="middle">• Споживач запитує порцію через request(n)</text>
+  <text x="480" y="450" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">• Захист пам'яті: нульовий ризик збою OOM</text>
+
+
+  <!-- Стрілки між Колонкою 2 і Колонкою 3 -->
+  <line x1="692" y1="188" x2="726" y2="188" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="692" y1="306" x2="726" y2="306" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="728" y1="414" x2="694" y2="414" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+
+  <!-- КОЛОНКА 3: СПОЖИВАЧІ (UI ТА АВТОМАТИКА) -->
+  <rect x="728" y="78" width="207" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="831.5" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Споживач (UI / Cloud)</text>
+  <text x="831.5" y="121" font-size="12" fill="#6b7280" text-anchor="middle">Швидкоплинний клієнт</text>
+
+  <!-- Блок 3.1: Віджет UI -->
+  <rect x="740" y="135" width="183" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="831.5" y="154" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Дашборд користувача</text>
+  <text x="831.5" y="172" font-size="12" fill="#6b7280" text-anchor="middle">Відображення метрик</text>
+  <rect x="750" y="182" width="163" height="47" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="831.5" y="202" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">T = 22.0°C</text>
+  <text x="831.5" y="220" font-size="12" fill="#6b7280" text-anchor="middle">Свіжий стан без лагів</text>
+
+  <!-- Блок 3.2: Аварійний обробник -->
+  <rect x="740" y="253" width="183" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="831.5" y="272" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Логіка безпеки</text>
+  <text x="831.5" y="290" font-size="12" fill="#6b7280" text-anchor="middle">Сценарії реагування</text>
+  <rect x="750" y="300" width="163" height="47" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="831.5" y="320" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">🚨 Перекрити кран!</text>
+  <text x="831.5" y="338" font-size="12" fill="#c0392b" text-anchor="middle">Отримано 100% аварій</text>
+
+  <!-- Блок 3.3: Сигнал запиту -->
+  <rect x="740" y="371" width="183" height="87" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="831.5" y="393" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Реактивний попит</text>
+  <text x="831.5" y="413" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">← request(n=1)</text>
+  <text x="831.5" y="432" font-size="12" fill="#6b7280" text-anchor="middle">Запит чергової порції</text>
+  <text x="831.5" y="450" font-size="12" fill="#6b7280" text-anchor="middle">за готовністю потоку</text>
+</svg>

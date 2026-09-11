@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White background rect -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-error" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ідемпотентний цикл диспетчеризації команд керування</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Ключ дедуплікації відсікає повторні мережеві запити, запобігаючи брязкоту силових реле</text>
+
+  <!-- Column 1: Fast Consumer -->
+  <rect x="30" y="80" width="255" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="42" y="104" font-size="13" font-weight="bold" fill="#1a1a1a">1. Споживач (UI / Сценарій)</text>
+  <text x="42" y="122" font-size="12" fill="#6b7280">Швидкий шар: надсилання наміру</text>
+
+  <rect x="42" y="135" width="231" height="72" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="52" y="154" font-size="12" font-weight="bold" fill="#2457d6">Спроба 1: Команда TOGGLE</text>
+  <text x="52" y="172" font-size="12" fill="#1a1a1a">• id: cmd-901; key: idem-77a</text>
+  <text x="52" y="190" font-size="12" fill="#6b7280">• Намір: увімкнути живлення</text>
+
+  <rect x="42" y="221" width="231" height="52" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="52" y="240" font-size="12" font-weight="bold" fill="#c0392b">Мережевий таймаут (збій ACK)</text>
+  <text x="52" y="258" font-size="12" fill="#6b7280">UI не отримав підтвердження</text>
+
+  <rect x="42" y="287" width="231" height="72" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="52" y="306" font-size="12" font-weight="bold" fill="#c0392b">Спроба 2: Ретрай (Повтор)</text>
+  <text x="52" y="324" font-size="12" fill="#1a1a1a">• id: cmd-902; key: idem-77a</text>
+  <text x="52" y="342" font-size="12" fill="#c0392b">• Той самий ключ ідемпотентності</text>
+
+  <text x="42" y="386" font-size="12" font-weight="bold" fill="#1a1a1a">Швидкий темп взаємодії:</text>
+  <text x="42" y="404" font-size="12" fill="#6b7280">Таймаути провокують дублікати</text>
+
+  <!-- Connection Arrows: Col 1 -> Col 2 -->
+  <line x1="273" y1="171" x2="315" y2="171" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="273" y1="323" x2="315" y2="323" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arr-error)"/>
+
+  <!-- Column 2: Deduplication Buffer -->
+  <rect x="305" y="80" width="350" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="320" y="104" font-size="13" font-weight="bold" fill="#1a1a1a">2. Буфер дедуплікації (API Gate)</text>
+  <text x="320" y="122" font-size="12" fill="#6b7280">Стабільний контракт: Canonical Device State API</text>
+
+  <rect x="320" y="135" width="320" height="80" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="332" y="153" font-size="12" font-weight="bold" fill="#1a1a1a">Кеш ідемпотентності (TTL-буфер):</text>
+  <rect x="332" y="161" width="296" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="340" y="177" font-size="12" fill="#2457d6">Key: idem-77a | Status: EXECUTED (Relay: ON)</text>
+  <text x="332" y="202" font-size="12" fill="#6b7280">Зберігає хеш наміру, статус та готову відповідь</text>
+
+  <rect x="320" y="228" width="320" height="80" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="332" y="247" font-size="12" font-weight="bold" fill="#27ae60">Спроба 1 ➔ Новий ключ (First Execution)</text>
+  <text x="332" y="267" font-size="12" fill="#1a1a1a">• Фіксація PENDING, диспетчеризація на шину</text>
+  <text x="332" y="287" font-size="12" fill="#27ae60">• Отримано апаратний ACK ➔ статус EXECUTED</text>
+
+  <rect x="320" y="321" width="320" height="92" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="332" y="340" font-size="12" font-weight="bold" fill="#c0392b">Спроба 2 ➔ Повторний ключ (Dedup Hit)</text>
+  <text x="332" y="360" font-size="12" font-weight="bold" fill="#c0392b">• БЛОКУВАННЯ: команда на залізо НЕ йде!</text>
+  <text x="332" y="378" font-size="12" fill="#1a1a1a">• Миттєве повернення збереженого ACK у клієнт</text>
+  <text x="332" y="396" font-size="12" fill="#6b7280">• Нуль навантаження на радіоканал Zigbee</text>
+
+  <!-- Connection to Right: Forward branch -->
+  <line x1="640" y1="268" x2="682" y2="268" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-success)"/>
+  <text x="661" y="260" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Пуск</text>
+
+  <!-- Connection to Right: Blocked branch -->
+  <line x1="640" y1="367" x2="667" y2="367" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="667" y1="359" x2="667" y2="375" stroke="#c0392b" stroke-width="3"/>
+  <text x="661" y="354" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Блок</text>
+
+  <!-- Column 3: Conservative Hardware -->
+  <rect x="675" y="80" width="255" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="687" y="104" font-size="13" font-weight="bold" fill="#1a1a1a">3. Фізичне залізо (Реле)</text>
+  <text x="687" y="122" font-size="12" fill="#6b7280">Повільний консервативний шар</text>
+
+  <rect x="687" y="135" width="231" height="80" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="697" y="154" font-size="12" font-weight="bold" fill="#1a1a1a">Апаратна шина Zigbee / GPIO:</text>
+  <text x="697" y="174" font-size="12" fill="#27ae60">• Тільки 1 радіопакет дійшов</text>
+  <text x="697" y="192" font-size="12" fill="#1a1a1a">• Радіоефір вільний від спаму</text>
+  <text x="697" y="208" font-size="12" fill="#6b7280">• Батарея сенсорів збережена</text>
+
+  <rect x="687" y="228" width="231" height="85" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="697" y="248" font-size="12" font-weight="bold" fill="#27ae60">Силове реле (Relay-1):</text>
+  <text x="697" y="268" font-size="12" font-weight="bold" fill="#27ae60">✓ Спроба 1: імпульс OFF ➔ ON</text>
+  <text x="697" y="286" font-size="12" fill="#1a1a1a">✓ Рівно один фізичний контакт</text>
+  <text x="697" y="304" font-size="12" fill="#27ae60">✓ Контакти не брязкають</text>
+
+  <rect x="687" y="326" width="231" height="85" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="697" y="346" font-size="12" font-weight="bold" fill="#c0392b">Захист від дуги та зносу:</text>
+  <text x="697" y="366" font-size="12" font-weight="bold" fill="#c0392b">⛔ Спроба 2: нуль дій на залізо</text>
+  <text x="697" y="386" font-size="12" fill="#1a1a1a">Виключено повторне клацання</text>
+  <text x="697" y="402" font-size="12" fill="#6b7280">Немає дуги та зварювання</text>
+
+  <!-- Bottom Summary Cards -->
+  <rect x="30" y="440" width="290" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="44" y="462" font-size="13" font-weight="bold" fill="#2457d6">1. Ключ ідемпотентності</text>
+  <text x="44" y="482" font-size="12" fill="#6b7280">Генерація наміру на клієнті:</text>
+  <text x="44" y="500" font-size="12" fill="#1a1a1a">Клієнт створює унікальний UUID наміру;</text>
+  <text x="44" y="518" font-size="12" fill="#1a1a1a">ретраї передають той самий ключ</text>
+
+  <rect x="335" y="440" width="290" height="95" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="349" y="462" font-size="13" font-weight="bold" fill="#2457d6">2. Двоетапна дедуплікація</text>
+  <text x="349" y="482" font-size="12" fill="#6b7280">Статуси PENDING та EXECUTED:</text>
+  <text x="349" y="500" font-size="12" fill="#1a1a1a">Буфер блокує паралельні гонки та</text>
+  <text x="349" y="518" font-size="12" fill="#1a1a1a">повертає кешований результат ретраю</text>
+
+  <rect x="640" y="440" width="290" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="654" y="462" font-size="13" font-weight="bold" fill="#27ae60">3. Апаратна безпека (Zero Flutter)</text>
+  <text x="654" y="482" font-size="12" fill="#6b7280">Захист силових контактів:</text>
+  <text x="654" y="500" font-size="12" fill="#1a1a1a">Усунення брязкоту консервативних реле</text>
+  <text x="654" y="518" font-size="12" fill="#1a1a1a">від волатильних мережевих сплесків</text>
+</svg>

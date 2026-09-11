@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Семантика збоїв: локальний виклик проти трилеми мережі</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">У пам'яті результат завжди відомий; у мережі тайм-аут залишає стан сервера невизначеним</text>
+
+  <!-- ЛІВА КОЛОНКА: Локальний виклик -->
+  <rect x="30" y="85" width="435" height="370" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок лівої колонки -->
+  <rect x="45" y="100" width="405" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="123" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Локальний виклик: спільний процес</text>
+
+  <!-- Схема пам'яті -->
+  <rect x="45" y="146" width="405" height="88" rx="8" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="168" font-size="12" font-weight="bold" fill="#6b7280">ЄДИНИЙ АДРЕСНИЙ ПРОСТІР (ОЗП)</text>
+
+  <rect x="60" y="180" width="145" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="132" y="206" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Викликач (Caller)</text>
+
+  <line x1="210" y1="201" x2="282" y2="201" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <rect x="290" y="180" width="145" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="362" y="206" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Метод (Callee)</text>
+
+  <!-- Картка 1: Успіх або виняток -->
+  <rect x="45" y="244" width="405" height="88" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="60" y="268" font-size="12" font-weight="bold" fill="#27ae60">1. Успіх або контрольований виняток</text>
+  <text x="60" y="287" font-size="12" fill="#1a1a1a">Функція повертає результат або викидає виняток.</text>
+  <text x="60" y="304" font-size="12" fill="#6b7280">Викликач отримує детермінований статус у тому ж потоці.</text>
+  <text x="60" y="320" font-size="12" font-weight="bold" fill="#27ae60">Результат відомий миттєво й достовірно.</text>
+
+  <!-- Картка 2: Аварійний крах -->
+  <rect x="45" y="344" width="405" height="91" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="60" y="368" font-size="12" font-weight="bold" fill="#c0392b">2. Аварійний крах (спільна загибель)</text>
+  <text x="60" y="387" font-size="12" fill="#1a1a1a">Збій пам'яті (SIGSEGV, OOM) нищить увесь процес цілком.</text>
+  <text x="60" y="404" font-size="12" fill="#6b7280">Спільна доля (fate-sharing): викликач і метод гинуть разом.</text>
+  <text x="60" y="420" font-size="12" font-weight="bold" fill="#1a1a1a">Не буває стану: «метод упав, а викликач чекає».</text>
+
+  <!-- ПРАВА КОЛОНКА: Мережевий виклик -->
+  <rect x="495" y="85" width="435" height="370" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок правої колонки -->
+  <rect x="510" y="100" width="405" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712" y="123" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Мережевий виклик: тризначна невизначеність</text>
+
+  <!-- Схема мережі -->
+  <rect x="510" y="146" width="405" height="88" rx="8" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="525" y="168" font-size="12" font-weight="bold" fill="#6b7280">НЕЗАЛЕЖНІ ДОМЕНИ ВІДМОВ (NO FATE-SHARING)</text>
+
+  <rect x="525" y="180" width="105" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="577" y="206" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Клієнт</text>
+
+  <line x1="630" y1="195" x2="648" y2="195" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="650" y1="210" x2="632" y2="210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="650" y="180" width="125" height="42" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="712" y="206" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Мережа</text>
+
+  <line x1="775" y1="195" x2="793" y2="195" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="795" y1="210" x2="777" y2="210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="795" y="180" width="105" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="847" y="206" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Сервер</text>
+
+  <!-- Картка 1: Успіх -->
+  <rect x="510" y="244" width="405" height="52" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="268" font-size="12" font-weight="bold" fill="#27ae60">1. Успіх (200 OK)</text>
+  <text x="525" y="284" font-size="12" fill="#1a1a1a">Запит дійшов, сервер виконав мутацію, відповідь отримана.</text>
+
+  <!-- Картка 2: Явна відмова -->
+  <rect x="510" y="308" width="405" height="52" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="525" y="332" font-size="12" font-weight="bold" fill="#c0392b">2. Явна відмова (4xx / 5xx / Connection Refused)</text>
+  <text x="525" y="348" font-size="12" fill="#1a1a1a">Збій стався до зміни стану, або сервер явно відкинув виклик.</text>
+
+  <!-- Картка 3: Тайм-аут -->
+  <rect x="510" y="372" width="405" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="525" y="396" font-size="12" font-weight="bold" fill="#c0392b">3. Тайм-аут: ПОВНА НЕВИЗНАЧЕНІСТЬ СТАНУ</text>
+  <text x="525" y="412" font-size="12" font-weight="bold" fill="#1a1a1a">Невідомо: дія виконана на сервері чи запит втрачено?</text>
+  <text x="525" y="428" font-size="12" fill="#c0392b">Повтор загрожує дублюванням, а відмова — втратою даних.</text>
+</svg>

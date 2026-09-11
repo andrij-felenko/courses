@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сувора горизонтальна шаровість проти CQRS і вертикальних зрізів</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">CQRS усуває транзитних посередників: читання йде напряму, а запис захищає інваріанти</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Сувора шаровість (Проблема) -->
+  <rect x="30" y="86" width="430" height="444" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="245" y="114" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Сувора шаровість: «Архітектура-лазанья»</text>
+  <text x="245" y="134" font-size="12" fill="#6b7280" text-anchor="middle">Симетричний транзит: читання проходить усі шари</text>
+
+  <!-- Позначки потоків зліва -->
+  <text x="135" y="158" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Запис (POST)</text>
+  <text x="345" y="158" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Читання (GET)</text>
+
+  <!-- Шар 1: Контролер -->
+  <rect x="55" y="168" width="380" height="44" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="187" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Представлення: DeviceController</text>
+  <text x="245" y="203" font-size="12" fill="#6b7280" text-anchor="middle">Приймає HTTP-запит і мапить у DTO</text>
+
+  <!-- Стрілки між 1 і 2 -->
+  <line x1="135" y1="212" x2="135" y2="236" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="345" y1="212" x2="345" y2="236" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Шар 2: Сервіс -->
+  <rect x="55" y="238" width="380" height="44" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="257" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Застосунок: DeviceAppService</text>
+  <text x="245" y="273" font-size="12" fill="#c0392b" text-anchor="middle">Транзитний Middle Man: прокидання виклику</text>
+
+  <!-- Стрілки між 2 і 3 -->
+  <line x1="135" y1="282" x2="135" y2="306" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="345" y1="282" x2="345" y2="306" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Шар 3: Домен -->
+  <rect x="55" y="308" width="380" height="44" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="327" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Домен: DeviceRepository</text>
+  <text x="245" y="343" font-size="12" fill="#c0392b" text-anchor="middle">Мапінг сутностей у DTO без бізнес-логіки</text>
+
+  <!-- Стрілки між 3 і 4 -->
+  <line x1="135" y1="352" x2="135" y2="376" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="345" y1="352" x2="345" y2="376" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Шар 4: База даних -->
+  <rect x="55" y="378" width="380" height="44" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="397" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інфраструктура: Реляційна СКБД</text>
+  <text x="245" y="413" font-size="12" fill="#6b7280" text-anchor="middle">SQL-вибірка або транзакційний запис</text>
+
+  <!-- Підсумок лівої панелі -->
+  <rect x="55" y="442" width="380" height="68" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="245" y="464" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ціна симетрії: 3 рівні транзитних DTO</text>
+  <text x="245" y="482" font-size="12" fill="#6b7280" text-anchor="middle">Читання сплачує податок усіх шарів без потреби</text>
+  <text x="245" y="498" font-size="12" fill="#6b7280" text-anchor="middle">у бізнес-правилах чи зміні стану</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: CQRS та вертикальний зріз (Розв'язок) -->
+  <rect x="500" y="86" width="430" height="444" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="715" y="114" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">CQRS: Асиметричний вертикальний зріз</text>
+  <text x="715" y="134" font-size="12" fill="#6b7280" text-anchor="middle">Асиметрія: пряме читання та захищений запис</text>
+
+  <!-- Позначки потоків справа -->
+  <text x="615" y="158" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Команда (Запис)</text>
+  <text x="815" y="158" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Запит (Читання)</text>
+
+  <!-- Кінцева точка -->
+  <rect x="525" y="168" width="380" height="44" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="187" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінцева точка: DeviceEndpoints</text>
+  <text x="715" y="203" font-size="12" fill="#6b7280" text-anchor="middle">Розділяє потік: команда на запис, запит на читання</text>
+
+  <!-- Стрілка запису вниз до хендлера -->
+  <line x1="615" y1="212" x2="615" y2="236" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Стрілка читання вниз до швидкого запиту -->
+  <line x1="815" y1="212" x2="815" y2="236" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Гілка Запису: Обробник команди -->
+  <rect x="525" y="238" width="180" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="615" y="257" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RegisterDeviceHandler</text>
+  <text x="615" y="273" font-size="12" fill="#6b7280" text-anchor="middle">Оркестратор команди</text>
+
+  <!-- Стрілка запису від хендлера до моделі -->
+  <line x1="615" y1="290" x2="615" y2="306" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Гілка Запису: Доменна модель -->
+  <rect x="525" y="308" width="180" height="52" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="615" y="327" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Агрегат Device</text>
+  <text x="615" y="343" font-size="12" fill="#2457d6" text-anchor="middle">Захист інваріантів</text>
+
+  <!-- Стрілка запису від моделі до БД -->
+  <line x1="615" y1="360" x2="615" y2="376" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Гілка Читання: Прямий SQL / Dapper -->
+  <rect x="725" y="238" width="180" height="122" rx="6" fill="#ffffff" stroke="#27ae60" stroke-dasharray="4,3" stroke-width="1.5"/>
+  <text x="815" y="268" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">GetDeviceByIdQuery</text>
+  <text x="815" y="288" font-size="12" fill="#27ae60" text-anchor="middle">Прямий SQL / Dapper</text>
+  <text x="815" y="312" font-size="12" fill="#6b7280" text-anchor="middle">Без посередників</text>
+  <text x="815" y="330" font-size="12" fill="#6b7280" text-anchor="middle">Без мапінгу сутностей</text>
+
+  <!-- Стрілка від читання до БД -->
+  <line x1="815" y1="360" x2="815" y2="376" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Спільна База Даних -->
+  <rect x="525" y="378" width="380" height="44" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="397" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сховище даних (Реляційна СКБД)</text>
+  <text x="715" y="413" font-size="12" fill="#6b7280" text-anchor="middle">Запис: транзакції · Читання: швидка проєкція</text>
+
+  <!-- Підсумок правої панелі -->
+  <rect x="525" y="442" width="380" height="68" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="464" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вигода CQRS: нульові витрати на читання</text>
+  <text x="715" y="482" font-size="12" fill="#6b7280" text-anchor="middle">Запис гарантує інваріанти, а читання вибирає</text>
+  <text x="715" y="498" font-size="12" fill="#6b7280" text-anchor="middle">дані напряму без транзитних прошарків</text>
+</svg>

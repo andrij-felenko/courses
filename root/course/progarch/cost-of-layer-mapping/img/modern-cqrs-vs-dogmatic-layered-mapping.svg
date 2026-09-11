@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Традиційний шаровий мапінг проти сучасного CQRS-потоку</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Усунення зайвих доменних перетворень на шляху читання: прямі проекції замість потрійного копіювання</text>
+
+  <!-- ВЕРХНЯ ПАНЕЛЬ: Догматичний шаровий підхід -->
+  <rect x="30" y="75" width="900" height="180" rx="8" fill="#fcfdfd" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="45" y="88" width="280" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="185" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ДОГМАТИЧНИЙ ШАРОВИЙ ПІДХІД (READ &amp; WRITE)</text>
+
+  <text x="340" y="103" font-size="13" font-weight="bold" fill="#1a1a1a">Потрійний мапінг навіть для простої вибірки (N+1, GC churn, баласт)</text>
+
+  <!-- Етапи верхнього ланцюжка -->
+  <!-- 1. Сховище -->
+  <rect x="50" y="125" width="130" height="70" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="115" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">1. Сховище (ORM)</text>
+  <text x="115" y="170" text-anchor="middle" font-size="11" fill="#6b7280">DbOrderEntity</text>
+
+  <!-- Стрілка 1 -->
+  <path d="M 180,160 L 240,160" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="210" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">мапінг 1</text>
+
+  <!-- 2. Домен -->
+  <rect x="240" y="125" width="150" height="70" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="315" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">2. Доменний агрегат</text>
+  <text x="315" y="170" text-anchor="middle" font-size="11" fill="#6b7280">Order (із силами N+1)</text>
+
+  <!-- Стрілка 2 -->
+  <path d="M 390,160 L 450,160" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="420" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">мапінг 2</text>
+
+  <!-- 3. Сервіс -->
+  <rect x="450" y="125" width="140" height="70" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="520" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">3. Сервісний шар</text>
+  <text x="520" y="170" text-anchor="middle" font-size="11" fill="#6b7280">OrderServiceDto</text>
+
+  <!-- Стрілка 3 -->
+  <path d="M 590,160 L 650,160" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="620" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">мапінг 3</text>
+
+  <!-- 4. Web API -->
+  <rect x="650" y="125" width="140" height="70" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="720" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">4. Шар Web API</text>
+  <text x="720" y="170" text-anchor="middle" font-size="11" fill="#6b7280">OrderResponseDto</text>
+
+  <!-- Стрілка 4 -->
+  <path d="M 790,160 L 840,160" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="815" y="152" text-anchor="middle" font-size="11" fill="#6b7280">JSON</text>
+
+  <!-- 5. Клієнт -->
+  <rect x="840" y="125" width="75" height="70" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="877" y="153" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Клієнт</text>
+  <text x="877" y="172" text-anchor="middle" font-size="11" fill="#6b7280">(UI)</text>
+
+  <!-- Попередження верхньої панелі -->
+  <rect x="45" y="210" width="870" height="32" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="480" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⚠️ 3 послідовні алокації та копіювання полів на кожен GET-запит; домен деградує під потреби вибірки</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Сучасний підхід CQRS -->
+  <rect x="30" y="275" width="900" height="260" rx="8" fill="#fcfdfd" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="45" y="288" width="280" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="185" y="303" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">СУЧАСНИЙ ПРАГМАТИЗМ (CQRS ARCHITECTURE)</text>
+
+  <text x="340" y="303" font-size="13" font-weight="bold" fill="#1a1a1a">Розділення шляхів читання (прямі проєкції) та запису (інкапсульований домен)</text>
+
+  <!-- READ PATH -->
+  <rect x="45" y="325" width="870" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <rect x="55" y="333" width="130" height="18" rx="3" fill="#27ae60"/>
+  <text x="120" y="346" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">READ / QUERY PATH</text>
+
+  <!-- Сховище Read -->
+  <rect x="60" y="356" width="160" height="46" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="140" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Сховище (БД)</text>
+  <text x="140" y="392" text-anchor="middle" font-size="11" fill="#6b7280">SQL / View / Dapper</text>
+
+  <!-- Пряма проєкція -->
+  <path d="M 220,379 L 590,379" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="405" y="371" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Пряма проєкція: SELECT id, name, total FROM orders</text>
+  <text x="405" y="396" text-anchor="middle" font-size="11" fill="#6b7280">В обхід домену! Нуль зайвих DTO, нуль N+1, мінімальний GC churn</text>
+
+  <!-- OrderReadDto -->
+  <rect x="590" y="356" width="160" height="46" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="670" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">OrderReadDto</text>
+  <text x="670" y="392" text-anchor="middle" font-size="11" fill="#1a1a1a">Готовий для клієнта</text>
+
+  <!-- Стрілка до клієнта -->
+  <path d="M 750,379 L 800,379" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="775" y="371" text-anchor="middle" font-size="11" fill="#6b7280">JSON</text>
+
+  <!-- Клієнт Read -->
+  <rect x="800" y="356" width="105" height="46" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="852" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Клієнт</text>
+  <text x="852" y="392" text-anchor="middle" font-size="11" fill="#27ae60">Швидка відповідь</text>
+
+  <!-- WRITE PATH -->
+  <rect x="45" y="425" width="870" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <rect x="55" y="433" width="145" height="18" rx="3" fill="#2457d6"/>
+  <text x="127" y="446" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">WRITE / COMMAND PATH</text>
+
+  <!-- Клієнтська команда -->
+  <rect x="60" y="458" width="160" height="52" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="140" y="480" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Команда клієнта</text>
+  <text x="140" y="497" text-anchor="middle" font-size="11" fill="#6b7280">CreateOrderCommand</text>
+
+  <!-- Стрілка валідації -->
+  <path d="M 220,484 L 290,484" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="255" y="476" text-anchor="middle" font-size="11" fill="#2457d6">валідація</text>
+
+  <!-- Доменний агрегат Write -->
+  <rect x="290" y="458" width="310" height="52" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="445" y="480" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Багатий доменний агрегат (Order)</text>
+  <text x="445" y="497" text-anchor="middle" font-size="11" fill="#1a1a1a">Інкапсульований стан, бізнес-правила, інваріанти</text>
+
+  <!-- Стрілка збереження -->
+  <path d="M 600,484 L 670,484" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="635" y="476" text-anchor="middle" font-size="11" fill="#2457d6">збереження</text>
+
+  <!-- Сховище Write -->
+  <rect x="670" y="458" width="235" height="52" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="787" y="480" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Репозиторій та база даних</text>
+  <text x="787" y="497" text-anchor="middle" font-size="11" fill="#6b7280">Атомарна зміна стану в транзакції</text>
+</svg>

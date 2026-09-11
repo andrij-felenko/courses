@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Main Header & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дерево рішень: Доцільність проміжного шару</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Фільтрація операцій за 4 критеріями для виявлення фіктивних шарів-прокладок</text>
+
+  <!-- Start Badge -->
+  <rect x="40" y="90" width="180" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="112" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Аналіз операції системи</text>
+  <path d="M 130 126 L 130 152" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Column 1: Question 1 (Mutation / Transaction) -->
+  <rect x="40" y="160" width="190" height="110" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="40" y="160" width="190" height="28" rx="8" fill="#2457d6"/>
+  <text x="135" y="179" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">1. Мутація / Транзакція?</text>
+  <text x="135" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">Зміна стану бази,</text>
+  <text x="135" y="223" font-size="12" fill="#1a1a1a" text-anchor="middle">Unit of Work, Commit,</text>
+  <text x="135" y="241" font-size="12" fill="#6b7280" text-anchor="middle">Security / Auth boundary</text>
+
+  <path d="M 135 270 L 135 322" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="145" y="300" font-size="12" font-weight="bold" fill="#27ae60">ТАК</text>
+
+  <path d="M 230 215 L 262 215" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="250" y="203" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">НІ</text>
+
+  <!-- Column 1 Verdict Card -->
+  <rect x="40" y="330" width="190" height="140" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="40" y="330" width="190" height="28" rx="8" fill="#27ae60"/>
+  <text x="135" y="349" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Шар обґрунтований</text>
+  <text x="135" y="375" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Application / Service</text>
+  <text x="135" y="398" font-size="12" fill="#1a1a1a" text-anchor="middle">• Керує транзакцією</text>
+  <text x="135" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">• Фіксує Unit of Work</text>
+  <text x="135" y="438" font-size="12" fill="#6b7280" text-anchor="middle">• Гарантує цілісність</text>
+
+  <!-- Column 2: Question 2 (Domain Invariants) -->
+  <rect x="270" y="160" width="190" height="110" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="270" y="160" width="190" height="28" rx="8" fill="#2457d6"/>
+  <text x="365" y="179" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">2. Доменні правила?</text>
+  <text x="365" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">Перевірка інваріантів,</text>
+  <text x="365" y="223" font-size="12" fill="#1a1a1a" text-anchor="middle">бізнес-обчислення,</text>
+  <text x="365" y="241" font-size="12" fill="#6b7280" text-anchor="middle">каскадні зміни моделей</text>
+
+  <path d="M 365 270 L 365 322" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="375" y="300" font-size="12" font-weight="bold" fill="#27ae60">ТАК</text>
+
+  <path d="M 460 215 L 492 215" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="480" y="203" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">НІ</text>
+
+  <!-- Column 2 Verdict Card -->
+  <rect x="270" y="330" width="190" height="140" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="270" y="330" width="190" height="28" rx="8" fill="#27ae60"/>
+  <text x="365" y="349" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Шар обґрунтований</text>
+  <text x="365" y="375" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Domain / Use Case</text>
+  <text x="365" y="398" font-size="12" fill="#1a1a1a" text-anchor="middle">• Захищає правила</text>
+  <text x="365" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">• Обчислює стан</text>
+  <text x="365" y="438" font-size="12" fill="#6b7280" text-anchor="middle">• Не залежить від БД</text>
+
+  <!-- Column 3: Question 3 (Contract Isolation / DTO) -->
+  <rect x="500" y="160" width="190" height="110" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="500" y="160" width="190" height="28" rx="8" fill="#2457d6"/>
+  <text x="595" y="179" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">3. Ізоляція контракту?</text>
+  <text x="595" y="205" font-size="12" fill="#1a1a1a" text-anchor="middle">Захист від витоку моделей,</text>
+  <text x="595" y="223" font-size="12" fill="#1a1a1a" text-anchor="middle">DTO-мапінг, трансляція</text>
+  <text x="595" y="241" font-size="12" fill="#6b7280" text-anchor="middle">зовнішніх API/протоколів</text>
+
+  <path d="M 595 270 L 595 322" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="605" y="300" font-size="12" font-weight="bold" fill="#2457d6">ТАК</text>
+
+  <path d="M 690 215 L 722 215" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="710" y="203" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">НІ</text>
+
+  <!-- Column 3 Verdict Card -->
+  <rect x="500" y="330" width="190" height="140" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="500" y="330" width="190" height="28" rx="8" fill="#2457d6"/>
+  <text x="595" y="349" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Тонкий межовий шар</text>
+  <text x="595" y="375" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Adapter / Mapper</text>
+  <text x="595" y="398" font-size="12" fill="#1a1a1a" text-anchor="middle">• Ізолює схему даних</text>
+  <text x="595" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">• Мапить DTO ↔ Domain</text>
+  <text x="595" y="438" font-size="12" fill="#6b7280" text-anchor="middle">• Мінімум логіки</text>
+
+  <!-- Column 4: Pass-Through Layer Verdict -->
+  <rect x="730" y="160" width="190" height="110" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="730" y="160" width="190" height="28" rx="8" fill="#c0392b"/>
+  <text x="825" y="179" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">4. Pass-Through Layer</text>
+  <text x="825" y="205" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Порожній проміжний шар!</text>
+  <text x="825" y="223" font-size="12" fill="#1a1a1a" text-anchor="middle">Механічна трансляція</text>
+  <text x="825" y="241" font-size="12" fill="#1a1a1a" text-anchor="middle">викликів і параметрів</text>
+
+  <path d="M 825 270 L 825 322" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="835" y="300" font-size="12" font-weight="bold" fill="#c0392b">РІШЕННЯ</text>
+
+  <!-- Column 4 Action Card -->
+  <rect x="730" y="330" width="190" height="140" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="730" y="330" width="190" height="28" rx="8" fill="#c0392b"/>
+  <text x="825" y="349" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">УСУНУТИ ПРОКЛАДКУ</text>
+  <text x="825" y="375" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Оптимізація архітектури</text>
+  <text x="825" y="398" font-size="12" fill="#1a1a1a" text-anchor="middle">• Прямий виклик (Read)</text>
+  <text x="825" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">• CQRS / Open Layer</text>
+  <text x="825" y="438" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">• Прибрати ритуал!</text>
+
+  <!-- Bottom Summary Banner -->
+  <rect x="40" y="480" width="880" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="498" font-size="12" fill="#1a1a1a" text-anchor="middle">Кожен шар має нести обґрунтовану цінність, а не служити ритуальною прокладкою між викликами</text>
+</svg>

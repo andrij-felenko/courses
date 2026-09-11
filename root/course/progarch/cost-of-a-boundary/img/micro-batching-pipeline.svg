@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-sol" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Архітектура ядра мікропакетування: накопичення та амортизація межі</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Згортання поодиноких викликів у батч через Promise-колектор та демультиплексування</text>
+
+  <!-- ================= СЕКЦІЯ 1: Клієнтські потоки ================= -->
+  <rect x="24" y="74" width="160" height="308" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="104" y="96" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Клієнтські потоки</text>
+  <text x="104" y="112" font-size="12" text-anchor="middle" fill="#6b7280">джерела викликів</text>
+
+  <!-- Клієнт 1 -->
+  <rect x="34" y="126" width="140" height="66" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="146" font-size="12" font-weight="bold" fill="#1a1a1a">Потік 1: call(id)</text>
+  <text x="44" y="164" font-size="12" fill="#27ae60">← Future 1</text>
+  <text x="44" y="180" font-size="12" fill="#6b7280">неблокуючий</text>
+
+  <!-- Клієнт 2 -->
+  <rect x="34" y="204" width="140" height="66" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="224" font-size="12" font-weight="bold" fill="#1a1a1a">Потік 2: call(id)</text>
+  <text x="44" y="242" font-size="12" fill="#27ae60">← Future 2</text>
+  <text x="44" y="258" font-size="12" fill="#6b7280">неблокуючий</text>
+
+  <!-- Клієнт 3 -->
+  <rect x="34" y="282" width="140" height="66" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="302" font-size="12" font-weight="bold" fill="#1a1a1a">Потік 3: call(id)</text>
+  <text x="44" y="320" font-size="12" fill="#27ae60">← Future 3</text>
+  <text x="44" y="336" font-size="12" fill="#6b7280">неблокуючий</text>
+
+  <!-- ================= СЕКЦІЯ 2: Ядро мікропакетування ================= -->
+  <rect x="200" y="74" width="404" height="308" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="402" y="96" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Ядро мікропакетування (Client Gateway Core)</text>
+  <text x="402" y="112" font-size="12" text-anchor="middle" fill="#6b7280">накопичення викликів та утримання оптимуму витрат</text>
+
+  <!-- Підпанель 2.1: Накопичувач і тригер -->
+  <rect x="212" y="124" width="180" height="244" rx="5" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="302" y="144" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Буфер / Накопичувач</text>
+  <text x="302" y="160" font-size="12" text-anchor="middle" fill="#6b7280">потокобезпечна черга</text>
+
+  <!-- Блок черги -->
+  <rect x="222" y="168" width="160" height="76" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="302" y="186" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Черга слотів (FIFO)</text>
+  <text x="302" y="204" font-size="12" text-anchor="middle" fill="#1a1a1a">Слот 1: [id=1, Prom 1]</text>
+  <text x="302" y="222" font-size="12" text-anchor="middle" fill="#1a1a1a">Слот 2: [id=2, Prom 2]</text>
+  <text x="302" y="238" font-size="12" text-anchor="middle" fill="#6b7280">Слот 3: [id=3, Prom 3]</text>
+
+  <!-- Блок тригера -->
+  <rect x="222" y="260" width="160" height="96" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="302" y="278" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Адаптивний тригер</text>
+  <text x="232" y="298" font-size="12" fill="#1a1a1a">• Ліміт: N &gt;= N*</text>
+  <text x="232" y="316" font-size="12" fill="#1a1a1a">• Таймер: t &gt;= Δt</text>
+  <text x="232" y="338" font-size="12" font-weight="bold" fill="#27ae60">→ Спуск пачки (Flush)</text>
+
+  <!-- Підпанель 2.2: Воркер і Демультиплексор -->
+  <rect x="408" y="124" width="184" height="244" rx="5" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="500" y="144" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Воркер та Демультиплексор</text>
+  <text x="500" y="160" font-size="12" text-anchor="middle" fill="#6b7280">пакетування та доставка</text>
+
+  <!-- Блок упаковки батчу -->
+  <rect x="418" y="168" width="164" height="76" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="500" y="186" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">1. Збирання батчу</text>
+  <text x="428" y="206" font-size="12" fill="#1a1a1a">• Проєкція маски полів</text>
+  <text x="428" y="226" font-size="12" fill="#1a1a1a">• Пакунок: BatchRequest</text>
+
+  <!-- Блок демультиплексора -->
+  <rect x="418" y="260" width="164" height="96" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="500" y="278" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">2. Демультиплексор</text>
+  <text x="428" y="298" font-size="12" fill="#1a1a1a">• Розпакування BatchRes</text>
+  <text x="428" y="316" font-size="12" fill="#1a1a1a">• Співставлення ключів</text>
+  <text x="428" y="338" font-size="12" font-weight="bold" fill="#27ae60">→ Promise.resolve(Res)</text>
+
+  <!-- ================= СЕКЦІЯ 3: Архітектурна межа ================= -->
+  <rect x="620" y="74" width="96" height="308" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="668" y="96" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Шов / Межа</text>
+  <text x="668" y="112" font-size="12" text-anchor="middle" fill="#6b7280">Syscall / IPC</text>
+
+  <!-- Написи у верхній зоні межі (над стрілкою) -->
+  <text x="668" y="142" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">ПОДАТОК Т_fix</text>
+  <text x="668" y="160" font-size="12" text-anchor="middle" fill="#1a1a1a">1 раз на батч</text>
+  <text x="668" y="176" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">замість N</text>
+
+  <!-- Написи у середній зоні межі (між стрілками) -->
+  <text x="668" y="246" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Амортизація</text>
+  <text x="668" y="264" font-size="12" text-anchor="middle" fill="#6b7280">витрат каналу</text>
+
+  <!-- ================= СЕКЦІЯ 4: Віддалений сервіс ================= -->
+  <rect x="732" y="74" width="204" height="308" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="834" y="96" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Віддалений сервіс / БД</text>
+  <text x="834" y="112" font-size="12" text-anchor="middle" fill="#6b7280">обробка за межею</text>
+
+  <!-- Блок віддаленого обробника -->
+  <rect x="744" y="146" width="180" height="190" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="834" y="170" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Пакетний обробник</text>
+  <text x="834" y="190" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">POST /batch-query</text>
+  <text x="756" y="218" font-size="12" fill="#1a1a1a">• Вибірка N id за раз</text>
+  <text x="756" y="238" font-size="12" fill="#1a1a1a">• Усунення N+1 I/O</text>
+  <text x="756" y="258" font-size="12" fill="#1a1a1a">• Застосування маски</text>
+  <text x="756" y="278" font-size="12" fill="#1a1a1a">• Збирання відповідей</text>
+  <text x="834" y="312" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">return [Res 1, Res 2, ...]</text>
+
+  <!-- ================= СТРІЛКИ ВЗАЄМОДІЇ ================= -->
+  <!-- Вхідні виклики від клієнтів у чергу (x: 174 -> 200) -->
+  <line x1="174" y1="159" x2="200" y2="159" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <line x1="174" y1="237" x2="200" y2="237" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <line x1="174" y1="315" x2="200" y2="315" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Пакетний запит через межу (y=206) -->
+  <line x1="604" y1="206" x2="732" y2="206" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Пакетна відповідь через межу (y=308) -->
+  <line x1="744" y1="308" x2="604" y2="308" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-sol)"/>
+
+  <!-- ================= СЕКЦІЯ 5: Нижні пояснювальні картки ================= -->
+  <!-- Картка 1 -->
+  <rect x="24" y="398" width="286" height="82" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="167" y="418" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">1. Асинхронний збір (Promise-колектор)</text>
+  <text x="36" y="440" font-size="12" fill="#1a1a1a">• Незалежні поштучні виклики від потоків</text>
+  <text x="36" y="460" font-size="12" fill="#6b7280">• Негайне повернення ф'ючерсів без I/O</text>
+
+  <!-- Картка 2 -->
+  <rect x="326" y="398" width="296" height="82" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="474" y="418" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">2. Адаптивний тригер та маска полів</text>
+  <text x="338" y="440" font-size="12" fill="#1a1a1a">• Спуск: ліміт N* або таймер вікна Δt</text>
+  <text x="338" y="460" font-size="12" fill="#2457d6">• Проєкція полів усуває надвибірку байтів</text>
+
+  <!-- Картка 3 -->
+  <rect x="638" y="398" width="298" height="82" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="787" y="418" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">3. Амортизація межі та демультиплексування</text>
+  <text x="650" y="440" font-size="12" fill="#1a1a1a">• 1 перехід (T_fixed) замість N викликів</text>
+  <text x="650" y="460" font-size="12" fill="#27ae60">• Демультиплексор резолвить ф'ючерси</text>
+</svg>

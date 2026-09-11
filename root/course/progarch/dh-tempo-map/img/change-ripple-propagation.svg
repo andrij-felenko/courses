@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-prob" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Каскадне поширення змін: хвильовий ефект (I - P)⁻¹ та радіус ураження</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Зміна спільної таблиці devices дестабілізує консервативне ядро та периферію через транзитивні зв'язки</text>
+
+  <!-- ================= КОЛОНКА 1: Епіцентр змін ================= -->
+  <rect x="24" y="74" width="170" height="326" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="109" y="96" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">Епіцентр змін</text>
+  <text x="109" y="112" font-size="12" text-anchor="middle" fill="#6b7280">спільна структура даних</text>
+
+  <!-- Таблиця БД -->
+  <rect x="36" y="126" width="146" height="144" rx="5" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="109" y="146" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Таблиця: devices</text>
+  <text x="46" y="168" font-size="12" fill="#1a1a1a">id: uuid (PK)</text>
+  <text x="46" y="188" font-size="12" fill="#1a1a1a">name: varchar</text>
+
+  <!-- Змінений стовпець -->
+  <rect x="42" y="196" width="134" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="46" y="212" font-size="12" font-weight="bold" fill="#c0392b">Δ config: jsonb</text>
+
+  <text x="46" y="234" font-size="12" fill="#1a1a1a">status: enum</text>
+  <text x="46" y="254" font-size="12" fill="#6b7280">updated_at: ts</text>
+
+  <!-- Інформаційний блок -->
+  <rect x="36" y="284" width="146" height="102" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="109" y="304" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Ініціатор хвилі</text>
+  <text x="46" y="324" font-size="12" fill="#c0392b">• Зміна схеми DDL</text>
+  <text x="46" y="344" font-size="12" fill="#6b7280">• Вектор збурення:</text>
+  <text x="109" y="366" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">δ_dev = [1, 0, 0...]</text>
+
+  <!-- ================= КОЛОНКА 2: Крок 1 (Матриця P) ================= -->
+  <rect x="212" y="74" width="210" height="326" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="317" y="96" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Крок 1: Прямий вплив P</text>
+  <text x="317" y="112" font-size="12" text-anchor="middle" fill="#6b7280">прямі споживачі таблиці</text>
+
+  <!-- Device Core -->
+  <rect x="224" y="126" width="186" height="114" rx="5" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="317" y="146" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Device Core (Ядро)</text>
+  <text x="317" y="164" font-size="12" text-anchor="middle" fill="#6b7280">Темп: повільний (квартал)</text>
+  <text x="234" y="184" font-size="12" font-weight="bold" fill="#c0392b">• Вразливість: P = 0.85</text>
+  <text x="234" y="202" font-size="12" fill="#1a1a1a">• Злам ORM та валідації</text>
+  <text x="317" y="224" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">ІНВЕРСІЯ ТЕМПІВ</text>
+
+  <!-- Driver Gateway -->
+  <rect x="224" y="254" width="186" height="132" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="317" y="274" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Driver Gateway</text>
+  <text x="317" y="292" font-size="12" text-anchor="middle" fill="#6b7280">Темп: середній (місяць)</text>
+  <text x="234" y="312" font-size="12" font-weight="bold" fill="#2457d6">• Вразливість: P = 0.70</text>
+  <text x="234" y="332" font-size="12" fill="#1a1a1a">• Конфіги драйверів IoT</text>
+  <text x="234" y="352" font-size="12" fill="#6b7280">• Оновлення DTO протоколів</text>
+  <text x="317" y="372" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Патч парсерів</text>
+
+  <!-- ================= КОЛОНКА 3: Крок 2 (Матриця P²) ================= -->
+  <rect x="440" y="74" width="210" height="326" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="545" y="96" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Крок 2: Хвиля P²</text>
+  <text x="545" y="112" font-size="12" text-anchor="middle" fill="#6b7280">транзитивний зсув залежностей</text>
+
+  <!-- Rules Engine -->
+  <rect x="452" y="126" width="186" height="114" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="545" y="146" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Rules Engine (Сценарії)</text>
+  <text x="545" y="164" font-size="12" text-anchor="middle" fill="#6b7280">залежить від Device Core</text>
+  <text x="462" y="184" font-size="12" font-weight="bold" fill="#2457d6">• P(Core → Rules) = 0.65</text>
+  <text x="462" y="204" font-size="12" fill="#1a1a1a">• Транзитивна хвиля P²: 0.55</text>
+  <text x="545" y="224" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Збій автоматизацій</text>
+
+  <!-- Mobile BFF -->
+  <rect x="452" y="254" width="186" height="132" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="545" y="274" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Mobile BFF (Агрегатор)</text>
+  <text x="545" y="292" font-size="12" text-anchor="middle" fill="#6b7280">залежить від Core/Gateway</text>
+  <text x="462" y="312" font-size="12" font-weight="bold" fill="#2457d6">• P(GW → BFF) = 0.60</text>
+  <text x="462" y="332" font-size="12" fill="#1a1a1a">• Транзитивна хвиля P²: 0.42</text>
+  <text x="462" y="352" font-size="12" fill="#6b7280">• Несумісність схем API</text>
+  <text x="545" y="372" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Терміновий реліз</text>
+
+  <!-- ================= КОЛОНКА 4: Радіус ураження (I - P)⁻¹ ================= -->
+  <rect x="668" y="74" width="268" height="326" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="802" y="96" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Замикання R = (I - P)⁻¹</text>
+  <text x="802" y="112" font-size="12" text-anchor="middle" fill="#6b7280">сумарний транзитивний радіус</text>
+
+  <!-- Математичний блок -->
+  <rect x="680" y="126" width="244" height="102" rx="5" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="802" y="146" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Резольвента Неймана</text>
+  <text x="802" y="166" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">R = I + P + P² + P³ + ...</text>
+  <text x="802" y="186" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">R = (I - P)⁻¹</text>
+  <text x="692" y="206" font-size="12" fill="#6b7280">• Всі непрямі шляхи каскаду</text>
+  <text x="692" y="220" font-size="12" fill="#1a1a1a">• Оцінка кумулятивного ripple</text>
+
+  <!-- Радіус ураження -->
+  <rect x="680" y="242" width="244" height="144" rx="5" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="802" y="262" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Blast Radius: 5.12 сервісів</text>
+  <text x="692" y="284" font-size="12" fill="#1a1a1a">1. Таблиця devices: 1.00</text>
+  <text x="692" y="302" font-size="12" fill="#c0392b">2. Device Core (ядро): 0.94</text>
+  <text x="692" y="320" font-size="12" fill="#2457d6">3. Driver Gateway: 0.81</text>
+  <text x="692" y="338" font-size="12" fill="#1a1a1a">4. Rules Engine: 0.62</text>
+  <text x="692" y="356" font-size="12" fill="#1a1a1a">5. Mobile BFF / App: 0.75</text>
+  <text x="802" y="376" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Паралізовано 5 із 6 вузлів!</text>
+
+  <!-- ================= СТРІЛКИ КАСКАДУ ================= -->
+  <!-- 1 -> 2A -->
+  <line x1="182" y1="183" x2="224" y2="183" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-prob)"/>
+
+  <!-- 1 -> 2B -->
+  <line x1="182" y1="320" x2="224" y2="320" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- 2A -> 3A -->
+  <line x1="410" y1="183" x2="452" y2="183" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-prob)"/>
+
+  <!-- 2B -> 3B -->
+  <line x1="410" y1="320" x2="452" y2="320" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- 3A -> 4A -->
+  <line x1="638" y1="177" x2="680" y2="177" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- 3B -> 4B -->
+  <line x1="638" y1="314" x2="680" y2="314" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-prob)"/>
+
+  <!-- ================= СЕКЦІЯ 5: Нижні картки аналізу ================= -->
+  <!-- Картка 1 -->
+  <rect x="24" y="416" width="286" height="84" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="167" y="436" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">1. Епіцентр у спільній структурі</text>
+  <text x="36" y="458" font-size="12" fill="#1a1a1a">• Зміна схеми devices руйнує межі модулів</text>
+  <text x="36" y="478" font-size="12" fill="#6b7280">• Спільна БД — прямий провідник каскаду змін</text>
+
+  <!-- Картка 2 -->
+  <rect x="326" y="416" width="296" height="84" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="474" y="436" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">2. Дефект інверсії темпів</text>
+  <text x="338" y="458" font-size="12" fill="#c0392b">• Повільне ядро стає нестабільним</text>
+  <text x="338" y="478" font-size="12" fill="#6b7280">• Порушення градієнта: I = Ce/(Ca+Ce)</text>
+
+  <!-- Картка 3 -->
+  <rect x="638" y="416" width="298" height="84" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="787" y="436" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">3. Матриця (I - P)⁻¹ і CI/CD аудит</text>
+  <text x="650" y="458" font-size="12" fill="#1a1a1a">• Резольвента рахує повний радіус ураження</text>
+  <text x="650" y="478" font-size="12" fill="#2457d6">• Фітнес-функції блокують інверсії</text>
+</svg>

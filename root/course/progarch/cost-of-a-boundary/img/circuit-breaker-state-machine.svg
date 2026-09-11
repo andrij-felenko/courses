@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Автомат станів Circuit Breaker: переходи та захист межі</text>
+  <text x="480" y="66" text-anchor="middle" font-size="13" fill="#6b7280">Розмикання кола запобігає каскадним збоям, а напівзімкнений стан зондує готовність бекенду</text>
+
+  <!-- Верхні стрілки відновлення (справа наліво) -->
+  <!-- 1. Open -> Half-Open (таймер) -->
+  <path d="M 750,160 V 108 H 520 V 160" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="635" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Таймер сплив (sleep_window)</text>
+
+  <!-- 2. Half-Open -> Closed (успіх probe) -->
+  <path d="M 440,160 V 108 H 210 V 160" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="325" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Проби успішні (K успіхів)</text>
+
+  <!-- Картка 1: CLOSED (Зімкнений) -->
+  <rect x="50" y="160" width="250" height="205" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 50,200 V 168 A 8,8 0 0 1 58,160 H 292 A 8,8 0 0 1 300,168 V 200 Z" fill="#27ae60"/>
+  <text x="175" y="186" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">ЗІМКНЕНИЙ (CLOSED)</text>
+  <text x="70" y="225" font-size="12" font-weight="bold" fill="#27ae60">● Штатний режим роботи</text>
+  <text x="70" y="250" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Трафік:</tspan> 100% до бекенду</text>
+  <text x="70" y="275" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Метрика:</tspan> вікно помилок</text>
+  <text x="70" y="300" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Тригер:</tspan> fail_rate ≥ поріг</text>
+  <text x="175" y="340" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">✔ СТАН: ЗІМКНЕНО (НОРМА)</text>
+
+  <!-- Картка 2: HALF-OPEN (Напівзімкнений) -->
+  <rect x="355" y="160" width="250" height="205" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 355,200 V 168 A 8,8 0 0 1 363,160 H 597 A 8,8 0 0 1 605,168 V 200 Z" fill="#2457d6"/>
+  <text x="480" y="186" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">НАПІВЗІМКНЕНИЙ (HALF-OPEN)</text>
+  <text x="375" y="225" font-size="12" font-weight="bold" fill="#2457d6">● Пробне зондування межі</text>
+  <text x="375" y="250" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Трафік:</tspan> 1 тестовий виклик</text>
+  <text x="375" y="275" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Решта:</tspan> блокується (fast-fail)</text>
+  <text x="375" y="300" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Перевірка:</tspan> K успіхів поспіль</text>
+  <text x="480" y="340" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">⚡ СТАН: ЗОНДУВАННЯ (ТЕСТ)</text>
+
+  <!-- Картка 3: OPEN (Розімкнений) -->
+  <rect x="660" y="160" width="250" height="205" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 660,200 V 168 A 8,8 0 0 1 668,160 H 902 A 8,8 0 0 1 910,168 V 200 Z" fill="#c0392b"/>
+  <text x="785" y="186" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">РОЗІМКНЕНИЙ (OPEN)</text>
+  <text x="680" y="225" font-size="12" font-weight="bold" fill="#c0392b">● Захист і ізоляція відмови</text>
+  <text x="680" y="250" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Трафік:</tspan> 0% до бекенду (блок)</text>
+  <text x="680" y="275" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Реакція:</tspan> миттєвий Fallback</text>
+  <text x="680" y="300" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Таймер:</tspan> сон sleep_window</text>
+  <text x="785" y="340" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">✖ СТАН: РОЗІМКНЕНО (БЛОК)</text>
+
+  <!-- Нижні стрілки збоїв (зліва направо) -->
+  <!-- 3. Half-Open -> Open (збій probe) -->
+  <path d="M 520,365 V 414 H 750 V 365" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="635" y="394" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Пробний збій (≥ 1 помилка)</text>
+
+  <!-- 4. Closed -> Open (перевищення порогу помилок) -->
+  <path d="M 175,365 V 480 H 835 V 365" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="505" y="440" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Поріг помилок перевищено (fail_rate ≥ поріг або N таймаутів)</text>
+  <text x="505" y="465" text-anchor="middle" font-size="12" fill="#6b7280">Аварійне розмикання кола: 100% запитів перемикаються на Fast-Fail / Fallback</text>
+</svg>

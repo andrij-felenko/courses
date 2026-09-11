@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Матриця помилок застосування темпових шарів (Pace Layering)</text>
+  <text x="480" y="64" font-size="13" fill="#6b7280" text-anchor="middle">Занедбаність замість надійності та бюрократія замість автономії: як правильно розводити темпи</text>
+  <rect x="25" y="86" width="445" height="398" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="25" y="86" width="445" height="34" rx="8" fill="#fdecea"/>
+  <text x="40" y="108" font-size="13" font-weight="bold" fill="#c0392b">СПОТВОРЕННЯ ТЕМПІВ (АНТИПАТЕРНИ)</text>
+  <rect x="37" y="132" width="421" height="152" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="49" y="154" font-size="13" font-weight="bold" fill="#c0392b">1. Занедбаність замість надійності (Neglect)</text>
+  <text x="49" y="174" font-size="12" fill="#1a1a1a">• Ілюзія: «Шар повільний, тож оновлення не потрібні»</text>
+  <text x="49" y="194" font-size="12" fill="#1a1a1a">• Наслідок: накопичення техборгу й застарілий стек</text>
+  <text x="49" y="214" font-size="12" fill="#6b7280">• Повільний темп стає виправданням застою</text>
+  <text x="49" y="234" font-size="12" font-weight="bold" fill="#c0392b">Результат: страх перед змінами та аварії ядра</text>
+  <text x="49" y="254" font-size="12" fill="#6b7280">• Рідкісні деплої супроводжуються нічними авралами</text>
+  <rect x="37" y="298" width="421" height="152" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="49" y="320" font-size="13" font-weight="bold" fill="#c0392b">2. Бюрократія замість автономії (Coupling)</text>
+  <text x="49" y="340" font-size="12" fill="#1a1a1a">• Ілюзія: «Усі релізи мають іти синхронно»</text>
+  <text x="49" y="360" font-size="12" fill="#1a1a1a">• Наслідок: спільні релізні поїзди та комітети</text>
+  <text x="49" y="380" font-size="12" fill="#6b7280">• Швидкі шари насильно прив'язані до темпу ядра</text>
+  <text x="49" y="400" font-size="12" font-weight="bold" fill="#c0392b">Результат: параліч випусків і тертя команд</text>
+  <text x="49" y="420" font-size="12" fill="#6b7280">• Дрібна правка UI чекає місяцями на реліз бекенду</text>
+  <rect x="490" y="86" width="445" height="398" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <rect x="490" y="86" width="445" height="34" rx="8" fill="#e9f7ef"/>
+  <text x="505" y="108" font-size="13" font-weight="bold" fill="#27ae60">АРХІТЕКТУРНА НОРМА (ЗРІЛИЙ РОЗВ'ЯЗОК)</text>
+  <rect x="502" y="132" width="421" height="152" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="514" y="154" font-size="13" font-weight="bold" fill="#27ae60">1. Надійність замість занедбаності (Reliability)</text>
+  <text x="514" y="174" font-size="12" fill="#1a1a1a">• Принцип: повільний темп — це вища ціна збою</text>
+  <text x="514" y="194" font-size="12" fill="#1a1a1a">• Практика: суворі інваріанти та 100% тестів</text>
+  <text x="514" y="214" font-size="12" fill="#6b7280">• Регулярні оновлення, бекпорти й безпекові патчі</text>
+  <text x="514" y="234" font-size="12" font-weight="bold" fill="#27ae60">Результат: непохитний і передбачуваний фундамент</text>
+  <text x="514" y="254" font-size="12" fill="#6b7280">• Рідкісні релізи проходять безпечно й планово</text>
+  <rect x="502" y="298" width="421" height="152" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="514" y="320" font-size="13" font-weight="bold" fill="#27ae60">2. Автономія замість бюрократії (Autonomy)</text>
+  <text x="514" y="340" font-size="12" fill="#1a1a1a">• Принцип: різні годинники вимагають буферів</text>
+  <text x="514" y="360" font-size="12" fill="#1a1a1a">• Практика: черги Outbox, кеші знімків, версії API</text>
+  <text x="514" y="380" font-size="12" fill="#6b7280">• Швидкі шари оновлюються без блокувань ядра</text>
+  <text x="514" y="400" font-size="12" font-weight="bold" fill="#27ae60">Результат: щоденні релізи UI без ризику для ядра</text>
+  <text x="514" y="420" font-size="12" fill="#6b7280">• Кожна частина рухається за власним розкладом</text>
+  <rect x="25" y="498" width="910" height="42" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="524" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принцип Pace Layering: швидке експериментує, повільне — стабілізує й оберігає цілісність</text>
+</svg>

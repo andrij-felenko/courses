@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Стрілки -->
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ціна межі: виклик усередині процесу проти винесеного сервісу</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Проста лінія розпилу на діаграмі обертається стрибком латентності, перевантаженням CPU та частковими відмовами</text>
+
+  <!-- ЛІВА ПАНЕЛЬ (МОНОЛІТ) -->
+  <rect x="35" y="85" width="430" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок лівої панелі -->
+  <rect x="55" y="102" width="390" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="250" y="123" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">ДО РОЗНЕСЕННЯ: Один процес (Моноліт)</text>
+
+  <!-- Контейнер процесу моноліту -->
+  <rect x="55" y="148" width="390" height="170" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="75" y="172" font-size="12" font-weight="bold" fill="#27ae60">Процес ОС: DigitalHomeApp (спільна пам'ять DRAM)</text>
+
+  <!-- Модуль 1: AutomationEngine -->
+  <rect x="75" y="190" width="145" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="147" y="214" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AutomationEngine</text>
+  <text x="147" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Сценарій «Вихід»</text>
+  <text x="147" y="260" font-size="12" fill="#2457d6" text-anchor="middle">Прямий виклик</text>
+  <text x="147" y="282" font-size="12" fill="#27ae60" text-anchor="middle">Вказівник у пам'яті</text>
+
+  <!-- Стрілка прямого виклику в пам'яті -->
+  <line x1="220" y1="248" x2="273" y2="248" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="247" y="235" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">5 мкс</text>
+
+  <!-- Модуль 2: DeviceRegistry -->
+  <rect x="280" y="190" width="145" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="352" y="214" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DeviceRegistry</text>
+  <text x="352" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Реєстр 40 пристроїв</text>
+  <text x="352" y="260" font-size="12" fill="#27ae60" text-anchor="middle">ACID-транзакція</text>
+  <text x="352" y="282" font-size="12" fill="#6b7280" text-anchor="middle">Спільна куча (heap)</text>
+
+  <!-- Картка метрик моноліту -->
+  <rect x="55" y="330" width="390" height="184" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="75" y="356" font-size="13" font-weight="bold" fill="#1a1a1a">Фізичні показники взаємодії:</text>
+  <text x="75" y="384" font-size="12" fill="#1a1a1a">• Затримка виклику: <tspan font-weight="bold" fill="#27ae60">5 мкс</tspan> (регістри CPU, нуль мережі)</text>
+  <text x="75" y="412" font-size="12" fill="#1a1a1a">• Передача даних: <tspan font-weight="bold" fill="#27ae60">0 копіювань</tspan> (вказівник у купі)</text>
+  <text x="75" y="440" font-size="12" fill="#1a1a1a">• Витрати CPU: <tspan font-weight="bold" fill="#27ae60">&lt; 1%</tspan> (без серіалізації та парсингу)</text>
+  <text x="75" y="468" font-size="12" fill="#1a1a1a">• Надійність: <tspan font-weight="bold" fill="#27ae60">ACID-атомарність</tspan> (успіх або повний відкат)</text>
+  <text x="75" y="496" font-size="12" font-weight="bold" fill="#27ae60">✓ Усі 40 пристроїв перемкнено за 0.2 мс без помилок</text>
+
+  <!-- ЦЕНТРАЛЬНИЙ РОЗДІЛЮВАЧ -->
+  <line x1="480" y1="95" x2="480" y2="268" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <rect x="466" y="272" width="28" height="20" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="286" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">VS</text>
+  <line x1="480" y1="300" x2="480" y2="520" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- ПРАВА ПАНЕЛЬ (МІКРОСЕРВІСИ) -->
+  <rect x="495" y="85" width="430" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок правої панелі -->
+  <rect x="515" y="102" width="390" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="710" y="123" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">ПІСЛЯ РОЗНЕСЕННЯ: Мережева межа (Мікросервіси)</text>
+
+  <!-- Сервіс 1: Automation -->
+  <rect x="515" y="148" width="125" height="170" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="577" y="172" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сервіс Automation</text>
+  <rect x="525" y="190" width="105" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="577" y="214" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сценарій</text>
+  <text x="577" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Цикл по 40 шт</text>
+  <text x="577" y="260" font-size="12" fill="#c0392b" text-anchor="middle">40 HTTP-запитів</text>
+  <text x="577" y="282" font-size="12" fill="#c0392b" text-anchor="middle">N+1 балакучість</text>
+
+  <!-- Мережева зона (Прірва мережі) -->
+  <rect x="648" y="175" width="124" height="125" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="710" y="196" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Прірва мережі</text>
+
+  <!-- Стрілки запиту та відповіді -->
+  <line x1="630" y1="222" x2="772" y2="222" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="710" y="218" font-size="12" fill="#c0392b" text-anchor="middle">POST JSON (70 мс)</text>
+
+  <line x1="772" y1="248" x2="632" y2="248" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="710" y="244" font-size="12" fill="#c0392b" text-anchor="middle">HTTP 200 / таймаут</text>
+  <text x="710" y="290" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">часткова відмова!</text>
+
+  <!-- Сервіс 2: Registry -->
+  <rect x="780" y="148" width="125" height="170" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="842" y="172" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сервіс Registry</text>
+  <rect x="790" y="190" width="105" height="110" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="842" y="214" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Контролер</text>
+  <text x="842" y="238" font-size="12" fill="#c0392b" text-anchor="middle">Парсинг JSON</text>
+  <text x="842" y="260" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">90% CPU</text>
+  <text x="842" y="282" font-size="12" fill="#c0392b" text-anchor="middle">Без транзакцій</text>
+
+  <!-- Картка метрик рознесеного сервісу -->
+  <rect x="515" y="330" width="390" height="184" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="535" y="356" font-size="13" font-weight="bold" fill="#c0392b">Фізичні наслідки межі (Аварія / Колапс):</text>
+  <text x="535" y="384" font-size="12" fill="#1a1a1a">• Затримка виклику: <tspan font-weight="bold" fill="#c0392b">70 мс</tspan> (стрибок у 14 000 разів!)</text>
+  <text x="535" y="412" font-size="12" fill="#1a1a1a">• Передача даних: <tspan font-weight="bold" fill="#c0392b">40 пакетів JSON</tspan> (серіалізація DTO)</text>
+  <text x="535" y="440" font-size="12" fill="#1a1a1a">• Навантаження CPU: <tspan font-weight="bold" fill="#c0392b">90% CPU</tspan> на парсинг текстових рядків</text>
+  <text x="535" y="468" font-size="12" fill="#1a1a1a">• Надійність: <tspan font-weight="bold" fill="#c0392b">Часткова відмова</tspan> (таймаут на 23-му реле)</text>
+  <text x="535" y="496" font-size="12" font-weight="bold" fill="#c0392b">✗ Колапс: сценарій завис на 2.8 с, замок не замкнуто</text>
+</svg>

@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White background rect -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура-лазанья: марнотратство коду та паразитна транзитність</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Для читання запису 5 із 6 ланок є пустими посередниками, що копіюють однакові поля</text>
+
+  <!-- Panel 1: Lasagna Stack (Strict Layering) -->
+  <rect x="30" y="80" width="580" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="105" font-size="13" font-weight="bold" fill="#1a1a1a">Ланцюжок закритої шаровості (J2EE / EJB догмат)</text>
+  <text x="45" y="125" font-size="12" fill="#6b7280">Виклик читання: GET /users/{id} ➔ обробка 6 шарами</text>
+
+  <!-- Row 1: Controller -->
+  <rect x="45" y="136" width="220" height="38" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="58" y="160" font-size="12" font-weight="bold" fill="#2457d6">1. UserController</text>
+  <rect x="277" y="136" width="318" height="38" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="290" y="160" font-size="12" fill="#c0392b">Прийом HTTP-запиту: створення DTO</text>
+
+  <!-- Row 2: Controller DTO -->
+  <rect x="45" y="182" width="220" height="38" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="58" y="206" font-size="12" font-weight="bold" fill="#2457d6">2. UserRequestDTO</text>
+  <rect x="277" y="182" width="318" height="38" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="290" y="206" font-size="12" fill="#c0392b">Копіювання id: зайвий обʼєкт у heap</text>
+
+  <!-- Row 3: Service -->
+  <rect x="45" y="228" width="220" height="38" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="58" y="252" font-size="12" font-weight="bold" fill="#2457d6">3. UserService</text>
+  <rect x="277" y="228" width="318" height="38" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="290" y="252" font-size="12" fill="#c0392b">Транзит: return userManager.get(id)</text>
+
+  <!-- Row 4: Manager -->
+  <rect x="45" y="274" width="220" height="38" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="58" y="298" font-size="12" font-weight="bold" fill="#2457d6">4. UserManager</text>
+  <rect x="277" y="274" width="318" height="38" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="290" y="298" font-size="12" fill="#c0392b">Транзит: return userDao.find(id)</text>
+
+  <!-- Row 5: DAO -->
+  <rect x="45" y="320" width="220" height="38" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="58" y="344" font-size="12" font-weight="bold" fill="#2457d6">5. UserDAO</text>
+  <rect x="277" y="320" width="318" height="38" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="290" y="344" font-size="12" fill="#c0392b">Транзит: session.get(User.class, id)</text>
+
+  <!-- Row 6: Entity / Useful DB Work -->
+  <rect x="45" y="366" width="220" height="38" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="58" y="390" font-size="12" font-weight="bold" fill="#27ae60">6. UserEntity (БД)</text>
+  <rect x="277" y="366" width="318" height="38" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="290" y="390" font-size="12" font-weight="bold" fill="#27ae60">Корисна робота: SQL SELECT із таблиці</text>
+
+  <!-- Panel 2: Vertical Slice / Relaxed Layering -->
+  <rect x="625" y="80" width="305" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="640" y="105" font-size="13" font-weight="bold" fill="#1a1a1a">Вертикальний зріз (CQRS / Relaxed)</text>
+  <text x="640" y="125" font-size="12" fill="#6b7280">Пряме читання без посередників:</text>
+
+  <!-- Card 2A: Query Handler -->
+  <rect x="638" y="140" width="279" height="76" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="650" y="164" font-size="12" font-weight="bold" fill="#2457d6">UserController / QueryHandler</text>
+  <text x="650" y="182" font-size="12" fill="#1a1a1a">• Отримує HTTP GET запит</text>
+  <text x="650" y="200" font-size="12" fill="#6b7280">• Формує прямий SQL-запит вибірки</text>
+
+  <!-- Connector Line and Label -->
+  <line x1="777" y1="222" x2="777" y2="252" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-success)"/>
+  <text x="792" y="242" font-size="12" font-weight="bold" fill="#27ae60">Zero-copy (1 крок)</text>
+
+  <!-- Card 2B: Direct Projection DTO -->
+  <rect x="638" y="260" width="279" height="144" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="650" y="284" font-size="12" font-weight="bold" fill="#27ae60">UserResponseDTO (Пряма проєкція)</text>
+  <text x="650" y="302" font-size="12" fill="#1a1a1a">• Дані з SQL одразу у вихідний DTO</text>
+  <text x="650" y="320" font-size="12" fill="#1a1a1a">• 0 проміжних класів-посередників</text>
+  <text x="650" y="338" font-size="12" fill="#27ae60">• 1 алокація в купі замість 5</text>
+  <text x="650" y="356" font-size="12" fill="#27ae60">• 100% корисної роботи процесора</text>
+  <text x="650" y="374" font-size="12" fill="#6b7280">• Зміна схеми вимагає правки 1 файлу</text>
+
+  <!-- Bottom Summary Cards -->
+  <rect x="30" y="440" width="290" height="100" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="44" y="465" font-size="13" font-weight="bold" fill="#c0392b">Запах коду «Middle Man»</text>
+  <text x="44" y="483" font-size="12" fill="#6b7280">Мартін Фаулер, Рефакторинг (1999):</text>
+  <text x="44" y="501" font-size="12" fill="#1a1a1a">Шар або клас, що лише делегує</text>
+  <text x="44" y="519" font-size="12" fill="#c0392b">виклик далі, є шкідливим баластом</text>
+
+  <rect x="335" y="440" width="290" height="100" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="349" y="465" font-size="13" font-weight="bold" fill="#c0392b">Ілюзія модульності (Хвилі змін)</text>
+  <text x="349" y="483" font-size="12" fill="#6b7280">Ціна закритої багатошаровості:</text>
+  <text x="349" y="501" font-size="12" fill="#1a1a1a">Додавання поля в таблицю вимагає</text>
+  <text x="349" y="519" font-size="12" fill="#1a1a1a">зміни 6 файлів і 5 маперів поспіль</text>
+
+  <rect x="640" y="440" width="290" height="100" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="654" y="465" font-size="13" font-weight="bold" fill="#27ae60">Відкрита шаровість (Relaxed)</text>
+  <text x="654" y="483" font-size="12" fill="#6b7280">Прагматичний баланс абстракцій:</text>
+  <text x="654" y="501" font-size="12" fill="#1a1a1a">Прямий доступ на читання записів;</text>
+  <text x="654" y="519" font-size="12" fill="#1a1a1a">сувора ізоляція — лише для мутацій</text>
+</svg>

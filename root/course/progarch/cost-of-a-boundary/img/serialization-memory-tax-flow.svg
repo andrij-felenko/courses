@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ціна межі: конвеєр серіалізації та податок на пам'ять</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Перетин адресного простору вимагає прихованих копіювань і алокацій проти нульових витрат у спільній пам'яті</text>
+
+  <!-- СЕКЦІЯ 1: Перетин межі адресних просторів (IPC / Мережа) -->
+
+  <!-- Панель 1: Процес A -->
+  <rect x="24" y="82" width="260" height="342" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="36" y="104" font-size="14" font-weight="bold" fill="#1a1a1a">Процес A (Відправник)</text>
+  <text x="36" y="121" font-size="12" fill="#6b7280">Користувацький простір (User Space)</text>
+
+  <!-- Картка A1: Граф об'єктів у купі -->
+  <rect x="36" y="134" width="236" height="118" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="48" y="152" font-size="13" font-weight="bold" fill="#1a1a1a">1. Граф об'єктів у купі</text>
+  <text x="48" y="168" font-size="12" fill="#6b7280">Складні зв'язки за вказівниками</text>
+
+  <rect x="48" y="180" width="60" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="78" y="196" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Order</text>
+  <line x1="108" y1="192" x2="124" y2="192" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="126" y="180" width="60" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="156" y="196" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">User</text>
+  <line x1="186" y1="192" x2="202" y2="192" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="204" y="180" width="56" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="232" y="196" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Item</text>
+
+  <text x="48" y="232" font-size="12" fill="#1a1a1a">Прямі адреси пам'яті в купі A</text>
+
+  <!-- Стрілка вниз між картками A1 та A2 -->
+  <line x1="154" y1="252" x2="154" y2="268" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Картка A2: Серіалізація та системний виклик -->
+  <rect x="36" y="268" width="236" height="142" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="46" y="278" width="164" height="20" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="128" y="292" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Податок: Алокація #1</text>
+
+  <text x="48" y="316" font-size="13" font-weight="bold" fill="#1a1a1a">2. Серіалізація та write()</text>
+  <text x="48" y="334" font-size="12" fill="#1a1a1a">Обхід графа → плоский буфер</text>
+  <text x="48" y="350" font-size="12" fill="#6b7280">Виділення байтового масиву</text>
+
+  <rect x="48" y="362" width="212" height="22" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="154" y="377" font-size="12" fill="#2457d6" font-family="monospace" text-anchor="middle">[0x7F, 0x45, 0x4C, 0x46, ...]</text>
+
+  <text x="48" y="400" font-size="12" fill="#c0392b">Syscall: перемикання в ядро</text>
+
+  <!-- Стрілка перетину межі: Процес A -> Ядро ОС -->
+  <line x1="284" y1="340" x2="316" y2="340" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Панель 2: Ядро ОС -->
+  <rect x="316" y="82" width="328" height="342" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="330" y="104" font-size="14" font-weight="bold" fill="#1a1a1a">Ядро ОС (Kernel Space)</text>
+  <text x="330" y="121" font-size="12" fill="#6b7280">Буфери сокетів, черги IPC, ізоляція</text>
+
+  <!-- Картка K2: Буфер сокета одержувача (Верхня) -->
+  <rect x="330" y="134" width="300" height="118" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="342" y="154" font-size="13" font-weight="bold" fill="#1a1a1a">4. Буфер сокета одержувача</text>
+  <text x="342" y="172" font-size="12" fill="#1a1a1a">Черга сокета / каналу IPC процесу B</text>
+  <text x="342" y="188" font-size="12" fill="#6b7280">Пакет очікує системного виклику read()</text>
+
+  <rect x="342" y="198" width="276" height="22" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="480" y="213" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">Буфер сокета прийому (RX buffer)</text>
+
+  <text x="342" y="238" font-size="12" fill="#c0392b">Готовність до копіювання в простір B</text>
+
+  <!-- Стрілка вгору всередині ядра: від K1 до K2 -->
+  <line x1="480" y1="268" x2="480" y2="252" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Картка K1: Буфер сокета відправника (Нижня) -->
+  <rect x="330" y="268" width="300" height="142" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="342" y="278" width="184" height="20" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="434" y="292" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Податок: Копіювання #1</text>
+
+  <text x="342" y="316" font-size="13" font-weight="bold" fill="#1a1a1a">3. Буфер сокета відправника</text>
+  <text x="342" y="334" font-size="12" fill="#1a1a1a">Копіювання: пам'ять A → sk_buff ядра</text>
+  <text x="342" y="350" font-size="12" fill="#6b7280">Ядро створює копію буфера у своїй RAM</text>
+
+  <rect x="342" y="362" width="276" height="22" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="480" y="377" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">sk_buff (Буфер пам'яті ядра ОС)</text>
+
+  <text x="342" y="400" font-size="12" fill="#6b7280">Передача через сокетну петлю / мережу</text>
+
+  <!-- Стрілка перетину межі: Ядро ОС -> Процес B -->
+  <line x1="644" y1="192" x2="676" y2="192" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Панель 3: Процес B -->
+  <rect x="676" y="82" width="260" height="342" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="688" y="104" font-size="14" font-weight="bold" fill="#1a1a1a">Процес B (Одержувач)</text>
+  <text x="688" y="121" font-size="12" fill="#6b7280">Користувацький простір (User Space)</text>
+
+  <!-- Картка B1: read() та десеріалізація (Верхня) -->
+  <rect x="688" y="134" width="236" height="118" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="698" y="144" width="184" height="20" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="790" y="158" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Податок: Копіювання #2</text>
+
+  <text x="698" y="180" font-size="13" font-weight="bold" fill="#1a1a1a">5. read() та десеріалізація</text>
+  <text x="698" y="198" font-size="12" fill="#1a1a1a">Копіювання: sk_buff → пам'ять B</text>
+  <text x="698" y="214" font-size="12" fill="#6b7280">Парсинг байтового потоку</text>
+
+  <text x="698" y="238" font-size="12" fill="#c0392b">Алокація #2: нові об'єкти в RAM</text>
+
+  <!-- Стрілка вниз між картками B1 та B2 -->
+  <line x1="806" y1="252" x2="806" y2="268" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Картка B2: Відновлений граф у купі B (Нижня) -->
+  <rect x="688" y="268" width="236" height="142" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <rect x="698" y="278" width="164" height="20" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="780" y="292" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Податок: Алокація #2</text>
+
+  <text x="698" y="316" font-size="13" font-weight="bold" fill="#1a1a1a">6. Відновлений граф у купі B</text>
+  <text x="698" y="334" font-size="12" fill="#1a1a1a">Нові екземпляри об'єктів у купі B</text>
+
+  <rect x="698" y="346" width="60" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="728" y="362" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Order'</text>
+  <line x1="758" y1="358" x2="774" y2="358" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="776" y="346" width="60" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="806" y="362" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">User'</text>
+  <line x1="836" y1="358" x2="852" y2="358" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="854" y="346" width="56" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="882" y="362" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Item'</text>
+
+  <text x="698" y="398" font-size="12" fill="#6b7280">Дублікат графа, тиск на GC</text>
+
+  <!-- СЕКЦІЯ 2: Альтернатива без межі (In-Process / Спільна пам'ять) -->
+  <rect x="24" y="438" width="912" height="100" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="36" y="456" font-size="13" font-weight="bold" fill="#27ae60">Альтернатива без межі: взаємодія в єдиній пам'яті (In-Process / Shared Memory / mmap)</text>
+
+  <!-- Лівий блок: Компонент A -->
+  <rect x="36" y="470" width="248" height="54" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="48" y="490" font-size="13" font-weight="bold" fill="#1a1a1a">Компонент A (Вихідний граф)</text>
+  <text x="48" y="508" font-size="12" fill="#6b7280">Об'єкти вже розміщені в RAM</text>
+
+  <!-- Центральна стрілка та бейдж -->
+  <rect x="328" y="468" width="304" height="20" rx="3" fill="#27ae60"/>
+  <text x="480" y="483" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">0 КОПІЮВАНЬ • 0 АЛОКАЦІЙ • 0 SYSCALLS</text>
+
+  <line x1="296" y1="497" x2="664" y2="497" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="480" y="521" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Передача вказівника *ptr: миттєвий доступ O(1)</text>
+
+  <!-- Правий блок: Компонент B -->
+  <rect x="676" y="470" width="248" height="54" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="688" y="490" font-size="13" font-weight="bold" fill="#1a1a1a">Компонент B (Пряме читання)</text>
+  <text x="688" y="508" font-size="12" fill="#6b7280">Читання з тієї самої пам'яті за 0 нс</text>
+</svg>

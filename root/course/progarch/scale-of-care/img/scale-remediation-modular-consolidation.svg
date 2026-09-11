@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="540" fill="white"/>
+<defs>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+</defs>
+<text x="480" y="42" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Масштабовий перекіс: консолідація в модульний моноліт</text>
+<text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Заміна мережевих викликів та розподілених саг на виклики в пам'яті й локальний ACID</text>
+<rect x="28" y="88" width="390" height="354" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="42" y="98" width="362" height="24" rx="12" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="223" y="114" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ДО: Передчасне розподілення (мікросервіси)</text>
+<rect x="42" y="132" width="362" height="54" rx="6" fill="white" stroke="#c0392b" stroke-width="1"/>
+<text x="56" y="152" font-size="12" font-weight="bold" fill="#c0392b">Сервіс замовлень (Окремий процес / Pod 1)</text>
+<text x="56" y="172" font-size="12" fill="#6b7280">Ініціює створення замовлення та резервування товару</text>
+<line x1="65" y1="188" x2="65" y2="224" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+<text x="80" y="204" font-size="12" font-weight="bold" fill="#c0392b">Мережевий виклик (HTTP / gRPC)</text>
+<text x="80" y="220" font-size="12" fill="#6b7280">Таймаути, ретраї, серіалізація та ризик збоїв</text>
+<rect x="42" y="228" width="362" height="54" rx="6" fill="white" stroke="#c0392b" stroke-width="1"/>
+<text x="56" y="248" font-size="12" font-weight="bold" fill="#c0392b">Сервіс складу (Окремий процес / Pod 2)</text>
+<text x="56" y="268" font-size="12" fill="#6b7280">Перевіряє наявність та блокує залишки на складі</text>
+<rect x="42" y="292" width="362" height="42" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,2"/>
+<text x="223" y="309" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Розподілена сага (Saga) замість ACID</text>
+<text x="223" y="325" font-size="12" fill="#6b7280" text-anchor="middle">Компенсуючі дії, ризик неконсистентного стану</text>
+<rect x="42" y="344" width="172" height="84" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+<text x="128" y="364" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">БД Замовлень</text>
+<text x="128" y="384" font-size="12" fill="#6b7280" text-anchor="middle">Таблиця: orders</text>
+<text x="128" y="408" font-size="12" fill="#c0392b" text-anchor="middle">Ізольована схема</text>
+<rect x="232" y="344" width="172" height="84" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+<text x="318" y="364" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">БД Складу</text>
+<text x="318" y="384" font-size="12" fill="#6b7280" text-anchor="middle">Таблиця: inventory</text>
+<text x="318" y="408" font-size="12" fill="#c0392b" text-anchor="middle">Ізольована схема</text>
+<line x1="430" y1="208" x2="528" y2="208" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<text x="480" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Консолідація</text>
+<text x="480" y="226" font-size="12" fill="#6b7280" text-anchor="middle">в один процес</text>
+<line x1="430" y1="360" x2="528" y2="360" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<text x="480" y="340" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Спільна БД</text>
+<text x="480" y="378" font-size="12" fill="#6b7280" text-anchor="middle">локальний ACID</text>
+<rect x="542" y="88" width="390" height="354" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="556" y="98" width="362" height="24" rx="12" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="737" y="114" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ПІСЛЯ: Лікування (модульна консолідація)</text>
+<rect x="556" y="132" width="362" height="152" rx="6" fill="white" stroke="#27ae60" stroke-width="1"/>
+<text x="570" y="152" font-size="12" font-weight="bold" fill="#27ae60">Єдиний процес OS (Модульний моноліт)</text>
+<rect x="570" y="160" width="334" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="584" y="178" font-size="12" font-weight="bold" fill="#1a1a1a">Модуль замовлень (Orders.dll / Orders.jar)</text>
+<line x1="600" y1="190" x2="600" y2="222" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+<text x="620" y="204" font-size="12" font-weight="bold" fill="#27ae60">Типізований інтерфейс (In-Memory)</text>
+<text x="620" y="220" font-size="12" fill="#6b7280">Виклик методу (~0 нс), нуль мережевих збоїв</text>
+<rect x="570" y="226" width="334" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="584" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">Модуль складу (Inventory.dll / Inventory.jar)</text>
+<text x="737" y="274" font-size="12" fill="#27ae60" text-anchor="middle">Компіляторна перевірка типів та спільний пул пам'яті</text>
+<rect x="556" y="292" width="362" height="136" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="737" y="312" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Єдина реляційна база даних (PostgreSQL)</text>
+<rect x="570" y="324" width="160" height="48" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+<text x="650" y="344" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Таблиця: orders</text>
+<text x="650" y="360" font-size="12" fill="#6b7280" text-anchor="middle">Зберігає замовлення</text>
+<rect x="744" y="324" width="160" height="48" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+<text x="824" y="344" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Таблиця: inventory</text>
+<text x="824" y="360" font-size="12" fill="#6b7280" text-anchor="middle">Зберігає залишки</text>
+<rect x="570" y="380" width="334" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="737" y="398" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Локальна ACID-транзакція (BEGIN ... COMMIT)</text>
+<text x="737" y="412" font-size="12" fill="#27ae60" text-anchor="middle">Гарантована атомарність: без саг і компенсацій</text>
+<rect x="28" y="456" width="904" height="58" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="480" y="478" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Суть лікування: перенесення межі з фізичної мережі у типізований код повертає атомарність</text>
+<text x="480" y="498" font-size="12" fill="#6b7280" text-anchor="middle">Замість розподіленої випадкової складності — локальний ACID та строга модульна інкапсуляція</text>
+</svg>

@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White background rect -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-error" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Колапс пропускної здатності через мапінг обʼєктів на межах шарів</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">При досягненні R_crit алокації DTO та збирання сміття лавиноподібно обвалюють Goodput</text>
+
+  <!-- Left Panel: Chart Area -->
+  <rect x="30" y="80" width="580" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="105" font-size="13" font-weight="bold" fill="#1a1a1a">Залежність корисної пропускної здатності (Goodput) від навантаження</text>
+
+  <!-- Major Grid lines (50% and 100%) -->
+  <line x1="90" y1="260" x2="420" y2="260" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="90" y1="155" x2="570" y2="155" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Axes -->
+  <line x1="90" y1="365" x2="90" y2="140" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <line x1="90" y1="365" x2="580" y2="365" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+
+  <!-- Y-axis ticks & labels -->
+  <line x1="84" y1="365" x2="90" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="72" y="369" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <line x1="84" y1="260" x2="90" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="72" y="264" font-size="12" fill="#6b7280" text-anchor="end">50%</text>
+  <line x1="84" y1="155" x2="90" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="72" y="159" font-size="12" fill="#6b7280" text-anchor="end">100%</text>
+  <text x="105" y="138" font-size="12" font-weight="bold" fill="#1a1a1a">Goodput (корисний потік)</text>
+
+  <!-- Curve 1: Without Mapping (Zero-copy / Flat model) -->
+  <path d="M 90,365 Q 240,155 280,155 L 565,155" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <text x="370" y="140" font-size="12" font-weight="bold" fill="#27ae60">Без мапінгу: вихід на ліміт CPU</text>
+
+  <!-- Curve 2A: Normal & Saturation with Layer Mapping (Blue) -->
+  <path d="M 90,365 C 190,300 280,230 350,210" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Curve 2B: Collapse cliff after R_crit (Red) -->
+  <path d="M 350,210 C 375,210 395,245 420,295 C 450,340 490,360 565,362" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- R_crit Point and Vertical Marker down to X-axis -->
+  <line x1="350" y1="215" x2="350" y2="365" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <circle cx="350" cy="210" r="5" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Callout for Peak Goodput (centered above the peak) -->
+  <text x="350" y="186" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пік Goodput (R_crit)</text>
+
+  <!-- Linear Phase Annotation -->
+  <text x="115" y="180" font-size="12" font-weight="bold" fill="#2457d6">Лінійна зона</text>
+  <text x="115" y="198" font-size="12" fill="#6b7280">Young Gen GC</text>
+
+  <!-- Collapse Annotations -->
+  <text x="445" y="215" font-size="12" font-weight="bold" fill="#c0392b">Лавиноподібний обвал</text>
+  <text x="445" y="233" font-size="12" fill="#c0392b">Full GC та паузи STW</text>
+  <text x="445" y="251" font-size="12" fill="#6b7280">Таймаути та ретраї</text>
+
+  <!-- X-axis labels & R_crit marker on axis -->
+  <text x="350" y="390" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_crit</text>
+  <text x="350" y="408" font-size="12" fill="#c0392b" text-anchor="middle">поріг колапсу</text>
+  <text x="495" y="390" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний потік (RPS →)</text>
+
+  <!-- Right Panel: Mechanical Breakdown -->
+  <rect x="625" y="80" width="305" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="640" y="105" font-size="13" font-weight="bold" fill="#1a1a1a">Анатомія колапсу системи</text>
+  <text x="640" y="125" font-size="12" fill="#6b7280">Фази деградації памʼяті та процесора:</text>
+
+  <!-- Card 1: Normal regime -->
+  <rect x="638" y="138" width="279" height="76" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="652" y="162" font-size="12" font-weight="bold" fill="#27ae60">1. Нормальний режим (R &lt; R_crit)</text>
+  <text x="652" y="180" font-size="12" fill="#1a1a1a">• Алокації DTO осідають в Eden</text>
+  <text x="652" y="198" font-size="12" fill="#6b7280">• Minor GC короткий (паузи &lt; 2 мс)</text>
+
+  <!-- Card 2: Saturation -->
+  <rect x="638" y="226" width="279" height="76" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="652" y="250" font-size="12" font-weight="bold" fill="#2457d6">2. Насичення памʼяті (R ≈ R_crit)</text>
+  <text x="652" y="268" font-size="12" fill="#1a1a1a">• Темп виділення перевищує збирання</text>
+  <text x="652" y="286" font-size="12" fill="#6b7280">• Частота minor GC стрімко зростає</text>
+
+  <!-- Card 3: Cascade Collapse -->
+  <rect x="638" y="314" width="279" height="96" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="652" y="338" font-size="12" font-weight="bold" fill="#c0392b">3. Каскадний колапс (R &gt; R_crit)</text>
+  <text x="652" y="356" font-size="12" fill="#c0392b">• Передчасне витіснення в Old Gen</text>
+  <text x="652" y="374" font-size="12" fill="#1a1a1a">• Full GC зупиняє світ (STW-шторм)</text>
+  <text x="652" y="392" font-size="12" font-weight="bold" fill="#c0392b">• 100% CPU на GC: Goodput падає до 0</text>
+
+  <!-- Bottom Summary Cards -->
+  <rect x="30" y="440" width="290" height="100" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="44" y="465" font-size="13" font-weight="bold" fill="#2457d6">Множник генерації сміття</text>
+  <text x="44" y="483" font-size="12" fill="#6b7280">Темп виділення памʼяті (Churn rate):</text>
+  <text x="44" y="501" font-size="12" fill="#1a1a1a">Rate = RPS × глибина × розгалуження</text>
+  <text x="44" y="519" font-size="12" fill="#1a1a1a">Кожен шар множить короткоживучі DTO</text>
+
+  <rect x="335" y="440" width="290" height="100" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="349" y="465" font-size="13" font-weight="bold" fill="#c0392b">Механізм колапсу (Thrashing)</text>
+  <text x="349" y="483" font-size="12" fill="#6b7280">Витіснення корисної бізнес-логіки:</text>
+  <text x="349" y="501" font-size="12" fill="#1a1a1a">Мапінг вичерпує кеш та цикли CPU</text>
+  <text x="349" y="519" font-size="12" fill="#c0392b">Паузи STW провокують шторм ретраїв</text>
+
+  <rect x="640" y="440" width="290" height="100" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="654" y="465" font-size="13" font-weight="bold" fill="#27ae60">Архітектурний захист</text>
+  <text x="654" y="483" font-size="12" fill="#6b7280">Як відсунути критичну точку R_crit:</text>
+  <text x="654" y="501" font-size="12" fill="#1a1a1a">Zero-copy проєкції та пласкі схеми;</text>
+  <text x="654" y="519" font-size="12" fill="#1a1a1a">пропуск мапінгу для read-only потоків</text>
+</svg>
