@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Комутаційні перенапруги та придушення завад колектора триконденсаторним фільтром</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння форми напруги на клемі мотора: індуктивні викиди до 30–50 В без захисту проти згладженого ШІМ із фільтром</text>
+  <!-- ВЕРХНЯ ПАНЕЛЬ: БЕЗ ФІЛЬТРАЦІЇ -->
+  <rect x="24" y="68" width="912" height="206" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="38" y="78" width="240" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="46" y="94" font-size="12" font-weight="bold" fill="#c0392b">БЕЗ ФІЛЬТРАЦІЇ (пряме підключення)</text>
+  <text x="290" y="94" font-size="12" fill="#6b7280">Розрив ламелей колектора: комутаційна дуга, стрибки проти-ЕРС та радіозавади</text>
+  <rect x="38" y="110" width="504" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="78" y1="126" x2="230" y2="126" stroke="#f0f2f5" stroke-dasharray="3,3"/>
+  <line x1="390" y1="126" x2="532" y2="126" stroke="#f0f2f5" stroke-dasharray="3,3"/>
+  <line x1="78" y1="162" x2="532" y2="162" stroke="#f0f2f5" stroke-dasharray="3,3"/>
+  <line x1="78" y1="194" x2="440" y2="194" stroke="#e2e8f0" stroke-dasharray="4,4"/>
+  <line x1="510" y1="194" x2="532" y2="194" stroke="#e2e8f0" stroke-dasharray="4,4"/>
+  <line x1="78" y1="218" x2="532" y2="218" stroke="#cbd5e1" stroke-width="1.2"/>
+  <line x1="78" y1="244" x2="532" y2="244" stroke="#f0f2f5" stroke-dasharray="3,3"/>
+  <line x1="135" y1="110" x2="135" y2="116" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="135" y1="256" x2="135" y2="262" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="195" y1="110" x2="195" y2="116" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="195" y1="256" x2="195" y2="262" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="255" y1="110" x2="255" y2="116" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="255" y1="256" x2="255" y2="262" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="315" y1="110" x2="315" y2="116" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="315" y1="256" x2="315" y2="262" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="375" y1="110" x2="375" y2="116" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="375" y1="256" x2="375" y2="262" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="435" y1="110" x2="435" y2="116" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="435" y1="256" x2="435" y2="262" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="495" y1="110" x2="495" y2="116" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="495" y1="256" x2="495" y2="262" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="72" y="130" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">+40 В</text>
+  <text x="72" y="166" font-size="12" fill="#6b7280" text-anchor="end">+20 В</text>
+  <text x="72" y="198" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">+6 В</text>
+  <text x="72" y="222" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0 В</text>
+  <text x="72" y="248" font-size="12" fill="#6b7280" text-anchor="end">–10 В</text>
+  <path d="M 78 218 L 125 218 L 127 194 L 130 184 L 133 198 L 136 192 L 139 194 L 145 194 L 148 188 L 150 194 L 154 194 L 158 182 L 160 196 L 163 194 L 170 194 L 173 184 L 176 198 L 178 194 L 185 194 L 188 186 L 191 194 L 195 194 L 198 122 L 202 246 L 207 150 L 211 236 L 215 180 L 219 226 L 223 212 L 227 220 L 231 218 L 315 218 L 317 194 L 320 184 L 323 198 L 326 192 L 329 194 L 335 194 L 338 188 L 340 194 L 348 182 L 350 196 L 353 194 L 363 184 L 366 198 L 368 194 L 378 186 L 381 194 L 385 194 L 388 122 L 392 246 L 397 150 L 401 236 L 405 180 L 409 226 L 413 212 L 417 220 L 421 218 L 532 218" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="238" y="132" font-size="12" font-weight="bold" fill="#c0392b">Сплеск L·di/dt до 43 В</text>
+  <line x1="234" y1="128" x2="204" y2="124" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+  <text x="238" y="148" font-size="12" fill="#6b7280">ВЧ-дзвін (10–30 МГц)</text>
+  <line x1="234" y1="148" x2="214" y2="160" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="110" y="145" font-size="12" font-weight="bold" fill="#c0392b">Іскріння щіток</text>
+  <line x1="155" y1="150" x2="165" y2="180" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+  <text x="445" y="190" font-size="12" font-weight="bold" fill="#2457d6">ШІМ (6 В)</text>
+  <text x="525" y="240" font-size="12" fill="#6b7280" text-anchor="end">Час t →</text>
+  <rect x="554" y="110" width="370" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="568" y="130" font-size="13" font-weight="bold" fill="#c0392b">Наслідки роботи без фільтрації:</text>
+  <circle cx="618" cy="180" r="18" fill="#ffffff" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="618" y="185" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">M</text>
+  <rect x="614" y="158" width="8" height="4" fill="#c0392b"/>
+  <rect x="614" y="198" width="8" height="4" fill="#c0392b"/>
+  <line x1="618" y1="158" x2="618" y2="148" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="618" y1="148" x2="578" y2="148" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="574" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">+</text>
+  <line x1="618" y1="202" x2="618" y2="212" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="618" y1="212" x2="578" y2="212" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="574" y="216" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">–</text>
+  <path d="M 642 168 A 14 14 0 0 1 642 192" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 648 163 A 21 21 0 0 1 648 197" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <path d="M 654 158 A 28 28 0 0 1 654 202" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="618" y="232" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ВЧ-випромінювання</text>
+  <circle cx="698" cy="155" r="3" fill="#c0392b"/>
+  <text x="708" y="159" font-size="12" fill="#1a1a1a">Перенапруга пробиває H-міст</text>
+  <circle cx="698" cy="180" r="3" fill="#c0392b"/>
+  <text x="708" y="184" font-size="12" fill="#1a1a1a">Іскріння еродує ламелі щіток</text>
+  <circle cx="698" cy="205" r="3" fill="#c0392b"/>
+  <text x="708" y="209" font-size="12" fill="#1a1a1a">Дроти випромінюють шум (EMI)</text>
+  <circle cx="698" cy="230" r="3" fill="#c0392b"/>
+  <text x="708" y="234" font-size="12" fill="#1a1a1a">Збої MCU, зависання I2C/SPI</text>
+  <!-- НИЖНЯ ПАНЕЛЬ: З ТРИКОНДЕНСАТОРНИМ ФІЛЬТРОМ -->
+  <rect x="24" y="288" width="912" height="206" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="38" y="298" width="340" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="46" y="314" font-size="12" font-weight="bold" fill="#27ae60">З ТРИКОНДЕНСАТОРНИМ ФІЛЬТРОМ (1× клеми + 2× корпус)</text>
+  <text x="390" y="314" font-size="12" fill="#6b7280">Поглинання ЕРС конденсатором C1 та злив ВЧ-завад на корпус через C2, C3</text>
+  <rect x="38" y="330" width="504" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="78" y1="346" x2="210" y2="346" stroke="#f0f2f5" stroke-dasharray="3,3"/>
+  <line x1="450" y1="346" x2="532" y2="346" stroke="#f0f2f5" stroke-dasharray="3,3"/>
+  <line x1="78" y1="382" x2="210" y2="382" stroke="#f0f2f5" stroke-dasharray="3,3"/>
+  <line x1="450" y1="382" x2="532" y2="382" stroke="#f0f2f5" stroke-dasharray="3,3"/>
+  <line x1="78" y1="414" x2="120" y2="414" stroke="#e2e8f0" stroke-dasharray="4,4"/>
+  <line x1="205" y1="414" x2="310" y2="414" stroke="#e2e8f0" stroke-dasharray="4,4"/>
+  <line x1="395" y1="414" x2="532" y2="414" stroke="#e2e8f0" stroke-dasharray="4,4"/>
+  <line x1="78" y1="438" x2="532" y2="438" stroke="#cbd5e1" stroke-width="1.2"/>
+  <line x1="78" y1="464" x2="532" y2="464" stroke="#f0f2f5" stroke-dasharray="3,3"/>
+  <line x1="135" y1="330" x2="135" y2="336" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="135" y1="476" x2="135" y2="482" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="195" y1="330" x2="195" y2="336" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="195" y1="476" x2="195" y2="482" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="255" y1="330" x2="255" y2="336" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="255" y1="476" x2="255" y2="482" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="315" y1="330" x2="315" y2="336" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="315" y1="476" x2="315" y2="482" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="375" y1="330" x2="375" y2="336" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="375" y1="476" x2="375" y2="482" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="435" y1="330" x2="435" y2="336" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="435" y1="476" x2="435" y2="482" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="495" y1="330" x2="495" y2="336" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="495" y1="476" x2="495" y2="482" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="72" y="350" font-size="12" fill="#6b7280" text-anchor="end">+40 В</text>
+  <text x="72" y="386" font-size="12" fill="#6b7280" text-anchor="end">+20 В</text>
+  <text x="72" y="418" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">+6 В</text>
+  <text x="72" y="442" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0 В</text>
+  <text x="72" y="468" font-size="12" fill="#6b7280" text-anchor="end">–10 В</text>
+  <path d="M 78 438 L 123 438 C 126 438, 127 414, 131 414 L 193 414 C 197 414, 199 438, 205 438 L 313 438 C 316 438, 317 414, 321 414 L 383 414 C 387 414, 389 438, 395 438 L 532 438" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <rect x="220" y="348" width="220" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="330" y="364" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Викиди повністю усунуто</text>
+  <text x="220" y="386" font-size="12" font-weight="bold" fill="#27ae60">Безпечний розмах: рівно 0...6 В</text>
+  <text x="220" y="402" font-size="12" fill="#6b7280">C1 поглинув ЕРС самоіндукції L·di/dt</text>
+  <line x1="216" y1="398" x2="201" y2="422" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+  <text x="135" y="408" font-size="12" font-weight="bold" fill="#2457d6">Чистий ШІМ</text>
+  <text x="525" y="460" font-size="12" fill="#6b7280" text-anchor="end">Час t →</text>
+  <rect x="554" y="330" width="370" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="568" y="350" font-size="13" font-weight="bold" fill="#27ae60">Схема триконденсаторного фільтра:</text>
+  <rect x="632" y="372" width="102" height="96" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="683" y="386" font-size="12" fill="#6b7280" text-anchor="middle">Корпус мотора</text>
+  <circle cx="683" cy="425" r="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="683" y="430" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+  <rect x="679" y="405" width="8" height="4" fill="#1a1a1a"/>
+  <rect x="679" y="441" width="8" height="4" fill="#1a1a1a"/>
+  <line x1="568" y1="407" x2="679" y2="407" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="564" y="404" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">+</text>
+  <line x1="568" y1="443" x2="679" y2="443" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="564" y="446" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">–</text>
+  <line x1="598" y1="407" x2="598" y2="421" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="592" y1="421" x2="604" y2="421" stroke="#2457d6" stroke-width="2"/>
+  <line x1="592" y1="425" x2="604" y2="425" stroke="#2457d6" stroke-width="2"/>
+  <line x1="598" y1="425" x2="598" y2="443" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="598" y="398" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">C1</text>
+  <text x="598" y="462" font-size="12" fill="#6b7280" text-anchor="middle">0,1 мкФ</text>
+  <line x1="687" y1="407" x2="715" y2="407" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="715" y1="407" x2="715" y2="415" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="710" y1="415" x2="720" y2="415" stroke="#27ae60" stroke-width="2"/>
+  <line x1="710" y1="418" x2="720" y2="418" stroke="#27ae60" stroke-width="2"/>
+  <line x1="715" y1="418" x2="715" y2="425" stroke="#27ae60" stroke-width="1.2"/>
+  <line x1="687" y1="443" x2="715" y2="443" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="715" y1="443" x2="715" y2="435" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="710" y1="435" x2="720" y2="435" stroke="#27ae60" stroke-width="2"/>
+  <line x1="710" y1="432" x2="720" y2="432" stroke="#27ae60" stroke-width="2"/>
+  <line x1="715" y1="432" x2="715" y2="425" stroke="#27ae60" stroke-width="1.2"/>
+  <circle cx="715" cy="425" r="2" fill="#27ae60"/>
+  <line x1="715" y1="425" x2="745" y2="425" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="745" y1="417" x2="745" y2="433" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="749" y1="420" x2="749" y2="430" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="753" y1="423" x2="753" y2="427" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="745" y="445" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <circle cx="780" cy="375" r="3" fill="#2457d6"/>
+  <text x="788" y="379" font-size="12" font-weight="bold" fill="#2457d6">C1 (0,1 мкФ):</text>
+  <text x="788" y="394" font-size="12" fill="#1a1a1a">між клемами мотора</text>
+  <text x="788" y="408" font-size="12" fill="#6b7280">гасить сплески ЕРС</text>
+  <circle cx="780" cy="428" r="3" fill="#27ae60"/>
+  <text x="788" y="432" font-size="12" font-weight="bold" fill="#27ae60">C2, C3 (10–47 нФ):</text>
+  <text x="788" y="447" font-size="12" fill="#1a1a1a">з клем на корпус</text>
+  <text x="788" y="461" font-size="12" fill="#6b7280">злив ВЧ-шуму на GND</text>
+</svg>

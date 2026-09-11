@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ==================== ЗАГОЛОВОК ТА ПІДЗАГОЛОВОК ==================== -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Оптична геометрія лазерної тріангуляції: перерахунок зсуву рельєфу ΔZ у Δx'</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Зміна висоти поверхні ΔZ зміщує проекцію лінії на матриці камери: Δx' ≈ (f · B / Z₀²) · ΔZ</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ОПТИЧНА СХЕМА ==================== -->
+  <rect x="25" y="65" width="590" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="88" font-size="13" font-weight="700" fill="#1a1a1a">Просторова схема вимірювального стенда</text>
+
+  <!-- Базова лінія B між лазером та об'єктивом камери -->
+  <line x1="120" y1="105" x2="420" y2="105" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="270" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Базова лінія B</text>
+
+  <!-- 1. Лазерний модуль (джерело лінійного променя) -->
+  <rect x="100" y="115" width="40" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="120" y="132" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Лазер</text>
+
+  <!-- Лазерний промінь (вертикальна площина Z) -->
+  <line x1="120" y1="141" x2="120" y2="310" stroke="#c0392b" stroke-width="2.2"/>
+  <text x="112" y="180" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">Промінь</text>
+
+  <!-- 2. Базова площина та об'єкт вимірювання -->
+  <!-- Базова площина Z0 -->
+  <line x1="55" y1="310" x2="230" y2="310" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="55" y="342" font-size="12" fill="#6b7280">Базова площина (Z₀)</text>
+
+  <!-- Точка P0 на базовій площині -->
+  <circle cx="120" cy="310" r="3.5" fill="#6b7280"/>
+  <text x="112" y="325" text-anchor="end" font-size="12" font-weight="700" fill="#6b7280">P₀</text>
+
+  <!-- Сходинка рельєфу об'єкта -->
+  <rect x="90" y="260" width="80" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="148" y="289" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Об'єкт</text>
+
+  <!-- Точка P1 на вершині сходинки рельєфу -->
+  <circle cx="120" cy="260" r="4" fill="#c0392b"/>
+  <text x="112" y="255" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">P₁</text>
+
+  <!-- Розмір сходинки рельєфу ΔZ -->
+  <line x1="180" y1="260" x2="180" y2="310" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="187" y="289" font-size="12" font-weight="700" fill="#2457d6">ΔZ</text>
+
+  <!-- Робоча відстань Z0 -->
+  <line x1="45" y1="141" x2="45" y2="310" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="40" y="228" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">Z₀</text>
+
+  <!-- 3. Камера: об'єктив та матриця -->
+  <!-- Об'єктив камери (центр на 420, 140) -->
+  <ellipse cx="420" cy="140" rx="6" ry="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="420" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Об'єктив</text>
+
+  <!-- Вертикальна лінія відліку для кута θ -->
+  <line x1="420" y1="140" x2="420" y2="195" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Дуга кута тріангуляції θ біля об'єктива -->
+  <path d="M 420,175 A 35,35 0 0,1 389,157" fill="none" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="396" y="185" font-size="12" font-weight="700" fill="#2457d6">θ</text>
+
+  <!-- Головні промені: -->
+  <!-- Промінь від базової точки P0(120, 310) через об'єктив(420, 140) до сенсора(510, 89) -->
+  <line x1="120" y1="310" x2="510" y2="89" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5,3"/>
+
+  <!-- Промінь від зміщеної точки P1(120, 260) через об'єктив(420, 140) до сенсора(510, 104) -->
+  <line x1="120" y1="260" x2="510" y2="104" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Фокусна відстань f (між лінзою x=420 та матрицею x=510) -->
+  <line x1="420" y1="150" x2="510" y2="150" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="465" y="146" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">f</text>
+
+  <!-- КМОН-матриця (сенсор) -->
+  <rect x="508" y="76" width="6" height="42" rx="2" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="511" y="70" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Сенсор</text>
+
+  <!-- Точки проекцій x0' та x1' на сенсорі -->
+  <circle cx="511" cy="89" r="2.5" fill="#6b7280"/>
+  <circle cx="511" cy="104" r="2.5" fill="#c0392b"/>
+
+  <!-- Зсув лінії на матриці Δx' -->
+  <line x1="524" y1="89" x2="524" y2="104" stroke="#c0392b" stroke-width="1.2" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+  <text x="532" y="100" font-size="12" font-weight="700" fill="#c0392b">Δx'</text>
+
+  <!-- Підпис оптичної осі камери -->
+  <text x="280" y="245" font-size="12" fill="#6b7280">Оптична вісь камери</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: МАТЕМАТИКА ТРІАНГУЛЯЦІЇ ==================== -->
+  <rect x="630" y="65" width="305" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="650" y="90" font-size="13" font-weight="700" fill="#1a1a1a">Математика лазерної тріангуляції</text>
+
+  <!-- Картка 1: Формула тріангуляції -->
+  <rect x="645" y="105" width="275" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="660" y="125" font-size="12" font-weight="700" fill="#2457d6">Зсув проекції на сенсорі (Δx'):</text>
+  <text x="660" y="145" font-size="12" fill="#1a1a1a">Δx' = f · B · ΔZ / [Z₀ · (Z₀ − ΔZ)]</text>
+  <text x="660" y="165" font-size="12" fill="#6b7280">При ΔZ ≪ Z₀:  Δx' ≈ (f · B / Z₀²) · ΔZ</text>
+  <text x="660" y="181" font-size="12" fill="#27ae60">Лінійне калібрувальне наближення</text>
+
+  <!-- Картка 2: Геометричні фактори -->
+  <rect x="645" y="199" width="275" height="142" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="660" y="219" font-size="12" font-weight="700" fill="#1a1a1a">Геометричні фактори чутливості:</text>
+
+  <text x="660" y="240" font-size="12" fill="#1a1a1a">• База B ↑: більший зсув Δx' (вища точність),</text>
+  <text x="660" y="256" font-size="12" fill="#6b7280">   але зростає ризик оптичного затінення</text>
+
+  <text x="660" y="276" font-size="12" fill="#1a1a1a">• Відстань Z₀ ↓: чутливість росте як 1/Z₀²</text>
+  <text x="660" y="292" font-size="12" fill="#6b7280">   (найвища роздільність — на малих Z₀)</text>
+
+  <text x="660" y="312" font-size="12" fill="#1a1a1a">• Фокус f ↑: масштабує зміщення лінії,</text>
+  <text x="660" y="328" font-size="12" fill="#6b7280">   проте звужує поле зору камери (FOV)</text>
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: ПРАВИЛА ПРОЕКТУВАННЯ ==================== -->
+  <rect x="25" y="370" width="910" height="75" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="392" font-size="12" font-weight="700" fill="#1a1a1a">Інженерні принципи 3D-сканування методом світлового перерізу (Sheet of Light):</text>
+  <text x="45" y="412" font-size="12" fill="#6b7280">1. Субпіксельний центр лінії: алгоритм центру мас (COG) обчислює координату x' з точністю 0.1–0.05 пікселя матриці.</text>
+  <text x="45" y="430" font-size="12" fill="#6b7280">2. Оптимальний кут тріангуляції: типово обирають θ = 30°–45° як компроміс між чутливістю та «мертвими зонами» затінення рельєфу.</text>
+</svg>

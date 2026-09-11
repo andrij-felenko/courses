@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Визначення маркерів стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Послідовність оновлення кадру в LVGL через драйвер ST7789 та DMA</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Асинхронне вивантаження буфера по SPI вимагає lv_disp_flush_ready() для розблокування рушія</text>
+
+  <!-- Заголовки колонок (учасники взаємодії) -->
+  <!-- Колонка 1: LVGL Core -->
+  <rect x="50" y="68" width="160" height="38" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="84" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">LVGL Core</text>
+  <text x="130" y="98" text-anchor="middle" font-size="12" fill="#6b7280">Графічний рушій</text>
+
+  <!-- Колонка 2: Драйвер дисплея -->
+  <rect x="290" y="68" width="160" height="38" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="370" y="84" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Драйвер дисплея</text>
+  <text x="370" y="98" text-anchor="middle" font-size="12" fill="#6b7280">disp_flush колбек</text>
+
+  <!-- Колонка 3: SPI / DMA контролер -->
+  <rect x="530" y="68" width="160" height="38" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="610" y="84" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">SPI / DMA периферія</text>
+  <text x="610" y="98" text-anchor="middle" font-size="12" fill="#6b7280">Апаратний контролер</text>
+
+  <!-- Колонка 4: Дисплей ST7789 -->
+  <rect x="770" y="68" width="160" height="38" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="850" y="84" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Контролер ST7789</text>
+  <text x="850" y="98" text-anchor="middle" font-size="12" fill="#6b7280">Дисплейна GRAM</text>
+
+  <!-- Лінії життя (Lifelines) -->
+  <!-- C1 Lifeline (розривається на блоках стану) -->
+  <line x1="130" y1="106" x2="130" y2="242" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="130" y1="278" x2="130" y2="352" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- C2 Lifeline (розривається на блоці CPU) -->
+  <line x1="370" y1="106" x2="370" y2="242" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="370" y1="278" x2="370" y2="374" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- C3 Lifeline -->
+  <line x1="610" y1="106" x2="610" y2="374" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- C4 Lifeline -->
+  <line x1="850" y1="106" x2="850" y2="374" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Крок 1: disp_flush -->
+  <text x="250" y="126" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1. disp_flush(drv, &amp;area, buf)</text>
+  <text x="250" y="140" text-anchor="middle" font-size="12" fill="#6b7280">Передача меж вікна та пікселів</text>
+  <line x1="130" y1="148" x2="362" y2="148" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Крок 2: Налаштування вікна CASET/RASET/RAMWR -->
+  <text x="490" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">2. CASET, RASET, RAMWR</text>
+  <text x="490" y="184" text-anchor="middle" font-size="12" fill="#6b7280">Синхронний SPI (межі оновлення)</text>
+  <line x1="370" y1="192" x2="602" y2="192" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="730" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Адресація GRAM</text>
+  <text x="730" y="184" text-anchor="middle" font-size="12" fill="#6b7280">Апаратне вікно ST7789</text>
+  <line x1="610" y1="192" x2="842" y2="192" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Крок 3: Запуск DMA -->
+  <text x="490" y="212" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">3. HAL_SPI_Transmit_DMA()</text>
+  <text x="490" y="226" text-anchor="middle" font-size="12" fill="#6b7280">Старт фонового вивантаження</text>
+  <line x1="370" y1="234" x2="602" y2="234" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Крок 4: Стан блокування LVGL, розвантаження CPU та вивантаження DMA -->
+  <!-- Блок блокування LVGL на C1 -->
+  <rect x="45" y="242" width="170" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <text x="130" y="256" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Буфер заблоковано</text>
+  <text x="130" y="270" text-anchor="middle" font-size="12" fill="#6b7280">LVGL очікує готовності</text>
+
+  <!-- Блок розвантаження CPU на C2 -->
+  <rect x="285" y="242" width="170" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <text x="370" y="256" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">CPU розвантажено</text>
+  <text x="370" y="270" text-anchor="middle" font-size="12" fill="#6b7280">Обчислення та RTOS</text>
+
+  <!-- Потік передачі даних DMA від C3 до C4 -->
+  <text x="730" y="244" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">4. Потік RGB565 (DMA)</text>
+  <text x="730" y="256" text-anchor="middle" font-size="12" fill="#6b7280">Прямий запис у пам'ять GRAM</text>
+  <line x1="610" y1="262" x2="842" y2="262" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Крок 5: Переривання DMA Transfer Complete -->
+  <text x="490" y="286" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">5. DMA TC Interrupt (ISR)</text>
+  <text x="490" y="298" text-anchor="middle" font-size="12" fill="#6b7280">Апаратний сигнал завершення</text>
+  <line x1="610" y1="304" x2="378" y2="304" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Крок 6: lv_disp_flush_ready() -->
+  <text x="250" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">6. lv_disp_flush_ready(&amp;drv)</text>
+  <text x="250" y="334" text-anchor="middle" font-size="12" fill="#6b7280">Сигнал: буфер готовий до запису</text>
+  <line x1="370" y1="340" x2="138" y2="340" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Крок 7: Розблокування LVGL Core -->
+  <rect x="45" y="352" width="170" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="130" y="367" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">7. Буфер розблоковано</text>
+
+  <!-- Нижні інформаційні плашки (інженерні акценти) -->
+  <!-- Ліва плашка: Критична проблема -->
+  <rect x="35" y="388" width="435" height="72" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="50" y="407" font-size="13" font-weight="bold" fill="#c0392b">Критичне застереження: пропуск lv_disp_flush_ready()</text>
+  <text x="50" y="427" font-size="12" fill="#1a1a1a">Якщо не повідомити LVGL про завершення передачі буфера,</text>
+  <text x="50" y="443" font-size="12" fill="#1a1a1a">графічний рушій зависає на першому кадрі назавжди (deadlock).</text>
+
+  <!-- Права плашка: Перевага DMA -->
+  <rect x="490" y="388" width="435" height="72" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="505" y="407" font-size="13" font-weight="bold" fill="#27ae60">Перевага асинхронного DMA: вивільнення процесора</text>
+  <text x="505" y="427" font-size="12" fill="#1a1a1a">Поки DMA вивантажує пікселі в ST7789 по шині SPI,</text>
+  <text x="505" y="443" font-size="12" fill="#1a1a1a">CPU вільний для опитування сенсорів та задач FreeRTOS.</text>
+</svg>

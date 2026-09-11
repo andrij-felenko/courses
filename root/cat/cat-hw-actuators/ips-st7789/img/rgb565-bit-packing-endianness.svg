@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Стрілки -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="26" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Формат 16-бітного кольору RGB565 та порядок байтів (Endianness)</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Упаковка бітів R[15:11], G[10:5], B[4:0], прямий порядок у пам'яті MCU та байт-своп для передачі по SPI</text>
+
+  <!-- ================= ВЕРХНІЙ БЛОК: СЛОВО RGB565 ================= -->
+  <!-- Байти: смуги над бітами -->
+  <rect x="80" y="64" width="394" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="277" y="80" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Старший байт (High Byte) — біти [15:8]</text>
+
+  <rect x="486" y="64" width="394" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="683" y="80" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Молодший байт (Low Byte) — біти [7:0]</text>
+
+  <!-- Номери бітів [15:0] -->
+  <text x="105" y="102" font-size="12" fill="#6b7280" text-anchor="middle">15</text>
+  <text x="155" y="102" font-size="12" fill="#6b7280" text-anchor="middle">14</text>
+  <text x="205" y="102" font-size="12" fill="#6b7280" text-anchor="middle">13</text>
+  <text x="255" y="102" font-size="12" fill="#6b7280" text-anchor="middle">12</text>
+  <text x="305" y="102" font-size="12" fill="#6b7280" text-anchor="middle">11</text>
+  <text x="355" y="102" font-size="12" fill="#6b7280" text-anchor="middle">10</text>
+  <text x="405" y="102" font-size="12" fill="#6b7280" text-anchor="middle">9</text>
+  <text x="455" y="102" font-size="12" fill="#6b7280" text-anchor="middle">8</text>
+  <text x="505" y="102" font-size="12" fill="#6b7280" text-anchor="middle">7</text>
+  <text x="555" y="102" font-size="12" fill="#6b7280" text-anchor="middle">6</text>
+  <text x="605" y="102" font-size="12" fill="#6b7280" text-anchor="middle">5</text>
+  <text x="655" y="102" font-size="12" fill="#6b7280" text-anchor="middle">4</text>
+  <text x="705" y="102" font-size="12" fill="#6b7280" text-anchor="middle">3</text>
+  <text x="755" y="102" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+  <text x="805" y="102" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+  <text x="855" y="102" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- Комірки бітів: Червоний R (біти 15..11) -->
+  <rect x="80" y="112" width="50" height="36" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="105" y="134" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">R4</text>
+  <rect x="130" y="112" width="50" height="36" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="155" y="134" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">R3</text>
+  <rect x="180" y="112" width="50" height="36" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="205" y="134" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">R2</text>
+  <rect x="230" y="112" width="50" height="36" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="255" y="134" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">R1</text>
+  <rect x="280" y="112" width="50" height="36" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="305" y="134" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">R0</text>
+
+  <!-- Комірки бітів: Зелений G (біти 10..5, розбиті на 2 байти на межі 480) -->
+  <rect x="330" y="112" width="50" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="355" y="134" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">G5</text>
+  <rect x="380" y="112" width="50" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="405" y="134" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">G4</text>
+  <rect x="430" y="112" width="50" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="455" y="134" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">G3</text>
+  <rect x="480" y="112" width="50" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="505" y="134" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">G2</text>
+  <rect x="530" y="112" width="50" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="555" y="134" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">G1</text>
+  <rect x="580" y="112" width="50" height="36" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="605" y="134" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">G0</text>
+
+  <!-- Комірки бітів: Синій B (біти 4..0) -->
+  <rect x="630" y="112" width="50" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="655" y="134" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">B4</text>
+  <rect x="680" y="112" width="50" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="705" y="134" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">B3</text>
+  <rect x="730" y="112" width="50" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="755" y="134" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">B2</text>
+  <rect x="780" y="112" width="50" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="805" y="134" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">B1</text>
+  <rect x="830" y="112" width="50" height="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="855" y="134" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">B0</text>
+
+  <!-- Картки каналів кольору -->
+  <!-- Червоний -->
+  <rect x="80" y="158" width="244" height="48" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="202" y="175" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Червоний канал R (5 біт)</text>
+  <text x="202" y="193" font-size="12" fill="#1a1a1a" text-anchor="middle">32 рівні • маска 0xF800</text>
+
+  <!-- Зелений -->
+  <rect x="336" y="158" width="288" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="175" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Зелений канал G (6 біт)</text>
+  <text x="480" y="193" font-size="12" fill="#1a1a1a" text-anchor="middle">64 рівні (чутливість ока) • 0x07E0</text>
+
+  <!-- Синій -->
+  <rect x="636" y="158" width="244" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="758" y="175" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Синій канал B (5 біт)</text>
+  <text x="758" y="193" font-size="12" fill="#1a1a1a" text-anchor="middle">32 рівні • маска 0x001F</text>
+
+  <!-- Розділова лінія -->
+  <line x1="50" y1="217" x2="910" y2="217" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- ================= НИЖНІЙ БЛОК: ПОРІВНЯННЯ ПОРЯДКУ БАЙТІВ ================= -->
+
+  <!-- Ліва панель: Пам'ять MCU -->
+  <rect x="50" y="228" width="270" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="185" y="247" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Пам'ять MCU (Little-Endian)</text>
+  <text x="185" y="264" font-size="12" fill="#6b7280" text-anchor="middle">ARM Cortex-M, ESP32, RISC-V</text>
+
+  <rect x="68" y="275" width="234" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="185" y="292" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Addr 0x00: Молодший байт (Low)</text>
+  <text x="185" y="308" font-size="12" fill="#1a1a1a" text-anchor="middle">G[2:0] + B[4:0] (біти 7..0)</text>
+
+  <rect x="68" y="323" width="234" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="185" y="340" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Addr 0x01: Старший байт (High)</text>
+  <text x="185" y="356" font-size="12" fill="#1a1a1a" text-anchor="middle">R[4:0] + G[5:3] (біти 15..8)</text>
+
+  <text x="185" y="383" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">⚠ Молодший байт лежить першим</text>
+  <text x="185" y="401" font-size="12" fill="#6b7280" text-anchor="middle">Звичайна передача з пам'яті</text>
+  <text x="185" y="419" font-size="12" fill="#6b7280" text-anchor="middle">надішле байти навпаки!</text>
+
+  <!-- Стрілка передачі між лівою панеллю та центральною -->
+  <line x1="325" y1="333" x2="340" y2="333" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Центральна панель: Байт-своп -->
+  <rect x="345" y="228" width="270" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="247" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Байт-своп (Byte Swap)</text>
+  <text x="480" y="264" font-size="12" fill="#6b7280" text-anchor="middle">Перестановка байтів місцями</text>
+
+  <!-- До свопу -->
+  <rect x="362" y="278" width="110" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="417" y="297" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Low Byte</text>
+  <rect x="488" y="278" width="110" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="543" y="297" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">High Byte</text>
+
+  <!-- Перехресні стрілки свопу -->
+  <path d="M 417,311 C 417,326 543,326 543,340" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 543,311 C 543,326 417,326 417,340" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Після свопу -->
+  <rect x="362" y="344" width="110" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="417" y="363" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">High Byte</text>
+  <rect x="488" y="344" width="110" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="543" y="363" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Low Byte</text>
+
+  <!-- Блок інструкції -->
+  <rect x="362" y="384" width="236" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="401" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">REV16 / __builtin_bswap16</text>
+  <text x="480" y="417" font-size="12" fill="#1a1a1a" text-anchor="middle">1 такт ядра ARM (апаратний своп)</text>
+
+  <!-- Стрілка передачі між центральною панеллю та правою -->
+  <line x1="620" y1="333" x2="635" y2="333" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Права панель: Передача по SPI -->
+  <rect x="640" y="228" width="270" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="775" y="247" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Шина SPI → Дисплей ST7789</text>
+  <text x="775" y="264" font-size="12" fill="#6b7280" text-anchor="middle">Порядок Big-Endian (MSB-first)</text>
+
+  <rect x="658" y="275" width="234" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="775" y="292" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">1-й байт: Старший (High Byte)</text>
+  <text x="775" y="308" font-size="12" fill="#1a1a1a" text-anchor="middle">R[4:0] + G[5:3] (біти 15..8)</text>
+
+  <rect x="658" y="323" width="234" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="775" y="340" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">2-й байт: Молодший (Low Byte)</text>
+  <text x="775" y="356" font-size="12" fill="#1a1a1a" text-anchor="middle">G[2:0] + B[4:0] (біти 7..0)</text>
+
+  <text x="775" y="383" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">✔ Правильний порядок у GRAM</text>
+  <text x="775" y="401" font-size="12" fill="#6b7280" text-anchor="middle">Контролер збирає піксель:</text>
+  <text x="775" y="419" font-size="12" fill="#1a1a1a" text-anchor="middle">RGB565 без спотворення кольорів</text>
+</svg>

@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Небезпека наскрізного струму (Shoot-Through)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Одночасне відкриття ключів коротить шину живлення на землю та генерує індуктивний викид</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: СХЕМА НАПІВМОСТА -->
+  <rect x="30" y="80" width="425" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="108" font-size="14" font-weight="bold" fill="#1a1a1a">Схема плеча напівмоста</text>
+  <text x="50" y="126" font-size="12" fill="#6b7280">Стан комутації без захисної паузи (Dead Time = 0)</text>
+
+  <!-- Шина живлення VCC -->
+  <text x="160" y="145" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+V_CC (+6 В)</text>
+  <line x1="90" y1="152" x2="230" y2="152" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Ключ Q1 High-Side -->
+  <line x1="160" y1="152" x2="160" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="105" y="175" width="110" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="160" y="193" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">High-Side FET</text>
+  <text x="160" y="209" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ВІДКРИТИЙ (ON)</text>
+
+  <!-- Керування Q1 -->
+  <line x1="50" y1="197" x2="105" y2="197" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="50" y="188" font-size="12" fill="#1a1a1a">IN_H = 1</text>
+
+  <!-- Вузол OUT -->
+  <line x1="160" y1="219" x2="160" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="160" cy="257" r="4" fill="#1a1a1a"/>
+  <text x="145" y="261" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">OUT</text>
+
+  <!-- Навантаження (мотор) -->
+  <line x1="160" y1="257" x2="260" y2="257" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="260" y="230" width="155" height="54" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="337" y="251" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Мотор-редуктор</text>
+  <text x="337" y="269" font-size="12" fill="#2457d6" text-anchor="middle">L = 1.2 мГн (обмотка)</text>
+  <line x1="415" y1="257" x2="440" y2="257" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="440" y="250" font-size="12" fill="#6b7280" text-anchor="end">OUT2</text>
+
+  <!-- Ключ Q2 Low-Side -->
+  <rect x="105" y="295" width="110" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="160" y="313" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Low-Side FET</text>
+  <text x="160" y="329" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ВІДКРИТИЙ (ON)</text>
+
+  <!-- Керування Q2 -->
+  <line x1="50" y1="317" x2="105" y2="317" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="50" y="308" font-size="12" fill="#1a1a1a">IN_L = 1</text>
+
+  <!-- Земля GND -->
+  <line x1="160" y1="339" x2="160" y2="365" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="145" y1="365" x2="175" y2="365" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="150" y1="370" x2="170" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="155" y1="375" x2="165" y2="375" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="185" y="373" font-size="12" fill="#6b7280">GND</text>
+
+  <!-- Наскрізний струм: стрілка КЗ через усе плече -->
+  <path d="M 175,155 L 175,360" fill="none" stroke="#c0392b" stroke-width="3" stroke-dasharray="6,4" marker-end="url(#arr-red)"/>
+
+  <!-- Пояснення КЗ праворуч від стійки -->
+  <rect x="250" y="300" width="180" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="340" y="320" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Наскрізний струм (КЗ)</text>
+  <text x="340" y="337" font-size="12" fill="#c0392b" text-anchor="middle">Струм тече повз мотор у GND</text>
+
+  <!-- Попередження внизу зліва -->
+  <rect x="50" y="392" width="385" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="242" y="411" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ПОМИЛКА: обидва ключі відкриті одночасно!</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: ЧАСОВІ ДІАГРАМИ -->
+  <rect x="485" y="80" width="445" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="505" y="108" font-size="14" font-weight="bold" fill="#1a1a1a">Осцилограми комутації</text>
+  <text x="505" y="126" font-size="12" fill="#6b7280">Пік наскрізного струму та індуктивний викид напруги</text>
+
+  <!-- 1. Верхній графік: Струм I(t) -->
+  <!-- Осі -->
+  <line x1="560" y1="230" x2="905" y2="230" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="560" y1="230" x2="560" y2="148" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="550" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">I (А)</text>
+  <text x="905" y="244" font-size="12" fill="#6b7280" text-anchor="end">час t</text>
+
+  <!-- Позначки на осі I -->
+  <text x="552" y="234" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="552" y="218" font-size="12" fill="#2457d6" text-anchor="end">I_ном</text>
+  <text x="552" y="166" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">I_shoot</text>
+
+  <!-- Крива струму -->
+  <!-- Заповнення під піком -->
+  <polygon points="660,230 660,215 675,160 695,160 705,230" fill="#fdecea"/>
+  <!-- Робочий струм -->
+  <line x1="560" y1="215" x2="660" y2="215" stroke="#2457d6" stroke-width="2"/>
+  <line x1="660" y1="215" x2="900" y2="215" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+  <!-- Пік КЗ -->
+  <polyline points="660,215 675,160 695,160 705,230" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Підпис до піку струму -->
+  <text x="720" y="172" font-size="12" font-weight="bold" fill="#c0392b">Пік I_shoot-through (&gt; 50 А)</text>
+  <text x="720" y="189" font-size="12" fill="#c0392b">Пряме коротке замикання</text>
+  <text x="720" y="206" font-size="12" fill="#6b7280">Теплове руйнування кристала</text>
+
+  <!-- 2. Нижній графік: Напруга V(t) -->
+  <!-- Осі -->
+  <line x1="560" y1="355" x2="905" y2="355" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="560" y1="375" x2="560" y2="275" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="550" y="280" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">V (В)</text>
+  <text x="905" y="369" font-size="12" fill="#6b7280" text-anchor="end">час t</text>
+
+  <!-- Позначки на осі V -->
+  <text x="552" y="359" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="552" y="339" font-size="12" fill="#2457d6" text-anchor="end">V_CC</text>
+  <text x="552" y="293" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">V_max</text>
+
+  <!-- Крива напруги -->
+  <!-- Рівень V_CC до моменту комутації -->
+  <line x1="560" y1="335" x2="705" y2="335" stroke="#2457d6" stroke-width="2"/>
+  <line x1="705" y1="335" x2="900" y2="335" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+  <!-- Індуктивний викид при розмиканні струму -->
+  <path d="M 705,335 L 715,285 L 730,370 L 745,340 L 760,358 L 775,355 L 900,355" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Підпис до викиду напруги -->
+  <text x="735" y="288" font-size="12" font-weight="bold" fill="#c0392b">V_spike = -L · (di/dt)</text>
+  <text x="735" y="305" font-size="12" fill="#c0392b">Викид перенапруги (&gt; 40 В)</text>
+  <text x="735" y="322" font-size="12" fill="#6b7280">Пробій без захисних діодів</text>
+
+  <!-- Захист внизу праворуч -->
+  <rect x="505" y="392" width="405" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="707" y="411" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Захист: апаратний Dead Time + flyback-діоди</text>
+</svg>

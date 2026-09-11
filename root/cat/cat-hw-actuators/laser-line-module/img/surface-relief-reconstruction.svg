@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ==================== ЗАГОЛОВОК ТА ПІДЗАГОЛОВОК ==================== -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">3D-реконструкція лазерним ножем: сканування та оптичні артефакти</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Зшивання профілів у карту висот Z(X,Y) та фізичні обмеження: тіньова оклюзія і вторинні відблиски</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ПРОСТОРОВЕ СКАНУВАННЯ ==================== -->
+  <rect x="25" y="65" width="440" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="88" font-size="13" font-weight="700" fill="#1a1a1a">Реконструкція 3D-карти висот Z(X,Y)</text>
+
+  <!-- Пояснення конвеєра зшивання -->
+  <text x="45" y="112" font-size="12" font-weight="700" fill="#2457d6">Зшивання одновимірних зрізів:</text>
+  <text x="45" y="130" font-size="12" fill="#1a1a1a">• Камера фіксує профіль Z(X) із частотою f_fps</text>
+  <text x="45" y="148" font-size="12" fill="#1a1a1a">• Крок переміщення по осі Y: ΔY = v_конв / f_fps</text>
+  <text x="45" y="166" font-size="12" fill="#27ae60">• Результат: суцільна регулярна 3D-хмара точок</text>
+
+  <!-- 3D-схема сканування на конвеєрі -->
+  <!-- Базова площина стрічки конвеєра -->
+  <polygon points="50,305 280,305 380,225 150,225" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Вектор швидкості конвеєра v_Y -->
+  <line x1="60" y1="295" x2="110" y2="250" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="45" y="245" font-size="12" font-weight="700" fill="#1a1a1a">Рух (вісь Y, v)</text>
+
+  <!-- Попередні зчитані профілі (зшита 3D-поверхня) -->
+  <polyline points="180,270 210,270 220,250 260,250 270,270 300,270" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,2"/>
+  <polyline points="200,250 230,250 240,230 280,230 290,250 320,250" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,2"/>
+
+  <!-- Джерело лазерного ножа та підпис -->
+  <text x="275" y="178" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Лазерний ніж</text>
+
+  <!-- Лазерна площина (Sheet of Light) -->
+  <polygon points="275,185 160,290 280,290" fill="#fdecea" fill-opacity="0.35"/>
+  <line x1="275" y1="185" x2="160" y2="290" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,2"/>
+  <line x1="275" y1="185" x2="280" y2="290" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,2"/>
+
+  <!-- Поточний активний лазерний переріз (червона смуга на об'єкті) -->
+  <polyline points="160,290 190,290 200,268 240,268 250,290 280,290" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Координатні осі 3D -->
+  <text x="365" y="235" font-size="12" font-weight="700" fill="#1a1a1a">+X (лінія)</text>
+  <text x="200" y="325" font-size="12" font-weight="700" fill="#2457d6">+Z (рельєф)</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ОПТИЧНІ АРТЕФАКТИ ==================== -->
+  <rect x="480" y="65" width="455" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="500" y="88" font-size="13" font-weight="700" fill="#1a1a1a">Типові оптичні артефакти лазерної тріангуляції</text>
+
+  <!-- Картка 1: Тіньова оклюзія (Shadowing) -->
+  <rect x="495" y="102" width="425" height="116" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="510" y="122" font-size="12" font-weight="700" fill="#c0392b">1. Тіньова оклюзія на крутих схилах (Shadowing):</text>
+
+  <!-- Схема сходинки рельєфу та оклюзії -->
+  <polygon points="515,195 565,195 565,155 655,155 655,195" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <!-- Лазерні вертикальні промені -->
+  <line x1="535" y1="135" x2="535" y2="195" stroke="#c0392b" stroke-width="1.8"/>
+  <line x1="615" y1="135" x2="615" y2="155" stroke="#c0392b" stroke-width="1.8"/>
+
+  <!-- Лінія зору камери під кутом тріангуляції -->
+  <line x1="665" y1="125" x2="540" y2="195" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,2"/>
+
+  <!-- Трикутник сліпої зони за стінкою -->
+  <polygon points="540,195 565,195 565,155" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="552" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Сліпа зона</text>
+
+  <!-- Опис артефакту оклюзії -->
+  <text x="675" y="145" font-size="12" fill="#1a1a1a">• Причина: кут тріангуляції перекриває</text>
+  <text x="675" y="161" font-size="12" fill="#1a1a1a">   пряму видимість схилу для камери.</text>
+  <text x="675" y="181" font-size="12" fill="#6b7280">• Наслідок: випадання даних (NaN, дірки)</text>
+  <text x="675" y="197" font-size="12" fill="#6b7280">   у реконструйованій 3D-поверхні.</text>
+
+  <!-- Картка 2: Дзеркальні відблиски та перевідбиття (Multipath) -->
+  <rect x="495" y="228" width="425" height="116" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="510" y="248" font-size="12" font-weight="700" fill="#c0392b">2. Дзеркальні відблиски та перевідбиття (Multipath):</text>
+
+  <!-- Схема внутрішнього кута та вторинного відбиття -->
+  <polyline points="570,265 570,320 655,320" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Первинний лазерний промінь -->
+  <line x1="600" y1="260" x2="600" y2="320" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="600" cy="320" r="3" fill="#27ae60"/>
+  <text x="608" y="315" font-size="12" font-weight="700" fill="#27ae60">Справжня</text>
+
+  <!-- Вторинне перевідбиття на вертикальну стінку -->
+  <line x1="600" y1="320" x2="570" y2="290" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <circle cx="570" cy="290" r="3" fill="#c0392b"/>
+  <text x="562" y="292" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">Хибний блік</text>
+
+  <!-- Опис артефакту перевідбиття -->
+  <text x="675" y="271" font-size="12" fill="#1a1a1a">• Причина: дзеркальний відблиск від дна</text>
+  <text x="675" y="287" font-size="12" fill="#1a1a1a">   підсвічує сусідню блискучу стінку.</text>
+  <text x="675" y="307" font-size="12" fill="#6b7280">• Наслідок: двовідліковий збій COG-центру,</text>
+  <text x="675" y="323" font-size="12" fill="#6b7280">   поява фантомних сплесків рельєфу.</text>
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: ІНЖЕНЕРНІ РІШЕННЯ ==================== -->
+  <rect x="25" y="370" width="910" height="75" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="392" font-size="12" font-weight="700" fill="#1a1a1a">Методи подолання артефактів у промислових 3D-тріангуляторах:</text>
+  <text x="45" y="412" font-size="12" fill="#6b7280">1. Подвійна оптична схема (Dual-Camera / 2 Lasers): дві симетричні камери усувають тіньові сліпі зони з обох боків крутого рельєфу.</text>
+  <text x="45" y="430" font-size="12" fill="#6b7280">2. Оптична поляризація та HDR: схрещені лінійні поляризатори відсікають дзеркальні відблиски, залишаючи тільки дифузну лазерну лінію.</text>
+</svg>

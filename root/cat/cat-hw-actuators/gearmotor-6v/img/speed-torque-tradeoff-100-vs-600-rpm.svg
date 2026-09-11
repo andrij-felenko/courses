@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механічні характеристики мотор-редуктора 6 В: 100 проти 600 об/хв</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Більше ступенів редукції дає високий момент, але зменшує швидкість і ККД через тертя</text>
+
+  <!-- Горизонтальні лінії сітки графіка -->
+  <line x1="90" y1="320" x2="560" y2="320" stroke="#e5e7eb" stroke-dasharray="3 3"/>
+  <line x1="90" y1="260" x2="560" y2="260" stroke="#e5e7eb" stroke-dasharray="3 3"/>
+  <line x1="90" y1="200" x2="560" y2="200" stroke="#e5e7eb" stroke-dasharray="3 3"/>
+  <line x1="90" y1="140" x2="560" y2="140" stroke="#e5e7eb" stroke-dasharray="3 3"/>
+
+  <!-- Вертикальні лінії сітки графіка -->
+  <line x1="165" y1="140" x2="165" y2="380" stroke="#e5e7eb" stroke-dasharray="3 3"/>
+  <line x1="240" y1="140" x2="240" y2="380" stroke="#e5e7eb" stroke-dasharray="3 3"/>
+  <line x1="315" y1="140" x2="315" y2="380" stroke="#e5e7eb" stroke-dasharray="3 3"/>
+  <line x1="390" y1="140" x2="390" y2="380" stroke="#e5e7eb" stroke-dasharray="3 3"/>
+  <line x1="465" y1="140" x2="465" y2="380" stroke="#e5e7eb" stroke-dasharray="3 3"/>
+  <line x1="540" y1="140" x2="540" y2="380" stroke="#e5e7eb" stroke-dasharray="3 3"/>
+
+  <!-- Осі координат -->
+  <line x1="90" y1="380" x2="575" y2="380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="90" y1="380" x2="90" y2="115" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Назви осей -->
+  <text x="90" y="94" font-size="13" font-weight="bold" fill="#1a1a1a">Крутний момент M (кг·см)</text>
+  <text x="330" y="440" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кутова швидкість вала n (об/хв)</text>
+
+  <!-- Числові мітки осі X -->
+  <text x="90" y="404" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="165" y="404" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+  <text x="240" y="404" font-size="12" fill="#6b7280" text-anchor="middle">200</text>
+  <text x="315" y="404" font-size="12" fill="#6b7280" text-anchor="middle">300</text>
+  <text x="390" y="404" font-size="12" fill="#6b7280" text-anchor="middle">400</text>
+  <text x="465" y="404" font-size="12" fill="#6b7280" text-anchor="middle">500</text>
+  <text x="540" y="404" font-size="12" fill="#6b7280" text-anchor="middle">600</text>
+
+  <!-- Числові мітки осі Y -->
+  <text x="76" y="324" font-size="12" fill="#6b7280" text-anchor="end">0.4</text>
+  <text x="76" y="264" font-size="12" fill="#6b7280" text-anchor="end">0.8</text>
+  <text x="76" y="204" font-size="12" fill="#6b7280" text-anchor="end">1.2</text>
+  <text x="76" y="144" font-size="12" fill="#6b7280" text-anchor="end">1.6</text>
+
+  <!-- Теоретична лінія 100 об/хв (без втрат ККД) -->
+  <line x1="90" y1="140" x2="165" y2="380" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <circle cx="90" cy="140" r="3.5" fill="#94a3b8"/>
+
+  <!-- Реальна характеристика 100 об/хв (крута тягова) -->
+  <line x1="90" y1="193" x2="165" y2="380" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="90" cy="193" r="4.5" fill="#2457d6"/>
+  <circle cx="165" cy="380" r="4.5" fill="#2457d6"/>
+
+  <!-- Позначення падіння ККД між теоретичним і реальним моментом 100 об/хв -->
+  <line x1="106" y1="144" x2="106" y2="189" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="102" y1="144" x2="110" y2="144" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="102" y1="189" x2="110" y2="189" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="118" y="162" font-size="12" font-weight="bold" fill="#c0392b">Падіння моменту</text>
+  <text x="118" y="178" font-size="12" fill="#c0392b">через ККД (η ≈ 55%)</text>
+
+  <!-- Реальна характеристика 600 об/хв (полога швидкісна) -->
+  <line x1="90" y1="340" x2="540" y2="380" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="90" cy="340" r="4.5" fill="#27ae60"/>
+  <circle cx="540" cy="380" r="4.5" fill="#27ae60"/>
+
+  <!-- Підпис до кривої 100 об/хв -->
+  <text x="190" y="240" font-size="13" font-weight="bold" fill="#2457d6">100 об/хв (тягова)</text>
+  <text x="190" y="258" font-size="12" fill="#1a1a1a">Крута характеристика</text>
+  <text x="190" y="274" font-size="12" fill="#6b7280">M_пуск = 1.25 кг·см</text>
+
+  <!-- Підпис до кривої 600 об/хв -->
+  <text x="360" y="310" font-size="13" font-weight="bold" fill="#27ae60">600 об/хв (швидкісна)</text>
+  <text x="360" y="328" font-size="12" fill="#1a1a1a">Полога характеристика</text>
+  <text x="360" y="344" font-size="12" fill="#6b7280">M_пуск = 0.27 кг·см, η ≈ 80%</text>
+
+  <!-- Права панель: картка 100 об/хв -->
+  <rect x="620" y="80" width="315" height="162" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="635" y="94" width="165" height="24" rx="4" fill="#2457d6"/>
+  <text x="645" y="111" font-size="12" font-weight="bold" fill="#ffffff">Версія 100 об/хв (тягова)</text>
+  <text x="635" y="142" font-size="12" fill="#1a1a1a">• Редукція: i ≈ 210:1 (5 ступенів)</text>
+  <text x="635" y="162" font-size="12" fill="#c0392b">• ККД редуктора: η ≈ 55% (втрати ~45%)</text>
+  <text x="635" y="182" font-size="12" fill="#1a1a1a">• Пусковий момент: 1.25 кг·см (тяга)</text>
+  <text x="635" y="202" font-size="12" fill="#1a1a1a">• Струм блокування: 0.7 А при 6 В</text>
+  <text x="635" y="224" font-size="12" fill="#6b7280">Застосування: роборуки, ліфти, лебідки</text>
+
+  <!-- Права панель: картка 600 об/хв -->
+  <rect x="620" y="258" width="315" height="182" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="635" y="272" width="180" height="24" rx="4" fill="#27ae60"/>
+  <text x="645" y="289" font-size="12" font-weight="bold" fill="#ffffff">Версія 600 об/хв (швидкісна)</text>
+  <text x="635" y="320" font-size="12" fill="#1a1a1a">• Редукція: i ≈ 35:1 (3 ступені)</text>
+  <text x="635" y="340" font-size="12" fill="#27ae60">• ККД редуктора: η ≈ 80% (менше тертя)</text>
+  <text x="635" y="360" font-size="12" fill="#1a1a1a">• Пусковий момент: 0.27 кг·см (помірний)</text>
+  <text x="635" y="380" font-size="12" fill="#1a1a1a">• Струм блокування: 0.7 А при 6 В</text>
+  <text x="635" y="402" font-size="12" fill="#6b7280">Застосування: швидкісні колісні шасі</text>
+  <text x="635" y="422" font-size="12" font-weight="bold" fill="#1a1a1a">Швидкість у 6× вища, момент у 4.6× менший</text>
+</svg>

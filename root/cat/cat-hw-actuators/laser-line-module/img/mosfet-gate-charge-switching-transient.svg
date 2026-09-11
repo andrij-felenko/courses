@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма комутації затвора N-MOSFET транзистора</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Фази заряду Ciss, плато Міллера Vpl та демпфування LC-дзвону затворним резистором Rg</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Часові діаграми -->
+  <rect x="24" y="68" width="616" height="372" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Шапка лівої панелі з легендою -->
+  <text x="40" y="92" font-size="13" font-weight="bold" fill="#1a1a1a">Напруги V_GS(t) та V_DS(t)</text>
+  <line x1="260" y1="88" x2="280" y2="88" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="286" y="92" font-size="12" font-weight="bold" fill="#27ae60">З Rg (демпфовано)</text>
+  <line x1="430" y1="88" x2="450" y2="88" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <text x="456" y="92" font-size="12" font-weight="bold" fill="#c0392b">Без Rg (дзвін LC)</text>
+
+  <!-- Вертикальна смуга: Фаза 2 (Плато Міллера) -->
+  <rect x="200" y="125" width="160" height="260" fill="#eaf0fd"/>
+
+  <!-- Підписи фаз між графіками -->
+  <text x="165" y="258" font-size="12" fill="#6b7280" text-anchor="middle">Фаза 1</text>
+  <text x="165" y="272" font-size="12" fill="#6b7280" text-anchor="middle">Заряд Cgs</text>
+  <text x="280" y="258" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фаза 2: Плато Міллера</text>
+  <text x="280" y="272" font-size="12" fill="#2457d6" text-anchor="middle">Перезаряд Cgd (Vpl)</text>
+  <text x="415" y="258" font-size="12" fill="#6b7280" text-anchor="middle">Фаза 3</text>
+  <text x="415" y="272" font-size="12" fill="#6b7280" text-anchor="middle">Дозаряд 3.3V</text>
+
+  <!-- ================= ГРАФІК 1: V_GS(t) ================= -->
+  <text x="105" y="115" font-size="13" font-weight="bold" fill="#1a1a1a">V_GS(t) [напруга затвор-витік]</text>
+
+  <!-- Вертикальні розділові пунктирні лінії фаз (починаються нижче назви графіка, y=125) -->
+  <line x1="130" y1="125" x2="130" y2="242" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="200" y1="125" x2="200" y2="242" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="360" y1="125" x2="360" y2="242" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="470" y1="125" x2="470" y2="242" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Осі та сітка графіка 1 -->
+  <line x1="95" y1="235" x2="595" y2="235" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="100" y1="122" x2="100" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Горизонтальні опорні лінії рівнів V_GS -->
+  <line x1="100" y1="130" x2="585" y2="130" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="100" y1="175" x2="585" y2="175" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="100" y1="205" x2="585" y2="205" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Значення на осі Y (V_GS) -->
+  <text x="92" y="134" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">3.3V</text>
+  <text x="92" y="179" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">V_pl</text>
+  <text x="92" y="209" font-size="12" fill="#6b7280" text-anchor="end">V_th</text>
+  <text x="92" y="239" font-size="12" fill="#1a1a1a" text-anchor="end">0V</text>
+
+  <!-- Крива 1: Резонансний LC-дзвін без Rg (червона пунктирна) -->
+  <path d="M 100,235 L 130,235 L 140,165 Q 146,140 152,195 Q 160,210 168,160 Q 176,155 184,185 Q 192,188 200,172 L 208,180 Q 216,183 224,172 Q 232,170 240,177 L 270,174 L 360,173 L 372,112 Q 382,98 394,148 Q 406,155 418,118 Q 430,112 442,140 Q 454,144 466,124 Q 478,122 490,134 L 510,130 L 585,130" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+  <!-- Крива 2: Задемпфована аперіодична крива з оптимальним Rg (зелена) -->
+  <path d="M 100,235 L 130,235 C 150,235 175,185 200,175 L 360,173 C 390,170 430,132 470,130 L 585,130" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- ================= ГРАФІК 2: V_DS(t) ================= -->
+  <text x="105" y="295" font-size="13" font-weight="bold" fill="#2457d6">V_DS(t) [напруга стоку] та I_D(t) [струм стоку]</text>
+
+  <!-- Вертикальні розділові лінії графіка 2 (починаються нижче заголовка, y=304) -->
+  <line x1="130" y1="304" x2="130" y2="385" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="200" y1="304" x2="200" y2="385" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="360" y1="304" x2="360" y2="385" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="470" y1="304" x2="470" y2="385" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Осі сітки графіка 2 -->
+  <line x1="95" y1="385" x2="595" y2="385" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="100" y1="302" x2="100" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Горизонтальні опорні лінії V_DS -->
+  <line x1="100" y1="310" x2="585" y2="310" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Значення на осі Y (V_DS) -->
+  <text x="92" y="314" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">5.0V</text>
+  <text x="92" y="389" font-size="12" fill="#1a1a1a" text-anchor="end">0V</text>
+
+  <!-- Крива V_DS(t) (синя суцільна): спад під час плато Міллера -->
+  <path d="M 100,310 L 200,310 C 230,310 330,381 360,381 L 585,381" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Крива струму стоку I_D(t) (сіро-зелена пунктирна): наростання струму -->
+  <path d="M 100,385 L 200,385 C 220,385 240,318 260,318 L 585,318" fill="none" stroke="#6b7280" stroke-width="1.8" stroke-dasharray="4 2"/>
+
+  <!-- Підписи до кривих графіка 2 (праворуч від x=470, не перетинають лінію) -->
+  <text x="480" y="310" font-size="12" font-weight="bold" fill="#6b7280">I_D(t) [струм лазера]</text>
+  <text x="480" y="372" font-size="12" font-weight="bold" fill="#2457d6">V_DS(t) ≈ 0V</text>
+
+  <!-- Позначки часу на нижній осі -->
+  <text x="130" y="405" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">t0</text>
+  <text x="200" y="405" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t1</text>
+  <text x="360" y="405" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t2</text>
+  <text x="470" y="405" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">t3</text>
+  <text x="590" y="405" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Час t →</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Інженерні картки аналізу -->
+  <rect x="654" y="68" width="282" height="372" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Картка 1: Паразитний LC-контур і дзвін -->
+  <rect x="668" y="86" width="254" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="668" y="86" width="254" height="28" rx="6" fill="#fdecea"/>
+  <text x="680" y="105" font-size="13" font-weight="bold" fill="#c0392b">1. Причина дзвону (Rg = 0)</text>
+  <text x="680" y="128" font-size="12" font-weight="bold" fill="#c0392b">• Паразитний LC-контур:</text>
+  <text x="692" y="146" font-size="12" fill="#1a1a1a">L (~10 нГн) та Ciss (~100 пФ)</text>
+  <text x="680" y="168" font-size="12" font-weight="bold" fill="#c0392b">• Наслідки відсутності Rg:</text>
+  <text x="692" y="186" font-size="12" fill="#1a1a1a">Добротність Q &gt;&gt; 1 → викиди V_GS</text>
+  <text x="692" y="204" font-size="12" fill="#1a1a1a">до 4.5В, ВЧ-шум (EMI 100 МГц)</text>
+  <text x="692" y="222" font-size="12" fill="#6b7280">та загроза пробою ізоляції</text>
+
+  <!-- Картка 2: Демпфування затворним резистором -->
+  <rect x="668" y="250" width="254" height="174" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="668" y="250" width="254" height="28" rx="6" fill="#e9f7ef"/>
+  <text x="680" y="269" font-size="13" font-weight="bold" fill="#27ae60">2. Демпфування затвора Rg</text>
+  <text x="680" y="294" font-size="12" font-weight="bold" fill="#27ae60">• Умова бездзвонного переходу:</text>
+  <text x="692" y="312" font-size="12" font-weight="bold" fill="#1a1a1a">Rg ≥ 2 · √(L_trace / Ciss)</text>
+  <text x="680" y="334" font-size="12" font-weight="bold" fill="#27ae60">• Оптимальний номінал:</text>
+  <text x="692" y="352" font-size="12" fill="#1a1a1a">Rg = 22 ... 100 Ом</text>
+  <text x="680" y="374" font-size="12" font-weight="bold" fill="#27ae60">• Результат демпфування:</text>
+  <text x="692" y="392" font-size="12" fill="#1a1a1a">Аперіодичний підйом без викидів,</text>
+  <text x="692" y="410" font-size="12" fill="#6b7280">чисте плато Міллера та нуль EMI</text>
+</svg>

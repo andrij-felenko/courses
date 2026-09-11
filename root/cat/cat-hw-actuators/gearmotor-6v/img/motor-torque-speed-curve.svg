@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механічна характеристика двигуна постійного струму 6 В</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Лінійна залежність швидкості від моменту, перетин із навантаженням та жорсткість привода</text>
+
+  <!-- Графік: Осі координат -->
+  <line x1="90" y1="380" x2="90" y2="95" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="90" y1="380" x2="570" y2="380" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Назви осей -->
+  <text x="90" y="78" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">ω [об/хв] — швидкість</text>
+  <text x="580" y="405" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">M [мН·м]</text>
+
+  <!-- Засічки осей -->
+  <line x1="85" y1="130" x2="90" y2="130" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="85" y1="205" x2="90" y2="205" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="204" y1="380" x2="204" y2="385" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="470" y1="380" x2="470" y2="385" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Числові позначення на осях -->
+  <text x="82" y="134" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">ω₀</text>
+  <text x="82" y="209" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">ω_роб</text>
+  <text x="82" y="396" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="204" y="400" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">M_роб</text>
+  <text x="470" y="400" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">M_stall</text>
+
+  <!-- Трикутник жорсткості (нахил) -->
+  <polygon points="350,301 350,347 420,347" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,2"/>
+  <text x="342" y="328" font-size="12" fill="#2457d6" text-anchor="end">|Δω|</text>
+  <text x="385" y="363" font-size="12" fill="#2457d6" text-anchor="middle">ΔM</text>
+  <text x="355" y="278" font-size="12" font-weight="bold" fill="#2457d6">Жорсткість β = ΔM / Δω</text>
+
+  <!-- Проєкції робочої точки -->
+  <line x1="90" y1="205" x2="204" y2="205" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="204" y1="205" x2="204" y2="380" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Характеристика навантаження -->
+  <path d="M 90 380 Q 135 285 204 205 Q 240 160 270 120" fill="none" stroke="#6b7280" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <text x="278" y="118" font-size="12" font-weight="bold" fill="#6b7280">M_нав(ω)</text>
+  <text x="278" y="134" font-size="12" fill="#6b7280">Характеристика навантаження</text>
+
+  <!-- Лінійна характеристика двигуна -->
+  <line x1="90" y1="130" x2="470" y2="380" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="345" y="230" font-size="13" font-weight="bold" fill="#2457d6">Двигун 6 В: ω(M)</text>
+  <text x="345" y="246" font-size="12" fill="#2457d6">Лінійний спад швидкості</text>
+
+  <!-- Точка холостого ходу -->
+  <circle cx="90" cy="130" r="5" fill="#2457d6"/>
+  <text x="105" y="116" font-size="12" font-weight="bold" fill="#2457d6">Холостий хід: ω₀</text>
+
+  <!-- Точка пускового моменту / блокування -->
+  <circle cx="470" cy="380" r="5" fill="#c0392b"/>
+  <text x="475" y="348" font-size="12" font-weight="bold" fill="#c0392b">Струм блокування</text>
+  <text x="475" y="363" font-size="12" fill="#c0392b">M_stall (ω = 0)</text>
+
+  <!-- Робоча точка (перетин) -->
+  <circle cx="204" cy="205" r="5" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+  <line x1="210" y1="202" x2="230" y2="194" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="235" y="190" font-size="12" font-weight="bold" fill="#27ae60">Робоча точка</text>
+  <text x="235" y="205" font-size="12" fill="#27ae60">(M_роб, ω_роб)</text>
+
+  <!-- Права панель 1: Рівняння характеристики -->
+  <rect x="625" y="85" width="310" height="165" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="642" y="112" font-size="14" font-weight="bold" fill="#1a1a1a">Рівняння характеристики</text>
+
+  <rect x="640" y="125" width="280" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="650" y="146" font-size="13" font-weight="bold" fill="#2457d6">ω(M) = ω₀ − (R / (Ke · Kt)) · M</text>
+
+  <text x="642" y="178" font-size="12" font-weight="bold" fill="#1a1a1a">ω₀ = V / Ke</text>
+  <text x="730" y="178" font-size="12" fill="#6b7280">— швидкість холостого ходу</text>
+
+  <text x="642" y="202" font-size="12" font-weight="bold" fill="#1a1a1a">M_stall = Kt · (V / R)</text>
+  <text x="795" y="202" font-size="12" fill="#6b7280">— пусковий момент</text>
+
+  <text x="642" y="226" font-size="12" font-weight="bold" fill="#1a1a1a">β = ΔM / Δω = −Ke·Kt / R</text>
+  <text x="815" y="226" font-size="12" fill="#6b7280">— жорсткість</text>
+
+  <!-- Права панель 2: Інженерні висновки -->
+  <rect x="625" y="265" width="310" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="642" y="292" font-size="14" font-weight="bold" fill="#1a1a1a">Інженерні висновки</text>
+
+  <circle cx="650" cy="318" r="3.5" fill="#2457d6"/>
+  <text x="664" y="322" font-size="12" font-weight="bold" fill="#1a1a1a">Нахил лінії визначає опір R:</text>
+  <text x="664" y="338" font-size="12" fill="#6b7280">що менший R, то жорсткіший привод</text>
+
+  <circle cx="650" cy="362" r="3.5" fill="#2457d6"/>
+  <text x="664" y="366" font-size="12" font-weight="bold" fill="#1a1a1a">Лінійне падіння швидкості:</text>
+  <text x="664" y="382" font-size="12" fill="#6b7280">зі зростанням моменту ω падає лінійно</text>
+
+  <circle cx="650" cy="406" r="3.5" fill="#c0392b"/>
+  <text x="664" y="410" font-size="12" font-weight="bold" fill="#c0392b">Запобігання перегріву:</text>
+  <text x="664" y="426" font-size="12" fill="#6b7280">M_роб тримають далеко від M_stall</text>
+</svg>

@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Маркери стрілок розмірних ліній -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <!-- Маркер стрілки стробу (зелений) -->
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма тактування та передачі даних SPI (ST7789)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Фіксація бітів SDA за наростаючим фронтом SCL із випередженням сигналу DC (t_ast)</text>
+
+  <!-- Головна панель діаграми -->
+  <rect x="30" y="74" width="900" height="248" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Підписи ліній інтерфейсу зліва -->
+  <text x="45" y="104" font-size="13" font-weight="bold" fill="#1a1a1a">CS</text>
+  <text x="75" y="104" font-size="12" fill="#6b7280">(вибір)</text>
+
+  <text x="45" y="148" font-size="13" font-weight="bold" fill="#1a1a1a">DC</text>
+  <text x="75" y="148" font-size="12" fill="#6b7280">(режим D/C)</text>
+
+  <text x="45" y="214" font-size="13" font-weight="bold" fill="#1a1a1a">SCL</text>
+  <text x="80" y="214" font-size="12" fill="#6b7280">(тактування)</text>
+
+  <text x="45" y="268" font-size="13" font-weight="bold" fill="#1a1a1a">SDA</text>
+  <text x="80" y="268" font-size="12" fill="#6b7280">(вхід даних)</text>
+
+  <!-- Вертикальний роздільник після підписів -->
+  <line x1="180" y1="84" x2="180" y2="312" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- 1. СИГНАЛ CS (вибір мікросхеми, активний низький рівень) -->
+  <polyline points="195,88 215,88 230,100 905,100" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- 2. СИГНАЛ DC (Data/Command select) -->
+  <!-- Перехід DC у стабільний стан команди (Low = 150) або даних (High = 136) -->
+  <line x1="195" y1="136" x2="230" y2="136" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="230" y1="136" x2="245" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="245" y1="150" x2="905" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Альтернативний рівень High для даних -->
+  <line x1="245" y1="136" x2="905" y2="136" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Засічка початку стабільності DC на x=245 -->
+  <line x1="245" y1="116" x2="245" y2="156" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Вимірювання t_ast: від встановлення DC (x=245) до першого тактового фронту SCL (x=340) -->
+  <line x1="245" y1="124" x2="340" y2="124" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="292" y="118" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_ast</text>
+
+  <!-- 3. СИГНАЛ SCL (тактовий сигнал запису) -->
+  <!-- Рівні: High = 196, Low = 224 -->
+  <path d="M 195,224 L 340,224 L 340,196 L 410,196 L 410,224 L 480,224 L 480,196 L 550,196 L 550,224 L 620,224 L 620,196 L 690,196 L 690,224 L 760,224 L 760,196 L 810,196 L 810,224 L 835,224" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Продовження тактування штрихом -->
+  <line x1="835" y1="224" x2="905" y2="224" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Вертикальні лінії прив'язки фронтів тактування SCL -->
+  <line x1="340" y1="116" x2="340" y2="196" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="480" y1="178" x2="480" y2="196" stroke="#2457d6" stroke-width="1"/>
+  <line x1="550" y1="178" x2="550" y2="196" stroke="#2457d6" stroke-width="1"/>
+  <line x1="620" y1="178" x2="620" y2="196" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- t_cycw: період тактового сигналу SCL (від наростаючого фронту до наступного наростаючого) -->
+  <line x1="340" y1="184" x2="480" y2="184" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="410" y="176" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_cycw</text>
+
+  <!-- t_wrh: тривалість високого рівня SCL -->
+  <line x1="480" y1="184" x2="550" y2="184" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="515" y="176" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_wrh</text>
+
+  <!-- t_wrl: тривалість низького рівня SCL -->
+  <line x1="550" y1="184" x2="620" y2="184" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="585" y="176" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_wrl</text>
+
+  <!-- Стрілки вибірки (Sample) на наростаючих фронтах SCL -->
+  <line x1="340" y1="228" x2="340" y2="246" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="480" y1="228" x2="480" y2="246" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="620" y1="228" x2="620" y2="246" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="760" y1="228" x2="760" y2="246" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- 4. СИГНАЛ SDA (шина послідовних даних) -->
+  <!-- Невизначений стан до передачі даних -->
+  <line x1="195" y1="263" x2="270" y2="263" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Комірка D7 (MSB) - акцентне тло #eaf0fd -->
+  <polygon points="270,263 290,250 390,250 405,263 390,276 290,276" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="340" y="267" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D7 (MSB)</text>
+
+  <!-- Комірка D6 -->
+  <polygon points="405,263 420,250 525,250 540,263 525,276 420,276" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="455" y="267" font-size="12" fill="#1a1a1a" text-anchor="middle">D6</text>
+
+  <!-- Комірка D5 -->
+  <polygon points="540,263 555,250 660,250 675,263 660,276 555,276" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="595" y="267" font-size="12" fill="#1a1a1a" text-anchor="middle">D5</text>
+
+  <!-- Комірка D4 -->
+  <polygon points="675,263 690,250 785,250 800,263 785,276 690,276" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="735" y="267" font-size="12" fill="#1a1a1a" text-anchor="middle">D4</text>
+
+  <!-- Продовження передачі байта -->
+  <polygon points="800,263 815,250 890,250 890,276 815,276" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="850" y="267" font-size="12" fill="#6b7280" text-anchor="middle">... D0</text>
+
+  <!-- Засічки вимірювань t_dst та t_dht під шиною SDA -->
+  <line x1="290" y1="279" x2="290" y2="293" stroke="#2457d6" stroke-width="1"/>
+  <line x1="340" y1="279" x2="340" y2="293" stroke="#2457d6" stroke-width="1"/>
+  <line x1="390" y1="279" x2="390" y2="293" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- t_dst: час встановлення даних SDA перед фронтом SCL -->
+  <line x1="290" y1="288" x2="340" y2="288" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="315" y="305" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_dst</text>
+
+  <!-- t_dht: час утримання даних SDA після фронту SCL -->
+  <line x1="340" y1="288" x2="390" y2="288" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="365" y="305" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_dht</text>
+
+  <!-- ================= НИЖНІ КАРТКИ ПАРАМЕТРІВ ================= -->
+
+  <!-- Картка 1: Параметри SCL -->
+  <rect x="30" y="336" width="285" height="106" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="44" y="356" font-size="13" font-weight="bold" fill="#1a1a1a">Параметри тактування SCL</text>
+  <text x="44" y="378" font-size="12" fill="#1a1a1a">t_cycw : мін. 16 нс (до 62.5 МГц)</text>
+  <text x="44" y="398" font-size="12" fill="#1a1a1a">t_wrh   : мін. 15 нс (високий рівень)</text>
+  <text x="44" y="418" font-size="12" fill="#1a1a1a">t_wrl    : мін. 15 нс (низький рівень)</text>
+
+  <!-- Картка 2: Часи встановлення та утримання -->
+  <rect x="327" y="336" width="315" height="106" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="341" y="356" font-size="13" font-weight="bold" fill="#1a1a1a">Часи встановлення та утримання</text>
+  <text x="341" y="378" font-size="12" fill="#1a1a1a">t_ast : мін. 10 нс (випередження DC)</text>
+  <text x="341" y="398" font-size="12" fill="#1a1a1a">t_dst : мін. 10 нс (встановлення даних SDA)</text>
+  <text x="341" y="418" font-size="12" fill="#1a1a1a">t_dht : мін. 10 нс (утримання даних SDA)</text>
+
+  <!-- Картка 3: Правила стробування (акцент розв'язку) -->
+  <rect x="654" y="336" width="276" height="106" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="668" y="356" font-size="13" font-weight="bold" fill="#27ae60">Стробування інтерфейсу</text>
+  <text x="668" y="378" font-size="12" fill="#1a1a1a">• Фіксація біта: наростаючий фронт</text>
+  <text x="668" y="398" font-size="12" fill="#1a1a1a">• Порядок бітів: MSB first (D7 → D0)</text>
+  <text x="668" y="418" font-size="12" fill="#1a1a1a">• DC=0 — команда, DC=1 — дані RAM</text>
+</svg>

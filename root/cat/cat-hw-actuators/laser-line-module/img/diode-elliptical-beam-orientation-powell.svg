@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Орієнтація еліптичного пучка діода відносно призми Павелла</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Швидка вісь дає тонку лінію і ризик крайових викидів, повільна — гаусів горб і малу глибину різкості</text>
+
+  <!-- LEFT PANEL: Fast Axis Fan -->
+  <rect x="30" y="78" width="435" height="252" rx="8" ry="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="30" y="78" width="435" height="30" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="98" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Варіант А: Розгортка вздовж Швидкої осі (Fast Axis)</text>
+
+  <!-- Left: Beam cross-section box -->
+  <rect x="42" y="116" width="185" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="134" y="132" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний пучок і гребінь</text>
+
+  <!-- Ridge line -->
+  <line x1="134" y1="140" x2="134" y2="190" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="134" y="210" font-size="12" fill="#2457d6" text-anchor="middle">Гребінь призми</text>
+
+  <!-- Horizontal ellipse (Fast axis horizontal across ridge) -->
+  <ellipse cx="134" cy="165" rx="34" ry="14" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Labels outside the ellipse and ridge -->
+  <text x="94" y="169" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">d_fast</text>
+  <text x="174" y="169" font-size="12" fill="#6b7280" text-anchor="start">d_slow</text>
+
+  <!-- Left: Line Profile box -->
+  <rect x="237" y="116" width="216" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="345" y="132" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Профіль лінії I(x)</text>
+
+  <!-- Line on target screen -->
+  <line x1="250" y1="146" x2="440" y2="146" stroke="#2457d6" stroke-width="2"/>
+  <text x="345" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Тонка смуга (велика DOF)</text>
+
+  <!-- Intensity curve axes -->
+  <line x1="255" y1="216" x2="435" y2="216" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="260" y1="219" x2="260" y2="175" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+
+  <!-- Curve: Flat-top with horns -->
+  <path d="M 270,216 L 270,186 L 280,186 Q 295,198 345,198 Q 395,198 410,186 L 420,186 L 420,216" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="280" y="180" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">«Вухо»</text>
+  <text x="410" y="180" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">«Вухо»</text>
+  <text x="345" y="234" font-size="12" fill="#c0392b" text-anchor="middle">якщо d_fast &gt; d_розрах</text>
+
+  <!-- Left Panel bottom note -->
+  <rect x="42" y="278" width="411" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="295" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Перевага: тонка різка лінія завдяки малому d_slow</text>
+  <text x="247" y="311" font-size="12" fill="#c0392b" text-anchor="middle">Ризик: якщо d_fast &gt; d призми — виникають бічні піки («вуха»)</text>
+
+
+  <!-- RIGHT PANEL: Slow Axis Fan -->
+  <rect x="495" y="78" width="435" height="252" rx="8" ry="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="495" y="78" width="435" height="30" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712" y="98" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Варіант Б: Розгортка вздовж Повільної осі (Slow Axis)</text>
+
+  <!-- Right: Beam cross-section box -->
+  <rect x="507" y="116" width="185" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="599" y="132" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний пучок і гребінь</text>
+
+  <!-- Ridge line -->
+  <line x1="599" y1="140" x2="599" y2="190" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="599" y="210" font-size="12" fill="#2457d6" text-anchor="middle">Гребінь призми</text>
+
+  <!-- Vertical ellipse (Slow axis horizontal across ridge) -->
+  <ellipse cx="599" cy="165" rx="14" ry="34" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Labels outside the ellipse and ridge -->
+  <text x="579" y="169" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">d_slow</text>
+  <text x="619" y="169" font-size="12" fill="#6b7280" text-anchor="start">d_fast</text>
+
+  <!-- Right: Line Profile box -->
+  <rect x="702" y="116" width="216" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="810" y="132" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Профіль лінії I(x)</text>
+
+  <!-- Line on target screen -->
+  <line x1="715" y1="146" x2="905" y2="146" stroke="#c0392b" stroke-width="5"/>
+  <text x="810" y="160" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Товста смуга (мала DOF)</text>
+
+  <!-- Intensity curve axes -->
+  <line x1="720" y1="216" x2="900" y2="216" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="725" y1="219" x2="725" y2="175" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+
+  <!-- Curve: Gaussian hump -->
+  <path d="M 735,216 C 770,216 785,182 810,182 C 835,182 850,216 885,216" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="810" y="174" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Гаусів горб</text>
+  <text x="810" y="234" font-size="12" fill="#c0392b" text-anchor="middle">недорозгортка: d &lt; d_розрах</text>
+
+  <!-- Right Panel bottom note -->
+  <rect x="507" y="278" width="411" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="295" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Недолік: товста смуга і втрата прямокутного Flat-Top</text>
+  <text x="712" y="311" font-size="12" fill="#1a1a1a" text-anchor="middle">Завузький пучок d_slow не заповнює апекс, лишаючи гаусів спад</text>
+
+
+  <!-- BOTTOM SECTION: SUMMARY CARDS -->
+  <!-- Card 1: Diode Anisotropy -->
+  <rect x="30" y="345" width="286" height="90" rx="8" ry="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="30" y="345" width="286" height="26" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="173" y="362" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. АНІЗОТРОПІЯ ДІОДА</text>
+  <text x="42" y="385" font-size="12" fill="#1a1a1a">• Fast Axis: розбіжність ~30° (велика)</text>
+  <text x="42" y="403" font-size="12" fill="#1a1a1a">• Slow Axis: розбіжність ~10° (мала)</text>
+  <text x="42" y="421" font-size="12" font-weight="bold" fill="#2457d6">• Колімований пучок завжди еліптичний</text>
+
+  <!-- Card 2: Golden Rule of Mounting -->
+  <rect x="337" y="345" width="286" height="90" rx="8" ry="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="337" y="345" width="286" height="26" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="362" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2. ЗОЛОТЕ ПРАВИЛО МОНТАЖУ</text>
+  <text x="349" y="385" font-size="12" fill="#1a1a1a">• Fast Axis ставити поперек гребеня</text>
+  <text x="349" y="403" font-size="12" fill="#1a1a1a">• Дає тонку лінію і велику різкість DOF</text>
+  <text x="349" y="421" font-size="12" font-weight="bold" fill="#27ae60">• Призму розраховувати під d_fast</text>
+
+  <!-- Card 3: Defect Mechanisms -->
+  <rect x="644" y="345" width="286" height="90" rx="8" ry="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="644" y="345" width="286" height="26" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="787" y="362" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3. ТИПОВІ ДЕФЕКТИ ПРОФІЛЮ</text>
+  <text x="656" y="385" font-size="12" fill="#1a1a1a">• d &gt; d_розрах: крайові піки («вуха»)</text>
+  <text x="656" y="403" font-size="12" fill="#1a1a1a">• d &lt; d_розрах: гаусів горб у центрі</text>
+  <text x="656" y="421" font-size="12" font-weight="bold" fill="#c0392b">• Поворот на 90° ламає тріангуляцію</text>
+
+</svg>

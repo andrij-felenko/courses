@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Помилки юстування призми Павелла та дефекти лінії</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Децентрування перекошує яскравість, нахил вигинає лінію, а поворот еліпса створює крайові викиди</text>
+
+  <!-- COLUMN 1: Decentering -->
+  <rect x="25" y="74" width="292" height="362" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="25" y="74" width="292" height="32" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="171" y="95" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Децентрування (зсув Δx)</text>
+
+  <!-- Col 1 / Sec A: Beam entry -->
+  <rect x="37" y="114" width="268" height="88" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="171" y="130" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний пучок і гребінь призми</text>
+
+  <!-- Prism roof profile -->
+  <path d="M 98,186 L 158,150 Q 171,144 184,150 L 244,186 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="171" y1="138" x2="171" y2="186" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="96" y="152" font-size="12" fill="#2457d6" text-anchor="end">Гребінь</text>
+
+  <!-- Ideal beam (dashed) -->
+  <circle cx="171" cy="166" r="15" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Shifted beam (red) -->
+  <circle cx="195" cy="166" r="15" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <line x1="171" y1="140" x2="193" y2="140" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="202" y="144" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Δx</text>
+  <text x="248" y="168" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">E↑↑</text>
+
+  <!-- Col 1 / Sec B: Intensity Profile -->
+  <rect x="37" y="210" width="268" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="171" y="226" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Профіль інтенсивності лінії I(x)</text>
+
+  <!-- Axes -->
+  <line x1="60" y1="285" x2="282" y2="285" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="65" y1="288" x2="65" y2="242" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="70" y="250" font-size="12" fill="#1a1a1a" text-anchor="start">I</text>
+  <text x="280" y="299" font-size="12" fill="#1a1a1a" text-anchor="end">x</text>
+
+  <!-- Ideal curve (green dashed) -->
+  <path d="M 75,285 L 75,264 L 270,264 L 270,285" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Decentered curve (slanted red) -->
+  <path d="M 75,285 L 75,278 L 270,248 L 270,285" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="115" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Тьмяно</text>
+  <text x="235" y="240" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Яскраво</text>
+
+  <!-- Col 1 / Sec C: Bullets -->
+  <rect x="37" y="324" width="268" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="47" y="344" font-size="12" font-weight="bold" fill="#c0392b">• Причина: зсув осі пучка Δx</text>
+  <text x="47" y="364" font-size="12" fill="#1a1a1a">• Енергія ділиться нерівно</text>
+  <text x="47" y="384" font-size="12" font-weight="bold" fill="#c0392b">• Наслідок: асиметрія лінії</text>
+  <text x="47" y="404" font-size="12" fill="#6b7280">• Збій порогу тріангуляції</text>
+
+
+  <!-- COLUMN 2: Tilt / Yaw -->
+  <rect x="334" y="74" width="292" height="362" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="334" y="74" width="292" height="32" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="95" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Кутовий нахил (Tilt / Yaw)</text>
+
+  <!-- Col 2 / Sec A: Angle of Incidence -->
+  <rect x="346" y="114" width="268" height="88" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="130" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кут падіння на плоску грань</text>
+
+  <!-- Prism side view -->
+  <path d="M 485,142 L 530,167 L 485,192 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="395" y1="167" x2="535" y2="167" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Tilted beam -->
+  <line x1="410" y1="147" x2="483" y2="166" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <path d="M 445,167 A 40 40 0 0 0 448,157" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="435" y="160" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">θ</text>
+
+  <!-- Refracted rays -->
+  <line x1="530" y1="167" x2="585" y2="152" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="530" y1="167" x2="585" y2="182" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="596" y="196" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Конус</text>
+
+  <!-- Col 2 / Sec B: Screen curve -->
+  <rect x="346" y="210" width="268" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="226" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Форма лазерної лінії на екрані</text>
+
+  <!-- Screen box -->
+  <rect x="368" y="238" width="224" height="66" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="380" y1="258" x2="580" y2="258" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="480" y="252" font-size="12" fill="#27ae60" text-anchor="middle">Ідеал: пряма лінія</text>
+
+  <!-- Smile curve -->
+  <path d="M 380,268 Q 480,296 580,268" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <text x="480" y="284" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">«Посмішка» (smile)</text>
+
+  <!-- Col 2 / Sec C: Bullets -->
+  <rect x="346" y="324" width="268" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="356" y="344" font-size="12" font-weight="bold" fill="#c0392b">• Причина: нахил пучка θ ≠ 0</text>
+  <text x="356" y="364" font-size="12" fill="#1a1a1a">• Конічний переріз заломлення</text>
+  <text x="356" y="384" font-size="12" font-weight="bold" fill="#c0392b">• Наслідок: дуговий прогин</text>
+  <text x="356" y="404" font-size="12" fill="#6b7280">• Похибка геометрії поверхні</text>
+
+
+  <!-- COLUMN 3: Beam Ellipticity Orientation -->
+  <rect x="643" y="74" width="292" height="362" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="643" y="74" width="292" height="32" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="789" y="95" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Орієнтація еліпса (90°)</text>
+
+  <!-- Col 3 / Sec A: Ellipse axes -->
+  <rect x="655" y="114" width="268" height="88" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="789" y="130" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Поворот осей діода Fast/Slow</text>
+
+  <!-- Ridge line -->
+  <line x1="775" y1="138" x2="775" y2="182" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="775" y="196" font-size="12" fill="#2457d6" text-anchor="middle">Гребінь</text>
+
+  <!-- Normal ellipse -->
+  <ellipse cx="710" cy="162" rx="10" ry="18" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="710" y="140" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Норма</text>
+
+  <!-- Rotated ellipse -->
+  <ellipse cx="850" cy="162" rx="22" ry="10" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="850" y="140" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Помилка 90°</text>
+  <text x="850" y="186" font-size="12" fill="#c0392b" text-anchor="middle">d &gt; d розрах</text>
+
+  <!-- Rotation arrow -->
+  <path d="M 730,158 Q 750,148 770,158" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Col 3 / Sec B: Flat-top distortion -->
+  <rect x="655" y="210" width="268" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="789" y="226" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Спотворення профілю Flat-Top</text>
+
+  <!-- Axes -->
+  <line x1="675" y1="285" x2="902" y2="285" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="680" y1="288" x2="680" y2="242" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="685" y="250" font-size="12" fill="#1a1a1a" text-anchor="start">I</text>
+  <text x="900" y="299" font-size="12" fill="#1a1a1a" text-anchor="end">x</text>
+
+  <!-- Ideal Flat-top (green dashed) -->
+  <path d="M 690,285 L 690,264 L 885,264 L 885,285" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="789" y="258" font-size="12" fill="#27ae60" text-anchor="middle">Ідеал: Flat-top</text>
+
+  <!-- Horns profile (red) -->
+  <path d="M 690,285 L 690,250 L 702,250 Q 720,270 789,270 Q 855,270 873,250 L 885,250 L 885,285" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="702" y="244" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">«Вухо»</text>
+  <text x="873" y="244" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">«Вухо»</text>
+  <text x="789" y="282" font-size="12" fill="#c0392b" text-anchor="middle">Провал у центрі</text>
+
+  <!-- Col 3 / Sec C: Bullets -->
+  <rect x="655" y="324" width="268" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="665" y="344" font-size="12" font-weight="bold" fill="#c0392b">• Причина: розворот діода на 90°</text>
+  <text x="665" y="364" font-size="12" fill="#1a1a1a">• Невідповідність d_beam та R</text>
+  <text x="665" y="384" font-size="12" font-weight="bold" fill="#c0392b">• Наслідок: крайові піки («вуха»)</text>
+  <text x="665" y="404" font-size="12" fill="#6b7280">• Засвічення матриці камери</text>
+
+</svg>

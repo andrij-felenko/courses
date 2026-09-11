@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Порівняння виходів: однотактний (SE) проти мостового (BTL)</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">BTL подвоює розмах амплітуди до 2·VDD, учетверо збільшує потужність та усуває вихідний конденсатор</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Однотактний (SE) -->
+  <rect x="24" y="68" width="444" height="412" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок лівої панелі -->
+  <rect x="36" y="80" width="148" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="110" y="96" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">ОДНОТАКТНИЙ (SE)</text>
+  <text x="194" y="96" font-size="13" fill="#1a1a1a" font-weight="600">Один вихід + розділовий C</text>
+
+  <!-- Схема SE -->
+  <rect x="36" y="110" width="420" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Підсилювач -->
+  <rect x="46" y="125" width="66" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="79" y="151" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Підсилювач</text>
+  <!-- Провід виходу до конденсатора -->
+  <line x1="112" y1="147" x2="160" y2="147" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Точка V_OUT -->
+  <circle cx="136" cy="147" r="3" fill="#2457d6"/>
+  <text x="136" y="137" font-size="12" font-weight="600" text-anchor="middle" fill="#2457d6">V_OUT</text>
+  <!-- Конденсатор C_OUT -->
+  <line x1="160" y1="135" x2="160" y2="159" stroke="#c0392b" stroke-width="2"/>
+  <line x1="168" y1="135" x2="168" y2="159" stroke="#c0392b" stroke-width="2"/>
+  <text x="164" y="126" font-size="12" font-weight="600" text-anchor="middle" fill="#c0392b">C_OUT</text>
+  <!-- Провід до динаміка -->
+  <line x1="168" y1="147" x2="208" y2="147" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Динамік -->
+  <rect x="208" y="137" width="20" height="20" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="228,137 248,125 248,169 228,157" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="264" y="142" font-size="12" font-weight="600" fill="#1a1a1a">Динамік</text>
+  <!-- Провід до GND -->
+  <line x1="248" y1="147" x2="274" y2="147" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="274" y1="138" x2="274" y2="156" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="278" y1="141" x2="278" y2="153" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="282" y1="144" x2="282" y2="150" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="264" y="158" font-size="12" fill="#6b7280">GND</text>
+  <!-- Міні-картка примітки SE -->
+  <rect x="336" y="118" width="110" height="58" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="391" y="136" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Зрізає баси</text>
+  <text x="391" y="152" font-size="12" text-anchor="middle" fill="#1a1a1a">C блокує DC</text>
+  <text x="391" y="167" font-size="12" text-anchor="middle" fill="#6b7280">V_DC = VDD/2</text>
+
+  <!-- Графіки SE -->
+  <rect x="36" y="192" width="420" height="212" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Заголовок графіка 1 SE -->
+  <text x="48" y="211" font-size="12" font-weight="700" fill="#2457d6">1. Напруга на виході чіпа V_OUT (до C_OUT)</text>
+  <!-- Осі графіка 1 -->
+  <line x1="115" y1="225" x2="315" y2="225" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="115" y1="265" x2="315" y2="265" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="110" y1="245" x2="322" y2="245" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="104" y="229" font-size="12" text-anchor="end" fill="#6b7280">VDD</text>
+  <text x="104" y="249" font-size="12" text-anchor="end" fill="#2457d6" font-weight="600">VDD/2</text>
+  <text x="104" y="269" font-size="12" text-anchor="end" fill="#6b7280">0 В</text>
+  <!-- Синусоїда 1 -->
+  <path d="M 115.0,245.0 L 117.5,241.9 L 120.0,238.8 L 122.5,235.9 L 125.0,233.2 L 127.5,230.9 L 130.0,228.8 L 132.5,227.2 L 135.0,226.0 L 137.5,225.2 L 140.0,225.0 L 142.5,225.2 L 145.0,226.0 L 147.5,227.2 L 150.0,228.8 L 152.5,230.9 L 155.0,233.2 L 157.5,235.9 L 160.0,238.8 L 162.5,241.9 L 165.0,245.0 L 167.5,248.1 L 170.0,251.2 L 172.5,254.1 L 175.0,256.8 L 177.5,259.1 L 180.0,261.2 L 182.5,262.8 L 185.0,264.0 L 187.5,264.8 L 190.0,265.0 L 192.5,264.8 L 195.0,264.0 L 197.5,262.8 L 200.0,261.2 L 202.5,259.1 L 205.0,256.8 L 207.5,254.1 L 210.0,251.2 L 212.5,248.1 L 215.0,245.0 L 217.5,241.9 L 220.0,238.8 L 222.5,235.9 L 225.0,233.2 L 227.5,230.9 L 230.0,228.8 L 232.5,227.2 L 235.0,226.0 L 237.5,225.2 L 240.0,225.0 L 242.5,225.2 L 245.0,226.0 L 247.5,227.2 L 250.0,228.8 L 252.5,230.9 L 255.0,233.2 L 257.5,235.9 L 260.0,238.8 L 262.5,241.9 L 265.0,245.0 L 267.5,248.1 L 270.0,251.2 L 272.5,254.1 L 275.0,256.8 L 277.5,259.1 L 280.0,261.2 L 282.5,262.8 L 285.0,264.0 L 287.5,264.8 L 290.0,265.0 L 292.5,264.8 L 295.0,264.0 L 297.5,262.8 L 300.0,261.2 L 302.5,259.1 L 305.0,256.8 L 307.5,254.1 L 310.0,251.2 L 312.5,248.1 L 315.0,245.0" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <!-- Позначення розмаху графіка 1 -->
+  <line x1="328" y1="225" x2="328" y2="265" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="336" y="241" font-size="12" font-weight="600" fill="#1a1a1a">Розмах = VDD</text>
+  <text x="336" y="257" font-size="12" fill="#c0392b">Зсув = VDD/2</text>
+
+  <!-- Заголовок графіка 2 SE -->
+  <text x="48" y="298" font-size="12" font-weight="700" fill="#1a1a1a">2. Напруга на динаміку V_SPK (після C_OUT)</text>
+  <!-- Осі графіка 2 -->
+  <line x1="115" y1="325" x2="315" y2="325" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="115" y1="365" x2="315" y2="365" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="110" y1="345" x2="322" y2="345" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="104" y="329" font-size="12" text-anchor="end" fill="#6b7280">+VDD/2</text>
+  <text x="104" y="349" font-size="12" text-anchor="end" fill="#1a1a1a" font-weight="600">0 В</text>
+  <text x="104" y="369" font-size="12" text-anchor="end" fill="#6b7280">-VDD/2</text>
+  <!-- Синусоїда 2 -->
+  <path d="M 115.0,345.0 L 117.5,341.9 L 120.0,338.8 L 122.5,335.9 L 125.0,333.2 L 127.5,330.9 L 130.0,328.8 L 132.5,327.2 L 135.0,326.0 L 137.5,325.2 L 140.0,325.0 L 142.5,325.2 L 145.0,326.0 L 147.5,327.2 L 150.0,328.8 L 152.5,330.9 L 155.0,333.2 L 157.5,335.9 L 160.0,338.8 L 162.5,341.9 L 165.0,345.0 L 167.5,348.1 L 170.0,351.2 L 172.5,354.1 L 175.0,356.8 L 177.5,359.1 L 180.0,361.2 L 182.5,362.8 L 185.0,364.0 L 187.5,364.8 L 190.0,365.0 L 192.5,364.8 L 195.0,364.0 L 197.5,362.8 L 200.0,361.2 L 202.5,359.1 L 205.0,356.8 L 207.5,354.1 L 210.0,351.2 L 212.5,348.1 L 215.0,345.0 L 217.5,341.9 L 220.0,338.8 L 222.5,335.9 L 225.0,333.2 L 227.5,330.9 L 230.0,328.8 L 232.5,327.2 L 235.0,326.0 L 237.5,325.2 L 240.0,325.0 L 242.5,325.2 L 245.0,326.0 L 247.5,327.2 L 250.0,328.8 L 252.5,330.9 L 255.0,333.2 L 257.5,335.9 L 260.0,338.8 L 262.5,341.9 L 265.0,345.0 L 267.5,348.1 L 270.0,351.2 L 272.5,354.1 L 275.0,356.8 L 277.5,359.1 L 280.0,361.2 L 282.5,362.8 L 285.0,364.0 L 287.5,364.8 L 290.0,365.0 L 292.5,364.8 L 295.0,364.0 L 297.5,362.8 L 300.0,361.2 L 302.5,359.1 L 305.0,356.8 L 307.5,354.1 L 310.0,351.2 L 312.5,348.1 L 315.0,345.0" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Позначення розмаху графіка 2 -->
+  <line x1="328" y1="325" x2="328" y2="365" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="336" y="341" font-size="12" font-weight="600" fill="#1a1a1a">V_PP = VDD</text>
+  <text x="336" y="357" font-size="12" fill="#27ae60">V_DC = 0 В</text>
+  <text x="336" y="373" font-size="12" fill="#6b7280">Амплітуда VDD/2</text>
+
+  <!-- Підсумок SE -->
+  <rect x="36" y="412" width="420" height="58" rx="6" fill="#fdecea" stroke="#e0b4b4" stroke-width="1"/>
+  <text x="48" y="430" font-size="12" font-weight="700" fill="#c0392b">Макс. потужність: P_SE = VDD² / (8·RL)</text>
+  <text x="48" y="446" font-size="12" fill="#1a1a1a">Для VDD = 5 В, RL = 4 Ом: P_SE ≈ 0.78 Вт (теоретичний максимум)</text>
+  <text x="48" y="460" font-size="12" fill="#6b7280">Недолік: вихідний C займає площу на платі та обмежує баси</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Мостовий (BTL) -->
+  <rect x="492" y="68" width="444" height="412" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок правої панелі -->
+  <rect x="504" y="80" width="148" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="578" y="96" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">МОСТОВИЙ (BTL)</text>
+  <text x="662" y="96" font-size="13" fill="#1a1a1a" font-weight="600">Два протифазні виходи, без C</text>
+
+  <!-- Схема BTL -->
+  <rect x="504" y="110" width="420" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Мікросхема BTL -->
+  <rect x="516" y="120" width="80" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="556" y="142" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">BTL-міст</text>
+  <text x="556" y="158" font-size="12" text-anchor="middle" fill="#6b7280">XPT8871</text>
+  <!-- Виходи OUT+ і OUT- -->
+  <line x1="596" y1="134" x2="656" y2="134" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="626" y="128" font-size="12" font-weight="600" text-anchor="middle" fill="#2457d6">OUT+</text>
+  <line x1="596" y1="160" x2="656" y2="160" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="626" y="173" font-size="12" font-weight="600" text-anchor="middle" fill="#c0392b">OUT-</text>
+  <!-- Провід до динаміка -->
+  <line x1="656" y1="134" x2="666" y2="134" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="666" y1="134" x2="666" y2="139" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="656" y1="160" x2="666" y2="160" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="666" y1="160" x2="666" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Динамік у мості -->
+  <rect x="656" y="139" width="20" height="16" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="676,139 696,127 696,167 676,155" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="706" y="151" font-size="12" font-weight="600" fill="#1a1a1a">Динамік</text>
+  <!-- Міні-картка примітки BTL -->
+  <rect x="770" y="118" width="144" height="58" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="842" y="136" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Без конденсатора!</text>
+  <text x="842" y="152" font-size="12" text-anchor="middle" fill="#1a1a1a">V_DC = VDD/2 − VDD/2</text>
+  <text x="842" y="167" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">= 0 В (нуль DC)</text>
+
+  <!-- Графіки BTL -->
+  <rect x="504" y="192" width="420" height="212" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок графіка 1 BTL -->
+  <text x="516" y="211" font-size="12" font-weight="700" fill="#1a1a1a">1. Напруги на клемах V_OUT+ та V_OUT- (протифазні 180°)</text>
+  <!-- Осі графіка 1 BTL -->
+  <line x1="585" y1="225" x2="785" y2="225" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="585" y1="265" x2="785" y2="265" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="580" y1="245" x2="792" y2="245" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="574" y="229" font-size="12" text-anchor="end" fill="#6b7280">VDD</text>
+  <text x="574" y="249" font-size="12" text-anchor="end" fill="#1a1a1a" font-weight="600">VDD/2</text>
+  <text x="574" y="269" font-size="12" text-anchor="end" fill="#6b7280">0 В</text>
+  <!-- Синусоїди OUT+ та OUT- -->
+  <path d="M 585.0,245.0 L 587.5,241.9 L 590.0,238.8 L 592.5,235.9 L 595.0,233.2 L 597.5,230.9 L 600.0,228.8 L 602.5,227.2 L 605.0,226.0 L 607.5,225.2 L 610.0,225.0 L 612.5,225.2 L 615.0,226.0 L 617.5,227.2 L 620.0,228.8 L 622.5,230.9 L 625.0,233.2 L 627.5,235.9 L 630.0,238.8 L 632.5,241.9 L 635.0,245.0 L 637.5,248.1 L 640.0,251.2 L 642.5,254.1 L 645.0,256.8 L 647.5,259.1 L 650.0,261.2 L 652.5,262.8 L 655.0,264.0 L 657.5,264.8 L 660.0,265.0 L 662.5,264.8 L 665.0,264.0 L 667.5,262.8 L 670.0,261.2 L 672.5,259.1 L 675.0,256.8 L 677.5,254.1 L 680.0,251.2 L 682.5,248.1 L 685.0,245.0 L 687.5,241.9 L 690.0,238.8 L 692.5,235.9 L 695.0,233.2 L 697.5,230.9 L 700.0,228.8 L 702.5,227.2 L 705.0,226.0 L 707.5,225.2 L 710.0,225.0 L 712.5,225.2 L 715.0,226.0 L 717.5,227.2 L 720.0,228.8 L 722.5,230.9 L 725.0,233.2 L 727.5,235.9 L 730.0,238.8 L 732.5,241.9 L 735.0,245.0 L 737.5,248.1 L 740.0,251.2 L 742.5,254.1 L 745.0,256.8 L 747.5,259.1 L 750.0,261.2 L 752.5,262.8 L 755.0,264.0 L 757.5,264.8 L 760.0,265.0 L 762.5,264.8 L 765.0,264.0 L 767.5,262.8 L 770.0,261.2 L 772.5,259.1 L 775.0,256.8 L 777.5,254.1 L 780.0,251.2 L 782.5,248.1 L 785.0,245.0" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 585.0,245.0 L 587.5,248.1 L 590.0,251.2 L 592.5,254.1 L 595.0,256.8 L 597.5,259.1 L 600.0,261.2 L 602.5,262.8 L 605.0,264.0 L 607.5,264.8 L 610.0,265.0 L 612.5,264.8 L 615.0,264.0 L 617.5,262.8 L 620.0,261.2 L 622.5,259.1 L 625.0,256.8 L 627.5,254.1 L 630.0,251.2 L 632.5,248.1 L 635.0,245.0 L 637.5,241.9 L 640.0,238.8 L 642.5,235.9 L 645.0,233.2 L 647.5,230.9 L 650.0,228.8 L 652.5,227.2 L 655.0,226.0 L 657.5,225.2 L 660.0,225.0 L 662.5,225.2 L 665.0,226.0 L 667.5,227.2 L 670.0,228.8 L 672.5,230.9 L 675.0,233.2 L 677.5,235.9 L 680.0,238.8 L 682.5,241.9 L 685.0,245.0 L 687.5,248.1 L 690.0,251.2 L 692.5,254.1 L 695.0,256.8 L 697.5,259.1 L 700.0,261.2 L 702.5,262.8 L 705.0,264.0 L 707.5,264.8 L 710.0,265.0 L 712.5,264.8 L 715.0,264.0 L 717.5,262.8 L 720.0,261.2 L 722.5,259.1 L 725.0,256.8 L 727.5,254.1 L 730.0,251.2 L 732.5,248.1 L 735.0,245.0 L 737.5,241.9 L 740.0,238.8 L 742.5,235.9 L 745.0,233.2 L 747.5,230.9 L 750.0,228.8 L 752.5,227.2 L 755.0,226.0 L 757.5,225.2 L 760.0,225.0 L 762.5,225.2 L 765.0,226.0 L 767.5,227.2 L 770.0,228.8 L 772.5,230.9 L 775.0,233.2 L 777.5,235.9 L 780.0,238.8 L 782.5,241.9 L 785.0,245.0" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2"/>
+  <!-- Легенда графіка 1 BTL -->
+  <line x1="798" y1="235" x2="814" y2="235" stroke="#2457d6" stroke-width="2"/>
+  <text x="818" y="239" font-size="12" font-weight="600" fill="#2457d6">OUT+ (фаза)</text>
+  <line x1="798" y1="251" x2="814" y2="251" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="818" y="255" font-size="12" font-weight="600" fill="#c0392b">OUT- (180°)</text>
+  <text x="804" y="271" font-size="12" fill="#6b7280">Синфазний DC=VDD/2</text>
+
+  <!-- Заголовок графіка 2 BTL -->
+  <text x="516" y="298" font-size="12" font-weight="700" fill="#27ae60">2. Диференціальна напруга V_DIFF = V_OUT+ - V_OUT-</text>
+  <!-- Осі графіка 2 BTL -->
+  <line x1="585" y1="305" x2="785" y2="305" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="585" y1="385" x2="785" y2="385" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="580" y1="345" x2="792" y2="345" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="574" y="309" font-size="12" text-anchor="end" fill="#27ae60" font-weight="700">+VDD</text>
+  <text x="574" y="349" font-size="12" text-anchor="end" fill="#1a1a1a" font-weight="600">0 В</text>
+  <text x="574" y="389" font-size="12" text-anchor="end" fill="#27ae60" font-weight="700">-VDD</text>
+  <!-- Диференціальна синусоїда (подвійна амплітуда!) -->
+  <path d="M 585.0,345.0 L 587.5,338.7 L 590.0,332.6 L 592.5,326.8 L 595.0,321.5 L 597.5,316.7 L 600.0,312.6 L 602.5,309.4 L 605.0,307.0 L 607.5,305.5 L 610.0,305.0 L 612.5,305.5 L 615.0,307.0 L 617.5,309.4 L 620.0,312.6 L 622.5,316.7 L 625.0,321.5 L 627.5,326.8 L 630.0,332.6 L 632.5,338.7 L 635.0,345.0 L 637.5,351.3 L 640.0,357.4 L 642.5,363.2 L 645.0,368.5 L 647.5,373.3 L 650.0,377.4 L 652.5,380.6 L 655.0,383.0 L 657.5,384.5 L 660.0,385.0 L 662.5,384.5 L 665.0,383.0 L 667.5,380.6 L 670.0,377.4 L 672.5,373.3 L 675.0,368.5 L 677.5,363.2 L 680.0,357.4 L 682.5,351.3 L 685.0,345.0 L 687.5,338.7 L 690.0,332.6 L 692.5,326.8 L 695.0,321.5 L 697.5,316.7 L 700.0,312.6 L 702.5,309.4 L 705.0,307.0 L 707.5,305.5 L 710.0,305.0 L 712.5,305.5 L 715.0,307.0 L 717.5,309.4 L 720.0,312.6 L 722.5,316.7 L 725.0,321.5 L 727.5,326.8 L 730.0,332.6 L 732.5,338.7 L 735.0,345.0 L 737.5,351.3 L 740.0,357.4 L 742.5,363.2 L 745.0,368.5 L 747.5,373.3 L 750.0,377.4 L 752.5,380.6 L 755.0,383.0 L 757.5,384.5 L 760.0,385.0 L 762.5,384.5 L 765.0,383.0 L 767.5,380.6 L 770.0,377.4 L 772.5,373.3 L 775.0,368.5 L 777.5,363.2 L 780.0,357.4 L 782.5,351.3 L 785.0,345.0" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <!-- Позначення розмаху 2*VDD -->
+  <line x1="798" y1="305" x2="798" y2="385" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="808" y="338" font-size="12" font-weight="700" fill="#27ae60">V_PP = 2·VDD</text>
+  <text x="808" y="354" font-size="12" font-weight="700" fill="#27ae60">ПОДВОЄННЯ!</text>
+  <text x="808" y="370" font-size="12" fill="#1a1a1a">V_DC = 0 В (нуль DC)</text>
+
+  <!-- Підсумок BTL -->
+  <rect x="504" y="412" width="420" height="58" rx="6" fill="#e9f7ef" stroke="#a3d9b8" stroke-width="1"/>
+  <text x="516" y="430" font-size="12" font-weight="700" fill="#27ae60">Макс. потужність: P_BTL = VDD² / (2·RL) = 4 × P_SE</text>
+  <text x="516" y="446" font-size="12" fill="#1a1a1a">Для VDD = 5 В, RL = 4 Ом: P_BTL ≈ 3.1 Вт (у 4 рази потужніше!)</text>
+  <text x="516" y="460" font-size="12" fill="#6b7280">Перевага: нульовий постійний струм через динамік і чистий бас до 20 Гц</text>
+</svg>

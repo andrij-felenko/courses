@@ -1,0 +1,318 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема силового вузла: 2 мотори, H-міст та роздільне живлення</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Підключення приводів до двоканального H-моста, фільтрація завад на клемах та розділення шин живлення</text>
+
+  <!-- ================= ЛІВИЙ БЛОК: Керування та логіка (MCU) ================= -->
+  <rect x="24" y="72" width="216" height="386" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="132" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Керування та логіка</text>
+  <text x="132" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Мікроконтролер (MCU)</text>
+
+  <!-- Панель 1: Логічне живлення -->
+  <rect x="34" y="126" width="196" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="132" y="142" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логічне живлення VCC</text>
+
+  <text x="44" y="166" font-size="12" fill="#c0392b">VCC</text>
+  <text x="216" y="166" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">3.3/5 В</text>
+  <circle cx="224" cy="162" r="3" fill="#c0392b"/>
+  <line x1="224" y1="162" x2="240" y2="162" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Блокувальний конденсатор логіки C_лог -->
+  <line x1="110" y1="162" x2="110" y2="176" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="102" y1="176" x2="118" y2="176" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="102" y1="180" x2="118" y2="180" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="110" y1="180" x2="110" y2="196" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="110" cy="162" r="2.5" fill="#c0392b"/>
+  <circle cx="110" cy="196" r="2.5" fill="#1a1a1a"/>
+  <text x="126" y="175" font-size="12" font-weight="bold" fill="#2457d6">100 нФ</text>
+  <text x="126" y="189" font-size="12" fill="#6b7280">кераміка</text>
+
+  <text x="44" y="200" font-size="12" fill="#1a1a1a">GND_лог</text>
+  <text x="216" y="200" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0 В</text>
+  <circle cx="224" cy="196" r="3" fill="#1a1a1a"/>
+  <line x1="224" y1="196" x2="240" y2="196" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Панель 2: Сигнали керування Каналом A -->
+  <rect x="34" y="228" width="196" height="104" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="246" font-size="12" font-weight="bold" fill="#1a1a1a">Канал A (Лівий привод)</text>
+
+  <text x="44" y="269" font-size="12" fill="#6b7280">ШІМ швидкість</text>
+  <text x="216" y="269" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">PWM_A</text>
+  <circle cx="224" cy="265" r="3" fill="#2457d6"/>
+  <line x1="224" y1="265" x2="240" y2="265" stroke="#2457d6" stroke-width="1.5"/>
+
+  <text x="44" y="293" font-size="12" fill="#6b7280">Напрямок A1</text>
+  <text x="216" y="293" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">IN1</text>
+  <circle cx="224" cy="289" r="3" fill="#1a1a1a"/>
+  <line x1="224" y1="289" x2="240" y2="289" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="44" y="317" font-size="12" fill="#6b7280">Напрямок A2</text>
+  <text x="216" y="317" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">IN2</text>
+  <circle cx="224" cy="313" r="3" fill="#1a1a1a"/>
+  <line x1="224" y1="313" x2="240" y2="313" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Панель 3: Сигнали керування Каналом B -->
+  <rect x="34" y="344" width="196" height="104" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="362" font-size="12" font-weight="bold" fill="#1a1a1a">Канал B (Правий привод)</text>
+
+  <text x="44" y="385" font-size="12" fill="#6b7280">Напрямок B1</text>
+  <text x="216" y="385" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">IN3</text>
+  <circle cx="224" cy="381" r="3" fill="#1a1a1a"/>
+  <line x1="224" y1="381" x2="240" y2="381" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="44" y="409" font-size="12" fill="#6b7280">Напрямок B2</text>
+  <text x="216" y="409" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">IN4</text>
+  <circle cx="224" cy="405" r="3" fill="#1a1a1a"/>
+  <line x1="224" y1="405" x2="240" y2="405" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="44" y="433" font-size="12" fill="#6b7280">ШІМ швидкість</text>
+  <text x="216" y="433" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">PWM_B</text>
+  <circle cx="224" cy="429" r="3" fill="#2457d6"/>
+  <line x1="224" y1="429" x2="240" y2="429" stroke="#2457d6" stroke-width="1.5"/>
+
+
+  <!-- ================= СЕРЕДНІЙ БЛОК: Двоканальний H-міст ================= -->
+  <rect x="264" y="72" width="356" height="386" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="442" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двоканальний H-міст на MOSFET</text>
+  <text x="442" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Інтегральний драйвер (TB6612FNG / DRV8833)</text>
+
+  <!-- Панель 1: Розділення живлення та Star GND -->
+  <rect x="274" y="126" width="336" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="442" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Розділення шин живлення та Star GND</text>
+
+  <!-- Вхід VCC логіки від MCU -->
+  <line x1="240" y1="162" x2="274" y2="162" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="274" cy="162" r="3" fill="#c0392b"/>
+  <text x="282" y="158" font-size="12" font-weight="bold" fill="#c0392b">VCC</text>
+
+  <!-- Клема силового живлення АКБ -->
+  <rect x="330" y="150" width="70" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="365" y="165" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+6 В АКБ</text>
+
+  <!-- Зіркова точка заземлення Star GND -->
+  <rect x="325" y="184" width="80" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="365" y="200" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">★ Star GND</text>
+
+  <!-- Вхід логічної землі GND_logic у Star GND -->
+  <line x1="240" y1="196" x2="325" y2="196" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="274" cy="196" r="3" fill="#1a1a1a"/>
+  <text x="282" y="192" font-size="12" fill="#6b7280">GND_лог</text>
+
+  <!-- Силова шина VM (+6 В) -->
+  <line x1="400" y1="161" x2="590" y2="161" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="408" y="156" font-size="12" font-weight="bold" fill="#c0392b">VM</text>
+
+  <!-- Силова земля PGND від Star GND -->
+  <line x1="405" y1="196" x2="590" y2="196" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="408" y="210" font-size="12" font-weight="bold" fill="#1a1a1a">PGND</text>
+
+  <!-- Буферний електролітичний конденсатор 470 мкФ -->
+  <line x1="460" y1="161" x2="460" y2="176" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="452" y1="176" x2="468" y2="176" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="452" y1="180" x2="468" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="460" y1="180" x2="460" y2="196" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="460" cy="161" r="2.5" fill="#c0392b"/>
+  <circle cx="460" cy="196" r="2.5" fill="#1a1a1a"/>
+  <text x="472" y="174" font-size="12" font-weight="bold" fill="#1a1a1a">470 мкФ</text>
+  <text x="472" y="188" font-size="12" fill="#6b7280">буфер</text>
+
+  <!-- Високочастотний керамічний конденсатор 100 нФ -->
+  <line x1="535" y1="161" x2="535" y2="176" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="527" y1="176" x2="543" y2="176" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="527" y1="180" x2="543" y2="180" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="535" y1="180" x2="535" y2="196" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="535" cy="161" r="2.5" fill="#c0392b"/>
+  <circle cx="535" cy="196" r="2.5" fill="#1a1a1a"/>
+  <text x="547" y="174" font-size="12" font-weight="bold" fill="#2457d6">100 нФ</text>
+  <text x="547" y="188" font-size="12" fill="#6b7280">ВЧ шум</text>
+
+  <!-- Панель 2: Силовий міст Каналу A -->
+  <rect x="274" y="228" width="336" height="104" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="286" y="246" font-size="12" font-weight="bold" fill="#1a1a1a">Канал A: Силовий міст</text>
+
+  <!-- Вхідні лінії керування від MCU -->
+  <line x1="240" y1="265" x2="286" y2="265" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="286" cy="265" r="3" fill="#2457d6"/>
+  <line x1="240" y1="289" x2="286" y2="289" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="286" cy="289" r="3" fill="#1a1a1a"/>
+  <line x1="240" y1="313" x2="286" y2="313" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="286" cy="313" r="3" fill="#1a1a1a"/>
+
+  <!-- Логіка комутації затворів -->
+  <rect x="286" y="254" width="72" height="68" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="322" y="280" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логіка</text>
+  <text x="322" y="296" font-size="12" fill="#6b7280" text-anchor="middle">керування</text>
+
+  <!-- Сигнал на транзисторний міст -->
+  <line x1="358" y1="288" x2="378" y2="288" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Силовий каскад A -->
+  <rect x="378" y="254" width="144" height="68" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="450" y="274" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">4× N-канал FET</text>
+  <text x="450" y="292" font-size="12" fill="#1a1a1a" text-anchor="middle">R_ds(on) = 0.2 Ом</text>
+  <text x="450" y="308" font-size="12" fill="#6b7280" text-anchor="middle">Вбудовані діоди</text>
+
+  <!-- Виходи напівмостів OUT_A1, OUT_A2 -->
+  <line x1="522" y1="265" x2="644" y2="265" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="620" cy="265" r="3" fill="#2457d6"/>
+  <text x="612" y="260" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">OUT_A1</text>
+
+  <line x1="522" y1="315" x2="644" y2="315" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="620" cy="315" r="3" fill="#2457d6"/>
+  <text x="612" y="310" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">OUT_A2</text>
+
+  <!-- Панель 3: Силовий міст Каналу B -->
+  <rect x="274" y="344" width="336" height="104" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="286" y="362" font-size="12" font-weight="bold" fill="#1a1a1a">Канал B: Силовий міст</text>
+
+  <!-- Вхідні лінії керування від MCU -->
+  <line x1="240" y1="381" x2="286" y2="381" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="286" cy="381" r="3" fill="#1a1a1a"/>
+  <line x1="240" y1="405" x2="286" y2="405" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="286" cy="405" r="3" fill="#1a1a1a"/>
+  <line x1="240" y1="429" x2="286" y2="429" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="286" cy="429" r="3" fill="#2457d6"/>
+
+  <!-- Логіка комутації затворів -->
+  <rect x="286" y="370" width="72" height="68" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="322" y="396" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логіка</text>
+  <text x="322" y="412" font-size="12" fill="#6b7280" text-anchor="middle">керування</text>
+
+  <!-- Сигнал на транзисторний міст -->
+  <line x1="358" y1="404" x2="378" y2="404" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Силовий каскад B -->
+  <rect x="378" y="370" width="144" height="68" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="450" y="390" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">4× N-канал FET</text>
+  <text x="450" y="408" font-size="12" fill="#1a1a1a" text-anchor="middle">R_ds(on) = 0.2 Ом</text>
+  <text x="450" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Вбудовані діоди</text>
+
+  <!-- Виходи напівмостів OUT_B1, OUT_B2 -->
+  <line x1="522" y1="375" x2="644" y2="375" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="620" cy="375" r="3" fill="#2457d6"/>
+  <text x="612" y="370" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">OUT_B1</text>
+
+  <line x1="522" y1="425" x2="644" y2="425" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="620" cy="425" r="3" fill="#2457d6"/>
+  <text x="612" y="420" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">OUT_B2</text>
+
+
+  <!-- ================= ПРАВИЙ БЛОК: Два мотори та фільтрація ================= -->
+  <rect x="644" y="72" width="292" height="386" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Два мотор-редуктори 6 В</text>
+  <text x="790" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Блокувальні конденсатори на клемах</text>
+
+  <!-- Панель 1: Принцип 3-конденсаторного фільтра -->
+  <rect x="654" y="126" width="272" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="142" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фільтрація завад (3 конденсатори)</text>
+  <text x="664" y="160" font-size="12" font-weight="bold" fill="#1a1a1a">• C_терм (100 нФ) між клемами:</text>
+  <text x="676" y="175" font-size="12" fill="#6b7280">гасить іскріння щіток колектора</text>
+  <text x="664" y="192" font-size="12" font-weight="bold" fill="#1a1a1a">• 2× C_корп (47 нФ) на корпус:</text>
+  <text x="676" y="207" font-size="12" fill="#6b7280">відводить ВЧ шум на шасі</text>
+
+  <!-- Панель 2: Мотор A (Лівий привод) -->
+  <rect x="654" y="228" width="272" height="104" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="664" y="246" font-size="12" font-weight="bold" fill="#1a1a1a">Мотор A (Лівий привод, 6 В DC)</text>
+
+  <!-- Провідники від H-моста -->
+  <line x1="644" y1="265" x2="844" y2="265" stroke="#2457d6" stroke-width="2"/>
+  <line x1="644" y1="315" x2="844" y2="315" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- C_терм між клемами мотора -->
+  <line x1="715" y1="265" x2="715" y2="288" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="707" y1="288" x2="723" y2="288" stroke="#2457d6" stroke-width="2"/>
+  <line x1="707" y1="292" x2="723" y2="292" stroke="#2457d6" stroke-width="2"/>
+  <line x1="715" y1="292" x2="715" y2="315" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="715" cy="265" r="3" fill="#2457d6"/>
+  <circle cx="715" cy="315" r="3" fill="#2457d6"/>
+  <text x="701" y="286" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">C_терм</text>
+  <text x="701" y="300" font-size="12" fill="#6b7280" text-anchor="end">100 нФ</text>
+
+  <!-- 2x C_корпус від клем на металевий корпус -->
+  <line x1="775" y1="265" x2="775" y2="275" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="768" y1="275" x2="782" y2="275" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="768" y1="279" x2="782" y2="279" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="775" y1="279" x2="775" y2="290" stroke="#27ae60" stroke-width="1.5"/>
+
+  <line x1="775" y1="315" x2="775" y2="305" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="768" y1="305" x2="782" y2="305" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="768" y1="301" x2="782" y2="301" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="775" y1="301" x2="775" y2="290" stroke="#27ae60" stroke-width="1.5"/>
+
+  <circle cx="775" cy="265" r="3" fill="#27ae60"/>
+  <circle cx="775" cy="315" r="3" fill="#27ae60"/>
+
+  <line x1="775" y1="290" x2="844" y2="290" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="844" cy="290" r="3" fill="#6b7280"/>
+
+  <text x="745" y="284" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">C_корп</text>
+  <text x="745" y="298" font-size="12" fill="#6b7280" text-anchor="middle">47 нФ</text>
+  <text x="810" y="285" font-size="12" fill="#6b7280" text-anchor="middle">Шасі</text>
+
+  <!-- Символ мотора з редуктором -->
+  <rect x="844" y="256" width="72" height="68" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <circle cx="876" cy="290" r="18" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="876" y="295" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+  <rect x="894" y="286" width="14" height="8" rx="1" fill="#1a1a1a"/>
+
+  <!-- Панель 3: Мотор B (Правий привод) -->
+  <rect x="654" y="344" width="272" height="104" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="664" y="362" font-size="12" font-weight="bold" fill="#1a1a1a">Мотор B (Правий привод, 6 В DC)</text>
+
+  <!-- Провідники від H-моста -->
+  <line x1="644" y1="375" x2="844" y2="375" stroke="#2457d6" stroke-width="2"/>
+  <line x1="644" y1="425" x2="844" y2="425" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- C_терм між клемами мотора -->
+  <line x1="715" y1="375" x2="715" y2="398" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="707" y1="398" x2="723" y2="398" stroke="#2457d6" stroke-width="2"/>
+  <line x1="707" y1="402" x2="723" y2="402" stroke="#2457d6" stroke-width="2"/>
+  <line x1="715" y1="402" x2="715" y2="425" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="715" cy="375" r="3" fill="#2457d6"/>
+  <circle cx="715" cy="425" r="3" fill="#2457d6"/>
+  <text x="701" y="396" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">C_терм</text>
+  <text x="701" y="410" font-size="12" fill="#6b7280" text-anchor="end">100 нФ</text>
+
+  <!-- 2x C_корпус від клем на металевий корпус -->
+  <line x1="775" y1="375" x2="775" y2="385" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="768" y1="385" x2="782" y2="385" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="768" y1="389" x2="782" y2="389" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="775" y1="389" x2="775" y2="400" stroke="#27ae60" stroke-width="1.5"/>
+
+  <line x1="775" y1="425" x2="775" y2="415" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="768" y1="415" x2="782" y2="415" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="768" y1="411" x2="782" y2="411" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="775" y1="411" x2="775" y2="400" stroke="#27ae60" stroke-width="1.5"/>
+
+  <circle cx="775" cy="375" r="3" fill="#27ae60"/>
+  <circle cx="775" cy="425" r="3" fill="#27ae60"/>
+
+  <line x1="775" y1="400" x2="844" y2="400" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="844" cy="400" r="3" fill="#6b7280"/>
+
+  <text x="745" y="394" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">C_корп</text>
+  <text x="745" y="408" font-size="12" fill="#6b7280" text-anchor="middle">47 нФ</text>
+  <text x="810" y="395" font-size="12" fill="#6b7280" text-anchor="middle">Шасі</text>
+
+  <!-- Символ мотора з редуктором -->
+  <rect x="844" y="366" width="72" height="68" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <circle cx="880" cy="400" r="18" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="880" y="405" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+  <rect x="894" y="396" width="14" height="8" rx="1" fill="#1a1a1a"/>
+</svg>

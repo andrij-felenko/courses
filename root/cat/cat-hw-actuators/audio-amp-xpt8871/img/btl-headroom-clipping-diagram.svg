@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Динамічний діапазон і межі кліпінгу мостового виходу (BTL)</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Протифазні виходи подвоюють розмах напруги, а падіння на ключах обмежує чистий сигнал</text>
+  <rect x="20" y="70" width="450" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="91" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Плечі моста VO+ та VO− (відносно GND)</text>
+  <line x1="80" y1="105" x2="98" y2="105" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="102" y="109" font-size="12" fill="#1a1a1a">VO+(t)</text>
+  <line x1="150" y1="105" x2="168" y2="105" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="5,3"/>
+  <text x="172" y="109" font-size="12" fill="#1a1a1a">VO−(t)</text>
+  <line x1="220" y1="105" x2="238" y2="105" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="242" y="109" font-size="12" fill="#6b7280">VDD/2</text>
+  <rect x="288" y="100" width="12" height="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="304" y="109" font-size="12" fill="#2457d6">Запас 0.3 В</text>
+  <rect x="382" y="100" width="12" height="10" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="398" y="109" font-size="12" fill="#c0392b">ΔVsat</text>
+  <rect x="60" y="120" width="200" height="18" fill="#fdecea"/>
+  <rect x="60" y="138" width="200" height="13" fill="#eaf0fd"/>
+  <rect x="60" y="309" width="200" height="13" fill="#eaf0fd"/>
+  <rect x="60" y="322" width="200" height="18" fill="#fdecea"/>
+  <line x1="60" y1="120" x2="260" y2="120" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="60" y1="138" x2="260" y2="138" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <line x1="60" y1="151" x2="260" y2="151" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="60" y1="230" x2="268" y2="230" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="274" y="226" font-size="12" fill="#6b7280" font-weight="bold">t</text>
+  <line x1="60" y1="309" x2="260" y2="309" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="60" y1="322" x2="260" y2="322" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <line x1="60" y1="340" x2="260" y2="340" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="60" y1="345" x2="60" y2="114" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="60" y="110" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">U, В</text>
+  <line x1="56" y1="120" x2="60" y2="120" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="52" y="124" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">5.0</text>
+  <line x1="56" y1="230" x2="60" y2="230" stroke="#6b7280" stroke-width="1"/>
+  <text x="52" y="234" font-size="12" font-weight="bold" text-anchor="end" fill="#6b7280">2.5</text>
+  <line x1="56" y1="340" x2="60" y2="340" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="52" y="344" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">0.0</text>
+  <path d="M 60,230 C 76.5,189.1 92.0,151 110,151 C 128.0,151 143.5,189.1 160,230 C 176.5,270.9 192.0,309 210,309 C 228.0,309 243.5,270.9 260,230" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 60,230 C 76.5,270.9 92.0,309 110,309 C 128.0,309 143.5,270.9 160,230 C 176.5,189.1 192.0,151 210,151 C 228.0,151 243.5,189.1 260,230" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="5,3"/>
+  <text x="295" y="124" font-size="12" fill="#1a1a1a" font-weight="bold">5.0 В — VDD (живлення)</text>
+  <text x="295" y="139" font-size="12" fill="#c0392b" font-weight="bold">4.6 В: ΔVsat = 0.4 В</text>
+  <text x="295" y="153" font-size="12" fill="#2457d6" font-weight="bold">4.3 В: запас 0.3 В (пік)</text>
+  <text x="295" y="195" font-size="12" fill="#2457d6" font-weight="bold">Розмах VO+: 0.7...4.3 В</text>
+  <text x="295" y="210" font-size="12" fill="#6b7280">чиста амплітуда A = 1.8 В</text>
+  <text x="295" y="234" font-size="12" fill="#6b7280" font-weight="bold">2.5 В: VDD/2 (зміщення)</text>
+  <text x="295" y="272" font-size="12" fill="#27ae60" font-weight="bold">Розмах VO−: 4.3...0.7 В</text>
+  <text x="295" y="287" font-size="12" fill="#6b7280">зсув фази рівно 180°</text>
+  <text x="295" y="309" font-size="12" fill="#2457d6" font-weight="bold">0.7 В: запас 0.3 В (спад)</text>
+  <text x="295" y="323" font-size="12" fill="#c0392b" font-weight="bold">0.4 В: ΔVsat = 0.4 В</text>
+  <text x="295" y="342" font-size="12" fill="#1a1a1a" font-weight="bold">0.0 В — GND (земля)</text>
+  <rect x="30" y="356" width="430" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="42" y="374" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Падіння на ключах:</tspan> ΔVsat = 0.4 В (межі: 0.4 В ... 4.6 В)</text>
+  <text x="42" y="392" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Динамічний запас:</tspan> 0.3 В (розмах без кліпінгу: 0.7 В ... 4.3 В)</text>
+  <text x="42" y="410" font-size="12" fill="#2457d6" font-weight="bold">Чиста амплітуда плеча: Vpk = 1.8 В (розмах Vpk-pk = 3.6 В)</text>
+  <rect x="490" y="70" width="450" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="91" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Диференціальна напруга V_DIFF = VO+ − VO−</text>
+  <line x1="550" y1="105" x2="570" y2="105" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="575" y="109" font-size="12" fill="#1a1a1a">V_DIFF(t)</text>
+  <line x1="645" y1="105" x2="665" y2="105" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="670" y="109" font-size="12" fill="#c0392b">Кліпінг ±4.2 В</text>
+  <rect x="768" y="100" width="12" height="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="785" y="109" font-size="12" fill="#2457d6">Запас 0.6 В</text>
+  <rect x="530" y="120" width="200" height="18" fill="#fdecea"/>
+  <rect x="530" y="138" width="200" height="13" fill="#eaf0fd"/>
+  <rect x="530" y="309" width="200" height="13" fill="#eaf0fd"/>
+  <rect x="530" y="322" width="200" height="18" fill="#fdecea"/>
+  <line x1="530" y1="120" x2="730" y2="120" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="530" y1="138" x2="730" y2="138" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <line x1="530" y1="151" x2="730" y2="151" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="530" y1="230" x2="738" y2="230" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="744" y="226" font-size="12" fill="#6b7280" font-weight="bold">t</text>
+  <line x1="530" y1="309" x2="730" y2="309" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="530" y1="322" x2="730" y2="322" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <line x1="530" y1="340" x2="730" y2="340" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="530" y1="345" x2="530" y2="114" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="530" y="110" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">U, В</text>
+  <line x1="526" y1="120" x2="530" y2="120" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="522" y="124" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">+5.0</text>
+  <line x1="526" y1="230" x2="530" y2="230" stroke="#6b7280" stroke-width="1"/>
+  <text x="522" y="234" font-size="12" font-weight="bold" text-anchor="end" fill="#6b7280">0.0</text>
+  <line x1="526" y1="340" x2="530" y2="340" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="522" y="344" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">−5.0</text>
+  <path d="M 530,230 C 546.5,189.1 562.0,151 580,151 C 598.0,151 613.5,189.1 630,230 C 646.5,270.9 662.0,309 680,309 C 698.0,309 713.5,270.9 730,230" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="765" y="124" font-size="12" fill="#1a1a1a" font-weight="bold">+5.0 В — шина +VDD</text>
+  <text x="765" y="139" font-size="12" fill="#c0392b" font-weight="bold">+4.2 В: поріг кліпінгу</text>
+  <text x="765" y="153" font-size="12" fill="#2457d6" font-weight="bold">+3.6 В: пік (запас 0.6 В)</text>
+  <text x="765" y="195" font-size="12" fill="#27ae60" font-weight="bold">Подвоєний розмах:</text>
+  <text x="765" y="210" font-size="12" fill="#1a1a1a">Vpk-pk = 7.2 В (±3.6 В)</text>
+  <text x="765" y="234" font-size="12" fill="#6b7280" font-weight="bold">0.0 В: нуль на динаміку</text>
+  <text x="765" y="272" font-size="12" fill="#27ae60" font-weight="bold">Приріст потужності 4×:</text>
+  <text x="765" y="287" font-size="12" fill="#6b7280">P = (Vrms)² / RL = 1.62 Вт</text>
+  <text x="765" y="309" font-size="12" fill="#2457d6" font-weight="bold">−3.6 В: спад (запас 0.6 В)</text>
+  <text x="765" y="323" font-size="12" fill="#c0392b" font-weight="bold">−4.2 В: поріг кліпінгу</text>
+  <text x="765" y="342" font-size="12" fill="#1a1a1a" font-weight="bold">−5.0 В — шина −VDD</text>
+  <rect x="500" y="356" width="430" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="512" y="374" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Межа кліпінгу:</tspan> ±4.2 В (втрата 2 · 0.4 В = 0.8 В від шин 5.0 В)</text>
+  <text x="512" y="392" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Запас до кліпінгу:</tspan> 2 · 0.3 В = 0.6 В диференціально</text>
+  <text x="512" y="410" font-size="12" fill="#27ae60" font-weight="bold">Чистий розмах: 7.2 В pk-pk (амплітуда Vpk = 3.6 В, P = 1.62 Вт)</text>
+</svg>

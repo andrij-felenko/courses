@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шляхи розсіювання тепла силового драйвера двигуна</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Тепловідведення від кристала через відкритий майданчик і перехідні отвори на шари плати</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ФІЗИЧНИЙ РОЗРІЗ ==================== -->
+  <rect x="24" y="76" width="446" height="364" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізичний розріз монтажу чипа на плату</text>
+  <text x="247" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Корпус PowerPAD / Exposed Pad із тепловими отворами</text>
+
+  <!-- Корпус мікросхеми (епоксидний компаунд QFN/PowerPAD) -->
+  <rect x="182" y="136" width="130" height="44" rx="4" fill="#334155" stroke="#1e293b" stroke-width="1.5"/>
+
+  <!-- Кристал кремнію всередині корпусу (Silicon Die, T_J) -->
+  <rect x="197" y="141" width="100" height="18" rx="2" fill="#c0392b" stroke="#991b1b" stroke-width="1"/>
+  <text x="247" y="154" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Кристал T_J</text>
+
+  <!-- Exposed Pad у нижній частині корпусу чипа -->
+  <rect x="192" y="168" width="110" height="12" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+
+  <!-- Шар припою (Solder) -->
+  <rect x="192" y="180" width="110" height="8" fill="#94a3b8" stroke="#64748b" stroke-width="1"/>
+
+  <!-- Верхній мідний полігон (Top Copper Plane) -->
+  <rect x="40" y="188" width="414" height="8" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+
+  <!-- Діелектрик друкованої плати (FR-4) -->
+  <rect x="40" y="196" width="414" height="60" fill="#ecfdf5" stroke="#10b981" stroke-width="1"/>
+
+  <!-- Нижній мідний полігон (Bottom Copper Plane) -->
+  <rect x="40" y="256" width="414" height="8" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+
+  <!-- Масив теплових перехідних отворів (Thermal Vias) -->
+  <!-- Отвір 1 -->
+  <line x1="208" y1="188" x2="208" y2="264" stroke="#b45309" stroke-width="1.5"/>
+  <line x1="214" y1="188" x2="214" y2="264" stroke="#b45309" stroke-width="1.5"/>
+  <!-- Отвір 2 -->
+  <line x1="226" y1="188" x2="226" y2="264" stroke="#b45309" stroke-width="1.5"/>
+  <line x1="232" y1="188" x2="232" y2="264" stroke="#b45309" stroke-width="1.5"/>
+  <!-- Отвір 3 -->
+  <line x1="244" y1="188" x2="244" y2="264" stroke="#b45309" stroke-width="1.5"/>
+  <line x1="250" y1="188" x2="250" y2="264" stroke="#b45309" stroke-width="1.5"/>
+  <!-- Отвір 4 -->
+  <line x1="262" y1="188" x2="262" y2="264" stroke="#b45309" stroke-width="1.5"/>
+  <line x1="268" y1="188" x2="268" y2="264" stroke="#b45309" stroke-width="1.5"/>
+  <!-- Отвір 5 -->
+  <line x1="280" y1="188" x2="280" y2="264" stroke="#b45309" stroke-width="1.5"/>
+  <line x1="286" y1="188" x2="286" y2="264" stroke="#b45309" stroke-width="1.5"/>
+
+  <!-- Червоні стрілки теплового потоку (#c0392b) -->
+  <!-- Стрілка від кристала в PowerPAD -->
+  <line x1="247" y1="159" x2="247" y2="167" stroke="#ffffff" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Потік тепла крізь перехідні отвори Vias -->
+  <line x1="211" y1="194" x2="211" y2="254" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="229" y1="194" x2="229" y2="254" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="247" y1="194" x2="247" y2="254" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="265" y1="194" x2="265" y2="254" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="283" y1="194" x2="283" y2="254" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Розтікання тепла по верхньому мідному полігону -->
+  <line x1="188" y1="192" x2="68" y2="192" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="306" y1="192" x2="426" y2="192" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Розтікання тепла по нижньому мідному полігону -->
+  <line x1="200" y1="260" x2="68" y2="260" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="294" y1="260" x2="426" y2="260" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Конвективний скид тепла в повітря з нижньої площини -->
+  <line x1="247" y1="266" x2="247" y2="294" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-red)"/>
+
+  <!-- Текстові підписи шарів розрізу -->
+  <text x="36" y="148" font-size="12" fill="#1a1a1a">Корпус чипа (Mold)</text>
+  <text x="36" y="174" font-size="12" font-weight="bold" fill="#d97706">PowerPAD (майданчик)</text>
+
+  <text x="458" y="148" font-size="12" fill="#64748b" text-anchor="end">Шар припою (Solder)</text>
+  <text x="458" y="174" font-size="12" font-weight="bold" fill="#d97706" text-anchor="end">Верхня мідь (Top Cu)</text>
+
+  <text x="194" y="230" font-size="12" font-weight="bold" fill="#b45309" text-anchor="end">Thermal Vias (отвори)</text>
+  <text x="300" y="230" font-size="12" fill="#047857">Діелектрик FR-4</text>
+
+  <text x="36" y="286" font-size="12" fill="#c0392b">Скид тепла в повітря</text>
+  <text x="458" y="286" font-size="12" font-weight="bold" fill="#d97706" text-anchor="end">Нижня мідь (Bottom Cu)</text>
+
+  <!-- Інформаційна плашка лівої панелі -->
+  <rect x="36" y="316" width="422" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">Шлях тепловідведення в конструкції:</text>
+  <circle cx="56" cy="358" r="4" fill="#c0392b"/>
+  <text x="68" y="362" font-size="12" fill="#1a1a1a">1. Кристал (T_J) → металевий PowerPAD чипа</text>
+  <circle cx="56" cy="382" r="4" fill="#d97706"/>
+  <text x="68" y="386" font-size="12" fill="#1a1a1a">2. Припій → верхній мідний полігон плати</text>
+  <circle cx="56" cy="406" r="4" fill="#2457d6"/>
+  <text x="68" y="410" font-size="12" fill="#1a1a1a">3. Thermal Vias → нижній полігон → скид тепла в повітря</text>
+
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ТЕПЛОВА СХЕМА ==================== -->
+  <rect x="490" y="76" width="446" height="364" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="713" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еквівалентна теплова схема</text>
+  <text x="713" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Послідовний ланцюг теплових опорів (аналогія закону Ома)</text>
+
+  <!-- Джерело тепла P_diss -->
+  <circle cx="526" cy="176" r="15" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M520,176 L532,176 M528,172 L532,176 L528,180" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="526" y="148" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">P_diss</text>
+
+  <!-- Провідник до вузла кристала -->
+  <line x1="541" y1="176" x2="568" y2="176" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Вузол T_J -->
+  <circle cx="568" cy="176" r="4" fill="#c0392b"/>
+  <text x="568" y="148" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">T_J</text>
+
+  <line x1="568" y1="176" x2="590" y2="176" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Опір R_θJC -->
+  <rect x="590" y="165" width="50" height="22" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="615" y="181" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_θJC</text>
+  <text x="615" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">Кристал–корпус</text>
+
+  <line x1="640" y1="176" x2="666" y2="176" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Вузол T_C -->
+  <circle cx="666" cy="176" r="4" fill="#1a1a1a"/>
+  <text x="666" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T_C</text>
+
+  <line x1="666" y1="176" x2="690" y2="176" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Опір R_θCS -->
+  <rect x="690" y="165" width="50" height="22" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="715" y="181" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_θCS</text>
+  <text x="715" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">Шар припою</text>
+
+  <line x1="740" y1="176" x2="766" y2="176" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Вузол T_S -->
+  <circle cx="766" cy="176" r="4" fill="#1a1a1a"/>
+  <text x="766" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T_S</text>
+
+  <line x1="766" y1="176" x2="790" y2="176" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Опір R_θSA -->
+  <rect x="790" y="165" width="50" height="22" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="815" y="181" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_θSA</text>
+  <text x="815" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">Плата–повітря</text>
+
+  <line x1="840" y1="176" x2="866" y2="176" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Вузол T_A та земля -->
+  <circle cx="866" cy="176" r="4" fill="#27ae60"/>
+  <text x="866" y="148" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">T_A</text>
+
+  <line x1="866" y1="176" x2="892" y2="176" stroke="#27ae60" stroke-width="2"/>
+  <line x1="892" y1="176" x2="892" y2="192" stroke="#27ae60" stroke-width="2"/>
+  <line x1="882" y1="192" x2="902" y2="192" stroke="#27ae60" stroke-width="2"/>
+  <line x1="886" y1="196" x2="898" y2="196" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="889" y1="200" x2="895" y2="200" stroke="#27ae60" stroke-width="1"/>
+  <text x="892" y="216" font-size="12" fill="#27ae60" text-anchor="middle">T_A = const</text>
+
+  <!-- Інформаційна плашка правої панелі -->
+  <rect x="502" y="234" width="422" height="192" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="254" font-size="12" font-weight="bold" fill="#1a1a1a">Математична модель теплової рівноваги:</text>
+
+  <!-- Формула в акцентній плашці -->
+  <rect x="516" y="264" width="394" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="713" y="287" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">T_J = T_A + P_diss · R_θJA</text>
+
+  <!-- Повний опір -->
+  <text x="516" y="322" font-size="12" font-weight="bold" fill="#1a1a1a">Повний опір системи (кристал → довкілля):</text>
+  <text x="516" y="340" font-size="12" fill="#1a1a1a">R_θJA = R_θJC + R_θCS + R_θSA [°C/Вт]</text>
+
+  <!-- Критерій надійності -->
+  <rect x="516" y="356" width="394" height="58" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="526" y="376" font-size="12" font-weight="bold" fill="#c0392b">Критерій надійності: T_J &lt; T_J,max (125...150 °C)</text>
+  <text x="526" y="396" font-size="12" fill="#1a1a1a">Збільшення мідних полігонів та числа vias знижує R_θSA</text>
+
+</svg>

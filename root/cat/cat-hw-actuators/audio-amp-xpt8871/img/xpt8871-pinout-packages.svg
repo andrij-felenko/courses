@@ -1,0 +1,217 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- 1. Полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Цоколівка XPT8871 (SOP-8 / ESOP-8) та виводи готового модуля</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Тепловий майданчик ESOP-8 з'єднується з GND, а диференційні виходи BTL не мають спільної землі</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Мікросхема XPT8871 (SOP-8 / ESOP-8) -->
+  <rect x="20" y="70" width="450" height="388" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="92" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Мікросхема XPT8871: цоколівка виводів (Top View)</text>
+
+  <!-- Корпус мікросхеми (вид зверху) -->
+  <rect x="197" y="112" width="96" height="116" rx="4" fill="#1a1a1a"/>
+  <!-- Ключ (перший вивід) -->
+  <circle cx="212" cy="126" r="4" fill="#6b7280"/>
+  <!-- Маркування на кристалі -->
+  <text x="245" y="164" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">XPT8871</text>
+  <text x="245" y="180" font-size="11" text-anchor="middle" fill="#d0d7de">5W AUDIO</text>
+  <text x="245" y="196" font-size="11" text-anchor="middle" fill="#6b7280">BTL AMP</text>
+
+  <!-- Ніжки ліворуч (1..4) -->
+  <rect x="183" y="124" width="14" height="10" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <rect x="183" y="150" width="14" height="10" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <rect x="183" y="176" width="14" height="10" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <rect x="183" y="202" width="14" height="10" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Ніжки праворуч (8..5) -->
+  <rect x="293" y="124" width="14" height="10" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <rect x="293" y="150" width="14" height="10" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <rect x="293" y="176" width="14" height="10" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <rect x="293" y="202" width="14" height="10" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Підписи виводів ліворуч (anchor=end) -->
+  <text x="175" y="133" font-size="12" text-anchor="end" fill="#1a1a1a"><tspan font-weight="700">1: SHDN</tspan> (сон / вимкн.)</text>
+  <text x="175" y="159" font-size="12" text-anchor="end" fill="#1a1a1a"><tspan font-weight="700">2: BYPASS</tspan> (опора VDD/2)</text>
+  <text x="175" y="185" font-size="12" text-anchor="end" fill="#1a1a1a"><tspan font-weight="700">3: IN+</tspan> (прямий вхід)</text>
+  <text x="175" y="211" font-size="12" text-anchor="end" fill="#1a1a1a"><tspan font-weight="700">4: IN−</tspan> (інверсний вхід)</text>
+
+  <!-- Підписи виводів праворуч (anchor=start) -->
+  <text x="315" y="133" font-size="12" text-anchor="start" fill="#1a1a1a"><tspan font-weight="700">8: VO2</tspan> (вихід BTL −)</text>
+  <text x="315" y="159" font-size="12" text-anchor="start" fill="#1a1a1a"><tspan font-weight="700">7: GND</tspan> (загальний / 0 В)</text>
+  <text x="315" y="185" font-size="12" text-anchor="start" fill="#1a1a1a"><tspan font-weight="700">6: VDD</tspan> (живл. 2.5–5.5 В)</text>
+  <text x="315" y="211" font-size="12" text-anchor="start" fill="#1a1a1a"><tspan font-weight="700">5: VO1</tspan> (вихід BTL +)</text>
+
+  <!-- Нижня частина лівої панелі: Порівняння тепловідведення -->
+  <text x="245" y="254" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Тепловідведення корпусів: вид знизу (Bottom View)</text>
+
+  <!-- Картка SOP-8 -->
+  <rect x="34" y="266" width="198" height="178" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="133" y="284" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Звичайний SOP-8</text>
+  <!-- Міні-корпус SOP-8 знизу -->
+  <rect x="105" y="294" width="56" height="42" rx="3" fill="#2d3748"/>
+  <rect x="97" y="298" width="8" height="4" fill="#d0d7de"/>
+  <rect x="97" y="307" width="8" height="4" fill="#d0d7de"/>
+  <rect x="97" y="316" width="8" height="4" fill="#d0d7de"/>
+  <rect x="97" y="325" width="8" height="4" fill="#d0d7de"/>
+  <rect x="161" y="298" width="8" height="4" fill="#d0d7de"/>
+  <rect x="161" y="307" width="8" height="4" fill="#d0d7de"/>
+  <rect x="161" y="316" width="8" height="4" fill="#d0d7de"/>
+  <rect x="161" y="325" width="8" height="4" fill="#d0d7de"/>
+  <rect x="113" y="302" width="40" height="26" rx="2" fill="#1a202c" stroke="#4a5568" stroke-dasharray="2,2"/>
+  <text x="133" y="319" font-size="11" text-anchor="middle" fill="#a0aec0">Пластик</text>
+  <!-- Текст під корпусом SOP-8 -->
+  <text x="133" y="354" font-size="11" font-weight="700" text-anchor="middle" fill="#c0392b">Немає тепловідводу</text>
+  <text x="133" y="371" font-size="11" text-anchor="middle" fill="#6b7280">Тепловідвід лише через ніжки</text>
+  <text x="133" y="388" font-size="11" text-anchor="middle" fill="#6b7280">RθJA ≈ 140 °C/Вт (перегрів)</text>
+  <text x="133" y="405" font-size="11" font-weight="700" text-anchor="middle" fill="#c0392b">Безпечно лише до 1.5–2 Вт</text>
+  <text x="133" y="422" font-size="11" text-anchor="middle" fill="#6b7280">на 5 Вт спрацює термозахист</text>
+
+  <!-- Картка ESOP-8 -->
+  <rect x="248" y="266" width="198" height="178" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="347" y="284" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Корпус ESOP-8 (eSOP)</text>
+  <!-- Міні-корпус ESOP-8 знизу -->
+  <rect x="319" y="294" width="56" height="42" rx="3" fill="#2d3748"/>
+  <rect x="311" y="298" width="8" height="4" fill="#d0d7de"/>
+  <rect x="311" y="307" width="8" height="4" fill="#d0d7de"/>
+  <rect x="311" y="316" width="8" height="4" fill="#d0d7de"/>
+  <rect x="311" y="325" width="8" height="4" fill="#d0d7de"/>
+  <rect x="375" y="298" width="8" height="4" fill="#d0d7de"/>
+  <rect x="375" y="307" width="8" height="4" fill="#d0d7de"/>
+  <rect x="375" y="316" width="8" height="4" fill="#d0d7de"/>
+  <rect x="375" y="325" width="8" height="4" fill="#d0d7de"/>
+  <!-- Металевий Exposed Pad -->
+  <rect x="327" y="302" width="40" height="26" rx="2" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="337" cy="310" r="2" fill="#d97706"/>
+  <circle cx="347" cy="310" r="2" fill="#d97706"/>
+  <circle cx="357" cy="310" r="2" fill="#d97706"/>
+  <circle cx="337" cy="320" r="2" fill="#d97706"/>
+  <circle cx="347" cy="320" r="2" fill="#d97706"/>
+  <circle cx="357" cy="320" r="2" fill="#d97706"/>
+  <!-- Текст під корпусом ESOP-8 -->
+  <text x="347" y="354" font-size="11" font-weight="700" text-anchor="middle" fill="#27ae60">Exposed Pad (днище = GND)</text>
+  <text x="347" y="371" font-size="11" text-anchor="middle" fill="#1a1a1a">Паяється на мідний полігон</text>
+  <text x="347" y="388" font-size="11" text-anchor="middle" fill="#6b7280">RθJA ≈ 50 °C/Вт (через плату)</text>
+  <text x="347" y="405" font-size="11" font-weight="700" text-anchor="middle" fill="#27ae60">Забезпечує повні 5 Вт звуку</text>
+  <text x="347" y="422" font-size="11" text-anchor="middle" fill="#27ae60">стабільна тривала робота</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Готовий модуль XPT8871 -->
+  <rect x="490" y="70" width="450" height="388" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="92" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Зіставлення виводів із контактами готового модуля</text>
+
+  <!-- Плата модуля PCB -->
+  <rect x="506" y="106" width="418" height="236" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="715" y="124" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">Друкована плата модуля (XPT8871 Module)</text>
+  <text x="715" y="140" font-size="11" text-anchor="middle" fill="#6b7280">Тепловий мідний полігон GND під мікросхемою</text>
+
+  <!-- Мідний полігон GND під IC -->
+  <rect x="656" y="148" width="118" height="114" rx="6" fill="#dbeafe" stroke="#93c5fd" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Корпус мікросхеми на модулі -->
+  <rect x="675" y="158" width="80" height="94" rx="4" fill="#1a1a1a"/>
+  <text x="715" y="200" font-size="12" font-weight="700" text-anchor="middle" fill="#ffffff">XPT8871</text>
+  <text x="715" y="215" font-size="11" text-anchor="middle" fill="#93c5fd">ESOP-8</text>
+
+  <!-- Ніжки IC на модулі -->
+  <!-- Ліворуч (1..4) -->
+  <rect x="663" y="168" width="12" height="8" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <rect x="663" y="190" width="12" height="8" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <rect x="663" y="212" width="12" height="8" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <rect x="663" y="234" width="12" height="8" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <!-- Праворуч (8..5) -->
+  <rect x="755" y="168" width="12" height="8" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <rect x="755" y="190" width="12" height="8" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <rect x="755" y="212" width="12" height="8" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <rect x="755" y="234" width="12" height="8" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Номери виводів на кристалі -->
+  <text x="686" y="175" font-size="11" fill="#d0d7de">1</text>
+  <text x="686" y="197" font-size="11" fill="#d0d7de">2</text>
+  <text x="686" y="219" font-size="11" fill="#d0d7de">3</text>
+  <text x="686" y="241" font-size="11" fill="#d0d7de">4</text>
+  <text x="744" y="175" font-size="11" fill="#d0d7de">8</text>
+  <text x="744" y="197" font-size="11" fill="#d0d7de">7</text>
+  <text x="744" y="219" font-size="11" fill="#d0d7de">6</text>
+  <text x="744" y="241" font-size="11" fill="#d0d7de">5</text>
+
+  <!-- КОНТАКТНІ МАЙДАНЧИКИ МОДУЛЯ: Ліворуч (Входи та керування) -->
+  <!-- SD майданчик -->
+  <rect x="516" y="161" width="44" height="22" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="538" y="176" font-size="11" font-weight="700" text-anchor="middle" fill="#2457d6">SD</text>
+  <line x1="560" y1="172" x2="663" y2="172" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="608" y="164" font-size="11" text-anchor="middle" fill="#2457d6">сон / пуск</text>
+
+  <!-- Обв'язка BYPASS (Pin 2) -->
+  <line x1="663" y1="194" x2="640" y2="194" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="620" y="186" width="20" height="16" rx="2" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="630" y="198" font-size="11" font-weight="700" text-anchor="middle" fill="#6b7280">Cb</text>
+  <line x1="620" y1="194" x2="608" y2="194" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="590" y="198" font-size="11" text-anchor="middle" fill="#6b7280">GND</text>
+
+  <!-- IN+ майданчик -->
+  <rect x="516" y="205" width="44" height="22" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="538" y="220" font-size="11" font-weight="700" text-anchor="middle" fill="#2457d6">IN+</text>
+  <line x1="560" y1="216" x2="598" y2="216" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="598" y="208" width="20" height="16" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="608" y="220" font-size="11" font-weight="700" text-anchor="middle" fill="#2457d6">Ci</text>
+  <line x1="618" y1="216" x2="663" y2="216" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- IN- майданчик -->
+  <rect x="516" y="247" width="44" height="22" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="538" y="262" font-size="11" font-weight="700" text-anchor="middle" fill="#2457d6">IN−</text>
+  <path d="M560,258 L580,258 L580,238 L598,238" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="598" y="230" width="20" height="16" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="608" y="242" font-size="11" font-weight="700" text-anchor="middle" fill="#2457d6">Ci</text>
+  <line x1="618" y1="238" x2="663" y2="238" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- КОНТАКТНІ МАЙДАНЧИКИ МОДУЛЯ: Праворуч (Динамік BTL) -->
+  <!-- SPK- майданчик -->
+  <rect x="866" y="161" width="48" height="22" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="890" y="176" font-size="11" font-weight="700" text-anchor="middle" fill="#27ae60">SPK−</text>
+  <line x1="767" y1="172" x2="866" y2="172" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="816" y="164" font-size="11" font-weight="700" text-anchor="middle" fill="#27ae60">VO2 (протифаза −)</text>
+
+  <!-- Навантаження динаміка -->
+  <line x1="890" y1="183" x2="890" y2="195" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="872" y="195" width="36" height="18" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="890" y="208" font-size="11" font-weight="700" text-anchor="middle" fill="#27ae60">4–8 Ω</text>
+  <line x1="890" y1="213" x2="890" y2="227" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- SPK+ майданчик -->
+  <rect x="866" y="227" width="48" height="22" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="890" y="242" font-size="11" font-weight="700" text-anchor="middle" fill="#27ae60">SPK+</text>
+  <line x1="767" y1="238" x2="866" y2="238" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="816" y="233" font-size="11" font-weight="700" text-anchor="middle" fill="#27ae60">VO1 (фаза +)</text>
+
+  <!-- КОНТАКТНІ МАЙДАНЧИКИ МОДУЛЯ: Знизу (Живлення) -->
+  <!-- VDD pad -->
+  <rect x="660" y="306" width="48" height="22" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="684" y="321" font-size="11" font-weight="700" text-anchor="middle" fill="#2457d6">+5V</text>
+  <!-- GND pad -->
+  <rect x="722" y="306" width="48" height="22" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="746" y="321" font-size="11" font-weight="700" text-anchor="middle" fill="#1a1a1a">GND</text>
+  <text x="703" y="336" font-size="11" text-anchor="middle" fill="#6b7280">фільтр Cs</text>
+  <!-- Лінії живлення до пінів 6 і 7 -->
+  <path d="M767,216 L784,216 L784,284 L728,284" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="708" y="276" width="20" height="16" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="718" y="288" font-size="11" font-weight="700" text-anchor="middle" fill="#2457d6">Cs</text>
+  <path d="M708,284 L684,284 L684,306" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="746" y1="262" x2="746" y2="306" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- ПОПЕРЕДЖЕННЯ ВНИЗУ ПРАВОЇ ПАНЕЛІ -->
+  <rect x="506" y="354" width="418" height="90" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="715" y="373" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">⛔ КРИТИЧНО: особливість мостового виходу BTL</text>
+  <text x="715" y="391" font-size="11" text-anchor="middle" fill="#1a1a1a">Виходи SPK+ (VO1) і SPK− (VO2) є активними протифазними лініями</text>
+  <text x="715" y="409" font-size="11" font-weight="700" text-anchor="middle" fill="#c0392b">Категорично заборонено з'єднувати SPK− або SPK+ із землею (GND)!</text>
+  <text x="715" y="427" font-size="11" text-anchor="middle" fill="#6b7280">Замикання на GND викликає надструм і миттєвий тепловий пробій</text>
+</svg>

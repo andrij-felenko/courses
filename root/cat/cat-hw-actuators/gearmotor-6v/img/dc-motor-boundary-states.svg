@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Main Titles -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Граничні електромеханічні режими двигуна постійного струму 6 В</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Баланс проти-ЕРС e(ω), струму I та крутного моменту M: холостий хід проти блокування вала</text>
+
+  <!-- ================= LEFT CARD: ХОЛОСТИЙ ХІД ================= -->
+  <rect x="40" y="82" width="425" height="372" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Left Header -->
+  <rect x="52" y="94" width="401" height="32" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="252" y="115" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Холостий хід (No-Load State)</text>
+
+  <!-- Left Visual Scheme Box -->
+  <rect x="52" y="138" width="401" height="132" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Circuit Wires -->
+  <!-- DC Source -->
+  <line x1="75" y1="193" x2="95" y2="193" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="80" y1="207" x2="90" y2="207" stroke="#1a1a1a" stroke-width="3.5"/>
+  <line x1="85" y1="166" x2="85" y2="193" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="85" y1="207" x2="85" y2="234" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="85" y="155" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">U = 6 В</text>
+  <text x="68" y="190" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+</text>
+  <text x="68" y="218" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">−</text>
+
+  <!-- Top Wire & Current Arrow -->
+  <line x1="85" y1="166" x2="260" y2="166" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="125" y1="166" x2="185" y2="166" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="155" y="155" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I₀ ≈ 60 мА</text>
+
+  <!-- Bottom Wire -->
+  <line x1="85" y1="234" x2="260" y2="234" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Left Motor Armature -->
+  <circle cx="260" cy="200" r="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="255" y="174" width="10" height="6" fill="#1a1a1a"/>
+  <rect x="255" y="220" width="10" height="6" fill="#1a1a1a"/>
+  <line x1="260" y1="166" x2="260" y2="174" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="260" y1="234" x2="260" y2="226" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="260" y="204" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">M</text>
+
+  <!-- Left Voltage Balance inside loop -->
+  <line x1="234" y1="218" x2="234" y2="182" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="162" y="191" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">e(ω) ≈ 5.8 В ↑</text>
+  <text x="162" y="207" font-size="12" fill="#6b7280" text-anchor="middle">проти-ЕРС e ≈ U</text>
+  <text x="162" y="223" font-size="12" fill="#27ae60" text-anchor="middle">ΔU = U − e ≈ 0.2 В</text>
+
+  <!-- Left Shaft & Rotation -->
+  <rect x="280" y="195" width="35" height="10" rx="1" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <path d="M 297,186 A 5,14 0 0 1 297,214" fill="none" stroke="#27ae60" stroke-width="1.8"/>
+  <polygon points="301,198 301,204 297,201" fill="#27ae60"/>
+
+  <!-- Left Mechanical State Labels -->
+  <text x="385" y="178" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ω = ω₀ (макс.)</text>
+  <text x="385" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">≈ 10 000 об/хв</text>
+  <text x="385" y="224" font-size="12" fill="#6b7280" text-anchor="middle">вільне обертання</text>
+
+  <!-- Left Summary line inside box -->
+  <text x="252" y="258" font-size="12" fill="#27ae60" text-anchor="middle">Баланс: проти-ЕРС гасить 97% напруги джерела (e ≈ U)</text>
+
+  <!-- Left Parameter Table Box -->
+  <rect x="52" y="282" width="401" height="158" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="52" y1="313" x2="453" y2="313" stroke="#eef1f4" stroke-width="1"/>
+  <line x1="52" y1="344" x2="453" y2="344" stroke="#eef1f4" stroke-width="1"/>
+  <line x1="52" y1="375" x2="453" y2="375" stroke="#eef1f4" stroke-width="1"/>
+  <line x1="52" y1="406" x2="453" y2="406" stroke="#eef1f4" stroke-width="1"/>
+
+  <!-- Left Rows -->
+  <text x="64" y="301" font-size="12" font-weight="bold" fill="#1a1a1a">Швидкість ω:</text>
+  <text x="190" y="301" font-size="12" font-weight="bold" fill="#27ae60">ω = ω₀ (6000–12 000 об/хв)</text>
+
+  <text x="64" y="332" font-size="12" font-weight="bold" fill="#1a1a1a">Проти-ЕРС e:</text>
+  <text x="190" y="332" font-size="12" font-weight="bold" fill="#27ae60">e ≈ 5.8 В (самообмеження струму)</text>
+
+  <text x="64" y="363" font-size="12" font-weight="bold" fill="#1a1a1a">Струм якоря I:</text>
+  <text x="190" y="363" font-size="12" font-weight="bold" fill="#27ae60">I₀ = (U−e)/R ≈ 50–70 мА (мінімальний)</text>
+
+  <text x="64" y="394" font-size="12" font-weight="bold" fill="#1a1a1a">Крутний момент:</text>
+  <text x="190" y="394" font-size="12" font-weight="bold" fill="#27ae60">M ≈ M_тертя (корисний M = 0)</text>
+
+  <text x="64" y="425" font-size="12" font-weight="bold" fill="#1a1a1a">Нагрів якоря:</text>
+  <text x="190" y="425" font-size="12" font-weight="bold" fill="#27ae60">P_тепло &lt; 0.02 Вт (холодний режим)</text>
+
+  <!-- ================= RIGHT CARD: БЛОКУВАННЯ ВАЛА ================= -->
+  <rect x="495" y="82" width="425" height="372" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Right Header -->
+  <rect x="507" y="94" width="401" height="32" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="707" y="115" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Блокування вала (Stall / Locked Rotor)</text>
+
+  <!-- Right Visual Scheme Box -->
+  <rect x="507" y="138" width="401" height="132" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Right Circuit Wires -->
+  <!-- DC Source -->
+  <line x1="530" y1="193" x2="550" y2="193" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="535" y1="207" x2="545" y2="207" stroke="#1a1a1a" stroke-width="3.5"/>
+  <line x1="540" y1="166" x2="540" y2="193" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="540" y1="207" x2="540" y2="234" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="540" y="155" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">U = 6 В</text>
+  <text x="523" y="190" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+</text>
+  <text x="523" y="218" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">−</text>
+
+  <!-- Top Wire & Massive Current Arrow -->
+  <line x1="540" y1="166" x2="715" y2="166" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="580" y1="166" x2="650" y2="166" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr-red)"/>
+  <text x="635" y="155" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_stall ≈ 1.8 А (30×)</text>
+
+  <!-- Bottom Wire -->
+  <line x1="540" y1="234" x2="715" y2="234" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Right Motor Armature -->
+  <circle cx="715" cy="200" r="20" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="710" y="174" width="10" height="6" fill="#1a1a1a"/>
+  <rect x="710" y="220" width="10" height="6" fill="#1a1a1a"/>
+  <line x1="715" y1="166" x2="715" y2="174" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="715" y1="234" x2="715" y2="226" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="715" y="204" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">M</text>
+
+  <!-- Right Voltage Balance inside loop -->
+  <text x="620" y="191" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">e = 0 В (зникла!)</text>
+  <text x="620" y="207" font-size="12" fill="#6b7280" text-anchor="middle">руху немає (ω = 0)</text>
+  <text x="620" y="223" font-size="12" fill="#c0392b" text-anchor="middle">вся напруга U на R</text>
+
+  <!-- Right Shaft & Mechanical Lock -->
+  <rect x="735" y="195" width="35" height="10" rx="1" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="766" y="186" width="12" height="10" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="766" y="204" width="12" height="10" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="772" y1="182" x2="772" y2="218" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Right Mechanical State Labels -->
+  <text x="846" y="178" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">ω = 0 (стопор!)</text>
+  <text x="846" y="202" font-size="12" fill="#c0392b" text-anchor="middle">вал заклинено</text>
+  <text x="846" y="224" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">M = M_stall (пік)</text>
+
+  <!-- Right Summary line inside box -->
+  <text x="707" y="258" font-size="12" fill="#c0392b" text-anchor="middle">Небезпека: e = 0, уся напруга 6 В падає на активний опір R</text>
+
+  <!-- Right Parameter Table Box -->
+  <rect x="507" y="282" width="401" height="158" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="507" y1="313" x2="908" y2="313" stroke="#eef1f4" stroke-width="1"/>
+  <line x1="507" y1="344" x2="908" y2="344" stroke="#eef1f4" stroke-width="1"/>
+  <line x1="507" y1="375" x2="908" y2="375" stroke="#eef1f4" stroke-width="1"/>
+  <line x1="507" y1="406" x2="908" y2="406" stroke="#eef1f4" stroke-width="1"/>
+
+  <!-- Right Rows -->
+  <text x="519" y="301" font-size="12" font-weight="bold" fill="#1a1a1a">Швидкість ω:</text>
+  <text x="645" y="301" font-size="12" font-weight="bold" fill="#c0392b">ω = 0 рад/с (механічний стопор)</text>
+
+  <text x="519" y="332" font-size="12" font-weight="bold" fill="#1a1a1a">Проти-ЕРС e:</text>
+  <text x="645" y="332" font-size="12" font-weight="bold" fill="#c0392b">e = 0 В (індукція відсутня!)</text>
+
+  <text x="519" y="363" font-size="12" font-weight="bold" fill="#1a1a1a">Струм якоря I:</text>
+  <text x="645" y="363" font-size="12" font-weight="bold" fill="#c0392b">I_stall = U/R ≈ 1.5–2.0 А (пік 30×!)</text>
+
+  <text x="519" y="394" font-size="12" font-weight="bold" fill="#1a1a1a">Крутний момент:</text>
+  <text x="645" y="394" font-size="12" font-weight="bold" fill="#c0392b">M = M_stall (ризик зламу зубців)</text>
+
+  <text x="519" y="425" font-size="12" font-weight="bold" fill="#1a1a1a">Нагрів якоря:</text>
+  <text x="645" y="425" font-size="12" font-weight="bold" fill="#c0392b">P_тепло = I²·R ≈ 9–16 Вт (перегрів!)</text>
+</svg>

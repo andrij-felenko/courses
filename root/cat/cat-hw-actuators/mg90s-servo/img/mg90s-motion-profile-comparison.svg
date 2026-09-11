@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="27" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Динаміка позиціювання MG90S: ступінчастий крок vs S-крива</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Вплив профілювання траєкторії на пусковий струм, коливання редуктора та надійність шини 5V</text>
+
+  <!-- ======================================================== -->
+  <!-- ЛІВА ПАНЕЛЬ: Ступінчастий перехід (Step Command)         -->
+  <!-- ======================================================== -->
+  <rect x="24" y="62" width="446" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="84" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Ступінчастий перехід (Step Command)</text>
+  <text x="247" y="101" text-anchor="middle" font-size="12" fill="#6b7280">Миттєва зміна сигналу ШІМ без обмеження прискорення</text>
+
+  <!-- Графік 1: Кут повороту вала θ(t) -->
+  <!-- Осі координат -->
+  <line x1="80" y1="205" x2="445" y2="205" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+  <line x1="80" y1="205" x2="80" y2="115" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+  <text x="74" y="122" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">θ, град</text>
+  <text x="74" y="149" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">90°</text>
+  <text x="74" y="209" text-anchor="end" font-size="12" fill="#6b7280">0°</text>
+
+  <!-- Пунктирна лінія цільового положення (90°) -->
+  <line x1="80" y1="145" x2="435" y2="145" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Ступінчасте завдання (миттєвий стрибок) -->
+  <polyline points="80,205 110,205 110,145 435,145" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 2"/>
+
+  <!-- Реальна траєкторія вала з перерегулюванням і коливаннями -->
+  <path d="M80,205 L120,205 C140,205 170,165 200,145 C215,135 222,132 230,132 C242,132 252,152 265,152 C278,152 288,142 295,142 C305,142 315,146 325,146 C335,146 345,145 355,145 L435,145" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Виноска до піку перерегулювання -->
+  <line x1="248" y1="126" x2="234" y2="131" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+  <text x="250" y="125" font-size="12" font-weight="bold" fill="#c0392b">Перерегулювання (+15°)</text>
+
+  <!-- Графік 2: Струм споживання I(t) -->
+  <!-- Осі координат -->
+  <line x1="80" y1="310" x2="445" y2="310" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+  <line x1="80" y1="310" x2="80" y2="230" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+  <text x="74" y="228" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">I, мА</text>
+  <text x="74" y="242" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">900</text>
+  <text x="74" y="275" text-anchor="end" font-size="12" fill="#6b7280">400</text>
+  <text x="74" y="314" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+  <text x="445" y="325" text-anchor="end" font-size="12" fill="#6b7280">Час t, с</text>
+
+  <!-- Заливка площі під струмом (тепловий удар) -->
+  <path d="M110,310 L110,305 Q115,242 125,242 Q140,242 150,278 L190,278 Q210,278 225,262 Q235,262 245,285 Q260,285 270,275 Q280,275 295,305 L350,305 L350,310 Z" fill="#fdecea"/>
+
+  <!-- Крива струму з пусковим піком stall -->
+  <path d="M80,305 L110,305 Q115,242 125,242 Q140,242 150,278 L190,278 Q210,278 225,262 Q235,262 245,285 Q260,285 270,275 Q280,275 295,305 L435,305" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Виноска до піку струму -->
+  <line x1="142" y1="244" x2="128" y2="242" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+  <text x="145" y="248" font-size="12" font-weight="bold" fill="#c0392b">Пусковий кидок I ≈ 880 мА (Stall)</text>
+
+  <!-- Підсумкова картка наслідків -->
+  <rect x="38" y="340" width="418" height="92" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="50" y="358" font-size="13" font-weight="bold" fill="#c0392b">Наслідки ступінчастого переходу:</text>
+  <text x="50" y="377" font-size="12" fill="#1a1a1a">• Ударні механічні імпульси на зуби шестерень редуктора</text>
+  <text x="50" y="395" font-size="12" fill="#1a1a1a">• Прискорене розбивання люфту та зріз латунних зубців</text>
+  <text x="50" y="413" font-size="12" fill="#1a1a1a">• Просідання напруги шини 5V і ризик скидання (Reset) MCU</text>
+
+  <!-- ======================================================== -->
+  <!-- ПРАВА ПАНЕЛЬ: S-кривий профіль швидкості (S-Curve)       -->
+  <!-- ======================================================== -->
+  <rect x="490" y="62" width="446" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="713" y="84" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">S-кривий профіль швидкості (S-Curve)</text>
+  <text x="713" y="101" text-anchor="middle" font-size="12" fill="#6b7280">Плавне наростання прискорення та безінерційна зупинка</text>
+
+  <!-- Графік 1: Кут повороту вала θ(t) -->
+  <!-- Осі координат -->
+  <line x1="546" y1="205" x2="910" y2="205" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+  <line x1="546" y1="205" x2="546" y2="115" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+  <text x="540" y="122" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">θ, град</text>
+  <text x="540" y="149" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">90°</text>
+  <text x="540" y="209" text-anchor="end" font-size="12" fill="#6b7280">0°</text>
+
+  <!-- Пунктирна лінія цільового положення (90°) -->
+  <line x1="546" y1="145" x2="900" y2="145" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Плавна S-крива переміщення -->
+  <path d="M546,205 L570,205 C620,205 645,175 685,175 C725,175 750,145 800,145 L900,145" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Виноска до безінерційного входу в позицію -->
+  <line x1="785" y1="135" x2="795" y2="143" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+  <text x="700" y="132" font-size="12" font-weight="bold" fill="#27ae60">Плавний підхід (Overshoot = 0°)</text>
+
+  <!-- Графік 2: Струм споживання I(t) -->
+  <!-- Осі координат -->
+  <line x1="546" y1="310" x2="910" y2="310" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+  <line x1="546" y1="310" x2="546" y2="230" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+  <text x="540" y="228" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">I, мА</text>
+  <text x="540" y="242" text-anchor="end" font-size="12" fill="#6b7280">900</text>
+  <text x="540" y="285" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">250 мА</text>
+  <text x="540" y="314" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+  <text x="910" y="325" text-anchor="end" font-size="12" fill="#6b7280">Час t, с</text>
+
+  <!-- Заливка площі струму S-кривої -->
+  <path d="M570,310 L570,305 C610,305 640,284 685,284 C730,284 760,305 800,305 L800,310 Z" fill="#e9f7ef"/>
+
+  <!-- Крива струму з м'яким підйомом -->
+  <path d="M546,305 L570,305 C610,305 640,284 685,284 C730,284 760,305 800,305 L900,305" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Виноска до максимального обмеженого струму -->
+  <line x1="685" y1="272" x2="685" y2="282" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+  <text x="640" y="268" font-size="12" font-weight="bold" fill="#27ae60">I_max ≤ 260 мА (безпечний струм)</text>
+
+  <!-- Підсумкова картка переваг -->
+  <rect x="504" y="340" width="418" height="92" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="516" y="358" font-size="13" font-weight="bold" fill="#27ae60">Переваги S-кривого профілювання:</text>
+  <text x="516" y="377" font-size="12" fill="#1a1a1a">• Відсутність ударних навантажень на зубчастий редуктор</text>
+  <text x="516" y="395" font-size="12" fill="#1a1a1a">• Збереження ресурсу шестерень і точного зачеплення (backlash)</text>
+  <text x="516" y="413" font-size="12" fill="#1a1a1a">• Стабільна шина живлення без небезпеки просідань напруги</text>
+</svg>

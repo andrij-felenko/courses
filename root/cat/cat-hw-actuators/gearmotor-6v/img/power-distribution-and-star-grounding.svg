@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr_red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+  <marker id="arr_blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr_black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr_green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+</defs>
+
+<!-- Біла підкладка -->
+<rect x="0" y="0" width="960" height="500" fill="white"/>
+
+<!-- Заголовок та підзаголовок -->
+<text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Топологія розділеного живлення та зіркова земля (Star GND)</text>
+<text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Ізоляція цифрової логіки контролера від імпульсних просідань напруги та шумів мотора</text>
+
+<!-- ДЖЕРЕЛО ЖИВЛЕННЯ (Ліва панель) -->
+<rect x="25" y="70" width="165" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="107" y="95" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Джерело живлення</text>
+<text x="107" y="113" text-anchor="middle" font-size="12" fill="#6b7280">2S LiPo (7.4 В) / БЖ</text>
+
+<!-- Графічне позначення батареї -->
+<rect x="45" y="128" width="125" height="74" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="107" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Акумулятор</text>
+<text x="107" y="170" text-anchor="middle" font-size="12" fill="#c0392b">7.4 В (номінал)</text>
+<text x="107" y="188" text-anchor="middle" font-size="12" fill="#6b7280">Низький R_внутр</text>
+
+<!-- Картка Star GND у лівій панелі -->
+<rect x="37" y="222" width="141" height="96" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="107" y="244" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">ТОЧКА STAR GND</text>
+<text x="107" y="263" text-anchor="middle" font-size="12" fill="#1a1a1a">Спільний нуль (0 В)</text>
+<text x="107" y="281" text-anchor="middle" font-size="12" fill="#1a1a1a">на клемі джерела</text>
+<text x="107" y="300" text-anchor="middle" font-size="12" fill="#27ae60">Розділяє контури!</text>
+
+<!-- Нижній напис у джерелі -->
+<text x="107" y="445" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Зіркова земля</text>
+<text x="107" y="463" text-anchor="middle" font-size="12" fill="#6b7280">Єдина точка 0 В</text>
+
+<!-- Клеми джерела живлення -->
+<text x="175" y="144" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">+7.4 В</text>
+<circle cx="190" cy="140" r="4" fill="#c0392b"/>
+
+<text x="175" y="349" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">+VMot</text>
+<circle cx="190" cy="345" r="5" fill="#c0392b"/>
+
+<text x="175" y="429" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">– GND</text>
+<line x1="190" y1="425" x2="205" y2="425" stroke="#27ae60" stroke-width="4"/>
+<circle cx="205" cy="425" r="11" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,2"/>
+<circle cx="205" cy="425" r="7" fill="#27ae60" stroke="#1e824c" stroke-width="2"/>
+
+<!-- ЦИФРОВИЙ КОНТУР (Верхня панель) -->
+<rect x="220" y="70" width="715" height="185" rx="8" fill="#f8fafc" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="235" y="93" text-anchor="start" font-size="13" font-weight="700" fill="#2457d6">ЦИФРОВИЙ КОНТУР (MCU / Логіка)</text>
+
+<!-- Блок 1: LDO -->
+<rect x="240" y="105" width="165" height="135" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="322" y="125" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">LDO / DC-DC (5 В / 3.3 В)</text>
+<text x="322" y="144" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Стабілізатор напруги</text>
+<text x="322" y="163" text-anchor="middle" font-size="12" fill="#6b7280">Вхід: 7.4 В  →  Вихід: 5.0 В</text>
+<text x="322" y="183" text-anchor="middle" font-size="12" fill="#27ae60">C_in (10 мкФ) + C_out (10 мкФ)</text>
+<text x="322" y="201" text-anchor="middle" font-size="12" fill="#27ae60">+ 0.1 мкФ кераміка (HF-шум)</text>
+<text x="322" y="221" text-anchor="middle" font-size="12" fill="#1a1a1a">DGND: струм логіки ~5 мА</text>
+
+<!-- Блок 2: MCU -->
+<rect x="455" y="105" width="195" height="135" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="552" y="125" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Мікроконтролер (MCU)</text>
+<text x="552" y="144" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Arduino / ESP32 / STM32</text>
+<text x="552" y="163" text-anchor="middle" font-size="12" fill="#27ae60">Байпас: 0.1 мкФ біля VCC/GND</text>
+<text x="552" y="183" text-anchor="middle" font-size="12" fill="#1a1a1a">Опорний потенціал 0 В: чистий</text>
+<text x="552" y="201" text-anchor="middle" font-size="12" fill="#2457d6">Виходи: ШІМ (PWM) + DIR</text>
+<text x="552" y="221" text-anchor="middle" font-size="12" fill="#6b7280">Струм логіки: 20–40 мА</text>
+
+<!-- Блок 3: Перевага зірки -->
+<rect x="690" y="105" width="230" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="805" y="125" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Чому саме «зірка» (Star)?</text>
+<text x="805" y="144" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Немає спільного опору R_GND:</text>
+<text x="805" y="163" text-anchor="middle" font-size="12" fill="#1a1a1a">Струми мотора (до 2 А) не течуть</text>
+<text x="805" y="181" text-anchor="middle" font-size="12" fill="#1a1a1a">через цифровий дріт GND.</text>
+<text x="805" y="201" text-anchor="middle" font-size="12" fill="#27ae60">ΔV_bounce = I_m × R_gnd = 0 В</text>
+<text x="805" y="221" text-anchor="middle" font-size="12" fill="#27ae60">Захист від перезавантажень</text>
+
+<!-- Лінії в цифровому контурі -->
+<line x1="190" y1="140" x2="240" y2="140" stroke="#c0392b" stroke-width="2" marker-end="url(#arr_red)"/>
+<line x1="205" y1="225" x2="240" y2="225" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+
+<line x1="405" y1="140" x2="455" y2="140" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr_blue)"/>
+<text x="430" y="133" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">+5 В</text>
+
+<line x1="405" y1="225" x2="455" y2="225" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+<text x="430" y="218" text-anchor="middle" font-size="12" fill="#2457d6">DGND</text>
+
+<!-- Вертикальна лінія DGND від Star GND до верхнього контуру -->
+<line x1="205" y1="425" x2="205" y2="225" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+
+<!-- Сигнали керування між MCU та H-мостом -->
+<line x1="552" y1="240" x2="552" y2="310" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr_blue)"/>
+<text x="560" y="268" text-anchor="start" font-size="12" font-weight="700" fill="#2457d6">ШІМ / Напрямок (0–5 В)</text>
+
+<!-- СИЛОВИЙ КОНТУР (Нижня панель) -->
+<rect x="220" y="275" width="715" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="235" y="296" text-anchor="start" font-size="13" font-weight="700" fill="#c0392b">СИЛОВИЙ КОНТУР (Драйвер і двигун)</text>
+
+<!-- Блок 4: Буферний конденсатор -->
+<rect x="240" y="310" width="165" height="150" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="322" y="331" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Буферний конденсатор</text>
+<text x="322" y="350" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">220–470 мкФ (Low-ESR)</text>
+<text x="322" y="369" text-anchor="middle" font-size="12" fill="#6b7280">Стоїть впритул до H-моста</text>
+<text x="322" y="389" text-anchor="middle" font-size="12" fill="#27ae60">Компенсує просідання VMot</text>
+<text x="322" y="407" text-anchor="middle" font-size="12" fill="#27ae60">під час пуску й реверсу</text>
+<text x="322" y="427" text-anchor="middle" font-size="12" fill="#1a1a1a">Поглинає викиди проти-ЕРС</text>
+<text x="322" y="446" text-anchor="middle" font-size="12" fill="#6b7280">+ 0.1 мкФ кераміка (ВЧ-шум)</text>
+
+<!-- Блок 5: H-міст -->
+<rect x="455" y="310" width="195" height="150" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="552" y="331" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Драйвер H-міст</text>
+<text x="552" y="350" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">TB6612 / L298N / MOSFET</text>
+<text x="552" y="369" text-anchor="middle" font-size="12" fill="#c0392b">Комутує струм мотора (ШІМ)</text>
+<text x="552" y="389" text-anchor="middle" font-size="12" fill="#1a1a1a">Пусковий струм: 1.5–1.8 А</text>
+<text x="552" y="407" text-anchor="middle" font-size="12" fill="#1a1a1a">Струм блокування: &gt; 2.0 А</text>
+<text x="552" y="427" text-anchor="middle" font-size="12" fill="#c0392b">Зворотний контур струму</text>
+<text x="552" y="446" text-anchor="middle" font-size="12" fill="#6b7280">замикається на буферний C</text>
+
+<!-- Блок 6: Двигун -->
+<rect x="690" y="310" width="230" height="150" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="805" y="331" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Мотор-редуктор 6 В</text>
+<text x="805" y="350" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">100 / 600 об/хв (DC)</text>
+<text x="805" y="369" text-anchor="middle" font-size="12" fill="#6b7280">Колекторно-щітковий вузол</text>
+<text x="805" y="389" text-anchor="middle" font-size="12" fill="#27ae60">Конденсатор 0.1 мкФ (100 нФ)</text>
+<text x="805" y="407" text-anchor="middle" font-size="12" fill="#27ae60">на клемах гасить іскровий шум</text>
+<text x="805" y="427" text-anchor="middle" font-size="12" fill="#1a1a1a">Індуктивність обмоток L</text>
+<text x="805" y="446" text-anchor="middle" font-size="12" fill="#c0392b">Викиди індукції: U = -L·di/dt</text>
+
+<!-- Лінії в силовому контурі -->
+<line x1="190" y1="345" x2="240" y2="345" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr_red)"/>
+<line x1="205" y1="425" x2="240" y2="425" stroke="#1a1a1a" stroke-width="3.5" marker-end="url(#arr_black)"/>
+
+<line x1="405" y1="345" x2="455" y2="345" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr_red)"/>
+<text x="430" y="338" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">VMot</text>
+
+<line x1="405" y1="425" x2="455" y2="425" stroke="#1a1a1a" stroke-width="3.5" marker-end="url(#arr_black)"/>
+<text x="430" y="418" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">PGND</text>
+
+<line x1="650" y1="365" x2="690" y2="365" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr_red)"/>
+<text x="670" y="358" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">OUT1</text>
+
+<line x1="650" y1="415" x2="690" y2="415" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr_black)"/>
+<text x="670" y="408" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">OUT2</text>
+
+<!-- Підвал: резюме -->
+<text x="480" y="492" text-anchor="middle" font-size="12" fill="#6b7280">Топологія виключає спільний імпеданс: імпульсні перехідні процеси мотора не зміщують логічний рівень нуля мікроконтролера</text>
+</svg>

@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок (відступ від верхнього краю 20 px: 38 - 18 = 20) -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія відсікання прямокутного примітива (Bounding Box Clipping)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Три сценарії узгодження координат примітива з вікном адресації ST7789 (0..239, 0..239)</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: Повністю всередині ==================== -->
+  <rect x="24" y="74" width="292" height="386" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Заголовок панелі -->
+  <rect x="36" y="86" width="268" height="28" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="170" y="105" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">1. Повністю всередині (Inside)</text>
+
+  <!-- Графічна зона -->
+  <rect x="36" y="126" width="268" height="154" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Контур екрана -->
+  <rect x="125" y="144" width="115" height="115" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="125" y="139" font-size="12" fill="#6b7280" text-anchor="start">(0, 0)</text>
+  <text x="240" y="273" font-size="12" fill="#6b7280" text-anchor="end">(239, 239)</text>
+  <text x="182" y="159" font-size="12" fill="#6b7280" text-anchor="middle">Екран 240×240</text>
+  <!-- Примітив -->
+  <rect x="145" y="166" width="75" height="70" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="182" y="192" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Примітив</text>
+  <text x="182" y="211" font-size="12" fill="#27ae60" text-anchor="middle">100% у кадрі</text>
+
+  <!-- Картка умови -->
+  <rect x="36" y="292" width="268" height="70" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="310" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Аналітична умова:</text>
+  <text x="46" y="329" font-size="12" fill="#27ae60" text-anchor="start">X_min ≥ 0  &amp;&amp;  X_max ≤ 239</text>
+  <text x="46" y="348" font-size="12" fill="#27ae60" text-anchor="start">Y_min ≥ 0  &amp;&amp;  Y_max ≤ 239</text>
+
+  <!-- Картка дії та шини -->
+  <rect x="36" y="374" width="268" height="74" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="391" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Дія та апаратний статус:</text>
+  <text x="46" y="408" font-size="12" fill="#1a1a1a" text-anchor="start">CASET = [X_min..X_max]</text>
+  <text x="46" y="425" font-size="12" fill="#1a1a1a" text-anchor="start">RASET = [Y_min..Y_max]</text>
+  <text x="46" y="442" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">✓ Рендер 100%, трафік штатний</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: Перетин із межами ==================== -->
+  <rect x="334" y="74" width="292" height="386" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Заголовок панелі -->
+  <rect x="346" y="86" width="268" height="28" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="105" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Перетин із межами (Clipping)</text>
+
+  <!-- Графічна зона -->
+  <rect x="346" y="126" width="268" height="154" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Контур екрана -->
+  <rect x="435" y="144" width="115" height="115" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="435" y="139" font-size="12" fill="#6b7280" text-anchor="start">(0, 0)</text>
+  <text x="550" y="273" font-size="12" fill="#6b7280" text-anchor="end">(239, 239)</text>
+  <text x="492" y="159" font-size="12" fill="#6b7280" text-anchor="middle">Екран 240×240</text>
+  <!-- Зрізана частина зліва (поза екраном) -->
+  <rect x="375" y="166" width="60" height="70" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="405" y="194" font-size="12" fill="#c0392b" text-anchor="middle">Зрізано</text>
+  <text x="405" y="212" font-size="12" fill="#c0392b" text-anchor="middle">X &lt; 0</text>
+  <!-- Скориговане видиме вікно (всередині екрана) -->
+  <rect x="435" y="166" width="70" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="470" y="192" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вікно</text>
+  <text x="470" y="211" font-size="12" fill="#2457d6" text-anchor="middle">[X1'..X2']</text>
+
+  <!-- Картка умови -->
+  <rect x="346" y="292" width="268" height="70" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="356" y="310" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Формула корекції меж:</text>
+  <text x="356" y="329" font-size="12" fill="#2457d6" text-anchor="start">X1' = max(0, X1), X2' = min(239, X2)</text>
+  <text x="356" y="348" font-size="12" fill="#2457d6" text-anchor="start">Y1' = max(0, Y1), Y2' = min(239, Y2)</text>
+
+  <!-- Картка дії та шини -->
+  <rect x="346" y="374" width="268" height="74" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="356" y="391" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Дія та апаратний статус:</text>
+  <text x="356" y="408" font-size="12" fill="#1a1a1a" text-anchor="start">CASET = [X1'..X2'] (зрізано зліва)</text>
+  <text x="356" y="425" font-size="12" fill="#1a1a1a" text-anchor="start">RASET = [Y1'..Y2'] (без змін)</text>
+  <text x="356" y="442" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">⚡ Передається лише видима зона</text>
+
+  <!-- ==================== ПАНЕЛЬ 3: Повністю ззовні ==================== -->
+  <rect x="644" y="74" width="292" height="386" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Заголовок панелі -->
+  <rect x="656" y="86" width="268" height="28" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="105" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Повністю ззовні (Rejection)</text>
+
+  <!-- Графічна зона -->
+  <rect x="656" y="126" width="268" height="154" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Контур екрана -->
+  <rect x="745" y="144" width="115" height="115" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="745" y="139" font-size="12" fill="#6b7280" text-anchor="start">(0, 0)</text>
+  <text x="860" y="273" font-size="12" fill="#6b7280" text-anchor="end">(239, 239)</text>
+  <text x="802" y="159" font-size="12" fill="#6b7280" text-anchor="middle">Екран 240×240</text>
+  <!-- Порожній стан екрана -->
+  <text x="802" y="194" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Порожньо</text>
+  <text x="802" y="212" font-size="12" fill="#6b7280" text-anchor="middle">Немає малювання</text>
+  <!-- Примітив повністю ззовні -->
+  <rect x="668" y="166" width="60" height="70" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="698" y="194" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ВІДКИД</text>
+  <text x="698" y="212" font-size="12" fill="#c0392b" text-anchor="middle">X_max &lt; 0</text>
+
+  <!-- Картка умови -->
+  <rect x="656" y="292" width="268" height="70" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="666" y="310" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Умова раннього відкидання:</text>
+  <text x="666" y="329" font-size="12" fill="#c0392b" text-anchor="start">X_max &lt; 0  ||  X_min &gt; 239  ||</text>
+  <text x="666" y="348" font-size="12" fill="#c0392b" text-anchor="start">Y_max &lt; 0  ||  Y_min &gt; 239</text>
+
+  <!-- Картка дії та шини -->
+  <rect x="656" y="374" width="268" height="74" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="666" y="391" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Дія та апаратний статус:</text>
+  <text x="666" y="408" font-size="12" fill="#c0392b" text-anchor="start">CASET / RASET не надсилаються</text>
+  <text x="666" y="425" font-size="12" fill="#1a1a1a" text-anchor="start">Раннє повернення (return 0)</text>
+  <text x="666" y="442" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">✕ Нуль байтів SPI (економія шини)</text>
+</svg>

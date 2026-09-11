@@ -201,6 +201,62 @@
           "slug": "audio-amp-xpt8871",
           "title": "XPT8871 — моно-підсилювач 5 Вт",
           "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-xpt8871-driver.md",
+              "status": "done"
+            },
+            {
+              "file": "api-xpt8871-hardware.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-audio-power-amplifier.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-dynamic-speaker.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-low-voltage-btl-amps.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-btl-power-and-gain.md",
+              "status": "done"
+            },
+            {
+              "file": "math-class-ab-thermal-dissipation.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-mcu-audio-playback.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-differential-audio-receiver.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "speakers-8ohm",
+          "title": "Динаміки 5 Вт / 8 Ом",
+          "basic": {
             "status": "empty"
           },
           "detailed": {
@@ -208,8 +264,8 @@
           }
         },
         {
-          "slug": "speakers-8ohm",
-          "title": "Динаміки 5 Вт / 8 Ом",
+          "slug": "pam8403-stereo-amp",
+          "title": "Стереофонічний аудіопідсилювач PAM8403",
           "basic": {
             "status": "empty"
           },
@@ -244,6 +300,54 @@
         {
           "slug": "laser-line-module",
           "title": "Лазерний модуль з лінією (5 мВт, з фокусом)",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-laser-line-module-hw.md",
+              "status": "done"
+            },
+            {
+              "file": "api-laser-line-driver-cpp.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-laser-diode-current-driver.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-powell-lens.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-line-generating-optics.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-laser-line-geometry-and-irradiance.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-strobe-laser-level-controller.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "laser-safety-interlock-circuits",
+          "title": "Апаратні кола лазерного блокування та реле безпеки",
           "basic": {
             "status": "empty"
           },
@@ -405,11 +509,61 @@
           "slug": "ips-st7789",
           "title": "IPS 1.3″ 240×240 (SPI, ST7789)",
           "basic": {
-            "status": "empty"
+            "status": "done"
           },
           "detailed": {
-            "status": "pending"
-          }
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-ips-1-3-st7789-pinout.md",
+              "status": "done"
+            },
+            {
+              "file": "api-st7789-command-set.md",
+              "status": "done"
+            },
+            {
+              "file": "api-st7789-c-driver.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-display-driver-controller.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-ips-tft-panel.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-smartwatch-display-breakouts.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-spi-display-bandwidth.md",
+              "status": "done"
+            },
+            {
+              "file": "math-gram-window-offsets.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-st7789-dma-gauge.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-st7789-lvgl-sensor-dashboard.md",
+              "status": "done"
+            }
+          ]
         },
         {
           "slug": "tft-st7735s",
@@ -424,6 +578,16 @@
         {
           "slug": "oled-091-128x32",
           "title": "OLED 0.91″ 128×32 (I2C)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "st7789-family",
+          "title": "Дисплеї родини ST7789 (огляд лінійки та контролерів)",
           "basic": {
             "status": "empty"
           },

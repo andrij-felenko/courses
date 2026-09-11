@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-solution" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-problem" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Часова діаграма синхронізації та ШІМ-модуляції лазера</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Узгодження фаз усуває артефакти затвора, а сторожовий таймер захищає діод від перегріву</text>
+
+  <!-- Main timing diagram panel -->
+  <rect x="24" y="74" width="912" height="296" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- LEFT CHANNEL HEADERS -->
+  <!-- Channel 1 -->
+  <text x="38" y="120" font-size="13" font-weight="bold" fill="#1a1a1a">1. Строб камери (Exposure)</text>
+  <text x="38" y="135" font-size="12" fill="#6b7280">Сенсор: вікно накопичення</text>
+
+  <!-- Channel 2 -->
+  <text x="38" y="182" font-size="13" font-weight="bold" fill="#2457d6">2. Керування лазером (Enable)</text>
+  <text x="38" y="197" font-size="12" fill="#6b7280">Драйвер: випередження t_lead</text>
+
+  <!-- Channel 3 -->
+  <text x="38" y="244" font-size="13" font-weight="bold" fill="#27ae60">3. ШІМ / Світловий потік</text>
+  <text x="38" y="259" font-size="12" fill="#6b7280">Модуляція яскравості лінії</text>
+
+  <!-- Channel 4 -->
+  <text x="38" y="312" font-size="13" font-weight="bold" fill="#c0392b">4. Сторожовий таймер (WD)</text>
+  <text x="38" y="327" font-size="12" fill="#6b7280">Захист діода від перегріву</text>
+
+  <!-- VERTICAL TIMING GUIDELINES -->
+  <!-- t1: Laser Driver ON at x = 350 (from Channel 2 to Channel 4) -->
+  <line x1="350" y1="176" x2="350" y2="332" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+  <!-- t2: Camera Exposure Start at x = 420 (between Channel 1 and Channel 2) -->
+  <line x1="420" y1="114" x2="420" y2="176" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+  <!-- t3: Camera Exposure End at x = 700 (between Channel 1 and Channel 2) -->
+  <line x1="700" y1="114" x2="700" y2="176" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+  <!-- t4: Laser Driver OFF at x = 720 (from Channel 2 to Channel 4) -->
+  <line x1="720" y1="176" x2="720" y2="312" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+  <!-- t5: Watchdog Cutoff Limit at x = 870 (in Channel 4) -->
+  <line x1="870" y1="298" x2="870" y2="332" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- CHANNEL 1 WAVEFORM: Camera Strobe -->
+  <path d="M420,138 L420,114 L700,114 L700,138 Z" fill="#eaf0fd"/>
+  <polyline points="275,138 420,138 420,114 700,114 700,138 915,138" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Exposure dimension bracket arrows -->
+  <line x1="440" y1="94" x2="422" y2="94" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="560" y="98" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вікно експозиції камери (T_exp)</text>
+  <line x1="680" y1="94" x2="698" y2="94" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- CHANNEL 2 WAVEFORM: Laser Enable -->
+  <path d="M350,200 L350,176 L720,176 L720,200 Z" fill="#eaf0fd"/>
+  <polyline points="275,200 350,200 350,176 720,176 720,200 915,200" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="385" y="163" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">t_lead</text>
+  <text x="560" y="163" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Laser Enable (драйвер увімкнено)</text>
+
+  <!-- CHANNEL 3 WAVEFORM: PWM Optical Output -->
+  <path d="M350,262 L365,238 L420,238 L420,262 L428,262 L428,238 L448,238 L448,262 L460,262 L460,238 L488,238 L488,262 L500,262 L500,238 L528,238 L528,262 L540,262 L540,238 L568,238 L568,262 L580,262 L580,238 L608,238 L608,262 L620,262 L620,238 L648,238 L648,262 L660,262 L660,238 L700,238 L700,262 Z" fill="#e9f7ef"/>
+  <polyline points="275,262 350,262 365,238 420,238 420,262 428,262 428,238 448,238 448,262 460,262 460,238 488,238 488,262 500,262 500,238 528,238 528,262 540,262 540,238 568,238 568,262 580,262 580,238 608,238 608,262 620,262 620,238 648,238 648,262 660,262 660,238 700,238 700,262 915,262" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="500" y="225" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Період ШІМ T_pwm</text>
+  <text x="620" y="225" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Заповнення D = 70%</text>
+
+  <!-- CHANNEL 4 WAVEFORM: Watchdog Timer -->
+  <!-- Threshold line -->
+  <line x1="350" y1="300" x2="915" y2="300" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <!-- Normal charging ramp and reset -->
+  <path d="M350,332 L720,312 L720,332 Z" fill="#e9f7ef"/>
+  <polyline points="275,332 350,332 720,312 720,332 915,332" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+  <!-- Reset arrow at normal turn-off -->
+  <line x1="720" y1="288" x2="720" y2="308" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-solution)"/>
+
+  <!-- Fault continuation (stuck high) -->
+  <path d="M720,312 L870,300 L870,332 L720,332 Z" fill="#fdecea"/>
+  <line x1="720" y1="312" x2="870" y2="300" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4 3"/>
+  <!-- Cutoff arrow at threshold -->
+  <line x1="870" y1="282" x2="870" y2="296" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-problem)"/>
+  <polyline points="870,300 870,332" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="870" cy="300" r="3.5" fill="#c0392b"/>
+
+  <text x="535" y="287" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Нормальний цикл: скидання таймера (T_on &lt; T_wd)</text>
+  <text x="795" y="287" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Поріг захисту T_wd</text>
+  <text x="535" y="357" font-size="12" text-anchor="middle" fill="#6b7280">Безпечно: вимкнено вчасно</text>
+  <text x="792" y="357" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Аварійне вимкнення</text>
+  <!-- Time progression arrow -->
+  <line x1="880" y1="353" x2="915" y2="353" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- BOTTOM SUMMARY CARDS -->
+  <!-- Card 1 -->
+  <rect x="24" y="384" width="292" height="54" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="40" y="408" font-size="12" font-weight="bold" fill="#27ae60">Синхронізація експозиції</text>
+  <text x="40" y="426" font-size="12" fill="#1a1a1a">Світіння суворо у вікні кадру: без смуг</text>
+
+  <!-- Card 2 -->
+  <rect x="334" y="384" width="292" height="54" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="350" y="408" font-size="12" font-weight="bold" fill="#2457d6">ШІМ-дозування енергії</text>
+  <text x="350" y="426" font-size="12" fill="#1a1a1a">Коефіцієнт D регулює яскравість лінії</text>
+
+  <!-- Card 3 -->
+  <rect x="644" y="384" width="292" height="54" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="660" y="408" font-size="12" font-weight="bold" fill="#c0392b">Сторожовий захист (WD)</text>
+  <text x="660" y="426" font-size="12" fill="#1a1a1a">Аварійне вимкнення: захист від перегріву</text>
+</svg>

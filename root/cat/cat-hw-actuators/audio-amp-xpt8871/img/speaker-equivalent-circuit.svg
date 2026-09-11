@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Повна еквівалентна електрична схема заміщення динаміка</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Поєднання активного й індуктивного опорів котушки з механічним резонансом рухомої системи</text>
+
+  <!-- Панель 1: Електрична підсистема (звукова котушка) -->
+  <rect x="26" y="72" width="370" height="278" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="42" y="97" font-size="13" font-weight="bold" fill="#1a1a1a">Електрична підсистема (звукова котушка)</text>
+  <text x="42" y="113" font-size="12" fill="#6b7280">Опір постійному струму Re та індуктивність Le</text>
+
+  <!-- Панель 2: Електромеханічна підсистема (рухома система) -->
+  <rect x="416" y="72" width="518" height="278" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="432" y="97" font-size="13" font-weight="bold" fill="#2457d6">Електромеханічна підсистема (рухома система на fs)</text>
+  <text x="432" y="113" font-size="12" fill="#6b7280">Паралельний резонансний контур аналогів дифузора та джерело проти-ЕРС</text>
+
+  <!-- Вхідні клеми від підсилювача -->
+  <line x1="38" y1="214" x2="38" y2="190" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="38" y1="246" x2="38" y2="270" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="38" y1="214" x2="38" y2="246" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <circle cx="65" cy="180" r="4.5" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="65" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">+ (IN+)</text>
+
+  <circle cx="65" cy="280" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="65" y="312" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">− (IN−)</text>
+
+  <text x="65" y="234" text-anchor="middle" font-size="12" fill="#6b7280">U_вх</text>
+
+  <!-- Верхній провід лівої панелі зі стрілкою струму -->
+  <line x1="69.5" y1="180" x2="108" y2="180" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="108" y1="180" x2="150" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="100" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">I</text>
+
+  <!-- Елемент Re (активний опір) -->
+  <rect x="150" y="169" width="50" height="22" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="175" y="136" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Re</text>
+  <text x="175" y="152" text-anchor="middle" font-size="12" fill="#6b7280">Опір котушки</text>
+  <text x="175" y="216" text-anchor="middle" font-size="12" fill="#1a1a1a">Постійний струм</text>
+  <text x="175" y="232" text-anchor="middle" font-size="12" fill="#6b7280">R_DC (3–7 Ом)</text>
+
+  <!-- Провід між Re та Le -->
+  <line x1="200" y1="180" x2="245" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Елемент Le (індуктивність котушки) -->
+  <path d="M 245,180 A 7.5,10 0 0,1 260,180 A 7.5,10 0 0,1 275,180 A 7.5,10 0 0,1 290,180 A 7.5,10 0 0,1 305,180" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="275" y="136" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Le</text>
+  <text x="275" y="152" text-anchor="middle" font-size="12" fill="#6b7280">Індуктивність</text>
+  <text x="275" y="216" text-anchor="middle" font-size="12" fill="#1a1a1a">Витки котушки</text>
+  <text x="275" y="232" text-anchor="middle" font-size="12" fill="#6b7280">Підйом Z на ВЧ</text>
+
+  <!-- Провід від Le до електромеханічної частини -->
+  <line x1="305" y1="180" x2="416" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Нижній провід від IN- до правої панелі -->
+  <line x1="69.5" y1="280" x2="416" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Верхня та нижня шини правої панелі -->
+  <line x1="416" y1="180" x2="835" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="416" y1="280" x2="835" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Вузли з'єднання -->
+  <circle cx="480" cy="180" r="3" fill="#1a1a1a"/>
+  <circle cx="480" cy="280" r="3" fill="#1a1a1a"/>
+  <circle cx="595" cy="180" r="3" fill="#1a1a1a"/>
+  <circle cx="595" cy="280" r="3" fill="#1a1a1a"/>
+  <circle cx="710" cy="180" r="3" fill="#1a1a1a"/>
+  <circle cx="710" cy="280" r="3" fill="#1a1a1a"/>
+
+  <!-- Вітка 1: Res (механічні втрати) -->
+  <line x1="480" y1="180" x2="480" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="470" y="210" width="20" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="480" y1="250" x2="480" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="480" y="136" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Res</text>
+  <text x="480" y="152" text-anchor="middle" font-size="12" fill="#6b7280">Втрати тертя</text>
+  <text x="480" y="304" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Тертя підвісу</text>
+  <text x="480" y="320" text-anchor="middle" font-size="12" fill="#6b7280">Аналог Rms</text>
+  <text x="480" y="336" text-anchor="middle" font-size="12" fill="#6b7280">Демпфування</text>
+
+  <!-- Вітка 2: Les (гнучкість підвісу Cms) -->
+  <line x1="595" y1="180" x2="595" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 595,210 A 5,5 0 0,1 595,220 A 5,5 0 0,1 595,230 A 5,5 0 0,1 595,240 A 5,5 0 0,1 595,250" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="595" y1="250" x2="595" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="595" y="136" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Les</text>
+  <text x="595" y="152" text-anchor="middle" font-size="12" fill="#6b7280">Пружність</text>
+  <text x="595" y="304" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Гнучкість шайби</text>
+  <text x="595" y="320" text-anchor="middle" font-size="12" fill="#6b7280">Аналог Cms</text>
+  <text x="595" y="336" text-anchor="middle" font-size="12" fill="#6b7280">Пружність Cms</text>
+
+  <!-- Вітка 3: Ces (рухома маса Mms) -->
+  <line x1="710" y1="180" x2="710" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="698" y1="225" x2="722" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="698" y1="235" x2="722" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="710" y1="235" x2="710" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="710" y="136" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Ces</text>
+  <text x="710" y="152" text-anchor="middle" font-size="12" fill="#6b7280">Маса дифузора</text>
+  <text x="710" y="304" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Інерція маси</text>
+  <text x="710" y="320" text-anchor="middle" font-size="12" fill="#6b7280">Аналог Mms</text>
+  <text x="710" y="336" text-anchor="middle" font-size="12" fill="#6b7280">Маса системи</text>
+
+  <!-- Вітка 4: Генератор проти-ЕРС e_back -->
+  <line x1="835" y1="180" x2="835" y2="212" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="835" cy="230" r="18" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 826,230 Q 830.5,224 835,230 T 844,230" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="835" y1="248" x2="835" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="835" y="136" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">e_back</text>
+  <text x="835" y="152" text-anchor="middle" font-size="12" fill="#2457d6">Проти-ЕРС</text>
+  <text x="835" y="304" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">e_back = B·L·v</text>
+  <text x="835" y="320" text-anchor="middle" font-size="12" fill="#6b7280">Генератор на fs</text>
+  <text x="835" y="336" text-anchor="middle" font-size="12" fill="#c0392b">Назустріч U_вх</text>
+
+  <!-- Нижні інформаційні блоки -->
+  <rect x="26" y="362" width="370" height="76" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="382" font-size="12" font-weight="bold" fill="#1a1a1a">Властивості звукової котушки:</text>
+  <text x="40" y="400" font-size="12" fill="#6b7280">• Re обмежує струм DC і визначає нагрів котушки</text>
+  <text x="40" y="418" font-size="12" fill="#6b7280">• Le спричиняє поступовий спад струму на ВЧ</text>
+
+  <rect x="416" y="362" width="518" height="76" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="430" y="382" font-size="12" font-weight="bold" fill="#2457d6">Механічний резонанс рухомої системи (частота fs):</text>
+  <text x="430" y="400" font-size="12" fill="#1a1a1a">• На резонансі fs коливання Mms та Cms створюють максимум проти-ЕРС</text>
+  <text x="430" y="418" font-size="12" fill="#6b7280">• Проти-ЕРС e_back діє назустріч U_вх, утворюючи пік імпедансу Z(fs)</text>
+</svg>

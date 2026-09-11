@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Динамічні навантаження редуктора: стрибкове позиціонування проти S-кривої</text>
+  <text x="480" y="48" font-size="13" text-anchor="middle" fill="#6b7280">Стрибок кута спричиняє ударні сплески моменту й пружний резонанс, тоді як згладжений профіль усуває перевантаження</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Стрибкове позиціонування (Panel A) -->
+  <rect x="30" y="64" width="438" height="376" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="88" font-size="14" font-weight="700" fill="#c0392b">Стрибкове позиціонування (Step command)</text>
+  <text x="46" y="104" font-size="12" fill="#6b7280">Миттєва зміна кута: максимальний ударний ривок</text>
+
+  <!-- Графік 1А: Положення кута вала θ(t) -->
+  <rect x="46" y="118" width="406" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="132" font-size="12" font-weight="700" fill="#1a1a1a">θ (°)</text>
+
+  <!-- Сітка й рівні 1А -->
+  <line x1="92" y1="146" x2="430" y2="146" stroke="#f0f0f0" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="86" y="149" font-size="12" text-anchor="end" fill="#6b7280">90°</text>
+  <text x="86" y="196" font-size="12" text-anchor="end" fill="#6b7280">0°</text>
+
+  <!-- Цільова сходинка θ_cmd (сіра пунктирна) -->
+  <path d="M 92,192 L 150,192 L 150,146 L 430,146" fill="none" stroke="#9ca3af" stroke-width="1.8" stroke-dasharray="4 3"/>
+
+  <!-- Реальна траєкторія θ(t) з перерегулюванням і коливаннями -->
+  <path d="M 92,192 L 150,192 C 165,192 180,140 195,128 C 210,128 220,162 235,162 C 250,162 260,138 275,138 C 290,138 300,152 315,152 C 330,152 345,146 365,146 L 430,146" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+
+  <!-- Підпис резонансу в 1А -->
+  <text x="245" y="132" font-size="12" font-weight="700" fill="#c0392b">Затухаючий резонанс вала</text>
+
+  <!-- Осі 1А -->
+  <line x1="92" y1="192" x2="92" y2="124" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="92" y1="192" x2="438" y2="192" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="150" y1="192" x2="150" y2="196" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="150" y="210" font-size="12" text-anchor="middle" fill="#6b7280">0 мс</text>
+  <line x1="300" y1="192" x2="300" y2="196" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="300" y="210" font-size="12" text-anchor="middle" fill="#6b7280">150 мс</text>
+  <text x="402" y="210" font-size="12" font-weight="700" fill="#1a1a1a">t (мс)</text>
+
+  <!-- Графік 2А: Механічний момент зубців τ(t) -->
+  <rect x="46" y="230" width="406" height="116" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="244" font-size="12" font-weight="700" fill="#1a1a1a">τ (Н·см)</text>
+
+  <!-- Рівні моменту 2А -->
+  <line x1="92" y1="272" x2="430" y2="272" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="86" y="276" font-size="12" text-anchor="end" fill="#6b7280">+τ_ном</text>
+  <text x="86" y="296" font-size="12" text-anchor="end" fill="#6b7280">0</text>
+  <line x1="92" y1="318" x2="430" y2="318" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="86" y="322" font-size="12" text-anchor="end" fill="#6b7280">-τ_ном</text>
+
+  <!-- Крива моменту 2А з ударом і коливаннями -->
+  <path d="M 92,292 L 150,292 C 154,292 157,246 163,246 C 169,246 175,292 185,292 C 195,292 200,336 210,336 C 220,336 230,278 245,278 C 260,278 270,302 285,302 C 300,302 315,292 335,292 L 430,292" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+
+  <!-- Підписи ударного сплеску 2А -->
+  <text x="210" y="254" font-size="12" font-weight="700" fill="#c0392b">Сплеск моменту τ_max >> τ_ном</text>
+  <text x="210" y="268" font-size="12" fill="#c0392b">Ударний ризик зрізання зубців</text>
+  <text x="400" y="340" font-size="12" font-weight="700" fill="#1a1a1a">t (мс)</text>
+
+  <!-- Осі 2А -->
+  <line x1="92" y1="332" x2="92" y2="236" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="92" y1="292" x2="438" y2="292" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Картка підсумку 1А -->
+  <rect x="46" y="360" width="406" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="58" y="380" font-size="12" font-weight="700" fill="#c0392b">Наслідки для привода MG90S:</text>
+  <text x="58" y="398" font-size="12" fill="#1a1a1a">• Зусилля на зубцях редуктора перевищує межу втоми металу</text>
+  <text x="58" y="416" font-size="12" fill="#6b7280">• Пружний резонанс змазує кадр камери або датчика</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: S-подібний профіль (Panel B) -->
+  <rect x="492" y="64" width="438" height="376" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="508" y="88" font-size="14" font-weight="700" fill="#27ae60">Плавний профіль швидкості (S-curve)</text>
+  <text x="508" y="104" font-size="12" fill="#6b7280">Обмеження прискорення й ривка (jerk-limited motion)</text>
+
+  <!-- Графік 1Б: Положення кута вала θ(t) -->
+  <rect x="508" y="118" width="406" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="132" font-size="12" font-weight="700" fill="#1a1a1a">θ (°)</text>
+
+  <!-- Сітка й рівні 1Б -->
+  <line x1="554" y1="146" x2="892" y2="146" stroke="#f0f0f0" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="548" y="149" font-size="12" text-anchor="end" fill="#6b7280">90°</text>
+  <text x="548" y="196" font-size="12" text-anchor="end" fill="#6b7280">0°</text>
+
+  <!-- Траєкторія S-curve (плавна зміна без перерегулювання) -->
+  <path d="M 554,192 L 610,192 C 670,192 710,146 810,146 L 892,146" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Підпис без коливань 1Б -->
+  <text x="640" y="136" font-size="12" font-weight="700" fill="#27ae60">Плавний вихід без перерегулювання</text>
+
+  <!-- Осі 1Б -->
+  <line x1="554" y1="192" x2="554" y2="124" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="554" y1="192" x2="900" y2="192" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="610" y1="192" x2="610" y2="196" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="610" y="210" font-size="12" text-anchor="middle" fill="#6b7280">0 мс</text>
+  <line x1="760" y1="192" x2="760" y2="196" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="760" y="210" font-size="12" text-anchor="middle" fill="#6b7280">150 мс</text>
+  <text x="862" y="210" font-size="12" font-weight="700" fill="#1a1a1a">t (мс)</text>
+
+  <!-- Графік 2Б: Механічний момент зубців τ(t) -->
+  <rect x="508" y="230" width="406" height="116" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="244" font-size="12" font-weight="700" fill="#1a1a1a">τ (Н·см)</text>
+
+  <!-- Рівні моменту 2Б -->
+  <line x1="554" y1="272" x2="892" y2="272" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="548" y="276" font-size="12" text-anchor="end" fill="#6b7280">+τ_ном</text>
+  <text x="548" y="296" font-size="12" text-anchor="end" fill="#6b7280">0</text>
+  <line x1="554" y1="318" x2="892" y2="318" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="548" y="322" font-size="12" text-anchor="end" fill="#6b7280">-τ_ном</text>
+
+  <!-- Крива моменту 2Б (контрольоване розгін-гальмування в межах норми) -->
+  <path d="M 554,292 L 610,292 C 630,292 640,278 660,278 C 680,278 690,292 710,292 C 730,292 740,306 760,306 C 780,306 790,292 810,292 L 892,292" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+
+  <!-- Підписи контрольованого моменту 2Б -->
+  <text x="640" y="254" font-size="12" font-weight="700" fill="#27ae60">Момент у нормі: τ_max ≤ τ_ном</text>
+  <text x="640" y="268" font-size="12" fill="#27ae60">Відсутність ударних навантажень</text>
+  <text x="862" y="340" font-size="12" font-weight="700" fill="#1a1a1a">t (мс)</text>
+
+  <!-- Осі 2Б -->
+  <line x1="554" y1="332" x2="554" y2="236" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="554" y1="292" x2="900" y2="292" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Картка підсумку 1Б -->
+  <rect x="508" y="360" width="406" height="68" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="520" y="380" font-size="12" font-weight="700" fill="#27ae60">Переваги S-кривої для Pan-Tilt механізму:</text>
+  <text x="520" y="398" font-size="12" fill="#1a1a1a">• Збереження ресурсу зубців металевого редуктора</text>
+  <text x="520" y="416" font-size="12" fill="#6b7280">• Миттєва стабілізація огляду без паразитного тремтіння</text>
+</svg>

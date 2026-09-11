@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Комутація плеча H-моста: наскрізний струм перекриття та захисна пауза Dead-Time</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння комутації ключів напівмоста без захисного інтервалу (КЗ шини живлення) та з витримкою мертвого часу</text>
+
+  <!-- ==================== LEFT PANEL: WITHOUT DEAD-TIME ==================== -->
+  <rect x="20" y="62" width="450" height="438" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 1 Header Banner -->
+  <rect x="20" y="62" width="450" height="40" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="245" y="87" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">✕ Без захисної паузи: одночасне перемикання</text>
+
+  <!-- Panel 1 Context Note -->
+  <text x="245" y="118" font-size="12" fill="#6b7280" text-anchor="middle">HS вимикається, LS вмикається в один момент часу t₀</text>
+
+  <!-- Overlap Zone Highlight -->
+  <rect x="225" y="128" width="55" height="277" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="252" y="139" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">t_off</text>
+  <line x1="228" y1="147" x2="277" y2="147" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="228" y1="143" x2="228" y2="151" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="277" y1="143" x2="277" y2="151" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="252" y="274" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Δt КЗ</text>
+
+  <!-- Signal 1: V_gate (HS) -->
+  <text x="35" y="162" font-size="12" font-weight="700" fill="#1a1a1a">V_gate (HS)</text>
+  <text x="35" y="178" font-size="12" fill="#6b7280">Верхній затвор</text>
+  <line x1="135" y1="180" x2="445" y2="180" stroke="#e5e7eb" stroke-width="1"/>
+  <path d="M 135,158 L 225,158 L 225,180 L 445,180" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="140" y="152" font-size="12" fill="#2457d6">12 В (ON)</text>
+  <text x="330" y="174" font-size="12" fill="#6b7280">0 В (вимкнено)</text>
+
+  <!-- Signal 2: V_gate (LS) -->
+  <text x="35" y="218" font-size="12" font-weight="700" fill="#1a1a1a">V_gate (LS)</text>
+  <text x="35" y="234" font-size="12" fill="#6b7280">Нижній затвор</text>
+  <line x1="135" y1="235" x2="445" y2="235" stroke="#e5e7eb" stroke-width="1"/>
+  <path d="M 135,235 L 225,235 L 225,213 L 445,213" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="140" y="229" font-size="12" fill="#6b7280">0 В (OFF)</text>
+  <text x="330" y="207" font-size="12" fill="#2457d6">12 В (увімкнено)</text>
+
+  <!-- Signal 3: Physical Conduction -->
+  <text x="35" y="268" font-size="12" font-weight="700" fill="#1a1a1a">Канал HS</text>
+  <text x="35" y="282" font-size="12" fill="#c0392b">провідний до t₁</text>
+  <path d="M 135,258 L 280,258 L 280,274 L 445,274" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+
+  <text x="35" y="298" font-size="12" font-weight="700" fill="#1a1a1a">Канал LS</text>
+  <text x="35" y="312" font-size="12" fill="#c0392b">провідний з t₀</text>
+  <path d="M 135,306 L 225,306 L 225,290 L 445,290" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+
+  <!-- Signal 4: Shoot-Through Current -->
+  <text x="35" y="362" font-size="12" font-weight="700" fill="#c0392b">I_shoot (КЗ)</text>
+  <text x="35" y="378" font-size="12" fill="#6b7280">Струм шини VCC</text>
+  <text x="35" y="394" font-size="12" fill="#6b7280">I_ном ≈ 0.2 А</text>
+  <line x1="135" y1="390" x2="445" y2="390" stroke="#e5e7eb" stroke-width="1"/>
+  <path d="M 225,390 L 227,338 L 278,338 L 280,390 Z" fill="#c0392b" fill-opacity="0.25"/>
+  <path d="M 135,390 L 225,390 L 227,338 L 278,338 L 280,390 L 445,390" fill="none" stroke="#c0392b" stroke-width="2.8"/>
+  <text x="292" y="352" font-size="12" font-weight="700" fill="#c0392b">Сплеск I_shoot &gt; 15 А</text>
+  <text x="292" y="368" font-size="12" fill="#c0392b">Наскрізне КЗ VCC → GND</text>
+  <text x="292" y="384" font-size="12" fill="#6b7280">Просідання живлення ШІМ</text>
+
+  <!-- Vertical Timeline Markers Panel 1 -->
+  <line x1="225" y1="128" x2="225" y2="405" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="280" y1="128" x2="280" y2="405" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="225" y="418" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">t₀</text>
+  <text x="280" y="418" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">t₁</text>
+  <text x="445" y="418" font-size="12" fill="#6b7280" text-anchor="end">Час t →</text>
+
+  <!-- Panel 1 Bottom Alert Card -->
+  <rect x="35" y="435" width="420" height="52" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="245" y="456" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Аварійний стан: наскрізне перекриття каналів Δt</text>
+  <text x="245" y="474" font-size="12" fill="#1a1a1a" text-anchor="middle">Імпульсний надструм руйнує кристали MOSFET та перезавантажує МК</text>
+
+  <!-- ==================== RIGHT PANEL: WITH DEAD-TIME ==================== -->
+  <rect x="490" y="62" width="450" height="438" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Panel 2 Header Banner -->
+  <rect x="490" y="62" width="450" height="40" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="715" y="87" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">✓ З Dead-Time: апаратна захисна пауза</text>
+
+  <!-- Panel 2 Context Note -->
+  <text x="715" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Нижній ключ чекає гарантованого вимкнення верхнього ключа</text>
+
+  <!-- Dead-Time Zone Highlight -->
+  <rect x="695" y="128" width="95" height="277" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="742" y="139" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">t_dead</text>
+  <line x1="697" y1="147" x2="788" y2="147" stroke="#27ae60" stroke-width="1.2"/>
+  <line x1="697" y1="143" x2="697" y2="151" stroke="#27ae60" stroke-width="1.2"/>
+  <line x1="788" y1="143" x2="788" y2="151" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="742" y="274" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Безпечна пауза</text>
+
+  <!-- Signal 1: V_gate (HS) -->
+  <text x="505" y="162" font-size="12" font-weight="700" fill="#1a1a1a">V_gate (HS)</text>
+  <text x="505" y="178" font-size="12" fill="#6b7280">Верхній затвор</text>
+  <line x1="605" y1="180" x2="915" y2="180" stroke="#e5e7eb" stroke-width="1"/>
+  <path d="M 605,158 L 695,158 L 695,180 L 915,180" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="610" y="152" font-size="12" fill="#2457d6">12 В (ON)</text>
+  <text x="800" y="174" font-size="12" fill="#6b7280">0 В (вимкнено)</text>
+
+  <!-- Signal 2: V_gate (LS) -->
+  <text x="505" y="218" font-size="12" font-weight="700" fill="#1a1a1a">V_gate (LS)</text>
+  <text x="505" y="234" font-size="12" fill="#6b7280">Нижній затвор</text>
+  <line x1="605" y1="235" x2="915" y2="235" stroke="#e5e7eb" stroke-width="1"/>
+  <path d="M 605,235 L 790,235 L 790,213 L 915,213" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="742" y="226" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">0 В (пауза)</text>
+  <text x="800" y="207" font-size="12" fill="#27ae60">12 В (увімкнено)</text>
+
+  <!-- Signal 3: Physical Conduction -->
+  <text x="505" y="268" font-size="12" font-weight="700" fill="#1a1a1a">Канал HS</text>
+  <text x="505" y="282" font-size="12" fill="#6b7280">закрито в t₁</text>
+  <path d="M 605,258 L 750,258 L 750,274 L 915,274" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+
+  <text x="505" y="298" font-size="12" font-weight="700" fill="#1a1a1a">Канал LS</text>
+  <text x="505" y="312" font-size="12" fill="#27ae60">відкрито в t₂</text>
+  <path d="M 605,306 L 790,306 L 790,290 L 915,290" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+
+  <!-- Signal 4: Shoot-Through Current -->
+  <text x="505" y="362" font-size="12" font-weight="700" fill="#27ae60">I_shoot = 0 А</text>
+  <text x="505" y="378" font-size="12" fill="#6b7280">Струм шини VCC</text>
+  <text x="505" y="394" font-size="12" fill="#6b7280">I_ном ≈ 0.2 А</text>
+  <line x1="605" y1="390" x2="915" y2="390" stroke="#e5e7eb" stroke-width="1"/>
+  <path d="M 605,390 L 915,390" fill="none" stroke="#27ae60" stroke-width="2.8"/>
+  <text x="705" y="352" font-size="12" font-weight="700" fill="#27ae60">I_shoot = 0 А (КЗ відсутнє)</text>
+  <text x="705" y="368" font-size="12" fill="#27ae60">Жодного сплеску струму живлення</text>
+  <text x="705" y="384" font-size="12" fill="#6b7280">Стабільна напруга живлення VCC</text>
+
+  <!-- Vertical Timeline Markers Panel 2 -->
+  <line x1="695" y1="128" x2="695" y2="405" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="750" y1="150" x2="750" y2="405" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="790" y1="128" x2="790" y2="405" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="695" y="418" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">t₀</text>
+  <text x="750" y="418" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">t₁</text>
+  <text x="790" y="418" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">t₂</text>
+  <text x="915" y="418" font-size="12" fill="#6b7280" text-anchor="end">Час t →</text>
+
+  <!-- Panel 2 Bottom Alert Card -->
+  <rect x="505" y="435" width="420" height="52" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="715" y="456" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Нормальний режим: гарантована захисна пауза t_dead &gt; t_off</text>
+  <text x="715" y="474" font-size="12" fill="#1a1a1a" text-anchor="middle">Комутація без втрат, ключі залишаються холодними, МК не зависає</text>
+</svg>

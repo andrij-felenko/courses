@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Функціональна блок-схема автономного стенда-калібратора сервоприводів</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Роздільне живлення 5V, шина I2C для INA219 та OLED, енкодерне керування й апаратний ШІМ-вихід</text>
+
+  <!-- ==================== ВЕРХНІЙ РЯД ==================== -->
+
+  <!-- БЛОК 1: Вузол живлення (Top Left) -->
+  <rect x="40" y="78" width="250" height="152" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="165" y="99" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Вузол живлення (Power)</text>
+  <text x="165" y="117" font-size="12" fill="#6b7280" text-anchor="middle">Вхід 7–12V (DC Jack / Li-Ion)</text>
+
+  <!-- LDO 5V (Logic) -->
+  <rect x="52" y="127" width="108" height="50" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="106" y="146" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">LDO 5V (0.5A)</text>
+  <text x="106" y="164" font-size="12" fill="#6b7280" text-anchor="middle">5V_LOGIC</text>
+
+  <!-- Buck 5V (Power) -->
+  <rect x="168" y="127" width="110" height="50" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="223" y="146" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Buck 5V (3A)</text>
+  <text x="223" y="164" font-size="12" fill="#6b7280" text-anchor="middle">5V_POWER</text>
+
+  <!-- Star GND -->
+  <circle cx="165" cy="199" r="6" fill="#27ae60"/>
+  <text x="165" y="218" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Точка Star GND (спільна земля)</text>
+
+
+  <!-- БЛОК 2: Датчик струму INA219 (Top Center) -->
+  <rect x="355" y="78" width="250" height="152" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="99" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль струму INA219</text>
+  <text x="480" y="117" font-size="12" fill="#6b7280" text-anchor="middle">High-Side вимірювач у колі 5V</text>
+
+  <!-- Шунт -->
+  <rect x="368" y="127" width="108" height="50" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="422" y="146" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Шунт R_shunt</text>
+  <text x="422" y="164" font-size="12" fill="#6b7280" text-anchor="middle">0.1 Ом / 1% (2W)</text>
+
+  <!-- АЦП / I2C Core -->
+  <rect x="484" y="127" width="110" height="50" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="539" y="146" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">АЦП 12-біт</text>
+  <text x="539" y="164" font-size="12" fill="#6b7280" text-anchor="middle">I2C (0x40)</text>
+
+  <text x="480" y="218" font-size="12" fill="#6b7280" text-anchor="middle">Діапазон 0–3.2A (крок 0.8 мА)</text>
+
+
+  <!-- БЛОК 3: Сервопривід MG90S DUT (Top Right) -->
+  <rect x="670" y="78" width="250" height="152" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="795" y="99" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Сервопривід MG90S (DUT)</text>
+  <text x="795" y="117" font-size="12" fill="#6b7280" text-anchor="middle">Тестований зразок під навантаженням</text>
+
+  <!-- Роз'єм сервоприводу -->
+  <rect x="683" y="127" width="105" height="50" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="735" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VCC / GND / PWM</text>
+  <text x="735" y="164" font-size="12" fill="#6b7280" text-anchor="middle">Роз'єм JR 3-pin</text>
+
+  <!-- Вал + редуктор -->
+  <rect x="798" y="127" width="110" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="853" y="146" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вал + качалка</text>
+  <text x="853" y="164" font-size="12" fill="#6b7280" text-anchor="middle">Кут 0°–180°</text>
+
+  <text x="795" y="218" font-size="12" fill="#6b7280" text-anchor="middle">Металевий редуктор, 1:300</text>
+
+
+  <!-- ==================== НИЖНІЙ РЯД ==================== -->
+
+  <!-- БЛОК 4: Інкрементальний енкодер (Bottom Left) -->
+  <rect x="40" y="270" width="250" height="152" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="291" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інкрементальний енкодер</text>
+  <text x="165" y="309" font-size="12" fill="#6b7280" text-anchor="middle">Керування кутом та вибір режимів</text>
+
+  <!-- Фази A / B -->
+  <rect x="52" y="320" width="108" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="106" y="339" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Канали CLK / DT</text>
+  <text x="106" y="357" font-size="12" fill="#6b7280" text-anchor="middle">20 імп/оберт</text>
+
+  <!-- Кнопка SW -->
+  <rect x="168" y="320" width="110" height="50" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="223" y="339" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кнопка SW</text>
+  <text x="223" y="357" font-size="12" fill="#6b7280" text-anchor="middle">Вибір у меню</text>
+
+  <text x="165" y="410" font-size="12" fill="#6b7280" text-anchor="middle">Крок налаштування 1–5 мкс</text>
+
+
+  <!-- БЛОК 5: Мікроконтролер MCU (Bottom Center) -->
+  <rect x="355" y="270" width="250" height="152" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="291" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер (MCU Core)</text>
+  <text x="480" y="309" font-size="12" fill="#6b7280" text-anchor="middle">Cortex-M / ATmega328P (16 МГц)</text>
+
+  <!-- Таймер ШІМ -->
+  <rect x="368" y="320" width="108" height="50" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="422" y="339" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ШІМ-таймер</text>
+  <text x="422" y="357" font-size="12" fill="#6b7280" text-anchor="middle">16-біт / 50 Гц</text>
+
+  <!-- Шина I2C -->
+  <rect x="484" y="320" width="110" height="50" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="539" y="339" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I2C Master</text>
+  <text x="539" y="357" font-size="12" fill="#6b7280" text-anchor="middle">SDA / SCL</text>
+
+  <text x="480" y="410" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пошук меж ШІМ, Deadband, захист Stall</text>
+
+
+  <!-- БЛОК 6: OLED Дисплей 128x64 (Bottom Right) -->
+  <rect x="670" y="270" width="250" height="152" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="795" y="291" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Графічний OLED Дисплей</text>
+  <text x="795" y="309" font-size="12" fill="#6b7280" text-anchor="middle">Екран 128×64 (інтерфейс I2C)</text>
+
+  <!-- Екран дисплея -->
+  <rect x="683" y="320" width="225" height="50" rx="4" fill="#1a1a1a" stroke="#6b7280" stroke-width="1"/>
+  <text x="795" y="338" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">PWM: 1500 мкс | 90.0°</text>
+  <text x="795" y="356" font-size="12" fill="#e9f7ef" text-anchor="middle">I: 145 мА (Холостий хід)</text>
+
+  <text x="795" y="410" font-size="12" fill="#6b7280" text-anchor="middle">SSD1306 / I2C адреса 0x3C</text>
+
+
+  <!-- ==================== ШИНИ ТА ЛІНІЇ ЗВ'ЯЗКУ ==================== -->
+
+  <!-- 1. Силова лінія 5V: Buck -> INA219 -->
+  <line x1="278" y1="152" x2="366" y2="152" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="322" y="145" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">5V_PWR</text>
+
+  <!-- 2. Виміряна силова лінія 5V: INA219 -> Серва -->
+  <line x1="476" y1="152" x2="681" y2="152" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="640" y="145" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">5V_SERVO</text>
+
+  <!-- 3. Логічне живлення 5V: LDO -> MCU -->
+  <line x1="106" y1="177" x2="106" y2="251" stroke="#2457d6" stroke-width="2"/>
+  <line x1="106" y1="251" x2="353" y2="251" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="210" y="245" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">5V_LOGIC (LDO)</text>
+
+  <!-- 4. Сигнали енкодера: CLK, DT, SW -> MCU -->
+  <line x1="278" y1="345" x2="366" y2="345" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="322" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CLK, DT, SW</text>
+
+  <!-- 5. Шина I2C від MCU до INA219 (вертикальна) -->
+  <line x1="539" y1="320" x2="539" y2="179" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="546" y="235" font-size="12" font-weight="bold" fill="#2457d6">I2C (0x40)</text>
+
+  <!-- 6. Шина I2C від MCU до OLED (горизонтальна) -->
+  <line x1="594" y1="345" x2="681" y2="345" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="638" y="338" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I2C (0x3C)</text>
+
+  <!-- 7. Сигнал PWM від MCU до Серви (вихід з правої грані MCU) -->
+  <line x1="605" y1="285" x2="630" y2="285" stroke="#2457d6" stroke-width="2"/>
+  <line x1="630" y1="285" x2="630" y2="165" stroke="#2457d6" stroke-width="2"/>
+  <line x1="630" y1="165" x2="681" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="636" y="222" font-size="12" font-weight="bold" fill="#2457d6">ШІМ</text>
+  <text x="636" y="238" font-size="12" fill="#6b7280">50 Гц</text>
+</svg>

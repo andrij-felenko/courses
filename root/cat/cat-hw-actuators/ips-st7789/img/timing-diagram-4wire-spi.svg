@@ -1,0 +1,210 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <!-- Стандартні маркери стрілок розмірних ліній -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-black-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+
+    <!-- Компактні маркери для вузьких інтервалів tSDS та tSDH -->
+    <marker id="arr-sm-blue" markerWidth="5" markerHeight="6" refX="4.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0.5 L4.5,3 L0,5.5 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-sm-blue-rev" markerWidth="5" markerHeight="6" refX="0.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M4.5,0.5 L0,3 L4.5,5.5 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-sm-green" markerWidth="5" markerHeight="6" refX="4.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0.5 L4.5,3 L0,5.5 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-sm-green-rev" markerWidth="5" markerHeight="6" refX="0.5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M4.5,0.5 L0,3 L4.5,5.5 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма 4-дротового інтерфейсу SPI контролера ST7789</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Передача командного байта (D/CX = 0) і байта даних (D/CX = 1) із фіксацією бітів за наростаючим фронтом SCL</text>
+
+  <!-- Основна панель часових діаграм -->
+  <rect x="24" y="74" width="912" height="310" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Плашки фаз передачі байтів -->
+  <rect x="238" y="82" width="276" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="376" y="97" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">КОМАНДНИЙ БАЙТ (D/CX = 0)</text>
+
+  <rect x="570" y="82" width="276" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="708" y="97" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">БАЙТ ДАНИХ (D/CX = 1)</text>
+
+  <!-- Назви сигналів ліворуч -->
+  <text x="38" y="126" font-size="13" font-weight="bold" fill="#1a1a1a">CSX</text>
+  <text x="38" y="142" font-size="12" fill="#6b7280">вибір чипа</text>
+
+  <text x="38" y="176" font-size="13" font-weight="bold" fill="#1a1a1a">D/CX</text>
+  <text x="38" y="192" font-size="12" fill="#6b7280">режим шини</text>
+
+  <text x="38" y="228" font-size="13" font-weight="bold" fill="#1a1a1a">SCL</text>
+  <text x="38" y="244" font-size="12" fill="#6b7280">тактування</text>
+
+  <text x="38" y="284" font-size="13" font-weight="bold" fill="#1a1a1a">SDA</text>
+  <text x="38" y="300" font-size="12" fill="#6b7280">лінія даних</text>
+
+  <!-- 1. Сигнал CSX -->
+  <path d="M165,120 L195,120 L195,144 L885,144 L885,120 L918,120" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Виносні лінії та розмір tCSS -->
+  <line x1="195" y1="108" x2="195" y2="150" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 2"/>
+  <line x1="240" y1="108" x2="240" y2="150" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 2"/>
+  <line x1="197" y1="114" x2="238" y2="114" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="217" y="110" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">tCSS</text>
+
+  <!-- Виносні лінії та розмір tCSH -->
+  <line x1="846" y1="108" x2="846" y2="150" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 2"/>
+  <line x1="885" y1="108" x2="885" y2="150" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 2"/>
+  <line x1="848" y1="114" x2="883" y2="114" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-rev)" marker-end="url(#arr-green)"/>
+  <text x="865" y="110" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">tCSH</text>
+
+  <!-- 2. Сигнал D/CX -->
+  <path d="M165,192 L538,192 L538,168 L918,168" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="376" y="186" font-size="12" fill="#2457d6" text-anchor="middle">0 = Режим запису команди</text>
+  <text x="708" y="162" font-size="12" fill="#27ae60" text-anchor="middle">1 = Режим запису даних / параметрів</text>
+
+  <!-- Виносні лінії та розмір tDST -->
+  <line x1="538" y1="156" x2="538" y2="198" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 2"/>
+  <line x1="572" y1="156" x2="572" y2="198" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 2"/>
+  <line x1="540" y1="180" x2="570" y2="180" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="555" y="176" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">tDST</text>
+
+  <!-- 3. Сигнал SCL -->
+  <path d="M165,244 L240,244 L257,244 L257,220 L274,220 L274,244 L291,244 L291,220 L308,220 L308,244 L325,244 L325,220 L342,220 L342,244 L359,244 L359,220 L376,220 L376,244 L393,244 L393,220 L410,220 L410,244 L427,244 L427,220 L444,220 L444,244 L461,244 L461,220 L478,220 L478,244 L495,244 L495,220 L512,220 L512,244 L572,244 L589,244 L589,220 L606,220 L606,244 L623,244 L623,220 L640,220 L640,244 L657,244 L657,220 L674,220 L674,244 L691,244 L691,220 L708,220 L708,244 L725,244 L725,220 L742,220 L742,244 L759,244 L759,220 L776,220 L776,244 L793,244 L793,220 L810,220 L810,244 L827,244 L827,220 L844,220 L844,244 L918,244" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Період tCYC на SCL -->
+  <line x1="274" y1="202" x2="274" y2="244" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 2"/>
+  <line x1="308" y1="202" x2="308" y2="244" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 2"/>
+  <line x1="276" y1="208" x2="306" y2="208" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-black-rev)" marker-end="url(#arr-black)"/>
+  <text x="291" y="204" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">tCYC</text>
+
+  <!-- Точки стробування на наростаючих фронтах SCL -->
+  <circle cx="257" cy="220" r="2.5" fill="#2457d6"/>
+  <circle cx="291" cy="220" r="2.5" fill="#2457d6"/>
+  <circle cx="325" cy="220" r="2.5" fill="#2457d6"/>
+  <circle cx="359" cy="220" r="2.5" fill="#2457d6"/>
+  <circle cx="393" cy="220" r="2.5" fill="#2457d6"/>
+  <circle cx="427" cy="220" r="2.5" fill="#2457d6"/>
+  <circle cx="461" cy="220" r="2.5" fill="#2457d6"/>
+  <circle cx="495" cy="220" r="2.5" fill="#2457d6"/>
+  <circle cx="589" cy="220" r="2.5" fill="#27ae60"/>
+  <circle cx="623" cy="220" r="2.5" fill="#27ae60"/>
+  <circle cx="657" cy="220" r="2.5" fill="#27ae60"/>
+  <circle cx="691" cy="220" r="2.5" fill="#27ae60"/>
+  <circle cx="725" cy="220" r="2.5" fill="#27ae60"/>
+  <circle cx="759" cy="220" r="2.5" fill="#27ae60"/>
+  <circle cx="793" cy="220" r="2.5" fill="#27ae60"/>
+  <circle cx="827" cy="220" r="2.5" fill="#27ae60"/>
+
+  <!-- 4. Сигнал SDA (пакети даних) -->
+  <!-- Лінія спокою до початку передачі -->
+  <line x1="165" y1="288" x2="236" y2="288" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="200" y="283" font-size="12" fill="#6b7280" text-anchor="middle">спокій</text>
+
+  <!-- Осередки бітів Командного байта (Byte 1) -->
+  <polygon points="240,288 244,274 270,274 274,288 270,302 244,302" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="257" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D7</text>
+  <polygon points="274,288 278,274 304,274 308,288 304,302 278,302" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="291" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D6</text>
+  <polygon points="308,288 312,274 338,274 342,288 338,302 312,302" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="325" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D5</text>
+  <polygon points="342,288 346,274 372,274 376,288 372,302 346,302" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="359" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D4</text>
+  <polygon points="376,288 380,274 406,274 410,288 406,302 380,302" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="393" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D3</text>
+  <polygon points="410,288 414,274 440,274 444,288 440,302 414,302" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="427" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D2</text>
+  <polygon points="444,288 448,274 474,274 478,288 474,302 448,302" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="461" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D1</text>
+  <polygon points="478,288 482,274 508,274 512,288 508,302 482,302" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="495" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D0</text>
+
+  <!-- Пауза між байтами -->
+  <line x1="516" y1="288" x2="568" y2="288" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="542" y="283" font-size="12" fill="#6b7280" text-anchor="middle">пауза</text>
+
+  <!-- Осередки бітів Байта даних (Byte 2) -->
+  <polygon points="572,288 576,274 602,274 606,288 602,302 576,302" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="589" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D7</text>
+  <polygon points="606,288 610,274 636,274 640,288 636,302 610,302" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="623" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D6</text>
+  <polygon points="640,288 644,274 670,274 674,288 670,302 644,302" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="657" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D5</text>
+  <polygon points="674,288 678,274 704,274 708,288 704,302 678,302" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="691" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D4</text>
+  <polygon points="708,288 712,274 738,274 742,288 738,302 712,302" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="725" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D3</text>
+  <polygon points="742,288 746,274 772,274 776,288 772,302 746,302" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="759" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D2</text>
+  <polygon points="776,288 780,274 806,274 810,288 806,302 780,302" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="793" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D1</text>
+  <polygon points="810,288 814,274 840,274 844,288 840,302 814,302" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="827" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D0</text>
+
+  <!-- Лінія спокою після передачі -->
+  <line x1="848" y1="288" x2="918" y2="288" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="883" y="283" font-size="12" fill="#6b7280" text-anchor="middle">спокій</text>
+
+  <!-- Виносні лінії та параметри tSDS, tSDH для D7 -->
+  <line x1="257" y1="223" x2="257" y2="274" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <line x1="240" y1="302" x2="240" y2="336" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 2"/>
+  <line x1="257" y1="302" x2="257" y2="336" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <line x1="274" y1="302" x2="274" y2="336" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 2"/>
+  <line x1="241" y1="320" x2="256" y2="320" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-sm-blue-rev)" marker-end="url(#arr-sm-blue)"/>
+  <line x1="258" y1="320" x2="273" y2="320" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-sm-green-rev)" marker-end="url(#arr-sm-green)"/>
+
+  <!-- Підписи параметрів tSDS, tSDH -->
+  <text x="257" y="350" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">tSDS: встановлення (≥10 нс)</text>
+  <text x="257" y="368" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">tSDH: утримання (≥10 нс)</text>
+
+  <!-- Пояснення стробування бітів праворуч унизу -->
+  <text x="708" y="350" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стробування: кожен біт фіксується за наростаючим фронтом SCL</text>
+  <text x="708" y="368" font-size="12" fill="#6b7280" text-anchor="middle">Передача ведеться старшим бітом уперед (MSB-first: D7 ... D0)</text>
+
+  <!-- Нижні картки з інженерними поясненнями параметрів -->
+  <!-- Картка 1: Тактування SCL -->
+  <rect x="24" y="398" width="294" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="38" y="420" font-size="13" font-weight="bold" fill="#2457d6">Тактування шини (SCL)</text>
+  <text x="38" y="442" font-size="12" fill="#1a1a1a">tCYC — період такту (≥ 15...66 нс)</text>
+  <text x="38" y="462" font-size="12" fill="#1a1a1a">tSHW, tSLW — імпульс High/Low (≥ 7 нс)</text>
+  <text x="38" y="484" font-size="12" fill="#6b7280">Строб: фіксація даних SDA строго</text>
+  <text x="38" y="502" font-size="12" fill="#6b7280">за наростаючим фронтом SCL</text>
+
+  <!-- Картка 2: SDA & D/CX -->
+  <rect x="332" y="398" width="296" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="346" y="420" font-size="13" font-weight="bold" fill="#2457d6">Дані та режим (SDA &amp; D/CX)</text>
+  <text x="346" y="442" font-size="12" fill="#1a1a1a">tSDS, tSDH — setup/hold SDA (≥ 10 нс)</text>
+  <text x="346" y="462" font-size="12" fill="#1a1a1a">tDST, tDHT — setup/hold D/CX (≥ 10 нс)</text>
+  <text x="346" y="484" font-size="12" fill="#6b7280">D/CX=0: байт команди (напр. 0x2C)</text>
+  <text x="346" y="502" font-size="12" fill="#6b7280">D/CX=1: байти даних і пікселів</text>
+
+  <!-- Картка 3: CSX -->
+  <rect x="642" y="398" width="294" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="656" y="420" font-size="13" font-weight="bold" fill="#27ae60">Вибір контролера (CSX)</text>
+  <text x="656" y="442" font-size="12" fill="#1a1a1a">tCSS — випередження CSX до такту SCL</text>
+  <text x="656" y="462" font-size="12" fill="#1a1a1a">tCSH — утримання CSX після такту SCL</text>
+  <text x="656" y="484" font-size="12" fill="#6b7280">CSX утримується Low безперервно</text>
+  <text x="656" y="502" font-size="12" fill="#6b7280">протягом усієї транзакції байтів</text>
+</svg>

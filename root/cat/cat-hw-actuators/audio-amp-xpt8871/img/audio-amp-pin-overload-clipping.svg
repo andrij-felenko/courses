@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Маркери стрілок у defs -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-problem" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="39" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вихідна напруга джерела сигналу: холостий хід проти 4 Ом</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Слабкий вихід без підсилювача не здатний живити 4 Ом: напруга колапсує та жорстко обмежується струмом</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Холостий хід -->
+  <rect x="24" y="74" width="446" height="364" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="38" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">1. Холостий хід (Rн = ∞)</text>
+  <rect x="320" y="84" width="136" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="388" y="99" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ШТАТНИЙ СИГНАЛ</text>
+
+  <!-- Схема: холостий хід -->
+  <rect x="38" y="118" width="418" height="46" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="48" y="124" width="84" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="90" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ЦАП / Пін</text>
+  <line x1="132" y1="141" x2="182" y2="141" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <circle cx="193" cy="141" r="3" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="219" cy="141" r="3" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="206" y="133" font-size="12" fill="#6b7280" text-anchor="middle">Rн=∞</text>
+  <text x="236" y="136" font-size="12" font-weight="bold" fill="#1a1a1a">Струм: Iвих ≈ 0 мА</text>
+  <text x="236" y="154" font-size="12" fill="#27ae60">Падіння напруги = 0 В (норма)</text>
+
+  <!-- Екран осцилографа: холостий хід -->
+  <rect x="38" y="176" width="418" height="186" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.2"/>
+  <line x1="48" y1="193" x2="68" y2="193" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="74" y="197" font-size="12" font-weight="bold" fill="#2457d6">CH1: Чиста синусоїда (3.3 В пік-пік)</text>
+  <line x1="86" y1="220" x2="438" y2="220" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <line x1="86" y1="268" x2="438" y2="268" stroke="#d0d7de" stroke-width="1.2"/>
+  <line x1="86" y1="316" x2="438" y2="316" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <line x1="86" y1="208" x2="86" y2="328" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <line x1="130" y1="208" x2="130" y2="328" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <line x1="174" y1="208" x2="174" y2="328" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <line x1="218" y1="208" x2="218" y2="328" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <line x1="262" y1="208" x2="262" y2="328" stroke="#d0d7de" stroke-width="1.2"/>
+  <line x1="306" y1="208" x2="306" y2="328" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <line x1="350" y1="208" x2="350" y2="328" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <line x1="394" y1="208" x2="394" y2="328" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <line x1="438" y1="208" x2="438" y2="328" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <text x="80" y="224" font-size="12" fill="#2457d6" text-anchor="end">+1.65 В</text>
+  <text x="80" y="272" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+  <text x="80" y="320" font-size="12" fill="#2457d6" text-anchor="end">-1.65 В</text>
+  <path d="M86,268.0 L88,264.9 L90,261.7 L92,258.6 L94,255.6 L96,252.6 L98,249.7 L100,246.9 L102,244.2 L104,241.6 L106,239.2 L108,236.9 L110,234.7 L112,232.8 L114,231.0 L116,229.4 L118,228.0 L120,226.8 L122,225.8 L124,225.0 L126,224.4 L128,224.1 L130,224.0 L132,224.1 L134,224.4 L136,225.0 L138,225.8 L140,226.8 L142,228.0 L144,229.4 L146,231.0 L148,232.8 L150,234.7 L152,236.9 L154,239.2 L156,241.6 L158,244.2 L160,246.9 L162,249.7 L164,252.6 L166,255.6 L168,258.6 L170,261.7 L172,264.9 L174,268.0 L176,271.1 L178,274.3 L180,277.4 L182,280.4 L184,283.4 L186,286.3 L188,289.1 L190,291.8 L192,294.4 L194,296.8 L196,299.1 L198,301.3 L200,303.2 L202,305.0 L204,306.6 L206,308.0 L208,309.2 L210,310.2 L212,311.0 L214,311.6 L216,311.9 L218,312.0 L220,311.9 L222,311.6 L224,311.0 L226,310.2 L228,309.2 L230,308.0 L232,306.6 L234,305.0 L236,303.2 L238,301.3 L240,299.1 L242,296.8 L244,294.4 L246,291.8 L248,289.1 L250,286.3 L252,283.4 L254,280.4 L256,277.4 L258,274.3 L260,271.1 L262,268.0 L264,264.9 L266,261.7 L268,258.6 L270,255.6 L272,252.6 L274,249.7 L276,246.9 L278,244.2 L280,241.6 L282,239.2 L284,236.9 L286,234.7 L288,232.8 L290,231.0 L292,229.4 L294,228.0 L296,226.8 L298,225.8 L300,225.0 L302,224.4 L304,224.1 L306,224.0 L308,224.1 L310,224.4 L312,225.0 L314,225.8 L316,226.8 L318,228.0 L320,229.4 L322,231.0 L324,232.8 L326,234.7 L328,236.9 L330,239.2 L332,241.6 L334,244.2 L336,246.9 L338,249.7 L340,252.6 L342,255.6 L344,258.6 L346,261.7 L348,264.9 L350,268.0 L352,271.1 L354,274.3 L356,277.4 L358,280.4 L360,283.4 L362,286.3 L364,289.1 L366,291.8 L368,294.4 L370,296.8 L372,299.1 L374,301.3 L376,303.2 L378,305.0 L380,306.6 L382,308.0 L384,309.2 L386,310.2 L388,311.0 L390,311.6 L392,311.9 L394,312.0 L396,311.9 L398,311.6 L400,311.0 L402,310.2 L404,309.2 L406,308.0 L408,306.6 L410,305.0 L412,303.2 L414,301.3 L416,299.1 L418,296.8 L420,294.4 L422,291.8 L424,289.1 L426,286.3 L428,283.4 L430,280.4 L432,277.4 L434,274.3 L436,271.1 L438,268.0" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linecap="round"/>
+  <rect x="46" y="336" width="402" height="20" rx="3" fill="#f4f6f8"/>
+  <text x="247" y="350" font-size="12" fill="#1a1a1a" text-anchor="middle">1.0 В/под  |  Uпік-пік = 3.30 В  |  THD &lt; 0.1%</text>
+
+  <!-- Висновок: холостий хід -->
+  <rect x="38" y="374" width="418" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="50" y="394" font-size="12" font-weight="bold" fill="#2457d6">Висновок: джерело працює в штатному режимі напруги</text>
+  <text x="50" y="412" font-size="12" fill="#1a1a1a">Струм Iвих ≈ 0; вихідний опір не створює просідання сигналу</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Навантаження 4 Ом -->
+  <rect x="490" y="74" width="446" height="364" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="504" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">2. Пряме навантаження (Rн = 4 Ом)</text>
+  <rect x="786" y="84" width="136" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="854" y="99" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ВІДСІКАННЯ СТРУМУ</text>
+
+  <!-- Схема: навантаження 4 Ом -->
+  <rect x="504" y="118" width="418" height="46" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="514" y="124" width="84" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="556" y="145" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ЦАП / Пін</text>
+  <line x1="598" y1="141" x2="620" y2="141" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-problem)"/>
+  <rect x="626" y="130" width="42" height="22" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="647" y="145" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">4 Ом</text>
+  <line x1="668" y1="141" x2="688" y2="141" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="688" y1="141" x2="688" y2="147" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="682" y1="147" x2="694" y2="147" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="684" y1="150" x2="692" y2="150" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="686" y1="153" x2="690" y2="153" stroke="#1a1a1a" stroke-width="1.0"/>
+  <text x="712" y="136" font-size="12" font-weight="bold" fill="#c0392b">Потрібно: I = 825 мА</text>
+  <text x="712" y="154" font-size="12" fill="#6b7280">Ліміт виходу: Iмакс ≤ 25 мА</text>
+
+  <!-- Екран осцилографа: навантаження 4 Ом -->
+  <rect x="504" y="176" width="418" height="186" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.2"/>
+  <line x1="514" y1="193" x2="530" y2="193" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="536" y="197" font-size="12" font-weight="bold" fill="#c0392b">CH2: Відсікання струму</text>
+  <line x1="700" y1="193" x2="716" y2="193" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="722" y="197" font-size="12" fill="#6b7280">Холостий хід (3.3 В)</text>
+  <line x1="552" y1="220" x2="904" y2="220" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <line x1="552" y1="268" x2="904" y2="268" stroke="#d0d7de" stroke-width="1.2"/>
+  <line x1="552" y1="316" x2="904" y2="316" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <line x1="552" y1="208" x2="552" y2="328" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <line x1="596" y1="208" x2="596" y2="328" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <line x1="640" y1="208" x2="640" y2="328" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <line x1="684" y1="208" x2="684" y2="328" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <line x1="728" y1="208" x2="728" y2="328" stroke="#d0d7de" stroke-width="1.2"/>
+  <line x1="772" y1="208" x2="772" y2="328" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <line x1="816" y1="208" x2="816" y2="328" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <line x1="860" y1="208" x2="860" y2="328" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <line x1="904" y1="208" x2="904" y2="328" stroke="#d0d7de" stroke-width="0.8" stroke-dasharray="2 3"/>
+  <text x="546" y="224" font-size="12" fill="#6b7280" text-anchor="end">+1.65 В</text>
+  <text x="546" y="272" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+  <text x="546" y="320" font-size="12" fill="#6b7280" text-anchor="end">-1.65 В</text>
+  <path d="M552,268.0 L554,264.9 L556,261.7 L558,258.6 L560,255.6 L562,252.6 L564,249.7 L566,246.9 L568,244.2 L570,241.6 L572,239.2 L574,236.9 L576,234.7 L578,232.8 L580,231.0 L582,229.4 L584,228.0 L586,226.8 L588,225.8 L590,225.0 L592,224.4 L594,224.1 L596,224.0 L598,224.1 L600,224.4 L602,225.0 L604,225.8 L606,226.8 L608,228.0 L610,229.4 L612,231.0 L614,232.8 L616,234.7 L618,236.9 L620,239.2 L622,241.6 L624,244.2 L626,246.9 L628,249.7 L630,252.6 L632,255.6 L634,258.6 L636,261.7 L638,264.9 L640,268.0 L642,271.1 L644,274.3 L646,277.4 L648,280.4 L650,283.4 L652,286.3 L654,289.1 L656,291.8 L658,294.4 L660,296.8 L662,299.1 L664,301.3 L666,303.2 L668,305.0 L670,306.6 L672,308.0 L674,309.2 L676,310.2 L678,311.0 L680,311.6 L682,311.9 L684,312.0 L686,311.9 L688,311.6 L690,311.0 L692,310.2 L694,309.2 L696,308.0 L698,306.6 L700,305.0 L702,303.2 L704,301.3 L706,299.1 L708,296.8 L710,294.4 L712,291.8 L714,289.1 L716,286.3 L718,283.4 L720,280.4 L722,277.4 L724,274.3 L726,271.1 L728,268.0 L730,264.9 L732,261.7 L734,258.6 L736,255.6 L738,252.6 L740,249.7 L742,246.9 L744,244.2 L746,241.6 L748,239.2 L750,236.9 L752,234.7 L754,232.8 L756,231.0 L758,229.4 L760,228.0 L762,226.8 L764,225.8 L766,225.0 L768,224.4 L770,224.1 L772,224.0 L774,224.1 L776,224.4 L778,225.0 L780,225.8 L782,226.8 L784,228.0 L786,229.4 L788,231.0 L790,232.8 L792,234.7 L794,236.9 L796,239.2 L798,241.6 L800,244.2 L802,246.9 L804,249.7 L806,252.6 L808,255.6 L810,258.6 L812,261.7 L814,264.9 L816,268.0 L818,271.1 L820,274.3 L822,277.4 L824,280.4 L826,283.4 L828,286.3 L830,289.1 L832,291.8 L834,294.4 L836,296.8 L838,299.1 L840,301.3 L842,303.2 L844,305.0 L846,306.6 L848,308.0 L850,309.2 L852,310.2 L854,311.0 L856,311.6 L858,311.9 L860,312.0 L862,311.9 L864,311.6 L866,311.0 L868,310.2 L870,309.2 L872,308.0 L874,306.6 L876,305.0 L878,303.2 L880,301.3 L882,299.1 L884,296.8 L886,294.4 L888,291.8 L890,289.1 L892,286.3 L894,283.4 L896,280.4 L898,277.4 L900,274.3 L902,271.1 L904,268.0" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <path d="M552,268.0 L554,265.4 L556,262.9 L558,260.3 L560,257.9 L562,256.0 L564,256.0 L566,256.0 L568,256.0 L570,256.0 L572,256.0 L574,256.0 L576,256.0 L578,256.0 L580,256.0 L582,256.0 L584,256.0 L586,256.0 L588,256.0 L590,256.0 L592,256.0 L594,256.0 L596,256.0 L598,256.0 L600,256.0 L602,256.0 L604,256.0 L606,256.0 L608,256.0 L610,256.0 L612,256.0 L614,256.0 L616,256.0 L618,256.0 L620,256.0 L622,256.0 L624,256.0 L626,256.0 L628,256.0 L630,256.0 L632,257.9 L634,260.3 L636,262.9 L638,265.4 L640,268.0 L642,270.6 L644,273.1 L646,275.7 L648,278.1 L650,280.0 L652,280.0 L654,280.0 L656,280.0 L658,280.0 L660,280.0 L662,280.0 L664,280.0 L666,280.0 L668,280.0 L670,280.0 L672,280.0 L674,280.0 L676,280.0 L678,280.0 L680,280.0 L682,280.0 L684,280.0 L686,280.0 L688,280.0 L690,280.0 L692,280.0 L694,280.0 L696,280.0 L698,280.0 L700,280.0 L702,280.0 L704,280.0 L706,280.0 L708,280.0 L710,280.0 L712,280.0 L714,280.0 L716,280.0 L718,280.0 L720,278.1 L722,275.7 L724,273.1 L726,270.6 L728,268.0 L730,265.4 L732,262.9 L734,260.3 L736,257.9 L738,256.0 L740,256.0 L742,256.0 L744,256.0 L746,256.0 L748,256.0 L750,256.0 L752,256.0 L754,256.0 L756,256.0 L758,256.0 L760,256.0 L762,256.0 L764,256.0 L766,256.0 L768,256.0 L770,256.0 L772,256.0 L774,256.0 L776,256.0 L778,256.0 L780,256.0 L782,256.0 L784,256.0 L786,256.0 L788,256.0 L790,256.0 L792,256.0 L794,256.0 L796,256.0 L798,256.0 L800,256.0 L802,256.0 L804,256.0 L806,256.0 L808,257.9 L810,260.3 L812,262.9 L814,265.4 L816,268.0 L818,270.6 L820,273.1 L822,275.7 L824,278.1 L826,280.0 L828,280.0 L830,280.0 L832,280.0 L834,280.0 L836,280.0 L838,280.0 L840,280.0 L842,280.0 L844,280.0 L846,280.0 L848,280.0 L850,280.0 L852,280.0 L854,280.0 L856,280.0 L858,280.0 L860,280.0 L862,280.0 L864,280.0 L866,280.0 L868,280.0 L870,280.0 L872,280.0 L874,280.0 L876,280.0 L878,280.0 L880,280.0 L882,280.0 L884,280.0 L886,280.0 L888,280.0 L890,280.0 L892,280.0 L894,280.0 L896,278.1 L898,275.7 L900,273.1 L902,270.6 L904,268.0" fill="none" stroke="#c0392b" stroke-width="2.8" stroke-linecap="round"/>
+  <rect x="512" y="336" width="402" height="20" rx="3" fill="#fdecea"/>
+  <text x="713" y="350" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">CH2: Uп-п ≈ 0.2 В  |  Жорсткий кліпінг  |  THD &gt; 40%</text>
+
+  <!-- Висновок: навантаження 4 Ом -->
+  <rect x="504" y="374" width="418" height="52" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="516" y="394" font-size="12" font-weight="bold" fill="#c0392b">Проблема: вихідний каскад піна перевантажено за струмом</text>
+  <text x="516" y="412" font-size="12" fill="#1a1a1a">Для котушки 4 Ом обов'язковий підсилювач потужності (XPT8871)</text>
+
+</svg>

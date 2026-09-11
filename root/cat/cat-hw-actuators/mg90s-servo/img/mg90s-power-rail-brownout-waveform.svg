@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок схеми -->
+  <text x="480" y="27" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Осцилограма просідання живлення та аварійного Brown-out Reset</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Пусковий кидок струму 0.9 А спричиняє падіння 5V нижче порогу 2.9 В та скидання MCU</text>
+
+  <!-- ======================================================== -->
+  <!-- ЛІВА ПАНЕЛЬ: 3-канальна осцилограма                      -->
+  <!-- ======================================================== -->
+  <rect x="24" y="62" width="600" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="324" y="86" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">3-канальна осцилограма пускового перехідного процесу</text>
+  <text x="324" y="104" text-anchor="middle" font-size="12" fill="#6b7280">Синхронізація: запуск мотора → просідання 5V → спрацьовування Brownout</text>
+
+  <!-- Екран осцилографа -->
+  <rect x="44" y="116" width="560" height="312" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Лінії сітки екрана -->
+  <line x1="145" y1="116" x2="145" y2="428" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="145" y1="185" x2="604" y2="185" stroke="#f4f6f8" stroke-width="1"/>
+  <line x1="145" y1="225" x2="604" y2="225" stroke="#f4f6f8" stroke-width="1"/>
+  <line x1="145" y1="350" x2="604" y2="350" stroke="#f4f6f8" stroke-width="1"/>
+
+  <!-- Колонка бейджів каналів зліва (x: 48..140) -->
+  <!-- CH1: Струм -->
+  <rect x="48" y="125" width="92" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="94" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">CH1: I_servo</text>
+  <text x="94" y="157" text-anchor="middle" font-size="12" fill="#6b7280">500 мА/под</text>
+
+  <!-- CH2: Напруга -->
+  <rect x="48" y="215" width="92" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="94" y="232" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">CH2: VCC</text>
+  <text x="94" y="247" text-anchor="middle" font-size="12" fill="#6b7280">1.0 В/под</text>
+
+  <!-- CH3: Скидання -->
+  <rect x="48" y="325" width="92" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="94" y="342" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">CH3: nRESET</text>
+  <text x="94" y="357" text-anchor="middle" font-size="12" fill="#6b7280">2.0 В/под</text>
+
+  <!-- Маркер моменту пуску (Trigger t = 0) -->
+  <text x="230" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Пуск ШІМ</text>
+  <line x1="230" y1="134" x2="230" y2="415" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- --- Канал 1: I_servo(t) (Синій) --- -->
+  <!-- Заливка площі пускового струму -->
+  <path d="M230,185 L245,145 L285,148 Q315,155 340,180 L365,185 Z" fill="#eaf0fd"/>
+  <!-- Хвиля струму -->
+  <path d="M150,185 L230,185 L245,145 L285,148 Q315,155 340,180 L365,185 L590,185" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- Підпис піку струму -->
+  <line x1="210" y1="126" x2="238" y2="142" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <text x="295" y="138" font-size="12" font-weight="bold" fill="#2457d6">Стрибок I = 0.9 А (Stall)</text>
+
+  <!-- --- Канал 2: VCC(t) (Червоний) --- -->
+  <!-- Пунктирний поріг спрацьовування Brownout V_BOD = 2.9 В -->
+  <line x1="150" y1="280" x2="590" y2="280" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="450" y="270" font-size="12" font-weight="bold" fill="#c0392b">Поріг V_BOD = 2.9 В</text>
+
+  <!-- Заливка критичної зони просідання нижче 2.9 В -->
+  <path d="M245,280 Q250,295 265,295 L290,295 Q320,295 345,280 Z" fill="#fdecea"/>
+
+  <!-- Хвиля напруги шини 5V -->
+  <path d="M150,225 L230,225 Q240,295 265,295 L290,295 Q330,295 365,245 L390,225 L590,225" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Вимір тривалості просідання t_dip ≈ 20 мс -->
+  <line x1="230" y1="255" x2="370" y2="255" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-gray)" marker-end="url(#arr-gray)"/>
+  <text x="300" y="248" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">t_dip ≈ 20 мс</text>
+
+  <!-- Підпис мінімальної точки падіння V_min -->
+  <text x="278" y="312" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">V_min = 2.6 В (&lt; 2.9 В)</text>
+
+  <!-- --- Канал 3: nRESET (Скидання MCU) --- -->
+  <!-- Хвиля сигналу nRESET (інверсний рівень: LOW = скидання) -->
+  <polyline points="150,350 245,350 245,390 500,390 500,350 590,350" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Підписи стану скидання -->
+  <text x="372" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Скидання: MCU у стані Reset</text>
+  <text x="372" y="408" text-anchor="middle" font-size="12" fill="#6b7280">Зрив генерації ШІМ, циклічне перезавантаження</text>
+
+  <!-- ======================================================== -->
+  <!-- ПРАВА ПАНЕЛЬ: Аналіз збою та захист                      -->
+  <!-- ======================================================== -->
+  <rect x="636" y="62" width="300" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="786" y="86" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Аналіз збою та апаратний захист</text>
+  <text x="786" y="104" text-anchor="middle" font-size="12" fill="#6b7280">Ланцюгова реакція аварії живлення</text>
+
+  <!-- Картка 1: Хронологія колапсу -->
+  <rect x="648" y="118" width="276" height="144" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="658" y="136" font-size="13" font-weight="bold" fill="#c0392b">Хронологія колапсу живлення:</text>
+  <text x="658" y="156" font-size="12" font-weight="bold" fill="#2457d6">1. Пуск двигуна сервопривода:</text>
+  <text x="658" y="172" font-size="12" fill="#1a1a1a">Стрибок струму до 0.9 А (stall)</text>
+  <text x="658" y="192" font-size="12" font-weight="bold" fill="#c0392b">2. Глибоке просідання VCC:</text>
+  <text x="658" y="208" font-size="12" fill="#1a1a1a">Падіння напруги з 5.0 В до 2.6 В</text>
+  <text x="658" y="228" font-size="12" font-weight="bold" fill="#1a1a1a">3. Спрацьовування детектора BOD:</text>
+  <text x="658" y="244" font-size="12" fill="#1a1a1a">Апаратне скидання та ребут MCU</text>
+
+  <!-- Картка 2: Апаратний розв'язок -->
+  <rect x="648" y="274" width="276" height="158" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="658" y="294" font-size="13" font-weight="bold" fill="#27ae60">Апаратне усунення проблеми:</text>
+  <text x="658" y="316" font-size="12" font-weight="bold" fill="#1a1a1a">• Роздільне живлення:</text>
+  <text x="658" y="332" font-size="12" fill="#1a1a1a">Окреме силове джерело 5V–6V</text>
+  <text x="658" y="352" font-size="12" font-weight="bold" fill="#1a1a1a">• Буферний конденсатор:</text>
+  <text x="658" y="368" font-size="12" fill="#1a1a1a">C ≥ 470–1000 мкФ Low-ESR</text>
+  <text x="658" y="388" font-size="12" font-weight="bold" fill="#1a1a1a">• Кераміка 0.1 мкФ:</text>
+  <text x="658" y="404" font-size="12" fill="#1a1a1a">Шунтування ВЧ-іскор щіток</text>
+  <text x="658" y="422" font-size="12" font-weight="bold" fill="#27ae60">Результат: VCC стабільне 5.0 В</text>
+</svg>

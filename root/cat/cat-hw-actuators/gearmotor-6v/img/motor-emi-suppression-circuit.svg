@@ -1,0 +1,276 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Придушення комутаційних завад та індуктивних викидів двигуна</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Діоди Шотткі захищають ключі від сплесків L·di/dt, конденсатори C1–C3 блокують шум щіток</text>
+
+  <!-- Основна панель схеми -->
+  <rect x="24" y="80" width="912" height="316" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- ================= ЛІВА ЧАСТИНА: ПЛАТА ДРАЙВЕРА ================= -->
+  <rect x="40" y="94" width="290" height="286" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="185" y="118" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Драйвер ШІМ (H-міст)</text>
+  <text x="185" y="136" font-size="12" fill="#2457d6" text-anchor="middle">4× діоди Шотткі D1–D4 (Flyback)</text>
+
+  <!-- Шина живлення +6 В -->
+  <line x1="55" y1="158" x2="285" y2="158" stroke="#c0392b" stroke-width="2"/>
+  <text x="60" y="152" font-size="12" font-weight="bold" fill="#c0392b">+6 В (V_motor)</text>
+
+  <!-- Шина землі GND -->
+  <line x1="55" y1="350" x2="285" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="60" y="368" font-size="12" font-weight="bold" fill="#1a1a1a">GND (0 В)</text>
+  <!-- Символ GND -->
+  <line x1="75" y1="350" x2="75" y2="358" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="67" y1="358" x2="83" y2="358" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="70" y1="361" x2="80" y2="361" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="73" y1="364" x2="77" y2="364" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Плече 1 (OUT1 / M+): вісь D1, D2 на x=115, ключі Q1, Q2 на x=148 -->
+  <!-- Верхній діод D1 -->
+  <line x1="115" y1="158" x2="115" y2="178" stroke="#2457d6" stroke-width="1.8"/>
+  <path d="M 108,192 L 122,192 L 115,178 Z" fill="#2457d6"/>
+  <path d="M 108,182 L 108,178 L 122,178 L 122,174" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="115" y1="192" x2="115" y2="210" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="96" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">D1</text>
+
+  <!-- Верхній ключ Q1 -->
+  <line x1="148" y1="158" x2="148" y2="176" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="148" cy="176" r="2.5" fill="#1a1a1a"/>
+  <line x1="148" y1="176" x2="141" y2="194" stroke="#1a1a1a" stroke-width="1.8"/>
+  <circle cx="148" cy="204" r="2.5" fill="#1a1a1a"/>
+  <line x1="148" y1="204" x2="148" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="162" y="188" font-size="12" fill="#6b7280">Q1</text>
+
+  <!-- З'єднання плеча 1 до шин -->
+  <line x1="115" y1="158" x2="148" y2="158" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="115" cy="158" r="3" fill="#c0392b"/>
+  <circle cx="148" cy="158" r="3" fill="#c0392b"/>
+
+  <!-- Вузол OUT1 (M+) -->
+  <line x1="115" y1="210" x2="148" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="115" cy="210" r="3" fill="#2457d6"/>
+  <circle cx="148" cy="210" r="3" fill="#2457d6"/>
+
+  <!-- Нижній діод D2 -->
+  <line x1="115" y1="210" x2="115" y2="284" stroke="#2457d6" stroke-width="1.8"/>
+  <path d="M 108,298 L 122,298 L 115,284 Z" fill="#2457d6"/>
+  <path d="M 108,288 L 108,284 L 122,284 L 122,280" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="115" y1="298" x2="115" y2="350" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="96" y="294" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">D2</text>
+
+  <!-- Нижній ключ Q2 -->
+  <line x1="148" y1="210" x2="148" y2="276" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="148" cy="276" r="2.5" fill="#1a1a1a"/>
+  <line x1="148" y1="276" x2="141" y2="294" stroke="#1a1a1a" stroke-width="1.8"/>
+  <circle cx="148" cy="304" r="2.5" fill="#1a1a1a"/>
+  <line x1="148" y1="304" x2="148" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="162" y="294" font-size="12" fill="#6b7280">Q2</text>
+
+  <line x1="115" y1="350" x2="148" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="115" cy="350" r="3" fill="#1a1a1a"/>
+  <circle cx="148" cy="350" r="3" fill="#1a1a1a"/>
+
+  <!-- Плече 2 (OUT2 / M-): вісь ключів Q3, Q4 на x=202, вісь D3, D4 на x=235 -->
+  <!-- Верхній діод D3 -->
+  <line x1="235" y1="158" x2="235" y2="178" stroke="#2457d6" stroke-width="1.8"/>
+  <path d="M 228,192 L 242,192 L 235,178 Z" fill="#2457d6"/>
+  <path d="M 228,182 L 228,178 L 242,178 L 242,174" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="235" y1="192" x2="235" y2="250" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="254" y="188" font-size="12" font-weight="bold" fill="#2457d6">D3</text>
+
+  <!-- Верхній ключ Q3 -->
+  <line x1="202" y1="158" x2="202" y2="176" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="202" cy="176" r="2.5" fill="#1a1a1a"/>
+  <line x1="202" y1="176" x2="195" y2="194" stroke="#1a1a1a" stroke-width="1.8"/>
+  <circle cx="202" cy="204" r="2.5" fill="#1a1a1a"/>
+  <line x1="202" y1="204" x2="202" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="188" y="188" font-size="12" fill="#6b7280" text-anchor="end">Q3</text>
+
+  <!-- З'єднання плеча 2 до шин -->
+  <line x1="202" y1="158" x2="235" y2="158" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="202" cy="158" r="3" fill="#c0392b"/>
+  <circle cx="235" cy="158" r="3" fill="#c0392b"/>
+
+  <!-- Вузол OUT2 (середина між Q3/D3 та Q4/D4 на y=250) -->
+  <line x1="202" y1="250" x2="235" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="202" cy="250" r="3" fill="#1a1a1a"/>
+  <circle cx="235" cy="250" r="3" fill="#1a1a1a"/>
+
+  <!-- Нижній діод D4 -->
+  <line x1="235" y1="250" x2="235" y2="284" stroke="#2457d6" stroke-width="1.8"/>
+  <path d="M 228,298 L 242,298 L 235,284 Z" fill="#2457d6"/>
+  <path d="M 228,288 L 228,284 L 242,284 L 242,280" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="235" y1="298" x2="235" y2="350" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="254" y="294" font-size="12" font-weight="bold" fill="#2457d6">D4</text>
+
+  <!-- Нижній ключ Q4 -->
+  <line x1="202" y1="250" x2="202" y2="276" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="202" cy="276" r="2.5" fill="#1a1a1a"/>
+  <line x1="202" y1="276" x2="195" y2="294" stroke="#1a1a1a" stroke-width="1.8"/>
+  <circle cx="202" cy="304" r="2.5" fill="#1a1a1a"/>
+  <line x1="202" y1="304" x2="202" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="188" y="294" font-size="12" fill="#6b7280" text-anchor="end">Q4</text>
+
+  <line x1="202" y1="350" x2="235" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="202" cy="350" r="3" fill="#1a1a1a"/>
+  <circle cx="235" cy="350" r="3" fill="#1a1a1a"/>
+
+  <!-- Вихідна лінія OUT1 від вузла (148, 210) з джамперами через Q3 та D3 -->
+  <line x1="148" y1="210" x2="198" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 198,210 A 4,4 0 0 1 206,210" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="206" y1="210" x2="231" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 231,210 A 4,4 0 0 1 239,210" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="239" y1="210" x2="330" y2="210" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Вихідна лінія OUT2 від вузла (235, 250) вниз на y=290 -->
+  <line x1="235" y1="250" x2="260" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="260" y1="250" x2="260" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="260" y1="290" x2="330" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="260" cy="250" r="3" fill="#1a1a1a"/>
+
+  <!-- Вихідні клеми драйвера -->
+  <circle cx="330" cy="210" r="4" fill="#2457d6"/>
+  <text x="322" y="202" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">OUT1</text>
+
+  <circle cx="330" cy="290" r="4" fill="#1a1a1a"/>
+  <text x="322" y="306" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">OUT2</text>
+
+  <!-- ================= СЕРЕДНЯ ЧАСТИНА: КАБЕЛЬНА ЛІНІЯ ================= -->
+  <!-- Дріт M+ -->
+  <line x1="330" y1="210" x2="450" y2="210" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="390" y="202" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">M+ (+6 В)</text>
+
+  <!-- Підпис витої пари -->
+  <text x="390" y="246" font-size="12" fill="#6b7280" text-anchor="middle">Вита пара</text>
+  <text x="390" y="262" font-size="12" fill="#6b7280" text-anchor="middle">проводів</text>
+
+  <!-- Дріт M- -->
+  <line x1="330" y1="290" x2="450" y2="290" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="450" y1="290" x2="380" y2="290" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr-gray)"/>
+  <text x="390" y="308" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M- (GND / ШІМ)</text>
+
+  <!-- ================= ПРАВА ЧАСТИНА: МОТОР-РЕДУКТОР ТА EMI-ФІЛЬТР ================= -->
+  <rect x="450" y="94" width="470" height="286" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="685" y="118" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мотор-редуктор 6 В (100 / 600 об/хв)</text>
+  <text x="685" y="136" font-size="12" fill="#27ae60" text-anchor="middle">Фільтр комутаційних завад колектора (C1, C2, C3)</text>
+
+  <!-- Продовження проводів живлення всередині вузла двигуна -->
+  <line x1="450" y1="210" x2="725" y2="210" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="450" y1="290" x2="725" y2="290" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Клеми живлення двигуна -->
+  <circle cx="450" cy="210" r="4" fill="#2457d6"/>
+  <circle cx="450" cy="290" r="4" fill="#1a1a1a"/>
+
+  <!-- Конденсатор C1 (диференціальний) на x=520 -->
+  <line x1="520" y1="210" x2="520" y2="246" stroke="#27ae60" stroke-width="2"/>
+  <line x1="510" y1="246" x2="530" y2="246" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="510" y1="254" x2="530" y2="254" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="520" y1="254" x2="520" y2="290" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="520" cy="210" r="3" fill="#27ae60"/>
+  <circle cx="520" cy="290" r="3" fill="#27ae60"/>
+  <!-- Підпис C1 знизу -->
+  <text x="520" y="322" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">C1: 10–100 нФ</text>
+  <text x="520" y="338" font-size="12" fill="#6b7280" text-anchor="middle">диференціальний</text>
+
+  <!-- Конденсатор C2 (синфазний M+ на корпус) на x=625 -->
+  <line x1="625" y1="210" x2="625" y2="226" stroke="#27ae60" stroke-width="2"/>
+  <line x1="615" y1="226" x2="635" y2="226" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="615" y1="234" x2="635" y2="234" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="625" y1="234" x2="625" y2="250" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="625" cy="210" r="3" fill="#27ae60"/>
+  <!-- Підпис C2 зверху -->
+  <text x="625" y="174" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">C2: 10–100 нФ</text>
+  <text x="625" y="190" font-size="12" fill="#6b7280" text-anchor="middle">синфазний (M+)</text>
+
+  <!-- Конденсатор C3 (синфазний M- на корпус) на x=625 -->
+  <line x1="625" y1="250" x2="625" y2="266" stroke="#27ae60" stroke-width="2"/>
+  <line x1="615" y1="266" x2="635" y2="266" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="615" y1="274" x2="635" y2="274" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="625" y1="274" x2="625" y2="290" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="625" cy="290" r="3" fill="#27ae60"/>
+  <!-- Підпис C3 знизу -->
+  <text x="625" y="322" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">C3: 10–100 нФ</text>
+  <text x="625" y="338" font-size="12" fill="#6b7280" text-anchor="middle">синфазний (M-)</text>
+
+  <!-- Центральний вузол з'єднання C2 та C3 на корпус (x=625, y=250) -->
+  <circle cx="625" cy="250" r="3.5" fill="#1a1a1a"/>
+  <!-- Символ заземлення шасі (rake) на відводі -->
+  <line x1="625" y1="250" x2="610" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="610" y1="244" x2="610" y2="256" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="610" y1="245" x2="605" y2="249" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="610" y1="250" x2="605" y2="254" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="610" y1="255" x2="605" y2="259" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Лінія від вузла C2/C3 до металевого корпусу двигуна -->
+  <line x1="625" y1="250" x2="675" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Точка пайки на корпус двигуна -->
+  <circle cx="675" cy="250" r="4.5" fill="#27ae60"/>
+
+  <!-- Металевий корпус двигуна (екранувальний статор) -->
+  <rect x="675" y="160" width="125" height="180" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="737" y="178" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Корпус (шасі)</text>
+
+  <!-- Ротор двигуна -->
+  <circle cx="737" cy="250" r="32" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="737" y="256" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+
+  <!-- Щітки колектора (верхня і нижня) -->
+  <rect x="731" y="210" width="12" height="8" fill="#1a1a1a"/>
+  <line x1="725" y1="210" x2="731" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="675" cy="210" r="3.5" fill="#2457d6"/>
+  <text x="670" y="202" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">M+</text>
+
+  <rect x="731" y="282" width="12" height="8" fill="#1a1a1a"/>
+  <line x1="725" y1="290" x2="731" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="675" cy="290" r="3.5" fill="#1a1a1a"/>
+  <text x="670" y="310" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">M-</text>
+
+  <!-- Підпис щіток всередині корпусу -->
+  <text x="737" y="322" font-size="12" fill="#c0392b" text-anchor="middle">Іскріння щіток</text>
+
+  <!-- Вал двигуна до редуктора -->
+  <line x1="769" y1="250" x2="810" y2="250" stroke="#1a1a1a" stroke-width="4"/>
+
+  <!-- Блок механічного редуктора -->
+  <rect x="810" y="190" width="85" height="120" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="852" y="232" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Редуктор</text>
+  <text x="852" y="252" font-size="12" fill="#1a1a1a" text-anchor="middle">100 / 600</text>
+  <text x="852" y="270" font-size="12" fill="#6b7280" text-anchor="middle">об/хв</text>
+
+  <!-- Вихідний вал редуктора -->
+  <line x1="895" y1="250" x2="915" y2="250" stroke="#1a1a1a" stroke-width="5"/>
+
+  <!-- ================= НИЖНІ ПОЯСНЮВАЛЬНІ КАРТКИ ================= -->
+  <!-- Картка 1: Діоди Шотткі -->
+  <rect x="24" y="408" width="296" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="40" y="430" font-size="13" font-weight="bold" fill="#2457d6">1. Діоди Шотткі D1–D4 (Flyback)</text>
+  <text x="40" y="450" font-size="12" fill="#1a1a1a">Замикають струм індуктивності обмотки</text>
+  <text x="40" y="468" font-size="12" fill="#1a1a1a">під час ШІМ-пауз, гасячи викиди L·di/dt</text>
+  <text x="40" y="486" font-size="12" fill="#6b7280">Монтаж: на платі драйвера біля ключів</text>
+
+  <!-- Картка 2: Диференціальний C1 -->
+  <rect x="332" y="408" width="296" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="348" y="430" font-size="13" font-weight="bold" fill="#27ae60">2. Диференціальний C1 (10–100 нФ)</text>
+  <text x="348" y="450" font-size="12" fill="#1a1a1a">Шунтує високочастотну протифазну</text>
+  <text x="348" y="468" font-size="12" fill="#1a1a1a">іскрову заваду між полюсами M+ та M-</text>
+  <text x="348" y="486" font-size="12" fill="#6b7280">Монтаж: прямо на клемах двигуна</text>
+
+  <!-- Картка 3: Синфазні C2, C3 -->
+  <rect x="640" y="408" width="296" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="656" y="430" font-size="13" font-weight="bold" fill="#27ae60">3. Синфазні C2, C3 (10–100 нФ)</text>
+  <text x="656" y="450" font-size="12" fill="#1a1a1a">Відводять синфазний RF-шум із полюсів</text>
+  <text x="656" y="468" font-size="12" fill="#1a1a1a">на корпус: кожух діє як екран Фарадея</text>
+  <text x="656" y="486" font-size="12" fill="#6b7280">Монтаж: клеми → точка пайки на корпусі</text>
+</svg>

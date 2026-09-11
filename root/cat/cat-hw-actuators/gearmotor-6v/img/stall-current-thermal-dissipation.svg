@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Маркери стрілок у defs -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тепловий пробій мотор-редуктора при блокуванні ротора</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Зникнення проти-ЕРС викликає стрибок струму, квадратичний ріст втрат Джоуля та руйнування ізоляції</text>
+
+  <!-- Ліва колонка: Електродинамічний процес -->
+  <rect x="24" y="80" width="444" height="456" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="246" y="106" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електродинаміка: перехід до заклинювання</text>
+
+  <!-- Блок 1: Номінальний режим -->
+  <rect x="40" y="120" width="412" height="106" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="54" y="142" font-size="13" font-weight="bold" fill="#27ae60">1. Номінальний рух (ротор вільно обертається, ω &gt; 0):</text>
+  <text x="54" y="163" font-size="12" fill="#1a1a1a">• Проти-ЕРС якоря: E = k·ω ≈ 5.2 В (компенсує U = 6.0 В)</text>
+  <text x="54" y="183" font-size="12" fill="#1a1a1a">• Робочий струм: I = (U - E) / R = (6.0 - 5.2) / 5.3 ≈ 0.15 А</text>
+  <text x="54" y="203" font-size="12" fill="#1a1a1a">• Теплові втрати Джоуля: P = I² · R ≈ 0.15² · 5.3 ≈ 0.12 Вт (норма)</text>
+
+  <!-- Перехідна плашка -->
+  <rect x="56" y="238" width="380" height="30" rx="15" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="246" y="258" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Механічне заклинювання вала: швидкість ω = 0 → ЕРС = 0 В</text>
+
+  <!-- Блок 2: Режим блокування (Stall) -->
+  <rect x="40" y="280" width="412" height="126" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="54" y="302" font-size="13" font-weight="bold" fill="#c0392b">2. Аварійне блокування вала (ротор зупинено, ω = 0):</text>
+  <text x="54" y="323" font-size="12" fill="#1a1a1a">• Зникнення проти-ЕРС: E = 0 В (немає зустрічної ЕРС)</text>
+  <text x="54" y="343" font-size="12" fill="#1a1a1a">• Струм блокування: I_stall = U / R = 6.0 / 5.3 ≈ 1.13 А (у ~7.5 раза!)</text>
+  <text x="54" y="363" font-size="12" font-weight="bold" fill="#c0392b">• Стрибок тепловтрат: P_stall = I² · R = 1.13² · 5.3 ≈ 6.8 Вт (у 57 разів!)</text>
+  <text x="54" y="383" font-size="12" fill="#6b7280">• Струм обмежений лише омічним опором мідного дроту та щіток</text>
+
+  <!-- Блок 3: Фізичний висновок -->
+  <rect x="40" y="418" width="412" height="102" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="54" y="440" font-size="13" font-weight="bold" fill="#2457d6">Фізична суть теплового удару (P ~ I²):</text>
+  <text x="54" y="461" font-size="12" fill="#1a1a1a">• Квадратичне зростання: ріст струму в 7.5 раза дає 7.5² ≈ 57× тепла</text>
+  <text x="54" y="480" font-size="12" fill="#1a1a1a">• 100% підведеної потужності йде на нагрів тонкого дроту якоря</text>
+  <text x="54" y="499" font-size="12" fill="#6b7280">• Закритий корпус мотор-редуктора не встигає відводити тепло</text>
+
+  <!-- Права колонка: Графік нагріву якоря T(t) -->
+  <rect x="492" y="80" width="444" height="456" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="714" y="106" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Температурна динаміка нагріву якоря T(t)</text>
+  <text x="714" y="124" font-size="12" fill="#6b7280" text-anchor="middle">Швидкий перегрів обмотки через малу теплоємність міді</text>
+
+  <!-- Легенда графіка -->
+  <line x1="530" y1="142" x2="560" y2="142" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="568" y="146" font-size="12" fill="#27ae60">Номінал (~50 °C)</text>
+
+  <line x1="710" y1="142" x2="740" y2="142" stroke="#c0392b" stroke-width="3"/>
+  <text x="748" y="146" font-size="12" font-weight="bold" fill="#c0392b">Блокування / Stall</text>
+
+  <!-- Зони графіка -->
+  <rect x="556" y="280" width="350" height="90" fill="#27ae60" fill-opacity="0.08"/>
+  <rect x="556" y="170" width="350" height="65" fill="#c0392b" fill-opacity="0.08"/>
+
+  <!-- Критична лінія T_крит -->
+  <line x1="556" y1="235" x2="906" y2="235" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="566" y="228" font-size="12" font-weight="bold" fill="#c0392b">T_крит = 140 °C: руйнування ізоляційного лаку</text>
+
+  <!-- Криві нагріву -->
+  <path d="M 556 370 Q 640 336 876 332" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3" fill="none"/>
+  <path d="M 556 370 C 650 355, 710 275, 876 172" stroke="#c0392b" stroke-width="3" fill="none"/>
+
+  <!-- Точки на кривій -->
+  <circle cx="754" cy="235" r="5" fill="#c0392b" stroke="white" stroke-width="2"/>
+  <text x="764" y="252" font-size="12" font-weight="bold" fill="#c0392b">t ≈ 6 с: точка пробою</text>
+  <circle cx="876" cy="172" r="5" fill="#c0392b" stroke="white" stroke-width="2"/>
+  <text x="876" y="164" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">&gt; 200 °C: КЗ обмотки</text>
+
+  <!-- Осі графіка -->
+  <!-- Вісь Y (Температура) -->
+  <line x1="556" y1="370" x2="556" y2="160" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="550" y="158" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">T, °C</text>
+
+  <!-- Засічки і підписи осі Y -->
+  <line x1="556" y1="370" x2="552" y2="370" stroke="#6b7280"/>
+  <text x="548" y="374" font-size="12" fill="#6b7280" text-anchor="end">20°</text>
+
+  <line x1="556" y1="325" x2="552" y2="325" stroke="#6b7280"/>
+  <text x="548" y="329" font-size="12" fill="#6b7280" text-anchor="end">60°</text>
+
+  <line x1="556" y1="280" x2="552" y2="280" stroke="#6b7280"/>
+  <text x="548" y="284" font-size="12" fill="#6b7280" text-anchor="end">100°</text>
+
+  <line x1="556" y1="235" x2="552" y2="235" stroke="#c0392b"/>
+  <text x="548" y="239" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">140°</text>
+
+  <line x1="556" y1="190" x2="552" y2="190" stroke="#6b7280"/>
+  <text x="548" y="194" font-size="12" fill="#6b7280" text-anchor="end">180°</text>
+
+  <!-- Вісь X (Час) -->
+  <line x1="556" y1="370" x2="916" y2="370" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Засічки і підписи осі X -->
+  <line x1="556" y1="370" x2="556" y2="374" stroke="#6b7280"/>
+  <text x="556" y="388" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <line x1="620" y1="370" x2="620" y2="374" stroke="#6b7280"/>
+  <text x="620" y="388" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+
+  <line x1="684" y1="370" x2="684" y2="374" stroke="#6b7280"/>
+  <text x="684" y="388" font-size="12" fill="#6b7280" text-anchor="middle">4</text>
+
+  <line x1="748" y1="370" x2="748" y2="374" stroke="#6b7280"/>
+  <text x="748" y="388" font-size="12" fill="#6b7280" text-anchor="middle">6</text>
+
+  <line x1="812" y1="370" x2="812" y2="374" stroke="#6b7280"/>
+  <text x="812" y="388" font-size="12" fill="#6b7280" text-anchor="middle">8</text>
+
+  <line x1="876" y1="370" x2="876" y2="374" stroke="#6b7280"/>
+  <text x="876" y="388" font-size="12" fill="#6b7280" text-anchor="middle">10</text>
+
+  <text x="730" y="406" font-size="12" fill="#1a1a1a" text-anchor="middle">Час блокування ротора t (секунди)</text>
+
+  <!-- Підсумковий блок правої колонки -->
+  <rect x="508" y="422" width="412" height="98" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="522" y="444" font-size="13" font-weight="bold" fill="#c0392b">Наслідки та захист від блокування ротора:</text>
+  <text x="522" y="465" font-size="12" fill="#1a1a1a">• За 5–7 с температура досягає 140 °C: лак плавиться й димить</text>
+  <text x="522" y="484" font-size="12" fill="#1a1a1a">• Міжвиткове КЗ обмотки остаточно спалює колекторний вузол</text>
+  <text x="522" y="503" font-size="12" fill="#6b7280">• Захист: струмовий ліміт H-моста або захисне вимкнення за &lt; 1 с</text>
+</svg>

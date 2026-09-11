@@ -1,0 +1,216 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-rev-blue" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Внутрішній формувач віртуальної землі VDD/2 та вузол BYPASS в XPT8871</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Буферний повторювач ізолює подільник, а конденсатор C_BYPASS усуває клацання й пульсації живлення</text>
+
+  <!-- ==================== ЛІВА ЧАСТИНА: ЗОВНІШНІ КОЛА (C_BYPASS) ==================== -->
+
+  <!-- Блок 1: PSRR (Фільтрація) -->
+  <rect x="24" y="68" width="236" height="126" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="34" y="78" width="216" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="142" y="94" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">1. Фільтрація пульсацій (PSRR)</text>
+  <text x="36" y="118" font-size="12" fill="#1a1a1a">• Пульсації шини VDD фільтруються</text>
+  <text x="36" y="134" font-size="12" fill="#1a1a1a">  на GND через ємність C_BYPASS</text>
+  <text x="36" y="154" font-size="12" fill="#6b7280">• R_екв = 50 кОм ‖ 50 кОм = 25 кОм</text>
+  <text x="36" y="174" font-size="12" font-weight="700" fill="#27ae60">• f_зрізу = 1 / (2π·R·C) ≈ 6.4 Гц</text>
+
+  <!-- Вузол Pin 2 та зовнішній конденсатор C_BYPASS -->
+  <text x="210" y="218" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Pin 2 (BYPASS)</text>
+  
+  <!-- Провід від Pin 2 до конденсатора -->
+  <line x1="140" y1="235" x2="270" y2="235" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="140" cy="235" r="3.5" fill="#2457d6"/>
+
+  <!-- Конденсатор C_BYPASS -->
+  <line x1="140" y1="235" x2="140" y2="252" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="126" y1="252" x2="154" y2="252" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="126" y1="258" x2="154" y2="258" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="140" y1="258" x2="140" y2="274" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Земля конденсатора -->
+  <line x1="128" y1="274" x2="152" y2="274" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="133" y1="278" x2="147" y2="278" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="137" y1="282" x2="143" y2="282" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Підписи конденсатора -->
+  <text x="166" y="252" font-size="12" font-weight="700" fill="#1a1a1a">C_BYPASS</text>
+  <text x="166" y="267" font-size="12" font-weight="700" fill="#2457d6">1.0 мкФ</text>
+  <text x="166" y="282" font-size="12" fill="#6b7280">(зовнішній)</text>
+
+  <!-- Блок 2: Click / Pop -->
+  <rect x="24" y="298" width="236" height="140" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="34" y="308" width="216" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="142" y="324" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">2. Придушення Click / Pop</text>
+  <text x="36" y="348" font-size="12" fill="#1a1a1a">• Плавний заряд при вмиканні:</text>
+  <text x="36" y="366" font-size="12" fill="#1a1a1a">  напруга VDD/2 зростає експонентою</text>
+  <text x="36" y="386" font-size="12" fill="#6b7280">• Час наростання: τ = R·C = 25 мс</text>
+  <text x="36" y="406" font-size="12" fill="#1a1a1a">• Запобігає різкому стрибку</text>
+  <text x="36" y="424" font-size="12" font-weight="700" fill="#2457d6">  диференціальної напруги</text>
+
+  <!-- ==================== ПРАВА ЧАСТИНА: МІКРОСХЕМА XPT8871 ==================== -->
+
+  <!-- Межі мікросхеми (пунктир) -->
+  <rect x="276" y="68" width="660" height="370" rx="8" fill="#fbfcfd" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="6,4"/>
+  
+  <!-- Заголовок мікросхеми -->
+  <rect x="290" y="76" width="220" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="400" y="91" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Внутрішня структура XPT8871</text>
+
+  <!-- Контактна площадка Pin 2 -->
+  <rect x="270" y="226" width="16" height="18" rx="2" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="278" y="240" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">2</text>
+
+  <!-- 1. РЕЗИСТИВНИЙ ПОДІЛЬНИК -->
+  <!-- Шина VDD -->
+  <line x1="310" y1="115" x2="370" y2="115" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="340" y="108" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Шина VDD (+5 В)</text>
+
+  <!-- Верхній резистор R_bias -->
+  <line x1="340" y1="115" x2="340" y2="132" stroke="#1a1a1a" stroke-width="1.8"/>
+  <rect x="330" y="132" width="20" height="40" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="340" y="156" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">50 к</text>
+  <text x="322" y="156" font-size="12" fill="#6b7280" text-anchor="end">R_bias</text>
+  <line x1="340" y1="172" x2="340" y2="235" stroke="#1a1a1a" stroke-width="1.8"/>
+
+  <!-- Середня точка подільника -->
+  <circle cx="340" cy="235" r="4" fill="#2457d6"/>
+  <line x1="286" y1="235" x2="340" y2="235" stroke="#2457d6" stroke-width="2"/>
+  <text x="375" y="216" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">VDD / 2</text>
+  <text x="375" y="228" font-size="12" fill="#6b7280" text-anchor="middle">2.5 В</text>
+
+  <!-- Нижній резистор R_bias -->
+  <line x1="340" y1="235" x2="340" y2="260" stroke="#1a1a1a" stroke-width="1.8"/>
+  <rect x="330" y="260" width="20" height="40" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="340" y="284" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">50 к</text>
+  <text x="322" y="284" font-size="12" fill="#6b7280" text-anchor="end">R_bias</text>
+  <line x1="340" y1="300" x2="340" y2="325" stroke="#1a1a1a" stroke-width="1.8"/>
+
+  <!-- Шина GND -->
+  <line x1="310" y1="325" x2="370" y2="325" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="328" y1="331" x2="352" y2="331" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="333" y1="335" x2="347" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="337" y1="339" x2="343" y2="339" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="340" y="356" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">GND (0 В)</text>
+
+  <!-- Картка опору подільника -->
+  <rect x="290" y="370" width="102" height="56" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="341" y="388" font-size="12" fill="#6b7280" text-anchor="middle">Без буфера:</text>
+  <text x="341" y="403" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">R_вих = 25 кОм</text>
+  <text x="341" y="418" font-size="12" fill="#6b7280" text-anchor="middle">(просідає)</text>
+
+  <!-- 2. БУФЕРНИЙ ПОВТОРЮВАЧ 1:1 -->
+  <!-- Вхідна лінія до (+) буфера -->
+  <path d="M340,235 L405,235 L405,222 L420,222" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Трикутник ОП буфера -->
+  <polygon points="420,205 420,265 475,235" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="428" y="226" font-size="14" font-weight="700" fill="#2457d6">+</text>
+  <text x="429" y="252" font-size="14" font-weight="700" fill="#1a1a1a">−</text>
+
+  <!-- Вихід буфера -->
+  <line x1="475" y1="235" x2="510" y2="235" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="490" cy="235" r="3" fill="#1a1a1a"/>
+
+  <!-- Ланцюг зворотного зв'язку 100% -->
+  <path d="M490,235 L490,270 L410,270 L410,248 L420,248" fill="none" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="450" y="284" font-size="12" fill="#6b7280" text-anchor="middle">ЗЗ 100% (Ку = 1)</text>
+
+  <!-- Картка над буфером -->
+  <rect x="402" y="125" width="122" height="66" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="463" y="143" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Буферний ОП</text>
+  <text x="463" y="159" font-size="12" fill="#1a1a1a" text-anchor="middle">Повторювач 1:1</text>
+  <text x="463" y="174" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">R_вих ≈ 0 Ом</text>
+
+  <!-- Картка під буфером -->
+  <rect x="402" y="304" width="122" height="122" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="463" y="322" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Роль буфера:</text>
+  <text x="463" y="342" font-size="12" fill="#1a1a1a" text-anchor="middle">• Низький R_вих</text>
+  <text x="463" y="360" font-size="12" fill="#1a1a1a" text-anchor="middle">• Струм навантаження</text>
+  <text x="463" y="378" font-size="12" fill="#6b7280" text-anchor="middle">  не зсуває 2.5 В</text>
+  <text x="463" y="398" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">• Жорстка опора</text>
+  <text x="463" y="416" font-size="12" fill="#27ae60" font-weight="700" text-anchor="middle">VDD/2 = 2.5 В</text>
+
+  <!-- 3. РОЗПОДІЛ ВІРТУАЛЬНОЇ ЗЕМЛІ -->
+  <!-- Вихідна шина від буфера -->
+  <line x1="510" y1="235" x2="546" y2="235" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="546" cy="235" r="4" fill="#2457d6"/>
+
+  <!-- Вертикальна шина віртуальної землі -->
+  <line x1="546" y1="162" x2="546" y2="308" stroke="#2457d6" stroke-width="2.5"/>
+  
+  <!-- Підписи шини опорної напруги -->
+  <text x="556" y="231" font-size="12" font-weight="700" fill="#2457d6">Шина VDD/2</text>
+  <text x="556" y="245" font-size="12" fill="#6b7280">(опора 2.5 В)</text>
+
+  <!-- Відгалуження до OP1 та OP2 -->
+  <line x1="546" y1="162" x2="625" y2="162" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="546" y1="308" x2="625" y2="308" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 4. ВИХІДНИЙ МОСТОВИЙ КАСКАД BTL -->
+  <!-- ПІДСИЛЮВАЧ OP1 (Фаза 0°) -->
+  <polygon points="625,120 625,180 680,150" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="633" y="142" font-size="14" font-weight="700" fill="#1a1a1a">−</text>
+  <text x="633" y="166" font-size="14" font-weight="700" fill="#2457d6">+</text>
+  <line x1="575" y1="138" x2="625" y2="138" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="570" y="134" font-size="12" fill="#1a1a1a" text-anchor="end">Аудіо</text>
+  <text x="585" y="178" font-size="12" fill="#2457d6" text-anchor="middle">VDD/2</text>
+  <text x="652" y="112" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">OP1 (фаза 0°)</text>
+
+  <!-- Вихід OP1 -> VO1 -->
+  <line x1="680" y1="150" x2="736" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="736" cy="150" r="3.5" fill="#1a1a1a"/>
+  <text x="744" y="144" font-size="12" font-weight="700" fill="#1a1a1a">VO1 (Pin 5)</text>
+  <text x="744" y="158" font-size="12" fill="#6b7280">2.5 В ± V_сигн</text>
+
+  <!-- ПІДСИЛЮВАЧ OP2 (Фаза 180° / Інвертор) -->
+  <polygon points="625,290 625,350 680,320" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="633" y="312" font-size="14" font-weight="700" fill="#2457d6">+</text>
+  <text x="633" y="336" font-size="14" font-weight="700" fill="#1a1a1a">−</text>
+  <line x1="575" y1="332" x2="625" y2="332" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="570" y="348" font-size="12" fill="#1a1a1a" text-anchor="end">Інверсія</text>
+  <text x="585" y="300" font-size="12" fill="#2457d6" text-anchor="middle">VDD/2</text>
+  <text x="652" y="368" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">OP2 (фаза 180°)</text>
+
+  <!-- Вихід OP2 -> VO2 -->
+  <line x1="680" y1="320" x2="736" y2="320" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="736" cy="320" r="3.5" fill="#1a1a1a"/>
+  <text x="744" y="316" font-size="12" font-weight="700" fill="#1a1a1a">VO2 (Pin 8)</text>
+  <text x="744" y="330" font-size="12" fill="#6b7280">2.5 В ∓ V_сигн</text>
+
+  <!-- ПІДКЛЮЧЕННЯ ДИНАМІКА (BTL) -->
+  <!-- Провід від VO1 до динаміка -->
+  <path d="M736,150 L812,150 L812,220 L832,220" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Провід від VO2 до динаміка -->
+  <path d="M736,320 L812,320 L812,250 L832,250" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Стрілка диференціальної напруги -->
+  <line x1="785" y1="168" x2="785" y2="302" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-rev-blue)" marker-end="url(#arr-blue)"/>
+  <text x="775" y="239" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">V_BTL</text>
+
+  <!-- Графіка динаміка -->
+  <rect x="832" y="210" width="16" height="50" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <polygon points="848,218 870,198 870,272 848,252" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="860" y="174" font-size="12" fill="#6b7280" text-anchor="middle">Мостове включення</text>
+  <text x="860" y="190" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Динамік R_L</text>
+
+  <!-- Підсумкова картка BTL -->
+  <rect x="734" y="352" width="192" height="74" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="830" y="370" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Перевага моста BTL:</text>
+  <text x="830" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">• У спокої: VO1 = VO2 = 2.5 В</text>
+  <text x="830" y="402" font-size="12" fill="#1a1a1a" text-anchor="middle">• Постійний струм I_DC = 0 А</text>
+  <text x="830" y="418" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">• Без вихідного конденсатора!</text>
+</svg>

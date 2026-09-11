@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порядок байтів RGB565: конфлікт Little-Endian МК та Big-Endian ST7789</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Передача 16-бітного слова без Byte Swap спотворює колір: червоний (0xF800) перетворюється на синій (0x00F8)</text>
+
+  <!-- Верхня панель: Структура кольору RGB565 -->
+  <rect x="24" y="66" width="912" height="82" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="84" font-size="13" font-weight="bold" fill="#1a1a1a">1. Структура 16-бітного кольору RGB565 (на прикладі чистого червоного uint16_t color = 0xF800):</text>
+
+  <!-- Старший байт -->
+  <text x="40" y="104" font-size="12" font-weight="bold" fill="#2457d6">Старший байт (High Byte / MSB, біти 15..8) = 0xF8</text>
+  <rect x="40" y="112" width="220" height="26" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="150" y="129" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">R4..R0: 1 1 1 1 1 (Червоний = 31)</text>
+
+  <rect x="266" y="112" width="130" height="26" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="331" y="129" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">G5..G3: 0 0 0</text>
+
+  <!-- Молодший байт -->
+  <text x="430" y="104" font-size="12" font-weight="bold" fill="#6b7280">Молодший байт (Low Byte / LSB, біти 7..0) = 0x00</text>
+  <rect x="430" y="112" width="130" height="26" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="495" y="129" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">G2..G0: 0 0 0</text>
+
+  <rect x="566" y="112" width="220" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="676" y="129" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">B4..B0: 0 0 0 0 0 (Синій = 0)</text>
+
+  <!-- Значення -->
+  <rect x="806" y="94" width="114" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="863" y="112" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">0xF800</text>
+  <text x="863" y="128" text-anchor="middle" font-size="12" fill="#1a1a1a">RGB565 Red</text>
+
+  <!-- Ліва колонка: Проблема (без Byte Swap) -->
+  <rect x="24" y="160" width="448" height="280" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="24" y="160" width="448" height="28" rx="8" fill="#fdecea"/>
+  <text x="36" y="179" font-size="13" font-weight="bold" fill="#c0392b">❌ Без перестановки байтів (Пряма відправка з RAM)</text>
+
+  <!-- Крок 1 -->
+  <text x="36" y="206" font-size="12" font-weight="bold" fill="#1a1a1a">1. Пам'ять SRAM МК (Little-Endian: LSB за молодшою адресою):</text>
+  <rect x="36" y="214" width="180" height="24" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="230" font-size="12" fill="#1a1a1a">Адреса N: <tspan font-weight="bold" fill="#6b7280">0x00 (LSB)</tspan></text>
+
+  <rect x="224" y="214" width="180" height="24" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="232" y="230" font-size="12" fill="#1a1a1a">Адреса N+1: <tspan font-weight="bold" fill="#c0392b">0xF8 (MSB)</tspan></text>
+
+  <line x1="200" y1="242" x2="200" y2="254" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Крок 2 -->
+  <text x="36" y="270" font-size="12" font-weight="bold" fill="#1a1a1a">2. Потік шини SPI (послідовне зчитування байтів N, N+1):</text>
+  <rect x="36" y="278" width="180" height="24" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="44" y="294" font-size="12" font-weight="bold" fill="#c0392b">Байт 1: 0x00 (летить першим)</text>
+
+  <rect x="224" y="278" width="180" height="24" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="232" y="294" font-size="12" fill="#1a1a1a">Байт 2: 0xF8 (летить другим)</text>
+
+  <line x1="200" y1="306" x2="200" y2="318" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Крок 3 -->
+  <text x="36" y="334" font-size="12" font-weight="bold" fill="#1a1a1a">3. Інтерпретація дисплеєм ST7789 (очікує Big-Endian):</text>
+  <text x="36" y="352" font-size="12" fill="#6b7280">ST7789 сприймає 1-й байт (0x00) як MSB, а 2-й (0xF8) як LSB!</text>
+
+  <rect x="36" y="362" width="424" height="66" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="46" y="372" width="46" height="46" rx="3" fill="#2457d6" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="102" y="390" font-size="12" font-weight="bold" fill="#c0392b">Отримано колір: 0x00F8 (СИНІЙ замість червоного!)</text>
+  <text x="102" y="410" font-size="12" fill="#1a1a1a">R=0, G=7, B=24 ➔ колірні канали фатально переплутано</text>
+
+  <!-- Права колонка: Розв'язок (з Byte Swap) -->
+  <rect x="488" y="160" width="448" height="280" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="488" y="160" width="448" height="28" rx="8" fill="#e9f7ef"/>
+  <text x="500" y="179" font-size="13" font-weight="bold" fill="#27ae60">✔ Розв'язок: вирівнювання порядку байтів (Byte Swap)</text>
+
+  <!-- Крок 1 -->
+  <text x="500" y="206" font-size="12" font-weight="bold" fill="#1a1a1a">1. Інверсія байтів: __REV16(color) або bswap16:</text>
+  <rect x="500" y="214" width="424" height="24" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="508" y="230" font-size="12" fill="#2457d6">color = __REV16(0xF800); // 0xF8 та 0x00 міняються місцями</text>
+
+  <line x1="664" y1="242" x2="664" y2="254" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Крок 2 -->
+  <text x="500" y="270" font-size="12" font-weight="bold" fill="#1a1a1a">2. Потік шини SPI (Big-Endian узгоджено):</text>
+  <rect x="500" y="280" width="180" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="508" y="294" font-size="12" font-weight="bold" fill="#27ae60">Байт 1: 0xF8 (MSB перший)</text>
+
+  <rect x="688" y="280" width="180" height="24" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="696" y="294" font-size="12" fill="#1a1a1a">Байт 2: 0x00 (LSB другий)</text>
+
+  <line x1="664" y1="306" x2="664" y2="318" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Крок 3 -->
+  <text x="500" y="334" font-size="12" font-weight="bold" fill="#1a1a1a">3. Інтерпретація дисплеєм ST7789 (Big-Endian):</text>
+  <text x="500" y="352" font-size="12" fill="#6b7280">ST7789 отримує MSB (0xF8) і LSB (0x00): ідеальний збіг!</text>
+
+  <rect x="500" y="362" width="424" height="66" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <rect x="510" y="372" width="46" height="46" rx="3" fill="#c0392b" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="566" y="390" font-size="12" font-weight="bold" fill="#27ae60">Отримано колір: 0xF800 (ЧЕРВОНИЙ відтінок вірний!)</text>
+  <text x="566" y="410" font-size="12" fill="#1a1a1a">R=31, G=0, B=0 ➔ коректне відображення пікселя на IPS</text>
+</svg>

@@ -1,0 +1,195 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Паразитне живлення та ефект защіпки (Latch-up) у CMOS</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Подача 5 В на вхід 3.3 В відкриває захисний діод та активує паразитний тиристор p-n-p-n</text>
+
+  <!-- Left Panel: Semiconductor Cross-Section -->
+  <rect x="24" y="68" width="586" height="388" rx="8" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="92" font-size="14" font-weight="700" fill="#1a1a1a">Перетин кристала CMOS: захисний діод та структура p-n-p-n</text>
+
+  <!-- Terminals -->
+  <rect x="44" y="108" width="166" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="127" y="127" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Вхід: +5.0 В (SPI)</text>
+
+  <rect x="230" y="108" width="166" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="313" y="127" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Шина IOVCC: +3.3 В</text>
+
+  <rect x="416" y="108" width="176" height="30" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="504" y="127" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Шина GND: 0 В</text>
+
+  <!-- Wires from terminals to silicon -->
+  <line x1="127" y1="138" x2="127" y2="196" stroke="#c0392b" stroke-width="2"/>
+  <path d="M127,155 L127,175" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="118" y="166" font-size="12" fill="#c0392b" text-anchor="end">I_вхід</text>
+
+  <line x1="313" y1="138" x2="313" y2="196" stroke="#2457d6" stroke-width="2"/>
+  <path d="M313,175 L313,155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="325" y="166" font-size="12" fill="#2457d6">I_паразит</text>
+
+  <!-- GND wires -->
+  <line x1="504" y1="138" x2="504" y2="154" stroke="#6b7280" stroke-width="2"/>
+  <line x1="445" y1="154" x2="545" y2="154" stroke="#6b7280" stroke-width="2"/>
+  <line x1="445" y1="154" x2="445" y2="196" stroke="#6b7280" stroke-width="2"/>
+  <line x1="545" y1="154" x2="545" y2="196" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="504" cy="154" r="3" fill="#6b7280"/>
+  <circle cx="445" cy="154" r="3" fill="#6b7280"/>
+  <circle cx="545" cy="154" r="3" fill="#6b7280"/>
+
+  <!-- Substrate Silicon -->
+  <rect x="44" y="196" width="548" height="240" rx="4" fill="#faf8f5" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- N-well -->
+  <rect x="58" y="196" width="318" height="154" rx="6" fill="#eaf2fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="74" y="342" font-size="12" font-weight="700" fill="#2457d6">N-кишеня (N-well)</text>
+
+  <!-- P-Substrate label -->
+  <text x="390" y="424" font-size="12" font-weight="700" fill="#64748b">P-підкладка (P-substrate, GND)</text>
+
+  <!-- Diffusions -->
+  <!-- Diff 1: P+ in N-well -->
+  <rect x="86" y="196" width="82" height="46" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="127" y="215" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">P+</text>
+  <text x="127" y="232" font-size="12" fill="#c0392b" text-anchor="middle">Анод D_esd</text>
+
+  <!-- Diff 2: N+ in N-well -->
+  <rect x="272" y="196" width="82" height="46" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="313" y="215" font-size="12" font-weight="700" fill="#1d4ed8" text-anchor="middle">N+</text>
+  <text x="313" y="232" font-size="12" fill="#1d4ed8" text-anchor="middle">Катод D_esd</text>
+
+  <!-- Diff 3: N+ in P-substrate -->
+  <rect x="404" y="196" width="82" height="46" rx="3" fill="#dbeafe" stroke="#1d4ed8" stroke-width="1.5"/>
+  <text x="445" y="215" font-size="12" font-weight="700" fill="#1d4ed8" text-anchor="middle">N+</text>
+  <text x="445" y="232" font-size="12" fill="#1d4ed8" text-anchor="middle">Катод SCR</text>
+
+  <!-- Diff 4: P+ in P-substrate -->
+  <rect x="512" y="196" width="66" height="46" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="545" y="215" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">P+</text>
+  <text x="545" y="232" font-size="12" fill="#c0392b" text-anchor="middle">P-Tap</text>
+
+  <!-- D_esd diode symbol inside N-well -->
+  <line x1="168" y1="219" x2="212" y2="219" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="212,213 224,219 212,225" fill="#2457d6"/>
+  <line x1="224" y1="213" x2="224" y2="225" stroke="#2457d6" stroke-width="2"/>
+  <line x1="224" y1="219" x2="272" y2="219" stroke="#2457d6" stroke-width="2"/>
+  <text x="220" y="208" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Діод D_esd</text>
+  <text x="220" y="238" font-size="12" fill="#2457d6" text-anchor="middle">I_паразит →</text>
+
+  <!-- 4 Layer Badges (p-n-p-n) -->
+  <rect x="84" y="254" width="86" height="20" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="127" y="268" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">[1] p (Q1-E)</text>
+
+  <rect x="188" y="274" width="124" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="250" y="288" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">[2] n (Q1-B, Q2-C)</text>
+
+  <rect x="402" y="254" width="86" height="20" rx="3" fill="#dbeafe" stroke="#1d4ed8"/>
+  <text x="445" y="268" font-size="12" font-weight="700" fill="#1d4ed8" text-anchor="middle">[4] n (Q2-E)</text>
+
+  <rect x="383" y="352" width="124" height="20" rx="3" fill="#f4f6f8" stroke="#64748b"/>
+  <text x="445" y="366" font-size="12" font-weight="700" fill="#64748b" text-anchor="middle">[3] p (Q1-C, Q2-B)</text>
+
+  <!-- Latchup current path arrows -->
+  <path d="M127,276 Q127,314 210,314 T370,314" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <path d="M376,330 Q445,330 445,280" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="80" y="395" font-size="12" font-weight="700" fill="#c0392b">Струм защіпки (Latch-up): пробій структури p-n-p-n на GND</text>
+
+  <!-- Right Panel: Equivalent Circuit -->
+  <rect x="626" y="68" width="310" height="388" rx="8" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+  <text x="642" y="92" font-size="14" font-weight="700" fill="#1a1a1a">Еквівалентна схема тиристора</text>
+
+  <!-- Rails -->
+  <text x="665" y="112" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Вхід +5 В</text>
+  <text x="880" y="112" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">IOVCC +3.3 В</text>
+
+  <!-- Diode on top -->
+  <line x1="665" y1="135" x2="752" y2="135" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="752,129 764,135 752,141" fill="#2457d6"/>
+  <line x1="764" y1="129" x2="764" y2="141" stroke="#2457d6" stroke-width="2"/>
+  <line x1="764" y1="135" x2="880" y2="135" stroke="#2457d6" stroke-width="2"/>
+  <path d="M820,135 L840,135" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="758" y="125" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D_esd (відкрито)</text>
+  <text x="830" y="152" font-size="12" fill="#2457d6" text-anchor="middle">I_паразит</text>
+
+  <!-- Transistor Q1 (PNP) -->
+  <line x1="665" y1="135" x2="665" y2="175" stroke="#c0392b" stroke-width="2"/>
+  <line x1="665" y1="175" x2="705" y2="175" stroke="#c0392b" stroke-width="2"/>
+  <line x1="705" y1="175" x2="720" y2="182" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="717,178 722,183 714,184" fill="#1a1a1a"/>
+  <!-- Q1 base bar -->
+  <line x1="720" y1="175" x2="720" y2="205" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="720" y1="190" x2="760" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Q1 collector -->
+  <line x1="720" y1="198" x2="700" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="700" y1="205" x2="700" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="700" y1="250" x2="760" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="695" y="195" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">Q1 (p-n-p)</text>
+
+  <!-- Node N_well (760, 190) and Resistor R_well up to IOVCC -->
+  <line x1="760" y1="135" x2="760" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="753" y="148" width="14" height="24" rx="2" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="774" y="164" font-size="12" fill="#6b7280">R_well</text>
+
+  <!-- Node P_sub (760, 250) and Resistor R_sub down to GND -->
+  <line x1="760" y1="250" x2="760" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="753" y="268" width="14" height="24" rx="2" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="774" y="284" font-size="12" fill="#6b7280">R_sub</text>
+
+  <!-- Transistor Q2 (NPN) -->
+  <line x1="760" y1="250" x2="800" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Q2 base bar -->
+  <line x1="800" y1="235" x2="800" y2="265" stroke="#1a1a1a" stroke-width="3"/>
+  <!-- Q2 collector -->
+  <line x1="800" y1="242" x2="820" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="820" y1="235" x2="820" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="820" y1="190" x2="760" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Q2 emitter -->
+  <line x1="800" y1="258" x2="820" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="814,260 822,266 816,268" fill="#1a1a1a"/>
+  <line x1="820" y1="265" x2="820" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="834" y="254" font-size="12" font-weight="700" fill="#1d4ed8">Q2 (n-p-n)</text>
+
+  <!-- Nodes -->
+  <circle cx="760" cy="190" r="3.5" fill="#1a1a1a"/>
+  <circle cx="760" cy="250" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Feedback label in center -->
+  <text x="760" y="215" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">β1 × β2 ≥ 1</text>
+  <text x="760" y="230" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Защіпка (SCR)</text>
+
+  <!-- Ground connection -->
+  <line x1="740" y1="310" x2="840" y2="310" stroke="#6b7280" stroke-width="2"/>
+  <line x1="750" y1="310" x2="770" y2="310" stroke="#6b7280" stroke-width="2"/>
+  <line x1="754" y1="314" x2="766" y2="314" stroke="#6b7280" stroke-width="2"/>
+  <line x1="757" y1="318" x2="763" y2="318" stroke="#6b7280" stroke-width="2"/>
+  <text x="774" y="326" font-size="12" fill="#6b7280">GND (0 В)</text>
+
+  <!-- Alert box in right panel -->
+  <rect x="638" y="348" width="286" height="94" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="650" y="368" font-size="12" font-weight="700" fill="#c0392b">Критичні наслідки для ST7789:</text>
+  <text x="650" y="388" font-size="12" fill="#1a1a1a">• Паразитне живлення через SPI (MOSI/SCK)</text>
+  <text x="650" y="408" font-size="12" fill="#1a1a1a">• Latch-up: тиристорне коротке замикання</text>
+  <text x="650" y="428" font-size="12" fill="#1a1a1a">• Тепловий пробій кристала та зависання</text>
+
+  <!-- Bottom Banner: Engineering takeaway -->
+  <rect x="24" y="468" width="912" height="52" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="36" y="478" width="130" height="32" rx="4" fill="#27ae60"/>
+  <text x="101" y="499" font-size="12" font-weight="700" fill="white" text-anchor="middle">Інженерний захист</text>
+
+  <text x="180" y="490" font-size="12" font-weight="700" fill="#1a1a1a">Використовуйте двоспрямовані перетворювачі рівнів або буфери 74LVC245 / TXS0108E</text>
+  <text x="180" y="508" font-size="12" fill="#6b7280">Для зниження 5 В до 3.3 В підійдуть і резистивні подільники — вони обмежують струм діода нижче порогу тригера</text>
+</svg>

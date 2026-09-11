@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналіз накладних витрат шини SPI при виведенні пікселів на ST7789</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння попіксельного малювання (DrawPixel, 85% оверхеду) та рядкової буферизації DMA (98% користі)</text>
+
+  <!-- ==================== LEFT: PACKET STREAM BREAKDOWN ==================== -->
+
+  <!-- MODE A: Single Pixel DrawPixel Container -->
+  <rect x="60" y="80" width="510" height="148" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="60" y="80" width="510" height="26" rx="6" fill="#fdecea"/>
+  <text x="72" y="98" font-size="13" font-weight="bold" fill="#c0392b">Режим 1: Попіксельне виведення DrawPixel (1 піксель = 13 байтів)</text>
+
+  <!-- Mode A Byte Stream Blocks -->
+  <!-- Block 1: CASET cmd -->
+  <rect x="72" y="112" width="36" height="36" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="90" y="126" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0x2A</text>
+  <text x="90" y="140" font-size="12" fill="#6b7280" text-anchor="middle">CMD</text>
+
+  <!-- Block 2: CASET args (4 bytes) -->
+  <rect x="112" y="112" width="136" height="36" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="180" y="126" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">XS[15:0], XE[15:0]</text>
+  <text x="180" y="140" font-size="12" fill="#6b7280" text-anchor="middle">4 байти координат X</text>
+
+  <!-- Block 3: RASET cmd -->
+  <rect x="252" y="112" width="36" height="36" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="270" y="126" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0x2B</text>
+  <text x="270" y="140" font-size="12" fill="#6b7280" text-anchor="middle">CMD</text>
+
+  <!-- Block 4: RASET args (4 bytes) -->
+  <rect x="292" y="112" width="136" height="36" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="360" y="126" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">YS[15:0], YE[15:0]</text>
+  <text x="360" y="140" font-size="12" fill="#6b7280" text-anchor="middle">4 байти координат Y</text>
+
+  <!-- Block 5: RAMWR cmd -->
+  <rect x="432" y="112" width="36" height="36" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="450" y="126" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0x2C</text>
+  <text x="450" y="140" font-size="12" fill="#6b7280" text-anchor="middle">CMD</text>
+
+  <!-- Block 6: Pixel Color RGB565 (2 bytes) -->
+  <rect x="472" y="112" width="88" height="36" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.8"/>
+  <text x="516" y="126" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">RGB565</text>
+  <text x="516" y="140" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2 байти</text>
+
+  <!-- Mode A Proportion Bar (13 bytes total: 11 overhead, 2 payload) -->
+  <rect x="72" y="160" width="413" height="22" rx="3" fill="#c0392b"/>
+  <text x="278" y="176" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Службовий оверхед: 11 байтів (84.6%)</text>
+
+  <rect x="485" y="160" width="75" height="22" rx="3" fill="#27ae60"/>
+  <text x="522" y="176" font-size="12" font-weight="bold" fill="white" text-anchor="middle">2 B: 15%</text>
+
+  <!-- Mode A Summary Note -->
+  <text x="72" y="200" font-size="12" font-weight="bold" fill="#c0392b">Втрата шини: 85% пропускної здатності SPI витрачається на адресацію!</text>
+  <text x="72" y="216" font-size="12" fill="#6b7280">Для виведення одного пікселя передається 13 байтів замість 2 (падіння FPS у 6.5 раза).</text>
+
+  <!-- MODE B: Line Buffer Container (240 pixels = 491 bytes) -->
+  <rect x="60" y="242" width="510" height="148" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="60" y="242" width="510" height="26" rx="6" fill="#e9f7ef"/>
+  <text x="72" y="260" font-size="13" font-weight="bold" fill="#27ae60">Режим 2: Рядкова буферизація Line Buffer (240 пікселів = 491 байт)</text>
+
+  <!-- Mode B Byte Stream Blocks -->
+  <!-- Block B1: Headers (11 bytes) -->
+  <rect x="72" y="274" width="90" height="34" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="117" y="288" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Заголовки 11 B</text>
+  <text x="117" y="302" font-size="12" fill="#6b7280" text-anchor="middle">CASET + RASET</text>
+
+  <!-- Block B2: DMA Stream (480 bytes) -->
+  <rect x="166" y="274" width="394" height="34" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.8"/>
+  <text x="363" y="288" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Потоковий масив DMA: 240 пікселів × 2 байти = 480 байтів</text>
+  <text x="363" y="302" font-size="12" fill="#27ae60" text-anchor="middle">Безперервна передача кольору без проміжної адресації</text>
+
+  <!-- Mode B Proportion Bar (491 bytes total: 11 overhead, 480 payload) -->
+  <rect x="72" y="320" width="14" height="22" rx="2" fill="#c0392b"/>
+  <rect x="86" y="320" width="474" height="22" rx="3" fill="#27ae60"/>
+  <text x="323" y="336" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Корисні дані кольору через DMA: 480 байтів (97.8% ефективності шини)</text>
+
+  <!-- Mode B Summary Note -->
+  <text x="72" y="360" font-size="12" font-weight="bold" fill="#27ae60">Ефективність шини: 97.8%! Накладні витрати знижено до 2.2%.</text>
+  <text x="72" y="376" font-size="12" fill="#6b7280">Апаратний DMA передає 480 байтів у фоні без втручання CPU та без зупинок.</text>
+
+  <!-- Bottom Result Banner -->
+  <rect x="60" y="406" width="510" height="32" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="315" y="426" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Висновок: буферизація рядка скорочує трафік SPI в 6.4 раза і розкриває 60 FPS</text>
+
+  <!-- ==================== RIGHT: ENGINEERING CARDS ==================== -->
+
+  <!-- Card 1: Single Pixel Anatomy -->
+  <rect x="600" y="80" width="330" height="110" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="600" y="80" width="330" height="26" rx="6" fill="#fdecea"/>
+  <text x="612" y="98" font-size="13" font-weight="bold" fill="#c0392b">1. Анатомія виклику DrawPixel</text>
+
+  <text x="612" y="122" font-size="12" font-weight="bold" fill="#1a1a1a">Перевитрата байтів на 1 піксель</text>
+  <text x="612" y="140" font-size="12" fill="#6b7280">CASET (5 B) + RASET (5 B) + RAMWR (1 B) = 11 B.</text>
+  <text x="612" y="158" font-size="12" fill="#6b7280">Дані кольору RGB565 становлять лише 2 байти.</text>
+  <text x="612" y="176" font-size="12" font-weight="bold" fill="#c0392b">Оверхед: 11 / 13 = 84.6% втрати шини!</text>
+
+  <!-- Card 2: D/C and CS Toggle Latency -->
+  <rect x="600" y="202" width="330" height="110" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="600" y="202" width="330" height="26" rx="6" fill="#fdecea"/>
+  <text x="612" y="220" font-size="13" font-weight="bold" fill="#c0392b">2. Проблема ліній D/C та CS</text>
+
+  <text x="612" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">Затримки на перемикання GPIO</text>
+  <text x="612" y="262" font-size="12" fill="#6b7280">Кожен піксель вимагає 3 перемикання D/C</text>
+  <text x="612" y="280" font-size="12" fill="#6b7280">(команда → дані → команда) та стробу CS.</text>
+  <text x="612" y="298" font-size="12" font-weight="bold" fill="#c0392b">Накладні витрати CPU вищі за час SPI!</text>
+
+  <!-- Card 3: Line Buffer Advantage -->
+  <rect x="600" y="324" width="330" height="110" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="600" y="324" width="330" height="26" rx="6" fill="#e9f7ef"/>
+  <text x="612" y="342" font-size="13" font-weight="bold" fill="#27ae60">3. Перевага Line Buffer + DMA</text>
+
+  <text x="612" y="366" font-size="12" font-weight="bold" fill="#1a1a1a">Рядкова подвійна буферизація</text>
+  <text x="612" y="384" font-size="12" fill="#6b7280">Межі CASET/RASET задаються 1 раз на рядок.</text>
+  <text x="612" y="402" font-size="12" fill="#6b7280">DMA передає 480 байтів у фоновому режимі.</text>
+  <text x="612" y="420" font-size="12" font-weight="bold" fill="#27ae60">Ефективність шини 97.8% (оверхед 2.2%).</text>
+</svg>

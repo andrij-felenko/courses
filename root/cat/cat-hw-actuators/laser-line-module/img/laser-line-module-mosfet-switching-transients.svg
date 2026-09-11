@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Комутація лазерного модуля ключем N-MOSFET та динаміка turn-on</text>
+  <text x="480" y="57" font-size="13" fill="#6b7280" text-anchor="middle">Затримка виходу на робочу потужність (10–50 мкс) обмежує частоту імпульсної комутації</text>
+
+  <!-- Left Panel: N-MOSFET Low-Side Switching Circuit -->
+  <rect x="30" y="72" width="380" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="94" font-size="12" font-weight="bold" fill="#6b7280">СХЕМА КЕРУВАННЯ (LOW-SIDE N-MOSFET)</text>
+
+  <!-- VCC Power Line and Decoupling -->
+  <line x1="200" y1="96" x2="350" y2="96" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="255" cy="96" r="3.5" fill="#c0392b"/>
+  <text x="268" y="92" font-size="12" font-weight="bold" fill="#c0392b">+VCC (3.3–5 В)</text>
+
+  <!-- Decoupling Capacitor C1 -->
+  <line x1="350" y1="96" x2="350" y2="136" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="340" y1="136" x2="360" y2="136" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="340" y1="144" x2="360" y2="144" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="350" y1="144" x2="350" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="350" cy="96" r="3" fill="#1a1a1a"/>
+  <circle cx="350" cy="295" r="3" fill="#1a1a1a"/>
+  <text x="365" y="134" font-size="12" font-weight="bold" fill="#1a1a1a">C1</text>
+  <text x="365" y="148" font-size="12" fill="#6b7280">100 нФ</text>
+
+  <!-- Laser Module (Load in Drain Circuit) -->
+  <line x1="255" y1="96" x2="255" y2="112" stroke="#c0392b" stroke-width="2"/>
+  <rect x="198" y="112" width="114" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="255" y="128" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Лазерний модуль</text>
+  <text x="255" y="144" font-size="12" fill="#1a1a1a" text-anchor="middle">5 мВт / 20–40 мА</text>
+
+  <!-- Wire from Laser Module to MOSFET Drain -->
+  <line x1="255" y1="154" x2="255" y2="188" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="242" y="172" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Стік (Drain)</text>
+
+  <!-- MCU GPIO Input -->
+  <circle cx="55" cy="198" r="4" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="65" y="176" font-size="12" font-weight="bold" fill="#2457d6">GPIO МК</text>
+  <text x="65" y="190" font-size="12" fill="#6b7280">0 / 3.3 В</text>
+
+  <!-- Wire to Gate Resistor RG -->
+  <line x1="59" y1="198" x2="115" y2="198" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Gate Resistor RG (100 Ohm) -->
+  <rect x="115" y="191" width="35" height="14" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="132.5" y="184" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RG 100 Ом</text>
+
+  <!-- Wire after RG to Gate Node -->
+  <line x1="150" y1="198" x2="225" y2="198" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="185" cy="198" r="3" fill="#1a1a1a"/>
+
+  <!-- Pull-down Resistor RPD (10 kOhm) -->
+  <line x1="185" y1="198" x2="185" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="178" y="220" width="14" height="35" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="185" y1="255" x2="185" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="185" cy="295" r="3" fill="#1a1a1a"/>
+  <text x="170" y="234" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">RPD</text>
+  <text x="170" y="248" font-size="12" fill="#6b7280" text-anchor="end">10 кОм</text>
+
+  <!-- N-MOSFET (Q1) Symbol -->
+  <!-- Gate Plate -->
+  <line x1="225" y1="188" x2="225" y2="208" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Channel Bar -->
+  <line x1="231" y1="188" x2="231" y2="208" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="227,198 234,195 234,201" fill="#1a1a1a"/>
+  <!-- Drain Terminal -->
+  <line x1="231" y1="190" x2="255" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="255" y1="188" x2="255" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Source Terminal -->
+  <line x1="231" y1="206" x2="255" y2="206" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="255" y1="206" x2="255" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="255" cy="295" r="3" fill="#1a1a1a"/>
+
+  <!-- MOSFET Label -->
+  <text x="262" y="196" font-size="12" font-weight="bold" fill="#1a1a1a">Q1: IRLML2502</text>
+  <text x="262" y="210" font-size="12" fill="#2457d6">N-канал</text>
+  <text x="262" y="224" font-size="12" fill="#6b7280">Vth &lt; 1.2 В</text>
+
+  <!-- Ground Rail and Symbol -->
+  <line x1="160" y1="295" x2="360" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="255" y1="295" x2="255" y2="308" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="247" y1="308" x2="263" y2="308" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="250" y1="312" x2="260" y2="312" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="253" y1="316" x2="257" y2="316" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="255" y="334" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- Left Panel Bottom Callout: Key Takeaways -->
+  <rect x="45" y="344" width="350" height="82" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="55" y="362" font-size="12" font-weight="bold" fill="#2457d6">ОСОБЛИВОСТІ КЕРУВАННЯ ЧЕРЕЗ N-MOSFET:</text>
+  <text x="55" y="380" font-size="12" fill="#1a1a1a">• Low-side комутує мінус живлення лазера</text>
+  <text x="55" y="396" font-size="12" fill="#6b7280">• RG обмежує імпульсний струм виводу GPIO</text>
+  <text x="55" y="412" font-size="12" fill="#6b7280">• RPD утримує затвор закритим при ресеті МК</text>
+
+  <!-- Right Panel: Oscillogram / Timing Diagram -->
+  <rect x="430" y="72" width="500" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="450" y="92" font-size="12" font-weight="bold" fill="#6b7280">ОСЦИЛОГРАМА ПЕРЕХІДНОГО ПРОЦЕСУ ВМИКАННЯ</text>
+
+  <!-- Turn-on Trigger Marker Line (t0) -->
+  <text x="560" y="108" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">t0 (Увімкнення)</text>
+  <line x1="560" y1="114" x2="560" y2="315" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Channel 1: V_GS (Gate Voltage) -->
+  <text x="442" y="136" font-size="12" font-weight="bold" fill="#2457d6">V_GS</text>
+  <text x="442" y="150" font-size="12" fill="#6b7280">Затвор МК</text>
+  <line x1="515" y1="160" x2="800" y2="160" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 515,160 L 560,160 L 564,130 L 800,130" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <text x="808" y="134" font-size="12" font-weight="bold" fill="#2457d6">3.3 В (HIGH)</text>
+  <text x="808" y="164" font-size="12" fill="#6b7280">0 В (LOW)</text>
+
+  <!-- Channel 2: I_SUPPLY (Supply Current) -->
+  <text x="442" y="210" font-size="12" font-weight="bold" fill="#c0392b">I_SUPPLY</text>
+  <text x="442" y="224" font-size="12" fill="#6b7280">Струм I</text>
+  <line x1="515" y1="230" x2="800" y2="230" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 515,230 L 560,230 L 566,185 L 576,216 L 586,208 L 600,210 L 800,210" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <text x="572" y="180" font-size="12" font-weight="bold" fill="#c0392b">Імпульсний сплеск (заряд C_in)</text>
+  <text x="808" y="214" font-size="12" font-weight="bold" fill="#c0392b">30 мА (ном.)</text>
+  <text x="808" y="234" font-size="12" fill="#6b7280">0 мА</text>
+
+  <!-- Channel 3: P_OPT (Optical Power) -->
+  <text x="442" y="274" font-size="12" font-weight="bold" fill="#27ae60">P_OPT</text>
+  <text x="442" y="288" font-size="12" fill="#6b7280">Оптика</text>
+  <line x1="515" y1="300" x2="800" y2="300" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 515,300 L 620,300 Q 640,300 650,285 T 665,270 L 800,270" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <text x="808" y="274" font-size="12" font-weight="bold" fill="#27ae60">5 мВт (ном.)</text>
+  <text x="808" y="304" font-size="12" fill="#6b7280">0 мВт</text>
+
+  <!-- Turn-on Delay Marker Line and Dimension Arrow -->
+  <line x1="665" y1="260" x2="665" y2="322" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="562" y1="320" x2="663" y2="320" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="568,317 560,320 568,323" fill="#1a1a1a"/>
+  <polygon points="657,317 665,320 657,323" fill="#1a1a1a"/>
+  <text x="612.5" y="340" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">t_on = 10–50 мкс (затримка оптичного виходу)</text>
+
+  <!-- Right Panel Bottom Callout: Modulation Limit -->
+  <rect x="445" y="356" width="470" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="455" y="374" font-size="12" font-weight="bold" fill="#c0392b">ІНЖЕНЕРНИЙ ВИСНОВОК ЩОДО ДИНАМІКИ МОДУЛЯЦІЇ:</text>
+  <text x="455" y="392" font-size="12" fill="#1a1a1a">• Через t_on = 10–50 мкс гранична частота ШІМ: f_PWM &le; 1–2 кГц</text>
+  <text x="455" y="410" font-size="12" fill="#6b7280">• При f &gt; 10 кГц промінь спотворюється, а кристал деградує від сплесків</text>
+</svg>

@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-rev-blue" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L1,4 L7,7 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Схема калібрування за еталонним сходинковим калібром (Step Gauge)</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Прив'язка оптичного зміщення лазерної лінії на матриці камери (пікселі) до фізичної висоти рельєфу (міліметри)</text>
+  <rect x="25" y="66" width="475" height="274" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="262" y="88" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">1. Фізичний стенд: калібр та лазерна тріангуляція</text>
+  <rect x="40" y="285" width="445" height="20" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="45" y="322" font-size="12" font-weight="700" fill="#6b7280">Базовий стіл сканера (Z = 0 мм)</text>
+  <text x="475" y="322" text-anchor="end" font-size="12" fill="#1a1a1a">Зсув: Delta_X = Delta_Z · tan(theta)</text>
+  <rect x="70" y="281" width="85" height="4" fill="#2457d6"/>
+  <text x="112" y="300" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">H0: 0 мм</text>
+  <rect x="165" y="255" width="85" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="207" y="274" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">H1: 2 мм</text>
+  <rect x="260" y="215" width="85" height="70" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="302" y="254" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">H2: 5 мм</text>
+  <rect x="355" y="155" width="85" height="130" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="397" y="224" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">H3: 10 мм</text>
+  <rect x="45" y="102" width="65" height="26" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="77" y="119" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Лазер</text>
+  <rect x="240" y="102" width="75" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="277" y="119" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Камера</text>
+  <line x1="277" y1="128" x2="277" y2="205" stroke="#2457d6" stroke-dasharray="4,3" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="283" y="145" font-size="12" fill="#2457d6">Оптична вісь</text>
+  <line x1="77" y1="128" x2="375" y2="155" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <line x1="77" y1="128" x2="290" y2="215" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <line x1="77" y1="128" x2="200" y2="255" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <line x1="77" y1="128" x2="112" y2="281" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <text x="120" y="119" font-size="12" font-weight="700" fill="#c0392b">Кут theta</text>
+  <rect x="515" y="66" width="420" height="274" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="725" y="88" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">2. Відгук матриці камери та масштаб k_z</text>
+  <rect x="535" y="102" width="340" height="118" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+  <text x="545" y="119" font-size="12" font-weight="700" fill="#94a3b8">Кадр сенсора (u, v)</text>
+  <line x1="555" y1="200" x2="615" y2="200" stroke="#ff4444" stroke-width="3"/>
+  <text x="585" y="195" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">v0 (0 мм)</text>
+  <line x1="630" y1="175" x2="690" y2="175" stroke="#ff4444" stroke-width="3"/>
+  <text x="660" y="170" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">v1 (2 мм)</text>
+  <line x1="705" y1="148" x2="765" y2="148" stroke="#ff4444" stroke-width="3"/>
+  <text x="735" y="143" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">v2 (5 мм)</text>
+  <line x1="780" y1="118" x2="840" y2="118" stroke="#ff4444" stroke-width="3"/>
+  <text x="810" y="133" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">v3 (10 мм)</text>
+  <line x1="855" y1="200" x2="855" y2="118" stroke="#38bdf8" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="885" y="165" font-size="12" font-weight="700" fill="#2457d6">Delta_v</text>
+  <rect x="535" y="230" width="380" height="98" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="550" y="250" font-size="12" font-weight="700" fill="#2457d6">Калібрувальна формула: Delta_Z = Delta_v / k_z</text>
+  <text x="550" y="270" font-size="12" fill="#1a1a1a">• Масштабний коефіцієнт: k_z = 42.5 px/мм (1 px = 23.5 мкм)</text>
+  <text x="550" y="290" font-size="12" fill="#1a1a1a">• Зсуви: Delta_v1 = 85 px (2 мм), Delta_v3 = 425 px (10 мм)</text>
+  <text x="550" y="312" font-size="12" font-weight="700" fill="#27ae60">• Субпіксельний крок COG (0.05 px) дає роздільність 1.2 мкм</text>
+  <rect x="25" y="352" width="470" height="94" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="372" font-size="13" font-weight="700" fill="#2457d6">Регламент калібрування за сходинковим еталоном</text>
+  <text x="40" y="392" font-size="12" fill="#1a1a1a">1. Встановлення: еталон базується паралельно осі сканування на столі.</text>
+  <text x="40" y="412" font-size="12" fill="#1a1a1a">2. Зйомка: фіксація кадру з 4 сходинками (0, 2, 5, 10 мм) за робочої експозиції.</text>
+  <text x="40" y="432" font-size="12" fill="#1a1a1a">3. Обробка: розрахунок координати центру v_i на кожній сходинці через COG.</text>
+  <rect x="510" y="352" width="425" height="94" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="525" y="372" font-size="13" font-weight="700" fill="#27ae60">Компенсація оптичної дисторсії лінзи</text>
+  <text x="525" y="392" font-size="12" fill="#1a1a1a">• Лінійна модель k_z точна в центральній зоні матриці (R² &gt; 0.9998).</text>
+  <text x="525" y="412" font-size="12" fill="#1a1a1a">• По краях кадру застосовується поліном: Z = a·v² + b·v + c.</text>
+  <text x="525" y="432" font-size="12" fill="#6b7280">Похибка відновлення висоти рельєфу не перевищує ±5 мкм.</text>
+</svg>

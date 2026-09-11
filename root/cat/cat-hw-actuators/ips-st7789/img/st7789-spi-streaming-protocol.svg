@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Тло полотна -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Часова діаграма SPI для ST7789: адресація вікна та потоковий DMA-вивід</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Фіксація D/C = 1 після RAMWR переводить шину в режим суцільного потоку RGB565 без пауз процесора</text>
+
+  <!-- Заголовки зон фаз -->
+  <rect x="125" y="68" width="415" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="332" y="84" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Фаза адресації вікна: CASET, RASET, RAMWR</text>
+
+  <rect x="555" y="68" width="380" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="745" y="84" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Фаза потокової передачі DMA (Streaming Burst)</text>
+
+  <!-- Розділювач між фазами -->
+  <line x1="547" y1="68" x2="547" y2="332" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1.5"/>
+
+  <!-- Назви сигнальних ліній SPI -->
+  <text x="110" y="118" font-size="13" font-weight="bold" text-anchor="end" fill="#1a1a1a">CS</text>
+  <text x="110" y="132" font-size="12" text-anchor="end" fill="#6b7280">вибір</text>
+
+  <text x="110" y="168" font-size="13" font-weight="bold" text-anchor="end" fill="#1a1a1a">SCK</text>
+  <text x="110" y="182" font-size="12" text-anchor="end" fill="#6b7280">40 МГц</text>
+
+  <text x="110" y="216" font-size="13" font-weight="bold" text-anchor="end" fill="#1a1a1a">D/C</text>
+  <text x="110" y="230" font-size="12" text-anchor="end" fill="#6b7280">1=D, 0=C</text>
+
+  <text x="110" y="276" font-size="13" font-weight="bold" text-anchor="end" fill="#1a1a1a">MOSI</text>
+  <text x="110" y="290" font-size="12" text-anchor="end" fill="#6b7280">TX дані</text>
+
+  <!-- Сигнал 1: CS (Chip Select) -->
+  <path d="M 115 104 L 125 104 L 125 128 L 935 128" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="332" y="122" font-size="12" text-anchor="middle" fill="#27ae60">CS = 0 (активний рівень команди)</text>
+  <text x="745" y="122" font-size="12" text-anchor="middle" fill="#27ae60">CS = 0 (утримується активним)</text>
+
+  <!-- Сигнал 2: SCK (Serial Clock) -->
+  <path d="M 115 180 L 125 180 L 125 158 L 129.0 158 L 129.0 180 L 133 180 L 133 158 L 137.0 158 L 137.0 180 L 141 180 L 141 158 L 145.0 158 L 145.0 180 L 149 180 L 149 158 L 153.0 158 L 153.0 180 L 157 180 L 157 158 L 161.0 158 L 161.0 180 L 165 180 L 167 180 L 167 158 L 171.0 158 L 171.0 180 L 175 180 L 175 158 L 179.0 158 L 179.0 180 L 183 180 L 183 158 L 187.0 158 L 187.0 180 L 191 180 L 191 158 L 195.0 158 L 195.0 180 L 199 180 L 199 158 L 203.0 158 L 203.0 180 L 207 180 L 207 158 L 211.0 158 L 211.0 180 L 215 180 L 215 158 L 219.0 158 L 219.0 180 L 223 180 L 223 158 L 227.0 158 L 227.0 180 L 231 180 L 231 158 L 235.0 158 L 235.0 180 L 239 180 L 239 158 L 243.0 158 L 243.0 180 L 247 180 L 247 158 L 251.0 158 L 251.0 180 L 255 180 L 255 158 L 259.0 158 L 259.0 180 L 263 180 L 263 158 L 267.0 158 L 267.0 180 L 271 180 L 271 158 L 275.0 158 L 275.0 180 L 279 180 L 279 158 L 283.0 158 L 283.0 180 L 287 180 L 287 158 L 291.0 158 L 291.0 180 L 295 180 L 295 158 L 299.0 158 L 299.0 180 L 303 180 L 307 180 L 313 180 L 313 158 L 317.0 158 L 317.0 180 L 321 180 L 321 158 L 325.0 158 L 325.0 180 L 329 180 L 329 158 L 333.0 158 L 333.0 180 L 337 180 L 337 158 L 341.0 158 L 341.0 180 L 345 180 L 345 158 L 349.0 158 L 349.0 180 L 353 180 L 355 180 L 355 158 L 359.0 158 L 359.0 180 L 363 180 L 363 158 L 367.0 158 L 367.0 180 L 371 180 L 371 158 L 375.0 158 L 375.0 180 L 379 180 L 379 158 L 383.0 158 L 383.0 180 L 387 180 L 387 158 L 391.0 158 L 391.0 180 L 395 180 L 395 158 L 399.0 158 L 399.0 180 L 403 180 L 403 158 L 407.0 158 L 407.0 180 L 411 180 L 411 158 L 415.0 158 L 415.0 180 L 419 180 L 419 158 L 423.0 158 L 423.0 180 L 427 180 L 427 158 L 431.0 158 L 431.0 180 L 435 180 L 435 158 L 439.0 158 L 439.0 180 L 443 180 L 443 158 L 447.0 158 L 447.0 180 L 451 180 L 451 158 L 455.0 158 L 455.0 180 L 459 180 L 459 158 L 463.0 158 L 463.0 180 L 467 180 L 467 158 L 471.0 158 L 471.0 180 L 475 180 L 475 158 L 479.0 158 L 479.0 180 L 483 180 L 483 158 L 487.0 158 L 487.0 180 L 491 180 L 495 180 L 501 180 L 501 158 L 505.0 158 L 505.0 180 L 509 180 L 509 158 L 513.0 158 L 513.0 180 L 517 180 L 517 158 L 521.0 158 L 521.0 180 L 525 180 L 525 158 L 529.0 158 L 529.0 180 L 533 180 L 533 158 L 537.0 158 L 537.0 180 L 541 180 L 545 180 L 555 180" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 555 180 L 555 158 L 559.0 158 L 559.0 180 L 563 180 L 563 158 L 567.0 158 L 567.0 180 L 571 180 L 571 158 L 575.0 158 L 575.0 180 L 579 180 L 579 158 L 583.0 158 L 583.0 180 L 587 180 L 587 158 L 591.0 158 L 591.0 180 L 595 180 L 595 158 L 599.0 158 L 599.0 180 L 603 180 L 603 158 L 607.0 158 L 607.0 180 L 611 180 L 611 158 L 615.0 158 L 615.0 180 L 619 180 L 619 158 L 623.0 158 L 623.0 180 L 627 180 L 627 158 L 631.0 158 L 631.0 180 L 635 180 L 635 158 L 639.0 158 L 639.0 180 L 643 180 L 643 158 L 647.0 158 L 647.0 180 L 651 180 L 651 158 L 655.0 158 L 655.0 180 L 659 180 L 659 158 L 663.0 158 L 663.0 180 L 667 180 L 667 158 L 671.0 158 L 671.0 180 L 675 180 L 675 158 L 679.0 158 L 679.0 180 L 683 180 L 683 158 L 687.0 158 L 687.0 180 L 691 180 L 691 158 L 695.0 158 L 695.0 180 L 699 180 L 699 158 L 703.0 158 L 703.0 180 L 707 180 L 707 158 L 711.0 158 L 711.0 180 L 715 180 L 715 158 L 719.0 158 L 719.0 180 L 723 180 L 723 158 L 727.0 158 L 727.0 180 L 731 180 L 731 158 L 735.0 158 L 735.0 180 L 739 180 L 739 158 L 743.0 158 L 743.0 180 L 747 180 L 747 158 L 751.0 158 L 751.0 180 L 755 180 L 755 158 L 759.0 158 L 759.0 180 L 763 180 L 763 158 L 767.0 158 L 767.0 180 L 771 180 L 771 158 L 775.0 158 L 775.0 180 L 779 180 L 779 158 L 783.0 158 L 783.0 180 L 787 180 L 787 158 L 791.0 158 L 791.0 180 L 795 180 L 795 158 L 799.0 158 L 799.0 180 L 803 180 L 803 158 L 807.0 158 L 807.0 180 L 811 180 L 811 158 L 815.0 158 L 815.0 180 L 819 180 L 819 158 L 823.0 158 L 823.0 180 L 827 180 L 827 158 L 831.0 158 L 831.0 180 L 835 180 L 835 158 L 839.0 158 L 839.0 180 L 843 180 L 843 158 L 847.0 158 L 847.0 180 L 851 180 L 851 158 L 855.0 158 L 855.0 180 L 859 180 L 859 158 L 863.0 158 L 863.0 180 L 867 180 L 867 158 L 871.0 158 L 871.0 180 L 875 180 L 875 158 L 879.0 158 L 879.0 180 L 883 180 L 883 158 L 887.0 158 L 887.0 180 L 891 180 L 891 158 L 895.0 158 L 895.0 180 L 899 180 L 899 158 L 903.0 158 L 903.0 180 L 907 180 L 907 158 L 911.0 158 L 911.0 180 L 915 180 L 915 158 L 919.0 158 L 919.0 180 L 923 180 L 923 158 L 927.0 158 L 927.0 180 L 931 180 L 935 180" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="745" y="152" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Такти 40 МГц без пауз (0 wait-states)</text>
+
+  <!-- Сигнал 3: D/C (Data / Command) -->
+  <path d="M 115 224 L 125 224 L 167 224 L 167 202 L 307 202 L 307 224 L 355 224 L 355 202 L 495 202 L 495 224 L 545 224 L 555 202" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 555 202 L 935 202" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="146" y="238" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">0 (CMD)</text>
+  <text x="237" y="196" font-size="12" text-anchor="middle" fill="#6b7280">1 (DATA)</text>
+  <text x="334" y="238" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">0 (CMD)</text>
+  <text x="425" y="196" font-size="12" text-anchor="middle" fill="#6b7280">1 (DATA)</text>
+  <text x="523" y="238" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">0 (CMD)</text>
+  <text x="745" y="196" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">D/C = 1 (фіксовано на час потоку DMA)</text>
+
+  <!-- Сигнал 4: MOSI (TX дані) -->
+  <text x="146" y="256" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">CASET</text>
+  <rect x="125" y="262" width="42" height="28" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="146" y="280" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">0x2A</text>
+  <text x="237" y="256" font-size="12" text-anchor="middle" fill="#6b7280">Межі X (4B)</text>
+  <rect x="167" y="262" width="35" height="28" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="184.5" y="280" font-size="12" text-anchor="middle" fill="#1a1a1a">XS_H</text>
+  <rect x="202" y="262" width="35" height="28" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="219.5" y="280" font-size="12" text-anchor="middle" fill="#1a1a1a">XS_L</text>
+  <rect x="237" y="262" width="35" height="28" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="254.5" y="280" font-size="12" text-anchor="middle" fill="#1a1a1a">XE_H</text>
+  <rect x="272" y="262" width="35" height="28" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="289.5" y="280" font-size="12" text-anchor="middle" fill="#1a1a1a">XE_L</text>
+  <text x="334" y="256" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">RASET</text>
+  <rect x="313" y="262" width="42" height="28" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="334" y="280" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">0x2B</text>
+  <text x="425" y="256" font-size="12" text-anchor="middle" fill="#6b7280">Межі Y (4B)</text>
+  <rect x="355" y="262" width="35" height="28" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="372.5" y="280" font-size="12" text-anchor="middle" fill="#1a1a1a">YS_H</text>
+  <rect x="390" y="262" width="35" height="28" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="407.5" y="280" font-size="12" text-anchor="middle" fill="#1a1a1a">YS_L</text>
+  <rect x="425" y="262" width="35" height="28" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="442.5" y="280" font-size="12" text-anchor="middle" fill="#1a1a1a">YE_H</text>
+  <rect x="460" y="262" width="35" height="28" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="477.5" y="280" font-size="12" text-anchor="middle" fill="#1a1a1a">YE_L</text>
+  <text x="523" y="256" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">RAMWR</text>
+  <rect x="501" y="262" width="44" height="28" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="523" y="280" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">0x2C</text>
+  <text x="216" y="306" font-size="12" text-anchor="middle" fill="#6b7280">Колонки 0..239</text>
+  <text x="404" y="306" font-size="12" text-anchor="middle" fill="#6b7280">Рядки 0..239</text>
+  <text x="523" y="306" font-size="12" text-anchor="middle" fill="#c0392b">Запис</text>
+  <text x="745" y="256" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Потік байтів RGB565 через DMA (без пауз)</text>
+  <rect x="555" y="262" width="36" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="573" y="280" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">P0_H</text>
+  <rect x="591" y="262" width="36" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="609" y="280" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">P0_L</text>
+  <text x="591" y="306" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Піксель 0</text>
+  <rect x="627" y="262" width="36" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="645" y="280" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">P1_H</text>
+  <rect x="663" y="262" width="36" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="681" y="280" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">P1_L</text>
+  <text x="663" y="306" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Піксель 1</text>
+  <rect x="699" y="262" width="36" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="717" y="280" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">P2_H</text>
+  <rect x="735" y="262" width="36" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="753" y="280" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">P2_L</text>
+  <text x="735" y="306" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Піксель 2</text>
+  <rect x="771" y="262" width="36" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="789" y="280" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">P3_H</text>
+  <rect x="807" y="262" width="36" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="825" y="280" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">P3_L</text>
+  <text x="807" y="306" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Піксель 3</text>
+  <rect x="843" y="262" width="92" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="889" y="280" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">... потік</text>
+  <text x="889" y="306" font-size="12" text-anchor="middle" fill="#27ae60">0 пауз ЦП</text>
+
+  <!-- Стрілка деталізації від Пікселя 0 до нижнього блоку -->
+  <line x1="591" y1="312" x2="591" y2="336" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Нижні інформаційні панелі -->
+  <rect x="25" y="342" width="445" height="118" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="25" y="342" width="445" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="247" y="358" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Адресація вікна та перемикання D/C</text>
+  <text x="38" y="378" font-size="12" fill="#1a1a1a">1. CASET (0x2A): межі колонок [XS_H, XS_L, XE_H, XE_L]</text>
+  <text x="38" y="394" font-size="12" fill="#1a1a1a">2. RASET (0x2B): межі рядків [YS_H, YS_L, YE_H, YE_L]</text>
+  <text x="38" y="410" font-size="12" fill="#1a1a1a">3. RAMWR (0x2C): перехід покажчика пам'яті на початок</text>
+  <text x="38" y="426" font-size="12" fill="#27ae60">4. D/C = 1: фіксація режиму даних на весь потік DMA</text>
+  <text x="38" y="442" font-size="12" fill="#6b7280">Ядро ЦП вільне від попіксельного керування GPIO</text>
+  <text x="38" y="454" font-size="12" fill="#6b7280">Апаратний SPI передає байти без програмних затримок</text>
+
+  <rect x="485" y="342" width="450" height="118" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="485" y="342" width="450" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="710" y="358" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Деталізація 16-біт пари RGB565 на MOSI</text>
+  <text x="600" y="376" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Старший байт MSB (Pn_H)</text>
+  <rect x="505" y="382" width="115" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="562" y="397" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">R[4:0] (5 біт)</text>
+  <rect x="625" y="382" width="75" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="662" y="397" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">G[5:3] 3б</text>
+  <text x="820" y="376" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Молодший байт LSB (Pn_L)</text>
+  <rect x="720" y="382" width="75" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="757" y="397" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">G[2:0] 3б</text>
+  <rect x="800" y="382" width="115" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="857" y="397" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">B[4:0] (5 біт)</text>
+  <text x="710" y="418" font-size="12" text-anchor="middle" fill="#1a1a1a">Порядок байтів: Big-Endian (Pn_H іде шиною першим)</text>
+  <text x="710" y="434" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">DMA передає потік байтів без затримок ядра ЦП</text>
+  <text x="710" y="450" font-size="12" text-anchor="middle" fill="#6b7280">Кадр 240x240 (115 200 B) при 40 МГц виводиться за 23 мс</text>
+</svg>

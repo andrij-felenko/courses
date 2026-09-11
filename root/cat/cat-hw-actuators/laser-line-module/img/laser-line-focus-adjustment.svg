@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ==================== ЗАГОЛОВОК ТА ПІДЗАГОЛОВОК ==================== -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Вузол фокусування лазерного лінійного модуля: конструкція та налаштування</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Різьбове юстування тубуса лінзи формує перетяжку пучка (мінімальну ширину лінії) у робочій площині</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ОПТИЧНА СХЕМА ==================== -->
+  <rect x="25" y="65" width="520" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="88" font-size="13" font-weight="700" fill="#1a1a1a">Конструкція різьбового тубуса та оптичний тракт</text>
+
+  <!-- Корпус лазерного модуля (стінки корпусу) -->
+  <rect x="55" y="150" width="145" height="12" fill="#e1e4e8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="55" y="228" width="145" height="12" fill="#e1e4e8" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Різьба тубуса фокусування M9x0.5 -->
+  <line x1="85" y1="156" x2="155" y2="156" stroke="#6b7280" stroke-width="2" stroke-dasharray="2,2"/>
+  <line x1="85" y1="234" x2="155" y2="234" stroke="#6b7280" stroke-width="2" stroke-dasharray="2,2"/>
+  <text x="120" y="145" text-anchor="middle" font-size="12" fill="#6b7280">Різьба M9×0.5</text>
+
+  <!-- Стрілка обертання тубуса (+/- delta z) -->
+  <line x1="165" y1="138" x2="195" y2="138" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="180" y="130" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">±Δz</text>
+
+  <!-- Лазерний діод (LD) -->
+  <rect x="55" y="170" width="18" height="50" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="64" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Діод</text>
+
+  <!-- Пружина вибірки люфту -->
+  <polyline points="75,178 80,172 85,178 90,172 95,178 100,172 105,178" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+  <polyline points="75,212 80,218 85,212 90,218 95,212 100,218 105,212" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+
+  <!-- Коліматорна асферична лінза -->
+  <ellipse cx="135" cy="195" rx="7" ry="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="135" y="258" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Коліматор</text>
+
+  <!-- Циліндрична лінза (розгортка лінії) -->
+  <rect x="190" y="174" width="8" height="42" rx="1" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="194" y="274" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Циліндр. лінза</text>
+
+  <!-- Хід лазерних променів: -->
+  <!-- 1. Від діода до коліматора (розбіжний) -->
+  <polygon points="73,195 135,175 135,215" fill="#fdecea" fill-opacity="0.6"/>
+  <line x1="73" y1="195" x2="135" y2="175" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="73" y1="195" x2="135" y2="215" stroke="#c0392b" stroke-width="1.2"/>
+
+  <!-- 2. Між коліматором і циліндричною лінзою (збіжний) -->
+  <polygon points="135,175 190,180 190,210 135,215" fill="#fdecea" fill-opacity="0.6"/>
+  <line x1="135" y1="175" x2="190" y2="180" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="135" y1="215" x2="190" y2="210" stroke="#c0392b" stroke-width="1.2"/>
+
+  <!-- 3. Від виходу модуля до площини перетяжки x=420 і далі -->
+  <polygon points="198,181 420,192 510,180 510,210 420,198 198,209" fill="#fdecea" fill-opacity="0.5"/>
+  <line x1="198" y1="181" x2="420" y2="192" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="420" y1="192" x2="510" y2="180" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="198" y1="209" x2="420" y2="198" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="420" y1="198" x2="510" y2="210" stroke="#c0392b" stroke-width="1.2"/>
+
+  <!-- Оптична вісь Z -->
+  <line x1="50" y1="195" x2="520" y2="195" stroke="#1a1a1a" stroke-width="1.2" stroke-dasharray="6,3,2,3"/>
+
+  <!-- Площина фокуса (вимірювальна площина) -->
+  <line x1="420" y1="146" x2="420" y2="295" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,4"/>
+  <text x="420" y="125" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Площина фокуса</text>
+  <text x="420" y="140" text-anchor="middle" font-size="12" fill="#27ae60">(перетяжка w₀)</text>
+
+  <!-- Підпис мінімальної ширини лінії 2w0 -->
+  <text x="430" y="215" font-size="12" font-weight="700" fill="#c0392b">2w₀ (мін.)</text>
+
+  <!-- Робоча відстань d (фокусна дистанція) -->
+  <line x1="198" y1="288" x2="420" y2="288" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="309" y="283" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Робоча відстань d (фокус)</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ГРАФІК ТА ЮСТУВАННЯ ==================== -->
+  <rect x="560" y="65" width="375" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="580" y="88" font-size="13" font-weight="700" fill="#1a1a1a">Графік ширини лінії від відстані та юстування</text>
+
+  <!-- Осі графіка -->
+  <!-- Вісь X: відстань z -->
+  <line x1="620" y1="210" x2="905" y2="210" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="905" y="205" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">z (відстань)</text>
+
+  <!-- Вісь Y: ширина лінії W -->
+  <line x1="620" y1="210" x2="620" y2="105" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="615" y="105" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">Ширина W</text>
+
+  <!-- Крива ширини лінії W(z) з мінімумом у фокусі -->
+  <path d="M 640,125 Q 750,225 860,125" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+
+  <!-- Позначення кінців кривої (широка лінія) -->
+  <text x="640" y="118" font-size="12" fill="#6b7280">Широка смуга</text>
+  <text x="860" y="118" text-anchor="end" font-size="12" fill="#6b7280">Широка смуга</text>
+
+  <!-- Точний фокус (мінімум перетяжки) -->
+  <circle cx="750" cy="175" r="4" fill="#27ae60"/>
+  <line x1="750" y1="175" x2="750" y2="210" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <text x="750" y="165" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Мінімум (2w₀)</text>
+
+  <!-- Позначки станів фокусу на осі X -->
+  <text x="665" y="225" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Недофокус</text>
+  <text x="750" y="225" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">z_фокус</text>
+  <text x="835" y="225" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Перефокус</text>
+
+  <!-- Картка методики юстування -->
+  <rect x="575" y="240" width="345" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="590" y="260" font-size="12" font-weight="700" fill="#2457d6">Методика юстування лазерної лінії:</text>
+  <text x="590" y="280" font-size="12" fill="#1a1a1a">1. Обертати тубус коліматора до мінімізації</text>
+  <text x="590" y="296" font-size="12" fill="#1a1a1a">    товщини лінії на матриці камери (COG).</text>
+  <text x="590" y="316" font-size="12" fill="#6b7280">2. Фіксація: контргайка або крапля фіксатора</text>
+  <text x="590" y="332" font-size="12" fill="#6b7280">    різьби усуває люфт пружини від вібрацій.</text>
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: ВИСНОВКИ ==================== -->
+  <rect x="25" y="370" width="910" height="75" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="392" font-size="12" font-weight="700" fill="#1a1a1a">Ключові висновки для оптичного налаштування модуля лінії:</text>
+  <text x="45" y="412" font-size="12" fill="#6b7280">1. Роздільне формування осей: коліматор фокусує товщину лінії (Slow/Fast axis), а циліндрична лінза розгортає промінь у широке віяло.</text>
+  <text x="45" y="430" font-size="12" fill="#6b7280">2. Критерій якості: мінімальна ширина лінії (перетяжка 2w₀ ≈ 60–100 мкм) досягається суворо в обраній робочій площині тріангуляції.</text>
+</svg>

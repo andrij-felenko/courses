@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вплив узгодження лінії SCL (40 МГц) на форму сигналу</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Послідовний резистор 33 Ом усуває відбиття та хибне спрацьовування вхідного тригера</text>
+
+  <!-- ==================== LEFT PANEL (Rs = 0 Ohm) ==================== -->
+  <rect x="30" y="76" width="440" height="384" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Header badge -->
+  <rect x="42" y="88" width="416" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="250" y="108" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Без узгодження (Rs = 0 Ом) — хибне тактування</text>
+
+  <!-- Line condition bar -->
+  <rect x="42" y="130" width="416" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="149" font-size="12" fill="#6b7280" text-anchor="middle">MCU (Rвих ≈ 17 Ом) → шлейф Z₀ ≈ 50 Ом → ST7789 (Γ ≈ +1)</text>
+
+  <!-- Oscilloscope display -->
+  <rect x="42" y="170" width="416" height="212" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Screen title bar -->
+  <rect x="42" y="170" width="416" height="24" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="186" font-size="12" font-weight="bold" fill="#1a1a1a">CH1: SCL (40 МГц)</text>
+  <text x="446" y="186" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Викид: +4.9 В</text>
+
+  <!-- Y-axis line -->
+  <line x1="94" y1="206" x2="94" y2="356" stroke="#d0d7de" stroke-width="1"/>
+  <!-- GND line -->
+  <line x1="94" y1="356" x2="444" y2="356" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Y-axis labels -->
+  <text x="86" y="210" font-size="12" fill="#6b7280" text-anchor="end">+5.0 В</text>
+  <text x="86" y="261" font-size="12" fill="#2457d6" text-anchor="end">3.3 В</text>
+  <text x="86" y="291" font-size="12" fill="#c0392b" text-anchor="end">2.3 В</text>
+  <text x="86" y="360" font-size="12" fill="#6b7280" text-anchor="end">0.0 В</text>
+
+  <!-- Threshold dashed lines -->
+  <line x1="94" y1="257" x2="310" y2="257" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="316" y="261" font-size="12" font-weight="bold" fill="#2457d6">VDD = 3.3 В</text>
+
+  <line x1="94" y1="287" x2="300" y2="287" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="306" y="291" font-size="12" font-weight="bold" fill="#c0392b">Поріг VIH = 2.3 В</text>
+
+  <!-- Waveform with ringing and dip below VIH -->
+  <path d="M 94,356 L 126,356 C 132,356 136,250 144,209 C 152,170 160,270 170,298 C 176,310 182,306 188,290 C 194,270 198,242 206,242 C 214,242 218,270 226,270 C 234,270 238,254 246,254 C 254,254 258,257 264,257 L 270,257 C 274,257 278,356 286,356 L 414,356 C 420,356 424,250 432,209" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Marker circle at false trigger point (second VIH crossing) -->
+  <circle cx="188" cy="290" r="4" fill="#c0392b"/>
+
+  <!-- Arrow pointing to false trigger point -->
+  <line x1="198" y1="314" x2="191" y2="297" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Callout badge for false clock -->
+  <rect x="150" y="316" width="112" height="24" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="206" y="332" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Хибний 2-й такт!</text>
+
+  <!-- Time axis ticks -->
+  <line x1="114" y1="356" x2="114" y2="360" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="174" y1="356" x2="174" y2="360" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="234" y1="356" x2="234" y2="360" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="294" y1="356" x2="294" y2="360" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="354" y1="356" x2="354" y2="360" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="414" y1="356" x2="414" y2="360" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Time labels -->
+  <text x="114" y="376" font-size="12" fill="#6b7280" text-anchor="middle">0 нс</text>
+  <text x="174" y="376" font-size="12" fill="#6b7280" text-anchor="middle">5 нс</text>
+  <text x="234" y="376" font-size="12" fill="#6b7280" text-anchor="middle">10 нс</text>
+  <text x="294" y="376" font-size="12" fill="#6b7280" text-anchor="middle">15 нс</text>
+  <text x="354" y="376" font-size="12" fill="#6b7280" text-anchor="middle">20 нс</text>
+  <text x="414" y="376" font-size="12" fill="#6b7280" text-anchor="middle">25 нс</text>
+
+  <!-- Left footer box -->
+  <rect x="42" y="394" width="416" height="52" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="250" y="414" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Повторний перетин порогу VIH сприймається як фальшивий такт</text>
+  <text x="250" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">Наслідок: зсув бітів у SPI, артефакти та спотворення графіки</text>
+
+  <!-- ==================== RIGHT PANEL (Rs = 33 Ohm) ==================== -->
+  <rect x="490" y="76" width="440" height="384" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Header badge -->
+  <rect x="502" y="88" width="416" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="108" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">З термінатором (Rs = 33 Ом) — норма</text>
+
+  <!-- Line condition bar -->
+  <rect x="502" y="130" width="416" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="149" font-size="12" fill="#6b7280" text-anchor="middle">MCU + демпфер Rs = 33 Ом: Rсум ≈ 50 Ом = Z₀ (відбиття усунуто)</text>
+
+  <!-- Oscilloscope display -->
+  <rect x="502" y="170" width="416" height="212" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Screen title bar -->
+  <rect x="502" y="170" width="416" height="24" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="514" y="186" font-size="12" font-weight="bold" fill="#1a1a1a">CH1: SCL (40 МГц)</text>
+  <text x="906" y="186" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Фронт: tr ≈ 1.5 нс</text>
+
+  <!-- Y-axis line -->
+  <line x1="554" y1="206" x2="554" y2="356" stroke="#d0d7de" stroke-width="1"/>
+  <!-- GND line -->
+  <line x1="554" y1="356" x2="904" y2="356" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Y-axis labels -->
+  <text x="546" y="210" font-size="12" fill="#6b7280" text-anchor="end">+5.0 В</text>
+  <text x="546" y="261" font-size="12" fill="#2457d6" text-anchor="end">3.3 В</text>
+  <text x="546" y="291" font-size="12" fill="#6b7280" text-anchor="end">2.3 В</text>
+  <text x="546" y="360" font-size="12" fill="#6b7280" text-anchor="end">0.0 В</text>
+
+  <!-- Threshold dashed lines -->
+  <line x1="554" y1="257" x2="770" y2="257" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="776" y="261" font-size="12" font-weight="bold" fill="#2457d6">VDD = 3.3 В</text>
+
+  <line x1="554" y1="287" x2="760" y2="287" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="766" y="291" font-size="12" font-weight="bold" fill="#6b7280">Поріг VIH = 2.3 В</text>
+
+  <!-- Clean terminated waveform -->
+  <path d="M 554,356 L 586,356 C 592,356 596,265 604,257 C 608,257 612,257 616,257 L 724,257 C 730,257 734,350 742,356 C 746,356 750,356 754,356 L 874,356 C 880,356 884,265 892,257" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Marker circle at single legitimate edge -->
+  <circle cx="597" cy="287" r="4" fill="#27ae60"/>
+
+  <!-- Arrow pointing to single legitimate edge -->
+  <line x1="620" y1="314" x2="602" y2="294" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Callout badge for clean single edge -->
+  <rect x="610" y="316" width="112" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="666" y="332" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Одиночний такт</text>
+
+  <!-- Time axis ticks -->
+  <line x1="574" y1="356" x2="574" y2="360" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="634" y1="356" x2="634" y2="360" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="694" y1="356" x2="694" y2="360" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="754" y1="356" x2="754" y2="360" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="814" y1="356" x2="814" y2="360" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="874" y1="356" x2="874" y2="360" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Time labels -->
+  <text x="574" y="376" font-size="12" fill="#6b7280" text-anchor="middle">0 нс</text>
+  <text x="634" y="376" font-size="12" fill="#6b7280" text-anchor="middle">5 нс</text>
+  <text x="694" y="376" font-size="12" fill="#6b7280" text-anchor="middle">10 нс</text>
+  <text x="754" y="376" font-size="12" fill="#6b7280" text-anchor="middle">15 нс</text>
+  <text x="814" y="376" font-size="12" fill="#6b7280" text-anchor="middle">20 нс</text>
+  <text x="874" y="376" font-size="12" fill="#6b7280" text-anchor="middle">25 нс</text>
+
+  <!-- Right footer box -->
+  <rect x="502" y="394" width="416" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="414" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Демпфер поглинає відбиття: чистий фронт без шумів</text>
+  <text x="710" y="432" font-size="12" fill="#1a1a1a" text-anchor="middle">Результат: надійне тактування 40 МГц без спотворення кадрів</text>
+</svg>

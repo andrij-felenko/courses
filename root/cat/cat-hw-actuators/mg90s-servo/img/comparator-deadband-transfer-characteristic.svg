@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="27" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Передатна характеристика компаратора: зона нечутливості (Deadband)</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Залежність напруги H-моста від похибки Δt: нульовий струм у вікні [-T_db, +T_db] та межа дрижання (hunting)</text>
+
+  <!-- ======================================================== -->
+  <!-- ЛІВА ПАНЕЛЬ: Графік передатної характеристики            -->
+  <!-- ======================================================== -->
+  <rect x="24" y="66" width="536" height="378" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Зона нечутливості (deadband band) -->
+  <rect x="210" y="118" width="140" height="264" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+  <!-- Текстові пояснення всередині зони нечутливості -->
+  <text x="280" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ЗОНА НЕЧУТЛИВОСТІ</text>
+  <text x="280" y="156" text-anchor="middle" font-size="12" fill="#27ae60">|Δt| ≤ T_db (±5 мкс)</text>
+  <text x="280" y="172" text-anchor="middle" font-size="12" fill="#6b7280">Струм I = 0 (спокій)</text>
+  <text x="280" y="188" text-anchor="middle" font-size="12" fill="#6b7280">H-міст вимкнено</text>
+
+  <text x="280" y="310" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Захист від дрижання</text>
+  <text x="280" y="326" text-anchor="middle" font-size="12" fill="#6b7280">Блокує шум ШІМ</text>
+
+  <!-- Горизонтальна вісь X: похибка Δt (мкс) -->
+  <line x1="60" y1="250" x2="505" y2="250" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="510" y="254" font-size="12" font-weight="bold" fill="#1a1a1a">Δt (мкс)</text>
+
+  <!-- Засічки та мітки осі X -->
+  <line x1="90" y1="248" x2="90" y2="252" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="267" text-anchor="middle" font-size="12" fill="#1a1a1a">-20</text>
+
+  <line x1="210" y1="245" x2="210" y2="255" stroke="#27ae60" stroke-width="2"/>
+  <text x="205" y="242" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">-T_db (-5 мкс)</text>
+
+  <text x="272" y="267" text-anchor="end" font-size="12" fill="#1a1a1a">0</text>
+
+  <line x1="350" y1="245" x2="350" y2="255" stroke="#27ae60" stroke-width="2"/>
+  <text x="355" y="267" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">+T_db (+5 мкс)</text>
+
+  <line x1="470" y1="248" x2="470" y2="252" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="470" y="267" text-anchor="middle" font-size="12" fill="#1a1a1a">+20</text>
+
+  <!-- Вертикальна вісь Y: напруга V_motor (В) -->
+  <line x1="280" y1="390" x2="280" y2="95" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="280" y="85" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V_motor (В)</text>
+
+  <!-- Засічки осі Y -->
+  <line x1="276" y1="140" x2="284" y2="140" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="272" y="144" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">+5V</text>
+
+  <line x1="276" y1="360" x2="284" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="272" y="364" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">-5V</text>
+
+  <!-- Передатна характеристика компаратора / підсилювача -->
+  <polyline points="70,360 170,360 210,250 350,250 390,140 490,140" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Пояснювальні написи до робочих областей -->
+  <text x="440" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">+V_supply (+5 В)</text>
+  <text x="440" y="170" text-anchor="middle" font-size="12" fill="#2457d6">Обертання вперед (CW)</text>
+  <text x="440" y="186" text-anchor="middle" font-size="12" fill="#6b7280">100% ШІМ насичення</text>
+
+  <text x="120" y="380" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">-V_supply (-5 В)</text>
+  <text x="120" y="320" text-anchor="middle" font-size="12" fill="#2457d6">Обертання назад (CCW)</text>
+  <text x="120" y="336" text-anchor="middle" font-size="12" fill="#6b7280">Реверс H-моста</text>
+
+  <!-- ======================================================== -->
+  <!-- ПРАВА ЧАСТИНА: Пояснювальні інформаційні картки          -->
+  <!-- ======================================================== -->
+  <!-- Картка 1: Апаратна deadband -->
+  <rect x="580" y="66" width="356" height="114" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="594" y="88" font-size="13" font-weight="bold" fill="#27ae60">1. Апаратна зона нечутливості (Deadband):</text>
+  <text x="594" y="108" font-size="12" fill="#1a1a1a">• Вікно спокою: |Δt| ≤ T_db ≈ 1–5 мкс</text>
+  <text x="594" y="126" font-size="12" fill="#1a1a1a">• H-міст повністю закритий, струм I = 0</text>
+  <text x="594" y="144" font-size="12" fill="#1a1a1a">• Запобігає нагріву двигуна від шуму ШІМ</text>
+  <text x="594" y="162" font-size="12" fill="#1a1a1a">• Визначає мінімальний крок вала: Δθ_min</text>
+
+  <!-- Картка 2: Hunting та автоколивання -->
+  <rect x="580" y="194" width="356" height="118" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="594" y="216" font-size="13" font-weight="bold" fill="#c0392b">2. Ризик автоколивань (Hunting / дрижання):</text>
+  <text x="594" y="236" font-size="12" fill="#1a1a1a">• Якщо deadband завузька або є люфт зубів</text>
+  <text x="594" y="254" font-size="12" fill="#1a1a1a">• Мотор проскакує нуль через інерцію ротора</text>
+  <text x="594" y="272" font-size="12" fill="#1a1a1a">• Зворотний імпульс знову вмикає реверс</text>
+  <text x="594" y="290" font-size="12" fill="#c0392b">• Виникає неперервне дзижчання та перегрів</text>
+
+  <!-- Картка 3: Роздільність та калібрування -->
+  <rect x="580" y="326" width="356" height="118" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="594" y="348" font-size="13" font-weight="bold" fill="#2457d6">3. Кутова дискретність та налаштування:</text>
+  <text x="594" y="368" font-size="12" fill="#1a1a1a">• 2000 мкс діапазону відповідає 180° ходу</text>
+  <text x="594" y="386" font-size="12" fill="#1a1a1a">• Зона ±5 мкс (10 мкс) ➔ Δθ_db ≈ 0.9° люфту</text>
+  <text x="594" y="404" font-size="12" fill="#1a1a1a">• Таймер MCU має мати роздільність ≤ 1 мкс</text>
+  <text x="594" y="422" font-size="12" fill="#2457d6">• Компроміс: плавний хід vs нульовий шум</text>
+</svg>

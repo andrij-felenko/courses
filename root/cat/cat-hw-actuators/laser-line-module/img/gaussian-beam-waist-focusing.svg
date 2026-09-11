@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-start-blue" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L1,4 L7,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-start-black" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L1,4 L7,7 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Фокусування гаусового пучка та формування перетяжки</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Хвильова дифракція, діаметр перетяжки 2·w₀ за рівнем 1/e² та конфокальний діапазон Релея 2·z_R</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Оптична схема фокусування пучка -->
+  <rect x="24" y="65" width="590" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="90" font-size="14" font-weight="bold" fill="#1a1a1a">Хвильовий профіль та геометричні параметри фокусування</text>
+
+  <!-- Оптична вісь Z (штрихпунктир, зупинена перед позначкою кута) -->
+  <line x1="50" y1="235" x2="415" y2="235" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Тіло та обвідна гаусового пучка -->
+  <path d="M 50,185 L 118,185 Q 230,195 283,221 Q 315,225 338,225 Q 361,225 393,221 Q 430,215 460,210 L 460,260 Q 430,255 393,249 Q 361,245 338,245 Q 315,245 283,249 Q 230,275 118,285 L 50,285 Z" fill="#eaf0fd" fill-opacity="0.8" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Вхідний пучок ліворуч -->
+  <line x1="50" y1="185" x2="118" y2="185" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="50" y1="285" x2="118" y2="285" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Розмір апертури D -->
+  <line x1="45" y1="185" x2="45" y2="285" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-start-black)" marker-end="url(#arr-black)"/>
+  <text x="40" y="239" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">D</text>
+
+  <!-- Фокусувальний об'єктив -->
+  <path d="M 118,185 Q 126,235 118,285 Q 110,235 118,185 Z" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="112" y="172" width="12" height="13" fill="#6b7280"/>
+  <rect x="112" y="285" width="12" height="13" fill="#6b7280"/>
+
+  <text x="118" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Об'єктив</text>
+  <text x="118" y="157" text-anchor="middle" font-size="12" fill="#6b7280">Апертура D</text>
+  <line x1="118" y1="162" x2="118" y2="171" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Граничні дифракційні промені крізь перетяжку -->
+  <line x1="118" y1="185" x2="460" y2="258" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2" stroke-opacity="0.6"/>
+  <line x1="118" y1="285" x2="460" y2="212" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2" stroke-opacity="0.6"/>
+
+  <!-- Перетяжка пучка 2·w₀ -->
+  <text x="338" y="115" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Перетяжка 2·w₀</text>
+  <text x="338" y="132" text-anchor="middle" font-size="12" fill="#1a1a1a">w₀ ≈ 1.27·λ·f / D</text>
+  <text x="338" y="149" text-anchor="middle" font-size="12" fill="#6b7280">Рівень 1/e² (13.5%)</text>
+  <line x1="338" y1="155" x2="338" y2="223" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Конфокальний діапазон 2·z_R -->
+  <line x1="283" y1="275" x2="393" y2="275" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-start-blue)" marker-end="url(#arr-blue)"/>
+  <line x1="283" y1="250" x2="283" y2="280" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="393" y1="250" x2="393" y2="280" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <text x="338" y="293" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2·z_R (глибина фокусу DOF)</text>
+
+  <!-- Фокусна відстань f -->
+  <line x1="118" y1="322" x2="338" y2="322" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-start-black)" marker-end="url(#arr-black)"/>
+  <line x1="118" y1="298" x2="118" y2="328" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="338" y1="304" x2="338" y2="328" stroke="#d0d7de" stroke-width="1"/>
+  <text x="228" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Фокусна відстань f</text>
+
+  <!-- Кут розбіжності theta -->
+  <path d="M 430,223 A 35,35 0 0,1 430,247" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="444" y="239" font-size="12" font-weight="bold" fill="#6b7280">θ</text>
+
+  <!-- ВСТАВКА: Поперечний розподіл інтенсивності I(r) -->
+  <rect x="488" y="105" width="116" height="235" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="546" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Профіль I(r)</text>
+
+  <!-- Вісь r -->
+  <line x1="506" y1="285" x2="506" y2="142" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="502" y="148" text-anchor="end" font-size="12" fill="#1a1a1a">+r</text>
+  <text x="502" y="285" text-anchor="end" font-size="12" fill="#1a1a1a">-r</text>
+
+  <!-- Гаусова крива інтенсивності -->
+  <path d="M 508,155 Q 512,185 540,205 Q 582,215 540,225 Q 512,245 508,275" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Рівень 1/e^2 на графіку -->
+  <line x1="518" y1="188" x2="518" y2="242" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-start-blue)" marker-end="url(#arr-blue)"/>
+  <line x1="506" y1="188" x2="525" y2="188" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="506" y1="242" x2="525" y2="242" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <text x="546" y="306" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2·w₀ за 1/e²</text>
+  <text x="546" y="323" text-anchor="middle" font-size="12" fill="#6b7280">I = 0.135·I₀</text>
+
+  <!-- Нижня плашка лівої панелі -->
+  <rect x="40" y="400" width="558" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="319" y="418" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Дифракційна границя: тонша лінія (w₀) пропорційно скорочує глибину фокусу (z_R)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Фізичні параметри та розрахунки -->
+  <rect x="630" y="65" width="306" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- КАРТКА 1: Розрахункові параметри фокусу -->
+  <rect x="642" y="80" width="282" height="165" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="654" y="100" font-size="13" font-weight="bold" fill="#1a1a1a">Розрахункові параметри фокусу</text>
+
+  <circle cx="662" cy="122" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="662" y="126" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1</text>
+  <text x="676" y="121" font-size="12" font-weight="bold" fill="#1a1a1a">Перетяжка 2·w₀ ≈ 1.27·λ·f / D</text>
+  <text x="676" y="136" font-size="12" fill="#6b7280">Мінімальна товщина лінії в фокусі</text>
+
+  <circle cx="662" cy="160" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="662" y="164" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2</text>
+  <text x="676" y="159" font-size="12" font-weight="bold" fill="#1a1a1a">Довжина Релея z_R = π·w₀² / λ</text>
+  <text x="676" y="174" font-size="12" fill="#6b7280">Дистанція розширення до √2·w₀</text>
+
+  <circle cx="662" cy="198" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="662" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">3</text>
+  <text x="676" y="197" font-size="12" font-weight="bold" fill="#1a1a1a">Глибина різкості DOF = 2·z_R</text>
+  <text x="676" y="212" font-size="12" fill="#6b7280">Робочий діапазон різкості лінії</text>
+
+  <!-- КАРТКА 2: Критерій 1/e^2 та енергетика -->
+  <rect x="642" y="257" width="282" height="168" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="654" y="277" font-size="13" font-weight="bold" fill="#1a1a1a">Критерій 1/e² та енергетика</text>
+
+  <rect x="654" y="289" width="258" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="664" y="305" font-size="12" font-weight="bold" fill="#2457d6">Енергетичний поріг 86.5%</text>
+  <text x="664" y="320" font-size="12" fill="#1a1a1a">У діаметрі 2·w₀ зосереджено 86.5% P_opt</text>
+
+  <rect x="654" y="335" width="258" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="664" y="351" font-size="12" font-weight="bold" fill="#c0392b">Фізичний компроміс</text>
+  <text x="664" y="367" font-size="12" fill="#6b7280">Зменшення w₀ у 2 рази скорочує DOF у 4 рази</text>
+
+  <rect x="654" y="386" width="258" height="24" rx="3" fill="#e9f7ef"/>
+  <text x="783" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Оптимальний вибір f під дистанцію</text>
+</svg>

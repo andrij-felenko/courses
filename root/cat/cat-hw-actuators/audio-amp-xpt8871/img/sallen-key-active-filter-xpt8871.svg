@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Активний ФНЧ 2-го порядку Саллена-Кея для аудіотракту XPT8871</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Крутий спад АЧХ (-40 дБ/дек) пригнічує ШІМ-носійну й усуває паразитне нагрівання підсилювача</text>
+
+  <!-- 1. ДЖЕРЕЛО СИГНАЛУ (МК) ТА ОСЦИЛОГРАМА ШІМ -->
+  <!-- Осцилограма ШІМ (до фільтра) -->
+  <rect x="24" y="78" width="204" height="92" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="126" y="98" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вхід: ШІМ до фільтра</text>
+  <path d="M 38,136 L 38,116 L 50,116 L 50,136 L 68,136 L 68,116 L 86,116 L 86,136 L 110,136 L 110,116 L 138,116 L 138,136 L 166,136 L 166,116 L 190,116 L 190,136 L 214,136" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <text x="126" y="158" font-size="12" fill="#6b7280" text-anchor="middle">f_pwm = 62.5 кГц (ВЧ-завади)</text>
+
+  <!-- Блок МК -->
+  <rect x="24" y="182" width="90" height="156" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="69" y="206" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">МК (MCU)</text>
+  <text x="69" y="228" font-size="12" fill="#6b7280" text-anchor="middle">Вихід ШІМ</text>
+  <text x="69" y="252" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">62.5 кГц</text>
+  <text x="69" y="272" font-size="12" fill="#6b7280" text-anchor="middle">0 .. 3.3 В</text>
+
+  <!-- Зв'язок від МК до осцилограми -->
+  <circle cx="145" cy="215" r="3.5" fill="#c0392b"/>
+  <line x1="145" y1="215" x2="145" y2="173" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Сигнальна лінія від МК до фільтра -->
+  <line x1="114" y1="215" x2="237" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="195" y="205" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ШІМ-сигнал</text>
+
+  <!-- 2. ФІЛЬТР САЛЛЕНА-КЕЯ (2-Й ПОРЯДОК) -->
+  <rect x="240" y="78" width="420" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="450" y="96" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Активний ФНЧ Саллена-Кея 2-го порядку</text>
+
+  <!-- Параметри фільтра (бейдж зліва) -->
+  <rect x="248" y="112" width="90" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="293" y="132" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">fc ≈ 16 кГц</text>
+  <text x="293" y="150" font-size="12" fill="#6b7280" text-anchor="middle">Q = 0.707</text>
+
+  <!-- Вхідна лінія до R1 -->
+  <line x1="240" y1="215" x2="275" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Резистор R1 -->
+  <rect x="275" y="207" width="40" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="295" y="194" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R1</text>
+  <text x="295" y="241" font-size="12" fill="#6b7280" text-anchor="middle">10 кОм</text>
+
+  <!-- Вузол А -->
+  <line x1="315" y1="215" x2="375" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="345" cy="215" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Резистор R2 -->
+  <rect x="375" y="207" width="40" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="395" y="194" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R2</text>
+  <text x="395" y="241" font-size="12" fill="#6b7280" text-anchor="middle">10 кОм</text>
+
+  <!-- Вузол B -->
+  <line x1="415" y1="215" x2="475" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="445" cy="215" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Конденсатор C2 на GND -->
+  <line x1="445" y1="215" x2="445" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="433" y1="260" x2="457" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="433" y1="268" x2="457" y2="268" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="445" y1="268" x2="445" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="435" y1="300" x2="455" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="439" y1="304" x2="451" y2="304" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="442" y1="308" x2="448" y2="308" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="425" y="262" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">C2</text>
+  <text x="425" y="278" font-size="12" fill="#6b7280" text-anchor="end">680 пФ</text>
+
+  <!-- Підключення до входу (+) ОП -->
+  <line x1="475" y1="215" x2="475" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="475" y1="195" x2="495" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- ОП (U1) -->
+  <polygon points="495,175 495,255 565,215" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="506" y="199" font-size="14" font-weight="bold" fill="#1a1a1a">+</text>
+  <text x="506" y="239" font-size="14" font-weight="bold" fill="#1a1a1a">−</text>
+  <text x="530" y="219" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">U1</text>
+
+  <!-- Негативний зворотний зв'язок 100% (буфер) -->
+  <circle cx="585" cy="215" r="3.5" fill="#1a1a1a"/>
+  <line x1="565" y1="215" x2="585" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="585" y1="215" x2="585" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="585" y1="275" x2="485" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="485" y1="275" x2="485" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="485" y1="235" x2="495" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="540" y="295" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">100% ОЗЗ (буфер, Ку = 1)</text>
+  <text x="540" y="312" font-size="12" fill="#6b7280" text-anchor="middle">Zвих ≈ 0 (захист від навантаження)</text>
+
+  <!-- Конденсатор C1 (позитивний зворотний зв'язок) -->
+  <line x1="345" y1="215" x2="345" y2="135" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="345" y1="135" x2="460" y2="135" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="460" y1="125" x2="460" y2="145" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="468" y1="125" x2="468" y2="145" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="468" y1="135" x2="610" y2="135" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="610" y1="135" x2="610" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="610" cy="215" r="3.5" fill="#1a1a1a"/>
+  <line x1="585" y1="215" x2="610" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="464" y="117" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C1</text>
+  <text x="464" y="161" font-size="12" fill="#6b7280" text-anchor="middle">1.5 нФ</text>
+
+  <!-- Вихід з фільтра -->
+  <line x1="610" y1="215" x2="657" y2="215" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 3. ВИХІДНИЙ СИГНАЛ ТА ПІДСИЛЮВАЧ XPT8871 -->
+  <!-- Осцилограма чистого звуку (після фільтра) -->
+  <rect x="677" y="78" width="258" height="92" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="806" y="98" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихід ФНЧ: Чистий звук</text>
+  <path d="M 696,126 Q 714,112 732,126 T 768,126 T 804,126 T 840,126 T 876,126 T 912,126" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <text x="806" y="160" font-size="12" fill="#27ae60" text-anchor="middle">ШІМ-носійну придушено на >35 дБ</text>
+
+  <!-- Зв'язок від виходу до осцилограми чистого звуку -->
+  <circle cx="675" cy="215" r="3.5" fill="#27ae60"/>
+  <line x1="660" y1="215" x2="675" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="675" y1="215" x2="675" y2="173" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Розділовий конденсатор Cin -->
+  <line x1="675" y1="215" x2="701" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="701" y1="205" x2="701" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="709" y1="205" x2="709" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="705" y="194" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Cin</text>
+  <text x="705" y="241" font-size="12" fill="#6b7280" text-anchor="middle">1 мкФ</text>
+
+  <!-- Вхідний резистор Rin -->
+  <line x1="709" y1="215" x2="730" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="730" y="207" width="40" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="750" y="194" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Rin</text>
+  <text x="750" y="241" font-size="12" fill="#6b7280" text-anchor="middle">10 кОм</text>
+
+  <!-- Лінія до IN- -->
+  <line x1="770" y1="215" x2="785" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="785" y1="215" x2="785" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="785" y1="240" x2="795" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Мікросхема XPT8871 -->
+  <rect x="795" y="185" width="80" height="145" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="835" y="204" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">XPT8871</text>
+  <text x="835" y="218" font-size="12" fill="#6b7280" text-anchor="middle">УМЗЧ 5 Вт</text>
+
+  <!-- Піни XPT8871 -->
+  <text x="802" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">IN−</text>
+  <line x1="755" y1="275" x2="795" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="750" y="279" font-size="12" fill="#6b7280" text-anchor="end">SHDN (МК)</text>
+  <text x="802" y="279" font-size="12" fill="#1a1a1a">SHDN</text>
+
+  <text x="835" y="304" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">BTL</text>
+
+  <!-- Виходи Vo+ і Vo- -->
+  <text x="868" y="244" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Vo+</text>
+  <line x1="875" y1="240" x2="895" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="868" y="279" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Vo−</text>
+  <line x1="875" y1="275" x2="895" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Динамік -->
+  <rect x="895" y="232" width="8" height="48" rx="1" fill="#1a1a1a"/>
+  <polygon points="903,240 918,224 918,288 903,272" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 922,246 A 12,12 0 0,1 922,266" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 926,240 A 18,18 0 0,1 926,272" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="910" y="306" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Динамік</text>
+  <text x="910" y="322" font-size="12" fill="#6b7280" text-anchor="middle">4–8 Ом</text>
+
+  <!-- 4. ПАНЕЛІ ПОРІВНЯННЯ ТА РОЗРАХУНКУ (НИЖНЯ ЧАСТИНА) -->
+  <!-- Картка 1: Проблема 1-го порядку -->
+  <rect x="24" y="350" width="448" height="85" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="40" y="370" font-size="13" font-weight="bold" fill="#c0392b">Чому пасивного RC-фільтра 1-го порядку недостатньо?</text>
+  <text x="40" y="388" font-size="12" fill="#1a1a1a">• Спад лише -20 дБ/дек: залишок носійної ШІМ сягає 25% амплітуди</text>
+  <text x="40" y="405" font-size="12" fill="#1a1a1a">• ВЧ-струми перегрівають каскади XPT8871 і котушку динаміка</text>
+  <text x="40" y="422" font-size="12" fill="#6b7280">• Високий Zвих пасивного кола просідає під навантаженням Rin</text>
+
+  <!-- Картка 2: Перевага Саллена-Кея 2-го порядку -->
+  <rect x="488" y="350" width="448" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="504" y="370" font-size="13" font-weight="bold" fill="#27ae60">Переваги Саллена-Кея 2-го порядку (Баттерворт):</text>
+  <text x="504" y="388" font-size="12" fill="#1a1a1a">• Спад -40 дБ/дек: пригнічення носійної 62.5 кГц становить > 35 дБ</text>
+  <text x="504" y="405" font-size="12" fill="#1a1a1a">• fc = 1 / (2π·√(R1·R2·C1·C2)) ≈ 16 кГц (смуга аудіосигналу)</text>
+  <text x="504" y="422" font-size="12" fill="#6b7280">• Буфер ОП (Zвих ≈ 0 Ом) повністю усуває вплив вхідного Rin УМЗЧ</text>
+</svg>

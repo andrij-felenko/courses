@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Часова діаграма виникнення розриву кадру (Tearing) та синхронізація через вивід TE</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Накладання запису хоста на зчитування спричиняє розрив; строб TE узгоджує кадри</text>
+
+  <!-- БЛОК 1: Асинхронний запис (Tearing) -->
+  <rect x="24" y="68" width="912" height="214" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="90" font-size="14" font-weight="700" fill="#1a1a1a">1. Асинхронний запис: накладання покажчиків та артефакт розриву кадру (Tearing)</text>
+  
+  <rect x="716" y="76" width="200" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="816" y="91" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Колізія: розрив кадру</text>
+
+  <!-- Легенда блоку 1 -->
+  <line x1="140" y1="104" x2="160" y2="104" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="166" y="108" font-size="12" font-weight="700" fill="#2457d6">Зчитування TCON (розгортка)</text>
+  <line x1="390" y1="104" x2="415" y2="104" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 3"/>
+  <text x="422" y="108" font-size="12" font-weight="700" fill="#c0392b">Запис хоста (SPI в GRAM)</text>
+
+  <!-- Графік покажчиків блоку 1 -->
+  <line x1="120" y1="126" x2="120" y2="248" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="116" y1="126" x2="120" y2="126" stroke="#6b7280"/>
+  <line x1="116" y1="187" x2="120" y2="187" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="116" y1="248" x2="120" y2="248" stroke="#6b7280"/>
+
+  <text x="114" y="116" font-size="12" font-weight="700" fill="#6b7280" text-anchor="end">Рядок</text>
+  <text x="114" y="130" font-size="12" fill="#1a1a1a" text-anchor="end">0 (верх)</text>
+  <text x="114" y="191" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">k (розрив)</text>
+  <text x="114" y="252" font-size="12" fill="#1a1a1a" text-anchor="end">239 (низ)</text>
+
+  <line x1="120" y1="248" x2="670" y2="248" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="678" y="252" font-size="12" font-weight="700" fill="#6b7280">Час t</text>
+
+  <!-- Межі V-Blank -->
+  <line x1="320" y1="126" x2="320" y2="248" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <line x1="360" y1="126" x2="360" y2="248" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <text x="340" y="116" font-size="12" fill="#6b7280" text-anchor="middle">V-Blank</text>
+
+  <!-- Лінії сканування та запису -->
+  <line x1="140" y1="126" x2="320" y2="248" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="360" y1="126" x2="540" y2="248" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="250" y1="126" x2="650" y2="248" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 3"/>
+
+  <text x="210" y="122" font-size="12" fill="#2457d6" font-weight="700">Кадр N-1</text>
+  <text x="375" y="122" font-size="12" fill="#2457d6" font-weight="700">Кадр N</text>
+
+  <!-- Точка колізії -->
+  <circle cx="450" cy="187" r="5" fill="#c0392b"/>
+  <circle cx="450" cy="187" r="9" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2 2"/>
+
+  <rect x="475" y="142" width="165" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="557" y="156" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Точка колізії покажчиків</text>
+  <text x="557" y="172" font-size="12" fill="#c0392b" text-anchor="middle">TCON обганяє запис хоста</text>
+  <line x1="475" y1="168" x2="461" y2="182" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Лінія розриву до екрана -->
+  <line x1="459" y1="187" x2="760" y2="187" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Макет екрана блоку 1 -->
+  <text x="821" y="116" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Екран IPS 240×240</text>
+  <rect x="760" y="126" width="122" height="122" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="761" y="127" width="120" height="59" fill="#eaf0fd"/>
+  <text x="767" y="142" font-size="12" font-weight="700" fill="#2457d6">Кадр N (новий)</text>
+  <rect x="830" y="148" width="22" height="38" fill="#2457d6" rx="2"/>
+
+  <line x1="761" y1="187" x2="881" y2="187" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 2"/>
+
+  <rect x="761" y="188" width="120" height="59" fill="#f4f6f8"/>
+  <text x="767" y="242" font-size="12" font-weight="700" fill="#6b7280">Кадр N-1 (старий)</text>
+  <rect x="792" y="188" width="22" height="38" fill="#6b7280" rx="2"/>
+
+  <text x="821" y="266" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Зсув контуру: розрив кадру</text>
+  <text x="44" y="272" font-size="12" fill="#6b7280">Висновок: обгін покажчика читання розтинає зображення на лінії колізії (частина нового кадру, частина старого)</text>
+
+  <!-- БЛОК 2: Синхронізація по виводу TE -->
+  <rect x="24" y="294" width="912" height="224" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="316" font-size="14" font-weight="700" fill="#1a1a1a">2. Синхронізований режим: старт передачі по імпульсу TE (режим V-Blanking)</text>
+
+  <rect x="716" y="302" width="200" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="816" y="317" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Без колізій: чистий кадр</text>
+
+  <!-- Легенда блоку 2 -->
+  <line x1="140" y1="330" x2="160" y2="330" stroke="#27ae60" stroke-width="2"/>
+  <text x="166" y="334" font-size="12" font-weight="700" fill="#27ae60">Вивід TE (імпульс V-Blank)</text>
+  <line x1="360" y1="330" x2="385" y2="330" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="392" y="334" font-size="12" font-weight="700" fill="#27ae60">Запис хоста (по фронту TE)</text>
+
+  <!-- Осцилограма TE -->
+  <text x="114" y="358" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">Вивід TE</text>
+  <path d="M 120,360 L 320,360 L 320,348 L 360,348 L 360,360 L 540,360 L 540,348 L 580,348 L 580,360 L 670,360" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Тригер від фронту TE -->
+  <line x1="320" y1="360" x2="320" y2="382" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 2" marker-end="url(#arr-green)"/>
+  <text x="326" y="376" font-size="12" font-weight="700" fill="#27ae60">Фронт TE: старт DMA / SPI</text>
+
+  <!-- Графік покажчиків блоку 2 -->
+  <line x1="120" y1="386" x2="120" y2="494" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="116" y1="386" x2="120" y2="386" stroke="#6b7280"/>
+  <line x1="116" y1="494" x2="120" y2="494" stroke="#6b7280"/>
+
+  <text x="114" y="390" font-size="12" fill="#1a1a1a" text-anchor="end">0 (верх)</text>
+  <text x="114" y="498" font-size="12" fill="#1a1a1a" text-anchor="end">239 (низ)</text>
+
+  <line x1="120" y1="494" x2="670" y2="494" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="678" y="498" font-size="12" font-weight="700" fill="#6b7280">Час t</text>
+
+  <!-- Безпечна зона -->
+  <polygon points="320,386 480,494 540,494 360,386" fill="#e9f7ef" opacity="0.6"/>
+
+  <!-- Лінії сканування та запису блоку 2 -->
+  <line x1="140" y1="386" x2="320" y2="494" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="360" y1="386" x2="540" y2="494" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="320" y1="386" x2="480" y2="494" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Пояснення безпечної зони -->
+  <rect x="550" y="405" width="190" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="560" y="422" font-size="12" font-weight="700" fill="#27ae60">Запис випереджає скан</text>
+  <text x="560" y="438" font-size="12" fill="#1a1a1a">Колізій у пам'яті немає</text>
+  <text x="560" y="454" font-size="12" fill="#1a1a1a">TCON читає цілісний Кадр N</text>
+
+  <!-- Макет екрана блоку 2 -->
+  <text x="821" y="366" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Екран IPS 240×240</text>
+  <rect x="760" y="374" width="122" height="120" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="761" y="375" width="120" height="118" fill="#eaf0fd"/>
+  <text x="821" y="394" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Кадр N (монолітний)</text>
+  <rect x="811" y="406" width="20" height="74" fill="#2457d6" rx="2"/>
+
+  <text x="821" y="509" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Ідеальний кадр без швів</text>
+  <text x="44" y="510" font-size="12" fill="#6b7280">Висновок: синхронізація по фронту TE гарантує, що запис завжди випереджає зчитування без розривів</text>
+</svg>

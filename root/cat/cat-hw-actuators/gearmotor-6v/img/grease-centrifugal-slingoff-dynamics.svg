@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="39" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Динаміка пластичного мастила в циліндричному редукторі</text>
+  <text x="480" y="64" text-anchor="middle" font-size="13" fill="#6b7280">Відцентрове скидання на швидкохідному ступені проти утримання мастильної плівки під навантаженням</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Швидкісний вхідний ступінь -->
+  <rect x="24" y="78" width="448" height="252" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="38" y="92" width="420" height="40" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="248" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Вхідний ступінь: n ≈ 6000 об/хв (скидання мастила)</text>
+
+  <!-- Камера редуктора зі скиданням мастила -->
+  <rect x="38" y="144" width="200" height="170" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="138" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#b45309">Скидання мастила на стінки</text>
+
+  <!-- Шари скинутого мастила на внутрішніх стінках -->
+  <path d="M 46,158 Q 80,154 138,156 Q 190,154 230,158 Q 230,150 138,148 Q 46,150 46,158 Z" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <path d="M 46,300 Q 80,304 138,302 Q 190,304 230,300 Q 230,308 138,310 Q 46,308 46,300 Z" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <path d="M 42,166 Q 48,220 44,292 Q 40,292 40,166 Z" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <path d="M 234,166 Q 228,220 232,292 Q 236,292 236,166 Z" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+
+  <!-- Шестерня малого діаметра -->
+  <circle cx="138" cy="224" r="26" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+  <!-- Зубці шестерні (8 зубців) -->
+  <path d="M 134,192 L 142,192 L 140,198 L 136,198 Z" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <path d="M 134,256 L 142,256 L 140,250 L 136,250 Z" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <path d="M 106,220 L 106,228 L 112,226 L 112,222 Z" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <path d="M 170,220 L 170,228 L 164,226 L 164,222 Z" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <path d="M 115,201 L 121,195 L 126,199 L 120,205 Z" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <path d="M 155,241 L 161,247 L 156,252 L 150,246 Z" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <path d="M 161,201 L 155,195 L 150,199 L 156,205 Z" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <path d="M 121,241 L 115,247 L 120,252 L 126,246 Z" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+
+  <!-- Вал шестерні -->
+  <circle cx="138" cy="224" r="8" fill="#64748b" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Стрілка швидкого обертання навколо вала -->
+  <path d="M 138,206 A 18 18 0 1 1 122,234" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Відцентрові траєкторії скидання мастила -->
+  <line x1="162" y1="210" x2="208" y2="192" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 2" marker-end="url(#arr-red)"/>
+  <line x1="114" y1="210" x2="68" y2="192" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 2" marker-end="url(#arr-red)"/>
+  <line x1="114" y1="238" x2="68" y2="256" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 2" marker-end="url(#arr-red)"/>
+  <line x1="162" y1="238" x2="208" y2="256" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 2" marker-end="url(#arr-red)"/>
+
+  <!-- Краплі мастила, що розлітаються -->
+  <circle cx="214" cy="189" r="3.5" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <circle cx="62" cy="189" r="3" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <circle cx="62" cy="259" r="3.5" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <circle cx="214" cy="259" r="3" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <circle cx="188" cy="198" r="2.5" fill="#d97706"/>
+  <circle cx="88" cy="198" r="2" fill="#d97706"/>
+  <circle cx="88" cy="250" r="2.5" fill="#d97706"/>
+  <circle cx="188" cy="250" r="2" fill="#d97706"/>
+
+  <!-- Позначка сухих зубів -->
+  <text x="138" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Сухий контакт зубів</text>
+
+  <!-- Картка 1A: Фізика відцентрового зриву -->
+  <rect x="250" y="144" width="208" height="78" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="262" y="168" font-size="12" font-weight="bold" fill="#c0392b">Відцентровий зрив мастила</text>
+  <text x="262" y="188" font-size="12" fill="#1a1a1a">a_c = ω²·r &gt;&gt; 1000 g</text>
+  <text x="262" y="208" font-size="12" fill="#6b7280">Мастило зриває на корпус</text>
+
+  <!-- Картка 1B: Наслідки (каналоутворення) -->
+  <rect x="250" y="236" width="208" height="78" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="262" y="260" font-size="12" font-weight="bold" fill="#c0392b">Ефект каналу (Channelling)</text>
+  <text x="262" y="280" font-size="12" fill="#1a1a1a">Шестерня ріже порожнину</text>
+  <text x="262" y="300" font-size="12" fill="#6b7280">Сухий контакт, нагрів &gt; 80°C</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Повільний силовий вихідний ступінь -->
+  <rect x="488" y="78" width="448" height="252" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="502" y="92" width="420" height="40" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Вихідний ступінь: n ≈ 100–200 об/хв (стабільна плівка)</text>
+
+  <!-- Блок тихохідного колеса -->
+  <rect x="502" y="144" width="168" height="170" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="586" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Мастило на вінці</text>
+
+  <!-- Колесо великого діаметра -->
+  <circle cx="586" cy="230" r="34" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+  <!-- Зубці тихохідного колеса -->
+  <path d="M 582,192 L 590,192 L 588,198 L 584,198 Z" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <path d="M 582,268 L 590,268 L 588,262 L 584,262 Z" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <path d="M 548,226 L 548,234 L 554,232 L 554,228 Z" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <path d="M 624,226 L 624,234 L 618,232 L 618,228 Z" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <path d="M 558,204 L 564,198 L 569,203 L 563,209 Z" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <path d="M 608,251 L 614,257 L 609,262 L 603,256 Z" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <path d="M 614,204 L 608,198 L 603,203 L 609,209 Z" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <path d="M 564,251 L 558,257 L 563,262 L 569,256 Z" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+
+  <!-- Суцільний шар мастила на вінці колеса -->
+  <circle cx="586" cy="230" r="40" fill="none" stroke="#27ae60" stroke-width="3" stroke-dasharray="5 3"/>
+  <circle cx="586" cy="230" r="12" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Стрілка повільного обертання та крутного моменту -->
+  <path d="M 586,210 A 20 20 0 0 1 606,230" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <text x="586" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">a_c &lt;&lt; g (утримання)</text>
+
+  <!-- Блок збільшеного контакту зубів -->
+  <rect x="682" y="144" width="240" height="170" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5"/>
+  <text x="802" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Збільшено: контакт двох зубів</text>
+
+  <!-- Геометрія двох зубів під навантаженням -->
+  <!-- Лівий зуб -->
+  <path d="M 726,184 C 756,192 788,206 794,218 C 788,230 756,244 726,252 Z" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <!-- Правий зуб -->
+  <path d="M 878,184 C 848,192 816,206 810,218 C 816,230 848,244 878,252 Z" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Мастильний гідродинамічний шар (EHD film) між зубами -->
+  <path d="M 788,192 C 798,206 800,214 797,218 C 799,222 798,230 788,244 L 816,244 C 806,230 805,222 807,218 C 804,214 806,206 816,192 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Силові стрілки контактного тиску (F_тиск від моменту T) -->
+  <line x1="740" y1="218" x2="774" y2="218" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="864" y1="218" x2="830" y2="218" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Підписи зони контакту -->
+  <text x="802" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Плівка EHD (0.5–2 мкм)</text>
+  <text x="802" y="298" text-anchor="middle" font-size="12" fill="#6b7280">Розділяє метал, захист від зносу</text>
+
+  <!-- НИЖНІ ІНФОРМАЦІЙНІ КАРТКИ -->
+  <!-- Картка 1: Проблема швидкісних ступенів -->
+  <rect x="24" y="344" width="296" height="94" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="38" y="368" font-size="12" font-weight="bold" fill="#c0392b">1. Вхід: відцентрове скидання</text>
+  <text x="38" y="388" font-size="12" fill="#1a1a1a">• При n &gt; 3000 об/хв діє a_c &gt;&gt; 1000 g</text>
+  <text x="38" y="406" font-size="12" fill="#1a1a1a">• Мастило скидається на стінки корпусу</text>
+  <text x="38" y="424" font-size="12" fill="#1a1a1a">• Зубці працюють у сухому режимі (знос)</text>
+
+  <!-- Картка 2: Робота вихідного ступеня -->
+  <rect x="332" y="344" width="296" height="94" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="346" y="368" font-size="12" font-weight="bold" fill="#27ae60">2. Вихід: високий тиск і плівка</text>
+  <text x="346" y="388" font-size="12" fill="#1a1a1a">• Малі оберти (a_c &lt;&lt; g): нема скидання</text>
+  <text x="346" y="406" font-size="12" fill="#1a1a1a">• Утворюється EHD-плівка під тиском</text>
+  <text x="346" y="424" font-size="12" fill="#1a1a1a">• Потребує EP-присадок проти задирів</text>
+
+  <!-- Картка 3: Підбір мастила -->
+  <rect x="640" y="344" width="296" height="94" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="654" y="368" font-size="12" font-weight="bold" fill="#2457d6">3. Рекомендації щодо мастила</text>
+  <text x="654" y="388" font-size="12" fill="#1a1a1a">• Клас NLGI 00 або 0 (напіврідка суміш)</text>
+  <text x="654" y="406" font-size="12" fill="#1a1a1a">• Тиксотропність: текучість при зсуві</text>
+  <text x="654" y="424" font-size="12" fill="#1a1a1a">• Висока адгезія до сталі та полімерів</text>
+</svg>

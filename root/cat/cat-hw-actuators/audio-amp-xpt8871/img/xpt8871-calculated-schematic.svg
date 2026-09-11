@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Розрахункова принципова схема аудіовузла на XPT8871</text>
+<text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Узгодження підсилення Av = 3.9 (11.8 дБ), зрізу НЧ fc ≈ 170 Гц і потужності 2.65 Вт на 4 Ом</text>
+
+<!-- Ліва панель: Принципова схема -->
+<rect x="25" y="74" width="605" height="360" rx="8" fill="#f8fafc" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="45" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">ПРИНЦИПОВА СХЕМА АУДІОТРАКТУ</text>
+<text x="320" y="98" font-size="12" fill="#6b7280">Мостовий підсилювач (Class-AB BTL Mono)</text>
+
+<!-- Мікросхема U1 XPT8871 (ESOP-8) -->
+<rect x="270" y="145" width="110" height="205" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<!-- Ключ Pin 1 -->
+<circle cx="284" cy="157" r="4" fill="#6b7280"/>
+<text x="325" y="238" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">XPT8871</text>
+<text x="325" y="254" font-size="12" text-anchor="middle" fill="#1a1a1a">U1 (ESOP-8)</text>
+<text x="325" y="270" font-size="12" text-anchor="middle" fill="#6b7280">PAD → GND</text>
+
+<!-- Піни мікросхеми: Тексти всередині корпусу -->
+<text x="278" y="174" font-size="12" font-weight="bold" fill="#1a1a1a">1 SHDN</text>
+<text x="278" y="219" font-size="12" font-weight="bold" fill="#1a1a1a">2 BYP</text>
+<text x="278" y="284" font-size="12" font-weight="bold" fill="#1a1a1a">3 IN+</text>
+<text x="278" y="334" font-size="12" font-weight="bold" fill="#1a1a1a">4 IN−</text>
+
+<text x="372" y="174" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">VO2 8</text>
+<text x="372" y="219" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">GND 7</text>
+<text x="372" y="284" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">VDD 6</text>
+<text x="372" y="334" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">VO1 5</text>
+
+<!-- Фізичні виводи (ніжки) мікросхеми -->
+<line x1="260" y1="170" x2="270" y2="170" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="260" y1="215" x2="270" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="260" y1="280" x2="270" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="260" y1="330" x2="270" y2="330" stroke="#1a1a1a" stroke-width="2"/>
+
+<line x1="380" y1="170" x2="390" y2="170" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="380" y1="215" x2="390" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="380" y1="280" x2="390" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="380" y1="330" x2="390" y2="330" stroke="#1a1a1a" stroke-width="2"/>
+
+<!-- КОЛО 1: Pin 1 SHDN -->
+<line x1="55" y1="170" x2="260" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="55" cy="170" r="3.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="45" y="154" font-size="12" font-weight="bold" fill="#1a1a1a">CTRL_SHDN</text>
+<text x="45" y="138" font-size="12" fill="#6b7280">(від MCU)</text>
+
+<!-- Відвід на джампер JP1 до GND -->
+<circle cx="170" cy="170" r="3" fill="#1a1a1a"/>
+<line x1="170" y1="170" x2="170" y2="146" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="164" y="134" width="12" height="12" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="170" y1="134" x2="170" y2="122" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="162" y1="122" x2="178" y2="122" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="165" y1="118" x2="175" y2="118" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="168" y1="114" x2="172" y2="114" stroke="#1a1a1a" stroke-width="1"/>
+
+<text x="185" y="135" font-size="12" font-weight="bold" fill="#27ae60">JP1 на GND</text>
+<text x="185" y="149" font-size="12" fill="#6b7280">(0 В = активний)</text>
+<text x="45" y="195" font-size="12" fill="#6b7280">LOW: увімкн. | HIGH: сон (&lt;1 мкА)</text>
+
+<!-- КОЛО 2: Pin 2 BYPASS -->
+<line x1="160" y1="215" x2="260" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="160" y1="215" x2="160" y2="236" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="152" y1="236" x2="168" y2="236" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="152" y1="242" x2="168" y2="242" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="160" y1="242" x2="160" y2="256" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="152" y1="256" x2="168" y2="256" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="155" y1="260" x2="165" y2="260" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="158" y1="264" x2="162" y2="264" stroke="#1a1a1a" stroke-width="1"/>
+
+<text x="142" y="234" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">C_bypass = 1 мкФ</text>
+<text x="142" y="250" font-size="12" text-anchor="end" fill="#6b7280">t_start ≈ 100 мс</text>
+<text x="142" y="266" font-size="12" text-anchor="end" fill="#6b7280">придушення клацань</text>
+
+<!-- КОЛО 3: Pin 3 IN+ -->
+<line x1="225" y1="280" x2="260" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="225" cy="280" r="2.5" fill="#6b7280"/>
+<text x="215" y="284" font-size="12" text-anchor="end" fill="#6b7280">VDD/2 (внутр. зміщення)</text>
+
+<!-- КОЛО 4: Pin 4 IN- та вхідний аудіотракт -->
+<line x1="55" y1="330" x2="95" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="55" cy="330" r="3.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="40" y="356" font-size="12" font-weight="bold" fill="#2457d6">AUDIO_IN</text>
+
+<!-- Конденсатор Cin = 47 нФ на x = 98..104 -->
+<line x1="98" y1="321" x2="98" y2="339" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="104" y1="321" x2="104" y2="339" stroke="#1a1a1a" stroke-width="2"/>
+<text x="101" y="316" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Cin 47 нФ</text>
+<text x="101" y="356" font-size="12" text-anchor="middle" fill="#6b7280">(ФВЧ)</text>
+
+<!-- Лінія між Cin і Rin -->
+<line x1="104" y1="330" x2="160" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- Резистор Rin = 20 кОм на x = 160..190 -->
+<rect x="160" y="324" width="30" height="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="175" y="316" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Rin 20 кОм</text>
+<text x="175" y="356" font-size="12" text-anchor="middle" fill="#6b7280">вхідний опір</text>
+
+<!-- Лінія від Rin до сумуючого вузла -->
+<line x1="190" y1="330" x2="260" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="230" cy="330" r="3.5" fill="#1a1a1a"/>
+
+<!-- Зворотний зв'язок: резистор Rf = 39 кОм -->
+<line x1="230" y1="330" x2="230" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="230" y1="400" x2="305" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="305" y="394" width="30" height="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="335" y1="400" x2="410" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="410" y1="400" x2="410" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="410" cy="330" r="3.5" fill="#1a1a1a"/>
+
+<text x="320" y="388" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Rf = 39 кОм</text>
+<text x="320" y="424" font-size="12" text-anchor="middle" fill="#6b7280">зворотний зв'язок OOOZ</text>
+
+<!-- КОЛО 8: Pin 8 VO2 (протифазний вихід) -->
+<line x1="390" y1="170" x2="525" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="405" y="155" font-size="12" font-weight="bold" fill="#c0392b">VO2 (−)</text>
+<text x="455" y="155" font-size="12" fill="#6b7280">фаза 180°</text>
+
+<!-- КОЛО 5: Pin 5 VO1 (прямий вихід) -->
+<line x1="390" y1="330" x2="525" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="420" y="316" font-size="12" font-weight="bold" fill="#2457d6">VO1 (+)</text>
+<text x="468" y="316" font-size="12" fill="#6b7280">фаза 0°</text>
+
+<!-- ДИНАМІК (BTL навантаження RL = 4 Ом) -->
+<line x1="525" y1="170" x2="525" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="525" y1="330" x2="525" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="520" y="220" width="10" height="60" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<polygon points="530,230 560,200 560,300 530,270" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+<text x="580" y="154" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Динамік</text>
+<text x="580" y="172" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">RL = 4 Ом</text>
+<text x="580" y="330" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Міст BTL</text>
+<text x="580" y="348" font-size="12" text-anchor="middle" fill="#6b7280">2.65 Вт RMS</text>
+
+<!-- КОЛА 6 і 7: ЖИВЛЕННЯ VDD та ЗЕМЛЯ GND -->
+<!-- Лінія GND (Pin 7) на y = 215 -->
+<line x1="390" y1="215" x2="430" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+<!-- Символ GND на кінці x = 430 -->
+<line x1="424" y1="211" x2="436" y2="211" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="426" y1="207" x2="434" y2="207" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="428" y1="203" x2="432" y2="203" stroke="#1a1a1a" stroke-width="1"/>
+
+<!-- Лінія VDD (Pin 6) на y = 280 -->
+<line x1="390" y1="280" x2="430" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="430" cy="280" r="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- Тандем конденсаторів C_vdd між GND (215) і VDD (280) на x = 415 -->
+<line x1="415" y1="215" x2="415" y2="243" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="407" y1="243" x2="423" y2="243" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="407" y1="251" x2="423" y2="251" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="415" y1="251" x2="415" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="415" cy="215" r="2.5" fill="#1a1a1a"/>
+<circle cx="415" cy="280" r="2.5" fill="#1a1a1a"/>
+
+<!-- Підписи C_vdd і шини VDD праворуч від x = 435 -->
+<text x="435" y="242" font-size="12" font-weight="bold" fill="#1a1a1a">220 мкФ</text>
+<text x="435" y="256" font-size="12" font-weight="bold" fill="#1a1a1a">|| 0.1 мкФ</text>
+<text x="435" y="270" font-size="12" fill="#6b7280">(C_vdd)</text>
+<text x="435" y="295" font-size="12" font-weight="bold" fill="#2457d6">+5 В (VDD)</text>
+
+
+<!-- ПРАВА ПАНЕЛЬ: КАРТКИ РОЗРАХУНКІВ -->
+
+<!-- Картка 1: Підсилення Av -->
+<rect x="645" y="74" width="290" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="660" y="96" font-size="13" font-weight="bold" fill="#2457d6">1. Підсилення напруги (Av)</text>
+<text x="660" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">Av = 2 · (Rf / Rin) = 2 · (39 / 20) = 3.9</text>
+<text x="660" y="138" font-size="12" fill="#1a1a1a">G = 20 · lg(Av) ≈ +11.8 дБ</text>
+<text x="660" y="158" font-size="12" fill="#6b7280">Множник 2 задає міст BTL</text>
+<text x="660" y="174" font-size="12" fill="#6b7280">Rf = 39 кОм, Rin = 20 кОм</text>
+
+<!-- Картка 2: Нижня частота зрізу fc -->
+<rect x="645" y="198" width="290" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="660" y="220" font-size="13" font-weight="bold" fill="#2457d6">2. Нижня гранична частота (fc)</text>
+<text x="660" y="242" font-size="12" font-weight="bold" fill="#1a1a1a">fc = 1 / (2·π · Rin · Cin)</text>
+<text x="660" y="262" font-size="12" fill="#1a1a1a">fc = 1 / (2·π · 20k · 47n) ≈ 170 Гц</text>
+<text x="660" y="282" font-size="12" fill="#6b7280">Фільтр високих частот відсікає суббас</text>
+<text x="660" y="298" font-size="12" fill="#6b7280">Захищає дифузор від перевантаження</text>
+
+<!-- Картка 3: Потужність P_rms -->
+<rect x="645" y="322" width="290" height="112" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="660" y="344" font-size="13" font-weight="bold" fill="#2457d6">3. Вихідна потужність (P_rms)</text>
+<text x="660" y="366" font-size="12" font-weight="bold" fill="#1a1a1a">Prms = (VDD − 2·Vdrop)² / (2 · RL)</text>
+<text x="660" y="386" font-size="12" fill="#1a1a1a">Prms ≈ (5.0 − 0.4)² / 8 ≈ 2.65 Вт</text>
+<text x="660" y="406" font-size="12" fill="#6b7280">Vdrop ≈ 0.2 В (падіння на MOSFET)</text>
+<text x="660" y="422" font-size="12" fill="#27ae60">Міст BTL дає в 4 рази більше за SE</text>
+
+</svg>

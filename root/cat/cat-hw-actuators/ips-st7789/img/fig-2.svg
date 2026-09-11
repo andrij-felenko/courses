@@ -1,0 +1,245 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+
+<defs>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+</defs>
+
+<!-- Title and Subtitle -->
+<text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пошарова структура оптичного пакета IPS-панелі</text>
+<text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Послідовне перетворення світлового потоку від LED-підсвічування до ока спостерігача</text>
+
+<!-- ==================== CARD 1: LED-підсвітка ==================== -->
+<rect x="26" y="80" width="138" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="50" y="90" width="90" height="22" rx="11" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="95" y="105" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ШАР 1</text>
+<text x="95" y="129" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LED-підсвітка</text>
+<text x="95" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">і світловід</text>
+
+<!-- Card 1 Graphic Box -->
+<rect x="36" y="162" width="118" height="144" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<!-- LEDs on left edge -->
+<rect x="42" y="180" width="8" height="14" rx="2" fill="#f59e0b" stroke="#d97706"/>
+<rect x="42" y="210" width="8" height="14" rx="2" fill="#f59e0b" stroke="#d97706"/>
+<rect x="42" y="240" width="8" height="14" rx="2" fill="#f59e0b" stroke="#d97706"/>
+<!-- Light Guide Plate (LGP) -->
+<rect x="54" y="174" width="88" height="88" rx="3" fill="#f0f9ff" stroke="#38bdf8" stroke-width="1.2"/>
+<!-- Microdots in LGP -->
+<circle cx="70" cy="190" r="2" fill="#0284c7"/>
+<circle cx="90" cy="190" r="2.5" fill="#0284c7"/>
+<circle cx="110" cy="190" r="3" fill="#0284c7"/>
+<circle cx="125" cy="190" r="3.5" fill="#0284c7"/>
+<circle cx="70" cy="218" r="2" fill="#0284c7"/>
+<circle cx="90" cy="218" r="2.5" fill="#0284c7"/>
+<circle cx="110" cy="218" r="3" fill="#0284c7"/>
+<circle cx="125" cy="218" r="3.5" fill="#0284c7"/>
+<circle cx="70" cy="246" r="2" fill="#0284c7"/>
+<circle cx="90" cy="246" r="2.5" fill="#0284c7"/>
+<circle cx="110" cy="246" r="3" fill="#0284c7"/>
+<circle cx="125" cy="246" r="3.5" fill="#0284c7"/>
+<!-- Reflector at back -->
+<line x1="54" y1="264" x2="142" y2="264" stroke="#94a3b8" stroke-width="3"/>
+<!-- Label in Graphic Box -->
+<text x="95" y="293" font-size="12" fill="#6b7280" text-anchor="middle">Неполяризоване</text>
+
+<!-- Card 1 Text Box -->
+<rect x="34" y="314" width="122" height="136" rx="6" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+<text x="95" y="334" font-size="12" fill="#1a1a1a" text-anchor="middle">Білі LED торця</text>
+<text x="95" y="352" font-size="12" fill="#1a1a1a" text-anchor="middle">Акриловий</text>
+<text x="95" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">світловід (LGP)</text>
+<text x="95" y="388" font-size="12" fill="#1a1a1a" text-anchor="middle">Донний відбивач</text>
+<text x="95" y="406" font-size="12" fill="#1a1a1a" text-anchor="middle">Рівномірне</text>
+<text x="95" y="424" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">біле світло</text>
+
+<!-- Arrow 1 -> 2 -->
+<line x1="166" y1="234" x2="178" y2="234" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+<!-- ==================== CARD 2: Нижній поляризатор ==================== -->
+<rect x="180" y="80" width="138" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="204" y="90" width="90" height="22" rx="11" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="249" y="105" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ШАР 2</text>
+<text x="249" y="129" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Нижній</text>
+<text x="249" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">поляризатор</text>
+
+<!-- Card 2 Graphic Box -->
+<rect x="190" y="162" width="118" height="144" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<!-- Polarizer Film Plate -->
+<rect x="202" y="174" width="94" height="88" rx="3" fill="#f8fafc" stroke="#475569" stroke-width="1.2"/>
+<!-- Horizontal Grid Lines (0 deg transmission) -->
+<line x1="206" y1="184" x2="292" y2="184" stroke="#64748b" stroke-width="1.2"/>
+<line x1="206" y1="196" x2="292" y2="196" stroke="#64748b" stroke-width="1.2"/>
+<line x1="206" y1="208" x2="292" y2="208" stroke="#64748b" stroke-width="1.2"/>
+<line x1="206" y1="220" x2="292" y2="220" stroke="#64748b" stroke-width="1.2"/>
+<line x1="206" y1="232" x2="292" y2="232" stroke="#64748b" stroke-width="1.2"/>
+<line x1="206" y1="244" x2="292" y2="244" stroke="#64748b" stroke-width="1.2"/>
+<line x1="206" y1="254" x2="292" y2="254" stroke="#64748b" stroke-width="1.2"/>
+<!-- Transmission Axis Arrow -->
+<line x1="216" y1="219" x2="282" y2="219" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+<!-- Label in Graphic Box -->
+<text x="249" y="293" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Вісь: 0° (гориз.)</text>
+
+<!-- Card 2 Text Box -->
+<rect x="188" y="314" width="122" height="136" rx="6" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+<text x="249" y="334" font-size="12" fill="#1a1a1a" text-anchor="middle">Плівковий шар</text>
+<text x="249" y="352" font-size="12" fill="#1a1a1a" text-anchor="middle">Вісь 0° (гориз.)</text>
+<text x="249" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">Пропускає лише</text>
+<text x="249" y="388" font-size="12" fill="#1a1a1a" text-anchor="middle">хвилі з вектором</text>
+<text x="249" y="406" font-size="12" fill="#1a1a1a" text-anchor="middle">в площині осі</text>
+<text x="249" y="424" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Відсікає ~50%</text>
+
+<!-- Arrow 2 -> 3 -->
+<line x1="320" y1="234" x2="332" y2="234" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+<!-- ==================== CARD 3: TFT-скло та електроди ==================== -->
+<rect x="334" y="80" width="138" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="358" y="90" width="90" height="22" rx="11" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="403" y="105" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ШАР 3</text>
+<text x="403" y="129" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">TFT-скло та</text>
+<text x="403" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">електроди</text>
+
+<!-- Card 3 Graphic Box -->
+<rect x="344" y="162" width="118" height="144" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<!-- Glass base -->
+<rect x="354" y="174" width="98" height="88" rx="3" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.2"/>
+<!-- Comb Electrode 1 (Pixel, #2457d6) -->
+<path d="M 366,184 L 440,184 M 376,184 L 376,238 M 406,184 L 406,238 M 436,184 L 436,238" stroke="#2457d6" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+<!-- Comb Electrode 2 (Common, #64748b) -->
+<path d="M 366,252 L 440,252 M 391,252 L 391,198 M 421,252 L 421,198" stroke="#64748b" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+<!-- Lateral Field Lines (horizontal blue) -->
+<line x1="379" y1="216" x2="388" y2="216" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="2,2"/>
+<line x1="403" y1="216" x2="394" y2="216" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="2,2"/>
+<line x1="409" y1="222" x2="418" y2="222" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="2,2"/>
+<line x1="433" y1="222" x2="424" y2="222" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="2,2"/>
+<!-- Label in Graphic Box -->
+<text x="403" y="293" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Бічне поле (E)</text>
+
+<!-- Card 3 Text Box -->
+<rect x="342" y="314" width="122" height="136" rx="6" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+<text x="403" y="334" font-size="12" fill="#1a1a1a" text-anchor="middle">Скляна основа</text>
+<text x="403" y="352" font-size="12" fill="#1a1a1a" text-anchor="middle">Транзистори TFT</text>
+<text x="403" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">Штирові (comb)</text>
+<text x="403" y="388" font-size="12" fill="#1a1a1a" text-anchor="middle">електроди в</text>
+<text x="403" y="406" font-size="12" fill="#1a1a1a" text-anchor="middle">одній площині</text>
+<text x="403" y="424" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Горизонтальне E</text>
+
+<!-- Arrow 3 -> 4 -->
+<line x1="474" y1="234" x2="486" y2="234" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+<!-- ==================== CARD 4: Шар рідких кристалів ==================== -->
+<rect x="488" y="80" width="138" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="512" y="90" width="90" height="22" rx="11" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="557" y="105" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ШАР 4</text>
+<text x="557" y="129" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шар рідких</text>
+<text x="557" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">кристалів</text>
+
+<!-- Card 4 Graphic Box -->
+<rect x="498" y="162" width="118" height="144" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<!-- Cell container -->
+<rect x="508" y="174" width="98" height="88" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+<!-- Top row: molecules at 0 deg (off state alignment) -->
+<ellipse cx="538" cy="194" rx="14" ry="5" fill="#a7f3d0" stroke="#059669" stroke-width="1.5"/>
+<ellipse cx="576" cy="194" rx="14" ry="5" fill="#a7f3d0" stroke="#059669" stroke-width="1.5"/>
+<!-- Rotation arc indicator -->
+<path d="M 548,226 A 14 14 0 0 1 564,210" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+<!-- Middle row: rotated in-plane (45 deg) under lateral E-field -->
+<g transform="translate(538,222) rotate(45)">
+  <ellipse cx="0" cy="0" rx="14" ry="5" fill="#86efac" stroke="#15803d" stroke-width="1.5"/>
+</g>
+<g transform="translate(576,222) rotate(45)">
+  <ellipse cx="0" cy="0" rx="14" ry="5" fill="#86efac" stroke="#15803d" stroke-width="1.5"/>
+</g>
+<!-- Bottom row: molecules at 0 deg -->
+<ellipse cx="538" cy="250" rx="14" ry="5" fill="#a7f3d0" stroke="#059669" stroke-width="1.5"/>
+<ellipse cx="576" cy="250" rx="14" ry="5" fill="#a7f3d0" stroke="#059669" stroke-width="1.5"/>
+<!-- Label in Graphic Box -->
+<text x="557" y="293" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Поворот у площині</text>
+
+<!-- Card 4 Text Box -->
+<rect x="496" y="314" width="122" height="136" rx="6" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+<text x="557" y="334" font-size="12" fill="#1a1a1a" text-anchor="middle">Нематичні РК</text>
+<text x="557" y="352" font-size="12" fill="#1a1a1a" text-anchor="middle">Орієнтація</text>
+<text x="557" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">в площині скла</text>
+<text x="557" y="388" font-size="12" fill="#1a1a1a" text-anchor="middle">Поворот до 90°</text>
+<text x="557" y="406" font-size="12" fill="#1a1a1a" text-anchor="middle">Без нахилу осі</text>
+<text x="557" y="424" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Кут огляду 178°</text>
+
+<!-- Arrow 4 -> 5 -->
+<line x1="628" y1="234" x2="640" y2="234" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+<!-- ==================== CARD 5: Матриця світлофільтрів ==================== -->
+<rect x="642" y="80" width="138" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="666" y="90" width="90" height="22" rx="11" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="711" y="105" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ШАР 5</text>
+<text x="711" y="129" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Матриця</text>
+<text x="711" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">світлофільтрів</text>
+
+<!-- Card 5 Graphic Box -->
+<rect x="652" y="162" width="118" height="144" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<!-- Color Filter Frame / Black Matrix -->
+<rect x="662" y="174" width="98" height="88" rx="3" fill="#111827"/>
+<!-- Red subpixel -->
+<rect x="666" y="178" width="28" height="80" rx="2" fill="#c0392b"/>
+<text x="680" y="223" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">R</text>
+<!-- Green subpixel -->
+<rect x="697" y="178" width="28" height="80" rx="2" fill="#27ae60"/>
+<text x="711" y="223" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">G</text>
+<!-- Blue subpixel -->
+<rect x="728" y="178" width="28" height="80" rx="2" fill="#2457d6"/>
+<text x="742" y="223" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">B</text>
+<!-- Label in Graphic Box -->
+<text x="711" y="293" font-size="12" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Субпікселі R-G-B</text>
+
+<!-- Card 5 Text Box -->
+<rect x="650" y="314" width="122" height="136" rx="6" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+<text x="711" y="334" font-size="12" fill="#1a1a1a" text-anchor="middle">Верхнє скло</text>
+<text x="711" y="352" font-size="12" fill="#1a1a1a" text-anchor="middle">Субпікселі</text>
+<text x="711" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">R, G та B смуг</text>
+<text x="711" y="388" font-size="12" fill="#1a1a1a" text-anchor="middle">Чорна сітка BM</text>
+<text x="711" y="406" font-size="12" fill="#1a1a1a" text-anchor="middle">Спектральний</text>
+<text x="711" y="424" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">розподіл білого</text>
+
+<!-- Arrow 5 -> 6 -->
+<line x1="782" y1="234" x2="794" y2="234" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+<!-- ==================== CARD 6: Верхній поляризатор ==================== -->
+<rect x="796" y="80" width="138" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="820" y="90" width="90" height="22" rx="11" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="865" y="105" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ШАР 6</text>
+<text x="865" y="129" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Верхній</text>
+<text x="865" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">поляризатор</text>
+
+<!-- Card 6 Graphic Box -->
+<rect x="806" y="162" width="118" height="144" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<!-- Polarizer Film Plate -->
+<rect x="818" y="174" width="94" height="88" rx="3" fill="#f8fafc" stroke="#475569" stroke-width="1.2"/>
+<!-- Vertical Grid Lines (90 deg transmission) -->
+<line x1="828" y1="178" x2="828" y2="258" stroke="#64748b" stroke-width="1.2"/>
+<line x1="840" y1="178" x2="840" y2="258" stroke="#64748b" stroke-width="1.2"/>
+<line x1="852" y1="178" x2="852" y2="258" stroke="#64748b" stroke-width="1.2"/>
+<line x1="865" y1="178" x2="865" y2="258" stroke="#64748b" stroke-width="1.2"/>
+<line x1="878" y1="178" x2="878" y2="258" stroke="#64748b" stroke-width="1.2"/>
+<line x1="890" y1="178" x2="890" y2="258" stroke="#64748b" stroke-width="1.2"/>
+<line x1="902" y1="178" x2="902" y2="258" stroke="#64748b" stroke-width="1.2"/>
+<!-- Transmission Axis Arrow (Vertical) -->
+<line x1="865" y1="248" x2="865" y2="188" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+<!-- Label in Graphic Box -->
+<text x="865" y="293" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Вісь: 90° (верт.)</text>
+
+<!-- Card 6 Text Box -->
+<rect x="804" y="314" width="122" height="136" rx="6" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+<text x="865" y="334" font-size="12" fill="#1a1a1a" text-anchor="middle">Вісь 90° (верт.)</text>
+<text x="865" y="352" font-size="12" fill="#1a1a1a" text-anchor="middle">Схрещений до L2</text>
+<text x="865" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">0 В: блокує</text>
+<text x="865" y="388" font-size="12" fill="#1a1a1a" text-anchor="middle">(True Black)</text>
+<text x="865" y="406" font-size="12" fill="#1a1a1a" text-anchor="middle">U &gt; 0: пропускає</text>
+<text x="865" y="424" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">колір до ока</text>
+
+</svg>

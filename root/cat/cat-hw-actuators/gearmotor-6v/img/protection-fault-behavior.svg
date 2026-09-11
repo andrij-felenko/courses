@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біле тло полотна -->
+  <rect width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Поведінка захисту H-моста при заклинюванні двигуна (Stall Event)</text>
+  <text x="480" y="64" font-size="13" text-anchor="middle" fill="#6b7280">Струмове обмеження (Chopping) → термовимкнення (TSD) → охолодження з гістерезисом та авторестарт</text>
+
+  <!-- Назви фаз процесу -->
+  <text x="237" y="92" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Нормальний рух</text>
+  <text x="425" y="92" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Заклинювання / Chopping</text>
+  <text x="645" y="92" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Термозахист (TSD shutdown)</text>
+  <text x="837" y="92" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Охолодження й рестарт</text>
+
+  <!-- Панель графіків -->
+  <rect x="165" y="104" width="760" height="298" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+
+  <!-- Зони фаз -->
+  <rect x="310" y="104" width="230" height="298" fill="#fdecea" opacity="0.35"/>
+  <rect x="540" y="104" width="210" height="298" fill="#fdecea" opacity="0.65"/>
+  <rect x="750" y="104" width="175" height="298" fill="#e9f7ef" opacity="0.45"/>
+
+  <!-- Вертикальні розділювачі фаз -->
+  <line x1="310" y1="104" x2="310" y2="402" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="540" y1="104" x2="540" y2="402" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="750" y1="104" x2="750" y2="402" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Горизонтальні розділювачі сигналів -->
+  <line x1="165" y1="214" x2="925" y2="214" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="165" y1="320" x2="925" y2="320" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Горизонтальні опорні лінії (Track 1) -->
+  <line x1="165" y1="140" x2="925" y2="140" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="165" y1="172" x2="925" y2="172" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="165" y1="196" x2="925" y2="196" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Горизонтальні опорні лінії (Track 2) -->
+  <line x1="165" y1="244" x2="925" y2="244" stroke="#fca5a5" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="165" y1="268" x2="925" y2="268" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="165" y1="300" x2="925" y2="300" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Горизонтальні опорні лінії (Track 3) -->
+  <line x1="165" y1="348" x2="925" y2="348" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="165" y1="380" x2="925" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Підписи лівої шкали: Струм I_LOAD -->
+  <text x="150" y="120" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">Струм I_LOAD</text>
+  <text x="150" y="144" font-size="12" text-anchor="end" fill="#6b7280">I_OCP (2.5 A)</text>
+  <text x="150" y="176" font-size="12" text-anchor="end" fill="#6b7280">I_NOM (0.5 A)</text>
+  <text x="150" y="200" font-size="12" text-anchor="end" fill="#6b7280">0 A</text>
+
+  <!-- Підписи лівої шкали: Температура T_J -->
+  <text x="150" y="224" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">Температура T_J</text>
+  <text x="150" y="248" font-size="12" text-anchor="end" fill="#c0392b">T_TSD (150°C)</text>
+  <text x="150" y="272" font-size="12" text-anchor="end" fill="#6b7280">T_TSD-HYS (130°C)</text>
+  <text x="150" y="304" font-size="12" text-anchor="end" fill="#6b7280">T_NOM (40°C)</text>
+
+  <!-- Підписи лівої шкали: Вихід nFAULT -->
+  <text x="150" y="328" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">Вихід nFAULT</text>
+  <text x="150" y="352" font-size="12" text-anchor="end" fill="#27ae60">1 (HIGH / Норма)</text>
+  <text x="150" y="384" font-size="12" text-anchor="end" fill="#c0392b">0 (LOW / Аварія)</text>
+
+  <!-- Ліва лінія осі Y -->
+  <line x1="165" y1="104" x2="165" y2="402" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Сигнал струму I_LOAD -->
+  <path d="M 165,172 L 310,172 L 322,140 L 334,154 L 346,140 L 358,154 L 370,140 L 382,154 L 394,140 L 406,154 L 418,140 L 430,154 L 442,140 L 454,154 L 466,140 L 478,154 L 490,140 L 502,154 L 514,140 L 526,154 L 540,140 L 540,196 L 750,196 L 762,140 L 774,154 L 786,140 L 798,154 L 810,140 L 822,154 L 834,140 L 846,154 L 858,140 L 870,154 L 882,140 L 894,154 L 906,140 L 918,154 L 925,145" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Сигнал температури T_J -->
+  <path d="M 165,300 L 310,300 Q 380,248 540,244 Q 620,266 750,268 Q 835,250 925,248" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Сигнал nFAULT -->
+  <path d="M 165,348 L 540,348 L 540,380 L 750,380 L 750,348 L 925,348" fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Вісь часу -->
+  <line x1="165" y1="402" x2="935" y2="402" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="310" y="428" font-size="12" text-anchor="middle" fill="#1a1a1a">Заклинювання вала</text>
+  <text x="540" y="428" font-size="12" text-anchor="middle" fill="#c0392b">Вимкнення TSD</text>
+  <text x="750" y="428" font-size="12" text-anchor="middle" fill="#27ae60">Рестарт (T_TSD - T_HYS)</text>
+  <text x="925" y="428" font-size="12" text-anchor="end" fill="#6b7280">Час (t) →</text>
+</svg>

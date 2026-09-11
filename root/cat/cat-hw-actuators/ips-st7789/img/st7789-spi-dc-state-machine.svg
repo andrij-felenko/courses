@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Автомат станів SPI-контролера ST7789: керування лінією DC</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Розділення 8-бітного опкоду (DC=0) та послідовності параметрів або слів GRAM (DC=1)</text>
+
+  <!-- 1. Стан IDLE -->
+  <rect x="40" y="95" width="210" height="80" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="145" y="118" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">1. IDLE (Очікування)</text>
+  <text x="145" y="138" font-size="12" text-anchor="middle" fill="#6b7280">CS = 1 (High), DC = X</text>
+  <text x="145" y="156" font-size="12" text-anchor="middle" fill="#6b7280">Шина SPI вільна</text>
+
+  <!-- 2. Стан CS_ASSERT -->
+  <rect x="375" y="95" width="200" height="80" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="475" y="118" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">2. CS_ASSERT</text>
+  <text x="475" y="138" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">CS -&gt; 0 (Активація)</text>
+  <text x="475" y="156" font-size="12" text-anchor="middle" fill="#6b7280">Вибір чипа контролера</text>
+
+  <!-- 3. Стан SEND_CMD -->
+  <rect x="705" y="95" width="215" height="80" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="812" y="118" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">3. SEND_CMD</text>
+  <text x="812" y="138" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">DC = 0 (Команда / Опкод)</text>
+  <text x="812" y="156" font-size="12" text-anchor="middle" fill="#6b7280">8 бітів SPI (0x2A, 0x2B, 0x2C)</text>
+
+  <!-- 4. Стан SWITCH_DC -->
+  <rect x="705" y="225" width="215" height="80" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="812" y="248" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">4. SWITCH_DC</text>
+  <text x="812" y="268" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">DC -&gt; 1 (Режим даних)</text>
+  <text x="812" y="286" font-size="12" text-anchor="middle" fill="#6b7280">Після 8 тактів SCLK опкоду</text>
+
+  <!-- 5. Стан SEND_PARAMS -->
+  <rect x="375" y="225" width="200" height="80" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="475" y="248" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">5. SEND_PARAMS</text>
+  <text x="475" y="268" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">DC = 1 (Параметри)</text>
+  <text x="475" y="286" font-size="12" text-anchor="middle" fill="#6b7280">Координати X/Y (1..4 байти)</text>
+
+  <!-- 6. Стан STREAM_DATA -->
+  <rect x="375" y="355" width="545" height="85" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="647" y="379" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">6. STREAM_DATA (Потік пікселів GRAM)</text>
+  <text x="647" y="401" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">DC = 1 (Безперервний масив слів RGB565 через DMA)</text>
+  <text x="647" y="421" font-size="12" text-anchor="middle" fill="#6b7280">Трансфер 240×240×2 = 115 200 байтів без смикання CS/DC</text>
+
+  <!-- 7. Стан CS_DEASSERT -->
+  <rect x="40" y="355" width="210" height="85" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="145" y="380" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">7. CS_DEASSERT</text>
+  <text x="145" y="401" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">CS -&gt; 1 (Деактивація)</text>
+  <text x="145" y="421" font-size="12" text-anchor="middle" fill="#6b7280">Завершення пакета кадру</text>
+
+  <!-- Стрілка 1: IDLE -> CS_ASSERT -->
+  <line x1="250" y1="142" x2="367" y2="142" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="312" y="116" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Початок транзакції</text>
+  <text x="312" y="132" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">(CS=0, DC=0)</text>
+
+  <!-- Стрілка 2: CS_ASSERT -> SEND_CMD -->
+  <line x1="575" y1="142" x2="697" y2="142" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="640" y="116" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вибір чипа</text>
+  <text x="640" y="132" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">CS=0, DC=0</text>
+
+  <!-- Стрілка 3: SEND_CMD -> SWITCH_DC -->
+  <line x1="755" y1="175" x2="755" y2="217" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="768" y="195" font-size="12" font-weight="bold" fill="#1a1a1a">Опкод відправлено</text>
+  <text x="768" y="211" font-size="12" font-weight="bold" fill="#2457d6">(DC-&gt;1)</text>
+
+  <!-- Стрілка 4: SWITCH_DC -> SEND_PARAMS -->
+  <line x1="705" y1="265" x2="583" y2="265" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="644" y="246" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Параметри команди</text>
+  <text x="644" y="260" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">DC=1 (байти даних)</text>
+
+  <!-- Стрілка 5: SEND_PARAMS -> SEND_CMD (Наступна команда) -->
+  <path d="M 475,225 L 475,195 L 675,195 L 675,150 L 697,150" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="575" y="176" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Наступна команда</text>
+  <text x="575" y="190" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">(DC-&gt;0)</text>
+
+  <!-- Стрілка 6: SWITCH_DC -> STREAM_DATA (Потік пікселів DMA) -->
+  <line x1="812" y1="305" x2="812" y2="347" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="800" y="331" font-size="12" font-weight="bold" text-anchor="end" fill="#27ae60">Потік пікселів DMA</text>
+
+  <!-- Стрілка 7: STREAM_DATA -> CS_DEASSERT (Кінець кадру) -->
+  <line x1="375" y1="405" x2="258" y2="405" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="316" y="382" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Кінець кадру</text>
+  <text x="316" y="398" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">(CS=1)</text>
+
+  <!-- Стрілка 8: CS_DEASSERT -> IDLE (Завершення) -->
+  <line x1="145" y1="355" x2="145" y2="183" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="157" y="260" font-size="12" font-weight="bold" fill="#1a1a1a">Завершення кадру</text>
+  <text x="157" y="278" font-size="12" font-weight="bold" fill="#2457d6">Шина вільна (CS=1)</text>
+</svg>

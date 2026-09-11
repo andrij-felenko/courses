@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+  </marker>
+</defs>
+
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Title & Subtitle -->
+<text x="480" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Механізм контактного шуму (CRV) та апаратного джитеру сервоприводу</text>
+<text x="480" y="46" text-anchor="middle" font-size="13" fill="#6b7280">Абразивний знос доріжки породжує сплески ΔR_c(t), викликаючи хибні імпульси H-моста й вібрацію вала</text>
+
+<!-- ==================== LEFT PANEL: MECHANISM & CIRCUIT ==================== -->
+<rect x="30" y="68" width="430" height="262" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="30" y="68" width="430" height="26" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="245" y="86" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Фізичний знос контакту та еквівалентна схема</text>
+
+<!-- --- Sub-section A: Physical contact view --- -->
+<!-- Resistive track body -->
+<rect x="45" y="148" width="220" height="22" rx="2" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<rect x="45" y="140" width="220" height="10" fill="#6b7280"/>
+
+<!-- Worn degraded pit zone -->
+<rect x="125" y="140" width="55" height="10" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<line x1="137" y1="141" x2="139" y2="149" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="151" y1="141" x2="153" y2="149" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="165" y1="141" x2="167" y2="149" stroke="#c0392b" stroke-width="1.5"/>
+
+<!-- Wiper assembly -->
+<rect x="110" y="104" width="85" height="18" rx="3" fill="#2457d6"/>
+<text x="152" y="117" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Повзунок</text>
+
+<!-- Wiper movement speed vector -->
+<line x1="202" y1="113" x2="238" y2="113" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<text x="244" y="117" font-size="12" font-weight="bold" fill="#2457d6">v(t)</text>
+
+<!-- Multi-finger contacts -->
+<line x1="122" y1="122" x2="120" y2="140" stroke="#2457d6" stroke-width="1.8"/>
+<line x1="148" y1="122" x2="148" y2="134" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="174" y1="122" x2="176" y2="140" stroke="#2457d6" stroke-width="1.8"/>
+
+<!-- Physical labels -->
+<text x="82" y="184" text-anchor="middle" font-size="12" fill="#6b7280">Доріжка</text>
+<text x="152" y="184" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Вибоїни зносу</text>
+<text x="225" y="184" text-anchor="middle" font-size="12" fill="#6b7280">Полімер</text>
+
+<!-- Physical callout box -->
+<rect x="280" y="102" width="165" height="84" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="362" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Причина шуму CRV</text>
+<text x="290" y="138" font-size="12" fill="#1a1a1a">• Викришування шару</text>
+<text x="290" y="154" font-size="12" fill="#1a1a1a">• Брязкіт пелюсток вала</text>
+<text x="290" y="172" font-size="12" font-weight="bold" fill="#c0392b">• Стрибки R_c до 50 кОм</text>
+
+<!-- Divider line between physical and schematic -->
+<line x1="45" y1="198" x2="445" y2="198" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+
+<!-- --- Sub-section B: Equivalent Circuit --- -->
+<!-- VCC (+5V) -->
+<line x1="65" y1="216" x2="65" y2="228" stroke="#c0392b" stroke-width="2"/>
+<circle cx="65" cy="216" r="3.5" fill="#c0392b"/>
+<text x="65" y="211" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">+5V</text>
+
+<!-- Resistor R1 -->
+<rect x="58" y="228" width="14" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="50" y="244" text-anchor="end" font-size="12" fill="#6b7280">R1</text>
+
+<!-- Node between R1 and R2 -->
+<line x1="65" y1="252" x2="65" y2="268" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="65" cy="260" r="3" fill="#1a1a1a"/>
+
+<!-- Resistor R2 -->
+<rect x="58" y="268" width="14" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="50" y="284" text-anchor="end" font-size="12" fill="#6b7280">R2</text>
+
+<!-- GND -->
+<line x1="65" y1="292" x2="65" y2="304" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="65" cy="304" r="3.5" fill="#1a1a1a"/>
+<text x="65" y="318" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+
+<!-- Wiper tap to dynamic contact resistance ΔR_c(t) -->
+<line x1="65" y1="260" x2="105" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="105" y="251" width="55" height="18" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="132" y="264" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ΔR_c(t)</text>
+<text x="132" y="244" text-anchor="middle" font-size="12" fill="#c0392b">Шум CRV</text>
+
+<!-- Wiper line to output -->
+<line x1="160" y1="260" x2="200" y2="260" stroke="#2457d6" stroke-width="2"/>
+<circle cx="200" cy="260" r="3" fill="#2457d6"/>
+
+<!-- Filter Cap C_f -->
+<line x1="200" y1="260" x2="200" y2="278" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="192" y1="278" x2="208" y2="278" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="192" y1="284" x2="208" y2="284" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="200" y1="284" x2="200" y2="296" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="195" y1="296" x2="205" y2="296" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="197" y1="299" x2="203" y2="299" stroke="#1a1a1a" stroke-width="1"/>
+<text x="214" y="284" font-size="12" fill="#6b7280">C_f</text>
+
+<!-- Output arrow and badge -->
+<line x1="200" y1="260" x2="230" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<text x="238" y="256" font-size="12" font-weight="bold" fill="#2457d6">V_out(t)</text>
+<text x="238" y="271" font-size="12" fill="#c0392b">V_ном ± ΔV</text>
+
+<!-- Circuit note box -->
+<rect x="290" y="208" width="155" height="110" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="367" y="226" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вхідний каскад АЦП:</text>
+<text x="298" y="246" font-size="12" fill="#1a1a1a">• R_in &gt; 10 МОм</text>
+<text x="298" y="266" font-size="12" fill="#1a1a1a">• I_вхід ≈ 0.1..1.0 мкА</text>
+<text x="298" y="286" font-size="12" font-weight="bold" fill="#c0392b">• ΔV = ΔR_c · I_вхід</text>
+<text x="298" y="306" font-size="12" fill="#6b7280">• При обриві: V → 0 В</text>
+
+<!-- ==================== RIGHT PANEL: WAVEFORMS ==================== -->
+<rect x="475" y="68" width="455" height="262" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="475" y="68" width="455" height="26" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="702" y="86" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Часові осцилограми: шум CRV, струм мотора й джитер</text>
+
+<!-- Shaded zone for active CRV noise -->
+<rect x="640" y="118" width="145" height="162" fill="#fdecea"/>
+<text x="712" y="112" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Зона активного шуму CRV</text>
+
+<!-- Signal 1: V_out(t) -->
+<line x1="550" y1="142" x2="880" y2="142" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="2,2"/>
+<text x="542" y="139" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">V_out</text>
+<text x="542" y="152" text-anchor="end" font-size="12" fill="#6b7280">2.5 В</text>
+
+<!-- Polyline for V_out with spikes -->
+<polyline points="550,142 640,142 648,142 653,162 658,142 668,142 673,124 678,142 688,142 694,166 699,158 704,142 716,142 721,122 726,142 736,142 741,164 746,126 751,142 762,156 767,142 778,148 785,142 880,142" fill="none" stroke="#2457d6" stroke-width="2"/>
+<text x="800" y="133" font-size="12" font-weight="bold" fill="#c0392b">Сплески шуму CRV</text>
+
+<!-- Signal 2: I_motor(t) -->
+<line x1="550" y1="202" x2="880" y2="202" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="2,2"/>
+<text x="542" y="199" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">I_mot</text>
+<text x="542" y="212" text-anchor="end" font-size="12" fill="#6b7280">0 мА</text>
+
+<!-- Polyline for I_motor pulses -->
+<polyline points="550,202 648,202 649,184 657,184 658,202 668,202 669,220 677,220 678,202 688,202 689,182 703,182 704,202 716,202 717,222 725,222 726,202 736,202 737,182 743,182 744,222 750,222 751,202 762,202 763,186 767,186 768,202 785,202 880,202" fill="none" stroke="#c0392b" stroke-width="1.8"/>
+<text x="800" y="193" font-size="12" font-weight="bold" fill="#c0392b">Хибні імпульси H-моста</text>
+
+<!-- Signal 3: theta_shaft(t) -->
+<line x1="550" y1="262" x2="880" y2="262" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="2,2"/>
+<text x="542" y="259" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">θ_вал</text>
+<text x="542" y="272" text-anchor="end" font-size="12" fill="#6b7280">90°</text>
+
+<!-- Polyline for shaft angle jitter -->
+<polyline points="550,262 640,262 650,262 656,258 664,265 674,257 682,266 692,256 702,267 714,258 724,266 738,255 748,267 760,259 772,265 785,262 880,262" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<text x="800" y="253" font-size="12" font-weight="bold" fill="#1a1a1a">Джитер вала (±2°)</text>
+
+<!-- Time axis -->
+<line x1="550" y1="288" x2="885" y2="288" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+<line x1="550" y1="288" x2="550" y2="292" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="640" y1="288" x2="640" y2="292" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="785" y1="288" x2="785" y2="292" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="880" y1="288" x2="880" y2="292" stroke="#1a1a1a" stroke-width="1"/>
+
+<text x="550" y="304" text-anchor="middle" font-size="12" fill="#6b7280">t_0</text>
+<text x="640" y="304" text-anchor="middle" font-size="12" fill="#c0392b">t_вхід</text>
+<text x="785" y="304" text-anchor="middle" font-size="12" fill="#27ae60">t_вихід</text>
+<text x="712" y="318" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Час t [мс] — рух повзунка через дефектну зону</text>
+
+<!-- ==================== BOTTOM CARDS ==================== -->
+<rect x="30" y="342" width="285" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="42" y="360" font-size="13" font-weight="bold" fill="#2457d6">1. Фізика контактного шуму (CRV)</text>
+<text x="42" y="378" font-size="12" fill="#1a1a1a">• Знос полімеру створює борозни та пил.</text>
+<text x="42" y="396" font-size="12" fill="#1a1a1a">• Пелюстки повзунка втрачають контакт.</text>
+<text x="42" y="414" font-size="12" fill="#1a1a1a">• Опір R_c стрибає від 50 Ом до 50 кОм.</text>
+<text x="42" y="432" font-size="12" fill="#6b7280">• Шум виникає лише під час руху вала.</text>
+
+<rect x="330" y="342" width="290" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="342" y="360" font-size="13" font-weight="bold" fill="#c0392b">2. Реакція контуру керування</text>
+<text x="342" y="378" font-size="12" fill="#1a1a1a">• Контролер сприймає шум як похибку ε(t).</text>
+<text x="342" y="396" font-size="12" fill="#1a1a1a">• H-міст видає хаотичні імпульси струму.</text>
+<text x="342" y="414" font-size="12" fill="#1a1a1a">• Струм споживання стрибає до 500+ мА.</text>
+<text x="342" y="432" font-size="12" fill="#6b7280">• Спроба корекції розхитує систему.</text>
+
+<rect x="635" y="342" width="295" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="647" y="360" font-size="13" font-weight="bold" fill="#27ae60">3. Апаратний джитер і наслідки</text>
+<text x="647" y="378" font-size="12" fill="#1a1a1a">• Вихідний вал дрижить із частотою шуму.</text>
+<text x="647" y="396" font-size="12" fill="#1a1a1a">• Амплітуда вібрації досягає ±1.0°..±2.5°.</text>
+<text x="647" y="414" font-size="12" fill="#1a1a1a">• Перегрів обмоток двигуна й драйвера.</text>
+<text x="647" y="432" font-size="12" fill="#6b7280">• Зношуються зубці металевого редуктора.</text>
+
+</svg>

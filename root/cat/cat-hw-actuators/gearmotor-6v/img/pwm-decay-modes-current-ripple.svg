@@ -1,0 +1,217 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-gray-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Режими спаду струму: Fast Decay проти Slow Decay</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння рециркуляції енергії в H-мості та впливу частоти ШІМ на пульсації струму</text>
+
+  <!-- LEFT PANEL: Режими спаду струму -->
+  <rect x="24" y="68" width="446" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="93" font-size="14" font-weight="bold" fill="#1a1a1a">Швидкий (Fast) проти повільного (Slow) спаду струму</text>
+
+  <!-- Fast Decay Sub-card -->
+  <rect x="38" y="106" width="418" height="162" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="48" y="116" width="88" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="92" y="130" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Fast Decay</text>
+  <text x="146" y="130" font-size="12" fill="#6b7280">Скидання струму в джерело (−Vcc)</text>
+
+  <!-- Fast Decay Mini H-Bridge -->
+  <line x1="68" y1="152" x2="180" y2="152" stroke="#d0d7de" stroke-width="2"/>
+  <text x="124" y="147" font-size="12" fill="#6b7280" text-anchor="middle">+Vcc</text>
+  <line x1="68" y1="226" x2="180" y2="226" stroke="#d0d7de" stroke-width="2"/>
+  <text x="124" y="241" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- Fast Decay Open Switches -->
+  <line x1="90" y1="152" x2="90" y2="162" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="90" y1="176" x2="90" y2="189" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="90" y1="176" x2="82" y2="164" stroke="#6b7280" stroke-width="1.5"/>
+
+  <line x1="158" y1="189" x2="158" y2="202" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="158" y1="216" x2="158" y2="226" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="158" y1="216" x2="150" y2="204" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Fast Decay Recirculation Path (through body diodes to rails) -->
+  <path d="M 90,226 L 90,189 L 111,189" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <path d="M 137,189 L 158,189 L 158,154" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Motor M -->
+  <circle cx="124" cy="189" r="13" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="124" y="193" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+  <text x="124" y="258" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Скид у джерело (−Vcc)</text>
+
+  <!-- Fast Decay Waveform -->
+  <line x1="230" y1="232" x2="230" y2="146" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="226" y="145" font-size="12" fill="#6b7280" text-anchor="end">I</text>
+  <line x1="230" y1="232" x2="435" y2="232" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="440" y="236" font-size="12" fill="#6b7280">t</text>
+
+  <!-- Average current line -->
+  <line x1="230" y1="190" x2="395" y2="190" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="226" y="194" font-size="12" fill="#6b7280" text-anchor="end">I_сер</text>
+
+  <!-- Waveform curve: Steep drops -->
+  <path d="M 235,220 L 275,160" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 275,160 L 315,220" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M 315,220 L 355,160" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 355,160 L 395,220" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Fast Decay Ripple Indicator -->
+  <line x1="395" y1="160" x2="410" y2="160" stroke="#c0392b" stroke-dasharray="2,2" stroke-width="1"/>
+  <line x1="395" y1="220" x2="410" y2="220" stroke="#c0392b" stroke-dasharray="2,2" stroke-width="1"/>
+  <line x1="405" y1="162" x2="405" y2="218" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+  <text x="414" y="194" font-size="12" font-weight="bold" fill="#c0392b">ΔI</text>
+
+  <text x="325" y="150" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Велика пульсація струму (ΔI_fast)</text>
+  <text x="325" y="254" font-size="12" fill="#c0392b" text-anchor="middle">Спад під дією −Vcc: високі пульсації ΔI</text>
+
+  <!-- Slow Decay Sub-card -->
+  <rect x="38" y="280" width="418" height="166" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="48" y="290" width="92" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="94" y="304" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Slow Decay</text>
+  <text x="148" y="304" font-size="12" fill="#6b7280">Замикання в нижньому плечі (0 В)</text>
+
+  <!-- Slow Decay Mini H-Bridge -->
+  <line x1="68" y1="324" x2="180" y2="324" stroke="#d0d7de" stroke-width="2"/>
+  <text x="124" y="319" font-size="12" fill="#6b7280" text-anchor="middle">+Vcc</text>
+  <line x1="68" y1="402" x2="180" y2="402" stroke="#d0d7de" stroke-width="2"/>
+  <text x="124" y="416" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- Slow Decay Open Top Switches -->
+  <line x1="90" y1="324" x2="90" y2="334" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="90" y1="348" x2="90" y2="363" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="90" y1="348" x2="82" y2="336" stroke="#6b7280" stroke-width="1.5"/>
+
+  <line x1="158" y1="324" x2="158" y2="334" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="158" y1="348" x2="158" y2="363" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="158" y1="348" x2="150" y2="336" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Slow Decay Closed Freewheeling Loop -->
+  <path d="M 137,363 L 158,363 L 158,402 L 90,402 L 90,363 L 111,363" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Motor M -->
+  <circle cx="124" cy="363" r="13" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="124" y="367" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+  <text x="124" y="432" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Замкнена петля (0 В)</text>
+
+  <!-- Slow Decay Waveform -->
+  <line x1="230" y1="406" x2="230" y2="320" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="226" y="319" font-size="12" fill="#6b7280" text-anchor="end">I</text>
+  <line x1="230" y1="406" x2="435" y2="406" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="440" y="410" font-size="12" fill="#6b7280">t</text>
+
+  <!-- Average current line -->
+  <line x1="230" y1="341" x2="395" y2="341" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="226" y="345" font-size="12" fill="#6b7280" text-anchor="end">I_сер</text>
+
+  <!-- Waveform curve: Gentle drops -->
+  <path d="M 235,348 L 275,334" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 275,334 L 315,348" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 315,348 L 355,334" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 355,334 L 395,348" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Slow Decay Ripple Indicator -->
+  <line x1="395" y1="334" x2="410" y2="334" stroke="#27ae60" stroke-dasharray="2,2" stroke-width="1"/>
+  <line x1="395" y1="348" x2="410" y2="348" stroke="#27ae60" stroke-dasharray="2,2" stroke-width="1"/>
+  <line x1="405" y1="336" x2="405" y2="346" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-rev)" marker-end="url(#arr-green)"/>
+  <text x="414" y="345" font-size="12" font-weight="bold" fill="#27ae60">ΔI</text>
+
+  <text x="325" y="322" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Мінімальна пульсація (струм згладжений)</text>
+  <text x="325" y="428" font-size="12" fill="#27ae60" text-anchor="middle">Спад біля 0 В: струм безперервний (CCM)</text>
+
+
+  <!-- RIGHT PANEL: Вплив частоти ШІМ -->
+  <rect x="490" y="68" width="446" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="506" y="93" font-size="14" font-weight="bold" fill="#1a1a1a">Залежність пульсацій струму від частоти ШІМ</text>
+
+  <!-- Formula badge -->
+  <rect x="506" y="104" width="414" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="713" y="124" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ΔI = (V · D · (1 − D)) / (L · f_pwm)  ⟹  вище f → менше ΔI</text>
+
+  <!-- Sub-card 1: f = 1 kHz -->
+  <rect x="506" y="146" width="414" height="128" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="516" y="156" width="76" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="554" y="170" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">f = 1 кГц</text>
+  <text x="602" y="170" font-size="12" font-weight="bold" fill="#1a1a1a">Низька частота (період T = 1000 мкс)</text>
+
+  <!-- 1 kHz Waveform -->
+  <line x1="526" y1="240" x2="526" y2="186" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="522" y="184" font-size="12" fill="#6b7280" text-anchor="end">I</text>
+  <line x1="526" y1="240" x2="680" y2="240" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="686" y="244" font-size="12" fill="#6b7280">t</text>
+
+  <path d="M 534,236 L 580,192" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 580,192 L 626,236" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M 626,236 L 660,201" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 660,201 L 674,218" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- 1 kHz Ripple Arrow -->
+  <line x1="576" y1="192" x2="590" y2="192" stroke="#c0392b" stroke-dasharray="2,2" stroke-width="1"/>
+  <line x1="576" y1="236" x2="590" y2="236" stroke="#c0392b" stroke-dasharray="2,2" stroke-width="1"/>
+  <line x1="586" y1="194" x2="586" y2="234" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+  <text x="594" y="218" font-size="12" font-weight="bold" fill="#c0392b">ΔI велика</text>
+
+  <!-- Period indicator T = 1 ms -->
+  <line x1="534" y1="252" x2="626" y2="252" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-gray-rev)" marker-end="url(#arr-gray)"/>
+  <text x="580" y="266" font-size="12" fill="#6b7280" text-anchor="middle">T = 1 мс</text>
+
+  <!-- 1 kHz Bullets -->
+  <text x="704" y="200" font-size="12" fill="#c0392b">• Пульсація ΔI до 80–100%</text>
+  <text x="704" y="222" font-size="12" fill="#c0392b">• Чутний писк (1 кГц у вусі)</text>
+  <text x="704" y="244" font-size="12" fill="#c0392b">• Додатковий нагрів обмотки</text>
+
+  <!-- Sub-card 2: f = 20 kHz -->
+  <rect x="506" y="286" width="414" height="128" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="516" y="296" width="82" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="557" y="310" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">f = 20 кГц</text>
+  <text x="608" y="310" font-size="12" font-weight="bold" fill="#1a1a1a">Ультразвук (короткий період T = 50 мкс)</text>
+
+  <!-- 20 kHz Waveform -->
+  <line x1="526" y1="380" x2="526" y2="324" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="522" y="322" font-size="12" fill="#6b7280" text-anchor="end">I</text>
+  <line x1="526" y1="380" x2="680" y2="380" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="686" y="384" font-size="12" fill="#6b7280">t</text>
+
+  <!-- 20 kHz rapid ripples -->
+  <path d="M 534,350 L 540,346 L 546,350 L 552,346 L 558,350 L 564,346 L 570,350 L 576,346 L 582,350 L 588,346 L 594,350 L 600,346 L 606,350 L 612,346 L 618,350 L 624,346 L 630,350 L 636,346 L 642,350 L 648,346 L 654,350 L 660,346 L 666,350 L 672,346 L 678,350" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <line x1="534" y1="348" x2="678" y2="348" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <text x="606" y="336" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ΔI_20k ≈ 0 (згладжено)</text>
+
+  <!-- Period indicator T = 50 us -->
+  <line x1="534" y1="392" x2="558" y2="392" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-gray-rev)" marker-end="url(#arr-gray)"/>
+  <text x="606" y="404" font-size="12" fill="#6b7280" text-anchor="middle">T = 50 мкс (короткий цикл)</text>
+
+  <!-- 20 kHz Bullets -->
+  <text x="704" y="340" font-size="12" fill="#27ae60">• Струм майже постійний</text>
+  <text x="704" y="362" font-size="12" fill="#27ae60">• Повна тиша (поза слухом)</text>
+  <text x="704" y="382" font-size="12" fill="#27ae60">• Високий ККД та рівний хід</text>
+
+  <!-- Bottom Recommendation Banner -->
+  <rect x="506" y="426" width="414" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="713" y="444" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вибір: 20 кГц + Slow Decay ⟹ тихий хід і рівний момент</text>
+</svg>

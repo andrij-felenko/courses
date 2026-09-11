@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="27" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Калібрування крайніх точок та програмне обмеження (Clamping)</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Зіставлення номінальних імпульсів, реальних упорів стопора та безпечного робочого діапазону з відступами margin</text>
+
+  <!-- Головна панель діаграми -->
+  <rect x="24" y="62" width="912" height="268" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- ГОЛОВНА ЧАСОВА ШКАЛА (мкс) -->
+  <line x1="170" y1="92" x2="910" y2="92" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="918" y="96" font-size="12" font-weight="bold" fill="#1a1a1a">мкс</text>
+
+  <!-- Засічки та підписи значень шкали -->
+  <line x1="180" y1="88" x2="180" y2="96" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="180" y="84" text-anchor="middle" font-size="12" fill="#6b7280">400</text>
+
+  <line x1="240" y1="88" x2="240" y2="96" stroke="#c0392b" stroke-width="2"/>
+  <text x="240" y="84" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">460</text>
+
+  <line x1="280" y1="88" x2="280" y2="96" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="280" y="84" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">500</text>
+
+  <line x1="320" y1="88" x2="320" y2="96" stroke="#27ae60" stroke-width="2"/>
+  <text x="320" y="84" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">540</text>
+
+  <line x1="540" y1="88" x2="540" y2="96" stroke="#2457d6" stroke-width="2"/>
+  <text x="540" y="84" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1500 (90°)</text>
+
+  <line x1="760" y1="88" x2="760" y2="96" stroke="#27ae60" stroke-width="2"/>
+  <text x="760" y="84" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">2460</text>
+
+  <line x1="800" y1="88" x2="800" y2="96" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="800" y="84" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2500</text>
+
+  <line x1="840" y1="88" x2="840" y2="96" stroke="#c0392b" stroke-width="2"/>
+  <text x="840" y="84" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">2540</text>
+
+  <line x1="900" y1="88" x2="900" y2="96" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="900" y="84" text-anchor="middle" font-size="12" fill="#6b7280">2600</text>
+
+  <!-- СМУГА 1: НОМІНАЛЬНИЙ ДІАПАЗОН (0,5–2,5 мс) -->
+  <text x="165" y="132" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">Номінальний</text>
+  <text x="165" y="148" text-anchor="end" font-size="12" fill="#6b7280">стандарт 0,5–2,5 мс</text>
+
+  <rect x="280" y="118" width="520" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="540" y="133" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Номінальна лінійна шкала: θ = (t - 500 мкс) / 2000 мкс · 180°</text>
+  <text x="540" y="148" text-anchor="middle" font-size="12" fill="#2457d6">0° при 500 мкс  |  90° при 1500 мкс  |  180° при 2500 мкс</text>
+
+  <!-- СМУГА 2: ФІЗИЧНИЙ ДІАПАЗОН ТА МЕХАНІЧНІ СТОПОРИ -->
+  <text x="165" y="194" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Фізичні упори</text>
+  <text x="165" y="210" text-anchor="end" font-size="12" fill="#6b7280">механічні стопори</text>
+
+  <!-- Ліва аварійна зона впирання в стопор (< 460 мкс) -->
+  <rect x="180" y="180" width="60" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="210" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">КЛИН</text>
+  <text x="210" y="209" text-anchor="middle" font-size="12" fill="#c0392b">&lt;460</text>
+
+  <!-- Зона фізичного вільного ходу вала -->
+  <rect x="240" y="180" width="600" height="36" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="540" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Діапазон фізичного обертання вала між механічними стопорами</text>
+  <text x="540" y="209" text-anchor="middle" font-size="12" fill="#6b7280">Фактичний кутовий хід конкретного зразка ≈ 187° (460 ... 2540 мкс)</text>
+
+  <!-- Права аварійна зона впирання в стопор (> 2540 мкс) -->
+  <rect x="840" y="180" width="60" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="870" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">КЛИН</text>
+  <text x="870" y="209" text-anchor="middle" font-size="12" fill="#c0392b">&gt;2540</text>
+
+  <!-- Бар'єри механічних стопорів -->
+  <line x1="240" y1="174" x2="240" y2="222" stroke="#c0392b" stroke-width="3"/>
+  <line x1="840" y1="174" x2="840" y2="222" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- СМУГА 3: ПРОГРАМНЕ ОБМЕЖЕННЯ (CLAMPING & MARGINS) -->
+  <text x="165" y="256" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">Безпечний Clamping</text>
+  <text x="165" y="272" text-anchor="end" font-size="12" fill="#6b7280">програмний захист</text>
+
+  <!-- Лівий буфер clamping margin (460..540 мкс) -->
+  <rect x="240" y="242" width="80" height="36" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3 2"/>
+  <text x="280" y="257" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Margin</text>
+  <text x="280" y="271" text-anchor="middle" font-size="12" fill="#2457d6">Δt = 80 мкс</text>
+
+  <!-- Дозволений робочий діапазон (540..2460 мкс) -->
+  <rect x="320" y="242" width="440" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="540" y="257" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Програмно дозволений робочий рух: 540 ... 2460 мкс</text>
+  <text x="540" y="271" text-anchor="middle" font-size="12" fill="#27ae60">Нульовий ризик контакту зі стопором | Струм спокою &lt; 15 мА</text>
+
+  <!-- Правий буфер clamping margin (2460..2540 мкс) -->
+  <rect x="760" y="242" width="80" height="36" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3 2"/>
+  <text x="800" y="257" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Margin</text>
+  <text x="800" y="271" text-anchor="middle" font-size="12" fill="#2457d6">Δt = 80 мкс</text>
+
+  <!-- Межі безпечного руху -->
+  <line x1="320" y1="236" x2="320" y2="284" stroke="#27ae60" stroke-width="3"/>
+  <line x1="760" y1="236" x2="760" y2="284" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Пояснювальні підписи до буферів margin -->
+  <text x="280" y="306" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Запас 0°</text>
+  <text x="280" y="322" text-anchor="middle" font-size="12" fill="#6b7280">Захист упору</text>
+
+  <text x="540" y="306" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Безпечний рух 0° ... 180° без навантаження на упори</text>
+  <text x="540" y="322" text-anchor="middle" font-size="12" fill="#6b7280">Код: pulse_us = constrain(pulse_us, 540, 2460);</text>
+
+  <text x="800" y="306" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Запас 180°</text>
+  <text x="800" y="322" text-anchor="middle" font-size="12" fill="#6b7280">Захист редуктора</text>
+
+  <!-- ПІДСУМКОВІ КАРТКИ ВНИЗУ -->
+  <!-- Картка 1: Небезпека механічного клину -->
+  <rect x="24" y="344" width="292" height="98" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="36" y="364" font-size="13" font-weight="bold" fill="#c0392b">⛔ Небезпека стопора:</text>
+  <text x="36" y="383" font-size="12" fill="#1a1a1a">• Впирання у виступ шестерні</text>
+  <text x="36" y="401" font-size="12" fill="#1a1a1a">• Струм блокування I_stall ≈ 0.9 A</text>
+  <text x="36" y="419" font-size="12" fill="#1a1a1a">• Перегрів обмотки та зріз зубів</text>
+
+  <!-- Картка 2: Двоточкове калібрування -->
+  <rect x="328" y="344" width="304" height="98" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="340" y="364" font-size="13" font-weight="bold" fill="#2457d6"> Двоточкове калібрування:</text>
+  <text x="340" y="383" font-size="12" fill="#1a1a1a">• Визначення t_min_hard та t_max_hard</text>
+  <text x="340" y="401" font-size="12" fill="#1a1a1a">• Компенсація розкиду потенціометра</text>
+  <text x="340" y="419" font-size="12" fill="#1a1a1a">• Індивідуальні зміщення зразка V2</text>
+
+  <!-- Картка 3: Програмне обмеження Clamping -->
+  <rect x="644" y="344" width="292" height="98" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="656" y="364" font-size="13" font-weight="bold" fill="#27ae60">✓ Безпека Clamping:</text>
+  <text x="656" y="383" font-size="12" fill="#1a1a1a">• Відступ margin Δt ≈ 40–80 мкс</text>
+  <text x="656" y="401" font-size="12" fill="#1a1a1a">• Апаратне відсікання помилок ШІМ</text>
+  <text x="656" y="419" font-size="12" fill="#1a1a1a">• Гарантія надійності редуктора</text>
+</svg>

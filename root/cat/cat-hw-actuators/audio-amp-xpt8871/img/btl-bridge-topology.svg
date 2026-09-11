@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мостова топологія виходу BTL в аудіопідсилювачі XPT8871</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Два протифазні підсилювачі подвоюють напругу на динаміку та компенсують постійне зміщення VDD/2</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Структурна схема -->
+  <rect x="24" y="76" width="496" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Спрощена структурна схема мікросхеми XPT8871</text>
+
+  <!-- Корпус мікросхеми XPT8871 -->
+  <rect x="40" y="114" width="310" height="236" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="50" y="130" font-size="12" font-weight="bold" fill="#2457d6">XPT8871</text>
+
+  <!-- Вхідний сигнал IN -->
+  <text x="46" y="154" font-size="12" font-weight="bold" fill="#1a1a1a">Вхід</text>
+  <line x1="40" y1="168" x2="72" y2="168" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="40" cy="168" r="3" fill="#2457d6"/>
+
+  <!-- Резистор Ri -->
+  <rect x="72" y="162" width="30" height="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="87" y="156" font-size="12" fill="#1a1a1a" text-anchor="middle">Ri</text>
+  <line x1="102" y1="168" x2="140" y2="168" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Зворотний зв'язок Rf для A1 -->
+  <circle cx="118" cy="168" r="2.5" fill="#1a1a1a"/>
+  <line x1="118" y1="168" x2="118" y2="142" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="118" y1="142" x2="150" y2="142" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="150" y="136" width="30" height="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="165" y="132" font-size="12" fill="#1a1a1a" text-anchor="middle">Rf</text>
+  <line x1="180" y1="142" x2="215" y2="142" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="215" y1="142" x2="215" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="215" cy="175" r="2.5" fill="#1a1a1a"/>
+
+  <!-- Підсилювач A1 -->
+  <polygon points="140,145 200,175 140,205" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="148" y="168" font-size="12" font-weight="bold" fill="#1a1a1a">−</text>
+  <text x="148" y="194" font-size="12" font-weight="bold" fill="#1a1a1a">+</text>
+  <text x="170" y="179" font-size="12" font-weight="bold" fill="#1a1a1a">A1</text>
+
+  <!-- Опора VDD/2 для A1 -->
+  <line x1="110" y1="194" x2="140" y2="194" stroke="#6b7280" stroke-width="1.2"/>
+  <circle cx="110" cy="194" r="2" fill="#6b7280"/>
+  <text x="104" y="198" font-size="12" fill="#6b7280" text-anchor="end">VDD/2</text>
+
+  <!-- Вихід A1 до піна VO1 -->
+  <line x1="200" y1="175" x2="350" y2="175" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="230" cy="175" r="2.5" fill="#1a1a1a"/>
+
+  <!-- Сигнал від VO1 до A2 -->
+  <line x1="230" y1="175" x2="230" y2="263" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="230" y1="263" x2="238" y2="263" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Резистор R1 для A2 -->
+  <rect x="238" y="257" width="24" height="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="250" y="252" font-size="12" fill="#1a1a1a" text-anchor="middle">R1</text>
+  <line x1="262" y1="263" x2="270" y2="263" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Зворотний зв'язок R2 для A2 (по верху) -->
+  <circle cx="266" cy="263" r="2.5" fill="#1a1a1a"/>
+  <line x1="266" y1="263" x2="266" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="266" y1="225" x2="280" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="280" y="219" width="30" height="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="295" y="214" font-size="12" fill="#1a1a1a" text-anchor="middle">R2=R1</text>
+  <line x1="310" y1="225" x2="340" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="340" y1="225" x2="340" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="340" cy="270" r="2.5" fill="#1a1a1a"/>
+
+  <!-- Підсилювач A2 -->
+  <polygon points="270,240 330,270 270,300" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="278" y="263" font-size="12" font-weight="bold" fill="#1a1a1a">−</text>
+  <text x="278" y="289" font-size="12" font-weight="bold" fill="#1a1a1a">+</text>
+  <text x="300" y="274" font-size="12" font-weight="bold" fill="#1a1a1a">A2</text>
+
+  <!-- Опора VDD/2 для A2 -->
+  <line x1="240" y1="289" x2="270" y2="289" stroke="#6b7280" stroke-width="1.2"/>
+  <circle cx="240" cy="289" r="2" fill="#6b7280"/>
+  <text x="234" y="293" font-size="12" fill="#6b7280" text-anchor="end">VDD/2</text>
+
+  <!-- Вихід A2 до піна VO2 -->
+  <line x1="330" y1="270" x2="350" y2="270" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Вивідні піни XPT8871 -->
+  <circle cx="350" cy="175" r="3" fill="#2457d6"/>
+  <circle cx="350" cy="270" r="3" fill="#2457d6"/>
+
+  <!-- Пояснення опорної напруги -->
+  <rect x="52" y="318" width="230" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="334" font-size="12" fill="#6b7280">Опора VDD/2: з виводу BYPASS</text>
+
+  <!-- ДИНАМІК ТА ПІДКЛЮЧЕННЯ НАВАНТАЖЕННЯ -->
+  <!-- Лінії від пінів до динаміка -->
+  <line x1="350" y1="175" x2="420" y2="175" stroke="#2457d6" stroke-width="2"/>
+  <line x1="420" y1="175" x2="420" y2="200" stroke="#2457d6" stroke-width="2"/>
+  <text x="360" y="168" font-size="12" font-weight="bold" fill="#2457d6">VO1 (+)</text>
+
+  <line x1="350" y1="270" x2="420" y2="270" stroke="#2457d6" stroke-width="2"/>
+  <line x1="420" y1="270" x2="420" y2="245" stroke="#2457d6" stroke-width="2"/>
+  <text x="360" y="286" font-size="12" font-weight="bold" fill="#2457d6">VO2 (−)</text>
+
+  <!-- Формула диф. напруги над динаміком -->
+  <text x="430" y="145" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">VНАВАНТ = VO1 − VO2</text>
+
+  <!-- Динамік -->
+  <rect x="395" y="200" width="50" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="420" y="218" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Динамік</text>
+  <text x="420" y="234" font-size="12" fill="#2457d6" text-anchor="middle">4–8 Ω</text>
+  <polygon points="445,212 465,200 465,245 445,233" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M472,213 A12,12 0 0,1 472,232" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M477,207 A20,20 0 0,1 477,238" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- ПОПЕРЕДЖЕННЯ: НЕ ЗАЗЕМЛЮВАТИ -->
+  <rect x="38" y="364" width="468" height="80" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="52" y="386" font-size="12" font-weight="bold" fill="#c0392b">⛔ Категорично заборонено заземлювати виходи VO1 або VO2!</text>
+  <text x="52" y="407" font-size="12" fill="#1a1a1a">Динамік увімкнено мостом між плечима (BTL), а не відносно землі.</text>
+  <text x="52" y="427" font-size="12" fill="#1a1a1a">Заземлення будь-якого виводу спричинить КЗ і перегрів мікросхеми.</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Епюри напруг -->
+  <rect x="532" y="76" width="404" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="548" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Епюри напруг та усунення DC-складової</text>
+
+  <!-- Графік 1: VO1 -->
+  <text x="548" y="118" font-size="12" font-weight="bold" fill="#2457d6">Вихід VO1: фаза 0°, зміщення VDD/2</text>
+  <line x1="620" y1="132" x2="830" y2="132" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="620" y1="152" x2="830" y2="152" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <line x1="620" y1="172" x2="830" y2="172" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="620" y1="178" x2="620" y2="126" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="610" y="136" font-size="12" fill="#6b7280" text-anchor="end">VDD</text>
+  <text x="610" y="156" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">VDD/2</text>
+  <text x="610" y="176" font-size="12" fill="#6b7280" text-anchor="end">0 В (GND)</text>
+  <path d="M 624 152 C 660 125, 688 125, 724 152 C 760 179, 788 179, 824 152" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="846" y1="134" x2="846" y2="150" stroke="#2457d6" stroke-width="1.2"/>
+  <polygon points="846,132 843,137 849,137" fill="#2457d6"/>
+  <polygon points="846,152 843,147 849,147" fill="#2457d6"/>
+  <text x="854" y="146" font-size="12" font-weight="bold" fill="#2457d6">Vp</text>
+
+  <!-- Графік 2: VO2 -->
+  <text x="548" y="200" font-size="12" font-weight="bold" fill="#2457d6">Вихід VO2: фаза 180° (інверсія), зміщення VDD/2</text>
+  <line x1="620" y1="214" x2="830" y2="214" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="620" y1="234" x2="830" y2="234" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <line x1="620" y1="254" x2="830" y2="254" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="620" y1="260" x2="620" y2="208" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="610" y="218" font-size="12" fill="#6b7280" text-anchor="end">VDD</text>
+  <text x="610" y="238" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">VDD/2</text>
+  <text x="610" y="258" font-size="12" fill="#6b7280" text-anchor="end">0 В (GND)</text>
+  <path d="M 624 234 C 660 261, 688 261, 724 234 C 760 207, 788 207, 824 234" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="846" y1="236" x2="846" y2="252" stroke="#2457d6" stroke-width="1.2"/>
+  <polygon points="846,234 843,239 849,239" fill="#2457d6"/>
+  <polygon points="846,254 843,249 849,249" fill="#2457d6"/>
+  <text x="854" y="248" font-size="12" font-weight="bold" fill="#2457d6">Vp</text>
+
+  <!-- Графік 3: VНАВАНТ = VO1 - VO2 -->
+  <text x="548" y="282" font-size="12" font-weight="bold" fill="#27ae60">Напруга на динаміку: VНАВАНТ = VO1 − VO2</text>
+  <line x1="620" y1="296" x2="830" y2="296" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="620" y1="336" x2="830" y2="336" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="620" y1="376" x2="830" y2="376" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <line x1="620" y1="382" x2="620" y2="290" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="610" y="300" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">+2 Vp</text>
+  <text x="610" y="340" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0 В (DC=0)</text>
+  <text x="610" y="380" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">−2 Vp</text>
+  <path d="M 624 336 C 660 283, 688 283, 724 336 C 760 389, 788 389, 824 336" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="846" y1="298" x2="846" y2="374" stroke="#27ae60" stroke-width="1.5"/>
+  <polygon points="846,296 843,302 849,302" fill="#27ae60"/>
+  <polygon points="846,376 843,370 849,370" fill="#27ae60"/>
+  <text x="854" y="332" font-size="12" font-weight="bold" fill="#27ae60">2×Vp</text>
+  <text x="854" y="347" font-size="12" fill="#27ae60">розмах</text>
+
+  <!-- ВИСНОВОК У ПРАВІЙ ПАНЕЛІ -->
+  <rect x="546" y="394" width="376" height="52" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="558" y="415" font-size="12" font-weight="bold" fill="#27ae60">✔ Подвоєна амплітуда (2×U) забезпечує до 4× потужності</text>
+  <text x="558" y="433" font-size="12" fill="#1a1a1a">✔ DC-зміщення VDD/2 гаситься: на динаміку чистий 0 В DC</text>
+</svg>

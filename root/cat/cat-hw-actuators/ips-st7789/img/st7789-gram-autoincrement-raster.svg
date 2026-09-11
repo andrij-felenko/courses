@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr_blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr_red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний автоінкремент покажчика GRAM контролера ST7789</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Після команди RAMWR потік пікселів укладається в прямокутне вікно без перерахунку координат процесором</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Растровий рух у GRAM -->
+  <rect x="24" y="68" width="506" height="376" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="277" y="90" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двовимірний масив пам'яті та активне вікно [XS..XE] × [YS..YE]</text>
+
+  <!-- Банер потоку SPI / DMA -->
+  <rect x="40" y="102" width="474" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="277" y="117" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Потік даних SPI / DMA: RAMWR (0x2C) → [P0][P1][P2]...[Pn] (RGB565)</text>
+
+  <!-- Позначки координат зверху -->
+  <text x="125" y="138" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Старт (XS, YS)</text>
+  <text x="435" y="138" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Кінець рядка (XE)</text>
+
+  <!-- Позначки координат зліва -->
+  <text x="92" y="174" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">YS</text>
+  <text x="92" y="279" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">YE</text>
+
+  <!-- Активне вікно виводу -->
+  <rect x="100" y="146" width="360" height="152" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Траєкторія рядка 1 -->
+  <circle cx="125" cy="170" r="4" fill="#27ae60"/>
+  <line x1="129" y1="170" x2="435" y2="170" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr_blue)"/>
+
+  <!-- Повернення каретки 1 -->
+  <path d="M 435,170 C 455,180 105,195 125,205" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr_red)"/>
+
+  <!-- Траєкторія рядка 2 -->
+  <line x1="129" y1="205" x2="435" y2="205" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr_blue)"/>
+
+  <!-- Повернення каретки 2 -->
+  <path d="M 435,205 C 455,215 105,230 125,240" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr_red)"/>
+
+  <!-- Траєкторія рядка 3 -->
+  <line x1="129" y1="240" x2="435" y2="240" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr_blue)"/>
+
+  <!-- Повернення каретки 3 -->
+  <path d="M 435,240 C 455,250 105,265 125,275" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr_red)"/>
+
+  <!-- Траєкторія рядка 4 (YE) -->
+  <line x1="129" y1="275" x2="435" y2="275" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr_blue)"/>
+  <circle cx="435" cy="275" r="4" fill="#c0392b"/>
+
+  <!-- Пояснення кроків під вікном -->
+  <text x="40" y="322" font-size="12" font-weight="bold" fill="#2457d6">• Крок 1 (вздовж рядка):</text>
+  <text x="200" y="322" font-size="12" fill="#1a1a1a">X++ після кожних 2 байтів (RGB565) до XE</text>
+
+  <text x="40" y="342" font-size="12" font-weight="bold" fill="#c0392b">• Крок 2 (повернення):</text>
+  <text x="200" y="342" font-size="12" fill="#1a1a1a">при X = XE апаратне скидання: X = XS, Y++</text>
+
+  <text x="40" y="362" font-size="12" font-weight="bold" fill="#27ae60">• Крок 3 (кінець кадру):</text>
+  <text x="200" y="362" font-size="12" fill="#1a1a1a">при досягненні (XE, YE) вказівник скидається в (XS, YS)</text>
+
+  <rect x="40" y="378" width="474" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="277" y="394" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">CPU нуль разів розраховує адреси пікселів під час передачі!</text>
+
+  <text x="277" y="420" font-size="12" fill="#6b7280" text-anchor="middle">DMA просто жене байти з RAM у SPI TX FIFO без переривань</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: 3 картки -->
+  <!-- Картка 1: Автомат адресації -->
+  <rect x="550" y="68" width="386" height="116" rx="8" fill="#eaf0fd" stroke="#2457d6"/>
+  <rect x="562" y="78" width="362" height="24" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="743" y="95" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Логіка лічильників (X, Y) у кремнії</text>
+  <text x="566" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">• Інкремент стовпчика:</text>
+  <text x="578" y="134" font-size="12" fill="#6b7280">X_ptr++ після запису кожних 2 байтів (RGB565).</text>
+  <text x="566" y="152" font-size="12" font-weight="bold" fill="#2457d6">• Перенос каретки (wrap-around рядка):</text>
+  <text x="578" y="168" font-size="12" fill="#1a1a1a">Коли X_ptr == XE: X_ptr = XS, а Y_ptr++.</text>
+
+  <!-- Картка 2: Потокове виведення через DMA -->
+  <rect x="550" y="198" width="386" height="132" rx="8" fill="#e9f7ef" stroke="#27ae60"/>
+  <rect x="562" y="208" width="362" height="24" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="743" y="225" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Потокове виведення через SPI + DMA</text>
+  <text x="566" y="248" font-size="12" font-weight="bold" fill="#1a1a1a">• Одноразове налаштування координат:</text>
+  <text x="578" y="266" font-size="12" font-weight="bold" fill="#2457d6">CASET [XS..XE] + RASET [YS..YE] + RAMWR (0x2C)</text>
+  <text x="566" y="286" font-size="12" font-weight="bold" fill="#27ae60">• Фоновий трансфер:</text>
+  <text x="578" y="304" font-size="12" fill="#1a1a1a">DMA прокачує масив W × H × 2 байтів без CPU.</text>
+  <text x="578" y="320" font-size="12" font-weight="bold" fill="#27ae60">Процесор вільний для рендерингу наступного кадру.</text>
+
+  <!-- Картка 3: Ефективність -->
+  <rect x="550" y="344" width="386" height="100" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="562" y="354" width="362" height="22" rx="4" fill="#ffffff" stroke="#1a1a1a"/>
+  <text x="743" y="370" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Ефективність протоколу</text>
+  <text x="566" y="390" font-size="12" font-weight="bold" fill="#1a1a1a">• Оверхед протоколу — менше 0.1%:</text>
+  <text x="578" y="406" font-size="12" fill="#6b7280">Лише 11 байт команд на вікно, решта — корисні дані.</text>
+  <text x="566" y="422" font-size="12" font-weight="bold" fill="#2457d6">• Подвійна рядкова буферизація (Line Buffer):</text>
+  <text x="578" y="438" font-size="12" fill="#1a1a1a">Потрібно 2 × 240 × 2 = 960 байт RAM замість 115 КБ!</text>
+</svg>

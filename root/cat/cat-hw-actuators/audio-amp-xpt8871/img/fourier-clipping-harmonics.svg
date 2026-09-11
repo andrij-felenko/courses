@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Спектральний склад сигналу підсилювача: лінійний режим проти кліпінгу</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Зрізання вершин синусоїди породжує непарні гармоніки 3f₀, 5f₀, 7f₀, які руйнують динамік перегрівом</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: Чистий синус ==================== -->
+  <rect x="30" y="68" width="440" height="372" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Статус-бейдж -->
+  <rect x="46" y="82" width="200" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="146" y="98" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">ЧИСТИЙ СИНУС (THD &lt; 0.1%)</text>
+
+  <!-- Опис режиму -->
+  <text x="46" y="122" font-size="13" font-weight="700" fill="#1a1a1a">Лінійний режим підсилення</text>
+  <text x="46" y="137" font-size="12" fill="#6b7280">Розмах напруги нижче шин живлення</text>
+
+  <!-- Міні-осцилограма (ліва) -->
+  <rect x="296" y="82" width="158" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="306" y="96" font-size="12" fill="#6b7280">Форма напруги u(t)</text>
+  <line x1="304" y1="104" x2="446" y2="104" stroke="#d0d7de" stroke-dasharray="2,2" stroke-width="1"/>
+  <line x1="304" y1="136" x2="446" y2="136" stroke="#d0d7de" stroke-dasharray="2,2" stroke-width="1"/>
+  <line x1="304" y1="120" x2="446" y2="120" stroke="#f0f2f5" stroke-width="1"/>
+  <path d="M 306,120 Q 323.5,106 341,120 T 376,120 T 411,120 T 446,120" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Заголовки осей спектра (лівий) -->
+  <text x="46" y="166" font-size="12" font-weight="700" fill="#1a1a1a">Рівень</text>
+  <text x="456" y="318" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">f</text>
+
+  <!-- Сітка рівня ліва -->
+  <line x1="76" y1="190" x2="454" y2="190" stroke="#e1e4e8" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="76" y1="228" x2="454" y2="228" stroke="#e1e4e8" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="76" y1="266" x2="454" y2="266" stroke="#e1e4e8" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="76" y1="304" x2="454" y2="304" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="76" y1="172" x2="76" y2="304" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="70" y="194" text-anchor="end" font-size="12" fill="#6b7280">0 дБ</text>
+  <text x="70" y="232" text-anchor="end" font-size="12" fill="#6b7280">-20 дБ</text>
+  <text x="70" y="270" text-anchor="end" font-size="12" fill="#6b7280">-40 дБ</text>
+  <text x="70" y="308" text-anchor="end" font-size="12" fill="#6b7280">-60 дБ</text>
+
+  <!-- Стовпчик f0 лівий -->
+  <rect x="108" y="190" width="16" height="114" rx="2" fill="#27ae60"/>
+  <text x="116" y="182" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">0 дБ (100%)</text>
+
+  <!-- Позначки частот ліві -->
+  <text x="116" y="320" text-anchor="middle" font-size="12" fill="#1a1a1a">1 кГц</text>
+  <text x="116" y="334" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">f₀</text>
+
+  <text x="166" y="320" text-anchor="middle" font-size="12" fill="#6b7280">2 кГц</text>
+  <text x="166" y="334" text-anchor="middle" font-size="12" fill="#6b7280">2f₀</text>
+
+  <text x="216" y="320" text-anchor="middle" font-size="12" fill="#6b7280">3 кГц</text>
+  <text x="216" y="334" text-anchor="middle" font-size="12" fill="#6b7280">3f₀</text>
+
+  <text x="266" y="320" text-anchor="middle" font-size="12" fill="#6b7280">4 кГц</text>
+  <text x="266" y="334" text-anchor="middle" font-size="12" fill="#6b7280">4f₀</text>
+
+  <text x="316" y="320" text-anchor="middle" font-size="12" fill="#6b7280">5 кГц</text>
+  <text x="316" y="334" text-anchor="middle" font-size="12" fill="#6b7280">5f₀</text>
+
+  <text x="366" y="320" text-anchor="middle" font-size="12" fill="#6b7280">6 кГц</text>
+  <text x="366" y="334" text-anchor="middle" font-size="12" fill="#6b7280">6f₀</text>
+
+  <text x="416" y="320" text-anchor="middle" font-size="12" fill="#6b7280">7 кГц</text>
+  <text x="416" y="334" text-anchor="middle" font-size="12" fill="#6b7280">7f₀</text>
+
+  <!-- Інформаційна плашка відсутності вищих гармонік -->
+  <rect x="170" y="226" width="268" height="46" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="304" y="244" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Вищі гармоніки відсутні</text>
+  <text x="304" y="260" text-anchor="middle" font-size="12" fill="#6b7280">Рівень шумів і спотворень &lt; -60 дБ</text>
+
+  <!-- Підсумок лівий (вплив на динамік) -->
+  <rect x="46" y="354" width="408" height="72" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="58" y="374" font-size="12" font-weight="700" fill="#27ae60">Акустичний та тепловий стан динаміка:</text>
+  <text x="58" y="394" font-size="12" fill="#1a1a1a">• Чистий звук: дифузор рівномірно коливається на f₀ = 1 кГц</text>
+  <text x="58" y="412" font-size="12" fill="#1a1a1a">• Нормальний тепловий баланс: енергія випромінюється штатно</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: Кліпінг ==================== -->
+  <rect x="490" y="68" width="440" height="372" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Статус-бейдж -->
+  <rect x="506" y="82" width="220" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="616" y="98" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">ГЛИБОКИЙ КЛІПІНГ (THD = 10%)</text>
+
+  <!-- Опис режиму -->
+  <text x="506" y="122" font-size="13" font-weight="700" fill="#1a1a1a">Двостороннє зрізання вершин</text>
+  <text x="506" y="137" font-size="12" fill="#6b7280">Підсилювач упирається в шини живлення</text>
+
+  <!-- Міні-осцилограма (права) -->
+  <rect x="756" y="82" width="158" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="766" y="96" font-size="12" fill="#6b7280">Форма напруги u(t)</text>
+  <line x1="764" y1="108" x2="906" y2="108" stroke="#fca5a5" stroke-dasharray="2,2" stroke-width="1"/>
+  <line x1="764" y1="132" x2="906" y2="132" stroke="#fca5a5" stroke-dasharray="2,2" stroke-width="1"/>
+  <path d="M 766,120 L 775,108 L 791,108 L 801,120 L 811,132 L 827,132 L 837,120 L 846,108 L 862,108 L 872,120 L 882,132 L 898,132 L 906,120" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Заголовки осей спектра (правий) -->
+  <text x="506" y="166" font-size="12" font-weight="700" fill="#1a1a1a">Рівень</text>
+  <text x="916" y="318" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">f</text>
+
+  <!-- Сітка рівня права -->
+  <line x1="536" y1="190" x2="914" y2="190" stroke="#e1e4e8" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="536" y1="228" x2="914" y2="228" stroke="#e1e4e8" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="536" y1="266" x2="914" y2="266" stroke="#e1e4e8" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="536" y1="304" x2="914" y2="304" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="536" y1="172" x2="536" y2="304" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="530" y="194" text-anchor="end" font-size="12" fill="#6b7280">0 дБ</text>
+  <text x="530" y="232" text-anchor="end" font-size="12" fill="#6b7280">-20 дБ</text>
+  <text x="530" y="270" text-anchor="end" font-size="12" fill="#6b7280">-40 дБ</text>
+  <text x="530" y="308" text-anchor="end" font-size="12" fill="#6b7280">-60 дБ</text>
+
+  <!-- Стовпчики гармонік праві -->
+  <!-- f0: 100% / 0 дБ -->
+  <rect x="568" y="190" width="16" height="114" rx="2" fill="#2457d6"/>
+  <text x="576" y="182" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">0 дБ</text>
+
+  <!-- 3f0: ~33% / -9.5 дБ -->
+  <rect x="668" y="208" width="16" height="96" rx="2" fill="#c0392b"/>
+  <text x="676" y="200" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">-9.5 дБ (33%)</text>
+
+  <!-- 5f0: ~20% / -14 дБ -->
+  <rect x="768" y="217" width="16" height="87" rx="2" fill="#c0392b"/>
+  <text x="776" y="209" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">-14 дБ (20%)</text>
+
+  <!-- 7f0: ~14% / -17 дБ -->
+  <rect x="868" y="222" width="16" height="82" rx="2" fill="#c0392b"/>
+  <text x="876" y="214" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">-17 дБ (14%)</text>
+
+  <!-- Акцент на шлейфі гармонік -->
+  <text x="776" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Шлейф непарних гармонік Фур'є (нагрів)</text>
+
+  <!-- Позначки частот праві -->
+  <text x="576" y="320" text-anchor="middle" font-size="12" fill="#1a1a1a">1 кГц</text>
+  <text x="576" y="334" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">f₀</text>
+
+  <text x="626" y="320" text-anchor="middle" font-size="12" fill="#6b7280">2 кГц</text>
+  <text x="626" y="334" text-anchor="middle" font-size="12" fill="#6b7280">2f₀</text>
+
+  <text x="676" y="320" text-anchor="middle" font-size="12" fill="#c0392b">3 кГц</text>
+  <text x="676" y="334" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">3f₀</text>
+
+  <text x="726" y="320" text-anchor="middle" font-size="12" fill="#6b7280">4 кГц</text>
+  <text x="726" y="334" text-anchor="middle" font-size="12" fill="#6b7280">4f₀</text>
+
+  <text x="776" y="320" text-anchor="middle" font-size="12" fill="#c0392b">5 кГц</text>
+  <text x="776" y="334" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">5f₀</text>
+
+  <text x="826" y="320" text-anchor="middle" font-size="12" fill="#6b7280">6 кГц</text>
+  <text x="826" y="334" text-anchor="middle" font-size="12" fill="#6b7280">6f₀</text>
+
+  <text x="876" y="320" text-anchor="middle" font-size="12" fill="#c0392b">7 кГц</text>
+  <text x="876" y="334" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">7f₀</text>
+
+  <!-- Підсумок правий (вплив на динамік) -->
+  <rect x="506" y="354" width="408" height="72" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="518" y="374" font-size="12" font-weight="700" fill="#c0392b">Критична небезпека для динаміка:</text>
+  <text x="518" y="394" font-size="12" fill="#1a1a1a">• Динамік не випромінює 3–7 кГц: механічний спад віддачі</text>
+  <text x="518" y="412" font-size="12" font-weight="700" fill="#c0392b">• Вся енергія гармонік іде в тепло → надмірний перегрів котушки!</text>
+</svg>

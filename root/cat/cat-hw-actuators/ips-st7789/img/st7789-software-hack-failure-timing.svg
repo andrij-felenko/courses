@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+</defs>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Невдалі програмні спроби ізоляції ST7789 без виводу CS</text>
+<text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Маніпуляція лініями DC та RST під час обміну з SD-картою руйнує стан автомата контролера</text>
+
+<!-- ==================== ЛІВА ПАНЕЛЬ: СПРОБА 1 ==================== -->
+<rect x="24" y="80" width="444" height="330" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="40" y="104" font-size="14" font-weight="bold" fill="#1a1a1a">Спроба 1: Утримання DC = HIGH під час роботи SD</text>
+<text x="40" y="122" font-size="12" fill="#6b7280">Ідея: зафіксувати DC у режимі даних, щоб не допустити команд</text>
+
+<!-- Контейнер часової діаграми Спроби 1 -->
+<rect x="38" y="132" width="416" height="124" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+<!-- Зона активності SD -->
+<rect x="180" y="132" width="185" height="124" fill="#eaf0fd" fill-opacity="0.4"/>
+<line x1="180" y1="132" x2="180" y2="256" stroke="#2457d6" stroke-dasharray="3 3" stroke-width="1"/>
+<line x1="365" y1="132" x2="365" y2="256" stroke="#2457d6" stroke-dasharray="3 3" stroke-width="1"/>
+<text x="272" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сесія обміну з SD-картою</text>
+
+<!-- Сигнал 1: CS_SD -->
+<text x="46" y="161" font-size="12" font-weight="bold" fill="#1a1a1a">CS_SD</text>
+<path d="M 115 153 H 180 V 163 H 365 V 153 H 442" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- Сигнал 2: SCK -->
+<text x="46" y="181" font-size="12" font-weight="bold" fill="#1a1a1a">SCK</text>
+<path d="M 115 181 H 180 V 171 H 187 V 181 H 195 V 171 H 202 V 181 H 210 V 171 H 217 V 181 H 225 V 171 H 232 V 181 H 240 V 171 H 247 V 181 H 255 V 171 H 262 V 181 H 270 V 171 H 277 V 181 H 285 V 171 H 292 V 181 H 300 V 171 H 307 V 181 H 315 V 171 H 322 V 181 H 330 V 171 H 337 V 181 H 345 V 171 H 352 V 181 H 360 V 181 H 365 H 442" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- Сигнал 3: MOSI -->
+<text x="46" y="202" font-size="12" font-weight="bold" fill="#1a1a1a">MOSI</text>
+<line x1="115" y1="199" x2="180" y2="199" stroke="#1a1a1a" stroke-width="1.5"/>
+<polygon points="180,199 185,191 360,191 365,199 360,207 185,207" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="272" y="203" font-size="12" fill="#2457d6" text-anchor="middle">Чужі сектори SD (512 Б)</text>
+<line x1="365" y1="199" x2="442" y2="199" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- Сигнал 4: DC (LCD) -->
+<text x="46" y="224" font-size="12" font-weight="bold" fill="#2457d6">DC = 1</text>
+<line x1="115" y1="220" x2="442" y2="220" stroke="#2457d6" stroke-width="2"/>
+
+<!-- Сигнал 5: CS_LCD -->
+<text x="46" y="246" font-size="12" font-weight="bold" fill="#c0392b">CS = 0</text>
+<line x1="115" y1="242" x2="442" y2="242" stroke="#c0392b" stroke-width="2"/>
+
+<!-- Стрілка переходу до блоку наслідків -->
+<path d="M 246 256 L 246 268" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+<!-- Блок збою Спроби 1 -->
+<rect x="38" y="270" width="416" height="128" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="50" y="290" font-size="12" font-weight="bold" fill="#c0392b">Апаратний провал автомата станів ST7789:</text>
+<text x="50" y="312" font-size="12" fill="#1a1a1a">• Паразитний прийом: чужі байти SD заповнюють буфер пікселів</text>
+<text x="50" y="334" font-size="12" fill="#1a1a1a">• Розрив фази RGB565: непарні байти зміщують колірні канали</text>
+<text x="50" y="356" font-size="12" fill="#1a1a1a">• Зсувний регістр переповнюється: екран вкривається шумом</text>
+<text x="50" y="378" font-size="12" fill="#1a1a1a">• Збій адресації: лічильник вікна кадру безповоротно збито</text>
+
+<!-- ==================== ПРАВА ПАНЕЛЬ: СПРОБА 2 ==================== -->
+<rect x="492" y="80" width="444" height="330" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="508" y="104" font-size="14" font-weight="bold" fill="#1a1a1a">Спроба 2: Притискання RST = LOW на час сесії SD</text>
+<text x="508" y="122" font-size="12" fill="#6b7280">Ідея: тримати дисплей у Reset, щоб він ігнорував шину SPI</text>
+
+<!-- Контейнер часової діаграми Спроби 2 -->
+<rect x="506" y="132" width="416" height="124" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+<!-- Зона сесії SD -->
+<rect x="648" y="132" width="185" height="124" fill="#fdecea" fill-opacity="0.5"/>
+<line x1="648" y1="132" x2="648" y2="256" stroke="#c0392b" stroke-dasharray="3 3" stroke-width="1"/>
+<line x1="833" y1="132" x2="833" y2="256" stroke="#c0392b" stroke-dasharray="3 3" stroke-width="1"/>
+<text x="740" y="145" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сесія SD (RST примусово 0 В)</text>
+
+<!-- Сигнал 1: CS_SD -->
+<text x="514" y="161" font-size="12" font-weight="bold" fill="#1a1a1a">CS_SD</text>
+<path d="M 583 153 H 648 V 163 H 833 V 153 H 910" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- Сигнал 2: SPI Bus -->
+<text x="514" y="181" font-size="12" font-weight="bold" fill="#1a1a1a">SPI Bus</text>
+<line x1="583" y1="177" x2="648" y2="177" stroke="#1a1a1a" stroke-width="1.5"/>
+<polygon points="648,177 653,169 828,169 833,177 828,185 653,185" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<text x="740" y="181" font-size="12" fill="#6b7280" text-anchor="middle">Трафік обміну з SD-картою</text>
+<line x1="833" y1="177" x2="910" y2="177" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- Сигнал 3: RST (LCD) -->
+<text x="514" y="205" font-size="12" font-weight="bold" fill="#c0392b">RST</text>
+<path d="M 583 197 H 648 V 209 H 833 V 197 H 910" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+<!-- Сигнал 4: Стан контролера -->
+<text x="514" y="235" font-size="12" font-weight="bold" fill="#1a1a1a">LCD Стан</text>
+<rect x="583" y="222" width="61" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="613" y="236" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Норма</text>
+
+<rect x="648" y="222" width="185" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="740" y="236" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Апаратне скидання (RESET)</text>
+
+<rect x="837" y="222" width="73" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="873" y="236" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Скинуто!</text>
+
+<!-- Стрілка переходу до блоку наслідків -->
+<path d="M 714 256 L 714 268" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+<!-- Блок наслідків Спроби 2 -->
+<rect x="506" y="270" width="416" height="128" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="518" y="290" font-size="12" font-weight="bold" fill="#c0392b">Апаратний провал через скидання RST = 0:</text>
+<text x="518" y="312" font-size="12" fill="#1a1a1a">• Скидання конфігурації: втрачено параметри живлення й гами</text>
+<text x="518" y="334" font-size="12" fill="#1a1a1a">• Сліпий екран: після відпускання RST матриця стає білою</text>
+<text x="518" y="356" font-size="12" fill="#1a1a1a">• Пауза 120 мс: потрібна повна реініціалізація (SLPOUT, DISPON)</text>
+<text x="518" y="378" font-size="12" fill="#1a1a1a">• Катастрофа FPS: безперервне мерехтіння та параліч системи</text>
+
+<!-- ==================== ПІДСУМКОВА СМУГА ==================== -->
+<rect x="24" y="426" width="912" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="480" y="449" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Висновок: жоден програмний трюк із лініями DC чи RST не здатен замінити апаратний Chip Select — потрібне фізичне виведення CS</text>
+
+</svg>

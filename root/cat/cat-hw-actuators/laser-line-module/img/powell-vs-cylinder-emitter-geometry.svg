@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Геометрія вихідного вікна модуля: циліндричний стрижень проти призми Павелла</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Як розпізнати оптику в гільзі: круглий скляний циліндр (гаусів спад) чи дахоподібна призма (Flat-Top)</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ЦИЛІНДРИЧНИЙ СТРИЖЕНЬ ==================== -->
+  <rect x="35" y="75" width="435" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="252" y="98" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Бюджетний модуль: циліндричний стрижень</text>
+
+  <!-- Підпис сопла -->
+  <text x="135" y="120" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вихідне сопло модуля</text>
+
+  <!-- Вихідне вікно латунної гільзи (то Uc) -->
+  <circle cx="135" cy="175" r="45" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="135" cy="175" r="41" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="135" cy="175" r="28" fill="#1e232a"/>
+
+  <!-- Вклеєний скляний циліндричний стрижень -->
+  <rect x="127" y="147" width="16" height="56" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" opacity="0.95"/>
+  <line x1="135" y1="151" x2="135" y2="199" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3 2"/>
+  <circle cx="135" cy="147" r="3.5" fill="#6b7280" opacity="0.6"/>
+  <circle cx="135" cy="203" r="3.5" fill="#6b7280" opacity="0.6"/>
+
+  <text x="135" y="237" font-size="12" fill="#c0392b" text-anchor="middle">Круглий скляний стрижень</text>
+  <text x="135" y="251" font-size="12" fill="#6b7280" text-anchor="middle">(вклеєний у сопло d=2 мм)</text>
+
+  <!-- Графік I(x) для Гауса -->
+  <line x1="265" y1="170" x2="435" y2="170" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="265" y1="170" x2="265" y2="125" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="260" y="128" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">I</text>
+  <text x="435" y="182" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">x</text>
+
+  <!-- Гаусова крива -->
+  <path d="M 275,169 C 310,169 330,164 342,145 C 347,135 348,132 350,132 C 352,132 353,135 358,145 C 370,164 390,169 425,169" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="350" y="122" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Гаусів спад</text>
+
+  <!-- Імітація лінії сенсора -->
+  <rect x="255" y="185" width="190" height="30" rx="3" fill="#1e232a"/>
+  <line x1="270" y1="200" x2="430" y2="200" stroke="#c0392b" stroke-width="2" stroke-linecap="round" opacity="0.3"/>
+  <line x1="315" y1="200" x2="385" y2="200" stroke="#e74c3c" stroke-width="5" stroke-linecap="round" opacity="0.8"/>
+  <line x1="335" y1="200" x2="365" y2="200" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+  <text x="350" y="235" font-size="12" fill="#c0392b" text-anchor="middle">Пересвіт центру, темні краї</text>
+
+  <!-- Картка дефектів стрижня -->
+  <rect x="50" y="265" width="405" height="72" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="285" font-size="12" font-weight="700" fill="#c0392b">Ознаки бюджетного стрижня (лінза за $1):</text>
+  <text x="65" y="303" font-size="12" fill="#1a1a1a">• Оптичний елемент — звичайне циліндричне волокно/паличка</text>
+  <text x="65" y="321" font-size="12" fill="#6b7280">• Фіксація термоклеєм або компаундом; нерівномірність &gt; 60%</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ПРИЗМА ПАВЕЛЛА ==================== -->
+  <rect x="490" y="75" width="435" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="707" y="98" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Професійний модуль: призма Павелла</text>
+
+  <!-- Підпис сопла -->
+  <text x="590" y="120" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вихідне сопло модуля</text>
+
+  <!-- Вихідне вікно з прецизійною оправою -->
+  <circle cx="590" cy="175" r="45" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="590" cy="175" r="41" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="590" cy="175" r="28" fill="#1e232a"/>
+
+  <!-- Монтована призма Павелла з дахоподібним гребенем -->
+  <rect x="576" y="151" width="28" height="48" rx="2" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" opacity="0.95"/>
+  <polygon points="576,151 590,151 590,199 576,199" fill="#27ae60" opacity="0.15"/>
+  <polygon points="590,151 604,151 604,199 590,199" fill="#ffffff" opacity="0.25"/>
+  <line x1="590" y1="151" x2="590" y2="199" stroke="#27ae60" stroke-width="2"/>
+  <!-- Шліци нарізного стопорного кільця -->
+  <rect x="588" y="137" width="4" height="6" fill="#1a1a1a"/>
+  <rect x="588" y="207" width="4" height="6" fill="#1a1a1a"/>
+
+  <text x="590" y="237" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Дахоподібний гребінь</text>
+  <text x="590" y="251" font-size="12" fill="#6b7280" text-anchor="middle">(асферичні скошені грані)</text>
+
+  <!-- Графік I(x) для Flat-Top -->
+  <line x1="720" y1="170" x2="890" y2="170" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="720" y1="170" x2="720" y2="125" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="715" y="128" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">I</text>
+  <text x="890" y="182" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">x</text>
+
+  <!-- Flat-Top крива -->
+  <polygon points="742,169 750,142 860,142 868,169" fill="#e9f7ef" opacity="0.8"/>
+  <path d="M 730,169 L 742,169 L 750,142 L 860,142 L 868,169 L 880,169" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="805" y="134" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Flat-Top (±5%)</text>
+
+  <!-- Імітація лінії сенсора -->
+  <rect x="710" y="185" width="190" height="30" rx="3" fill="#1e232a"/>
+  <line x1="725" y1="200" x2="885" y2="200" stroke="#27ae60" stroke-width="5" stroke-linecap="round" opacity="0.4"/>
+  <line x1="727" y1="200" x2="883" y2="200" stroke="#2ecc71" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+  <line x1="730" y1="200" x2="880" y2="200" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"/>
+  <text x="805" y="235" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Однорідна лінія, чіткі межі</text>
+
+  <!-- Картка переваг Павелла -->
+  <rect x="505" y="265" width="405" height="72" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="285" font-size="12" font-weight="700" fill="#27ae60">Ознаки призми Павелла (оптика за $30–$80):</text>
+  <text x="520" y="303" font-size="12" fill="#1a1a1a">• Оптичний елемент — полірована призма зі скошеним гребенем</text>
+  <text x="520" y="321" font-size="12" fill="#6b7280">• Прецизійна різьбова оправа; рівномірність Flat-Top ±5%</text>
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: ПОЯСНЕННЯ ==================== -->
+  <rect x="35" y="368" width="890" height="72" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="388" font-size="12" font-weight="700" fill="#1a1a1a">Як відрізнити справжній модуль із призмою Павелла від підробки перед купівлею:</text>
+  <text x="55" y="407" font-size="12" fill="#6b7280">1. Огляд лінзи: круглий скляний стрижень дає циліндричний відблиск і вклеєний клеєм; призма Павелла має плоскі похилі грані даху.</text>
+  <text x="55" y="425" font-size="12" fill="#6b7280">2. Тест на камері: циліндричний стрижень пересвічує центр матриці (кліпінг); призма Павелла дає плоский профіль однакової яскравості.</text>
+</svg>

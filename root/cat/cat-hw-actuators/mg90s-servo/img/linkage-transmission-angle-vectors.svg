@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Векторний розклад сил у шарнірному з'єднанні качалки та тяги</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Залежність корисної тягової сили F_тяга = F_tan · sin(θ) та радіального навантаження від кута θ</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Кінематична діаграма -->
+  <rect x="30" y="72" width="460" height="366" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Кінематична схема розкладу сил на качалці</text>
+
+  <!-- Лінія тяги (pushrod) -->
+  <line x1="160" y1="230" x2="350" y2="135" stroke="#d0d7de" stroke-width="12" stroke-linecap="round"/>
+  <line x1="160" y1="230" x2="350" y2="135" stroke="#6b7280" stroke-width="2"/>
+  <text x="365" y="132" font-size="12" fill="#6b7280">Вісь тяги</text>
+
+  <!-- Качалка сервопривода (від O до A) -->
+  <line x1="160" y1="365" x2="160" y2="230" stroke="#1a1a1a" stroke-width="16" stroke-linecap="round"/>
+  <line x1="160" y1="365" x2="160" y2="230" stroke="#eaf0fd" stroke-width="8" stroke-linecap="round"/>
+  <!-- Отвори на качалці -->
+  <circle cx="160" cy="320" r="3" fill="#6b7280"/>
+  <circle cx="160" cy="275" r="3" fill="#6b7280"/>
+
+  <text x="145" y="300" font-size="12" fill="#1a1a1a" text-anchor="end">Качалка (R)</text>
+
+  <!-- Вал сервопривода O -->
+  <circle cx="160" cy="365" r="18" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="160" cy="365" r="7" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="160" cy="365" r="2.5" fill="#1a1a1a"/>
+  <text x="160" y="405" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вал O (вісь обертання)</text>
+
+  <!-- Дуга кута transmission angle theta -->
+  <path d="M 160,195 A 35 35 0 0 1 184,204" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="180" y="185" font-size="13" font-weight="bold" fill="#1a1a1a">θ</text>
+
+  <!-- Пунктирна лінія прямокутника сил (проєкція) -->
+  <line x1="267" y1="176" x2="300" y2="230" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="160" y1="230" x2="193" y2="284" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="193" y1="284" x2="300" y2="230" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Позначка прямого кута у вершині трикутника сил (267, 176) -->
+  <path d="M 261,186 L 271,192 L 277,182" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Вектор F_tan (тангенціальна сила від мотора) -->
+  <line x1="160" y1="230" x2="295" y2="230" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="310" y="234" font-size="13" font-weight="bold" fill="#2457d6">F_tan</text>
+
+  <!-- Вектор F_тяга (корисна тягова сила вздовж тяги) -->
+  <line x1="160" y1="230" x2="263" y2="178" stroke="#27ae60" stroke-width="3.5" marker-end="url(#arr-green)"/>
+  <text x="180" y="118" font-size="13" font-weight="bold" fill="#27ae60">F_тяга = F_tan · sin(θ)</text>
+
+  <!-- Вектор F_рад (радіальна сила на згин вала) -->
+  <line x1="160" y1="230" x2="190" y2="279" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="205" y="285" font-size="13" font-weight="bold" fill="#c0392b">F_рад = F_tan · cos(θ)</text>
+
+  <!-- Шарнір A (наконечник качалки) -->
+  <circle cx="160" cy="230" r="9" fill="#2457d6" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="160" cy="230" r="4" fill="white"/>
+  <text x="145" y="234" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Шарнір A</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: 3 КАРТКИ РЕЖИМІВ -->
+
+  <!-- Картка 1: Оптимальний режим -->
+  <rect x="510" y="72" width="420" height="110" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="530" y="97" font-size="14" font-weight="bold" fill="#27ae60">Оптимальний кут передачі: θ = 90°</text>
+  <text x="530" y="119" font-size="12" fill="#1a1a1a">• sin(90°) = 1.00 — 100% сили передається в корисну тягу</text>
+  <text x="530" y="139" font-size="12" fill="#1a1a1a">• cos(90°) = 0.00 — нульове радіальне навантаження на вал</text>
+  <text x="530" y="161" font-size="12" fill="#6b7280">Ідеальний режим: максимальний ККД і нульовий знос редуктора</text>
+
+  <!-- Картка 2: Несприятливий режим -->
+  <rect x="510" y="198" width="420" height="110" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="530" y="223" font-size="14" font-weight="bold" fill="#2457d6">Несприятливий кут передачі: θ = 45°</text>
+  <text x="530" y="245" font-size="12" fill="#1a1a1a">• sin(45°) ≈ 0.71 — тяга отримує лише 71% сили привода</text>
+  <text x="530" y="265" font-size="12" fill="#1a1a1a">• cos(45°) ≈ 0.71 — 71% сили згинає вихідний вал і кришку</text>
+  <text x="530" y="287" font-size="12" fill="#6b7280">Вал утримує кулькова вальниця V2, але втрачається 29% сили</text>
+
+  <!-- Картка 3: Критичний режим -->
+  <rect x="510" y="324" width="420" height="114" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="530" y="349" font-size="14" font-weight="bold" fill="#c0392b">Критичний кут передачі: θ ≤ 20° (ризик заклинювання)</text>
+  <text x="530" y="371" font-size="12" fill="#1a1a1a">• sin(20°) ≤ 0.34 — корисне тягове зусилля падає нижче 34%</text>
+  <text x="530" y="391" font-size="12" fill="#1a1a1a">• cos(20°) ≥ 0.94 — понад 94% зусилля розпирає шарнір убік</text>
+  <text x="530" y="413" font-size="12" fill="#c0392b">Небезпека заклинювання в мертвій точці та поломки зубців</text>
+</svg>

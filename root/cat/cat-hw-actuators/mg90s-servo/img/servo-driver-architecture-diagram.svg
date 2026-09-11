@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="26" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Архітектура C/C++ драйвера мікросервопривода MG90S</text>
+  <text x="480" y="46" text-anchor="middle" font-size="13" fill="#6b7280">Неблокувальний конвеєр: API застосунку → Slew-Rate лімітер → Калібрування → Апаратний ШІМ</text>
+
+  <!-- Col 1: Application -->
+  <rect x="24" y="68" width="212" height="282" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="36" y="90" font-size="14" font-weight="700" fill="#1a1a1a">1. Рівень застосунку</text>
+  <text x="36" y="106" font-size="12" fill="#6b7280">User Application &amp; API</text>
+  <rect x="34" y="118" width="192" height="154" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="136" font-size="12" font-weight="700" fill="#2457d6">servo_init(&amp;s, &amp;cfg)</text>
+  <text x="44" y="152" font-size="12" fill="#6b7280">прив’язка таймера й піна</text>
+  <text x="44" y="174" font-size="12" font-weight="700" fill="#2457d6">servo_write_angle(&amp;s, deg)</text>
+  <text x="44" y="190" font-size="12" fill="#6b7280">цільовий кут 0°..180°</text>
+  <text x="44" y="212" font-size="12" font-weight="700" fill="#2457d6">servo_write_us(&amp;s, us)</text>
+  <text x="44" y="228" font-size="12" fill="#6b7280">ручний імпульс (мкс)</text>
+  <text x="44" y="250" font-size="12" font-weight="700" fill="#c0392b">servo_detach(&amp;s)</text>
+  <text x="44" y="264" font-size="12" fill="#6b7280">зняття ШІМ / захист</text>
+  <rect x="34" y="284" width="192" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="44" y="304" font-size="12" font-weight="700" fill="#2457d6">servo_update(&amp;s, dt)</text>
+  <text x="44" y="322" font-size="12" fill="#1a1a1a">неблокувальний крок у loop</text>
+  <!-- Arrows Col 1 -> Col 2 -->
+  <line x1="236" y1="182" x2="250" y2="182" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="236" y1="311" x2="250" y2="311" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- Col 2: Driver -->
+  <rect x="252" y="68" width="276" height="282" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="264" y="90" font-size="14" font-weight="700" fill="#1a1a1a">2. Рівень драйвера (C/C++)</text>
+  <text x="264" y="106" font-size="12" fill="#6b7280">Slew-Rate, Калібрування та Дескриптор</text>
+  <rect x="262" y="118" width="256" height="64" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="272" y="136" font-size="12" font-weight="700" fill="#27ae60">Slew-Rate Limiter (профілювання)</text>
+  <text x="272" y="152" font-size="12" font-weight="700" fill="#1a1a1a">|dθ/dt| ≤ max_speed_deg_s</text>
+  <text x="272" y="168" font-size="12" fill="#6b7280">захист від brownout та ударів шестерень</text>
+  <rect x="262" y="196" width="256" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="272" y="214" font-size="12" font-weight="700" fill="#1a1a1a">Калібрування (кут → імпульс)</text>
+  <text x="272" y="230" font-size="12" font-weight="700" fill="#2457d6">t_us = t_min + (θ/180)·(t_max - t_min)</text>
+  <text x="272" y="246" font-size="12" fill="#6b7280">t_min=500..1000, t_max=2000..2500 мкс</text>
+  <rect x="262" y="270" width="256" height="70" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="272" y="288" font-size="12" font-weight="700" fill="#1a1a1a">Дескриптор struct ServoHandle</text>
+  <text x="272" y="306" font-size="12" fill="#2457d6">state: ATTACHED | DETACHED</text>
+  <text x="272" y="324" font-size="12" fill="#6b7280">cur_angle, target_angle, max_speed</text>
+  <line x1="390" y1="182" x2="390" y2="194" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="390" y1="256" x2="390" y2="268" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <!-- Arrow Col 2 -> Col 3 -->
+  <line x1="528" y1="226" x2="542" y2="226" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- Col 3: Hardware Timer -->
+  <rect x="544" y="68" width="212" height="282" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="556" y="90" font-size="14" font-weight="700" fill="#1a1a1a">3. Апаратний таймер</text>
+  <text x="556" y="106" font-size="12" fill="#6b7280">MCU TIMx Peripheral</text>
+  <rect x="554" y="118" width="192" height="64" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="564" y="136" font-size="12" font-weight="700" fill="#1a1a1a">Конфігурація таймера</text>
+  <text x="564" y="152" font-size="12" fill="#1a1a1a">Базова частота: 1 МГц (1 мкс)</text>
+  <text x="564" y="168" font-size="12" fill="#2457d6">ARR = 20 000 (період 20 мс = 50 Гц)</text>
+  <rect x="554" y="196" width="192" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="564" y="214" font-size="12" font-weight="700" fill="#1a1a1a">Порівняння CCRx</text>
+  <text x="564" y="230" font-size="12" font-weight="700" fill="#2457d6">CCRx = (t_us · F_clk) / PSC</text>
+  <text x="564" y="246" font-size="12" fill="#6b7280">0% навантаження CPU на ШІМ</text>
+  <rect x="554" y="270" width="192" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="564" y="288" font-size="12" font-weight="700" fill="#2457d6">ШІМ-вихід на GPIO</text>
+  <text x="564" y="306" font-size="12" fill="#1a1a1a">Імпульс 500..2500 мкс (50 Гц)</text>
+  <text x="564" y="324" font-size="12" fill="#6b7280">автономна апаратна генерація</text>
+  <line x1="650" y1="182" x2="650" y2="194" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="650" y1="256" x2="650" y2="268" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <!-- Arrow Col 3 -> Col 4 -->
+  <line x1="746" y1="305" x2="770" y2="305" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- Col 4: Actuator -->
+  <rect x="772" y="68" width="164" height="282" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="782" y="90" font-size="13" font-weight="700" fill="#1a1a1a">4. Сервопривод MG90S</text>
+  <text x="782" y="106" font-size="12" fill="#6b7280">Виконавчий орган</text>
+  <rect x="780" y="118" width="148" height="64" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="788" y="136" font-size="12" font-weight="700" fill="#27ae60">Вал 0°..180°</text>
+  <text x="788" y="152" font-size="12" fill="#1a1a1a">Металевий редуктор</text>
+  <text x="788" y="168" font-size="12" fill="#27ae60">плавний рух вала</text>
+  <rect x="780" y="196" width="148" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="788" y="214" font-size="12" font-weight="700" fill="#1a1a1a">Внутрішня плата</text>
+  <text x="788" y="230" font-size="12" fill="#6b7280">Демодулятор ШІМ</text>
+  <text x="788" y="246" font-size="12" fill="#6b7280">H-міст мотора + потенц.</text>
+  <rect x="780" y="270" width="148" height="70" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="788" y="288" font-size="12" font-weight="700" fill="#1a1a1a">Роз’єм JR (DuPont)</text>
+  <text x="788" y="306" font-size="12" fill="#2457d6">PWM: вхід сигналу</text>
+  <text x="788" y="324" font-size="12" fill="#6b7280">VCC (+5V), GND (земля)</text>
+  <line x1="854" y1="270" x2="854" y2="258" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="854" y1="196" x2="854" y2="184" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+
+  <!-- Bottom Summary Cards -->
+  <rect x="24" y="364" width="294" height="74" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="36" y="386" font-size="12" font-weight="700" fill="#2457d6">Неблокувальний драйвер (Non-blocking)</text>
+  <text x="36" y="404" font-size="12" fill="#1a1a1a">Жодних delay_ms(): крок лімітера обчислюється</text>
+  <text x="36" y="422" font-size="12" fill="#6b7280">за delta_t у головному циклі або за тіком таймера</text>
+  <rect x="334" y="364" width="292" height="74" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="346" y="386" font-size="12" font-weight="700" fill="#27ae60">Slew-Rate Limiter (Захист редуктора)</text>
+  <text x="346" y="404" font-size="12" fill="#1a1a1a">Обмеження dθ/dt усуває пускові струми до 800 мА</text>
+  <text x="346" y="422" font-size="12" fill="#6b7280">і захищає зуби латунного редуктора від сколювання</text>
+  <rect x="642" y="364" width="294" height="74" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="654" y="386" font-size="12" font-weight="700" fill="#1a1a1a">0% CPU Overhead (Апаратний ШІМ)</text>
+  <text x="654" y="404" font-size="12" fill="#1a1a1a">Після запису в CCRx таймер мікроконтролера</text>
+  <text x="654" y="422" font-size="12" fill="#6b7280">генерує стабільні 50 Гц автономно в залізі</text>
+</svg>

@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- 0. Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- 1. Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння електричної та механічної сталих часу двигуна 6 В</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Чому τ_e (0.12 мс) ≪ τ_m (25 мс) дозволяє нехтувати індуктивністю L·(dI/dt) в інженерних розрахунках</text>
+
+  <!-- 2. Ліва частина: Верхній графік (Електричний процес I(t)) -->
+  <rect x="25" y="74" width="575" height="160" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="93" font-size="13" font-weight="bold" fill="#1a1a1a">1. Електричний перехідний процес: струм якоря I(t)</text>
+  <text x="585" y="93" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Шкала часу: частки мс</text>
+
+  <!-- Осі та сітка верхнього графіка -->
+  <line x1="90" y1="196" x2="90" y2="114" stroke="#d0d7de" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="90" y1="196" x2="535" y2="196" stroke="#d0d7de" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Рівні на осі Y верхнього графіка -->
+  <line x1="90" y1="120" x2="535" y2="120" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+  <text x="84" y="110" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">I (A)</text>
+  <text x="84" y="124" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">I_пуск</text>
+  <text x="84" y="152" font-size="12" fill="#2457d6" text-anchor="end">0.63</text>
+  <text x="84" y="200" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Заливка та крива I(t) -->
+  <path d="M 90,196 C 125,160 150,150 180,148 C 225,145 300,126 360,123.8 C 420,121.6 480,120.8 535,120.5 L 535,196 Z" fill="#eaf0fd" opacity="0.6"/>
+  <path d="M 90,196 C 125,160 150,150 180,148 C 225,145 300,126 360,123.8 C 420,121.6 480,120.8 535,120.5" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Маркери точок та пунктир верхнього графіка -->
+  <line x1="90" y1="148" x2="180" y2="148" stroke="#2457d6" stroke-dasharray="2,2"/>
+  <line x1="180" y1="148" x2="180" y2="196" stroke="#2457d6" stroke-dasharray="2,2"/>
+  <circle cx="180" cy="148" r="3.5" fill="#2457d6"/>
+
+  <line x1="360" y1="124" x2="360" y2="196" stroke="#2457d6" stroke-dasharray="2,2"/>
+  <circle cx="360" cy="124" r="3.5" fill="#2457d6"/>
+
+  <!-- Підписи осі X верхнього графіка -->
+  <text x="90" y="212" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="180" y="212" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">τ_e = 0.12 мс</text>
+  <text x="180" y="226" font-size="12" fill="#2457d6" text-anchor="middle">(63% струму)</text>
+  <text x="360" y="212" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3·τ_e = 0.36 мс</text>
+  <text x="360" y="226" font-size="12" fill="#6b7280" text-anchor="middle">(95% струму)</text>
+  <text x="545" y="199" font-size="12" font-weight="bold" fill="#6b7280">t (мс)</text>
+
+  <!-- Формула та пояснення всередині верхнього графіка -->
+  <text x="460" y="150" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I(t) = I_пуск · (1 - e^(-t/τ_e))</text>
+  <text x="460" y="166" font-size="12" fill="#1a1a1a" text-anchor="middle">Струм наростає практично</text>
+  <text x="460" y="180" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">миттєво для механіки</text>
+
+  <!-- 3. Центральний міст: масштабне зіставлення -->
+  <rect x="25" y="246" width="575" height="30" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="312.5" y="266" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Співвідношення масштабів: τ_m / τ_e ≈ 208 разів (0.36 мс струму проти 75 мс розгону)</text>
+
+  <!-- 4. Ліва частина: Нижній графік (Механічний процес ω(t)) -->
+  <rect x="25" y="288" width="575" height="172" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="307" font-size="13" font-weight="bold" fill="#1a1a1a">2. Механічний процес: розгін вала ротора ω(t)</text>
+  <text x="585" y="307" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Шкала часу: десятки мс</text>
+
+  <!-- Осі та сітка нижнього графіка -->
+  <line x1="90" y1="410" x2="90" y2="328" stroke="#d0d7de" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="90" y1="410" x2="535" y2="410" stroke="#d0d7de" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Рівні на осі Y нижнього графіка -->
+  <line x1="90" y1="334" x2="535" y2="334" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+  <text x="84" y="324" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">ω (рад/с)</text>
+  <text x="84" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">ω_0</text>
+  <text x="84" y="366" font-size="12" fill="#27ae60" text-anchor="end">0.63</text>
+  <text x="84" y="414" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Заливка та крива ω(t) -->
+  <path d="M 90,410 C 125,374 150,364 200,362 C 255,359 350,340 420,337.8 C 470,336 500,335.6 530,335.4 L 530,410 Z" fill="#e9f7ef" opacity="0.6"/>
+  <path d="M 90,410 C 125,374 150,364 200,362 C 255,359 350,340 420,337.8 C 470,336 500,335.6 530,335.4" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Маркери точок та пунктир нижнього графіка -->
+  <line x1="90" y1="362" x2="200" y2="362" stroke="#27ae60" stroke-dasharray="2,2"/>
+  <line x1="200" y1="362" x2="200" y2="410" stroke="#27ae60" stroke-dasharray="2,2"/>
+  <circle cx="200" cy="362" r="3.5" fill="#27ae60"/>
+
+  <line x1="420" y1="338" x2="420" y2="410" stroke="#27ae60" stroke-dasharray="2,2"/>
+  <circle cx="420" cy="338" r="3.5" fill="#27ae60"/>
+
+  <!-- Підписи осі X нижнього графіка -->
+  <text x="90" y="426" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="200" y="426" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">τ_m = 25 мс</text>
+  <text x="200" y="440" font-size="12" fill="#27ae60" text-anchor="middle">(63% швидкості)</text>
+  <text x="420" y="426" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3·τ_m = 75 мс</text>
+  <text x="420" y="440" font-size="12" fill="#6b7280" text-anchor="middle">(95% розгін ротора)</text>
+  <text x="545" y="413" font-size="12" font-weight="bold" fill="#6b7280">t (мс)</text>
+
+  <!-- Формула та пояснення всередині нижнього графіка -->
+  <text x="310" y="375" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ω(t) = ω_0 · (1 - e^(-t/τ_m))</text>
+  <text x="310" y="392" font-size="12" fill="#1a1a1a" text-anchor="middle">Повний розгін вала триває 75 мс</text>
+
+  <!-- 5. Права частина: Панель 1 (Електромеханічні параметри) -->
+  <rect x="620" y="74" width="315" height="184" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="634" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Електромеханічні параметри</text>
+
+  <text x="634" y="118" font-size="12" fill="#6b7280">Електрична стала струму якоря:</text>
+  <text x="634" y="138" font-size="13" font-weight="bold" fill="#2457d6">τ_e = L / R ≈ 0.12 мс  (0.00012 с)</text>
+  <text x="634" y="154" font-size="12" fill="#1a1a1a">Визначає затримку наростання струму</text>
+
+  <text x="634" y="176" font-size="12" fill="#6b7280">Механічна стала інерції ротора:</text>
+  <text x="634" y="196" font-size="13" font-weight="bold" fill="#27ae60">τ_m = (J·R) / (Ke·Kt) ≈ 25 мс  (0.025 с)</text>
+  <text x="634" y="212" font-size="12" fill="#1a1a1a">Визначає час розгону вала під навантаженням</text>
+
+  <rect x="628" y="224" width="299" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="777.5" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кратність: τ_m / τ_e ≈ 208 разів (τ_m ≫ τ_e)</text>
+
+  <!-- 6. Права частина: Панель 2 (Фізичний наслідок для моделі) -->
+  <rect x="620" y="272" width="315" height="188" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="634" y="294" font-size="14" font-weight="bold" fill="#1a1a1a">Фізичний наслідок для моделі</text>
+
+  <text x="634" y="316" font-size="12" font-weight="bold" fill="#2457d6">1. Блискавичний струм:</text>
+  <text x="634" y="332" font-size="12" fill="#1a1a1a">Струм виходить на полку за 3·τ_e ≈ 0.36 мс,</text>
+  <text x="634" y="348" font-size="12" fill="#6b7280">коли важкий ротор ще не рушив з місця.</text>
+
+  <text x="634" y="370" font-size="12" font-weight="bold" fill="#c0392b">2. Зникнення доданка L·(dI/dt):</text>
+  <text x="634" y="386" font-size="12" fill="#1a1a1a">Похідна dI/dt спадає до нуля майже миттєво</text>
+  <text x="634" y="402" font-size="12" fill="#6b7280">порівняно з часом повного розгону (75 мс).</text>
+
+  <rect x="628" y="414" width="299" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="777.5" y="430" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Спрощене рівняння V = R·I + Ke·ω</text>
+  <text x="777.5" y="444" font-size="12" fill="#1a1a1a" text-anchor="middle">є абсолютно точним для робочих режимів</text>
+</svg>

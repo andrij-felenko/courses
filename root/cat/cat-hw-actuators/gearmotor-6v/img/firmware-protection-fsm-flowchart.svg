@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-fault" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-ok" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Кінцевий автомат захисту приводу: FSM та алгоритм відсічки</text>
+  <text x="480" y="48" font-size="13" text-anchor="middle" fill="#6b7280">Граф станів та блок-схема перевірки струму за даними АЦП і таймерів перевантаження</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Граф станів FSM -->
+  <rect x="24" y="68" width="444" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="246" y="92" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Граф станів кінцевого автомата (FSM)</text>
+
+  <!-- Стан 1: FSM_IDLE -->
+  <rect x="44" y="112" width="166" height="52" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="127" y="133" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">FSM_IDLE</text>
+  <text x="127" y="151" font-size="12" text-anchor="middle" fill="#6b7280">ШІМ = 0, струм = 0</text>
+
+  <!-- Перехід 1: IDLE -> BLANKING -->
+  <path d="M210,138 L282,138" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="246" y="129" font-size="12" text-anchor="middle" fill="#2457d6">cmd_start</text>
+
+  <!-- Стан 2: FSM_BLANKING -->
+  <rect x="282" y="112" width="166" height="52" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="365" y="133" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">FSM_BLANKING</text>
+  <text x="365" y="151" font-size="12" text-anchor="middle" fill="#1a1a1a">Пуск: T_blank = 60 мс</text>
+
+  <!-- Перехід 2: BLANKING -> RUN -->
+  <path d="M365,164 L365,220" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="375" y="196" font-size="12" text-anchor="start" fill="#1a1a1a">t ≥ 60 мс</text>
+
+  <!-- Стан 3: FSM_RUN -->
+  <rect x="282" y="220" width="166" height="52" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="365" y="241" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">FSM_RUN</text>
+  <text x="365" y="259" font-size="12" text-anchor="middle" fill="#1a1a1a">Хід: I = adc_read()</text>
+
+  <!-- Перехід 3: RUN -> DEBOUNCE (I >= 1.0 A) -->
+  <path d="M325,272 L325,328" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-fault)"/>
+  <text x="315" y="304" font-size="12" text-anchor="end" fill="#c0392b">I ≥ 1.0 A</text>
+
+  <!-- Перехід 4: DEBOUNCE -> RUN (I < 1.0 A) -->
+  <path d="M385,328 L385,272" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-ok)"/>
+  <text x="395" y="298" font-size="12" text-anchor="start" fill="#27ae60">I &lt; 1.0 A</text>
+  <text x="395" y="312" font-size="12" text-anchor="start" fill="#27ae60">(завада)</text>
+
+  <!-- Стан 4: FSM_DEBOUNCE -->
+  <rect x="282" y="328" width="166" height="52" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="365" y="349" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">FSM_DEBOUNCE</text>
+  <text x="365" y="367" font-size="12" text-anchor="middle" fill="#1a1a1a">Витримка: T = 100 мс</text>
+
+  <!-- Перехід 5: DEBOUNCE -> FAULT -->
+  <path d="M282,354 L210,354" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-fault)"/>
+  <text x="246" y="320" font-size="12" text-anchor="middle" fill="#c0392b">t_stall ≥ 100 мс</text>
+
+  <!-- Стан 5: FSM_FAULT -->
+  <rect x="44" y="328" width="166" height="52" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="127" y="349" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">FSM_FAULT</text>
+  <text x="127" y="367" font-size="12" text-anchor="middle" fill="#c0392b">ШІМ = 0 (відсічка)</text>
+
+  <!-- Перехід 6: FAULT -> IDLE -->
+  <path d="M127,328 L127,164" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="137" y="246" font-size="12" text-anchor="start" fill="#2457d6">cmd_reset</text>
+
+  <!-- Нижня картка лівої панелі -->
+  <rect x="44" y="404" width="404" height="40" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="246" y="420" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Фільтрація: пуск 60 мс → струм 1.0 A → витримка 100 мс</text>
+  <text x="246" y="435" font-size="12" text-anchor="middle" fill="#6b7280">Запобігає хибним спрацьовуванням і захищає шестерні</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Блок-схема SysTick -->
+  <rect x="492" y="68" width="444" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="714" y="92" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Алгоритм SysTick_Handler (100 Гц / 10 мс)</text>
+
+  <!-- Крок 1: Вхід SysTick та АЦП -->
+  <rect x="515" y="108" width="210" height="40" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="620" y="125" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">SysTick_Handler (10 мс)</text>
+  <text x="620" y="140" font-size="12" text-anchor="middle" fill="#1a1a1a">I_meas = read_adc_current()</text>
+
+  <!-- Стрілка вниз до Ромба 1 -->
+  <path d="M620,148 L620,166" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+
+  <!-- Ромб 1: t_start < 60 мс? -->
+  <polygon points="620,166 700,183 620,200 540,183" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="620" y="187" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">t_start &lt; 60 мс?</text>
+
+  <!-- Гілка Так від Ромба 1 -->
+  <path d="M700,183 L750,183" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="725" y="176" font-size="12" text-anchor="middle" fill="#2457d6">Так</text>
+  <rect x="750" y="169" width="174" height="28" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="837" y="187" font-size="12" text-anchor="middle" fill="#6b7280">Вихід: пусковий стрибок</text>
+
+  <!-- Гілка Ні від Ромба 1 -->
+  <path d="M620,200 L620,218" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="628" y="212" font-size="12" text-anchor="start" fill="#1a1a1a">Ні</text>
+
+  <!-- Ромб 2: I_meas > 1.0 A? -->
+  <polygon points="620,218 700,235 620,252 540,235" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="620" y="239" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">I_meas &gt; 1.0 A?</text>
+
+  <!-- Гілка Ні від Ромба 2 -->
+  <path d="M700,235 L750,235" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-ok)"/>
+  <text x="725" y="228" font-size="12" text-anchor="middle" fill="#27ae60">Ні</text>
+  <rect x="750" y="221" width="174" height="28" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="837" y="239" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">overload_cnt = 0 (норма)</text>
+
+  <!-- Гілка Так від Ромба 2 -->
+  <path d="M620,252 L620,268" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-fault)"/>
+  <text x="628" y="263" font-size="12" text-anchor="start" fill="#c0392b">Так</text>
+
+  <!-- Крок 4: overload_cnt++ -->
+  <rect x="536" y="268" width="168" height="26" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="620" y="285" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">overload_cnt++</text>
+
+  <!-- Стрілка вниз до Ромба 3 -->
+  <path d="M620,294 L620,310" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-fault)"/>
+
+  <!-- Ромб 3: cnt >= 10? -->
+  <polygon points="620,310 700,327 620,344 540,327" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="620" y="331" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">cnt &gt;= 10 (100 мс)?</text>
+
+  <!-- Гілка Ні від Ромба 3 -->
+  <path d="M700,327 L750,327" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="725" y="320" font-size="12" text-anchor="middle" fill="#6b7280">Ні</text>
+  <rect x="750" y="313" width="174" height="28" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="837" y="331" font-size="12" text-anchor="middle" fill="#6b7280">Вихід: рух триває</text>
+
+  <!-- Гілка Так від Ромба 3 -->
+  <path d="M620,344 L620,360" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-fault)"/>
+  <text x="628" y="355" font-size="12" text-anchor="start" fill="#c0392b">Так</text>
+
+  <!-- Блок відсічки -->
+  <rect x="515" y="360" width="409" height="38" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="719" y="375" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">ВІДСІЧКА: pwm_disable(); motor_fault = 1;</text>
+  <text x="719" y="390" font-size="12" text-anchor="middle" fill="#1a1a1a">Миттєве вимкнення ШІМ: струм утримувався ≥ 100 мс</text>
+
+  <!-- Підсумковий блок захисту шестерень -->
+  <rect x="515" y="408" width="409" height="40" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="719" y="424" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">✓ Захист шестерень від пошкодження:</text>
+  <text x="719" y="440" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">заклинювання відсікається до руйнування механіки</text>
+</svg>

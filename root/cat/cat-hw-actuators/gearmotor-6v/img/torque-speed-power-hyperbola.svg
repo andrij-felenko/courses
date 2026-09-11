@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка полотна -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <!-- Маркер стрілки для осей координат -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Гіпербола збереження потужності та робочі точки редуктора</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Зворотний зв'язок P = M · ω: високий момент (100 об/хв) проти високої швидкості (600 об/хв)</text>
+
+  <!-- Зафарбована область S2 (600 об/хв: широкий, низький прямокутник) -->
+  <path d="M 85 415 L 85 371 L 475 371 L 475 415 Z" fill="#fdecea" fill-opacity="0.8" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="310" y="398" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">S₂ = P_вх (площа S₂ = S₁ при ККД 100%)</text>
+
+  <!-- Зафарбована область S1 (100 об/хв: вузький, високий прямокутник) -->
+  <path d="M 85 415 L 85 151 L 150 151 L 150 415 Z" fill="#e9f7ef" fill-opacity="0.8" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="117" y="215" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">S₁</text>
+  <text x="117" y="232" text-anchor="middle" font-size="12" fill="#1a1a1a">= P_вх</text>
+
+  <!-- Крива реального вихідного моменту з урахуванням ККД редуктора -->
+  <path d="M 150.0 277.7 L 163.0 302.5 L 182.5 320.0 L 202.0 332.3 L 228.0 345.2 L 260.5 356.5 L 299.5 365.4 L 345.0 372.8 L 397.0 378.3 L 449.0 381.8 L 475.0 383.3 L 527.0 385.8" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="5 4"/>
+
+  <!-- Теоретична гіпербола ідеального збереження потужності P = M · ω = const -->
+  <path d="M 140.3 104.4 L 143.5 121.7 L 146.8 137.1 L 150.0 151.0 L 156.5 175.0 L 163.0 195.0 L 172.8 219.4 L 182.5 239.0 L 198.8 264.1 L 215.0 283.0 L 234.5 300.2 L 254.0 313.5 L 280.0 327.0 L 312.5 339.6 L 345.0 349.0 L 384.0 357.6 L 423.0 364.2 L 475.0 371.0 L 527.0 376.2" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Вісь Y (Крутний момент M) -->
+  <line x1="85" y1="415" x2="85" y2="95" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="85" y="82" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">M (крутний момент)</text>
+
+  <!-- Позначки та підписи на осі Y -->
+  <line x1="81" y1="151" x2="85" y2="151" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="74" y="155" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">6·M₀</text>
+
+  <line x1="81" y1="239" x2="85" y2="239" stroke="#6b7280" stroke-width="1"/>
+  <text x="74" y="243" text-anchor="end" font-size="12" fill="#6b7280">4·M₀</text>
+
+  <line x1="81" y1="327" x2="85" y2="327" stroke="#6b7280" stroke-width="1"/>
+  <text x="74" y="331" text-anchor="end" font-size="12" fill="#6b7280">2·M₀</text>
+
+  <line x1="81" y1="371" x2="85" y2="371" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="74" y="375" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">1·M₀</text>
+
+  <line x1="81" y1="415" x2="85" y2="415" stroke="#6b7280" stroke-width="1"/>
+  <text x="74" y="419" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <!-- Вісь X (Кутова швидкість ω) -->
+  <line x1="85" y1="415" x2="565" y2="415" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Позначки та підписи на осі X -->
+  <line x1="150" y1="415" x2="150" y2="418" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="150" y="431" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">100</text>
+
+  <line x1="215" y1="415" x2="215" y2="418" stroke="#6b7280" stroke-width="1"/>
+  <text x="215" y="431" text-anchor="middle" font-size="12" fill="#6b7280">200</text>
+
+  <line x1="280" y1="415" x2="280" y2="418" stroke="#6b7280" stroke-width="1"/>
+  <text x="280" y="431" text-anchor="middle" font-size="12" fill="#6b7280">300</text>
+
+  <line x1="345" y1="415" x2="345" y2="418" stroke="#6b7280" stroke-width="1"/>
+  <text x="345" y="431" text-anchor="middle" font-size="12" fill="#6b7280">400</text>
+
+  <line x1="410" y1="415" x2="410" y2="418" stroke="#6b7280" stroke-width="1"/>
+  <text x="410" y="431" text-anchor="middle" font-size="12" fill="#6b7280">500</text>
+
+  <line x1="475" y1="415" x2="475" y2="418" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="475" y="431" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">600</text>
+
+  <line x1="540" y1="415" x2="540" y2="418" stroke="#6b7280" stroke-width="1"/>
+  <text x="540" y="431" text-anchor="middle" font-size="12" fill="#6b7280">700</text>
+
+  <text x="325" y="456" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Кутова швидкість вала ω (об/хв)</text>
+
+  <!-- Точка А (100 об/хв) -->
+  <circle cx="150" cy="151" r="5" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+  <text x="165" y="125" font-size="13" font-weight="bold" fill="#27ae60">Точка А: 100 об/хв (M = 6·M₀)</text>
+  <text x="165" y="142" font-size="12" fill="#1a1a1a">Тяговий режим для підйомів шасі</text>
+
+  <!-- Дійсна точка А з урахуванням втрат -->
+  <circle cx="150" cy="278" r="4" fill="#6b7280" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Точка Б (600 об/хв) -->
+  <circle cx="475" cy="371" r="5" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+  <text x="465" y="325" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Точка Б: 600 об/хв (M = 1·M₀)</text>
+  <text x="465" y="342" text-anchor="middle" font-size="12" fill="#1a1a1a">Швидкісний маневр на площині</text>
+
+  <!-- Дійсна точка Б з урахуванням втрат -->
+  <circle cx="475" cy="383" r="4" fill="#6b7280" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Легенда ліній графіка -->
+  <rect x="225" y="170" width="345" height="98" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="238" y1="190" x2="265" y2="190" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="275" y="194" font-size="12" font-weight="bold" fill="#2457d6">Ідеальна гіпербола: P = M · ω = const</text>
+  <text x="275" y="210" font-size="12" fill="#6b7280">ККД η = 100%: рівність площ S₁ = S₂ = P_вх</text>
+
+  <line x1="238" y1="234" x2="265" y2="234" stroke="#6b7280" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="275" y="238" font-size="12" font-weight="bold" fill="#1a1a1a">Реальний вихідний момент із втратами</text>
+  <text x="275" y="254" font-size="12" fill="#6b7280">η ≈ 52% (100 об/хв) проти η ≈ 72% (600 об/хв)</text>
+
+  <!-- Права колонка: Панель 1 (Механіка збереження потужності) -->
+  <rect x="610" y="75" width="325" height="175" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="625" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Механіка збереження потужності</text>
+
+  <rect x="625" y="112" width="295" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="772" y="129" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">P_мех = M · ω = const</text>
+  <text x="772" y="145" text-anchor="middle" font-size="12" fill="#1a1a1a">M₁ · ω₁ = M₂ · ω₂ = P_вх  (ідеал: S₁ = S₂)</text>
+
+  <text x="625" y="172" font-size="12" font-weight="bold" fill="#1a1a1a">Зміна швидкості та моменту в 6 разів:</text>
+
+  <circle cx="633" cy="192" r="3.5" fill="#27ae60"/>
+  <text x="643" y="196" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">100 об/хв:</tspan> ω в 6 разів менша → M = 6·M₀</text>
+
+  <circle cx="633" cy="216" r="3.5" fill="#c0392b"/>
+  <text x="643" y="220" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">600 об/хв:</tspan> ω в 6 разів більша → M = 1·M₀</text>
+
+  <text x="625" y="240" font-size="12" fill="#6b7280">Редуктор масштабує момент ціною швидкості</text>
+
+  <!-- Права колонка: Панель 2 (Інженерний компроміс та ККД) -->
+  <rect x="610" y="265" width="325" height="193" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="625" y="286" font-size="14" font-weight="bold" fill="#1a1a1a">Інженерний компроміс та ККД</text>
+
+  <rect x="625" y="298" width="295" height="40" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="635" y="313" font-size="12" font-weight="bold" fill="#27ae60">100 об/хв: 4 ступені (η ≈ 0.85⁴ ≈ 52%)</text>
+  <text x="635" y="329" font-size="12" fill="#1a1a1a">Високі втрати на тертя; тяга для підйомів</text>
+
+  <rect x="625" y="350" width="295" height="40" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="635" y="365" font-size="12" font-weight="bold" fill="#c0392b">600 об/хв: 2–3 ступені (η ≈ 61–72%)</text>
+  <text x="635" y="381" font-size="12" fill="#1a1a1a">Менші втрати; швидкі маневри на площині</text>
+
+  <text x="625" y="405" font-size="12" font-weight="bold" fill="#1a1a1a">Практичне застосування модифікацій:</text>
+  <text x="635" y="422" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#27ae60">100 об/хв:</tspan> подолання підйомів, масивні візки</text>
+  <text x="635" y="440" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#c0392b">600 об/хв:</tspan> швидкі маневри на рівній підлозі</text>
+</svg>

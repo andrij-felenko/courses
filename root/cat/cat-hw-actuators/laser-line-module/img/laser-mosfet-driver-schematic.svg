@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Title & Subtitle -->
+<text x="480" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема низькостороннього N-MOSFET драйвера лазерного модуля</text>
+<text x="480" y="46" text-anchor="middle" font-size="13" fill="#6b7280">Керування від 3.3 В GPIO: струмообмеження затвора, захисний pull-down та фільтрація живлення</text>
+
+<!-- Microcontroller Box -->
+<rect x="30" y="75" width="120" height="200" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="30" y="75" width="120" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="90" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Мікроконтролер</text>
+<text x="90" y="124" text-anchor="middle" font-size="12" fill="#6b7280">STM32 / ESP32</text>
+
+<!-- MCU Pins -->
+<text x="132" y="176" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO</text>
+<text x="132" y="190" text-anchor="end" font-size="12" fill="#6b7280">3.3 В (ШІМ)</text>
+<line x1="136" y1="180" x2="150" y2="180" stroke="#2457d6" stroke-width="2"/>
+<circle cx="150" cy="180" r="3.5" fill="#2457d6"/>
+
+<text x="132" y="248" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+<line x1="136" y1="250" x2="150" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="150" cy="250" r="3.5" fill="#1a1a1a"/>
+
+<!-- GND Bus -->
+<line x1="150" y1="250" x2="150" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="150" y1="275" x2="890" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="150" cy="275" r="3" fill="#1a1a1a"/>
+
+<!-- Gate Driving Circuit -->
+<!-- GPIO to R_gate -->
+<line x1="150" y1="180" x2="190" y2="180" stroke="#2457d6" stroke-width="2"/>
+
+<!-- R_gate resistor (100 Ohm) -->
+<rect x="190" y="172" width="45" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="212" y="153" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">R_gate</text>
+<text x="212" y="167" text-anchor="middle" font-size="12" fill="#2457d6">100 Ом</text>
+
+<!-- From R_gate to Gate Node -->
+<line x1="235" y1="180" x2="275" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="275" cy="180" r="3.5" fill="#1a1a1a"/>
+
+<!-- R_pd branch -->
+<line x1="275" y1="180" x2="275" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+<rect x="267" y="205" width="16" height="45" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="275" y1="250" x2="275" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="275" cy="275" r="3.5" fill="#1a1a1a"/>
+
+<!-- R_pd labels (to the left) -->
+<text x="259" y="222" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">R_pd</text>
+<text x="259" y="237" text-anchor="end" font-size="12" fill="#2457d6">10 кОм</text>
+<text x="259" y="252" text-anchor="end" font-size="12" fill="#6b7280">pull-down</text>
+
+<!-- Wire to Gate -->
+<line x1="275" y1="180" x2="330" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+<text x="322" y="174" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">G</text>
+
+<!-- N-MOSFET Q1 (Logic Level) -->
+<!-- Gate bar -->
+<line x1="330" y1="160" x2="330" y2="200" stroke="#1a1a1a" stroke-width="2.5"/>
+
+<!-- Channel segments -->
+<line x1="338" y1="162" x2="338" y2="170" stroke="#1a1a1a" stroke-width="2.5"/>
+<line x1="338" y1="176" x2="338" y2="184" stroke="#1a1a1a" stroke-width="2.5"/>
+<line x1="338" y1="190" x2="338" y2="198" stroke="#1a1a1a" stroke-width="2.5"/>
+
+<!-- Leads from channel -->
+<line x1="338" y1="166" x2="365" y2="166" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="338" y1="180" x2="365" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="338" y1="194" x2="365" y2="194" stroke="#1a1a1a" stroke-width="2"/>
+
+<!-- Bulk arrow pointing left -->
+<polygon points="348,180 357,176 357,184" fill="#1a1a1a"/>
+
+<!-- Bulk to Source connection -->
+<line x1="365" y1="180" x2="365" y2="194" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="365" cy="194" r="3" fill="#1a1a1a"/>
+
+<!-- Source lead down to GND -->
+<line x1="365" y1="194" x2="365" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="365" cy="275" r="3.5" fill="#1a1a1a"/>
+
+<text x="373" y="164" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">D</text>
+<text x="373" y="206" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">S</text>
+
+<!-- MOSFET Title -->
+<text x="348" y="133" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Q1 N-MOSFET</text>
+<text x="348" y="148" text-anchor="middle" font-size="12" fill="#6b7280">AO3400A (30V, 5A)</text>
+
+<!-- Drain wire to Laser Module -->
+<line x1="365" y1="166" x2="450" y2="166" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="450" cy="166" r="3.5" fill="#1a1a1a"/>
+<text x="408" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">(-) Стік (Drain)</text>
+
+<!-- Laser Line Module Box -->
+<rect x="450" y="110" width="190" height="120" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="450" y="110" width="190" height="28" rx="6" fill="#c0392b"/>
+<text x="545" y="129" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">МОДУЛЬ ЛАЗЕРНОЇ ЛІНІЇ</text>
+
+<text x="545" y="160" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Лазерний діод 650 нм</text>
+<text x="545" y="178" text-anchor="middle" font-size="12" fill="#1a1a1a">Вбудований драйвер струму</text>
+<text x="545" y="194" text-anchor="middle" font-size="12" fill="#6b7280">Лінійна призма Павелла</text>
+
+<!-- (+) terminal on top of Laser Module -->
+<circle cx="545" cy="110" r="3.5" fill="#c0392b"/>
+<line x1="545" y1="75" x2="545" y2="110" stroke="#c0392b" stroke-width="2"/>
+<circle cx="545" cy="75" r="3.5" fill="#c0392b"/>
+<text x="553" y="96" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">(+) Червоний (+5 В)</text>
+
+<!-- +5V Power Rail -->
+<line x1="545" y1="75" x2="840" y2="75" stroke="#c0392b" stroke-width="2"/>
+
+<!-- High Frequency Ceramic Decoupling C2 (100 nF) -->
+<line x1="680" y1="75" x2="680" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="680" cy="75" r="3.5" fill="#c0392b"/>
+<line x1="668" y1="165" x2="692" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="668" y1="185" x2="692" y2="185" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="680" y1="185" x2="680" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="680" cy="275" r="3.5" fill="#1a1a1a"/>
+
+<!-- C2 labels -->
+<text x="700" y="170" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">C2 100 нФ</text>
+<text x="700" y="185" text-anchor="start" font-size="12" fill="#2457d6">кераміка X7R</text>
+<text x="700" y="200" text-anchor="start" font-size="12" fill="#6b7280">ВЧ фільтр</text>
+
+<!-- Bulk Electrolytic Capacitor C1 (47 uF) -->
+<line x1="770" y1="75" x2="770" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="770" cy="75" r="3.5" fill="#c0392b"/>
+<line x1="758" y1="165" x2="782" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+<path d="M 758,185 Q 770,181 782,185" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+<text x="752" y="161" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">+</text>
+<line x1="770" y1="185" x2="770" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="770" cy="275" r="3.5" fill="#1a1a1a"/>
+
+<!-- C1 labels -->
+<text x="790" y="170" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">C1 47 мкФ</text>
+<text x="790" y="185" text-anchor="start" font-size="12" fill="#2457d6">електроліт</text>
+<text x="790" y="200" text-anchor="start" font-size="12" fill="#6b7280">буфер струму</text>
+
+<!-- Reverse Polarity Protection Diode D1 (Schottky) -->
+<!-- From EXT +5V to D1 anode -->
+<line x1="860" y1="75" x2="890" y2="75" stroke="#c0392b" stroke-width="2"/>
+<!-- Diode triangle pointing left -->
+<polygon points="860,67 860,83 844,75" fill="#1a1a1a"/>
+<!-- Schottky cathode bar -->
+<path d="M 844,65 L 848,65 L 844,69 L 844,81 L 840,85 L 844,85" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+<text x="852" y="52" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">D1 1N5819</text>
+<text x="852" y="64" text-anchor="middle" font-size="12" fill="#6b7280">Шотткі</text>
+
+<!-- External Power Connector -->
+<rect x="895" y="65" width="45" height="225" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<circle cx="917" cy="75" r="4" fill="#c0392b"/>
+<circle cx="917" cy="275" r="4" fill="#1a1a1a"/>
+<text x="888" y="70" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">+5V EXT</text>
+<text x="888" y="270" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GND EXT</text>
+<text x="917" y="55" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ВХІД DC</text>
+
+<!-- Ground symbol under GND Bus -->
+<line x1="480" y1="275" x2="480" y2="287" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="468" y1="287" x2="492" y2="287" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="472" y1="292" x2="488" y2="292" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="476" y1="297" x2="484" y2="297" stroke="#1a1a1a" stroke-width="1"/>
+<text x="480" y="312" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Спільна шина GND (0 В)</text>
+
+<!-- Bottom Cards -->
+<rect x="40" y="335" width="275" height="107" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="52" y="355" font-size="13" font-weight="bold" fill="#2457d6">1. Затворний ланцюг (Gate)</text>
+<text x="52" y="373" font-size="12" fill="#1a1a1a">• R_gate (100 Ом) обмежує струм</text>
+<text x="52" y="391" font-size="12" fill="#1a1a1a">  перезаряду ємності C_iss затвора.</text>
+<text x="52" y="409" font-size="12" fill="#1a1a1a">• R_pd (10 кОм) фіксує GND у стані</text>
+<text x="52" y="427" font-size="12" fill="#1a1a1a">  Hi-Z, запобігаючи хибному спалаху.</text>
+
+<rect x="342" y="335" width="275" height="107" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="354" y="355" font-size="13" font-weight="bold" fill="#27ae60">2. Ключ N-MOSFET (Low-Side)</text>
+<text x="354" y="373" font-size="12" fill="#1a1a1a">• Logic-Level N-MOSFET (AO3400A)</text>
+<text x="354" y="391" font-size="12" fill="#1a1a1a">  відкривається від V_GS = 2.5..3.3 В.</text>
+<text x="354" y="409" font-size="12" fill="#1a1a1a">• R_DS(on) &lt; 0.05 Ом: спад &lt; 5 мВ</text>
+<text x="354" y="427" font-size="12" fill="#1a1a1a">  при робочому струмі діода 30..80 мА.</text>
+
+<rect x="645" y="335" width="275" height="107" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="657" y="355" font-size="13" font-weight="bold" fill="#c0392b">3. Фільтрація живлення діода</text>
+<text x="657" y="373" font-size="12" fill="#1a1a1a">• D1 Шотткі захищає від переполюсовки.</text>
+<text x="657" y="391" font-size="12" fill="#1a1a1a">• C1 (47 мкФ) згладжує просідання VCC.</text>
+<text x="657" y="409" font-size="12" fill="#1a1a1a">• C2 (100 нФ) гасить ВЧ дзвін комутації.</text>
+<text x="657" y="427" font-size="12" fill="#1a1a1a">• Спільна шина GND для МК та сили.</text>
+
+</svg>

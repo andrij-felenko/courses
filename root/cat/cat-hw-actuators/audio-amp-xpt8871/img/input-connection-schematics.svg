@@ -1,0 +1,210 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідні схеми підключення аудіопідсилювача XPT8871</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Несиметричний вхід вимагає розв'язки IN+ на GND, симетричний — взаємно пригнічує завади</text>
+
+  <!-- ================= ЛІВА ПАНЕЛЬ: Несиметричне джерело ================= -->
+  <rect x="30" y="80" width="438" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі 1 -->
+  <rect x="46" y="92" width="406" height="28" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="249" y="111" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Несиметричне підключення (Single-Ended)</text>
+
+  <!-- Зворотний зв'язок Rf (верхня петля) -->
+  <line x1="205" y1="205" x2="205" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="205" y1="145" x2="265" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Резистор Rf -->
+  <rect x="265" y="139" width="40" height="12" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="285" y="132" font-size="12" fill="#1a1a1a" text-anchor="middle">Rf (20 кОм)</text>
+  <line x1="305" y1="145" x2="375" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="375" y1="145" x2="375" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="375" cy="205" r="3" fill="#1a1a1a"/>
+
+  <!-- Вхідний ланцюг IN- -->
+  <!-- Вхідний сигнал VIN -->
+  <line x1="58" y1="205" x2="90" y2="205" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <circle cx="58" cy="205" r="3" fill="#2457d6"/>
+  <text x="58" y="195" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VIN</text>
+
+  <!-- Земляний вивід джерела GND -->
+  <circle cx="58" cy="245" r="3" fill="#6b7280"/>
+  <line x1="58" y1="245" x2="58" y2="260" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="48" y1="260" x2="68" y2="260" stroke="#6b7280" stroke-width="2"/>
+  <line x1="52" y1="264" x2="64" y2="264" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="55" y1="268" x2="61" y2="268" stroke="#6b7280" stroke-width="1"/>
+  <text x="58" y="284" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <line x1="90" y1="205" x2="105" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Конденсатор Cin -->
+  <line x1="105" y1="195" x2="105" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="111" y1="195" x2="111" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="108" y="187" font-size="12" fill="#1a1a1a" text-anchor="middle">Cin</text>
+  <text x="108" y="229" font-size="12" fill="#6b7280" text-anchor="middle">0.39 мкФ</text>
+
+  <line x1="111" y1="205" x2="145" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Резистор Rin -->
+  <rect x="145" y="199" width="40" height="12" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="165" y="187" font-size="12" fill="#1a1a1a" text-anchor="middle">Rin</text>
+  <text x="165" y="229" font-size="12" fill="#6b7280" text-anchor="middle">20 кОм</text>
+
+  <line x1="185" y1="205" x2="250" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="205" cy="205" r="3" fill="#1a1a1a"/>
+
+  <!-- Вхід IN+: заземлення через Cb -->
+  <line x1="250" y1="245" x2="118" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="118" y1="245" x2="118" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Конденсатор Cb (горизонтальні пластини) -->
+  <line x1="108" y1="260" x2="128" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="108" y1="266" x2="128" y2="266" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="118" y1="266" x2="118" y2="278" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Земля GND -->
+  <line x1="106" y1="278" x2="130" y2="278" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="110" y1="282" x2="126" y2="282" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="114" y1="286" x2="122" y2="286" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Підпис конденсатора Cb -->
+  <text x="136" y="265" font-size="12" fill="#1a1a1a">Cb (0.39 мкФ)</text>
+  <text x="136" y="280" font-size="12" fill="#6b7280">AC-розв'язка на GND</text>
+
+  <!-- Мікросхема XPT8871 (Panel 1) -->
+  <rect x="250" y="165" width="100" height="100" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="300" y="185" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">XPT8871</text>
+  <!-- Символ підсилювача всередині -->
+  <polygon points="292,215 308,225 292,235" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Виводи ліворуч -->
+  <text x="256" y="209" font-size="12" font-weight="bold" fill="#1a1a1a">4 IN−</text>
+  <text x="256" y="249" font-size="12" font-weight="bold" fill="#1a1a1a">3 IN+</text>
+  <!-- Виводи праворуч -->
+  <text x="344" y="209" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">VO1 5</text>
+  <text x="344" y="249" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">VO2 8</text>
+
+  <!-- Вихідні лінії до динаміка (Panel 1) -->
+  <line x1="350" y1="205" x2="400" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="400" y1="205" x2="405" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="350" y1="245" x2="400" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="400" y1="245" x2="405" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Динамік (Panel 1) -->
+  <rect x="405" y="210" width="10" height="30" rx="2" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="415,216 429,204 429,246 415,234" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="417" y="263" font-size="12" fill="#1a1a1a" text-anchor="middle">Динамік</text>
+  <text x="417" y="278" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">BTL (4–8 Ω)</text>
+  <text x="417" y="293" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">НЕ на GND!</text>
+
+  <!-- Нижня картка характеристик (Panel 1) -->
+  <rect x="46" y="340" width="406" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="58" y="362" font-size="12" font-weight="bold" fill="#1a1a1a">Підсилення:</text>
+  <text x="140" y="362" font-size="12" font-weight="bold" fill="#2457d6">Av = 2 × (Rf / Rin)</text>
+  <text x="58" y="384" font-size="12" font-weight="bold" fill="#1a1a1a">Вхід IN+:</text>
+  <text x="125" y="384" font-size="12" fill="#6b7280">заземлений по AC через Cb (0.1–0.39 мкФ)</text>
+  <text x="58" y="406" font-size="12" font-weight="bold" fill="#1a1a1a">Особливість:</text>
+  <text x="145" y="406" font-size="12" fill="#c0392b">шум спільної землі потрапляє в аудіотракт</text>
+
+  <!-- ================= ПРАВА ПАНЕЛЬ: Диференційне джерело ================= -->
+  <rect x="492" y="80" width="438" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі 2 -->
+  <rect x="508" y="92" width="406" height="28" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="711" y="111" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Диференційне підключення (Balanced / Симетричне)</text>
+
+  <!-- Верхній зворотний зв'язок Rf (петля до IN-) -->
+  <line x1="667" y1="205" x2="667" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="667" y1="145" x2="727" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Резистор Rf верхній -->
+  <rect x="727" y="139" width="40" height="12" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="747" y="132" font-size="12" fill="#1a1a1a" text-anchor="middle">Rf (20 кОм)</text>
+  <line x1="767" y1="145" x2="837" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="837" y1="145" x2="837" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="837" cy="205" r="3" fill="#1a1a1a"/>
+
+  <!-- Верхній вхідний ланцюг IN- -->
+  <line x1="517" y1="205" x2="552" y2="205" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <circle cx="517" cy="205" r="3" fill="#27ae60"/>
+  <text x="517" y="195" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">VIN−</text>
+
+  <line x1="552" y1="205" x2="567" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Конденсатор Cin верхній -->
+  <line x1="567" y1="195" x2="567" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="573" y1="195" x2="573" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="570" y="187" font-size="12" fill="#1a1a1a" text-anchor="middle">Cin</text>
+  <line x1="573" y1="205" x2="607" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Резистор Rin верхній -->
+  <rect x="607" y="199" width="40" height="12" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="627" y="187" font-size="12" fill="#1a1a1a" text-anchor="middle">Rin</text>
+  <line x1="647" y1="205" x2="712" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="667" cy="205" r="3" fill="#1a1a1a"/>
+
+  <!-- Нижній зворотний зв'язок Rf (петля до IN+) -->
+  <line x1="667" y1="245" x2="667" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="667" y1="305" x2="727" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Резистор Rf нижній -->
+  <rect x="727" y="299" width="40" height="12" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="747" y="324" font-size="12" fill="#1a1a1a" text-anchor="middle">Rf (20 кОм)</text>
+  <line x1="767" y1="305" x2="837" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="837" y1="305" x2="837" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="837" cy="245" r="3" fill="#1a1a1a"/>
+
+  <!-- Нижній вхідний ланцюг IN+ -->
+  <line x1="517" y1="245" x2="552" y2="245" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <circle cx="517" cy="245" r="3" fill="#27ae60"/>
+  <text x="517" y="260" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">VIN+</text>
+
+  <line x1="552" y1="245" x2="567" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Конденсатор Cin нижній -->
+  <line x1="567" y1="235" x2="567" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="573" y1="235" x2="573" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="570" y="270" font-size="12" fill="#1a1a1a" text-anchor="middle">Cin</text>
+  <line x1="573" y1="245" x2="607" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Резистор Rin нижній -->
+  <rect x="607" y="239" width="40" height="12" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="627" y="270" font-size="12" fill="#1a1a1a" text-anchor="middle">Rin</text>
+  <line x1="647" y1="245" x2="712" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="667" cy="245" r="3" fill="#1a1a1a"/>
+
+  <!-- Мікросхема XPT8871 (Panel 2) -->
+  <rect x="712" y="165" width="100" height="100" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="762" y="185" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">XPT8871</text>
+  <!-- Символ підсилювача всередині -->
+  <polygon points="754,215 770,225 754,235" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Виводи ліворуч -->
+  <text x="718" y="209" font-size="12" font-weight="bold" fill="#1a1a1a">4 IN−</text>
+  <text x="718" y="249" font-size="12" font-weight="bold" fill="#1a1a1a">3 IN+</text>
+  <!-- Виводи праворуч -->
+  <text x="806" y="209" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">VO1 5</text>
+  <text x="806" y="249" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">VO2 8</text>
+
+  <!-- Вихідні лінії до динаміка (Panel 2) -->
+  <line x1="812" y1="205" x2="862" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="862" y1="205" x2="867" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="812" y1="245" x2="862" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="862" y1="245" x2="867" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Динамік (Panel 2) -->
+  <rect x="867" y="210" width="10" height="30" rx="2" fill="#e9f7ef" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="877,216 891,204 891,246 877,234" fill="#e9f7ef" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="879" y="263" font-size="12" fill="#1a1a1a" text-anchor="middle">Динамік</text>
+  <text x="879" y="278" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">BTL (4–8 Ω)</text>
+  <text x="879" y="293" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">НЕ на GND!</text>
+
+  <!-- Нижня картка характеристик (Panel 2) -->
+  <rect x="508" y="340" width="406" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="362" font-size="12" font-weight="bold" fill="#1a1a1a">Підсилення:</text>
+  <text x="602" y="362" font-size="12" font-weight="bold" fill="#27ae60">Av = 2 × (Rf / Rin)</text>
+  <text x="520" y="384" font-size="12" font-weight="bold" fill="#1a1a1a">Входи IN+, IN−:</text>
+  <text x="629" y="384" font-size="12" fill="#6b7280">симетричні Cin, Rin та Rf на обох лініях</text>
+  <text x="520" y="406" font-size="12" font-weight="bold" fill="#1a1a1a">Перевага:</text>
+  <text x="589" y="406" font-size="12" font-weight="bold" fill="#27ae60">синфазні завади віднімаються (CMRR &gt; 60 дБ)</text>
+</svg>

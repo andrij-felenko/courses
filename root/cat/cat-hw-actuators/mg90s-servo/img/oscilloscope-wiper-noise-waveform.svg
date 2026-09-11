@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ==================== ЗАГОЛОВОК ТА ПІДЗАГОЛОВОК ==================== -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Осцилограма форми напруги повзунка: новий проти зношеного сенсора</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Шумова «борода» та мікропровали контактного опору перевищують Deadband і породжують джитер</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: НОВИЙ СЕНСОР ==================== -->
+  <rect x="25" y="65" width="445" height="285" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="86" font-size="13" font-weight="700" fill="#27ae60">1. Новий потенціометр: гладка монотонна характеристика</text>
+
+  <!-- Екран осцилографа -->
+  <rect x="40" y="96" width="415" height="152" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Осі координат -->
+  <line x1="65" y1="224" x2="435" y2="224" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="440" y="228" font-size="12" font-weight="700" fill="#1a1a1a">t</text>
+
+  <line x1="75" y1="235" x2="75" y2="104" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="75" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">V</text>
+
+  <!-- Поділки шкали -->
+  <line x1="71" y1="170" x2="75" y2="170" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="68" y="174" text-anchor="end" font-size="12" fill="#6b7280">2.5 В</text>
+
+  <line x1="71" y1="116" x2="75" y2="116" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="68" y="120" text-anchor="end" font-size="12" fill="#6b7280">5.0 В</text>
+
+  <text x="68" y="228" text-anchor="end" font-size="12" fill="#6b7280">0 В</text>
+
+  <!-- Зона нечутливості Deadband (коридор допуску) -->
+  <polygon points="90,211 410,121 410,129 90,219" fill="#e9f7ef" stroke="#27ae60" stroke-width="0.5" stroke-dasharray="2,2"/>
+
+  <!-- Гладка пряма напруги нового сенсора -->
+  <path d="M 75,224 L 90,215 L 410,125 L 430,125" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Статус-бейдж -->
+  <rect x="85" y="104" width="100" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="135" y="119" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">НОРМА (0 джитер)</text>
+
+  <!-- Підписи сигналу -->
+  <text x="250" y="184" font-size="12" font-weight="700" fill="#27ae60">V_wiper: плавний лінійний рух</text>
+  <text x="250" y="200" font-size="12" fill="#6b7280">Шум &lt; 5 мВ (всередині зони Deadband)</text>
+
+  <!-- Пояснювальний блок під екраном -->
+  <rect x="40" y="256" width="415" height="82" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="274" font-size="12" font-weight="700" fill="#1a1a1a">Характеристики справного нового сенсора:</text>
+  <text x="52" y="292" font-size="12" fill="#27ae60">• Монотонна пряма: кутова похибка лінійності &lt; 1% по всій дузі 180°.</text>
+  <text x="52" y="308" font-size="12" fill="#1a1a1a">• Низький динамічний опір: R_cont &lt; 10 Ом без розривів і стрибків.</text>
+  <text x="52" y="324" font-size="12" fill="#6b7280">• Стабільне утримання: сервопривід стоїть мертво, струм спокою мінімальний.</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ЗНОШЕНИЙ СЕНСОР ==================== -->
+  <rect x="485" y="65" width="450" height="285" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="505" y="86" font-size="13" font-weight="700" fill="#c0392b">2. Зношений потенціометр: шумова «борода» та провали</text>
+
+  <!-- Екран осцилографа -->
+  <rect x="500" y="96" width="420" height="152" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Осі координат -->
+  <line x1="525" y1="224" x2="895" y2="224" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="900" y="228" font-size="12" font-weight="700" fill="#1a1a1a">t</text>
+
+  <line x1="535" y1="235" x2="535" y2="104" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="535" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">V</text>
+
+  <!-- Поділки шкали -->
+  <line x1="531" y1="170" x2="535" y2="170" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="530" y="174" text-anchor="end" font-size="12" fill="#6b7280">2.5 В</text>
+
+  <line x1="531" y1="116" x2="535" y2="116" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="530" y="120" text-anchor="end" font-size="12" fill="#6b7280">5.0 В</text>
+
+  <text x="530" y="228" text-anchor="end" font-size="12" fill="#6b7280">0 В</text>
+
+  <!-- Зона Deadband -->
+  <polygon points="550,211 870,121 870,129 550,219" fill="#fdecea" stroke="#c0392b" stroke-width="0.5" stroke-dasharray="2,2"/>
+
+  <!-- Відфільтрована траєкторія (синій пунктир) -->
+  <path d="M 535,224 L 550,215 L 870,125 L 890,125" fill="none" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="4,2"/>
+
+  <!-- Реальний шумовий сигнал зі сплесками та провалом (Червоний) -->
+  <path d="M 535,224 L 550,215 L 565,207 L 572,216 L 580,201 L 590,207 L 600,195 L 610,202 L 620,188 L 630,195 L 640,182 L 646,218 L 652,180 L 662,176 L 672,185 L 682,168 L 695,176 L 710,158 L 725,169 L 740,150 L 755,162 L 770,142 L 785,154 L 800,135 L 815,146 L 835,130 L 855,138 L 870,125 L 890,125" fill="none" stroke="#c0392b" stroke-width="1.6"/>
+
+  <!-- Статус-бейдж -->
+  <rect x="545" y="104" width="112" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="601" y="119" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">ДЕФЕКТ (джитер)</text>
+
+  <!-- Підписи сигналу праворуч -->
+  <text x="685" y="118" font-size="12" font-weight="700" fill="#c0392b">Шум ΔV &gt; Deadband</text>
+  <text x="685" y="134" font-size="12" fill="#2457d6">Пунктир: після RC-фільтра</text>
+
+  <!-- Стрілка-позначка провалу контакту -->
+  <line x1="646" y1="230" x2="646" y2="222" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+  <text x="656" y="234" font-size="12" font-weight="700" fill="#c0392b">Провал напруги</text>
+
+  <!-- Пояснювальний блок під екраном -->
+  <rect x="500" y="256" width="420" height="82" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="512" y="274" font-size="12" font-weight="700" fill="#1a1a1a">Фізика деградації та боротьба з шумом:</text>
+  <text x="512" y="292" font-size="12" fill="#c0392b">• Шумова «борода»: мікронерівності та графітовий пил породжують сплески.</text>
+  <text x="512" y="308" font-size="12" fill="#2457d6">• RC-фільтрація: ланцюг 100 Ом + 10 нФ згладжує брязкіт до порогу Deadband.</text>
+  <text x="512" y="324" font-size="12" fill="#6b7280">• Програмний EMA-фільтр: усуває провали напруги, але додає фазову затримку.</text>
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: ІНЖЕНЕРНИЙ ВИСНОВОК ==================== -->
+  <rect x="25" y="362" width="910" height="78" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="382" font-size="12" font-weight="700" fill="#1a1a1a">Інженерний аналіз та регламент придушення шуму зворотного зв'язку:</text>
+  <text x="45" y="401" font-size="12" fill="#1a1a1a">1. Критерій джитеру: сервотремтіння виникає в момент, коли амплітуда шуму ΔV_noise перевищує ширину зони нечутливості Deadband.</text>
+  <text x="45" y="419" font-size="12" fill="#1a1a1a">2. Апаратне рішення: керамічний конденсатор безпосередньо на виводах потенціометра є першою лінією захисту від високочастотного шуму.</text>
+  <text x="45" y="435" font-size="12" fill="#6b7280">3. Діагностика зносу: поява глибоких провалів на осцилограмі свідчить про фізичне руйнування резистивного шару та потребу заміни серва.</text>
+</svg>

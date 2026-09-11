@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розподіл механічного навантаження та вибір матеріалів шестерень</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Зростання крутного моменту за ступенями редуктора визначає перехід від тихих полімерів до міцної сталі</text>
+
+  <!-- ================= ВЕРХНЯ ЧАСТИНА: КІНЕМАТИЧНИЙ ЛАНЦЮГ ТА ЕПЮРИ ================= -->
+
+  <!-- Картка Ступінь 1 (вхідний) -->
+  <rect x="30" y="72" width="288" height="148" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="174" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Ступінь 1 (вхід від мотора)</text>
+  <text x="48" y="120" font-size="12" fill="#1a1a1a">Швидкість: ω = max (6000 об/хв)</text>
+  <rect x="48" y="132" width="248" height="8" rx="3" fill="#eaf0fd"/>
+  <rect x="48" y="132" width="248" height="8" rx="3" fill="#2457d6"/>
+  <text x="48" y="164" font-size="12" fill="#1a1a1a">Крутний момент: T_min (1×)</text>
+  <rect x="48" y="176" width="248" height="8" rx="3" fill="#fdecea"/>
+  <rect x="48" y="176" width="20" height="8" rx="3" fill="#c0392b"/>
+  <text x="48" y="206" font-size="12" fill="#6b7280">Вимога: безшумність і мала маса</text>
+
+  <!-- Картка Ступені 2-3 (проміжні) -->
+  <rect x="336" y="72" width="288" height="148" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Ступені 2–3 (проміжні пари)</text>
+  <text x="354" y="120" font-size="12" fill="#1a1a1a">Швидкість: ω = середня</text>
+  <rect x="354" y="132" width="248" height="8" rx="3" fill="#eaf0fd"/>
+  <rect x="354" y="132" width="110" height="8" rx="3" fill="#2457d6"/>
+  <text x="354" y="164" font-size="12" fill="#1a1a1a">Крутний момент: зростає (3× → 9×)</text>
+  <rect x="354" y="176" width="248" height="8" rx="3" fill="#fdecea"/>
+  <rect x="354" y="176" width="95" height="8" rx="3" fill="#c0392b"/>
+  <text x="354" y="206" font-size="12" fill="#6b7280">Вимога: зносостійкість і точність</text>
+
+  <!-- Картка Ступінь 4 (вихідний) -->
+  <rect x="642" y="72" width="288" height="148" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="786" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Ступінь 4 (вихідний вал)</text>
+  <text x="660" y="120" font-size="12" fill="#1a1a1a">Швидкість: ω = min (100–200 об/хв)</text>
+  <rect x="660" y="132" width="248" height="8" rx="3" fill="#eaf0fd"/>
+  <rect x="660" y="132" width="25" height="8" rx="3" fill="#2457d6"/>
+  <text x="660" y="164" font-size="12" fill="#1a1a1a">Крутний момент: T_max (27×–50×)</text>
+  <rect x="660" y="176" width="248" height="8" rx="3" fill="#fdecea"/>
+  <rect x="660" y="176" width="248" height="8" rx="3" fill="#c0392b"/>
+  <text x="660" y="206" font-size="12" fill="#6b7280">Вимога: максимальна міцність зубів</text>
+
+  <!-- Горизонтальні стрілки передачі руху між ступенями -->
+  <line x1="321" y1="146" x2="333" y2="146" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="627" y1="146" x2="639" y2="146" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Вертикальні стрілки зв'язку: навантаження -> вибір матеріалу -->
+  <line x1="174" y1="223" x2="174" y2="241" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="480" y1="223" x2="480" y2="241" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="786" y1="223" x2="786" y2="241" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ================= НИЖНЯ ЧАСТИНА: КАРТКИ МАТЕРІАЛІВ ================= -->
+
+  <!-- Картка 1: Полімери -->
+  <rect x="30" y="244" width="288" height="194" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="174" y="270" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Полімери (POM, нейлон)</text>
+  <text x="174" y="288" text-anchor="middle" font-size="12" fill="#6b7280">Ступінь 1 • Вхідний вузол</text>
+
+  <text x="48" y="312" font-size="12" font-weight="bold" fill="#27ae60">+ Переваги:</text>
+  <text x="48" y="328" font-size="12" fill="#1a1a1a">• Демпфування вібрацій, мала маса</text>
+  <text x="48" y="344" font-size="12" fill="#1a1a1a">• Безшумність на високих обертах</text>
+
+  <text x="48" y="368" font-size="12" font-weight="bold" fill="#c0392b">− Обмеження:</text>
+  <text x="48" y="384" font-size="12" fill="#1a1a1a">• Низька міцність на згин зубів</text>
+  <text x="48" y="400" font-size="12" fill="#6b7280">  під великим крутним моментом</text>
+
+  <!-- Картка 2: Латунь / бронза -->
+  <rect x="336" y="244" width="288" height="194" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="270" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Латунь / бронза (Brass)</text>
+  <text x="480" y="288" text-anchor="middle" font-size="12" fill="#6b7280">Ступені 2–3 • Проміжні пари</text>
+
+  <text x="354" y="312" font-size="12" font-weight="bold" fill="#27ae60">+ Переваги:</text>
+  <text x="354" y="328" font-size="12" fill="#1a1a1a">• Антифрикційні властивості</text>
+  <text x="354" y="344" font-size="12" fill="#1a1a1a">• Зносостійкість, точність нарізки</text>
+
+  <text x="354" y="368" font-size="12" font-weight="bold" fill="#c0392b">− Обмеження:</text>
+  <text x="354" y="384" font-size="12" fill="#1a1a1a">• Середня стійкість до ударного</text>
+  <text x="354" y="400" font-size="12" fill="#6b7280">  зрізання при заклинюванні</text>
+
+  <!-- Картка 3: Загартована вуглецева сталь -->
+  <rect x="642" y="244" width="288" height="194" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="786" y="270" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Загартована сталь (Steel)</text>
+  <text x="786" y="288" text-anchor="middle" font-size="12" fill="#6b7280">Ступінь 4 • Вихідний вал</text>
+
+  <text x="660" y="312" font-size="12" font-weight="bold" fill="#27ae60">+ Переваги:</text>
+  <text x="660" y="328" font-size="12" fill="#1a1a1a">• Контактна міцність за Герцем</text>
+  <text x="660" y="344" font-size="12" fill="#1a1a1a">• Захист від зрізання та сколів</text>
+
+  <text x="660" y="368" font-size="12" font-weight="bold" fill="#c0392b">− Обмеження:</text>
+  <text x="660" y="384" font-size="12" fill="#1a1a1a">• Підвищений шум на високих обертах</text>
+  <text x="660" y="400" font-size="12" fill="#6b7280">  (не підходить для входу)</text>
+</svg>

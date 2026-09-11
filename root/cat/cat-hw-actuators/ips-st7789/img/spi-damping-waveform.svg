@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Демпфування тактової лінії SPI: придушення дзвону сигналу SCLK резистором 33 Ом</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Паразитна індуктивність дротів створює викиди та помилкові такти: резистор R_s забезпечує монотонний фронт</text>
+
+  <!-- Ліва колонка: Осцилограф -->
+  <rect x="24" y="66" width="540" height="374" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="86" font-size="13" font-weight="bold" fill="#1a1a1a">Осцилограма тактового сигналу SCLK (частота 40 МГц)</text>
+
+  <!-- Трек 1: БЕЗ демпфування -->
+  <rect x="36" y="96" width="516" height="128" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="46" y="112" font-size="12" font-weight="bold" fill="#c0392b">❌ Без узгодження (R_s = 0 Ом, пряме підключення)</text>
+
+  <!-- Рівні напруги трек 1 -->
+  <text x="96" y="126" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">+4.5 В</text>
+  <text x="96" y="146" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">+3.3 В</text>
+  <text x="96" y="164" text-anchor="end" font-size="12" fill="#2457d6">V_IH (2.3 В)</text>
+  <text x="96" y="196" text-anchor="end" font-size="12" fill="#1a1a1a">0 В</text>
+
+  <line x1="102" y1="142" x2="360" y2="142" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="102" y1="160" x2="360" y2="160" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="102" y1="192" x2="360" y2="192" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Хвиля з дзвоном (від 102 до 350) -->
+  <path d="M 102,192 L 124,192 L 130,120 Q 136,114 142,122 L 152,168 Q 158,172 164,166 L 174,132 Q 180,130 186,136 L 196,148 L 270,142 L 276,206 Q 282,214 288,206 L 298,180 Q 304,178 310,184 L 320,192 L 360,192" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Анотації на треку 1 (праворуч, x: 376..540) -->
+  <rect x="368" y="112" width="176" height="104" rx="4" fill="#fdecea"/>
+  <text x="376" y="128" font-size="12" font-weight="bold" fill="#c0392b">1. Викид +4.5 В (Overshoot)</text>
+  <text x="376" y="146" font-size="12" fill="#1a1a1a">   Перевантаження діодів ESD</text>
+  <text x="376" y="168" font-size="12" font-weight="bold" fill="#c0392b">2. Провал нижче V_IH (2.3 В)</text>
+  <text x="376" y="186" font-size="12" fill="#c0392b">   Хибний такт (False Edge)!</text>
+  <text x="376" y="204" font-size="12" fill="#6b7280">   Зсув бітів у байті RGB565</text>
+
+  <!-- Трек 2: З демпфуванням -->
+  <rect x="36" y="234" width="516" height="128" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="46" y="250" font-size="12" font-weight="bold" fill="#27ae60">✔ З демпферним резистором R_s = 33 Ом (Series Damping)</text>
+
+  <!-- Рівні напруги трек 2 -->
+  <text x="96" y="284" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">+3.3 В</text>
+  <text x="96" y="302" text-anchor="end" font-size="12" fill="#2457d6">V_IH (2.3 В)</text>
+  <text x="96" y="338" text-anchor="end" font-size="12" fill="#1a1a1a">0 В</text>
+
+  <line x1="102" y1="280" x2="360" y2="280" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="102" y1="298" x2="360" y2="298" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="102" y1="334" x2="360" y2="334" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Чиста хвиля -->
+  <path d="M 102,334 L 124,334 Q 132,334 136,306 Q 140,280 150,280 L 270,280 Q 278,280 282,306 Q 286,334 296,334 L 360,334" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Анотація на треку 2 (праворуч, x: 376..540) -->
+  <rect x="368" y="250" width="176" height="104" rx="4" fill="#e9f7ef"/>
+  <text x="376" y="268" font-size="12" font-weight="bold" fill="#27ae60">1. Монотонний фронт</text>
+  <text x="376" y="286" font-size="12" fill="#1a1a1a">   Нуль викидів та коливань</text>
+  <text x="376" y="308" font-size="12" font-weight="bold" fill="#27ae60">2. Однократний перетин</text>
+  <text x="376" y="326" font-size="12" fill="#1a1a1a">   Рівно 1 такт за період</text>
+  <text x="376" y="344" font-size="12" fill="#27ae60">   100% стабільна передача</text>
+
+  <!-- Часові вимірювання знизу -->
+  <line x1="124" y1="376" x2="320" y2="376" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="222" y="394" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Період такту T = 25 нс (частота шини SPI = 40 МГц)</text>
+  <text x="222" y="412" text-anchor="middle" font-size="12" fill="#2457d6">Час наростання t_r ≈ 2.5 нс (ідеально для входу ST7789)</text>
+
+  <!-- Права колонка: Схеми та інженерні картки -->
+  <!-- Картка 1: Схеми -->
+  <rect x="578" y="66" width="358" height="126" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="578" y="66" width="358" height="24" rx="8" fill="#f4f6f8"/>
+  <text x="590" y="82" font-size="12" font-weight="bold" fill="#1a1a1a">Схеми узгодження лінії SCLK:</text>
+
+  <!-- Схема 1: Без резистора -->
+  <text x="590" y="104" font-size="12" font-weight="bold" fill="#c0392b">1. Без резистора (LC-контур):</text>
+  <text x="590" y="122" font-size="12" fill="#1a1a1a">MCU [SCLK] ── L_дріт (20 нГн) ── [SCLK] ST7789</text>
+  <text x="590" y="138" font-size="12" fill="#6b7280">Високий Q-фактор: відбита хвиля викликає резонанс</text>
+
+  <!-- Схема 2: З резистором -->
+  <text x="590" y="158" font-size="12" font-weight="bold" fill="#27ae60">2. З демпфером R_s = 33 Ом (RLC-ланцюг):</text>
+  <text x="590" y="174" font-size="12" fill="#1a1a1a">MCU [SCLK] ── [ 33 Ом ] ── L_дріт ── [SCLK] ST7789</text>
+  <text x="590" y="188" font-size="12" fill="#27ae60">Резистор поглинає енергію відбитої хвилі (Q &lt; 0.7)</text>
+
+  <!-- Картка 2: Наслідки -->
+  <rect x="578" y="202" width="358" height="114" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <rect x="578" y="202" width="358" height="24" rx="8" fill="#fdecea"/>
+  <text x="590" y="218" font-size="12" font-weight="bold" fill="#c0392b">Наслідки нехтування демпфуванням:</text>
+  <text x="590" y="240" font-size="12" fill="#1a1a1a">• Помилковий такт (False Edge): ST7789 фіксує 2 такти</text>
+  <text x="590" y="258" font-size="12" fill="#1a1a1a">  замість 1, через що біти кольору RGB565 зсуваються.</text>
+  <text x="590" y="278" font-size="12" fill="#1a1a1a">• Збій адресації CASET/RASET: екран зсуває пікселі.</text>
+  <text x="590" y="298" font-size="12" font-weight="bold" fill="#c0392b">• Ризик пробою ESD-діодів входу при викидах > 4 В.</text>
+
+  <!-- Картка 3: Інженерні правила -->
+  <rect x="578" y="326" width="358" height="114" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="590" y="346" font-size="12" font-weight="bold" fill="#27ae60">Правила монтажу швидкісної шини SPI:</text>
+  <text x="590" y="366" font-size="12" fill="#1a1a1a">1. Резистор R_s (22–33 Ом) ставити впритул до MCU!</text>
+  <text x="590" y="384" font-size="12" fill="#1a1a1a">2. Застосовувати на лініях SCLK, MOSI та CS (f > 25 МГц).</text>
+  <text x="590" y="402" font-size="12" fill="#1a1a1a">3. Довжина дротів &lt; 10 см; пускати GND поруч із SCLK</text>
+  <text x="590" y="420" font-size="12" font-weight="bold" fill="#27ae60">Гарантує 100% стабільність SPI на 40–80 МГц!</text>
+</svg>

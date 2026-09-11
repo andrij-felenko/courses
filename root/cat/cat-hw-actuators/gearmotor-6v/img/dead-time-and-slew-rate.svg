@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Захист силового H-моста та редуктора: Dead-time і Slew-rate</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Апаратна пауза запобігає короткому замиканню стійки, рампа розгону — сколюванню зубців</text>
+
+  <!-- ПАНЕЛЬ 1: Мертвий час (Dead-time) -->
+  <rect x="20" y="75" width="446" height="445" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="38" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">1. Мертвий час (Dead-time) у плечі моста</text>
+  <text x="38" y="118" font-size="12" fill="#6b7280" text-anchor="start">Запобігання одночасному відкриттю пари ключів</text>
+
+  <!-- Підписи сигналів HS та LS -->
+  <text x="38" y="158" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Верхній ключ HS</text>
+  <text x="38" y="174" font-size="12" fill="#6b7280" text-anchor="start">1 = ON, 0 = OFF</text>
+
+  <text x="38" y="228" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Нижній ключ LS</text>
+  <text x="38" y="244" font-size="12" fill="#6b7280" text-anchor="start">1 = ON, 0 = OFF</text>
+
+  <!-- Зона мертвого часу (t_dead) -->
+  <rect x="235" y="140" width="80" height="125" rx="4" fill="#eaf0fd"/>
+  <text x="275" y="216" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_dead</text>
+  <text x="275" y="232" font-size="12" fill="#2457d6" text-anchor="middle">пауза</text>
+
+  <!-- Сигнал HS (High-Side) -->
+  <path d="M 150,155 H 235 V 190 H 435" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Сигнал LS (Low-Side) -->
+  <path d="M 150,260 H 315 V 225 H 435" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Вісь часу Panel 1 -->
+  <line x1="150" y1="275" x2="435" y2="275" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="235" y1="272" x2="235" y2="278" stroke="#6b7280" stroke-width="1"/>
+  <line x1="315" y1="272" x2="315" y2="278" stroke="#6b7280" stroke-width="1"/>
+  <text x="435" y="300" font-size="12" fill="#6b7280" text-anchor="end">Час t</text>
+
+  <!-- Блок 1 (Червоний): Без dead-time -->
+  <rect x="36" y="318" width="414" height="84" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="50" y="338" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Без dead-time: Наскрізний струм (Shoot-through)</text>
+  <text x="50" y="358" font-size="12" fill="#1a1a1a" text-anchor="start">HS закривається повільно: при старті LS виникає КЗ шини VCC</text>
+  <text x="50" y="378" font-size="12" fill="#6b7280" text-anchor="start">Стрибок струму до сотень ампер руйнує транзистори</text>
+
+  <!-- Блок 2 (Зелений): З dead-time -->
+  <rect x="36" y="416" width="414" height="84" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="50" y="436" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">З dead-time: Безпечна апаратна комутація</text>
+  <text x="50" y="456" font-size="12" fill="#1a1a1a" text-anchor="start">Пауза t_dead гарантує повне розсіювання заряду затвора</text>
+  <text x="50" y="476" font-size="12" fill="#6b7280" text-anchor="start">Струм самоіндукції тече через діоди, міст захищено від КЗ</text>
+
+  <!-- ПАНЕЛЬ 2: Обмеження Slew-rate -->
+  <rect x="494" y="75" width="446" height="445" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="512" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">2. Обмеження темпу (Slew-rate) у програмі</text>
+  <text x="512" y="118" font-size="12" fill="#6b7280" text-anchor="start">Захист зубців редуктора від ударних навантажень</text>
+
+  <!-- Легенда графіка Panel 2 -->
+  <rect x="645" y="135" width="265" height="48" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="655" y1="150" x2="676" y2="150" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="690" y="154" font-size="12" fill="#1a1a1a" text-anchor="start">Команда швидкості (стрибок)</text>
+  <line x1="655" y1="170" x2="676" y2="170" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="690" y="174" font-size="12" fill="#1a1a1a" text-anchor="start">Фактичний ШІМ (slew-rate)</text>
+
+  <!-- Осі графіка Panel 2 -->
+  <line x1="550" y1="275" x2="550" y2="140" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="533" y="148" font-size="12" fill="#6b7280" text-anchor="end">ШІМ</text>
+
+  <line x1="546" y1="195" x2="550" y2="195" stroke="#6b7280" stroke-width="1"/>
+  <line x1="550" y1="195" x2="905" y2="195" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="533" y="199" font-size="12" fill="#6b7280" text-anchor="end">100%</text>
+
+  <line x1="546" y1="265" x2="550" y2="265" stroke="#6b7280" stroke-width="1"/>
+  <text x="533" y="269" font-size="12" fill="#6b7280" text-anchor="end">0%</text>
+
+  <!-- Тіньова зона рампи -->
+  <polygon points="590,265 740,195 740,265" fill="#e9f7ef"/>
+
+  <!-- Крива 1: Ступінчаста команда (червоний пунктир) -->
+  <path d="M 550,265 H 590 V 195 H 905" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- Крива 2: Плавна рампа ШІМ (зелена суцільна) -->
+  <path d="M 550,265 H 590 L 740,195 H 905" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Вісь часу Panel 2 -->
+  <line x1="550" y1="275" x2="915" y2="275" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="915" y="300" font-size="12" fill="#6b7280" text-anchor="end">Час t</text>
+
+  <!-- Блок 1 (Червоний): Без slew-rate -->
+  <rect x="510" y="318" width="414" height="84" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="524" y="338" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Без slew-rate: Ударний пуск (Step Command)</text>
+  <text x="524" y="358" font-size="12" fill="#1a1a1a" text-anchor="start">Пусковий струм сягає струму короткого замикання I_stall</text>
+  <text x="524" y="378" font-size="12" fill="#6b7280" text-anchor="start">Ударний момент зрізає та сколює перші шестерні редуктора</text>
+
+  <!-- Блок 2 (Зелений): Зі slew-rate -->
+  <rect x="510" y="416" width="414" height="84" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="524" y="436" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Зі slew-rate: Плавна рампа розгону (Ramp Profile)</text>
+  <text x="524" y="456" font-size="12" fill="#1a1a1a" text-anchor="start">Шпаруватість ШІМ зростає лінійно із темпом dPWM/dt</text>
+  <text x="524" y="476" font-size="12" fill="#6b7280" text-anchor="start">Люфт вибирається плавно, зусилля на шестернях безпечне</text>
+</svg>

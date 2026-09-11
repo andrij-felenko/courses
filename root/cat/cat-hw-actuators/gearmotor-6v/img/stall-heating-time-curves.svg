@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+</defs>
+
+<!-- Background -->
+<rect x="0" y="0" width="960" height="520" fill="white"/>
+
+<!-- Header -->
+<text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Динаміка адіабатичного нагріву якірної обмотки при заклинюванні вала</text>
+<text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Швидкість досягнення критичних температур деградації ізоляції (клас B 130 °C та F 155 °C) за різної сили струму</text>
+
+<!-- Plot Background Temperature Zones -->
+<rect x="90" y="120" width="500" height="50" fill="#fdecea"/>
+<rect x="90" y="170" width="500" height="50" fill="#fef3c7"/>
+<rect x="90" y="220" width="500" height="220" fill="#e9f7ef"/>
+
+<!-- Grid lines inside plot -->
+<line x1="90" y1="380" x2="590" y2="380" stroke="#d0d7de" stroke-dasharray="3 3"/>
+<line x1="90" y1="280" x2="590" y2="280" stroke="#d0d7de" stroke-dasharray="3 3"/>
+
+<!-- Ambient reference line 25 °C -->
+<line x1="90" y1="430" x2="590" y2="430" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+
+<!-- Threshold Class B (130 °C) -->
+<line x1="90" y1="220" x2="590" y2="220" stroke="#d97706" stroke-width="1.8" stroke-dasharray="6 4"/>
+
+<!-- Threshold Class F (155 °C) -->
+<line x1="90" y1="170" x2="590" y2="170" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="6 4"/>
+
+<!-- Plot Frame -->
+<rect x="90" y="120" width="500" height="320" fill="none" stroke="#d0d7de" stroke-width="1"/>
+
+<!-- Coordinate axes -->
+<line x1="90" y1="120" x2="90" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="90" y1="440" x2="605" y2="440" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- Zone Badges near Y-axis -->
+<text x="96" y="142" font-size="12" font-weight="bold" fill="#c0392b">Клас F</text>
+<text x="96" y="157" font-size="12" fill="#c0392b">пробій</text>
+
+<text x="96" y="192" font-size="12" font-weight="bold" fill="#d97706">Клас B</text>
+<text x="96" y="207" font-size="12" fill="#d97706">деградація</text>
+
+<!-- Y-axis Ticks & Labels -->
+<line x1="85" y1="120" x2="90" y2="120" stroke="#6b7280"/>
+<text x="80" y="124" font-size="12" fill="#6b7280" text-anchor="end">180 °C</text>
+
+<line x1="85" y1="170" x2="90" y2="170" stroke="#c0392b" stroke-width="1.5"/>
+<text x="80" y="174" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">155 °C</text>
+
+<line x1="85" y1="220" x2="90" y2="220" stroke="#d97706" stroke-width="1.5"/>
+<text x="80" y="224" font-size="12" font-weight="bold" fill="#d97706" text-anchor="end">130 °C</text>
+
+<line x1="85" y1="280" x2="90" y2="280" stroke="#6b7280"/>
+<text x="80" y="284" font-size="12" fill="#6b7280" text-anchor="end">100 °C</text>
+
+<line x1="85" y1="310" x2="90" y2="310" stroke="#2457d6"/>
+<text x="80" y="314" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">85 °C</text>
+
+<line x1="85" y1="380" x2="90" y2="380" stroke="#6b7280"/>
+<text x="80" y="384" font-size="12" fill="#6b7280" text-anchor="end">50 °C</text>
+
+<line x1="85" y1="430" x2="90" y2="430" stroke="#6b7280"/>
+<text x="80" y="434" font-size="12" fill="#6b7280" text-anchor="end">25 °C</text>
+
+<!-- Y-axis Title -->
+<text x="90" y="96" font-size="13" font-weight="bold" fill="#1a1a1a">Температура обмотки, T (°C)</text>
+
+<!-- X-axis Ticks & Labels -->
+<line x1="90" y1="440" x2="90" y2="445" stroke="#6b7280"/>
+<text x="90" y="460" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+<line x1="140" y1="440" x2="140" y2="445" stroke="#6b7280"/>
+<text x="140" y="460" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+
+<line x1="190" y1="440" x2="190" y2="445" stroke="#6b7280"/>
+<text x="190" y="460" font-size="12" fill="#6b7280" text-anchor="middle">4</text>
+
+<line x1="240" y1="440" x2="240" y2="445" stroke="#6b7280"/>
+<text x="240" y="460" font-size="12" fill="#6b7280" text-anchor="middle">6</text>
+
+<line x1="290" y1="440" x2="290" y2="445" stroke="#6b7280"/>
+<text x="290" y="460" font-size="12" fill="#6b7280" text-anchor="middle">8</text>
+
+<line x1="340" y1="440" x2="340" y2="445" stroke="#6b7280"/>
+<text x="340" y="460" font-size="12" fill="#6b7280" text-anchor="middle">10</text>
+
+<line x1="390" y1="440" x2="390" y2="445" stroke="#6b7280"/>
+<text x="390" y="460" font-size="12" fill="#6b7280" text-anchor="middle">12</text>
+
+<line x1="440" y1="440" x2="440" y2="445" stroke="#6b7280"/>
+<text x="440" y="460" font-size="12" fill="#6b7280" text-anchor="middle">14</text>
+
+<line x1="490" y1="440" x2="490" y2="445" stroke="#6b7280"/>
+<text x="490" y="460" font-size="12" fill="#6b7280" text-anchor="middle">16</text>
+
+<line x1="540" y1="440" x2="540" y2="445" stroke="#6b7280"/>
+<text x="540" y="460" font-size="12" fill="#6b7280" text-anchor="middle">18</text>
+
+<line x1="590" y1="440" x2="590" y2="445" stroke="#6b7280"/>
+<text x="590" y="460" font-size="12" fill="#6b7280" text-anchor="middle">20</text>
+
+<!-- X-axis Title -->
+<text x="340" y="492" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Час блокування вала, t (с)</text>
+
+<!-- Heating Curves -->
+<!-- Curve 3: I_load = 0.5 A -->
+<path d="M 90,430 C 160,370 230,330 320,318 C 390,312 490,310 590,310" fill="none" stroke="#2457d6" stroke-width="2.8"/>
+
+<!-- Curve 2: I_stall = 1.0 A -->
+<path d="M 90,430 C 160,360 240,280 315,220 C 360,185 400,178 440,170 C 490,160 540,145 590,136" fill="none" stroke="#d97706" stroke-width="2.8"/>
+
+<!-- Curve 1: I_stall = 1.6 A -->
+<path d="M 90,430 C 125,360 160,260 177.5,220 C 195,180 230,135 252.5,120" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+<!-- Key intersection dots -->
+<circle cx="177.5" cy="220" r="4.5" fill="#c0392b"/>
+<circle cx="215" cy="170" r="4.5" fill="#c0392b"/>
+<circle cx="252.5" cy="120" r="4.5" fill="#c0392b"/>
+
+<circle cx="315" cy="220" r="4.5" fill="#d97706"/>
+<circle cx="440" cy="170" r="4.5" fill="#d97706"/>
+
+<!-- In-plot Curve Labels -->
+<text x="262" y="135" font-size="12" font-weight="bold" fill="#c0392b">1.6 A (6 В, повне заклинювання)</text>
+<text x="262" y="150" font-size="12" fill="#c0392b">Аварійне руйнування за ~5 с</text>
+
+<text x="350" y="248" font-size="12" font-weight="bold" fill="#d97706">1.0 A (~3.8 В, просідання)</text>
+<text x="350" y="263" font-size="12" fill="#d97706">Перегрів до 155 °C за 14 с</text>
+
+<text x="350" y="348" font-size="12" font-weight="bold" fill="#2457d6">0.5 A (граничне робоче навантаження)</text>
+<text x="350" y="363" font-size="12" fill="#2457d6">Теплове плато ~85 °C (безпечний режим)</text>
+
+<text x="360" y="423" font-size="12" fill="#6b7280">T_навк = 25 °C (початкова температура)</text>
+
+<!-- Right Side Panels -->
+
+<!-- Card 1: Thermal limits -->
+<rect x="615" y="95" width="320" height="125" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+<text x="630" y="116" font-size="13" font-weight="bold" fill="#1a1a1a">Пороги деградації емаль-ізоляції</text>
+
+<rect x="630" y="126" width="10" height="10" rx="2" fill="#c0392b"/>
+<text x="646" y="135" font-size="12" font-weight="bold" fill="#c0392b">&gt; 155 °C — Клас F (катастрофа)</text>
+<text x="646" y="150" font-size="12" fill="#6b7280">Пробій лаку, КЗ витків, задимлення</text>
+
+<rect x="630" y="160" width="10" height="10" rx="2" fill="#d97706"/>
+<text x="646" y="169" font-size="12" font-weight="bold" fill="#d97706">130...155 °C — Клас B (деградація)</text>
+<text x="646" y="184" font-size="12" fill="#6b7280">Прискорене старіння, втрата міцності</text>
+
+<rect x="630" y="194" width="10" height="10" rx="2" fill="#27ae60"/>
+<text x="646" y="204" font-size="12" font-weight="bold" fill="#27ae60">&lt; 130 °C — Допустимий робочий діапазон</text>
+
+<!-- Card 2: Current curves -->
+<rect x="615" y="234" width="320" height="135" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+<text x="630" y="254" font-size="13" font-weight="bold" fill="#1a1a1a">Динаміка нагріву за струмом</text>
+
+<line x1="630" y1="270" x2="648" y2="270" stroke="#c0392b" stroke-width="3"/>
+<text x="654" y="274" font-size="12" font-weight="bold" fill="#c0392b">I = 1.6 A — 6 В, повне заклинювання</text>
+<text x="654" y="289" font-size="12" fill="#1a1a1a">t(130 °C) = 3.5 с;  t(155 °C) = 5.0 с</text>
+
+<line x1="630" y1="305" x2="648" y2="305" stroke="#d97706" stroke-width="3"/>
+<text x="654" y="309" font-size="12" font-weight="bold" fill="#d97706">I = 1.0 A — 3.8 В, просідання живлення</text>
+<text x="654" y="324" font-size="12" fill="#1a1a1a">t(130 °C) = 9.0 с;  t(155 °C) = 14.0 с</text>
+
+<line x1="630" y1="340" x2="648" y2="340" stroke="#2457d6" stroke-width="3"/>
+<text x="654" y="344" font-size="12" font-weight="bold" fill="#2457d6">I = 0.5 A — Граничне навантаження</text>
+<text x="654" y="359" font-size="12" fill="#1a1a1a">Теплова рівновага на плато ~85 °C</text>
+
+<!-- Card 3: Adiabatic physics & takeaway -->
+<rect x="615" y="383" width="320" height="112" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+<text x="630" y="403" font-size="13" font-weight="bold" fill="#1a1a1a">Адіабатичний нагрів вала</text>
+
+<rect x="630" y="412" width="290" height="26" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+<text x="775" y="429" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Q = I² · R_w · t = c · m · ΔT</text>
+
+<text x="630" y="457" font-size="12" fill="#6b7280">При заклинюванні тепло не відводиться:</text>
+<text x="630" y="473" font-size="12" font-weight="bold" fill="#c0392b">Час відсікання живлення має бути &lt; 2 с!</text>
+</svg>

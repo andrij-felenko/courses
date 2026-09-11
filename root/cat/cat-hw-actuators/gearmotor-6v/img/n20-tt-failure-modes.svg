@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr_red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr_blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr_green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок схеми -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Типові механічні відмови мотор-редукторів: абразив N20 проти деформацій TT</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Вразливість відкритого сендвіча до пилу та консольний перекіс пластикових валів без кулькових підшипників</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: N20 ==================== -->
+  <rect x="30" y="74" width="440" height="344" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок лівої панелі -->
+  <text x="250" y="95" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">Відмова редуктора N20: абразивне заклинювання каскаду</text>
+  <text x="250" y="110" font-size="12" text-anchor="middle" fill="#6b7280">Відкритий сендвіч • зубці m ≈ 0.2–0.3 мм • блокування ротора</text>
+
+  <!-- Схема N20: Мотор -->
+  <rect x="46" y="148" width="76" height="76" rx="4" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <rect x="38" y="162" width="8" height="12" rx="1" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+  <rect x="38" y="198" width="8" height="12" rx="1" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+  <text x="84" y="184" font-size="12" font-weight="bold" text-anchor="middle" fill="#334155">Мотор N20</text>
+  <text x="84" y="200" font-size="12" text-anchor="middle" fill="#64748b">(привід)</text>
+
+  <!-- Виступ мотора / передній фланець -->
+  <rect x="122" y="174" width="8" height="24" fill="#94a3b8" stroke="#64748b" stroke-width="1"/>
+
+  <!-- Латунний редуктор: відкритий сендвіч -->
+  <rect x="130" y="138" width="8" height="96" rx="1" fill="#d4af37" stroke="#8c6d12" stroke-width="1.2"/>
+  <rect x="228" y="138" width="8" height="96" rx="1" fill="#d4af37" stroke="#8c6d12" stroke-width="1.2"/>
+  <rect x="138" y="140" width="90" height="5" fill="#e5c158" stroke="#8c6d12" stroke-width="1"/>
+  <rect x="138" y="229" width="90" height="5" fill="#e5c158" stroke="#8c6d12" stroke-width="1"/>
+
+  <!-- Шестерні N20 усередині сендвіча -->
+  <line x1="126" y1="186" x2="146" y2="186" stroke="#475569" stroke-width="3"/>
+  <circle cx="146" cy="186" r="9" fill="#fde047" stroke="#a16207" stroke-width="1.2"/>
+  
+  <circle cx="168" cy="164" r="16" fill="#fde047" stroke="#a16207" stroke-width="1.2"/>
+  <circle cx="168" cy="164" r="7" fill="#eab308" stroke="#a16207" stroke-width="1.2"/>
+
+  <circle cx="194" cy="206" r="17" fill="#fde047" stroke="#a16207" stroke-width="1.2"/>
+  <circle cx="194" cy="206" r="7" fill="#eab308" stroke="#a16207" stroke-width="1.2"/>
+
+  <circle cx="220" cy="186" r="18" fill="#fde047" stroke="#a16207" stroke-width="1.2"/>
+
+  <!-- Вихідний вал з лискою (D-cut) -->
+  <rect x="236" y="181" width="36" height="10" rx="1" fill="#cbd5e1" stroke="#475569" stroke-width="1.2"/>
+  <rect x="258" y="181" width="14" height="4" fill="#94a3b8"/>
+  <text x="254" y="174" font-size="12" text-anchor="middle" fill="#475569">Вал D-cut</text>
+
+  <!-- Напис та позначення відкритого доступу -->
+  <text x="183" y="127" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Відкритий простір (без кожуха)</text>
+  <line x1="165" y1="130" x2="165" y2="139" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr_red)"/>
+  <line x1="202" y1="130" x2="202" y2="139" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr_red)"/>
+
+  <!-- Частинки абразиву навколо -->
+  <circle cx="160" cy="147" r="2.2" fill="#78350f"/>
+  <circle cx="180" cy="151" r="1.8" fill="#92400e"/>
+  <circle cx="206" cy="148" r="2.5" fill="#78350f"/>
+  <circle cx="188" cy="158" r="1.5" fill="#b45309"/>
+
+  <!-- Збільшувальне коло (лупа) заклинювання мікрозубців -->
+  <line x1="180" y1="185" x2="319" y2="190" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <circle cx="365" cy="190" r="46" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  
+  <text x="365" y="162" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Зубці під лупою</text>
+  
+  <!-- Профіль двох мікрозубців у зачепленні -->
+  <path d="M 334 202 C 344 198, 348 184, 357 181 C 363 179, 366 185, 370 191 Z" fill="#fef08a" stroke="#ca8a04" stroke-width="1.5"/>
+  <path d="M 388 174 C 378 178, 374 192, 365 195 C 360 197, 356 191, 352 186 Z" fill="#fde047" stroke="#ca8a04" stroke-width="1.5"/>
+
+  <!-- Піщинка, застрягла між зубцями -->
+  <polygon points="358,185 365,182 368,188 363,193 357,189" fill="#78350f" stroke="#451a03" stroke-width="1.2"/>
+  
+  <text x="365" y="214" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">ЗАКЛИНЮВАННЯ</text>
+  <text x="365" y="252" font-size="12" text-anchor="middle" fill="#c0392b">Піщинка d ≥ 0.2 мм</text>
+  <text x="365" y="266" font-size="12" text-anchor="middle" fill="#6b7280">блокує модуль m=0.2</text>
+
+  <!-- Плашка наслідків N20 -->
+  <rect x="44" y="280" width="412" height="58" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="56" y="298" font-size="12" font-weight="bold" fill="#c0392b">Наслідок: заклинювання мікрозубців (m ≈ 0.2–0.3 мм)</text>
+  <text x="56" y="315" font-size="12" fill="#1a1a1a">Стрибок I_ст (у 5–7 разів) → перегрів обмоток якоря</text>
+  <text x="56" y="330" font-size="12" fill="#6b7280">або зрізання дрібних латунних зубців вихідного ступеня</text>
+
+  <!-- Плашка захисту N20 -->
+  <rect x="44" y="348" width="412" height="54" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="56" y="368" font-size="12" font-weight="bold" fill="#27ae60">Захист: герметизація редукторного каскаду</text>
+  <text x="56" y="388" font-size="12" fill="#1a1a1a">Еластичний силіконовий чохол або закритий відсік у шасі</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: TT ==================== -->
+  <rect x="490" y="74" width="440" height="344" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок правої панелі -->
+  <text x="710" y="95" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">Відмова редуктора TT: консольний перекіс і знос втулок</text>
+  <text x="710" y="108" font-size="12" text-anchor="middle" fill="#6b7280">Корпус ABS • ковзання без підшипників • радіальний важіль</text>
+
+  <!-- Корпус TT (жовтий ABS у розрізі) -->
+  <rect x="508" y="144" width="170" height="92" rx="4" fill="#fef9c3" stroke="#d97706" stroke-width="1.5"/>
+  <text x="548" y="130" font-size="12" font-weight="bold" text-anchor="middle" fill="#b45309">Корпус ABS</text>
+
+  <!-- Внутрішня стінка корпусу TT з отвором-втулкою -->
+  <rect x="552" y="144" width="10" height="92" fill="#fde047" stroke="#d97706" stroke-width="1"/>
+  <!-- Зовнішня стінка корпусу TT з отвором-втулкою -->
+  <rect x="668" y="144" width="10" height="92" fill="#fde047" stroke="#d97706" stroke-width="1"/>
+
+  <!-- Номінальна горизонтальна вісь (пунктир) -->
+  <line x1="530" y1="186" x2="820" y2="186" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,4"/>
+  <text x="828" y="180" font-size="12" fill="#94a3b8">Номінальна вісь</text>
+
+  <!-- Перекошений вал під навантаженням -->
+  <polygon points="540,176 805,198 804,206 539,184" fill="#cbd5e1" stroke="#475569" stroke-width="1.2"/>
+
+  <!-- Овальний знос зовнішньої втулки -->
+  <ellipse cx="673" cy="190" rx="6" ry="10" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="673" y="130" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Овальний знос втулки</text>
+  <line x1="673" y1="133" x2="673" y2="143" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr_red)"/>
+
+  <!-- Пластикова шестерня вихідного вала всередині корпусу (нахилена) -->
+  <polygon points="586,156 598,157 596,224 584,223" fill="#ffffff" stroke="#64748b" stroke-width="1.2"/>
+  <!-- Шестерня проміжна (рівна) -->
+  <rect x="602" y="162" width="10" height="42" fill="#e2e8f0" stroke="#64748b" stroke-width="1.2"/>
+  
+  <!-- Зона нерівномірного контакту зубців (Edge loading) -->
+  <circle cx="600" cy="166" r="5" fill="#fee2e2" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="580" y="250" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Крайовий контакт зубців</text>
+  <text x="580" y="264" font-size="12" text-anchor="middle" fill="#6b7280">зрізання пластику POM</text>
+
+  <!-- Колесо на кінці вала -->
+  <polygon points="764,152 780,154 778,244 762,242" fill="#fef08a" stroke="#ca8a04" stroke-width="1.2"/>
+  <polygon points="780,148 796,149 794,249 778,247" fill="#334155" stroke="#0f172a" stroke-width="1.2"/>
+  <text x="780" y="264" font-size="12" text-anchor="middle" fill="#475569">Колесо</text>
+
+  <!-- Радіальна сила від ваги робота на колесо (F_rad) -->
+  <line x1="788" y1="128" x2="788" y2="144" stroke="#c0392b" stroke-width="2" marker-end="url(#arr_red)"/>
+  <text x="788" y="124" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">F_rad (вага)</text>
+
+  <!-- Плече L консолі -->
+  <line x1="678" y1="232" x2="775" y2="232" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="678" y1="227" x2="678" y2="237" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="775" y1="227" x2="775" y2="237" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="726" y="248" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Плече L (важіль)</text>
+
+  <!-- Плашка наслідків TT -->
+  <rect x="504" y="280" width="412" height="58" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="516" y="298" font-size="12" font-weight="bold" fill="#c0392b">Наслідок: важіль F_rad · L → перекіс осі та зріз зубців POM</text>
+  <text x="516" y="315" font-size="12" fill="#1a1a1a">Овальний знос втулки ABS → перекіс зачеплення (edge loading)</text>
+  <text x="516" y="330" font-size="12" fill="#6b7280">Точковий контакт ламає пластикові зубці вихідного ступеня</text>
+
+  <!-- Плашка захисту TT -->
+  <rect x="504" y="348" width="412" height="54" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="516" y="368" font-size="12" font-weight="bold" fill="#27ae60">Захист: розвантаження консолі зовнішньою опорою</text>
+  <text x="516" y="388" font-size="12" fill="#1a1a1a">Зовнішня опора (підшипник) розвантажує пластикову втулку</text>
+
+  <!-- ==================== НИЖНЯ ПЛАШКА: ПІДСУМОК ==================== -->
+  <rect x="30" y="430" width="900" height="70" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="452" font-size="13" font-weight="bold" fill="#1a1a1a">Інженерний підсумок експлуатації та захисту приводів:</text>
+  <text x="50" y="472" font-size="12" fill="#1a1a1a">• N20: Герметизація редуктора. Металеві шестерні надійні на згин, але відкритий сендвіч вимагає чохла від пилу.</text>
+  <text x="50" y="490" font-size="12" fill="#1a1a1a">• TT: Розвантаження вала. Закритий корпус захищає від бруду, але пластикові втулки вимагають зовнішньої опори.</text>
+</svg>

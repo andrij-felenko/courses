@@ -1,0 +1,257 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="540" fill="white"/>
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-sec" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+  </marker>
+</defs>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="32" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Резистивна гамма-драбина з польовими комутаторами ЦАП стовпця</text>
+<text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Дешифратор коду відтінку відкриває один польовий транзистор, комутуючи точну напругу на шину стовпця</text>
+
+<!-- Ліва панель: Принципова схема ЦАП -->
+<rect x="25" y="75" width="620" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+<!-- Права панель: Особливості архітектури -->
+<rect x="665" y="75" width="270" height="445" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+<!-- Заголовок правої панелі -->
+<text x="800" y="102" font-size="15" font-weight="700" text-anchor="middle" fill="#1a1a1a">Принцип гамма-ЦАП ST7789</text>
+<line x1="685" y1="115" x2="915" y2="115" stroke="#d0d7de" stroke-width="1"/>
+
+<!-- Картка 1: Монотонність -->
+<rect x="680" y="125" width="240" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<circle cx="698" cy="144" r="7" fill="#27ae60"/>
+<path d="M695,144 L697,146 L702,141" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"/>
+<text x="712" y="148" font-size="13" font-weight="700" fill="#27ae60">Гарантована монотонність</text>
+<text x="695" y="168" font-size="12" fill="#1a1a1a">Фізична послідовність R-драбини</text>
+<text x="695" y="184" font-size="12" fill="#1a1a1a">виключає нелінійність із пропуском</text>
+<text x="695" y="200" font-size="12" fill="#1a1a1a">кодів: гарантовано DNL &gt; −1 LSB.</text>
+
+<!-- Картка 2: Гамма-профілювання -->
+<rect x="680" y="222" width="240" height="98" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<circle cx="698" cy="241" r="7" fill="#2457d6"/>
+<path d="M695,244 C696,239 698,237 701,239" fill="none" stroke="#ffffff" stroke-width="1.8"/>
+<text x="712" y="245" font-size="13" font-weight="700" fill="#2457d6">Гамма-профілювання (γ ≈ 2.2)</text>
+<text x="695" y="265" font-size="12" fill="#1a1a1a">Номінали R_i підібрані нелінійно:</text>
+<text x="695" y="281" font-size="12" fill="#1a1a1a">густіші рівні біля білого й чорного</text>
+<text x="695" y="297" font-size="12" fill="#1a1a1a">компенсують S-подібний відгук</text>
+<text x="695" y="311" font-size="12" fill="#1a1a1a">рідких кристалів IPS-матриці.</text>
+
+<!-- Картка 3: Буферизація стовпця -->
+<rect x="680" y="332" width="240" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<circle cx="698" cy="351" r="7" fill="#1a1a1a"/>
+<text x="712" y="355" font-size="13" font-weight="700" fill="#1a1a1a">Буферизація стовпця</text>
+<text x="695" y="375" font-size="12" fill="#1a1a1a">Операційний підсилювач має I_вх ≈ 0</text>
+<text x="695" y="391" font-size="12" fill="#1a1a1a">(не навантажує дільник) і дає</text>
+<text x="695" y="407" font-size="12" fill="#1a1a1a">струм для швидкого заряду C_COL.</text>
+
+<!-- Картка 4: Спільна драбина -->
+<rect x="680" y="434" width="240" height="74" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="695" y="452" font-size="13" font-weight="700" fill="#2457d6">Спільна драбина на кристал</text>
+<text x="695" y="472" font-size="12" fill="#1a1a1a">Одна R-драбина живить комутатори</text>
+<text x="695" y="488" font-size="12" fill="#1a1a1a">усіх 240 × 3 = 720 стовпців дисплея,</text>
+<text x="695" y="502" font-size="12" fill="#1a1a1a">заощаджуючи площу кремнію.</text>
+
+<!-- ================= ЛІВА ЧАСТИНА: СХЕМА ================= -->
+
+<!-- Верхня опора V_REFH -->
+<line x1="48" y1="135" x2="88" y2="135" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="68" cy="135" r="3" fill="#1a1a1a"/>
+<text x="68" y="125" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">V_REFH (5.0 В)</text>
+
+<!-- Резистор R0 -->
+<line x1="68" y1="135" x2="68" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="61" y="145" width="14" height="25" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="54" y="162" font-size="12" font-weight="700" text-anchor="end" fill="#1a1a1a">R₀</text>
+<line x1="68" y1="170" x2="68" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- Відвід V0 -->
+<circle cx="68" cy="185" r="3" fill="#1a1a1a"/>
+<line x1="68" y1="185" x2="260" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="80" y="176" font-size="12" font-weight="700" fill="#1a1a1a">V₀ (білий)</text>
+
+<!-- Резистор R1 -->
+<line x1="68" y1="185" x2="68" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="61" y="200" width="14" height="25" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="54" y="217" font-size="12" font-weight="700" text-anchor="end" fill="#1a1a1a">R₁</text>
+<line x1="68" y1="225" x2="68" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- Відвід V1 -->
+<circle cx="68" cy="240" r="3" fill="#1a1a1a"/>
+<line x1="68" y1="240" x2="260" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="80" y="231" font-size="12" fill="#6b7280">V₁ (рівень 1)</text>
+
+<!-- Розрив схеми (пунктир) -->
+<line x1="68" y1="240" x2="68" y2="295" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+<circle cx="68" cy="260" r="1.8" fill="#6b7280"/>
+<circle cx="68" cy="268" r="1.8" fill="#6b7280"/>
+<circle cx="68" cy="276" r="1.8" fill="#6b7280"/>
+<text x="54" y="272" font-size="12" text-anchor="end" fill="#6b7280">···</text>
+
+<!-- Резистор Rk (активний) -->
+<rect x="61" y="295" width="14" height="25" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="54" y="312" font-size="12" font-weight="700" text-anchor="end" fill="#2457d6">R_k</text>
+<line x1="68" y1="320" x2="68" y2="335" stroke="#2457d6" stroke-width="2.5"/>
+
+<!-- Відвід Vk (обраний рівень) -->
+<circle cx="68" cy="335" r="3.5" fill="#2457d6"/>
+<line x1="68" y1="335" x2="260" y2="335" stroke="#2457d6" stroke-width="2.5"/>
+<text x="80" y="326" font-size="12" font-weight="700" fill="#2457d6">V_k (обраний)</text>
+
+<!-- Розрив схеми (пунктир) -->
+<line x1="68" y1="335" x2="68" y2="390" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+<circle cx="68" cy="355" r="1.8" fill="#6b7280"/>
+<circle cx="68" cy="363" r="1.8" fill="#6b7280"/>
+<circle cx="68" cy="371" r="1.8" fill="#6b7280"/>
+<text x="54" y="367" font-size="12" text-anchor="end" fill="#6b7280">···</text>
+
+<!-- Резистор R63 -->
+<rect x="61" y="390" width="14" height="25" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="54" y="407" font-size="12" font-weight="700" text-anchor="end" fill="#1a1a1a">R₆₃</text>
+<line x1="68" y1="415" x2="68" y2="430" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- Відвід V63 -->
+<circle cx="68" cy="430" r="3" fill="#1a1a1a"/>
+<line x1="68" y1="430" x2="260" y2="430" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="80" y="421" font-size="12" fill="#6b7280">V₆₃ (чорний)</text>
+
+<!-- Нижня опора V_REFL -->
+<line x1="68" y1="430" x2="68" y2="450" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="48" y1="450" x2="88" y2="450" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="68" cy="450" r="3" fill="#1a1a1a"/>
+<line x1="60" y1="455" x2="76" y2="455" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="63" y1="459" x2="73" y2="459" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="66" y1="463" x2="70" y2="463" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="68" y="480" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">V_REFL (0 В)</text>
+<text x="68" y="498" font-size="12" text-anchor="middle" fill="#6b7280">R₀…R₆₃ нерівні</text>
+
+<!-- Дешифратор 6 -> 64 -->
+<rect x="135" y="88" width="110" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="190" y="108" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Дешифратор</text>
+<text x="190" y="126" font-size="12" text-anchor="middle" fill="#2457d6">6 → 64 (1 з 64)</text>
+
+<!-- Вхідна цифрова шина D[5:0] -->
+<line x1="35" y1="113" x2="135" y2="113" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr)"/>
+<line x1="72" y1="119" x2="80" y2="107" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="76" y="103" font-size="12" font-weight="700" fill="#1a1a1a">6</text>
+<text x="35" y="98" font-size="12" font-weight="700" fill="#1a1a1a">D[5:0] Код кольору</text>
+
+<!-- Лінії керування затворами від дешифратора -->
+<!-- S0 -->
+<line x1="160" y1="138" x2="160" y2="172" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="160" y1="172" x2="260" y2="172" stroke="#6b7280" stroke-width="1.5"/>
+<text x="270" y="163" font-size="12" text-anchor="middle" fill="#6b7280">S₀ = 0</text>
+
+<!-- S1 -->
+<line x1="180" y1="138" x2="180" y2="227" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="180" y1="227" x2="260" y2="227" stroke="#6b7280" stroke-width="1.5"/>
+<text x="270" y="218" font-size="12" text-anchor="middle" fill="#6b7280">S₁ = 0</text>
+
+<!-- Sk (активна лінія) -->
+<line x1="205" y1="138" x2="205" y2="322" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="205" y1="322" x2="260" y2="322" stroke="#2457d6" stroke-width="2.5"/>
+<text x="270" y="313" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">S_k = 1</text>
+
+<!-- S63 -->
+<line x1="230" y1="138" x2="230" y2="417" stroke="#6b7280" stroke-width="1.5"/>
+<line x1="230" y1="417" x2="260" y2="417" stroke="#6b7280" stroke-width="1.5"/>
+<text x="270" y="408" font-size="12" text-anchor="middle" fill="#6b7280">S₆₃ = 0</text>
+
+<!-- Польові комутатори (MOSFET ключі) -->
+<!-- SW0 (розімкнений) -->
+<line x1="260" y1="172" x2="280" y2="172" stroke="#6b7280" stroke-width="2"/>
+<circle cx="260" cy="185" r="2" fill="#6b7280"/>
+<circle cx="280" cy="185" r="2" fill="#6b7280"/>
+<line x1="260" y1="185" x2="276" y2="177" stroke="#6b7280" stroke-width="2"/>
+<text x="270" y="200" font-size="12" text-anchor="middle" fill="#6b7280">SW₀ (вимк)</text>
+
+<!-- SW1 (розімкнений) -->
+<line x1="260" y1="227" x2="280" y2="227" stroke="#6b7280" stroke-width="2"/>
+<circle cx="260" cy="240" r="2" fill="#6b7280"/>
+<circle cx="280" cy="240" r="2" fill="#6b7280"/>
+<line x1="260" y1="240" x2="276" y2="232" stroke="#6b7280" stroke-width="2"/>
+<text x="270" y="255" font-size="12" text-anchor="middle" fill="#6b7280">SW₁ (вимк)</text>
+
+<!-- SWk (замкнений, активний) -->
+<line x1="260" y1="322" x2="280" y2="322" stroke="#2457d6" stroke-width="3"/>
+<line x1="260" y1="335" x2="280" y2="335" stroke="#2457d6" stroke-width="3"/>
+<circle cx="260" cy="335" r="2.5" fill="#2457d6"/>
+<circle cx="280" cy="335" r="2.5" fill="#2457d6"/>
+<text x="270" y="352" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">SW_k (УВІМК)</text>
+
+<!-- SW63 (розімкнений) -->
+<line x1="260" y1="417" x2="280" y2="417" stroke="#6b7280" stroke-width="2"/>
+<circle cx="260" cy="430" r="2" fill="#6b7280"/>
+<circle cx="280" cy="430" r="2" fill="#6b7280"/>
+<line x1="260" y1="430" x2="276" y2="422" stroke="#6b7280" stroke-width="2"/>
+<text x="270" y="445" font-size="12" text-anchor="middle" fill="#6b7280">SW₆₃ (вимк)</text>
+
+<!-- Спільна аналогова шина ЦАП -->
+<line x1="280" y1="185" x2="330" y2="185" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="280" y1="240" x2="330" y2="240" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="280" y1="335" x2="330" y2="335" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="280" y1="430" x2="330" y2="430" stroke="#d0d7de" stroke-width="1.5"/>
+
+<line x1="330" y1="185" x2="330" y2="335" stroke="#d0d7de" stroke-width="2"/>
+<circle cx="330" cy="335" r="4" fill="#2457d6"/>
+<line x1="330" y1="335" x2="330" y2="430" stroke="#d0d7de" stroke-width="2"/>
+
+<text x="330" y="158" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Шина ЦАП</text>
+<text x="330" y="173" font-size="12" text-anchor="middle" fill="#2457d6">V_DAC = V_k</text>
+
+<!-- Лінія до буферного підсилювача -->
+<line x1="330" y1="335" x2="355" y2="335" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="355" y1="335" x2="355" y2="325" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="355" y1="325" x2="370" y2="325" stroke="#2457d6" stroke-width="2.5"/>
+
+<!-- Буферний операційний підсилювач -->
+<polygon points="370,310 370,360 415,335" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="378" y="329" font-size="14" font-weight="700" fill="#2457d6">+</text>
+<text x="378" y="349" font-size="14" font-weight="700" fill="#1a1a1a">−</text>
+
+<text x="395" y="285" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Буфер стовпця</text>
+<text x="395" y="301" font-size="12" text-anchor="middle" fill="#2457d6">Rail-to-Rail (K = 1)</text>
+
+<!-- Негативний зворотний зв'язок (повторювач) -->
+<line x1="415" y1="335" x2="440" y2="335" stroke="#2457d6" stroke-width="2.5"/>
+<circle cx="440" cy="335" r="3.5" fill="#2457d6"/>
+<line x1="440" y1="335" x2="440" y2="375" stroke="#2457d6" stroke-width="2"/>
+<line x1="440" y1="375" x2="360" y2="375" stroke="#2457d6" stroke-width="2"/>
+<line x1="360" y1="375" x2="360" y2="345" stroke="#2457d6" stroke-width="2"/>
+<line x1="360" y1="345" x2="370" y2="345" stroke="#2457d6" stroke-width="2"/>
+
+<!-- Вихідна шина стовпця -->
+<line x1="440" y1="335" x2="530" y2="335" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+<circle cx="475" cy="335" r="3.5" fill="#2457d6"/>
+<text x="475" y="315" font-size="13" font-weight="700" text-anchor="middle" fill="#2457d6">V_COL = V_k</text>
+
+<!-- Навантаження стовпця: C_COL -->
+<line x1="500" y1="335" x2="500" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="492" y1="365" x2="508" y2="365" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="492" y1="371" x2="508" y2="371" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="500" y1="371" x2="500" y2="382" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="494" y1="382" x2="506" y2="382" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="496" y1="386" x2="504" y2="386" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="498" y1="390" x2="502" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="514" y="369" font-size="12" font-weight="700" fill="#1a1a1a">C_COL</text>
+<text x="514" y="383" font-size="12" fill="#6b7280">~30 пФ</text>
+
+<!-- Напрямок до матриці -->
+<text x="538" y="331" font-size="12" font-weight="700" fill="#1a1a1a">До стовпця</text>
+<text x="538" y="346" font-size="12" fill="#6b7280">матриці IPS</text>
+
+<!-- Блок поточного стану схеми -->
+<rect x="345" y="415" width="280" height="88" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="360" y="435" font-size="12" font-weight="700" fill="#1a1a1a">Стан комутації для коду k:</text>
+<text x="360" y="453" font-size="12" font-weight="700" fill="#2457d6">• SW_k увімкнено (S_k = 1): V_DAC = V_k</text>
+<text x="360" y="471" font-size="12" fill="#6b7280">• SW₀…SW₆₃ вимкнено (S_i = 0, струм = 0)</text>
+<text x="360" y="489" font-size="12" fill="#1a1a1a">• Буфер заряджає ємність стовпця C_COL</text>
+</svg>

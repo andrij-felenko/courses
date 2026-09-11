@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма подвійної буферизації LVGL з апаратним DMA (ST7789)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Паралелізм рендерингу CPU у Buffer B та фонової передачі Buffer A по шині SPI без очікування</text>
+
+  <!-- ==================== LEFT: TIMING DIAGRAMS ==================== -->
+
+  <!-- SECTION 1: Double Buffer + DMA Parallel Execution -->
+  <rect x="60" y="76" width="510" height="176" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="60" y="76" width="510" height="24" rx="6" fill="#e9f7ef"/>
+  <text x="72" y="93" font-size="13" font-weight="bold" fill="#27ae60">Подвійний буфер (Double Buffer + DMA): паралельний Ping-Pong</text>
+
+  <!-- Track Labels -->
+  <text x="72" y="128" font-size="12" font-weight="bold" fill="#2457d6">CPU (Рендер)</text>
+  <text x="72" y="182" font-size="12" font-weight="bold" fill="#27ae60">DMA (SPI TX)</text>
+
+  <!-- Track 1: CPU Rendering Blocks -->
+  <!-- Stage 1 (t0..t1): Render 1 in Buf A -->
+  <rect x="145" y="110" width="100" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="195" y="128" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Блок 1 (Buf A)</text>
+
+  <!-- Stage 2 (t1..t2): Render 2 in Buf B -->
+  <rect x="245" y="110" width="100" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="295" y="128" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Блок 2 (Buf B)</text>
+
+  <!-- Stage 3 (t2..t3): Render 3 in Buf A -->
+  <rect x="345" y="110" width="100" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="395" y="128" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Блок 3 (Buf A)</text>
+
+  <!-- Stage 4 (t3..t4): Render 4 in Buf B -->
+  <rect x="445" y="110" width="100" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="495" y="128" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Блок 4 (Buf B)</text>
+
+  <!-- Inter-track Signals (Flush & Ready) -->
+  <!-- Event 1: disp_flush() at t1 -->
+  <line x1="245" y1="138" x2="245" y2="162" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="238" y="153" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">flush()</text>
+
+  <!-- Event 2: lv_disp_flush_ready() at t2 -->
+  <line x1="345" y1="164" x2="345" y2="140" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="338" y="153" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">ready()</text>
+
+  <!-- Event 3: lv_disp_flush_ready() at t3 -->
+  <line x1="445" y1="164" x2="445" y2="140" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="438" y="153" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">ready()</text>
+
+  <!-- Track 2: DMA / SPI TX Blocks -->
+  <!-- Stage 1 (t0..t1): DMA Idle -->
+  <rect x="145" y="164" width="100" height="28" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="195" y="182" font-size="12" fill="#6b7280" text-anchor="middle">Очікування (Idle)</text>
+
+  <!-- Stage 2 (t1..t2): SPI TX Buf A -->
+  <rect x="245" y="164" width="100" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="295" y="182" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SPI TX: Buf A</text>
+
+  <!-- Stage 3 (t2..t3): SPI TX Buf B -->
+  <rect x="345" y="164" width="100" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="395" y="182" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SPI TX: Buf B</text>
+
+  <!-- Stage 4 (t3..t4): SPI TX Buf A -->
+  <rect x="445" y="164" width="100" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="495" y="182" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SPI TX: Buf A</text>
+
+  <!-- Time Axis Section 1 -->
+  <line x1="145" y1="206" x2="550" y2="206" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="145" y1="203" x2="145" y2="209" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="245" y1="203" x2="245" y2="209" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="345" y1="203" x2="345" y2="209" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="445" y1="203" x2="445" y2="209" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="545" y1="203" x2="545" y2="209" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="145" y="222" font-size="12" fill="#6b7280" text-anchor="middle">t0</text>
+  <text x="245" y="222" font-size="12" fill="#6b7280" text-anchor="middle">t1</text>
+  <text x="345" y="222" font-size="12" fill="#6b7280" text-anchor="middle">t2</text>
+  <text x="445" y="222" font-size="12" fill="#6b7280" text-anchor="middle">t3</text>
+  <text x="545" y="222" font-size="12" fill="#6b7280" text-anchor="middle">t4</text>
+  <text x="548" y="198" font-size="12" fill="#6b7280" text-anchor="end">Час (t)</text>
+
+  <!-- Summary Note Section 1 -->
+  <text x="72" y="238" font-size="12" font-weight="bold" fill="#27ae60">Паралелізм: поки DMA передає Buf A, CPU вже рендерить наступний блок у Buf B!</text>
+
+  <!-- SECTION 2: Single Buffer Blocking Execution -->
+  <rect x="60" y="264" width="510" height="122" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="60" y="264" width="510" height="24" rx="6" fill="#fdecea"/>
+  <text x="72" y="281" font-size="13" font-weight="bold" fill="#c0392b">Одинарний буфер (Single Buffer): блокуючий послідовний режим</text>
+
+  <!-- Track Label -->
+  <text x="72" y="318" font-size="12" font-weight="bold" fill="#c0392b">CPU + SPI</text>
+
+  <!-- Sequential Single Buffer Blocks -->
+  <rect x="145" y="302" width="60" height="28" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="175" y="320" font-size="12" fill="#2457d6" text-anchor="middle">Рендер 1</text>
+
+  <rect x="205" y="302" width="105" height="28" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="257" y="320" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">SPI TX (CPU чекає!)</text>
+
+  <rect x="310" y="302" width="60" height="28" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="340" y="320" font-size="12" fill="#2457d6" text-anchor="middle">Рендер 2</text>
+
+  <rect x="370" y="302" width="105" height="28" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="422" y="320" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">SPI TX (CPU чекає!)</text>
+
+  <rect x="475" y="302" width="70" height="28" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="510" y="320" font-size="12" fill="#2457d6" text-anchor="middle">Рендер 3</text>
+
+  <!-- Time Axis Section 2 -->
+  <line x1="145" y1="344" x2="550" y2="344" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="548" y="338" font-size="12" fill="#6b7280" text-anchor="end">Час (t)</text>
+
+  <!-- Summary Note Section 2 -->
+  <text x="72" y="368" font-size="12" font-weight="bold" fill="#c0392b">Втрата 50% продуктивності: процесор вимушений чекати завершення передачі по SPI.</text>
+
+  <!-- Bottom Result Banner -->
+  <rect x="60" y="398" width="510" height="32" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="315" y="418" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Висновок: подвійний буфер усуває блокування і подвоює FPS при буфері лише 1/10 екрана</text>
+
+  <!-- ==================== RIGHT: ENGINEERING CARDS ==================== -->
+
+  <!-- Card 1: Ping-Pong Concept -->
+  <rect x="590" y="76" width="340" height="110" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="590" y="76" width="340" height="26" rx="6" fill="#eaf0fd"/>
+  <text x="602" y="94" font-size="13" font-weight="bold" fill="#2457d6">1. Концепція Ping-Pong буферів</text>
+
+  <text x="602" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">Розділення пам'яті на два блоки</text>
+  <text x="602" y="136" font-size="12" fill="#6b7280">LVGL чергує буфери: поки DMA транслює</text>
+  <text x="602" y="154" font-size="12" fill="#6b7280">Buffer A по шині SPI, CPU вільно рендерить</text>
+  <text x="602" y="172" font-size="12" font-weight="bold" fill="#2457d6">наступну графіку в незалежний Buffer B.</text>
+
+  <!-- Card 2: lv_disp_flush_ready callback -->
+  <rect x="590" y="198" width="340" height="110" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="590" y="198" width="340" height="26" rx="6" fill="#e9f7ef"/>
+  <text x="602" y="216" font-size="13" font-weight="bold" fill="#27ae60">2. Асинхронний DMA Transfer Complete</text>
+
+  <text x="602" y="240" font-size="12" font-weight="bold" fill="#1a1a1a">Сигналізація завершення передачі</text>
+  <text x="602" y="258" font-size="12" fill="#6b7280">Після відправки останнього байта DMA генерує</text>
+  <text x="602" y="276" font-size="12" fill="#6b7280">переривання IRQ. Обробник викликає функцію</text>
+  <text x="602" y="294" font-size="12" font-weight="bold" fill="#27ae60">lv_disp_flush_ready(), звільняючи буфер.</text>
+
+  <!-- Card 3: RAM Savings -->
+  <rect x="590" y="320" width="340" height="110" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="590" y="320" width="340" height="26" rx="6" fill="#fdecea"/>
+  <text x="602" y="338" font-size="13" font-weight="bold" fill="#c0392b">3. Економія RAM (часткові буфери)</text>
+
+  <text x="602" y="362" font-size="12" font-weight="bold" fill="#1a1a1a">Повний кадр 240×240 = 115.2 КБ RAM</text>
+  <text x="602" y="380" font-size="12" fill="#6b7280">Замість повного кадру LVGL використовує два</text>
+  <text x="602" y="398" font-size="12" fill="#6b7280">буфери на 1/10 екрана (по 11.5 КБ кожен).</text>
+  <text x="602" y="416" font-size="12" font-weight="bold" fill="#c0392b">Економія 92 КБ RAM при подвоєнні FPS!</text>
+</svg>

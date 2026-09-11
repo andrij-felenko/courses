@@ -1,0 +1,307 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Визначення маркерів стрілок -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок (поля зверху >= 20 px) -->
+  <text x="480" y="35" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Типова схема ввімкнення дисплейного контролера ST7789</text>
+  <text x="480" y="55" font-size="13" text-anchor="middle" fill="#6b7280">Роздільне живлення VCI/IOVCC, помпи заряду VGH/VGL та резистивні дільники 5 В → 3,3 В</text>
+
+  <!-- БЛОК 1: Хост-контролер (MCU 5 В) -->
+  <rect x="25" y="72" width="115" height="383" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="82" y="93" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">MCU (5 В)</text>
+  <text x="82" y="108" font-size="12" text-anchor="middle" fill="#6b7280">Хост-контролер</text>
+
+  <!-- Виводи MCU -->
+  <text x="128" y="129" font-size="12" font-weight="bold" text-anchor="end" fill="#c0392b">+5V</text>
+  <line x1="140" y1="125" x2="148" y2="125" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="128" y="159" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">GND</text>
+  <line x1="140" y1="155" x2="152" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="152" y1="151" x2="152" y2="159" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="155" y1="153" x2="155" y2="157" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="128" y="249" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">SCK</text>
+  <line x1="140" y1="245" x2="155" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="128" y="304" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">MOSI</text>
+  <line x1="140" y1="300" x2="155" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="128" y="359" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">DC</text>
+  <line x1="140" y1="355" x2="155" y2="355" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="128" y="414" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">RES</text>
+  <line x1="140" y1="410" x2="155" y2="410" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="128" y="444" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">CS</text>
+  <line x1="140" y1="440" x2="155" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- БЛОК ЖИВЛЕННЯ ТА РОЗДІЛЕННЯ VCI / IOVCC -->
+  <!-- Траса +5V від MCU до LDO -->
+  <path d="M 148,125 L 148,95 L 225,95" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="185" cy="95" r="3" fill="#c0392b"/>
+  <text x="185" y="86" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">+5 В</text>
+
+  <!-- Вхідний конденсатор C_IN біля LDO -->
+  <line x1="185" y1="95" x2="185" y2="108" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="177" y1="108" x2="193" y2="108" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="177" y1="113" x2="193" y2="113" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="185" y1="113" x2="185" y2="124" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="179" y1="124" x2="191" y2="124" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="182" y1="127" x2="188" y2="127" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="185" y="139" font-size="12" text-anchor="middle" fill="#6b7280">10 мкФ</text>
+
+  <!-- LDO Стабілізатор 5 В -> 3.3 В -->
+  <rect x="225" y="76" width="70" height="42" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="260" y="93" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">LDO 3.3V</text>
+  <text x="260" y="108" font-size="12" text-anchor="middle" fill="#6b7280">XC6206</text>
+  <!-- GND вивід LDO -->
+  <line x1="260" y1="118" x2="260" y2="126" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="254" y1="126" x2="266" y2="126" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="257" y1="129" x2="263" y2="129" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Вихід 3.3V з LDO -->
+  <line x1="295" y1="95" x2="325" y2="95" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="325" cy="95" r="3" fill="#2457d6"/>
+
+  <!-- Вихідний конденсатор C_OUT біля LDO -->
+  <line x1="325" y1="95" x2="325" y2="108" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="317" y1="108" x2="333" y2="108" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="317" y1="113" x2="333" y2="113" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="325" y1="113" x2="325" y2="124" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="319" y1="124" x2="331" y2="124" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="322" y1="127" x2="328" y2="127" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="325" y="139" font-size="12" text-anchor="middle" fill="#6b7280">10 мкФ</text>
+
+  <!-- Точка розгалуження живлення на IOVCC та VCI -->
+  <line x1="325" y1="95" x2="360" y2="95" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="360" cy="95" r="3" fill="#2457d6"/>
+
+  <!-- Верхня гілка: Цифрове живлення IOVCC (3.3V) -->
+  <line x1="360" y1="95" x2="560" y2="95" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="515" cy="95" r="3" fill="#2457d6"/>
+  <text x="435" y="87" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Шина IOVCC (3,3 В цифрова)</text>
+
+  <!-- Блокувальний конденсатор C_IOVCC біля виводу -->
+  <line x1="515" y1="95" x2="515" y2="106" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="507" y1="106" x2="523" y2="106" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="507" y1="111" x2="523" y2="111" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="515" y1="111" x2="515" y2="122" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="509" y1="122" x2="521" y2="122" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="512" y1="125" x2="518" y2="125" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="515" y="137" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">1 мкФ</text>
+
+  <!-- Нижня гілка: Аналогове живлення VCI (3.3V) через фільтр -->
+  <path d="M 360,95 L 360,150 L 385,150" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Фільтр розв'язки FB -->
+  <rect x="385" y="143" width="36" height="14" rx="2" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="403" y="137" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Фільтр FB</text>
+  <line x1="421" y1="150" x2="560" y2="150" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="515" cy="150" r="3" fill="#27ae60"/>
+  <text x="440" y="167" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Шина VCI (3,3 В)</text>
+
+  <!-- Блокувальний конденсатор C_VCI біля виводу -->
+  <line x1="515" y1="150" x2="515" y2="158" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="507" y1="158" x2="523" y2="158" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="507" y1="163" x2="523" y2="163" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="515" y1="163" x2="515" y2="173" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="509" y1="173" x2="521" y2="173" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="512" y1="176" x2="518" y2="176" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="515" y="188" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">1 мкФ</text>
+
+  <!-- БЛОК 2: Резистивні дільники 5 В → 3,3 В -->
+  <rect x="155" y="195" width="385" height="260" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="347" y="213" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Резистивні дільники узгодження 5 В → 3,3 В</text>
+  <text x="347" y="228" font-size="12" text-anchor="middle" fill="#6b7280">U_вих = 5 В × 2,4 кОм / (1,2 кОм + 2,4 кОм) = 3,33 В</text>
+
+  <!-- Лінія 1: SCK (y = 250) -->
+  <line x1="155" y1="250" x2="220" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="175" y="244" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">5 В</text>
+  <rect x="220" y="242" width="45" height="16" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="242" y="238" font-size="12" text-anchor="middle" fill="#1a1a1a">1,2 к</text>
+  <line x1="265" y1="250" x2="295" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="295" cy="250" r="3" fill="#1a1a1a"/>
+  <!-- Шунтувальний резистор 2,4 кОм до GND -->
+  <line x1="295" y1="250" x2="295" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="287" y="260" width="16" height="20" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="307" y="275" font-size="12" fill="#1a1a1a">2,4 к</text>
+  <line x1="295" y1="280" x2="295" y2="287" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="289" y1="287" x2="301" y2="287" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="292" y1="290" x2="298" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Вихід 3.3V до ST7789 -->
+  <line x1="295" y1="250" x2="560" y2="250" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="355" y="244" font-size="12" fill="#1a1a1a">SCL (тактування SPI)</text>
+  <text x="515" y="244" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">3,3 В</text>
+
+  <!-- Лінія 2: MOSI (y = 305) -->
+  <line x1="155" y1="305" x2="220" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="175" y="299" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">5 В</text>
+  <rect x="220" y="297" width="45" height="16" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="242" y="293" font-size="12" text-anchor="middle" fill="#1a1a1a">1,2 к</text>
+  <line x1="265" y1="305" x2="295" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="295" cy="305" r="3" fill="#1a1a1a"/>
+  <!-- Шунтувальний резистор 2,4 кОм до GND -->
+  <line x1="295" y1="305" x2="295" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="287" y="315" width="16" height="20" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="307" y="330" font-size="12" fill="#1a1a1a">2,4 к</text>
+  <line x1="295" y1="335" x2="295" y2="342" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="289" y1="342" x2="301" y2="342" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="292" y1="345" x2="298" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Вихід 3.3V до ST7789 -->
+  <line x1="295" y1="305" x2="560" y2="305" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="355" y="299" font-size="12" fill="#1a1a1a">SDA (дані MOSI)</text>
+  <text x="515" y="299" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">3,3 В</text>
+
+  <!-- Лінія 3: DC (y = 360) -->
+  <line x1="155" y1="360" x2="220" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="175" y="354" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">5 В</text>
+  <rect x="220" y="352" width="45" height="16" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="242" y="348" font-size="12" text-anchor="middle" fill="#1a1a1a">1,2 к</text>
+  <line x1="265" y1="360" x2="295" y2="360" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="295" cy="360" r="3" fill="#1a1a1a"/>
+  <!-- Шунтувальний резистор 2,4 кОм до GND -->
+  <line x1="295" y1="360" x2="295" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="287" y="370" width="16" height="20" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="307" y="385" font-size="12" fill="#1a1a1a">2,4 к</text>
+  <line x1="295" y1="390" x2="295" y2="397" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="289" y1="397" x2="301" y2="397" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="292" y1="400" x2="298" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Вихід 3.3V до ST7789 -->
+  <line x1="295" y1="360" x2="560" y2="360" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="355" y="354" font-size="12" fill="#1a1a1a">DC (вибір D/C)</text>
+  <text x="515" y="354" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">3,3 В</text>
+
+  <!-- Лінія 4: RES (y = 415) -->
+  <line x1="155" y1="415" x2="220" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="175" y="409" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">5 В</text>
+  <rect x="220" y="407" width="45" height="16" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="242" y="403" font-size="12" text-anchor="middle" fill="#1a1a1a">1,2 к</text>
+  <line x1="265" y1="415" x2="295" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="295" cy="415" r="3" fill="#1a1a1a"/>
+  <!-- Шунтувальний резистор 2,4 кОм до GND -->
+  <line x1="295" y1="415" x2="295" y2="425" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="287" y="425" width="16" height="20" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="307" y="440" font-size="12" fill="#1a1a1a">2,4 к</text>
+  <line x1="295" y1="445" x2="295" y2="452" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="289" y1="452" x2="301" y2="452" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="292" y1="455" x2="298" y2="455" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Вихід 3.3V до ST7789 -->
+  <line x1="295" y1="415" x2="560" y2="415" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="355" y="409" font-size="12" fill="#1a1a1a">RES (скидання)</text>
+  <text x="515" y="409" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">3,3 В</text>
+
+  <!-- Лінія CS (постійно на GND) -->
+  <path d="M 560,440 L 530,440 L 530,448" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="524" y1="448" x2="536" y2="448" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="527" y1="451" x2="533" y2="451" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="518" y="443" font-size="12" text-anchor="end" fill="#6b7280">CS → 0 В</text>
+
+  <!-- БЛОК 3: Контролер ST7789 -->
+  <rect x="560" y="72" width="205" height="383" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="662" y="93" font-size="15" font-weight="bold" text-anchor="middle" fill="#1a1a1a">ST7789V</text>
+  <text x="662" y="108" font-size="12" text-anchor="middle" fill="#6b7280">Дисплейний контролер</text>
+
+  <!-- Виводи ліворуч ST7789 -->
+  <text x="568" y="99" font-size="12" font-weight="bold" fill="#2457d6">IOVCC</text>
+  <text x="568" y="154" font-size="12" font-weight="bold" fill="#27ae60">VCI</text>
+  <text x="568" y="254" font-size="12" font-weight="bold" fill="#1a1a1a">SCL</text>
+  <text x="568" y="309" font-size="12" font-weight="bold" fill="#1a1a1a">SDA</text>
+  <text x="568" y="364" font-size="12" font-weight="bold" fill="#1a1a1a">DC</text>
+  <text x="568" y="419" font-size="12" font-weight="bold" fill="#1a1a1a">RES</text>
+  <text x="568" y="444" font-size="12" font-weight="bold" fill="#1a1a1a">CS</text>
+
+  <!-- Внутрішній блок помп заряду (ширина 95 px, до x=730) -->
+  <rect x="635" y="125" width="95" height="152" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="682" y="142" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Помпи заряду</text>
+  <text x="682" y="156" font-size="12" text-anchor="middle" fill="#6b7280">DC-DC блок</text>
+
+  <!-- Помпа VGH -->
+  <rect x="640" y="165" width="85" height="42" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="682" y="181" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Помпа VGH</text>
+  <text x="682" y="196" font-size="12" text-anchor="middle" fill="#6b7280">+12...+15 В</text>
+  <line x1="725" y1="185" x2="765" y2="185" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="758" y="179" font-size="12" font-weight="bold" text-anchor="end" fill="#c0392b">VGH</text>
+
+  <!-- Помпа VGL -->
+  <rect x="640" y="218" width="85" height="42" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="682" y="234" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Помпа VGL</text>
+  <text x="682" y="249" font-size="12" text-anchor="middle" fill="#6b7280">-7...-10 В</text>
+  <line x1="725" y1="240" x2="765" y2="240" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="758" y="234" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">VGL</text>
+
+  <!-- Внутрішній блок буфера кадру та логіки -->
+  <rect x="635" y="292" width="118" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="694" y="312" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">SRAM буфер</text>
+  <text x="694" y="328" font-size="12" text-anchor="middle" fill="#6b7280">240×240×18 біт</text>
+  <line x1="645" y1="338" x2="743" y2="338" stroke="#d0d7de" stroke-width="1"/>
+  <text x="694" y="356" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Драйвери IPS</text>
+  <text x="694" y="372" font-size="12" text-anchor="middle" fill="#6b7280">Стовпці (Source)</text>
+  <text x="694" y="388" font-size="12" text-anchor="middle" fill="#6b7280">Рядки (Gate)</text>
+  <text x="694" y="414" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">→ до РК-матриці</text>
+
+  <!-- БЛОК 4: Зовнішня обв'язка помп заряду VGH / VGL -->
+  <!-- Траса та конденсатор C_VGH -->
+  <line x1="765" y1="185" x2="825" y2="185" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="825" cy="185" r="3" fill="#c0392b"/>
+  <text x="825" y="175" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">+14 В (VGH)</text>
+  <line x1="825" y1="185" x2="825" y2="196" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="817" y1="196" x2="833" y2="196" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="817" y1="201" x2="833" y2="201" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="825" y1="201" x2="825" y2="212" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="819" y1="212" x2="831" y2="212" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="822" y1="215" x2="828" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="840" y="196" font-size="12" font-weight="bold" fill="#1a1a1a">C_VGH</text>
+  <text x="840" y="210" font-size="12" fill="#6b7280">1 мкФ / 25 В</text>
+
+  <!-- Траса та конденсатор C_VGL -->
+  <line x1="765" y1="240" x2="825" y2="240" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="825" cy="240" r="3" fill="#2457d6"/>
+  <text x="825" y="230" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">-10 В (VGL)</text>
+  <line x1="825" y1="240" x2="825" y2="251" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="817" y1="251" x2="833" y2="251" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="817" y1="256" x2="833" y2="256" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="825" y1="256" x2="825" y2="267" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="819" y1="267" x2="831" y2="267" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="822" y1="270" x2="828" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="840" y="251" font-size="12" font-weight="bold" fill="#1a1a1a">C_VGL</text>
+  <text x="840" y="265" font-size="12" fill="#6b7280">1 мкФ / 16 В</text>
+
+  <!-- Інформаційна панель щодо розміщення конденсаторів помп -->
+  <rect x="780" y="292" width="155" height="152" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="857" y="312" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Обв'язка помп:</text>
+  <text x="857" y="330" font-size="12" text-anchor="middle" fill="#1a1a1a">Монтаж конденсаторів</text>
+  <text x="857" y="346" font-size="12" text-anchor="middle" fill="#1a1a1a">виконують впритул</text>
+  <text x="857" y="362" font-size="12" text-anchor="middle" fill="#1a1a1a">до виводів мікросхеми.</text>
+  <text x="857" y="386" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Чому критично?</text>
+  <text x="857" y="404" font-size="12" text-anchor="middle" fill="#6b7280">Мінімізація паразитної</text>
+  <text x="857" y="420" font-size="12" text-anchor="middle" fill="#6b7280">індуктивності усуває</text>
+  <text x="857" y="434" font-size="12" text-anchor="middle" fill="#6b7280">пульсації та мерехтіння.</text>
+
+  <!-- НИЖНІ КАРТКИ: ПІДСУМКИ ТА ІНЖЕНЕРНІ ПРАВИЛА (поля знизу >= 20 px) -->
+  <!-- Картка 1: Живлення -->
+  <rect x="25" y="470" width="295" height="48" rx="5" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="35" y="484" font-size="12" font-weight="bold" fill="#2457d6">Роздільне живлення VCI та IOVCC</text>
+  <text x="35" y="498" font-size="12" fill="#1a1a1a">Фільтрація усуває проникнення шумів шини</text>
+  <text x="35" y="511" font-size="12" fill="#6b7280">у внутрішні помпи та аналоговий тракт.</text>
+
+  <!-- Картка 2: Дільники -->
+  <rect x="332" y="470" width="295" height="48" rx="5" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="342" y="484" font-size="12" font-weight="bold" fill="#27ae60">Узгодження рівнів 5 В → 3,3 В</text>
+  <text x="342" y="498" font-size="12" fill="#1a1a1a">Дільники 1,2 к / 2,4 к захищають входи</text>
+  <text x="342" y="511" font-size="12" fill="#6b7280">ST7789 від електричного пошкодження.</text>
+
+  <!-- Картка 3: Помпи -->
+  <rect x="640" y="470" width="295" height="48" rx="5" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="650" y="484" font-size="12" font-weight="bold" fill="#c0392b">Фільтрація помп заряду VGH / VGL</text>
+  <text x="650" y="498" font-size="12" fill="#1a1a1a">Конденсатори з низьким ESR біля виводів</text>
+  <text x="650" y="511" font-size="12" fill="#6b7280">згладжують пульсації напруг затворів TFT.</text>
+</svg>

@@ -1,0 +1,230 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Режими спаду струму в H-мості під час паузи ШІМ (TOFF)</text>
+  <text x="480" y="64" font-size="13" text-anchor="middle" fill="#6b7280">Slow Decay замикає струм через нижнє плече, Fast Decay скидає енергію в лінію живлення через діоди</text>
+
+  <!-- ================= LEFT PANEL: SLOW DECAY ================= -->
+  <rect x="24" y="76" width="444" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="88" width="420" height="28" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="246" y="107" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Slow Decay (повільний спад / гальмування)</text>
+
+  <!-- Left Schematic -->
+  <text x="246" y="133" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">VM (+6 В) — вимкнено</text>
+  <line x1="130" y1="145" x2="362" y2="145" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Q1 open -->
+  <line x1="130" y1="145" x2="130" y2="159" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="130" cy="159" r="2.5" fill="#6b7280"/>
+  <line x1="130" y1="177" x2="120" y2="161" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="130" cy="177" r="2.5" fill="#6b7280"/>
+  <line x1="130" y1="177" x2="130" y2="193" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="110" y="172" font-size="12" fill="#6b7280" text-anchor="end">Q1 (Вимк)</text>
+
+  <!-- Q3 open -->
+  <line x1="362" y1="145" x2="362" y2="159" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="362" cy="159" r="2.5" fill="#6b7280"/>
+  <line x1="362" y1="177" x2="372" y2="161" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="362" cy="177" r="2.5" fill="#6b7280"/>
+  <line x1="362" y1="177" x2="362" y2="193" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="382" y="172" font-size="12" fill="#6b7280" text-anchor="start">Q3 (Вимк)</text>
+
+  <!-- Motor -->
+  <circle cx="246" cy="193" r="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="246" y="198" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+
+  <!-- Closed Loop (Green) -->
+  <line x1="130" y1="193" x2="230" y2="193" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="262" y1="193" x2="362" y2="193" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="285" y1="193" x2="325" y2="193" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Q4 closed -->
+  <line x1="362" y1="193" x2="362" y2="239" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="362" cy="205" r="2.5" fill="#27ae60"/>
+  <circle cx="362" cy="227" r="2.5" fill="#27ae60"/>
+  <line x1="362" y1="206" x2="362" y2="226" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="382" y="220" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Q4 (Замкн)</text>
+
+  <!-- GND rail left -->
+  <line x1="362" y1="239" x2="130" y2="239" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="265" y1="239" x2="225" y2="239" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Q2 closed -->
+  <line x1="130" y1="239" x2="130" y2="193" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="130" cy="227" r="2.5" fill="#27ae60"/>
+  <circle cx="130" cy="205" r="2.5" fill="#27ae60"/>
+  <line x1="130" y1="226" x2="130" y2="206" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="110" y="220" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Q2 (Замкн)</text>
+
+  <!-- Loop label inside -->
+  <rect x="175" y="207" width="142" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="246" y="221" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Контур циркуляції</text>
+  <text x="246" y="255" font-size="12" fill="#6b7280" text-anchor="middle">GND (0 В) — замкнено на землю</text>
+
+  <!-- Left Graph Card -->
+  <rect x="36" y="268" width="420" height="96" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="283" font-size="12" font-weight="bold" fill="#27ae60">Струм I(t): пологий спад, малий ripple</text>
+
+  <!-- Phase labels -->
+  <text x="132" y="297" font-size="12" fill="#6b7280" text-anchor="middle">TON</text>
+  <text x="197" y="297" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">TOFF</text>
+  <text x="262" y="297" font-size="12" fill="#6b7280" text-anchor="middle">TON</text>
+  <text x="327" y="297" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">TOFF</text>
+
+  <!-- Graph Grid Lines -->
+  <line x1="100" y1="302" x2="100" y2="344" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="165" y1="302" x2="165" y2="344" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="230" y1="302" x2="230" y2="344" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="295" y1="302" x2="295" y2="344" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="360" y1="302" x2="360" y2="344" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Left Waveform: Slow Decay -->
+  <path d="M100,324 C125,314 145,310 165,310 C190,315 210,320 230,324 C255,314 275,310 295,310 C320,315 340,320 360,324" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Graph Axes -->
+  <line x1="70" y1="344" x2="385" y2="344" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+  <text x="395" y="348" font-size="12" font-style="italic" fill="#1a1a1a">t</text>
+  <line x1="70" y1="344" x2="70" y2="292" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+  <text x="64" y="296" font-size="12" font-weight="bold" font-style="italic" fill="#1a1a1a" text-anchor="end">I</text>
+
+  <!-- Left Ripple Annotation -->
+  <line x1="368" y1="310" x2="368" y2="324" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="376" y="321" font-size="12" font-weight="bold" fill="#27ae60">ΔI мала</text>
+
+  <!-- Left Bottom Summary -->
+  <rect x="36" y="374" width="420" height="50" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="393" font-size="12" fill="#1a1a1a">• Спад струму: пологий — розсіювання на активному опорі кіл</text>
+  <text x="48" y="412" font-size="12" fill="#27ae60" font-weight="bold">• Результат: висока плавність ходу, стабільний момент мотора</text>
+
+
+  <!-- ================= RIGHT PANEL: FAST DECAY ================= -->
+  <rect x="492" y="76" width="444" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="504" y="88" width="420" height="28" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="714" y="107" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Fast Decay (швидкий спад / рециркуляція)</text>
+
+  <!-- Right Schematic -->
+  <text x="714" y="133" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Скидання струму в VM (+6 В)</text>
+  <line x1="598" y1="145" x2="830" y2="145" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- Returning arrow into VM -->
+  <line x1="795" y1="145" x2="755" y2="145" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Q1 open -->
+  <line x1="598" y1="145" x2="598" y2="159" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="598" cy="159" r="2.5" fill="#6b7280"/>
+  <line x1="598" y1="177" x2="588" y2="161" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="598" cy="177" r="2.5" fill="#6b7280"/>
+  <line x1="598" y1="177" x2="598" y2="193" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="578" y="172" font-size="12" fill="#6b7280" text-anchor="end">Q1 (Вимк)</text>
+
+  <!-- Q3 open -->
+  <line x1="830" y1="145" x2="830" y2="159" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="830" cy="159" r="2.5" fill="#6b7280"/>
+  <line x1="830" y1="177" x2="840" y2="161" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="830" cy="177" r="2.5" fill="#6b7280"/>
+  <line x1="830" y1="177" x2="830" y2="193" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="850" y="172" font-size="12" fill="#6b7280" text-anchor="start">Q3 (Вимк)</text>
+
+  <!-- Motor -->
+  <circle cx="714" cy="193" r="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="714" y="198" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+
+  <!-- Motor conduction path (Red) -->
+  <line x1="626" y1="193" x2="698" y2="193" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="730" y1="193" x2="802" y2="193" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="740" y1="193" x2="775" y2="193" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Q2 open -->
+  <line x1="598" y1="193" x2="598" y2="207" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="598" cy="207" r="2.5" fill="#6b7280"/>
+  <line x1="598" y1="225" x2="588" y2="209" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="598" cy="225" r="2.5" fill="#6b7280"/>
+  <line x1="598" y1="225" x2="598" y2="239" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="578" y="220" font-size="12" fill="#6b7280" text-anchor="end">Q2 (Вимк)</text>
+
+  <!-- Diode D2 branch conducting UP -->
+  <line x1="598" y1="239" x2="626" y2="239" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="626" y1="239" x2="626" y2="193" stroke="#c0392b" stroke-width="2.5"/>
+  <polygon points="626,207 620,219 632,219" fill="#c0392b"/>
+  <line x1="619" y1="207" x2="633" y2="207" stroke="#c0392b" stroke-width="2"/>
+  <line x1="626" y1="235" x2="626" y2="221" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <line x1="626" y1="205" x2="626" y2="195" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="638" y="217" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">D2</text>
+
+  <!-- Diode D3 branch conducting UP into VM -->
+  <line x1="802" y1="193" x2="802" y2="145" stroke="#c0392b" stroke-width="2.5"/>
+  <polygon points="802,159 796,171 808,171" fill="#c0392b"/>
+  <line x1="795" y1="159" x2="809" y2="159" stroke="#c0392b" stroke-width="2"/>
+  <line x1="802" y1="187" x2="802" y2="173" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <line x1="802" y1="157" x2="802" y2="145" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="802" y1="145" x2="830" y2="145" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="169" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">D3</text>
+
+  <!-- Q4 open -->
+  <line x1="830" y1="193" x2="830" y2="207" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="830" cy="207" r="2.5" fill="#6b7280"/>
+  <line x1="830" y1="225" x2="840" y2="209" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="830" cy="225" r="2.5" fill="#6b7280"/>
+  <line x1="830" y1="225" x2="830" y2="239" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="850" y="220" font-size="12" fill="#6b7280" text-anchor="start">Q4 (Вимк)</text>
+
+  <!-- Bottom GND rail right -->
+  <line x1="598" y1="239" x2="830" y2="239" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="600" y1="239" x2="620" y2="239" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Center badge right -->
+  <rect x="649" y="207" width="130" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="714" y="221" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Рециркуляція в VM</text>
+  <text x="714" y="255" font-size="12" fill="#6b7280" text-anchor="middle">GND (0 В) — забір струму з землі</text>
+
+  <!-- Right Graph Card -->
+  <rect x="504" y="268" width="420" height="96" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="283" font-size="12" font-weight="bold" fill="#c0392b">Струм I(t): стрімкий спад, глибока пилка</text>
+
+  <!-- Phase labels -->
+  <text x="600" y="297" font-size="12" fill="#6b7280" text-anchor="middle">TON</text>
+  <text x="665" y="297" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">TOFF</text>
+  <text x="730" y="297" font-size="12" fill="#6b7280" text-anchor="middle">TON</text>
+  <text x="795" y="297" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">TOFF</text>
+
+  <!-- Graph Grid Lines -->
+  <line x1="568" y1="302" x2="568" y2="344" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="633" y1="302" x2="633" y2="344" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="698" y1="302" x2="698" y2="344" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="763" y1="302" x2="763" y2="344" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="828" y1="302" x2="828" y2="344" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Right Waveform: Fast Decay -->
+  <path d="M568,340 C595,322 615,306 633,306 L698,340 C725,322 745,306 763,306 L828,340" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Graph Axes -->
+  <line x1="538" y1="344" x2="853" y2="344" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+  <text x="863" y="348" font-size="12" font-style="italic" fill="#1a1a1a">t</text>
+  <line x1="538" y1="344" x2="538" y2="292" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+  <text x="532" y="296" font-size="12" font-weight="bold" font-style="italic" fill="#1a1a1a" text-anchor="end">I</text>
+
+  <!-- Right Ripple Annotation -->
+  <line x1="836" y1="306" x2="836" y2="340" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="844" y="325" font-size="12" font-weight="bold" fill="#c0392b">ΔI велика</text>
+
+  <!-- Right Bottom Summary -->
+  <rect x="504" y="374" width="420" height="50" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="393" font-size="12" fill="#1a1a1a">• Спад струму: стрімкий — гасіння проти-напругою джерела VM</text>
+  <text x="516" y="412" font-size="12" fill="#c0392b" font-weight="bold">• Результат: миттєве скидання струму, різке гальмування</text>
+
+</svg>

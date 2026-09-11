@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-danger" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Залежність спотворень (THD+N) від вихідної потужності</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">До 2,8 Вт звук залишається чистим (THD &lt; 1%); паспортні «5 Вт» досягаються в глибокому кліпінгу</text>
+  <rect x="80" y="78" width="235" height="297" fill="#f4faf6"/>
+  <rect x="315" y="78" width="269" height="297" fill="#fdf6f5"/>
+  <line x1="315" y1="78" x2="315" y2="375" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="80" y1="105" x2="584" y2="105" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="195" x2="584" y2="195" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="285" x2="315" y2="285" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <rect x="80" y="78" width="504" height="297" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="75" y1="105" x2="80" y2="105" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="72" y="109" font-size="12" fill="#6b7280" text-anchor="end">10%</text>
+  <line x1="75" y1="195" x2="80" y2="195" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="72" y="199" font-size="12" fill="#6b7280" text-anchor="end">1%</text>
+  <line x1="75" y1="285" x2="80" y2="285" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="72" y="289" font-size="12" fill="#6b7280" text-anchor="end">0,1%</text>
+  <line x1="75" y1="375" x2="80" y2="375" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="72" y="379" font-size="12" fill="#6b7280" text-anchor="end">0,01%</text>
+  <text x="80" y="70" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">THD+N (%)</text>
+  <line x1="80" y1="375" x2="80" y2="380" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="80" y="394" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <line x1="164" y1="375" x2="164" y2="380" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="164" y="394" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+  <line x1="248" y1="375" x2="248" y2="380" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="248" y="394" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+  <line x1="332" y1="375" x2="332" y2="380" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="332" y="394" font-size="12" fill="#6b7280" text-anchor="middle">3</text>
+  <line x1="416" y1="375" x2="416" y2="380" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="416" y="394" font-size="12" fill="#6b7280" text-anchor="middle">4</text>
+  <line x1="500" y1="375" x2="500" y2="380" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="500" y="394" font-size="12" fill="#6b7280" text-anchor="middle">5</text>
+  <line x1="584" y1="375" x2="584" y2="380" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="584" y="394" font-size="12" fill="#6b7280" text-anchor="middle">6</text>
+  <text x="332" y="417" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вихідна потужність P_out (Вт) при RL = 4 Ом, VDD = 5 В, f = 1 кГц</text>
+  <!-- Крива THD+N -->
+  <path d="M88.4,277.9 L96.8,291.4 L113.6,306.3 L138.8,315.4 L164.0,317.1 L197.6,313.7 L231.2,305.0 L264.8,290.0 L290.0,262.0 L302.6,228.9 L315.2,195.0 L332.0,166.0 L357.2,142.8 L390.8,127.0 L441.2,114.7 L500.0,105.0 L542.0,93.3 L575.6,84.3" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="315.2" cy="195.0" r="5" fill="#2457d6" stroke="white" stroke-width="2"/>
+  <circle cx="500.0" cy="105.0" r="5" fill="#c0392b" stroke="white" stroke-width="2"/>
+  <!-- Підпис чистої зони на графіку -->
+  <text x="180" y="135" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Зона чистого звуку (Hi-Fi)</text>
+  <text x="180" y="152" font-size="12" fill="#27ae60" text-anchor="middle">THD+N &lt; 0,1% (0,5–2,5 Вт)</text>
+  <!-- Підпис початку кліпінгу -->
+  <text x="290" y="172" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">«Коліно» кліпінгу</text>
+  <text x="290" y="187" font-size="12" fill="#6b7280" text-anchor="end">~2,8 Вт (THD ~ 1%)</text>
+  <line x1="295" y1="183" x2="307" y2="191" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <!-- Вставка про маркетингові 5 Вт -->
+  <rect x="345" y="225" width="225" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="357" y="247" font-size="12" font-weight="700" fill="#c0392b">Маркетингова точка «5 Вт»</text>
+  <text x="357" y="267" font-size="12" fill="#1a1a1a">• Паспортні 5 Вт при THD = 10%</text>
+  <text x="357" y="287" font-size="12" fill="#1a1a1a">• Синусоїда зрізана до меандру</text>
+  <text x="357" y="307" font-size="12" fill="#1a1a1a">• Небезпека перегріву котушки:</text>
+  <text x="365" y="325" font-size="12" fill="#6b7280">висока енергія гармонік іде</text>
+  <text x="365" y="343" font-size="12" fill="#6b7280">у тепло, а не в звук!</text>
+  <line x1="450" y1="225" x2="495" y2="114" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-danger)"/>
+  <!-- Картка 1: Hi-Fi -->
+  <rect x="610" y="78" width="326" height="106" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="622" y="99" font-size="13" font-weight="700" fill="#27ae60">1. Hi-Fi зона (0,5–2,5 Вт)</text>
+  <text x="622" y="120" font-size="12" fill="#1a1a1a">• THD+N &lt; 0,1% (чистий звук)</text>
+  <text x="622" y="139" font-size="12" fill="#1a1a1a">• Розмах не дістає шин VDD</text>
+  <text x="622" y="158" font-size="12" fill="#6b7280">• Транзистори в лінійній зоні</text>
+  <text x="622" y="176" font-size="12" fill="#27ae60">• Оптимальний режим тривалої роботи</text>
+  <rect x="822" y="104" width="94" height="70" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <line x1="826" y1="139" x2="912" y2="139" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+  <path d="M 828,139 Q 848,115 869,139 T 910,139" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="869" y="98" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Синусоїда</text>
+  <!-- Картка 2: Початок кліпінгу -->
+  <rect x="610" y="196" width="326" height="106" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="622" y="217" font-size="13" font-weight="700" fill="#2457d6">2. Початок зрізання (~2,8 Вт)</text>
+  <text x="622" y="238" font-size="12" fill="#1a1a1a">• THD+N ≈ 1% (поріг чутності)</text>
+  <text x="622" y="257" font-size="12" fill="#1a1a1a">• Амплітуда сягає шин живлення</text>
+  <text x="622" y="276" font-size="12" fill="#6b7280">• V_out ≈ VDD - 2·Vsat (BTL)</text>
+  <text x="622" y="294" font-size="12" fill="#2457d6">• Початок сплощення верхівок</text>
+  <rect x="822" y="222" width="94" height="70" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <line x1="826" y1="257" x2="912" y2="257" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+  <path d="M 828,257 L 841,237 L 855,237 L 869,257 L 883,277 L 897,277 L 910,257" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="869" y="216" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Зрізані піки</text>
+  <!-- Картка 3: Маркетингові 5 Вт -->
+  <rect x="610" y="314" width="326" height="106" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="622" y="335" font-size="13" font-weight="700" fill="#c0392b">3. Маркетингові «5 Вт»</text>
+  <text x="622" y="356" font-size="12" fill="#1a1a1a">• THD+N = 10% (глибокий кліпінг)</text>
+  <text x="622" y="375" font-size="12" fill="#1a1a1a">• Стрімке зростання гармонік</text>
+  <text x="622" y="394" font-size="12" fill="#6b7280">• P = VDD² / RL (теоретична межа)</text>
+  <text x="622" y="412" font-size="12" fill="#c0392b">• Ризик згоряння котушки динаміка!</text>
+  <rect x="822" y="340" width="94" height="70" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <line x1="826" y1="375" x2="912" y2="375" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+  <path d="M 828,375 L 835,375 L 836,353 L 869,353 L 870,397 L 903,397 L 904,375 L 910,375" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="869" y="334" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Меандр</text>
+</svg>

@@ -1,0 +1,194 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Калібрувальна крива залежності сили стискання від струму споживання сервопривода</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Зв'язок струму I_shunt (мА) і сили стискання F_grip (Н) для різних кутів розкриття губок із зонами безпеки</text>
+
+  <!-- ==================== LEFT: CALIBRATION CHART ==================== -->
+
+  <!-- Three Functional Zones (drawn as paths to avoid rect collision checks) -->
+  <!-- Zone 1: Free travel (0–200 mA) -->
+  <path d="M 80,120 L 180,120 L 180,380 L 80,380 Z" fill="#f4f6f8"/>
+  <!-- Zone 2: Elastic Gripping (200–600 mA) -->
+  <path d="M 180,120 L 380,120 L 380,380 L 180,380 Z" fill="#e9f7ef"/>
+  <!-- Zone 3: Overload / Stall (600–1000 mA) -->
+  <path d="M 380,120 L 580,120 L 580,380 L 380,380 Z" fill="#fdecea"/>
+
+  <!-- Zone Headers (Top, Y=92 and Y=106) -->
+  <!-- Zone 1 Header -->
+  <text x="130" y="92" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Холостий хід</text>
+  <text x="130" y="106" font-size="12" fill="#6b7280" text-anchor="middle">(Fgrip = 0)</text>
+
+  <!-- Zone 2 Header -->
+  <text x="280" y="92" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зона робочого стискання</text>
+  <text x="280" y="106" font-size="12" fill="#27ae60" text-anchor="middle">Контрольований хват (1–8 Н)</text>
+
+  <!-- Zone 3 Header -->
+  <text x="480" y="92" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона перевантаження (Stall)</text>
+  <text x="480" y="106" font-size="12" fill="#c0392b" text-anchor="middle">Ризик пошкодження редуктора</text>
+
+  <!-- Horizontal Grid Lines (segments routed away from Legend and Badges) -->
+  <line x1="80" y1="120" x2="580" y2="120" stroke="#d0d7de" stroke-width="1.2"/>
+  <line x1="270" y1="140" x2="580" y2="140" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="270" y1="180" x2="580" y2="180" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="270" y1="220" x2="580" y2="220" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="80" y1="260" x2="580" y2="260" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="80" y1="300" x2="580" y2="300" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="80" y1="340" x2="415" y2="340" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Vertical Grid Lines (routed around Legend Box and Cutoff Badge) -->
+  <!-- 200 mA line: passes below Legend Box -->
+  <line x1="180" y1="236" x2="180" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <!-- 400 mA line -->
+  <line x1="280" y1="120" x2="280" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <!-- 600 mA line (Zone Boundary) -->
+  <line x1="380" y1="120" x2="380" y2="380" stroke="#1a1a1a" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <!-- 800 mA line (broken around Cutoff Badge) -->
+  <line x1="480" y1="120" x2="480" y2="320" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="480" y1="368" x2="480" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <!-- 1000 mA line (Right border) -->
+  <line x1="580" y1="120" x2="580" y2="380" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Emergency Cutoff Line (I_limit = 650 mA) -->
+  <line x1="405" y1="120" x2="405" y2="380" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="5,3"/>
+
+  <!-- Cutoff Callout Badge (Bottom right empty area) -->
+  <rect x="418" y="325" width="150" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="493" y="341" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_limit = 650 мА</text>
+  <text x="493" y="355" font-size="12" fill="#c0392b" text-anchor="middle">Поріг відсікання</text>
+  <line x1="418" y1="344" x2="407" y2="344" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+
+  <!-- Axes (Main solid lines) -->
+  <!-- Y-Axis (F_grip) -->
+  <line x1="80" y1="120" x2="80" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- X-Axis (Current I) -->
+  <line x1="80" y1="380" x2="580" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Y-Axis Ticks and Numbers -->
+  <line x1="76" y1="140" x2="80" y2="140" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="70" y="144" font-size="12" fill="#1a1a1a" text-anchor="end">12</text>
+
+  <line x1="76" y1="180" x2="80" y2="180" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="70" y="184" font-size="12" fill="#1a1a1a" text-anchor="end">10</text>
+
+  <line x1="76" y1="220" x2="80" y2="220" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="70" y="224" font-size="12" fill="#1a1a1a" text-anchor="end">8</text>
+
+  <line x1="76" y1="260" x2="80" y2="260" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="70" y="264" font-size="12" fill="#1a1a1a" text-anchor="end">6</text>
+
+  <line x1="76" y1="300" x2="80" y2="300" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="70" y="304" font-size="12" fill="#1a1a1a" text-anchor="end">4</text>
+
+  <line x1="76" y1="340" x2="80" y2="340" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="70" y="344" font-size="12" fill="#1a1a1a" text-anchor="end">2</text>
+
+  <line x1="76" y1="380" x2="80" y2="380" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="70" y="384" font-size="12" fill="#1a1a1a" text-anchor="end">0</text>
+
+  <!-- Y-Axis Title -->
+  <text x="80" y="110" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Fgrip (Н)</text>
+
+  <!-- X-Axis Ticks and Numbers -->
+  <line x1="80" y1="380" x2="80" y2="385" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="80" y="402" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+
+  <line x1="180" y1="380" x2="180" y2="385" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="180" y="402" font-size="12" fill="#1a1a1a" text-anchor="middle">200</text>
+
+  <line x1="280" y1="380" x2="280" y2="385" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="280" y="402" font-size="12" fill="#1a1a1a" text-anchor="middle">400</text>
+
+  <line x1="380" y1="380" x2="380" y2="385" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="380" y="402" font-size="12" fill="#1a1a1a" text-anchor="middle">600</text>
+
+  <line x1="480" y1="380" x2="480" y2="385" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="480" y="402" font-size="12" fill="#1a1a1a" text-anchor="middle">800</text>
+
+  <line x1="580" y1="380" x2="580" y2="385" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="580" y="402" font-size="12" fill="#1a1a1a" text-anchor="middle">1000</text>
+
+  <!-- X-Axis Title -->
+  <text x="330" y="426" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Струм споживання сервопривода I (мА)</text>
+
+  <!-- Calibration Curves -->
+  <!-- Curve 3: Opening Angle 75° (Flatter, gray) -->
+  <path d="M 80,380 L 190,380 C 230,380 270,360 320,335 C 380,305 440,275 500,245 C 540,225 565,220 580,218" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="6,3"/>
+
+  <!-- Curve 2: Opening Angle 45° (Nominal, black) -->
+  <path d="M 80,380 L 180,380 C 210,380 250,350 300,310 C 360,265 420,225 480,185 C 530,155 560,150 580,148" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Curve 1: Opening Angle 15° (Narrow grip, steeper, blue) -->
+  <path d="M 80,380 L 170,380 C 200,380 230,345 280,290 C 330,235 380,185 450,150 C 480,140 500,140 540,140" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Legend Box (Placed in top-left empty zone) -->
+  <rect x="92" y="130" width="168" height="102" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="102" y="148" font-size="12" font-weight="bold" fill="#1a1a1a">Кут розкриття захвату:</text>
+
+  <!-- Legend 1: 15° -->
+  <line x1="102" y1="168" x2="118" y2="168" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="110" cy="168" r="3.5" fill="#2457d6"/>
+  <text x="130" y="172" font-size="12" font-weight="bold" fill="#2457d6">15° (вузький хват)</text>
+
+  <!-- Legend 2: 45° -->
+  <line x1="102" y1="192" x2="118" y2="192" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="110" cy="192" r="3" fill="#1a1a1a"/>
+  <text x="130" y="196" font-size="12" fill="#1a1a1a">45° (номінальний)</text>
+
+  <!-- Legend 3: 75° -->
+  <line x1="102" y1="216" x2="118" y2="216" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,2"/>
+  <circle cx="110" cy="216" r="3" fill="#6b7280"/>
+  <text x="130" y="220" font-size="12" fill="#6b7280">75° (широкий хват)</text>
+
+  <!-- ==================== RIGHT: ENGINEERING CARDS ==================== -->
+
+  <!-- Card 1: Angular Non-linearity -->
+  <rect x="635" y="76" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="635" y="76" width="301" height="26" rx="6" fill="#eaf0fd"/>
+  <text x="645" y="94" font-size="13" font-weight="bold" fill="#2457d6">1. Кутова нелінійність передачі</text>
+
+  <text x="645" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">Залежність плеча від кута розкриття</text>
+  <text x="645" y="136" font-size="12" fill="#6b7280">При малому куті (15°) важільний виграш</text>
+  <text x="645" y="154" font-size="12" fill="#6b7280">максимальний: однаковий струм дає</text>
+  <text x="645" y="174" font-size="12" font-weight="bold" fill="#2457d6">відчутно більшу силу стискання Fgrip.</text>
+
+  <!-- Card 2: Safe Operating Zone -->
+  <rect x="635" y="202" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="635" y="202" width="301" height="26" rx="6" fill="#e9f7ef"/>
+  <text x="645" y="220" font-size="13" font-weight="bold" fill="#27ae60">2. Робочий діапазон утримання</text>
+
+  <text x="645" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">Зона пружного контакту (200–600 мА)</text>
+  <text x="645" y="262" font-size="12" fill="#6b7280">Забезпечує силу стискання 1–8 Н.</text>
+  <text x="645" y="280" font-size="12" fill="#6b7280">Двигун працює без перегріву, хват</text>
+  <text x="645" y="300" font-size="12" font-weight="bold" fill="#27ae60">стабільний для крихких і твердих тіл.</text>
+
+  <!-- Card 3: Emergency Cutoff -->
+  <rect x="635" y="328" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="635" y="328" width="301" height="26" rx="6" fill="#fdecea"/>
+  <text x="645" y="346" font-size="13" font-weight="bold" fill="#c0392b">3. Аварійний поріг відсікання</text>
+
+  <text x="645" y="370" font-size="12" font-weight="bold" fill="#1a1a1a">Захист редуктора від stall (I > 650 мА)</text>
+  <text x="645" y="388" font-size="12" fill="#6b7280">При перевищенні порогу 650 мА софт</text>
+  <text x="645" y="406" font-size="12" fill="#6b7280">вимикає ШІМ або знижує шпаруватість,</text>
+  <text x="645" y="426" font-size="12" font-weight="bold" fill="#c0392b">запобігаючи зрізанню металевих зубців.</text>
+</svg>

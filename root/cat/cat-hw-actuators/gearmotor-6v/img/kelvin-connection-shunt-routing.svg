@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок (поля зверху >= 20 px: y=38 - 18 = 20) -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Топологія розведення шунта за чотирипровідною схемою Кельвіна</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Відокремлення силового контуру від ліній АЦП та зіркова земля усувають похибки вимірювання</text>
+
+  <!-- ПАНЕЛЬ 1: Системна топологія плати -->
+  <rect x="24" y="74" width="566" height="364" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">1. Системна топологія: просторове рознесення контурів</text>
+
+  <!-- Блок: Драйвер мотора (H-міст) -->
+  <rect x="42" y="114" width="150" height="150" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="117" y="134" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">H-міст (Драйвер)</text>
+  <text x="117" y="151" text-anchor="middle" font-size="12" fill="#1a1a1a">Керування редуктором</text>
+  
+  <!-- Мотор всередині / підключений -->
+  <rect x="52" y="162" width="130" height="48" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="117" y="181" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Мотор 6 В (M)</text>
+  <text x="117" y="198" text-anchor="middle" font-size="12" fill="#2457d6">I_пуск / I_блок до 3 А</text>
+  <text x="117" y="228" text-anchor="middle" font-size="12" fill="#6b7280">ШІМ-комутація 6 В</text>
+  <text x="117" y="248" text-anchor="middle" font-size="12" fill="#c0392b">Джерело сплесків dI/dt</text>
+
+  <!-- Блок: Мікроконтролер / АЦП -->
+  <rect x="414" y="114" width="162" height="150" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="495" y="134" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Мікроконтролер</text>
+  <text x="495" y="151" text-anchor="middle" font-size="12" fill="#1a1a1a">Вимірювання та захист</text>
+  
+  <!-- Вхід АЦП -->
+  <rect x="426" y="162" width="138" height="48" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="495" y="181" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Диференціальний АЦП</text>
+  <text x="495" y="198" text-anchor="middle" font-size="12" fill="#27ae60">I_вхідний ≈ 0</text>
+  <text x="495" y="228" text-anchor="middle" font-size="12" fill="#1a1a1a">Аварійний стоп ШІМ</text>
+  <text x="495" y="248" text-anchor="middle" font-size="12" fill="#6b7280">захист зубців редуктора</text>
+
+  <!-- Центральний елемент: SMD-шунт у топології плати -->
+  <!-- Тіло компонента та площадки -->
+  <rect x="254" y="152" width="52" height="24" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="280" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Pad 1</text>
+
+  <rect x="258" y="176" width="44" height="28" rx="2" fill="#1a1a1a"/>
+  <text x="280" y="194" text-anchor="middle" font-size="12" font-weight="bold" fill="white">R_ш</text>
+
+  <rect x="254" y="204" width="52" height="24" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="280" y="220" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Pad 2</text>
+
+  <!-- Підпис номіналу шунта -->
+  <text x="280" y="140" text-anchor="middle" font-size="12" fill="#6b7280">50 мОм</text>
+
+  <!-- Силова доріжка від драйвера до Pad 1 (синій, широкий) -->
+  <path d="M192,164 L254,164" stroke="#2457d6" stroke-width="7" fill="none"/>
+  <path d="M220,164 L230,164" stroke="#2457d6" stroke-width="7" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="220" y="154" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">I_силовий</text>
+
+  <!-- Силова доріжка від Pad 2 до точки Star Ground і далі на PGND -->
+  <path d="M254,216 L192,216" stroke="#2457d6" stroke-width="7" fill="none"/>
+  <path d="M230,216 L218,216" stroke="#2457d6" stroke-width="7" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="220" y="238" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">До PGND</text>
+
+  <!-- Тонкі сигнальні доріжки Кельвіна від внутрішнього боку Pad 1 і Pad 2 до АЦП -->
+  <!-- Sense+ (від Pad 1 до ADC+) -->
+  <path d="M306,164 L348,164 L374,176 L426,176" stroke="#27ae60" stroke-width="2.5" fill="none" marker-end="url(#arr-green)"/>
+  <!-- Sense- (від Pad 2 до ADC-) -->
+  <path d="M306,216 L348,216 L374,192 L426,192" stroke="#27ae60" stroke-width="2.5" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Підписи ліній Кельвіна -->
+  <text x="362" y="154" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Sense+ (Kelvin)</text>
+  <text x="362" y="238" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Sense- (Kelvin)</text>
+  <text x="362" y="256" text-anchor="middle" font-size="12" fill="#27ae60">диференц. пара</text>
+
+  <!-- Вузол Star Ground (Зіркова точка) -->
+  <!-- Зіркова точка на Pad 2 -->
+  <circle cx="280" cy="228" r="5" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="280" y1="233" x2="280" y2="282" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Плашка зіркової точки -->
+  <rect x="180" y="282" width="200" height="52" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="280" y="302" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Зіркова точка (Star Ground)</text>
+  <text x="280" y="320" text-anchor="middle" font-size="12" fill="#2457d6">Єдиний контакт PGND та AGND</text>
+
+  <!-- Лінія AGND до мікроконтролера -->
+  <path d="M380,308 L495,308 L495,264" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3" fill="none" marker-end="url(#arr-green)"/>
+  <text x="437" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">AGND</text>
+
+  <!-- Лінія PGND до силового роз'єму -->
+  <path d="M180,308 L117,308 L117,264" stroke="#2457d6" stroke-width="3" fill="none" marker-end="url(#arr-blue)"/>
+  <text x="148" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">PGND</text>
+
+  <!-- Підсумкова плашка принципу -->
+  <rect x="40" y="360" width="534" height="64" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="380" font-size="12" font-weight="bold" fill="#27ae60">Чому контури просторово розділені:</text>
+  <text x="54" y="398" font-size="12" fill="#1a1a1a">1. Імпульсний струм мотора повертається виключно через силове коло PGND.</text>
+  <text x="54" y="414" font-size="12" fill="#1a1a1a">2. Сигнальна земля AGND не має спільних ділянок із PGND — нуль АЦП стабільний.</text>
+
+  <!-- ПАНЕЛЬ 2: Топологія площадок шунта -->
+  <rect x="604" y="74" width="332" height="364" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="620" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">2. Топологія площадок SMD-шунта</text>
+
+  <!-- Збільшений вузол SMD-резистора 2512 -->
+  <!-- Ліва контактна площадка (Pad A) -->
+  <rect x="624" y="122" width="60" height="70" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="654" y="161" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Pad A</text>
+
+  <!-- Пайка ліва -->
+  <rect x="684" y="128" width="12" height="58" fill="#d0d7de"/>
+
+  <!-- Тіло резистора -->
+  <rect x="696" y="128" width="138" height="58" rx="2" fill="#1a1a1a"/>
+  <text x="765" y="154" text-anchor="middle" font-size="13" font-weight="bold" fill="white">R_шунта</text>
+  <text x="765" y="171" text-anchor="middle" font-size="12" fill="#d0d7de">50 мОм (SMD 2512)</text>
+
+  <!-- Пайка права -->
+  <rect x="834" y="128" width="12" height="58" fill="#d0d7de"/>
+
+  <!-- Права контактна площадка (Pad B) -->
+  <rect x="846" y="122" width="60" height="70" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="876" y="161" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Pad B</text>
+
+  <!-- Підписи пайки (R_пайки) -->
+  <text x="690" y="118" text-anchor="middle" font-size="12" fill="#c0392b">R_пайки</text>
+  <text x="840" y="118" text-anchor="middle" font-size="12" fill="#c0392b">R_пайки</text>
+
+  <!-- Силові підведення: зверху на зовнішні краї -->
+  <!-- Вхід I_силовий -->
+  <path d="M610,142 L624,142" stroke="#2457d6" stroke-width="6" fill="none" marker-end="url(#arr-blue)"/>
+  <!-- Вихід I_силовий -->
+  <path d="M906,142 L922,142" stroke="#2457d6" stroke-width="6" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Відводи Кельвіна: знизу з ВНУТРІШНІХ країв площадок -->
+  <!-- Sense+ внутрішній -->
+  <path d="M680,192 L680,230 L730,230" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <!-- Sense- внутрішній -->
+  <path d="M850,192 L850,230 L800,230" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <circle cx="680" cy="192" r="3" fill="#27ae60"/>
+  <circle cx="850" cy="192" r="3" fill="#27ae60"/>
+
+  <text x="765" y="206" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Відводи Кельвіна</text>
+  <text x="765" y="222" text-anchor="middle" font-size="12" fill="#27ae60">I_сенс ≈ 0</text>
+
+  <!-- Порівняльні картки -->
+  <!-- Картка 1: Помилка 2 провідного -->
+  <rect x="618" y="242" width="304" height="82" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="630" y="261" font-size="12" font-weight="bold" fill="#c0392b">✗ Звичайне 2-провідне розведення:</text>
+  <text x="630" y="280" font-size="12" fill="#1a1a1a">R_вим = R_шунта + 2 · R_пайки + R_доріжки</text>
+  <text x="630" y="298" font-size="12" fill="#c0392b">R_пайки (2–5 мОм) дає похибку виміру до 15%</text>
+  <text x="630" y="314" font-size="12" fill="#6b7280">та спричиняє помилкові спрацьовування</text>
+
+  <!-- Картка 2: Правильно Кельвін -->
+  <rect x="618" y="336" width="304" height="88" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="630" y="355" font-size="12" font-weight="bold" fill="#27ae60">✓ 4-провідна схема Кельвіна:</text>
+  <text x="630" y="374" font-size="12" fill="#1a1a1a">V_АЦП = I_мотора · R_шунта   (бо I_сенс ≈ 0)</text>
+  <text x="630" y="392" font-size="12" fill="#27ae60">Падіння напруги на пайці не вимірюється</text>
+  <text x="630" y="410" font-size="12" fill="#1a1a1a">Точний захист: зупинка ШІМ при клині вала</text>
+</svg>

@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ==================== ЗАГОЛОВОК ТА ПІДЗАГОЛОВОК ==================== -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Конструктивна будова фокусованого лінійного лазерного модуля (5 мВт)</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Поздовжній розріз оптико-механічного вузла: від плати живлення до призми Павелла</text>
+
+  <!-- ==================== ВЕРХНЯ ПАНЕЛЬ: КОНСТРУКТИВНИЙ РОЗРІЗ ==================== -->
+  <rect x="25" y="65" width="910" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="85" font-size="13" font-weight="700" fill="#1a1a1a">Поздовжній конструктивний розріз модуля в зборі</text>
+
+  <!-- Дроти живлення (+5V / GND) -->
+  <line x1="50" y1="155" x2="100" y2="155" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="45" y="152" font-size="12" font-weight="700" fill="#c0392b">+5V</text>
+  <line x1="50" y1="175" x2="100" y2="175" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="45" y="185" font-size="12" font-weight="700" fill="#1a1a1a">GND</text>
+
+  <!-- Задня заглушка корпусу -->
+  <rect x="100" y="130" width="30" height="70" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Зовнішній латунний корпус (стінки Ø12 мм) -->
+  <rect x="130" y="125" width="310" height="12" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="130" y="195" width="310" height="12" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="210" y="100" font-size="12" font-weight="700" fill="#1a1a1a">Латунний корпус Ø12 мм</text>
+
+  <!-- 1. Плата баластного резистора -->
+  <rect x="135" y="140" width="22" height="52" rx="2" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="140" y="158" width="12" height="16" rx="1" fill="#1a1a1a" stroke="#d0d7de" stroke-width="1"/>
+  <text x="146" y="112" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Плата баласту</text>
+  <text x="146" y="124" text-anchor="middle" font-size="12" fill="#6b7280">(R = 43–68 Ом)</text>
+
+  <!-- 2. Лазерний діод у запресованій базі (TO-18) -->
+  <rect x="180" y="137" width="25" height="58" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="205" y="147" width="12" height="38" rx="1" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="208" y="163" width="4" height="6" fill="#c0392b"/>
+  <text x="195" y="222" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Лазерний діод</text>
+  <text x="195" y="236" text-anchor="middle" font-size="12" fill="#6b7280">(TO-18, 5 мВт)</text>
+
+  <!-- 3. Пружина вибірки люфту -->
+  <polyline points="220,142 230,137 240,145 250,137 260,145 270,137 280,142" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <polyline points="220,190 230,195 240,187 250,195 260,187 270,195 280,190" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="250" y="112" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Пружина люфту</text>
+  <line x1="250" y1="116" x2="250" y2="134" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- 4. Різьбовий тубус фокусування M9x0.5 -->
+  <!-- Різьбове з'єднання (пунктир різьби) -->
+  <line x1="310" y1="137" x2="410" y2="137" stroke="#6b7280" stroke-width="2.5" stroke-dasharray="2,2"/>
+  <line x1="310" y1="195" x2="410" y2="195" stroke="#6b7280" stroke-width="2.5" stroke-dasharray="2,2"/>
+
+  <!-- Рифлене кільце фокусування (накочування) -->
+  <rect x="420" y="122" width="22" height="88" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="426" y1="125" x2="426" y2="207" stroke="#2457d6" stroke-width="1"/>
+  <line x1="431" y1="125" x2="431" y2="207" stroke="#2457d6" stroke-width="1"/>
+  <line x1="436" y1="125" x2="436" y2="207" stroke="#2457d6" stroke-width="1"/>
+  <text x="410" y="112" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Різьба M9×0.5</text>
+  <text x="410" y="124" text-anchor="middle" font-size="12" fill="#2457d6">(фокус ±Δz)</text>
+
+  <!-- 5. Асферичний коліматор -->
+  <ellipse cx="330" cy="166" rx="8" ry="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="330" y="222" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Асферичний</text>
+  <text x="330" y="236" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">коліматор</text>
+
+  <!-- 6. Лінза Павелла на виході модуля -->
+  <rect x="450" y="132" width="40" height="68" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="460,146 475,146 485,166 475,186 460,186" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="475" y="222" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Лінза Павелла</text>
+  <text x="475" y="236" text-anchor="middle" font-size="12" fill="#6b7280">(призма)</text>
+
+  <!-- Хід лазерних променів: -->
+  <!-- 1. Від діода до коліматора (розбіжний) -->
+  <polygon points="212,166 330,146 330,186" fill="#fdecea" fill-opacity="0.6"/>
+  <line x1="212" y1="166" x2="330" y2="146" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="212" y1="166" x2="330" y2="186" stroke="#c0392b" stroke-width="1.2"/>
+
+  <!-- 2. Між коліматором і лінзою Павелла (колімований пучок) -->
+  <polygon points="330,146 460,152 460,180 330,186" fill="#fdecea" fill-opacity="0.6"/>
+  <line x1="330" y1="146" x2="460" y2="152" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="330" y1="186" x2="460" y2="180" stroke="#c0392b" stroke-width="1.2"/>
+
+  <!-- 3. Вихідне розгорнуте віяло світлового ножа Павелла -->
+  <polygon points="485,166 880,105 880,227" fill="#fdecea" fill-opacity="0.4"/>
+  <line x1="485" y1="166" x2="880" y2="105" stroke="#c0392b" stroke-width="1.8"/>
+  <line x1="485" y1="166" x2="880" y2="227" stroke="#c0392b" stroke-width="1.8"/>
+
+  <!-- Кут віяла та написи -->
+  <path d="M 525,158 A 40,40 0 0,1 525,174" fill="none" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="540" y="125" font-size="12" font-weight="700" fill="#c0392b">Кут віяла θ (60°–90°)</text>
+
+  <!-- Світловий плоский переріз праворуч -->
+  <line x1="880" y1="105" x2="880" y2="227" stroke="#c0392b" stroke-width="3.5"/>
+  <text x="730" y="160" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Рівномірна смуга (Flat-Top)</text>
+  <text x="730" y="176" text-anchor="middle" font-size="12" fill="#6b7280">однорідна інтенсивність уздовж лінії</text>
+
+  <!-- ==================== СЕРЕДНІ КАРТКИ: ПАРАМЕТРИ ВУЗЛІВ ==================== -->
+  <!-- Картка 1: Плата баласту -->
+  <rect x="25" y="280" width="290" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="300" font-size="12" font-weight="700" fill="#27ae60">1. Струмообмеження діода:</text>
+  <text x="40" y="318" font-size="12" fill="#1a1a1a">• SMD-резистор 43–68 Ом задає струм</text>
+  <text x="40" y="334" font-size="12" fill="#1a1a1a">   I_op ≈ 25–35 мА при живленні 5 В.</text>
+  <text x="40" y="350" font-size="12" fill="#6b7280">• Захищає кристал від теплового розгону.</text>
+
+  <!-- Картка 2: Різьбовий вузол -->
+  <rect x="330" y="280" width="305" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="345" y="300" font-size="12" font-weight="700" fill="#2457d6">2. Юстування та пружина люфту:</text>
+  <text x="345" y="318" font-size="12" fill="#1a1a1a">• Дрібна різьба M9×0.5 (крок 0.5 мм/оберт)</text>
+  <text x="345" y="334" font-size="12" fill="#1a1a1a">   забезпечує мікрометричну точність.</text>
+  <text x="345" y="350" font-size="12" fill="#6b7280">• Пружина усуває люфт при зміні напрямку.</text>
+
+  <!-- Картка 3: Оптика Павелла -->
+  <rect x="650" y="280" width="285" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="665" y="300" font-size="12" font-weight="700" fill="#c0392b">3. Оптика Павелла vs Циліндр:</text>
+  <text x="665" y="318" font-size="12" fill="#1a1a1a">• Циліндр дає спадний гаусів профіль.</text>
+  <text x="665" y="334" font-size="12" fill="#1a1a1a">• Призма Павелла перерозподіляє пучок</text>
+  <text x="665" y="350" font-size="12" fill="#27ae60">• Результат: рівномірна яскравість лінії.</text>
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: ІНЖЕНЕРНІ ВИСНОВКИ ==================== -->
+  <rect x="25" y="380" width="910" height="65" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="402" font-size="12" font-weight="700" fill="#1a1a1a">Інженерні особливості конструкції фокусованого модуля:</text>
+  <text x="45" y="420" font-size="12" fill="#6b7280">1. Тепловий контакт: щільна запресовка TO-18 гільзи діода в масивний латунний корпус відводить до 100 мВт тепла на зовнішній радіатор.</text>
+  <text x="45" y="436" font-size="12" fill="#6b7280">2. Оптична стабільність: комбінація пружини натягу та контргайки унеможливлює розфокусування модуля від вібрацій промислового верстата.</text>
+</svg>

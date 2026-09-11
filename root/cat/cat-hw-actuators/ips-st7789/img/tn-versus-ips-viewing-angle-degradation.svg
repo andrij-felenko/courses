@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оптична анізотропія під кутом огляду: TN проти IPS</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Вертикальний нахил молекул у TN створює асиметрію ходу; планарний поворот в IPS зберігає півтони</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: TN (Twisted Nematic) -->
+  <rect x="30" y="66" width="438" height="372" rx="8" fill="#fffcfc" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок панелі TN -->
+  <rect x="44" y="78" width="410" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="249" y="95" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">TN: Вертикальний нахил кристалів (проблема)</text>
+
+  <!-- Блоки спостереження TN -->
+  <rect x="165" y="116" width="90" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="210" y="129" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прямо 0°</text>
+  <text x="210" y="142" font-size="12" fill="#6b7280" text-anchor="middle">Півтон 50%</text>
+
+  <rect x="325" y="116" width="110" height="30" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="380" y="129" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Кут +45°</text>
+  <text x="380" y="142" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Інверсія тону</text>
+
+  <!-- Оптична комірка TN -->
+  <rect x="44" y="160" width="410" height="120" rx="4" fill="#fdfdfd" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Верхній поляризатор TN -->
+  <rect x="44" y="160" width="410" height="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="52" y="172" font-size="12" fill="#2457d6">Аналізатор (0°)</text>
+
+  <!-- Електроди ITO (TN) -->
+  <line x1="44" y1="176" x2="454" y2="176" stroke="#b0b8c4" stroke-width="1.5"/>
+  <line x1="44" y1="264" x2="454" y2="264" stroke="#b0b8c4" stroke-width="1.5"/>
+
+  <!-- Підписи шарів TN -->
+  <text x="52" y="208" font-size="12" fill="#6b7280">РК-шар (півтон)</text>
+  <text x="52" y="224" font-size="12" fill="#c0392b">Вертикальне поле E</text>
+  <line x1="185" y1="184" x2="185" y2="256" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-gray)"/>
+
+  <!-- Молекули TN (нахилені під -45°) -->
+  <g stroke="#c0392b" stroke-width="1.5" fill="#fdecea">
+    <ellipse cx="210" cy="220" rx="14" ry="5" transform="rotate(-45 210 220)"/>
+    <ellipse cx="260" cy="204" rx="14" ry="5" transform="rotate(-45 260 204)"/>
+    <ellipse cx="314" cy="220" rx="14" ry="5" transform="rotate(-45 314 220)"/>
+    <ellipse cx="368" cy="236" rx="14" ry="5" transform="rotate(-45 368 236)"/>
+    <ellipse cx="410" cy="204" rx="14" ry="5" transform="rotate(-45 410 204)"/>
+  </g>
+
+  <!-- Анотації ходу променя TN -->
+  <text x="218" y="196" font-size="12" fill="#6b7280">Δn &gt; 0 (норма)</text>
+  <text x="314" y="236" font-size="12" font-weight="bold" fill="#c0392b">Δn ≈ 0 (вздовж осі)</text>
+  <text x="314" y="250" font-size="12" fill="#c0392b">зсув фази зникає</text>
+
+  <!-- Промені світла TN -->
+  <line x1="210" y1="292" x2="210" y2="148" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <polyline points="250,292 270,264 358,176 380,148" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Нижній поляризатор TN -->
+  <rect x="44" y="264" width="410" height="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="52" y="276" font-size="12" fill="#2457d6">Поляризатор (90°)</text>
+
+  <!-- Підсвічування TN -->
+  <line x1="100" y1="292" x2="100" y2="282" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="330" y1="292" x2="330" y2="282" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="44" y="292" width="410" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="249" y="306" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Блок LED-підсвічування (біле світло)</text>
+
+  <!-- Картка результату TN -->
+  <rect x="44" y="324" width="410" height="102" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="56" y="342" font-size="13" font-weight="bold" fill="#c0392b">Результат спостереження під кутом (TN):</text>
+
+  <rect x="56" y="352" width="24" height="24" rx="4" fill="#888888" stroke="#6b7280"/>
+  <text x="90" y="364" font-size="12" font-weight="bold" fill="#1a1a1a">0° (нормаль):</text>
+  <text x="176" y="364" font-size="12" fill="#1a1a1a">Коректний півтон 50% сірого</text>
+  <text x="90" y="378" font-size="12" fill="#6b7280">Розрахункова яскравість і баланс кольору</text>
+
+  <rect x="56" y="388" width="24" height="24" rx="4" fill="#1a1a1a" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="90" y="400" font-size="12" font-weight="bold" fill="#c0392b">+45° (кут):</text>
+  <text x="162" y="400" font-size="12" font-weight="bold" fill="#c0392b">Інверсія півтонів (чорніє)</text>
+  <text x="90" y="414" font-size="12" fill="#c0392b">Асиметрія: критичне падіння контрасту</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: IPS (In-Plane Switching) -->
+  <rect x="492" y="66" width="438" height="372" rx="8" fill="#fcfdfc" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок панелі IPS -->
+  <rect x="506" y="78" width="410" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="711" y="95" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">IPS: Планарний поворот кристалів (розв&apos;язок)</text>
+
+  <!-- Блоки спостереження IPS -->
+  <rect x="627" y="116" width="90" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="672" y="129" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прямо 0°</text>
+  <text x="672" y="142" font-size="12" fill="#6b7280" text-anchor="middle">Півтон 50%</text>
+
+  <rect x="787" y="116" width="110" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="842" y="129" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кут +45°</text>
+  <text x="842" y="142" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Півтон 50%</text>
+
+  <!-- Оптична комірка IPS -->
+  <rect x="506" y="160" width="410" height="120" rx="4" fill="#fdfdfd" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Верхній поляризатор IPS -->
+  <rect x="506" y="160" width="410" height="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="514" y="172" font-size="12" fill="#2457d6">Аналізатор (0°)</text>
+
+  <!-- Верхня межа підкладки IPS -->
+  <line x1="506" y1="176" x2="916" y2="176" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Підписи шарів IPS -->
+  <text x="514" y="208" font-size="12" fill="#6b7280">РК-шар (півтон)</text>
+  <text x="514" y="224" font-size="12" fill="#27ae60">Планарне поле E</text>
+
+  <!-- Гребінчасті електроди на нижній підкладці IPS -->
+  <rect x="646" y="260" width="12" height="4" rx="1" fill="#2457d6"/>
+  <rect x="706" y="260" width="12" height="4" rx="1" fill="#2457d6"/>
+  <rect x="766" y="260" width="12" height="4" rx="1" fill="#2457d6"/>
+  <rect x="826" y="260" width="12" height="4" rx="1" fill="#2457d6"/>
+  <rect x="886" y="260" width="12" height="4" rx="1" fill="#2457d6"/>
+
+  <!-- Планарні силові лінії E (дуги між електродами) -->
+  <path d="M658,260 Q676,248 694,260" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M718,260 Q736,248 754,260" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M778,260 Q796,248 814,260" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M838,260 Q856,248 874,260" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Молекули IPS (горизонтальні, планарні) -->
+  <g stroke="#27ae60" stroke-width="1.5" fill="#e9f7ef">
+    <ellipse cx="672" cy="220" rx="15" ry="5"/>
+    <ellipse cx="720" cy="204" rx="15" ry="5"/>
+    <ellipse cx="776" cy="220" rx="15" ry="5"/>
+    <ellipse cx="832" cy="236" rx="15" ry="5"/>
+    <ellipse cx="880" cy="204" rx="15" ry="5"/>
+  </g>
+
+  <!-- Анотації ходу променя IPS -->
+  <text x="680" y="196" font-size="12" fill="#6b7280">Δn &gt; 0 (норма)</text>
+  <text x="776" y="236" font-size="12" font-weight="bold" fill="#27ae60">Δn стабільний</text>
+  <text x="776" y="250" font-size="12" fill="#27ae60">симетричний хід</text>
+
+  <!-- Промені світла IPS -->
+  <line x1="672" y1="292" x2="672" y2="148" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <polyline points="712,292 732,264 820,176 842,148" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Нижній поляризатор IPS -->
+  <rect x="506" y="264" width="410" height="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="514" y="276" font-size="12" fill="#2457d6">Поляризатор (90°)</text>
+
+  <!-- Підсвічування IPS -->
+  <line x1="562" y1="292" x2="562" y2="282" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="880" y1="292" x2="880" y2="282" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="506" y="292" width="410" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="711" y="306" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Блок LED-підсвічування (біле світло)</text>
+
+  <!-- Картка результату IPS -->
+  <rect x="506" y="324" width="410" height="102" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="518" y="342" font-size="13" font-weight="bold" fill="#27ae60">Результат спостереження під кутом (IPS):</text>
+
+  <rect x="518" y="352" width="24" height="24" rx="4" fill="#888888" stroke="#6b7280"/>
+  <text x="552" y="364" font-size="12" font-weight="bold" fill="#1a1a1a">0° (нормаль):</text>
+  <text x="638" y="364" font-size="12" fill="#1a1a1a">Коректний півтон 50% сірого</text>
+  <text x="552" y="378" font-size="12" fill="#6b7280">Розрахункова яскравість і баланс кольору</text>
+
+  <rect x="518" y="388" width="24" height="24" rx="4" fill="#888888" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="552" y="400" font-size="12" font-weight="bold" fill="#27ae60">+45° (кут):</text>
+  <text x="624" y="400" font-size="12" font-weight="bold" fill="#27ae60">Півтон 50% без змін (стабільно)</text>
+  <text x="552" y="414" font-size="12" fill="#27ae60">Планарний поворот: огляд до 178° без інверсії</text>
+</svg>

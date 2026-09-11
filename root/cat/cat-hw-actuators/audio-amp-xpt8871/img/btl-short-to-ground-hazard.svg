@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вихідний каскад BTL: небезпека замикання клеми динаміка на GND</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Замикання виходу на землю створює прямий наскрізний надструм через відкритий MOSFET</text>
+
+  <!-- БЛОК 1: XPT8871 Плече 1 (VO1+) -->
+  <rect x="24" y="74" width="192" height="364" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="120" y="96" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">XPT8871: Плече 1</text>
+
+  <!-- Шина VDD Плеча 1 -->
+  <text x="120" y="118" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VDD (+5 В)</text>
+  <line x1="40" y1="132" x2="200" y2="132" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Верхній MOSFET Q1 (ВІДКРИТИЙ) -->
+  <line x1="120" y1="132" x2="120" y2="152" stroke="#c0392b" stroke-width="3"/>
+  <rect x="60" y="152" width="120" height="64" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="120" y="176" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Q1 (P-MOS)</text>
+  <text x="120" y="196" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ВІДКРИТИЙ (ON)</text>
+
+  <!-- З'єднання від Q1 до вузла VO1+ -->
+  <line x1="120" y1="216" x2="120" y2="252" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="120" cy="252" r="4" fill="#c0392b"/>
+
+  <!-- Вихідний провід до клеми VO1+ -->
+  <text x="168" y="240" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VO1+ (Pin 5)</text>
+  <line x1="120" y1="252" x2="216" y2="252" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+
+  <!-- Нижній MOSFET Q2 (ЗАКРИТИЙ) -->
+  <line x1="120" y1="252" x2="120" y2="292" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <rect x="60" y="292" width="120" height="64" rx="6" fill="#f4f6f8" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="120" y="316" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Q2 (N-MOS)</text>
+  <text x="120" y="336" font-size="12" fill="#6b7280" text-anchor="middle">ЗАКРИТИЙ (OFF)</text>
+
+  <!-- Шина GND Плеча 1 -->
+  <line x1="120" y1="356" x2="120" y2="384" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="40" y1="384" x2="200" y2="384" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="120" y="408" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND (0 В)</text>
+
+  <!-- БЛОК 2: Зовнішнє підключення (Динамік + Аварійне КЗ) -->
+  <rect x="230" y="74" width="222" height="364" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="341" y="96" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зовнішнє підключення</text>
+  <text x="341" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Клеми гучномовця</text>
+
+  <!-- Провід від Pin 5 у блок 2 -->
+  <line x1="216" y1="252" x2="230" y2="252" stroke="#c0392b" stroke-width="3"/>
+  <line x1="230" y1="252" x2="266" y2="252" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Точка аварійного замикання (КЗ) -->
+  <circle cx="266" cy="252" r="4" fill="#c0392b"/>
+  <text x="266" y="224" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">КЗ на GND!</text>
+
+  <!-- Лінія аварійного надструму вниз на землю -->
+  <line x1="266" y1="252" x2="266" y2="376" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+
+  <!-- Пояснювальні написи до надструму -->
+  <text x="276" y="286" font-size="12" font-weight="bold" fill="#c0392b">Наскрізний</text>
+  <text x="276" y="302" font-size="12" font-weight="bold" fill="#c0392b">надструм КЗ</text>
+  <text x="276" y="318" font-size="12" fill="#c0392b">в обхід Rн</text>
+  <text x="276" y="334" font-size="12" font-weight="bold" fill="#c0392b">Iкз ≈ 33 А!</text>
+
+  <!-- Земля шасі внизу блоку 2 -->
+  <line x1="246" y1="384" x2="286" y2="384" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="252" y1="390" x2="280" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="258" y1="395" x2="274" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="282" y="416" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Земля GND шасі</text>
+
+  <!-- Шунтований провід до динаміка -->
+  <line x1="266" y1="252" x2="370" y2="252" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Символ динаміка -->
+  <text x="390" y="208" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Динамік 4 Ом</text>
+  <text x="390" y="224" font-size="12" fill="#6b7280" text-anchor="middle">(шунтовано КЗ)</text>
+  <rect x="370" y="238" width="16" height="28" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="386,244 406,232 406,272 386,260" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Провід від динаміка до Pin 8 -->
+  <line x1="406" y1="252" x2="452" y2="252" stroke="#2457d6" stroke-width="2"/>
+  <line x1="452" y1="252" x2="466" y2="252" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- БЛОК 3: XPT8871 Плече 2 (VO2-) -->
+  <rect x="466" y="74" width="184" height="364" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="558" y="96" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">XPT8871: Плече 2</text>
+
+  <!-- Шина VDD Плеча 2 -->
+  <text x="558" y="118" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">VDD (+5 В)</text>
+  <line x1="480" y1="132" x2="636" y2="132" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Верхній MOSFET Q3 (ЗАКРИТИЙ) -->
+  <line x1="558" y1="132" x2="558" y2="152" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <rect x="498" y="152" width="120" height="64" rx="6" fill="#f4f6f8" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="558" y="176" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Q3 (P-MOS)</text>
+  <text x="558" y="196" font-size="12" fill="#6b7280" text-anchor="middle">ЗАКРИТИЙ (OFF)</text>
+
+  <!-- З'єднання від Q3 до вузла VO2- -->
+  <line x1="558" y1="216" x2="558" y2="252" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="558" cy="252" r="4" fill="#2457d6"/>
+
+  <!-- Вихідний провід від клеми VO2- -->
+  <text x="512" y="240" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VO2- (Pin 8)</text>
+  <line x1="466" y1="252" x2="558" y2="252" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Нижній MOSFET Q4 (ВІДКРИТИЙ) -->
+  <line x1="558" y1="252" x2="558" y2="292" stroke="#2457d6" stroke-width="2"/>
+  <rect x="498" y="292" width="120" height="64" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="558" y="316" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q4 (N-MOS)</text>
+  <text x="558" y="336" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ВІДКРИТИЙ (ON)</text>
+
+  <!-- Шина GND Плеча 2 -->
+  <line x1="558" y1="356" x2="558" y2="384" stroke="#2457d6" stroke-width="2"/>
+  <line x1="480" y1="384" x2="636" y2="384" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="558" y="408" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND (0 В)</text>
+
+  <!-- БЛОК 4А: Аварійний контур КЗ -->
+  <rect x="664" y="74" width="272" height="176" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="800" y="96" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Аварійний контур КЗ</text>
+  <line x1="680" y1="106" x2="920" y2="106" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="680" y="124" font-size="12" font-weight="bold" fill="#1a1a1a">• Опір динаміка вилучено:</text>
+  <text x="692" y="140" font-size="12" fill="#6b7280">струм іде в обхід котушки 4 Ом</text>
+  <text x="680" y="164" font-size="12" font-weight="bold" fill="#c0392b">• Струм обмежено лише Rds(on):</text>
+  <text x="692" y="180" font-size="12" fill="#c0392b">Iкз ≈ 5 В / 0.15 Ом ≈ 33 А</text>
+  <text x="680" y="204" font-size="12" font-weight="bold" fill="#c0392b">• Теплове руйнування Q1:</text>
+  <text x="692" y="220" font-size="12" fill="#6b7280">кристал вигоряє за мікросекунди</text>
+
+  <!-- БЛОК 4Б: Правило безпеки BTL -->
+  <rect x="664" y="262" width="272" height="176" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="800" y="284" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Правило безпеки BTL</text>
+  <line x1="680" y1="294" x2="920" y2="294" stroke="#c3e6cb" stroke-width="1"/>
+  <text x="680" y="312" font-size="12" font-weight="bold" fill="#1a1a1a">• Обидва виходи активні:</text>
+  <text x="692" y="328" font-size="12" fill="#6b7280">постійне зміщення VDD/2 (2.5 В)</text>
+  <text x="680" y="352" font-size="12" font-weight="bold" fill="#27ae60">• Ізольоване навантаження:</text>
+  <text x="692" y="368" font-size="12" fill="#27ae60">жоден вивід не з'єднувати з GND!</text>
+  <text x="680" y="392" font-size="12" font-weight="bold" fill="#1a1a1a">• Заборонено спільну землю:</text>
+  <text x="692" y="408" font-size="12" fill="#6b7280">несумісно зі спільною GND джека</text>
+</svg>

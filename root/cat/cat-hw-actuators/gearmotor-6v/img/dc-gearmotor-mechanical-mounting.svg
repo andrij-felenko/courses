@@ -1,0 +1,195 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок (відступ зверху >= 20 px) -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Монтаж мотор-редуктора 6 В: фланець M3 та фіксація D-вала</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Контроль глибини гвинтів захищає шестерні, а стопорний гвинт муфти затискають на лисці</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Фланець та глибина різьби M3 -->
+  <rect x="24" y="80" width="446" height="434" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Передній фланець і глибина загвинчування M3</text>
+
+  <!-- Фланець: вигляд спереду -->
+  <circle cx="116" cy="184" r="42" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="116" cy="184" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 111,178.5 A 7 7 0 1 0 121,178.5 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  
+  <!-- Осьові лінії фланця -->
+  <line x1="64" y1="184" x2="168" y2="184" stroke="#6b7280" stroke-width="0.8" stroke-dasharray="6,3,2,3"/>
+  <line x1="116" y1="132" x2="116" y2="236" stroke="#6b7280" stroke-width="0.8" stroke-dasharray="6,3,2,3"/>
+
+  <!-- Ділильне коло PCD M3 -->
+  <circle cx="116" cy="184" r="28" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- 6 монтажних отворів M3 -->
+  <circle cx="144" cy="184" r="3.5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="130" cy="208.2" r="3.5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="102" cy="208.2" r="3.5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="88" cy="184" r="3.5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="102" cy="159.8" r="3.5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="130" cy="159.8" r="3.5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Специфікація фланця праворуч -->
+  <rect x="184" y="122" width="270" height="122" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="196" y="142" font-size="12" font-weight="bold" fill="#2457d6">Параметри фланця (тип 25GA):</text>
+  <text x="196" y="162" font-size="12" fill="#1a1a1a">• Діаметр фланця: Ø25 мм</text>
+  <text x="196" y="182" font-size="12" fill="#1a1a1a">• Монтажні отвори: 6 × M3</text>
+  <text x="196" y="202" font-size="12" fill="#1a1a1a">• Коло отворів PCD: Ø17 мм</text>
+  <text x="196" y="220" font-size="12" fill="#1a1a1a">• Виступ підшипника: Ø7 × 2 мм</text>
+  <text x="196" y="236" font-size="12" font-weight="bold" fill="#c0392b">• Глибина в тілі: макс. 3 мм!</text>
+
+  <!-- Підсекція поздовжнього розрізу M3 -->
+  <text x="247" y="271" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Поздовжній розріз: обмеження глибини різьби M3</text>
+
+  <!-- Картка 1: Правильно -->
+  <rect x="38" y="284" width="200" height="220" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="138" y="304" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ПРАВИЛЬНО: різьба ≤ 3.0 мм</text>
+
+  <!-- Деталі Картки 1 через path -->
+  <path d="M 52,322 L 66,322 L 66,406 L 52,406 Z" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 66,322 L 92,322 L 92,406 L 66,406 Z" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <path d="M 136,326 L 158,326 L 158,402 L 136,402 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <path d="M 130,332 L 136,332 L 136,340 L 130,340 Z" fill="#2457d6"/>
+  <path d="M 130,348 L 136,348 L 136,356 L 130,356 Z" fill="#2457d6"/>
+  <path d="M 130,364 L 136,364 L 136,372 L 130,372 Z" fill="#2457d6"/>
+  <path d="M 130,380 L 136,380 L 136,388 L 130,388 Z" fill="#2457d6"/>
+  <path d="M 130,394 L 136,394 L 136,402 L 130,402 Z" fill="#2457d6"/>
+  <path d="M 40,358 L 52,358 L 52,378 L 40,378 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <path d="M 52,362 L 84,362 L 84,374 L 52,374 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <line x1="88" y1="368" x2="126" y2="368" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+  <!-- Підписи Картки 1 внизу -->
+  <text x="138" y="430" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зазор до шестерень &gt; 1 мм</text>
+  <text x="138" y="449" font-size="12" fill="#1a1a1a" text-anchor="middle">Гвинт не дістає до зубців</text>
+  <text x="138" y="468" font-size="12" fill="#1a1a1a" text-anchor="middle">Вільне обертання редуктора</text>
+  <text x="138" y="487" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Штатний робочий режим</text>
+
+  <!-- Картка 2: Небезпечно -->
+  <rect x="254" y="284" width="200" height="220" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="354" y="304" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">НЕБЕЗПЕЧНО: різьба &gt; 3.5 мм</text>
+
+  <!-- Деталі Картки 2 через path -->
+  <path d="M 268,322 L 282,322 L 282,406 L 268,406 Z" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 282,322 L 308,322 L 308,406 L 282,406 Z" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <path d="M 352,326 L 374,326 L 374,402 L 352,402 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <path d="M 346,332 L 352,332 L 352,340 L 346,340 Z" fill="#c0392b"/>
+  <path d="M 346,348 L 352,348 L 352,356 L 346,356 Z" fill="#c0392b"/>
+  <path d="M 346,364 L 352,364 L 352,372 L 346,372 Z" fill="#c0392b"/>
+  <path d="M 346,380 L 352,380 L 352,388 L 346,388 Z" fill="#c0392b"/>
+  <path d="M 346,394 L 352,394 L 352,402 L 346,402 Z" fill="#c0392b"/>
+  <path d="M 256,358 L 268,358 L 268,378 L 256,378 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <path d="M 268,362 L 346,362 L 346,374 L 268,374 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="346" cy="368" r="7" fill="#c0392b"/>
+  <path d="M 343,365 L 349,371 M 349,365 L 343,371" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Підписи Картки 2 внизу -->
+  <text x="354" y="430" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Гвинт уперся в шестерню!</text>
+  <text x="354" y="449" font-size="12" fill="#1a1a1a" text-anchor="middle">Механічне заклинювання</text>
+  <text x="354" y="468" font-size="12" fill="#c0392b" text-anchor="middle">Струм блокування мотора</text>
+  <text x="354" y="487" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зрізання зубів або перегрів</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: D-вал і стопорний гвинт -->
+  <rect x="490" y="80" width="446" height="434" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="713" y="103" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Геометрія D-вала і фіксація муфти колеса</text>
+
+  <!-- Вал: вигляд збоку через path -->
+  <path d="M 506,156 L 520,156 L 520,212 L 506,212 Z" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <path d="M 520,164 L 530,164 L 530,204 L 520,204 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <!-- Тіло вала з виступом і лискою -->
+  <path d="M 530,171 L 544,171 L 544,175 L 612,175 L 612,197 L 530,197 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="544" y1="175" x2="612" y2="175" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Розміри вала: лиска 8 мм -->
+  <line x1="544" y1="171" x2="544" y2="148" stroke="#6b7280" stroke-width="0.8"/>
+  <line x1="612" y1="171" x2="612" y2="148" stroke="#6b7280" stroke-width="0.8"/>
+  <line x1="544" y1="151" x2="612" y2="151" stroke="#2457d6" stroke-width="1" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="578" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">8 мм</text>
+
+  <!-- Розміри вала: повна довжина 10 мм -->
+  <line x1="530" y1="197" x2="530" y2="220" stroke="#6b7280" stroke-width="0.8"/>
+  <line x1="612" y1="197" x2="612" y2="220" stroke="#6b7280" stroke-width="0.8"/>
+  <line x1="530" y1="215" x2="612" y2="215" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="571" y="230" font-size="12" fill="#1a1a1a" text-anchor="middle">10 мм</text>
+
+  <!-- Поперечний переріз D-профілю вала -->
+  <path d="M 667,164 L 701,164 A 26 26 0 1 1 667,164 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="667" y1="164" x2="701" y2="164" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="648" y1="184" x2="720" y2="184" stroke="#6b7280" stroke-width="0.8" stroke-dasharray="6,3,2,3"/>
+  <line x1="684" y1="154" x2="684" y2="218" stroke="#6b7280" stroke-width="0.8" stroke-dasharray="6,3,2,3"/>
+
+  <!-- Специфікація D-профілю -->
+  <rect x="748" y="122" width="176" height="122" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="758" y="142" font-size="12" font-weight="bold" fill="#2457d6">Геометрія D-вала:</text>
+  <text x="758" y="162" font-size="12" fill="#1a1a1a">• Діаметр тіла: Ø4.0 мм</text>
+  <text x="758" y="182" font-size="12" fill="#1a1a1a">• По лисці: 3.5 мм</text>
+  <text x="758" y="202" font-size="12" fill="#1a1a1a">• Глибина лиски: 0.5 мм</text>
+  <text x="758" y="220" font-size="12" fill="#1a1a1a">• Довжина лиски: 8 мм</text>
+  <text x="758" y="236" font-size="12" font-weight="bold" fill="#2457d6">• Площина під гужон</text>
+
+  <!-- Підсекція посадки муфти -->
+  <text x="713" y="271" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Посадка муфти: положення стопорного гвинта (гужона)</text>
+
+  <!-- Картка 1: Правильна посадка муфти -->
+  <rect x="504" y="284" width="200" height="220" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="604" y="304" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ПРАВИЛЬНО: гвинт на лиску</text>
+
+  <!-- Деталі вузла муфти Картки 1 -->
+  <circle cx="604" cy="370" r="36" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 593,356 L 615,356 A 18 18 0 1 1 593,356 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="593" y1="356" x2="615" y2="356" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Різьбовий канал муфти та гужон -->
+  <path d="M 598,334 L 610,334 L 610,356 L 598,356 Z" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 599,337 L 609,337 L 609,356 L 599,356 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <line x1="602" y1="338" x2="606" y2="338" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="604" y1="320" x2="604" y2="332" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Підписи Картки 1 внизу -->
+  <text x="604" y="430" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Упор у плоску грань лиски</text>
+  <text x="604" y="449" font-size="12" fill="#1a1a1a" text-anchor="middle">Повна передача моменту</text>
+  <text x="604" y="468" font-size="12" fill="#1a1a1a" text-anchor="middle">Без задирок на циліндрі</text>
+  <text x="604" y="487" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Легкий демонтаж колеса</text>
+
+  <!-- Картка 2: Помилкова посадка муфти -->
+  <rect x="720" y="284" width="200" height="220" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="820" y="304" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ПОМИЛКА: гвинт на коло вала</text>
+
+  <!-- Деталі вузла муфти Картки 2 -->
+  <circle cx="820" cy="370" r="36" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 807,384 L 833,384 A 18 18 0 1 0 807,384 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="807" y1="384" x2="833" y2="384" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Різьбовий канал та гужон -->
+  <path d="M 814,334 L 826,334 L 826,352 L 814,352 Z" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 815,336 L 825,336 L 825,352 L 815,352 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="818" y1="337" x2="822" y2="337" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="820" cy="352" r="4" fill="#c0392b"/>
+
+  <!-- Підписи Картки 2 внизу -->
+  <text x="820" y="430" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Точковий упор у коло</text>
+  <text x="820" y="449" font-size="12" fill="#c0392b" text-anchor="middle">Провертання під навантагою</text>
+  <text x="820" y="468" font-size="12" fill="#1a1a1a" text-anchor="middle">Задирки на циліндрі вала</text>
+  <text x="820" y="487" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Клин при спробі демонтажу</text>
+</svg>

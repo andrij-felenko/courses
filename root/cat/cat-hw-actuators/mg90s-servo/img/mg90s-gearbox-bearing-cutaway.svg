@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок схеми -->
+  <text x="480" y="27" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Редуктор MG90S V2: кінематична схема та вузол вихідного вала</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Металеві шестерні (латунь/алюміній), кулькова вальниця верхньої опори та захист від радіального зламу</text>
+
+  <!-- ======================================================== -->
+  <!-- ЛІВА ПАНЕЛЬ: Кінематичний ланцюг редуктора              -->
+  <!-- ======================================================== -->
+  <rect x="24" y="62" width="446" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="86" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Кінематичний ланцюг редуктора (~1:300)</text>
+  <text x="247" y="104" text-anchor="middle" font-size="12" fill="#6b7280">Передача крутного моменту від високооборотного мотора</text>
+
+  <!-- Ступінь 1: Піньйон мотора -->
+  <rect x="40" y="118" width="195" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="136" font-size="13" font-weight="bold" fill="#2457d6">1. Піньйон мотора (латунь)</text>
+  <text x="50" y="156" font-size="12" fill="#1a1a1a">Зубці: Z1 = 10 (m = 0.2 мм)</text>
+  <text x="50" y="174" font-size="12" fill="#6b7280">Оберти: ω ≈ 12 000 об/хв</text>
+  <text x="50" y="192" font-size="12" fill="#6b7280">Момент: M_вх ≈ 0.07 кг·см</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="235" y1="160" x2="253" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Ступінь 2: Проміжна шестерня 1 -->
+  <rect x="255" y="118" width="195" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="265" y="136" font-size="13" font-weight="bold" fill="#2457d6">2. Ступінь 1 (латунь)</text>
+  <text x="265" y="156" font-size="12" fill="#1a1a1a">Вінці: Z2 = 34 / Z3 = 11</text>
+  <text x="265" y="174" font-size="12" fill="#6b7280">Високі контактні швидкості</text>
+  <text x="265" y="192" font-size="12" fill="#6b7280">Зниження швидкості: ~3.1:1</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="352" y1="202" x2="352" y2="212" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Ступінь 3: Проміжні шестерні 2 і 3 -->
+  <rect x="255" y="214" width="195" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="265" y="232" font-size="13" font-weight="bold" fill="#2457d6">3. Ступені 2 і 3 (Al-сплав)</text>
+  <text x="265" y="252" font-size="12" fill="#1a1a1a">Вінці: Z4/Z5 та Z6/Z7</text>
+  <text x="265" y="270" font-size="12" fill="#6b7280">Збільшений модуль зуба m</text>
+  <text x="265" y="288" font-size="12" fill="#6b7280">Сумарне i_пром ≈ 25:1</text>
+
+  <!-- Стрілка 3 -> 4 -->
+  <line x1="255" y1="256" x2="237" y2="256" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Ступінь 4: Вихідна шестерня -->
+  <rect x="40" y="214" width="195" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="232" font-size="13" font-weight="bold" fill="#2457d6">4. Вихідний вал (20T, Al)</text>
+  <text x="50" y="252" font-size="12" fill="#1a1a1a">Сектор Z8 = 42 (стопор 180°)</text>
+  <text x="50" y="270" font-size="12" fill="#6b7280">Оберти: ω ≈ 500°/с (0.1 с/60°)</text>
+  <text x="50" y="288" font-size="12" fill="#6b7280">Момент: M = 2.2 кг·см (пік)</text>
+
+  <!-- Підсумкова картка властивостей передачі моменту -->
+  <rect x="40" y="310" width="410" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="54" y="331" font-size="13" font-weight="bold" fill="#2457d6">Передача крутного моменту та вибір матеріалів</text>
+  <text x="54" y="352" font-size="12" fill="#1a1a1a">• Передатне число i ≈ 1:300 знижує кутову швидкість у 300 разів</text>
+  <text x="54" y="371" font-size="12" fill="#1a1a1a">• Момент зростає пропорційно: M_вих = M_вх · i · η (ККД η ≈ 70%)</text>
+  <text x="54" y="390" font-size="12" fill="#1a1a1a">• Вхідні шестерні з латуні: мінімальний знос при високих обертах</text>
+  <text x="54" y="409" font-size="12" fill="#1a1a1a">• Вихідні шестерні з Al: міцність при ударних піках навантаження</text>
+
+  <!-- ======================================================== -->
+  <!-- ПРАВА ПАНЕЛЬ: Конструктивний розріз вихідного вузла      -->
+  <!-- ======================================================== -->
+  <rect x="490" y="62" width="446" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="713" y="86" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Конструктивний розріз вузла вихідного вала</text>
+  <text x="713" y="104" text-anchor="middle" font-size="12" fill="#6b7280">Кулькова вальниця верхньої кришки, стопор 180° та потенціометр</text>
+
+  <!-- Складальне креслення зліва в панелі (x: 520..660) -->
+  <!-- Підпис серворога -->
+  <text x="580" y="132" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Серворіг (важіль)</text>
+
+  <!-- Серворіг (качалка) -->
+  <rect x="540" y="142" width="100" height="14" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Радіальна сила Fr на важіль -->
+  <line x1="645" y1="149" x2="673" y2="149" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="660" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">F_r</text>
+
+  <!-- Вихідний шліцьовий вал (верхня частина) -->
+  <rect x="572" y="156" width="16" height="14" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Верхня пластикова кришка корпусу (стінки гнізда підшипника) -->
+  <rect x="520" y="170" width="28" height="46" rx="2" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="612" y="170" width="28" height="46" rx="2" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Вузол кулькової вальниці -->
+  <!-- Зовнішні кільця підшипника (запресовані в кришку) -->
+  <rect x="548" y="172" width="6" height="42" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="606" y="172" width="6" height="42" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Кульки підшипника (зелений акцент V2) -->
+  <circle cx="560" cy="183" r="4" fill="#27ae60" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="560" cy="203" r="4" fill="#27ae60" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="600" cy="183" r="4" fill="#27ae60" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="600" cy="203" r="4" fill="#27ae60" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Внутрішні кільця підшипника (посаджені на вал) -->
+  <rect x="566" y="172" width="6" height="42" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="588" y="172" width="6" height="42" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Вал через підшипник -->
+  <rect x="572" y="170" width="16" height="46" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Стрілки реакції вальниці проти сили Fr -->
+  <line x1="612" y1="193" x2="602" y2="193" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="548" y1="193" x2="558" y2="193" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Вал між підшипником і вихідною шестернею -->
+  <rect x="572" y="216" width="16" height="24" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Механічний стопор (виступ на шестерні та приплив кришки) -->
+  <rect x="634" y="218" width="12" height="22" rx="1" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="620" y="226" width="14" height="14" rx="1" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Вихідна шестерня Z8 -->
+  <rect x="530" y="240" width="100" height="24" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="524" y="244" width="6" height="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="630" y="244" width="6" height="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Нижній хвостовик вала зі шліцом -->
+  <rect x="574" y="264" width="12" height="66" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="577" y="318" width="6" height="12" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Потенціометр зворотного зв'язку -->
+  <rect x="535" y="340" width="90" height="70" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="580" y="365" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Датчик кута</text>
+  <text x="580" y="385" text-anchor="middle" font-size="12" fill="#6b7280">10 кОм</text>
+
+  <!-- Виводи потенціометра вниз до плати -->
+  <line x1="560" y1="410" x2="560" y2="425" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="580" y1="410" x2="580" y2="425" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="600" y1="410" x2="600" y2="425" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Лінії-виноски від креслення до карток справа -->
+  <line x1="612" y1="164" x2="680" y2="164" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-green)"/>
+  <line x1="636" y1="266" x2="680" y2="266" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-red)"/>
+  <line x1="626" y1="376" x2="680" y2="376" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-blue)"/>
+
+  <!-- Пояснювальні картки справа (x: 685..920) -->
+  <!-- Картка А: Кулькова вальниця -->
+  <rect x="685" y="120" width="235" height="88" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="697" y="139" font-size="13" font-weight="bold" fill="#27ae60">Кулькова вальниця кришки</text>
+  <text x="697" y="158" font-size="12" fill="#1a1a1a">• Радіальний підшипник у кришці</text>
+  <text x="697" y="176" font-size="12" fill="#1a1a1a">• Сприймає бічне навантаження F_r</text>
+  <text x="697" y="194" font-size="12" fill="#6b7280">• Усуває радіальний люфт і перекіс</text>
+
+  <!-- Картка Б: Механічний стопор -->
+  <rect x="685" y="222" width="235" height="88" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="697" y="241" font-size="13" font-weight="bold" fill="#c0392b">Механічний стопор 180°</text>
+  <text x="697" y="260" font-size="12" fill="#1a1a1a">• Литий упор шестерні та корпусу</text>
+  <text x="697" y="278" font-size="12" fill="#1a1a1a">• Фіксує сектор обертання вала</text>
+  <text x="697" y="296" font-size="12" fill="#6b7280">• Захищає датчик від провороту</text>
+
+  <!-- Картка В: Спряження з потенціометром -->
+  <rect x="685" y="324" width="235" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="697" y="343" font-size="13" font-weight="bold" fill="#2457d6">Спряження з потенціометром</text>
+  <text x="697" y="362" font-size="12" fill="#1a1a1a">• Жорсткий паз на кінці вала</text>
+  <text x="697" y="380" font-size="12" fill="#1a1a1a">• Безлюфтова передача кута θ</text>
+  <text x="697" y="398" font-size="12" fill="#1a1a1a">• Датчик 10 кОм формує напругу V_fb</text>
+  <text x="697" y="416" font-size="12" fill="#6b7280">• Замкнений контур стеження</text>
+</svg>

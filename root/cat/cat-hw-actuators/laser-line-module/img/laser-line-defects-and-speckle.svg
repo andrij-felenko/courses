@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <linearGradient id="grad-blur" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#ef4444" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оптичні дефекти лазерної лінії в системах машинного зору</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Оптичні аномалії та механічний знос спотворюють форму кривої інтенсивності лінії під час обробки комп'ютерним зором</text>
+
+  <!-- Panel 1 -->
+  <rect x="24" y="84" width="293" height="352" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170.5" y="112" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Спекл-шум (зернистість)</text>
+  <text x="170.5" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Фазова інтерференція відбиття</text>
+  <text x="44" y="146" font-size="12" fill="#6b7280">Смуга на матриці камери</text>
+  <rect x="40" y="156" width="261" height="28" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <ellipse cx="169" cy="170" rx="22" ry="11" fill="#ef4444" opacity="0.25"/>
+  <ellipse cx="169" cy="170" rx="10" ry="11" fill="#ef4444" opacity="0.55"/>
+  <circle cx="161" cy="165" r="1.8" fill="#ffffff" opacity="0.9"/>
+  <circle cx="168" cy="163" r="2.2" fill="#ffffff" opacity="0.95"/>
+  <circle cx="176" cy="166" r="1.7" fill="#ffffff" opacity="0.85"/>
+  <circle cx="164" cy="171" r="2.0" fill="#ffffff" opacity="0.9"/>
+  <circle cx="172" cy="172" r="2.4" fill="#ffffff" opacity="0.95"/>
+  <circle cx="160" cy="176" r="1.6" fill="#ffffff" opacity="0.8"/>
+  <circle cx="169" cy="177" r="2.1" fill="#ffffff" opacity="0.9"/>
+  <circle cx="177" cy="175" r="1.9" fill="#ffffff" opacity="0.85"/>
+  <circle cx="166" cy="167" r="1.8" fill="#0f172a" opacity="0.9"/>
+  <circle cx="170" cy="169" r="1.6" fill="#0f172a" opacity="0.85"/>
+  <circle cx="165" cy="174" r="1.9" fill="#0f172a" opacity="0.9"/>
+  <text x="44" y="208" font-size="12" font-weight="bold" fill="#1a1a1a">Профіль I(x)</text>
+  <text x="297" y="208" font-size="12" fill="#6b7280" text-anchor="end">пунктир — норма</text>
+  <line x1="64" y1="296" x2="64" y2="220" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="64" y1="296" x2="281" y2="296" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="48" y="232" font-size="12" fill="#6b7280" text-anchor="end">I</text>
+  <text x="301" y="299" font-size="12" fill="#6b7280" text-anchor="end">x</text>
+  <path d="M 89 296 C 134 296, 149 230, 169 230 C 189 230, 204 296, 249 296" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <path d="M 89 296 C 129 296, 142 260, 149 252 L 154 234 L 158 246 L 163 228 L 168 242 L 172 226 L 177 244 L 182 232 L 188 254 C 196 264, 209 296, 249 296" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <rect x="38" y="318" width="265" height="104" rx="6" fill="#fdecea" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="342" font-size="12" font-weight="bold" fill="#c0392b">Помилка CV: шум і джитер</text>
+  <text x="50" y="364" font-size="12" fill="#1a1a1a">Дрібні флуктуації вершини</text>
+  <text x="50" y="386" font-size="12" fill="#1a1a1a">Джитер центру лінії: ±1–3 px</text>
+  <text x="50" y="408" font-size="12" fill="#6b7280">Зрив параболічного фітингу</text>
+
+  <!-- Panel 2 -->
+  <rect x="333" y="84" width="294" height="352" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480.0" y="112" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Асиметричне розмиття</text>
+  <text x="480.0" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Перекіс циліндричної лінзи</text>
+  <text x="353" y="146" font-size="12" fill="#6b7280">Смуга на матриці камери</text>
+  <rect x="349" y="156" width="262" height="28" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <path d="M 457 159 h 8 v 22 h -8 Z" fill="#ef4444" opacity="0.85"/>
+  <path d="M 459 159 h 2 v 22 h -2 Z" fill="#ffffff" opacity="0.9"/>
+  <path d="M 465 159 h 55 v 22 h -55 Z" fill="url(#grad-blur)"/>
+  <text x="353" y="208" font-size="12" font-weight="bold" fill="#1a1a1a">Профіль I(x)</text>
+  <text x="607" y="208" font-size="12" fill="#6b7280" text-anchor="end">пунктир — норма</text>
+  <line x1="373" y1="296" x2="373" y2="220" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="373" y1="296" x2="591" y2="296" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="357" y="232" font-size="12" fill="#6b7280" text-anchor="end">I</text>
+  <text x="611" y="299" font-size="12" fill="#6b7280" text-anchor="end">x</text>
+  <path d="M 398 296 C 443 296, 458 230, 478 230 C 498 230, 513 296, 558 296" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <path d="M 418 296 C 438 296, 451 238, 461 238 C 475 238, 498 268, 528 284 C 548 292, 568 296, 583 296" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <line x1="461" y1="238" x2="461" y2="296" stroke="#c0392b" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="485" y1="255" x2="485" y2="296" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2"/>
+  <rect x="347" y="318" width="266" height="104" rx="6" fill="#fdecea" stroke="#d0d7de" stroke-width="1"/>
+  <text x="359" y="342" font-size="12" font-weight="bold" fill="#c0392b">Помилка CV: зміщення осі</text>
+  <text x="359" y="364" font-size="12" fill="#1a1a1a">Широкий асиметричний хвіст</text>
+  <text x="359" y="386" font-size="12" fill="#1a1a1a">Зсув центроїда (Δx): 2–5 px</text>
+  <text x="359" y="408" font-size="12" fill="#6b7280">Систематична похибка глибини</text>
+
+  <!-- Panel 3 -->
+  <rect x="643" y="84" width="293" height="352" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="789.5" y="112" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Подвійний пік смуги</text>
+  <text x="789.5" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Скол вихідної грані кристала</text>
+  <text x="663" y="146" font-size="12" fill="#6b7280">Смуга на матриці камери</text>
+  <rect x="659" y="156" width="261" height="28" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+  <ellipse cx="763" cy="170" rx="6" ry="11" fill="#ef4444" opacity="0.85"/>
+  <ellipse cx="763" cy="170" rx="2" ry="9" fill="#ffffff" opacity="0.85"/>
+  <ellipse cx="813" cy="170" rx="7" ry="11" fill="#ef4444" opacity="0.75"/>
+  <ellipse cx="813" cy="170" rx="2.2" ry="9" fill="#fed7aa" opacity="0.8"/>
+  <text x="663" y="208" font-size="12" font-weight="bold" fill="#1a1a1a">Профіль I(x)</text>
+  <text x="916" y="208" font-size="12" fill="#6b7280" text-anchor="end">пунктир — норма</text>
+  <line x1="683" y1="296" x2="683" y2="220" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="683" y1="296" x2="900" y2="296" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="667" y="232" font-size="12" fill="#6b7280" text-anchor="end">I</text>
+  <text x="920" y="299" font-size="12" fill="#6b7280" text-anchor="end">x</text>
+  <path d="M 708 296 C 753 296, 768 230, 788 230 C 808 230, 823 296, 868 296" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <path d="M 718 296 C 738 296, 751 240, 763 236 C 771 236, 778 268, 788 268 C 798 268, 805 242, 813 242 C 823 242, 838 296, 863 296" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <rect x="657" y="318" width="265" height="104" rx="6" fill="#fdecea" stroke="#d0d7de" stroke-width="1"/>
+  <text x="669" y="342" font-size="12" font-weight="bold" fill="#c0392b">Помилка CV: розрив профілю</text>
+  <text x="669" y="364" font-size="12" fill="#1a1a1a">Два роздільних максимуми</text>
+  <text x="669" y="386" font-size="12" fill="#1a1a1a">Стрибки алгоритму між піками</text>
+  <text x="669" y="408" font-size="12" fill="#6b7280">Грубі фантомні сходинки 3D</text>
+</svg>

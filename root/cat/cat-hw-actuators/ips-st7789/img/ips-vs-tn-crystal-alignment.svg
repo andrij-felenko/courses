@@ -1,0 +1,273 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Орієнтація рідких кристалів у комірках TN та IPS</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Планарний поворот молекул в IPS забезпечує кут огляду 178° без інверсії кольорів</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: TN ==================== -->
+  <rect x="24" y="78" width="448" height="436" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="248" y="102" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">TN (Twisted Nematic) — поздовжнє поле</text>
+  <text x="248" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Електроди зверху й знизу • поляризатори схрещені 90°/0°</text>
+
+  <!-- TN: 0 В (стан спокою) -->
+  <rect x="38" y="132" width="204" height="272" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="140" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0 В (стан спокою)</text>
+
+  <rect x="52" y="156" width="176" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="140" y="170" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Світло проходить (ON)</text>
+
+  <!-- Промінь виходу світла -->
+  <line x1="140" y1="186" x2="140" y2="178" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Верхній поляризатор -->
+  <rect x="52" y="186" width="176" height="6" fill="#374151" rx="1"/>
+  <!-- Верхнє скло -->
+  <rect x="52" y="194" width="176" height="10" fill="#d0d7de" rx="1"/>
+  <!-- Верхній електрод ITO -->
+  <rect x="52" y="205" width="176" height="3" fill="#2457d6" opacity="0.75"/>
+
+  <!-- Комірка рідких кристалів -->
+  <rect x="52" y="209" width="176" height="68" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Молекули TN 0V: закручування 90° від низу до верху -->
+  <!-- Рівень 4 (верхній, 90° - погляд у торець) -->
+  <circle cx="100" cy="219" r="3.5" fill="#2457d6" opacity="0.85"/>
+  <circle cx="140" cy="219" r="3.5" fill="#2457d6" opacity="0.85"/>
+  <circle cx="180" cy="219" r="3.5" fill="#2457d6" opacity="0.85"/>
+  <!-- Рівень 3 (~60°) -->
+  <rect x="94" y="232" width="12" height="6" rx="3" fill="#2457d6" opacity="0.85"/>
+  <rect x="134" y="232" width="12" height="6" rx="3" fill="#2457d6" opacity="0.85"/>
+  <rect x="174" y="232" width="12" height="6" rx="3" fill="#2457d6" opacity="0.85"/>
+  <!-- Рівень 2 (~30°) -->
+  <rect x="91" y="248" width="18" height="6" rx="3" fill="#2457d6" opacity="0.85"/>
+  <rect x="131" y="248" width="18" height="6" rx="3" fill="#2457d6" opacity="0.85"/>
+  <rect x="171" y="248" width="18" height="6" rx="3" fill="#2457d6" opacity="0.85"/>
+  <!-- Рівень 1 (нижній, 0° - горизонтальні) -->
+  <rect x="88" y="264" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/>
+  <rect x="128" y="264" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/>
+  <rect x="168" y="264" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/>
+
+  <!-- Спіральний орієнтир 90° -->
+  <path d="M 206 267 C 216 255, 216 231, 206 219" fill="none" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="2 2"/>
+
+  <!-- Нижній електрод ITO -->
+  <rect x="52" y="278" width="176" height="3" fill="#2457d6" opacity="0.75"/>
+  <!-- Нижнє скло -->
+  <rect x="52" y="283" width="176" height="10" fill="#d0d7de" rx="1"/>
+  <!-- Нижній поляризатор -->
+  <rect x="52" y="295" width="176" height="6" fill="#374151" rx="1"/>
+
+  <!-- Промінь підсвічування -->
+  <line x1="140" y1="314" x2="140" y2="303" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="140" y="328" font-size="12" fill="#6b7280" text-anchor="middle">Підсвічування</text>
+
+  <text x="140" y="348" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Закрутка спіралі 90°</text>
+  <text x="140" y="365" font-size="12" fill="#6b7280" text-anchor="middle">Повертає поляризацію</text>
+  <text x="140" y="382" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Відкритий піксель</text>
+
+  <!-- TN: U > 0 (під напругою) -->
+  <rect x="254" y="132" width="204" height="272" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="356" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">U &gt; 0 (під напругою)</text>
+
+  <rect x="268" y="156" width="176" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="356" y="170" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Світло блокується (OFF)</text>
+
+  <!-- Заблокований промінь (хрестик блокування) -->
+  <line x1="352" y1="179" x2="360" y2="185" stroke="#c0392b" stroke-width="2"/>
+  <line x1="360" y1="179" x2="352" y2="185" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Верхній поляризатор -->
+  <rect x="268" y="186" width="176" height="6" fill="#374151" rx="1"/>
+  <!-- Верхнє скло -->
+  <rect x="268" y="194" width="176" height="10" fill="#d0d7de" rx="1"/>
+  <!-- Верхній електрод ITO -->
+  <rect x="268" y="205" width="176" height="3" fill="#2457d6" opacity="0.75"/>
+
+  <!-- Комірка рідких кристалів -->
+  <rect x="268" y="209" width="176" height="68" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Вертикальні силові лінії E -->
+  <line x1="298" y1="210" x2="298" y2="276" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="414" y1="210" x2="414" y2="276" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Молекули TN U>0: випростані вертикально -->
+  <rect x="314" y="215" width="6" height="24" rx="3" fill="#2457d6" opacity="0.85"/>
+  <rect x="314" y="245" width="6" height="24" rx="3" fill="#2457d6" opacity="0.85"/>
+  <rect x="353" y="215" width="6" height="24" rx="3" fill="#2457d6" opacity="0.85"/>
+  <rect x="353" y="245" width="6" height="24" rx="3" fill="#2457d6" opacity="0.85"/>
+  <rect x="392" y="215" width="6" height="24" rx="3" fill="#2457d6" opacity="0.85"/>
+  <rect x="392" y="245" width="6" height="24" rx="3" fill="#2457d6" opacity="0.85"/>
+
+  <!-- Нижній електрод ITO -->
+  <rect x="268" y="278" width="176" height="3" fill="#2457d6" opacity="0.75"/>
+  <!-- Нижнє скло -->
+  <rect x="268" y="283" width="176" height="10" fill="#d0d7de" rx="1"/>
+  <!-- Нижній поляризатор -->
+  <rect x="268" y="295" width="176" height="6" fill="#374151" rx="1"/>
+
+  <!-- Промінь підсвічування -->
+  <line x1="356" y1="314" x2="356" y2="303" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="356" y="328" font-size="12" fill="#6b7280" text-anchor="middle">Підсвічування</text>
+
+  <text x="356" y="348" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вертикальне поле E</text>
+  <text x="356" y="365" font-size="12" fill="#6b7280" text-anchor="middle">Молекули стають дибки</text>
+  <text x="356" y="382" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Закритий піксель</text>
+
+  <!-- Підсумковий блок TN (проблема з кутом) -->
+  <rect x="38" y="414" width="420" height="88" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="52" y="433" font-size="13" font-weight="bold" fill="#c0392b">Кут огляду ~90°–120° (вузький)</text>
+  <text x="52" y="452" font-size="12" fill="#1a1a1a">Вертикальний нахил створює оптичну асиметрію.</text>
+  <text x="52" y="469" font-size="12" fill="#1a1a1a">Під кутом падає контраст і виникає інверсія кольору.</text>
+  <text x="52" y="487" font-size="12" font-weight="bold" fill="#c0392b">Недолік: вицвітання й спотворення відтінків</text>
+
+  <!-- Міні-схема огляду TN -->
+  <line x1="335" y1="475" x2="415" y2="475" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="375" y="493" font-size="12" fill="#6b7280" text-anchor="middle">Екран TN</text>
+  <line x1="375" y1="475" x2="375" y2="442" stroke="#9ca3af" stroke-dasharray="2 2"/>
+  <line x1="375" y1="475" x2="347" y2="447" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="375" y1="475" x2="403" y2="447" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 353 453 A 32 32 0 0 1 397 453" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="375" y="431" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Кут ~90°</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: IPS ==================== -->
+  <rect x="488" y="78" width="448" height="436" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="712" y="102" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IPS (In-Plane Switching) — поперечне поле</text>
+  <text x="712" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Обидва електроди внизу • поляризатори схрещені 90°/0°</text>
+
+  <!-- IPS: 0 В (стан спокою) -->
+  <rect x="502" y="132" width="204" height="272" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="604" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0 В (стан спокою)</text>
+
+  <rect x="516" y="156" width="176" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="604" y="170" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Світло блокується (OFF)</text>
+
+  <!-- Заблокований промінь (хрестик блокування) -->
+  <line x1="600" y1="179" x2="608" y2="185" stroke="#c0392b" stroke-width="2"/>
+  <line x1="608" y1="179" x2="600" y2="185" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Верхній поляризатор -->
+  <rect x="516" y="186" width="176" height="6" fill="#374151" rx="1"/>
+  <!-- Верхнє скло -->
+  <rect x="516" y="194" width="176" height="10" fill="#d0d7de" rx="1"/>
+
+  <!-- Комірка рідких кристалів -->
+  <rect x="516" y="209" width="176" height="68" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Молекули IPS 0V: однорідні горизонтальні -->
+  <rect x="552" y="219" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/>
+  <rect x="592" y="219" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/>
+  <rect x="632" y="219" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/>
+
+  <rect x="552" y="239" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/>
+  <rect x="592" y="239" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/>
+  <rect x="632" y="239" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/>
+
+  <rect x="552" y="259" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/>
+  <rect x="592" y="259" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/>
+  <rect x="632" y="259" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/>
+
+  <!-- Нижні планарні електроди (0 В) -->
+  <rect x="548" y="274" width="24" height="6" rx="1" fill="#2457d6"/>
+  <rect x="636" y="274" width="24" height="6" rx="1" fill="#2457d6"/>
+
+  <!-- Нижнє скло -->
+  <rect x="516" y="283" width="176" height="10" fill="#d0d7de" rx="1"/>
+  <!-- Нижній поляризатор -->
+  <rect x="516" y="295" width="176" height="6" fill="#374151" rx="1"/>
+
+  <!-- Промінь підсвічування -->
+  <line x1="604" y1="314" x2="604" y2="303" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="604" y="328" font-size="12" fill="#6b7280" text-anchor="middle">Підсвічування</text>
+
+  <text x="604" y="348" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Планарний стан 0 В</text>
+  <text x="604" y="365" font-size="12" fill="#6b7280" text-anchor="middle">Кристали паралельні</text>
+  <text x="604" y="382" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Закритий (Normally Black)</text>
+
+  <!-- IPS: U > 0 (під напругою) -->
+  <rect x="718" y="132" width="204" height="272" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="820" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">U &gt; 0 (під напругою)</text>
+
+  <rect x="732" y="156" width="176" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="820" y="170" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Світло проходить (ON)</text>
+
+  <!-- Промінь виходу світла -->
+  <line x1="820" y1="186" x2="820" y2="178" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Верхній поляризатор -->
+  <rect x="732" y="186" width="176" height="6" fill="#374151" rx="1"/>
+  <!-- Верхнє скло -->
+  <rect x="732" y="194" width="176" height="10" fill="#d0d7de" rx="1"/>
+
+  <!-- Комірка рідких кристалів -->
+  <rect x="732" y="209" width="176" height="68" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Горизонтальні силові лінії поля E -->
+  <path d="M 776 270 Q 820 260 864 270" fill="none" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M 776 248 Q 820 238 864 248" fill="none" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M 776 226 Q 820 216 864 226" fill="none" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Молекули IPS U>0: планарно повернуті на ~30° -->
+  <g transform="rotate(-30, 768, 222)"><rect x="756" y="219" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/></g>
+  <g transform="rotate(-30, 820, 222)"><rect x="808" y="219" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/></g>
+  <g transform="rotate(-30, 872, 222)"><rect x="860" y="219" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/></g>
+
+  <g transform="rotate(-30, 768, 242)"><rect x="756" y="239" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/></g>
+  <g transform="rotate(-30, 820, 242)"><rect x="808" y="239" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/></g>
+  <g transform="rotate(-30, 872, 242)"><rect x="860" y="239" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/></g>
+
+  <g transform="rotate(-30, 768, 262)"><rect x="756" y="259" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/></g>
+  <g transform="rotate(-30, 820, 262)"><rect x="808" y="259" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/></g>
+  <g transform="rotate(-30, 872, 262)"><rect x="860" y="259" width="24" height="6" rx="3" fill="#2457d6" opacity="0.85"/></g>
+
+  <!-- Нижні планарні електроди (+ та -) -->
+  <rect x="764" y="274" width="24" height="6" rx="1" fill="#2457d6"/>
+  <rect x="852" y="274" width="24" height="6" rx="1" fill="#2457d6"/>
+
+  <!-- Нижнє скло -->
+  <rect x="732" y="283" width="176" height="10" fill="#d0d7de" rx="1"/>
+  <!-- Нижній поляризатор -->
+  <rect x="732" y="295" width="176" height="6" fill="#374151" rx="1"/>
+
+  <!-- Промінь підсвічування -->
+  <line x1="820" y1="314" x2="820" y2="303" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="820" y="328" font-size="12" fill="#6b7280" text-anchor="middle">Підсвічування</text>
+
+  <text x="820" y="348" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Планарне поле E</text>
+  <text x="820" y="365" font-size="12" fill="#6b7280" text-anchor="middle">Поворот на 45° у площині</text>
+  <text x="820" y="382" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Відкритий піксель</text>
+
+  <!-- Підсумковий блок IPS (перевага кута) -->
+  <rect x="502" y="414" width="420" height="88" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="516" y="433" font-size="13" font-weight="bold" fill="#27ae60">Кут огляду 178° (стабільний)</text>
+  <text x="516" y="452" font-size="12" fill="#1a1a1a">Кристали обертаються лише в площині підкладок.</text>
+  <text x="516" y="469" font-size="12" fill="#1a1a1a">Оптичний шар симетричний під будь-яким кутом.</text>
+  <text x="516" y="487" font-size="12" font-weight="bold" fill="#27ae60">Перевага: стабільні кольори та чіткий контраст</text>
+
+  <!-- Міні-схема огляду IPS -->
+  <line x1="799" y1="475" x2="879" y2="475" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="839" y="493" font-size="12" fill="#6b7280" text-anchor="middle">Екран IPS</text>
+  <line x1="839" y1="475" x2="839" y2="442" stroke="#9ca3af" stroke-dasharray="2 2"/>
+  <line x1="839" y1="475" x2="805" y2="473" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="839" y1="475" x2="873" y2="473" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M 805 473 A 34 34 0 0 1 873 473" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="839" y="431" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кут 178°</text>
+</svg>

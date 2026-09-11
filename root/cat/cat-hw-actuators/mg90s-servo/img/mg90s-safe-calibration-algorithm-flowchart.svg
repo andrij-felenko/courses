@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="26" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Алгоритм безпечного автокалібрування меж імпульсу ШІМ (t_min та t_max)</text>
+  <text x="480" y="46" font-size="13" fill="#6b7280" text-anchor="middle">Покроковий пошук механічних упорів за струмовим сплеском та програмний захисний відступ</text>
+
+  <!-- Панель 1: Фаза 1 (t_min) -->
+  <rect x="25" y="60" width="435" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="242" y="80" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ФАЗА 1: ПОШУК ЛІВОЇ МЕЖІ t_min (КУТ 0°)</text>
+
+  <!-- Панель 2: Фаза 2 (t_max) -->
+  <rect x="500" y="60" width="435" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="718" y="80" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ФАЗА 2: ПОШУК ПРАВОЇ МЕЖІ t_max (КУТ 180°)</text>
+
+  <!-- ==================== ЛІВА КОЛОНКА (ФАЗА 1) ==================== -->
+  <!-- L1: Старт -->
+  <rect x="107" y="92" width="270" height="38" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="242" y="107" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Старт: нейтраль t = 1500 мкс (90°)</text>
+  <text x="242" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Пауза стабілізації вала 500 мс</text>
+
+  <!-- Стрілка L1 -> L2 -->
+  <line x1="242" y1="130" x2="242" y2="144" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- L2: Крок зменшення -->
+  <rect x="107" y="146" width="270" height="34" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="242" y="168" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крок зменшення: t = t − 5 мкс</text>
+
+  <!-- Стрілка L2 -> L3 -->
+  <line x1="242" y1="180" x2="242" y2="194" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- L3: Видача ШІМ і вимірювання -->
+  <rect x="107" y="196" width="270" height="38" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="242" y="211" font-size="12" fill="#1a1a1a" text-anchor="middle">Генерація ШІМ(t), затримка 30 мс</text>
+  <text x="242" y="226" font-size="12" fill="#6b7280" text-anchor="middle">Вимірювання струму I_shunt через АЦП</text>
+
+  <!-- Стрілка L3 -> L4 -->
+  <line x1="242" y1="234" x2="242" y2="248" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- L4: Ромб перевірки упору -->
+  <polygon points="242,249 347,277 242,305 137,277" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="242" y="273" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_shunt &gt; 400 мА?</text>
+  <text x="242" y="289" font-size="12" fill="#6b7280" text-anchor="middle">(механічний упор)</text>
+
+  <!-- Петля повторення Фази 1 (Ні) -->
+  <path d="M137,277 L55,277 L55,163 L105,163" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="96" y="271" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Ні</text>
+
+  <!-- Стрілка L4 -> L5 (Так) -->
+  <line x1="242" y1="305" x2="242" y2="321" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="250" y="317" font-size="12" font-weight="bold" fill="#c0392b">Так</text>
+
+  <!-- L5: Фіксація t_min -->
+  <rect x="107" y="323" width="270" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="242" y="339" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фіксація упору: t_left_raw = t</text>
+  <text x="242" y="356" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_min = t_left_raw + 50 мкс (відступ)</text>
+
+  <!-- Перехід від Фази 1 до Фази 2 -->
+  <path d="M242,365 L242,405 L478,405 L478,111 L580,111" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="360" y="399" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_min знайдено → перехід до Фази 2</text>
+
+  <!-- ==================== ПРАВА КОЛОНКА (ФАЗА 2) ==================== -->
+  <!-- R1: Нейтраль і охолодження -->
+  <rect x="583" y="92" width="270" height="38" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="718" y="107" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Нейтраль: t = 1500 мкс (90°)</text>
+  <text x="718" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Пауза охолодження мотора 500 мс</text>
+
+  <!-- Стрілка R1 -> R2 -->
+  <line x1="718" y1="130" x2="718" y2="144" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- R2: Крок збільшення -->
+  <rect x="583" y="146" width="270" height="34" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="718" y="168" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крок збільшення: t = t + 5 мкс</text>
+
+  <!-- Стрілка R2 -> R3 -->
+  <line x1="718" y1="180" x2="718" y2="194" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- R3: Видача ШІМ і вимірювання -->
+  <rect x="583" y="196" width="270" height="38" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="718" y="211" font-size="12" fill="#1a1a1a" text-anchor="middle">Генерація ШІМ(t), затримка 30 мс</text>
+  <text x="718" y="226" font-size="12" fill="#6b7280" text-anchor="middle">Вимірювання струму I_shunt через АЦП</text>
+
+  <!-- Стрілка R3 -> R4 -->
+  <line x1="718" y1="234" x2="718" y2="248" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- R4: Ромб перевірки упору -->
+  <polygon points="718,249 823,277 718,305 613,277" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="718" y="273" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_shunt &gt; 400 мА?</text>
+  <text x="718" y="289" font-size="12" fill="#6b7280" text-anchor="middle">(механічний упор)</text>
+
+  <!-- Петля повторення Фази 2 (Ні) -->
+  <path d="M823,277 L905,277 L905,163 L855,163" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="864" y="271" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Ні</text>
+
+  <!-- Стрілка R4 -> R5 (Так) -->
+  <line x1="718" y1="305" x2="718" y2="321" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="726" y="317" font-size="12" font-weight="bold" fill="#c0392b">Так</text>
+
+  <!-- R5: Фіксація t_max -->
+  <rect x="583" y="323" width="270" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="718" y="339" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фіксація упору: t_right_raw = t</text>
+  <text x="718" y="356" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_max = t_right_raw − 50 мкс (відступ)</text>
+
+  <!-- Стрілка R5 -> R6 -->
+  <line x1="718" y1="365" x2="718" y2="379" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- R6: Фініш і збереження -->
+  <rect x="583" y="381" width="270" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="718" y="398" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фініш: збереження [t_min, t_max]</text>
+  <text x="718" y="414" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Запис в EEPROM / Flash мікроконтролера</text>
+</svg>

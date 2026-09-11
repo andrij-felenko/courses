@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+</defs>
+
+<!-- Фонова підкладка -->
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="26" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Електромагнітні завади (EMI) та обв'язка: клас AB проти класу D</text>
+<text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Лінійний підсилювач не випромінює ВЧ-завад, тоді як ШІМ-комутація створює гармоніки в радіоефірі</text>
+
+<!-- ==================== ЛІВА ПАНЕЛЬ: КЛАС AB ==================== -->
+<rect x="24" y="64" width="444" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Заголовок панелі та бейдж -->
+<text x="38" y="88" font-size="15" font-weight="700" fill="#1a1a1a">Клас AB (XPT8871) — лінійний</text>
+<rect x="296" y="72" width="158" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="375" y="88" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">ЧИСТИЙ РАДІОЕФІР</text>
+
+<!-- Секція 1: Схема обв'язки -->
+<rect x="38" y="106" width="416" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="50" y="122" font-size="12" font-weight="700" fill="#6b7280">СХЕМНА ОБВ'ЯЗКА ТА РАДІОМОДУЛЬ</text>
+
+<!-- Мікросхема XPT8871 -->
+<rect x="50" y="134" width="94" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="97" y="154" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">XPT8871</text>
+<text x="97" y="172" text-anchor="middle" font-size="12" fill="#2457d6">Клас AB (BTL)</text>
+
+<!-- Провідники до динаміка -->
+<line x1="144" y1="152" x2="228" y2="152" stroke="#27ae60" stroke-width="1.8"/>
+<line x1="144" y1="176" x2="228" y2="176" stroke="#27ae60" stroke-width="1.8"/>
+<text x="186" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Пряме з'єднання</text>
+<text x="186" y="194" text-anchor="middle" font-size="12" fill="#6b7280">без LC-фільтрів</text>
+
+<!-- Динамік -->
+<rect x="228" y="146" width="16" height="36" rx="2" fill="#6b7280"/>
+<polygon points="244,152 260,140 260,188 244,176" fill="#6b7280"/>
+<path d="M 266,156 A 10,10 0 0,1 266,172" fill="none" stroke="#27ae60" stroke-width="1.8"/>
+<path d="M 272,150 A 18,18 0 0,1 272,178" fill="none" stroke="#27ae60" stroke-width="1.8"/>
+<text x="244" y="206" text-anchor="middle" font-size="12" fill="#1a1a1a">Динамік</text>
+
+<!-- RF Приймач -->
+<rect x="318" y="134" width="122" height="52" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="379" y="154" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">RF-приймач</text>
+<text x="379" y="172" text-anchor="middle" font-size="12" fill="#6b7280">433 МГц / 2.4 ГГц</text>
+
+<!-- Антена приймача -->
+<line x1="340" y1="134" x2="340" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="332" y1="120" x2="348" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="332" y1="114" x2="332" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="348" y1="114" x2="348" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="379" y="206" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Чистий прийом</text>
+
+<!-- Секція 2: Спектр EMI -->
+<rect x="38" y="232" width="416" height="144" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="50" y="248" font-size="12" font-weight="700" fill="#6b7280">СПЕКТР ВИПРОМІНЮВАННЯ (EMI В ЕФІРІ)</text>
+
+<!-- Осі графіка -->
+<line x1="78" y1="336" x2="438" y2="336" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+<line x1="78" y1="336" x2="78" y2="262" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+<text x="74" y="272" text-anchor="end" font-size="12" fill="#6b7280">0 dB</text>
+<text x="74" y="336" text-anchor="end" font-size="12" fill="#6b7280">-80</text>
+
+<!-- Позначки частоти -->
+<line x1="88" y1="336" x2="88" y2="340" stroke="#6b7280" stroke-width="1"/>
+<text x="88" y="352" text-anchor="middle" font-size="12" fill="#6b7280">20 Гц</text>
+<line x1="158" y1="336" x2="158" y2="340" stroke="#6b7280" stroke-width="1"/>
+<text x="158" y="352" text-anchor="middle" font-size="12" fill="#6b7280">20 кГц</text>
+<line x1="230" y1="336" x2="230" y2="340" stroke="#6b7280" stroke-width="1"/>
+<text x="230" y="352" text-anchor="middle" font-size="12" fill="#6b7280">500 кГц</text>
+<line x1="315" y1="336" x2="315" y2="340" stroke="#6b7280" stroke-width="1"/>
+<text x="315" y="352" text-anchor="middle" font-size="12" fill="#6b7280">100 МГц</text>
+<line x1="395" y1="336" x2="395" y2="340" stroke="#6b7280" stroke-width="1"/>
+<text x="395" y="352" text-anchor="middle" font-size="12" fill="#6b7280">2.4 ГГц</text>
+<text x="442" y="340" text-anchor="start" font-size="12" font-weight="700" fill="#6b7280">f</text>
+
+<!-- Звуковий спектр -->
+<path d="M 84,336 Q 123,274 158,336 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="123" y="268" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Звук</text>
+
+<!-- Чистий ефір зона -->
+<rect x="170" y="274" width="256" height="60" rx="4" fill="#e9f7ef" fill-opacity="0.6" stroke="#27ae60" stroke-dasharray="3 3" stroke-width="1"/>
+<text x="298" y="296" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Шумова полиця чистого ефіру</text>
+<text x="298" y="316" text-anchor="middle" font-size="12" fill="#27ae60">Нуль ВЧ-випромінювання у радіотракт</text>
+
+<!-- Секція 3: Підсумок -->
+<rect x="38" y="384" width="416" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="50" y="403" font-size="12" font-weight="700" fill="#27ae60">✔ Чистий ефір: нуль EMI, радіомодуль поруч працює без завад</text>
+<text x="50" y="422" font-size="12" fill="#1a1a1a">✔ Проста обв'язка: пряме з'єднання, без важких котушок індуктивності</text>
+
+<!-- ==================== ПРАВА ПАНЕЛЬ: КЛАС D ==================== -->
+<rect x="492" y="64" width="444" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Заголовок панелі та бейдж -->
+<text x="506" y="88" font-size="15" font-weight="700" fill="#1a1a1a">Клас D (PAM8403) — імпульсний</text>
+<rect x="764" y="72" width="158" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="843" y="88" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">ДЖЕРЕЛО ВЧ-ЗАВАД</text>
+
+<!-- Секція 1: Схема обв'язки -->
+<rect x="506" y="106" width="416" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="518" y="122" font-size="12" font-weight="700" fill="#6b7280">СХЕМНА ОБВ'ЯЗКА ТА ВЧ-ВИПРОМІНЮВАННЯ</text>
+
+<!-- Мікросхема PAM8403 -->
+<rect x="518" y="134" width="94" height="52" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="565" y="154" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">PAM8403</text>
+<text x="565" y="172" text-anchor="middle" font-size="12" fill="#c0392b">Клас D (ШІМ)</text>
+
+<!-- До фільтра -->
+<line x1="612" y1="152" x2="628" y2="152" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="612" y1="176" x2="628" y2="176" stroke="#c0392b" stroke-width="1.8"/>
+
+<!-- LC-фільтр -->
+<rect x="628" y="140" width="66" height="46" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2 2"/>
+<text x="661" y="157" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">LC-фільтр</text>
+<text x="661" y="174" text-anchor="middle" font-size="12" fill="#c0392b">2× дроселі</text>
+
+<!-- До динаміка -->
+<line x1="694" y1="152" x2="710" y2="152" stroke="#c0392b" stroke-width="1.8"/>
+<line x1="694" y1="176" x2="710" y2="176" stroke="#c0392b" stroke-width="1.8"/>
+
+<!-- Динамік -->
+<rect x="710" y="146" width="16" height="36" rx="2" fill="#6b7280"/>
+<polygon points="726,152 742,140 742,188 726,176" fill="#6b7280"/>
+<text x="726" y="206" text-anchor="middle" font-size="12" fill="#1a1a1a">Динамік</text>
+
+<!-- Завади на антену -->
+<path d="M 660,118 Q 735,108 804,118" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3 3" marker-end="url(#arr-red)"/>
+<text x="735" y="132" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">ВЧ-завади (EMI)</text>
+
+<!-- RF Приймач -->
+<rect x="794" y="134" width="118" height="52" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+<text x="853" y="154" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">RF-приймач</text>
+<text x="853" y="172" text-anchor="middle" font-size="12" fill="#6b7280">433 МГц / 2.4 ГГц</text>
+
+<!-- Антена приймача -->
+<line x1="816" y1="134" x2="816" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="808" y1="120" x2="824" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="808" y1="114" x2="808" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="824" y1="114" x2="824" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="853" y="206" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Завади в ефірі</text>
+
+<!-- Секція 2: Спектр EMI -->
+<rect x="506" y="232" width="416" height="144" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="518" y="248" font-size="12" font-weight="700" fill="#6b7280">СПЕКТР ВИПРОМІНЮВАННЯ (EMI В ЕФІРІ)</text>
+
+<!-- Осі графіка -->
+<line x1="546" y1="336" x2="906" y2="336" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+<line x1="546" y1="336" x2="546" y2="262" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+<text x="542" y="272" text-anchor="end" font-size="12" fill="#6b7280">0 dB</text>
+<text x="542" y="336" text-anchor="end" font-size="12" fill="#6b7280">-80</text>
+
+<!-- Позначки частоти -->
+<line x1="556" y1="336" x2="556" y2="340" stroke="#6b7280" stroke-width="1"/>
+<text x="556" y="352" text-anchor="middle" font-size="12" fill="#6b7280">20 Гц</text>
+<line x1="626" y1="336" x2="626" y2="340" stroke="#6b7280" stroke-width="1"/>
+<text x="626" y="352" text-anchor="middle" font-size="12" fill="#6b7280">20 кГц</text>
+<line x1="698" y1="336" x2="698" y2="340" stroke="#6b7280" stroke-width="1"/>
+<text x="698" y="352" text-anchor="middle" font-size="12" fill="#6b7280">500 кГц</text>
+<line x1="783" y1="336" x2="783" y2="340" stroke="#6b7280" stroke-width="1"/>
+<text x="783" y="352" text-anchor="middle" font-size="12" fill="#6b7280">100 МГц</text>
+<line x1="863" y1="336" x2="863" y2="340" stroke="#6b7280" stroke-width="1"/>
+<text x="863" y="352" text-anchor="middle" font-size="12" fill="#6b7280">2.4 ГГц</text>
+<text x="910" y="340" text-anchor="start" font-size="12" font-weight="700" fill="#6b7280">f</text>
+
+<!-- Звуковий спектр -->
+<path d="M 552,336 Q 591,274 626,336 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+<text x="591" y="268" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Звук</text>
+
+<!-- ШІМ пік і гармоніки -->
+<line x1="698" y1="336" x2="698" y2="278" stroke="#c0392b" stroke-width="2.5"/>
+<text x="698" y="272" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">f_sw</text>
+
+<text x="806" y="270" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">ШІМ-гармоніки глушать ефір</text>
+
+<!-- Гармоніки комутації -->
+<line x1="720" y1="336" x2="720" y2="284" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="742" y1="336" x2="742" y2="290" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="764" y1="336" x2="764" y2="296" stroke="#c0392b" stroke-width="1.6"/>
+<line x1="802" y1="336" x2="802" y2="304" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="824" y1="336" x2="824" y2="310" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="846" y1="336" x2="846" y2="316" stroke="#c0392b" stroke-width="1.4"/>
+<line x1="882" y1="336" x2="882" y2="322" stroke="#c0392b" stroke-width="1.4"/>
+
+<!-- Секція 3: Підсумок -->
+<rect x="506" y="384" width="416" height="50" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="518" y="403" font-size="12" font-weight="700" fill="#c0392b">✖ Проблема EMI: круті фронти ШІМ випромінюють завади в радіоефір</text>
+<text x="518" y="422" font-size="12" fill="#1a1a1a">✖ Складна обв'язка: обов'язкові екрановані дроселі та LC-фільтри</text>
+
+</svg>

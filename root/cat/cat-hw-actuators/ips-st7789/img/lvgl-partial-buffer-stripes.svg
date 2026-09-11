@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Повний кадровий буфер проти часткового смугового буфера LVGL</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Частковий буфер заощаджує 90% RAM: послідовний рендеринг брудних смуг у GRAM дисплея</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: Повний буфер кадру ==================== -->
+  <rect x="20" y="75" width="240" height="380" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="140" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Повний буфер кадру</text>
+  <text x="140" y="116" text-anchor="middle" font-size="12" fill="#6b7280">240 × 240 точок, RGB565</text>
+
+  <!-- Візуалізація повного буфера -->
+  <rect x="70" y="135" width="140" height="140" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="140" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">115 200 байтів</text>
+  <text x="140" y="195" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">112.5 КБ RAM</text>
+  <text x="140" y="220" text-anchor="middle" font-size="12" fill="#6b7280">240 × 240 × 2 байти</text>
+  <text x="140" y="245" text-anchor="middle" font-size="12" fill="#6b7280">Один суцільний масив</text>
+
+  <!-- Картка проблеми -->
+  <rect x="32" y="295" width="216" height="145" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="140" y="318" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Дефіцит RAM у МК</text>
+  <text x="44" y="340" font-size="12" fill="#c0392b">• STM32F103: 20 КБ RAM</text>
+  <text x="44" y="362" font-size="12" fill="#c0392b">• Cortex-M0/M3: 16–64 КБ</text>
+  <text x="140" y="388" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Буфер &gt; доступної RAM!</text>
+  <rect x="42" y="404" width="196" height="24" rx="3" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="140" y="420" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ПОМИЛКА: RAM OVERFLOW</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: Частковий буфер LVGL ==================== -->
+  <rect x="276" y="75" width="240" height="380" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="396" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Частковий буфер LVGL</text>
+  <text x="396" y="116" text-anchor="middle" font-size="12" fill="#6b7280">1/10 екрана (24 рядки)</text>
+
+  <!-- Візуалізація часткового буфера -->
+  <rect x="326" y="135" width="140" height="140" rx="4" fill="white" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <rect x="326" y="135" width="140" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="396" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Смуга: 11.5 КБ RAM</text>
+  <text x="396" y="188" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">11 520 байтів</text>
+  <text x="396" y="208" text-anchor="middle" font-size="12" fill="#6b7280">240 × 24 × 2 байти</text>
+  <text x="396" y="232" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Заощаджено 101 КБ</text>
+  <text x="396" y="252" text-anchor="middle" font-size="12" fill="#6b7280">Решта 9/10 — у GRAM</text>
+
+  <!-- Картка розв'язку -->
+  <rect x="288" y="295" width="216" height="145" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="396" y="318" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Економія &gt; 90% RAM</text>
+  <text x="300" y="340" font-size="12" fill="#27ae60">• STM32F103: вільно 8.5 КБ</text>
+  <text x="300" y="362" font-size="12" fill="#27ae60">• Вистачає для FreeRTOS</text>
+  <text x="396" y="388" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Поміщається в будь-який МК</text>
+  <rect x="298" y="404" width="196" height="24" rx="3" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="396" y="420" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">УСПІХ: СТАБІЛЬНА РОБОТА</text>
+
+  <!-- ==================== ПАНЕЛЬ 3: Смуговий рендеринг ==================== -->
+  <rect x="532" y="75" width="408" height="380" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="736" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Послідовний рендеринг брудних областей</text>
+  <text x="736" y="116" text-anchor="middle" font-size="12" fill="#6b7280">Поділ на 10 смуг (0..9) та передача через disp_flush()</text>
+
+  <!-- Матриця дисплея 240х240 зі смугами -->
+  <rect x="546" y="135" width="140" height="160" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="546" y1="151" x2="686" y2="151" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="546" y1="167" x2="686" y2="167" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="546" y1="231" x2="686" y2="231" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="546" y1="247" x2="686" y2="247" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="546" y1="263" x2="686" y2="263" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="546" y1="279" x2="686" y2="279" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Смуга 3 (активна) і Смуга 4 (очікує) -->
+  <rect x="546" y="183" width="140" height="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="546" y="199" width="140" height="16" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Dirty Area прямокутник -->
+  <rect x="612" y="186" width="68" height="25" rx="2" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <rect x="613" y="187" width="66" height="11" fill="#2457d6"/>
+  <rect x="613" y="200" width="66" height="10" fill="#fdecea"/>
+
+  <!-- Підписи в матриці -->
+  <text x="552" y="147" font-size="12" fill="#6b7280">Смуга 0</text>
+  <text x="646" y="179" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Dirty Area</text>
+  <text x="552" y="195" font-size="12" font-weight="bold" fill="#2457d6">Смуга 3</text>
+  <text x="646" y="196" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Зріз 1</text>
+  <text x="552" y="211" font-size="12" fill="#c0392b">Смуга 4</text>
+  <text x="646" y="209" text-anchor="middle" font-size="12" fill="#c0392b">Зріз 2</text>
+  <text x="552" y="291" font-size="12" fill="#6b7280">Смуга 9</text>
+
+  <!-- Картка порядку дій -->
+  <rect x="546" y="308" width="158" height="84" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="625" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Порядок рендерингу:</text>
+  <text x="554" y="343" font-size="12" fill="#2457d6">1. Зріз 1 → буфер RAM</text>
+  <text x="554" y="361" font-size="12" fill="#2457d6">2. disp_flush() → SPI</text>
+  <text x="554" y="379" font-size="12" fill="#6b7280">3. Зріз 2 → буфер RAM</text>
+
+  <!-- Стрілка від Смуги 3 до RAM буфера -->
+  <line x1="686" y1="191" x2="714" y2="191" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 1: RAM буфер -->
+  <rect x="722" y="155" width="196" height="65" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="820" y="175" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Буфер смуги в RAM МК</text>
+  <text x="820" y="193" text-anchor="middle" font-size="12" fill="#1a1a1a">240 × 24 px (11.5 КБ)</text>
+  <text x="820" y="210" text-anchor="middle" font-size="12" fill="#2457d6">Тільки дані Зрізу 1</text>
+
+  <!-- Стрілка disp_flush() -->
+  <line x1="760" y1="220" x2="760" y2="246" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="770" y="238" font-size="12" font-weight="bold" fill="#2457d6">disp_flush()</text>
+
+  <!-- Блок 2: SPI DMA -->
+  <rect x="722" y="252" width="196" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="820" y="271" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Шина SPI + DMA</text>
+  <text x="820" y="290" text-anchor="middle" font-size="12" fill="#1a1a1a">Передача без участі CPU</text>
+
+  <!-- Стрілка запису в GRAM -->
+  <line x1="760" y1="302" x2="760" y2="328" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="770" y="320" font-size="12" fill="#6b7280">DMA по SPI</text>
+
+  <!-- Блок 3: ST7789 GRAM -->
+  <rect x="722" y="334" width="196" height="56" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="820" y="354" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">ST7789: GRAM 112.5 КБ</text>
+  <text x="820" y="374" text-anchor="middle" font-size="12" fill="#27ae60">Автономний показ IPS</text>
+
+  <!-- Нижня смужка-висновок -->
+  <rect x="546" y="405" width="372" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="732" y="421" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Цикл: рендеринг → DMA по SPI → lv_disp_flush_ready()</text>
+  <text x="732" y="437" text-anchor="middle" font-size="12" fill="#1a1a1a">Повний кадр зберігає GRAM ST7789, а не RAM МК</text>
+</svg>

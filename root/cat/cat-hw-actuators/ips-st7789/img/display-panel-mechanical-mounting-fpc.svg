@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Механічний монтаж дисплейного модуля IPS (ST7789) та шлейфа FPC</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Демпфування по периметру скла, радіус вигину FPC R ≥ 1.5–2 мм та відведення ESD на спільний GND</text>
+
+  <!-- ==================== LEFT PANEL: ПРАВИЛЬНО ==================== -->
+  <rect x="24" y="66" width="444" height="374" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Left Header Badge -->
+  <rect x="38" y="78" width="76" height="26" rx="13" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="76" y="95" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">ТАК</text>
+  <text x="124" y="95" font-size="12" font-weight="bold" fill="#1a1a1a">Периметральний демпфер і вільний FPC</text>
+
+  <!-- Left Drawing Box -->
+  <rect x="38" y="116" width="416" height="148" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Drawing: Casing -->
+  <rect x="48" y="122" width="82" height="16" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="89" y="134" text-anchor="middle" font-size="12" fill="#6b7280">Корпус</text>
+  <rect x="300" y="122" width="75" height="16" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="337" y="134" text-anchor="middle" font-size="12" fill="#6b7280">Корпус</text>
+
+  <!-- Left Drawing: Perimeter Gaskets -->
+  <rect x="100" y="138" width="30" height="10" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="300" y="138" width="30" height="10" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Left Drawing: Air gap text -->
+  <text x="215" y="141" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Зазор: тиск на РК = 0</text>
+
+  <!-- Left Drawing: Display Module (Glass + Active Area) -->
+  <rect x="90" y="148" width="250" height="10" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="135" y="148" width="160" height="10" fill="#2457d6" fill-opacity="0.3"/>
+
+  <!-- Left Drawing: Backlight Unit -->
+  <rect x="90" y="158" width="250" height="18" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="215" y="171" text-anchor="middle" font-size="12" fill="#1a1a1a">Модуль IPS 1.3″ (матриця 240×240)</text>
+
+  <!-- Left Drawing: Central Callout Badge -->
+  <rect x="127" y="190" width="176" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="215" y="204" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Демпфер по периметру</text>
+  <text x="215" y="218" text-anchor="middle" font-size="12" fill="#1a1a1a">без навантаження на РК</text>
+
+  <!-- Left Drawing: ESD Grounding Path -->
+  <line x1="75" y1="176" x2="75" y2="194" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <rect x="46" y="194" width="58" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="75" y="208" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ESD ⏚</text>
+  <line x1="75" y1="214" x2="75" y2="238" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+  <!-- Left Drawing: PCB -->
+  <rect x="48" y="238" width="357" height="14" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="215" y="249" text-anchor="middle" font-size="12" fill="#1a1a1a">Системна плата пристрою (PCB)</text>
+
+  <!-- Left Drawing: ZIF Connector -->
+  <rect x="315" y="232" width="20" height="6" fill="#1a1a1a" rx="1"/>
+
+  <!-- Left Drawing: FPC Bend -->
+  <path d="M 340,166 C 382,166 382,224 335,224 L 325,224 L 325,232" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="446" y="199" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">R ≥ 1.8 мм</text>
+
+  <!-- Left Lower Specifications Card -->
+  <rect x="38" y="276" width="416" height="150" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Card: Row 1 -->
+  <rect x="48" y="286" width="70" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="83" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Демпфер</text>
+  <text x="126" y="297" font-size="12" font-weight="bold" fill="#1a1a1a">Поролон/силікон по неактивному периметру</text>
+  <text x="126" y="313" font-size="12" fill="#6b7280">Стиск 20–30%, зазор над матрицею ≥ 0.3 мм</text>
+
+  <line x1="48" y1="324" x2="444" y2="324" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Card: Row 2 -->
+  <rect x="48" y="334" width="70" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="83" y="348" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Шлейф</text>
+  <text x="126" y="345" font-size="12" font-weight="bold" fill="#1a1a1a">Плавний вигин FPC із радіусом R ≥ 1.5–2 мм</text>
+  <text x="126" y="361" font-size="12" fill="#6b7280">Заокруглене ребро шасі, без натягу біля ZIF</text>
+
+  <line x1="48" y1="372" x2="444" y2="372" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Card: Row 3 -->
+  <rect x="48" y="382" width="70" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="83" y="396" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ESD / GND</text>
+  <text x="126" y="393" font-size="12" font-weight="bold" fill="#1a1a1a">Заземлення металевого шасі на спільний GND</text>
+  <text x="126" y="409" font-size="12" fill="#6b7280">Струмопровідний демпфер відводить до 15 кВ</text>
+
+
+  <!-- ==================== RIGHT PANEL: НЕ ТАК ==================== -->
+  <rect x="492" y="66" width="444" height="374" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Right Header Badge -->
+  <rect x="506" y="78" width="86" height="26" rx="13" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="549" y="95" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">НЕ ТАК</text>
+  <text x="602" y="95" font-size="12" font-weight="bold" fill="#1a1a1a">Точковий тиск на матрицю та залом FPC</text>
+
+  <!-- Right Drawing Box -->
+  <rect x="506" y="116" width="416" height="148" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Right Drawing: Casing and Rigid Clamping -->
+  <rect x="516" y="122" width="75" height="16" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="553" y="134" text-anchor="middle" font-size="12" fill="#6b7280">Корпус</text>
+  <rect x="775" y="122" width="70" height="16" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="810" y="134" text-anchor="middle" font-size="12" fill="#6b7280">Корпус</text>
+
+  <!-- Rigid stops pressing on glass -->
+  <rect x="595" y="122" width="20" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="750" y="122" width="20" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Right Drawing: Warning text and Mura defect -->
+  <text x="683" y="141" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Плями тиску Mura</text>
+
+  <!-- Right Drawing: Display Module (Glass + Damaged Area) -->
+  <rect x="558" y="148" width="250" height="10" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="615" y="148" width="135" height="10" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+
+  <!-- Right Drawing: Backlight Unit -->
+  <rect x="558" y="158" width="250" height="18" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="683" y="171" text-anchor="middle" font-size="12" fill="#1a1a1a">Модуль IPS 1.3″ (деформація)</text>
+
+  <!-- Right Drawing: Central Callout Badge -->
+  <rect x="595" y="190" width="176" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="683" y="204" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Жорсткий точковий упор</text>
+  <text x="683" y="218" text-anchor="middle" font-size="12" fill="#1a1a1a">тиск спричиняє плями Mura</text>
+
+  <!-- Right Drawing: Missing ESD / Spark -->
+  <path d="M 533,148 L 540,160 L 535,162 L 543,176" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <rect x="514" y="194" width="60" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="544" y="208" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Без GND</text>
+  <line x1="544" y1="214" x2="544" y2="228" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <path d="M 539,230 L 549,238 M 549,230 L 539,238" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Right Drawing: PCB -->
+  <rect x="516" y="238" width="357" height="14" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="683" y="249" text-anchor="middle" font-size="12" fill="#1a1a1a">Системна плата пристрою (PCB)</text>
+
+  <!-- Right Drawing: ZIF Connector -->
+  <rect x="803" y="232" width="20" height="6" fill="#1a1a1a" rx="1"/>
+
+  <!-- Right Drawing: FPC Sharp Bend & Kink -->
+  <path d="M 808,166 L 823,166 L 823,224 L 813,224 L 813,232" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="823" cy="166" r="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="914" y="171" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Злам FPC</text>
+  <text x="914" y="187" text-anchor="end" font-size="12" fill="#c0392b">R &lt; 0.5 мм</text>
+
+  <!-- Right Lower Specifications Card -->
+  <rect x="506" y="276" width="416" height="150" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Right Card: Row 1 -->
+  <rect x="516" y="286" width="70" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="551" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Тиск</text>
+  <text x="594" y="297" font-size="12" font-weight="bold" fill="#1a1a1a">Жорсткий притиск до матриці (без зазору)</text>
+  <text x="594" y="313" font-size="12" fill="#6b7280">Плями Mura, деформація кристалів і тріщини</text>
+
+  <line x1="516" y1="324" x2="912" y2="324" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Right Card: Row 2 -->
+  <rect x="516" y="334" width="70" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="551" y="348" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Шлейф</text>
+  <text x="594" y="345" font-size="12" font-weight="bold" fill="#1a1a1a">Гострий перегин шлейфа FPC (R &lt; 0.5 мм)</text>
+  <text x="594" y="361" font-size="12" fill="#6b7280">Мікротріщини мідних доріжок, втрата ліній SPI</text>
+
+  <line x1="516" y1="372" x2="912" y2="372" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Right Card: Row 3 -->
+  <rect x="516" y="382" width="70" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="551" y="396" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ESD / ⚡</text>
+  <text x="594" y="393" font-size="12" font-weight="bold" fill="#1a1a1a">Ізольоване шасі модуля (плаваючий екран)</text>
+  <text x="594" y="409" font-size="12" fill="#6b7280">Пробій розряду в COG ST7789, апаратне зависання</text>
+</svg>

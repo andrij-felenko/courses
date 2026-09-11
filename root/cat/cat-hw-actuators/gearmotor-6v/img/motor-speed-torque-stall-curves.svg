@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механічні характеристики мотор-редукторів 6 В: робочі точки й зрив</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">На підйомі 15° навантаження перевищує момент блокування мотора 600 об/хв (зрив), тоді як 100 об/хв долає схил</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Графік характеристик -->
+  <rect x="30" y="80" width="560" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="104" font-size="13" font-weight="bold" fill="#1a1a1a">Залежність частоти обертання від моменту n(M)</text>
+
+  <!-- Зона зриву мотора 600 об/хв (M > 2.5 Н·см) -->
+  <rect x="160" y="240" width="85" height="145" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="202" y="260" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ЗОНА ЗРИВУ 600</text>
+  <text x="202" y="276" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">n = 0 об/хв</text>
+  <text x="202" y="292" font-size="12" fill="#c0392b" text-anchor="middle">ΔM = -1,5 Н·см</text>
+
+  <!-- Лінія навантаження: горизонтальна поверхня (M = 1.0 Н·см) -->
+  <line x1="118" y1="170" x2="118" y2="385" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="118" y="165" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">M_гориз</text>
+
+  <!-- Лінія навантаження: підйом 15° (M = 4.0 Н·см) -->
+  <line x1="202" y1="170" x2="202" y2="240" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="202" y1="300" x2="202" y2="385" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="202" y="165" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">M_підйом</text>
+
+  <!-- Механічна характеристика: Мотор 100 об/хв (тяговий) -->
+  <line x1="90" y1="347" x2="510" y2="385" stroke="#2457d6" stroke-width="3"/>
+  <text x="340" y="350" font-size="12" font-weight="bold" fill="#2457d6">Мотор 100 об/хв</text>
+
+  <!-- Механічна характеристика: Мотор 600 об/хв (швидкісний) -->
+  <line x1="90" y1="157" x2="160" y2="385" stroke="#c0392b" stroke-width="3"/>
+  <text x="105" y="145" font-size="12" font-weight="bold" fill="#c0392b">Мотор 600 об/хв</text>
+
+  <!-- Робоча точка A1: Мотор 600 на горизонталі (360 об/хв) -->
+  <circle cx="118" cy="248" r="5" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+  <text x="126" y="246" font-size="12" font-weight="bold" fill="#27ae60">A₁ (360)</text>
+
+  <!-- Робоча точка B1: Мотор 100 на горизонталі (93 об/хв) -->
+  <circle cx="118" cy="350" r="5" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <text x="100" y="342" font-size="12" font-weight="bold" fill="#2457d6">B₁</text>
+
+  <!-- Робоча точка B2: Мотор 100 на підйомі 15° (73 об/хв) -->
+  <circle cx="202" cy="357" r="5" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <text x="210" y="336" font-size="12" font-weight="bold" fill="#2457d6">B₂ (73)</text>
+
+  <!-- Маркер блокування вала на осі X (n = 0) -->
+  <circle cx="202" cy="385" r="5" fill="#c0392b" stroke="white" stroke-width="1.5"/>
+
+  <!-- Стрілка дефіциту мотора 600 об/хв -->
+  <line x1="162" y1="368" x2="200" y2="368" stroke="#c0392b" stroke-width="1.5"/>
+  <polygon points="160,368 165,365 165,371" fill="#c0392b"/>
+  <polygon points="202,368 197,365 197,371" fill="#c0392b"/>
+
+  <!-- Внутрішня легенда графіка -->
+  <rect x="300" y="115" width="270" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="312" y="133" font-size="12" font-weight="bold" fill="#1a1a1a">Позначення та робочі режими</text>
+
+  <line x1="312" y1="150" x2="332" y2="150" stroke="#2457d6" stroke-width="3"/>
+  <text x="340" y="154" font-size="12" font-weight="bold" fill="#2457d6">100 об/хв: тяговий (до 15,0 Н·см)</text>
+
+  <line x1="312" y1="172" x2="332" y2="172" stroke="#c0392b" stroke-width="3"/>
+  <text x="340" y="176" font-size="12" font-weight="bold" fill="#c0392b">600 об/хв: швидкий (до 2,5 Н·см)</text>
+
+  <line x1="312" y1="188" x2="558" y2="188" stroke="#e2e8f0" stroke-width="1"/>
+
+  <line x1="312" y1="205" x2="332" y2="205" stroke="#27ae60" stroke-width="2" stroke-dasharray="3,2"/>
+  <text x="340" y="209" font-size="12" fill="#1a1a1a">M_гориз = 1,0 Н·см (рівна дорога)</text>
+
+  <line x1="312" y1="227" x2="332" y2="227" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,2"/>
+  <text x="340" y="231" font-size="12" fill="#1a1a1a">M_підйом = 4,0 Н·см (підйом 15°)</text>
+
+  <circle cx="322" cy="248" r="4" fill="#c0392b"/>
+  <text x="340" y="252" font-size="12" font-weight="bold" fill="#c0392b">Точка A₂: зрив мотора 600 об/хв</text>
+
+  <!-- Осі координат -->
+  <!-- Вісь Y -->
+  <line x1="90" y1="385" x2="90" y2="136" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="90" y="120" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">n, об/хв</text>
+
+  <!-- Засічки та підписи осі Y -->
+  <line x1="86" y1="157" x2="90" y2="157" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="83" y="161" font-size="12" fill="#6b7280" text-anchor="end">600</text>
+
+  <line x1="86" y1="233" x2="90" y2="233" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="83" y="237" font-size="12" fill="#6b7280" text-anchor="end">400</text>
+
+  <line x1="86" y1="309" x2="90" y2="309" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="83" y="313" font-size="12" fill="#6b7280" text-anchor="end">200</text>
+
+  <line x1="86" y1="347" x2="90" y2="347" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="83" y="351" font-size="12" fill="#6b7280" text-anchor="end">100</text>
+
+  <line x1="86" y1="385" x2="90" y2="385" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="83" y="389" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Вісь X -->
+  <line x1="90" y1="385" x2="565" y2="385" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="320" y="426" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крутний момент на валу M (Н·см)</text>
+
+  <!-- Засічки та підписи осі X -->
+  <line x1="118" y1="385" x2="118" y2="389" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="118" y="402" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">1,0</text>
+
+  <line x1="160" y1="385" x2="160" y2="389" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="160" y="402" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">2,5</text>
+
+  <line x1="202" y1="385" x2="202" y2="389" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="202" y="402" font-size="12" fill="#1a1a1a" font-weight="bold" text-anchor="middle">4,0</text>
+
+  <line x1="314" y1="385" x2="314" y2="389" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="314" y="402" font-size="12" fill="#6b7280" text-anchor="middle">8</text>
+
+  <line x1="426" y1="385" x2="426" y2="389" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="426" y="402" font-size="12" fill="#6b7280" text-anchor="middle">12</text>
+
+  <line x1="510" y1="385" x2="510" y2="389" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="510" y="402" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">15,0</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Картка 1 — Горизонтальна поверхня -->
+  <rect x="610" y="80" width="320" height="162" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="610" y="80" width="320" height="30" rx="8" fill="#e9f7ef"/>
+  <text x="622" y="100" font-size="13" font-weight="bold" fill="#27ae60">Горизонталь: навантаження 1,0 Н·см</text>
+
+  <text x="622" y="124" font-size="12" font-weight="bold" fill="#1a1a1a">Мотор 600 об/хв (точка A₁):</text>
+  <text x="622" y="140" font-size="12" fill="#1a1a1a">• Швидкість: ~360 об/хв (швидкий рух)</text>
+  <text x="622" y="156" font-size="12" fill="#6b7280">• Запас моменту: 2,5 - 1,0 = +1,5 Н·см</text>
+
+  <text x="622" y="176" font-size="12" font-weight="bold" fill="#1a1a1a">Мотор 100 об/хв (точка B₁):</text>
+  <text x="622" y="192" font-size="12" fill="#1a1a1a">• Швидкість: ~93 об/хв (повільний хід)</text>
+  <text x="622" y="208" font-size="12" fill="#6b7280">• Величезний запас моменту (+14,0 Н·см)</text>
+  <text x="622" y="228" font-size="12" font-weight="bold" fill="#27ae60">✔ Обидва мотори успішно рухають робота</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Картка 2 — Підйом 15° -->
+  <rect x="610" y="258" width="320" height="182" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="610" y="258" width="320" height="30" rx="8" fill="#fdecea"/>
+  <text x="622" y="278" font-size="13" font-weight="bold" fill="#c0392b">Підйом 15°: навантаження 4,0 Н·см</text>
+
+  <text x="622" y="302" font-size="12" font-weight="bold" fill="#c0392b">Мотор 600 об/хв (точка A₂ — ЗРИВ):</text>
+  <text x="622" y="318" font-size="12" fill="#c0392b">• M_нав (4,0 Н·см) &gt; M_stall (2,5 Н·см)</text>
+  <text x="622" y="334" font-size="12" fill="#c0392b">• Швидкість падає до n = 0 (зупинка)</text>
+  <text x="622" y="350" font-size="12" fill="#c0392b">• Струм блокування I_stall (зріз зубців!)</text>
+
+  <text x="622" y="372" font-size="12" font-weight="bold" fill="#2457d6">Мотор 100 об/хв (точка B₂):</text>
+  <text x="622" y="388" font-size="12" fill="#1a1a1a">• Швидкість: ~73 об/хв (спад лише на ~20%)</text>
+  <text x="622" y="404" font-size="12" fill="#27ae60">• Впевнено долає підйом (4,0 &lt; 15,0 Н·см)</text>
+  <text x="622" y="424" font-size="12" font-weight="bold" fill="#1a1a1a">Висновок: для схилів потрібен мотор 100 об/хв</text>
+</svg>

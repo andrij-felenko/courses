@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма передачі даних по шині 4-Wire SPI (ST7789)</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Керування лінією D/C: вибірка команди при DC=0 та запис байтів параметрів або пікселів при DC=1</text>
+
+  <!-- Верхні плашки фаз -->
+  <rect x="246" y="62" width="312" height="28" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="402" y="80" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Фаза 1: Байт команди (DC = 0, напр. 0x2A CASET)</text>
+
+  <rect x="590" y="62" width="312" height="28" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="746" y="80" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фаза 2: Байт параметра / даних (DC = 1)</text>
+
+  <!-- Фонові смуги для часових фаз -->
+  <rect x="246" y="96" width="312" height="236" rx="6" fill="#fdf8f7" stroke="#f5d0cd" stroke-width="1" stroke-dasharray="4 4"/>
+  <rect x="590" y="96" width="312" height="236" rx="6" fill="#f6fbf8" stroke="#cdecd9" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Ліва панель міток сигналів -->
+  <rect x="24" y="96" width="176" height="236" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="36" y="124" font-size="13" font-weight="bold" fill="#1a1a1a">CS</text>
+  <text x="36" y="140" font-size="12" fill="#6b7280">вибір чипа (акт. 0)</text>
+  <line x1="32" y1="156" x2="192" y2="156" stroke="#e1e4e8" stroke-width="1"/>
+
+  <text x="36" y="180" font-size="13" font-weight="bold" fill="#1a1a1a">DC</text>
+  <text x="36" y="196" font-size="12" fill="#6b7280">0 = ком., 1 = дані</text>
+  <line x1="32" y1="214" x2="192" y2="214" stroke="#e1e4e8" stroke-width="1"/>
+
+  <text x="36" y="238" font-size="13" font-weight="bold" fill="#1a1a1a">SCL</text>
+  <text x="36" y="254" font-size="12" fill="#6b7280">тактовий сигнал (SPI)</text>
+  <line x1="32" y1="270" x2="192" y2="270" stroke="#e1e4e8" stroke-width="1"/>
+
+  <text x="36" y="294" font-size="13" font-weight="bold" fill="#1a1a1a">SDA / MOSI</text>
+  <text x="36" y="310" font-size="12" fill="#6b7280">лінія даних (D7..D0)</text>
+
+  <!-- Сигнал 1: CS -->
+  <path d="M 208,118 L 224,118 L 230,140 L 910,140 L 916,118 L 936,118" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linejoin="round"/>
+  <text x="216" y="112" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+  <text x="238" y="160" font-size="12" font-weight="bold" fill="#2457d6">0 (CS активний)</text>
+  <text x="926" y="112" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+
+  <!-- Сигнал 2: DC -->
+  <!-- Перехід до 0 перед командою -->
+  <path d="M 208,176 L 226,176 L 232,198" fill="none" stroke="#6b7280" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Рівень 0 під час команди -->
+  <path d="M 232,198 L 566,198" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <!-- Перемикання в 1 між байтами -->
+  <path d="M 566,198 L 574,176" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Рівень 1 під час даних -->
+  <path d="M 574,176 L 936,176" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <text x="402" y="218" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">DC = 0 (вибірка КОМАНДИ)</text>
+  <text x="746" y="166" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">DC = 1 (запис ДАНИХ / ПАРАМЕТРІВ)</text>
+
+  <!-- Сигнал 3: SCL -->
+  <path d="
+    M 208,258 L 250,258
+    L 258,258 L 258,236 L 276,236 L 276,258 L 288,258
+    L 296,258 L 296,236 L 314,236 L 314,258 L 326,258
+    L 334,258 L 334,236 L 352,236 L 352,258 L 364,258
+    L 372,258 L 372,236 L 390,236 L 390,258 L 402,258
+    L 410,258 L 410,236 L 428,236 L 428,258 L 440,258
+    L 448,258 L 448,236 L 466,236 L 466,258 L 478,258
+    L 486,258 L 486,236 L 504,236 L 504,258 L 516,258
+    L 524,258 L 524,236 L 542,236 L 542,258 L 554,258
+    L 594,258
+    L 602,258 L 602,236 L 620,236 L 620,258 L 632,258
+    L 640,258 L 640,236 L 658,236 L 658,258 L 670,258
+    L 678,258 L 678,236 L 696,236 L 696,258 L 708,258
+    L 716,258 L 716,236 L 734,236 L 734,258 L 746,258
+    L 754,258 L 754,236 L 772,236 L 772,258 L 784,258
+    L 792,258 L 792,236 L 810,236 L 810,258 L 822,258
+    L 830,258 L 830,236 L 848,236 L 848,258 L 860,258
+    L 868,258 L 868,236 L 886,236 L 886,258 L 898,258
+    L 936,258" fill="none" stroke="#1a1a1a" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Пунктири вибірки (Sample strobe) на 1-му такті кожної фази -->
+  <line x1="258" y1="258" x2="258" y2="290" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <line x1="602" y1="258" x2="602" y2="290" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2 2"/>
+
+  <!-- Сигнал 4: SDA -->
+  <!-- Неактивні ділянки SDA -->
+  <line x1="208" y1="302" x2="250" y2="302" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="554" y1="302" x2="594" y2="302" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="898" y1="302" x2="936" y2="302" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Комірки бітів Фази 1 (Команда, червоний) -->
+  <path d="M 250,302 L 255,290 L 283,290 L 288,302 L 283,314 L 255,314 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="269" y="306" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">D7</text>
+
+  <path d="M 288,302 L 293,290 L 321,290 L 326,302 L 321,314 L 293,314 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="307" y="306" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">D6</text>
+
+  <path d="M 326,302 L 331,290 L 359,290 L 364,302 L 359,314 L 331,314 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="345" y="306" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">D5</text>
+
+  <path d="M 364,302 L 369,290 L 397,290 L 402,302 L 397,314 L 369,314 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="383" y="306" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">D4</text>
+
+  <path d="M 402,302 L 407,290 L 435,290 L 440,302 L 435,314 L 407,314 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="421" y="306" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">D3</text>
+
+  <path d="M 440,302 L 445,290 L 473,290 L 478,302 L 473,314 L 445,314 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="459" y="306" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">D2</text>
+
+  <path d="M 478,302 L 483,290 L 511,290 L 516,302 L 511,314 L 483,314 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="497" y="306" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">D1</text>
+
+  <path d="M 516,302 L 521,290 L 549,290 L 554,302 L 549,314 L 521,314 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="535" y="306" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">D0</text>
+
+  <!-- Комірки бітів Фази 2 (Дані / Параметри, зелений) -->
+  <path d="M 594,302 L 599,290 L 627,290 L 632,302 L 627,314 L 599,314 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="613" y="306" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D7</text>
+
+  <path d="M 632,302 L 637,290 L 665,290 L 670,302 L 665,314 L 637,314 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="651" y="306" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D6</text>
+
+  <path d="M 670,302 L 675,290 L 703,290 L 708,302 L 703,314 L 675,314 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="689" y="306" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D5</text>
+
+  <path d="M 708,302 L 713,290 L 741,290 L 746,302 L 741,314 L 713,314 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="727" y="306" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D4</text>
+
+  <path d="M 746,302 L 751,290 L 779,290 L 784,302 L 779,314 L 751,314 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="765" y="306" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D3</text>
+
+  <path d="M 784,302 L 789,290 L 817,290 L 822,302 L 817,314 L 789,314 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="803" y="306" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D2</text>
+
+  <path d="M 822,302 L 827,290 L 855,290 L 860,302 L 855,314 L 827,314 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="841" y="306" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D1</text>
+
+  <path d="M 860,302 L 865,290 L 893,290 L 898,302 L 893,314 L 865,314 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="879" y="306" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D0</text>
+
+  <!-- Нижня інформаційна панель -->
+  <rect x="24" y="348" width="912" height="92" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Розділювачі колонок -->
+  <line x1="324" y1="358" x2="324" y2="430" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="628" y1="358" x2="628" y2="430" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Колонка 1: CS -->
+  <text x="40" y="368" font-size="12" font-weight="bold" fill="#1a1a1a">1. Вибір чипа (CS)</text>
+  <text x="40" y="386" font-size="12" fill="#6b7280">Переходить у 0 перед початком передачі.</text>
+  <text x="40" y="404" font-size="12" fill="#6b7280">Утримується в 0 між байтом команди</text>
+  <text x="40" y="422" font-size="12" fill="#6b7280">і всіма наступними байтами даних.</text>
+
+  <!-- Колонка 2: DC -->
+  <text x="344" y="368" font-size="12" font-weight="bold" fill="#1a1a1a">2. Лінія керування (DC)</text>
+  <text x="344" y="386" font-size="12" fill="#c0392b" font-weight="bold">DC = 0: <tspan font-weight="normal" fill="#6b7280">байт команди (CASET, RAMWR).</tspan></text>
+  <text x="344" y="404" font-size="12" fill="#27ae60" font-weight="bold">DC = 1: <tspan font-weight="normal" fill="#6b7280">байти параметрів чи пікселів.</tspan></text>
+  <text x="344" y="422" font-size="12" fill="#6b7280">Рівень виставляється до тактування SCL.</text>
+
+  <!-- Колонка 3: SCL / SDA -->
+  <text x="648" y="368" font-size="12" font-weight="bold" fill="#1a1a1a">3. Тактування та біти (SCL/SDA)</text>
+  <text x="648" y="386" font-size="12" fill="#6b7280">SPI Mode 0: спокійний рівень SCL = 0.</text>
+  <text x="648" y="404" font-size="12" fill="#6b7280">Біти передаються старшим уперед (MSB).</text>
+  <text x="648" y="422" font-size="12" fill="#2457d6" font-weight="bold">Фіксація біта: <tspan font-weight="normal" fill="#6b7280">по наростаючому фронту.</tspan></text>
+</svg>

@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок для кожної сили -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розподіл сил на похилій площині для колісного шасі</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Рівновага руху вгору: сумарна тяга k·F_тяг долає скочування m·g·sin(α) та опір коченню F_roll</text>
+
+  <!-- ================= ЛІВА ЧАСТИНА: ДІАГРАМА СИЛ (FBD) ================= -->
+
+  <!-- Похила площина (клин) -->
+  <polygon points="50,415 435,415 435,275" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- Лінія горизонту -->
+  <line x1="30" y1="415" x2="455" y2="415" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="435" y="432" text-anchor="end" font-size="12" fill="#6b7280">Горизонт</text>
+
+  <!-- Кут α біля основи клина -->
+  <path d="M 95,415 A 45 45 0 0 0 92.3,399.6" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="110" y="410" font-size="13" font-weight="bold" fill="#2457d6">α</text>
+
+  <!-- Вектор швидкості v (рух вгору зі сталою швидкістю) -->
+  <line x1="225" y1="215" x2="285" y2="193" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <text x="225" y="180" font-size="12" font-weight="bold" fill="#2457d6">v (рух вгору)</text>
+
+  <!-- Колеса шасі -->
+  <!-- Заднє колесо -->
+  <circle cx="189" cy="343" r="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="189" cy="343" r="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <!-- Переднє колесо -->
+  <circle cx="311" cy="299" r="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="311" cy="299" r="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Платформа шасі -->
+  <polygon points="190,347 312,302 308,291 186,336" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Модуль приводу / акумулятора на шасі -->
+  <polygon points="224,322 271,305 265,290 218,307" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Вектор нормальної реакції опори N від переднього колеса -->
+  <line x1="318" y1="318" x2="296" y2="257" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="290" y="245" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">N = m·g·cos(α)</text>
+
+  <!-- Вектор тяги коліс k·F_тяг від контактної плями вгору вздовж схилу -->
+  <line x1="318" y1="318" x2="389" y2="292" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="365" y="255" font-size="13" font-weight="bold" fill="#27ae60">k · F_тяг</text>
+  <text x="365" y="270" font-size="12" fill="#27ae60">тяга приводу</text>
+
+  <!-- Вектор сили опору коченню F_roll від заднього колеса назад вздовж схилу -->
+  <line x1="196" y1="362" x2="144" y2="381" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="138" y="355" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">F_roll</text>
+  <text x="138" y="370" text-anchor="end" font-size="12" fill="#c0392b">= f_roll · N</text>
+
+  <!-- Вектори у Центрі Мас (Точка C) -->
+  <!-- Пунктирні лінії паралелограма сил -->
+  <line x1="215" y1="316" x2="244" y2="395" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="273" y1="385" x2="244" y2="395" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Вектор скочувальної сили F_скоч = m·g·sin(α) -->
+  <line x1="244" y1="306" x2="215" y2="316" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <!-- Виноска до F_скоч -->
+  <line x1="208" y1="292" x2="215" y2="316" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="205" y="295" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">F_скоч = m·g·sin(α)</text>
+
+  <!-- Вектор нормального тиску m·g·cos(α) -->
+  <line x1="244" y1="306" x2="273" y2="385" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="285" y="375" font-size="12" fill="#6b7280">m·g·cos(α)</text>
+
+  <!-- Дуга кута α між F_g та лінією нормального тиску -->
+  <path d="M 244,334 A 28 28 0 0 0 253.6,332.3" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="249" y="355" font-size="12" font-weight="bold" fill="#2457d6">α</text>
+
+  <!-- Вектор повної сили тяжіння F_g = m·g вертикально вниз -->
+  <line x1="244" y1="306" x2="244" y2="395" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr-dark)"/>
+  <text x="246" y="410" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">F_g = m·g</text>
+
+  <!-- Точка C (Центр мас) -->
+  <circle cx="244" cy="306" r="4.5" fill="#1a1a1a"/>
+  <text x="252" y="308" font-size="12" font-weight="bold" fill="#1a1a1a">C</text>
+
+
+  <!-- ================= ПРАВА ЧАСТИНА: ІНЖЕНЕРНІ КАРТКИ ================= -->
+
+  <!-- Картка 1: Рівняння динамічної рівноваги -->
+  <rect x="540" y="80" width="395" height="175" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="556" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Рівняння динамічної рівноваги</text>
+  <text x="556" y="120" font-size="12" fill="#6b7280">Умова підйому зі сталою швидкістю (v = const):</text>
+
+  <!-- Плашка для головної нерівності -->
+  <rect x="556" y="126" width="363" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="737.5" y="148" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">k · F_тяг  ≥  m · g · sin(α) + F_roll</text>
+
+  <!-- Розшифровка компонентів -->
+  <text x="556" y="178" font-size="12" fill="#1a1a1a">• k — кількість тягових коліс (k = 2 або k = 4)</text>
+  <text x="556" y="197" font-size="12" fill="#1a1a1a">• F_тяг = (M_вих · η) / R — корисна тяга одного колеса</text>
+  <text x="556" y="216" font-size="12" fill="#1a1a1a">• m · g · sin(α) — гравітаційне скочування вниз</text>
+  <text x="556" y="235" font-size="12" fill="#1a1a1a">• F_roll = f_roll · m · g · cos(α) — опір коченню</text>
+
+  <!-- Картка 2: Інженерні висновки та граничні кути -->
+  <rect x="540" y="270" width="395" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="556" y="293" font-size="14" font-weight="bold" fill="#1a1a1a">Інженерні висновки та граничні кути</text>
+  <text x="556" y="310" font-size="12" fill="#6b7280">Граничний кут за тяговим моментом приводу:</text>
+
+  <!-- Плашка формули граничного кута -->
+  <rect x="556" y="316" width="363" height="28" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="737.5" y="335" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">sin(α_max) ≈ [ k · (M_вих / R) − F_roll ] / (m · g)</text>
+
+  <!-- Підпанель для 100 об/хв -->
+  <rect x="556" y="358" width="363" height="38" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="568" y="374" font-size="12" font-weight="bold" fill="#27ae60">100 об/хв (i ≈ 1:120): високий момент M_вих</text>
+  <text x="568" y="390" font-size="12" fill="#1a1a1a">Долає круті схили α = 25°–35° без ризику блокування</text>
+
+  <!-- Підпанель для 600 об/хв -->
+  <rect x="556" y="409" width="363" height="38" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="568" y="425" font-size="12" font-weight="bold" fill="#c0392b">600 об/хв (i ≈ 1:20): малий момент M_вих</text>
+  <text x="568" y="441" font-size="12" fill="#1a1a1a">Межа лише α ≈ 5°–8°; крутіший схил зупиняє мотор</text>
+</svg>

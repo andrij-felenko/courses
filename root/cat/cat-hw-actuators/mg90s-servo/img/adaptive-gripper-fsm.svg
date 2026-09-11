@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="26" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Діаграма станів автомата керування адаптивним захватом (Adaptive Gripper FSM)</text>
+  <text x="480" y="46" font-size="13" text-anchor="middle" fill="#6b7280">Переходи станів за порогом струму I_shunt, похідною dI/dt, тайм-аутами та захистом від перевантаження</text>
+
+  <!-- ГОЛОВНА РАМКА ДІАГРАМИ -->
+  <rect x="16" y="58" width="928" height="388" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- ЦЕНТРАЛЬНИЙ БЛОК ПАРАМЕТРІВ ТЕЛЕМЕТРІЇ -->
+  <rect x="430" y="174" width="100" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="194" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Пороги струму</text>
+  <line x1="440" y1="202" x2="520" y2="202" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="480" y="218" font-size="12" text-anchor="middle" fill="#6b7280">I_cnt = 80 мА</text>
+  <text x="480" y="238" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">I_tgt = 250 мА</text>
+  <text x="480" y="258" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">I_max = 600 мА</text>
+
+  <!-- СТАН 1: OPEN (Початковий) -->
+  <rect x="34" y="180" width="160" height="96" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="46" y="204" font-size="13" font-weight="700" fill="#2457d6">1. OPEN</text>
+  <text x="46" y="226" font-size="12" fill="#1a1a1a">Губки розкриті</text>
+  <text x="46" y="244" font-size="12" fill="#6b7280">Позиція θ = θ_open</text>
+  <text x="46" y="262" font-size="12" fill="#6b7280">I_idle &lt; 20 мА</text>
+
+  <!-- СТАН 2: APPROACH (Зближення) -->
+  <rect x="240" y="74" width="180" height="90" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="252" y="98" font-size="13" font-weight="700" fill="#2457d6">2. APPROACH</text>
+  <text x="252" y="120" font-size="12" fill="#1a1a1a">Швидке зближення</text>
+  <text x="252" y="138" font-size="12" fill="#6b7280">Рух без навантаження</text>
+  <text x="252" y="154" font-size="12" fill="#6b7280">I &lt; I_cnt, ШІМ = 80%</text>
+
+  <!-- СТАН 3: CONTACT_DETECT (Виявлення контакту) -->
+  <rect x="540" y="74" width="180" height="90" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="552" y="98" font-size="13" font-weight="700" fill="#2457d6">3. CONTACT_DETECT</text>
+  <text x="552" y="120" font-size="12" fill="#1a1a1a">Контакт із деталлю</text>
+  <text x="552" y="138" font-size="12" fill="#2457d6">Стрибок dI/dt &gt; dI_tr</text>
+  <text x="552" y="154" font-size="12" fill="#6b7280">Фільтрація брязкоту</text>
+
+  <!-- СТАН 4: SQUEEZE (Дозоване стискання) -->
+  <rect x="766" y="180" width="160" height="96" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="778" y="204" font-size="13" font-weight="700" fill="#27ae60">4. SQUEEZE</text>
+  <text x="778" y="226" font-size="12" fill="#1a1a1a">Дозоване стискання</text>
+  <text x="778" y="244" font-size="12" fill="#27ae60">Контроль dI до I_tgt</text>
+  <text x="778" y="262" font-size="12" fill="#6b7280">Захист від зламу</text>
+
+  <!-- СТАН 5: HOLD (Стабільне утримання) -->
+  <rect x="540" y="286" width="180" height="90" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="552" y="310" font-size="13" font-weight="700" fill="#27ae60">5. HOLD</text>
+  <text x="552" y="332" font-size="12" fill="#1a1a1a">Утримання об'єкта</text>
+  <text x="552" y="350" font-size="12" fill="#27ae60">Зниження ШІМ до 30%</text>
+  <text x="552" y="366" font-size="12" fill="#6b7280">Струм спокою I_hold</text>
+
+  <!-- СТАН 6: STALL_ERROR (Аварія / Захист) -->
+  <rect x="240" y="286" width="180" height="90" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="252" y="310" font-size="13" font-weight="700" fill="#c0392b">6. STALL_ERROR</text>
+  <text x="252" y="332" font-size="12" fill="#1a1a1a">Аварійне блокування</text>
+  <text x="252" y="350" font-size="12" fill="#c0392b">Зняття живлення ШІМ</text>
+  <text x="252" y="366" font-size="12" fill="#6b7280">Захист від перегріву</text>
+
+  <!-- СТРІЛКА 1: OPEN -> APPROACH -->
+  <path d="M 104,180 L 104,100 L 240,100" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="114" y="120" font-size="12" font-weight="700" fill="#2457d6">cmd_close</text>
+  <text x="114" y="136" font-size="12" fill="#6b7280">команда закрити</text>
+
+  <!-- СТРІЛКА 2: APPROACH -> CONTACT_DETECT -->
+  <line x1="420" y1="110" x2="540" y2="110" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="480" y="94" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">dI/dt &gt; dI_tr</text>
+  <text x="480" y="106" font-size="12" text-anchor="middle" fill="#6b7280">I &gt; I_cnt</text>
+
+  <!-- СТРІЛКА 3: CONTACT_DETECT -> SQUEEZE -->
+  <path d="M 720,110 L 846,110 L 846,180" fill="none" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <text x="732" y="102" font-size="12" font-weight="700" fill="#27ae60">Контакт є</text>
+  <text x="732" y="126" font-size="12" fill="#6b7280">підтверджено</text>
+
+  <!-- СТРІЛКА 4: SQUEEZE -> HOLD -->
+  <path d="M 846,276 L 846,340 L 720,340" fill="none" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <text x="732" y="332" font-size="12" font-weight="700" fill="#27ae60">I ≥ I_target</text>
+  <text x="732" y="356" font-size="12" fill="#6b7280">(тиск досягнуто)</text>
+
+  <!-- СТРІЛКА 5: HOLD -> OPEN (Нормальне розкриття) -->
+  <path d="M 630,376 L 630,412 L 64,412 L 64,276" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="357" y="406" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">cmd_open (команда відпустити деталь)</text>
+
+  <!-- СТРІЛКА 6: HOLD -> STALL_ERROR (Аварія при утриманні) -->
+  <line x1="540" y1="340" x2="420" y2="340" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <text x="480" y="332" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">I &gt; I_max (зрив)</text>
+
+  <!-- СТРІЛКА 7: APPROACH -> STALL_ERROR (Заклинювання при русі) -->
+  <line x1="310" y1="164" x2="310" y2="286" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <text x="318" y="220" font-size="12" font-weight="700" fill="#c0392b">stall &gt; 300 мс</text>
+  <text x="318" y="236" font-size="12" fill="#6b7280">заклинювання</text>
+
+  <!-- СТРІЛКА 8: STALL_ERROR -> OPEN (Аварійне скидання) -->
+  <path d="M 240,360 L 130,360 L 130,276" fill="none" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <text x="122" y="336" font-size="12" font-weight="700" text-anchor="end" fill="#c0392b">скидання</text>
+  <text x="122" y="352" font-size="12" text-anchor="end" fill="#6b7280">відвід губок</text>
+</svg>

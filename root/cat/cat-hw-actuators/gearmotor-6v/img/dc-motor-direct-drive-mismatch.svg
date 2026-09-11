@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Невідповідність прямого приводу: чому колесу потрібен редуктор</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Прямий привід не зрушить колесо через брак моменту; редуктор узгоджує криву n(T) з зоною макс. ККД</text>
+
+  <!-- Ліва частина: Графік n(T) -->
+  <rect x="25" y="74" width="550" height="364" rx="8" fill="#f8fafc" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Верхні пояснювальні картки над лініями -->
+  <rect x="120" y="88" width="205" height="96" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="130" y="106" font-size="12" font-weight="bold" fill="#c0392b">1. Прямий привід (голий)</text>
+  <text x="130" y="124" font-size="12" fill="#1a1a1a">• n₀ = 8000 об/хв (надшвидкий)</text>
+  <text x="130" y="142" font-size="12" fill="#1a1a1a">• T_stall = 10 мН·м (мізерний)</text>
+  <text x="130" y="160" font-size="12" font-weight="bold" fill="#c0392b">× Заклинить: T_load &gt;&gt; T_stall</text>
+  <text x="130" y="176" font-size="12" fill="#6b7280">(не рушить колесо з місця)</text>
+  <!-- З'єднувач від лінії 1 до картки -->
+  <line x1="97" y1="136" x2="120" y2="136" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2,2"/>
+
+  <rect x="340" y="88" width="220" height="96" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="350" y="106" font-size="12" font-weight="bold" fill="#27ae60">2. Редуктор (i = 50:1, η ≈ 80%)</text>
+  <text x="350" y="124" font-size="12" fill="#1a1a1a">• n₀ знижено: 160 об/хв</text>
+  <text x="350" y="142" font-size="12" fill="#1a1a1a">• T_stall зріс: 400 мН·м</text>
+  <text x="350" y="160" font-size="12" font-weight="bold" fill="#27ae60">✓ Робоча точка в зоні макс. ККД</text>
+  <text x="350" y="176" font-size="12" fill="#6b7280">(стабільний хід без перегріву)</text>
+
+  <!-- Смуга розриву осі Y -->
+  <line x1="102" y1="202" x2="320" y2="202" stroke="#cbd5e1" stroke-dasharray="3,3"/>
+  <text x="330" y="206" font-size="12" fill="#9ca3af" font-style="italic">[розрив осі Y: 250 ... 4000 об/хв]</text>
+
+  <!-- Зона макс. ККД на характеристиці редуктора -->
+  <line x1="200" y1="296" x2="310" y2="329" stroke="#27ae60" stroke-width="8" stroke-linecap="round" opacity="0.3"/>
+
+  <!-- Лінія 1: Голий мотор (прямий привід) -->
+  <!-- Верхній відрізок (8000 до 4000) -->
+  <line x1="95" y1="120" x2="98" y2="192" stroke="#c0392b" stroke-width="2.5"/>
+  <!-- Перехід крізь розрив -->
+  <line x1="98" y1="192" x2="99" y2="212" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+  <!-- Нижній відрізок (до T_stall = 10 мН·м) -->
+  <line x1="99" y1="212" x2="105" y2="385" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="95" cy="120" r="4" fill="#c0392b"/>
+  <circle cx="105" cy="385" r="4" fill="#c0392b"/>
+
+  <!-- Лінія 2: Двигун з редуктором (i = 50:1) -->
+  <line x1="95" y1="265" x2="495" y2="385" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="95" cy="265" r="4" fill="#27ae60"/>
+  <circle cx="495" cy="385" r="4" fill="#27ae60"/>
+
+  <!-- Проекції робочої точки колеса -->
+  <line x1="245" y1="310" x2="245" y2="385" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <line x1="95" y1="310" x2="245" y2="310" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,3"/>
+
+  <!-- Робоча точка колеса -->
+  <circle cx="245" cy="310" r="6" fill="#2457d6" stroke="white" stroke-width="2"/>
+
+  <!-- Картка робочої точки колеса -->
+  <rect x="260" y="235" width="185" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="270" y="252" font-size="12" font-weight="bold" fill="#2457d6">Робоча точка колеса</text>
+  <text x="270" y="267" font-size="12" fill="#1a1a1a">n = 100 об/хв, T = 150 мН·м</text>
+  <text x="270" y="281" font-size="12" font-weight="bold" fill="#27ae60">✓ Зона макс. ККД (~62% n₀)</text>
+  <!-- Вказівник до робочої точки -->
+  <line x1="265" y1="287" x2="253" y2="303" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+  <!-- Позначення дефіциту моменту прямого приводу -->
+  <rect x="115" y="332" width="118" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="174" y="348" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Дефіцит тяги</text>
+  <text x="174" y="364" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">10 &lt;&lt; 150 мН·м</text>
+
+  <!-- Вісь Y: верхня ділянка -->
+  <line x1="95" y1="110" x2="95" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M91,112 L95,104 L99,112 Z" fill="#1a1a1a"/>
+  <text x="95" y="98" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">n, об/хв</text>
+
+  <!-- Позначки верхньої ділянки осі Y -->
+  <line x1="90" y1="120" x2="95" y2="120" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="84" y="124" font-size="12" fill="#6b7280" text-anchor="end">8000</text>
+  <line x1="90" y1="156" x2="95" y2="156" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="84" y="160" font-size="12" fill="#6b7280" text-anchor="end">6000</text>
+  <line x1="90" y1="192" x2="95" y2="192" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="84" y="196" font-size="12" fill="#6b7280" text-anchor="end">4000</text>
+
+  <!-- Символ розриву осі Y -->
+  <line x1="89" y1="199" x2="101" y2="195" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="89" y1="207" x2="101" y2="203" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Вісь Y: нижня ділянка -->
+  <line x1="95" y1="210" x2="95" y2="385" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Позначки нижньої ділянки осі Y -->
+  <line x1="90" y1="235" x2="95" y2="235" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="84" y="239" font-size="12" fill="#6b7280" text-anchor="end">200</text>
+  <line x1="90" y1="265" x2="95" y2="265" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="84" y="269" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">160</text>
+  <line x1="90" y1="310" x2="95" y2="310" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="84" y="314" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">100</text>
+  <line x1="90" y1="355" x2="95" y2="355" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="84" y="359" font-size="12" fill="#6b7280" text-anchor="end">40</text>
+  <text x="84" y="389" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Вісь X -->
+  <line x1="95" y1="385" x2="535" y2="385" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Позначки осі X -->
+  <line x1="105" y1="385" x2="105" y2="390" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="105" y="401" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">10</text>
+
+  <line x1="195" y1="385" x2="195" y2="390" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="195" y="401" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+
+  <line x1="245" y1="385" x2="245" y2="390" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="245" y="401" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">150</text>
+
+  <line x1="295" y1="385" x2="295" y2="390" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="295" y="401" font-size="12" fill="#6b7280" text-anchor="middle">200</text>
+
+  <line x1="395" y1="385" x2="395" y2="390" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="395" y="401" font-size="12" fill="#6b7280" text-anchor="middle">300</text>
+
+  <line x1="495" y1="385" x2="495" y2="390" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="495" y="401" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">400</text>
+
+  <!-- Підпис осі X -->
+  <text x="320" y="425" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крутний момент T, мН·м</text>
+
+  <!-- Права частина: Інформаційні картки -->
+  <!-- Картка 1: Проблема прямого приводу -->
+  <rect x="590" y="74" width="345" height="172" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="604" y="98" font-size="13" font-weight="bold" fill="#c0392b">ПРОБЛЕМА: ПРЯМИЙ ПРИВІД (ГОЛИЙ МОТОР)</text>
+  <text x="604" y="118" font-size="12" fill="#1a1a1a">• Холостий хід занадто швидкий: n₀ ≈ 8000 об/хв</text>
+  <text x="604" y="134" font-size="12" fill="#1a1a1a">  Колесо Ø65 мм мчало б зі швидкістю &gt; 90 км/год</text>
+  <text x="604" y="152" font-size="12" fill="#1a1a1a">• Катастрофічний брак моменту: T_stall ≈ 10 мН·м</text>
+  <text x="604" y="168" font-size="12" fill="#1a1a1a">  Для рушання колеса робота потрібно 150 мН·м</text>
+  <text x="604" y="188" font-size="12" fill="#1a1a1a">• Ротор заклинює (n = 0): бракує рушійної сили,</text>
+  <text x="604" y="204" font-size="12" fill="#1a1a1a">  бо точка навантаження лежить далеко за T_stall</text>
+  <text x="604" y="226" font-size="12" font-weight="bold" fill="#c0392b">× Наслідок: максимальний струм і перегрів двигуна</text>
+
+  <!-- Картка 2: Розв'язок через редуктор -->
+  <rect x="590" y="260" width="345" height="178" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="604" y="284" font-size="13" font-weight="bold" fill="#27ae60">РОЗВ'ЯЗОК: РЕДУКТОР (i = 50:1, η ≈ 80%)</text>
+  <text x="604" y="304" font-size="12" fill="#1a1a1a">• Зниження швидкості: n₀ = 8000 / 50 = 160 об/хв</text>
+  <text x="604" y="320" font-size="12" fill="#1a1a1a">  Робоча швидкість колеса (~100 об/хв) є керованою</text>
+  <text x="604" y="340" font-size="12" fill="#1a1a1a">• Множення моменту: T = 10 · 50 · 0.8 = 400 мН·м</text>
+  <text x="604" y="356" font-size="12" fill="#1a1a1a">  Запасу тяги вистачає для впевненого рушання!</text>
+  <text x="604" y="376" font-size="12" fill="#1a1a1a">• Узгодження графіка: робоча точка колеса</text>
+  <text x="604" y="392" font-size="12" fill="#1a1a1a">  (100 об/хв, 150 мН·м) лягає на 62% від n₀</text>
+  <text x="604" y="414" font-size="12" font-weight="bold" fill="#27ae60">✓ Оптимум ККД: висока тяга без ризику перегріву</text>
+</svg>

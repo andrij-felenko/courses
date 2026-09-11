@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Зміщення дифузора динаміка від частоти: захисна роль фільтра Rin-Cin</text>
+  <text x="480" y="49" text-anchor="middle" font-size="13" fill="#6b7280">Вхідний ФВЧ усуває інфразвукове перевантаження та утримує дифузор у межах лінійного ходу Xmax</text>
+  <!-- Фонове зонування графіка -->
+  <rect x="70" y="80" width="570" height="210" fill="#fdf2f2"/>
+  <rect x="70" y="290" width="570" height="90" fill="#f2f9f5"/>
+  <rect x="70" y="80" width="570" height="300" fill="none" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Сітка графіка -->
+  <line x1="70" y1="155" x2="640" y2="155" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="70" y1="230" x2="640" y2="230" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="70" y1="305" x2="640" y2="305" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="260" y1="80" x2="260" y2="380" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="450" y1="80" x2="450" y2="380" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,3"/>
+  <!-- Лінія Xmax -->
+  <line x1="70" y1="290" x2="640" y2="290" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+  <!-- Резонанс динаміка fs -->
+  <text x="293.5" y="96" text-anchor="middle" font-size="12" font-weight="700" fill="#4b5563">fs ≈ 150 Гц</text>
+  <line x1="293.5" y1="104" x2="293.5" y2="380" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <!-- Підписи осі Y (Зміщення) -->
+  <text x="70" y="72" font-size="12" font-weight="700" fill="#1a1a1a">X (мм)</text>
+  <text x="62" y="84" text-anchor="end" font-size="12" fill="#6b7280">4,0</text>
+  <text x="62" y="159" text-anchor="end" font-size="12" fill="#6b7280">3,0</text>
+  <text x="62" y="234" text-anchor="end" font-size="12" fill="#6b7280">2,0</text>
+  <text x="62" y="294" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">1,2</text>
+  <text x="62" y="309" text-anchor="end" font-size="12" fill="#6b7280">1,0</text>
+  <text x="62" y="384" text-anchor="end" font-size="12" fill="#6b7280">0,0</text>
+  <!-- Підписи осі X (Частота) -->
+  <line x1="70" y1="380" x2="70" y2="386" stroke="#6b7280" stroke-width="1"/>
+  <text x="70" y="400" text-anchor="middle" font-size="12" fill="#6b7280">10</text>
+  <line x1="127" y1="380" x2="127" y2="386" stroke="#6b7280" stroke-width="1"/>
+  <text x="127" y="400" text-anchor="middle" font-size="12" fill="#6b7280">20</text>
+  <line x1="203" y1="380" x2="203" y2="386" stroke="#6b7280" stroke-width="1"/>
+  <text x="203" y="400" text-anchor="middle" font-size="12" fill="#6b7280">50</text>
+  <line x1="260" y1="380" x2="260" y2="386" stroke="#6b7280" stroke-width="1"/>
+  <text x="260" y="400" text-anchor="middle" font-size="12" fill="#6b7280">100</text>
+  <line x1="317" y1="380" x2="317" y2="386" stroke="#6b7280" stroke-width="1"/>
+  <text x="317" y="400" text-anchor="middle" font-size="12" fill="#6b7280">200</text>
+  <line x1="393" y1="380" x2="393" y2="386" stroke="#6b7280" stroke-width="1"/>
+  <text x="393" y="400" text-anchor="middle" font-size="12" fill="#6b7280">500</text>
+  <line x1="450" y1="380" x2="450" y2="386" stroke="#6b7280" stroke-width="1"/>
+  <text x="450" y="400" text-anchor="middle" font-size="12" fill="#6b7280">1 кГц</text>
+  <line x1="507" y1="380" x2="507" y2="386" stroke="#6b7280" stroke-width="1"/>
+  <text x="507" y="400" text-anchor="middle" font-size="12" fill="#6b7280">2 кГц</text>
+  <line x1="583" y1="380" x2="583" y2="386" stroke="#6b7280" stroke-width="1"/>
+  <text x="583" y="400" text-anchor="middle" font-size="12" fill="#6b7280">5 кГц</text>
+  <line x1="640" y1="380" x2="640" y2="386" stroke="#6b7280" stroke-width="1"/>
+  <text x="640" y="400" text-anchor="middle" font-size="12" fill="#6b7280">10 кГц</text>
+  <text x="355" y="438" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Частота сигналу f (Гц, логарифмічна шкала)</text>
+  <!-- Підписи в полі графіка -->
+  <text x="545" y="283" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Граничний хід Xmax = 1,2 мм</text>
+  <text x="545" y="325" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Безпечна зона (X ≤ Xmax)</text>
+  <text x="545" y="342" text-anchor="middle" font-size="12" fill="#6b7280">лінійний режим роботи</text>
+  <!-- Крива БЕЗ фільтра (червона) -->
+  <path d="M 70,95 C 100,98 127,106 150,116 C 180,132 203,165 230,210 C 250,245 265,272 278,290 C 285,300 293.5,309 305,318 C 325,332 350,348 393,361 C 450,371 520,376 640,378.5" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="293.5" cy="309" r="4" fill="#c0392b"/>
+  <!-- Крива З фільтром (синя) -->
+  <path d="M 70,378 C 100,376 127,374 150,371 C 180,366 203,361 230,352 C 255,342 275,334 293.5,329 C 304,331 317,337 341,350 C 393,362 450,371 520,376 640,378.5" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="293.5" cy="329" r="4" fill="#2457d6"/>
+  <circle cx="303.8" cy="331" r="3.5" fill="#2457d6"/>
+  <!-- Виноска червоної кривої -->
+  <text x="145" y="178" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">БЕЗ фільтра</text>
+  <text x="145" y="194" text-anchor="middle" font-size="12" fill="#c0392b">X вилітає до 3,8 мм!</text>
+  <text x="145" y="210" text-anchor="middle" font-size="12" fill="#6b7280">(руйнування дифузора)</text>
+  <line x1="145" y1="165" x2="145" y2="124" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <!-- Виноска синьої кривої -->
+  <text x="165" y="318" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">З фільтром Rin-Cin</text>
+  <text x="165" y="334" text-anchor="middle" font-size="12" fill="#27ae60">X &lt; 0,7 мм (захищено)</text>
+  <line x1="165" y1="340" x2="165" y2="362" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- Праві інформаційні картки -->
+  <rect x="660" y="80" width="275" height="142" rx="6" fill="#fdecea" stroke="#e0b4b4" stroke-width="1"/>
+  <text x="675" y="102" font-size="13" font-weight="700" fill="#c0392b">БЕЗ фільтра: аварійний режим</text>
+  <text x="675" y="122" font-size="12" fill="#1a1a1a">• Нижче резонансу fs (~150 Гц):</text>
+  <text x="687" y="138" font-size="12" fill="#4b5563">спадає опір повітря (розвантаження)</text>
+  <text x="675" y="158" font-size="12" fill="#1a1a1a">• Зміщення дифузора:</text>
+  <text x="687" y="174" font-size="12" font-weight="700" fill="#c0392b">X вилітає до 3–4 мм (&gt;&gt; Xmax)</text>
+  <text x="675" y="194" font-size="12" fill="#1a1a1a">• Механічні наслідки:</text>
+  <text x="687" y="210" font-size="12" fill="#c0392b">удар котушки об магніт, розрив шайби</text>
+  <rect x="660" y="238" width="275" height="142" rx="6" fill="#eaf0fd" stroke="#b8daff" stroke-width="1"/>
+  <text x="675" y="260" font-size="13" font-weight="700" fill="#2457d6">З фільтром Rin-Cin: захист</text>
+  <text x="675" y="280" font-size="12" fill="#1a1a1a">• Вхідний ФВЧ (HPF 1-го порядку):</text>
+  <text x="687" y="296" font-size="12" fill="#4b5563">fc = 1 / (2·π·Rin·Cin) ≈ 170 Гц</text>
+  <text x="675" y="316" font-size="12" fill="#1a1a1a">• Зріз інфразвуку:</text>
+  <text x="687" y="332" font-size="12" font-weight="700" fill="#27ae60">спад -20 дБ/дек нижче 170 Гц</text>
+  <text x="675" y="352" font-size="12" fill="#1a1a1a">• Результат для динаміка:</text>
+  <text x="687" y="368" font-size="12" fill="#27ae60">X &lt; Xmax (≤ 0,7 мм) у всій смузі</text>
+</svg>

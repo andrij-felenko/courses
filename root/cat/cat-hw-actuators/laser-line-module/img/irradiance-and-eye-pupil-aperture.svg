@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Опроміненість лазерної лінії та критерій безпеки 7-мм зіниці</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Розгортка 5 мВт у смугу знижує перехоплену оком потужність до безпечного рівня &lt; 1 мВт</text>
+
+  <!-- LEFT PANEL: Geometric Model & Pupil -->
+  <rect x="30" y="78" width="435" height="252" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="78" width="435" height="30" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрична модель: лінія 5 мВт та 7-мм зіниця ока</text>
+
+  <!-- Pupil Label -->
+  <text x="247" y="122" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Апертура зіниці d = 7 мм (IEC 60825-1)</text>
+
+  <!-- Total Line Strip -->
+  <text x="247" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Лазерна смуга P₀ = 5 мВт, L = 100 мм</text>
+  <rect x="55" y="152" width="350" height="16" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Pupil Circle -->
+  <circle cx="247" cy="160" r="23" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <!-- Intercepted strip part inside pupil -->
+  <rect x="224" y="152" width="46" height="16" rx="1" fill="#c0392b" fill-opacity="0.8"/>
+
+  <!-- Intercepted Power Formulas -->
+  <text x="247" y="198" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">P_eye = P₀ · (7 мм / 100 мм) = 0.35 мВт</text>
+  <text x="247" y="214" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">&lt; 1 мВт (Безпечний Клас 1 / 2)</text>
+
+  <!-- Point Comparison Line -->
+  <circle cx="70" cy="245" r="4.5" fill="#c0392b"/>
+  <text x="82" y="249" font-size="12" fill="#c0392b" text-anchor="start">Точковий пучок: P_eye = 5 мВт (Клас 3R, небезпечно)</text>
+  <text x="82" y="265" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Розгорнута лінія: P_eye = 0.35 мВт (безпечно)</text>
+
+  <!-- Left Panel bottom note -->
+  <rect x="42" y="278" width="411" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="295" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Розподіл енергії вздовж лінії знижує ризик у 14–70 разів:</text>
+  <text x="247" y="311" font-size="12" fill="#1a1a1a" text-anchor="middle">зіниця 7 мм захоплює лише малу частку випромінених фотонів</text>
+
+
+  <!-- RIGHT PANEL: Irradiance Curve E(x) -->
+  <rect x="495" y="78" width="435" height="252" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="495" y="78" width="435" height="30" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Опроміненість E: Flat-Top (Павелл) проти Гауса</text>
+
+  <!-- Axes -->
+  <line x1="535" y1="236" x2="905" y2="236" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="550" y1="240" x2="550" y2="120" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="900" y="228" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">x (мм)</text>
+  <text x="556" y="132" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">E (мВт/см²)</text>
+
+  <!-- MPE Line -->
+  <line x1="550" y1="172" x2="885" y2="172" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="556" y="166" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Норма MPE (2.55 мВт/см²)</text>
+
+  <!-- Flat-Top Plateau (Powell Prism) -->
+  <path d="M 580,236 L 580,192 L 860,192 L 860,236" fill="#e9f7ef" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="720" y="186" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Flat-Top: E_peak ≈ E_avg &lt; MPE (безпечно)</text>
+
+  <!-- Gaussian Peak (Cylindrical Lens) -->
+  <path d="M 580,236 C 660,236 690,135 720,135 C 750,135 780,236 860,236" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4,3"/>
+  <text x="720" y="128" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Гаусів пік: E_peak &gt;&gt; MPE (небезпека!)</text>
+
+  <!-- Ticks on X axis -->
+  <text x="720" y="252" font-size="12" fill="#6b7280" text-anchor="middle">x = 0 (центр)</text>
+  <text x="580" y="252" font-size="12" fill="#6b7280" text-anchor="middle">-50 мм</text>
+  <text x="860" y="252" font-size="12" fill="#6b7280" text-anchor="middle">+50 мм</text>
+
+  <!-- Right Panel bottom note -->
+  <rect x="507" y="278" width="411" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="295" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Парадокс безпеки: при однакових 5 мВт гаусова лінія</text>
+  <text x="712" y="311" font-size="12" fill="#1a1a1a" text-anchor="middle">перевищує MPE у центрі, тоді як призма Павелла безпечна</text>
+
+
+  <!-- BOTTOM SECTION: SUMMARY CARDS -->
+  <!-- Card 1: Pupil Geometry -->
+  <rect x="30" y="345" width="286" height="90" rx="8" ry="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="30" y="345" width="286" height="26" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="173" y="362" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. АПЕРТУРА ЗІНИЦІ (7 ММ)</text>
+  <text x="42" y="385" font-size="12" fill="#1a1a1a">• Стандарт IEC 60825-1: діаметр 7 мм</text>
+  <text x="42" y="403" font-size="12" fill="#1a1a1a">• Площа зіниці ока: A_pupil ≈ 38.5 мм²</text>
+  <text x="42" y="421" font-size="12" font-weight="bold" fill="#2457d6">• Базовий еталон оцінки безпеки</text>
+
+  <!-- Card 2: Intercepted Power -->
+  <rect x="337" y="345" width="286" height="90" rx="8" ry="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="337" y="345" width="286" height="26" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="362" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2. ПЕРЕХОПЛЕНА ПОТУЖНІСТЬ</text>
+  <text x="349" y="385" font-size="12" fill="#1a1a1a">• Формула: P_eye = P₀ · (d_зіниці / L)</text>
+  <text x="349" y="403" font-size="12" fill="#1a1a1a">• При L=100 мм: P_eye = 0.35 мВт (&lt; 1 мВт)</text>
+  <text x="349" y="421" font-size="12" font-weight="bold" fill="#27ae60">• Зниження ризику: з Класу 3R у Клас 2/1</text>
+
+  <!-- Card 3: Peak Irradiance & MPE -->
+  <rect x="644" y="345" width="286" height="90" rx="8" ry="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="644" y="345" width="286" height="26" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="787" y="362" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3. ПІКОВА ОПРОМІНЕНІСТЬ (MPE)</text>
+  <text x="656" y="385" font-size="12" fill="#1a1a1a">• Норма MPE: 2.55 мВт/см² (за 0.25 с)</text>
+  <text x="656" y="403" font-size="12" fill="#1a1a1a">• Павелл: E_peak ≈ E_avg (в нормі MPE)</text>
+  <text x="656" y="421" font-size="12" font-weight="bold" fill="#c0392b">• Циліндр: E_peak у 3–5 разів вище норми</text>
+
+</svg>

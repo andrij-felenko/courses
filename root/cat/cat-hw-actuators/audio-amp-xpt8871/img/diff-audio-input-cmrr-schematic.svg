@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-noise" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+</defs>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Симетричний диференційний вхід XPT8871 та придушення завад (CMRR)</text>
+<text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Синфазний шум на витій парі взаємно віднімається на симетричних входах IN+ та IN−</text>
+
+<!-- 1. Блок джерела сигналу (ЦАП / Bluetooth) -->
+<rect x="24" y="86" width="105" height="238" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="76" y="110" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Джерело аудіо</text>
+<text x="76" y="128" font-size="12" text-anchor="middle" fill="#6b7280">ЦАП / BT-модуль</text>
+<text x="76" y="148" font-size="12" text-anchor="middle" fill="#1a1a1a">Балансний вихід</text>
+
+<circle cx="129" cy="175" r="3.5" fill="#2457d6"/>
+<text x="120" y="172" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">OUT+</text>
+<text x="120" y="190" font-size="12" text-anchor="end" fill="#2457d6">+V_sig/2</text>
+
+<circle cx="129" cy="245" r="3.5" fill="#2457d6"/>
+<text x="120" y="242" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">OUT−</text>
+<text x="120" y="260" font-size="12" text-anchor="end" fill="#2457d6">−V_sig/2</text>
+
+<text x="76" y="295" font-size="12" text-anchor="middle" fill="#6b7280">Протифазний сигнал</text>
+
+<!-- 2. Блок лінії зв'язку (вита пара) -->
+<rect x="145" y="86" width="105" height="238" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="197" y="110" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вита пара</text>
+<text x="197" y="128" font-size="12" text-anchor="middle" fill="#6b7280">UTP лінія (L)</text>
+
+<rect x="153" y="138" width="89" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="197" y="153" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Шум: V_noise</text>
+
+<!-- Наведення шуму на дроти -->
+<line x1="197" y1="158" x2="197" y2="168" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-noise)"/>
+
+<!-- Провідники через лінію -->
+<line x1="129" y1="175" x2="250" y2="175" stroke="#2457d6" stroke-width="2"/>
+<line x1="129" y1="245" x2="250" y2="245" stroke="#2457d6" stroke-width="2"/>
+
+<text x="197" y="205" font-size="12" text-anchor="middle" fill="#c0392b">Синфазний шум</text>
+<text x="197" y="222" font-size="12" text-anchor="middle" fill="#6b7280">однаковий на двох</text>
+
+<text x="197" y="280" font-size="12" text-anchor="middle" fill="#1a1a1a">Без екранування</text>
+<text x="197" y="298" font-size="12" text-anchor="middle" fill="#6b7280">вита геометрія</text>
+
+<!-- 3. Сигнали на вході перед конденсаторами -->
+<line x1="250" y1="175" x2="455" y2="175" stroke="#2457d6" stroke-width="2"/>
+<line x1="250" y1="245" x2="455" y2="245" stroke="#2457d6" stroke-width="2"/>
+
+<text x="345" y="152" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">V_in+ = +V_sig/2 + V_noise</text>
+<text x="345" y="214" font-size="12" text-anchor="middle" fill="#2457d6">Напруги перед входом</text>
+<text x="345" y="272" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">V_in− = −V_sig/2 + V_noise</text>
+
+<!-- 4. Вхідні конденсатори C_IN та резистори R_IN -->
+<!-- Верхня гілка (IN+) -->
+<line x1="455" y1="165" x2="455" y2="185" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="461" y1="165" x2="461" y2="185" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="461" y1="175" x2="505" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="458" y="138" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">C_IN1</text>
+<text x="458" y="154" font-size="12" text-anchor="middle" fill="#6b7280">0.47 мкФ</text>
+
+<rect x="505" y="169" width="28" height="12" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="533" y1="175" x2="580" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="519" y="138" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">R_IN1</text>
+<text x="519" y="154" font-size="12" text-anchor="middle" fill="#6b7280">20 кОм</text>
+
+<circle cx="555" cy="175" r="3.5" fill="#1a1a1a"/>
+
+<!-- Нижня гілка (IN-) -->
+<line x1="455" y1="235" x2="455" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="461" y1="235" x2="461" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="461" y1="245" x2="505" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="458" y="274" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">C_IN2</text>
+<text x="458" y="290" font-size="12" text-anchor="middle" fill="#6b7280">0.47 мкФ</text>
+
+<rect x="505" y="239" width="28" height="12" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="533" y1="245" x2="580" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="519" y="274" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">R_IN2</text>
+<text x="519" y="290" font-size="12" text-anchor="middle" fill="#6b7280">20 кОм</text>
+
+<circle cx="555" cy="245" r="3.5" fill="#1a1a1a"/>
+
+<!-- Зворотний зв'язок R_F1 (верхній контур) -->
+<line x1="555" y1="175" x2="555" y2="105" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="555" y1="105" x2="615" y2="105" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="615" y="99" width="30" height="12" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="645" y1="105" x2="710" y2="105" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="710" y1="105" x2="710" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="630" y="93" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">R_F1 = 20 кОм (1%)</text>
+
+<!-- Зворотний зв'язок R_F2 (нижній контур) -->
+<line x1="555" y1="245" x2="555" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="555" y1="315" x2="615" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="615" y="309" width="30" height="12" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="645" y1="315" x2="710" y2="315" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="710" y1="315" x2="710" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="630" y="333" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">R_F2 = 20 кОм (1%)</text>
+
+<!-- 5. Корпус мікросхеми XPT8871 -->
+<rect x="580" y="125" width="105" height="170" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="632" y="146" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">XPT8871</text>
+
+<rect x="607" y="196" width="50" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="632" y="212" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Av = 2</text>
+
+<text x="632" y="280" font-size="12" text-anchor="middle" fill="#6b7280">ESOP-8 (BTL)</text>
+
+<!-- Виводи мікросхеми -->
+<text x="586" y="179" font-size="12" font-weight="bold" fill="#1a1a1a">3</text>
+<text x="596" y="179" font-size="12" fill="#2457d6">IN+</text>
+
+<text x="586" y="249" font-size="12" font-weight="bold" fill="#1a1a1a">4</text>
+<text x="596" y="249" font-size="12" fill="#2457d6">IN−</text>
+
+<text x="678" y="179" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">8</text>
+<text x="668" y="179" font-size="12" text-anchor="end" fill="#2457d6">VO−</text>
+
+<text x="678" y="249" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">5</text>
+<text x="668" y="249" font-size="12" text-anchor="end" fill="#2457d6">VO+</text>
+
+<!-- 6. Вихідний каскад до динаміка -->
+<line x1="685" y1="175" x2="750" y2="175" stroke="#27ae60" stroke-width="2"/>
+<line x1="685" y1="245" x2="750" y2="245" stroke="#27ae60" stroke-width="2"/>
+
+<circle cx="710" cy="175" r="3.5" fill="#1a1a1a"/>
+<circle cx="710" cy="245" r="3.5" fill="#1a1a1a"/>
+
+<text x="730" y="162" font-size="12" text-anchor="middle" fill="#2457d6">−V_sig</text>
+<text x="730" y="265" font-size="12" text-anchor="middle" fill="#2457d6">+V_sig</text>
+
+<!-- Динамік 4 Ом -->
+<circle cx="750" cy="175" r="3.5" fill="#27ae60"/>
+<circle cx="750" cy="245" r="3.5" fill="#27ae60"/>
+
+<rect x="750" y="165" width="16" height="90" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+<polygon points="766,175 798,145 798,275 766,245" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+<!-- Звукові хвилі чистого звуку -->
+<path d="M806,185 A 30 30 0 0 1 806,235" fill="none" stroke="#27ae60" stroke-width="2"/>
+<path d="M814,175 A 45 45 0 0 1 814,245" fill="none" stroke="#27ae60" stroke-width="2"/>
+<path d="M822,165 A 60 60 0 0 1 822,255" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+<!-- Опис біля динаміка -->
+<text x="835" y="172" font-size="13" font-weight="bold" fill="#1a1a1a">Динамік 4 Ом</text>
+<text x="835" y="192" font-size="12" font-weight="bold" fill="#27ae60">Чистий звук BTL</text>
+<text x="835" y="210" font-size="12" fill="#2457d6">V_out = 2 · V_sig</text>
+<text x="835" y="228" font-size="12" fill="#27ae60">Заваду усунено</text>
+<text x="835" y="246" font-size="12" fill="#6b7280">CMRR > 60 дБ</text>
+<text x="835" y="264" font-size="12" fill="#6b7280">Потужність: 5 Вт</text>
+
+<!-- 7. Пояснювальні плашки з аналітикою (нижній ряд) -->
+<!-- Плашка 1: Вхідна завада -->
+<rect x="24" y="346" width="288" height="92" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="36" y="366" font-size="13" font-weight="bold" fill="#c0392b">1. Наведення синфазної завади</text>
+<text x="36" y="386" font-size="12" fill="#1a1a1a">V_in+ = +V_sig/2 + V_noise(t)</text>
+<text x="36" y="404" font-size="12" fill="#1a1a1a">V_in− = −V_sig/2 + V_noise(t)</text>
+<text x="36" y="424" font-size="12" fill="#6b7280">Вита пара наводить шум однаково на дроти</text>
+
+<!-- Плашка 2: Взаємне віднімання -->
+<rect x="328" y="346" width="304" height="92" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="340" y="366" font-size="13" font-weight="bold" fill="#27ae60">2. Взаємне віднімання (CMRR)</text>
+<text x="340" y="386" font-size="12" font-weight="bold" fill="#1a1a1a">V_diff = V_in+ − V_in− = V_sig</text>
+<text x="340" y="404" font-size="12" font-weight="bold" fill="#27ae60">V_noise − V_noise = 0 (шум зник)</text>
+<text x="340" y="424" font-size="12" fill="#6b7280">Точність R_IN, R_F: 1% для CMRR > 60 дБ</text>
+
+<!-- Плашка 3: Чистий вихід BTL -->
+<rect x="648" y="346" width="288" height="92" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="660" y="366" font-size="13" font-weight="bold" fill="#2457d6">3. Мостовий BTL-вихід на динамік</text>
+<text x="660" y="386" font-size="12" fill="#1a1a1a">A_v(BTL) = 2 · (R_F / R_IN) = 2 (6 дБ)</text>
+<text x="660" y="404" font-size="12" font-weight="bold" fill="#2457d6">V_out = 2 · V_sig (без фону й гудіння)</text>
+<text x="660" y="424" font-size="12" fill="#6b7280">Навантаження 4 Ом: чисті 5 Вт потужності</text>
+
+</svg>

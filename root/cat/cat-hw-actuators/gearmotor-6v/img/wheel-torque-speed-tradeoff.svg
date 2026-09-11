@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <!-- Arrow black -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <!-- Arrow blue -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <!-- Arrow green -->
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <!-- Arrow red -->
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Компроміс «швидкість — тяга»: вибір діаметра колеса та редуктора</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Залежність швидкості v та кута підйому α_max від діаметра колеса D для моторів 100 та 600 об/хв</text>
+
+  <!-- Ліва панель: Швидкість -->
+  <rect x="24" y="68" width="444" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="94" font-size="14" font-weight="bold" fill="#1a1a1a">Лінійна швидкість платформи v(D)</text>
+  <text x="44" y="112" font-size="12" fill="#6b7280">Формула: v = (π · D · n) / 60, де n — частота обертання вала</text>
+
+  <!-- Осі графіка швидкості -->
+  <line x1="80" y1="365" x2="80" y2="145" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="80" y1="365" x2="435" y2="365" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Позначки осі Y (v) -->
+  <line x1="75" y1="365" x2="80" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="70" y="369" font-size="12" fill="#6b7280" text-anchor="end">0.0</text>
+  <line x1="75" y1="300" x2="80" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="70" y="304" font-size="12" fill="#6b7280" text-anchor="end">1.0</text>
+  <line x1="75" y1="235" x2="80" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="70" y="239" font-size="12" fill="#6b7280" text-anchor="end">2.0</text>
+  <line x1="75" y1="170" x2="80" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="70" y="174" font-size="12" fill="#6b7280" text-anchor="end">3.0</text>
+  <text x="85" y="135" font-size="12" font-weight="bold" fill="#1a1a1a">v (м/с)</text>
+
+  <!-- Позначки осі X (D) -->
+  <line x1="80" y1="365" x2="80" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="80" y="384" font-size="12" fill="#6b7280" text-anchor="middle">30</text>
+  <line x1="155" y1="365" x2="155" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="155" y="384" font-size="12" fill="#6b7280" text-anchor="middle">45</text>
+  <line x1="255" y1="365" x2="255" y2="370" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="255" y="384" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">65</text>
+  <line x1="330" y1="365" x2="330" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="330" y="384" font-size="12" fill="#6b7280" text-anchor="middle">80</text>
+  <line x1="430" y1="365" x2="430" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="430" y="384" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+  <text x="255" y="405" font-size="12" fill="#1a1a1a" text-anchor="middle">Діаметр колеса D (мм)</text>
+
+  <!-- Лінії характеристик -->
+  <!-- 600 об/хв: лінійне зростання від 0.94 м/с (D=30) до 3.14 м/с (D=100) -->
+  <line x1="80" y1="304" x2="430" y2="161" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- 100 об/хв: плавне зростання від 0.16 м/с (D=30) до 0.52 м/с (D=100) -->
+  <line x1="80" y1="355" x2="430" y2="331" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Робоча точка D = 65 мм (100 об/хв і 600 об/хв) -->
+  <line x1="255" y1="365" x2="255" y2="232" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="255" cy="343" r="5" fill="#27ae60" stroke="white" stroke-width="2"/>
+  <circle cx="255" cy="232" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <text x="245" y="336" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">v = 0.34 м/с</text>
+
+  <!-- Підписи ліній -->
+  <text x="100" y="175" font-size="12" font-weight="bold" fill="#2457d6">600 об/хв (висока швидкість)</text>
+  <text x="100" y="191" font-size="12" fill="#2457d6">стрімке зростання v до 3.14 м/с</text>
+
+  <text x="275" y="305" font-size="12" font-weight="bold" fill="#27ae60">100 об/хв (контрольований рух)</text>
+  <text x="275" y="321" font-size="12" fill="#27ae60">плавне зростання: 0.16–0.52 м/с</text>
+
+  <!-- Нижня плашка робочої точки -->
+  <rect x="44" y="420" width="404" height="30" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="246" y="439" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D = 65 мм (100 об/хв): v = 0.34 м/с — безпечна швидкість</text>
+
+  <!-- Права панель: Тяга та ухил -->
+  <rect x="492" y="68" width="444" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="512" y="94" font-size="14" font-weight="bold" fill="#1a1a1a">Граничний кут підйому α_max(D) та сили</text>
+  <text x="512" y="112" font-size="12" fill="#6b7280">Умова руху: F_тяг = 2·M / D ≥ m·g·sin(α) + F_тер</text>
+
+  <!-- Осі графіка ухилу -->
+  <line x1="548" y1="365" x2="548" y2="145" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="548" y1="365" x2="903" y2="365" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Позначки осі Y (α) -->
+  <line x1="543" y1="365" x2="548" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="538" y="369" font-size="12" fill="#6b7280" text-anchor="end">0°</text>
+  <line x1="543" y1="305" x2="548" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="538" y="309" font-size="12" fill="#6b7280" text-anchor="end">10°</text>
+  <line x1="543" y1="245" x2="548" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="538" y="249" font-size="12" fill="#6b7280" text-anchor="end">20°</text>
+  <line x1="543" y1="185" x2="548" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="538" y="189" font-size="12" fill="#6b7280" text-anchor="end">30°</text>
+  <text x="553" y="135" font-size="12" font-weight="bold" fill="#1a1a1a">α_max (°)</text>
+
+  <!-- Позначки осі X (D) -->
+  <line x1="548" y1="365" x2="548" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="548" y="384" font-size="12" fill="#6b7280" text-anchor="middle">30</text>
+  <line x1="623" y1="365" x2="623" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="623" y="384" font-size="12" fill="#6b7280" text-anchor="middle">45</text>
+  <line x1="723" y1="365" x2="723" y2="370" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="723" y="384" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">65</text>
+  <line x1="798" y1="365" x2="798" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="798" y="384" font-size="12" fill="#6b7280" text-anchor="middle">80</text>
+  <line x1="898" y1="365" x2="898" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="898" y="384" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+  <text x="723" y="405" font-size="12" fill="#1a1a1a" text-anchor="middle">Діаметр колеса D (мм)</text>
+
+  <!-- Крива 1 (100 об/хв): від 32° (D=30) до 15° (D=100) -->
+  <path d="M 548,173 C 580,195 605,206 623,209 C 660,218 690,236 723,245 C 755,254 775,260 798,263 C 835,268 865,272 898,275" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Крива 2 (600 об/хв): від 10° (D=30) до 2° (D=100) -->
+  <path d="M 548,305 C 575,318 600,323 623,326 C 660,332 690,338 723,341 C 755,344 775,346 798,348 C 835,350 865,352 898,353" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Робоча точка D = 65 мм (100 об/хв) -->
+  <line x1="723" y1="365" x2="723" y2="245" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="723" cy="245" r="5" fill="#27ae60" stroke="white" stroke-width="2"/>
+  <circle cx="723" cy="341" r="4" fill="#c0392b" stroke="white" stroke-width="1.5"/>
+  <text x="713" y="265" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">D = 65 мм: α ≈ 20°</text>
+  <text x="713" y="281" font-size="12" fill="#1a1a1a" text-anchor="end">впевнений підйом</text>
+
+  <!-- Підпис кривої 100 об/хв -->
+  <text x="560" y="160" font-size="12" font-weight="bold" fill="#27ae60">100 об/хв (потужна тяга)</text>
+
+  <!-- Підпис кривої 600 об/хв -->
+  <text x="745" y="322" font-size="12" font-weight="bold" fill="#c0392b">600 об/хв (падіння тяги)</text>
+  <text x="745" y="338" font-size="12" fill="#c0392b">α &lt; 4°: заклинює на ухилі</text>
+
+  <!-- Компактна схема сил на ухилі -->
+  <rect x="735" y="125" width="190" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="745" y="139" font-size="12" font-weight="bold" fill="#1a1a1a">Сили на підйомі:</text>
+
+  <!-- Похила площина та кут -->
+  <line x1="745" y1="198" x2="910" y2="162" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="745" y1="198" x2="780" y2="198" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <path d="M 765,198 A 20,20 0 0,0 763,194" fill="none" stroke="#6b7280" stroke-width="1"/>
+  <text x="752" y="194" font-size="12" fill="#6b7280">α</text>
+
+  <!-- Робот -->
+  <polygon points="782,178 837,165 834,153 779,166" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="792" cy="181" r="5" fill="#1a1a1a"/>
+  <circle cx="827" cy="173" r="5" fill="#1a1a1a"/>
+
+  <!-- Вектор сили тяги F_тяг -->
+  <line x1="837" y1="159" x2="875" y2="150" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="880" y="153" font-size="12" font-weight="bold" fill="#27ae60">F_тяг</text>
+
+  <!-- Вектор скочування m*g*sin(α) -->
+  <line x1="782" y1="172" x2="748" y2="180" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="745" y="158" font-size="12" font-weight="bold" fill="#c0392b">m·g·sin α</text>
+
+  <!-- Нижня плашка висновку -->
+  <rect x="512" y="420" width="404" height="30" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="439" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D = 65 мм + 100 об/хв — оптимальний компроміс тяги та швидкості</text>
+</svg>

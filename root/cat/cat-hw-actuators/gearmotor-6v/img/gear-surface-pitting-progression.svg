@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-white" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3.5 L0,7 Z" fill="#ffffff"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція втомного викришування (пітингу) зуба шестерні</text>
+  <text x="480" y="64" font-size="13" fill="#6b7280" text-anchor="middle">Від підповерхневих напружень Герца до гідророзклинювання тріщин та утворення каверн</text>
+
+  <!-- ==================== PHASE 1 ==================== -->
+  <rect x="24" y="80" width="219" height="222" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="24" y="80" width="219" height="34" rx="8" fill="#eaf0fd"/>
+  <rect x="24" y="106" width="219" height="8" fill="#eaf0fd"/>
+  <text x="134" y="104" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Контакт Герца</text>
+  <text x="134" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Пружне стискання поверхонь</text>
+
+  <!-- Phase 1 Diagram -->
+  <!-- Mating tooth profile -->
+  <path d="M 94,136 C 112,158 126,166 134,166 C 142,166 156,158 174,136 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="134" y1="138" x2="134" y2="154" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="144" y="146" font-size="12" font-weight="bold" fill="#2457d6">Fn</text>
+
+  <!-- Lower tooth body -->
+  <rect x="38" y="166" width="191" height="66" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="38" y1="166" x2="229" y2="166" stroke="#475569" stroke-width="2"/>
+
+  <!-- Hertz pressure curve -->
+  <path d="M 122,166 Q 134,152 146,166" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="156" y="154" font-size="12" fill="#2457d6">p₀</text>
+
+  <!-- Depth indicator -->
+  <line x1="46" y1="166" x2="52" y2="166" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="49" y1="166" x2="49" y2="190" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="46" y1="190" x2="52" y2="190" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="126" y1="190" x2="218" y2="190" stroke="#cbd5e1" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="58" y="182" font-size="12" fill="#6b7280">h = 0,2 мм</text>
+
+  <!-- Subsurface shear stress peak -->
+  <ellipse cx="134" cy="190" rx="26" ry="9" fill="#fdecea" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <ellipse cx="134" cy="190" rx="14" ry="4" fill="#c0392b" opacity="0.85"/>
+  <text x="134" y="218" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">пік τ_max</text>
+
+  <!-- Phase 1 Description -->
+  <text x="34" y="252" font-size="12" fill="#1a1a1a">• Контакт двох профілів</text>
+  <text x="34" y="270" font-size="12" fill="#1a1a1a">• Зсувні напруження τ_max</text>
+  <text x="34" y="288" font-size="12" fill="#6b7280">• Глибина 0,1–0,3 мм</text>
+
+  <!-- ==================== PHASE 2 ==================== -->
+  <rect x="255" y="80" width="219" height="222" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="255" y="80" width="219" height="34" rx="8" fill="#eaf0fd"/>
+  <rect x="255" y="106" width="219" height="8" fill="#eaf0fd"/>
+  <text x="365" y="104" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Підповерхнева тріщина</text>
+  <text x="365" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Втомне накопичення дефектів</text>
+
+  <!-- Phase 2 Diagram -->
+  <path d="M 325,136 C 343,158 357,166 365,166 C 373,166 387,158 405,136 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M 345,132 L 385,132" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Lower tooth body -->
+  <rect x="269" y="166" width="191" height="66" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="269" y1="166" x2="460" y2="166" stroke="#475569" stroke-width="2"/>
+
+  <!-- Fatigue cycles note -->
+  <text x="275" y="154" font-size="12" fill="#6b7280">N &gt; 10⁶ циклів</text>
+
+  <!-- Microcrack initiation -->
+  <line x1="275" y1="190" x2="445" y2="190" stroke="#cbd5e1" stroke-dasharray="3,3" stroke-width="1"/>
+  <ellipse cx="355" cy="190" rx="16" ry="6" fill="#fdecea" stroke="#e74c3c" stroke-width="1" stroke-dasharray="2,2"/>
+  <path d="M 352,192 L 360,186 L 367,181 L 373,178 L 380,172" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M 360,186 L 358,181 M 367,181 L 372,185" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="390" y="184" font-size="12" fill="#c0392b">~40°</text>
+  <text x="365" y="218" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">втомна тріщина</text>
+
+  <!-- Phase 2 Description -->
+  <text x="265" y="252" font-size="12" fill="#1a1a1a">• Пульсуючі зсуви в металі</text>
+  <text x="265" y="270" font-size="12" fill="#1a1a1a">• Зародження тріщини в τ_max</text>
+  <text x="265" y="288" font-size="12" fill="#6b7280">• Ріст під кутом до поверхні</text>
+
+  <!-- ==================== PHASE 3 ==================== -->
+  <rect x="486" y="80" width="219" height="222" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="486" y="80" width="219" height="34" rx="8" fill="#eaf0fd"/>
+  <rect x="486" y="106" width="219" height="8" fill="#eaf0fd"/>
+  <text x="596" y="104" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Проникнення мастила</text>
+  <text x="596" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Гідророзклинювання порожнини</text>
+
+  <!-- Phase 3 Diagram -->
+  <!-- Mating tooth sealing the crack mouth -->
+  <path d="M 570,136 C 588,158 602,166 608,166 C 614,166 628,158 646,136 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Lower tooth body -->
+  <rect x="500" y="166" width="191" height="66" rx="4" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="500" y1="166" x2="691" y2="166" stroke="#475569" stroke-width="2"/>
+
+  <!-- Oil film on surface -->
+  <path d="M 545,165 Q 555,163 565,165" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <!-- Open crack filled with pressurized oil -->
+  <path d="M 608,166 L 596,178 L 580,188 L 574,188 L 574,192 L 582,192 L 600,180 L 611,166 Z" fill="#2457d6" stroke="#1d4ed8" stroke-width="1.5"/>
+  <!-- Internal pressure arrows -->
+  <line x1="588" y1="182" x2="582" y2="178" stroke="#ffffff" stroke-width="1.5" marker-end="url(#arr-white)"/>
+  <line x1="592" y1="186" x2="598" y2="190" stroke="#ffffff" stroke-width="1.5" marker-end="url(#arr-white)"/>
+
+  <text x="515" y="184" font-size="12" fill="#2457d6">p_гідро</text>
+  <text x="596" y="218" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">гідравлічний клин</text>
+
+  <!-- Phase 3 Description -->
+  <text x="496" y="252" font-size="12" fill="#1a1a1a">• Мастило проникає в щілину</text>
+  <text x="496" y="270" font-size="12" fill="#1a1a1a">• Накочування замикає вхід</text>
+  <text x="496" y="288" font-size="12" fill="#2457d6">• Гідротиск розпирає стінки</text>
+
+  <!-- ==================== PHASE 4 ==================== -->
+  <rect x="717" y="80" width="219" height="222" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="717" y="80" width="219" height="34" rx="8" fill="#fdecea"/>
+  <rect x="717" y="106" width="219" height="8" fill="#fdecea"/>
+  <text x="827" y="104" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">4. Утворення раковини</text>
+  <text x="827" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Викришування та скол (пітинг)</text>
+
+  <!-- Phase 4 Diagram -->
+  <!-- Lower tooth body with crater -->
+  <path d="M 731,166 L 805,166 Q 810,192 825,192 Q 840,192 845,166 L 922,166 L 922,232 L 731,232 Z" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="731" y1="166" x2="805" y2="166" stroke="#475569" stroke-width="2"/>
+  <line x1="845" y1="166" x2="922" y2="166" stroke="#475569" stroke-width="2"/>
+
+  <!-- Lost profile line -->
+  <line x1="805" y1="166" x2="845" y2="166" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Pit crater interior -->
+  <path d="M 805,166 Q 810,192 825,192 Q 840,192 845,166 Z" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Detached metal flake (spall) -->
+  <path d="M 818,150 Q 826,144 836,150 Q 826,154 818,150 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <circle cx="813" cy="153" r="1.5" fill="#64748b"/>
+  <circle cx="841" cy="151" r="1.5" fill="#64748b"/>
+  <text x="850" y="150" font-size="12" fill="#6b7280">луска</text>
+
+  <text x="827" y="218" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">каверна (пітинг)</text>
+
+  <!-- Phase 4 Description -->
+  <text x="727" y="252" font-size="12" fill="#1a1a1a">• Відрив металевої лусочки</text>
+  <text x="727" y="270" font-size="12" fill="#c0392b">• Утворення каверни пітингу</text>
+  <text x="727" y="288" font-size="12" fill="#1a1a1a">• Вібрація та ризик зламу</text>
+
+  <!-- ==================== LOWER SUMMARY CARDS ==================== -->
+  <!-- Card 1: Фізика втоми -->
+  <rect x="24" y="318" width="294" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="24" y="318" width="294" height="4" rx="2" fill="#2457d6"/>
+  <text x="40" y="343" font-size="13" font-weight="bold" fill="#1a1a1a">Фізика втоми</text>
+  <text x="40" y="363" font-size="12" fill="#1a1a1a">• Мільйони циклів навантаження</text>
+  <text x="40" y="381" font-size="12" fill="#1a1a1a">  призводять до вичерпання міцності.</text>
+  <text x="40" y="399" font-size="12" fill="#6b7280">• Пульсуючий зсув породжує</text>
+  <text x="40" y="417" font-size="12" fill="#6b7280">  дефекти в кристалічній ґратці.</text>
+
+  <!-- Card 2: Роль мастила -->
+  <rect x="333" y="318" width="294" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="333" y="318" width="294" height="4" rx="2" fill="#c0392b"/>
+  <text x="349" y="343" font-size="13" font-weight="bold" fill="#1a1a1a">Роль мастила</text>
+  <text x="349" y="363" font-size="12" fill="#1a1a1a">• Змащення ефективно знижує тертя,</text>
+  <text x="349" y="381" font-size="12" fill="#1a1a1a">  проте затікає у мікротріщини.</text>
+  <text x="349" y="399" font-size="12" fill="#2457d6">• Під час накочування парного зуба</text>
+  <text x="349" y="417" font-size="12" fill="#2457d6">  діє як гідравлічний розклинювач.</text>
+
+  <!-- Card 3: Способи захисту -->
+  <rect x="642" y="318" width="294" height="120" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <rect x="642" y="318" width="294" height="4" rx="2" fill="#27ae60"/>
+  <text x="658" y="343" font-size="13" font-weight="bold" fill="#27ae60">Способи захисту</text>
+  <text x="658" y="363" font-size="12" fill="#1a1a1a">• Поверхневе зміцнення: цементація,</text>
+  <text x="658" y="381" font-size="12" fill="#1a1a1a">  азотування зубів до 58–62 HRC.</text>
+  <text x="658" y="399" font-size="12" fill="#27ae60">• Протизадирні мастила класу EP</text>
+  <text x="658" y="417" font-size="12" fill="#27ae60">  та точне шліфування евольвенти.</text>
+</svg>

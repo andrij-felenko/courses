@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Апаратна пастка 7-вивідного модуля ST7789: глухе заземлення CS</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Жорстке з'єднання CS з GND блокує спільну шину; 8-вивідний модуль повертає лінію вибору</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: 7-вивідний модуль -->
+  <rect x="24" y="74" width="444" height="386" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="38" y="88" width="132" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="104" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">7-PIN BREAKOUT</text>
+  <text x="182" y="104" font-size="13" font-weight="bold" fill="#1a1a1a">Монопольна шина дисплея</text>
+  <text x="38" y="124" font-size="12" fill="#6b7280">Доріжка CS запаяна на полігон GND: екран неможливо вимкнути</text>
+
+  <!-- Плата лівого модуля -->
+  <rect x="36" y="136" width="420" height="196" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="152" font-size="12" font-weight="bold" fill="#6b7280">ПЛАТА МОДУЛЯ (BREAKOUT PCB)</text>
+
+  <!-- Чіп ST7789 зліва -->
+  <rect x="48" y="164" width="96" height="158" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="96" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ST7789 IC</text>
+  <text x="96" y="194" text-anchor="middle" font-size="12" fill="#6b7280">(на шлейфі)</text>
+
+  <!-- Піни чіпа ST7789 зліва -->
+  <text x="138" y="212" text-anchor="end" font-size="12" fill="#1a1a1a">GND</text>
+  <text x="138" y="226" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">CS</text>
+  <text x="138" y="240" text-anchor="end" font-size="12" fill="#1a1a1a">VCC</text>
+  <text x="138" y="254" text-anchor="end" font-size="12" fill="#1a1a1a">SCL</text>
+  <text x="138" y="268" text-anchor="end" font-size="12" fill="#1a1a1a">SDA</text>
+  <text x="138" y="282" text-anchor="end" font-size="12" fill="#1a1a1a">RES</text>
+  <text x="138" y="296" text-anchor="end" font-size="12" fill="#1a1a1a">DC</text>
+  <text x="138" y="310" text-anchor="end" font-size="12" fill="#1a1a1a">BLK</text>
+
+  <!-- Колодка лівого модуля (7 контактів) -->
+  <rect x="356" y="164" width="88" height="158" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="400" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">КОЛОДКА</text>
+  <text x="400" y="194" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">7 контактів</text>
+
+  <!-- Кружальця пінів колодки зліва -->
+  <circle cx="368" cy="208" r="3.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="368" cy="236" r="3.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="368" cy="250" r="3.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="368" cy="264" r="3.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="368" cy="278" r="3.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="368" cy="292" r="3.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="368" cy="306" r="3.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Назви пінів колодки зліва -->
+  <text x="378" y="212" font-size="12" fill="#1a1a1a">GND</text>
+  <text x="368" y="226" font-size="12" font-weight="bold" fill="#c0392b">немає CS</text>
+  <text x="378" y="240" font-size="12" fill="#1a1a1a">VCC</text>
+  <text x="378" y="254" font-size="12" fill="#1a1a1a">SCL</text>
+  <text x="378" y="268" font-size="12" fill="#1a1a1a">SDA</text>
+  <text x="378" y="282" font-size="12" fill="#1a1a1a">RES</text>
+  <text x="378" y="296" font-size="12" fill="#1a1a1a">DC</text>
+  <text x="378" y="310" font-size="12" fill="#1a1a1a">BLK</text>
+
+  <!-- Доріжки на платі зліва -->
+  <line x1="144" y1="208" x2="364" y2="208" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- CS заземлена на лінію GND зі стрілкою скидання на землю -->
+  <line x1="144" y1="222" x2="210" y2="222" stroke="#c0392b" stroke-width="2"/>
+  <line x1="210" y1="222" x2="210" y2="210" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <circle cx="210" cy="208" r="4" fill="#c0392b"/>
+
+  <line x1="144" y1="236" x2="364" y2="236" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="144" y1="250" x2="364" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="144" y1="264" x2="364" y2="264" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="144" y1="278" x2="364" y2="278" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="144" y1="292" x2="364" y2="292" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="144" y1="306" x2="364" y2="306" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Плашка акценту CS на GND зліва -->
+  <rect x="180" y="166" width="166" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="263" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">CS запаяно на GND</text>
+  <text x="263" y="194" text-anchor="middle" font-size="12" fill="#c0392b">0 В постійно (активний)</text>
+
+  <!-- Блок наслідку зліва -->
+  <rect x="36" y="346" width="420" height="102" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="48" y="364" font-size="13" font-weight="bold" fill="#c0392b">Наслідок: колізія на спільній шині SPI</text>
+  <text x="48" y="382" font-size="12" fill="#1a1a1a">• Дисплей слухає шину ЗАВЖДИ: CS не можна підняти в 1</text>
+  <text x="48" y="400" font-size="12" fill="#1a1a1a">• При читанні SD-карти або датчика екран хапає чужі байти</text>
+  <text x="48" y="418" font-size="12" font-weight="bold" fill="#c0392b">• Збій зображення та зависання обміну даними</text>
+  <text x="48" y="436" font-size="12" fill="#6b7280">Плата розрахована лише на один пристрій на всій шині SPI</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: 8-вивідний модуль -->
+  <rect x="492" y="74" width="444" height="386" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="506" y="88" width="132" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="572" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">8-PIN BREAKOUT</text>
+  <text x="650" y="104" font-size="13" font-weight="bold" fill="#1a1a1a">Розділювана шина SPI</text>
+  <text x="506" y="124" font-size="12" fill="#6b7280">Пін CS виведено на колодку: MCU повноцінно керує вибором</text>
+
+  <!-- Плата правого модуля -->
+  <rect x="504" y="136" width="420" height="196" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="152" font-size="12" font-weight="bold" fill="#6b7280">ПЛАТА МОДУЛЯ (BREAKOUT PCB)</text>
+
+  <!-- Чіп ST7789 справа -->
+  <rect x="516" y="164" width="96" height="158" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="564" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ST7789 IC</text>
+  <text x="564" y="194" text-anchor="middle" font-size="12" fill="#6b7280">(на шлейфі)</text>
+
+  <!-- Піни чіпа ST7789 справа -->
+  <text x="606" y="212" text-anchor="end" font-size="12" fill="#1a1a1a">GND</text>
+  <text x="606" y="226" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">CS</text>
+  <text x="606" y="240" text-anchor="end" font-size="12" fill="#1a1a1a">VCC</text>
+  <text x="606" y="254" text-anchor="end" font-size="12" fill="#1a1a1a">SCL</text>
+  <text x="606" y="268" text-anchor="end" font-size="12" fill="#1a1a1a">SDA</text>
+  <text x="606" y="282" text-anchor="end" font-size="12" fill="#1a1a1a">RES</text>
+  <text x="606" y="296" text-anchor="end" font-size="12" fill="#1a1a1a">DC</text>
+  <text x="606" y="310" text-anchor="end" font-size="12" fill="#1a1a1a">BLK</text>
+
+  <!-- Колодка правого модуля (8 контактів) -->
+  <rect x="824" y="164" width="88" height="158" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="868" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">КОЛОДКА</text>
+  <text x="868" y="194" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">8 контактів</text>
+
+  <!-- Кружальця пінів колодки справа -->
+  <circle cx="836" cy="208" r="3.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="836" cy="222" r="3.5" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="836" cy="236" r="3.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="836" cy="250" r="3.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="836" cy="264" r="3.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="836" cy="278" r="3.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="836" cy="292" r="3.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="836" cy="306" r="3.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Назви пінів колодки справа -->
+  <text x="846" y="212" font-size="12" fill="#1a1a1a">GND</text>
+  <text x="846" y="226" font-size="12" font-weight="bold" fill="#27ae60">CS</text>
+  <text x="846" y="240" font-size="12" fill="#1a1a1a">VCC</text>
+  <text x="846" y="254" font-size="12" fill="#1a1a1a">SCL</text>
+  <text x="846" y="268" font-size="12" fill="#1a1a1a">SDA</text>
+  <text x="846" y="282" font-size="12" fill="#1a1a1a">RES</text>
+  <text x="846" y="296" font-size="12" fill="#1a1a1a">DC</text>
+  <text x="846" y="310" font-size="12" fill="#1a1a1a">BLK</text>
+
+  <!-- Доріжки на платі справа -->
+  <line x1="612" y1="208" x2="832" y2="208" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- CS прямує напряму на колодку зі стрілкою виходу на роз'єм -->
+  <line x1="612" y1="222" x2="828" y2="222" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <line x1="612" y1="236" x2="832" y2="236" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="612" y1="250" x2="832" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="612" y1="264" x2="832" y2="264" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="612" y1="278" x2="832" y2="278" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="612" y1="292" x2="832" y2="292" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="612" y1="306" x2="832" y2="306" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Плашка акценту CS окремо справа -->
+  <rect x="648" y="166" width="166" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="731" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Окрема доріжка CS</text>
+  <text x="731" y="194" text-anchor="middle" font-size="12" fill="#27ae60">виведена на контакт №2</text>
+
+  <!-- Блок розв'язку справа -->
+  <rect x="504" y="346" width="420" height="102" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="516" y="364" font-size="13" font-weight="bold" fill="#27ae60">Норма: повноцінна розділювана шина SPI</text>
+  <text x="516" y="382" font-size="12" fill="#1a1a1a">• MCU підтягує CS_DISP = 1 при зверненні до інших пристроїв</text>
+  <text x="516" y="400" font-size="12" fill="#1a1a1a">• ST7789 вимикає прийом і повністю звільняє лінію SDA (MOSI)</text>
+  <text x="516" y="418" font-size="12" font-weight="bold" fill="#27ae60">• SD-карта, флеш-пам'ять і датчики працюють без колізій</text>
+  <text x="516" y="436" font-size="12" fill="#6b7280">Стандартне апаратне керування вибором адресата на шині</text>
+</svg>

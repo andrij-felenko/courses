@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Асиметричне обмеження темпу швидкості (slew-rate)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Пологий розгін береже редуктор і джерело, стрімкий спад забезпечує оперативний зупин</text>
+
+  <!-- Панель часової діаграми -->
+  <rect x="30" y="78" width="900" height="246" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок осі Y -->
+  <text x="42" y="99" font-size="12" font-weight="bold" fill="#1a1a1a">ШІМ (%)</text>
+
+  <!-- Плашка фази розгону вгорі -->
+  <rect x="184" y="85" width="195" height="20" rx="4" fill="#eaf0fd"/>
+  <text x="281.5" y="99" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Розгін: Δt = 1,0 с (+100 %/с)</text>
+
+  <!-- Легенда діаграми -->
+  <line x1="450" y1="95" x2="480" y2="95" stroke="#6b7280" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="486" y="99" font-size="12" fill="#1a1a1a">Цільова швидкість (Target)</text>
+
+  <line x1="680" y1="95" x2="710" y2="95" stroke="#2457d6" stroke-width="3.5"/>
+  <text x="716" y="99" font-size="12" font-weight="bold" fill="#2457d6">Фактичний ШІМ (Actual)</text>
+
+  <!-- Пунктирна лінія стелі 100% -->
+  <line x1="90" y1="110" x2="600" y2="110" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+
+  <!-- Заповнення площі під фактичним профілем ШІМ -->
+  <polygon points="159,270 404,110 600,110 661.25,270" fill="#2457d6" fill-opacity="0.10"/>
+
+  <!-- Цільова крива (миттєвий сходинковий сигнал) -->
+  <path d="M 110,270 L 159,270 L 159,110 L 600,110 L 600,270 L 845,270" stroke="#6b7280" stroke-width="2" stroke-dasharray="6,4" fill="none"/>
+
+  <!-- Фактична крива ШІМ зі згладжуванням slew-rate -->
+  <path d="M 110,270 L 159,270 L 404,110 L 600,110 L 661.25,270 L 845,270" stroke="#2457d6" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- Позначка номінального усталеного руху -->
+  <text x="502" y="135" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Встановлений рух (100% ШІМ)</text>
+
+  <!-- Виносна картка фази гальмування -->
+  <rect x="680" y="130" width="230" height="72" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="692" y="150" font-size="12" font-weight="bold" fill="#27ae60">Гальмування: Δt = 0,25 с</text>
+  <text x="692" y="168" font-size="12" fill="#1a1a1a">Темп спаду: -400 %/с</text>
+  <text x="692" y="186" font-size="12" fill="#6b7280">Швидкий безпечний зупин</text>
+  <line x1="680" y1="166" x2="642" y2="188" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Вісь Y та поділки -->
+  <line x1="90" y1="270" x2="90" y2="105" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="85" y1="110" x2="90" y2="110" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="85" y1="150" x2="90" y2="150" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="85" y1="190" x2="90" y2="190" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="85" y1="230" x2="90" y2="230" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="82" y="114" font-size="12" fill="#1a1a1a" text-anchor="end">100%</text>
+  <text x="82" y="154" font-size="12" fill="#6b7280" text-anchor="end">75%</text>
+  <text x="82" y="194" font-size="12" fill="#6b7280" text-anchor="end">50%</text>
+  <text x="82" y="234" font-size="12" fill="#6b7280" text-anchor="end">25%</text>
+  <text x="82" y="274" font-size="12" fill="#1a1a1a" text-anchor="end">0%</text>
+
+  <!-- Вісь X та поділки -->
+  <line x1="90" y1="270" x2="880" y2="270" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="110" y1="270" x2="110" y2="275" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="232.5" y1="270" x2="232.5" y2="275" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="355" y1="270" x2="355" y2="275" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="477.5" y1="270" x2="477.5" y2="275" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="600" y1="270" x2="600" y2="275" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="722.5" y1="270" x2="722.5" y2="275" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="845" y1="270" x2="845" y2="275" stroke="#1a1a1a" stroke-width="1"/>
+
+  <text x="110" y="290" font-size="12" fill="#6b7280" text-anchor="middle">0,0 с</text>
+  <text x="232.5" y="290" font-size="12" fill="#6b7280" text-anchor="middle">0,5 с</text>
+  <text x="355" y="290" font-size="12" fill="#6b7280" text-anchor="middle">1,0 с</text>
+  <text x="477.5" y="290" font-size="12" fill="#6b7280" text-anchor="middle">1,5 с</text>
+  <text x="600" y="290" font-size="12" fill="#6b7280" text-anchor="middle">2,0 с</text>
+  <text x="722.5" y="290" font-size="12" fill="#6b7280" text-anchor="middle">2,5 с</text>
+  <text x="845" y="290" font-size="12" fill="#6b7280" text-anchor="middle">3,0 с</text>
+
+  <text x="477.5" y="310" font-size="12" fill="#6b7280" text-anchor="middle">Час t від моменту подачі команди (секунди)</text>
+  <text x="890" y="274" font-size="12" font-weight="bold" fill="#1a1a1a">t</text>
+
+  <!-- Нижня ліва картка: РОЗГІН -->
+  <rect x="30" y="340" width="442" height="160" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="44" y="352" width="280" height="22" rx="4" fill="#eaf0fd"/>
+  <text x="52" y="367" font-size="12" font-weight="bold" fill="#2457d6">РОЗГІН: Slew Rate = +100 %/с (Δt = 1,0 с)</text>
+
+  <text x="44" y="393" font-size="12" font-weight="bold" fill="#1a1a1a">Пологий набір швидкості (Ramp Up):</text>
+  <text x="44" y="413" font-size="12" font-weight="bold" fill="#2457d6">• Редуктор:</text>
+  <text x="124" y="413" font-size="12" fill="#1a1a1a">захист зубців від ударних навантажень і люфтів</text>
+
+  <text x="44" y="433" font-size="12" font-weight="bold" fill="#2457d6">• Джерело:</text>
+  <text x="124" y="433" font-size="12" fill="#1a1a1a">обмеження пускового струму, захист від просідань</text>
+
+  <text x="44" y="453" font-size="12" font-weight="bold" fill="#2457d6">• Динаміка:</text>
+  <text x="124" y="453" font-size="12" fill="#1a1a1a">старт без зриву коліс і перекидання робота</text>
+
+  <text x="44" y="473" font-size="12" font-weight="bold" fill="#2457d6">• Реалізація:</text>
+  <text x="138" y="473" font-size="12" fill="#6b7280">кроковий приріст ШІМ у таймерному циклі</text>
+
+  <!-- Нижня права картка: ГАЛЬМУВАННЯ -->
+  <rect x="488" y="340" width="442" height="160" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="502" y="352" width="300" height="22" rx="4" fill="#e9f7ef"/>
+  <text x="510" y="367" font-size="12" font-weight="bold" fill="#27ae60">ГАЛЬМУВАННЯ: Slew Rate = -400 %/с (Δt = 0,25 с)</text>
+
+  <text x="502" y="393" font-size="12" font-weight="bold" fill="#1a1a1a">Швидкий безпечний зупин (Ramp Down):</text>
+  <text x="502" y="413" font-size="12" font-weight="bold" fill="#27ae60">• Зупин:</text>
+  <text x="568" y="413" font-size="12" fill="#1a1a1a">оперативна зупинка за 250 мс біля перешкоди</text>
+
+  <text x="502" y="433" font-size="12" font-weight="bold" fill="#27ae60">• H-міст:</text>
+  <text x="568" y="433" font-size="12" fill="#1a1a1a">контрольоване згасання струму без пробою ключів</text>
+
+  <text x="502" y="453" font-size="12" font-weight="bold" fill="#27ae60">• Фізика:</text>
+  <text x="568" y="453" font-size="12" fill="#1a1a1a">активне динамічне гальмування проти-ЕРС</text>
+
+  <text x="502" y="473" font-size="12" font-weight="bold" fill="#27ae60">• Асиметрія:</text>
+  <text x="590" y="473" font-size="12" fill="#6b7280">у 4 рази крутіший темп, ніж темп розгону</text>
+</svg>

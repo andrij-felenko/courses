@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<defs>
+  <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+</defs>
+
+<!-- Header -->
+<text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Тепловий режим котушки динаміка: чистий сигнал проти глибокого кліпінгу</text>
+<text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">При кліпінгу дифузор завмирає в крайніх точках: обдув зникає, а понад 90% енергії спалює котушку</text>
+
+<!-- LEFT PANEL: Чистий сигнал -->
+<rect x="24" y="72" width="448" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+
+<!-- Left Header Badge -->
+<rect x="36" y="84" width="424" height="40" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="248" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Штатний режим: чиста синусоїда (THD &lt; 1%)</text>
+<text x="248" y="116" text-anchor="middle" font-size="12" fill="#1a1a1a">Дифузор вільно коливається • Активний обдув котушки</text>
+
+<!-- Left Middle Card -->
+<rect x="36" y="136" width="424" height="124" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+<line x1="216" y1="144" x2="216" y2="252" stroke="#e1e4e8" stroke-width="1"/>
+
+<!-- Left Waveform -->
+<text x="48" y="153" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнал напруги U(t)</text>
+<line x1="48" y1="195" x2="204" y2="195" stroke="#d0d7de" stroke-dasharray="3,3"/>
+<path d="M 48,195 Q 67.5,155 87,195 T 126,195 T 165,195 T 204,195" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+<text x="126" y="238" text-anchor="middle" font-size="12" fill="#27ae60">Неперервний рух</text>
+<text x="126" y="251" text-anchor="middle" font-size="12" fill="#6b7280">без постійної складової</text>
+
+<!-- Left Speaker / Airflow -->
+<text x="228" y="153" font-size="12" font-weight="bold" fill="#1a1a1a">Котушка та повітряний потік</text>
+<rect x="272" y="174" width="16" height="42" rx="2" fill="#e1e4e8" stroke="#bdc3c7"/>
+<rect x="262" y="178" width="8" height="34" rx="2" fill="#fdf2e9" stroke="#d35400" stroke-width="1.5"/>
+<rect x="290" y="178" width="8" height="34" rx="2" fill="#fdf2e9" stroke="#d35400" stroke-width="1.5"/>
+<line x1="262" y1="184" x2="270" y2="184" stroke="#d35400" stroke-width="1"/>
+<line x1="262" y1="190" x2="270" y2="190" stroke="#d35400" stroke-width="1"/>
+<line x1="262" y1="196" x2="270" y2="196" stroke="#d35400" stroke-width="1"/>
+<line x1="262" y1="202" x2="270" y2="202" stroke="#d35400" stroke-width="1"/>
+<line x1="290" y1="184" x2="298" y2="184" stroke="#d35400" stroke-width="1"/>
+<line x1="290" y1="190" x2="298" y2="190" stroke="#d35400" stroke-width="1"/>
+<line x1="290" y1="196" x2="298" y2="196" stroke="#d35400" stroke-width="1"/>
+<line x1="290" y1="202" x2="298" y2="202" stroke="#d35400" stroke-width="1"/>
+<path d="M 242,168 L 266,178 M 294,178 L 318,168" fill="none" stroke="#6b7280" stroke-width="2"/>
+<path d="M 266,178 Q 280,166 294,178" fill="none" stroke="#6b7280" stroke-width="2"/>
+
+<!-- Left motion arrows -->
+<line x1="236" y1="192" x2="236" y2="174" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+<line x1="236" y1="198" x2="236" y2="216" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+<!-- Left airflow paths -->
+<path d="M 314,190 Q 324,197 314,204" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+<path d="M 246,190 Q 236,197 246,204" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+<text x="330" y="178" font-size="12" font-weight="bold" fill="#27ae60">Хід дифузора</text>
+<text x="330" y="194" font-size="12" fill="#2457d6">Обдув зазору</text>
+<text x="330" y="210" font-size="12" fill="#6b7280">Тепло відводиться</text>
+<text x="338" y="238" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Примусова вентиляція</text>
+<text x="338" y="251" text-anchor="middle" font-size="12" fill="#6b7280">Повітря охолоджує провід котушки</text>
+
+<!-- Left Energy Distribution Card -->
+<rect x="36" y="268" width="424" height="90" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+<text x="48" y="285" font-size="12" font-weight="bold" fill="#1a1a1a">Розподіл потужності (баланс енергії):</text>
+<rect x="48" y="295" width="160" height="22" rx="3" fill="#27ae60"/>
+<text x="128" y="310" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Звук і рух ~40%</text>
+<rect x="208" y="295" width="240" height="22" rx="3" fill="#f39c12"/>
+<text x="328" y="310" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Контрольоване тепло ~60%</text>
+<text x="48" y="331" font-size="12" fill="#27ae60">• Ефективне перетворення на акустичні коливання</text>
+<text x="48" y="346" font-size="12" fill="#6b7280">• Тепло встигає розсіюватися потоком повітря</text>
+
+<!-- Left Bottom Status Banner -->
+<rect x="36" y="366" width="424" height="62" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="48" y="384" font-size="13" font-weight="bold" fill="#27ae60">Стан котушки: теплова безпека (T &lt; 85 °C)</text>
+<text x="48" y="401" font-size="12" fill="#1a1a1a">Постійний рух дифузора створює безперервний потік повітря.</text>
+<text x="48" y="417" font-size="12" fill="#6b7280">Ізоляція дроту не руйнується, динамік працює надійно й довго.</text>
+
+<!-- RIGHT PANEL: Глибокий кліпінг -->
+<rect x="488" y="72" width="448" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+
+<!-- Right Header Badge -->
+<rect x="500" y="84" width="424" height="40" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="712" y="100" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Аварійний режим: глибокий кліпінг (THD ≥ 10%)</text>
+<text x="712" y="116" text-anchor="middle" font-size="12" fill="#1a1a1a">Дифузор блокується в полицях • Вентиляція припиняється</text>
+
+<!-- Right Middle Card -->
+<rect x="500" y="136" width="424" height="124" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+<line x1="680" y1="144" x2="680" y2="252" stroke="#e1e4e8" stroke-width="1"/>
+
+<!-- Right Waveform -->
+<text x="512" y="153" font-size="12" font-weight="bold" fill="#1a1a1a">Зрізаний сигнал (кліпінг)</text>
+<line x1="512" y1="195" x2="668" y2="195" stroke="#d0d7de" stroke-dasharray="3,3"/>
+<line x1="512" y1="175" x2="668" y2="175" stroke="#f5b7b1" stroke-dasharray="2,2"/>
+<line x1="512" y1="215" x2="668" y2="215" stroke="#f5b7b1" stroke-dasharray="2,2"/>
+<path d="M 512,195 L 524,175 L 550,175 L 572,215 L 580,215 L 590,195 L 602,175 L 628,175 L 650,215 L 658,215 L 668,195" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<text x="590" y="238" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Полиці DC-напруги</text>
+<text x="590" y="251" text-anchor="middle" font-size="12" fill="#6b7280">відсутність руху в полицях</text>
+
+<!-- Right Speaker / Overheating -->
+<text x="692" y="153" font-size="12" font-weight="bold" fill="#1a1a1a">Блокування руху та перегрів</text>
+<rect x="736" y="174" width="16" height="42" rx="2" fill="#e1e4e8" stroke="#bdc3c7"/>
+<rect x="726" y="178" width="8" height="34" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="754" y="178" width="8" height="34" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="726" y1="184" x2="734" y2="184" stroke="#c0392b" stroke-width="1"/>
+<line x1="726" y1="190" x2="734" y2="190" stroke="#c0392b" stroke-width="1"/>
+<line x1="726" y1="196" x2="734" y2="196" stroke="#c0392b" stroke-width="1"/>
+<line x1="726" y1="202" x2="734" y2="202" stroke="#c0392b" stroke-width="1"/>
+<line x1="754" y1="184" x2="762" y2="184" stroke="#c0392b" stroke-width="1"/>
+<line x1="754" y1="190" x2="762" y2="190" stroke="#c0392b" stroke-width="1"/>
+<line x1="754" y1="196" x2="762" y2="196" stroke="#c0392b" stroke-width="1"/>
+<line x1="754" y1="202" x2="762" y2="202" stroke="#c0392b" stroke-width="1"/>
+<path d="M 724,172 Q 720,166 724,160" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<path d="M 744,170 Q 740,164 744,158" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<path d="M 764,172 Q 760,166 764,160" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<path d="M 706,168 L 730,178 M 758,178 L 782,168" fill="none" stroke="#6b7280" stroke-width="2"/>
+<path d="M 730,178 Q 744,166 758,178" fill="none" stroke="#6b7280" stroke-width="2"/>
+
+<!-- Blocked icon -->
+<circle cx="700" cy="195" r="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="695" y1="190" x2="705" y2="200" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="695" y1="200" x2="705" y2="190" stroke="#c0392b" stroke-width="1.5"/>
+
+<text x="794" y="178" font-size="12" font-weight="bold" fill="#c0392b">Дифузор завмирає</text>
+<text x="794" y="194" font-size="12" fill="#c0392b">Обдув = 0 (застій)</text>
+<text x="794" y="210" font-size="12" fill="#6b7280">ВЧ-інерція дифузора</text>
+<text x="802" y="238" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Тепловий удар у зазорі</text>
+<text x="802" y="251" text-anchor="middle" font-size="12" fill="#6b7280">Повітряний потік повністю зупинено</text>
+
+<!-- Right Energy Distribution Card -->
+<rect x="500" y="268" width="424" height="90" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+<text x="512" y="285" font-size="12" font-weight="bold" fill="#1a1a1a">Розподіл потужності (аварійний нагрів):</text>
+<rect x="512" y="295" width="32" height="22" rx="3" fill="#bdc3c7"/>
+<rect x="544" y="295" width="368" height="22" rx="3" fill="#c0392b"/>
+<text x="728" y="310" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Руйнівне надлишкове тепло > 90%</text>
+<text x="512" y="331" font-size="12" fill="#6b7280">• Звук &lt; 10%: дифузор блокують паразитарні гармоніки та інерція</text>
+<text x="512" y="346" font-size="12" font-weight="bold" fill="#c0392b">• Тепло > 90%: надлишок виділяється у витках і плавить ізоляцію</text>
+
+<!-- Right Bottom Status Banner -->
+<rect x="500" y="366" width="424" height="62" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="512" y="384" font-size="13" font-weight="bold" fill="#c0392b">Стан котушки: тепловий пробій (T > 180–220 °C)</text>
+<text x="512" y="401" font-size="12" fill="#1a1a1a">Швидке оплавлення та деградація лакової ізоляції витків.</text>
+<text x="512" y="417" font-size="12" fill="#c0392b">Міжвиткове коротке замикання (КЗ) і повне згоряння котушки.</text>
+</svg>

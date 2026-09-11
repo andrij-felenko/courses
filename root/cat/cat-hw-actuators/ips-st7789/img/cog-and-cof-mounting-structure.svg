@@ -1,0 +1,218 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-good" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-problem" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструкції монтажу драйвера дисплея: Chip-on-Glass (COG) та Chip-on-Film (COF)</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Прямий монтаж кристала на скло через ACF порівняно з виносом на гнучкий шлейф для мінімізації рамки</text>
+
+  <!-- ================================================================= -->
+  <!-- БЛОК 1: CHIP-ON-GLASS (COG)                                       -->
+  <!-- ================================================================= -->
+  <rect x="30" y="66" width="900" height="220" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Шапка блоку COG -->
+  <rect x="46" y="78" width="220" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="156" y="94" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Монтаж Chip-on-Glass (COG)</text>
+  <text x="280" y="94" font-size="12" fill="#6b7280">Кристал драйвера на поличці TFT-скла</text>
+
+  <!-- COG Розріз модуля -->
+  <!-- Верхній поляризатор -->
+  <rect x="50" y="142" width="130" height="4" rx="1" fill="#475569"/>
+  <!-- Верхнє скло (світлофільтр CF) -->
+  <rect x="50" y="146" width="135" height="24" rx="2" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+  <text x="117" y="162" font-size="12" fill="#475569" text-anchor="middle">Скло CF</text>
+
+  <!-- РК шар та герметик -->
+  <rect x="50" y="170" width="125" height="8" fill="#38bdf8"/>
+  <rect x="175" y="170" width="10" height="8" fill="#f59e0b"/>
+
+  <!-- Нижнє скло (TFT-підкладка з поличкою) -->
+  <rect x="50" y="178" width="345" height="24" rx="2" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+  <text x="117" y="194" font-size="12" fill="#475569" text-anchor="middle">Скло TFT</text>
+
+  <!-- Нижній поляризатор -->
+  <rect x="50" y="202" width="130" height="4" rx="1" fill="#475569"/>
+
+  <!-- Доріжки ITO на поверхні скла -->
+  <line x1="185" y1="178" x2="390" y2="178" stroke="#0284c7" stroke-width="2"/>
+
+  <!-- Кристал ST7789 (Flip-chip кремній) -->
+  <rect x="220" y="159" width="75" height="16" rx="2" fill="#334155" stroke="#1e293b" stroke-width="1"/>
+  <text x="257" y="172" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">ST7789</text>
+
+  <!-- Контактні виступи Au bumps під кристалом -->
+  <rect x="224" y="175" width="10" height="3" fill="#eab308"/>
+  <rect x="281" y="175" width="10" height="3" fill="#eab308"/>
+  <!-- Шар ACF під кристалом -->
+  <rect x="220" y="175" width="75" height="3" fill="#fde047" opacity="0.6"/>
+
+  <!-- З'єднання з FPC шлейфом на краю скла -->
+  <rect x="335" y="175" width="55" height="3" fill="#fde047" opacity="0.6"/>
+  <rect x="335" y="172" width="110" height="5" rx="1" fill="#d97706"/>
+  <rect x="335" y="170" width="110" height="2" fill="#b45309"/>
+
+  <!-- Підписи на розрізі COG -->
+  <text x="117" y="132" font-size="12" fill="#1a1a1a" text-anchor="middle">Активна зона матриці</text>
+
+  <text x="257" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кристал Si</text>
+  <line x1="257" y1="149" x2="257" y2="157" stroke="#1a1a1a" stroke-width="1"/>
+
+  <text x="390" y="152" font-size="12" fill="#1a1a1a" text-anchor="middle">Шлейф FPC</text>
+  <line x1="390" y1="155" x2="390" y2="168" stroke="#1a1a1a" stroke-width="1"/>
+
+  <text x="117" y="224" font-size="12" fill="#6b7280" text-anchor="middle">Сендвіч скла та РК</text>
+  <text x="290" y="224" font-size="12" fill="#6b7280" text-anchor="middle">Скляна поличка TFT-підкладки</text>
+
+  <!-- Розмірна лінія рамки COG -->
+  <line x1="185" y1="244" x2="395" y2="244" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="185" y1="239" x2="185" y2="249" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="395" y1="239" x2="395" y2="249" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="290" y1="244" x2="290" y2="254" stroke="#c0392b" stroke-width="1" stroke-dasharray="2 2"/>
+  <rect x="210" y="254" width="160" height="20" rx="3" fill="#fdecea"/>
+  <text x="290" y="268" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Рамка екрана: 3–5 мм</text>
+
+  <!-- Врізка ACF Zoom у блоці COG -->
+  <rect x="520" y="78" width="395" height="194" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="536" y="98" font-size="13" font-weight="bold" fill="#1a1a1a">Зріз контакту ACF (термокомпресія)</text>
+
+  <!-- Кристал Si зверху -->
+  <rect x="536" y="112" width="170" height="14" rx="2" fill="#334155"/>
+  <text x="621" y="123" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Кристал ST7789 (Si)</text>
+
+  <!-- Au bump -->
+  <rect x="550" y="126" width="60" height="16" fill="#eab308" stroke="#ca8a04" stroke-width="1"/>
+  <!-- Пасивація навколо -->
+  <rect x="610" y="126" width="96" height="4" fill="#94a3b8"/>
+
+  <!-- Скло знизу -->
+  <rect x="536" y="174" width="170" height="18" rx="2" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+  <text x="621" y="188" font-size="12" fill="#475569" text-anchor="middle">Скло TFT</text>
+  <!-- ITO електрод -->
+  <rect x="545" y="170" width="70" height="4" fill="#0284c7"/>
+
+  <!-- ACF шар смоли -->
+  <rect x="536" y="142" width="170" height="28" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Стиснуті провідні мікросфери під Au bump -->
+  <ellipse cx="565" cy="156" rx="7" ry="5" fill="#eab308" stroke="#a16207" stroke-width="1.5"/>
+  <ellipse cx="580" cy="156" rx="7" ry="5" fill="#eab308" stroke="#a16207" stroke-width="1.5"/>
+  <ellipse cx="595" cy="156" rx="7" ry="5" fill="#eab308" stroke="#a16207" stroke-width="1.5"/>
+
+  <!-- Вільні мікросфери в полімерній смолі -->
+  <circle cx="635" cy="150" r="6" fill="#fde047" stroke="#ca8a04" stroke-width="1"/>
+  <circle cx="655" cy="162" r="6" fill="#fde047" stroke="#ca8a04" stroke-width="1"/>
+  <circle cx="675" cy="149" r="6" fill="#fde047" stroke="#ca8a04" stroke-width="1"/>
+  <circle cx="692" cy="161" r="6" fill="#fde047" stroke="#ca8a04" stroke-width="1"/>
+
+  <!-- Підписи праворуч у врізці ACF -->
+  <text x="722" y="122" font-size="12" fill="#1a1a1a">Кремній кристала</text>
+  <text x="722" y="138" font-size="12" fill="#b45309">Au bump (виступ)</text>
+  <text x="722" y="156" font-size="12" font-weight="bold" fill="#27ae60">Вісь Z: контакт є</text>
+  <text x="722" y="172" font-size="12" font-weight="bold" fill="#c0392b">Осі X-Y: ізоляція</text>
+  <text x="722" y="188" font-size="12" fill="#0284c7">ITO-електрод скла</text>
+
+  <!-- Пояснення внизу врізки ACF -->
+  <rect x="536" y="200" width="365" height="60" rx="4" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+  <text x="546" y="218" font-size="12" fill="#1a1a1a">• Термокомпресія роздавлює мікрокульки під контактом</text>
+  <text x="546" y="236" font-size="12" fill="#1a1a1a">• Струм тече вертикально (Z) від Au bump до ITO-доріжки</text>
+  <text x="546" y="252" font-size="12" fill="#6b7280">• У полімерній смолі по осях X-Y діє надійна ізоляція</text>
+
+  <!-- ================================================================= -->
+  <!-- БЛОК 2: CHIP-ON-FILM (COF)                                        -->
+  <!-- ================================================================= -->
+  <rect x="30" y="298" width="900" height="220" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Шапка блоку COF -->
+  <rect x="46" y="310" width="220" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="156" y="326" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Монтаж Chip-on-Film (COF)</text>
+  <text x="280" y="326" font-size="12" fill="#6b7280">Кристал на загнутому шлейфі</text>
+
+  <!-- COF Розріз модуля -->
+  <!-- Верхній поляризатор -->
+  <rect x="50" y="364" width="130" height="4" rx="1" fill="#475569"/>
+  <!-- Верхнє скло (CF) -->
+  <rect x="50" y="368" width="135" height="24" rx="2" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+  <text x="117" y="384" font-size="12" fill="#475569" text-anchor="middle">Скло CF</text>
+
+  <!-- РК шар та герметик -->
+  <rect x="50" y="392" width="125" height="8" fill="#38bdf8"/>
+  <rect x="175" y="392" width="10" height="8" fill="#f59e0b"/>
+
+  <!-- Нижнє скло (TFT) - коротке, без поличка -->
+  <rect x="50" y="400" width="155" height="24" rx="2" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+  <text x="117" y="416" font-size="12" fill="#475569" text-anchor="middle">Скло TFT</text>
+
+  <!-- Нижній поляризатор -->
+  <rect x="50" y="424" width="130" height="4" rx="1" fill="#475569"/>
+
+  <!-- Вузька зона монтажу ACF на склі -->
+  <rect x="188" y="397" width="17" height="3" fill="#fde047" opacity="0.8"/>
+
+  <!-- Гнучкий шлейф COF з плавним вигином на 180 градусів -->
+  <path d="M 190,398 L 225,398 A 32 32 0 0 1 225,462 L 60,462" fill="none" stroke="#d97706" stroke-width="6"/>
+  <path d="M 190,398 L 225,398 A 32 32 0 0 1 225,462 L 60,462" fill="none" stroke="#b45309" stroke-width="2"/>
+
+  <!-- Кристал ST7789 змонтований на стрічці -->
+  <rect x="125" y="465" width="55" height="12" rx="1" fill="#334155" stroke="#1e293b" stroke-width="1"/>
+
+  <!-- Захисний епоксидний компаунд (Glob-top) -->
+  <path d="M 115,465 C 120,488 185,488 190,465 Z" fill="#1e293b"/>
+
+  <!-- Підписи на розрізі COF -->
+  <text x="117" y="354" font-size="12" fill="#1a1a1a" text-anchor="middle">Активна зона матриці</text>
+
+  <!-- Розмірна лінія рамки COF -->
+  <line x1="185" y1="374" x2="260" y2="374" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="185" y1="369" x2="185" y2="379" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="260" y1="369" x2="260" y2="379" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="260" y1="374" x2="275" y2="374" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2"/>
+  <rect x="275" y="364" width="165" height="20" rx="3" fill="#e9f7ef"/>
+  <text x="357" y="378" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Рамка екрана: 0,8–1,5 мм</text>
+
+  <!-- Пояснення вигину -->
+  <text x="330" y="416" font-size="12" font-weight="bold" fill="#1a1a1a">Вигин шлейфа на 180°</text>
+  <text x="330" y="432" font-size="12" fill="#6b7280">під модуль підсвітки</text>
+  <line x1="322" y1="424" x2="264" y2="424" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+
+  <!-- Підпис кристала у компаунді -->
+  <text x="152" y="508" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кристал ST7789 у компаунді</text>
+  <line x1="152" y1="496" x2="152" y2="488" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Порівняльна картка праворуч у блоці COF -->
+  <rect x="520" y="310" width="395" height="194" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="536" y="330" font-size="13" font-weight="bold" fill="#1a1a1a">Інженерне порівняння COG та COF</text>
+
+  <!-- Рядок 1: Рамка -->
+  <rect x="534" y="344" width="367" height="42" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="544" y="360" font-size="12" font-weight="bold" fill="#1a1a1a">Рамка:</text>
+  <text x="600" y="360" font-size="12" fill="#c0392b">COG: 3–5 мм (скляна поличка)</text>
+  <text x="600" y="376" font-size="12" fill="#27ae60">COF: до 1,5 мм (вигин під екран)</text>
+
+  <!-- Рядок 2: Захист -->
+  <rect x="534" y="394" width="367" height="42" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="544" y="410" font-size="12" font-weight="bold" fill="#1a1a1a">Захист:</text>
+  <text x="600" y="410" font-size="12" fill="#6b7280">COG: відкритий Si-кристал на склі</text>
+  <text x="600" y="426" font-size="12" fill="#27ae60">COF: захищений компаундом (епоксид)</text>
+
+  <!-- Рядок 3: Галузь -->
+  <rect x="534" y="444" width="367" height="46" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="544" y="462" font-size="12" font-weight="bold" fill="#1a1a1a">Галузь:</text>
+  <text x="600" y="462" font-size="12" fill="#1a1a1a">COG: бюджетні дисплеї, модулі DIY</text>
+  <text x="600" y="478" font-size="12" fill="#2457d6">COF: смарт-годинники, безрамкові дисплеї</text>
+</svg>

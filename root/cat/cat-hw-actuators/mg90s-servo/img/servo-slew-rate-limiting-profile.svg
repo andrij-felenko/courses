@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Профілювання траєкторії сервопривода (Slew-Rate Limiting) та динаміка струму</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Обмеження швидкості dθ/dt усуває пусковий сплеск струму (800 мА ➔ 180 мА) і захищає зуби редуктора від ударів</text>
+
+  <!-- Верхня панель: Синхронізовані часові графіки -->
+  <rect x="24" y="66" width="912" height="228" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="84" font-size="13" font-weight="bold" fill="#1a1a1a">Синхронізовані графіки перехідних процесів:</text>
+
+  <!-- Сітка та осі -->
+  <!-- Вертикальна лінія кроку команди t = 100 мс -->
+  <line x1="210" y1="92" x2="210" y2="264" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="216" y="104" font-size="12" font-weight="bold" fill="#2457d6">Команда 0°➔90°</text>
+
+  <!-- Горизонтальні лінії графіка 1 (Кут) -->
+  <line x1="110" y1="160" x2="720" y2="160" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="110" y1="96" x2="720" y2="96" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Підписи осі Y1 (Кут) -->
+  <text x="56" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Кут θ</text>
+  <text x="102" y="164" text-anchor="end" font-size="12" fill="#6b7280">0°</text>
+  <text x="102" y="100" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">90°</text>
+
+  <!-- Графік 1: Криві кута -->
+  <!-- Цільовий кут (синій пунктир) -->
+  <polyline points="110,160 210,160 210,96 720,96" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Direct Step (червона лінія з перерегулюванням) -->
+  <path d="M 110,160 L 210,160 C 230,160 260,136 300,112 C 330,94 350,88 370,88 C 390,88 405,98 420,98 C 435,98 445,96 460,96 L 720,96" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="390" y="80" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Перерегулювання (+8°)</text>
+
+  <!-- Slew-Rate Limiting (зелена згладжена траєкторія) -->
+  <path d="M 110,160 L 210,160 C 230,160 250,154 280,146 L 500,106 C 530,100 550,96 570,96 L 720,96" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="440" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Slew-rate траєкторія (dθ/dt = const)</text>
+
+  <!-- Розділювач графіків -->
+  <line x1="110" y1="168" x2="720" y2="168" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Горизонтальні лінії графіка 2 (Струм) -->
+  <line x1="110" y1="262" x2="720" y2="262" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="110" y1="192" x2="720" y2="192" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Підписи осі Y2 (Струм) -->
+  <text x="56" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Струм I</text>
+  <text x="102" y="266" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+  <text x="102" y="248" text-anchor="end" font-size="12" fill="#27ae60">180</text>
+  <text x="102" y="196" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">800 мА</text>
+
+  <!-- Графік 2: Криві струму -->
+  <!-- Direct Step струм (червоний пік Stall) -->
+  <path d="M 110,262 L 210,262 L 216,192 L 260,196 L 310,210 L 350,242 L 390,238 L 430,258 L 460,262 L 720,262" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="256" y="184" font-size="12" font-weight="bold" fill="#c0392b">I_stall ≈ 800 мА (пік ~150 мс)</text>
+
+  <!-- Slew-Rate струм (зелена спокійна поличка) -->
+  <path d="M 110,262 L 210,262 C 220,262 230,244 245,244 L 535,244 C 550,244 560,262 570,262 L 720,262" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="520" y="220" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">I_run ≈ 180 мА (робочий струм)</text>
+
+  <!-- Вісь часу X внизу -->
+  <line x1="110" y1="262" x2="726" y2="262" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <!-- Мітки часу -->
+  <text x="110" y="278" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+  <text x="210" y="278" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">100 мс</text>
+  <text x="310" y="278" text-anchor="middle" font-size="12" fill="#6b7280">200</text>
+  <text x="410" y="278" text-anchor="middle" font-size="12" fill="#6b7280">300</text>
+  <text x="510" y="278" text-anchor="middle" font-size="12" fill="#6b7280">400</text>
+  <text x="610" y="278" text-anchor="middle" font-size="12" fill="#6b7280">500</text>
+  <text x="710" y="278" text-anchor="middle" font-size="12" fill="#6b7280">600 мс</text>
+
+  <!-- Легенда справа -->
+  <rect x="744" y="86" width="180" height="192" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="834" y="104" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Легенда графіків:</text>
+
+  <line x1="754" y1="120" x2="778" y2="120" stroke="#2457d6" stroke-width="2" stroke-dasharray="3,3"/>
+  <text x="784" y="124" font-size="12" fill="#2457d6">Цільовий кут</text>
+
+  <line x1="754" y1="144" x2="778" y2="144" stroke="#c0392b" stroke-width="2"/>
+  <text x="784" y="148" font-size="12" font-weight="bold" fill="#c0392b">Direct Step:</text>
+  <text x="784" y="164" font-size="12" fill="#6b7280">• Пік 800 мА</text>
+  <text x="784" y="180" font-size="12" fill="#6b7280">• Удар по зубах</text>
+
+  <line x1="754" y1="202" x2="778" y2="202" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="784" y="206" font-size="12" font-weight="bold" fill="#27ae60">Slew-Rate:</text>
+  <text x="784" y="222" font-size="12" fill="#6b7280">• Струм ≤ 180 мА</text>
+  <text x="784" y="238" font-size="12" fill="#6b7280">• Плавний розгін</text>
+  <text x="784" y="254" font-size="12" fill="#6b7280">• Без перерегул.</text>
+
+  <!-- Нижня панель: 3 інженерні картки -->
+  <!-- Картка 1: Ресурс редуктора -->
+  <rect x="24" y="306" width="296" height="130" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <rect x="24" y="306" width="296" height="24" rx="8" fill="#e9f7ef"/>
+  <text x="36" y="322" font-size="12" font-weight="bold" fill="#27ae60">Ресурс редуктора (x4–x5):</text>
+  <text x="36" y="344" font-size="12" fill="#1a1a1a">• Усунення ударних перевантажень dω/dt</text>
+  <text x="36" y="362" font-size="12" fill="#1a1a1a">• Захист латунних зубців z2-z4 від сколу</text>
+  <text x="36" y="380" font-size="12" fill="#1a1a1a">• Відсутність люфтового дрижання вала</text>
+  <text x="36" y="398" font-size="12" fill="#1a1a1a">• Зниження нагріву колекторних щіток</text>
+  <text x="36" y="418" font-size="12" font-weight="bold" fill="#27ae60">• Довговічність механіки зростає в рази</text>
+
+  <!-- Картка 2: Захист від BOR -->
+  <rect x="332" y="306" width="296" height="130" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <rect x="332" y="306" width="296" height="24" rx="8" fill="#fdecea"/>
+  <text x="344" y="322" font-size="12" font-weight="bold" fill="#c0392b">Захист від Brownout Reset (BOR):</text>
+  <text x="344" y="344" font-size="12" fill="#1a1a1a">• Без лімітера: I_stall досягає 800 мА</text>
+  <text x="344" y="362" font-size="12" fill="#1a1a1a">• Стрибок просаджує 5V шину живлення</text>
+  <text x="344" y="380" font-size="12" fill="#1a1a1a">• Збій LDO викликає скидання ядра MCU</text>
+  <text x="344" y="398" font-size="12" fill="#1a1a1a">• Зі Slew-Rate: струм тримається ≤180 мА</text>
+  <text x="344" y="418" font-size="12" font-weight="bold" fill="#27ae60">• Гарантія стабільності живлення системи</text>
+
+  <!-- Картка 3: C/C++ драйвер -->
+  <rect x="640" y="306" width="296" height="130" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <rect x="640" y="306" width="296" height="24" rx="8" fill="#eaf0fd"/>
+  <text x="652" y="322" font-size="12" font-weight="bold" fill="#2457d6">Реалізація в C/C++ драйвері:</text>
+  <text x="652" y="344" font-size="12" fill="#1a1a1a">• Неблокуючий тик таймера (20 мс / 50 Гц)</text>
+  <text x="652" y="362" font-size="12" fill="#1a1a1a">• Крок кута: θ += clamp(tgt - θ, Δθ)</text>
+  <text x="652" y="380" font-size="12" fill="#1a1a1a">• Приріст Δθ = v_max · dt (наприклад, 180°/с)</text>
+  <text x="652" y="398" font-size="12" fill="#1a1a1a">• Плавний рух без затримок delay()</text>
+  <text x="652" y="418" font-size="12" font-weight="bold" fill="#2457d6">• Прогнозоване позиціонування качалки</text>
+</svg>

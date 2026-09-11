@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Драйвер стабілізації струму лазера (ACC) на операційному підсилювачі</text>
+  <text x="480" y="57" font-size="13" fill="#6b7280" text-anchor="middle">Від'ємний зворотний зв'язок за шунтом підтримує постійний струм ILD = VREF / RSENSE</text>
+
+  <!-- Left Panel: Schematic -->
+  <rect x="30" y="72" width="550" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="94" font-size="12" font-weight="bold" fill="#6b7280">ПРИНЦИПОВА СХЕМА СТРУМОВОГО ДРАЙВЕРА (ACC)</text>
+
+  <!-- Power Rails -->
+  <!-- VCC Rail (Top) -->
+  <line x1="120" y1="105" x2="450" y2="105" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="120" cy="105" r="4" fill="white" stroke="#c0392b" stroke-width="2"/>
+  <text x="110" y="102" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">+VCC (5 В)</text>
+
+  <!-- GND Rail (Bottom) -->
+  <line x1="120" y1="350" x2="450" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="120" cy="350" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="110" y="354" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND (0 В)</text>
+
+  <!-- GND Symbol -->
+  <line x1="390" y1="350" x2="390" y2="362" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="382" y1="362" x2="398" y2="362" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="385" y1="366" x2="395" y2="366" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="388" y1="370" x2="392" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="390" y="385" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- Reference Voltage Divider (VREF) -->
+  <!-- Upper Resistor R1 -->
+  <line x1="150" y1="105" x2="150" y2="140" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="150" cy="105" r="3" fill="#c0392b"/>
+  <rect x="143" y="140" width="14" height="35" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="135" y="160" font-size="12" fill="#6b7280" text-anchor="end">R1</text>
+  <line x1="150" y1="175" x2="150" y2="205" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="150" cy="205" r="3" fill="#2457d6"/>
+
+  <!-- Lower Resistor R2 -->
+  <line x1="150" y1="205" x2="150" y2="235" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="143" y="235" width="14" height="35" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="135" y="255" font-size="12" fill="#6b7280" text-anchor="end">R2</text>
+  <line x1="150" y1="270" x2="150" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="150" cy="350" r="3" fill="#1a1a1a"/>
+
+  <!-- Reference Filter Capacitor C_ref -->
+  <line x1="150" y1="205" x2="185" y2="205" stroke="#2457d6" stroke-width="2"/>
+  <line x1="185" y1="205" x2="185" y2="238" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="177" y1="238" x2="193" y2="238" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="177" y1="246" x2="193" y2="246" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="185" y1="246" x2="185" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="185" cy="205" r="3" fill="#2457d6"/>
+  <circle cx="185" cy="350" r="3" fill="#1a1a1a"/>
+  <text x="200" y="246" font-size="12" fill="#6b7280">C_ref</text>
+
+  <!-- VREF Line to Op-Amp (+) -->
+  <line x1="185" y1="205" x2="265" y2="205" stroke="#2457d6" stroke-width="2"/>
+  <text x="210" y="196" font-size="12" font-weight="bold" fill="#2457d6">V_REF</text>
+
+  <!-- Operational Amplifier (Op-Amp) Symbol -->
+  <polygon points="265,190 320,220 265,250" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="271" y="210" font-size="12" font-weight="bold" fill="#2457d6">+</text>
+  <text x="271" y="239" font-size="12" font-weight="bold" fill="#2457d6">−</text>
+  <text x="290" y="224" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ОП</text>
+
+  <!-- Op-Amp Supply Lines -->
+  <line x1="290" y1="190" x2="290" y2="105" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="290" cy="105" r="3" fill="#c0392b"/>
+  <line x1="290" y1="250" x2="290" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="290" cy="350" r="3" fill="#1a1a1a"/>
+
+  <!-- Op-Amp Output and Gate Resistor RG -->
+  <line x1="320" y1="220" x2="340" y2="220" stroke="#2457d6" stroke-width="2"/>
+  <rect x="340" y="213" width="30" height="14" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="355" y="206" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RG</text>
+  <line x1="370" y1="220" x2="395" y2="220" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Pass Transistor Q1 (N-MOSFET) Symbol -->
+  <line x1="395" y1="210" x2="395" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="401" y1="210" x2="401" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="397,220 404,217 404,223" fill="#1a1a1a"/>
+  <!-- Drain Terminal -->
+  <line x1="401" y1="212" x2="415" y2="212" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="415" y1="190" x2="415" y2="212" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Source Terminal -->
+  <line x1="401" y1="228" x2="415" y2="228" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="415" y1="228" x2="415" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="415" cy="275" r="3" fill="#27ae60"/>
+
+  <!-- MOSFET Labels -->
+  <text x="425" y="218" font-size="12" font-weight="bold" fill="#1a1a1a">Q1: N-MOSFET</text>
+  <text x="425" y="232" font-size="12" fill="#6b7280">Лінійний режим</text>
+
+  <!-- Laser Diode (LD) Branch -->
+  <line x1="415" y1="105" x2="415" y2="130" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="415" cy="105" r="3" fill="#c0392b"/>
+  <polygon points="405,130 425,130 415,146" fill="#c0392b"/>
+  <line x1="405" y1="146" x2="425" y2="146" stroke="#c0392b" stroke-width="2"/>
+  <line x1="425" y1="138" x2="438" y2="132" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="425" y1="146" x2="438" y2="140" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="415" y1="146" x2="415" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="398" y="142" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">LD (Лазер)</text>
+
+  <!-- Reverse Protection Diode (D_prot) Antiparallel to LD -->
+  <line x1="415" y1="120" x2="455" y2="120" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="455" y1="120" x2="455" y2="134" stroke="#2457d6" stroke-width="1.5"/>
+  <polygon points="448,148 462,148 455,134" fill="#2457d6"/>
+  <line x1="448" y1="134" x2="462" y2="134" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="455" y1="148" x2="455" y2="168" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="455" y1="168" x2="415" y2="168" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="415" cy="120" r="3" fill="#c0392b"/>
+  <circle cx="415" cy="168" r="3" fill="#1a1a1a"/>
+  <text x="468" y="145" font-size="12" fill="#2457d6">D_prot</text>
+
+  <!-- Current Sense Shunt Resistor (R_SENSE) -->
+  <line x1="415" y1="275" x2="415" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="408" y="290" width="14" height="35" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="415" y1="325" x2="415" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="415" cy="350" r="3" fill="#1a1a1a"/>
+  <text x="430" y="306" font-size="12" font-weight="bold" fill="#1a1a1a">R_SENSE</text>
+  <text x="430" y="320" font-size="12" fill="#27ae60">Шунт струму</text>
+
+  <!-- Negative Feedback Loop to Op-Amp (-) -->
+  <line x1="415" y1="275" x2="250" y2="275" stroke="#27ae60" stroke-width="2"/>
+  <line x1="250" y1="275" x2="250" y2="235" stroke="#27ae60" stroke-width="2"/>
+  <line x1="250" y1="235" x2="265" y2="235" stroke="#27ae60" stroke-width="2"/>
+  <text x="355" y="268" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сигнал V_SENSE</text>
+
+  <!-- Left Panel Bottom Formula Card -->
+  <rect x="45" y="395" width="520" height="35" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="305" y="417" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Умова рівноваги петлі ACC: V(-) = V(+)  ⇒  ILD = V_REF / R_SENSE</text>
+
+  <!-- Right Side - Card 1: Working Principle & Math -->
+  <rect x="596" y="72" width="334" height="168" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="608" y="84" width="310" height="24" rx="4" fill="#2457d6"/>
+  <text x="763" y="100" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ПРИНЦИП РОБОТИ ТА СТАБІЛІЗАЦІЇ СТРУМУ</text>
+  <text x="614" y="126" font-size="12" font-weight="bold" fill="#2457d6">• ОП утримує рівність: V_SENSE = V_REF</text>
+  <text x="614" y="146" font-size="12" font-weight="bold" fill="#1a1a1a">• Струм лазера: ILD = V_REF / R_SENSE</text>
+  <text x="614" y="166" font-size="12" fill="#1a1a1a">• Струм не залежить від коливань VCC і VF</text>
+  <text x="614" y="186" font-size="12" fill="#6b7280">• Q1 працює в лінійній зоні (динамічний опір)</text>
+  <text x="614" y="206" font-size="12" fill="#6b7280">• Низьке V_REF (0.1–0.2 В) усуває нагрів шунта</text>
+  <text x="614" y="226" font-size="12" font-weight="bold" fill="#2457d6">Швидка реакція на перехідні процеси шини</text>
+
+  <!-- Right Side - Card 2: ACC Limitations & Thermal Drift -->
+  <rect x="596" y="256" width="334" height="184" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="608" y="268" width="310" height="24" rx="4" fill="#c0392b"/>
+  <text x="763" y="284" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ОБМЕЖЕННЯ ТА ОСОБЛИВОСТІ РЕЖИМУ ACC</text>
+  <text x="614" y="310" font-size="12" font-weight="bold" fill="#c0392b">• Не компенсує температурний дрейф LD</text>
+  <text x="614" y="330" font-size="12" fill="#1a1a1a">• При нагріванні потужність P_opt падає</text>
+  <text x="614" y="350" font-size="12" font-weight="bold" fill="#c0392b">• При охолодженні струм ACC може дати COD!</text>
+  <text x="614" y="370" font-size="12" fill="#1a1a1a">• Перевага: підходить для 2-вивідних діодів</text>
+  <text x="614" y="390" font-size="12" fill="#6b7280">• Не потребує моніторного фотодіода (PD)</text>
+  <text x="614" y="410" font-size="12" fill="#6b7280">• Вимагає захисту від викидів (D_prot, RG)</text>
+  <text x="614" y="430" font-size="12" font-weight="bold" fill="#c0392b">Для стабільної оптики потрібна петля APC!</text>
+</svg>

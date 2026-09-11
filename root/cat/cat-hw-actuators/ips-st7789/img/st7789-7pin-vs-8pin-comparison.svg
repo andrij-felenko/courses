@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біле тло полотна -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція модулів ST7789: 7-вивідна та 8-вивідна ревізії</text>
+  <text x="480" y="63" font-size="13" fill="#6b7280" text-anchor="middle">Поява виведеного контакту CS та конфігураційних перемичок повертає сумісність зі спільною шиною</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: 7-вивідний модуль -->
+  <rect x="24" y="78" width="444" height="332" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка лівої панелі -->
+  <rect x="36" y="90" width="420" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="246" y="111" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">7-вивідний модуль (перша ревізія)</text>
+
+  <!-- Блок 1 лівої панелі: Цоколівка гребінки -->
+  <rect x="36" y="134" width="420" height="70" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="150" font-size="12" font-weight="bold" fill="#1a1a1a">Цоколівка гребінки (7 pin, крок 2.54 мм):</text>
+
+  <rect x="48" y="162" width="34" height="32" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="182" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <rect x="88" y="162" width="34" height="32" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="105" y="182" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VCC</text>
+
+  <rect x="128" y="162" width="34" height="32" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="145" y="182" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SCL</text>
+
+  <rect x="168" y="162" width="34" height="32" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="185" y="182" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SDA</text>
+
+  <rect x="208" y="162" width="34" height="32" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="225" y="182" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RES</text>
+
+  <rect x="248" y="162" width="34" height="32" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="265" y="182" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DC</text>
+
+  <rect x="288" y="162" width="34" height="32" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="305" y="182" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">BLK</text>
+
+  <rect x="332" y="162" width="114" height="32" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="389" y="182" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ CS відсутній</text>
+
+  <!-- Блок 2 лівої панелі: Топологія зворотного боку -->
+  <rect x="36" y="216" width="420" height="94" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="232" font-size="12" font-weight="bold" fill="#1a1a1a">Топологія зворотного боку (розводка CS):</text>
+
+  <rect x="48" y="246" width="80" height="52" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="88" y="262" font-size="11" fill="#6b7280" text-anchor="middle">FPC шлейф</text>
+  <rect x="64" y="270" width="48" height="20" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="88" y="284" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">вивід CS</text>
+
+  <line x1="128" y1="284" x2="196" y2="284" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="164" y="268" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">CS = 0 В</text>
+
+  <rect x="200" y="246" width="244" height="52" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 2"/>
+  <text x="322" y="264" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Суцільний полігон GND плати</text>
+  <text x="322" y="279" font-size="10" fill="#1a1a1a" text-anchor="middle">Лінія CS припаяна напряму до GND</text>
+  <text x="322" y="292" font-size="10" fill="#6b7280" text-anchor="middle">(монопольне захоплення шини)</text>
+
+  <!-- Блок 3 лівої панелі: Наслідки -->
+  <rect x="36" y="322" width="420" height="76" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="48" y="340" font-size="12" font-weight="bold" fill="#c0392b">⛔ Наслідок: монопольне володіння шиною SPI</text>
+  <text x="48" y="357" font-size="11" fill="#1a1a1a">• ST7789 завжди активний і не переходить у Z-стан.</text>
+  <text x="48" y="372" font-size="11" fill="#1a1a1a">• Колізії сигналів при роботі з SD-картами або сенсорами.</text>
+  <text x="48" y="387" font-size="11" fill="#c0392b">• Потрібно різати доріжку скальпелем або окрему шину.</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: 8-вивідний модуль -->
+  <rect x="492" y="78" width="444" height="332" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка правої панелі -->
+  <rect x="504" y="90" width="420" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="714" y="111" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">8-вивідний модуль (сучасна ревізія)</text>
+
+  <!-- Блок 1 правої панелі: Цоколівка гребінки -->
+  <rect x="504" y="134" width="420" height="70" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="150" font-size="12" font-weight="bold" fill="#1a1a1a">Цоколівка гребінки (8 pin, крок 2.54 мм):</text>
+
+  <rect x="516" y="162" width="32" height="32" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="532" y="182" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <rect x="554" y="162" width="32" height="32" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="570" y="182" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">VCC</text>
+
+  <rect x="592" y="162" width="32" height="32" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="608" y="182" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SCL</text>
+
+  <rect x="630" y="162" width="32" height="32" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="646" y="182" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SDA</text>
+
+  <rect x="668" y="162" width="32" height="32" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="684" y="182" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RES</text>
+
+  <rect x="706" y="162" width="32" height="32" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="722" y="182" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DC</text>
+
+  <rect x="744" y="162" width="32" height="32" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="760" y="182" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">CS</text>
+
+  <rect x="782" y="162" width="32" height="32" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="798" y="182" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">BLK</text>
+
+  <rect x="822" y="162" width="96" height="32" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="870" y="182" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">✔ CS виведено</text>
+
+  <!-- Блок 2 правої панелі: Топологія зворотного боку -->
+  <rect x="504" y="216" width="420" height="94" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="232" font-size="12" font-weight="bold" fill="#1a1a1a">Топологія зворотного боку (лінія CS і джампери):</text>
+
+  <rect x="516" y="246" width="80" height="52" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="556" y="262" font-size="11" fill="#6b7280" text-anchor="middle">FPC шлейф</text>
+  <rect x="532" y="270" width="48" height="20" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="556" y="284" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">вивід CS</text>
+
+  <line x1="596" y1="284" x2="656" y2="284" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="626" y="268" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">Трек CS</text>
+
+  <rect x="660" y="252" width="76" height="42" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="698" y="270" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Пін 7 (CS)</text>
+  <text x="698" y="285" font-size="10" fill="#1a1a1a" text-anchor="middle">гребінки</text>
+
+  <rect x="748" y="246" width="168" height="52" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="832" y="263" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">SMD-перемички (0 Ω)</text>
+  <text x="832" y="278" font-size="10" fill="#1a1a1a" text-anchor="middle">Конфігурація інтерфейсу SPI</text>
+  <text x="832" y="291" font-size="10" fill="#6b7280" text-anchor="middle">(режими 4-wire / підтяжки)</text>
+
+  <!-- Блок 3 правої панелі: Переваги -->
+  <rect x="504" y="322" width="420" height="76" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="516" y="340" font-size="12" font-weight="bold" fill="#27ae60">✔ Перевага: сумісність зі спільною шиною SPI</text>
+  <text x="516" y="357" font-size="11" fill="#1a1a1a">• При CS = HIGH контролер переходить у Z-стан.</text>
+  <text x="516" y="372" font-size="11" fill="#1a1a1a">• Коректний мультиплексований обмін з SD-картами.</text>
+  <text x="516" y="387" font-size="11" fill="#27ae60">• Готовий до складних систем без апаратних доробок.</text>
+
+  <!-- Підсумкова смуга внизу -->
+  <rect x="24" y="422" width="912" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="446" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Висновок: 8-вивідна версія усуває конструктивну пастку перших браслетних модулів без необхідності підрізання доріжок скальпелем</text>
+</svg>

@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+
+<defs>
+  <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+</defs>
+
+<!-- Header -->
+<text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінцевий автомат драйвера приводу: безпечне керування рухом</text>
+<text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Логіка переходів між софт-стартом, сталим рухом, паузою мертвої зони та гальмуванням</text>
+
+<!-- Initial State Indicator -->
+<path d="M 70,165 L 70,198" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#arr-gray)"/>
+<text x="70" y="157" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">СТАРТ</text>
+
+<!-- Transition: STOP -> RAMP_UP_FWD -->
+<path d="M 226,210 L 250,210 L 250,109 L 274,109" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+<text x="242" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">cmd_start(FWD)</text>
+
+<!-- Transition: RAMP_UP_FWD -> RUN_FWD -->
+<path d="M 450,109 L 510,109" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+<text x="480" y="72" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">duty == target</text>
+
+<!-- Transition: RUN_FWD -> RAMP_DOWN -->
+<path d="M 686,109 L 710,109 L 710,210 L 734,210" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+<text x="718" y="156" font-size="12" fill="#2457d6" text-anchor="start">cmd_stop</text>
+<text x="718" y="172" font-size="12" fill="#2457d6" text-anchor="start">або cmd_rev</text>
+
+<!-- Transition: Central Return Highway RAMP_DOWN -> STOP -->
+<path d="M 734,225 L 226,225" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#arr-gray)"/>
+<text x="480" y="217" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">duty == 0  [завершення вибігу / зупинка]</text>
+
+<!-- Transition: RAMP_DOWN -> DEADBAND_PAUSE -->
+<path d="M 822,252 L 822,314" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+<text x="830" y="278" font-size="12" fill="#c0392b" text-anchor="start">duty == 0</text>
+<text x="830" y="294" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">[реверс]</text>
+
+<!-- Transition: DEADBAND_PAUSE -> RAMP_UP_REV -->
+<path d="M 822,368 L 822,416 L 362,416 L 362,368" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+<text x="592" y="408" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">timer_expire · пауза гасіння проти-ЕРС вичерпана (пуск реверсу)</text>
+
+<!-- Transition: STOP -> RAMP_UP_REV -->
+<path d="M 226,240 L 250,240 L 250,341 L 274,341" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+<text x="242" y="290" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">cmd_start(REV)</text>
+
+<!-- Transition: RAMP_UP_REV -> RUN_REV -->
+<path d="M 450,341 L 510,341" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+<text x="480" y="300" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">duty == target</text>
+
+<!-- Transition: RUN_REV -> RAMP_DOWN -->
+<path d="M 686,341 L 710,341 L 710,240 L 734,240" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+<text x="718" y="282" font-size="12" fill="#2457d6" text-anchor="start">cmd_stop</text>
+<text x="718" y="298" font-size="12" fill="#2457d6" text-anchor="start">або cmd_fwd</text>
+
+<!-- Transitions: STOP <-> BRAKE -->
+<path d="M 94,252 L 94,314" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+<text x="86" y="286" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">cmd_brake</text>
+
+<path d="M 144,314 L 144,252" stroke="#1a1a1a" stroke-width="2" fill="none" marker-end="url(#arr-gray)"/>
+<text x="152" y="286" font-size="12" fill="#1a1a1a" text-anchor="start">release_brake</text>
+
+<!-- Node 1: STOP / COAST -->
+<rect x="50" y="198" width="176" height="54" rx="8" ry="8" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+<text x="138" y="218" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">STOP / COAST</text>
+<text x="138" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Hi-Z вибіг · duty = 0</text>
+
+<!-- Node 2: RAMP_UP_FWD -->
+<rect x="274" y="82" width="176" height="54" rx="8" ry="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="362" y="102" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">RAMP_UP_FWD</text>
+<text x="362" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Тік: duty += ramp_step</text>
+
+<!-- Node 3: RUN_FWD -->
+<rect x="510" y="82" width="176" height="54" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+<text x="598" y="102" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">RUN_FWD</text>
+<text x="598" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Сталий рух: target_duty</text>
+
+<!-- Node 4: RAMP_DOWN -->
+<rect x="734" y="198" width="176" height="54" rx="8" ry="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="822" y="218" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">RAMP_DOWN</text>
+<text x="822" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Тік: duty -= ramp_step</text>
+
+<!-- Node 5: DEADBAND_PAUSE -->
+<rect x="734" y="314" width="176" height="54" rx="8" ry="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+<text x="822" y="334" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">DEADBAND_PAUSE</text>
+<text x="822" y="354" font-size="12" fill="#6b7280" text-anchor="middle">Пауза: deadband_ticks</text>
+
+<!-- Node 6: RUN_REV -->
+<rect x="510" y="314" width="176" height="54" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+<text x="598" y="334" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">RUN_REV</text>
+<text x="598" y="354" font-size="12" fill="#6b7280" text-anchor="middle">Реверс: target_duty</text>
+
+<!-- Node 7: RAMP_UP_REV -->
+<rect x="274" y="314" width="176" height="54" rx="8" ry="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="362" y="334" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">RAMP_UP_REV</text>
+<text x="362" y="354" font-size="12" fill="#6b7280" text-anchor="middle">Тік: duty += ramp_step</text>
+
+<!-- Node 8: BRAKE -->
+<rect x="50" y="314" width="176" height="54" rx="8" ry="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+<text x="138" y="334" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">BRAKE</text>
+<text x="138" y="354" font-size="12" fill="#6b7280" text-anchor="middle">Low-side clamp на GND</text>
+
+</svg>

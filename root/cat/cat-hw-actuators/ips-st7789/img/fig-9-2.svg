@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Геометричне відсікання спрайта та розрахунок зміщення пам'яті (ST7789)</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Корекція від'ємних координат: відсікання за межі 240×240 та адресація рядків без діагональних зсувів</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: КООРДИНАТНИЙ ПРОСТІР ==================== -->
+  <rect x="24" y="65" width="316" height="375" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="24" y="65" width="316" height="28" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="182" y="84" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Координатна площина дисплея</text>
+  <text x="182" y="106" font-size="12" fill="#6b7280" text-anchor="middle">Межі екрана 240×240 (ST7789 IPS)</text>
+
+  <!-- Координатна сітка та осі -->
+  <!-- Вісь X -->
+  <line x1="56" y1="155" x2="295" y2="155" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="306" y="159" font-size="12" font-weight="700" fill="#1a1a1a">+X</text>
+
+  <!-- Вісь Y -->
+  <line x1="110" y1="108" x2="110" y2="330" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="110" y="345" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">+Y</text>
+
+  <!-- Рамка видимого екрана 240x240 (в масштабі 160x160, fill="none" щоб не конфліктувати з блоками) -->
+  <rect x="110" y="155" width="160" height="160" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Позначки кутів екрана -->
+  <text x="116" y="172" font-size="12" font-weight="700" fill="#1a1a1a">(0, 0)</text>
+  <text x="265" y="310" font-size="12" fill="#6b7280" text-anchor="end">(239, 239)</text>
+  <text x="190" y="332" font-size="12" fill="#6b7280" text-anchor="middle">240 px (межа екрана)</text>
+
+  <!-- Спрайт, винесений у від'ємні координати: x=-35, y=-25 (canvas x=75, y=130, w=95, h=85) -->
+  <!-- 1) Верхня відсічена смуга (y < 0): x=75..170, y=130..155 -->
+  <rect x="75" y="130" width="95" height="25" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <!-- 2) Ліва відсічена смуга (x < 0): x=75..110, y=155..215 -->
+  <rect x="75" y="155" width="35" height="60" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <!-- 3) Видима частина всередині екрана: x=110..170, y=155..215 -->
+  <rect x="110" y="155" width="60" height="60" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Тексти всередині видимого спрайта -->
+  <text x="140" y="184" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Видима</text>
+  <text x="140" y="198" font-size="12" fill="#27ae60" text-anchor="middle">зона</text>
+
+  <!-- Підпис відсіченої зони зверху зліва -->
+  <text x="92" y="122" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Відсічено</text>
+
+  <!-- Розміри видимого вікна w_vis та h_vis -->
+  <text x="140" y="230" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">w_vis</text>
+  <text x="178" y="188" font-size="12" font-weight="700" fill="#27ae60">h_vis</text>
+
+  <!-- Нижня картка панелі 1 -->
+  <rect x="34" y="365" width="296" height="65" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="383" font-size="12" font-weight="700" fill="#1a1a1a">Апаратне вікно CASET / RASET:</text>
+  <text x="44" y="401" font-size="12" fill="#6b7280">Драйвер обмежує координати до</text>
+  <text x="44" y="419" font-size="12" fill="#2457d6">діапазону 0 ≤ x, y ≤ 239 пікселів</text>
+
+
+  <!-- ==================== ПАНЕЛЬ 2: БУФЕР СПРАЙТА В RAM ==================== -->
+  <rect x="352" y="65" width="292" height="375" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="352" y="65" width="292" height="28" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="498" y="84" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">2. Буфер спрайта та крок пам'яті</text>
+  <text x="498" y="106" font-size="12" fill="#6b7280" text-anchor="middle">Лінійна пам'ять RAM (RGB565, 2 байти/пікс)</text>
+
+  <!-- Спрайт у пам'яті: W=95, H=85 -> в масштабі W=210, H=130 -->
+  <!-- Базовий прямокутник спрайта (fill="none") -->
+  <rect x="390" y="125" width="216" height="130" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Заголовок кроку рядка Pitch зверху -->
+  <text x="498" y="120" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Крок рядка (Pitch) = W × 2 байти</text>
+
+  <!-- Пропущені верхні рядки: y_clip (height 38 px) -->
+  <rect x="390" y="125" width="216" height="38" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="498" y="148" font-size="12" fill="#c0392b" text-anchor="middle">Пропуск рядків: y_clip × W</text>
+
+  <!-- Пропущені ліві стовпчики: x_clip (width 66 px, y=163..255) -->
+  <rect x="390" y="163" width="66" height="92" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="423" y="212" font-size="12" fill="#c0392b" text-anchor="middle">x_clip</text>
+
+  <!-- Видимі дані спрайта у буфері (x=456..606, y=163..255, w=150, h=92) -->
+  <rect x="456" y="163" width="150" height="92" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="531" y="195" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Видимі пікселі</text>
+  <text x="531" y="211" font-size="12" fill="#1a1a1a" text-anchor="middle">w_vis × h_vis</text>
+
+  <!-- Точка та стрілка зміщення початкового байта -->
+  <circle cx="456" cy="163" r="4" fill="#2457d6"/>
+  <line x1="456" y1="258" x2="456" y2="172" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 2" marker-end="url(#arr-blue)"/>
+  <text x="498" y="274" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">src_offset = (y_clip × W + x_clip) × 2</text>
+
+  <!-- Середня картка: правило передачі рядків -->
+  <rect x="362" y="286" width="272" height="66" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="372" y="304" font-size="12" font-weight="700" fill="#1a1a1a">Перехід між рядками під час виведення:</text>
+  <text x="372" y="322" font-size="12" fill="#6b7280">1. Відправити w_vis пікселів у ST7789</text>
+  <text x="372" y="340" font-size="12" fill="#2457d6">2. src_ptr += W * 2 (перехід до нового рядка)</text>
+
+  <!-- Нижня картка панелі 2: застереження про Pitch -->
+  <rect x="362" y="365" width="272" height="65" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="372" y="383" font-size="12" font-weight="700" fill="#c0392b">⚠️ Якщо крок рядка дорівнює w_vis:</text>
+  <text x="372" y="401" font-size="12" fill="#1a1a1a">Зображення розсиплеться на</text>
+  <text x="372" y="419" font-size="12" fill="#6b7280">спотворені діагональні смуги пікселів.</text>
+
+
+  <!-- ==================== ПАНЕЛЬ 3: ФОРМУЛИ ТА ЗАХИСТ ==================== -->
+  <rect x="656" y="65" width="280" height="375" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="656" y="65" width="280" height="28" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="796" y="84" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">3. Розрахунок параметрів відсікання</text>
+  <text x="796" y="106" font-size="12" fill="#6b7280" text-anchor="middle">Математичний апарат st7789_draw_sprite</text>
+
+  <!-- Блок 1: Екранне вікно -->
+  <rect x="668" y="118" width="256" height="54" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="678" y="136" font-size="12" font-weight="700" fill="#1a1a1a">1. Вікно на дисплеї (0..239):</text>
+  <text x="678" y="154" font-size="12" fill="#2457d6">x_scr = max(0, x);  y_scr = max(0, y)</text>
+
+  <!-- Блок 2: Зміщення у буфері -->
+  <rect x="668" y="178" width="256" height="68" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="678" y="196" font-size="12" font-weight="700" fill="#1a1a1a">2. Зсув відсікання у буфері спрайта:</text>
+  <text x="678" y="214" font-size="12" fill="#c0392b">x_clip = max(0, -x);  y_clip = max(0, -y)</text>
+  <text x="678" y="232" font-size="12" fill="#2457d6">src_offset = (y_clip * W + x_clip) * 2</text>
+
+  <!-- Блок 3: Видимі розміри -->
+  <rect x="668" y="252" width="256" height="68" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="678" y="270" font-size="12" font-weight="700" fill="#1a1a1a">3. Видимий розмір передачі:</text>
+  <text x="678" y="288" font-size="12" fill="#27ae60">w_vis = min(x + W, 240) - x_scr</text>
+  <text x="678" y="306" font-size="12" fill="#27ae60">h_vis = min(y + H, 240) - y_scr</text>
+
+  <!-- Блок 4: Захист від повного вильоту -->
+  <rect x="668" y="326" width="256" height="104" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="678" y="346" font-size="12" font-weight="700" fill="#2457d6">4. Захист від виходу за межі:</text>
+  <text x="678" y="366" font-size="12" fill="#1a1a1a">if (w_vis &lt;= 0 || h_vis &lt;= 0)</text>
+  <text x="678" y="384" font-size="12" fill="#6b7280">    return; // повне відсікання об'єкта</text>
+  <text x="678" y="402" font-size="12" fill="#1a1a1a">src_ptr = sprite_data + src_offset;</text>
+  <text x="678" y="420" font-size="12" fill="#2457d6">st7789_set_window(x_scr, y_scr, ...);</text>
+</svg>

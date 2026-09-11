@@ -1,0 +1,209 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+</defs>
+
+<!-- Background -->
+<rect x="0" y="0" width="960" height="520" fill="white"/>
+
+<!-- Main Title & Subtitle -->
+<text x="480" y="30" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Знос шестерень редуктора та апаратний захист струмовим шунтом</text>
+<text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Ударний момент спричиняє зріз зубців у точці напружень; шунт у нижньому плечі вимикає привід до поломки</text>
+
+<!-- LEFT PANEL: Mechanical Profile -->
+<rect x="24" y="70" width="446" height="432" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+<text x="44" y="92" font-size="14" font-weight="700" fill="#1a1a1a">Механічний контакт та концентрація напружень</text>
+<text x="44" y="108" font-size="12" fill="#6b7280">Вихідний каскад редуктора: згинальний момент та втомні тріщини</text>
+
+<!-- Root Stress Callout at Top-Left -->
+<text x="40" y="140" font-size="12" font-weight="700" fill="#c0392b">Зона напружень</text>
+<text x="40" y="155" font-size="12" fill="#6b7280">Втомна тріщина</text>
+
+<!-- Gear Tooth Labels -->
+<text x="175" y="155" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Зуб колеса</text>
+<text x="300" y="155" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">Тягова шестерня</text>
+
+<!-- Tooth 1: Driven Gear Tooth (Base & Fillet) -->
+<path d="M 90 340 L 90 318 L 112 318 C 122 318 128 305 132 288 L 146 200 C 150 175 154 168 162 165 L 188 165 C 196 168 200 175 204 200 L 214 240 C 220 270 226 318 248 318 L 270 318 L 270 340 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+<!-- Tooth 2: Driving Gear Tooth Flank -->
+<path d="M 250 160 C 235 160 224 175 218 200 L 208 222 C 200 240 192 250 186 255 L 202 263 C 215 255 230 230 245 205 L 265 175 L 340 175 L 340 155 L 250 155 Z" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
+
+<!-- Contact Point & Pitting Zone -->
+<ellipse cx="208" cy="222" rx="6" ry="10" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+<circle cx="208" cy="222" r="4.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+
+<!-- Stress Concentration at Root Fillet -->
+<ellipse cx="126" cy="295" rx="14" ry="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+<path d="M 122 302 L 126 295 L 123 290 L 129 285" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+<!-- Fillet Pointer from Callout to Root Fillet -->
+<line x1="90" y1="162" x2="118" y2="286" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+<!-- Contact Force Vector F -->
+<line x1="260" y1="198" x2="211" y2="221" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+<text x="268" y="195" font-size="12" font-weight="700" fill="#c0392b">F_контакт (удар)</text>
+<text x="268" y="210" font-size="12" fill="#6b7280">Піковий момент при клині</text>
+
+<!-- Surface Wear / Pitting Callout -->
+<line x1="215" y1="226" x2="260" y2="240" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="2,2"/>
+<text x="268" y="238" font-size="12" font-weight="700" fill="#1a1a1a">Зона тертя та стирання</text>
+<text x="268" y="253" font-size="12" fill="#6b7280">Втомний знос евольвенти</text>
+
+<!-- Bending Moment Indicator -->
+<path d="M 148 316 C 160 324 180 324 192 316" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+<text x="170" y="338" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Згинальний момент M</text>
+
+<!-- Left Panel Bottom Summary Card -->
+<rect x="38" y="360" width="418" height="126" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<rect x="48" y="370" width="180" height="20" rx="4" fill="#fdecea"/>
+<text x="56" y="384" font-size="12" font-weight="700" fill="#c0392b">Руйнування при блокуванні</text>
+<text x="50" y="408" font-size="12" fill="#1a1a1a">• Момент: редуктор множить тягове зусилля в десятки разів</text>
+<text x="50" y="426" font-size="12" fill="#1a1a1a">• Удар: зупинка вала генерує ударне зусилля F_контакт</text>
+<text x="50" y="444" font-size="12" fill="#1a1a1a">• Втома: у галтелі кореня виникає критичний розтяг</text>
+<text x="50" y="462" font-size="12" fill="#6b7280">• Наслідок: пластик злизується, метал дає скол зуба</text>
+
+<!-- RIGHT PANEL: Current Shunt Protection Schematic -->
+<rect x="490" y="70" width="446" height="432" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+<text x="510" y="92" font-size="14" font-weight="700" fill="#1a1a1a">Струмовий шунт та апаратний захист</text>
+<text x="510" y="108" font-size="12" fill="#6b7280">Нижнє плече H-моста, RC-фільтр завад і вхід компаратора МК</text>
+
+<!-- Emergency Trip Fast Line from MCU to H-Bridge -->
+<path d="M 845 146 L 845 132 L 595 132 L 595 146" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+<text x="720" y="125" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Аварійний сигнал (&lt;50 мкс)</text>
+
+<!-- Power Rail +6V -->
+<line x1="535" y1="148" x2="655" y2="148" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="520" y="140" font-size="12" font-weight="700" fill="#c0392b">+6 В (V_motor)</text>
+
+<!-- H-Bridge Upper Connections -->
+<line x1="550" y1="148" x2="550" y2="158" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="640" y1="148" x2="640" y2="158" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- Q1 Switch -->
+<rect x="538" y="158" width="24" height="20" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="550" y="173" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Q1</text>
+
+<!-- Q2 Switch -->
+<rect x="628" y="158" width="24" height="20" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="640" y="173" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Q2</text>
+
+<!-- Middle Connections & Motor -->
+<line x1="550" y1="178" x2="550" y2="208" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="550" cy="208" r="2.5" fill="#1a1a1a"/>
+<line x1="550" y1="208" x2="578" y2="208" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<line x1="640" y1="178" x2="640" y2="208" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="640" cy="208" r="2.5" fill="#1a1a1a"/>
+<line x1="612" y1="208" x2="640" y2="208" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<circle cx="595" cy="208" r="17" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<text x="595" y="213" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">M</text>
+<text x="595" y="184" font-size="12" text-anchor="middle" fill="#6b7280">Двигун 6В</text>
+
+<!-- Motor Current Direction -->
+<line x1="580" y1="230" x2="610" y2="230" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+<text x="595" y="244" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">I_мотора</text>
+
+<!-- Q3 Switch -->
+<line x1="550" y1="208" x2="550" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="538" y="222" width="24" height="20" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="550" y="237" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Q3</text>
+
+<!-- Q4 Switch -->
+<line x1="640" y1="208" x2="640" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="628" y="222" width="24" height="20" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+<text x="640" y="237" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Q4</text>
+
+<!-- Common Low-Side Return Bus -->
+<line x1="550" y1="242" x2="550" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="640" y1="242" x2="640" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="550" y1="260" x2="640" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="595" cy="260" r="3" fill="#1a1a1a"/>
+
+<!-- Sense Node above R_shunt -->
+<line x1="595" y1="260" x2="595" y2="276" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="595" cy="268" r="3" fill="#27ae60"/>
+<text x="604" y="265" font-size="12" font-weight="700" fill="#27ae60">V_sense</text>
+
+<!-- Shunt Resistor R_shunt -->
+<rect x="586" y="276" width="18" height="36" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+<text x="578" y="291" font-size="12" font-weight="700" text-anchor="end" fill="#27ae60">R_shunt</text>
+<text x="578" y="306" font-size="12" text-anchor="end" fill="#6b7280">0.1–0.22 Ом</text>
+
+<!-- Low-Side Ground -->
+<line x1="595" y1="312" x2="595" y2="326" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="585" y1="326" x2="605" y2="326" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="589" y1="330" x2="601" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="593" y1="334" x2="597" y2="334" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="595" y="347" font-size="12" text-anchor="middle" fill="#6b7280">GND</text>
+
+<!-- Filter Path from V_sense to RC Filter -->
+<line x1="595" y1="268" x2="654" y2="268" stroke="#27ae60" stroke-width="1.5"/>
+
+<!-- Filter Resistor R_f -->
+<rect x="654" y="261" width="28" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="668" y="242" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">R_f</text>
+<text x="668" y="255" font-size="12" text-anchor="middle" fill="#6b7280">1 кОм</text>
+
+<!-- Line from R_f to Filter Node -->
+<line x1="682" y1="268" x2="712" y2="268" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="712" cy="268" r="3" fill="#1a1a1a"/>
+
+<!-- Filter Capacitor C_f -->
+<line x1="712" y1="268" x2="712" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="704" y1="290" x2="720" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="704" y1="295" x2="720" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="712" y1="295" x2="712" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="706" y1="310" x2="718" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="708" y1="314" x2="716" y2="314" stroke="#1a1a1a" stroke-width="1.2"/>
+<line x1="710" y1="318" x2="714" y2="318" stroke="#1a1a1a" stroke-width="1"/>
+<text x="726" y="292" font-size="12" font-weight="700" fill="#1a1a1a">C_f</text>
+<text x="726" y="306" font-size="12" fill="#6b7280">100 нФ</text>
+
+<!-- Connection to Microcontroller -->
+<line x1="712" y1="268" x2="742" y2="268" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="742" cy="268" r="2.5" fill="#1a1a1a"/>
+<path d="M 742 268 L 742 203 L 768 203" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+<line x1="742" y1="268" x2="768" y2="268" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+
+<!-- Microcontroller (MCU) Box -->
+<rect x="768" y="146" width="154" height="194" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+<rect x="768" y="146" width="154" height="26" rx="6" fill="#eaf0fd"/>
+<text x="845" y="163" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Мікроконтролер (MCU)</text>
+
+<!-- ADC Block -->
+<rect x="778" y="180" width="134" height="46" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="845" y="198" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">АЦП (ADC)</text>
+<text x="845" y="214" font-size="12" text-anchor="middle" fill="#6b7280">Моніторинг струму</text>
+
+<!-- Analog Comparator Block -->
+<rect x="778" y="238" width="134" height="58" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="845" y="256" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Компаратор (OCP)</text>
+<text x="845" y="272" font-size="12" text-anchor="middle" fill="#1a1a1a">Поріг аварії I_trip</text>
+<text x="845" y="287" font-size="12" text-anchor="middle" fill="#6b7280">Апаратне відсікання</text>
+
+<text x="845" y="322" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Аварійний стоп</text>
+
+<!-- Right Panel Bottom Summary Card -->
+<rect x="504" y="360" width="418" height="126" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<rect x="514" y="370" width="195" height="20" rx="4" fill="#e9f7ef"/>
+<text x="522" y="384" font-size="12" font-weight="700" fill="#27ae60">Принцип апаратного захисту</text>
+<text x="516" y="408" font-size="12" fill="#1a1a1a">• Шунт: струм мотора створює напругу V = I × R_shunt</text>
+<text x="516" y="426" font-size="12" fill="#1a1a1a">• RC-фільтр: глушить комутаційні піки ШІМ та іскріння</text>
+<text x="516" y="444" font-size="12" fill="#1a1a1a">• Компаратор: апаратно фіксує перевантаження I_trip</text>
+<text x="516" y="462" font-size="12" fill="#27ae60">• Результат: блокування ШІМ рятує шестерні від зрізання</text>
+</svg>

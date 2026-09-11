@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сприйняття яскравості підсвічування: лінійний ШІМ проти гамма-корекції 2.2</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Нелінійний відгук ока насичується вже при 20% ШІМ; степінний LUT повертає суб'єктивну лінійність</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Графік залежностей -->
+  <rect x="24" y="68" width="506" height="376" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="277" y="90" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зіставлення оптичного потоку, відчуття ока та коригувального ШІМ</text>
+
+  <!-- 3 легенди кривих над графіком -->
+  <text x="115" y="116" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Сприйняття ока</text>
+  <text x="115" y="132" font-size="12" fill="#c0392b" text-anchor="middle">y = x^0.45 (насичення)</text>
+
+  <text x="277" y="116" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">2. Лінійний ШІМ</text>
+  <text x="277" y="132" font-size="12" fill="#6b7280" text-anchor="middle">y = x (потік LED)</text>
+
+  <text x="439" y="116" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Гамма 2.2 LUT</text>
+  <text x="439" y="132" font-size="12" fill="#27ae60" text-anchor="middle">y = x^2.2 (корекція)</text>
+
+  <!-- Горизонтальні лінії сітки -->
+  <line x1="80" y1="170" x2="480" y2="170" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="80" y1="220" x2="480" y2="220" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="80" y1="270" x2="480" y2="270" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="80" y1="320" x2="480" y2="320" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Вертикальні лінії сітки -->
+  <line x1="180" y1="170" x2="180" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="280" y1="170" x2="280" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="380" y1="170" x2="380" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="480" y1="170" x2="480" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Вісі координат -->
+  <line x1="80" y1="370" x2="492" y2="370" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="80" y1="370" x2="80" y2="160" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Позначки осі Y -->
+  <text x="72" y="174" font-size="12" fill="#6b7280" text-anchor="end">100%</text>
+  <text x="72" y="224" font-size="12" fill="#6b7280" text-anchor="end">75%</text>
+  <text x="72" y="274" font-size="12" fill="#6b7280" text-anchor="end">50%</text>
+  <text x="72" y="324" font-size="12" fill="#6b7280" text-anchor="end">25%</text>
+  <text x="72" y="374" font-size="12" fill="#6b7280" text-anchor="end">0%</text>
+  <text x="80" y="152" font-size="12" font-weight="bold" fill="#1a1a1a">Яскравість (%)</text>
+
+  <!-- Позначки осі X -->
+  <text x="80" y="388" font-size="12" fill="#6b7280" text-anchor="middle">0%</text>
+  <text x="180" y="388" font-size="12" fill="#6b7280" text-anchor="middle">25%</text>
+  <text x="280" y="388" font-size="12" fill="#6b7280" text-anchor="middle">50%</text>
+  <text x="380" y="388" font-size="12" fill="#6b7280" text-anchor="middle">75%</text>
+  <text x="480" y="388" font-size="12" fill="#6b7280" text-anchor="middle">100%</text>
+  <text x="280" y="410" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний рівень регулювання (PWM Duty / Бажана яскравість, 0..100%)</text>
+  <text x="280" y="428" font-size="12" fill="#6b7280" text-anchor="middle">Код шпаруватості в драйвері: 0..255 (8-бітний апаратний таймер ШІМ)</text>
+
+  <!-- КРИВА 1: Лінійний ШІМ (діагональ) -->
+  <line x1="80" y1="370" x2="480" y2="170" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 4"/>
+
+  <!-- КРИВА 2: Відгук ока (степінь 1/2.2) -->
+  <path d="M 80.0,370.0 L 100.0,318.8 L 120.0,299.8 L 140.0,285.6 L 160.0,273.8 L 180.0,263.5 L 200.0,254.3 L 220.0,245.9 L 240.0,238.1 L 260.0,230.9 L 280.0,224.1 L 300.0,217.6 L 320.0,211.4 L 340.0,205.6 L 360.0,199.9 L 380.0,194.5 L 400.0,189.3 L 420.0,184.2 L 440.0,179.4 L 460.0,174.6 L 480.0,170.0" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- КРИВА 3: Гамма-корекція 2.2 -->
+  <path d="M 80.0,370.0 L 100.0,369.7 L 120.0,368.7 L 140.0,366.9 L 160.0,364.2 L 180.0,360.5 L 200.0,355.9 L 220.0,350.1 L 240.0,343.4 L 260.0,335.5 L 280.0,326.5 L 300.0,316.3 L 320.0,305.0 L 340.0,292.5 L 360.0,278.7 L 380.0,263.8 L 400.0,247.6 L 420.0,230.1 L 440.0,211.4 L 460.0,191.3 L 480.0,170.0" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- ПРАВА СТОРОНА: 3 картки з поясненням -->
+  <!-- Картка 1: Проблема лінійного ШІМ -->
+  <rect x="550" y="68" width="386" height="116" rx="8" fill="#fdecea" stroke="#c0392b"/>
+  <rect x="562" y="78" width="362" height="24" rx="4" fill="#ffffff" stroke="#c0392b"/>
+  <text x="743" y="95" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Проблема: лінійне регулювання ШІМ</text>
+  <text x="566" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">• Чутливість ока (закон Вебера-Фехнера):</text>
+  <text x="578" y="134" font-size="12" fill="#6b7280">Людський зір логарифмічно чутливий до темряви.</text>
+  <text x="566" y="152" font-size="12" font-weight="bold" fill="#c0392b">• Ефект насичення:</text>
+  <text x="578" y="168" font-size="12" fill="#1a1a1a">При ШІМ 20% яскравість сприймається як 50%!</text>
+
+  <!-- Картка 2: Розв'язок - Гамма 2.2 -->
+  <rect x="550" y="198" width="386" height="132" rx="8" fill="#e9f7ef" stroke="#27ae60"/>
+  <rect x="562" y="208" width="362" height="24" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="743" y="225" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Розв'язок: степінна гамма-корекція 2.2</text>
+  <text x="566" y="248" font-size="12" font-weight="bold" fill="#1a1a1a">• Формула корекції (гамма = 2.2):</text>
+  <text x="578" y="266" font-size="12" font-weight="bold" fill="#2457d6">PWM_out = 255 × (Рівень / 255)^2.2</text>
+  <text x="566" y="286" font-size="12" font-weight="bold" fill="#27ae60">• Результат компенсації:</text>
+  <text x="578" y="304" font-size="12" fill="#1a1a1a">Крива ока та крива LUT взаємно скорочуються:</text>
+  <text x="578" y="320" font-size="12" font-weight="bold" fill="#27ae60">(L^2.2)^(1/2.2) = L — лінійний приріст для ока</text>
+
+  <!-- Картка 3: Реалізація LUT -->
+  <rect x="550" y="344" width="386" height="100" rx="8" fill="#eaf0fd" stroke="#2457d6"/>
+  <rect x="562" y="354" width="362" height="22" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="743" y="370" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Реалізація: константна таблиця LUT у Flash</text>
+  <text x="566" y="392" font-size="12" fill="#1a1a1a">const uint8_t gamma_lut[256] = &#123;0, 0, ..., 255&#125;;</text>
+  <text x="566" y="412" font-size="12" fill="#6b7280">• Нуль обчислень з плаваючою комою у runtime (float)</text>
+  <text x="566" y="430" font-size="12" font-weight="bold" fill="#2457d6">• Миттєвий перерахунок O(1) за індексом яскравості</text>
+</svg>

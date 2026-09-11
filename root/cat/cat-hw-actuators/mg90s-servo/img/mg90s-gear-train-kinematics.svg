@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Dark arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <!-- Blue arrow markers -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <!-- Green arrow markers -->
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінематична схема 4-ступеневого металевого редуктора MG90S</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Послідовне редукування швидкості 1:280 та мультиплікація крутного моменту з вальницею вихідного вала</text>
+
+  <!-- Flow Banner (stops before output shaft) -->
+  <rect x="24" y="62" width="770" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="36" y="78" font-size="12" font-weight="bold" fill="#2457d6">Потік потужності:</text>
+  <text x="156" y="78" font-size="12" fill="#1a1a1a">Висока швидкість (14 000 об/хв), малий момент (0,09 кг·см)</text>
+  <text x="515" y="78" font-size="12" font-weight="bold" fill="#2457d6">➔</text>
+  <text x="535" y="78" font-size="12" font-weight="bold" fill="#27ae60">50 об/хв, високий момент (2,2 кг·см)</text>
+
+  <!-- ==================== KINEMATIC GEAR TRAIN ==================== -->
+  <!-- SHAFT 0: MOTOR ROTOR (x = 109) -->
+  <!-- Motor Casing -->
+  <rect x="69" y="240" width="80" height="74" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="109" cy="277" r="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="109" y="283" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">M</text>
+  <!-- Rotor Shaft Line -->
+  <line x1="109" y1="240" x2="109" y2="136" stroke="#1a1a1a" stroke-width="3"/>
+  <!-- Pinion z1 -->
+  <rect x="91" y="124" width="36" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="82" y="134" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">z1 = 10</text>
+
+  <!-- MESH 1: z1 - z2 -->
+  <line x1="127" y1="120" x2="127" y2="140" stroke="#2457d6" stroke-width="2"/>
+  <text x="210" y="112" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">i1 = 4,0 (z2/z1)</text>
+
+  <!-- SHAFT 1: INTERMEDIATE 1 (x = 294) -->
+  <!-- Top Support -->
+  <polygon points="288,102 300,102 294,110" fill="#6b7280"/>
+  <!-- Shaft line (top segment) -->
+  <line x1="294" y1="110" x2="294" y2="124" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Wheel z2 -->
+  <rect x="127" y="124" width="167" height="12" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="304" y="134" font-size="12" font-weight="bold" fill="#1a1a1a">z2 = 40</text>
+  <!-- Hub between z2 and z3 -->
+  <rect x="290" y="136" width="8" height="38" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Pinion z3 -->
+  <rect x="276" y="174" width="36" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="268" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">z3 = 10</text>
+  <!-- Shaft line (bottom segment) -->
+  <line x1="294" y1="186" x2="294" y2="290" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Bottom Support -->
+  <polygon points="288,298 300,298 294,290" fill="#6b7280"/>
+
+  <!-- MESH 2: z3 - z4 -->
+  <line x1="312" y1="170" x2="312" y2="190" stroke="#2457d6" stroke-width="2"/>
+  <text x="395" y="162" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">i2 = 4,0 (z4/z3)</text>
+
+  <!-- SHAFT 2: INTERMEDIATE 2 (x = 479) -->
+  <!-- Top Support -->
+  <polygon points="473,102 485,102 479,110" fill="#6b7280"/>
+  <!-- Shaft line (top segment) -->
+  <line x1="479" y1="110" x2="479" y2="174" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Wheel z4 -->
+  <rect x="312" y="174" width="167" height="12" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="489" y="184" font-size="12" font-weight="bold" fill="#1a1a1a">z4 = 40</text>
+  <!-- Hub between z4 and z5 -->
+  <rect x="475" y="186" width="8" height="38" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Pinion z5 -->
+  <rect x="461" y="224" width="36" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="453" y="234" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">z5 = 10</text>
+  <!-- Shaft line (bottom segment) -->
+  <line x1="479" y1="236" x2="479" y2="290" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Bottom Support -->
+  <polygon points="473,298 485,298 479,290" fill="#6b7280"/>
+
+  <!-- MESH 3: z5 - z6 -->
+  <line x1="497" y1="220" x2="497" y2="240" stroke="#2457d6" stroke-width="2"/>
+  <text x="580" y="212" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">i3 = 3,8 (z6/z5)</text>
+
+  <!-- SHAFT 3: INTERMEDIATE 3 (x = 664) -->
+  <!-- Top Support -->
+  <polygon points="658,102 670,102 664,110" fill="#6b7280"/>
+  <!-- Shaft line (top segment) -->
+  <line x1="664" y1="110" x2="664" y2="174" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Pinion z7 -->
+  <rect x="646" y="174" width="36" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="638" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">z7 = 10</text>
+  <!-- Hub between z7 and z6 -->
+  <rect x="660" y="186" width="8" height="38" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Wheel z6 -->
+  <rect x="497" y="224" width="167" height="12" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="674" y="234" font-size="12" font-weight="bold" fill="#1a1a1a">z6 = 38</text>
+  <!-- Shaft line (bottom segment) -->
+  <line x1="664" y1="236" x2="664" y2="290" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Bottom Support -->
+  <polygon points="658,298 670,298 664,290" fill="#6b7280"/>
+
+  <!-- MESH 4: z7 - z8 -->
+  <line x1="682" y1="170" x2="682" y2="190" stroke="#27ae60" stroke-width="2"/>
+  <text x="765" y="162" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">i4 = 4,6 (z8/z7)</text>
+
+  <!-- SHAFT 4: OUTPUT SHAFT (x = 849) -->
+  <!-- Splines 21T at top -->
+  <rect x="843" y="100" width="12" height="20" rx="2" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="841" y1="105" x2="857" y2="105" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="841" y1="110" x2="857" y2="110" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="841" y1="115" x2="857" y2="115" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="835" y="114" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Шліци 21T</text>
+
+  <!-- Ball Bearing 688ZZ -->
+  <rect x="833" y="132" width="32" height="18" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="841" cy="141" r="3.5" fill="#27ae60"/>
+  <circle cx="857" cy="141" r="3.5" fill="#27ae60"/>
+  <text x="825" y="146" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Вальниця 688ZZ</text>
+
+  <!-- Output Shaft Line between bearing and gear -->
+  <line x1="849" y1="120" x2="849" y2="132" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="849" y1="150" x2="849" y2="174" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Output Sector Wheel z8 -->
+  <rect x="682" y="174" width="167" height="12" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="820" y="196" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">z8 = 46 (латунь)</text>
+
+  <!-- Mechanical Stop Pin -->
+  <rect x="857" y="170" width="8" height="20" fill="#c0392b" rx="2"/>
+  <text x="870" y="184" font-size="12" font-weight="bold" fill="#c0392b">Упор ±90°</text>
+
+  <!-- Lower Shaft down to Potentiometer -->
+  <line x1="849" y1="186" x2="849" y2="242" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Potentiometer Block -->
+  <rect x="825" y="242" width="48" height="46" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="849" cy="265" r="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M843,265 L855,265 M849,259 L855,265 L849,271" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="849" y="304" font-size="12" fill="#6b7280" text-anchor="middle">Потенціометр 5 кОм</text>
+
+  <!-- ==================== BOTTOM CARDS ==================== -->
+  <!-- Card 1: Motor -->
+  <rect x="24" y="346" width="170" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="109" y="365" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхід: Двигун DC</text>
+  <text x="34" y="385" font-size="12" fill="#1a1a1a">n_in ≈ 14 000 об/хв</text>
+  <text x="34" y="403" font-size="12" fill="#1a1a1a">M_in ≈ 0,09 кг·см</text>
+  <text x="34" y="421" font-size="12" fill="#6b7280">Піньйон z1 = 10 (латунь)</text>
+
+  <!-- Card 2: Stage 1 -->
+  <rect x="209" y="346" width="170" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="294" y="365" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ступінь 1 (i1 = 4,0)</text>
+  <text x="219" y="385" font-size="12" fill="#1a1a1a">z2 = 40 (латунь)</text>
+  <text x="219" y="403" font-size="12" fill="#1a1a1a">z3 = 10 (алюміній)</text>
+  <text x="219" y="421" font-size="12" fill="#6b7280">n1 ≈ 3 500 об/хв</text>
+
+  <!-- Card 3: Stage 2 -->
+  <rect x="394" y="346" width="170" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="479" y="365" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ступінь 2 (i2 = 4,0)</text>
+  <text x="404" y="385" font-size="12" fill="#1a1a1a">z4 = 40 (алюміній)</text>
+  <text x="404" y="403" font-size="12" fill="#1a1a1a">z5 = 10 (алюміній)</text>
+  <text x="404" y="421" font-size="12" fill="#6b7280">n2 ≈ 875 об/хв</text>
+
+  <!-- Card 4: Stage 3 -->
+  <rect x="579" y="346" width="170" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="664" y="365" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ступінь 3 (i3 = 3,8)</text>
+  <text x="589" y="385" font-size="12" fill="#1a1a1a">z6 = 38 (алюміній)</text>
+  <text x="589" y="403" font-size="12" fill="#1a1a1a">z7 = 10 (сталь)</text>
+  <text x="589" y="421" font-size="12" fill="#6b7280">n3 ≈ 230 об/хв</text>
+
+  <!-- Card 5: Output Stage -->
+  <rect x="764" y="346" width="170" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="849" y="365" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихід (i_заг ≈ 280)</text>
+  <text x="774" y="385" font-size="12" fill="#1a1a1a">z8 = 46 (i4 = 4,6)</text>
+  <text x="774" y="403" font-size="12" font-weight="bold" fill="#27ae60">M_out ≈ 2,2 кг·см</text>
+  <text x="774" y="421" font-size="12" fill="#6b7280">n_out ≈ 50 об/хв, η ≈ 75%</text>
+</svg>

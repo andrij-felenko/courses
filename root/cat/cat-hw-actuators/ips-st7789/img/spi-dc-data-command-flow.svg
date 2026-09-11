@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="26" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Потік передачі команд і даних через 4-провідний SPI контролера ST7789</text>
+  <text x="480" y="46" font-size="13" text-anchor="middle" fill="#6b7280">Рівень лінії D/C визначає тип байта: LOW для опкоду команди, HIGH для параметрів та даних, фіксація на фронтах SCLK</text>
+
+  <!-- ГОЛОВНА ПАНЕЛЬ ДІАГРАМИ -->
+  <rect x="18" y="60" width="924" height="248" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Біле поле сигналів -->
+  <rect x="156" y="70" width="774" height="226" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- ПІДПИСИ СИГНАЛІВ ЛІВОРУЧ -->
+  <text x="30" y="100" font-size="13" font-weight="700" fill="#2457d6">CS</text>
+  <text x="30" y="114" font-size="12" fill="#6b7280">Chip Select</text>
+
+  <text x="30" y="150" font-size="13" font-weight="700" fill="#c0392b">D/C</text>
+  <text x="30" y="164" font-size="12" fill="#6b7280">Data / Cmd</text>
+
+  <text x="30" y="202" font-size="13" font-weight="700" fill="#1a1a1a">SCLK</text>
+  <text x="30" y="216" font-size="12" fill="#6b7280">SPI Clock</text>
+
+  <text x="30" y="250" font-size="13" font-weight="700" fill="#27ae60">MOSI</text>
+  <text x="30" y="264" font-size="12" fill="#6b7280">SDA (Дані)</text>
+
+  <!-- СИГНАЛ 1: CS (Chip Select, активний LOW) -->
+  <path d="M 166,88 L 192,88 L 200,112 L 888,112 L 896,88 L 920,88" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+  <text x="210" y="106" font-size="12" font-weight="700" fill="#2457d6">CS = 0 (активний)</text>
+
+  <!-- СИГНАЛ 2: D/C (Data / Command) -->
+  <path d="M 166,138 L 194,138 L 202,162 L 400,162 L 408,138 L 920,138" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+  <text x="224" y="156" font-size="12" font-weight="700" fill="#c0392b">D/C = 0 (Команда)</text>
+  <text x="540" y="132" font-size="12" font-weight="700" fill="#27ae60">D/C = 1 (Параметри адреси вікна: 4 байти)</text>
+
+  <!-- СИГНАЛ 3: SCLK (Serial Clock, SPI Mode 0) -->
+  <!-- 8 тактів для команди (x = 225..385) -->
+  <path d="M 166,214 L 225,214 
+           L 225,190 L 235,190 L 235,214 L 245,214 
+           L 245,190 L 255,190 L 255,214 L 265,214 
+           L 265,190 L 275,190 L 275,214 L 285,214 
+           L 285,190 L 295,190 L 295,214 L 305,214 
+           L 305,190 L 315,190 L 315,214 L 325,214 
+           L 325,190 L 335,190 L 335,214 L 345,214 
+           L 345,190 L 355,190 L 355,214 L 365,214 
+           L 365,190 L 375,190 L 375,214 L 385,214 
+           L 425,214 
+           L 425,190 L 438,190 L 438,214 L 452,214 
+           L 452,190 L 465,190 L 465,214 L 478,214 
+           L 478,190 L 492,190 L 492,214 L 505,214 
+           L 505,190 L 518,190 L 518,214 L 530,214 
+           L 540,214 
+           L 540,190 L 553,190 L 553,214 L 566,214 
+           L 566,190 L 580,190 L 580,214 L 593,214 
+           L 593,190 L 606,190 L 606,214 L 620,214 
+           L 620,190 L 633,190 L 633,214 L 645,214 
+           L 655,214 
+           L 655,190 L 668,190 L 668,214 L 682,214 
+           L 682,190 L 695,190 L 695,214 L 708,214 
+           L 708,190 L 722,190 L 722,214 L 735,214 
+           L 735,190 L 748,190 L 748,214 L 760,214 
+           L 770,214 
+           L 770,190 L 783,190 L 783,214 L 796,214 
+           L 796,190 L 810,190 L 810,214 L 823,214 
+           L 823,190 L 836,190 L 836,214 L 850,214 
+           L 850,190 L 863,190 L 863,214 L 875,214 
+           L 920,214" 
+        fill="none" stroke="#1a1a1a" stroke-width="1.8"/>
+
+  <!-- Напис над тактами команди -->
+  <text x="305" y="180" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">8 тактів SCLK (вибірка бітів)</text>
+
+  <!-- СИГНАЛ 4: MOSI (Дані на лінії) -->
+  <!-- Байт команди: 0x2A CASET -->
+  <rect x="225" y="238" width="160" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="305" y="255" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">0x2A (CASET — Команда)</text>
+
+  <!-- 4 байти параметрів (межі координат вікна) -->
+  <rect x="425" y="238" width="105" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="477" y="255" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">XS[15..8]: 0x00</text>
+
+  <rect x="540" y="238" width="105" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="592" y="255" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">XS[7..0]: 0x00</text>
+
+  <rect x="655" y="238" width="105" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="707" y="255" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">XE[15..8]: 0x00</text>
+
+  <rect x="770" y="238" width="105" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="822" y="255" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">XE[7..0]: 0xEF</text>
+
+  <!-- Спільна вісь часу внизу -->
+  <line x1="166" y1="284" x2="904" y2="284" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="912" y="288" font-size="12" font-weight="700" fill="#1a1a1a">t</text>
+
+  <!-- НИЖНІ ІНФОРМАЦІЙНІ КАРТКИ -->
+  <!-- Картка 1: Фаза команди -->
+  <rect x="24" y="318" width="292" height="110" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="36" y="340" font-size="13" font-weight="700" fill="#c0392b">1. Фаза команди: D/C = 0</text>
+  <text x="36" y="360" font-size="12" fill="#1a1a1a">• 1 байт опкоду: 0x2A (CASET) або 0x2C</text>
+  <text x="36" y="378" font-size="12" fill="#1a1a1a">• Контролер фіксує низький рівень D/C</text>
+  <text x="36" y="396" font-size="12" fill="#6b7280">• Байт скеровується в декодер команд</text>
+  <text x="36" y="414" font-size="12" fill="#6b7280">• Наступні байти — аргументи опкоду</text>
+
+  <!-- Картка 2: Фаза параметрів -->
+  <rect x="332" y="318" width="296" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="344" y="340" font-size="13" font-weight="700" fill="#27ae60">2. Фаза параметрів: D/C = 1</text>
+  <text x="344" y="360" font-size="12" fill="#1a1a1a">• 4 байти меж стовпців: X_start, X_end</text>
+  <text x="344" y="378" font-size="12" fill="#1a1a1a">• D/C перемикається в 1 після 8-го такту</text>
+  <text x="344" y="396" font-size="12" fill="#6b7280">• Значення записуються в регістри вікна</text>
+  <text x="344" y="414" font-size="12" fill="#6b7280">• Діапазон: 0x0000..0x00EF (0..239 px)</text>
+
+  <!-- Картка 3: Апаратна логіка вибірки -->
+  <rect x="644" y="318" width="292" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="656" y="340" font-size="13" font-weight="700" fill="#2457d6">3. Апаратна вибірка на SCLK</text>
+  <text x="656" y="360" font-size="12" fill="#1a1a1a">• ST7789 зчитує D/C на кожному фронті SCLK</text>
+  <text x="656" y="378" font-size="12" fill="#1a1a1a">• SPI Mode 0: вибірка на висхідному фронті</text>
+  <text x="656" y="396" font-size="12" fill="#6b7280">• Помилка рівня D/C спотворює весь пакет</text>
+  <text x="656" y="414" font-size="12" fill="#6b7280">• CS утримується LOW протягом усього кадру</text>
+</svg>

@@ -1,0 +1,230 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка як перший елемент -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння схемотехніки виходу: Single-Ended (SE) та Bridge-Tied Load (BTL)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">BTL подвоює розмах змінної напруги на навантаженні (2·VDD пік-пік) і усуває громіздкий C_вих</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: SE ==================== -->
+  <rect x="24" y="72" width="444" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Бейджі заголовка SE (просвіт 12 px) -->
+  <rect x="36" y="82" width="216" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="144" y="99" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Single-Ended (SE) — Однотактний</text>
+
+  <rect x="264" y="82" width="192" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="360" y="99" font-size="12" font-weight="600" fill="#c0392b" text-anchor="middle">Потрібен C_вих (220+ мкФ)</text>
+
+  <!-- Схема SE -->
+  <!-- Вхідний сигнал Vin -->
+  <text x="40" y="154" font-size="12" font-weight="bold" fill="#1a1a1a">Vin</text>
+  <line x1="40" y1="168" x2="73" y2="168" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Підсилювач SE -->
+  <polygon points="75,140 75,196 125,168" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="91" y="172" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">A</text>
+
+  <!-- Живлення VDD і GND для SE -->
+  <line x1="95" y1="140" x2="95" y2="128" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="95" y="124" font-size="12" fill="#6b7280" text-anchor="middle">VDD</text>
+
+  <line x1="95" y1="196" x2="95" y2="206" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="88" y1="206" x2="102" y2="206" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="91" y1="209" x2="99" y2="209" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="93" y1="212" x2="97" y2="212" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Лінія від підсилювача до конденсатора -->
+  <line x1="125" y1="168" x2="185" y2="168" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="155" cy="168" r="3" fill="#2457d6"/>
+  <text x="155" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+VDD/2 DC</text>
+
+  <!-- Роздільний конденсатор C_вих -->
+  <rect x="185" y="132" width="70" height="72" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <text x="220" y="125" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">C_вих</text>
+  <text x="198" y="158" font-size="12" font-weight="bold" fill="#c0392b">+</text>
+  <line x1="185" y1="168" x2="214" y2="168" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="214" y1="146" x2="214" y2="190" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M 224,146 A 40,40 0 0,1 224,190" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="228" y1="168" x2="255" y2="168" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="220" y="219" font-size="12" font-weight="600" fill="#c0392b" text-anchor="middle">220–470 мкФ</text>
+
+  <!-- Лінія від конденсатора до динаміка -->
+  <line x1="255" y1="168" x2="330" y2="168" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="292" cy="168" r="3" fill="#27ae60"/>
+  <text x="292" y="152" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0 В DC</text>
+
+  <!-- Динамік SE -->
+  <line x1="330" y1="168" x2="330" y2="154" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="330" y1="154" x2="336" y2="154" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="336" y="146" width="16" height="44" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="352,148 376,128 376,208 352,188" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Звукові хвилі SE -->
+  <path d="M 384,152 A 22,22 0 0,1 384,184" fill="none" stroke="#2457d6" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 392,144 A 34,34 0 0,1 392,192" fill="none" stroke="#2457d6" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Заземлення динаміка -->
+  <line x1="336" y1="182" x2="318" y2="182" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="318" y1="182" x2="318" y2="204" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="311" y1="204" x2="325" y2="204" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="314" y1="207" x2="322" y2="207" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="316" y1="210" x2="320" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="364" y="122" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Динамік RL</text>
+  <text x="366" y="224" font-size="12" fill="#6b7280" text-anchor="middle">4–8 Ом (GND)</text>
+
+  <!-- Осцилограма SE -->
+  <rect x="36" y="234" width="420" height="112" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="48" y="247" font-size="12" font-weight="bold" fill="#1a1a1a">Напруга на динаміку V_RL (після C_вих):</text>
+
+  <!-- Осі осцилограми SE -->
+  <line x1="110" y1="298" x2="305" y2="298" stroke="#94a3b8" stroke-width="1.2"/>
+  <line x1="305" y1="298" x2="313" y2="298" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="320" y="302" font-size="12" fill="#94a3b8">t</text>
+
+  <line x1="110" y1="330" x2="110" y2="272" stroke="#94a3b8" stroke-width="1.2"/>
+  <line x1="110" y1="272" x2="110" y2="265" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="110" y="262" font-size="12" fill="#94a3b8" text-anchor="middle">V</text>
+
+  <!-- Пунктири рівнів SE -->
+  <line x1="110" y1="283" x2="295" y2="283" stroke="#cbd5e1" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="110" y1="313" x2="295" y2="313" stroke="#cbd5e1" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <text x="104" y="287" font-size="12" fill="#6b7280" text-anchor="end">+VDD/2</text>
+  <text x="104" y="302" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+  <text x="104" y="317" font-size="12" fill="#6b7280" text-anchor="end">-VDD/2</text>
+
+  <!-- Синусоїда SE (розмах VDD, амплітуда VDD/2) -->
+  <path d="M 115,298 C 137.5,278 137.5,278 160,298 C 182.5,318 182.5,318 205,298 C 227.5,278 227.5,278 250,298 C 272.5,318 272.5,318 295,298" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+
+  <!-- Вимірювальна стрілка розмаху SE -->
+  <line x1="330" y1="292" x2="330" y2="283" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="330" y1="304" x2="330" y2="313" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="338" y="282" font-size="12" font-weight="bold" fill="#2457d6">V_п-п = VDD</text>
+  <text x="338" y="299" font-size="12" fill="#1a1a1a">Амплітуда: VDD/2</text>
+  <text x="338" y="316" font-size="12" fill="#6b7280">DC на виході: 0 В</text>
+
+  <!-- Підсумкова картка SE (просвіт 12 px від осцилограми) -->
+  <rect x="36" y="358" width="420" height="72" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="48" y="374" font-size="12" font-weight="bold" fill="#c0392b">Характеристики однотактного виходу (SE):</text>
+  <text x="48" y="390" font-size="12" fill="#1a1a1a">• Потужність: P_max = VDD² / (8·RL) ≈ 0,78 Вт (5 В, 4 Ом)</text>
+  <text x="48" y="406" font-size="12" fill="#1a1a1a">• Втрата басів: C_вих формує ФВЧ (f_н ≈ 90–180 Гц)</text>
+  <text x="48" y="422" font-size="12" fill="#6b7280">• Клацання (pop-and-click) при старті через заряд C_вих</text>
+
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: BTL ==================== -->
+  <rect x="492" y="72" width="444" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Бейджі заголовка BTL (просвіт 12 px) -->
+  <rect x="504" y="82" width="222" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="615" y="99" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Bridge-Tied Load (BTL) — Мостовий</text>
+
+  <rect x="738" y="82" width="186" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="831" y="99" font-size="12" font-weight="600" fill="#27ae60" text-anchor="middle">Пряме збудження (без C_вих)</text>
+
+  <!-- Схема BTL -->
+  <!-- Вхідний сигнал Vin -->
+  <text x="508" y="136" font-size="12" font-weight="bold" fill="#1a1a1a">Vin</text>
+  <line x1="508" y1="148" x2="543" y2="148" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <circle cx="525" cy="148" r="3" fill="#1a1a1a"/>
+  <line x1="525" y1="148" x2="525" y2="196" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="525" y1="196" x2="536" y2="196" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Каскад 1 (прямий) -->
+  <polygon points="545,134 545,162 580,148" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="559" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+1</text>
+  <line x1="559" y1="134" x2="559" y2="126" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="559" y="123" font-size="12" fill="#6b7280" text-anchor="middle">VDD</text>
+
+  <!-- Каскад 2 (інверсний) -->
+  <circle cx="540" cy="196" r="3.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="545,182 545,210 580,196" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="559" y="200" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">-1</text>
+  <line x1="559" y1="210" x2="559" y2="218" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="553" y1="218" x2="565" y2="218" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="555" y1="221" x2="563" y2="221" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="557" y1="224" x2="561" y2="224" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Виходи Out+ та Out- -->
+  <line x1="580" y1="148" x2="725" y2="148" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="635" y="136" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Out+ (0°)</text>
+
+  <text x="640" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Зміщення: VDD / 2</text>
+
+  <line x1="580" y1="196" x2="725" y2="196" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="635" y="220" font-size="12" font-weight="bold" fill="#7c3aed" text-anchor="middle">Out- (180°)</text>
+
+  <!-- Динамік BTL між виходами (плаваючий) -->
+  <line x1="725" y1="148" x2="725" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="725" y1="196" x2="725" y2="184" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="725" y="156" width="14" height="32" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="739,158 757,142 757,202 739,186" fill="#e9f7ef" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Звукові хвилі BTL -->
+  <path d="M 763,156 A 18,18 0 0,1 763,188" fill="none" stroke="#27ae60" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 769,148 A 28,28 0 0,1 769,196" fill="none" stroke="#27ae60" stroke-width="2" stroke-linecap="round"/>
+
+  <text x="746" y="134" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Динамік RL</text>
+  <text x="750" y="220" font-size="12" fill="#6b7280" text-anchor="middle">4–8 Ом (без GND)</text>
+
+  <!-- Блок взаємної компенсації DC -->
+  <rect x="796" y="142" width="124" height="60" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="858" y="160" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">DC-компенсація:</text>
+  <text x="858" y="176" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_DC = 0 В</text>
+  <text x="858" y="192" font-size="12" fill="#6b7280" text-anchor="middle">VDD/2 - VDD/2 = 0</text>
+  <line x1="796" y1="172" x2="780" y2="172" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+
+  <!-- Осцилограма BTL -->
+  <rect x="504" y="234" width="420" height="112" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="516" y="247" font-size="12" font-weight="bold" fill="#1a1a1a">Диференційна напруга на динаміку: Out(+) - Out(-)</text>
+
+  <!-- Осі осцилограми BTL -->
+  <line x1="580" y1="298" x2="775" y2="298" stroke="#94a3b8" stroke-width="1.2"/>
+  <line x1="775" y1="298" x2="783" y2="298" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="790" y="302" font-size="12" fill="#94a3b8">t</text>
+
+  <line x1="580" y1="332" x2="580" y2="272" stroke="#94a3b8" stroke-width="1.2"/>
+  <line x1="580" y1="272" x2="580" y2="265" stroke="#94a3b8" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="580" y="262" font-size="12" fill="#94a3b8" text-anchor="middle">V</text>
+
+  <!-- Пунктири рівнів BTL (масштаб подвоєний) -->
+  <line x1="580" y1="268" x2="765" y2="268" stroke="#cbd5e1" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="580" y1="328" x2="765" y2="328" stroke="#cbd5e1" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <text x="574" y="272" font-size="12" fill="#6b7280" text-anchor="end">+VDD</text>
+  <text x="574" y="302" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+  <text x="574" y="332" font-size="12" fill="#6b7280" text-anchor="end">-VDD</text>
+
+  <!-- Синусоїда BTL (розмах 2·VDD, амплітуда VDD) -->
+  <path d="M 585,298 C 607.5,258 607.5,258 630,298 C 652.5,338 652.5,338 675,298 C 697.5,258 697.5,258 720,298 C 742.5,338 742.5,338 765,298" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Вимірювальна стрілка розмаху BTL -->
+  <line x1="804" y1="292" x2="804" y2="268" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="804" y1="304" x2="804" y2="328" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="812" y="282" font-size="12" font-weight="bold" fill="#27ae60">V_п-п = 2 · VDD</text>
+  <text x="812" y="299" font-size="12" font-weight="bold" fill="#27ae60">Амплітуда: VDD</text>
+  <text x="812" y="316" font-size="12" font-weight="bold" fill="#2457d6">(подвоєння!)</text>
+
+  <!-- Підсумкова картка BTL (просвіт 12 px від осцилограми) -->
+  <rect x="504" y="358" width="420" height="72" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="516" y="374" font-size="12" font-weight="bold" fill="#27ae60">Характеристики мостового виходу (BTL):</text>
+  <text x="516" y="390" font-size="12" fill="#1a1a1a">• Потужність: P_max = 4·P_SE = VDD² / (2·RL) ≈ 3,1 Вт</text>
+  <text x="516" y="406" font-size="12" fill="#1a1a1a">• Повний бас від 20 Гц: немає зрізу частот (без C_вих)</text>
+  <text x="516" y="422" font-size="12" fill="#6b7280">• Немає постійного струму через динамік; компактна плата</text>
+</svg>

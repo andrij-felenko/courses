@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зсув бітової синхронізації при паразитних тактах SPI</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Без скидання по фронту CS будь-яка завада на SCK назавжди розриває межі байтів і слів RGB565</text>
+
+  <!-- ВЕРХНЯ ПАНЕЛЬ: Осцилограма шини SPI -->
+  <rect x="24" y="78" width="912" height="160" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Осцилограма шини SPI з паразитним імпульсом (Glitch)</text>
+
+  <!-- Статус лінії CS -->
+  <rect x="590" y="83" width="330" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="755" y="98" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠️ CS = GND (скидання лічильника біт неможливе)</text>
+
+  <!-- Сигнал 1: CS_LCD -->
+  <text x="40" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">CS_LCD</text>
+  <text x="120" y="110" font-size="12" fill="#c0392b">0 В (GND)</text>
+  <line x1="115" y1="114" x2="915" y2="114" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Сигнал 2: SCK -->
+  <text x="40" y="168" font-size="12" font-weight="bold" fill="#1a1a1a">SCK</text>
+
+  <!-- Байт 1 на SCK -->
+  <text x="220" y="146" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 1 (8 тактів)</text>
+  <line x1="115" y1="176" x2="136" y2="176" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 136,176 L 136,156 L 148,156 L 148,176 L 160,176 L 160,156 L 172,156 L 172,176 L 184,176 L 184,156 L 196,156 L 196,176 L 208,176 L 208,156 L 220,156 L 220,176 L 232,176 L 232,156 L 244,156 L 244,176 L 256,176 L 256,156 L 268,156 L 268,176 L 280,176 L 280,156 L 292,156 L 292,176 L 304,176 L 304,156 L 316,156 L 316,176 L 328,176" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <!-- Паразитний такт (Glitch) на SCK -->
+  <line x1="328" y1="176" x2="406" y2="176" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 406,176 L 410,166 L 414,150 L 418,170 L 422,162 L 426,176" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <line x1="426" y1="176" x2="508" y2="176" stroke="#2457d6" stroke-width="2"/>
+  <text x="416" y="134" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Паразитний такт (дзвін лінії / наводка)</text>
+  <line x1="416" y1="137" x2="416" y2="147" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Байт 2 на SCK -->
+  <text x="604" y="146" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 2 (8 тактів)</text>
+  <path d="M 508,176 L 508,156 L 520,156 L 520,176 L 532,176 L 532,156 L 544,156 L 544,176 L 556,176 L 556,156 L 568,156 L 568,176 L 580,176 L 580,156 L 592,156 L 592,176 L 604,176 L 604,156 L 616,156 L 616,176 L 628,176 L 628,156 L 640,156 L 640,176 L 652,176 L 652,156 L 664,156 L 664,176 L 676,176 L 676,156 L 688,156 L 688,176 L 700,176" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <line x1="700" y1="176" x2="915" y2="176" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Сигнал 3: MOSI -->
+  <text x="40" y="210" font-size="12" font-weight="bold" fill="#1a1a1a">MOSI</text>
+
+  <!-- Дані MOSI -->
+  <path d="M 115,212 L 136,212 L 136,192 L 160,192 L 160,212 L 184,212 L 184,192 L 232,192 L 232,212 L 280,212 L 280,192 L 304,192 L 304,212 L 508,212 L 508,192 L 556,192 L 556,212 L 604,212 L 604,192 L 652,192 L 652,212 L 720,212" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+  <text x="220" y="228" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Дані: Байт 1 [D7..D0]</text>
+  <text x="416" y="228" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">Хибний біт «0»</text>
+  <text x="604" y="228" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Дані: Байт 2 [A7..A0]</text>
+  <text x="740" y="212" font-size="12" fill="#6b7280">Потік пікселів RGB565</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Стан апаратного зсувного регістра -->
+  <rect x="24" y="252" width="912" height="160" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="272" font-size="14" font-weight="bold" fill="#1a1a1a">Стан апаратного зсувного регістра та розрив меж 16-бітних слів</text>
+
+  <!-- Блок 1: До глітча -->
+  <rect x="36" y="284" width="276" height="118" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="46" y="292" width="256" height="20" rx="4" fill="#27ae60"/>
+  <text x="174" y="306" font-size="12" font-weight="bold" fill="white" text-anchor="middle">До глітча: Синхронно (OK)</text>
+  <text x="48" y="328" font-size="12" font-weight="bold" fill="#1a1a1a">Лічильник біт: mod 8 / 16 у фазі</text>
+  <text x="48" y="346" font-size="12" fill="#1a1a1a">Регістр: [D7 D6 D5 D4 D3 D2 D1 D0]</text>
+  <text x="48" y="364" font-size="12" fill="#27ae60" font-weight="bold">Межі слів RGB565 цілісні</text>
+  <text x="48" y="382" font-size="12" fill="#6b7280">Кольори пікселів без спотворень</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="315" y1="346" x2="325" y2="346" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Блок 2: Момент глітча -->
+  <rect x="328" y="284" width="240" height="118" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <rect x="338" y="292" width="220" height="20" rx="4" fill="#c0392b"/>
+  <text x="448" y="306" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Момент глітча: Зсув на +1 біт</text>
+  <text x="338" y="328" font-size="12" font-weight="bold" fill="#c0392b">Паразитний фронт на SCK</text>
+  <text x="338" y="346" font-size="12" fill="#1a1a1a">Зсувний регістр ST7789</text>
+  <text x="338" y="364" font-size="12" fill="#1a1a1a">робить зсув на 1 біт уперед</text>
+  <text x="338" y="382" font-size="12" fill="#c0392b" font-weight="bold">поза тактом контролера!</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="571" y1="346" x2="581" y2="346" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Блок 3: Після глітча -->
+  <rect x="584" y="284" width="340" height="118" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="594" y="292" width="320" height="20" rx="4" fill="#c0392b"/>
+  <text x="754" y="306" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Хронічний фазовий зсув (АВАРІЯ)</text>
+  <text x="596" y="328" font-size="12" font-weight="bold" fill="#c0392b">Усі наступні байти зсунуті на 1 біт</text>
+  <text x="596" y="346" font-size="12" fill="#1a1a1a">Регістр: [D0 A7 A6 A5 A4 A3 A2 A1]</text>
+  <text x="596" y="364" font-size="12" fill="#1a1a1a">Молодший біт прийнято за старший нового байта</text>
+  <text x="596" y="382" font-size="12" fill="#c0392b" font-weight="bold">Кольори спотворені, координати й команди збито</text>
+
+  <!-- ПІДСУМКОВА СМУГА ВНИЗУ -->
+  <rect x="24" y="424" width="912" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="441" font-size="12" fill="#1a1a1a" text-anchor="middle">Висновок: у стандартному протоколі SPI лінія CS відновлює стан лічильника бітів перед кожним пакетом.</text>
+  <text x="480" y="457" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Жорстке заземлення CS позбавляє контролер ST7789 апаратного самовідновлення.</text>
+</svg>

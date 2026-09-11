@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Хід променів: призма Павелла проти циліндричної лінзи</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Асферичний апекс заломлює центральне ядро на периферію для формування прямокутного профілю Flat-Top</text>
+
+  <!-- РЯДОК 1: Циліндрична лінза (Top Row) -->
+  <rect x="24" y="65" width="912" height="179" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="88" font-size="13" font-weight="bold" fill="#c0392b">1. Циліндрична лінза (постійна кривина R = const) — збереження гаусового ядра</text>
+
+  <!-- Оптична вісь Z -->
+  <line x1="45" y1="165" x2="520" y2="165" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Вхідні промені циліндричної лінзи -->
+  <!-- Промінь 1 (верхній край, низька потужність) -->
+  <line x1="45" y1="135" x2="168" y2="135" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="168" y1="135" x2="205" y2="130" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="205" y1="130" x2="520" y2="100" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Промінь 2 (верхнє ядро, максимальна потужність) -->
+  <line x1="45" y1="152" x2="157" y2="152" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <line x1="157" y1="152" x2="205" y2="150" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="205" y1="150" x2="520" y2="140" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Промінь 3 (центральна вісь) -->
+  <line x1="45" y1="165" x2="155" y2="165" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="155" y1="165" x2="205" y2="165" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="205" y1="165" x2="520" y2="165" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Промінь 4 (нижнє ядро, максимальна потужність) -->
+  <line x1="45" y1="178" x2="157" y2="178" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <line x1="157" y1="178" x2="205" y2="180" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="205" y1="180" x2="520" y2="190" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Промінь 5 (нижній край, низька потужність) -->
+  <line x1="45" y1="195" x2="168" y2="195" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="168" y1="195" x2="205" y2="200" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="205" y1="200" x2="520" y2="230" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Тіло циліндричної лінзи -->
+  <path d="M 180,118 Q 150,165 180,212 L 205,212 L 205,118 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="180" y="112" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R = const</text>
+
+  <!-- Підпис пучка на вході -->
+  <text x="95" y="112" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Гаусове ядро</text>
+  <text x="95" y="222" text-anchor="middle" font-size="12" fill="#6b7280">Вхідний пучок</text>
+
+  <!-- Екран спостереження -->
+  <line x1="520" y1="95" x2="520" y2="235" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Графік інтенсивності циліндра (вставка) -->
+  <rect x="532" y="100" width="138" height="130" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="601" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Профіль I(y)</text>
+  <line x1="544" y1="215" x2="658" y2="215" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="544" y1="215" x2="544" y2="128" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="658" y="227" text-anchor="end" font-size="12" fill="#6b7280">I</text>
+  <text x="540" y="132" text-anchor="end" font-size="12" fill="#6b7280">y</text>
+
+  <!-- Гаусова крива I(y) -->
+  <path d="M 545,135 Q 548,152 570,165 Q 640,165 570,165 Q 548,178 545,195" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 545,135 Q 548,155 580,165 Q 548,175 545,195" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Картка фізичних властивостей циліндричної лінзи -->
+  <rect x="682" y="100" width="240" height="130" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="694" y="120" font-size="12" font-weight="bold" fill="#1a1a1a">Властивості циліндричної лінзи:</text>
+  <text x="694" y="138" font-size="12" fill="#6b7280">• Постійна кривина кола R = const</text>
+  <text x="694" y="156" font-size="12" fill="#c0392b">• Ядро йде майже без відхилення</text>
+  <text x="694" y="174" font-size="12" fill="#6b7280">• Периферія має малу енергію</text>
+  <rect x="694" y="186" width="216" height="20" rx="3" fill="#fdecea"/>
+  <text x="802" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Спад яскравості: темні краї смуги</text>
+
+  <!-- РЯДОК 2: Призма Павелла (Bottom Row) -->
+  <rect x="24" y="258" width="912" height="179" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="281" font-size="13" font-weight="bold" fill="#27ae60">2. Призма Павелла (асферичний дахоподібний апекс) — перерозподіл енергії у Flat-Top</text>
+
+  <!-- Оптична вісь Z -->
+  <line x1="45" y1="358" x2="520" y2="358" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Вхідні промені призми Павелла -->
+  <!-- Промінь 1 (верхній край, низька потужність -> йде в середину віяла!) -->
+  <line x1="45" y1="328" x2="178" y2="328" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="178" y1="328" x2="205" y2="340" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="205" y1="340" x2="520" y2="330" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Промінь 2 (верхнє ядро, максимальна потужність -> заломлюється на край віяла!) -->
+  <line x1="45" y1="345" x2="162" y2="345" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <line x1="162" y1="345" x2="205" y2="330" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="205" y1="330" x2="520" y2="292" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Промінь 3 (центральна вісь) -->
+  <line x1="45" y1="358" x2="160" y2="358" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="160" y1="358" x2="205" y2="358" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="205" y1="358" x2="520" y2="358" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Промінь 4 (нижнє ядро, максимальна потужність -> заломлюється на нижній край!) -->
+  <line x1="45" y1="371" x2="162" y2="371" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <line x1="162" y1="371" x2="205" y2="386" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="205" y1="386" x2="520" y2="424" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Промінь 5 (нижній край, низька потужність -> йде в середину віяла!) -->
+  <line x1="45" y1="388" x2="178" y2="388" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="178" y1="388" x2="205" y2="376" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="205" y1="376" x2="520" y2="386" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Тіло призми Павелла -->
+  <path d="M 160,358 Q 168,338 185,311 L 205,311 L 205,405 L 185,405 Q 168,378 160,358 Z" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="182" y="305" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Апекс R(y)</text>
+
+  <!-- Підпис пучка на вході -->
+  <text x="95" y="305" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Гаусове ядро</text>
+  <text x="95" y="415" text-anchor="middle" font-size="12" fill="#6b7280">Вхідний пучок</text>
+
+  <!-- Екран спостереження -->
+  <line x1="520" y1="288" x2="520" y2="428" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Графік інтенсивності Павелла (вставка) -->
+  <rect x="532" y="293" width="138" height="130" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="601" y="311" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Профіль I(y)</text>
+  <line x1="544" y1="408" x2="658" y2="408" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="544" y1="408" x2="544" y2="321" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="658" y="420" text-anchor="end" font-size="12" fill="#6b7280">I</text>
+  <text x="540" y="325" text-anchor="end" font-size="12" fill="#6b7280">y</text>
+
+  <!-- Flat-Top крива I(y) -->
+  <path d="M 545,330 L 548,330 Q 555,332 585,340 Q 588,358 585,376 Q 555,384 548,386 L 545,386" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Картка фізичних властивостей призми Павелла -->
+  <rect x="682" y="293" width="240" height="130" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="694" y="313" font-size="12" font-weight="bold" fill="#1a1a1a">Властивості призми Павелла:</text>
+  <text x="694" y="331" font-size="12" fill="#2457d6">• Асферичний дах: R(0) &lt;&lt; R(край)</text>
+  <text x="694" y="349" font-size="12" fill="#2457d6">• Ядро відхиляється на великі кути</text>
+  <text x="694" y="367" font-size="12" fill="#6b7280">• Схили спрямовують промені в центр</text>
+  <rect x="694" y="379" width="216" height="20" rx="3" fill="#e9f7ef"/>
+  <text x="802" y="393" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Flat-Top: однорідна лінія &gt; 90%</text>
+</svg>

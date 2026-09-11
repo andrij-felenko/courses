@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+</defs>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інженерний алгоритм підбору мотор-редуктора і коліс</text>
+<text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Покрокова методика: від ТЗ шасі через перевірку зчеплення до вибору модифікації 100 чи 600 об/хв</text>
+
+<!-- Етап 1: Вимоги ТЗ -->
+<rect x="21" y="74" width="166" height="384" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="29" y="82" width="150" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="104" y="99" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. ВИМОГИ ТЗ</text>
+
+<text x="31" y="126" font-size="12" font-weight="bold" fill="#1a1a1a">Вхідні параметри:</text>
+<text x="31" y="146" font-size="12" fill="#1a1a1a">• Маса m (кг)</text>
+<text x="31" y="164" font-size="12" fill="#1a1a1a">• Кут підйому α (°)</text>
+<text x="31" y="182" font-size="12" fill="#1a1a1a">• Швидкість v (м/с)</text>
+<text x="31" y="200" font-size="12" fill="#1a1a1a">• Тертя μ, опір f</text>
+
+<line x1="31" y1="216" x2="177" y2="216" stroke="#d0d7de" stroke-width="1"/>
+
+<text x="31" y="236" font-size="12" font-weight="bold" fill="#1a1a1a">Потрібна тяга:</text>
+<rect x="29" y="248" width="150" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="104" y="269" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">F_потр = F_під + F_коч</text>
+<text x="104" y="289" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">m·g·(sin α + f)</text>
+
+<line x1="31" y1="318" x2="177" y2="318" stroke="#d0d7de" stroke-width="1"/>
+
+<text x="31" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">Фізична суть:</text>
+<text x="31" y="358" font-size="12" fill="#6b7280">Подолання ухилу</text>
+<text x="31" y="376" font-size="12" fill="#6b7280">та опору кочення.</text>
+<text x="31" y="396" font-size="12" fill="#6b7280">Визначає потрібну</text>
+<text x="31" y="414" font-size="12" fill="#6b7280">силу на контакті.</text>
+
+<rect x="29" y="426" width="150" height="24" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="104" y="442" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">F_потр обчислено</text>
+
+<!-- З'єднувач 1 -> 2 -->
+<line x1="187" y1="266" x2="207" y2="266" stroke="#6b7280" stroke-width="2" marker-end="url(#arr)"/>
+
+<!-- Етап 2: Радіус і зчеплення -->
+<rect x="209" y="74" width="166" height="384" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="217" y="82" width="150" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="292" y="99" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2. КОЛЕСО І ТЕРТЯ</text>
+
+<text x="219" y="126" font-size="12" font-weight="bold" fill="#1a1a1a">Підбір радіуса R:</text>
+<text x="219" y="146" font-size="12" fill="#1a1a1a">• Малий R → більша F</text>
+<text x="219" y="164" font-size="12" fill="#1a1a1a">• Більший R → вища v</text>
+<text x="219" y="182" font-size="12" fill="#1a1a1a">• Плече сили тяги:</text>
+<text x="219" y="200" font-size="12" fill="#2457d6">  M_колеса = F · R</text>
+
+<line x1="219" y1="216" x2="365" y2="216" stroke="#d0d7de" stroke-width="1"/>
+
+<text x="219" y="236" font-size="12" font-weight="bold" fill="#1a1a1a">Зчеплення гуми:</text>
+<rect x="217" y="248" width="150" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="292" y="269" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">F_зчеп = μ·m·g·cos α</text>
+<text x="292" y="289" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">F_зчеп ≥ F_потр</text>
+
+<line x1="219" y1="318" x2="365" y2="318" stroke="#d0d7de" stroke-width="1"/>
+
+<text x="219" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">Умова зриву:</text>
+<text x="219" y="358" font-size="12" fill="#6b7280">Якщо F_потр &gt; F_зчеп:</text>
+<text x="219" y="376" font-size="12" fill="#c0392b">колеса буксують!</text>
+<text x="219" y="396" font-size="12" fill="#6b7280">Дія: збільшити μ</text>
+<text x="219" y="414" font-size="12" fill="#6b7280">або навантажити вісь</text>
+
+<rect x="217" y="426" width="150" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="292" y="442" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Зчеплення в нормі</text>
+
+<!-- З'єднувач 2 -> 3 -->
+<line x1="375" y1="266" x2="395" y2="266" stroke="#6b7280" stroke-width="2" marker-end="url(#arr)"/>
+
+<!-- Етап 3: Вимоги до вала -->
+<rect x="397" y="74" width="166" height="384" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="405" y="82" width="150" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="480" y="99" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3. ВИМОГИ ДО ВАЛА</text>
+
+<text x="407" y="126" font-size="12" font-weight="bold" fill="#1a1a1a">Потрібні оберти:</text>
+<rect x="405" y="138" width="150" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="480" y="159" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">n_вих = 60·v / (2π·R)</text>
+<text x="480" y="179" font-size="12" fill="#6b7280" text-anchor="middle">обертів за хвилину</text>
+
+<line x1="407" y1="206" x2="553" y2="206" stroke="#d0d7de" stroke-width="1"/>
+
+<text x="407" y="226" font-size="12" font-weight="bold" fill="#1a1a1a">Потрібний момент:</text>
+<rect x="405" y="238" width="150" height="54" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="480" y="259" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M_вих = F·R / (k·η)</text>
+<text x="480" y="279" font-size="12" fill="#6b7280" text-anchor="middle">k мотори, η ККД</text>
+
+<line x1="407" y1="306" x2="553" y2="306" stroke="#d0d7de" stroke-width="1"/>
+
+<text x="407" y="326" font-size="12" font-weight="bold" fill="#1a1a1a">Критерій вибору:</text>
+<text x="407" y="346" font-size="12" fill="#6b7280">Компроміс редуктора:</text>
+<text x="407" y="364" font-size="12" fill="#1a1a1a">• n_вих велике → 600</text>
+<text x="407" y="384" font-size="12" fill="#1a1a1a">• M_вих великий → 100</text>
+<text x="407" y="404" font-size="12" fill="#6b7280">Мультиплікація ККД</text>
+
+<rect x="405" y="426" width="150" height="24" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="480" y="442" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл на версії</text>
+
+<!-- Розгалуження 3 -> 4А та 4Б -->
+<line x1="563" y1="266" x2="574" y2="266" stroke="#6b7280" stroke-width="2"/>
+<path d="M574,266 L574,165 L583,165" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<path d="M574,266 L574,367 L583,367" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+<!-- Етап 4А: Редуктор 600 об/хв -->
+<rect x="585" y="74" width="166" height="182" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<rect x="593" y="82" width="150" height="24" rx="4" fill="#2457d6"/>
+<text x="668" y="98" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">4А. ВЕРСІЯ 600 ОБ/ХВ</text>
+
+<text x="595" y="122" font-size="12" font-weight="bold" fill="#2457d6">Параметри двигуна:</text>
+<text x="595" y="140" font-size="12" fill="#1a1a1a">• n_ном ≈ 450–500 об/хв</text>
+<text x="595" y="158" font-size="12" fill="#1a1a1a">• M_ном ≈ 0.08 кг·см</text>
+
+<text x="595" y="180" font-size="12" font-weight="bold" fill="#2457d6">Застосування:</text>
+<text x="595" y="198" font-size="12" fill="#1a1a1a">• Швидкісні платформи</text>
+<text x="595" y="216" font-size="12" fill="#1a1a1a">• Без ухилів: α ≤ 5°</text>
+
+<rect x="593" y="228" width="150" height="20" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+<text x="668" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пріоритет: швидкість</text>
+
+<!-- Етап 4Б: Редуктор 100 об/хв -->
+<rect x="585" y="276" width="166" height="182" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="593" y="284" width="150" height="24" rx="4" fill="#27ae60"/>
+<text x="668" y="300" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">4Б. ВЕРСІЯ 100 ОБ/ХВ</text>
+
+<text x="595" y="324" font-size="12" font-weight="bold" fill="#27ae60">Параметри двигуна:</text>
+<text x="595" y="342" font-size="12" fill="#1a1a1a">• n_ном ≈ 80–90 об/хв</text>
+<text x="595" y="360" font-size="12" fill="#1a1a1a">• M_ном: 0.5–0.8 кг·см</text>
+
+<text x="595" y="382" font-size="12" font-weight="bold" fill="#27ae60">Застосування:</text>
+<text x="595" y="400" font-size="12" fill="#1a1a1a">• Тягові платформи</text>
+<text x="595" y="418" font-size="12" fill="#1a1a1a">• Підйоми до 25°–30°</text>
+
+<rect x="593" y="430" width="150" height="20" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+<text x="668" y="444" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Пріоритет: тяга</text>
+
+<!-- З'єднувачі 4А і 4Б -> 5 -->
+<line x1="751" y1="165" x2="771" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<line x1="751" y1="367" x2="771" y2="367" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+<!-- Етап 5: Запас надійності -->
+<rect x="773" y="74" width="166" height="384" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="781" y="82" width="150" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="856" y="99" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">5. ЗАПАС НАДІЙНОСТІ</text>
+
+<text x="783" y="126" font-size="12" font-weight="bold" fill="#1a1a1a">1. Запас моменту:</text>
+<rect x="781" y="136" width="150" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="856" y="155" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M_вих ≤ 0.7 · M_ном</text>
+<text x="856" y="173" font-size="12" fill="#27ae60" text-anchor="middle">Запас тяги ≥ 30%</text>
+
+<line x1="783" y1="198" x2="929" y2="198" stroke="#d0d7de" stroke-width="1"/>
+
+<text x="783" y="218" font-size="12" font-weight="bold" fill="#1a1a1a">2. Захист редуктора:</text>
+<rect x="781" y="228" width="150" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="856" y="247" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">F_stall &gt; F_зчеп</text>
+<text x="856" y="265" font-size="12" fill="#6b7280" text-anchor="middle">Буксування береже вал</text>
+
+<line x1="783" y1="290" x2="929" y2="290" stroke="#d0d7de" stroke-width="1"/>
+
+<text x="783" y="310" font-size="12" font-weight="bold" fill="#1a1a1a">3. Струм і нагрів:</text>
+<rect x="781" y="320" width="150" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="856" y="339" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">I_роб ≤ I_ном</text>
+<text x="856" y="357" font-size="12" fill="#27ae60" text-anchor="middle">Захист від перегріву</text>
+
+<line x1="783" y1="382" x2="929" y2="382" stroke="#d0d7de" stroke-width="1"/>
+
+<rect x="781" y="398" width="150" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="856" y="417" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ ВИСНОВОК:</text>
+<text x="856" y="437" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Проєкт затверджено</text>
+
+</svg>

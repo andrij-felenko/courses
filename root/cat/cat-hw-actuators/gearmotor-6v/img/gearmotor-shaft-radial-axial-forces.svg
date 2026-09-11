@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-dark-left" markerWidth="9" markerHeight="9" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Навантаження на вихідний вал мотор-редуктора</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Консольне плече створює згинальний момент; зовнішня опора знімає радіальне навантаження</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Небезпечно -->
+  <rect x="24" y="80" width="444" height="416" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок лівої панелі -->
+  <rect x="40" y="96" width="412" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="118" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">НЕБЕЗПЕЧНО: консольне навантаження</text>
+
+  <!-- Схема редуктора зліва -->
+  <!-- Корпус редуктора (y від 185 до 265, висота 80) -->
+  <rect x="48" y="185" width="85" height="80" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="90" y="220" font-size="12" fill="#6b7280" text-anchor="middle">Корпус</text>
+  <text x="90" y="236" font-size="12" fill="#6b7280" text-anchor="middle">редуктора</text>
+
+  <!-- Втулка редуктора (підшипник ковзання) -->
+  <rect x="133" y="212" width="22" height="36" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="144" y="286" font-size="12" fill="#1a1a1a" text-anchor="middle">Втулка</text>
+  <text x="144" y="302" font-size="12" fill="#6b7280" text-anchor="middle">(підшипник)</text>
+
+  <!-- Вихідний вал (path) -->
+  <path d="M 155,224 L 275,224 L 275,236 L 155,236 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 305,224 L 320,224 L 320,236 L 305,236 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Навантаження (колесо / шків) -->
+  <rect x="275" y="180" width="30" height="100" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="290" y="304" font-size="12" fill="#1a1a1a" text-anchor="middle">Колесо / шків</text>
+
+  <!-- Плече L: виносні лінії та стрілка -->
+  <line x1="155" y1="205" x2="155" y2="168" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="290" y1="175" x2="290" y2="168" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="163" y1="172" x2="282" y2="172" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-dark-left)" marker-end="url(#arr-dark)"/>
+  <text x="215" y="166" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Плече L</text>
+
+  <!-- Радіальна сила F_рад -->
+  <line x1="290" y1="136" x2="290" y2="172" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="304" y="154" font-size="12" font-weight="bold" fill="#c0392b">F_рад</text>
+
+  <!-- Осьова сила F_ось -->
+  <line x1="375" y1="230" x2="328" y2="230" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="352" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">F_ось</text>
+
+  <!-- Згинальний момент на втулці: напис під валом -->
+  <text x="215" y="256" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">M_зг = F_рад × L</text>
+
+  <!-- Блок пояснення наслідків ліворуч -->
+  <rect x="40" y="335" width="412" height="145" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="56" y="358" font-size="13" font-weight="bold" fill="#c0392b">Наслідки консольного навантаження:</text>
+  <text x="56" y="382" font-size="12" fill="#1a1a1a">• Радіальна сила діє через плече L на коротку втулку</text>
+  <text x="56" y="404" font-size="12" fill="#1a1a1a">• Згинальний момент викликає овальний знос підшипника</text>
+  <text x="56" y="426" font-size="12" fill="#1a1a1a">• Перекіс вала веде до сколювання зубів вихідних шестерень</text>
+  <text x="56" y="448" font-size="12" fill="#6b7280">• Граничне F_рад для таких моторів — не більше 3–10 Н</text>
+  <text x="56" y="468" font-size="12" fill="#6b7280">• Граничне F_ось — не більше 2–5 Н (ризик виривання вала)</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Правильно -->
+  <rect x="492" y="80" width="444" height="416" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок правої панелі -->
+  <rect x="508" y="96" width="412" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="118" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ПРАВИЛЬНО: розвантажений вал (дві опори)</text>
+
+  <!-- Схема редуктора справа -->
+  <!-- Корпус редуктора (y від 185 до 265, висота 80) -->
+  <rect x="516" y="185" width="85" height="80" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="558" y="220" font-size="12" fill="#6b7280" text-anchor="middle">Корпус</text>
+  <text x="558" y="236" font-size="12" fill="#6b7280" text-anchor="middle">редуктора</text>
+
+  <!-- Втулка редуктора (Опора 1) -->
+  <rect x="601" y="212" width="22" height="36" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="612" y="286" font-size="12" fill="#1a1a1a" text-anchor="middle">Опора 1</text>
+  <text x="612" y="302" font-size="12" fill="#6b7280" text-anchor="middle">(втулка)</text>
+
+  <!-- Подовжений вал крізь обидві опори (path) -->
+  <path d="M 623,224 L 695,224 L 695,236 L 623,236 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 725,224 L 785,224 L 785,236 L 725,236 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 825,224 L 840,224 L 840,236 L 825,236 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Навантаження (колесо / шків) між опорами -->
+  <rect x="695" y="180" width="30" height="100" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="710" y="304" font-size="12" fill="#1a1a1a" text-anchor="middle">Колесо / шків</text>
+
+  <!-- Зовнішній опорний підшипник (Опора 2 / pillow block) -->
+  <!-- Корпус стійки -->
+  <path d="M 785,265 L 785,200 Q 785,195 790,195 L 820,195 Q 825,195 825,200 L 825,265 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Підшипник кульковий (кола) -->
+  <circle cx="805" cy="230" r="14" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="805" cy="230" r="6" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Підошва опори та кріплення до шасі -->
+  <path d="M 775,265 L 835,265 L 835,273 L 775,273 Z" fill="#27ae60"/>
+  <line x1="770" y1="273" x2="840" y2="273" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="776" y1="273" x2="771" y2="279" stroke="#6b7280" stroke-width="1"/>
+  <line x1="792" y1="273" x2="787" y2="279" stroke="#6b7280" stroke-width="1"/>
+  <line x1="808" y1="273" x2="803" y2="279" stroke="#6b7280" stroke-width="1"/>
+  <line x1="824" y1="273" x2="819" y2="279" stroke="#6b7280" stroke-width="1"/>
+
+  <text x="805" y="298" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Опора 2</text>
+  <text x="805" y="314" font-size="12" fill="#6b7280" text-anchor="middle">(підшипник)</text>
+
+  <!-- Радіальна сила F_рад на колесо -->
+  <line x1="710" y1="136" x2="710" y2="172" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="724" y="154" font-size="12" font-weight="bold" fill="#2457d6">F_рад</text>
+
+  <!-- Реакція зовнішньої опори R_опори (вгору) -->
+  <line x1="805" y1="185" x2="805" y2="153" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="819" y="165" font-size="12" font-weight="bold" fill="#27ae60">R_опори</text>
+
+  <!-- Осьова сила F_ось -->
+  <line x1="895" y1="230" x2="848" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="872" y="222" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">F_ось</text>
+
+  <!-- Блок переваг праворуч -->
+  <rect x="508" y="335" width="412" height="145" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="524" y="358" font-size="13" font-weight="bold" fill="#27ae60">Переваги розвантаженого вала:</text>
+  <text x="524" y="382" font-size="12" fill="#1a1a1a">• Двоопорна схема перетворює консоль на балку на двох опорах</text>
+  <text x="524" y="404" font-size="12" fill="#1a1a1a">• Зовнішній підшипник сприймає левову частку навантаження F_рад</text>
+  <text x="524" y="426" font-size="12" fill="#1a1a1a">• Згинальний момент на редукторі відсутній (M_зг ≈ 0)</text>
+  <text x="524" y="448" font-size="12" fill="#2457d6">• Шестерні передають суто крутний момент без перекосу</text>
+  <text x="524" y="468" font-size="12" fill="#6b7280">• Довговічність редуктора зростає, люфт вала не виникає</text>
+</svg>

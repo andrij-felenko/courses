@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Внутрішня архітектура контролера-драйвера ST7789</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Автономний кадровий буфер GRAM, логіка адресації вікна та високовольтні драйвери IPS</text>
+
+  <!-- Рамка кристала ST7789 -->
+  <rect x="156" y="76" width="606" height="422" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="172" y="96" font-size="13" font-weight="bold" fill="#2457d6">Кристал контролера ST7789 (COG)</text>
+
+  <!-- Блок Хост (MCU) -->
+  <rect x="24" y="76" width="108" height="422" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="78" y="104" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Хост (MCU)</text>
+  <text x="78" y="124" text-anchor="middle" font-size="12" fill="#6b7280">SPI Master</text>
+
+  <rect x="34" y="140" width="88" height="178" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="78" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">SCLK (Clock)</text>
+  <text x="78" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">MOSI (SDA)</text>
+  <text x="78" y="218" text-anchor="middle" font-size="12" fill="#1a1a1a">CS (Вибір)</text>
+  <text x="78" y="246" text-anchor="middle" font-size="12" fill="#1a1a1a">DC (Дані/Ком)</text>
+  <text x="78" y="274" text-anchor="middle" font-size="12" fill="#6b7280">RESET (Скид)</text>
+  <text x="78" y="302" text-anchor="middle" font-size="12" fill="#6b7280">до 62 МГц</text>
+
+  <rect x="34" y="334" width="88" height="148" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="78" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Асинхронний</text>
+  <text x="78" y="376" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">обмін даними</text>
+  <text x="78" y="404" text-anchor="middle" font-size="12" fill="#1a1a1a">Оновлення</text>
+  <text x="78" y="422" text-anchor="middle" font-size="12" fill="#1a1a1a">за потреби</text>
+  <text x="78" y="448" text-anchor="middle" font-size="12" fill="#27ae60">Ядро вільне</text>
+  <text x="78" y="466" text-anchor="middle" font-size="12" fill="#27ae60">від рефрешу</text>
+
+  <!-- Блок 1: Інтерфейс хоста та дешифратор команд -->
+  <rect x="170" y="112" width="154" height="102" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247" y="134" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Інтерфейс хоста</text>
+  <text x="247" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Дешифратор команд</text>
+  <text x="247" y="174" text-anchor="middle" font-size="12" fill="#1a1a1a">Регістри та пікселі</text>
+  <text x="247" y="196" text-anchor="middle" font-size="12" fill="#2457d6">Конверсія SPI в 18-біт</text>
+
+  <!-- Блок 2: Лічильник віконної адресації -->
+  <rect x="170" y="230" width="154" height="98" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="252" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Лічильник вікна</text>
+  <text x="247" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Адресація (X, Y)</text>
+  <text x="247" y="292" text-anchor="middle" font-size="12" fill="#6b7280">Межі: CASET / RASET</text>
+  <text x="247" y="312" text-anchor="middle" font-size="12" fill="#27ae60">Автоінкремент адреси</text>
+
+  <!-- Блок 3: Масив пам'яті GRAM -->
+  <rect x="344" y="112" width="176" height="216" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="432" y="136" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Масив пам'яті GRAM</text>
+  <text x="432" y="156" text-anchor="middle" font-size="12" fill="#1a1a1a">SRAM кадру (1.38 Мбіт)</text>
+  <text x="432" y="176" text-anchor="middle" font-size="12" fill="#6b7280">240 × 320 × 18 біт RGB</text>
+
+  <rect x="360" y="194" width="144" height="70" rx="4" fill="#ffffff" stroke="#2457d6" stroke-dasharray="3,3"/>
+  <text x="432" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вікно 240 × 240</text>
+  <text x="432" y="234" text-anchor="middle" font-size="12" fill="#1a1a1a">Двопортовий буфер:</text>
+  <text x="432" y="252" text-anchor="middle" font-size="12" fill="#6b7280">запис хоста / рефреш</text>
+
+  <text x="432" y="286" text-anchor="middle" font-size="12" fill="#27ae60">Повне розвантаження MCU</text>
+  <text x="432" y="306" text-anchor="middle" font-size="12" fill="#6b7280">Без мерехтіння дисплея</text>
+
+  <!-- Блок 7: ЦАП стовпців (Source Driver) -->
+  <rect x="540" y="112" width="206" height="102" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="643" y="134" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">ЦАП стовпців</text>
+  <text x="643" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">(Source Driver / DAC)</text>
+  <text x="643" y="174" text-anchor="middle" font-size="12" fill="#6b7280">720 паралельних ЦАП (RGB)</text>
+  <text x="643" y="196" text-anchor="middle" font-size="12" fill="#2457d6">Формування напруг стовпців</text>
+
+  <!-- Блок 6: Дільники гамма-корекції -->
+  <rect x="540" y="230" width="206" height="98" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="643" y="252" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Дільники гамма-корекції</text>
+  <text x="643" y="272" text-anchor="middle" font-size="12" fill="#6b7280">Резистивна матриця ladder</text>
+  <text x="643" y="294" text-anchor="middle" font-size="12" fill="#27ae60">64 опорні напруги (V0..V63)</text>
+  <text x="643" y="314" text-anchor="middle" font-size="12" fill="#6b7280">Нелінійна корекція РК-шару</text>
+
+  <!-- Блок 4: Апаратний блок таймінгів (TCON) -->
+  <rect x="170" y="348" width="154" height="136" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="372" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Блок таймінгів</text>
+  <text x="247" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">(TCON / Розгортка)</text>
+  <text x="247" y="414" text-anchor="middle" font-size="12" fill="#6b7280">Кадрова частота ~60 Гц</text>
+  <text x="247" y="434" text-anchor="middle" font-size="12" fill="#6b7280">Тактування зчитування</text>
+  <text x="247" y="454" text-anchor="middle" font-size="12" fill="#2457d6">Генератор стробів</text>
+  <text x="247" y="472" text-anchor="middle" font-size="12" fill="#2457d6">Інверсія полярності</text>
+
+  <!-- Блок 5: Високовольтні помпи помноження напруги -->
+  <rect x="344" y="348" width="176" height="136" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="432" y="372" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Помпи помноження</text>
+  <text x="432" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">напруги (Charge Pump)</text>
+  <text x="432" y="414" text-anchor="middle" font-size="12" fill="#1a1a1a">Вхід: VDD = 2.8..3.3 В</text>
+  <text x="432" y="434" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">VGH: +15 В (відмикання)</text>
+  <text x="432" y="454" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">VGL: -10 В (замикання)</text>
+  <text x="432" y="474" text-anchor="middle" font-size="12" fill="#6b7280">Конденсаторні помпи</text>
+
+  <!-- Блок 8: Комутатори рядків (Gate Driver) -->
+  <rect x="540" y="348" width="206" height="136" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="643" y="372" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Комутатори рядків</text>
+  <text x="643" y="390" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">(Gate Driver / Keys)</text>
+  <text x="643" y="414" text-anchor="middle" font-size="12" fill="#6b7280">240 виходів рядків G1..G240</text>
+  <text x="643" y="434" text-anchor="middle" font-size="12" fill="#c0392b">Зсувачі рівнів VGH / VGL</text>
+  <text x="643" y="454" text-anchor="middle" font-size="12" fill="#1a1a1a">Почергова активація рядків</text>
+  <text x="643" y="474" text-anchor="middle" font-size="12" fill="#2457d6">Синхронно з тактами TCON</text>
+
+  <!-- Блок: IPS TFT панель -->
+  <rect x="782" y="76" width="154" height="422" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="859" y="104" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">IPS TFT панель</text>
+  <text x="859" y="124" text-anchor="middle" font-size="12" fill="#6b7280">240 × 240 пікселів</text>
+
+  <rect x="794" y="140" width="130" height="232" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <line x1="830" y1="140" x2="830" y2="350" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="838" y="158" font-size="12" font-weight="bold" fill="#2457d6">S1..S720</text>
+
+  <line x1="794" y1="240" x2="924" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="838" y="234" font-size="12" font-weight="bold" fill="#1a1a1a">G1..G240</text>
+
+  <circle cx="830" cy="240" r="3" fill="#1a1a1a"/>
+  <line x1="830" y1="240" x2="865" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="865" y1="262" x2="865" y2="278" stroke="#2457d6" stroke-width="2"/>
+  <line x1="871" y1="262" x2="871" y2="278" stroke="#2457d6" stroke-width="2"/>
+  <line x1="871" y1="270" x2="885" y2="270" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="888" y="274" font-size="12" fill="#6b7280">VCOM</text>
+
+  <text x="840" y="300" font-size="12" font-weight="bold" fill="#2457d6">TFT + Clc</text>
+  <text x="840" y="318" font-size="12" fill="#6b7280">Комірка IPS</text>
+
+  <text x="859" y="398" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Широкі кути (IPS)</text>
+  <text x="859" y="420" text-anchor="middle" font-size="12" fill="#27ae60">Горизонтальне поле</text>
+  <text x="859" y="440" text-anchor="middle" font-size="12" fill="#6b7280">Кристали обертаються</text>
+  <text x="859" y="458" text-anchor="middle" font-size="12" fill="#6b7280">в площині скла</text>
+  <text x="859" y="480" text-anchor="middle" font-size="12" fill="#1a1a1a">Колір не деградує</text>
+
+  <!-- Стрілки з'єднань -->
+  <!-- 1. SPI від MCU до інтерфейсу хоста -->
+  <line x1="132" y1="163" x2="168" y2="163" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- 2. Від Інтерфейсу хоста до Лічильника вікна -->
+  <line x1="247" y1="214" x2="247" y2="228" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- 3. Від Інтерфейсу хоста до GRAM (RAMWR) -->
+  <line x1="324" y1="163" x2="342" y2="163" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 4. Від Лічильника вікна до GRAM (Адреса X, Y) -->
+  <line x1="324" y1="279" x2="342" y2="279" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- 5. Від GRAM до ЦАП стовпців -->
+  <line x1="520" y1="163" x2="538" y2="163" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 6. Від Дільників гамма-корекції до ЦАП стовпців -->
+  <line x1="643" y1="230" x2="643" y2="216" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- 7. Від Помп до Комутаторів рядків (VGH / VGL) -->
+  <line x1="520" y1="416" x2="538" y2="416" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- 8. Від Помп до Дільників гамма-корекції -->
+  <polyline points="510,348 510,338 560,338 560,330" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- 9. Від TCON до GRAM -->
+  <polyline points="300,348 300,338 365,338 365,330" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- 10. Від TCON до Комутаторів рядків -->
+  <polyline points="247,484 247,491 643,491 643,486" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- 11. Від ЦАП стовпців до IPS панелі -->
+  <line x1="746" y1="163" x2="780" y2="163" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- 12. Від Комутаторів рядків до IPS панелі -->
+  <line x1="746" y1="416" x2="780" y2="416" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr)"/>
+</svg>

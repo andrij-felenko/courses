@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма адресації активної матриці TFT LCD (IPS)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Порядковий вибір шинами Gate, вибірка напруги з шини Source та збереження заряду на Cs</text>
+
+  <!-- Кадрові банери (T_frame) -->
+  <rect x="180" y="68" width="360" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="84" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кадр N: Полярність + (T_frame ≈ 16.6 мс)</text>
+
+  <rect x="560" y="68" width="360" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="740" y="84" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кадр N+1: Полярність − (інверсія напруги)</text>
+
+  <!-- Вертикальні межі кадрів -->
+  <line x1="180" y1="90" x2="180" y2="400" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="540" y1="90" x2="540" y2="400" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="560" y1="90" x2="560" y2="400" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="920" y1="90" x2="920" y2="400" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- ==================== СИГНАЛ 1: GATE 1 ==================== -->
+  <text x="25" y="122" font-size="12" font-weight="bold" fill="#1a1a1a">Gate 1 (Рядок 1)</text>
+  <text x="170" y="114" font-size="12" fill="#6b7280" text-anchor="end">Vgh</text>
+  <text x="170" y="134" font-size="12" fill="#6b7280" text-anchor="end">Vgl</text>
+
+  <!-- Імпульс Gate 1 Кадр N -->
+  <polygon points="195,130 195,110 245,110 245,130" fill="#eaf0fd"/>
+  <polyline points="180,130 195,130 195,110 245,110 245,130 540,130" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="195" y1="104" x2="245" y2="104" stroke="#2457d6" stroke-width="1" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="220" y="100" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T_gate</text>
+
+  <!-- Імпульс Gate 1 Кадр N+1 -->
+  <polygon points="575,130 575,110 625,110 625,130" fill="#eaf0fd"/>
+  <polyline points="560,130 575,130 575,110 625,110 625,130 920,130" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="575" y1="104" x2="625" y2="104" stroke="#2457d6" stroke-width="1" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="600" y="100" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T_gate</text>
+
+
+  <!-- ==================== СИГНАЛ 2: GATE 2 ==================== -->
+  <text x="25" y="157" font-size="12" font-weight="bold" fill="#1a1a1a">Gate 2 (Рядок 2)</text>
+  <text x="170" y="149" font-size="12" fill="#6b7280" text-anchor="end">Vgh</text>
+  <text x="170" y="169" font-size="12" fill="#6b7280" text-anchor="end">Vgl</text>
+
+  <!-- Імпульс Gate 2 Кадр N -->
+  <polygon points="245,165 245,145 295,145 295,165" fill="#eaf0fd"/>
+  <polyline points="180,165 245,165 245,145 295,145 295,165 540,165" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Імпульс Gate 2 Кадр N+1 -->
+  <polygon points="625,165 625,145 675,145 675,165" fill="#eaf0fd"/>
+  <polyline points="560,165 625,165 625,145 675,145 675,165 920,165" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+
+  <!-- ==================== СИГНАЛ 3: GATE 3 ==================== -->
+  <text x="25" y="192" font-size="12" font-weight="bold" fill="#1a1a1a">Gate 3 (Рядок 3)</text>
+  <text x="170" y="184" font-size="12" fill="#6b7280" text-anchor="end">Vgh</text>
+  <text x="170" y="204" font-size="12" fill="#6b7280" text-anchor="end">Vgl</text>
+
+  <!-- Імпульс Gate 3 Кадр N -->
+  <polygon points="295,200 295,180 345,180 345,200" fill="#eaf0fd"/>
+  <polyline points="180,200 295,200 295,180 345,180 345,200 540,200" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Імпульс Gate 3 Кадр N+1 -->
+  <polygon points="675,200 675,180 725,180 725,200" fill="#eaf0fd"/>
+  <polyline points="560,200 675,200 675,180 725,180 725,200 920,200" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Позначення сканування решти рядків -->
+  <text x="440" y="216" font-size="12" fill="#6b7280" text-anchor="middle">Сканування рядків 4...240</text>
+  <text x="820" y="216" font-size="12" fill="#6b7280" text-anchor="middle">Сканування рядків 4...240</text>
+
+
+  <!-- ==================== СИГНАЛ 4: SOURCE LINE ==================== -->
+  <text x="25" y="258" font-size="12" font-weight="bold" fill="#1a1a1a">Source (Дані)</text>
+  <text x="25" y="274" font-size="12" fill="#6b7280">Шина стовпця</text>
+  <text x="170" y="246" font-size="12" fill="#6b7280" text-anchor="end">+V_d</text>
+  <text x="170" y="269" font-size="12" fill="#6b7280" text-anchor="end">Vcom</text>
+  <text x="170" y="292" font-size="12" fill="#6b7280" text-anchor="end">−V_d</text>
+
+  <!-- Спільний рівень Vcom -->
+  <line x1="180" y1="265" x2="920" y2="265" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Відеодані Кадр N (Позитивні) -->
+  <polygon points="195,265 195,242 245,242 245,265" fill="#eaf0fd"/>
+  <polygon points="245,265 245,252 295,252 295,265" fill="#f4f6f8"/>
+  <polygon points="295,265 295,238 345,238 345,265" fill="#f4f6f8"/>
+  <polyline points="180,265 195,265 195,242 245,242 245,252 295,252 295,238 345,238 345,265" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 345 265 L 345 244 L 370 244 L 370 255 L 400 255 L 400 240 L 440 240 L 440 258 L 480 258 L 480 265 L 540 265" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+
+  <text x="220" y="236" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+V_d1</text>
+  <text x="270" y="246" font-size="12" fill="#6b7280" text-anchor="middle">+V_d2</text>
+  <text x="320" y="232" font-size="12" fill="#6b7280" text-anchor="middle">+V_d3</text>
+  <text x="440" y="282" font-size="12" fill="#2457d6" text-anchor="middle">Позитивна полярність (+)</text>
+
+  <!-- Відеодані Кадр N+1 (Негативні, інвертовані) -->
+  <polygon points="575,265 575,288 625,288 625,265" fill="#eaf0fd"/>
+  <polygon points="625,265 625,278 675,278 675,265" fill="#f4f6f8"/>
+  <polygon points="675,265 675,292 725,292 725,265" fill="#f4f6f8"/>
+  <polyline points="560,265 575,265 575,288 625,288 625,278 675,278 675,292 725,292 725,265" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 725 265 L 725 286 L 750 286 L 750 275 L 780 275 L 780 290 L 820 290 L 820 272 L 860 272 L 860 265 L 920 265" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+
+  <text x="600" y="304" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">−V_d1</text>
+  <text x="650" y="294" font-size="12" fill="#6b7280" text-anchor="middle">−V_d2</text>
+  <text x="700" y="308" font-size="12" fill="#6b7280" text-anchor="middle">−V_d3</text>
+  <text x="820" y="252" font-size="12" fill="#2457d6" text-anchor="middle">Негативна полярність (−)</text>
+
+
+  <!-- ==================== СИГНАЛ 5: V_PIXEL (Cs || Clc) ==================== -->
+  <text x="25" y="348" font-size="12" font-weight="bold" fill="#1a1a1a">V_pixel (Cs)</text>
+  <text x="25" y="364" font-size="12" fill="#6b7280">Субпіксель (1,1)</text>
+  <text x="170" y="331" font-size="12" fill="#6b7280" text-anchor="end">+V_pix</text>
+  <text x="170" y="354" font-size="12" fill="#6b7280" text-anchor="end">Vcom</text>
+  <text x="170" y="377" font-size="12" fill="#6b7280" text-anchor="end">−V_pix</text>
+
+  <!-- Опорний рівень Vcom для пікселя -->
+  <line x1="180" y1="350" x2="920" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Збережений заряд у Кадрі N (Позитивний) -->
+  <rect x="220" y="327" width="320" height="23" fill="#e9f7ef"/>
+  <path d="M 180 373 L 195 373 C 202 345, 210 327, 220 327 L 540 327" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="215" y="320" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Заряд Cs</text>
+  <text x="390" y="320" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Утримання заряду на Cs (TFT закрито)</text>
+  <text x="390" y="342" font-size="12" fill="#27ae60" text-anchor="middle">+V_pix = +V_d1 (T_hold ≈ T_frame)</text>
+
+  <!-- Збережений заряд у Кадрі N+1 (Негативний, інвертований) -->
+  <rect x="600" y="350" width="320" height="23" fill="#e9f7ef"/>
+  <path d="M 540 327 L 575 327 C 582 355, 590 373, 600 373 L 920 373" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="595" y="345" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Перезаряд</text>
+  <text x="770" y="366" font-size="12" fill="#27ae60" text-anchor="middle">−V_pix = −V_d1 (T_hold ≈ T_frame)</text>
+  <text x="770" y="390" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Утримання заряду на Cs (інверсія полярності)</text>
+
+
+  <!-- ==================== ПІДСУМКОВА ПАНЕЛЬ ==================== -->
+  <rect x="25" y="410" width="910" height="28" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="428" font-size="12" fill="#1a1a1a" text-anchor="middle">
+    <tspan font-weight="bold" fill="#2457d6">Висновок:</tspan>
+    <tspan fill="#1a1a1a"> Cs утримує напругу при R_off > 10¹² Ом (T_hold ≈ T_frame >> T_gate) • Інверсія дає U_dc = 0 В (захист РК від деградації)</tspan>
+  </text>
+</svg>

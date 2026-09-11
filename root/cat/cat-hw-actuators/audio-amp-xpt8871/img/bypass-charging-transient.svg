@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок для осей координат та виносок -->
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перехідний процес увімкнення XPT8871: вибір ємності конденсатора CB</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Збільшення CB сповільнює заряд виводу BYPASS та усуває сплеск диференційної напруги (клацання)</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ПРОБЛЕМА (CB = 0,1 мкФ) ==================== -->
+  <rect x="26" y="76" width="444" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок панелі та плашка стану -->
+  <text x="248" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мала ємність: CB = 0,1 мкФ</text>
+  <rect x="138" y="112" width="220" height="24" rx="12" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="248" y="128" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Стрибок напруги: гучне клацання</text>
+
+  <!-- Графік 1: Напруга BYPASS -->
+  <text x="248" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Напруга зміщення BYPASS (V_BYPASS)</text>
+
+  <!-- Сітка та осі графіка 1 -->
+  <!-- Рівень 2,5 В (VDD/2) -->
+  <line x1="86" y1="164" x2="446" y2="164" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="80" y="168" font-size="12" fill="#6b7280" text-anchor="end">2,5 В</text>
+
+  <!-- Базова лінія 0 В -->
+  <line x1="86" y1="228" x2="446" y2="228" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="80" y="232" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+
+  <!-- Вертикальна вісь напруги графіка 1 -->
+  <line x1="86" y1="228" x2="86" y2="158" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr-dark)"/>
+
+  <!-- Момент увімкнення t0 (вертикальна лінія) -->
+  <line x1="116" y1="158" x2="116" y2="348" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="122" y="246" font-size="12" font-weight="bold" fill="#2457d6">t₀ (старт)</text>
+
+  <!-- Крива V_BYPASS (швидкий крутий заряд) -->
+  <path d="M 86,228 L 116,228 C 122,228 126,178 136,168 C 144,164 152,164 160,164 L 446,164" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="180" y="182" font-size="12" fill="#c0392b">Швидкий заряд (~20 мс)</text>
+
+  <!-- Графік 2: Диференційна напруга на динаміку -->
+  <text x="248" y="262" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Диференційна напруга (V_OUT = VO1 − VO2)</text>
+
+  <!-- Сітка та осі графіка 2 -->
+  <line x1="86" y1="274" x2="446" y2="274" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="80" y="278" font-size="12" fill="#6b7280" text-anchor="end">+1,5 В</text>
+
+  <!-- Нульова лінія 0 В -->
+  <line x1="86" y1="310" x2="446" y2="310" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="80" y="314" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+
+  <line x1="86" y1="344" x2="446" y2="344" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="80" y="348" font-size="12" fill="#6b7280" text-anchor="end">−1,5 В</text>
+
+  <!-- Вертикальна вісь напруги графіка 2 -->
+  <line x1="86" y1="348" x2="86" y2="268" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr-dark)"/>
+
+  <!-- Імпульс диференційної напруги (клацання) -->
+  <path d="M 86,310 L 116,310 Q 120,310 124,280 Q 128,276 132,298 Q 138,326 144,326 Q 152,326 160,310 L 446,310" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Виноска до імпульсу клацання -->
+  <line x1="180" y1="292" x2="132" y2="280" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-red)"/>
+  <text x="186" y="292" font-size="12" font-weight="bold" fill="#c0392b">Сплеск напруги &gt; 1 В</text>
+  <text x="186" y="306" font-size="12" fill="#c0392b">Акустичне клацання (Pop)</text>
+
+  <!-- Вісь часу графіка -->
+  <line x1="86" y1="358" x2="446" y2="358" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr-dark)"/>
+  <!-- Позначки часу -->
+  <line x1="116" y1="358" x2="116" y2="362" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="116" y="374" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <line x1="196" y1="358" x2="196" y2="362" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="196" y="374" font-size="12" fill="#6b7280" text-anchor="middle">50</text>
+  <line x1="276" y1="358" x2="276" y2="362" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="276" y="374" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+  <line x1="356" y1="358" x2="356" y2="362" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="356" y="374" font-size="12" fill="#6b7280" text-anchor="middle">150</text>
+  <text x="442" y="374" font-size="12" fill="#6b7280" text-anchor="end">t (мс)</text>
+
+  <!-- Підсумкова картка проблеми -->
+  <rect x="42" y="390" width="412" height="56" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="56" y="411" font-size="12" font-weight="bold" fill="#c0392b">Швидкий заряд (dV/dt) розбалансовує плечі VO1 та VO2</text>
+  <text x="56" y="431" font-size="12" fill="#1a1a1a">Стрибок різниці потенціалів спричиняє удар по дифузору</text>
+
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: РОЗВ'ЯЗОК (CB = 1,0 мкФ) ==================== -->
+  <rect x="490" y="76" width="444" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок панелі та плашка стану -->
+  <text x="712" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оптимальна ємність: CB = 1,0 мкФ</text>
+  <rect x="612" y="112" width="200" height="24" rx="12" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712" y="128" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Плавний безшумний пуск</text>
+
+  <!-- Графік 1: Напруга BYPASS -->
+  <text x="712" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Напруга зміщення BYPASS (V_BYPASS)</text>
+
+  <!-- Сітка та осі графіка 1 -->
+  <line x1="550" y1="164" x2="910" y2="164" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="544" y="168" font-size="12" fill="#6b7280" text-anchor="end">2,5 В</text>
+
+  <line x1="550" y1="228" x2="910" y2="228" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="544" y="232" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+
+  <!-- Вертикальна вісь напруги графіка 1 -->
+  <line x1="550" y1="228" x2="550" y2="158" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr-dark)"/>
+
+  <!-- Момент увімкнення t0 -->
+  <line x1="580" y1="158" x2="580" y2="348" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="586" y="246" font-size="12" font-weight="bold" fill="#2457d6">t₀ (старт)</text>
+
+  <!-- Крива V_BYPASS (м'який плавний заряд) -->
+  <path d="M 550,228 L 580,228 C 640,228 680,195 740,180 C 800,168 840,164 890,164 L 910,164" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="680" y="214" font-size="12" fill="#27ae60">Плавний заряд (~200 мс)</text>
+
+  <!-- Графік 2: Диференційна напруга на динаміку -->
+  <text x="712" y="262" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Диференційна напруга (V_OUT = VO1 − VO2)</text>
+
+  <!-- Сітка та осі графіка 2 -->
+  <line x1="550" y1="274" x2="910" y2="274" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="544" y="278" font-size="12" fill="#6b7280" text-anchor="end">+1,5 В</text>
+
+  <line x1="550" y1="310" x2="910" y2="310" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="544" y="314" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+
+  <line x1="550" y1="344" x2="910" y2="344" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="544" y="348" font-size="12" fill="#6b7280" text-anchor="end">−1,5 В</text>
+
+  <!-- Вертикальна вісь напруги графіка 2 -->
+  <line x1="550" y1="348" x2="550" y2="268" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr-dark)"/>
+
+  <!-- Диференційна напруга: ідеально нульова лінія -->
+  <line x1="550" y1="310" x2="910" y2="310" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Виноска про відсутність сплеску -->
+  <text x="640" y="290" font-size="12" font-weight="bold" fill="#27ae60">Напруга V_OUT ≈ 0 В</text>
+  <text x="640" y="304" font-size="12" fill="#27ae60">Синхронний вихід: дифузор нерухомий</text>
+
+  <!-- Вісь часу графіка -->
+  <line x1="550" y1="358" x2="910" y2="358" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr-dark)"/>
+  <!-- Позначки часу -->
+  <line x1="580" y1="358" x2="580" y2="362" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="580" y="374" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <line x1="660" y1="358" x2="660" y2="362" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="660" y="374" font-size="12" fill="#6b7280" text-anchor="middle">50</text>
+  <line x1="740" y1="358" x2="740" y2="362" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="740" y="374" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+  <line x1="820" y1="358" x2="820" y2="362" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="820" y="374" font-size="12" fill="#6b7280" text-anchor="middle">150</text>
+  <text x="906" y="374" font-size="12" fill="#6b7280" text-anchor="end">t (мс)</text>
+
+  <!-- Підсумкова картка розв'язку -->
+  <rect x="506" y="390" width="412" height="56" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="520" y="411" font-size="12" font-weight="bold" fill="#27ae60">Плавний заряд забезпечує синхронний вихід плечей на VDD/2</text>
+  <text x="520" y="431" font-size="12" fill="#1a1a1a">Диференційна напруга VO1 − VO2 = 0 В: тиша без клацання</text>
+</svg>

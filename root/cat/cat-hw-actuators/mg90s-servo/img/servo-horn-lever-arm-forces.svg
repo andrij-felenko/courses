@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="27" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Співвідношення плеча важеля (качалки) та лінійного зусилля</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Обернена залежність корисного зусилля F = M / R та лінійного ходу тяги від радіуса отвору</text>
+
+  <!-- ======================================================== -->
+  <!-- ЛІВА ПАНЕЛЬ: Геометрична схема сил та переміщень качалки -->
+  <!-- ======================================================== -->
+  <rect x="24" y="66" width="486" height="378" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="267" y="88" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Геометрія качалки: отвори R1, R2, R3 та сили</text>
+  <text x="267" y="105" text-anchor="middle" font-size="12" fill="#6b7280">Ближчий отвір дає максимальну тягу, дальній — максимальний хід</text>
+
+  <!-- Крутний момент на вихідному валу -->
+  <path d="M 93,205 A 32 32 0 0 1 133,208" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="110" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">M_servo = 2.0 кг·см</text>
+
+  <!-- Тіло качалки (контур важеля) -->
+  <polygon points="110,216 380,224 380,236 110,244" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Ступиця вихідного вала серво (21T) -->
+  <circle cx="110" cy="230" r="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="110" cy="230" r="13" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="110" cy="230" r="4" fill="#1a1a1a"/>
+
+  <!-- Монтажні отвори на качалці -->
+  <circle cx="190" cy="230" r="5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="270" cy="230" r="5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="350" cy="230" r="5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Вектори тангенціальної сили (F1 > F2 > F3) -->
+  <line x1="190" y1="225" x2="190" y2="135" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr-red)"/>
+  <text x="190" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">F1 = 2.0 кг</text>
+
+  <line x1="270" y1="225" x2="270" y2="165" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="270" y="155" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">F2 = 1.33 кг</text>
+
+  <line x1="350" y1="225" x2="350" y2="185" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <text x="350" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">F3 = 1.0 кг</text>
+
+  <!-- Розмірні лінії радіусів R1, R2, R3 -->
+  <!-- Вертикальні виносні лінії -->
+  <line x1="110" y1="244" x2="110" y2="304" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="190" y1="235" x2="190" y2="268" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="270" y1="235" x2="270" y2="286" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="350" y1="235" x2="350" y2="304" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Розмірні стрілки та підписи -->
+  <line x1="112" y1="265" x2="188" y2="265" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="150" y="261" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R1 = 10 мм</text>
+
+  <line x1="112" y1="283" x2="268" y2="283" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="230" y="279" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R2 = 15 мм</text>
+
+  <line x1="112" y1="301" x2="348" y2="301" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="310" y="297" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R3 = 20 мм</text>
+
+  <!-- Підкартка зіставлення лінійного ходу -->
+  <rect x="38" y="325" width="458" height="105" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="50" y="345" font-size="13" font-weight="bold" fill="#2457d6">Лінійний хід тяги ΔL при повороті на Δθ = 60° (±30°):</text>
+
+  <text x="50" y="367" font-size="12" font-weight="bold" fill="#1a1a1a">• Отвір R1 (10 мм):</text>
+  <text x="185" y="367" font-size="12" fill="#2457d6">ΔL1 = 10.0 мм</text>
+  <text x="290" y="367" font-size="12" fill="#6b7280">(малий хід, точна тяга)</text>
+
+  <text x="50" y="387" font-size="12" font-weight="bold" fill="#1a1a1a">• Отвір R2 (15 мм):</text>
+  <text x="185" y="387" font-size="12" fill="#2457d6">ΔL2 = 15.7 мм</text>
+  <text x="290" y="387" font-size="12" fill="#6b7280">(збалансований режим)</text>
+
+  <text x="50" y="407" font-size="12" font-weight="bold" fill="#1a1a1a">• Отвір R3 (20 мм):</text>
+  <text x="185" y="407" font-size="12" fill="#2457d6">ΔL3 = 20.0 мм</text>
+  <text x="290" y="407" font-size="12" fill="#c0392b">(великий хід, швидкість)</text>
+
+  <!-- ======================================================== -->
+  <!-- ПРАВА ПАНЕЛЬ: Розрахункові картки та правила інженерії   -->
+  <!-- ======================================================== -->
+  <!-- Картка 1: Розрахунок сили F = M / R -->
+  <rect x="530" y="66" width="406" height="116" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="546" y="88" font-size="13" font-weight="bold" fill="#2457d6">1. Розрахунок тангенціальної сили (F = M / R):</text>
+  <text x="546" y="108" font-size="12" fill="#1a1a1a">• Формула сили: F [кг] = M_servo [кг·см] / R [см]</text>
+  <text x="546" y="126" font-size="12" fill="#1a1a1a">• Номінальний момент MG90S V2: M = 2.0 кг·см (при 4.8 В)</text>
+  <text x="546" y="144" font-size="12" fill="#1a1a1a">• R1 = 10 мм (1.0 см) ➔ F1 = 2.0 / 1.0 = 2.0 кг (100% сили)</text>
+  <text x="546" y="162" font-size="12" fill="#1a1a1a">• R3 = 20 мм (2.0 см) ➔ F3 = 2.0 / 2.0 = 1.0 кг (50% сили)</text>
+
+  <!-- Картка 2: Кінематика ходу -->
+  <rect x="530" y="196" width="406" height="116" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="546" y="218" font-size="13" font-weight="bold" fill="#27ae60">2. Кінематика ходу (Золоте правило механіки):</text>
+  <text x="546" y="238" font-size="12" fill="#1a1a1a">• Хордове переміщення: ΔL = 2 · R · sin(Δθ / 2)</text>
+  <text x="546" y="256" font-size="12" fill="#1a1a1a">• На дальньому отворі R3 хід удвічі більший, ніж на R1</text>
+  <text x="546" y="274" font-size="12" fill="#1a1a1a">• Закон збереження енергії: F1 · ΔL1 = F3 · ΔL3 = const</text>
+  <text x="546" y="292" font-size="12" fill="#27ae60">• Виграш у силі в 2 рази веде до втрати ходу в 2 рази</text>
+
+  <!-- Картка 3: Вплив кута відхилення -->
+  <rect x="530" y="326" width="406" height="118" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="546" y="348" font-size="13" font-weight="bold" fill="#c0392b">3. Вплив робочого кута тяги (Ефективна тяга):</text>
+  <text x="546" y="368" font-size="12" fill="#1a1a1a">• Корисне зусилля вздовж тяги: F_eff = F · sin(α)</text>
+  <text x="546" y="386" font-size="12" fill="#1a1a1a">• Максимальна віддача при куті тяги α = 90° (sin 90° = 1.0)</text>
+  <text x="546" y="404" font-size="12" fill="#1a1a1a">• При відхиленні на кут α = 60° втрата зусилля становить 13.4%</text>
+  <text x="546" y="422" font-size="12" fill="#c0392b">• Правило монтажу: виставляти кут 90° у середній точці ходу</text>
+</svg>

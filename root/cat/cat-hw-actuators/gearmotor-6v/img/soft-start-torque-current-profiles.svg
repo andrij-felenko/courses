@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Динаміка пуску та реверсу: пряме вмикання проти Soft-Start</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Зниження пускових струмів і запобігання зрізанню шестерень редуктора</text>
+
+  <!-- ================= ЛІВА ПАНЕЛЬ: ПРЯМЕ ВМИКАННЯ ================= -->
+  <rect x="24" y="74" width="446" height="384" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247" y="96" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ Пряме ступінчасте увімкнення (100% Step)</text>
+
+  <!-- Внутрішня біла картка графіків -->
+  <rect x="36" y="108" width="422" height="268" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Роздільники треків -->
+  <line x1="36" y1="182" x2="458" y2="182" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="36" y1="276" x2="458" y2="276" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Вісь Y -->
+  <line x1="108" y1="114" x2="108" y2="370" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Вертикальні лінії часових подій (синхронізація) -->
+  <line x1="140" y1="114" x2="140" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="260" y1="114" x2="260" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- ТРЕК 1: ШІМ (Duty) -->
+  <text x="42" y="124" font-size="12" font-weight="bold" fill="#1a1a1a">ШІМ</text>
+  <text x="103" y="136" font-size="12" text-anchor="end" fill="#6b7280">+100%</text>
+  <text x="103" y="154" font-size="12" text-anchor="end" fill="#6b7280">0%</text>
+  <text x="103" y="172" font-size="12" text-anchor="end" fill="#6b7280">-100%</text>
+
+  <line x1="108" y1="150" x2="446" y2="150" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 108 150 L 140 150 L 140 132 L 260 132 L 260 168 L 442 168" stroke="#2457d6" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+  <text x="150" y="125" font-size="12" font-weight="bold" fill="#2457d6">+100% ШІМ</text>
+  <text x="270" y="125" font-size="12" font-weight="bold" fill="#c0392b">Різкий реверс -100%</text>
+
+  <!-- ТРЕК 2: Струм I_motor -->
+  <text x="42" y="196" font-size="12" font-weight="bold" fill="#1a1a1a">Струм I</text>
+  <text x="103" y="208" font-size="12" text-anchor="end" fill="#c0392b">2.5 А</text>
+  <text x="103" y="226" font-size="12" text-anchor="end" fill="#6b7280">1.5 А</text>
+  <text x="103" y="250" font-size="12" text-anchor="end" fill="#6b7280">0.3 А</text>
+  <text x="103" y="268" font-size="12" text-anchor="end" fill="#6b7280">0 А</text>
+
+  <line x1="108" y1="264" x2="446" y2="264" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="108" y1="220" x2="446" y2="220" stroke="#fdecea" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="108" y1="202" x2="446" y2="202" stroke="#fdecea" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Заливка площі сплесків струму -->
+  <path d="M 140 264 L 140 220 Q 150 242 185 246 L 260 246 L 260 202 Q 275 242 320 246 L 320 264 Z" fill="#c0392b" fill-opacity="0.12"/>
+  <!-- Лінія струму -->
+  <path d="M 108 264 L 140 264 L 140 220 Q 150 242 185 246 L 260 246 L 260 202 Q 275 242 320 246 L 442 246" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+  <text x="148" y="214" font-size="12" font-weight="bold" fill="#c0392b">Пуск: 1.5 А</text>
+  <text x="272" y="214" font-size="12" font-weight="bold" fill="#c0392b">Протиувімкнення: 2.5 А!</text>
+
+  <!-- ТРЕК 3: Крутний момент M -->
+  <text x="42" y="290" font-size="12" font-weight="bold" fill="#1a1a1a">Момент M</text>
+  <text x="103" y="304" font-size="12" text-anchor="end" fill="#c0392b">+M_пік</text>
+  <text x="103" y="334" font-size="12" text-anchor="end" fill="#6b7280">0</text>
+  <text x="103" y="364" font-size="12" text-anchor="end" fill="#c0392b">-M_пік</text>
+
+  <line x1="108" y1="330" x2="446" y2="330" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Лінія ударного моменту -->
+  <path d="M 108 330 L 140 330 L 144 300 L 148 328 L 153 316 L 160 320 L 260 320 L 264 362 L 269 332 L 275 346 L 285 340 L 442 340" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+  <text x="156" y="302" font-size="12" font-weight="bold" fill="#c0392b">Удар по зубах</text>
+  <text x="280" y="362" font-size="12" font-weight="bold" fill="#c0392b">Подвійний удар реверсу!</text>
+
+  <!-- Нижня картка наслідків -->
+  <rect x="36" y="388" width="422" height="58" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="48" y="408" font-size="12" font-weight="bold" fill="#c0392b">Наслідки: механічний удар і просідання живлення</text>
+  <text x="48" y="426" font-size="12" fill="#1a1a1a">Ризик зрізання зубців редуктора; просідання VCC скидає MCU</text>
+
+  <!-- ================= ПРАВА ПАНЕЛЬ: SOFT-START ================= -->
+  <rect x="490" y="74" width="446" height="384" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="713" y="96" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">✔ Плавний розгін (Soft-Start) і реверс через паузу</text>
+
+  <!-- Внутрішня біла картка графіків -->
+  <rect x="502" y="108" width="422" height="268" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Роздільники треків -->
+  <line x1="502" y1="182" x2="924" y2="182" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="502" y1="276" x2="924" y2="276" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Вісь Y -->
+  <line x1="574" y1="114" x2="574" y2="370" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Вертикальні лінії часових подій (синхронізація) -->
+  <line x1="606" y1="114" x2="606" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="726" y1="114" x2="726" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Смуга паузи мертвої зони (Deadband) -->
+  <rect x="766" y="114" width="40" height="256" fill="#eaf0fd" opacity="0.6"/>
+
+  <!-- ТРЕК 1: ШІМ (Duty) -->
+  <text x="508" y="124" font-size="12" font-weight="bold" fill="#1a1a1a">ШІМ</text>
+  <text x="569" y="136" font-size="12" text-anchor="end" fill="#6b7280">+100%</text>
+  <text x="569" y="154" font-size="12" text-anchor="end" fill="#6b7280">0%</text>
+  <text x="569" y="172" font-size="12" text-anchor="end" fill="#6b7280">-100%</text>
+
+  <line x1="574" y1="150" x2="912" y2="150" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 574 150 L 606 150 L 660 132 L 726 132 L 766 150 L 806 150 L 856 168 L 908 168" stroke="#2457d6" stroke-width="2.5" fill="none" stroke-linejoin="round"/>
+  <text x="612" y="125" font-size="12" font-weight="bold" fill="#2457d6">Рампа 0→100%</text>
+  <text x="786" y="125" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пауза</text>
+  <text x="816" y="125" font-size="12" font-weight="bold" fill="#27ae60">Плавний реверс</text>
+
+  <!-- ТРЕК 2: Струм I_motor -->
+  <text x="508" y="196" font-size="12" font-weight="bold" fill="#1a1a1a">Струм I</text>
+  <text x="569" y="226" font-size="12" text-anchor="end" fill="#6b7280">1.5 А</text>
+  <text x="569" y="250" font-size="12" text-anchor="end" fill="#27ae60">0.3 А</text>
+  <text x="569" y="268" font-size="12" text-anchor="end" fill="#6b7280">0 А</text>
+
+  <line x1="574" y1="264" x2="912" y2="264" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="574" y1="220" x2="912" y2="220" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Заливка струму (м'яка зелена) -->
+  <path d="M 606 264 C 620 264 640 246 660 246 L 726 246 C 740 246 755 264 766 264 L 806 264 C 820 264 840 246 856 246 L 908 246 L 908 264 Z" fill="#27ae60" fill-opacity="0.1"/>
+  <!-- Лінія плавного струму -->
+  <path d="M 574 264 L 606 264 C 620 264 640 246 660 246 L 726 246 C 740 246 755 264 766 264 L 806 264 C 820 264 840 246 856 246 L 908 246" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <text x="612" y="214" font-size="12" font-weight="bold" fill="#27ae60">Без пускового кидка: струм ≤ 0.3 А</text>
+
+  <!-- ТРЕК 3: Крутний момент M -->
+  <text x="508" y="290" font-size="12" font-weight="bold" fill="#1a1a1a">Момент M</text>
+  <text x="569" y="324" font-size="12" text-anchor="end" fill="#27ae60">+M_ном</text>
+  <text x="569" y="334" font-size="12" text-anchor="end" fill="#6b7280">0</text>
+  <text x="569" y="352" font-size="12" text-anchor="end" fill="#27ae60">-M_ном</text>
+
+  <line x1="574" y1="330" x2="912" y2="330" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Лінія плавного моменту -->
+  <path d="M 574 330 L 606 330 C 620 330 640 320 660 320 L 726 320 C 740 320 755 330 766 330 L 806 330 C 820 330 840 340 856 340 L 908 340" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <text x="612" y="304" font-size="12" font-weight="bold" fill="#27ae60">Плавне вибирання люфтів (без удару)</text>
+  <text x="730" y="360" font-size="12" font-weight="bold" fill="#27ae60">Безударний реверс</text>
+
+  <!-- Нижня картка переваг -->
+  <rect x="502" y="388" width="422" height="58" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="514" y="408" font-size="12" font-weight="bold" fill="#27ae60">Переваги: захист передач і стабільність логіки</text>
+  <text x="514" y="426" font-size="12" fill="#1a1a1a">М'який вибір люфтів, збереження ресурсу зубців, чиста лінія 5 В</text>
+</svg>

@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">ШІМ-керування та профіль плавного пуску (soft-start) мотор-редуктора</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Індуктивність якірного кола згладжує пульсації струму, а плавний пуск усуває аварійний стрибок I_stall</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Усталений режим ШІМ -->
+  <rect x="24" y="74" width="444" height="464" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="246" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">ШІМ-модуляція та струм обмотки якоря</text>
+  <text x="246" y="112" text-anchor="middle" font-size="12" fill="#6b7280">Частота f = 20 кГц (період T = 50 мкс). Режим CCM (I &gt; 0)</text>
+
+  <!-- Картка 1: D = 25% -->
+  <rect x="36" y="122" width="420" height="92" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="140" font-size="12" font-weight="bold" fill="#1a1a1a">D = 25%</text>
+  <text x="48" y="158" font-size="12" fill="#2457d6">V_сер = 1.5 В</text>
+  <text x="48" y="176" font-size="12" fill="#27ae60">I_сер = 75 мА</text>
+  <text x="48" y="194" font-size="12" fill="#6b7280">малі оберти</text>
+  <line x1="142" y1="128" x2="142" y2="208" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="150" y="152" font-size="12" font-weight="bold" fill="#2457d6">V</text>
+  <text x="150" y="196" font-size="12" font-weight="bold" fill="#27ae60">I</text>
+
+  <line x1="168" y1="160" x2="420" y2="160" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="168" y="138" width="30" height="22" fill="#eaf0fd"/>
+  <rect x="288" y="138" width="30" height="22" fill="#eaf0fd"/>
+  <path d="M 168 160 L 168 138 L 198 138 L 198 160 L 288 160 L 288 138 L 318 138 L 318 160 L 408 160" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="168" y1="154.5" x2="408" y2="154.5" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <line x1="168" y1="202" x2="422" y2="202" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="428" y="206" font-size="12" fill="#6b7280">t</text>
+  <line x1="168" y1="194" x2="408" y2="194" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1"/>
+  <path d="M 168 198 L 198 190 L 288 198 L 318 190 L 408 198" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Картка 2: D = 50% -->
+  <rect x="36" y="222" width="420" height="92" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="240" font-size="12" font-weight="bold" fill="#1a1a1a">D = 50%</text>
+  <text x="48" y="258" font-size="12" fill="#2457d6">V_сер = 3.0 В</text>
+  <text x="48" y="276" font-size="12" fill="#27ae60">I_сер = 150 мА</text>
+  <text x="48" y="294" font-size="12" fill="#6b7280">середні оберти</text>
+  <line x1="142" y1="228" x2="142" y2="308" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="150" y="252" font-size="12" font-weight="bold" fill="#2457d6">V</text>
+  <text x="150" y="296" font-size="12" font-weight="bold" fill="#27ae60">I</text>
+
+  <line x1="168" y1="260" x2="420" y2="260" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="168" y="238" width="60" height="22" fill="#eaf0fd"/>
+  <rect x="288" y="238" width="60" height="22" fill="#eaf0fd"/>
+  <path d="M 168 260 L 168 238 L 228 238 L 228 260 L 288 260 L 288 238 L 348 238 L 348 260 L 408 260" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="168" y1="249" x2="408" y2="249" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <line x1="168" y1="302" x2="422" y2="302" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="428" y="306" font-size="12" fill="#6b7280">t</text>
+  <line x1="168" y1="286" x2="408" y2="286" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1"/>
+  <path d="M 168 290 L 228 282 L 288 290 L 348 282 L 408 290" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Картка 3: D = 80% -->
+  <rect x="36" y="322" width="420" height="92" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="340" font-size="12" font-weight="bold" fill="#1a1a1a">D = 80%</text>
+  <text x="48" y="358" font-size="12" fill="#2457d6">V_сер = 4.8 В</text>
+  <text x="48" y="376" font-size="12" fill="#27ae60">I_сер = 240 мА</text>
+  <text x="48" y="394" font-size="12" fill="#6b7280">високі оберти</text>
+  <line x1="142" y1="328" x2="142" y2="408" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="150" y="352" font-size="12" font-weight="bold" fill="#2457d6">V</text>
+  <text x="150" y="396" font-size="12" font-weight="bold" fill="#27ae60">I</text>
+
+  <line x1="168" y1="360" x2="420" y2="360" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="168" y="338" width="96" height="22" fill="#eaf0fd"/>
+  <rect x="288" y="338" width="96" height="22" fill="#eaf0fd"/>
+  <path d="M 168 360 L 168 338 L 264 338 L 264 360 L 288 360 L 288 338 L 384 338 L 384 360 L 408 360" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="168" y1="342.4" x2="408" y2="342.4" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <line x1="168" y1="402" x2="422" y2="402" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="428" y="406" font-size="12" fill="#6b7280">t</text>
+  <line x1="168" y1="380" x2="408" y2="380" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1"/>
+  <path d="M 168 384 L 264 376 L 288 384 L 384 376 L 408 384" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Пояснювальний блок зліва знизу -->
+  <rect x="36" y="422" width="420" height="104" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="48" y="442" font-size="12" font-weight="bold" fill="#2457d6">Висновки щодо ШІМ та індуктивності якірного кола:</text>
+  <text x="48" y="462" font-size="12" fill="#1a1a1a">• Середня напруга прямо пропорційна шпаруватості: V_сер = D · U_жив</text>
+  <text x="48" y="482" font-size="12" fill="#1a1a1a">• Постійна часу τ = L/R підтримує струм неперервним (режим CCM)</text>
+  <text x="48" y="502" font-size="12" fill="#1a1a1a">• На f = 20 кГц пульсація ΔI мінімальна, крутний момент рівномірний</text>
+  <text x="48" y="520" font-size="12" fill="#6b7280">• Безпечний пуск вимагає контролю струму через софт-старт (праворуч)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Порівняння пускових режимів -->
+  <rect x="492" y="74" width="444" height="464" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="714" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Динаміка пуску: миттєве вмикання vs Soft-Start</text>
+  <text x="714" y="112" text-anchor="middle" font-size="12" fill="#6b7280">Порівняння пускового струму та навантаження на шестерні редуктора</text>
+
+  <!-- Картка A: Прямий пуск 100% -->
+  <rect x="504" y="122" width="420" height="196" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="518" y="139" font-size="13" font-weight="bold" fill="#c0392b">1. Прямий пуск (100% ШІМ без обмеження струму)</text>
+
+  <!-- ШІМ D(t) прямий -->
+  <text x="516" y="162" font-size="12" font-weight="bold" fill="#c0392b">100%</text>
+  <text x="516" y="176" font-size="12" fill="#6b7280">0%</text>
+  <text x="590" y="154" font-size="12" font-weight="bold" fill="#c0392b">Стрибок ШІМ до 100% при t = 0</text>
+  <line x1="565" y1="176" x2="865" y2="176" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="585" y="158" width="275" height="18" fill="#fcdad7"/>
+  <path d="M 565 176 L 585 176 L 585 158 L 860 158" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Струм I(t) прямий -->
+  <text x="525" y="218" font-size="12" font-weight="bold" fill="#c0392b">I (A)</text>
+  <text x="568" y="196" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">1.2 А</text>
+  <text x="568" y="238" text-anchor="end" font-size="12" fill="#6b7280">0.15 А</text>
+  <text x="568" y="253" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <line x1="580" y1="188" x2="580" y2="250" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="580" y1="250" x2="865" y2="250" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="872" y="254" font-size="12" fill="#6b7280">t</text>
+
+  <line x1="675" y1="250" x2="675" y2="254" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="765" y1="250" x2="765" y2="254" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="855" y1="250" x2="855" y2="254" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="585" y="264" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+  <text x="675" y="264" text-anchor="middle" font-size="12" fill="#6b7280">100</text>
+  <text x="765" y="264" text-anchor="middle" font-size="12" fill="#6b7280">200</text>
+  <text x="855" y="264" text-anchor="middle" font-size="12" fill="#6b7280">300 мс</text>
+
+  <line x1="580" y1="198" x2="630" y2="198" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="580" y1="238" x2="860" y2="238" stroke="#6b7280" stroke-dasharray="2,2" stroke-width="1"/>
+  <text x="760" y="234" font-size="12" fill="#6b7280">I_ном ≈ 0.15 А</text>
+  <text x="605" y="194" font-size="12" font-weight="bold" fill="#c0392b">Пік I_stall = 1.2 А (струм заклинювання)</text>
+  <text x="660" y="214" font-size="12" fill="#c0392b">Проти-ЕРС E = 0 ⇒ I = U / R</text>
+  <path d="M 570 250 L 585 250 L 588 198 C 595 198, 620 225, 660 236 C 685 238, 715 238, 860 238" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <text x="518" y="282" font-size="12" fill="#c0392b">• Струм стрибає до I_stall: у 8 разів вище за номінальний</text>
+  <text x="518" y="300" font-size="12" fill="#1a1a1a">• Наслідки: ризик зрізання шестерень і просідання живлення МК</text>
+
+  <!-- Картка B: Плавний пуск Soft-Start -->
+  <rect x="504" y="330" width="420" height="196" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="518" y="347" font-size="13" font-weight="bold" fill="#27ae60">2. Плавний пуск (профіль Soft-Start за t_пуск = 200 мс)</text>
+
+  <!-- ШІМ D(t) рампа -->
+  <text x="516" y="370" font-size="12" font-weight="bold" fill="#27ae60">100%</text>
+  <text x="516" y="384" font-size="12" fill="#6b7280">0%</text>
+  <text x="590" y="362" font-size="12" font-weight="bold" fill="#27ae60">Програмна рампа ШІМ: від 20% до 100%</text>
+  <line x1="565" y1="384" x2="865" y2="384" stroke="#d0d7de" stroke-width="1"/>
+  <polygon points="585,384 585,380.4 765,366 860,366 860,384" fill="#d5f5e3"/>
+  <path d="M 565 384 L 585 380.4 L 765 366 L 860 366" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Струм I(t) Soft-Start -->
+  <text x="525" y="428" font-size="12" font-weight="bold" fill="#27ae60">I (A)</text>
+  <text x="568" y="406" text-anchor="end" font-size="12" fill="#c0392b">1.2 А</text>
+  <text x="568" y="444" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">0.2 А</text>
+  <text x="568" y="461" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <line x1="580" y1="398" x2="580" y2="458" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="580" y1="458" x2="865" y2="458" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="872" y="462" font-size="12" fill="#6b7280">t</text>
+
+  <line x1="675" y1="458" x2="675" y2="462" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="765" y1="458" x2="765" y2="462" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="855" y1="458" x2="855" y2="462" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="585" y="472" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+  <text x="675" y="472" text-anchor="middle" font-size="12" fill="#6b7280">100</text>
+  <text x="765" y="472" text-anchor="middle" font-size="12" fill="#6b7280">200</text>
+  <text x="855" y="472" text-anchor="middle" font-size="12" fill="#6b7280">300 мс</text>
+
+  <line x1="580" y1="406" x2="630" y2="406" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="600" y="402" font-size="12" fill="#c0392b">Стрибок струму усунуто (немає I_stall)</text>
+  <text x="600" y="420" font-size="12" fill="#27ae60">Розгін: U(t) зростає разом з E(t)</text>
+  <line x1="580" y1="446" x2="860" y2="446" stroke="#6b7280" stroke-dasharray="2,2" stroke-width="1"/>
+  <text x="740" y="438" font-size="12" font-weight="bold" fill="#27ae60">I_max &lt; 0.22 А (безпечно)</text>
+  <path d="M 570 458 L 585 458 C 620 457, 680 448, 765 444 C 795 444, 825 446, 860 446" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <text x="518" y="490" font-size="12" fill="#27ae60">• Струм контрольований: плавний розгін ротора без ривків</text>
+  <text x="518" y="508" font-size="12" fill="#1a1a1a">• Збереження ресурсу зубів редуктора та стабільні 6 В живлення</text>
+</svg>

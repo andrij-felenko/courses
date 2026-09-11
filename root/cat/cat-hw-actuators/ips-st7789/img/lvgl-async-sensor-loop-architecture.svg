@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біле полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Архітектура асинхронного диспетчера LVGL та опитування сенсорів</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Розділення тактування lv_tick_inc, диспетчера lv_timer_handler та опитування I2C усуває фризи</text>
+
+  <!-- КОЛОНКА 1: Апаратний таймер SysTick ISR -->
+  <rect x="30" y="78" width="220" height="286" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="90" width="196" height="28" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="140" y="108" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">SysTick ISR (Таймер)</text>
+
+  <rect x="42" y="126" width="196" height="66" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="52" y="144" font-size="12" font-weight="700" fill="#1a1a1a">Квантування часу:</text>
+  <text x="52" y="162" font-size="12" fill="#6b7280">• Період: 1 мс або 5 мс</text>
+  <text x="52" y="180" font-size="12" fill="#6b7280">• Апаратне ISR ЦПУ</text>
+
+  <rect x="42" y="200" width="196" height="78" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="52" y="218" font-size="12" font-weight="700" fill="#1a1a1a">Тактування рушія:</text>
+  <text x="52" y="236" font-size="13" font-weight="700" fill="#2457d6">lv_tick_inc(1)</text>
+  <text x="52" y="254" font-size="12" fill="#6b7280">• Інкремент таймбейзу</text>
+  <text x="52" y="270" font-size="12" fill="#6b7280">• Без виклику UI</text>
+
+  <rect x="42" y="286" width="196" height="68" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="52" y="304" font-size="12" font-weight="700" fill="#1a1a1a">Характеристики:</text>
+  <text x="52" y="322" font-size="12" fill="#6b7280">• Пріоритет: високий</text>
+  <text x="52" y="340" font-size="12" fill="#6b7280">• Час роботи: &lt; 1 мкс</text>
+
+  <!-- Зв'язок 1: SysTick -> Main Loop -->
+  <line x1="250" y1="236" x2="304" y2="236" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="280" y="226" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">+1 ms</text>
+
+  <!-- КОЛОНКА 2: Головний диспетчер Main Loop -->
+  <rect x="310" y="78" width="340" height="286" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="322" y="90" width="316" height="28" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="108" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Головний цикл: lv_timer_handler()</text>
+
+  <rect x="322" y="126" width="316" height="66" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="334" y="144" font-size="12" font-weight="700" fill="#1a1a1a">1. Диспетчер подій (кожні 5–10 мс)</text>
+  <text x="334" y="162" font-size="12" fill="#6b7280">• Звіряє час із системним таймбейзом</text>
+  <text x="334" y="180" font-size="12" fill="#6b7280">• Запускає sensor_cb() при t &#x2265; 1000 мс</text>
+
+  <rect x="322" y="200" width="316" height="66" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="334" y="218" font-size="12" font-weight="700" fill="#1a1a1a">2. Конвеєр рендерингу (Dirty Areas)</text>
+  <text x="334" y="236" font-size="12" fill="#6b7280">• Оновлює анімації та розраховує стилі</text>
+  <text x="334" y="254" font-size="12" fill="#6b7280">• Формує буфер рядків (1/10 площі кадру)</text>
+
+  <rect x="322" y="274" width="316" height="80" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="334" y="292" font-size="12" font-weight="700" fill="#27ae60">3. Драйвер дисплея: disp_flush()</text>
+  <text x="334" y="310" font-size="12" fill="#1a1a1a">• Відправка RGB565 блоків через SPI DMA</text>
+  <text x="334" y="328" font-size="12" fill="#6b7280">• Сигнал lv_disp_flush_ready() по DMA TC</text>
+  <text x="334" y="346" font-size="12" font-weight="700" fill="#27ae60">• IPS ST7789 240×240: без розривів кадру</text>
+
+  <!-- Зв'язок 2: Main Loop -> Sensor Task -->
+  <line x1="650" y1="162" x2="704" y2="162" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="680" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">1 Гц</text>
+
+  <!-- Зв'язок 3: Sensor Task -> Main Loop -->
+  <line x1="710" y1="310" x2="656" y2="310" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="680" y="300" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Дані UI</text>
+
+  <!-- КОЛОНКА 3: Асинхронний таймер сенсорів -->
+  <rect x="710" y="78" width="220" height="286" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="722" y="90" width="196" height="28" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="820" y="108" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">sensor_cb() (1 Гц)</text>
+
+  <rect x="722" y="126" width="196" height="66" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="732" y="144" font-size="12" font-weight="700" fill="#1a1a1a">Створення таймера:</text>
+  <text x="732" y="162" font-size="12" fill="#2457d6">lv_timer_create(</text>
+  <text x="732" y="180" font-size="12" fill="#2457d6">  sensor_cb, 1000, NULL);</text>
+
+  <rect x="722" y="200" width="196" height="66" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="732" y="218" font-size="12" font-weight="700" fill="#1a1a1a">Опитування сенсорів:</text>
+  <text x="732" y="236" font-size="12" fill="#6b7280">• BME280 / SHT30 (I2C)</text>
+  <text x="732" y="254" font-size="12" fill="#27ae60">• Не блокує Main Loop</text>
+
+  <rect x="722" y="274" width="196" height="80" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="732" y="292" font-size="12" font-weight="700" fill="#2457d6">Оновлення віджетів:</text>
+  <text x="732" y="310" font-size="12" fill="#1a1a1a">• lv_arc_set_value()</text>
+  <text x="732" y="328" font-size="12" fill="#1a1a1a">• lv_label_set_text_fmt()</text>
+  <text x="732" y="346" font-size="12" font-weight="700" fill="#2457d6">• Маркування Dirty Area</text>
+
+  <!-- ПЛАШКИ ПОРІВНЯННЯ ВНИЗУ -->
+  <!-- Плашка 1: Проблема блокуючого коду -->
+  <rect x="30" y="380" width="440" height="80" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="46" y="402" font-size="13" font-weight="700" fill="#c0392b">⛔ Проблема: блокуючий delay_ms(1000) у циклі</text>
+  <text x="46" y="422" font-size="12" fill="#1a1a1a">Зупиняє lv_timer_handler(): інтерфейс повністю зависає.</text>
+  <text x="46" y="440" font-size="12" fill="#6b7280">Анімації застигають, екран фризить під час очікування I2C.</text>
+
+  <!-- Плашка 2: Розв'язок асинхронних подій -->
+  <rect x="490" y="380" width="440" height="80" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="506" y="402" font-size="13" font-weight="700" fill="#27ae60">✓ Розв'язок: неблокуючий lv_timer_create()</text>
+  <text x="506" y="422" font-size="12" fill="#1a1a1a">Опитування сенсорів (1 Гц) розв'язане з рендерингом UI.</text>
+  <text x="506" y="440" font-size="12" fill="#6b7280">Стабільні 60 FPS на ST7789 навіть при повільних шинах.</text>
+</svg>

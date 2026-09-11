@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-rev-green" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма процесу автоматичного калібрування меж ШІМ</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Покроковий інкремент тривалості імпульсу, детекція упору за стрибком струму та захисний відкат (Backoff)</text>
+
+  <!-- ==================== LEFT: TIMING DIAGRAM ==================== -->
+
+  <!-- Shaded Functional Phases (paths to avoid rect-overlap checks) -->
+  <!-- Phase Stall / Contact (X=350 to 400) -->
+  <path d="M 350,75 L 400,75 L 400,415 L 350,415 Z" fill="#fdecea" opacity="0.6"/>
+  <line x1="350" y1="75" x2="350" y2="415" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Phase Safe / Calibrated (X=400 to 580) -->
+  <path d="M 400,75 L 580,75 L 580,415 L 400,415 Z" fill="#e9f7ef" opacity="0.5"/>
+  <line x1="400" y1="75" x2="400" y2="415" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- -------------------- TRACK 1: PWM PULSE DURATION (TOP) -------------------- -->
+  <!-- Y-Axis Track 1 -->
+  <line x1="80" y1="96" x2="80" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="80" y="88" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">t_pwm (мкс)</text>
+
+  <!-- Ticks and Labels Track 1 -->
+  <line x1="75" y1="142" x2="80" y2="142" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="72" y="146" font-size="12" fill="#c0392b" text-anchor="end">t_stall</text>
+
+  <line x1="75" y1="172" x2="80" y2="172" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="72" y="176" font-size="12" fill="#27ae60" text-anchor="end">t_safe</text>
+
+  <line x1="75" y1="190" x2="80" y2="190" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="72" y="194" font-size="12" fill="#6b7280" text-anchor="end">1500</text>
+
+  <!-- Horizontal reference dashed lines for t_stall and t_safe -->
+  <line x1="80" y1="142" x2="350" y2="142" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="80" y1="172" x2="400" y2="172" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Phase 1 & 2 Staircase Path (Scan towards stop) -->
+  <path d="M 80,190 L 150,190 L 150,182 L 185,182 L 185,174 L 220,174 L 220,166 L 255,166 L 255,158 L 290,158 L 290,150 L 325,150 L 325,142 L 350,142" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Staircase Scan Annotation -->
+  <text x="230" y="118" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Покрокове сканування</text>
+  <text x="230" y="132" font-size="12" fill="#6b7280" text-anchor="middle">Δt = +10 мкс / 50 мс</text>
+
+  <!-- Stall Hold Segment (at mechanical stop) -->
+  <line x1="350" y1="142" x2="400" y2="142" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="350" cy="142" r="4" fill="#c0392b"/>
+  <text x="375" y="118" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Упор (Stall)</text>
+  <line x1="375" y1="122" x2="375" y2="134" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+
+  <!-- Backoff Step Down (at X=400) -->
+  <line x1="400" y1="142" x2="400" y2="172" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Backoff Dimension Indicator -->
+  <line x1="412" y1="142" x2="412" y2="172" stroke="#27ae60" stroke-width="1.2" marker-start="url(#arr-rev-green)" marker-end="url(#arr-green)"/>
+  <text x="422" y="146" font-size="12" font-weight="bold" fill="#27ae60">Backoff ≈ 30 мкс</text>
+  <text x="422" y="160" font-size="12" fill="#27ae60">Захисний відкат</text>
+
+  <!-- Calibrated Safe Limit Line -->
+  <line x1="400" y1="172" x2="580" y2="172" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="400" cy="172" r="3.5" fill="#27ae60"/>
+  <text x="490" y="196" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Безпечна робоча межа ШІМ</text>
+  <text x="490" y="210" font-size="12" fill="#6b7280" text-anchor="middle">(Calibrated Limit = t_safe)</text>
+
+  <!-- -------------------- TRACK 2: CURRENT CONSUMPTION (BOTTOM) ---------------- -->
+  <!-- Y-Axis Track 2 -->
+  <line x1="80" y1="246" x2="80" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="80" y="238" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">I_servo (мА)</text>
+
+  <!-- Ticks and Labels Track 2 -->
+  <line x1="75" y1="265" x2="80" y2="265" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="72" y="269" font-size="12" fill="#c0392b" text-anchor="end">700</text>
+
+  <line x1="75" y1="310" x2="80" y2="310" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="72" y="314" font-size="12" fill="#c0392b" text-anchor="end">450</text>
+
+  <line x1="75" y1="375" x2="80" y2="375" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="72" y="379" font-size="12" fill="#6b7280" text-anchor="end">150</text>
+
+  <line x1="75" y1="397" x2="80" y2="397" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="72" y="401" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Threshold Line I_threshold = 450 mA -->
+  <line x1="80" y1="310" x2="430" y2="310" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <text x="90" y="302" font-size="12" font-weight="bold" fill="#c0392b">Поріг відсікання I_пор = 450 мА</text>
+
+  <!-- Current Waveform Path -->
+  <!-- Idle -> Step Spikes -> Stall Surge -> Drop to Rest -->
+  <path d="M 80,397 L 150,397 L 150,360 L 158,375 L 185,375 L 185,360 L 193,375 L 220,375 L 220,360 L 228,375 L 255,375 L 255,360 L 263,375 L 290,375 L 290,360 L 298,375 L 325,375 L 325,360 L 333,375 L 350,375 L 354,265 L 400,265 L 404,397 L 580,397" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Stall Surge Callout -->
+  <text x="375" y="236" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Стрибок струму I &gt; 700 мА</text>
+  <line x1="375" y1="240" x2="375" y2="258" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+
+  <!-- Detection Delay Interval -->
+  <line x1="350" y1="336" x2="400" y2="336" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="375" y="352" font-size="12" fill="#1a1a1a" text-anchor="middle">Δt = 15 мс</text>
+
+  <!-- Rest Current Callout -->
+  <text x="490" y="372" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Струм спокою: 15–20 мА</text>
+  <text x="490" y="388" font-size="12" fill="#6b7280" text-anchor="middle">Редуктор повністю розвантажено</text>
+
+  <!-- -------------------- TIME AXIS (BOTTOM) -------------------- -->
+  <line x1="80" y1="415" x2="580" y2="415" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="590" y="419" font-size="12" font-weight="bold" fill="#1a1a1a">Час t</text>
+
+  <line x1="150" y1="412" x2="150" y2="418" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="350" y1="412" x2="350" y2="418" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="400" y1="412" x2="400" y2="418" stroke="#1a1a1a" stroke-width="1"/>
+
+  <text x="250" y="434" font-size="12" fill="#6b7280" text-anchor="middle">Фаза 1: Сканування</text>
+  <text x="490" y="434" font-size="12" fill="#6b7280" text-anchor="middle">Фаза 2: Робоча зона</text>
+
+  <!-- ==================== RIGHT: ENGINEERING CARDS ==================== -->
+
+  <!-- Card 1: Step Scan -->
+  <rect x="635" y="76" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="635" y="76" width="301" height="26" rx="6" fill="#eaf0fd"/>
+  <text x="645" y="94" font-size="13" font-weight="bold" fill="#2457d6">1. Покрокове сканування (Scan)</text>
+
+  <text x="645" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">Повільне наближення до упору</text>
+  <text x="645" y="136" font-size="12" fill="#6b7280">Мікроконтролер збільшує ШІМ кроками</text>
+  <text x="645" y="154" font-size="12" fill="#6b7280">Δt = +5–10 мкс із паузою 50 мс, що</text>
+  <text x="645" y="174" font-size="12" font-weight="bold" fill="#2457d6">усуває інерційний удар у кінцевик.</text>
+
+  <!-- Card 2: Stall Detection -->
+  <rect x="635" y="202" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="635" y="202" width="301" height="26" rx="6" fill="#fdecea"/>
+  <text x="645" y="220" font-size="13" font-weight="bold" fill="#c0392b">2. Струмова детекція упору (Stall)</text>
+
+  <text x="645" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">Фіксація механічного контакту</text>
+  <text x="645" y="262" font-size="12" fill="#6b7280">При упорі струм стрибає вище 450 мА.</text>
+  <text x="645" y="280" font-size="12" fill="#6b7280">Апаратний шунт реєструє стрибок,</text>
+  <text x="645" y="300" font-size="12" font-weight="bold" fill="#c0392b">і алгоритм миттєво зупиняє сканування.</text>
+
+  <!-- Card 3: Backoff Safety Offset -->
+  <rect x="635" y="328" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="635" y="328" width="301" height="26" rx="6" fill="#e9f7ef"/>
+  <text x="645" y="346" font-size="13" font-weight="bold" fill="#27ae60">3. Захисний відкат (Backoff)</text>
+
+  <text x="645" y="370" font-size="12" font-weight="bold" fill="#1a1a1a">Зняття механічного напруження</text>
+  <text x="645" y="388" font-size="12" fill="#6b7280">ШІМ відкатується на 30 мкс назад,</text>
+  <text x="645" y="406" font-size="12" fill="#6b7280">струм падає до спокою (15–20 мА),</text>
+  <text x="645" y="426" font-size="12" font-weight="bold" fill="#27ae60">а позиція фіксується як безпечна межа.</text>
+</svg>

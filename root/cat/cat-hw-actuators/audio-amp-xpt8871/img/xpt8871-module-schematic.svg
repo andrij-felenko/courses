@@ -1,0 +1,215 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <text x="480" y="26" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Принципова електрична схема аудіомодуля XPT8871 (BTL моно-підсилювач)</text>
+  <text x="480" y="46" text-anchor="middle" font-size="13" fill="#6b7280">Внутрішні функціональні каскади ОП і зміщення, зовнішня обв'язка (CIN, RI, RF, CBYPASS, CS) та контактні майданчики</text>
+  <!-- Друкована плата модуля -->
+  <rect x="24" y="58" width="912" height="486" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="36" y="66" width="220" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="146" y="80" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">ПЛАТА МОДУЛЯ XPT8871</text>
+  <!-- Підсумкові картки характеристик -->
+  <rect x="36" y="494" width="260" height="40" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="46" y="509" font-size="12" font-weight="700" fill="#2457d6">Підсилення: |Av| = 2·(RF/RI) = 2 (+6 дБ)</text>
+  <text x="46" y="525" font-size="12" fill="#1a1a1a">Зміщення: V_REF = VDD/2 (нуль DC)</text>
+  <rect x="312" y="494" width="336" height="40" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="322" y="509" font-size="12" font-weight="700" fill="#1a1a1a">Фільтр НЧ: f_L = 1 / (2π · RI · CIN) ≈ 8 Гц</text>
+  <text x="322" y="525" font-size="12" fill="#6b7280">Вхід SHDN: 0 = робота, 1 = сон (IQ &lt; 0.1 мкА)</text>
+  <rect x="664" y="494" width="260" height="40" rx="6" fill="#e9f7ef" stroke="#a3d9b8" stroke-width="1"/>
+  <text x="674" y="509" font-size="12" font-weight="700" fill="#27ae60">Вихідна BTL-потужність: P = VDD² / (2·RL)</text>
+  <text x="674" y="525" font-size="12" fill="#1a1a1a">VDD = 5 В, RL = 4 Ом: P ≈ 3.1 Вт (5 Вт @ 2 Ом)</text>
+  <!-- Мікросхема XPT8871 (SOP-8) -->
+  <rect x="320" y="92" width="340" height="348" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M475,92 A15,15 0 0,0 505,92 Z" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="350" y="98" width="280" height="20" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="490" y="112" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Мікросхема XPT8871 (SOP-8 / ESOP-8)</text>
+  <rect x="306" y="157" width="14" height="16" rx="2" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="326" y="154" font-size="12" font-weight="700" fill="#1a1a1a">1</text>
+  <text x="340" y="154" font-size="12" fill="#6b7280">SHDN</text>
+  <rect x="306" y="237" width="14" height="16" rx="2" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="326" y="234" font-size="12" font-weight="700" fill="#1a1a1a">2</text>
+  <text x="340" y="234" font-size="12" fill="#6b7280">BYPASS</text>
+  <rect x="306" y="317" width="14" height="16" rx="2" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="326" y="314" font-size="12" font-weight="700" fill="#1a1a1a">3</text>
+  <text x="340" y="314" font-size="12" fill="#6b7280">MODE</text>
+  <rect x="306" y="397" width="14" height="16" rx="2" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="326" y="394" font-size="12" font-weight="700" fill="#1a1a1a">4</text>
+  <text x="340" y="394" font-size="12" fill="#6b7280">-IN</text>
+  <rect x="660" y="157" width="14" height="16" rx="2" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="638" y="154" text-anchor="end" font-size="12" fill="#6b7280">VO-</text>
+  <text x="652" y="154" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">8</text>
+  <rect x="660" y="237" width="14" height="16" rx="2" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="638" y="234" text-anchor="end" font-size="12" fill="#6b7280">GND</text>
+  <text x="652" y="234" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">7</text>
+  <rect x="660" y="317" width="14" height="16" rx="2" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="638" y="314" text-anchor="end" font-size="12" fill="#6b7280">VDD</text>
+  <text x="652" y="314" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">6</text>
+  <rect x="660" y="397" width="14" height="16" rx="2" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="638" y="394" text-anchor="end" font-size="12" fill="#6b7280">VO+</text>
+  <text x="652" y="394" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">5</text>
+  <!-- Внутрішній ОП 1 (Вхідний підсилювач) -->
+  <polygon points="480,380 480,430 530,405" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="498" y="409" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">ОП 1</text>
+  <text x="484" y="395" font-size="12" font-weight="700" fill="#1a1a1a">+</text>
+  <text x="484" y="423" font-size="12" font-weight="700" fill="#1a1a1a">−</text>
+  <path d="M320,405 L440,405 L440,417 L480,417" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="530" y1="405" x2="660" y2="405" stroke="#2457d6" stroke-width="1.8"/>
+  <circle cx="560" cy="405" r="3.5" fill="#2457d6"/>
+  <!-- Внутрішній ОП 2 (Інвертор BTL) -->
+  <polygon points="510,145 510,185 560,165" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.8"/>
+  <text x="528" y="169" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">ОП 2</text>
+  <text x="514" y="159" font-size="12" font-weight="700" fill="#1a1a1a">−</text>
+  <text x="514" y="179" font-size="12" font-weight="700" fill="#1a1a1a">+</text>
+  <line x1="560" y1="165" x2="660" y2="165" stroke="#27ae60" stroke-width="1.8"/>
+  <circle cx="580" cy="165" r="3.5" fill="#27ae60"/>
+  <path d="M580,165 L580,135 L500,135 L500,155 L510,155" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="525" y="130" width="32" height="10" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="541" y="127" text-anchor="middle" font-size="12" fill="#27ae60">R2 20k</text>
+  <circle cx="500" cy="155" r="3" fill="#27ae60"/>
+  <path d="M560,405 L560,205 L430,205 L430,175" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="430" y1="175" x2="430" y2="155" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="430" y1="155" x2="460" y2="155" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="460" y="150" width="32" height="10" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="476" y="145" text-anchor="middle" font-size="12" fill="#27ae60">R1 20k</text>
+  <line x1="492" y1="155" x2="500" y2="155" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="535" y="200" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Інвертор BTL (Av = −1)</text>
+  <!-- Джерело зміщення BYPASS (VDD/2) -->
+  <rect x="380" y="225" width="115" height="55" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="437" y="241" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Джерело зміщення</text>
+  <text x="437" y="256" text-anchor="middle" font-size="12" fill="#6b7280">Дільник VDD / 2</text>
+  <text x="437" y="271" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">V_REF = 2.5 В</text>
+  <line x1="320" y1="245" x2="380" y2="245" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="380" cy="245" r="3" fill="#2457d6"/>
+  <path d="M465,225 L465,175 L510,175" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+  <path d="M465,280 L465,393 L480,393" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+  <circle cx="465" cy="225" r="3" fill="#6b7280"/>
+  <circle cx="465" cy="280" r="3" fill="#6b7280"/>
+  <!-- Вузол SHDN (Керування живленням) -->
+  <rect x="345" y="175" width="70" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="380" y="190" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">SHDN</text>
+  <text x="380" y="204" text-anchor="middle" font-size="12" fill="#c0392b">Логіка сну</text>
+  <path d="M320,165 L380,165 L380,175" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M380,213 L380,225" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <!-- Режим роботи (Клас AB) -->
+  <line x1="320" y1="325" x2="350" y2="325" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="350" y="315" width="60" height="20" rx="3" fill="#f4f6f8" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="380" y="329" text-anchor="middle" font-size="12" fill="#1a1a1a">Клас AB</text>
+  <!-- Внутрішні шини живлення -->
+  <line x1="660" y1="245" x2="615" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="605" y="249" text-anchor="end" font-size="12" fill="#1a1a1a">GND</text>
+  <line x1="660" y1="325" x2="615" y2="325" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="605" y="329" text-anchor="end" font-size="12" fill="#c0392b">VDD</text>
+  <!-- Зовнішній майданчик SHDN -->
+  <rect x="40" y="153" width="56" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="68" y="169" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">SHDN</text>
+  <text x="68" y="145" text-anchor="middle" font-size="12" fill="#6b7280">Керування сном</text>
+  <line x1="96" y1="165" x2="306" y2="165" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="160" cy="165" r="3" fill="#c0392b"/>
+  <line x1="160" y1="165" x2="160" y2="180" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="153" y="180" width="14" height="24" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="174" y="196" font-size="12" fill="#c0392b">RPD 100 кОм</text>
+  <line x1="160" y1="204" x2="160" y2="212" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="152" y1="212" x2="168" y2="212" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="155" y1="215" x2="165" y2="215" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="158" y1="218" x2="162" y2="218" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Конденсатор CBYPASS -->
+  <line x1="306" y1="245" x2="210" y2="245" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="210" y1="245" x2="210" y2="260" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="200" y1="260" x2="220" y2="260" stroke="#2457d6" stroke-width="2"/>
+  <line x1="200" y1="266" x2="220" y2="266" stroke="#2457d6" stroke-width="2"/>
+  <line x1="210" y1="266" x2="210" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="202" y1="280" x2="218" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="205" y1="283" x2="215" y2="283" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="208" y1="286" x2="212" y2="286" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="190" y="258" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">CBYPASS</text>
+  <text x="190" y="272" text-anchor="end" font-size="12" fill="#6b7280">1 мкФ (фільтр зміщення)</text>
+  <!-- MODE до землі (Клас AB) -->
+  <line x1="306" y1="325" x2="240" y2="325" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="240" y1="325" x2="240" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="232" y1="340" x2="248" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="235" y1="343" x2="245" y2="343" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="238" y1="346" x2="242" y2="346" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="228" y="329" text-anchor="end" font-size="12" fill="#6b7280">GND (Клас AB)</text>
+  <!-- Аудіовхід -->
+  <rect x="40" y="393" width="48" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="64" y="409" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">IN</text>
+  <text x="64" y="385" text-anchor="middle" font-size="12" fill="#6b7280">Вхід сигналу</text>
+  <rect x="40" y="445" width="48" height="24" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="64" y="461" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">GND</text>
+  <text x="64" y="481" text-anchor="middle" font-size="12" fill="#6b7280">Земля аудіо</text>
+  <line x1="88" y1="405" x2="105" y2="405" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <line x1="105" y1="405" x2="120" y2="405" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="120" y1="395" x2="120" y2="415" stroke="#2457d6" stroke-width="2"/>
+  <line x1="126" y1="395" x2="126" y2="415" stroke="#2457d6" stroke-width="2"/>
+  <text x="123" y="387" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">CIN</text>
+  <text x="123" y="429" text-anchor="middle" font-size="12" fill="#6b7280">1 мкФ</text>
+  <line x1="126" y1="405" x2="165" y2="405" stroke="#2457d6" stroke-width="1.8"/>
+  <rect x="165" y="399" width="36" height="12" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="183" y="393" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">RI</text>
+  <text x="183" y="425" text-anchor="middle" font-size="12" fill="#6b7280">20 кОм</text>
+  <line x1="201" y1="405" x2="306" y2="405" stroke="#2457d6" stroke-width="1.8"/>
+  <circle cx="230" cy="405" r="3.5" fill="#2457d6"/>
+  <line x1="88" y1="457" x2="120" y2="457" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="120" y1="452" x2="120" y2="462" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="123" y1="454" x2="123" y2="460" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="126" y1="456" x2="126" y2="458" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Резистор зворотного зв'язку RF -->
+  <path d="M230,405 L230,465 L430,465" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <rect x="430" y="459" width="45" height="12" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="452" y="455" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">RF 20 кОм</text>
+  <text x="452" y="482" text-anchor="middle" font-size="12" fill="#6b7280">Зворотний зв'язок ОП 1</text>
+  <path d="M475,465 L680,465 L680,405" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <circle cx="680" cy="405" r="3.5" fill="#2457d6"/>
+  <!-- Блокувальний конденсатор CS -->
+  <line x1="674" y1="245" x2="740" y2="245" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="674" y1="325" x2="740" y2="325" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="700" cy="245" r="3" fill="#1a1a1a"/>
+  <circle cx="700" cy="325" r="3" fill="#c0392b"/>
+  <line x1="700" y1="245" x2="700" y2="278" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="690" y1="278" x2="710" y2="278" stroke="#c0392b" stroke-width="2"/>
+  <line x1="690" y1="284" x2="710" y2="284" stroke="#c0392b" stroke-width="2"/>
+  <line x1="700" y1="284" x2="700" y2="325" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="682" y="273" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">CS</text>
+  <text x="682" y="287" text-anchor="end" font-size="12" fill="#6b7280">10 мкФ || 0.1 мкФ</text>
+  <text x="682" y="301" text-anchor="end" font-size="12" fill="#6b7280">Фільтр живлення</text>
+  <!-- Майданчики живлення плати -->
+  <rect x="740" y="233" width="50" height="24" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="765" y="249" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">GND</text>
+  <text x="765" y="225" text-anchor="middle" font-size="12" fill="#6b7280">Живлення 0 В</text>
+  <rect x="740" y="313" width="50" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="765" y="329" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">VDD</text>
+  <text x="765" y="351" text-anchor="middle" font-size="12" fill="#6b7280">+2.5..5.5 В</text>
+  <!-- Вихідні майданчики на динамік -->
+  <line x1="674" y1="165" x2="810" y2="165" stroke="#27ae60" stroke-width="1.8"/>
+  <rect x="810" y="153" width="54" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="837" y="169" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">OUT−</text>
+  <text x="837" y="145" text-anchor="middle" font-size="12" fill="#6b7280">VO− (Фаза 0°)</text>
+  <line x1="680" y1="405" x2="810" y2="405" stroke="#2457d6" stroke-width="1.8"/>
+  <rect x="810" y="393" width="54" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="837" y="409" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">OUT+</text>
+  <text x="837" y="431" text-anchor="middle" font-size="12" fill="#6b7280">VO+ (Фаза 180°)</text>
+  <!-- Динамік навантаження BTL -->
+  <line x1="864" y1="165" x2="890" y2="165" stroke="#27ae60" stroke-width="1.8"/>
+  <line x1="890" y1="165" x2="890" y2="245" stroke="#27ae60" stroke-width="1.8"/>
+  <line x1="864" y1="405" x2="890" y2="405" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="890" y1="405" x2="890" y2="315" stroke="#2457d6" stroke-width="1.8"/>
+  <rect x="876" y="245" width="28" height="70" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <path d="M890,255 L916,235 L916,325 L890,305 Z" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="837" y="275" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Динамік</text>
+  <text x="837" y="291" text-anchor="middle" font-size="12" fill="#6b7280">4..8 Ом</text>
+</svg>

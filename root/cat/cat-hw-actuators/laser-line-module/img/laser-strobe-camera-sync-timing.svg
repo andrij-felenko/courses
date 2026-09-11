@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок для інтервальних ліній -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Взаємна синхронізація експозиції камери та стробу лазера</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Строб лазера вписано у вікно експозиції: захисні інтервали виключають артефакти кадру</text>
+
+  <!-- Головна панель часової діаграми -->
+  <rect x="20" y="66" width="920" height="316" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Горизонтальні розділювачі сигналів -->
+  <line x1="20" y1="126" x2="940" y2="126" stroke="#e1e4e8" stroke-width="1"/>
+  <line x1="20" y1="184" x2="940" y2="184" stroke="#e1e4e8" stroke-width="1"/>
+  <line x1="20" y1="242" x2="940" y2="242" stroke="#e1e4e8" stroke-width="1"/>
+  <line x1="20" y1="300" x2="940" y2="300" stroke="#e1e4e8" stroke-width="1"/>
+
+  <!-- Вертикальний розділювач між підписами та хвилями -->
+  <line x1="226" y1="66" x2="226" y2="300" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Підписи сигналів ліворуч -->
+  <text x="32" y="96" font-size="14" font-weight="700" fill="#1a1a1a">Frame Trigger</text>
+  <text x="32" y="112" font-size="12" fill="#6b7280">Вхід камери (Start of Frame)</text>
+
+  <text x="32" y="154" font-size="14" font-weight="700" fill="#2457d6">Exposure Active</text>
+  <text x="32" y="170" font-size="12" fill="#6b7280">Вікно експозиції сенсора</text>
+
+  <text x="32" y="212" font-size="14" font-weight="700" fill="#1a1a1a">Laser Strobe</text>
+  <text x="32" y="228" font-size="12" fill="#6b7280">Вихід МК на затвор ключа</text>
+
+  <text x="32" y="270" font-size="14" font-weight="700" fill="#27ae60">Оптична потужність</text>
+  <text x="32" y="286" font-size="12" fill="#6b7280">Випромінювання діода</text>
+
+  <text x="216" y="260" font-size="12" text-anchor="end" fill="#27ae60">5 мВт</text>
+  <text x="216" y="286" font-size="12" text-anchor="end" fill="#6b7280">0 мВт</text>
+
+  <!-- Вертикальні опорні лінії синхронізації фронтів -->
+  <line x1="270" y1="72" x2="270" y2="300" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="350" y1="72" x2="350" y2="300" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="420" y1="72" x2="420" y2="300" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="470" y1="72" x2="470" y2="300" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="690" y1="72" x2="690" y2="300" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="730" y1="72" x2="730" y2="300" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="810" y1="72" x2="810" y2="300" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Заливка області інтеграції експозиції (Row 2) -->
+  <polygon points="350,172 350,142 810,142 810,172" fill="#eaf0fd"/>
+
+  <!-- Заливка енергії лазерного випромінювання (Row 4) -->
+  <polygon points="420,286 470,256 690,256 730,286" fill="#e9f7ef"/>
+
+  <!-- Хвиля 1: Frame Trigger -->
+  <path d="M 236 112 L 270 112 L 270 86 L 310 86 L 310 112 L 920 112" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Хвиля 2: Exposure Active -->
+  <path d="M 236 172 L 350 172 L 350 142 L 810 142 L 810 172 L 920 172" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Хвиля 3: Laser Strobe -->
+  <path d="M 236 228 L 420 228 L 420 198 L 690 198 L 690 228 L 920 228" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Хвиля 4: Оптична потужність -->
+  <path d="M 236 286 L 420 286 L 470 256 L 690 256 L 730 286 L 920 286" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Рівень А: Компонентні інтервали (t_guard1, t_rise, плато, t_fall, t_guard2) -->
+  <text x="385" y="318" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">t_guard1</text>
+  <line x1="350" y1="326" x2="420" y2="326" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+
+  <text x="445" y="318" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">t_rise</text>
+  <line x1="420" y1="326" x2="470" y2="326" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-rev)" marker-end="url(#arr-green)"/>
+
+  <text x="580" y="318" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Стабільне світіння 5 мВт</text>
+  <line x1="470" y1="326" x2="690" y2="326" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-rev)" marker-end="url(#arr-green)"/>
+
+  <text x="710" y="318" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">t_fall</text>
+  <line x1="690" y1="326" x2="730" y2="326" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-rev)" marker-end="url(#arr-green)"/>
+
+  <text x="770" y="318" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">t_guard2</text>
+  <line x1="730" y1="326" x2="810" y2="326" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+
+  <!-- Рівень B: Тривалість стробу лазера T_laser -->
+  <text x="555" y="346" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">T_laser (строб лазера: t_rise + плато)</text>
+  <line x1="420" y1="352" x2="690" y2="352" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+
+  <!-- Рівень C: Повне вікно експозиції камери T_exp -->
+  <text x="580" y="368" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">T_exp (вікно експозиції: t_guard1 + T_laser + t_guard2)</text>
+  <line x1="350" y1="374" x2="810" y2="374" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+
+  <!-- Нижні інформаційні картки -->
+  <rect x="20" y="396" width="296" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="32" y="413" font-size="12" font-weight="700" fill="#2457d6">Захисні інтервали (t_guard1, t_guard2)</text>
+  <text x="32" y="431" font-size="12" fill="#1a1a1a">Виключають часткові кадри й розмиття ліній</text>
+
+  <rect x="332" y="396" width="296" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="344" y="413" font-size="12" font-weight="700" fill="#27ae60">Оптичне наростання (t_rise, t_fall)</text>
+  <text x="344" y="431" font-size="12" fill="#1a1a1a">Вихід на 5 мВт до активної інтеграції пікселів</text>
+
+  <rect x="644" y="396" width="296" height="48" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="656" y="413" font-size="12" font-weight="700" fill="#c0392b">Апаратний захист (Safety Watchdog)</text>
+  <text x="656" y="431" font-size="12" fill="#1a1a1a">Аварійне знеструмлення діода при збої МК</text>
+</svg>

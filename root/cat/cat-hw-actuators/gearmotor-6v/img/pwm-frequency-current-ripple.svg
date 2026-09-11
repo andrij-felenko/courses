@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Частота ШІМ і пульсації струму якоря двигуна</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Висока частота переводить двигун у неперервний режим (CCM), усуває писк та нагрів</text>
+
+  <!-- ======================================================== -->
+  <!-- ВЕРХНЯ ПАНЕЛЬ: 1 кГц (DCM)                                -->
+  <!-- ======================================================== -->
+  <rect x="20" y="74" width="920" height="214" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Плашка 1 кГц -->
+  <rect x="35" y="86" width="275" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="45" y="104" font-size="13" font-weight="bold" fill="#c0392b">1 кГц — Переривчастий струм (DCM)</text>
+  <text x="325" y="104" font-size="12" fill="#6b7280">T = 1000 мкс (період довший за час розряду L/R)</text>
+
+  <!-- Екран осцилографа 1 кГц -->
+  <rect x="35" y="120" width="575" height="154" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Назви каналів -->
+  <text x="125" y="133" font-size="12" font-weight="bold" fill="#6b7280">Напруга ШІМ: U_я</text>
+  <text x="125" y="172" font-size="12" font-weight="bold" fill="#c0392b">Струм якоря: I_я(t)</text>
+
+  <!-- Осі та шкали для 1 кГц -->
+  <line x1="115" y1="130" x2="115" y2="250" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="115" y1="250" x2="590" y2="250" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="594" y="254" font-size="12" fill="#1a1a1a">t</text>
+
+  <!-- Позначки на осі Y (напруга) -->
+  <line x1="110" y1="138" x2="115" y2="138" stroke="#6b7280" stroke-width="1"/>
+  <text x="106" y="142" font-size="12" fill="#6b7280" text-anchor="end">+6 В</text>
+  <line x1="110" y1="154" x2="115" y2="154" stroke="#6b7280" stroke-width="1"/>
+  <text x="106" y="158" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+
+  <!-- Позначки на осі Y (струм) -->
+  <line x1="115" y1="180" x2="575" y2="180" stroke="#c0392b" stroke-dasharray="2,3" stroke-width="1" opacity="0.4"/>
+  <text x="106" y="184" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">I_пік</text>
+
+  <line x1="115" y1="222" x2="575" y2="222" stroke="#2457d6" stroke-dasharray="4,4" stroke-width="1.2"/>
+  <text x="106" y="226" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">I_сер</text>
+
+  <text x="106" y="254" font-size="12" fill="#1a1a1a" text-anchor="end">0 А</text>
+
+  <!-- Хвиля напруги U(t) 1 кГц -->
+  <path d="M 115,154 L 135,154 L 135,138 L 219,138 L 219,154 L 345,154 L 345,138 L 429,138 L 429,154 L 555,154 L 575,154" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Хвиля струму I(t) 1 кГц -->
+  <path d="M 115,250 L 135,250 C 150,225 180,188 219,180 C 240,215 270,244 298,250 L 345,250 C 360,225 390,188 429,180 C 450,215 480,244 508,250 L 555,250 L 575,250" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+
+  <!-- Позначки часу на осі X -->
+  <line x1="135" y1="250" x2="135" y2="255" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="135" y="267" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <line x1="219" y1="250" x2="219" y2="255" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="219" y="267" font-size="12" fill="#6b7280" text-anchor="middle">t_on</text>
+
+  <line x1="345" y1="250" x2="345" y2="255" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="345" y="267" font-size="12" fill="#6b7280" text-anchor="middle">T₁ = 1000 мкс</text>
+
+  <line x1="555" y1="250" x2="555" y2="255" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="555" y="267" font-size="12" fill="#6b7280" text-anchor="middle">2·T₁</text>
+
+  <!-- Текстові анотації на графіку 1 кГц -->
+  <text x="250" y="204" font-size="12" font-weight="bold" fill="#c0392b">ΔI₁ ≈ 100%</text>
+  <text x="315" y="244" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I = 0</text>
+
+  <!-- Права інформаційна картка 1 кГц -->
+  <rect x="625" y="86" width="300" height="188" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="642" y="108" font-size="14" font-weight="bold" fill="#c0392b">Недоліки режиму 1 кГц</text>
+  <line x1="642" y1="116" x2="910" y2="116" stroke="#d0d7de" stroke-width="1"/>
+
+  <circle cx="650" cy="133" r="4" fill="#c0392b"/>
+  <text x="662" y="137" font-size="13" font-weight="bold" fill="#1a1a1a">Пульсації ΔI₁ ≈ 100% (розрив)</text>
+  <text x="662" y="153" font-size="12" fill="#6b7280">Струм падає до 0, I_пік &gt;&gt; I_сер</text>
+
+  <circle cx="650" cy="175" r="4" fill="#c0392b"/>
+  <text x="662" y="179" font-size="13" font-weight="bold" fill="#1a1a1a">Акустичний шум: різкий писк</text>
+  <text x="662" y="195" font-size="12" fill="#6b7280">1 кГц — зона високої чутності вуха</text>
+
+  <circle cx="650" cy="217" r="4" fill="#c0392b"/>
+  <text x="662" y="221" font-size="13" font-weight="bold" fill="#1a1a1a">Підвищений нагрів (I²_rms · R)</text>
+  <text x="662" y="237" font-size="12" fill="#6b7280">Пікові струми збільшують втрати в міді</text>
+
+  <!-- ======================================================== -->
+  <!-- НИЖНЯ ПАНЕЛЬ: 20 кГц (CCM)                               -->
+  <!-- ======================================================== -->
+  <rect x="20" y="304" width="920" height="214" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Плашка 20 кГц -->
+  <rect x="35" y="316" width="275" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="45" y="334" font-size="13" font-weight="bold" fill="#27ae60">20 кГц — Неперервний струм (CCM)</text>
+  <text x="325" y="334" font-size="12" fill="#6b7280">T = 50 мкс (період значно менший за час розряду L/R)</text>
+
+  <!-- Екран осцилографа 20 кГц -->
+  <rect x="35" y="350" width="575" height="154" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Назви каналів -->
+  <text x="125" y="363" font-size="12" font-weight="bold" fill="#6b7280">Напруга ШІМ: U_я</text>
+  <text x="125" y="432" font-size="12" font-weight="bold" fill="#27ae60">Струм якоря: I_я(t)</text>
+
+  <!-- Осі та шкали для 20 кГц -->
+  <line x1="115" y1="360" x2="115" y2="480" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="115" y1="480" x2="590" y2="480" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="594" y="484" font-size="12" fill="#1a1a1a">t</text>
+
+  <!-- Позначки на осі Y (напруга) -->
+  <line x1="110" y1="368" x2="115" y2="368" stroke="#6b7280" stroke-width="1"/>
+  <text x="106" y="372" font-size="12" fill="#6b7280" text-anchor="end">+6 В</text>
+  <line x1="110" y1="384" x2="115" y2="384" stroke="#6b7280" stroke-width="1"/>
+  <text x="106" y="388" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+
+  <!-- Позначки на осі Y (струм) -->
+  <line x1="115" y1="452" x2="575" y2="452" stroke="#2457d6" stroke-dasharray="4,4" stroke-width="1.2"/>
+  <text x="106" y="456" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">I_сер</text>
+
+  <text x="106" y="484" font-size="12" fill="#1a1a1a" text-anchor="end">0 А</text>
+
+  <!-- Хвиля напруги U(t) 20 кГц (4 періоди) -->
+  <path d="M 115,384 L 135,384 L 135,368 L 177,368 L 177,384 L 240,384 L 240,368 L 282,368 L 282,384 L 345,384 L 345,368 L 387,368 L 387,384 L 450,384 L 450,368 L 492,368 L 492,384 L 555,384 L 575,384" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Хвиля струму I(t) 20 кГц (4 періоди, згладжений навколо I_сер = 452, коливання 447..457) -->
+  <path d="M 115,457 L 135,457 L 177,447 L 240,457 L 282,447 L 345,457 L 387,447 L 450,457 L 492,447 L 555,457 L 575,457" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+
+  <!-- Позначки часу на осі X (20 кГц) -->
+  <line x1="135" y1="480" x2="135" y2="485" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="135" y="497" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <line x1="240" y1="480" x2="240" y2="485" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="240" y="497" font-size="12" fill="#6b7280" text-anchor="middle">T₂ = 50 мкс</text>
+
+  <line x1="345" y1="480" x2="345" y2="485" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="345" y="497" font-size="12" fill="#6b7280" text-anchor="middle">2·T₂</text>
+
+  <line x1="450" y1="480" x2="450" y2="485" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="450" y="497" font-size="12" fill="#6b7280" text-anchor="middle">3·T₂</text>
+
+  <line x1="555" y1="480" x2="555" y2="485" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="555" y="497" font-size="12" fill="#6b7280" text-anchor="middle">4·T₂</text>
+
+  <!-- Текстові анотації на графіку 20 кГц -->
+  <text x="350" y="432" font-size="12" font-weight="bold" fill="#27ae60">ΔI₂ мінімальні (режим CCM, I &gt; 0)</text>
+
+  <!-- Права інформаційна картка 20 кГц -->
+  <rect x="625" y="316" width="300" height="188" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="642" y="338" font-size="14" font-weight="bold" fill="#27ae60">Переваги високої частоти (20 кГц)</text>
+  <line x1="642" y1="346" x2="910" y2="346" stroke="#d0d7de" stroke-width="1"/>
+
+  <circle cx="650" cy="363" r="4" fill="#27ae60"/>
+  <text x="662" y="367" font-size="13" font-weight="bold" fill="#1a1a1a">Згладжений струм (ΔI₂ мінімальні)</text>
+  <text x="662" y="383" font-size="12" fill="#6b7280">Струм не падає до 0: I_пік ≈ I_сер</text>
+
+  <circle cx="650" cy="405" r="4" fill="#27ae60"/>
+  <text x="662" y="409" font-size="13" font-weight="bold" fill="#1a1a1a">Безшумна робота (ультразвук)</text>
+  <text x="662" y="425" font-size="12" fill="#6b7280">20 кГц вище за поріг сприйняття вуха</text>
+
+  <circle cx="650" cy="447" r="4" fill="#27ae60"/>
+  <text x="662" y="451" font-size="13" font-weight="bold" fill="#1a1a1a">Мінімальні втрати та нагрів</text>
+  <text x="662" y="467" font-size="12" fill="#6b7280">I_rms ≈ I_сер, високий ККД приводу</text>
+</svg>

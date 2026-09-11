@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-up" markerWidth="9" markerHeight="9" refX="4" refY="0.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,8 L4,0 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Віконна адресація пам'яті GRAM контролера ST7789 (CASET / RASET)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Апаратне обмеження області запису (XS..XE, YS..YE) та автоінкремент покажчика пікселів</text>
+
+  <!-- ==================== LEFT: GRAM COORDINATE PLANE ==================== -->
+
+  <!-- Plane Header -->
+  <text x="320" y="86" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Координатна площина дисплея (X: 0..239, Y: 0..239)</text>
+
+  <!-- Display / GRAM Outer Frame (Full 240x240 screen area) -->
+  <rect x="110" y="104" width="420" height="292" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Screen Origin (0, 0) and End (239, 239) labels -->
+  <text x="122" y="122" font-size="12" fill="#6b7280">(0, 0)</text>
+  <text x="518" y="388" font-size="12" fill="#6b7280" text-anchor="end">(239, 239)</text>
+
+  <!-- Protected Memory Note (Top band) -->
+  <text x="320" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Захищена область GRAM (вміст не змінюється)</text>
+
+  <!-- CASET Axis Indicators (Top of window) -->
+  <line x1="190" y1="142" x2="190" y2="156" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="450" y1="142" x2="450" y2="156" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="190" y="134" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">XS</text>
+  <text x="450" y="134" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">XE</text>
+
+  <!-- CASET Dimension Badge and Lines -->
+  <rect x="235" y="136" width="170" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="320" y="150" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CASET: стовпчики XS .. XE</text>
+  <line x1="190" y1="146" x2="230" y2="146" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue-rev)"/>
+  <line x1="410" y1="146" x2="450" y2="146" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+  <!-- RASET Axis Indicators (Left of window) -->
+  <line x1="176" y1="156" x2="190" y2="156" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="176" y1="336" x2="190" y2="336" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">YS</text>
+  <text x="170" y="340" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">YE</text>
+
+  <!-- RASET Dimension Badge and Lines -->
+  <rect x="116" y="232" width="56" height="32" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="144" y="246" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RASET</text>
+  <text x="144" y="258" font-size="12" fill="#2457d6" text-anchor="middle">YS..YE</text>
+  <line x1="144" y1="164" x2="144" y2="226" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue-up)"/>
+  <line x1="144" y1="270" x2="144" y2="330" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+  <!-- Protected Right Margin Note -->
+  <text x="490" y="242" font-size="12" fill="#6b7280" text-anchor="middle">Захищено</text>
+  <text x="490" y="258" font-size="12" fill="#6b7280" text-anchor="middle">від запису</text>
+
+  <!-- ACTIVE WINDOW (Active Write Window inside GRAM) -->
+  <rect x="190" y="156" width="260" height="180" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Inside Window Header: Start Point & Command -->
+  <text x="202" y="174" font-size="12" font-weight="bold" fill="#2457d6">Старт: (XS, YS)</text>
+  <text x="438" y="174" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">RAMWR (0x2C)</text>
+
+  <!-- Raster Scan Stream Rows & Diagonal Return Paths -->
+  <!-- Row 1 -->
+  <line x1="202" y1="192" x2="438" y2="192" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <circle cx="204" cy="192" r="3.5" fill="#2457d6"/>
+  <circle cx="250" cy="192" r="2.5" fill="#2457d6"/>
+  <circle cx="320" cy="192" r="2.5" fill="#2457d6"/>
+  <circle cx="390" cy="192" r="2.5" fill="#2457d6"/>
+
+  <!-- Return 1 -> Row 2 -->
+  <line x1="438" y1="192" x2="202" y2="222" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Row 2 -->
+  <line x1="202" y1="222" x2="438" y2="222" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <circle cx="204" cy="222" r="2.5" fill="#2457d6"/>
+  <circle cx="280" cy="222" r="2.5" fill="#2457d6"/>
+  <circle cx="360" cy="222" r="2.5" fill="#2457d6"/>
+
+  <!-- Return 2 -> Row 3 -->
+  <line x1="438" y1="222" x2="202" y2="252" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Row 3 -->
+  <line x1="202" y1="252" x2="438" y2="252" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <circle cx="204" cy="252" r="2.5" fill="#2457d6"/>
+  <circle cx="280" cy="252" r="2.5" fill="#2457d6"/>
+  <circle cx="360" cy="252" r="2.5" fill="#2457d6"/>
+
+  <!-- Return 3 -> Row 4 -->
+  <line x1="438" y1="252" x2="202" y2="282" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Row 4 (Final row) -->
+  <line x1="202" y1="282" x2="438" y2="282" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <circle cx="204" cy="282" r="2.5" fill="#2457d6"/>
+  <circle cx="280" cy="282" r="2.5" fill="#2457d6"/>
+  <circle cx="360" cy="282" r="2.5" fill="#2457d6"/>
+  <circle cx="438" cy="282" r="3.5" fill="#27ae60"/>
+
+  <!-- Inside Window Footer: Finish Point & Counter Behavior -->
+  <text x="438" y="306" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Фініш: (XE, YE)</text>
+  <text x="320" y="324" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Автоінкремент: X++ (при X > XE: X = XS, Y++)</text>
+
+  <!-- Protected Memory Note (Bottom band inside display) -->
+  <text x="320" y="360" font-size="12" fill="#6b7280" text-anchor="middle">Захищена область GRAM (поза межами вікна Y > YE)</text>
+  <text x="320" y="378" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Апаратне відсікання: пікселі за межами вікна не спотворюються</text>
+
+  <!-- Bottom Result Banner -->
+  <rect x="110" y="410" width="420" height="28" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="320" y="428" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: оновлюється лише вікно (Dirty Rect), час кадру скорочено!</text>
+
+  <!-- ==================== RIGHT: ENGINEERING CARDS ==================== -->
+
+  <!-- Card 1: CASET / RASET Window Definition -->
+  <rect x="570" y="80" width="360" height="112" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="570" y="80" width="360" height="26" rx="6" fill="#eaf0fd"/>
+  <text x="582" y="98" font-size="13" font-weight="bold" fill="#2457d6">1. Межі прямокутного вікна (CASET / RASET)</text>
+
+  <text x="582" y="122" font-size="12" font-weight="bold" fill="#1a1a1a">Команди 0x2A (CASET) та 0x2B (RASET)</text>
+  <text x="582" y="140" font-size="12" fill="#6b7280">Кожна команда передає по 4 байти меж:</text>
+  <text x="582" y="158" font-size="12" fill="#6b7280">CASET: XS[15:8], XS[7:0], XE[15:8], XE[7:0] (X-вісь)</text>
+  <text x="582" y="176" font-size="12" font-weight="bold" fill="#2457d6">RASET: YS[15:8], YS[7:0], YE[15:8], YE[7:0] (Y-вісь)</text>
+
+  <!-- Card 2: RAMWR Streaming -->
+  <rect x="570" y="204" width="360" height="112" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="570" y="204" width="360" height="26" rx="6" fill="#e9f7ef"/>
+  <text x="582" y="222" font-size="13" font-weight="bold" fill="#27ae60">2. Потоковий запис у GRAM (RAMWR)</text>
+
+  <text x="582" y="246" font-size="12" font-weight="bold" fill="#1a1a1a">Команда 0x2C відкриває безперервний потік</text>
+  <text x="582" y="264" font-size="12" fill="#6b7280">Лінія D/C переводиться в High (режим даних).</text>
+  <text x="582" y="282" font-size="12" fill="#6b7280">Пікселі надсилаються через SPI/DMA без адреси:</text>
+  <text x="582" y="300" font-size="12" font-weight="bold" fill="#27ae60">Обсяг: (XE - XS + 1) × (YE - YS + 1) × 2 байти.</text>
+
+  <!-- Card 3: Auto-increment and Protection -->
+  <rect x="570" y="328" width="360" height="112" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="570" y="328" width="360" height="26" rx="6" fill="#fdecea"/>
+  <text x="582" y="346" font-size="13" font-weight="bold" fill="#c0392b">3. Автоінкремент та апаратний захист</text>
+
+  <text x="582" y="370" font-size="12" font-weight="bold" fill="#1a1a1a">Замкнений цикл переміщення покажчика</text>
+  <text x="582" y="388" font-size="12" fill="#6b7280">Лічильник інкрементує X++ до досягнення XE,</text>
+  <text x="582" y="406" font-size="12" fill="#6b7280">після чого стрибає на новий рядок: X = XS, Y++.</text>
+  <text x="582" y="424" font-size="12" font-weight="bold" fill="#c0392b">Запис суворо локалізовано: решта GRAM незмінна.</text>
+</svg>

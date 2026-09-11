@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конвеєр подвійного рядкового буфера (Ping-Pong DMA)</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">CPU рендерить рядок N+1, поки DMA автономно передає рядок N через SPI на дисплей</text>
+
+  <!-- Верхня панель: Часова діаграма -->
+  <rect x="24" y="64" width="912" height="216" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Заголовок часової діаграми та легенда -->
+  <text x="40" y="84" font-size="13" font-weight="bold" fill="#1a1a1a">ЧАСОВА ДІАГРАМА РОБОТИ В ЧАСІ</text>
+  <rect x="580" y="74" width="14" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="600" y="84" font-size="12" fill="#1a1a1a">Буфер A (парні)</text>
+  <rect x="730" y="74" width="14" height="12" rx="2" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="750" y="84" font-size="12" fill="#1a1a1a">Буфер B (непарні)</text>
+
+  <!-- Стовпчики часу (заголовки тактів) -->
+  <text x="260" y="104" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Такт 0: Старт</text>
+  <text x="445" y="104" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Такт 1: Конвеєр</text>
+  <text x="630" y="104" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Такт 2: Swap A↔B</text>
+  <text x="815" y="104" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Такт 3: Swap B↔A</text>
+
+  <!-- Смуга 1: CPU -->
+  <text x="100" y="132" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CPU (Ядро)</text>
+  <text x="100" y="148" font-size="12" fill="#6b7280" text-anchor="middle">Рендеринг у RAM</text>
+
+  <!-- Блоки CPU -->
+  <rect x="175" y="114" width="170" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="260" y="132" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рендеринг Рядка 0</text>
+  <text x="260" y="148" font-size="12" fill="#2457d6" text-anchor="middle">Запис у Буфер A</text>
+
+  <rect x="360" y="114" width="170" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="445" y="132" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Рендеринг Рядка 1</text>
+  <text x="445" y="148" font-size="12" fill="#27ae60" text-anchor="middle">Запис у Буфер B</text>
+
+  <rect x="545" y="114" width="170" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="630" y="132" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рендеринг Рядка 2</text>
+  <text x="630" y="148" font-size="12" fill="#2457d6" text-anchor="middle">Запис у Буфер A</text>
+
+  <rect x="730" y="114" width="170" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="815" y="132" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Рендеринг Рядка 3</text>
+  <text x="815" y="148" font-size="12" fill="#27ae60" text-anchor="middle">Запис у Буфер B</text>
+
+  <!-- Смуга 2: DMA TX -->
+  <text x="100" y="190" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DMA TX (SPI)</text>
+  <text x="100" y="206" font-size="12" fill="#6b7280" text-anchor="middle">Трансляція на РК</text>
+
+  <!-- Блоки DMA TX -->
+  <rect x="175" y="172" width="170" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="4 3"/>
+  <text x="260" y="190" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Очікування (IDLE)</text>
+  <text x="260" y="206" font-size="12" fill="#6b7280" text-anchor="middle">Шина SPI вільна</text>
+
+  <rect x="360" y="172" width="170" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="445" y="190" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Передача Рядка 0</text>
+  <text x="445" y="206" font-size="12" fill="#2457d6" text-anchor="middle">Читання Буфера A</text>
+
+  <rect x="545" y="172" width="170" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="630" y="190" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Передача Рядка 1</text>
+  <text x="630" y="206" font-size="12" fill="#27ae60" text-anchor="middle">Читання Буфера B</text>
+
+  <rect x="730" y="172" width="170" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="815" y="190" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Передача Рядка 2</text>
+  <text x="815" y="206" font-size="12" fill="#2457d6" text-anchor="middle">Читання Буфера A</text>
+
+  <!-- Вертикальні роздільні лінії подій між тактами -->
+  <line x1="352.5" y1="108" x2="352.5" y2="223" stroke="#6b7280" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+  <line x1="537.5" y1="108" x2="537.5" y2="223" stroke="#6b7280" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+  <line x1="722.5" y1="108" x2="722.5" y2="223" stroke="#6b7280" stroke-dasharray="3 3" marker-end="url(#arr-gray)"/>
+
+  <!-- Рядок подій / переривань -->
+  <text x="100" y="246" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Синхронізація</text>
+  <text x="100" y="262" font-size="12" fill="#6b7280" text-anchor="middle">Події контролера</text>
+
+  <rect x="266" y="228" width="172" height="44" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="352" y="244" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Запуск передачі DMA</text>
+  <text x="352" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Буфер A → шина SPI</text>
+
+  <rect x="452" y="228" width="172" height="44" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="538" y="244" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DMA Transfer Complete</text>
+  <text x="538" y="260" font-size="12" fill="#27ae60" text-anchor="middle">Swap: CPU→A, DMA→B</text>
+
+  <rect x="638" y="228" width="168" height="44" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="722" y="244" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DMA Transfer Complete</text>
+  <text x="722" y="260" font-size="12" fill="#2457d6" text-anchor="middle">Swap: CPU→B, DMA→A</text>
+
+  <text x="865" y="244" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Конвеєр триває</text>
+  <text x="865" y="260" font-size="12" fill="#6b7280" text-anchor="middle">до Рядка 239 ...</text>
+
+  <!-- Нижня панель: Схема комутації буферів -->
+  <rect x="24" y="296" width="912" height="168" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Заголовок схеми комутації та підсумок RAM -->
+  <text x="40" y="318" font-size="13" font-weight="bold" fill="#1a1a1a">СХЕМА КОМУТАЦІЇ БУФЕРІВ (СТАН У ТАКТІ 1)</text>
+  <text x="916" y="318" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">ОЗП: 2 × 480 Б = 960 Б (замість 115,2 КБ фреймбуфера — економія 99.2% RAM)</text>
+
+  <!-- Блок CPU -->
+  <rect x="42" y="336" width="150" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="117" y="358" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CPU (Процесор)</text>
+  <text x="117" y="378" font-size="12" fill="#6b7280" text-anchor="middle">Обчислює кольори</text>
+  <text x="117" y="398" font-size="12" fill="#6b7280" text-anchor="middle">Рендерить Рядок 1</text>
+  <text x="117" y="424" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Запис у Буфер B →</text>
+
+  <!-- Лінії зв'язку CPU -> Буфери -->
+  <line x1="192" y1="358" x2="317" y2="358" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+  <text x="258" y="350" font-size="12" fill="#6b7280" text-anchor="middle">(неактивно)</text>
+
+  <line x1="192" y1="420" x2="317" y2="420" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="258" y="412" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Запис Рядка 1</text>
+
+  <!-- Блоки Буферів A та B в ОЗП -->
+  <rect x="325" y="336" width="295" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="472" y="355" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Рядковий буфер A (480 байтів)</text>
+  <text x="472" y="371" font-size="12" fill="#2457d6" text-anchor="middle">240 пікселів RGB565 — [читає DMA TX]</text>
+
+  <rect x="325" y="397" width="295" height="45" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="472" y="416" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Рядковий буфер B (480 байтів)</text>
+  <text x="472" y="432" font-size="12" fill="#27ae60" text-anchor="middle">240 пікселів RGB565 — [заповнює CPU]</text>
+
+  <!-- Лінії зв'язку Буфери -> DMA TX -->
+  <line x1="620" y1="358" x2="640" y2="358" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="620" y1="420" x2="640" y2="420" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+
+  <!-- Блок DMA TX -->
+  <rect x="648" y="336" width="140" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="718" y="358" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер DMA</text>
+  <text x="718" y="378" font-size="12" fill="#2457d6" text-anchor="middle">← Читає Буфер A</text>
+  <text x="718" y="398" font-size="12" fill="#6b7280" text-anchor="middle">Канал SPI TX</text>
+  <text x="718" y="424" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Потік на РК →</text>
+
+  <!-- Лінія DMA -> ST7789 -->
+  <line x1="788" y1="389" x2="808" y2="389" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Блок Дисплея ST7789 -->
+  <rect x="816" y="336" width="105" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="868" y="358" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IPS ST7789</text>
+  <text x="868" y="378" font-size="12" fill="#6b7280" text-anchor="middle">240×240 пікс.</text>
+  <text x="868" y="398" font-size="12" fill="#6b7280" text-anchor="middle">Шина SPI</text>
+  <text x="868" y="424" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рядок 0 на РК</text>
+</svg>

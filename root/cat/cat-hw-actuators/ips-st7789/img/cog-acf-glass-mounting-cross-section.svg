@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+  <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+  </marker>
+  <marker id="arr-gray-rev" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+  </marker>
+</defs>
+
+<!-- Фонова підкладка -->
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Монтаж кристала драйвера на скло (COG) через плівку ACF</text>
+<text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Термокомпресія деформує мікрокульки по осі Z (R &lt; 2 Ом), зберігаючи ізоляцію по осях X-Y (R &gt; 10⁹ Ом)</text>
+
+<!-- ================= ЛІВА ПАНЕЛЬ: МІКРОРОЗРІЗ МОНТАЖУ COG ================= -->
+<rect x="24" y="66" width="620" height="374" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Стрілки зусилля термокомпресії -->
+<line x1="75" y1="74" x2="75" y2="94" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+<line x1="115" y1="74" x2="115" y2="94" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+<line x1="550" y1="74" x2="550" y2="94" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+<line x1="590" y1="74" x2="590" y2="94" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+<text x="334" y="86" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Термокомпресія: тиск F ≈ 70 МПа, нагрів T ≈ 180–200 °C</text>
+
+<!-- Кремнієвий кристал драйвера IC ST7789 -->
+<rect x="44" y="98" width="580" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="334" y="121" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кремнієвий кристал драйвера (Driver IC ST7789 — Si)</text>
+
+<!-- Проміжний шар смоли ACF (тло) -->
+<rect x="44" y="134" width="580" height="76" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="3 3"/>
+
+<!-- Золотий бамп 1 (лівий) -->
+<rect x="75" y="134" width="145" height="52" rx="2" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="147" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Золотий бамп (Au)</text>
+<text x="147" y="172" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Струм по осі Z ↓</text>
+
+<!-- Золотий бамп 2 (правий) -->
+<rect x="448" y="134" width="145" height="52" rx="2" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+<text x="520" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Золотий бамп (Au)</text>
+<text x="520" y="172" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Струм по осі Z ↓</text>
+
+<!-- Тексти у проміжку між бампами -->
+<text x="334" y="152" font-size="12" fill="#6b7280" text-anchor="middle">Крок виводів (pitch) ≈ 25–30 мкм</text>
+<text x="334" y="172" font-size="12" fill="#6b7280" text-anchor="middle">Ізоляційна смола ACF (епоксид)</text>
+
+<!-- Деформовані мікрокульки під бампом 1 (провідний контакт Z) -->
+<g>
+  <ellipse cx="95" cy="198" rx="16" ry="12" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <ellipse cx="95" cy="198" rx="11" ry="8" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <ellipse cx="130" cy="198" rx="16" ry="12" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <ellipse cx="130" cy="198" rx="11" ry="8" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <ellipse cx="165" cy="198" rx="16" ry="12" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <ellipse cx="165" cy="198" rx="11" ry="8" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <ellipse cx="200" cy="198" rx="16" ry="12" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <ellipse cx="200" cy="198" rx="11" ry="8" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+</g>
+
+<!-- Недеформовані вільні мікрокульки у міжвивідному проміжку (ізоляція X-Y) -->
+<g>
+  <circle cx="255" cy="190" r="14" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="255" cy="190" r="10" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <circle cx="308" cy="190" r="14" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="308" cy="190" r="10" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <circle cx="360" cy="190" r="14" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="360" cy="190" r="10" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <circle cx="412" cy="190" r="14" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="412" cy="190" r="10" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+</g>
+
+<!-- Позначка відсутності бічного ланцюга в проміжку -->
+<text x="334" y="221" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">Немає ланцюга по осі X-Y</text>
+
+<!-- Деформовані мікрокульки під бампом 2 (провідний контакт Z) -->
+<g>
+  <ellipse cx="468" cy="198" rx="16" ry="12" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <ellipse cx="468" cy="198" rx="11" ry="8" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <ellipse cx="503" cy="198" rx="16" ry="12" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <ellipse cx="503" cy="198" rx="11" ry="8" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <ellipse cx="538" cy="198" rx="16" ry="12" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <ellipse cx="538" cy="198" rx="11" ry="8" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+  <ellipse cx="573" cy="198" rx="16" ry="12" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <ellipse cx="573" cy="198" rx="11" ry="8" fill="#e5e7eb" stroke="#9ca3af" stroke-width="1"/>
+</g>
+
+<!-- Контактні площадки ITO на склі -->
+<rect x="70" y="210" width="155" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="147" y="223" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Доріжка ITO (електрод)</text>
+
+<rect x="443" y="210" width="155" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="520" y="223" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Доріжка ITO (електрод)</text>
+
+<!-- Скляна підкладка дисплея -->
+<rect x="44" y="228" width="580" height="38" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+<text x="334" y="252" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Скляна підкладка дисплея (Glass Substrate — SiO₂)</text>
+
+<!-- Картка стану 1: Контакт по осі Z -->
+<rect x="44" y="276" width="280" height="152" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="184" y="297" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Вертикальний контакт (вісь Z)</text>
+<text x="56" y="320" font-size="12" fill="#1a1a1a">• Термокомпресія сплющує кульки</text>
+<text x="56" y="342" font-size="12" fill="#1a1a1a">• Au-покриття контактує з ITO</text>
+<text x="56" y="364" font-size="12" fill="#1a1a1a">• Руйнування оксидних плівок</text>
+
+<rect x="56" y="378" width="256" height="38" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+<text x="184" y="394" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Опір контакту: R &lt; 1–2 Ом</text>
+<text x="184" y="409" font-size="12" fill="#6b7280" text-anchor="middle">Надійний струмовий ланцюг</text>
+
+<!-- Картка стану 2: Ізоляція по осях X-Y -->
+<rect x="344" y="276" width="280" height="152" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="484" y="297" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Горизонтальна ізоляція (X-Y)</text>
+<text x="356" y="320" font-size="12" fill="#1a1a1a">• Кульки вільно плавають у смолі</text>
+<text x="356" y="342" font-size="12" fill="#1a1a1a">• Немає ланцюга між кульками</text>
+<text x="356" y="364" font-size="12" fill="#1a1a1a">• Діелектрик смоли у проміжку</text>
+
+<rect x="356" y="378" width="256" height="38" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+<text x="484" y="394" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Опір ізоляції: R &gt; 10⁹ Ом</text>
+<text x="484" y="409" font-size="12" fill="#6b7280" text-anchor="middle">Без замикань при pitch &lt; 30 мкм</text>
+
+<!-- ================= ПРАВА ПАНЕЛЬ: БУДОВА МІКРОКУЛЬКИ ТА ФІЗИКА ================= -->
+<rect x="660" y="66" width="276" height="374" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Заголовок правої панелі -->
+<text x="798" y="90" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Будова мікрокульки ACF</text>
+<text x="798" y="108" font-size="12" fill="#6b7280" text-anchor="middle">Сфера Ni/Au діаметром Ø 3–5 мкм</text>
+
+<!-- Розмірна лінія діаметра зліва від сфери -->
+<line x1="742" y1="126" x2="742" y2="210" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-gray-rev)" marker-end="url(#arr-gray)"/>
+<line x1="738" y1="122" x2="752" y2="122" stroke="#6b7280" stroke-width="1"/>
+<line x1="738" y1="214" x2="752" y2="214" stroke="#6b7280" stroke-width="1"/>
+<text x="736" y="172" font-size="12" fill="#6b7280" text-anchor="end">Ø 3–5 мкм</text>
+
+<!-- Концентрична модель мікрокульки -->
+<!-- Зовнішній шар золота Au -->
+<circle cx="798" cy="168" r="46" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+<!-- Проміжний бар'єрний шар нікелю Ni -->
+<circle cx="798" cy="168" r="41" fill="#e5e7eb" stroke="#9ca3af" stroke-width="2"/>
+<!-- Внутрішнє пружне полімерне ядро -->
+<circle cx="798" cy="168" r="36" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="798" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Полімер</text>
+<text x="798" y="179" font-size="12" fill="#2457d6" text-anchor="middle">ядро</text>
+
+<!-- Виноски до шарів мікрокульки -->
+<line x1="835" y1="140" x2="865" y2="130" stroke="#d97706" stroke-width="1.5"/>
+<text x="868" y="134" font-size="12" font-weight="bold" fill="#d97706">Au</text>
+<text x="868" y="148" font-size="12" fill="#6b7280">контакт</text>
+
+<line x1="835" y1="195" x2="865" y2="205" stroke="#9ca3af" stroke-width="1.5"/>
+<text x="868" y="202" font-size="12" font-weight="bold" fill="#6b7280">Ni</text>
+<text x="868" y="216" font-size="12" fill="#6b7280">бар'єр</text>
+
+<!-- Блок інженерного опису -->
+<rect x="672" y="232" width="252" height="194" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="798" y="252" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інженерна функція сфери</text>
+
+<text x="684" y="274" font-size="12" font-weight="bold" fill="#2457d6">• Пружна компенсація:</text>
+<text x="696" y="292" font-size="12" fill="#1a1a1a">Полімер стискається і діє як</text>
+<text x="696" y="308" font-size="12" fill="#1a1a1a">мікропружина при деформації.</text>
+
+<text x="684" y="330" font-size="12" font-weight="bold" fill="#2457d6">• Різниця розширення (ТКЛР):</text>
+<text x="696" y="348" font-size="12" fill="#1a1a1a">Зберігає контакт при перепадах</text>
+<text x="696" y="364" font-size="12" fill="#1a1a1a">температур між кремнієм і склом.</text>
+
+<text x="684" y="386" font-size="12" font-weight="bold" fill="#2457d6">• Термореактивна смола:</text>
+<text x="696" y="404" font-size="12" fill="#1a1a1a">Полімеризується і фіксує стиск,</text>
+<text x="696" y="420" font-size="12" fill="#1a1a1a">захищаючи від вологи та пилу.</text>
+
+</svg>

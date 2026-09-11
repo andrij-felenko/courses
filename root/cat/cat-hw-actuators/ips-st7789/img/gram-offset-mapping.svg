@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мапування пам'яті ST7789: апаратне зміщення 240×320 GRAM на матрицю 240×240</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Без корекції RASET (+80) кадр зрізається, а на дисплеї виникає смуга сміття з неініціалізованої пам'яті</text>
+
+  <!-- КОЛОНКА 1: Будова буфера GRAM -->
+  <rect x="24" y="68" width="288" height="284" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="36" y="78" width="264" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="168" y="96" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Фізична пам'ять GRAM 240×320</text>
+
+  <!-- Блок GRAM: верхні 80 рядків (непідключені) -->
+  <rect x="118" y="116" width="100" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="168" y="136" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Рядки 0..79 (80 px)</text>
+  <text x="168" y="152" font-size="12" fill="#6b7280" text-anchor="middle">Немає виводів на скло</text>
+
+  <!-- Блок GRAM: нижні 240 рядків (підключені) -->
+  <rect x="118" y="178" width="100" height="136" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="168" y="210" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Рядки 80..319</text>
+  <text x="168" y="230" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">(висота 240 px)</text>
+  <text x="168" y="260" font-size="12" fill="#1a1a1a" text-anchor="middle">Фізично розведено на</text>
+  <text x="168" y="278" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IPS-матрицю 240×240</text>
+  <text x="168" y="300" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Видима зона показу</text>
+
+  <!-- Координати Y ліворуч -->
+  <text x="110" y="126" font-size="12" fill="#6b7280" text-anchor="end">Y=0</text>
+  <text x="110" y="160" font-size="12" fill="#c0392b" text-anchor="end">Y=79</text>
+  <text x="110" y="190" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Y=80</text>
+  <text x="110" y="312" font-size="12" fill="#6b7280" text-anchor="end">Y=319</text>
+
+  <!-- Підписи праворуч від GRAM -->
+  <text x="226" y="140" font-size="12" font-weight="bold" fill="#c0392b">Зсув</text>
+  <text x="226" y="154" font-size="12" fill="#c0392b">+80 px</text>
+  <text x="226" y="236" font-size="12" font-weight="bold" fill="#2457d6">Видиме</text>
+  <text x="226" y="252" font-size="12" fill="#2457d6">вікно</text>
+  <text x="226" y="268" font-size="12" fill="#2457d6">240×240</text>
+
+  <!-- Підсумок колонки 1 -->
+  <text x="168" y="338" font-size="12" fill="#6b7280" text-anchor="middle">Різниця: 320 - 240 = 80 рядків офсету</text>
+
+  <!-- КОЛОНКА 2: Без корекції -->
+  <rect x="336" y="68" width="288" height="284" rx="8" fill="#fdecea" stroke="#c0392b"/>
+  <rect x="348" y="78" width="264" height="26" rx="4" fill="#ffffff" stroke="#c0392b"/>
+  <text x="480" y="96" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Без корекції: RASET 0..239</text>
+
+  <!-- Дисплей без корекції -->
+  <rect x="410" y="116" width="140" height="140" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <rect x="416" y="122" width="128" height="84" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="480" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кадр зрізано на 80 px</text>
+  <text x="480" y="170" font-size="12" fill="#6b7280" text-anchor="middle">(видно лише 160 рядків)</text>
+  <text x="480" y="188" font-size="12" fill="#c0392b" text-anchor="middle">Верхня частина втрачена</text>
+
+  <rect x="416" y="220" width="128" height="30" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="480" y="240" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Смуга сміття (80 px шум)</text>
+
+  <!-- Координати матриці ліворуч -->
+  <text x="402" y="126" font-size="12" fill="#6b7280" text-anchor="end">0 px</text>
+  <text x="402" y="208" font-size="12" fill="#2457d6" text-anchor="end">160 px</text>
+  <text x="402" y="252" font-size="12" fill="#c0392b" text-anchor="end">240 px</text>
+
+  <!-- Підсумок колонки 2 -->
+  <text x="480" y="280" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Дефект: зміщення кадру вгору</text>
+  <text x="480" y="298" font-size="12" fill="#1a1a1a" text-anchor="middle">Рядки 0..79 пішли в непідключену пам'ять</text>
+  <text x="480" y="316" font-size="12" fill="#1a1a1a" text-anchor="middle">Рядки 240..319 містять залишковий шум</text>
+  <text x="480" y="338" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Внизу екрана — мерехтлива смуга сміття</text>
+
+  <!-- КОЛОНКА 3: З корекцією -->
+  <rect x="648" y="68" width="288" height="284" rx="8" fill="#e9f7ef" stroke="#27ae60"/>
+  <rect x="660" y="78" width="264" height="26" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="792" y="96" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">3. З корекцією: RASET 80..319</text>
+
+  <!-- Дисплей з корекцією -->
+  <rect x="722" y="116" width="140" height="140" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <rect x="728" y="122" width="128" height="128" rx="3" fill="#eaf0fd" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="742" y="132" width="100" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="792" y="149" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Повний кадр 240×240</text>
+  <text x="792" y="174" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ідеальне центрування</text>
+  <text x="792" y="194" font-size="12" fill="#1a1a1a" text-anchor="middle">YS = Y + 80, YE = Y + 80</text>
+  <text x="792" y="214" font-size="12" fill="#27ae60" text-anchor="middle">Рядки 80..319 GRAM</text>
+  <text x="792" y="238" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Нуль артефактів та сміття</text>
+
+  <!-- Координати матриці ліворуч -->
+  <text x="714" y="126" font-size="12" fill="#6b7280" text-anchor="end">0 px</text>
+  <text x="714" y="186" font-size="12" fill="#27ae60" text-anchor="end">120 px</text>
+  <text x="714" y="252" font-size="12" fill="#6b7280" text-anchor="end">240 px</text>
+
+  <!-- Підсумок колонки 3 -->
+  <text x="792" y="280" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: точне мапування</text>
+  <text x="792" y="298" font-size="12" fill="#1a1a1a" text-anchor="middle">Координати зсунуто на Y-offset = +80</text>
+  <text x="792" y="316" font-size="12" fill="#1a1a1a" text-anchor="middle">Кадр потрапляє рівно на виводи скла</text>
+  <text x="792" y="338" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Чисте зображення по всій площі матриці</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Орієнтація MADCTL -->
+  <rect x="24" y="366" width="912" height="80" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="383" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Трансформація зміщення при зміні орієнтації дисплея (регістр MADCTL 0x36)</text>
+
+  <!-- 4 орієнтації -->
+  <text x="138" y="401" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0° — Книжкова (Портрет)</text>
+  <text x="138" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">MADCTL = 0x00 | X=0, Y=+80</text>
+  <text x="138" y="435" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">CASET 0..239, RASET 80..319</text>
+
+  <text x="366" y="401" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">90° — Альбомна (Ландшафт)</text>
+  <text x="366" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">MADCTL = 0x70 | X=+80, Y=0</text>
+  <text x="366" y="435" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">CASET 80..319, RASET 0..239</text>
+
+  <text x="594" y="401" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">180° — Обернена книжкова</text>
+  <text x="594" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">MADCTL = 0xC0 | X=0, Y=0</text>
+  <text x="594" y="435" font-size="12" fill="#6b7280" text-anchor="middle">CASET 0..239, RASET 0..239</text>
+
+  <text x="822" y="401" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">270° — Обернена альбомна</text>
+  <text x="822" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">MADCTL = 0xA0 | X=0, Y=0</text>
+  <text x="822" y="435" font-size="12" fill="#6b7280" text-anchor="middle">CASET 0..239, RASET 0..239</text>
+</svg>

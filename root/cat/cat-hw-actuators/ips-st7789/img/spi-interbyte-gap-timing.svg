@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вплив міжбайтової паузи шини SPI на тривалість передачі кадру ST7789</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Кумуляція паузи t_gap на 115 200 байтах подвоює час оновлення кадру та знижує частоту з 43 до 19 FPS</text>
+
+  <!-- ПАНЕЛЬ 1: МІКРОМАСШТАБ -->
+  <rect x="30" y="76" width="900" height="180" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="48" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">1. Мікромасштаб: тактування одного байта та пауза передавача на шині SPI</text>
+  <text x="912" y="96" font-size="12" fill="#6b7280" text-anchor="end">SCK = 40 МГц (період такту t_bit = 25 нс)</text>
+
+  <!-- Мітка сигналу SCK -->
+  <text x="100" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">SCK</text>
+
+  <!-- Біти D7..D0 над тактами Байт 1 -->
+  <text x="146" y="116" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D7</text>
+  <text x="188" y="116" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D6</text>
+  <text x="230" y="116" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D5</text>
+  <text x="272" y="116" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D4</text>
+  <text x="314" y="116" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D3</text>
+  <text x="356" y="116" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D2</text>
+  <text x="398" y="116" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D1</text>
+  <text x="440" y="116" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D0</text>
+
+  <!-- Сигнал SCK: 8 тактів байта 1 -->
+  <path d="M 112 150 L 136 150 L 136 124 L 157 124 L 157 150 L 178 150 L 178 124 L 199 124 L 199 150 L 220 150 L 220 124 L 241 124 L 241 150 L 262 150 L 262 124 L 283 124 L 283 150 L 304 150 L 304 124 L 325 124 L 325 150 L 346 150 L 346 124 L 367 124 L 367 150 L 388 150 L 388 124 L 409 124 L 409 150 L 430 150 L 430 124 L 451 124 L 451 150 L 472 150" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Сигнал SCK: пауза t_gap (лінія Low) -->
+  <line x1="472" y1="150" x2="744" y2="150" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <text x="608" y="138" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">SCK = 0 (пауза: CPU очікує буфер TXE)</text>
+
+  <!-- Сигнал SCK: початок байта 2 -->
+  <path d="M 744 150 L 744 124 L 765 124 L 765 150 L 786 150 L 786 124 L 807 124 L 807 150 L 828 150 L 828 124 L 849 124 L 849 150 L 870 150" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="755" y="116" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D7</text>
+  <text x="797" y="116" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D6</text>
+  <text x="839" y="116" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D5</text>
+
+  <!-- Стан шини / інтервали -->
+  <text x="120" y="185" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Стан шини</text>
+
+  <!-- Блок Байт 1 -->
+  <rect x="136" y="166" width="336" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="304" y="185" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт 1: t_byte = 200 нс (8 бітів × 25 нс)</text>
+
+  <!-- Блок Пауза t_gap -->
+  <rect x="484" y="166" width="248" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="608" y="185" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пауза t_gap ≈ 260 нс (простій CPU)</text>
+
+  <!-- Блок Байт 2 -->
+  <rect x="744" y="166" width="140" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="814" y="185" font-size="12" fill="#2457d6" text-anchor="middle">Байт 2 (піксель)...</text>
+
+  <!-- Розмірна лінія періоду одного байта -->
+  <line x1="136" y1="204" x2="136" y2="216" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="744" y1="204" x2="744" y2="216" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="137" y1="210" x2="743" y2="210" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr-left)" marker-end="url(#arr)"/>
+  <text x="440" y="234" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Повний період 1 байта: t_cycle = t_byte + t_gap = 200 нс + 260 нс = 460 нс (розтягнення у 2.3 раза)</text>
+
+  <!-- ПАНЕЛЬ 2: МАКРОМАСШТАБ -->
+  <rect x="30" y="268" width="900" height="188" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="48" y="290" font-size="14" font-weight="bold" fill="#1a1a1a">2. Макромасштаб: кумулятивний ефект на кадр 240×240 (RGB565 = 115 200 байтів)</text>
+  <text x="912" y="290" font-size="12" fill="#6b7280" text-anchor="end">Цільовий обсяг: 921 600 бітів / кадр</text>
+
+  <!-- Рядок 1: DMA -->
+  <text x="205" y="322" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="end">Апаратний DMA</text>
+  <text x="205" y="337" font-size="12" fill="#6b7280" text-anchor="end">пауза t_gap ≈ 0 нс</text>
+
+  <rect x="220" y="308" width="220" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="330" y="331" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Безперервна передача: 23.0 мс</text>
+
+  <rect x="454" y="308" width="280" height="36" rx="4" fill="#ffffff" stroke="#27ae60" stroke-dasharray="4,3" stroke-width="1.5"/>
+  <text x="594" y="331" font-size="12" fill="#27ae60" text-anchor="middle">CPU вільний для рендерингу (30.0 мс)</text>
+
+  <rect x="750" y="308" width="162" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="831" y="331" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">23.0 мс  →  43.4 FPS</text>
+
+  <!-- Рядок 2: Програмне опитування -->
+  <text x="205" y="370" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="end">Програмне опитування</text>
+  <text x="205" y="385" font-size="12" fill="#6b7280" text-anchor="end">пауза t_gap ≈ 260 нс</text>
+
+  <rect x="220" y="356" width="220" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="330" y="379" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Корисна передача: 23.0 мс</text>
+
+  <rect x="454" y="356" width="280" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="594" y="379" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">115 200 × t_gap = 30.0 мс (простій CPU)</text>
+
+  <rect x="750" y="356" width="162" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="831" y="379" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">53.0 мс  →  18.9 FPS</text>
+
+  <!-- Розділювач і підсумок -->
+  <line x1="48" y1="406" x2="912" y2="406" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="424" font-size="12" fill="#1a1a1a" text-anchor="middle">Час кадру: <tspan font-weight="bold">T_dma = 23.0 мс</tspan> (FPS = 43.4)  проти  <tspan font-weight="bold" fill="#c0392b">T_poll = 23.0 мс + 30.0 мс = 53.0 мс</tspan> (<tspan font-weight="bold" fill="#c0392b">FPS = 18.9</tspan>)</text>
+  <text x="480" y="442" font-size="12" fill="#6b7280" text-anchor="middle">Висновок: апаратний DMA усуває міжбайтові паузи шини та відновлює повну пропускну здатність дисплея ST7789</text>
+</svg>

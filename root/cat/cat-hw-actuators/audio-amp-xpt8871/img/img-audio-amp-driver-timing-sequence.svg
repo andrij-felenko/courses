@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Часова послідовність керування аудіопідсилювачем XPT8871</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Подача аудіосигналу лише після заряду BYPASS запобігає клацанням динаміка</text>
+
+  <!-- Фази процесу (індикатори зверху) -->
+  <rect x="220" y="66" width="68" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="254" y="83" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">1. Сон</text>
+
+  <rect x="302" y="66" width="204" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="404" y="83" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">2. Затримка t_startup</text>
+
+  <rect x="520" y="66" width="206" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="623" y="83" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">3. Аудіопотік активний</text>
+
+  <rect x="740" y="66" width="66" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="773" y="83" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">4. Стоп</text>
+
+  <rect x="820" y="66" width="100" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="870" y="83" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">5. Очікування</text>
+
+  <!-- Вертикальні розділювачі фаз -->
+  <line x1="300" y1="96" x2="300" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="520" y1="96" x2="520" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="740" y1="96" x2="740" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="820" y1="96" x2="820" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 3"/>
+
+  <!-- Вертикальна вісь сигналів -->
+  <line x1="214" y1="100" x2="214" y2="390" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- КАНАЛ 1: SHDN -->
+  <text x="32" y="126" font-size="13" font-weight="700" fill="#1a1a1a">SHDN (вивід 1)</text>
+  <text x="32" y="142" font-size="11" fill="#6b7280">GPIO контролера</text>
+  <text x="206" y="119" font-size="11" fill="#6b7280" text-anchor="end">HIGH (сон)</text>
+  <text x="206" y="149" font-size="11" fill="#6b7280" text-anchor="end">LOW (увімк)</text>
+  <path d="M 214,115 L 300,115 L 300,145 L 820,145 L 820,115 L 920,115" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="410" y="136" font-size="11" font-weight="600" fill="#2457d6" text-anchor="middle">SHDN = 0 (дозвіл роботи підсилювача)</text>
+
+  <!-- КАНАЛ 2: V_BYPASS -->
+  <text x="32" y="200" font-size="13" font-weight="700" fill="#1a1a1a">Напруга BYPASS</text>
+  <text x="32" y="216" font-size="11" fill="#6b7280">Конденсатор C_BYPASS</text>
+  <text x="206" y="189" font-size="11" fill="#6b7280" text-anchor="end">VDD / 2</text>
+  <text x="206" y="229" font-size="11" fill="#6b7280" text-anchor="end">0 В</text>
+  <line x1="214" y1="185" x2="820" y2="185" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M 214,225 L 300,225 C 340,225 390,185 500,185 L 820,185 C 840,185 870,225 900,225 L 920,225" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="306" y1="168" x2="514" y2="168" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="410" y="162" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">t_startup: заряд BYPASS (~100 мс)</text>
+  <text x="630" y="202" font-size="11" fill="#2457d6" text-anchor="middle">Стабільна середня точка VDD/2</text>
+
+  <!-- КАНАЛ 3: Вихід ЦАП / ШІМ -->
+  <text x="32" y="280" font-size="13" font-weight="700" fill="#1a1a1a">Вихід ЦАП / ШІМ</text>
+  <text x="32" y="296" font-size="11" fill="#6b7280">Аудіосигнал MCU</text>
+  <text x="206" y="289" font-size="11" fill="#6b7280" text-anchor="end">Аудіо</text>
+  <line x1="214" y1="285" x2="520" y2="285" stroke="#6b7280" stroke-width="2"/>
+  <text x="410" y="304" font-size="11" font-weight="600" fill="#c0392b" text-anchor="middle">Аудіопотік вимкнено (тиша)</text>
+  <path d="M 520,285 Q 531,269 542,285 Q 553,301 564,285 Q 575,269 586,285 Q 597,301 608,285 Q 619,269 630,285 Q 641,301 652,285 Q 663,269 674,285 Q 685,301 696,285 Q 707,269 718,285 Q 729,301 740,285" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="630" y="260" font-size="11" font-weight="600" fill="#27ae60" text-anchor="middle">Корисний аудіосигнал (звук)</text>
+  <line x1="740" y1="285" x2="920" y2="285" stroke="#6b7280" stroke-width="2"/>
+  <text x="780" y="304" font-size="11" fill="#6b7280" text-anchor="middle">Зупинка ЦАП</text>
+
+  <!-- КАНАЛ 4: Струм динаміка -->
+  <text x="32" y="355" font-size="13" font-weight="700" fill="#1a1a1a">Струм динаміка</text>
+  <text x="32" y="371" font-size="11" fill="#6b7280">Вихід мосту BTL</text>
+  <text x="206" y="364" font-size="11" fill="#6b7280" text-anchor="end">0 мА</text>
+  <line x1="214" y1="360" x2="520" y2="360" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="410" y="348" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">I = 0 мА: щиглик відсутній</text>
+  <text x="410" y="376" font-size="11" fill="#6b7280" text-anchor="middle">Синфазний заряд (VO1 = VO2)</text>
+  <path d="M 520,360 Q 531,342 542,360 Q 553,378 564,360 Q 575,342 586,360 Q 597,378 608,360 Q 619,342 630,360 Q 641,378 652,360 Q 663,342 674,360 Q 685,378 696,360 Q 707,342 718,360 Q 729,378 740,360" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="630" y="394" font-size="11" fill="#1a1a1a" text-anchor="middle">Звуковий струм динаміка</text>
+  <line x1="740" y1="360" x2="920" y2="360" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="870" y="348" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">Без щиглика</text>
+
+  <!-- Нижня панель підсумку -->
+  <rect x="24" y="412" width="912" height="44" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="429" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Алгоритм без щигликів: старт ЦАП після стабілізації BYPASS, зупинка ЦАП — до вимкнення SHDN</text>
+  <text x="480" y="446" font-size="12" fill="#1a1a1a" text-anchor="middle">Затримка t_startup запобігає клацанню динаміка під час встановлення робочої точки підсилювача</text>
+</svg>

@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Тло полотна -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Симптом наївної адресації без апаратного зсуву рядків</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Відсутність корекції зміщення відсікає 80 пікселів зображення та утворює смугу артефактів</text>
+
+  <!-- Ліва панель: Наївна адресація -->
+  <rect x="24" y="80" width="444" height="332" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="246" y="106" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Наївна адресація (без зміщення: Offset = 0)</text>
+
+  <!-- Блок відсікання зліва від екрана -->
+  <rect x="36" y="126" width="98" height="54" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="85" y="147" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Зрізано 80 px</text>
+  <text x="85" y="165" font-size="10" fill="#c0392b" text-anchor="middle">невидима GRAM</text>
+  <line x1="134" y1="138" x2="144" y2="138" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Модуль екрана (корпус і матриця 240x240) -->
+  <rect x="146" y="122" width="200" height="200" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+  <rect x="150" y="126" width="192" height="192" fill="#1e293b"/>
+
+  <!-- Зміщене корисне зображення (160 px -> 128 px на схемі) -->
+  <path d="M 150 126 h 192 v 128 h -192 Z" fill="#eaf0fd"/>
+  <line x1="150" y1="126" x2="342" y2="126" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3"/>
+
+  <!-- Зсунутий центр вікна -->
+  <circle cx="246" cy="158" r="24" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="246" y="155" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">Центр</text>
+  <text x="246" y="168" font-size="10" fill="#c0392b" text-anchor="middle">▲ -80 px</text>
+
+  <!-- Низ тестового вікна -->
+  <rect x="160" y="190" width="172" height="52" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="246" y="210" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Низ тестового вікна</text>
+  <text x="246" y="228" font-size="10" fill="#6b7280" text-anchor="middle">Рядки графіки 80 .. 239</text>
+
+  <!-- Смуга шуму / артефактів (80 px -> 64 px на схемі) -->
+  <rect x="156" y="259" width="30" height="2" fill="#475569"/>
+  <rect x="194" y="259" width="45" height="2" fill="#334155"/>
+  <rect x="248" y="259" width="35" height="2" fill="#64748b"/>
+  <rect x="292" y="259" width="44" height="2" fill="#475569"/>
+  <rect x="156" y="265" width="50" height="2" fill="#334155"/>
+  <rect x="216" y="265" width="40" height="2" fill="#64748b"/>
+  <rect x="266" y="265" width="70" height="2" fill="#334155"/>
+  <rect x="158" y="272" width="176" height="36" rx="4" fill="#0f172a" stroke="#ef4444" stroke-width="1"/>
+  <text x="246" y="287" font-size="11" font-weight="bold" fill="#f87171" text-anchor="middle">Смуга артефактів 80 px</text>
+  <text x="246" y="300" font-size="10" fill="#94a3b8" text-anchor="middle">чужий шум GRAM</text>
+
+  <!-- Розмірні лінії висот -->
+  <line x1="356" y1="126" x2="364" y2="126" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="356" y1="254" x2="364" y2="254" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="360" y1="126" x2="360" y2="254" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="372" y="186" font-size="11" font-weight="bold" fill="#2457d6">160 px</text>
+  <text x="372" y="202" font-size="10" fill="#6b7280">графіка</text>
+
+  <line x1="356" y1="318" x2="364" y2="318" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="360" y1="254" x2="360" y2="318" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="372" y="282" font-size="11" font-weight="bold" fill="#c0392b">80 px</text>
+  <text x="372" y="298" font-size="10" fill="#6b7280">артефакти</text>
+
+  <!-- Підсумок лівої панелі -->
+  <rect x="36" y="336" width="420" height="62" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="360" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ 80 пікселів зрізано, екран зміщений</text>
+  <text x="246" y="380" font-size="11" fill="#7f1d1d" text-anchor="middle">Рядки 0..79 потрапили в непідключену пам&#39;ять контролера</text>
+
+  <!-- Права панель: Коректна адресація -->
+  <rect x="492" y="80" width="444" height="332" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="714" y="106" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Коректна адресація з апаратним зсувом (Offset = 80 px)</text>
+
+  <!-- Блок налаштування зміщення зліва від екрана -->
+  <rect x="504" y="162" width="98" height="66" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="553" y="184" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Апаратний зсув</text>
+  <text x="553" y="202" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+80 рядків</text>
+  <text x="553" y="218" font-size="10" fill="#6b7280" text-anchor="middle">корекція GRAM</text>
+  <line x1="602" y1="195" x2="612" y2="195" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Модуль екрана (корпус і матриця 240x240) -->
+  <rect x="614" y="122" width="200" height="200" rx="4" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+  <rect x="618" y="126" width="192" height="192" fill="#eaf0fd"/>
+
+  <!-- Повний ідеальний кадр 240x240 -->
+  <rect x="626" y="132" width="176" height="26" rx="3" fill="#27ae60"/>
+  <text x="714" y="149" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">Шапка кадру (Y=0..39)</text>
+
+  <circle cx="714" cy="222" r="24" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="714" y="220" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">Центр</text>
+  <text x="714" y="233" font-size="10" fill="#6b7280" text-anchor="middle">(120, 120)</text>
+
+  <rect x="626" y="284" width="176" height="26" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="301" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Низ тестового вікна</text>
+
+  <!-- Розмірні лінії праворуч -->
+  <line x1="824" y1="126" x2="832" y2="126" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="824" y1="318" x2="832" y2="318" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="828" y1="126" x2="828" y2="318" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="840" y="216" font-size="11" font-weight="bold" fill="#27ae60">240 px</text>
+  <text x="840" y="232" font-size="10" fill="#6b7280">повне вікно</text>
+
+  <!-- Підсумок правої панелі -->
+  <rect x="504" y="336" width="420" height="62" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="358" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✔ Повне покриття 240×240 без артефактів та зрізів</text>
+  <text x="714" y="378" font-size="11" font-weight="bold" fill="#155724" text-anchor="middle">RASET: Y_start = Y + 80,  Y_end = Y + H - 1 + 80</text>
+
+  <!-- Підсумкова смуга внизу -->
+  <rect x="24" y="426" width="912" height="36" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="448" font-size="11" fill="#1a1a1a" text-anchor="middle">Модулі 1.3″ використовують фізичну матрицю 240×240 на чіпі з буфером 240×320; точний розрахунок зсуву обов&#39;язковий</text>
+</svg>

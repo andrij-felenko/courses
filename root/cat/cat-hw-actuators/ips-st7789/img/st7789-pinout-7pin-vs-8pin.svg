@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розташування та призначення контактів ST7789 (8-pin vs 7-pin)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">У 7-піновому модулі контакт CS відсутній і заземлений на платі: потрібна виділена шина SPI</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: 8-контактний модуль -->
+  <rect x="24" y="76" width="444" height="362" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок лівої панелі -->
+  <rect x="25" y="77" width="442" height="30" rx="7" fill="#eaf0fd"/>
+  <text x="38" y="97" font-size="14" font-weight="bold" fill="#2457d6">8-контактний модуль (з виводом CS)</text>
+  <rect x="308" y="81" width="146" height="22" rx="4" fill="#27ae60"/>
+  <text x="381" y="96" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Шина SPI: СПІЛЬНА</text>
+
+  <!-- Рядки контактів 8-контактного модуля -->
+  <!-- 1: GND -->
+  <rect x="38" y="116" width="416" height="22" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <circle cx="53" cy="127" r="9" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="53" y="131" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1</text>
+  <rect x="69" y="118" width="41" height="18" rx="3" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="89" y="131" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+  <text x="118" y="131" font-size="12" fill="#1a1a1a">Загальний провід (0 В живлення та сигналів)</text>
+
+  <!-- 2: VCC -->
+  <rect x="38" y="142" width="416" height="22" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <circle cx="53" cy="153" r="9" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="53" y="157" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2</text>
+  <rect x="69" y="144" width="41" height="18" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="89" y="157" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">VCC</text>
+  <text x="118" y="157" font-size="12" fill="#1a1a1a">Живлення модуля (3.3 В, неприпустимо 5 В!)</text>
+
+  <!-- 3: SCL -->
+  <rect x="38" y="168" width="416" height="22" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <circle cx="53" cy="179" r="9" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="53" y="183" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3</text>
+  <rect x="69" y="170" width="41" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="89" y="183" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SCL</text>
+  <text x="118" y="183" font-size="12" fill="#1a1a1a">Тактовий сигнал шини SPI (SCK / SCLK)</text>
+
+  <!-- 4: SDA -->
+  <rect x="38" y="194" width="416" height="22" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <circle cx="53" cy="205" r="9" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="53" y="209" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4</text>
+  <rect x="69" y="196" width="41" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="89" y="209" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SDA</text>
+  <text x="118" y="209" font-size="12" fill="#1a1a1a">Послідовні дані шини SPI (MOSI)</text>
+
+  <!-- 5: RES -->
+  <rect x="38" y="220" width="416" height="22" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <circle cx="53" cy="231" r="9" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="53" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">5</text>
+  <rect x="69" y="222" width="41" height="18" rx="3" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="89" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RES</text>
+  <text x="118" y="235" font-size="12" fill="#1a1a1a">Апаратне скидання (Reset, активний 0)</text>
+
+  <!-- 6: DC -->
+  <rect x="38" y="246" width="416" height="22" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <circle cx="53" cy="257" r="9" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="53" y="261" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">6</text>
+  <rect x="69" y="248" width="41" height="18" rx="3" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="89" y="261" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DC</text>
+  <text x="118" y="261" font-size="12" fill="#1a1a1a">Режим: 0 = команда, 1 = дані дисплея</text>
+
+  <!-- 7: CS (Акцент!) -->
+  <rect x="38" y="272" width="416" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="53" cy="284" r="9" fill="#27ae60"/>
+  <text x="53" y="288" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">7</text>
+  <rect x="69" y="275" width="41" height="18" rx="3" fill="#27ae60"/>
+  <text x="89" y="288" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">CS</text>
+  <text x="118" y="288" font-size="12" font-weight="bold" fill="#27ae60">Вибір кристала (Chip Select) ──► до МК</text>
+
+  <!-- 8: BLK -->
+  <rect x="38" y="300" width="416" height="22" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <circle cx="53" cy="311" r="9" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="53" y="315" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">8</text>
+  <rect x="69" y="302" width="41" height="18" rx="3" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="89" y="315" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">BLK</text>
+  <text x="118" y="315" font-size="12" fill="#1a1a1a">Підсвічування матриці (3.3 В або ШІМ)</text>
+
+  <!-- Зелений статус CS -->
+  <rect x="38" y="324" width="416" height="20" rx="3" fill="#e9f7ef"/>
+  <text x="246" y="338" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Пін CS керований: контролер можна відключати від шини</text>
+
+  <!-- Нижня картка 8-контактного модуля -->
+  <rect x="38" y="348" width="416" height="82" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="42" y="352" width="408" height="24" rx="4" fill="#e9f7ef"/>
+  <rect x="46" y="355" width="64" height="18" rx="3" fill="#ffffff" stroke="#27ae60"/>
+  <text x="78" y="368" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">МК GPIO</text>
+  <line x1="112" y1="364" x2="144" y2="364" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <rect x="146" y="355" width="70" height="18" rx="3" fill="#27ae60"/>
+  <text x="181" y="368" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Пін 7 (CS)</text>
+  <line x1="218" y1="364" x2="248" y2="364" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <rect x="250" y="355" width="78" height="18" rx="3" fill="#ffffff" stroke="#27ae60"/>
+  <text x="289" y="368" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ST7789 CS</text>
+  <text x="338" y="368" font-size="12" font-weight="bold" fill="#27ae60">Керований</text>
+
+  <text x="50" y="394" font-size="12" font-weight="bold" fill="#27ae60">✓ Спільна шина SPI дозволена: CS = 1 вимикає дисплей</text>
+  <text x="50" y="414" font-size="12" fill="#1a1a1a">• Лінії SCL та SDA можна ділити з SD-картою або сенсорами</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: 7-контактний модуль -->
+  <rect x="492" y="76" width="444" height="362" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок правої панелі -->
+  <rect x="493" y="77" width="442" height="30" rx="7" fill="#fdecea"/>
+  <text x="506" y="97" font-size="14" font-weight="bold" fill="#c0392b">7-контактний модуль (без виводу CS)</text>
+  <rect x="774" y="81" width="148" height="22" rx="4" fill="#c0392b"/>
+  <text x="848" y="96" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Шина SPI: ВИДІЛЕНА</text>
+
+  <!-- Рядки контактів 7-контактного модуля -->
+  <!-- 1: GND -->
+  <rect x="506" y="116" width="416" height="22" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <circle cx="521" cy="127" r="9" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="521" y="131" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1</text>
+  <rect x="537" y="118" width="41" height="18" rx="3" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="557" y="131" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+  <text x="586" y="131" font-size="12" fill="#1a1a1a">Загальний провід (0 В живлення та сигналів)</text>
+
+  <!-- 2: VCC -->
+  <rect x="506" y="142" width="416" height="22" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <circle cx="521" cy="153" r="9" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="521" y="157" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2</text>
+  <rect x="537" y="144" width="41" height="18" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="557" y="157" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">VCC</text>
+  <text x="586" y="157" font-size="12" fill="#1a1a1a">Живлення модуля (3.3 В, неприпустимо 5 В!)</text>
+
+  <!-- 3: SCL -->
+  <rect x="506" y="168" width="416" height="22" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <circle cx="521" cy="179" r="9" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="521" y="183" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3</text>
+  <rect x="537" y="170" width="41" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="557" y="183" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SCL</text>
+  <text x="586" y="183" font-size="12" fill="#1a1a1a">Тактовий сигнал шини SPI (SCK / SCLK)</text>
+
+  <!-- 4: SDA -->
+  <rect x="506" y="194" width="416" height="22" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <circle cx="521" cy="205" r="9" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="521" y="209" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4</text>
+  <rect x="537" y="196" width="41" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="557" y="209" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SDA</text>
+  <text x="586" y="209" font-size="12" fill="#1a1a1a">Послідовні дані шини SPI (MOSI)</text>
+
+  <!-- 5: RES -->
+  <rect x="506" y="220" width="416" height="22" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <circle cx="521" cy="231" r="9" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="521" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">5</text>
+  <rect x="537" y="222" width="41" height="18" rx="3" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="557" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RES</text>
+  <text x="586" y="235" font-size="12" fill="#1a1a1a">Апаратне скидання (Reset, активний 0)</text>
+
+  <!-- 6: DC -->
+  <rect x="506" y="246" width="416" height="22" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <circle cx="521" cy="257" r="9" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="521" y="261" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">6</text>
+  <rect x="537" y="248" width="41" height="18" rx="3" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="557" y="261" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DC</text>
+  <text x="586" y="261" font-size="12" fill="#1a1a1a">Режим: 0 = команда, 1 = дані дисплея</text>
+
+  <!-- 7: BLK (Зсунуто на місце піна 7!) -->
+  <rect x="506" y="272" width="416" height="22" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <circle cx="521" cy="283" r="9" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="521" y="287" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">7</text>
+  <rect x="537" y="274" width="41" height="18" rx="3" fill="#f4f6f8" stroke="#6b7280"/>
+  <text x="557" y="287" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">BLK</text>
+  <text x="586" y="287" font-size="12" fill="#1a1a1a">Підсвічування матриці (зсунуто на пін 7!)</text>
+
+  <!-- Блок відсутнього та заземленого CS -->
+  <rect x="506" y="298" width="416" height="46" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="518" y="316" font-size="12" font-weight="bold" fill="#c0392b">⛔ Пін CS відсутній на колодці (не виведений назовні)</text>
+  <text x="518" y="334" font-size="12" fill="#1a1a1a">Вхід CS чіпа ST7789 на платі з'єднано наглухо з GND (0 В)</text>
+
+  <!-- Нижня картка 7-контактного модуля -->
+  <rect x="506" y="348" width="416" height="82" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="510" y="352" width="408" height="24" rx="4" fill="#fdecea"/>
+  <rect x="514" y="355" width="64" height="18" rx="3" fill="#ffffff" stroke="#6b7280" stroke-dasharray="3 2"/>
+  <text x="546" y="368" font-size="12" fill="#6b7280" text-anchor="middle">МК GPIO</text>
+  <text x="592" y="368" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">✕</text>
+  <rect x="608" y="355" width="72" height="18" rx="3" fill="#c0392b"/>
+  <text x="644" y="368" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">GND (0 В)</text>
+  <line x1="682" y1="364" x2="718" y2="364" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <rect x="720" y="355" width="78" height="18" rx="3" fill="#ffffff" stroke="#c0392b"/>
+  <text x="759" y="368" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ST7789 CS</text>
+  <text x="808" y="368" font-size="12" font-weight="bold" fill="#c0392b">Замкнено!</text>
+
+  <text x="518" y="394" font-size="12" font-weight="bold" fill="#c0392b">✗ Спільна шина SPI заборонена: CS = 0 завжди активний</text>
+  <text x="518" y="414" font-size="12" fill="#1a1a1a">• Чужий трафік на шині SPI сприймається як сміття на екрані</text>
+</svg>

@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="27" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Бюджет пам'яті SRAM та артефакти прямого виводу на ST7789</text>
+  <text x="480" y="47" font-size="13" fill="#6b7280" text-anchor="middle">Кадровий буфер 115 КБ перевищує ОЗП мікроконтролера, а наївне малювання по SPI спричиняє розрив і блимання</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Бюджет пам'яті -->
+  <rect x="20" y="62" width="450" height="402" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="82" font-size="14" font-weight="bold" fill="#1a1a1a">1. Бюджет оперативної пам'яті (SRAM)</text>
+  <text x="36" y="98" font-size="12" fill="#6b7280">Повний буфер 240×240 RGB565 не вміщується в ОЗП МК</text>
+
+  <!-- Лінія межі 64 КБ -->
+  <line x1="266" y1="126" x2="266" y2="216" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Фізична SRAM -->
+  <text x="36" y="122" font-size="13" font-weight="bold" fill="#1a1a1a">Фізична SRAM МК:</text>
+  <text x="272" y="122" font-size="12" font-weight="bold" fill="#c0392b">← Фізична межа SRAM (64 КБ)</text>
+
+  <rect x="36" y="130" width="60" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="66" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Стек, ОС</text>
+  <text x="66" y="157" font-size="12" fill="#2457d6" text-anchor="middle">~16 КБ</text>
+
+  <rect x="96" y="130" width="170" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="181" y="149" font-size="12" fill="#1a1a1a" text-anchor="middle">Вільна RAM (~48 КБ)</text>
+
+  <!-- Повний фреймбуфер -->
+  <text x="36" y="176" font-size="13" font-weight="bold" fill="#1a1a1a">Повний буфер 240×240 RGB565 (115.2 КБ):</text>
+
+  <rect x="36" y="184" width="230" height="32" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="151" y="204" font-size="12" fill="#6b7280" text-anchor="middle">Вичерпує 100% SRAM (64 КБ)</text>
+
+  <rect x="266" y="184" width="184" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="358" y="198" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ДЕФІЦИТ: +51.2 КБ</text>
+  <text x="358" y="210" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Overflow! Не вміститься</text>
+
+  <text x="36" y="230" font-size="12" fill="#6b7280">Розрахунок: 240 × 240 × 2 байти = 115 200 байтів (115.2 КБ)</text>
+
+  <!-- Блок розв'язку: рядкова буферизація -->
+  <rect x="32" y="244" width="426" height="208" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="46" y="266" font-size="13" font-weight="bold" fill="#27ae60">Розв'язок: Подвійна рядкова буферизація (Line Buffers)</text>
+  <text x="46" y="284" font-size="12" fill="#1a1a1a">Замість цілого кадру виділяються лише два рядки по 240 пікселів:</text>
+
+  <rect x="46" y="296" width="192" height="30" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="142" y="315" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Буфер A: 240 px (480 B)</text>
+
+  <rect x="248" y="296" width="192" height="30" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="344" y="315" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Буфер B: 240 px (480 B)</text>
+
+  <text x="46" y="346" font-size="12" font-weight="bold" fill="#1a1a1a">Сумарна RAM:</text>
+  <text x="156" y="346" font-size="12" font-weight="bold" fill="#27ae60">2 × 240 × 2 байти = 960 байтів (&lt; 1 КБ!)</text>
+
+  <text x="46" y="368" font-size="12" fill="#1a1a1a">Економія:</text>
+  <text x="118" y="368" font-size="12" font-weight="bold" fill="#27ae60">у 120 разів менше за повний буфер (1.5% від 64 КБ)</text>
+
+  <text x="46" y="390" font-size="12" fill="#1a1a1a">Конвеєр:</text>
+  <text x="118" y="390" font-size="12" fill="#6b7280">CPU рендерить рядок N в A, DMA шле N-1 з B по SPI</text>
+
+  <text x="46" y="412" font-size="12" fill="#1a1a1a">Частота:</text>
+  <text x="118" y="412" font-size="12" font-weight="bold" fill="#27ae60">Стабільні 45+ FPS без падіння продуктивності</text>
+
+  <text x="46" y="434" font-size="12" font-weight="bold" fill="#27ae60">✓ Повний захист від Overflow та оптимізація під будь-який МК</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Артефакти -->
+  <rect x="490" y="62" width="450" height="402" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="506" y="82" font-size="14" font-weight="bold" fill="#1a1a1a">2. Артефакти наївного попіксельного малювання</text>
+  <text x="506" y="98" font-size="12" fill="#6b7280">Спроба малювати напряму в GRAM через SPI дає два дефекти</text>
+
+  <!-- Підпанель 1: Розрив зображення (Tearing) -->
+  <rect x="502" y="114" width="426" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="514" y="132" font-size="13" font-weight="bold" fill="#c0392b">Дефект 1: Розрив зображення (Tearing)</text>
+
+  <!-- Дисплей 1: зі зламаною стрілкою -->
+  <rect x="514" y="142" width="116" height="120" rx="8" fill="#1f242d" stroke="#6b7280" stroke-width="1.2"/>
+  <circle cx="572" cy="202" r="48" fill="#28303f"/>
+  <circle cx="572" cy="202" r="42" fill="none" stroke="#4a5568" stroke-width="1.5" stroke-dasharray="3 4"/>
+  <circle cx="572" cy="202" r="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Пунктирні сліди очікуваних положень стрілки -->
+  <line x1="560" y1="194" x2="548" y2="170" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <line x1="572" y1="202" x2="582" y2="194" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2 2"/>
+
+  <!-- Лінія розриву -->
+  <line x1="514" y1="194" x2="630" y2="194" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 2"/>
+
+  <!-- Реально відображені зламані сегменти стрілки -->
+  <line x1="572" y1="202" x2="560" y2="194" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/>
+  <line x1="582" y1="194" x2="602" y2="168" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Текст праворуч від дисплея 1 -->
+  <text x="640" y="148" font-size="12" font-weight="bold" fill="#1a1a1a">Причина: зіткнення швидкостей</text>
+  <text x="640" y="166" font-size="12" fill="#2457d6">• Розгортка дисплея (60 Гц) біжить вниз</text>
+  <text x="640" y="184" font-size="12" fill="#1a1a1a">• Повільний SPI не встигає оновити кадр</text>
+  <text x="640" y="204" font-size="12" font-weight="bold" fill="#c0392b">← Лінія розриву: зсув стрілки</text>
+  <text x="640" y="224" font-size="12" fill="#6b7280">Верх показує новий кадр, низ — старий</text>
+  <text x="640" y="244" font-size="12" font-weight="bold" fill="#c0392b">Стрілка індикатора зламана навпіл!</text>
+
+  <!-- Підпанель 2: Мерехтіння (Flicker) -->
+  <rect x="502" y="286" width="426" height="166" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="514" y="306" font-size="13" font-weight="bold" fill="#c0392b">Дефект 2: Мерехтіння та стробування (Flicker)</text>
+
+  <!-- Міні-екран 1: стерто -->
+  <rect x="514" y="318" width="76" height="76" rx="6" fill="#1f242d" stroke="#6b7280" stroke-width="1.2"/>
+  <circle cx="552" cy="356" r="30" fill="#28303f"/>
+  <circle cx="552" cy="356" r="3" fill="#6b7280"/>
+  <line x1="552" y1="356" x2="568" y2="336" stroke="#4a5568" stroke-width="2" stroke-dasharray="2 2"/>
+  <text x="552" y="408" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Стерто</text>
+  <text x="552" y="422" font-size="12" fill="#6b7280" text-anchor="middle">(чорний екран)</text>
+
+  <!-- Стрілки циклу між міні-екранами -->
+  <line x1="593" y1="350" x2="611" y2="350" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="611" y1="362" x2="593" y2="362" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Міні-екран 2: намальовано -->
+  <rect x="614" y="318" width="76" height="76" rx="6" fill="#1f242d" stroke="#6b7280" stroke-width="1.2"/>
+  <circle cx="652" cy="356" r="30" fill="#28303f"/>
+  <circle cx="652" cy="356" r="3" fill="#ffffff"/>
+  <line x1="652" y1="356" x2="670" y2="334" stroke="#2457d6" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="652" y="408" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Намальовано</text>
+  <text x="652" y="422" font-size="12" fill="#6b7280" text-anchor="middle">(нова стрілка)</text>
+
+  <text x="602" y="442" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Постійне блимання (20–30 Гц)</text>
+
+  <!-- Текст праворуч від міні-екранів -->
+  <text x="704" y="324" font-size="12" font-weight="bold" fill="#1a1a1a">Механізм артефакту:</text>
+  <text x="704" y="342" font-size="12" fill="#1a1a1a">1. Код стирає стару стрілку</text>
+  <text x="704" y="360" font-size="12" fill="#1a1a1a">2. Потім малює нову по SPI</text>
+  <text x="704" y="380" font-size="12" font-weight="bold" fill="#c0392b">Око встигає зафіксувати пустий</text>
+  <text x="704" y="396" font-size="12" font-weight="bold" fill="#c0392b">проміжний стан дисплея!</text>
+  <text x="704" y="418" font-size="12" fill="#6b7280">Шкала постійно блимає і втомлює зір.</text>
+  <text x="704" y="438" font-size="12" font-weight="bold" fill="#27ae60">Рядковий буфер ліквідує дефект!</text>
+</svg>

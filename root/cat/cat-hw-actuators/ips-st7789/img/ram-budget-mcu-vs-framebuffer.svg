@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Бюджет оперативної пам'яті (RAM) мікроконтролерів vs кадровий буфер ST7789</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Повний кадр 240×240 RGB565 вимагає 115.2 КіБ: неможливий на MCU до 20 КіБ і вимагає блокового LVGL</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ДІАГРАМА RAM ==================== -->
+  <rect x="24" y="65" width="546" height="375" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="24" y="65" width="546" height="28" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="297" y="84" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Порівняння апаратної SRAM та розмірів буферів (КіБ)</text>
+
+  <!-- Горизонтальні лінії сітки та осі -->
+  <line x1="60" y1="340" x2="540" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="60" y1="95" x2="60" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Позначки осі Y (КіБ) -->
+  <text x="54" y="344" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="54" y="258" font-size="12" fill="#c0392b" text-anchor="end">115</text>
+  <text x="54" y="146" font-size="12" fill="#6b7280" text-anchor="end">264</text>
+  <text x="54" y="104" font-size="12" fill="#6b7280" text-anchor="end">320</text>
+
+  <!-- Червона лінія порогу повного кадру: 115.2 КіБ (y=254) -->
+  <line x1="222" y1="254" x2="385" y2="254" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="68" y="243" width="148" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="142" y="258" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Повний кадр: 115.2 КіБ</text>
+
+  <!-- Стовпчик 1: ATmega328P (2 КіБ) -->
+  <rect x="85" y="334" width="55" height="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="112" y="328" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">2 КіБ</text>
+  <text x="112" y="302" font-size="12" fill="#c0392b" text-anchor="middle">Краш</text>
+  <text x="112" y="356" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">ATmega</text>
+  <text x="112" y="370" font-size="12" fill="#6b7280" text-anchor="middle">328P</text>
+
+  <!-- Стовпчик 2: STM32F103C8 (20 КіБ) -->
+  <rect x="160" y="325" width="55" height="15" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="187" y="318" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">20 КіБ</text>
+  <text x="187" y="292" font-size="12" fill="#c0392b" text-anchor="middle">Дефіцит</text>
+  <text x="187" y="356" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">STM32</text>
+  <text x="187" y="370" font-size="12" fill="#6b7280" text-anchor="middle">F103C8</text>
+
+  <!-- Стовпчик 3: RP2040 (264 КіБ) -->
+  <!-- Нижня частина: кадровий буфер 115.2 КіБ (44%) -->
+  <rect x="235" y="254" width="60" height="86" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="265" y="290" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">115 КіБ</text>
+  <text x="265" y="306" font-size="12" fill="#c0392b" text-anchor="middle">(44%)</text>
+  <!-- Верхня частина: вільна пам'ять 148.8 КіБ (56%) -->
+  <rect x="235" y="142" width="60" height="112" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="265" y="194" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вільна</text>
+  <text x="265" y="210" font-size="12" fill="#2457d6" text-anchor="middle">RAM 56%</text>
+  <text x="265" y="134" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">264 КіБ</text>
+  <text x="265" y="356" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">RP2040</text>
+  <text x="265" y="370" font-size="12" fill="#6b7280" text-anchor="middle">M0+ Dual</text>
+
+  <!-- Стовпчик 4: ESP32 (320 КіБ) -->
+  <!-- Нижня частина: кадровий буфер 115.2 КіБ (36%) -->
+  <rect x="315" y="254" width="60" height="86" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="345" y="290" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">115 КіБ</text>
+  <text x="345" y="306" font-size="12" fill="#c0392b" text-anchor="middle">(36%)</text>
+  <!-- Верхня частина: вільна пам'ять 204.8 КіБ (64%) -->
+  <rect x="315" y="100" width="60" height="154" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="345" y="174" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вільна</text>
+  <text x="345" y="190" font-size="12" fill="#2457d6" text-anchor="middle">RAM 64%</text>
+  <text x="345" y="92" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">320 КіБ</text>
+  <text x="345" y="356" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">ESP32</text>
+  <text x="345" y="370" font-size="12" fill="#6b7280" text-anchor="middle">Xtensa</text>
+
+  <!-- Розділовий пунктир між MCU та буферами LVGL -->
+  <line x1="395" y1="95" x2="395" y2="375" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="475" y="112" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Розв'язок LVGL</text>
+  <text x="475" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Часткові буфери</text>
+
+  <!-- Стовпчик 5: Буфер 1/10 (24 рядки = 11.52 КіБ) -->
+  <rect x="415" y="322" width="55" height="18" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="442" y="314" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">11.5 КіБ</text>
+  <text x="442" y="356" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">1/10</text>
+  <text x="442" y="370" font-size="12" fill="#6b7280" text-anchor="middle">24 рядки</text>
+
+  <!-- Стовпчик 6: Буфер 1/20 (12 рядків = 5.76 КіБ) -->
+  <rect x="485" y="328" width="55" height="12" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="512" y="320" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">5.8 КіБ</text>
+  <text x="512" y="356" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">1/20</text>
+  <text x="512" y="370" font-size="12" fill="#6b7280" text-anchor="middle">12 рядків</text>
+
+  <!-- Нижня інформаційна смужка панелі 1 -->
+  <rect x="34" y="390" width="526" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="297" y="407" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Буфер 1/20 (5.8 КіБ) займає лише 28% пам'яті STM32F103 (20 КіБ)</text>
+  <text x="297" y="423" font-size="12" fill="#6b7280" text-anchor="middle">Залишається понад 14 КіБ RAM для стека, черг FreeRTOS та змінних програми</text>
+
+
+  <!-- ==================== ПАНЕЛЬ 2: ІНЖЕНЕРНИЙ АНАЛІЗ ==================== -->
+  <rect x="582" y="65" width="354" height="375" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="582" y="65" width="354" height="28" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="759" y="84" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">2. Інженерний аналіз та механіка disp_flush()</text>
+
+  <!-- Блок 1: Проблема повного кадру -->
+  <rect x="594" y="102" width="330" height="82" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="606" y="120" font-size="12" font-weight="700" fill="#c0392b">⛔ Проблема: повний кадр 240×240 RGB565</text>
+  <text x="606" y="138" font-size="12" fill="#1a1a1a">240 × 240 × 2 байти = 115 200 байтів (115.2 КіБ).</text>
+  <text x="606" y="156" font-size="12" fill="#6b7280">• ATmega328P (2K) та STM32 (20K): апаратний краш.</text>
+  <text x="606" y="172" font-size="12" fill="#6b7280">• RP2040 / ESP32: блокує від 36% до 44% всієї RAM.</text>
+
+  <!-- Блок 2: Розв'язок LVGL -->
+  <rect x="594" y="192" width="330" height="98" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="606" y="210" font-size="12" font-weight="700" fill="#27ae60">✓ Розв'язок: часткова буферизація LVGL</text>
+  <text x="606" y="228" font-size="12" fill="#1a1a1a">Виділення буфера на 1/10 або 1/20 площі екрана:</text>
+  <text x="606" y="246" font-size="12" fill="#27ae60">• 1/10 екрана (24 рядки) = 11.52 КіБ (RP2040, ESP32)</text>
+  <text x="606" y="264" font-size="12" fill="#27ae60">• 1/20 екрана (12 рядків) = 5.76 КіБ (STM32F103)</text>
+  <text x="606" y="280" font-size="12" fill="#6b7280">Рендеринг ведеться лише для брудних зон (dirty areas).</text>
+
+  <!-- Блок 3: Передача disp_flush -->
+  <rect x="594" y="298" width="330" height="134" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="606" y="316" font-size="12" font-weight="700" fill="#2457d6">Механізм передачі disp_flush() у ST7789:</text>
+  <text x="606" y="334" font-size="12" fill="#1a1a1a">void my_flush_cb(lv_display_t *disp, ...)</text>
+  <text x="606" y="352" font-size="12" fill="#2457d6">  st7789_set_window(area-&gt;x1, area-&gt;y1, ...);</text>
+  <text x="606" y="370" font-size="12" fill="#2457d6">  st7789_write_dma(px_map, len); // DMA по SPI</text>
+  <text x="606" y="388" font-size="12" fill="#6b7280">  // Після завершення DMA: lv_disp_flush_ready()</text>
+  <text x="606" y="412" font-size="12" font-weight="700" fill="#1a1a1a">Швидкість: &gt; 35 FPS без повного кадрового буфера</text>
+</svg>

@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+  </marker>
+</defs>
+
+<!-- Біла підкладка -->
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+
+<!-- Заголовок та підзаголовок -->
+<text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Відсікання вікна оновлення (Software Clipping) для ST7789</text>
+<text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Корекція координат CASET/RASET і зсуву буфера при виході вікна за межі матриці 240×240</text>
+
+<!-- ================= ЛІВА ЧАСТИНА: ГЕОМЕТРІЯ ================= -->
+
+<!-- Матриця IPS 240x240 -->
+<rect x="70" y="95" width="288" height="288" fill="#f8fafc" stroke="#2457d6" stroke-width="2" rx="4"/>
+<rect x="70" y="95" width="288" height="24" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+<text x="80" y="112" font-size="12" font-weight="bold" fill="#2457d6">Матриця IPS 240×240</text>
+
+<!-- Кутові координати матриці -->
+<text x="76" y="132" font-size="12" fill="#2457d6">(0, 0)</text>
+<text x="76" y="375" font-size="12" fill="#2457d6">(0, 239)</text>
+<text x="352" y="112" text-anchor="end" font-size="12" fill="#2457d6">(239, 0)</text>
+
+<!-- Точка початку об'єкта (x, y) -->
+<circle cx="202" cy="251" r="3.5" fill="#1a1a1a"/>
+<text x="194" y="243" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">(x, y) = (110, 130)</text>
+<text x="194" y="258" text-anchor="end" font-size="12" fill="#6b7280">початок об'єкта</text>
+
+<!-- Видима зона всередині матриці -->
+<rect x="202" y="251" width="156" height="132" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+<text x="280" y="280" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Корисна видима зона</text>
+<text x="280" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">CASET: [110 … 239]</text>
+<text x="280" y="318" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">RASET: [130 … 239]</text>
+<text x="280" y="338" text-anchor="middle" font-size="12" fill="#6b7280">Розмір: 130 × 110 px</text>
+<text x="280" y="356" text-anchor="middle" font-size="12" fill="#27ae60">→ запис у GRAM</text>
+
+<!-- Відсічена зона справа -->
+<rect x="358" y="251" width="48" height="180" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="416" y="295" font-size="12" font-weight="bold" fill="#c0392b">Відсічено:</text>
+<text x="416" y="311" font-size="12" font-weight="bold" fill="#c0392b">X &gt; 239</text>
+<text x="416" y="329" font-size="12" fill="#6b7280">стовпці</text>
+<text x="416" y="345" font-size="12" fill="#6b7280">240…279</text>
+<text x="416" y="363" font-size="12" fill="#c0392b">(відкинуто)</text>
+
+<!-- Відсічена зона знизу -->
+<rect x="202" y="383" width="156" height="48" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="280" y="405" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Відсічено: Y &gt; 239</text>
+<text x="280" y="421" text-anchor="middle" font-size="12" fill="#6b7280">рядки 240…279</text>
+
+<!-- Точка кінця запитаного об'єкта -->
+<circle cx="406" cy="431" r="3.5" fill="#c0392b"/>
+<text x="406" y="449" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Кінець об'єкта: (279, 279)</text>
+
+<!-- Розмірна стрілка ширини w = 170 -->
+<line x1="206" y1="218" x2="402" y2="218" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+<text x="304" y="212" text-anchor="middle" font-size="12" fill="#1a1a1a">Ширина об'єкта w = 170 px</text>
+
+
+<!-- ================= ПРАВА ЧАСТИНА: ПАНЕЛЬ ФОРМУЛ ================= -->
+
+<!-- Тло панелі -->
+<rect x="510" y="95" width="420" height="355" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+<line x1="510" y1="128" x2="930" y2="128" stroke="#d0d7de" stroke-width="1"/>
+<text x="720" y="117" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Алгоритм відсікання та розрахунку буфера</text>
+
+<!-- Розділ 1: Межі вікна -->
+<text x="526" y="148" font-size="12" font-weight="bold" fill="#1a1a1a">1. Розрахунок меж вікна оновлення:</text>
+
+<rect x="526" y="156" width="388" height="52" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+<text x="538" y="174" font-size="12" font-weight="bold" fill="#2457d6">x1 = max(0, x),   y1 = max(0, y)</text>
+<text x="538" y="194" font-size="12" font-weight="bold" fill="#2457d6">x2 = min(239, x + w - 1),   y2 = min(239, y + h - 1)</text>
+
+<text x="526" y="224" font-size="12" fill="#6b7280">Якщо x1 &gt; x2 або y1 &gt; y2 — об'єкт повністю поза екраном</text>
+
+<!-- Розділ 2: Буфер джерела -->
+<text x="526" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">2. Зсув буфера пікселів та крок (stride):</text>
+
+<rect x="526" y="252" width="388" height="52" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+<text x="538" y="270" font-size="12" font-weight="bold" fill="#2457d6">offset = (y1 - y) * w_src + (x1 - x)</text>
+<text x="538" y="290" font-size="12" fill="#1a1a1a">stride = w_src (пропуск невидимих пікселів у рядку)</text>
+
+<!-- Розділ 3: Апаратні особливості ST7789 -->
+<rect x="526" y="314" width="388" height="126" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+<text x="538" y="332" font-size="12" font-weight="bold" fill="#c0392b">Чому ST7789 не відсікає координати самостійно?</text>
+<text x="538" y="352" font-size="12" fill="#1a1a1a">• Контролер записує байти суворо за лічильником адреси GRAM.</text>
+<text x="538" y="372" font-size="12" fill="#1a1a1a">• Координати &gt; 239 викликають циклічний зсув (wrap-around):</text>
+<text x="538" y="388" font-size="12" fill="#1a1a1a">  пікселі виринають з протилежного боку, псуючи кадр.</text>
+<text x="538" y="408" font-size="12" fill="#1a1a1a">• Від'ємні числа як uint16_t стають ~65535, що зависає SPI.</text>
+<text x="538" y="426" font-size="12" fill="#1a1a1a">• Необхідно суворе програмне відсікання перед передачею!</text>
+
+</svg>

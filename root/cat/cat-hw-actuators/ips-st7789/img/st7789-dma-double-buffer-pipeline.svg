@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний конвеєр подвійної буферизації DMA для дисплея ST7789</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Одночасний рендеринг у Buffer B процесорним ядром та трансляція Buffer A контролером DMA по SPI</text>
+
+  <!-- ==================== LEFT: ARCHITECTURE & PHASES ==================== -->
+
+  <!-- SECTION 1: Hardware Architecture Block Diagram -->
+  <rect x="60" y="76" width="510" height="176" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="60" y="76" width="510" height="24" rx="6" fill="#eaf0fd"/>
+  <text x="72" y="93" font-size="13" font-weight="bold" fill="#2457d6">1. Архітектура апаратного конвеєра (поточний стан: Фаза 2)</text>
+
+  <!-- Hardware Block: CPU -->
+  <rect x="72" y="110" width="108" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="126" y="130" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CPU (Cortex-M)</text>
+  <text x="126" y="146" font-size="12" fill="#1a1a1a" text-anchor="middle">LVGL рендер</text>
+
+  <!-- Arrow: CPU -> Buffer B -->
+  <line x1="180" y1="124" x2="214" y2="124" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <text x="198" y="114" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Запис</text>
+
+  <!-- Hardware Block: SRAM Ping-Pong Buffers -->
+  <rect x="216" y="106" width="108" height="68" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Buffer B (Active CPU Write) -->
+  <rect x="220" y="110" width="100" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="270" y="128" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Buf B (Запис)</text>
+  <!-- Buffer A (Active DMA Read) -->
+  <rect x="220" y="142" width="100" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="270" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Buf A (Читання)</text>
+
+  <!-- Arrow: Buffer A -> DMA -->
+  <line x1="320" y1="156" x2="354" y2="156" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="338" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Читання</text>
+
+  <!-- Hardware Block: DMA Controller -->
+  <rect x="358" y="124" width="94" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="405" y="144" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Контролер DMA</text>
+  <text x="405" y="160" font-size="12" fill="#1a1a1a" text-anchor="middle">Автономний TX</text>
+
+  <!-- Arrow: DMA -> ST7789 -->
+  <line x1="452" y1="149" x2="482" y2="149" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr)"/>
+  <text x="468" y="141" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SPI</text>
+
+  <!-- Hardware Block: ST7789 Display Controller -->
+  <rect x="486" y="124" width="74" height="50" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="523" y="144" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ST7789</text>
+  <text x="523" y="160" font-size="12" fill="#6b7280" text-anchor="middle">GRAM</text>
+
+  <!-- Feedback Line: DMA TC Interrupt to CPU -->
+  <path d="M 405,174 L 405,206 L 126,206 L 126,164" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="266" y="222" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Переривання DMA TC IRQ: виклик lv_disp_flush_ready()</text>
+  <text x="266" y="240" font-size="12" fill="#6b7280" text-anchor="middle">Паралелізм 100%: CPU ніколи не блокується повільною шиною SPI</text>
+
+  <!-- SECTION 2: Pipeline Phases (Time Stages) -->
+  <rect x="60" y="264" width="510" height="132" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="60" y="264" width="510" height="24" rx="6" fill="#e9f7ef"/>
+  <text x="72" y="281" font-size="13" font-weight="bold" fill="#27ae60">2. Тактність конвеєра (почергове перемикання буферів)</text>
+
+  <!-- Track Labels -->
+  <text x="72" y="317" font-size="12" font-weight="bold" fill="#2457d6">CPU рендер</text>
+  <text x="72" y="357" font-size="12" font-weight="bold" fill="#27ae60">DMA передача</text>
+
+  <!-- Phase Dividers -->
+  <line x1="280" y1="296" x2="280" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="415" y1="296" x2="415" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- Phase 1: CPU Render Buf A, DMA Idle -->
+  <rect x="145" y="300" width="132" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="211" y="317" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фаза 1: Рендер Buf A</text>
+
+  <rect x="145" y="340" width="132" height="26" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="211" y="357" font-size="12" fill="#6b7280" text-anchor="middle">DMA Idle (сон)</text>
+
+  <!-- Phase 2: CPU Render Buf B || DMA TX Buf A -->
+  <rect x="282" y="300" width="130" height="26" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="347" y="317" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фаза 2: Рендер Buf B</text>
+
+  <rect x="282" y="340" width="130" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="347" y="357" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA TX: Buf A (SPI)</text>
+
+  <!-- Phase 3: CPU Render Buf A || DMA TX Buf B -->
+  <rect x="417" y="300" width="133" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="483" y="317" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фаза 3: Рендер Buf A</text>
+
+  <rect x="417" y="340" width="133" height="26" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="483" y="357" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">DMA TX: Buf B (SPI)</text>
+
+  <!-- Summary Note Section 2 -->
+  <text x="72" y="384" font-size="12" font-weight="bold" fill="#27ae60">Результат: подвоєння FPS завдяки паралельному виконанню фаз 2 і 3!</text>
+
+  <!-- Bottom Result Banner -->
+  <rect x="60" y="408" width="510" height="28" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="315" y="426" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Висновок: конвеєр усуває простої шини; Line Buffer (24 рядки) заощаджує 92 КБ RAM</text>
+
+  <!-- ==================== RIGHT: ENGINEERING CARDS ==================== -->
+
+  <!-- Card 1: Pipeline Non-blocking -->
+  <rect x="590" y="76" width="340" height="112" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="590" y="76" width="340" height="26" rx="6" fill="#eaf0fd"/>
+  <text x="602" y="94" font-size="13" font-weight="bold" fill="#2457d6">1. Апаратний конвеєр без пауз</text>
+
+  <text x="602" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">Розпаралелення обчислень та TX</text>
+  <text x="602" y="136" font-size="12" fill="#6b7280">Ядро малює віджети у Buffer B, доки DMA</text>
+  <text x="602" y="154" font-size="12" fill="#6b7280">викачує Buffer A в SPI FIFO без участі CPU.</text>
+  <text x="602" y="172" font-size="12" font-weight="bold" fill="#2457d6">Утилізація ядра сягає 100% без очікування шини.</text>
+
+  <!-- Card 2: DMA TC Interrupt -->
+  <rect x="590" y="200" width="340" height="112" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="590" y="200" width="340" height="26" rx="6" fill="#e9f7ef"/>
+  <text x="602" y="218" font-size="13" font-weight="bold" fill="#27ae60">2. Переривання DMA TC Interrupt</text>
+
+  <text x="602" y="242" font-size="12" font-weight="bold" fill="#1a1a1a">Синхронізація обміну буферів</text>
+  <text x="602" y="260" font-size="12" fill="#6b7280">Після передачі останнього байта блоку DMA</text>
+  <text x="602" y="278" font-size="12" fill="#6b7280">викликає lv_disp_flush_ready(), що миттєво</text>
+  <text x="602" y="296" font-size="12" font-weight="bold" fill="#27ae60">перемикає покажчик Ping-Pong на наступний буфер.</text>
+
+  <!-- Card 3: Line Buffer -->
+  <rect x="590" y="324" width="340" height="112" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="590" y="324" width="340" height="26" rx="6" fill="#fdecea"/>
+  <text x="602" y="342" font-size="13" font-weight="bold" fill="#c0392b">3. Частковий буфер (Line Buffer)</text>
+
+  <text x="602" y="366" font-size="12" font-weight="bold" fill="#1a1a1a">Економія пам'яті на 24 рядки</text>
+  <text x="602" y="384" font-size="12" fill="#6b7280">Повний екран вимагає 115.2 КБ оперативної пам'яті.</text>
+  <text x="602" y="402" font-size="12" fill="#6b7280">Два буфери по 24 рядки займають лише 23 КБ RAM,</text>
+  <text x="602" y="420" font-size="12" font-weight="bold" fill="#c0392b">забезпечуючи повноцінні 45–60 FPS на Cortex-M4.</text>
+</svg>

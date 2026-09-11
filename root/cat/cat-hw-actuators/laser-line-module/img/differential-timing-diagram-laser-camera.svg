@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-rev-blue" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L1,4 L7,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-rev-gray" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L1,4 L7,7 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Часова діаграма диференційної синхронізації лазера та камери</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Чергування кадрів Laser ON і Laser OFF для повного апаратного відсікання фонового освітлення</text>
+
+  <!-- Заголовки кадрів (Банери) -->
+  <rect x="230" y="64" width="320" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="390" y="80" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Кадр 2k: Laser ON (Лазерна лінія + Фон)</text>
+
+  <rect x="565" y="64" width="320" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="725" y="80" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">Кадр 2k+1: Laser OFF (Тільки фонове світло)</text>
+
+  <!-- Доріжка 1: Керування N-MOSFET (Laser Gate) -->
+  <text x="25" y="112" font-size="13" font-weight="700" fill="#1a1a1a">Керування N-MOSFET</text>
+  <text x="25" y="128" font-size="12" fill="#6b7280">Затвор (Laser Gate)</text>
+  <text x="218" y="105" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">3.3 В</text>
+  <text x="218" y="135" text-anchor="end" font-size="12" fill="#6b7280">0 В</text>
+
+  <line x1="225" y1="135" x2="255" y2="135" stroke="#6b7280" stroke-width="1.5"/>
+  <path d="M255,135 L255,105 L395,105 L395,135 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="325" y="124" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Laser ON</text>
+  <line x1="395" y1="135" x2="550" y2="135" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="565" y1="135" x2="885" y2="135" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="725" y="125" text-anchor="middle" font-size="12" fill="#6b7280">Лазер вимкнено (0 В)</text>
+
+  <!-- Доріжка 2: Строб експозиції сенсора (Global Shutter) -->
+  <text x="25" y="176" font-size="13" font-weight="700" fill="#1a1a1a">Строб експозиції</text>
+  <text x="25" y="192" font-size="12" fill="#6b7280">Global Shutter</text>
+  <text x="218" y="170" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">ВІДКР</text>
+  <text x="218" y="200" text-anchor="end" font-size="12" fill="#6b7280">ЗАКР</text>
+
+  <line x1="225" y1="200" x2="280" y2="200" stroke="#6b7280" stroke-width="1.5"/>
+  <path d="M280,200 L280,170 L390,170 L390,200 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="335" y="189" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Експозиція 2k</text>
+  <line x1="390" y1="200" x2="550" y2="200" stroke="#6b7280" stroke-width="1.5"/>
+
+  <line x1="565" y1="200" x2="615" y2="200" stroke="#6b7280" stroke-width="1.5"/>
+  <path d="M615,200 L615,170 L725,170 L725,200 Z" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+  <text x="670" y="189" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Експозиція 2k+1</text>
+  <line x1="725" y1="200" x2="885" y2="200" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Розмірні стрілки t_lead та t_exp -->
+  <line x1="258" y1="152" x2="277" y2="152" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-rev-blue)" marker-end="url(#arr-blue)"/>
+  <text x="267" y="147" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">t_lead</text>
+
+  <line x1="284" y1="152" x2="386" y2="152" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-rev-blue)" marker-end="url(#arr-blue)"/>
+  <text x="335" y="147" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">t_exp</text>
+
+  <line x1="619" y1="152" x2="721" y2="152" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-rev-gray)" marker-end="url(#arr-gray)"/>
+  <text x="670" y="147" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">t_exp</text>
+
+  <!-- Доріжка 3: Зчитування матриці (Sensor Readout) -->
+  <text x="25" y="234" font-size="13" font-weight="700" fill="#1a1a1a">Зчитування матриці</text>
+  <text x="25" y="250" font-size="12" fill="#6b7280">Sensor Readout</text>
+  <line x1="225" y1="246" x2="400" y2="246" stroke="#6b7280" stroke-width="1.5"/>
+
+  <rect x="400" y="233" width="140" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="470" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Передача I_on</text>
+  <line x1="540" y1="246" x2="735" y2="246" stroke="#6b7280" stroke-width="1.5"/>
+
+  <rect x="735" y="233" width="140" height="26" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="805" y="250" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Передача I_off</text>
+  <line x1="875" y1="246" x2="885" y2="246" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Доріжка 4: Обчислювач DSP (Frame Diff) -->
+  <text x="25" y="286" font-size="13" font-weight="700" fill="#1a1a1a">Обчислювач DSP</text>
+  <text x="25" y="302" font-size="12" fill="#6b7280">Різниця кадрів (Diff)</text>
+
+  <line x1="225" y1="298" x2="875" y2="298" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="550" y="293" text-anchor="middle" font-size="12" fill="#6b7280">Очікування надходження обох сусідніх кадрів у буфер пам'яті</text>
+
+  <rect x="878" y="285" width="67" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="911" y="302" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">I_diff</text>
+
+  <!-- Розмірна стрілка T_frame -->
+  <line x1="234" y1="322" x2="546" y2="322" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-rev-gray)" marker-end="url(#arr-gray)"/>
+  <text x="390" y="318" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">T_frame (період кадру, наприклад 16.6 мс @ 60 FPS)</text>
+
+  <!-- Вертикальні маркери фаз -->
+  <line x1="255" y1="88" x2="255" y2="104" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="280" y1="88" x2="280" y2="104" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="390" y1="88" x2="390" y2="104" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="615" y1="88" x2="615" y2="104" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="725" y1="88" x2="725" y2="104" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="557.5" y1="64" x2="557.5" y2="280" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1.5"/>
+
+  <!-- Нижні інформаційні картки -->
+  <rect x="25" y="338" width="445" height="108" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="358" font-size="13" font-weight="700" fill="#2457d6">1. Диференційне віднімання (Frame Subtraction)</text>
+  <text x="40" y="378" font-size="12" fill="#1a1a1a">• Кадр 2k (Laser ON): I_on = I_лазер + I_фон (лінія разом із шумом)</text>
+  <text x="40" y="398" font-size="12" fill="#1a1a1a">• Кадр 2k+1 (Laser OFF): I_off = I_фон (тільки фонове освітлення)</text>
+  <text x="40" y="420" font-size="12" font-weight="700" fill="#27ae60">• Результат: I_diff = max(0, I_on − I_off) — чиста лінія без завад!</text>
+  <text x="40" y="438" font-size="12" fill="#6b7280">Повне апаратне придушення сонячного світла та штучних ламп</text>
+
+  <rect x="485" y="338" width="450" height="108" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="500" y="358" font-size="13" font-weight="700" fill="#1a1a1a">2. Вимоги до апаратної синхронізації</text>
+  <text x="500" y="378" font-size="12" fill="#1a1a1a">• Випередження t_lead (10–20 мкс): стабілізація потужності лазера</text>
+  <text x="500" y="398" font-size="12" fill="#1a1a1a">• Global Shutter: однаковий t_exp виключає спотворення рухомих сцен</text>
+  <text x="500" y="418" font-size="12" fill="#1a1a1a">• Чергування кадрів знижує середнє теплове навантаження діода у 2 рази</text>
+  <text x="500" y="438" font-size="12" fill="#6b7280">Пікова яскравість зберігається при 50% загальному коефіцієнті заповнення</text>
+</svg>

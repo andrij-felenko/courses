@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-gray-rev" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Послідовність ініціалізації та часові затримки пробудження ST7789</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Критичні інтервали: скидання t_RES ≥ 10 мкс, пауза стабілізації помп t_POW ≥ 120 мс перед DISPON</text>
+
+  <!-- Фонова панель осцилограми / часової шкали -->
+  <rect x="24" y="62" width="912" height="316" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовки фаз (верхня смужка) -->
+  <rect x="184" y="67" width="166" height="22" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="267" y="82" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Апаратне скидання</text>
+
+  <rect x="356" y="67" width="374" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="543" y="82" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">2. Пробудження та розгойдування помп (SLPOUT, ≥ 120 мс)</text>
+
+  <rect x="736" y="67" width="194" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="833" y="82" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">3. Увімкнення екрана (DISPON)</text>
+
+  <!-- Вертикальні розділові пунктири фаз -->
+  <line x1="353" y1="92" x2="353" y2="340" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="733" y1="92" x2="733" y2="340" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Ліва колонка назв каналів (x = 32..174) -->
+  <line x1="178" y1="62" x2="178" y2="378" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Рядок 1: RES (Reset) -->
+  <text x="168" y="118" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">Лінія RES (NRST)</text>
+  <text x="168" y="134" font-size="12" fill="#6b7280" text-anchor="end">Активний рівень 0 В</text>
+
+  <!-- Сигнал RES -->
+  <path d="M 184,110 H 216 V 136 H 256 V 110 H 930" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Інтервал скидання t_RW -->
+  <line x1="216" y1="147" x2="223" y2="147" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-gray-rev)"/>
+  <text x="236" y="150" font-size="12" fill="#6b7280" text-anchor="middle">10 мкс</text>
+  <line x1="249" y1="147" x2="256" y2="147" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+
+  <!-- Інтервал очікування t_RES ≥ 5 мс -->
+  <line x1="256" y1="120" x2="274" y2="120" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-gray-rev)"/>
+  <text x="304" y="124" font-size="12" fill="#6b7280" text-anchor="middle">t_RES ≥ 5 мс</text>
+  <line x1="334" y1="120" x2="353" y2="120" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+
+  <line x1="184" y1="158" x2="930" y2="158" stroke="#f4f6f8" stroke-width="1"/>
+
+  <!-- Рядок 2: Шина SPI -->
+  <text x="168" y="180" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">Шина SPI</text>
+  <text x="168" y="196" font-size="12" fill="#6b7280" text-anchor="end">D/C + SCLK + MOSI</text>
+
+  <!-- Базова лінія шини SPI (пасивний рівень) -->
+  <line x1="184" y1="186" x2="366" y2="186" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <line x1="444" y1="186" x2="576" y2="186" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <line x1="720" y1="186" x2="742" y2="186" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="2 2"/>
+
+  <!-- Команда SLPOUT (0x11) -->
+  <rect x="368" y="168" width="74" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="405" y="183" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">0x11</text>
+  <text x="405" y="197" font-size="12" fill="#2457d6" text-anchor="middle">SLPOUT</text>
+
+  <!-- Конфігураційні регістри під час розгону помп -->
+  <rect x="578" y="168" width="140" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="648" y="183" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">COLMOD, MADCTL</text>
+  <text x="648" y="197" font-size="12" fill="#6b7280" text-anchor="middle">0x3A, 0x36 (регістри)</text>
+
+  <!-- Команда DISPON (0x29) -->
+  <rect x="744" y="168" width="76" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="782" y="183" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">0x29</text>
+  <text x="782" y="197" font-size="12" fill="#27ae60" text-anchor="middle">DISPON</text>
+
+  <!-- Запис у GRAM: RAMWR (0x2C) -->
+  <rect x="826" y="168" width="98" height="36" rx="4" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="875" y="183" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">0x2C RAMWR</text>
+  <text x="875" y="197" font-size="12" fill="#ffffff" text-anchor="middle">Потік RGB565</text>
+
+  <!-- Горизонтальний інтервал розгойдування помп t_POW ≥ 120 мс -->
+  <line x1="444" y1="214" x2="480" y2="214" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)"/>
+  <text x="586" y="218" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Обов'язкова пауза розгойдування помп t_POW ≥ 120 мс</text>
+  <line x1="692" y1="214" x2="733" y2="214" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Рядок 3: Помпи заряду VGH / VGL -->
+  <text x="168" y="246" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">VGH (+13 В)</text>
+  <text x="168" y="260" font-size="12" fill="#6b7280" text-anchor="end">Відмикання затворів</text>
+
+  <text x="168" y="284" font-size="12" fill="#6b7280" text-anchor="end">Рівень GND (0 В)</text>
+
+  <text x="168" y="308" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">VGL (-10 В)</text>
+  <text x="168" y="322" font-size="12" fill="#6b7280" text-anchor="end">Замикання затворів</text>
+
+  <!-- Лінія GND (0 В) -->
+  <line x1="184" y1="280" x2="930" y2="280" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Крива VGH (+13 В) -->
+  <!-- 0 В до SLPOUT (x=442), потім наростання за експонентою до +13 В (y=242), стабілізація до x=660 -->
+  <path d="M 184,280 H 442 C 480,280 540,242 630,242 H 930" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <rect x="644" y="231" width="80" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="684" y="244" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">+13 В (стабільно)</text>
+
+  <!-- Крива VGL (-10 В) -->
+  <!-- 0 В до SLPOUT (x=442), потім спад за експонентою до -10 В (y=318), стабілізація до x=660 -->
+  <path d="M 184,280 H 442 C 480,280 540,318 630,318 H 930" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <rect x="644" y="311" width="80" height="18" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="684" y="324" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">-10 В (стабільно)</text>
+
+  <!-- Рядок 4: Стан розгортки матриці IPS -->
+  <text x="168" y="362" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">Розгортка IPS</text>
+
+  <rect x="184" y="348" width="544" height="22" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="456" y="363" font-size="12" fill="#6b7280" text-anchor="middle">Матриця неактивна (Sleep Mode / Blanking, затвори TFT закриті)</text>
+
+  <rect x="734" y="348" width="196" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="832" y="363" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Активна розгортка (60 Гц)</text>
+
+  <!-- Нижні інформаційні картки (порівняння «не так» vs «так») -->
+  <!-- Картка 1: Проблема (червона) -->
+  <rect x="24" y="390" width="446" height="74" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="40" y="410" font-size="12" font-weight="700" fill="#c0392b">⛔ Збій: надсилання DISPON або даних без паузи 120 мс</text>
+  <text x="40" y="428" font-size="12" fill="#1a1a1a">Помпи не вийшли на режим: VGH &lt; +13 В, VGL &gt; -10 В.</text>
+  <text x="40" y="446" font-size="12" fill="#6b7280">Виникає білий спалах, артефакти або деградація TFT.</text>
+
+  <!-- Картка 2: Розв'язок (зелена) -->
+  <rect x="490" y="390" width="446" height="74" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="506" y="410" font-size="12" font-weight="700" fill="#27ae60">✓ Норма: суворе витримування t_RES та t_POW ≥ 120 мс</text>
+  <text x="506" y="428" font-size="12" fill="#1a1a1a">Повна стабілізація напруг до запуску ключів розгортки.</text>
+  <text x="506" y="446" font-size="12" fill="#6b7280">Миттєвий чистий старт кадру та глибокий контраст IPS.</text>
+</svg>

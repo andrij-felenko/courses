@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма відгуку сервопривода та апаратна зона нечутливості (Deadband)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння тривалості вхідного ШІМ і внутрішнього імпульсу: відсутність реакції в зоні ±t_db та подача напруги на мотор за її межами</text>
+
+  <!-- ==================== LEFT: TIMING DIAGRAMS ==================== -->
+
+  <!-- Mode 1 Header (Inside Deadband) -->
+  <rect x="130" y="74" width="220" height="26" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="240" y="91" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">|Δt| ≤ t_db (у межах Deadband)</text>
+
+  <!-- Mode 2 Header (Outside Deadband) -->
+  <rect x="380" y="74" width="220" height="26" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="490" y="91" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">|Δt| > t_db (поза Deadband)</text>
+
+  <!-- Divider Line Between Modes -->
+  <line x1="365" y1="74" x2="365" y2="442" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="4,4"/>
+
+  <!-- Shaded Deadband Bands (paths) -->
+  <!-- Mode 1 Deadband Band around falling edge (266 to 282) -->
+  <path d="M 266,130 L 282,130 L 282,315 L 266,315 Z" fill="#e9f7ef" opacity="0.6"/>
+  <line x1="266" y1="130" x2="266" y2="315" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="282" y1="130" x2="282" y2="315" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Mode 2 Deadband Band around ref edge (512 to 528) -->
+  <path d="M 512,130 L 528,130 L 528,315 L 512,315 Z" fill="#e9f7ef" opacity="0.6"/>
+  <line x1="512" y1="130" x2="512" y2="315" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="528" y1="130" x2="528" y2="315" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Track Labels (Column at X <= 122) -->
+  <!-- Track 1: Input PWM -->
+  <text x="122" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">t_in (ШІМ)</text>
+  <text x="122" y="160" font-size="12" fill="#6b7280" text-anchor="end">Вхідний сигнал</text>
+
+  <!-- Track 2: Reference Feedback Pulse -->
+  <text x="122" y="216" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">t_ref (опора)</text>
+  <text x="122" y="230" font-size="12" fill="#6b7280" text-anchor="end">Потенціометр</text>
+
+  <!-- Track 3: Error Signal -->
+  <text x="122" y="296" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">|Δt| (похибка)</text>
+  <text x="122" y="310" font-size="12" fill="#6b7280" text-anchor="end">Компаратор</text>
+
+  <!-- Track 4: Motor Voltage -->
+  <text x="122" y="382" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">V_motor (міст)</text>
+  <text x="122" y="398" font-size="12" fill="#6b7280" text-anchor="end">Напруга мотора</text>
+
+  <!-- -------------------- MODE 1 WAVEFORMS (LEFT) -------------------- -->
+  <!-- Track 1 (Mode 1): t_in pulse -->
+  <line x1="150" y1="128" x2="270" y2="128" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="210" y="120" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">t_in = 1,500 мс</text>
+  <path d="M 130,160 L 150,160 L 150,135 L 270,135 L 270,160 L 350,160" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Track 2 (Mode 1): t_ref pulse -->
+  <line x1="150" y1="198" x2="274" y2="198" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="210" y="190" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">t_ref = 1,503 мс</text>
+  <path d="M 130,230 L 150,230 L 150,205 L 274,205 L 274,230 L 350,230" fill="none" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Track 3 (Mode 1): Error Signal |Delta_t| and Threshold -->
+  <line x1="140" y1="295" x2="280" y2="295" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <text x="145" y="288" font-size="12" font-weight="bold" fill="#27ae60">Поріг t_db (4 мкс)</text>
+  <!-- Error spike within deadband -->
+  <path d="M 130,310 L 270,310 L 270,300 L 274,300 L 274,310 L 350,310" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="286" y="304" font-size="12" font-weight="bold" fill="#27ae60">|Δt| &lt; t_db</text>
+
+  <!-- Track 4 (Mode 1): Motor Voltage = 0 V -->
+  <line x1="130" y1="400" x2="350" y2="400" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="240" y="420" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_motor = 0 В (спокій)</text>
+  <text x="240" y="436" font-size="12" fill="#6b7280" text-anchor="middle">Усунення дрижання вала</text>
+
+  <!-- -------------------- MODE 2 WAVEFORMS (RIGHT) ------------------- -->
+  <!-- Track 1 (Mode 2): t_in pulse (expanded) -->
+  <line x1="400" y1="128" x2="560" y2="128" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="480" y="120" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">t_in = 1,560 мс (новий кут)</text>
+  <path d="M 380,160 L 400,160 L 400,135 L 560,135 L 560,160 L 600,160" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Track 2 (Mode 2): t_ref pulse (current feedback) -->
+  <line x1="400" y1="198" x2="520" y2="198" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="460" y="190" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">t_ref = 1,500 мс (старий)</text>
+  <path d="M 380,230 L 400,230 L 400,205 L 520,205 L 520,230 L 600,230" fill="none" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Track 3 (Mode 2): Error Signal |Delta_t| Exceeding Threshold -->
+  <line x1="380" y1="295" x2="505" y2="295" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <!-- Wide error pulse breaking deadband -->
+  <path d="M 380,310 L 520,310 L 520,275 L 560,275 L 560,310 L 600,310" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="540" y="268" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">|Δt| > t_db</text>
+
+  <!-- Track 4 (Mode 2): Motor Voltage = 5 V Drive Pulse -->
+  <path d="M 380,400 L 528,400 L 528,365 L 570,365 L 570,400 L 600,400" fill="#fdecea" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="490" y="420" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">V_motor = 5 В (рух)</text>
+  <text x="490" y="436" font-size="12" fill="#6b7280" text-anchor="middle">Запуск мотора для компенсації</text>
+
+  <!-- ==================== RIGHT: ENGINEERING CARDS ==================== -->
+
+  <!-- Card 1: Positional Error Detection -->
+  <rect x="635" y="76" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="635" y="76" width="301" height="26" rx="6" fill="#eaf0fd"/>
+  <text x="645" y="94" font-size="13" font-weight="bold" fill="#2457d6">1. Виявлення похибки (Δt)</text>
+
+  <text x="645" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">Порівняння тривалості імпульсів</text>
+  <text x="645" y="136" font-size="12" fill="#6b7280">Вхідний ШІМ t_in звіряється з t_ref,</text>
+  <text x="645" y="154" font-size="12" fill="#6b7280">який генерує внутрішній одновібратор</text>
+  <text x="645" y="174" font-size="12" font-weight="bold" fill="#2457d6">відповідно до кута потенціометра.</text>
+
+  <!-- Card 2: Deadband Window Purpose -->
+  <rect x="635" y="202" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="635" y="202" width="301" height="26" rx="6" fill="#e9f7ef"/>
+  <text x="645" y="220" font-size="13" font-weight="bold" fill="#27ae60">2. Зона нечутливості (t_db)</text>
+
+  <text x="645" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">Усунення автоколивань (Hunting)</text>
+  <text x="645" y="262" font-size="12" fill="#6b7280">Якщо |Δt| ≤ 4–8 мкс, мотор вимкнено.</text>
+  <text x="645" y="280" font-size="12" fill="#6b7280">Це запобігає постійному дрижанню</text>
+  <text x="645" y="300" font-size="12" font-weight="bold" fill="#27ae60">вала навколо цільової точки зупину.</text>
+
+  <!-- Card 3: Motor Firing Beyond Deadband -->
+  <rect x="635" y="328" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="635" y="328" width="301" height="26" rx="6" fill="#fdecea"/>
+  <text x="645" y="346" font-size="13" font-weight="bold" fill="#c0392b">3. Силова компенсація похибки</text>
+
+  <text x="645" y="370" font-size="12" font-weight="bold" fill="#1a1a1a">Подача живлення на H-міст (5 В)</text>
+  <text x="645" y="388" font-size="12" fill="#6b7280">Коли |Δt| > t_db, драйвер формує імпульс</text>
+  <text x="645" y="406" font-size="12" fill="#6b7280">напруги на мотор: редуктор крутить вал,</text>
+  <text x="645" y="426" font-size="12" font-weight="bold" fill="#c0392b">поки похибка знову не увійде в deadband.</text>
+</svg>

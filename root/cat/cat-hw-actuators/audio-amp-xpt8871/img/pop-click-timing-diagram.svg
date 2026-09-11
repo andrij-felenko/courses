@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма пробудження XPT8871 та усунення клацання</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Пауза перед подачею звуку дає C_BYPASS зарядитися до VDD/2, усуваючи перехідний щиглик</text>
+
+  <!-- Фазові блоки вгорі діаграми -->
+  <rect x="235" y="70" width="158" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="314" y="89" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Режим сну (сон)</text>
+
+  <rect x="407" y="70" width="244" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="529" y="89" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Заряд C_BYPASS (пауза МК)</text>
+
+  <rect x="667" y="70" width="258" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="796" y="89" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Чистий запуск звуку</text>
+
+  <!-- Вертикальні розділювачі фаз -->
+  <line x1="405" y1="102" x2="405" y2="350" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="665" y1="102" x2="665" y2="350" stroke="#27ae60" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Канал 1: Керування SHDN -->
+  <rect x="30" y="118" width="175" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="42" y="137" font-size="12" font-weight="bold" fill="#1a1a1a">Вхід SHDN (GPIO МК)</text>
+  <text x="42" y="154" font-size="12" fill="#6b7280">Керування живленням</text>
+
+  <text x="245" y="152" font-size="12" fill="#6b7280">0 В (сон, вимкнено)</text>
+  <text x="420" y="124" font-size="12" font-weight="bold" fill="#2457d6">HIGH: пробудження (VDD)</text>
+  <text x="685" y="124" font-size="12" fill="#6b7280">Підсилювач увімкнено (активний)</text>
+
+  <polyline points="235,160 405,160 405,132 925,132" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Канал 2: Напруга V_BYPASS -->
+  <rect x="30" y="186" width="175" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="42" y="205" font-size="12" font-weight="bold" fill="#1a1a1a">Напруга V_BYPASS</text>
+  <text x="42" y="222" font-size="12" fill="#6b7280">Заряд ємності C_BYPASS</text>
+
+  <line x1="235" y1="204" x2="925" y2="204" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="245" y="196" font-size="12" font-weight="bold" fill="#1a1a1a">Рівень VDD / 2 (2.5 В)</text>
+  <text x="245" y="234" font-size="12" fill="#6b7280">0 В (розряджений)</text>
+  <text x="685" y="196" font-size="12" font-weight="bold" fill="#27ae60">Стабільне зміщення VDD/2</text>
+
+  <path d="M 235,240 L 405,240 C 450,208 520,204 665,204 L 925,204" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Інтервал t_startup: стрілки та позначення -->
+  <line x1="405" y1="244" x2="405" y2="256" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="665" y1="244" x2="665" y2="256" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="413" y1="250" x2="657" y2="250" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="425" y1="250" x2="413" y2="250" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="645" y1="250" x2="657" y2="250" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="535" y="266" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_startup (50–100 мс)</text>
+
+  <!-- Канал 3: Вихід на динамік -->
+  <rect x="30" y="284" width="175" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="42" y="303" font-size="12" font-weight="bold" fill="#1a1a1a">Вихід на динамік</text>
+  <text x="42" y="320" font-size="12" fill="#6b7280">Сигнал навантаження BTL</text>
+
+  <line x1="235" y1="320" x2="925" y2="320" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="245" y="312" font-size="12" fill="#6b7280">0 В (тиша в режимі сну)</text>
+
+  <!-- Помилковий стрибок без паузи -->
+  <path d="M 415,320 Q 425,285 435,288 Q 445,291 455,336 Q 468,340 480,320" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+  <text x="440" y="295" font-size="12" font-weight="bold" fill="#c0392b">⚠️ Без паузи: щиглик (Pop!)</text>
+
+  <!-- Зелена лінія паузи: тиша -->
+  <line x1="405" y1="320" x2="665" y2="320" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="535" y="338" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Пауза МК: аудіо вимкнено (тиша)</text>
+
+  <!-- Чистий запуск синусоїди після паузи -->
+  <path d="M 665,320 C 675,310 685,310 695,320 C 705,330 715,330 725,320 C 735,302 745,302 755,320 C 765,338 775,338 785,320 C 795,302 805,302 815,320 C 825,338 835,338 845,320 C 855,302 865,302 875,320 C 885,338 895,338 905,320 L 925,320" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="795" y="292" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Чистий запуск звуку без клацання</text>
+
+  <!-- Підсумкові інформаційні блоки -->
+  <rect x="30" y="362" width="440" height="70" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="44" y="381" font-size="12" font-weight="bold" fill="#c0392b">Помилка: запуск звуку без паузи (t &lt; t_startup)</text>
+  <text x="44" y="399" font-size="12" fill="#1a1a1a">Нестабільна середина живлення дає стрибок струму в динамік.</text>
+  <text x="44" y="417" font-size="12" fill="#6b7280">Наслідок: гучне клацання (Pop-noise) і перевантаження дифузора.</text>
+
+  <rect x="490" y="362" width="440" height="70" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="504" y="381" font-size="12" font-weight="bold" fill="#27ae60">Розв'язок: витримка паузи t ≥ t_startup (50–100 мс)</text>
+  <text x="504" y="399" font-size="12" fill="#1a1a1a">МК утримує тишу, доки C_BYPASS плавно зарядиться до VDD/2.</text>
+  <text x="504" y="417" font-size="12" fill="#6b7280">Наслідок: мостовий вихід збалансований, звук чистий без клацання.</text>
+</svg>

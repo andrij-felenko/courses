@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Спектр радіовипромінювання двигуна (0.1–200 МГц)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Триконденсаторний фільтр придушує іскрові завади щіток на 25–35 дБ</text>
+
+  <!-- Left Section: Spectrum Plot -->
+  <text x="75" y="74" font-size="12" font-weight="bold" fill="#1a1a1a">Рівень завад (дБмкВ)</text>
+
+  <!-- Plot frame -->
+  <rect x="75" y="80" width="530" height="250" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Horizontal grid lines -->
+  <line x1="75" y1="100" x2="605" y2="100" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="75" y1="150" x2="605" y2="150" stroke="#e2e8f0" stroke-width="1"/>
+  <!-- CISPR limit line broken around label at [424..546] -->
+  <line x1="75" y1="200" x2="420" y2="200" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <line x1="550" y1="200" x2="605" y2="200" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <line x1="75" y1="250" x2="605" y2="250" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="75" y1="300" x2="605" y2="300" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Vertical grid lines (frequency decades) -->
+  <line x1="236" y1="80" x2="236" y2="330" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="396" y1="80" x2="396" y2="330" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="557" y1="80" x2="557" y2="330" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- CISPR normative badge -->
+  <rect x="424" y="189" width="122" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="485" y="204" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Норма CISPR 22</text>
+
+  <!-- Delta attenuation arrows & badge -->
+  <line x1="316" y1="168" x2="316" y2="128" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <line x1="316" y1="197" x2="316" y2="237" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <rect x="286" y="171" width="60" height="23" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="316" y="187" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">−35 дБ</text>
+
+  <!-- Y-axis labels -->
+  <text x="68" y="104" font-size="12" fill="#6b7280" text-anchor="end">80 дБ</text>
+  <text x="68" y="154" font-size="12" fill="#6b7280" text-anchor="end">60 дБ</text>
+  <text x="68" y="204" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="end">40 дБ</text>
+  <text x="68" y="254" font-size="12" fill="#6b7280" text-anchor="end">20 дБ</text>
+  <text x="68" y="304" font-size="12" fill="#6b7280" text-anchor="end">0 дБ</text>
+
+  <!-- Curve 1: Without filter (Red) -->
+  <path d="M 75 150 L 95 145 L 120 148 L 145 138 L 170 142 L 195 130 L 215 134 L 236 122 L 260 118 L 280 126 L 300 120 L 325 116 L 350 122 L 375 118 L 396 125 L 420 132 L 445 130 L 470 140 L 495 144 L 520 154 L 540 162 L 557 168 L 580 178 L 605 186" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Curve 2: With filter (Green) -->
+  <path d="M 75 212 L 95 220 L 120 228 L 145 234 L 170 238 L 195 242 L 215 240 L 236 246 L 260 248 L 280 245 L 300 247 L 325 244 L 350 248 L 375 245 L 396 246 L 420 243 L 445 246 L 470 242 L 495 245 L 520 241 L 540 243 L 557 240 L 580 238 L 605 236" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- X ticks -->
+  <line x1="75" y1="330" x2="75" y2="336" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="236" y1="330" x2="236" y2="336" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="396" y1="330" x2="396" y2="336" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="557" y1="330" x2="557" y2="336" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="605" y1="330" x2="605" y2="336" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Minor X ticks -->
+  <line x1="123" y1="330" x2="123" y2="333" stroke="#6b7280" stroke-width="1"/>
+  <line x1="187" y1="330" x2="187" y2="333" stroke="#6b7280" stroke-width="1"/>
+  <line x1="284" y1="330" x2="284" y2="333" stroke="#6b7280" stroke-width="1"/>
+  <line x1="348" y1="330" x2="348" y2="333" stroke="#6b7280" stroke-width="1"/>
+  <line x1="444" y1="330" x2="444" y2="333" stroke="#6b7280" stroke-width="1"/>
+  <line x1="508" y1="330" x2="508" y2="333" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- X-axis labels -->
+  <text x="75" y="350" font-size="12" fill="#6b7280" text-anchor="middle">0.1</text>
+  <text x="236" y="350" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+  <text x="396" y="350" font-size="12" fill="#6b7280" text-anchor="middle">10</text>
+  <text x="557" y="350" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+  <text x="605" y="350" font-size="12" fill="#6b7280" text-anchor="end">200</text>
+
+  <!-- X-axis title -->
+  <text x="340" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">Частота, МГц (логарифмічна шкала)</text>
+
+  <!-- Legend box -->
+  <rect x="75" y="385" width="530" height="49" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <line x1="90" y1="401" x2="115" y2="401" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="122" y="405" font-size="12" font-weight="bold" fill="#c0392b">Без фільтра:</text>
+  <text x="206" y="405" font-size="12" fill="#1a1a1a">іскріння щіток колектора (широкосмуговий шум)</text>
+
+  <line x1="90" y1="421" x2="115" y2="421" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="122" y="425" font-size="12" font-weight="bold" fill="#27ae60">З фільтром:</text>
+  <text x="200" y="425" font-size="12" fill="#1a1a1a">3× керамічні C (придушення завад на 25–35 дБ)</text>
+
+  <!-- Right Panel: 3-Capacitor Filter Schematic & Rules -->
+  <rect x="635" y="80" width="295" height="354" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="782" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Триконденсаторний фільтр</text>
+
+  <!-- Motor body -->
+  <rect x="650" y="130" width="75" height="100" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="642" y="167" width="8" height="26" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="687" y="175" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двигун DC</text>
+  <text x="687" y="192" font-size="12" fill="#6b7280" text-anchor="middle">Корпус</text>
+
+  <!-- Terminal M+ -->
+  <line x1="725" y1="145" x2="840" y2="145" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="725" cy="145" r="2.5" fill="#c0392b"/>
+  <text x="733" y="140" font-size="12" font-weight="bold" fill="#c0392b">M+</text>
+
+  <!-- Terminal M- -->
+  <line x1="725" y1="215" x2="840" y2="215" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="725" cy="215" r="2.5" fill="#2457d6"/>
+  <text x="733" y="229" font-size="12" font-weight="bold" fill="#2457d6">M−</text>
+
+  <!-- Case ground wire and symbol -->
+  <line x1="725" y1="180" x2="785" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="725" cy="180" r="2.5" fill="#1a1a1a"/>
+  <line x1="755" y1="180" x2="755" y2="194" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="749" y1="194" x2="761" y2="194" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="752" y1="197" x2="758" y2="197" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="754" y1="200" x2="756" y2="200" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- C2 (M+ to Case GND) -->
+  <line x1="785" y1="145" x2="785" y2="159" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="777" y1="159" x2="793" y2="159" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="777" y1="165" x2="793" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="785" y1="165" x2="785" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="785" cy="145" r="2" fill="#1a1a1a"/>
+  <circle cx="785" cy="180" r="2" fill="#1a1a1a"/>
+  <text x="798" y="166" font-size="12" font-weight="bold" fill="#1a1a1a">C2</text>
+
+  <!-- C3 (Case GND to M-) -->
+  <line x1="785" y1="180" x2="785" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="777" y1="195" x2="793" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="777" y1="201" x2="793" y2="201" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="785" y1="201" x2="785" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="785" cy="225" r="2" fill="#1a1a1a"/>
+  <text x="798" y="202" font-size="12" font-weight="bold" fill="#1a1a1a">C3</text>
+
+  <!-- C1 (M+ to M-) -->
+  <line x1="840" y1="145" x2="840" y2="177" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="832" y1="177" x2="848" y2="177" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="832" y1="183" x2="848" y2="183" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="840" y1="183" x2="840" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="840" cy="145" r="2" fill="#1a1a1a"/>
+  <circle cx="840" cy="215" r="2" fill="#1a1a1a"/>
+  <text x="853" y="184" font-size="12" font-weight="bold" fill="#1a1a1a">C1</text>
+
+  <!-- Card with component details -->
+  <rect x="647" y="248" width="271" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="657" y="267" font-size="12" font-weight="bold" fill="#1a1a1a">C1 (100 нФ):</text>
+  <text x="742" y="267" font-size="12" fill="#6b7280">диференційний шум щіток</text>
+  <text x="657" y="288" font-size="12" font-weight="bold" fill="#1a1a1a">C2, C3 (47 нФ):</text>
+  <text x="762" y="288" font-size="12" fill="#6b7280">синфазний шум на корпус</text>
+  <text x="657" y="309" font-size="12" font-weight="bold" fill="#27ae60">Star GND:</text>
+  <text x="725" y="309" font-size="12" fill="#6b7280">спільна точка заземлення</text>
+
+  <!-- Tip card -->
+  <rect x="647" y="334" width="271" height="86" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="657" y="355" font-size="12" font-weight="bold" fill="#27ae60">Правило монтажу фільтра:</text>
+  <text x="657" y="377" font-size="12" fill="#1a1a1a">• Пайка впритул до щіткотримачів</text>
+  <text x="657" y="399" font-size="12" fill="#1a1a1a">• Виводи мінімальні (низька ESL)</text>
+</svg>

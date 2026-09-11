@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Фон -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Диференціальний сигнал у мостовому виході (BTL)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Протифазні виходи подвоюють розмах до 2·VDD та усувають постійну складову на навантаженні (DC = 0 В)</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ОКРЕМІ ВИХОДИ ==================== -->
+  <rect x="25" y="78" width="910" height="132" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="40" y="98" font-size="13" font-weight="bold" fill="#1a1a1a">Виходи відносно землі (GND): протифазні коливання</text>
+  
+  <!-- Легенда виходів (бейджі) -->
+  <rect x="420" y="85" width="12" height="12" rx="2" fill="#2457d6"/>
+  <text x="438" y="96" font-size="12" font-weight="bold" fill="#2457d6">V_out+ (0°)</text>
+  <rect x="535" y="85" width="12" height="12" rx="2" fill="#c0392b"/>
+  <text x="553" y="96" font-size="12" font-weight="bold" fill="#c0392b">V_out− (180°)</text>
+
+  <!-- Сітка та опорні лінії Панелі 1 -->
+  <!-- 5.0 В (VDD) -->
+  <line x1="125" y1="120" x2="495" y2="120" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="118" y="124" font-size="12" fill="#6b7280" text-anchor="end">5 В (VDD)</text>
+  
+  <!-- 2.5 В (VDD / 2) -->
+  <line x1="125" y1="155" x2="495" y2="155" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="118" y="159" font-size="12" fill="#6b7280" text-anchor="end">2,5 В</text>
+
+  <!-- 0 В (GND) -->
+  <line x1="125" y1="190" x2="495" y2="190" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="118" y="194" font-size="12" fill="#6b7280" text-anchor="end">0 В (GND)</text>
+
+  <!-- Осі Панелі 1 -->
+  <line x1="125" y1="198" x2="125" y2="110" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="125" y1="190" x2="510" y2="190" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="518" y="194" font-size="12" fill="#6b7280">t</text>
+
+  <!-- Вертикальні лінії прив'язки фаз (Panel 1) -->
+  <line x1="220" y1="115" x2="220" y2="190" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="310" y1="115" x2="310" y2="190" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="400" y1="115" x2="400" y2="190" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="490" y1="115" x2="490" y2="190" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Маркерні точки на характерних фазах (Panel 1) -->
+  <circle cx="130" cy="155" r="3.5" fill="#6b7280"/>
+  <circle cx="220" cy="120" r="3.5" fill="#2457d6"/>
+  <circle cx="220" cy="190" r="3.5" fill="#c0392b"/>
+  <circle cx="310" cy="155" r="3.5" fill="#6b7280"/>
+  <circle cx="400" cy="190" r="3.5" fill="#2457d6"/>
+  <circle cx="400" cy="120" r="3.5" fill="#c0392b"/>
+  <circle cx="490" cy="155" r="3.5" fill="#6b7280"/>
+
+  <!-- Синусоїди Панелі 1 -->
+  <path d="M 130.0,155.0 L 135.0,151.9 L 140.0,148.9 L 145.0,145.9 L 150.0,143.0 L 155.0,140.2 L 160.0,137.5 L 165.0,134.9 L 170.0,132.5 L 175.0,130.3 L 180.0,128.2 L 185.0,126.3 L 190.0,124.7 L 195.0,123.3 L 200.0,122.1 L 205.0,121.2 L 210.0,120.5 L 215.0,120.1 L 220.0,120.0 L 225.0,120.1 L 230.0,120.5 L 235.0,121.2 L 240.0,122.1 L 245.0,123.3 L 250.0,124.7 L 255.0,126.3 L 260.0,128.2 L 265.0,130.3 L 270.0,132.5 L 275.0,134.9 L 280.0,137.5 L 285.0,140.2 L 290.0,143.0 L 295.0,145.9 L 300.0,148.9 L 305.0,151.9 L 310.0,155.0 L 315.0,158.1 L 320.0,161.1 L 325.0,164.1 L 330.0,167.0 L 335.0,169.8 L 340.0,172.5 L 345.0,175.1 L 350.0,177.5 L 355.0,179.7 L 360.0,181.8 L 365.0,183.7 L 370.0,185.3 L 375.0,186.7 L 380.0,187.9 L 385.0,188.8 L 390.0,189.5 L 395.0,189.9 L 400.0,190.0 L 405.0,189.9 L 410.0,189.5 L 415.0,188.8 L 420.0,187.9 L 425.0,186.7 L 430.0,185.3 L 435.0,183.7 L 440.0,181.8 L 445.0,179.7 L 450.0,177.5 L 455.0,175.1 L 460.0,172.5 L 465.0,169.8 L 470.0,167.0 L 475.0,164.1 L 480.0,161.1 L 485.0,158.1 L 490.0,155.0" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 130.0,155.0 L 135.0,158.1 L 140.0,161.1 L 145.0,164.1 L 150.0,167.0 L 155.0,169.8 L 160.0,172.5 L 165.0,175.1 L 170.0,177.5 L 175.0,179.7 L 180.0,181.8 L 185.0,183.7 L 190.0,185.3 L 195.0,186.7 L 200.0,187.9 L 205.0,188.8 L 210.0,189.5 L 215.0,189.9 L 220.0,190.0 L 225.0,189.9 L 230.0,189.5 L 235.0,188.8 L 240.0,187.9 L 245.0,186.7 L 250.0,185.3 L 255.0,183.7 L 260.0,181.8 L 265.0,179.7 L 270.0,177.5 L 275.0,175.1 L 280.0,172.5 L 285.0,169.8 L 290.0,167.0 L 295.0,164.1 L 300.0,161.1 L 305.0,158.1 L 310.0,155.0 L 315.0,151.9 L 320.0,148.9 L 325.0,145.9 L 330.0,143.0 L 335.0,140.2 L 340.0,137.5 L 345.0,134.9 L 350.0,132.5 L 355.0,130.3 L 360.0,128.2 L 365.0,126.3 L 370.0,124.7 L 375.0,123.3 L 380.0,122.1 L 385.0,121.2 L 390.0,120.5 L 395.0,120.1 L 400.0,120.0 L 405.0,120.1 L 410.0,120.5 L 415.0,121.2 L 420.0,122.1 L 425.0,123.3 L 430.0,124.7 L 435.0,126.3 L 440.0,128.2 L 445.0,130.3 L 450.0,132.5 L 455.0,134.9 L 460.0,137.5 L 465.0,140.2 L 470.0,143.0 L 475.0,145.9 L 480.0,148.9 L 485.0,151.9 L 490.0,155.0" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Стрілка розмаху V_pp для виходу -->
+  <line x1="544" y1="120" x2="556" y2="120" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="544" y1="190" x2="556" y2="190" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="550" y1="120" x2="550" y2="190" stroke="#2457d6" stroke-width="1.5"/>
+  <polyline points="547,126 550,120 553,126" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <polyline points="547,184 550,190 553,184" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="560" y="150" font-size="12" font-weight="bold" fill="#2457d6">V_pp = 5 В</text>
+  <text x="560" y="166" font-size="12" fill="#6b7280">(розмах = VDD)</text>
+
+  <!-- Картка параметрів Панелі 1 (праворуч) -->
+  <rect x="705" y="86" width="220" height="116" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="715" y="93" width="200" height="20" rx="4" fill="#f4f6f8"/>
+  <text x="815" y="107" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Окремий вихід (відносно GND)</text>
+  <text x="717" y="130" font-size="12" font-weight="bold" fill="#1a1a1a">Розмах кожного: V_pp = 5,0 В</text>
+  <text x="717" y="148" font-size="12" fill="#6b7280">Зсув фаз між виходами: 180°</text>
+  <text x="717" y="168" font-size="12" font-weight="bold" fill="#c0392b">Зміщення: DC = +2,5 В</text>
+  <text x="717" y="186" font-size="12" fill="#c0392b">Для динаміка потрібен C_out</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: ДИФЕРЕНЦІАЛЬНА НАПРУГА ==================== -->
+  <rect x="25" y="222" width="910" height="218" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <text x="40" y="244" font-size="13" font-weight="bold" fill="#1a1a1a">Диференціальна напруга: V_load = V_out+ − V_out−</text>
+  
+  <rect x="420" y="233" width="12" height="12" rx="2" fill="#27ae60"/>
+  <text x="438" y="244" font-size="12" font-weight="bold" fill="#27ae60">V_load (навантаження BTL)</text>
+
+  <!-- Сітка та опорні лінії Панелі 2 -->
+  <!-- +5.0 В (+VDD) -->
+  <line x1="125" y1="260" x2="495" y2="260" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="118" y="264" font-size="12" fill="#6b7280" text-anchor="end">+5 В (+VDD)</text>
+  
+  <!-- 0 В (DC = 0) -->
+  <line x1="125" y1="330" x2="495" y2="330" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="118" y="334" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="end">0 В (DC = 0)</text>
+
+  <!-- −5.0 В (−VDD) -->
+  <line x1="125" y1="400" x2="495" y2="400" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="118" y="404" font-size="12" fill="#6b7280" text-anchor="end">−5 В (−VDD)</text>
+
+  <!-- Осі Панелі 2 -->
+  <line x1="125" y1="412" x2="125" y2="250" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="125" y1="330" x2="510" y2="330" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="518" y="334" font-size="12" fill="#6b7280">t</text>
+
+  <!-- Вертикальні лінії прив'язки фаз (Panel 2) -->
+  <line x1="220" y1="255" x2="220" y2="405" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="310" y1="255" x2="310" y2="405" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="400" y1="255" x2="400" y2="405" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="490" y1="255" x2="490" y2="405" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Позначки часу на осі -->
+  <text x="130" y="424" font-size="12" fill="#6b7280" text-anchor="middle">t = 0</text>
+  <text x="220" y="424" font-size="12" fill="#6b7280" text-anchor="middle">t = T/4</text>
+  <text x="310" y="424" font-size="12" fill="#6b7280" text-anchor="middle">t = T/2</text>
+  <text x="400" y="424" font-size="12" fill="#6b7280" text-anchor="middle">t = 3T/4</text>
+  <text x="490" y="424" font-size="12" fill="#6b7280" text-anchor="middle">t = T</text>
+
+  <!-- Маркерні точки на характерних фазах (Panel 2) -->
+  <circle cx="130" cy="330" r="4" fill="#27ae60"/>
+  <circle cx="220" cy="260" r="4" fill="#27ae60"/>
+  <circle cx="310" cy="330" r="4" fill="#27ae60"/>
+  <circle cx="400" cy="400" r="4" fill="#27ae60"/>
+  <circle cx="490" cy="330" r="4" fill="#27ae60"/>
+
+  <!-- Диференціальна синусоїда Панелі 2 -->
+  <path d="M 130.0,330.0 L 135.0,323.9 L 140.0,317.8 L 145.0,311.9 L 150.0,306.1 L 155.0,300.4 L 160.0,295.0 L 165.0,289.8 L 170.0,285.0 L 175.0,280.5 L 180.0,276.4 L 185.0,272.7 L 190.0,269.4 L 195.0,266.6 L 200.0,264.2 L 205.0,262.4 L 210.0,261.1 L 215.0,260.3 L 220.0,260.0 L 225.0,260.3 L 230.0,261.1 L 235.0,262.4 L 240.0,264.2 L 245.0,266.6 L 250.0,269.4 L 255.0,272.7 L 260.0,276.4 L 265.0,280.5 L 270.0,285.0 L 275.0,289.8 L 280.0,295.0 L 285.0,300.4 L 290.0,306.1 L 295.0,311.9 L 300.0,317.8 L 305.0,323.9 L 310.0,330.0 L 315.0,336.1 L 320.0,342.2 L 325.0,348.1 L 330.0,353.9 L 335.0,359.6 L 340.0,365.0 L 345.0,370.2 L 350.0,375.0 L 355.0,379.5 L 360.0,383.6 L 365.0,387.3 L 370.0,390.6 L 375.0,393.4 L 380.0,395.8 L 385.0,397.6 L 390.0,398.9 L 395.0,399.7 L 400.0,400.0 L 405.0,399.7 L 410.0,398.9 L 415.0,397.6 L 420.0,395.8 L 425.0,393.4 L 430.0,390.6 L 435.0,387.3 L 440.0,383.6 L 445.0,379.5 L 450.0,375.0 L 455.0,370.2 L 460.0,365.0 L 465.0,359.6 L 470.0,353.9 L 475.0,348.1 L 480.0,342.2 L 485.0,336.1 L 490.0,330.0" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Стрілка подвоєного розмаху V_pp -->
+  <line x1="544" y1="260" x2="556" y2="260" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="544" y1="400" x2="556" y2="400" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="550" y1="260" x2="550" y2="400" stroke="#27ae60" stroke-width="1.5"/>
+  <polyline points="547,266 550,260 553,266" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <polyline points="547,394 550,400 553,394" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="560" y="324" font-size="12" font-weight="bold" fill="#27ae60">V_pp = 10 В</text>
+  <text x="560" y="340" font-size="12" fill="#27ae60">(подвоєння 2·VDD)</text>
+
+  <!-- Картка параметрів Панелі 2 (праворуч) -->
+  <rect x="705" y="232" width="220" height="196" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="715" y="239" width="200" height="20" rx="4" fill="#e9f7ef"/>
+  <text x="815" y="253" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Мостове навантаження (BTL)</text>
+  <text x="717" y="273" font-size="12" font-weight="bold" fill="#1a1a1a">Розмах: V_pp = 10,0 В (2·VDD)</text>
+  <text x="717" y="291" font-size="12" fill="#6b7280">Діапазон від −5 В до +5 В</text>
+  <text x="717" y="313" font-size="12" font-weight="bold" fill="#27ae60">Нульове зміщення: DC = 0 В</text>
+  <text x="717" y="331" font-size="12" fill="#27ae60">DC-струм через динамік = 0</text>
+  <text x="717" y="349" font-size="12" fill="#6b7280">Розділовий C_out не потрібен</text>
+  <text x="717" y="373" font-size="12" font-weight="bold" fill="#2457d6">Потужність: P_BTL = 4 · P_SE</text>
+  <text x="717" y="393" font-size="12" fill="#1a1a1a">Квадратичний приріст (+6 дБ)</text>
+  <text x="717" y="413" font-size="12" fill="#6b7280">P ~ V_RMS² : подвоєння дає ×4</text>
+</svg>

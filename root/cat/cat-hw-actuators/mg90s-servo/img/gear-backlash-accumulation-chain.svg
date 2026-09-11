@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr_red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr_rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механіка кутового люфту та його кумуляція в редукторі MG90S</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Бічний зазор зубців j_t створює мертвий хід; найбільший внесок у вихідний люфт дає фінальний ступінь</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Зазор у зачепленні зубців -->
+  <rect x="24" y="68" width="426" height="376" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="36" y="78" width="402" height="24" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="237" y="94" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Зазор зачеплення та мертвий хід пари зубців</text>
+
+  <!-- Рамка кресленика зачеплення -->
+  <rect x="36" y="108" width="402" height="170" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Ділильна лінія -->
+  <line x1="50" y1="185" x2="424" y2="185" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="54" y="180" font-size="12" fill="#6b7280">Ділильне коло</text>
+
+  <!-- Зуб 0 (Верхній лівий, для контакту) -->
+  <polygon points="135,125 148,230 178,145 165,125" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Зуб 1 (Нижній, ведучий) -->
+  <polygon points="160,250 178,145 208,145 226,250" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="193" y="268" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зуб 1 (Ведучий)</text>
+
+  <!-- Зуб 2 (Верхній, ведений, праворуч) -->
+  <polygon points="248,125 240,230 270,230 288,125" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="268" y="120" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зуб 2 (Ведений)</text>
+
+  <!-- Робочий контакт (зелена точка) -->
+  <circle cx="178" cy="145" r="4.5" fill="#27ae60"/>
+  <text x="110" y="152" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Робочий контакт</text>
+  <text x="110" y="168" font-size="12" fill="#27ae60" text-anchor="middle">(прямий рух)</text>
+
+  <!-- Бічний зазор j_t (виділено червоним) -->
+  <rect x="220" y="160" width="22" height="50" fill="#fdecea" stroke="#c0392b" stroke-dasharray="2 2"/>
+  <line x1="220" y1="185" x2="242" y2="185" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr_rev)" marker-end="url(#arr_red)"/>
+  <text x="350" y="176" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Бічний зазор j_t</text>
+  <text x="350" y="194" font-size="12" fill="#c0392b" text-anchor="middle">(Backlash gap)</text>
+
+  <!-- Пояснення внизу лівої панелі -->
+  <text x="40" y="296" font-size="12" font-weight="bold" fill="#2457d6">• Призначення зазору j_t:</text>
+  <text x="40" y="312" font-size="12" fill="#1a1a1a">Запобігає клину при тепловому розширенні металу.</text>
+
+  <text x="40" y="332" font-size="12" font-weight="bold" fill="#c0392b">• Мертвий хід при реверсі:</text>
+  <text x="40" y="348" font-size="12" fill="#1a1a1a">Вхід повертається на кут Δθ_dead до вибору зазору j_t.</text>
+
+  <rect x="36" y="362" width="402" height="42" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="237" y="380" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Кутовий люфт ступеня: Δθ = j_t / r_pitch (рад)</text>
+  <text x="237" y="398" font-size="12" fill="#1a1a1a" text-anchor="middle">Для прямозубих шестерень MG90S: Δθ ≈ 0.3° .. 0.8° на ступінь</text>
+
+  <text x="237" y="426" font-size="12" fill="#6b7280" text-anchor="middle">Зазор неминучий через допуски фрезерування/лиття латуні</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Каскад та кумуляція люфту -->
+  <rect x="466" y="68" width="470" height="376" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="478" y="78" width="446" height="24" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="701" y="94" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Кінематичний ланцюг каскаду (4 ступені MG90S)</text>
+
+  <!-- 4 блоки ступенів -->
+  <!-- Ступінь 1 -->
+  <rect x="478" y="112" width="95" height="78" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="525" y="128" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Мотор</text>
+  <text x="525" y="144" font-size="12" fill="#6b7280" text-anchor="middle">i_1 ≈ 3.5</text>
+  <text x="525" y="162" font-size="12" fill="#6b7280" text-anchor="middle">Δθ_1 / i_all</text>
+  <text x="525" y="178" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">&lt; 0.01° (0%)</text>
+
+  <line x1="575" y1="151" x2="586" y2="151" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Ступінь 2 -->
+  <rect x="588" y="112" width="95" height="78" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="635" y="128" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Ступінь 2</text>
+  <text x="635" y="144" font-size="12" fill="#6b7280" text-anchor="middle">i_2 ≈ 3.2</text>
+  <text x="635" y="162" font-size="12" fill="#6b7280" text-anchor="middle">Δθ_2 / (i3·i4)</text>
+  <text x="635" y="178" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">≈ 0.02° (2%)</text>
+
+  <line x1="685" y1="151" x2="696" y2="151" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Ступінь 3 -->
+  <rect x="698" y="112" width="95" height="78" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="745" y="128" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Ступінь 3</text>
+  <text x="745" y="144" font-size="12" fill="#6b7280" text-anchor="middle">i_3 ≈ 3.0</text>
+  <text x="745" y="162" font-size="12" fill="#2457d6" text-anchor="middle">Δθ_3 / i_4</text>
+  <text x="745" y="178" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">≈ 0.10° (13%)</text>
+
+  <line x1="795" y1="151" x2="806" y2="151" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Ступінь 4: Вихідний вал -->
+  <rect x="808" y="112" width="116" height="78" rx="4" fill="#eaf0fd" stroke="#c0392b" stroke-width="2"/>
+  <text x="866" y="128" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">4. Вихідний вал</text>
+  <text x="866" y="144" font-size="12" fill="#1a1a1a" text-anchor="middle">Качалка серва</text>
+  <text x="866" y="162" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Δθ_4 прямий</text>
+  <text x="866" y="178" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0.60° (85%!)</text>
+
+  <!-- Блок формули кумуляції -->
+  <rect x="478" y="202" width="446" height="74" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <rect x="486" y="210" width="430" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="701" y="225" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Формула акумуляції люфту на вихідному валу</text>
+  <text x="701" y="248" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Δθ_out = Δθ_4 + (Δθ_3 / i_4) + (Δθ_2 / (i_3 · i_4)) + ... ≈ 0.72°</text>
+  <text x="701" y="266" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вихідний ступінь дає 85% люфту, ранні ступені діляться на i &gt;&gt; 1</text>
+
+  <!-- Блок автоколивань (Hunting & Deadband) -->
+  <rect x="478" y="288" width="446" height="144" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <rect x="486" y="296" width="430" height="22" rx="3" fill="#ffffff" stroke="#c0392b"/>
+  <text x="701" y="312" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Наслідки в системі керування: автоколивання (Hunting)</text>
+
+  <text x="492" y="334" font-size="12" font-weight="bold" fill="#1a1a1a">• Конфлікт зворотного зв'язку:</text>
+  <text x="504" y="350" font-size="12" fill="#6b7280">Потенціометр стоїть на вихідному валу, а двигун на вході.</text>
+
+  <text x="492" y="368" font-size="12" font-weight="bold" fill="#c0392b">• Умова автоколивань (дзижчання серво):</text>
+  <text x="504" y="384" font-size="12" font-weight="bold" fill="#c0392b">Якщо зона нечутливості Deadband &lt; Δθ_out → мотор перелітає ціль!</text>
+
+  <text x="492" y="404" font-size="12" font-weight="bold" fill="#27ae60">• Інженерний розв'язок:</text>
+  <text x="504" y="422" font-size="12" font-weight="bold" fill="#27ae60">Налаштування Deadband ≥ 1.0° (8..10 мкс) + кулькова вальниця</text>
+</svg>

@@ -1,0 +1,256 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня архітектура інтегрального H-моста</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Логічне керування, захист від наскрізних струмів, зарядовий насос та діагностика аварій</text>
+
+  <!-- Контур мікросхеми драйвера (IC Outline) -->
+  <rect x="98" y="72" width="684" height="360" rx="10" fill="#fcfdfe" stroke="#b0b8c4" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="114" y="90" font-size="12" font-weight="bold" fill="#6b7280">Мікросхема драйвера (IC)</text>
+
+  <!-- Вхідні термінали (піни) зліва від чіпа -->
+  <rect x="24" y="108" width="60" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="54" y="124" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">IN1</text>
+  <line x1="84" y1="120" x2="114" y2="120" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="24" y="144" width="60" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="54" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">IN2</text>
+  <line x1="84" y1="156" x2="114" y2="156" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="24" y="180" width="60" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="54" y="196" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PWM</text>
+  <line x1="84" y1="192" x2="114" y2="192" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="24" y="216" width="60" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="54" y="232" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">nSLEEP</text>
+  <line x1="84" y1="228" x2="114" y2="228" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Аварійний термінал nFAULT зліва -->
+  <rect x="24" y="368" width="60" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="54" y="384" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">nFAULT</text>
+  <line x1="114" y1="380" x2="84" y2="380" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Блок 1: Логічний декодер входів -->
+  <rect x="114" y="100" width="122" height="180" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="175" y="118" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Декодер входів</text>
+  <text x="175" y="134" font-size="12" fill="#6b7280" text-anchor="middle">Селектор режимів</text>
+  <text x="175" y="156" font-size="12" fill="#1a1a1a" text-anchor="middle">Вперед / Реверс</text>
+  <text x="175" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Гальмо / Вибіг</text>
+  <text x="175" y="196" font-size="12" fill="#2457d6" text-anchor="middle">ШІМ-модуляція</text>
+  <text x="175" y="216" font-size="12" fill="#6b7280" text-anchor="middle">Режим сну</text>
+  <text x="175" y="238" font-size="12" fill="#1a1a1a" text-anchor="middle">Таблиця станів</text>
+  <text x="175" y="258" font-size="12" fill="#2457d6" text-anchor="middle">Керування 4 FET</text>
+
+  <!-- Зв'язок від декодера до Dead-Time -->
+  <line x1="236" y1="150" x2="252" y2="150" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="236" y1="210" x2="252" y2="210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 2: Генератор мертвого часу (Dead-Time Logic) -->
+  <rect x="252" y="100" width="130" height="180" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="317" y="118" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Dead-Time логіка</text>
+  <text x="317" y="134" font-size="12" fill="#1a1a1a" text-anchor="middle">Затримка перемикань</text>
+  <text x="317" y="156" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_dead ~ 300 нс</text>
+  <text x="317" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">Анти-наскрізний</text>
+  <text x="317" y="196" font-size="12" fill="#1a1a1a" text-anchor="middle">захист ключів</text>
+  <text x="317" y="222" font-size="12" fill="#6b7280" text-anchor="middle">Усуває к.з. VM-GND</text>
+  <text x="317" y="240" font-size="12" fill="#6b7280" text-anchor="middle">у стійках моста</text>
+  <text x="317" y="264" font-size="12" fill="#c0392b" text-anchor="middle">Блокування аварії</text>
+
+  <!-- Зв'язок від Dead-Time до Драйверів затворів -->
+  <line x1="382" y1="185" x2="398" y2="185" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="382" y1="235" x2="398" y2="235" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 3A: Зарядовий насос (Charge Pump) -->
+  <rect x="398" y="100" width="140" height="56" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="468" y="118" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Зарядовий насос</text>
+  <text x="468" y="134" font-size="12" fill="#1a1a1a" text-anchor="middle">Charge Pump</text>
+  <text x="468" y="148" font-size="12" fill="#27ae60" text-anchor="middle">V_CP = VM + 5 В</text>
+
+  <!-- Зв'язок від Charge Pump до верхніх драйверів -->
+  <line x1="468" y1="156" x2="468" y2="170" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 3B: Драйвери затворів (Gate Drivers) -->
+  <rect x="398" y="170" width="140" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="468" y="188" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Драйвери затворів</text>
+  <text x="468" y="204" font-size="12" fill="#6b7280" text-anchor="middle">Gate Drivers</text>
+  <text x="468" y="226" font-size="12" fill="#27ae60" text-anchor="middle">Верхні: HS1, HS2</text>
+  <text x="468" y="244" font-size="12" fill="#2457d6" text-anchor="middle">Нижні: LS1, LS2</text>
+  <text x="468" y="264" font-size="12" fill="#1a1a1a" text-anchor="middle">Перезаряд затворів</text>
+
+  <!-- Зв'язок від драйверів до силового моста -->
+  <line x1="538" y1="140" x2="554" y2="140" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="538" y1="225" x2="554" y2="225" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Термінал живлення двигуна +VM зверху над HS2 -->
+  <rect x="686" y="74" width="64" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="718" y="90" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+VM (6 В)</text>
+  <line x1="718" y1="98" x2="718" y2="126" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Блок 4: Силовий H-міст -->
+  <rect x="554" y="100" width="210" height="180" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="650" y="116" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Силовий H-міст</text>
+
+  <!-- Шина живлення всередині моста -->
+  <line x1="598" y1="126" x2="718" y2="126" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Ключ HS1 -->
+  <rect x="570" y="126" width="56" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="598" y="141" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">HS1</text>
+  <text x="598" y="154" font-size="12" fill="#2457d6" text-anchor="middle">N-FET</text>
+
+  <!-- Діод HS1 (ліворуч від HS1) -->
+  <line x1="598" y1="126" x2="562" y2="126" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="562" y1="126" x2="562" y2="170" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="562" y1="170" x2="598" y2="170" stroke="#2457d6" stroke-width="1.2"/>
+  <polygon points="557,147 567,147 562,138" fill="#2457d6"/>
+  <line x1="557" y1="138" x2="567" y2="138" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Ключ LS1 -->
+  <rect x="570" y="208" width="56" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="598" y="223" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LS1</text>
+  <text x="598" y="236" font-size="12" fill="#2457d6" text-anchor="middle">N-FET</text>
+
+  <!-- Діод LS1 (ліворуч від LS1) -->
+  <line x1="598" y1="174" x2="562" y2="174" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="562" y1="174" x2="562" y2="258" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="562" y1="258" x2="598" y2="258" stroke="#2457d6" stroke-width="1.2"/>
+  <polygon points="557,231 567,231 562,222" fill="#2457d6"/>
+  <line x1="557" y1="222" x2="567" y2="222" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Ключ HS2 -->
+  <rect x="690" y="126" width="56" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="718" y="141" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">HS2</text>
+  <text x="718" y="154" font-size="12" fill="#2457d6" text-anchor="middle">N-FET</text>
+
+  <!-- Діод HS2 (праворуч від HS2) -->
+  <line x1="718" y1="126" x2="754" y2="126" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="754" y1="126" x2="754" y2="170" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="754" y1="170" x2="718" y2="170" stroke="#2457d6" stroke-width="1.2"/>
+  <polygon points="749,147 759,147 754,138" fill="#2457d6"/>
+  <line x1="749" y1="138" x2="759" y2="138" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Ключ LS2 -->
+  <rect x="690" y="208" width="56" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="718" y="223" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LS2</text>
+  <text x="718" y="236" font-size="12" fill="#2457d6" text-anchor="middle">N-FET</text>
+
+  <!-- Діод LS2 (праворуч від LS2) -->
+  <line x1="718" y1="174" x2="754" y2="174" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="754" y1="174" x2="754" y2="258" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="754" y1="258" x2="718" y2="258" stroke="#2457d6" stroke-width="1.2"/>
+  <polygon points="749,231 759,231 754,222" fill="#2457d6"/>
+  <line x1="749" y1="222" x2="759" y2="222" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- З'єднання стійок з виходами OUT1 та OUT2 -->
+  <line x1="598" y1="160" x2="598" y2="208" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="718" y1="160" x2="718" y2="208" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Точка OUT1 та лінія до термінала -->
+  <circle cx="598" cy="180" r="3" fill="#1a1a1a"/>
+  <line x1="598" y1="180" x2="640" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="640" y1="180" x2="640" y2="156" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="640" y1="156" x2="794" y2="156" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Точка OUT2 та лінія до термінала -->
+  <circle cx="718" cy="186" r="3" fill="#1a1a1a"/>
+  <line x1="718" y1="186" x2="794" y2="186" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Нижнє з'єднання ключів LS1 та LS2 до шунта струму -->
+  <line x1="598" y1="242" x2="598" y2="258" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="718" y1="242" x2="718" y2="258" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="598" y1="258" x2="718" y2="258" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="668" y1="258" x2="668" y2="326" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- Вихідні термінали OUT1 та OUT2 -->
+  <rect x="794" y="144" width="56" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="822" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">OUT1</text>
+
+  <rect x="794" y="174" width="56" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="822" y="190" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">OUT2</text>
+
+  <!-- Підключення навантаження (Двигун) -->
+  <line x1="850" y1="156" x2="894" y2="156" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="894" y1="156" x2="894" y2="168" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <circle cx="894" cy="188" r="20" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="894" y="194" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+
+  <line x1="850" y1="186" x2="870" y2="186" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="870" y1="186" x2="870" y2="218" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="870" y1="218" x2="894" y2="218" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="894" y1="218" x2="894" y2="208" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="894" y="240" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двигун DC</text>
+  <text x="894" y="256" font-size="12" fill="#6b7280" text-anchor="middle">Навантаження</text>
+
+  <!-- Нижня панель: Системи захисту та діагностики -->
+  <rect x="114" y="296" width="650" height="124" rx="8" fill="#fcfdfe" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="314" font-size="12" font-weight="bold" fill="#6b7280">Внутрішні системи захисту та діагностики</text>
+
+  <!-- Блок UVLO -->
+  <rect x="130" y="326" width="132" height="76" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="196" y="346" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Захист UVLO</text>
+  <text x="196" y="364" font-size="12" fill="#1a1a1a" text-anchor="middle">Монітор шини VM</text>
+  <text x="196" y="380" font-size="12" fill="#6b7280" text-anchor="middle">Поріг: VM &lt; 4,5 В</text>
+  <text x="196" y="394" font-size="12" fill="#c0392b" text-anchor="middle">Захист FET від лін. реж.</text>
+
+  <!-- Блок TSD (Термозахист) -->
+  <rect x="278" y="326" width="132" height="76" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="344" y="346" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Термозахист TSD</text>
+  <text x="344" y="364" font-size="12" fill="#1a1a1a" text-anchor="middle">Датчик кристала</text>
+  <text x="344" y="380" font-size="12" fill="#6b7280" text-anchor="middle">Поріг: Tj &gt; 160°C</text>
+  <text x="344" y="394" font-size="12" fill="#c0392b" text-anchor="middle">Гістерезис: 25°C</text>
+
+  <!-- Блок OCP (Current Sense) -->
+  <rect x="426" y="326" width="146" height="76" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="499" y="346" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Компаратор OCP</text>
+  <text x="499" y="364" font-size="12" fill="#1a1a1a" text-anchor="middle">Current Sense</text>
+  <text x="499" y="380" font-size="12" fill="#6b7280" text-anchor="middle">Поріг: I &gt; I_trip</text>
+  <text x="499" y="394" font-size="12" fill="#c0392b" text-anchor="middle">Захист від клину</text>
+
+  <!-- Блок Шунт R_SENSE -->
+  <rect x="590" y="326" width="156" height="76" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="668" y="346" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шунт R_SENSE</text>
+  <text x="668" y="364" font-size="12" fill="#1a1a1a" text-anchor="middle">Вимір струму I_M</text>
+  <text x="668" y="380" font-size="12" fill="#2457d6" text-anchor="middle">Сигнал V_ISEN на OCP</text>
+  <text x="668" y="394" font-size="12" fill="#6b7280" text-anchor="middle">З'єднання з GND</text>
+
+  <!-- Зв'язок від шунта до компаратора OCP -->
+  <line x1="590" y1="364" x2="572" y2="364" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Вихід з шунта на землю (GND термінал) -->
+  <line x1="746" y1="364" x2="794" y2="364" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <rect x="794" y="352" width="56" height="24" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="822" y="368" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <!-- Аварійна шина (Fault Logic / Emergency Disable) -->
+  <line x1="499" y1="402" x2="499" y2="412" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="344" y1="402" x2="344" y2="412" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="196" y1="402" x2="196" y2="412" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="499" y1="412" x2="114" y2="412" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Відвід аварії на nFAULT -->
+  <line x1="114" y1="412" x2="114" y2="380" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Відвід аварії вгору на блокування драйверів -->
+  <line x1="390" y1="412" x2="390" y2="268" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="390" y1="268" x2="382" y2="268" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="390" y1="268" x2="398" y2="268" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+</svg>

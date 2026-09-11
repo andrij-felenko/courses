@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Узгодження лінії SCK 50 МГц: демпфування дзвону та захист від фальшивих тактів</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Послідовний резистор 33 Ом усуває хвильові відбиття в шлейфі та запобігає збою кадрів ST7789</text>
+
+  <!-- ПАНЕЛЬ 1: Без узгодження (R = 0 Ом) -->
+  <rect x="24" y="68" width="530" height="178" rx="8" fill="#fdecea" stroke="#c0392b"/>
+  <rect x="36" y="78" width="506" height="24" rx="4" fill="#ffffff" stroke="#c0392b"/>
+  <text x="289" y="94" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Без узгодження (R = 0 Ом): паразитна індуктивність шлейфа спричиняє дзвін</text>
+
+  <!-- Схема 1 (ліворуч) -->
+  <rect x="36" y="112" width="38" height="26" rx="3" fill="#ffffff" stroke="#1a1a1a"/>
+  <text x="55" y="129" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">МК</text>
+
+  <line x1="74" y1="125" x2="114" y2="125" stroke="#c0392b" stroke-width="2"/>
+
+  <rect x="114" y="112" width="48" height="26" rx="3" fill="#ffffff" stroke="#1a1a1a"/>
+  <text x="138" y="129" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ST7789</text>
+
+  <text x="94" y="152" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R = 0 Ом (прямий дріт)</text>
+  <text x="94" y="170" font-size="12" fill="#6b7280" text-anchor="middle">L_шлейфа ≈ 40 нГн</text>
+  <text x="94" y="188" font-size="12" fill="#6b7280" text-anchor="middle">C_входу ≈ 15 пФ</text>
+  <text x="94" y="208" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Z_drv &lt; Z_line</text>
+  <text x="94" y="226" font-size="12" fill="#c0392b" text-anchor="middle">Відбиття 100%</text>
+
+  <!-- Осцилограма 1 (праворуч) -->
+  <text x="367" y="114" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Дзвін перетинає поріг V_IH → фальшивий такт!</text>
+
+  <!-- Горизонтальні рівні напруги -->
+  <line x1="225" y1="125" x2="510" y2="125" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="225" y1="145" x2="510" y2="145" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="225" y1="168" x2="510" y2="168" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="225" y1="195" x2="510" y2="195" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Підписи напруги зліва -->
+  <text x="220" y="129" font-size="12" fill="#c0392b" text-anchor="end">+4.5В</text>
+  <text x="220" y="149" font-size="12" fill="#6b7280" text-anchor="end">3.3В</text>
+  <text x="220" y="172" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">V_IH</text>
+  <text x="220" y="199" font-size="12" fill="#6b7280" text-anchor="end">0.0В</text>
+
+  <!-- Сама осцилограма з дзвоном -->
+  <path d="M 225,195 L 237,195 C 241,195 247,125 253,125 C 259,125 262,174 267,174 C 272,174 276,135 281,135 C 286,135 290,145 295,145 L 305,145 C 309,145 313,212 319,212 C 325,212 328,187 333,187 C 338,187 342,195 348,195 L 367,195 L 379,195 C 383,195 389,125 395,125 C 401,125 404,174 409,174 C 414,174 418,135 423,135 C 428,135 432,145 437,145 L 447,145 C 451,145 455,212 461,212 C 467,212 470,187 475,187 C 480,187 484,195 490,195 L 509,195" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+
+  <!-- Часові позначки знизу -->
+  <text x="225" y="232" font-size="12" fill="#6b7280" text-anchor="middle">0 нс</text>
+  <text x="367" y="232" font-size="12" fill="#6b7280" text-anchor="middle">20 нс (1 такт)</text>
+  <text x="509" y="232" font-size="12" fill="#6b7280" text-anchor="middle">40 нс (2 такти)</text>
+
+  <!-- ПАНЕЛЬ 2: З термінатором R = 33 Ом -->
+  <rect x="24" y="262" width="530" height="182" rx="8" fill="#e9f7ef" stroke="#27ae60"/>
+  <rect x="36" y="272" width="506" height="24" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="289" y="288" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">2. З термінатором R = 33 Ом: монотонний фронт, відсутність паразитного дзвону</text>
+
+  <!-- Схема 2 (ліворуч) -->
+  <rect x="36" y="306" width="38" height="26" rx="3" fill="#ffffff" stroke="#1a1a1a"/>
+  <text x="55" y="323" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">МК</text>
+
+  <line x1="74" y1="319" x2="84" y2="319" stroke="#27ae60" stroke-width="2"/>
+  <rect x="84" y="311" width="22" height="16" rx="2" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="95" y="323" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R</text>
+  <line x1="106" y1="319" x2="114" y2="319" stroke="#27ae60" stroke-width="2"/>
+
+  <rect x="114" y="306" width="48" height="26" rx="3" fill="#ffffff" stroke="#1a1a1a"/>
+  <text x="138" y="323" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ST7789</text>
+
+  <text x="94" y="348" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_term = 33 Ом</text>
+  <text x="94" y="366" font-size="12" fill="#1a1a1a" text-anchor="middle">Z_drv + R ≈ 50 Ом</text>
+  <text x="94" y="384" font-size="12" fill="#6b7280" text-anchor="middle">Повне узгодження</text>
+  <text x="94" y="404" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Відбиття усунуто</text>
+  <text x="94" y="422" font-size="12" fill="#27ae60" text-anchor="middle">100% надійна шина</text>
+
+  <!-- Осцилограма 2 (праворуч) -->
+  <text x="367" y="310" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Монотонний фронт: один чистий такт без перетинів</text>
+
+  <!-- Горизонтальні рівні напруги -->
+  <line x1="225" y1="339" x2="510" y2="339" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="225" y1="362" x2="510" y2="362" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="225" y1="389" x2="510" y2="389" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Підписи напруги зліва -->
+  <text x="220" y="343" font-size="12" fill="#6b7280" text-anchor="end">3.3В</text>
+  <text x="220" y="366" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">V_IH</text>
+  <text x="220" y="393" font-size="12" fill="#6b7280" text-anchor="end">0.0В</text>
+
+  <!-- Сама узгоджена осцилограма -->
+  <path d="M 225,389 L 237,389 C 243,389 249,339 255,339 L 305,339 C 311,339 317,389 323,389 L 367,389 L 379,389 C 385,389 391,339 397,339 L 447,339 C 453,339 459,389 465,389 L 509,389" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+
+  <!-- Часові позначки знизу -->
+  <text x="225" y="426" font-size="12" fill="#6b7280" text-anchor="middle">0 нс</text>
+  <text x="367" y="426" font-size="12" fill="#6b7280" text-anchor="middle">20 нс (1 такт)</text>
+  <text x="509" y="426" font-size="12" fill="#6b7280" text-anchor="middle">40 нс (2 такти)</text>
+
+  <!-- ПРАВА СТОРОНА: 3 картки -->
+  <!-- Картка 1: Фізика відбиттів -->
+  <rect x="570" y="68" width="366" height="116" rx="8" fill="#fdecea" stroke="#c0392b"/>
+  <rect x="582" y="78" width="342" height="24" rx="4" fill="#ffffff" stroke="#c0392b"/>
+  <text x="753" y="94" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Фізика хвильових відбитих хвиль</text>
+  <text x="586" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">• Швидкий фронт (t_rise &lt; 2 нс):</text>
+  <text x="598" y="134" font-size="12" fill="#6b7280">Шлейф довжиною 10 см працює як довга лінія.</text>
+  <text x="586" y="152" font-size="12" font-weight="bold" fill="#c0392b">• Неузгоджений вихід (Z_drv ≈ 15 Ом):</text>
+  <text x="598" y="168" font-size="12" fill="#1a1a1a">Хвиля відбивається від високого входу ST7789.</text>
+
+  <!-- Картка 2: Послідовне демпфування -->
+  <rect x="570" y="198" width="366" height="132" rx="8" fill="#e9f7ef" stroke="#27ae60"/>
+  <rect x="582" y="208" width="342" height="24" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="753" y="225" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Послідовне демпфування (Source Term.)</text>
+  <text x="586" y="248" font-size="12" font-weight="bold" fill="#1a1a1a">• Формула узгодження імпедансу:</text>
+  <text x="598" y="266" font-size="12" font-weight="bold" fill="#2457d6">R_term = Z_line - Z_driver ≈ 50 - 17 = 33 Ом</text>
+  <text x="586" y="286" font-size="12" font-weight="bold" fill="#27ae60">• Правило топології друкованої плати:</text>
+  <text x="598" y="304" font-size="12" fill="#1a1a1a">Резистор ставиться впритул до виводу МК!</text>
+  <text x="598" y="320" font-size="12" font-weight="bold" fill="#27ae60">Поглинає зворотну відбиту хвилю на витоку.</text>
+
+  <!-- Картка 3: Наслідки для ST7789 -->
+  <rect x="570" y="344" width="366" height="100" rx="8" fill="#eaf0fd" stroke="#2457d6"/>
+  <rect x="582" y="354" width="342" height="22" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="753" y="370" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Надійність передачі даних</text>
+  <text x="586" y="390" font-size="12" font-weight="bold" fill="#1a1a1a">• Захист від подвійних тактів:</text>
+  <text x="598" y="406" font-size="12" fill="#6b7280">Жодного зсуву бітів або розсипання пікселів кадру.</text>
+  <text x="586" y="422" font-size="12" font-weight="bold" fill="#2457d6">• Захист ESD-діодів входу ST7789:</text>
+  <text x="598" y="438" font-size="12" fill="#1a1a1a">Викиди вище VDD + 0.3 В повністю усунуто.</text>
+</svg>

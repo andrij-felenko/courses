@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect width="960" height="460" fill="white"/>
+
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+</defs>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Втрати потужності в драйвері H-моста залежно від частоти ШІМ</text>
+<text x="480" y="63" font-size="13" text-anchor="middle" fill="#6b7280">Діапазон 20–25 кГц: безшумна робота двигуна за низького комутаційного нагріву ключів</text>
+
+<!-- Підписи зон над графіком -->
+<text x="65" y="92" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">P_loss (Вт)</text>
+<text x="200" y="92" font-size="12" font-weight="bold" text-anchor="middle" fill="#6b7280">Чутний писк (&lt; 20 кГц)</text>
+<text x="312" y="92" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Оптимум</text>
+<text x="470" y="92" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Зона перегріву (&gt; 30 кГц)</text>
+
+<!-- Кольорові зони на графіку -->
+<rect x="110" y="108" width="180" height="262" fill="#f4f6f8" opacity="0.7"/>
+<rect x="290" y="108" width="45" height="262" fill="#e9f7ef" opacity="0.8"/>
+<rect x="335" y="108" width="45" height="262" fill="#fef9e7" opacity="0.7"/>
+<rect x="380" y="108" width="180" height="262" fill="#fdecea" opacity="0.6"/>
+
+<!-- Горизонтальні сіткові лінії -->
+<line x1="110" y1="310" x2="560" y2="310" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+<line x1="110" y1="250" x2="560" y2="250" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+<line x1="110" y1="190" x2="560" y2="190" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+<line x1="110" y1="130" x2="560" y2="130" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="4,4"/>
+
+<!-- Межі зон ШІМ -->
+<line x1="290" y1="108" x2="290" y2="370" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+<line x1="335" y1="298" x2="335" y2="370" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+<!-- Осі координат -->
+<line x1="110" y1="370" x2="110" y2="108" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+<line x1="110" y1="370" x2="585" y2="370" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- Позначки вертикальної осі (P_loss) -->
+<text x="96" y="134" font-size="12" text-anchor="end" fill="#6b7280">4 Вт</text>
+<text x="96" y="194" font-size="12" text-anchor="end" fill="#6b7280">3 Вт</text>
+<text x="96" y="254" font-size="12" text-anchor="end" fill="#6b7280">2 Вт</text>
+<text x="96" y="314" font-size="12" text-anchor="end" fill="#6b7280">1 Вт</text>
+<text x="96" y="374" font-size="12" text-anchor="end" fill="#6b7280">0</text>
+
+<!-- Позначки горизонтальної осі (частота f_sw) -->
+<text x="110" y="396" font-size="12" text-anchor="middle" fill="#6b7280">0</text>
+<text x="200" y="396" font-size="12" text-anchor="middle" fill="#6b7280">10</text>
+<text x="290" y="396" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">20</text>
+<text x="335" y="396" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">25</text>
+<text x="380" y="396" font-size="12" text-anchor="middle" fill="#6b7280">30</text>
+<text x="470" y="396" font-size="12" text-anchor="middle" fill="#6b7280">40</text>
+<text x="560" y="396" font-size="12" text-anchor="middle" fill="#6b7280">50</text>
+<text x="335" y="426" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Частота перемикання ШІМ, f_sw (кГц)</text>
+
+<!-- Криві втрат потужності -->
+<!-- 1. Статичні втрати провідності P_cond = I^2 * R_ds (горизонтальна пряма) -->
+<line x1="110" y1="298" x2="560" y2="298" stroke="#2457d6" stroke-width="2.5"/>
+
+<!-- 2. Динамічні втрати перемикання P_sw ~ f_sw (лінійне зростання) -->
+<line x1="110" y1="370" x2="560" y2="226" stroke="#c0392b" stroke-width="2.5"/>
+
+<!-- 3. Сумарні втрати розсіювання P_total = P_cond + P_sw -->
+<line x1="110" y1="298" x2="560" y2="154" stroke="#1a1a1a" stroke-width="3"/>
+
+<!-- Підписи безпосередньо біля кривих -->
+<text x="575" y="158" font-size="12" font-weight="bold" fill="#1a1a1a">P_total</text>
+<text x="575" y="230" font-size="12" font-weight="bold" fill="#c0392b">P_sw</text>
+<text x="575" y="302" font-size="12" font-weight="bold" fill="#2457d6">P_cond</text>
+
+<!-- Маркер точки перетину P_sw = P_cond при 25 кГц -->
+<circle cx="335" cy="298" r="5" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+<text x="350" y="328" font-size="12" font-weight="bold" fill="#c0392b">Точка рівності:</text>
+<text x="350" y="344" font-size="12" fill="#1a1a1a">P_sw = P_cond (~25 кГц)</text>
+
+<!-- Легенда кривих у вільному секторі графіка -->
+<rect x="125" y="116" width="150" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<line x1="137" y1="134" x2="153" y2="134" stroke="#1a1a1a" stroke-width="3"/>
+<text x="165" y="138" font-size="12" font-weight="bold" fill="#1a1a1a">P_total (сума)</text>
+<line x1="137" y1="156" x2="153" y2="156" stroke="#c0392b" stroke-width="2.5"/>
+<text x="165" y="160" font-size="12" font-weight="bold" fill="#c0392b">P_sw (~ f_sw)</text>
+<line x1="137" y1="178" x2="153" y2="178" stroke="#2457d6" stroke-width="2.5"/>
+<text x="165" y="182" font-size="12" font-weight="bold" fill="#2457d6">P_cond (I²·R)</text>
+
+<!-- Панелі опису зон праворуч -->
+<!-- Зона 1: < 20 кГц -->
+<rect x="645" y="85" width="290" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="660" y="111" font-size="13" font-weight="bold" fill="#1a1a1a">&lt; 20 кГц: Чутний акустичний писк</text>
+<text x="660" y="132" font-size="12" fill="#6b7280">• ШІМ у чутному діапазоні людини</text>
+<text x="660" y="150" font-size="12" fill="#6b7280">• Обмотки мотора вібрують і пищать</text>
+<text x="660" y="168" font-size="12" fill="#6b7280">• Втрати P_sw низькі, але є дискомфорт</text>
+
+<!-- Зона 2: 20–25 кГц (Оптимум) -->
+<rect x="645" y="201" width="290" height="105" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="660" y="227" font-size="13" font-weight="bold" fill="#27ae60">20–25 кГц: Рекомендований оптимум</text>
+<text x="660" y="248" font-size="12" fill="#1a1a1a">• Ультразвук: абсолютно безшумно</text>
+<text x="660" y="266" font-size="12" fill="#1a1a1a">• Помірний нагрів (P_sw &lt; P_cond)</text>
+<text x="660" y="284" font-size="12" fill="#1a1a1a">• Робота без радіатора й перегріву</text>
+
+<!-- Зона 3: > 30 кГц (Комутаційний перегрів) -->
+<rect x="645" y="322" width="290" height="103" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="660" y="348" font-size="13" font-weight="bold" fill="#c0392b">&gt; 30 кГц: Комутаційний перегрів</text>
+<text x="660" y="369" font-size="12" fill="#1a1a1a">• Стрімке зростання втрат: P_sw ~ f_sw</text>
+<text x="660" y="387" font-size="12" fill="#1a1a1a">• Втрати перемикання перевищують P_cond</text>
+<text x="660" y="405" font-size="12" fill="#1a1a1a">• Ризик теплового перевантаження чіпа</text>
+
+</svg>

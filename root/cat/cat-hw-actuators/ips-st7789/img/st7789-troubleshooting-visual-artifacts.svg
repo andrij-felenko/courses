@@ -1,0 +1,257 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <clipPath id="screen-clip-1">
+      <rect x="72" y="114" width="120" height="120" rx="3"/>
+    </clipPath>
+    <clipPath id="screen-clip-2">
+      <rect x="304" y="114" width="120" height="120" rx="3"/>
+    </clipPath>
+    <clipPath id="screen-clip-3">
+      <rect x="536" y="114" width="120" height="120" rx="3"/>
+    </clipPath>
+    <clipPath id="screen-clip-4">
+      <rect x="768" y="114" width="120" height="120" rx="3"/>
+    </clipPath>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Діагностика типових візуальних дефектів дисплея ST7789</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Зіставлення симптомів на екрані з помилками конфігурації та передачі по SPI</text>
+
+  <!-- ==================== КАРТКА 1 ==================== -->
+  <rect x="24" y="74" width="216" height="402" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="132" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Зсув вікна адресації</text>
+
+  <!-- Міні-екран 1 -->
+  <rect x="68" y="110" width="128" height="128" rx="6" fill="#1e232a" stroke="#30363d" stroke-width="1"/>
+  <g clip-path="url(#screen-clip-1)">
+    <!-- Смуга шуму 80 px (40 px на мініатюрі) -->
+    <rect x="72" y="114" width="120" height="40" fill="#22252a"/>
+    <rect x="74" y="116" width="3" height="2" fill="#ff4757"/>
+    <rect x="80" y="118" width="4" height="2" fill="#2ed573"/>
+    <rect x="88" y="115" width="3" height="2" fill="#1e90ff"/>
+    <rect x="94" y="119" width="4" height="2" fill="#ffa502"/>
+    <rect x="102" y="116" width="5" height="2" fill="#ffffff"/>
+    <rect x="110" y="118" width="3" height="2" fill="#9c88ff"/>
+    <rect x="116" y="115" width="4" height="2" fill="#ff6b81"/>
+    <rect x="124" y="119" width="3" height="2" fill="#70a1ff"/>
+    <rect x="130" y="116" width="5" height="2" fill="#2ed573"/>
+    <rect x="138" y="118" width="4" height="2" fill="#eccc68"/>
+    <rect x="146" y="115" width="3" height="2" fill="#ff4757"/>
+    <rect x="152" y="119" width="4" height="2" fill="#ffffff"/>
+    <rect x="160" y="116" width="3" height="2" fill="#1e90ff"/>
+    <rect x="168" y="118" width="5" height="2" fill="#a4b0be"/>
+    <rect x="176" y="115" width="4" height="2" fill="#ff6b81"/>
+    <rect x="184" y="119" width="4" height="2" fill="#ffa502"/>
+    <rect x="75" y="122" width="4" height="2" fill="#ffffff"/>
+    <rect x="82" y="124" width="3" height="2" fill="#ff6348"/>
+    <rect x="165" y="122" width="4" height="2" fill="#2ed573"/>
+    <rect x="172" y="125" width="3" height="2" fill="#1e90ff"/>
+    <rect x="180" y="123" width="5" height="2" fill="#eccc68"/>
+    <rect x="74" y="142" width="4" height="2" fill="#1e90ff"/>
+    <rect x="82" y="144" width="5" height="2" fill="#eccc68"/>
+    <rect x="90" y="141" width="3" height="2" fill="#ff4757"/>
+    <rect x="98" y="145" width="4" height="2" fill="#ffffff"/>
+    <rect x="105" y="142" width="3" height="2" fill="#2ed573"/>
+    <rect x="112" y="144" width="5" height="2" fill="#ff6b81"/>
+    <rect x="120" y="141" width="4" height="2" fill="#70a1ff"/>
+    <rect x="128" y="145" width="3" height="2" fill="#ffa502"/>
+    <rect x="135" y="142" width="4" height="2" fill="#ffffff"/>
+    <rect x="142" y="144" width="5" height="2" fill="#2ed573"/>
+    <rect x="150" y="141" width="3" height="2" fill="#ff4757"/>
+    <rect x="158" y="145" width="4" height="2" fill="#9c88ff"/>
+    <rect x="166" y="142" width="4" height="2" fill="#eccc68"/>
+    <rect x="174" y="144" width="3" height="2" fill="#1e90ff"/>
+    <rect x="182" y="141" width="5" height="2" fill="#ff6348"/>
+
+    <!-- Плашка позначення шуму -->
+    <rect x="88" y="123" width="88" height="18" rx="3" fill="#15171c" stroke="#c0392b" stroke-width="1"/>
+    <text x="132" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#ff6b6b">Шум (80 px)</text>
+
+    <!-- Межа зміщення -->
+    <line x1="72" y1="154" x2="192" y2="154" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+    <!-- Зсунуте зображення -->
+    <rect x="72" y="154" width="120" height="16" fill="#2457d6"/>
+    <path d="M 78 162 L 84 158 L 84 166 Z" fill="white"/>
+    <rect x="88" y="160" width="16" height="4" rx="1" fill="#93c5fd"/>
+    <rect x="72" y="170" width="120" height="64" fill="#ffffff"/>
+    <circle cx="132" cy="196" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <path d="M 127 201 L 137 191 M 132 191 L 137 191 L 137 196" stroke="#2457d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="112" y="224" width="40" height="10" rx="2" fill="#c0392b"/>
+
+    <!-- Стрілка зсуву -->
+    <line x1="184" y1="144" x2="184" y2="168" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  </g>
+
+  <!-- Причина 1 -->
+  <rect x="34" y="248" width="196" height="100" rx="6" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="42" y="265" font-size="12" font-weight="bold" fill="#c0392b">● Причина:</text>
+  <text x="42" y="282" font-size="12" fill="#1a1a1a">Контролер має 240×320</text>
+  <text x="42" y="298" font-size="12" fill="#1a1a1a">GRAM, матриця — 240×240.</text>
+  <text x="42" y="314" font-size="12" fill="#1a1a1a">Нульовий зсув показує</text>
+  <text x="42" y="330" font-size="12" fill="#6b7280">неініціалізовану пам'ять</text>
+
+  <!-- Усунення 1 -->
+  <rect x="34" y="360" width="196" height="100" rx="6" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1"/>
+  <text x="42" y="377" font-size="12" font-weight="bold" fill="#27ae60">✔ Як виправити:</text>
+  <text x="42" y="394" font-size="12" fill="#1a1a1a">Задати апаратний зсув</text>
+  <text x="42" y="410" font-size="12" fill="#1a1a1a">у CASET / RASET:</text>
+  <text x="42" y="426" font-size="12" fill="#1a1a1a">Y-offset = 80 або 0/32</text>
+  <text x="42" y="444" font-size="12" font-weight="bold" fill="#2457d6">setColRowOffset(0, 80)</text>
+
+
+  <!-- ==================== КАРТКА 2 ==================== -->
+  <rect x="256" y="74" width="216" height="402" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="364" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Негатив кольорів</text>
+
+  <!-- Міні-екран 2 -->
+  <rect x="300" y="110" width="128" height="128" rx="6" fill="#1e232a" stroke="#30363d" stroke-width="1"/>
+  <g clip-path="url(#screen-clip-2)">
+    <!-- Інвертоване тло (чорне замість білого) -->
+    <rect x="304" y="114" width="120" height="120" fill="#0f172a"/>
+    <!-- Інвертована шапка (бурштинова замість синьої) -->
+    <rect x="304" y="114" width="120" height="16" fill="#d97706"/>
+    <path d="M 310 122 L 316 118 L 316 126 Z" fill="#0f172a"/>
+    <rect x="320" y="120" width="16" height="4" rx="1" fill="#78350f"/>
+    <!-- Інвертований диск (темний з ціановим обрисом) -->
+    <circle cx="364" cy="160" r="18" fill="#1e293b" stroke="#06b6d4" stroke-width="2"/>
+    <path d="M 358 166 L 370 154 M 364 154 L 370 154 L 370 160" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Інвертовані смуги (ціан замість червоного, пурпур замість зеленого) -->
+    <rect x="330" y="188" width="34" height="8" rx="2" fill="#06b6d4"/>
+    <rect x="370" y="188" width="34" height="8" rx="2" fill="#d946ef"/>
+    <!-- Плашка позначення інверсії -->
+    <rect x="320" y="210" width="88" height="18" rx="3" fill="#0f172a" stroke="#06b6d4" stroke-width="1"/>
+    <text x="364" y="223" text-anchor="middle" font-size="12" font-weight="bold" fill="#06b6d4">INVON вимкн.</text>
+  </g>
+
+  <!-- Причина 2 -->
+  <rect x="266" y="248" width="196" height="100" rx="6" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="274" y="265" font-size="12" font-weight="bold" fill="#c0392b">● Причина:</text>
+  <text x="274" y="282" font-size="12" fill="#1a1a1a">IPS-матриця за замовч.</text>
+  <text x="274" y="298" font-size="12" fill="#1a1a1a">є normally black. Без</text>
+  <text x="274" y="314" font-size="12" fill="#1a1a1a">інверсії білий стає</text>
+  <text x="274" y="330" font-size="12" fill="#6b7280">чорним (фотонегатив)</text>
+
+  <!-- Усунення 2 -->
+  <rect x="266" y="360" width="196" height="100" rx="6" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1"/>
+  <text x="274" y="377" font-size="12" font-weight="bold" fill="#27ae60">✔ Як виправити:</text>
+  <text x="274" y="394" font-size="12" fill="#1a1a1a">Увімкнути інверсію</text>
+  <text x="274" y="410" font-size="12" fill="#1a1a1a">командою INVON (0x21)</text>
+  <text x="274" y="426" font-size="12" fill="#1a1a1a">під час ініціалізації:</text>
+  <text x="274" y="444" font-size="12" font-weight="bold" fill="#2457d6">tft.invertDisplay(1)</text>
+
+
+  <!-- ==================== КАРТКА 3 ==================== -->
+  <rect x="488" y="74" width="216" height="402" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="596" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Дзеркальне зображення</text>
+
+  <!-- Міні-екран 3 -->
+  <rect x="532" y="110" width="128" height="128" rx="6" fill="#1e232a" stroke="#30363d" stroke-width="1"/>
+  <g clip-path="url(#screen-clip-3)">
+    <!-- Тло -->
+    <rect x="536" y="114" width="120" height="120" fill="#ffffff"/>
+    <!-- Шапка з дзеркальним розташуванням -->
+    <rect x="536" y="114" width="120" height="16" fill="#2457d6"/>
+    <!-- Стрілка праворуч і спрямована вліво -->
+    <path d="M 648 122 L 642 118 L 642 126 Z" fill="white"/>
+    <rect x="620" y="120" width="16" height="4" rx="1" fill="#93c5fd"/>
+    <!-- Диск зі стрілкою вліво-вгору -->
+    <circle cx="596" cy="160" r="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <path d="M 602 166 L 590 154 M 596 154 L 590 154 L 590 160" stroke="#2457d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Смуги поміняні місцями -->
+    <rect x="556" y="188" width="34" height="8" rx="2" fill="#27ae60"/>
+    <rect x="596" y="188" width="40" height="8" rx="2" fill="#c0392b"/>
+    <!-- Позначка реверсу -->
+    <path d="M 576 138 C 586 133 606 133 616 138" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <rect x="552" y="210" width="88" height="18" rx="3" fill="#1e232a" stroke="#2457d6" stroke-width="1"/>
+    <text x="596" y="223" text-anchor="middle" font-size="12" font-weight="bold" fill="#60a5fa">MX реверс</text>
+  </g>
+
+  <!-- Причина 3 -->
+  <rect x="498" y="248" width="196" height="100" rx="6" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="506" y="265" font-size="12" font-weight="bold" fill="#c0392b">● Причина:</text>
+  <text x="506" y="282" font-size="12" fill="#1a1a1a">Помилкові біти MY, MX</text>
+  <text x="506" y="298" font-size="12" fill="#1a1a1a">або MV у регістрі</text>
+  <text x="506" y="314" font-size="12" fill="#1a1a1a">MADCTL (0x36): реверс</text>
+  <text x="506" y="330" font-size="12" fill="#6b7280">сканування рядків</text>
+
+  <!-- Усунення 3 -->
+  <rect x="498" y="360" width="196" height="100" rx="6" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1"/>
+  <text x="506" y="377" font-size="12" font-weight="bold" fill="#27ae60">✔ Як виправити:</text>
+  <text x="506" y="394" font-size="12" fill="#1a1a1a">Сконфігурувати MADCTL:</text>
+  <text x="506" y="410" font-size="12" fill="#1a1a1a">змінити біт MX (X-flip)</text>
+  <text x="506" y="426" font-size="12" fill="#1a1a1a">чи MY (Y-flip), або</text>
+  <text x="506" y="444" font-size="12" font-weight="bold" fill="#2457d6">tft.setRotation(n)</text>
+
+
+  <!-- ==================== КАРТКА 4 ==================== -->
+  <rect x="720" y="74" width="216" height="402" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="828" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Артефакти шини SPI</text>
+
+  <!-- Міні-екран 4 -->
+  <rect x="764" y="110" width="128" height="128" rx="6" fill="#1e232a" stroke="#30363d" stroke-width="1"/>
+  <g clip-path="url(#screen-clip-4)">
+    <!-- Тло -->
+    <rect x="768" y="114" width="120" height="120" fill="#ffffff"/>
+    <rect x="768" y="114" width="120" height="16" fill="#2457d6"/>
+    <path d="M 774 122 L 780 118 L 780 126 Z" fill="white"/>
+    <rect x="784" y="120" width="16" height="4" rx="1" fill="#93c5fd"/>
+    <circle cx="828" cy="160" r="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <path d="M 822 166 L 834 154 M 828 154 L 834 154 L 834 160" stroke="#2457d6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="794" y="188" width="40" height="8" rx="2" fill="#c0392b"/>
+    <rect x="838" y="188" width="34" height="8" rx="2" fill="#27ae60"/>
+
+    <!-- Лінії глітчів та дзвону без накладання rect -->
+    <line x1="768" y1="136" x2="888" y2="136" stroke="#00d2d3" stroke-width="3"/>
+    <line x1="840" y1="136" x2="888" y2="136" stroke="#ff4757" stroke-width="3"/>
+
+    <!-- Дзвін та тремтіння тактового сигналу SPI -->
+    <path d="M 768 148 L 788 148 Q 792 142 796 154 Q 800 144 804 150 L 888 148" fill="none" stroke="#ef4444" stroke-width="1.5"/>
+
+    <line x1="768" y1="160" x2="888" y2="160" stroke="#ffa502" stroke-width="2" stroke-dasharray="14,4,20,5"/>
+    <line x1="780" y1="174" x2="876" y2="174" stroke="#9c88ff" stroke-width="2.5"/>
+
+    <!-- Поодинокі шумові пікселі SPI -->
+    <circle cx="778" cy="124" r="1.5" fill="#ff4757"/>
+    <circle cx="856" cy="120" r="1.5" fill="#00d2d3"/>
+    <circle cx="790" cy="146" r="1.5" fill="#2ed573"/>
+    <circle cx="868" cy="148" r="1.5" fill="#ffa502"/>
+    <circle cx="802" cy="174" r="1.5" fill="#5f27cd"/>
+    <circle cx="850" cy="176" r="1.5" fill="#ff4757"/>
+    <circle cx="774" cy="202" r="1.5" fill="#00d2d3"/>
+    <circle cx="876" cy="204" r="1.5" fill="#2ed573"/>
+
+    <!-- Плашка позначення збою -->
+    <rect x="784" y="210" width="88" height="18" rx="3" fill="#1e232a" stroke="#c0392b" stroke-width="1"/>
+    <text x="828" y="223" text-anchor="middle" font-size="12" font-weight="bold" fill="#ff6b6b">Збій шини</text>
+  </g>
+
+  <!-- Причина 4 -->
+  <rect x="730" y="248" width="196" height="100" rx="6" fill="#fdecea" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="738" y="265" font-size="12" font-weight="bold" fill="#c0392b">● Причина:</text>
+  <text x="738" y="282" font-size="12" fill="#1a1a1a">Частота SPI > 30–40 МГц</text>
+  <text x="738" y="298" font-size="12" fill="#1a1a1a">на довгих проводах,</text>
+  <text x="738" y="314" font-size="12" fill="#1a1a1a">дзвін фронтів такту SCLK,</text>
+  <text x="738" y="330" font-size="12" fill="#6b7280">просідання живлення 3.3В</text>
+
+  <!-- Усунення 4 -->
+  <rect x="730" y="360" width="196" height="100" rx="6" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1"/>
+  <text x="738" y="377" font-size="12" font-weight="bold" fill="#27ae60">✔ Як виправити:</text>
+  <text x="738" y="394" font-size="12" fill="#1a1a1a">Знизити тактову частоту</text>
+  <text x="738" y="410" font-size="12" fill="#1a1a1a">SPI до 20–27 МГц, додати</text>
+  <text x="738" y="426" font-size="12" fill="#1a1a1a">конденсатор 100 нФ біля</text>
+  <text x="738" y="444" font-size="12" font-weight="bold" fill="#2457d6">VCC, вкоротити дроти</text>
+</svg>

@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-start-black" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L1,4 L7,7 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Вибір кута віяла та геометрія перекриття робочої зони</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Довжина лазерної лінії L = 2·H·tan(α/2) для кутів 30°, 60°, 90°, 110° на висоті підвісу H</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Геометрія розгортки над конвеєром -->
+  <rect x="24" y="65" width="540" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="90" font-size="14" font-weight="bold" fill="#1a1a1a">Геометрія розгортки над конвеєром</text>
+
+  <!-- Висота H (шкала ліворуч) -->
+  <line x1="42" y1="120" x2="42" y2="310" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-start-black)" marker-end="url(#arr-black)"/>
+  <text x="38" y="215" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">H</text>
+
+  <!-- Горизонтальні рівні висоти підвісу -->
+  <line x1="46" y1="215" x2="160" y2="215" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="428" y1="215" x2="538" y2="215" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="48" y="211" font-size="12" fill="#6b7280">H = 200 мм</text>
+
+  <!-- ВІЯЛА ПРОМЕНІВ (вкладені сектори від 110° до 30°) -->
+  <!-- Сектор 110° (червоний) -->
+  <polygon points="294,120 68,310 520,310" fill="#fdecea" fill-opacity="0.4" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Сектор 90° (сірий) -->
+  <polygon points="294,120 104,310 484,310" fill="#f4f6f8" fill-opacity="0.5" stroke="#6b7280" stroke-width="1.5"/>
+  <!-- Сектор 60° (зелений) -->
+  <polygon points="294,120 184,310 404,310" fill="#e9f7ef" fill-opacity="0.6" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Сектор 30° (синій) -->
+  <polygon points="294,120 243,310 345,310" fill="#eaf0fd" fill-opacity="0.8" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Оптична вісь (розрив у зоні написів для виключення перетинів) -->
+  <line x1="294" y1="120" x2="294" y2="148" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="294" y1="228" x2="294" y2="310" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Лазерний модуль угорі -->
+  <rect x="282" y="96" width="24" height="24" rx="3" fill="#1a1a1a"/>
+  <text x="294" y="88" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Модуль</text>
+
+  <!-- Позначки кутів розсіювача (рознесені по вертикалі) -->
+  <text x="294" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">30°</text>
+  <text x="294" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">60°</text>
+  <text x="294" y="198" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">90°</text>
+  <text x="294" y="216" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">110°</text>
+
+  <!-- Конвеєрна стрічка (робоча площина) -->
+  <rect x="50" y="310" width="488" height="18" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="58" cy="319" r="7" fill="#6b7280"/>
+  <circle cx="530" cy="319" r="7" fill="#6b7280"/>
+  <text x="294" y="342" text-anchor="middle" font-size="12" fill="#6b7280">Стрічка конвеєра (робоча площина H = 400 мм)</text>
+
+  <!-- Плашки довжини лінії при H = 400 мм -->
+  <rect x="40" y="358" width="115" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="97" y="373" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">30°: L = 214 мм</text>
+
+  <rect x="165" y="358" width="115" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="222" y="373" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">60°: L = 462 мм</text>
+
+  <rect x="290" y="358" width="115" height="22" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="347" y="373" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">90°: L = 800 мм</text>
+
+  <rect x="415" y="358" width="125" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="477" y="373" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">110°: L = 1143 мм</text>
+
+  <!-- Нижня плашка лівої панелі -->
+  <rect x="40" y="398" width="500" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="290" y="414" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Розрахункова довжина лінії: L = 2·H·tan(α/2)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Таблиця та інженерні критерії -->
+  <rect x="580" y="65" width="356" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- КАРТКА 1: Таблиця розрахунку довжини лінії -->
+  <rect x="592" y="78" width="332" height="162" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="604" y="98" font-size="13" font-weight="bold" fill="#1a1a1a">Таблиця довжини лінії L залежно від H</text>
+
+  <!-- Шапка таблиці -->
+  <rect x="604" y="108" width="308" height="20" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="635" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Кут α</text>
+  <text x="705" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">H=200 мм</text>
+  <text x="780" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">H=400 мм</text>
+  <text x="865" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">H=600 мм</text>
+
+  <!-- Рядок 30° -->
+  <rect x="604" y="130" width="308" height="22" fill="#eaf0fd" fill-opacity="0.5" stroke="#d0d7de" stroke-width="1"/>
+  <text x="635" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">30°</text>
+  <text x="705" y="145" text-anchor="middle" font-size="12" fill="#1a1a1a">107 мм</text>
+  <text x="780" y="145" text-anchor="middle" font-size="12" fill="#1a1a1a">214 мм</text>
+  <text x="865" y="145" text-anchor="middle" font-size="12" fill="#1a1a1a">322 мм</text>
+
+  <!-- Рядок 60° -->
+  <rect x="604" y="154" width="308" height="22" fill="#e9f7ef" fill-opacity="0.5" stroke="#d0d7de" stroke-width="1"/>
+  <text x="635" y="169" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">60°</text>
+  <text x="705" y="169" text-anchor="middle" font-size="12" fill="#1a1a1a">231 мм</text>
+  <text x="780" y="169" text-anchor="middle" font-size="12" fill="#1a1a1a">462 мм</text>
+  <text x="865" y="169" text-anchor="middle" font-size="12" fill="#1a1a1a">693 мм</text>
+
+  <!-- Рядок 90° -->
+  <rect x="604" y="178" width="308" height="22" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="635" y="193" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">90°</text>
+  <text x="705" y="193" text-anchor="middle" font-size="12" fill="#1a1a1a">400 мм</text>
+  <text x="780" y="193" text-anchor="middle" font-size="12" fill="#1a1a1a">800 мм</text>
+  <text x="865" y="193" text-anchor="middle" font-size="12" fill="#1a1a1a">1200 мм</text>
+
+  <!-- Рядок 110° -->
+  <rect x="604" y="202" width="308" height="22" fill="#fdecea" fill-opacity="0.5" stroke="#d0d7de" stroke-width="1"/>
+  <text x="635" y="217" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">110°</text>
+  <text x="705" y="217" text-anchor="middle" font-size="12" fill="#1a1a1a">571 мм</text>
+  <text x="780" y="217" text-anchor="middle" font-size="12" fill="#1a1a1a">1143 мм</text>
+  <text x="865" y="217" text-anchor="middle" font-size="12" fill="#1a1a1a">1714 мм</text>
+
+  <!-- КАРТКА 2: Інженерні критерії вибору -->
+  <rect x="592" y="252" width="332" height="174" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="604" y="272" font-size="13" font-weight="bold" fill="#1a1a1a">Інженерні критерії вибору кута</text>
+
+  <circle cx="614" cy="294" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="614" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1</text>
+  <text x="628" y="293" font-size="12" font-weight="bold" fill="#1a1a1a">Компактність підвісу H</text>
+  <text x="628" y="308" font-size="12" fill="#6b7280">Широкий кут скорочує висоту монтажу</text>
+
+  <circle cx="614" cy="332" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="614" y="336" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2</text>
+  <text x="628" y="331" font-size="12" font-weight="bold" fill="#1a1a1a">Густина потужності (мВт/мм)</text>
+  <text x="628" y="346" font-size="12" fill="#6b7280">При 110° яскравість лінії нижча в 5 разів</text>
+
+  <circle cx="614" cy="370" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="614" y="374" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">3</text>
+  <text x="628" y="369" font-size="12" font-weight="bold" fill="#1a1a1a">Кут падіння та відбиття</text>
+  <text x="628" y="384" font-size="12" fill="#6b7280">При кутах &gt;90° падає відгук у камері</text>
+
+  <!-- Фінальна плашка -->
+  <rect x="604" y="398" width="308" height="20" rx="3" fill="#e9f7ef"/>
+  <text x="758" y="412" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Оптимальний вибір під ширину конвеєра</text>
+</svg>

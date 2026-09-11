@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ==================== ЗАГОЛОВОК ТА ПІДЗАГОЛОВОК ==================== -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Диференційне віднімання фонової засвітки в лазерній тріангуляції</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Синхронне стробування усуває паразитне освітлення: I_diff = max(0, I_ON − I_OFF − Threshold)</text>
+
+  <!-- ==================== ВЕРХНЯ ПАНЕЛЬ: КОНВЕЄР КАДРІВ ==================== -->
+  <rect x="25" y="65" width="910" height="165" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="85" font-size="13" font-weight="700" fill="#1a1a1a">Конвеєр обробки кадрів: оптичне виділення лінії із зашумленої сцени</text>
+
+  <!-- Кадр 1: Лазер УВІМКНЕНО + Фон -->
+  <rect x="50" y="96" width="230" height="122" rx="6" fill="#e9edf2" stroke="#d0d7de" stroke-width="1.2"/>
+  <!-- Шапка Кадру 1 -->
+  <rect x="50" y="96" width="230" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="165" y="112" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Кадр 1: I_ON (Лазер + Фон)</text>
+
+  <!-- Сцена Кадру 1: об'єкт та блік -->
+  <rect x="125" y="150" width="80" height="42" rx="2" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <ellipse cx="90" cy="138" rx="22" ry="11" fill="#ffffff" fill-opacity="0.85" stroke="#d0d7de"/>
+  <text x="90" y="142" text-anchor="middle" font-size="12" fill="#6b7280">Блік</text>
+
+  <!-- Лазерна лінія на Кадрі 1 -->
+  <polyline points="65,182 125,182 125,150 205,150 205,182 265,182" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="165" y="208" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Смуга + Паразитний фон</text>
+
+  <!-- Знак МІНУС між Кадром 1 та Кадром 2 -->
+  <circle cx="315" cy="157" r="16" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="315" y="163" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">−</text>
+
+  <!-- Кадр 2: Лазер ВИМКНЕНО (Тільки фон) -->
+  <rect x="350" y="96" width="230" height="122" rx="6" fill="#e9edf2" stroke="#d0d7de" stroke-width="1.2"/>
+  <!-- Шапка Кадру 2 -->
+  <rect x="350" y="96" width="230" height="24" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="465" y="112" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">Кадр 2: I_OFF (Тільки фон)</text>
+
+  <!-- Сцена Кадру 2: ідентичний об'єкт та блік без лазера -->
+  <rect x="425" y="150" width="80" height="42" rx="2" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <ellipse cx="390" cy="138" rx="22" ry="11" fill="#ffffff" fill-opacity="0.85" stroke="#d0d7de"/>
+  <text x="390" y="142" text-anchor="middle" font-size="12" fill="#6b7280">Блік</text>
+  <text x="465" y="208" text-anchor="middle" font-size="12" fill="#6b7280">Тільки навколишнє світло</text>
+
+  <!-- Знак ДОРІВНЮЄ між Кадром 2 та Кадром 3 -->
+  <circle cx="615" cy="157" r="16" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="615" y="163" text-anchor="middle" font-size="18" font-weight="700" fill="#27ae60">=</text>
+
+  <!-- Кадр 3: Результуючий очищений різницевий кадр I_diff -->
+  <rect x="650" y="96" width="230" height="122" rx="6" fill="#1a1a1a" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Шапка Кадру 3 -->
+  <rect x="650" y="96" width="230" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="765" y="112" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Кадр 3: I_diff (Чиста лінія)</text>
+
+  <!-- Тільки чиста лазерна лінія на чорному тлі -->
+  <polyline points="665,182 725,182 725,150 805,150 805,182 865,182" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="765" y="208" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Фон видалено • SNR &gt; 40 dB</text>
+
+  <!-- ==================== СЕРЕДНЯ ПАНЕЛЬ: ЧАСОВІ ДІАГРАМИ ==================== -->
+  <rect x="25" y="242" width="910" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="260" font-size="13" font-weight="700" fill="#1a1a1a">Часові діаграми стробування камери та MOSFET-ключа лазера</text>
+
+  <!-- Осі часу: горизонтальні напрямні -->
+  <line x1="220" y1="284" x2="880" y2="284" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="220" y1="316" x2="880" y2="316" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="220" y1="348" x2="880" y2="348" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="880" y1="348" x2="905" y2="348" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="912" y="352" font-size="12" font-weight="700" fill="#1a1a1a">t</text>
+
+  <!-- Підписи сигналів ліворуч -->
+  <text x="210" y="282" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">Експозиція камери</text>
+  <text x="210" y="314" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">Лазер (MOSFET Gate)</text>
+  <text x="210" y="346" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">Обчислення різниці</text>
+
+  <!-- Сигнал 1: Експозиція камери (імпульси) -->
+  <polyline points="220,284 235,284 235,272 355,272 355,284 395,284 395,272 515,272 515,284 555,284 555,272 675,272 675,284 715,284 715,272 835,272 835,284 880,284" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="295" y="269" text-anchor="middle" font-size="12" fill="#2457d6">Кадр 1 (ON)</text>
+  <text x="455" y="269" text-anchor="middle" font-size="12" fill="#6b7280">Кадр 2 (OFF)</text>
+  <text x="615" y="269" text-anchor="middle" font-size="12" fill="#2457d6">Кадр 3 (ON)</text>
+  <text x="775" y="269" text-anchor="middle" font-size="12" fill="#6b7280">Кадр 4 (OFF)</text>
+
+  <!-- Сигнал 2: Лазерний строб (строго синхронізований з непарними кадрами) -->
+  <polyline points="220,316 235,316 235,302 355,302 355,316 555,316 555,302 675,302 675,316 880,316" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="295" y="300" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">HIGH (Увімкнено)</text>
+  <text x="455" y="314" text-anchor="middle" font-size="12" fill="#6b7280">LOW (Вимкнено)</text>
+  <text x="615" y="300" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">HIGH (Увімкнено)</text>
+  <text x="775" y="314" text-anchor="middle" font-size="12" fill="#6b7280">LOW (Вимкнено)</text>
+
+  <!-- Сигнал 3: Імпульси обчислення різниці -->
+  <polyline points="220,348 520,348 520,334 550,334 550,348 840,348 840,334 870,334 870,348 880,348" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="535" y="331" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">I_1 − I_2</text>
+  <text x="855" y="331" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">I_3 − I_4</text>
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: ІНЖЕНЕРНІ ПРАВИЛА ==================== -->
+  <rect x="25" y="372" width="910" height="73" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="392" font-size="12" font-weight="700" fill="#1a1a1a">Інженерні вимоги реалізації диференційного віднімання (Background Subtraction):</text>
+  <text x="45" y="412" font-size="12" fill="#6b7280">1. Порогове відсікання шуму: операція max(0, I_ON − I_OFF − Threshold) повністю усуває дробовий шум сенсора та дрібні флуктуації світла.</text>
+  <text x="45" y="430" font-size="12" fill="#6b7280">2. Швидкість сцени: інтервал між кадрами ON та OFF має бути мінімальним (&lt; 5–10 мс), щоб уникнути артефактів руху сканованого об'єкта.</text>
+</svg>

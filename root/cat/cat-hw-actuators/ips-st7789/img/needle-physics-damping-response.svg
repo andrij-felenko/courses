@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+</defs>
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+
+<!-- Title & Subtitle -->
+<text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Фізика руху стрілки: демпфування перехідного процесу</text>
+<text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Експоненційний фільтр з урахуванням Δt усуває стробоскопічне смикання та коливання без FPU</text>
+
+<!-- Left Panel: Graph -->
+<rect x="24" y="76" width="536" height="384" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="40" y="98" font-size="13" font-weight="bold" fill="#1a1a1a">Перехідний процес кута стрілки при стрибку вимірювання</text>
+<text x="86" y="116" font-size="12" fill="#6b7280">Кут θ (% від повної шкали 240°)</text>
+
+<!-- Plot Area Background -->
+<rect x="75" y="125" width="450" height="200" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+<!-- Grid Lines (Horizontal) -->
+<line x1="75" y1="125" x2="525" y2="125" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+<line x1="75" y1="155" x2="525" y2="155" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+<line x1="75" y1="225" x2="525" y2="225" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+<line x1="75" y1="305" x2="525" y2="305" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+
+<!-- Grid Lines (Vertical) -->
+<line x1="120" y1="125" x2="120" y2="325" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,3"/>
+<line x1="225" y1="125" x2="225" y2="325" stroke="#f0f2f5" stroke-dasharray="2,2"/>
+<line x1="300" y1="125" x2="300" y2="325" stroke="#f0f2f5" stroke-dasharray="2,2"/>
+<line x1="375" y1="125" x2="375" y2="325" stroke="#f0f2f5" stroke-dasharray="2,2"/>
+<line x1="450" y1="125" x2="450" y2="325" stroke="#f0f2f5" stroke-dasharray="2,2"/>
+
+<!-- Axis Arrows -->
+<line x1="75" y1="125" x2="75" y2="114" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+<line x1="525" y1="325" x2="538" y2="325" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+<!-- Target Value Line (85%) -->
+<line x1="120" y1="155" x2="525" y2="155" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+<text x="440" y="147" font-size="12" fill="#6b7280" text-anchor="middle">Ціль: 85% шкали</text>
+
+<!-- Curve 1: Raw Step (Without Damping) -->
+<path d="M 75,305 L 120,305 L 120,155 L 525,155" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+<!-- Curve 2: Underdamped (Oscillatory) -->
+<path d="M 75.0,305.0 L 82.5,305.0 L 90.0,305.0 L 97.5,305.0 L 105.0,305.0 L 112.5,305.0 L 120.0,305.0 L 127.5,299.9 L 135.0,286.9 L 142.5,268.7 L 150.0,247.8 L 157.5,226.3 L 165.0,205.8 L 172.5,187.2 L 180.0,171.3 L 187.5,158.4 L 195.0,148.6 L 202.5,141.7 L 210.0,137.4 L 217.5,135.4 L 225.0,135.1 L 232.5,136.2 L 240.0,138.2 L 247.5,140.8 L 255.0,143.6 L 262.5,146.4 L 270.0,149.1 L 277.5,151.5 L 285.0,153.5 L 292.5,155.0 L 300.0,156.2 L 307.5,157.0 L 315.0,157.5 L 322.5,157.7 L 330.0,157.6 L 337.5,157.4 L 345.0,157.1 L 352.5,156.8 L 360.0,156.4 L 367.5,156.0 L 375.0,155.7 L 382.5,155.4 L 390.0,155.1 L 397.5,154.9 L 405.0,154.8 L 412.5,154.7 L 420.0,154.7 L 427.5,154.6 L 435.0,154.7 L 442.5,154.7 L 450.0,154.7 L 457.5,154.8 L 465.0,154.8 L 472.5,154.9 L 480.0,154.9 L 487.5,155.0 L 495.0,155.0 L 502.5,155.0 L 510.0,155.0 L 517.5,155.0 L 525.0,155.0" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+
+<!-- Curve 3: Critically Damped EMA -->
+<path d="M 75.0,305.0 L 82.5,305.0 L 90.0,305.0 L 97.5,305.0 L 105.0,305.0 L 112.5,305.0 L 120.0,305.0 L 127.5,285.0 L 135.0,267.7 L 142.5,252.7 L 150.0,239.7 L 157.5,228.4 L 165.0,218.7 L 172.5,210.2 L 180.0,202.8 L 187.5,196.5 L 195.0,190.9 L 202.5,186.2 L 210.0,182.0 L 217.5,178.4 L 225.0,175.3 L 232.5,172.6 L 240.0,170.3 L 247.5,168.2 L 255.0,166.5 L 262.5,164.9 L 270.0,163.6 L 277.5,162.5 L 285.0,161.5 L 292.5,160.6 L 300.0,159.9 L 307.5,159.2 L 315.0,158.7 L 322.5,158.2 L 330.0,157.7 L 337.5,157.4 L 345.0,157.1 L 352.5,156.8 L 360.0,156.6 L 367.5,156.3 L 375.0,156.2 L 382.5,156.0 L 390.0,155.9 L 397.5,155.8 L 405.0,155.7 L 412.5,155.6 L 420.0,155.5 L 427.5,155.4 L 435.0,155.4 L 442.5,155.3 L 450.0,155.3 L 457.5,155.2 L 465.0,155.2 L 472.5,155.2 L 480.0,155.2 L 487.5,155.1 L 495.0,155.1 L 502.5,155.1 L 510.0,155.1 L 517.5,155.1 L 525.0,155.1" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+<!-- Callout Badge inside Plot Area -->
+<rect x="240" y="236" width="272" height="54" rx="6" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+<text x="252" y="252" font-size="12" font-weight="bold" fill="#2457d6">Критичне демпфування (EMA)</text>
+<text x="252" y="268" font-size="12" fill="#1a1a1a">Підхід до цілі: ~120 мс (5 кадрів)</text>
+<text x="252" y="282" font-size="12" fill="#6b7280">Без перерегулювання та смикання</text>
+
+<!-- Y Axis Ticks & Labels -->
+<line x1="71" y1="125" x2="75" y2="125" stroke="#1a1a1a"/>
+<text x="66" y="129" font-size="12" text-anchor="end" fill="#6b7280">100%</text>
+
+<line x1="71" y1="155" x2="75" y2="155" stroke="#1a1a1a"/>
+<text x="66" y="159" font-size="12" text-anchor="end" fill="#6b7280">85%</text>
+
+<line x1="71" y1="225" x2="75" y2="225" stroke="#1a1a1a"/>
+<text x="66" y="229" font-size="12" text-anchor="end" fill="#6b7280">50%</text>
+
+<line x1="71" y1="305" x2="75" y2="305" stroke="#1a1a1a"/>
+<text x="66" y="309" font-size="12" text-anchor="end" fill="#6b7280">10%</text>
+
+<line x1="71" y1="325" x2="75" y2="325" stroke="#1a1a1a"/>
+<text x="66" y="329" font-size="12" text-anchor="end" fill="#6b7280">0%</text>
+
+<!-- X Axis Ticks & Labels -->
+<line x1="75" y1="325" x2="75" y2="330" stroke="#1a1a1a"/>
+<text x="75" y="344" font-size="12" text-anchor="middle" fill="#6b7280">0</text>
+
+<line x1="120" y1="325" x2="120" y2="330" stroke="#6b7280"/>
+<text x="120" y="344" font-size="12" font-weight="bold" text-anchor="middle" fill="#6b7280">t₀</text>
+
+<line x1="150" y1="325" x2="150" y2="330" stroke="#1a1a1a"/>
+<text x="150" y="344" font-size="12" text-anchor="middle" fill="#6b7280">50</text>
+
+<line x1="225" y1="325" x2="225" y2="330" stroke="#1a1a1a"/>
+<text x="225" y="344" font-size="12" text-anchor="middle" fill="#6b7280">100</text>
+
+<line x1="300" y1="325" x2="300" y2="330" stroke="#1a1a1a"/>
+<text x="300" y="344" font-size="12" text-anchor="middle" fill="#6b7280">150</text>
+
+<line x1="375" y1="325" x2="375" y2="330" stroke="#1a1a1a"/>
+<text x="375" y="344" font-size="12" text-anchor="middle" fill="#6b7280">200</text>
+
+<line x1="450" y1="325" x2="450" y2="330" stroke="#1a1a1a"/>
+<text x="450" y="344" font-size="12" text-anchor="middle" fill="#6b7280">250</text>
+
+<line x1="525" y1="325" x2="525" y2="330" stroke="#1a1a1a"/>
+<text x="525" y="344" font-size="12" text-anchor="middle" fill="#6b7280">300</text>
+
+<text x="300" y="366" font-size="12" fill="#1a1a1a" text-anchor="middle">Час t [мс] (кадри оновлення дисплея ST7789 ~22 мс при 45 FPS)</text>
+
+<!-- Graph Legend Rows -->
+<line x1="45" y1="388" x2="70" y2="388" stroke="#c0392b" stroke-width="2"/>
+<text x="82" y="388" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">Без фільтра:</tspan> стрибок за 1 кадр → стробоскопічне тремтіння (jitter)</text>
+
+<line x1="45" y1="410" x2="70" y2="410" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3"/>
+<text x="82" y="410" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">Недодемпфовано:</tspan> коливання та перерегулювання (+12% overshoot)</text>
+
+<line x1="45" y1="432" x2="70" y2="432" stroke="#27ae60" stroke-width="3"/>
+<text x="82" y="432" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">Критичне EMA (Q16):</tspan> плавний монотонний рух з адаптацією до Δt</text>
+
+<!-- Right Top Panel: Algorithm -->
+<rect x="576" y="76" width="360" height="186" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="592" y="100" font-size="13" font-weight="bold" fill="#2457d6">Цілочисельне демпфування (Q16 + Δt)</text>
+
+<!-- Code Block inside Algorithm Panel -->
+<rect x="592" y="112" width="328" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="604" y="130" font-size="12" font-family="Consolas, monospace" fill="#1a1a1a">int32_t diff = target_q16 - cur_q16;</text>
+<text x="604" y="148" font-size="12" font-family="Consolas, monospace" fill="#2457d6">cur_q16 += (diff * alpha_q16) &gt;&gt; 16;</text>
+
+<text x="592" y="180" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#1a1a1a">Фактор згладжування:</tspan> α = 1 − exp(−Δt / τ)</text>
+<text x="592" y="198" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">Компенсація FPS:</tspan> швидкість інваріантна до кадрів</text>
+<text x="592" y="216" font-size="12" fill="#6b7280">Рух однаковий при 30, 45 чи 60 FPS (τ = 35 мс)</text>
+<text x="592" y="234" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">Без FPU:</tspan> 1 множення та 1 зсув (3 такти Cortex-M)</text>
+<text x="592" y="250" font-size="12" fill="#6b7280">Виконується паралельно з DMA-передачею SPI</text>
+
+<!-- Right Bottom Panel: Comparison on IPS -->
+<rect x="576" y="274" width="360" height="186" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="592" y="298" font-size="13" font-weight="bold" fill="#1a1a1a">Порівняння поведінки на IPS-дисплеї</text>
+
+<!-- Item 1: Raw -->
+<circle cx="598" cy="316" r="4" fill="#c0392b"/>
+<text x="610" y="320" font-size="12" font-weight="bold" fill="#c0392b">Без фільтра (миттєвий стрибок)</text>
+<text x="610" y="336" font-size="12" fill="#1a1a1a">Стрибок за 1 кадр → стробоскопічне тремтіння</text>
+
+<!-- Item 2: Underdamped -->
+<circle cx="598" cy="358" r="4" fill="#c0392b"/>
+<text x="610" y="362" font-size="12" font-weight="bold" fill="#c0392b">Недодемпфовано (Underdamped)</text>
+<text x="610" y="378" font-size="12" fill="#1a1a1a">Перерегулювання (+12%) і коливання біля цілі</text>
+
+<!-- Item 3: EMA -->
+<circle cx="598" cy="400" r="4" fill="#27ae60"/>
+<text x="610" y="404" font-size="12" font-weight="bold" fill="#27ae60">Критичне демпфування (EMA + Δt)</text>
+<text x="610" y="420" font-size="12" fill="#1a1a1a">Плавний підхід без перельоту за ~120 мс</text>
+<text x="610" y="436" font-size="12" fill="#6b7280">Стрілка виглядає природно та фізично вагомо</text>
+
+</svg>

@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+  </marker>
+</defs>
+
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Title & Subtitle -->
+<text x="480" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Осцилограми комутації напівмоста H-моста та захисний Dead-Time</text>
+<text x="480" y="46" text-anchor="middle" font-size="13" fill="#6b7280">Керування затворами V_GH/V_GL, інтервал мертвого часу t_dt та рециркуляція струму через зворотні діоди</text>
+
+<!-- ==================== LEFT PANEL: SCHEMATIC ==================== -->
+<rect x="30" y="68" width="310" height="262" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="30" y="68" width="310" height="26" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="185" y="86" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Схема напівмоста зі зворотними діодами</text>
+
+<!-- +VCC Rail -->
+<line x1="90" y1="106" x2="90" y2="116" stroke="#c0392b" stroke-width="2"/>
+<circle cx="90" cy="106" r="3.5" fill="#c0392b"/>
+<text x="90" y="101" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">+V_CC (+5V)</text>
+
+<!-- High-Side Switch Q_H -->
+<rect x="75" y="116" width="30" height="24" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="90" y="132" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Q_H</text>
+
+<!-- Gate V_GH wire -->
+<line x1="45" y1="128" x2="75" y2="128" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="45" cy="128" r="3" fill="#2457d6"/>
+<text x="38" y="132" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">V_GH</text>
+
+<!-- Antiparallel Diode D_H -->
+<line x1="90" y1="110" x2="135" y2="110" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="135" y1="110" x2="135" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+<polygon points="135,120 128,132 142,132" fill="#2457d6"/>
+<line x1="128" y1="120" x2="142" y2="120" stroke="#2457d6" stroke-width="2"/>
+<line x1="135" y1="132" x2="135" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="90" y1="150" x2="135" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="148" y="130" font-size="12" font-weight="bold" fill="#2457d6">D_H</text>
+
+<!-- Phase Midpoint Node -->
+<line x1="90" y1="140" x2="90" y2="166" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="90" cy="150" r="3.5" fill="#1a1a1a"/>
+
+<!-- Motor Output Branch -->
+<line x1="90" y1="150" x2="190" y2="150" stroke="#2457d6" stroke-width="2"/>
+<circle cx="190" cy="150" r="3" fill="#2457d6"/>
+<text x="180" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_phase</text>
+
+<!-- Motor Box -->
+<rect x="210" y="136" width="60" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="240" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Двигун</text>
+<text x="240" y="161" text-anchor="middle" font-size="12" fill="#6b7280">L_mot</text>
+
+<line x1="270" y1="150" x2="295" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="295" cy="150" r="3" fill="#1a1a1a"/>
+<text x="300" y="142" font-size="12" fill="#6b7280">M2</text>
+
+<!-- Low-Side Switch Q_L -->
+<rect x="75" y="166" width="30" height="24" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="90" y="182" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Q_L</text>
+
+<!-- Gate V_GL wire -->
+<line x1="45" y1="178" x2="75" y2="178" stroke="#2457d6" stroke-width="1.5"/>
+<circle cx="45" cy="178" r="3" fill="#2457d6"/>
+<text x="38" y="182" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">V_GL</text>
+
+<!-- Antiparallel Diode D_L -->
+<line x1="135" y1="150" x2="135" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+<polygon points="135,170 128,182 142,182" fill="#c0392b"/>
+<line x1="128" y1="170" x2="142" y2="170" stroke="#c0392b" stroke-width="2"/>
+<line x1="135" y1="182" x2="135" y2="204" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="90" y1="204" x2="135" y2="204" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="148" y="180" font-size="12" font-weight="bold" fill="#c0392b">D_L</text>
+
+<!-- GND Rail -->
+<line x1="90" y1="190" x2="90" y2="204" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="70" y1="204" x2="110" y2="204" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="75" y1="207" x2="105" y2="207" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="82" y1="210" x2="98" y2="210" stroke="#1a1a1a" stroke-width="1"/>
+<text x="90" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GND (0V)</text>
+
+<!-- Left Callout Box -->
+<rect x="42" y="234" width="286" height="84" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="185" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Захист від наскрізного струму:</text>
+<text x="52" y="270" font-size="12" fill="#1a1a1a">• t_dt виключає коротке замикання VCC-GND</text>
+<text x="52" y="288" font-size="12" font-weight="bold" fill="#c0392b">• Струм індуктивності замикає діод D_L</text>
+<text x="52" y="306" font-size="12" fill="#27ae60">• Фіксація сплеску на рівні -V_f (-0.7 В)</text>
+
+<!-- ==================== RIGHT PANEL: TIMING OSCILLOGRAMS ==================== -->
+<rect x="355" y="68" width="575" height="262" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="355" y="68" width="575" height="26" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="642" y="86" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Часові осцилограми перемикання та мертвого часу (Dead-Time)</text>
+
+<!-- Dead-Time Shaded Zones (from y=104 to y=278) -->
+<rect x="540" y="104" width="60" height="174" fill="#fdecea"/>
+<text x="570" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">t_dt</text>
+
+<rect x="730" y="104" width="60" height="174" fill="#fdecea"/>
+<text x="760" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">t_dt</text>
+
+<!-- Left Axis Column Labels -->
+<text x="430" y="114" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">V_GH</text>
+<text x="430" y="126" text-anchor="end" font-size="12" fill="#6b7280">[Затвор H]</text>
+
+<text x="430" y="160" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">V_GL</text>
+<text x="430" y="172" text-anchor="end" font-size="12" fill="#6b7280">[Затвор L]</text>
+
+<text x="430" y="214" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">V_phase</text>
+<text x="430" y="226" text-anchor="end" font-size="12" fill="#6b7280">[Фаза]</text>
+
+<text x="430" y="268" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">I_L, I_D</text>
+<text x="430" y="280" text-anchor="end" font-size="12" fill="#6b7280">[Струм]</text>
+
+<!-- --- Signal 1: V_GH (High-Side Gate) --- -->
+<polyline points="440,110 540,110 540,126 890,126" fill="none" stroke="#2457d6" stroke-width="2"/>
+<text x="490" y="104" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Q_H ВКЛ (+5V)</text>
+<text x="665" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Q_H ВИМКН (0V)</text>
+
+<!-- --- Signal 2: V_GL (Low-Side Gate) --- -->
+<polyline points="440,172 600,172 600,156 730,156 730,172 890,172" fill="none" stroke="#2457d6" stroke-width="2"/>
+<text x="490" y="168" text-anchor="middle" font-size="12" fill="#6b7280">Q_L ВИМКН (0V)</text>
+<text x="665" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Q_L ВКЛ (+5V)</text>
+
+<!-- --- Signal 3: V_phase --- -->
+<!-- Reference grid lines for V_phase -->
+<line x1="440" y1="210" x2="890" y2="210" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="440" y1="224" x2="890" y2="224" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- V_phase trace: 210 (+5V) -> drops at 540 to 233 (-V_f) -> rises at 600 to 224 (0V) -> stays to 790 -> rises to 210 -->
+<polyline points="440,210 540,210 540,233 600,233 600,224 790,224 790,210 890,210" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+<text x="490" y="204" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V_CC (+5V)</text>
+<text x="570" y="246" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">-V_f</text>
+<text x="665" y="218" text-anchor="middle" font-size="12" fill="#27ae60">0 В (GND)</text>
+
+<!-- --- Signal 4: I_L (Motor current) & Diode recirculation --- -->
+<!-- Zero line -->
+<line x1="440" y1="278" x2="890" y2="278" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Current trace: high in state 1, decaying through diode in dead-time, low in state 3 -->
+<polyline points="440,262 540,262 600,268 730,278 890,278" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<text x="490" y="254" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Струм Q_H</text>
+<text x="665" y="291" text-anchor="middle" font-size="12" fill="#6b7280">Спад струму через Q_L</text>
+
+<!-- Time Axis -->
+<line x1="440" y1="298" x2="885" y2="298" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+<line x1="540" y1="298" x2="540" y2="302" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="600" y1="298" x2="600" y2="302" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="730" y1="298" x2="730" y2="302" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="790" y1="298" x2="790" y2="302" stroke="#1a1a1a" stroke-width="1"/>
+
+<text x="665" y="316" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Час t [нс/мкс] — інтервали комутації ключів напівмоста</text>
+
+<!-- ==================== BOTTOM CARDS ==================== -->
+<rect x="30" y="342" width="285" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="42" y="360" font-size="13" font-weight="bold" fill="#2457d6">1. Захист від наскрізного струму</text>
+<text x="42" y="378" font-size="12" fill="#1a1a1a">• Скінченний час закриття транзисторів.</text>
+<text x="42" y="396" font-size="12" fill="#1a1a1a">• Без паузи виникає КЗ шини живлення.</text>
+<text x="42" y="414" font-size="12" fill="#1a1a1a">• Dead-time (100..400 нс) гарантує розрив.</text>
+<text x="42" y="432" font-size="12" fill="#6b7280">• Усуває імпульсний перегрів H-моста.</text>
+
+<rect x="330" y="342" width="290" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="342" y="360" font-size="13" font-weight="bold" fill="#c0392b">2. Індуктивний викид проти-ЕРС</text>
+<text x="342" y="378" font-size="12" fill="#1a1a1a">• При розриві котушка створює V_L = -L·di/dt.</text>
+<text x="342" y="396" font-size="12" fill="#1a1a1a">• Напруга фази падає нижче потенціалу 0V.</text>
+<text x="342" y="414" font-size="12" fill="#1a1a1a">• Діод D_L фіксує викид на рівні -V_f (-0.7 В).</text>
+<text x="342" y="432" font-size="12" fill="#6b7280">• Захищає стік транзистора від пробою.</text>
+
+<rect x="635" y="342" width="295" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="647" y="360" font-size="13" font-weight="bold" fill="#27ae60">3. Рециркуляція та гальмування</text>
+<text x="647" y="378" font-size="12" fill="#1a1a1a">• Струм тече через діод D_L (Freewheeling).</text>
+<text x="647" y="396" font-size="12" fill="#1a1a1a">• Енергія котушки гаситься без перенапруги.</text>
+<text x="647" y="414" font-size="12" fill="#1a1a1a">• Вмикання Q_L знижує спад до R_ds·I.</text>
+<text x="647" y="432" font-size="12" fill="#6b7280">• Забезпечує динамічне гальмування вала.</text>
+
+</svg>

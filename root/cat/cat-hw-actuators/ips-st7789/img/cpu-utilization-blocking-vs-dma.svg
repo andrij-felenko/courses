@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма: блокуюче виведення проти апаратного DMA (ST7789)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Блокування паралізує процесор очікуванням шини; DMA вивільняє ресурси для паралельного рендерингу</text>
+
+  <!-- ==================== СЦЕНАРІЙ 1: БЛОКУЮЧИЙ ВИВІД ==================== -->
+  <rect x="24" y="74" width="912" height="172" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок сценарію 1 -->
+  <rect x="40" y="86" width="16" height="16" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="48" cy="94" r="3.5" fill="#c0392b"/>
+  <text x="64" y="99" font-size="14" font-weight="bold" fill="#c0392b">СЦЕНАРІЙ 1: Послідовне блокуюче виведення (CPU Polling)</text>
+
+  <!-- Статус-бейдж праворуч від заголовка -->
+  <rect x="525" y="84" width="215" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="632" y="98" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">CPU блокується у while(!TXE)</text>
+
+  <!-- Підписи рядків Сценарію 1 -->
+  <text x="42" y="131" font-size="13" font-weight="bold" fill="#1a1a1a">CPU</text>
+  <text x="42" y="145" font-size="12" fill="#6b7280">(ядро МК)</text>
+
+  <text x="42" y="183" font-size="13" font-weight="bold" fill="#1a1a1a">Шина SPI</text>
+  <text x="42" y="197" font-size="12" fill="#6b7280">(лінії зв'язку)</text>
+
+  <!-- Таймлайн: Рядок 1 (CPU) -->
+  <rect x="155" y="114" width="135" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="222" y="131" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рендеринг N</text>
+  <text x="222" y="147" font-size="12" fill="#1a1a1a" text-anchor="middle">15 мс (активно)</text>
+
+  <rect x="290" y="114" width="315" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="447" y="131" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Очікування шини SPI: 35 мс</text>
+  <text x="447" y="147" font-size="12" fill="#c0392b" text-anchor="middle">while (!TXE) — утилізація 100%, 0% користі</text>
+
+  <rect x="605" y="114" width="135" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="672" y="131" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рендеринг N+1</text>
+  <text x="672" y="147" font-size="12" fill="#1a1a1a" text-anchor="middle">15 мс (активно)</text>
+
+  <!-- Таймлайн: Рядок 2 (Шина SPI) -->
+  <rect x="155" y="166" width="135" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="4 3" stroke-width="1.5"/>
+  <text x="222" y="183" font-size="12" fill="#6b7280" text-anchor="middle">Простій шини</text>
+  <text x="222" y="199" font-size="12" fill="#6b7280" text-anchor="middle">15 мс (Idle)</text>
+
+  <rect x="290" y="166" width="315" height="40" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="447" y="183" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Побайтова передача кадру N (115.2 КБ)</text>
+  <text x="447" y="199" font-size="12" fill="#6b7280" text-anchor="middle">35 мс передачі з паузами між байтами</text>
+
+  <rect x="605" y="166" width="135" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="4 3" stroke-width="1.5"/>
+  <text x="672" y="183" font-size="12" fill="#6b7280" text-anchor="middle">Простій шини</text>
+  <text x="672" y="199" font-size="12" fill="#6b7280" text-anchor="middle">15 мс (Idle)</text>
+
+  <!-- Підсумковий банер таймлайну 1 -->
+  <rect x="155" y="216" width="585" height="22" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="448" y="231" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Послідовно: період кадру T = 15 мс + 35 мс = 50 мс (CPU заблокований 70% часу)</text>
+
+  <!-- Підсумкова картка праворуч (Сценарій 1) -->
+  <rect x="756" y="84" width="166" height="154" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="839" y="101" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ПОКАЗНИКИ РЕЖИМУ</text>
+  <line x1="766" y1="108" x2="912" y2="108" stroke="#e1e4e8" stroke-width="1"/>
+
+  <text x="768" y="124" font-size="12" fill="#6b7280">Час кадру:</text>
+  <text x="912" y="124" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">50 мс</text>
+
+  <text x="768" y="142" font-size="12" fill="#6b7280">Частота:</text>
+  <text x="912" y="142" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">~20 FPS</text>
+
+  <text x="768" y="160" font-size="12" fill="#6b7280">CPU марно:</text>
+  <text x="912" y="160" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">70% часу</text>
+
+  <text x="768" y="178" font-size="12" fill="#6b7280">Шина Idle:</text>
+  <text x="912" y="178" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">30% часу</text>
+
+  <rect x="764" y="194" width="150" height="26" rx="4" fill="#fdecea"/>
+  <text x="839" y="211" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Послідовно: повільно</text>
+
+
+  <!-- ==================== СЦЕНАРІЙ 2: АПАРАТНИЙ DMA ==================== -->
+  <rect x="24" y="264" width="912" height="186" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок сценарію 2 -->
+  <rect x="40" y="276" width="16" height="16" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="48" cy="284" r="3.5" fill="#27ae60"/>
+  <text x="64" y="289" font-size="14" font-weight="bold" fill="#27ae60">СЦЕНАРІЙ 2: Апаратний DMA з подвійною буферизацією (Ping-Pong)</text>
+
+  <!-- Статус-бейдж праворуч від заголовка -->
+  <rect x="548" y="274" width="192" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="644" y="288" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Паралельний конвеєр CPU + DMA</text>
+
+  <!-- Підписи рядків Сценарію 2 -->
+  <text x="42" y="323" font-size="13" font-weight="bold" fill="#1a1a1a">CPU</text>
+  <text x="42" y="337" font-size="12" fill="#6b7280">(ядро МК)</text>
+
+  <text x="42" y="373" font-size="13" font-weight="bold" fill="#1a1a1a">Шина SPI</text>
+  <text x="42" y="387" font-size="12" fill="#6b7280">(контролер DMA)</text>
+
+  <!-- Таймлайн: Рядок 1 (CPU) -->
+  <rect x="155" y="306" width="135" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="222" y="323" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рендер Буфера B</text>
+  <text x="222" y="339" font-size="12" fill="#1a1a1a" text-anchor="middle">15 мс (активно)</text>
+
+  <rect x="290" y="306" width="90" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="335" y="323" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">CPU вільний</text>
+  <text x="335" y="339" font-size="12" fill="#27ae60" text-anchor="middle">10 мс / сон</text>
+
+  <rect x="380" y="306" width="135" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="447" y="323" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рендер Буфера A</text>
+  <text x="447" y="339" font-size="12" fill="#1a1a1a" text-anchor="middle">15 мс (активно)</text>
+
+  <rect x="515" y="306" width="90" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="560" y="323" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">CPU вільний</text>
+  <text x="560" y="339" font-size="12" fill="#27ae60" text-anchor="middle">10 мс / сон</text>
+
+  <rect x="605" y="306" width="135" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="672" y="323" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рендер Буфера B</text>
+  <text x="672" y="339" font-size="12" fill="#1a1a1a" text-anchor="middle">15 мс (активно)</text>
+
+  <!-- Таймлайн: Рядок 2 (Шина SPI / DMA) -->
+  <rect x="155" y="356" width="225" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="267" y="373" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA: вивід Буфера A (25 мс)</text>
+  <text x="267" y="389" font-size="12" fill="#1a1a1a" text-anchor="middle">автономна передача по SPI</text>
+
+  <rect x="380" y="356" width="225" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="492" y="373" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA: вивід Буфера B (25 мс)</text>
+  <text x="492" y="389" font-size="12" fill="#1a1a1a" text-anchor="middle">автономна передача по SPI</text>
+
+  <rect x="605" y="356" width="135" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="672" y="373" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA: Буфер A</text>
+  <text x="672" y="389" font-size="12" fill="#1a1a1a" text-anchor="middle">автономний вивід</text>
+
+  <!-- Підсумковий банер таймлайну 2 -->
+  <rect x="155" y="408" width="585" height="22" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="448" y="423" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Конвеєр: T = 25 мс | DMA TC переривання робить swap буферів | CPU вільний 40% часу</text>
+
+  <!-- Підсумкова картка праворуч (Сценарій 2) -->
+  <rect x="756" y="274" width="166" height="166" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="839" y="291" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ПОКАЗНИКИ РЕЖИМУ</text>
+  <line x1="766" y1="298" x2="912" y2="298" stroke="#e1e4e8" stroke-width="1"/>
+
+  <text x="768" y="314" font-size="12" fill="#6b7280">Час кадру:</text>
+  <text x="912" y="314" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">25 мс</text>
+
+  <text x="768" y="332" font-size="12" fill="#6b7280">Частота:</text>
+  <text x="912" y="332" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">~40 FPS</text>
+
+  <text x="768" y="350" font-size="12" fill="#6b7280">CPU вільний:</text>
+  <text x="912" y="350" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">40% часу</text>
+
+  <text x="768" y="368" font-size="12" fill="#6b7280">CPU марно:</text>
+  <text x="912" y="368" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">0% (0 мс)</text>
+
+  <text x="768" y="386" font-size="12" fill="#6b7280">Старт DMA:</text>
+  <text x="912" y="386" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">~2 мкс</text>
+
+  <rect x="764" y="402" width="150" height="26" rx="4" fill="#e9f7ef"/>
+  <text x="839" y="419" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Конвеєр: x2 FPS</text>
+</svg>

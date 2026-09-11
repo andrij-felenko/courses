@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ==================== ЗАГОЛОВОК ТА ПІДЗАГОЛОВОК ==================== -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Анатомія підкладки сенсора зворотного зв'язку сервоприводу MG90S</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Підковоподібна доріжка з електропровідного пластику, центральне кільце колектора та три термінали</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ТОПОЛОГІЯ ПІДКЛАДКИ ==================== -->
+  <rect x="25" y="65" width="455" height="285" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="86" font-size="13" font-weight="700" fill="#1a1a1a">1. Топологія підкладки та контактної групи (Вигляд зверху)</text>
+
+  <!-- Основа підкладки потенціометра -->
+  <rect x="42" y="98" width="206" height="232" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Зовнішня підковоподібна доріжка з провідного пластику (Conductive Plastic) -->
+  <!-- R_out = 62, R_in = 48, cx = 145, cy = 185 -->
+  <!-- кути: 120° (ліво-низ) через верх до 60° (право-низ) -->
+  <path d="M 114,238.7 A 62 62 0 1 1 176,238.7 L 169,226.6 A 48 48 0 1 0 121,226.6 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Внутрішнє колекторне кільце (струмознімач) -->
+  <!-- r_out = 36, r_in = 24, cx = 145, cy = 185 -->
+  <path d="M 127,216.2 A 36 36 0 1 1 163,216.2 L 157,205.8 A 24 24 0 1 0 133,205.8 Z" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Центральний отвір під вал редуктора -->
+  <circle cx="145" cy="185" r="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="145" cy="185" r="3" fill="#1a1a1a"/>
+
+  <!-- Повзунок (Wiper): контактний важіль під кутом ~300° -->
+  <line x1="145" y1="185" x2="172.5" y2="137.4" stroke="#27ae60" stroke-width="2.5"/>
+  <!-- Контактні пелюстки на доріжці та кільці -->
+  <circle cx="172.5" cy="137.4" r="3.5" fill="#27ae60"/>
+  <circle cx="160" cy="159" r="3" fill="#27ae60"/>
+
+  <!-- Стрілка обертання вала θ -->
+  <path d="M 115,145 A 40 40 0 0 1 145,140" fill="none" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="125" y="134" font-size="12" font-weight="700" fill="#1a1a1a">кут θ</text>
+
+  <!-- Виводи / металізовані доріжки до терміналів -->
+  <line x1="114" y1="238.7" x2="70" y2="282" stroke="#2457d6" stroke-width="2"/>
+  <line x1="145" y1="216.2" x2="145" y2="282" stroke="#6b7280" stroke-width="2"/>
+  <line x1="176" y1="238.7" x2="220" y2="282" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Термінали 1, 2, 3 -->
+  <rect x="62" y="282" width="16" height="22" rx="2" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="137" y="282" width="16" height="22" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+  <rect x="212" y="282" width="16" height="22" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+
+  <text x="70" y="318" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">1: GND</text>
+  <text x="145" y="318" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">2: Wiper</text>
+  <text x="220" y="318" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">3: VCC</text>
+
+  <!-- Картки-підписи праворуч у лівій панелі -->
+  <!-- Картка А: Резистивна доріжка -->
+  <rect x="260" y="98" width="205" height="52" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="270" y="116" font-size="12" font-weight="700" fill="#2457d6">Резистивна доріжка</text>
+  <text x="270" y="130" font-size="12" fill="#1a1a1a">• Електропровідний пластик</text>
+  <text x="270" y="144" font-size="12" fill="#6b7280">• R_заг ≈ 5 кОм (сектор 220°)</text>
+
+  <!-- Картка Б: Колекторне кільце -->
+  <rect x="260" y="156" width="205" height="52" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="270" y="174" font-size="12" font-weight="700" fill="#1a1a1a">Колекторне кільце</text>
+  <text x="270" y="188" font-size="12" fill="#1a1a1a">• Металізований шар (Ag)</text>
+  <text x="270" y="202" font-size="12" fill="#6b7280">• Струмознімач U_out (R &lt; 0.1 Ом)</text>
+
+  <!-- Картка В: Повзунок -->
+  <rect x="260" y="214" width="205" height="52" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="270" y="232" font-size="12" font-weight="700" fill="#27ae60">Ковзний повзунок (Wiper)</text>
+  <text x="270" y="246" font-size="12" fill="#1a1a1a">• Багатопелюсткова бронза</text>
+  <text x="270" y="260" font-size="12" fill="#6b7280">• Знімає U(θ) безпосередньо з осі</text>
+
+  <!-- Картка Г: Діелектрична основа -->
+  <rect x="260" y="272" width="205" height="58" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="270" y="290" font-size="12" font-weight="700" fill="#1a1a1a">Діелектрична основа</text>
+  <text x="270" y="306" font-size="12" fill="#1a1a1a">• Бакеліт або текстоліт FR-4</text>
+  <text x="270" y="322" font-size="12" fill="#6b7280">• Жорстка база для контактів</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ПОШАРОВА СТРУКТУРА ТА СХЕМА ==================== -->
+  <rect x="495" y="65" width="440" height="285" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="515" y="86" font-size="13" font-weight="700" fill="#1a1a1a">2. Пошарова структура та схема подільника напруги</text>
+
+  <!-- Верхній блок: Пошаровий переріз доріжки -->
+  <rect x="510" y="98" width="410" height="112" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="116" font-size="12" font-weight="700" fill="#1a1a1a">Пошаровий переріз контактної зони:</text>
+
+  <!-- Шари -->
+  <rect x="525" y="174" width="165" height="22" rx="2" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="607" y="189" text-anchor="middle" font-size="12" fill="#6b7280">Основа (FR-4 / Бакеліт)</text>
+
+  <rect x="525" y="150" width="165" height="24" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="607" y="166" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Провідний пластик (15 мкм)</text>
+
+  <!-- Повзунок зверху -->
+  <path d="M 607,126 L 607,144 L 597,150 M 607,144 L 617,150" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="607" y="122" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Пелюстки щітки (Wiper)</text>
+
+  <!-- Властивості праворуч від шарів -->
+  <text x="706" y="136" font-size="12" font-weight="700" fill="#1a1a1a">Переваги композиту:</text>
+  <text x="706" y="154" font-size="12" fill="#27ae60">• Дзеркально гладка поверхня</text>
+  <text x="706" y="170" font-size="12" fill="#1a1a1a">• Ресурс: понад 1–2 млн циклів</text>
+  <text x="706" y="186" font-size="12" fill="#6b7280">• Низький шум порівняно з дротом</text>
+  <text x="706" y="202" font-size="12" fill="#6b7280">• Висока лінійність передачі</text>
+
+  <!-- Нижній блок: Електрична модель та фізика деградації -->
+  <rect x="510" y="218" width="410" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="236" font-size="12" font-weight="700" fill="#1a1a1a">Електрична модель та виникнення джитеру:</text>
+
+  <!-- Формула подільника -->
+  <rect x="525" y="246" width="380" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="262" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">U_out(θ) = VCC · (θ / θ_max) + U_шум(t)</text>
+
+  <!-- Пункти деградації -->
+  <text x="525" y="286" font-size="12" fill="#1a1a1a">• Знос шару: абразивне стирання полімеру утворює мікропорох.</text>
+  <text x="525" y="302" font-size="12" fill="#c0392b">• Стрибки R_cont: контактний опір коливається від 10 Ом до 1 кОм.</text>
+  <text x="525" y="318" font-size="12" fill="#6b7280">• Наслідок для серва: апаратне тремтіння вала (постійний jitter).</text>
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: ІНЖЕНЕРНИЙ ВИСНОВОК ==================== -->
+  <rect x="25" y="362" width="910" height="78" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="382" font-size="12" font-weight="700" fill="#1a1a1a">Інженерний регламент експлуатації та діагностики сенсора MG90S:</text>
+  <text x="45" y="401" font-size="12" fill="#1a1a1a">1. Мастило доріжки: фабричне демпферне мастило знижує тертя; сухий контакт деградує в 10 разів швидше.</text>
+  <text x="45" y="419" font-size="12" fill="#1a1a1a">2. Багатопелюстковий Wiper: гребінчасті контакти дублюють знімання; деформація пелюсток створює мертві зони.</text>
+  <text x="45" y="435" font-size="12" fill="#6b7280">3. Апаратна фільтрація: шунтуючий RC-фільтр (100 Ом, 10 нФ) на терміналі Wiper придушує високочастотний джитер.</text>
+</svg>

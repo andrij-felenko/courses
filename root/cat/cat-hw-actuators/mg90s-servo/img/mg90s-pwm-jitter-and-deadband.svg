@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Вплив часового джитеру ШІМ на мертву зону (Deadband) сервопривода MG90S</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Флуктуації в межах мертвої зони (|Δt| ≤ 2.5 мкс) ігноруються, а вихід за межі спричиняє тремтіння вала й перегрів</text>
+
+  <!-- Верхня ліва панель: Джитер фронту ШІМ -->
+  <rect x="24" y="66" width="444" height="228" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="86" font-size="13" font-weight="bold" fill="#1a1a1a">1. Флуктуація тривалості ШІМ-імпульсу (Jitter):</text>
+
+  <!-- Базова лінія (0 В) -->
+  <line x1="44" y1="210" x2="68" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="56" y="226" text-anchor="middle" font-size="12" fill="#6b7280">0 В</text>
+
+  <!-- Передній фронт (фіксований таймером) -->
+  <line x1="68" y1="210" x2="68" y2="130" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="68" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Старт</text>
+
+  <!-- Верхня поличка імпульсу -->
+  <line x1="68" y1="130" x2="236" y2="130" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Зона часового джитеру (розмитий спад) -->
+  <rect x="236" y="122" width="56" height="96" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="264" y="114" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">±Δt (Джитер)</text>
+
+  <!-- Варіанти фронтів спаду -->
+  <line x1="244" y1="130" x2="244" y2="210" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <line x1="264" y1="130" x2="264" y2="210" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="284" y1="130" x2="284" y2="210" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Завершення імпульсу на рівні 0 В -->
+  <line x1="292" y1="210" x2="330" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Вимірювальна лінія номінального імпульсу -->
+  <line x1="68" y1="150" x2="264" y2="150" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="160" y="168" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_pulse = 1500 мкс (90°)</text>
+
+  <!-- Плашка порівняння джерел ШІМ -->
+  <rect x="36" y="234" width="420" height="48" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="252" font-size="12" font-weight="bold" fill="#27ae60">• Апаратний ШІМ (TIM):</text>
+  <text x="204" y="252" font-size="12" fill="#1a1a1a">Δt ≈ 0 мкс (стабільний фронт)</text>
+  <text x="48" y="270" font-size="12" font-weight="bold" fill="#c0392b">• Програмний ШІМ (ISR):</text>
+  <text x="204" y="270" font-size="12" fill="#1a1a1a">Δt = ±5..15 мкс (затримка переривань)</text>
+
+  <!-- Верхня права панель: Характеристика Deadband -->
+  <rect x="492" y="66" width="444" height="228" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="504" y="86" font-size="13" font-weight="bold" fill="#1a1a1a">2. Передавальна характеристика мертвої зони (Deadband):</text>
+
+  <!-- Осі графіка передавальної функції (із розривом усередині мертвої зони) -->
+  <!-- Горизонтальна вісь похибки Δt -->
+  <line x1="510" y1="172" x2="644" y2="172" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="756" y1="172" x2="880" y2="172" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="890" y="176" font-size="12" font-weight="bold" fill="#1a1a1a">Δt</text>
+
+  <!-- Вертикальна вісь напруги мотора -->
+  <line x1="700" y1="112" x2="700" y2="96" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="700" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V_мотора</text>
+  <line x1="700" y1="226" x2="700" y2="234" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Зона Deadband (зелений прямокутник нечутливості) -->
+  <rect x="644" y="112" width="112" height="114" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="700" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Мертва зона</text>
+  <text x="700" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">5 мкс (±2.5 мкс)</text>
+
+  <!-- Стан всередині мертвої зони -->
+  <text x="700" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Мотор ВИМКНЕНО</text>
+  <text x="700" y="190" text-anchor="middle" font-size="12" fill="#6b7280">I_motor = 0</text>
+  <text x="700" y="208" text-anchor="middle" font-size="12" fill="#6b7280">(стан спокою)</text>
+
+  <!-- Позначки на межах мертвої зони -->
+  <text x="644" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">-2.5</text>
+  <text x="756" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">+2.5 мкс</text>
+
+  <!-- Крива спрацювання H-моста поза Deadband -->
+  <!-- Права зона: CW обертання -->
+  <line x1="756" y1="172" x2="756" y2="134" stroke="#c0392b" stroke-width="2"/>
+  <line x1="756" y1="134" x2="860" y2="134" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="810" y="126" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">+V_drive (CW)</text>
+  <text x="810" y="152" text-anchor="middle" font-size="12" fill="#c0392b">Тремтіння вала</text>
+
+  <!-- Ліва зона: CCW обертання -->
+  <line x1="644" y1="172" x2="644" y2="210" stroke="#c0392b" stroke-width="2"/>
+  <line x1="530" y1="210" x2="644" y2="210" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="586" y="226" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">-V_drive (CCW)</text>
+  <text x="586" y="198" text-anchor="middle" font-size="12" fill="#c0392b">Зудіння мотора</text>
+
+  <!-- Підсумок внизу правої панелі -->
+  <rect x="504" y="244" width="420" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="260" font-size="12" font-weight="bold" fill="#c0392b">Висновок:</text>
+  <text x="576" y="260" font-size="12" fill="#1a1a1a">Якщо |Δt| &gt; 2.5 мкс ➔ H-міст безперервно смикає мотор</text>
+  <text x="576" y="274" font-size="12" fill="#6b7280">з частотою 50 Гц: вібрація, перегрів і знос шестерень</text>
+
+  <!-- Нижня панель: 3 інженерні картки -->
+  <!-- Картка 1: Deadband -->
+  <rect x="24" y="306" width="296" height="130" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <rect x="24" y="306" width="296" height="24" rx="8" fill="#e9f7ef"/>
+  <text x="36" y="322" font-size="12" font-weight="bold" fill="#27ae60">Природа мертвої зони (Deadband):</text>
+  <text x="36" y="344" font-size="12" fill="#1a1a1a">• Вбудована зона нечутливості чіпа</text>
+  <text x="36" y="362" font-size="12" fill="#1a1a1a">• Номінал MG90S: t_db ≈ 4..5 мкс (0.5°)</text>
+  <text x="36" y="380" font-size="12" fill="#1a1a1a">• Запобігає нескінченним автоколиванням</text>
+  <text x="36" y="398" font-size="12" fill="#1a1a1a">• Забезпечує тишу в статичному стані</text>
+  <text x="36" y="418" font-size="12" font-weight="bold" fill="#27ae60">• Гістерезис зворотного зв'язку</text>
+
+  <!-- Картка 2: Наслідки джитеру -->
+  <rect x="332" y="306" width="296" height="130" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <rect x="332" y="306" width="296" height="24" rx="8" fill="#fdecea"/>
+  <text x="344" y="322" font-size="12" font-weight="bold" fill="#c0392b">Наслідки джитеру (|Δt| &gt; Deadband):</text>
+  <text x="344" y="344" font-size="12" fill="#1a1a1a">• Вихід за 5 мкс вмикає мотор що-20 мс</text>
+  <text x="344" y="362" font-size="12" fill="#1a1a1a">• «Hunting»: хаотичні мікрокроки вала</text>
+  <text x="344" y="380" font-size="12" fill="#1a1a1a">• Постійне зудіння й перегрів обмоток</text>
+  <text x="344" y="398" font-size="12" fill="#1a1a1a">• Струм спокою зростає до 200..400 мА</text>
+  <text x="344" y="418" font-size="12" font-weight="bold" fill="#c0392b">• Прискорене зношування шестерень z1-z2</text>
+
+  <!-- Картка 3: Захист -->
+  <rect x="640" y="306" width="296" height="130" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <rect x="640" y="306" width="296" height="24" rx="8" fill="#eaf0fd"/>
+  <text x="652" y="322" font-size="12" font-weight="bold" fill="#2457d6">Інженерні заходи усунення джитеру:</text>
+  <text x="652" y="344" font-size="12" fill="#1a1a1a">• Виключно апаратний ШІМ таймера (TIM)</text>
+  <text x="652" y="362" font-size="12" fill="#1a1a1a">• Прямий доступ до регістрів CCRx</text>
+  <text x="652" y="380" font-size="12" fill="#1a1a1a">• Заборона переривань ISR у софт-ШІМ</text>
+  <text x="652" y="398" font-size="12" fill="#1a1a1a">• DMA-генерація для складних профілів</text>
+  <text x="652" y="418" font-size="12" font-weight="bold" fill="#2457d6">• Стабільна шина 5V без просідань</text>
+</svg>

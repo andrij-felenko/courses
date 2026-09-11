@@ -1,0 +1,225 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- ================= Заголовок і підзаголовок ================= -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішній устрій та кінематика мотор-редуктора 6 В</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Послідовне прямозубе зачеплення трансформує оберти якоря в крутний момент на D-валі</text>
+
+  <!-- ================= ЛІВА ПАНЕЛЬ: КОЛЕКТОРНИЙ ДВИГУН ================= -->
+  <rect x="24" y="72" width="330" height="316" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="94" font-size="14" font-weight="bold" fill="#1a1a1a">КОЛЕКТОРНИЙ ДВИГУН DC 6 В</text>
+  <text x="40" y="112" font-size="12" fill="#6b7280">Електромагнітна частина (~12 000 об/хв)</text>
+
+  <!-- Корпус електродвигуна -->
+  <rect x="68" y="130" width="254" height="186" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- Статор: верхній магніт N -->
+  <rect x="86" y="136" width="196" height="24" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="184" y="152" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Постійний магніт N (статор)</text>
+
+  <!-- Статор: нижній магніт S -->
+  <rect x="86" y="286" width="196" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="184" y="302" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Постійний магніт S (статор)</text>
+
+  <!-- Силові лінії магнітного поля B -->
+  <line x1="126" y1="164" x2="126" y2="282" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <line x1="242" y1="164" x2="242" y2="282" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Вал ротора двигуна -->
+  <line x1="56" y1="223" x2="330" y2="223" stroke="#64748b" stroke-width="6"/>
+
+  <!-- Опорні бронзові втулки вала двигуна -->
+  <path d="M 58,214 h 10 v 18 h -10 z" fill="#d97706" stroke="#78350f" stroke-width="1"/>
+  <path d="M 310,214 h 10 v 18 h -10 z" fill="#d97706" stroke="#78350f" stroke-width="1"/>
+
+  <!-- Якір (шихтоване осердя) -->
+  <path d="M 140,188 h 88 v 70 h -88 z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.2"/>
+
+  <!-- Мідні обмотки якоря (верхня і нижня секції) -->
+  <path d="M 146,192 h 76 v 19 h -76 z" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+  <path d="M 146,235 h 76 v 19 h -76 z" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+  <text x="184" y="206" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">Мідна обмотка якоря</text>
+  <text x="184" y="249" font-size="12" font-weight="bold" fill="#475569" text-anchor="middle">Шихтоване осердя</text>
+
+  <!-- Колектор (мідні ламелі на валу) -->
+  <path d="M 88,211 h 24 v 24 h -24 z" fill="#fed7aa" stroke="#ea580c" stroke-width="1.2"/>
+  <line x1="88" y1="223" x2="112" y2="223" stroke="#ea580c" stroke-width="1"/>
+
+  <!-- Щітковий вузол і підведення живлення -->
+  <path d="M 58,188 L 88,217" fill="none" stroke="#dc2626" stroke-width="2"/>
+  <path d="M 52,182 h 12 v 10 h -12 z" fill="#dc2626"/>
+  <path d="M 58,258 L 88,229" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 52,254 h 12 v 10 h -12 z" fill="#1a1a1a"/>
+
+  <!-- Клеми живлення -->
+  <text x="34" y="176" font-size="12" font-weight="bold" fill="#dc2626">+6 В</text>
+  <text x="34" y="278" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <text x="100" y="250" font-size="12" fill="#ea580c" text-anchor="middle">Колектор</text>
+
+  <!-- Первинна триб-шестерня на валу двигуна -->
+  <path d="M 322,211 h 16 v 24 h -16 z" fill="#f59e0b" stroke="#b45309" stroke-width="1.2"/>
+  <!-- Зубці триба -->
+  <line x1="326" y1="211" x2="326" y2="235" stroke="#b45309" stroke-width="1"/>
+  <line x1="330" y1="211" x2="330" y2="235" stroke="#b45309" stroke-width="1"/>
+  <line x1="334" y1="211" x2="334" y2="235" stroke="#b45309" stroke-width="1"/>
+
+  <!-- Пояснення в лівій панелі -->
+  <text x="189" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3-полюсний якір з обмотками</text>
+  <text x="189" y="356" font-size="12" fill="#6b7280" text-anchor="middle">Пружні щітки комутують струм в обмотках</text>
+  <text x="189" y="374" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Первинний триб z₁ = 9T на валу ротора</text>
+
+  <!-- ================= ПРАВА ПАНЕЛЬ: РЕДУКТОР ================= -->
+  <rect x="368" y="72" width="568" height="316" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="384" y="94" font-size="14" font-weight="bold" fill="#1a1a1a">КАСКАД ЦИЛІНДРИЧНИХ ЗУБЧАСТИХ КОЛІС</text>
+  <text x="384" y="112" font-size="12" fill="#6b7280">Прямозубе зачеплення: блок-шестерні на паралельних осях</text>
+
+  <!-- Картки ступенів редукції (передавальні числа) -->
+  <!-- Ступінь 1 -->
+  <rect x="376" y="126" width="80" height="58" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="416" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ступінь 1</text>
+  <text x="416" y="159" font-size="12" fill="#1a1a1a" text-anchor="middle">27T / 9T</text>
+  <text x="416" y="176" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">i₁ = 3,0</text>
+
+  <!-- Ступінь 2 -->
+  <rect x="464" y="126" width="80" height="58" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="504" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ступінь 2</text>
+  <text x="504" y="159" font-size="12" fill="#1a1a1a" text-anchor="middle">27T / 9T</text>
+  <text x="504" y="176" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">i₂ = 3,0</text>
+
+  <!-- Ступінь 3 -->
+  <rect x="552" y="126" width="80" height="58" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="592" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ступінь 3</text>
+  <text x="592" y="159" font-size="12" fill="#1a1a1a" text-anchor="middle">27T / 9T</text>
+  <text x="592" y="176" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">i₃ = 3,0</text>
+
+  <!-- Ступінь 4 -->
+  <rect x="640" y="126" width="80" height="58" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="680" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ступінь 4</text>
+  <text x="680" y="159" font-size="12" fill="#1a1a1a" text-anchor="middle">32T / 8T</text>
+  <text x="680" y="176" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">i₄ = 4,0</text>
+
+  <!-- Загальне передавальне число -->
+  <rect x="728" y="126" width="196" height="58" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="826" y="142" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Загальне число</text>
+  <text x="826" y="159" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">i_заг = 3×3×3×4 = 108:1</text>
+  <text x="826" y="176" font-size="12" fill="#6b7280" text-anchor="middle">n_вих ≈ 100 об/хв (6 В)</text>
+
+  <!-- Механічна частина редуктора -->
+  <!-- Опорні пластини редуктора (задня і передня) -->
+  <path d="M 376,196 h 8 v 136 h -8 z" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+  <path d="M 708,196 h 8 v 136 h -8 z" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+  <!-- Стяжні планки корпусу -->
+  <line x1="384" y1="202" x2="708" y2="202" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="384" y1="326" x2="708" y2="326" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Вал I (проміжний 1) -->
+  <line x1="416" y1="202" x2="416" y2="326" stroke="#475569" stroke-width="3"/>
+  <!-- Колесо z2 (велике прямозубе) -->
+  <path d="M 402,212 h 14 v 60 h -14 z" fill="#cbd5e1" stroke="#475569" stroke-width="1.2"/>
+  <line x1="406" y1="212" x2="406" y2="272" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="410" y1="212" x2="410" y2="272" stroke="#94a3b8" stroke-width="1"/>
+  <!-- Триб z3 (малий) -->
+  <path d="M 416,234 h 14 v 24 h -14 z" fill="#f59e0b" stroke="#b45309" stroke-width="1.2"/>
+  <line x1="423" y1="234" x2="423" y2="258" stroke="#b45309" stroke-width="1"/>
+
+  <!-- Вал II (проміжний 2) -->
+  <line x1="504" y1="202" x2="504" y2="326" stroke="#475569" stroke-width="3"/>
+  <!-- Колесо z4 (велике прямозубе) -->
+  <path d="M 490,224 h 14 v 60 h -14 z" fill="#cbd5e1" stroke="#475569" stroke-width="1.2"/>
+  <line x1="494" y1="224" x2="494" y2="284" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="498" y1="224" x2="498" y2="284" stroke="#94a3b8" stroke-width="1"/>
+  <!-- Триб z5 (малий) -->
+  <path d="M 504,246 h 14 v 24 h -14 z" fill="#f59e0b" stroke="#b45309" stroke-width="1.2"/>
+  <line x1="511" y1="246" x2="511" y2="270" stroke="#b45309" stroke-width="1"/>
+
+  <!-- Вал III (проміжний 3) -->
+  <line x1="592" y1="202" x2="592" y2="326" stroke="#475569" stroke-width="3"/>
+  <!-- Колесо z6 (велике прямозубе) -->
+  <path d="M 578,236 h 14 v 60 h -14 z" fill="#cbd5e1" stroke="#475569" stroke-width="1.2"/>
+  <line x1="582" y1="236" x2="582" y2="296" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="586" y1="236" x2="586" y2="296" stroke="#94a3b8" stroke-width="1"/>
+  <!-- Триб z7 (малий) -->
+  <path d="M 592,258 h 14 v 24 h -14 z" fill="#f59e0b" stroke="#b45309" stroke-width="1.2"/>
+  <line x1="599" y1="258" x2="599" y2="282" stroke="#b45309" stroke-width="1"/>
+
+  <!-- Вал IV (вихідний вал) -->
+  <line x1="680" y1="202" x2="680" y2="326" stroke="#475569" stroke-width="3"/>
+  <!-- Фінальне колесо z8 -->
+  <path d="M 666,248 h 14 v 64 h -14 z" fill="#cbd5e1" stroke="#475569" stroke-width="1.2"/>
+  <line x1="670" y1="248" x2="670" y2="312" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="674" y1="248" x2="674" y2="312" stroke="#94a3b8" stroke-width="1"/>
+
+  <!-- Кінематичні дуги передачі моменту -->
+  <path d="M 338,223 C 362,223 372,242 402,242" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <path d="M 430,246 C 452,246 462,254 490,254" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <path d="M 518,258 C 540,258 550,266 578,266" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <path d="M 606,270 C 628,270 638,280 666,280" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Вихідний вал (D-вал) що виходить назовні праворуч -->
+  <path d="M 680,272 h 120 v 16 h -120 z" fill="#94a3b8" stroke="#334155" stroke-width="1.2"/>
+  <!-- Зріз D-валу (лиска) -->
+  <path d="M 730,272 h 70 v 5 h -70 z" fill="#f1f5f9" stroke="#334155" stroke-width="1"/>
+  <text x="765" y="264" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зріз (лиска)</text>
+
+  <!-- Врізка: профіль D-валу в поперечному перерізі -->
+  <rect x="814" y="200" width="112" height="126" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="870" y="218" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Переріз вала</text>
+  <!-- Коло перерізу -->
+  <circle cx="870" cy="254" r="22" fill="#e2e8f0" stroke="#334155" stroke-width="1.5"/>
+  <!-- Зрізаний сегмент -->
+  <path d="M 852,239 L 888,239" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 852,239 A 22,22 0 0,1 888,239 Z" fill="#fdecea"/>
+  <text x="870" y="292" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">D-профіль</text>
+  <text x="870" y="310" font-size="12" fill="#6b7280" text-anchor="middle">Проти провороту</text>
+
+  <!-- Підписи валів редуктора знизу -->
+  <text x="416" y="348" font-size="12" fill="#1a1a1a" text-anchor="middle">Вал I</text>
+  <text x="416" y="366" font-size="12" fill="#6b7280" text-anchor="middle">z₂ / z₃</text>
+
+  <text x="504" y="348" font-size="12" fill="#1a1a1a" text-anchor="middle">Вал II</text>
+  <text x="504" y="366" font-size="12" fill="#6b7280" text-anchor="middle">z₄ / z₅</text>
+
+  <text x="592" y="348" font-size="12" fill="#1a1a1a" text-anchor="middle">Вал III</text>
+  <text x="592" y="366" font-size="12" fill="#6b7280" text-anchor="middle">z₆ / z₇</text>
+
+  <text x="680" y="348" font-size="12" fill="#1a1a1a" text-anchor="middle">Вал IV</text>
+  <text x="680" y="366" font-size="12" fill="#6b7280" text-anchor="middle">z₈ (вихід)</text>
+
+  <text x="765" y="348" font-size="12" fill="#1a1a1a" text-anchor="middle">D-вал</text>
+  <text x="765" y="366" font-size="12" fill="#6b7280" text-anchor="middle">Ø 3 мм</text>
+
+  <!-- ================= НИЖНЯ ПАНЕЛЬ: ПАРАМЕТРИ ТА ПОРІВНЯННЯ ================= -->
+  <rect x="24" y="402" width="912" height="58" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Колонка 1: Вхід -->
+  <text x="40" y="422" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри якоря (6 В):</text>
+  <text x="40" y="442" font-size="12" fill="#6b7280">n₀ ≈ 12 000 об/хв | M₀ ≈ 0,2 Н·см</text>
+
+  <!-- Роздільник 1 -->
+  <line x1="310" y1="410" x2="310" y2="452" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Колонка 2: Кінематика -->
+  <text x="326" y="422" font-size="12" font-weight="bold" fill="#2457d6">Трансформація в редукторі:</text>
+  <text x="326" y="442" font-size="12" fill="#1a1a1a">n_вих = n₀ / i_заг | M_вих = M₀ · i · η</text>
+
+  <!-- Роздільник 2 -->
+  <line x1="620" y1="410" x2="620" y2="452" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Колонка 3: Модифікації -->
+  <text x="636" y="422" font-size="12" font-weight="bold" fill="#27ae60">Порівняння модифікацій (6 В):</text>
+  <text x="636" y="442" font-size="12" fill="#1a1a1a">100 об/хв (тяга 2,5 кг·см) vs 600 об/хв</text>
+</svg>

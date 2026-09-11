@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма неблокуючого кооперативного суперциклу керування</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Високоточне квантування S-профілю сервопривода (O(1), 3 мкс) паралельно з опитуванням сенсорів без блокування та джиттеру</text>
+
+  <!-- Центральна панель часових доріжок -->
+  <rect x="40" y="70" width="880" height="265" rx="8" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Розділювач колонок: ліворуч назви задач, праворуч часова шкала -->
+  <line x1="240" y1="70" x2="240" y2="335" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Горизонтальні розділювачі доріжок -->
+  <line x1="40" y1="180" x2="920" y2="180" stroke="#e2e8f0" stroke-width="1"/>
+  <line x1="40" y1="250" x2="920" y2="250" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Часова шкала (t) вгорі діаграми -->
+  <text x="260" y="92" text-anchor="middle" font-size="12" fill="#6b7280">0 мс</text>
+  <text x="384" y="92" text-anchor="middle" font-size="12" fill="#6b7280">20 мс</text>
+  <text x="508" y="92" text-anchor="middle" font-size="12" fill="#6b7280">40 мс</text>
+  <text x="570" y="92" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">50 мс</text>
+  <text x="632" y="92" text-anchor="middle" font-size="12" fill="#6b7280">60 мс</text>
+  <text x="756" y="92" text-anchor="middle" font-size="12" fill="#6b7280">80 мс</text>
+  <text x="880" y="92" text-anchor="middle" font-size="12" fill="#6b7280">100 мс</text>
+  <text x="910" y="105" font-size="12" font-weight="bold" fill="#6b7280">t</text>
+
+  <!-- Вісь часу зі стрілкою -->
+  <line x1="250" y1="102" x2="902" y2="102" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Засічки шкали -->
+  <line x1="260" y1="98" x2="260" y2="102" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="384" y1="98" x2="384" y2="102" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="508" y1="98" x2="508" y2="102" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="570" y1="96" x2="570" y2="102" stroke="#27ae60" stroke-width="2"/>
+  <line x1="632" y1="98" x2="632" y2="102" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="756" y1="98" x2="756" y2="102" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="880" y1="98" x2="880" y2="102" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- ДОРІЖКА 1: Servo Motion Task (T = 20 мс) -->
+  <text x="52" y="140" font-size="13" font-weight="bold" fill="#2457d6">Servo Motion Task</text>
+  <text x="52" y="158" font-size="12" fill="#6b7280">T = 20 мс · S-профіль O(1)</text>
+
+  <!-- Базова лінія Доріжки 1 -->
+  <line x1="260" y1="168" x2="895" y2="168" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- Імпульси обчислення та оновлення ШІМ (кожні 20 мс) -->
+  <rect x="260" y="144" width="8" height="24" fill="#2457d6" rx="1"/>
+  <rect x="384" y="144" width="8" height="24" fill="#2457d6" rx="1"/>
+  <rect x="508" y="144" width="8" height="24" fill="#2457d6" rx="1"/>
+  <rect x="632" y="144" width="8" height="24" fill="#2457d6" rx="1"/>
+  <rect x="756" y="144" width="8" height="24" fill="#2457d6" rx="1"/>
+  <rect x="880" y="144" width="8" height="24" fill="#2457d6" rx="1"/>
+
+  <!-- Розмірна стрілка періоду T_servo = 20 мс -->
+  <line x1="384" y1="130" x2="508" y2="130" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="446" y="124" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">T = 20 мс (50 Гц)</text>
+
+  <!-- Підпис тривалості квантування O(1) біля імпульсу 60 мс -->
+  <text x="636" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t ≈ 3 мкс</text>
+
+  <!-- ДОРІЖКА 2: Sonar Echo Task (T = 50 мс) -->
+  <text x="52" y="210" font-size="13" font-weight="bold" fill="#27ae60">Sonar Echo Task</text>
+  <text x="52" y="228" font-size="12" fill="#6b7280">T = 50 мс · неблокуючий</text>
+
+  <!-- Базова лінія Доріжки 2 -->
+  <line x1="260" y1="238" x2="895" y2="238" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- Тригерні імпульси давача кожні 50 мс -->
+  <rect x="260" y="214" width="12" height="24" fill="#27ae60" rx="1"/>
+  <rect x="570" y="214" width="12" height="24" fill="#27ae60" rx="1"/>
+  <rect x="880" y="214" width="12" height="24" fill="#27ae60" rx="1"/>
+
+  <!-- Розмірна стрілка періоду T_sensor = 50 мс -->
+  <line x1="260" y1="200" x2="570" y2="200" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-rev)" marker-end="url(#arr-green)"/>
+  <text x="415" y="194" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">T_sensor = 50 мс (період опитування дистанції)</text>
+
+  <!-- Підпис вікна очікування Echo без блокування -->
+  <text x="725" y="230" text-anchor="middle" font-size="12" fill="#6b7280">очікування Echo через переривання (без delay)</text>
+
+  <!-- ДОРІЖКА 3: Main Superloop Idle Time (> 99.9%) -->
+  <text x="52" y="280" font-size="13" font-weight="bold" fill="#1a1a1a">Головний суперцикл</text>
+  <text x="52" y="298" font-size="12" fill="#6b7280">Вільний час ЦП &gt; 99.9%</text>
+
+  <!-- Смуга вільного часу процесора -->
+  <rect x="260" y="266" width="620" height="38" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="570" y="290" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Процесор вільний для опитування кнопок, енкодера EC11 та дисплея (0% джиттеру)</text>
+  <text x="570" y="322" text-anchor="middle" font-size="12" fill="#6b7280">Суперцикл виконує мільйони ітерацій/с; кожна задача спрацьовує точно у свій часовий слот</text>
+
+  <!-- Нижні пояснювальні картки -->
+  <!-- Картка 1: Блокуюча модель (проблема) -->
+  <rect x="40" y="348" width="430" height="90" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="55" y="368" font-size="13" font-weight="bold" fill="#c0392b">Блокуюча модель із delay() — неприпустимо:</text>
+  <text x="55" y="386" font-size="12" fill="#1a1a1a">delay(50) повністю зупиняє ядро мікроконтролера на 50 мс.</text>
+  <text x="55" y="404" font-size="12" fill="#6b7280">Виникає фазовий джиттер: серво пропускає 2–3 такти ШІМ.</text>
+  <text x="55" y="422" font-size="12" font-weight="bold" fill="#c0392b">Наслідок: смикання вала, зрив S-кривої, удари в редукторі.</text>
+
+  <!-- Картка 2: Кооперативний суперцикл (розв'язок) -->
+  <rect x="490" y="348" width="430" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="505" y="368" font-size="13" font-weight="bold" fill="#27ae60">Кооперативний суперцикл — еталонна архітектура:</text>
+  <text x="505" y="386" font-size="12" fill="#1a1a1a">Перевірка через millis() виконується миттєво (3 мкс, O(1)).</text>
+  <text x="505" y="404" font-size="12" fill="#6b7280">Крок T = 20 мс гарантує ідеальну плавність S-траєкторії.</text>
+  <text x="505" y="422" font-size="12" font-weight="bold" fill="#27ae60">Результат: 0% джиттеру, збереження ресурсу редуктора.</text>
+</svg>

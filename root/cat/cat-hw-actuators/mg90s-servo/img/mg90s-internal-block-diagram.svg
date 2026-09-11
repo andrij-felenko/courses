@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Блок-схема замкненого контуру сервопривода MG90S</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Формування напруги двигуна через порівняння тривалості імпульсів і зворотний зв'язок потенціометра</text>
+
+  <!-- Панель вбудованої мікросхеми (Servo IC) -->
+  <rect x="150" y="75" width="545" height="225" rx="8" fill="#f8fafc" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="96" font-size="12" font-weight="bold" fill="#6b7280">ВБУДОВАНА СЕРВОМІКРОСХЕМА (IC)</text>
+
+  <!-- Панель механічного привода -->
+  <rect x="705" y="75" width="238" height="335" rx="8" fill="#fafbfc" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <text x="720" y="96" font-size="12" font-weight="bold" fill="#6b7280">МЕХАНІЧНИЙ ПРИВІД</text>
+
+  <!-- Блок 1: Вхід ШІМ -->
+  <rect x="25" y="115" width="110" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="80" y="137" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Вхід ШІМ</text>
+  <text x="80" y="155" text-anchor="middle" font-size="12" fill="#1a1a1a">50 Гц (20 мс)</text>
+  <text x="80" y="173" text-anchor="middle" font-size="12" fill="#6b7280">1.0–2.0 мс</text>
+
+  <!-- Стрілка 1: Вхід -> Одновібратор -->
+  <line x1="135" y1="152" x2="165" y2="152" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 2: Одновібратор -->
+  <rect x="165" y="115" width="110" height="75" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="220" y="137" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Одновібратор</text>
+  <text x="220" y="155" text-anchor="middle" font-size="12" fill="#6b7280">опорний імпульс</text>
+  <text x="220" y="173" text-anchor="middle" font-size="12" fill="#2457d6">t_опор = f(θ)</text>
+
+  <!-- Стрілка 2: Одновібратор -> Компаратор -->
+  <line x1="275" y1="152" x2="295" y2="152" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 3: Компаратор розузгодження -->
+  <rect x="295" y="115" width="125" height="75" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="357" y="137" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Компаратор</text>
+  <text x="357" y="155" text-anchor="middle" font-size="12" fill="#6b7280">похибка імпульсу</text>
+  <text x="357" y="173" text-anchor="middle" font-size="12" fill="#2457d6">Δt = t_вх − t_опор</text>
+
+  <!-- Стрілка 3: Компаратор -> Deadband -->
+  <line x1="420" y1="152" x2="440" y2="152" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 4: Схема deadband -->
+  <rect x="440" y="115" width="115" height="75" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="497" y="137" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Схема deadband</text>
+  <text x="497" y="155" text-anchor="middle" font-size="12" fill="#6b7280">мертва зона</text>
+  <text x="497" y="173" text-anchor="middle" font-size="12" fill="#27ae60">|Δt| &gt; 4 мкс</text>
+
+  <!-- Стрілка 4: Deadband -> H-міст -->
+  <line x1="555" y1="152" x2="575" y2="152" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 5: Інтегрований H-міст -->
+  <rect x="575" y="115" width="110" height="75" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="630" y="137" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Силовий H-міст</text>
+  <text x="630" y="155" text-anchor="middle" font-size="12" fill="#6b7280">драйвер мотора</text>
+  <text x="630" y="173" text-anchor="middle" font-size="12" fill="#c0392b">ключі FET / BJT</text>
+
+  <!-- Стрілка 5: H-міст -> Двигун -->
+  <line x1="685" y1="152" x2="715" y2="152" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Блок 6: DC-двигун -->
+  <rect x="715" y="115" width="95" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="762" y="137" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">DC-двигун</text>
+  <text x="762" y="155" text-anchor="middle" font-size="12" fill="#1a1a1a">колекторний</text>
+  <text x="762" y="173" text-anchor="middle" font-size="12" fill="#6b7280">ротор і щітки</text>
+
+  <!-- Стрілка 6: Двигун -> Редуктор -->
+  <line x1="810" y1="152" x2="835" y2="152" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- Блок 7: Редуктор і вал -->
+  <rect x="835" y="115" width="100" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="885" y="137" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Редуктор</text>
+  <text x="885" y="155" text-anchor="middle" font-size="12" fill="#1a1a1a">латунь / сталь</text>
+  <text x="885" y="173" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вал серва θ</text>
+
+  <!-- Підпанель логіки H-моста (розміщена праворуч від вертикального зворотного дроту) -->
+  <rect x="285" y="205" width="400" height="85" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="295" y="223" font-size="12" font-weight="bold" fill="#1a1a1a">Режими H-моста (похибка Δt = t_вх − t_опор):</text>
+  <text x="295" y="243" font-size="12" font-weight="bold" fill="#2457d6">Δt &gt; +t_db:</text>
+  <text x="385" y="243" font-size="12" fill="#1a1a1a">+V_жив → обертання CW</text>
+  <text x="295" y="261" font-size="12" font-weight="bold" fill="#27ae60">|Δt| ≤ t_db:</text>
+  <text x="385" y="261" font-size="12" fill="#27ae60">0 В → спокій (без джитеру)</text>
+  <text x="295" y="279" font-size="12" font-weight="bold" fill="#c0392b">Δt &lt; −t_db:</text>
+  <text x="385" y="279" font-size="12" fill="#1a1a1a">−V_жив → обертання CCW</text>
+
+  <!-- Підпис до вертикальної лінії зворотного зв'язку -->
+  <text x="210" y="255" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">V_fb</text>
+  <text x="210" y="271" text-anchor="end" font-size="12" fill="#6b7280">(кут θ)</text>
+
+  <!-- Механічне зчеплення вала з потенціометром -->
+  <line x1="885" y1="190" x2="885" y2="320" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-gray)"/>
+  <text x="875" y="248" text-anchor="end" font-size="12" fill="#6b7280">жорсткий</text>
+  <text x="875" y="264" text-anchor="end" font-size="12" fill="#6b7280">зв'язок</text>
+
+  <!-- Блок 8: Потенціометр -->
+  <rect x="835" y="320" width="100" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="885" y="342" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Потенціометр</text>
+  <text x="885" y="360" text-anchor="middle" font-size="12" fill="#1a1a1a">датчик кута</text>
+  <text x="885" y="378" text-anchor="middle" font-size="12" fill="#6b7280">R = 10 кОм</text>
+
+  <!-- Зворотний зв'язок: Потенціометр -> Одновібратор -->
+  <path d="M835,355 L220,355 L220,190" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="525" y="378" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Аналоговий зворотний зв'язок: напруга V_fb пропорційна куту вала θ</text>
+  <text x="525" y="396" text-anchor="middle" font-size="12" fill="#6b7280">задає тривалість опорного імпульсу одновібратора для балансування моста</text>
+</svg>

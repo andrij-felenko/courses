@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Однотактний вихід: обмеження розмаху та роздільний конденсатор</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Амплітуда обмежена VDD / 2 = 2.5 В, а постійне зміщення вимагає оксидного C_out</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Схема -->
+  <rect x="24" y="80" width="420" height="356" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="44" y="104" font-size="14" font-weight="bold" fill="#1a1a1a">Схема однотактного каскаду (Single-Ended)</text>
+  <text x="44" y="122" font-size="12" fill="#6b7280">Однополярне живлення VDD = 5 В, навантаження відносно GND</text>
+
+  <!-- Вхід аудіо -->
+  <text x="40" y="190" font-size="12" fill="#2457d6">Вхід</text>
+  <line x1="40" y1="205" x2="75" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Підсилювач (трикутник) -->
+  <polygon points="75,175 75,235 135,205" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="96" y="209" font-size="12" font-weight="bold" fill="#2457d6">AMP</text>
+
+  <!-- Живлення VDD і GND до підсилювача -->
+  <line x1="95" y1="175" x2="95" y2="152" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="95" cy="150" r="3" fill="#c0392b"/>
+  <text x="104" y="154" font-size="12" font-weight="bold" fill="#c0392b">VDD (5 В)</text>
+
+  <line x1="95" y1="235" x2="95" y2="258" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="87" y1="258" x2="103" y2="258" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="90" y1="262" x2="100" y2="262" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="93" y1="266" x2="97" y2="266" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="108" y="264" font-size="12" fill="#6b7280">GND (0 В)</text>
+
+  <!-- Вихід підсилювача до C_out (Вузол 1) -->
+  <line x1="135" y1="205" x2="216" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="168" cy="205" r="3.5" fill="#2457d6"/>
+  <line x1="168" y1="201" x2="168" y2="175" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <circle cx="168" cy="165" r="9" fill="#2457d6"/>
+  <text x="168" y="169" font-size="12" font-weight="bold" fill="white" text-anchor="middle">1</text>
+
+  <!-- Конденсатор C_out -->
+  <line x1="216" y1="193" x2="216" y2="217" stroke="#1a1a1a" stroke-width="2.5"/>
+  <path d="M 224,193 Q 228,205 224,217" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="207" y="196" font-size="13" font-weight="bold" fill="#c0392b">+</text>
+  <text x="220" y="165" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C_out</text>
+  <text x="220" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">220–470 мкФ</text>
+  <text x="220" y="251" font-size="12" fill="#6b7280" text-anchor="middle">(електроліт)</text>
+
+  <!-- Провід після C_out (Вузол 2) -->
+  <line x1="225" y1="205" x2="305" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="265" cy="205" r="3.5" fill="#27ae60"/>
+  <line x1="265" y1="201" x2="265" y2="175" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <circle cx="265" cy="165" r="9" fill="#27ae60"/>
+  <text x="265" y="169" font-size="12" font-weight="bold" fill="white" text-anchor="middle">2</text>
+
+  <!-- Динамік (R_L) -->
+  <rect x="305" y="193" width="16" height="24" rx="2" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="321,197 345,183 345,227 321,213" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="353" y="202" font-size="13" font-weight="bold" fill="#1a1a1a">R_L (4 Ом)</text>
+  <text x="353" y="218" font-size="12" fill="#6b7280">Динамік</text>
+
+  <!-- Заземлення динаміка -->
+  <line x1="313" y1="217" x2="313" y2="258" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="305" y1="258" x2="321" y2="258" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="308" y1="262" x2="318" y2="262" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="311" y1="266" x2="315" y2="266" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="326" y="264" font-size="12" fill="#6b7280">GND</text>
+
+  <!-- Картка проблеми у лівій панелі -->
+  <rect x="38" y="282" width="392" height="138" rx="6" ry="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="50" y="302" font-size="13" font-weight="bold" fill="#c0392b">Чому однотактний вихід потребує C_out:</text>
+  <text x="50" y="322" font-size="12" fill="#1a1a1a">• Робоча точка V_DC = 2.5 В створює постійний струм</text>
+  <text x="50" y="341" font-size="12" fill="#c0392b">• Без C_out постійний струм 0.63 А спалює динамік!</text>
+  <text x="50" y="362" font-size="12" fill="#1a1a1a">• C_out рятує динамік, але формує зріз низьких частот:</text>
+  <text x="60" y="380" font-size="12" font-weight="bold" fill="#2457d6">f_н = 1 / (2π · R_L · C_out) ≈ 85 Гц (при 470 мкФ)</text>
+  <text x="50" y="402" font-size="12" fill="#6b7280">• Потрібен великий електроліт, що збільшує габарити</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Осцилограми -->
+  <rect x="458" y="80" width="478" height="356" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="478" y="104" font-size="14" font-weight="bold" fill="#1a1a1a">Осцилограми напруги (розмах сигналу)</text>
+  <text x="478" y="122" font-size="12" fill="#6b7280">Порівняння розмаху до C_out та на навантаженні після C_out</text>
+
+  <!-- Графік 1: До C_out -->
+  <circle cx="478" cy="138" r="9" fill="#2457d6"/>
+  <text x="478" y="142" font-size="12" font-weight="bold" fill="white" text-anchor="middle">1</text>
+  <text x="494" y="142" font-size="13" font-weight="bold" fill="#2457d6">Напруга до C_out: вихід мікросхеми V_out(t)</text>
+
+  <!-- Осі та рівні Графіка 1 -->
+  <line x1="515" y1="160" x2="735" y2="160" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="515" y1="195" x2="735" y2="195" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="515" y1="230" x2="745" y2="230" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="750" y="234" font-size="12" fill="#1a1a1a">t</text>
+
+  <line x1="515" y1="230" x2="515" y2="152" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="515" y="147" font-size="12" fill="#1a1a1a" text-anchor="middle">V</text>
+
+  <!-- Позначки напруги зліва Графіка 1 -->
+  <line x1="510" y1="160" x2="515" y2="160" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="507" y="164" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">5 В</text>
+
+  <line x1="510" y1="195" x2="515" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="507" y="199" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">2.5 В</text>
+
+  <line x1="510" y1="230" x2="515" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="507" y="234" font-size="12" fill="#1a1a1a" text-anchor="end">0 В</text>
+
+  <!-- Синусоїда Графіка 1 -->
+  <path d="M 515,195 Q 550,125 585,195 Q 620,265 655,195 Q 690,125 725,195" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Стрілка розмаху V_pp для Графіка 1 -->
+  <line x1="740" y1="160" x2="740" y2="230" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+
+  <!-- Пояснення справа Графіка 1 -->
+  <text x="755" y="164" font-size="12" font-weight="bold" fill="#c0392b">VDD = 5 В (верхня рейка)</text>
+  <text x="755" y="182" font-size="12" fill="#2457d6">V_пік ≤ VDD/2 = 2.5 В</text>
+  <text x="755" y="199" font-size="12" font-weight="bold" fill="#2457d6">Зміщення: V_DC = 2.5 В</text>
+  <text x="755" y="216" font-size="12" fill="#1a1a1a">Розмах: V_pp = 5.0 В</text>
+  <text x="755" y="234" font-size="12" fill="#6b7280">GND = 0 В (нижня рейка)</text>
+
+  <!-- Графік 2: Після C_out -->
+  <circle cx="478" cy="261" r="9" fill="#27ae60"/>
+  <text x="478" y="265" font-size="12" font-weight="bold" fill="white" text-anchor="middle">2</text>
+  <text x="494" y="265" font-size="13" font-weight="bold" fill="#27ae60">Напруга після C_out: на динаміку V_RL(t)</text>
+
+  <!-- Осі та рівні Графіка 2 -->
+  <line x1="515" y1="285" x2="735" y2="285" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="515" y1="320" x2="745" y2="320" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="750" y="324" font-size="12" fill="#1a1a1a">t</text>
+  <line x1="515" y1="355" x2="735" y2="355" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+  <line x1="515" y1="362" x2="515" y2="277" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="515" y="272" font-size="12" fill="#1a1a1a" text-anchor="middle">V</text>
+
+  <!-- Позначки напруги зліва Графіка 2 -->
+  <line x1="510" y1="285" x2="515" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="507" y="289" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">+2.5 В</text>
+
+  <line x1="510" y1="320" x2="515" y2="320" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="507" y="324" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0 В</text>
+
+  <line x1="510" y1="355" x2="515" y2="355" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="507" y="359" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">-2.5 В</text>
+
+  <!-- Синусоїда Графіка 2 -->
+  <path d="M 515,320 Q 550,250 585,320 Q 620,390 655,320 Q 690,250 725,320" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Стрілка розмаху V_pp для Графіка 2 -->
+  <line x1="740" y1="285" x2="740" y2="355" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+
+  <!-- Пояснення справа Графіка 2 -->
+  <text x="755" y="289" font-size="12" font-weight="bold" fill="#27ae60">+V_пік = +2.5 В (плюс)</text>
+  <text x="755" y="306" font-size="12" fill="#27ae60">Розмах: V_pp = 5.0 В (VDD)</text>
+  <text x="755" y="324" font-size="12" font-weight="bold" fill="#1a1a1a">V_DC = 0 В (DC усунено)</text>
+  <text x="755" y="342" font-size="12" fill="#6b7280">Симетричний рух дифузора</text>
+  <text x="755" y="359" font-size="12" font-weight="bold" fill="#27ae60">-V_пік = -2.5 В (мінус)</text>
+
+  <!-- Підсумковий блок потужності в правій панелі -->
+  <rect x="470" y="378" width="454" height="46" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="482" y="396" font-size="12" font-weight="bold" fill="#2457d6">Гранична потужність однотактного каскаду (SE):</text>
+  <text x="482" y="414" font-size="12" fill="#1a1a1a">P_SE = V_m² / (2·R_L) = 0.78 Вт на 4 Ом (у мості BTL — 3.1 Вт)</text>
+</svg>

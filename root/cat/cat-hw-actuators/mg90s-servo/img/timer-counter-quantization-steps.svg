@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-rev-blue" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Квантування апаратного таймера та дискретність ШІМ-керування</text>
+  <text x="480" y="48" font-size="13" text-anchor="middle" fill="#6b7280">Дискретні тіки t_tick лічильника CNT, поріг порівняння CCR та формування тривалості вихідного імпульсу</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Огляд повного циклу ШІМ -->
+  <rect x="30" y="64" width="515" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="90" font-size="14" font-weight="700" fill="#1a1a1a">Повний цикл ШІМ: лічильник CNT та вихідний пін</text>
+  <rect x="430" y="76" width="80" height="18" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="470" y="89" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Огляд</text>
+
+  <!-- Картка лічильника CNT -->
+  <rect x="50" y="105" width="475" height="145" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="110" y="132" font-size="12" font-weight="700" text-anchor="end" fill="#1a1a1a">ARR=20000</text>
+  <text x="110" y="182" font-size="12" font-weight="700" text-anchor="end" fill="#c0392b">CCR=1500</text>
+  <text x="110" y="228" font-size="12" font-weight="700" text-anchor="end" fill="#6b7280">0</text>
+
+  <!-- Осі графіка CNT -->
+  <line x1="115" y1="225" x2="115" y2="120" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="122" y="122" font-size="12" font-weight="700" fill="#1a1a1a">CNT</text>
+  <line x1="115" y1="225" x2="490" y2="225" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="495" y="228" font-size="12" fill="#6b7280">t</text>
+
+  <!-- Пила лічильника CNT -->
+  <polygon points="115,225 465,128 465,225" fill="#eaf0fd" opacity="0.6"/>
+  <line x1="115" y1="225" x2="465" y2="128" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="465" y1="128" x2="465" y2="225" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="465" y1="225" x2="485" y2="219" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Поріг CCR -->
+  <line x1="115" y1="178" x2="465" y2="178" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <circle cx="190" cy="178" r="4" fill="#c0392b"/>
+  <text x="198" y="168" font-size="12" font-weight="700" fill="#c0392b">Збіг: CNT = CCR</text>
+
+  <!-- Вертикальна лінія синхронізації збігу -->
+  <line x1="190" y1="178" x2="190" y2="280" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Картка вихідного сигналу ШІМ -->
+  <rect x="50" y="260" width="475" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="110" y="286" font-size="12" font-weight="700" text-anchor="end" fill="#27ae60">HIGH</text>
+  <text x="110" y="326" font-size="12" font-weight="700" text-anchor="end" fill="#6b7280">LOW</text>
+
+  <!-- Вісь ШІМ -->
+  <line x1="115" y1="322" x2="490" y2="322" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Форма імпульсу ШІМ -->
+  <rect x="115" y="280" width="75" height="42" fill="#e9f7ef" opacity="0.6"/>
+  <polyline points="115,280 190,280 190,322 465,322 465,280 485,280" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Підписи всередині імпульсу -->
+  <text x="152" y="298" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">1,5 мс</text>
+  <text x="152" y="314" font-size="12" text-anchor="middle" fill="#2457d6">(90°)</text>
+
+  <!-- Розмірна лінія періоду T = 20 мс -->
+  <line x1="117" y1="344" x2="463" y2="344" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="290" y="360" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Період повторення ШІМ: T = 20 мс (50 Гц)</text>
+
+  <!-- Підсумкова рамка логіки лічильника -->
+  <rect x="50" y="380" width="475" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="65" y="400" font-size="12" font-weight="700" fill="#2457d6">Логіка ШІМ:</text>
+  <text x="145" y="400" font-size="12" fill="#1a1a1a">CNT &lt; CCR: вихід 1 (HIGH); CNT ≥ CCR: вихід 0 (LOW)</text>
+  <text x="65" y="420" font-size="12" fill="#6b7280">При CNT = ARR лічильник скидається в 0 і починається новий імпульс</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Збільшений вузол дискретних тіків -->
+  <rect x="560" y="64" width="370" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="580" y="90" font-size="14" font-weight="700" fill="#1a1a1a">Збільшено: сходинки лічильника CNT</text>
+  <rect x="830" y="76" width="85" height="18" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="872" y="89" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Збільшено</text>
+
+  <!-- Картка сходинок лічильника -->
+  <rect x="575" y="105" width="340" height="165" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="590" y="125" font-size="12" font-weight="700" fill="#1a1a1a">Дискретні такти таймера (t_tick = 1 мкс):</text>
+
+  <!-- Поріг CCR у збільшеному масштабі -->
+  <line x1="585" y1="180" x2="895" y2="180" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="590" y="172" font-size="12" font-weight="700" fill="#c0392b">Поріг CCR = 1500</text>
+  <circle cx="730" cy="180" r="4" fill="#c0392b"/>
+
+  <!-- Тіло сходинок -->
+  <path d="M 595,236 L 665,236 L 665,208 L 730,208 L 730,180 L 795,180 L 795,152 L 860,152 L 860,126" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Розмірна лінія одного такту t_tick -->
+  <line x1="667" y1="198" x2="728" y2="198" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="698" y="193" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">t_tick</text>
+
+  <!-- Розмірна лінія інкременту +1 LSB -->
+  <line x1="875" y1="178" x2="875" y2="154" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-rev-blue)" marker-end="url(#arr-blue)"/>
+  <text x="882" y="168" font-size="12" font-weight="700" fill="#2457d6">+1</text>
+
+  <!-- Значення лічильника під сходинками -->
+  <text x="630" y="252" font-size="12" text-anchor="middle" fill="#6b7280">1498</text>
+  <text x="698" y="252" font-size="12" text-anchor="middle" fill="#6b7280">1499</text>
+  <text x="762" y="252" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">1500</text>
+  <text x="828" y="252" font-size="12" text-anchor="middle" fill="#6b7280">1501</text>
+
+  <!-- Картка розрахунку дискретності -->
+  <rect x="575" y="280" width="340" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="590" y="302" font-size="13" font-weight="700" fill="#1a1a1a">Дискретність кутового позиціювання:</text>
+  <text x="590" y="324" font-size="12" font-weight="700" fill="#2457d6">Δθ = 180° / 2000 тіків = 0,09° на 1 мкс</text>
+  <text x="590" y="346" font-size="12" fill="#1a1a1a">За 16-бітним таймером: 1 тік = 1 мкс → крок 0,09°</text>
+  <text x="590" y="372" font-size="12" font-weight="700" fill="#27ae60">Фізична зона нечутливості (Deadband):</text>
+  <text x="590" y="394" font-size="12" fill="#6b7280">Апаратний deadband сервопривода: ~4–5 мкс (≈0,4°)</text>
+  <text x="590" y="416" font-size="12" fill="#c0392b">Зміна менша за 4 тіки не зрушить вихідний вал</text>
+</svg>

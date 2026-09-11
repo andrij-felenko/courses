@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+</defs>
+
+<!-- ==================== HEADER ==================== -->
+<text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Енергетичні характеристики двигуна постійного струму 6 В</text>
+<text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Залежність потужностей P_мех, P_ел та ККД η від моменту: точка P_max та зона перегріву</text>
+
+<!-- ==================== CHART LEGEND ==================== -->
+<line x1="95" y1="80" x2="115" y2="80" stroke="#2457d6" stroke-width="2.5"/>
+<circle cx="105" cy="80" r="3" fill="#2457d6"/>
+<text x="122" y="84" font-size="12" font-weight="bold" fill="#2457d6">P_мех(M) — корисна</text>
+
+<line x1="265" y1="80" x2="285" y2="80" stroke="#c0392b" stroke-width="2"/>
+<text x="292" y="84" font-size="12" font-weight="bold" fill="#c0392b">P_ел(M) — споживана</text>
+
+<line x1="440" y1="80" x2="460" y2="80" stroke="#27ae60" stroke-width="2.5"/>
+<circle cx="450" cy="80" r="3" fill="#27ae60"/>
+<text x="467" y="84" font-size="12" font-weight="bold" fill="#27ae60">η(M) — ККД</text>
+
+<!-- ==================== AXES TITLES ==================== -->
+<text x="85" y="104" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Потужність P [Вт]</text>
+<text x="545" y="104" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">ККД η [%]</text>
+
+<!-- ==================== SHADED HIGHLIGHT ZONES ==================== -->
+<!-- Zone 1: Optimal Efficiency (15% to 25% of M_stall) -->
+<rect x="154" y="140" width="46" height="255" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+<rect x="100" y="112" width="154" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="177" y="127" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Оптимальний ККД η_max</text>
+
+<!-- Zone 2: Danger Overheating (near M_stall) -->
+<rect x="420" y="140" width="125" height="255" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+<rect x="428" y="242" width="110" height="42" rx="4" fill="#ffffff" fill-opacity="0.94" stroke="#c0392b" stroke-width="1"/>
+<text x="483" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Зона перегріву</text>
+<text x="483" y="274" text-anchor="middle" font-size="12" fill="#c0392b">P_тепло ≫ P_мех</text>
+
+<!-- ==================== GRID / GUIDELINES ==================== -->
+<!-- Grid line at 100% / P_stall -->
+<line x1="85" y1="140" x2="545" y2="140" stroke="#e1e4e8" stroke-dasharray="2 2" stroke-width="1"/>
+
+<!-- P_max Guidelines -->
+<line x1="85" y1="305" x2="315" y2="305" stroke="#2457d6" stroke-dasharray="3 3" stroke-width="1.2"/>
+<line x1="315" y1="305" x2="315" y2="316" stroke="#2457d6" stroke-dasharray="3 3" stroke-width="1.2"/>
+<!-- P_max badge -->
+<rect x="288" y="318" width="54" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="315" y="334" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">P_max</text>
+<line x1="315" y1="342" x2="315" y2="395" stroke="#2457d6" stroke-dasharray="3 3" stroke-width="1.2"/>
+
+<!-- ==================== CURVES ==================== -->
+<!-- Curve 2: P_ел (Linear input power) -->
+<line x1="85" y1="370" x2="545" y2="140" stroke="#c0392b" stroke-width="2"/>
+<circle cx="85" cy="370" r="3.5" fill="#c0392b"/>
+<circle cx="545" cy="140" r="4" fill="#c0392b"/>
+
+<!-- Curve 1: P_мех (Parabola) -->
+<path d="M 85,395 Q 315,215 545,395" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+<circle cx="315" cy="305" r="4" fill="#2457d6"/>
+
+<!-- Curve 3: η (Efficiency curve) -->
+<path d="M 85,395 C 115,290 145,222 177,222 C 215,222 265,250 315,275 C 380,308 465,355 545,395" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+<circle cx="177" cy="222" r="4" fill="#27ae60"/>
+
+<!-- ==================== MAIN AXES ==================== -->
+<line x1="85" y1="395" x2="565" y2="395" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+<line x1="85" y1="395" x2="85" y2="115" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+<line x1="545" y1="395" x2="545" y2="115" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+<!-- ==================== AXIS TICKS & LABELS ==================== -->
+<!-- Bottom axis ticks -->
+<line x1="85" y1="395" x2="85" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="177" y1="395" x2="177" y2="400" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="315" y1="395" x2="315" y2="400" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="545" y1="395" x2="545" y2="400" stroke="#c0392b" stroke-width="1.5"/>
+
+<text x="85" y="414" text-anchor="middle" font-size="12" fill="#1a1a1a">0</text>
+<text x="177" y="414" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">15–25%</text>
+<text x="315" y="414" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">M_stall / 2</text>
+<text x="545" y="414" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">M_stall</text>
+
+<text x="315" y="440" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Крутний момент M [Н·м]</text>
+
+<!-- Left axis ticks -->
+<line x1="80" y1="395" x2="85" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="80" y1="370" x2="85" y2="370" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="80" y1="305" x2="85" y2="305" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="80" y1="140" x2="85" y2="140" stroke="#c0392b" stroke-width="1.5"/>
+
+<text x="76" y="399" text-anchor="end" font-size="12" fill="#1a1a1a">0</text>
+<text x="76" y="374" text-anchor="end" font-size="12" fill="#c0392b">P_0</text>
+<text x="76" y="309" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">P_max</text>
+<text x="76" y="144" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">P_stall</text>
+
+<!-- Right axis ticks -->
+<line x1="545" y1="395" x2="550" y2="395" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="545" y1="268" x2="550" y2="268" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="545" y1="222" x2="550" y2="222" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="545" y1="140" x2="550" y2="140" stroke="#27ae60" stroke-width="1.5"/>
+
+<text x="554" y="399" text-anchor="start" font-size="12" fill="#1a1a1a">0%</text>
+<text x="554" y="272" text-anchor="start" font-size="12" fill="#6b7280">50%</text>
+<text x="554" y="226" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">η_max</text>
+<text x="554" y="144" text-anchor="start" font-size="12" fill="#6b7280">100%</text>
+
+<!-- ==================== RIGHT SIDE CARDS ==================== -->
+<!-- Card 1: Key Formulas -->
+<rect x="610" y="78" width="325" height="182" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="626" y="101" font-size="14" font-weight="bold" fill="#1a1a1a">Ключові співвідношення</text>
+
+<rect x="626" y="114" width="4" height="26" rx="2" fill="#2457d6"/>
+<text x="638" y="126" font-size="12" font-weight="bold" fill="#2457d6">P_мех = M · ω = M · ω_0 · (1 - M/M_stall)</text>
+<text x="638" y="139" font-size="12" fill="#6b7280">P_max досягається при M = M_stall / 2</text>
+
+<rect x="626" y="152" width="4" height="26" rx="2" fill="#c0392b"/>
+<text x="638" y="164" font-size="12" font-weight="bold" fill="#c0392b">P_ел = V · I = V · I_0 + (V / Kt) · M</text>
+<text x="638" y="177" font-size="12" fill="#6b7280">Зростає лінійно до P_stall = V²/R</text>
+
+<rect x="626" y="190" width="4" height="26" rx="2" fill="#27ae60"/>
+<text x="638" y="202" font-size="12" font-weight="bold" fill="#27ae60">η = P_мех / P_ел = (M · ω) / (V · I)</text>
+<text x="638" y="215" font-size="12" fill="#6b7280">Пік η_max при M ≈ (15–25)% M_stall</text>
+
+<text x="626" y="244" font-size="12" fill="#6b7280">При M_stall: P_мех = 0, уся P_ел іде в тепло</text>
+
+<!-- Card 2: Operating Points -->
+<rect x="610" y="274" width="325" height="186" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="626" y="297" font-size="14" font-weight="bold" fill="#1a1a1a">Практичний вибір робочої точки</text>
+
+<!-- Mode 1: Optimal -->
+<rect x="622" y="307" width="301" height="40" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="632" y="323" font-size="12" font-weight="bold" fill="#27ae60">1. Робочий режим: (15–25)% від M_stall</text>
+<text x="632" y="337" font-size="12" fill="#1a1a1a">Максимальний ресурс, ККД та низький нагрів</text>
+
+<!-- Mode 2: P_max -->
+<rect x="622" y="355" width="301" height="40" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="632" y="371" font-size="12" font-weight="bold" fill="#2457d6">2. Режим P_max: M = 50% від M_stall</text>
+<text x="632" y="385" font-size="12" fill="#1a1a1a">Пікова тяга, але ККД &lt; 50% і сильний нагрів</text>
+
+<!-- Mode 3: Stall -->
+<rect x="622" y="403" width="301" height="42" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="632" y="419" font-size="12" font-weight="bold" fill="#c0392b">3. Блокування (stall): M = M_stall</text>
+<text x="632" y="433" font-size="12" fill="#1a1a1a">ККД = 0%, уся потужність іде в перегрів</text>
+
+</svg>

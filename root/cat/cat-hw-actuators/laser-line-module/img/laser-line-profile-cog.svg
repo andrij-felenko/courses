@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+</defs>
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Розподіл інтенсивності лазерної лінії та субпіксельний центр мас (COG)</text>
+<text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Субпіксельний COG усереднює спекл-шум та усуває дискретні стрибки цілочисельного максимуму</text>
+
+<!-- Ліва панель: Графік перерізу та COG -->
+<rect x="24" y="72" width="590" height="368" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+<!-- Шапка лівої панелі -->
+<rect x="34" y="80" width="570" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="44" y="102" font-size="13" font-weight="700" fill="#2457d6">Переріз пучка вздовж стовпця пікселів матриці: I(y)</text>
+<text x="594" y="102" text-anchor="end" font-size="12" fill="#6b7280">Спекли та поріг</text>
+
+<!-- Зона відсікання шуму (фонове підсвічування під порогом 35 DN) -->
+<rect x="85" y="280" width="495" height="20" fill="#fdecea" stroke="none"/>
+
+<!-- Зона інтегрування енергії COG (вище порогу 35 DN) -->
+<polygon points="200,280 217,273 234,258 251,242 268,220 285,198 302,206 319,169 336,175 353,181 370,190 387,212 404,232 421,251 438,265 455,274 466,280 200,280" fill="#e9f7ef" stroke="none"/>
+
+<!-- Вісь Y (Яскравість DN) -->
+<line x1="85" y1="136" x2="85" y2="300" stroke="#6b7280" stroke-width="1"/>
+<text x="85" y="130" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">DN</text>
+
+<!-- Поділки Y -->
+<line x1="81" y1="145" x2="85" y2="145" stroke="#6b7280" stroke-width="1"/>
+<text x="77" y="149" text-anchor="end" font-size="12" fill="#6b7280">255</text>
+
+<line x1="81" y1="222" x2="85" y2="222" stroke="#6b7280" stroke-width="1"/>
+<text x="77" y="226" text-anchor="end" font-size="12" fill="#6b7280">128</text>
+
+<line x1="81" y1="280" x2="85" y2="280" stroke="#c0392b" stroke-width="1.5"/>
+<text x="77" y="284" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">35</text>
+
+<line x1="81" y1="300" x2="85" y2="300" stroke="#6b7280" stroke-width="1"/>
+<text x="77" y="304" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+<!-- Поріг відсікання шуму I_th = 35 DN -->
+<line x1="85" y1="280" x2="580" y2="280" stroke="#c0392b" stroke-dasharray="4,4" stroke-width="1.5"/>
+<text x="575" y="272" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">Поріг шуму I_th = 35 DN</text>
+
+<!-- Вісь X (Координата Y пікселів стовпця) -->
+<line x1="85" y1="300" x2="580" y2="300" stroke="#6b7280" stroke-width="1"/>
+
+<!-- Поділки X -->
+<line x1="115" y1="300" x2="115" y2="304" stroke="#6b7280" stroke-width="1"/>
+<text x="115" y="316" text-anchor="middle" font-size="12" fill="#6b7280">6</text>
+
+<line x1="149" y1="300" x2="149" y2="304" stroke="#6b7280" stroke-width="1"/>
+<text x="149" y="316" text-anchor="middle" font-size="12" fill="#6b7280">7</text>
+
+<line x1="183" y1="300" x2="183" y2="304" stroke="#6b7280" stroke-width="1"/>
+<text x="183" y="316" text-anchor="middle" font-size="12" fill="#6b7280">8</text>
+
+<line x1="217" y1="300" x2="217" y2="304" stroke="#6b7280" stroke-width="1"/>
+<text x="217" y="316" text-anchor="middle" font-size="12" fill="#6b7280">9</text>
+
+<line x1="251" y1="300" x2="251" y2="304" stroke="#6b7280" stroke-width="1"/>
+<text x="251" y="316" text-anchor="middle" font-size="12" fill="#6b7280">10</text>
+
+<line x1="285" y1="300" x2="285" y2="304" stroke="#6b7280" stroke-width="1"/>
+<text x="285" y="316" text-anchor="middle" font-size="12" fill="#6b7280">11</text>
+
+<line x1="319" y1="300" x2="319" y2="304" stroke="#c0392b" stroke-width="1.5"/>
+<text x="319" y="316" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">12</text>
+
+<line x1="353" y1="300" x2="353" y2="304" stroke="#6b7280" stroke-width="1"/>
+<text x="353" y="316" text-anchor="middle" font-size="12" fill="#6b7280">13</text>
+
+<line x1="387" y1="300" x2="387" y2="304" stroke="#6b7280" stroke-width="1"/>
+<text x="387" y="316" text-anchor="middle" font-size="12" fill="#6b7280">14</text>
+
+<line x1="421" y1="300" x2="421" y2="304" stroke="#6b7280" stroke-width="1"/>
+<text x="421" y="316" text-anchor="middle" font-size="12" fill="#6b7280">15</text>
+
+<line x1="455" y1="300" x2="455" y2="304" stroke="#6b7280" stroke-width="1"/>
+<text x="455" y="316" text-anchor="middle" font-size="12" fill="#6b7280">16</text>
+
+<line x1="489" y1="300" x2="489" y2="304" stroke="#6b7280" stroke-width="1"/>
+<text x="489" y="316" text-anchor="middle" font-size="12" fill="#6b7280">17</text>
+
+<line x1="523" y1="300" x2="523" y2="304" stroke="#6b7280" stroke-width="1"/>
+<text x="523" y="316" text-anchor="middle" font-size="12" fill="#6b7280">18</text>
+
+<line x1="557" y1="300" x2="557" y2="304" stroke="#6b7280" stroke-width="1"/>
+<text x="557" y="316" text-anchor="middle" font-size="12" fill="#6b7280">19</text>
+
+<text x="335" y="336" text-anchor="middle" font-size="12" fill="#6b7280">Номер пікселя стовпця сенсора (Y, px)</text>
+
+<!-- Експериментальна крива з лазерними спеклами -->
+<polyline points="115,289 132,286 149,285 166,284 183,283 200,280 217,273 234,258 251,242 268,220 285,198 302,206 319,169 336,175 353,181 370,190 387,212 404,232 421,251 438,265 455,274 472,281 489,285 506,287 523,288 540,289 557,290" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+<!-- Маркер дискретного піка argmax (піксель 12) -->
+<line x1="319" y1="173" x2="319" y2="300" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+<circle cx="319" cy="169" r="4" fill="#c0392b"/>
+<text x="312" y="152" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">argmax: y = 12 px</text>
+
+<!-- Маркер субпіксельного центру мас COG (y = 12.38 px, x = 332) -->
+<line x1="332" y1="158" x2="332" y2="300" stroke="#2457d6" stroke-width="2"/>
+<polygon points="332,168 327,158 337,158" fill="#2457d6"/>
+<text x="338" y="152" text-anchor="start" font-size="12" font-weight="700" fill="#2457d6">COG: y = 12.38 px</text>
+
+<!-- Зсув дельти між argmax та COG -->
+<text x="325" y="136" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Δy = +0.38 px</text>
+
+<!-- Легенда на вільному полі ліворуч -->
+<text x="95" y="172" font-size="12" font-weight="700" fill="#1a1a1a">Профіль I(y):</text>
+<text x="95" y="190" font-size="12" fill="#6b7280">• Спекл-шум</text>
+<text x="95" y="208" font-size="12" fill="#6b7280">• Асиметрія</text>
+<text x="95" y="226" font-size="12" fill="#27ae60">■ Енергія COG</text>
+
+<!-- Нижня підсумкова картка лівої панелі -->
+<rect x="34" y="356" width="570" height="72" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="44" y="374" font-size="12" font-weight="700" fill="#1a1a1a">Фізичний зміст: чому argmax програє центру мас (COG)</text>
+<text x="44" y="392" font-size="12" fill="#6b7280">• Спекли: інтерференційний сплеск на пікселі 12 зсуває пік відносно лінії</text>
+<text x="44" y="410" font-size="12" fill="#6b7280">• COG інтегрує 7 пікселів вище порогу й досягає точності 0.05 px</text>
+
+<!-- ================= ПРАВА ПАНЕЛЬ: ПОРІВНЯННЯ ТА ФОРМУЛА ================= -->
+<rect x="636" y="72" width="300" height="368" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+<!-- Шапка правої панелі -->
+<rect x="646" y="80" width="280" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="786" y="102" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Порівняння методів локалізації</text>
+
+<!-- Картка 1: Argmax (Проблема) -->
+<rect x="646" y="124" width="280" height="80" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="656" y="142" font-size="12" font-weight="700" fill="#c0392b">1. Дискретний максимум (argmax)</text>
+<text x="656" y="159" font-size="12" fill="#1a1a1a">• Результат: y = 12 px (дискретний)</text>
+<text x="656" y="176" font-size="12" fill="#1a1a1a">• Похибка: ±0.5 px (квантування)</text>
+<text x="656" y="193" font-size="12" fill="#c0392b">• Чутливий до спеклів та насичення</text>
+
+<!-- Картка 2: COG (Розв'язок) -->
+<rect x="646" y="216" width="280" height="100" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="656" y="234" font-size="12" font-weight="700" fill="#27ae60">2. Центр мас (COG вище порогу)</text>
+<text x="656" y="252" font-size="12" fill="#1a1a1a">• Результат: y = 12.38 px (субпіксель)</text>
+<text x="656" y="270" font-size="12" fill="#1a1a1a">• Точність: ±0.03..0.05 px</text>
+<text x="656" y="288" font-size="12" fill="#1a1a1a">• Фільтрація: I_eff = I(y) − I_th</text>
+<text x="656" y="306" font-size="12" fill="#27ae60">• Стійкий до спекл-інтерференції</text>
+
+<!-- Картка 3: Формула COG -->
+<rect x="646" y="328" width="280" height="100" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="656" y="344" font-size="12" font-weight="700" fill="#2457d6">Формула модифікованого COG:</text>
+<text x="786" y="362" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">y_cog = Σ (y · I_eff) / Σ I_eff</text>
+<text x="786" y="380" text-anchor="middle" font-size="12" fill="#2457d6">де I_eff = I(y) − I_th (для I &gt; I_th)</text>
+<text x="656" y="400" font-size="12" fill="#6b7280">• Вікно: y ∈ [y_max ± W]</text>
+<text x="656" y="416" font-size="12" fill="#6b7280">• Виключає темновий шум матриці</text>
+
+</svg>

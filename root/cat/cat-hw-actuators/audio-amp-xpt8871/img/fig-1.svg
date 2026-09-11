@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вплив постійного струму на звукову котушку динаміка</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Постійний струм виводить котушку із зазору, нівелює хід та перегріває обмотку</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: ШТАТНИЙ РЕЖИМ -->
+  <rect x="24" y="72" width="444" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="78" width="420" height="26" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="246" y="96" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Штатний режим: I_DC = 0 мА (симетричний лінійний хід)</text>
+
+  <!-- Конструкція динаміка (ліва панель, X0=185) -->
+  <!-- Нижній фланець (ярмо) -->
+  <path d="M 115,260 H 255 V 274 H 115 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <!-- Керн -->
+  <path d="M 167,200 H 203 V 260 H 167 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <text x="185" y="252" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Керн</text>
+
+  <!-- Кільцевий магніт -->
+  <path d="M 127,216 H 157 V 260 H 127 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <path d="M 213,216 H 243 V 260 H 213 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <text x="142" y="232" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">N</text>
+  <text x="142" y="252" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">S</text>
+  <text x="228" y="232" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">N</text>
+  <text x="228" y="252" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">S</text>
+
+  <!-- Верхній фланець -->
+  <path d="M 127,200 H 157 V 216 H 127 Z" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M 213,200 H 243 V 216 H 213 Z" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Магнітне поле B у зазорі -->
+  <line x1="157" y1="205" x2="165" y2="205" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <line x1="157" y1="211" x2="165" y2="211" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <line x1="213" y1="205" x2="205" y2="205" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <line x1="213" y1="211" x2="205" y2="211" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+  <!-- Кошик (шасі) -->
+  <path d="M 127,200 H 115 V 181 H 120 L 95,132 H 88" fill="none" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M 243,200 H 255 V 181 H 250 L 275,132 H 282" fill="none" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Рухома система (стан спокою) -->
+  <!-- Каркас котушки -->
+  <line x1="163" y1="164" x2="163" y2="228" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="207" y1="164" x2="207" y2="228" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Обмотка котушки (симетрична) -->
+  <path d="M 159,195 H 163 V 221 H 159 Z" fill="#d97706" stroke="#92400e" stroke-width="1"/>
+  <path d="M 207,195 H 211 V 221 H 207 Z" fill="#d97706" stroke="#92400e" stroke-width="1"/>
+  <!-- Центруюча шайба (спайдер) ненапружена -->
+  <path d="M 163,181 q -6,-3 -11,0 q -6,3 -11,0 q -6,-3 -11,0 q -6,3 -10,0" fill="none" stroke="#d97706" stroke-width="2"/>
+  <path d="M 207,181 q 6,-3 11,0 q 6,3 11,0 q 6,-3 11,0 q 6,3 10,0" fill="none" stroke="#d97706" stroke-width="2"/>
+  <!-- Дифузор -->
+  <line x1="163" y1="164" x2="100" y2="132" stroke="#334155" stroke-width="3" stroke-linecap="round"/>
+  <line x1="207" y1="164" x2="270" y2="132" stroke="#334155" stroke-width="3" stroke-linecap="round"/>
+  <!-- Гофр (підвіс) ненапружений -->
+  <path d="M 100,132 A 6,6 0 0,1 88,132" fill="none" stroke="#1e293b" stroke-width="2.5"/>
+  <path d="M 270,132 A 6,6 0 0,1 282,132" fill="none" stroke="#1e293b" stroke-width="2.5"/>
+  <!-- Ковпачок -->
+  <path d="M 163,164 A 22,16 0 0,1 207,164" fill="#f8fafc" stroke="#334155" stroke-width="2"/>
+
+  <!-- Підписи деталей ліворуч -->
+  <text x="40" y="126" font-size="12" fill="#1a1a1a">Підвіс</text>
+  <line x1="80" y1="123" x2="90" y2="128" stroke="#6b7280" stroke-width="1"/>
+  <text x="40" y="146" font-size="12" fill="#1a1a1a">Дифузор</text>
+  <line x1="90" y1="143" x2="115" y2="146" stroke="#6b7280" stroke-width="1"/>
+  <text x="40" y="178" font-size="12" fill="#1a1a1a">Спайдер</text>
+  <line x1="90" y1="175" x2="135" y2="181" stroke="#6b7280" stroke-width="1"/>
+  <text x="40" y="208" font-size="12" fill="#1a1a1a">Фланець</text>
+  <line x1="90" y1="205" x2="125" y2="208" stroke="#6b7280" stroke-width="1"/>
+  <text x="40" y="238" font-size="12" fill="#1a1a1a">Магніт</text>
+  <line x1="82" y1="235" x2="125" y2="238" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Статус під динаміком -->
+  <text x="185" y="290" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Котушка симетрично в полі B</text>
+
+  <!-- Детальна шкала ходу ліворуч -->
+  <rect x="288" y="118" width="168" height="176" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="372" y="136" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зона зазору та запас ходу</text>
+  <text x="372" y="152" font-size="12" fill="#27ae60" text-anchor="middle">Штатне положення: x = 0</text>
+  <!-- Зона зазору B -->
+  <path d="M 306,174 H 334 V 222 H 306 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <!-- Котушка по центру -->
+  <path d="M 313,159 H 327 V 237 H 313 Z" fill="#fef3c7" stroke="#d97706" stroke-width="1.8"/>
+  <!-- Лінія центру 0 мм -->
+  <line x1="300" y1="198" x2="338" y2="198" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="342" y="202" font-size="12" font-weight="bold" fill="#1a1a1a">0 мм (центр)</text>
+  <!-- Запас ходу вгору і вниз -->
+  <line x1="337" y1="198" x2="337" y2="183" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="342" y="178" font-size="12" fill="#27ae60">+Xmax = +1.2 мм</text>
+  <line x1="337" y1="198" x2="337" y2="213" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="342" y="226" font-size="12" fill="#27ae60">-Xmax = -1.2 мм</text>
+  <text x="372" y="258" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Хід симетричний: ±1.2 мм</text>
+  <text x="372" y="274" font-size="12" fill="#6b7280" text-anchor="middle">Мінімум спотворень THD</text>
+
+  <!-- Нижня картка параметрів ліворуч -->
+  <rect x="36" y="308" width="420" height="120" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="48" y="328" font-size="13" font-weight="bold" fill="#27ae60">Параметри стану спокою (I_DC = 0 мА):</text>
+  <text x="48" y="348" font-size="12" fill="#1a1a1a">• Сила спокою: F = 0 Н; котушка симетрично в зазорі</text>
+  <text x="48" y="368" font-size="12" fill="#1a1a1a">• Лінійний хід: повний запас ±Xmax = ±1.2 мм в обидва боки</text>
+  <text x="48" y="388" font-size="12" fill="#1a1a1a">• Підвіс: центруюча шайба та гофр ненапружені (x = 0)</text>
+  <text x="48" y="408" font-size="12" fill="#1a1a1a">• Паразитне тепло: P = 0 Вт — обмотка не перегрівається</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: СТАТИЧНИЙ ЗСУВ -->
+  <rect x="492" y="72" width="444" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="504" y="78" width="420" height="26" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="714" y="96" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Аварійний зсув: I_DC = 312 мА (вихід без C_out)</text>
+
+  <!-- Конструкція динаміка (права панель, X0=653) -->
+  <!-- Нижній фланець (ярмо) -->
+  <path d="M 583,260 H 723 V 274 H 583 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <!-- Керн -->
+  <path d="M 635,200 H 671 V 260 H 635 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.5"/>
+  <text x="653" y="252" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Керн</text>
+
+  <!-- Кільцевий магніт -->
+  <path d="M 595,216 H 625 V 260 H 595 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <path d="M 681,216 H 711 V 260 H 681 Z" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <text x="610" y="232" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">N</text>
+  <text x="610" y="252" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">S</text>
+  <text x="696" y="232" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">N</text>
+  <text x="696" y="252" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">S</text>
+
+  <!-- Верхній фланець -->
+  <path d="M 595,200 H 625 V 216 H 595 Z" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M 681,200 H 711 V 216 H 681 Z" fill="#cbd5e1" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Магнітне поле B у зазорі -->
+  <line x1="625" y1="205" x2="633" y2="205" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <line x1="625" y1="211" x2="633" y2="211" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <line x1="681" y1="205" x2="673" y2="205" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <line x1="681" y1="211" x2="673" y2="211" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+  <!-- Кошик (шасі) -->
+  <path d="M 595,200 H 583 V 181 H 588 L 563,132 H 556" fill="none" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M 711,200 H 723 V 181 H 718 L 743,132 H 750" fill="none" stroke="#64748b" stroke-width="1.5"/>
+
+  <!-- Рухома система (зсунута вгору на 8 px через I_DC) -->
+  <!-- Каркас котушки -->
+  <line x1="631" y1="156" x2="631" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="675" y1="156" x2="675" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Обмотка котушки (зміщена вгору, частково вийшла із зазору) -->
+  <path d="M 627,187 H 631 V 213 H 627 Z" fill="#ef4444" stroke="#b91c1c" stroke-width="1"/>
+  <path d="M 675,187 H 679 V 213 H 675 Z" fill="#ef4444" stroke="#b91c1c" stroke-width="1"/>
+  <!-- Теплові хвилі від обмотки -->
+  <path d="M 622,191 q -3,3 0,6 q 3,3 0,6" fill="none" stroke="#ef4444" stroke-width="1.5"/>
+  <path d="M 622,203 q -3,3 0,6" fill="none" stroke="#ef4444" stroke-width="1.5"/>
+  <path d="M 684,191 q 3,3 0,6 q -3,3 0,6" fill="none" stroke="#ef4444" stroke-width="1.5"/>
+  <path d="M 684,203 q 3,3 0,6" fill="none" stroke="#ef4444" stroke-width="1.5"/>
+
+  <!-- Спайдер деформований і натягнутий -->
+  <path d="M 631,173 q -6,-2 -11,1 q -6,3 -11,2 q -6,2 -11,3 q -6,1 -10,2" fill="none" stroke="#dc2626" stroke-width="2"/>
+  <path d="M 675,173 q 6,-2 11,1 q 6,3 11,2 q 6,2 11,3 q 6,1 10,2" fill="none" stroke="#dc2626" stroke-width="2"/>
+  <!-- Дифузор зміщений вгору -->
+  <line x1="631" y1="156" x2="568" y2="126" stroke="#334155" stroke-width="3" stroke-linecap="round"/>
+  <line x1="675" y1="156" x2="738" y2="126" stroke="#334155" stroke-width="3" stroke-linecap="round"/>
+  <!-- Гофр деформований (натягнутий) -->
+  <path d="M 568,126 C 564,118 558,122 556,132" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+  <path d="M 738,126 C 742,118 748,122 750,132" fill="none" stroke="#dc2626" stroke-width="2.5"/>
+  <!-- Ковпачок -->
+  <path d="M 631,156 A 22,16 0 0,1 675,156" fill="#fee2e2" stroke="#dc2626" stroke-width="2"/>
+
+  <!-- Вектор сили Лоренца F -->
+  <line x1="653" y1="150" x2="653" y2="128" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="653" y="122" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">F = B·I·L (виштовхування)</text>
+
+  <!-- Статус під динаміком -->
+  <text x="653" y="290" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Котушка вийшла із зони поля B</text>
+
+  <!-- Детальна шкала зсуву праворуч -->
+  <rect x="756" y="118" width="168" height="176" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="840" y="136" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Статичний зсув (+Δx)</text>
+  <text x="840" y="152" font-size="12" fill="#c0392b" text-anchor="middle">Зміщення: Δx ≈ +0.9 мм</text>
+  <!-- Зона зазору B -->
+  <path d="M 774,174 H 802 V 222 H 774 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <!-- Котушка зміщена вгору на 11 px -->
+  <path d="M 781,148 H 795 V 226 H 781 Z" fill="#fee2e2" stroke="#c0392b" stroke-width="1.8"/>
+  <!-- Лінія вихідного центру 0 мм -->
+  <line x1="768" y1="198" x2="806" y2="198" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <!-- Лінія нового центру котушки -->
+  <line x1="768" y1="187" x2="806" y2="187" stroke="#c0392b" stroke-width="1.2"/>
+  <!-- Стрілка зсуву Δx -->
+  <line x1="805" y1="198" x2="805" y2="187" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="810" y="191" font-size="12" font-weight="bold" fill="#c0392b">Δx = +0.9 мм</text>
+  <text x="810" y="170" font-size="12" fill="#c0392b">Вгору: ~0.3 мм</text>
+  <text x="810" y="218" font-size="12" fill="#6b7280">Вниз: нелінійно</text>
+  <text x="840" y="258" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Втрата симетрії ходу</text>
+  <text x="840" y="274" font-size="12" fill="#c0392b" text-anchor="middle">Стукіт та викривлення THD</text>
+
+  <!-- Нижня картка наслідків праворуч -->
+  <rect x="504" y="308" width="420" height="120" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="516" y="328" font-size="13" font-weight="bold" fill="#c0392b">Наслідки зміщення (I_DC = 312 мА):</text>
+  <text x="516" y="348" font-size="12" fill="#1a1a1a">• Сила Лоренца: F = B·I·L виштовхує дифузор (Δx ≈ 0.9 мм)</text>
+  <text x="516" y="368" font-size="12" fill="#1a1a1a">• Втрата ходу: залишок вгору лише ~0.3 мм, ризик стукоту</text>
+  <text x="516" y="388" font-size="12" fill="#1a1a1a">• Нелінійність: вихід із поля B, натяг шайби, спотворення</text>
+  <text x="516" y="408" font-size="12" font-weight="bold" fill="#c0392b">• Нагрів: P = I²·RL ≈ 0.39 Вт — постійний нагрів у тиші!</text>
+</svg>

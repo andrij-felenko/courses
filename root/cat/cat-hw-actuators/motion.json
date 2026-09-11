@@ -107,6 +107,62 @@
           "slug": "gearmotor-6v",
           "title": "Мотор-редуктор 6 В (100 і 600 об/хв)",
           "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "api": [
+            {
+              "file": "api-dc-gearmotor-hardware.md",
+              "status": "done"
+            },
+            {
+              "file": "api-motor-hbridge-controller.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-hbridge-driver.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-spur-gearbox.md",
+              "status": "done"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-miniature-gearmotors.md",
+              "status": "done"
+            }
+          ],
+          "math": [
+            {
+              "file": "math-gearmotor-kinematics-and-traction.md",
+              "status": "done"
+            },
+            {
+              "file": "math-dc-motor-electromechanics.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-hbridge-motor-driver.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-wheeled-differential-platform.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "water-pump-rs360sh",
+          "title": "Водяна помпа RS-360SH",
+          "basic": {
             "status": "empty"
           },
           "detailed": {
@@ -114,8 +170,8 @@
           }
         },
         {
-          "slug": "water-pump-rs360sh",
-          "title": "Водяна помпа RS-360SH",
+          "slug": "dc-motor-130",
+          "title": "Колекторний двигун типорозміру 130",
           "basic": {
             "status": "empty"
           },
@@ -205,6 +261,80 @@
         {
           "slug": "mg90s-servo",
           "title": "MG90S V2 — мікросерво з металевим редуктором",
+          "basic": {
+            "status": "done"
+          },
+          "detailed": {
+            "status": "done"
+          },
+          "math": [
+            {
+              "file": "math-servo-pwm-timing-interpolation.md",
+              "status": "done"
+            },
+            {
+              "file": "math-servo-torque-and-linkage-kinematics.md",
+              "status": "done"
+            }
+          ],
+          "comp": [
+            {
+              "file": "comp-miniature-metal-gearbox.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-rotary-feedback-potentiometer.md",
+              "status": "done"
+            },
+            {
+              "file": "comp-servo-controller-ic.md",
+              "status": "done"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-servo-pwm-driver-cpp.md",
+              "status": "done"
+            },
+            {
+              "file": "api-mg90s-hardware-interface.md",
+              "status": "done"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-robotic-gripper-current-monitor.md",
+              "status": "done"
+            },
+            {
+              "file": "proj-pan-tilt-turret.md",
+              "status": "done"
+            }
+          ]
+        },
+        {
+          "slug": "sg90-mg90-micro-servos-family",
+          "title": "Лінійка 9-грамових мікросервоприводів Tower Pro (SG90, SG92R, MG90S, MG90D)",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "continuous-rotation-servo-mod",
+          "title": "Сервоприводи постійного обертання",
+          "basic": {
+            "status": "empty"
+          },
+          "detailed": {
+            "status": "pending"
+          }
+        },
+        {
+          "slug": "bldc-servo-controller",
+          "title": "Безколекторні інтегральні сервоконтролери",
           "basic": {
             "status": "empty"
           },

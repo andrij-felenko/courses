@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Алгоритм струмового захисту: часова діаграма відсічки ШІМ</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Маскування пуску (blanking window), витримка аварії 100 мс та примусове зняття керування</text>
+
+  <!-- ==================== ТРЕК 1: СТРУМ ДВИГУНА I(t) ==================== -->
+  <rect x="30" y="64" width="900" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок треку 1 зліва -->
+  <text x="36" y="86" font-size="13" font-weight="bold" fill="#1a1a1a">Струм I</text>
+  <text x="36" y="102" font-size="12" fill="#6b7280">двигуна, А</text>
+
+  <!-- Шкала осі Y струму -->
+  <line x1="145" y1="86" x2="150" y2="86" stroke="#6b7280" stroke-width="1"/>
+  <text x="141" y="90" font-size="12" fill="#6b7280" text-anchor="end">1.5</text>
+
+  <line x1="145" y1="114" x2="150" y2="114" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="141" y="118" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">1.0</text>
+
+  <line x1="145" y1="142" x2="150" y2="142" stroke="#6b7280" stroke-width="1"/>
+  <text x="141" y="146" font-size="12" fill="#6b7280" text-anchor="end">0.5</text>
+
+  <line x1="145" y1="170" x2="150" y2="170" stroke="#6b7280" stroke-width="1"/>
+  <text x="141" y="174" font-size="12" fill="#6b7280" text-anchor="end">0.0</text>
+
+  <!-- Сітка значень Track 1 -->
+  <line x1="150" y1="170" x2="850" y2="170" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="150" y1="142" x2="850" y2="142" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Поріг захисту I_trip = 1.0 A -->
+  <line x1="150" y1="114" x2="850" y2="114" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="300" y="108" font-size="12" font-weight="bold" fill="#c0392b">Поріг захисту I_trip = 1.0 А</text>
+
+  <!-- Заливка під кривою струму -->
+  <path d="M 150 170 C 158 170, 168 86, 180 86 C 192 86, 210 156, 230 156 L 270 156 Q 300 153, 330 154 T 390 157 T 450 155 L 490 156 C 500 156, 508 114, 516 100 C 524 86, 532 80.4, 540 80.4 L 690 80.4 C 693 80.4, 696 150, 704 170 L 850 170 L 850 170 L 150 170 Z" fill="#eaf0fd" fill-opacity="0.6"/>
+
+  <!-- Крива струму I(t) -->
+  <path d="M 150 170 C 158 170, 168 86, 180 86 C 192 86, 210 156, 230 156 L 270 156 Q 300 153, 330 154 T 390 157 T 450 155 L 490 156 C 500 156, 508 114, 516 100 C 524 86, 532 80.4, 540 80.4 L 690 80.4 C 693 80.4, 696 150, 704 170 L 850 170" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Маркери та підписи на кривій -->
+  <circle cx="180" cy="86" r="3.5" fill="#2457d6"/>
+  <text x="180" y="78" font-size="12" font-weight="bold" fill="#2457d6">Пуск: 1.5 А</text>
+
+  <text x="300" y="140" font-size="12" fill="#6b7280">Номінальний рух: 0.25–0.35 А</text>
+
+  <circle cx="490" cy="156" r="3.5" fill="#c0392b"/>
+  <circle cx="508" cy="114" r="3.5" fill="#c0392b"/>
+  <text x="536" y="76" font-size="12" font-weight="bold" fill="#c0392b">Заклинювання: I = 1.6 А</text>
+
+  <text x="718" y="150" font-size="12" font-weight="bold" fill="#27ae60">Струм = 0 А (вимкнено)</text>
+
+  <!-- ==================== ТРЕК 2: ЛОГІКА ТА ТАЙМЕРИ ЗАХИСТУ ==================== -->
+  <rect x="30" y="196" width="900" height="90" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок треку 2 зліва -->
+  <text x="36" y="234" font-size="13" font-weight="bold" fill="#1a1a1a">Логіка</text>
+  <text x="36" y="250" font-size="12" fill="#6b7280">захисту</text>
+  <text x="36" y="266" font-size="12" fill="#6b7280">і таймери</text>
+
+  <!-- Блок 1: Маскування пуску (0..60 мс) -->
+  <rect x="150" y="206" width="118" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="209" y="226" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Маскування пуску</text>
+  <text x="209" y="244" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T_blank = 60 мс</text>
+  <text x="209" y="262" font-size="12" fill="#6b7280" text-anchor="middle">ігнорування пуску</text>
+
+  <!-- Блок 2: Нормальний моніторинг (60..170 мс) -->
+  <rect x="280" y="206" width="198" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="379" y="226" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Нормальний моніторинг</text>
+  <text x="379" y="244" font-size="12" fill="#6b7280" text-anchor="middle">Струм нижче порогу I_trip</text>
+  <text x="379" y="262" font-size="12" fill="#27ae60" text-anchor="middle">Таймер аварії = 0</text>
+
+  <!-- Блок 3: Таймер перевантаження (170..270 мс) -->
+  <rect x="490" y="206" width="200" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="590" y="224" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Таймер перевантаження</text>
+  <text x="590" y="240" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">T_stall = 100 мс (відлік)</text>
+  <text x="590" y="256" font-size="12" fill="#1a1a1a" text-anchor="middle">I &gt; I_trip безперервно</text>
+  <text x="590" y="270" font-size="12" fill="#6b7280" text-anchor="middle">фільтр випадкових завад</text>
+
+  <!-- Блок 4: Захист спрацював (270..350 мс) -->
+  <rect x="702" y="206" width="148" height="70" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="776" y="233" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Захист спрацював</text>
+  <text x="776" y="253" font-size="12" fill="#6b7280" text-anchor="middle">ШІМ заблоковано</text>
+
+  <!-- ==================== ТРЕК 3: СИГНАЛИ PWM ТА FAULT ==================== -->
+  <rect x="30" y="298" width="900" height="102" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок ШІМ зліва -->
+  <text x="36" y="324" font-size="12" fill="#6b7280">ШІМ-вихід</text>
+  <text x="141" y="324" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">PWM_OUT</text>
+
+  <!-- Сигнал PWM_OUT -->
+  <rect x="150" y="318" width="540" height="24" rx="3" fill="#eaf0fd" fill-opacity="0.8"/>
+  <line x1="150" y1="318" x2="690" y2="318" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="690" y1="318" x2="690" y2="342" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="690" y1="342" x2="850" y2="342" stroke="#6b7280" stroke-width="2.5"/>
+
+  <text x="420" y="334" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ШІМ АКТИВНИЙ (100% — нормальна робота двигуна)</text>
+  <text x="770" y="334" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ШІМ = 0% (ВИМКНЕНО)</text>
+
+  <!-- Роздільник сигналів -->
+  <line x1="145" y1="352" x2="850" y2="352" stroke="#e2e8f0" stroke-dasharray="3,3"/>
+
+  <!-- Заголовок FAULT зліва -->
+  <text x="36" y="378" font-size="12" fill="#6b7280">Аварія</text>
+  <text x="141" y="378" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">FAULT</text>
+
+  <!-- Сигнал FAULT -->
+  <rect x="690" y="368" width="160" height="24" rx="3" fill="#fdecea" fill-opacity="0.8"/>
+  <line x1="150" y1="392" x2="690" y2="392" stroke="#6b7280" stroke-width="2"/>
+  <line x1="690" y1="392" x2="690" y2="368" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="690" y1="368" x2="850" y2="368" stroke="#c0392b" stroke-width="2.5"/>
+
+  <text x="420" y="386" font-size="12" fill="#6b7280" text-anchor="middle">FAULT = 0 (нормальний режим, аварійний прапорець знято)</text>
+  <text x="770" y="384" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">FAULT = 1 (АВАРІЯ!)</text>
+
+  <!-- ==================== ВЕРТИКАЛЬНІ ЛІНІЇ СИНХРОНІЗАЦІЇ ==================== -->
+  <line x1="150" y1="64" x2="150" y2="400" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="270" y1="64" x2="270" y2="286" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="490" y1="64" x2="490" y2="286" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="690" y1="64" x2="690" y2="400" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- ==================== ЧАСОВА ШКАЛА (t, мс) ==================== -->
+  <line x1="150" y1="412" x2="880" y2="412" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="890" y="416" font-size="12" font-weight="bold" fill="#1a1a1a">t, мс</text>
+
+  <!-- Засічки та підписи часу -->
+  <line x1="150" y1="412" x2="150" y2="417" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="150" y="429" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+
+  <line x1="270" y1="412" x2="270" y2="417" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="270" y="429" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">60 мс (маска)</text>
+
+  <line x1="490" y1="412" x2="490" y2="417" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="490" y="429" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">170 мс (STALL)</text>
+
+  <line x1="690" y1="412" x2="690" y2="417" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="690" y="429" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">270 мс (відсічка)</text>
+
+  <line x1="850" y1="412" x2="850" y2="417" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="850" y="429" font-size="12" fill="#6b7280" text-anchor="middle">350 мс</text>
+
+  <!-- ==================== ВИНОСКА-ВИСНОВОК ВНИЗУ ==================== -->
+  <rect x="230" y="440" width="500" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="455" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Миттєве зняття напруги рятує зубці редуктора від зрізання</text>
+</svg>

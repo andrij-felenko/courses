@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="27" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Радіальне навантаження редуктора: втулка тертя vs кулькова вальниця</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Перекіс осі вихідного вала спричиняє крайове викришування; вальниця зберігає паралельність</text>
+
+  <!-- ======================================================== -->
+  <!-- ЛІВА ПАНЕЛЬ: Без вальниці (пластикова втулка тертя)     -->
+  <!-- ======================================================== -->
+  <rect x="24" y="62" width="446" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="84" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">⛔ Без вальниці: пластикова втулка тертя</text>
+  <text x="247" y="101" text-anchor="middle" font-size="12" fill="#6b7280">Радіальна сила розбиває отвір кришки та перекошує зачеплення</text>
+
+  <!-- Качалка сервопривода під навантаженням -->
+  <rect x="240" y="115" width="95" height="14" rx="3" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="254" cy="122" r="4" fill="#ffffff"/>
+  <circle cx="320" cy="122" r="3" fill="#ffffff"/>
+
+  <!-- Вектор радіальної сили тяги F_rad -->
+  <line x1="335" y1="122" x2="415" y2="122" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="375" y="112" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">F_rad (тяга)</text>
+
+  <!-- Кришка корпусу (посадкове гніздо) -->
+  <rect x="60" y="150" width="135" height="18" rx="2" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="275" y="150" width="135" height="18" rx="2" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Пластикова втулка та овальне зминання отвору -->
+  <rect x="195" y="146" width="15" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="260" y="146" width="15" height="26" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Перекошений вихідний вал (полігон) -->
+  <polygon points="238,122 270,122 242,226 210,226" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Осьові лінії: вертикаль vs перекіс -->
+  <line x1="240" y1="112" x2="240" y2="236" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 2"/>
+  <line x1="254" y1="112" x2="226" y2="236" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Підписи деформації втулки -->
+  <text x="180" y="134" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Перекіс осі θ</text>
+  <text x="180" y="188" text-anchor="end" font-size="12" fill="#c0392b">Люфт отвору Δx</text>
+  <line x1="185" y1="184" x2="216" y2="162" stroke="#c0392b" stroke-width="1" stroke-dasharray="2 2" marker-end="url(#arr-red)"/>
+
+  <text x="290" y="196" font-size="12" font-weight="bold" fill="#c0392b">Зминання втулки</text>
+  <text x="290" y="212" font-size="12" fill="#6b7280">Пластична деформація</text>
+
+  <!-- ВУЗОЛ ЗАЧЕПЛЕННЯ ЗУБІВ З ПЕРЕКОСОМ -->
+  <!-- Проміжний триб (рівна вісь) -->
+  <rect x="48" y="248" width="70" height="44" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="83" y="268" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Триб</text>
+  <text x="83" y="284" text-anchor="middle" font-size="12" fill="#6b7280">ступінь 3</text>
+  <polygon points="118,256 144,256 144,276 118,276" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Зуб вихідного колеса з перекосом -->
+  <polygon points="144,256 172,252 176,274 154,276" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Пляма критичного напруження (крайовий контакт) -->
+  <circle cx="144" cy="256" r="6" fill="#c0392b" opacity="0.4"/>
+  <circle cx="144" cy="256" r="3" fill="#c0392b"/>
+
+  <!-- Пояснювальні написи до зачеплення ліворуч -->
+  <text x="185" y="254" font-size="12" font-weight="bold" fill="#c0392b">Крайовий контакт (точкова зона σ_max)</text>
+  <text x="185" y="272" font-size="12" fill="#c0392b">Зусилля передається через 15% ширини зуба</text>
+  <text x="185" y="290" font-size="12" fill="#6b7280">Втомне фарбування та сколювання крайки</text>
+  <text x="185" y="308" font-size="12" font-weight="bold" fill="#c0392b">Зазор розкриття: втрата контакту знизу</text>
+
+  <!-- Підсумкова картка наслідків -->
+  <rect x="38" y="338" width="418" height="92" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="50" y="358" font-size="13" font-weight="bold" fill="#c0392b">Наслідки роботи без вальниці:</text>
+  <text x="50" y="377" font-size="12" fill="#1a1a1a">• Радіальна сила тяги F_rad розбиває пластиковий отвір кришки</text>
+  <text x="50" y="396" font-size="12" fill="#1a1a1a">• Виникає кутовий перекіс осі вихідного вала редуктора</text>
+  <text x="50" y="415" font-size="12" fill="#1a1a1a">• Контакт зміщується на крайку: пікові напруження та злам</text>
+
+  <!-- ======================================================== -->
+  <!-- ПРАВА ПАНЕЛЬ: Ревізія V2 (кулькова вальниця у кришці)    -->
+  <!-- ======================================================== -->
+  <rect x="490" y="62" width="446" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="713" y="84" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">✓ Ревізія V2: кулькова вальниця у кришці</text>
+  <text x="713" y="101" text-anchor="middle" font-size="12" fill="#6b7280">Жорстка опора усуває перекіс і зберігає повну пляму контакту</text>
+
+  <!-- Качалка сервопривода під навантаженням -->
+  <rect x="692" y="115" width="95" height="14" rx="3" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="706" cy="122" r="4" fill="#ffffff"/>
+  <circle cx="772" cy="122" r="3" fill="#ffffff"/>
+
+  <!-- Вектор радіальної сили тяги F_rad -->
+  <line x1="795" y1="122" x2="875" y2="122" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="835" y="112" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">F_rad (тяга)</text>
+
+  <!-- Кришка корпусу (посадкове гніздо вальниці) -->
+  <rect x="514" y="150" width="130" height="26" rx="2" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="768" y="150" width="148" height="26" rx="2" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Кулькова вальниця (обойми та кульки) -->
+  <rect x="646" y="151" width="10" height="24" rx="1" fill="#6b7280" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="756" y="151" width="10" height="24" rx="1" fill="#6b7280" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="680" y="151" width="10" height="24" rx="1" fill="#6b7280" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="722" y="151" width="10" height="24" rx="1" fill="#6b7280" stroke="#1a1a1a" stroke-width="1"/>
+
+  <circle cx="668" cy="163" r="7" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="744" cy="163" r="7" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="666" cy="161" r="2" fill="#27ae60"/>
+  <circle cx="742" cy="161" r="2" fill="#27ae60"/>
+
+  <!-- Строго вертикальний вихідний вал -->
+  <rect x="690" y="122" width="32" height="104" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Осьова лінія: ідеальна вертикаль -->
+  <line x1="706" y1="112" x2="706" y2="236" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Підписи вальниці -->
+  <text x="660" y="134" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">Вісь вала: θ = 0°</text>
+  <text x="660" y="184" text-anchor="end" font-size="12" fill="#27ae60">Люфт відсутній</text>
+
+  <text x="770" y="196" font-size="12" font-weight="bold" fill="#27ae60">Кулькова вальниця</text>
+  <text x="770" y="212" font-size="12" fill="#6b7280">Сприймає радіальну силу</text>
+
+  <!-- ВУЗОЛ ЗАЧЕПЛЕННЯ ЗУБІВ З ПАРАЛЕЛЬНИМИ ОСЯМИ -->
+  <!-- Проміжний триб (рівна вісь) -->
+  <rect x="514" y="248" width="70" height="44" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="549" y="268" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Триб</text>
+  <text x="549" y="284" text-anchor="middle" font-size="12" fill="#6b7280">ступінь 3</text>
+  <polygon points="584,256 610,256 610,276 584,276" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Зуб вихідного колеса (строго паралельний) -->
+  <polygon points="610,256 636,256 636,276 610,276" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Повна лінія контакту та рівномірний розподіл напруження -->
+  <rect x="607" y="256" width="6" height="20" rx="1" fill="#27ae60" opacity="0.3"/>
+  <line x1="610" y1="256" x2="610" y2="276" stroke="#27ae60" stroke-width="4"/>
+
+  <!-- Пояснювальні написи до зачеплення праворуч -->
+  <text x="650" y="254" font-size="12" font-weight="bold" fill="#27ae60">Повна лінія контакту по всій ширині b</text>
+  <text x="650" y="272" font-size="12" fill="#27ae60">Рівномірний розподіл контактного тиску</text>
+  <text x="650" y="290" font-size="12" fill="#6b7280">Паралельні твірні циліндрів зачеплення</text>
+  <text x="650" y="308" font-size="12" font-weight="bold" fill="#27ae60">Максимальний ресурс: відсутнє викришування</text>
+
+  <!-- Підсумкова картка переваг -->
+  <rect x="504" y="338" width="418" height="92" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="516" y="358" font-size="13" font-weight="bold" fill="#27ae60">Переваги кулькової вальниці V2:</text>
+  <text x="516" y="377" font-size="12" fill="#1a1a1a">• Сталеві кульки замикають радіальну силу тяги F_rad на кришку</text>
+  <text x="516" y="396" font-size="12" fill="#1a1a1a">• Збереження строгої паралельності осей зачеплення під тягою</text>
+  <text x="516" y="415" font-size="12" fill="#1a1a1a">• Контактний тиск розподіляється рівномірно по всій довжині зуба</text>
+</svg>

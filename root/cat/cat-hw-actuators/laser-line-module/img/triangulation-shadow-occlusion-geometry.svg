@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-rev-red" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія виникнення тіньової оклюзії на вертикальній сходинці</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Співвідношення висоти сходинки H, кута тріангуляції θ та утворення сліпої зони W = H · tan(θ)</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Оптична схема -->
+  <rect x="24" y="68" width="606" height="372" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="92" font-size="14" font-weight="bold" fill="#1a1a1a">Оптична схема тріангуляції та хід променів</text>
+
+  <!-- Деталь зі сходинкою (матеріал) -->
+  <polygon points="44,350 360,350 360,230 606,230 606,420 44,420" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="490" y="330" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="middle">Тіло деталі</text>
+
+  <!-- Мертва зона оклюзії (трикутник оклюзії) -->
+  <polygon points="360,230 360,350 276,350" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Кутова дуга тета біля вершини сходинки -->
+  <path d="M 360,275 A 45 45 0 0 1 334.2,266.9" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="344" y="292" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">θ</text>
+
+  <!-- Лазерний модуль -->
+  <rect x="155" y="102" width="100" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="205" y="124" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Лазерний модуль</text>
+  <rect x="200" y="136" width="10" height="4" fill="#1a1a1a"/>
+
+  <!-- Лазерні промені (вертикальні) -->
+  <!-- Промінь 1: на відкриту нижню поверхню (видимий) -->
+  <line x1="170" y1="140" x2="170" y2="350" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="170" cy="350" r="3.5" fill="#27ae60"/>
+  <text x="170" y="210" font-size="12" fill="#c0392b" text-anchor="middle">Лазерний ніж</text>
+
+  <!-- Промінь 2: потрапляє в зону оклюзії -->
+  <line x1="318" y1="140" x2="318" y2="350" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <circle cx="318" cy="350" r="3.5" fill="#c0392b"/>
+
+  <!-- КМОН-камера -->
+  <rect x="440" y="102" width="100" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="490" y="124" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">КМОН-камера</text>
+  <polygon points="451,136 443,144 449,150 457,142" fill="#1a1a1a"/>
+
+  <!-- Промені зору камери -->
+  <!-- 1. Крайова лінія зору (дотична до ребра сходинки) -->
+  <line x1="451" y1="140" x2="276" y2="350" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="360" cy="230" r="3.5" fill="#2457d6"/>
+  <text x="375" y="175" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Крайова лінія зору</text>
+
+  <!-- 2. Вільна лінія зору до відкритої точки (170, 350) -->
+  <line x1="451" y1="140" x2="170" y2="350" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="115" y="365" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Пряма видимість</text>
+  <text x="115" y="382" font-size="12" fill="#6b7280" text-anchor="middle">лінія зору відкрита</text>
+
+  <!-- 3. Заблокована лінія зору від точки в оклюзії (318, 350) -->
+  <line x1="318" y1="350" x2="360" y2="299" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <circle cx="360" cy="299" r="4" fill="#c0392b"/>
+  <text x="368" y="285" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">✖ Оклюзія зору</text>
+
+  <!-- Розмірні лінії для H та W -->
+  <!-- Розмір H (висота сходинки) -->
+  <line x1="435" y1="230" x2="435" y2="350" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <line x1="360" y1="230" x2="445" y2="230" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="360" y1="350" x2="445" y2="350" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="445" y="295" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">H</text>
+
+  <!-- Розмір W (ширина мертвої зони) -->
+  <line x1="276" y1="372" x2="360" y2="372" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-rev-red)" marker-end="url(#arr-red)"/>
+  <line x1="276" y1="350" x2="276" y2="382" stroke="#c0392b" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="360" y1="350" x2="360" y2="382" stroke="#c0392b" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="318" y="398" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">W = H · tan(θ)</text>
+  <text x="318" y="418" font-size="12" fill="#c0392b" text-anchor="middle">Мертва зона (тіньова оклюзія)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Аналітичні розрахунки та висновки -->
+  <rect x="646" y="68" width="290" height="372" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Картка 1: Геометричний розрахунок -->
+  <rect x="660" y="86" width="262" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="660" y="86" width="262" height="28" rx="6" fill="#eaf0fd"/>
+  <text x="672" y="105" font-size="13" font-weight="bold" fill="#2457d6">1. Формула мертвої зони</text>
+  <text x="672" y="132" font-size="14" font-weight="bold" fill="#c0392b">W = H · tan(θ)</text>
+  <text x="672" y="152" font-size="12" fill="#1a1a1a">де H — висота сходинки</text>
+  <text x="672" y="170" font-size="12" fill="#1a1a1a">   θ — кут тріангуляції камери</text>
+  <text x="672" y="192" font-size="12" fill="#6b7280">Приклад: H = 15 мм, θ = 35°</text>
+  <text x="672" y="210" font-size="12" font-weight="bold" fill="#1a1a1a">W = 15 · tan(35°) ≈ 10.5 мм</text>
+  <text x="672" y="228" font-size="12" fill="#6b7280">Ширина сліпої ділянки: 10.5 мм</text>
+
+  <!-- Картка 2: Інженерні наслідки та компенсація -->
+  <rect x="660" y="250" width="262" height="174" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="660" y="250" width="262" height="28" rx="6" fill="#fdecea"/>
+  <text x="672" y="269" font-size="13" font-weight="bold" fill="#c0392b">2. Наслідки та компенсація</text>
+  <text x="672" y="295" font-size="12" font-weight="bold" fill="#c0392b">• Розрив 3D-профілю поверхні:</text>
+  <text x="682" y="313" font-size="12" fill="#1a1a1a">Камера втрачає лінію на ділянці W</text>
+  <text x="682" y="331" font-size="12" fill="#1a1a1a">утворюється прогалина в даних</text>
+  <text x="672" y="356" font-size="12" font-weight="bold" fill="#27ae60">• Методи усунення оклюзії:</text>
+  <text x="682" y="374" font-size="12" fill="#1a1a1a">1) Зменшення θ (але падає точність Z)</text>
+  <text x="682" y="392" font-size="12" fill="#1a1a1a">2) Схема з двома камерами (Dual-Cam)</text>
+  <text x="682" y="410" font-size="12" fill="#6b7280">   дзеркальний огляд закриває тінь</text>
+</svg>

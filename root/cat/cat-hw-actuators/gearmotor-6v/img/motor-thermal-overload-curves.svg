@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+</defs>
+
+<!-- Title and Subtitle -->
+<text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Тепловий режим і перевантаження обмоток мікромотора</text>
+<text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Динаміка нагріву T(t) від холостого ходу до блокування: руйнування ізоляції за секунди</text>
+
+<!-- Left Area: Coordinate System & Thermal Curves -->
+<!-- Axis Titles -->
+<text x="75" y="88" font-size="13" font-weight="bold" fill="#1a1a1a">T, °C (температура обмотки)</text>
+<text x="290" y="88" font-size="12" fill="#6b7280">T₀ = 25 °C (довкілля)</text>
+
+<!-- Critical Danger Zone Background (T >= 130 °C) -->
+<rect x="75" y="100" width="480" height="100" fill="#fdecea" opacity="0.45"/>
+
+<!-- Grid lines (Horizontal) -->
+<line x1="75" y1="100" x2="555" y2="100" stroke="#d0d7de" stroke-dasharray="3,3"/>
+<line x1="75" y1="180" x2="555" y2="180" stroke="#e1e4e8" stroke-dasharray="3,3"/>
+<line x1="75" y1="260" x2="555" y2="260" stroke="#d0d7de" stroke-dasharray="3,3"/>
+<line x1="75" y1="340" x2="555" y2="340" stroke="#d0d7de" stroke-dasharray="3,3"/>
+
+<!-- Grid lines (Vertical) -->
+<line x1="155" y1="100" x2="155" y2="420" stroke="#e1e4e8" stroke-dasharray="3,3"/>
+<line x1="235" y1="100" x2="235" y2="420" stroke="#e1e4e8" stroke-dasharray="3,3"/>
+<line x1="315" y1="100" x2="315" y2="420" stroke="#e1e4e8" stroke-dasharray="3,3"/>
+<line x1="395" y1="100" x2="395" y2="420" stroke="#e1e4e8" stroke-dasharray="3,3"/>
+<line x1="475" y1="100" x2="475" y2="420" stroke="#e1e4e8" stroke-dasharray="3,3"/>
+<line x1="555" y1="100" x2="555" y2="420" stroke="#d0d7de"/>
+
+<!-- Critical Danger Threshold Line T_crit = 130 °C -->
+<line x1="75" y1="200" x2="555" y2="200" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+
+<!-- Danger Zone Badge in Top-Right of Graph Area -->
+<rect x="370" y="106" width="180" height="34" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+<text x="460" y="121" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">ЗОНА ДЕСТРУКЦІЇ</text>
+<text x="460" y="134" font-size="12" text-anchor="middle" fill="#c0392b">T &gt; 130 °C: вигоряння лаку</text>
+
+<!-- Critical Line Label -->
+<text x="550" y="194" font-size="12" font-weight="bold" text-anchor="end" fill="#c0392b">T_крит = 130 °C: Деструкція лакової ізоляції</text>
+
+<!-- Main Axes with Arrows -->
+<line x1="75" y1="420" x2="75" y2="92" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+<line x1="75" y1="420" x2="563" y2="420" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- Y-Axis Ticks & Values -->
+<line x1="70" y1="100" x2="75" y2="100" stroke="#1a1a1a" stroke-width="1"/>
+<text x="67" y="104" font-size="12" text-anchor="end" fill="#6b7280">180°C</text>
+
+<line x1="70" y1="180" x2="75" y2="180" stroke="#1a1a1a" stroke-width="1"/>
+<text x="67" y="184" font-size="12" text-anchor="end" fill="#6b7280">140°C</text>
+
+<line x1="68" y1="200" x2="75" y2="200" stroke="#c0392b" stroke-width="1.5"/>
+<text x="67" y="204" font-size="12" font-weight="bold" text-anchor="end" fill="#c0392b">130°C</text>
+
+<line x1="70" y1="260" x2="75" y2="260" stroke="#1a1a1a" stroke-width="1"/>
+<text x="67" y="264" font-size="12" text-anchor="end" fill="#6b7280">100°C</text>
+
+<line x1="70" y1="340" x2="75" y2="340" stroke="#1a1a1a" stroke-width="1"/>
+<text x="67" y="344" font-size="12" text-anchor="end" fill="#6b7280">60°C</text>
+
+<line x1="70" y1="420" x2="75" y2="420" stroke="#1a1a1a" stroke-width="1"/>
+<text x="67" y="424" font-size="12" text-anchor="end" fill="#6b7280">20°C</text>
+
+<!-- X-Axis Ticks & Values -->
+<line x1="75" y1="420" x2="75" y2="425" stroke="#1a1a1a" stroke-width="1"/>
+<text x="75" y="437" font-size="12" text-anchor="middle" fill="#6b7280">0</text>
+
+<line x1="155" y1="420" x2="155" y2="425" stroke="#1a1a1a" stroke-width="1"/>
+<text x="155" y="437" font-size="12" text-anchor="middle" fill="#6b7280">10</text>
+
+<line x1="235" y1="420" x2="235" y2="425" stroke="#1a1a1a" stroke-width="1"/>
+<text x="235" y="437" font-size="12" text-anchor="middle" fill="#6b7280">20</text>
+
+<line x1="315" y1="420" x2="315" y2="425" stroke="#1a1a1a" stroke-width="1"/>
+<text x="315" y="437" font-size="12" text-anchor="middle" fill="#6b7280">30</text>
+
+<line x1="395" y1="420" x2="395" y2="425" stroke="#1a1a1a" stroke-width="1"/>
+<text x="395" y="437" font-size="12" text-anchor="middle" fill="#6b7280">40</text>
+
+<line x1="475" y1="420" x2="475" y2="425" stroke="#1a1a1a" stroke-width="1"/>
+<text x="475" y="437" font-size="12" text-anchor="middle" fill="#6b7280">50</text>
+
+<line x1="555" y1="420" x2="555" y2="425" stroke="#1a1a1a" stroke-width="1"/>
+<text x="555" y="437" font-size="12" text-anchor="middle" fill="#6b7280">60</text>
+
+<!-- X-Axis Label -->
+<text x="315" y="458" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Час навантаження t, с</text>
+
+<!-- Thermal Curves -->
+<!-- Curve 1: Nominal Current I_nom (0.15 A) -->
+<path d="M 75 410 C 140 390, 220 365, 320 358 S 460 356, 555 356" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+<text x="260" y="382" font-size="12" font-weight="bold" fill="#27ae60">I_ном (0.15 А):</text>
+<text x="260" y="398" font-size="12" fill="#27ae60">безпечний стаціонарний нагрів (50–55 °C)</text>
+
+<!-- Curve 2: 2x Overload 2*I_nom (0.35 A) -->
+<path d="M 75 410 C 130 380, 210 335, 315 312 S 460 286, 555 284" stroke="#2457d6" stroke-width="2" fill="none"/>
+<text x="385" y="318" font-size="12" font-weight="bold" fill="#2457d6">2·I_ном (0.35 А):</text>
+<text x="385" y="334" font-size="12" fill="#2457d6">допустимо до 2–3 хв</text>
+
+<!-- Curve 3: Heavy Overload 4*I_nom (0.7 A) -->
+<path d="M 75 410 Q 180 300, 275 220 T 325 190" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3" fill="none"/>
+<circle cx="315" cy="200" r="4" fill="#c0392b"/>
+<text x="335" y="222" font-size="12" font-weight="bold" fill="#c0392b">4·I_ном (0.7 А):</text>
+<text x="335" y="238" font-size="12" fill="#c0392b">перегрів до 120 °C за 25 с</text>
+
+<!-- Curve 4: Stall Current I_stall (1.3 A) -->
+<path d="M 75 410 Q 100 300, 127 200 T 150 100" stroke="#c0392b" stroke-width="3" fill="none"/>
+<circle cx="127" cy="200" r="5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+
+<!-- Stall Callout Box & Connecting Line -->
+<line x1="127" y1="200" x2="165" y2="148" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+<rect x="165" y="110" width="190" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="175" y="125" font-size="12" font-weight="bold" fill="#c0392b">I_stall (1.3 А): блокування</text>
+<text x="175" y="141" font-size="12" font-weight="bold" fill="#c0392b">Аварія: 6–8 с до замикання!</text>
+
+<!-- Right Area: Information Cards -->
+<!-- Card 1: Physics of Thermal Balance -->
+<rect x="580" y="80" width="355" height="175" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<line x1="580" y1="110" x2="935" y2="110" stroke="#d0d7de" stroke-width="1"/>
+<text x="596" y="101" font-size="14" font-weight="bold" fill="#2457d6">Фізика теплового балансу</text>
+
+<text x="596" y="127" font-size="12" font-weight="bold" fill="#1a1a1a">• Втрати Джоуля (тепловиділення):</text>
+<text x="612" y="143" font-size="12" font-weight="bold" fill="#c0392b">P_втрат = I² · R_обм</text>
+
+<text x="596" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">• Диференціальне рівняння нагріву:</text>
+<text x="612" y="181" font-size="12" fill="#2457d6">C_th · (dT/dt) + (T − T₀) / R_th = P_втрат</text>
+
+<text x="596" y="203" font-size="12" font-weight="bold" fill="#c0392b">• Закон квадратичного зростання тепла:</text>
+<text x="612" y="219" font-size="12" fill="#1a1a1a">Перехід I_ном → I_stall (від 0.15 А до 1.3 А):</text>
+<text x="612" y="235" font-size="12" font-weight="bold" fill="#c0392b">втрати зростають у (1.3 / 0.15)² ≈ 75 разів!</text>
+
+<!-- Card 2: Engineering Consequences and Protection -->
+<rect x="580" y="268" width="355" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<line x1="580" y1="296" x2="935" y2="296" stroke="#d0d7de" stroke-width="1"/>
+<text x="596" y="288" font-size="14" font-weight="bold" fill="#c0392b">Інженерні наслідки та захист</text>
+
+<text x="596" y="314" font-size="12" font-weight="bold" fill="#1a1a1a">• Адіабатичний перегрів:</text>
+<text x="612" y="329" font-size="12" fill="#6b7280">Мала теплоємність: лак вигоряє за секунди</text>
+
+<text x="596" y="348" font-size="12" font-weight="bold" fill="#1a1a1a">• Наслідки перегріву:</text>
+<text x="612" y="364" font-size="12" fill="#c0392b">1. Міжвиткове замикання ротора</text>
+<text x="612" y="380" font-size="12" fill="#c0392b">2. Демагнетизація постійних магнітів (&gt;80 °C)</text>
+<text x="612" y="396" font-size="12" fill="#c0392b">3. Оплавлення пластикових шестерень редуктора</text>
+
+<text x="596" y="416" font-size="12" font-weight="bold" fill="#27ae60">• Методи захисту:</text>
+<text x="612" y="432" font-size="12" fill="#1a1a1a">1. Струмовий ліміт драйвера (current chopping)</text>
+<text x="612" y="448" font-size="12" fill="#1a1a1a">2. Програмне відключення ШІМ при n = 0</text>
+</svg>

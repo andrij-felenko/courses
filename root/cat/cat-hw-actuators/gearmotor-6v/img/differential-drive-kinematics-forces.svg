@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-dim" markerWidth="7" markerHeight="6" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-dim-rev" markerWidth="7" markerHeight="6" refX="0" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M6,0 L0,3 L6,6 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Кінематика та розподіл сил диференціального приводу</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Розподіл ваги між ведучою віссю (N_drive) і пасивним роликом (N_caster) та формування тяги</text>
+
+  <!-- ==================== LEFT TOP: SIDE VIEW ==================== -->
+  <rect x="25" y="70" width="530" height="184" rx="8" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="87" font-size="13" font-weight="bold" fill="#1a1a1a">Вигляд збоку: баланс нормальних реакцій та тяга</text>
+
+  <!-- Dimension line a and b -->
+  <line x1="140" y1="114" x2="220" y2="114" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-dim-rev)" marker-end="url(#arr-dim)"/>
+  <text x="180" y="105" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">a</text>
+
+  <line x1="230" y1="114" x2="440" y2="114" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-dim-rev)" marker-end="url(#arr-dim)"/>
+  <text x="335" y="105" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">b (плече до опорного ролика)</text>
+
+  <!-- Vertical dashed projection lines for dimensions -->
+  <line x1="135" y1="114" x2="135" y2="124" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="225" y1="114" x2="225" y2="126" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="445" y1="114" x2="445" y2="160" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Ground surface -->
+  <line x1="45" y1="208" x2="535" y2="208" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Ground hatchings -->
+  <line x1="60" y1="208" x2="52" y2="216" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="100" y1="208" x2="92" y2="216" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="260" y1="208" x2="252" y2="216" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="300" y1="208" x2="292" y2="216" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="340" y1="208" x2="332" y2="216" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="380" y1="208" x2="372" y2="216" stroke="#94a3b8" stroke-width="1.5"/>
+  <line x1="500" y1="208" x2="492" y2="216" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- Chassis frame -->
+  <rect x="120" y="158" width="320" height="10" rx="3" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Motor-gearbox block on chassis -->
+  <rect x="125" y="142" width="45" height="16" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Drive wheel (left) r=35, touches ground at y=208 -->
+  <circle cx="135" cy="173" r="35" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="135" cy="173" r="23" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="135" cy="173" r="4" fill="#2457d6"/>
+
+  <!-- Caster wheel (right) r=16, touches ground at y=208 -->
+  <path d="M440,168 L440,188 L445,192 L450,188 L450,168" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="445" cy="192" r="16" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="445" cy="192" r="3" fill="#6b7280"/>
+
+  <!-- Center of mass G -->
+  <circle cx="225" cy="148" r="6" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="225" cy="148" r="3" fill="#c0392b"/>
+  <text x="225" y="144" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">G (центр мас)</text>
+
+  <!-- Gravity force G = m*g -->
+  <line x1="225" y1="154" x2="225" y2="198" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="233" y="180" font-size="12" font-weight="bold" fill="#c0392b">G = m·g</text>
+
+  <!-- Normal reaction drive axle N_тяг (upwards from ground y=208 to y=125) -->
+  <line x1="135" y1="208" x2="135" y2="125" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="40" y="106" font-size="12" font-weight="bold" fill="#27ae60">N_тяг ≈ 70% G</text>
+  <text x="40" y="120" font-size="12" fill="#27ae60">= m·g·(b/L)</text>
+
+  <!-- Normal reaction caster N_кастер (upwards from ground y=208 to y=168) -->
+  <line x1="445" y1="208" x2="445" y2="168" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="455" y="152" font-size="12" font-weight="bold" fill="#6b7280">N_каст ≈ 30% G</text>
+  <text x="455" y="166" font-size="12" fill="#6b7280">= m·g·(a/L)</text>
+
+  <!-- Tractive force F_тяг -->
+  <line x1="135" y1="216" x2="205" y2="216" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="135" y="238" font-size="12" font-weight="bold" fill="#27ae60">F_тяг ≤ μ · N_тяг (сила тяги вперед)</text>
+
+
+  <!-- ==================== LEFT BOTTOM: TOP VIEW ==================== -->
+  <rect x="25" y="268" width="530" height="192" rx="8" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="286" font-size="13" font-weight="bold" fill="#1a1a1a">Вигляд зверху: диференціальна кінематика</text>
+
+  <!-- Track width dimension B -->
+  <line x1="105" y1="314" x2="105" y2="426" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-dim-rev)" marker-end="url(#arr-dim)"/>
+  <line x1="100" y1="314" x2="135" y2="314" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="100" y1="426" x2="135" y2="426" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="96" y="374" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Колія B</text>
+
+  <!-- Robot chassis outline -->
+  <rect x="135" y="325" width="260" height="90" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Drive axle line -->
+  <line x1="160" y1="326" x2="160" y2="414" stroke="#64748b" stroke-width="2"/>
+  <circle cx="160" cy="370" r="4" fill="#2457d6"/>
+
+  <!-- Left wheel (top in 2D) -->
+  <rect x="135" y="302" width="50" height="24" rx="4" fill="#2457d6" stroke="#1d4ed8" stroke-width="1.5"/>
+  <line x1="148" y1="304" x2="148" y2="324" stroke="#ffffff" stroke-width="1"/>
+  <line x1="160" y1="304" x2="160" y2="324" stroke="#ffffff" stroke-width="1"/>
+  <line x1="172" y1="304" x2="172" y2="324" stroke="#ffffff" stroke-width="1"/>
+
+  <!-- Right wheel (bottom in 2D) -->
+  <rect x="135" y="414" width="50" height="24" rx="4" fill="#2457d6" stroke="#1d4ed8" stroke-width="1.5"/>
+  <line x1="148" y1="416" x2="148" y2="436" stroke="#ffffff" stroke-width="1"/>
+  <line x1="160" y1="416" x2="160" y2="436" stroke="#ffffff" stroke-width="1"/>
+  <line x1="172" y1="416" x2="172" y2="436" stroke="#ffffff" stroke-width="1"/>
+
+  <!-- Caster mount and wheel -->
+  <path d="M 395,355 L 415,362 L 415,378 L 395,385" fill="#f1f5f9" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="415" y="362" width="26" height="16" rx="3" fill="#94a3b8" stroke="#475569" stroke-width="1.5"/>
+  <text x="428" y="400" text-anchor="middle" font-size="12" fill="#6b7280">Ролик-кастер</text>
+
+  <!-- Left wheel vector v_L, F_L -->
+  <line x1="188" y1="314" x2="250" y2="314" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="220" y="305" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">v_L , F_L</text>
+
+  <!-- Right wheel vector v_R, F_R -->
+  <line x1="188" y1="426" x2="285" y2="426" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="195" y="446" font-size="12" font-weight="bold" fill="#2457d6">v_R , F_R (v_R &gt; v_L)</text>
+
+  <!-- Chassis center linear velocity v -->
+  <line x1="166" y1="370" x2="215" y2="370" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="168" y="390" font-size="12" font-weight="bold" fill="#1a1a1a">v = (v_L + v_R) / 2</text>
+
+  <!-- Angular velocity curved arrow omega -->
+  <path d="M 265,365 A 25,25 0 0,0 248,342" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="275" y="348" font-size="12" font-weight="bold" fill="#c0392b">ω = (v_R − v_L)/B</text>
+
+
+  <!-- ==================== RIGHT TOP: CARD 1 ==================== -->
+  <rect x="575" y="70" width="360" height="184" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="592" y="93" font-size="14" font-weight="bold" fill="#1a1a1a">Розподіл ваги і зчеплення ведучої осі</text>
+  <line x1="592" y1="102" x2="918" y2="102" stroke="#e2e8f0" stroke-width="1"/>
+
+  <!-- Formula box -->
+  <rect x="592" y="110" width="326" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="604" y="128" font-size="12" font-weight="bold" fill="#27ae60">F_grip = μ · N_тяг = μ · m · g · (b / L)</text>
+  <text x="604" y="144" font-size="12" fill="#1a1a1a">де μ — коефіцієнт зчеплення коліс із покриттям</text>
+
+  <text x="592" y="172" font-size="12" font-weight="bold" fill="#1a1a1a">Вплив зміщення центру мас G:</text>
+
+  <circle cx="600" cy="191" r="3" fill="#27ae60"/>
+  <text x="612" y="194" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">b &gt; a</tspan> (G біля мотора): 70–80% ваги на осі —</text>
+  <text x="612" y="209" font-size="12" fill="#1a1a1a">максимальна тяга шасі без пробуксовки</text>
+
+  <circle cx="600" cy="226" r="3" fill="#c0392b"/>
+  <text x="612" y="229" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">b &lt; a</tspan> (G біля ролика): колеса розвантажені,</text>
+  <text x="612" y="244" font-size="12" fill="#1a1a1a">буксування на старті та похилих поверхнях</text>
+
+
+  <!-- ==================== RIGHT BOTTOM: CARD 2 ==================== -->
+  <rect x="575" y="268" width="360" height="192" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="592" y="291" font-size="14" font-weight="bold" fill="#1a1a1a">Диференціальна кінематика</text>
+  <line x1="592" y1="301" x2="918" y2="301" stroke="#e2e8f0" stroke-width="1"/>
+
+  <text x="592" y="320" font-size="12" font-weight="bold" fill="#2457d6">1. Прямолінійний рух (v_L = v_R):</text>
+  <text x="612" y="335" font-size="12" fill="#1a1a1a">v = ω_вих · R_дин , кутове обертання ω = 0</text>
+
+  <text x="592" y="357" font-size="12" font-weight="bold" fill="#2457d6">2. Розворот на місці (v_L = −v_R):</text>
+  <text x="612" y="372" font-size="12" fill="#1a1a1a">v = 0 , кутова швидкість ω = 2 · v_R / B</text>
+  <text x="612" y="387" font-size="12" fill="#6b7280">центр повороту точно посередині ведучої осі</text>
+
+  <text x="592" y="409" font-size="12" font-weight="bold" fill="#1a1a1a">3. Момент спротиву кастера:</text>
+  <text x="612" y="424" font-size="12" fill="#1a1a1a">Ролик створює паразитний опір кочення M_каст,</text>
+  <text x="612" y="439" font-size="12" fill="#1a1a1a">який мотори повинні подолати під час маневру</text>
+</svg>

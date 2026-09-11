@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-s" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red-s" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-s-rev" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M6,0 L0,3 L6,6 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-s-fwd" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Гаряче підключення лазерного діода: розряд вихідної ємності</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Розряд зарядженого конденсатора C_out формує наносекундний пік струму в кілька амперів, що спричиняє COD</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: СХЕМА КОМУТАЦІЇ ==================== -->
+  <rect x="35" y="75" width="435" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="252" y="98" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Схема комутації та розрядний контур</text>
+
+  <!-- Блок драйвера струму -->
+  <rect x="55" y="115" width="115" height="175" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="112" y="133" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Драйвер струму</text>
+  <text x="112" y="148" font-size="12" fill="#6b7280" text-anchor="middle">(холостий хід)</text>
+
+  <!-- Джерело струму всередині драйвера -->
+  <circle cx="95" cy="210" r="16" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="95" y1="219" x2="95" y2="201" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="120" y="206" font-size="12" font-weight="700" fill="#2457d6">I_ном</text>
+  <text x="120" y="222" font-size="12" fill="#2457d6">35 мА</text>
+
+  <!-- Внутрішня проводка драйвера: не торкається написів -->
+  <line x1="95" y1="194" x2="95" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="95" y1="165" x2="195" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="95" y1="226" x2="95" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="95" y1="265" x2="195" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Вихідний конденсатор C_out -->
+  <circle cx="195" cy="165" r="3" fill="#1a1a1a"/>
+  <circle cx="195" cy="265" r="3" fill="#1a1a1a"/>
+  <line x1="195" y1="165" x2="195" y2="202" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="183" y1="202" x2="207" y2="202" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="183" y1="210" x2="207" y2="210" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="195" y1="210" x2="195" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Позначення C_out та напруги -->
+  <text x="176" y="202" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">C_out</text>
+  <text x="176" y="217" font-size="12" fill="#6b7280" text-anchor="end">10 мкФ</text>
+  <text x="215" y="202" font-size="12" font-weight="700" fill="#c0392b">V_C = +5 В</text>
+  <text x="215" y="217" font-size="12" fill="#6b7280">(заряджено)</text>
+
+  <!-- Заземлення -->
+  <line x1="195" y1="265" x2="195" y2="278" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="187" y1="278" x2="203" y2="278" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="190" y1="282" x2="200" y2="282" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Вимикач гарячого підключення S1 -->
+  <line x1="195" y1="165" x2="260" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="260" cy="165" r="3" fill="#1a1a1a"/>
+  <circle cx="308" cy="165" r="3" fill="#1a1a1a"/>
+  <line x1="260" y1="165" x2="303" y2="152" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 302,148 Q 309,155 307,161" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red-s)"/>
+  <text x="284" y="138" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Гарячий контакт (t = 0)</text>
+
+  <!-- Паразитний опір ESR -->
+  <line x1="308" y1="165" x2="325" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="325" y="158" width="22" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="336" y="152" font-size="12" fill="#6b7280" text-anchor="middle">ESR</text>
+  <line x1="347" y1="165" x2="395" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Блок модуля лазерного діода -->
+  <rect x="365" y="115" width="95" height="175" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="412" y="133" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Модуль LD</text>
+
+  <!-- Символ лазерного діода -->
+  <line x1="395" y1="165" x2="395" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="387,185 403,185 395,203" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="385" y1="203" x2="405" y2="203" stroke="#c0392b" stroke-width="2"/>
+  <line x1="395" y1="203" x2="395" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="395" cy="265" r="3" fill="#1a1a1a"/>
+  <line x1="195" y1="265" x2="395" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Промені лазера -->
+  <line x1="405" y1="190" x2="418" y2="184" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red-s)"/>
+  <line x1="405" y1="196" x2="418" y2="190" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red-s)"/>
+  <text x="424" y="194" font-size="12" font-weight="700" fill="#c0392b">LD</text>
+
+  <!-- Позначення руйнування біля діода -->
+  <text x="410" y="224" font-size="12" font-weight="700" fill="#c0392b">Пробій</text>
+  <text x="410" y="240" font-size="12" font-weight="700" fill="#c0392b">COD!</text>
+
+  <!-- Розрядний контур (стрілки) -->
+  <line x1="220" y1="155" x2="248" y2="155" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="375" y1="240" x2="375" y2="255" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="320" y1="255" x2="270" y2="255" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <rect x="235" y="225" width="105" height="34" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="287" y="239" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">I_peak &gt; 6 А</text>
+  <text x="287" y="253" font-size="12" fill="#c0392b" text-anchor="middle">t_pulse &lt; 50 нс</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ОСЦИЛОГРАМА ==================== -->
+  <rect x="490" y="75" width="435" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="707" y="98" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Осцилограма розрядного струму i(t)</text>
+
+  <!-- Сітка графіка -->
+  <line x1="560" y1="260" x2="880" y2="260" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="560" y1="220" x2="880" y2="220" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="560" y1="180" x2="880" y2="180" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="560" y1="140" x2="880" y2="140" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Вісь X (Час) -->
+  <line x1="560" y1="300" x2="895" y2="300" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="890" y="322" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">Час t (нс)</text>
+
+  <!-- Вісь Y (Струм) -->
+  <line x1="560" y1="300" x2="560" y2="115" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="552" y="115" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">Струм I (А)</text>
+
+  <!-- Позначки осі Y -->
+  <text x="552" y="304" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="552" y="264" font-size="12" fill="#6b7280" text-anchor="end">1 А</text>
+  <text x="552" y="224" font-size="12" fill="#6b7280" text-anchor="end">3 А</text>
+  <text x="552" y="184" font-size="12" fill="#6b7280" text-anchor="end">5 А</text>
+  <text x="552" y="144" font-size="12" fill="#6b7280" text-anchor="end">7 А</text>
+
+  <!-- Позначки осі X -->
+  <text x="560" y="316" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="610" y="316" font-size="12" fill="#6b7280" text-anchor="middle">10</text>
+  <text x="660" y="316" font-size="12" fill="#6b7280" text-anchor="middle">20</text>
+  <text x="735" y="316" font-size="12" fill="#6b7280" text-anchor="middle">50</text>
+  <text x="820" y="316" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+
+  <!-- Штрихи осі X -->
+  <line x1="610" y1="300" x2="610" y2="304" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="660" y1="300" x2="660" y2="304" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="735" y1="300" x2="735" y2="304" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="820" y1="300" x2="820" y2="304" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Заливка площі розрядного імпульсу -->
+  <path d="M 560,300 C 564,220 572,145 580,145 C 595,145 620,225 660,265 C 700,285 735,296 820,299 L 880,299 L 880,300 Z" fill="#fdecea" opacity="0.8"/>
+
+  <!-- Крива наносекундного розрядного струму -->
+  <path d="M 560,300 C 564,220 572,145 580,145 C 595,145 620,225 660,265 C 700,285 735,296 820,299 L 880,299" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Точка піку струму -->
+  <circle cx="580" cy="145" r="4" fill="#c0392b"/>
+
+  <!-- Виноска піку струму -->
+  <line x1="580" y1="145" x2="625" y2="135" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="628" y="120" width="168" height="34" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="712" y="134" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">I_peak ≈ 6.8 А (в 200×!)</text>
+  <text x="712" y="148" font-size="12" fill="#c0392b" text-anchor="middle">Катастрофічний пробій COD</text>
+
+  <!-- Номінальний безпечний струм лазера (зелена лінія біля нуля) -->
+  <line x1="560" y1="298" x2="880" y2="298" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <rect x="710" y="260" width="170" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="795" y="275" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">I_ном = 35 мА (безпечний рівень)</text>
+
+  <!-- Стрілка тривалості імпульсу -->
+  <line x1="560" y1="210" x2="735" y2="210" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-s-rev)" marker-end="url(#arr-s-fwd)"/>
+  <text x="647" y="204" font-size="12" fill="#6b7280" text-anchor="middle">t_pulse ≈ 40 нс</text>
+
+  <!-- ==================== ПАНЕЛЬ 5: ПОЯСНЕННЯ МЕХАНІЗМУ ==================== -->
+  <rect x="35" y="368" width="890" height="72" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="55" y="388" font-size="12" font-weight="700" fill="#c0392b">Чому гаряче підключення вбиває лазерний діод (ефект COD):</text>
+  <text x="55" y="408" font-size="12" fill="#1a1a1a">1. У холостому ході драйвер видає максимальну напругу (+5 В), заряджаючи вихідну ємність C_out.</text>
+  <text x="55" y="426" font-size="12" fill="#1a1a1a">2. При замиканні C_out миттєво розряджається крізь LD струмом 5–7 А, розплавляючи дзеркала резонатора.</text>
+</svg>

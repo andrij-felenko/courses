@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Маркери стрілок для переходів алгоритму -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-up" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect width="960" height="460" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Алгоритм інженерного вибору прямозубого редуктора</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Покроковий розрахунок кінематики, оцінка ККД, запас міцності зубів і захист вала</text>
+
+  <!-- КРОК 1: Вимоги навантаження -->
+  <rect x="24" y="85" width="156" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="102" y="112" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Навантаження</text>
+  <text x="102" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Вхідні вимоги вузла</text>
+
+  <text x="38" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">• Оберти вала:</text>
+  <text x="50" y="174" font-size="12" fill="#2457d6">n_out (об/хв)</text>
+
+  <text x="38" y="202" font-size="12" font-weight="bold" fill="#1a1a1a">• Робочий момент:</text>
+  <text x="50" y="220" font-size="12" fill="#2457d6">T_load (Н·м)</text>
+
+  <text x="38" y="248" font-size="12" font-weight="bold" fill="#1a1a1a">• Пусковий пік:</text>
+  <text x="50" y="266" font-size="12" fill="#c0392b">T_peak (пуск/удар)</text>
+
+  <text x="38" y="294" font-size="12" font-weight="bold" fill="#1a1a1a">• Момент інерції:</text>
+  <text x="50" y="312" font-size="12" fill="#2457d6">J_load (кг·м²)</text>
+
+  <text x="38" y="348" font-size="12" font-weight="bold" fill="#1a1a1a">• Режим роботи:</text>
+  <text x="50" y="366" font-size="12" fill="#6b7280">Реверс, люфт,</text>
+  <text x="50" y="384" font-size="12" fill="#6b7280">цикли пуск-стоп</text>
+  <text x="50" y="402" font-size="12" fill="#6b7280">та кутовий люфт</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="180" y1="202" x2="204" y2="202" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- КРОК 2: Кінематичний розрахунок і ККД -->
+  <rect x="208" y="85" width="164" height="225" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="290" y="112" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Кінематика і ККД</text>
+  <text x="290" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Розрахунок передачі</text>
+
+  <text x="290" y="156" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">i = n_mot / n_out</text>
+  <text x="290" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Кількість ступенів N</text>
+
+  <text x="290" y="206" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">η_total = (η_ст)^N</text>
+  <text x="290" y="224" font-size="12" fill="#6b7280" text-anchor="middle">(η_ст ≈ 0,85..0,90)</text>
+
+  <text x="290" y="254" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T_mot = T_l / (i·η)</text>
+  <text x="290" y="272" font-size="12" fill="#1a1a1a" text-anchor="middle">Вимога до мотора</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="372" y1="202" x2="406" y2="202" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- КРОК 3: Перевірка статичної міцності (ромб рішення) -->
+  <rect x="400" y="85" width="156" height="225" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="478" y="112" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Міцність зубів</text>
+
+  <!-- Ромб рішення -->
+  <polygon points="478,130 546,202 478,274 410,202" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="478" y="184" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T_peak &lt;</text>
+  <text x="478" y="204" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T_max / S_f</text>
+  <text x="478" y="226" font-size="12" fill="#6b7280" text-anchor="middle">S_f ≥ 1,5</text>
+
+  <!-- Гілка ТАК (3 -> 4) -->
+  <line x1="546" y1="202" x2="580" y2="202" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="566" y="190" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ТАК</text>
+
+  <!-- Гілка НІ (3 -> Блок коригування) -->
+  <line x1="478" y1="274" x2="478" y2="346" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="494" y="334" font-size="12" font-weight="bold" fill="#c0392b">НІ</text>
+
+  <!-- БЛОК КОРИГУВАННЯ (при перевантаженні) -->
+  <rect x="208" y="350" width="348" height="85" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="222" y="372" font-size="12" font-weight="bold" fill="#c0392b">Якщо НІ: недостатній запас міцності (T_peak зависокий)</text>
+  <text x="222" y="392" font-size="12" fill="#1a1a1a">• Збільшити габарит редуктора (наприклад, N30)</text>
+  <text x="222" y="410" font-size="12" fill="#1a1a1a">• Або замінити редуктор на планетарний</text>
+
+  <!-- Стрілка повернення з Блоку коригування до Кроку 2 -->
+  <line x1="250" y1="350" x2="250" y2="314" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-red-up)"/>
+  <text x="264" y="334" font-size="12" font-weight="bold" fill="#c0392b">Перерахунок</text>
+
+  <!-- КРОК 4: Добір матеріалів та радіального навантаження -->
+  <rect x="584" y="85" width="164" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="666" y="112" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">4. Матеріали і вал</text>
+  <text x="666" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Вал та шестерні</text>
+
+  <text x="598" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">• Радіальна сила:</text>
+  <text x="610" y="174" font-size="12" fill="#2457d6">F_rad &lt; F_втулки</text>
+  <text x="610" y="192" font-size="12" fill="#6b7280">Втулка ковзання</text>
+
+  <text x="598" y="222" font-size="12" font-weight="bold" fill="#1a1a1a">• Вхідні ступені:</text>
+  <text x="610" y="240" font-size="12" fill="#27ae60">Пластик (POM)</text>
+  <text x="610" y="258" font-size="12" fill="#6b7280">Тиша й менше тертя</text>
+
+  <text x="598" y="288" font-size="12" font-weight="bold" fill="#1a1a1a">• Вихідний ступінь:</text>
+  <text x="610" y="306" font-size="12" fill="#c0392b">Загартована сталь</text>
+  <text x="610" y="324" font-size="12" fill="#6b7280">Захист від зрізу</text>
+
+  <text x="598" y="356" font-size="12" font-weight="bold" fill="#1a1a1a">• Змащування:</text>
+  <text x="610" y="374" font-size="12" fill="#1a1a1a">Консистентне PTFE</text>
+  <text x="610" y="392" font-size="12" fill="#6b7280">Знижує знос зубів</text>
+
+  <!-- Стрілка 4 -> 5 -->
+  <line x1="748" y1="202" x2="772" y2="202" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- КРОК 5: Фінальний вибір та захист -->
+  <rect x="776" y="85" width="160" height="350" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="856" y="112" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">5. Вибір і захист</text>
+  <text x="856" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Затвердження вузла</text>
+
+  <text x="790" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">• Редуктор у зборі:</text>
+  <text x="802" y="174" font-size="12" font-weight="bold" fill="#27ae60">GA12-N20 (6 В)</text>
+  <text x="802" y="192" font-size="12" fill="#6b7280">Прямозубий, i=1:100</text>
+
+  <text x="790" y="222" font-size="12" font-weight="bold" fill="#1a1a1a">• Захисна муфта:</text>
+  <text x="802" y="240" font-size="12" font-weight="bold" fill="#2457d6">Slip clutch</text>
+  <text x="802" y="258" font-size="12" fill="#6b7280">Запобігає зрізанню</text>
+  <text x="802" y="276" font-size="12" fill="#6b7280">при заклинюванні</text>
+
+  <text x="790" y="306" font-size="12" font-weight="bold" fill="#1a1a1a">• Струмовий захист:</text>
+  <text x="802" y="324" font-size="12" fill="#1a1a1a">Current cutoff</text>
+  <text x="802" y="342" font-size="12" fill="#6b7280">Відсічка при stall</text>
+
+  <text x="856" y="378" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ПРИВОД ГОТОВИЙ</text>
+  <text x="856" y="398" font-size="12" fill="#1a1a1a" text-anchor="middle">Ресурс та надійність</text>
+  <text x="856" y="416" font-size="12" fill="#6b7280" text-anchor="middle">гарантовано</text>
+</svg>

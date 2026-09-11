@@ -1,0 +1,384 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <!-- Arrow markers for current flows -->
+  <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L6,3 L0,6 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L6,3 L0,6 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L6,3 L0,6 Z" fill="#c0392b"/>
+  </marker>
+</defs>
+
+<!-- Background -->
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Title & Subtitle -->
+<text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Чотири базові стани H-моста для керування двигуном</text>
+<text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Напрямок струму якоря, рекуперація через діоди та динамічне гальмування</text>
+
+<!-- ========================================== -->
+<!-- 1. ПРЯМИЙ ХІД (Panel 1: x=24..468, y=74..248) -->
+<!-- ========================================== -->
+<rect x="24" y="74" width="444" height="174" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="40" y="99" font-size="14" font-weight="bold" fill="#1a1a1a">1. Прямий хід (Forward)</text>
+<text x="452" y="99" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Q1, Q4: замкнені</text>
+
+<!-- Rails -->
+<line x1="62" y1="122" x2="286" y2="122" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="174" y1="122" x2="174" y2="114" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="174" cy="114" r="2.5" fill="#c0392b"/>
+
+<line x1="62" y1="216" x2="286" y2="216" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="174" y1="216" x2="174" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="168" y1="222" x2="180" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="171" y1="225" x2="177" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="173" y1="228" x2="175" y2="228" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- D1 (inactive) -->
+<line x1="62" y1="122" x2="62" y2="140" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="57" y1="140" x2="67" y2="140" stroke="#8c959f" stroke-width="1.5"/>
+<polygon points="57,150 67,150 62,140" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="62" y1="150" x2="62" y2="169" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- D2 (inactive) -->
+<line x1="62" y1="169" x2="62" y2="188" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="57" y1="188" x2="67" y2="188" stroke="#8c959f" stroke-width="1.5"/>
+<polygon points="57,198 67,198 62,188" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="62" y1="198" x2="62" y2="216" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- D3 (inactive) -->
+<line x1="286" y1="122" x2="286" y2="140" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="281" y1="140" x2="291" y2="140" stroke="#8c959f" stroke-width="1.5"/>
+<polygon points="281,150 291,150 286,140" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="286" y1="150" x2="286" y2="169" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- D4 (inactive) -->
+<line x1="286" y1="169" x2="286" y2="188" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="281" y1="188" x2="291" y2="188" stroke="#8c959f" stroke-width="1.5"/>
+<polygon points="281,198 291,198 286,188" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="286" y1="198" x2="286" y2="216" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Q1 (CLOSED, conducting green) -->
+<line x1="109" y1="122" x2="109" y2="169" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+<circle cx="109" cy="136" r="2.5" fill="#27ae60"/>
+<circle cx="109" cy="155" r="2.5" fill="#27ae60"/>
+
+<!-- Q2 (OPEN) -->
+<line x1="109" y1="169" x2="109" y2="179" stroke="#d0d7de" stroke-width="1.5"/>
+<circle cx="109" cy="179" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<circle cx="109" cy="201" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="109" y1="201" x2="100" y2="183" stroke="#8c959f" stroke-width="1.8"/>
+<line x1="109" y1="201" x2="109" y2="216" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Q3 (OPEN) -->
+<line x1="239" y1="122" x2="239" y2="136" stroke="#d0d7de" stroke-width="1.5"/>
+<circle cx="239" cy="136" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<circle cx="239" cy="158" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="239" y1="158" x2="230" y2="140" stroke="#8c959f" stroke-width="1.8"/>
+<line x1="239" y1="158" x2="239" y2="169" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Q4 (CLOSED, conducting green) -->
+<line x1="239" y1="169" x2="239" y2="216" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+<circle cx="239" cy="179" r="2.5" fill="#27ae60"/>
+<circle cx="239" cy="198" r="2.5" fill="#27ae60"/>
+
+<!-- Horizontal wire & Motor -->
+<line x1="62" y1="169" x2="109" y2="169" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="109" y1="169" x2="159" y2="169" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+<line x1="189" y1="169" x2="239" y2="169" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+<line x1="239" y1="169" x2="286" y2="169" stroke="#d0d7de" stroke-width="1.5"/>
+<circle cx="174" cy="169" r="15" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<text x="174" y="174" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+
+<!-- Labels -->
+<text x="123" y="149" font-size="12" font-weight="bold" fill="#27ae60">Q1</text>
+<text x="123" y="194" font-size="12" font-weight="bold" fill="#8c959f">Q2</text>
+<text x="225" y="149" font-size="12" font-weight="bold" fill="#8c959f" text-anchor="end">Q3</text>
+<text x="225" y="194" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Q4</text>
+
+<!-- Info Card 1 -->
+<rect x="306" y="114" width="150" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="318" y="133" font-size="12" fill="#6b7280">Живлення: +6 В → 0 В</text>
+<text x="318" y="152" font-size="12" font-weight="bold" fill="#27ae60">Q1, Q4: УВІМК (ON)</text>
+<text x="318" y="171" font-size="12" fill="#8c959f">Q2, Q3: ВИМК (OFF)</text>
+<text x="318" y="191" font-size="12" font-weight="bold" fill="#1a1a1a">Струм: зліва направо</text>
+<text x="318" y="210" font-size="12" fill="#27ae60">Обертання вперед (CW)</text>
+
+<!-- ========================================== -->
+<!-- 2. РЕВЕРС (Panel 2: x=492..936, y=74..248) -->
+<!-- ========================================== -->
+<rect x="492" y="74" width="444" height="174" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="508" y="99" font-size="14" font-weight="bold" fill="#1a1a1a">2. Реверс (Reverse)</text>
+<text x="920" y="99" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Q2, Q3: замкнені</text>
+
+<!-- Rails -->
+<line x1="530" y1="122" x2="754" y2="122" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="642" y1="122" x2="642" y2="114" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="642" cy="114" r="2.5" fill="#c0392b"/>
+
+<line x1="530" y1="216" x2="754" y2="216" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="642" y1="216" x2="642" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="636" y1="222" x2="648" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="639" y1="225" x2="645" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="641" y1="228" x2="643" y2="228" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- D1 (inactive) -->
+<line x1="530" y1="122" x2="530" y2="140" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="525" y1="140" x2="535" y2="140" stroke="#8c959f" stroke-width="1.5"/>
+<polygon points="525,150 535,150 530,140" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="530" y1="150" x2="530" y2="169" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- D2 (inactive) -->
+<line x1="530" y1="169" x2="530" y2="188" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="525" y1="188" x2="535" y2="188" stroke="#8c959f" stroke-width="1.5"/>
+<polygon points="525,198 535,198 530,188" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="530" y1="198" x2="530" y2="216" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- D3 (inactive) -->
+<line x1="754" y1="122" x2="754" y2="140" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="749" y1="140" x2="759" y2="140" stroke="#8c959f" stroke-width="1.5"/>
+<polygon points="749,150 759,150 754,140" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="754" y1="150" x2="754" y2="169" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- D4 (inactive) -->
+<line x1="754" y1="169" x2="754" y2="188" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="749" y1="188" x2="759" y2="188" stroke="#8c959f" stroke-width="1.5"/>
+<polygon points="749,198 759,198 754,188" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="754" y1="198" x2="754" y2="216" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Q1 (OPEN) -->
+<line x1="577" y1="122" x2="577" y2="136" stroke="#d0d7de" stroke-width="1.5"/>
+<circle cx="577" cy="136" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<circle cx="577" cy="158" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="577" y1="158" x2="568" y2="140" stroke="#8c959f" stroke-width="1.8"/>
+<line x1="577" y1="158" x2="577" y2="169" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Q2 (CLOSED, conducting green) -->
+<line x1="577" y1="169" x2="577" y2="216" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+<circle cx="577" cy="179" r="2.5" fill="#27ae60"/>
+<circle cx="577" cy="198" r="2.5" fill="#27ae60"/>
+
+<!-- Q3 (CLOSED, conducting green) -->
+<line x1="707" y1="122" x2="707" y2="169" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+<circle cx="707" cy="136" r="2.5" fill="#27ae60"/>
+<circle cx="707" cy="155" r="2.5" fill="#27ae60"/>
+
+<!-- Q4 (OPEN) -->
+<line x1="707" y1="169" x2="707" y2="179" stroke="#d0d7de" stroke-width="1.5"/>
+<circle cx="707" cy="179" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<circle cx="707" cy="201" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="707" y1="201" x2="698" y2="183" stroke="#8c959f" stroke-width="1.8"/>
+<line x1="707" y1="201" x2="707" y2="216" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Horizontal wire & Motor -->
+<line x1="530" y1="169" x2="577" y2="169" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="627" y1="169" x2="577" y2="169" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+<line x1="707" y1="169" x2="657" y2="169" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+<line x1="707" y1="169" x2="754" y2="169" stroke="#d0d7de" stroke-width="1.5"/>
+<circle cx="642" cy="169" r="15" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<text x="642" y="174" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+
+<!-- Labels -->
+<text x="591" y="149" font-size="12" font-weight="bold" fill="#8c959f">Q1</text>
+<text x="591" y="194" font-size="12" font-weight="bold" fill="#27ae60">Q2</text>
+<text x="693" y="149" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Q3</text>
+<text x="693" y="194" font-size="12" font-weight="bold" fill="#8c959f" text-anchor="end">Q4</text>
+
+<!-- Info Card 2 -->
+<rect x="774" y="114" width="150" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="786" y="133" font-size="12" fill="#6b7280">Живлення: +6 В → 0 В</text>
+<text x="786" y="152" font-size="12" font-weight="bold" fill="#27ae60">Q2, Q3: УВІМК (ON)</text>
+<text x="786" y="171" font-size="12" fill="#8c959f">Q1, Q4: ВИМК (OFF)</text>
+<text x="786" y="191" font-size="12" font-weight="bold" fill="#1a1a1a">Струм: справа наліво</text>
+<text x="786" y="210" font-size="12" fill="#27ae60">Реверсний рух (CCW)</text>
+
+<!-- ========================================== -->
+<!-- 3. ВІЛЬНИЙ ВИБІГ (Panel 3: x=24..468, y=266..440) -->
+<!-- ========================================== -->
+<rect x="24" y="266" width="444" height="174" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="40" y="291" font-size="14" font-weight="bold" fill="#1a1a1a">3. Вільний вибіг (Coast)</text>
+<text x="452" y="291" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Усі ключі розімкнені</text>
+
+<!-- Rails -->
+<line x1="62" y1="314" x2="286" y2="314" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="174" y1="314" x2="174" y2="306" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="174" cy="306" r="2.5" fill="#c0392b"/>
+
+<!-- VCC receiving arrow from D3 -->
+<line x1="286" y1="314" x2="220" y2="314" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+<line x1="62" y1="408" x2="286" y2="408" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="174" y1="408" x2="174" y2="414" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="168" y1="414" x2="180" y2="414" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="171" y1="417" x2="177" y2="417" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="173" y1="420" x2="175" y2="420" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- D1 (inactive) -->
+<line x1="62" y1="314" x2="62" y2="332" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="57" y1="332" x2="67" y2="332" stroke="#8c959f" stroke-width="1.5"/>
+<polygon points="57,342 67,342 62,332" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="62" y1="342" x2="62" y2="361" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- D2 (ACTIVE, conducting blue: GND -> Node A) -->
+<line x1="62" y1="408" x2="62" y2="390" stroke="#2457d6" stroke-width="2.5"/>
+<polygon points="57,390 67,390 62,380" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="57" y1="380" x2="67" y2="380" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="62" y1="380" x2="62" y2="361" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+<!-- D3 (ACTIVE, conducting blue: Node B -> VCC) -->
+<line x1="286" y1="361" x2="286" y2="342" stroke="#2457d6" stroke-width="2.5"/>
+<polygon points="281,342 291,342 286,332" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="281" y1="332" x2="291" y2="332" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="286" y1="332" x2="286" y2="314" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+<!-- D4 (inactive) -->
+<line x1="286" y1="361" x2="286" y2="380" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="281" y1="380" x2="291" y2="380" stroke="#8c959f" stroke-width="1.5"/>
+<polygon points="281,390 291,390 286,380" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="286" y1="390" x2="286" y2="408" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Q1 (OPEN) -->
+<line x1="109" y1="314" x2="109" y2="328" stroke="#d0d7de" stroke-width="1.5"/>
+<circle cx="109" cy="328" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<circle cx="109" cy="350" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="109" y1="350" x2="100" y2="332" stroke="#8c959f" stroke-width="1.8"/>
+<line x1="109" y1="350" x2="109" y2="361" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Q2 (OPEN) -->
+<line x1="109" y1="361" x2="109" y2="371" stroke="#d0d7de" stroke-width="1.5"/>
+<circle cx="109" cy="371" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<circle cx="109" cy="393" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="109" y1="393" x2="100" y2="375" stroke="#8c959f" stroke-width="1.8"/>
+<line x1="109" y1="393" x2="109" y2="408" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Q3 (OPEN) -->
+<line x1="239" y1="314" x2="239" y2="328" stroke="#d0d7de" stroke-width="1.5"/>
+<circle cx="239" cy="328" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<circle cx="239" cy="350" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="239" y1="350" x2="230" y2="332" stroke="#8c959f" stroke-width="1.8"/>
+<line x1="239" y1="350" x2="239" y2="361" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Q4 (OPEN) -->
+<line x1="239" y1="361" x2="239" y2="371" stroke="#d0d7de" stroke-width="1.5"/>
+<circle cx="239" cy="371" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<circle cx="239" cy="393" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="239" y1="393" x2="230" y2="375" stroke="#8c959f" stroke-width="1.8"/>
+<line x1="239" y1="393" x2="239" y2="408" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Horizontal wire & Motor (recirculating blue) -->
+<line x1="62" y1="361" x2="109" y2="361" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="109" y1="361" x2="159" y2="361" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+<line x1="189" y1="361" x2="239" y2="361" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+<line x1="239" y1="361" x2="286" y2="361" stroke="#2457d6" stroke-width="2.5"/>
+<circle cx="174" cy="361" r="15" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<text x="174" y="366" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+
+<!-- Labels -->
+<text x="123" y="341" font-size="12" font-weight="bold" fill="#8c959f">Q1</text>
+<text x="123" y="386" font-size="12" font-weight="bold" fill="#8c959f">Q2</text>
+<text x="225" y="341" font-size="12" font-weight="bold" fill="#8c959f" text-anchor="end">Q3</text>
+<text x="225" y="386" font-size="12" font-weight="bold" fill="#8c959f" text-anchor="end">Q4</text>
+
+<!-- Info Card 3 -->
+<rect x="306" y="306" width="150" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="318" y="325" font-size="12" fill="#8c959f">Ключі: усі ВИМК (Hi-Z)</text>
+<text x="318" y="344" font-size="12" font-weight="bold" fill="#2457d6">Діоди: D2 і D3 відкриті</text>
+<text x="318" y="363" font-size="12" fill="#1a1a1a">GND → D2 → M → D3</text>
+<text x="318" y="383" font-size="12" font-weight="bold" fill="#2457d6">Скидання струму у VCC</text>
+<text x="318" y="402" font-size="12" fill="#6b7280">Плавне згасання (вибіг)</text>
+
+<!-- ========================================== -->
+<!-- 4. ДИНАМІЧНЕ ГАЛЬМУВАННЯ (Panel 4: x=492..936, y=266..440) -->
+<!-- ========================================== -->
+<rect x="492" y="266" width="444" height="174" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="508" y="291" font-size="14" font-weight="bold" fill="#1a1a1a">4. Гальмування (Brake)</text>
+<text x="920" y="291" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Q2, Q4: замкнені на GND</text>
+
+<!-- Rails -->
+<line x1="530" y1="314" x2="754" y2="314" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="642" y1="314" x2="642" y2="306" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="642" cy="306" r="2.5" fill="#c0392b"/>
+
+<line x1="530" y1="408" x2="754" y2="408" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="642" y1="408" x2="642" y2="414" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="636" y1="414" x2="648" y2="414" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="639" y1="417" x2="645" y2="417" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="641" y1="420" x2="643" y2="420" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- D1 (inactive) -->
+<line x1="530" y1="314" x2="530" y2="332" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="525" y1="332" x2="535" y2="332" stroke="#8c959f" stroke-width="1.5"/>
+<polygon points="525,342 535,342 530,332" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="530" y1="342" x2="530" y2="361" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- D2 (inactive) -->
+<line x1="530" y1="361" x2="530" y2="380" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="525" y1="380" x2="535" y2="380" stroke="#8c959f" stroke-width="1.5"/>
+<polygon points="525,390 535,390 530,380" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="530" y1="390" x2="530" y2="408" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- D3 (inactive) -->
+<line x1="754" y1="314" x2="754" y2="332" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="749" y1="332" x2="759" y2="332" stroke="#8c959f" stroke-width="1.5"/>
+<polygon points="749,342 759,342 754,332" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="754" y1="342" x2="754" y2="361" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- D4 (inactive) -->
+<line x1="754" y1="361" x2="754" y2="380" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="749" y1="380" x2="759" y2="380" stroke="#8c959f" stroke-width="1.5"/>
+<polygon points="749,390 759,390 754,380" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="754" y1="390" x2="754" y2="408" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Q1 (OPEN) -->
+<line x1="577" y1="314" x2="577" y2="328" stroke="#d0d7de" stroke-width="1.5"/>
+<circle cx="577" cy="328" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<circle cx="577" cy="350" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="577" y1="350" x2="568" y2="332" stroke="#8c959f" stroke-width="1.8"/>
+<line x1="577" y1="350" x2="577" y2="361" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Q2 (CLOSED on GND, loop conducting red) -->
+<line x1="577" y1="408" x2="577" y2="361" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+<circle cx="577" cy="375" r="2.5" fill="#c0392b"/>
+<circle cx="577" cy="394" r="2.5" fill="#c0392b"/>
+
+<!-- Q3 (OPEN) -->
+<line x1="707" y1="314" x2="707" y2="328" stroke="#d0d7de" stroke-width="1.5"/>
+<circle cx="707" cy="328" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<circle cx="707" cy="350" r="2.5" fill="#ffffff" stroke="#8c959f" stroke-width="1.5"/>
+<line x1="707" y1="350" x2="698" y2="332" stroke="#8c959f" stroke-width="1.8"/>
+<line x1="707" y1="350" x2="707" y2="361" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Q4 (CLOSED on GND, loop conducting red) -->
+<line x1="707" y1="361" x2="707" y2="408" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+<circle cx="707" cy="375" r="2.5" fill="#c0392b"/>
+<circle cx="707" cy="394" r="2.5" fill="#c0392b"/>
+
+<!-- GND shorting segment (closed loop path: Q4 -> Q2) -->
+<line x1="707" y1="408" x2="577" y2="408" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+
+<!-- Horizontal wire & Motor (braking loop) -->
+<line x1="530" y1="361" x2="577" y2="361" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="577" y1="361" x2="627" y2="361" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+<line x1="657" y1="361" x2="707" y2="361" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+<line x1="707" y1="361" x2="754" y2="361" stroke="#d0d7de" stroke-width="1.5"/>
+<circle cx="642" cy="361" r="15" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<text x="642" y="366" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+
+<!-- Labels -->
+<text x="591" y="341" font-size="12" font-weight="bold" fill="#8c959f">Q1</text>
+<text x="591" y="386" font-size="12" font-weight="bold" fill="#c0392b">Q2</text>
+<text x="693" y="341" font-size="12" font-weight="bold" fill="#8c959f" text-anchor="end">Q3</text>
+<text x="693" y="386" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Q4</text>
+
+<!-- Info Card 4 -->
+<rect x="774" y="306" width="150" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="786" y="325" font-size="12" fill="#8c959f">Верхні Q1, Q3: ВИМК</text>
+<text x="786" y="344" font-size="12" font-weight="bold" fill="#c0392b">Нижні Q2, Q4: УВІМК</text>
+<text x="786" y="363" font-size="12" fill="#1a1a1a">Закорочення якоря на 0 В</text>
+<text x="786" y="383" font-size="12" font-weight="bold" fill="#c0392b">ЕРС гасить обертання</text>
+<text x="786" y="402" font-size="12" fill="#1a1a1a">Різка активна зупинка</text>
+
+</svg>

@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Теплова модель XPT8871: закон Ома та перегрів кристала</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">ESOP-8 із термопадом безпечний у всьому діапазоні, тоді як SOP-8 вимикається від перегріву при RL ≤ 4 Ом</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Еквівалентна теплова схема -->
+  <rect x="24" y="64" width="410" height="376" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="88" font-size="14" font-weight="bold" fill="#1a1a1a">Еквівалентна теплова схема</text>
+  <text x="44" y="106" font-size="12" fill="#6b7280">Аналог закону Ома: ΔT = PD · Rθ (потік тепловтрат через опори)</text>
+
+  <!-- Схема: ліва вітка (джерело струму PD) -->
+  <line x1="130" y1="136" x2="130" y2="185" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="130" cy="201" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="130" y1="210" x2="130" y2="193" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="130" y1="217" x2="130" y2="266" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Підпис джерела PD -->
+  <text x="106" y="196" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">PD</text>
+  <text x="106" y="212" font-size="12" fill="#6b7280" text-anchor="end">потік тепла</text>
+
+  <!-- Верхня шина TJ (перехід кристала) -->
+  <line x1="130" y1="136" x2="260" y2="136" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="260" cy="136" r="4" fill="#c0392b"/>
+  <text x="274" y="134" font-size="13" font-weight="bold" fill="#c0392b">TJ</text>
+  <text x="274" y="148" font-size="12" fill="#6b7280">перехід кристала</text>
+
+  <!-- Опір RθJC (перехід-корпус) -->
+  <line x1="260" y1="136" x2="260" y2="154" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="250" y="154" width="20" height="34" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="280" y="167" font-size="12" font-weight="bold" fill="#1a1a1a">RθJC</text>
+  <text x="280" y="181" font-size="12" fill="#6b7280">перехід–корпус</text>
+
+  <!-- Вузол TC (корпус) -->
+  <line x1="260" y1="188" x2="260" y2="214" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="260" cy="201" r="3.5" fill="#1a1a1a"/>
+  <text x="274" y="199" font-size="13" font-weight="bold" fill="#1a1a1a">TC</text>
+  <text x="274" y="213" font-size="12" fill="#6b7280">корпус (Case)</text>
+
+  <!-- Опір RθCA (корпус-довкілля) -->
+  <rect x="250" y="214" width="20" height="34" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="260" y1="248" x2="260" y2="266" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="280" y="227" font-size="12" font-weight="bold" fill="#1a1a1a">RθCA</text>
+  <text x="280" y="241" font-size="12" fill="#6b7280">корпус–довкілля</text>
+
+  <!-- Нижня шина землі TA (довкілля) -->
+  <line x1="130" y1="266" x2="260" y2="266" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="260" cy="266" r="3.5" fill="#1a1a1a"/>
+  <line x1="195" y1="266" x2="195" y2="274" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="185" y1="274" x2="205" y2="274" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="189" y1="278" x2="201" y2="278" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="192" y1="282" x2="198" y2="282" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="274" y="264" font-size="13" font-weight="bold" fill="#1a1a1a">TA = 25 °C</text>
+  <text x="274" y="278" font-size="12" fill="#6b7280">температура довкілля</text>
+
+  <!-- Плашка формули балансу -->
+  <rect x="38" y="300" width="382" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="229" y="318" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">TJ = TA + PD · RθJA</text>
+  <text x="229" y="333" font-size="12" fill="#1a1a1a" text-anchor="middle">де RθJA = RθJC + RθCA — повний тепловий опір</text>
+
+  <!-- Табличка теплового аналога -->
+  <rect x="38" y="354" width="382" height="72" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="374" font-size="12" font-weight="bold" fill="#6b7280">Електрика:</text>
+  <text x="132" y="374" font-size="12" fill="#1a1a1a">Потенціал U</text>
+  <text x="235" y="374" font-size="12" fill="#1a1a1a">Струм I</text>
+  <text x="318" y="374" font-size="12" fill="#1a1a1a">Опір R</text>
+  <line x1="48" y1="388" x2="410" y2="388" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="52" y="408" font-size="12" font-weight="bold" fill="#2457d6">Тепло:</text>
+  <text x="132" y="408" font-size="12" fill="#1a1a1a">Температура T</text>
+  <text x="235" y="408" font-size="12" fill="#1a1a1a">Потік тепла PD</text>
+  <text x="318" y="408" font-size="12" fill="#1a1a1a">Опір Rθ</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Графік TJ(RL) -->
+  <rect x="450" y="64" width="486" height="376" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="470" y="88" font-size="14" font-weight="bold" fill="#1a1a1a">Температура кристала TJ від навантаження RL</text>
+  <text x="470" y="106" font-size="12" fill="#6b7280">При Vdd = 5 В: поріг термозахисту TSD = 150 °C та зона гістерезису</text>
+
+  <!-- Зона гістерезису TSD (130-150 °C) -->
+  <rect x="505" y="182" width="345" height="24" fill="#fdecea" opacity="0.6"/>
+  <line x1="505" y1="182" x2="850" y2="182" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="505" y1="206" x2="850" y2="206" stroke="#e67e22" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="520" y="174" font-size="12" font-weight="bold" fill="#c0392b">Поріг вимкнення TSD = 150 °C</text>
+  <text x="695" y="198" font-size="12" fill="#c0392b">Зона гістерезису (~130–150 °C)</text>
+
+  <!-- Легенда графіків -->
+  <rect x="700" y="122" width="222" height="46" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="710" y1="135" x2="730" y2="135" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="720" cy="135" r="3.5" fill="#c0392b"/>
+  <text x="736" y="139" font-size="12" font-weight="bold" fill="#c0392b">SOP-8 (RθJA ≈ 140 °C/Вт)</text>
+  <line x1="710" y1="154" x2="730" y2="154" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="720" cy="154" r="3.5" fill="#27ae60"/>
+  <text x="736" y="158" font-size="12" font-weight="bold" fill="#27ae60">ESOP-8 (RθJA ≈ 40 °C/Вт)</text>
+
+  <!-- Осі координат -->
+  <line x1="505" y1="320" x2="870" y2="320" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="505" y1="320" x2="505" y2="118" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="498" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">TJ (°C)</text>
+  <text x="878" y="324" font-size="12" font-weight="bold" fill="#1a1a1a">RL</text>
+  <text x="878" y="338" font-size="12" fill="#6b7280">(Ом)</text>
+
+  <!-- Зарубки та позначки осі Y -->
+  <line x1="500" y1="320" x2="505" y2="320" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="498" y="324" font-size="12" fill="#6b7280" text-anchor="end">25°</text>
+  <line x1="500" y1="238" x2="505" y2="238" stroke="#d0d7de" stroke-width="1"/>
+  <text x="498" y="242" font-size="12" fill="#6b7280" text-anchor="end">100°</text>
+  <line x1="498" y1="182" x2="505" y2="182" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="498" y="186" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">150°</text>
+
+  <!-- Зарубки та позначки осі X -->
+  <line x1="560" y1="320" x2="560" y2="325" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="560" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2 Ω</text>
+  <line x1="650" y1="320" x2="650" y2="325" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="650" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4 Ω</text>
+  <line x1="740" y1="320" x2="740" y2="324" stroke="#d0d7de" stroke-width="1"/>
+  <text x="740" y="338" font-size="12" fill="#6b7280" text-anchor="middle">6 Ω</text>
+  <line x1="830" y1="320" x2="830" y2="325" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="830" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">8 Ω</text>
+
+  <!-- Крива SOP-8 (червона) -->
+  <path d="M 830 222 Q 775 202 720 182" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M 720 182 Q 680 150 650 125 Q 615 118 580 116" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- Точки SOP-8 -->
+  <circle cx="830" cy="222" r="4.5" fill="#c0392b"/>
+  <text x="838" y="218" font-size="12" font-weight="bold" fill="#c0392b">114 °C</text>
+  <text x="838" y="232" font-size="12" fill="#6b7280">(гранична)</text>
+
+  <circle cx="650" cy="125" r="4.5" fill="#c0392b"/>
+  <text x="645" y="118" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">202 °C (перегрів)</text>
+
+  <text x="560" y="132" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">▲ 380 °C (аварія)</text>
+  <text x="560" y="147" font-size="12" fill="#6b7280" text-anchor="middle">миттєвий захист</text>
+
+  <!-- Крива ESOP-8 (зелена) -->
+  <path d="M 540 193 Q 560 209 600 240 T 650 264 T 740 283 T 830 292" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Точки ESOP-8 -->
+  <circle cx="560" cy="209" r="4.5" fill="#27ae60"/>
+  <text x="568" y="218" font-size="12" font-weight="bold" fill="#27ae60">126 °C</text>
+  <text x="568" y="232" font-size="12" fill="#6b7280">(біля межі)</text>
+
+  <circle cx="650" cy="264" r="4.5" fill="#27ae60"/>
+  <text x="650" y="252" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">76 °C</text>
+  <text x="650" y="280" font-size="12" fill="#6b7280" text-anchor="middle">(безпечно)</text>
+
+  <circle cx="830" cy="292" r="4.5" fill="#27ae60"/>
+  <text x="838" y="288" font-size="12" font-weight="bold" fill="#27ae60">50 °C</text>
+  <text x="838" y="302" font-size="12" fill="#6b7280">(холодний)</text>
+
+  <!-- Нижні плашки висновків -->
+  <rect x="465" y="356" width="456" height="30" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="475" y="375" font-size="12" font-weight="bold" fill="#c0392b">SOP-8 без термопада:</text>
+  <text x="618" y="375" font-size="12" fill="#1a1a1a">непридатний для 2–4 Ом (перегрів > 150 °C)</text>
+
+  <rect x="465" y="398" width="456" height="30" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="475" y="417" font-size="12" font-weight="bold" fill="#27ae60">ESOP-8 з Exposed Pad:</text>
+  <text x="625" y="417" font-size="12" fill="#1a1a1a">безпечна робота на 2, 4 та 8 Ом (TJ ≤ 126 °C)</text>
+</svg>

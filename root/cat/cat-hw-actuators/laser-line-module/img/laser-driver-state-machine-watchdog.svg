@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+  <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+  </marker>
+</defs>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Автомат станів драйвера лазерної лінії зі сторожовим таймером</text>
+<text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Захисне відсікання випромінювання за таймаутом і повернення лише за явним скиданням</text>
+
+<!-- Стан 1: INIT -->
+<rect x="45" y="105" width="195" height="125" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="60" y="128" font-size="15" font-weight="bold" fill="#1a1a1a">INIT</text>
+<text x="60" y="146" font-size="12" fill="#6b7280">Початкове налаштування</text>
+<text x="60" y="170" font-size="12" fill="#1a1a1a">• Ключ закрито: 0 мВт (LOW)</text>
+<text x="60" y="190" font-size="12" fill="#1a1a1a">• Конфігурація GPIO і ШІМ</text>
+<text x="60" y="210" font-size="12" fill="#1a1a1a">• Watchdog скинуто в 0</text>
+
+<!-- Стан 2: READY -->
+<rect x="380" y="105" width="200" height="125" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+<text x="395" y="128" font-size="15" font-weight="bold" fill="#27ae60">READY</text>
+<text x="395" y="146" font-size="12" fill="#27ae60">Очікування стробу (Standby)</text>
+<text x="395" y="170" font-size="12" fill="#1a1a1a">• Лазер вимкнено (LOW)</text>
+<text x="395" y="190" font-size="12" fill="#1a1a1a">• Таймер скинуто / готовий</text>
+<text x="395" y="210" font-size="12" fill="#1a1a1a">• Очікує тригер від камери</text>
+
+<!-- Стан 3: EMITTING -->
+<rect x="720" y="105" width="195" height="125" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="735" y="128" font-size="15" font-weight="bold" fill="#2457d6">EMITTING</text>
+<text x="735" y="146" font-size="12" fill="#2457d6">Генерація випромінювання</text>
+<text x="735" y="170" font-size="12" fill="#1a1a1a">• Ключ відкрито: ШІМ / HIGH</text>
+<text x="735" y="190" font-size="12" fill="#1a1a1a">• Випромінювання активне</text>
+<text x="735" y="210" font-size="12" fill="#1a1a1a">• Watchdog рахує час t_on</text>
+
+<!-- Стан 4: FAULT_LOCKOUT -->
+<rect x="325" y="300" width="310" height="125" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+<text x="345" y="324" font-size="15" font-weight="bold" fill="#c0392b">FAULT_LOCKOUT</text>
+<text x="345" y="342" font-size="12" fill="#c0392b">Аварійне блокування (Safety Trip)</text>
+<text x="345" y="366" font-size="12" fill="#1a1a1a">• Ключ примусово закрито (LOW)</text>
+<text x="345" y="386" font-size="12" fill="#1a1a1a">• Імпульси стробування ігноруються</text>
+<text x="345" y="406" font-size="12" fill="#1a1a1a">• Вихід лише через failsafe_reset()</text>
+
+<!-- Перехід: Старт -> INIT -->
+<circle cx="142" cy="72" r="5" fill="#1a1a1a"/>
+<line x1="142" y1="77" x2="142" y2="103" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+<text x="152" y="90" font-size="12" fill="#6b7280">MCU Reset</text>
+
+<!-- Перехід: INIT -> READY -->
+<line x1="240" y1="172" x2="378" y2="172" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+<text x="310" y="145" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ініціалізація OK</text>
+<text x="310" y="160" font-size="12" fill="#6b7280" text-anchor="middle">лазер = LOW</text>
+
+<!-- Перехід: READY -> EMITTING (Строб HIGH) -->
+<line x1="580" y1="147" x2="718" y2="147" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<text x="650" y="122" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Строб HIGH (фронт)</text>
+<text x="650" y="137" font-size="12" fill="#6b7280" text-anchor="middle">пуск ШІМ + watchdog</text>
+
+<!-- Перехід: EMITTING -> READY (Строб LOW / автовимкнення) -->
+<line x1="720" y1="188" x2="582" y2="188" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+<text x="650" y="205" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Строб LOW (спад)</text>
+<text x="650" y="220" font-size="12" fill="#6b7280" text-anchor="middle">автовимкнення лазера</text>
+
+<!-- Перехід: EMITTING -> EMITTING (watchdog pet) -->
+<path d="M 790,105 C 790,55 850,55 850,103" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<text x="820" y="34" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">watchdog_pet()</text>
+<text x="820" y="49" font-size="12" fill="#6b7280" text-anchor="middle">скидання таймера</text>
+
+<!-- Перехід: EMITTING -> FAULT_LOCKOUT (Watchdog timeout) -->
+<path d="M 835,230 L 835,350 Q 835,362 823,362 L 637,362" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+<text x="735" y="338" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Таймаут watchdog</text>
+<text x="735" y="353" font-size="12" fill="#6b7280" text-anchor="middle">t > T_max (аварійне LOW)</text>
+
+<!-- Перехід: FAULT_LOCKOUT -> INIT (failsafe reset) -->
+<path d="M 325,362 L 154,362 Q 142,362 142,350 L 142,232" fill="none" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+<text x="235" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">failsafe_reset()</text>
+<text x="235" y="353" font-size="12" fill="#6b7280" text-anchor="middle">явне скидання блокування</text>
+
+</svg>

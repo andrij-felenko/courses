@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+  </marker>
+</defs>
+
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Title & Subtitle -->
+<text x="480" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Формування імпульсів розузгодження та керування двигуном сервоприводу</text>
+<text x="480" y="46" text-anchor="middle" font-size="13" fill="#6b7280">Порівняння вхідного ШІМ і внутрішнього одновібратора, селекція мертвої зони та розтягування імпульсу</text>
+
+<!-- ==================== MAIN TIMING PANEL ==================== -->
+<rect x="30" y="66" width="900" height="264" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="30" y="66" width="900" height="28" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+<!-- Column Headers in top bar -->
+<text x="95" y="85" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Сигнал / Вузол</text>
+<text x="285" y="85" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1. Недохід ліворуч (T_in &gt; T_fb)</text>
+<text x="540" y="85" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">2. Баланс у спокої (|ΔT| &lt; T_db)</text>
+<text x="800" y="85" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">3. Недохід праворуч (T_in &lt; T_fb)</text>
+
+<!-- Vertical Column Separators -->
+<line x1="160" y1="66" x2="160" y2="330" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="410" y1="66" x2="410" y2="330" stroke="#d0d7de" stroke-width="1.5"/>
+<line x1="670" y1="66" x2="670" y2="330" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Left Column Signal Labels -->
+<text x="40" y="120" font-size="12" font-weight="bold" fill="#1a1a1a">1. Вхід T_in</text>
+<text x="40" y="133" font-size="12" fill="#6b7280">ШІМ 1.0..2.0 мс</text>
+
+<text x="40" y="170" font-size="12" font-weight="bold" fill="#2457d6">2. Опора T_fb</text>
+<text x="40" y="183" font-size="12" fill="#6b7280">Одновібратор</text>
+
+<text x="40" y="220" font-size="12" font-weight="bold" fill="#c0392b">3. Похибка ΔT</text>
+<text x="40" y="233" font-size="12" fill="#6b7280">|T_in - T_fb|</text>
+
+<text x="40" y="275" font-size="12" font-weight="bold" fill="#1a1a1a">4. Мотор V_mot</text>
+<text x="40" y="288" font-size="12" fill="#6b7280">H-міст + Stretcher</text>
+
+<!-- ==================== STATE 1: T_in > T_fb (CCW Turn) ==================== -->
+<!-- Signal 1: T_in (1.8 ms) -->
+<polyline points="160,136 185,136 185,116 365,116 365,136 410,136" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<text x="275" y="106" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">T_in = 1.8 мс</text>
+
+<!-- Signal 2: T_fb (1.5 ms) -->
+<polyline points="160,186 185,186 185,166 315,166 315,186 410,186" fill="none" stroke="#2457d6" stroke-width="2"/>
+<text x="250" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">T_fb = 1.5 мс</text>
+
+<!-- Alignment dashed lines from falling edges -->
+<line x1="315" y1="166" x2="315" y2="236" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="2,2"/>
+<line x1="365" y1="116" x2="365" y2="236" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+<!-- Signal 3: Delta T (+0.3 ms) -->
+<polyline points="160,236 315,236 315,216 365,216 365,236 410,236" fill="none" stroke="#c0392b" stroke-width="2"/>
+<text x="250" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ΔT = +0.3 мс (&gt; T_db)</text>
+
+<!-- Signal 4: V_mot (+5V CCW pulse, stretched) -->
+<polyline points="160,285 365,285 365,265 405,265 405,285 410,285" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+<text x="260" y="260" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">+5V (Обертання CCW)</text>
+<text x="260" y="276" text-anchor="middle" font-size="12" fill="#6b7280">Імпульс розтягнуто Stretcher</text>
+
+<!-- ==================== STATE 2: |Delta T| < T_db (Deadband Balance) ==================== -->
+<!-- Signal 1: T_in (1.50 ms) -->
+<polyline points="410,136 445,136 445,116 595,116 595,136 670,136" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<text x="520" y="106" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">T_in = 1.50 мс</text>
+
+<!-- Signal 2: T_fb (1.51 ms) -->
+<polyline points="410,186 445,186 445,166 597,166 597,186 670,186" fill="none" stroke="#2457d6" stroke-width="2"/>
+<text x="520" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">T_fb = 1.51 мс</text>
+
+<!-- Alignment line between Row 1 and Row 2 falling edges -->
+<line x1="595" y1="116" x2="595" y2="186" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+<!-- Signal 3: Delta T (Deadband window) -->
+<rect x="600" y="222" width="16" height="14" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="410" y1="236" x2="670" y2="236" stroke="#27ae60" stroke-width="1.5"/>
+<text x="500" y="208" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">|ΔT| &lt; T_db (Мертва зона 4..8 мкс)</text>
+
+<!-- Signal 4: V_mot (0V, Dynamic Braking) -->
+<line x1="410" y1="285" x2="670" y2="285" stroke="#27ae60" stroke-width="2.5"/>
+<text x="540" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">0 В (Динамічне гальмування)</text>
+<text x="540" y="300" text-anchor="middle" font-size="12" fill="#6b7280">Мотор замкнено на GND, вал стабільний</text>
+
+<!-- ==================== STATE 3: T_in < T_fb (CW Turn) ==================== -->
+<!-- Signal 1: T_in (1.2 ms) -->
+<polyline points="670,136 705,136 705,116 825,116 825,136 930,136" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<text x="765" y="106" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">T_in = 1.2 мс</text>
+
+<!-- Signal 2: T_fb (1.5 ms) -->
+<polyline points="670,186 705,186 705,166 855,166 855,186 930,186" fill="none" stroke="#2457d6" stroke-width="2"/>
+<text x="780" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">T_fb = 1.5 мс</text>
+
+<!-- Alignment dashed lines from falling edges -->
+<line x1="825" y1="116" x2="825" y2="236" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="2,2"/>
+<line x1="855" y1="166" x2="855" y2="236" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+<!-- Signal 3: Delta T (-0.3 ms) -->
+<polyline points="670,236 825,236 825,216 855,216 855,236 930,236" fill="none" stroke="#c0392b" stroke-width="2"/>
+<text x="750" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ΔT = -0.3 мс (&gt; T_db)</text>
+
+<!-- Signal 4: V_mot (-5V CW pulse, stretched) -->
+<polyline points="670,285 855,285 855,305 895,305 895,285 930,285" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<text x="765" y="260" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">-5V (Обертання CW)</text>
+<text x="765" y="276" text-anchor="middle" font-size="12" fill="#6b7280">Реверс полярності H-моста</text>
+
+<!-- Time mark labels at bottom of panel -->
+<text x="285" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Час t [мс] → Хід вала праворуч</text>
+<text x="540" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Час t [мс] → Точна фіксація 90°</text>
+<text x="800" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Час t [мс] → Хід вала ліворуч</text>
+
+<!-- ==================== BOTTOM CARDS ==================== -->
+<rect x="30" y="342" width="290" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="42" y="360" font-size="13" font-weight="bold" fill="#2457d6">1. Виділення похибки ΔT</text>
+<text x="42" y="378" font-size="12" fill="#1a1a1a">• Передній фронт T_in запускає T_fb.</text>
+<text x="42" y="396" font-size="12" fill="#1a1a1a">• T_fb пропорційний напрузі потенціометра.</text>
+<text x="42" y="414" font-size="12" fill="#1a1a1a">• Різниця спадів формує імпульс ΔT.</text>
+<text x="42" y="432" font-size="12" fill="#6b7280">• Знак похибки обирає діагональ H-моста.</text>
+
+<rect x="335" y="342" width="290" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="347" y="360" font-size="13" font-weight="bold" fill="#27ae60">2. Мертва зона (Deadband)</text>
+<text x="347" y="378" font-size="12" fill="#1a1a1a">• Поріг мертвої зони T_db ≈ 4..8 мкс.</text>
+<text x="347" y="396" font-size="12" fill="#1a1a1a">• Якщо |ΔT| &lt; T_db — ключі мотора замкнені.</text>
+<text x="347" y="414" font-size="12" fill="#1a1a1a">• Динамічне гальмування гасить інерцію вала.</text>
+<text x="347" y="432" font-size="12" fill="#6b7280">• Запобігає автоколиванням і джитеру вала.</text>
+
+<rect x="640" y="342" width="290" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="652" y="360" font-size="13" font-weight="bold" fill="#c0392b">3. Розтягувач імпульсів (Stretcher)</text>
+<text x="652" y="378" font-size="12" fill="#1a1a1a">• Мікроімпульси ΔT (5..50 мкс) надто короткі.</text>
+<text x="652" y="396" font-size="12" fill="#1a1a1a">• Мотор не зрушить через інерцію вала.</text>
+<text x="652" y="414" font-size="12" fill="#1a1a1a">• Схема Stretcher подовжує імпульс у рази.</text>
+<text x="652" y="432" font-size="12" fill="#6b7280">• Забезпечує плавний старт і точне доведення.</text>
+
+</svg>

@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr_red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr_green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Опора вихідного вала сервопривода: втулка ковзання проти кулькової вальниці</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Консольне навантаження перекошує вал у втулці, спричиняючи клин зубців; вальниця тримає вісь паралельною</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Втулка ковзання (Проблема) -->
+  <rect x="24" y="68" width="444" height="284" rx="8" fill="#fdecea" stroke="#c0392b"/>
+  <rect x="36" y="78" width="420" height="26" rx="4" fill="#ffffff" stroke="#c0392b"/>
+  <text x="246" y="96" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Проблема: втулка ковзання (SG90 / копії без підшипника)</text>
+
+  <!-- Схема втулки та перекошеного вала -->
+  <!-- Стінки отвору корпусу (втулка) -->
+  <rect x="180" y="150" width="16" height="45" fill="#ffffff" stroke="#1a1a1a"/>
+  <rect x="296" y="150" width="16" height="45" fill="#ffffff" stroke="#1a1a1a"/>
+  <text x="145" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Втулка</text>
+  <text x="345" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Втулка</text>
+
+  <!-- Вертикальна еталонна вісь (пунктир) -->
+  <line x1="246" y1="110" x2="246" y2="250" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Перекошений вал (нахил під дією F_rad) -->
+  <polygon points="248,115 264,115 238,245 222,245" fill="#eaf0fd" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Качалка серва зверху вала -->
+  <polygon points="245,115 285,115 285,123 245,123" fill="#1a1a1a"/>
+
+  <!-- Сила F_rad на качалці -->
+  <line x1="285" y1="119" x2="330" y2="119" stroke="#c0392b" stroke-width="2" marker-end="url(#arr_red)"/>
+  <text x="375" y="123" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">F_rad (тяга)</text>
+
+  <!-- Позначка кута перекосу альфа (ліворуч від вала) -->
+  <text x="175" y="135" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Перекіс α &gt; 2°</text>
+
+  <!-- Шестерня на перекошеному валу (знизу) -->
+  <polygon points="190,240 270,246 270,256 190,250" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Шестерня приводу (горизонтальна) -->
+  <rect x="130" y="244" width="60" height="12" fill="#ffffff" stroke="#1a1a1a"/>
+
+  <!-- Точка контакту на кромці (клин) -->
+  <circle cx="190" cy="246" r="4.5" fill="#c0392b"/>
+  <text x="135" y="235" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Точковий клин!</text>
+
+  <!-- Текстовий підсумок колонки 1 -->
+  <text x="246" y="280" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Дефект: перекіс осі під консольною тягою</text>
+  <text x="246" y="298" font-size="12" fill="#1a1a1a" text-anchor="middle">Пластик/латунь втулки швидко розбивається радіальною силою</text>
+  <text x="246" y="316" font-size="12" fill="#c0392b" text-anchor="middle">Зубці контактують лише краєм — ризик сколу та клину</text>
+  <text x="246" y="336" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Високе тертя ковзання, втрата до 20% корисного моменту</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Кулькова вальниця (Розв'язок) -->
+  <rect x="492" y="68" width="444" height="284" rx="8" fill="#e9f7ef" stroke="#27ae60"/>
+  <rect x="504" y="78" width="420" height="26" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="714" y="96" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Розв'язок: кулькова вальниця (Оригінал MG90S V2)</text>
+
+  <!-- Схема вальниці та співвісного вала -->
+  <!-- Зовнішні кільця підшипника -->
+  <rect x="642" y="150" width="12" height="45" fill="#ffffff" stroke="#1a1a1a"/>
+  <rect x="774" y="150" width="12" height="45" fill="#ffffff" stroke="#1a1a1a"/>
+
+  <!-- Внутрішні кільця підшипника -->
+  <rect x="674" y="150" width="10" height="45" fill="#ffffff" stroke="#1a1a1a"/>
+  <rect x="744" y="150" width="10" height="45" fill="#ffffff" stroke="#1a1a1a"/>
+
+  <!-- Сталеві кульки -->
+  <circle cx="663" cy="172" r="7" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="765" cy="172" r="7" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="615" y="176" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кульки</text>
+  <text x="815" y="176" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вальниця</text>
+
+  <!-- Суворо вертикальний вал (співвісний) -->
+  <rect x="694" y="115" width="40" height="130" fill="#eaf0fd" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Качалка серва -->
+  <polygon points="710,115 750,115 750,123 710,123" fill="#1a1a1a"/>
+
+  <!-- Сила F_rad на качалці -->
+  <line x1="750" y1="119" x2="795" y2="119" stroke="#27ae60" stroke-width="2" marker-end="url(#arr_green)"/>
+  <text x="840" y="123" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Та сама F_rad</text>
+
+  <!-- Позначка кута 0 (ліворуч від вала, без перетинів) -->
+  <text x="650" y="135" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кут α = 0°</text>
+
+  <!-- Шестерня на валу (ідеально горизонтальна) -->
+  <rect x="664" y="244" width="80" height="12" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Шестерня приводу -->
+  <rect x="604" y="244" width="60" height="12" fill="#ffffff" stroke="#1a1a1a"/>
+
+  <!-- Зона повноконтактного зачеплення -->
+  <line x1="664" y1="244" x2="664" y2="256" stroke="#27ae60" stroke-width="3"/>
+  <text x="600" y="235" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Повний контакт!</text>
+
+  <!-- Текстовий підсумок колонки 2 -->
+  <text x="714" y="280" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: жорстка радіальна фіксація осі</text>
+  <text x="714" y="298" font-size="12" fill="#1a1a1a" text-anchor="middle">Кулькова вальниця сприймає консольне навантаження без перекосу</text>
+  <text x="714" y="316" font-size="12" fill="#27ae60" text-anchor="middle">Зубці контактують по всій ширині вінця — навантаження рівномірне</text>
+  <text x="714" y="336" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Тертя кочення, максимальний ККД та ресурс понад 500 000 циклів</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Порівняння параметрів -->
+  <rect x="24" y="366" width="912" height="80" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="383" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння експлуатаційних параметрів опор вихідного вала</text>
+
+  <!-- 3 колонки характеристик -->
+  <text x="176" y="401" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Радіальний люфт під навантаженням</text>
+  <text x="176" y="418" font-size="12" fill="#c0392b" text-anchor="middle">Втулка: 0.15 .. 0.30 мм (прогресує)</text>
+  <text x="176" y="435" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вальниця: &lt; 0.02 мм (прецизійно)</text>
+
+  <text x="480" y="401" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Тертя та збереження моменту</text>
+  <text x="480" y="418" font-size="12" fill="#c0392b" text-anchor="middle">Втулка: ковзання μ ≈ 0.20 (-15% моменту)</text>
+  <text x="480" y="435" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вальниця: кочення μ ≈ 0.002 (макс. ККД)</text>
+
+  <text x="784" y="401" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Довговічність зачеплення шестерень</text>
+  <text x="784" y="418" font-size="12" fill="#c0392b" text-anchor="middle">Втулка: швидкий знос, ризик сколу зубів</text>
+  <text x="784" y="435" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вальниця: &gt; 500 000 циклів без клину</text>
+</svg>

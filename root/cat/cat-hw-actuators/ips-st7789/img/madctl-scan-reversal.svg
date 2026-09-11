@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Апаратне сканування GRAM у ST7789 та інверсія рядків (MY)</text>
+  <text x="480" y="47" font-size="13" fill="#6b7280" text-anchor="middle">При MY=1 напрямок лічильника інвертується, зміщуючи невидимі 80 рядків на початок адресації (row_offset = 80)</text>
+
+  <!-- Панель регістра MADCTL (0x36) -->
+  <rect x="24" y="58" width="912" height="68" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <text x="40" y="86" font-size="13" font-weight="700" fill="#1a1a1a">Регістр MADCTL (0x36)</text>
+  <text x="40" y="104" font-size="12" fill="#6b7280">Керування пам&apos;яттю</text>
+
+  <!-- Біти MADCTL D7..D0 -->
+  <!-- D7: MY -->
+  <rect x="210" y="68" width="44" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="232" y="86" font-size="12" fill="#2457d6" text-anchor="middle">D7</text>
+  <text x="232" y="105" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">MY</text>
+
+  <!-- D6: MX -->
+  <rect x="258" y="68" width="44" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="280" y="86" font-size="12" fill="#2457d6" text-anchor="middle">D6</text>
+  <text x="280" y="105" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">MX</text>
+
+  <!-- D5: MV -->
+  <rect x="306" y="68" width="44" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="328" y="86" font-size="12" fill="#2457d6" text-anchor="middle">D5</text>
+  <text x="328" y="105" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">MV</text>
+
+  <!-- D4: ML -->
+  <rect x="354" y="68" width="44" height="48" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="376" y="86" font-size="12" fill="#6b7280" text-anchor="middle">D4</text>
+  <text x="376" y="105" font-size="12" fill="#6b7280" text-anchor="middle">ML</text>
+
+  <!-- D3: RGB -->
+  <rect x="402" y="68" width="44" height="48" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="424" y="86" font-size="12" fill="#6b7280" text-anchor="middle">D3</text>
+  <text x="424" y="105" font-size="12" fill="#6b7280" text-anchor="middle">RGB</text>
+
+  <!-- D2: MH -->
+  <rect x="450" y="68" width="44" height="48" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="472" y="86" font-size="12" fill="#6b7280" text-anchor="middle">D2</text>
+  <text x="472" y="105" font-size="12" fill="#6b7280" text-anchor="middle">MH</text>
+
+  <!-- D1: 0 -->
+  <rect x="498" y="68" width="44" height="48" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="520" y="86" font-size="12" fill="#6b7280" text-anchor="middle">D1</text>
+  <text x="520" y="105" font-size="12" fill="#6b7280" text-anchor="middle">—</text>
+
+  <!-- D0: 0 -->
+  <rect x="546" y="68" width="44" height="48" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="568" y="86" font-size="12" fill="#6b7280" text-anchor="middle">D0</text>
+  <text x="568" y="105" font-size="12" fill="#6b7280" text-anchor="middle">—</text>
+
+  <!-- Пояснення бітів праворуч -->
+  <text x="608" y="78" font-size="12" font-weight="700" fill="#2457d6">MY (D7): <tspan font-weight="400" fill="#1a1a1a">Порядок рядків Y (0: зверху вниз, 1: знизу вгору)</tspan></text>
+  <text x="608" y="96" font-size="12" font-weight="700" fill="#2457d6">MX (D6): <tspan font-weight="400" fill="#1a1a1a">Порядок стовпчиків X (0: зліва направо, 1: X-flip)</tspan></text>
+  <text x="608" y="114" font-size="12" font-weight="700" fill="#2457d6">MV (D5): <tspan font-weight="400" fill="#1a1a1a">Обмін осей X/Y (0: портрет 240×320, 1: альбомна)</tspan></text>
+
+  <!-- ЛІВА ПАНЕЛЬ (MY = 0) -->
+  <rect x="24" y="136" width="444" height="328" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="40" y="158" font-size="14" font-weight="700" fill="#1a1a1a">MY = 0: Прямий порядок рядків (0° / 90°)</text>
+  <text x="40" y="176" font-size="12" fill="#6b7280">Лічильник адрес: 0 → 319 (зверху вниз) | Зсув row_offset = 0</text>
+
+  <!-- Позначка сканування над стрілкою лівої панелі -->
+  <text x="253" y="192" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Scan</text>
+
+  <!-- Шкала Y лівої панелі -->
+  <line x1="72" y1="196" x2="72" y2="400" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="68" y1="196" x2="72" y2="196" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="68" y1="347" x2="72" y2="347" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="68" y1="400" x2="72" y2="400" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="64" y="200" font-size="12" fill="#1a1a1a" text-anchor="end">0</text>
+  <text x="64" y="351" font-size="12" fill="#1a1a1a" text-anchor="end">239</text>
+  <text x="64" y="404" font-size="12" fill="#6b7280" text-anchor="end">319</text>
+
+  <!-- GRAM ліва: активна зона (0..239) -->
+  <rect x="78" y="196" width="160" height="150" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="158" y="234" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Активна матриця</text>
+  <text x="158" y="254" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">240 × 240 точок</text>
+  <text x="158" y="274" font-size="12" fill="#1a1a1a" text-anchor="middle">Видима зона дисплея</text>
+  <text x="158" y="294" font-size="12" fill="#6b7280" text-anchor="middle">Рядки 0 .. 239</text>
+  <text x="158" y="318" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">row_offset = 0</text>
+
+  <!-- GRAM ліва: прихована зона (240..319) -->
+  <rect x="78" y="350" width="160" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="158" y="372" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Прихована зона GRAM</text>
+  <text x="158" y="390" font-size="12" fill="#6b7280" text-anchor="middle">80 рядків (240 .. 319)</text>
+
+  <!-- Стрілка сканування лівої панелі -->
+  <line x1="253" y1="202" x2="253" y2="390" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Інформаційна картка лівої панелі -->
+  <rect x="268" y="196" width="184" height="204" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="280" y="216" font-size="12" font-weight="700" fill="#2457d6">Сканування: зверху вниз</text>
+  <text x="280" y="234" font-size="12" fill="#1a1a1a">Порядок: рядок 0 → 319</text>
+  <line x1="280" y1="244" x2="440" y2="244" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="280" y="262" font-size="12" font-weight="700" fill="#1a1a1a">Режим: 0° (MY=0, MX=0)</text>
+  <text x="280" y="280" font-size="12" font-weight="700" fill="#27ae60">row_offset = 0</text>
+  <text x="280" y="298" font-size="12" fill="#1a1a1a">col_offset = 0</text>
+  <text x="280" y="320" font-size="12" font-weight="700" fill="#1a1a1a">Координатні межі:</text>
+  <text x="280" y="338" font-size="12" fill="#1a1a1a">RASET: 0 .. 239 (Y-вікно)</text>
+  <text x="280" y="356" font-size="12" fill="#1a1a1a">CASET: 0 .. 239 (X-вікно)</text>
+  <text x="280" y="380" font-size="12" font-weight="700" fill="#27ae60">Стан: норма (без зсуву) ✓</text>
+
+  <!-- Нижня плашка лівої панелі -->
+  <rect x="40" y="412" width="412" height="38" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="246" y="435" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Невидима зона внизу: зміщення вікна непотрібне</text>
+
+  <!-- ПРАВА ПАНЕЛЬ (MY = 1) -->
+  <rect x="492" y="136" width="444" height="328" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="508" y="158" font-size="14" font-weight="700" fill="#1a1a1a">MY = 1: Інвертований порядок (180° / 270°)</text>
+  <text x="508" y="176" font-size="12" fill="#6b7280">Лічильник адрес: 319 → 0 (знизу вгору) | Зсув row_offset = 80</text>
+
+  <!-- Позначка сканування над стрілкою правої панелі -->
+  <text x="721" y="192" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Scan</text>
+
+  <!-- Шкала Y правої панелі -->
+  <line x1="540" y1="196" x2="540" y2="400" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="536" y1="196" x2="540" y2="196" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="536" y1="247" x2="540" y2="247" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="536" y1="400" x2="540" y2="400" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="532" y="200" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="532" y="251" font-size="12" fill="#1a1a1a" text-anchor="end">80</text>
+  <text x="532" y="404" font-size="12" fill="#1a1a1a" text-anchor="end">319</text>
+
+  <!-- GRAM права: прихована зона (0..79) -->
+  <rect x="546" y="196" width="160" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="626" y="218" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Прихована зона GRAM</text>
+  <text x="626" y="236" font-size="12" fill="#6b7280" text-anchor="middle">80 рядків (0 .. 79)</text>
+
+  <!-- GRAM права: активна зона (80..319) -->
+  <rect x="546" y="250" width="160" height="150" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="626" y="288" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Активна матриця</text>
+  <text x="626" y="308" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">240 × 240 точок</text>
+  <text x="626" y="328" font-size="12" fill="#1a1a1a" text-anchor="middle">Видима зона дисплея</text>
+  <text x="626" y="348" font-size="12" fill="#6b7280" text-anchor="middle">Рядки 80 .. 319</text>
+  <text x="626" y="372" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Потрібен row_offset = 80!</text>
+
+  <!-- Стрілка сканування правої панелі -->
+  <line x1="721" y1="390" x2="721" y2="202" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Інформаційна картка правої панелі -->
+  <rect x="736" y="196" width="184" height="204" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="748" y="216" font-size="12" font-weight="700" fill="#2457d6">Сканування: знизу вгору</text>
+  <text x="748" y="234" font-size="12" fill="#1a1a1a">Порядок: рядок 319 → 0</text>
+  <line x1="748" y1="244" x2="908" y2="244" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="748" y="262" font-size="12" font-weight="700" fill="#1a1a1a">Режим: 180° (MY=1, MX=1)</text>
+  <text x="748" y="280" font-size="12" font-weight="700" fill="#c0392b">row_offset = 80</text>
+  <text x="748" y="298" font-size="12" fill="#1a1a1a">col_offset = 0</text>
+  <text x="748" y="320" font-size="12" font-weight="700" fill="#1a1a1a">Координатні межі:</text>
+  <text x="748" y="338" font-size="12" fill="#1a1a1a">RASET: 80 .. 319 (зсув Y)</text>
+  <text x="748" y="356" font-size="12" fill="#1a1a1a">CASET: 0 .. 239 (X-вікно)</text>
+  <text x="748" y="380" font-size="12" font-weight="700" fill="#c0392b">Без зсуву: зріз на 80 px!</text>
+
+  <!-- Нижня плашка правої панелі -->
+  <rect x="508" y="412" width="412" height="38" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="714" y="435" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Зона 0..79 невидима: обов&apos;язковий row_offset = 80</text>
+</svg>

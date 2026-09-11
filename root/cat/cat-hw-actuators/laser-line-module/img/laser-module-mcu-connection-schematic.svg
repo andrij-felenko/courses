@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Визначення маркерів стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема підключення лазерного модуля до мікроконтролера</text>
+  <text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Низькосторонній MOSFET-ключ із захистом від перехідних процесів та самовільного відкривання</text>
+
+  <!-- Позначення шин живлення -->
+  <text x="915" y="78" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Джерело +5V</text>
+  <text x="915" y="324" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GND (Спільна земля)</text>
+
+  <!-- Блок мікроконтролера (MCU) -->
+  <rect x="40" y="112" width="130" height="168" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="105" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Мікроконтролер</text>
+  <text x="105" y="160" text-anchor="middle" font-size="12" fill="#6b7280">MCU (3.3V / 5V)</text>
+  <text x="145" y="202" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO</text>
+  <text x="145" y="262" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <circle cx="170" cy="198" r="3" fill="#2457d6"/>
+  <circle cx="170" cy="258" r="3" fill="#1a1a1a"/>
+
+  <!-- Блок лазерного модуля -->
+  <rect x="575" y="110" width="150" height="80" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="650" y="138" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Лазерний модуль</text>
+  <text x="650" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">5V DC / 5 мВт</text>
+  <text x="650" y="174" text-anchor="middle" font-size="12" fill="#6b7280">червона лінія</text>
+  <!-- Виводи лазерного модуля -->
+  <circle cx="650" cy="110" r="3" fill="#c0392b"/>
+  <circle cx="575" cy="155" r="3" fill="#1a1a1a"/>
+
+  <!-- Резистор R1 (послідовний резистор затвора) -->
+  <rect x="230" y="190" width="40" height="16" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="250" y="160" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">R1</text>
+  <text x="250" y="176" text-anchor="middle" font-size="12" fill="#2457d6">100 Ом</text>
+
+  <!-- Резистор R2 (стягувальний резистор затвора) -->
+  <rect x="332" y="225" width="16" height="40" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="362" y="242" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">R2</text>
+  <text x="362" y="258" text-anchor="start" font-size="12" fill="#2457d6">10 кОм</text>
+
+  <!-- Символ польового транзистора Q1 (N-MOSFET) -->
+  <!-- Лінія та пластина затвора -->
+  <line x1="340" y1="198" x2="440" y2="198" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="440" y1="180" x2="440" y2="216" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Сегменти каналу -->
+  <line x1="448" y1="178" x2="448" y2="188" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="448" y1="193" x2="448" y2="203" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="448" y1="208" x2="448" y2="218" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Вивід стоку (Drain) -->
+  <line x1="448" y1="183" x2="465" y2="183" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="465" y1="183" x2="465" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="465" y1="155" x2="575" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Вивід підкладки та стрілка N-каналу -->
+  <line x1="448" y1="198" x2="465" y2="198" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="465" y1="198" x2="465" y2="213" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="458,194 450,198 458,202" fill="#1a1a1a"/>
+  <!-- Вивід витоку (Source) -->
+  <line x1="448" y1="213" x2="465" y2="213" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="465" y1="213" x2="465" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Підписи Q1 -->
+  <text x="480" y="234" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Q1</text>
+  <text x="480" y="250" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">N-MOSFET</text>
+  <text x="480" y="266" text-anchor="start" font-size="12" fill="#6b7280">Logic Level</text>
+
+  <!-- Конденсатори фільтрації живлення C1 та C2 -->
+  <!-- C1 (0.1 мкФ керамічний) -->
+  <line x1="765" y1="95" x2="765" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="753" y1="180" x2="777" y2="180" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="753" y1="188" x2="777" y2="188" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="765" y1="188" x2="765" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="785" y="148" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">C1</text>
+  <text x="785" y="164" text-anchor="start" font-size="12" fill="#2457d6">0.1 мкФ</text>
+
+  <!-- C2 (10 мкФ електролітичний) -->
+  <line x1="860" y1="95" x2="860" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="848" y1="180" x2="872" y2="180" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="848" y1="188" x2="872" y2="188" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="860" y1="188" x2="860" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Позначка полярності для C2 -->
+  <path d="M840,166 h6 M843,163 v6" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="878" y="148" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">C2</text>
+  <text x="878" y="164" text-anchor="start" font-size="12" fill="#2457d6">10 мкФ</text>
+
+  <!-- Провідники живлення та сигналу -->
+  <!-- GPIO до R1 -->
+  <line x1="170" y1="198" x2="230" y2="198" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- R1 до вузла N1 -->
+  <line x1="270" y1="198" x2="340" y2="198" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Вузол N1 до R2 -->
+  <line x1="340" y1="198" x2="340" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- R2 до GND -->
+  <line x1="340" y1="265" x2="340" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Шина живлення +5V -->
+  <line x1="650" y1="95" x2="915" y2="95" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="650" y1="95" x2="650" y2="110" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="650" cy="95" r="3.5" fill="#c0392b"/>
+  <circle cx="765" cy="95" r="3.5" fill="#c0392b"/>
+  <circle cx="860" cy="95" r="3.5" fill="#c0392b"/>
+  <circle cx="915" cy="95" r="3.5" fill="#c0392b"/>
+
+  <!-- Загальна шина заземлення (GND) -->
+  <line x1="170" y1="258" x2="170" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="170" y1="300" x2="915" y2="300" stroke="#1a1a1a" stroke-width="2.5"/>
+  <circle cx="340" cy="198" r="3.5" fill="#1a1a1a"/>
+  <circle cx="340" cy="300" r="3.5" fill="#1a1a1a"/>
+  <circle cx="465" cy="300" r="3.5" fill="#1a1a1a"/>
+  <circle cx="765" cy="300" r="3.5" fill="#1a1a1a"/>
+  <circle cx="860" cy="300" r="3.5" fill="#1a1a1a"/>
+  <circle cx="915" cy="300" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Інформаційні картки призначення захисних елементів -->
+  <!-- Картка 1: R1 -->
+  <rect x="35" y="344" width="212" height="86" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="141" y="370" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R1: 100 Ом (Захист GPIO)</text>
+  <text x="141" y="390" text-anchor="middle" font-size="12" fill="#1a1a1a">Обмежує струм затвора</text>
+  <text x="141" y="408" text-anchor="middle" font-size="12" fill="#6b7280">та усуває дзвін сигналу</text>
+
+  <!-- Картка 2: R2 -->
+  <rect x="261" y="344" width="212" height="86" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="367" y="370" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R2: 10 кОм (Pull-Down)</text>
+  <text x="367" y="390" text-anchor="middle" font-size="12" fill="#1a1a1a">Стягує затвор до GND</text>
+  <text x="367" y="408" text-anchor="middle" font-size="12" fill="#6b7280">запобігає самовмиканню</text>
+
+  <!-- Картка 3: Q1 -->
+  <rect x="487" y="344" width="212" height="86" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="593" y="370" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Q1: N-MOSFET (Ключ)</text>
+  <text x="593" y="390" text-anchor="middle" font-size="12" fill="#1a1a1a">Низькостороннє керування</text>
+  <text x="593" y="408" text-anchor="middle" font-size="12" fill="#6b7280">розвантажує вивід МК</text>
+
+  <!-- Картка 4: C1 + C2 -->
+  <rect x="713" y="344" width="212" height="86" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="819" y="370" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">C1 + C2 (Фільтр 5V)</text>
+  <text x="819" y="390" text-anchor="middle" font-size="12" fill="#1a1a1a">C1 (0.1 мкФ): ВЧ-завади</text>
+  <text x="819" y="408" text-anchor="middle" font-size="12" fill="#6b7280">C2 (10 мкФ): буфер струму</text>
+</svg>

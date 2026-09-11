@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="27" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Сервопривод MG90S V2: креслення, габарити та розпіновка</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Габарити корпусу (22.8 × 12.2 × 28.5 мм), вал 21T (Ø4.9 мм) та підключення роз'єму JR</text>
+
+  <!-- ======================================================== -->
+  <!-- ЛІВА ПАНЕЛЬ: Креслення та фізичні габарити               -->
+  <!-- ======================================================== -->
+  <rect x="24" y="62" width="456" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="252" y="86" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Складальне креслення та габарити корпусу</text>
+  <text x="252" y="104" text-anchor="middle" font-size="12" fill="#6b7280">Основні розміри (мм), вушка кріплення та шліци вала 21T</text>
+
+  <!-- Виносне вікно геометрії вала 21T -->
+  <rect x="325" y="124" width="140" height="58" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="335" y="142" font-size="12" font-weight="bold" fill="#2457d6">Вал 21T (micro)</text>
+  <text x="335" y="159" font-size="12" fill="#1a1a1a">Зубці: 21 шліц</text>
+  <text x="335" y="174" font-size="12" fill="#6b7280">Діаметр: Ø4.9 мм</text>
+  <line x1="325" y1="153" x2="304" y2="153" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Креслення сервоприводу (вид збоку) -->
+  <!-- Вихідний шліцьовий вал -->
+  <rect x="270" y="142" width="30" height="23" rx="1" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="277" y1="142" x2="277" y2="165" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="285" y1="142" x2="285" y2="165" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="293" y1="142" x2="293" y2="165" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Башта редуктора -->
+  <rect x="240" y="165" width="78" height="25" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Ліве кріпильне вушко -->
+  <rect x="125" y="190" width="55" height="16" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="152" cy="198" r="5" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Праве кріпильне вушко -->
+  <rect x="318" y="190" width="55" height="16" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="346" cy="198" r="5" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Головний корпус (тіло) -->
+  <rect x="180" y="190" width="138" height="144" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Вихід трижильного кабелю з корпусу -->
+  <rect x="190" y="324" width="24" height="10" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <line x1="194" y1="334" x2="194" y2="346" stroke="#8d5b4c" stroke-width="3"/>
+  <line x1="202" y1="334" x2="202" y2="346" stroke="#c0392b" stroke-width="3"/>
+  <line x1="210" y1="334" x2="210" y2="346" stroke="#d97706" stroke-width="3"/>
+
+  <!-- Виноска до монтажного отвору M2 -->
+  <line x1="115" y1="174" x2="146" y2="193" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+  <text x="110" y="174" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">Отвори M2 (Ø2 мм)</text>
+
+  <!-- Розмірна лінія повної висоти (28.5 мм) -->
+  <line x1="85" y1="142" x2="85" y2="334" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-gray)" marker-end="url(#arr-gray)"/>
+  <line x1="75" y1="142" x2="266" y2="142" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="75" y1="334" x2="175" y2="334" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="77" y="235" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">28.5 мм</text>
+  <text x="77" y="252" text-anchor="end" font-size="12" fill="#6b7280">(висота)</text>
+
+  <!-- Розмірна лінія довжини тіла (22.8 мм) -->
+  <line x1="180" y1="352" x2="318" y2="352" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-gray)" marker-end="url(#arr-gray)"/>
+  <line x1="180" y1="336" x2="180" y2="358" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="318" y1="336" x2="318" y2="358" stroke="#d0d7de" stroke-width="1"/>
+  <text x="249" y="369" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">22.8 мм (довжина тіла)</text>
+
+  <!-- Підсумкова картка розмірів і кріплення -->
+  <rect x="38" y="380" width="428" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="48" y="398" font-size="12" font-weight="bold" fill="#2457d6">Габарити корпусу:</text>
+  <text x="165" y="398" font-size="12" fill="#1a1a1a">22.8 × 12.2 × 28.5 мм (тіло без вушок)</text>
+  <text x="48" y="418" font-size="12" font-weight="bold" fill="#27ae60">Монтаж у шасі:</text>
+  <text x="148" y="418" font-size="12" fill="#1a1a1a">Міжосьова відстань 28.0 мм, гвинти M2</text>
+
+  <!-- ======================================================== -->
+  <!-- ПРАВА ПАНЕЛЬ: Кабель і розпіновка роз'єму JR              -->
+  <!-- ======================================================== -->
+  <rect x="500" y="62" width="436" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="718" y="86" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Розпіновка кабелю та роз'єму JR / DuPont</text>
+  <text x="718" y="104" text-anchor="middle" font-size="12" fill="#6b7280">Колірне кодування ліній, захист від переполюсовки та ШІМ</text>
+
+  <!-- Трижильний шлейф кабелю -->
+  <!-- Дріт 1: Коричневий GND -->
+  <rect x="520" y="130" width="95" height="14" rx="2" fill="#8d5b4c" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Дріт 2: Червоний VCC -->
+  <rect x="520" y="154" width="95" height="14" rx="2" fill="#c0392b" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Дріт 3: Помаранчевий PWM -->
+  <rect x="520" y="178" width="95" height="14" rx="2" fill="#d97706" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Корпус штекера JR (DuPont 3-pin) -->
+  <rect x="615" y="124" width="65" height="74" rx="4" fill="#1a1a1a" stroke="#6b7280" stroke-width="1.5"/>
+  <!-- Ключ роз'єму JR (скошені фаски) -->
+  <polygon points="680,124 672,130 672,140 680,140" fill="#6b7280"/>
+
+  <!-- Металеві контакти-гнізда штекера -->
+  <rect x="680" y="132" width="14" height="10" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="680" y="156" width="14" height="10" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="680" y="180" width="14" height="10" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Розпіновка ліній -->
+  <text x="705" y="141" font-size="12" font-weight="bold" fill="#8d5b4c">1: GND</text>
+  <text x="755" y="141" font-size="12" fill="#1a1a1a">Коричневий (0 В, спільна земля)</text>
+
+  <text x="705" y="165" font-size="12" font-weight="bold" fill="#c0392b">2: VCC</text>
+  <text x="755" y="165" font-size="12" fill="#1a1a1a">Червоний (+4.8 .. 6.0 В живлення)</text>
+
+  <text x="705" y="189" font-size="12" font-weight="bold" fill="#d97706">3: PWM</text>
+  <text x="755" y="189" font-size="12" fill="#1a1a1a">Помаранчевий (керуючий ШІМ-сигнал)</text>
+
+  <text x="516" y="218" font-size="12" fill="#6b7280">Стандартний роз'єм JR / DuPont 3-pin (крок контактів 2.54 мм)</text>
+
+  <!-- Картка параметрів сигналу керування -->
+  <rect x="516" y="234" width="404" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="530" y="254" font-size="13" font-weight="bold" fill="#2457d6">Параметри сигналу керування (PWM / ШІМ):</text>
+  <text x="530" y="274" font-size="12" fill="#1a1a1a">• Частота оновлення кадрів: f = 50 Гц (період T = 20 мс)</text>
+  <text x="530" y="293" font-size="12" fill="#1a1a1a">• Тривалість імпульсу: t_w = 1.0 .. 2.0 мс (кути 0° .. 180°)</text>
+  <text x="530" y="312" font-size="12" fill="#6b7280">• Нейтраль (90°): t_w = 1.5 мс | Логічний рівень 3.3V та 5V</text>
+
+  <!-- Картка правил живлення та фільтрації -->
+  <rect x="516" y="338" width="404" height="94" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="530" y="358" font-size="13" font-weight="bold" fill="#27ae60">Правила підключення та живлення в системі:</text>
+  <text x="530" y="378" font-size="12" fill="#1a1a1a">• Роздільне живлення: не живити серво від піна 5V плати MCU!</text>
+  <text x="530" y="397" font-size="12" fill="#1a1a1a">• Спільна земля (GND): об'єднати лінію GND серво та GND MCU</text>
+  <text x="530" y="416" font-size="12" fill="#1a1a1a">• Фільтрація: конденсатор 470..1000 мкФ на шині VCC-GND</text>
+</svg>

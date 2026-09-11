@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-gray-rev" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Часова шкала послідовності запуску та критичні затримки ST7789</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Апаратний скид RES, команди SWRESET і SLPOUT та обов'язкова пауза 120 мс для стабілізації помп</text>
+
+  <!-- Фонова рамка діаграми сигналів -->
+  <rect x="24" y="62" width="912" height="306" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Фазові смужки вгорі -->
+  <rect x="184" y="66" width="156" height="22" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="262" y="81" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Апаратний RES</text>
+
+  <rect x="346" y="66" width="126" height="22" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="409" y="81" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. SWRESET</text>
+
+  <rect x="478" y="66" width="280" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="618" y="81" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">3. SLPOUT та розгін помп (≥ 120 мс)</text>
+
+  <rect x="764" y="66" width="166" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="847" y="81" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">4. DISPON (екран ON)</text>
+
+  <!-- Вертикальні лінії меж фаз -->
+  <line x1="343" y1="90" x2="343" y2="335" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="475" y1="90" x2="475" y2="335" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="761" y1="90" x2="761" y2="335" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Ліва колонка назв каналів -->
+  <line x1="178" y1="62" x2="178" y2="368" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Траса 1: RES -->
+  <text x="168" y="115" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">Лінія RES (NRST)</text>
+  <text x="168" y="131" font-size="12" fill="#6b7280" text-anchor="end">Активний 0 В</text>
+
+  <!-- Хвильова форма RES: HIGH -> LOW (206..236) -> HIGH -->
+  <path d="M 184,108 H 206 V 132 H 236 V 108 H 930" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Стрілочки під імпульсом RES 10 мкс -->
+  <line x1="206" y1="142" x2="214" y2="142" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-gray-rev)"/>
+  <text x="221" y="145" font-size="12" fill="#6b7280" text-anchor="middle">10 мкс</text>
+  <line x1="228" y1="142" x2="236" y2="142" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+
+  <!-- Пауза після апаратного ресету t_RES >= 5 мс -->
+  <line x1="236" y1="118" x2="258" y2="118" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-gray-rev)"/>
+  <text x="290" y="122" font-size="12" fill="#6b7280" text-anchor="middle">t_RES ≥ 5 мс</text>
+  <line x1="322" y1="118" x2="343" y2="118" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+
+  <!-- Траса 2: Шина SPI -->
+  <text x="168" y="176" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">Шина SPI</text>
+  <text x="168" y="192" font-size="12" fill="#6b7280" text-anchor="end">D/C + SCLK/MOSI</text>
+
+  <!-- Базова лінія шини SPI (пасивний стан) -->
+  <line x1="184" y1="182" x2="350" y2="182" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <line x1="416" y1="182" x2="480" y2="182" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <line x1="546" y1="182" x2="636" y2="182" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <line x1="746" y1="182" x2="768" y2="182" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="2 2"/>
+
+  <!-- Команда 0x01 SWRESET -->
+  <rect x="352" y="166" width="62" height="32" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="383" y="179" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">0x01</text>
+  <text x="383" y="193" font-size="12" fill="#6b7280" text-anchor="middle">SWRESET</text>
+
+  <!-- Пауза після SWRESET >= 5 мс -->
+  <line x1="416" y1="172" x2="424" y2="172" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-gray-rev)"/>
+  <text x="446" y="176" font-size="12" fill="#6b7280" text-anchor="middle">≥ 5 мс</text>
+  <line x1="467" y1="172" x2="475" y2="172" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+
+  <!-- Команда 0x11 SLPOUT -->
+  <rect x="482" y="166" width="62" height="32" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="513" y="179" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">0x11</text>
+  <text x="513" y="193" font-size="12" fill="#2457d6" text-anchor="middle">SLPOUT</text>
+
+  <!-- Проміжне налаштування регістрів (COLMOD, MADCTL) під час розгону помп -->
+  <rect x="638" y="166" width="106" height="32" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="691" y="179" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">0x3A, 0x36</text>
+  <text x="691" y="193" font-size="12" fill="#6b7280" text-anchor="middle">COLMOD / MAD</text>
+
+  <!-- Команда 0x29 DISPON -->
+  <rect x="770" y="166" width="64" height="32" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="802" y="179" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">0x29</text>
+  <text x="802" y="193" font-size="12" fill="#27ae60" text-anchor="middle">DISPON</text>
+
+  <!-- Потік пікселів 0x2C RAMWR -->
+  <rect x="840" y="166" width="86" height="32" rx="3" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="883" y="179" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">0x2C RAMWR</text>
+  <text x="883" y="193" font-size="12" fill="#ffffff" text-anchor="middle">Потік пікселів</text>
+
+  <!-- Стрілка інтервалу t_POW >= 120 мс -->
+  <line x1="546" y1="210" x2="580" y2="210" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)"/>
+  <text x="652" y="214" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Обов'язкова пауза стабілізації помп t_POW ≥ 120 мс</text>
+  <line x1="724" y1="210" x2="761" y2="210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Траса 3: Напруги помп заряду -->
+  <text x="168" y="240" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">VGH (+13 В)</text>
+  <text x="168" y="254" font-size="12" fill="#6b7280" text-anchor="end">Ключі TFT ВВІМК</text>
+
+  <text x="168" y="278" font-size="12" fill="#6b7280" text-anchor="end">Рівень 0 В (GND)</text>
+
+  <text x="168" y="302" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">VGL (-10 В)</text>
+  <text x="168" y="316" font-size="12" fill="#6b7280" text-anchor="end">Ключі TFT ВИМК</text>
+
+  <!-- Опорна лінія GND (0 В) -->
+  <line x1="184" y1="274" x2="930" y2="274" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Наростання VGH (+13 В): 0 В до SLPOUT (x=544), плавна експонента до +13 В (y=236) -->
+  <path d="M 184,274 H 544 C 580,274 630,236 690,236 H 930" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <rect x="700" y="216" width="56" height="16" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="728" y="228" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">+13 В</text>
+
+  <!-- Спад VGL (-10 В): 0 В до SLPOUT (x=544), плавна експонента до -10 В (y=312) -->
+  <path d="M 184,274 H 544 C 580,274 630,312 690,312 H 930" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <rect x="700" y="320" width="56" height="16" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="728" y="332" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">-10 В</text>
+
+  <!-- Траса 4: Стан матриці екрана -->
+  <text x="168" y="352" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">Стан IPS</text>
+
+  <rect x="184" y="338" width="572" height="22" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="470" y="353" font-size="12" fill="#6b7280" text-anchor="middle">Режим сну / розгін помп (матриця не сканується, пікселі замкнені)</text>
+
+  <rect x="764" y="338" width="166" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="847" y="353" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Активна розгортка (60 Гц)</text>
+
+
+  <!-- ==================== ПОРІВНЯЛЬНІ КАРТКИ ВНИЗУ ==================== -->
+  <!-- Картка 1: Проблема -->
+  <rect x="24" y="380" width="446" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="40" y="399" font-size="12" font-weight="700" fill="#c0392b">⛔ Порушення: надсилання DISPON / RAMWR без паузи 120 мс</text>
+  <text x="40" y="416" font-size="12" fill="#1a1a1a">Помпи не вийшли на режим: VGH &lt; +13 В, VGL &gt; -10 В.</text>
+  <text x="40" y="433" font-size="12" fill="#6b7280">Виникає білий спалах, артефакти або апаратне зависання матриці.</text>
+
+  <!-- Картка 2: Норма -->
+  <rect x="490" y="380" width="446" height="68" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="506" y="399" font-size="12" font-weight="700" fill="#27ae60">✓ Норма: суворе витримування t_RES ≥ 5 мс та t_POW ≥ 120 мс</text>
+  <text x="506" y="416" font-size="12" fill="#1a1a1a">Повна стабілізація високих напруг до ввімкнення розгортки.</text>
+  <text x="506" y="433" font-size="12" fill="#6b7280">Гарантується миттєвий чистий старт кадру та глибокий контраст IPS.</text>
+</svg>

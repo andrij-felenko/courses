@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+</defs>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Внутрішня топологія підсилення XPT8871 та міст BTL</text>
+<text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Каскад OP2 інвертує сигнал на 180°, формуючи протифазну напругу на динаміку: Av = 2 · (Rf / Rin)</text>
+
+<!-- Контур мікросхеми XPT8871 -->
+<rect x="180" y="110" width="530" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="6,4"/>
+<text x="195" y="125" font-size="12" font-weight="700" fill="#2457d6">Мікросхема XPT8871</text>
+
+<!-- 1. Вхідний сигнал та Rin -->
+<circle cx="45" cy="145" r="4" fill="#2457d6"/>
+<text x="45" y="130" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Vin (0°)</text>
+<text x="45" y="165" font-size="12" fill="#6b7280" text-anchor="middle">Аудіовхід</text>
+<line x1="49" y1="145" x2="80" y2="145" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+<!-- Резистор Rin -->
+<rect x="85" y="137" width="55" height="16" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<text x="112" y="125" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Rin = 20 кОм</text>
+<text x="112" y="170" font-size="12" fill="#6b7280" text-anchor="middle">зовнішній</text>
+<line x1="140" y1="145" x2="175" y2="145" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+<!-- Вивід 4 (IN-) -->
+<circle cx="180" cy="145" r="4" fill="#1a1a1a"/>
+<text x="180" y="165" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">IN- (вив. 4)</text>
+
+<!-- Зовнішній зворотний зв'язок Rf -->
+<line x1="180" y1="145" x2="180" y2="82" stroke="#2457d6" stroke-width="2"/>
+<line x1="180" y1="82" x2="415" y2="82" stroke="#2457d6" stroke-width="2"/>
+<rect x="415" y="74" width="60" height="16" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+<text x="445" y="65" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Rf = 40 кОм</text>
+<text x="445" y="102" font-size="12" fill="#2457d6" text-anchor="middle">зовнішній зворотний зв'язок</text>
+<line x1="475" y1="82" x2="710" y2="82" stroke="#2457d6" stroke-width="2"/>
+<line x1="710" y1="82" x2="710" y2="145" stroke="#2457d6" stroke-width="2"/>
+
+<!-- OP1 каскад -->
+<line x1="184" y1="145" x2="235" y2="145" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="235" y1="145" x2="235" y2="133" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="235" y1="133" x2="260" y2="133" stroke="#1a1a1a" stroke-width="2"/>
+
+<!-- Опорна напруга VDD/2 для OP1 -->
+<line x1="235" y1="157" x2="260" y2="157" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="235" y1="157" x2="235" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="225" y1="180" x2="245" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="229" y1="184" x2="241" y2="184" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="235" y="200" font-size="12" fill="#6b7280" text-anchor="middle">VDD/2</text>
+
+<!-- Трикутник OP1 -->
+<polygon points="260,118 260,172 318,145" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="266" y="137" font-size="14" font-weight="700" fill="#1a1a1a">−</text>
+<text x="266" y="161" font-size="14" font-weight="700" fill="#1a1a1a">+</text>
+<text x="286" y="150" font-size="13" font-weight="700" fill="#2457d6">OP1</text>
+
+<!-- Вихід OP1 і шина VO1 -->
+<line x1="318" y1="145" x2="442" y2="145" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<text x="365" y="133" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Av1 = −Rf/Rin = −2</text>
+<text x="365" y="165" font-size="12" fill="#2457d6" text-anchor="middle">VO1 = −2 · Vin (180°)</text>
+
+<!-- Відвід сигналу до OP2 -->
+<circle cx="450" cy="145" r="4" fill="#2457d6"/>
+<line x1="450" y1="145" x2="702" y2="145" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<line x1="450" y1="145" x2="450" y2="222" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<line x1="450" y1="230" x2="475" y2="230" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+<!-- Внутрішній резистор R1 -->
+<rect x="480" y="222" width="55" height="16" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<text x="507" y="213" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">R1 = 20 кОм</text>
+<text x="507" y="252" font-size="12" fill="#6b7280" text-anchor="middle">внутрішній</text>
+<line x1="535" y1="230" x2="570" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+
+<!-- Вузол зворотного зв'язку OP2 -->
+<circle cx="550" cy="230" r="3" fill="#1a1a1a"/>
+<line x1="550" y1="230" x2="550" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+
+<!-- Опорна напруга VDD/2 для OP2 -->
+<line x1="550" y1="254" x2="570" y2="254" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="550" y1="254" x2="550" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="542" y1="275" x2="558" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="545" y1="279" x2="555" y2="279" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="530" y="279" font-size="12" fill="#6b7280" text-anchor="end">VDD/2</text>
+
+<!-- Трикутник OP2 -->
+<polygon points="570,218 570,266 622,242" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="576" y="234" font-size="14" font-weight="700" fill="#1a1a1a">−</text>
+<text x="576" y="258" font-size="14" font-weight="700" fill="#1a1a1a">+</text>
+<text x="594" y="247" font-size="13" font-weight="700" fill="#2457d6">OP2</text>
+
+<!-- Вихід OP2 -->
+<line x1="622" y1="242" x2="655" y2="242" stroke="#2457d6" stroke-width="2"/>
+<line x1="655" y1="242" x2="655" y2="265" stroke="#2457d6" stroke-width="2"/>
+<circle cx="655" cy="242" r="3" fill="#2457d6"/>
+<line x1="655" y1="242" x2="655" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="655" y1="265" x2="702" y2="265" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+<!-- Внутрішній зворотний зв'язок R2 для OP2 -->
+<line x1="550" y1="305" x2="575" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+<rect x="575" y="297" width="55" height="16" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+<text x="602" y="289" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">R2 = 20 кОм</text>
+<text x="602" y="327" font-size="12" fill="#6b7280" text-anchor="middle">внутрішній (Av2 = −1)</text>
+<line x1="630" y1="305" x2="655" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+
+<!-- Вивід 5 (VO1) та Вивід 8 (VO2) -->
+<circle cx="710" cy="145" r="4" fill="#2457d6"/>
+<text x="710" y="165" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">VO1 (вив. 5)</text>
+
+<circle cx="710" cy="265" r="4" fill="#2457d6"/>
+<text x="710" y="255" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">VO2 (вив. 8)</text>
+
+<!-- З'єднання до динаміка -->
+<line x1="710" y1="145" x2="770" y2="145" stroke="#2457d6" stroke-width="2"/>
+<line x1="710" y1="265" x2="770" y2="265" stroke="#2457d6" stroke-width="2"/>
+
+<!-- Динамік (навантаження RL) -->
+<line x1="770" y1="145" x2="770" y2="185" stroke="#2457d6" stroke-width="2"/>
+<line x1="770" y1="265" x2="770" y2="225" stroke="#2457d6" stroke-width="2"/>
+<text x="758" y="158" font-size="14" font-weight="700" fill="#2457d6">+</text>
+<text x="758" y="260" font-size="14" font-weight="700" fill="#2457d6">−</text>
+
+<rect x="765" y="185" width="16" height="40" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<polygon points="781,185 808,162 808,248 781,225" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="782" y="135" font-size="12" font-weight="700" fill="#1a1a1a">Динамік</text>
+<text x="782" y="280" font-size="12" font-weight="700" fill="#2457d6">RL = 4 Ом</text>
+
+<!-- Індикатор диференціальної напруги -->
+<line x1="835" y1="150" x2="835" y2="260" stroke="#27ae60" stroke-width="2"/>
+<line x1="830" y1="150" x2="840" y2="150" stroke="#27ae60" stroke-width="2"/>
+<line x1="830" y1="260" x2="840" y2="260" stroke="#27ae60" stroke-width="2"/>
+<text x="890" y="185" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">V_навантаження</text>
+<text x="890" y="205" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">VO1 − VO2</text>
+<text x="890" y="225" font-size="12" fill="#1a1a1a" text-anchor="middle">= 2 · VO1</text>
+<text x="890" y="245" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">розмах 2 × Vp</text>
+
+<!-- Нижні картки пояснення -->
+<rect x="24" y="352" width="288" height="86" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="36" y="372" font-size="13" font-weight="700" fill="#2457d6">1. Перший каскад (OP1)</text>
+<text x="36" y="392" font-size="12" fill="#1a1a1a">Av1 = −Rf / Rin = −40 кОм / 20 кОм = −2</text>
+<text x="36" y="410" font-size="12" fill="#1a1a1a">VO1 = −(Rf / Rin) · Vin (інверсія 180°)</text>
+<text x="36" y="428" font-size="12" fill="#6b7280">Задає базове підсилення аудіотракту</text>
+
+<rect x="336" y="352" width="288" height="86" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="348" y="372" font-size="13" font-weight="700" fill="#2457d6">2. Другий каскад (OP2)</text>
+<text x="348" y="392" font-size="12" fill="#1a1a1a">Av2 = −R2 / R1 = −20 кОм / 20 кОм = −1</text>
+<text x="348" y="410" font-size="12" fill="#1a1a1a">VO2 = −VO1 = +(Rf / Rin) · Vin</text>
+<text x="348" y="428" font-size="12" fill="#6b7280">Фіксований симетричний інвертор 1:1</text>
+
+<rect x="648" y="352" width="288" height="86" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="660" y="372" font-size="13" font-weight="700" fill="#27ae60">3. Диференційний міст (BTL)</text>
+<text x="660" y="392" font-size="12" font-weight="700" fill="#1a1a1a">V_нав = VO1 − VO2 = −2·(Rf/Rin)·Vin</text>
+<text x="660" y="410" font-size="12" font-weight="700" fill="#27ae60">Підсумкове підсилення: |Av| = 2·(Rf/Rin)</text>
+<text x="660" y="428" font-size="12" fill="#6b7280">Подвоєна напруга (2×) дає 4× потужність</text>
+</svg>

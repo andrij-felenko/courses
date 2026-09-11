@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-left" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M5,1 L1,3 L5,5 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-right" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M1,1 L5,3 L1,5 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Часова послідовність активації XPT8871 та захист від клацань</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Подача звуку дозволена лише після стабілізації напруги BYPASS на рівні VDD/2</text>
+
+  <!-- Головна панель часової діаграми -->
+  <rect x="30" y="70" width="900" height="282" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Підкладка інтервалу заряду (небезпечна зона клацань) -->
+  <rect x="360" y="76" width="276" height="244" rx="6" fill="#fdecea" fill-opacity="0.6"/>
+
+  <!-- Підкладка інтервалу штатного відтворення (безпечна зона) -->
+  <rect x="644" y="76" width="266" height="244" rx="6" fill="#e9f7ef" fill-opacity="0.6"/>
+
+  <!-- Заголовки часових фаз -->
+  <text x="290" y="92" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">РЕЖИМ СНУ</text>
+  <text x="498" y="92" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">ЗАРЯД BYPASS (t_startup)</text>
+  <text x="777" y="92" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">ВІДТВОРЕННЯ (PLAY)</text>
+
+  <!-- Вертикальні лінії меж фаз -->
+  <line x1="360" y1="100" x2="360" y2="315" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="640" y1="100" x2="640" y2="315" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- ТРЕК 1: SHDN -->
+  <text x="42" y="125" font-size="13" font-weight="700" fill="#1a1a1a">SHDN (вивід 1)</text>
+  <text x="42" y="144" font-size="12" fill="#6b7280">Керування сном</text>
+  <text x="240" y="135" font-size="12" font-weight="700" fill="#6b7280">0 В (Сон)</text>
+  <text x="380" y="108" font-size="12" font-weight="700" fill="#2457d6">VDD (Активний режим)</text>
+  <path d="M220,145 L360,145 L360,118 L905,118" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- ТРЕК 2: BYPASS -->
+  <text x="42" y="195" font-size="13" font-weight="700" fill="#1a1a1a">BYPASS (вивід 2)</text>
+  <text x="42" y="214" font-size="12" fill="#6b7280">Опора VDD/2 (C_BYP)</text>
+  <line x1="220" y1="180" x2="350" y2="180" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="240" y="215" font-size="12" fill="#6b7280">0 В</text>
+  <text x="498" y="214" text-anchor="middle" font-size="12" fill="#c0392b">Експоненційний заряд C_BYP</text>
+  <text x="660" y="170" font-size="12" font-weight="700" fill="#27ae60">VDD / 2 (стабільна опора 2.5 В)</text>
+  <path d="M220,225 L360,225 C430,185 520,180 620,180 L905,180" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- ТРЕК 3: ВХІД АУДІОСИГНАЛУ -->
+  <text x="42" y="268" font-size="13" font-weight="700" fill="#1a1a1a">Вхід аудіо VIN</text>
+  <text x="42" y="287" font-size="12" fill="#6b7280">Подача звуку з MCU</text>
+  <text x="240" y="268" font-size="12" fill="#6b7280">Тиша (0 В)</text>
+  <text x="500" y="260" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">MUTE: аудіосигнал утримується в нулі</text>
+  <text x="500" y="294" text-anchor="middle" font-size="12" fill="#c0392b">Передчасний старт спричинить клацання</text>
+  <text x="775" y="246" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Штатне аудіо: чистий старт без клацань</text>
+  <path d="M220,278 L640,278 Q656.5,260 673,278 Q689.5,296 706,278 Q722.5,260 739,278 Q755.5,296 772,278 Q788.5,260 805,278 Q821.5,296 838,278 Q854.5,260 871,278 Q887.5,296 904,278" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Вимірювальна лінія затримки t_startup -->
+  <line x1="365" y1="325" x2="635" y2="325" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-left)" marker-end="url(#arr-right)"/>
+  <text x="500" y="313" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Затримка t_delay ≥ t_startup (50–150 мс)</text>
+
+  <!-- Часові мітки осі часу -->
+  <text x="220" y="343" font-size="12" fill="#6b7280">t = 0</text>
+  <text x="360" y="343" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">t₀ (Старт SHDN)</text>
+  <text x="640" y="343" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">t₁ (Опора VDD/2 готова)</text>
+  <text x="905" y="343" text-anchor="end" font-size="12" fill="#6b7280">Час (t) →</text>
+
+  <!-- НИЖНІ КАРТКИ: ПОРІВНЯННЯ ТА ПРАВИЛО -->
+  <!-- Картка проблеми -->
+  <rect x="30" y="366" width="440" height="92" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="46" y="386" font-size="13" font-weight="700" fill="#c0392b">Помилка: подача звуку без паузи (t &lt; t_startup)</text>
+  <text x="46" y="407" font-size="12" fill="#1a1a1a">Опорна напруга BYPASS ще не досягла VDD/2 — диференційний</text>
+  <text x="46" y="425" font-size="12" fill="#1a1a1a">міст BTL розбалансований. Виникає стрибок постійного струму,</text>
+  <text x="46" y="443" font-size="12" font-weight="700" fill="#c0392b">що спричиняє гучний удар дифузора («POP-шум») і перевантаження.</text>
+
+  <!-- Картка розв'язку -->
+  <rect x="490" y="366" width="440" height="92" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="506" y="386" font-size="13" font-weight="700" fill="#27ae60">Правило: затримка подачі аудіо t_delay ≥ t_startup</text>
+  <text x="506" y="407" font-size="12" fill="#1a1a1a">Мікроконтролер вичікує 50–150 мс (для C_BYP = 0.1–1 мкФ) після</text>
+  <text x="506" y="425" font-size="12" fill="#1a1a1a">переведення SHDN у VDD, утримуючи аудіопотік у нулі (Mute).</text>
+  <text x="506" y="443" font-size="12" font-weight="700" fill="#27ae60">Результат: плавний безшумний старт без перехідних клацань.</text>
+</svg>

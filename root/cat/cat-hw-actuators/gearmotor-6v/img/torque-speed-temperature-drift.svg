@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr_black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr_red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr_blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Температурний дрейф механічної характеристики двигуна</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Зростання опору міді R(T) від 20 °C до 80 °C: збереження обертів холостого ходу та спад крутного моменту</text>
+
+  <!-- Left / Center: Coordinate System -->
+  <!-- Axis Titles -->
+  <text x="115" y="75" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кутова швидкість ω [рад/с]</text>
+  <text x="340" y="452" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крутний момент M [мН·м]</text>
+
+  <!-- Y and X Axes -->
+  <line x1="115" y1="395" x2="115" y2="88" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr_black)"/>
+  <line x1="110" y1="390" x2="565" y2="390" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr_black)"/>
+
+  <!-- Common Point: No-load Speed ω0 -->
+  <line x1="109" y1="120" x2="115" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="105" y="124" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">ω₀</text>
+  <circle cx="115" cy="120" r="4.5" fill="#1a1a1a"/>
+
+  <!-- Badge: No-load Speed Physics -->
+  <rect x="126" y="86" width="190" height="34" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="134" y="100" font-size="12" font-weight="bold" fill="#27ae60">Холостий хід: ω₀ = V / Ke</text>
+  <text x="134" y="113" font-size="12" fill="#1a1a1a">Оберти не залежать від R</text>
+
+  <!-- Operating Point Projection to Y Axis -->
+  <line x1="115" y1="231" x2="280" y2="231" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="115" y1="258" x2="280" y2="258" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="109" y1="231" x2="115" y2="231" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="109" y1="258" x2="115" y2="258" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="103" y1="233" x2="103" y2="255" stroke="#c0392b" stroke-width="2" marker-end="url(#arr_red)"/>
+  <text x="96" y="222" font-size="12" fill="#2457d6" text-anchor="end">ω(20°C)</text>
+  <text x="96" y="245" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Δω</text>
+  <text x="96" y="268" font-size="12" fill="#c0392b" text-anchor="end">ω(80°C)</text>
+
+  <!-- Nominal Load Line (M_nom) -->
+  <line x1="280" y1="390" x2="280" y2="231" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="280" y1="390" x2="280" y2="396" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="280" y="410" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M_ном</text>
+  <text x="280" y="425" font-size="12" fill="#6b7280" text-anchor="middle">(робочий)</text>
+
+  <!-- Cold Characteristic Line (20 °C) -->
+  <line x1="115" y1="120" x2="515" y2="390" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Hot Characteristic Line (80 °C) -->
+  <line x1="115" y1="120" x2="439" y2="390" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Operating Points on Characteristics -->
+  <circle cx="280" cy="231" r="4.5" fill="#2457d6"/>
+  <circle cx="280" cy="258" r="4.5" fill="#c0392b"/>
+  <line x1="280" y1="233" x2="280" y2="255" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr_red)"/>
+
+  <!-- Legend / States Comparison Box -->
+  <rect x="328" y="85" width="257" height="125" rx="7" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="328" y="85" width="257" height="26" rx="7" fill="#f4f6f8"/>
+  <text x="456" y="103" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння станів обмотки</text>
+
+  <line x1="340" y1="124" x2="360" y2="124" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="350" cy="124" r="3" fill="#2457d6"/>
+  <text x="368" y="128" font-size="12" font-weight="bold" fill="#2457d6">20 °C: Холодний стан (R = R₀)</text>
+  <text x="368" y="143" font-size="12" fill="#6b7280">Пусковий момент 100 % (базовий)</text>
+
+  <line x1="340" y1="164" x2="360" y2="164" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="350" cy="164" r="3" fill="#c0392b"/>
+  <text x="368" y="168" font-size="12" font-weight="bold" fill="#c0392b">80 °C: Гарячий стан (R ≈ 1,24 R₀)</text>
+  <text x="368" y="183" font-size="12" fill="#6b7280">Пусковий момент спадає на 19,1 %</text>
+
+  <line x1="338" y1="193" x2="575" y2="193" stroke="#e1e4e8" stroke-width="1"/>
+  <text x="456" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">Нахил k = −R/(Ke·Kt) стає крутішим</text>
+
+  <!-- Slope Info Box (Lower-Left) -->
+  <rect x="128" y="290" width="125" height="74" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="190" y="308" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зміна нахилу k</text>
+  <text x="190" y="324" font-size="12" fill="#1a1a1a" text-anchor="middle">k = −R/(Ke·Kt)</text>
+  <text x="190" y="340" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+23,6 % крутіший</text>
+  <text x="190" y="354" font-size="12" fill="#6b7280" text-anchor="middle">менша жорсткість</text>
+
+  <!-- Stall Points on X Axis -->
+  <circle cx="439" cy="390" r="4.5" fill="#c0392b"/>
+  <circle cx="515" cy="390" r="4.5" fill="#2457d6"/>
+
+  <line x1="439" y1="390" x2="439" y2="410" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="515" y1="390" x2="515" y2="410" stroke="#2457d6" stroke-width="1.5"/>
+
+  <text x="435" y="410" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">M_stall(80°C)</text>
+  <text x="519" y="410" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">M_stall(20°C)</text>
+
+  <!-- Torque Drop Arrow & Label -->
+  <line x1="510" y1="406" x2="444" y2="406" stroke="#c0392b" stroke-width="2" marker-end="url(#arr_red)"/>
+  <text x="477" y="423" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ΔM_stall</text>
+  <text x="477" y="438" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">(−19,1 %)</text>
+
+  <!-- Right Area: Panel 1 (Physics & Math) -->
+  <rect x="620" y="75" width="315" height="180" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="620" y1="105" x2="935" y2="105" stroke="#d0d7de" stroke-width="1"/>
+  <text x="635" y="96" font-size="13" font-weight="bold" fill="#2457d6">1. Фізико-математичний механізм</text>
+
+  <text x="635" y="122" font-size="12" fill="#6b7280">Температурний коефіцієнт міді:</text>
+  <text x="635" y="137" font-size="12" font-weight="bold" fill="#1a1a1a">α = 0,00393 1/°C  (+0,393 %/°C)</text>
+
+  <text x="635" y="157" font-size="12" fill="#6b7280">Зростання активного опору обмотки:</text>
+  <text x="635" y="172" font-size="12" font-weight="bold" fill="#1a1a1a">R(T) = R₀ · [1 + α · (T − 20 °C)]</text>
+
+  <text x="635" y="192" font-size="12" fill="#6b7280">Для T = 80 °C (ΔT = +60 °C):</text>
+  <text x="635" y="207" font-size="12" font-weight="bold" fill="#c0392b">R(80 °C) ≈ 1,236 · R(20 °C)  (+23,6 %)</text>
+
+  <text x="635" y="227" font-size="12" fill="#6b7280">Спад пускового струму та моменту:</text>
+  <text x="635" y="242" font-size="12" font-weight="bold" fill="#c0392b">M_stall = Kt · (V / R)  (−19,1 %)</text>
+
+  <!-- Right Area: Panel 2 (Engineering Consequences) -->
+  <rect x="620" y="270" width="315" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="620" y1="300" x2="935" y2="300" stroke="#d0d7de" stroke-width="1"/>
+  <text x="635" y="291" font-size="13" font-weight="bold" fill="#1a1a1a">2. Інженерні наслідки для приводу</text>
+
+  <text x="635" y="318" font-size="12" font-weight="bold" fill="#27ae60">✓ Холостий хід стабільний:</text>
+  <text x="647" y="333" font-size="12" fill="#1a1a1a">ω₀ = V / Ke  (не залежить від опору R)</text>
+
+  <text x="635" y="353" font-size="12" font-weight="bold" fill="#c0392b">⚠ Зниження механічної жорсткості:</text>
+  <text x="647" y="368" font-size="12" fill="#1a1a1a">Швидкість сильніше падає під моментом</text>
+
+  <text x="635" y="388" font-size="12" font-weight="bold" fill="#c0392b">⚠ Втрата пікової потужності:</text>
+  <text x="647" y="403" font-size="12" fill="#1a1a1a">P_max = (M_stall · ω₀) / 4  падає на ~19 %</text>
+
+  <text x="635" y="423" font-size="12" font-weight="bold" fill="#6b7280">⚡ Тепловий ризик перевантаження:</text>
+  <text x="647" y="438" font-size="12" fill="#6b7280">Спад тяги загрожує блокуванням вала</text>
+</svg>

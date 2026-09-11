@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="27" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема роздільного живлення MG90S V2 та підключення до MCU</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Ізоляція силового струму двигуна від цифрової логіки, спільна шина GND та фільтрація завад</text>
+
+  <!-- ======================================================== -->
+  <!-- ЛІВА ПАНЕЛЬ: Принципова схема                            -->
+  <!-- ======================================================== -->
+  <rect x="24" y="62" width="456" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="252" y="86" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Принципова схема роздільного живлення</text>
+  <text x="252" y="104" text-anchor="middle" font-size="12" fill="#6b7280">Ізоляція силового струму двигуна від цифрової логіки контролера</text>
+
+  <!-- Блок 1: Мікроконтролер (MCU) -->
+  <rect x="40" y="120" width="115" height="96" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="97" y="140" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">MCU (Логіка)</text>
+  <text x="97" y="157" text-anchor="middle" font-size="12" fill="#6b7280">USB / 3.3V</text>
+  <text x="145" y="179" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">GPIO (ШІМ)</text>
+  <text x="145" y="202" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">GND_mcu</text>
+
+  <!-- Блок 2: Зовнішнє джерело DC -->
+  <rect x="40" y="234" width="115" height="96" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="97" y="254" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Джерело DC</text>
+  <text x="97" y="271" text-anchor="middle" font-size="12" fill="#6b7280">5 В .. 6 В (≥2 А)</text>
+  <text x="145" y="293" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">VCC_ext (+)</text>
+  <text x="145" y="316" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">GND_ext (-)</text>
+
+  <!-- Блок 3: Сервопривод MG90S V2 -->
+  <rect x="350" y="120" width="115" height="210" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="407" y="142" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">MG90S V2</text>
+  <text x="407" y="159" text-anchor="middle" font-size="12" fill="#6b7280">Сервопривод</text>
+  <text x="360" y="179" font-size="12" font-weight="bold" fill="#d97706">PWM</text>
+  <text x="360" y="195" font-size="12" fill="#6b7280">(помаранч.)</text>
+  <text x="360" y="235" font-size="12" font-weight="bold" fill="#c0392b">VCC (+5..6V)</text>
+  <text x="360" y="251" font-size="12" fill="#6b7280">(червоний)</text>
+  <text x="360" y="295" font-size="12" font-weight="bold" fill="#8d5b4c">GND (0 В)</text>
+  <text x="360" y="311" font-size="12" fill="#6b7280">(коричневий)</text>
+
+  <!-- Лінія ШІМ-керування від MCU до Серво -->
+  <line x1="155" y1="175" x2="348" y2="175" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="250" y="166" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ШІМ-керування 50 Гц</text>
+
+  <!-- Лінія живлення VCC_ext (+5..6V) -->
+  <line x1="155" y1="240" x2="348" y2="240" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Лінії шини заземлення GND -->
+  <!-- Вихід з DC (-) -->
+  <line x1="155" y1="305" x2="348" y2="305" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <!-- Відгалуження GND від MCU до спільної точки -->
+  <line x1="155" y1="198" x2="195" y2="198" stroke="#27ae60" stroke-width="2"/>
+  <line x1="195" y1="198" x2="195" y2="305" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="195" cy="305" r="3.5" fill="#27ae60"/>
+  <text x="195" y="324" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Точка GND</text>
+
+  <!-- Конденсатор C1: Електроліт 470..1000 мкФ -->
+  <line x1="235" y1="240" x2="235" y2="260" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="227" y1="260" x2="243" y2="260" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="227" y1="268" x2="243" y2="268" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="235" y1="268" x2="235" y2="305" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="235" cy="240" r="2.5" fill="#c0392b"/>
+  <circle cx="235" cy="305" r="2.5" fill="#27ae60"/>
+  <text x="235" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">C1: 470–1000 мкФ</text>
+  <text x="235" y="225" text-anchor="middle" font-size="12" fill="#6b7280">(буфер струму)</text>
+
+  <!-- Конденсатор C2: Кераміка 0.1 мкФ -->
+  <line x1="285" y1="240" x2="285" y2="260" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="277" y1="260" x2="293" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="277" y1="268" x2="293" y2="268" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="285" y1="268" x2="285" y2="305" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="285" cy="240" r="2.5" fill="#c0392b"/>
+  <circle cx="285" cy="305" r="2.5" fill="#27ae60"/>
+  <text x="285" y="324" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">C2: 0.1 мкФ</text>
+  <text x="285" y="340" text-anchor="middle" font-size="12" fill="#6b7280">(фільтр ВЧ-завад)</text>
+
+  <!-- Підсумкова картка властивостей розділення струму -->
+  <rect x="38" y="356" width="428" height="76" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="48" y="374" font-size="12" font-weight="bold" fill="#2457d6">Чому розділення силових струмів критичне:</text>
+  <text x="48" y="393" font-size="12" fill="#1a1a1a">• Пусковий струм MG90S сягає 1.2 А, викликаючи просідання напруги</text>
+  <text x="48" y="412" font-size="12" fill="#1a1a1a">• Окреме джерело та C1 захищають MCU від Brown-out перезавантажень</text>
+
+  <!-- ======================================================== -->
+  <!-- ПРАВА ПАНЕЛЬ: Монтажні правила та захист                 -->
+  <!-- ======================================================== -->
+  <rect x="500" y="62" width="436" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="718" y="86" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Монтажні правила та захист мікроконтролера</text>
+  <text x="718" y="104" text-anchor="middle" font-size="12" fill="#6b7280">Типові помилки схеми підключення та апаратні наслідки</text>
+
+  <!-- Картка А: Помилка — спільне живлення від MCU -->
+  <rect x="516" y="118" width="404" height="96" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="530" y="138" font-size="13" font-weight="bold" fill="#c0392b">⛔ Помилка: живлення серво від шини 5V плати MCU</text>
+  <text x="530" y="158" font-size="12" fill="#1a1a1a">• Лінійний LDO або USB-порт видає лише 300..500 мА струму</text>
+  <text x="530" y="177" font-size="12" fill="#1a1a1a">• При старті серво напруга просідає нижче порогу Reset (2.7 В)</text>
+  <text x="530" y="196" font-size="12" fill="#6b7280">• Наслідок: циклічне перезавантаження MCU та збої прошивки</text>
+
+  <!-- Картка Б: Правило 1 — спільна земля GND -->
+  <rect x="516" y="226" width="404" height="96" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="530" y="246" font-size="13" font-weight="bold" fill="#27ae60"> Правило 1: обов'язкова спільна шина GND</text>
+  <text x="530" y="266" font-size="12" fill="#1a1a1a">• ШІМ-сигнал вимірюється виключно відносно потенціалу землі</text>
+  <text x="530" y="285" font-size="12" fill="#1a1a1a">• Без єдиної GND сервопривід не бачить тривалість імпульсу</text>
+  <text x="530" y="304" font-size="12" fill="#6b7280">• Наслідок розриву GND: тремтіння вала (jitter) та перегрів</text>
+
+  <!-- Картка В: Правило 2 — фільтрація парою C1 + C2 -->
+  <rect x="516" y="334" width="404" height="96" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="530" y="354" font-size="13" font-weight="bold" fill="#2457d6"> Правило 2: встановлення пари конденсаторів біля серво</text>
+  <text x="530" y="374" font-size="12" fill="#1a1a1a">• C1 (470–1000 мкФ): гасить просідання напруги під час ривка</text>
+  <text x="530" y="393" font-size="12" fill="#1a1a1a">• C2 (0.1 мкФ): кераміка шунтує ВЧ-шум від іскріння щіток</text>
+  <text x="530" y="412" font-size="12" fill="#6b7280">• Монтувати максимально близько до 3-pin роз'єму серво</text>
+</svg>

@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний захист і фільтрація живлення лазерного модуля</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Каскад захищає від переполюсовки, високовольтних сплесків та імпульсних просідань шини VCC</text>
+
+  <!-- Main Schematic Panel -->
+  <rect x="30" y="70" width="900" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="92" font-size="12" font-weight="bold" fill="#6b7280">ПРИНЦИПОВА СХЕМА ВХІДНОГО КАСКАДУ</text>
+
+  <!-- Input Terminals and Labels -->
+  <circle cx="55" cy="136" r="4" fill="white" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="55" cy="224" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="65" y="110" font-size="12" font-weight="bold" fill="#c0392b">+V_IN</text>
+  <text x="65" y="124" font-size="12" fill="#6b7280">3.0–5.0 В</text>
+  <text x="65" y="248" font-size="12" font-weight="bold" fill="#1a1a1a">GND_IN</text>
+  <text x="65" y="262" font-size="12" fill="#6b7280">0 В (маса)</text>
+
+  <!-- Wires from Input -->
+  <line x1="59" y1="136" x2="195" y2="136" stroke="#c0392b" stroke-width="2"/>
+  <line x1="59" y1="224" x2="360" y2="224" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- D1: Schottky Diode -->
+  <text x="220" y="110" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D1: 1N5819</text>
+  <line x1="195" y1="136" x2="210" y2="136" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="210,124 230,136 210,148" fill="#2457d6" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 236,124 L 230,124 L 230,148 L 224,148" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <line x1="230" y1="136" x2="245" y2="136" stroke="#2457d6" stroke-width="2"/>
+  <text x="220" y="172" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Діод Шотткі</text>
+  <text x="220" y="188" font-size="12" fill="#6b7280" text-anchor="middle">VF ≈ 0.2–0.3 В</text>
+  <text x="220" y="204" font-size="12" fill="#27ae60" text-anchor="middle">від переполюсовки</text>
+
+  <!-- Protected Rail Label -->
+  <line x1="245" y1="136" x2="360" y2="136" stroke="#27ae60" stroke-width="2"/>
+  <text x="300" y="122" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">VCC_PROT</text>
+
+  <!-- D2: TVS Diode -->
+  <line x1="360" y1="136" x2="360" y2="162" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="360" cy="136" r="3.5" fill="#1a1a1a"/>
+  <path d="M 348,168 L 348,162 L 372,162 L 372,156" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <polygon points="348,184 360,162 372,184" fill="#c0392b" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="360" y1="184" x2="360" y2="224" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="360" cy="224" r="3.5" fill="#1a1a1a"/>
+  <text x="385" y="162" font-size="13" font-weight="bold" fill="#1a1a1a">D2: SMAJ5.0A</text>
+  <text x="385" y="178" font-size="12" fill="#c0392b" font-weight="bold">TVS-супресор</text>
+  <text x="385" y="194" font-size="12" fill="#6b7280">зрізання сплесків</text>
+  <text x="385" y="210" font-size="12" fill="#6b7280">V_clamp ≈ 6.0 В</text>
+
+  <!-- Ground Reference Symbol -->
+  <line x1="435" y1="224" x2="435" y2="238" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="427" y1="238" x2="443" y2="238" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="430" y1="242" x2="440" y2="242" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="433" y1="246" x2="437" y2="246" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="435" y="266" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- Wires between D2 and C1 -->
+  <line x1="360" y1="136" x2="525" y2="136" stroke="#27ae60" stroke-width="2"/>
+  <line x1="360" y1="224" x2="525" y2="224" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- C1: Electrolytic Capacitor -->
+  <line x1="525" y1="136" x2="525" y2="168" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="525" cy="136" r="3.5" fill="#1a1a1a"/>
+  <line x1="513" y1="168" x2="537" y2="168" stroke="#1a1a1a" stroke-width="2.5"/>
+  <path d="M 513,178 Q 525,173 537,178" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
+  <text x="511" y="163" font-size="12" font-weight="bold" fill="#1a1a1a">+</text>
+  <line x1="525" y1="178" x2="525" y2="224" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="525" cy="224" r="3.5" fill="#1a1a1a"/>
+  <text x="548" y="162" font-size="13" font-weight="bold" fill="#1a1a1a">C1: 22 мкФ</text>
+  <text x="548" y="178" font-size="12" fill="#2457d6" font-weight="bold">Електроліт</text>
+  <text x="548" y="194" font-size="12" fill="#6b7280">згладжування</text>
+  <text x="548" y="210" font-size="12" fill="#6b7280">буфер просідань</text>
+
+  <!-- Wires between C1 and C2 -->
+  <line x1="525" y1="136" x2="675" y2="136" stroke="#27ae60" stroke-width="2"/>
+  <line x1="525" y1="224" x2="675" y2="224" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- C2: Ceramic Capacitor -->
+  <line x1="675" y1="136" x2="675" y2="170" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="675" cy="136" r="3.5" fill="#1a1a1a"/>
+  <line x1="663" y1="170" x2="687" y2="170" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="663" y1="178" x2="687" y2="178" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="675" y1="178" x2="675" y2="224" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="675" cy="224" r="3.5" fill="#1a1a1a"/>
+  <text x="698" y="162" font-size="13" font-weight="bold" fill="#1a1a1a">C2: 100 нФ</text>
+  <text x="698" y="178" font-size="12" fill="#27ae60" font-weight="bold">Кераміка MLCC</text>
+  <text x="698" y="194" font-size="12" fill="#6b7280">фільтрація ВЧ</text>
+  <text x="698" y="210" font-size="12" fill="#6b7280">низький ESR</text>
+
+  <!-- Wires to Load (Laser Module) -->
+  <line x1="675" y1="136" x2="805" y2="136" stroke="#27ae60" stroke-width="2"/>
+  <line x1="675" y1="224" x2="805" y2="224" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="745" y="122" font-size="12" font-weight="bold" fill="#c0392b">VCC (+)</text>
+  <text x="745" y="246" font-size="12" font-weight="bold" fill="#1a1a1a">GND (-)</text>
+
+  <!-- Laser Module Box -->
+  <rect x="805" y="98" width="115" height="156" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="805" cy="136" r="3.5" fill="#c0392b"/>
+  <circle cx="805" cy="224" r="3.5" fill="#1a1a1a"/>
+  <text x="862.5" y="118" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ЛАЗЕРНИЙ МОДУЛЬ</text>
+
+  <!-- Laser Diode Icon -->
+  <polygon points="852,140 868,148 852,156" fill="#c0392b"/>
+  <line x1="868" y1="140" x2="868" y2="156" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="872" y1="142" x2="882" y2="136" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="872" y1="150" x2="882" y2="144" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Module Specifications -->
+  <text x="862.5" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">5 мВт / 650 нм</text>
+  <text x="862.5" y="196" font-size="12" fill="#6b7280" text-anchor="middle">I = 20–40 мА</text>
+  <text x="862.5" y="214" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Корпус = VCC (+)</text>
+  <text x="862.5" y="230" font-size="12" fill="#6b7280" text-anchor="middle">Ізолювати шасі!</text>
+
+  <!-- Functional Explanation Cards -->
+  <!-- Card 1: D1 Schottky -->
+  <rect x="30" y="295" width="213" height="145" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="40" y="307" width="193" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="136.5" y="323" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. ЗАХИСТ ВІД ПЕРЕПОЛЮСОВКИ</text>
+  <text x="42" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">Діод Шотткі (1N5819)</text>
+  <text x="42" y="370" font-size="12" fill="#1a1a1a">• Блокує зворотну напругу</text>
+  <text x="42" y="390" font-size="12" fill="#6b7280">• Падіння VF лише 0.2–0.3 В</text>
+  <text x="42" y="410" font-size="12" fill="#6b7280">• Зберігає драйвер і лазер</text>
+
+  <!-- Card 2: D2 TVS -->
+  <rect x="259" y="295" width="213" height="145" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="269" y="307" width="193" height="24" rx="4" fill="#fdecea"/>
+  <text x="365.5" y="323" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">2. ЗАХИСТ ВІД СПЛЕСКІВ</text>
+  <text x="271" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">TVS-діод (SMAJ5.0A)</text>
+  <text x="271" y="370" font-size="12" fill="#1a1a1a">• Зрізає викиди V &gt; 5.5 В</text>
+  <text x="271" y="390" font-size="12" fill="#6b7280">• Шунтує сплески ESD в GND</text>
+  <text x="271" y="410" font-size="12" fill="#6b7280">• Пікосекундна реакція</text>
+
+  <!-- Card 3: C1 Bulk Electrolytic -->
+  <rect x="488" y="295" width="213" height="145" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="498" y="307" width="193" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="594.5" y="323" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3. ЗГЛАДЖУВАННЯ ПРОСІДАНЬ</text>
+  <text x="500" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">Електроліт (22 мкФ)</text>
+  <text x="500" y="370" font-size="12" fill="#1a1a1a">• Буфер енергії живлення</text>
+  <text x="500" y="390" font-size="12" fill="#6b7280">• Компенсує піки 20–40 мА</text>
+  <text x="500" y="410" font-size="12" fill="#6b7280">• Усуває просідання шини</text>
+
+  <!-- Card 4: C2 Decoupling Ceramic -->
+  <rect x="717" y="295" width="213" height="145" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="727" y="307" width="193" height="24" rx="4" fill="#e9f7ef"/>
+  <text x="823.5" y="323" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">4. ФІЛЬТРАЦІЯ ВЧ-ЗАВАД</text>
+  <text x="729" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">Кераміка MLCC (100 нФ)</text>
+  <text x="729" y="370" font-size="12" fill="#1a1a1a">• Придушує шуми та дзвін</text>
+  <text x="729" y="390" font-size="12" fill="#6b7280">• Ультранизький ESR/ESL</text>
+  <text x="729" y="410" font-size="12" fill="#6b7280">• Монтується біля модуля</text>
+</svg>

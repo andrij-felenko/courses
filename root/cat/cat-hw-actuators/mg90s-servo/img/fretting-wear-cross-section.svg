@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ==================== ЗАГОЛОВОК ТА ПІДЗАГОЛОВОК ==================== -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Пошаровий мікропереріз фретинг-зносу доріжки потенціометра MG90S</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Мікровібрації щітки в одній точці витирають провідний пластик, утворюючи кратер та навали шламу</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: МІКРОПЕРЕРІЗ КРАТЕРА ==================== -->
+  <rect x="25" y="65" width="540" height="285" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="86" font-size="13" font-weight="700" fill="#1a1a1a">1. Мікроструктурний переріз кратера зносу (Fretting Wear Notch)</text>
+
+  <!-- Поле перерізу -->
+  <rect x="40" y="96" width="510" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Діелектрична підкладка (FR-4 / бакеліт) -->
+  <rect x="55" y="195" width="480" height="38" rx="2" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="295" y="218" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">Діелектрична підкладка (FR-4 / Бакеліт)</text>
+
+  <!-- Резистивний шар провідного пластику з кратером фретингу -->
+  <path d="M 55,195 L 55,160 L 210,160 Q 235,162 250,175 Q 275,193 295,193 Q 315,193 340,175 Q 355,162 380,160 L 535,160 L 535,195 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Лінії густини струму (Current Streamlines) -->
+  <path d="M 60,185 C 200,185 240,194 295,194 C 350,194 390,185 530,185" fill="none" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <line x1="60" y1="172" x2="230" y2="172" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,2" marker-end="url(#arr-blue)"/>
+  <line x1="360" y1="172" x2="530" y2="172" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,2" marker-end="url(#arr-blue)"/>
+
+  <!-- Навали зношеного абразивного шламу та оксидів по краях кратера -->
+  <path d="M 205,160 Q 215,151 225,162 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <path d="M 365,162 Q 375,151 385,160 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+
+  <!-- Частинки шламу -->
+  <circle cx="218" cy="157" r="1.5" fill="#c0392b"/>
+  <circle cx="228" cy="165" r="1.5" fill="#1a1a1a"/>
+  <circle cx="362" cy="165" r="1.5" fill="#1a1a1a"/>
+  <circle cx="372" cy="157" r="1.5" fill="#c0392b"/>
+
+  <!-- Пелюстка контакту повзунка (Wiper), що застрягла в кратері -->
+  <text x="295" y="112" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Щітка повзунка (Wiper)</text>
+  <path d="M 295,118 L 295,176 C 295,185 290,190 282,190" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Стрілка мікровібрації ±Δx -->
+  <line x1="265" y1="140" x2="288" y2="140" stroke="#c0392b" stroke-width="1.2" marker-start="url(#arr-red-rev)"/>
+  <line x1="302" y1="140" x2="325" y2="140" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+  <text x="332" y="144" font-size="12" font-weight="700" fill="#c0392b">±Δx (5–20 мкм)</text>
+
+  <!-- Підписи шарів ліворуч -->
+  <text x="60" y="118" font-size="12" font-weight="700" fill="#2457d6">Цілісний шар (20 мкм)</text>
+  <text x="60" y="136" font-size="12" fill="#6b7280">Провідний пластик</text>
+  <text x="60" y="152" font-size="12" fill="#2457d6">Лінії струму I →</text>
+
+  <!-- Підписи праворуч -->
+  <text x="440" y="118" font-size="12" font-weight="700" fill="#c0392b">Кратер фретингу</text>
+  <text x="440" y="136" font-size="12" fill="#c0392b">Оксидний шлам</text>
+  <text x="440" y="152" font-size="12" fill="#6b7280">Перетискання струму</text>
+
+  <!-- Стрілка до оголення підкладки -->
+  <line x1="432" y1="184" x2="330" y2="190" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+  <text x="440" y="186" font-size="12" font-weight="700" fill="#c0392b">Оголення підкладки</text>
+
+  <!-- Пояснювальний блок унизу лівої панелі -->
+  <rect x="40" y="256" width="510" height="82" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="274" font-size="12" font-weight="700" fill="#1a1a1a">Фізико-механічний механізм фретинг-зносу:</text>
+  <text x="52" y="292" font-size="12" fill="#c0392b">• Мікровитирання: цикли мікровібрацій (10–50 кГц ШІМ) стирають мастило в зоні контакту.</text>
+  <text x="52" y="308" font-size="12" fill="#1a1a1a">• Окиснення та шлам: викришені частки графіту й металу утворюють непровідний абразив.</text>
+  <text x="52" y="324" font-size="12" fill="#6b7280">• Ефект кратера: щітка провалюється в канавку, викликаючи сплеск R_cont до сотень кОм.</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: СТАДІЇ ТА ДЖИТЕР ==================== -->
+  <rect x="580" y="65" width="355" height="285" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="600" y="86" font-size="13" font-weight="700" fill="#1a1a1a">2. Стадії деградації та серводжитер</text>
+
+  <!-- Картка 1: Фази фретингу -->
+  <rect x="595" y="98" width="325" height="114" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="608" y="118" font-size="12" font-weight="700" fill="#1a1a1a">Фази розвитку фретингу в серві:</text>
+  <text x="608" y="138" font-size="12" fill="#27ae60">1. Стабільна: мастильна плівка захищає шар.</text>
+  <text x="608" y="156" font-size="12" fill="#2457d6">2. Руйнування: витирання полімеру, ріст шуму.</text>
+  <text x="608" y="174" font-size="12" fill="#c0392b">3. Катастрофічна: повне протирання до FR-4.</text>
+  <text x="608" y="196" font-size="12" fill="#6b7280">Ресурс на одній точці: лише 50–100 тис. циклів!</text>
+
+  <!-- Картка 2: Пастка автоколивань -->
+  <rect x="595" y="222" width="325" height="116" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="608" y="242" font-size="12" font-weight="700" fill="#c0392b">Пастка перманентного джитеру:</text>
+  <text x="608" y="260" font-size="12" fill="#1a1a1a">• Падіння напруги на кратері: АЦП фіксує</text>
+  <text x="608" y="274" font-size="12" fill="#1a1a1a">  хибне зміщення позиції вала сервоприводу.</text>
+  <text x="608" y="292" font-size="12" fill="#1a1a1a">• Контролер шле імпульс мотору → вал</text>
+  <text x="608" y="306" font-size="12" fill="#1a1a1a">  вискакує з кратера і повертається назад.</text>
+  <text x="608" y="324" font-size="12" fill="#c0392b">• Результат: неперервне тремтіння (hunting).</text>
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: ІНЖЕНЕРНИЙ ВИСНОВОК ==================== -->
+  <rect x="25" y="362" width="910" height="78" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="382" font-size="12" font-weight="700" fill="#1a1a1a">Інженерний регламент запобігання фретинг-руйнуванню сервоприводу MG90S:</text>
+  <text x="45" y="401" font-size="12" fill="#1a1a1a">1. Програмне розвантаження (Dither/Sleep): вимикання або мікрозміщення ШІМ у стані спокою запобігає фокусуванню вібрацій в одній точці.</text>
+  <text x="45" y="419" font-size="12" fill="#1a1a1a">2. Контроль температури: нагрів редуктора вище 60°C розріджує силіконове мастило, прискорюючи фретинг-витирання в 4–5 разів.</text>
+  <text x="45" y="435" font-size="12" fill="#6b7280">3. Багатопелюстковий контакт: розщеплені ламелі щітки різної довжини створюють паралельні шляхи струму в обхід локального кратера.</text>
+</svg>

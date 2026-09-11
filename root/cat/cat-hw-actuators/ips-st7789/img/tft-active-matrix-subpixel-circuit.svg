@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460" viewBox="0 0 960 460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еквівалентна схема субпікселя рідкокристалічної матриці TFT</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">TFT-ключ фіксує рівень напруги даних, а пара Clc та Cst утримує заряд протягом кадру</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Схема субпіксельної комірки -->
+  <rect x="25" y="70" width="555" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="94" font-size="14" font-weight="bold" fill="#1a1a1a">Схема субпікселя на перетині шин рядка (Gate) та стовпчика (Data)</text>
+
+  <!-- Межа субпіксельної комірки -->
+  <rect x="135" y="106" width="430" height="254" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="555" y="123" font-size="12" fill="#6b7280" text-anchor="end">Межа субпікселя (комірка R, G або B)</text>
+
+  <!-- Шина даних (Data Line) -->
+  <text x="115" y="122" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Data Line</text>
+  <text x="115" y="136" font-size="12" fill="#2457d6" text-anchor="middle">V_data</text>
+  <line x1="115" y1="142" x2="115" y2="355" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-accent)"/>
+  <circle cx="115" cy="148" r="3.5" fill="#2457d6"/>
+
+  <!-- Шина рядка (Gate Line) -->
+  <text x="40" y="162" font-size="12" font-weight="bold" fill="#1a1a1a">Gate Line</text>
+  <text x="40" y="175" font-size="12" fill="#6b7280">VGH / VGL</text>
+  <!-- Лінія рядка з перемичкою над Data Line -->
+  <path d="M 35,180 L 107,180 A 8,8 0 0 1 123,180 L 215,180" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Підключення до Source TFT -->
+  <path d="M 115,148 L 232,148 L 232,168 L 222,168" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="170" y="142" font-size="12" fill="#2457d6" text-anchor="middle">Витік (Source)</text>
+
+  <!-- Символ TFT транзистора -->
+  <!-- Затвор (Gate) -->
+  <line x1="215" y1="168" x2="215" y2="192" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Напівпровідниковий канал -->
+  <line x1="222" y1="164" x2="222" y2="196" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Стрілка каналу N-MOS -->
+  <polygon points="223,180 229,177 229,183" fill="#1a1a1a"/>
+  <!-- Позначення TFT -->
+  <text x="218" y="132" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">TFT</text>
+
+  <!-- Провідник від Drain до вузла пікселя V_pix -->
+  <path d="M 222,192 L 255,192 L 255,230 L 460,230" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Вузол пікселя V_pix -->
+  <circle cx="270" cy="230" r="4" fill="#2457d6"/>
+  <text x="270" y="206" font-size="13" font-weight="bold" fill="#2457d6">Вузол V_pix</text>
+  <text x="270" y="220" font-size="12" fill="#6b7280">Піксельний електрод</text>
+
+  <!-- Ємність рідкого кристала C_lc -->
+  <circle cx="360" cy="230" r="3.5" fill="#2457d6"/>
+  <line x1="360" y1="230" x2="360" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Пластини C_lc з підкладкою -->
+  <rect x="341" y="266" width="38" height="10" fill="#eaf0fd"/>
+  <line x1="340" y1="265" x2="380" y2="265" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="340" y1="277" x2="380" y2="277" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="360" y1="277" x2="360" y2="320" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="360" cy="320" r="3.5" fill="#1a1a1a"/>
+  <!-- Підписи C_lc -->
+  <text x="330" y="268" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="end">C_lc</text>
+  <text x="330" y="283" font-size="12" fill="#1a1a1a" text-anchor="end">Ємність РК</text>
+  <text x="330" y="297" font-size="12" fill="#6b7280" text-anchor="end">~0.1 пФ (оптика)</text>
+
+  <!-- Накопичувальний конденсатор C_st -->
+  <line x1="460" y1="230" x2="460" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Пластини C_st з підкладкою -->
+  <rect x="441" y="266" width="38" height="10" fill="#e9f7ef"/>
+  <line x1="440" y1="265" x2="480" y2="265" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="440" y1="277" x2="480" y2="277" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="460" y1="277" x2="460" y2="320" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="460" cy="320" r="3.5" fill="#1a1a1a"/>
+  <!-- Підписи C_st -->
+  <text x="490" y="268" font-size="14" font-weight="bold" fill="#27ae60">C_st</text>
+  <text x="490" y="283" font-size="12" fill="#1a1a1a">Зберігання</text>
+  <text x="490" y="297" font-size="12" fill="#6b7280">~0.5 пФ</text>
+
+  <!-- Спільна шина V_com -->
+  <line x1="300" y1="320" x2="500" y2="320" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="290" y="316" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">V_com</text>
+  <text x="290" y="331" font-size="12" fill="#6b7280" text-anchor="end">Спільний електрод</text>
+  <!-- Символ опорного потенціалу під V_com -->
+  <line x1="410" y1="320" x2="410" y2="332" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="400" y1="332" x2="420" y2="332" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="404" y1="336" x2="416" y2="336" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="407" y1="340" x2="413" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Нижня плашка-пояснення лівої панелі -->
+  <rect x="40" y="372" width="525" height="54" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="55" y="390" font-size="13" font-weight="bold" fill="#2457d6">Паралельне з'єднання: C_total = C_lc + C_st</text>
+  <text x="55" y="406" font-size="12" fill="#1a1a1a">• Clc утворює планарне поле IPS для переорієнтації рідких кристалів</text>
+  <text x="55" y="420" font-size="12" fill="#6b7280">• Cst (у 3–5 разів більший) утримує заряд кадру та блокує мерехтіння</text>
+
+  <!-- ПРАВА ВЕРХНЯ ПАНЕЛЬ: Дві фази роботи -->
+  <rect x="595" y="70" width="340" height="170" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="615" y="94" font-size="14" font-weight="bold" fill="#1a1a1a">Дві фази роботи субпікселя</text>
+
+  <!-- Фаза 1 -->
+  <rect x="610" y="106" width="310" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="622" y="124" font-size="13" font-weight="bold" fill="#27ae60">1. Запис (вибірка рядка, ~20–40 мкс)</text>
+  <text x="622" y="140" font-size="12" fill="#1a1a1a">Gate = VGH (+15 В) → TFT відкритий</text>
+  <text x="622" y="154" font-size="12" fill="#6b7280">V_data із шини даних заряджає Clc та Cst</text>
+
+  <!-- Фаза 2 -->
+  <rect x="610" y="172" width="310" height="58" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="622" y="190" font-size="13" font-weight="bold" fill="#2457d6">2. Зберігання (кадр, ~16.6 мс при 60 Гц)</text>
+  <text x="622" y="206" font-size="12" fill="#1a1a1a">Gate = VGL (-10 В) → TFT надійно закритий</text>
+  <text x="622" y="220" font-size="12" fill="#6b7280">Cst утримує заряд на Clc до нового кадру</text>
+
+  <!-- ПРАВА НИЖНЯ ПАНЕЛЬ: Чому C_st життєво необхідний -->
+  <rect x="595" y="254" width="340" height="182" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="615" y="278" font-size="14" font-weight="bold" fill="#1a1a1a">Чому C_st життєво необхідний?</text>
+
+  <!-- Пункт 1 -->
+  <text x="615" y="300" font-size="12" font-weight="bold" fill="#c0392b">• Струм витоку TFT (I_off &lt; 1 пА):</text>
+  <text x="625" y="315" font-size="12" fill="#1a1a1a">Без Cst заряд малої Clc витече за мілісекунди,</text>
+  <text x="625" y="329" font-size="12" fill="#6b7280">що викликає падіння яскравості та мерехтіння.</text>
+
+  <!-- Пункт 2 -->
+  <text x="615" y="350" font-size="12" font-weight="bold" fill="#2457d6">• Анізотропія рідкого кристала:</text>
+  <text x="625" y="365" font-size="12" fill="#1a1a1a">Поворот молекул змінює ємність Clc у кадрі;</text>
+  <text x="625" y="379" font-size="12" fill="#6b7280">великий Cst стабілізує напругу на пікселі.</text>
+
+  <!-- Пункт 3 -->
+  <text x="615" y="400" font-size="12" font-weight="bold" fill="#27ae60">• Інверсія полярності (Dot Inversion):</text>
+  <text x="625" y="415" font-size="12" fill="#1a1a1a">V_data чергує знак відносно Vcom щокадру,</text>
+  <text x="625" y="429" font-size="12" fill="#6b7280">запобігаючи електролізу та деградації РК.</text>
+</svg>

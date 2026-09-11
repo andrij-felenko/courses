@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+  </marker>
+</defs>
+
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Title & Subtitle -->
+<text x="480" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Імпульси утримання: аналоговий проти цифрового сервоприводу</text>
+<text x="480" y="46" text-anchor="middle" font-size="13" fill="#6b7280">Порівняння частоти оновлення струму мотора (50 Гц vs 300 Гц) та жорсткості утримання під навантаженням</text>
+
+<!-- ==================== LEFT PANEL: ANALOG SERVO ==================== -->
+<rect x="30" y="68" width="440" height="262" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="30" y="68" width="440" height="26" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="250" y="86" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">1. Аналоговий сервопривід (50 Гц / Т = 20 мс)</text>
+
+<!-- Left Column Signal Labels -->
+<text x="96" y="118" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">M_нав</text>
+<text x="96" y="166" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">V_mot</text>
+<text x="96" y="178" text-anchor="end" font-size="12" fill="#6b7280">50 Гц</text>
+<text x="96" y="222" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">θ(t)</text>
+<text x="96" y="234" text-anchor="end" font-size="12" fill="#6b7280">Кут вала</text>
+
+<!-- Signal 1: External load step M_load (applied at t = 10 ms -> x = 191) -->
+<polyline points="105,124 191,124 191,110 450,110" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<text x="320" y="104" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Зовнішній момент (зсув вала)</text>
+
+<!-- Signal 2: Motor Voltage V_mot (50 Hz pulses with 18.5 ms pause) -->
+<!-- Baseline -->
+<line x1="105" y1="180" x2="450" y2="180" stroke="#d0d7de" stroke-width="1.5"/>
+<!-- Pulse 1: 105..120 (1.5 ms) -->
+<!-- Pulse 2: 277..312 (3.5 ms correction pulse at t = 20 ms) -->
+<polyline points="105,158 120,158 120,180 277,180 277,158 312,158 312,180 450,180" fill="none" stroke="#c0392b" stroke-width="2"/>
+<text x="198" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Пауза 18.5 мс (0 В)</text>
+<text x="360" y="172" text-anchor="middle" font-size="12" fill="#6b7280">Пауза до 40 мс</text>
+
+<!-- Signal 3: Shaft Angle theta(t) with load deflection -->
+<!-- Target 90 deg dashed line -->
+<line x1="105" y1="216" x2="450" y2="216" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+<text x="105" y="210" font-size="12" fill="#6b7280">90°</text>
+
+<!-- Angle drops at t = 10 ms (x = 191), sags to y = 236 (-4 deg), jerks at t = 20 ms -->
+<polyline points="105,216 191,216 220,236 277,236 295,224 312,228 340,234 450,234" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<text x="240" y="248" font-size="12" font-weight="bold" fill="#c0392b">Просідання Δθ ≈ 4°</text>
+
+<!-- Time Axis -->
+<line x1="105" y1="274" x2="450" y2="274" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+<line x1="105" y1="274" x2="105" y2="278" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="191" y1="274" x2="191" y2="278" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="277" y1="274" x2="277" y2="278" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="363" y1="274" x2="363" y2="278" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="445" y1="274" x2="445" y2="278" stroke="#1a1a1a" stroke-width="1"/>
+
+<text x="105" y="290" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+<text x="191" y="290" text-anchor="middle" font-size="12" fill="#6b7280">10 мс</text>
+<text x="277" y="290" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">20 мс</text>
+<text x="363" y="290" text-anchor="middle" font-size="12" fill="#6b7280">30 мс</text>
+<text x="445" y="290" text-anchor="middle" font-size="12" fill="#6b7280">40 мс</text>
+
+<text x="277" y="312" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Слабкий момент утримання (люфт під навантаженням)</text>
+
+<!-- ==================== RIGHT PANEL: DIGITAL SERVO ==================== -->
+<rect x="490" y="68" width="440" height="262" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="490" y="68" width="440" height="26" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="710" y="86" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">2. Цифровий сервопривід (300 Гц+ / Т = 3.3 мс)</text>
+
+<!-- Left Column Signal Labels -->
+<text x="556" y="118" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">M_нав</text>
+<text x="556" y="166" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">V_mot</text>
+<text x="556" y="178" text-anchor="end" font-size="12" fill="#6b7280">300 Гц</text>
+<text x="556" y="222" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">θ(t)</text>
+<text x="556" y="234" text-anchor="end" font-size="12" fill="#6b7280">Кут вала</text>
+
+<!-- Signal 1: External load step M_load (applied at t = 10 ms -> x = 651) -->
+<polyline points="565,124 651,124 651,110 910,110" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+<text x="780" y="104" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Зовнішній момент (зсув вала)</text>
+
+<!-- Signal 2: Motor Voltage V_mot (Continuous 300 Hz PWM series) -->
+<!-- Baseline -->
+<line x1="565" y1="180" x2="910" y2="180" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- PWM series pulses every 28.5 px (~3.3 ms):
+     565..572, 594..601, 622..629 (holding ticks)
+     After load (651): wider pulses 651..665, 680..694, 708..722, 737..751, 765..779, 794..808, 822..836, 851..865, 879..893 -->
+<polyline points="565,180 565,166 571,166 571,180 594,180 594,166 600,166 600,180 622,180 622,166 628,166 628,180 651,180 651,158 665,158 665,180 680,180 680,158 694,158 694,180 708,180 708,158 722,158 722,180 737,180 737,158 751,158 751,180 765,180 765,158 779,158 779,180 794,180 794,158 808,158 808,180 822,180 822,158 836,158 836,180 851,180 851,158 865,158 865,180 879,180 879,158 893,158 893,180 910,180" fill="none" stroke="#27ae60" stroke-width="1.8"/>
+
+<!-- Safe text above pulses (y=146 is between 124 and 158) -->
+<text x="737" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ШІМ 300 Гц (період 3.3 мс — безперервний струм)</text>
+
+<!-- Signal 3: Shaft Angle theta(t) under digital control -->
+<line x1="565" y1="216" x2="910" y2="216" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+<text x="565" y="210" font-size="12" fill="#6b7280">90°</text>
+
+<!-- Micro-dip of only 2 px at t = 10 ms (x = 651..660), then rock solid -->
+<polyline points="565,216 651,216 656,219 663,216 910,216" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+<text x="730" y="234" font-size="12" font-weight="bold" fill="#27ae60">Жорстке утримання (Δθ &lt; 0.5°)</text>
+
+<!-- Time Axis -->
+<line x1="565" y1="274" x2="910" y2="274" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+<line x1="565" y1="274" x2="565" y2="278" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="651" y1="274" x2="651" y2="278" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="737" y1="274" x2="737" y2="278" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="823" y1="274" x2="823" y2="278" stroke="#1a1a1a" stroke-width="1"/>
+<line x1="905" y1="274" x2="905" y2="278" stroke="#1a1a1a" stroke-width="1"/>
+
+<text x="565" y="290" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+<text x="651" y="290" text-anchor="middle" font-size="12" fill="#6b7280">10 мс</text>
+<text x="737" y="290" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">20 мс</text>
+<text x="823" y="290" text-anchor="middle" font-size="12" fill="#6b7280">30 мс</text>
+<text x="905" y="290" text-anchor="middle" font-size="12" fill="#6b7280">40 мс</text>
+
+<text x="737" y="312" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Потужний Holding Torque (миттєва реакція, жорстка вісь)</text>
+
+<!-- ==================== BOTTOM CARDS ==================== -->
+<rect x="30" y="342" width="285" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="42" y="360" font-size="13" font-weight="bold" fill="#2457d6">1. Частота оновлення струму</text>
+<text x="42" y="378" font-size="12" fill="#1a1a1a">• Аналогова: імпульс раз на 20 мс (50 Гц).</text>
+<text x="42" y="396" font-size="12" fill="#1a1a1a">• 90% часу мотор вимкнений (мертва пауза).</text>
+<text x="42" y="414" font-size="12" fill="#1a1a1a">• Цифрова серва: ШІМ-генератор 300+ Гц.</text>
+<text x="42" y="432" font-size="12" fill="#6b7280">• Імпульси на мотор йдуть кожні 3.3 мс.</text>
+
+<rect x="330" y="342" width="290" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="342" y="360" font-size="13" font-weight="bold" fill="#c0392b">2. Момент утримання (Holding)</text>
+<text x="342" y="378" font-size="12" fill="#1a1a1a">• Зовнішнє зусилля зсуває аналоговий вал.</text>
+<text x="342" y="396" font-size="12" fill="#1a1a1a">• Відхилення осі сягає 3°..5° у паузі.</text>
+<text x="342" y="414" font-size="12" fill="#1a1a1a">• Цифровий MCU реагує за мілісекунди.</text>
+<text x="342" y="432" font-size="12" fill="#6b7280">• Повний Holding Torque без просідання осі.</text>
+
+<rect x="635" y="342" width="295" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="647" y="360" font-size="13" font-weight="bold" fill="#27ae60">3. Точність і позиціювання</text>
+<text x="647" y="378" font-size="12" fill="#1a1a1a">• Вузька мертва зона цифрової сервопривода.</text>
+<text x="647" y="396" font-size="12" fill="#1a1a1a">• Миттєвий розгін і гальмування без люфту.</text>
+<text x="647" y="414" font-size="12" fill="#1a1a1a">• Висока роздільність і плавність ходу.</text>
+<text x="647" y="432" font-size="12" fill="#6b7280">• Оптимально для прецизійних роботів і БПЛА.</text>
+
+</svg>

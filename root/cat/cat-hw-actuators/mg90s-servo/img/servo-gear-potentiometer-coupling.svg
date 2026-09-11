@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ==================== ЗАГОЛОВОК ТА ПІДЗАГОЛОВОК ==================== -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Механічне спряження вихідної шестерні та потенціометра MG90S</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">D-подібний паз формує кутовий люфт (deadband) і радіальний перекіс контактної групи</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: КІНЕМАТИКА СПРЯЖЕННЯ ==================== -->
+  <rect x="25" y="65" width="445" height="285" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="86" font-size="13" font-weight="700" fill="#1a1a1a">1. Кінематика з'єднання: вихідний штифт та D-паз ротора</text>
+
+  <!-- Лівий блок: Вигляд зверху на D-паз -->
+  <rect x="40" y="96" width="195" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Ротор потенціометра (зовнішнє коло) -->
+  <circle cx="137" cy="168" r="46" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- D-подібний паз ротора (блакитний контур) -->
+  <!-- Коло R=30 зі зрізаною верхньою гранню y=150 -->
+  <path d="M 111,150 L 163,150 A 30 30 0 1 1 111,150 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Штифт шестерні всередині паза (червоний, повернутий на кут люфту) -->
+  <!-- R=26 зі зрізаною гранню y=156 -->
+  <path d="M 116,156 L 158,156 A 26 26 0 1 1 116,156 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Позначення зазору / люфту між площинами -->
+  <line x1="137" y1="150" x2="137" y2="156" stroke="#c0392b" stroke-width="1.2" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+
+  <text x="137" y="114" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Кутовий люфт Δθ (1°–3°)</text>
+  <text x="137" y="236" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">D-паз ротора сенсора</text>
+
+  <!-- Правий блок: Радіальний перекіс (Осьовий розріз) -->
+  <rect x="245" y="96" width="215" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Вихідна металева шестерня -->
+  <rect x="265" y="110" width="80" height="18" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="295" y="100" width="20" height="10" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="355" y="124" font-size="12" font-weight="700" fill="#1a1a1a">Шестерня</text>
+
+  <!-- Штифт шестерні -->
+  <rect x="296" y="128" width="18" height="24" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+
+  <!-- Ротор потенціометра зі зміщеною віссю -->
+  <rect x="282" y="152" width="76" height="22" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="306" y="152" width="20" height="16" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="366" y="168" font-size="12" font-weight="700" fill="#2457d6">Ротор</text>
+
+  <!-- Осі обертання: шестерні (x=305) та ротора (x=316) -->
+  <line x1="305" y1="98" x2="305" y2="152" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,2"/>
+  <line x1="316" y1="140" x2="316" y2="188" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,2"/>
+
+  <!-- Вимір радіального зміщення Δr -->
+  <line x1="305" y1="182" x2="316" y2="182" stroke="#1a1a1a" stroke-width="1" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="310" y="196" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Δr (перекіс)</text>
+
+  <!-- Підкладка сенсора внизу розрізу -->
+  <rect x="265" y="206" width="110" height="12" rx="2" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="320" y="232" text-anchor="middle" font-size="12" fill="#6b7280">Підкладка сенсора</text>
+
+  <!-- Нижній блок лівої панелі: резюме дефектів -->
+  <rect x="40" y="256" width="420" height="82" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="274" font-size="12" font-weight="700" fill="#1a1a1a">Ключові дефекти кінематичного спряження:</text>
+  <text x="52" y="292" font-size="12" fill="#c0392b">• Кутовий люфт (Backlash): зазор 1°–3° утворює механічну мертву зону.</text>
+  <text x="52" y="308" font-size="12" fill="#2457d6">• Радіальний перекіс (Δr): неспіввісність валів деформує контактний вузол.</text>
+  <text x="52" y="324" font-size="12" fill="#6b7280">• Механічний упор: фіксує сектор 180° для захисту щітки від поломки.</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ВПЛИВ НА СЕРВОПЕТЛЮ ==================== -->
+  <rect x="485" y="65" width="450" height="285" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="505" y="86" font-size="13" font-weight="700" fill="#1a1a1a">2. Вплив дефектів спряження на роботу сервопетлі</text>
+
+  <!-- Картка 1: Кутовий люфт та автоколивання -->
+  <rect x="500" y="98" width="420" height="74" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="515" y="118" font-size="12" font-weight="700" fill="#c0392b">Кутовий люфт → Мертва зона (Deadband) та автоколивання</text>
+  <text x="515" y="136" font-size="12" fill="#1a1a1a">• Мотор обертає шестерню, але кут ротора не змінюється в межах Δθ.</text>
+  <text x="515" y="150" font-size="12" fill="#1a1a1a">• Контролер додає ШІМ → вихідний вал перелітає цільову точку.</text>
+  <text x="515" y="164" font-size="12" fill="#6b7280">• Наслідок: апаратне тремтіння (hunting) навколо точки рівноваги.</text>
+
+  <!-- Картка 2: Радіальний перекіс та нелінійність -->
+  <rect x="500" y="180" width="420" height="74" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="515" y="200" font-size="12" font-weight="700" fill="#2457d6">Радіальний перекіс → Нерівномірний знос та нелінійність</text>
+  <text x="515" y="218" font-size="12" fill="#1a1a1a">• Ексцентриситет вала зміщує траєкторію повзунка з осі доріжки.</text>
+  <text x="515" y="232" font-size="12" fill="#1a1a1a">• Притиск пелюсток коливається від кута: виникає хвильова похибка U(θ).</text>
+  <text x="515" y="246" font-size="12" fill="#6b7280">• Локальне витирання пластику в найчастіше використовуваній зоні.</text>
+
+  <!-- Картка 3: Механічний упор -->
+  <rect x="500" y="262" width="420" height="76" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="515" y="282" font-size="12" font-weight="700" fill="#1a1a1a">Механічний упор 180° (Захист контактної групи)</text>
+  <text x="515" y="300" font-size="12" fill="#27ae60">• Виступ шестерні впирається в пластиковий прилив корпусу сервоприводу.</text>
+  <text x="515" y="314" font-size="12" fill="#1a1a1a">• Запобігає зворотному сходженню повзунка з доріжки в ізолюючий зазор.</text>
+  <text x="515" y="328" font-size="12" fill="#6b7280">• Удар на повному ходу загрожує зрізанням зубів редуктора або штифта.</text>
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: ІНЖЕНЕРНІ ВИСНОВКИ ==================== -->
+  <rect x="25" y="362" width="910" height="78" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="382" font-size="12" font-weight="700" fill="#1a1a1a">Інженерний регламент надійності редукторно-сенсорного вузла MG90S:</text>
+  <text x="45" y="401" font-size="12" fill="#1a1a1a">1. Програмна мертва зона: параметр Deadband у сервопетлі повинен строго перевищувати механічний люфт Δθ спряження.</text>
+  <text x="45" y="419" font-size="12" fill="#1a1a1a">2. Люфт корпусу: розбиття пластикових опор збільшує ексцентриситет, подвоюючи похибку позиціонування під навантаженням.</text>
+  <text x="45" y="435" font-size="12" fill="#6b7280">3. Діагностика: джитер вала за збереження ідеально чистого сигналу з потенціометра свідчить про люфт у спряженні D-паза.</text>
+</svg>

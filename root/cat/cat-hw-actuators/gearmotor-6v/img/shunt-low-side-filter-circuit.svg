@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вузол вимірювання струму: low-side шунт та RC-фільтр ШІМ</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Точний шунт у мінусовій шині H-моста та пасивний ФНЧ для згладжування комутаційних викидів перед АЦП</text>
+
+  <!-- ================= ПАНЕЛЬ 1: СИЛОВИЙ ШУНТ ================= -->
+  <rect x="24" y="74" width="288" height="384" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="168" y="96" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">1. Силовий low-side шунт</text>
+  <text x="168" y="112" font-size="12" text-anchor="middle" fill="#6b7280">Мінусова шина H-моста та падіння напруги</text>
+
+  <!-- Блок H-моста (PGND) -->
+  <rect x="90" y="126" width="156" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="168" y="143" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">H-міст: клема PGND</text>
+
+  <!-- Силовий провідник до шунта -->
+  <line x1="168" y1="152" x2="168" y2="168" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="184" y="160" font-size="12" font-weight="bold" fill="#2457d6">I_motor</text>
+
+  <!-- Вузол зняття напруги V_shunt -->
+  <circle cx="168" cy="168" r="3.5" fill="#1a1a1a"/>
+  <text x="154" y="162" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">V_shunt</text>
+
+  <!-- Сигнальний відвід праворуч до фільтра -->
+  <line x1="168" y1="168" x2="312" y2="168" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Резистивний шунт R_shunt -->
+  <line x1="168" y1="168" x2="168" y2="178" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="158" y="178" width="20" height="40" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="190" y="192" font-size="12" font-weight="bold" fill="#1a1a1a">R_shunt</text>
+  <text x="190" y="206" font-size="12" fill="#6b7280">0.1 Ом, 1 Вт</text>
+  <text x="190" y="220" font-size="12" fill="#6b7280">безіндуктивний</text>
+
+  <!-- Формула напруги зліва -->
+  <text x="94" y="196" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">V_shunt = I · R</text>
+  <text x="94" y="212" font-size="12" text-anchor="middle" fill="#6b7280">1.5 А → 150 мВ</text>
+
+  <!-- Провідник до силової землі Star GND -->
+  <line x1="168" y1="218" x2="168" y2="236" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="154" y1="236" x2="182" y2="236" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="159" y1="240" x2="177" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="164" y1="244" x2="172" y2="244" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="168" y="262" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Star GND (мінус АКБ)</text>
+  <text x="168" y="278" font-size="12" text-anchor="middle" fill="#6b7280">Спільна силова точка</text>
+
+  <!-- Осцилограма ДО фільтра -->
+  <rect x="38" y="304" width="260" height="140" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="40" y="306" width="256" height="22" rx="4" fill="#fdecea"/>
+  <text x="168" y="321" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Осцилограма на шунті (до ФНЧ)</text>
+  <rect x="48" y="332" width="240" height="64" rx="4" fill="#1e2430" stroke="#334155" stroke-width="1"/>
+  <!-- Сітка екрана -->
+  <line x1="48" y1="364" x2="288" y2="364" stroke="#334155" stroke-dasharray="2,2"/>
+  <line x1="96" y1="332" x2="96" y2="396" stroke="#334155" stroke-dasharray="2,2"/>
+  <line x1="144" y1="332" x2="144" y2="396" stroke="#334155" stroke-dasharray="2,2"/>
+  <line x1="192" y1="332" x2="192" y2="396" stroke="#334155" stroke-dasharray="2,2"/>
+  <line x1="240" y1="332" x2="240" y2="396" stroke="#334155" stroke-dasharray="2,2"/>
+  <!-- Форма сигналу з піками ШІМ -->
+  <path d="M 52,380 L 72,380 L 73,340 L 76,362 L 79,350 L 82,354 L 114,354 L 115,390 L 118,374 L 121,382 L 124,380 L 144,380 L 145,340 L 148,362 L 151,350 L 154,354 L 186,354 L 187,390 L 190,374 L 193,382 L 196,380 L 216,380 L 217,340 L 220,362 L 223,350 L 226,354 L 258,354 L 259,390 L 262,374 L 265,382 L 268,380 L 284,380" fill="none" stroke="#ff6b6b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+  <text x="168" y="416" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">ШІМ 20 кГц + комутаційні піки</text>
+  <text x="168" y="434" font-size="12" text-anchor="middle" fill="#6b7280">Високочастотний бруд зриває АЦП</text>
+
+  <!-- ================= ПАНЕЛЬ 2: RC-ФІЛЬТР ================= -->
+  <rect x="336" y="74" width="288" height="384" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="96" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">2. Пасивний RC-фільтр (ФНЧ)</text>
+  <text x="480" y="112" font-size="12" text-anchor="middle" fill="#6b7280">Придушення 20 кГц ШІМ та захист входу</text>
+
+  <!-- З'єднувальна лінія між панелями 1 і 2 -->
+  <line x1="312" y1="168" x2="368" y2="168" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Резистор фільтра R_filter -->
+  <rect x="368" y="159" width="50" height="18" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="393" y="142" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">R_filter = 1 кОм</text>
+
+  <!-- Лінія до вузла A конденсатора -->
+  <line x1="418" y1="168" x2="454" y2="168" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="454" cy="168" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Конденсатор C_filter -->
+  <line x1="454" y1="168" x2="454" y2="194" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="442" y1="194" x2="466" y2="194" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="442" y1="200" x2="466" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="454" y1="200" x2="454" y2="234" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="432" y="194" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">C_filter</text>
+  <text x="432" y="208" font-size="12" text-anchor="end" fill="#6b7280">100 нФ</text>
+
+  <!-- Лінія до вузла B захисного діода -->
+  <line x1="454" y1="168" x2="520" y2="168" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="520" cy="168" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Захисний супресор / TVS-діод -->
+  <line x1="520" y1="168" x2="520" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Катод супресора з загнутими краями -->
+  <line x1="512" y1="194" x2="528" y2="194" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="512" y1="190" x2="512" y2="194" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="528" y1="194" x2="528" y2="198" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Трикутник анода -->
+  <polygon points="512,208 528,208 520,194" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="520" y1="208" x2="520" y2="234" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="536" y="196" font-size="12" font-weight="bold" fill="#1a1a1a">TVS-діод</text>
+  <text x="536" y="210" font-size="12" fill="#6b7280">3.3 В захист</text>
+
+  <!-- Загальна шина AGND фільтра -->
+  <line x1="454" y1="234" x2="520" y2="234" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="487" y1="234" x2="487" y2="236" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="477" y1="236" x2="497" y2="236" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="481" y1="240" x2="493" y2="240" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="484" y1="244" x2="490" y2="244" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="487" y="262" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">AGND (аналогова)</text>
+  <text x="487" y="278" font-size="12" text-anchor="middle" fill="#6b7280">Окрема шина до Star GND</text>
+
+  <!-- Картка параметрів та розрахунку ФНЧ -->
+  <rect x="350" y="304" width="260" height="140" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="352" y="306" width="256" height="22" rx="4" fill="#eaf0fd"/>
+  <text x="480" y="321" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Параметри та розрахунок ФНЧ</text>
+  <text x="480" y="346" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">f_c = 1 / (2 · π · R · C) ≈ 1.59 кГц</text>
+  <text x="480" y="366" font-size="12" text-anchor="middle" fill="#6b7280">R = 1 кОм, C = 100 нФ (τ = 100 мкс)</text>
+  <text x="480" y="390" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">f_c (1.6 кГц) ≪ f_ШІМ (20 кГц)</text>
+  <text x="480" y="410" font-size="12" text-anchor="middle" fill="#1a1a1a">Придушення 20 кГц ШІМ: понад 22 дБ</text>
+  <text x="480" y="430" font-size="12" text-anchor="middle" fill="#6b7280">Реакція ~0.5 мс: швидкий захист вала</text>
+
+  <!-- ================= ПАНЕЛЬ 3: АЦП ТА СИГНАЛ ================= -->
+  <rect x="648" y="74" width="288" height="384" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="792" y="96" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">3. Вхід АЦП мікроконтролера</text>
+  <text x="792" y="112" font-size="12" text-anchor="middle" fill="#6b7280">Чистий сигнал струму та захист механіки</text>
+
+  <!-- Сигнальна лінія від фільтра до MCU зі стрілкою -->
+  <line x1="520" y1="168" x2="662" y2="168" stroke="#2457d6" stroke-width="2"/>
+  <line x1="634" y1="168" x2="644" y2="168" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок MCU -->
+  <rect x="662" y="124" width="260" height="80" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="664" y="126" width="256" height="20" rx="4" fill="#f4f6f8"/>
+  <text x="792" y="140" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Мікроконтролер (MCU 3.3 В)</text>
+
+  <!-- Вхідний пін ADC_IN -->
+  <circle cx="662" cy="168" r="3.5" fill="#2457d6"/>
+  <text x="674" y="172" font-size="12" font-weight="bold" fill="#2457d6">ADC_IN</text>
+  <line x1="724" y1="168" x2="750" y2="168" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Пін AGND на MCU -->
+  <circle cx="662" cy="190" r="3" fill="#1a1a1a"/>
+  <text x="674" y="194" font-size="12" fill="#6b7280">AGND</text>
+  <line x1="650" y1="190" x2="662" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Внутрішній блок 12-біт АЦП -->
+  <rect x="758" y="152" width="154" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="835" y="168" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">12-біт SAR АЦП</text>
+  <text x="835" y="184" font-size="12" text-anchor="middle" fill="#1a1a1a">RAW: 0..4095 (3.3 В)</text>
+
+  <!-- Картка формули в коді -->
+  <rect x="662" y="220" width="260" height="66" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="664" y="222" width="256" height="20" rx="4" fill="#e9f7ef"/>
+  <text x="792" y="236" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Розрахунок струму в прошивці</text>
+  <text x="792" y="258" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">I = (ADC_RAW · 3.3) / (4095 · 0.1)</text>
+  <text x="792" y="274" font-size="12" text-anchor="middle" fill="#27ae60">I ≥ 1.2 А (Stall) → аварійний СТОП</text>
+
+  <!-- Осцилограма ПІСЛЯ фільтра -->
+  <rect x="662" y="304" width="260" height="140" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="664" y="306" width="256" height="22" rx="4" fill="#e9f7ef"/>
+  <text x="792" y="321" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Осцилограма на вході АЦП (після ФНЧ)</text>
+  <rect x="672" y="332" width="240" height="64" rx="4" fill="#1e2430" stroke="#334155" stroke-width="1"/>
+  <!-- Сітка екрана -->
+  <line x1="672" y1="364" x2="912" y2="364" stroke="#334155" stroke-dasharray="2,2"/>
+  <line x1="720" y1="332" x2="720" y2="396" stroke="#334155" stroke-dasharray="2,2"/>
+  <line x1="768" y1="332" x2="768" y2="396" stroke="#334155" stroke-dasharray="2,2"/>
+  <line x1="816" y1="332" x2="816" y2="396" stroke="#334155" stroke-dasharray="2,2"/>
+  <line x1="864" y1="332" x2="864" y2="396" stroke="#334155" stroke-dasharray="2,2"/>
+  <!-- Гладка форма сигналу струму -->
+  <path d="M 676,374 C 710,374 730,362 760,358 C 790,354 820,354 850,350 C 870,348 890,348 908,348" fill="none" stroke="#2ecc71" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
+  <text x="792" y="416" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Згладжений середній струм I(t)</text>
+  <text x="792" y="434" font-size="12" text-anchor="middle" fill="#6b7280">Точне вимірювання без хибних тригерів</text>
+</svg>

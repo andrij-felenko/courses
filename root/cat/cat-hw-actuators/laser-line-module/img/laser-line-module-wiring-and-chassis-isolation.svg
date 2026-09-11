@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ізоляція латунного корпусу лазера від металевого шасі</text>
+  <text x="480" y="57" font-size="13" fill="#6b7280" text-anchor="middle">Діелектрична втулка запобігає короткому замиканню між шиною VCC на корпусі та масою GND</text>
+
+  <!-- Left Main Panel: Mechanical Cross-Section -->
+  <rect x="30" y="72" width="540" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="94" font-size="12" font-weight="bold" fill="#6b7280">КОНСТРУКТИВНИЙ РОЗРІЗ ВУЗЛА МОНТАЖУ</text>
+
+  <!-- Heatsink Label and Leader Line -->
+  <text x="280" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Металевий тримач-радіатор (GND)</text>
+  <line x1="280" y1="120" x2="280" y2="130" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Metal Heatsink Clamp with Cooling Fins (Top Half) -->
+  <polygon points="230,180 230,150 235,150 235,132 243,132 243,150 255,150 255,132 263,132 263,150 275,150 275,132 283,132 283,150 295,150 295,132 303,132 303,150 315,150 315,132 323,132 323,150 330,150 330,180" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Metal Heatsink Clamp (Bottom Half) -->
+  <rect x="230" y="280" width="100" height="45" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Metal Chassis Mounting Base Plate -->
+  <rect x="200" y="325" width="160" height="20" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="215" y1="325" x2="215" y2="345" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="345" y1="325" x2="345" y2="345" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Chassis Ground Connection -->
+  <line x1="280" y1="345" x2="280" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="270" y1="365" x2="290" y2="365" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="274" y1="369" x2="286" y2="369" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="277" y1="373" x2="283" y2="373" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="280" y="394" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Маса шасі (GND)</text>
+
+  <!-- Dielectric Bushing (Caprolon) - Top Half with Flange -->
+  <polygon points="210,180 340,180 340,168 350,168 350,198 210,198" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Dielectric Bushing (Caprolon) - Bottom Half with Flange -->
+  <polygon points="210,262 350,262 350,292 340,292 340,280 210,280" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Brass Cylindrical Housing (VCC Potential) -->
+  <rect x="180" y="198" width="210" height="14" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="180" y="248" width="210" height="14" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Inner Cavity -->
+  <rect x="180" y="212" width="210" height="36" fill="white" stroke="none"/>
+
+  <!-- Centerline of Assembly -->
+  <line x1="160" y1="230" x2="435" y2="230" stroke="#6b7280" stroke-width="1" stroke-dasharray="8,4,2,4"/>
+
+  <!-- Internal Driver Circuit & Laser Diode -->
+  <rect x="250" y="220" width="45" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <polygon points="305,224 320,230 305,236" fill="#c0392b"/>
+
+  <!-- Collimating and Line Optics -->
+  <path d="M 355,216 Q 365,230 355,244 Q 345,230 355,216 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Focus Ring -->
+  <rect x="390" y="194" width="48" height="72" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="402" y1="194" x2="402" y2="266" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="412" y1="194" x2="412" y2="266" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="422" y1="194" x2="422" y2="266" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Emitted Laser Beam Cone -->
+  <polygon points="455,227 535,208 535,252 455,233" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="455" y1="230" x2="535" y2="230" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="495" y="195" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Промінь лазера</text>
+  <text x="495" y="274" font-size="12" fill="#6b7280" text-anchor="middle">Лінія 650 нм</text>
+
+  <!-- Power Wiring (Left) -->
+  <!-- VCC Wire (Red) Connected to Brass Housing -->
+  <line x1="60" y1="205" x2="180" y2="205" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="180" cy="205" r="3.5" fill="#c0392b"/>
+  <text x="65" y="192" font-size="12" font-weight="bold" fill="#c0392b">VCC (червоний)</text>
+
+  <!-- GND Wire (Black) Passing into Driver -->
+  <line x1="60" y1="230" x2="250" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="65" y="252" font-size="12" font-weight="bold" fill="#1a1a1a">GND (чорний)</text>
+
+  <!-- Bottom Callout Card A: Brass Housing Status -->
+  <rect x="50" y="360" width="165" height="64" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="58" y="378" font-size="12" font-weight="bold" fill="#c0392b">Латунний корпус</text>
+  <text x="58" y="394" font-size="12" fill="#1a1a1a">• Спаяний із шиною VCC</text>
+  <text x="58" y="410" font-size="12" fill="#c0392b">• Потенціал: +3.3–5 В</text>
+  <line x1="185" y1="358" x2="185" y2="265" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Bottom Callout Card B: Caprolon Bushing Role -->
+  <rect x="345" y="360" width="200" height="64" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="355" y="378" font-size="12" font-weight="bold" fill="#27ae60">Капролонова втулка</text>
+  <text x="355" y="394" font-size="12" fill="#1a1a1a">• Діелектрик (капролон/POM)</text>
+  <text x="355" y="410" font-size="12" fill="#27ae60">• Усуває ризик КЗ на шасі</text>
+  <line x1="355" y1="358" x2="355" y2="294" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Right Side - Card 1: Hazard / Short Circuit Warning -->
+  <rect x="586" y="72" width="344" height="168" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="598" y="84" width="320" height="24" rx="4" fill="#c0392b"/>
+  <text x="758" y="100" font-size="12" font-weight="bold" fill="white" text-anchor="middle">НЕБЕЗПЕКА: ПРЯМИЙ КОНТАКТ (БЕЗ ВТУЛКИ)</text>
+  <text x="604" y="126" font-size="12" font-weight="bold" fill="#c0392b">• Латунний корпус має прямий контакт із VCC</text>
+  <text x="604" y="146" font-size="12" fill="#1a1a1a">• Металевий радіатор шасі з'єднаний із GND</text>
+  <text x="604" y="166" font-size="12" font-weight="bold" fill="#c0392b">• Без ізолятора: коротке замикання шини VCC!</text>
+  <text x="604" y="186" font-size="12" fill="#6b7280">• Струм КЗ обходить драйвер: I_short &gt; 2–5 А</text>
+  <text x="604" y="206" font-size="12" fill="#c0392b">• Вигоряння джерела живлення та доріжок плат</text>
+  <text x="604" y="226" font-size="12" font-weight="bold" fill="#1a1a1a">Прямий затиск у метал суворо заборонений!</text>
+
+  <!-- Right Side - Card 2: Solution / Dielectric Isolation -->
+  <rect x="586" y="256" width="344" height="184" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="598" y="268" width="320" height="24" rx="4" fill="#27ae60"/>
+  <text x="758" y="284" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ЗАХИСТ: МОНТАЖ ЧЕРЕЗ ВТУЛКУ (КАПРОЛОН)</text>
+  <text x="604" y="310" font-size="12" font-weight="bold" fill="#27ae60">• Капролон (поліамід-6) — надійний діелектрик</text>
+  <text x="604" y="330" font-size="12" fill="#1a1a1a">• Опір R_iso &gt; 10¹² Ом повністю розриває коло</text>
+  <text x="604" y="350" font-size="12" font-weight="bold" fill="#27ae60">• Струм іде лише через діод: I_op = 20–40 мА</text>
+  <text x="604" y="370" font-size="12" fill="#1a1a1a">• Буртик втулки запобігає осьовому торканню</text>
+  <text x="604" y="390" font-size="12" fill="#6b7280">• Зберігається тепловідвід на шасі через радіатор</text>
+  <text x="604" y="410" font-size="12" fill="#6b7280">• Альтернатива: втулка з фторопласту або POM</text>
+  <text x="604" y="430" font-size="12" font-weight="bold" fill="#27ae60">Гальванічна розв'язка гарантує безпеку!</text>
+</svg>

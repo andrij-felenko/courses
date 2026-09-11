@@ -1,0 +1,218 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Title & Subtitle -->
+<text x="480" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема комутації лазера з повним комплексом захисту</text>
+<text x="480" y="46" text-anchor="middle" font-size="13" fill="#6b7280">N-MOSFET ключ, TVS-супресор, діод Шотткі, феритова намистина FB1 та RC-снаббер</text>
+
+<!-- ==================== MICROCONTROLLER BOX ==================== -->
+<rect x="30" y="85" width="105" height="195" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="30" y="85" width="105" height="28" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="82" y="104" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Керування</text>
+<text x="82" y="128" text-anchor="middle" font-size="12" fill="#6b7280">STM32 / ESP</text>
+
+<!-- MCU Pins -->
+<text x="122" y="176" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GPIO</text>
+<text x="122" y="190" text-anchor="end" font-size="12" fill="#6b7280">3.3V ШІМ</text>
+<line x1="126" y1="180" x2="135" y2="180" stroke="#2457d6" stroke-width="2"/>
+<circle cx="135" cy="180" r="3.5" fill="#2457d6"/>
+
+<text x="122" y="254" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+<line x1="126" y1="250" x2="135" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="135" cy="250" r="3.5" fill="#1a1a1a"/>
+
+<!-- GND Bus -->
+<line x1="135" y1="250" x2="135" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="135" y1="275" x2="900" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="135" cy="275" r="3" fill="#1a1a1a"/>
+
+<!-- Ground symbol -->
+<line x1="450" y1="275" x2="450" y2="287" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="438" y1="287" x2="462" y2="287" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="442" y1="292" x2="458" y2="292" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="446" y1="297" x2="454" y2="297" stroke="#1a1a1a" stroke-width="1"/>
+<text x="450" y="312" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Спільна шина GND (0 В)</text>
+
+<!-- ==================== GATE NETWORK ==================== -->
+<line x1="135" y1="180" x2="165" y2="180" stroke="#2457d6" stroke-width="2"/>
+
+<!-- R_gate resistor -->
+<rect x="165" y="172" width="45" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="187" y="153" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">R_gate</text>
+<text x="187" y="167" text-anchor="middle" font-size="12" fill="#2457d6">100 Ом</text>
+
+<!-- Wire R_gate to Gate Node -->
+<line x1="210" y1="180" x2="245" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="245" cy="180" r="3.5" fill="#1a1a1a"/>
+
+<!-- R_pd branch -->
+<line x1="245" y1="180" x2="245" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+<rect x="237" y="205" width="16" height="45" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="245" y1="250" x2="245" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="245" cy="275" r="3.5" fill="#1a1a1a"/>
+
+<!-- R_pd labels -->
+<text x="229" y="222" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">R_pd</text>
+<text x="229" y="237" text-anchor="end" font-size="12" fill="#2457d6">10 кОм</text>
+<text x="229" y="252" text-anchor="end" font-size="12" fill="#6b7280">pull-down</text>
+
+<!-- Wire to Gate -->
+<line x1="245" y1="180" x2="295" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+<text x="287" y="174" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">G</text>
+
+<!-- ==================== N-MOSFET Q1 ==================== -->
+<!-- Gate bar -->
+<line x1="295" y1="160" x2="295" y2="200" stroke="#1a1a1a" stroke-width="2.5"/>
+
+<!-- Channel segments -->
+<line x1="303" y1="162" x2="303" y2="170" stroke="#1a1a1a" stroke-width="2.5"/>
+<line x1="303" y1="176" x2="303" y2="184" stroke="#1a1a1a" stroke-width="2.5"/>
+<line x1="303" y1="190" x2="303" y2="198" stroke="#1a1a1a" stroke-width="2.5"/>
+
+<!-- Leads from channel -->
+<line x1="303" y1="166" x2="325" y2="166" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="303" y1="180" x2="325" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="303" y1="194" x2="325" y2="194" stroke="#1a1a1a" stroke-width="2"/>
+
+<!-- Bulk arrow pointing left -->
+<polygon points="310,180 318,176 318,184" fill="#1a1a1a"/>
+
+<!-- Bulk to Source connection -->
+<line x1="325" y1="180" x2="325" y2="194" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="325" cy="194" r="3" fill="#1a1a1a"/>
+
+<!-- Source lead down to GND -->
+<line x1="325" y1="194" x2="325" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="325" cy="275" r="3.5" fill="#1a1a1a"/>
+
+<text x="312" y="125" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Q1 N-MOSFET</text>
+<text x="312" y="140" text-anchor="middle" font-size="12" fill="#6b7280">AO3400A</text>
+
+<!-- Drain wire running to protection and load -->
+<line x1="325" y1="166" x2="345" y2="166" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="345" y1="166" x2="345" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="345" y1="205" x2="520" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+
+<!-- +5V Power Rail at y=85 -->
+<line x1="375" y1="85" x2="855" y2="85" stroke="#c0392b" stroke-width="2"/>
+
+<!-- ==================== PARALLEL PROTECTION NETWORK ==================== -->
+<!-- Branch 1: TVS Diode (5.6V) at x=375 -->
+<line x1="375" y1="85" x2="375" y2="135" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="375" cy="85" r="3.5" fill="#c0392b"/>
+
+<!-- TVS symbol (Cathode at top, Anode at bottom) -->
+<polygon points="375,135 367,149 383,149" fill="#1a1a1a"/>
+<path d="M 365,131 L 369,135 L 381,135 L 385,139" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+<line x1="375" y1="149" x2="375" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="375" cy="205" r="3.5" fill="#1a1a1a"/>
+
+<!-- TVS labels to the right of TVS -->
+<text x="388" y="139" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">TVS 5.6V</text>
+<text x="388" y="153" text-anchor="start" font-size="12" fill="#6b7280">супресор</text>
+
+<!-- Branch 2: Flyback Schottky Diode at x=445 -->
+<line x1="445" y1="85" x2="445" y2="135" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="445" cy="85" r="3.5" fill="#c0392b"/>
+
+<!-- Schottky symbol (Cathode at top, Anode at bottom) -->
+<polygon points="445,135 437,149 453,149" fill="#1a1a1a"/>
+<path d="M 433,139 L 437,135 L 453,135 L 457,131" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+<line x1="445" y1="149" x2="445" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="445" cy="205" r="3.5" fill="#1a1a1a"/>
+
+<!-- Schottky labels to the right -->
+<text x="458" y="139" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">D_fly</text>
+<text x="458" y="153" text-anchor="start" font-size="12" fill="#2457d6">1N5819</text>
+
+<!-- ==================== LASER MODULE (LOAD) ==================== -->
+<rect x="520" y="105" width="140" height="115" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="520" y="105" width="140" height="24" rx="6" fill="#c0392b"/>
+<text x="590" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">ЛАЗЕРНИЙ МОДУЛЬ</text>
+
+<text x="590" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Діод 5 мВт</text>
+<text x="590" y="168" text-anchor="middle" font-size="12" fill="#1a1a1a">Вбудований драйвер</text>
+<text x="590" y="184" text-anchor="middle" font-size="12" fill="#6b7280">Призма Павелла</text>
+
+<!-- Connection to Laser Module -->
+<line x1="590" y1="85" x2="590" y2="105" stroke="#c0392b" stroke-width="2"/>
+<circle cx="590" cy="85" r="3.5" fill="#c0392b"/>
+<circle cx="590" cy="105" r="3" fill="#c0392b"/>
+<text x="598" y="98" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">(+) +5 В</text>
+
+<!-- (-) terminal on left edge -->
+<circle cx="520" cy="205" r="3.5" fill="#1a1a1a"/>
+<text x="512" y="200" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">(-) Стік</text>
+
+<!-- ==================== POWER FILTERING & RC SNUBBER ==================== -->
+<!-- Branch 4: RC Snubber at x=690 -->
+<line x1="690" y1="85" x2="690" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="690" cy="85" r="3.5" fill="#c0392b"/>
+
+<!-- R_snub (10 Ohm) -->
+<rect x="682" y="120" width="16" height="35" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="690" y1="155" x2="690" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- C_snub (10 nF) -->
+<line x1="678" y1="175" x2="702" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="678" y1="185" x2="702" y2="185" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="690" y1="185" x2="690" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="690" cy="275" r="3.5" fill="#1a1a1a"/>
+
+<!-- RC Snubber labels -->
+<text x="708" y="132" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">R_snub 10R</text>
+<text x="708" y="146" text-anchor="start" font-size="12" fill="#6b7280">RC-снаббер</text>
+<text x="708" y="180" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">C_snub 10nF</text>
+<text x="708" y="194" text-anchor="start" font-size="12" fill="#6b7280">демпфер FB</text>
+
+<!-- Branch 5: Ceramic Decoupling C_hf (100 nF) at x=790 -->
+<line x1="790" y1="85" x2="790" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="790" cy="85" r="3.5" fill="#c0392b"/>
+<line x1="778" y1="155" x2="802" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="778" y1="165" x2="802" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="790" y1="165" x2="790" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="790" cy="275" r="3.5" fill="#1a1a1a"/>
+
+<text x="808" y="156" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">C_hf 100 нФ</text>
+<text x="808" y="170" text-anchor="start" font-size="12" fill="#2457d6">кераміка X7R</text>
+
+<!-- Ferrite Bead FB1 in series on +5V rail -->
+<rect x="848" y="77" width="24" height="16" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="854" y1="77" x2="866" y2="93" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="860" y="55" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">FB1 Ферит</text>
+<text x="860" y="69" text-anchor="middle" font-size="12" fill="#6b7280">600R@100MHz</text>
+
+<!-- Wire from FB1 to connector -->
+<line x1="872" y1="85" x2="900" y2="85" stroke="#c0392b" stroke-width="2"/>
+
+<!-- External Power Connector -->
+<rect x="900" y="65" width="40" height="225" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<circle cx="920" cy="85" r="4" fill="#c0392b"/>
+<circle cx="920" cy="275" r="4" fill="#1a1a1a"/>
+<text x="894" y="80" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">+5V EXT</text>
+<text x="894" y="270" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GND EXT</text>
+<text x="920" y="55" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ВХІД DC</text>
+
+<!-- ==================== BOTTOM CARDS ==================== -->
+<rect x="35" y="340" width="280" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="47" y="358" font-size="13" font-weight="bold" fill="#2457d6">1. Затворний каскад (Gate)</text>
+<text x="47" y="376" font-size="12" fill="#1a1a1a">• R_gate (100 Ом) обмежує струм піна.</text>
+<text x="47" y="394" font-size="12" fill="#1a1a1a">• R_pd (10 кОм) утримує GND у Hi-Z.</text>
+<text x="47" y="412" font-size="12" fill="#1a1a1a">• Logic-Level N-MOSFET (V_th &lt; 1.5 В).</text>
+<text x="47" y="430" font-size="12" fill="#6b7280">  Швидке перемикання без дзвону.</text>
+
+<rect x="340" y="340" width="280" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="352" y="358" font-size="13" font-weight="bold" fill="#c0392b">2. Захист лазера (TVS + Шотткі)</text>
+<text x="352" y="376" font-size="12" fill="#1a1a1a">• TVS (5.6 В) зрізає імпульси ESD.</text>
+<text x="352" y="394" font-size="12" fill="#1a1a1a">• D_fly (Шотткі) гасить самоіндукцію.</text>
+<text x="352" y="412" font-size="12" fill="#1a1a1a">• Захист від зворотної напруги на LD.</text>
+<text x="352" y="430" font-size="12" fill="#6b7280">  Кристал захищено від сплесків.</text>
+
+<rect x="645" y="340" width="280" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="657" y="358" font-size="13" font-weight="bold" fill="#27ae60">3. Фільтр та RC-снаббер</text>
+<text x="657" y="376" font-size="12" fill="#1a1a1a">• FB1 ферит блокує ВЧ завади в шину.</text>
+<text x="657" y="394" font-size="12" fill="#1a1a1a">• RC-снаббер демпфує резонанс контуру.</text>
+<text x="657" y="412" font-size="12" fill="#1a1a1a">• C_hf (100 нФ) гасить дзвін комутації.</text>
+<text x="657" y="430" font-size="12" fill="#6b7280">  Чисте живлення без просідань.</text>
+
+</svg>

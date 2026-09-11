@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-start-black" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L1,4 L7,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конструктивний розріз лазерного модуля в латунній гільзі Ø12 мм</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Латунний корпус-радіатор, лазерний діод TO-56, різьбовий коліматор M9×0.5, пружина та оптика лінії</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Конструктивний розріз -->
+  <rect x="24" y="65" width="620" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="90" font-size="14" font-weight="bold" fill="#1a1a1a">Поздовжній конструктивний переріз модуля</text>
+
+  <!-- Верхні підписи та виноски (шаховий порядок для виключення перетинів) -->
+  <!-- Рівень 1 (верхній: y=108, 124) -->
+  <text x="120" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Драйвер ACC</text>
+  <text x="120" y="124" text-anchor="middle" font-size="12" fill="#6b7280">Стабілізатор струму</text>
+  <line x1="120" y1="130" x2="120" y2="173" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <text x="290" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Пружина люфту</text>
+  <text x="290" y="124" text-anchor="middle" font-size="12" fill="#6b7280">Осьовий натяг різьби</text>
+  <line x1="280" y1="130" x2="265" y2="173" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <text x="480" y="108" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Призма Павелла</text>
+  <text x="480" y="124" text-anchor="middle" font-size="12" fill="#27ae60">Формування лінії</text>
+  <line x1="480" y1="130" x2="480" y2="173" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Рівень 2 (нижній: y=140, 156) -->
+  <text x="205" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Масивний радіатор</text>
+  <text x="205" y="156" text-anchor="middle" font-size="12" fill="#c0392b">Тепловідвід діода</text>
+  <line x1="205" y1="160" x2="205" y2="173" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <text x="385" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Коліматор M9×0.5</text>
+  <text x="385" y="156" text-anchor="middle" font-size="12" fill="#2457d6">Різьбовий фокус</text>
+  <line x1="385" y1="160" x2="385" y2="173" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Розмір Ø12 мм ліворуч -->
+  <line x1="82" y1="180" x2="82" y2="300" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-start-black)" marker-end="url(#arr-black)"/>
+  <text x="76" y="244" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Ø12 мм</text>
+
+  <!-- Корпус гільзи (Латунь H62) -->
+  <!-- Верхня стінка гільзи -->
+  <path d="M 90,175 L 450,175 L 450,185 L 495,185 L 495,212 L 455,212 L 450,192 L 220,192 L 220,212 L 175,212 L 175,192 L 90,192 Z" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Нижня стінка гільзи -->
+  <path d="M 90,305 L 450,305 L 450,295 L 495,295 L 495,268 L 455,268 L 450,288 L 220,288 L 220,268 L 175,268 L 175,288 L 90,288 Z" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Внутрішня різьба M9x0.5 зубці -->
+  <path d="M 270,192 L 273,195 L 276,192 L 279,195 L 282,192 L 285,195 L 288,192 L 291,195 L 294,192 L 297,195 L 300,192 L 303,195 L 306,192 L 309,195 L 312,192 L 315,195 L 318,192 L 321,195 L 324,192 L 327,195 L 330,192 L 333,195 L 336,192 L 339,195 L 342,192 L 345,195 L 348,192 L 351,195 L 354,192 L 357,195 L 360,192 L 363,195 L 366,192 L 369,195 L 372,192 L 375,195 L 378,192 L 381,195 L 384,192 L 387,195 L 390,192 L 393,195 L 396,192 L 399,195 L 402,192 L 405,195 L 408,192 L 411,195 L 414,192 L 417,195 L 420,192" fill="none" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 270,288 L 273,285 L 276,288 L 279,285 L 282,288 L 285,285 L 288,288 L 291,285 L 294,288 L 297,285 L 300,288 L 303,285 L 306,288 L 309,285 L 312,288 L 315,285 L 318,288 L 321,285 L 324,288 L 327,285 L 330,288 L 333,285 L 336,288 L 339,285 L 342,288 L 345,285 L 348,288 L 351,285 L 354,288 L 357,285 L 360,288 L 363,285 L 366,288 L 369,285 L 372,288 L 375,285 L 378,288 L 381,285 L 384,288 L 387,285 L 390,288 L 393,285 L 396,288 L 399,285 L 402,288 L 405,285 L 408,288 L 411,285 L 414,288 L 417,285 L 420,288" fill="none" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Провідники живлення -->
+  <line x1="42" y1="235" x2="95" y2="235" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="42" y1="245" x2="95" y2="245" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Плата драйвера -->
+  <rect x="98" y="232" width="65" height="16" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="112" y="235" width="16" height="10" rx="1" fill="#1a1a1a"/>
+  <rect x="135" y="236" width="10" height="8" rx="1" fill="#6b7280"/>
+
+  <!-- Лазерний діод TO-56 -->
+  <!-- Мідний масивний фланець TO-56 -->
+  <rect x="175" y="212" width="14" height="56" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Ковпачок CAN зі скляним вікном -->
+  <rect x="189" y="222" width="24" height="36" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="213" y1="228" x2="213" y2="252" stroke="#2457d6" stroke-width="2"/>
+  <!-- Напівпровідниковий кристал LD -->
+  <rect x="183" y="238" width="4" height="4" fill="#c0392b"/>
+
+  <!-- Теплові стрілки від фланця діода в гільзу -->
+  <line x1="182" y1="210" x2="182" y2="185" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="182" y1="270" x2="182" y2="295" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Пружина вибірки люфту (переріз витків по периферії) -->
+  <circle cx="232" cy="202" r="4.5" fill="#1a1a1a"/>
+  <circle cx="250" cy="202" r="4.5" fill="#1a1a1a"/>
+  <circle cx="268" cy="202" r="4.5" fill="#1a1a1a"/>
+  <circle cx="286" cy="202" r="4.5" fill="#1a1a1a"/>
+  <circle cx="241" cy="278" r="4.5" fill="#1a1a1a"/>
+  <circle cx="259" cy="278" r="4.5" fill="#1a1a1a"/>
+  <circle cx="277" cy="278" r="4.5" fill="#1a1a1a"/>
+  <line x1="232" y1="202" x2="241" y2="278" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="250" y1="202" x2="259" y2="278" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="268" y1="202" x2="277" y2="278" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Різьбова оправа коліматора M9x0.5 -->
+  <rect x="295" y="196" width="125" height="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="295" y="266" width="125" height="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="330" y="214" width="10" height="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="330" y="251" width="10" height="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Шліци регулювання фокусу на торці коліматора -->
+  <rect x="416" y="200" width="4" height="10" fill="#1a1a1a"/>
+  <rect x="416" y="270" width="4" height="10" fill="#1a1a1a"/>
+
+  <!-- Асферична лінза коліматора -->
+  <path d="M 345,216 Q 358,214 362,240 Q 358,266 345,264 L 340,264 Q 334,240 340,216 Z" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Оптика розгортки: Призма Павелла -->
+  <path d="M 456,240 Q 466,218 474,215 L 484,215 L 484,265 L 474,265 Q 466,262 456,240 Z" fill="#eaf0fd" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Оптичні промені -->
+  <!-- Розбіжний промінь від кристала діода до лінзи -->
+  <polygon points="187,240 342,224 342,256" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <!-- Колімований пучок від лінзи до призми Павелла -->
+  <rect x="362" y="232" width="94" height="16" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Віяло лазерної лінії на виході -->
+  <polygon points="484,240 610,188 610,292" fill="#fdecea" fill-opacity="0.6" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="484" y1="240" x2="610" y2="214" stroke="#c0392b" stroke-width="1" stroke-opacity="0.5"/>
+  <line x1="484" y1="240" x2="610" y2="240" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <line x1="484" y1="240" x2="610" y2="266" stroke="#c0392b" stroke-width="1" stroke-opacity="0.5"/>
+
+  <!-- Нижні підписи та виноски -->
+  <text x="110" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Живлення</text>
+  <text x="110" y="355" text-anchor="middle" font-size="12" fill="#6b7280">DC 3...5 В</text>
+  <line x1="110" y1="324" x2="110" y2="255" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <text x="210" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Діод TO-56</text>
+  <text x="210" y="355" text-anchor="middle" font-size="12" fill="#c0392b">Посадка Ø5.6</text>
+  <line x1="210" y1="324" x2="200" y2="265" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <text x="355" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Асферична лінза</text>
+  <text x="355" y="355" text-anchor="middle" font-size="12" fill="#2457d6">Скло, покриття AR</text>
+  <line x1="355" y1="324" x2="355" y2="288" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <text x="545" y="338" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Віяло лінії</text>
+  <text x="545" y="355" text-anchor="middle" font-size="12" fill="#27ae60">Кут 60°...110°</text>
+  <line x1="545" y1="324" x2="545" y2="280" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Нижня інформаційна плашка лівої панелі -->
+  <rect x="40" y="398" width="588" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="334" y="416" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Латунна гільза поєднує корпус, тепловідвід діода та прецизійну оптичну вісь</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Технічний аналіз конструкції -->
+  <rect x="660" y="65" width="276" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- КАРТКА 1: Конструктивні вузли -->
+  <rect x="672" y="80" width="252" height="195" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="684" y="100" font-size="13" font-weight="bold" fill="#1a1a1a">Вузли та їх призначення</text>
+
+  <circle cx="692" cy="122" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="692" y="126" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1</text>
+  <text x="706" y="121" font-size="12" font-weight="bold" fill="#1a1a1a">Гільза-радіатор Ø12 мм</text>
+  <text x="706" y="136" font-size="12" fill="#6b7280">Латунь H62, відвід тепла діода</text>
+
+  <circle cx="692" cy="158" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="692" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2</text>
+  <text x="706" y="157" font-size="12" font-weight="bold" fill="#1a1a1a">Лазерний діод TO-56</text>
+  <text x="706" y="172" font-size="12" fill="#6b7280">Запресовка з термопастою</text>
+
+  <circle cx="692" cy="194" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="692" y="198" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">3</text>
+  <text x="706" y="193" font-size="12" font-weight="bold" fill="#1a1a1a">Коліматор M9×0.5</text>
+  <text x="706" y="208" font-size="12" fill="#6b7280">Крок 0.5 мм/оберт для фокусу</text>
+
+  <circle cx="692" cy="230" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="692" y="234" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">4</text>
+  <text x="706" y="229" font-size="12" font-weight="bold" fill="#1a1a1a">Пружина + призма лінії</text>
+  <text x="706" y="244" font-size="12" fill="#6b7280">Вибірка люфту + flat-top лінія</text>
+
+  <!-- КАРТКА 2: Порівняння оптики -->
+  <rect x="672" y="287" width="252" height="140" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="684" y="307" font-size="13" font-weight="bold" fill="#1a1a1a">Порівняння оптики лінії</text>
+
+  <rect x="684" y="318" width="228" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="694" y="334" font-size="12" font-weight="bold" fill="#27ae60">Призма Павелла (Flat-Top)</text>
+  <text x="694" y="350" font-size="12" fill="#1a1a1a">Рівномірна яскравість по лінії</text>
+
+  <rect x="684" y="368" width="228" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="694" y="384" font-size="12" font-weight="bold" fill="#c0392b">Циліндричний стрижень</text>
+  <text x="694" y="400" font-size="12" fill="#6b7280">Гаусів спад: пересвіт у центрі</text>
+</svg>

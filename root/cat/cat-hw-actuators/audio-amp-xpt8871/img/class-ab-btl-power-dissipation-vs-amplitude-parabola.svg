@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Енергетичний баланс BTL-підсилювача класу AB (XPT8871)</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Максимум тепловтрат P_D настає при m = 63.7 % (ККД η = 50.0 %), а не на граничній гучності</text>
+
+  <!-- Зона кліпінгу (тло) -->
+  <rect x="435" y="80" width="85" height="285" fill="#fdecea"/>
+
+  <!-- Межа кліпінгу m = 1.0 -->
+  <line x1="435" y1="80" x2="435" y2="365" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Вертикальна лінія піку тепловтрат m = 2/pi ≈ 0.637 (x = 308) -->
+  <line x1="308" y1="284" x2="308" y2="365" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Вісь X та Y -->
+  <line x1="85" y1="365" x2="520" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="85" y1="80" x2="85" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Стрілки осей -->
+  <polygon points="520,361 528,365 520,369" fill="#1a1a1a"/>
+  <polygon points="81,85 85,77 89,85" fill="#1a1a1a"/>
+
+  <!-- Засічки на осі Y (довжина 4px ліворуч) -->
+  <line x1="81" y1="365" x2="85" y2="365" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="81" y1="325" x2="85" y2="325" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="81" y1="285" x2="85" y2="285" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="81" y1="245" x2="85" y2="245" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="81" y1="205" x2="85" y2="205" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="81" y1="165" x2="85" y2="165" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="81" y1="125" x2="85" y2="125" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="81" y1="85" x2="85" y2="85" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Підписи значень осі Y -->
+  <text x="75" y="369" text-anchor="end" font-size="12" fill="#6b7280">0.0</text>
+  <text x="75" y="329" text-anchor="end" font-size="12" fill="#6b7280">0.2</text>
+  <text x="75" y="289" text-anchor="end" font-size="12" fill="#6b7280">0.4</text>
+  <text x="75" y="249" text-anchor="end" font-size="12" fill="#6b7280">0.6</text>
+  <text x="75" y="209" text-anchor="end" font-size="12" fill="#6b7280">0.8</text>
+  <text x="75" y="169" text-anchor="end" font-size="12" fill="#6b7280">1.0</text>
+  <text x="75" y="129" text-anchor="end" font-size="12" fill="#6b7280">1.2</text>
+  <text x="75" y="89" text-anchor="end" font-size="12" fill="#6b7280">1.4</text>
+
+  <!-- Назва осі Y -->
+  <text x="30" y="65" text-anchor="start" font-size="12" font-weight="700" fill="#1a1a1a">Потужність P / P_load(1.0)</text>
+
+  <!-- Засічки на осі X (довжина 4px вниз) -->
+  <line x1="85" y1="365" x2="85" y2="369" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="155" y1="365" x2="155" y2="369" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="225" y1="365" x2="225" y2="369" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="308" y1="365" x2="308" y2="369" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="365" y1="365" x2="365" y2="369" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="435" y1="365" x2="435" y2="369" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="505" y1="365" x2="505" y2="369" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Підписи значень осі X -->
+  <text x="85" y="383" text-anchor="middle" font-size="12" fill="#6b7280">0.0</text>
+  <text x="155" y="383" text-anchor="middle" font-size="12" fill="#6b7280">0.2</text>
+  <text x="225" y="383" text-anchor="middle" font-size="12" fill="#6b7280">0.4</text>
+  <text x="308" y="383" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">0.637</text>
+  <text x="365" y="383" text-anchor="middle" font-size="12" fill="#6b7280">0.8</text>
+  <text x="435" y="383" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">1.0</text>
+  <text x="505" y="383" text-anchor="middle" font-size="12" fill="#6b7280">1.2</text>
+
+  <!-- Додаткова позначка піку на осі X -->
+  <text x="308" y="398" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">2/π (63.7 %)</text>
+
+  <!-- Підпис осі X -->
+  <text x="260" y="420" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Нормована амплітуда m = V_peak / V_dd</text>
+  <text x="260" y="438" text-anchor="middle" font-size="12" fill="#6b7280">Лінійна синусоїдальна зона: 0 ≤ m ≤ 1.0 (BTL-міст)</text>
+
+  <!-- Підписи зони кліпінгу на графіку -->
+  <text x="477" y="98" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">КЛІПІНГ</text>
+  <text x="477" y="112" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">m &gt; 1.0</text>
+  <text x="477" y="222" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Меандр</text>
+  <text x="477" y="237" text-anchor="middle" font-size="12" fill="#c0392b">THD &gt; 10 %</text>
+
+  <!-- Крива 1: P_supply (синя пряма) -->
+  <line x1="85" y1="365" x2="435" y2="110" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="435" y1="110" x2="475" y2="85" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 2"/>
+
+  <!-- Крива 2: P_load (зелена парабола m^2) -->
+  <path d="M 85,365 Q 260,365 435,165" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 435,165 Q 470,125 505,105" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="4 2"/>
+
+  <!-- Крива 3: P_D (червона перевернута парабола тепловтрат) -->
+  <path d="M 85,365 Q 196,284 308,284 Q 372,284 435,310" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <path d="M 435,310 Q 470,325 505,345" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 2"/>
+
+  <!-- Маркер екстремуму на кривій P_D -->
+  <circle cx="308" cy="284" r="5" fill="#c0392b"/>
+  <circle cx="308" cy="284" r="2.5" fill="white"/>
+
+  <!-- Підписи біля піку (ліворуч від маркера) -->
+  <text x="298" y="253" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">Пік тепловтрат</text>
+  <text x="298" y="267" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">dP_D/dm = 0</text>
+  <text x="298" y="281" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">η = 50.0 %</text>
+
+  <!-- Панель легенди кривих у вільному верхньому лівому кутку -->
+  <rect x="95" y="85" width="200" height="98" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="105" y="102" font-size="12" font-weight="700" fill="#1a1a1a">Криві потужностей:</text>
+  <line x1="105" y1="120" x2="125" y2="120" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="132" y="124" font-size="12" font-weight="700" fill="#2457d6">P_supply = (4/π)·m</text>
+  <line x1="105" y1="142" x2="125" y2="142" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="132" y="146" font-size="12" font-weight="700" fill="#27ae60">P_load = m² (корисна)</text>
+  <line x1="105" y1="164" x2="125" y2="164" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="132" y="168" font-size="12" font-weight="700" fill="#c0392b">P_D = (4/π)·m - m²</text>
+
+  <!-- ПРАВА ЧАСТИНА: КАРТКИ З ПОЯСНЕННЯМИ -->
+
+  <!-- Картка 1: Аналітика теплового піку -->
+  <rect x="550" y="80" width="385" height="165" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="565" y="103" font-size="13" font-weight="700" fill="#c0392b">АНАЛІТИКА ТЕПЛОВОГО ПІКУ (m = 2/π)</text>
+
+  <text x="565" y="125" font-size="12" fill="#1a1a1a">• Баланс: P_D = P_supply - P_load</text>
+  <text x="565" y="143" font-size="12" fill="#1a1a1a">• Екстремум: dP_D/dm = (4/π) - 2m = 0 ⇒ m = 2/π</text>
+  <text x="565" y="161" font-size="12" fill="#1a1a1a">• Амплітуда піку: V_peak = 0.637·V_dd (63.7 %)</text>
+  <text x="565" y="179" font-size="12" fill="#1a1a1a">• Максимум втрат: P_D(max) = 2·V_dd² / (π²·R_L)</text>
+  <text x="565" y="197" font-size="12" fill="#1a1a1a">• Співвідношення: P_load = P_D ⇒ ККД η = 50.0 %</text>
+  <text x="565" y="222" font-size="12" font-weight="700" fill="#2457d6">Найбільший нагрів мікросхеми — на 63.7 % гучності!</text>
+
+  <!-- Картка 2: Перехід у кліпінг -->
+  <rect x="550" y="260" width="385" height="165" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="565" y="283" font-size="13" font-weight="700" fill="#c0392b">ЗОНА КЛІПІНГУ ТА ОБМЕЖЕННЯ (m &gt; 1.0)</text>
+
+  <text x="565" y="305" font-size="12" fill="#1a1a1a">• Вихідний сигнал упирається в рейки живлення V_dd</text>
+  <text x="565" y="323" font-size="12" fill="#1a1a1a">• Верхівки зрізаються: синус перетворюється на меандр</text>
+  <text x="565" y="341" font-size="12" fill="#1a1a1a">• Потужність навантаження P_load зростає вдвічі: до V_dd²/R_L</text>
+  <text x="565" y="359" font-size="12" fill="#1a1a1a">• THD різко стрибає від &lt;0.1 % до 10–30 % (жорсткий звук)</text>
+  <text x="565" y="377" font-size="12" fill="#1a1a1a">• P_D кристала падає (ключі у насиченні, V_drop ≈ 0)</text>
+  <text x="565" y="402" font-size="12" font-weight="700" fill="#c0392b">Загроза: перегрів котушки динаміка та захист TSD</text>
+</svg>

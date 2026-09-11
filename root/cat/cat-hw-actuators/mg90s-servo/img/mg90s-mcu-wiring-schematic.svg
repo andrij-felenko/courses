@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема підключення сервопривода MG90S до виводу таймера мікроконтролера</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Роздільне силове живлення 5 В, буферний конденсатор Low-ESR та єдина точка заземлення (Star Ground)</text>
+
+  <!-- Верхня панель: Електрична принципова схема -->
+  <rect x="24" y="66" width="912" height="228" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="86" font-size="13" font-weight="bold" fill="#1a1a1a">Принципова схема комутації інтерфейсу та розділеного живлення:</text>
+
+  <!-- Блок 1: Мікроконтролер (MCU 3.3 В) -->
+  <rect x="36" y="98" width="144" height="178" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="108" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Мікроконтролер</text>
+  <text x="108" y="134" text-anchor="middle" font-size="12" fill="#6b7280">(MCU 3.3 В)</text>
+
+  <!-- Вивід TIM_CH (PWM) -->
+  <rect x="94" y="148" width="78" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="133" y="164" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">TIM_CHy</text>
+  <text x="108" y="200" text-anchor="middle" font-size="12" fill="#1a1a1a">Логіка 3.3 В</text>
+
+  <!-- Вивід MCU GND -->
+  <rect x="112" y="222" width="60" height="24" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="142" y="238" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <!-- Захисний резистор R_s -->
+  <line x1="172" y1="160" x2="204" y2="160" stroke="#2457d6" stroke-width="2"/>
+  <rect x="204" y="150" width="46" height="20" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="227" y="164" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R_s</text>
+  <text x="227" y="142" text-anchor="middle" font-size="12" fill="#6b7280">270 Ом</text>
+
+  <!-- Лінія ШІМ сигналу -->
+  <line x1="250" y1="160" x2="690" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="360" y="154" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ШІМ 50 Гц (0.5..2.4 мс, TTL 3.3 В)</text>
+
+  <!-- Блок живлення: Батарея -->
+  <rect x="270" y="174" width="70" height="38" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="305" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Батарея</text>
+  <text x="305" y="204" text-anchor="middle" font-size="12" fill="#6b7280">7.4..12 В</text>
+
+  <!-- Зв'язок Батарея -> DC-DC -->
+  <line x1="340" y1="184" x2="366" y2="184" stroke="#c0392b" stroke-width="2"/>
+  <line x1="305" y1="212" x2="305" y2="234" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="305" cy="234" r="3" fill="#1a1a1a"/>
+
+  <!-- Стабілізатор DC-DC 5V -->
+  <rect x="366" y="170" width="88" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="410" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">DC-DC 5V</text>
+  <text x="410" y="202" text-anchor="middle" font-size="12" fill="#1a1a1a">2A Step-Down</text>
+
+  <!-- Вихідна лінія 5V -->
+  <line x1="454" y1="184" x2="690" y2="184" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="470" y="178" font-size="12" font-weight="bold" fill="#c0392b">+5.0 В (силова шина)</text>
+
+  <!-- Вузол фільтрації та буферизації -->
+  <!-- Конденсатор C_buf (електроліт Low-ESR) -->
+  <line x1="520" y1="184" x2="520" y2="194" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="492" y="194" width="56" height="30" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="520" y="207" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">C_buf</text>
+  <text x="520" y="220" text-anchor="middle" font-size="12" fill="#1a1a1a">1000 мкФ</text>
+  <line x1="520" y1="224" x2="520" y2="234" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="520" cy="184" r="3" fill="#c0392b"/>
+  <circle cx="520" cy="234" r="3" fill="#1a1a1a"/>
+
+  <!-- Конденсатор C_hf (кераміка) -->
+  <line x1="620" y1="184" x2="620" y2="194" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="594" y="194" width="52" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="620" y="207" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">C_hf</text>
+  <text x="620" y="220" text-anchor="middle" font-size="12" fill="#1a1a1a">100 нФ</text>
+  <line x1="620" y1="224" x2="620" y2="234" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="620" cy="184" r="3" fill="#c0392b"/>
+  <circle cx="620" cy="234" r="3" fill="#1a1a1a"/>
+
+  <!-- Точка Star Ground -->
+  <line x1="172" y1="234" x2="690" y2="234" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="570" cy="234" r="5" fill="#27ae60"/>
+  <text x="570" y="254" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Star Ground</text>
+  <text x="570" y="270" text-anchor="middle" font-size="12" fill="#6b7280">(єдина точка GND)</text>
+
+  <!-- Блок Сервопривода MG90S -->
+  <rect x="690" y="98" width="232" height="178" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="806" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Сервопривод MG90S V2</text>
+
+  <!-- 3-pin роз'єм JR -->
+  <rect x="696" y="148" width="78" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="735" y="164" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">PWM (жовт)</text>
+
+  <rect x="696" y="172" width="78" height="24" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="735" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">VCC (черв)</text>
+
+  <rect x="696" y="222" width="78" height="24" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="735" y="238" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GND (корич)</text>
+
+  <!-- Внутрішні вузли серво -->
+  <rect x="784" y="136" width="130" height="126" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="849" y="154" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Внутрішні вузли:</text>
+  <text x="849" y="172" text-anchor="middle" font-size="12" fill="#2457d6">• Драйвер H-міст</text>
+  <text x="849" y="192" text-anchor="middle" font-size="12" fill="#c0392b">• Двигун DC (800 мА)</text>
+  <text x="849" y="210" text-anchor="middle" font-size="12" fill="#27ae60">• Редуктор 303:1</text>
+  <text x="849" y="228" text-anchor="middle" font-size="12" fill="#6b7280">• Потенціометр 5 к</text>
+  <text x="849" y="246" text-anchor="middle" font-size="12" fill="#1a1a1a">• Зворотний зв'язок</text>
+
+  <!-- Нижня панель: 3 інженерні картки -->
+  <!-- Картка 1: Brownout Reset -->
+  <rect x="24" y="306" width="296" height="130" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <rect x="24" y="306" width="296" height="24" rx="8" fill="#fdecea"/>
+  <text x="36" y="322" font-size="12" font-weight="bold" fill="#c0392b">Запобігання Brownout Reset (BOR):</text>
+  <text x="36" y="344" font-size="12" fill="#1a1a1a">• Пусковий струм: піки до 800 мА</text>
+  <text x="36" y="362" font-size="12" fill="#1a1a1a">• LDO мікроконтролера дає 150..300 мА</text>
+  <text x="36" y="380" font-size="12" fill="#1a1a1a">• Просідання 3.3 В перезавантажує MCU</text>
+  <text x="36" y="398" font-size="12" fill="#1a1a1a">• C_buf 470..1000 мкФ утримує шину 5V</text>
+  <text x="36" y="418" font-size="12" font-weight="bold" fill="#c0392b">• Low-ESR компенсує пікове dI/dt</text>
+
+  <!-- Картка 2: Star Ground -->
+  <rect x="332" y="306" width="296" height="130" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <rect x="332" y="306" width="296" height="24" rx="8" fill="#e9f7ef"/>
+  <text x="344" y="322" font-size="12" font-weight="bold" fill="#27ae60">Топологія «Зірка» (Star Ground):</text>
+  <text x="344" y="344" font-size="12" fill="#1a1a1a">• Об'єднання земель строго в 1 точці</text>
+  <text x="344" y="362" font-size="12" fill="#1a1a1a">• Струм мотора не тече по доріжці MCU</text>
+  <text x="344" y="380" font-size="12" fill="#1a1a1a">• Усуває плаваючий нуль для сигналу</text>
+  <text x="344" y="398" font-size="12" fill="#1a1a1a">• Кераміка 100 нФ гасить іскри щіток</text>
+  <text x="344" y="418" font-size="12" font-weight="bold" fill="#27ae60">• Виключає паразитні контури GND</text>
+
+  <!-- Картка 3: PWM Signal -->
+  <rect x="640" y="306" width="296" height="130" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <rect x="640" y="306" width="296" height="24" rx="8" fill="#eaf0fd"/>
+  <text x="652" y="322" font-size="12" font-weight="bold" fill="#2457d6">Параметри керування (TIMx_CHy):</text>
+  <text x="652" y="344" font-size="12" fill="#1a1a1a">• Частота: 50 Гц (період Т = 20 мс)</text>
+  <text x="652" y="362" font-size="12" fill="#1a1a1a">• Імпульс: 500..2400 мкс (0..180°)</text>
+  <text x="652" y="380" font-size="12" fill="#1a1a1a">• Рівень 3.3 В повністю відкриває TTL</text>
+  <text x="652" y="398" font-size="12" fill="#1a1a1a">• R_s = 220..330 Ом захищає GPIO</text>
+  <text x="652" y="418" font-size="12" font-weight="bold" fill="#2457d6">• Постійний ШІМ утримує вал серво</text>
+</svg>

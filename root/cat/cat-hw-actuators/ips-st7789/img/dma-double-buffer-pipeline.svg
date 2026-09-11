@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr-cpu" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-dma" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+</defs>
+
+<!-- White background -->
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Title & Subtitle -->
+<text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конвеєр подвійної буферизації оновлення дисплея через DMA</text>
+<text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Паралельна робота: CPU рендерить блок N+1 у RAM, поки DMA апаратно передає блок N по SPI</text>
+
+<!-- ========================================== -->
+<!-- 1. CPU Core Block -->
+<!-- ========================================== -->
+<rect x="24" y="70" width="168" height="234" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<rect x="32" y="78" width="152" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="108" y="99" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Ядро CPU (Рендеринг)</text>
+
+<text x="36" y="130" font-size="12" fill="#1a1a1a">• Растеризація кадру</text>
+<text x="36" y="148" font-size="12" fill="#1a1a1a">• Графічні примітиви</text>
+<text x="36" y="166" font-size="12" fill="#1a1a1a">• Виведення тексту</text>
+<text x="36" y="184" font-size="12" fill="#1a1a1a">• Формат RGB565</text>
+
+<rect x="32" y="202" width="152" height="92" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="108" y="222" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Активна дія:</text>
+<text x="108" y="240" font-size="12" fill="#1a1a1a" text-anchor="middle">Запис у Буфер B</text>
+<text x="108" y="258" font-size="12" fill="#6b7280" text-anchor="middle">(готує блок N+1)</text>
+<text x="108" y="278" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">100% активна робота</text>
+
+<!-- Arrow CPU -> Buffer B -->
+<line x1="192" y1="250" x2="246" y2="250" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-cpu)"/>
+<text x="220" y="242" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Запис</text>
+
+<!-- ========================================== -->
+<!-- 2. SRAM Block (MCU) -->
+<!-- ========================================== -->
+<rect x="248" y="70" width="270" height="234" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="383" y="91" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оперативна пам'ять (SRAM MCU)</text>
+<text x="383" y="106" font-size="12" fill="#6b7280" text-anchor="middle">Подвійний рядковий буфер (Ping-Pong)</text>
+
+<!-- Buffer A -->
+<rect x="258" y="114" width="250" height="84" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="268" y="133" font-size="13" font-weight="bold" fill="#2457d6">Буфер A: Рядковий блок N</text>
+<text x="268" y="152" font-size="12" fill="#1a1a1a">Розмір: 240 × 16 px (7 680 байтів)</text>
+<text x="268" y="171" font-size="12" font-weight="bold" fill="#2457d6">Статус: Передається в SPI (DMA)</text>
+<text x="268" y="188" font-size="12" fill="#6b7280">Шина RAM зайнята зчитуванням DMA</text>
+
+<!-- Buffer B -->
+<rect x="258" y="208" width="250" height="84" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="268" y="227" font-size="13" font-weight="bold" fill="#27ae60">Буфер B: Рядковий блок N+1</text>
+<text x="268" y="246" font-size="12" fill="#1a1a1a">Розмір: 240 × 16 px (7 680 байтів)</text>
+<text x="268" y="265" font-size="12" font-weight="bold" fill="#27ae60">Статус: Заповнюється CPU</text>
+<text x="268" y="282" font-size="12" fill="#6b7280">Шина RAM зайнята записом CPU</text>
+
+<!-- Arrow Buffer A -> DMA -->
+<line x1="518" y1="156" x2="572" y2="156" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-dma)"/>
+<text x="546" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA</text>
+
+<!-- ========================================== -->
+<!-- 3. Hardware DMA & SPI Block -->
+<!-- ========================================== -->
+<rect x="574" y="70" width="194" height="234" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="671" y="91" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний DMA та SPI TX</text>
+<text x="671" y="106" font-size="12" fill="#2457d6" text-anchor="middle">Автоматичне вивантаження</text>
+
+<!-- DMA Controller -->
+<rect x="584" y="114" width="174" height="76" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="671" y="133" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Контролер DMA</text>
+<text x="671" y="151" font-size="12" fill="#1a1a1a" text-anchor="middle">Канал пам'ять → SPI</text>
+<text x="671" y="168" font-size="12" fill="#1a1a1a" text-anchor="middle">Зчитує Буфер A (блок N)</text>
+<text x="671" y="184" font-size="12" fill="#6b7280" text-anchor="middle">Автоінкремент покажчика</text>
+
+<!-- Internal arrow DMA -> SPI TX -->
+<line x1="671" y1="190" x2="671" y2="202" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-dma)"/>
+
+<!-- SPI TX Module -->
+<rect x="584" y="204" width="174" height="88" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="671" y="222" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль SPI TX</text>
+<text x="671" y="239" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратний FIFO-буфер</text>
+<text x="671" y="256" font-size="12" fill="#6b7280" text-anchor="middle">Тактування: 40–60 МГц</text>
+
+<rect x="596" y="264" width="150" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="671" y="279" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0% навантаження CPU</text>
+
+<!-- Arrow SPI TX -> Display -->
+<line x1="768" y1="250" x2="806" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-dma)"/>
+<text x="788" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SPI</text>
+
+<!-- ========================================== -->
+<!-- 4. ST7789 Display Block -->
+<!-- ========================================== -->
+<rect x="808" y="70" width="128" height="234" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="872" y="91" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дисплей ST7789</text>
+<text x="872" y="106" font-size="12" fill="#6b7280" text-anchor="middle">240×240 IPS</text>
+
+<!-- Screen frame -->
+<rect x="818" y="114" width="108" height="118" rx="4" fill="#1e293b" stroke="#0f172a"/>
+<rect x="824" y="120" width="96" height="106" rx="2" fill="#0f172a"/>
+
+<!-- Screen row sections -->
+<rect x="826" y="122" width="92" height="28" rx="1" fill="#334155"/>
+<text x="872" y="139" font-size="12" fill="#94a3b8" text-anchor="middle">Рядки 0..N-1</text>
+
+<rect x="826" y="152" width="92" height="28" rx="1" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="872" y="169" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Блок N (DMA)</text>
+
+<rect x="826" y="182" width="92" height="42" rx="1" fill="#1e293b"/>
+<text x="872" y="199" font-size="12" fill="#64748b" text-anchor="middle">Черга: N+1</text>
+<text x="872" y="215" font-size="12" fill="#64748b" text-anchor="middle">з Буфера B</text>
+
+<!-- SPI RX Box -->
+<rect x="816" y="238" width="112" height="56" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="872" y="255" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Приймач SPI</text>
+<text x="872" y="271" font-size="12" fill="#2457d6" text-anchor="middle">MOSI + SCLK</text>
+<text x="872" y="287" font-size="12" fill="#1a1a1a" text-anchor="middle">Запис у GRAM</text>
+
+<!-- ========================================== -->
+<!-- 5. Bottom Panel: Timeline & Swap Mechanism -->
+<!-- ========================================== -->
+<rect x="24" y="316" width="912" height="122" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="480" y="334" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Хронологія конвеєра: перемикання буферів (Ping-Pong Swap)</text>
+
+<!-- Box 1: Step t -->
+<rect x="36" y="344" width="260" height="84" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="166" y="364" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Крок t: паралельна робота</text>
+<text x="48" y="382" font-size="12" fill="#2457d6">• DMA передає блок N з Буфера A</text>
+<text x="48" y="398" font-size="12" fill="#27ae60">• CPU пише блок N+1 у Буфер B</text>
+<text x="48" y="414" font-size="12" fill="#6b7280">• Обидва потоки паралельні</text>
+
+<!-- Arrow 1: IRQ Trigger -->
+<line x1="298" y1="386" x2="348" y2="386" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+<text x="323" y="376" font-size="12" fill="#6b7280" text-anchor="middle">Подія</text>
+
+<!-- Box 2: Trigger Event -->
+<rect x="350" y="344" width="260" height="84" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="480" y="364" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Подія: Переривання DMA TC</text>
+<text x="362" y="382" font-size="12" fill="#1a1a1a">• Блок N передано на дисплей</text>
+<text x="362" y="398" font-size="12" font-weight="bold" fill="#c0392b">• Swap: обмін вказівників (O(1))</text>
+<text x="362" y="414" font-size="12" fill="#2457d6">• Старт DMA для блоку N+1</text>
+
+<!-- Arrow 2: Swap Complete -->
+<line x1="612" y1="386" x2="662" y2="386" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+<text x="637" y="376" font-size="12" fill="#6b7280" text-anchor="middle">Обмін</text>
+
+<!-- Box 3: Step t+1 -->
+<rect x="664" y="344" width="260" height="84" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="794" y="364" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Крок t+1: ролі помінялися</text>
+<text x="676" y="382" font-size="12" fill="#2457d6">• DMA передає блок N+1 з Буфера B</text>
+<text x="676" y="398" font-size="12" fill="#27ae60">• CPU пише блок N+2 у Буфер A</text>
+<text x="676" y="414" font-size="12" fill="#6b7280">• Конвеєр працює без простоїв</text>
+
+</svg>

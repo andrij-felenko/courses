@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність FPS дисплея ST7789 від тактової частоти SPI</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Асинхронний DMA масштабується лінійно, синхронний вивід обмежується плато ~22 FPS</text>
+
+  <!-- Верхня легенда графіка -->
+  <text x="88" y="92" font-size="12" font-weight="bold" fill="#1a1a1a">FPS (кадрів/с)</text>
+
+  <rect x="195" y="85" width="16" height="4" rx="2" fill="#27ae60"/>
+  <text x="217" y="92" font-size="12" font-weight="bold" fill="#27ae60">DMA-конвеєр</text>
+
+  <rect x="315" y="85" width="16" height="4" rx="2" fill="#c0392b"/>
+  <text x="337" y="92" font-size="12" font-weight="bold" fill="#c0392b">Блокуючий CPU</text>
+
+  <rect x="445" y="85" width="16" height="3" rx="1.5" fill="#6b7280"/>
+  <text x="467" y="92" font-size="12" font-weight="bold" fill="#6b7280">Теоретична межа</text>
+
+  <!-- Горизонтальні лінії сітки -->
+  <line x1="80" y1="110" x2="580" y2="110" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="150" x2="580" y2="150" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="190" x2="580" y2="190" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="230" x2="580" y2="230" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="270" x2="580" y2="270" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="310" x2="580" y2="310" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="80" y1="350" x2="580" y2="350" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Вертикальні лінії сітки -->
+  <line x1="144" y1="110" x2="144" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="208" y1="110" x2="208" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="272" y1="110" x2="272" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="336" y1="110" x2="336" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="400" y1="110" x2="400" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="480" y1="110" x2="480" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="580" y1="110" x2="580" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Осі координат -->
+  <line x1="80" y1="390" x2="80" y2="100" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="80" y1="390" x2="600" y2="390" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Засічки осі Y -->
+  <line x1="75" y1="110" x2="80" y2="110" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="75" y1="150" x2="80" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="75" y1="190" x2="80" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="75" y1="230" x2="80" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="75" y1="270" x2="80" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="75" y1="310" x2="80" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="75" y1="350" x2="80" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="75" y1="390" x2="80" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Підписи значень осі Y -->
+  <text x="70" y="114" font-size="12" fill="#6b7280" text-anchor="end">70</text>
+  <text x="70" y="154" font-size="12" fill="#6b7280" text-anchor="end">60</text>
+  <text x="70" y="194" font-size="12" fill="#6b7280" text-anchor="end">50</text>
+  <text x="70" y="234" font-size="12" fill="#6b7280" text-anchor="end">40</text>
+  <text x="70" y="274" font-size="12" fill="#6b7280" text-anchor="end">30</text>
+  <text x="70" y="314" font-size="12" fill="#6b7280" text-anchor="end">20</text>
+  <text x="70" y="354" font-size="12" fill="#6b7280" text-anchor="end">10</text>
+  <text x="70" y="394" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Засічки осі X -->
+  <line x1="144" y1="390" x2="144" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="208" y1="390" x2="208" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="272" y1="390" x2="272" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="336" y1="390" x2="336" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="400" y1="390" x2="400" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="480" y1="390" x2="480" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="580" y1="390" x2="580" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Підписи значень осі X -->
+  <text x="144" y="410" font-size="12" fill="#6b7280" text-anchor="middle">8</text>
+  <text x="208" y="410" font-size="12" fill="#6b7280" text-anchor="middle">16</text>
+  <text x="272" y="410" font-size="12" fill="#6b7280" text-anchor="middle">24</text>
+  <text x="336" y="410" font-size="12" fill="#6b7280" text-anchor="middle">32</text>
+  <text x="400" y="410" font-size="12" fill="#6b7280" text-anchor="middle">40</text>
+  <text x="480" y="410" font-size="12" fill="#6b7280" text-anchor="middle">50</text>
+  <text x="580" y="410" font-size="12" fill="#6b7280" text-anchor="middle">62.5</text>
+
+  <!-- Підпис осі X -->
+  <text x="340" y="438" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тактова частота шини SPI, f_spi (МГц)</text>
+
+  <!-- Лінія 1: Теоретична фізична межа (f_spi / 921600) -->
+  <path d="M 144 355.3 L 208 320.6 L 272 285.8 L 336 251.1 L 400 216.4 L 480 173.0 L 580 118.7" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="5,4"/>
+
+  <!-- Лінія 2: Асинхронний DMA-конвеєр з подвійною буферизацією -->
+  <path d="M 144 356.0 L 208 322.0 L 272 288.0 L 336 254.0 L 400 221.2 L 480 182.8 L 580 140.0" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="144" cy="356.0" r="3.5" fill="#27ae60"/>
+  <circle cx="208" cy="322.0" r="3.5" fill="#27ae60"/>
+  <circle cx="272" cy="288.0" r="3.5" fill="#27ae60"/>
+  <circle cx="336" cy="254.0" r="3.5" fill="#27ae60"/>
+  <circle cx="400" cy="221.2" r="3.5" fill="#27ae60"/>
+  <circle cx="480" cy="182.8" r="3.5" fill="#27ae60"/>
+  <circle cx="580" cy="140.0" r="3.5" fill="#27ae60"/>
+
+  <!-- Лінія 3: Синхронний блокуючий вивід CPU -->
+  <path d="M 144 362.0 L 208 344.0 L 272 330.8 L 336 321.2 L 400 314.0 L 480 306.8 L 580 302.0" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="144" cy="362.0" r="3.5" fill="#c0392b"/>
+  <circle cx="208" cy="344.0" r="3.5" fill="#c0392b"/>
+  <circle cx="272" cy="330.8" r="3.5" fill="#c0392b"/>
+  <circle cx="336" cy="321.2" r="3.5" fill="#c0392b"/>
+  <circle cx="400" cy="314.0" r="3.5" fill="#c0392b"/>
+  <circle cx="480" cy="306.8" r="3.5" fill="#c0392b"/>
+  <circle cx="580" cy="302.0" r="3.5" fill="#c0392b"/>
+
+  <!-- Права інформаційна панель -->
+  <rect x="625" y="92" width="310" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Плашка параметрів кадру -->
+  <rect x="637" y="104" width="286" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="780" y="121" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">240×240 RGB565 | 921 600 біт/кадр</text>
+
+  <!-- Картка 1: DMA -->
+  <rect x="637" y="142" width="286" height="82" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="649" y="160" font-size="12" font-weight="bold" fill="#27ae60">Асинхронний DMA (подвійний буфер)</text>
+  <text x="649" y="177" font-size="12" font-weight="bold" fill="#1a1a1a">FPS до ~62.5 при 62.5 МГц | CPU вільний ~95%</text>
+  <text x="649" y="194" font-size="12" fill="#1a1a1a">Час кадру: T = max(T_render, T_spi)</text>
+  <text x="649" y="211" font-size="12" fill="#6b7280">Ядро рендерить кадр N+1, поки DMA шле N</text>
+
+  <!-- Картка 2: Блокуючий CPU -->
+  <rect x="637" y="236" width="286" height="82" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="649" y="254" font-size="12" font-weight="bold" fill="#c0392b">Синхронний блокуючий вивід CPU</text>
+  <text x="649" y="267" font-size="12" font-weight="bold" fill="#1a1a1a">Плато ~22 FPS при &gt;40 МГц | CPU 100%</text>
+  <text x="649" y="284" font-size="12" fill="#1a1a1a">Час кадру: T = T_render + T_spi + T_драйвер</text>
+  <text x="649" y="301" font-size="12" fill="#6b7280">Ядро простоює в очікуванні транзакцій SPI</text>
+
+  <!-- Картка 3: Теоретична межа -->
+  <rect x="637" y="330" width="286" height="98" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="649" y="348" font-size="12" font-weight="bold" fill="#6b7280">Фізична межа шини SPI (пунктир)</text>
+  <text x="649" y="365" font-size="12" font-weight="bold" fill="#1a1a1a">FPS_max = f_spi / 921 600 біт</text>
+  <text x="649" y="382" font-size="12" fill="#1a1a1a">Теоретичний максимум: 67.8 FPS при 62.5 МГц</text>
+  <text x="649" y="399" font-size="12" fill="#6b7280">DMA досягає ~92% фізичної смуги шини,</text>
+  <text x="649" y="416" font-size="12" fill="#6b7280">блокуючий вивід втрачає понад 67% швидкості</text>
+</svg>

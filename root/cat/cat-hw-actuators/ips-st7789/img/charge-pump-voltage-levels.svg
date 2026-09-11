@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Ємнісні помпи помноження напруги та рівні керування TFT (ST7789)</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Формування напруг затворів VGH (+13 В), VGL (-10 В) та змінного опорного VCOM із живлення 3.3 В</text>
+
+  <!-- LEFT PANEL: Charge Pump Architecture -->
+  <rect x="24" y="66" width="460" height="434" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="90" font-size="14" font-weight="700" fill="#1a1a1a">Каскадна ємнісна помпа (Switched-Capacitor)</text>
+  <text x="40" y="106" font-size="12" fill="#6b7280">Внутрішні комутатори кристала та зовнішні підкачувальні ємності</text>
+
+  <!-- Chip Boundary and External Area -->
+  <rect x="38" y="120" width="308" height="366" rx="6" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="48" y="138" font-size="12" font-weight="700" fill="#2457d6">Кристал контролера ST7789</text>
+
+  <rect x="356" y="120" width="116" height="366" rx="6" fill="none" stroke="#d0d7de" stroke-width="1"/>
+  <text x="414" y="138" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Зовнішня обв'язка</text>
+  <text x="414" y="152" text-anchor="middle" font-size="12" fill="#6b7280">(SMD-ємності)</text>
+
+  <!-- Section 1: VGH Pump (+13 V) -->
+  <rect x="48" y="166" width="80" height="84" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="88" y="186" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Вхід VCI</text>
+  <text x="88" y="202" text-anchor="middle" font-size="12" fill="#1a1a1a">+3.3 В</text>
+  <text x="88" y="220" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Ф1 / Ф2</text>
+  <text x="88" y="236" text-anchor="middle" font-size="12" fill="#6b7280">150 кГц</text>
+
+  <line x1="128" y1="208" x2="136" y2="208" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="138" y="166" width="198" height="84" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="237" y="186" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Помпа 4× та LDO VGH</text>
+  <text x="237" y="204" text-anchor="middle" font-size="12" fill="#1a1a1a">Помноження 3.3 В → 13.2 В</text>
+  <text x="237" y="222" text-anchor="middle" font-size="12" fill="#6b7280">Стабілізація VGH: +13.0 В</text>
+  <text x="237" y="240" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Вивід VGH → +13 В</text>
+
+  <!-- External VGH Capacitors -->
+  <line x1="336" y1="185" x2="366" y2="185" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="366" y="166" width="96" height="38" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="414" y="182" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">C_fly1 (1 мкФ)</text>
+  <text x="414" y="196" text-anchor="middle" font-size="12" fill="#6b7280">Підкачка x2</text>
+
+  <line x1="336" y1="231" x2="366" y2="231" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="366" y="212" width="96" height="38" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="414" y="228" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">C_VGH (1 мкФ)</text>
+  <text x="414" y="242" text-anchor="middle" font-size="12" fill="#6b7280">Фільтр на GND</text>
+
+  <!-- Section 2: VGL Inverter Pump (-10 V) -->
+  <rect x="48" y="276" width="80" height="84" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="88" y="296" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Фази Ф1/Ф2</text>
+  <text x="88" y="314" text-anchor="middle" font-size="12" fill="#1a1a1a">Інверсія</text>
+  <text x="88" y="332" text-anchor="middle" font-size="12" fill="#6b7280">комутація</text>
+  <text x="88" y="348" text-anchor="middle" font-size="12" fill="#6b7280">обкладок</text>
+
+  <line x1="128" y1="318" x2="136" y2="318" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="138" y="276" width="198" height="84" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="237" y="296" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Інвертор 3× та LDO VGL</text>
+  <text x="237" y="314" text-anchor="middle" font-size="12" fill="#1a1a1a">Зсув знака: 0 → -10.0 В</text>
+  <text x="237" y="332" text-anchor="middle" font-size="12" fill="#6b7280">Стабілізація VGL: -10.0 В</text>
+  <text x="237" y="350" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Вивід VGL → -10 В</text>
+
+  <!-- External VGL Capacitors -->
+  <line x1="336" y1="295" x2="366" y2="295" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="366" y="276" width="96" height="38" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="414" y="292" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">C_fly2 (1 мкФ)</text>
+  <text x="414" y="306" text-anchor="middle" font-size="12" fill="#6b7280">Інверсія знака</text>
+
+  <line x1="336" y1="341" x2="366" y2="341" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="366" y="322" width="96" height="38" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="414" y="338" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">C_VGL (1 мкФ)</text>
+  <text x="414" y="352" text-anchor="middle" font-size="12" fill="#6b7280">Фільтр на GND</text>
+
+  <!-- Section 3: VCOM Generator -->
+  <rect x="48" y="386" width="80" height="84" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="88" y="408" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">VCOMS</text>
+  <text x="88" y="426" text-anchor="middle" font-size="12" fill="#2457d6">Команда 3Bh</text>
+  <text x="88" y="444" text-anchor="middle" font-size="12" fill="#6b7280">Калібрування</text>
+  <text x="88" y="460" text-anchor="middle" font-size="12" fill="#6b7280">мерехтіння</text>
+
+  <line x1="128" y1="428" x2="136" y2="428" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="138" y="386" width="198" height="84" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="237" y="406" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">7-бітний ЦАП та Буфер</text>
+  <text x="237" y="424" text-anchor="middle" font-size="12" fill="#1a1a1a">Регулювання: 0.1 ... 1.7 В</text>
+  <text x="237" y="442" text-anchor="middle" font-size="12" fill="#6b7280">Крок дискретності 15.6 мВ</text>
+  <text x="237" y="460" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Вивід VCOM → Екран</text>
+
+  <!-- External VCOM Destination -->
+  <line x1="336" y1="428" x2="366" y2="428" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="366" y="396" width="96" height="64" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="414" y="416" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Спільний</text>
+  <text x="414" y="432" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">електрод</text>
+  <text x="414" y="450" text-anchor="middle" font-size="12" fill="#6b7280">TFT-панелі</text>
+
+  <!-- RIGHT PANEL: Waveforms & Level Timing -->
+  <rect x="498" y="66" width="438" height="434" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="514" y="90" font-size="14" font-weight="700" fill="#1a1a1a">Часова діаграма рівнів та інверсія VCOM</text>
+  <text x="514" y="106" font-size="12" fill="#6b7280">Імпульси Gate (VGH/VGL) та баланс полярності рідких кристалів</text>
+
+  <!-- Upper Sub-panel: Gate Scan Pulses -->
+  <rect x="510" y="120" width="414" height="166" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="522" y="138" font-size="13" font-weight="700" fill="#1a1a1a">Сканування рядків TFT: імпульси VGH / VGL</text>
+
+  <!-- Row N Waveform -->
+  <text x="522" y="154" font-size="12" font-weight="700" fill="#1a1a1a">Рядок N (Gate N):</text>
+  <text x="606" y="168" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">+13 В</text>
+  <text x="606" y="200" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">-10 В</text>
+
+  <line x1="614" y1="164" x2="904" y2="164" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="614" y1="196" x2="904" y2="196" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <polyline points="614,196 634,196 634,164 694,164 694,196 904,196" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <rect x="642" y="146" width="44" height="15" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="664" y="158" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">ON</text>
+  <text x="790" y="210" text-anchor="middle" font-size="12" fill="#6b7280">Затвори закриті (утримання заряду комірки)</text>
+
+  <!-- Row N+1 Waveform -->
+  <text x="522" y="226" font-size="12" font-weight="700" fill="#1a1a1a">Рядок N+1 (Gate N+1):</text>
+  <text x="606" y="240" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">+13 В</text>
+  <text x="606" y="272" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">-10 В</text>
+
+  <line x1="614" y1="236" x2="904" y2="236" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="614" y1="268" x2="904" y2="268" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <polyline points="614,268 694,268 694,236 754,236 754,268 904,268" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <rect x="702" y="218" width="44" height="15" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="724" y="230" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">ON</text>
+
+  <!-- Lower Sub-panel: VCOM Polarity Inversion -->
+  <rect x="510" y="298" width="414" height="188" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="522" y="316" font-size="13" font-weight="700" fill="#1a1a1a">Інверсія VCOM: захист рідких кристалів від DC</text>
+  <text x="522" y="332" font-size="12" fill="#6b7280">Чергування полярності кадрів усуває постійну складову (0 В DC)</text>
+
+  <!-- Frame 1 and Frame 2 Headers -->
+  <text x="686" y="348" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Кадр 1 (Позитивний)</text>
+  <text x="834" y="348" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Кадр 2 (Негативний)</text>
+
+  <line x1="760" y1="354" x2="760" y2="434" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Voltage labels for VCOM section -->
+  <text x="606" y="364" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">V_pix (+)</text>
+  <text x="606" y="394" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">VCOM (~0.8 В)</text>
+  <text x="606" y="424" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">V_pix (-)</text>
+
+  <!-- Waveform grid and lines -->
+  <line x1="614" y1="360" x2="904" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="614" y1="390" x2="904" y2="390" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="614" y1="420" x2="904" y2="420" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Shaded areas representing voltage across LC cell -->
+  <rect x="626" y="360" width="124" height="30" fill="#eaf0fd"/>
+  <text x="688" y="379" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">+V_LC (пряма фаза)</text>
+
+  <rect x="770" y="390" width="124" height="30" fill="#fdecea"/>
+  <text x="832" y="409" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">-V_LC (інверсна фаза)</text>
+
+  <!-- Pixel signal polyline -->
+  <polyline points="614,360 760,360 760,420 904,420" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Bottom Result Banner -->
+  <rect x="522" y="444" width="390" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="717" y="463" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Баланс полярності: U_dc = 0 В запобігає деградації РК</text>
+</svg>

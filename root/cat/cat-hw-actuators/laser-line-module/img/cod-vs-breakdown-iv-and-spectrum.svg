@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діагностика деградації лазерного діода: ВАХ та оптичний спектр</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Руйнування грані COD зберігає діодну ВАХ, а електричний пробій шунтує p-n перехід</text>
+
+  <!-- LEFT PANEL: I-V Curve -->
+  <rect x="30" y="78" width="435" height="252" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="78" width="435" height="30" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вольт-амперна характеристика (I-V крива)</text>
+
+  <!-- I-V Axes -->
+  <!-- X axis -->
+  <line x1="60" y1="240" x2="445" y2="240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="440" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">V (В)</text>
+
+  <!-- Y axis -->
+  <line x1="150" y1="275" x2="150" y2="120" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="156" y="132" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">I (мА)</text>
+
+  <!-- Origin 0 -->
+  <text x="142" y="254" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Ticks on X axis -->
+  <line x1="270" y1="237" x2="270" y2="243" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="270" y="256" font-size="12" fill="#6b7280" text-anchor="middle">Vf ≈ 2.2В</text>
+
+  <line x1="85" y1="237" x2="85" y2="243" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="85" y="256" font-size="12" fill="#6b7280" text-anchor="middle">-Vзв</text>
+
+  <!-- I-V Curves -->
+  <!-- 1. Healthy Diode (Green) -->
+  <path d="M 85,240 L 255,240 Q 275,240 286,205 L 305,135" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- 2. COD Diode (Blue dashed) -->
+  <path d="M 75,242 L 255,242 Q 276,242 288,205 L 311,135" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- 3. ESD / Breakdown (Red straight line - ohmic shunt) -->
+  <line x1="100" y1="275" x2="250" y2="165" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Callout badges for I-V -->
+  <!-- Healthy diode badge -->
+  <rect x="316" y="126" width="138" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="385" y="141" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Справний діод</text>
+
+  <!-- COD badge -->
+  <rect x="316" y="156" width="138" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="385" y="170" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Після COD (дзеркало)</text>
+  <text x="385" y="184" font-size="12" fill="#2457d6" text-anchor="middle">ВАХ ціла! (Vf норма)</text>
+
+  <!-- ESD badge -->
+  <rect x="170" y="140" width="134" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="237" y="154" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пробій p-n (ESD)</text>
+  <text x="237" y="168" font-size="12" fill="#c0392b" text-anchor="middle">Омічний шунт (КЗ)</text>
+
+  <!-- Note box in Left Panel -->
+  <rect x="42" y="278" width="410" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="295" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Парадокс COD: перехід цілий і продзвонюється,</text>
+  <text x="247" y="311" font-size="12" fill="#6b7280" text-anchor="middle">але лазерний резонатор незворотно зруйновано</text>
+
+
+  <!-- RIGHT PANEL: Optical Spectrum -->
+  <rect x="495" y="78" width="435" height="252" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="495" y="78" width="435" height="30" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оптичний спектр випромінювання P(λ)</text>
+
+  <!-- Spectrum Axes -->
+  <!-- X axis -->
+  <line x1="535" y1="240" x2="910" y2="240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="905" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">λ (нм)</text>
+
+  <!-- Y axis -->
+  <line x1="555" y1="245" x2="555" y2="120" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="561" y="132" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">P (інтенсивність)</text>
+
+  <!-- Ticks on X axis -->
+  <line x1="725" y1="237" x2="725" y2="243" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="725" y="256" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">λ₀ = 650 нм</text>
+
+  <line x1="625" y1="237" x2="625" y2="243" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="625" y="256" font-size="12" fill="#6b7280" text-anchor="middle">620</text>
+
+  <line x1="825" y1="237" x2="825" y2="243" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="825" y="256" font-size="12" fill="#6b7280" text-anchor="middle">680</text>
+
+  <!-- Spectrum Curves -->
+  <!-- 1. Healthy Diode (Narrow high peak) -->
+  <path d="M 570,240 L 720,240 Q 723,240 724,140 L 725,126 L 726,140 Q 727,240 730,240 L 895,240" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- 2. COD Diode (Broad low luminescence curve) -->
+  <path d="M 640,240 C 675,240 695,210 725,210 C 755,210 775,240 810,240" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- 3. ESD / Breakdown (Zero line) -->
+  <line x1="565" y1="242" x2="895" y2="242" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- Callout badges for Spectrum -->
+  <!-- Healthy diode badge -->
+  <rect x="742" y="126" width="175" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="829" y="140" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Лазерний пік (когерентний)</text>
+  <text x="829" y="154" font-size="12" fill="#27ae60" text-anchor="middle">Вузький спектр (Δλ &lt; 0.5 нм)</text>
+
+  <!-- COD badge -->
+  <rect x="560" y="172" width="150" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="635" y="186" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Після COD (спонтанне)</text>
+  <text x="635" y="200" font-size="12" fill="#2457d6" text-anchor="middle">Широкий LED (Δλ ~ 30 нм)</text>
+
+  <!-- ESD badge -->
+  <rect x="742" y="172" width="175" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="829" y="186" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пробій p-n переходу (ESD)</text>
+  <text x="829" y="200" font-size="12" fill="#c0392b" text-anchor="middle">Випромінювання = 0 (темно)</text>
+
+  <!-- Note box in Right Panel -->
+  <rect x="507" y="278" width="410" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="295" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оптичний критерій COD: зрив когерентності,</text>
+  <text x="712" y="311" font-size="12" fill="#6b7280" text-anchor="middle">лазерний діод перетворюється на тьмяний LED</text>
+
+
+  <!-- BOTTOM ROW: COMPARISON CARDS -->
+  <!-- Card 1: Healthy Diode -->
+  <rect x="30" y="345" width="286" height="90" rx="8" ry="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="30" y="345" width="286" height="26" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="173" y="362" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">СПРАВНИЙ ДІОД (НОРМА)</text>
+  <text x="42" y="385" font-size="12" fill="#1a1a1a">• Електрика: діодна ВАХ (Vf ≈ 2.2 В)</text>
+  <text x="42" y="403" font-size="12" fill="#1a1a1a">• Спектр: вузький пік (Δλ &lt; 0.5 нм)</text>
+  <text x="42" y="421" font-size="12" font-weight="bold" fill="#27ae60">• Стан: повноцінна генерація</text>
+
+  <!-- Card 2: COD Failure -->
+  <rect x="337" y="345" width="286" height="90" rx="8" ry="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="337" y="345" width="286" height="26" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="362" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">РУЙНУВАННЯ ГРАНІ (COD)</text>
+  <text x="349" y="385" font-size="12" fill="#1a1a1a">• Електрика: перехід цілий (Vf норма)</text>
+  <text x="349" y="403" font-size="12" fill="#1a1a1a">• Спектр: широкий LED (Δλ ~ 30 нм)</text>
+  <text x="349" y="421" font-size="12" font-weight="bold" fill="#2457d6">• Стан: спалене дзеркало резонатора</text>
+
+  <!-- Card 3: ESD Breakdown -->
+  <rect x="644" y="345" width="286" height="90" rx="8" ry="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="644" y="345" width="286" height="26" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="787" y="362" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ЕЛЕКТРИЧНИЙ ПРОБІЙ (ESD)</text>
+  <text x="656" y="385" font-size="12" fill="#1a1a1a">• Електрика: шунт (опір &lt; 50 Ом)</text>
+  <text x="656" y="403" font-size="12" fill="#1a1a1a">• Спектр: випромінювання = 0 (темно)</text>
+  <text x="656" y="421" font-size="12" font-weight="bold" fill="#c0392b">• Стан: тепловий пробій переходу</text>
+
+</svg>

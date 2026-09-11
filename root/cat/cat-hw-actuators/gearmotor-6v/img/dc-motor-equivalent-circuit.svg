@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еквівалентна схема заміщення кола якоря двигуна</text>
+  <text x="480" y="64" font-size="13" fill="#6b7280" text-anchor="middle">Баланс напруги 6 В: активний опір R, індуктивність L та генерація проти-ЕРС e(ω)</text>
+
+  <!-- ================= ЛІВА ЧАСТИНА: ЕЛЕКТРИЧНИЙ КОНТУР ================= -->
+
+  <!-- Провідники контуру -->
+  <path d="M 90 264 L 90 175 L 185 175" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 245 175 L 285 175" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 365 175 L 430 175 L 430 233" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 430 317 L 430 375 L 90 375 L 90 280" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Стрілка струму на верхньому проводі -->
+  <line x1="125" y1="175" x2="155" y2="175" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="140" y="152" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">I(t)</text>
+
+  <!-- Джерело постійної напруги 6 В (ліва гілка) -->
+  <line x1="72" y1="264" x2="108" y2="264" stroke="#c0392b" stroke-width="3"/>
+  <line x1="80" y1="280" x2="100" y2="280" stroke="#2457d6" stroke-width="5"/>
+  <text x="56" y="268" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">+</text>
+  <text x="56" y="284" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">−</text>
+  <text x="120" y="266" font-size="14" font-weight="bold" fill="#1a1a1a">V_bat = 6,0 В</text>
+  <text x="120" y="284" font-size="12" fill="#6b7280">Джерело живлення</text>
+
+  <!-- Активний опір R_arm -->
+  <rect x="185" y="163" width="60" height="24" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2" rx="3"/>
+  <text x="215" y="126" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_arm</text>
+  <text x="215" y="146" font-size="12" fill="#6b7280" text-anchor="middle">V_R = I · R</text>
+  <text x="174" y="164" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">+</text>
+  <text x="256" y="164" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">−</text>
+
+  <!-- Еквівалентна індуктивність L_arm -->
+  <path d="M 285 175 A 10 12 0 0 1 305 175 A 10 12 0 0 1 325 175 A 10 12 0 0 1 345 175 A 10 12 0 0 1 365 175" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="325" y="126" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">L_arm</text>
+  <text x="325" y="146" font-size="12" fill="#6b7280" text-anchor="middle">V_L = L · (di/dt)</text>
+  <text x="274" y="164" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">+</text>
+  <text x="376" y="164" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">−</text>
+
+  <!-- Ротор двигуна та проти-ЕРС e(ω) -->
+  <circle cx="430" cy="275" r="32" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2.5"/>
+  <rect x="422" y="233" width="16" height="10" fill="#1a1a1a" rx="1"/>
+  <rect x="422" y="307" width="16" height="10" fill="#1a1a1a" rx="1"/>
+  <text x="430" y="271" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+  <text x="430" y="287" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">e(ω)</text>
+  <text x="408" y="238" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">+</text>
+  <text x="408" y="324" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">−</text>
+
+  <!-- Стрілка напрямку проти-ЕРС (протидіє струму) -->
+  <line x1="382" y1="295" x2="382" y2="255" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="370" y="279" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">e(ω)</text>
+
+  <!-- Підпис ротора праворуч -->
+  <text x="476" y="260" font-size="14" font-weight="bold" fill="#1a1a1a">e(ω) = K_e · ω</text>
+  <text x="476" y="278" font-size="12" fill="#6b7280">Проти-ЕРС ротора</text>
+
+  <!-- Зворотний струм на нижньому проводі -->
+  <line x1="280" y1="375" x2="250" y2="375" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="265" y="405" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Зворотний струм кола I(t)</text>
+
+  <!-- ================= ПРАВА ЧАСТИНА: ПАНЕЛІ ================= -->
+
+  <!-- Панель 1: Рівняння балансу -->
+  <rect x="615" y="85" width="320" height="140" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="775" y="108" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рівняння балансу (2-й закон Кірхгофа)</text>
+
+  <rect x="628" y="118" width="294" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="775" y="144" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">V_bat = R · I + L · (dI/dt) + e(ω)</text>
+
+  <text x="775" y="184" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">e(ω) = K_e · ω = K_e · (2π · n / 60)</text>
+  <text x="775" y="206" font-size="12" fill="#6b7280" text-anchor="middle">K_e — коефіцієнт проти-ЕРС [В·с/рад]</text>
+
+  <!-- Панель 2: Електромеханічна роль компонентів -->
+  <rect x="615" y="240" width="320" height="195" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="775" y="263" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електромеханічна роль компонентів</text>
+
+  <!-- Рядок R -->
+  <rect x="628" y="276" width="44" height="34" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="650" y="297" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">R</text>
+  <text x="682" y="291" font-size="12" font-weight="bold" fill="#1a1a1a">Пусковий струм: I_пуск = V / R</text>
+  <text x="682" y="308" font-size="12" fill="#6b7280">Обмежує піковий струм при ω = 0</text>
+
+  <!-- Рядок L -->
+  <rect x="628" y="326" width="44" height="34" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="650" y="347" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">L</text>
+  <text x="682" y="341" font-size="12" font-weight="bold" fill="#1a1a1a">Згладжування ШІМ: τ = L / R</text>
+  <text x="682" y="358" font-size="12" fill="#6b7280">Фільтрує пульсації струму обмотки</text>
+
+  <!-- Рядок e(ω) -->
+  <rect x="628" y="376" width="44" height="34" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="650" y="397" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">e(ω)</text>
+  <text x="682" y="391" font-size="12" font-weight="bold" fill="#1a1a1a">Саморегуляція: e(ω) = K_e · ω</text>
+  <text x="682" y="408" font-size="12" fill="#6b7280">Зменшує струм зі зростанням обертів</text>
+</svg>

@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <pattern id="hatch-gray" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#d0d7de" stroke-width="1.5"/>
+    </pattern>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Відображення буфера растру на прямокутне вікно ST7789</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Початковий зсув src_offset = clip_y · stride + clip_x та порядковий перехід ptr += stride</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: БУФЕР У ПАМ'ЯТІ MCU ==================== -->
+  <rect x="25" y="75" width="390" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Буфер растру в пам'яті MCU</text>
+  <text x="40" y="116" font-size="12" fill="#6b7280">Початок буфера: src_base (масив W × H)</text>
+
+  <!-- Розмірність stride угорі растру -->
+  <line x1="45" y1="138" x2="385" y2="138" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="45" y1="134" x2="45" y2="142" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="385" y1="134" x2="385" y2="142" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="215" y="133" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">крок рядка: stride (повна ширина W)</text>
+
+  <!-- Растр 2D: рамка та зони -->
+  <rect x="45" y="145" width="340" height="125" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Відсічені ділянки растру (штриховка) -->
+  <rect x="45" y="145" width="340" height="30" fill="url(#hatch-gray)" stroke="#d0d7de" stroke-width="0.5"/>
+  <rect x="45" y="175" width="60" height="70" fill="url(#hatch-gray)" stroke="#d0d7de" stroke-width="0.5"/>
+  <rect x="305" y="175" width="80" height="70" fill="url(#hatch-gray)" stroke="#d0d7de" stroke-width="0.5"/>
+  <rect x="45" y="245" width="340" height="25" fill="url(#hatch-gray)" stroke="#d0d7de" stroke-width="0.5"/>
+
+  <!-- Активне видиме вікно растру w' x h' -->
+  <rect x="105" y="175" width="200" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <line x1="105" y1="198" x2="305" y2="198" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="105" y1="222" x2="305" y2="222" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Тексти всередині активного вікна -->
+  <text x="205" y="193" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Видима зона: w′ × h′</text>
+  <text x="205" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">передається в дисплей</text>
+  <text x="205" y="237" font-size="12" fill="#2457d6" text-anchor="middle">по w′ пікселів на рядок</text>
+
+  <!-- Підписи відсічених ділянок 2D растру -->
+  <text x="75" y="214" font-size="12" fill="#6b7280" text-anchor="middle">clip_x</text>
+  <text x="357" y="163" font-size="12" fill="#6b7280" text-anchor="middle">clip_y</text>
+  <text x="345" y="205" font-size="12" fill="#6b7280" text-anchor="middle">хвіст</text>
+  <text x="345" y="222" font-size="12" fill="#6b7280" text-anchor="middle">рядка</text>
+  <text x="345" y="238" font-size="12" fill="#6b7280" text-anchor="middle">(пропуск)</text>
+  <text x="215" y="262" font-size="12" fill="#6b7280" text-anchor="middle">відсічені нижні рядки растру</text>
+
+  <!-- Бейдж та покажчик src_offset -->
+  <rect x="80" y="148" width="250" height="23" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="205" y="164" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">src_offset = clip_y · stride + clip_x</text>
+  <circle cx="105" cy="175" r="4" fill="#2457d6"/>
+
+  <!-- Лінійна пам'ять (1D) -->
+  <text x="40" y="295" font-size="13" font-weight="bold" fill="#1a1a1a">Розподіл у лінійній пам'яті (1D):</text>
+
+  <rect x="45" y="312" width="50" height="30" fill="url(#hatch-gray)" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="331" font-size="12" fill="#6b7280" text-anchor="middle">clip_x</text>
+
+  <rect x="95" y="312" width="160" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="175" y="331" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">w′ видимих пікселів</text>
+
+  <rect x="255" y="312" width="65" height="30" fill="url(#hatch-gray)" stroke="#d0d7de" stroke-width="1"/>
+  <text x="287" y="331" font-size="12" fill="#6b7280" text-anchor="middle">хвіст</text>
+
+  <rect x="320" y="312" width="65" height="30" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="352" y="331" font-size="12" fill="#6b7280" text-anchor="middle">Рядок 1…</text>
+
+  <!-- Покажчики та крок +stride на лінійній пам'яті -->
+  <circle cx="95" cy="342" r="3" fill="#2457d6"/>
+  <circle cx="370" cy="342" r="3" fill="#2457d6"/>
+  <path d="M 95 346 C 95 375, 370 375, 370 348" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <rect x="185" y="365" width="95" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="232" y="379" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ptr += stride</text>
+
+  <text x="215" y="407" font-size="12" fill="#1a1a1a" text-anchor="middle">Крок ptr += stride автоматично пропускає хвіст рядка 0</text>
+  <text x="215" y="426" font-size="12" fill="#6b7280" text-anchor="middle">та лівий відступ clip_x наступного рядка 1</text>
+
+  <!-- ==================== ЦЕНТРАЛЬНА ПАНЕЛЬ: ШИНА SPI ==================== -->
+  <rect x="430" y="75" width="160" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="510" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина SPI / DMA</text>
+  <text x="510" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Порядкова передача</text>
+
+  <!-- Бейдж команди RAMWR -->
+  <rect x="445" y="132" width="130" height="30" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="510" y="146" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RAMWR (0x2C)</text>
+  <text x="510" y="158" font-size="12" fill="#2457d6" text-anchor="middle">запис у вікно</text>
+
+  <!-- Потокові стрілки передачі рядків -->
+  <line x1="442" y1="188" x2="578" y2="188" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="510" y="182" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Рядок 0: w′ пікс.</text>
+
+  <line x1="442" y1="214" x2="578" y2="214" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="510" y="208" font-size="12" fill="#27ae60" text-anchor="middle">Рядок 1: w′ пікс.</text>
+
+  <text x="510" y="232" font-size="12" fill="#6b7280" text-anchor="middle">⋮ (усього h′ рядків)</text>
+
+  <line x1="442" y1="256" x2="578" y2="256" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="510" y="250" font-size="12" fill="#27ae60" text-anchor="middle">Рядок h′−1: w′ пікс.</text>
+
+  <!-- Блок коду / алгоритму -->
+  <rect x="438" y="272" width="144" height="166" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="510" y="290" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цикл передачі:</text>
+
+  <text x="446" y="310" font-size="12" font-family="Consolas, monospace" fill="#6b7280">// початковий зсув</text>
+  <text x="446" y="328" font-size="12" font-family="Consolas, monospace" fill="#1a1a1a">ptr = base + offset;</text>
+  <text x="446" y="350" font-size="12" font-family="Consolas, monospace" fill="#1a1a1a">for(y=0; y &lt; h&apos;; y++)</text>
+  <text x="446" y="370" font-size="12" font-family="Consolas, monospace" fill="#27ae60">{</text>
+  <text x="454" y="388" font-size="12" font-family="Consolas, monospace" fill="#27ae60">SPI_tx(ptr, w&apos;);</text>
+  <text x="454" y="406" font-size="12" font-family="Consolas, monospace" fill="#2457d6">ptr += stride;</text>
+  <text x="446" y="424" font-size="12" font-family="Consolas, monospace" fill="#27ae60">}</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ЕКРАН ST7789 ==================== -->
+  <rect x="605" y="75" width="330" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="625" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Матриця ST7789 (240 × 240)</text>
+  <text x="625" y="116" font-size="12" fill="#6b7280">Апаратне вікно CASET / RASET</text>
+
+  <!-- Рамка екрана -->
+  <rect x="645" y="135" width="250" height="215" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="645" cy="135" r="3" fill="#1a1a1a"/>
+  <text x="653" y="150" font-size="12" fill="#6b7280">(0, 0)</text>
+  <text x="887" y="150" font-size="12" fill="#6b7280" text-anchor="end">240 × 240</text>
+
+  <!-- Розмірність CASET над вікном -->
+  <line x1="680" y1="167" x2="860" y2="167" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="680" y1="163" x2="680" y2="171" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="860" y1="163" x2="860" y2="171" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="770" y="163" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CASET: [XS .. XE] (ширина w′)</text>
+
+  <!-- Активне цільове вікно w' x h' на екрані -->
+  <rect x="680" y="175" width="180" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="770" y="195" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Вікно прийому: w′ × h′</text>
+  <text x="770" y="213" font-size="12" fill="#1a1a1a" text-anchor="middle">RASET: [YS .. YE] (висота h′)</text>
+  <text x="770" y="231" font-size="12" fill="#2457d6" text-anchor="middle">Приймає рівно w′ пікс./рядок</text>
+
+  <!-- Неактивна зона матриці дисплея -->
+  <text x="770" y="275" font-size="12" fill="#6b7280" text-anchor="middle">Фонова область матриці</text>
+  <text x="770" y="293" font-size="12" fill="#6b7280" text-anchor="middle">не зачіпається записом</text>
+  <text x="887" y="340" font-size="12" fill="#6b7280" text-anchor="end">(239, 239)</text>
+
+  <!-- Пояснювальний блок унизу про апаратний автоінкремент -->
+  <rect x="625" y="365" width="290" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="770" y="384" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Апаратний автоінкремент ST7789:</text>
+  <text x="770" y="403" font-size="12" fill="#1a1a1a" text-anchor="middle">Після w′ записаних слів контролер сам</text>
+  <text x="770" y="421" font-size="12" fill="#1a1a1a" text-anchor="middle">повертає X на XS та збільшує Y на 1</text>
+</svg>

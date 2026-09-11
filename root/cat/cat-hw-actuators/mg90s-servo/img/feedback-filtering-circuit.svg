@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Фільтрація зворотного зв'язку потенціометра сервоприводу</text>
+<text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Придушення контактного шуму ковзного контакту без фазового запізнення в петлі керування</text>
+
+<!-- Панель 1: Принципова схема вхідного RC-фільтра -->
+<rect x="24" y="70" width="490" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="269" y="94" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Принципова схема вхідного RC-фільтра</text>
+
+<!-- Шина живлення V_ref -->
+<line x1="45" y1="120" x2="95" y2="120" stroke="#1a1a1a" stroke-width="1.8"/>
+<circle cx="45" cy="120" r="4" fill="#2457d6"/>
+<text x="45" y="110" font-size="12" font-weight="700" fill="#2457d6">V_ref (+3.3 В)</text>
+
+<line x1="95" y1="120" x2="95" y2="145" stroke="#1a1a1a" stroke-width="1.8"/>
+
+<!-- Тіло потенціометра R_pot -->
+<rect x="88" y="145" width="14" height="80" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="82" y="180" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">R_pot</text>
+<text x="82" y="195" font-size="12" fill="#6b7280" text-anchor="end">5 кОм</text>
+
+<!-- Земля потенціометра -->
+<line x1="95" y1="225" x2="95" y2="255" stroke="#1a1a1a" stroke-width="1.8"/>
+<line x1="87" y1="255" x2="103" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="90" y1="259" x2="100" y2="259" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="93" y1="263" x2="97" y2="263" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="95" y="278" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+<!-- Повзунок Wiper -->
+<polygon points="102,185 110,181 110,189" fill="#1a1a1a"/>
+<line x1="102" y1="185" x2="210" y2="185" stroke="#1a1a1a" stroke-width="1.8"/>
+<text x="112" y="172" font-size="12" font-weight="700" fill="#1a1a1a">Повзунок</text>
+
+<!-- Осцилограма шуму ковзного контакту -->
+<rect x="120" y="195" width="65" height="50" rx="4" fill="#ffffff" stroke="#c0392b" stroke-dasharray="3,2" stroke-width="1"/>
+<path d="M 124,225 L 128,220 L 131,232 L 135,215 L 139,230 L 143,218 L 147,228 L 151,212 L 155,226 L 159,220 L 163,230 L 167,215 L 171,228 L 175,222 L 180,225" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<text x="152" y="260" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Шум ковзання</text>
+<text x="152" y="274" font-size="12" fill="#6b7280" text-anchor="middle">(брязкіт)</text>
+
+<!-- Резистор фільтра R_f -->
+<rect x="210" y="179" width="32" height="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+<text x="226" y="171" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">R_f 1 кОм</text>
+
+<!-- Вузол V_filt -->
+<line x1="242" y1="185" x2="280" y2="185" stroke="#1a1a1a" stroke-width="1.8"/>
+<circle cx="280" cy="185" r="3.5" fill="#1a1a1a"/>
+<text x="280" y="171" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">V_filt</text>
+
+<!-- Конденсатор C_f -->
+<line x1="280" y1="185" x2="280" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="270" y1="215" x2="290" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="270" y1="221" x2="290" y2="221" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="280" y1="221" x2="280" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="272" y1="255" x2="288" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="275" y1="259" x2="285" y2="259" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="278" y1="263" x2="282" y2="263" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="280" y="278" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+<text x="264" y="214" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">C_f 100 нФ</text>
+<text x="264" y="228" font-size="12" fill="#6b7280" text-anchor="end">(фільтр НЧ)</text>
+
+<!-- Очищений сигнал -->
+<line x1="280" y1="185" x2="380" y2="185" stroke="#2457d6" stroke-width="1.8"/>
+<rect x="305" y="195" width="60" height="50" rx="4" fill="#ffffff" stroke="#27ae60" stroke-dasharray="3,2" stroke-width="1"/>
+<path d="M 310,228 Q 320,212 335,220 T 360,215" fill="none" stroke="#27ae60" stroke-width="2"/>
+<text x="335" y="260" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Чистий сигнал</text>
+<text x="335" y="274" font-size="12" fill="#6b7280" text-anchor="middle">без брязкоту</text>
+
+<!-- Серводрайвер / АЦП -->
+<rect x="380" y="120" width="120" height="170" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="440" y="142" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Серводрайвер</text>
+<text x="440" y="158" font-size="12" fill="#6b7280" text-anchor="middle">(IC AA51880 / MCU)</text>
+<circle cx="380" cy="185" r="3" fill="#2457d6"/>
+<text x="388" y="181" font-size="12" font-weight="700" fill="#1a1a1a">FB_IN</text>
+<text x="440" y="206" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">R_вх &gt; 1 МОм</text>
+<text x="440" y="222" font-size="12" fill="#6b7280" text-anchor="middle">Високий опір АЦП</text>
+<text x="440" y="238" font-size="12" fill="#6b7280" text-anchor="middle">не навантажує RC</text>
+<rect x="395" y="250" width="90" height="26" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+<text x="440" y="267" font-size="12" fill="#2457d6" text-anchor="middle">ESD захист</text>
+
+<!-- Нижня інформаційна плашка -->
+<rect x="36" y="305" width="466" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="269" y="325" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Розрахунок частоти зрізу та постійної часу</text>
+<text x="269" y="348" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">f_c = 1 / (2π · R_f · C_f) = 1 / (2π · 1 кОм · 100 нФ) ≈ 1,59 кГц</text>
+<text x="269" y="372" font-size="12" fill="#1a1a1a" text-anchor="middle">Постійна часу: τ = R_f · C_f = 0,1 мс (фазова затримка ≪ 20 мс періоду ШІМ)</text>
+<text x="269" y="394" font-size="12" fill="#27ae60" text-anchor="middle">✓ Шум зрізається на 20 дБ/дек, сигнал позиціювання проходить без втрат</text>
+
+<!-- Панель 2: АЧХ та динамічний компроміс -->
+<rect x="530" y="70" width="406" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="733" y="94" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">АЧХ фільтра та динамічний компроміс</text>
+
+<!-- Графік АЧХ -->
+<rect x="542" y="108" width="382" height="176" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="733" y="124" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Логарифмічна амплітудно-частотна характеристика (АЧХ)</text>
+
+<!-- Зони графіка -->
+<rect x="591" y="141" width="130" height="118" fill="#e9f7ef" opacity="0.6"/>
+<text x="650" y="195" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Смуга пропускання</text>
+<text x="650" y="210" font-size="12" fill="#27ae60" text-anchor="middle">(рух вала 0..10 Гц)</text>
+<text x="650" y="225" font-size="12" fill="#27ae60" text-anchor="middle">затримка ≈ 0°</text>
+
+<rect x="775" y="141" width="120" height="118" fill="#fdecea" opacity="0.6"/>
+<text x="850" y="154" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Зона придушення</text>
+<text x="850" y="170" font-size="12" fill="#c0392b" text-anchor="middle">спад -20 дБ/дек</text>
+
+<!-- Сітка та осі -->
+<line x1="590" y1="140" x2="895" y2="140" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+<line x1="590" y1="165" x2="775" y2="165" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1"/>
+<line x1="775" y1="165" x2="775" y2="260" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1"/>
+
+<line x1="590" y1="135" x2="590" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="590" y1="260" x2="905" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- Позначки осі Y -->
+<line x1="586" y1="140" x2="590" y2="140" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="583" y="144" font-size="12" fill="#6b7280" text-anchor="end">0 дБ</text>
+<line x1="586" y1="165" x2="590" y2="165" stroke="#2457d6" stroke-width="1.2"/>
+<text x="583" y="169" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">-3 дБ</text>
+<line x1="586" y1="210" x2="590" y2="210" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="583" y="214" font-size="12" fill="#6b7280" text-anchor="end">-20 дБ</text>
+<line x1="586" y1="255" x2="590" y2="255" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="583" y="259" font-size="12" fill="#6b7280" text-anchor="end">-40 дБ</text>
+
+<!-- Позначки осі X -->
+<line x1="630" y1="260" x2="630" y2="264" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="630" y="276" font-size="12" fill="#6b7280" text-anchor="middle">10 Гц</text>
+<line x1="700" y1="260" x2="700" y2="264" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="700" y="276" font-size="12" fill="#6b7280" text-anchor="middle">100 Гц</text>
+<line x1="775" y1="260" x2="775" y2="264" stroke="#2457d6" stroke-width="1.5"/>
+<text x="775" y="276" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">f_c (1,6 кГц)</text>
+<line x1="875" y1="260" x2="875" y2="264" stroke="#1a1a1a" stroke-width="1.2"/>
+<text x="875" y="276" font-size="12" fill="#6b7280" text-anchor="middle">20 кГц</text>
+
+<!-- Крива АЧХ -->
+<path d="M 590,140 L 720,140 Q 755,140 775,165 L 875,255" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+<circle cx="775" cy="165" r="4" fill="#2457d6"/>
+<text x="765" y="134" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">f_c (-3 дБ)</text>
+
+<!-- Картка A: Завелике RC -->
+<rect x="542" y="298" width="382" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="552" y="315" font-size="12" font-weight="700" fill="#c0392b">R_f · C_f завелике (надмірне згладжування, f_c &lt; 200 Гц):</text>
+<text x="552" y="332" font-size="12" fill="#1a1a1a">• Фазовий зсув у петлі зворотного зв'язку → перерегулювання вала</text>
+<text x="552" y="348" font-size="12" fill="#6b7280">• Втрата динамічної стійкості приводу та паразитна автогенерація</text>
+
+<!-- Картка B: Оптимальне RC -->
+<rect x="542" y="372" width="382" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="552" y="388" font-size="12" font-weight="700" fill="#27ae60">Оптимум (R_f = 1 кОм, C_f = 100 нФ, f_c ≈ 1,6 кГц):</text>
+<text x="552" y="404" font-size="12" fill="#1a1a1a">• 100% придушення контактного брязкоту та відсутність джитеру</text>
+<text x="552" y="420" font-size="12" fill="#6b7280">• Фазовий зсув на робочих частотах (0..10 Гц) мізерний (&lt; 0,4°)</text>
+</svg>

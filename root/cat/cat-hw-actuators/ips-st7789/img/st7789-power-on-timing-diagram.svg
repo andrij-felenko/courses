@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-r-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-l-red" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-r-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-l-blue" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біле полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма ініціалізації та живлення ST7789</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Дотримання пауз скидання та критичного вікна 120 мс після SLPOUT перед активацією DISPON</text>
+
+  <!-- Головна панель діаграми -->
+  <rect x="20" y="74" width="920" height="318" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Розділова лінія між підписами та сигналами -->
+  <line x1="148" y1="84" x2="148" y2="348" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Підписи ліній зліва -->
+  <text x="28" y="104" font-size="13" font-weight="bold" fill="#1a1a1a">VDD</text>
+  <text x="28" y="120" font-size="12" fill="#6b7280">3.3 В живлення</text>
+
+  <text x="28" y="150" font-size="13" font-weight="bold" fill="#1a1a1a">RES#</text>
+  <text x="28" y="166" font-size="12" fill="#6b7280">Reset (актив. 0)</text>
+
+  <text x="28" y="206" font-size="13" font-weight="bold" fill="#1a1a1a">Шина SPI</text>
+  <text x="28" y="222" font-size="12" fill="#6b7280">MOSI / Команди</text>
+
+  <text x="28" y="258" font-size="13" font-weight="bold" fill="#1a1a1a">Помпа VGH/VGL</text>
+  <text x="28" y="274" font-size="12" fill="#6b7280">Напруги матриці</text>
+
+  <text x="28" y="312" font-size="13" font-weight="bold" fill="#1a1a1a">BLK</text>
+  <text x="28" y="328" font-size="12" fill="#6b7280">Підсвітка екрана</text>
+
+  <!-- 1. Сигнал VDD -->
+  <polyline points="155,122 170,122 200,98 925,98" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="210" y="92" font-size="12" fill="#2457d6">VDD = 3.3 В (живлення стабільне)</text>
+
+  <!-- 2. Сигнал RES# -->
+  <line x1="155" y1="166" x2="270" y2="166" stroke="#c0392b" stroke-width="2"/>
+  <line x1="270" y1="166" x2="270" y2="146" stroke="#27ae60" stroke-width="2"/>
+  <line x1="270" y1="146" x2="925" y2="146" stroke="#27ae60" stroke-width="2"/>
+  <text x="280" y="140" font-size="12" fill="#27ae60">RES# = 1 (нормальна робота)</text>
+
+  <!-- Інтервали скидання над шиною SPI -->
+  <line x1="172" y1="190" x2="265" y2="190" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-l-red)" marker-end="url(#arr-r-red)"/>
+  <text x="218" y="184" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">t_RES ≥ 10 мс</text>
+
+  <line x1="275" y1="190" x2="365" y2="190" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-l-blue)" marker-end="url(#arr-r-blue)"/>
+  <text x="320" y="184" text-anchor="middle" font-size="12" fill="#2457d6">t_REST ≥ 5 мс</text>
+
+  <line x1="430" y1="190" x2="520" y2="190" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-l-blue)" marker-end="url(#arr-r-blue)"/>
+  <text x="475" y="184" text-anchor="middle" font-size="12" fill="#2457d6">t_WRESET ≥ 5 мс</text>
+
+  <!-- 3. Шина SPI: лінія Idle та пакети -->
+  <line x1="155" y1="219" x2="370" y2="219" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="425" y1="219" x2="525" y2="219" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="580" y1="219" x2="750" y2="219" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="810" y1="219" x2="830" y2="219" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="885" y1="219" x2="925" y2="219" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Пакет 1: SWRESET -->
+  <rect x="370" y="208" width="55" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="397" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">0x01</text>
+  <text x="397" y="244" text-anchor="middle" font-size="12" fill="#1a1a1a">SWRESET</text>
+
+  <!-- Пакет 2: SLPOUT -->
+  <rect x="525" y="208" width="55" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="552" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">0x11</text>
+  <text x="552" y="244" text-anchor="middle" font-size="12" fill="#1a1a1a">SLPOUT</text>
+
+  <!-- Пакет 3: Конфігурація -->
+  <rect x="750" y="208" width="60" height="22" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="780" y="224" text-anchor="middle" font-size="12" fill="#1a1a1a">Конфіг</text>
+  <text x="780" y="244" text-anchor="middle" font-size="12" fill="#6b7280">GRAM</text>
+
+  <!-- Пакет 4: DISPON -->
+  <rect x="830" y="208" width="55" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="857" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">0x29</text>
+  <text x="857" y="244" text-anchor="middle" font-size="12" fill="#27ae60">DISPON</text>
+
+  <!-- КРИТИЧНЕ ВІКНО 120 мс -->
+  <line x1="580" y1="170" x2="580" y2="280" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="750" y1="170" x2="750" y2="280" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <line x1="585" y1="190" x2="745" y2="190" stroke="#c0392b" stroke-width="2" marker-start="url(#arr-l-red)" marker-end="url(#arr-r-red)"/>
+  <text x="665" y="184" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">КРИТИЧНА ПАУЗА: 120 мс!</text>
+
+  <!-- 4. Сигнал помпи заряду VGH/VGL -->
+  <path d="M 155,278 L 580,278 C 630,278 680,258 740,258 L 925,258" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="665" y="296" text-anchor="middle" font-size="12" fill="#c0392b">Розгін зарядної помпи VGH / VGL</text>
+  <text x="835" y="254" font-size="12" fill="#2457d6">VGH/VGL готові</text>
+
+  <!-- 5. Сигнал BLK -->
+  <line x1="155" y1="338" x2="895" y2="338" stroke="#6b7280" stroke-width="2"/>
+  <line x1="895" y1="338" x2="895" y2="318" stroke="#27ae60" stroke-width="2"/>
+  <line x1="895" y1="318" x2="925" y2="318" stroke="#27ae60" stroke-width="2"/>
+  <text x="450" y="332" font-size="12" fill="#6b7280">BLK = LOW (підсвітка вимкнена під час ініціалізації)</text>
+  <text x="900" y="312" font-size="12" font-weight="bold" fill="#27ae60">BLK = 1</text>
+
+  <!-- Часова вісь знизу панелі -->
+  <line x1="148" y1="358" x2="925" y2="358" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="925" y="352" text-anchor="end" font-size="12" fill="#6b7280">Час (t)</text>
+
+  <!-- Фази на осі часу -->
+  <text x="215" y="375" text-anchor="middle" font-size="12" fill="#1a1a1a">1. Скидання чипа</text>
+  <text x="450" y="375" text-anchor="middle" font-size="12" fill="#1a1a1a">2. Програмний ресет</text>
+  <text x="665" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">3. Стабілізація помпи</text>
+  <text x="830" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">4. DISPON і BLK</text>
+
+  <!-- Нижні картки пояснень -->
+  <!-- Картка 1: Скидання -->
+  <rect x="20" y="404" width="296" height="56" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="32" y="421" font-size="13" font-weight="bold" fill="#2457d6">Апаратне скидання (RES#)</text>
+  <text x="32" y="437" font-size="12" fill="#1a1a1a">Імпульс t_RES ≥ 10 мс скидає кристал.</text>
+  <text x="32" y="453" font-size="12" fill="#6b7280">Пауза t_REST ≥ 5 мс завантажує OTP/eFuse.</text>
+
+  <!-- Картка 2: SLPOUT -->
+  <rect x="332" y="404" width="296" height="56" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="344" y="421" font-size="13" font-weight="bold" fill="#c0392b">Критичне вікно t_SLPOUT = 120 мс</text>
+  <text x="344" y="437" font-size="12" fill="#1a1a1a">Зарядна помпа розганяє напруги VGH/VGL.</text>
+  <text x="344" y="453" font-size="12" fill="#c0392b">DISPON завчасно дає білий екран чи збій!</text>
+
+  <!-- Картка 3: Підсвітка BLK -->
+  <rect x="644" y="404" width="296" height="56" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="656" y="421" font-size="13" font-weight="bold" fill="#27ae60">Увімкнення підсвітки (BLK)</text>
+  <text x="656" y="437" font-size="12" fill="#1a1a1a">BLK = HIGH лише після очищення GRAM.</text>
+  <text x="656" y="453" font-size="12" fill="#6b7280">Запобігає спалаху білого шуму матриці.</text>
+</svg>

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Силове руйнування вихідного ступеня редуктора</text>
+  <text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Згинальні напруження в галтелі та контактне викришування при заклинюванні й зворотному ході</text>
+
+  <!-- ЛІВА ВЕРХНЯ ПАНЕЛЬ: Зуб вихідного ступеня під навантаженням -->
+  <rect x="24" y="80" width="536" height="195" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="106" font-size="13" font-weight="bold" fill="#1a1a1a">Вихідна шестерня: пікові напруження зуба</text>
+
+  <!-- Тіло зуба шестерні -->
+  <path d="M 175,236 L 210,236 C 217,236 221,228 223,220 C 227,195 232,155 237,130 C 238,126 241,125 245,125 L 259,125 C 263,125 266,126 267,130 C 272,155 277,195 281,220 C 283,228 287,236 294,236 L 329,236 L 329,250 L 175,250 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Зона концентрації згину (галтель ніжки зуба) -->
+  <ellipse cx="223" cy="222" rx="10" ry="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <path d="M 221,224 L 226,219 M 219,222 L 223,218" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="190" y1="185" x2="215" y2="218" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <text x="175" y="172" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Напруження згину σ_F</text>
+  <text x="175" y="188" text-anchor="end" font-size="12" fill="#c0392b">Небезпека зрізу зуба</text>
+  <text x="175" y="204" text-anchor="end" font-size="12" fill="#6b7280">Галтель ніжки (root)</text>
+
+  <!-- Зона контакту та тиск Герца -->
+  <ellipse cx="273" cy="150" rx="6" ry="12" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="272" cy="146" r="1.5" fill="#c0392b"/>
+  <circle cx="274" cy="151" r="1.2" fill="#c0392b"/>
+  <circle cx="272" cy="155" r="1.5" fill="#c0392b"/>
+
+  <!-- Сила F_удар -->
+  <line x1="340" y1="125" x2="278" y2="148" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="356" y="125" font-size="12" font-weight="bold" fill="#c0392b">F_удар (ударна сила)</text>
+  <text x="356" y="141" font-size="12" fill="#6b7280">від заклиненого вала</text>
+
+  <!-- Виноска контактного тиску -->
+  <line x1="342" y1="175" x2="283" y2="154" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="356" y="172" font-size="12" font-weight="bold" fill="#1a1a1a">Контактний тиск Герца σ_H</text>
+  <text x="356" y="188" font-size="12" fill="#c0392b">Втомне викришування (pitting)</text>
+  <text x="356" y="204" font-size="12" fill="#6b7280">вилущування часток (spalling)</text>
+
+  <!-- НИЖНЯ ЛІВА ЧАСТИНА: Два механізми перевантаження -->
+  <!-- Блок 1: Ударне заклинювання -->
+  <rect x="24" y="287" width="262" height="153" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="38" y="314" font-size="13" font-weight="bold" fill="#c0392b">1. Ударне заклинювання</text>
+  <text x="38" y="336" font-size="12" font-weight="bold" fill="#1a1a1a">Інерційний удар: J_зв = J_м × i²</text>
+  <text x="38" y="356" font-size="12" fill="#1a1a1a">• Раптова зупинка вихідного вала</text>
+  <text x="38" y="376" font-size="12" fill="#1a1a1a">• Енергія ротора множиться на i²</text>
+  <text x="38" y="396" font-size="12" fill="#1a1a1a">• Удар приймає вихідний ступінь</text>
+  <text x="38" y="418" font-size="12" fill="#c0392b">• Зусилля зрізає наглухо зубці</text>
+
+  <!-- Блок 2: Зворотний хід -->
+  <rect x="298" y="287" width="262" height="153" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="312" y="314" font-size="13" font-weight="bold" fill="#c0392b">2. Зворотний хід (Backdrive)</text>
+  <text x="312" y="336" font-size="12" font-weight="bold" fill="#1a1a1a">Самогальмування і клин тертя</text>
+  <text x="312" y="356" font-size="12" fill="#1a1a1a">• Обертання за вихідний вал</text>
+  <text x="312" y="376" font-size="12" fill="#1a1a1a">• Зворотний ККД прямує до нуля</text>
+  <text x="312" y="396" font-size="12" fill="#1a1a1a">• Зусилля клинить у передачі</text>
+  <text x="312" y="418" font-size="12" fill="#c0392b">• Ламається найповільніша пара</text>
+
+  <!-- ПРАВА ЧАСТИНА: Інформаційні картки -->
+  <!-- Картка 1: Зріз зуба -->
+  <rect x="580" y="80" width="356" height="114" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="596" y="107" font-size="13" font-weight="bold" fill="#c0392b">Зріз зуба: згинальні напруження σ_F</text>
+  <text x="596" y="129" font-size="12" fill="#1a1a1a">• Зуб працює як жорстка консольна балка</text>
+  <text x="596" y="149" font-size="12" fill="#1a1a1a">• Піковий момент згину — в галтелі ніжки</text>
+  <text x="596" y="169" font-size="12" fill="#c0392b">• При σ_F > σ_пл — миттєвий відрив зуба</text>
+
+  <!-- Картка 2: Викришування -->
+  <rect x="580" y="206" width="356" height="114" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="596" y="233" font-size="13" font-weight="bold" fill="#1a1a1a">Викришування: контактний тиск σ_H</text>
+  <text x="596" y="255" font-size="12" fill="#1a1a1a">• Герцівський тиск у вузькій зоні контакту</text>
+  <text x="596" y="275" font-size="12" fill="#1a1a1a">• Підповерхневі зсувні напруження (τ_max)</text>
+  <text x="596" y="295" font-size="12" fill="#6b7280">• Втомні мікротріщини, раковини (pitting)</text>
+
+  <!-- Картка 3: Інженерний захист -->
+  <rect x="580" y="332" width="356" height="108" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="596" y="359" font-size="13" font-weight="bold" fill="#27ae60">Інженерний захист редуктора</text>
+  <text x="596" y="380" font-size="12" fill="#1a1a1a">• Захисна фрикційна муфта (slip clutch)</text>
+  <text x="596" y="400" font-size="12" fill="#1a1a1a">• Струмове обмеження stall-current драйвера</text>
+  <text x="596" y="420" font-size="12" fill="#27ae60">• Сталеві колеса на вихідному ступені</text>
+</svg>

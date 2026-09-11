@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="6" markerHeight="6" refX="1" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M6,0 L0,3 L6,6 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-fwd" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Геометрія випромінювання лазерного діода: астигматизм, Fast та Slow осі</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Дифракція на асиметричній апертурі кристала формує еліптичний пучок та поздовжній зсув фокусів Δz</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ПРОСТОРОВА ГЕОМЕТРІЯ ТА АСТИГМАТИЗМ ==================== -->
+  <rect x="35" y="75" width="545" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="307" y="98" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Просторова геометрія пучка та астигматичне зміщення Δz</text>
+
+  <!-- Оптична вісь (штрихпунктир) -->
+  <line x1="60" y1="200" x2="480" y2="200" stroke="#d0d7de" stroke-width="1" stroke-dasharray="6 3 2 3"/>
+
+  <!-- Кристал лазерного діода (аксонометричний блок) -->
+  <!-- Верхня та бічні грані -->
+  <polygon points="75,175 145,175 145,225 75,225" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="75,175 95,160 165,160 145,175" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="145,175 165,160 165,210 145,225" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="110" y="152" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Кристал LD</text>
+
+  <!-- Активна область (p-n перехід) на вихідній грані -->
+  <rect x="143" y="198" width="4" height="4" fill="#c0392b"/>
+
+  <!-- Конус Fast Axis (вертикальний, широкий) -->
+  <polygon points="145,200 480,125 480,275" fill="#fdecea" opacity="0.4"/>
+  <line x1="145" y1="200" x2="480" y2="125" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="145" y1="200" x2="480" y2="275" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Конус Slow Axis (горизонтальний, вузький) -->
+  <polygon points="120,200 480,165 480,235" fill="#eaf0fd" opacity="0.55"/>
+  <line x1="145" y1="197" x2="480" y2="165" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="145" y1="203" x2="480" y2="235" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Позначення Fast Axis -->
+  <text x="220" y="125" font-size="12" font-weight="700" fill="#c0392b">Fast Axis: θ_⊥ ≈ 35°</text>
+  <text x="220" y="141" font-size="12" fill="#6b7280">(вертикальна дифракція)</text>
+
+  <!-- Позначення Slow Axis -->
+  <text x="220" y="272" font-size="12" font-weight="700" fill="#2457d6">Slow Axis: θ_|| ≈ 10°</text>
+  <text x="220" y="288" font-size="12" fill="#6b7280">(горизонтальна дифракція)</text>
+
+  <!-- Позначення астигматизму Δz (зсув центрів випромінювання) -->
+  <line x1="120" y1="235" x2="120" y2="247" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="145" y1="235" x2="145" y2="247" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="120" y1="242" x2="145" y2="242" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr-fwd)"/>
+  <text x="132" y="260" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Δz</text>
+  <text x="132" y="275" font-size="12" fill="#6b7280" text-anchor="middle">астигматизм</text>
+  <text x="132" y="290" font-size="12" fill="#6b7280" text-anchor="middle">(5–25 мкм)</text>
+
+  <!-- Еліптичний переріз у дальньому полі -->
+  <ellipse cx="480" cy="200" rx="14" ry="75" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <ellipse cx="480" cy="200" rx="7" ry="38" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+
+  <!-- Позначення еліпса -->
+  <text x="502" y="196" font-size="12" font-weight="700" fill="#c0392b">Еліпс 3:1</text>
+  <text x="502" y="210" font-size="12" fill="#6b7280">у дальньому</text>
+  <text x="502" y="224" font-size="12" fill="#6b7280">полі</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: КУТОВИЙ РОЗПОДІЛ ТА КОЛІМАЦІЯ ==================== -->
+  <rect x="595" y="75" width="330" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="760" y="98" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Кутовий розподіл та колімація</text>
+
+  <!-- Осі графіка I(θ) -->
+  <line x1="645" y1="195" x2="905" y2="195" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="645" y1="195" x2="645" y2="120" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="640" y="122" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">I</text>
+  <text x="905" y="207" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">Кут θ</text>
+
+  <!-- Крива Fast Axis (широка, червона пунктирна) -->
+  <path d="M 685,194 C 720,194 745,180 760,150 C 768,135 771,128 775,128 C 779,128 782,135 790,150 C 805,180 830,194 865,194" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 2"/>
+  <text x="815" y="132" font-size="12" font-weight="700" fill="#c0392b">θ_⊥ ≈ 35°</text>
+
+  <!-- Крива Slow Axis (вузька, синя з заливкою) -->
+  <polygon points="745,194 775,128 805,194" fill="#eaf0fd" opacity="0.6"/>
+  <path d="M 735,194 C 752,194 765,178 770,148 C 773,135 774,128 775,128 C 776,128 777,135 780,148 C 785,178 798,194 815,194" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="735" y="132" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">θ_|| ≈ 10°</text>
+
+  <!-- Картка 1: Асиметрія колімації -->
+  <rect x="615" y="235" width="290" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="625" y="253" font-size="12" font-weight="700" fill="#c0392b">Асиметрія пучка коліматора:</text>
+  <text x="625" y="269" font-size="12" fill="#1a1a1a">Колімований пучок лишається еліпсом 3:1</text>
+
+  <!-- Картка 2: Астигматизм -->
+  <rect x="615" y="289" width="290" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="625" y="307" font-size="12" font-weight="700" fill="#2457d6">Залишковий астигматизм Δz:</text>
+  <text x="625" y="323" font-size="12" fill="#1a1a1a">Сферична лінза не фокусує дві осі водночас</text>
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: ПОЯСНЕННЯ ==================== -->
+  <rect x="35" y="368" width="890" height="72" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="388" font-size="12" font-weight="700" fill="#1a1a1a">Фізичні наслідки геометрії лазерного діода для формування лінії:</text>
+  <text x="55" y="407" font-size="12" fill="#6b7280">1. Інверсія дифракції: субмікронна товщина шару (1 мкм) дає швидку вісь θ_⊥ ≈ 35°, а ширша смужка (5 мкм) — повільну вісь θ_|| ≈ 10°.</text>
+  <text x="55" y="425" font-size="12" fill="#6b7280">2. Астигматизм Δz виникає через зміщення уявних центрів випромінювання; для ідеальної лінії потрібна корекція коліматором.</text>
+</svg>

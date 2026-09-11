@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Схема підключення підсвічування BLK через N-канальний MOSFET</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Керування яскравістю ШІМ-сигналом без перевантаження виходу мікроконтролера струмом світлодіодів</text>
+
+  <!-- Блок 1: Мікроконтролер (MCU) -->
+  <rect x="35" y="80" width="165" height="245" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="117" y="105" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="117" y="123" font-size="12" fill="#6b7280" text-anchor="middle">ESP32 / STM32 / RP2040</text>
+
+  <!-- Виводи MCU -->
+  <circle cx="200" cy="150" r="3.5" fill="#1a1a1a"/>
+  <text x="186" y="154" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">3.3V</text>
+
+  <circle cx="200" cy="220" r="3.5" fill="#2457d6"/>
+  <text x="186" y="214" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">GPIO</text>
+  <text x="186" y="228" font-size="12" fill="#6b7280" text-anchor="end">(ШІМ)</text>
+
+  <!-- Міні-графік ШІМ усередині MCU -->
+  <rect x="47" y="240" width="140" height="47" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="117" y="254" font-size="12" fill="#2457d6" text-anchor="middle">ШІМ 1–10 кГц</text>
+  <path d="M 55,278 L 70,278 L 70,265 L 90,265 L 90,278 L 108,278 L 108,265 L 128,265 L 128,278 L 145,278" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <circle cx="200" cy="300" r="3.5" fill="#1a1a1a"/>
+  <text x="186" y="304" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">GND</text>
+
+  <!-- Блок 2: Драйвер підсвічування (N-MOSFET) -->
+  <rect x="220" y="80" width="390" height="245" rx="8" fill="#f8fafc" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="415" y="105" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">Драйвер підсвічування (N-MOSFET ключ)</text>
+  <text x="415" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Низьковольтний комутатор катода (Low-Side Switch)</text>
+
+  <!-- Шина живлення +3.3 В -->
+  <line x1="204" y1="150" x2="630" y2="150" stroke="#c0392b" stroke-width="2"/>
+  <text x="235" y="140" font-size="12" font-weight="700" fill="#c0392b">Шина живлення +3.3 В</text>
+
+  <!-- Резистор затвора R_gate -->
+  <line x1="204" y1="220" x2="250" y2="220" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="210" y1="220" x2="240" y2="220" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="250" y="214" width="50" height="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="275" y="186" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">R_gate</text>
+  <text x="275" y="202" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">100 Ом</text>
+
+  <!-- Лінія після R_gate до вузла N1 -->
+  <line x1="300" y1="220" x2="370" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="370" cy="220" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Резистор підтяжки R_pull до GND -->
+  <line x1="370" y1="220" x2="370" y2="242" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="364" y="242" width="12" height="38" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="352" y="254" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="end">R_pull</text>
+  <text x="352" y="270" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">10 кОм</text>
+  <line x1="370" y1="280" x2="370" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="370" cy="300" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Лінія від вузла N1 до затвора MOSFET -->
+  <line x1="370" y1="220" x2="488" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="395" y1="220" x2="465" y2="220" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="390" y="210" font-size="12" fill="#2457d6">ШІМ (0 / 3.3 В)</text>
+
+  <!-- MOSFET Q1 -->
+  <!-- Затвор (Gate) -->
+  <line x1="488" y1="204" x2="488" y2="236" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Канал (3 сегменти) -->
+  <line x1="496" y1="206" x2="496" y2="214" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="496" y1="216" x2="496" y2="224" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="496" y1="226" x2="496" y2="234" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Стік (Drain) від каналу -->
+  <line x1="496" y1="210" x2="520" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="520" y1="210" x2="520" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="520" cy="185" r="3.5" fill="#1a1a1a"/>
+  <!-- Підкладка (Bulk) зі стрілкою N-каналу -->
+  <line x1="520" y1="220" x2="498" y2="220" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="520" y1="220" x2="520" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Витік (Source) від каналу до GND -->
+  <line x1="496" y1="230" x2="520" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="520" y1="230" x2="520" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="520" cy="300" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Підписи MOSFET Q1 -->
+  <text x="535" y="222" font-size="13" font-weight="700" fill="#1a1a1a">Q1: N-MOSFET</text>
+  <text x="535" y="238" font-size="12" fill="#2457d6">2N7002 / BSS138</text>
+  <text x="535" y="254" font-size="12" fill="#6b7280">Logic-Level</text>
+  <text x="535" y="270" font-size="12" fill="#6b7280">V_th &lt; 2.0 В</text>
+
+  <!-- Лінія BLK від Q1 Drain до дисплея -->
+  <line x1="520" y1="185" x2="630" y2="185" stroke="#2457d6" stroke-width="2"/>
+  <line x1="600" y1="185" x2="560" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="575" y="174" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Лінія BLK</text>
+  <text x="575" y="202" font-size="12" fill="#6b7280" text-anchor="middle">I_LED ≈ 35 мА</text>
+
+  <!-- Спільна шина GND -->
+  <line x1="204" y1="300" x2="630" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="235" y="291" font-size="12" font-weight="700" fill="#6b7280">Шина GND (0 В)</text>
+  <!-- Символ заземлення -->
+  <path d="M 445,300 L 445,310 M 435,310 L 455,310 M 439,314 L 451,314 M 442,318 L 448,318" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Блок 3: Модуль дисплея ST7789 -->
+  <rect x="630" y="80" width="295" height="245" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="778" y="105" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модуль дисплея ST7789</text>
+  <text x="778" y="123" font-size="12" fill="#6b7280" text-anchor="middle">1.3″ IPS 240×240 (7/8-pin)</text>
+
+  <!-- Виводи дисплея зліва -->
+  <circle cx="630" cy="150" r="3.5" fill="#c0392b"/>
+  <text x="642" y="140" font-size="12" font-weight="700" fill="#c0392b">VCC (3.3V)</text>
+
+  <circle cx="630" cy="185" r="3.5" fill="#2457d6"/>
+  <text x="642" y="176" font-size="12" font-weight="700" fill="#2457d6">BLK</text>
+
+  <circle cx="630" cy="300" r="3.5" fill="#1a1a1a"/>
+  <text x="642" y="293" font-size="12" font-weight="700" fill="#6b7280">GND</text>
+
+  <!-- Підпанель ліній SPI дисплея -->
+  <rect x="640" y="200" width="122" height="74" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="648" y="218" font-size="12" font-weight="700" fill="#6b7280">Шина SPI:</text>
+  <text x="648" y="235" font-size="12" fill="#6b7280">SCL, SDA, CS</text>
+  <text x="648" y="252" font-size="12" fill="#6b7280">DC, RES (скид)</text>
+  <text x="648" y="268" font-size="12" fill="#2457d6">Логіка: ~10 мА</text>
+
+  <!-- Еквівалентна схема підсвічування всередині модуля -->
+  <!-- Внутрішня лінія VCC до баластного резистора -->
+  <line x1="630" y1="150" x2="890" y2="150" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="890" y1="150" x2="890" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Внутрішній обмежувальний резистор R_led -->
+  <line x1="890" y1="185" x2="880" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="850" y="179" width="30" height="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="865" y="171" font-size="12" fill="#6b7280" text-anchor="middle">R_обмеж</text>
+
+  <!-- Світлодіод підсвічування (LED) -->
+  <line x1="850" y1="185" x2="835" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Діодний трикутник (анод праворуч, катод ліворуч) -->
+  <polygon points="835,179 835,191 823,185" fill="#2457d6"/>
+  <line x1="823" y1="179" x2="823" y2="191" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Стрілки випромінювання світла -->
+  <path d="M 826,176 L 818,168 M 822,167 L 818,168 L 819,172" stroke="#2457d6" stroke-width="1.2" fill="none"/>
+  <path d="M 832,176 L 824,168 M 828,167 L 824,168 L 825,172" stroke="#2457d6" stroke-width="1.2" fill="none"/>
+
+  <!-- Катод LED з'єднується з виводом BLK -->
+  <line x1="823" y1="185" x2="630" y2="185" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="750" y1="185" x2="700" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Підписи підсвічування всередині дисплея -->
+  <text x="840" y="202" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">LED підсвітка</text>
+  <text x="840" y="218" font-size="12" fill="#6b7280" text-anchor="middle">I_LED ≈ 35 мА</text>
+
+  <!-- Блок контролера ST7789 -->
+  <rect x="780" y="232" width="132" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="846" y="250" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Контролер ST7789</text>
+  <text x="846" y="267" font-size="12" fill="#6b7280" text-anchor="middle">IPS-матриця 240×240</text>
+
+  <!-- Нижні картки з інженерними правилами -->
+  <!-- Картка 1: Резистор затвора -->
+  <rect x="35" y="345" width="280" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="367" font-size="13" font-weight="700" fill="#2457d6">1. Резистор затвора (R_gate)</text>
+  <text x="50" y="386" font-size="12" font-weight="700" fill="#1a1a1a">R_gate = 100 Ом (обмеження піку струму)</text>
+  <text x="50" y="403" font-size="12" fill="#6b7280">Гасить струм заряду ємності C_iss</text>
+  <text x="50" y="420" font-size="12" fill="#6b7280">Захищає вихід мікроконтролера від зносу</text>
+
+  <!-- Картка 2: Підтяжка до GND -->
+  <rect x="340" y="345" width="280" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="355" y="367" font-size="13" font-weight="700" fill="#2457d6">2. Підтяжка до GND (R_pull)</text>
+  <text x="355" y="386" font-size="12" font-weight="700" fill="#1a1a1a">R_pull = 10 кОм (стан Hi-Z при старті)</text>
+  <text x="355" y="403" font-size="12" fill="#6b7280">Утримує затвор на рівні 0 В при скиді,</text>
+  <text x="355" y="420" font-size="12" fill="#6b7280">коли GPIO перебуває у високоомному стані</text>
+
+  <!-- Картка 3: ШІМ керування -->
+  <rect x="645" y="345" width="280" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="660" y="367" font-size="13" font-weight="700" fill="#27ae60">3. ШІМ-керування яскравістю</text>
+  <text x="660" y="386" font-size="12" font-weight="700" fill="#1a1a1a">ШІМ 1–10 кГц: регулювання шпаруватості</text>
+  <text x="660" y="403" font-size="12" fill="#6b7280">Струм діодів (35 мА) іде в обхід GPIO</text>
+  <text x="660" y="420" font-size="12" fill="#6b7280">Забезпечує плавне згасання без мерехтіння</text>
+</svg>

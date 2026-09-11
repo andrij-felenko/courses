@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішні схеми та цоколівка 3-вивідних лазерних діодів</text>
+  <text x="480" y="57" font-size="13" fill="#6b7280" text-anchor="middle">Конфігурації з'єднання лазерного діода (LD) та моніторного фотодіода (PD) у корпусі TO-56</text>
+
+  <!-- Panel 1: Style A (Common Anode) -->
+  <rect x="30" y="72" width="288" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="42" y="84" width="264" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="174" y="100" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">STYLE A: СПІЛЬНИЙ АНОД (LD)</text>
+
+  <!-- Panel 1: TO-56 Pin View -->
+  <circle cx="174" cy="138" r="22" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="170,160 178,160 174,166" fill="#6b7280"/>
+  <circle cx="162" cy="135" r="3.5" fill="#1a1a1a"/>
+  <circle cx="174" cy="124" r="3.5" fill="#2457d6"/>
+  <circle cx="186" cy="135" r="3.5" fill="#1a1a1a"/>
+  <text x="153" y="139" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">1</text>
+  <text x="174" y="118" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2 (Корпус)</text>
+  <text x="195" y="139" font-size="12" font-weight="bold" fill="#1a1a1a">3</text>
+  <text x="174" y="171" font-size="12" fill="#6b7280" text-anchor="middle">Вигляд знизу (TO-56, 5.6 мм)</text>
+
+  <!-- Panel 1: Internal Schematic -->
+  <circle cx="174" cy="245" r="55" fill="white" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <circle cx="174" cy="195" r="3.5" fill="#2457d6"/>
+  <line x1="174" y1="195" x2="174" y2="215" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="174" cy="215" r="3" fill="#2457d6"/>
+  <text x="174" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вивід 2 (Спільний Анод LD)</text>
+
+  <!-- LD Branch (Left) -->
+  <line x1="174" y1="215" x2="138" y2="215" stroke="#2457d6" stroke-width="2"/>
+  <line x1="138" y1="215" x2="138" y2="230" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="130,230 146,230 138,244" fill="#c0392b"/>
+  <line x1="130" y1="244" x2="146" y2="244" stroke="#c0392b" stroke-width="2"/>
+  <line x1="128" y1="240" x2="118" y2="246" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="128" y1="248" x2="118" y2="254" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="138" y1="244" x2="138" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="138" cy="280" r="3.5" fill="#1a1a1a"/>
+  <text x="138" y="210" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">LD</text>
+
+  <!-- PD Branch (Right) -->
+  <line x1="174" y1="215" x2="210" y2="215" stroke="#2457d6" stroke-width="2"/>
+  <line x1="210" y1="215" x2="210" y2="230" stroke="#2457d6" stroke-width="2"/>
+  <line x1="202" y1="230" x2="218" y2="230" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="202,244 218,244 210,230" fill="#2457d6"/>
+  <line x1="194" y1="236" x2="202" y2="240" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="194" y1="244" x2="202" y2="248" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="210" y1="244" x2="210" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="210" cy="280" r="3.5" fill="#1a1a1a"/>
+  <text x="210" y="210" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PD</text>
+
+  <!-- Pin 1 & 3 Labels -->
+  <text x="138" y="296" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вивід 1</text>
+  <text x="138" y="310" font-size="12" fill="#c0392b" text-anchor="middle">Катод LD</text>
+  <text x="210" y="296" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вивід 3</text>
+  <text x="210" y="310" font-size="12" fill="#2457d6" text-anchor="middle">Анод PD</text>
+
+  <!-- Panel 1 Summary Card -->
+  <rect x="42" y="322" width="264" height="104" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="340" font-size="12" font-weight="bold" fill="#2457d6">• Корпус (Case) = VCC (+)</text>
+  <text x="52" y="358" font-size="12" fill="#1a1a1a">• LD керується Low-side ключем</text>
+  <text x="52" y="376" font-size="12" fill="#6b7280">• PD анод видає струм у землю</text>
+  <text x="52" y="394" font-size="12" fill="#c0392b">• Небезпека КЗ корпусу на шасі GND!</text>
+  <text x="52" y="412" font-size="12" font-weight="bold" fill="#2457d6">Найпоширеніший у червоних лазерах</text>
+
+  <!-- Panel 2: Style B (Common Cathode) -->
+  <rect x="336" y="72" width="288" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="348" y="84" width="264" height="24" rx="4" fill="#e9f7ef"/>
+  <text x="480" y="100" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">STYLE B: СПІЛЬНИЙ КАТОД (LD)</text>
+
+  <!-- Panel 2: TO-56 Pin View -->
+  <circle cx="480" cy="138" r="22" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="476,160 484,160 480,166" fill="#6b7280"/>
+  <circle cx="468" cy="135" r="3.5" fill="#1a1a1a"/>
+  <circle cx="480" cy="124" r="3.5" fill="#27ae60"/>
+  <circle cx="492" cy="135" r="3.5" fill="#1a1a1a"/>
+  <text x="459" y="139" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">1</text>
+  <text x="480" y="118" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2 (Корпус)</text>
+  <text x="501" y="139" font-size="12" font-weight="bold" fill="#1a1a1a">3</text>
+  <text x="480" y="171" font-size="12" fill="#6b7280" text-anchor="middle">Вигляд знизу (TO-56, 5.6 мм)</text>
+
+  <!-- Panel 2: Internal Schematic -->
+  <circle cx="480" cy="245" r="55" fill="white" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <circle cx="480" cy="195" r="3.5" fill="#27ae60"/>
+  <line x1="480" y1="195" x2="480" y2="215" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="480" cy="215" r="3" fill="#27ae60"/>
+  <text x="480" y="188" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вивід 2 (Спільний Катод LD)</text>
+
+  <!-- LD Branch (Left) -->
+  <line x1="480" y1="215" x2="444" y2="215" stroke="#27ae60" stroke-width="2"/>
+  <line x1="444" y1="215" x2="444" y2="230" stroke="#27ae60" stroke-width="2"/>
+  <line x1="436" y1="230" x2="452" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <polygon points="436,244 452,244 444,230" fill="#c0392b"/>
+  <line x1="434" y1="236" x2="424" y2="230" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="434" y1="244" x2="424" y2="238" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="444" y1="244" x2="444" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="444" cy="280" r="3.5" fill="#1a1a1a"/>
+  <text x="444" y="210" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">LD</text>
+
+  <!-- PD Branch (Right) -->
+  <line x1="480" y1="215" x2="516" y2="215" stroke="#27ae60" stroke-width="2"/>
+  <line x1="516" y1="215" x2="516" y2="230" stroke="#27ae60" stroke-width="2"/>
+  <polygon points="508,230 524,230 516,244" fill="#27ae60"/>
+  <line x1="508" y1="244" x2="524" y2="244" stroke="#27ae60" stroke-width="2"/>
+  <line x1="500" y1="238" x2="508" y2="242" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="500" y1="246" x2="508" y2="250" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="516" y1="244" x2="516" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="516" cy="280" r="3.5" fill="#1a1a1a"/>
+  <text x="516" y="210" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">PD</text>
+
+  <!-- Pin 1 & 3 Labels -->
+  <text x="444" y="296" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вивід 1</text>
+  <text x="444" y="310" font-size="12" fill="#c0392b" text-anchor="middle">Анод LD</text>
+  <text x="516" y="296" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вивід 3</text>
+  <text x="516" y="310" font-size="12" fill="#27ae60" text-anchor="middle">Катод PD</text>
+
+  <!-- Panel 2 Summary Card -->
+  <rect x="348" y="322" width="264" height="104" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="358" y="340" font-size="12" font-weight="bold" fill="#27ae60">• Корпус (Case) = GND (маса)</text>
+  <text x="358" y="358" font-size="12" fill="#1a1a1a">• Безпечний прямий монтаж на шасі</text>
+  <text x="358" y="376" font-size="12" fill="#6b7280">• LD керується High-side ключем</text>
+  <text x="358" y="394" font-size="12" fill="#27ae60">• Немає ризику КЗ між корпусом і GND</text>
+  <text x="358" y="412" font-size="12" font-weight="bold" fill="#27ae60">Зручний для заземлених радіаторів</text>
+
+  <!-- Panel 3: Style C (Floating Case) -->
+  <rect x="642" y="72" width="288" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="654" y="84" width="264" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="786" y="100" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">STYLE C: ПЛАВАЮЧИЙ КОРПУС</text>
+
+  <!-- Panel 3: TO-56 Pin View -->
+  <circle cx="786" cy="138" r="22" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="782,160 790,160 786,166" fill="#6b7280"/>
+  <circle cx="774" cy="135" r="3.5" fill="#1a1a1a"/>
+  <circle cx="786" cy="124" r="3.5" fill="#1a1a1a"/>
+  <circle cx="798" cy="135" r="3.5" fill="#1a1a1a"/>
+  <text x="765" y="139" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">1</text>
+  <text x="786" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2 (Ізольований)</text>
+  <text x="807" y="139" font-size="12" font-weight="bold" fill="#1a1a1a">3</text>
+  <text x="786" y="171" font-size="12" fill="#6b7280" text-anchor="middle">Вигляд знизу (TO-56, 5.6 мм)</text>
+
+  <!-- Panel 3: Internal Schematic -->
+  <circle cx="786" cy="245" r="55" fill="white" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <circle cx="786" cy="195" r="3.5" fill="#1a1a1a"/>
+  <line x1="786" y1="195" x2="786" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="786" cy="215" r="3" fill="#1a1a1a"/>
+  <text x="786" y="188" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вивід 2 (Ізольований контакт)</text>
+  <text x="786" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Корпус ізольовано</text>
+
+  <!-- LD Branch (Left) -->
+  <line x1="786" y1="215" x2="750" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="750" y1="215" x2="750" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="742,230 758,230 750,244" fill="#c0392b"/>
+  <line x1="742" y1="244" x2="758" y2="244" stroke="#c0392b" stroke-width="2"/>
+  <line x1="740" y1="240" x2="730" y2="246" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="740" y1="248" x2="730" y2="254" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="750" y1="244" x2="750" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="750" cy="280" r="3.5" fill="#1a1a1a"/>
+  <text x="750" y="210" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">LD</text>
+
+  <!-- PD Branch (Right) -->
+  <line x1="786" y1="215" x2="822" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="822" y1="215" x2="822" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="814" y1="230" x2="830" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="814,244 830,244 822,230" fill="#1a1a1a"/>
+  <line x1="806" y1="236" x2="814" y2="240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="806" y1="244" x2="814" y2="248" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="822" y1="244" x2="822" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="822" cy="280" r="3.5" fill="#1a1a1a"/>
+  <text x="822" y="210" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PD</text>
+
+  <!-- Pin 1 & 3 Labels -->
+  <text x="750" y="296" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вивід 1</text>
+  <text x="750" y="310" font-size="12" fill="#c0392b" text-anchor="middle">Катод LD</text>
+  <text x="822" y="296" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вивід 3</text>
+  <text x="822" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">Анод PD</text>
+
+  <!-- Panel 3 Summary Card -->
+  <rect x="654" y="322" width="264" height="104" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="664" y="340" font-size="12" font-weight="bold" fill="#1a1a1a">• Корпус (Case) = Плаваючий (NC)</text>
+  <text x="664" y="358" font-size="12" fill="#1a1a1a">• Кристали повністю ізольовані</text>
+  <text x="664" y="376" font-size="12" fill="#6b7280">• Універсальне підключення живлення</text>
+  <text x="664" y="394" font-size="12" fill="#27ae60">• Нульовий ризик замикання на шасі</text>
+  <text x="664" y="412" font-size="12" font-weight="bold" fill="#1a1a1a">Застосовується у прецизійній оптиці</text>
+</svg>

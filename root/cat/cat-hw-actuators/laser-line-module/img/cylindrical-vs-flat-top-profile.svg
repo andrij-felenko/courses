@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Профіль лазерної лінії: циліндрична лінза проти призми Павелла</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Гаусів спад спричиняє пересвіт центру та втрату країв, тоді як Flat-Top дає стабільний відгук матриці камери</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ЦИЛІНДРИЧНА ЛІНЗА ==================== -->
+  <rect x="35" y="75" width="435" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="252" y="98" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Циліндрична лінза: гаусів спад інтенсивності</text>
+
+  <!-- Графік I(x) для Гауса -->
+  <!-- Осі графіка -->
+  <line x1="75" y1="195" x2="445" y2="195" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="75" y1="195" x2="75" y2="115" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="70" y="118" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">I</text>
+  <text x="445" y="209" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">x</text>
+
+  <!-- Поріг насичення камери (рівень кліпінгу 255) -->
+  <line x1="75" y1="138" x2="435" y2="138" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <rect x="295" y="123" width="135" height="20" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="362" y="137" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Поріг насичення</text>
+
+  <!-- Гаусова крива: заливка та лінія -->
+  <path d="M 95,194 C 150,194 205,190 230,155 C 242,138 248,124 255,124 C 262,124 268,138 280,155 C 305,190 360,194 415,194 L 415,195 L 95,195 Z" fill="#fdecea" opacity="0.85"/>
+  <path d="M 95,194 C 150,194 205,190 230,155 C 242,138 248,124 255,124 C 262,124 268,138 280,155 C 305,190 360,194 415,194" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Зона пересвіту (вище порога) -->
+  <path d="M 242,138 C 248,124 255,124 255,124 C 262,124 268,138 268,138 Z" fill="#c0392b" opacity="0.3"/>
+  <text x="255" y="118" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Кліпінг</text>
+
+  <!-- Позначки осі X -->
+  <text x="105" y="209" font-size="12" fill="#6b7280" text-anchor="middle">-L/2</text>
+  <text x="255" y="209" font-size="12" fill="#6b7280" text-anchor="middle">0 (центр)</text>
+  <text x="405" y="209" font-size="12" fill="#6b7280" text-anchor="middle">+L/2</text>
+
+  <!-- Імітація кадру матриці камери -->
+  <rect x="65" y="222" width="375" height="52" rx="4" fill="#1e232a"/>
+  <text x="75" y="238" font-size="12" fill="#d0d7de">Кадр сенсора</text>
+
+  <!-- Лазерна лінія з пересвіченим центром і згасанням -->
+  <line x1="105" y1="252" x2="405" y2="252" stroke="#c0392b" stroke-width="3" stroke-linecap="round" opacity="0.4"/>
+  <line x1="180" y1="252" x2="330" y2="252" stroke="#e74c3c" stroke-width="6" stroke-linecap="round" opacity="0.8"/>
+  <line x1="225" y1="252" x2="285" y2="252" stroke="#ffffff" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Текстові пояснення дефектів під кадром сенсора -->
+  <text x="120" y="295" font-size="12" fill="#c0392b" text-anchor="middle">Темний край</text>
+  <text x="120" y="310" font-size="12" fill="#6b7280" text-anchor="middle">(шум матриці)</text>
+
+  <text x="255" y="295" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Пересвіт центру</text>
+  <text x="255" y="310" font-size="12" fill="#6b7280" text-anchor="middle">(блумінг, втрата піку)</text>
+
+  <text x="390" y="295" font-size="12" fill="#c0392b" text-anchor="middle">Темний край</text>
+  <text x="390" y="310" font-size="12" fill="#6b7280" text-anchor="middle">(шум матриці)</text>
+
+  <text x="255" y="338" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Непридатна для точної тріангуляції</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ПРИЗМА ПАВЕЛЛА ==================== -->
+  <rect x="490" y="75" width="435" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="707" y="98" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Призма Павелла: Flat-Top профіль</text>
+
+  <!-- Графік I(x) для Flat-Top -->
+  <!-- Осі графіка -->
+  <line x1="530" y1="195" x2="900" y2="195" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="530" y1="195" x2="530" y2="115" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="525" y="118" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">I</text>
+  <text x="900" y="209" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">x</text>
+
+  <!-- Поріг насичення камери (рівень кліпінгу 255) -->
+  <line x1="530" y1="138" x2="890" y2="138" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <rect x="765" y="120" width="125" height="20" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="827" y="134" font-size="12" fill="#6b7280" text-anchor="middle">Поріг насичення</text>
+
+  <!-- Flat-Top крива: заливка та лінія -->
+  <path d="M 550,194 L 565,194 C 572,194 577,165 580,148 L 835,148 C 838,165 843,194 850,194 L 865,194 L 865,195 L 550,195 Z" fill="#e9f7ef" opacity="0.85"/>
+  <path d="M 550,194 L 565,194 C 572,194 577,165 580,148 L 835,148 C 838,165 843,194 850,194 L 865,194" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Плато інтенсивності -->
+  <rect x="630" y="160" width="155" height="20" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="707" y="174" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Рівномірність (±5%)</text>
+
+  <!-- Позначки осі X -->
+  <text x="565" y="209" font-size="12" fill="#6b7280" text-anchor="middle">-L/2</text>
+  <text x="707" y="209" font-size="12" fill="#6b7280" text-anchor="middle">0 (центр)</text>
+  <text x="850" y="209" font-size="12" fill="#6b7280" text-anchor="middle">+L/2</text>
+
+  <!-- Імітація кадру матриці камери -->
+  <rect x="520" y="222" width="375" height="52" rx="4" fill="#1e232a"/>
+  <text x="530" y="238" font-size="12" fill="#d0d7de">Кадр сенсора</text>
+
+  <!-- Рівномірна лазерна лінія Flat-Top -->
+  <line x1="560" y1="252" x2="850" y2="252" stroke="#27ae60" stroke-width="8" stroke-linecap="round" opacity="0.4"/>
+  <line x1="562" y1="252" x2="848" y2="252" stroke="#2ecc71" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+  <line x1="565" y1="252" x2="845" y2="252" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Текстові пояснення переваг під кадром сенсора -->
+  <text x="575" y="295" font-size="12" fill="#27ae60" text-anchor="middle">Чіткий край</text>
+  <text x="575" y="310" font-size="12" fill="#6b7280" text-anchor="middle">(високий SNR)</text>
+
+  <text x="707" y="295" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Оптимальна яскравість</text>
+  <text x="707" y="310" font-size="12" fill="#6b7280" text-anchor="middle">(без кліпінгу 255)</text>
+
+  <text x="840" y="295" font-size="12" fill="#27ae60" text-anchor="middle">Чіткий край</text>
+  <text x="840" y="310" font-size="12" fill="#6b7280" text-anchor="middle">(високий SNR)</text>
+
+  <text x="707" y="338" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Ідеальна для систем машинного зору</text>
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: ПОЯСНЕННЯ ==================== -->
+  <rect x="35" y="368" width="890" height="72" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="388" font-size="12" font-weight="700" fill="#1a1a1a">Вимоги систем тріангуляції та 3D-профілометрії до профілю освітленості лінії:</text>
+  <text x="55" y="408" font-size="12" fill="#6b7280">1. Циліндрична лінза змушує обирати між пересвітом центру (кліпінг 255) та шумом на периферії через брак світла.</text>
+  <text x="55" y="426" font-size="12" fill="#6b7280">2. Асферична вершина призми Павелла перерозподіляє енергію на краї, забезпечуючи субпіксельну точність пошуку піку.</text>
+</svg>

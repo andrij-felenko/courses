@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" width="960" height="580" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="580" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Архітектурна модель контролера H-моста та рівні керування 6 В мотором</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Ієрархія від нормалізованого API до апаратної безпеки каскаду й редуктора</text>
+
+  <!-- ==================== LAYER 1 ==================== -->
+  <rect x="30" y="74" width="900" height="76" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="94" font-size="13" font-weight="bold" fill="#2457d6">Шар 1: Прикладний рівень (Application Layer)</text>
+  <text x="914" y="94" font-size="12" text-anchor="end" fill="#6b7280">Цільові параметри швидкості та вибір режимів руху</text>
+
+  <!-- Layer 1 Cards -->
+  <rect x="46" y="104" width="420" height="36" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="58" y="126" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">motor_set_speed(v)</tspan> — швидкість від -1.0f до +1.0f</text>
+
+  <rect x="480" y="104" width="434" height="36" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="494" y="126" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#6b7280">motor_stop()</tspan> (вибіг)  |  <tspan font-weight="bold" fill="#c0392b">motor_brake()</tspan> (гальмо)</text>
+
+  <!-- Connections L1 -> L2 -->
+  <line x1="150" y1="150" x2="150" y2="174" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="158" y="165" font-size="12" fill="#2457d6">Швидкість v</text>
+
+  <line x1="370" y1="150" x2="370" y2="174" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="378" y="165" font-size="12" fill="#6b7280">Стоп / Гальмо</text>
+
+  <!-- ==================== LAYER 2 ==================== -->
+  <rect x="30" y="174" width="900" height="142" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="194" font-size="13" font-weight="bold" fill="#2457d6">Шар 2: Програмний контролер (Driver Logic &amp; Safety)</text>
+  <text x="914" y="194" font-size="12" text-anchor="end" fill="#6b7280">Темпування швидкості, автомата станів, паузи та захист</text>
+
+  <!-- Layer 2 Card 1: Slew-Rate Limiter -->
+  <rect x="44" y="204" width="206" height="100" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="221" font-size="12" font-weight="bold" fill="#2457d6">Slew-Rate Limiter</text>
+  <text x="54" y="239" font-size="12" font-weight="bold" fill="#1a1a1a">Темпування швидкості</text>
+  <text x="54" y="257" font-size="12" fill="#6b7280">• Плавний розгін dI/dt</text>
+  <text x="54" y="275" font-size="12" fill="#6b7280">• Зняття ударів струму</text>
+  <text x="54" y="293" font-size="12" fill="#27ae60">• Захист зубів редуктора</text>
+
+  <!-- Arrow L2 Card 1 -> Card 2 -->
+  <line x1="250" y1="254" x2="266" y2="254" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Layer 2 Card 2: FSM -->
+  <rect x="266" y="204" width="206" height="100" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="276" y="221" font-size="12" font-weight="bold" fill="#2457d6">Кінцевий автомат (FSM)</text>
+  <text x="276" y="239" font-size="12" font-weight="bold" fill="#1a1a1a">Стани керування:</text>
+  <text x="276" y="257" font-size="12" fill="#6b7280">• COAST / FORWARD / REV</text>
+  <text x="276" y="275" font-size="12" fill="#1a1a1a">• BRAKE: закорочення</text>
+  <text x="276" y="293" font-size="12" font-weight="bold" fill="#c0392b">• FAULT: аварійний зупин</text>
+
+  <!-- Arrow L2 Card 2 -> Card 3 -->
+  <line x1="472" y1="254" x2="488" y2="254" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Layer 2 Card 3: Dead-Time & Deadband -->
+  <rect x="488" y="204" width="206" height="100" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="498" y="221" font-size="12" font-weight="bold" fill="#2457d6">Dead-Time &amp; Deadband</text>
+  <text x="498" y="239" font-size="12" font-weight="bold" fill="#1a1a1a">Безпека комутації:</text>
+  <text x="498" y="257" font-size="12" fill="#6b7280">• Захисна пауза (dead-time)</text>
+  <text x="498" y="275" font-size="12" fill="#c0392b">• Проти наскрізного к.з.</text>
+  <text x="498" y="293" font-size="12" fill="#1a1a1a">• Зона нечутливості нуля</text>
+
+  <!-- Layer 2 Card 4: Stall & Current Guard -->
+  <rect x="710" y="204" width="206" height="100" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="720" y="221" font-size="12" font-weight="bold" fill="#c0392b">Контроль струму &amp; Stall</text>
+  <text x="720" y="239" font-size="12" font-weight="bold" fill="#1a1a1a">Захист від блокування:</text>
+  <text x="720" y="257" font-size="12" fill="#6b7280">• Вікно blanking time</text>
+  <text x="720" y="275" font-size="12" fill="#6b7280">• Тайм-аут заклинювання</text>
+  <text x="720" y="293" font-size="12" font-weight="bold" fill="#c0392b">• Сигнал аварії -> FAULT</text>
+
+  <!-- Connections L2 -> L3 -->
+  <line x1="180" y1="316" x2="180" y2="340" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="188" y="331" font-size="12" fill="#2457d6">ШІМ Duty</text>
+
+  <line x1="480" y1="316" x2="480" y2="340" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="488" y="331" font-size="12" fill="#2457d6">IN1, IN2</text>
+
+  <!-- Feedback Connection L3 -> L2 (ADC to Stall Guard) -->
+  <line x1="780" y1="340" x2="780" y2="316" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="788" y="331" font-size="12" fill="#c0392b">Струм Isense</text>
+
+  <!-- ==================== LAYER 3 ==================== -->
+  <rect x="30" y="340" width="900" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="358" font-size="13" font-weight="bold" fill="#2457d6">Шар 3: Апаратна периферія МК (Hardware Peripherals)</text>
+  <text x="914" y="358" font-size="12" text-anchor="end" fill="#6b7280">Апаратні таймери ШІМ, цифрові порти керування та АЦП струму</text>
+
+  <!-- Layer 3 Cards -->
+  <rect x="44" y="368" width="276" height="52" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="56" y="385" font-size="12" font-weight="bold" fill="#2457d6">Апаратний таймер ШІМ (Timer)</text>
+  <text x="56" y="405" font-size="12" fill="#1a1a1a">Частота 15–25 кГц (тихий ШІМ)</text>
+
+  <rect x="342" y="368" width="276" height="52" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="354" y="385" font-size="12" font-weight="bold" fill="#2457d6">Виводи напрямку GPIO (IN1, IN2)</text>
+  <text x="354" y="405" font-size="12" fill="#1a1a1a">Керування діагоналями H-моста</text>
+
+  <rect x="640" y="368" width="276" height="52" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="652" y="385" font-size="12" font-weight="bold" fill="#2457d6">Канал АЦП (ADC Channel)</text>
+  <text x="652" y="405" font-size="12" fill="#1a1a1a">Оцифрування напруги з шунта Rsense</text>
+
+  <!-- Connections L3 -> L4 -->
+  <line x1="180" y1="430" x2="180" y2="454" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="188" y="445" font-size="12" fill="#2457d6">ШІМ-імпульси</text>
+
+  <line x1="480" y1="430" x2="480" y2="454" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="488" y="445" font-size="12" fill="#1a1a1a">Комутація ключів</text>
+
+  <!-- Feedback Connection L4 -> L3 (Rsense to ADC) -->
+  <line x1="780" y1="454" x2="780" y2="430" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="788" y="445" font-size="12" fill="#c0392b">Напруга Usense</text>
+
+  <!-- ==================== LAYER 4 ==================== -->
+  <rect x="30" y="454" width="900" height="92" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="472" font-size="13" font-weight="bold" fill="#2457d6">Шар 4: Силовий каскад і мотор (Power Stage &amp; Actuator)</text>
+  <text x="914" y="472" font-size="12" text-anchor="end" fill="#6b7280">Транзисторні ключі моста, 6 В мотор-редуктор та шунт Rsense</text>
+
+  <!-- Layer 4 Cards -->
+  <rect x="44" y="482" width="276" height="52" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="56" y="499" font-size="12" font-weight="bold" fill="#1a1a1a">4-ключовий H-міст (Q1–Q4)</text>
+  <text x="56" y="519" font-size="12" fill="#27ae60">Діоди Шотткі (захист від викидів)</text>
+
+  <!-- Arrow L4 Card 1 -> Card 2 -->
+  <line x1="320" y1="508" x2="342" y2="508" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="342" y="482" width="276" height="52" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="354" y="499" font-size="12" font-weight="bold" fill="#1a1a1a">Мотор-редуктор 6 В (DC)</text>
+  <text x="354" y="519" font-size="12" fill="#2457d6">100 / 600 об/хв, редуктор, проти-ЕРС</text>
+
+  <!-- Arrow L4 Card 2 -> Card 3 -->
+  <line x1="618" y1="508" x2="640" y2="508" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <rect x="640" y="482" width="276" height="52" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="652" y="499" font-size="12" font-weight="bold" fill="#1a1a1a">Шунт струму Rsense (GND)</text>
+  <text x="652" y="519" font-size="12" fill="#c0392b">Падіння напруги Usense = I × Rsense</text>
+</svg>

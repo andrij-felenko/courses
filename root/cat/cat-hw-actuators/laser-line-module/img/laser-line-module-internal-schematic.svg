@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова електрична схема лазерного модуля та контур живлення</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Латунна гільза з'єднана з анодом (+VCC); струм кристала стабілізує SMD-резистор</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Модуль у зборі та електрична схема -->
+  <rect x="24" y="76" width="566" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Бейдж попередження про корпус -->
+  <rect x="36" y="86" width="370" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="46" y="104" font-size="12" font-weight="bold" fill="#c0392b">Латунний корпус модуля: потенціал +VCC (+3,3...5 В)</text>
+
+  <!-- Пунктирна межа зовнішньої латунної гільзи -->
+  <rect x="36" y="126" width="542" height="298" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="48" y="148" font-size="12" font-weight="bold" fill="#c0392b">Латунна гільза модуля</text>
+
+  <!-- Блок 1: Внутрішня плата (PCB) -->
+  <rect x="48" y="162" width="214" height="250" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="58" y="182" font-size="12" font-weight="bold" fill="#1a1a1a">Плата модуля</text>
+
+  <!-- Блок 2: Лазерний діод (LD) -->
+  <rect x="282" y="162" width="170" height="250" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="296" y="182" font-size="12" font-weight="bold" fill="#1a1a1a">Лазерний діод (LD)</text>
+
+  <!-- Блок 3: Оптичний блок -->
+  <rect x="468" y="162" width="98" height="250" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="478" y="182" font-size="12" font-weight="bold" fill="#6b7280">Оптичний блок</text>
+
+  <!-- Електричне з'єднання анода з гільзою корпусу (у просвіті між блоками) -->
+  <line x1="272" y1="220" x2="272" y2="126" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="272" cy="126" r="4.5" fill="#c0392b"/>
+  <circle cx="272" cy="220" r="3.5" fill="#c0392b"/>
+  <text x="288" y="148" font-size="12" font-weight="bold" fill="#c0392b">Контакт гільзи (+VCC)</text>
+
+  <!-- Верхня лінія живлення +VCC -->
+  <line x1="24" y1="220" x2="68" y2="220" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="82" y1="220" x2="372" y2="220" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Контактна площадка +VCC -->
+  <circle cx="75" cy="220" r="7" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="75" cy="220" r="2.5" fill="#c0392b"/>
+  <text x="58" y="206" font-size="12" font-weight="bold" fill="#c0392b">+VCC (червоний)</text>
+
+  <!-- Стрілка напрямку струму на верхній шині -->
+  <path d="M 215,216 L 225,220 L 215,224 Z" fill="#c0392b"/>
+  <text x="168" y="206" font-size="12" font-weight="bold" fill="#c0392b">Струм I_op</text>
+
+  <!-- Діодний символ (вертикальний, анод зверху, катод знизу) -->
+  <line x1="372" y1="220" x2="372" y2="244" stroke="#c0392b" stroke-width="2.5"/>
+  <polygon points="357,244 387,244 372,274" fill="#2457d6"/>
+  <line x1="357" y1="274" x2="387" y2="274" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="344" y="244" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Анод</text>
+  <text x="344" y="274" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Катод</text>
+
+  <!-- Лазерне випромінювання (промені в оптику) -->
+  <line x1="387" y1="253" x2="437" y2="243" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="387" y1="263" x2="437" y2="273" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="395" y="230" font-size="12" font-weight="bold" fill="#c0392b">Промінь</text>
+
+  <!-- Оптика: коліматор і лінза формування лінії -->
+  <path d="M 485,220 Q 498,253 485,286 Q 508,253 485,220" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="474" y="308" font-size="12" fill="#6b7280">Коліматор</text>
+  <rect x="515" y="230" width="10" height="46" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="474" y="326" font-size="12" fill="#6b7280">Лінза лінії</text>
+
+  <!-- Світловий віялоподібний промінь лінії -->
+  <polygon points="525,253 562,225 562,281" fill="#fdecea" opacity="0.6"/>
+  <line x1="525" y1="253" x2="562" y2="225" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="525" y1="253" x2="562" y2="281" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="525" y1="253" x2="562" y2="253" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="474" y="356" font-size="12" font-weight="bold" fill="#c0392b">Лінія лазера</text>
+  <text x="474" y="374" font-size="12" fill="#6b7280">кут 60°–110°</text>
+
+  <!-- Пояснення контуру всередині плати -->
+  <text x="58" y="246" font-size="12" font-weight="bold" fill="#2457d6">Контур струму:</text>
+  <text x="58" y="264" font-size="12" fill="#1a1a1a">+VCC → Анод діода</text>
+  <text x="58" y="282" font-size="12" fill="#1a1a1a">Катод → R_bal → GND</text>
+
+  <!-- Зворотний провід від катода діода -->
+  <line x1="372" y1="274" x2="372" y2="350" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="372" y1="350" x2="196" y2="350" stroke="#1a1a1a" stroke-width="2.5"/>
+  <path d="M 330,350 L 340,346 L 340,354 Z" fill="#1a1a1a"/>
+  <text x="358" y="336" font-size="12" fill="#1a1a1a" text-anchor="end">I ≈ 30 мА</text>
+
+  <!-- Баластний SMD-резистор R_bal -->
+  <rect x="145" y="342" width="46" height="16" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="140" y="340" width="6" height="20" rx="1" fill="#6b7280"/>
+  <rect x="190" y="340" width="6" height="20" rx="1" fill="#6b7280"/>
+  <text x="135" y="328" font-size="12" font-weight="bold" fill="#2457d6">R_bal (SMD 0805)</text>
+  <text x="140" y="384" font-size="12" font-weight="bold" fill="#1a1a1a">68...91 Ом</text>
+  <text x="130" y="400" font-size="12" fill="#6b7280">струмообмежувач</text>
+
+  <!-- Нижня лінія до площадки GND -->
+  <line x1="140" y1="350" x2="82" y2="350" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="68" y1="350" x2="24" y2="350" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Контактна площадка GND -->
+  <circle cx="75" cy="350" r="7" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="75" cy="350" r="2.5" fill="#1a1a1a"/>
+  <text x="54" y="336" font-size="12" font-weight="bold" fill="#1a1a1a">GND (0 В)</text>
+  <text x="54" y="376" font-size="12" fill="#6b7280">синій дріт</text>
+
+  <!-- ПРАВА ПАНЕЛЬ 1: Інженерне застереження щодо потенціалу корпусу -->
+  <rect x="606" y="76" width="330" height="172" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="618" y="86" width="306" height="26" rx="4" fill="#c0392b"/>
+  <text x="628" y="104" font-size="12" font-weight="bold" fill="#ffffff">УВАГА: ПОТЕНЦІАЛ КОРПУСУ = +VCC</text>
+  <text x="622" y="126" font-size="12" font-weight="bold" fill="#c0392b">Гільза модуля — це НЕ земля (GND)!</text>
+  <text x="622" y="144" font-size="12" fill="#1a1a1a">Металевий корпус спаяний з анодом діода</text>
+  <text x="622" y="162" font-size="12" fill="#1a1a1a">і перебуває під повною напругою живлення.</text>
+  <text x="622" y="188" font-size="12" font-weight="bold" fill="#1a1a1a">Наслідок монтажу на заземлену станину:</text>
+  <text x="622" y="206" font-size="12" font-weight="bold" fill="#c0392b">Пряме коротке замикання джерела живлення!</text>
+  <text x="622" y="226" font-size="12" fill="#6b7280">Монтувати лише через ізолювальну втулку.</text>
+
+  <!-- ПРАВА ПАНЕЛЬ 2: Розрахунок баластного опору -->
+  <rect x="606" y="264" width="330" height="172" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="618" y="274" width="306" height="26" rx="4" fill="#2457d6"/>
+  <text x="628" y="292" font-size="12" font-weight="bold" fill="#ffffff">РОЗРАХУНОК БАЛАСТНОГО ОПОРУ R_bal</text>
+  <text x="622" y="314" font-size="12" font-weight="bold" fill="#1a1a1a">Призначення резистора:</text>
+  <text x="622" y="332" font-size="12" fill="#1a1a1a">Обмеження струму лазерного діода (I_op)</text>
+  <text x="622" y="350" font-size="12" fill="#1a1a1a">для захисту кристала від теплового пробою.</text>
+  <text x="622" y="376" font-size="12" font-weight="bold" fill="#2457d6">Формула:  R_bal = (V_CC − V_F) / I_op</text>
+  <text x="622" y="396" font-size="12" fill="#1a1a1a">V_CC = 5,0 В,  V_F ≈ 2,2 В (червоний діод)</text>
+  <text x="622" y="416" font-size="12" font-weight="bold" fill="#27ae60">R = (5,0 − 2,2) / 0,031 А ≈ 91 Ом (SMD)</text>
+</svg>

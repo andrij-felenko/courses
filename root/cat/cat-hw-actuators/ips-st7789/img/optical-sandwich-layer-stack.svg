@@ -1,0 +1,198 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-sec" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-sol" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-prob" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок (відступ зверху >= 20 px) -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оптичний сендвіч IPS-панелі: будова шарів та поляризаційна модуляція</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Поворот кристалів у площині підкладки перемикає піксель між блокуванням і пропусканням світла</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Пошарова просторова декомпозиція -->
+  <rect x="24" y="74" width="436" height="462" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Пошарова просторова декомпозиція</text>
+  <text x="40" y="112" font-size="12" fill="#6b7280">Компоненти модуля ST7789 від підсвічування до скла</text>
+
+  <!-- Шар 9: Зовнішнє скло -->
+  <rect x="40" y="126" width="404" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="48" y1="148" x2="62" y2="136" stroke="#6b7280" stroke-width="2"/>
+  <text x="72" y="146" font-size="12" font-weight="bold" fill="#1a1a1a">9. Зовнішнє захисне скло</text>
+  <text x="432" y="146" font-size="12" fill="#6b7280" text-anchor="end">покриття Hard Coating / AG</text>
+
+  <!-- Шар 8: Верхній поляризатор-аналізатор -->
+  <rect x="40" y="170" width="404" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="51" y1="178" x2="51" y2="194" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="56" y1="178" x2="56" y2="194" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="61" y1="178" x2="61" y2="194" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="72" y="190" font-size="12" font-weight="bold" fill="#2457d6">8. Верхній поляризатор-аналізатор</text>
+  <text x="432" y="190" font-size="12" fill="#2457d6" text-anchor="end">вісь 90°</text>
+
+  <!-- Шар 7: Світлофільтри RGB -->
+  <rect x="40" y="214" width="404" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="48" y="224" width="5" height="12" rx="1" fill="#c0392b"/>
+  <rect x="54" y="224" width="5" height="12" rx="1" fill="#27ae60"/>
+  <rect x="60" y="224" width="5" height="12" rx="1" fill="#2457d6"/>
+  <text x="72" y="234" font-size="12" font-weight="bold" fill="#1a1a1a">7. Колірні світлофільтри RGB</text>
+  <text x="432" y="234" font-size="12" fill="#6b7280" text-anchor="end">субпікселі R-G-B</text>
+
+  <!-- Шар 6: Рідкокристалічний шар -->
+  <rect x="40" y="258" width="404" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="48" y1="274" x2="64" y2="274" stroke="#2457d6" stroke-width="6" stroke-linecap="round"/>
+  <text x="72" y="278" font-size="12" font-weight="bold" fill="#2457d6">6. Рідкокристалічний шар (РК)</text>
+  <text x="432" y="278" font-size="12" fill="#6b7280" text-anchor="end">планарний нематик</text>
+
+  <!-- Шар 5: TFT-скло та планарні електроди -->
+  <rect x="40" y="302" width="404" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="48" y1="310" x2="48" y2="326" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="48" y1="314" x2="62" y2="314" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="48" y1="318" x2="62" y2="318" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="72" y="322" font-size="12" font-weight="bold" fill="#1a1a1a">5. TFT-скло з планарними електродами</text>
+  <text x="432" y="322" font-size="12" fill="#6b7280" text-anchor="end">керування полем</text>
+
+  <!-- Шар 4: Нижній поляризатор -->
+  <rect x="40" y="346" width="404" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="48" y1="356" x2="64" y2="356" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="48" y1="362" x2="64" y2="362" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="48" y1="368" x2="64" y2="368" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="72" y="366" font-size="12" font-weight="bold" fill="#2457d6">4. Нижній поляризатор</text>
+  <text x="432" y="366" font-size="12" fill="#2457d6" text-anchor="end">базова вісь пропускання 0°</text>
+
+  <!-- Шар 3: Оптичні розсіювачі -->
+  <rect x="40" y="390" width="404" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <polyline points="48,410 52,402 56,410 60,402 64,410" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="72" y="410" font-size="12" font-weight="bold" fill="#1a1a1a">3. Блок оптичних розсіювачів</text>
+  <text x="432" y="410" font-size="12" fill="#6b7280" text-anchor="end">дифузор та призми BEF</text>
+
+  <!-- Шар 2: Світловодна пластина + LED -->
+  <rect x="40" y="434" width="404" height="32" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="46" y="444" width="6" height="12" rx="1" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <line x1="54" y1="450" x2="64" y2="450" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="72" y="454" font-size="12" font-weight="bold" fill="#1a1a1a">2. Світловодна пластина (LGP)</text>
+  <text x="432" y="454" font-size="12" fill="#6b7280" text-anchor="end">блок LED-підсвічування</text>
+
+  <!-- Шар 1: Дзеркальний відбивач -->
+  <rect x="40" y="478" width="404" height="32" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="48" y1="496" x2="64" y2="496" stroke="#6b7280" stroke-width="2"/>
+  <line x1="50" y1="500" x2="54" y2="496" stroke="#6b7280" stroke-width="1"/>
+  <line x1="56" y1="500" x2="60" y2="496" stroke="#6b7280" stroke-width="1"/>
+  <line x1="62" y1="500" x2="66" y2="496" stroke="#6b7280" stroke-width="1"/>
+  <text x="72" y="498" font-size="12" font-weight="bold" fill="#1a1a1a">1. Нижній відбивач (Reflector)</text>
+  <text x="432" y="498" font-size="12" fill="#6b7280" text-anchor="end">повернення світла</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Поляризаційна модуляція в IPS -->
+  <rect x="480" y="74" width="456" height="462" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="496" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Поляризаційна модуляція в IPS</text>
+  <text x="496" y="112" font-size="12" fill="#6b7280">Оптичний стан комірки: блокування світла проти пропускання</text>
+
+  <!-- КОЛОНКА А: Стан блокування (0 В) -->
+  <rect x="496" y="126" width="206" height="388" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="497" y="127" width="204" height="36" rx="5" fill="#fdecea"/>
+  <text x="599" y="141" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">БЛОКУВАННЯ: U = 0 В</text>
+  <text x="599" y="155" font-size="12" fill="#6b7280" text-anchor="middle">Normally Black (спокій)</text>
+
+  <!-- Екран (Блокування) -->
+  <rect x="506" y="175" width="186" height="34" rx="4" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <text x="599" y="196" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Екран: чорне поле (0%)</text>
+
+  <!-- Позначка блокування світла між екраном та аналізатором -->
+  <circle cx="599" cy="215" r="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="596" y1="212" x2="602" y2="218" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="596" y1="218" x2="602" y2="212" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Аналізатор (Блокування) -->
+  <rect x="506" y="221" width="186" height="56" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="599" y="238" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналізатор (вісь 90°)</text>
+  <text x="599" y="254" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">0° ⟂ 90°: БЛОКУВАННЯ</text>
+  <text x="599" y="268" font-size="12" fill="#6b7280" text-anchor="middle">Світло поглинається</text>
+
+  <!-- Промінь від РК до аналізатора -->
+  <line x1="599" y1="287" x2="599" y2="279" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- РК-шар (Блокування) -->
+  <rect x="506" y="289" width="186" height="132" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="599" y="306" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">РК-шар: поле E = 0</text>
+  <line x1="535" y1="335" x2="575" y2="335" stroke="#6b7280" stroke-width="10" stroke-linecap="round"/>
+  <line x1="623" y1="335" x2="663" y2="335" stroke="#6b7280" stroke-width="10" stroke-linecap="round"/>
+  <line x1="579" y1="358" x2="619" y2="358" stroke="#6b7280" stroke-width="10" stroke-linecap="round"/>
+  <rect x="526" y="374" width="28" height="6" fill="#d0d7de" rx="1"/>
+  <text x="540" y="392" font-size="12" fill="#6b7280" text-anchor="middle">0 В</text>
+  <rect x="644" y="374" width="28" height="6" fill="#d0d7de" rx="1"/>
+  <text x="658" y="392" font-size="12" fill="#6b7280" text-anchor="middle">0 В</text>
+  <text x="599" y="410" font-size="12" fill="#6b7280" text-anchor="middle">Кристали вздовж осі 0°</text>
+
+  <!-- Промінь від поляризатора до РК -->
+  <line x1="599" y1="431" x2="599" y2="423" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Нижній поляризатор (Блокування) -->
+  <rect x="506" y="433" width="186" height="62" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="599" y="451" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Нижній поляризатор (0°)</text>
+  <text x="599" y="467" font-size="12" fill="#2457d6" text-anchor="middle">Пропускає вектор ↔ 0°</text>
+  <text x="599" y="483" font-size="12" fill="#6b7280" text-anchor="middle">Світловий потік від LED</text>
+
+  <!-- Вхідний промінь від LED -->
+  <line x1="599" y1="510" x2="599" y2="497" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-sec)"/>
+
+
+  <!-- КОЛОНКА Б: Стан пропускання (U > 0 В) -->
+  <rect x="716" y="126" width="206" height="388" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="717" y="127" width="204" height="36" rx="5" fill="#e9f7ef"/>
+  <text x="819" y="141" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ПРОПУСКАННЯ: U &gt; 0 В</text>
+  <text x="819" y="155" font-size="12" fill="#27ae60" text-anchor="middle">Планарне поле повертає РК</text>
+
+  <!-- Екран (Пропускання) -->
+  <rect x="726" y="175" width="186" height="34" rx="4" fill="#27ae60" stroke="#27ae60"/>
+  <text x="819" y="196" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Екран: світло субпікселя</text>
+
+  <!-- Промінь від аналізатора до екрана -->
+  <line x1="819" y1="219" x2="819" y2="211" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-sol)"/>
+
+  <!-- Аналізатор (Пропускання) -->
+  <rect x="726" y="221" width="186" height="56" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="819" y="238" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналізатор (90°) + RGB</text>
+  <text x="819" y="254" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">90° ∥ 90°: ПРОПУСКАННЯ</text>
+  <text x="819" y="268" font-size="12" fill="#27ae60" text-anchor="middle">Світло проходить назовні</text>
+
+  <!-- Промінь від РК до аналізатора -->
+  <line x1="819" y1="287" x2="819" y2="279" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-sol)"/>
+
+  <!-- РК-шар (Пропускання) -->
+  <rect x="726" y="289" width="186" height="132" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="819" y="306" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">РК-шар: планарне поле E</text>
+  <line x1="755" y1="344" x2="783" y2="324" stroke="#2457d6" stroke-width="10" stroke-linecap="round"/>
+  <line x1="839" y1="344" x2="867" y2="324" stroke="#2457d6" stroke-width="10" stroke-linecap="round"/>
+  <line x1="797" y1="368" x2="825" y2="348" stroke="#2457d6" stroke-width="10" stroke-linecap="round"/>
+  <rect x="746" y="374" width="28" height="6" fill="#2457d6" rx="1"/>
+  <text x="760" y="392" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+U</text>
+  <rect x="864" y="374" width="28" height="6" fill="#6b7280" rx="1"/>
+  <text x="878" y="392" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">GND</text>
+  <line x1="778" y1="377" x2="860" y2="377" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <text x="819" y="410" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Поворот 45° → вектор 90°</text>
+
+  <!-- Промінь від поляризатора до РК -->
+  <line x1="819" y1="431" x2="819" y2="423" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Нижній поляризатор (Пропускання) -->
+  <rect x="726" y="433" width="186" height="62" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="819" y="451" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Нижній поляризатор (0°)</text>
+  <text x="819" y="467" font-size="12" fill="#2457d6" text-anchor="middle">Пропускає вектор ↔ 0°</text>
+  <text x="819" y="483" font-size="12" fill="#6b7280" text-anchor="middle">Світловий потік від LED</text>
+
+  <!-- Вхідний промінь від LED -->
+  <line x1="819" y1="510" x2="819" y2="497" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-sec)"/>
+</svg>

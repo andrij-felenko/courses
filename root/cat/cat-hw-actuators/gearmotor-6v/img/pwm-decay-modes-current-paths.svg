@@ -1,0 +1,265 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Режими гасіння струму індуктивності (Decay Modes) у паузі ШІМ</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Порівняння контурів рециркуляції: повільний спад (Slow Decay) крізь ключі проти швидкого (Fast Decay) у джерело</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: ПОВІЛЬНИЙ СПАД (SLOW DECAY) -->
+  <rect x="24" y="76" width="446" height="424" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Шапка лівої панелі -->
+  <rect x="36" y="86" width="422" height="44" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="103" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Повільний спад (Slow Decay / Фрівайлінг)</text>
+  <text x="247" y="121" font-size="12" fill="#1a1a1a" text-anchor="middle">Нижні ключі Q2, Q4 увімкнені • локальне замикання контуру</text>
+
+  <!-- Картка схеми лівої панелі -->
+  <rect x="36" y="138" width="422" height="198" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Шини живлення зліва -->
+  <line x1="124" y1="164" x2="374" y2="164" stroke="#d0d7de" stroke-width="2"/>
+  <circle cx="124" cy="164" r="3.5" fill="#c0392b"/>
+  <text x="48" y="168" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">+6 В (V_CC)</text>
+
+  <line x1="124" y1="308" x2="374" y2="308" stroke="#d0d7de" stroke-width="2"/>
+  <circle cx="124" cy="308" r="3.5" fill="#6b7280"/>
+  <text x="48" y="312" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">GND (0 В)</text>
+
+  <!-- Заливка контуру рециркуляції зліва -->
+  <polygon points="175,236 320,236 320,308 175,308" fill="#eaf0fd" fill-opacity="0.6"/>
+
+  <!-- Ключі та стійки моста зліва -->
+  <!-- Q1 (верхній лівий: РОЗІМКНЕНО) -->
+  <line x1="175" y1="164" x2="175" y2="186" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="175" cy="186" r="3" fill="#6b7280"/>
+  <circle cx="175" cy="214" r="3" fill="#6b7280"/>
+  <line x1="175" y1="214" x2="163" y2="190" stroke="#6b7280" stroke-width="2"/>
+  <line x1="175" y1="214" x2="175" y2="236" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="156" y="196" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">Q1: ВИМК</text>
+
+  <!-- Q3 (верхній правий: РОЗІМКНЕНО) -->
+  <line x1="320" y1="164" x2="320" y2="186" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="320" cy="186" r="3" fill="#6b7280"/>
+  <circle cx="320" cy="214" r="3" fill="#6b7280"/>
+  <line x1="320" y1="214" x2="332" y2="190" stroke="#6b7280" stroke-width="2"/>
+  <line x1="320" y1="214" x2="320" y2="236" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="338" y="196" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">Q3: ВИМК</text>
+
+  <!-- Q2 (нижній лівий: ЗАМКНЕНО) -->
+  <text x="156" y="276" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Q2: УВІМК</text>
+  <circle cx="175" cy="256" r="3" fill="#2457d6"/>
+  <circle cx="175" cy="288" r="3" fill="#2457d6"/>
+
+  <!-- Q4 (нижній правий: ЗАМКНЕНО) -->
+  <text x="338" y="276" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Q4: УВІМК</text>
+  <circle cx="320" cy="256" r="3" fill="#2457d6"/>
+  <circle cx="320" cy="288" r="3" fill="#2457d6"/>
+
+  <!-- Мотор M зліва -->
+  <circle cx="247.5" cy="236" r="20" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="247.5" y="242" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+  <text x="247.5" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Двигун (L, R)</text>
+
+  <!-- Активний струмовий контур (синій) -->
+  <!-- Гілка мотора: праворуч -->
+  <line x1="175" y1="236" x2="227" y2="236" stroke="#2457d6" stroke-width="3.5"/>
+  <line x1="268" y1="236" x2="320" y2="236" stroke="#2457d6" stroke-width="3.5" marker-end="url(#arr-blue)"/>
+  <!-- Гілка Q4: донизу -->
+  <line x1="320" y1="236" x2="320" y2="278" stroke="#2457d6" stroke-width="3.5" marker-end="url(#arr-blue)"/>
+  <line x1="320" y1="278" x2="320" y2="308" stroke="#2457d6" stroke-width="3.5"/>
+  <!-- Шина GND: ліворуч -->
+  <line x1="320" y1="308" x2="240" y2="308" stroke="#2457d6" stroke-width="3.5" marker-end="url(#arr-blue)"/>
+  <line x1="240" y1="308" x2="175" y2="308" stroke="#2457d6" stroke-width="3.5"/>
+  <!-- Гілка Q2: догори -->
+  <line x1="175" y1="308" x2="175" y2="268" stroke="#2457d6" stroke-width="3.5" marker-end="url(#arr-blue)"/>
+  <line x1="175" y1="268" x2="175" y2="236" stroke="#2457d6" stroke-width="3.5"/>
+
+  <!-- Бейдж центру контуру -->
+  <rect x="202" y="266" width="91" height="20" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="247.5" y="281" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Контур I_L</text>
+
+  <!-- Нижня картка зліва: графік і фізика -->
+  <rect x="36" y="346" width="422" height="144" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Вікно осцилограми струму -->
+  <rect x="48" y="356" width="146" height="124" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="121" y="372" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Струм i(t): Slow Decay</text>
+
+  <!-- Осі графіка -->
+  <line x1="66" y1="435" x2="66" y2="384" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="66" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">i</text>
+  <line x1="66" y1="435" x2="182" y2="435" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="186" y="439" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">t</text>
+
+  <line x1="114" y1="388" x2="114" y2="435" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="90" y="390" font-size="12" fill="#6b7280" text-anchor="middle">ШІМ</text>
+  <text x="145" y="390" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Пауза</text>
+
+  <!-- Крива струму -->
+  <path d="M66,412 Q90,398 114,395 Q144,402 174,408" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="121" y="462" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">ΔI мала (струм CCM)</text>
+
+  <!-- Формули та висновки зліва -->
+  <text x="206" y="372" font-size="12" font-weight="bold" fill="#1a1a1a">Падіння напруги в контурі:</text>
+  <text x="206" y="390" font-size="12" font-weight="bold" fill="#2457d6">V_конт = 2 · I · R_ds(on) ≈ 0,1…0,2 В</text>
+
+  <text x="206" y="414" font-size="12" font-weight="bold" fill="#1a1a1a">Швидкість спаду струму:</text>
+  <text x="206" y="432" font-size="12" font-weight="bold" fill="#2457d6">di/dt = −V_конт / L  (повільний спад)</text>
+
+  <text x="206" y="456" font-size="12" fill="#1a1a1a">• Струм не переривається (режим CCM)</text>
+  <text x="206" y="474" font-size="12" font-weight="bold" fill="#27ae60">✓ Плавний момент, мінімум нагріву</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: ШВИДКИЙ СПАД (FAST DECAY) -->
+  <rect x="490" y="76" width="446" height="424" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Шапка правої панелі -->
+  <rect x="502" y="86" width="422" height="44" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="713" y="103" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Швидкий спад (Fast Decay / Рекуперація)</text>
+  <text x="713" y="121" font-size="12" fill="#1a1a1a" text-anchor="middle">Всі ключі розімкнені • скидання енергії в шину живлення</text>
+
+  <!-- Картка схеми правої панелі -->
+  <rect x="502" y="138" width="422" height="198" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Шини живлення справа -->
+  <line x1="560" y1="164" x2="840" y2="164" stroke="#d0d7de" stroke-width="2"/>
+  <circle cx="840" cy="164" r="3.5" fill="#c0392b"/>
+  <text x="848" y="168" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">+6 В (V_CC)</text>
+
+  <line x1="560" y1="308" x2="840" y2="308" stroke="#d0d7de" stroke-width="2"/>
+  <circle cx="840" cy="308" r="3.5" fill="#6b7280"/>
+  <text x="848" y="312" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">GND (0 В)</text>
+
+  <!-- Заливка контуру рекуперації справа -->
+  <polygon points="560,164 783,164 783,236 672,236 672,308 560,308" fill="#fdecea" fill-opacity="0.5"/>
+
+  <!-- Буферний конденсатор C_bulk -->
+  <line x1="550" y1="230" x2="570" y2="230" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="550" y1="242" x2="570" y2="242" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="578" y="234" font-size="12" font-weight="bold" fill="#d97706" text-anchor="start">C_bulk</text>
+  <text x="578" y="250" font-size="12" fill="#6b7280" text-anchor="start">+   −</text>
+  <text x="560" y="153" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">Рекуперація</text>
+
+  <!-- Ключі справа (ВСІ РОЗІМКНЕНІ) -->
+  <!-- Q1 (верхній лівий: РОЗІМКНЕНО) -->
+  <line x1="650" y1="164" x2="650" y2="186" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="650" cy="186" r="3" fill="#6b7280"/>
+  <circle cx="650" cy="214" r="3" fill="#6b7280"/>
+  <line x1="650" y1="214" x2="638" y2="190" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="650" y1="214" x2="650" y2="236" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="650" y1="236" x2="672" y2="236" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="634" y="196" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">Q1: ВИМК</text>
+
+  <!-- Q2 (нижній лівий: РОЗІМКНЕНО) -->
+  <line x1="650" y1="236" x2="650" y2="258" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="650" cy="258" r="3" fill="#6b7280"/>
+  <circle cx="650" cy="286" r="3" fill="#6b7280"/>
+  <line x1="650" y1="286" x2="638" y2="262" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="650" y1="286" x2="650" y2="308" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="634" y="276" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">Q2: ВИМК</text>
+
+  <!-- Q3 (верхній правий: РОЗІМКНЕНО) -->
+  <line x1="805" y1="164" x2="805" y2="186" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="805" cy="186" r="3" fill="#6b7280"/>
+  <circle cx="805" cy="214" r="3" fill="#6b7280"/>
+  <line x1="805" y1="214" x2="817" y2="190" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="805" y1="214" x2="805" y2="236" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="783" y1="236" x2="805" y2="236" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="819" y="196" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">Q3: ВИМК</text>
+
+  <!-- Q4 (нижній правий: РОЗІМКНЕНО) -->
+  <line x1="805" y1="236" x2="805" y2="258" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="805" cy="258" r="3" fill="#6b7280"/>
+  <circle cx="805" cy="286" r="3" fill="#6b7280"/>
+  <line x1="805" y1="286" x2="817" y2="262" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="805" y1="286" x2="805" y2="308" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="819" y="276" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">Q4: ВИМК</text>
+
+  <!-- Провідні діоди D2 і D3 -->
+  <!-- D2 (нижній лівий діод, спрямований догори) -->
+  <polygon points="664,280 680,280 672,266" fill="#c0392b" stroke="#c0392b" stroke-width="1"/>
+  <line x1="664" y1="266" x2="680" y2="266" stroke="#c0392b" stroke-width="2"/>
+  <text x="686" y="277" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">D2</text>
+
+  <!-- D3 (верхній правий діод, спрямований догори) -->
+  <polygon points="775,208 791,208 783,194" fill="#c0392b" stroke="#c0392b" stroke-width="1"/>
+  <line x1="775" y1="194" x2="791" y2="194" stroke="#c0392b" stroke-width="2"/>
+  <text x="769" y="205" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">D3</text>
+
+  <!-- Мотор M справа -->
+  <circle cx="727.5" cy="236" r="20" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="727.5" y="242" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+  <text x="727.5" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Двигун (L, R)</text>
+
+  <!-- Активний струмовий контур справа (червоний) -->
+  <!-- 1. Гілка D2: догори від GND до мотора -->
+  <line x1="672" y1="308" x2="672" y2="282" stroke="#c0392b" stroke-width="3.5"/>
+  <line x1="672" y1="264" x2="672" y2="236" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr-red)"/>
+
+  <!-- 2. Гілка мотора: праворуч -->
+  <line x1="672" y1="236" x2="707" y2="236" stroke="#c0392b" stroke-width="3.5"/>
+  <line x1="748" y1="236" x2="783" y2="236" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr-red)"/>
+
+  <!-- 3. Гілка D3: догори від мотора до V_CC -->
+  <line x1="783" y1="236" x2="783" y2="210" stroke="#c0392b" stroke-width="3.5"/>
+  <line x1="783" y1="192" x2="783" y2="164" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr-red)"/>
+
+  <!-- 4. Шина V_CC: ліворуч до C_bulk -->
+  <line x1="783" y1="164" x2="660" y2="164" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr-red)"/>
+  <line x1="660" y1="164" x2="560" y2="164" stroke="#c0392b" stroke-width="3.5"/>
+
+  <!-- 5. C_bulk: донизу до GND -->
+  <line x1="560" y1="164" x2="560" y2="228" stroke="#c0392b" stroke-width="3.5"/>
+  <line x1="560" y1="244" x2="560" y2="308" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr-red)"/>
+
+  <!-- 6. Шина GND: праворуч до D2 -->
+  <line x1="560" y1="308" x2="620" y2="308" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr-red)"/>
+  <line x1="620" y1="308" x2="672" y2="308" stroke="#c0392b" stroke-width="3.5"/>
+
+  <!-- Бейдж центру контуру справа -->
+  <rect x="672" y="174" width="111" height="20" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="727.5" y="189" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Скидання в V_CC</text>
+
+  <!-- Нижня картка справа: графік і фізика -->
+  <rect x="502" y="346" width="422" height="144" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Вікно осцилограми струму -->
+  <rect x="514" y="356" width="146" height="124" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="587" y="372" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Струм i(t): Fast Decay</text>
+
+  <!-- Осі графіка -->
+  <line x1="532" y1="435" x2="532" y2="384" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="532" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">i</text>
+  <line x1="532" y1="435" x2="648" y2="435" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="652" y="439" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">t</text>
+
+  <line x1="580" y1="388" x2="580" y2="435" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="556" y="390" font-size="12" fill="#6b7280" text-anchor="middle">ШІМ</text>
+  <text x="611" y="390" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">Пауза</text>
+
+  <!-- Крива струму -->
+  <path d="M532,435 L580,395 L605,435 L640,435" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="587" y="462" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">ΔI велика (струм DCM)</text>
+
+  <!-- Формули та висновки справа -->
+  <text x="672" y="372" font-size="12" font-weight="bold" fill="#1a1a1a">Падіння напруги в контурі:</text>
+  <text x="672" y="390" font-size="12" font-weight="bold" fill="#c0392b">V_конт = V_CC + 2·V_F ≈ 6 + 1,4 = 7,4 В</text>
+
+  <text x="672" y="414" font-size="12" font-weight="bold" fill="#1a1a1a">Швидкість спаду струму:</text>
+  <text x="672" y="432" font-size="12" font-weight="bold" fill="#c0392b">di/dt = −V_конт / L  (стрімкий спад)</text>
+
+  <text x="672" y="456" font-size="12" fill="#1a1a1a">• Струм падає до нуля (режим DCM)</text>
+  <text x="672" y="474" font-size="12" font-weight="bold" fill="#d97706">⚠ Пульсації моменту, писк, викиди</text>
+</svg>

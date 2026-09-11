@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка полотна -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Розкладання кадру 240×240 точок у потік байтів RGB565</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Матриця на 57 600 пікселів транслюється через SPI у 115 200 байтів корисних даних</text>
+
+  <!-- З'єднувальні стрілки між панелями -->
+  <line x1="296" y1="230" x2="314" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <line x1="680" y1="230" x2="698" y2="230" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- ==================== ПАНЕЛЬ 1: МАТРИЦЯ ДИСПЛЕЯ ==================== -->
+  <rect x="24" y="80" width="270" height="378" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="159" y="104" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">1. Геометрія матриці</text>
+  <text x="159" y="122" font-size="12" text-anchor="middle" fill="#6b7280">240 × 240 точок = 57 600 px</text>
+
+  <!-- Блок 1.1: Схема розгортки екрана -->
+  <rect x="38" y="136" width="242" height="186" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="159" y="156" font-size="12" text-anchor="middle" fill="#1a1a1a">Растрове розгортання кадру:</text>
+
+  <!-- Рядок 0 -->
+  <rect x="50" y="168" width="218" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="159" y="184" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Рядок 0: пікселі 0 .. 239</text>
+
+  <!-- Рядок 1 -->
+  <rect x="50" y="206" width="218" height="24" rx="3" fill="white" stroke="#d0d7de"/>
+  <text x="159" y="222" font-size="12" text-anchor="middle" fill="#6b7280">Рядок 1: пікселі 240 .. 479</text>
+
+  <!-- Крапки між рядками -->
+  <text x="159" y="248" font-size="12" text-anchor="middle" fill="#6b7280">• • •</text>
+
+  <!-- Рядок 239 -->
+  <rect x="50" y="260" width="218" height="24" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="159" y="276" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Рядок 239: px .. 57599</text>
+
+  <text x="159" y="306" font-size="12" text-anchor="middle" fill="#6b7280">240 рядків по 240 точок</text>
+
+  <!-- Блок 1.2: Параметри матриці -->
+  <rect x="38" y="336" width="242" height="110" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="159" y="356" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Параметри матриці</text>
+  <text x="50" y="378" font-size="12" fill="#1a1a1a">Разом: 240 × 240 = 57 600 px</text>
+  <text x="50" y="400" font-size="12" fill="#1a1a1a">1 піксель = 16 бітів (2 байти)</text>
+  <text x="50" y="422" font-size="12" font-weight="bold" fill="#2457d6">Порядок: рядок за рядком</text>
+  <text x="50" y="440" font-size="12" fill="#6b7280">Вікно кадру: CASET + RASET</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: СТРУКТУРА ПІКСЕЛЯ RGB565 ==================== -->
+  <rect x="318" y="80" width="360" height="378" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="498" y="104" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">2. Структура пікселя RGB565</text>
+  <text x="498" y="122" font-size="12" text-anchor="middle" fill="#6b7280">16 бітів: 5 бітів R + 6 бітів G + 5 бітів B</text>
+
+  <!-- Заголовки байтів -->
+  <text x="414" y="144" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Байт 1 (старший)</text>
+  <text x="582" y="144" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Байт 2 (молодший)</text>
+
+  <!-- Номери бітів: Байт 1 (біти 15..8) -->
+  <text x="348" y="162" font-size="12" text-anchor="middle" fill="#6b7280">15</text>
+  <text x="367" y="162" font-size="12" text-anchor="middle" fill="#6b7280">14</text>
+  <text x="386" y="162" font-size="12" text-anchor="middle" fill="#6b7280">13</text>
+  <text x="405" y="162" font-size="12" text-anchor="middle" fill="#6b7280">12</text>
+  <text x="424" y="162" font-size="12" text-anchor="middle" fill="#6b7280">11</text>
+  <text x="446" y="162" font-size="12" text-anchor="middle" fill="#6b7280">10</text>
+  <text x="464" y="162" font-size="12" text-anchor="middle" fill="#6b7280">9</text>
+  <text x="481" y="162" font-size="12" text-anchor="middle" fill="#6b7280">8</text>
+
+  <!-- Номери бітів: Байт 2 (біти 7..0) -->
+  <text x="515" y="162" font-size="12" text-anchor="middle" fill="#6b7280">7</text>
+  <text x="533" y="162" font-size="12" text-anchor="middle" fill="#6b7280">6</text>
+  <text x="550" y="162" font-size="12" text-anchor="middle" fill="#6b7280">5</text>
+  <text x="572" y="162" font-size="12" text-anchor="middle" fill="#6b7280">4</text>
+  <text x="591" y="162" font-size="12" text-anchor="middle" fill="#6b7280">3</text>
+  <text x="610" y="162" font-size="12" text-anchor="middle" fill="#6b7280">2</text>
+  <text x="629" y="162" font-size="12" text-anchor="middle" fill="#6b7280">1</text>
+  <text x="648" y="162" font-size="12" text-anchor="middle" fill="#6b7280">0</text>
+
+  <!-- Блоки бітових полів кольору -->
+  <!-- R4..R0 (5 бітів) -->
+  <rect x="338" y="170" width="95" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="385" y="195" font-size="13" font-weight="bold" text-anchor="middle" fill="#c0392b">R4 .. R0</text>
+
+  <!-- G5..G3 (3 біти) -->
+  <rect x="437" y="170" width="53" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="463" y="195" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">G5..G3</text>
+
+  <!-- G2..G0 (3 біти) -->
+  <rect x="506" y="170" width="53" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="532" y="195" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">G2..G0</text>
+
+  <!-- B4..B0 (5 бітів) -->
+  <rect x="563" y="170" width="95" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="610" y="195" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">B4 .. B0</text>
+
+  <!-- Підписи каналів під блоками -->
+  <text x="385" y="226" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">5 бітів R</text>
+  <text x="463" y="226" font-size="12" text-anchor="middle" fill="#27ae60">3 біти</text>
+  <text x="532" y="226" font-size="12" text-anchor="middle" fill="#27ae60">3 біти</text>
+  <text x="610" y="226" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">5 бітів B</text>
+
+  <!-- Блок 2.1: Розщеплення каналу G -->
+  <rect x="334" y="240" width="328" height="86" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="498" y="258" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Особливість RGB565: розщеплення каналу G</text>
+  <text x="346" y="278" font-size="12" fill="#1a1a1a">• Байт 1 (біти 10..8): G5..G3 — 3 старші біти</text>
+  <text x="346" y="298" font-size="12" fill="#1a1a1a">• Байт 2 (біти 7..5): G2..G0 — 3 молодші біти</text>
+  <text x="346" y="318" font-size="12" font-weight="bold" fill="#27ae60">6 бітів = 64 рівні (око найчутливіше до G)</text>
+
+  <!-- Блок 2.2: Градації яскравості -->
+  <rect x="334" y="340" width="328" height="106" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="498" y="360" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Градації кольорів та ємність</text>
+  <text x="346" y="380" font-size="12" font-weight="bold" fill="#c0392b">Червоний (R):</text>
+  <text x="444" y="380" font-size="12" fill="#1a1a1a">5 бітів → 32 рівні яскравості</text>
+  <text x="346" y="400" font-size="12" font-weight="bold" fill="#27ae60">Зелений (G):</text>
+  <text x="444" y="400" font-size="12" fill="#1a1a1a">6 бітів → 64 рівні яскравості</text>
+  <text x="346" y="420" font-size="12" font-weight="bold" fill="#2457d6">Синій (B):</text>
+  <text x="444" y="420" font-size="12" fill="#1a1a1a">5 бітів → 32 рівні яскравості</text>
+  <text x="498" y="438" font-size="12" text-anchor="middle" fill="#6b7280">Разом: 32 × 64 × 32 = 65 536 кольорів</text>
+
+  <!-- ==================== ПАНЕЛЬ 3: ПОТІК ДАНИХ КАДРУ ==================== -->
+  <rect x="702" y="80" width="234" height="378" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="819" y="104" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">3. Потік даних кадру</text>
+  <text x="819" y="122" font-size="12" text-anchor="middle" fill="#6b7280">Послідовна передача по SPI</text>
+
+  <!-- Блок 3.1: Послідовність байтів -->
+  <rect x="714" y="136" width="210" height="98" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="819" y="156" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Послідовність байтів</text>
+
+  <!-- Байт 0 і Байт 1 у потоці -->
+  <rect x="722" y="168" width="84" height="24" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="764" y="184" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Байт 0 (MSB)</text>
+  <line x1="810" y1="180" x2="828" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <rect x="832" y="168" width="84" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="874" y="184" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Байт 1 (LSB)</text>
+
+  <text x="819" y="210" font-size="12" text-anchor="middle" fill="#6b7280">... Байт 115 198, Байт 115 199</text>
+  <text x="819" y="226" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Лінія MOSI: біти MSB first</text>
+
+  <!-- Блок 3.2: Обсяг даних 1 кадру -->
+  <rect x="714" y="248" width="210" height="84" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="819" y="268" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Обсяг даних 1 кадру</text>
+  <text x="819" y="292" font-size="12" text-anchor="middle" fill="#1a1a1a">57 600 px × 2 Б = 115 200 Б</text>
+  <text x="819" y="316" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">115,2 КБ = 921 600 бітів</text>
+
+  <!-- Блок 3.3: Вимоги до бітрейту -->
+  <rect x="714" y="346" width="210" height="100" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="819" y="368" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Вимоги до бітрейту шини</text>
+  <text x="726" y="392" font-size="12" font-weight="bold" fill="#1a1a1a">30 FPS:</text>
+  <text x="780" y="392" font-size="12" font-weight="bold" fill="#2457d6">≈ 27,65 Мбіт/с</text>
+  <text x="726" y="414" font-size="12" font-weight="bold" fill="#1a1a1a">60 FPS:</text>
+  <text x="780" y="414" font-size="12" font-weight="bold" fill="#c0392b">≈ 55,30 Мбіт/с</text>
+  <text x="819" y="434" font-size="12" text-anchor="middle" fill="#6b7280">чистий потік (без пауз SPI)</text>
+</svg>

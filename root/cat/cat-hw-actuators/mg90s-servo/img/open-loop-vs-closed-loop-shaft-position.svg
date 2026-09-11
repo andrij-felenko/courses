@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Керування положенням вала: розімкнений vs замкнений контур</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Зворотний зв'язок усуває статичну похибку та компенсує зовнішній момент навантаження</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: РОЗІМКНЕНИЙ КОНТУР ==================== -->
+  <rect x="24" y="76" width="444" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="102" font-size="14" font-weight="bold" fill="#c0392b">Розімкнений контур (Open-Loop)</text>
+  <text x="40" y="120" font-size="12" fill="#6b7280">Відсутній сенсор кута: зсув при навантаженні накопичується</text>
+
+  <!-- Біла підпанель графіка розімкненої системи -->
+  <rect x="36" y="132" width="420" height="292" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Блок-схема розімкненої системи вгорі -->
+  <rect x="46" y="146" width="70" height="30" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="81" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">Уставка θ₀</text>
+
+  <line x1="116" y1="161" x2="142" y2="161" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <rect x="144" y="146" width="96" height="30" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="192" y="165" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Двигун без ОС</text>
+
+  <line x1="240" y1="161" x2="266" y2="161" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <rect x="268" y="146" width="80" height="30" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="308" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">Вал вантажу</text>
+
+  <!-- Стрілка збурення моменту M_нав -->
+  <line x1="308" y1="135" x2="308" y2="144" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="352" y="142" font-size="12" font-weight="bold" fill="#c0392b">M_нав</text>
+
+  <rect x="366" y="146" width="80" height="30" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="406" y="165" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Похибка e</text>
+
+  <!-- Осі графіка -->
+  <line x1="90" y1="192" x2="90" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="90" y1="330" x2="430" y2="330" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="50" y="200" font-size="12" font-weight="bold" fill="#1a1a1a">Кут θ</text>
+  <text x="430" y="324" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Час t →</text>
+
+  <!-- Цільовий кут (уставка) θ_ref -->
+  <line x1="90" y1="235" x2="425" y2="235" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="85" y="239" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">θ_ref</text>
+  <text x="425" y="228" font-size="12" fill="#6b7280" text-anchor="end">Цільовий кут</text>
+
+  <!-- Момент прикладання навантаження t_нав -->
+  <line x1="210" y1="218" x2="210" y2="330" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="215" y="224" font-size="12" font-weight="bold" fill="#c0392b">+ M_нав</text>
+
+  <!-- Траєкторія руху розімкненої системи: вихід, потім просідання під навантаженням -->
+  <path d="M 90,330 C 120,330 140,225 170,228 C 185,230 200,235 210,235 C 230,235 245,280 270,280 L 425,280" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Розмір стійкої похибки кута (недоходу) -->
+  <line x1="390" y1="237" x2="390" y2="278" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="385" y="260" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Похибка Δθ</text>
+
+  <text x="275" y="300" font-size="12" font-weight="bold" fill="#c0392b">Зрив кроків / просідання</text>
+
+  <!-- Підсумкова плашка розімкненого контуру -->
+  <rect x="46" y="352" width="400" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="372" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Проблема: контролер «сліпий» до положення вала</text>
+  <text x="246" y="388" font-size="12" fill="#1a1a1a" text-anchor="middle">• Зміна тертя або моменту викликає невідомий недохід</text>
+  <text x="246" y="402" font-size="12" fill="#6b7280" text-anchor="middle">• Кроковий мотор губить кроки без можливості повернення</text>
+
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ЗАМКНЕНИЙ КОНТУР ==================== -->
+  <rect x="492" y="76" width="444" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="508" y="102" font-size="14" font-weight="bold" fill="#27ae60">Замкнений контур (Closed-Loop)</text>
+  <text x="508" y="120" font-size="12" fill="#6b7280">Зворотний зв'язок потенціометра: відновлення положення</text>
+
+  <!-- Біла підпанель графіка замкненої системи -->
+  <rect x="504" y="132" width="420" height="292" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Блок-схема замкненого контуру вгорі -->
+  <line x1="508" y1="161" x2="523" y2="161" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Суматор / компаратор помилки -->
+  <circle cx="533" cy="161" r="9" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="533" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Σ</text>
+
+  <line x1="542" y1="161" x2="560" y2="161" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок контролера/драйвера -->
+  <rect x="562" y="146" width="66" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="595" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Драйвер</text>
+
+  <line x1="628" y1="161" x2="646" y2="161" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок мотора -->
+  <rect x="648" y="146" width="56" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="676" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Мотор</text>
+
+  <line x1="704" y1="161" x2="722" y2="161" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Вал + Потенціометр -->
+  <rect x="724" y="146" width="86" height="30" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="767" y="165" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вал + Сенсор</text>
+
+  <!-- Стрілка збурення моменту M_нав -->
+  <line x1="767" y1="135" x2="767" y2="144" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="812" y="142" font-size="12" font-weight="bold" fill="#c0392b">M_нав</text>
+
+  <!-- Зворотний зв'язок (петля від потенціометра до суматора) -->
+  <path d="M 767,176 L 767,188 L 533,188 L 533,172" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="650" y="202" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зворотний зв'язок θ_fb</text>
+
+  <!-- Осі графіка замкненої системи -->
+  <line x1="558" y1="192" x2="558" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="558" y1="330" x2="898" y2="330" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="518" y="200" font-size="12" font-weight="bold" fill="#1a1a1a">Кут θ</text>
+  <text x="898" y="324" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Час t →</text>
+
+  <!-- Цільовий кут (уставка) θ_ref -->
+  <line x1="558" y1="235" x2="890" y2="235" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="552" y="239" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">θ_ref</text>
+  <text x="890" y="228" font-size="12" fill="#6b7280" text-anchor="end">Цільовий кут</text>
+
+  <!-- Момент прикладання навантаження t_нав -->
+  <line x1="680" y1="218" x2="680" y2="330" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="685" y="224" font-size="12" font-weight="bold" fill="#c0392b">+ M_нав</text>
+
+  <!-- Траєкторія руху замкненого сервоприводу: плавний вихід, динамічний прогин і швидке повернення -->
+  <path d="M 558,330 C 585,330 605,228 625,230 C 640,232 660,235 680,235 C 695,235 702,254 715,254 C 730,254 745,235 765,235 L 890,235" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Плашка швидкого відновлення кута -->
+  <rect x="746" y="250" width="144" height="32" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="818" y="264" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Активна компенсація</text>
+  <text x="818" y="276" font-size="12" fill="#27ae60" text-anchor="middle">похибка e → 0 (утримання)</text>
+
+  <!-- Підсумкова плашка замкненого контуру -->
+  <rect x="514" y="352" width="400" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="372" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Перевага: замкнений контур гарантує точність</text>
+  <text x="714" y="388" font-size="12" fill="#1a1a1a" text-anchor="middle">• Потенціометр фіксує відхилення в реальному часі</text>
+  <text x="714" y="402" font-size="12" fill="#2457d6" text-anchor="middle">• Драйвер генерує протидіючий момент утримання</text>
+</svg>

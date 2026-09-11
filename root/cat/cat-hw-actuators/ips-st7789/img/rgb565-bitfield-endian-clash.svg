@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Конфлікт порядку байтів (Endianness) у RGB565: передача по SPI в ST7789</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Little-Endian пам'ять MCU надсилає LSB першим: ST7789 міняє Red/Blue місцями без __REV16</text>
+
+  <!-- ==================== СЕКЦІЯ 1: СЛОВО RGB565 ТА LITTLE-ENDIAN RAM ==================== -->
+  <rect x="24" y="65" width="912" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="24" y="65" width="912" height="24" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="81" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Структура 16-бітного слова RGB565 та його розбиття в пам'яті Little-Endian MCU (Cortex-M)</text>
+
+  <!-- Підписи зліва -->
+  <text x="36" y="113" font-size="12" font-weight="700" fill="#1a1a1a">Логічне слово:</text>
+  <text x="36" y="141" font-size="12" font-weight="700" fill="#1a1a1a">Пам'ять (RAM):</text>
+
+  <!-- 16-бітне логічне слово -->
+  <!-- Red [15..11] -->
+  <rect x="145" y="98" width="130" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="210" y="113" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Red: [15..11] (5 б)</text>
+
+  <!-- Green [10..5] -->
+  <rect x="279" y="98" width="156" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="357" y="113" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Green: [10..5] (6 б)</text>
+
+  <!-- Blue [4..0] -->
+  <rect x="439" y="98" width="130" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="504" y="113" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Blue: [4..0] (5 б)</text>
+
+  <!-- Байти в пам'яті Little-Endian (Адреса N та Адреса N+1) -->
+  <rect x="145" y="126" width="210" height="22" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="141" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Адреса N (LSB): G2..G0 + B4..B0</text>
+
+  <rect x="359" y="126" width="210" height="22" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="464" y="141" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Адреса N+1 (MSB): R4..R0 + G5..G3</text>
+
+  <!-- Інформаційна плашка праворуч -->
+  <rect x="585" y="98" width="340" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="597" y="116" font-size="12" font-weight="700" fill="#2457d6">Пастка архітектури Little-Endian:</text>
+  <text x="597" y="136" font-size="12" fill="#1a1a1a">Молодший байт (LSB) лежить за першою адресою пам'яті!</text>
+
+
+  <!-- ==================== СЕКЦІЯ 2: ПОРІВНЯННЯ СЦЕНАРІЇВ ПЕРЕДАЧІ ==================== -->
+  <!-- Ліва панель: Помилка (без swap) -->
+  <rect x="24" y="166" width="446" height="212" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <rect x="24" y="166" width="446" height="26" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="183" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">⛔ Без Byte-Swap: Пряма передача пам'яті по SPI</text>
+
+  <text x="36" y="208" font-size="12" font-weight="700" fill="#1a1a1a">1. Порядок передачі байтів шиною SPI:</text>
+
+  <rect x="36" y="215" width="180" height="26" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="126" y="232" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">1-й: Байт N [G_low + Blue]</text>
+
+  <line x1="222" y1="228" x2="238" y2="228" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="244" y="215" width="180" height="26" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="334" y="232" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">2-й: Байт N+1 [Red + G_high]</text>
+
+  <text x="36" y="259" font-size="12" font-weight="700" fill="#1a1a1a">2. Вхідний конвеєр ST7789 (очікує Big-Endian MSB first):</text>
+
+  <rect x="36" y="267" width="422" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="46" y="284" font-size="12" font-weight="700" fill="#c0392b">Колірний збій у GRAM: Red &lt;=&gt; Blue помінялися місцями!</text>
+  <text x="46" y="300" font-size="12" fill="#1a1a1a">Канал Red отримав Blue, а Blue отримав Red. Зелений розірвано.</text>
+
+  <rect x="36" y="318" width="422" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="336" font-size="12" font-weight="700" fill="#c0392b">Наслідок: червоні елементи GUI відображаються синіми,</text>
+  <text x="46" y="354" font-size="12" fill="#6b7280">а сині — червоними. Віджетний інтерфейс виглядає спотвореним.</text>
+
+
+  <!-- Права панель: Розв'язок (з Byte-Swap) -->
+  <rect x="490" y="166" width="446" height="212" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <rect x="490" y="166" width="446" height="26" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="713" y="183" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">✓ Розв'язок: Попередня перестановка байтів (Byte-Swap)</text>
+
+  <text x="502" y="208" font-size="12" font-weight="700" fill="#1a1a1a">1. Інверсія байтів слова: __REV16(color) або LVGL Swap:</text>
+
+  <rect x="502" y="215" width="180" height="26" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="592" y="232" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">1-й: Байт N+1 [Red + G_high]</text>
+
+  <line x1="688" y1="228" x2="704" y2="228" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="710" y="215" width="180" height="26" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="800" y="232" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">2-й: Байт N [G_low + Blue]</text>
+
+  <text x="502" y="259" font-size="12" font-weight="700" fill="#1a1a1a">2. Вхідний конвеєр контролера ST7789:</text>
+
+  <rect x="502" y="267" width="422" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="512" y="284" font-size="12" font-weight="700" fill="#27ae60">Ідеальний збіг у GRAM: порядок бітів відновлено!</text>
+  <text x="512" y="300" font-size="12" fill="#1a1a1a">Red потрапляє у біти [15..11], Green у [10..5], Blue у [4..0].</text>
+
+  <rect x="502" y="318" width="422" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="512" y="336" font-size="12" font-weight="700" fill="#27ae60">Наслідок: точне апаратне відтворення кольорів 65K,</text>
+  <text x="512" y="354" font-size="12" fill="#6b7280">повна відповідність дизайну та природна гама на IPS-матриці.</text>
+
+
+  <!-- ==================== СЕКЦІЯ 3: ІНЖЕНЕРНА КАРТКА ОПТИМІЗАЦІЇ ==================== -->
+  <rect x="24" y="388" width="912" height="58" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="40" y="407" font-size="12" font-weight="700" fill="#2457d6">Апаратна оптимізація в драйвері дисплея (Cortex-M + LVGL):</text>
+  <text x="40" y="424" font-size="12" fill="#1a1a1a">У конфігурації lv_conf.h встановлюється #define LV_COLOR_16_SWAP 1. Для прямого C99 драйвера застосовується</text>
+  <text x="40" y="439" font-size="12" fill="#6b7280">асемблерна інструкція REV16 (1 такт). DMA передає попередньо переставлений буфер без втрати FPS.</text>
+</svg>

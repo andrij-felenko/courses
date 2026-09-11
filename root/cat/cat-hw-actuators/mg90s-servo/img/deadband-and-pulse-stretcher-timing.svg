@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ==================== ЗАГОЛОВОК ТА ПІДЗАГОЛОВОК ==================== -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Часові діаграми мертвої зони (Deadband) та подовжувача імпульсів (Pulse Stretcher)</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Відсікання мікропохибок гасить джитер, а розтягування імпульсу на C_stretch долає тертя редуктора</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ВІДСІКАННЯ МЕРТВОЇ ЗОНИ ==================== -->
+  <rect x="25" y="65" width="445" height="285" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="86" font-size="13" font-weight="700" fill="#1a1a1a">1. Відсікання мертвої зони: |Δt| &lt; t_db проти |Δt| &gt; t_db</text>
+
+  <!-- Поле діаграм лівої панелі -->
+  <rect x="40" y="96" width="415" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Розподільна вертикальна лінія між зонами -->
+  <line x1="230" y1="102" x2="230" y2="242" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- Заголовки секцій -->
+  <text x="135" y="112" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">|Δt| &lt; t_db (Спокій)</text>
+  <text x="342" y="112" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">|Δt| &gt; t_db (Корекція)</text>
+
+  <!-- Підписи сигналів ліворуч від графіків -->
+  <text x="50" y="136" font-size="12" font-weight="700" fill="#2457d6">t_in</text>
+  <text x="50" y="172" font-size="12" font-weight="700" fill="#6b7280">t_ref</text>
+  <text x="50" y="208" font-size="12" font-weight="700" fill="#27ae60">V_mot</text>
+
+  <!-- СЕКЦІЯ А: |Δt| < t_db (Всередині мертвої зони) -->
+  <!-- Вхідний ШІМ t_in -->
+  <polyline points="85,138 115,138 115,124 185,124 185,138 220,138" fill="none" stroke="#2457d6" stroke-width="1.6"/>
+
+  <!-- Опорний імпульс t_ref (потенціометр) -->
+  <polyline points="85,174 115,174 115,160 180,160 180,174 220,174" fill="none" stroke="#6b7280" stroke-width="1.6"/>
+
+  <!-- Вихід мотора: 0 В -->
+  <line x1="85" y1="210" x2="220" y2="210" stroke="#27ae60" stroke-width="2"/>
+  <text x="152" y="204" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">0 В (Двигун спить)</text>
+  <text x="152" y="226" text-anchor="middle" font-size="12" fill="#6b7280">Похибка &lt; Deadband</text>
+
+  <!-- СЕКЦІЯ Б: |Δt| > t_db (Зона активної корекції) -->
+  <!-- Вхідний ШІМ t_in -->
+  <polyline points="245,138 255,138 255,124 380,124 380,138 435,138" fill="none" stroke="#2457d6" stroke-width="1.6"/>
+
+  <!-- Опорний імпульс t_ref -->
+  <polyline points="245,174 255,174 255,160 335,160 335,174 435,174" fill="none" stroke="#6b7280" stroke-width="1.6"/>
+
+  <!-- Позначення різниці Δt -->
+  <line x1="335" y1="154" x2="380" y2="154" stroke="#c0392b" stroke-width="1.2" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+  <text x="357" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Δt</text>
+
+  <!-- Імпульс похибки після вирахування мертвої зони -->
+  <polyline points="245,210 345,210 345,196 380,196 380,210 435,210" fill="none" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="362" y="190" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Δt_err</text>
+  <text x="362" y="226" text-anchor="middle" font-size="12" fill="#6b7280">|Δt| - t_db</text>
+
+  <!-- Пояснювальний блок унизу лівої панелі -->
+  <rect x="40" y="256" width="415" height="82" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="274" font-size="12" font-weight="700" fill="#1a1a1a">Принцип дії блоку мертвої зони (Deadband):</text>
+  <text x="52" y="292" font-size="12" fill="#27ae60">• Фільтрація мікрошумів: шум потенціометра не будить мотор.</text>
+  <text x="52" y="308" font-size="12" fill="#1a1a1a">• Зниження нагріву: усунення автоколивань у точці спокою.</text>
+  <text x="52" y="324" font-size="12" fill="#6b7280">• Налаштування порогу: RC-ланцюг чіпа задає deadband 4–8 мкс.</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ПОДОВЖУВАЧ ІМПУЛЬСІВ ==================== -->
+  <rect x="485" y="65" width="450" height="285" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="505" y="86" font-size="13" font-weight="700" fill="#1a1a1a">2. Подовжувач імпульсів (Pulse Stretcher) на C_stretch</text>
+
+  <!-- Поле діаграм правої панелі -->
+  <rect x="500" y="96" width="420" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- 1. Вхідний короткий імпульс похибки Δt_err -->
+  <text x="560" y="120" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">Δt_err</text>
+  <polyline points="565,124 590,124 590,110 610,110 610,124 890,124" fill="none" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="630" y="118" font-size="12" fill="#c0392b">Вузький імпульс (20 мкс)</text>
+
+  <!-- 2. Напруга на конденсаторі C_stretch -->
+  <text x="560" y="166" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">V(C_str)</text>
+  <line x1="565" y1="172" x2="890" y2="172" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 565,172 L 590,172 L 610,138 C 650,146 710,156 760,162 C 790,166 820,172 850,172 L 890,172" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="565" y1="162" x2="890" y2="162" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="895" y="166" font-size="12" fill="#6b7280">V_пор</text>
+  <text x="690" y="148" font-size="12" fill="#2457d6">Розряд через R_stretch</text>
+
+  <!-- 3. Розтягнутий імпульс мотора V_mot -->
+  <text x="560" y="214" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">V_мотора</text>
+  <polyline points="565,218 590,218 590,202 760,202 760,218 890,218" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Розмірна стрілка розтягнутого імпульсу -->
+  <line x1="590" y1="194" x2="760" y2="194" stroke="#27ae60" stroke-width="1.2" marker-start="url(#arr-green-rev)" marker-end="url(#arr-green)"/>
+  <text x="675" y="188" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Розтягнутий імпульс (1.2 мс: пуск мотора)</text>
+
+  <!-- Вісь часу t -->
+  <line x1="565" y1="234" x2="895" y2="234" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="902" y="238" font-size="12" font-weight="700" fill="#1a1a1a">t</text>
+
+  <!-- Пояснювальний блок унизу правої панелі -->
+  <rect x="500" y="256" width="420" height="82" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="512" y="274" font-size="12" font-weight="700" fill="#1a1a1a">Фізична роль розтягувача імпульсів:</text>
+  <text x="512" y="292" font-size="12" fill="#c0392b">• Проблема тертя: імпульс 20 мкс не зрушує застиглий редуктор.</text>
+  <text x="512" y="308" font-size="12" fill="#27ae60">• Ефект C_stretch: подовження до 1–2 мс створює пусковий момент.</text>
+  <text x="512" y="324" font-size="12" fill="#6b7280">• Точність ходу: гарантує мікропереміщення без застрягання вала.</text>
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: ІНЖЕНЕРНИЙ ВИСНОВОК ==================== -->
+  <rect x="25" y="362" width="910" height="78" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="382" font-size="12" font-weight="700" fill="#1a1a1a">Інженерні правила налаштування Deadband та Pulse Stretcher у сервоприводі:</text>
+  <text x="45" y="401" font-size="12" fill="#1a1a1a">1. Узгодження Deadband з люфтом: поріг мертвої зони t_db (4–8 мкс) має бути більшим за механічний зазор редуктора, інакше виникає перманентний джитер.</text>
+  <text x="45" y="419" font-size="12" fill="#1a1a1a">2. Ємність C_stretch: визначає коефіцієнт підсилення в малій зоні; завищена ємність викликає перерегулювання та перельоти цільового кута.</text>
+  <text x="45" y="435" font-size="12" fill="#6b7280">3. Подолання тертя: подовження імпульсу накопичує достатній струм в обмотці мотора, забезпечуючи плавний старт без ривків під навантаженням.</text>
+</svg>

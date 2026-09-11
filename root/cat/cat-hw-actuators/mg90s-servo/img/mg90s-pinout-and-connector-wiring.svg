@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цоколівка роз'єму JR/DuPont та підключення сервопривода MG90S</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">VCC по центру захищає від переполюсовки; піковий струм 800 мА вимагає виділеного силового живлення</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Роз'єм, дроти та таблиця цоколівки -->
+  <rect x="24" y="68" width="540" height="376" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <rect x="36" y="78" width="516" height="24" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="294" y="94" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Фізичний роз'єм, цоколівка та стандарти кольорів</text>
+
+  <!-- Корпус роз'єму DuPont (Female) -->
+  <rect x="40" y="118" width="75" height="120" rx="4" fill="#1a1a1a" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- 3 контакти роз'єму -->
+  <rect x="50" y="130" width="20" height="24" rx="2" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="60" y="147" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1</text>
+
+  <rect x="50" y="166" width="20" height="24" rx="2" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="60" y="183" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">2</text>
+
+  <rect x="50" y="202" width="20" height="24" rx="2" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="60" y="219" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3</text>
+
+  <text x="77" y="254" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">DuPont 3-pin</text>
+  <text x="77" y="270" font-size="12" fill="#6b7280" text-anchor="middle">Крок 2.54 мм</text>
+
+  <!-- 3 дроти шлейфа -->
+  <!-- Дріт 1: Коричневий (GND) -->
+  <rect x="115" y="136" width="85" height="12" fill="#654321"/>
+  <!-- Дріт 2: Червоний (VCC) -->
+  <rect x="115" y="172" width="85" height="12" fill="#c0392b"/>
+  <!-- Дріт 3: Помаранчевий (PWM) -->
+  <rect x="115" y="208" width="85" height="12" fill="#e67e22"/>
+
+  <!-- Таблиця цоколівки праворуч від дротів -->
+  <rect x="205" y="118" width="347" height="158" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+
+  <!-- Заголовок таблиці -->
+  <rect x="205" y="118" width="347" height="26" fill="#eaf0fd"/>
+  <text x="225" y="135" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пін</text>
+  <text x="275" y="135" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнал</text>
+  <text x="375" y="135" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Колір JR (MG90S)</text>
+  <text x="490" y="135" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Futaba</text>
+
+  <!-- Рядок 1: GND -->
+  <text x="225" y="160" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="275" y="160" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND (0 В)</text>
+  <text x="375" y="160" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Коричневий</text>
+  <text x="490" y="160" font-size="12" fill="#6b7280" text-anchor="middle">Чорний</text>
+  <text x="375" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Загальний мінус</text>
+  <text x="490" y="176" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <!-- Рядок 2: VCC -->
+  <text x="225" y="204" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">2</text>
+  <text x="275" y="204" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">VCC (+5В)</text>
+  <text x="375" y="204" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Червоний</text>
+  <text x="490" y="204" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Червоний</text>
+  <text x="375" y="220" font-size="12" fill="#6b7280" text-anchor="middle">+4.8 .. +6.0 В силове</text>
+  <text x="490" y="220" font-size="12" fill="#6b7280" text-anchor="middle">+5 В</text>
+
+  <!-- Рядок 3: PWM -->
+  <text x="225" y="248" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3</text>
+  <text x="275" y="248" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PWM</text>
+  <text x="375" y="248" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Помаранчевий</text>
+  <text x="490" y="248" font-size="12" fill="#6b7280" text-anchor="middle">Білий</text>
+  <text x="375" y="264" font-size="12" fill="#6b7280" text-anchor="middle">50 Гц (3.3В / 5В TTL)</text>
+  <text x="490" y="264" font-size="12" fill="#6b7280" text-anchor="middle">Сигнал</text>
+
+  <!-- Інженерні виноски внизу лівої панелі -->
+  <text x="40" y="302" font-size="12" font-weight="bold" fill="#2457d6">• Стандарт JR (MG90S):</text>
+  <text x="200" y="302" font-size="12" fill="#1a1a1a">Коричневий (GND) — Червоний (VCC) — Помаранчевий (PWM)</text>
+
+  <text x="40" y="322" font-size="12" font-weight="bold" fill="#27ae60">• Логічний рівень PWM:</text>
+  <text x="200" y="322" font-size="12" fill="#1a1a1a">Вхід повністю сумісний із 3.3 В логікою (STM32, ESP32, RP2040)</text>
+
+  <rect x="36" y="338" width="516" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="294" y="356" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ШІМ-керування: період 20 мс (50 Гц), імпульс 500..2400 мкс (кут 0..180°)</text>
+  <text x="294" y="372" font-size="12" fill="#1a1a1a" text-anchor="middle">Нейтральне центральне положення (90°) відповідає ширині рівно 1500 мкс</text>
+
+  <text x="40" y="402" font-size="12" font-weight="bold" fill="#c0392b">• Правило Common Ground:</text>
+  <text x="200" y="402" font-size="12" fill="#1a1a1a">GND мікроконтролера та GND блока живлення серва З'ЄДНУЮТЬСЯ!</text>
+
+  <text x="294" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Без спільної землі керуючий імпульс не має стабільного опорного рівня</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Захист та живлення -->
+  <rect x="580" y="68" width="356" height="376" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+
+  <!-- Картка 1: Захист VCC по центру -->
+  <rect x="580" y="68" width="356" height="154" rx="8" fill="#e9f7ef" stroke="#27ae60"/>
+  <rect x="592" y="78" width="332" height="24" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="758" y="94" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Захист від переполюсовки (VCC у центрі)</text>
+
+  <text x="596" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">• Симетричне розміщення VCC (Пін 2):</text>
+  <text x="608" y="134" font-size="12" fill="#6b7280">При випадковому перевороті штекера на 180°:</text>
+  <text x="608" y="152" font-size="12" font-weight="bold" fill="#27ae60">+5 В завжди залишається на центральному контакті 2!</text>
+
+  <text x="596" y="172" font-size="12" font-weight="bold" fill="#1a1a1a">• Безпека схемотехніки:</text>
+  <text x="608" y="190" font-size="12" fill="#1a1a1a">Місцями міняються лише GND та високоомний PWM.</text>
+  <text x="608" y="208" font-size="12" font-weight="bold" fill="#27ae60">Коротке замикання живлення та вигоряння виключені!</text>
+
+  <!-- Картка 2: Силове живлення та конденсатор -->
+  <rect x="580" y="236" width="356" height="208" rx="8" fill="#fdecea" stroke="#c0392b"/>
+  <rect x="592" y="246" width="332" height="24" rx="4" fill="#ffffff" stroke="#c0392b"/>
+  <text x="758" y="262" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Вимоги до силового живлення сервопривода</text>
+
+  <text x="596" y="286" font-size="12" font-weight="bold" fill="#1a1a1a">• Піковий струм блокування (Stall Current):</text>
+  <text x="608" y="302" font-size="12" font-weight="bold" fill="#c0392b">До 800 мА при різкому старті чи утриманні моменту!</text>
+
+  <text x="596" y="322" font-size="12" font-weight="bold" fill="#1a1a1a">• Заборона живлення від 5V піна МК / USB:</text>
+  <text x="608" y="338" font-size="12" fill="#6b7280">Спричиняє падіння напруги та аварійний рестарт CPU.</text>
+
+  <text x="596" y="358" font-size="12" font-weight="bold" fill="#2457d6">• Буферний електроліт (Обов'язково):</text>
+  <text x="608" y="374" font-size="12" font-weight="bold" fill="#2457d6">Конденсатор 470 .. 1000 мкФ біля роз'єму серво</text>
+  <text x="608" y="392" font-size="12" fill="#1a1a1a">Компенсує різкі імпульси струму колекторного мотора.</text>
+
+  <text x="608" y="412" font-size="12" font-weight="bold" fill="#27ae60">Забезпечує стабільну роботу радіоканалу та датчиків.</text>
+</svg>

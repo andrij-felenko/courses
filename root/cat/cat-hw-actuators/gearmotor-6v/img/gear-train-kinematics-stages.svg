@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Кінематика зубчастого зачеплення та багатоступеневий редуктор</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Рівність колової швидкості в полюсі зачеплення, співвідношення z₁/z₂ та каскадне зниження обертів</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Пара шестерень -->
+  <rect x="24" y="68" width="444" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="96" font-size="14" font-weight="700" fill="#1a1a1a">1. Кінематика зубчастої пари (початкові кола)</text>
+  <text x="40" y="114" font-size="12" fill="#6b7280">Кочення без ковзання в полюсі P: спільна швидкість v₁ = v₂ = v</text>
+
+  <!-- Початкове коло 1 (шестірня z1) -->
+  <circle cx="155" cy="225" r="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="155" cy="225" r="5" fill="#2457d6"/>
+  <text x="155" y="221" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">z₁ = 12</text>
+  <text x="155" y="237" font-size="12" fill="#2457d6" text-anchor="middle">ω₁ ↻</text>
+
+  <!-- Початкове коло 2 (колесо z2) -->
+  <circle cx="275" cy="225" r="80" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="275" cy="225" r="7" fill="#6b7280"/>
+  <text x="275" y="217" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">z₂ = 24</text>
+  <text x="275" y="235" font-size="12" fill="#1a1a1a" text-anchor="middle">ω₂ = ω₁ / 2 ↺</text>
+
+  <!-- Картка шестірні 1 (вхід) -->
+  <rect x="40" y="132" width="100" height="44" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="90" y="149" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Шестірня 1 (вхід)</text>
+  <text x="90" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">r₁, z₁ = 12, ω₁, M₁</text>
+
+  <!-- Картка колеса 2 (вихід) -->
+  <rect x="362" y="203" width="96" height="44" rx="5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="410" y="220" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Колесо 2 (вихід)</text>
+  <text x="410" y="236" font-size="12" fill="#1a1a1a" text-anchor="middle">r₂=2·r₁, z₂=24</text>
+
+  <!-- Полюс зачеплення P та вектори -->
+  <circle cx="195" cy="225" r="4" fill="#c0392b"/>
+  <line x1="181" y1="187" x2="195" y2="225" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="195" y1="225" x2="195" y2="265" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <line x1="195" y1="225" x2="209" y2="263" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Пояснення полюса P і векторів -->
+  <text x="40" y="284" font-size="12" font-weight="700" fill="#c0392b">Полюс P: точка контакту кіл</text>
+  <text x="40" y="300" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#2457d6">• v:</tspan> колова швидкість (дотична)</text>
+  <text x="40" y="316" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#c0392b">• Fn:</tspan> нормальна сила зачеплення</text>
+
+  <!-- Формули пари шестерень -->
+  <rect x="38" y="328" width="416" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="348" font-size="13" font-weight="700" fill="#1a1a1a">Кінематичні співвідношення пари шестерень:</text>
+  <text x="50" y="370" font-size="12" fill="#1a1a1a">• Передавальне число: <tspan font-weight="700" fill="#2457d6">i = ω₁ / ω₂ = r₂ / r₁ = z₂ / z₁ = 2</tspan></text>
+  <text x="50" y="392" font-size="12" fill="#1a1a1a">• Колова швидкість: <tspan font-weight="700" fill="#2457d6">v = ω₁ · r₁ = ω₂ · r₂  (без ковзання)</tspan></text>
+  <text x="50" y="414" font-size="12" fill="#1a1a1a">• Крутний момент: <tspan font-weight="700" fill="#27ae60">M₂ = M₁ · i · η  (момент зростає у i разів)</tspan></text>
+  <text x="50" y="434" font-size="12" fill="#6b7280">Висновок: зниження кутової швидкості пропорційно збільшує момент</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Багатоступеневий редуктор -->
+  <rect x="492" y="68" width="444" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="508" y="96" font-size="14" font-weight="700" fill="#1a1a1a">2. Багатоступеневий редуктор (каскад 4 ступенів)</text>
+  <text x="508" y="114" font-size="12" fill="#6b7280">Каскадне зниження обертів, зростання моменту та втрати ККД</text>
+
+  <!-- 4 картки ступенів -->
+  <!-- Ступінь 1 -->
+  <rect x="508" y="132" width="94" height="94" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="555" y="150" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">1-й ступінь</text>
+  <text x="555" y="167" font-size="12" fill="#6b7280" text-anchor="middle">i₁ ≈ 3.3</text>
+  <text x="555" y="185" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">3 030 об/хв</text>
+  <text x="555" y="202" font-size="12" fill="#27ae60" text-anchor="middle">M₁ ≈ 2.8 · M₀</text>
+  <text x="555" y="218" font-size="12" fill="#c0392b" text-anchor="middle">ККД: 85%</text>
+
+  <line x1="604" y1="179" x2="612" y2="179" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Ступінь 2 -->
+  <rect x="614" y="132" width="94" height="94" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="661" y="150" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">2-й ступінь</text>
+  <text x="661" y="167" font-size="12" fill="#6b7280" text-anchor="middle">i₂ ≈ 3.3</text>
+  <text x="661" y="185" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">918 об/хв</text>
+  <text x="661" y="202" font-size="12" fill="#27ae60" text-anchor="middle">M₂ ≈ 7.9 · M₀</text>
+  <text x="661" y="218" font-size="12" fill="#c0392b" text-anchor="middle">ККД: 72%</text>
+
+  <line x1="710" y1="179" x2="718" y2="179" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Ступінь 3 -->
+  <rect x="720" y="132" width="94" height="94" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="767" y="150" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">3-й ступінь</text>
+  <text x="767" y="167" font-size="12" fill="#6b7280" text-anchor="middle">i₃ ≈ 3.1</text>
+  <text x="767" y="185" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">296 об/хв</text>
+  <text x="767" y="202" font-size="12" fill="#27ae60" text-anchor="middle">M₃ ≈ 21 · M₀</text>
+  <text x="767" y="218" font-size="12" fill="#c0392b" text-anchor="middle">ККД: 61%</text>
+
+  <line x1="816" y1="179" x2="824" y2="179" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Ступінь 4 -->
+  <rect x="826" y="132" width="94" height="94" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="873" y="150" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">4-й ступінь</text>
+  <text x="873" y="167" font-size="12" fill="#6b7280" text-anchor="middle">i₄ ≈ 2.9</text>
+  <text x="873" y="185" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">100 об/хв</text>
+  <text x="873" y="202" font-size="12" fill="#27ae60" text-anchor="middle">M₄ ≈ 52 · M₀</text>
+  <text x="873" y="218" font-size="12" fill="#c0392b" text-anchor="middle">ККД: 52%</text>
+
+  <!-- Порівняльні панелі: Вхід vs Вихід -->
+  <rect x="508" y="238" width="194" height="76" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="605" y="255" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вхід: Ротор двигуна (6 В)</text>
+  <text x="518" y="273" font-size="12" fill="#1a1a1a">Швидкість: <tspan font-weight="700">10 000 об/хв</tspan></text>
+  <text x="518" y="291" font-size="12" fill="#1a1a1a">Момент: <tspan font-weight="700">M₀ (базовий)</tspan></text>
+  <text x="518" y="306" font-size="12" fill="#6b7280">Високі оберти, мінімальна тяга</text>
+
+  <line x1="705" y1="276" x2="723" y2="276" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="726" y="238" width="194" height="76" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="823" y="255" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Вихід: Робочий вал колеса</text>
+  <text x="736" y="273" font-size="12" fill="#1a1a1a">Швидкість: <tspan font-weight="700">100 об/хв (↓ :100)</tspan></text>
+  <text x="736" y="291" font-size="12" fill="#1a1a1a">Момент: <tspan font-weight="700">52 · M₀ (↑ у 52 рази)</tspan></text>
+  <text x="736" y="306" font-size="12" fill="#27ae60">Робоча тяга шасі платформи</text>
+
+  <!-- Формули редуктора -->
+  <rect x="508" y="328" width="412" height="118" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="348" font-size="13" font-weight="700" fill="#1a1a1a">Розрахункові формули 4-ступеневого каскаду:</text>
+  <text x="520" y="370" font-size="12" fill="#1a1a1a">• Передавальне число: <tspan font-weight="700" fill="#2457d6">i_заг = i₁·i₂·i₃·i₄ ≈ 100 : 1</tspan></text>
+  <text x="520" y="392" font-size="12" fill="#1a1a1a">• Сумарний ККД: <tspan font-weight="700" fill="#c0392b">η_заг = (η_ст)⁴ ≈ 0.85⁴ ≈ 52%</tspan> (втрати 48%)</text>
+  <text x="520" y="414" font-size="12" fill="#1a1a1a">• Вихідний момент: <tspan font-weight="700" fill="#27ae60">M_вих = M_вх · i_заг · η_заг ≈ 52 · M_вх</tspan></text>
+  <text x="520" y="434" font-size="12" fill="#6b7280">• Версія 600 об/хв: менше ступенів (i ≈ 16), вищий ККД (η ≈ 72%)</text>
+</svg>

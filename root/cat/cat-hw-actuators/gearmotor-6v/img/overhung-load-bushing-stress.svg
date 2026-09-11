@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дія консольного навантаження на вихідний D-вал редуктора</text>
+  <text x="480" y="66" font-size="13" fill="#6b7280" text-anchor="middle">Згинальний момент перекошує вісь вала, спричиняючи розпір у втулці та скошування зубів</text>
+
+  <!-- Ліва панель: основна графічна схема -->
+  <rect x="24" y="80" width="586" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="104" font-size="13" font-weight="bold" fill="#1a1a1a">Схема деформації вала та напружень у втулці</text>
+
+  <!-- Початкова нейтральна вісь (штрихова) -->
+  <line x1="50" y1="250" x2="550" y2="250" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="6,4"/>
+
+  <!-- Опорна пластина редуктора -->
+  <rect x="190" y="160" width="90" height="180" rx="3" fill="#e1e4e8" stroke="#a0aab5" stroke-width="1.5"/>
+
+  <!-- Бронзова втулка (верхня та нижня стінки) -->
+  <rect x="195" y="222" width="80" height="12" rx="1" fill="#d4a359" stroke="#966d1a" stroke-width="1"/>
+  <rect x="195" y="266" width="80" height="12" rx="1" fill="#d4a359" stroke="#966d1a" stroke-width="1"/>
+
+  <!-- Перекошений вихідний вал (нахил під дією моменту) -->
+  <polygon points="60,228.4 520,253.7 520,277.7 60,252.4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Лиска D-вала на зовнішньому кінці -->
+  <line x1="380" y1="250" x2="520" y2="258" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Перекошена вісь вала (синя суцільна лінія через центр) -->
+  <line x1="60" y1="240.4" x2="520" y2="265.7" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Кут перекосу γ (дуга біля правого краю) -->
+  <path d="M 475,250 A 240,240 0 0,1 474,263" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="492" y="244" font-size="12" font-weight="bold" fill="#2457d6">кут γ</text>
+
+  <!-- Шків / колесо на консолі -->
+  <rect x="420" y="228" width="40" height="66" rx="3" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Сила Fr (радіальне навантаження) -->
+  <line x1="440" y1="145" x2="440" y2="220" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="455" y="165" font-size="13" font-weight="bold" fill="#c0392b">F_rad</text>
+  <text x="455" y="182" font-size="12" fill="#6b7280">радіальна сила</text>
+  <text x="455" y="197" font-size="12" fill="#6b7280">(натяг / колесо)</text>
+
+  <!-- Плече сили L_консоль -->
+  <line x1="275" y1="120" x2="275" y2="215" stroke="#a0aab5" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="440" y1="120" x2="440" y2="140" stroke="#a0aab5" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="283" y1="125" x2="432" y2="125" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-left)" marker-end="url(#arr)"/>
+  <text x="357" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Плече L_консоль</text>
+
+  <!-- Згинальний момент M = Fr * L -->
+  <path d="M 320,185 A 25,25 0 0,1 335,212" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="310" y="168" font-size="12" font-weight="bold" fill="#c0392b">M = F_rad · L</text>
+
+  <!-- Епюра контактного тиску у втулці: внутрішній верхній торець -->
+  <polygon points="195,210 195,234 235,234" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="200" y1="213" x2="200" y2="231" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="210" y1="219" x2="210" y2="231" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+  <line x1="220" y1="225" x2="220" y2="231" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-red)"/>
+  <text x="145" y="194" font-size="12" font-weight="bold" fill="#c0392b">Крайовий пік σ_max</text>
+
+  <!-- Епюра контактного тиску у втулці: зовнішній нижній торець -->
+  <polygon points="235,266 275,266 275,290" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="270" y1="287" x2="270" y2="269" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="260" y1="281" x2="260" y2="269" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+  <line x1="250" y1="275" x2="250" y2="269" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-red)"/>
+  <text x="230" y="320" font-size="12" font-weight="bold" fill="#c0392b">Крайовий пік σ_max</text>
+
+  <!-- Підпис втулки -->
+  <text x="140" y="345" font-size="12" font-weight="bold" fill="#966d1a">Бронзова втулка</text>
+  <text x="140" y="360" font-size="12" fill="#6b7280">овальне розбиття отвору</text>
+
+  <!-- Зубчасте колесо на внутрішньому кінці вала та контакт зубів -->
+  <!-- Тіло колеса вихідного вала (перекошене) -->
+  <polygon points="75,197 105,202 105,295 75,290" fill="#e1e4e8" stroke="#6b7280" stroke-width="1.2"/>
+  <!-- Зуб колеса вихідного вала -->
+  <polygon points="75,181 105,186 105,197 75,197" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Зуб шестерні проміжного вала (жорсткий, горизонтальний) -->
+  <rect x="75" y="165" width="30" height="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="1"/>
+  <!-- Пляма крайового контакту -->
+  <circle cx="75" cy="181" r="4.5" fill="#c0392b"/>
+  <text x="40" y="142" font-size="12" font-weight="bold" fill="#c0392b">Крайовий контакт зубів</text>
+  <text x="40" y="158" font-size="12" fill="#c0392b">edge contact → скол</text>
+
+  <!-- Підпис D-вала -->
+  <text x="470" y="308" font-size="12" font-weight="bold" fill="#2457d6">Вихідний D-вал</text>
+
+  <!-- Нижня легенда в лівій панелі -->
+  <line x1="45" y1="395" x2="85" y2="395" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="98" y="399" font-size="12" fill="#6b7280">Початкова нейтральна вісь</text>
+  <line x1="315" y1="395" x2="355" y2="395" stroke="#2457d6" stroke-width="2"/>
+  <text x="368" y="399" font-size="12" fill="#2457d6" font-weight="bold">Перекошена вісь (кут γ)</text>
+
+  <!-- Права колонка: 3 інформаційні картки -->
+  <!-- Картка 1: Механіка консолі -->
+  <rect x="626" y="80" width="310" height="110" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="642" y="106" font-size="13" font-weight="bold" fill="#c0392b">Механіка консолі: момент M</text>
+  <text x="642" y="125" font-size="12" fill="#1a1a1a">Радіальна сила Fr на плечі L створює</text>
+  <text x="642" y="143" font-size="12" fill="#1a1a1a">згинальний момент M = Fr · L.</text>
+  <text x="642" y="161" font-size="12" fill="#1a1a1a">Коротка втулка зазнає крайового</text>
+  <text x="642" y="177" font-size="12" fill="#c0392b" font-weight="bold">розпору й овального зносу отвору.</text>
+
+  <!-- Картка 2: Крайовий контакт шестерень -->
+  <rect x="626" y="202" width="310" height="114" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="642" y="228" font-size="13" font-weight="bold" fill="#c0392b">Крайовий контакт зубів</text>
+  <text x="642" y="247" font-size="12" fill="#1a1a1a">Кутовий перекіс осі вала (кут γ)</text>
+  <text x="642" y="265" font-size="12" fill="#1a1a1a">зміщує пляму контакту на самий</text>
+  <text x="642" y="283" font-size="12" fill="#1a1a1a">край зубчастого вінця (edge contact),</text>
+  <text x="642" y="301" font-size="12" fill="#c0392b" font-weight="bold">що провокує викришування зубців.</text>
+
+  <!-- Картка 3: Інженерні правила монтажу -->
+  <rect x="626" y="328" width="310" height="112" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="642" y="354" font-size="13" font-weight="bold" fill="#27ae60">Правила монтажу та захисту</text>
+  <text x="642" y="373" font-size="12" fill="#1a1a1a">1. Садити шків/колесо впритул до</text>
+  <text x="642" y="391" font-size="12" fill="#1a1a1a">   втулки (мінімізація плеча L).</text>
+  <text x="642" y="409" font-size="12" fill="#1a1a1a">2. За значних Fr встановлювати</text>
+  <text x="642" y="427" font-size="12" fill="#27ae60" font-weight="bold">   зовнішню підшипникову опору.</text>
+</svg>

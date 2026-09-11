@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Комплексна апаратна мережа захисту лазерного діода</text>
+  <text x="480" y="57" font-size="13" fill="#6b7280" text-anchor="middle">Багаторівневий бар'єр від пікових перехідних процесів, ESD, зворотної напруги та COD</text>
+
+  <!-- Left Panel: Schematic -->
+  <rect x="30" y="75" width="565" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="97" font-size="12" font-weight="bold" fill="#6b7280">ПОВНА ТОПОЛОГІЯ АПАРАТНИХ КІЛ ЗАХИСТУ LD</text>
+
+  <!-- Power Rails -->
+  <!-- Top Rail (+I_DRV) -->
+  <line x1="90" y1="145" x2="115" y2="145" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="90" cy="145" r="4" fill="white" stroke="#c0392b" stroke-width="2"/>
+  <text x="82" y="149" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">+I_DRV</text>
+
+  <!-- Bottom Rail (GND) -->
+  <line x1="90" y1="345" x2="115" y2="345" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="90" cy="345" r="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="82" y="349" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND</text>
+
+  <!-- Stage 1: Ferrite Beads (FB1, FB2) -->
+  <rect x="115" y="139" width="26" height="12" rx="3" fill="#1a1a1a"/>
+  <text x="128" y="131" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FB1</text>
+
+  <rect x="115" y="339" width="26" height="12" rx="3" fill="#1a1a1a"/>
+  <text x="128" y="369" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FB2</text>
+
+  <!-- Rails continue past FB -->
+  <line x1="141" y1="145" x2="175" y2="145" stroke="#c0392b" stroke-width="2"/>
+  <line x1="141" y1="345" x2="525" y2="345" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Stage 2: Soft-Start Circuit (P-MOSFET Q_SS, C_SS, R_SS) -->
+  <!-- Header above stage 2 -->
+  <text x="195" y="122" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ПЛАВНИЙ ПУСК</text>
+  <text x="195" y="136" font-size="12" fill="#6b7280" text-anchor="middle">Q_SS: P-FET</text>
+
+  <!-- P-MOSFET Q_SS -->
+  <line x1="175" y1="145" x2="190" y2="145" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="175" cy="145" r="3" fill="#c0392b"/>
+  <!-- Transistor channel & gate -->
+  <line x1="190" y1="145" x2="210" y2="145" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="190" y1="151" x2="210" y2="151" stroke="#1a1a1a" stroke-width="2"/>
+  <polygon points="198,145 202,142 202,148" fill="#1a1a1a"/>
+  <line x1="210" y1="145" x2="225" y2="145" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Gate node and R_SS, C_SS connections -->
+  <line x1="200" y1="151" x2="200" y2="180" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="200" cy="180" r="3" fill="#27ae60"/>
+
+  <!-- C_SS branch (between Source at 175 and Gate at 200) -->
+  <line x1="175" y1="145" x2="175" y2="160" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="167" y1="160" x2="183" y2="160" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="167" y1="166" x2="183" y2="166" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="175" y1="166" x2="175" y2="180" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="175" y1="180" x2="200" y2="180" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="160" y="166" font-size="12" fill="#6b7280" text-anchor="end">C_SS</text>
+
+  <!-- R_SS branch (from Gate to GND) -->
+  <line x1="200" y1="180" x2="200" y2="235" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="193" y="235" width="14" height="35" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="200" y1="270" x2="200" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="200" cy="345" r="3" fill="#1a1a1a"/>
+  <text x="213" y="256" font-size="12" font-weight="bold" fill="#1a1a1a">R_SS</text>
+  <text x="213" y="285" font-size="12" fill="#27ae60">τ = R·C</text>
+
+  <!-- Rail from Q_SS Drain onwards to protection network -->
+  <line x1="225" y1="145" x2="525" y2="145" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Stage 3: TVS Diode (D_TVS) at x=285 -->
+  <text x="285" y="122" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">TVS-ЗАХИСТ</text>
+  <text x="285" y="136" font-size="12" fill="#6b7280" text-anchor="middle">Зрізання ESD</text>
+
+  <line x1="285" y1="145" x2="285" y2="225" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="285" cy="145" r="3" fill="#c0392b"/>
+  <!-- TVS Cathode Bar (Z-bar at top) -->
+  <line x1="277" y1="225" x2="293" y2="225" stroke="#2457d6" stroke-width="2"/>
+  <line x1="277" y1="225" x2="277" y2="229" stroke="#2457d6" stroke-width="2"/>
+  <line x1="293" y1="225" x2="293" y2="221" stroke="#2457d6" stroke-width="2"/>
+  <!-- TVS Triangle (pointing up towards cathode) -->
+  <polygon points="278,239 292,239 285,225" fill="#2457d6"/>
+  <line x1="285" y1="239" x2="285" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="285" cy="345" r="3" fill="#1a1a1a"/>
+  <text x="298" y="234" font-size="12" font-weight="bold" fill="#2457d6">D_TVS</text>
+  <text x="298" y="248" font-size="12" fill="#6b7280">Супресор</text>
+
+  <!-- Stage 4: RC Snubber (R_SN + C_SN) at x=370 -->
+  <text x="370" y="122" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RC-СНАББЕР</text>
+  <text x="370" y="136" font-size="12" fill="#6b7280" text-anchor="middle">Антидзвін</text>
+
+  <line x1="370" y1="145" x2="370" y2="195" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="370" cy="145" r="3" fill="#c0392b"/>
+  <!-- Resistor R_SN -->
+  <rect x="363" y="195" width="14" height="35" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="383" y="217" font-size="12" font-weight="bold" fill="#1a1a1a">R_SN</text>
+  <line x1="370" y1="230" x2="370" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Capacitor C_SN -->
+  <line x1="362" y1="260" x2="378" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="362" y1="268" x2="378" y2="268" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="383" y="268" font-size="12" font-weight="bold" fill="#1a1a1a">C_SN</text>
+  <line x1="370" y1="268" x2="370" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="370" cy="345" r="3" fill="#1a1a1a"/>
+
+  <!-- Stage 5: Antiparallel Schottky Diode (D_SCH) at x=450 -->
+  <text x="450" y="122" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ДІОД ШОТТКІ</text>
+  <text x="450" y="136" font-size="12" fill="#6b7280" text-anchor="middle">Проти V_rev</text>
+
+  <line x1="450" y1="145" x2="450" y2="228" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="450" cy="145" r="3" fill="#c0392b"/>
+  <!-- Schottky Cathode Bar (S-shape at top) -->
+  <line x1="442" y1="228" x2="458" y2="228" stroke="#2457d6" stroke-width="2"/>
+  <line x1="442" y1="228" x2="442" y2="232" stroke="#2457d6" stroke-width="2"/>
+  <line x1="458" y1="228" x2="458" y2="224" stroke="#2457d6" stroke-width="2"/>
+  <!-- Diode Triangle (pointing up towards cathode) -->
+  <polygon points="443,244 457,244 450,228" fill="#2457d6"/>
+  <line x1="450" y1="244" x2="450" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="450" cy="345" r="3" fill="#1a1a1a"/>
+  <text x="463" y="234" font-size="12" font-weight="bold" fill="#2457d6">D_SCH</text>
+  <text x="463" y="248" font-size="12" fill="#6b7280">Шотткі</text>
+
+  <!-- Protected Laser Diode (LD) at x=525 -->
+  <text x="525" y="122" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ЛАЗЕРНИЙ ДІОД</text>
+  <text x="525" y="136" font-size="12" fill="#6b7280" text-anchor="middle">Об'єкт захисту</text>
+
+  <line x1="525" y1="145" x2="525" y2="228" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="525" cy="145" r="3" fill="#c0392b"/>
+  <!-- Diode Triangle pointing down (forward bias) -->
+  <polygon points="516,228 534,228 525,244" fill="#c0392b"/>
+  <line x1="516" y1="244" x2="534" y2="244" stroke="#c0392b" stroke-width="2"/>
+  <!-- Emission Arrows -->
+  <line x1="534" y1="235" x2="547" y2="229" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="534" y1="243" x2="547" y2="237" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="525" y1="244" x2="525" y2="345" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="525" cy="345" r="3" fill="#1a1a1a"/>
+  <text x="552" y="238" font-size="12" font-weight="bold" fill="#c0392b">LD</text>
+  <text x="552" y="252" font-size="12" fill="#6b7280">5 мВт</text>
+
+  <!-- Left Panel Bottom Formula Card -->
+  <rect x="45" y="390" width="535" height="38" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="312" y="405" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Правило монтажу: TVS, діод Шотткі та снаббер ставлять безпосередньо</text>
+  <text x="312" y="419" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">на виводах лазерного діода для мінімізації паразитної індуктивності L_wire</text>
+
+  <!-- Right Side - Card 1: 5 Levels of Hardware Protection -->
+  <rect x="615" y="75" width="315" height="195" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="627" y="87" width="291" height="24" rx="4" fill="#2457d6"/>
+  <text x="772" y="103" font-size="12" font-weight="bold" fill="white" text-anchor="middle">5 РІВНІВ АПАРАТНОГО ЗАХИСТУ LD</text>
+  <text x="627" y="128" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">• FB1, FB2:</tspan> фільтрація ВЧ завад та EMI</text>
+  <text x="627" y="148" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">• Soft-Start:</tspan> усунення пускового кидка</text>
+  <text x="627" y="168" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">• TVS-супресор:</tspan> зрізання піків ESD (&lt; 1 нс)</text>
+  <text x="627" y="188" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#1a1a1a">• RC-снаббер:</tspan> демпфування дзвону шини</text>
+  <text x="627" y="208" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">• Діод Шотткі:</tspan> захист від V_rev (&lt; 0.3 В)</text>
+  <rect x="627" y="224" width="291" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="772" y="241" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Захист від COD, пробою та перенапруг</text>
+
+  <!-- Right Side - Card 2: Why Laser Diodes Are Vulnerable -->
+  <rect x="615" y="285" width="315" height="155" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="627" y="297" width="291" height="24" rx="4" fill="#c0392b"/>
+  <text x="772" y="313" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ЧОМУ ЛАЗЕР ТАКИЙ ЧУТЛИВИЙ?</text>
+  <text x="627" y="338" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">• COD:</tspan> надструм за 10 нс плавить дзеркала</text>
+  <text x="627" y="358" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">• V_rev ≤ 2 В:</tspan> зворотний пробій миттєвий</text>
+  <text x="627" y="378" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">• ESD-ризик:</tspan> пробій зарядом тіла (&lt; 250 В)</text>
+  <text x="627" y="398" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">• L·di/dt:</tspan> індуктивність дротів дає сплески</text>
+  <rect x="627" y="410" width="291" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="772" y="425" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Монтувати кола впритул до виводів LD!</text>
+</svg>

@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Динаміка блокування вала 6 В мотора: нагрів обмотки та спад струму</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Зростання опору гарячої міді знижує струм: спад ампер не знімає небезпеку вигорання</text>
+
+  <!-- Ліва картка: Графік (координатна площина) -->
+  <rect x="24" y="72" width="604" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовки шкал графіка -->
+  <text x="84" y="94" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Температура обмотки T (°C)</text>
+  <text x="84" y="112" font-size="12" fill="#6b7280" text-anchor="start">T(t): нагрів ротора</text>
+
+  <text x="544" y="94" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">Струм блокування I (А)</text>
+  <text x="544" y="112" font-size="12" fill="#6b7280" text-anchor="end">I(t): спад струму</text>
+
+  <!-- Тіло графіка: біле тло -->
+  <rect x="84" y="126" width="460" height="250" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Зона небезпечного нагріву (>150°C) -->
+  <rect x="84" y="126" width="460" height="62" fill="#fdecea" fill-opacity="0.7"/>
+  <line x1="84" y1="188" x2="544" y2="188" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Зона безпечного відсікання струму (t ≤ 0,8 c) -->
+  <rect x="84" y="126" width="37" height="250" fill="#e9f7ef" fill-opacity="0.6"/>
+  <line x1="121" y1="126" x2="121" y2="376" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Горизонтальні лінії сітки (кожні 50 px) -->
+  <line x1="84" y1="176" x2="544" y2="176" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="84" y1="226" x2="544" y2="226" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="84" y1="276" x2="544" y2="276" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="84" y1="326" x2="544" y2="326" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Вертикальні лінії сітки (кожні 2 с = 92 px) -->
+  <line x1="176" y1="126" x2="176" y2="376" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="268" y1="126" x2="268" y2="376" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="360" y1="126" x2="360" y2="376" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="452" y1="126" x2="452" y2="376" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Позначки та підписи лівої осі Y1 (Температура, °C) -->
+  <text x="76" y="130" font-size="12" fill="#c0392b" text-anchor="end">200°C</text>
+  <text x="76" y="180" font-size="12" fill="#c0392b" text-anchor="end">160°C</text>
+  <text x="76" y="230" font-size="12" fill="#6b7280" text-anchor="end">120°C</text>
+  <text x="76" y="280" font-size="12" fill="#6b7280" text-anchor="end">80°C</text>
+  <text x="76" y="330" font-size="12" fill="#6b7280" text-anchor="end">40°C</text>
+  <text x="76" y="380" font-size="12" fill="#6b7280" text-anchor="end">0°C</text>
+
+  <!-- Позначки та підписи правої осі Y2 (Струм, А) -->
+  <text x="552" y="130" font-size="12" fill="#2457d6" text-anchor="start">1,6 А</text>
+  <text x="552" y="180" font-size="12" fill="#2457d6" text-anchor="start">1,4 А</text>
+  <text x="552" y="230" font-size="12" fill="#6b7280" text-anchor="start">1,2 А</text>
+  <text x="552" y="280" font-size="12" fill="#6b7280" text-anchor="start">1,0 А</text>
+  <text x="552" y="330" font-size="12" fill="#6b7280" text-anchor="start">0,8 А</text>
+  <text x="552" y="380" font-size="12" fill="#6b7280" text-anchor="start">0,6 А</text>
+
+  <!-- Засічки та підписи осі X (Час, с) -->
+  <line x1="84" y1="376" x2="84" y2="382" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="176" y1="376" x2="176" y2="382" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="268" y1="376" x2="268" y2="382" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="360" y1="376" x2="360" y2="382" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="452" y1="376" x2="452" y2="382" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="544" y1="376" x2="544" y2="382" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="84" y="396" font-size="12" fill="#6b7280" text-anchor="middle">0 с</text>
+  <text x="176" y="396" font-size="12" fill="#6b7280" text-anchor="middle">2 с</text>
+  <text x="268" y="396" font-size="12" fill="#6b7280" text-anchor="middle">4 с</text>
+  <text x="360" y="396" font-size="12" fill="#6b7280" text-anchor="middle">6 с</text>
+  <text x="452" y="396" font-size="12" fill="#6b7280" text-anchor="middle">8 с</text>
+  <text x="544" y="396" font-size="12" fill="#6b7280" text-anchor="middle">10 с</text>
+
+  <text x="314" y="418" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Час утримання заблокованого вала t (секунди)</text>
+
+  <!-- Крива струму I(t) (синя) -->
+  <path d="M 84,151 C 110,175 140,198 176,214 C 215,231 235,243 268,251 C 310,261 335,269 360,274 C 410,283 460,290 544,298" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="84" cy="151" r="4" fill="#2457d6"/>
+  <circle cx="544" cy="298" r="4" fill="#2457d6"/>
+
+  <!-- Крива температури T(t) (червона) -->
+  <path d="M 84,345 C 105,325 140,295 176,281 C 215,266 235,245 268,230 C 310,210 335,198 360,190 C 410,174 460,158 544,140" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="84" cy="345" r="4" fill="#c0392b"/>
+  <circle cx="544" cy="140" r="4" fill="#c0392b"/>
+
+  <!-- Плашка: Зона деградації лаку -->
+  <rect x="170" y="136" width="200" height="42" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="270" y="152" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона деградації: T &gt; 150°C</text>
+  <text x="270" y="168" font-size="12" fill="#6b7280" text-anchor="middle">Оплавлення лаку, розмагнічення</text>
+
+  <!-- Плашка: Безпечне вікно відсікання -->
+  <rect x="124" y="336" width="144" height="32" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="196" y="350" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Безпечне вікно</text>
+  <text x="196" y="363" font-size="12" fill="#27ae60" text-anchor="middle">вимкнення ШІМ ≤ 0,8 с</text>
+
+  <!-- Плашка: Стан через 10 с -->
+  <rect x="396" y="202" width="144" height="56" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="468" y="218" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стан через 10 с:</text>
+  <text x="468" y="234" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">• T: 25°C → 189°C</text>
+  <text x="468" y="250" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">• I: 1,50 А → 0,91 А</text>
+
+  <!-- Права колонка: Панель 1 (Фізичний механізм) -->
+  <rect x="644" y="72" width="292" height="164" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="660" y="94" font-size="13" font-weight="bold" fill="#2457d6">Чому спадає струм (фізика):</text>
+  <text x="660" y="116" font-size="12" fill="#1a1a1a">• Втрати тепла: P = I²·R = U²/R</text>
+  <text x="660" y="134" font-size="12" fill="#1a1a1a">• Мідь має позитивний ТКО:</text>
+  <text x="672" y="152" font-size="12" fill="#1a1a1a">  R(T) = R₀·[1 + α·(T − T₀)]</text>
+  <text x="672" y="170" font-size="12" fill="#6b7280">  де α_Cu ≈ +0,4% / °C</text>
+  <text x="660" y="192" font-size="12" fill="#1a1a1a">• При 25 → 189°C опір: 4,0 → 6,6 Ом</text>
+  <text x="660" y="212" font-size="12" font-weight="bold" fill="#2457d6">• Спад струму: 1,50 А → 0,91 А</text>
+
+  <!-- Права колонка: Панель 2 (Інженерна пастка та захист) -->
+  <rect x="644" y="250" width="292" height="188" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="660" y="272" font-size="13" font-weight="bold" fill="#c0392b">Небезпека для алгоритму:</text>
+  <text x="660" y="294" font-size="12" fill="#1a1a1a">⚠️ Пастка фіксованого порогу:</text>
+  <text x="672" y="312" font-size="12" fill="#6b7280">  якщо поріг 1,3 А — через 1,5 с</text>
+  <text x="672" y="330" font-size="12" fill="#6b7280">  струм спадає, і захист «мовчить»!</text>
+  <text x="660" y="352" font-size="12" fill="#c0392b">💥 Наслідок при Т &gt; 150°C:</text>
+  <text x="672" y="370" font-size="12" fill="#6b7280">  оплавлення лаку, зріз зубців</text>
+  <text x="660" y="394" font-size="12" font-weight="bold" fill="#27ae60">✓ Надійний захист у прошивці:</text>
+  <text x="672" y="414" font-size="12" font-weight="bold" fill="#27ae60">  зняття ШІМ за таймаутом t ≤ 0,5 с</text>
+</svg>

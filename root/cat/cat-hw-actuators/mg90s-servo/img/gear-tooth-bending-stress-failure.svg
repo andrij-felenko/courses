@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розподіл напружень згину в ніжці зуба та втомне руйнування при блокуванні</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Модель балки Льюїса: концентрація розтяжних напружень біля галтелі r_f провокує тріщину при Stall Torque</text>
+
+  <!-- Ліва панель: Механічна модель балки Льюїса -->
+  <rect x="24" y="66" width="444" height="228" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="86" font-size="13" font-weight="bold" fill="#1a1a1a">Модель балки Льюїса (розподіл напружень):</text>
+
+  <!-- Профіль зуба як консольної балки -->
+  <!-- Обод / основа шестерні -->
+  <rect x="42" y="238" width="160" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="122" y="254" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Тіло шестерні (обод)</text>
+
+  <!-- Контур зуба -->
+  <path d="M 52,238 L 74,238 Q 90,238 94,220 L 102,135 Q 104,128 112,128 L 132,128 Q 140,128 142,135 L 150,220 Q 154,238 170,238 L 192,238" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Парабола рівного опору згину -->
+  <path d="M 94,220 Q 122,132 122,128 Q 122,132 150,220" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Тангенціальна сила F_t -->
+  <line x1="46" y1="128" x2="98" y2="128" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="72" y="116" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">F_t</text>
+
+  <!-- Висота навантаження h -->
+  <line x1="38" y1="128" x2="38" y2="220" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="32" y="174" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">h</text>
+
+  <!-- Небезпечний переріз (товщина t) -->
+  <line x1="94" y1="220" x2="150" y2="220" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="122" y="206" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t (корінь)</text>
+
+  <!-- Стрілка галтелі r_f -->
+  <line x1="56" y1="210" x2="84" y2="228" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="50" y="200" font-size="12" font-weight="bold" fill="#c0392b">r_f</text>
+
+  <!-- Епюра напружень: розтяг зліва (+), стиск справа (-) -->
+  <!-- Стрілка розтягу вниз -->
+  <line x1="94" y1="220" x2="94" y2="236" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="78" y="234" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">+σ (розтяг)</text>
+
+  <!-- Стрілка стиску вгору -->
+  <line x1="150" y1="236" x2="150" y2="222" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="162" y="234" font-size="12" font-weight="bold" fill="#2457d6">-σ (стиск)</text>
+
+  <!-- Картка пояснення зліва -->
+  <rect x="212" y="98" width="244" height="184" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="224" y="118" font-size="12" font-weight="bold" fill="#2457d6">Механіка напружень Льюїса:</text>
+  <text x="224" y="138" font-size="12" fill="#1a1a1a">• Модель: зуб як балка на згин</text>
+  <text x="224" y="156" font-size="12" fill="#1a1a1a">• Сила F_t на плечі висоти h</text>
+  <text x="224" y="174" font-size="12" fill="#1a1a1a">• Базовий переріз: товщина t</text>
+  <text x="224" y="192" font-size="12" font-weight="bold" fill="#c0392b">• Розтяг (+): зона галтелі r_f</text>
+  <text x="224" y="210" font-size="12" fill="#6b7280">  пікові напруження: K_t · sigma_0</text>
+  <text x="224" y="228" font-size="12" font-weight="bold" fill="#2457d6">• Стиск (-): протилежна грань</text>
+  <text x="224" y="246" font-size="12" fill="#1a1a1a">• Метал руйнує саме розтяг (+)</text>
+  <text x="224" y="264" font-size="12" fill="#6b7280">• Парабола: рівний опір згину</text>
+
+  <!-- Права панель: Аварійне руйнування при блокуванні -->
+  <rect x="492" y="66" width="444" height="228" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="504" y="86" font-size="13" font-weight="bold" fill="#c0392b">Сценарій руйнування при блокуванні (Stall Torque):</text>
+
+  <!-- Зуб під руйнівним навантаженням -->
+  <rect x="510" y="238" width="160" height="24" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="590" y="254" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Тіло шестерні</text>
+
+  <!-- Контур зуба -->
+  <path d="M 520,238 L 542,238 Q 558,238 562,220 L 570,135 Q 572,128 580,128 L 600,128 Q 608,128 610,135 L 618,220 Q 622,238 638,238 L 660,238" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Ударна сила F_stall -->
+  <line x1="512" y1="128" x2="566" y2="128" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr-red)"/>
+  <text x="539" y="116" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">F_stall &gt;&gt; F_ном</text>
+
+  <!-- Тріщина втоми / площина сколювання -->
+  <path d="M 562,220 L 572,216 L 582,221 L 594,214 L 606,219 L 618,210" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Стрілка вказівника на тріщину -->
+  <line x1="544" y1="202" x2="560" y2="218" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="540" y="196" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Мікротріщина</text>
+
+  <!-- Площина зрізання напис внизу -->
+  <text x="590" y="276" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Площина зрізання (~35°)</text>
+
+  <!-- Картка деталей руйнування справа -->
+  <rect x="680" y="98" width="244" height="184" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="692" y="118" font-size="12" font-weight="bold" fill="#c0392b">Динаміка руйнування зубців:</text>
+  <text x="692" y="138" font-size="12" fill="#1a1a1a">1. Stall: F_stall у 5-8 разів вища</text>
+  <text x="692" y="156" font-size="12" fill="#1a1a1a">2. sigma_max перевищує плинність</text>
+  <text x="692" y="174" font-size="12" font-weight="bold" fill="#c0392b">3. Тріщина втоми від галтелі r_f</text>
+  <text x="692" y="192" font-size="12" font-weight="bold" fill="#1a1a1a">Матеріали шестерень MG90S:</text>
+  <text x="692" y="210" font-size="12" fill="#1a1a1a">• Латунь: пластичний наклеп + скол</text>
+  <text x="692" y="228" font-size="12" fill="#27ae60">• Сталь: тримає ударний момент</text>
+  <text x="692" y="246" font-size="12" fill="#6b7280">• Полімер: миттєве злизування</text>
+  <text x="692" y="264" font-size="12" fill="#c0392b">• Ризик: клин уламком редуктора</text>
+
+  <!-- Нижня панель: 3 інженерні картки -->
+  <!-- Картка 1: Формула Льюїса -->
+  <rect x="24" y="306" width="296" height="130" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="24" y="306" width="296" height="24" rx="8" fill="#eaf0fd"/>
+  <text x="36" y="322" font-size="12" font-weight="bold" fill="#2457d6">Формула Льюїса та фактори:</text>
+  <text x="36" y="344" font-size="12" fill="#1a1a1a">• sigma = K_t · (6 · F_t · h) / (b · t²)</text>
+  <text x="36" y="362" font-size="12" fill="#1a1a1a">• sigma = F_t / (b · m · Y_Lewis)</text>
+  <text x="36" y="380" font-size="12" fill="#1a1a1a">• m: модуль зуба (0.2..0.35 мм)</text>
+  <text x="36" y="398" font-size="12" fill="#1a1a1a">• Y_Lewis: фактор форми (0.28..0.35)</text>
+  <text x="36" y="418" font-size="12" font-weight="bold" fill="#c0392b">• K_t ≈ 1.5..1.9: концентратор біля r_f</text>
+
+  <!-- Картка 2: Stall Torque -->
+  <rect x="332" y="306" width="296" height="130" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <rect x="332" y="306" width="296" height="24" rx="8" fill="#fdecea"/>
+  <text x="344" y="322" font-size="12" font-weight="bold" fill="#c0392b">Режим блокування (Stall Torque):</text>
+  <text x="344" y="344" font-size="12" fill="#1a1a1a">• M_stall досягає 2.2 кгс·см на валу</text>
+  <text x="344" y="362" font-size="12" fill="#1a1a1a">• Сила F_t перевищує межу плинності</text>
+  <text x="344" y="380" font-size="12" fill="#1a1a1a">• Ступінь 4 (z8) сприймає пікову F_t</text>
+  <text x="344" y="398" font-size="12" fill="#1a1a1a">• Ударні реверси прискорюють зріз</text>
+  <text x="344" y="418" font-size="12" font-weight="bold" fill="#c0392b">• Перегрів обмоток послаблює мастило</text>
+
+  <!-- Картка 3: Захист редуктора -->
+  <rect x="640" y="306" width="296" height="130" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <rect x="640" y="306" width="296" height="24" rx="8" fill="#e9f7ef"/>
+  <text x="652" y="322" font-size="12" font-weight="bold" fill="#27ae60">Інженерний захист редуктора:</text>
+  <text x="652" y="344" font-size="12" fill="#1a1a1a">• OCP захист: струмовий ліміт драйвера</text>
+  <text x="652" y="362" font-size="12" fill="#1a1a1a">• Збільшення r_f: знижує K_t на 25..30%</text>
+  <text x="652" y="380" font-size="12" fill="#1a1a1a">• Сталь вихідного вала проти сколювання</text>
+  <text x="652" y="398" font-size="12" fill="#1a1a1a">• Кулькова вальниця усуває перекоси</text>
+  <text x="652" y="418" font-size="12" font-weight="bold" fill="#27ae60">• Синтетичне мастило з EP-присадками</text>
+</svg>

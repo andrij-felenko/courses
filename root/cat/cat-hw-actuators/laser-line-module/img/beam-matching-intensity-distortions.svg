@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Головний заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вплив діаметра пучка на профіль лінії призми Павелла</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Невідповідність розміру променя радіусу вершини викликає гаусовий горб або крайові роги</text>
+
+  <!-- ==================== КОЛОНКА 1: ЗАВУЗЬКИЙ ПУЧОК ==================== -->
+  <rect x="30" y="70" width="286" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="173" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Завузький пучок (d &lt; d_ном)</text>
+
+  <rect x="44" y="104" width="258" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="173" y="119" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Гаусовий горб у центрі</text>
+
+  <!-- Мініатюра призми та пучка -->
+  <!-- Тіло призми -->
+  <polygon points="123,195 163,160 183,160 223,195 223,205 123,205" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 163,160 Q 173,155 183,160" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Вхідні промені: вузька група -->
+  <line x1="167" y1="136" x2="167" y2="157" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="173" y1="136" x2="173" y2="155" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="179" y1="136" x2="179" y2="157" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="173" y="217" font-size="12" fill="#6b7280" text-anchor="middle">Пучок не заповнює грані</text>
+
+  <!-- Графік інтенсивності -->
+  <rect x="44" y="227" width="258" height="98" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Осі -->
+  <line x1="68" y1="305" x2="282" y2="305" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="68" y1="305" x2="68" y2="238" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="74" y="247" font-size="12" fill="#6b7280">I</text>
+  <text x="280" y="320" font-size="12" fill="#6b7280" text-anchor="end">Положення x</text>
+  <!-- Гаусова крива -->
+  <path d="M 78,302 C 120,302 150,295 165,265 C 170,252 176,252 181,265 C 196,295 226,302 268,302" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="173" y="246" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Гаусовий пік</text>
+
+  <!-- Світлова смуга -->
+  <rect x="44" y="335" width="258" height="24" rx="4" fill="#1a1a1a"/>
+  <ellipse cx="173" cy="347" rx="80" ry="3" fill="#c0392b" fill-opacity="0.3"/>
+  <ellipse cx="173" cy="347" rx="35" ry="4" fill="#c0392b"/>
+  <text x="173" y="373" font-size="12" fill="#6b7280" text-anchor="middle">Вигляд лінії: яскравий центр</text>
+
+  <!-- Висновки -->
+  <text x="173" y="394" font-size="12" fill="#1a1a1a" text-anchor="middle">Пересвіт центру камери,</text>
+  <text x="173" y="410" font-size="12" fill="#6b7280" text-anchor="middle">недоекспоновані краї віяла</text>
+
+  <!-- ==================== КОЛОНКА 2: УЗГОДЖЕНИЙ ПУЧОК ==================== -->
+  <rect x="336" y="70" width="286" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="479" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Узгоджений пучок (d = d_ном)</text>
+
+  <rect x="350" y="104" width="258" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="479" y="119" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ідеальний Flat-Top (Top-Hat)</text>
+
+  <!-- Мініатюра призми та пучка -->
+  <polygon points="429,195 469,160 489,160 529,195 529,205 429,205" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 469,160 Q 479,155 489,160" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Вхідні промені: оптимальна ширина -->
+  <line x1="461" y1="136" x2="461" y2="166" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="470" y1="136" x2="470" y2="158" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="479" y1="136" x2="479" y2="155" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="488" y1="136" x2="488" y2="158" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="497" y1="136" x2="497" y2="166" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="479" y="217" font-size="12" fill="#27ae60" text-anchor="middle">Оптимальне заповнення апекса</text>
+
+  <!-- Графік інтенсивності -->
+  <rect x="350" y="227" width="258" height="98" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Осі -->
+  <line x1="374" y1="305" x2="588" y2="305" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="374" y1="305" x2="374" y2="238" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="380" y="247" font-size="12" fill="#6b7280">I</text>
+  <text x="586" y="320" font-size="12" fill="#6b7280" text-anchor="end">Положення x</text>
+  <!-- Прямокутна крива Flat-Top -->
+  <path d="M 384,302 L 398,260 L 560,260 L 574,302" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="479" y="250" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Рівномірний Flat-Top</text>
+
+  <!-- Світлова смуга -->
+  <rect x="350" y="335" width="258" height="24" rx="4" fill="#1a1a1a"/>
+  <rect x="375" y="345" width="208" height="4" rx="2" fill="#27ae60"/>
+  <text x="479" y="373" font-size="12" fill="#27ae60" text-anchor="middle">Вигляд лінії: рівномірна яскравість</text>
+
+  <!-- Висновки -->
+  <text x="479" y="394" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Максимальна точність тріангуляції,</text>
+  <text x="479" y="410" font-size="12" fill="#1a1a1a" text-anchor="middle">однаковий контраст по всій довжині</text>
+
+  <!-- ==================== КОЛОНКА 3: ЗАШИРОКИЙ ПУЧОК ==================== -->
+  <rect x="642" y="70" width="286" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="785" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Заширокий пучок (d &gt; d_ном)</text>
+
+  <rect x="656" y="104" width="258" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="785" y="119" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Крайові роги та провал у центрі</text>
+
+  <!-- Мініатюра призми та пучка -->
+  <polygon points="735,195 775,160 795,160 835,195 835,205 735,205" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 775,160 Q 785,155 795,160" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Вхідні промені: широка група з перекриттям крил -->
+  <line x1="755" y1="136" x2="755" y2="178" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="767" y1="136" x2="767" y2="167" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="777" y1="136" x2="777" y2="158" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="785" y1="136" x2="785" y2="155" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="793" y1="136" x2="793" y2="158" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="803" y1="136" x2="803" y2="167" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="815" y1="136" x2="815" y2="178" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="785" y="217" font-size="12" fill="#c0392b" text-anchor="middle">Надлишок світла на крилах</text>
+
+  <!-- Графік інтенсивності -->
+  <rect x="656" y="227" width="258" height="98" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Осі -->
+  <line x1="680" y1="305" x2="894" y2="305" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="680" y1="305" x2="680" y2="238" stroke="#6b7280" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="686" y="247" font-size="12" fill="#6b7280">I</text>
+  <text x="892" y="320" font-size="12" fill="#6b7280" text-anchor="end">Положення x</text>
+  <!-- Крива з рогами та провалом -->
+  <path d="M 690,302 L 702,252 C 718,272 748,288 785,288 C 822,288 852,272 868,252 L 880,302" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="702" y="245" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ріг</text>
+  <text x="785" y="278" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Провал</text>
+  <text x="868" y="245" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ріг</text>
+
+  <!-- Світлова смуга -->
+  <rect x="656" y="335" width="258" height="24" rx="4" fill="#1a1a1a"/>
+  <rect x="681" y="346" width="208" height="2" fill="#c0392b" fill-opacity="0.4"/>
+  <circle cx="702" cy="347" r="4" fill="#c0392b"/>
+  <circle cx="868" cy="347" r="4" fill="#c0392b"/>
+  <text x="785" y="373" font-size="12" fill="#c0392b" text-anchor="middle">Вигляд лінії: тьмяний центр, роги на краях</text>
+
+  <!-- Висновки -->
+  <text x="785" y="394" font-size="12" fill="#1a1a1a" text-anchor="middle">Насичення сенсора на краях,</text>
+  <text x="785" y="410" font-size="12" fill="#6b7280" text-anchor="middle">втрата контрасту в середині смуги</text>
+</svg>

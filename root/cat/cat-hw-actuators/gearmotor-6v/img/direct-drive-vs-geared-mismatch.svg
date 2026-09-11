@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Прямий привід проти редуктора: кінематичний дисбаланс та сила тяги</text>
+  <text x="480" y="65" text-anchor="middle" font-size="13" fill="#6b7280">Чому прямий зв'язок ротора з колесом призводить до заклинювання, а редуктор забезпечує рух платформи</text>
+
+  <!-- ==================== LEFT CARD: DIRECT DRIVE ==================== -->
+  <rect x="30" y="85" width="440" height="370" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Left Header Banner -->
+  <rect x="42" y="97" width="416" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="250" y="119" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Прямий привід (Direct Drive) — Заклинювання</text>
+
+  <!-- Left Visual Zone: Motor, Shaft, Wheel -->
+  <!-- Motor Block -->
+  <rect x="46" y="190" width="70" height="44" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="81" y="216" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Мотор 6 В</text>
+
+  <!-- Shaft -->
+  <line x1="116" y1="212" x2="240" y2="212" stroke="#1a1a1a" stroke-width="4"/>
+  <text x="178" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вал ротора (прямий)</text>
+
+  <!-- Wheel -->
+  <circle cx="280" cy="212" r="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="6"/>
+  <circle cx="280" cy="212" r="25" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <circle cx="280" cy="212" r="6" fill="#1a1a1a"/>
+
+  <!-- Wheel Speed Text & Curved Arrow -->
+  <text x="280" y="155" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ω = 10 000 об/хв</text>
+  <path d="M 265,166 A 16,16 0 0,1 295,166" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Wheel Parameters (Right of Wheel) -->
+  <text x="330" y="188" font-size="12" fill="#6b7280">R = 30 мм</text>
+  <text x="330" y="212" font-size="12" font-weight="bold" fill="#c0392b">M = 0.2 мН·м</text>
+  <text x="330" y="236" font-size="12" fill="#6b7280">(мізерний момент)</text>
+
+  <!-- Ground Line -->
+  <line x1="220" y1="252" x2="445" y2="252" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Contact Patch -->
+  <circle cx="280" cy="252" r="3" fill="#1a1a1a"/>
+  <line x1="280" y1="252" x2="280" y2="270" stroke="#6b7280" stroke-dasharray="2,2" stroke-width="1.5"/>
+
+  <!-- Force Vectors at Contact Patch -->
+  <line x1="280" y1="270" x2="195" y2="270" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr-red)"/>
+  <text x="187" y="274" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">F_опір ≈ 0.3 Н</text>
+
+  <line x1="280" y1="270" x2="295" y2="270" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="303" y="274" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">F_тяга ≈ 0.006 Н</text>
+
+  <!-- Left Inequality Badge -->
+  <rect x="42" y="286" width="416" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="250" y="306" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">F_тяга ≪ F_опір (рух неможливий, блокування I_stall)</text>
+
+  <!-- Left Key Parameters Panel -->
+  <rect x="42" y="330" width="416" height="112" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="56" y="356" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Швидкість ротора:</tspan> 10 000 об/хв (надлишкова)</text>
+  <text x="56" y="388" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Крутний момент:</tspan> 0.2 мН·м (мізерний)</text>
+  <text x="56" y="420" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Тягове зусилля:</tspan> ~0.6 г·с (не зрушить платформу 1 кг)</text>
+
+  <!-- ==================== RIGHT CARD: GEARED DRIVE ==================== -->
+  <rect x="490" y="85" width="440" height="370" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Right Header Banner -->
+  <rect x="502" y="97" width="416" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="119" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Привід з редуктором 1:120 — Впевнений рух</text>
+
+  <!-- Right Visual Zone: Motor, Gearbox, Wheel -->
+  <!-- Motor Block -->
+  <rect x="506" y="190" width="68" height="44" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="540" y="216" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Мотор 6 В</text>
+
+  <!-- Shaft to Gearbox -->
+  <line x1="574" y1="212" x2="600" y2="212" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Gearbox Cascade Block -->
+  <rect x="600" y="184" width="76" height="56" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="638" y="206" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Редуктор</text>
+  <text x="638" y="226" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">i = 1:120</text>
+
+  <!-- Output Shaft to Wheel -->
+  <line x1="676" y1="212" x2="700" y2="212" stroke="#1a1a1a" stroke-width="4"/>
+
+  <!-- Wheel -->
+  <circle cx="740" cy="212" r="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="6"/>
+  <circle cx="740" cy="212" r="25" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <circle cx="740" cy="212" r="6" fill="#1a1a1a"/>
+
+  <!-- Wheel Speed Text & Curved Arrow -->
+  <text x="740" y="155" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ω = 100 об/хв</text>
+  <path d="M 725,166 A 16,16 0 0,1 755,166" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Wheel Parameters (Right of Wheel) -->
+  <text x="790" y="188" font-size="12" fill="#6b7280">R = 30 мм</text>
+  <text x="790" y="212" font-size="12" font-weight="bold" fill="#27ae60">M = 80 мН·м</text>
+  <text x="790" y="236" font-size="12" fill="#27ae60">(помножено у 400×)</text>
+
+  <!-- Ground Line -->
+  <line x1="680" y1="252" x2="905" y2="252" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Contact Patch -->
+  <circle cx="740" cy="252" r="3" fill="#1a1a1a"/>
+  <line x1="740" y1="252" x2="740" y2="270" stroke="#6b7280" stroke-dasharray="2,2" stroke-width="1.5"/>
+
+  <!-- Force Vectors at Contact Patch -->
+  <line x1="740" y1="270" x2="705" y2="270" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="697" y="274" text-anchor="end" font-size="12" fill="#6b7280">F_опір ≈ 0.3 Н</text>
+
+  <line x1="740" y1="270" x2="810" y2="270" stroke="#27ae60" stroke-width="3.5" marker-end="url(#arr-green)"/>
+  <text x="818" y="274" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">F_тяга ≈ 2.7 Н</text>
+
+  <!-- Right Inequality Badge -->
+  <rect x="502" y="286" width="416" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="306" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">F_тяга ≫ F_опір (впевнений старт і рух платформи 1–1.5 кг)</text>
+
+  <!-- Right Key Parameters Panel -->
+  <rect x="502" y="330" width="416" height="112" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="356" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Частота вала:</tspan> 100 об/хв (робоча швидкість)</text>
+  <text x="516" y="388" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Крутний момент:</tspan> 80 мН·м (помножено у 400 разів)</text>
+  <text x="516" y="420" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Тягове зусилля:</tspan> ~270 г·с (запас тяги для килимів та підйомів)</text>
+</svg>

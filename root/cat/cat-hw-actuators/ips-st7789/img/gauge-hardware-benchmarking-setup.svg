@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Апаратний стенд бенчмаркінгу та часового профілювання ST7789</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Стробування GPIO фіксує 45.4 FPS за рахунок DMA: ядро зайняте лише 13% часу (87% простою)</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Апаратний стенд вимірювання -->
+  <rect x="24" y="74" width="370" height="386" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">1. Стенд апаратного вимірювання</text>
+
+  <!-- MCU (Мікроконтролер) -->
+  <rect x="38" y="114" width="150" height="144" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="113" y="134" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">MCU (STM32)</text>
+  <text x="113" y="150" font-size="12" text-anchor="middle" fill="#6b7280">Cortex-M4 @ 84 МГц</text>
+
+  <text x="48" y="194" font-size="12" fill="#2457d6">SPI1 DMA</text>
+  <text x="48" y="210" font-size="12" fill="#6b7280">Tx буфер</text>
+
+  <text x="182" y="172" font-size="12" text-anchor="end" fill="#1a1a1a">CS (PA4)</text>
+  <text x="182" y="190" font-size="12" text-anchor="end" fill="#1a1a1a">SCK (PA5)</text>
+  <text x="182" y="208" font-size="12" text-anchor="end" fill="#1a1a1a">MOSI (PA7)</text>
+  <text x="182" y="226" font-size="12" text-anchor="end" fill="#1a1a1a">DC (PA2)</text>
+  <text x="182" y="244" font-size="12" text-anchor="end" fill="#27ae60">STRB (PB0)</text>
+
+  <!-- Модуль IPS ST7789 -->
+  <rect x="242" y="114" width="142" height="144" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="313" y="134" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">IPS Модуль</text>
+  <text x="313" y="150" font-size="12" text-anchor="middle" fill="#6b7280">ST7789 (240×240)</text>
+
+  <text x="248" y="172" font-size="12" fill="#1a1a1a">CS</text>
+  <text x="248" y="190" font-size="12" fill="#1a1a1a">SCK / SCL</text>
+  <text x="248" y="208" font-size="12" fill="#1a1a1a">MOSI / SDA</text>
+  <text x="248" y="226" font-size="12" fill="#1a1a1a">DC</text>
+  <text x="248" y="244" font-size="12" fill="#6b7280">3.3V / GND</text>
+
+  <!-- Лінії зв'язку MCU -> Display -->
+  <line x1="188" y1="168" x2="240" y2="168" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="188" y1="186" x2="240" y2="186" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="188" y1="204" x2="240" y2="204" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="188" y1="222" x2="240" y2="222" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Логічний аналізатор / Осцилограф -->
+  <rect x="38" y="278" width="346" height="168" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="50" y="300" font-size="13" font-weight="bold" fill="#27ae60">Логічний аналізатор / Осцилограф</text>
+  <text x="50" y="316" font-size="12" fill="#6b7280">Вимірювальні щупи (Sampler ≥ 100 MS/s)</text>
+
+  <!-- Канали аналізатора -->
+  <rect x="48" y="328" width="326" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="58" y="346" font-size="12" font-weight="bold" fill="#c0392b">CH0 [CS]:</text>
+  <text x="126" y="346" font-size="12" fill="#1a1a1a">T_frame = 22.0 мс (активний «0»)</text>
+
+  <rect x="48" y="368" width="326" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="58" y="386" font-size="12" font-weight="bold" fill="#2457d6">CH1 [SCK]:</text>
+  <text x="132" y="386" font-size="12" fill="#1a1a1a">SPI 40 МГц (потік DMA без пауз)</text>
+
+  <rect x="48" y="408" width="326" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="58" y="426" font-size="12" font-weight="bold" fill="#27ae60">CH2 [STRB]:</text>
+  <text x="138" y="426" font-size="12" fill="#1a1a1a">Строб ЦП: 12 мкс / рядок (13% load)</text>
+
+  <!-- Точки підключення щупів -->
+  <circle cx="202" cy="168" r="2.5" fill="#c0392b"/>
+  <line x1="202" y1="168" x2="202" y2="278" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="202" cy="278" r="3" fill="#c0392b"/>
+
+  <circle cx="218" cy="186" r="2.5" fill="#2457d6"/>
+  <line x1="218" y1="186" x2="218" y2="278" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="218" cy="278" r="3" fill="#2457d6"/>
+
+  <circle cx="188" cy="240" r="2.5" fill="#27ae60"/>
+  <path d="M188,240 L234,240 L234,278" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="234" cy="278" r="3" fill="#27ae60"/>
+
+  <!-- ПРАВА ПАНЕЛЬ: Осцилограма аналізатора та часовий баланс -->
+  <rect x="410" y="74" width="526" height="386" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="426" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">2. Осцилограма аналізатора та часовий баланс</text>
+
+  <!-- Екран осцилографа -->
+  <rect x="426" y="114" width="494" height="190" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Рядок стану осцилографа -->
+  <rect x="426" y="114" width="494" height="24" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="436" y="130" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнали кадру:</text>
+  <text x="548" y="130" font-size="12" fill="#6b7280">Масштаб: 2.5 мс / поділ | 240 рядків кадру</text>
+
+  <!-- Канал CH0 (CS) -->
+  <rect x="434" y="146" width="62" height="24" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="465" y="162" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">CH0 CS</text>
+  <text x="690" y="158" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Активний «0»: T_frame = 22.0 мс (115.2 КБ, 45.4 FPS)</text>
+  <path d="M505,166 L535,166 L535,176 L845,176 L845,166 L905,166" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Канал CH1 (SCK) -->
+  <rect x="434" y="194" width="62" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="465" y="210" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">CH1 SCK</text>
+  <text x="690" y="202" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Шина SPI 40 МГц: суцільний DMA без пауз між байтами</text>
+  <line x1="505" y1="224" x2="535" y2="224" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="535" y="212" width="310" height="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <path d="M545,212 L545,224 M555,212 L555,224 M565,212 L565,224 M575,212 L575,224 M805,212 L805,224 M815,212 L815,224 M825,212 L825,224 M835,212 L835,224" stroke="#2457d6" stroke-width="1"/>
+  <line x1="845" y1="224" x2="905" y2="224" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Канал CH2 (STRB) -->
+  <rect x="434" y="244" width="62" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="465" y="260" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">CH2 STRB</text>
+  <text x="690" y="250" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Імпульси стробу: 12 мкс на рядок (обчислення ЦП)</text>
+  <text x="690" y="266" font-size="12" text-anchor="middle" fill="#6b7280">Низький рівень: 80 мкс (ядро спить / DMA передає)</text>
+  <path d="M505,290 L535,290 L535,276 L545,276 L545,290 L575,290 L575,276 L585,276 L585,290 L615,290 L615,276 L625,276 L625,290 L755,290 L755,276 L765,276 L765,290 L795,290 L795,276 L805,276 L805,290 L905,290" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Нижня панель метрик і балансу навантаження ЦП -->
+  <rect x="426" y="320" width="494" height="126" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="438" y="338" font-size="13" font-weight="bold" fill="#1a1a1a">Розподіл часу процесора на 1 кадр (T_frame = 22.0 мс)</text>
+
+  <!-- Смуга балансу зайнятості ядра -->
+  <rect x="438" y="346" width="64" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="470" y="362" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">13.1%</text>
+
+  <rect x="514" y="346" width="394" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="711" y="362" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">86.9% — Простій ЦП / Вільне ядро (DMA самостійно качає SPI)</text>
+
+  <!-- Картки метрик стенда -->
+  <rect x="438" y="382" width="146" height="56" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="511" y="398" font-size="12" text-anchor="middle" fill="#6b7280">Частота оновлення</text>
+  <text x="511" y="416" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">45.4 FPS</text>
+  <text x="511" y="430" font-size="12" text-anchor="middle" fill="#27ae60">T_frame = 22.0 мс</text>
+
+  <rect x="600" y="382" width="146" height="56" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="673" y="398" font-size="12" text-anchor="middle" fill="#6b7280">Час одного рядка</text>
+  <text x="673" y="416" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">91.6 мкс</text>
+  <text x="673" y="430" font-size="12" text-anchor="middle" fill="#c0392b">ЦП: 12 мкс / рядок</text>
+
+  <rect x="762" y="382" width="146" height="56" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="835" y="398" font-size="12" text-anchor="middle" fill="#27ae60">Резерв ядра ЦП</text>
+  <text x="835" y="416" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">86.9% Free</text>
+  <text x="835" y="430" font-size="12" text-anchor="middle" fill="#1a1a1a">Для датчиків і логіки</text>
+</svg>

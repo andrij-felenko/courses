@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вольт-амперна оптична характеристика (P-I) та зона COD лазера</text>
+  <text x="480" y="57" font-size="13" fill="#6b7280" text-anchor="middle">Температурний зсув порогу та небезпека оптичного руйнування граней при викидах струму</text>
+
+  <!-- Left Panel: P-I Characteristic Curves -->
+  <rect x="30" y="72" width="535" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="94" font-size="12" font-weight="bold" fill="#6b7280">P-I КРИВІ ЛАЗЕРНОГО ДІОДА ЗА РІЗНИХ ТЕМПЕРАТУР</text>
+
+  <!-- COD Zone Background Tint (P >= 8 mW) -->
+  <rect x="100" y="125" width="415" height="59" fill="#fdecea"/>
+  <line x1="100" y1="184" x2="515" y2="184" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="505" y="145" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">ЗОНА КАТАСТРОФІЧНОГО РУЙНУВАННЯ (COD)</text>
+  <text x="505" y="161" font-size="12" fill="#c0392b" text-anchor="end">Плавлення дзеркал граней при сплесках I</text>
+
+  <!-- Coordinate Grid Lines -->
+  <line x1="100" y1="250" x2="515" y2="250" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="100" y1="316" x2="515" y2="316" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- P-I Curves -->
+  <!-- Curve 1: 20°C (Green) -->
+  <path d="M 100,360 L 220,356 L 396,151" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <text x="402" y="176" font-size="12" font-weight="bold" fill="#27ae60">20°C</text>
+
+  <!-- Curve 2: 40°C (Blue - Nominal) -->
+  <path d="M 100,360 L 284,356 L 468,162" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <text x="472" y="176" font-size="12" font-weight="bold" fill="#2457d6">40°C</text>
+
+  <!-- Curve 3: 60°C (Gray - Hot) -->
+  <path d="M 100,360 L 364,356 L 500,250" stroke="#6b7280" stroke-width="2.5" fill="none"/>
+  <text x="504" y="254" font-size="12" font-weight="bold" fill="#6b7280">60°C</text>
+
+  <!-- Threshold Markers and Drop Lines -->
+  <line x1="220" y1="356" x2="220" y2="395" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="220" y="408" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I_th1</text>
+
+  <line x1="284" y1="356" x2="284" y2="395" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="284" y="408" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I_th2</text>
+
+  <line x1="364" y1="356" x2="364" y2="395" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="364" y="408" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">I_th3</text>
+
+  <!-- Threshold Shift Arrow -->
+  <line x1="225" y1="418" x2="358" y2="418" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="292" y="432" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Температурний зсув порогу ΔI_th</text>
+
+  <!-- Slope Efficiency and Sub-threshold Annotations -->
+  <text x="115" y="230" font-size="12" font-weight="bold" fill="#2457d6">Крутий нахил (η):</text>
+  <text x="115" y="246" font-size="12" fill="#1a1a1a">Висока диференціальна</text>
+  <text x="115" y="262" font-size="12" fill="#1a1a1a">ефективність η = ΔP/ΔI</text>
+
+  <text x="115" y="325" font-size="12" font-weight="bold" fill="#6b7280">Допорогова зона</text>
+  <text x="115" y="340" font-size="12" fill="#6b7280">LED-режим (I &lt; I_th)</text>
+
+  <!-- Nominal Operating Point at 40°C -->
+  <circle cx="380" cy="250" r="4" fill="#2457d6"/>
+
+  <!-- Axes Lines -->
+  <!-- X-Axis (Current) -->
+  <line x1="100" y1="360" x2="520" y2="360" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="525" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Струм I (мА)</text>
+
+  <!-- X-Axis Ticks -->
+  <line x1="100" y1="360" x2="100" y2="364" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="100" y="376" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <line x1="180" y1="360" x2="180" y2="364" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="180" y="376" font-size="12" fill="#6b7280" text-anchor="middle">10</text>
+  <line x1="260" y1="360" x2="260" y2="364" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="260" y="376" font-size="12" fill="#6b7280" text-anchor="middle">20</text>
+  <line x1="340" y1="360" x2="340" y2="364" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="340" y="376" font-size="12" fill="#6b7280" text-anchor="middle">30</text>
+  <line x1="420" y1="360" x2="420" y2="364" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="420" y="376" font-size="12" fill="#6b7280" text-anchor="middle">40</text>
+  <line x1="500" y1="360" x2="500" y2="364" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="500" y="376" font-size="12" fill="#6b7280" text-anchor="middle">50</text>
+
+  <!-- Y-Axis (Optical Power) -->
+  <line x1="100" y1="360" x2="100" y2="108" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="95" y="112" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">P (мВт)</text>
+
+  <!-- Y-Axis Ticks -->
+  <line x1="96" y1="316" x2="100" y2="316" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="92" y="320" font-size="12" fill="#6b7280" text-anchor="end">2</text>
+  <line x1="96" y1="272" x2="100" y2="272" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="92" y="276" font-size="12" fill="#6b7280" text-anchor="end">4</text>
+  <line x1="96" y1="250" x2="100" y2="250" stroke="#2457d6" stroke-width="2"/>
+  <text x="92" y="254" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">5 (ном)</text>
+  <line x1="96" y1="228" x2="100" y2="228" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="92" y="232" font-size="12" fill="#6b7280" text-anchor="end">6</text>
+  <line x1="96" y1="184" x2="100" y2="184" stroke="#c0392b" stroke-width="2"/>
+  <text x="92" y="188" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">8 (COD)</text>
+  <line x1="96" y1="140" x2="100" y2="140" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="92" y="144" font-size="12" fill="#6b7280" text-anchor="end">10</text>
+
+  <!-- Right Side - Card 1: COD Phenomenon & Hazard -->
+  <rect x="581" y="72" width="349" height="168" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="593" y="84" width="325" height="24" rx="4" fill="#c0392b"/>
+  <text x="755.5" y="100" font-size="12" font-weight="bold" fill="white" text-anchor="middle">НЕБЕЗПЕКА: КАТАСТРОФІЧНИЙ ЗБІЙ (COD)</text>
+  <text x="599" y="126" font-size="12" font-weight="bold" fill="#c0392b">• COD (Catastrophic Optical Damage)</text>
+  <text x="599" y="146" font-size="12" fill="#1a1a1a">• Густина світла на гранях &gt; 1–10 МВт/см²</text>
+  <text x="599" y="166" font-size="12" font-weight="bold" fill="#c0392b">• Короткий викид струму плавить дзеркало грані</text>
+  <text x="599" y="186" font-size="12" fill="#6b7280">• Руйнування відбувається за наносекунди</text>
+  <text x="599" y="206" font-size="12" fill="#c0392b">• Деградація незворотна: лазер стає LED</text>
+  <text x="599" y="226" font-size="12" font-weight="bold" fill="#1a1a1a">Потрібен захист від струмових перерегулювань!</text>
+
+  <!-- Right Side - Card 2: Temperature Drift & APC Driver Role -->
+  <rect x="581" y="256" width="349" height="184" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="593" y="268" width="325" height="24" rx="4" fill="#2457d6"/>
+  <text x="755.5" y="284" font-size="12" font-weight="bold" fill="white" text-anchor="middle">ТЕМПЕРАТУРНИЙ ДРЕЙФ І КЕРУВАННЯ</text>
+  <text x="599" y="310" font-size="12" font-weight="bold" fill="#2457d6">• Ріст T зміщує поріг Ith праворуч (експонента)</text>
+  <text x="599" y="330" font-size="12" fill="#1a1a1a">• Нахил η падає: падає вихідна потужність P</text>
+  <text x="599" y="350" font-size="12" font-weight="bold" fill="#c0392b">• Ризик ACC: при охолодженні діод входить у COD!</text>
+  <text x="599" y="370" font-size="12" fill="#1a1a1a">• Рішення: драйвер APC із моніторним фотодіодом</text>
+  <text x="599" y="390" font-size="12" fill="#6b7280">• APC коригує струм для стабільної потужності</text>
+  <text x="599" y="410" font-size="12" fill="#6b7280">• Обов'язкове тепловідведення (радіатор/шасі)</text>
+  <text x="599" y="430" font-size="12" font-weight="bold" fill="#27ae60">Петля APC та м'який пуск запобігають COD!</text>
+</svg>

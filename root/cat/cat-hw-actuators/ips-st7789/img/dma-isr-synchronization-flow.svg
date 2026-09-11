@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Паралельний конвеєр CPU та DMA: подвійна рядкова буферизація</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Поки DMA передає поточний рядок по SPI, ядро процесора паралельно обчислює наступний рядок у сусідньому буфері</text>
+
+  <!-- Панель часової шкали -->
+  <rect x="30" y="72" width="900" height="192" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Ліва колонка міток каналів -->
+  <text x="46" y="104" font-size="13" font-weight="bold" fill="#1a1a1a">CPU (Ядро MCU)</text>
+  <text x="46" y="122" font-size="12" fill="#6b7280">Рендеринг рядка</text>
+
+  <text x="46" y="160" font-size="13" font-weight="bold" fill="#1a1a1a">DMA &amp; SPI (Шина)</text>
+  <text x="46" y="178" font-size="12" fill="#6b7280">Передача в ST7789</text>
+
+  <text x="46" y="214" font-size="12" font-weight="bold" fill="#2457d6">DMA TC (ISR)</text>
+  <text x="46" y="230" font-size="12" fill="#6b7280">Синхронізація</text>
+
+  <!-- Вертикальний розділювач між підписами та шкалою -->
+  <line x1="184" y1="80" x2="184" y2="254" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Фазові мітки зверху -->
+  <text x="346" y="86" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Інтервал 1 (Рядок Y)</text>
+  <text x="642" y="86" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Інтервал 2 (Рядок Y+1)</text>
+  <text x="839" y="86" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Інтервал 3</text>
+
+  <!-- === ТАКТ 1 (Рядок Y) === -->
+  <!-- CPU: Обчислення рядка Y у Buffer A -->
+  <rect x="202" y="92" width="200" height="42" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="302" y="107" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рендеринг рядка Y (Buf A)</text>
+  <text x="302" y="125" font-size="12" fill="#1a1a1a" text-anchor="middle">Геометрія шкали і стрілки</text>
+
+  <!-- CPU: Захист / очікування Buffer B -->
+  <rect x="406" y="92" width="84" height="42" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="448" y="107" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Захист</text>
+  <text x="448" y="125" font-size="12" fill="#27ae60" text-anchor="middle">wait Buf B</text>
+
+  <!-- DMA: Передача рядка Y-1 з Buffer B -->
+  <rect x="202" y="148" width="288" height="42" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="346" y="163" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SPI передача рядка Y−1 (Buffer B)</text>
+  <text x="346" y="181" font-size="12" fill="#6b7280" text-anchor="middle">240 пікселів × 16 біт (RGB565) у ST7789</text>
+
+  <!-- === МЕЖА 1: DMA TC Interrupt === -->
+  <line x1="494" y1="84" x2="494" y2="200" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <rect x="448" y="202" width="92" height="24" rx="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="494" y="218" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA TC ISR</text>
+  <line x1="494" y1="202" x2="494" y2="142" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- === ТАКТ 2 (Рядок Y+1) === -->
+  <!-- CPU: Обчислення рядка Y+1 у Buffer B -->
+  <rect x="498" y="92" width="200" height="42" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="598" y="107" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рендеринг рядка Y+1 (Buf B)</text>
+  <text x="598" y="125" font-size="12" fill="#1a1a1a" text-anchor="middle">Геометрія шкали і стрілки</text>
+
+  <!-- CPU: Захист / очікування Buffer A -->
+  <rect x="702" y="92" width="84" height="42" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="744" y="107" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Захист</text>
+  <text x="744" y="125" font-size="12" fill="#27ae60" text-anchor="middle">wait Buf A</text>
+
+  <!-- DMA: Передача рядка Y з Buffer A -->
+  <rect x="498" y="148" width="288" height="42" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="642" y="163" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SPI передача рядка Y (Buffer A)</text>
+  <text x="642" y="181" font-size="12" fill="#6b7280" text-anchor="middle">Фонова апаратна передача без участі CPU</text>
+
+  <!-- === МЕЖА 2: DMA TC Interrupt === -->
+  <line x1="790" y1="84" x2="790" y2="200" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <rect x="744" y="202" width="92" height="24" rx="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="790" y="218" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DMA TC ISR</text>
+  <line x1="790" y1="202" x2="790" y2="142" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- === ТАКТ 3 (Початок рядка Y+2) === -->
+  <rect x="794" y="92" width="90" height="42" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="839" y="107" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рядок Y+2</text>
+  <text x="839" y="125" font-size="12" fill="#1a1a1a" text-anchor="middle">(Buffer A)</text>
+
+  <rect x="794" y="148" width="90" height="42" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="839" y="163" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рядок Y+1</text>
+  <text x="839" y="181" font-size="12" fill="#6b7280" text-anchor="middle">(Buffer B)</text>
+
+  <!-- Часова вісь (t) -->
+  <line x1="196" y1="238" x2="890" y2="238" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="202" y1="235" x2="202" y2="241" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="202" y="254" font-size="12" fill="#6b7280" text-anchor="middle">t₀</text>
+
+  <line x1="494" y1="235" x2="494" y2="241" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="494" y="254" font-size="12" fill="#6b7280" text-anchor="middle">t₁ (TC 1)</text>
+
+  <line x1="790" y1="235" x2="790" y2="241" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="790" y="254" font-size="12" fill="#6b7280" text-anchor="middle">t₂ (TC 2)</text>
+
+  <text x="906" y="242" font-size="12" font-weight="bold" fill="#1a1a1a">Час t</text>
+
+  <!-- === НИЖНІ ПАНЕЛІ (КАРТКИ) === -->
+  <!-- Картка 1: Обробник ISR -->
+  <rect x="30" y="278" width="440" height="180" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="46" y="298" font-size="13" font-weight="bold" fill="#2457d6">Обробник переривання DMA TC (ISR)</text>
+
+  <text x="46" y="320" font-size="12" font-weight="bold" fill="#1a1a1a">1. Скидання прапорця:</text>
+  <text x="194" y="320" font-size="12" fill="#6b7280">DMA_ClearFlag(DMA_FLAG_TC);</text>
+
+  <text x="46" y="342" font-size="12" font-weight="bold" fill="#1a1a1a">2. Звільнення буфера:</text>
+  <text x="194" y="342" font-size="12" fill="#6b7280">buf_busy[active_buf] = false;</text>
+
+  <text x="46" y="364" font-size="12" font-weight="bold" fill="#1a1a1a">3. Перемикання буферів:</text>
+  <text x="212" y="364" font-size="12" fill="#6b7280">active_buf ^= 1; (Ping-Pong)</text>
+
+  <rect x="42" y="382" width="416" height="62" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="54" y="402" font-size="12" font-weight="bold" fill="#2457d6">Вигода:</text>
+  <text x="110" y="402" font-size="12" fill="#1a1a1a">Шина SPI працює без пауз (0 µs простою між рядками)</text>
+  <text x="54" y="424" font-size="12" fill="#1a1a1a">DMA транслює один буфер, доки процесор заповнює інший</text>
+
+  <!-- Картка 2: Захист від гонитви -->
+  <rect x="490" y="278" width="440" height="180" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="506" y="298" font-size="13" font-weight="bold" fill="#27ae60">Захист від гонитви (Race Condition Guard)</text>
+
+  <text x="506" y="320" font-size="12" font-weight="bold" fill="#1a1a1a">1. Перевірка перед записом:</text>
+  <text x="692" y="320" font-size="12" fill="#6b7280">while (buf_busy[next]) WFI();</text>
+
+  <text x="506" y="342" font-size="12" font-weight="bold" fill="#1a1a1a">2. Запобігання гонитві:</text>
+  <text x="666" y="342" font-size="12" fill="#6b7280">CPU чекає, доки DMA звільнить буфер</text>
+
+  <text x="506" y="364" font-size="12" font-weight="bold" fill="#1a1a1a">3. Цілісність пікселів:</text>
+  <text x="666" y="364" font-size="12" fill="#6b7280">Виключено спотворення активного буфера</text>
+
+  <rect x="502" y="382" width="416" height="62" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="514" y="402" font-size="12" font-weight="bold" fill="#27ae60">Результат:</text>
+  <text x="586" y="402" font-size="12" fill="#1a1a1a">100% перекриття обчислень та передачі по SPI</text>
+  <text x="514" y="424" font-size="12" fill="#1a1a1a">Стабільні &gt;45 FPS без мерехтіння і розриву кадрів (Tearing)</text>
+</svg>

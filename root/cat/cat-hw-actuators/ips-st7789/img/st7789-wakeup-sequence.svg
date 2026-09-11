@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#b45309"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Послідовність ініціалізації та часові затримки пробудження ST7789</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Обов'язкові паузи 120 мс після SWRESET та SLPOUT для заряду помпи напруги перед увімкненням DISPON</text>
+
+  <!-- ==================== ВЕРХНЯ ЧАСТИНА: ПОСЛІДОВНІСТЬ КОМАНД ТА ПАУЗ ==================== -->
+
+  <!-- Блок 1: Power-On / Hardware Reset (40..130) -->
+  <rect x="40" y="68" width="90" height="102" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="85" y="88" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Power-On</text>
+  <text x="85" y="104" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">HW Reset</text>
+  <text x="85" y="126" font-size="12" fill="#1a1a1a" text-anchor="middle">NRST: 10 мкс</text>
+  <text x="85" y="143" font-size="12" fill="#6b7280" text-anchor="middle">Подача 3.3 В</text>
+  <text x="85" y="160" font-size="12" fill="#6b7280" text-anchor="middle">VDD в нормі</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="130" y1="119" x2="142" y2="119" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 2: 0x01 SWRESET (142..246) -->
+  <rect x="142" y="68" width="104" height="102" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="194" y="88" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">0x01 SWRESET</text>
+  <text x="194" y="106" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Soft Reset</text>
+  <text x="194" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Скидання в</text>
+  <text x="194" y="144" font-size="12" fill="#6b7280" text-anchor="middle">початковий стан</text>
+  <text x="194" y="160" font-size="12" fill="#2457d6" text-anchor="middle">Вхід у Sleep</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="246" y1="119" x2="258" y2="119" stroke="#b45309" stroke-width="2" marker-end="url(#arr-amber)"/>
+
+  <!-- Блок 3: Пауза 120 мс OTP (258..384) -->
+  <rect x="258" y="68" width="126" height="102" rx="6" fill="#fdf6ec" stroke="#b45309" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="321" y="88" font-size="13" font-weight="700" fill="#b45309" text-anchor="middle">Пауза &gt;= 120 мс</text>
+  <text x="321" y="106" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Ініціалізація OTP</text>
+  <text x="321" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Старт RC-генератора</text>
+  <text x="321" y="143" font-size="12" fill="#6b7280" text-anchor="middle">Вичитка калібрувань</text>
+  <text x="321" y="160" font-size="12" font-weight="700" fill="#b45309" text-anchor="middle">Шина блокована</text>
+
+  <!-- Стрілка 3 -> 4 -->
+  <line x1="384" y1="119" x2="396" y2="119" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 4: 0x11 SLPOUT (396..500) -->
+  <rect x="396" y="68" width="104" height="102" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="448" y="88" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">0x11 SLPOUT</text>
+  <text x="448" y="106" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вихід зі сну</text>
+  <text x="448" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Старт помпи</text>
+  <text x="448" y="144" font-size="12" fill="#6b7280" text-anchor="middle">Запуск осцилятора</text>
+  <text x="448" y="160" font-size="12" fill="#2457d6" text-anchor="middle">Charge Pump ON</text>
+
+  <!-- Стрілка 4 -> 5 -->
+  <line x1="500" y1="119" x2="512" y2="119" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Блок 5: Пауза 120 мс Booster (512..660) -->
+  <rect x="512" y="68" width="148" height="102" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="586" y="88" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Пауза &gt;= 120 мс</text>
+  <text x="586" y="106" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Заряд помпи напруги</text>
+  <text x="586" y="126" font-size="12" fill="#6b7280" text-anchor="middle">VGH росте до +13 В</text>
+  <text x="586" y="143" font-size="12" fill="#6b7280" text-anchor="middle">VGL спадає до -10 В</text>
+  <text x="586" y="160" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Критичний бар'єр часу</text>
+
+  <!-- Стрілка 5 -> 6 -->
+  <line x1="660" y1="119" x2="672" y2="119" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 6: Регістри (672..796) -->
+  <rect x="672" y="68" width="124" height="102" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="734" y="88" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Конфігурація</text>
+  <text x="734" y="106" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Регістри панелі</text>
+  <text x="734" y="126" font-size="12" fill="#6b7280" text-anchor="middle">0x3A COLMOD (16b)</text>
+  <text x="734" y="143" font-size="12" fill="#6b7280" text-anchor="middle">0x36 MADCTL (RGB)</text>
+  <text x="734" y="160" font-size="12" fill="#2457d6" text-anchor="middle">0x21 INVON (IPS)</text>
+
+  <!-- Стрілка 6 -> 7 -->
+  <line x1="796" y1="119" x2="808" y2="119" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 7: 0x29 DISPON (808..920) -->
+  <rect x="808" y="68" width="112" height="102" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="864" y="88" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">0x29 DISPON</text>
+  <text x="864" y="106" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Екран увімкнено</text>
+  <text x="864" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Розгортка матриці</text>
+  <text x="864" y="143" font-size="12" fill="#6b7280" text-anchor="middle">RAMWR дозволено</text>
+  <text x="864" y="160" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Робочий режим</text>
+
+  <!-- ==================== ЧАСОВА ШКАЛА (y: 180..202) ==================== -->
+  <line x1="40" y1="184" x2="920" y2="184" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="40" y1="181" x2="40" y2="187" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="40" y="198" font-size="12" fill="#6b7280" text-anchor="middle">0 мс</text>
+
+  <line x1="142" y1="181" x2="142" y2="187" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="142" y="198" font-size="12" fill="#6b7280" text-anchor="middle">5 мс</text>
+
+  <line x1="258" y1="181" x2="258" y2="187" stroke="#b45309" stroke-width="1.5"/>
+  <text x="258" y="198" font-size="12" font-weight="700" fill="#b45309" text-anchor="middle">10 мс</text>
+
+  <line x1="396" y1="181" x2="396" y2="187" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="396" y="198" font-size="12" fill="#6b7280" text-anchor="middle">130 мс</text>
+
+  <line x1="512" y1="181" x2="512" y2="187" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="512" y="198" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">135 мс</text>
+
+  <line x1="672" y1="181" x2="672" y2="187" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="672" y="198" font-size="12" fill="#2457d6" text-anchor="middle">255 мс</text>
+
+  <line x1="808" y1="181" x2="808" y2="187" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="808" y="198" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">270 мс</text>
+
+  <!-- ==================== НИЖНЯ ЧАСТИНА: ОСЦИЛОГРАМА НАПРУГ (y: 206..386) ==================== -->
+  <rect x="40" y="206" width="880" height="180" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі осцилограми -->
+  <text x="55" y="224" font-size="12" font-weight="700" fill="#1a1a1a">Внутрішні напруги матриці ST7789 (Помпа заряду Gate Driver Booster)</text>
+  <text x="905" y="224" font-size="12" fill="#6b7280" text-anchor="end">Синхронізовано з верхньою шкалою</text>
+
+  <!-- Горизонтальні опорні лінії рівнів напруги -->
+  <!-- Рівень +13V (y=248) -->
+  <line x1="105" y1="248" x2="905" y2="248" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="96" y="252" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">+13 В</text>
+
+  <!-- Рівень 0V (y=306) -->
+  <line x1="105" y1="306" x2="905" y2="306" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="96" y="310" font-size="12" font-weight="700" fill="#6b7280" text-anchor="end">0 В</text>
+
+  <!-- Рівень -10V (y=362) -->
+  <line x1="105" y1="362" x2="905" y2="362" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="96" y="366" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">-10 В</text>
+
+  <!-- Вісь напруги зліва -->
+  <line x1="105" y1="234" x2="105" y2="374" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Небезпечна зона заряду помпи під час паузи 120 мс (x: 512..660) -->
+  <rect x="512" y="234" width="148" height="142" rx="4" fill="#fdecea" fill-opacity="0.5" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="586" y="278" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Заряд помпи VGH/VGL</text>
+  <text x="586" y="295" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Пауза &gt;= 120 мс</text>
+  <text x="586" y="322" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача даних до t_stab</text>
+  <text x="586" y="338" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">-&gt; артефакти / зависання</text>
+
+  <!-- Крива VGH (+13 В): 0 В до SLPOUT (x=512), експонента до 650, потім стабільно 248 -->
+  <path d="M105,306 L512,306 C550,306 600,248 660,248 L905,248" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="735" y="242" font-size="12" font-weight="700" fill="#27ae60">VGH (+13 В, затвори відкрито)</text>
+
+  <!-- Крива VGL (-10 В): 0 В до SLPOUT (x=512), експонента до 650, потім стабільно 362 -->
+  <path d="M105,306 L512,306 C550,306 600,362 660,362 L905,362" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="735" y="377" font-size="12" font-weight="700" fill="#2457d6">VGL (-10 В, затвори замкнено)</text>
+
+  <!-- Вертикальні лінії синхронізації між шкалами (пунктир з розривом біля підписів) -->
+  <line x1="512" y1="170" x2="512" y2="182" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="512" y1="206" x2="512" y2="234" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <line x1="660" y1="170" x2="660" y2="182" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="660" y1="206" x2="660" y2="234" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- ==================== НИЖНЯ ІНФОРМАЦІЙНА ПЛАШКА ==================== -->
+  <rect x="40" y="402" width="880" height="46" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="421" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Апаратне обмеження ST7789: ігнорування пауз 120 мс призводить до зависання матриці</text>
+  <text x="480" y="437" font-size="12" fill="#6b7280" text-anchor="middle">Команда SLPOUT вмикає внутрішній генератор Charge Pump — подача даних до виходу VGH/VGL на робочий рівень спричиняє білі артефакти</text>
+</svg>

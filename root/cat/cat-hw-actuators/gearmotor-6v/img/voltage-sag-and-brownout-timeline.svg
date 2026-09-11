@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пусковий струм приводу та просідання живлення: механізм Brown-Out Reset (BOR)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Падіння напруги на внутрішньому опорі джерела живлення R_int призводить до апаратного скидання мікроконтролера</text>
+
+  <!-- Головна панель осцилограми -->
+  <rect x="24" y="70" width="912" height="316" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Лівий стовпчик: назви сигналів та шкали значень -->
+  <!-- Трек 1: Струм мотора -->
+  <text x="32" y="102" font-size="13" font-weight="bold" fill="#1a1a1a">Струм мотора</text>
+  <text x="32" y="118" font-size="12" font-weight="bold" fill="#c0392b">I_motor(t)</text>
+  <text x="170" y="104" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">1.5 A</text>
+  <text x="170" y="152" font-size="12" fill="#6b7280" text-anchor="end">0.0 A</text>
+
+  <!-- Трек 2: Напруга живлення -->
+  <text x="32" y="186" font-size="13" font-weight="bold" fill="#1a1a1a">Напруга шини</text>
+  <text x="32" y="202" font-size="12" font-weight="bold" fill="#2457d6">V_bus(t)</text>
+  <text x="170" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">6.0 В</text>
+  <text x="170" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">2.7 В</text>
+  <text x="170" y="246" font-size="12" fill="#6b7280" text-anchor="end">0.0 В</text>
+
+  <!-- Трек 3: Сигнал скиду RESET -->
+  <text x="32" y="278" font-size="13" font-weight="bold" fill="#1a1a1a">Сигнал RESET</text>
+  <text x="32" y="294" font-size="12" font-weight="bold" fill="#6b7280">Стан ядра МК</text>
+  <text x="170" y="282" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">HIGH</text>
+  <text x="170" y="328" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">LOW</text>
+
+  <!-- Екран осцилографа -->
+  <rect x="176" y="78" width="750" height="266" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Горизонтальні розділювачі треків -->
+  <line x1="176" y1="162" x2="926" y2="162" stroke="#e9ecef" stroke-width="1"/>
+  <line x1="176" y1="254" x2="926" y2="254" stroke="#e9ecef" stroke-width="1"/>
+
+  <!-- ТРЕК 1: Струм мотора -->
+  <!-- Заливки імпульсів пускового струму -->
+  <polygon points="280,148 295,100 355,100 375,148" fill="#fdecea"/>
+  <polygon points="660,148 675,100 735,100 755,148" fill="#fdecea"/>
+
+  <!-- Лінія струму I_motor -->
+  <path d="M 176 148 L 280 148 L 295 100 L 355 100 L 375 148 L 660 148 L 675 100 L 735 100 L 755 148 L 926 148" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Написи треку 1 -->
+  <text x="325" y="94" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пусковий сплеск I_stall ≈ 1.5 А</text>
+  <text x="515" y="124" font-size="12" fill="#6b7280" text-anchor="middle">Драйвер мотора вимкнено</text>
+  <text x="515" y="140" font-size="12" fill="#6b7280" text-anchor="middle">Струм відсутній: I = 0 А</text>
+  <text x="705" y="94" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Повторний сплеск I_stall</text>
+
+  <!-- ТРЕК 2: Напруга шини живлення -->
+  <!-- Заливка критичної зони просідання напруги нижче V_BOR -->
+  <polygon points="298,218 310,242 355,242 372,218" fill="#fdecea"/>
+  <polygon points="678,218 690,242 735,242 752,218" fill="#fdecea"/>
+
+  <!-- Пунктир порогу V_BOR з розривом під напис -->
+  <line x1="176" y1="218" x2="380" y2="218" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <line x1="650" y1="218" x2="926" y2="218" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <!-- Крива напруги V_bus -->
+  <path d="M 176 180 L 280 180 L 310 242 L 355 242 L 400 180 L 660 180 L 690 242 L 735 242 L 780 180 L 926 180" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Написи треку 2 -->
+  <text x="515" y="196" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Просідання напруги: ΔV = I_stall · R_int</text>
+  <text x="515" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Поріг апаратного скиду V_BOR = 2.7 В</text>
+
+  <!-- ТРЕК 3: Сигнал скиду RESET та стан МК -->
+  <!-- Заливка стану аварійного скиду -->
+  <rect x="306" y="276" width="134" height="48" fill="#fdecea"/>
+  <rect x="686" y="276" width="134" height="48" fill="#fdecea"/>
+
+  <!-- Лінія сигналу RESET -->
+  <path d="M 176 276 L 302 276" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 302 276 L 306 324 L 440 324 L 444 276" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M 444 276 L 682 276" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 682 276 L 686 324 L 820 324 L 824 276" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M 824 276 L 926 276" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Написи треку 3 -->
+  <text x="238" y="296" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Активна робота</text>
+  <text x="373" y="296" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">СКИДАННЯ BOR</text>
+  <text x="373" y="312" font-size="12" fill="#c0392b" text-anchor="middle">GPIO в Hi-Z</text>
+  <text x="563" y="296" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Перезавантаження ядра МК</text>
+  <text x="563" y="312" font-size="12" fill="#6b7280" text-anchor="middle">Bootloader → init → motor_start()</text>
+  <text x="753" y="296" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ПОВТОРНИЙ СКИД</text>
+  <text x="753" y="312" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Циклічний бутлуп</text>
+  <text x="875" y="296" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Новий цикл...</text>
+
+  <!-- Нижня часова вісь -->
+  <line x1="176" y1="352" x2="840" y2="352" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="850" y="356" font-size="12" font-weight="bold" fill="#6b7280">Час t</text>
+
+  <!-- Засічки та підписи фаз часу -->
+  <line x1="280" y1="352" x2="280" y2="356" stroke="#6b7280" stroke-width="1"/>
+  <text x="280" y="373" font-size="12" fill="#6b7280" text-anchor="middle">Пуск мотора</text>
+
+  <line x1="365" y1="352" x2="365" y2="356" stroke="#c0392b" stroke-width="1"/>
+  <text x="365" y="373" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Скид BOR</text>
+
+  <line x1="460" y1="352" x2="460" y2="356" stroke="#6b7280" stroke-width="1"/>
+  <text x="460" y="373" font-size="12" fill="#6b7280" text-anchor="middle">Відновлення</text>
+
+  <line x1="570" y1="352" x2="570" y2="356" stroke="#2457d6" stroke-width="1"/>
+  <text x="570" y="373" font-size="12" fill="#2457d6" text-anchor="middle">Рестарт МК</text>
+
+  <line x1="675" y1="352" x2="675" y2="356" stroke="#c0392b" stroke-width="1"/>
+  <text x="675" y="373" font-size="12" fill="#c0392b" text-anchor="middle">Повторний пуск</text>
+
+  <line x1="800" y1="352" x2="800" y2="356" stroke="#c0392b" stroke-width="1"/>
+  <text x="800" y="373" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Циклічний бутлуп</text>
+
+  <!-- Нижня панель: Причина та Інженерний розв'язок -->
+  <!-- Ліва картка: Причина -->
+  <rect x="24" y="398" width="448" height="98" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="40" y="420" font-size="13" font-weight="bold" fill="#c0392b">Причина збою: спільне живлення та високий R_int</text>
+  <text x="40" y="440" font-size="12" fill="#1a1a1a">• Пусковий струм I_stall (1.2–1.5 А) створює падіння ΔV = I · R_int</text>
+  <text x="40" y="458" font-size="12" fill="#1a1a1a">• Шина просідає нижче V_BOR (2.7 В) → процесор іде в апаратний скид</text>
+  <text x="40" y="476" font-size="12" fill="#6b7280">• Мотор вимикається, напруга зростає → процесор рестартує (бутлуп)</text>
+
+  <!-- Права картка: Інженерний розв'язок -->
+  <rect x="488" y="398" width="448" height="98" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="504" y="420" font-size="13" font-weight="bold" fill="#27ae60">Інженерний розв'язок: ізоляція та фільтрація</text>
+  <text x="504" y="440" font-size="12" fill="#1a1a1a">• Роздільні лінії живлення: окрема силова шина та шина логіки МК</text>
+  <text x="504" y="458" font-size="12" fill="#1a1a1a">• Діодна розв'язка Шотткі (D_iso): блокує зворотний струм від логіки</text>
+  <text x="504" y="476" font-size="12" fill="#6b7280">• Буферний конденсатор C_bulk (100–470 мкФ) живить МК під час пуску</text>
+</svg>

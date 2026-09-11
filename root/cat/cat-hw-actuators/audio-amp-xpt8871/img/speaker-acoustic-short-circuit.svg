@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Акустичне коротке замикання динаміка</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Без закритого корпусу протифазні низькочастотні хвилі гасяться у вільному просторі</text>
+
+  <!-- ==================== LEFT PANEL: FREE-AIR ==================== -->
+  <rect x="24" y="78" width="444" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Left Header Badge -->
+  <rect x="36" y="88" width="420" height="28" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="107" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">ВІДКРИТИЙ ПРОСТІР (FREE-AIR) — АКУСТИЧНЕ КЗ</text>
+
+  <!-- Left Speaker Hardware (Paths) -->
+  <!-- Magnet assembly -->
+  <path d="M 45,215 L 50,215 L 50,261 L 45,261 Z" fill="#6b7280"/>
+  <path d="M 50,218 L 76,218 L 76,258 L 50,258 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 76,215 L 81,215 L 81,261 L 76,261 Z" fill="#6b7280"/>
+  <!-- Voice coil -->
+  <path d="M 81,228 L 95,228 L 95,248 L 81,248 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <!-- Basket arms -->
+  <path d="M 81,215 L 118,172" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 81,261 L 118,304" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Frame rim -->
+  <path d="M 116,166 L 124,166 L 124,178 L 116,178 Z" fill="#6b7280"/>
+  <path d="M 116,298 L 124,298 L 124,310 L 116,310 Z" fill="#6b7280"/>
+  <!-- Surround rolls -->
+  <path d="M 120,178 C 125,181 125,185 120,188" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 120,288 C 125,291 125,295 120,298" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Cone Diaphragm -->
+  <path d="M 95,231 L 120,188" stroke="#1a1a1a" stroke-width="2.5"/>
+  <path d="M 95,245 L 120,288" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Dust Cap -->
+  <path d="M 95,231 C 103,234 103,242 95,245" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Cone forward motion arrow -->
+  <path d="M 102,238 L 113,238" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Minus pressure indicator behind cone -->
+  <rect x="28" y="174" width="44" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="50" y="188" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">− тиск</text>
+
+  <!-- Plus pressure indicator in front of cone -->
+  <rect x="134" y="227" width="50" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="159" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+ тиск</text>
+
+  <!-- Top bypass diffraction path (negative wave bending around rim) -->
+  <path d="M 82,198 C 82,152 98,152 118,152 C 148,152 178,158 214,177" fill="none" stroke="#c0392b" stroke-width="2.2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="138" y="136" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Огинання кошика (−)</text>
+
+  <!-- Bottom bypass diffraction path -->
+  <path d="M 82,278 C 82,324 98,324 118,324 C 148,324 178,318 214,299" fill="none" stroke="#c0392b" stroke-width="2.2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="138" y="344" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Протифаза 180° (−)</text>
+
+  <!-- Front wave arc entering cancellation box -->
+  <path d="M 194,218 A 25,25 0 0,1 214,238" fill="none" stroke="#2457d6" stroke-width="2.2" marker-end="url(#arr-blue)"/>
+
+  <!-- Cancellation Zone Box -->
+  <rect x="214" y="162" width="126" height="152" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="277" y="181" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ЗОНА ГАСІННЯ</text>
+  <text x="220" y="201" font-size="12" font-weight="bold" fill="#2457d6">+ Хвиля (передня)</text>
+  <text x="220" y="219" font-size="12" font-weight="bold" fill="#c0392b">− Хвиля (тильна)</text>
+  <path d="M 220,228 L 334,228" stroke="#c0392b" stroke-width="1"/>
+  <text x="277" y="246" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+тиск − тиск = 0</text>
+  <!-- Flat zero wave line -->
+  <path d="M 228,269 L 326,269" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="277" y="288" font-size="12" fill="#c0392b" text-anchor="middle">Звуковий тиск ≈ 0</text>
+
+  <!-- Listener and Result -->
+  <text x="396" y="206" font-size="12" fill="#6b7280" text-anchor="middle">Слухач</text>
+  <!-- Ear contour -->
+  <path d="M 391,216 C 406,216 412,226 412,238 C 412,250 404,260 391,260 C 386,260 382,256 382,250 C 382,244 388,240 392,240 C 396,240 398,236 398,232 C 398,226 394,222 389,222" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Minimal flat wave reaching listener -->
+  <path d="M 340,238 L 376,238" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-gray)"/>
+  <!-- Result badge under listener -->
+  <rect x="354" y="270" width="84" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="396" y="287" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Бас зник</text>
+  <text x="396" y="303" font-size="12" fill="#c0392b" text-anchor="middle">(тихий звук)</text>
+
+  <!-- Left Bottom Summary Card -->
+  <rect x="36" y="358" width="420" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="376" font-size="12" font-weight="bold" fill="#c0392b">Взаємне гасіння хвиль: довжина хвилі λ &gt;&gt; діаметра D</text>
+  <text x="50" y="394" font-size="12" fill="#1a1a1a">Тильна хвиля обтікає кошик у протифазі 180°</text>
+  <text x="50" y="412" font-size="12" fill="#6b7280">Результат: повна втрата басу (НЧ нижче 200–300 Гц)</text>
+
+  <!-- ==================== RIGHT PANEL: SEALED BOX ==================== -->
+  <rect x="492" y="78" width="444" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Right Header Badge -->
+  <rect x="504" y="88" width="420" height="28" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="107" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ЗАКРИТИЙ КОРПУС (SEALED BOX) — ІЗОЛЯЦІЯ ХВИЛІ</text>
+
+  <!-- Sealed Enclosure Cabinet Label -->
+  <text x="575" y="136" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Герметичний корпус</text>
+
+  <!-- Outer Box Walls & Baffle drawn as a path -->
+  <path d="M 506,150 L 636,150 L 636,186 L 626,186 L 626,158 L 514,158 L 514,318 L 626,318 L 626,290 L 636,290 L 636,326 L 506,326 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Front Baffle wall solid blocks -->
+  <path d="M 628,150 L 636,150 L 636,186 L 628,186 Z" fill="#6b7280"/>
+  <path d="M 628,290 L 636,290 L 636,326 L 628,326 Z" fill="#6b7280"/>
+
+  <!-- Right Speaker mounted in baffle (Paths) -->
+  <path d="M 531,215 L 536,215 L 536,261 L 531,261 Z" fill="#6b7280"/>
+  <path d="M 536,218 L 562,218 L 562,258 L 536,258 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 562,215 L 567,215 L 567,261 L 562,261 Z" fill="#6b7280"/>
+  <!-- Voice coil -->
+  <path d="M 567,228 L 581,228 L 581,248 L 567,248 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <!-- Basket arms -->
+  <path d="M 567,215 L 626,172" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 567,261 L 626,304" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Mounting rim -->
+  <path d="M 624,166 L 632,166 L 632,178 L 624,178 Z" fill="#6b7280"/>
+  <path d="M 624,298 L 632,298 L 632,310 L 624,310 Z" fill="#6b7280"/>
+  <!-- Surround rolls -->
+  <path d="M 628,178 C 633,181 633,185 628,188" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 628,288 C 633,291 633,295 628,298" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Cone Diaphragm -->
+  <path d="M 581,231 L 628,188" stroke="#1a1a1a" stroke-width="2.5"/>
+  <path d="M 581,245 L 628,288" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Dust Cap -->
+  <path d="M 581,231 C 589,234 589,242 581,245" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Cone forward motion arrow -->
+  <path d="M 588,238 L 599,238" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Inside Box: Trapped Negative Wave Reflection -->
+  <path d="M 552,206 C 528,190 522,206 522,238 C 522,270 528,286 552,270" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arr-red)"/>
+  <text x="554" y="180" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">− тиск</text>
+  <text x="554" y="306" font-size="12" fill="#6b7280" text-anchor="middle">Об'єм Vb</text>
+
+  <!-- Plus pressure indicator in front of cone -->
+  <rect x="640" y="227" width="50" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="665" y="242" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+ тиск</text>
+
+  <!-- Free Radiation: Expanding Wavefront Arc (+) -->
+  <path d="M 688,218 A 25,25 0 0,1 708,238" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Wave Propagation Card (Symmetrical to Left Box) -->
+  <rect x="708" y="162" width="126" height="152" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="771" y="181" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ВИПРОМІНЮВАННЯ</text>
+  <text x="714" y="201" font-size="12" font-weight="bold" fill="#27ae60">+ Хвиля (передня)</text>
+  <text x="714" y="219" font-size="12" fill="#1a1a1a">Тильна ізольована</text>
+  <path d="M 714,228 L 828,228" stroke="#27ae60" stroke-width="1"/>
+  <text x="771" y="246" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+тиск без втрат</text>
+  <!-- Clean sine wave of sound pressure -->
+  <path d="M 718,269 Q 729,257 740,269 T 762,269 T 784,269 T 806,269" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="771" y="288" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Повний тиск НЧ</text>
+
+  <!-- Right Listener and Result -->
+  <text x="890" y="206" font-size="12" fill="#6b7280" text-anchor="middle">Слухач</text>
+  <!-- Ear contour -->
+  <path d="M 885,216 C 900,216 906,226 906,238 C 906,250 898,260 885,260 C 880,260 876,256 876,250 C 876,244 882,240 886,240 C 890,240 892,236 892,232 C 892,226 888,222 883,222" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Strong sound wave reaching listener -->
+  <path d="M 834,238 L 870,238" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <!-- Result badge under listener -->
+  <rect x="848" y="270" width="84" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="890" y="287" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Повний бас</text>
+  <text x="890" y="303" font-size="12" fill="#27ae60" text-anchor="middle">глибокий звук</text>
+
+  <!-- Right Bottom Summary Card -->
+  <rect x="504" y="358" width="420" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="518" y="376" font-size="12" font-weight="bold" fill="#27ae60">Повний поділ зон: тильна та передня хвилі ізольовані</text>
+  <text x="518" y="394" font-size="12" fill="#1a1a1a">Герметичні стінки корпусу блокують протифазну хвилю</text>
+  <text x="518" y="412" font-size="12" fill="#6b7280">Результат: повноцінний звуковий тиск і глибокий бас</text>
+</svg>

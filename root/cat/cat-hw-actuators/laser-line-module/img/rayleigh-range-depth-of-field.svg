@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ==================== ЗАГОЛОВОК ТА ПІДЗАГОЛОВОК ==================== -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Поздовжній розріз пучка: параметр Релея та глибина різкості (DOF)</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Компроміс хвильової оптики: звуження перетяжки w₀ скорочує робочу зону фокусування як w₀²</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ОПТИЧНА СХЕМА ==================== -->
+  <rect x="25" y="65" width="605" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="90" font-size="13" font-weight="700" fill="#1a1a1a">Геометрія огинаючої сфокусованого гаусового пучка w(z)</text>
+
+  <!-- Тіло лазерного пучка (загальне) -->
+  <path d="M 80,136.33 L 85,137.67 L 90,139.0 L 95,140.32 L 100,141.64 L 105,142.96 L 110,144.26 L 115,145.57 L 120,146.86 L 125,148.15 L 130,149.43 L 135,150.7 L 140,151.97 L 145,153.22 L 150,154.47 L 155,155.7 L 160,156.92 L 165,158.13 L 170,159.32 L 175,160.5 L 180,161.67 L 185,162.81 L 190,163.94 L 195,165.05 L 200,166.13 L 205,167.2 L 210,168.23 L 215,169.24 L 220,170.21 L 225,171.16 L 230,172.06 L 235,172.93 L 240,173.75 L 245,174.53 L 250,175.26 L 255,175.93 L 260,176.55 L 265,177.1 L 270,177.59 L 275,178.02 L 280,178.37 L 285,178.64 L 290,178.84 L 295,178.96 L 300,179.0 L 305,178.96 L 310,178.84 L 315,178.64 L 320,178.37 L 325,178.02 L 330,177.59 L 335,177.1 L 340,176.55 L 345,175.93 L 350,175.26 L 355,174.53 L 360,173.75 L 365,172.93 L 370,172.06 L 375,171.16 L 380,170.21 L 385,169.24 L 390,168.23 L 395,167.2 L 400,166.13 L 405,165.05 L 410,163.94 L 415,162.81 L 420,161.67 L 425,160.5 L 430,159.32 L 435,158.13 L 440,156.92 L 445,155.7 L 450,154.47 L 455,153.22 L 460,151.97 L 465,150.7 L 470,149.43 L 475,148.15 L 480,146.86 L 485,145.57 L 490,144.26 L 495,142.96 L 500,141.64 L 505,140.32 L 510,139.0 L 515,137.67 L 520,136.33 L 520,273.67 L 515,272.33 L 510,271.0 L 505,269.68 L 500,268.36 L 495,267.04 L 490,265.74 L 485,264.43 L 480,263.14 L 475,261.85 L 470,260.57 L 465,259.3 L 460,258.03 L 455,256.78 L 450,255.53 L 445,254.3 L 440,253.08 L 435,251.87 L 430,250.68 L 425,249.5 L 420,248.33 L 415,247.19 L 410,246.06 L 405,244.95 L 400,243.87 L 395,242.8 L 390,241.77 L 385,240.76 L 380,239.79 L 375,238.84 L 370,237.94 L 365,237.07 L 360,236.25 L 355,235.47 L 350,234.74 L 345,234.07 L 340,233.45 L 335,232.9 L 330,232.41 L 325,231.98 L 320,231.63 L 315,231.36 L 310,231.16 L 305,231.04 L 300,231.0 L 295,231.04 L 290,231.16 L 285,231.36 L 280,231.63 L 275,231.98 L 270,232.41 L 265,232.9 L 260,233.45 L 255,234.07 L 250,234.74 L 245,235.47 L 240,236.25 L 235,237.07 L 230,237.94 L 225,238.84 L 220,239.79 L 215,240.76 L 210,241.77 L 205,242.8 L 200,243.87 L 195,244.95 L 190,246.06 L 185,247.19 L 180,248.33 L 175,249.5 L 170,250.68 L 165,251.87 L 160,253.08 L 155,254.3 L 150,255.53 L 145,256.78 L 140,258.03 L 135,259.3 L 130,260.57 L 125,261.85 L 120,263.14 L 115,264.43 L 110,265.74 L 105,267.04 L 100,268.36 L 95,269.68 L 90,271.0 L 85,272.33 L 80,273.67 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Виділення робочої зони фокусування DOF (напівпрозоре зеленкувате тло) -->
+  <path d="M 210,168.23 L 215,169.24 L 220,170.21 L 225,171.16 L 230,172.06 L 235,172.93 L 240,173.75 L 245,174.53 L 250,175.26 L 255,175.93 L 260,176.55 L 265,177.1 L 270,177.59 L 275,178.02 L 280,178.37 L 285,178.64 L 290,178.84 L 295,178.96 L 300,179.0 L 305,178.96 L 310,178.84 L 315,178.64 L 320,178.37 L 325,178.02 L 330,177.59 L 335,177.1 L 340,176.55 L 345,175.93 L 350,175.26 L 355,174.53 L 360,173.75 L 365,172.93 L 370,172.06 L 375,171.16 L 380,170.21 L 385,169.24 L 390,168.23 L 390,241.77 L 385,240.76 L 380,239.79 L 375,238.84 L 370,237.94 L 365,237.07 L 360,236.25 L 355,235.47 L 350,234.74 L 345,234.07 L 340,233.45 L 335,232.9 L 330,232.41 L 325,231.98 L 320,231.63 L 315,231.36 L 310,231.16 L 305,231.04 L 300,231.0 L 295,231.04 L 290,231.16 L 285,231.36 L 280,231.63 L 275,231.98 L 270,232.41 L 265,232.9 L 260,233.45 L 255,234.07 L 250,234.74 L 245,235.47 L 240,236.25 L 235,237.07 L 230,237.94 L 225,238.84 L 220,239.79 L 215,240.76 L 210,241.77 Z" fill="#27ae60" fill-opacity="0.12"/>
+
+  <!-- Оптична вісь Z -->
+  <line x1="55" y1="205" x2="575" y2="205" stroke="#1a1a1a" stroke-width="1.2" stroke-dasharray="8,3,2,3" marker-end="url(#arr)"/>
+  <text x="545" y="194" font-size="12" font-weight="700" fill="#1a1a1a">+Z</text>
+
+  <!-- Межі та площини: перетяжка z=0, межі Релея z=-zR та z=+zR -->
+  <!-- 1. Перетяжка (z = 0) -->
+  <text x="300" y="112" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Перетяжка: z = 0</text>
+  <line x1="300" y1="118" x2="300" y2="265" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,4"/>
+
+  <!-- 2. Межа -zR -->
+  <text x="210" y="128" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">z = −z_R</text>
+  <line x1="210" y1="135" x2="210" y2="265" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- 3. Межа +zR -->
+  <text x="390" y="128" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">z = +z_R</text>
+  <line x1="390" y1="135" x2="390" y2="265" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Радіус перетяжки w0 -->
+  <line x1="300" y1="205" x2="300" y2="182" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="306" y="195" font-size="12" font-weight="700" fill="#2457d6">w₀</text>
+
+  <!-- Радіус на межі Релея +zR: w(zR) = √2 · w0 -->
+  <line x1="390" y1="205" x2="390" y2="171" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="396" y="191" font-size="12" font-weight="700" fill="#2457d6">w(z_R) = √2·w₀</text>
+
+  <!-- Радіус на межі Релея -zR: √2 · w0 -->
+  <line x1="210" y1="205" x2="210" y2="171" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="204" y="191" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">√2·w₀</text>
+
+  <!-- Розмір параметра Релея zR -->
+  <line x1="300" y1="278" x2="390" y2="278" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="345" y="272" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">z_R</text>
+
+  <!-- Розмір повної глибини різкості DOF = 2 * zR -->
+  <line x1="210" y1="312" x2="390" y2="312" stroke="#27ae60" stroke-width="1.8" marker-start="url(#arr-green-rev)" marker-end="url(#arr-green)"/>
+  <text x="300" y="332" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">DOF = 2·z_R (глибина різкості)</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ФОРМУЛИ ТА КРИТЕРІЇ ==================== -->
+  <rect x="645" y="65" width="290" height="290" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="665" y="92" font-size="13" font-weight="700" fill="#1a1a1a">Формули та критерії Релея</text>
+
+  <!-- Картка 1: Параметр Релея -->
+  <rect x="660" y="105" width="260" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="675" y="125" font-size="12" font-weight="700" fill="#2457d6">Довжина Релея (Rayleigh range):</text>
+  <text x="675" y="143" font-size="12" fill="#1a1a1a">z_R = π · w₀² / λ</text>
+  <text x="675" y="161" font-size="12" fill="#6b7280">При z = ±z_R площа перерізу зростає вдвічі</text>
+
+  <!-- Картка 2: Глибина різкості -->
+  <rect x="660" y="181" width="260" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="675" y="201" font-size="12" font-weight="700" fill="#27ae60">Глибина різкості (Depth of Field):</text>
+  <text x="675" y="219" font-size="12" fill="#1a1a1a">DOF = 2 · z_R = 2π · w₀² / λ</text>
+  <text x="675" y="237" font-size="12" fill="#6b7280">Діапазон, де товщина w(z) ≤ √2 · w₀</text>
+
+  <!-- Картка 3: Розбіжність та компроміс -->
+  <rect x="660" y="257" width="260" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="675" y="277" font-size="12" font-weight="700" fill="#c0392b">Кут розбіжності та компроміс:</text>
+  <text x="675" y="295" font-size="12" fill="#1a1a1a">θ = λ / (π · w₀)  (напівкут у дальній зоні)</text>
+  <text x="675" y="313" font-size="12" fill="#6b7280">Тонша перетяжка (w₀ ↓) → більша</text>
+  <text x="675" y="329" font-size="12" fill="#6b7280">розбіжність θ ↑ та менший DOF ↓↓</text>
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: ІНЖЕНЕРНІ ПРАВИЛА ==================== -->
+  <rect x="25" y="370" width="910" height="75" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="392" font-size="12" font-weight="700" fill="#1a1a1a">Інженерні висновки для лазерних лінійних модулів та 3D-тріангуляції:</text>
+  <text x="45" y="412" font-size="12" fill="#6b7280">1. Квадратична залежність DOF ∝ w₀²: звуження лінії вдвічі (w₀ / 2) скорочує робочий діапазон DOF у 4 рази.</text>
+  <text x="45" y="430" font-size="12" fill="#6b7280">2. Робочий діапазон: глибина вимірюваного рельєфу в 3D-тріангуляції не повинна перевищувати повну глибину різкості DOF = 2z_R.</text>
+</svg>

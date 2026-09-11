@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-start-blue" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,1 L1,4 L8,7 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Оптичний стенд активного юстування лазерного модуля з призмою Павелла</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Прецизійне вирівнювання гребеня призми, усунення асиметрії та онлайн-контроль форми лінії</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Оптичний стенд юстування -->
+  <rect x="24" y="65" width="560" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="90" font-size="14" font-weight="bold" fill="#1a1a1a">Оптична рейка та юстувальні вузли стенда</text>
+
+  <!-- Оптична рейка -->
+  <rect x="44" y="380" width="520" height="35" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="304" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Прецизійна оптична рейка (спільна оптична вісь стенда)</text>
+
+  <!-- ВУЗОЛ 1: Лазерний модуль -->
+  <rect x="55" y="330" width="105" height="35" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="107" y="352" text-anchor="middle" font-size="12" fill="#1a1a1a">5-осьовий столик</text>
+  <rect x="102" y="255" width="12" height="75" fill="#d0d7de"/>
+
+  <rect x="52" y="185" width="112" height="70" rx="6" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="108" y="115" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Лазерний модуль</text>
+  <text x="108" y="132" text-anchor="middle" font-size="12" fill="#2457d6">Коліматорна лінза</text>
+  <text x="108" y="149" text-anchor="middle" font-size="12" fill="#6b7280">Пучок d = 1.2 мм</text>
+
+  <!-- Діод і лінза всередині модуля -->
+  <rect x="60" y="208" width="22" height="24" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="71" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">LD</text>
+
+  <ellipse cx="140" cy="220" rx="6" ry="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="99" y="175" width="16" height="10" rx="2" fill="#6b7280"/>
+
+  <!-- Розбіжний пучок від LD до коліматора -->
+  <polygon points="82,220 134,213 134,227" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Колімований пучок від модуля до призми Павелла -->
+  <rect x="146" y="214" width="94" height="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="193" y="205" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вхідний пучок</text>
+
+  <!-- ВУЗОЛ 2: Призма Павелла -->
+  <rect x="227" y="330" width="105" height="35" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="280" y="352" text-anchor="middle" font-size="12" fill="#1a1a1a">Вузол призми</text>
+  <rect x="274" y="255" width="12" height="75" fill="#d0d7de"/>
+
+  <rect x="232" y="180" width="96" height="75" rx="6" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="280" y="115" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Призма Павелла</text>
+  <text x="280" y="132" text-anchor="middle" font-size="12" fill="#2457d6">Юстування гребеня Δx</text>
+  <text x="280" y="149" text-anchor="middle" font-size="12" fill="#6b7280">Кут лінії Roll (θz)</text>
+
+  <!-- Мікрогвинт поперечного зсуву -->
+  <rect x="272" y="168" width="16" height="12" rx="2" fill="#6b7280"/>
+  <line x1="258" y1="162" x2="302" y2="162" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-start-blue)" marker-end="url(#arr-blue)"/>
+
+  <!-- Профіль призми Павелла -->
+  <path d="M 242,220 Q 250,204 262,200 L 274,200 L 274,240 L 262,240 Q 250,236 242,220 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="242" y1="205" x2="242" y2="235" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Світлове віяло від призми Павелла до сенсора -->
+  <polygon points="274,220 445,195 445,245" fill="#eaf0fd" fill-opacity="0.7" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="274" y1="220" x2="445" y2="210" stroke="#2457d6" stroke-width="1" stroke-opacity="0.4"/>
+  <line x1="274" y1="220" x2="445" y2="230" stroke="#2457d6" stroke-width="1" stroke-opacity="0.4"/>
+
+  <text x="358" y="278" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Світлове віяло лінії</text>
+  <text x="358" y="295" text-anchor="middle" font-size="12" fill="#6b7280">Кут розгортки Fan Angle</text>
+
+  <!-- ВУЗОЛ 3: CMOS-профілометр -->
+  <rect x="430" y="330" width="105" height="35" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="482" y="352" text-anchor="middle" font-size="12" fill="#1a1a1a">Стійка сенсора</text>
+  <rect x="476" y="275" width="12" height="55" fill="#d0d7de"/>
+
+  <rect x="445" y="175" width="75" height="100" rx="6" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="482" y="115" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Профілометр</text>
+  <text x="482" y="132" text-anchor="middle" font-size="12" fill="#27ae60">CMOS-матриця</text>
+  <text x="482" y="149" text-anchor="middle" font-size="12" fill="#6b7280">Робоча площина</text>
+
+  <!-- Вікно сенсора -->
+  <rect x="445" y="190" width="8" height="70" rx="2" fill="#1a1a1a"/>
+  <line x1="449" y1="195" x2="449" y2="255" stroke="#27ae60" stroke-width="4"/>
+  <text x="485" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">CMOS</text>
+  <text x="485" y="239" text-anchor="middle" font-size="12" fill="#6b7280">сенсор</text>
+
+  <!-- Кабель передачі даних -->
+  <line x1="520" y1="225" x2="598" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="560" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">USB 3.0</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Моніторинг та діагностика -->
+  <rect x="600" y="65" width="336" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- КАРТКА 1: Профіль інтенсивності -->
+  <rect x="612" y="80" width="312" height="205" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="624" y="100" font-size="13" font-weight="bold" fill="#1a1a1a">Профіль освітленості лінії I(x)</text>
+  <text x="624" y="116" font-size="12" fill="#6b7280">Аналіз симетрії та однорідності онлайн</text>
+
+  <!-- Екран осцилографа / профілометра -->
+  <rect x="624" y="124" width="288" height="86" rx="4" fill="#1a1a1a"/>
+  <line x1="624" y1="145" x2="912" y2="145" stroke="#333333" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="624" y1="167" x2="912" y2="167" stroke="#333333" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="624" y1="189" x2="912" y2="189" stroke="#333333" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="660" y1="124" x2="660" y2="210" stroke="#333333" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="710" y1="124" x2="710" y2="210" stroke="#333333" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="768" y1="124" x2="768" y2="210" stroke="#555555" stroke-width="1" stroke-dasharray="4,2"/>
+  <line x1="826" y1="124" x2="826" y2="210" stroke="#333333" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="876" y1="124" x2="876" y2="210" stroke="#333333" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Графіки профілю -->
+  <!-- Зелена крива: Flat-Top -->
+  <path d="M 636,198 L 655,198 Q 662,195 666,140 Q 674,136 768,136 Q 862,136 870,140 Q 874,195 881,198 L 900,198" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <!-- Червона пунктирна крива: Асиметрія / перекіс -->
+  <path d="M 636,198 L 655,198 Q 660,185 668,128 Q 710,142 768,162 Q 830,180 876,192 L 900,198" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- Легенда графіка -->
+  <circle cx="634" cy="223" r="4" fill="#27ae60"/>
+  <text x="644" y="227" font-size="12" font-weight="bold" fill="#27ae60">Юстовано: рівномірне плато (Flat-Top)</text>
+
+  <circle cx="634" cy="243" r="4" fill="#c0392b"/>
+  <text x="644" y="247" font-size="12" font-weight="bold" fill="#c0392b">Перекіс: зміщення пучка від гребеня призми</text>
+
+  <!-- Плашки метрик якості -->
+  <rect x="624" y="258" width="138" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="693" y="272" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Однорідність: &gt;92%</text>
+
+  <rect x="774" y="258" width="138" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="843" y="272" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Асиметрія: &lt; 2.5%</text>
+
+  <!-- КАРТКА 2: Контрольні операції юстування -->
+  <rect x="612" y="297" width="312" height="131" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="624" y="315" font-size="13" font-weight="bold" fill="#1a1a1a">Контрольні операції юстування</text>
+
+  <circle cx="634" cy="333" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="634" y="337" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1</text>
+  <text x="648" y="337" font-size="12" fill="#1a1a1a">Фокус Z: узгодження діаметра з вершиною</text>
+
+  <circle cx="634" cy="359" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="634" y="363" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2</text>
+  <text x="648" y="363" font-size="12" fill="#1a1a1a">Зсув X: ліквідація перекосу інтенсивності</text>
+
+  <circle cx="634" cy="385" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="634" y="389" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">3</text>
+  <text x="648" y="389" font-size="12" fill="#1a1a1a">Кут Roll: вирівнювання лінії по горизонту</text>
+
+  <rect x="624" y="401" width="288" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="768" y="415" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Фіксація лінзи УФ-полімеризацією</text>
+</svg>

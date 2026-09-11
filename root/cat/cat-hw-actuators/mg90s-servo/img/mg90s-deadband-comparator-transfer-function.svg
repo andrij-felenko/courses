@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок схеми -->
+  <text x="480" y="27" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Передавальна характеристика компаратора MG90S: зона нечутливості</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Залежність напруги мотора V_motor від неузгодженості Δt, зона deadband ±5 мкс та насичення H-моста</text>
+
+  <!-- ======================================================== -->
+  <!-- ЛІВА ПАНЕЛЬ: Графік передавальної функції                -->
+  <!-- ======================================================== -->
+  <rect x="24" y="62" width="566" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="307" y="86" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Передавальна функція V_motor(Δt) внутрішнього контуру</text>
+  <text x="307" y="104" text-anchor="middle" font-size="12" fill="#6b7280">Часова похибка Δt = t_вх - t_fb (імпульс завдання мінус імпульс потенціометра)</text>
+
+  <!-- Затінена смуга мертвої зони (Deadband Zone ±5 мкс) -->
+  <rect x="272" y="165" width="70" height="150" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Осі координат -->
+  <!-- Вісь Y (V_motor) зліва -->
+  <line x1="110" y1="365" x2="110" y2="120" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+  <text x="104" y="122" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">V_motor, В</text>
+  <text x="104" y="149" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">+VCC</text>
+  <text x="104" y="244" text-anchor="end" font-size="12" fill="#6b7280">0 В</text>
+  <text x="104" y="339" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">-VCC</text>
+
+  <!-- Вісь X (Δt, мкс) по центру -->
+  <line x1="110" y1="240" x2="525" y2="240" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+  <text x="530" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">Δt, мкс</text>
+
+  <!-- Позначки рівнів насичення на осі Y -->
+  <line x1="106" y1="145" x2="114" y2="145" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="106" y1="335" x2="114" y2="335" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="447" y1="145" x2="447" y2="238" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="167" y1="242" x2="167" y2="335" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Позначки значень на осі X -->
+  <text x="167" y="230" text-anchor="middle" font-size="12" fill="#6b7280">-20</text>
+  <text x="262" y="230" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">-5 мкс</text>
+  <text x="352" y="230" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">+5 мкс</text>
+  <text x="447" y="255" text-anchor="middle" font-size="12" fill="#6b7280">+20</text>
+  <text x="515" y="255" text-anchor="middle" font-size="12" fill="#6b7280">+30</text>
+
+  <!-- Передавальна крива (Синя полілінія) -->
+  <polyline points="110,335 167,335 272,240 342,240 447,145 520,145" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Жирний зелений сегмент мертвої зони (V = 0 В) -->
+  <line x1="272" y1="240" x2="342" y2="240" stroke="#27ae60" stroke-width="4"/>
+
+  <!-- Розмірна лінія та підписи зони Deadband -->
+  <line x1="272" y1="158" x2="342" y2="158" stroke="#27ae60" stroke-width="1.2" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="307" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Deadband ≈ 10 мкс (±5 мкс)</text>
+  <text x="307" y="260" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">V_motor = 0 В</text>
+  <text x="307" y="278" text-anchor="middle" font-size="12" fill="#6b7280">H-міст закритий</text>
+  <text x="307" y="296" text-anchor="middle" font-size="12" fill="#6b7280">I_idle ≈ 8 мА</text>
+
+  <!-- Плашки насичення -->
+  <text x="455" y="134" font-size="12" font-weight="bold" fill="#2457d6">Насичення (+VCC)</text>
+  <text x="175" y="354" font-size="12" font-weight="bold" fill="#c0392b">Реверсне насичення (-VCC)</text>
+
+  <!-- Підсумкова картка схеми компаратора -->
+  <rect x="38" y="372" width="538" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="50" y="391" font-size="12" font-weight="bold" fill="#2457d6">Принцип дії схеми компаратора:</text>
+  <text x="50" y="408" font-size="12" fill="#1a1a1a">• Мотор вмикається лише коли похибка перевищує deadband (|Δt| &gt; 5 мкс)</text>
+  <text x="50" y="423" font-size="12" fill="#6b7280">• Це усуває мікросіпання вала (hunting), нагрів обмоток та знос редуктора</text>
+
+  <!-- ======================================================== -->
+  <!-- ПРАВА ПАНЕЛЬ: Режими внутрішнього компаратора            -->
+  <!-- ======================================================== -->
+  <rect x="606" y="62" width="330" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="771" y="86" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Режими внутрішнього компаратора</text>
+  <text x="771" y="104" text-anchor="middle" font-size="12" fill="#6b7280">Стан H-моста залежно від неузгодженості Δt</text>
+
+  <!-- Картка 1: Зона спокою (Deadband) -->
+  <rect x="618" y="118" width="306" height="96" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="630" y="138" font-size="13" font-weight="bold" fill="#27ae60">1. Зона спокою (|Δt| ≤ 5 мкс)</text>
+  <text x="630" y="158" font-size="12" fill="#1a1a1a">• Напруга на моторі: V_motor = 0 В</text>
+  <text x="630" y="177" font-size="12" fill="#1a1a1a">• Усі ключі H-моста повністю розімкнені</text>
+  <text x="630" y="196" font-size="12" fill="#6b7280">• Струм спокою: I_idle ≈ 5–8 мА (нуль шуму)</text>
+
+  <!-- Картка 2: Пропорційна зона -->
+  <rect x="618" y="226" width="306" height="96" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="630" y="246" font-size="13" font-weight="bold" fill="#2457d6">2. Пропорційна зона (5 &lt; |Δt| &lt; 20 мкс)</text>
+  <text x="630" y="266" font-size="12" fill="#1a1a1a">• Шпаруватість ШІМ H-моста зростає лінійно</text>
+  <text x="630" y="285" font-size="12" fill="#1a1a1a">• Плавний дотяг вала до цільової точки</text>
+  <text x="630" y="304" font-size="12" fill="#6b7280">• Оптимальний баланс швидкості та демпфування</text>
+
+  <!-- Картка 3: Зона насичення -->
+  <rect x="618" y="334" width="306" height="96" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="630" y="354" font-size="13" font-weight="bold" fill="#c0392b">3. Зона насичення (|Δt| ≥ 20 мкс)</text>
+  <text x="630" y="374" font-size="12" fill="#1a1a1a">• Повне насичення: V_motor = ±VCC (100%)</text>
+  <text x="630" y="393" font-size="12" fill="#1a1a1a">• Максимальний розгін / піковий момент</text>
+  <text x="630" y="412" font-size="12" fill="#6b7280">• Струм сягає stall-значення (до 0.9–1.2 А)</text>
+</svg>

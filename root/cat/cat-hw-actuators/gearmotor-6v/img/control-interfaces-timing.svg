@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Загальне тло -->
+  <rect width="960" height="460" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтерфейси керування H-мостом: IN1/IN2 проти PHASE/ENABLE</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Апаратне формування мертвого часу (t_dead) унеможливлює наскрізні струми (shoot-through)</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: IN1 / IN2 ==================== -->
+  <rect x="24" y="74" width="446" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок лівої панелі -->
+  <text x="40" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Схема IN1 / IN2 (L298N, DRV8833)</text>
+  <text x="40" y="116" font-size="12" fill="#6b7280">Роздільне керування напівмостами: 2 ШІМ-виводи МК</text>
+
+  <!-- Зони режимів зверху -->
+  <rect x="94" y="126" width="120" height="18" rx="3" fill="#eaf0fd"/>
+  <text x="154" y="139" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Прямий (CW)</text>
+
+  <rect x="214" y="126" width="50" height="18" rx="3" fill="#fdecea"/>
+  <text x="239" y="139" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_dead</text>
+
+  <rect x="264" y="126" width="110" height="18" rx="3" fill="#eaf0fd"/>
+  <text x="319" y="139" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Реверс (CCW)</text>
+
+  <rect x="374" y="126" width="76" height="18" rx="3" fill="#e9f7ef"/>
+  <text x="412" y="139" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Гальмо</text>
+
+  <!-- Підсвічування dead time та brake -->
+  <rect x="214" y="146" width="50" height="110" fill="#fdecea" fill-opacity="0.4"/>
+  <line x1="214" y1="146" x2="214" y2="256" stroke="#c0392b" stroke-dasharray="3 3" stroke-width="1"/>
+  <line x1="264" y1="146" x2="264" y2="256" stroke="#c0392b" stroke-dasharray="3 3" stroke-width="1"/>
+
+  <rect x="374" y="146" width="76" height="110" fill="#e9f7ef" fill-opacity="0.3"/>
+  <line x1="374" y1="146" x2="374" y2="256" stroke="#27ae60" stroke-dasharray="3 3" stroke-width="1"/>
+
+  <!-- Назви сигналів ліворуч -->
+  <text x="82" y="163" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">IN1</text>
+  <text x="82" y="189" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">IN2</text>
+  <text x="82" y="223" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">OUT1</text>
+  <text x="82" y="249" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">OUT2</text>
+
+  <!-- Розділювач між входами та виходами -->
+  <line x1="94" y1="202" x2="450" y2="202" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+
+  <!-- Осцилограми лівої панелі -->
+  <path d="M 94,152 L 120,152 L 120,166 L 134,166 L 134,152 L 160,152 L 160,166 L 174,166 L 174,152 L 200,152 L 200,166 L 374,166 L 374,152 L 450,152" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 94,192 L 264,192 L 264,178 L 290,178 L 290,192 L 304,192 L 304,178 L 330,178 L 330,192 L 344,192 L 344,178 L 370,178 L 370,192 L 374,192 L 374,178 L 450,178" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 94,212 L 120,212 L 120,226 L 134,226 L 134,212 L 160,212 L 160,226 L 174,226 L 174,212 L 200,212 L 200,226 L 450,226" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 94,252 L 264,252 L 264,238 L 290,238 L 290,252 L 304,252 L 304,238 L 330,238 L 330,252 L 344,252 L 344,238 L 370,238 L 370,252 L 450,252" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Індикатор мертвого часу і часу -->
+  <line x1="216" y1="258" x2="262" y2="258" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-start)" marker-end="url(#arr-red-end)"/>
+  <text x="239" y="274" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_dead</text>
+  <text x="412" y="274" font-size="12" fill="#6b7280" text-anchor="middle">Час (t) →</text>
+
+  <!-- Картка режимів лівої панелі -->
+  <rect x="36" y="288" width="422" height="138" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="308" font-size="12" font-weight="bold" fill="#1a1a1a">Режими керування (L298N, DRV8833):</text>
+  <text x="48" y="328" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#2457d6">Прямий хід:</tspan> IN1=ШІМ, IN2=0 (OUT1=ШІМ, OUT2=GND)</text>
+  <text x="48" y="348" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#2457d6">Реверс:</tspan> IN1=0, IN2=ШІМ (OUT1=GND, OUT2=ШІМ)</text>
+  <text x="48" y="368" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#27ae60">Гальмування:</tspan> IN1=1, IN2=1 (замикання обмотки на GND)</text>
+  <text x="48" y="388" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#6b7280">Вільний вибіг:</tspan> IN1=0, IN2=0 (ключі розімкнено, Hi-Z)</text>
+  <text x="48" y="408" font-size="12" fill="#c0392b">• <tspan font-weight="bold">Dead Time:</tspan> пауза 0/0 запобігає наскрізному струму</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: PHASE / ENABLE ==================== -->
+  <rect x="490" y="74" width="446" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок правої панелі -->
+  <text x="506" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Схема PHASE / ENABLE (TB6612FNG, DRV8835)</text>
+  <text x="506" y="116" font-size="12" fill="#6b7280">Напрямок і швидкість: 1 ШІМ + 1 GPIO напрямку (DIR)</text>
+
+  <!-- Зони режимів зверху -->
+  <rect x="560" y="126" width="120" height="18" rx="3" fill="#eaf0fd"/>
+  <text x="620" y="139" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Прямий (CW)</text>
+
+  <rect x="680" y="126" width="50" height="18" rx="3" fill="#fdecea"/>
+  <text x="705" y="139" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_dead</text>
+
+  <rect x="730" y="126" width="110" height="18" rx="3" fill="#eaf0fd"/>
+  <text x="785" y="139" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Реверс (CCW)</text>
+
+  <rect x="840" y="126" width="76" height="18" rx="3" fill="#e9f7ef"/>
+  <text x="878" y="139" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зупинка</text>
+
+  <!-- Підсвічування dead time та зупинки -->
+  <rect x="680" y="146" width="50" height="110" fill="#fdecea" fill-opacity="0.4"/>
+  <line x1="680" y1="146" x2="680" y2="256" stroke="#c0392b" stroke-dasharray="3 3" stroke-width="1"/>
+  <line x1="730" y1="146" x2="730" y2="256" stroke="#c0392b" stroke-dasharray="3 3" stroke-width="1"/>
+
+  <rect x="840" y="146" width="76" height="110" fill="#e9f7ef" fill-opacity="0.3"/>
+  <line x1="840" y1="146" x2="840" y2="256" stroke="#27ae60" stroke-dasharray="3 3" stroke-width="1"/>
+
+  <!-- Назви сигналів праворуч -->
+  <text x="548" y="163" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">PHASE</text>
+  <text x="548" y="189" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">ENABLE</text>
+  <text x="548" y="223" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">OUT1</text>
+  <text x="548" y="249" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">OUT2</text>
+
+  <!-- Розділювач між входами та виходами -->
+  <line x1="560" y1="202" x2="916" y2="202" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+
+  <!-- Осцилограми правої панелі -->
+  <path d="M 560,152 L 680,152 L 680,166 L 916,166" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 560,178 L 586,178 L 586,192 L 600,192 L 600,178 L 626,178 L 626,192 L 640,192 L 640,178 L 666,178 L 666,192 L 680,192 L 680,178 L 706,178 L 706,192 L 720,192 L 720,178 L 746,178 L 746,192 L 760,192 L 760,178 L 786,178 L 786,192 L 800,192 L 800,178 L 826,178 L 826,192 L 916,192" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 560,212 L 586,212 L 586,226 L 600,226 L 600,212 L 626,212 L 626,226 L 640,226 L 640,212 L 666,212 L 666,226 L 916,226" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 560,252 L 730,252 L 730,238 L 746,238 L 746,252 L 760,252 L 760,238 L 786,238 L 786,252 L 800,252 L 800,238 L 826,238 L 826,252 L 916,252" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Заблокований імпульс OUT2 через апаратний dead-time -->
+  <rect x="682" y="238" width="24" height="14" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="686" y1="242" x2="702" y2="248" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="686" y1="248" x2="702" y2="242" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Індикатор мертвого часу і часу -->
+  <line x1="682" y1="258" x2="728" y2="258" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-start)" marker-end="url(#arr-red-end)"/>
+  <text x="705" y="274" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_dead</text>
+  <text x="878" y="274" font-size="12" fill="#6b7280" text-anchor="middle">Час (t) →</text>
+
+  <!-- Картка режимів правої панелі -->
+  <rect x="502" y="288" width="422" height="138" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="514" y="308" font-size="12" font-weight="bold" fill="#1a1a1a">Логіка керування (TB6612FNG, DRV8835):</text>
+  <text x="514" y="328" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#2457d6">Прямий хід:</tspan> DIR=1, PWM=ШІМ (OUT1=ШІМ, OUT2=GND)</text>
+  <text x="514" y="348" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#2457d6">Реверс:</tspan> DIR=0, PWM=ШІМ (OUT1=GND, OUT2=ШІМ)</text>
+  <text x="514" y="368" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#27ae60">Зупинка:</tspan> PWM=0 (активне гальмо або вибіг)</text>
+  <text x="514" y="388" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#27ae60">Захист шини:</tspan> стан 1/1 унеможливлено логікою</text>
+  <text x="514" y="408" font-size="12" fill="#c0392b">• <tspan font-weight="bold">Dead Time:</tspan> внутрішнє коло затримує пуск OUT2</text>
+</svg>

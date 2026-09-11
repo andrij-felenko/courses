@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня функціональна схема сервоконтролера (AA51880 / M51660L)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння командного та опорного імпульсів, подовження похибки та керування H-мостом</text>
+
+  <!-- ==================== КОРПУС МІКРОСХЕМИ СЕРВОКОНТРОЛЕРА ==================== -->
+  <rect x="180" y="76" width="560" height="268" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="460" y="100" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Спеціалізована мікросхема сервоконтролера (IC)</text>
+
+  <!-- ==================== ЗОВНІШНІ БЛОКИ ЗЛІВА ==================== -->
+  <!-- Вхідний сигнал ШІМ -->
+  <rect x="24" y="124" width="136" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="92" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідний ШІМ</text>
+  <text x="92" y="161" font-size="12" fill="#6b7280" text-anchor="middle">T_in = 1.0–2.0 мс</text>
+
+  <!-- Лінія введення ШІМ у мікросхему -->
+  <line x1="160" y1="149" x2="193" y2="149" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Зовнішні RC ланцюги обв'язки -->
+  <rect x="24" y="235" width="136" height="56" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="92" y="255" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обв'язка RC</text>
+  <text x="92" y="271" font-size="12" fill="#6b7280" text-anchor="middle">C_stretch / R_dead</text>
+
+  <!-- Лінія зв'язку RC з блоком розтягування -->
+  <line x1="160" y1="263" x2="358" y2="263" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-dark)"/>
+
+
+  <!-- ==================== ВНУТРІШНІ БЛОКИ МІКРОСХЕМИ ==================== -->
+  <!-- Блок 1: Формувач вхідного імпульсу -->
+  <rect x="195" y="125" width="140" height="48" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="265" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Формувач імпульсу</text>
+  <text x="265" y="161" font-size="12" fill="#6b7280" text-anchor="middle">Тригер Шмітта (ШІМ)</text>
+
+  <!-- Блок 2: Опорний одновібратор (генератор T_ref) -->
+  <rect x="195" y="195" width="140" height="48" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="265" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Опорний генератор</text>
+  <text x="265" y="231" font-size="12" fill="#6b7280" text-anchor="middle">T_ref = k · V_pot</text>
+
+  <!-- Блок 3: Детектор розузгодження / фазовий компаратор -->
+  <rect x="360" y="130" width="160" height="58" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="440" y="150" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Детектор похибки</text>
+  <text x="440" y="165" font-size="12" fill="#2457d6" text-anchor="middle">Порівняння тривалостей</text>
+  <text x="440" y="179" font-size="12" fill="#6b7280" text-anchor="middle">ΔT = |T_in − T_ref|</text>
+
+  <!-- Зв'язки від формувача та генератора до детектора -->
+  <line x1="335" y1="149" x2="358" y2="149" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="335" y1="219" x2="348" y2="219" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="348" y1="219" x2="348" y2="168" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="348" y1="168" x2="358" y2="168" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Блок 4: Deadband та подовжувач імпульсів (Pulse Stretcher) -->
+  <rect x="360" y="225" width="160" height="58" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="440" y="246" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Deadband та Stretcher</text>
+  <text x="440" y="260" font-size="12" fill="#c0392b" text-anchor="middle">Фільтр шуму &lt; 3 мкс</text>
+  <text x="440" y="274" font-size="12" fill="#27ae60" text-anchor="middle">Подовження імпульсу</text>
+
+  <!-- Зв'язок від детектора до мертвої зони/подовжувача -->
+  <line x1="440" y1="188" x2="440" y2="223" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Блок 5: Логіка напрямку та передпідсилювач -->
+  <rect x="545" y="130" width="170" height="58" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="630" y="150" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Логіка напрямку</text>
+  <text x="630" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">Селектор CW / CCW</text>
+  <text x="630" y="179" font-size="12" fill="#6b7280" text-anchor="middle">Захист від к.з. стійок</text>
+
+  <!-- Зв'язок від детектора до логіки напрямку -->
+  <line x1="520" y1="159" x2="543" y2="159" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 6: Силовий H-міст (інтегровані ключі) -->
+  <rect x="545" y="225" width="170" height="65" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="630" y="246" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Силовий H-міст</text>
+  <text x="630" y="263" font-size="12" fill="#1a1a1a" text-anchor="middle">4 силові ключі MOSFET</text>
+  <text x="630" y="278" font-size="12" fill="#2457d6" text-anchor="middle">Реверсивний вихід DC</text>
+
+  <!-- Зв'язки до H-моста від логіки напрямку та від подовжувача -->
+  <line x1="630" y1="188" x2="630" y2="223" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="520" y1="254" x2="543" y2="254" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+
+  <!-- ==================== ЗОВНІШНІ БЛОКИ СПРАВА ==================== -->
+  <!-- Двигун постійного струму та редуктор -->
+  <rect x="765" y="124" width="165" height="70" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="847" y="148" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Двигун DC</text>
+  <text x="847" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">Колекторний мотор</text>
+  <text x="847" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Редуктор MG90S</text>
+
+  <!-- Лінії живлення мотора від H-моста -->
+  <line x1="715" y1="245" x2="745" y2="245" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="745" y1="245" x2="745" y2="150" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="745" y1="150" x2="763" y2="150" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="770" y="148" font-size="12" font-weight="bold" fill="#2457d6">M+</text>
+
+  <line x1="715" y1="268" x2="755" y2="268" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="755" y1="268" x2="755" y2="170" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="755" y1="170" x2="763" y2="170" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="770" y="174" font-size="12" font-weight="bold" fill="#2457d6">M−</text>
+
+  <!-- Механічний зв'язок від мотора/редуктора до потенціометра -->
+  <line x1="847" y1="194" x2="847" y2="231" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="855" y="217" font-size="12" font-weight="bold" fill="#1a1a1a">Вал редуктора</text>
+
+  <!-- Потенціометр зворотного зв'язку -->
+  <rect x="765" y="235" width="165" height="56" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="847" y="255" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Потенціометр ОС</text>
+  <text x="847" y="271" font-size="12" fill="#1a1a1a" text-anchor="middle">Сигнал напруги V_pot</text>
+
+  <!-- Зворотний зв'язок: від потенціометра до опорного генератора -->
+  <line x1="765" y1="263" x2="740" y2="263" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="740" y1="263" x2="740" y2="310" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="740" y1="310" x2="265" y2="310" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="265" y1="310" x2="265" y2="245" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="500" y="304" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Аналоговий зворотний зв'язок (V_pot → T_ref)</text>
+
+
+  <!-- ==================== НИЖНЯ ПІДСУМКОВА ПЛАШКА ==================== -->
+  <rect x="24" y="356" width="912" height="68" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="175" y="380" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Часова дискримінація</text>
+  <text x="175" y="396" font-size="12" fill="#1a1a1a" text-anchor="middle">Порівняння T_in (1..2 мс)</text>
+  <text x="175" y="410" font-size="12" fill="#6b7280" text-anchor="middle">з опорним T_ref від ОС</text>
+
+  <text x="480" y="380" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Deadband та Stretcher</text>
+  <text x="480" y="396" font-size="12" fill="#1a1a1a" text-anchor="middle">Придушення джитеру &lt; 3 мкс</text>
+  <text x="480" y="410" font-size="12" fill="#6b7280" text-anchor="middle">Подовження імпульсу ШІМ</text>
+
+  <text x="785" y="380" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Безпека H-моста</text>
+  <text x="785" y="396" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратний dead-time ключів</text>
+  <text x="785" y="410" font-size="12" fill="#6b7280" text-anchor="middle">Реверсивне живлення DC</text>
+</svg>

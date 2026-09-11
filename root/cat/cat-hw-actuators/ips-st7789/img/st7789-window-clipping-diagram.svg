@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Відсікання графічних примітивів (Clipping) у вікні CASET/RASET</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Програмний кліпінг відкидає частини фігури поза вікном, запобігаючи спотворенню растру в ST7789</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Координатна площина та вікно -->
+  <rect x="24" y="68" width="530" height="376" rx="8" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="289" y="90" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Координатна площина 240×240: активне вікно та геометрія відсікання</text>
+
+  <!-- Поле дисплея 240x240 -->
+  <rect x="85" y="112" width="200" height="200" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="185" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Повний екран 240×240</text>
+  <text x="78" y="122" font-size="12" fill="#6b7280" text-anchor="end">(0, 0)</text>
+  <text x="78" y="310" font-size="12" fill="#6b7280" text-anchor="end">(0, 239)</text>
+  <text x="290" y="324" font-size="12" fill="#6b7280" text-anchor="start">(239, 239)</text>
+
+  <!-- Активне вікно виводу CASET/RASET -->
+  <rect x="135" y="142" width="125" height="135" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="197" y="158" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вікно CASET/RASET</text>
+
+  <!-- Позначки меж вікна -->
+  <text x="135" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">XS</text>
+  <text x="260" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">XE</text>
+  <text x="130" y="154" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">YS</text>
+  <text x="130" y="277" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">YE</text>
+
+  <!-- Позначка положення спрайта (ліворуч від вікна XS) -->
+  <text x="112" y="180" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Спрайт</text>
+  <text x="112" y="194" font-size="12" fill="#c0392b" text-anchor="middle">(x, y)</text>
+
+  <!-- Графічний примітив (спрайт 100х100): розбитий на зони -->
+  <!-- 1. Активна зона перетину (малюється) -->
+  <rect x="135" y="200" width="75" height="77" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="172" y="230" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ВИДИМА ЗОНА</text>
+  <text x="172" y="248" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Запис у GRAM</text>
+  <text x="172" y="266" font-size="12" fill="#27ae60" text-anchor="middle">через RAMWR</text>
+
+  <!-- 2. Відсічена зона ліворуч (X < XS) -->
+  <rect x="95" y="200" width="38" height="77" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="114" y="234" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Кліпінг</text>
+  <text x="114" y="252" font-size="12" fill="#c0392b" text-anchor="middle">X &lt; XS</text>
+
+  <!-- 3. Відсічена зона знизу (Y > YE) -->
+  <rect x="135" y="279" width="75" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="172" y="297" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Кліпінг Y &gt; YE</text>
+
+  <!-- 4. Відсічений кут (X < XS та Y > YE) -->
+  <rect x="95" y="279" width="38" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Блок формул праворуч від екрана -->
+  <rect x="305" y="112" width="235" height="200" rx="6" fill="#ffffff" stroke="#2457d6"/>
+  <rect x="313" y="120" width="219" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="422" y="135" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Формули кліпінгу (C/C++)</text>
+
+  <text x="317" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">• Координати малювання:</text>
+  <text x="325" y="174" font-size="12" font-weight="bold" fill="#2457d6">x_draw = max(x, XS);</text>
+  <text x="325" y="192" font-size="12" font-weight="bold" fill="#2457d6">y_draw = max(y, YS);</text>
+  <text x="325" y="210" font-size="12" font-weight="bold" fill="#2457d6">x_end = min(x + w, XE);</text>
+  <text x="325" y="228" font-size="12" font-weight="bold" fill="#2457d6">y_end = min(y + h, YE);</text>
+
+  <text x="317" y="250" font-size="12" font-weight="bold" fill="#27ae60">• Видима ширина та висота:</text>
+  <text x="325" y="268" font-size="12" fill="#1a1a1a">w_vis = x_end - x_draw + 1;</text>
+  <text x="325" y="286" font-size="12" fill="#1a1a1a">h_vis = y_end - y_draw + 1;</text>
+  <text x="325" y="304" font-size="12" font-weight="bold" fill="#27ae60">Якщо w_vis &lt;= 0 — фігура поза вікном</text>
+
+  <!-- Підсумок внизу панелі -->
+  <text x="40" y="344" font-size="12" font-weight="bold" fill="#27ae60">• Зелена зона (перетин):</text>
+  <text x="220" y="344" font-size="12" fill="#1a1a1a">передається через RAMWR, ідеально укладається в пам'ять</text>
+
+  <text x="40" y="364" font-size="12" font-weight="bold" fill="#c0392b">• Червоні зони (відсічені):</text>
+  <text x="220" y="364" font-size="12" fill="#1a1a1a">ігноруються в буфері, зсув читання dx = x_draw - x</text>
+
+  <rect x="40" y="380" width="498" height="24" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="289" y="396" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Без кліпінгу: ST7789 загортає зайві пікселі на наступний рядок вікна!</text>
+
+  <text x="289" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Виникає косий зсув зображення (wrap-around) та артефакти на екрані</text>
+
+  <!-- ПРАВА СТОРОНА: 3 картки -->
+  <!-- Картка 1: Апаратне вікно -->
+  <rect x="570" y="68" width="366" height="116" rx="8" fill="#eaf0fd" stroke="#2457d6"/>
+  <rect x="582" y="78" width="342" height="24" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="753" y="94" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Апаратна адресація ST7789</text>
+  <text x="586" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">• Команди меж вікна виводу:</text>
+  <text x="598" y="134" font-size="12" fill="#6b7280">CASET (0x2A) [XS..XE], RASET (0x2B) [YS..YE].</text>
+  <text x="586" y="152" font-size="12" font-weight="bold" fill="#2457d6">• Автоінкремент покажчика:</text>
+  <text x="598" y="168" font-size="12" fill="#1a1a1a">Запис обмежено прямокутником W_win × H_win.</text>
+
+  <!-- Картка 2: Чому потрібен кліпінг -->
+  <rect x="570" y="198" width="366" height="132" rx="8" fill="#fdecea" stroke="#c0392b"/>
+  <rect x="582" y="208" width="342" height="24" rx="4" fill="#ffffff" stroke="#c0392b"/>
+  <text x="753" y="225" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Проблема відсутності кліпінгу</text>
+  <text x="586" y="248" font-size="12" font-weight="bold" fill="#1a1a1a">• Ефект загортання (Wrap-Around):</text>
+  <text x="598" y="266" font-size="12" fill="#6b7280">Контролер не знає про вихідні розміри вашого спрайта!</text>
+  <text x="586" y="286" font-size="12" font-weight="bold" fill="#c0392b">• Збій розгортки пікселів:</text>
+  <text x="598" y="304" font-size="12" fill="#1a1a1a">Пікселі за межею XE записуються на початок XS</text>
+  <text x="598" y="320" font-size="12" font-weight="bold" fill="#c0392b">наступного рядка — спрайт розриває по діагоналі.</text>
+
+  <!-- Картка 3: Реалізація в LVGL / GFX -->
+  <rect x="570" y="344" width="366" height="100" rx="8" fill="#e9f7ef" stroke="#27ae60"/>
+  <rect x="582" y="354" width="342" height="22" rx="4" fill="#ffffff" stroke="#27ae60"/>
+  <text x="753" y="370" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Інтеграція в драйвер та LVGL</text>
+  <text x="586" y="390" font-size="12" font-weight="bold" fill="#1a1a1a">• Автоматичний кліпінг у рушії LVGL:</text>
+  <text x="598" y="406" font-size="12" fill="#6b7280">lv_area_intersect(&amp;res, &amp;prim, &amp;clip_area);</text>
+  <text x="586" y="422" font-size="12" font-weight="bold" fill="#2457d6">• Нульовий оверхед шини:</text>
+  <text x="598" y="438" font-size="12" fill="#1a1a1a">По шині SPI передаються лише 100% видимі байти.</text>
+</svg>

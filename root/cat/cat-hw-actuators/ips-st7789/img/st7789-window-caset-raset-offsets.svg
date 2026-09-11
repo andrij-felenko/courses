@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратні зміщення GRAM контролера ST7789 та вікно виводу</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Адресація CASET/RASET та усунення шуму для матриць 240×240 на кристалі 240×320</text>
+
+  <!-- Ліва панель: Карта GRAM проти IPS 240x240 -->
+  <rect x="25" y="75" width="445" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">1. Геометрія GRAM (240×320) проти матриці IPS (240×240)</text>
+
+  <!-- GRAM: Підпис угорі -->
+  <text x="152" y="126" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GRAM ST7789 (240 × 320)</text>
+
+  <!-- GRAM: Координати Y ліворуч -->
+  <text x="74" y="144" font-size="12" fill="#6b7280" text-anchor="end">Y=0</text>
+  <line x1="74" y1="188" x2="80" y2="188" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="72" y="192" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Y=80</text>
+  <text x="74" y="332" font-size="12" fill="#6b7280" text-anchor="end">Y=319</text>
+
+  <!-- Зона зсуву (невикористана GRAM) -->
+  <rect x="80" y="140" width="144" height="48" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="152" y="159" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Y_offset = 80 px</text>
+  <text x="152" y="176" font-size="12" fill="#c0392b" text-anchor="middle">Шум / сніг у GRAM</text>
+
+  <!-- Фізична активна матриця IPS -->
+  <rect x="80" y="188" width="144" height="144" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="152" y="235" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Матриця 1.3″ IPS</text>
+  <text x="152" y="255" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">240 × 240 точок</text>
+  <text x="152" y="275" font-size="12" fill="#2457d6" text-anchor="middle">Активне вікно виводу</text>
+  <text x="152" y="295" font-size="12" fill="#6b7280" text-anchor="middle">(XS..XE, YS..YE)</text>
+
+  <!-- Картка: Проблема без зсуву -->
+  <rect x="240" y="138" width="215" height="90" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="250" y="156" font-size="12" font-weight="bold" fill="#c0392b">Без врахування зсуву:</text>
+  <text x="250" y="174" font-size="12" fill="#1a1a1a">• Вивід ведеться з (0, 0) GRAM</text>
+  <text x="250" y="192" font-size="12" fill="#1a1a1a">• Перші 80 рядків обрізані</text>
+  <text x="250" y="210" font-size="12" fill="#c0392b">• На екрані артефакти («сніг»)</text>
+
+  <!-- Картка: Розв'язок зі зсувом -->
+  <rect x="240" y="242" width="215" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="250" y="260" font-size="12" font-weight="bold" fill="#27ae60">З апаратним зсувом:</text>
+  <text x="250" y="278" font-size="12" fill="#1a1a1a">• Y_start = Y + Y_offset (80)</text>
+  <text x="250" y="296" font-size="12" fill="#1a1a1a">• Зображення точно у вікні</text>
+  <text x="250" y="314" font-size="12" fill="#27ae60">• Жодного шуму та артефактів</text>
+
+  <!-- Нижня плашка лівої панелі -->
+  <rect x="40" y="348" width="415" height="98" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="368" font-size="12" font-weight="bold" fill="#1a1a1a">Апаратна орієнтація матриць ST7789 (MADCTL):</text>
+  <text x="52" y="388" font-size="12" fill="#6b7280">• Кристал містить 240×320; панель 240×240 займає частину GRAM</text>
+  <text x="52" y="406" font-size="12" fill="#6b7280">• Залежно від орієнтації дисплея (поворот у MADCTL):</text>
+  <text x="52" y="424" font-size="12" fill="#2457d6" font-weight="bold">• Зсуви: X_offset = 0 або 80 px, Y_offset = 0 або 80 px</text>
+  <text x="52" y="438" font-size="12" fill="#1a1a1a">• Усувається додаванням зміщення до XS/XE та YS/YE</text>
+
+  <!-- Права панель: Команди адресації вікна -->
+  <rect x="490" y="75" width="445" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="505" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">2. Послідовність команд адресації вікна виводу</text>
+
+  <!-- Команда CASET -->
+  <rect x="505" y="118" width="415" height="64" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="515" y="124" width="95" height="18" rx="4" fill="#2457d6"/>
+  <text x="562" y="137" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">0x2A CASET</text>
+  <text x="618" y="137" font-size="12" font-weight="bold" fill="#1a1a1a">Column Address Set (межі колонок X)</text>
+  <text x="520" y="157" font-size="12" fill="#1a1a1a">• XS = X_start + X_offset</text>
+  <text x="705" y="157" font-size="12" fill="#6b7280">[2 байти: MSB, LSB]</text>
+  <text x="520" y="173" font-size="12" fill="#1a1a1a">• XE = X_end + X_offset</text>
+  <text x="705" y="173" font-size="12" fill="#6b7280">[2 байти: MSB, LSB]</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="712" y1="182" x2="712" y2="194" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Команда RASET -->
+  <rect x="505" y="196" width="415" height="64" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="515" y="202" width="95" height="18" rx="4" fill="#2457d6"/>
+  <text x="562" y="215" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">0x2B RASET</text>
+  <text x="618" y="215" font-size="12" font-weight="bold" fill="#1a1a1a">Row Address Set (межі рядків Y)</text>
+  <text x="520" y="235" font-size="12" fill="#1a1a1a">• YS = Y_start + Y_offset</text>
+  <text x="705" y="235" font-size="12" fill="#6b7280">[2 байти: MSB, LSB]</text>
+  <text x="520" y="251" font-size="12" fill="#1a1a1a">• YE = Y_end + Y_offset</text>
+  <text x="705" y="251" font-size="12" fill="#6b7280">[2 байти: MSB, LSB]</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="712" y1="260" x2="712" y2="272" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Команда RAMWR -->
+  <rect x="505" y="274" width="415" height="82" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="515" y="280" width="95" height="18" rx="4" fill="#2457d6"/>
+  <text x="562" y="293" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">0x2C RAMWR</text>
+  <text x="618" y="293" font-size="12" font-weight="bold" fill="#1a1a1a">Memory Write (запис пікселів у GRAM)</text>
+  <text x="520" y="313" font-size="12" fill="#1a1a1a">• D/C# = 1 (Data) | Безперервний потік RGB565 (2 байти/піксель)</text>
+  <text x="520" y="331" font-size="12" fill="#2457d6" font-weight="bold">• Кількість пікселів: N = (XE − XS + 1) × (YE − YS + 1)</text>
+  <text x="520" y="348" font-size="12" fill="#6b7280">• Автоінкремент адреси: рядок за рядком зліва направо</text>
+
+  <!-- Стрілка 3 -> 4 -->
+  <line x1="712" y1="356" x2="712" y2="368" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Підсумок / розв'язок -->
+  <rect x="505" y="370" width="415" height="76" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="520" y="390" font-size="12" font-weight="bold" fill="#27ae60">Інженерний розв’язок та переваги вікна:</text>
+  <text x="520" y="410" font-size="12" fill="#1a1a1a">• Додавання зсувів у disp_flush() усуває зміщення графіки</text>
+  <text x="520" y="428" font-size="12" fill="#1a1a1a">• Оновлення лише потрібної зони без перезапису всього екрана</text>
+</svg>

@@ -1,0 +1,216 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ВАХ світлодіода підсвічування: тепловий розгін vs стабілізація струму</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Зсув кривої вліво при нагріванні: фіксована напруга руйнує LED, стабільний струм захищає</text>
+
+  <!-- Стрілки-маркери -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-axis" markerWidth="8" markerHeight="8" refX="7" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <clipPath id="plot-clip">
+      <rect x="85" y="125" width="440" height="245"/>
+    </clipPath>
+  </defs>
+
+  <!-- ЛІВА ПАНЕЛЬ: Графік ВАХ -->
+  <rect x="25" y="74" width="535" height="364" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="97" font-size="13" font-weight="bold" fill="#1a1a1a">Вольт-амперна характеристика (ВАХ)</text>
+
+  <!-- Бейджі температур -->
+  <rect x="375" y="84" width="52" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="401" y="97" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">25°C</text>
+
+  <rect x="433" y="84" width="52" height="18" rx="3" fill="#ffffff" stroke="#6b7280"/>
+  <text x="459" y="97" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">60°C</text>
+
+  <rect x="491" y="84" width="52" height="18" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="517" y="97" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">85°C</text>
+
+  <!-- Біле поле графіка -->
+  <rect x="85" y="125" width="440" height="245" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Сітка графіка -->
+  <line x1="85" y1="330" x2="525" y2="330" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="85" y1="250" x2="525" y2="250" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="85" y1="210" x2="525" y2="210" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="85" y1="170" x2="525" y2="170" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="85" y1="130" x2="525" y2="130" stroke="#e8ecf0" stroke-width="1"/>
+
+  <line x1="140" y1="125" x2="140" y2="370" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="195" y1="125" x2="195" y2="370" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="250" y1="125" x2="250" y2="370" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="305" y1="125" x2="305" y2="370" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="415" y1="125" x2="415" y2="370" stroke="#e8ecf0" stroke-width="1"/>
+  <line x1="470" y1="125" x2="470" y2="370" stroke="#e8ecf0" stroke-width="1"/>
+
+  <!-- Криві ВАХ -->
+  <g clip-path="url(#plot-clip)">
+    <!-- Т1 = 25°C -->
+    <path d="M 152,370 C 275,370 335,335 360,290 C 380,254 398,195 409.5,130" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+    <!-- Т2 = 60°C -->
+    <path d="M 113.5,370 C 236.5,370 296.5,335 321.5,290 C 341.5,254 359.5,195 371,130" fill="none" stroke="#6b7280" stroke-width="2.5"/>
+    <!-- Т3 = 85°C -->
+    <path d="M 86,370 C 209,370 269,335 294,290 C 314,254 332,195 343.5,130" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+    <!-- Лінія V = const (3.10 В) -->
+    <line x1="360" y1="370" x2="360" y2="125" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+    <!-- Лінія I = const (20 мА) -->
+    <line x1="85" y1="290" x2="525" y2="290" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+    <!-- Вектор теплового розгону (червоний, вгору) -->
+    <line x1="360" y1="282" x2="360" y2="148" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+    <!-- Вектор стабілізації струму (зелений, вліво) -->
+    <line x1="352" y1="290" x2="298" y2="290" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+    <!-- Стрілка температурного зсуву ВАХ -->
+    <line x1="360" y1="235" x2="320" y2="235" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+    <!-- Точки на графіку -->
+    <!-- Точка А: вихідна номінальна (25°C, 20 мА) -->
+    <circle cx="360" cy="290" r="5" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+    <!-- Точка B: 60°C при I = const -->
+    <circle cx="321.5" cy="290" r="3.5" fill="#27ae60"/>
+    <!-- Точка C: 85°C при I = const -->
+    <circle cx="294" cy="290" r="3.5" fill="#27ae60"/>
+    <!-- Точка D: 60°C при V = const -->
+    <circle cx="360" cy="185" r="3.5" fill="#c0392b"/>
+  </g>
+
+  <!-- Стрілка зсуву: підпис T ↑ -->
+  <text x="340" y="228" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T ↑</text>
+
+  <!-- Блок пояснення розгону в лівій вільній зоні -->
+  <rect x="95" y="135" width="165" height="52" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="177" y="152" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">При V = const:</text>
+  <text x="177" y="168" font-size="12" fill="#c0392b" text-anchor="middle">Струм росте: 20 → 47 мА</text>
+  <text x="177" y="182" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Тепловий розгін!</text>
+
+  <!-- Підписи температурного коефіцієнта -->
+  <text x="95" y="228" font-size="12" fill="#6b7280">dVF/dT ≈ −2 мВ/°C</text>
+  <text x="95" y="244" font-size="12" fill="#6b7280">Зсув ВАХ вліво при нагріві</text>
+
+  <!-- Підпис лінії I = const -->
+  <text x="95" y="280" font-size="12" font-weight="bold" fill="#27ae60">I = const = 20 мА (драйвер)</text>
+
+  <!-- Підпис точки А та V = const -->
+  <text x="370" y="310" font-size="12" font-weight="bold" fill="#1a1a1a">A: 25°C, 20 мА</text>
+  <text x="370" y="328" font-size="12" font-weight="bold" fill="#c0392b">V = const = 3.10 В</text>
+  <text x="370" y="344" font-size="12" fill="#c0392b">(нестабільне живлення)</text>
+
+  <!-- Осі графіка -->
+  <!-- Вісь Y -->
+  <line x1="85" y1="370" x2="85" y2="115" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="60" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">I, мА</text>
+
+  <!-- Позначки осі Y -->
+  <line x1="80" y1="370" x2="85" y2="370" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="75" y="374" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <line x1="80" y1="330" x2="85" y2="330" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="75" y="334" font-size="12" fill="#6b7280" text-anchor="end">10</text>
+
+  <line x1="80" y1="290" x2="85" y2="290" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="75" y="294" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">20</text>
+
+  <line x1="80" y1="250" x2="85" y2="250" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="75" y="254" font-size="12" fill="#6b7280" text-anchor="end">30</text>
+
+  <line x1="80" y1="210" x2="85" y2="210" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="75" y="214" font-size="12" fill="#6b7280" text-anchor="end">40</text>
+
+  <line x1="80" y1="170" x2="85" y2="170" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="75" y="174" font-size="12" fill="#6b7280" text-anchor="end">50</text>
+
+  <line x1="80" y1="130" x2="85" y2="130" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="75" y="134" font-size="12" fill="#6b7280" text-anchor="end">60</text>
+
+  <!-- Вісь X -->
+  <line x1="85" y1="370" x2="535" y2="370" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+
+  <!-- Позначки осі X -->
+  <line x1="85" y1="370" x2="85" y2="375" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="85" y="390" font-size="12" fill="#6b7280" text-anchor="middle">2.6</text>
+
+  <line x1="140" y1="370" x2="140" y2="375" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="140" y="390" font-size="12" fill="#6b7280" text-anchor="middle">2.7</text>
+
+  <line x1="195" y1="370" x2="195" y2="375" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="195" y="390" font-size="12" fill="#6b7280" text-anchor="middle">2.8</text>
+
+  <line x1="250" y1="370" x2="250" y2="375" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="250" y="390" font-size="12" fill="#6b7280" text-anchor="middle">2.9</text>
+
+  <line x1="305" y1="370" x2="305" y2="375" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="305" y="390" font-size="12" fill="#6b7280" text-anchor="middle">3.0</text>
+
+  <line x1="360" y1="370" x2="360" y2="375" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="360" y="390" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3.1</text>
+
+  <line x1="415" y1="370" x2="415" y2="375" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="415" y="390" font-size="12" fill="#6b7280" text-anchor="middle">3.2</text>
+
+  <line x1="470" y1="370" x2="470" y2="375" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="470" y="390" font-size="12" fill="#6b7280" text-anchor="middle">3.3</text>
+
+  <line x1="525" y1="370" x2="525" y2="375" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="525" y="390" font-size="12" fill="#6b7280" text-anchor="middle">3.4</text>
+
+  <!-- Назва осі X -->
+  <text x="305" y="416" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пряма напруга VF (В)</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ 1: Живлення напругою (НЕ ТАК) -->
+  <rect x="575" y="74" width="360" height="174" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Заголовок картки 1 -->
+  <text x="592" y="99" font-size="14" font-weight="bold" fill="#c0392b">Живлення напругою (V = const)</text>
+  <rect x="850" y="85" width="70" height="20" rx="4" fill="#c0392b"/>
+  <text x="885" y="99" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">НЕ ТАК</text>
+
+  <!-- Пункти картки 1 -->
+  <text x="592" y="122" font-size="12" fill="#1a1a1a">• Нагрів зміщує ВАХ ліворуч (dVF/dT ≈ −2 мВ/°C)</text>
+  <text x="592" y="142" font-size="12" fill="#1a1a1a">• При фіксованій напрузі струм росте експоненційно</text>
+
+  <!-- Внутрішня плашка ланцюжка -->
+  <rect x="592" y="154" width="326" height="42" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="755" y="171" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">T ↑  →  VF ↓  →  I ↑↑  →  P = V·I ↑↑</text>
+  <text x="755" y="188" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Лавиноподібний розгін (runaway)</text>
+
+  <text x="592" y="216" font-size="12" fill="#1a1a1a">• Потужність зростає: кристал перегрівається</text>
+  <text x="592" y="236" font-size="12" font-weight="bold" fill="#c0392b">Наслідок: деградація люмінофора або пробій</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ 2: Драйвер струму (ТАК) -->
+  <rect x="575" y="264" width="360" height="174" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Заголовок картки 2 -->
+  <text x="592" y="289" font-size="14" font-weight="bold" fill="#27ae60">Драйвер струму (I = const)</text>
+  <rect x="850" y="275" width="70" height="20" rx="4" fill="#27ae60"/>
+  <text x="885" y="289" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">ТАК</text>
+
+  <!-- Пункти картки 2 -->
+  <text x="592" y="313" font-size="12" fill="#1a1a1a">• Драйвер підтримує заданий струм (20 мА)</text>
+  <text x="592" y="333" font-size="12" fill="#1a1a1a">• Зі зростанням T пряма напруга VF спадає</text>
+
+  <!-- Внутрішня плашка ланцюжка -->
+  <rect x="592" y="345" width="326" height="42" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="755" y="362" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">T ↑  →  VF ↓  →  I = const  →  P = VF·I ↓</text>
+  <text x="755" y="379" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Самостабілізація (тепловий баланс)</text>
+
+  <text x="592" y="407" font-size="12" fill="#1a1a1a">• Потужність спадає: нагрівання сповільнюється</text>
+  <text x="592" y="427" font-size="12" font-weight="bold" fill="#27ae60">Результат: стабільна яскравість і надійність</text>
+</svg>

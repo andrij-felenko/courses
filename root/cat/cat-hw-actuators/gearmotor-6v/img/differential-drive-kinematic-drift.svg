@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+  </marker>
+</defs>
+
+<!-- Background -->
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+
+<!-- Title & Subtitle -->
+<text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Кінематичний дрейф диференціального приводу без енкодерів</text>
+<text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Відхилення траєкторії від прямої лінії через розкид моторів, тертя та відсутність зворотного зв'язку</text>
+
+<!-- Left Panel: Trajectory on XY plane -->
+<rect x="24" y="68" width="456" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="44" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Траєкторія на площині XY: викривлення курсу</text>
+
+<!-- Formula card for radius of curvature -->
+<rect x="44" y="110" width="416" height="44" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="252" y="127" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Радіус кривизни паразитної дуги:</text>
+<text x="252" y="144" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">R = (B / 2) · (V_R + V_L) / (V_R - V_L)</text>
+
+<!-- Target Trajectory (Straight dashed green line) -->
+<line x1="315" y1="405" x2="315" y2="175" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arr-green)"/>
+<circle cx="315" cy="195.6" r="4" fill="#27ae60"/>
+
+<!-- Target trajectory labels -->
+<text x="332" y="182" font-size="12" font-weight="bold" fill="#27ae60">Цільова траєкторія</text>
+<text x="332" y="198" font-size="12" fill="#6b7280">(ідеальна пряма)</text>
+<text x="332" y="214" font-size="12" fill="#6b7280">V_L = V_R ⇒ R = ∞</text>
+
+<!-- Real Trajectory (Curved red arc) -->
+<path d="M 315,405 A 240 240 0 0 0 229.3,221.1" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+<circle cx="229.3" cy="221.1" r="4" fill="#c0392b"/>
+
+<!-- Tangent vector (actual heading) and angle delta theta -->
+<line x1="229.3" y1="221.1" x2="206.3" y2="201.8" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+<line x1="229.3" y1="221.1" x2="229.3" y2="191.1" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+<path d="M 229.3,201.1 A 20 20 0 0 0 214.0,208.2" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+<text x="216" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Δθ</text>
+
+<!-- Lateral drift delta y dimension -->
+<line x1="229.3" y1="221.1" x2="315" y2="221.1" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+<line x1="229.3" y1="216" x2="229.3" y2="226" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="315" y1="216" x2="315" y2="226" stroke="#c0392b" stroke-width="1.5"/>
+<text x="272" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Δy</text>
+
+<!-- Real trajectory summary callout card -->
+<rect x="40" y="168" width="136" height="74" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="48" y="184" font-size="12" font-weight="bold" fill="#c0392b">Реальна дуга</text>
+<text x="48" y="200" font-size="12" fill="#c0392b">V_R &gt; V_L (+2%)</text>
+<text x="48" y="216" font-size="12" fill="#1a1a1a">Зсув: Δy ≈ 90 см</text>
+<text x="48" y="232" font-size="12" fill="#1a1a1a">Дрейф: Δθ = 50°</text>
+
+<!-- Center of Curvature (ICC) and Radius lines -->
+<circle cx="75" cy="405" r="4" fill="#2457d6"/>
+<text x="75" y="422" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ICC</text>
+<text x="75" y="436" text-anchor="middle" font-size="12" fill="#6b7280">(центр дуги)</text>
+
+<!-- Radius lines -->
+<line x1="75" y1="405" x2="315" y2="405" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="75" y1="405" x2="229.3" y2="221.1" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+<text x="165" y="398" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Радіус R</text>
+
+<!-- Angle at ICC -->
+<path d="M 115,405 A 40 40 0 0 0 100.7,374.4" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+<text x="126" y="378" font-size="12" font-weight="bold" fill="#2457d6">Δθ</text>
+
+<!-- Robot chassis at start position (315, 405) -->
+<rect x="293" y="388" width="44" height="34" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="315" cy="392" r="3" fill="#6b7280"/>
+<!-- Left Wheel -->
+<rect x="285" y="390" width="10" height="30" rx="2" fill="#1a1a1a"/>
+<line x1="290" y1="388" x2="290" y2="364" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<text x="280" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_L</text>
+
+<!-- Right Wheel -->
+<rect x="335" y="390" width="10" height="30" rx="2" fill="#1a1a1a"/>
+<line x1="340" y1="388" x2="340" y2="350" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+<text x="350" y="344" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">V_R</text>
+
+<!-- Wheel speed note -->
+<text x="366" y="365" font-size="12" font-weight="bold" fill="#c0392b">V_R &gt; V_L</text>
+<text x="366" y="380" font-size="12" fill="#6b7280">(ΔV = 2%)</text>
+
+<!-- Track width B dimension -->
+<line x1="290" y1="430" x2="340" y2="430" stroke="#6b7280" stroke-width="1"/>
+<line x1="290" y1="426" x2="290" y2="434" stroke="#6b7280" stroke-width="1"/>
+<line x1="340" y1="426" x2="340" y2="434" stroke="#6b7280" stroke-width="1"/>
+<text x="315" y="445" text-anchor="middle" font-size="12" fill="#1a1a1a">Колія B</text>
+
+<!-- Right Panel: Physical Causes and Calculations -->
+<rect x="504" y="68" width="432" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="524" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Фізичні причини та кількісний розрахунок</text>
+
+<!-- Card 1: Causes -->
+<rect x="524" y="110" width="392" height="72" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="540" y="130" font-size="13" font-weight="bold" fill="#c0392b">1. Джерела розкиду характеристик приводів</text>
+<text x="540" y="150" font-size="12" fill="#1a1a1a">• Допуск моторів: ±5..10% обертів за однакової напруги</text>
+<text x="540" y="168" font-size="12" fill="#1a1a1a">• Тертя в шестернях редуктора та мікроковзання коліс</text>
+
+<!-- Card 2: Numerical example -->
+<rect x="524" y="194" width="392" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="540" y="214" font-size="13" font-weight="bold" fill="#2457d6">2. Числовий приклад накопичення похибки</text>
+<text x="540" y="234" font-size="12" fill="#1a1a1a">• База B = 100 мм, різниця швидкостей ΔV лише 2%:</text>
+<text x="552" y="250" font-size="12" fill="#6b7280">V_L = 0.294 м/с,  V_R = 0.300 м/с  (ШІМ однаковий!)</text>
+<text x="540" y="268" font-size="12" fill="#1a1a1a">• Радіус паразитної дуги:  R ≈ 5.0 м</text>
+<text x="540" y="286" font-size="12" font-weight="bold" fill="#c0392b">• На шляху 3 м: боковий зсув Δy ≈ 90 см (зрив курсу!)</text>
+
+<!-- Card 3: Engineering conclusions -->
+<rect x="524" y="312" width="392" height="130" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="540" y="334" font-size="13" font-weight="bold" fill="#27ae60">3. Інженерний висновок та рішення</text>
+<text x="540" y="354" font-size="12" font-weight="bold" fill="#1a1a1a">«Керування наосліп за часом не дає прямолінійного руху»</text>
+<text x="540" y="372" font-size="12" fill="#6b7280">Без датчиків платформа завжди рухається по дузі.</text>
+<text x="540" y="394" font-size="12" font-weight="bold" fill="#27ae60">Необхідні заходи зворотного зв'язку:</text>
+<text x="540" y="412" font-size="12" fill="#1a1a1a">• Енкодери коліс: синхронізація швидкостей (PID-контур)</text>
+<text x="540" y="430" font-size="12" fill="#1a1a1a">• IMU / гіроскоп: корекція курсового кута yaw (Δθ → 0)</text>
+</svg>

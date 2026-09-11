@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-green-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+  </marker>
+</defs>
+
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+
+<!-- Headers -->
+<text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Наскрізні струми H-моста та захисний інтервал Dead-Time</text>
+<text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Одночасне відкриття ключів стійки (Shoot-Through) та апаратна затримка перемикання t_dead</text>
+
+<!-- ==================== LEFT CARD: SHOOT-THROUGH ==================== -->
+<rect x="35" y="75" width="410" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="55" y="104" font-size="15" font-weight="bold" fill="#c0392b">1. Небезпека Shoot-Through</text>
+
+<!-- Power Rails -->
+<line x1="135" y1="138" x2="215" y2="138" stroke="#c0392b" stroke-width="3"/>
+<text x="175" y="128" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">+V_CC (+6 В)</text>
+
+<!-- Q1 (HS) Switch -->
+<line x1="175" y1="138" x2="175" y2="158" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="175" cy="158" r="3" fill="#1a1a1a"/>
+<line x1="175" y1="158" x2="175" y2="192" stroke="#c0392b" stroke-width="3.5"/>
+<circle cx="175" cy="192" r="3" fill="#1a1a1a"/>
+<text x="198" y="172" font-size="13" font-weight="bold" fill="#c0392b">Q1 (HS): ON</text>
+<text x="198" y="188" font-size="12" fill="#6b7280">провідний стан</text>
+
+<!-- Midpoint OUT & Motor -->
+<line x1="175" y1="192" x2="175" y2="248" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="175" cy="220" r="3.5" fill="#1a1a1a"/>
+<line x1="175" y1="220" x2="295" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+
+<circle cx="320" cy="220" r="20" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+<text x="320" y="226" font-size="16" font-weight="bold" text-anchor="middle" fill="#1a1a1a">M</text>
+<text x="320" y="256" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">OUT (до мотора)</text>
+<text x="320" y="272" font-size="12" text-anchor="middle" fill="#6b7280">I = 0 А (струм оминає)</text>
+
+<!-- Q2 (LS) Switch -->
+<circle cx="175" cy="248" r="3" fill="#1a1a1a"/>
+<line x1="175" y1="248" x2="175" y2="282" stroke="#c0392b" stroke-width="3.5"/>
+<circle cx="175" cy="282" r="3" fill="#1a1a1a"/>
+<text x="198" y="262" font-size="13" font-weight="bold" fill="#c0392b">Q2 (LS): ON</text>
+<text x="198" y="278" font-size="12" fill="#6b7280">провідний стан</text>
+
+<!-- Ground Rail -->
+<line x1="175" y1="282" x2="175" y2="302" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="135" y1="302" x2="215" y2="302" stroke="#1a1a1a" stroke-width="3"/>
+<line x1="175" y1="302" x2="175" y2="308" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="163" y1="308" x2="187" y2="308" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="167" y1="312" x2="183" y2="312" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="171" y1="316" x2="179" y2="316" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="198" y="316" font-size="12" font-weight="bold" fill="#1a1a1a">GND (0 В)</text>
+
+<!-- Shoot-Through Current Arrow -->
+<line x1="142" y1="145" x2="142" y2="295" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr-red)"/>
+<text x="132" y="202" font-size="14" font-weight="bold" text-anchor="end" fill="#c0392b">I_shoot</text>
+<text x="132" y="218" font-size="12" font-weight="bold" text-anchor="end" fill="#c0392b">> 10 А (КЗ)</text>
+<text x="132" y="234" font-size="12" text-anchor="end" fill="#6b7280">наскрізний</text>
+<text x="132" y="250" font-size="12" text-anchor="end" fill="#6b7280">струм стійки</text>
+
+<!-- Danger Plaque -->
+<rect x="50" y="330" width="380" height="110" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="68" y="352" font-size="13" font-weight="bold" fill="#c0392b">Аварійні наслідки одночасного відкриття:</text>
+<text x="68" y="374" font-size="12" fill="#1a1a1a">• Струм КЗ: I_пік > 10 А (обмежений лише R_DS(on))</text>
+<text x="68" y="396" font-size="12" fill="#1a1a1a">• Миттєвий перегрів і тепловий пробій MOSFET</text>
+<text x="68" y="418" font-size="12" fill="#1a1a1a">• Просідання V_CC -> перезавантаження MCU (BOD)</text>
+
+<!-- ==================== RIGHT CARD: DEAD-TIME ==================== -->
+<rect x="465" y="75" width="460" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="485" y="104" font-size="15" font-weight="bold" fill="#27ae60">2. Часова діаграма з захисним Dead-Time</text>
+
+<!-- Dead-Time Highlight Band -->
+<rect x="655" y="120" width="80" height="122" fill="#e9f7ef"/>
+<line x1="655" y1="120" x2="655" y2="288" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="735" y1="120" x2="735" y2="288" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+<!-- Dead-Time Dimension -->
+<line x1="657" y1="138" x2="733" y2="138" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-rev)" marker-end="url(#arr-green)"/>
+<text x="695" y="131" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">t_dead</text>
+
+<!-- Channel 1: Gate HS -->
+<text x="555" y="166" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">Gate HS</text>
+<text x="568" y="154" font-size="12" text-anchor="end" fill="#6b7280">1</text>
+<text x="568" y="176" font-size="12" text-anchor="end" fill="#6b7280">0</text>
+<line x1="575" y1="172" x2="895" y2="172" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+<path d="M 575,150 L 655,150 L 655,172 L 895,172" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+<text x="615" y="144" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">1 (ON)</text>
+<text x="780" y="166" font-size="12" text-anchor="middle" fill="#6b7280">0 (OFF)</text>
+
+<!-- Channel 2: Gate LS -->
+<text x="555" y="220" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">Gate LS</text>
+<text x="568" y="208" font-size="12" text-anchor="end" fill="#6b7280">1</text>
+<text x="568" y="230" font-size="12" text-anchor="end" fill="#6b7280">0</text>
+<line x1="575" y1="226" x2="895" y2="226" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+<path d="M 575,226 L 735,226 L 735,204 L 895,204" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+<text x="615" y="220" font-size="12" text-anchor="middle" fill="#6b7280">0 (OFF)</text>
+<text x="780" y="198" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">1 (ON)</text>
+
+<!-- Channel 3: Leg State -->
+<text x="555" y="268" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">Стан стійки</text>
+<rect x="575" y="254" width="65" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="607" y="270" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">HS ON</text>
+
+<rect x="655" y="254" width="80" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="695" y="270" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Обидва OFF</text>
+
+<rect x="750" y="254" width="75" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="787" y="270" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">LS ON</text>
+
+<!-- Time Axis -->
+<line x1="575" y1="288" x2="895" y2="288" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+<text x="905" y="292" font-size="12" font-style="italic" fill="#1a1a1a">t</text>
+<line x1="655" y1="288" x2="655" y2="294" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="655" y="308" font-size="12" text-anchor="middle" fill="#6b7280">спад HS</text>
+<line x1="735" y1="288" x2="735" y2="294" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="735" y="308" font-size="12" text-anchor="middle" fill="#6b7280">підйом LS</text>
+
+<!-- Rule Card -->
+<rect x="485" y="330" width="435" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="502" y="352" font-size="13" font-weight="bold" fill="#27ae60">Правило безпечного керування напівмостом:</text>
+<text x="502" y="374" font-size="12" fill="#1a1a1a">• Умова безпеки: t_dead > t_off(max) + t_затримки</text>
+<text x="502" y="396" font-size="12" fill="#1a1a1a">• Апаратна реалізація: таймери з Dead-Time Generator</text>
+<text x="502" y="418" font-size="12" fill="#1a1a1a">• Результат: нульовий наскрізний струм, холодні ключі</text>
+</svg>

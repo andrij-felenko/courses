@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Гамма-корекція S-кривої та знакозмінне керування РК-коміркою</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Нелінійні опорні рівні лінеаризують яскравість, а чергування полярності щодо VCOM усуває DC-деградацію</text>
+
+  <!-- Ліва панель: S-крива та гамма-рівні -->
+  <rect x="24" y="76" width="446" height="404" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="44" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">S-подібна характеристика світлопропускання (V-T)</text>
+  <text x="44" y="120" font-size="12" fill="#6b7280">IPS Normally Black: оптичний відгук на напругу |V_LC|</text>
+
+  <!-- Сітка графіка V-T -->
+  <line x1="75" y1="150" x2="430" y2="150" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="68" y="154" text-anchor="end" font-size="12" fill="#6b7280">100%</text>
+
+  <line x1="75" y1="212" x2="430" y2="212" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="68" y="216" text-anchor="end" font-size="12" fill="#6b7280">50%</text>
+
+  <text x="68" y="278" text-anchor="end" font-size="12" fill="#6b7280">0%</text>
+
+  <!-- Осі координат -->
+  <line x1="75" y1="275" x2="75" y2="140" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="88" y="145" font-size="12" font-weight="bold" fill="#1a1a1a">T (%)</text>
+
+  <line x1="75" y1="275" x2="435" y2="275" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="435" y="293" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">|V_LC| (В)</text>
+
+  <!-- Штрихи та позначки Vth і Vsat -->
+  <line x1="140" y1="275" x2="140" y2="279" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="140" y="293" text-anchor="middle" font-size="12" fill="#6b7280">Vth</text>
+
+  <line x1="340" y1="275" x2="340" y2="279" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="340" y="293" text-anchor="middle" font-size="12" fill="#6b7280">Vsat</text>
+
+  <!-- S-подібна крива світлопропускання -->
+  <path d="M 75,275 L 105,275 C 135,275 165,268 195,248 C 225,228 255,195 285,172 C 315,149 335,150 415,150" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Опорні точки гамма-рівнів -->
+  <circle cx="110" cy="275" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <text x="110" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V0</text>
+
+  <circle cx="180" cy="257" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <text x="180" y="247" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V8</text>
+
+  <circle cx="225" cy="226" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <text x="215" y="218" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">V20</text>
+
+  <circle cx="275" cy="178" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <text x="265" y="170" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">V43</text>
+
+  <circle cx="325" cy="153" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <text x="325" y="141" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V55</text>
+
+  <circle cx="390" cy="150" r="4" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <text x="390" y="141" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V63</text>
+
+  <!-- Пояснювальна плашка лівої панелі -->
+  <rect x="40" y="312" width="414" height="154" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="54" y="334" font-size="13" font-weight="bold" fill="#2457d6">Апаратна гамма-корекція контролера ST7789</text>
+  <text x="54" y="357" font-size="12" fill="#1a1a1a">• Нелінійність РК: біля Vth та Vsat крутизна dT/dV спадає</text>
+  <text x="54" y="380" font-size="12" fill="#1a1a1a">• Драбина ЦАП: регістри PVGAM/NVGAM задають опорні точки</text>
+  <text x="54" y="403" font-size="12" fill="#1a1a1a">• Згущення рівнів: менший крок напруги там, де вища крутизна</text>
+  <text x="54" y="426" font-size="12" fill="#1a1a1a">• Результат: лінійне сприйняття яскравості за кривою γ ≈ 2.2</text>
+  <text x="54" y="451" font-size="12" font-weight="bold" fill="#2457d6">Компенсація S-кривої усуває завали в тінях і світлах</text>
+
+  <!-- Права панель: Інверсія полярності -->
+  <rect x="490" y="76" width="446" height="404" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="510" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Знакозмінна інверсія полярності щодо VCOM</text>
+  <text x="510" y="120" font-size="12" fill="#6b7280">Чергування знаку напруги запобігає деградації рідких кристалів</text>
+
+  <!-- Часова діаграма V_LC(t) -->
+  <line x1="550" y1="175" x2="920" y2="175" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="544" y="179" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">VCOM</text>
+  <text x="920" y="195" text-anchor="end" font-size="12" fill="#6b7280">Час t</text>
+
+  <!-- Фаза + -->
+  <text x="640" y="138" text-anchor="middle" font-size="12" fill="#6b7280">Кадр N</text>
+  <rect x="570" y="145" width="140" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="640" y="164" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">+ фаза (+V)</text>
+
+  <!-- Фаза − -->
+  <rect x="730" y="175" width="140" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="800" y="194" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">− фаза (−V)</text>
+  <text x="800" y="222" text-anchor="middle" font-size="12" fill="#6b7280">Кадр N+1</text>
+
+  <!-- Оптична рівність та нульовий DC -->
+  <text x="630" y="222" text-anchor="middle" font-size="12" fill="#1a1a1a">Яскравість: T(+V) = T(−V)</text>
+  <text x="825" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Середня напруга DC = 0 В</text>
+
+  <!-- Порівняння: Покадрова vs Построкова інверсія -->
+  <!-- Блок 1: Покадрова інверсія -->
+  <rect x="505" y="252" width="200" height="214" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="605" y="272" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Покадрова інверсія</text>
+
+  <!-- Міні-екрани покадрової інверсії -->
+  <rect x="515" y="284" width="82" height="62" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="517" y="286" width="78" height="18" rx="2" fill="#fdecea"/>
+  <text x="556" y="299" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">+  +  +</text>
+  <rect x="517" y="306" width="78" height="18" rx="2" fill="#fdecea"/>
+  <text x="556" y="319" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">+  +  +</text>
+  <rect x="517" y="326" width="78" height="18" rx="2" fill="#fdecea"/>
+  <text x="556" y="339" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">+  +  +</text>
+  <text x="556" y="358" text-anchor="middle" font-size="12" fill="#6b7280">Кадр N (+)</text>
+
+  <rect x="613" y="284" width="82" height="62" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="615" y="286" width="78" height="18" rx="2" fill="#eaf0fd"/>
+  <text x="654" y="299" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">−  −  −</text>
+  <rect x="615" y="306" width="78" height="18" rx="2" fill="#eaf0fd"/>
+  <text x="654" y="319" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">−  −  −</text>
+  <rect x="615" y="326" width="78" height="18" rx="2" fill="#eaf0fd"/>
+  <text x="654" y="339" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">−  −  −</text>
+  <text x="654" y="358" text-anchor="middle" font-size="12" fill="#6b7280">Кадр N+1 (−)</text>
+
+  <text x="515" y="378" font-size="12" font-weight="bold" fill="#c0392b">Недоліки схеми:</text>
+  <text x="515" y="398" font-size="12" fill="#1a1a1a">• Мерехтіння поля (30 Гц)</text>
+  <text x="515" y="418" font-size="12" fill="#1a1a1a">• Перехресні завади стовпців</text>
+  <text x="515" y="438" font-size="12" fill="#1a1a1a">• Пульсація заряду ємності</text>
+  <text x="515" y="456" font-size="12" font-weight="bold" fill="#c0392b">Не застосовується в IPS</text>
+
+  <!-- Блок 2: Построкова інверсія -->
+  <rect x="720" y="252" width="200" height="214" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="820" y="272" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Построкова інверсія</text>
+
+  <!-- Міні-екрани построкової інверсії -->
+  <rect x="730" y="284" width="82" height="62" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="732" y="286" width="78" height="18" rx="2" fill="#e9f7ef"/>
+  <text x="771" y="299" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">+  +  +</text>
+  <rect x="732" y="306" width="78" height="18" rx="2" fill="#eaf0fd"/>
+  <text x="771" y="319" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">−  −  −</text>
+  <rect x="732" y="326" width="78" height="18" rx="2" fill="#e9f7ef"/>
+  <text x="771" y="339" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">+  +  +</text>
+  <text x="771" y="358" text-anchor="middle" font-size="12" fill="#6b7280">Кадр N (+/−)</text>
+
+  <rect x="828" y="284" width="82" height="62" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="830" y="286" width="78" height="18" rx="2" fill="#eaf0fd"/>
+  <text x="869" y="299" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">−  −  −</text>
+  <rect x="830" y="306" width="78" height="18" rx="2" fill="#e9f7ef"/>
+  <text x="869" y="319" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">+  +  +</text>
+  <rect x="830" y="326" width="78" height="18" rx="2" fill="#eaf0fd"/>
+  <text x="869" y="339" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">−  −  −</text>
+  <text x="869" y="358" text-anchor="middle" font-size="12" fill="#6b7280">Кадр N+1 (−/+)</text>
+
+  <text x="730" y="378" font-size="12" font-weight="bold" fill="#27ae60">Переваги в ST7789:</text>
+  <text x="730" y="398" font-size="12" fill="#1a1a1a">• Око не бачить мерехтіння</text>
+  <text x="730" y="418" font-size="12" fill="#1a1a1a">• Взаємне гасіння наведень</text>
+  <text x="730" y="438" font-size="12" fill="#1a1a1a">• Рівномірний струм VCOM</text>
+  <text x="730" y="456" font-size="12" font-weight="bold" fill="#27ae60">Апаратний режим ST7789</text>
+</svg>

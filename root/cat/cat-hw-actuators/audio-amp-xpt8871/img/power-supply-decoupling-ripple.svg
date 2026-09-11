@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біле тло полотна -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Розв'язка шини живлення XPT8871: придушення пульсацій і просідань</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Пара 0,1 мкФ та 470 мкФ компенсує паразитну індуктивність дротів під час басових сплесків струму</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Схема живлення та паразитна індуктивність -->
+  <rect x="24" y="74" width="432" height="386" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="98" font-size="14" font-weight="700" fill="#1a1a1a">Схема живлення та паразитна індуктивність</text>
+  <text x="40" y="116" font-size="12" fill="#6b7280">Дроти живлення мають паразитну індуктивність L_wire</text>
+
+  <!-- Блок джерела живлення (+5 В) -->
+  <rect x="38" y="132" width="60" height="175" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="68" y="156" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Джерело</text>
+  <text x="68" y="174" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">+5 В</text>
+  <text x="68" y="194" font-size="12" fill="#6b7280" text-anchor="middle">USB / БЖ</text>
+  <text x="90" y="214" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">+5V</text>
+  <text x="90" y="289" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">GND</text>
+
+  <!-- Шина живлення +5V з котушкою L_wire -->
+  <line x1="98" y1="210" x2="120" y2="210" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 120 210 C 120 198, 133 198, 133 210 C 133 198, 146 198, 146 210 C 146 198, 159 198, 159 210 C 159 198, 172 198, 172 210" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <line x1="172" y1="210" x2="186" y2="210" stroke="#c0392b" stroke-width="2"/>
+  <text x="146" y="168" font-size="12" fill="#6b7280" text-anchor="middle">Дроти живлення</text>
+  <text x="146" y="186" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">L_wire ≈ 2 мкГн</text>
+
+  <!-- Формула між шинами -->
+  <text x="146" y="244" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ΔV = L · di/dt</text>
+  <text x="146" y="260" font-size="12" fill="#6b7280" text-anchor="middle">падіння в дротах</text>
+
+  <!-- Шина GND між джерелом і платою -->
+  <line x1="98" y1="285" x2="186" y2="285" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Плата підсилювача (модуль) -->
+  <rect x="186" y="132" width="258" height="175" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="315" y="152" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Плата аудіопідсилювача (модуль XPT8871)</text>
+
+  <!-- Шини живлення на платі -->
+  <line x1="186" y1="210" x2="320" y2="210" stroke="#c0392b" stroke-width="2"/>
+  <line x1="186" y1="285" x2="320" y2="285" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Конденсатор C1 (470 мкФ) -->
+  <text x="220" y="178" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">470 мкФ</text>
+  <text x="220" y="194" font-size="12" fill="#6b7280" text-anchor="middle">електроліт</text>
+  <line x1="220" y1="210" x2="220" y2="232" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="210" y1="232" x2="230" y2="232" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="210" y1="240" x2="230" y2="240" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="220" y1="240" x2="220" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="220" y="300" font-size="12" fill="#6b7280" text-anchor="middle">НЧ буфер</text>
+
+  <!-- Конденсатор C2 (0,1 мкФ) -->
+  <text x="280" y="178" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">0,1 мкФ</text>
+  <text x="280" y="194" font-size="12" fill="#6b7280" text-anchor="middle">кераміка</text>
+  <line x1="280" y1="210" x2="280" y2="232" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="270" y1="232" x2="290" y2="232" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="270" y1="240" x2="290" y2="240" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="280" y1="240" x2="280" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="280" y="300" font-size="12" fill="#6b7280" text-anchor="middle">ВЧ фільтр</text>
+
+  <!-- Мікросхема XPT8871 -->
+  <rect x="320" y="185" width="65" height="110" rx="4" fill="#1a1a1a"/>
+  <text x="352" y="235" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">XPT8871</text>
+  <text x="352" y="252" font-size="12" fill="#d0d7de" text-anchor="middle">Class-AB</text>
+  <text x="326" y="214" font-size="12" fill="#ffffff" text-anchor="start">VDD</text>
+  <text x="326" y="282" font-size="12" fill="#ffffff" text-anchor="start">GND</text>
+
+  <!-- Виходи на динамік -->
+  <line x1="385" y1="225" x2="405" y2="225" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="385" y1="255" x2="405" y2="255" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="405" y="215" width="8" height="50" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="413,225 428,205 428,275 413,255" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="424" y="196" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">4–8 Ω</text>
+
+  <!-- Нижня інфо-панель схеми -->
+  <rect x="38" y="326" width="404" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="50" y="346" font-size="12" font-weight="700" fill="#2457d6">Фізика стрибка струму під час басу (Kick Drum):</text>
+  <text x="50" y="366" font-size="12" fill="#1a1a1a">• Сплеск струму підсилювача: ΔI = 1,2 А за час Δt = 10 мкс</text>
+  <text x="50" y="386" font-size="12" fill="#1a1a1a">• ЕРС індуктивності дротів: ΔV = L · (ΔI / Δt) ≈ 2,4 В</text>
+  <text x="50" y="406" font-size="12" font-weight="700" fill="#c0392b">• Без розв'язки: 5,0 В − 2,4 В = 2,6 В (збій / UVLO)</text>
+  <text x="50" y="426" font-size="12" font-weight="700" fill="#27ae60">• З парою 0,1 мкФ + 470 мкФ: живлення стабільне (ΔV &lt; 0,1 В)</text>
+
+  <!-- ПРАВА ВЕРХНЯ ПАНЕЛЬ: Без розв'язки -->
+  <rect x="480" y="74" width="456" height="186" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="496" y="96" font-size="13" font-weight="700" fill="#c0392b">1. Без конденсаторів (тільки індуктивність дротів L_wire)</text>
+  <text x="496" y="114" font-size="12" fill="#6b7280">Різкий стрибок струму dI/dt спричиняє глибоке падіння напруги VDD</text>
+
+  <!-- Осі координат верхнього графіка -->
+  <line x1="540" y1="222" x2="540" y2="132" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="540" y1="222" x2="915" y2="222" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="532" y="128" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">VDD</text>
+  <text x="915" y="238" font-size="12" fill="#6b7280" text-anchor="end">Час t</text>
+
+  <!-- Рівні напруги верхнього графіка -->
+  <line x1="540" y1="138" x2="915" y2="138" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="532" y="142" font-size="12" fill="#6b7280" text-anchor="end">5 В</text>
+  <line x1="540" y1="180" x2="915" y2="180" stroke="#c0392b" stroke-width="1" stroke-dasharray="2 2" stroke-opacity="0.5"/>
+  <text x="532" y="184" font-size="12" fill="#c0392b" text-anchor="end">2,5 В</text>
+  <text x="532" y="226" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+
+  <!-- Лінія моменту сплеску -->
+  <line x1="620" y1="132" x2="620" y2="222" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="620" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Басовий сплеск</text>
+
+  <!-- Крива VDD верхнього графіка -->
+  <path d="M 540 138 L 620 138 L 638 192 L 652 162 L 668 184 L 684 168 L 700 176 L 760 174 L 775 126 L 790 144 L 805 136 L 815 138 L 910 138" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="645" y="206" font-size="12" font-weight="700" fill="#c0392b">ΔV = −2,9 В (нижче UVLO)</text>
+  <text x="496" y="250" font-size="12" font-weight="700" fill="#c0392b">Хрип, спотворення звуку та збій живлення (UVLO)</text>
+
+  <!-- ПРАВА НИЖНЯ ПАНЕЛЬ: З парою 0,1 мкФ + 470 мкФ -->
+  <rect x="480" y="274" width="456" height="186" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="496" y="296" font-size="13" font-weight="700" fill="#27ae60">2. З парою 0,1 мкФ (кераміка) + 470 мкФ (електроліт)</text>
+  <text x="496" y="314" font-size="12" fill="#6b7280">470 мкФ живить бас локально; 0,1 мкФ блокує високочастотні завади</text>
+
+  <!-- Осі координат нижнього графіка -->
+  <line x1="540" y1="422" x2="540" y2="332" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="540" y1="422" x2="915" y2="422" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="532" y="328" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">VDD</text>
+  <text x="915" y="438" font-size="12" fill="#6b7280" text-anchor="end">Час t</text>
+
+  <!-- Рівні напруги нижнього графіка -->
+  <line x1="540" y1="338" x2="915" y2="338" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="532" y="342" font-size="12" fill="#6b7280" text-anchor="end">5 В</text>
+  <line x1="540" y1="380" x2="915" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="532" y="384" font-size="12" fill="#6b7280" text-anchor="end">2,5 В</text>
+  <text x="532" y="426" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+
+  <!-- Лінія моменту сплеску -->
+  <line x1="620" y1="332" x2="620" y2="422" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="620" y="326" font-size="12" fill="#6b7280" text-anchor="middle">Басовий сплеск</text>
+
+  <!-- Крива VDD нижнього графіка -->
+  <path d="M 540 338 L 620 338 C 635 341, 660 342, 700 342 C 740 342, 770 340, 800 338 L 910 338" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="645" y="364" font-size="12" font-weight="700" fill="#27ae60">Стабільні ~4,9 В (просідання &lt; 0,15 В)</text>
+  <text x="645" y="380" font-size="12" fill="#27ae60">470 мкФ живить сплеск, 0,1 мкФ усуває шум</text>
+  <text x="496" y="450" font-size="12" font-weight="700" fill="#27ae60">Чистий звук без хрипів і стабільні 5 Вт потужності</text>
+</svg>

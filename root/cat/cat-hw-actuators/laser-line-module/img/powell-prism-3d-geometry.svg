@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Просторова 3D-геометрія лінзи Павелла та формування площини віяла</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Циліндрична вісь інваріантності, асферичний дахоподібний гребінь та плоска вихідна основа</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: 3D-модель та оптичне віяло -->
+  <rect x="24" y="65" width="545" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="90" font-size="14" font-weight="bold" fill="#1a1a1a">3D-модель лінзи та просторове розгортання пучка</text>
+
+  <!-- Оптична вісь Z (штрихпунктир) -->
+  <line x1="45" y1="230" x2="480" y2="230" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Вхідний круглий колімований пучок -->
+  <!-- Еліпс перерізу пучка на вході -->
+  <ellipse cx="75" cy="230" rx="6" ry="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Тіло циліндричного пучка -->
+  <polygon points="75,216 190,216 190,244 75,244" fill="#eaf0fd" fill-opacity="0.8" stroke="#2457d6" stroke-width="1"/>
+  <line x1="75" y1="216" x2="190" y2="216" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="75" y1="244" x2="190" y2="244" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Підпис вхідного пучка -->
+  <text x="105" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вхідний пучок</text>
+  <text x="105" y="168" text-anchor="middle" font-size="12" fill="#6b7280">Колімований круглий</text>
+  <text x="105" y="184" text-anchor="middle" font-size="12" fill="#6b7280">Гаусів профіль</text>
+  <line x1="105" y1="190" x2="105" y2="213" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- 3D ТІЛО ЛІНЗИ ПАВЕЛЛА -->
+  <!-- Плоска вихідна основа (задня грань) -->
+  <polygon points="265,185 300,157 300,247 265,275" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Циліндричні бічні поверхні (верхня та нижня огинаючі) -->
+  <polygon points="215,185 250,157 300,157 265,185" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <polygon points="215,275 250,247 300,247 265,275" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Асферична дахоподібна вхідна поверхня -->
+  <!-- Верхній схил даху -->
+  <path d="M 190,230 L 225,202 Q 237,179 250,157 L 215,185 Q 202,207 190,230 Z" fill="#eaf0fd" fill-opacity="0.9" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Нижній схил даху -->
+  <path d="M 190,230 L 225,202 Q 237,224 250,247 L 215,275 Q 202,252 190,230 Z" fill="#eaf0fd" fill-opacity="0.9" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Асферичний гребінь (apex ridge) -->
+  <line x1="190" y1="230" x2="225" y2="202" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Підписи елементів лінзи -->
+  <!-- Гребінь -->
+  <text x="210" y="115" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Гребінь асферики</text>
+  <text x="210" y="132" text-anchor="middle" font-size="12" fill="#2457d6">Апекс R(y)</text>
+  <line x1="210" y1="138" x2="202" y2="195" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Циліндрична вісь -->
+  <text x="325" y="115" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Циліндрична вісь</text>
+  <text x="325" y="132" text-anchor="middle" font-size="12" fill="#6b7280">Інваріантність вздовж Y</text>
+  <line x1="315" y1="138" x2="275" y2="168" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Плоска основа -->
+  <text x="260" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Плоска основа</text>
+  <text x="260" y="342" text-anchor="middle" font-size="12" fill="#6b7280">Вихідна площина AR</text>
+  <line x1="260" y1="316" x2="275" y2="278" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- СВІТЛОВЕ ВІЯЛО (LIGHT FAN) -->
+  <!-- Віяло променів, що виходить з плоскої основи -->
+  <polygon points="275,225 495,115 500,119 280,229" fill="#eaf0fd" fill-opacity="0.6" stroke="#2457d6" stroke-width="1"/>
+  <polygon points="275,235 495,325 500,321 280,231" fill="#eaf0fd" fill-opacity="0.6" stroke="#2457d6" stroke-width="1"/>
+  <polygon points="275,225 495,115 495,325 275,235" fill="#eaf0fd" fill-opacity="0.5"/>
+
+  <!-- Промені всередині віяла -->
+  <line x1="275" y1="225" x2="495" y2="115" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="278" y1="227" x2="495" y2="170" stroke="#2457d6" stroke-width="1" stroke-opacity="0.5"/>
+  <line x1="278" y1="233" x2="495" y2="280" stroke="#2457d6" stroke-width="1" stroke-opacity="0.5"/>
+  <line x1="275" y1="235" x2="495" y2="325" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Дуга кута розгортки theta -->
+  <path d="M 360,195 A 90,90 0 0,1 360,265" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Підпис площини віяла (розміщений вище променя для уникнення перетинів) -->
+  <text x="370" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Площина віяла (Fan)</text>
+  <text x="370" y="142" text-anchor="middle" font-size="12" fill="#6b7280">Кут розгортки θ</text>
+  <line x1="370" y1="148" x2="370" y2="173" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- ЕКРАН СПОСТЕРЕЖЕННЯ -->
+  <polygon points="480,95 515,68 515,325 480,352" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Рівномірна лінія на екрані -->
+  <line x1="495" y1="115" x2="495" y2="325" stroke="#27ae60" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Підпис лінії на екрані -->
+  <text x="475" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Лінія Flat-Top</text>
+  <text x="475" y="392" text-anchor="middle" font-size="12" fill="#6b7280">Рівна яскравість</text>
+  <line x1="475" y1="363" x2="488" y2="335" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Нижня плашка лівої панелі -->
+  <rect x="36" y="405" width="520" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="296" y="421" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Розгортка діє лише в площині кривини; уздовж гребеня заломлення немає</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Оптичні перерізи та анатомія -->
+  <rect x="585" y="65" width="350" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- КАРТКА 1: Два взаємоперпендикулярні перерізи -->
+  <rect x="597" y="78" width="326" height="172" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="608" y="98" font-size="13" font-weight="bold" fill="#1a1a1a">Ортогональні перерізи лінзи</text>
+
+  <text x="608" y="119" font-size="12" font-weight="bold" fill="#2457d6">1. Площина розгортки (Fan Plane):</text>
+  <text x="608" y="135" font-size="12" fill="#1a1a1a">• Змінна асферична кривина даху R(y)</text>
+  <text x="608" y="151" font-size="12" fill="#6b7280">• Перерозподіл енергії в кут θ (Flat-Top)</text>
+
+  <text x="608" y="174" font-size="12" font-weight="bold" fill="#27ae60">2. Площина товщини (Line Plane):</text>
+  <text x="608" y="190" font-size="12" fill="#1a1a1a">• Плоскопаралельний переріз (нуль заломлення)</text>
+  <text x="608" y="206" font-size="12" fill="#6b7280">• Товщина лінії дорівнює фокусу коліматора</text>
+
+  <rect x="608" y="218" width="304" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="760" y="233" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Розгортка строго в одній площині (1D)</text>
+
+  <!-- КАРТКА 2: Функціональна анатомія поверхонь -->
+  <rect x="597" y="260" width="326" height="168" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="608" y="280" font-size="13" font-weight="bold" fill="#1a1a1a">Функціональна анатомія поверхонь</text>
+
+  <circle cx="616" cy="302" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="616" y="306" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1</text>
+  <text x="630" y="301" font-size="12" font-weight="bold" fill="#1a1a1a">Дахоподібний гребінь</text>
+  <text x="630" y="316" font-size="12" fill="#6b7280">Асферика Q(y): заломлює центр на краї</text>
+
+  <circle cx="616" cy="340" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="616" y="344" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2</text>
+  <text x="630" y="339" font-size="12" font-weight="bold" fill="#1a1a1a">Циліндрична вісь</text>
+  <text x="630" y="354" font-size="12" fill="#6b7280">Незмінність форми вздовж осі гребеня</text>
+
+  <circle cx="616" cy="378" r="7" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="616" y="382" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">3</text>
+  <text x="630" y="377" font-size="12" font-weight="bold" fill="#1a1a1a">Плоска вихідна база</text>
+  <text x="630" y="392" fill="#6b7280" font-size="12">Просвітлення AR: мінімум паразитного відбиття</text>
+
+  <rect x="608" y="402" width="304" height="18" rx="3" fill="#e9f7ef"/>
+  <text x="760" y="415" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Ян Павелл (1987): контрольована аберація</text>
+</svg>

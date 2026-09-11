@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Дефіцит пам'яті SRAM та стратегії буферизації для ST7789</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Повний кадр 240×240 RGB565 (115.2 КіБ) перевищує SRAM молодших МК: перехід до рядкових буферів</text>
+
+  <!-- Ліва панель: Порівняння пам'яті -->
+  <rect x="24" y="70" width="450" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Обсяг SRAM мікроконтролерів vs буфер кадру</text>
+  <line x1="44" y1="106" x2="454" y2="106" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Формула -->
+  <rect x="44" y="116" width="410" height="46" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="56" y="134" font-size="12" font-weight="bold" fill="#2457d6">Повний кадр 240×240 (ST7789, RGB565, 16 біт/піксель):</text>
+  <text x="56" y="152" font-size="12" fill="#1a1a1a">240 × 240 × 2 байти = 115 200 байтів ≈ 115.2 КіБ (112.5 KiB)</text>
+
+  <!-- Діаграма: Базовий розмір кадру -->
+  <text x="44" y="178" font-size="12" font-weight="bold" fill="#2457d6">Потрібно: буфер кадру ST7789 (RGB565)</text>
+  <rect x="44" y="184" width="220" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="274" y="198" font-size="12" font-weight="bold" fill="#2457d6">115.2 КіБ (100%)</text>
+
+  <!-- ATmega328P -->
+  <text x="44" y="220" font-size="12" font-weight="bold" fill="#1a1a1a">ATmega328P (Arduino Uno) — SRAM 2 КіБ</text>
+  <rect x="44" y="226" width="220" height="18" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="44" y="226" width="6" height="18" rx="2" fill="#c0392b"/>
+  <text x="274" y="240" font-size="12" font-weight="bold" fill="#c0392b">2 КіБ (1.7%) ❌ Брак 98%</text>
+
+  <!-- STM32F103 -->
+  <text x="44" y="262" font-size="12" font-weight="bold" fill="#1a1a1a">STM32F103C8T6 (Blue Pill) — SRAM 20 КіБ</text>
+  <rect x="44" y="268" width="220" height="18" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="44" y="268" width="38" height="18" rx="2" fill="#c0392b"/>
+  <text x="274" y="282" font-size="12" font-weight="bold" fill="#c0392b">20 КіБ (17.4%) ❌ Брак 83%</text>
+
+  <!-- ESP32 -->
+  <text x="44" y="304" font-size="12" font-weight="bold" fill="#1a1a1a">ESP32-WROOM-32 — SRAM 320–520 КіБ</text>
+  <rect x="44" y="310" width="220" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <rect x="44" y="310" width="220" height="18" rx="3" fill="#27ae60"/>
+  <text x="274" y="324" font-size="12" font-weight="bold" fill="#27ae60">320 КіБ (278%) ✔ Достатньо</text>
+
+  <!-- Попередження -->
+  <rect x="44" y="348" width="410" height="80" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="56" y="368" font-size="12" font-weight="bold" fill="#c0392b">Апаратний глухий кут молодших мікроконтролерів:</text>
+  <text x="56" y="388" font-size="12" fill="#1a1a1a">Спроба алокації uint16_t fb[240*240] переповнює пам'ять</text>
+  <text x="56" y="404" font-size="12" fill="#1a1a1a">на етапі лінкування (помилка BSS: section will not fit)</text>
+  <text x="56" y="420" font-size="12" fill="#6b7280">або спричиняє падіння динамічного стека в HardFault / Reset.</text>
+
+  <!-- Права панель: Рішення -->
+  <rect x="486" y="70" width="450" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="506" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Архітектурні моделі буферизації в драйвері</text>
+  <line x1="506" y1="106" x2="916" y2="106" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Картка 1: Повний буфер -->
+  <rect x="506" y="116" width="410" height="106" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <rect x="506" y="116" width="410" height="24" rx="6" fill="#fdecea"/>
+  <text x="518" y="132" font-size="12" font-weight="bold" fill="#c0392b">❌ Метод 1: Повнокадровий буфер у RAM (115.2 КіБ)</text>
+  
+  <rect x="518" y="148" width="50" height="54" rx="4" fill="#1a1a1a"/>
+  <rect x="522" y="152" width="42" height="46" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="543" y="174" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">115.2</text>
+  <text x="543" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">КіБ</text>
+
+  <text x="578" y="158" font-size="12" fill="#1a1a1a">• Виділення: uint16_t fb[57600] у внутрішній SRAM</text>
+  <text x="578" y="176" font-size="12" fill="#1a1a1a">• Малювання в RAM, скид кадру по SPI (ST7789_RAMWR)</text>
+  <text x="578" y="194" font-size="12" fill="#6b7280">• Підтримують лише: ESP32, Cortex-M4/M7, МК з PSRAM</text>
+  <text x="578" y="212" font-size="12" font-weight="bold" fill="#c0392b">• Непридатний для ATmega (2 КіБ) та STM32F1 (20 КіБ)</text>
+
+  <!-- Картка 2: Рядковий буфер -->
+  <rect x="506" y="232" width="410" height="196" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <rect x="506" y="232" width="410" height="24" rx="6" fill="#e9f7ef"/>
+  <text x="518" y="248" font-size="12" font-weight="bold" fill="#27ae60">✔ Метод 2: Рядковий / блоковий буфер (Line Buffer)</text>
+
+  <!-- Мініатюра екрана зі смугою -->
+  <rect x="518" y="262" width="50" height="56" rx="4" fill="#1a1a1a"/>
+  <rect x="522" y="266" width="42" height="48" rx="2" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <rect x="522" y="274" width="42" height="8" fill="#27ae60"/>
+  <text x="543" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">7.5</text>
+  <text x="543" y="310" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">КіБ</text>
+
+  <text x="578" y="272" font-size="12" font-weight="bold" fill="#1a1a1a">Розрахунок пам'яті для смуг (bands):</text>
+  <text x="578" y="290" font-size="12" fill="#1a1a1a">• 1 рядок (240×1): 480 Б (0.47 КіБ) — доступно ATmega</text>
+  <text x="578" y="308" font-size="12" fill="#1a1a1a">• 8 рядків (240×8): 3.75 КіБ — оптимально для шрифтів</text>
+  <text x="578" y="326" font-size="12" fill="#1a1a1a">• 16 рядків (240×16): 7.50 КіБ — стандарт для SPI/DMA</text>
+  <text x="578" y="344" font-size="12" fill="#2457d6">• 2×16 рядків: 15.0 КіБ — подвійний буфер Ping-Pong</text>
+
+  <line x1="518" y1="358" x2="904" y2="358" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="518" y="376" font-size="12" font-weight="bold" fill="#27ae60">Економія RAM: від 87.0% до 99.6% порівняно з кадром!</text>
+  <text x="518" y="394" font-size="12" fill="#1a1a1a">Драйвер задає прямокутне вікно st7789_set_address_window</text>
+  <text x="518" y="412" font-size="12" fill="#6b7280">та потоково виводить зріз через st7789_write_pixels або DMA.</text>
+</svg>

@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Фон полотна -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="27" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратна комутація шин адресації ST7789 бітом MADCTL.MV</text>
+  <text x="480" y="47" font-size="13" fill="#6b7280" text-anchor="middle">При MV=1 внутрішній кросбар спрямовує лічильник стовпчиків CASET на 320 рядків матриці GRAM</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: MV = 0 ==================== -->
+  <rect x="24" y="62" width="446" height="402" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок лівої панелі -->
+  <rect x="36" y="74" width="422" height="28" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="247" y="93" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">MV = 0: Пряма комутація (Нормальний режим / Портрет)</text>
+
+  <!-- Лічильники адреси (ліворуч) -->
+  <rect x="36" y="118" width="104" height="60" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="88" y="137" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CASET (2Ah)</text>
+  <text x="88" y="153" font-size="12" fill="#1a1a1a" text-anchor="middle">Лічильник X</text>
+  <text x="88" y="169" font-size="12" fill="#6b7280" text-anchor="middle">діапазон 0..239</text>
+
+  <rect x="36" y="196" width="104" height="60" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="88" y="215" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">RASET (2Bh)</text>
+  <text x="88" y="231" font-size="12" fill="#1a1a1a" text-anchor="middle">Лічильник Y</text>
+  <text x="88" y="247" font-size="12" fill="#6b7280" text-anchor="middle">діапазон 0..319</text>
+
+  <!-- Кросбар шин (Bus MUX) -->
+  <rect x="168" y="112" width="104" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="220" y="130" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">MADCTL.MV = 0</text>
+  <text x="220" y="254" font-size="12" fill="#6b7280" text-anchor="middle">прямий потік</text>
+
+  <!-- Шини CASET і RASET до MUX -->
+  <line x1="140" y1="148" x2="178" y2="148" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="140" y1="226" x2="178" y2="226" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Прямі лінії всередині MUX -->
+  <circle cx="178" cy="148" r="3" fill="#2457d6"/>
+  <circle cx="262" cy="148" r="3" fill="#2457d6"/>
+  <line x1="178" y1="148" x2="262" y2="148" stroke="#2457d6" stroke-width="2.5"/>
+
+  <circle cx="178" cy="226" r="3" fill="#27ae60"/>
+  <circle cx="262" cy="226" r="3" fill="#27ae60"/>
+  <line x1="178" y1="226" x2="262" y2="226" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Лінії від MUX до дешифраторів -->
+  <line x1="262" y1="148" x2="294" y2="148" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <line x1="262" y1="226" x2="294" y2="226" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Фізичні дешифратори -->
+  <rect x="300" y="118" width="158" height="60" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="379" y="137" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дешифратор SEG</text>
+  <text x="379" y="153" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">240 стовпчиків</text>
+  <text x="379" y="169" font-size="12" fill="#6b7280" text-anchor="middle">Вхід: CASET (X)</text>
+
+  <rect x="300" y="196" width="158" height="60" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="379" y="215" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дешифратор GATE</text>
+  <text x="379" y="231" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">320 рядків</text>
+  <text x="379" y="247" font-size="12" fill="#6b7280" text-anchor="middle">Вхід: RASET (Y)</text>
+
+  <!-- Нижня частина: Пояснення та Матриця GRAM -->
+  <rect x="36" y="282" width="258" height="164" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="48" y="304" font-size="12" font-weight="bold" fill="#1a1a1a">Логіка адресації GRAM (MV=0):</text>
+  <text x="48" y="326" font-size="12" fill="#2457d6">• CASET тактує 240 стовпчиків SEG</text>
+  <text x="48" y="348" font-size="12" fill="#27ae60">• RASET тактує 320 рядків GATE</text>
+  <text x="48" y="370" font-size="12" fill="#6b7280">• Зсув 80 рядків: у Row Offset</text>
+  <text x="48" y="392" font-size="12" fill="#1a1a1a">• Орієнтація модуля: 0° або 180°</text>
+  <text x="48" y="414" font-size="12" fill="#6b7280">• Осі X та Y не комутуються</text>
+  <text x="48" y="434" font-size="12" font-weight="bold" fill="#2457d6">Шина X = 240 SEG, Шина Y = 320 GATE</text>
+
+  <rect x="308" y="282" width="150" height="164" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="383" y="299" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Матриця GRAM (240×320)</text>
+  <rect x="328" y="308" width="110" height="92" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="383" y="325" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Видима зона</text>
+  <text x="383" y="341" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">240 × 240</text>
+  <text x="383" y="357" font-size="12" fill="#6b7280" text-anchor="middle">X: 0..239 (SEG)</text>
+  <text x="383" y="373" font-size="12" fill="#6b7280" text-anchor="middle">Y: 0..239 (GATE)</text>
+  <text x="383" y="389" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Портрет</text>
+
+  <rect x="328" y="404" width="110" height="30" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="383" y="423" font-size="12" fill="#c0392b" text-anchor="middle">80 рядків зсуву</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: MV = 1 ==================== -->
+  <rect x="490" y="62" width="446" height="402" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок правої панелі -->
+  <rect x="502" y="74" width="422" height="28" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="713" y="93" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">MV = 1: Обмін осей X ↔ Y (Апаратний кросбар / Альбом)</text>
+
+  <!-- Лічильники адреси (ліворуч) -->
+  <rect x="502" y="118" width="104" height="60" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="554" y="137" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CASET (2Ah)</text>
+  <text x="554" y="153" font-size="12" fill="#1a1a1a" text-anchor="middle">Лічильник X</text>
+  <text x="554" y="169" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">діапазон 0..319</text>
+
+  <rect x="502" y="196" width="104" height="60" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="554" y="215" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">RASET (2Bh)</text>
+  <text x="554" y="231" font-size="12" fill="#1a1a1a" text-anchor="middle">Лічильник Y</text>
+  <text x="554" y="247" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">діапазон 0..239</text>
+
+  <!-- Кросбар шин (Bus MUX) -->
+  <rect x="634" y="112" width="104" height="150" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="686" y="130" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">MADCTL.MV = 1</text>
+  <text x="686" y="254" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">обмін осей X↔Y</text>
+
+  <!-- Шини CASET і RASET до MUX -->
+  <line x1="606" y1="148" x2="644" y2="148" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="606" y1="226" x2="644" y2="226" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Перехресні лінії всередині MUX -->
+  <circle cx="644" cy="148" r="3" fill="#2457d6"/>
+  <circle cx="644" cy="226" r="3" fill="#27ae60"/>
+  <circle cx="728" cy="148" r="3" fill="#27ae60"/>
+  <circle cx="728" cy="226" r="3" fill="#2457d6"/>
+
+  <!-- Діагональ CASET (синій) до GATE -->
+  <path d="M644,148 L656,148 L716,226 L728,226" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Діагональ RASET (зелений) до SEG з білим проміжком перетину -->
+  <path d="M644,226 L656,226 L716,148 L728,148" fill="none" stroke="white" stroke-width="6"/>
+  <path d="M644,226 L656,226 L716,148 L728,148" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Лінії від MUX до дешифраторів -->
+  <line x1="728" y1="148" x2="760" y2="148" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <line x1="728" y1="226" x2="760" y2="226" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Фізичні дешифратори -->
+  <rect x="766" y="118" width="158" height="60" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="845" y="137" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дешифратор SEG</text>
+  <text x="845" y="153" font-size="12" fill="#6b7280" text-anchor="middle">240 стовпчиків</text>
+  <text x="845" y="169" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вхід: RASET (Y)</text>
+
+  <rect x="766" y="196" width="158" height="60" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="845" y="215" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дешифратор GATE</text>
+  <text x="845" y="231" font-size="12" fill="#6b7280" text-anchor="middle">320 рядків</text>
+  <text x="845" y="247" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхід: CASET (X)!</text>
+
+  <!-- Нижня частина: Пояснення та Матриця GRAM -->
+  <rect x="502" y="282" width="258" height="164" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="514" y="304" font-size="12" font-weight="bold" fill="#27ae60">Апаратний обмін осей (MV=1):</text>
+  <text x="514" y="326" font-size="12" font-weight="bold" fill="#2457d6">• CASET комутується на 320 GATE!</text>
+  <text x="514" y="348" font-size="12" font-weight="bold" fill="#27ae60">• RASET комутується на 240 SEG</text>
+  <text x="514" y="370" font-size="12" fill="#6b7280">• Зсув 80 рядків: у Col Offset</text>
+  <text x="514" y="392" font-size="12" fill="#1a1a1a">• Орієнтація модуля: 90° або 270°</text>
+  <text x="514" y="414" font-size="12" fill="#6b7280">• Графічна вісь X обернена на 90°</text>
+  <text x="514" y="434" font-size="12" font-weight="bold" fill="#27ae60">Шина X → 320 GATE, Y → 240 SEG</text>
+
+  <rect x="774" y="282" width="150" height="164" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="849" y="299" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Матриця GRAM (240×320)</text>
+  <rect x="794" y="308" width="110" height="92" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="849" y="325" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Видима зона</text>
+  <text x="849" y="341" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">240 × 240</text>
+  <text x="849" y="357" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">X: 0..239 → GATE</text>
+  <text x="849" y="373" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Y: 0..239 → SEG</text>
+  <text x="849" y="389" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Альбом</text>
+
+  <rect x="794" y="404" width="110" height="30" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="849" y="423" font-size="12" fill="#c0392b" text-anchor="middle">80 рядків зсуву</text>
+</svg>

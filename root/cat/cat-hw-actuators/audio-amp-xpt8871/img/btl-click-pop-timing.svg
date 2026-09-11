@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біле полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Перехідні процеси під час увімкнення BTL-підсилювача</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Вплив конденсатора байпасу CB на симетрію виходів та ліквідацію клацання (click / pop)</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: БЕЗ КОМПЕНСАЦІЇ -->
+  <rect x="24" y="66" width="444" height="372" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Лівий заголовок-бейдж -->
+  <rect x="38" y="78" width="416" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="100" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">БЕЗ КОМПЕНСАЦІЇ: CB замалий або відсутній</text>
+
+  <!-- Графік 1 (ліворуч): VO1 і VO2 -->
+  <text x="92" y="124" font-size="12" font-weight="700" fill="#1a1a1a">Вихідні напруги VO1 та VO2 (відносно GND)</text>
+
+  <!-- Осі графіка 1 (ліворуч) -->
+  <line x1="86" y1="216" x2="442" y2="216" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="86" y1="220" x2="86" y2="136" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="438" y="228" text-anchor="end" font-size="12" fill="#6b7280">t (час)</text>
+
+  <!-- Рівні напруг графіка 1 (ліворуч) -->
+  <line x1="86" y1="148" x2="245" y2="148" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="80" y="152" text-anchor="end" font-size="12" fill="#6b7280">VDD</text>
+
+  <line x1="86" y1="184" x2="245" y2="184" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="80" y="188" text-anchor="end" font-size="12" fill="#6b7280">VDD/2</text>
+
+  <text x="80" y="220" text-anchor="end" font-size="12" fill="#6b7280">0 В</text>
+
+  <!-- Маркер часу пуску t0 (ліворуч) -->
+  <line x1="114" y1="142" x2="114" y2="216" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="114" y="228" text-anchor="middle" font-size="12" fill="#6b7280">t0</text>
+
+  <!-- Криві VO1 і VO2 (ліворуч) -->
+  <!-- VO1 (швидкий стрибок до VDD/2) -->
+  <path d="M 86 216 L 114 216 C 118 182, 124 182, 132 183 C 142 184, 155 184, 430 184" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- VO2 (затриманий старт) -->
+  <path d="M 86 216 L 132 216 C 145 216, 165 200, 185 184 L 430 184" fill="none" stroke="#4b5563" stroke-width="2" stroke-dasharray="5,3"/>
+
+  <!-- Легенда графіка 1 (ліворуч) -->
+  <line x1="260" y1="146" x2="285" y2="146" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="292" y="150" font-size="12" font-weight="700" fill="#2457d6">VO1: швидкий стрибок</text>
+  <line x1="260" y1="164" x2="285" y2="164" stroke="#4b5563" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="292" y="168" font-size="12" fill="#4b5563">VO2: затриманий пуск</text>
+
+  <!-- Графік 2 (ліворуч): Vdiff = VO1 - VO2 -->
+  <text x="92" y="252" font-size="12" font-weight="700" fill="#1a1a1a">Диференційна напруга Vdiff = VO1 − VO2 (динамік)</text>
+
+  <!-- Осі графіка 2 (ліворуч) -->
+  <line x1="86" y1="308" x2="442" y2="308" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="86" y1="344" x2="86" y2="266" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="438" y="320" text-anchor="end" font-size="12" fill="#6b7280">t (час)</text>
+
+  <!-- Рівні напруг графіка 2 (ліворуч) -->
+  <line x1="86" y1="276" x2="185" y2="276" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="80" y="280" text-anchor="end" font-size="12" fill="#6b7280">+ΔV</text>
+  <text x="80" y="312" text-anchor="end" font-size="12" fill="#6b7280">0 В</text>
+  <line x1="86" y1="340" x2="185" y2="340" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="80" y="344" text-anchor="end" font-size="12" fill="#6b7280">−ΔV</text>
+
+  <!-- Заливка під сплеском Vdiff -->
+  <path d="M 114 308 C 118 274, 124 274, 132 275 C 145 277, 165 296, 185 308 Z" fill="#fdecea"/>
+  <!-- Крива сплеску Vdiff -->
+  <path d="M 86 308 L 114 308 C 118 274, 124 274, 132 275 C 145 277, 165 296, 185 308 L 430 308" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Підпис сплеску Vdiff -->
+  <text x="215" y="280" font-size="12" font-weight="700" fill="#c0392b">Сплеск Vdiff ≈ 1,5–2,5 В</text>
+  <text x="215" y="298" font-size="12" fill="#1a1a1a">Струм Idiff = 2 В / 4 Ом = 0,5 А!</text>
+
+  <!-- Лівий підсумок-картка -->
+  <rect x="38" y="372" width="416" height="52" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="392" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">⚠ Ударний сплеск струму через звукову котушку</text>
+  <text x="246" y="410" text-anchor="middle" font-size="12" fill="#1a1a1a">Дифузор різко зміщується: гучне клацання (click / pop)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: ПЛАВНИЙ ПУСК -->
+  <rect x="492" y="66" width="444" height="372" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Правий заголовок-бейдж -->
+  <rect x="506" y="78" width="416" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="100" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">ПЛАВНИЙ ПУСК: нормальний CB = 1,0 мкФ (soft-start)</text>
+
+  <!-- Графік 1 (праворуч): VO1 і VO2 -->
+  <text x="560" y="124" font-size="12" font-weight="700" fill="#1a1a1a">Вихідні напруги VO1 та VO2 (відносно GND)</text>
+
+  <!-- Осі графіка 1 (праворуч) -->
+  <line x1="554" y1="216" x2="910" y2="216" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="554" y1="220" x2="554" y2="136" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="906" y="228" text-anchor="end" font-size="12" fill="#6b7280">t (час)</text>
+
+  <!-- Рівні напруг графіка 1 (праворуч) -->
+  <line x1="554" y1="148" x2="650" y2="148" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="548" y="152" text-anchor="end" font-size="12" fill="#6b7280">VDD</text>
+
+  <line x1="554" y1="184" x2="650" y2="184" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="548" y="188" text-anchor="end" font-size="12" fill="#6b7280">VDD/2</text>
+
+  <text x="548" y="220" text-anchor="end" font-size="12" fill="#6b7280">0 В</text>
+
+  <!-- Маркер часу пуску t0 (праворуч) -->
+  <line x1="582" y1="142" x2="582" y2="216" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="582" y="228" text-anchor="middle" font-size="12" fill="#6b7280">t0</text>
+
+  <!-- Криві VO1 і VO2 (праворуч, плавний експоненційний ріст) -->
+  <path d="M 554 216 L 582 216 C 605 192, 650 185.5, 740 184.2 L 898 184" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <path d="M 554 216 L 582 216 C 605 192, 650 185.5, 740 184.2 L 898 184" fill="none" stroke="#1a1a1a" stroke-width="1.8" stroke-dasharray="6,4"/>
+
+  <!-- Легенда та пояснення графіка 1 (праворуч) -->
+  <line x1="670" y1="146" x2="695" y2="146" stroke="#2457d6" stroke-width="3"/>
+  <line x1="670" y1="146" x2="695" y2="146" stroke="#1a1a1a" stroke-width="1.8" stroke-dasharray="5,3"/>
+  <text x="702" y="150" font-size="12" font-weight="700" fill="#2457d6">VO1 ≈ VO2 (синхронний пуск)</text>
+  <text x="702" y="168" font-size="12" fill="#1a1a1a">Стала часу soft-start: τ = RB · CB</text>
+
+  <!-- Графік 2 (праворуч): Vdiff = VO1 - VO2 -->
+  <text x="560" y="252" font-size="12" font-weight="700" fill="#1a1a1a">Диференційна напруга Vdiff = VO1 − VO2 (динамік)</text>
+
+  <!-- Осі графіка 2 (праворуч) -->
+  <line x1="554" y1="308" x2="910" y2="308" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="554" y1="344" x2="554" y2="266" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="906" y="320" text-anchor="end" font-size="12" fill="#6b7280">t (час)</text>
+
+  <!-- Рівні напруг графіка 2 (праворуч) -->
+  <line x1="554" y1="276" x2="630" y2="276" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="548" y="280" text-anchor="end" font-size="12" fill="#6b7280">+ΔV</text>
+  <text x="548" y="312" text-anchor="end" font-size="12" fill="#6b7280">0 В</text>
+  <line x1="554" y1="340" x2="630" y2="340" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="548" y="344" text-anchor="end" font-size="12" fill="#6b7280">−ΔV</text>
+
+  <!-- Лінія Vdiff = 0 В (ідеальний нуль) -->
+  <line x1="554" y1="308" x2="898" y2="308" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Підпис Vdiff (праворуч) -->
+  <text x="650" y="280" font-size="12" font-weight="700" fill="#27ae60">Vdiff(t) ≡ 0 В (ідеальний баланс)</text>
+  <text x="650" y="298" font-size="12" fill="#1a1a1a">Струм через котушку Idiff(t) ≡ 0 А</text>
+
+  <!-- Правий підсумок-картка -->
+  <rect x="506" y="372" width="416" height="52" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="392" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">✓ Диференційний струм дорівнює нулю: Idiff = 0</text>
+  <text x="714" y="410" text-anchor="middle" font-size="12" fill="#1a1a1a">Дифузор нерухомий: повна тиша під час увімкнення</text>
+</svg>

@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструкція повзунка потенціометра сервоприводу: Multi-Finger Wiper</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Багатопелюстковий пружний контакт забезпечує резервування та пригнічує вібраційний шум</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ТОПОЛОГІЯ ДОРІЖОК І РОТОРА ==================== -->
+  <rect x="24" y="76" width="460" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Топологія доріжок і кінематика ротора</text>
+  <text x="40" y="120" font-size="12" fill="#6b7280">Спряження вала редуктора з подільником напруги</text>
+
+  <!-- Біла підпанель креслення -->
+  <rect x="36" y="132" width="436" height="292" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Зовнішня резистивна доріжка (вуглепластик) -->
+  <path d="M 142,317 A 108,108 0 1,1 318,317" fill="none" stroke="#d0d7de" stroke-width="22"/>
+  <path d="M 142,317 A 108,108 0 1,1 318,317" fill="none" stroke="#1a1a1a" stroke-width="16"/>
+
+  <!-- Внутрішнє колекторне кільце (струмознімач) -->
+  <path d="M 178,292 A 64,64 0 1,1 282,292" fill="none" stroke="#eaf0fd" stroke-width="14"/>
+  <path d="M 178,292 A 64,64 0 1,1 282,292" fill="none" stroke="#2457d6" stroke-width="10"/>
+
+  <!-- Роторний диск повзунка (маточина на валу) -->
+  <circle cx="230" cy="255" r="26" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="230" cy="255" r="12" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- D-подібний паз вала -->
+  <line x1="222" y1="247" x2="222" y2="263" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Пружний місток повзунка (Multi-Finger Wiper) під кутом 45 градусів -->
+  <path d="M 248,237 L 306,179" stroke="#27ae60" stroke-width="6" stroke-linecap="round"/>
+  <!-- Пелюстки на внутрішньому колекторному кільці -->
+  <circle cx="275" cy="210" r="3.5" fill="#27ae60"/>
+  <circle cx="280" cy="205" r="3.5" fill="#27ae60"/>
+  <!-- Пелюстки на зовнішній резистивній доріжці -->
+  <circle cx="302" cy="183" r="3.5" fill="#27ae60"/>
+  <circle cx="308" cy="177" r="3.5" fill="#27ae60"/>
+  <circle cx="314" cy="171" r="3.5" fill="#27ae60"/>
+
+  <!-- Стрілка напрямку обертання вала -->
+  <path d="M 215,220 A 40,40 0 0,1 258,225" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="236" y="215" font-size="12" fill="#6b7280" text-anchor="middle">Кут α</text>
+
+  <!-- Виводи підключення потенціометра внизу -->
+  <!-- Провідники від доріжок до виводів -->
+  <line x1="142" y1="317" x2="142" y2="360" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="230" y1="319" x2="230" y2="360" stroke="#2457d6" stroke-width="2"/>
+  <line x1="318" y1="317" x2="318" y2="360" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Контактні площадки виводів -->
+  <rect x="132" y="360" width="20" height="24" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="142" y="377" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="142" y="400" font-size="12" fill="#6b7280" text-anchor="middle">GND</text>
+
+  <rect x="220" y="360" width="20" height="24" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="230" y="377" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2</text>
+  <text x="230" y="400" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_out</text>
+
+  <rect x="308" y="360" width="20" height="24" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="318" y="377" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3</text>
+  <text x="318" y="400" font-size="12" fill="#c0392b" text-anchor="middle">+5В</text>
+
+  <!-- Підписи до елементів лівої панелі -->
+  <text x="46" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">Резистивна доріжка</text>
+  <text x="46" y="170" font-size="12" fill="#6b7280">вуглепластик 0..5 кОм</text>
+  <line x1="175" y1="162" x2="202" y2="152" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <text x="46" y="210" font-size="12" font-weight="bold" fill="#2457d6">Колекторне кільце</text>
+  <text x="46" y="224" font-size="12" fill="#6b7280">струмознімач (Cu/Ag)</text>
+  <line x1="170" y1="218" x2="192" y2="218" stroke="#2457d6" stroke-width="1.2"/>
+
+  <text x="340" y="156" font-size="12" font-weight="bold" fill="#27ae60">Повзунок Wiper</text>
+  <text x="340" y="170" font-size="12" fill="#6b7280">Multi-finger контакт</text>
+  <line x1="316" y1="172" x2="336" y2="162" stroke="#27ae60" stroke-width="1.2"/>
+
+  <!-- Загальний підпис виводів -->
+  <text x="230" y="416" font-size="12" fill="#1a1a1a" text-anchor="middle">Виводи: 1 (GND) — 2 (Сигнал АЦП) — 3 (+5В)</text>
+
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: МІКРОМЕХАНІКА ПЕЛЮСТОК ==================== -->
+  <rect x="508" y="76" width="428" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="524" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Мікромеханіка багатопелюсткової щітки</text>
+  <text x="524" y="120" font-size="12" fill="#6b7280">Паралельне резервування та пригнічення контактного брязкоту</text>
+
+  <!-- Біла підпанель мікросхеми контакту -->
+  <rect x="520" y="132" width="404" height="292" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Підкладка та резистивний шар у розрізі -->
+  <rect x="536" y="240" width="372" height="24" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="722" y="256" font-size="12" fill="#6b7280" text-anchor="middle">Резистивний шар (електропровідний полімер)</text>
+
+  <!-- Основа ротора повзунка (зліва вгорі) -->
+  <rect x="546" y="148" width="90" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="591" y="164" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ротор повзунка</text>
+
+  <!-- 4 незалежні пружні пелюстки з благородного сплаву CuBe2 -->
+  <path d="M 636,154 C 665,154 675,220 695,240" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+  <path d="M 636,158 C 670,158 710,220 730,238" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+  <path d="M 636,162 C 675,162 745,220 765,240" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+  <path d="M 636,166 C 680,166 780,220 800,240" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+
+  <!-- Контактні наконечники пелюсток -->
+  <circle cx="695" cy="240" r="3.5" fill="#27ae60"/>
+  <circle cx="730" cy="238" r="3.5" fill="#c0392b"/>
+  <!-- Частинка пилу під пелюсткою 2 -->
+  <rect x="727" y="238" width="6" height="4" fill="#1a1a1a"/>
+  <circle cx="765" cy="240" r="3.5" fill="#27ae60"/>
+  <circle cx="800" cy="240" r="3.5" fill="#27ae60"/>
+
+  <!-- Позначення частинки пилу у виділеній зоні праворуч (поза лініями пелюсток) -->
+  <rect x="810" y="152" width="108" height="34" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="864" y="167" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Частинка пилу</text>
+  <text x="864" y="179" font-size="12" fill="#c0392b" text-anchor="middle">контакт 2 піднято</text>
+
+  <!-- Позначення збереження контакту через пелюстки 1, 3, 4 -->
+  <rect x="810" y="196" width="108" height="34" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="864" y="211" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Контакти 1, 3, 4</text>
+  <text x="864" y="223" font-size="12" fill="#27ae60" text-anchor="middle">замкнені (струм є)</text>
+
+  <!-- Сила контактного притиску -->
+  <text x="546" y="202" font-size="12" font-weight="bold" fill="#2457d6">Тиск F_N</text>
+  <text x="546" y="216" font-size="12" fill="#6b7280">0.05–0.15 Н</text>
+
+  <!-- Порівняльні картки надійності контакту -->
+  <!-- Картка 1: Однопелюстковий -->
+  <rect x="536" y="278" width="180" height="66" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="626" y="295" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1 пелюстка (без резерву)</text>
+  <text x="626" y="312" font-size="12" fill="#1a1a1a" text-anchor="middle">• Пил → урвище контакту</text>
+  <text x="626" y="328" font-size="12" fill="#c0392b" text-anchor="middle">• Сплеск шуму → джитер</text>
+
+  <!-- Картка 2: Multi-Finger -->
+  <rect x="728" y="278" width="180" height="66" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="818" y="295" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Multi-Finger (4 контакти)</text>
+  <text x="818" y="312" font-size="12" fill="#1a1a1a" text-anchor="middle">• 3 паралельні канали</text>
+  <text x="818" y="328" font-size="12" fill="#27ae60" text-anchor="middle">• Неперервний сигнал</text>
+
+  <!-- Підсумкова плашка мікромеханіки -->
+  <rect x="536" y="356" width="372" height="58" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="722" y="374" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Імовірність обриву: P = (p_конт)^4 → прямує до 0</text>
+  <text x="722" y="391" font-size="12" fill="#2457d6" text-anchor="middle">Різні власні резонансні частоти пелюсток гасять брязкіт</text>
+  <text x="722" y="405" font-size="12" fill="#6b7280" text-anchor="middle">Матеріал: пружинна берилієва бронза CuBe2 із позолотою</text>
+</svg>

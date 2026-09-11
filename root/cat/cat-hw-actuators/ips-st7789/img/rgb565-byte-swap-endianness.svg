@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порядок байтів RGB565: Little-Endian мікроконтролера проти ST7789</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">SPI передає байти за зростанням адрес; без байт-свопу ST7789 міняє канали місцями</text>
+
+  <!-- Верхня панель: Бітова структура RGB565 -->
+  <rect x="35" y="72" width="890" height="78" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="91" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логічна структура 16-бітного значення RGB565 (піксель у регістрі uint16_t)</text>
+
+  <!-- Старший байт (MSB) -->
+  <text x="280" y="108" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Старший байт: MSB, Byte 1 (біти 15..8)</text>
+  <rect x="105" y="114" width="210" height="26" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="210" y="131" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R4..R0 (5 біт: червоний)</text>
+
+  <rect x="325" y="114" width="140" height="26" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="395" y="131" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">G5..G3 (3 біти)</text>
+
+  <!-- Молодший байт (LSB) -->
+  <text x="680" y="108" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Молодший байт: LSB, Byte 0 (біти 7..0)</text>
+  <rect x="495" y="114" width="140" height="26" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="565" y="131" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">G2..G0 (3 біти)</text>
+
+  <rect x="645" y="114" width="210" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="750" y="131" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">B4..B0 (5 біт: синій)</text>
+
+  <!-- Ліва колонка: Проблема без свопу -->
+  <rect x="35" y="164" width="435" height="292" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="252" y="186" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Без свопу: дефолтний Little-Endian у RAM</text>
+  <text x="252" y="204" font-size="12" fill="#6b7280" text-anchor="middle">Молодший байт лежить за меншою адресою пам'яті</text>
+
+  <!-- RAM без свопу -->
+  <rect x="55" y="216" width="190" height="38" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="150" y="232" font-size="12" fill="#6b7280" text-anchor="middle">Addr 0x00: Byte 0 (LSB)</text>
+  <text x="150" y="247" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">[G2..G0, B4..B0]</text>
+
+  <rect x="260" y="216" width="190" height="38" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="355" y="232" font-size="12" fill="#6b7280" text-anchor="middle">Addr 0x01: Byte 1 (MSB)</text>
+  <text x="355" y="247" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">[R4..R0, G5..G3]</text>
+
+  <!-- Стрілка передачі -->
+  <line x1="252" y1="256" x2="252" y2="268" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Шина SPI -->
+  <rect x="55" y="272" width="395" height="48" rx="4" fill="white" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 2"/>
+  <text x="252" y="289" font-size="12" fill="#6b7280" text-anchor="middle">Послідовність на шині SPI (DMA / FIFO):</text>
+  <text x="252" y="307" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1-й: Byte 0 [G, B]  →  2-й: Byte 1 [R, G]</text>
+
+  <!-- Стрілка до дисплея -->
+  <line x1="252" y1="322" x2="252" y2="334" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Інтерпретація ST7789 -->
+  <rect x="55" y="338" width="395" height="48" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="252" y="355" font-size="12" fill="#6b7280" text-anchor="middle">Контролер ST7789 (очікує порядок Big-Endian):</text>
+  <text x="252" y="373" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Отримав [G, B] як MSB, а [R, G] як LSB!</text>
+
+  <!-- Стрілка до результату -->
+  <line x1="252" y1="388" x2="252" y2="400" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Результат без свопу -->
+  <rect x="55" y="404" width="395" height="42" rx="4" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="65" y="413" width="24" height="24" rx="4" fill="#2457d6" stroke="#d0d7de" stroke-width="1"/>
+  <text x="256" y="421" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">РЕЗУЛЬТАТ: ХИБНИЙ КОЛІР ПІКСЕЛЯ</text>
+  <text x="256" y="437" font-size="12" fill="#1a1a1a" text-anchor="middle">Червоний (0xF800) виводиться як синій (0x001F)</text>
+
+
+  <!-- Права колонка: Розв'язок зі свопом -->
+  <rect x="490" y="164" width="435" height="292" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="708" y="186" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Зі свопом: LV_COLOR_16_SWAP = 1</text>
+  <text x="708" y="204" font-size="12" fill="#6b7280" text-anchor="middle">LVGL або __builtin_bswap16 переставляє байти</text>
+
+  <!-- RAM зі свопом -->
+  <rect x="510" y="216" width="190" height="38" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="605" y="232" font-size="12" fill="#6b7280" text-anchor="middle">Addr 0x00: Byte 1 (MSB)</text>
+  <text x="605" y="247" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">[R4..R0, G5..G3]</text>
+
+  <rect x="715" y="216" width="190" height="38" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="810" y="232" font-size="12" fill="#6b7280" text-anchor="middle">Addr 0x01: Byte 0 (LSB)</text>
+  <text x="810" y="247" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">[G2..G0, B4..B0]</text>
+
+  <!-- Стрілка передачі -->
+  <line x1="708" y1="256" x2="708" y2="268" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Шина SPI -->
+  <rect x="510" y="272" width="395" height="48" rx="4" fill="white" stroke="#27ae60" stroke-width="1" stroke-dasharray="4 2"/>
+  <text x="708" y="289" font-size="12" fill="#6b7280" text-anchor="middle">Послідовність на шині SPI (DMA / FIFO):</text>
+  <text x="708" y="307" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1-й: Byte 1 [R, G]  →  2-й: Byte 0 [G, B]</text>
+
+  <!-- Стрілка до дисплея -->
+  <line x1="708" y1="322" x2="708" y2="334" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Інтерпретація ST7789 -->
+  <rect x="510" y="338" width="395" height="48" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="708" y="355" font-size="12" fill="#6b7280" text-anchor="middle">Контролер ST7789 (Big-Endian узгоджено):</text>
+  <text x="708" y="373" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Отримав [R, G] як MSB, а [G, B] як LSB!</text>
+
+  <!-- Стрілка до результату -->
+  <line x1="708" y1="388" x2="708" y2="400" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Результат зі свопом -->
+  <rect x="510" y="404" width="395" height="42" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="520" y="413" width="24" height="24" rx="4" fill="#c0392b" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="421" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">РЕЗУЛЬТАТ: ВІРНЕ ВІДОБРАЖЕННЯ</text>
+  <text x="712" y="437" font-size="12" fill="#1a1a1a" text-anchor="middle">Червоний (0xF800) виводиться як чистий червоний</text>
+</svg>

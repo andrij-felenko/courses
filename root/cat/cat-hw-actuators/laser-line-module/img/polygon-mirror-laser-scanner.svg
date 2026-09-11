@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Механічний полігональний лазерний сканер та артефакти експозиції</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Обертове дзеркало розгортає промінь у часі, що спричиняє стробоскопічні розриви лінії на кадрі камери</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ОПТИКО-МЕХАНІЧНИЙ ВУЗОЛ ==================== -->
+  <rect x="35" y="75" width="435" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="252" y="98" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Механічний вузол розгортання He-Ne лазера</text>
+
+  <!-- He-Ne лазер -->
+  <rect x="55" y="145" width="80" height="30" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="60" y1="160" x2="135" y2="160" stroke="#c0392b" stroke-width="2"/>
+  <text x="95" y="137" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">He-Ne лазер</text>
+  <text x="95" y="191" font-size="12" fill="#6b7280" text-anchor="middle">632.8 нм</text>
+
+  <!-- Вхідний лазерний пучок -->
+  <line x1="135" y1="160" x2="209" y2="160" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Багатогранне дзеркало (шестигранник) -->
+  <polygon points="247,149 228,138 209,149 209,171 228,182 247,171" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+  <circle cx="228" cy="160" r="4.5" fill="#1a1a1a"/>
+
+  <!-- Стрілка обертання ротора -->
+  <path d="M 238,144 A 16 16 0 0 1 243,168" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="256" y="152" font-size="12" font-weight="700" fill="#2457d6">ω</text>
+  <text x="228" y="122" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Полігональне дзеркало</text>
+  <text x="228" y="202" font-size="12" fill="#6b7280" text-anchor="middle">6 граней (обертання)</text>
+
+  <!-- Сектор розгортки променя -->
+  <polygon points="209,160 355,125 355,195" fill="#fdecea" opacity="0.4"/>
+  <line x1="209" y1="160" x2="355" y2="125" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3 2"/>
+  <line x1="209" y1="160" x2="355" y2="160" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="209" y1="160" x2="355" y2="195" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3 2"/>
+
+  <!-- Екран / лінія на мішені -->
+  <line x1="355" y1="115" x2="355" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="355" y1="125" x2="355" y2="195" stroke="#c0392b" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Напрямок сканування променя -->
+  <line x1="368" y1="135" x2="368" y2="185" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+  <text x="378" y="164" font-size="12" font-weight="700" fill="#c0392b">v_скан</text>
+
+  <!-- Картка сприйняття оком -->
+  <rect x="55" y="222" width="395" height="46" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="68" y="240" font-size="12" font-weight="700" fill="#1a1a1a">Сприйняття оком (інерція зору &gt; 40 мс):</text>
+  <text x="68" y="256" font-size="12" fill="#6b7280">Швидка біжуча точка створює людині ілюзію суцільної лінії</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: АРТЕФАКТИ КАМЕРИ ==================== -->
+  <rect x="490" y="75" width="435" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="707" y="98" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Артефакти матриці камери (розсинхронізація)</text>
+
+  <!-- Випадок 1: Коротка експозиція (розрив лінії) -->
+  <rect x="510" y="115" width="215" height="46" rx="4" fill="#1e232a"/>
+  <!-- Лише частково відсканована ділянка за t_exp -->
+  <line x1="525" y1="138" x2="595" y2="138" stroke="#c0392b" stroke-width="4" stroke-linecap="round"/>
+  <!-- Недосканована частина лінії -->
+  <line x1="595" y1="138" x2="710" y2="138" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <text x="736" y="133" font-size="12" font-weight="700" fill="#c0392b">Розрив лінії</text>
+  <text x="736" y="149" font-size="12" fill="#6b7280">t_exp &lt; t_скан (недоскановано)</text>
+
+  <!-- Випадок 2: Рядковий затвор Rolling Shutter (зебра) -->
+  <rect x="510" y="176" width="215" height="46" rx="4" fill="#1e232a"/>
+  <!-- Переривчасті смуги стробоскопічного биття -->
+  <line x1="525" y1="199" x2="550" y2="199" stroke="#c0392b" stroke-width="4" stroke-linecap="round"/>
+  <line x1="565" y1="199" x2="590" y2="199" stroke="#c0392b" stroke-width="4" stroke-linecap="round"/>
+  <line x1="605" y1="199" x2="630" y2="199" stroke="#c0392b" stroke-width="4" stroke-linecap="round"/>
+  <line x1="645" y1="199" x2="670" y2="199" stroke="#c0392b" stroke-width="4" stroke-linecap="round"/>
+  <line x1="685" y1="199" x2="710" y2="199" stroke="#c0392b" stroke-width="4" stroke-linecap="round"/>
+
+  <text x="736" y="193" font-size="12" font-weight="700" fill="#c0392b">Стробоскопічні смуги</text>
+  <text x="736" y="209" font-size="12" fill="#6b7280">биття f_скан і рядків сенсора</text>
+
+  <!-- Підсумкова картка дефекту -->
+  <rect x="510" y="238" width="395" height="46" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="525" y="256" font-size="12" font-weight="700" fill="#c0392b">Наслідок для машинної тріангуляції:</text>
+  <text x="525" y="272" font-size="12" fill="#1a1a1a">Фатальні прогалини в контурі, неможливість 3D-вимірювання</text>
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: ПОЯСНЕННЯ ==================== -->
+  <rect x="35" y="368" width="890" height="72" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="388" font-size="12" font-weight="700" fill="#1a1a1a">Чому механічні сканери були витіснені пасивною оптикою Павелла:</text>
+  <text x="55" y="407" font-size="12" fill="#6b7280">1. Дзеркало розгортає промінь ПОСЛІДОВНО В ЧАСІ: для камери це рухома пляма, що вимагає жорсткої синхронізації тригера.</text>
+  <text x="55" y="425" font-size="12" fill="#6b7280">2. Призма Павелла розгортає промінь ОДНОЧАСНО У ПРОСТОРІ: формує безперервну статичну лінію за будь-якої експозиції.</text>
+</svg>

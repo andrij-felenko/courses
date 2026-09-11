@@ -1,0 +1,235 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460" viewBox="0 0 960 460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біле тло -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Драйвер постійного струму світлодіодів підсвічування IPS</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Підвищувальний перетворювач (Boost), струмовий сенсор R_sense у петлі FB та ШІМ-димування</text>
+
+  <!-- ================= ВХІДНЕ ЖИВЛЕННЯ ТА MCU ================= -->
+  <!-- Вхід V_IN -->
+  <circle cx="35" cy="94" r="3" fill="#1a1a1a"/>
+  <text x="45" y="84" font-size="12" font-weight="bold" fill="#1a1a1a">V_IN (+3.3V...+5V)</text>
+  <line x1="35" y1="94" x2="180" y2="94" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Конденсатор C_IN -->
+  <line x1="145" y1="94" x2="145" y2="122" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="135" y1="122" x2="155" y2="122" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="135" y1="128" x2="155" y2="128" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="145" y1="128" x2="145" y2="146" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND для C_IN -->
+  <line x1="137" y1="146" x2="153" y2="146" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="140" y1="150" x2="150" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="143" y1="154" x2="147" y2="154" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="45" y="129" font-size="12" fill="#6b7280">C_IN: 4.7 мкФ</text>
+
+  <!-- Блок Мікроконтролера -->
+  <rect x="35" y="194" width="125" height="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="97" y="216" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер</text>
+  <text x="97" y="236" font-size="12" fill="#1a1a1a" text-anchor="middle">Вихід ШІМ (PWM)</text>
+  <text x="97" y="256" font-size="12" fill="#6b7280" text-anchor="middle">Частота 1...20 кГц</text>
+
+  <!-- Лінія ШІМ від MCU до IC -->
+  <line x1="160" y1="234" x2="210" y2="234" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="185" y="226" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ШІМ</text>
+
+  <!-- Лінія живлення VIN до IC -->
+  <line x1="180" y1="94" x2="180" y2="154" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="180" y1="154" x2="210" y2="154" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="180" cy="94" r="3" fill="#1a1a1a"/>
+
+  <!-- ================= МІКРОСХЕМА ДРАЙВЕРА (BOOST IC) ================= -->
+  <rect x="210" y="119" width="175" height="170" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="6"/>
+  <text x="270" y="137" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Драйвер LED</text>
+
+  <!-- Виводи IC -->
+  <text x="216" y="149" font-size="12" font-weight="bold" fill="#1a1a1a">VIN</text>
+  <text x="216" y="229" font-size="12" font-weight="bold" fill="#2457d6">EN/PWM</text>
+  <text x="338" y="132" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">SW</text>
+  <text x="375" y="212" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">FB</text>
+  <text x="285" y="282" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND</text>
+
+  <!-- Внутрішній блок логіки ШІМ -->
+  <rect x="225" y="169" width="58" height="42" fill="white" stroke="#2457d6" stroke-width="1.2" rx="4"/>
+  <text x="254" y="185" font-size="12" fill="#2457d6" text-anchor="middle">Логіка</text>
+  <text x="254" y="200" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ШІМ</text>
+
+  <!-- Внутрішній підсилювач похибки (Error Amp) -->
+  <path d="M 325,204 L 325,234 L 350,219 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="327" y1="219" x2="333" y2="219" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="327" y1="209" x2="333" y2="209" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="330" y1="206" x2="330" y2="212" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="350" y1="219" x2="385" y2="219" stroke="#2457d6" stroke-width="1.5"/>
+
+  <text x="315" y="209" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">V_ref</text>
+  <text x="315" y="224" font-size="12" fill="#6b7280" text-anchor="end">200 мВ</text>
+
+  <!-- Внутрішній ключ N-MOSFET -->
+  <line x1="350" y1="119" x2="350" y2="152" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="344" y1="152" x2="356" y2="152" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="344" y1="172" x2="356" y2="172" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="340" y1="156" x2="340" y2="168" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="350" y1="172" x2="350" y2="264" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="295" y1="264" x2="350" y2="264" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="295" y1="264" x2="295" y2="289" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="328" y="166" font-size="12" fill="#1a1a1a" text-anchor="end">Ключ SW</text>
+
+  <!-- Зовнішнє заземлення IC GND -->
+  <line x1="295" y1="289" x2="295" y2="304" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="287" y1="304" x2="303" y2="304" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="290" y1="308" x2="300" y2="308" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="293" y1="312" x2="297" y2="312" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- ================= СИЛОВИЙ ЛАНЦЮГ BOOST (L1, D1, COUT) ================= -->
+  <!-- Котушка індуктивності L1 -->
+  <line x1="180" y1="94" x2="225" y2="94" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 225,94 A 11,11 0 0,1 247,94 A 11,11 0 0,1 269,94 A 11,11 0 0,1 291,94 A 11,11 0 0,1 313,94" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="313" y1="94" x2="350" y2="94" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="269" y="74" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">L1: 10...22 мкГн</text>
+
+  <!-- Вузол SW -->
+  <circle cx="350" cy="94" r="3" fill="#1a1a1a"/>
+  <line x1="350" y1="94" x2="350" y2="119" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="350" y1="94" x2="380" y2="94" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Діод Шотткі D1 -->
+  <path d="M 380,84 L 380,104 L 398,94 Z" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <line x1="398" y1="84" x2="398" y2="104" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="398" y1="84" x2="403" y2="84" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="398" y1="104" x2="393" y2="104" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="398" y1="94" x2="460" y2="94" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="405" y="74" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D1 Шотткі</text>
+  <text x="405" y="122" font-size="12" fill="#6b7280" text-anchor="middle">V_F &lt; 0.4 В</text>
+
+  <!-- Вузол V_OUT та вихідний конденсатор C_OUT -->
+  <circle cx="460" cy="94" r="3" fill="#1a1a1a"/>
+  <text x="475" y="74" font-size="12" font-weight="bold" fill="#27ae60">V_OUT (+9.6V)</text>
+  <line x1="460" y1="94" x2="460" y2="124" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="450" y1="124" x2="470" y2="124" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="450" y1="130" x2="470" y2="130" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="460" y1="130" x2="460" y2="148" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND для C_OUT -->
+  <line x1="452" y1="148" x2="468" y2="148" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="455" y1="152" x2="465" y2="152" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="458" y1="156" x2="462" y2="156" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="134" font-size="12" fill="#6b7280">C_OUT: 2.2 мкФ</text>
+
+  <!-- Провід до панелі підсвічування -->
+  <line x1="460" y1="94" x2="540" y2="94" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="540" y1="94" x2="540" y2="112" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="540" y1="112" x2="657" y2="112" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- ================= ПАНЕЛЬ ПІДСВІЧУВАННЯ ДИСПЛЕЯ (IPS) ================= -->
+  <rect x="580" y="69" width="155" height="230" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4" rx="6"/>
+  <text x="657" y="87" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Підсвічування IPS</text>
+  <text x="657" y="101" font-size="12" fill="#6b7280" text-anchor="middle">3× LED послідовно</text>
+
+  <!-- Світлодіод LED 1 -->
+  <line x1="657" y1="112" x2="657" y2="119" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 649,119 L 665,119 L 657,133 Z" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <line x1="649" y1="133" x2="665" y2="133" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Промені світла LED 1 -->
+  <line x1="666" y1="124" x2="673" y2="118" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="666" y1="130" x2="673" y2="124" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="684" y="130" font-size="12" fill="#6b7280">LED 1</text>
+
+  <!-- Світлодіод LED 2 -->
+  <line x1="657" y1="133" x2="657" y2="151" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 649,151 L 665,151 L 657,165 Z" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <line x1="649" y1="165" x2="665" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Промені світла LED 2 -->
+  <line x1="666" y1="156" x2="673" y2="150" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="666" y1="162" x2="673" y2="156" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="684" y="162" font-size="12" fill="#6b7280">LED 2</text>
+
+  <!-- Світлодіод LED 3 -->
+  <line x1="657" y1="165" x2="657" y2="183" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 649,183 L 665,183 L 657,197 Z" fill="#1a1a1a" stroke="#1a1a1a"/>
+  <line x1="649" y1="197" x2="665" y2="197" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Промені світла LED 3 -->
+  <line x1="666" y1="188" x2="673" y2="182" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="666" y1="194" x2="673" y2="188" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="684" y="194" font-size="12" fill="#6b7280">LED 3</text>
+
+  <!-- Вузол зворотного зв'язку FB між катодом та R_sense -->
+  <line x1="657" y1="197" x2="657" y2="219" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="657" cy="219" r="3" fill="#2457d6"/>
+
+  <!-- Сенсор струму R_sense -->
+  <line x1="657" y1="219" x2="657" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="650" y="230" width="14" height="26" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="657" y1="256" x2="657" y2="274" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND для R_sense -->
+  <line x1="649" y1="274" x2="665" y2="274" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="652" y1="278" x2="662" y2="278" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="655" y1="282" x2="659" y2="282" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="675" y="243" font-size="12" font-weight="bold" fill="#1a1a1a">R_sense</text>
+  <text x="675" y="258" font-size="12" fill="#6b7280">10 Ом</text>
+
+  <!-- Лінія зворотного зв'язку FB до IC -->
+  <line x1="657" y1="219" x2="385" y2="219" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="485" y="209" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Петля FB (V_FB = 200 мВ)</text>
+  <text x="485" y="239" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Струм фіксовано: 20 мА</text>
+
+  <!-- ================= ПРАВА ПАНЕЛЬ: ШІМ-ДИМУВАННЯ ================= -->
+  <rect x="755" y="69" width="180" height="230" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="845" y="88" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ШІМ-димування яскравості</text>
+  <text x="845" y="103" font-size="12" fill="#6b7280" text-anchor="middle">Імпульси без зсуву спектра</text>
+
+  <!-- Осцилограма ШІМ -->
+  <text x="765" y="123" font-size="12" font-weight="bold" fill="#2457d6">ШІМ-сигнал на піні EN</text>
+  <line x1="765" y1="152" x2="925" y2="152" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 770,152 L 770,136 L 810,136 L 810,152 L 835,152 L 835,136 L 875,136 L 875,152 L 900,152" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="790" y="129" font-size="12" fill="#2457d6" text-anchor="middle">t_on</text>
+  <text x="802" y="169" font-size="12" fill="#6b7280" text-anchor="middle">T</text>
+
+  <!-- Осцилограма струму I_LED -->
+  <text x="765" y="188" font-size="12" font-weight="bold" fill="#27ae60">Струм через світлодіоди</text>
+  <line x1="765" y1="214" x2="925" y2="214" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 770,214 L 770,198 L 810,198 L 810,214 L 835,214 L 835,198 L 875,198 L 875,214 L 900,214" fill="none" stroke="#27ae60" stroke-width="1.8"/>
+  <line x1="765" y1="206" x2="925" y2="206" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <text x="768" y="195" font-size="12" fill="#27ae60">20 мА</text>
+  <text x="845" y="231" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I_avg = I_max × D</text>
+
+  <!-- Плашка висновку про спектр -->
+  <rect x="763" y="244" width="164" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="845" y="260" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Колір спектра сталий:</text>
+  <text x="845" y="276" font-size="12" fill="#1a1a1a" text-anchor="middle">відсутній зсув тонів</text>
+
+  <!-- ================= НИЖНІ КАРТКИ (ОСНОВНІ ПРИНЦИПИ) ================= -->
+  <!-- Картка 1: Підвищення напруги -->
+  <rect x="26" y="315" width="286" height="123" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="38" y="335" font-size="13" font-weight="bold" fill="#1a1a1a">1. Підвищення напруги (Boost)</text>
+  <text x="38" y="357" font-size="12" fill="#1a1a1a">• V_IN (+3.3V) &lt; V_OUT (+9.6V...12V)</text>
+  <text x="38" y="377" font-size="12" fill="#6b7280">• L1 накопичує магнітну енергію</text>
+  <text x="38" y="397" font-size="12" fill="#6b7280">• Діод Шотткі D1 скидає струм у C_OUT</text>
+  <text x="38" y="417" font-size="12" fill="#2457d6">• Живить послідовний ланцюг LED</text>
+
+  <!-- Картка 2: Стабілізація струму -->
+  <rect x="336" y="315" width="288" height="123" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="348" y="335" font-size="13" font-weight="bold" fill="#2457d6">2. Стабілізація струму (R_sense)</text>
+  <text x="348" y="357" font-size="12" font-weight="bold" fill="#1a1a1a">• I_LED = V_FB / R_sense = 20 мА</text>
+  <text x="348" y="377" font-size="12" fill="#6b7280">• Фіксований струм незалежно від V_F</text>
+  <text x="348" y="397" font-size="12" fill="#6b7280">• Захист світлодіодів від перегріву</text>
+  <text x="348" y="417" font-size="12" fill="#27ae60">• Опора V_FB = 200 мВ зменшує втрати</text>
+
+  <!-- Картка 3: ШІМ-димування -->
+  <rect x="648" y="315" width="286" height="123" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="660" y="335" font-size="13" font-weight="bold" fill="#27ae60">3. ШІМ-димування (PWM Dimming)</text>
+  <text x="660" y="357" font-size="12" font-weight="bold" fill="#1a1a1a">• Яскравість задає заповнення D</text>
+  <text x="660" y="377" font-size="12" fill="#6b7280">• Частота 1...20 кГц без мерехтіння</text>
+  <text x="660" y="397" font-size="12" fill="#6b7280">• Незмінна амплітуда імпульсів 20 мА</text>
+  <text x="660" y="417" font-size="12" fill="#27ae60">• Точне збереження колірного спектра</text>
+</svg>

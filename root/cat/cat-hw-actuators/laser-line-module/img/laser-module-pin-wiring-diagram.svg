@@ -1,0 +1,226 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Полотно: біла підкладка на весь розмір -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок для ліній передачі сигналу та живлення -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- ==================== ЗАГОЛОВОК І ПІДЗАГОЛОВОК ==================== -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Монтажна схема підключення лазерного модуля (5 В, пін-у-пін)</text>
+  <text x="480" y="64" font-size="13" fill="#6b7280" text-anchor="middle">Керування через N-MOSFET (Low-Side) із фільтрацією живлення та захистом затвора</text>
+
+  <!-- ==================== БЛОК 1: МІКРОКОНТРОЛЕР ==================== -->
+  <!-- Головна панель MCU -->
+  <rect x="30" y="85" width="165" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="112" y="114" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="112" y="138" font-size="12" fill="#6b7280" text-anchor="middle">5V логіка / живлення</text>
+
+  <!-- Мікросхема MCU -->
+  <rect x="56" y="160" width="112" height="65" rx="4" fill="#1a1a1a" stroke="#333333" stroke-width="1.5"/>
+  <text x="112" y="198" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">MCU CORE</text>
+
+  <!-- Виводи плати мікроконтролера -->
+  <text x="156" y="264" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">D9 (Керування)</text>
+  <circle cx="175" cy="260" r="5" fill="#2457d6"/>
+
+  <text x="156" y="319" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">+5V (Живлення)</text>
+  <circle cx="175" cy="315" r="5" fill="#c0392b"/>
+
+  <text x="156" y="374" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND (Спільний)</text>
+  <circle cx="175" cy="370" r="5" fill="#1a1a1a"/>
+
+  <!-- ==================== БЛОК 2: МАКЕТНА ПЛАТА ==================== -->
+  <rect x="235" y="85" width="465" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="467" y="114" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Макетна плата (монтаж компонентів)</text>
+
+  <!-- Підписи шин живлення розміщені надійно вище проводів -->
+  <text x="255" y="116" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">+5V</text>
+  <text x="295" y="116" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">GND</text>
+
+  <!-- Шини живлення макетної плати -->
+  <rect x="280" y="128" width="400" height="14" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Точки контакту шини +5V -->
+  <circle cx="300" cy="135" r="2.5" fill="#c0392b"/>
+  <circle cx="350" cy="135" r="2.5" fill="#c0392b"/>
+  <circle cx="400" cy="135" r="2.5" fill="#c0392b"/>
+  <circle cx="450" cy="135" r="2.5" fill="#c0392b"/>
+  <circle cx="500" cy="135" r="2.5" fill="#c0392b"/>
+  <circle cx="550" cy="135" r="2.5" fill="#c0392b"/>
+  <circle cx="600" cy="135" r="2.5" fill="#c0392b"/>
+  <circle cx="660" cy="135" r="2.5" fill="#c0392b"/>
+
+  <rect x="280" y="154" width="400" height="14" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Точки контакту шини GND -->
+  <circle cx="300" cy="161" r="2.5" fill="#2457d6"/>
+  <circle cx="350" cy="161" r="2.5" fill="#2457d6"/>
+  <circle cx="400" cy="161" r="2.5" fill="#2457d6"/>
+  <circle cx="450" cy="161" r="2.5" fill="#2457d6"/>
+  <circle cx="500" cy="161" r="2.5" fill="#2457d6"/>
+  <circle cx="550" cy="161" r="2.5" fill="#2457d6"/>
+  <circle cx="600" cy="161" r="2.5" fill="#2457d6"/>
+  <circle cx="660" cy="161" r="2.5" fill="#2457d6"/>
+
+  <!-- Підпанель A: Захист затвора (R1, R2) -->
+  <rect x="250" y="182" width="135" height="232" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="317" y="206" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Захист затвора</text>
+
+  <!-- Резистор R1: 220 Ом (струмообмежувальний) -->
+  <circle cx="265" cy="236" r="3" fill="#2457d6"/>
+  <line x1="265" y1="236" x2="275" y2="236" stroke="#2457d6" stroke-width="2"/>
+  <rect x="275" y="230" width="36" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="283" y1="230" x2="283" y2="242" stroke="#c0392b" stroke-width="2"/>
+  <line x1="290" y1="230" x2="290" y2="242" stroke="#c0392b" stroke-width="2"/>
+  <line x1="297" y1="230" x2="297" y2="242" stroke="#8e44ad" stroke-width="2"/>
+  <line x1="311" y1="236" x2="365" y2="236" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="365" cy="236" r="3.5" fill="#1a1a1a"/>
+  <text x="300" y="266" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R1: 220 Ом</text>
+
+  <!-- Резистор R2: 10 кОм (стягувальний) -->
+  <line x1="365" y1="236" x2="365" y2="300" stroke="#2457d6" stroke-width="2"/>
+  <line x1="365" y1="300" x2="311" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="275" y="294" width="36" height="12" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="283" y1="294" x2="283" y2="306" stroke="#8e44ad" stroke-width="2"/>
+  <line x1="290" y1="294" x2="290" y2="306" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="297" y1="294" x2="297" y2="306" stroke="#e67e22" stroke-width="2"/>
+  <line x1="275" y1="300" x2="260" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="260" cy="300" r="3" fill="#1a1a1a"/>
+  <!-- Провід від R2 до шини GND (йде вздовж лівого краю x=260 донизу y=380, потім вправо) -->
+  <line x1="260" y1="300" x2="260" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="260" y1="380" x2="400" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="310" y="330" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">R2: 10 кОм</text>
+  <text x="325" y="356" font-size="12" fill="#6b7280" text-anchor="middle">Стягувальний</text>
+
+  <!-- Підпанель B: Польовий транзистор (N-MOSFET) -->
+  <rect x="400" y="182" width="135" height="232" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="467" y="206" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ключ N-MOSFET</text>
+
+  <!-- Корпус транзистора TO-220: фланець і пластиковий корпус через path -->
+  <rect x="445" y="220" width="44" height="14" rx="2" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="467" cy="227" r="3.5" fill="#ffffff" stroke="#6b7280"/>
+  <path d="M 430,244 L 504,244 L 504,286 L 430,286 Z" fill="#1a1a1a" stroke="#333333" stroke-width="1.5"/>
+  <text x="467" y="269" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">IRLZ44N</text>
+
+  <!-- Виводи транзистора: G, D, S -->
+  <!-- Вивід G (Затвор) -->
+  <line x1="452" y1="286" x2="452" y2="305" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="452" y1="305" x2="435" y2="318" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="435" y1="318" x2="435" y2="332" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="435" cy="332" r="3" fill="#2457d6"/>
+  <text x="435" y="358" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">G</text>
+
+  <!-- Вивід D (Стік) -->
+  <line x1="467" y1="286" x2="467" y2="332" stroke="#8e44ad" stroke-width="2.5"/>
+  <circle cx="467" cy="332" r="3" fill="#8e44ad"/>
+  <text x="467" y="358" font-size="12" font-weight="bold" fill="#8e44ad" text-anchor="middle">D</text>
+
+  <!-- Вивід S (Витік) -->
+  <line x1="482" y1="286" x2="482" y2="305" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="482" y1="305" x2="499" y2="318" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="499" y1="318" x2="499" y2="332" stroke="#1a1a1a" stroke-width="2.5"/>
+  <circle cx="499" cy="332" r="3" fill="#1a1a1a"/>
+  <text x="499" y="358" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">S</text>
+
+  <!-- З'єднання затвора з вузлом R1/R2 (проходить по x=408) -->
+  <line x1="365" y1="236" x2="408" y2="236" stroke="#2457d6" stroke-width="2"/>
+  <line x1="408" y1="236" x2="408" y2="332" stroke="#2457d6" stroke-width="2"/>
+  <line x1="408" y1="332" x2="435" y2="332" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- З'єднання витоку S із шиною GND (йде від 499,332 вправо до 525 і вгору до GND) -->
+  <line x1="499" y1="332" x2="525" y2="332" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="525" y1="332" x2="525" y2="161" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- З'єднання лінії стягування від R2 з GND лінією -->
+  <line x1="400" y1="380" x2="525" y2="380" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="525" y1="380" x2="525" y2="332" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Підпанель C: Фільтр живлення (C1, C2) -->
+  <rect x="550" y="182" width="135" height="232" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="606" y="206" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фільтр C1/C2</text>
+
+  <!-- Лінії живлення +5V та GND, опущені в підпанель C справа -->
+  <line x1="660" y1="135" x2="660" y2="340" stroke="#c0392b" stroke-width="2"/>
+  <line x1="670" y1="161" x2="670" y2="340" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Конденсатор C1: 100 мкФ (електролітичний) -->
+  <rect x="575" y="228" width="34" height="40" rx="4" fill="#1a1a1a" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="600" y="228" width="9" height="40" fill="#d0d7de"/>
+  <!-- Знак мінуса на смужці конденсатора (графічний штрих) -->
+  <line x1="602" y1="248" x2="607" y2="248" stroke="#ffffff" stroke-width="2"/>
+  <text x="602" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C1: 100 мкФ</text>
+  <!-- Виводи C1 до шин живлення справа -->
+  <line x1="585" y1="248" x2="572" y2="248" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="572" y1="248" x2="572" y2="220" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="572" y1="220" x2="660" y2="220" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="609" y1="248" x2="670" y2="248" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Конденсатор C2: 0.1 мкФ (керамічний) -->
+  <rect x="580" y="308" width="24" height="24" rx="6" fill="#e67e22" stroke="#d35400" stroke-width="1.5"/>
+  <text x="602" y="358" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">C2: 0.1 мкФ</text>
+  <text x="618" y="382" font-size="12" fill="#6b7280" text-anchor="middle">Захист від завад</text>
+  <!-- Виводи C2 безпосередньо вправо до шин живлення -->
+  <line x1="604" y1="316" x2="660" y2="316" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="604" y1="324" x2="670" y2="324" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Лінія Стік (D) до клемника виходу лазера (від D праворуч до x=483, вниз до y=398 і праворуч до 675) -->
+  <line x1="467" y1="332" x2="483" y2="332" stroke="#8e44ad" stroke-width="2"/>
+  <line x1="483" y1="332" x2="483" y2="398" stroke="#8e44ad" stroke-width="2"/>
+  <line x1="483" y1="398" x2="675" y2="398" stroke="#8e44ad" stroke-width="2"/>
+  <circle cx="675" cy="398" r="4" fill="#8e44ad"/>
+
+  <!-- ==================== БЛОК 3: ЛАЗЕРНИЙ МОДУЛЬ ==================== -->
+  <rect x="730" y="85" width="200" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="830" y="114" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Лазерний модуль</text>
+  <text x="830" y="138" font-size="12" fill="#6b7280" text-anchor="middle">5 мВт, лінія (650 нм)</text>
+
+  <!-- Графіка модуля: тубус як єдиний rect, решта елементів як path -->
+  <path d="M 755,188 L 765,188 L 765,222 L 755,222 Z" fill="#d4ac0d" stroke="#b7950b" stroke-width="1.5"/>
+  <rect x="765" y="185" width="60" height="40" rx="3" fill="#2c3e50" stroke="#1a252f" stroke-width="1.5"/>
+  <path d="M 825,188 L 837,188 L 837,222 L 825,222 Z" fill="#f1c40f" stroke="#d4ac0d" stroke-width="1"/>
+  <path d="M 837,183 L 857,183 L 857,227 L 837,227 Z" fill="#34495e" stroke="#1a252f" stroke-width="1.5"/>
+  <line x1="842" y1="185" x2="842" y2="225" stroke="#7f8c8d" stroke-width="1"/>
+  <line x1="847" y1="185" x2="847" y2="225" stroke="#7f8c8d" stroke-width="1"/>
+  <line x1="852" y1="185" x2="852" y2="225" stroke="#7f8c8d" stroke-width="1"/>
+  <path d="M 857,189 L 863,189 L 863,221 L 857,221 Z" fill="#bdc3c7" stroke="#7f8c8d" stroke-width="1"/>
+
+  <!-- Сфокусований віялоподібний лазерний промінь -->
+  <polygon points="863,205 915,175 915,235" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="915" y1="165" x2="915" y2="245" stroke="#c0392b" stroke-width="3"/>
+
+  <text x="847" y="166" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фокус</text>
+  <text x="870" y="274" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Лазерна лінія</text>
+
+  <!-- Підписи проводів лазера -->
+  <text x="815" y="305" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Червоний: +5V (Анод)</text>
+  <text x="815" y="330" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Чорний: Катод (до D)</text>
+
+  <!-- Картка параметрів -->
+  <rect x="745" y="352" width="170" height="64" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="830" y="376" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Струм діода: 30–50 мА</text>
+  <text x="830" y="398" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Клас безпеки: 3R</text>
+
+  <!-- ==================== МОНТАЖНІ З'ЄДНУВАЛЬНІ ПРОВОДИ ==================== -->
+  <!-- 1. Провід керування: MCU D9 -> R1 на макетній платі -->
+  <polyline points="175,260 215,260 215,236 265,236" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- 2. Провід живлення +5V: MCU +5V -> шина +5V на макетній платі -->
+  <polyline points="175,315 205,315 205,135 280,135" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- 3. Провід заземлення GND: MCU GND -> шина GND на макетній платі -->
+  <polyline points="175,370 220,370 220,161 280,161" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- 4. Червоний дріт лазера (+5V) -> шина +5V -->
+  <polyline points="755,195 710,195 710,135 660,135" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- 5. Чорний дріт лазера (Катод) -> вивід Стік (D) транзистора -->
+  <polyline points="755,215 720,215 720,398 675,398" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+</svg>

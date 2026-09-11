@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="26" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Принципова електрична схема стенда-калібратора сервоприводів</text>
+  <text x="480" y="46" font-size="13" text-anchor="middle" fill="#6b7280">Розведення пінів MCU, спільна шина I2C, RC-фільтрація енкодера, роздільне живлення та зіркова земля</text>
+
+  <!-- БЛОК 1: Вузол живлення (Dual Power) -->
+  <rect x="24" y="62" width="206" height="120" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="36" y="82" font-size="13" font-weight="700" fill="#2457d6">Вузол живлення (Power)</text>
+  <text x="36" y="100" font-size="12" fill="#1a1a1a">Vin: 7–12 В (DC Jack)</text>
+
+  <!-- Buck 5V серво -->
+  <rect x="36" y="108" width="182" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="128" font-size="12" font-weight="700" fill="#c0392b">Buck 5 В (до 3 А Серво)</text>
+
+  <!-- LDO 5V логіка -->
+  <rect x="36" y="144" width="182" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="164" font-size="12" font-weight="700" fill="#2457d6">LDO 5 В (Логіка MCU)</text>
+
+  <!-- БЛОК 2: Енкодер + RC-фільтри -->
+  <rect x="24" y="194" width="206" height="160" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="36" y="214" font-size="13" font-weight="700" fill="#1a1a1a">Енкодер + RC-фільтри</text>
+
+  <rect x="36" y="222" width="182" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="238" font-size="12" font-weight="700" fill="#1a1a1a">Канал A: 10 кОм + 100 нФ</text>
+  <text x="44" y="252" font-size="12" fill="#6b7280">Вихід ENC_A → D2</text>
+
+  <rect x="36" y="264" width="182" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="280" font-size="12" font-weight="700" fill="#1a1a1a">Канал B: 10 кОм + 100 нФ</text>
+  <text x="44" y="294" font-size="12" fill="#6b7280">Вихід ENC_B → D3</text>
+
+  <rect x="36" y="306" width="182" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="322" font-size="12" font-weight="700" fill="#1a1a1a">Кнопка SW: 10 кОм pull-up</text>
+  <text x="44" y="336" font-size="12" fill="#6b7280">Вихід ENC_SW → D4</text>
+
+  <!-- БЛОК 3: Star Ground точка з'єднання -->
+  <rect x="24" y="366" width="206" height="74" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="36" y="386" font-size="13" font-weight="700" fill="#2457d6">★ Star Ground (Земля)</text>
+  <text x="36" y="406" font-size="12" fill="#1a1a1a">• GND_PWR (силовий контур серво)</text>
+  <text x="36" y="424" font-size="12" fill="#6b7280">• GND_LOGIC (MCU, I2C, сенсори)</text>
+
+  <!-- БЛОК 4: MCU (ATmega328P / Nano) -->
+  <rect x="264" y="140" width="216" height="214" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="372" y="164" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">MCU (ATmega328P / Nano)</text>
+
+  <!-- Піни MCU зліва -->
+  <rect x="274" y="174" width="76" height="24" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="312" y="190" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">5V_MCU</text>
+
+  <rect x="274" y="204" width="76" height="24" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="312" y="220" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">GND</text>
+
+  <rect x="274" y="234" width="76" height="24" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="312" y="250" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">D2 (INT0)</text>
+
+  <rect x="274" y="264" width="76" height="24" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="312" y="280" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">D3 (INT1)</text>
+
+  <rect x="274" y="294" width="76" height="24" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="312" y="310" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">D4 (SW)</text>
+
+  <!-- Піни MCU справа -->
+  <rect x="394" y="174" width="76" height="24" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="432" y="190" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">A4 (SDA)</text>
+
+  <rect x="394" y="204" width="76" height="24" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="432" y="220" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">A5 (SCL)</text>
+
+  <rect x="394" y="264" width="76" height="24" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="432" y="280" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">D9 (PWM)</text>
+
+  <rect x="394" y="294" width="76" height="24" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="432" y="310" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">GND</text>
+
+  <!-- БЛОК 5: Модуль INA219 (High-Side датчик струму) -->
+  <rect x="526" y="62" width="184" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="538" y="82" font-size="13" font-weight="700" fill="#2457d6">Модуль INA219 (Струм)</text>
+  <text x="538" y="100" font-size="12" fill="#6b7280">High-Side Shunt R = 0.1 Ом</text>
+
+  <rect x="538" y="108" width="76" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="576" y="124" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Vin+</text>
+
+  <rect x="624" y="108" width="76" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="662" y="124" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Vin-</text>
+
+  <text x="538" y="152" font-size="12" fill="#1a1a1a">I2C: SDA, SCL, VCC, GND</text>
+  <text x="538" y="168" font-size="12" fill="#6b7280">Адреса I2C: 0x40 (12-bit ADC)</text>
+
+  <!-- БЛОК 6: OLED Дисплей 128x64 -->
+  <rect x="746" y="62" width="190" height="120" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="758" y="82" font-size="13" font-weight="700" fill="#1a1a1a">OLED Дисплей 128×64</text>
+  <text x="758" y="100" font-size="12" fill="#6b7280">Адреса I2C: 0x3C (SSD1306)</text>
+
+  <!-- Екран дисплея -->
+  <rect x="758" y="108" width="166" height="64" rx="4" fill="#1a1a1a"/>
+  <text x="768" y="128" font-size="12" fill="#27ae60">T: 1500 мкс  (90.0°)</text>
+  <text x="768" y="146" font-size="12" fill="#2457d6">I_servo: 45 мА (OK)</text>
+  <text x="768" y="162" font-size="12" fill="#ffffff">Deadband: 4 мкс</text>
+
+  <!-- БЛОК 7: Вузол сервоприводу MG90S -->
+  <rect x="526" y="206" width="410" height="234" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="542" y="230" font-size="14" font-weight="700" fill="#27ae60">Тестований сервопривод MG90S V2</text>
+
+  <!-- Буферний конденсатор 1000 мкФ -->
+  <rect x="542" y="244" width="170" height="74" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="554" y="264" font-size="13" font-weight="700" fill="#27ae60">Буферний C_buf</text>
+  <text x="554" y="282" font-size="12" font-weight="700" fill="#1a1a1a">1000 мкФ / 16 В</text>
+  <text x="554" y="298" font-size="12" fill="#6b7280">Low-ESR електроліт</text>
+  <text x="554" y="312" font-size="12" fill="#6b7280">Гасить просідання 1.5 А</text>
+
+  <!-- Роз'єм сервоприводу (3-pin) -->
+  <rect x="734" y="244" width="188" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="746" y="266" font-size="13" font-weight="700" fill="#1a1a1a">Роз'єм серво (3-pin)</text>
+  <text x="746" y="286" font-size="12" font-weight="700" fill="#c0392b">Pin 1: VCC_SERVO (5 В)</text>
+  <text x="746" y="302" font-size="12" font-weight="700" fill="#1a1a1a">Pin 2: GND_SERVO</text>
+  <text x="746" y="318" font-size="12" font-weight="700" fill="#27ae60">Pin 3: PWM_SERVO (D9)</text>
+
+  <!-- Інформаційна плашка серво -->
+  <rect x="542" y="336" width="380" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="554" y="358" font-size="12" font-weight="700" fill="#1a1a1a">Характеристики тестування MG90S:</text>
+  <text x="554" y="376" font-size="12" fill="#1a1a1a">• Металевий редуктор, робочий діапазон ШІМ: 500–2500 мкс</text>
+  <text x="554" y="394" font-size="12" fill="#6b7280">• Струм блокування вала (stall): до 800–900 мА при 5.0 В</text>
+  <text x="554" y="412" font-size="12" fill="#c0392b">• Відсічка за струмом I &gt; 600 мА захищає редуктор від зрізання зубів</text>
+
+  <!-- ДРОТИ ТА З'ЄДНАННЯ -->
+  <!-- 1. Живлення серво: Buck 5V -> INA219 Vin+ -->
+  <path d="M 218,122 L 538,122" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="372" y="116" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">5V_PWR (до 3 А)</text>
+
+  <!-- 2. Вихід струму: INA219 Vin- -> C_buf (+) та Pin 1 VCC_SERVO -->
+  <path d="M 700,122 L 726,122 L 726,282 L 734,282" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- 3. Сигнал PWM: MCU D9 -> Pin 3 PWM_SERVO -->
+  <path d="M 470,276 L 508,276 L 508,328 L 726,328 L 726,318 L 734,318" fill="none" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arr-green)"/>
+  <text x="502" y="270" font-size="12" font-weight="700" text-anchor="end" fill="#27ae60">ШІМ 50 Гц</text>
+
+  <!-- 4. I2C шина: SDA та SCL від MCU до INA219 та OLED -->
+  <!-- Лінія SDA (A4) -->
+  <path d="M 470,186 L 526,186" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <!-- Лінія SCL (A5) -->
+  <path d="M 470,216 L 512,216 L 512,174 L 526,174" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="496" y="208" font-size="12" font-weight="700" fill="#2457d6">I2C (SDA/SCL)</text>
+
+  <!-- 5. Енкодер до MCU: D2, D3, D4 -->
+  <path d="M 218,240 L 274,240" fill="none" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-dark)"/>
+  <path d="M 218,276 L 274,276" fill="none" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-dark)"/>
+  <path d="M 218,310 L 274,310" fill="none" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-dark)"/>
+
+  <!-- 6. Зіркова земля: GND_PWR від серво до Star Ground -->
+  <path d="M 746,306 L 730,306 L 730,330 L 498,330 L 498,420 L 230,420" fill="none" stroke="#1a1a1a" stroke-width="2.2" stroke-dasharray="6 3"/>
+  <text x="362" y="434" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">GND_PWR (окрема силова лінія землі)</text>
+</svg>

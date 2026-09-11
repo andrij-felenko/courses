@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кутовий люфт зчленування шестерня–потенціометр та гістерезис</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Вектори сил у шліці при реверсі та петля передатної характеристики кута</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: МЕХАНІКА ЗЧЛЕНУВАННЯ ==================== -->
+  <rect x="24" y="76" width="444" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Вектори сил у шліці при зміні знака моменту</text>
+  <text x="40" y="120" font-size="12" fill="#6b7280">Вибирання люфту між повідцем шестерні та пазом ротора</text>
+
+  <!-- Біла підпанель креслення зчленування -->
+  <rect x="36" y="132" width="420" height="292" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Базова маточина ротора потенціометра (зовнішня чашка з пазом) -->
+  <circle cx="246" cy="225" r="70" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="246" cy="225" r="28" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Сектор паза ротора потенціометра (кутова ширина 50 град: від -25 до +25) -->
+  <path d="M 246,225 L 216,162 A 70,70 0 0,1 276,162 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Повідець вихідної шестерні всередині паза (кутова ширина 30 град: від -15 до +15) -->
+  <path d="M 246,225 L 228,158 A 70,70 0 0,1 276,162 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Зона кутового зазору (люфту) ліворуч -->
+  <path d="M 246,225 L 216,162 A 70,70 0 0,1 228,158 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Центральна вісь симетрії -->
+  <line x1="246" y1="140" x2="246" y2="225" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Дуга кутового люфту Delta theta_bl -->
+  <path d="M 221,175 A 58,58 0 0,1 236,170" fill="none" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="228" y="152" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Люфт Δθ_bl</text>
+
+  <!-- Вектор сили нормального контактного тиску F_c1 на правій грані -->
+  <line x1="268" y1="168" x2="292" y2="182" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="298" y="194" font-size="12" font-weight="bold" fill="#27ae60">Сила F_c1</text>
+
+  <!-- Стрілка прикладеного моменту шестерні (+M за годинниковою) -->
+  <path d="M 195,215 A 52,52 0 0,1 215,190" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="180" y="200" font-size="12" font-weight="bold" fill="#2457d6">+M</text>
+
+  <!-- Стрілка зміни знака моменту (-M реверс) -->
+  <path d="M 215,255 A 52,52 0 0,0 195,230" fill="none" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <text x="180" y="260" font-size="12" font-weight="bold" fill="#c0392b">−M</text>
+
+  <!-- Підписи компонентів зліва та справа -->
+  <text x="46" y="166" font-size="12" font-weight="bold" fill="#27ae60">Повідець шестерні</text>
+  <text x="46" y="180" font-size="12" fill="#6b7280">вал редуктора θ_gear</text>
+  <line x1="158" y1="172" x2="225" y2="162" stroke="#27ae60" stroke-width="1.2"/>
+
+  <text x="330" y="166" font-size="12" font-weight="bold" fill="#2457d6">Паз потенціометра</text>
+  <text x="330" y="180" font-size="12" fill="#6b7280">ротор сенсора θ_pot</text>
+  <line x1="325" y1="172" x2="278" y2="165" stroke="#2457d6" stroke-width="1.2"/>
+
+  <!-- Нижня інформаційна плашка фаз реверсу -->
+  <rect x="46" y="322" width="400" height="90" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="246" y="342" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фази механічного контакту при реверсі:</text>
+  <text x="246" y="360" font-size="12" fill="#27ae60" text-anchor="middle">1. Прямий хід (+M): зазор вибрано, F_c1 > 0, рух узгоджений</text>
+  <text x="246" y="378" font-size="12" fill="#c0392b" text-anchor="middle">2. Зміна знака (−M): відрив контакту, F = 0, холостий хід Δθ</text>
+  <text x="246" y="396" font-size="12" fill="#2457d6" text-anchor="middle">3. Замикання іншої грані: F_c2 > 0, початок зворотного ходу</text>
+
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ГІСТЕРЕЗИСНА ПЕТЛЯ ==================== -->
+  <rect x="492" y="76" width="444" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="508" y="102" font-size="14" font-weight="bold" fill="#1a1a1a">Гістерезис передачі кута θ_pot = f(θ_gear)</text>
+  <text x="508" y="120" font-size="12" fill="#6b7280">Петля нечутливості та виникнення автоколивань (джитеру)</text>
+
+  <!-- Біла підпанель графіка гістерезису -->
+  <rect x="504" y="132" width="420" height="292" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Осі координат графіка -->
+  <line x1="550" y1="235" x2="880" y2="235" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="714" y1="318" x2="714" y2="152" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Підписи осей -->
+  <text x="880" y="228" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">θ_gear →</text>
+  <text x="708" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">θ_pot</text>
+
+  <!-- Ідеальна характеристика без люфту (1:1) -->
+  <line x1="590" y1="315" x2="838" y2="155" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="845" y="160" font-size="12" fill="#6b7280">1:1 ідеал</text>
+
+  <!-- Гістерезисна петля люфту -->
+  <!-- Прямий хід (зелений): підйом угору -->
+  <line x1="610" y1="315" x2="770" y2="155" stroke="#27ae60" stroke-width="2.5"/>
+  <!-- Реверс вгорі: шестерня йде назад на величину люфту Delta theta, потенціометр нерухомий -->
+  <line x1="770" y1="155" x2="720" y2="155" stroke="#c0392b" stroke-width="2.5"/>
+  <!-- Зворотний хід (червоний): спуск униз -->
+  <line x1="720" y1="155" x2="560" y2="315" stroke="#c0392b" stroke-width="2.5"/>
+  <!-- Реверс унизу: шестерня йде вперед на Delta theta -->
+  <line x1="560" y1="315" x2="610" y2="315" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Стрілка напрямку прямого ходу -->
+  <line x1="680" y1="245" x2="700" y2="225" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="714" y="250" font-size="12" font-weight="bold" fill="#27ae60">Прямий хід (+M)</text>
+
+  <!-- Стрілка напрямку зворотного ходу -->
+  <line x1="650" y1="225" x2="630" y2="245" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="560" y="210" font-size="12" font-weight="bold" fill="#c0392b">Реверс (−M)</text>
+
+  <!-- Розмір ширини петлі люфту Delta theta_bl вгорі -->
+  <line x1="720" y1="170" x2="770" y2="170" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="745" y="166" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Δθ_bl</text>
+
+  <!-- Нижня інформаційна плашка стійкості сервоприводу -->
+  <rect x="514" y="322" width="400" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="714" y="342" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Умова стійкості сервоприводу проти джитеру:</text>
+  <text x="714" y="360" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Стійкий режим: Deadband (зона нечутливості) ≥ Δθ_bl</text>
+  <text x="714" y="378" font-size="12" fill="#c0392b" text-anchor="middle">Нестійкість: Deadband &lt; Δθ_bl → автоколивання (Limit Cycle)</text>
+  <text x="714" y="396" font-size="12" fill="#6b7280" text-anchor="middle">Вал безперервно «шукає» нуль похибки всередині мертвого ходу</text>
+</svg>

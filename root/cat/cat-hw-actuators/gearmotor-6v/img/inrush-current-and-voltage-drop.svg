@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="26" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Перехідні процеси пуску та блокування: стрибок струму й просідання напруги</text>
+  <text x="480" y="46" font-size="13" fill="#6b7280" text-anchor="middle">Падіння напруги на R_int джерела нижче порогу Brownout Reset та тепловий сплеск на ключах драйвера</text>
+
+  <!-- ОСЦИЛОГРАФ (Ліва частина) -->
+  <!-- Головна панель осцилографа -->
+  <rect x="24" y="68" width="590" height="432" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовки трьох фаз угорі осцилографа -->
+  <rect x="110" y="74" width="136" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="178" y="89" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">I: Пуск (Inrush)</text>
+
+  <rect x="250" y="74" width="176" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="338" y="89" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">II: Усталений хід (ХХ)</text>
+
+  <rect x="430" y="74" width="166" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="513" y="89" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">III: Блокування (Stall)</text>
+
+  <!-- Вертикальні розділювачі фаз -->
+  <line x1="255" y1="98" x2="255" y2="455" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="435" y1="98" x2="435" y2="455" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Горизонтальні розділювачі каналів -->
+  <line x1="24" y1="212" x2="614" y2="212" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="24" y1="334" x2="614" y2="334" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- КАНАЛ 1: СТРУМ ЯКОРЯ I(t) -->
+  <rect x="30" y="138" width="56" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="58" y="153" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">CH1</text>
+  <text x="58" y="168" font-size="12" fill="#2457d6" text-anchor="middle">I (А)</text>
+
+  <!-- Осі та поділки Каналу 1 -->
+  <line x1="120" y1="104" x2="120" y2="204" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="116" y1="110" x2="120" y2="110" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="112" y="114" font-size="12" fill="#6b7280" text-anchor="end">2.0</text>
+  <line x1="116" y1="155" x2="120" y2="155" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="112" y="159" font-size="12" fill="#6b7280" text-anchor="end">1.0</text>
+  <line x1="116" y1="200" x2="120" y2="200" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="112" y="204" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <line x1="120" y1="200" x2="600" y2="200" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Осцилограма Струму I(t) -->
+  <path d="M 120,200 L 125,200 L 135,119 C 150,125 180,185 230,193 L 440,193 L 450,119 L 600,119" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Підписи Каналу 1 -->
+  <text x="146" y="112" font-size="12" font-weight="700" fill="#2457d6">I_пуск = 1.8 А</text>
+  <text x="345" y="152" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">I_xx = 0.15 А</text>
+  <text x="345" y="170" font-size="12" fill="#6b7280" text-anchor="middle">Проти-ЕРС E ≈ 5.7 В</text>
+  <text x="515" y="145" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">I_stall = 1.8 А</text>
+  <text x="515" y="162" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Вал зупинено: E = 0</text>
+  <text x="515" y="179" font-size="12" fill="#6b7280" text-anchor="middle">Струм обмежено лише R</text>
+
+  <!-- КАНАЛ 2: НАПРУГА ШИНИ V_bus(t) -->
+  <rect x="30" y="248" width="56" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="58" y="263" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">CH2</text>
+  <text x="58" y="278" font-size="12" fill="#c0392b" text-anchor="middle">V_bus (В)</text>
+
+  <!-- Зона небезпеки Brownout Reset -->
+  <rect x="120" y="278" width="480" height="50" fill="#fdecea" opacity="0.6"/>
+  <line x1="120" y1="278" x2="600" y2="278" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 2"/>
+
+  <!-- Осі та поділки Каналу 2 -->
+  <line x1="120" y1="222" x2="120" y2="328" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="116" y1="228" x2="120" y2="228" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="112" y="232" font-size="12" fill="#6b7280" text-anchor="end">6.0</text>
+  <line x1="116" y1="278" x2="120" y2="278" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="112" y="282" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">2.7</text>
+  <line x1="116" y1="318" x2="120" y2="318" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="112" y="322" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Осцилограма Напруги V_bus(t) -->
+  <path d="M 120,228 L 125,228 L 135,283 C 150,277 180,237 230,233 L 440,233 L 450,283 L 600,283" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Підписи Каналу 2 -->
+  <text x="185" y="300" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Просідання ΔV</text>
+  <text x="185" y="316" font-size="12" fill="#c0392b" text-anchor="middle">до 2.4 В &lt; V_BOR</text>
+  <text x="345" y="254" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">V_bus ≈ 5.7 В (Норма)</text>
+  <text x="345" y="270" font-size="12" fill="#6b7280" text-anchor="middle">MCU працює стабільно</text>
+  <text x="515" y="299" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Brownout Reset (BOR)</text>
+  <text x="515" y="314" font-size="12" fill="#c0392b" text-anchor="middle">V_bus &lt; 2.7 В: ребут MCU</text>
+
+  <!-- КАНАЛ 3: РОЗСІЮВАНА ТЕПЛОВА ПОТУЖНІСТЬ P_loss(t) -->
+  <rect x="30" y="366" width="56" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="58" y="381" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">CH3</text>
+  <text x="58" y="396" font-size="12" fill="#c0392b" text-anchor="middle">P_loss (Вт)</text>
+
+  <!-- Заливка енергії теплових втрат -->
+  <path d="M 120,435 L 125,435 L 135,357 C 145,365 170,425 230,434 L 440,434 L 450,357 L 600,357 L 600,435 Z" fill="#fdecea" opacity="0.7"/>
+
+  <!-- Осі та поділки Каналу 3 -->
+  <line x1="120" y1="348" x2="120" y2="440" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="116" y1="357" x2="120" y2="357" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="112" y="361" font-size="12" fill="#6b7280" text-anchor="end">2.6</text>
+  <line x1="116" y1="405" x2="120" y2="405" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="112" y="409" font-size="12" fill="#6b7280" text-anchor="end">1.0</text>
+  <line x1="116" y1="435" x2="120" y2="435" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="112" y="439" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <line x1="120" y1="435" x2="600" y2="435" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Осцилограма Потужності P_loss(t) -->
+  <path d="M 120,435 L 125,435 L 135,357 C 145,365 170,425 230,434 L 440,434 L 450,357 L 600,357" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Підписи Каналу 3 -->
+  <text x="146" y="350" font-size="12" font-weight="700" fill="#c0392b">P_пік = 2.6 Вт</text>
+  <text x="345" y="380" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">P_xx ≈ 0.02 Вт (Норма)</text>
+  <text x="345" y="398" font-size="12" fill="#6b7280" text-anchor="middle">Нагрів ключів мінімальний</text>
+  <text x="515" y="385" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">P_stall = 2.6 Вт</text>
+  <text x="515" y="402" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Критичний перегрів!</text>
+  <text x="515" y="419" font-size="12" fill="#6b7280" text-anchor="middle">Ризик теплового пробою</text>
+
+  <!-- ШКАЛА ЧАСУ (Унизу осцилографа) -->
+  <text x="66" y="468" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Час t</text>
+  <line x1="120" y1="455" x2="595" y2="455" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="125" y1="455" x2="125" y2="460" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="125" y="474" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <line x1="255" y1="455" x2="255" y2="460" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="255" y="474" font-size="12" fill="#6b7280" text-anchor="middle">50 мс</text>
+  <line x1="435" y1="455" x2="435" y2="460" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="435" y="474" font-size="12" fill="#6b7280" text-anchor="middle">250 мс</text>
+  <line x1="535" y1="455" x2="535" y2="460" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="535" y="474" font-size="12" fill="#6b7280" text-anchor="middle">350 мс</text>
+  <text x="598" y="474" font-size="12" fill="#1a1a1a" text-anchor="end">t (мс)</text>
+
+  <!-- ПРАВІ ПОЯСНЮВАЛЬНІ ПЛАШКИ -->
+  <!-- Плашка 1: Струм та опір -->
+  <rect x="634" y="68" width="302" height="134" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="646" y="78" width="180" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="736" y="93" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Струм пуску та опір кола</text>
+
+  <text x="646" y="120" font-size="12" font-weight="700" fill="#1a1a1a">I_stall = V_bat / (R_a + 2R_ds + R_int)</text>
+  <text x="646" y="140" font-size="12" fill="#1a1a1a">• У мить пуску та блокування: E = 0</text>
+  <text x="646" y="160" font-size="12" fill="#6b7280">• Проти-ЕРС відсутня → струм у 12× разів</text>
+  <text x="646" y="180" font-size="12" fill="#6b7280">  вищий за номінал (1.8 А проти 0.15 А)</text>
+
+  <!-- Плашка 2: Brownout Reset -->
+  <rect x="634" y="216" width="302" height="134" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="646" y="226" width="180" height="22" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="736" y="241" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Просідання напруги та BOR</text>
+
+  <text x="646" y="268" font-size="12" font-weight="700" fill="#c0392b">V_bus = V_bat − I_stall · R_int = 2.4 В</text>
+  <text x="646" y="288" font-size="12" fill="#1a1a1a">• Поріг скидання MCU: V_BOR ≈ 2.7 В</text>
+  <text x="646" y="308" font-size="12" fill="#6b7280">• Оскільки V_bus &lt; V_BOR, контролер ре-</text>
+  <text x="646" y="328" font-size="12" font-weight="700" fill="#c0392b">  стартує: циклічний ребут (boot loop!)</text>
+
+  <!-- Плашка 3: Інженерний захист -->
+  <rect x="634" y="364" width="302" height="136" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="646" y="374" width="180" height="22" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="736" y="389" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Інженерні заходи захисту</text>
+
+  <text x="646" y="416" font-size="12" font-weight="700" fill="#1a1a1a">• Тепловий пік: P = I²·2R_ds = 2.6 Вт</text>
+  <text x="646" y="436" font-size="12" fill="#1a1a1a">• Low-ESR конденсатор (470–1000 мкФ)</text>
+  <text x="646" y="456" font-size="12" fill="#6b7280">• Роздільне живлення (діод + C_mcu)</text>
+  <text x="646" y="476" font-size="12" fill="#6b7280">• Плавний пуск (PWM ramp) проти I_peak</text>
+</svg>

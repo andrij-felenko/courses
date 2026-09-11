@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механізм руйнування при прямому консольному підвісі навантаження</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Згинальний момент плеча L, радіальний перекіс осі вала та крайове сколювання зубів шестерень</text>
+
+  <!-- ==================== LEFT: CANTILEVER ASSEMBLY ==================== -->
+  <!-- Dimension Line for Lever Arm L -->
+  <line x1="150" y1="92" x2="322" y2="92" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="236" y="86" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Плече вильоту L</text>
+  <!-- Vertical leader dashed lines for L -->
+  <line x1="150" y1="92" x2="150" y2="135" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="322" y1="92" x2="322" y2="125" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Base / Foundation -->
+  <rect x="24" y="340" width="180" height="24" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="30" y1="364" x2="40" y2="354" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="50" y1="364" x2="60" y2="354" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="70" y1="364" x2="80" y2="354" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="90" y1="364" x2="100" y2="354" stroke="#d0d7de" stroke-width="1"/>
+  <text x="114" y="356" font-size="12" fill="#6b7280" text-anchor="middle">Жорстка основа</text>
+
+  <!-- Servo Casing -->
+  <rect x="60" y="210" width="120" height="130" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Mounting Flange Ears -->
+  <rect x="46" y="255" width="14" height="18" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="180" y="255" width="14" height="18" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="53" cy="264" r="3" fill="#1a1a1a"/>
+  <circle cx="187" cy="264" r="3" fill="#1a1a1a"/>
+
+  <!-- Servo Housing Labels -->
+  <text x="120" y="280" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Корпус MG90S</text>
+  <text x="120" y="298" font-size="12" fill="#6b7280" text-anchor="middle">(зафіксований)</text>
+
+  <!-- Nominal Axis (Vertical dashed gray line) -->
+  <line x1="150" y1="120" x2="150" y2="210" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3"/>
+
+  <!-- Tilted Output Shaft (2° tilt to the right) -->
+  <polygon points="144,140 156,139 157,208 143,208" fill="#eaf0fd" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Bending Moment Curve Arrow M_bend -->
+  <path d="M126,170 A24,24 0 0,1 166,164" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="135" y="152" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">M_bend = F_g · L</text>
+
+  <!-- Tilted Axis Line (Red dashed) -->
+  <line x1="150" y1="208" x2="156" y2="120" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="166" y="130" font-size="12" font-weight="bold" fill="#c0392b">Δφ ≈ 2°</text>
+
+  <!-- Top Bearing in Servo Casing (Pinched/Deformed) -->
+  <rect x="138" y="196" width="24" height="12" fill="#fdecea" stroke="#c0392b" stroke-width="1.2" rx="1"/>
+  <circle cx="143" cy="202" r="2.5" fill="#c0392b"/>
+  <circle cx="157" cy="202" r="2.5" fill="#c0392b"/>
+
+  <!-- Cantilever Servo Horn / Arm -->
+  <polygon points="144,142 322,132 322,148 144,154" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="150" cy="148" r="4" fill="#2457d6"/>
+  <circle cx="190" cy="145" r="3" fill="white" stroke="#1a1a1a"/>
+  <circle cx="230" cy="143" r="3" fill="white" stroke="#1a1a1a"/>
+  <circle cx="270" cy="141" r="3" fill="white" stroke="#1a1a1a"/>
+
+  <!-- Suspended Mass / Payload m -->
+  <rect x="300" y="125" width="46" height="40" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="323" cy="145" r="10" fill="#2457d6"/>
+  <circle cx="323" cy="145" r="5" fill="#eaf0fd"/>
+  <text x="323" y="138" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Маса m</text>
+
+  <!-- Gravity Force Vector F_g -->
+  <line x1="323" y1="165" x2="323" y2="235" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="333" y="202" font-size="12" font-weight="bold" fill="#c0392b">F_g = m · g</text>
+
+  <!-- ==================== CENTER: ZOOM INSET ==================== -->
+  <rect x="400" y="96" width="215" height="270" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="400" y="96" width="215" height="28" rx="6" fill="#fdecea"/>
+  <text x="507" y="115" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Контакт зубів редуктора</text>
+
+  <!-- Section 1: Normal Mesh -->
+  <text x="412" y="142" font-size="12" font-weight="bold" fill="#27ae60">1. Норма (без згину):</text>
+  <rect x="424" y="152" width="60" height="12" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="488" y="152" width="60" height="12" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <line x1="486" y1="148" x2="486" y2="168" stroke="#27ae60" stroke-width="2"/>
+  <text x="507" y="180" font-size="12" fill="#27ae60" text-anchor="middle">Повний контакт по ширині b</text>
+
+  <!-- Divider line in zoom box -->
+  <line x1="410" y1="192" x2="615" y2="192" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Section 2: Cantilever Tilted Mesh -->
+  <text x="412" y="210" font-size="12" font-weight="bold" fill="#c0392b">2. Консольний перекіс Δφ:</text>
+  <!-- Gear 1 (straight) -->
+  <rect x="424" y="222" width="56" height="14" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <!-- Gear 2 (tilted by 4°) -->
+  <polygon points="484,222 546,218 546,232 484,236" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+
+  <!-- Stress Concentration Spark Marker -->
+  <circle cx="484" cy="222" r="5" fill="#c0392b"/>
+  <line x1="484" y1="214" x2="484" y2="230" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="476" y1="222" x2="492" y2="222" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Inset Failure Text -->
+  <text x="507" y="258" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Точковий крайовий тиск</text>
+  <text x="507" y="276" font-size="12" fill="#c0392b" text-anchor="middle">Напруження зсуву &gt; σ_границі</text>
+  <text x="507" y="294" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Сколювання зуба сектора z8</text>
+  <text x="507" y="312" font-size="12" fill="#6b7280" text-anchor="middle">Зріз при 30–40% номінального M</text>
+  <text x="507" y="330" font-size="12" fill="#6b7280" text-anchor="middle">Люфт вала та поломка вальниці</text>
+
+  <!-- ==================== BOTTOM BANNER ==================== -->
+  <rect x="24" y="380" width="591" height="58" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="36" y="400" font-size="12" font-weight="bold" fill="#c0392b">Головна причина поломки:</text>
+  <text x="210" y="400" font-size="12" fill="#1a1a1a">Згинальний момент вивертає посадку вальниці у пластиковому гнізді.</text>
+  <text x="36" y="416" font-size="12" fill="#6b7280">Перекіс осі вала всього на 1–2° зменшує площу контакту зубців шестерень на 80–90%,</text>
+  <text x="36" y="432" font-size="12" fill="#6b7280">що викликає втомні мікротріщини й повний зріз металевих зубців під навантаженням.</text>
+
+  <!-- ==================== RIGHT COLUMN: 3 CARDS ==================== -->
+  <!-- Card 1: Lever Arm L -->
+  <rect x="635" y="68" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1"/>
+  <rect x="635" y="68" width="301" height="26" rx="6" fill="#fdecea"/>
+  <text x="645" y="86" font-size="13" font-weight="bold" fill="#c0392b">1. Консольне плече вильоту L</text>
+
+  <text x="645" y="110" font-size="12" font-weight="bold" fill="#1a1a1a">Згинальний момент: M_bend = F_g · L</text>
+  <text x="645" y="128" font-size="12" fill="#6b7280">Кожен додатковий міліметр плеча L</text>
+  <text x="645" y="146" font-size="12" fill="#6b7280">пропорційно збільшує момент на валу.</text>
+  <text x="645" y="166" font-size="12" fill="#c0392b">Вал серво не розрахований на згин!</text>
+
+  <!-- Card 2: Gear Tooth Edge Stripping -->
+  <rect x="635" y="196" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1"/>
+  <rect x="635" y="196" width="301" height="26" rx="6" fill="#fdecea"/>
+  <text x="645" y="214" font-size="13" font-weight="bold" fill="#c0392b">2. Крайове сколювання зубів</text>
+
+  <text x="645" y="238" font-size="12" font-weight="bold" fill="#1a1a1a">Контактна лінія звужується в точку</text>
+  <text x="645" y="256" font-size="12" fill="#6b7280">Перекіс осі Δφ ліквідує контакт по базі.</text>
+  <text x="645" y="274" font-size="12" fill="#6b7280">Напруження перевищують границю міцності,</text>
+  <text x="645" y="294" font-size="12" fill="#c0392b">що призводить до зрізу зубів сектора z8.</text>
+
+  <!-- Card 3: Engineering Solution -->
+  <rect x="635" y="324" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1"/>
+  <rect x="635" y="324" width="301" height="26" rx="6" fill="#e9f7ef"/>
+  <text x="645" y="342" font-size="13" font-weight="bold" fill="#27ae60">3. Правильне рішення: Pan-Tilt опора</text>
+
+  <text x="645" y="366" font-size="12" font-weight="bold" fill="#1a1a1a">Двоопорний кронштейн із контрвальницею</text>
+  <text x="645" y="384" font-size="12" fill="#6b7280">З протилежного боку встановлюють</text>
+  <text x="645" y="402" font-size="12" fill="#6b7280">підшипник, який сприймає 100% згину.</text>
+  <text x="645" y="422" font-size="12" font-weight="bold" fill="#27ae60">Вал серво передає лише крутний момент!</text>
+</svg>

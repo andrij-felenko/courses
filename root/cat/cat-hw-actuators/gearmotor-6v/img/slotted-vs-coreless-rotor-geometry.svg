@@ -1,0 +1,243 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Визначення маркерів стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція конструкції ротора: зубчасте залізне осердя проти дзвоника Фаульгабера</text>
+  <text x="480" y="49" font-size="13" fill="#6b7280" text-anchor="middle">Відсутність рухомого феромагнітного осердя усуває зубцеве залипання (cogging) та мінімізує момент інерції</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: КЛАСИЧНИЙ ЗУБЧАСТИЙ РОТОР ==================== -->
+  <rect x="30" y="65" width="440" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок лівої панелі -->
+  <rect x="42" y="75" width="416" height="28" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="250" y="94" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Класичний якір: зубчасте залізне осердя</text>
+
+  <!-- Переріз класичного мотора (Центр cx1=145, cy1=185) -->
+  <!-- Зовнішній сталевий корпус статора -->
+  <circle cx="145" cy="185" r="68" fill="#ffffff" stroke="#64748b" stroke-width="2.5"/>
+  <circle cx="145" cy="185" r="61" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+
+  <!-- Магнітний зворотний потік у ярмі статора (верхній і нижній) -->
+  <path d="M 190.6 139.4 A 64.5 64.5 0 0 0 99.4 139.4" fill="none" stroke="#2457d6" stroke-width="1.3" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+  <path d="M 190.6 230.6 A 64.5 64.5 0 0 1 99.4 230.6" fill="none" stroke="#2457d6" stroke-width="1.3" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+
+  <!-- Постійні магніти статора -->
+  <!-- Північний полюс N (ліворуч) -->
+  <path d="M 119.22 240.28 A 61 61 0 0 1 119.22 129.72 L 124.73 141.48 A 48 48 0 0 0 124.73 228.52 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="91" y="189" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">N</text>
+
+  <!-- Південний полюс S (праворуч) -->
+  <path d="M 170.78 129.72 A 61 61 0 0 1 170.78 240.28 L 165.27 228.52 A 48 48 0 0 0 165.27 141.48 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="199" y="189" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">S</text>
+
+  <!-- Мідні обмотки в пазах (3 пази) -->
+  <ellipse cx="156" cy="166" rx="9" ry="6" fill="#fed7aa" stroke="#d97706" stroke-width="1.2"/>
+  <ellipse cx="156" cy="204" rx="9" ry="6" fill="#fed7aa" stroke="#d97706" stroke-width="1.2"/>
+  <ellipse cx="124" cy="185" rx="6" ry="10" fill="#fed7aa" stroke="#d97706" stroke-width="1.2"/>
+
+  <!-- Трьохполюсне залізне осердя ротора -->
+  <path d="M 158.00 179.50 L 174.00 179.50 L 172.58 174.06 L 185.79 168.52 A 44 44 0 0 1 185.79 201.48 L 172.58 195.94 L 174.00 190.50 L 158.00 190.50 L 143.26 198.71 L 135.26 212.56 L 140.75 212.44 L 138.30 226.74 A 44 44 0 0 1 109.76 210.26 L 121.28 201.19 L 125.74 204.44 L 133.74 190.58 L 133.74 179.42 L 125.74 165.56 L 121.28 168.81 L 109.76 159.74 A 44 44 0 0 1 138.30 143.26 L 140.75 157.56 L 135.26 157.44 L 143.26 171.29 Z" fill="#94a3b8" stroke="#334155" stroke-width="1.5"/>
+
+  <!-- Центральний сталевий вал -->
+  <circle cx="145" cy="185" r="7" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Силові лінії магнітного поля, що концентруються в зубах осердя -->
+  <path d="M 103 162 Q 115 158 126 150" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+  <path d="M 103 208 Q 115 212 126 220" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+  <path d="M 188 185 L 194 185" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+  <path d="M 187 180 Q 192 176 195 170" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+  <path d="M 187 190 Q 192 194 195 200" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+
+  <!-- Стрілка обертання та дискретного залипання -->
+  <path d="M 171.6 146.9 A 46.5 46.5 0 0 1 188.7 169.1" fill="none" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+
+  <!-- Виносні підписи та позначення лівої панелі (x=232) -->
+  <!-- 1. Статор -->
+  <line x1="165" y1="126" x2="225" y2="122" stroke="#64748b" stroke-width="1"/>
+  <circle cx="165" cy="126" r="2" fill="#64748b"/>
+  <text x="232" y="121" font-size="12" font-weight="bold" fill="#1a1a1a">1. Нерухомий статор (N / S)</text>
+  <text x="232" y="135" font-size="12" fill="#6b7280">Сталевий корпус і постійні магніти</text>
+
+  <!-- 2. Осердя -->
+  <line x1="184" y1="165" x2="225" y2="157" stroke="#64748b" stroke-width="1"/>
+  <circle cx="184" cy="165" r="2" fill="#64748b"/>
+  <text x="232" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">2. Шихтоване залізне осердя</text>
+  <text x="232" y="170" font-size="12" fill="#6b7280">Масивні зуби; висока інерція J</text>
+
+  <!-- 3. Обмотка -->
+  <line x1="166" y1="205" x2="225" y2="192" stroke="#64748b" stroke-width="1"/>
+  <circle cx="166" cy="205" r="2" fill="#64748b"/>
+  <text x="232" y="191" font-size="12" font-weight="bold" fill="#1a1a1a">3. Мідна обмотка в пазах</text>
+  <text x="232" y="205" font-size="12" fill="#6b7280">Котушки покладені в пази осердя</text>
+
+  <!-- 4. Залипання -->
+  <line x1="193" y1="185" x2="225" y2="227" stroke="#c0392b" stroke-width="1"/>
+  <circle cx="193" cy="185" r="2" fill="#c0392b"/>
+  <text x="232" y="226" font-size="12" font-weight="bold" fill="#c0392b">4. Зубцеве залипання (Cogging)</text>
+  <text x="232" y="240" font-size="12" fill="#c0392b">Потік стягується в зуби; ривки ходу</text>
+
+  <!-- Нижня картка характеристик лівої панелі -->
+  <rect x="42" y="258" width="416" height="140" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="54" y="278" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри класичного зубчастого ротора:</text>
+
+  <text x="54" y="302" font-size="12" font-weight="bold" fill="#c0392b">• Когінг:</text>
+  <text x="160" y="302" font-size="12" fill="#1a1a1a">високий (дискретні ривки при старті)</text>
+
+  <text x="54" y="326" font-size="12" font-weight="bold" fill="#c0392b">• Інерція J:</text>
+  <text x="160" y="326" font-size="12" fill="#1a1a1a">висока (важке рухоме залізо осердя)</text>
+
+  <text x="54" y="350" font-size="12" font-weight="bold" fill="#6b7280">• Стала \u03c4:</text>
+  <text x="160" y="350" font-size="12" fill="#1a1a1a">15–25 мс (повільний динамічний розгін)</text>
+
+  <text x="54" y="374" font-size="12" font-weight="bold" fill="#6b7280">• Втрати:</text>
+  <text x="160" y="374" font-size="12" fill="#1a1a1a">вихрові струми й гістерезис в осерді</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: РОТОР ФАУЛЬГАБЕРА ==================== -->
+  <rect x="490" y="65" width="440" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок правої панелі -->
+  <rect x="502" y="75" width="416" height="28" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="710" y="94" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Безсердечниковий дзвониковий ротор Фаульгабера</text>
+
+  <!-- Переріз мотора Фаульгабера (Центр cx2=605, cy2=185) -->
+  <!-- Зовнішній нерухомий сталевий стакан (магнітопровідне ярмо) -->
+  <path d="M 673.00 185.00 A 68 68 0 1 1 673.00 184.99 L 659.00 184.99 A 54 54 0 1 0 659.00 185.00 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="2"/>
+
+  <!-- Магнітний зворотний потік у зовнішньому стакані (верхній і нижній) -->
+  <path d="M 561.9 141.9 A 61 61 0 0 1 648.1 141.9" fill="none" stroke="#2457d6" stroke-width="1.3" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+  <path d="M 561.9 228.1 A 61 61 0 0 0 648.1 228.1" fill="none" stroke="#2457d6" stroke-width="1.3" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+
+  <!-- Робочий повітряний зазор: білий фон -->
+  <circle cx="605" cy="185" r="54" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+
+  <!-- Тонкостінний рухомий мідний дзвін (кошикова обмотка) -->
+  <path d="M 653.00 185.00 A 48 48 0 1 1 653.00 184.99 L 646.00 184.99 A 41 41 0 1 0 646.00 185.00 Z" fill="#fed7aa" stroke="#d97706" stroke-width="1.5"/>
+
+  <!-- Текстура безкаркасної кошикової намотки -->
+  <g opacity="0.75">
+    <line x1="646.0" y1="185.0" x2="650.6" y2="199.8" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="644.0" y1="197.7" x2="653.0" y2="185.0" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="640.5" y1="205.5" x2="636.3" y2="220.7" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="633.3" y1="216.5" x2="646.6" y2="209.0" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="625.5" y1="220.5" x2="615.8" y2="232.0" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="614.9" y1="225.4" x2="629.0" y2="226.6" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="605.0" y1="226.0" x2="590.2" y2="230.6" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="592.3" y1="224.0" x2="605.0" y2="233.0" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="584.5" y1="220.5" x2="569.3" y2="216.3" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="573.5" y1="213.3" x2="581.0" y2="226.6" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="569.5" y1="205.5" x2="558.0" y2="195.8" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="564.6" y1="194.9" x2="563.4" y2="209.0" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="564.0" y1="185.0" x2="559.4" y2="170.2" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="566.0" y1="172.3" x2="557.0" y2="185.0" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="569.5" y1="164.5" x2="573.7" y2="149.3" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="576.7" y1="153.5" x2="563.4" y2="161.0" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="584.5" y1="149.5" x2="594.2" y2="138.0" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="595.1" y1="144.6" x2="581.0" y2="143.4" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="605.0" y1="144.0" x2="619.8" y2="139.4" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="617.7" y1="146.0" x2="605.0" y2="137.0" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="625.5" y1="149.5" x2="640.7" y2="153.7" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="636.5" y1="156.7" x2="629.0" y2="143.4" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="640.5" y1="164.5" x2="652.0" y2="174.2" stroke="#d97706" stroke-width="0.9"/>
+    <line x1="645.4" y1="175.1" x2="646.6" y2="161.0" stroke="#d97706" stroke-width="0.9"/>
+  </g>
+
+  <!-- Нерухомий внутрішній циліндричний магніт (r=35) -->
+  <!-- Північний полюс N (ліва половина) -->
+  <path d="M 605 150 A 35 35 0 0 0 605 220 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="587" y="189" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">N</text>
+
+  <!-- Південний полюс S (права половина) -->
+  <path d="M 605 150 A 35 35 0 0 1 605 220 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="623" y="189" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">S</text>
+
+  <!-- Центральний обертовий вал -->
+  <circle cx="605" cy="185" r="7" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Рівномірні радіальні силові лінії магнітного поля -->
+  <!-- З N назовні через обмотку в стакан -->
+  <line x1="570" y1="185" x2="551" y2="185" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+  <line x1="580.3" y1="160.3" x2="566.8" y2="146.8" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+  <line x1="580.3" y1="209.7" x2="566.8" y2="223.2" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+
+  <!-- Зі стакана всередину через обмотку в S -->
+  <line x1="659" y1="185" x2="640" y2="185" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+  <line x1="643.2" y1="146.8" x2="629.7" y2="160.3" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+  <line x1="643.2" y1="223.2" x2="629.7" y2="209.7" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+
+  <!-- Стрілка ідеально плавного обертання -->
+  <path d="M 634.2 143.2 A 51 51 0 0 1 654.3 171.8" fill="none" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+
+  <!-- Виносні підписи та позначення правої панелі (x=692) -->
+  <!-- 1. Нерухомий магніт -->
+  <line x1="590" y1="155" x2="685" y2="122" stroke="#64748b" stroke-width="1"/>
+  <circle cx="590" cy="155" r="2" fill="#64748b"/>
+  <text x="692" y="121" font-size="12" font-weight="bold" fill="#1a1a1a">1. Нерухомий магніт (N / S)</text>
+  <text x="692" y="135" font-size="12" fill="#6b7280">Циліндричний магніт у центрі</text>
+
+  <!-- 2. Самовтримний дзвін -->
+  <line x1="639" y1="156" x2="685" y2="157" stroke="#d97706" stroke-width="1"/>
+  <circle cx="639" cy="156" r="2" fill="#d97706"/>
+  <text x="692" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">2. Самовтримний «дзвін»</text>
+  <text x="692" y="170" font-size="12" fill="#27ae60">Кошикова обмотка без заліза</text>
+
+  <!-- 3. Сталевий стакан -->
+  <line x1="665" y1="165" x2="685" y2="192" stroke="#64748b" stroke-width="1"/>
+  <circle cx="665" cy="165" r="2" fill="#64748b"/>
+  <text x="692" y="191" font-size="12" font-weight="bold" fill="#1a1a1a">3. Зовнішній сталевий стакан</text>
+  <text x="692" y="205" font-size="12" fill="#6b7280">Нерухоме магнітопровідне ярмо</text>
+
+  <!-- 4. Нульовий когінг -->
+  <line x1="653" y1="185" x2="685" y2="227" stroke="#27ae60" stroke-width="1"/>
+  <circle cx="653" cy="185" r="2" fill="#27ae60"/>
+  <text x="692" y="226" font-size="12" font-weight="bold" fill="#27ae60">4. Нульовий когінг (No Cogging)</text>
+  <text x="692" y="240" font-size="12" fill="#27ae60">Однорідне поле; наднизька інерція</text>
+
+  <!-- Нижня картка характеристик правої панелі -->
+  <rect x="502" y="258" width="416" height="140" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="514" y="278" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри дзвоникового ротора:</text>
+
+  <text x="514" y="302" font-size="12" font-weight="bold" fill="#27ae60">• Когінг:</text>
+  <text x="620" y="302" font-size="12" fill="#1a1a1a">нульовий (ідеально плавний мікропуск)</text>
+
+  <text x="514" y="326" font-size="12" font-weight="bold" fill="#27ae60">• Інерція J:</text>
+  <text x="620" y="326" font-size="12" fill="#1a1a1a">наднизька (у 5–10 разів менша за якір)</text>
+
+  <text x="514" y="350" font-size="12" font-weight="bold" fill="#27ae60">• Стала \u03c4:</text>
+  <text x="620" y="350" font-size="12" fill="#1a1a1a">&lt; 5 мс (миттєвий динамічний розгін)</text>
+
+  <text x="514" y="374" font-size="12" font-weight="bold" fill="#27ae60">• Втрати:</text>
+  <text x="620" y="374" font-size="12" fill="#1a1a1a">відсутні в роторі (високий ККД &gt; 85%)</text>
+
+  <!-- ==================== НИЖНЯ ПЛАШКА: ЗАСТОСУВАННЯ ==================== -->
+  <rect x="30" y="420" width="900" height="85" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Розділювальна вертикальна лінія -->
+  <line x1="480" y1="430" x2="480" y2="495" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Ліва колонка: Застосування класичного ротора -->
+  <text x="48" y="445" font-size="12" font-weight="bold" fill="#c0392b">Класичний зубчастий мотор</text>
+  <text x="48" y="467" font-size="12" fill="#1a1a1a">Дешевий масовий стандарт; витримує ударні навантаження.</text>
+  <text x="48" y="489" font-size="12" fill="#6b7280">Сфера: силові приводи, електроінструмент, редуктори N20 і TT.</text>
+
+  <!-- Права колонка: Застосування дзвоникового ротора -->
+  <text x="500" y="445" font-size="12" font-weight="bold" fill="#27ae60">Безсердечниковий мотор Фаульгабера</text>
+  <text x="500" y="467" font-size="12" fill="#1a1a1a">Ультрадинамічний привід без когінгу з миттєвим розгоном.</text>
+  <text x="500" y="489" font-size="12" fill="#6b7280">Сфера: портативне аудіо Walkman, об'єктиви, чутливі серво.</text>
+</svg>

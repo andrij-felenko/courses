@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формат пакування кольору RGB565 та порядок передачі байтів через SPI</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Невідповідність порядку Little-Endian у RAM мікроконтролера та очікуваного Big-Endian контролером ST7789</text>
+
+  <!-- ==================== LEFT: SCHEMATIC ==================== -->
+
+  <!-- SECTION 1: LOGICAL RGB565 STRUCTURE (TOP) -->
+  <text x="316" y="86" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Логічна бітова структура RGB565 (uint16_t color)</text>
+
+  <!-- Byte header boxes (rects separated by 16 px gap) -->
+  <rect x="60" y="102" width="248" height="22" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="184" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Старший байт MSB (біти 15..8)</text>
+
+  <rect x="324" y="102" width="248" height="22" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="448" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Молодший байт LSB (біти 7..0)</text>
+
+  <!-- Bit channel blocks (paths) -->
+  <!-- Red Block: 5 bits [15:11] -->
+  <path d="M 60,132 L 220,132 L 220,162 L 60,162 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="140" y="151" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Red: 5 біт (R4..R0)</text>
+
+  <!-- Green Block: 6 bits [10:5] -->
+  <path d="M 220,132 L 412,132 L 412,162 L 220,162 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="268" y="151" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">G5..G3</text>
+  <text x="364" y="151" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">G2..G0</text>
+
+  <!-- Blue Block: 5 bits [4:0] -->
+  <path d="M 412,132 L 572,132 L 572,162 L 412,162 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="492" y="151" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Blue: 5 біт (B4..B0)</text>
+
+  <!-- Byte boundary vertical dashed line between bits 8 and 7 -->
+  <line x1="316" y1="98" x2="316" y2="162" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="316" y="176" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Межа байтів</text>
+
+  <!-- SECTION 2: MCU MEMORY LAYOUT (LITTLE-ENDIAN) -->
+  <text x="315" y="194" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Порядок байтів у пам'яті MCU (Little-Endian: STM32 / ESP32)</text>
+
+  <!-- RAM Box 1: Address [N] -> LSB -->
+  <text x="185" y="206" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Адреса [N] (перший у RAM)</text>
+  <path d="M 100,210 L 270,210 L 270,270 L 100,270 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="185" y="228" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">LSB (Молодший байт)</text>
+  <text x="185" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">G[2:0] + B[4:0]</text>
+  <text x="185" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Нижня частина слова</text>
+
+  <!-- RAM Box 2: Address [N+1] -> MSB -->
+  <text x="445" y="206" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Адреса [N+1] (другий у RAM)</text>
+  <path d="M 360,210 L 530,210 L 530,270 L 360,270 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="445" y="228" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">MSB (Старший байт)</text>
+  <text x="445" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">R[4:0] + G[5:3]</text>
+  <text x="445" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Верхня частина слова</text>
+
+
+  <!-- SECTION 3: BYTE SWAP & ST7789 SPI TRANSMISSION -->
+  <!-- Swap Operation Badge -->
+  <rect x="205" y="292" width="220" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="315" y="308" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Byte Swap: __builtin_bswap16</text>
+
+  <!-- Swap Routing Arrows (entering and exiting badge) -->
+  <!-- Box 1 (LSB) to Swap Badge -->
+  <line x1="185" y1="270" x2="276" y2="290" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <!-- Box 2 (MSB) to Swap Badge -->
+  <line x1="445" y1="270" x2="354" y2="290" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <!-- Swap Badge to Slot 1 (MSB first) -->
+  <line x1="280" y1="316" x2="189" y2="333" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <!-- Swap Badge to Slot 2 (LSB second) -->
+  <line x1="350" y1="316" x2="441" y2="333" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- SPI Slot 1: Transmitted First (MSB) -->
+  <path d="M 100,335 L 270,335 L 270,395 L 100,395 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="185" y="352" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1-й байт по SPI (MSB)</text>
+  <text x="185" y="368" font-size="12" fill="#1a1a1a" text-anchor="middle">R[4:0] + G[5:3]</text>
+  <text x="185" y="384" font-size="12" fill="#6b7280" text-anchor="middle">Старша частина кольору</text>
+
+  <!-- SPI Slot 2: Transmitted Second (LSB) -->
+  <path d="M 360,335 L 530,335 L 530,395 L 360,395 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="445" y="352" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2-й байт по SPI (LSB)</text>
+  <text x="445" y="368" font-size="12" fill="#1a1a1a" text-anchor="middle">G[2:0] + B[4:0]</text>
+  <text x="445" y="384" font-size="12" fill="#6b7280" text-anchor="middle">Молодша частина кольору</text>
+
+  <!-- Result Banner (Bottom) -->
+  <rect x="75" y="408" width="480" height="28" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="315" y="426" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ST7789 отримує Big-Endian (MSB-first): кольори відображаються коректно!</text>
+
+  <!-- ==================== RIGHT: ENGINEERING CARDS ==================== -->
+
+  <!-- Card 1: RGB565 Structure -->
+  <rect x="635" y="76" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="635" y="76" width="301" height="26" rx="6" fill="#eaf0fd"/>
+  <text x="645" y="94" font-size="13" font-weight="bold" fill="#2457d6">1. Бітова структура RGB565 (16 біт)</text>
+
+  <text x="645" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">Розподіл каналів кольору</text>
+  <text x="645" y="136" font-size="12" fill="#6b7280">5 біт Red, 6 біт Green, 5 біт Blue.</text>
+  <text x="645" y="154" font-size="12" fill="#6b7280">Зелений канал розбивається навпіл:</text>
+  <text x="645" y="174" font-size="12" font-weight="bold" fill="#2457d6">G[5:3] у MSB, а G[2:0] у LSB.</text>
+
+  <!-- Card 2: Endianness Conflict -->
+  <rect x="635" y="202" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="635" y="202" width="301" height="26" rx="6" fill="#fdecea"/>
+  <text x="645" y="220" font-size="13" font-weight="bold" fill="#c0392b">2. Конфлікт порядків байтів</text>
+
+  <text x="645" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">Little-Endian проти Big-Endian</text>
+  <text x="645" y="262" font-size="12" fill="#6b7280">MCU (ARM/ESP32) зберігає LSB за меншою</text>
+  <text x="645" y="280" font-size="12" fill="#6b7280">адресою. ST7789 очікує MSB першим.</text>
+  <text x="645" y="300" font-size="12" font-weight="bold" fill="#c0392b">Без заміни червоний і синій міняються!</text>
+
+  <!-- Card 3: Byte Swap Solution -->
+  <rect x="635" y="328" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="635" y="328" width="301" height="26" rx="6" fill="#e9f7ef"/>
+  <text x="645" y="346" font-size="13" font-weight="bold" fill="#27ae60">3. Апаратний та софт Byte Swap</text>
+
+  <text x="645" y="370" font-size="12" font-weight="bold" fill="#1a1a1a">Способи перестановки байтів</text>
+  <text x="645" y="388" font-size="12" fill="#6b7280">Вбудована функція __builtin_bswap16()</text>
+  <text x="645" y="406" font-size="12" fill="#6b7280">або 16-бітний режим SPI / DMA з swap</text>
+  <text x="645" y="426" font-size="12" font-weight="bold" fill="#27ae60">забезпечує нульові накладні витрати CPU.</text>
+</svg>

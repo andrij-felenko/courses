@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Тепловий розгін обмотки двигуна MG90S при заклинюванні</text>
+  <text x="480" y="48" font-size="13" text-anchor="middle" fill="#6b7280">Динаміка нагріву ротора T(t) при 4.8 В і 6.0 В: критичний поріг ізоляції 120 °C за 7–9 секунд</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Графік залежності T(t) -->
+  <rect x="30" y="64" width="538" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="90" font-size="14" font-weight="700" fill="#1a1a1a">Крива теплового розгону T(t) при блокуванні вала</text>
+
+  <!-- Біла підкладка графіка -->
+  <rect x="50" y="105" width="498" height="320" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Зона безпечного короткочасного упору (0–3 с, T < 60 °C) -->
+  <rect x="105" y="240" width="81" height="140" fill="#e9f7ef" opacity="0.8"/>
+  <line x1="186" y1="240" x2="186" y2="380" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="112" y="260" font-size="12" font-weight="700" fill="#27ae60">Безпечно</text>
+  <text x="112" y="276" font-size="12" fill="#27ae60">t &lt; 3 с</text>
+
+  <!-- Зона аварійного перегріву (t > 7 с, T > 120 °C) -->
+  <rect x="294" y="140" width="216" height="69" fill="#fdecea" opacity="0.7"/>
+
+  <!-- Сітка графіка -->
+  <line x1="105" y1="311" x2="510" y2="311" stroke="#f0f0f0" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="105" y1="243" x2="510" y2="243" stroke="#f0f0f0" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="267" y1="140" x2="267" y2="380" stroke="#f0f0f0" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="429" y1="140" x2="429" y2="380" stroke="#f0f0f0" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Критичний поріг ізоляції T = 120 °C -->
+  <line x1="105" y1="209" x2="510" y2="209" stroke="#c0392b" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="112" y="198" font-size="12" font-weight="700" fill="#c0392b">Поріг T_crit = 120 °C</text>
+
+  <!-- Крива нагріву 4.8 В (графітова штрихова) -->
+  <path d="M 105,380 C 200,340 280,270 361,209 C 410,175 460,168 510,166" fill="none" stroke="#6b7280" stroke-width="2.2" stroke-dasharray="6 3"/>
+
+  <!-- Крива нагріву 6.0 В (синя суцільна) -->
+  <path d="M 105,380 C 180,310 240,240 294,209 C 360,170 430,148 510,140" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Легенда кривих -->
+  <rect x="115" y="118" width="135" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="125" y1="134" x2="155" y2="134" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="162" y="138" font-size="12" font-weight="700" fill="#2457d6">6.0 В (7.0 с)</text>
+  <line x1="125" y1="154" x2="155" y2="154" stroke="#6b7280" stroke-width="2.2" stroke-dasharray="6 3"/>
+  <text x="162" y="158" font-size="12" font-weight="700" fill="#6b7280">4.8 В (9.5 с)</text>
+
+  <!-- Проекції та точки перетину з порогом 120 °C -->
+  <!-- 6.0 В: t = 7 с -->
+  <line x1="294" y1="209" x2="294" y2="380" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <circle cx="294" cy="209" r="4.5" fill="#2457d6"/>
+
+  <!-- 4.8 В: t = 9.5 с -->
+  <line x1="361" y1="209" x2="361" y2="380" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <circle cx="361" cy="209" r="4.5" fill="#6b7280"/>
+
+  <!-- Позначення небезпечної зони -->
+  <text x="380" y="155" font-size="12" font-weight="700" fill="#c0392b">Зона руйнування</text>
+
+  <!-- Осі координат -->
+  <!-- Вісь Y (Температура) -->
+  <line x1="105" y1="380" x2="105" y2="120" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="60" y="122" font-size="12" font-weight="700" fill="#1a1a1a">T (°C)</text>
+
+  <!-- Вісь X (Час) -->
+  <line x1="105" y1="380" x2="525" y2="380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="465" y="416" font-size="12" font-weight="700" fill="#1a1a1a">Час t (секунди)</text>
+
+  <!-- Позначки на осі Y -->
+  <line x1="100" y1="209" x2="105" y2="209" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="98" y="213" font-size="12" font-weight="700" text-anchor="end" fill="#c0392b">120°</text>
+
+  <line x1="100" y1="243" x2="105" y2="243" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="98" y="247" font-size="12" text-anchor="end" fill="#6b7280">100°</text>
+
+  <line x1="100" y1="311" x2="105" y2="311" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="98" y="315" font-size="12" text-anchor="end" fill="#27ae60">60°</text>
+
+  <text x="98" y="384" font-size="12" font-weight="700" text-anchor="end" fill="#6b7280">20°</text>
+
+  <!-- Позначки на осі X -->
+  <line x1="186" y1="380" x2="186" y2="385" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="186" y="398" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">3 с</text>
+
+  <!-- Критичні часи на осі X -->
+  <text x="294" y="398" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">7 с</text>
+  <text x="361" y="398" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">9.5 с</text>
+
+  <line x1="429" y1="380" x2="429" y2="385" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="429" y="398" font-size="12" text-anchor="middle" fill="#6b7280">12 с</text>
+
+  <line x1="510" y1="380" x2="510" y2="385" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="510" y="398" font-size="12" text-anchor="middle" fill="#6b7280">15 с</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Інформаційні картки -->
+  <rect x="580" y="64" width="350" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="600" y="90" font-size="14" font-weight="700" fill="#1a1a1a">Фізика аварійного перегріву серво</text>
+
+  <!-- Картка 1: Джоулів нагрів -->
+  <rect x="595" y="105" width="320" height="98" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="610" y="126" font-size="13" font-weight="700" fill="#c0392b">1. Джоулів нагрів у закритому корпусі</text>
+  <text x="610" y="146" font-size="12" fill="#1a1a1a">• Тепловиділення обмотки: P = I² · R_coil</text>
+  <text x="610" y="166" font-size="12" fill="#1a1a1a">• При 6.0 В виділяється до 6.0 Вт тепла</text>
+  <text x="610" y="186" font-size="12" fill="#6b7280">• Мініатюрний пластиковий об'єм без тепловідводу</text>
+
+  <!-- Картка 2: Руйнування лаку -->
+  <rect x="595" y="215" width="320" height="98" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="610" y="236" font-size="13" font-weight="700" fill="#2457d6">2. Руйнування емалевої ізоляції</text>
+  <text x="610" y="256" font-size="12" fill="#1a1a1a">• Термостійкість лаку емальдроту: 120 °C</text>
+  <text x="610" y="276" font-size="12" fill="#1a1a1a">• Перевищення 120 °C плавить ізоляцію за секунди</text>
+  <text x="610" y="296" font-size="12" fill="#6b7280">• Настає міжвиткове КЗ та вигорання ключів H-моста</text>
+
+  <!-- Картка 3: Програмні запобіжники -->
+  <rect x="595" y="325" width="320" height="98" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="610" y="346" font-size="13" font-weight="700" fill="#27ae60">3. Програмний захист від заклинювання</text>
+  <text x="610" y="366" font-size="12" fill="#1a1a1a">• Current sensing: контроль струму живлення</text>
+  <text x="610" y="386" font-size="12" fill="#1a1a1a">• Автозняття ШІМ при блокуванні вала &gt; 1–2 с</text>
+  <text x="610" y="406" font-size="12" fill="#6b7280">• Відкат цільового кута запобігає руйнуванню мотора</text>
+</svg>

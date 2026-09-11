@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок схеми -->
+  <text x="480" y="27" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма ШІМ-керування сервоприводом MG90S V2</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Період кадру T = 20 мс (50 Гц), тривалість імпульсу 500..2400 мкс та зона нечутливості ~5 мкс</text>
+
+  <!-- ======================================================== -->
+  <!-- ЛІВА ПАНЕЛЬ: Часові діаграми ШІМ                        -->
+  <!-- ======================================================== -->
+  <rect x="24" y="62" width="536" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="292" y="86" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Імпульсні сигнали для ключових положень вала</text>
+  <text x="292" y="104" text-anchor="middle" font-size="12" fill="#6b7280">Залежність кута повороту θ (0° .. 180°) від ширини активного імпульсу t_w</text>
+
+  <!-- Вертикальні лінії прив'язки початку та кінця періоду -->
+  <line x1="160" y1="116" x2="160" y2="310" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="530" y1="116" x2="530" y2="310" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- --- Сигнал 1: Кут 0° (t_w = 500 мкс) --- -->
+  <text x="40" y="152" font-size="13" font-weight="bold" fill="#2457d6">Кут 0°</text>
+  <text x="40" y="168" font-size="12" fill="#6b7280">t_w = 500 мкс</text>
+
+  <!-- Імпульс 0° -->
+  <polyline points="145,168 160,168 160,140 205,140 205,168 530,168 545,168" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <!-- Розмірна лінія тривалості 500 мкс -->
+  <line x1="160" y1="130" x2="205" y2="130" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="182" y="124" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">500 мкс</text>
+
+  <!-- --- Сигнал 2: Кут 90° (t_w = 1500 мкс, Нейтраль) --- -->
+  <text x="40" y="212" font-size="13" font-weight="bold" fill="#27ae60">Кут 90°</text>
+  <text x="40" y="228" font-size="12" fill="#6b7280">1500 мкс (центр)</text>
+
+  <!-- Імпульс 90° -->
+  <polyline points="145,228 160,228 160,200 295,200 295,228 530,228 545,228" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <!-- Розмірна лінія тривалості 1500 мкс -->
+  <line x1="160" y1="190" x2="295" y2="190" stroke="#27ae60" stroke-width="1.2" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="227" y="184" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1500 мкс (нейтраль)</text>
+
+  <!-- --- Сигнал 3: Кут 180° (t_w = 2400 мкс) --- -->
+  <text x="40" y="272" font-size="13" font-weight="bold" fill="#2457d6">Кут 180°</text>
+  <text x="40" y="288" font-size="12" fill="#6b7280">t_w = 2400 мкс</text>
+
+  <!-- Імпульс 180° -->
+  <polyline points="145,288 160,288 160,260 376,260 376,288 530,288 545,288" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <!-- Розмірна лінія тривалості 2400 мкс -->
+  <line x1="160" y1="250" x2="376" y2="250" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="268" y="244" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2400 мкс</text>
+
+  <!-- Розмірна лінія повного періоду T = 20 мс -->
+  <line x1="160" y1="312" x2="530" y2="312" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray)" marker-end="url(#arr-gray)"/>
+  <text x="345" y="332" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Повний період кадру: T = 20 мс (частота оновлення f = 50 Гц)</text>
+
+  <!-- Підсумкова картка аналізу ШІМ -->
+  <rect x="38" y="352" width="508" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="50" y="372" font-size="12" font-weight="bold" fill="#2457d6">Закономірність керування кутом MG90S V2:</text>
+  <text x="50" y="391" font-size="12" fill="#1a1a1a">• Лінійна функція: θ = (t_w - 500 мкс) · 180° / (2400 - 500 мкс)</text>
+  <text x="50" y="410" font-size="12" fill="#1a1a1a">• Чутливість: Δt_w / Δθ ≈ 10.55 мкс на 1° повороту вала сервопривода</text>
+  <text x="50" y="425" font-size="12" fill="#6b7280">• Логічний рівень 3.3V (ESP32/STM32) надійно фіксується вхідним компаратором</text>
+
+  <!-- ======================================================== -->
+  <!-- ПРАВА ПАНЕЛЬ: Deadband та межі калібрування              -->
+  <!-- ======================================================== -->
+  <rect x="576" y="62" width="360" height="382" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="756" y="86" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Зона нечутливості та калібрування меж</text>
+  <text x="756" y="104" text-anchor="middle" font-size="12" fill="#6b7280">Вплив deadband ~5 мкс та небезпека апаратного клину</text>
+
+  <!-- Картка 1: Зона нечутливості (Deadband) -->
+  <rect x="590" y="118" width="332" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="602" y="134" font-size="13" font-weight="bold" fill="#2457d6">Зона нечутливості (Deadband ~5 мкс)</text>
+
+  <!-- Графік зони нечутливості -->
+  <rect x="736" y="162" width="40" height="24" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="756" y1="160" x2="756" y2="188" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="736" y1="156" x2="776" y2="156" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="756" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Δt ≈ 5 мкс</text>
+  <text x="730" y="178" text-anchor="end" font-size="12" fill="#6b7280">-2.5</text>
+  <text x="782" y="178" font-size="12" fill="#6b7280">+2.5 мкс</text>
+  <text x="756" y="202" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">t_w = 1500 мкс</text>
+
+  <text x="602" y="222" font-size="12" fill="#1a1a1a">• Контролер не реагує на шум ШІМ у межах ±2.5 мкс</text>
+  <text x="602" y="240" font-size="12" fill="#1a1a1a">• Захищає мотор від тремтіння (jitter) та нагріву</text>
+  <text x="602" y="258" font-size="12" fill="#6b7280">• Обмежує роздільну здатність кута: ~0.5° на крок</text>
+
+  <!-- Картка 2: Небезпека виходу за межі -->
+  <rect x="590" y="282" width="332" height="150" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="602" y="302" font-size="13" font-weight="bold" fill="#c0392b">⛔ Небезпека клину при виході за межі</text>
+  <text x="602" y="324" font-size="12" fill="#1a1a1a">• Калібрований діапазон: 500 .. 2400 мкс (0° .. 180°)</text>
+  <text x="602" y="344" font-size="12" fill="#1a1a1a">• При t_w &lt; 480 або &gt; 2450 мкс вал б'є у стопор 180°</text>
+  <text x="602" y="364" font-size="12" fill="#c0392b">• Струм блокування (stall): стрибок до 1.2 А!</text>
+  <text x="602" y="384" font-size="12" fill="#1a1a1a">• Наслідок: перегрів обмотки мотора за 3–5 секунд</text>
+  <text x="602" y="404" font-size="12" fill="#1a1a1a">• Ризик зрізу латунних зубів ступеня редуктора</text>
+  <text x="602" y="422" font-size="12" font-weight="bold" fill="#27ae60">• Захист: обмежуйте діапазон імпульсів у коді MCU</text>
+</svg>

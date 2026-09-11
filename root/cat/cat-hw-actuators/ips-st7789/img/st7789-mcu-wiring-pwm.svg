@@ -1,0 +1,198 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-orange" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#e67e22"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-black" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L6,3.5 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підключення дисплея 1.3″ IPS ST7789 та ШІМ-вузол підсвічування</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Інтерфейс SPI (3,3 В) та струмове розвантаження таймерного піна МК через N-MOSFET</text>
+
+  <!-- Блок 1: Мікроконтролер -->
+  <rect x="30" y="75" width="180" height="385" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="75" width="180" height="40" rx="6" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="120" y="94" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер</text>
+  <text x="120" y="110" font-size="12" fill="#6b7280" text-anchor="middle">ESP32 / STM32 (3.3V)</text>
+
+  <!-- Піни МК -->
+  <text x="200" y="142" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">3.3V</text>
+  <circle cx="210" cy="138" r="3" fill="#c0392b"/>
+
+  <text x="200" y="168" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">GND</text>
+  <circle cx="210" cy="164" r="3" fill="#6b7280"/>
+
+  <text x="200" y="194" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">SCK (GPIO18)</text>
+  <circle cx="210" cy="190" r="3" fill="#2457d6"/>
+
+  <text x="200" y="220" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">MOSI (GPIO23)</text>
+  <circle cx="210" cy="216" r="3" fill="#2457d6"/>
+
+  <text x="200" y="246" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">CS (GPIO5)</text>
+  <circle cx="210" cy="242" r="3" fill="#27ae60"/>
+
+  <text x="200" y="272" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">DC (GPIO16)</text>
+  <circle cx="210" cy="268" r="3" fill="#27ae60"/>
+
+  <text x="200" y="298" font-size="12" font-weight="bold" fill="#e67e22" text-anchor="end">RES (GPIO17)</text>
+  <circle cx="210" cy="294" r="3" fill="#e67e22"/>
+
+  <!-- Внутрішній таймер МК -->
+  <rect x="45" y="320" width="150" height="48" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="336" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Апаратний ШІМ</text>
+  <text x="120" y="352" font-size="12" fill="#6b7280" text-anchor="middle">f = 1 кГц, 0–100% BLK</text>
+
+  <text x="200" y="394" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">PWM (Timer)</text>
+  <circle cx="210" cy="390" r="3" fill="#2457d6"/>
+
+  <!-- Блок 2: Модуль дисплея -->
+  <rect x="750" y="75" width="180" height="385" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="750" y="75" width="180" height="40" rx="6" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="840" y="94" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль дисплея</text>
+  <text x="840" y="110" font-size="12" fill="#6b7280" text-anchor="middle">1.3″ IPS ST7789 (SPI)</text>
+
+  <!-- Піни дисплея -->
+  <circle cx="750" cy="138" r="3" fill="#c0392b"/>
+  <text x="760" y="142" font-size="12" font-weight="bold" fill="#c0392b">VCC (3.3V)</text>
+
+  <circle cx="750" cy="164" r="3" fill="#6b7280"/>
+  <text x="760" y="168" font-size="12" font-weight="bold" fill="#6b7280">GND</text>
+
+  <circle cx="750" cy="190" r="3" fill="#2457d6"/>
+  <text x="760" y="194" font-size="12" font-weight="bold" fill="#2457d6">SCL (SCK)</text>
+
+  <circle cx="750" cy="216" r="3" fill="#2457d6"/>
+  <text x="760" y="220" font-size="12" font-weight="bold" fill="#2457d6">SDA (MOSI)</text>
+
+  <circle cx="750" cy="242" r="3" fill="#27ae60"/>
+  <text x="760" y="246" font-size="12" font-weight="bold" fill="#27ae60">CS</text>
+
+  <circle cx="750" cy="268" r="3" fill="#27ae60"/>
+  <text x="760" y="272" font-size="12" font-weight="bold" fill="#27ae60">DC</text>
+
+  <circle cx="750" cy="294" r="3" fill="#e67e22"/>
+  <text x="760" y="298" font-size="12" font-weight="bold" fill="#e67e22">RES</text>
+
+  <circle cx="750" cy="350" r="3" fill="#2457d6"/>
+  <text x="760" y="354" font-size="12" font-weight="bold" fill="#2457d6">BLK (LED-)</text>
+
+  <!-- Екран дисплея (ілюстрація матриці всередині блоку дисплея) -->
+  <rect x="760" y="375" width="160" height="70" rx="4" fill="#1a1a1a" stroke="#d0d7de" stroke-width="1"/>
+  <text x="840" y="405" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">IPS 240×240</text>
+  <text x="840" y="425" font-size="12" fill="#6b7280" text-anchor="middle">Кольорова матриця</text>
+
+  <!-- Лінії зв'язку SPI та живлення -->
+  <line x1="210" y1="138" x2="744" y2="138" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="480" y="132" font-size="12" fill="#c0392b" text-anchor="middle">3.3V — Живлення логіки ST7789</text>
+
+  <line x1="210" y1="164" x2="750" y2="164" stroke="#6b7280" stroke-width="2"/>
+  <text x="480" y="158" font-size="12" fill="#6b7280" text-anchor="middle">GND — Спільна земля схеми</text>
+
+  <line x1="210" y1="190" x2="744" y2="190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="184" font-size="12" fill="#2457d6" text-anchor="middle">SCK — Тактовий сигнал SPI (вихід МК)</text>
+
+  <line x1="210" y1="216" x2="744" y2="216" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="210" font-size="12" fill="#2457d6" text-anchor="middle">MOSI / SDA — Передача даних (Master Out)</text>
+
+  <line x1="210" y1="242" x2="744" y2="242" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="236" font-size="12" fill="#27ae60" text-anchor="middle">CS — Вибір дисплея (Chip Select, активний 0)</text>
+
+  <line x1="210" y1="268" x2="744" y2="268" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="262" font-size="12" fill="#27ae60" text-anchor="middle">DC — Вибір режиму (0 = команда, 1 = дані)</text>
+
+  <line x1="210" y1="294" x2="744" y2="294" stroke="#e67e22" stroke-width="2" marker-end="url(#arr-orange)"/>
+  <text x="480" y="288" font-size="12" fill="#e67e22" text-anchor="middle">RES — Апаратне скидання (Reset, активний 0)</text>
+
+  <!-- Блок 3: Вузол комутації підсвічування BLK -->
+  <rect x="225" y="310" width="510" height="150" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="326" font-size="13" font-weight="bold" fill="#1a1a1a">Вузол керування BLK (N-MOSFET)</text>
+
+  <!-- Лінія ШІМ від МК до R_gate -->
+  <line x1="210" y1="390" x2="255" y2="390" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Резистор затвора R_gate -->
+  <text x="272" y="364" font-size="12" fill="#6b7280" text-anchor="middle">200 Ω</text>
+  <text x="272" y="378" font-size="12" fill="#1a1a1a" text-anchor="middle">R_gate</text>
+  <rect x="255" y="383" width="34" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Провід від R_gate до вузла розгалуження -->
+  <line x1="289" y1="390" x2="335" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="335" cy="390" r="3" fill="#1a1a1a"/>
+
+  <!-- Підтягувальний резистор R_pd -->
+  <line x1="335" y1="390" x2="335" y2="405" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="328" y="405" width="14" height="30" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="322" y="418" font-size="12" fill="#1a1a1a" text-anchor="end">R_pd (100 kΩ)</text>
+  <text x="322" y="432" font-size="12" fill="#6b7280" text-anchor="end">стяжка на GND</text>
+
+  <!-- GND для R_pd -->
+  <line x1="335" y1="435" x2="335" y2="445" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="325" y1="445" x2="345" y2="445" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="328" y1="448" x2="342" y2="448" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="331" y1="451" x2="339" y2="451" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Провід до затвора MOSFET -->
+  <line x1="335" y1="390" x2="370" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="370" cy="390" r="2.5" fill="#1a1a1a"/>
+  <line x1="370" y1="375" x2="370" y2="405" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="365" y="386" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">G</text>
+
+  <!-- Канал MOSFET -->
+  <line x1="376" y1="374" x2="376" y2="382" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="376" y1="386" x2="376" y2="394" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="376" y1="398" x2="376" y2="406" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Витік (Source) і підкладка -->
+  <line x1="376" y1="402" x2="390" y2="402" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="390" y1="390" x2="378" y2="390" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <line x1="390" y1="390" x2="390" y2="402" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="390" y1="402" x2="390" y2="445" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="398" y="416" font-size="12" font-weight="bold" fill="#1a1a1a">S</text>
+
+  <!-- GND для Source -->
+  <line x1="380" y1="445" x2="400" y2="445" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="383" y1="448" x2="397" y2="448" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="386" y1="451" x2="394" y2="451" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Стік (Drain) -->
+  <line x1="376" y1="378" x2="390" y2="378" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="390" y1="378" x2="390" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="398" y="372" font-size="12" font-weight="bold" fill="#1a1a1a">D</text>
+
+  <!-- Позначення транзистора -->
+  <text x="398" y="394" font-size="12" font-weight="bold" fill="#2457d6">N-MOSFET</text>
+  <text x="398" y="408" font-size="12" fill="#6b7280">AO3400</text>
+
+  <!-- Лінія BLK від Drain до роз'єму дисплея -->
+  <line x1="390" y1="350" x2="744" y2="350" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="575" y="344" font-size="12" fill="#2457d6" text-anchor="middle">BLK (Комутація катода LED на GND)</text>
+
+  <!-- Картка проблеми: Без транзистора -->
+  <rect x="445" y="362" width="135" height="86" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="512" y="379" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Без транзистора</text>
+  <text x="452" y="397" font-size="12" fill="#c0392b">I_led ≈ 30–60 мА</text>
+  <text x="452" y="414" font-size="12" fill="#c0392b">GPIO_max = 20 мА</text>
+  <text x="452" y="431" font-size="12" font-weight="bold" fill="#c0392b">⚠ Перевантаження</text>
+
+  <!-- Картка розв'язку: З N-MOSFET -->
+  <rect x="590" y="362" width="135" height="86" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="657" y="379" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">З N-MOSFET</text>
+  <text x="597" y="397" font-size="12" fill="#27ae60">I_gpio ≈ 0 (затвор)</text>
+  <text x="597" y="414" font-size="12" fill="#27ae60">Ключ тримає до 5 А</text>
+  <text x="597" y="431" font-size="12" font-weight="bold" fill="#27ae60">✔ Безпечний ШІМ</text>
+</svg>

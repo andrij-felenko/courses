@@ -1,0 +1,216 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect width="960" height="460" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінематична схема триступеневого циліндричного редуктора</text>
+  <text x="480" y="63" font-size="13" fill="#6b7280" text-anchor="middle">Почергова зміна напрямку обертання, ступеневе сповільнення швидкості та множення моменту (u = 27:1)</text>
+
+  <!-- ВЕРХНЯ ПАНЕЛЬ: КІНЕМАТИЧНА СХЕМА -->
+  <rect x="24" y="76" width="912" height="218" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Назва панелі та бейджі ступенів -->
+  <text x="36" y="100" font-size="12" font-weight="bold" fill="#6b7280">КІНЕМАТИЧНА СХЕМА</text>
+
+  <rect x="180" y="86" width="105" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="232" y="100" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ступінь 1 (u₁ = 3:1)</text>
+
+  <rect x="390" y="86" width="105" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="442" y="100" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ступінь 2 (u₂ = 3:1)</text>
+
+  <rect x="600" y="86" width="105" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="652" y="100" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ступінь 3 (u₃ = 3:1)</text>
+
+  <rect x="755" y="86" width="165" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="837" y="100" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Разом: u = 3×3×3 = 27:1</text>
+
+  <!-- МОТОР (Вхідний привод) -->
+  <rect x="36" y="114" width="64" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="68" y="130" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">МОТОР</text>
+  <text x="68" y="144" font-size="12" fill="#6b7280" text-anchor="middle">6 В DC</text>
+
+  <!-- ВАЛ 0 (Вал мотора, y = 132) -->
+  <line x1="100" y1="132" x2="210" y2="132" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="254" y1="132" x2="275" y2="132" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Опори (підшипники) Вала 0 -->
+  <rect x="116" y="125" width="10" height="14" fill="white" stroke="#6b7280" stroke-width="1"/>
+  <line x1="116" y1="125" x2="126" y2="139" stroke="#6b7280" stroke-width="1"/>
+  <line x1="116" y1="139" x2="126" y2="125" stroke="#6b7280" stroke-width="1"/>
+
+  <rect x="265" y="125" width="10" height="14" fill="white" stroke="#6b7280" stroke-width="1"/>
+  <line x1="265" y1="125" x2="275" y2="139" stroke="#6b7280" stroke-width="1"/>
+  <line x1="265" y1="139" x2="275" y2="125" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Обертання Вала 0 -->
+  <path d="M 160,126 A 7 7 0 1 1 172,130" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="168" y="119" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CW ↻</text>
+
+  <!-- Шестерня z1 (піньйон мотора, 10 зубів) -->
+  <rect x="210" y="122" width="44" height="20" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="232" y="136" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">z₁ = 10</text>
+
+  <!-- Точка зачеплення 1 -->
+  <circle cx="232" cy="142" r="2.5" fill="#2457d6"/>
+
+  <!-- ВАЛ 1 (Перший проміжний вал, y = 172) -->
+  <line x1="254" y1="172" x2="420" y2="172" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Опори (підшипники) Вала 1 -->
+  <rect x="192" y="165" width="10" height="14" fill="white" stroke="#6b7280" stroke-width="1"/>
+  <line x1="192" y1="165" x2="202" y2="179" stroke="#6b7280" stroke-width="1"/>
+  <line x1="192" y1="179" x2="202" y2="165" stroke="#6b7280" stroke-width="1"/>
+
+  <rect x="472" y="165" width="10" height="14" fill="white" stroke="#6b7280" stroke-width="1"/>
+  <line x1="472" y1="165" x2="482" y2="179" stroke="#6b7280" stroke-width="1"/>
+  <line x1="472" y1="179" x2="482" y2="165" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Колесо z2 (30 зубів) -->
+  <rect x="210" y="142" width="44" height="60" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="232" y="176" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">z₂ = 30</text>
+
+  <!-- Обертання Вала 1 -->
+  <path d="M 344,166 A 7 7 0 1 1 332,170" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="337" y="159" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">CCW ↺</text>
+  <text x="337" y="197" font-size="12" fill="#6b7280" text-anchor="middle">Вал 1 (проміжний)</text>
+
+  <!-- Шестерня z3 (піньйон на валу 1, 10 зубів) -->
+  <rect x="420" y="162" width="44" height="20" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="442" y="176" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">z₃ = 10</text>
+
+  <!-- Точка зачеплення 2 -->
+  <circle cx="442" cy="182" r="2.5" fill="#2457d6"/>
+
+  <!-- ВАЛ 2 (Другий проміжний вал, y = 212) -->
+  <line x1="464" y1="212" x2="630" y2="212" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Опори (підшипники) Вала 2 -->
+  <rect x="402" y="205" width="10" height="14" fill="white" stroke="#6b7280" stroke-width="1"/>
+  <line x1="402" y1="205" x2="412" y2="219" stroke="#6b7280" stroke-width="1"/>
+  <line x1="402" y1="219" x2="412" y2="205" stroke="#6b7280" stroke-width="1"/>
+
+  <rect x="682" y="205" width="10" height="14" fill="white" stroke="#6b7280" stroke-width="1"/>
+  <line x1="682" y1="205" x2="692" y2="219" stroke="#6b7280" stroke-width="1"/>
+  <line x1="682" y1="219" x2="692" y2="205" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Колесо z4 (30 зубів) -->
+  <rect x="420" y="182" width="44" height="60" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="442" y="216" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">z₄ = 30</text>
+
+  <!-- Обертання Вала 2 -->
+  <path d="M 539,206 A 7 7 0 1 1 551,210" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="547" y="199" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CW ↻</text>
+  <text x="547" y="237" font-size="12" fill="#6b7280" text-anchor="middle">Вал 2 (проміжний)</text>
+
+  <!-- Шестерня z5 (піньйон на валу 2, 10 зубів) -->
+  <rect x="630" y="202" width="44" height="20" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="652" y="216" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">z₅ = 10</text>
+
+  <!-- Точка зачеплення 3 -->
+  <circle cx="652" cy="222" r="2.5" fill="#2457d6"/>
+
+  <!-- ВАЛ 3 (Вихідний вал, y = 252) -->
+  <line x1="674" y1="252" x2="836" y2="252" stroke="#1a1a1a" stroke-width="4"/>
+
+  <!-- Опори (підшипники) Вала 3 -->
+  <rect x="612" y="245" width="10" height="14" fill="white" stroke="#6b7280" stroke-width="1"/>
+  <line x1="612" y1="245" x2="622" y2="259" stroke="#6b7280" stroke-width="1"/>
+  <line x1="612" y1="259" x2="622" y2="245" stroke="#6b7280" stroke-width="1"/>
+
+  <rect x="692" y="245" width="10" height="14" fill="white" stroke="#6b7280" stroke-width="1"/>
+  <line x1="692" y1="245" x2="702" y2="259" stroke="#6b7280" stroke-width="1"/>
+  <line x1="692" y1="259" x2="702" y2="245" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Колесо z6 (вихідне колесо, 30 зубів) -->
+  <rect x="630" y="222" width="44" height="60" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="652" y="256" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">z₆ = 30</text>
+
+  <!-- Обертання Вала 3 -->
+  <path d="M 776,246 A 7 7 0 1 1 764,250" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="769" y="239" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">CCW ↺</text>
+  <text x="769" y="277" font-size="12" fill="#6b7280" text-anchor="middle">Вал 3 (вихідний)</text>
+
+  <!-- ВИХІДНИЙ БЛОК (D-вал) -->
+  <rect x="836" y="234" width="74" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="873" y="250" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ВИХІД</text>
+  <text x="873" y="264" font-size="12" fill="#6b7280" text-anchor="middle">D-вал</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: ПОЕТАПНІ ПАРАМЕТРИ ТА СИЛОВЕ ПЕРЕТВОРЕННЯ -->
+
+  <!-- Картка 0: Вхідний вал -->
+  <rect x="24" y="308" width="213" height="130" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="333" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ВХІД: ВАЛ МОТОРА</text>
+  <text x="38" y="354" font-size="12" fill="#1a1a1a">Напрямок:</text>
+  <text x="220" y="354" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">CW ↻ (за год.)</text>
+  <text x="38" y="375" font-size="12" fill="#1a1a1a">Швидкість:</text>
+  <text x="220" y="375" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">6000 об/хв</text>
+  <rect x="38" y="383" width="182" height="6" rx="3" fill="#eaf0fd"/>
+  <rect x="38" y="383" width="182" height="6" rx="3" fill="#2457d6"/>
+  <text x="38" y="407" font-size="12" fill="#1a1a1a">Момент:</text>
+  <text x="220" y="407" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">1,0 × T_вх</text>
+  <rect x="38" y="415" width="182" height="6" rx="3" fill="#e9f7ef"/>
+  <rect x="38" y="415" width="7" height="6" rx="3" fill="#27ae60"/>
+
+  <line x1="240" y1="373" x2="252" y2="373" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Картка 1: Проміжний вал 1 -->
+  <rect x="257" y="308" width="213" height="130" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="364" y="333" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ПРОМІЖНИЙ ВАЛ 1</text>
+  <text x="271" y="354" font-size="12" fill="#1a1a1a">Напрямок:</text>
+  <text x="453" y="354" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">CCW ↺ (проти)</text>
+  <text x="271" y="375" font-size="12" fill="#1a1a1a">Швидкість:</text>
+  <text x="453" y="375" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">2000 об/хв</text>
+  <rect x="271" y="383" width="182" height="6" rx="3" fill="#eaf0fd"/>
+  <rect x="271" y="383" width="61" height="6" rx="3" fill="#2457d6"/>
+  <text x="271" y="407" font-size="12" fill="#1a1a1a">Момент:</text>
+  <text x="453" y="407" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">~3,0 × T_вх</text>
+  <rect x="271" y="415" width="182" height="6" rx="3" fill="#e9f7ef"/>
+  <rect x="271" y="415" width="20" height="6" rx="3" fill="#27ae60"/>
+
+  <line x1="473" y1="373" x2="485" y2="373" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Картка 2: Проміжний вал 2 -->
+  <rect x="490" y="308" width="213" height="130" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="597" y="333" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ПРОМІЖНИЙ ВАЛ 2</text>
+  <text x="504" y="354" font-size="12" fill="#1a1a1a">Напрямок:</text>
+  <text x="686" y="354" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">CW ↻ (за год.)</text>
+  <text x="504" y="375" font-size="12" fill="#1a1a1a">Швидкість:</text>
+  <text x="686" y="375" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">667 об/хв</text>
+  <rect x="504" y="383" width="182" height="6" rx="3" fill="#eaf0fd"/>
+  <rect x="504" y="383" width="20" height="6" rx="3" fill="#2457d6"/>
+  <text x="504" y="407" font-size="12" fill="#1a1a1a">Момент:</text>
+  <text x="686" y="407" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">~9,0 × T_вх</text>
+  <rect x="504" y="415" width="182" height="6" rx="3" fill="#e9f7ef"/>
+  <rect x="504" y="415" width="61" height="6" rx="3" fill="#27ae60"/>
+
+  <line x1="706" y1="373" x2="718" y2="373" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Картка 3: Вихідний вал -->
+  <rect x="723" y="308" width="213" height="130" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="830" y="333" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ВИХІД: ВАЛ РЕДУКТОРА</text>
+  <text x="737" y="354" font-size="12" fill="#1a1a1a">Напрямок:</text>
+  <text x="919" y="354" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">CCW ↺ (проти)</text>
+  <text x="737" y="375" font-size="12" fill="#1a1a1a">Швидкість:</text>
+  <text x="919" y="375" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">222 об/хв</text>
+  <rect x="737" y="383" width="182" height="6" rx="3" fill="#eaf0fd"/>
+  <rect x="737" y="383" width="7" height="6" rx="3" fill="#2457d6"/>
+  <text x="737" y="407" font-size="12" fill="#1a1a1a">Момент:</text>
+  <text x="919" y="407" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">~27 × T_вх</text>
+  <rect x="737" y="415" width="182" height="6" rx="3" fill="#e9f7ef"/>
+  <rect x="737" y="415" width="182" height="6" rx="3" fill="#27ae60"/>
+</svg>

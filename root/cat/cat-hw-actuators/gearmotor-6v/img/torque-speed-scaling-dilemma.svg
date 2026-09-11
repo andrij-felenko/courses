@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механічна дилема мікроприводу: пряме підключення проти редукції</text>
+  <text x="480" y="59" font-size="13" fill="#6b7280" text-anchor="middle">Редуктор узгоджує імпеданс: розмінює надлишкові оберти на високий крутний момент і рятує якір від перегріву</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ПРЯМИЙ ПРИВІД ==================== -->
+  <rect x="25" y="78" width="445" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Прямий привід: високообертовий мікромотор</text>
+  <text x="45" y="117" font-size="12" fill="#6b7280">Безпосередньо на вал: надлишкова швидкість, нульова корисна тяга</text>
+
+  <!-- Інформаційні плашки лівої панелі -->
+  <!-- Плашка 1: Аварійне заклинювання -->
+  <rect x="92" y="130" width="164" height="62" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="100" y="146" font-size="12" font-weight="bold" fill="#c0392b">Зона зупинки (Stall)</text>
+  <text x="100" y="163" font-size="12" fill="#1a1a1a">Опір шасі: M &gt; 50 мН·м</text>
+  <text x="100" y="179" font-size="12" fill="#c0392b">n = 0 | P_тепл ≈ 10 Вт</text>
+
+  <!-- Плашка 2: Холостий хід -->
+  <rect x="270" y="130" width="164" height="62" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="278" y="146" font-size="12" font-weight="bold" fill="#2457d6">Холостий хід (No-load)</text>
+  <text x="278" y="163" font-size="12" fill="#1a1a1a">n_0 ≈ 12 000 об/хв</text>
+  <text x="278" y="179" font-size="12" fill="#6b7280">v &gt; 25 м/с | Тяга M ≈ 0</text>
+
+  <!-- Осі координат лівої панелі -->
+  <line x1="85" y1="350" x2="425" y2="350" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="85" y1="350" x2="85" y2="140" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="78" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">M, мН·м</text>
+
+  <!-- Позначки осі Y -->
+  <text x="78" y="204" font-size="12" fill="#6b7280" text-anchor="end">2.0</text>
+  <text x="78" y="279" font-size="12" fill="#6b7280" text-anchor="end">1.0</text>
+  <text x="78" y="354" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Позначки осі X -->
+  <text x="85" y="368" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="235" y="368" font-size="12" fill="#6b7280" text-anchor="middle">6 000</text>
+  <text x="385" y="368" font-size="12" fill="#6b7280" text-anchor="middle">12 000</text>
+  <text x="235" y="390" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Швидкість обертання n (об/хв)</text>
+
+  <!-- Графіки лівої панелі -->
+  <!-- Крива крутного моменту M(n) -->
+  <line x1="85" y1="200" x2="385" y2="350" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="140" y="222" font-size="12" font-weight="bold" fill="#2457d6">Крива моменту M(n)</text>
+
+  <!-- Парабола механічної потужності P_mech(n) -->
+  <path d="M 85,350 Q 235,110 385,350" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="235" y="254" font-size="12" fill="#6b7280" text-anchor="middle">P_мех (пік 0.6 Вт)</text>
+
+  <!-- Характерні точки -->
+  <!-- Точка заклинювання (Stall) -->
+  <circle cx="85" cy="200" r="5" fill="#c0392b"/>
+
+  <!-- Точка холостого ходу -->
+  <circle cx="380" cy="348" r="5" fill="#2457d6"/>
+
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ПРИВІД З РЕДУКТОРОМ ==================== -->
+  <rect x="490" y="78" width="445" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="510" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Привід з редуктором (передавальне число i = 100:1)</text>
+  <text x="510" y="117" font-size="12" fill="#6b7280">Трансформація: узгодження з механічним опором шасі</text>
+
+  <!-- Інформаційні плашки правої панелі -->
+  <!-- Плашка 3: Помноження моменту -->
+  <rect x="556" y="130" width="168" height="62" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="564" y="146" font-size="12" font-weight="bold" fill="#27ae60">Помноження моменту</text>
+  <text x="564" y="163" font-size="12" fill="#1a1a1a">M_пуск = 130 мН·м (×65)</text>
+  <text x="564" y="179" font-size="12" fill="#27ae60">ККД передачі η ≈ 0.65</text>
+
+  <!-- Плашка 4: Робоча зона -->
+  <rect x="736" y="130" width="168" height="62" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="744" y="146" font-size="12" font-weight="bold" fill="#27ae60">Робоча зона шасі</text>
+  <text x="744" y="163" font-size="12" fill="#1a1a1a">n = 80–100 об/хв</text>
+  <text x="744" y="179" font-size="12" fill="#1a1a1a">v = 0.3–0.5 м/с | 200 мА</text>
+
+  <!-- Осі координат правої панелі -->
+  <line x1="550" y1="350" x2="890" y2="350" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="550" y1="350" x2="550" y2="140" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="542" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">M, мН·м</text>
+
+  <!-- Позначки осі Y -->
+  <text x="542" y="204" font-size="12" fill="#6b7280" text-anchor="end">150</text>
+  <text x="542" y="279" font-size="12" fill="#6b7280" text-anchor="end">75</text>
+  <text x="542" y="311" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">50</text>
+  <text x="542" y="354" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Позначки осі X -->
+  <text x="550" y="368" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="700" y="368" font-size="12" fill="#6b7280" text-anchor="middle">60</text>
+  <text x="750" y="368" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">80</text>
+  <text x="850" y="368" font-size="12" fill="#6b7280" text-anchor="middle">120</text>
+  <text x="700" y="390" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Швидкість вихідного вала n_вих (об/хв)</text>
+
+  <!-- Графік вихідного моменту -->
+  <line x1="550" y1="220" x2="850" y2="350" stroke="#27ae60" stroke-width="2.5"/>
+  <!-- Виділення робочого діапазону потовщеною лінією -->
+  <line x1="700" y1="285" x2="800" y2="328" stroke="#27ae60" stroke-width="5" stroke-linecap="round"/>
+  <text x="600" y="232" font-size="12" font-weight="bold" fill="#27ae60">M_вих(n) = M · i · η</text>
+
+  <!-- Пунктирні проекції робочої точки -->
+  <line x1="550" y1="307" x2="750" y2="307" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="750" y1="307" x2="750" y2="350" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Робоча точка приводу -->
+  <circle cx="750" cy="307" r="5" fill="#27ae60"/>
+  <text x="765" y="270" font-size="12" font-weight="bold" fill="#27ae60">Робоча точка шасі</text>
+  <text x="765" y="286" font-size="12" fill="#1a1a1a">M ≈ 50 мН·м, 80 об/хв</text>
+
+
+  <!-- ==================== НИЖНЯ ПЛАШКА-РЕЗЮМЕ ==================== -->
+  <!-- Ліва картка резюме: Прямий привід -->
+  <rect x="25" y="422" width="445" height="76" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="45" y="443" font-size="12" font-weight="bold" fill="#c0392b">Прямий привід: надмірні оберти та неможливість рушити</text>
+  <text x="45" y="462" font-size="12" fill="#1a1a1a">Тяга лише 2 мН·м: мотор не зрушить шасі з опором &gt; 50 мН·м.</text>
+  <text x="45" y="480" font-size="12" fill="#6b7280">Спроба рушити спричиняє заклинювання (Stall) і згоряння якоря.</text>
+
+  <!-- Права картка резюме: Привід з редуктором -->
+  <rect x="490" y="422" width="445" height="76" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="510" y="443" font-size="12" font-weight="bold" fill="#27ae60">Редуктор (100:1): узгодження швидкості та подолання тертя</text>
+  <text x="510" y="462" font-size="12" fill="#1a1a1a">Момент зріс до 130 мН·м: шасі впевнено долає опір та ухили.</text>
+  <text x="510" y="480" font-size="12" fill="#6b7280">Керована швидкість 0.3–0.5 м/с, безпечний струм 150–250 мА.</text>
+</svg>

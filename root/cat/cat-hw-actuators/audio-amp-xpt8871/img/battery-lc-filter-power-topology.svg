@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="26" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LC-фільтрація шини живлення 1S Li-Ion для аудіопідсилювача XPT8871</text>
+  <text x="480" y="46" font-size="13" fill="#6b7280" text-anchor="middle">Ізоляція підсилювача від імпульсних просідань живлення під час передачі пакетів Bluetooth (TX-bursts)</text>
+
+  <!-- ВЕРХНЯ ПАНЕЛЬ: СХЕМА -->
+  <rect x="20" y="62" width="920" height="154" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Плашка панелі схеми -->
+  <rect x="32" y="70" width="220" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="142" y="84" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ТОПОЛОГІЯ ЖИВЛЕННЯ ТА ФІЛЬТРА</text>
+
+  <!-- Блок акумулятора 1S Li-Ion -->
+  <rect x="32" y="96" width="93" height="108" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="78" y="118" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1S Li-Ion</text>
+  <text x="78" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3.7–4.2 В</text>
+  <text x="78" y="158" font-size="12" fill="#6b7280" text-anchor="middle">R_int ≈ 0.15 Ом</text>
+  <text x="78" y="178" font-size="12" fill="#6b7280" text-anchor="middle">Акумулятор</text>
+
+  <!-- Шини живлення від батареї -->
+  <!-- Позитивна шина до фільтра -->
+  <line x1="125" y1="110" x2="385" y2="110" stroke="#c0392b" stroke-width="2"/>
+  <!-- Загальна шина GND -->
+  <line x1="125" y1="190" x2="796" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Відгалуження на Bluetooth-модуль -->
+  <circle cx="175" cy="110" r="3" fill="#c0392b"/>
+  <line x1="175" y1="110" x2="175" y2="126" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="175" cy="190" r="3" fill="#1a1a1a"/>
+  <line x1="175" y1="174" x2="175" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Блок Bluetooth-модуля -->
+  <rect x="145" y="126" width="140" height="48" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="215" y="144" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Bluetooth-модуль</text>
+  <text x="215" y="162" font-size="12" fill="#c0392b" text-anchor="middle">TX-імпульси: 100–200 мА</text>
+
+  <!-- Контрольна точка: Вузол 1 (до фільтра) -->
+  <circle cx="330" cy="110" r="4.5" fill="#c0392b"/>
+  <rect x="303" y="74" width="54" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="330" y="88" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вуз. 1</text>
+  <text x="330" y="132" font-size="12" fill="#c0392b" text-anchor="middle">Шина V_BAT</text>
+  <text x="330" y="148" font-size="12" fill="#6b7280" text-anchor="middle">(пульсації)</text>
+
+  <!-- Рамка LC-фільтра -->
+  <rect x="375" y="68" width="340" height="138" rx="6" fill="#ffffff" stroke="#2457d6" stroke-dasharray="4 3" stroke-width="1.2"/>
+  <rect x="455" y="72" width="180" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="545" y="86" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">LC-ФІЛЬТР ДЛЯ XPT8871</text>
+
+  <!-- Дросель L -->
+  <rect x="385" y="100" width="90" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="430" y="114" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">L: 4.7–10 мкГн</text>
+  <text x="430" y="136" font-size="12" fill="#6b7280" text-anchor="middle">(ферит / дросель)</text>
+  <text x="430" y="152" font-size="12" fill="#6b7280" text-anchor="middle">блокує ВЧ-струми</text>
+
+  <!-- Позитивна шина після фільтра (VDD) -->
+  <line x1="475" y1="110" x2="796" y2="110" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Конденсатор C_bulk -->
+  <circle cx="515" cy="110" r="3" fill="#27ae60"/>
+  <line x1="515" y1="110" x2="515" y2="136" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="503" y1="136" x2="527" y2="136" stroke="#2457d6" stroke-width="2"/>
+  <line x1="503" y1="142" x2="527" y2="142" stroke="#2457d6" stroke-width="2"/>
+  <line x1="515" y1="142" x2="515" y2="190" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="515" cy="190" r="3" fill="#1a1a1a"/>
+
+  <text x="533" y="132" font-size="12" font-weight="bold" fill="#2457d6">C_bulk</text>
+  <text x="533" y="148" font-size="12" fill="#1a1a1a">220–470 мкФ</text>
+  <text x="533" y="164" font-size="12" fill="#6b7280">електроліт</text>
+  <text x="533" y="180" font-size="12" fill="#6b7280">(НЧ-буфер)</text>
+
+  <!-- Конденсатор C_bypass -->
+  <circle cx="625" cy="110" r="3" fill="#27ae60"/>
+  <line x1="625" y1="110" x2="625" y2="136" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="613" y1="136" x2="637" y2="136" stroke="#2457d6" stroke-width="2"/>
+  <line x1="613" y1="142" x2="637" y2="142" stroke="#2457d6" stroke-width="2"/>
+  <line x1="625" y1="142" x2="625" y2="190" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="625" cy="190" r="3" fill="#1a1a1a"/>
+
+  <text x="643" y="132" font-size="12" font-weight="bold" fill="#2457d6">C_bypass</text>
+  <text x="643" y="148" font-size="12" fill="#1a1a1a">0.1–1 мкФ</text>
+  <text x="643" y="164" font-size="12" fill="#6b7280">кераміка X7R</text>
+  <text x="643" y="180" font-size="12" fill="#6b7280">(ВЧ-шунти)</text>
+
+  <!-- Контрольна точка: Вузол 2 (після фільтра) -->
+  <circle cx="756" cy="110" r="4.5" fill="#27ae60"/>
+  <rect x="729" y="74" width="54" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="756" y="88" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вуз. 2</text>
+
+  <!-- Блок мікросхеми XPT8871 -->
+  <rect x="796" y="92" width="132" height="112" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="804" y="114" font-size="12" font-weight="bold" fill="#27ae60">Pin 6: VDD</text>
+  <text x="804" y="186" font-size="12" font-weight="bold" fill="#6b7280">Pin 7: GND</text>
+  <text x="862" y="136" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">XPT8871</text>
+  <text x="862" y="152" font-size="12" fill="#2457d6" text-anchor="middle">Підсилювач 5 Вт</text>
+  <text x="862" y="168" font-size="12" fill="#6b7280" text-anchor="middle">Мостовий (BTL)</text>
+
+  <!-- ЛІВА НИЖНЯ ПАНЕЛЬ: ОСЦИЛОГРАМА ДО ФІЛЬТРА (ВУЗОЛ 1) -->
+  <rect x="20" y="228" width="450" height="217" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Плашка панелі Вузол 1 -->
+  <rect x="32" y="238" width="426" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="42" y="255" font-size="12" font-weight="bold" fill="#c0392b">ВУЗОЛ 1: НАПРУГА ДО ФІЛЬТРА (V_BAT / ШИНА BT)</text>
+  <text x="448" y="255" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">ШУМ</text>
+
+  <!-- Область графіка Вузол 1 -->
+  <rect x="32" y="270" width="426" height="106" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Позначки напруги ліворуч -->
+  <text x="38" y="292" font-size="12" fill="#6b7280">4.0 В</text>
+  <text x="38" y="318" font-size="12" fill="#6b7280">3.7 В</text>
+  <text x="38" y="346" font-size="12" fill="#6b7280">3.4 В</text>
+
+  <!-- Базова лінія 3.7 В (пунктир) -->
+  <line x1="76" y1="314" x2="446" y2="314" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Вісь часу -->
+  <text x="446" y="368" font-size="12" fill="#6b7280" text-anchor="end">t (час)</text>
+
+  <!-- Форма напруги з просіданнями під час передачі пакетів -->
+  <path d="M 76,314 L 110,314 L 112,336 L 135,336 L 137,311 L 140,314 L 220,314 L 222,336 L 245,336 L 247,311 L 250,314 L 330,314 L 332,336 L 355,336 L 357,311 L 360,314 L 446,314" stroke="#c0392b" stroke-width="2.2" fill="none"/>
+
+  <!-- Позначки імпульсів TX -->
+  <text x="123" y="360" font-size="12" fill="#c0392b" text-anchor="middle">TX 1</text>
+  <text x="233" y="360" font-size="12" fill="#c0392b" text-anchor="middle">TX 2</text>
+  <text x="343" y="360" font-size="12" fill="#c0392b" text-anchor="middle">TX 3</text>
+
+  <!-- Підпис величини просідання напруги -->
+  <text x="180" y="302" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ΔV ≈ 250 мВ</text>
+
+  <!-- Нижня плашка висновків для Вузла 1 -->
+  <rect x="32" y="386" width="426" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="42" y="404" font-size="12" font-weight="bold" fill="#c0392b">Висновки щодо Вузла 1 (до фільтрації):</text>
+  <text x="42" y="422" font-size="12" fill="#1a1a1a">TX-пакети BT дають просідання ~250 мВ, що створює TDMA-шум</text>
+
+  <!-- ПРАВА НИЖНЯ ПАНЕЛЬ: ОСЦИЛОГРАМА ПІСЛЯ ФІЛЬТРА (ВУЗОЛ 2) -->
+  <rect x="490" y="228" width="450" height="217" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Плашка панелі Вузол 2 -->
+  <rect x="502" y="238" width="426" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="512" y="255" font-size="12" font-weight="bold" fill="#27ae60">ВУЗОЛ 2: НАПРУГА ПІСЛЯ LC-ФІЛЬТРА (VDD XPT8871)</text>
+  <text x="918" y="255" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">ЧИСТО</text>
+
+  <!-- Область графіка Вузол 2 -->
+  <rect x="502" y="270" width="426" height="106" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Позначки напруги ліворуч -->
+  <text x="508" y="292" font-size="12" fill="#6b7280">4.0 В</text>
+  <text x="508" y="318" font-size="12" fill="#6b7280">3.7 В</text>
+  <text x="508" y="346" font-size="12" fill="#6b7280">3.4 В</text>
+
+  <!-- Вісь часу -->
+  <text x="916" y="368" font-size="12" fill="#6b7280" text-anchor="end">t (час)</text>
+
+  <!-- Чиста лінія напруги VDD 3.7 В постійного струму -->
+  <line x1="546" y1="314" x2="916" y2="314" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Інформаційний бейдж про фільтрацію пульсацій -->
+  <rect x="605" y="280" width="220" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="295" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Пульсації придушено (&lt; 2 мВ)</text>
+  <text x="715" y="342" font-size="12" fill="#27ae60" text-anchor="middle">Стабільна напруга VDD: 3.7 В DC</text>
+
+  <!-- Нижня плашка висновків для Вузла 2 -->
+  <rect x="502" y="386" width="426" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="512" y="404" font-size="12" font-weight="bold" fill="#27ae60">Висновки щодо Вузла 2 (після фільтрації):</text>
+  <text x="512" y="422" font-size="12" fill="#1a1a1a">L відсікає ВЧ, тандем C_bulk + кераміка гарантує чистий звук</text>
+
+</svg>

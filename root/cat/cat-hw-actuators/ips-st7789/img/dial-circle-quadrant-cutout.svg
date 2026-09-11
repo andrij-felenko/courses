@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Аналітичний виріз 90° циферблата без тригонометрії</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Умова dy &gt; 0 та |dx| &lt; dy: відсікання нижнього квадранта шкали за 1 такт процесора</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ГЕОМЕТРИЧНИЙ ЦИФЕРБЛАТ ==================== -->
+  <rect x="24" y="65" width="496" height="375" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="24" y="65" width="496" height="28" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="272" y="84" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Геометрична площина екрана (вісь +Y донизу)</text>
+
+  <!-- 1. Сектор вирізу 90 градусів у нижній півплощині (xc=260, yc=215, R=110, кути 45..135 градусів) -->
+  <!-- Від (338, 293) по дузі R=110 до (182, 293) і в центр (260, 215) -->
+  <path d="M 260,215 L 338,293 A 110 110 0 0 1 182,293 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- 2. Активна дуга шкали 270 градусів (R_out=110, R_in=80, кути від 135 до 45 градусів за годинниковою) -->
+  <path d="M 182,293 A 110 110 0 1 1 338,293 L 317,272 A 80 80 0 1 0 203,272 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Розділові прямі під кутом 45 градусів (dy = dx та dy = -dx) -->
+  <!-- Пряма dy = dx: від (260, 215) до (375, 330) -->
+  <line x1="260" y1="215" x2="375" y2="330" stroke="#c0392b" stroke-width="2"/>
+  <text x="382" y="342" font-size="12" font-weight="700" fill="#c0392b">dy = dx (+45°)</text>
+
+  <!-- Пряма dy = -dx: від (260, 215) до (145, 330) -->
+  <line x1="260" y1="215" x2="145" y2="330" stroke="#c0392b" stroke-width="2"/>
+  <text x="138" y="342" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">dy = -dx (+135°)</text>
+
+  <!-- Координатні осі екрана -->
+  <!-- Вісь X (горизонтальна) -->
+  <line x1="110" y1="215" x2="410" y2="215" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="420" y="219" font-size="12" font-weight="700" fill="#1a1a1a">+X</text>
+  <text x="98" y="219" font-size="12" fill="#6b7280" text-anchor="end">-X</text>
+
+  <!-- Вісь Y (вертикальна, спрямована вниз) -->
+  <line x1="260" y1="95" x2="260" y2="355" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="260" y="372" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">+Y (донизу)</text>
+  <text x="260" y="92" font-size="12" fill="#6b7280" text-anchor="middle">-Y</text>
+
+  <!-- Центр кола -->
+  <circle cx="260" cy="215" r="4" fill="#1a1a1a"/>
+  <text x="260" y="205" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Центр (xc, yc)</text>
+
+  <!-- Написи всередині вирізу 90 градусів (вписуються в трикутник без перетинів) -->
+  <text x="260" y="246" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">dy &gt; 0</text>
+  <text x="260" y="263" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Виріз 90°</text>
+  <text x="260" y="280" font-size="12" fill="#c0392b" text-anchor="middle">|dx| &lt; dy</text>
+
+  <!-- Написи на активній шкалі 270 градусів (вгорі) -->
+  <text x="260" y="130" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Робоча шкала циферблата: дуга 270°</text>
+  <text x="260" y="146" font-size="12" fill="#27ae60" text-anchor="middle">Умова: dy ≤ 0  або  |dx| ≥ dy</text>
+
+  <!-- Нижня інформаційна смужка панелі 1 -->
+  <rect x="34" y="390" width="476" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="272" y="407" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Сектор вирізу розгортається в: -dy &lt; dx &lt; dy при dy &gt; 0</text>
+  <text x="272" y="423" font-size="12" fill="#6b7280" text-anchor="middle">Точки за межами цього сектора формують активну частину шкали</text>
+
+
+  <!-- ==================== ПАНЕЛЬ 2: АНАЛІТИЧНІ ФОРМУЛИ ==================== -->
+  <rect x="532" y="65" width="404" height="375" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="532" y="65" width="404" height="28" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="734" y="84" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">2. Аналітичний алгоритм без float та sin/cos</text>
+
+  <!-- Блок 1: Відносні координати -->
+  <rect x="544" y="102" width="380" height="64" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="556" y="120" font-size="12" font-weight="700" fill="#1a1a1a">1. Відносні координати пікселя (x, y):</text>
+  <text x="556" y="138" font-size="12" fill="#2457d6">int16_t dx = x - xc;   // горизонтальне відхилення</text>
+  <text x="556" y="154" font-size="12" fill="#2457d6">int16_t dy = y - yc;   // вниз dy &gt; 0, вгору dy &lt; 0</text>
+
+  <!-- Блок 2: Умова вирізу 90 градусів -->
+  <rect x="544" y="174" width="380" height="80" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="556" y="192" font-size="12" font-weight="700" fill="#c0392b">2. Перевірка вирізу за 1 такт АЛП (без таблиць):</text>
+  <text x="556" y="210" font-size="12" fill="#1a1a1a">if (dy &gt; 0 &amp;&amp; abs(dx) &lt; dy) {</text>
+  <text x="556" y="228" font-size="12" fill="#c0392b">    // Точка в секторі 90°: пропускаємо дугу шкали</text>
+  <text x="556" y="244" font-size="12" fill="#1a1a1a">    return COLOR_BG; // тло під текстове значення</text>
+  <text x="556" y="260" font-size="12" fill="#1a1a1a">}</text>
+
+  <!-- Блок 3: Рендеринг активної дуги -->
+  <rect x="544" y="262" width="380" height="74" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="556" y="280" font-size="12" font-weight="700" fill="#27ae60">3. Рендеринг активної дуги 270°:</text>
+  <text x="556" y="298" font-size="12" fill="#1a1a1a">uint32_t r2 = (uint32_t)(dx * dx + dy * dy);</text>
+  <text x="556" y="316" font-size="12" fill="#27ae60">if (r2 &gt;= R_IN_SQ &amp;&amp; r2 &lt;= R_OUT_SQ) return DIAL_COLOR;</text>
+
+  <!-- Блок 4: Переваги для Cortex-M -->
+  <rect x="544" y="344" width="380" height="88" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="556" y="362" font-size="12" font-weight="700" fill="#2457d6">4. Архітектурні переваги для Cortex-M:</text>
+  <text x="556" y="380" font-size="12" fill="#1a1a1a">• Нуль звернень до sin/cos/atan2 та таблиць LUT</text>
+  <text x="556" y="398" font-size="12" fill="#1a1a1a">• Швидка цілочисельна перевірка умови в 1 такт</text>
+  <text x="556" y="416" font-size="12" fill="#6b7280">• Частота оновлення &gt; 45 FPS при подвійній буферизації</text>
+</svg>

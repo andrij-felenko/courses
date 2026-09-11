@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Кінематична схема 4-ступеневого металевого редуктора сервопривода MG90S</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Трансформація кутової швидкості в момент: каскад z1..z8 із i_total ≈ 303:1 та зміною напрямків обертання</text>
+
+  <!-- Верхня панель: Кінематична схема -->
+  <rect x="24" y="66" width="912" height="206" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="86" font-size="13" font-weight="bold" fill="#1a1a1a">Кінематична розгортка зубчастого каскаду (вал двигуна ➔ вихідний вал):</text>
+
+  <!-- Вал 0: Двигун (x = 76) -->
+  <rect x="52" y="196" width="48" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="76" y="216" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Двигун</text>
+  <text x="76" y="232" text-anchor="middle" font-size="12" fill="#6b7280">18k об/хв</text>
+
+  <line x1="76" y1="196" x2="76" y2="142" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Шестерня z1 -->
+  <rect x="64" y="122" width="24" height="20" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="76" y="137" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">z1</text>
+  <text x="76" y="112" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">10 зубів</text>
+  <text x="76" y="98" text-anchor="middle" font-size="12" fill="#2457d6">↻ CW</text>
+
+  <!-- Зачеплення 1: z1 -> z2 -->
+  <line x1="88" y1="132" x2="202" y2="132" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <text x="145" y="126" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">i1 = 3.6</text>
+
+  <!-- Вал 1: Блок z2 / z3 (x = 224) -->
+  <line x1="224" y1="142" x2="224" y2="168" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="224" y1="188" x2="224" y2="198" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Колесо z2 -->
+  <rect x="202" y="122" width="44" height="20" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="224" y="137" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">z2: 36</text>
+  <!-- Шестерня z3 -->
+  <rect x="212" y="168" width="24" height="20" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="224" y="183" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">z3: 10</text>
+  <text x="224" y="112" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вісь 1 (латунь)</text>
+  <text x="224" y="98" text-anchor="middle" font-size="12" fill="#c0392b">↺ CCW (5k)</text>
+
+  <!-- Зачеплення 2: z3 -> z4 -->
+  <line x1="236" y1="178" x2="362" y2="178" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <text x="299" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">i2 = 3.4</text>
+
+  <!-- Вал 2: Блок z4 / z5 (x = 384) -->
+  <line x1="384" y1="142" x2="384" y2="168" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="384" y1="188" x2="384" y2="198" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Колесо z4 -->
+  <rect x="362" y="168" width="44" height="20" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="384" y="183" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">z4: 34</text>
+  <!-- Шестерня z5 -->
+  <rect x="372" y="122" width="24" height="20" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="384" y="137" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">z5: 10</text>
+  <text x="384" y="112" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вісь 2 (сталь)</text>
+  <text x="384" y="98" text-anchor="middle" font-size="12" fill="#2457d6">↻ CW (1.5k)</text>
+
+  <!-- Зачеплення 3: z5 -> z6 -->
+  <line x1="396" y1="132" x2="522" y2="132" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <text x="459" y="126" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">i3 = 3.3</text>
+
+  <!-- Вал 3: Блок z6 / z7 (x = 544) -->
+  <line x1="544" y1="142" x2="544" y2="168" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="544" y1="188" x2="544" y2="198" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Колесо z6 -->
+  <rect x="522" y="122" width="44" height="20" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="544" y="137" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">z6: 33</text>
+  <!-- Шестерня z7 -->
+  <rect x="532" y="168" width="24" height="20" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="544" y="183" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">z7: 10</text>
+  <text x="544" y="112" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вісь 3 (сталь)</text>
+  <text x="544" y="98" text-anchor="middle" font-size="12" fill="#c0392b">↺ CCW (445)</text>
+
+  <!-- Зачеплення 4: z7 -> z8 -->
+  <line x1="556" y1="178" x2="710" y2="178" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <text x="633" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">i4 = 7.5</text>
+
+  <!-- Вал 4: Вихідний вал (x = 736) -->
+  <line x1="736" y1="114" x2="736" y2="120" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="736" y1="138" x2="736" y2="168" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="736" y1="190" x2="736" y2="204" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Шліци вала угорі -->
+  <rect x="724" y="98" width="24" height="16" rx="2" fill="#1a1a1a"/>
+  <text x="756" y="110" font-size="12" font-weight="bold" fill="#1a1a1a">Вихідні шліци</text>
+
+  <!-- Кулькова вальниця -->
+  <rect x="716" y="120" width="40" height="18" rx="2" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="764" y="134" font-size="12" font-weight="bold" fill="#27ae60">Вальниця</text>
+
+  <!-- Вихідне колесо z8 (сектор) -->
+  <rect x="710" y="168" width="52" height="22" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="736" y="184" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">z8: 75</text>
+  <text x="768" y="184" font-size="12" font-weight="bold" fill="#2457d6">↻ CW</text>
+
+  <!-- Потенціометр зворотного зв'язку внизу -->
+  <rect x="680" y="204" width="112" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="736" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Потенціометр</text>
+  <text x="736" y="238" text-anchor="middle" font-size="12" fill="#1a1a1a">5 кОм (0..180°)</text>
+
+  <!-- Нижня панель: 3 інженерні картки -->
+  <!-- Картка 1: Розрахунок -->
+  <rect x="24" y="282" width="296" height="154" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="24" y="282" width="296" height="24" rx="8" fill="#eaf0fd"/>
+  <text x="36" y="298" font-size="12" font-weight="bold" fill="#2457d6">Кінематичний розрахунок i_total:</text>
+  <text x="36" y="320" font-size="12" fill="#1a1a1a">• Ступінь 1: i1 = z2 / z1 = 36 / 10 = 3.60</text>
+  <text x="36" y="338" font-size="12" fill="#1a1a1a">• Ступінь 2: i2 = z4 / z3 = 34 / 10 = 3.40</text>
+  <text x="36" y="356" font-size="12" fill="#1a1a1a">• Ступінь 3: i3 = z6 / z5 = 33 / 10 = 3.30</text>
+  <text x="36" y="374" font-size="12" fill="#1a1a1a">• Ступінь 4: i4 = z8 / z7 = 75 / 10 = 7.50</text>
+  <text x="36" y="394" font-size="12" font-weight="bold" fill="#2457d6">i_total = 3.6 × 3.4 × 3.3 × 7.5 ≈ 302.9:1</text>
+  <text x="36" y="412" font-size="12" fill="#6b7280">4 пари реверсу ➔ напрямок вала збігається!</text>
+
+  <!-- Картка 2: Трансформація енергії -->
+  <rect x="332" y="282" width="296" height="154" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <rect x="332" y="282" width="296" height="24" rx="8" fill="#e9f7ef"/>
+  <text x="344" y="298" font-size="12" font-weight="bold" fill="#27ae60">Трансформація швидкості й моменту:</text>
+  <text x="344" y="320" font-size="12" font-weight="bold" fill="#1a1a1a">1. Падіння швидкості (omega):</text>
+  <text x="344" y="338" font-size="12" fill="#1a1a1a">   18 000 ➔ 59.4 об/хв (0.17 с / 60°)</text>
+  <text x="344" y="360" font-size="12" font-weight="bold" fill="#1a1a1a">2. Зростання моменту (з eta ≈ 55%):</text>
+  <text x="344" y="378" font-size="12" fill="#1a1a1a">   M_in = 0.08 ➔ M_out = 2.2 кгс·см</text>
+  <text x="344" y="400" font-size="12" font-weight="bold" fill="#27ae60">3. Кумулятивний люфт (Backlash):</text>
+  <text x="344" y="418" font-size="12" fill="#6b7280">   сумарний люфт 4 пар: ~0.8°–1.2°</text>
+
+  <!-- Картка 3: Конструкція MG90S -->
+  <rect x="640" y="282" width="296" height="154" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="640" y="282" width="296" height="24" rx="8" fill="#f4f6f8"/>
+  <text x="652" y="298" font-size="12" font-weight="bold" fill="#1a1a1a">Конструктивні вузли MG90S V2:</text>
+  <text x="652" y="320" font-size="12" font-weight="bold" fill="#27ae60">• Кулькова вальниця (Ball Bearing):</text>
+  <text x="652" y="338" font-size="12" fill="#1a1a1a">  компенсує радіальні навантаження.</text>
+  <text x="652" y="360" font-size="12" font-weight="bold" fill="#c0392b">• Потенціометр зворотного зв'язку:</text>
+  <text x="652" y="378" font-size="12" fill="#1a1a1a">  фіксує положення вала 0..180°.</text>
+  <text x="652" y="400" font-size="12" font-weight="bold" fill="#2457d6">• Шестерні (латунь + сталь):</text>
+  <text x="652" y="418" font-size="12" fill="#6b7280">  захист від зрізання зубців при stall.</text>
+</svg>

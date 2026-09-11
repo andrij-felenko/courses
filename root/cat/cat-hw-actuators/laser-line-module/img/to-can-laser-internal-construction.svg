@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня будова лазерного діода в корпусі TO-56</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Тепловідвідний столик, кристали ЛД та моніторний ФД під кутом проти паразитного зворотного зв'язку</text>
+
+  <!-- Ліва панель: 3D розріз корпусу -->
+  <rect x="30" y="70" width="530" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="94" font-size="14" font-weight="bold" fill="#1a1a1a">Розріз корпусу TO-56 (вигляд 3/4)</text>
+  <rect x="410" y="80" width="135" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="477" y="94" font-size="12" fill="#2457d6" text-anchor="middle">Оптична вісь Z</text>
+
+  <!-- Цоколь корпусу: нижній фланець -->
+  <path d="M 160,340 A 110,26 0 0,0 380,340 L 380,354 A 110,26 0 0,1 160,354 Z" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <ellipse cx="270" cy="340" rx="110" ry="26" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <ellipse cx="270" cy="336" rx="90" ry="21" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Виводи діода (Pins) -->
+  <line x1="210" y1="342" x2="210" y2="405" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="270" y1="354" x2="270" y2="415" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="330" y1="342" x2="330" y2="405" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Скляні ізолятори виводів -->
+  <ellipse cx="210" cy="342" rx="10" ry="4" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <ellipse cx="330" cy="342" rx="10" ry="4" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Стінки ковпачка TO-can (виріз) -->
+  <path d="M 180,336 A 90,21 0 0,1 360,336 L 345,150 A 75,18 0 0,0 195,150 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 180,336 L 195,150" stroke="#6b7280" stroke-width="1.5"/>
+  <path d="M 360,336 L 345,150" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Оправа та вікно ковпачка -->
+  <ellipse cx="270" cy="150" rx="75" ry="18" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <ellipse cx="270" cy="150" rx="55" ry="13" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- Мідний столик-тепловідвід (педестал) -->
+  <path d="M 235,334 L 235,200 L 270,195 L 280,198 L 280,330 Z" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="270,195 280,198 280,325 270,322" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Кристал лазерного діода на підкладці -->
+  <rect x="278" y="210" width="6" height="26" fill="#1a1a1a"/>
+  <rect x="284" y="214" width="12" height="18" fill="#2457d6" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="284" y1="223" x2="296" y2="223" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Основний лазерний промінь угору через вікно -->
+  <polygon points="290,214 245,150 315,150" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="290" y1="214" x2="278" y2="115" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Зворотний промінь униз до фотодіода -->
+  <polygon points="290,232 278,300 312,306" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,2"/>
+  <line x1="290" y1="232" x2="294" y2="298" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Похилий постамент і моніторний фотодіод (15°) -->
+  <polygon points="275,315 320,325 320,320 275,308" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <polygon points="278,307 318,318 316,312 276,301" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="280" y1="305" x2="314" y2="314" stroke="#e9f7ef" stroke-width="1"/>
+
+  <!-- Промінь дзеркального відбиття від ФД убік -->
+  <line x1="296" y1="308" x2="348" y2="292" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr-red)"/>
+
+  <!-- Золоті дротики мікрозварки -->
+  <path d="M 288,216 C 240,210 215,260 210,332" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 310,314 C 322,312 328,318 330,332" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Підписи елементів зліва -->
+  <text x="46" y="132" font-size="12" font-weight="bold" fill="#1a1a1a">Вихідне вікно зі скла</text>
+  <text x="46" y="148" font-size="12" fill="#6b7280">Просвітлююче покриття (AR)</text>
+  <line x1="175" y1="140" x2="215" y2="150" stroke="#6b7280" stroke-width="1"/>
+
+  <text x="46" y="196" font-size="12" font-weight="bold" fill="#1a1a1a">Тепловідвідний столик</text>
+  <text x="46" y="212" font-size="12" fill="#6b7280">Масивний мідний пілон</text>
+  <line x1="175" y1="204" x2="235" y2="210" stroke="#6b7280" stroke-width="1"/>
+
+  <text x="46" y="254" font-size="12" font-weight="bold" fill="#2457d6">Кристал лазерного діода</text>
+  <text x="46" y="270" font-size="12" fill="#6b7280">Edge-emitter на тепловідводі</text>
+  <line x1="185" y1="260" x2="280" y2="226" stroke="#2457d6" stroke-width="1"/>
+
+  <text x="46" y="310" font-size="12" font-weight="bold" fill="#1a1a1a">Мікророзварка виводів</text>
+  <text x="46" y="326" font-size="12" fill="#6b7280">Золотий дріт ⌀25 мкм</text>
+  <line x1="170" y1="318" x2="215" y2="290" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Підписи променів та ФД справа від розрізу -->
+  <text x="365" y="172" font-size="12" font-weight="bold" fill="#2457d6">Передній промінь (90–95%)</text>
+  <text x="365" y="188" font-size="12" fill="#6b7280">Основний лазерний потік</text>
+
+  <text x="365" y="238" font-size="12" font-weight="bold" fill="#2457d6">Задній промінь (5–10%)</text>
+  <text x="365" y="254" font-size="12" fill="#6b7280">Для зворотного зв'язку APC</text>
+
+  <text x="365" y="308" font-size="12" font-weight="bold" fill="#27ae60">Моніторний фотодіод</text>
+  <text x="365" y="324" font-size="12" fill="#c0392b">Нахил 15° (відбиття мимо ЛД)</text>
+
+  <!-- Підписи пінів унизу -->
+  <text x="210" y="420" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pin 1 (LD)</text>
+  <text x="270" y="428" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pin 3 (GND)</text>
+  <text x="330" y="420" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pin 2 (PD)</text>
+
+  <!-- Права панель: Картка 1 (Кут нахилу) -->
+  <rect x="580" y="70" width="350" height="170" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="595" y="84" width="8" height="18" rx="2" fill="#27ae60"/>
+  <text x="612" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Чому фотодіод нахилено (12°–15°)</text>
+
+  <rect x="595" y="110" width="320" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="755" y="125" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Захист від оптичного зворотного зв'язку</text>
+
+  <circle cx="604" cy="146" r="3" fill="#2457d6"/>
+  <text x="615" y="150" font-size="12" fill="#1a1a1a">Пряме світло: поглинається p-n переходом ФД</text>
+
+  <circle cx="604" cy="164" r="3" fill="#c0392b"/>
+  <text x="615" y="168" font-size="12" fill="#1a1a1a">Дзеркальне відбиття: відхиляється на стінку корпусу</text>
+
+  <circle cx="604" cy="182" r="3" fill="#27ae60"/>
+  <text x="615" y="186" font-size="12" fill="#1a1a1a">Усуває паразитичний зв'язок (optical feedback)</text>
+
+  <circle cx="604" cy="200" r="3" fill="#6b7280"/>
+  <text x="615" y="204" font-size="12" fill="#6b7280">Запобігає стрибкам поздовжніх мод та шуму RIN</text>
+
+  <circle cx="604" cy="218" r="3" fill="#6b7280"/>
+  <text x="615" y="222" font-size="12" fill="#6b7280">Стабілізує калібрування фотоструму петлі APC</text>
+
+  <!-- Права панель: Картка 2 (Тепловідвід і цоколівка) -->
+  <rect x="580" y="255" width="350" height="175" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="595" y="269" width="8" height="18" rx="2" fill="#2457d6"/>
+  <text x="612" y="283" font-size="14" font-weight="bold" fill="#1a1a1a">Тепловідвід та цоколівка TO-56</text>
+
+  <rect x="595" y="295" width="320" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="755" y="310" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Цоколь ⌀5.6 мм з опорним мідним фланцем</text>
+
+  <circle cx="604" cy="331" r="3" fill="#2457d6"/>
+  <text x="615" y="335" font-size="12" fill="#1a1a1a">Мідний пілон: прямий тепловідвід від кристала ЛД</text>
+
+  <circle cx="604" cy="349" r="3" fill="#6b7280"/>
+  <text x="615" y="353" font-size="12" fill="#1a1a1a">Герметичні скляні ізолятори (гермошпали) виводів</text>
+
+  <circle cx="604" cy="367" r="3" fill="#1a1a1a"/>
+  <text x="615" y="371" font-size="12" fill="#1a1a1a">Pin 1 (LD): анод/катод діода (струм 20–80 мА)</text>
+
+  <circle cx="604" cy="385" r="3" fill="#1a1a1a"/>
+  <text x="615" y="389" font-size="12" fill="#1a1a1a">Pin 2 (PD): струм моніторингу (зворотний 0.1–1 мА)</text>
+
+  <circle cx="604" cy="403" r="3" fill="#1a1a1a"/>
+  <text x="615" y="407" font-size="12" fill="#1a1a1a">Pin 3 (GND): спільний корпус (Case), ключ орієнтації</text>
+</svg>

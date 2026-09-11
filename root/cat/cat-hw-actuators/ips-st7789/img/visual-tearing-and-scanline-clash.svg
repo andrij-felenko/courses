@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механізм розриву кадру (Tearing) у контролері ST7789</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Зіткнення повільного запису по SPI та швидкої кадрової розгортки з буфера GRAM на матрицю</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Пам'ять GRAM ST7789 -->
+  <rect x="24" y="76" width="516" height="314" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="282" y="99" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Буфер пам'яті GRAM (240×240) і рух покажчиків</text>
+
+  <!-- Ліва колонка: SPI Запис -->
+  <rect x="36" y="118" width="160" height="78" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="116" y="138" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Запис по SPI (DMA)</text>
+  <text x="116" y="156" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача Кадру N+1</text>
+  <text x="116" y="174" font-size="12" fill="#6b7280" text-anchor="middle">f_SCK = 20–40 МГц</text>
+
+  <line x1="116" y1="196" x2="116" y2="220" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="36" y="224" width="160" height="62" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="116" y="244" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Покажчик запису</text>
+  <text x="116" y="262" font-size="12" fill="#1a1a1a" text-anchor="middle">Повільний рух ↓</text>
+  <text x="116" y="278" font-size="12" fill="#2457d6" text-anchor="middle">Рядок Y = 140</text>
+
+  <rect x="36" y="308" width="160" height="62" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="116" y="328" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Повільний інтерфейс</text>
+  <text x="116" y="346" font-size="12" fill="#6b7280" text-anchor="middle">t_frame ≈ 23–46 мс</text>
+  <text x="116" y="362" font-size="12" fill="#6b7280" text-anchor="middle">Не встигає за 60 Гц</text>
+
+  <!-- Стрілка від покажчика запису до GRAM -->
+  <line x1="196" y1="265" x2="206" y2="265" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Центральна частина: GRAM (240 рядків) -->
+  <rect x="210" y="118" width="144" height="147" fill="#eaf0fd" rx="4"/>
+  <rect x="210" y="265" width="144" height="105" fill="#fdecea" rx="4"/>
+  <rect x="210" y="118" width="144" height="252" fill="none" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+
+  <text x="282" y="136" font-size="12" fill="#6b7280" text-anchor="middle">Рядок 0</text>
+  <text x="282" y="166" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Кадр N+1</text>
+  <text x="282" y="184" font-size="12" fill="#2457d6" text-anchor="middle">(новий кадр)</text>
+  <text x="282" y="206" font-size="12" fill="#1a1a1a" text-anchor="middle">Рядки 0 ... 139</text>
+  <text x="282" y="224" font-size="12" fill="#6b7280" text-anchor="middle">Оновлено по SPI</text>
+  <text x="282" y="254" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зіткнення: Y ≈ 140</text>
+
+  <!-- Лінія зіткнення покажчиків у GRAM -->
+  <line x1="202" y1="265" x2="362" y2="265" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5,3"/>
+
+  <text x="282" y="288" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Кадр N</text>
+  <text x="282" y="306" font-size="12" fill="#c0392b" text-anchor="middle">(попередній кадр)</text>
+  <text x="282" y="328" font-size="12" fill="#1a1a1a" text-anchor="middle">Рядки 140 ... 239</text>
+  <text x="282" y="356" font-size="12" fill="#6b7280" text-anchor="middle">Рядок 239</text>
+
+  <!-- Стрілка від GRAM до покажчика вибірки -->
+  <line x1="354" y1="265" x2="364" y2="265" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Права колонка: Розгортка TFT -->
+  <rect x="368" y="118" width="160" height="78" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="448" y="138" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Розгортка на панель</text>
+  <text x="448" y="156" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратне зчитування</text>
+  <text x="448" y="174" font-size="12" fill="#6b7280" text-anchor="middle">Частота: 60 Гц (TFT)</text>
+
+  <line x1="448" y1="196" x2="448" y2="220" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="368" y="224" width="160" height="62" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="448" y="244" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Покажчик вибірки</text>
+  <text x="448" y="262" font-size="12" fill="#1a1a1a" text-anchor="middle">Швидкий рух ↓</text>
+  <text x="448" y="278" font-size="12" fill="#c0392b" text-anchor="middle">Обігнав запис на Y=140</text>
+
+  <rect x="368" y="308" width="160" height="62" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="448" y="328" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Швидка розгортка</text>
+  <text x="448" y="346" font-size="12" fill="#6b7280" text-anchor="middle">t_frame = 16.6 мс</text>
+  <text x="448" y="362" font-size="12" fill="#c0392b" text-anchor="middle">Зчитує старий Кадр N</text>
+
+  <!-- З'єднувальна лінія між панелями на рівні Y=140 -->
+  <line x1="528" y1="265" x2="570" y2="265" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- ПРАВА ПАНЕЛЬ: Візуалізація на екрані -->
+  <rect x="556" y="76" width="380" height="314" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="746" y="99" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Візуалізація розриву на IPS-панелі</text>
+
+  <!-- Екран IPS (рамка і активна матриця) -->
+  <rect x="574" y="119" width="180" height="252" rx="6" fill="#2c3e50" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="580" y="125" width="168" height="140" fill="#ffffff"/>
+  <rect x="580" y="265" width="168" height="100" fill="#ffffff"/>
+
+  <!-- Рухомий графічний об'єкт зі зсувом (Tearing) -->
+  <!-- Примарний контур старої позиції вгорі -->
+  <rect x="612" y="145" width="32" height="120" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <!-- Реальний об'єкт у новому кадрі N+1 (верхня частина) -->
+  <rect x="668" y="145" width="32" height="120" fill="#2457d6" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Стрілка руху об'єкта вправо -->
+  <line x1="664" y1="137" x2="698" y2="137" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Реальний об'єкт у старому кадрі N (нижня частина, відстає) -->
+  <rect x="612" y="265" width="32" height="85" fill="#2457d6" opacity="0.85" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Примарний контур нової позиції внизу (куди об'єкт ще не потрапив) -->
+  <rect x="668" y="265" width="32" height="85" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Лінія Tearing на екрані -->
+  <line x1="574" y1="265" x2="754" y2="265" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5,3"/>
+  <!-- Зигзаг розриву між половинками -->
+  <path d="M644,265 L652,260 L660,270 L668,265" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Картки-пояснення праворуч від екрана -->
+  <rect x="766" y="125" width="158" height="66" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="845" y="145" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Верхня частина</text>
+  <text x="845" y="163" font-size="12" fill="#1a1a1a" text-anchor="middle">Новий кадр N+1</text>
+  <text x="845" y="179" font-size="12" fill="#6b7280" text-anchor="middle">Об'єкт змістився →</text>
+  <line x1="766" y1="158" x2="704" y2="158" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="766" y="232" width="158" height="66" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="845" y="252" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Лінія розриву</text>
+  <text x="845" y="270" font-size="12" fill="#c0392b" text-anchor="middle">Tearing (Y ≈ 140)</text>
+  <text x="845" y="286" font-size="12" fill="#1a1a1a" text-anchor="middle">Зсув об'єкта (розрив)</text>
+  <line x1="766" y1="265" x2="756" y2="265" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <rect x="766" y="308" width="158" height="62" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="845" y="328" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Нижня частина</text>
+  <text x="845" y="346" font-size="12" fill="#c0392b" text-anchor="middle">Старий кадр N</text>
+  <text x="845" y="362" font-size="12" fill="#6b7280" text-anchor="middle">Позиція відстає</text>
+  <line x1="766" y1="338" x2="648" y2="338" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Апаратне рішення (сигнал TE) -->
+  <rect x="24" y="404" width="912" height="56" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="426" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Апаратне вирішення: сигнал синхронізації TE (Tearing Effect)</text>
+  <text x="480" y="446" font-size="12" fill="#1a1a1a" text-anchor="middle">Контролер ST7789 видає імпульс TE під час V-Blanking — мікроконтролер запускає передачу SPI лише на початку кадру</text>
+</svg>

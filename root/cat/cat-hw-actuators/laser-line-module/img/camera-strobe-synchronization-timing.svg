@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- ==================== ЗАГОЛОВОК ТА ПІДЗАГОЛОВОК ==================== -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Часова діаграма стробоскопічної синхронізації лазера з камерою</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Мікросекундний спалах лазера суворо всередині експозиції сенсора: виключення накладання на зчитування</text>
+
+  <!-- ==================== ВЕРХНЯ ПАНЕЛЬ: ЧАСОВА ДІАГРАМА ==================== -->
+  <rect x="25" y="65" width="910" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="85" font-size="13" font-weight="700" fill="#1a1a1a">Послідовність апаратних сигналів синхронізації (One-Pulse Strobe)</text>
+
+  <!-- Осі часу: горизонтальні базові лінії -->
+  <line x1="260" y1="120" x2="890" y2="120" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="260" y1="165" x2="890" y2="165" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="260" y1="210" x2="890" y2="210" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="260" y1="255" x2="890" y2="255" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="890" y1="255" x2="915" y2="255" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="922" y="259" font-size="12" font-weight="700" fill="#1a1a1a">t</text>
+
+  <!-- Підписи сигналів ліворуч -->
+  <text x="250" y="116" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">Strobe Out камери</text>
+  <text x="250" y="161" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">Експозиція сенсора (T_exp)</text>
+  <text x="250" y="206" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">Спалах лазера (Gate)</text>
+  <text x="250" y="251" text-anchor="end" font-size="12" font-weight="700" fill="#6b7280">Зчитування матриці (Readout)</text>
+
+  <!-- 1. Сигнал Strobe Out (кадровий імпульс камери) -->
+  <polyline points="260,120 290,120 290,104 350,104 350,120 890,120" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="320" y="99" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Кадровий тригер (TTL)</text>
+
+  <!-- Затримка запуску експозиції t_delay -->
+  <line x1="290" y1="135" x2="320" y2="135" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="305" y="131" text-anchor="middle" font-size="12" fill="#6b7280">t_затр</text>
+
+  <!-- 2. Вікно експозиції сенсора T_exp -->
+  <rect x="320" y="148" width="360" height="17" fill="#eaf0fd" fill-opacity="0.6"/>
+  <polyline points="260,165 320,165 320,148 680,148 680,165 890,165" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="500" y="142" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Вікно експозиції сенсора (T_exp)</text>
+
+  <!-- 3. Спалах лазера (сформований таймером MCU) -->
+  <rect x="420" y="192" width="140" height="18" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <polyline points="260,210 420,210 420,192 560,192 560,210 890,210" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="490" y="186" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Спалах лазера T_laser (50–100 мкс)</text>
+
+  <!-- Захисний інтервал відсутності накладання -->
+  <line x1="560" y1="202" x2="680" y2="202" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-rev)" marker-end="url(#arr-green)"/>
+  <text x="620" y="196" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Запас Δt_безпеки</text>
+
+  <!-- 4. Фаза зчитування рядків (Readout) -->
+  <rect x="680" y="238" width="200" height="17" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+  <polyline points="260,255 680,255 680,238 880,238 880,255 890,255" fill="none" stroke="#6b7280" stroke-width="1.8"/>
+  <text x="780" y="232" text-anchor="middle" font-size="12" font-weight="700" fill="#6b7280">Фаза зчитування матриці (Readout)</text>
+
+  <!-- Вертикальні лінії розмежування фаз -->
+  <line x1="560" y1="188" x2="560" y2="260" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="680" y1="145" x2="680" y2="260" stroke="#1a1a1a" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Плашка підтвердження нульового перекриття -->
+  <rect x="566" y="266" width="108" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="620" y="280" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Без перекриття</text>
+
+  <!-- ==================== СЕРЕДНІ КАРТКИ: ПОРІВНЯННЯ СТАНІВ ==================== -->
+  <!-- Картка 1: Норма -->
+  <rect x="25" y="308" width="445" height="62" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="40" y="328" font-size="12" font-weight="700" fill="#27ae60">Норма: T_laser суворо всередині вікна експозиції</text>
+  <text x="40" y="346" font-size="12" fill="#1a1a1a">• Випромінювання вимикається до початку зчитування матриці.</text>
+  <text x="40" y="360" font-size="12" fill="#6b7280">• Рівномірний кадр без смугастості й деформації піка COG.</text>
+
+  <!-- Картка 2: Помилка -->
+  <rect x="485" y="308" width="450" height="62" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="500" y="328" font-size="12" font-weight="700" fill="#c0392b">Помилка: накладання спалаху на зчитування (Readout)</text>
+  <text x="500" y="346" font-size="12" fill="#1a1a1a">• Затягування імпульсу експонує рядки, що саме зчитуються.</text>
+  <text x="500" y="360" font-size="12" fill="#6b7280">• Артефакти «зебри» (rolling banding) та спотворення профілю.</text>
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: ІНЖЕНЕРНІ ВИСНОВКИ ==================== -->
+  <rect x="25" y="382" width="910" height="63" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="402" font-size="12" font-weight="700" fill="#1a1a1a">Вимоги до апаратної синхронізації та стробування:</text>
+  <text x="45" y="420" font-size="12" fill="#6b7280">1. Апаратний One-Pulse Mode: таймер MCU формує мікросекундний імпульс без джиттеру переривань.</text>
+  <text x="45" y="436" font-size="12" fill="#6b7280">2. Захисний інтервал: запас Δt ≥ 20–50 мкс виключає засвітку через затримку вимкнення MOSFET.</text>
+</svg>

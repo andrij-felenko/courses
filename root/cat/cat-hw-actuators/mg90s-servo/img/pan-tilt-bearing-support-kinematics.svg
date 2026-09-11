@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінематика двоопорного розвантаженого механізму Pan-Tilt</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Осі Pan/Tilt, U-подібний кронштейн, контрпідшипники та центрування центра ваги навантаження</text>
+
+  <!-- ==================== LEFT: KINEMATIC DIAGRAM ==================== -->
+
+  <!-- Top Badge: Center of Gravity on Tilt Axis -->
+  <rect x="195" y="74" width="210" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="300" y="92" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Центр ваги (ЦВ) на осі Tilt</text>
+  <text x="300" y="108" font-size="12" fill="#1a1a1a" text-anchor="middle">Плече L = 0  ⇒  Момент Mg = 0</text>
+
+  <!-- Tilt Axis Label (Top-Left) -->
+  <text x="100" y="96" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вісь Tilt (нахил)</text>
+  <text x="100" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Кут тангажу ±45°</text>
+  <line x1="100" y1="118" x2="100" y2="136" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+  <!-- Tilt Axis Center-Line Segments (Dashed) -->
+  <!-- Segment 1: from X=35 to X=240 at Y=175 -->
+  <line x1="35" y1="175" x2="240" y2="175" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="6,3,2,3"/>
+  <!-- Segment 2: from X=360 to X=465 at Y=175 -->
+  <line x1="360" y1="175" x2="465" y2="175" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="6,3,2,3"/>
+
+  <!-- U-shaped Structural Bracket (Вилка) -->
+  <path d="M 144,140 L 160,140 L 160,286 L 440,286 L 440,140 L 456,140 L 456,302 L 144,302 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Tilt Servo (Left side, mounted on U-bracket) -->
+  <rect x="56" y="150" width="80" height="50" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Mounting Ear & Screws -->
+  <rect x="44" y="166" width="12" height="18" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="50" cy="175" r="2.5" fill="#1a1a1a"/>
+  <!-- Tilt Shaft / Coupler to Cradle -->
+  <path d="M 136,170 L 156,170 L 156,171 L 186,171 L 186,179 L 156,179 L 156,180 L 136,180 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <!-- Torque Arrow M_k around tilt shaft -->
+  <path d="M 171,164 A 12,12 0 1,1 171,186" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Tilt Servo Labels (Bottom-Left) -->
+  <text x="132" y="216" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Сервопривід Tilt</text>
+  <text x="132" y="232" font-size="12" fill="#2457d6" text-anchor="end">Момент сили Mк</text>
+  <text x="132" y="248" font-size="12" fill="#6b7280" text-anchor="end">Вал без згину</text>
+
+  <!-- Left Reaction Force Fr1 (blue arrow) -->
+  <line x1="152" y1="225" x2="152" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Payload Cradle (Колиска) -->
+  <path d="M 186,165 L 198,165 L 198,255 L 402,255 L 402,165 L 414,165 L 414,267 L 186,267 Z" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Sensor Module (HC-SR04 mounted on cradle) -->
+  <rect x="230" y="150" width="140" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="236" cy="156" r="2.5" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <circle cx="364" cy="156" r="2.5" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <circle cx="236" cy="194" r="2.5" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <circle cx="364" cy="194" r="2.5" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Ultrasonic Transducers -->
+  <!-- Left: Transmitter 'T' -->
+  <circle cx="265" cy="175" r="18" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="265" cy="175" r="13" fill="#ffffff" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="265" y="179" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">T</text>
+
+  <!-- Right: Receiver 'R' -->
+  <circle cx="335" cy="175" r="18" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="335" cy="175" r="13" fill="#ffffff" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="335" y="179" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R</text>
+
+  <!-- Center of Gravity (ЦВ) Icon at (300, 175) -->
+  <circle cx="300" cy="175" r="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 300,175 L 300,167 A 8,8 0 0,1 308,175 Z" fill="#1a1a1a"/>
+  <path d="M 300,175 L 300,183 A 8,8 0 0,1 292,175 Z" fill="#1a1a1a"/>
+  <line x1="289" y1="175" x2="311" y2="175" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="300" y1="164" x2="300" y2="186" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Gravity Force Vector Fg from CG downwards -->
+  <line x1="300" y1="183" x2="300" y2="245" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="312" y="234" font-size="12" font-weight="bold" fill="#c0392b">Fg = m · g</text>
+  <text x="312" y="248" font-size="12" fill="#6b7280">(вага m·g)</text>
+
+  <!-- Right Counter-Bearing Assembly -->
+  <!-- Pivot Pin from cradle to bearing (path) -->
+  <path d="M 414,172 L 436,172 L 436,178 L 414,178 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <!-- Bearing Housing -->
+  <rect x="436" y="158" width="24" height="34" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="442" y="166" width="12" height="18" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <!-- Rolling Balls -->
+  <circle cx="448" cy="164" r="3.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="448" cy="186" r="3.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Right Reaction Force Fr2 (green arrow) -->
+  <line x1="448" y1="225" x2="448" y2="195" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Counter-Bearing Labels (Right side) -->
+  <text x="478" y="162" font-size="12" font-weight="bold" fill="#27ae60">Опорний підшипник</text>
+  <text x="478" y="178" font-size="12" fill="#1a1a1a">Контр-опора вала</text>
+  <text x="478" y="194" font-size="12" fill="#6b7280">Сприймає Fr2 = Fg/2</text>
+
+  <!-- U-Bracket Label -->
+  <text x="478" y="278" font-size="12" font-weight="bold" fill="#2457d6">U-кронштейн (вилка)</text>
+  <text x="478" y="294" font-size="12" fill="#6b7280">Розвантажувальна рама</text>
+  <line x1="456" y1="286" x2="472" y2="286" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Pan Coupling & Shaft -->
+  <rect x="282" y="302" width="36" height="16" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <!-- Pan Rotation Arc -->
+  <path d="M 270,310 A 30,10 0 0,0 330,310" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Pan Axis Label (Left of Pan Servo) -->
+  <text x="204" y="336" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Вісь Pan (азимут)</text>
+  <text x="204" y="352" font-size="12" fill="#6b7280" text-anchor="end">Обертання 180°</text>
+  <line x1="208" y1="336" x2="240" y2="320" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-blue)"/>
+
+  <!-- Pan Servo Body -->
+  <rect x="230" y="318" width="140" height="62" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="216" y="338" width="14" height="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="223" cy="348" r="3" fill="#1a1a1a"/>
+  <rect x="370" y="338" width="14" height="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="377" cy="348" r="3" fill="#1a1a1a"/>
+
+  <!-- Text inside Pan Servo -->
+  <text x="300" y="346" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Серво Pan (MG90S)</text>
+  <text x="300" y="362" font-size="12" fill="#6b7280" text-anchor="middle">Привід повороту бази</text>
+
+  <!-- Base Plate (Foundation) -->
+  <rect x="190" y="388" width="220" height="24" rx="2" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="200" y1="412" x2="212" y2="400" stroke="#d0d7de" stroke-width="1.2"/>
+  <line x1="220" y1="412" x2="232" y2="400" stroke="#d0d7de" stroke-width="1.2"/>
+  <line x1="240" y1="412" x2="252" y2="400" stroke="#d0d7de" stroke-width="1.2"/>
+  <line x1="260" y1="412" x2="272" y2="400" stroke="#d0d7de" stroke-width="1.2"/>
+  <line x1="280" y1="412" x2="292" y2="400" stroke="#d0d7de" stroke-width="1.2"/>
+  <line x1="300" y1="412" x2="312" y2="400" stroke="#d0d7de" stroke-width="1.2"/>
+  <line x1="320" y1="412" x2="332" y2="400" stroke="#d0d7de" stroke-width="1.2"/>
+  <line x1="340" y1="412" x2="352" y2="400" stroke="#d0d7de" stroke-width="1.2"/>
+  <line x1="360" y1="412" x2="372" y2="400" stroke="#d0d7de" stroke-width="1.2"/>
+  <line x1="380" y1="412" x2="392" y2="400" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Base Label -->
+  <text x="300" y="436" font-size="12" fill="#6b7280" text-anchor="middle">Нерухома монтажна основа</text>
+
+  <!-- ==================== RIGHT: ENGINEERING CARDS ==================== -->
+
+  <!-- Card 1: Straddle Mount Scheme -->
+  <rect x="635" y="76" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="635" y="76" width="301" height="26" rx="6" fill="#eaf0fd"/>
+  <text x="645" y="94" font-size="13" font-weight="bold" fill="#2457d6">1. Двоопорна схема (Straddle mount)</text>
+
+  <text x="645" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">Розподіл радіальних навантажень</text>
+  <text x="645" y="136" font-size="12" fill="#6b7280">Контрпідшипник сприймає вагу вузла,</text>
+  <text x="645" y="154" font-size="12" fill="#6b7280">розвантажуючи вал серво від згину.</text>
+  <text x="645" y="174" font-size="12" font-weight="bold" fill="#2457d6">Редуктор передає суто крутний момент!</text>
+
+  <!-- Card 2: Center of Gravity Balancing -->
+  <rect x="635" y="202" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="635" y="202" width="301" height="26" rx="6" fill="#e9f7ef"/>
+  <text x="645" y="220" font-size="13" font-weight="bold" fill="#27ae60">2. Балансування центра ваги (ЦВ)</text>
+
+  <text x="645" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">Суміщення ЦВ з віссю нахилу Tilt</text>
+  <text x="645" y="262" font-size="12" fill="#6b7280">Плече гравітації L = 0, тому момент Mg = 0.</text>
+  <text x="645" y="280" font-size="12" fill="#6b7280">Вантаж стабільний у будь-якій позиції.</text>
+  <text x="645" y="300" font-size="12" font-weight="bold" fill="#27ae60">Енергія йде лише на динамічний розгін!</text>
+
+  <!-- Card 3: Reduced Current Consumption -->
+  <rect x="635" y="328" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="635" y="328" width="301" height="26" rx="6" fill="#eaf0fd"/>
+  <text x="645" y="346" font-size="13" font-weight="bold" fill="#2457d6">3. Зниження струму споживання</text>
+
+  <text x="645" y="370" font-size="12" font-weight="bold" fill="#1a1a1a">Мінімальний струм утримання ваги</text>
+  <text x="645" y="388" font-size="12" fill="#6b7280">У спокої серво споживає 15–25 мА замість</text>
+  <text x="645" y="406" font-size="12" fill="#6b7280">350–500 мА при незбалансованій схемі.</text>
+  <text x="645" y="426" font-size="12" font-weight="bold" fill="#2457d6">Немає перегріву та просідання шини 5 В!</text>
+</svg>

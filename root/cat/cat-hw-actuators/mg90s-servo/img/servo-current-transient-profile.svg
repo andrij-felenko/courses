@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Осцилограма профілю струму споживання сервопривода MG90S</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Пусковий сплеск (Inrush), комутаційний шум H-моста, холостий хід і стрибок струму при контакті губок (Stall)</text>
+
+  <!-- Основна панель осцилографа -->
+  <rect x="40" y="70" width="880" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Зони (верхні мітки-плашки) -->
+  <rect x="110" y="76" width="62" height="26" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="141" y="93" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">1. Спокій</text>
+
+  <rect x="176" y="76" width="65" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="208" y="93" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Пуск</text>
+
+  <rect x="245" y="76" width="271" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="380" y="93" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Холостий хід (рух без навантаження)</text>
+
+  <rect x="520" y="76" width="141" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="590" y="93" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">4. Контакт / Упор</text>
+
+  <rect x="665" y="76" width="215" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="772" y="93" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">5. Адаптивне утримання</text>
+
+  <!-- Екран осцилографа -->
+  <rect x="110" y="110" width="770" height="260" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Горизонтальні лінії сітки (шкала струму) -->
+  <line x1="110" y1="318" x2="880" y2="318" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="110" y1="266" x2="880" y2="266" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="110" y1="214" x2="880" y2="214" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="110" y1="162" x2="880" y2="162" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Вертикальні лінії сітки (шкала часу) -->
+  <line x1="238" y1="110" x2="238" y2="370" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="366" y1="110" x2="366" y2="370" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="495" y1="110" x2="495" y2="370" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="623" y1="110" x2="623" y2="370" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="751" y1="110" x2="751" y2="370" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Осі координат -->
+  <line x1="110" y1="110" x2="110" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="110" y1="370" x2="880" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Підписи осі струму I (ліворуч) -->
+  <text x="102" y="98" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">I (мА)</text>
+  <text x="102" y="374" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="102" y="322" font-size="12" fill="#6b7280" text-anchor="end">200</text>
+  <text x="102" y="270" font-size="12" fill="#6b7280" text-anchor="end">400</text>
+  <text x="102" y="218" font-size="12" fill="#6b7280" text-anchor="end">600</text>
+  <text x="102" y="166" font-size="12" fill="#6b7280" text-anchor="end">800</text>
+  <text x="102" y="114" font-size="12" fill="#6b7280" text-anchor="end">1000</text>
+
+  <!-- Підписи осі часу t (внизу) -->
+  <text x="880" y="398" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Час t (мс)</text>
+  <text x="110" y="386" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="238" y="386" font-size="12" fill="#6b7280" text-anchor="middle">50</text>
+  <text x="366" y="386" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+  <text x="495" y="386" font-size="12" fill="#6b7280" text-anchor="middle">150</text>
+  <text x="623" y="386" font-size="12" fill="#6b7280" text-anchor="middle">200</text>
+  <text x="751" y="386" font-size="12" fill="#6b7280" text-anchor="middle">250</text>
+  <text x="880" y="386" font-size="12" fill="#6b7280" text-anchor="middle">300</text>
+
+  <!-- Затінення площі під кривою струму -->
+  <path d="M 110,370 L 110,366 L 110,366 L 175,366 L 183,270 L 195,162 L 205,230 L 215,280 L 230,318 L 245,331 L 250,331.0 L 255,333.5 L 260,329.5 L 265,334.0 L 270,329.0 L 275,333.0 L 280,328.0 L 285,332.5 L 290,328.5 L 295,333.8 L 300,329.2 L 305,333.2 L 310,328.3 L 315,331.0 L 320,333.5 L 325,329.5 L 330,334.0 L 335,329.0 L 340,333.0 L 345,328.0 L 350,332.5 L 355,328.5 L 360,333.8 L 365,329.2 L 370,333.2 L 375,328.3 L 380,331.0 L 385,333.5 L 390,329.5 L 395,334.0 L 400,329.0 L 405,333.0 L 410,328.0 L 415,332.5 L 420,328.5 L 425,333.8 L 430,329.2 L 435,333.2 L 440,328.3 L 445,331.0 L 450,333.5 L 455,329.5 L 460,334.0 L 465,329.0 L 470,333.0 L 475,328.0 L 480,332.5 L 485,328.5 L 490,333.8 L 495,329.2 L 500,333.2 L 505,328.3 L 510,331.0 L 515,333.5 L 520,329.5 L 528,245 L 538,175 L 548,146 L 553,144.8 L 558,147.2 L 563,144.8 L 568,147.2 L 573,144.8 L 578,147.2 L 583,144.8 L 588,147.2 L 593,144.8 L 598,147.2 L 603,144.8 L 608,147.2 L 613,144.8 L 618,147.2 L 623,144.8 L 628,147.2 L 633,144.8 L 638,147.2 L 640,144.8 L 652,225 L 665,305 L 670,306.0 L 675,304.0 L 680,306.0 L 685,304.0 L 690,306.0 L 695,304.0 L 700,306.0 L 705,304.0 L 710,306.0 L 715,304.0 L 720,306.0 L 725,304.0 L 730,306.0 L 735,304.0 L 740,306.0 L 745,304.0 L 750,306.0 L 755,304.0 L 760,306.0 L 765,304.0 L 770,306.0 L 775,304.0 L 780,306.0 L 785,304.0 L 790,306.0 L 795,304.0 L 800,306.0 L 805,304.0 L 810,306.0 L 815,304.0 L 820,306.0 L 825,304.0 L 830,306.0 L 835,304.0 L 840,306.0 L 845,304.0 L 850,306.0 L 855,304.0 L 860,306.0 L 865,304.0 L 870,306.0 L 875,304.0 L 880,306.0 L 880,370 Z" fill="#eaf0fd" opacity="0.5"/>
+
+  <!-- Рівень порогу відсічки I_пор = 480 мА (штрихова лінія) -->
+  <line x1="500" y1="245" x2="665" y2="245" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <circle cx="528" cy="245" r="4" fill="#c0392b"/>
+  <text x="488" y="235" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Поріг відсічки I_пор = 480 мА</text>
+  <text x="488" y="251" font-size="12" fill="#6b7280" text-anchor="end">(фіксація контакту губок)</text>
+
+  <!-- Рівень струму заклинювання (Stall) -->
+  <line x1="548" y1="146" x2="640" y2="146" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="594" y="133" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">I_stall ≈ 860–900 мА</text>
+
+  <!-- Рівень струму утримання (Hold) -->
+  <line x1="665" y1="305" x2="880" y2="305" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="772" y="280" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I_hold ≈ 250 мА (утримання)</text>
+  <text x="772" y="296" font-size="12" fill="#6b7280" text-anchor="middle">зниження шпаруватості ШІМ</text>
+
+  <!-- Сама осцилограма струму (жирна лінія) -->
+  <path d="M 110,366 L 175,366 L 183,270 L 195,162 L 205,230 L 215,280 L 230,318 L 245,331 L 250,331.0 L 255,333.5 L 260,329.5 L 265,334.0 L 270,329.0 L 275,333.0 L 280,328.0 L 285,332.5 L 290,328.5 L 295,333.8 L 300,329.2 L 305,333.2 L 310,328.3 L 315,331.0 L 320,333.5 L 325,329.5 L 330,334.0 L 335,329.0 L 340,333.0 L 345,328.0 L 350,332.5 L 355,328.5 L 360,333.8 L 365,329.2 L 370,333.2 L 375,328.3 L 380,331.0 L 385,333.5 L 390,329.5 L 395,334.0 L 400,329.0 L 405,333.0 L 410,328.0 L 415,332.5 L 420,328.5 L 425,333.8 L 430,329.2 L 435,333.2 L 440,328.3 L 445,331.0 L 450,333.5 L 455,329.5 L 460,334.0 L 465,329.0 L 470,333.0 L 475,328.0 L 480,332.5 L 485,328.5 L 490,333.8 L 495,329.2 L 500,333.2 L 505,328.3 L 510,331.0 L 515,333.5 L 520,329.5 L 528,245 L 538,175 L 548,146 L 553,144.8 L 558,147.2 L 563,144.8 L 568,147.2 L 573,144.8 L 578,147.2 L 583,144.8 L 588,147.2 L 593,144.8 L 598,147.2 L 603,144.8 L 608,147.2 L 613,144.8 L 618,147.2 L 623,144.8 L 628,147.2 L 633,144.8 L 638,147.2 L 640,144.8 L 652,225 L 665,305 L 670,306.0 L 675,304.0 L 680,306.0 L 685,304.0 L 690,306.0 L 695,304.0 L 700,306.0 L 705,304.0 L 710,306.0 L 715,304.0 L 720,306.0 L 725,304.0 L 730,306.0 L 735,304.0 L 740,306.0 L 745,304.0 L 750,306.0 L 755,304.0 L 760,306.0 L 765,304.0 L 770,306.0 L 775,304.0 L 780,306.0 L 785,304.0 L 790,306.0 L 795,304.0 L 800,306.0 L 805,304.0 L 810,306.0 L 815,304.0 L 820,306.0 L 825,304.0 L 830,306.0 L 835,304.0 L 840,306.0 L 845,304.0 L 850,306.0 L 855,304.0 L 860,306.0 L 865,304.0 L 870,306.0 L 875,304.0 L 880,306.0" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Анотація 1: Спокій -->
+  <text x="142" y="352" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">I_idle ≈ 15 мА</text>
+
+  <!-- Анотація 2: Пусковий сплеск (Inrush) -->
+  <text x="195" y="136" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пуск (Inrush)</text>
+  <text x="195" y="152" font-size="12" fill="#c0392b" text-anchor="middle">800 мА / 15 мс</text>
+
+  <!-- Анотація 3: Холостий хід і шум -->
+  <text x="380" y="284" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Холостий хід: I_run ≈ 150 мА</text>
+  <text x="380" y="302" font-size="12" fill="#6b7280" text-anchor="middle">Комутаційний шум щіток і ШІМ-моста</text>
+
+  <!-- Нижня панель легенди (розшифровка кольорів) -->
+  <circle cx="90" cy="438" r="4" fill="#6b7280"/>
+  <text x="100" y="442" font-size="12" fill="#1a1a1a">Спокій (~15 мА)</text>
+
+  <circle cx="240" cy="438" r="4" fill="#2457d6"/>
+  <text x="250" y="442" font-size="12" fill="#1a1a1a">Холостий хід (~150 мА)</text>
+
+  <circle cx="430" cy="438" r="4" fill="#c0392b"/>
+  <text x="440" y="442" font-size="12" fill="#1a1a1a">Пуск / Заклинювання (~800–900 мА)</text>
+
+  <circle cx="700" cy="438" r="4" fill="#27ae60"/>
+  <text x="710" y="442" font-size="12" fill="#1a1a1a">Адаптивне утримання (~250 мА)</text>
+</svg>

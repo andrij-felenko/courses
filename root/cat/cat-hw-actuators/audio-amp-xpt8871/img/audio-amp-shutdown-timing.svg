@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-rev-blue" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова послідовність керування аудіопідсилювачем XPT8871</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Плавний пуск із витримкою t_startup та попереднє глушіння усувають щиглики pop-and-click</text>
+  <rect x="25" y="72" width="155" height="72" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="35" y="100" font-size="13" font-weight="bold" fill="#1a1a1a">GPIO SHUTDOWN</text>
+  <text x="35" y="122" font-size="12" fill="#6b7280">Вхід сну (активний 0)</text>
+  <rect x="246" y="72" width="674" height="72" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="335" y="73" width="170" height="70" fill="#eaf0fd" fill-opacity="0.7"/>
+  <rect x="25" y="158" width="155" height="72" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="35" y="186" font-size="13" font-weight="bold" fill="#1a1a1a">Напруга V_BYPASS</text>
+  <text x="35" y="208" font-size="12" fill="#6b7280">Опорний рівень VDD/2</text>
+  <rect x="246" y="158" width="674" height="72" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="335" y="159" width="170" height="70" fill="#eaf0fd" fill-opacity="0.7"/>
+  <rect x="25" y="244" width="155" height="72" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="35" y="272" font-size="13" font-weight="bold" fill="#1a1a1a">Аудіопотік ЦАП</text>
+  <text x="35" y="294" font-size="12" fill="#6b7280">Вихід мікроконтролера</text>
+  <rect x="246" y="244" width="674" height="72" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="335" y="245" width="170" height="70" fill="#eaf0fd" fill-opacity="0.7"/>
+  <rect x="25" y="330" width="155" height="72" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="35" y="358" font-size="13" font-weight="bold" fill="#1a1a1a">Вихідна V_DIFF</text>
+  <text x="35" y="380" font-size="12" fill="#6b7280">Динамік (без клацань)</text>
+  <rect x="246" y="330" width="674" height="72" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="335" y="331" width="170" height="70" fill="#eaf0fd" fill-opacity="0.7"/>
+  <line x1="335" y1="72" x2="335" y2="416" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1" stroke-opacity="0.6"/>
+  <line x1="505" y1="72" x2="505" y2="416" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1" stroke-opacity="0.6"/>
+  <line x1="740" y1="72" x2="740" y2="416" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <!-- Track 1: GPIO SHUTDOWN -->
+  <text x="236" y="94" font-size="12" fill="#6b7280" text-anchor="end">1 (Сон)</text>
+  <text x="236" y="130" font-size="12" fill="#6b7280" text-anchor="end">0 (Вкл)</text>
+  <path d="M 246 90 L 335 90 L 335 126 L 740 126 L 740 90 L 920 90" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="290" y="116" font-size="12" fill="#6b7280" text-anchor="middle">Сон</text>
+  <text x="420" y="98" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Витримка t_startup</text>
+  <text x="420" y="114" font-size="12" fill="#2457d6" text-anchor="middle">(заряд C_BYPASS)</text>
+  <text x="622" y="104" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Робота: підсилювач активний</text>
+  <text x="827" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Режим сну (1)</text>
+  <!-- Track 2: V_BYPASS -->
+  <text x="236" y="180" font-size="12" fill="#6b7280" text-anchor="end">VDD/2</text>
+  <text x="236" y="216" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+  <line x1="246" y1="176" x2="920" y2="176" stroke="#d0d7de" stroke-dasharray="4,4" stroke-width="1"/>
+  <path d="M 246 212 L 335 212 C 375 210, 430 176, 505 176 L 740 176 C 770 176, 805 210, 835 212 L 920 212" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="622" y="204" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">VDD/2 (робоча точка зміщення)</text>
+  <text x="875" y="200" font-size="12" fill="#6b7280" text-anchor="middle">0 В (розряд)</text>
+  <!-- Track 3: MCU DAC Audio -->
+  <text x="236" y="266" font-size="12" fill="#6b7280" text-anchor="end">+FS</text>
+  <text x="236" y="284" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="236" y="302" font-size="12" fill="#6b7280" text-anchor="end">–FS</text>
+  <line x1="246" y1="280" x2="920" y2="280" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="246" y1="280" x2="505" y2="280" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 505.0,280.0 L 506.7,279.9 L 508.3,279.6 L 510.0,279.1 L 511.7,278.4 L 513.3,277.7 L 515.0,277.0 L 516.7,276.3 L 518.3,275.8 L 520.0,275.4 L 521.7,275.4 L 523.3,275.6 L 525.0,276.2 L 526.7,277.2 L 528.3,278.4 L 530.0,280.0 L 531.7,281.8 L 533.3,283.7 L 535.0,285.6 L 536.7,287.5 L 538.3,289.2 L 540.0,290.7 L 541.7,291.7 L 543.3,292.2 L 545.0,292.2 L 546.7,291.5 L 548.3,290.3 L 550.0,288.5 L 551.7,286.1 L 553.3,283.2 L 555.0,280.0" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 555.0,280.0 L 557.0,275.9 L 559.0,272.0 L 561.0,268.7 L 563.0,266.1 L 565.0,264.5 L 567.0,264.0 L 569.0,264.5 L 571.0,266.1 L 573.0,268.7 L 575.0,272.0 L 577.0,275.9 L 579.0,280.0 L 581.0,284.1 L 583.0,288.0 L 585.0,291.3 L 587.0,293.9 L 589.0,295.5 L 591.0,296.0 L 593.0,295.5 L 595.0,293.9 L 597.0,291.3 L 599.0,288.0 L 601.0,284.1 L 603.0,280.0 L 605.0,275.9 L 607.0,272.0 L 609.0,268.7 L 611.0,266.1 L 613.0,264.5 L 615.0,264.0 L 617.0,264.5 L 619.0,266.1 L 621.0,268.7 L 623.0,272.0 L 625.0,275.9 L 627.0,280.0 L 629.0,284.1 L 631.0,288.0 L 633.0,291.3 L 635.0,293.9 L 637.0,295.5 L 639.0,296.0 L 641.0,295.5 L 643.0,293.9 L 645.0,291.3 L 647.0,288.0 L 649.0,284.1 L 651.0,280.0 L 653.0,275.9 L 655.0,272.0 L 657.0,268.7 L 659.0,266.1 L 661.0,264.5 L 663.0,264.0 L 665.0,264.5 L 667.0,266.1 L 669.0,268.7 L 671.0,272.0 L 673.0,275.9 L 675.0,280.0" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 675.0,280.0 L 676.7,276.8 L 678.3,273.9 L 680.0,271.5 L 681.7,269.7 L 683.3,268.5 L 685.0,267.8 L 686.7,267.8 L 688.3,268.3 L 690.0,269.3 L 691.7,270.8 L 693.3,272.5 L 695.0,274.4 L 696.7,276.3 L 698.3,278.2 L 700.0,280.0 L 701.7,281.6 L 703.3,282.8 L 705.0,283.8 L 706.7,284.4 L 708.3,284.6 L 710.0,284.6 L 711.7,284.2 L 713.3,283.7 L 715.0,283.0 L 716.7,282.3 L 718.3,281.6 L 720.0,280.9 L 721.7,280.4 L 723.3,280.1 L 725.0,280.0" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="725" y1="280" x2="920" y2="280" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="420" y="268" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Пауза тиші (Mute)</text>
+  <text x="820" y="268" font-size="12" fill="#6b7280" text-anchor="middle">Mute перед сном</text>
+  <!-- Track 4: Differential Speaker Voltage V_DIFF -->
+  <text x="236" y="352" font-size="12" fill="#6b7280" text-anchor="end">+V_spk</text>
+  <text x="236" y="370" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+  <text x="236" y="388" font-size="12" fill="#6b7280" text-anchor="end">–V_spk</text>
+  <line x1="246" y1="366" x2="920" y2="366" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="246" y1="366" x2="505" y2="366" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 505.0,366.0 L 506.7,365.8 L 508.3,365.4 L 510.0,364.7 L 511.7,363.8 L 513.3,362.8 L 515.0,361.8 L 516.7,360.9 L 518.3,360.2 L 520.0,359.7 L 521.7,359.6 L 523.3,360.0 L 525.0,360.8 L 526.7,362.1 L 528.3,363.9 L 530.0,366.0 L 531.7,368.4 L 533.3,371.1 L 535.0,373.8 L 536.7,376.4 L 538.3,378.7 L 540.0,380.6 L 541.7,382.0 L 543.3,382.8 L 545.0,382.7 L 546.7,381.9 L 548.3,380.2 L 550.0,377.6 L 551.7,374.4 L 553.3,370.4 L 555.0,366.0" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 555.0,366.0 L 557.0,360.3 L 559.0,355.0 L 561.0,350.4 L 563.0,346.9 L 565.0,344.7 L 567.0,344.0 L 569.0,344.7 L 571.0,346.9 L 573.0,350.4 L 575.0,355.0 L 577.0,360.3 L 579.0,366.0 L 581.0,371.7 L 583.0,377.0 L 585.0,381.6 L 587.0,385.1 L 589.0,387.3 L 591.0,388.0 L 593.0,387.3 L 595.0,385.1 L 597.0,381.6 L 599.0,377.0 L 601.0,371.7 L 603.0,366.0 L 605.0,360.3 L 607.0,355.0 L 609.0,350.4 L 611.0,346.9 L 613.0,344.7 L 615.0,344.0 L 617.0,344.7 L 619.0,346.9 L 621.0,350.4 L 623.0,355.0 L 625.0,360.3 L 627.0,366.0 L 629.0,371.7 L 631.0,377.0 L 633.0,381.6 L 635.0,385.1 L 637.0,387.3 L 639.0,388.0 L 641.0,387.3 L 643.0,385.1 L 645.0,381.6 L 647.0,377.0 L 649.0,371.7 L 651.0,366.0 L 653.0,360.3 L 655.0,355.0 L 657.0,350.4 L 659.0,346.9 L 661.0,344.7 L 663.0,344.0 L 665.0,344.7 L 667.0,346.9 L 669.0,350.4 L 671.0,355.0 L 673.0,360.3 L 675.0,366.0" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 675.0,366.0 L 676.7,361.6 L 678.3,357.6 L 680.0,354.4 L 681.7,351.8 L 683.3,350.1 L 685.0,349.3 L 686.7,349.2 L 688.3,350.0 L 690.0,351.4 L 691.7,353.3 L 693.3,355.6 L 695.0,358.2 L 696.7,360.9 L 698.3,363.6 L 700.0,366.0 L 701.7,368.1 L 703.3,369.9 L 705.0,371.2 L 706.7,372.0 L 708.3,372.4 L 710.0,372.3 L 711.7,371.8 L 713.3,371.1 L 715.0,370.2 L 716.7,369.2 L 718.3,368.2 L 720.0,367.3 L 721.7,366.6 L 723.3,366.2 L 725.0,366.0" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="725" y1="366" x2="920" y2="366" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="420" y="354" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Немає щиглика: 0 В</text>
+  <text x="827" y="354" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Без клацань: 0 В</text>
+  <!-- Часова вісь -->
+  <line x1="246" y1="416" x2="910" y2="416" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="922" y="420" font-size="12" font-weight="bold" fill="#1a1a1a">t</text>
+  <line x1="335" y1="412" x2="335" y2="416" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="505" y1="412" x2="505" y2="416" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="740" y1="412" x2="740" y2="416" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="835" y1="412" x2="835" y2="416" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="292" y="436" font-size="12" fill="#6b7280" text-anchor="middle">Сон</text>
+  <text x="420" y="436" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Старт (t_startup)</text>
+  <text x="622" y="436" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Відтворення (Fade-in / Out)</text>
+  <text x="787" y="436" font-size="12" fill="#6b7280" text-anchor="middle">Вимкнення</text>
+  <text x="875" y="436" font-size="12" fill="#6b7280" text-anchor="middle">Сон</text>
+</svg>

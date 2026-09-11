@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Бічний зазор у зачепленні зубів і зона нечутливості редуктора</text>
+  <text x="480" y="63" text-anchor="middle" font-size="13" fill="#6b7280">Технологічний зазор усуває заклинювання, але створює мертвий хід і гістерезис</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Геометрія зачеплення -->
+  <rect x="20" y="78" width="452" height="254" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="104" font-size="14" font-weight="bold" fill="#1a1a1a">Геометрія зачеплення: бічний зазор (backlash)</text>
+
+  <!-- Підпис ведучого піньйона -->
+  <text x="255" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Ведучий піньйон (вхід)</text>
+
+  <!-- Тіло та зуби веденого колеса (внизу) -->
+  <path d="M90,290 L410,290 L410,270 L360,270 C345,245 340,195 330,155 L295,155 C285,185 280,205 275,240 C270,258 260,265 245,265 C230,265 220,258 215,240 C210,205 200,185 190,155 L155,155 C145,195 140,245 125,270 L90,270 Z" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Зазор підсвічування (штрихована зона backlash) -->
+  <path d="M192,165 C198,190 205,215 215,235 L235,235 C225,215 218,190 212,165 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Ведучий зуб піньйона (зверху) -->
+  <path d="M205,145 L295,145 C290,165 282,190 275,225 L235,225 C228,190 218,165 205,145 Z" fill="#dbeafe" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Робочий контакт зубів праворуч -->
+  <circle cx="275" cy="195" r="4" fill="#27ae60"/>
+  <line x1="275" y1="195" x2="320" y2="225" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Пояснення контакту праворуч -->
+  <text x="345" y="168" font-size="12" font-weight="bold" fill="#27ae60">Робочий контакт</text>
+  <text x="345" y="184" font-size="12" fill="#27ae60">Передача сили F</text>
+  <text x="345" y="200" font-size="12" fill="#6b7280">Щільний притиск</text>
+
+  <!-- Розмір зазору jt ліворуч -->
+  <line x1="192" y1="200" x2="224" y2="200" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="36" y="168" font-size="12" font-weight="bold" fill="#c0392b">Бічний зазор jt</text>
+  <text x="36" y="184" font-size="12" fill="#c0392b">(backlash)</text>
+
+  <!-- Фаза реверсу ліворуч -->
+  <path d="M230,175 Q210,165 195,180" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="36" y="210" font-size="12" font-weight="bold" fill="#2457d6">Фаза реверсу:</text>
+  <text x="36" y="226" font-size="12" fill="#2457d6">вільний вибір</text>
+  <text x="36" y="242" font-size="12" fill="#2457d6">зазору jt</text>
+
+  <!-- Підпис веденого колеса -->
+  <text x="255" y="318" text-anchor="middle" font-size="12" font-weight="bold" fill="#475569">Ведене колесо (вихід редуктора)</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Графік зони нечутливості -->
+  <rect x="488" y="78" width="452" height="254" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="504" y="104" font-size="14" font-weight="bold" fill="#1a1a1a">Зона нечутливості при реверсі (Deadband)</text>
+
+  <!-- Осі графіка -->
+  <line x1="560" y1="272" x2="890" y2="272" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="570" y1="278" x2="570" y2="120" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Підписи осей -->
+  <text x="518" y="132" font-size="12" font-weight="bold" fill="#1a1a1a">θвих</text>
+  <text x="502" y="148" font-size="12" fill="#6b7280">(вихід)</text>
+  <text x="730" y="298" font-size="12" font-weight="bold" fill="#1a1a1a">θвх (кут вала мотора)</text>
+
+  <!-- Траєкторія руху з гістерезисом -->
+  <!-- 1. Прямий хід (угору-вправо) -->
+  <line x1="640" y1="220" x2="770" y2="155" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="695" y1="192" x2="710" y2="185" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- 2. Реверс: мертвий хід (горизонтальна полиця нерухомості виходу) -->
+  <line x1="770" y1="155" x2="695" y2="155" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+
+  <!-- Розмірна лінія полиці люфту -->
+  <line x1="695" y1="143" x2="770" y2="143" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="695" y1="139" x2="695" y2="147" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="770" y1="139" x2="770" y2="147" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="732" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Δθлюфт (deadband)</text>
+
+  <!-- 3. Зворотний рух (униз-вліво) -->
+  <line x1="695" y1="155" x2="565" y2="220" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="638" y1="184" x2="623" y2="191" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- 4. Вибір люфту при переході на прямий хід -->
+  <line x1="565" y1="220" x2="640" y2="220" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Підпис полиці -->
+  <text x="585" y="252" font-size="12" fill="#c0392b">Полиця: вихід стоїть, поки вибирається люфт</text>
+
+  <!-- Легенда графіка праворуч -->
+  <circle cx="808" cy="175" r="4" fill="#27ae60"/>
+  <text x="820" y="179" font-size="12" fill="#1a1a1a">1. Прямий хід</text>
+
+  <circle cx="808" cy="202" r="4" fill="#c0392b"/>
+  <text x="820" y="206" font-size="12" font-weight="bold" fill="#c0392b">2. Мертвий хід</text>
+
+  <circle cx="808" cy="229" r="4" fill="#2457d6"/>
+  <text x="820" y="233" font-size="12" fill="#1a1a1a">3. Реверс ходу</text>
+
+
+  <!-- НИЖНІ КАРТКИ -->
+  <!-- Картка 1 -->
+  <rect x="20" y="346" width="296" height="92" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="34" y="371" font-size="13" font-weight="bold" fill="#1a1a1a">1. Фізична потреба</text>
+  <text x="34" y="395" font-size="12" fill="#6b7280">Зазор потрібен проти заклинювання</text>
+  <text x="34" y="419" font-size="12" fill="#6b7280">від тепла та для плівки мастила.</text>
+
+  <!-- Картка 2 -->
+  <rect x="332" y="346" width="296" height="92" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="346" y="371" font-size="13" font-weight="bold" fill="#1a1a1a">2. Накопичення люфту</text>
+  <text x="346" y="395" font-size="12" fill="#6b7280">Люфти ступенів масштабуються</text>
+  <text x="346" y="419" font-size="12" fill="#6b7280">до вихідного вала: люфт 1°–5°.</text>
+
+  <!-- Картка 3 -->
+  <rect x="644" y="346" width="296" height="92" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="658" y="371" font-size="13" font-weight="bold" fill="#1a1a1a">3. Системний ефект</text>
+  <text x="658" y="395" font-size="12" fill="#6b7280">Мертвий хід збуджує автоколивання</text>
+  <text x="658" y="419" font-size="12" fill="#6b7280">і обмежує точність сервоприводу.</text>
+</svg>

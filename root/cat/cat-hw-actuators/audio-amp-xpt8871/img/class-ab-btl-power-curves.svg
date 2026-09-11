@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+</defs>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="34" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Енергетичний баланс BTL-підсилювача класу AB (RL = 4 Ом, VDD = 5 В)</text>
+<text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Пік тепловтрат кристала PD(max) = 1.27 Вт виникає при 63.7% розмаху (3.18 В), а не на повній гучності</text>
+
+<!-- Легенда кривих -->
+<rect x="100" y="78" width="206" height="82" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<line x1="112" y1="96" x2="134" y2="96" stroke="#2457d6" stroke-width="3"/>
+<text x="142" y="100" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#2457d6">P_supply</tspan> — повне споживання</text>
+
+<line x1="112" y1="118" x2="134" y2="118" stroke="#27ae60" stroke-width="3"/>
+<text x="142" y="122" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#27ae60">P_load</tspan> — корисна в навантаженні</text>
+
+<line x1="112" y1="140" x2="134" y2="140" stroke="#c0392b" stroke-width="3"/>
+<text x="142" y="146" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#c0392b">P_D</tspan> — тепловтрати на кристалі</text>
+
+<!-- Вісь Y -->
+<line x1="85.0" y1="380.0" x2="85.0" y2="74" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="85.0" y="65" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">P (Вт)</text>
+
+<!-- Позначки осі Y -->
+<line x1="79" y1="316.7" x2="85" y2="316.7" stroke="#6b7280" stroke-width="1"/>
+<text x="73" y="320.7" font-size="12" text-anchor="end" fill="#6b7280">1.0</text>
+
+<line x1="77" y1="299.8" x2="85" y2="299.8" stroke="#c0392b" stroke-width="1.5"/>
+<text x="73" y="303.8" font-size="12" font-weight="700" text-anchor="end" fill="#c0392b">1.27</text>
+
+<line x1="79" y1="253.3" x2="85" y2="253.3" stroke="#6b7280" stroke-width="1"/>
+<text x="73" y="257.3" font-size="12" text-anchor="end" fill="#6b7280">2.0</text>
+
+<line x1="79" y1="190.0" x2="85" y2="190.0" stroke="#6b7280" stroke-width="1"/>
+<text x="73" y="194.0" font-size="12" text-anchor="end" fill="#6b7280">3.0</text>
+
+<line x1="79" y1="126.7" x2="85" y2="126.7" stroke="#6b7280" stroke-width="1"/>
+<text x="73" y="130.7" font-size="12" text-anchor="end" fill="#6b7280">4.0</text>
+
+<!-- Вісь X -->
+<line x1="85.0" y1="380.0" x2="528" y2="380.0" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="295" y="425" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Вихідна амплітуда V_peak (В)</text>
+
+<!-- Позначки осі X -->
+<text x="85.0" y="402" font-size="12" text-anchor="middle" fill="#6b7280">0</text>
+
+<line x1="169.0" y1="380.0" x2="169.0" y2="385.0" stroke="#6b7280" stroke-width="1"/>
+<text x="169.0" y="402" font-size="12" text-anchor="middle" fill="#6b7280">1 В</text>
+
+<line x1="253.0" y1="380.0" x2="253.0" y2="385.0" stroke="#6b7280" stroke-width="1"/>
+<text x="253.0" y="402" font-size="12" text-anchor="middle" fill="#6b7280">2 В</text>
+
+<line x1="352.4" y1="380.0" x2="352.4" y2="386.0" stroke="#c0392b" stroke-width="1.5"/>
+<text x="352.4" y="402" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">3.18 В</text>
+
+<line x1="421.0" y1="380.0" x2="421.0" y2="385.0" stroke="#6b7280" stroke-width="1"/>
+<text x="421.0" y="402" font-size="12" text-anchor="middle" fill="#6b7280">4 В</text>
+
+<line x1="505.0" y1="380.0" x2="505.0" y2="386.0" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="505.0" y="402" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">5 В (VDD)</text>
+
+<!-- Пунктирні проєкції для критичної точки V_crit = 3.18 В -->
+<line x1="352.4" y1="380.0" x2="352.4" y2="299.8" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="85.0" y1="299.8" x2="352.4" y2="299.8" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+<!-- Позначка ККД 50% біля критичної точки -->
+<text x="352.4" y="270" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">η = 50.0%</text>
+
+<!-- Пунктирна лінія V_max = 5.0 В -->
+<line x1="505.0" y1="380.0" x2="505.0" y2="128.0" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+
+<!-- Позначка ККД 78.5% над точкою повного розмаху -->
+<text x="505.0" y="112" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">η = 78.5%</text>
+
+<!-- Криві потужностей -->
+<!-- 1. P_supply -->
+<line x1="85.0" y1="380.0" x2="505.0" y2="128.0" stroke="#2457d6" stroke-width="2.5"/>
+
+<!-- 2. P_load -->
+<path d="M 85.0,380.0 L 95.5,379.9 L 106.0,379.5 L 116.5,378.9 L 127.0,378.0 L 137.5,376.9 L 148.0,375.5 L 158.5,373.9 L 169.0,372.1 L 179.5,370.0 L 190.0,367.6 L 200.5,365.0 L 211.0,362.2 L 221.5,359.1 L 232.0,355.8 L 242.5,352.2 L 253.0,348.3 L 263.5,344.3 L 274.0,339.9 L 284.5,335.3 L 295.0,330.5 L 305.5,325.4 L 316.0,320.1 L 326.5,314.6 L 337.0,308.8 L 347.5,302.7 L 358.0,296.4 L 368.5,289.8 L 379.0,283.0 L 389.5,276.0 L 400.0,268.7 L 410.5,261.1 L 421.0,253.3 L 431.5,245.3 L 442.0,237.0 L 452.5,228.5 L 463.0,219.7 L 473.5,210.7 L 484.0,201.4 L 494.5,191.9 L 505.0,182.1" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+<!-- 3. P_D -->
+<path d="M 85.0,380.0 L 95.5,373.8 L 106.0,367.9 L 116.5,362.2 L 127.0,356.8 L 137.5,351.6 L 148.0,346.7 L 158.5,342.0 L 169.0,337.5 L 179.5,333.3 L 190.0,329.4 L 200.5,325.7 L 211.0,322.2 L 221.5,319.0 L 232.0,316.0 L 242.5,313.3 L 253.0,310.9 L 263.5,308.7 L 274.0,306.7 L 284.5,305.0 L 295.0,303.5 L 305.5,302.3 L 316.0,301.3 L 326.5,300.5 L 337.0,300.1 L 347.5,299.8 L 358.0,299.8 L 368.5,300.1 L 379.0,300.6 L 389.5,301.3 L 400.0,302.3 L 410.5,303.6 L 421.0,305.1 L 431.5,306.8 L 442.0,308.8 L 452.5,311.0 L 463.0,313.5 L 473.5,316.2 L 484.0,319.2 L 494.5,322.4 L 505.0,325.9" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+<!-- Маркери точок -->
+<circle cx="352.4" cy="299.8" r="5" fill="#c0392b" stroke="white" stroke-width="1.5"/>
+
+<circle cx="505.0" cy="128.0" r="4.5" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+<circle cx="505.0" cy="182.1" r="4.5" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+<circle cx="505.0" cy="325.9" r="4.5" fill="#c0392b" stroke="white" stroke-width="1.5"/>
+
+<!-- Права колонка: Інформаційні плашки -->
+<!-- Плашка 1: Критична точка -->
+<rect x="548" y="74" width="384" height="108" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="564" y="96" font-size="13" font-weight="700" fill="#c0392b">1. Точка максимальних тепловтрат PD(max)</text>
+<text x="564" y="117" font-size="12" fill="#1a1a1a">Критична амплітуда: V_peak = (2/π)·VDD ≈ 3.18 В (63.7%)</text>
+<text x="564" y="137" font-size="12" fill="#1a1a1a">Пікове розсіювання: PD(max) = 2·VDD²/(π²·RL) = 1.27 Вт</text>
+<text x="564" y="157" font-size="12" fill="#1a1a1a">Баланс: P_load = 1.27 Вт, P_supply = 2.53 Вт, ККД η = 50.0%</text>
+<text x="564" y="174" font-size="12" font-weight="700" fill="#c0392b">Найважчий тепловий режим кристала підсилювача!</text>
+
+<!-- Плашка 2: Точка повного розмаху -->
+<rect x="548" y="194" width="384" height="100" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="564" y="216" font-size="13" font-weight="700" fill="#27ae60">2. Повний розмах амплітуди (V_peak = VDD = 5.0 В)</text>
+<text x="564" y="237" font-size="12" fill="#1a1a1a">Корисна потужність: P_load = VDD²/(2·RL) = 3.125 Вт</text>
+<text x="564" y="257" font-size="12" fill="#1a1a1a">Споживання від шини: P_supply = 3.98 Вт, ККД η = 78.5%</text>
+<text x="564" y="277" font-size="12" fill="#1a1a1a">Тепловтрати спадають: PD = 0.85 Вт (на 33% менше за пік!)</text>
+
+<!-- Плашка 3: Фізичний висновок -->
+<rect x="548" y="306" width="384" height="122" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="564" y="328" font-size="13" font-weight="700" fill="#1a1a1a">3. Чому кристал найгарячіший на 63.7% гучності?</text>
+<text x="564" y="349" font-size="12" fill="#1a1a1a">Тепловтрати транзисторів: PD = I_supply · (VDD − V_out).</text>
+<text x="564" y="369" font-size="12" fill="#1a1a1a">При малій гучності струм малий; при максимумі (5 В)</text>
+<text x="564" y="389" font-size="12" fill="#1a1a1a">транзистори насичені й спад напруги мінімальний.</text>
+<text x="564" y="411" font-size="12" font-weight="700" fill="#2457d6">Тепловий розрахунок слід вести саме під PD(max)!</text>
+</svg>

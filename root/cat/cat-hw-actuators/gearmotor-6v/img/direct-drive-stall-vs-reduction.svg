@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Прямий привід проти приводу через редуктор</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Без редуктора високі оберти двигуна не створюють тяги; зубчаста передача множить момент для руху під навантаженням</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Прямий привід (проблема) -->
+  <rect x="25" y="76" width="445" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок лівої панелі -->
+  <rect x="37" y="86" width="421" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247" y="108" font-size="14" font-weight="bold" text-anchor="middle" fill="#c0392b">ПРЯМИЙ ПРИВІД (БЕЗ РЕДУКТОРА)</text>
+
+  <!-- Ліва схема: двигун, прямий вал, колесо -->
+  <rect x="45" y="177" width="80" height="60" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="37" y1="195" x2="45" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="37" y1="219" x2="45" y2="219" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="85" y="203" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Двигун 6 В</text>
+  <text x="85" y="221" font-size="12" text-anchor="middle" fill="#6b7280">колекторний</text>
+
+  <!-- Вал прямого приводу -->
+  <rect x="125" y="203" width="95" height="8" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="172" y="175" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">10 000 об/хв</text>
+  <path d="M 160 190 A 12 12 0 0 1 185 190" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="172" y="231" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">M ≈ 0,005 Н·м</text>
+
+  <!-- Текст над колесом -->
+  <text x="258" y="148" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Брак тяги: M = 0,005 Н·м</text>
+
+  <!-- Колесо прямого приводу -->
+  <circle cx="258" cy="207" r="38" fill="#ffffff" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="258" cy="207" r="26" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="258" cy="207" r="7" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="258" y1="181" x2="258" y2="233" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="232" y1="207" x2="284" y2="207" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Лінія землі та штрихування -->
+  <line x1="215" y1="245" x2="330" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="225" y1="245" x2="219" y2="252" stroke="#6b7280" stroke-width="1"/>
+  <line x1="245" y1="245" x2="239" y2="252" stroke="#6b7280" stroke-width="1"/>
+  <line x1="265" y1="245" x2="259" y2="252" stroke="#6b7280" stroke-width="1"/>
+  <line x1="285" y1="245" x2="279" y2="252" stroke="#6b7280" stroke-width="1"/>
+  <line x1="305" y1="245" x2="299" y2="252" stroke="#6b7280" stroke-width="1"/>
+  <line x1="325" y1="245" x2="319" y2="252" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Перешкода та зусилля опору -->
+  <rect x="296" y="238" width="12" height="7" rx="2" fill="#6b7280"/>
+  <line x1="365" y1="207" x2="315" y2="207" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="385" y="188" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Опір F_опору</text>
+  <text x="385" y="228" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Вал заклинено</text>
+
+  <!-- Таблиця параметрів прямого приводу -->
+  <rect x="37" y="266" width="421" height="132" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="49" y="289" font-size="12" font-weight="bold" fill="#1a1a1a">Кутова швидкість:</text>
+  <text x="180" y="289" font-size="12" font-weight="bold" fill="#c0392b">до 10 000 об/хв (надлишкова)</text>
+  <line x1="47" y1="299" x2="448" y2="299" stroke="#f4f6f8" stroke-width="1"/>
+
+  <text x="49" y="322" font-size="12" font-weight="bold" fill="#1a1a1a">Крутний момент:</text>
+  <text x="180" y="322" font-size="12" font-weight="bold" fill="#c0392b">0,005 Н·м (критично малий)</text>
+  <line x1="47" y1="332" x2="448" y2="332" stroke="#f4f6f8" stroke-width="1"/>
+
+  <text x="49" y="355" font-size="12" font-weight="bold" fill="#1a1a1a">Струм двигуна:</text>
+  <text x="180" y="355" font-size="12" fill="#c0392b">стрибок до I_stall (перегрів)</text>
+  <line x1="47" y1="365" x2="448" y2="365" stroke="#f4f6f8" stroke-width="1"/>
+
+  <text x="49" y="388" font-size="12" font-weight="bold" fill="#1a1a1a">Робота приводу:</text>
+  <text x="180" y="388" font-size="12" fill="#c0392b">заклинювання або буксування</text>
+
+  <!-- Підсумкова плашка прямого приводу -->
+  <rect x="37" y="410" width="421" height="66" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="49" y="430" font-size="12" font-weight="bold" fill="#c0392b">Недолік прямого приводу:</text>
+  <text x="49" y="448" font-size="12" fill="#1a1a1a">Брак сили зрушити навантаження: двигун заклинює,</text>
+  <text x="49" y="466" font-size="12" fill="#1a1a1a">обмотки споживають надструм і швидко згорають.</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Привід через редуктор (рішення) -->
+  <rect x="490" y="76" width="445" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок правої панелі -->
+  <rect x="502" y="86" width="421" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712" y="108" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">ПРИВІД ЧЕРЕЗ РЕДУКТОР (ЗНИЖЕННЯ ШВИДКОСТІ)</text>
+
+  <!-- Права схема: двигун, редуктор, вихідний вал, колесо -->
+  <rect x="502" y="177" width="54" height="60" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="494" y1="195" x2="502" y2="195" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="494" y1="219" x2="502" y2="219" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="529" y="203" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Двигун</text>
+  <text x="529" y="221" font-size="12" text-anchor="middle" fill="#6b7280">6 В</text>
+
+  <!-- Вал між двигуном і редуктором -->
+  <rect x="556" y="204" width="9" height="6" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Корпус редуктора -->
+  <rect x="565" y="148" width="100" height="104" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="615" y="165" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Редуктор</text>
+  <text x="615" y="179" font-size="12" text-anchor="middle" fill="#2457d6">i = 1 : 100</text>
+  <circle cx="597" cy="205" r="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <circle cx="629" cy="205" r="18" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <circle cx="597" cy="205" r="2.5" fill="#2457d6"/>
+  <circle cx="629" cy="205" r="2.5" fill="#2457d6"/>
+  <text x="615" y="241" font-size="12" text-anchor="middle" fill="#2457d6">обмін ω на M</text>
+
+  <!-- Вихідний вал редуктора -->
+  <rect x="665" y="203" width="73" height="8" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="701" y="185" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">100 об/хв</text>
+  <text x="701" y="229" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">M × 100</text>
+
+  <!-- Текст над колесом -->
+  <text x="776" y="148" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Високий момент: 0,5 Н·м</text>
+
+  <!-- Колесо з редуктором -->
+  <circle cx="776" cy="207" r="38" fill="#ffffff" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="776" cy="207" r="26" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="776" cy="207" r="7" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="776" y1="181" x2="776" y2="233" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="750" y1="207" x2="802" y2="207" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Лінія землі та штрихування -->
+  <line x1="730" y1="245" x2="850" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="740" y1="245" x2="734" y2="252" stroke="#6b7280" stroke-width="1"/>
+  <line x1="760" y1="245" x2="754" y2="252" stroke="#6b7280" stroke-width="1"/>
+  <line x1="780" y1="245" x2="774" y2="252" stroke="#6b7280" stroke-width="1"/>
+  <line x1="800" y1="245" x2="794" y2="252" stroke="#6b7280" stroke-width="1"/>
+  <line x1="820" y1="245" x2="814" y2="252" stroke="#6b7280" stroke-width="1"/>
+  <line x1="840" y1="245" x2="834" y2="252" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Тягове зусилля та впевнений рух -->
+  <line x1="822" y1="207" x2="878" y2="207" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="862" y="188" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Тяга F_тяги</text>
+  <text x="862" y="228" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Впевнений рух</text>
+
+  <!-- Таблиця параметрів редукторного приводу -->
+  <rect x="502" y="266" width="421" height="132" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="514" y="289" font-size="12" font-weight="bold" fill="#1a1a1a">Кутова швидкість:</text>
+  <text x="645" y="289" font-size="12" font-weight="bold" fill="#27ae60">100–600 об/хв (робоча швидкість)</text>
+  <line x1="512" y1="299" x2="913" y2="299" stroke="#f4f6f8" stroke-width="1"/>
+
+  <text x="514" y="322" font-size="12" font-weight="bold" fill="#1a1a1a">Крутний момент:</text>
+  <text x="645" y="322" font-size="12" font-weight="bold" fill="#27ae60">0,5–1,2 Н·м (збільшено в i разів)</text>
+  <line x1="512" y1="332" x2="913" y2="332" stroke="#f4f6f8" stroke-width="1"/>
+
+  <text x="514" y="355" font-size="12" font-weight="bold" fill="#1a1a1a">Струм двигуна:</text>
+  <text x="645" y="355" font-size="12" fill="#27ae60">номінальний I_ном (економічний)</text>
+  <line x1="512" y1="365" x2="913" y2="365" stroke="#f4f6f8" stroke-width="1"/>
+
+  <text x="514" y="388" font-size="12" font-weight="bold" fill="#1a1a1a">Робота приводу:</text>
+  <text x="645" y="388" font-size="12" fill="#27ae60">стабільний рух під навантаженням</text>
+
+  <!-- Підсумкова плашка редукторного приводу -->
+  <rect x="502" y="410" width="421" height="66" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="514" y="430" font-size="12" font-weight="bold" fill="#27ae60">Перевага редукторного приводу:</text>
+  <text x="514" y="448" font-size="12" fill="#1a1a1a">Редуктор обмінює надлишкову швидкість на тягу:</text>
+  <text x="514" y="466" font-size="12" fill="#1a1a1a">колесо впевнено долає тертя, підйоми та перешкоди.</text>
+</svg>

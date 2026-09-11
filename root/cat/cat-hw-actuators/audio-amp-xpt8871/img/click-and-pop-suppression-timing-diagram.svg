@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Часова діаграма усунення пускових клацань (Click-and-Pop)</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Підсилювач активується через SHDN лише після заряду Cin і стабілізації Vdd/2</text>
+
+  <!-- Тло фаз -->
+  <rect x="210" y="104" width="203" height="316" fill="#f8fafc" opacity="0.7"/>
+  <rect x="413" y="104" width="130" height="316" fill="#f0f4ff" opacity="0.7"/>
+  <rect x="543" y="104" width="235" height="316" fill="#f0fdf4" opacity="0.7"/>
+  <rect x="778" y="104" width="152" height="316" fill="#f8fafc" opacity="0.7"/>
+
+  <!-- Заголовки фаз -->
+  <rect x="210" y="74" width="200" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="310" y="93" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Заряд Cin / стабілізація</text>
+
+  <rect x="416" y="74" width="124" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="478" y="93" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Увімкнення SHDN</text>
+
+  <rect x="546" y="74" width="229" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="660" y="93" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Відтворення звуку</text>
+
+  <rect x="781" y="74" width="149" height="28" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="855" y="93" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Пауза / Сон</text>
+
+  <!-- Вертикальні межі фаз -->
+  <line x1="413" y1="106" x2="413" y2="420" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="543" y1="106" x2="543" y2="420" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="778" y1="106" x2="778" y2="420" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Горизонтальні пунктирні опорні лінії -->
+  <line x1="210" y1="150" x2="930" y2="150" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="210" y1="225" x2="930" y2="225" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="210" y1="295" x2="930" y2="295" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="210" y1="325" x2="930" y2="325" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="210" y1="380" x2="930" y2="380" stroke="#e5e7eb" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- Вертикальна вісь напруги -->
+  <line x1="210" y1="115" x2="210" y2="428" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Підписи сигналів ліворуч -->
+  <!-- Сигнал 1 -->
+  <text x="25" y="142" font-size="13" font-weight="bold" fill="#1a1a1a">V_DAC / PWM</text>
+  <text x="25" y="160" font-size="12" fill="#6b7280">Вихід ЦАП МК</text>
+  <text x="192" y="128" font-size="12" text-anchor="end" fill="#6b7280">Vdd</text>
+  <text x="192" y="153" font-size="12" text-anchor="end" fill="#6b7280">Vdd/2</text>
+  <text x="192" y="178" font-size="12" text-anchor="end" fill="#6b7280">0V</text>
+
+  <!-- Сигнал 2 -->
+  <text x="25" y="222" font-size="13" font-weight="bold" fill="#1a1a1a">V_Cin</text>
+  <text x="25" y="240" font-size="12" fill="#6b7280">Вхід XPT8871</text>
+  <text x="192" y="228" font-size="12" text-anchor="end" fill="#6b7280">Vdd/2</text>
+  <text x="192" y="253" font-size="12" text-anchor="end" fill="#6b7280">0V</text>
+
+  <!-- Сигнал 3 -->
+  <text x="25" y="295" font-size="13" font-weight="bold" fill="#1a1a1a">SHDN</text>
+  <text x="25" y="313" font-size="12" fill="#6b7280">Вхід увімкнення</text>
+  <text x="192" y="298" font-size="12" text-anchor="end" fill="#6b7280">HIGH</text>
+  <text x="192" y="328" font-size="12" text-anchor="end" fill="#6b7280">LOW</text>
+
+  <!-- Сигнал 4 -->
+  <text x="25" y="372" font-size="13" font-weight="bold" fill="#1a1a1a">V_OUT (BTL)</text>
+  <text x="25" y="390" font-size="12" fill="#6b7280">Динамік (+ / −)</text>
+  <text x="192" y="361" font-size="12" text-anchor="end" fill="#6b7280">+Vpk</text>
+  <text x="192" y="383" font-size="12" text-anchor="end" fill="#6b7280">0V</text>
+  <text x="192" y="405" font-size="12" text-anchor="end" fill="#6b7280">−Vpk</text>
+
+  <!-- Графік Сигналу 1 (V_DAC / PWM) -->
+  <path d="M 210,175 L 225,175 L 235,150 L 543,150 C 550,136 563,136 570,150 C 577,164 590,164 597,150 C 604,136 617,136 624,150 C 631,164 644,164 651,150 C 658,136 671,136 678,150 C 685,164 698,164 705,150 C 712,140 723,140 730,150 C 736,158 749,158 755,150 L 835,150 L 845,175 L 930,175" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Графік Сигналу 2 (V_Cin) -->
+  <path d="M 210,250 L 225,250 C 255,250 280,227 340,225.5 L 543,225 C 550,211 563,211 570,225 C 577,239 590,239 597,225 C 604,211 617,211 624,225 C 631,239 644,239 651,225 C 658,211 671,211 678,225 C 685,239 698,239 705,225 C 712,215 723,215 730,225 C 736,233 749,233 755,225 L 835,225 C 855,225 875,248 915,249.5 L 930,250" fill="none" stroke="#0284c7" stroke-width="2.5"/>
+
+  <!-- Графік Сигналу 3 (SHDN) -->
+  <path d="M 210,325 L 425,325 L 425,295 L 795,295 L 795,325 L 930,325" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Графік Сигналу 4 (V_OUT) -->
+  <path d="M 210,380 L 543,380 C 550,358 563,358 570,380 C 577,402 590,402 597,380 C 604,358 617,358 624,380 C 631,402 644,402 651,380 C 658,358 671,358 678,380 C 685,402 698,402 705,380 C 712,365 723,365 730,380 C 736,395 749,395 755,380 L 930,380" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Пояснювальні написи у фазах -->
+  <!-- Фаза 1 -->
+  <text x="235" y="202" font-size="12" fill="#2457d6">Заряд Cin: V(t) → Vdd/2</text>
+  <text x="235" y="275" font-size="12" fill="#6b7280">SHDN = LOW (режим сну)</text>
+  <text x="312" y="407" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Динамік мовчить (0 В)</text>
+
+  <!-- Фаза 2 -->
+  <text x="478" y="275" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Затримка ≥50 мс</text>
+  <text x="478" y="407" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Без стрибка!</text>
+
+  <!-- Фаза 3 -->
+  <text x="660" y="190" font-size="12" text-anchor="middle" fill="#2457d6">Аудіопотік через ЦАП / ШІМ</text>
+  <text x="660" y="273" font-size="12" text-anchor="middle" fill="#27ae60">Активне підсилення звуку (BTL)</text>
+
+  <!-- Фаза 4 -->
+  <text x="854" y="275" font-size="12" text-anchor="middle" fill="#c0392b">SHDN → LOW (сон)</text>
+  <text x="854" y="407" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Без клацання</text>
+
+  <!-- Нижня часова вісь -->
+  <line x1="210" y1="428" x2="860" y2="428" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="876" y="432" font-size="12" font-weight="bold" fill="#6b7280">Час (t)</text>
+</svg>

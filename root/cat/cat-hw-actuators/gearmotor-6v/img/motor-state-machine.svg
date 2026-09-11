@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінцевий автомат станів H-моста (FSM мотор-редуктора)</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Безпечне реверсування через нульовий стан і захист силового каскаду від наскрізних струмів</text>
+
+  <!-- Заборонений прямий перехід -->
+  <path d="M 300 97 H 135 V 160" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4" fill="none" marker-end="url(#arr-red)"/>
+  <path d="M 660 97 H 825 V 160" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4" fill="none" marker-end="url(#arr-red)"/>
+  <rect x="300" y="82" width="360" height="30" rx="6" ry="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="102" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ ПРЯМИЙ РЕВЕРС ЗАБОРОНЕНО (ризик shoot-through)</text>
+
+  <!-- Стан FORWARD -->
+  <rect x="40" y="160" width="190" height="150" rx="10" ry="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="135" y="184" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">АКТИВНИЙ РУХ</text>
+  <text x="135" y="209" font-size="17" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FORWARD</text>
+  <line x1="55" y1="221" x2="215" y2="221" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="240" font-size="12" fill="#1a1a1a">Швидкість: +1..+100%</text>
+  <text x="55" y="259" font-size="11" fill="#6b7280">Керування: IN1=PWM</text>
+  <text x="55" y="277" font-size="11" fill="#6b7280">Напрямок: IN2=0 (GND)</text>
+  <text x="55" y="296" font-size="11" font-weight="bold" fill="#2457d6">Обертання за стрілкою</text>
+
+  <!-- Стан REVERSE -->
+  <rect x="730" y="160" width="190" height="150" rx="10" ry="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="825" y="184" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">АКТИВНИЙ РУХ</text>
+  <text x="825" y="209" font-size="17" font-weight="bold" fill="#1a1a1a" text-anchor="middle">REVERSE</text>
+  <line x1="745" y1="221" x2="905" y2="221" stroke="#d0d7de" stroke-width="1"/>
+  <text x="745" y="240" font-size="12" fill="#1a1a1a">Швидкість: -1..-100%</text>
+  <text x="745" y="259" font-size="11" fill="#6b7280">Керування: IN2=PWM</text>
+  <text x="745" y="277" font-size="11" fill="#6b7280">Напрямок: IN1=0 (GND)</text>
+  <text x="745" y="296" font-size="11" font-weight="bold" fill="#2457d6">Обертання проти стрілки</text>
+
+  <!-- Центральна панель проміжних станів -->
+  <rect x="350" y="130" width="260" height="235" rx="10" ry="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="149" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">БЕЗПЕЧНИЙ ПРОМІЖНИЙ СТАН</text>
+
+  <!-- Стан BRAKE -->
+  <rect x="370" y="160" width="220" height="75" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="183" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">BRAKE (Активне гальмо)</text>
+  <text x="480" y="202" font-size="11" fill="#1a1a1a" text-anchor="middle">Динамічний зупин проти-ЕРС</text>
+  <text x="480" y="220" font-size="11" fill="#6b7280" text-anchor="middle">IN1=1, IN2=1 (обмотки на GND)</text>
+
+  <!-- Зв'язок BRAKE -> COAST та Старт -->
+  <line x1="520" y1="235" x2="520" y2="265" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="528" y="253" font-size="11" fill="#6b7280">coast()</text>
+
+  <circle cx="430" cy="246" r="4" fill="#1a1a1a"/>
+  <line x1="430" y1="250" x2="430" y2="265" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="422" y="253" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="end">Старт</text>
+
+  <!-- Стан COAST -->
+  <rect x="370" y="265" width="220" height="85" rx="8" ry="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="289" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">COAST (Вільний вибіг)</text>
+  <text x="480" y="310" font-size="11" fill="#1a1a1a" text-anchor="middle">Зупин за інерцією (Hi-Z стан)</text>
+  <text x="480" y="329" font-size="11" fill="#6b7280" text-anchor="middle">IN1=0, IN2=0 (ключі розімкнені)</text>
+
+  <!-- Стан FAULT -->
+  <rect x="350" y="395" width="260" height="75" rx="8" ry="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="480" y="418" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">FAULT (Аварійне блокування)</text>
+  <text x="480" y="438" font-size="11" fill="#1a1a1a" text-anchor="middle">Вал заблоковано (I &gt; I_stall)</text>
+  <text x="480" y="456" font-size="11" fill="#6b7280" text-anchor="middle">Усі транзистори моста закрито</text>
+
+  <!-- Скидання аварії FAULT -> COAST -->
+  <line x1="480" y1="395" x2="480" y2="350" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="490" y="375" font-size="11" font-weight="bold" fill="#27ae60">reset_fault()</text>
+
+  <!-- Горизонтальні переходи: FORWARD <-> BRAKE / COAST -->
+  <line x1="230" y1="180" x2="370" y2="180" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="300" y="173" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">brake()</text>
+
+  <line x1="370" y1="210" x2="230" y2="210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="300" y="203" font-size="11" fill="#2457d6" text-anchor="middle">set_speed(&gt;0) [пауза]</text>
+
+  <line x1="370" y1="285" x2="230" y2="285" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="300" y="278" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">set_speed(&gt;0)</text>
+
+  <line x1="230" y1="315" x2="370" y2="315" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="300" y="308" font-size="11" fill="#6b7280" text-anchor="middle">coast(), set_speed(0)</text>
+
+  <!-- Горизонтальні переходи: REVERSE <-> BRAKE / COAST -->
+  <line x1="730" y1="180" x2="590" y2="180" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="660" y="173" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">brake()</text>
+
+  <line x1="590" y1="210" x2="730" y2="210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="660" y="203" font-size="11" fill="#2457d6" text-anchor="middle">set_speed(&lt;0) [пауза]</text>
+
+  <line x1="590" y1="285" x2="730" y2="285" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="660" y="278" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">set_speed(&lt;0)</text>
+
+  <line x1="730" y1="315" x2="590" y2="315" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="660" y="308" font-size="11" fill="#6b7280" text-anchor="middle">coast(), set_speed(0)</text>
+
+  <!-- Переходи в аварійний стан: FAULT -->
+  <path d="M 135 310 V 432 H 350" stroke="#c0392b" stroke-width="1.5" fill="none" marker-end="url(#arr-red)"/>
+  <text x="240" y="424" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Блокування: I &gt; I_stall</text>
+
+  <path d="M 825 310 V 432 H 610" stroke="#c0392b" stroke-width="1.5" fill="none" marker-end="url(#arr-red)"/>
+  <text x="720" y="424" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Блокування: I &gt; I_stall</text>
+
+  <!-- Підсумкова панель -->
+  <rect x="40" y="495" width="880" height="40" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="60" cy="515" r="5" fill="#27ae60"/>
+  <text x="74" y="519" font-size="11" fill="#1a1a1a"><tspan font-weight="bold">Безпечна траєкторія:</tspan> реверс тільки через STOP (пауза dead-time t &gt; 2 мкс, плавний розгін slew-rate)</text>
+
+  <circle cx="590" cy="515" r="5" fill="#c0392b"/>
+  <text x="604" y="519" font-size="11" fill="#1a1a1a"><tspan font-weight="bold">Захист каскаду:</tspan> знеструмлення моста при stall-струмі</text>
+</svg>

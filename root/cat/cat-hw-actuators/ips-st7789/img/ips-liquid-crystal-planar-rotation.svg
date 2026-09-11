@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460" viewBox="0 0 960 460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Планарне перемикання рідких кристалів (IPS)</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Поворот оптичних осей у площині підкладки під дією поперечного електричного поля</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Вигляд зверху (площина XY) -->
+  <rect x="30" y="72" width="440" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="42" y="84" width="416" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="250" y="104" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Вигляд зверху: планарний поворот у площині XY</text>
+
+  <!-- Осі координат XY / Z -->
+  <text x="46" y="184" font-size="12" fill="#6b7280">Осі в</text>
+  <text x="46" y="196" font-size="12" fill="#6b7280">склі</text>
+  <line x1="54" y1="230" x2="78" y2="230" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="82" y="234" font-size="12" font-weight="bold" fill="#1a1a1a">X</text>
+  <line x1="54" y1="230" x2="54" y2="206" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="50" y="200" font-size="12" font-weight="bold" fill="#1a1a1a">Y</text>
+  <circle cx="54" cy="254" r="6" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+  <circle cx="54" cy="254" r="1.5" fill="#1a1a1a"/>
+  <text x="66" y="258" font-size="12" font-weight="bold" fill="#1a1a1a">Z ⊙</text>
+
+  <!-- Гребінчасті електроди (вид зверху) -->
+  <!-- Верхня шина Vcom та зубці 1 і 3 -->
+  <text x="101" y="134" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Vcom</text>
+  <text x="250" y="134" font-size="12" fill="#6b7280" text-anchor="middle">Шина спільного електрода (Vcom)</text>
+  <text x="399" y="134" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Vcom</text>
+  <rect x="90" y="140" width="320" height="14" rx="2" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="90" y="154" width="22" height="160" rx="2" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="388" y="154" width="22" height="160" rx="2" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Нижня шина Vpix та зубець 2 -->
+  <rect x="180" y="314" width="140" height="14" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="239" y="170" width="22" height="144" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="250" y="346" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Піксельний електрод (Vpix)</text>
+
+  <!-- Проміжок 1: силові лінії поля E (від Vpix до Vcom вліво) -->
+  <line x1="230" y1="180" x2="120" y2="180" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="176" y="200" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Поле E (планарне)</text>
+  <line x1="230" y1="298" x2="120" y2="298" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Молекула РК у Проміжку 1: початковий стан n0 і робочий n -->
+  <line x1="170" y1="268" x2="182" y2="224" stroke="#6b7280" stroke-width="7" stroke-linecap="round" stroke-dasharray="3 2"/>
+  <text x="122" y="224" font-size="12" font-weight="bold" fill="#6b7280">n₀ (U=0)</text>
+
+  <line x1="156" y1="260" x2="196" y2="232" stroke="#27ae60" stroke-width="8" stroke-linecap="round"/>
+  <text x="135" y="282" font-size="12" font-weight="bold" fill="#27ae60">n (робочий)</text>
+
+  <!-- Дуга повороту Delta theta -->
+  <path d="M 183,219 A 28 28 0 0 1 199,230" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+  <text x="204" y="224" font-size="12" font-weight="bold" fill="#27ae60">Δθ</text>
+
+  <!-- Проміжок 2: силові лінії поля E (від Vpix до Vcom вправо) -->
+  <line x1="270" y1="180" x2="380" y2="180" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="325" y="200" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Поле E (планарне)</text>
+  <line x1="270" y1="298" x2="380" y2="298" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Молекули РК у Проміжку 2 (однорідний поворот ансамблю) -->
+  <line x1="289" y1="236" x2="321" y2="214" stroke="#27ae60" stroke-width="7" stroke-linecap="round"/>
+  <line x1="329" y1="259" x2="361" y2="237" stroke="#27ae60" stroke-width="7" stroke-linecap="round"/>
+  <line x1="289" y1="283" x2="321" y2="261" stroke="#27ae60" stroke-width="7" stroke-linecap="round"/>
+
+  <!-- Нижні картки Лівої панелі -->
+  <rect x="42" y="362" width="202" height="64" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="380" font-size="12" font-weight="bold" fill="#1a1a1a">Орієнтація осей:</text>
+  <text x="52" y="398" font-size="12" fill="#6b7280">• n₀: початкова (U = 0 В)</text>
+  <text x="52" y="416" font-size="12" fill="#27ae60">• n: поворот на Δθ ≤ 45°</text>
+
+  <rect x="256" y="362" width="202" height="64" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="266" y="380" font-size="12" font-weight="bold" fill="#1a1a1a">Планарний рух:</text>
+  <text x="266" y="398" font-size="12" fill="#2457d6">• Обертання у площині XY</text>
+  <text x="266" y="416" font-size="12" fill="#27ae60">• Вісь Z залишається нульовою</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Поперечний розріз (площина XZ) -->
+  <rect x="490" y="72" width="440" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="502" y="84" width="416" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="710" y="104" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Поперечний розріз: відсутність виходу по осі Z</text>
+
+  <!-- Верхня скляна підкладка -->
+  <rect x="512" y="122" width="396" height="22" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="138" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Верхнє скло (пасивне: без керувальних електродів)</text>
+
+  <!-- Нижня скляна підкладка -->
+  <rect x="512" y="274" width="396" height="26" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="291" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Нижня скляна підкладка (обидва електроди на склі)</text>
+
+  <!-- Гребінчасті електроди на нижньому склі -->
+  <rect x="536" y="262" width="42" height="12" rx="2" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="557" y="255" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Vcom</text>
+
+  <rect x="689" y="262" width="42" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="710" y="255" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Vpix</text>
+
+  <rect x="842" y="262" width="42" height="12" rx="2" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="863" y="255" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Vcom</text>
+
+  <!-- Силові лінії планарного поля E у розрізі -->
+  <path d="M 689,268 Q 634,248 578,268" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 691,264 Q 634,208 576,264" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 694,262 Q 634,168 573,262" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#arr-blue)"/>
+
+  <path d="M 731,268 Q 786,248 842,268" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 729,264 Q 786,208 844,264" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#arr-blue)"/>
+  <path d="M 726,262 Q 786,168 847,262" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Підпис поля над центральним електродом -->
+  <text x="710" y="168" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Силові лінії E</text>
+  <text x="710" y="184" font-size="12" fill="#6b7280" text-anchor="middle">(планарні дуги)</text>
+
+  <!-- Молекули РК у розрізі (суворо горизонтальні) -->
+  <line x1="616" y1="228" x2="652" y2="228" stroke="#27ae60" stroke-width="8" stroke-linecap="round"/>
+  <line x1="616" y1="256" x2="652" y2="256" stroke="#27ae60" stroke-width="8" stroke-linecap="round"/>
+
+  <line x1="768" y1="228" x2="804" y2="228" stroke="#27ae60" stroke-width="8" stroke-linecap="round"/>
+  <line x1="768" y1="256" x2="804" y2="256" stroke="#27ae60" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- Осі XZ на розрізі -->
+  <line x1="524" y1="210" x2="524" y2="175" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="524" y="167" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Z</text>
+  <line x1="524" y1="210" x2="550" y2="210" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="556" y="214" font-size="12" font-weight="bold" fill="#1a1a1a">X</text>
+  <text x="524" y="236" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">θz = 0°</text>
+  <text x="524" y="250" font-size="12" fill="#6b7280" text-anchor="middle">(планарні)</text>
+
+  <!-- Заборонений вертикальний підйом (ілюстрація відсутності нахилу) -->
+  <line x1="855" y1="242" x2="875" y2="212" stroke="#c0392b" stroke-width="4" stroke-linecap="round" stroke-dasharray="3 2"/>
+  <text x="865" y="180" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Підйом по Z</text>
+  <text x="865" y="196" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">відсутній ✕</text>
+
+  <!-- Нижні картки Правої панелі -->
+  <rect x="502" y="316" width="202" height="110" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="514" y="336" font-size="13" font-weight="bold" fill="#27ae60">✓ Планарний поворот (IPS):</text>
+  <text x="514" y="356" font-size="12" fill="#1a1a1a">• Осі паралельні склу (XY)</text>
+  <text x="514" y="374" font-size="12" fill="#1a1a1a">• Кут підйому по Z: 0°</text>
+  <text x="514" y="392" font-size="12" fill="#1a1a1a">• Поле зосереджене внизу</text>
+  <text x="514" y="410" font-size="12" font-weight="bold" fill="#27ae60">• Огляд 178° без спотворень</text>
+
+  <rect x="716" y="316" width="202" height="110" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="728" y="336" font-size="13" font-weight="bold" fill="#c0392b">✕ Чого немає (проти TN):</text>
+  <text x="728" y="356" font-size="12" fill="#1a1a1a">• Немає підйому молекул у Z</text>
+  <text x="728" y="374" font-size="12" fill="#1a1a1a">• Верхнє скло без електродів</text>
+  <text x="728" y="392" font-size="12" fill="#1a1a1a">• Немає вертикального поля</text>
+  <text x="728" y="410" font-size="12" font-weight="bold" fill="#c0392b">• Відсутня інверсія кольорів</text>
+</svg>

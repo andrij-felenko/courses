@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+  </marker>
+  <marker id="arr-gray-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+  <marker id="arr-red-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+  </marker>
+</defs>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Компроміс чотирьох параметрів лазерної лінії в машинному зорі</text>
+<text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Тонка лінія квадратично звужує глибину різкості, а розширення смуги зменшує опроміненість</text>
+
+<!-- Панель 1: Фізична модель -->
+<rect x="24" y="70" width="436" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="242" y="94" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Оптична геометрія параметрів смуги</text>
+
+<!-- Верхня частина: Віяло лінії в просторі -->
+<!-- Лазерний модуль -->
+<rect x="40" y="126" width="54" height="36" rx="4" fill="#2457d6" stroke="#1d44a8" stroke-width="1"/>
+<rect x="94" y="134" width="6" height="20" rx="2" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+<text x="67" y="144" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">Лазер</text>
+<text x="67" y="156" font-size="12" fill="#ffffff" text-anchor="middle">5 мВт</text>
+
+<!-- Світлове віяло -->
+<polygon points="100,144 260,106 260,182" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+<path d="M 130,136 A 32,32 0 0,1 130,152" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+<text x="138" y="148" font-size="12" font-weight="700" fill="#2457d6">θ</text>
+
+<!-- Цільова площина та лінія -->
+<line x1="260" y1="100" x2="260" y2="188" stroke="#1a1a1a" stroke-width="2"/>
+<line x1="260" y1="106" x2="260" y2="182" stroke="#c0392b" stroke-width="4" stroke-linecap="round"/>
+
+<!-- Розмірні лінії для L -->
+<line x1="262" y1="106" x2="280" y2="106" stroke="#c0392b" stroke-width="1"/>
+<line x1="262" y1="182" x2="280" y2="182" stroke="#c0392b" stroke-width="1"/>
+<line x1="276" y1="106" x2="276" y2="182" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+
+<!-- Підписи для L -->
+<text x="290" y="134" font-size="12" font-weight="700" fill="#c0392b">Довжина лінії L</text>
+<text x="290" y="150" font-size="12" fill="#1a1a1a">L = 2D · tan(θ/2)</text>
+<text x="290" y="166" font-size="12" fill="#6b7280">Поле зору камери (FOV)</text>
+
+<!-- Розмірна лінія для D -->
+<line x1="100" y1="166" x2="100" y2="204" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="260" y1="190" x2="260" y2="204" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="100" y1="200" x2="260" y2="200" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-gray-rev)" marker-end="url(#arr-gray)"/>
+<text x="180" y="217" font-size="12" fill="#6b7280" text-anchor="middle">Робоча відстань D</text>
+
+<!-- Нижня частина: Перетяжка пучка -->
+<text x="242" y="248" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Перетяжка пучка й конфокальний параметр (вісь Z)</text>
+
+<!-- Каустика пучка -->
+<path d="M 50,280 Q 140,300 220,300 Q 300,300 390,280 L 390,340 Q 300,320 220,320 Q 140,320 50,340 Z" fill="#eaf0fd"/>
+<path d="M 50,280 Q 140,300 220,300 Q 300,300 390,280" fill="none" stroke="#2457d6" stroke-width="2"/>
+<path d="M 50,340 Q 140,320 220,320 Q 300,320 390,340" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+<!-- Оптична вісь (розриваємо, щоб не перетинати написи) -->
+<line x1="45" y1="310" x2="212" y2="310" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,4"/>
+<line x1="228" y1="310" x2="395" y2="310" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,4"/>
+
+<!-- Розміри 2w0 -->
+<line x1="220" y1="300" x2="220" y2="320" stroke="#c0392b" stroke-width="2" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+<line x1="220" y1="300" x2="220" y2="274" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+<text x="220" y="268" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Товщина в перетяжці 2w₀</text>
+
+<!-- Межі Релея 2zR -->
+<line x1="160" y1="288" x2="160" y2="332" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="280" y1="288" x2="280" y2="332" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+<line x1="160" y1="332" x2="160" y2="358" stroke="#6b7280" stroke-width="1"/>
+<line x1="280" y1="332" x2="280" y2="358" stroke="#6b7280" stroke-width="1"/>
+<line x1="160" y1="354" x2="280" y2="354" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+<text x="220" y="372" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">2z_R = 2πw₀² / λ (глибина різкості DOF)</text>
+
+<!-- Підсумковий закон Релея -->
+<rect x="38" y="386" width="408" height="40" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="242" y="401" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Квадратичний компроміс: z_R ∝ w₀²</text>
+<text x="242" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">Зменшення 2w₀ у 2 рази скорочує робочу глибину DOF у 4 рази!</text>
+
+<!-- Панель 2: Системний баланс -->
+<rect x="482" y="70" width="454" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="709" y="94" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. Системний баланс чотирьох параметрів</text>
+
+<!-- Картка 1: Товщина лінії 2w0 -->
+<rect x="496" y="108" width="184" height="76" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="588" y="124" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Товщина лінії 2w₀</text>
+<text x="588" y="140" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">2w₀ ≈ 4λ / (π · θ_div)</text>
+<text x="588" y="158" font-size="12" fill="#27ae60" text-anchor="middle">↑ Точність профілю Z</text>
+<text x="588" y="174" font-size="12" fill="#c0392b" text-anchor="middle">↓ Квадратичний спад DOF</text>
+
+<!-- Картка 2: Глибина різкості 2zR -->
+<rect x="496" y="220" width="184" height="76" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="588" y="236" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Глибина різкості 2z_R</text>
+<text x="588" y="252" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">2z_R = 2πw₀² / λ</text>
+<text x="588" y="270" font-size="12" fill="#27ae60" text-anchor="middle">↑ Робочий діапазон по Z</text>
+<text x="588" y="286" font-size="12" fill="#c0392b" text-anchor="middle">↓ Вимагає товстішої лінії</text>
+
+<!-- Зв'язок 2w0 <-> 2zR -->
+<line x1="520" y1="187" x2="520" y2="217" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+<text x="532" y="205" font-size="12" font-weight="700" fill="#c0392b">z_R ∝ w₀² (DOF)</text>
+
+<!-- Картка 3: Опроміненість смуги E -->
+<rect x="738" y="108" width="184" height="76" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="830" y="124" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Опроміненість смуги E</text>
+<text x="830" y="140" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">E ≈ P₀ / (L · 2w₀)</text>
+<text x="830" y="158" font-size="12" fill="#27ae60" text-anchor="middle">↑ Коротша витримка t_exp</text>
+<text x="830" y="174" font-size="12" fill="#c0392b" text-anchor="middle">↓ Ризик blooming / MPE</text>
+
+<!-- Картка 4: Довжина смуги L -->
+<rect x="738" y="220" width="184" height="76" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="830" y="236" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Довжина смуги L</text>
+<text x="830" y="252" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">L = 2D · tan(θ/2)</text>
+<text x="830" y="270" font-size="12" fill="#27ae60" text-anchor="middle">↑ Широке поле зору FOV</text>
+<text x="830" y="286" font-size="12" fill="#c0392b" text-anchor="middle">↓ Падіння сигналу: E ∝ 1/L</text>
+
+<!-- Зв'язок L <-> E -->
+<line x1="762" y1="187" x2="762" y2="217" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+<text x="774" y="205" font-size="12" font-weight="700" fill="#c0392b">E ∝ 1/L (сигнал)</text>
+
+<!-- Горизонтальні стрілки зв'язку -->
+<line x1="684" y1="146" x2="734" y2="146" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+<line x1="684" y1="258" x2="734" y2="258" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+
+<!-- Центральний бейдж балансу -->
+<rect x="684" y="193" width="50" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="709" y="209" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">БАЛАНС</text>
+
+<!-- Нижня частина Панелі 2: Дві інженерні стратегії -->
+<!-- Стратегія 1 -->
+<rect x="496" y="314" width="205" height="112" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+<text x="598" y="332" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Стратегія 1: Мікроінспекція</text>
+<text x="506" y="350" font-size="12" fill="#1a1a1a">• Товщина 2w₀: 30–50 мкм</text>
+<text x="506" y="367" font-size="12" fill="#1a1a1a">• Глибина 2z_R: 5–15 мм</text>
+<text x="506" y="384" font-size="12" fill="#1a1a1a">• Поле зору L: 20–50 мм</text>
+<text x="506" y="401" font-size="12" fill="#6b7280">→ Висока роздільність Z</text>
+<text x="506" y="418" font-size="12" fill="#6b7280">→ Критичний фокус деталі</text>
+
+<!-- Стратегія 2 -->
+<rect x="717" y="314" width="205" height="112" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="819" y="332" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Стратегія 2: Швидкісний конвеєр</text>
+<text x="727" y="350" font-size="12" fill="#1a1a1a">• Товщина 2w₀: 100–200 мкм</text>
+<text x="727" y="367" font-size="12" fill="#1a1a1a">• Глибина 2z_R: 100–300 мм</text>
+<text x="727" y="384" font-size="12" fill="#1a1a1a">• Поле зору L: 150–400 мм</text>
+<text x="727" y="401" font-size="12" fill="#6b7280">→ Стійкість до вібрацій</text>
+<text x="727" y="418" font-size="12" fill="#6b7280">→ Швидкість до 2–5 м/с</text>
+</svg>

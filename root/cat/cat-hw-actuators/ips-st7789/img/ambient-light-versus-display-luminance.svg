@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460" viewBox="0 0 960 460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біле полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Необхідна яскравість дисплея від зовнішньої освітленості середовища</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Критерії читабельності (CR ≥ 5:1 та CR ≥ 10:1) з урахуванням поверхневого відбиття скла</text>
+
+  <!-- Заголовки зон середовища над графіком -->
+  <text x="183" y="76" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">1. Ніч / темрява (&lt; 10 лк)</text>
+  <text x="398" y="76" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">2. Офіс / дім (300–500 лк)</text>
+  <text x="613" y="76" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">3. Вулиця / тінь (1 000–5 000 лк)</text>
+  <text x="828" y="76" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">4. Пряме сонце (&gt; 10 000 лк)</text>
+
+  <!-- Тло графіка -->
+  <rect x="76" y="86" width="860" height="220" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Зона сонячного вимивання (washout) у зоні 4 -->
+  <rect x="721" y="86" width="215" height="143" fill="#fdecea"/>
+
+  <!-- Діапазон типової матриці IPS ST7789 (250–350 кд/м²) -->
+  <rect x="76" y="229" width="860" height="22" fill="#eaf0fd"/>
+  <line x1="76" y1="229" x2="936" y2="229" stroke="#2457d6" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="76" y1="251" x2="936" y2="251" stroke="#2457d6" stroke-width="1" stroke-dasharray="4 3"/>
+
+  <!-- Зона нічного комфорту (10–50 кд/м²) у зоні 1 -->
+  <rect x="76" y="295" width="215" height="9" fill="#e9f7ef"/>
+
+  <!-- Вертикальні розділювачі зон -->
+  <line x1="291" y1="214" x2="291" y2="306" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="506" y1="86" x2="506" y2="306" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 3"/>
+  <line x1="721" y1="86" x2="721" y2="306" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 3"/>
+
+  <!-- Горизонтальні лінії сітки -->
+  <line x1="76" y1="130" x2="936" y2="130" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="76" y1="174" x2="936" y2="174" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="76" y1="218" x2="936" y2="218" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="76" y1="262" x2="936" y2="262" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Вісь Y: підписи рівнів яскравості -->
+  <text x="76" y="76" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">L, кд/м²</text>
+  <text x="68" y="90" font-size="12" text-anchor="end" fill="#6b7280">1000</text>
+  <text x="68" y="134" font-size="12" text-anchor="end" fill="#6b7280">800</text>
+  <text x="68" y="178" font-size="12" text-anchor="end" fill="#6b7280">600</text>
+  <text x="68" y="222" font-size="12" text-anchor="end" fill="#6b7280">400</text>
+  <text x="68" y="266" font-size="12" text-anchor="end" fill="#6b7280">200</text>
+  <text x="68" y="306" font-size="12" text-anchor="end" fill="#6b7280">0</text>
+
+  <!-- Підписи всередині графіка -->
+  <text x="183" y="288" font-size="12" text-anchor="middle" fill="#27ae60">10–50 кд/м²: нічний комфорт</text>
+  <text x="398" y="244" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Типовий IPS ST7789 (250–350 кд/м²)</text>
+
+  <!-- Панель формули та легенди -->
+  <rect x="88" y="94" width="380" height="114" rx="5" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="100" y="110" font-size="13" font-weight="bold" fill="#1a1a1a">Фізична модель читабельності та відбиття</text>
+  <text x="100" y="127" font-size="12" fill="#2457d6">L_відб = E_amb · R / π   |   CR ≈ 1 + L_дисп / L_відб</text>
+
+  <line x1="102" y1="143" x2="124" y2="143" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="132" y="147" font-size="12" fill="#1a1a1a">CR ≥ 10:1 (Air Gap R = 4.5%, комфортний текст)</text>
+
+  <line x1="102" y1="162" x2="124" y2="162" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="132" y="166" font-size="12" fill="#1a1a1a">CR ≥ 5:1   (Air Gap R = 4.5%, мінімальний поріг)</text>
+
+  <line x1="102" y1="181" x2="124" y2="181" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="5 3"/>
+  <text x="132" y="185" font-size="12" font-weight="bold" fill="#27ae60">CR ≥ 5:1   (Optical Bonding R = 1.0%, склеювання)</text>
+
+  <rect x="102" y="195" width="22" height="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="132" y="201" font-size="12" fill="#2457d6">Діапазон типової матриці IPS ST7789</text>
+
+  <!-- Криві необхідної яскравості -->
+  <!-- Крива 1: CR >= 10:1 (Air Gap R = 4.5%) -->
+  <path d="M 76,305 C 200,305 260,304 291,304 C 380,304 450,298 506,292 C 580,284 670,226 721,164 C 745,134 758,101 770,86" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Крива 2: CR >= 5:1 (Air Gap R = 4.5%) -->
+  <path d="M 76,306 C 200,306 260,305 291,305 C 380,305 450,302 506,299 C 590,295 660,271 721,243 C 770,220 825,151 860,86" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Крива 3: CR >= 5:1 (Optical Bonding R = 1.0%) -->
+  <path d="M 76,306 C 200,306 260,306 291,306 C 380,306 450,305 506,304 C 600,302 680,298 721,292 C 790,282 870,246 936,222" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6 3"/>
+
+  <!-- Вісь X: підписи освітленості середовища -->
+  <text x="76" y="322" font-size="12" text-anchor="start" fill="#6b7280">0 лк</text>
+  <text x="291" y="322" font-size="12" text-anchor="middle" fill="#6b7280">10 лк</text>
+  <text x="506" y="322" font-size="12" text-anchor="middle" fill="#6b7280">500 лк</text>
+  <text x="721" y="322" font-size="12" text-anchor="middle" fill="#6b7280">5 000 лк</text>
+  <text x="936" y="322" font-size="12" text-anchor="end" fill="#6b7280">30 000+ лк</text>
+
+  <!-- Чотири інженерні картки зон під графіком -->
+  <!-- Картка 1: Ніч -->
+  <rect x="62" y="334" width="208" height="104" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="72" y="352" font-size="13" font-weight="bold" fill="#1a1a1a">1. Ніч / темна кімната</text>
+  <text x="72" y="371" font-size="12" fill="#6b7280">Освітленість: &lt; 10 лк</text>
+  <text x="72" y="389" font-size="12" fill="#1a1a1a">Комфортно: 10–50 кд/м²</text>
+  <text x="72" y="407" font-size="12" fill="#c0392b">ST7789: засліплює очі</text>
+  <text x="72" y="425" font-size="12" fill="#2457d6">ШІМ: знизити до 5–15%</text>
+
+  <!-- Картка 2: Офіс -->
+  <rect x="284" y="334" width="208" height="104" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="294" y="352" font-size="13" font-weight="bold" fill="#1a1a1a">2. Офіс / кімната</text>
+  <text x="294" y="371" font-size="12" fill="#6b7280">Освітленість: 300–500 лк</text>
+  <text x="294" y="389" font-size="12" fill="#1a1a1a">Потрібно: ~30–70 кд/м²</text>
+  <text x="294" y="407" font-size="12" fill="#27ae60">ST7789: надлишок (300 ніт)</text>
+  <text x="294" y="425" font-size="12" fill="#27ae60">Ідеальний CR &gt; 40:1</text>
+
+  <!-- Картка 3: Тінь -->
+  <rect x="506" y="334" width="208" height="104" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="352" font-size="13" font-weight="bold" fill="#1a1a1a">3. Вулиця / тінь</text>
+  <text x="516" y="371" font-size="12" fill="#6b7280">Освітленість: 1–5 тис. лк</text>
+  <text x="516" y="389" font-size="12" fill="#1a1a1a">Потрібно: 400–600 кд/м²</text>
+  <text x="516" y="407" font-size="12" fill="#1a1a1a">ST7789: граничний стан</text>
+  <text x="516" y="425" font-size="12" fill="#6b7280">Контраст CR ≈ 4:1..5:1</text>
+
+  <!-- Картка 4: Сонце -->
+  <rect x="728" y="334" width="208" height="104" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="738" y="352" font-size="13" font-weight="bold" fill="#c0392b">4. Пряме сонце</text>
+  <text x="738" y="371" font-size="12" fill="#6b7280">Освітленість: &gt; 10 тис. лк</text>
+  <text x="738" y="389" font-size="12" fill="#c0392b">Без склеювання: CR &lt; 2:1</text>
+  <text x="738" y="407" font-size="12" fill="#c0392b">Вимивання контрасту</text>
+  <text x="738" y="425" font-size="12" fill="#27ae60">Рішення: Optical Bonding</text>
+</svg>

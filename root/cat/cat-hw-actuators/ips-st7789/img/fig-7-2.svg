@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підключення 7-пінового ST7789 до спільної шини SPI</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Буфер 74LVC1G125 блокує лінію SCL у стані Hi-Z, коли дисплей не вибраний (CS = 1)</text>
+
+  <!-- Блок 1: Мікроконтролер (MCU) -->
+  <rect x="25" y="76" width="165" height="245" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="107" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="107" y="117" font-size="12" fill="#6b7280" text-anchor="middle">(MCU / Master)</text>
+
+  <text x="180" y="144" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">CS_DISP</text>
+  <text x="180" y="178" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">SCK</text>
+  <text x="180" y="214" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">MOSI</text>
+  <text x="180" y="280" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">CS_DEV2</text>
+
+  <!-- Блок 2: Буфер 74LVC1G125 -->
+  <rect x="320" y="76" width="200" height="124" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="420" y="100" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Буфер 74LVC1G125</text>
+  <text x="420" y="117" font-size="12" fill="#6b7280" text-anchor="middle">(керований вихід OE)</text>
+
+  <!-- Логічний елемент буфера -->
+  <polygon points="385,154 385,190 423,172" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="320" y1="172" x2="385" y2="172" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="423" y1="172" x2="520" y2="172" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Лінія OE та інверсне коло -->
+  <line x1="320" y1="140" x2="404" y2="140" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="404" y1="140" x2="404" y2="157" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="404" cy="160" r="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+
+  <text x="328" y="134" font-size="12" font-weight="bold" fill="#2457d6">/OE</text>
+  <text x="328" y="166" font-size="12" font-weight="bold" fill="#1a1a1a">A</text>
+  <text x="512" y="166" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Y</text>
+
+  <text x="465" y="140" font-size="12" fill="#2457d6" text-anchor="middle">OE=1 ➔ Hi-Z</text>
+  <text x="465" y="156" font-size="12" fill="#27ae60" text-anchor="middle">OE=0 ➔ Y=A</text>
+
+  <!-- Блок 3: Інший SPI-пристрій -->
+  <rect x="320" y="224" width="200" height="97" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="420" y="244" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інший SPI-пристрій</text>
+  <text x="420" y="260" font-size="12" fill="#6b7280" text-anchor="middle">(MicroSD / Flash)</text>
+
+  <text x="328" y="280" font-size="12" font-weight="bold" fill="#6b7280">CS</text>
+  <text x="328" y="298" font-size="12" font-weight="bold" fill="#1a1a1a">SCK</text>
+  <text x="328" y="316" font-size="12" font-weight="bold" fill="#1a1a1a">MOSI</text>
+
+  <text x="440" y="286" font-size="12" fill="#27ae60" text-anchor="middle">Штатний вхід CS</text>
+  <text x="440" y="304" font-size="12" fill="#6b7280" text-anchor="middle">Ізолюється при CS=1</text>
+
+  <!-- Підтягувальний резистор R1 на лінії SCL -->
+  <line x1="575" y1="172" x2="575" y2="142" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="569" y="114" width="12" height="28" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="575" y1="114" x2="575" y2="96" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="567" y1="96" x2="583" y2="96" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="575" y="88" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+3.3 В</text>
+
+  <text x="590" y="124" font-size="12" font-weight="bold" fill="#1a1a1a">R1 (10 кОм)</text>
+  <text x="590" y="140" font-size="12" fill="#6b7280">підтяжка SCL</text>
+
+  <!-- Блок 4: Модуль ST7789 -->
+  <rect x="685" y="76" width="250" height="245" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модуль IPS 1.3″ ST7789</text>
+  <text x="810" y="117" font-size="12" fill="#6b7280" text-anchor="middle">(7-піновий, без виводу CS)</text>
+
+  <!-- Піни модуля -->
+  <text x="693" y="140" font-size="12" font-weight="bold" fill="#6b7280">GND</text>
+  <text x="693" y="158" font-size="12" font-weight="bold" fill="#1a1a1a">VCC</text>
+  <text x="693" y="176" font-size="12" font-weight="bold" fill="#2457d6">SCL</text>
+  <text x="693" y="214" font-size="12" font-weight="bold" fill="#1a1a1a">SDA</text>
+  <text x="693" y="242" font-size="12" font-weight="bold" fill="#6b7280">RES</text>
+  <text x="693" y="268" font-size="12" font-weight="bold" fill="#6b7280">DC</text>
+  <text x="693" y="294" font-size="12" font-weight="bold" fill="#6b7280">BLK</text>
+
+  <!-- Картка проблеми з CS -->
+  <rect x="730" y="126" width="195" height="96" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="827" y="146" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Апаратна особливість:</text>
+  <text x="827" y="164" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пін CS запаяно на GND</text>
+  <text x="827" y="182" font-size="12" fill="#1a1a1a" text-anchor="middle">Немає виводу CS на платі</text>
+  <text x="827" y="200" font-size="12" fill="#c0392b" text-anchor="middle">Завжди слухає шину SPI</text>
+
+  <!-- Картка дисплея -->
+  <rect x="730" y="236" width="195" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="827" y="256" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">IPS Матриця 240×240</text>
+  <text x="827" y="274" font-size="12" fill="#6b7280" text-anchor="middle">Кольоровий екран 1.3″</text>
+  <text x="827" y="292" font-size="12" fill="#27ae60" text-anchor="middle">Потребує блокування SCL</text>
+
+  <!-- Лінії з'єднань -->
+  <!-- 1. CS_DISP: MCU (190, 140) -> Buffer /OE (320, 140) -->
+  <line x1="190" y1="140" x2="320" y2="140" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="255" y="126" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CS_DISP (OE)</text>
+
+  <!-- 2. SCK: MCU (190, 172) -> Buffer A (320, 172) -->
+  <line x1="190" y1="172" x2="320" y2="172" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <circle cx="240" cy="172" r="3.5" fill="#1a1a1a"/>
+  <!-- Відгалуження SCK до іншого пристрою -->
+  <line x1="240" y1="172" x2="240" y2="294" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="240" y1="294" x2="320" y2="294" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- 3. MOSI: MCU (190, 210) -> ST7789 SDA (685, 210) -->
+  <line x1="190" y1="210" x2="685" y2="210" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <circle cx="275" cy="210" r="3.5" fill="#1a1a1a"/>
+  <!-- Відгалуження MOSI до іншого пристрою -->
+  <line x1="275" y1="210" x2="275" y2="312" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="275" y1="312" x2="320" y2="312" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- 4. CS_DEV2: MCU (190, 276) -> Інший пристрій (320, 276) -->
+  <line x1="190" y1="276" x2="320" y2="276" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- 5. Вихід буфера Y: Buffer (520, 172) -> ST7789 SCL (685, 172) -->
+  <line x1="520" y1="172" x2="685" y2="172" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <circle cx="575" cy="172" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Нижні інформаційні картки (Режими роботи) -->
+  <!-- Режим 1 -->
+  <rect x="25" y="345" width="450" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="250" y="368" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Режим 1: Передача даних на дисплей (CS_DISP = 0)</text>
+  <text x="40" y="388" font-size="12" fill="#1a1a1a">• OE = 0: буфер увімкнено, тактові імпульси SCK проходять на SCL</text>
+  <text x="40" y="406" font-size="12" fill="#1a1a1a">• ST7789 синхронно зчитує команди та пікселі з шини SDA</text>
+  <text x="40" y="424" font-size="12" fill="#6b7280">• Другий пристрій вимкнено високим рівнем (CS_DEV2 = 1)</text>
+
+  <!-- Режим 2 -->
+  <rect x="495" y="345" width="440" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="715" y="368" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Режим 2: Обмін з іншим пристроєм (CS_DISP = 1)</text>
+  <text x="510" y="388" font-size="12" fill="#1a1a1a">• OE = 1: вихід буфера в Hi-Z, R1 тримає лінію SCL на +3.3 В</text>
+  <text x="510" y="406" font-size="12" fill="#1a1a1a">• Лінія SCL нерухома ➔ ST7789 ігнорує чужі дані на шині SDA</text>
+  <text x="510" y="424" font-size="12" fill="#6b7280">• Другий пристрій активний (CS_DEV2 = 0) і працює по SPI</text>
+</svg>

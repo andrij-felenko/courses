@@ -1,0 +1,229 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Захисне зрізання проти-ЕРС діодами Шотткі (Flyback Clamping)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Розряд енергії індуктивності мотора в шини живлення: обмеження індуктивного сплеску до V_CC + V_D</text>
+
+  <!-- ==================== LEFT AREA: CIRCUIT DIAGRAM ==================== -->
+  <rect x="40" y="75" width="480" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Panel Header -->
+  <text x="280" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Комутаційний контур моста в момент закриття ключів</text>
+  <text x="280" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Ключі Q1, Q4 вимкнено: струм i_L підтримується самоіндукцією L_обм</text>
+
+  <!-- Power Rails -->
+  <!-- +V_CC Rail -->
+  <line x1="60" y1="148" x2="460" y2="148" stroke="#c0392b" stroke-width="3"/>
+  <text x="60" y="140" font-size="12" font-weight="bold" fill="#c0392b">+V_CC (+6 В)</text>
+
+  <!-- GND Rail -->
+  <line x1="60" y1="395" x2="460" y2="395" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="60" y="410" font-size="12" font-weight="bold" fill="#1a1a1a">GND (0 В)</text>
+
+  <!-- Bulk Capacitor C_bulk -->
+  <line x1="70" y1="148" x2="70" y2="260" stroke="#2457d6" stroke-width="2"/>
+  <line x1="58" y1="260" x2="82" y2="260" stroke="#2457d6" stroke-width="3"/>
+  <line x1="58" y1="268" x2="82" y2="268" stroke="#2457d6" stroke-width="3"/>
+  <line x1="70" y1="268" x2="70" y2="395" stroke="#2457d6" stroke-width="2"/>
+  <text x="86" y="260" font-size="12" font-weight="bold" fill="#2457d6">C_bulk</text>
+  <text x="86" y="275" font-size="12" fill="#6b7280">470 мкФ</text>
+
+  <!-- High-side Switch Q1 (Open) -->
+  <line x1="135" y1="148" x2="135" y2="190" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="135" cy="190" r="3" fill="#6b7280"/>
+  <line x1="135" y1="220" x2="124" y2="194" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="135" cy="220" r="3" fill="#6b7280"/>
+  <line x1="135" y1="220" x2="135" y2="275" stroke="#6b7280" stroke-width="2"/>
+  <text x="145" y="190" font-size="12" font-weight="bold" fill="#6b7280">Q1</text>
+  <text x="145" y="206" font-size="12" fill="#6b7280">Вимк</text>
+
+  <!-- Low-side Switch Q3 (Open) -->
+  <line x1="135" y1="275" x2="135" y2="320" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="135" cy="320" r="3" fill="#6b7280"/>
+  <line x1="135" y1="350" x2="124" y2="324" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="135" cy="350" r="3" fill="#6b7280"/>
+  <line x1="135" y1="350" x2="135" y2="395" stroke="#6b7280" stroke-width="2"/>
+  <text x="145" y="340" font-size="12" font-weight="bold" fill="#6b7280">Q3</text>
+  <text x="145" y="356" font-size="12" fill="#6b7280">Вимк</text>
+
+  <!-- High-side Switch Q2 (Open) -->
+  <line x1="425" y1="148" x2="425" y2="190" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="425" cy="190" r="3" fill="#6b7280"/>
+  <line x1="425" y1="220" x2="414" y2="194" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="425" cy="220" r="3" fill="#6b7280"/>
+  <line x1="425" y1="220" x2="425" y2="275" stroke="#6b7280" stroke-width="2"/>
+  <text x="377" y="190" font-size="12" font-weight="bold" fill="#6b7280">Q2</text>
+  <text x="377" y="206" font-size="12" fill="#6b7280">Вимк</text>
+
+  <!-- Low-side Switch Q4 (Open, Just turned OFF!) -->
+  <line x1="425" y1="275" x2="425" y2="320" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="425" cy="320" r="3" fill="#c0392b"/>
+  <line x1="425" y1="350" x2="414" y2="324" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="425" cy="350" r="3" fill="#c0392b"/>
+  <line x1="425" y1="350" x2="425" y2="395" stroke="#c0392b" stroke-width="2"/>
+  <text x="377" y="340" font-size="12" font-weight="bold" fill="#c0392b">Q4</text>
+  <text x="377" y="356" font-size="12" fill="#c0392b">Вимк</text>
+
+  <!-- Diode D1 (Inactive, Gray) -->
+  <line x1="195" y1="148" x2="195" y2="275" stroke="#9ca3af" stroke-width="1.5"/>
+  <polygon points="186,218 204,218 195,202" fill="#f4f6f8" stroke="#9ca3af" stroke-width="1.5"/>
+  <path d="M186,206 L186,202 L204,202 L204,198" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="205" y="190" font-size="12" font-weight="bold" fill="#6b7280">D1</text>
+  <text x="205" y="206" font-size="12" fill="#6b7280">Закритий</text>
+
+  <!-- Diode D4 (Inactive, Gray) -->
+  <line x1="365" y1="275" x2="365" y2="395" stroke="#9ca3af" stroke-width="1.5"/>
+  <polygon points="356,348 374,348 365,332" fill="#f4f6f8" stroke="#9ca3af" stroke-width="1.5"/>
+  <path d="M356,336 L356,332 L374,332 L374,328" fill="none" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="355" y="340" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">D4</text>
+  <text x="355" y="356" text-anchor="end" font-size="12" fill="#6b7280">Закритий</text>
+
+  <!-- ================= ACTIVE CLAMPING LOOP (GREEN) ================= -->
+  <!-- 1. From GND up through D3 to Node A -->
+  <line x1="195" y1="395" x2="195" y2="275" stroke="#27ae60" stroke-width="3.5"/>
+  <!-- D3 Schottky Symbol (Active Green) -->
+  <polygon points="186,348 204,348 195,332" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M186,336 L186,332 L204,332 L204,328" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="195" y1="380" x2="195" y2="360" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="205" y="340" font-size="12" font-weight="bold" fill="#27ae60">D3 (Шотткі)</text>
+  <text x="205" y="356" font-size="12" font-weight="bold" fill="#27ae60">ВІДКРИТИЙ</text>
+
+  <!-- 2. Through Motor from Node A to Node B -->
+  <line x1="195" y1="275" x2="365" y2="275" stroke="#27ae60" stroke-width="3.5"/>
+
+  <!-- 3. From Node B up through D2 to +V_CC -->
+  <line x1="365" y1="275" x2="365" y2="148" stroke="#27ae60" stroke-width="3.5"/>
+  <!-- D2 Schottky Symbol (Active Green) -->
+  <polygon points="356,218 374,218 365,202" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M356,206 L356,202 L374,202 L374,198" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="365" y1="250" x2="365" y2="230" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="355" y="185" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">D2 (Шотткі)</text>
+  <text x="355" y="202" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">ВІДКРИТИЙ</text>
+
+  <!-- 4. Along +V_CC rail leftwards to C_bulk -->
+  <line x1="365" y1="148" x2="70" y2="148" stroke="#27ae60" stroke-width="3.5"/>
+  <line x1="280" y1="148" x2="250" y2="148" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+
+  <!-- 5. Down through C_bulk to GND -->
+  <line x1="70" y1="148" x2="70" y2="395" stroke="#27ae60" stroke-width="3.5"/>
+  <line x1="70" y1="310" x2="70" y2="335" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+
+  <!-- 6. Along GND rail rightwards back to D3 -->
+  <line x1="70" y1="395" x2="195" y2="395" stroke="#27ae60" stroke-width="3.5"/>
+  <line x1="120" y1="395" x2="150" y2="395" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+
+  <!-- Cross-connections from Switches to Nodes -->
+  <line x1="135" y1="275" x2="195" y2="275" stroke="#6b7280" stroke-width="2"/>
+  <line x1="365" y1="275" x2="425" y2="275" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- ================= MOTOR MODEL (EQUIVALENT RL) ================= -->
+  <!-- Motor Frame Box -->
+  <rect x="210" y="246" width="140" height="48" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Inductance L_обм -->
+  <path d="M218,275 C218,264 225,264 225,275 C225,264 232,264 232,275 C232,264 239,264 239,275 C239,264 246,264 246,275" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="232" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">L_обм</text>
+
+  <!-- Resistor R_обм -->
+  <rect x="254" y="269" width="30" height="12" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="269" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R_обм</text>
+
+  <!-- DC Motor Rotor Symbol (Circle with M) -->
+  <circle cx="316" cy="275" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="316" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">M</text>
+  <text x="316" y="240" text-anchor="middle" font-size="12" fill="#6b7280">Якір</text>
+
+  <!-- Nodes A & B dots -->
+  <circle cx="195" cy="275" r="4" fill="#27ae60"/>
+  <circle cx="365" cy="275" r="4" fill="#27ae60"/>
+
+  <!-- Current Arrow above motor -->
+  <text x="280" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Струм i_L незмінний →</text>
+
+  <!-- Counter-EMF below motor -->
+  <text x="280" y="310" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">V_L = -L · (di/dt)</text>
+  <text x="280" y="324" text-anchor="middle" font-size="12" fill="#c0392b">Полярність: [-]  [+]</text>
+
+  <!-- Bottom Explanatory Banner -->
+  <rect x="58" y="420" width="444" height="28" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="280" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Контур розряду: GND → D3 → Двигун → D2 → +V_CC (скидання в C_bulk)</text>
+
+  <!-- ==================== RIGHT AREA: CARDS 1 & 2 ==================== -->
+
+  <!-- CARD 1: OSCILLOGRAM GRAPH -->
+  <rect x="540" y="75" width="380" height="180" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="556" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Осцилограма комутаційного викиду напруги</text>
+  <text x="556" y="116" font-size="12" fill="#6b7280">Напруга на закритому ключі Q4: V_DS або V_CE</text>
+
+  <!-- Graph Grid & Reference Lines -->
+  <!-- Level >30V (Avalanche) -->
+  <line x1="600" y1="132" x2="725" y2="132" stroke="#fdecea" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <text x="594" y="136" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">&gt;30 В</text>
+
+  <!-- Level V_clamp (6.35V) -->
+  <line x1="600" y1="172" x2="725" y2="172" stroke="#e9f7ef" stroke-width="2"/>
+  <text x="594" y="176" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">V_clamp</text>
+
+  <!-- Level V_CC (6.0V) -->
+  <line x1="600" y1="192" x2="725" y2="192" stroke="#d0d7de" stroke-dasharray="3 3"/>
+  <text x="594" y="196" text-anchor="end" font-size="12" fill="#6b7280">V_CC</text>
+
+  <!-- Axes -->
+  <line x1="600" y1="216" x2="735" y2="216" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="738" y="220" font-size="12" font-weight="bold" fill="#1a1a1a">t</text>
+
+  <line x1="600" y1="216" x2="600" y2="124" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="600" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V</text>
+
+  <!-- Curve WITHOUT Diodes (Red dashed) -->
+  <path d="M605,214 L628,214 L638,132 L648,155 L658,142 L668,165 L680,192 L725,192" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 3"/>
+
+  <!-- Curve WITH Schottky Diodes (Green solid) -->
+  <path d="M605,214 L628,214 L634,172 L680,172 L695,192 L725,192" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Legend / Explanations Column on Right -->
+  <rect x="744" y="124" width="166" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="750" y="139" font-size="12" font-weight="bold" fill="#c0392b">БЕЗ діода: викид &gt;30 В</text>
+  <text x="750" y="155" font-size="12" fill="#c0392b">Тепловий пробій ключа!</text>
+
+  <rect x="744" y="172" width="166" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="750" y="187" font-size="12" font-weight="bold" fill="#27ae60">З діодом: V_clamp ≈ 6.4 В</text>
+  <text x="750" y="203" font-size="12" fill="#27ae60">Рівень: V_CC + V_F</text>
+
+  <!-- Card 1 Footer -->
+  <text x="556" y="244" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">Шотткі:</tspan> V_F ≈ 0.35 В, t_rr &lt; 10 нс (надшвидка дія)</text>
+
+  <!-- CARD 2: PHYSICS & PCB LAYOUT RULES -->
+  <rect x="540" y="270" width="380" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="556" y="294" font-size="14" font-weight="bold" fill="#1a1a1a">Фізика процесу та правила проектування</text>
+
+  <!-- Point 1 -->
+  <text x="556" y="316" font-size="12" font-weight="bold" fill="#2457d6">1. Енергія поля: W_L = (L · I²) / 2</text>
+  <text x="556" y="332" font-size="12" fill="#1a1a1a">Скидається крізь діоди в C_bulk, запобігаючи перегріву.</text>
+
+  <!-- Point 2 -->
+  <text x="556" y="358" font-size="12" font-weight="bold" fill="#c0392b">2. Чому звичайні діоди (1N4007) не підходять:</text>
+  <text x="556" y="374" font-size="12" fill="#1a1a1a">t_rr &gt; 2 мкс дає запізнення та наскрізний струм при ШІМ.</text>
+
+  <!-- Point 3 -->
+  <text x="556" y="400" font-size="12" font-weight="bold" fill="#27ae60">3. Правило трасування друкованої плати:</text>
+  <text x="556" y="416" font-size="12" fill="#1a1a1a">Діоди монтують впритул до мотора або ключів:</text>
+  <text x="556" y="432" font-size="12" fill="#6b7280">це усуває паразитну індуктивність L_пар довгих доріжок.</text>
+</svg>

@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Часова діаграма станів XPT8871 та усунення клацань (Click/Pop)</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Затримка ввімкнення DMA на час заряду C_bypass (t_startup ≈ 100–120 мс) запобігає клацанню в динаміку</text>
+
+  <!-- Фазові плашки вгорі -->
+  <rect x="220" y="68" width="150" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="295" y="85" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">1. Сон (Standby)</text>
+
+  <rect x="390" y="68" width="250" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="515" y="85" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">2. Запуск і MUTE (заряд C_bypass)</text>
+
+  <rect x="660" y="68" width="250" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="785" y="85" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">3. Відтворення (DMA Playback)</text>
+
+  <!-- Вертикальні роздільники фаз -->
+  <line x1="380" y1="100" x2="380" y2="362" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="650" y1="100" x2="650" y2="362" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- ================= ГРАФІК 1: SHDN ================= -->
+  <text x="35" y="126" font-size="13" font-weight="700" fill="#1a1a1a">Вхід SHDN</text>
+  <text x="35" y="144" font-size="12" fill="#6b7280">Керування сном</text>
+
+  <!-- Рівні SHDN -->
+  <line x1="215" y1="116" x2="910" y2="116" stroke="#f0f2f5" stroke-width="1"/>
+  <text x="210" y="120" font-size="12" text-anchor="end" fill="#6b7280">HIGH</text>
+  <line x1="215" y1="154" x2="910" y2="154" stroke="#f0f2f5" stroke-width="1"/>
+  <text x="210" y="158" font-size="12" text-anchor="end" fill="#6b7280">0 В</text>
+
+  <!-- Осцилограма SHDN -->
+  <path d="M 220,116 L 380,116 L 380,154 L 910,154" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Підписи SHDN -->
+  <text x="300" y="110" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">HIGH (3.3 В / 5 В)</text>
+  <text x="300" y="136" font-size="12" text-anchor="middle" fill="#6b7280">Струм сну &lt; 0.1 мкА</text>
+  <text x="395" y="170" font-size="12" font-weight="700" text-anchor="start" fill="#27ae60">LOW: пробудження мікросхеми</text>
+
+  <!-- Розмірний показник t_startup -->
+  <line x1="384" y1="182" x2="435" y2="182" stroke="#6b7280" stroke-width="1.2" marker-start="url(#arr-left)"/>
+  <text x="515" y="186" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">t_startup ≈ 100–120 мс</text>
+  <line x1="595" y1="182" x2="646" y2="182" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- ================= ГРАФІК 2: BYPASS та V_out ================= -->
+  <text x="35" y="226" font-size="13" font-weight="700" fill="#1a1a1a">BYPASS / V_out</text>
+  <text x="35" y="244" font-size="12" fill="#6b7280">Опорний рівень VDD/2</text>
+  <text x="35" y="260" font-size="12" fill="#6b7280">та зміщення виходів</text>
+
+  <!-- Рівні BYPASS -->
+  <line x1="215" y1="226" x2="910" y2="226" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="210" y="230" font-size="12" text-anchor="end" fill="#6b7280">2.5 В</text>
+  <line x1="215" y1="266" x2="910" y2="266" stroke="#f0f2f5" stroke-width="1"/>
+  <text x="210" y="270" font-size="12" text-anchor="end" fill="#6b7280">0 В</text>
+
+  <!-- Крива BYPASS -->
+  <path d="M 220,266 L 380,266 C 440,236 520,226 650,226 L 910,226" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Підписи Фази 1 (BYPASS) -->
+  <text x="300" y="258" font-size="12" text-anchor="middle" fill="#6b7280">0 В (розряджений)</text>
+
+  <!-- Підписи Фази 2 (BYPASS) -->
+  <text x="515" y="202" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Заряд C_bypass (1 мкФ) до VDD/2</text>
+  <text x="515" y="218" font-size="12" text-anchor="middle" fill="#27ae60">Синхронно: V_out+ = V_out- (тиша)</text>
+
+  <!-- Вихідний диференційний сигнал у Фазі 3 -->
+  <path d="M 650,226 Q 670,212 690,226 T 730,226 T 770,226 T 810,226 T 850,226 T 890,226 L 910,226" fill="none" stroke="#27ae60" stroke-width="1.8"/>
+  <path d="M 650,226 Q 670,240 690,226 T 730,226 T 770,226 T 810,226 T 850,226 T 890,226 L 910,226" fill="none" stroke="#e67e22" stroke-width="1.8"/>
+
+  <!-- Підпис протифазного виходу -->
+  <text x="785" y="204" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Протифазні виходи V_out+ та V_out- (BTL)</text>
+
+  <!-- ================= ГРАФІК 3: ПОТІК DMA ================= -->
+  <text x="35" y="324" font-size="13" font-weight="700" fill="#1a1a1a">Потік DMA</text>
+  <text x="35" y="342" font-size="12" fill="#6b7280">Аудіодані MCU</text>
+
+  <!-- Лінія рівня IDLE (лише у фазі 1 та фазі 3) -->
+  <line x1="215" y1="344" x2="380" y2="344" stroke="#f0f2f5" stroke-width="1"/>
+  <line x1="650" y1="344" x2="910" y2="344" stroke="#f0f2f5" stroke-width="1"/>
+  <text x="210" y="348" font-size="12" text-anchor="end" fill="#6b7280">IDLE</text>
+
+  <!-- DMA стан Фаза 1 -->
+  <line x1="220" y1="344" x2="380" y2="344" stroke="#6b7280" stroke-width="2"/>
+  <text x="300" y="336" font-size="12" text-anchor="middle" fill="#6b7280">DMA зупинено</text>
+
+  <!-- DMA стан Фаза 2: Software Mute блок -->
+  <rect x="390" y="316" width="250" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="515" y="333" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Software Mute (передачу заблоковано)</text>
+  <text x="515" y="350" font-size="12" text-anchor="middle" fill="#c0392b">Пауза на час t_startup: усунення Click/Pop</text>
+
+  <!-- DMA стан Фаза 3: активний потік семплів -->
+  <path d="M 650,344 L 660,332 L 665,356 L 670,334 L 675,354 L 680,336 L 685,352 L 690,344 L 700,332 L 705,356 L 710,334 L 715,354 L 720,336 L 725,352 L 730,344 L 740,332 L 745,356 L 750,334 L 755,354 L 760,336 L 765,352 L 770,344 L 780,332 L 785,356 L 790,334 L 795,354 L 800,336 L 805,352 L 810,344 L 820,332 L 825,356 L 830,334 L 835,354 L 840,336 L 845,352 L 850,344 L 860,332 L 865,356 L 870,334 L 875,354 L 880,336 L 885,352 L 890,344 L 910,344" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="785" y="318" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">DMA Playback активний (звуковий потік)</text>
+
+  <!-- ================= НИЖНІ КАРТКИ ПОЯСНЕННЯ ================= -->
+  <!-- Картка 1: Апаратний захист -->
+  <rect x="30" y="376" width="440" height="62" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="396" font-size="13" font-weight="700" fill="#1a1a1a">1. Апаратний захист: BTL-симетрія виходів</text>
+  <text x="45" y="414" font-size="12" fill="#6b7280">Виходи V_out+ та V_out- піднімаються синхронно, тому V_диф = 0 В.</text>
+  <text x="45" y="429" font-size="12" fill="#6b7280">Котушка динаміка знеструмлена — дифузор залишається в спокої.</text>
+
+  <!-- Картка 2: Програмний захист -->
+  <rect x="490" y="376" width="440" height="62" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="505" y="396" font-size="13" font-weight="700" fill="#27ae60">2. Програмний захист: затримка старту DMA</text>
+  <text x="505" y="414" font-size="12" fill="#1a1a1a">MCU блокує передачу аудіо на час заряду C_bypass (100–120 мс).</text>
+  <text x="505" y="429" font-size="12" fill="#1a1a1a">Звук вмикається вже при стабільній VDD/2 — повна відсутність клацань.</text>
+</svg>

@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+
+<!-- Title & Subtitle -->
+<text x="480" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Калібрувальна крива оптичної тріангуляції та залишкові похибки</text>
+<text x="480" y="46" text-anchor="middle" font-size="13" fill="#6b7280">Перерахунок субпіксельної координати лінії v_px у висоту Z за поліномом 2-го порядку</text>
+
+<!-- ==================== PLOT 1: CALIBRATION CURVE Z(v) ==================== -->
+<!-- Header above Plot 1 -->
+<text x="90" y="66" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Висота Z [мм]</text>
+
+<!-- Legend above Plot 1 (no line crossings) -->
+<circle cx="280" cy="62" r="4" fill="#2457d6"/>
+<text x="290" y="66" font-size="12" font-weight="bold" fill="#1a1a1a">Еталонні точки</text>
+<line x1="400" y1="62" x2="420" y2="62" stroke="#2457d6" stroke-width="2.5"/>
+<text x="428" y="66" font-size="12" fill="#2457d6">Поліном Z(v) [R²=0.9999]</text>
+
+<rect x="90" y="75" width="470" height="170" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Grid lines Y -->
+<line x1="90" y1="85" x2="560" y2="85" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="90" y1="115" x2="560" y2="115" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="90" y1="145" x2="560" y2="145" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="90" y1="175" x2="560" y2="175" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="90" y1="205" x2="560" y2="205" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="90" y1="235" x2="560" y2="235" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+
+<!-- Grid lines X -->
+<line x1="131" y1="75" x2="131" y2="245" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="199" y1="75" x2="199" y2="245" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="271" y1="75" x2="271" y2="245" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="349" y1="75" x2="349" y2="245" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="432" y1="75" x2="432" y2="245" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="521" y1="75" x2="521" y2="245" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+
+<!-- Y axis labels Plot 1 -->
+<text x="82" y="89" text-anchor="end" font-size="12" fill="#1a1a1a">50 мм</text>
+<text x="82" y="119" text-anchor="end" font-size="12" fill="#1a1a1a">40 мм</text>
+<text x="82" y="149" text-anchor="end" font-size="12" fill="#1a1a1a">30 мм</text>
+<text x="82" y="179" text-anchor="end" font-size="12" fill="#1a1a1a">20 мм</text>
+<text x="82" y="209" text-anchor="end" font-size="12" fill="#1a1a1a">10 мм</text>
+<text x="82" y="239" text-anchor="end" font-size="12" fill="#1a1a1a">0 мм</text>
+
+<!-- Fitted Polynomial Curve Z(v) -->
+<path d="M 115,242.5 C 150,227 175,215 199,205 C 235,190 255,182 271,175 C 310,158 330,152 349,145 C 390,130 415,121 432,115 C 475,99 505,89 535,80" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+<!-- Calibration Data Points (Experimental Steps) -->
+<circle cx="131" cy="235" r="4.5" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="199" cy="205" r="4.5" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="271" cy="175" r="4.5" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="349" cy="145" r="4.5" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="432" cy="115" r="4.5" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+<circle cx="521" cy="85" r="4.5" fill="#2457d6" stroke="#ffffff" stroke-width="1.5"/>
+
+<!-- Point value callout on curve -->
+<rect x="362" y="125" width="62" height="18" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+<text x="393" y="138" text-anchor="middle" font-size="12" fill="#2457d6">30.0 мм</text>
+
+<!-- ==================== PLOT 2: RESIDUAL ERROR ΔZ ==================== -->
+<!-- Header above Plot 2 -->
+<text x="90" y="263" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Залишкова похибка ΔZ [мм]</text>
+<text x="375" y="263" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">Допуск ±0.02 мм</text>
+<text x="560" y="263" text-anchor="end" font-size="12" fill="#6b7280">RMSE = 0.012 мм</text>
+
+<rect x="90" y="270" width="470" height="125" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Tolerance zone ±0.02 mm (from y=309 to y=356) -->
+<rect x="90" y="309" width="470" height="47" fill="#e9f7ef"/>
+
+<!-- Grid lines Y Plot 2 -->
+<line x1="90" y1="285" x2="560" y2="285" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="90" y1="309" x2="560" y2="309" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="90" y1="332" x2="560" y2="332" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="90" y1="356" x2="560" y2="356" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="90" y1="380" x2="560" y2="380" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+
+<!-- Grid lines X Plot 2 (aligned with Plot 1) -->
+<line x1="131" y1="270" x2="131" y2="395" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="199" y1="270" x2="199" y2="395" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="271" y1="270" x2="271" y2="395" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="349" y1="270" x2="349" y2="395" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="432" y1="270" x2="432" y2="395" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="521" y1="270" x2="521" y2="395" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="2,2"/>
+
+<!-- Y axis labels Plot 2 -->
+<text x="82" y="289" text-anchor="end" font-size="12" fill="#6b7280">+0.04</text>
+<text x="82" y="313" text-anchor="end" font-size="12" fill="#27ae60">+0.02</text>
+<text x="82" y="336" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">0.00</text>
+<text x="82" y="360" text-anchor="end" font-size="12" fill="#27ae60">-0.02</text>
+<text x="82" y="384" text-anchor="end" font-size="12" fill="#6b7280">-0.04</text>
+
+<!-- Residual error stems & points -->
+<!-- Point 1: ΔZ = +0.008 mm -> y=323 -->
+<line x1="131" y1="332" x2="131" y2="323" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="131" cy="323" r="3.5" fill="#c0392b"/>
+
+<!-- Point 2: ΔZ = -0.012 mm -> y=346 -->
+<line x1="199" y1="332" x2="199" y2="346" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="199" cy="346" r="3.5" fill="#c0392b"/>
+
+<!-- Point 3: ΔZ = +0.014 mm -> y=316 -->
+<line x1="271" y1="332" x2="271" y2="316" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="271" cy="316" r="3.5" fill="#c0392b"/>
+
+<!-- Point 4: ΔZ = -0.008 mm -> y=342 -->
+<line x1="349" y1="332" x2="349" y2="342" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="349" cy="342" r="3.5" fill="#c0392b"/>
+
+<!-- Point 5: ΔZ = +0.011 mm -> y=319 -->
+<line x1="432" y1="332" x2="432" y2="319" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="432" cy="319" r="3.5" fill="#c0392b"/>
+
+<!-- Point 6: ΔZ = -0.013 mm -> y=348 -->
+<line x1="521" y1="332" x2="521" y2="348" stroke="#c0392b" stroke-width="1.5"/>
+<circle cx="521" cy="348" r="3.5" fill="#c0392b"/>
+
+<!-- Connecting dashed spline for residuals -->
+<path d="M 131,323 L 199,346 L 271,316 L 349,342 L 432,319 L 521,348" fill="none" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+
+<!-- Shared X-axis ticks & labels -->
+<text x="131" y="410" text-anchor="middle" font-size="12" fill="#6b7280">140 px</text>
+<text x="199" y="410" text-anchor="middle" font-size="12" fill="#6b7280">265 px</text>
+<text x="271" y="410" text-anchor="middle" font-size="12" fill="#6b7280">400 px</text>
+<text x="349" y="410" text-anchor="middle" font-size="12" fill="#6b7280">545 px</text>
+<text x="432" y="410" text-anchor="middle" font-size="12" fill="#6b7280">700 px</text>
+<text x="521" y="410" text-anchor="middle" font-size="12" fill="#6b7280">865 px</text>
+<text x="325" y="430" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Субпіксельна координата лазерної смуги на матриці v [px]</text>
+
+<!-- ==================== RIGHT PANEL ==================== -->
+
+<!-- Card 1: Stepped Gauge Setup -->
+<rect x="600" y="75" width="320" height="170" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="600" y="75" width="320" height="28" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="760" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Ступінчастий еталон (Gauge Block)</text>
+
+<!-- Stepped block drawing -->
+<line x1="615" y1="210" x2="815" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+<polygon points="620,210 620,200 645,200 645,210" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<polygon points="645,210 645,188 670,188 670,210" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<polygon points="670,210 670,176 695,176 695,210" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<polygon points="695,210 695,164 720,164 720,210" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<polygon points="720,210 720,152 745,152 745,210" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<polygon points="745,210 745,140 770,140 770,210" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- Step labels -->
+<text x="632" y="196" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+<text x="657" y="184" text-anchor="middle" font-size="12" fill="#6b7280">10</text>
+<text x="682" y="172" text-anchor="middle" font-size="12" fill="#6b7280">20</text>
+<text x="707" y="160" text-anchor="middle" font-size="12" fill="#6b7280">30</text>
+<text x="732" y="148" text-anchor="middle" font-size="12" fill="#6b7280">40</text>
+<text x="757" y="136" text-anchor="middle" font-size="12" fill="#6b7280">50</text>
+
+<!-- Laser beam line striking steps -->
+<line x1="625" y1="120" x2="765" y2="120" stroke="#c0392b" stroke-width="2"/>
+<text x="840" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Лазерна лінія</text>
+<text x="840" y="162" text-anchor="middle" font-size="12" fill="#6b7280">кут тріангуляції</text>
+<text x="840" y="178" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">θ = 30°</text>
+<text x="840" y="200" text-anchor="middle" font-size="12" fill="#2457d6">Крок: 10.000 мм</text>
+
+<!-- Card 2: Metrology & Polynomial Parameters -->
+<rect x="600" y="260" width="320" height="175" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="600" y="260" width="320" height="28" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="760" y="279" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Параметри апроксимації</text>
+
+<text x="615" y="308" font-size="13" font-weight="bold" fill="#2457d6">Z(v) = a₂·v² + a₁·v + a₀</text>
+<text x="615" y="328" font-size="12" fill="#1a1a1a">• a₂ = 1.48·10⁻⁵ мм/px² (нелінійність)</text>
+<text x="615" y="346" font-size="12" fill="#1a1a1a">• a₁ = 0.0573 мм/px (масштаб Z)</text>
+<text x="615" y="364" font-size="12" fill="#1a1a1a">• a₀ = -8.32 мм (зсув бази сенсора)</text>
+<text x="615" y="384" font-size="12" font-weight="bold" fill="#27ae60">• Максимальна похибка: |ΔZ| &lt; 0.015 мм</text>
+<text x="615" y="402" font-size="12" fill="#6b7280">• Субпіксельний COG усуває дискретність</text>
+<text x="615" y="420" font-size="12" fill="#6b7280">  та забезпечує точність краще 15 мкм.</text>
+
+</svg>

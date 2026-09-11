@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вплив підключення щупа осцилографа на комутаційний дзвін</text>
+  <text x="480" y="62" font-size="13" fill="#6b7280" text-anchor="middle">Довгий земляний провідник спотворює вимірювання паразитною індуктивністю петлі</text>
+
+  <!-- Ліва колонка: Проблема (довгий крокодил) -->
+  <rect x="24" y="80" width="444" height="358" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Заголовок лівої колонки -->
+  <rect x="36" y="92" width="420" height="28" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="111" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Земляний крокодил (дріт ~15 см) — ПОМИЛКА</text>
+
+  <!-- Схема підключення щупа з крокодилом -->
+  <rect x="36" y="132" width="420" height="104" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Плата PCB зліва -->
+  <rect x="48" y="208" width="396" height="20" rx="2" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="70" y="204" width="30" height="5" fill="#2457d6"/>
+  <rect x="250" y="204" width="30" height="5" fill="#6b7280"/>
+  <text x="85" y="222" font-size="12" fill="#1a1a1a" text-anchor="middle">Стік ключа</text>
+  <text x="265" y="222" font-size="12" fill="#6b7280" text-anchor="middle">Шина GND</text>
+
+  <!-- Щуп осцилографа зліва -->
+  <path d="M 85,140 L 85,134" stroke="#6b7280" stroke-width="3"/>
+  <rect x="76" y="140" width="18" height="24" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="74" y="164" width="22" height="6" rx="1" fill="#1a1a1a"/>
+  <line x1="85" y1="170" x2="85" y2="204" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Велика петля землі з крокодилом -->
+  <path d="M 85,204 L 85,167 C 125,142 205,142 245,160 C 265,172 270,188 265,204 Z" fill="#fdecea" opacity="0.6"/>
+  <path d="M 96,167 C 125,142 205,142 245,160 C 265,172 270,188 265,204" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <polygon points="261,200 269,200 271,205 259,205" fill="#c0392b"/>
+
+  <!-- Підписи до схеми зліва -->
+  <text x="360" y="152" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Петля щупа: L ≈ 150 нГн</text>
+  <text x="360" y="170" font-size="12" fill="#c0392b" text-anchor="middle">Велика площа контуру</text>
+  <text x="360" y="188" font-size="12" fill="#6b7280" text-anchor="middle">Уловлює імпульси di/dt</text>
+
+  <!-- Екран осцилографа зліва -->
+  <rect x="36" y="248" width="420" height="136" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="46" y="256" width="400" height="80" rx="3" fill="#fafbfc" stroke="#e1e4e8" stroke-width="1"/>
+
+  <!-- Сітка осцилографа зліва -->
+  <line x1="46" y1="276" x2="446" y2="276" stroke="#e8ecf0" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="46" y1="296" x2="446" y2="296" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="46" y1="316" x2="446" y2="316" stroke="#e8ecf0" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="46" y1="336" x2="446" y2="336" stroke="#d0d7de" stroke-width="1"/>
+
+  <line x1="106" y1="256" x2="106" y2="336" stroke="#e8ecf0" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="166" y1="256" x2="166" y2="336" stroke="#e8ecf0" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="226" y1="256" x2="226" y2="336" stroke="#e8ecf0" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="286" y1="256" x2="286" y2="336" stroke="#e8ecf0" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="346" y1="256" x2="346" y2="336" stroke="#e8ecf0" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="406" y1="256" x2="406" y2="336" stroke="#e8ecf0" stroke-width="1" stroke-dasharray="2,3"/>
+
+  <!-- Осцилограма зліва: фальшивий дзвін -->
+  <path d="M 46,336 L 110,336 C 113,336 118,280 125,262 C 130,244 133,326 138,326 C 144,326 146,278 151,278 C 156,278 159,314 164,314 C 169,314 172,286 177,286 C 182,286 185,306 190,306 C 195,306 198,292 203,292 C 208,292 211,300 216,300 C 222,300 228,296 235,296 L 446,296" stroke="#c0392b" stroke-width="2" fill="none"/>
+
+  <!-- Панель вимірювань під сіткою зліва -->
+  <rect x="46" y="342" width="400" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="357" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Фальшивий пік: 11,2 В (+87%) | Дзвін ~80 МГц</text>
+  <text x="246" y="371" font-size="12" fill="#c0392b" text-anchor="middle">Тривалість затухання: 115 нс (артефакт контуру)</text>
+
+  <!-- Підсумок зліва -->
+  <rect x="36" y="396" width="420" height="30" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="416" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Висновок: дзвін створює сам щуп, а не схема мотора</text>
+
+
+  <!-- Права колонка: Розв'язок (пружинний контакт) -->
+  <rect x="492" y="80" width="444" height="358" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Заголовок правої колонки -->
+  <rect x="504" y="92" width="420" height="28" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="111" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Пружинний контакт (~5 мм) — ПРАВИЛЬНО</text>
+
+  <!-- Схема підключення з пружинкою -->
+  <rect x="504" y="132" width="420" height="104" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Плата PCB справа -->
+  <rect x="516" y="208" width="396" height="20" rx="2" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="588" y="204" width="24" height="5" fill="#2457d6"/>
+  <rect x="618" y="204" width="24" height="5" fill="#27ae60"/>
+  <text x="615" y="222" font-size="12" fill="#1a1a1a" text-anchor="middle">Висновки D і S (&lt; 5 мм)</text>
+
+  <!-- Щуп осцилографа справа з пружинкою -->
+  <path d="M 600,140 L 600,134" stroke="#6b7280" stroke-width="3"/>
+  <rect x="591" y="140" width="18" height="24" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="589" y="164" width="22" height="6" rx="1" fill="#1a1a1a"/>
+  <line x1="600" y1="170" x2="600" y2="204" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Коротка пружинка -->
+  <path d="M 600,204 L 600,167 L 611,167 L 628,204 Z" fill="#e9f7ef"/>
+  <path d="M 611,167 L 617,173 L 611,179 L 618,185 L 612,191 L 620,197 L 628,204" stroke="#27ae60" stroke-width="2" fill="none"/>
+
+  <!-- Підписи до схеми справа -->
+  <text x="790" y="152" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Мінімальна петля: L &lt; 3 нГн</text>
+  <text x="790" y="170" font-size="12" fill="#27ae60" text-anchor="middle">Прямий контакт біля ключа</text>
+  <text x="790" y="188" font-size="12" fill="#6b7280" text-anchor="middle">Немає контурного резонансу</text>
+
+  <!-- Екран осцилографа справа -->
+  <rect x="504" y="248" width="420" height="136" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="514" y="256" width="400" height="80" rx="3" fill="#fafbfc" stroke="#e1e4e8" stroke-width="1"/>
+
+  <!-- Сітка осцилографа справа -->
+  <line x1="514" y1="276" x2="914" y2="276" stroke="#e8ecf0" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="514" y1="296" x2="914" y2="296" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="514" y1="316" x2="914" y2="316" stroke="#e8ecf0" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="514" y1="336" x2="914" y2="336" stroke="#d0d7de" stroke-width="1"/>
+
+  <line x1="574" y1="256" x2="574" y2="336" stroke="#e8ecf0" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="634" y1="256" x2="634" y2="336" stroke="#e8ecf0" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="694" y1="256" x2="694" y2="336" stroke="#e8ecf0" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="754" y1="256" x2="754" y2="336" stroke="#e8ecf0" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="814" y1="256" x2="814" y2="336" stroke="#e8ecf0" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="874" y1="256" x2="874" y2="336" stroke="#e8ecf0" stroke-width="1" stroke-dasharray="2,3"/>
+
+  <!-- Осцилограма справа: чистий перехід -->
+  <path d="M 514,336 L 578,336 C 582,336 587,308 592,288 C 596,276 598,298 604,298 C 608,298 610,296 616,296 L 914,296" stroke="#27ae60" stroke-width="2" fill="none"/>
+
+  <!-- Панель вимірювань під сіткою справа -->
+  <rect x="514" y="342" width="400" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="357" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Реальний пік: 6,8 В (+13%) | Дзвін відсутній</text>
+  <text x="714" y="371" font-size="12" fill="#27ae60" text-anchor="middle">Чистий комутаційний фронт, затухання &lt; 15 нс</text>
+
+  <!-- Підсумок справа -->
+  <rect x="504" y="396" width="420" height="30" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="416" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Висновок: коротка пружина показує реальну роботу схеми</text>
+</svg>

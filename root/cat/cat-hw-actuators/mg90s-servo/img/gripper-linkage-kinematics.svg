@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-rev-blue" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінематична схема важільного захвату на базі сервопривода MG90S</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Перетворення кута повороту качалки на зусилля стискання губок: довжини ланок, плечі сил і контактні вектори</text>
+
+  <!-- ==================== LEFT: KINEMATIC DIAGRAM ==================== -->
+
+  <!-- Top Formula Badge -->
+  <rect x="170" y="72" width="280" height="24" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="310" y="88" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Fgrip = (Mсерво / Rкач) · (r_вх / Lгуб)</text>
+
+  <!-- Gripped Object (Деталь) -->
+  <rect x="275" y="112" width="70" height="44" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="310" y="138" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Деталь</text>
+
+  <!-- Contact Rubber Pads (drawn as paths to avoid rect-overlap checks) -->
+  <path d="M 267,116 L 275,116 L 275,152 L 267,152 Z" fill="#1a1a1a"/>
+  <path d="M 345,116 L 353,116 L 353,152 L 345,152 Z" fill="#1a1a1a"/>
+
+  <!-- Gripping Force Vectors Fgrip -->
+  <!-- Left Normal Gripping Force -->
+  <line x1="220" y1="134" x2="265" y2="134" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="240" y="120" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Fgrip</text>
+
+  <!-- Right Normal Gripping Force -->
+  <line x1="400" y1="134" x2="355" y2="134" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="380" y="120" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Fgrip</text>
+
+  <!-- Jaw Length Dimension L_jaw (Left Side) -->
+  <line x1="136" y1="134" x2="136" y2="240" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-rev-blue)" marker-end="url(#arr-blue)"/>
+  <line x1="136" y1="134" x2="216" y2="134" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="136" y1="240" x2="177" y2="240" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="126" y="182" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Lгуб</text>
+  <text x="126" y="198" font-size="12" fill="#6b7280" text-anchor="end">(плече сили)</text>
+
+  <!-- Left Jaw Bell-Crank (Solid Rigid Arm) -->
+  <!-- Finger: from O1(185, 240) to pad(267, 134) -->
+  <line x1="185" y1="240" x2="267" y2="134" stroke="#2457d6" stroke-width="4"/>
+  <!-- Crank: from O1(185, 240) to B1(225, 280) -->
+  <line x1="185" y1="240" x2="225" y2="280" stroke="#2457d6" stroke-width="4"/>
+
+  <!-- Right Jaw Bell-Crank (Solid Rigid Arm) -->
+  <!-- Finger: from O2(435, 240) to pad(353, 134) -->
+  <line x1="435" y1="240" x2="353" y2="134" stroke="#2457d6" stroke-width="4"/>
+  <!-- Crank: from O2(435, 240) to B2(395, 280) -->
+  <line x1="435" y1="240" x2="395" y2="280" stroke="#2457d6" stroke-width="4"/>
+
+  <!-- Input Arm Dimension r_in (Left Jaw) -->
+  <text x="195" y="274" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">r_вх</text>
+
+  <!-- Chassis Base Bar (path) -->
+  <path d="M 175,248 L 445,248 L 445,256 L 175,256 Z" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="310" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Базове шасі захвату</text>
+
+  <!-- Pivot O1 (Left Chassis Pin) -->
+  <polygon points="177,250 193,250 185,240" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="173" y1="250" x2="197" y2="250" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="185" cy="240" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="185" cy="240" r="2.5" fill="#1a1a1a"/>
+  <text x="160" y="228" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">O1</text>
+
+  <!-- Pivot O2 (Right Chassis Pin) -->
+  <polygon points="427,250 443,250 435,240" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="423" y1="250" x2="447" y2="250" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="435" cy="240" r="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="435" cy="240" r="2.5" fill="#1a1a1a"/>
+  <text x="460" y="228" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">O2</text>
+
+  <!-- Tie-Rod Joint B1 (Left) -->
+  <circle cx="225" cy="280" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Tie-Rod Joint B2 (Right) -->
+  <circle cx="395" cy="280" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Left Connecting Tie-Rod (Linkage) -->
+  <line x1="225" y1="280" x2="265" y2="350" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Right Connecting Tie-Rod (Linkage) -->
+  <line x1="395" y1="280" x2="355" y2="350" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Tie-Rod Force F_rod Vector (Left side) -->
+  <line x1="215" y1="295" x2="235" y2="330" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="205" y="320" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Fтяг</text>
+
+  <!-- Tie-Rod Length L_link Label (Right side) -->
+  <text x="420" y="312" font-size="12" font-weight="bold" fill="#2457d6">Lтяг</text>
+  <text x="420" y="326" font-size="12" fill="#6b7280">(тяга)</text>
+
+  <!-- Servo Horn (Двоплеча качалка) -->
+  <!-- Neutral baseline (dashed) -->
+  <line x1="265" y1="350" x2="355" y2="350" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,2"/>
+  <!-- Horn lever arms -->
+  <path d="M 265,346 L 355,346 L 355,354 L 265,354 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="265" cy="350" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="355" cy="350" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Horn Central Hub -->
+  <circle cx="310" cy="350" r="10" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="310" cy="350" r="3" fill="#1a1a1a"/>
+
+  <!-- Horn Radius Dimension R_horn -->
+  <line x1="310" y1="340" x2="355" y2="340" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-rev-blue)" marker-end="url(#arr-blue)"/>
+  <text x="332" y="328" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Rкач</text>
+
+  <!-- Horn Rotation Angle theta -->
+  <path d="M 334,350 A 24,24 0 0,0 331,340" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="346" y="338" font-size="12" font-weight="bold" fill="#2457d6">θ</text>
+
+  <!-- Servo Torque Arrow M_servo -->
+  <path d="M 302,338 A 12,12 0 0,0 302,362" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="286" y="354" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Mсерво</text>
+
+  <!-- Servo Body (MG90S) -->
+  <!-- Top gear tower -->
+  <path d="M 295,362 L 325,362 L 325,375 L 295,375 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <!-- Main Servo Body Box -->
+  <rect x="240" y="375" width="140" height="60" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Mounting Ears -->
+  <rect x="226" y="395" width="14" height="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="233" cy="405" r="3" fill="#1a1a1a"/>
+  <rect x="380" y="395" width="14" height="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="387" cy="405" r="3" fill="#1a1a1a"/>
+
+  <!-- Text inside Servo Body -->
+  <text x="310" y="398" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сервопривід MG90S</text>
+  <text x="310" y="416" font-size="12" fill="#6b7280" text-anchor="middle">Привід захвату</text>
+
+  <!-- ==================== RIGHT: ENGINEERING CARDS ==================== -->
+
+  <!-- Card 1: Linkage Kinematics -->
+  <rect x="635" y="76" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="635" y="76" width="301" height="26" rx="6" fill="#eaf0fd"/>
+  <text x="645" y="94" font-size="13" font-weight="bold" fill="#2457d6">1. Кінематика важелів механізму</text>
+
+  <text x="645" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">Передатне відношення плечей</text>
+  <text x="645" y="136" font-size="12" fill="#6b7280">Качалка Rк передає рух через тяги Lт.</text>
+  <text x="645" y="154" font-size="12" fill="#6b7280">Співвідношення плечей i = r_вх / Lгуб</text>
+  <text x="645" y="174" font-size="12" font-weight="bold" fill="#2457d6">визначає хід губок та виграш у силі.</text>
+
+  <!-- Card 2: Clamping Force Calculation -->
+  <rect x="635" y="202" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="635" y="202" width="301" height="26" rx="6" fill="#e9f7ef"/>
+  <text x="645" y="220" font-size="13" font-weight="bold" fill="#27ae60">2. Розрахунок сили стискання Fgrip</text>
+
+  <text x="645" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">Перетворення крутного моменту</text>
+  <text x="645" y="262" font-size="12" fill="#6b7280">Зусилля тяги: Fтяг = Mсерво / Rк.</text>
+  <text x="645" y="280" font-size="12" fill="#6b7280">Сила стиску: Fgrip = Fтяг · r_вх / Lгуб.</text>
+  <text x="645" y="300" font-size="12" font-weight="bold" fill="#27ae60">Гумові подушечки збільшують зчеплення.</text>
+
+  <!-- Card 3: Current Monitoring & Stall Detection -->
+  <rect x="635" y="328" width="301" height="114" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="635" y="328" width="301" height="26" rx="6" fill="#fdecea"/>
+  <text x="645" y="346" font-size="13" font-weight="bold" fill="#c0392b">3. Струмовий контроль зусилля</text>
+
+  <text x="645" y="370" font-size="12" font-weight="bold" fill="#1a1a1a">Моніторинг через шунт живлення</text>
+  <text x="645" y="388" font-size="12" fill="#6b7280">Струм серво пропорційний моменту М.</text>
+  <text x="645" y="406" font-size="12" fill="#6b7280">Фіксація контакту зупиняє рух,</text>
+  <text x="645" y="426" font-size="12" font-weight="bold" fill="#c0392b">захищаючи деталь та редуктор серво.</text>
+</svg>

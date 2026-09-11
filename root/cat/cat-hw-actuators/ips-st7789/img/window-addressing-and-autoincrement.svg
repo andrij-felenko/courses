@@ -1,0 +1,232 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Адресація вікна та автоінкремент покажчика в буфері GRAM</text>
+  <text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Апаратний лічильник автоматично переносить адресу вздовж стовпців і рядків у межах CASET і RASET</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Координатний простір GRAM -->
+  <rect x="24" y="80" width="340" height="402" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Координатна сітка GRAM (240 × 320)</text>
+  <text x="40" y="123" font-size="12" fill="#6b7280">Осі: X — стовпці (0..239), Y — рядки (0..319)</text>
+
+  <!-- Позначки на осі X (стовпці) -->
+  <text x="96" y="152" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+  <text x="145" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">XS</text>
+  <text x="260" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">XE</text>
+  <text x="315" y="152" text-anchor="middle" font-size="12" fill="#6b7280">239</text>
+  <line x1="96" y1="158" x2="322" y2="158" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Позначки на осі Y (рядки) -->
+  <text x="90" y="162" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+  <text x="90" y="210" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">YS</text>
+  <text x="88" y="260" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Y</text>
+  <text x="88" y="274" text-anchor="end" font-size="12" fill="#6b7280">рядки</text>
+  <text x="90" y="330" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">YE</text>
+  <text x="90" y="372" text-anchor="end" font-size="12" fill="#6b7280">319</text>
+  <line x1="96" y1="158" x2="96" y2="380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+
+  <!-- Повний масив GRAM -->
+  <rect x="96" y="158" width="220" height="210" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="102" y="174" font-size="12" fill="#6b7280">(0, 0)</text>
+  <text x="310" y="362" text-anchor="end" font-size="12" fill="#6b7280">(239, 319)</text>
+
+  <!-- Активне вікно CASET / RASET -->
+  <rect x="145" y="206" width="115" height="120" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="202" y="234" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вікно запису</text>
+  <text x="202" y="250" text-anchor="middle" font-size="12" fill="#2457d6">GRAM</text>
+
+  <!-- Мініатюрна траєкторія всередині вікна -->
+  <line x1="156" y1="266" x2="242" y2="266" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="156" y1="284" x2="242" y2="284" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="202" y="312" text-anchor="middle" font-size="12" fill="#6b7280">Растровий обхід</text>
+
+  <!-- Координатні проекції вікна XS, XE, YS, YE -->
+  <line x1="145" y1="158" x2="145" y2="206" stroke="#2457d6" stroke-dasharray="3 2" stroke-width="1"/>
+  <line x1="260" y1="158" x2="260" y2="206" stroke="#2457d6" stroke-dasharray="3 2" stroke-width="1"/>
+  <line x1="96" y1="206" x2="145" y2="206" stroke="#2457d6" stroke-dasharray="3 2" stroke-width="1"/>
+  <line x1="96" y1="326" x2="145" y2="326" stroke="#2457d6" stroke-dasharray="3 2" stroke-width="1"/>
+
+  <!-- Зв'язок вікна з правою панеллю -->
+  <text x="307" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Деталізація</text>
+  <line x1="265" y1="266" x2="350" y2="266" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 2" marker-end="url(#arr-blue)"/>
+
+  <!-- Картка команд адресації в лівій панелі -->
+  <rect x="38" y="394" width="312" height="74" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="50" y="414" font-size="12" font-weight="bold" fill="#2457d6">CASET (2Ah):</text>
+  <text x="135" y="414" font-size="12" fill="#1a1a1a">стовпці від XS до XE</text>
+  <text x="50" y="434" font-size="12" font-weight="bold" fill="#2457d6">RASET (2Bh):</text>
+  <text x="135" y="434" font-size="12" fill="#1a1a1a">рядки від YS до YE</text>
+  <text x="50" y="454" font-size="12" font-weight="bold" fill="#27ae60">RAMWR (2Ch):</text>
+  <text x="145" y="454" font-size="12" fill="#1a1a1a">початок запису пікселів</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Траєкторія автоінкременту -->
+  <rect x="376" y="80" width="560" height="402" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="394" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Траєкторія автоінкременту адресного покажчика</text>
+  <text x="394" y="123" font-size="12" fill="#6b7280">Автоматичний обхід вікна при неперервному потоці пікселів від хоста</text>
+
+  <!-- Панель потоку пікселів від SPI-хоста -->
+  <rect x="394" y="134" width="524" height="28" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="406" y="152" font-size="12" font-weight="bold" fill="#2457d6">Потік даних хоста (SPI):</text>
+
+  <rect x="568" y="138" width="46" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="591" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">P(1)</text>
+
+  <line x1="618" y1="148" x2="630" y2="148" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="634" y="138" width="46" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="657" y="152" text-anchor="middle" font-size="12" fill="#2457d6">P(2)</text>
+
+  <line x1="684" y1="148" x2="696" y2="148" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="700" y="138" width="46" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="723" y="152" text-anchor="middle" font-size="12" fill="#2457d6">P(3)</text>
+
+  <line x1="750" y1="148" x2="762" y2="148" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <text x="774" y="152" text-anchor="middle" font-size="12" fill="#6b7280">···</text>
+
+  <line x1="786" y1="148" x2="798" y2="148" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="802" y="138" width="46" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="825" y="152" text-anchor="middle" font-size="12" fill="#2457d6">P(W)</text>
+
+  <line x1="852" y1="148" x2="864" y2="148" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="868" y="138" width="44" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="890" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">P(N)</text>
+
+  <!-- Заголовки стовпців сітки -->
+  <text x="467" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">XS</text>
+  <text x="535" y="180" text-anchor="middle" font-size="12" fill="#6b7280">XS+1</text>
+  <text x="603" y="180" text-anchor="middle" font-size="12" fill="#6b7280">XS+2</text>
+  <text x="671" y="180" text-anchor="middle" font-size="12" fill="#6b7280">···</text>
+  <text x="739" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">XE</text>
+
+  <!-- Заголовки рядків сітки -->
+  <text x="430" y="206" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">YS</text>
+  <text x="430" y="256" text-anchor="end" font-size="12" fill="#6b7280">YS+1</text>
+  <text x="430" y="284" text-anchor="end" font-size="12" fill="#6b7280">···</text>
+  <text x="430" y="316" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">YE</text>
+
+  <!-- РЯДОК 0 (YS) -->
+  <!-- Комірка (XS, YS) - Старт -->
+  <rect x="440" y="188" width="54" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="467" y="206" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">P(1)</text>
+
+  <line x1="494" y1="202" x2="506" y2="202" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Комірка (XS+1, YS) -->
+  <rect x="508" y="188" width="54" height="28" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="535" y="206" text-anchor="middle" font-size="12" fill="#1a1a1a">P(2)</text>
+
+  <line x1="562" y1="202" x2="574" y2="202" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Комірка (XS+2, YS) -->
+  <rect x="576" y="188" width="54" height="28" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="603" y="206" text-anchor="middle" font-size="12" fill="#1a1a1a">P(3)</text>
+
+  <line x1="630" y1="202" x2="642" y2="202" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Комірка (..., YS) -->
+  <rect x="644" y="188" width="54" height="28" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="671" y="206" text-anchor="middle" font-size="12" fill="#6b7280">···</text>
+
+  <line x1="698" y1="202" x2="710" y2="202" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Комірка (XE, YS) -->
+  <rect x="712" y="188" width="54" height="28" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="739" y="206" text-anchor="middle" font-size="12" fill="#1a1a1a">P(W)</text>
+
+  <!-- Перехід з кінця рядка 0 на початок рядка 1 -->
+  <path d="M 766 202 H 784 V 226 H 467 V 236" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="794" y="214" font-size="12" font-weight="bold" fill="#2457d6">Кінець рядка:</text>
+  <text x="794" y="228" font-size="12" fill="#1a1a1a">X=XS, Y++</text>
+
+  <!-- РЯДОК 1 (YS+1) -->
+  <rect x="440" y="238" width="54" height="28" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="467" y="256" text-anchor="middle" font-size="12" fill="#1a1a1a">W+1</text>
+
+  <line x1="494" y1="252" x2="506" y2="252" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="508" y="238" width="54" height="28" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="535" y="256" text-anchor="middle" font-size="12" fill="#1a1a1a">W+2</text>
+
+  <line x1="562" y1="252" x2="574" y2="252" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="576" y="238" width="54" height="28" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="603" y="256" text-anchor="middle" font-size="12" fill="#1a1a1a">W+3</text>
+
+  <line x1="630" y1="252" x2="642" y2="252" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="644" y="238" width="54" height="28" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="671" y="256" text-anchor="middle" font-size="12" fill="#6b7280">···</text>
+
+  <line x1="698" y1="252" x2="710" y2="252" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="712" y="238" width="54" height="28" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="739" y="256" text-anchor="middle" font-size="12" fill="#1a1a1a">2W</text>
+
+  <!-- Вертикальні крапки продовження -->
+  <text x="467" y="284" text-anchor="middle" font-size="12" fill="#6b7280">⋮</text>
+  <text x="535" y="284" text-anchor="middle" font-size="12" fill="#6b7280">⋮</text>
+  <text x="603" y="284" text-anchor="middle" font-size="12" fill="#6b7280">⋮</text>
+  <text x="671" y="284" text-anchor="middle" font-size="12" fill="#6b7280">⋮</text>
+  <text x="739" y="284" text-anchor="middle" font-size="12" fill="#6b7280">⋮</text>
+
+  <!-- РЯДОК 3 (YE) -->
+  <rect x="440" y="298" width="54" height="28" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="467" y="316" text-anchor="middle" font-size="12" fill="#1a1a1a">···</text>
+
+  <line x1="494" y1="312" x2="506" y2="312" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="508" y="298" width="54" height="28" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="535" y="316" text-anchor="middle" font-size="12" fill="#1a1a1a">···</text>
+
+  <line x1="562" y1="312" x2="574" y2="312" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="576" y="298" width="54" height="28" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="603" y="316" text-anchor="middle" font-size="12" fill="#1a1a1a">···</text>
+
+  <line x1="630" y1="312" x2="642" y2="312" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="644" y="298" width="54" height="28" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="671" y="316" text-anchor="middle" font-size="12" fill="#1a1a1a">N-1</text>
+
+  <line x1="698" y1="312" x2="710" y2="312" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Комірка (XE, YE) - Кінець вікна -->
+  <rect x="712" y="298" width="54" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="739" y="316" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">P(N)</text>
+
+  <!-- Стрілка циклічного повернення після останнього пікселя -->
+  <path d="M 766 312 H 784 V 348 H 500" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-green)"/>
+  <text x="642" y="342" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Автоповернення покажчика на початок вікна (XS, YS)</text>
+
+  <!-- Підсумкова картка в правій панелі -->
+  <rect x="394" y="368" width="524" height="100" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="408" y="388" font-size="12" font-weight="bold" fill="#1a1a1a">Апаратний алгоритм автоінкременту:</text>
+  <text x="408" y="406" font-size="12" fill="#1a1a1a">1. Запис у GRAM[X, Y] → лічильник X = X + 1</text>
+  <text x="408" y="424" font-size="12" fill="#1a1a1a">2. Якщо X &gt; XE → перенос рядка: X = XS, Y = Y + 1</text>
+  <text x="408" y="442" font-size="12" fill="#1a1a1a">3. Якщо Y &gt; YE → скидання покажчика на (XS, YS)</text>
+  <text x="408" y="460" font-size="12" fill="#6b7280">Напрямок розгортки задається регістрами MADCTL (36h)</text>
+
+  <!-- Картка переваги DMA -->
+  <rect x="736" y="376" width="172" height="84" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="3 2"/>
+  <text x="822" y="396" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Швидкодія інтерфейсу</text>
+  <text x="822" y="416" text-anchor="middle" font-size="12" fill="#1a1a1a">Хост задає координати</text>
+  <text x="822" y="432" text-anchor="middle" font-size="12" fill="#1a1a1a">один раз, далі весь потік</text>
+  <text x="822" y="448" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">передається через DMA</text>
+</svg>

@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометричний зміст RMS: середня потужність синусоїди</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Вершини кривої v²(t) вище V_peak²/2 точно заповнюють западини нижче цієї лінії</text>
+
+  <!-- ЛІВА ПАНЕЛЬ (ГРАФІКИ) -->
+  <rect x="24" y="72" width="576" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- ВЕРХНЯ КАРТКА: Напруга v(t) -->
+  <rect x="36" y="84" width="552" height="144" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="103" font-size="13" font-weight="bold" fill="#2457d6">1. Напруга сигналу: v(t) = V_peak · sin(ωt)</text>
+  <text x="576" y="103" font-size="12" fill="#6b7280" text-anchor="end">Середнє за період = 0 В</text>
+
+  <!-- Осі та сітка верхнього графіка -->
+  <!-- Горизонтальна вісь часу v=0 -->
+  <line x1="115" y1="170" x2="545" y2="170" stroke="#d0d7de" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="550" y="166" font-size="12" font-style="italic" fill="#1a1a1a">t</text>
+  <!-- Вертикальна вісь напруги -->
+  <line x1="115" y1="216" x2="115" y2="124" stroke="#d0d7de" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="115" y="117" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v, В</text>
+
+  <!-- Засічки на осі часу верхнього графіка -->
+  <line x1="120" y1="167" x2="120" y2="173" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="220" y1="167" x2="220" y2="173" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="320" y1="167" x2="320" y2="173" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="420" y1="167" x2="420" y2="173" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="520" y1="167" x2="520" y2="173" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Засічки на осі напруги -->
+  <line x1="111" y1="135" x2="115" y2="135" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="111" y1="170" x2="115" y2="170" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="111" y1="205" x2="115" y2="205" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Пунктирні рівні +V_peak та -V_peak -->
+  <line x1="115" y1="135" x2="530" y2="135" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="115" y1="205" x2="530" y2="205" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Підписи рівнів напруги ліворуч -->
+  <text x="106" y="139" font-size="12" fill="#1a1a1a" text-anchor="end">+V_peak</text>
+  <text x="106" y="174" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="106" y="209" font-size="12" fill="#1a1a1a" text-anchor="end">−V_peak</text>
+
+  <!-- Вертикальні напрямні меж періоду -->
+  <line x1="120" y1="135" x2="120" y2="215" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="520" y1="135" x2="520" y2="215" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Синусоїда напруги -->
+  <path d="M 120.0,170.0 L 125.0,167.3 L 130.0,164.5 L 135.0,161.8 L 140.0,159.2 L 145.0,156.6 L 150.0,154.1 L 155.0,151.7 L 160.0,149.4 L 165.0,147.3 L 170.0,145.3 L 175.0,143.4 L 180.0,141.7 L 185.0,140.2 L 190.0,138.8 L 195.0,137.7 L 200.0,136.7 L 205.0,136.0 L 210.0,135.4 L 215.0,135.1 L 220.0,135.0 L 225.0,135.1 L 230.0,135.4 L 235.0,136.0 L 240.0,136.7 L 245.0,137.7 L 250.0,138.8 L 255.0,140.2 L 260.0,141.7 L 265.0,143.4 L 270.0,145.3 L 275.0,147.3 L 280.0,149.4 L 285.0,151.7 L 290.0,154.1 L 295.0,156.6 L 300.0,159.2 L 305.0,161.8 L 310.0,164.5 L 315.0,167.3 L 320.0,170.0 L 325.0,172.7 L 330.0,175.5 L 335.0,178.2 L 340.0,180.8 L 345.0,183.4 L 350.0,185.9 L 355.0,188.3 L 360.0,190.6 L 365.0,192.7 L 370.0,194.7 L 375.0,196.6 L 380.0,198.3 L 385.0,199.8 L 390.0,201.2 L 395.0,202.3 L 400.0,203.3 L 405.0,204.0 L 410.0,204.6 L 415.0,204.9 L 420.0,205.0 L 425.0,204.9 L 430.0,204.6 L 435.0,204.0 L 440.0,203.3 L 445.0,202.3 L 450.0,201.2 L 455.0,199.8 L 460.0,198.3 L 465.0,196.6 L 470.0,194.7 L 475.0,192.7 L 480.0,190.6 L 485.0,188.3 L 490.0,185.9 L 495.0,183.4 L 500.0,180.8 L 505.0,178.2 L 510.0,175.5 L 515.0,172.7 L 520.0,170.0" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- НИЖНЯ КАРТКА: Квадрат напруги v²(t) та потужність -->
+  <rect x="36" y="240" width="552" height="188" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="259" font-size="13" font-weight="bold" fill="#1a1a1a">2. Квадрат напруги v²(t) та пульсації потужності</text>
+  <text x="576" y="259" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Середнє = V_peak² / 2</text>
+
+  <!-- Зафарбовані області вершин (+A) та западин (-B) -->
+  <path d="M 120.0,338.0 L 120.0,390.0 L 125.0,389.4 L 130.0,387.5 L 135.0,384.3 L 140.0,380.1 L 145.0,374.8 L 150.0,368.6 L 155.0,361.6 L 160.0,354.1 L 165.0,346.1 L 170.0,338.0 L 170.0,338.0 Z" fill="#e9f7ef" stroke="none"/>
+  <path d="M 170.0,338.0 L 170.0,338.0 L 175.0,329.9 L 180.0,321.9 L 185.0,314.4 L 190.0,307.4 L 195.0,301.2 L 200.0,295.9 L 205.0,291.7 L 210.0,288.5 L 215.0,286.6 L 220.0,286.0 L 225.0,286.6 L 230.0,288.5 L 235.0,291.7 L 240.0,295.9 L 245.0,301.2 L 250.0,307.4 L 255.0,314.4 L 260.0,321.9 L 265.0,329.9 L 270.0,338.0 L 270.0,338.0 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <path d="M 270.0,338.0 L 270.0,338.0 L 275.0,346.1 L 280.0,354.1 L 285.0,361.6 L 290.0,368.6 L 295.0,374.8 L 300.0,380.1 L 305.0,384.3 L 310.0,387.5 L 315.0,389.4 L 320.0,390.0 L 325.0,389.4 L 330.0,387.5 L 335.0,384.3 L 340.0,380.1 L 345.0,374.8 L 350.0,368.6 L 355.0,361.6 L 360.0,354.1 L 365.0,346.1 L 370.0,338.0 L 370.0,338.0 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <path d="M 370.0,338.0 L 370.0,338.0 L 375.0,329.9 L 380.0,321.9 L 385.0,314.4 L 390.0,307.4 L 395.0,301.2 L 400.0,295.9 L 405.0,291.7 L 410.0,288.5 L 415.0,286.6 L 420.0,286.0 L 425.0,286.6 L 430.0,288.5 L 435.0,291.7 L 440.0,295.9 L 445.0,301.2 L 450.0,307.4 L 455.0,314.4 L 460.0,321.9 L 465.0,329.9 L 470.0,338.0 L 470.0,338.0 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <path d="M 470.0,338.0 L 470.0,338.0 L 475.0,346.1 L 480.0,354.1 L 485.0,361.6 L 490.0,368.6 L 495.0,374.8 L 500.0,380.1 L 505.0,384.3 L 510.0,387.5 L 515.0,389.4 L 520.0,390.0 L 520.0,338.0 Z" fill="#e9f7ef" stroke="none"/>
+
+  <!-- Осі та сітка нижнього графіка -->
+  <!-- Горизонтальна вісь часу v²=0 -->
+  <line x1="115" y1="390" x2="545" y2="390" stroke="#d0d7de" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="550" y="386" font-size="12" font-style="italic" fill="#1a1a1a">t</text>
+  <!-- Вертикальна вісь v² -->
+  <line x1="115" y1="395" x2="115" y2="274" stroke="#d0d7de" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="115" y="267" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v², В²</text>
+
+  <!-- Засічки на осі v² -->
+  <line x1="111" y1="286" x2="115" y2="286" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="111" y1="338" x2="115" y2="338" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="111" y1="390" x2="115" y2="390" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Горизонтальна пунктирна лінія середнього значення V_peak²/2 -->
+  <line x1="115" y1="338" x2="530" y2="338" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,4"/>
+  <!-- Пунктир пікового рівня V_peak² -->
+  <line x1="115" y1="286" x2="530" y2="286" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Підписи рівнів ліворуч -->
+  <text x="106" y="290" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">V_peak²</text>
+  <text x="106" y="342" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">V_peak² / 2</text>
+  <text x="106" y="394" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Вертикальні напрямні меж періоду -->
+  <line x1="120" y1="286" x2="120" y2="395" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="520" y1="286" x2="520" y2="395" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Засічки на осі часу -->
+  <line x1="120" y1="390" x2="120" y2="395" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="220" y1="390" x2="220" y2="395" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="320" y1="390" x2="320" y2="395" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="420" y1="390" x2="420" y2="395" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="520" y1="390" x2="520" y2="395" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Позначки часу внизу -->
+  <text x="120" y="410" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="220" y="410" font-size="12" fill="#6b7280" text-anchor="middle">T/4</text>
+  <text x="320" y="410" font-size="12" fill="#6b7280" text-anchor="middle">T/2</text>
+  <text x="420" y="410" font-size="12" fill="#6b7280" text-anchor="middle">3T/4</text>
+  <text x="520" y="410" font-size="12" fill="#6b7280" text-anchor="middle">T</text>
+
+  <!-- Крива v²(t) -->
+  <path d="M 120.0,390.0 L 125.0,389.4 L 130.0,387.5 L 135.0,384.3 L 140.0,380.1 L 145.0,374.8 L 150.0,368.6 L 155.0,361.6 L 160.0,354.1 L 165.0,346.1 L 170.0,338.0 L 175.0,329.9 L 180.0,321.9 L 185.0,314.4 L 190.0,307.4 L 195.0,301.2 L 200.0,295.9 L 205.0,291.7 L 210.0,288.5 L 215.0,286.6 L 220.0,286.0 L 225.0,286.6 L 230.0,288.5 L 235.0,291.7 L 240.0,295.9 L 245.0,301.2 L 250.0,307.4 L 255.0,314.4 L 260.0,321.9 L 265.0,329.9 L 270.0,338.0 L 275.0,346.1 L 280.0,354.1 L 285.0,361.6 L 290.0,368.6 L 295.0,374.8 L 300.0,380.1 L 305.0,384.3 L 310.0,387.5 L 315.0,389.4 L 320.0,390.0 L 325.0,389.4 L 330.0,387.5 L 335.0,384.3 L 340.0,380.1 L 345.0,374.8 L 350.0,368.6 L 355.0,361.6 L 360.0,354.1 L 365.0,346.1 L 370.0,338.0 L 375.0,329.9 L 380.0,321.9 L 385.0,314.4 L 390.0,307.4 L 395.0,301.2 L 400.0,295.9 L 405.0,291.7 L 410.0,288.5 L 415.0,286.6 L 420.0,286.0 L 425.0,286.6 L 430.0,288.5 L 435.0,291.7 L 440.0,295.9 L 445.0,301.2 L 450.0,307.4 L 455.0,314.4 L 460.0,321.9 L 465.0,329.9 L 470.0,338.0 L 475.0,346.1 L 480.0,354.1 L 485.0,361.6 L 490.0,368.6 L 495.0,374.8 L 500.0,380.1 L 505.0,384.3 L 510.0,387.5 L 515.0,389.4 L 520.0,390.0" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Позначення площ вершин та западин -->
+  <text x="220" y="318" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+A₁</text>
+  <text x="320" y="368" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">−B₁</text>
+  <text x="420" y="318" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+A₂</text>
+
+  <!-- Стрілка перенесення площі: від вершини A1 до западини B1 -->
+  <path d="M 238,308 Q 270,272 302,348" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="270" y="270" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">A₁ переноситься в B₁</text>
+
+  <!-- ПРАВА ПАНЕЛЬ (МАТЕМАТИЧНЕ ОБҐРУНТУВАННЯ) -->
+  <rect x="612" y="72" width="324" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Картка 1: Тригонометрична тотожність -->
+  <rect x="624" y="84" width="300" height="104" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="636" y="104" font-size="13" font-weight="bold" fill="#2457d6">Тригонометрична тотожність</text>
+  <text x="636" y="125" font-size="12" fill="#1a1a1a">v²(t) = V_peak² · sin²(ωt)</text>
+  <text x="636" y="145" font-size="12" fill="#1a1a1a">     = (V_peak²/2) · [1 − cos(2ωt)]</text>
+  <text x="636" y="165" font-size="12" fill="#6b7280">• (−v)² = +v²: потужність завжди ≥ 0</text>
+  <text x="636" y="181" font-size="12" fill="#6b7280">• Частота подвоєна (2ω): 2 пульсації за T</text>
+
+  <!-- Картка 2: Геометричний баланс площ -->
+  <rect x="624" y="200" width="300" height="108" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="636" y="220" font-size="13" font-weight="bold" fill="#27ae60">Геометричний баланс площ</text>
+  <text x="636" y="241" font-size="12" fill="#1a1a1a">• Інтеграл cos(2ωt) за період T = 0</text>
+  <text x="636" y="261" font-size="12" fill="#1a1a1a">• Вершина A₁ точно заповнює западину B₁</text>
+  <text x="636" y="281" font-size="12" font-weight="bold" fill="#1a1a1a">• Еквівалентний прямокутник: T · V_peak²/2</text>
+  <text x="646" y="299" font-size="12" fill="#6b7280">Площа над V_peak²/2 = площі під лінією</text>
+
+  <!-- Картка 3: Діюче значення (RMS) і потужність -->
+  <rect x="624" y="320" width="300" height="108" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="636" y="340" font-size="13" font-weight="bold" fill="#1a1a1a">Діюче значення (RMS) і потужність</text>
+  <text x="636" y="361" font-size="12" fill="#1a1a1a">• V_RMS = √(V_peak² / 2) = V_peak / √2</text>
+  <text x="646" y="377" font-size="12" fill="#6b7280">  ≈ 0,7071 · V_peak (ділення на √2)</text>
+  <text x="636" y="398" font-size="12" font-weight="bold" fill="#2457d6">• P_avg = V_RMS² / R = V_peak² / (2R)</text>
+  <text x="646" y="416" font-size="12" font-weight="bold" fill="#27ae60">  = P_peak / 2 (середня потужність = 50%)</text>
+
+</svg>

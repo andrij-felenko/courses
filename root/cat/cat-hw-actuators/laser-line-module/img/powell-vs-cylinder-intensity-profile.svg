@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <!-- Градієнт 1: Гаусів спад (циліндрична лінза) -->
+    <linearGradient id="grad-gauss" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="25%" stop-color="#6e1a14"/>
+      <stop offset="50%" stop-color="#e0241b"/>
+      <stop offset="75%" stop-color="#6e1a14"/>
+      <stop offset="100%" stop-color="#1a1a1a"/>
+    </linearGradient>
+
+    <!-- Градієнт 2: Рівномірний Flat-Top (узгоджена призма Павелла) -->
+    <linearGradient id="grad-flattop" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="4%" stop-color="#27ae60"/>
+      <stop offset="96%" stop-color="#27ae60"/>
+      <stop offset="100%" stop-color="#1a1a1a"/>
+    </linearGradient>
+
+    <!-- Градієнт 3: Недоповнення (завузький пучок) -->
+    <linearGradient id="grad-narrow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="12%" stop-color="#7a2018"/>
+      <stop offset="38%" stop-color="#a8281e"/>
+      <stop offset="50%" stop-color="#e0241b"/>
+      <stop offset="62%" stop-color="#a8281e"/>
+      <stop offset="88%" stop-color="#7a2018"/>
+      <stop offset="100%" stop-color="#1a1a1a"/>
+    </linearGradient>
+
+    <!-- Градієнт 4: Переповнення (заширокий пучок) -->
+    <linearGradient id="grad-wide" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="5%" stop-color="#e0241b"/>
+      <stop offset="14%" stop-color="#99241c"/>
+      <stop offset="30%" stop-color="#6e1a14"/>
+      <stop offset="50%" stop-color="#6e1a14"/>
+      <stop offset="70%" stop-color="#6e1a14"/>
+      <stop offset="86%" stop-color="#99241c"/>
+      <stop offset="95%" stop-color="#e0241b"/>
+      <stop offset="100%" stop-color="#1a1a1a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="26" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розподіл інтенсивності лінії: циліндрична лінза проти призми Павелла</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Гаусів спад яскравості, ідеальний профіль Flat-Top та спотворення при неузгодженому діаметрі пучка</text>
+
+  <!-- ПАНЕЛЬ 1: Циліндрична лінза (Top-Left) -->
+  <rect x="24" y="65" width="446" height="179" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="77" width="18" height="18" rx="3" fill="#fdecea"/>
+  <text x="45" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">✕</text>
+  <text x="60" y="91" font-size="13" font-weight="bold" fill="#1a1a1a">Циліндрична лінза (Гаусів спад)</text>
+  <text x="325" y="91" font-size="12" fill="#c0392b">Нерівномірність &gt; 70%</text>
+
+  <!-- Вигляд лінії на екрані -->
+  <rect x="42" y="103" width="280" height="14" rx="2" fill="#1a1a1a"/>
+  <rect x="44" y="105" width="276" height="10" rx="1" fill="url(#grad-gauss)"/>
+  <text x="332" y="114" font-size="12" fill="#6b7280">Вигляд лінії</text>
+
+  <!-- Графік I(x) -->
+  <line x1="55" y1="215" x2="330" y2="215" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="55" y1="215" x2="55" y2="128" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="50" y="134" text-anchor="end" font-size="12" fill="#6b7280">I</text>
+  <text x="330" y="229" text-anchor="end" font-size="12" fill="#6b7280">x</text>
+  <line x1="192" y1="128" x2="192" y2="215" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="192" y="229" text-anchor="middle" font-size="12" fill="#6b7280">Центр (0)</text>
+
+  <!-- Гаусова крива -->
+  <path d="M 75,215 L 75,212 Q 130,210 162,170 Q 192,135 222,170 Q 254,210 310,212 L 310,215 Z" fill="#fdecea" fill-opacity="0.6"/>
+  <path d="M 75,212 Q 130,210 162,170 Q 192,135 222,170 Q 254,210 310,212" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Текстові пояснення праворуч графіка -->
+  <text x="345" y="145" font-size="12" font-weight="bold" fill="#c0392b">Пересвіт центру</text>
+  <text x="345" y="162" font-size="12" fill="#1a1a1a">Спад за Гаусом</text>
+  <text x="345" y="179" font-size="12" fill="#6b7280">Темні краї смуги</text>
+  <text x="345" y="196" font-size="12" fill="#6b7280">Незручно для камер</text>
+
+  <!-- ПАНЕЛЬ 2: Призма Павелла: узгоджена (Bottom-Left) -->
+  <rect x="24" y="258" width="446" height="179" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="270" width="18" height="18" rx="3" fill="#e9f7ef"/>
+  <text x="45" y="283" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓</text>
+  <text x="60" y="284" font-size="13" font-weight="bold" fill="#1a1a1a">Призма Павелла (узгоджена: d = d_opt)</text>
+  <text x="330" y="284" font-size="12" fill="#27ae60">Однорідність &gt; 90%</text>
+
+  <!-- Вигляд лінії на екрані -->
+  <rect x="42" y="296" width="280" height="14" rx="2" fill="#1a1a1a"/>
+  <rect x="44" y="298" width="276" height="10" rx="1" fill="url(#grad-flattop)"/>
+  <text x="332" y="307" font-size="12" fill="#6b7280">Вигляд лінії</text>
+
+  <!-- Графік I(x) -->
+  <line x1="55" y1="408" x2="330" y2="408" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="55" y1="408" x2="55" y2="321" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="50" y="327" text-anchor="end" font-size="12" fill="#6b7280">I</text>
+  <text x="330" y="422" text-anchor="end" font-size="12" fill="#6b7280">x</text>
+  <line x1="192" y1="321" x2="192" y2="408" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="192" y="422" text-anchor="middle" font-size="12" fill="#6b7280">Центр (0)</text>
+
+  <!-- Flat-Top крива -->
+  <path d="M 80,408 Q 84,395 88,338 Q 110,335 192,335 Q 274,335 296,338 Q 300,395 304,408 Z" fill="#e9f7ef" fill-opacity="0.6"/>
+  <path d="M 70,408 L 80,408 Q 84,395 88,338 Q 110,335 192,335 Q 274,335 296,338 Q 300,395 304,408 L 314,408" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Текстові пояснення праворуч графіка -->
+  <text x="345" y="338" font-size="12" font-weight="bold" fill="#27ae60">Пласке плато</text>
+  <text x="345" y="355" font-size="12" fill="#1a1a1a">Рівна освітленість</text>
+  <text x="345" y="372" font-size="12" fill="#6b7280">Чіткі межі розгортки</text>
+  <text x="345" y="389" font-size="12" fill="#6b7280">Ідеально для зору</text>
+
+  <!-- ПАНЕЛЬ 3: Завузький пучок d < d_opt (Top-Right) -->
+  <rect x="490" y="65" width="446" height="179" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="502" y="77" width="18" height="18" rx="3" fill="#fdecea"/>
+  <text x="511" y="90" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">!</text>
+  <text x="526" y="91" font-size="13" font-weight="bold" fill="#1a1a1a">Завузький пучок (d &lt; d_opt: недоповнення)</text>
+  <text x="815" y="91" font-size="12" fill="#c0392b">Пік у центрі</text>
+
+  <!-- Вигляд лінії на екрані -->
+  <rect x="508" y="103" width="280" height="14" rx="2" fill="#1a1a1a"/>
+  <rect x="510" y="105" width="276" height="10" rx="1" fill="url(#grad-narrow)"/>
+  <text x="798" y="114" font-size="12" fill="#6b7280">Вигляд лінії</text>
+
+  <!-- Графік I(x) -->
+  <line x1="521" y1="215" x2="796" y2="215" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="521" y1="215" x2="521" y2="128" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="516" y="134" text-anchor="end" font-size="12" fill="#6b7280">I</text>
+  <text x="796" y="229" text-anchor="end" font-size="12" fill="#6b7280">x</text>
+  <line x1="658" y1="128" x2="658" y2="215" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="658" y="229" text-anchor="middle" font-size="12" fill="#6b7280">Центр (0)</text>
+
+  <!-- Крива завузького пучка -->
+  <path d="M 546,212 Q 551,195 560,180 L 600,175 Q 628,170 658,130 Q 688,170 716,175 L 756,180 Q 765,195 770,212 Z" fill="#fdecea" fill-opacity="0.6"/>
+  <path d="M 536,212 L 546,212 Q 551,195 560,180 L 600,175 Q 628,170 658,130 Q 688,170 716,175 L 756,180 Q 765,195 770,212 L 780,212" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Текстові пояснення праворуч графіка -->
+  <text x="811" y="145" font-size="12" font-weight="bold" fill="#c0392b">Горб у центрі</text>
+  <text x="811" y="162" font-size="12" fill="#1a1a1a">Апекс недоповнений</text>
+  <text x="811" y="179" font-size="12" fill="#6b7280">Частина променя йде</text>
+  <text x="811" y="196" font-size="12" fill="#6b7280">без заломлення</text>
+
+  <!-- ПАНЕЛЬ 4: Заширокий пучок d > d_opt (Bottom-Right) -->
+  <rect x="490" y="258" width="446" height="179" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="502" y="270" width="18" height="18" rx="3" fill="#fdecea"/>
+  <text x="511" y="283" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">!</text>
+  <text x="526" y="284" font-size="13" font-weight="bold" fill="#1a1a1a">Заширокий пучок (d &gt; d_opt: переповнення)</text>
+  <text x="815" y="284" font-size="12" fill="#c0392b">«Роги» на краях</text>
+
+  <!-- Вигляд лінії на екрані -->
+  <rect x="508" y="296" width="280" height="14" rx="2" fill="#1a1a1a"/>
+  <rect x="510" y="298" width="276" height="10" rx="1" fill="url(#grad-wide)"/>
+  <text x="798" y="307" font-size="12" fill="#6b7280">Вигляд лінії</text>
+
+  <!-- Графік I(x) -->
+  <line x1="521" y1="408" x2="796" y2="408" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="521" y1="408" x2="521" y2="321" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="516" y="327" text-anchor="end" font-size="12" fill="#6b7280">I</text>
+  <text x="796" y="422" text-anchor="end" font-size="12" fill="#6b7280">x</text>
+  <line x1="658" y1="321" x2="658" y2="408" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="658" y="422" text-anchor="middle" font-size="12" fill="#6b7280">Центр (0)</text>
+
+  <!-- Крива заширокого пучка -->
+  <path d="M 546,408 Q 550,380 560,330 Q 568,340 592,365 Q 625,375 658,375 Q 691,375 724,365 Q 748,340 756,330 Q 766,380 770,408 Z" fill="#fdecea" fill-opacity="0.6"/>
+  <path d="M 536,408 L 546,408 Q 550,380 560,330 Q 568,340 592,365 Q 625,375 658,375 Q 691,375 724,365 Q 748,340 756,330 Q 766,380 770,408 L 780,408" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Текстові пояснення праворуч графіка -->
+  <text x="811" y="338" font-size="12" font-weight="bold" fill="#c0392b">Викиди («роги»)</text>
+  <text x="811" y="355" font-size="12" fill="#1a1a1a">Завал у центрі лінії</text>
+  <text x="811" y="372" font-size="12" fill="#6b7280">Схили апекса</text>
+  <text x="811" y="389" font-size="12" fill="#6b7280">перерозподіляють надлишок</text>
+</svg>

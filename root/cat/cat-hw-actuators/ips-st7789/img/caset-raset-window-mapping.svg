@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Віконна адресація CASET/RASET зі зсувом у контролері ST7789</text>
+  <text x="480" y="48" font-size="13" text-anchor="middle" fill="#6b7280">Апаратні зсуви col_offset і row_offset узгоджують матрицю 240×240 із GRAM 240×320</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ЛОГІЧНИЙ ПРОСТІР ==================== -->
+  <rect x="24" y="68" width="270" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="159" y="90" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Логічне вікно застосунку</text>
+  <text x="159" y="106" font-size="12" text-anchor="middle" fill="#6b7280">Простір координат дисплея 240×240</text>
+
+  <!-- Екран 240x240 -->
+  <rect x="84" y="130" width="150" height="150" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="4"/>
+  <text x="80" y="125" font-size="12" text-anchor="end" fill="#6b7280">(0, 0)</text>
+  <text x="112" y="125" font-size="12" text-anchor="middle" fill="#2457d6">X1</text>
+  <text x="197" y="125" font-size="12" text-anchor="middle" fill="#2457d6">X2</text>
+  <text x="238" y="125" font-size="12" text-anchor="end" fill="#6b7280">239</text>
+
+  <text x="80" y="159" font-size="12" text-anchor="end" fill="#2457d6">Y1</text>
+  <text x="80" y="224" font-size="12" text-anchor="end" fill="#2457d6">Y2</text>
+  <text x="80" y="280" font-size="12" text-anchor="end" fill="#6b7280">239</text>
+
+  <!-- Проекції координат -->
+  <line x1="84" y1="155" x2="112" y2="155" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="84" y1="220" x2="112" y2="220" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="112" y1="130" x2="112" y2="155" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="197" y1="130" x2="197" y2="155" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Логічне вікно малювання -->
+  <rect x="112" y="155" width="85" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="3"/>
+  <circle cx="112" cy="155" r="3" fill="#2457d6"/>
+  <text x="118" y="171" font-size="12" font-weight="bold" fill="#2457d6">(X1, Y1)</text>
+  <text x="154" y="191" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">ΔX × ΔY</text>
+  <circle cx="197" cy="220" r="3" fill="#2457d6"/>
+  <text x="191" y="214" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">(X2, Y2)</text>
+
+  <!-- Картка параметрів панелі 1 -->
+  <rect x="38" y="298" width="242" height="148" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="320" font-size="13" font-weight="bold" fill="#1a1a1a">Параметри малювання:</text>
+  <text x="50" y="342" font-size="12" fill="#1a1a1a">• Межі: X1 ≤ X ≤ X2, Y1 ≤ Y ≤ Y2</text>
+  <text x="50" y="364" font-size="12" fill="#1a1a1a">• Ширина: W = X2 − X1 + 1</text>
+  <text x="50" y="386" font-size="12" fill="#1a1a1a">• Висота: H = Y2 − Y1 + 1</text>
+  <text x="50" y="410" font-size="12" fill="#c0392b">• Без зсуву координати [X, Y]</text>
+  <text x="50" y="428" font-size="12" fill="#c0392b">  не збігаються з фізичним GRAM!</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="294" y1="190" x2="324" y2="190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- ==================== ПАНЕЛЬ 2: ПЕРЕТВОРЕННЯ ТА SPI ==================== -->
+  <rect x="330" y="68" width="300" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="90" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Перетворення координат та SPI</text>
+  <text x="480" y="106" font-size="12" text-anchor="middle" fill="#6b7280">Апаратна трансляція координат у шину</text>
+
+  <!-- Блок А: Формули розрахунку -->
+  <rect x="344" y="120" width="272" height="126" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="138" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">1. Додавання апаратних зсувів</text>
+
+  <!-- Стовпчики X -->
+  <rect x="354" y="146" width="252" height="42" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="364" y="162" font-size="12" font-weight="bold" fill="#2457d6">Стовпчики (X):</text>
+  <text x="462" y="162" font-size="12" font-weight="bold" fill="#1a1a1a">XS = X1 + col_offset</text>
+  <text x="364" y="179" font-size="12" fill="#6b7280">команда CASET</text>
+  <text x="462" y="179" font-size="12" font-weight="bold" fill="#1a1a1a">XE = X2 + col_offset</text>
+
+  <!-- Рядки Y -->
+  <rect x="354" y="194" width="252" height="42" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="364" y="210" font-size="12" font-weight="bold" fill="#2457d6">Рядки (Y):</text>
+  <text x="462" y="210" font-size="12" font-weight="bold" fill="#1a1a1a">YS = Y1 + row_offset</text>
+  <text x="364" y="227" font-size="12" fill="#6b7280">команда RASET</text>
+  <text x="462" y="227" font-size="12" font-weight="bold" fill="#1a1a1a">YE = Y2 + row_offset</text>
+
+  <!-- Стрілка між блоками А і Б -->
+  <line x1="480" y1="249" x2="480" y2="263" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- Блок Б: SPI транзакції -->
+  <rect x="344" y="268" width="272" height="178" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="286" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">2. Послідовність команд SPI</text>
+
+  <!-- Крок 1: CASET -->
+  <rect x="354" y="296" width="252" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="364" y="312" font-size="12" font-weight="bold" fill="#2457d6">CASET (0x2A)</text>
+  <text x="456" y="312" font-size="12" font-weight="bold" fill="#1a1a1a">→ XS, XE (4 байти)</text>
+  <text x="364" y="328" font-size="12" fill="#6b7280">Встановлює межі стовпчиків у GRAM</text>
+
+  <!-- Крок 2: RASET -->
+  <rect x="354" y="344" width="252" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="364" y="360" font-size="12" font-weight="bold" fill="#2457d6">RASET (0x2B)</text>
+  <text x="456" y="360" font-size="12" font-weight="bold" fill="#1a1a1a">→ YS, YE (4 байти)</text>
+  <text x="364" y="376" font-size="12" fill="#6b7280">Встановлює межі рядків у GRAM</text>
+
+  <!-- Крок 3: RAMWR -->
+  <rect x="354" y="392" width="252" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="364" y="409" font-size="12" font-weight="bold" fill="#27ae60">RAMWR (0x2C)</text>
+  <text x="456" y="409" font-size="12" font-weight="bold" fill="#1a1a1a">→ Потік пікселів</text>
+  <text x="364" y="426" font-size="12" fill="#6b7280">Запис W × H пікселів (RGB565 по 2B)</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="630" y1="238" x2="660" y2="238" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- ==================== ПАНЕЛЬ 3: ФІЗИЧНИЙ GRAM ==================== -->
+  <rect x="666" y="68" width="270" height="392" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="801" y="90" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Фізичний GRAM ST7789</text>
+  <text x="801" y="106" font-size="12" text-anchor="middle" fill="#6b7280">Відеопам'ять контролера 240×320</text>
+
+  <!-- Фізичний фреймбуфер 240x320 -->
+  <rect x="726" y="130" width="150" height="200" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="4"/>
+  <text x="720" y="125" font-size="12" text-anchor="end" fill="#6b7280">(0, 0)</text>
+  <text x="876" y="125" font-size="12" text-anchor="end" fill="#6b7280">X: 239</text>
+
+  <!-- Невикористана зона 80 рядків -->
+  <rect x="726" y="130" width="150" height="50" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3" rx="4"/>
+  <text x="801" y="151" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Невикористана зона</text>
+  <text x="801" y="167" font-size="12" text-anchor="middle" fill="#c0392b">80 рядків (невидимі)</text>
+
+  <!-- Видима матриця 240x240 -->
+  <rect x="726" y="180" width="150" height="150" fill="#f9fbfd" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="726" cy="180" r="3.5" fill="#27ae60"/>
+  <text x="720" y="184" font-size="12" text-anchor="end" fill="#27ae60">80</text>
+  <text x="720" y="330" font-size="12" text-anchor="end" fill="#6b7280">319</text>
+
+  <text x="732" y="196" font-size="12" font-weight="bold" fill="#27ae60">База: row_offset = 80</text>
+
+  <!-- Фізичне вікно в GRAM -->
+  <rect x="754" y="205" width="85" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="3"/>
+  <circle cx="754" cy="205" r="3" fill="#2457d6"/>
+  <text x="760" y="221" font-size="12" font-weight="bold" fill="#2457d6">(XS, YS)</text>
+  <text x="796" y="241" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">GRAM</text>
+  <circle cx="839" cy="270" r="3" fill="#2457d6"/>
+  <text x="833" y="264" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">(XE, YE)</text>
+
+  <!-- Картка характеристик панелі 3 -->
+  <rect x="680" y="344" width="242" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="692" y="362" font-size="13" font-weight="bold" fill="#1a1a1a">Фізичний мапінг у GRAM:</text>
+  <text x="692" y="381" font-size="12" fill="#1a1a1a">• Пам'ять GRAM: 240 × 320 точок</text>
+  <text x="692" y="399" font-size="12" fill="#27ae60">• Видима зона: 240 × 240 точок</text>
+  <text x="692" y="417" font-size="12" fill="#c0392b">• Невикористано: 80 рядків (0..79)</text>
+  <text x="692" y="435" font-size="12" fill="#6b7280">• Зсуви: col_offset=0, row_offset=80</text>
+</svg>
