@@ -24,6 +24,22 @@
               "file": "hist-shearing-layers-in-software.md",
               "status": "done"
             }
+          ],
+          "math": [
+            {
+              "file": "math-coupling-instability-metrics.md",
+              "status": "pending"
+            }
+          ],
+          "proj": [
+            {
+              "file": "proj-anti-corruption-layer-buffer.md",
+              "status": "pending"
+            },
+            {
+              "file": "proj-event-driven-pace-buffer.md",
+              "status": "pending"
+            }
           ]
         },
         {
@@ -72,27 +88,19 @@
               "file": "proj-git-tempo-inversion-linter.md",
               "status": "done"
             }
+          ],
+          "comp": [
+            {
+              "file": "comp-iot-edge-gateway.md",
+              "status": "pending"
+            }
+          ],
+          "hist": [
+            {
+              "file": "hist-shearing-layers.md",
+              "status": "pending"
+            }
           ]
-        },
-        {
-          "slug": "git-churn-analysis",
-          "title": "Аналіз волатильності коду за Git",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        },
-        {
-          "slug": "pace-layering-architecture",
-          "title": "Шарування за темпами змін: проблема прихованої інверсії залежностей",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
         }
       ]
     },
@@ -134,6 +142,20 @@
               "file": "api-declarative-mapper-interface.md",
               "status": "done"
             }
+          ],
+          "proj": [
+            {
+              "file": "proj-encapsulation-preserving-mapper.md",
+              "status": "pending"
+            },
+            {
+              "file": "proj-layer-mapping-benchmark.md",
+              "status": "pending"
+            },
+            {
+              "file": "proj-cqrs-read-write-mapping-pipeline.md",
+              "status": "pending"
+            }
           ]
         },
         {
@@ -149,6 +171,10 @@
             {
               "file": "hist-law-of-leaky-abstractions.md",
               "status": "done"
+            },
+            {
+              "file": "hist-transparent-persistence-fallacy.md",
+              "status": "pending"
             }
           ],
           "math": [
@@ -161,6 +187,20 @@
             {
               "file": "proj-refactoring-leaky-orm-boundary.md",
               "status": "done"
+            },
+            {
+              "file": "proj-exception-translation-pipeline.md",
+              "status": "pending"
+            },
+            {
+              "file": "proj-arch-fitness-tests.md",
+              "status": "pending"
+            }
+          ],
+          "api": [
+            {
+              "file": "api-archunit-layer-dsl.md",
+              "status": "pending"
             }
           ]
         },
@@ -203,96 +243,6 @@
         {
           "ref": "sf-apps/end-to-end-argument",
           "title": "Наскрізний аргумент"
-        },
-        {
-          "slug": "vertical-slice-architecture",
-          "title": "Архітектура вертикальних зрізів",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        },
-        {
-          "slug": "zero-allocation-design",
-          "title": "Архітектура з нульовими алокаціями (Zero-Allocation)",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        },
-        {
-          "slug": "object-pooling-patterns",
-          "title": "Патерни пулів об'єктів та життєвий цикл буферів",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        },
-        {
-          "slug": "transaction-boundary-management",
-          "title": "Керування транзакційними межами",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        },
-        {
-          "slug": "relaxed-layered-architecture",
-          "title": "Відкрита шарова архітектура",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        },
-        {
-          "slug": "cqrs-read-projection",
-          "title": "Проєкція даних у CQRS",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        },
-        {
-          "slug": "shotgun-surgery",
-          "title": "Дробова хірургія в шаровій архітектурі",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        },
-        {
-          "slug": "unit-of-work-pattern",
-          "title": "Патерн Unit of Work",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        },
-        {
-          "slug": "application-service",
-          "title": "Застосунковий сервіс",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
         }
       ]
     },
@@ -478,26 +428,6 @@
           "detailed": {
             "status": "pending"
           }
-        },
-        {
-          "slug": "cqrs-architectural-pattern",
-          "title": "Архітектурний шаблон CQRS",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        },
-        {
-          "slug": "cqrs-pattern",
-          "title": "Розділення відповідальності команд і запитів (CQRS)",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
         }
       ]
     },
@@ -592,16 +522,6 @@
         {
           "slug": "error-translation-at-boundary",
           "title": "Переклад помилки на межі",
-          "basic": {
-            "status": "empty"
-          },
-          "detailed": {
-            "status": "pending"
-          }
-        },
-        {
-          "slug": "result-pattern-domain-errors",
-          "title": "Шаблон Result для доменних помилок",
           "basic": {
             "status": "empty"
           },
