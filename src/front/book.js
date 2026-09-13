@@ -474,8 +474,13 @@
     stm32: "STM32 HAL", "stm32-hal": "STM32 HAL", "stm32-ll": "STM32 LL",
     zephyr: "Zephyr", "pico-sdk": "Pico SDK", avr: "AVR"
   };
-  function langKey(l) { return (l || "").toLowerCase().replace(/^\./, ""); }
+  // тег огорожі буває «мова|платформа» (наприклад c|esp-idf): ключ мови — до риски,
+  // підпис вкладки — платформа після неї; без риски все як було.
+  function langKey(l) { return (l || "").toLowerCase().replace(/^./, "").split("|")[0].trim(); }
+  function langPlatform(l) { var p = (l || "").split("|")[1]; return p ? p.trim().toLowerCase() : ""; }
   function langLabel(l) {
+    var p = langPlatform(l);
+    if (p) return LANG_LABELS[p] || p.charAt(0).toUpperCase() + p.slice(1);
     var k = langKey(l);
     return LANG_LABELS[k] || (l ? l.charAt(0).toUpperCase() + l.slice(1) : "код");
   }
