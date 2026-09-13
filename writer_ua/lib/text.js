@@ -29,7 +29,7 @@ const DECAMP = 15;   // поріг автора: довше — виносимо
 const LANGS = {
   c: "c", h: "c", arduino: "c", "esp-idf": "c", stm32: "c",
   cpp: "cpp", "c++": "cpp", hpp: "cpp",
-  rust: "rust", go: "go", java: "java", cs: "cs", swift: "swift", kotlin: "kotlin",
+  rust: "rust", go: "go", java: "java", cs: "cs", "c#": "cs", csharp: "cs", swift: "swift", kotlin: "kotlin",
   asm: "asm", nasm: "asm", verilog: "verilog", vhdl: "vhdl",
   python: "py", py: "py", micropython: "py",
   ts: "ts", typescript: "ts", js: "js", javascript: "js",
@@ -43,8 +43,11 @@ const LANGS = {
  * «Arduino», — а тека мусить лишатися чесною: `py`, `cpp`, `c`. Невідому мову беремо
  * як є, малими: краще чесна незнайома тека, ніж мовчазна підміна.
  */
+/** Тег огорожі буває `мова|платформа` (автор, 14.09): мова — до риски, платформа — після. */
+const baseLang = (tag) => String(tag || "").trim().toLowerCase().split("|")[0].trim();
+const platformOf = (tag) => (String(tag || "").split("|")[1] || "").trim().toLowerCase();
 const langDir = (lang) => {
-  const k = String(lang || "").trim().toLowerCase();
+  const k = baseLang(lang);
   return LANGS[k] || k.replace(/[^a-z0-9+.-]/g, "-") || "code";
 };
 
@@ -106,7 +109,7 @@ function fencedCode(md) {
     const m = line.match(/^\s*```+\s*([^\s`]*)/);
     if (m) {
       if (!inC) { inC = true; lang = (m[1] || "").trim().toLowerCase(); n = 0; }
-      else { inC = false; if (LANGS[lang] && n >= DECAMP) left += n; }
+      else { inC = false; if (LANGS[baseLang(lang)] && n >= DECAMP) left += n; }
       continue;
     }
     if (inC) n++;
@@ -157,7 +160,7 @@ function codeLines(dir) {
   return { lines, files, tests, build };
 }
 
-module.exports = {
+module.exports = { baseLang, platformOf,
   DECAMP, LANGS, GLUE, BUILD_FILES, BUILD_EXT, TEST_RE,
   proseWords, fencedCode, projectDir, langDirs, langDir, codeLines,
 };

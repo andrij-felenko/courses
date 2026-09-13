@@ -54,6 +54,7 @@ function plan(file, { min = TXT.DECAMP } = {}) {
   const lines = src.split(/\r?\n/);
   const carrier = path.basename(file, ".md");
   const out = [];
+  const used = new Set();
   let i = 0, n = 0;
   while (i < lines.length) {
     const open = /^\s*```([A-Za-z0-9+#._-]+)\s*$/.exec(lines[i]);
@@ -61,10 +62,20 @@ function plan(file, { min = TXT.DECAMP } = {}) {
     let j = i + 1;
     while (j < lines.length && !/^\s*```\s*$/.test(lines[j])) j++;
     const body = lines.slice(i + 1, j).join("\n");
-    const dir = TXT.LANGS[open[1].toLowerCase()];
+    const tag = TXT.platformOf(open[1]) || open[1].toLowerCase();   // мітка — платформа, коли вона є
+    const dir = TXT.LANGS[TXT.baseLang(open[1])];
     if (dir && j - i - 1 >= min) {
       const name = nameOf(body, ++n);
-      out.push({ from: i, to: j, body, rel: `${carrier}/${dir}/${name}.${EXT[dir] || dir}`, lines: j - i - 1 });
+      /* ⛔ ОДНЕ ІМ'Я — ОДИН ФАЙЛ. Три блоки з `st7789_hw_reset` для stm32 / esp-idf / arduino
+         давали одне ім'я: останній затирав попередні, а в тексті стояли три однакові
+         директиви. Збіг — додаємо мітку мови з огорожі, далі номер. */
+      const base = `${carrier}/${dir}/${name}`, ext = EXT[dir] || dir;
+      const mark = tag.replace(/[^a-z0-9]+/g, "-") !== dir ? tag.replace(/[^a-z0-9]+/g, "-") : "";
+      let rel = `${base}.${ext}`;
+      if (used.has(rel) && mark) rel = `${base}-${mark}.${ext}`;
+      for (let k = 2; used.has(rel); k++) rel = `${base}${mark ? "-" + mark : ""}-${k}.${ext}`;
+      used.add(rel);
+      out.push({ from: i, to: j, body, rel, lines: j - i - 1 });
     }
     i = j + 1;
   }

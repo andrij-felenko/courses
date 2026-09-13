@@ -51,7 +51,7 @@ const ID_RE = /^[a-z0-9]{10}$/;
 const newId = () => crypto.randomBytes(8).toString("hex").slice(0, 10);
 
 const DEFAULTS = {
-  active: 4, stagger: 2000, maxUnits: 200,
+  active: 8, stagger: 2000, maxUnits: 200,   // 8 одночасно — автор, 11.09 (доти 4)
   limitPause: 5 * 60 * 1000,
   callTimeout: 10 * 60 * 1000,   // скільки чекати ОДНУ відповідь агента
   tick: 3000,                    // як часто перечитувати пульт, поки нічого не завершилось
@@ -153,7 +153,9 @@ class UnitState {
     return last;
   }
   get done() { return this.data.done === true; }
-  finish() { this.data.done = true; this.save(); }
+  /* Завершена одиниця не носить старої помилки чи паузи: 3 done+error і 18 done+waiting
+     у станах батчів читались як «з помилкою» і «чекає». */
+  finish() { this.data.done = true; this.data.error = null; delete this.data.waiting; this.save(); }
   fail(e, limit) { this.data.error = { message: msgOf(e), limit: !!limit }; this.save(); }
   addEnqueued(units) { this.data.enqueued.push(...units); this.save(); }
 }
@@ -165,7 +167,7 @@ function readStates(dir) {
   try { files = fs.readdirSync(dir); } catch { return []; }
   const out = [];
   for (const f of files) {
-    if (!f.endsWith(".json") || f === CONTROL) continue;
+    if (!f.endsWith(".json") || f === CONTROL || f === "done.json") continue;   // done.json — підсумок, не стан
     try { out.push(JSON.parse(fs.readFileSync(path.join(dir, f), "utf8"))); } catch { }
   }
   return out;
@@ -196,9 +198,13 @@ const LIMIT_RE = [
   /\bout of quota\b/i, /\boverloaded(?:_error)?\b/i,
   /\b(?:status|code|http|error)\W{0,4}429\b/i, /\b429\W{0,3}too many\b/i,
 ];
+/* Тиша відповідача — та сама стіна: доти кожен запит, що не діждався відповіді за стелю,
+   провалював свою одиницю, і за годину мовчання гинуло стільки одиниць, скільки активних
+   (66 за ніч у progarch). Тиша позначена `silent` і йде протоколом стіни: пауза, один повтор,
+   далі стоп без маніфесту — той самий хеш підіймає. */
 const isLimit = (e) => {
   if (!e) return false;
-  if (e.limit === true) return true;
+  if (e.limit === true || e.silent === true) return true;
   return LIMIT_RE.some((re) => re.test(msgOf(e)));
 };
 
@@ -355,7 +361,7 @@ async function run(o) {
         let timer;
         return Promise.race([
           Promise.resolve().then(fn),
-          new Promise((_, rej) => { timer = setTimeout(() => rej(new Error(`агент мовчить понад ${callTimeout >= 1000 ? Math.round(callTimeout / 1000) + "с" : callTimeout + "мс"}: ${label}`)), callTimeout); }),
+          new Promise((_, rej) => { timer = setTimeout(() => rej(Object.assign(new Error(`агент мовчить понад ${callTimeout >= 1000 ? Math.round(callTimeout / 1000) + "с" : callTimeout + "мс"}: ${label}`), { silent: true })), callTimeout); }),
         ]).finally(() => clearTimeout(timer));
       },
       enqueue: (more) => {

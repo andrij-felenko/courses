@@ -167,11 +167,11 @@ const books = () => [...MF.books().entries()]
   .filter(Boolean).join("\n");
 
 /** Книги з групами й розділами — слугами й назвами — для зведення нових тем. */
-function shelf() {
+function shelf({ skipKinds = [], keep = [] } = {}) {
   const rows = [];
   for (const [slug, b] of MF.books()) {
     const x = MF.loadBook(b.bookDir);
-    if (!x) continue;
+    if (!x || (skipKinds.includes(b.kind || x.manifest.kind) && !keep.includes(slug))) continue;
     rows.push(`${slug} — ${x.manifest.title || slug} [${b.kind || x.manifest.kind || ""}]`);
     for (const [g, gv] of x.groups) {
       rows.push(`  ${g} — ${gv.data.title || g}`);
@@ -188,6 +188,63 @@ function chapterTopics(book, group, chapter) {
   return MF.allTopics(b)
     .filter((t) => t.own && t.group === group && (!chapter || t.chapter === chapter))
     .map((t) => ({ slug: t.slug, title: t.title }));
+}
+
+/**
+ * Огорожі коду: одиничний «`» рядком — це ``` (158 таких у 11 файлах: формули, які рендер
+ * бачить як зламаний інлайн-код); огорожа, не закрита до наступного H2 чи кінця файла, —
+ * закривається (3 файли з непарними ```: 140 рядків прози всередині ```csharp). Діапазон
+ * `:::code шлях від-до` за межами файла — обрізаємо до файла.
+ */
+function fixFences(file) {
+  let s = "";
+  try { s = fs.readFileSync(file, "utf8"); } catch { return { single: 0, closed: 0, ranges: 0 }; }
+  let single = 0, closed = 0, ranges = 0;
+  const lines = s.split("\n").map((l) => { if (/^`[ \t]*$/.test(l)) { single++; return "```"; } return l; });
+  /* ⛔ Закриваємо лише коли огорожа справді незакрита — парність непарна. У парному файлі
+     `## ` всередині огорожі законний (приклад markdown у блоці), і закривати там — ламати. */
+  const out = [];
+  let inFence = false;
+  const odd = lines.filter((l) => /^```/.test(l)).length % 2 === 1;
+  for (const l of lines) {
+    if (/^```/.test(l)) { inFence = !inFence; out.push(l); continue; }
+    if (odd && inFence && /^## /.test(l)) { out.push("```"); closed++; inFence = false; }
+    out.push(l);
+  }
+  if (odd && inFence) { out.push("```"); closed++; }
+  const dir = path.dirname(file);
+  let text = out.join("\n").replace(/^(:::code[^\S\n]+)(\S+)[^\S\n]+(\d+)-(\d+)[^\S\n]*$/gm, (m, pre, rel, a, b) => {
+    let n = 0; try { n = fs.readFileSync(path.join(dir, rel), "utf8").split("\n").length; } catch { return m; }
+    const from = Math.min(Number(a), n), to = Math.min(Number(b), n);
+    if (from === Number(a) && to === Number(b)) return m;
+    ranges++;
+    return from >= to ? `${pre}${rel}` : `${pre}${rel} ${from}-${to}`;
+  });
+  if (text !== s) fs.writeFileSync(file, text, "utf8");
+  return { single, closed, ranges };
+}
+
+/** Директиви `:::code`, які писар загорнув у ```-огорожу (сім разів в одному проєкті), — назовні. */
+function unfenceDirectives(file) {
+  let s = "";
+  try { s = fs.readFileSync(file, "utf8"); } catch { return 0; }
+  let n = 0;
+  const out = s.replace(/^```[a-z]*\n((?::::code [^\n]+\n)+)```\n/gm, (m, body) => { n++; return body; });
+  if (n) fs.writeFileSync(file, out, "utf8");
+  return n;
+}
+
+/** Зняти лінк на адресу, лишивши слова: `[слова](адреса)` → `слова`. */
+function unlink(text, addr) {
+  const esc = String(addr).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return String(text || "").replace(new RegExp(`\\[([^\\]]+)\\]\\(${esc}(?:#[^)]*)?\\)`, "g"), "$1");
+}
+
+/** Усі теми книги: слуг і назва — для «чи є» етапу 8, бо дубль живе в будь-якому розділі. */
+function bookTopics(book) {
+  const b = MF.loadBook(MF.bookDirOf(book));
+  if (!b) return [];
+  return MF.allTopics(b).filter((t) => t.own).map((t) => ({ slug: t.slug, title: t.title }));
 }
 
 /** Початок наявної теми — перші речення її статті; не написана — її назва. */
@@ -572,8 +629,8 @@ function titleRe(title) {
 }
 
 module.exports = {
-  humanPath, titleRe, unitOf, mentions, neighbours, books, shelf, chapterTopics, topicHead,
-  linkContext, aroundLink, fileHead, resolveLinks, splitSections, joinSections, preknow, isDuplicate,
+  humanPath, titleRe, unitOf, mentions, neighbours, books, shelf, chapterTopics, bookTopics, topicHead,
+  linkContext, aroundLink, fileHead, resolveLinks, unlink, splitSections, joinSections, preknow, isDuplicate,
   size, BANDS, assemble, writeArticle, writeCode, codeFiles, codeText, linkable,
-  fixFormulas, decamp, checkFences, checkFigures, figNames, writeFigure, checkFigure, ops,
+  fixFormulas, decamp, fixFences, unfenceDirectives, checkFences, checkFigures, figNames, writeFigure, checkFigure, ops,
 };

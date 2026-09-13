@@ -151,7 +151,7 @@ const P = {
    * Етап 3 · КАРКАС: рівень, розділи, глибина, групи, фігури — і передумови, обрані з того,
    * що є поруч. Базова — з детальної.
    */
-  karkas(u, { goal, passed, known, inserts, detailed }) {
+  karkas(u, { goal, passed, known, inserts, detailed, norms }) {
     const basic = u.type === "basic";
     /* Передумови — усім типам, і базовій: окремим файлом, бо каркас базова не бере. */
     const proto = [...(basic ? [] : ["karkas"]), "preknow"];
@@ -162,6 +162,8 @@ const P = {
       { tag: knows(u), body: u.kind === "course" ? passed : "" },
       { tag: "ЩО Є ПОРУЧ", body: known },
       { tag: "ВСТАВКИ ЦІЄЇ ТЕМИ", body: inserts },
+      /* Норми обсягу за рівнем і міра фігур — дані конвеєра (BANDS, FIG_PER), не правило. */
+      { tag: "ОБСЯГ І ФІГУРИ", body: norms },
       { tag: "ДЕТАЛЬНА СТАТТЯ", body: basic ? detailed : "" },
       { tag: "ЩО ЗРОБИТИ", body: order(u, files, "karkas") },
       { tag: "ПОВЕРНИ", body: answer(u, proto, "karkas") },
@@ -169,7 +171,7 @@ const P = {
   },
 
   /** Етап 4 · ПИСЬМО — порція розділів. Проєкт дістає сам код. */
-  write(u, { goal, level, depth, sections, theses, integrate, preknow, passed, linkable, code }) {
+  write(u, { goal, level, depth, sections, theses, integrate, preknow, passed, linkable, code, words }) {
     return render([
       { tag: "ЗАВДАННЯ", body: head(u, [`рівень: ${level || "—"}`]) },
       { tag: "ЦІЛЬ", body: goal },
@@ -177,6 +179,8 @@ const P = {
       { tag: "ЩО ЧИТАЧ УЖЕ ПРОЙШОВ", body: u.kind === "course" ? passed : "" },
       { tag: MAYBE_KNOWS, body: preknow },
       { tag: "МОЇ РОЗДІЛИ", body: sections },
+      /* Міра порції — дані конвеєра (BANDS за типом і рівнем), не правило: правило в mode-write. */
+      { tag: "ОБСЯГ", body: words ? `цієї порції — до ${words.part} слів, менше — добре; усієї статті — до ${words.all}` : "" },
       { tag: "ТЕЗИ ПОПЕРЕДНІХ РОЗДІЛІВ", body: theses },
       { tag: "ЩО ІНТЕГРУВАТИ", body: integrate },
       { tag: "КОД", body: code },
@@ -187,7 +191,8 @@ const P = {
   },
 
   /** Етап 4 · ДОПИСУВАННЯ — один розділ, названим матеріалом, мірою з конвеєра. */
-  extend(u, { goal, level, depth, section: sec, text, theses, add, floor, ceiling, integrate, preknow, passed, linkable, code }) {
+  /** Етап 4 · ДОПИСУВАННЯ — один абзац: поглибити названий або новий після названого (автор, 14.09). */
+  extend(u, { goal, level, depth, section: sec, text, paragraph, how, add, theses, integrate, preknow, passed, linkable, code }) {
     return render([
       { tag: "ЗАВДАННЯ", body: head(u, [`рівень: ${level || "—"}`]) },
       { tag: "ЦІЛЬ", body: goal },
@@ -195,14 +200,15 @@ const P = {
       { tag: "ЩО ЧИТАЧ УЖЕ ПРОЙШОВ", body: u.kind === "course" ? passed : "" },
       { tag: MAYBE_KNOWS, body: preknow },
       { tag: "ЦЕЙ РОЗДІЛ", body: `${sec}\n\n${text}` },
-      { tag: "ТЕЗИ ІНШИХ РОЗДІЛІВ", body: theses },
+      { tag: "АБЗАЦ", body: paragraph },
+      { tag: "ЯК", body: how },
       { tag: "ЩО ДОДАТИ", body: add },
-      { tag: "МІРА", body: `нового тексту — не менше ${floor} слів і не більше ${ceiling}` },
+      { tag: "ТЕЗИ ІНШИХ РОЗДІЛІВ", body: theses },
       { tag: "ЩО ІНТЕГРУВАТИ", body: integrate },
       { tag: "КОД", body: code },
       { tag: "КУДИ МОЖНА ЛІНКУВАТИ", body: linkable },
-      { tag: "ЩО ЗРОБИТИ", body: order(u, ["mode-extend", "scale", ...writers(u)], "rules") },
-      { tag: "ПОВЕРНИ", body: answer(u, ["mode-write", ...(hasTheses(u) ? ["theses"] : [])]) },
+      { tag: "ЩО ЗРОБИТИ", body: order(u, ["mode-extend", ...writers(u)], "rules") },
+      { tag: "ПОВЕРНИ", body: ret(["mode-extend"]) },
     ]);
   },
 
@@ -244,55 +250,23 @@ const P = {
     ]);
   },
 
-  /** Етап 4 · ВСТАВКА ЗОБРАЖЕННЯ, крок 1: у який розділ. */
-  imageWhere(u, { text, what }) {
+  /** Етап 6 · РОЗСТАВЛЕННЯ — фігури й лінки без місця, усі одним запитом (автор, 14.09). */
+  place(u, { text, figures, links }) {
     return render([
-      { tag: "ЗАВДАННЯ", body: head(u, ["крок: 1"]) },
+      { tag: "ЗАВДАННЯ", body: head(u) },
       { tag: "ТЕКСТ", body: text },
-      { tag: "ФІГУРА", body: what },
-      { tag: "ЩО ЗРОБИТИ", body: ask(["mode-image", "figures"]) },
-      { tag: "ПОВЕРНИ", body: ret(["mode-image"]) },
+      { tag: "ФІГУРИ БЕЗ МІСЦЯ", body: figures },
+      { tag: "ТЕМИ БЕЗ ЛІНКА", body: links },
+      { tag: "ЩО ЗРОБИТИ", body: ask(["mode-place", "figures"]) },
+      { tag: "ПОВЕРНИ", body: ret(["mode-place"]) },
     ]);
   },
 
-  /** Етап 4 · ВСТАВКА ЗОБРАЖЕННЯ, крок 2: поставити. */
-  imagePlace(u, { text, section: sec, file, what }) {
-    return render([
-      { tag: "ЗАВДАННЯ", body: head(u, ["крок: 2", `розділ: ${sec}`, `файл: ${file}`]) },
-      { tag: "ТЕКСТ", body: text },
-      { tag: "ФІГУРА", body: what },
-      { tag: "ЩО ЗРОБИТИ", body: ask(["mode-image", "figures"]) },
-      { tag: "ПОВЕРНИ", body: ret(["mode-image"]) },
-    ]);
-  },
-
-  /** Етап 6 · ЛІНК НА НОВУ ТЕМУ, крок 1: у який розділ. Дзеркало вставки зображення. */
-  linkWhere(u, { text, topic }) {
-    return render([
-      { tag: "ЗАВДАННЯ", body: head(u, ["крок: 1"]) },
-      { tag: "ТЕКСТ", body: text },
-      { tag: "ТЕМА", body: topic },
-      { tag: "ЩО ЗРОБИТИ", body: ask(["mode-link"]) },
-      { tag: "ПОВЕРНИ", body: ret(["mode-link"]) },
-    ]);
-  },
-
-  /** Етап 6 · ЛІНК НА НОВУ ТЕМУ, крок 2: поставити. */
-  linkPlace(u, { text, section: sec, addr, topic }) {
-    return render([
-      { tag: "ЗАВДАННЯ", body: head(u, ["крок: 2", `розділ: ${sec}`, `адреса: ${addr}`]) },
-      { tag: "ТЕКСТ", body: text },
-      { tag: "ТЕМА", body: topic },
-      { tag: "ЩО ЗРОБИТИ", body: ask(["mode-link"]) },
-      { tag: "ПОВЕРНИ", body: ret(["mode-link"]) },
-    ]);
-  },
-
-  /** Кінець батчу · НОВА ТЕМА ЧИ ВСТАВКА: кожна тема, що заводиться, проти написаних вставок. */
-  topicsInsert({ inserts, topic }) {
+  /** Кінець батчу · НОВІ ТЕМИ ЧИ ВСТАВКИ: усі теми статті проти написаних вставок — один запит. */
+  topicsInsert({ inserts, topics }) {
     return render([
       { tag: "НАПИСАНІ ВСТАВКИ", body: inserts },
-      { tag: "НОВА ТЕМА", body: topic },
+      { tag: "НОВІ ТЕМИ", body: topics },
       { tag: "ЩО ЗРОБИТИ", body: ask(["topics-insert"]) },
       { tag: "ПОВЕРНИ", body: ret(["topics-insert"]) },
     ]);
@@ -348,32 +322,31 @@ const P = {
   },
 
   /** Етап 8 · НОВА ТЕМА, запит 1: куди завести — за правилами розміщення. */
-  topicsCategory({ shelf, topic }) {
+  /* Етап 8 — три запити на статтю, не три на тему (автор, 14.09). */
+  topicsCategory({ shelf, topics }) {
     return render([
       { tag: "КНИГИ, ГРУПИ Й РОЗДІЛИ КОРПУСУ", body: shelf },
-      { tag: "ТЕМА", body: topic },
+      { tag: "НОВІ ТЕМИ", body: topics },
       { tag: "ЩО ЗРОБИТИ", body: ask(["topics-category"]) },
       { tag: "ПОВЕРНИ", body: ret(["topics-category"]) },
     ]);
   },
 
-  /** Етап 8 · НОВА ТЕМА, запит 2: є вже чи нова. Схожі слуги знайдено локально. */
-  topicsDedupe({ existing, topic, hints }) {
+  /** Етап 8 · запит 2: є вже чи нова — усі теми однієї книги. Схожі слуги знайдено локально. */
+  topicsDedupe({ existing, topics, hints }) {
     return render([
-      { tag: "ТЕМИ ЦІЄЇ КАТЕГОРІЇ", body: existing },
+      { tag: "ТЕМИ ЦІЄЇ КНИГИ", body: existing },
       { tag: "СХОЖІ СЛУГИ В КНИЗІ", body: hints },
-      { tag: "ТЕМА", body: topic },
+      { tag: "НОВІ ТЕМИ", body: topics },
       { tag: "ЩО ЗРОБИТИ", body: ask(["topics-dedupe"]) },
       { tag: "ПОВЕРНИ", body: ret(["topics-dedupe"]) },
     ]);
   },
 
-  /** Етап 8 · НОВА ТЕМА, запит 3: дубль чи розвести назви. */
-  topicsRename({ existing, ours, reason }) {
+  /** Етап 8 · запит 3: дубль чи розвести назви — усі пари. */
+  topicsRename({ pairs }) {
     return render([
-      { tag: "НАЯВНА ТЕМА", body: existing },
-      { tag: "НАШЕ МІСЦЕ", body: ours },
-      { tag: "ЧОМУ ЗІСТАВИЛИ", body: reason },
+      { tag: "ПАРИ", body: pairs },
       { tag: "ЩО ЗРОБИТИ", body: ask(["topics-rename"]) },
       { tag: "ПОВЕРНИ", body: ret(["topics-rename"]) },
     ]);

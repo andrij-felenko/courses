@@ -50,11 +50,27 @@ const TAG = /<([А-ЯІЇЄҐA-Z][^<>\n/]*?)>/g;
 /* Закритий блок — і `<ТЕГ>…</ТЕГ>` (ім'я може бути з пробілами: «ЩО ЗЖАТИ»), і форма з
    атрибутом `<ФАЙЛ path="…">…</ФАЙЛ>`, якою відповідач віддає код: парсер її читає, тож і
    чекати треба саме на неї, інакше одиниця коду висить до стелі очікування. */
-const closedTags = (txt) => {
-  const s = String(txt || "");
+const scanClosed = (s) => {
   const out = new Set();
   for (const m of s.matchAll(/<([А-ЯІЇЄҐA-Z][^<>\n]*)>[\s\S]*?<\/\1>/g)) out.add(m[1].trim());
   for (const m of s.matchAll(/<([А-ЯІЇЄҐA-Z][^<>\s]*)\s[^<>\n]*=[^<>\n]*>[\s\S]*?<\/\1>/g)) out.add(m[1].trim());
+  return out;
+};
+const escRe = (s) => String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const closedTags = (txt) => {
+  /* ⛔ Обгортку відповідач часом переписує довкола всієї відповіді — <ПОВЕРНИ> з контракту
+     або тег за назвою етапу (<АНАЛІЗ>, <ФІГУРА>). Для лінивого регекса вона — один закритий
+     блок, що ховає всі внутрішні: жоден тег контракту не «закритий», і адаптер чекав стелю
+     (годину). Знімаємо так само, як розбір у parse.js: <ПОВЕРНИ> — завжди; будь-який інший
+     єдиний блок — коли всередині є закриті. CRLF нормалізуємо тут же (515 відповідей). */
+  const s = String(txt || "").replace(/\r\n?/g, "\n").replace(/<\/?ПОВЕРНИ>/g, "");
+  const out = scanClosed(s);
+  if (out.size === 1) {
+    const tag = [...out][0];
+    const m = new RegExp(`<${escRe(tag)}(?:\\s[^<>\\n]*)?>([\\s\\S]*?)<\\/${escRe(tag)}>`).exec(s);
+    const inner = m ? scanClosed(m[1]) : new Set();
+    if (inner.size) return inner;
+  }
   return out;
 };
 
@@ -72,8 +88,15 @@ function expected(prompt) {
   chunks.push(cur);
   const mine = step ? chunks.filter((c) => c.step === step) : [];
   const tags = [];
+  /* ⛔ НЕОБОВ'ЯЗКОВИЙ БЛОК НЕ ТРИМАЄ ГОТОВНОСТІ. Рядок контракту з «лише якщо…», «лише
+     коли…», «за потреби» відповідач не пише, коли нема причини, — і адаптер чекав на нього
+     стабілізацію: 514 відповідей за три батчі стояли рівно по 121 с (≈17 годин слотів). */
+  const optional = (line) => /лише\s+(?:якщо|коли)|за потреби|якщо (?:є|треба)/i.test(line);
   for (const c of mine.length ? mine : chunks)
-    for (const t of c.text.matchAll(TAG)) if (!tags.includes(t[1].trim())) tags.push(t[1].trim());
+    for (const line of c.text.split("\n")) {
+      if (optional(line)) continue;
+      for (const t of line.matchAll(TAG)) if (!tags.includes(t[1].trim())) tags.push(t[1].trim());
+    }
   return tags;
 }
 
@@ -86,7 +109,12 @@ function ready(txt, tags, stableFor = Infinity) {
 }
 
 /** Ім'я файла з мітки: кирилиця лишається, ламається лише те, що ламає файлову систему. */
-const safe = (s) => String(s).replace(/[^\p{L}\p{N}._-]+/gu, "-").slice(0, 60);
+const safe = (s) => {
+  const t = String(s).replace(/[^\p{L}\p{N}._-]+/gu, "-");
+  /* Довгу мітку не рубаємо наосліп: дві фігури зі спільним префіксом ділили один файл
+     (92 мітки впирались у межу). Хвіст — короткий хеш повної мітки; короткі — як були. */
+  return t.length <= 60 ? t : t.slice(0, 48) + "-" + require("crypto").createHash("sha1").update(String(s)).digest("hex").slice(0, 8);
+};
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -122,7 +150,8 @@ module.exports.make = function make(dir) {
        окремому субагентові, нічого не вирішувати самому (автор, 08.09). */
     process.stdout.write(
       `\n[ЗАПИТ] ${label}\n[ФАЙЛ]  ${askFile}\n[ЧЕКАЮ] ${ansFile}\n` +
-      `[ДІЯ]   запусти на цей файл ОКРЕМОГО субагента: він читає запит цілком і пише відповідь у файл-відповідь. ` +
+      `[ДІЯ]   запусти на цей файл ОКРЕМОГО субагента: він читає запит цілком і пише відповідь у файл-відповідь — ` +
+      `лише блоками, названими в <ПОВЕРНИ>, без самої обгортки <ПОВЕРНИ>…</ПОВЕРНИ>. ` +
       `Сам нічого не вирішуй і не вигадуй замість нього — усе потрібне є в запиті. ` +
       `Процес чекає на відповідь до ${Math.round(WAIT / 60000)} хв; він живий, не зупиняй його.\n`);
 
@@ -147,7 +176,8 @@ module.exports.make = function make(dir) {
       }
       await sleep(POLL);
     }
-    throw new Error(`ніхто не відповів на «${label}» за ${Math.round(WAIT / 60000)} хв`);
+    /* Тиша — не помилка одиниці, а стан відповідача: оркестратор трактує її як стіну. */
+    throw Object.assign(new Error(`ніхто не відповів на «${label}» за ${Math.round(WAIT / 60000)} хв`), { silent: true });
   };
 };
 

@@ -125,7 +125,7 @@ async function main(argv) {
 
   const report = await O.run({
     id: o.id, units,
-    active: Number(o.active) || 4,
+    active: Number(o.active) || 8,
     stagger: o.stagger === undefined ? 2000 : Number(o.stagger),
     /* Стеля НОВИХ одиниць прогону: тема з фігурами на кожен розділ дає їх до 35, тож
        для пулу з десятка тем типових 200 замало — `--max 600`. Відмовлене видно в notes. */
@@ -133,7 +133,8 @@ async function main(argv) {
     callTimeout: o.wait === undefined ? undefined : Number(o.wait),
     onEvent: say,
     algorithm: (unit, ctx) => {
-      const dir = path.join(ctx.run.dir, unit.id.replace(/[^\w.-]+/g, "_"));
+      /* `code-c++` і `code-c#` давали одну теку `code-c_` — і одну відповідь на дві мови. */
+      const dir = path.join(ctx.run.dir, unit.id.replace(/\+\+/g, "pp").replace(/#/g, "sharp").replace(/[^\w.-]+/g, "_"));
       return algorithm(unit, ctx, {
         ask: ask ? ask(dir) : dryAsk(dir),
         /* Написане конвеєром — готова робота: done, не recheck (автор, 08.09). */
