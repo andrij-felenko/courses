@@ -120,7 +120,7 @@ P_loss ≤ K_t · A_housing · (T_oil - T_ambient)
 
 Повна реалізація розрахунку динамічних параметрів, інерції та перевірочного звіту завершує інженерний клас:
 
-:::code proj-planetary-gear-sizing-calculator/py/planetary_calculator.py 131-301
+:::code proj-planetary-gear-sizing-calculator/py/planetary_calculator.py 131-195
 
 Для демонстрації практичного застосування розрахункового модуля підготовлено скрипт `example.py`, який проектує планетарний редуктор суглоба маніпулятора з вихідним крутним моментом 120 Н·м:
 
