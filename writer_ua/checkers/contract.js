@@ -34,7 +34,8 @@ const READER = {
      формату нема, і питати тут нема про що. */
   "КОД": R.code, "ПЕРЕДУМОВИ": R.preknow,
   "ЩО ДОДАТИ": R.additions, "ЩО ЗЖАТИ": R.bySection, "ТЕЗИ": R.bySection,
-  "ДЕ ДОПИСАТИ": R.bySection, "ОЦІНКИ": R.scores, "ЗАМІНИ": R.replacements, "НАЗВИ": R.names,
+  "ДЕ ДОПИСАТИ": R.bySection, "БАЛИ": R.points, "ЗАМІНИ": R.replacements, "НАЗВИ": R.names,
+  "ФОРМА ВСТАВОК": R.insertForms,
 };
 
 /**

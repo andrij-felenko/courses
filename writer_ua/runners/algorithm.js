@@ -29,6 +29,7 @@ const MAX_COMPRESS = 5;      // кіл стиснення, дзеркально
 const MAX_REWRITE = 3;       // переписувань з нуля; на третьому приймаємо як є
 const MAX_FIG_ROUNDS = 4;    // перемальовувань фігури за геометрією
 const PASS_SCORE = 7;        // оцінка аналізу: сім і вище — етап пройдено
+const MAX_SCORE = 11;        // балів аналізу разом: десять і один запасний (автор, 14.09)
 const FLOOR = { 5: 300, 4: 300, 3: 250, 2: 250, 1: 150 };   // підлога дописування на розділ
 const CEIL_X = 4;            // стеля дописування — вчетверо більша за підлогу
 const FORCE_SHORT = 1 / 3;   // бракує понад третину — аналіз мусить назвати, де дописати
@@ -133,13 +134,17 @@ function putSection(part, ref, text) {
 }
 const sectionText = (ref) => [ref.secs[ref.i].head, ref.secs[ref.i].body].filter(Boolean).join("\n\n");
 
+/* Рядок плану розділу — з назвою, коли каркас її дав (автор, 14.09): назва стає H2 дослівно. */
+const planRow = (s) => (s.title ? `${s.n} | ${s.title} | важливість: ${s.importance} | ${s.text}` : `${s.n} | важливість: ${s.importance} | ${s.text}`);
 const planOf = (k, sec) => {
   const s = k.sections.find((x) => x.n === sec);
-  return s ? `${s.n} | важливість: ${s.importance} | ${s.text}` : String(sec);
+  return s ? planRow(s) : String(sec);
 };
 const thesesText = (parts, except) => parts.flatMap((p) => p.theses || [])
   .filter((t) => except == null || t.section !== except)
   .map((t) => `${t.section == null ? "" : t.section + " | "}${t.text}`).join("\n");
+/** Тези статті списком — у маніфест, наступним письменникам (автор, 14.09). */
+const thesesList = (parts) => [...new Set((parts || []).flatMap((p) => p.theses || []).map((t) => String(t.text || "").trim()).filter(Boolean))];
 /* Перша група тез не має — і їй сказано прямо, чому: читач ще нічого не знає (автор, 07.09). */
 const NOTHING_YET = "нічого — це початок статті: читач ще нічого не знає";
 
@@ -156,7 +161,7 @@ function digestText(parts) {
 
 /* Рядок плану («6 | важливість: висока | …») у ТЕКСТ повертають і письмо, і стиснення; у файлі
    він ставав абзацом, а заголовок під ним — другим таким самим H2. Розбір його не бере. */
-const cleanText = (t) => String(t || "").replace(/^\d+\s*\|\s*(?:важливість\s*:\s*)?(?:висока|середня|низька)\s*\|[^\n]*\n?/gim, "");
+const cleanText = (t) => String(t || "").replace(/^\d+\s*\|\s*(?:[^|\n]*\|\s*)?(?:важливість\s*:\s*)?(?:висока|середня|низька)\s*\|[^\n]*\n?/gim, "");
 
 /** Норми обсягу типу за рівнем і міра фігур — каркасові, щоб рівень обирали з числом перед очима. */
 function normsText(u) {
@@ -321,11 +326,27 @@ function codeUnitsOf(u, code, level) {
   }));
 }
 
-/** Що письмо має інтегрувати: вставки з адресами, фігури без місця, директиви на код. */
-function integrateList(u, inserts, figs, used, code) {
+/* ── вставки: повна чи коротка (автор, 14.09) ─────────────────────────────
+   Каркас каже про кожну вставку етапу 2, якою їй бути: повна — окремий файл і одиниця,
+   пишеться паралельно; коротка — абзац у тексті названого розділу, без файла й без лінка.
+   Без вердикту вставка повна: так було завжди, і це безпечніший бік. */
+const insertKey = (x) => `${x.insert}-${x.name}`;
+const formOf = (k, x) => ((k && k.insertForms) || []).find((f) => f.key === insertKey(x));
+const fullInserts = (st, k) => ((st && st.inserts) || []).filter((x) => { const f = formOf(k, x); return !f || f.mode !== "short"; });
+const shortInserts = (st, k) => ((st && st.inserts) || []).map((x) => ({ x, f: formOf(k, x) }))
+  .filter(({ f }) => f && f.mode === "short").map(({ x, f }) => ({ ...x, section: f.section }));
+/** Одиниці повних вставок. Назву дав етап 2 — вона стає заголовком; без назви — назва теми. */
+const insertUnitsOf = (u, inserts) => (inserts || []).map((x) => ({
+  ...LOC.unitOf(u.book, u.slug, x.insert, "", insertKey(x)), ...(x.title ? { title: x.title } : {}), about: x.about, parent: u.id,
+}));
+
+/** Що письмо має інтегрувати: вставки з адресами, короткі — абзацом, фігури без місця, директиви на код. */
+function integrateList(u, st, k, figs, used, code) {
   const rows = [];
-  for (const x of inserts || [])
-    rows.push(`вставка ${x.insert}-${x.name} — ${x.about}\n  лінк рівно такий: root:${u.book}/${u.slug}/${x.insert}-${x.name}.md`);
+  for (const x of fullInserts(st, k))
+    rows.push(`вставка ${insertKey(x)}${x.title ? ` «${x.title}»` : ""} — ${x.about}\n  лінк рівно такий: root:${u.book}/${u.slug}/${insertKey(x)}.md`);
+  for (const x of shortInserts(st, k))
+    rows.push(`коротка вставка${x.title ? ` «${x.title}»` : ""} — ${x.about}\n  абзац у тексті${x.section ? ` розділу ${x.section}` : ""}: без файла й без лінка`);
   for (const f of figs || []) if (!used.has(f.file))
     rows.push(`фігура — ${f.what}\n  рядок: ![{що показано і що з неї видно}](${f.file}) — шлях рівно цей, у дужках твої слова`);
   for (const c of code || []) {
@@ -395,12 +416,7 @@ async function algorithm(unit, ctx, o = {}) {
       .filter((x) => (perType[x.insert] = (perType[x.insert] || 0) + 1) <= MAX_INSERTS_PER_TYPE);
     const st = { inserts, newTopics: R.topics(b["НОВІ ТЕМИ"] || ""), basic: R.yes(b["БАЗОВА"]) };
     ctx.set("structure", st);
-    /* Вставки — у чергу одразу, паралельно: стаття на них не чекає. Назву вставки дав етап 2 —
-       вона стає її заголовком (автор, 14.09); без назви — назва теми, як досі. */
-    if (st.inserts.length)
-      ctx.enqueue(st.inserts.map((x) => ({
-        ...LOC.unitOf(u.book, u.slug, x.insert, "", `${x.insert}-${x.name}`), ...(x.title ? { title: x.title } : {}), about: x.about, parent: u.id,
-      })));
+    /* У чергу вставки йдуть після каркаса, не тут: він вирішує, котрі з них повні. */
   }
   const st = ctx.get("structure") || { inserts: [], newTopics: [], basic: false };
 
@@ -408,7 +424,7 @@ async function algorithm(unit, ctx, o = {}) {
   if (!ctx.get("karkas")) {
     const res = await ctx.call("каркас", () => ask(P.karkas(u, {
       goal: goal.text, passed, detailed, known: LOC.linkable(u), norms: normsText(u),
-      inserts: st.inserts.map((x) => `${x.insert}-${x.name}: ${x.about}`).join("\n"),
+      inserts: st.inserts.map((x) => `${insertKey(x)}${x.title ? ` «${x.title}»` : ""}: ${x.about}`).join("\n"),
     }), "каркас"));
     const b = R.blocks(res);
     const secs = R.sections(b["РОЗДІЛИ"] || b["КРОКИ"] || b["ПОДІЇ"] || "");
@@ -432,10 +448,15 @@ async function algorithm(unit, ctx, o = {}) {
       figCap: Math.max(1, figCap(u, LOC.size("", u.type, level).need)),
       extra: [],
       code: u.type === "proj" ? R.code(b["КОД"] || "") : [],
+      /* Котра вставка повна, котра коротка (автор, 14.09); рядка нема — повна. */
+      insertForms: R.insertForms(b["ФОРМА ВСТАВОК"] || ""),
     };
     ctx.set("karkas", k);
-    /* Фігури й код — у чергу тут; фігури нічого не затримують, код чекає лише проєкт. */
-    const more = [...codeUnitsOf(u, k.code, k.level), ...figUnitsOf(u, k.figs, goal, k.level)];
+    /* Повні вставки, фігури й код — у чергу тут. Вставки — після каркаса, а не з етапу 2
+       (автор, 14.09): каркас щойно вирішив, котра вставка повна — окремий файл і одиниця,
+       пишеться паралельно, стаття на неї не чекає, — а котра коротка: абзац у тексті
+       названого розділу, без файла. Фігури нічого не затримують, код чекає лише проєкт. */
+    const more = [...insertUnitsOf(u, fullInserts(st, k)), ...codeUnitsOf(u, k.code, k.level), ...figUnitsOf(u, k.figs, goal, k.level)];
     if (more.length) ctx.enqueue(more);
   }
   const k = ctx.get("karkas");
@@ -481,10 +502,10 @@ async function algorithm(unit, ctx, o = {}) {
         const mine = k.sections.filter((s) => g.includes(s.n));
         const res = await ctx.call(`письмо ${g.join(",")}`, () => ask(P.write(u, {
           ...common(),
-          sections: mine.map((s) => `${s.n} | важливість: ${s.importance} | ${s.text}`).join("\n"),
+          sections: mine.map(planRow).join("\n"),
           words: { part: Math.min(PART_MAX, Math.round(band.need * mine.length / Math.max(1, k.sections.length))), all: band.need, ceiling: band.ceiling },
           theses: written.length ? (thesesText(written) || digestText(written)) : NOTHING_YET,
-          integrate: integrateList(u, st.inserts, allFigs(k), used, k.code),
+          integrate: integrateList(u, st, k, allFigs(k), used, k.code),
         }), `письмо ${g.join(",")}`));
         const d = need(res, ["ТЕКСТ"], `письмо ${g.join(",")}`);
         const b = R.blocks(res);
@@ -546,7 +567,7 @@ async function algorithm(unit, ctx, o = {}) {
               how: kind === "deepen" ? "поглибити цей абзац — повернути його ж, розгорнутий тим, що названо"
                 : "новий абзац після цього — повернути лише новий абзац, без сусідів",
               add: `${t.level} | ${it.what}`, theses: thesesText(parts, t.section),
-              integrate: integrateList(u, st.inserts, allFigs(k), usedFigs(parts), k.code),
+              integrate: integrateList(u, st, k, allFigs(k), usedFigs(parts), k.code),
             }), `дописування ${t.section}`));
             const para = cleanText(need(res, ["АБЗАЦ"], "дописування")["АБЗАЦ"]).trim();
             if (!para) continue;
@@ -613,15 +634,16 @@ async function algorithm(unit, ctx, o = {}) {
       goal: goal.text, level: k.level, text: assemble(parts), theses: thesesText(parts),
       groups: k.groups.map((g) => g.join(", ")).join("\n"), force: false,
     }), `аналіз ${an.rewrites + 1}`));
-    const b = need(res, ["ОЦІНКА"], "аналіз");
     const all = R.blocks(res);
-    const score = num(b["ОЦІНКА"]);
-    if (!Number.isFinite(score)) throw new Error("аналіз: оцінка не число");
-    const groups = R.scores(all["ОЦІНКИ"] || "");
+    /* Бали за критеріями (автор, 14.09): нараховуються, не знімаються; сума — наша, а не
+       агентова, і не вище стелі. Без БАЛІВ — загальна оцінка, якщо агент дав хоч її. */
+    const points = R.points(all["БАЛИ"] || "");
+    const score = points.length ? Math.min(MAX_SCORE, points.reduce((a, p) => a + p.score, 0)) : num(all["ОЦІНКА"]);
+    if (!Number.isFinite(score)) throw new Error("аналіз: у відповіді немає БАЛИ");
     const facts = [...R.lines(all["ІСТОРІЯ"] || ""), ...R.lines(all["ФОРМУЛИ"] || "")].filter((x) => !R.empty(x));
     const history = [...an.history, score];
     if (score >= PASS_SCORE || an.rewrites >= MAX_REWRITE) {
-      ctx.set("analysis", { done: true, score, groups, facts, rewrites: an.rewrites, history, forced: score < PASS_SCORE });
+      ctx.set("analysis", { done: true, score, points, facts, rewrites: an.rewrites, history, forced: score < PASS_SCORE });
       break;
     }
     /* Забудь усе, що писав: етап 4 із самого початку. Фігури лишаються — вони до теми. */
@@ -852,7 +874,7 @@ async function algorithm(unit, ctx, o = {}) {
 
   /* ── 10 · ЗАВЕРШЕННЯ · операції в маніфест, базова ─────────────────────── */
   if (!ctx.get("ops")) {
-    const ops = [...LOC.ops(u, o.status || "done"), ...((ctx.get("topics") || {}).ops || [])];
+    const ops = [...LOC.ops(u, o.status || "done", thesesList(parts)), ...((ctx.get("topics") || {}).ops || [])];
     if (article && !u.insert) {
       const total = words(fs.readFileSync(path.join(MF.ROOT, ctx.get("assembly").file), "utf8"));
       const needBasic = total > LOC.BANDS.basic[3] * BASIC_OVER || !!st.basic;
@@ -1068,5 +1090,5 @@ async function codeAlgorithm(u, ctx, o) {
 
 module.exports = {
   algorithm, finishBatch, codeAlgorithm, codeUnitsOf, figAlgorithm, figUnitsOf, figId, plan, offline, groupsFor,
-  MAX_EXTEND, MAX_COMPRESS, MAX_REWRITE, MAX_FIG_ROUNDS, PASS_SCORE, FLOOR, CEIL_X, GROUPS,
+  MAX_EXTEND, MAX_COMPRESS, MAX_REWRITE, MAX_FIG_ROUNDS, PASS_SCORE, MAX_SCORE, FLOOR, CEIL_X, GROUPS,
 };

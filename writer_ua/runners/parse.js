@@ -139,14 +139,42 @@ const yes = (s) => /^\s*(так|yes|ок|ok)(?!\p{L}|\p{N})/iu.test(String(s || 
  */
 function sections(s) {
   const out = [];
+  const IMP = /^(?:важливість\s*:\s*)?(висока|середня|низька)$/i;
   for (const l of lines(s)) {
-    const m = /^(\d+)\s*\|\s*(?:важливість\s*:\s*)?([^|]+)\|\s*([\s\S]+)$/i.exec(l);
-    if (m) out.push({ n: Number(m[1]), importance: m[2].trim(), text: m[3].trim() });
+    const p = l.split("|").map((x) => x.trim());
+    const n = p.length >= 3 ? secNo(p[0]) : null;
+    const at = n == null ? -1 : p.findIndex((c, i) => i > 0 && IMP.test(c));
+    if (at > 0) {
+      /* `номер | назва | важливість | ціль` (автор, 14.09: назва окремо від цілі розділу —
+         заголовком ставало речення плану на 8–25 слів) або стара `номер | важливість | опис`.
+         Колонку важливості знаходимо за словом, а не за місцем: агент ставить її і другою,
+         і третьою. */
+      const rest = p.filter((_, i) => i > 0 && i !== at);
+      const title = rest.length >= 2 ? rest[0] : "";
+      out.push({ n, title, importance: IMP.exec(p[at])[1].toLowerCase(), text: (rest.length >= 2 ? rest.slice(1) : rest).join(" | ") });
+    }
     /* Рядок без номера після розділу — продовження його опису («На вході: …», «На виході:
        …»): 44 таких рядки за батч губились, і план розділу ставав коротшим за задуманий. */
     else if (out.length && !/^<\//.test(l)) out[out.length - 1].text += " " + l;
   }
   return out;
+}
+
+/**
+ * `hist-birth | коротка | 2` → {key, mode: "short"|"full", section}. Форма вставок з каркаса
+ * (автор, 14.09): коротка — абзац у тексті названого розділу, повна — окремий файл і
+ * одиниця. Рядок без вердикту — повна: так було завжди, і це безпечніший бік.
+ */
+function insertForms(s) {
+  return lines(s).map((l) => {
+    const p = l.split("|").map((x) => x.trim());
+    const m = /^(hist|comp|math|proj|api)-([a-z0-9][a-z0-9-]*)/i.exec(p[0] || "");
+    if (!m) return null;
+    const short = p.slice(1).some((c) => /^коротк/i.test(c));
+    const full = p.slice(1).some((c) => /^повн/i.test(c));
+    const secCol = p.slice(1).find((c) => secNo(c) != null);
+    return { key: `${m[1].toLowerCase()}-${m[2].toLowerCase()}`, mode: short && !full ? "short" : "full", section: secCol ? secNo(secCol) : null };
+  }).filter(Boolean);
 }
 
 /** `1, 2, 3` по рядку → [[1,2,3], …] */
@@ -214,6 +242,20 @@ function scores(s) {
     const score = Number((p[1].match(/\d+/) || [])[0]);
     if (!Number.isFinite(score)) return null;
     return { groups: (p[0].match(/\d+/g) || []).map(Number), score, why: p.slice(2).join(" | ") };
+  }).filter(Boolean);
+}
+
+/**
+ * `нитка | 2 | чому` → {name, score, why}. Бали аналізу за критеріями (автор, 14.09): бал
+ * нараховується, не знімається; перша колонка — ім'я критерію, не номери розділів.
+ */
+function points(s) {
+  return lines(s).map((l) => {
+    const p = l.split("|").map((x) => x.trim());
+    if (p.length < 2) return null;
+    const score = Number((p[1].match(/\d+(?:[.,]\d+)?/) || [""])[0].replace(",", "."));
+    if (!Number.isFinite(score)) return null;
+    return { name: p[0], score, why: p.slice(2).join(" | ") };
   }).filter(Boolean);
 }
 
@@ -383,5 +425,5 @@ function defects(s) {
 
 module.exports = {
   unwrap, blocks, repeated, files, want, lines, cols, empty, yes, howOf, sections, groups, inserts, code, figures,
-  preknow, topics, additions, defects, bySection, scores, replacements, verdict, names, place,
+  preknow, topics, additions, defects, bySection, scores, points, insertForms, replacements, verdict, names, place,
 };

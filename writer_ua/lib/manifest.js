@@ -140,6 +140,15 @@ const clampLevel = (n) => {
  *             Це не статус, тому зміна статусу його НЕ стирає; знімається лише
  *             явним `recode:false`.
  */
+/** Тези вузла після операції: нові з неї, інакше старі; порожня версія тез не тримає. */
+function theses(o, was, status) {
+  if (status === "empty") return null;
+  const fresh = Array.isArray(o.theses) ? o.theses.map((x) => String(x || "").trim()).filter(Boolean) : null;
+  if (fresh && fresh.length) return fresh;
+  return Array.isArray(was.theses) && was.theses.length ? was.theses : null;
+}
+const sameTheses = (a, b) => JSON.stringify(a || null) === JSON.stringify(Array.isArray(b) && b.length ? b : null);
+
 function decorate(node, status, level, recode) {
   if (status === "deeper" && level) node.level = level;
   if (recode) node.recode = true;
@@ -278,11 +287,15 @@ function applyOps(bookDir, ops, opt) {
           }
           const lvl = "level" in o ? clampLevel(o.level) : undefined;
           const rc = "recode" in o ? !!o.recode : undefined;
+          /* Тези написаного живуть біля статусу (автор, 14.09): їх передають наступним
+             письменникам — кроку курсу тези пройдених кроків. Нові — з операції; без них
+             старі лишаються, доки версія не стане порожньою. */
+          const th = theses(o, was, to);
           if (cur === to && (lvl === undefined || lvl === (was.level || null)) &&
-            (rc === undefined || rc === !!was.recode)) {
+            (rc === undefined || rc === !!was.recode) && sameTheses(th, was.theses)) {
             rep.skipped.push(`«${o.slug}».${o.ver} уже ${to}`); break;
           }
-          t.node[o.ver] = decorate({ status: to }, to,
+          t.node[o.ver] = decorate({ status: to, ...(th ? { theses: th } : {}) }, to,
             lvl !== undefined ? lvl : (was.level || null),
             rc !== undefined ? rc : !!was.recode);
           rep.status++; touched.add(t.group);
@@ -298,11 +311,12 @@ function applyOps(bookDir, ops, opt) {
           const cur = arr.find((x) => x.file === o.file);
           const lvl = "level" in o ? clampLevel(o.level) : undefined;
           const rc = "recode" in o ? !!o.recode : undefined;
+          const th = theses(o, cur || {}, o.status);
           if (cur && cur.status === o.status && (lvl === undefined || lvl === (cur.level || null)) &&
-            (rc === undefined || rc === !!cur.recode)) {
+            (rc === undefined || rc === !!cur.recode) && sameTheses(th, cur.theses)) {
             rep.skipped.push(`вставка «${o.file}» уже ${o.status}`); break;
           }
-          const node = decorate({ file: o.file, status: o.status }, o.status,
+          const node = decorate({ file: o.file, status: o.status, ...(th ? { theses: th } : {}) }, o.status,
             lvl !== undefined ? lvl : (cur ? cur.level || null : null),
             rc !== undefined ? rc : !!(cur && cur.recode));
           if (cur) arr[arr.indexOf(cur)] = node; else arr.push(node);

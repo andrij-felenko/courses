@@ -74,7 +74,8 @@ const answer = (u, names, typeKind) => [
 
 /* Що бере кожен, хто пише прозу: протокол письма, тези (лише статті), спільні файли, вид. */
 const PROSE = ["prose", "language", "links", "formulas", "figures", "code-in-text", "code-lang"];
-const hasTheses = (u) => u.type === "article" || u.type === "basic";
+/* Тези — всім, хто пише прозу, і вставкам (автор, 14.09): їх зберігають і передають далі. */
+const hasTheses = (u) => u.type !== "code" && u.type !== "fig";
 /* Історії код не потрібен — файли про код їй не йдуть. */
 const proseOf = (u) => (u.type === "hist" ? PROSE.filter((n) => !/^code/.test(n)) : PROSE);
 const writers = (u) => [...(hasTheses(u) ? ["theses"] : []), ...proseOf(u), ...kindFiles(u, { writing: true })];
@@ -235,7 +236,8 @@ const P = {
       { tag: "ТЕЗИ", body: theses },
       { tag: "ГРУПИ РОЗДІЛІВ", body: groups },
       { tag: "ЧОГО БРАКУЄ", body: force ? "Тексту бракує багато — назви місця, де його дописати." : "" },
-      { tag: "ЩО ЗРОБИТИ", body: order(u, ["mode-analysis", "prose"]) },
+      /* Аналіз судить і за правилами типу (автор, 14.09): вставку — як вставку, статтю — як статтю. */
+      { tag: "ЩО ЗРОБИТИ", body: order(u, ["mode-analysis", "prose"], "rules") },
       { tag: "ПОВЕРНИ", body: answer(u, ["mode-analysis"]) },
     ]);
   },

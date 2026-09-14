@@ -320,12 +320,31 @@ function preknow(u) {
   const before = all.slice(0, at);
   const volumes = [...new Set(before.filter((t) => t.group !== me.group).map((t) => t.group))]
     .map((g) => (b.groups.get(g) && b.groups.get(g).data.title) || g);
-  const steps = before.filter((t) => t.group === me.group).map((t) => `— ${t.title}`);
+  /* Тези пройденого — дані, не назви (автор, 14.09): що саме читач із кроку виніс. Власний
+     крок — з його вузла; ref — з вузла теми в її книзі. Нема тез — сама назва, як досі. */
+  const steps = before.filter((t) => t.group === me.group).map((t) => {
+    const th = stepTheses(t);
+    return `— ${t.title}${th.length ? `: ${th.join(" ")}` : ""}`;
+  });
   return [
-    "Це продовження доріжки: наведені кроки читач уже пройшов, і в тексті вони припускаються відомими.",
+    "Це продовження доріжки: наведені кроки читач уже пройшов. Де є тези, там сказано, що саме він звідти виніс.",
     volumes.length ? `Попередні томи: ${volumes.join(" · ")}` : "",
     steps.length ? `Кроки цього тому до цього кроку:\n${steps.join("\n")}` : "Це перший крок тому.",
   ].filter(Boolean).join("\n\n");
+}
+
+/** Тези кроку: детальної, інакше базової; для ref — теми за адресою `книга/слуг`. */
+function stepTheses(t) {
+  let node = t.own ? t.node : null;
+  if (!node && t.ref) {
+    const m = /^([^/]+)\/([^/]+)$/.exec(String(t.ref));
+    const rb = m && MF.loadBook(MF.bookDirOf(m[1]));
+    const rt = rb && MF.findTopic(rb, m[2]);
+    node = rt ? rt.node : null;
+  }
+  if (!node) return [];
+  const of = (v) => (v && Array.isArray(v.theses) ? v.theses.filter(Boolean) : []);
+  return of(node.detailed).length ? of(node.detailed) : of(node.basic);
 }
 
 /** ⛔ Дубль — точно й локально. Слуг є в книзі ⟺ тема існує. */
@@ -612,10 +631,12 @@ function checkFigure(u, file) {
 }
 
 /** Операції для писаря маніфесту. Статус приходить ззовні — вирішує не цей файл. */
-const ops = (u, status) => [
+/* Тези написаного їдуть у маніфест разом зі статусом (автор, 14.09) — звідти їх беруть
+   наступні письменники: крок курсу дістає тези пройдених кроків. */
+const ops = (u, status, theses) => [
   u.insert
-    ? { op: "insert", slug: u.slug, type: u.type, file: u.file, status }
-    : { op: "status", slug: u.slug, ver: u.type === "basic" ? "basic" : "detailed", status },
+    ? { op: "insert", slug: u.slug, type: u.type, file: u.file, status, ...(theses && theses.length ? { theses } : {}) }
+    : { op: "status", slug: u.slug, ver: u.type === "basic" ? "basic" : "detailed", status, ...(theses && theses.length ? { theses } : {}) },
 ];
 
 /**
