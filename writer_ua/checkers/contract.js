@@ -35,7 +35,7 @@ const READER = {
   "КОД": R.code, "ПЕРЕДУМОВИ": R.preknow,
   "ЩО ДОДАТИ": R.additions, "ЩО ЗЖАТИ": R.bySection, "ТЕЗИ": R.bySection,
   "ДЕ ДОПИСАТИ": R.bySection, "БАЛИ": R.points, "ЗАМІНИ": R.replacements, "НАЗВИ": R.names,
-  "ФОРМА ВСТАВОК": R.insertForms,
+  "ФОРМА ВСТАВОК": R.insertForms, "ПЕРЕВІРКА": R.verdicts,
 };
 
 /**

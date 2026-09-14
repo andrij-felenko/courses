@@ -259,6 +259,17 @@ function points(s) {
   }).filter(Boolean);
 }
 
+/** `перші слова | точне|неточне|невідомо | джерело` → {head, verdict, source}. Перевірка фактів. */
+function verdicts(s) {
+  return lines(s).map((l) => {
+    const p = l.split("|").map((x) => x.trim());
+    if (p.length < 2) return null;
+    const v = p[1].toLowerCase();
+    const verdict = /^точн/.test(v) ? "точне" : /^неточн|^хибн/.test(v) ? "неточне" : /^невідом|^не перевір/.test(v) ? "невідомо" : null;
+    return verdict ? { head: p[0], verdict, source: p.slice(2).join(" | ") } : null;
+  }).filter(Boolean);
+}
+
 /** `старе речення :: нове речення` → {from, to}. */
 function replacements(s) {
   return lines(s).map((l) => {
@@ -425,5 +436,5 @@ function defects(s) {
 
 module.exports = {
   unwrap, blocks, repeated, files, want, lines, cols, empty, yes, howOf, sections, groups, inserts, code, figures,
-  preknow, topics, additions, defects, bySection, scores, points, insertForms, replacements, verdict, names, place,
+  preknow, topics, additions, defects, bySection, scores, points, insertForms, replacements, verdicts, verdict, names, place,
 };

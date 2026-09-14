@@ -214,6 +214,22 @@ function findParagraph(paras, anchor) {
 const firstWords = (p, n = 6) => String(p || "").replace(/^[#>*\-\s`]+/, "").split(/\s+/).slice(0, n).join(" ");
 /** Абзац, у який не можна ні дописати речення, ні вставити після нього прозу як продовження. */
 const notProse = (p) => /^(```|!\[|:::|\||<)/.test(String(p || "").trim());
+/** Керівні символи, яких у прозі не буває, — слід з'їденого бекслеша. */
+const CTRL = /[\x00-\x08\x0b\x0c\x0e-\x1f]/;
+
+/**
+ * Речення з етимологією в дужках — на перевірку разом із фактами (14.09: «двотавр від лат.
+ * taurus — бик»): аналіз їх фактами не вважає, а вигадані корені трапляються.
+ */
+function etymologyLines(text) {
+  const prose = String(text || "").replace(/```[\s\S]*?```/g, "");
+  const out = [];
+  for (const s of prose.replace(/\n+/g, " ").split(/(?<=[.!?])\s+/)) {
+    if (/\((?:від\s+)?(?:лат|латин|грец|давньогрец|англ|нім|франц|фр\.|італ|ісп|порт|голл|нідерл|швед|дан|норв|пол|чес|санскр|араб|перс|тур|япон|кит|укр|праслов|старослов)/i.test(s) && s.length < 400)
+      out.push(s.trim());
+  }
+  return [...new Set(out)];
+}
 
 /** Оновити оцінки розділу після дописування чи стиснення — старі рядки про нього геть. */
 /**
@@ -267,6 +283,10 @@ function offline(parts) {
       const anchor = bad ? firstWords(bad) : "";
       if (ban) items.push({ part: p, section: sec, kind: "deepen", anchor, what: `формули записано LaTeX (${ban}): перепиши їх у цьому абзаці за правилом формул — інлайн-код або код-блок; нового тексту не додавай` });
       if (del) items.push({ part: p, section: sec, kind: "deepen", anchor, what: `непарні роздільники формул (${del}): перепиши формули в цьому абзаці за правилом формул; нового тексту не додавай` });
+      /* Відповідач часом пише керівні символи замість «\v», «\t», «\b» — і «void» стає «oid»,
+         «this» — «his» (fluent-interface, 14.09). Слова не відновити — абзац переписує письмо. */
+      const eaten = paragraphsOf(s.body).find((x) => CTRL.test(x));
+      if (eaten) items.push({ part: p, section: sec, kind: "deepen", anchor: firstWords(eaten), what: "у цьому абзаці з'їдено знаки: після бекслеша зникли літери (\\v→«oid», \\t→«his», \\b→«uild») — перепиши абзац повними словами, бекслешів не пиши; нового тексту не додавай" });
     });
   }
   return items;
@@ -554,21 +574,25 @@ async function algorithm(unit, ctx, o = {}) {
            названого. Розділ не переписується і не віддається наново. */
         for (const t of todo) {
           const ref = sectionOf(t.part, t.section);
-          for (const it of t.items.slice(0, MAX_ITEMS_PER_SECTION)) {
+          for (const [j, it] of t.items.slice(0, MAX_ITEMS_PER_SECTION).entries()) {
             if (it.kind === "skip") continue;
+            /* Мітка — з колом і номером пункту: адаптер зберігає відповідь за міткою, і
+               «дописування 3» вдруге діставало відповідь на перший пункт (14.09). */
+            const label = `дописування ${t.section}-${rounds + 1}-${j + 1}`;
             const paras = paragraphsOf(ref.secs[ref.i].body);
             if (!paras.length) paras.push("");
             let idx = findParagraph(paras, it.anchor);
-            const kind = it.kind === "deepen" && idx >= 0 ? "deepen" : "new";
+            /* Огорожа чи фігура — не абзац для поглиблення: після неї пишуть новий. */
+            const kind = it.kind === "deepen" && idx >= 0 && !notProse(paras[idx]) ? "deepen" : "new";
             if (idx < 0) idx = paras.length - 1;
             const paragraph = paras[idx];
-            const res = await ctx.call(`дописування ${t.section}`, () => ask(P.extend(u, {
+            const res = await ctx.call(label, () => ask(P.extend(u, {
               ...common(), section: planOf(k, t.section), text: sectionText(ref), paragraph,
               how: kind === "deepen" ? "поглибити цей абзац — повернути його ж, розгорнутий тим, що названо"
                 : "новий абзац після цього — повернути лише новий абзац, без сусідів",
               add: `${t.level} | ${it.what}`, theses: thesesText(parts, t.section),
               integrate: integrateList(u, st, k, allFigs(k), usedFigs(parts), k.code),
-            }), `дописування ${t.section}`));
+            }), label));
             const para = cleanText(need(res, ["АБЗАЦ"], "дописування")["АБЗАЦ"]).trim();
             if (!para) continue;
             if (kind === "deepen") { if (words(para) < words(paragraph) * KEEP_SHARE) continue; paras[idx] = para; }
@@ -604,10 +628,12 @@ async function algorithm(unit, ctx, o = {}) {
           /* Просити зрізати більше, ніж розділ має, — відмова: «розділ 550, зрізати 517». Не
              більше ніж 40 % розділу за коло; решта — наступним колом. */
           const cut = Math.max(20, Math.min(by, Math.round(words(before) * 0.4)));
-          const res = await ctx.call(`стиснення ${q.section}`, () => ask(P.compress(u, {
+          /* Мітка з колом — з тієї ж причини, що й у дописуванні: за міткою адаптер тримає відповідь. */
+          const label = `стиснення ${q.section}-${squeezed + 1}`;
+          const res = await ctx.call(label, () => ask(P.compress(u, {
             goal: goal.text, level: k.level, section: planOf(k, q.section), text: before,
             theses: thesesText(parts, q.section), squeeze: q.what, by: cut,
-          }), `стиснення ${q.section}`));
+          }), label));
           const d = need(res, ["ТЕКСТ"], "стиснення");
           const b = R.blocks(res);
           /* Відповідь, що не коротша (5 виросли, 10 без змін за батч), — відмова розділу. */
@@ -655,17 +681,22 @@ async function algorithm(unit, ctx, o = {}) {
 
   /* ── 5 · ФАКТИ · агент: веб-перевірка речень, заміна на місці ──────────── */
   if (!ctx.get("facts")) {
-    const lines = an.facts || [];
-    let reps = [];
+    const lines = [...new Set([...(an.facts || []), ...etymologyLines(assemble(parts))])];
+    let reps = [], checked = [];
     if (lines.length) {
       const res = await ctx.call("факти", () => ask(P.facts(u, { lines: lines.join("\n") }), "факти"));
-      reps = R.replacements(R.blocks(res)["ЗАМІНИ"] || "");
+      const b = R.blocks(res);
+      reps = R.replacements(b["ЗАМІНИ"] || "");
+      /* Вердикт на кожне речення (14.09): без нього перевірка була словом. */
+      checked = R.verdicts(b["ПЕРЕВІРКА"] || "");
     }
     let applied = 0;
     for (const p of parts) for (const r of reps)
       if (p.text.includes(r.from)) { p.text = p.text.split(r.from).join(r.to); applied++; }
     ctx.set("sections", parts);
-    ctx.set("facts", { asked: lines.length, returned: reps.length, applied });
+    const count = (v) => checked.filter((x) => x.verdict === v).length;
+    ctx.set("facts", { asked: lines.length, checked: checked.length, unchecked: Math.max(0, lines.length - checked.length),
+      exact: count("точне"), wrong: count("неточне"), unknown: count("невідомо"), returned: reps.length, applied });
   }
 
   /* ── 6 · РОЗСТАВЛЕННЯ · фігури й лінки без місця — один запит (автор, 14.09) ─── */
@@ -869,7 +900,10 @@ async function algorithm(unit, ctx, o = {}) {
     const pending = (ctx.get("figures") || {}).pending || [];
     /* Базова бере фігури детальної, які ще можуть малюватись, — за лінками її не судимо. */
     const svg = LOC.checkFigures(u.dir, { links: !pending.length && !basic });
-    ctx.set("assembly", { file, formulas: frm, fences: fen, svg: { ...svg, pending } });
+    /* Дослівно повторені абзаци й керівні символи — у звіт: їх не має бути, і видно одразу. */
+    const dup = LOC.dupParagraphs(fs.readFileSync(abs, "utf8"));
+    const ctrl = (fs.readFileSync(abs, "utf8").match(new RegExp(CTRL.source, "g")) || []).length;
+    ctx.set("assembly", { file, formulas: frm, fences: fen, svg: { ...svg, pending }, dup, ctrl });
   }
 
   /* ── 10 · ЗАВЕРШЕННЯ · операції в маніфест, базова ─────────────────────── */
@@ -924,21 +958,25 @@ async function finishBatch(done, o = {}) {
     for (const [bs, b] of MF.books()) { const x = MF.loadBook(b.bookDir); if (x && MF.findTopic(x, slug)) return `root:${bs}/${slug}`; }
     return "";
   };
-  let swept = 0, requeued = 0;
+  let swept = 0, requeued = 0, unlinked = 0;
   const dangling = [];
   for (const d of done) {
     const f = fileOf(d);
     if (!f) continue;
     const p = path.join(MF.ROOT, f);
     let s = ""; try { s = fs.readFileSync(p, "utf8"); } catch { continue; }
-    const map = {};
+    const map = {}, here = [];
     for (const m of s.matchAll(/root:new\/([a-z0-9][a-z0-9-]*)/gi)) {
       const slug = m[1].toLowerCase();
-      if (slug in map) continue;
+      if (slug in map || here.includes(slug)) continue;
       const a = addrOf(slug);
-      if (a) map[slug] = a; else dangling.push(`${f}: ${slug}`);
+      if (a) map[slug] = a; else { dangling.push(`${f}: ${slug}`); here.push(slug); }
     }
-    if (Object.keys(map).length) { fs.writeFileSync(p, LOC.resolveLinks(s, map), "utf8"); swept += Object.keys(map).length; }
+    /* Тема, якої ніхто не завів, — лінк знімаємо, слова лишаються: битого лінка в готовій
+       статті не буває (proj primitive-obsession, 14.09: `root:new/flyweight-pattern`). */
+    let out = Object.keys(map).length ? LOC.resolveLinks(s, map) : s;
+    for (const slug of here) out = LOC.unlink(out, `root:new/${slug}`);
+    if (out !== s) { fs.writeFileSync(p, out, "utf8"); swept += Object.keys(map).length; unlinked += here.length; }
     /* ⛔ ЛІНК НА ВЛАСНУ ВСТАВКУ, ЯКОЇ НЕМА. Стаття лінкує вставки з плану до того, як їх
        написано; впала одиниця вставки лінк не знімає — 28 битих лінків у progarch за ніч
        тиші. Тут: вставка своєї теми без файла → у маніфест `pending`, щоб черга її дописала;
@@ -959,7 +997,8 @@ async function finishBatch(done, o = {}) {
   }
   if (swept) notes.push(`лінків root:new/ переведено на адреси: ${swept}`);
   if (requeued) notes.push(`вставок повернуто в чергу (лінк є, файла нема): ${requeued}`);
-  for (const x of [...new Set(dangling)]) notes.push(`лінк root:new/ без теми: ${x}`);
+  for (const x of [...new Set(dangling)]) notes.push(`лінк root:new/ без теми знято, слова лишились: ${x}`);
+  if (unlinked) notes.push(`висячих лінків root:new/ знято: ${unlinked}`);
 
   const inserts = done
     .filter((d) => d.unit && d.unit.insert && fileOf(d))

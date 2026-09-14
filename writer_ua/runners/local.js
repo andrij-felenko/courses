@@ -393,12 +393,49 @@ const assemble = (parts) => {
      розборі відповіді й у групах; ця ловить те, що прослизнуло повз обидві. Повтор
      дешевше зняти тут, ніж потім пояснювати читачеві два однакові розділи. */
   const seen = new Set();
-  return parts.map((p) => String(p || "").trim()).filter((p) => {
+  return dedupeParagraphs(parts.map((p) => String(p || "").trim()).filter((p) => {
     if (!p || seen.has(p)) return false;
     seen.add(p);
     return true;
-  }).join("\n\n") + "\n";
+  }).join("\n\n")) + "\n";
 };
+
+/* Абзаци тексту (межа — порожній рядок, не всередині огорожі) — для дедуплікації. */
+function paragraphList(text) {
+  const out = []; let cur = [], fence = false;
+  for (const l of String(text || "").split("\n")) {
+    if (/^```/.test(l)) fence = !fence;
+    if (!fence && !l.trim()) { if (cur.length) { out.push(cur.join("\n")); cur = []; } continue; }
+    cur.push(l);
+  }
+  if (cur.length) out.push(cur.join("\n"));
+  return out;
+}
+const paraKey = (p) => p.toLowerCase().replace(/\s+/g, " ").trim();
+const isProsePara = (p) => !/^(#|!\[|:::|\||```|<)/.test(p.trim()) && p.trim().split(/\s+/).length >= 25;
+
+/**
+ * ⛔ ЧЕТВЕРТА ЗАСТАВА — АБЗАЦ, ДОСЛІВНО ПОВТОРЕНИЙ. Він не буває навмисним: за два батчі
+ * (14.09) стара відповідь адаптера лягала в текст удвічі-вп'ятеро, і 23 файли з 40 мали
+ * такі копії. Другу й наступні копії прозового абзацу від 25 слів знімаємо; фігури,
+ * огорожі, таблиці, заголовки не чіпаємо.
+ */
+function dedupeParagraphs(text) {
+  const seen = new Set();
+  return paragraphList(text).filter((p) => {
+    if (!isProsePara(p)) return true;
+    const k = paraKey(p);
+    if (seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  }).join("\n\n");
+}
+/** Скільки дослівних копій прозових абзаців у тексті — для звіту збірки. */
+function dupParagraphs(text) {
+  const seen = new Set(); let n = 0;
+  for (const p of paragraphList(text)) { if (!isProsePara(p)) continue; const k = paraKey(p); if (seen.has(k)) n++; else seen.add(k); }
+  return n;
+}
 
 /**
  * ⛔ РОЗМІТКА ФОРМУЛ — ЛОКАЛЬНО, ОДРАЗУ ПІСЛЯ ЗАПИСУ. Нуль токенів, і саме тому це
@@ -652,6 +689,6 @@ function titleRe(title) {
 module.exports = {
   humanPath, titleRe, unitOf, mentions, neighbours, books, shelf, chapterTopics, bookTopics, topicHead,
   linkContext, aroundLink, fileHead, resolveLinks, unlink, splitSections, joinSections, preknow, isDuplicate,
-  size, BANDS, assemble, writeArticle, writeCode, codeFiles, codeText, linkable,
+  size, BANDS, assemble, dedupeParagraphs, dupParagraphs, writeArticle, writeCode, codeFiles, codeText, linkable,
   fixFormulas, decamp, fixFences, unfenceDirectives, checkFences, checkFigures, figNames, writeFigure, checkFigure, ops,
 };
