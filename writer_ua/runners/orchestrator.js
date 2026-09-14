@@ -67,6 +67,37 @@ const slug = (s) => String(s).replace(/[^\w.-]+/g, "_");
 const msgOf = (e) => String((e && e.message) || e);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+function safeRenameSync(src, dst) {
+  try {
+    fs.renameSync(src, dst);
+  } catch (err) {
+    if (process.platform === "win32") {
+      let lastErr = err;
+      for (let i = 0; i < 5; i++) {
+        try {
+          const end = Date.now() + 50;
+          while (Date.now() < end) {}
+          try { fs.unlinkSync(dst); } catch { /* ignore */ }
+          fs.renameSync(src, dst);
+          return;
+        } catch (e) {
+          lastErr = e;
+        }
+      }
+      try {
+        fs.copyFileSync(src, dst);
+        try { fs.unlinkSync(src); } catch { /* ignore */ }
+        return;
+      } catch (e) {
+        lastErr = e;
+      }
+      throw lastErr;
+    } else {
+      throw err;
+    }
+  }
+}
+
 /* ── стан одиниці ──────────────────────────────────────────────────────────── */
 
 /**
@@ -134,7 +165,7 @@ class UnitState {
       text = JSON.stringify(safe, null, 1);
     }
     fs.writeFileSync(tmp, text + "\n", "utf8");
-    fs.renameSync(tmp, this.path);
+    safeRenameSync(tmp, this.path);
   }
 
   set(field, value) {

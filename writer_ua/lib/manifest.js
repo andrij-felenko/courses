@@ -158,7 +158,25 @@ function decorate(node, status, level, recode) {
 function writeJson(p, data) {
   const tmp = p + ".tmp";
   fs.writeFileSync(tmp, JSON.stringify(data, null, 2) + "\n", "utf8");
-  fs.renameSync(tmp, p);
+  try {
+    fs.renameSync(tmp, p);
+  } catch (err) {
+    if (process.platform === "win32") {
+      for (let i = 0; i < 5; i++) {
+        try {
+          const end = Date.now() + 50;
+          while (Date.now() < end) {}
+          try { fs.unlinkSync(p); } catch { /* ignore */ }
+          fs.renameSync(tmp, p);
+          return;
+        } catch { /* retry */ }
+      }
+      fs.copyFileSync(tmp, p);
+      try { fs.unlinkSync(tmp); } catch { /* ignore */ }
+    } else {
+      throw err;
+    }
+  }
 }
 
 /**
