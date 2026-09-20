@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок (відступ від верхнього краю > 20 px) -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Статична нестійкість планера: дивергенція проти реакції людини</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Нестійкий літак руйнується за 100–150 мс: людина запізнюється (150–200 мс), потрібен контур FBW (50–100 Гц)</text>
+
+  <!-- ЛІВА КОЛОНКА: Фізика стійкості (CG vs CP) -->
+
+  <!-- Блок 1: Стійкий планер -->
+  <rect x="24" y="76" width="392" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="98" font-size="14" font-weight="bold" fill="#27ae60">Стійкий планер (природна стійкість)</text>
+  <text x="40" y="116" font-size="12" fill="#6b7280">Центр ваги CG попереду аеродинамічного фокуса CP</text>
+
+  <!-- Стійкий планер: набігаючий потік і збурення -->
+  <text x="36" y="169" font-size="12" fill="#6b7280">Потік V</text>
+  <line x1="36" y1="179" x2="62" y2="179" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="82" y="140" font-size="12" fill="#6b7280">Δα &gt; 0</text>
+  <line x1="66" y1="179" x2="98" y2="164" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Стійкий планер: силует фюзеляжу -->
+  <path d="M 66,179 C 90,169 140,170 220,172 C 290,174 330,175 356,177 L 356,181 C 330,183 290,184 220,186 C 140,188 90,189 66,179 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Крило на рівні CP -->
+  <path d="M 215,179 L 235,152 L 255,179 Z" fill="#2457d6" fill-opacity="0.15" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Оперення хвоста -->
+  <path d="M 342,177 L 354,156 L 356,177 Z" fill="#2457d6" fill-opacity="0.15" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Стійкий планер: точка CG попереду -->
+  <circle cx="165" cy="179" r="5" fill="#1a1a1a"/>
+  <line x1="165" y1="179" x2="165" y2="214" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="165" y="228" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CG (вага)</text>
+
+  <!-- Стійкий планер: точка CP позаду -->
+  <circle cx="245" cy="179" r="5" fill="#27ae60"/>
+  <line x1="245" y1="179" x2="245" y2="144" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="245" y="136" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">+ΔL (підйомна)</text>
+
+  <!-- Стійкий планер: дуга відновлювального моменту -->
+  <path d="M 112,152 A 28,28 0 0,0 88,172" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="118" y="156" font-size="12" font-weight="bold" fill="#27ae60">M &lt; 0</text>
+  <text x="40" y="258" font-size="12" font-weight="bold" fill="#27ae60">Відновлювальний момент M &lt; 0: літак повертається сам</text>
+
+  <!-- Блок 2: Нестійкий планер -->
+  <rect x="24" y="290" width="392" height="202" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="40" y="312" font-size="14" font-weight="bold" fill="#c0392b">Нестійкий планер (статична нестійкість)</text>
+  <text x="40" y="330" font-size="12" fill="#6b7280">Центр ваги CG позаду аеродинамічного фокуса CP</text>
+
+  <!-- Нестійкий планер: набігаючий потік і збурення -->
+  <text x="36" y="383" font-size="12" fill="#6b7280">Потік V</text>
+  <line x1="36" y1="393" x2="62" y2="393" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="82" y="359" font-size="12" fill="#6b7280">Δα &gt; 0</text>
+  <line x1="66" y1="393" x2="98" y2="378" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Нестійкий планер: силует фюзеляжу -->
+  <path d="M 66,393 C 90,383 140,384 220,386 C 290,388 330,389 356,391 L 356,395 C 330,397 290,398 220,400 C 140,402 90,403 66,393 Z" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Переднє оперення / канарди на рівні CP -->
+  <path d="M 148,393 L 165,366 L 182,393 Z" fill="#c0392b" fill-opacity="0.15" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Оперення хвоста -->
+  <path d="M 342,391 L 354,370 L 356,391 Z" fill="#c0392b" fill-opacity="0.15" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Нестійкий планер: точка CP попереду -->
+  <circle cx="165" cy="393" r="5" fill="#c0392b"/>
+  <line x1="165" y1="393" x2="165" y2="358" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="165" y="350" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+ΔL (підйомна)</text>
+
+  <!-- Нестійкий планер: точка CG позаду -->
+  <circle cx="245" cy="393" r="5" fill="#1a1a1a"/>
+  <line x1="245" y1="393" x2="245" y2="428" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="245" y="442" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CG (вага)</text>
+
+  <!-- Нестійкий планер: дуга перекидного моменту -->
+  <path d="M 88,401 A 28,28 0 0,0 112,381" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="118" y="385" font-size="12" font-weight="bold" fill="#c0392b">M &gt; 0</text>
+  <text x="40" y="474" font-size="12" font-weight="bold" fill="#c0392b">Перекидний момент M &gt; 0: ніс задирається → зрив потоку!</text>
+
+  <!-- ПРАВА КОЛОНКА: Графік реакції на збурення -->
+  <rect x="430" y="76" width="506" height="416" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="450" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Динаміка кута атаки α(t) після збурення</text>
+  <text x="450" y="116" font-size="12" fill="#6b7280">Дивергенція нестійкого літака проти контуру FBW та реакції людини</text>
+
+  <!-- Поле графіка -->
+  <rect x="490" y="130" width="426" height="234" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Смуга циклу FBW (0..20 мс) -->
+  <rect x="515" y="147" width="28" height="190" fill="#eaf0fd"/>
+
+  <!-- Смуга затримки реакції пілота (150..200 мс) -->
+  <rect x="725" y="147" width="70" height="190" fill="#fdecea"/>
+
+  <!-- Написи всередині смуги пілота -->
+  <text x="760" y="250" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Реакція</text>
+  <text x="760" y="266" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">пілота</text>
+  <text x="760" y="282" font-size="12" fill="#6b7280" text-anchor="middle">150–200 мс</text>
+  <text x="760" y="302" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">(запізно!)</text>
+
+  <!-- Горизонтальний поріг руйнування alpha_crit = 15 deg (y = 217) -->
+  <line x1="515" y1="217" x2="905" y2="217" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="525" y="210" font-size="12" font-weight="bold" fill="#c0392b">α_крит: поріг звалювання й руйнування</text>
+
+  <!-- Вісь X (Час t) -->
+  <line x1="515" y1="337" x2="905" y2="337" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="908" y="342" font-size="12" font-weight="bold" fill="#1a1a1a">t, мс</text>
+
+  <!-- Засічки осі X -->
+  <line x1="515" y1="337" x2="515" y2="342" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="585" y1="337" x2="585" y2="342" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="655" y1="337" x2="655" y2="342" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="725" y1="337" x2="725" y2="342" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="795" y1="337" x2="795" y2="342" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="865" y1="337" x2="865" y2="342" stroke="#1a1a1a" stroke-width="1"/>
+
+  <text x="515" y="354" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="585" y="354" font-size="12" fill="#6b7280" text-anchor="middle">50</text>
+  <text x="655" y="354" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+  <text x="725" y="354" font-size="12" fill="#6b7280" text-anchor="middle">150</text>
+  <text x="795" y="354" font-size="12" fill="#6b7280" text-anchor="middle">200</text>
+  <text x="865" y="354" font-size="12" fill="#6b7280" text-anchor="middle">250</text>
+
+  <!-- Вісь Y (Кут атаки alpha) -->
+  <line x1="515" y1="337" x2="515" y2="147" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="515" y="140" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">α (°)</text>
+
+  <!-- Засічки осі Y -->
+  <line x1="510" y1="337" x2="515" y2="337" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="510" y1="297" x2="515" y2="297" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="510" y1="257" x2="515" y2="257" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="510" y1="217" x2="515" y2="217" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="510" y1="177" x2="515" y2="177" stroke="#1a1a1a" stroke-width="1"/>
+
+  <text x="507" y="341" font-size="12" fill="#6b7280" text-anchor="end">0°</text>
+  <text x="507" y="301" font-size="12" fill="#6b7280" text-anchor="end">5°</text>
+  <text x="507" y="261" font-size="12" fill="#6b7280" text-anchor="end">10°</text>
+  <text x="507" y="221" font-size="12" fill="#c0392b" text-anchor="end">15°</text>
+  <text x="507" y="181" font-size="12" fill="#6b7280" text-anchor="end">20°</text>
+
+  <!-- Траєкторія 1: Червона крива дивергенції (без FBW) -->
+  <path d="M 515,321 C 575,321 640,287 697,217 C 708,202 714,182 718,157" fill="none" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+
+  <!-- Позначка дивергенції на кривій -->
+  <text x="645" y="167" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зрив потоку</text>
+  <text x="645" y="183" font-size="12" fill="#c0392b" text-anchor="middle">100–150 мс</text>
+  <line x1="685" y1="174" x2="710" y2="164" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Траєкторія 2: Синя крива стабілізації FBW (50-100 Гц) -->
+  <path d="M 515,321 C 525,317 535,317 545,320 C 565,326 580,337 600,337 L 865,337" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Дискретні такти опитування FBW (кожні 12.5 мс = 80 Гц) -->
+  <circle cx="515" cy="321" r="3.5" fill="#2457d6"/>
+  <circle cx="532" cy="318" r="3.5" fill="#2457d6"/>
+  <circle cx="549" cy="322" r="3.5" fill="#2457d6"/>
+  <circle cx="566" cy="328" r="3.5" fill="#2457d6"/>
+  <circle cx="583" cy="335" r="3.5" fill="#2457d6"/>
+
+  <!-- Підпис до FBW на графіку (праворуч від межі смуги x=543) -->
+  <text x="550" y="256" font-size="12" font-weight="bold" fill="#2457d6">FBW (50–100 Гц)</text>
+  <text x="550" y="272" font-size="12" fill="#2457d6">такт 10–20 мс</text>
+  <line x1="575" y1="278" x2="575" y2="312" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Легенда внизу правої колонки -->
+  <rect x="450" y="378" width="466" height="98" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Рядок 1 легенди: Дивергенція без FBW -->
+  <line x1="462" y1="400" x2="488" y2="400" stroke="#c0392b" stroke-width="3"/>
+  <text x="496" y="404" font-size="12" fill="#1a1a1a">Без FBW: нестійкий планер експоненційно звалюється за 100–150 мс</text>
+
+  <!-- Рядок 2 легенди: Контур FBW -->
+  <line x1="462" y1="424" x2="488" y2="424" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="475" cy="424" r="3" fill="#2457d6"/>
+  <text x="496" y="428" font-size="12" fill="#1a1a1a">Контур FBW (50–100 Гц): демпфує збурення в зародку за 30–50 мс</text>
+
+  <!-- Рядок 3 легенди: Реакція людини -->
+  <rect x="462" y="444" width="26" height="14" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="496" y="456" font-size="12" fill="#1a1a1a">Реакція пілота (150–200 мс): запізніла, ручне керування неможливе</text>
+</svg>

@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Контракт вихідного порту актуатора: строго типізована межа</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Об&apos;єкти значень блокують некоректні фізичні стани, а Result унеможливлює протікання винятків</text>
+
+  <!-- 1. ПАНЕЛЬ ДОМЕННОГО ЯДРА -->
+  <rect x="20" y="76" width="285" height="440" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="162" y="100" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">1. ДОМЕННЕ ЯДРО</text>
+  <text x="162" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Викликач команди (намір)</text>
+
+  <!-- Блок 1.1: Команда та Value Objects -->
+  <rect x="32" y="130" width="261" height="146" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="150" font-size="13" font-weight="700" fill="#1a1a1a">SetPositionCommand</text>
+  <text x="44" y="170" font-size="12" fill="#1a1a1a"><tspan font-weight="700">ActuatorId</tspan>(&quot;valve-01&quot;)</text>
+  <text x="44" y="188" font-size="12" fill="#1a1a1a"><tspan font-weight="700">Percentage</tspan>(85.0)</text>
+  <text x="44" y="206" font-size="12" fill="#6b7280">інваріант: суворо [0.0..100.0]%</text>
+  <text x="44" y="224" font-size="12" fill="#1a1a1a"><tspan font-weight="700">CallContext</tspan>(дедлайн 15 с)</text>
+  <text x="44" y="242" font-size="12" fill="#6b7280">маркер: CancellationToken</text>
+  <text x="44" y="262" font-size="12" font-weight="700" fill="#2457d6">Виклик execute(cmd, ctx) ➔</text>
+
+  <!-- Блок 1.2: Обробка Result в домені -->
+  <rect x="32" y="290" width="261" height="120" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="44" y="310" font-size="13" font-weight="700" fill="#27ae60">Обробка в сервісі (match)</text>
+  <text x="44" y="330" font-size="12" font-family="monospace" fill="#27ae60">Ok(resp) =&gt;</text>
+  <text x="56" y="348" font-size="12" fill="#1a1a1a">підтвердити_стан(85%)</text>
+  <text x="44" y="368" font-size="12" font-family="monospace" fill="#c0392b">Err(MechanicalStall) =&gt;</text>
+  <text x="56" y="386" font-size="12" fill="#1a1a1a">зупинити помпу, аварія</text>
+  <text x="44" y="404" font-size="12" fill="#6b7280">Err(DeviceOffline) =&gt; реле</text>
+
+  <!-- Блок 1.3: Захист типів -->
+  <rect x="32" y="424" width="261" height="76" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="44" y="444" font-size="12" font-weight="700" fill="#27ae60">✓ Захист на рівні типів:</text>
+  <text x="44" y="462" font-size="12" fill="#1a1a1a">Жодних сирих int/float.</text>
+  <text x="44" y="480" font-size="12" fill="#1a1a1a">Неможливо задати -15% чи 250°.</text>
+
+  <!-- 2. ПАНЕЛЬ МЕЖІ ПОРТУ -->
+  <rect x="320" y="76" width="320" height="440" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="100" text-anchor="middle" font-size="14" font-weight="700" fill="#2457d6">2. МЕЖА ПОРТУ (INTERFACE)</text>
+  <text x="480" y="118" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Строго типізований контракт</text>
+
+  <!-- Блок 2.1: Інтерфейс ActuatorOutboundPort -->
+  <rect x="332" y="130" width="296" height="146" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="344" y="150" font-size="13" font-weight="700" fill="#2457d6">«interface» ActuatorOutboundPort</text>
+  <text x="344" y="170" font-size="12" font-weight="700" fill="#1a1a1a">+ execute(</text>
+  <text x="358" y="188" font-size="12" fill="#1a1a1a">cmd: SetPositionCommand,</text>
+  <text x="358" y="206" font-size="12" fill="#1a1a1a">ctx: CallContext</text>
+  <text x="344" y="224" font-size="12" font-weight="700" fill="#2457d6">): Result&lt;Response, Error&gt;</text>
+  <text x="344" y="244" font-size="12" fill="#6b7280">+ emergency_stop(id, ctx): Result</text>
+  <text x="344" y="262" font-size="12" fill="#6b7280">+ query_state(id, ctx): Result</text>
+
+  <!-- Блок 2.2: Result модель -->
+  <rect x="332" y="290" width="296" height="120" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="344" y="310" font-size="13" font-weight="700" fill="#2457d6">Повернення Result&lt;T, E&gt;</text>
+  <text x="344" y="330" font-size="12" font-weight="700" fill="#27ae60">Ok(ActuatorResponse):</text>
+  <text x="358" y="348" font-size="12" fill="#1a1a1a">actual_pos, ack_timestamp</text>
+  <text x="344" y="368" font-size="12" font-weight="700" fill="#c0392b">Err(ActuatorError):</text>
+  <text x="358" y="386" font-size="12" fill="#c0392b">MechanicalStall | DeviceOffline |</text>
+  <text x="358" y="404" font-size="12" fill="#c0392b">TimeoutError | HardwareFault</text>
+
+  <!-- Блок 2.3: Роль межі -->
+  <rect x="332" y="424" width="296" height="76" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="344" y="444" font-size="12" font-weight="700" fill="#2457d6">✓ Роль інтерфейсу порту:</text>
+  <text x="344" y="462" font-size="12" fill="#1a1a1a">Домен володіє контрактом межі.</text>
+  <text x="344" y="480" font-size="12" fill="#1a1a1a">Жоден виняток не пробиває Result.</text>
+
+  <!-- 3. ПАНЕЛЬ ВИХІДНОГО АДАПТЕРА -->
+  <rect x="655" y="76" width="285" height="440" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="797" y="100" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">3. ВИХІДНИЙ АДАПТЕР</text>
+  <text x="797" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Трансляція протоколу й залізо</text>
+
+  <!-- Блок 3.1: Адаптер і драйвери -->
+  <rect x="667" y="130" width="261" height="146" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="679" y="150" font-size="13" font-weight="700" fill="#1a1a1a">ModbusActuatorAdapter</text>
+  <text x="679" y="168" font-size="12" fill="#2457d6">implements OutboundPort</text>
+  <text x="679" y="188" font-size="12" fill="#1a1a1a"><tspan font-weight="700">Мапінг:</tspan> 85.0% ➔ 850 (0.1%)</text>
+  <text x="679" y="206" font-size="12" fill="#1a1a1a">Регістр: 0x0102 (Write Single)</text>
+  <text x="679" y="224" font-size="12" fill="#1a1a1a">Шина: <tspan font-weight="700">RS-485 / SerialPort</tspan></text>
+  <text x="679" y="242" font-size="12" fill="#6b7280">Кадр Modbus RTU + CRC-16</text>
+  <text x="679" y="262" font-size="12" fill="#1a1a1a">Привод: двигун + редуктор</text>
+
+  <!-- Блок 3.2: Бар'єр винятків -->
+  <rect x="667" y="290" width="261" height="120" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="679" y="310" font-size="13" font-weight="700" fill="#c0392b">Бар&apos;єр винятків (ACL)</text>
+  <text x="679" y="330" font-size="12" fill="#c0392b">SocketException / Обрив ➔</text>
+  <text x="691" y="348" font-size="12" font-weight="700" fill="#c0392b">Err(DeviceOffline)</text>
+  <text x="679" y="368" font-size="12" fill="#c0392b">Клин редуктора / Струм ➔</text>
+  <text x="691" y="386" font-size="12" font-weight="700" fill="#c0392b">Err(MechanicalStall)</text>
+  <text x="679" y="404" font-size="12" fill="#c0392b">ModbusTimeout ➔ TimeoutError</text>
+
+  <!-- Блок 3.3: Поглинання в адаптері -->
+  <rect x="667" y="424" width="261" height="76" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="679" y="444" font-size="12" font-weight="700" fill="#c0392b">⛔ Поглинання в адаптері:</text>
+  <text x="679" y="462" font-size="12" fill="#1a1a1a">Вендорні регістри та CRC сховані.</text>
+  <text x="679" y="480" font-size="12" fill="#1a1a1a">Мережеві винятки не протікають.</text>
+
+  <!-- СТРІЛКИ МІЖ КОЛОНКАМИ -->
+  <!-- 1 -> 2: Виклик команди -->
+  <line x1="293" y1="195" x2="330" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- 2 -> 3: Передача в адаптер -->
+  <line x1="628" y1="195" x2="665" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- 3 -> 2: Implements -->
+  <line x1="667" y1="155" x2="630" y2="155" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-gray)"/>
+  <!-- 3 -> 2: Повернення Result -->
+  <line x1="667" y1="350" x2="630" y2="350" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <!-- 2 -> 1: Result в домен -->
+  <line x1="332" y1="350" x2="295" y2="350" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Паралельне хеджування запитів (Hedged Requests)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Поріг p95 запускає дублікат до репліки B, зрізаючи p99-хвіст затримки ціною 5% трафіку</text>
+
+  <!-- Ліва колонка: плашки учасників -->
+  <!-- Репліка A -->
+  <rect x="25" y="72" width="165" height="66" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="35" y="96" font-size="13" font-weight="bold" fill="#1a1a1a">Репліка A (первинна)</text>
+  <text x="35" y="118" font-size="12" fill="#c0392b">Зависла у p99-хвості</text>
+
+  <!-- Клієнт / Диспетчер -->
+  <rect x="25" y="152" width="165" height="66" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="35" y="176" font-size="13" font-weight="bold" fill="#1a1a1a">Клієнт / Диспетчер</text>
+  <text x="35" y="198" font-size="12" fill="#2457d6">Таймер відсікання t_p95</text>
+
+  <!-- Репліка B -->
+  <rect x="25" y="232" width="165" height="66" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="35" y="256" font-size="13" font-weight="bold" fill="#1a1a1a">Репліка B (дублікат)</text>
+  <text x="35" y="278" font-size="12" fill="#27ae60">Швидка відповідь (~медіана)</text>
+
+  <!-- Права частина: доріжки часових шкал -->
+  <!-- Доріжка Репліки A -->
+  <rect x="205" y="72" width="730" height="66" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Доріжка Клієнта -->
+  <rect x="205" y="152" width="730" height="66" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Доріжка Репліки B -->
+  <rect x="205" y="232" width="730" height="66" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Події на Треку 1 (Репліка A) -->
+  <!-- Смуга повільної обробки A -->
+  <rect x="245" y="93" width="415" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="452" y="109" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">Аномальна затримка: повільна обробка у p99-хвості</text>
+
+  <!-- Маркер зупинки A на x=660 -->
+  <circle cx="660" cy="105" r="8" fill="#c0392b"/>
+  <path d="M656,101 L664,109 M664,101 L656,109" stroke="white" stroke-width="1.8"/>
+
+  <!-- Зрізаний хвіст затримки (пунктир) -->
+  <rect x="660" y="93" width="190" height="24" rx="4" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="755" y="109" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">Зрізаний p99-хвіст</text>
+
+  <!-- Події на Треку 2 (Клієнт) -->
+  <!-- Очікування таймера t_p95 -->
+  <rect x="230" y="173" width="270" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="365" y="189" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Таймер t_p95 (95% запитів)</text>
+
+  <!-- Очікування дубліката B -->
+  <rect x="500" y="173" width="160" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="580" y="189" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Очікування дубліката</text>
+
+  <!-- Результат отримано -->
+  <text x="755" y="189" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Результат отримано (t_done ≪ t_p99)</text>
+
+  <!-- Події на Треку 3 (Репліка B) -->
+  <!-- Зона очікування до порогу p95 -->
+  <text x="355" y="269" font-size="12" fill="#6b7280" text-anchor="middle">Очікування: 95% запитів не потребують дубліката</text>
+
+  <!-- Смуга швидкої обробки B -->
+  <rect x="520" y="253" width="140" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="590" y="269" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Швидка обробка (~медіана)</text>
+
+  <!-- Стрілки взаємодії між треками -->
+  <!-- 1. Первинний запит (Клієнт -> Репліка A) -->
+  <line x1="230" y1="173" x2="245" y2="120" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="255" y="146" font-size="12" fill="#2457d6" font-weight="bold">1. Запит</text>
+
+  <!-- 2. Дублікат (Клієнт -> Репліка B при t_p95) -->
+  <line x1="500" y1="197" x2="520" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="490" y="228" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="end">2. Дублікат (+5% трафіку)</text>
+
+  <!-- 3. Швидка відповідь (Репліка B -> Клієнт при t_done) -->
+  <line x1="645" y1="253" x2="645" y2="200" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="655" y="228" font-size="12" fill="#27ae60" font-weight="bold">3. Відповідь</text>
+
+  <!-- 4. Скасування завислого виклику (Клієнт -> Репліка A) -->
+  <line x1="660" y1="173" x2="660" y2="120" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="670" y="146" font-size="12" fill="#c0392b" font-weight="bold">4. Скасування (Cancel)</text>
+
+  <!-- Вертикальні направляючі між треками та до осі часу -->
+  <!-- Лінія t = 0 -->
+  <line x1="230" y1="138" x2="230" y2="152" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="230" y1="218" x2="230" y2="232" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="230" y1="298" x2="230" y2="320" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <!-- Лінія t_p95 -->
+  <line x1="500" y1="138" x2="500" y2="152" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="500" y1="298" x2="500" y2="320" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <!-- Лінія t_done -->
+  <line x1="660" y1="218" x2="660" y2="232" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="660" y1="298" x2="660" y2="320" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <!-- Лінія t_p99 -->
+  <line x1="850" y1="138" x2="850" y2="152" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="850" y1="218" x2="850" y2="232" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="850" y1="298" x2="850" y2="320" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <!-- Часова вісь знизу -->
+  <line x1="205" y1="324" x2="915" y2="324" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="925" y="328" font-size="12" font-weight="bold" fill="#1a1a1a">t</text>
+
+  <!-- Засічки на осі часу -->
+  <line x1="230" y1="320" x2="230" y2="328" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="500" y1="320" x2="500" y2="328" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="660" y1="320" x2="660" y2="328" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="850" y1="320" x2="850" y2="328" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Підписи на часовій осі -->
+  <text x="230" y="344" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">t = 0</text>
+  <text x="230" y="358" font-size="12" fill="#6b7280" text-anchor="middle">Старт запиту</text>
+
+  <text x="500" y="344" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_p95 (поріг хеджування)</text>
+  <text x="500" y="358" font-size="12" fill="#2457d6" text-anchor="middle">Відсікання 5% хвоста</text>
+
+  <text x="660" y="344" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_done (відповідь B)</text>
+  <text x="660" y="358" font-size="12" fill="#27ae60" text-anchor="middle">Скасування виклику A</text>
+
+  <text x="850" y="344" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_p99 (хвіст без хеджування)</text>
+  <text x="850" y="358" font-size="12" fill="#c0392b" text-anchor="middle">Аномальна затримка</text>
+
+  <!-- Нижня панель підсумків із 3 карток -->
+  <!-- Картка 1: Зрізання хвоста -->
+  <rect x="25" y="375" width="294" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="172" y="396" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зрізання хвоста затримок</text>
+  <text x="172" y="414" font-size="12" fill="#1a1a1a" text-anchor="middle">Затримка: t_done ≈ t_p95 + t_median ≪ t_p99</text>
+  <text x="172" y="430" font-size="12" fill="#6b7280" text-anchor="middle">Ризик застрягти обом: P = 0.01² = 0.0001 (0.01%)</text>
+
+  <!-- Картка 2: Мережеве навантаження -->
+  <rect x="333" y="375" width="294" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="396" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ціна: лише +5% навантаження</text>
+  <text x="480" y="414" font-size="12" fill="#1a1a1a" text-anchor="middle">Дублікат іде лише при t &gt; t_p95 (хвіст 5%)</text>
+  <text x="480" y="430" font-size="12" fill="#6b7280" text-anchor="middle">95% викликів виконуються без жодного дублювання</text>
+
+  <!-- Картка 3: Скасування tied requests -->
+  <rect x="641" y="375" width="294" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="788" y="396" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пов&apos;язані запити (Tied Requests)</text>
+  <text x="788" y="414" font-size="12" fill="#1a1a1a" text-anchor="middle">Сигнал Cancel зупиняє повільну репліку A</text>
+  <text x="788" y="430" font-size="12" fill="#6b7280" text-anchor="middle">Економія CPU, пам&apos;яті та з&apos;єднань у пулі</text>
+</svg>

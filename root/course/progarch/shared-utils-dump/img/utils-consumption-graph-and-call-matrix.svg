@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Граф та матриця споживання функцій пакета utils</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Аналіз аферентного зачеплення (Ca) виявляє мертвий код (Ca=0), локальні хелпери (Ca=1) та спільні утиліти (Ca≥2)</text>
+
+  <!-- LEFT PANEL: Consumption Graph -->
+  <rect x="30" y="80" width="435" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Орієнтований граф викликів</text>
+  <text x="45" y="123" font-size="12" fill="#6b7280">Структура залежностей між модулями</text>
+
+  <!-- Sub-headers -->
+  <text x="115" y="152" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Клієнтські модулі</text>
+  <text x="360" y="152" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Функції utils</text>
+
+  <!-- Client Modules (Left Column) -->
+  <rect x="50" y="170" width="130" height="42" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="115" y="196" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AuthService</text>
+
+  <rect x="50" y="245" width="130" height="42" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="115" y="271" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">OrderProcessor</text>
+
+  <rect x="50" y="320" width="130" height="42" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="115" y="346" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ReportGenerator</text>
+
+  <rect x="50" y="395" width="130" height="42" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="115" y="421" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PaymentGateway</text>
+
+  <!-- Utils Functions (Right Column) -->
+  <!-- 1. formatDate() Ca=3 -->
+  <rect x="270" y="165" width="180" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="282" y="190" font-size="13" font-weight="bold" fill="#1a1a1a">formatDate()</text>
+  <text x="282" y="210" font-size="11" fill="#6b7280">Спільна утиліта</text>
+  <rect x="395" y="177" width="45" height="36" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="417.5" y="191" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">Ca</text>
+  <text x="417.5" y="206" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3</text>
+
+  <!-- 2. parseJwt() Ca=1 -->
+  <rect x="270" y="240" width="180" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="282" y="265" font-size="13" font-weight="bold" fill="#1a1a1a">parseJwt()</text>
+  <text x="282" y="285" font-size="11" fill="#6b7280">Моно-виклик (Auth)</text>
+  <rect x="395" y="252" width="45" height="36" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="417.5" y="266" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">Ca</text>
+  <text x="417.5" y="281" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+
+  <!-- 3. validateTaxId() Ca=1 -->
+  <rect x="270" y="315" width="180" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="282" y="340" font-size="13" font-weight="bold" fill="#1a1a1a">validateTaxId()</text>
+  <text x="282" y="360" font-size="11" fill="#6b7280">Моно-виклик (Pay)</text>
+  <rect x="395" y="327" width="45" height="36" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="417.5" y="341" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">Ca</text>
+  <text x="417.5" y="356" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+
+  <!-- 4. oldCryptoCalc() Ca=0 -->
+  <rect x="270" y="390" width="180" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="282" y="415" font-size="13" font-weight="bold" fill="#1a1a1a">oldCryptoCalc()</text>
+  <text x="282" y="435" font-size="11" fill="#c0392b">Без викликів</text>
+  <rect x="395" y="402" width="45" height="36" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="417.5" y="416" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">Ca</text>
+  <text x="417.5" y="431" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0</text>
+
+  <!-- Directed Edge Arrows -->
+  <path d="M 180 191 C 225 191, 225 180, 270 180" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <path d="M 180 191 C 220 191, 225 270, 270 270" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <path d="M 180 266 C 225 266, 225 195, 270 195" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <path d="M 180 341 C 225 341, 225 210, 270 210" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <path d="M 180 416 C 225 416, 225 345, 270 345" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Left Panel Legend note -->
+  <rect x="45" y="465" width="405" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="485" font-size="11" fill="#6b7280">Червоний контур: Ca = 0. Синій: Ca = 1. Зелений: Ca ≥ 2.</text>
+
+  <!-- RIGHT PANEL: Consumption Matrix & Action Rules -->
+  <rect x="495" y="80" width="435" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="510" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Матриця споживання та розрахунок Ca</text>
+  <text x="510" y="123" font-size="12" fill="#6b7280">Автоматична класифікація та рецепти рефакторингу</text>
+
+  <!-- Table Container -->
+  <rect x="510" y="140" width="405" height="270" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 510 180 L 915 180" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 510 237.5 L 915 237.5" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 510 295 L 915 295" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 510 352.5 L 915 352.5" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Vertical grid lines -->
+  <path d="M 640 140 L 640 410" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 680 140 L 680 410" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 720 140 L 720 410" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 760 140 L 760 410" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 800 140 L 800 410" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 835 140 L 835 410" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Header background fill -->
+  <path d="M 516 140 L 909 140 A 6 6 0 0 1 915 146 L 915 180 L 510 180 L 510 146 A 6 6 0 0 1 516 140 Z" fill="#eaf0fd"/>
+
+  <!-- Table Header Labels -->
+  <text x="518" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">Утиліта utils</text>
+  <text x="660" y="165" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Auth</text>
+  <text x="700" y="165" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Order</text>
+  <text x="740" y="165" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Report</text>
+  <text x="780" y="165" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pay</text>
+  <text x="817.5" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ca</text>
+  <text x="875" y="165" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рекомендація</text>
+
+  <!-- Table Row 1: formatDate() -->
+  <text x="518" y="213" font-size="12" font-weight="bold" fill="#1a1a1a">formatDate()</text>
+  <text x="660" y="213" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="700" y="213" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="740" y="213" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="780" y="213" font-size="12" fill="#d0d7de" text-anchor="middle">0</text>
+  <text x="817.5" y="213" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">3</text>
+  <rect x="841" y="196" width="68" height="25" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="875" y="213" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Залишити</text>
+
+  <!-- Table Row 2: parseJwt() -->
+  <text x="518" y="270" font-size="12" font-weight="bold" fill="#1a1a1a">parseJwt()</text>
+  <text x="660" y="270" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="700" y="270" font-size="12" fill="#d0d7de" text-anchor="middle">0</text>
+  <text x="740" y="270" font-size="12" fill="#d0d7de" text-anchor="middle">0</text>
+  <text x="780" y="270" font-size="12" fill="#d0d7de" text-anchor="middle">0</text>
+  <text x="817.5" y="270" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <rect x="841" y="253" width="68" height="25" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="875" y="270" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Інлайнінг</text>
+
+  <!-- Table Row 3: validateTaxId() -->
+  <text x="518" y="328" font-size="12" font-weight="bold" fill="#1a1a1a">validateTaxId()</text>
+  <text x="660" y="328" font-size="12" fill="#d0d7de" text-anchor="middle">0</text>
+  <text x="700" y="328" font-size="12" fill="#d0d7de" text-anchor="middle">0</text>
+  <text x="740" y="328" font-size="12" fill="#d0d7de" text-anchor="middle">0</text>
+  <text x="780" y="328" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="817.5" y="328" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <rect x="841" y="311" width="68" height="25" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="875" y="328" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">До домену</text>
+
+  <!-- Table Row 4: oldCryptoCalc() -->
+  <text x="518" y="385" font-size="12" font-weight="bold" fill="#1a1a1a">oldCryptoCalc()</text>
+  <text x="660" y="385" font-size="12" fill="#d0d7de" text-anchor="middle">0</text>
+  <text x="700" y="385" font-size="12" fill="#d0d7de" text-anchor="middle">0</text>
+  <text x="740" y="385" font-size="12" fill="#d0d7de" text-anchor="middle">0</text>
+  <text x="780" y="385" font-size="12" fill="#d0d7de" text-anchor="middle">0</text>
+  <text x="817.5" y="385" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">0</text>
+  <rect x="841" y="368" width="68" height="25" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="875" y="385" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Видалити</text>
+
+  <!-- Right Panel Legend Card -->
+  <rect x="510" y="425" width="405" height="72" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="442" font-size="11" font-weight="bold" fill="#1a1a1a">Алгоритм класифікації знахідок:</text>
+  <text x="520" y="458" font-size="11" fill="#c0392b"><tspan font-weight="bold">Ca = 0:</tspan> Мертвий код → видалення без ризиків</text>
+  <text x="520" y="473" font-size="11" fill="#2457d6"><tspan font-weight="bold">Ca = 1:</tspan> Локальний хелпер → інлайнінг або репатріація в домен</text>
+  <text x="520" y="488" font-size="11" fill="#27ae60"><tspan font-weight="bold">Ca ≥ 2:</tspan> Спільна утиліта → збереження або окрема бібліотека</text>
+</svg>

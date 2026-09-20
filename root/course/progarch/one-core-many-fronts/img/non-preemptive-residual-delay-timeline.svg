@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-gray-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Блокування високопріоритетного виклику залишковим часом R</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Непереривний потік ядра не перериває поточну фонову задачу — виникає head-of-line blocking</text>
+
+  <!-- Головна панель часової діаграми -->
+  <rect x="30" y="68" width="900" height="244" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Бейдж доріжки 1: Черга ядра -->
+  <rect x="46" y="98" width="170" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="56" y="116" font-size="12" font-weight="bold" fill="#1a1a1a">Черга викликів ядра</text>
+  <text x="56" y="132" font-size="12" fill="#6b7280">Пріоритет: Клас 1 &gt; Клас 2</text>
+
+  <!-- Доріжка 1 (Черга): стан до надходження -->
+  <rect x="240" y="98" width="224" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="352" y="124" font-size="12" fill="#6b7280" text-anchor="middle">Черга Класу 1 порожня</text>
+
+  <!-- Подія надходження: позначка і стрілка -->
+  <text x="480" y="83" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Надходження запиту: Клас 1 (S₁ = 2 мс)</text>
+  <line x1="480" y1="87" x2="480" y2="95" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Доріжка 1 (Черга): блокування HOLB під час інтервалу R -->
+  <rect x="480" y="98" width="230" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="595" y="116" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Блокування початку черги (HOLB)</text>
+  <text x="595" y="132" font-size="12" fill="#c0392b" text-anchor="middle">Очікує залишковий час R</text>
+
+  <!-- Бейдж доріжки 2: Потік ядра -->
+  <rect x="46" y="156" width="170" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="56" y="176" font-size="12" font-weight="bold" fill="#1a1a1a">Спільний потік ядра</text>
+  <text x="56" y="194" font-size="12" fill="#6b7280">Непереривне виконання</text>
+
+  <!-- Доріжка 2 (Потік ядра): Фонова задача (Клас 2, S2) -->
+  <rect x="240" y="156" width="470" height="50" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="360" y="178" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фонова задача (Клас 2)</text>
+  <text x="360" y="194" font-size="12" fill="#6b7280" text-anchor="middle">Виконано: S₂ − R</text>
+
+  <!-- Вкладений блок: залишковий час R фонової задачі -->
+  <rect x="480" y="160" width="226" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="593" y="178" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Залишковий час R</text>
+  <text x="593" y="194" font-size="12" fill="#c0392b" text-anchor="middle">Ядро зайняте (не перервати)</text>
+
+  <!-- Доріжка 2 (Потік ядра): Інтерактивний запит (Клас 1, S1) -->
+  <rect x="724" y="156" width="126" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="787" y="178" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Запит Класу 1</text>
+  <text x="787" y="194" font-size="12" fill="#2457d6" text-anchor="middle">Обробка: S₁</text>
+
+  <!-- Доріжка 2: наступні задачі -->
+  <rect x="864" y="156" width="56" height="50" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="892" y="185" font-size="12" fill="#6b7280" text-anchor="middle">Далі…</text>
+
+  <!-- Вертикальні роздільники фаз між доріжками -->
+  <line x1="480" y1="142" x2="480" y2="156" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="710" y1="142" x2="710" y2="156" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="480" y1="206" x2="480" y2="222" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="710" y1="206" x2="710" y2="222" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Часова вісь t -->
+  <line x1="230" y1="222" x2="890" y2="222" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="898" y="226" font-size="12" font-weight="bold" fill="#1a1a1a">Час t</text>
+
+  <!-- Засічки на осі -->
+  <line x1="240" y1="219" x2="240" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="480" y1="219" x2="480" y2="225" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="710" y1="219" x2="710" y2="225" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="850" y1="219" x2="850" y2="225" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Підписи засічок часу -->
+  <text x="240" y="238" font-size="12" fill="#1a1a1a" text-anchor="middle">t₀</text>
+  <text x="240" y="252" font-size="12" fill="#6b7280" text-anchor="middle">Старт фону</text>
+
+  <text x="480" y="238" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_arr</text>
+  <text x="480" y="252" font-size="12" fill="#2457d6" text-anchor="middle">Вхід запиту</text>
+
+  <text x="710" y="238" font-size="12" fill="#1a1a1a" text-anchor="middle">t₁</text>
+  <text x="710" y="252" font-size="12" fill="#6b7280" text-anchor="middle">Кінець фону</text>
+
+  <text x="850" y="238" font-size="12" fill="#1a1a1a" text-anchor="middle">t₂</text>
+  <text x="850" y="252" font-size="12" fill="#2457d6" text-anchor="middle">Кінець запиту</text>
+
+  <!-- Розмірні лінії інтервалів під віссю -->
+  <line x1="240" y1="266" x2="480" y2="266" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray-rev)" marker-end="url(#arr-gray)"/>
+  <text x="360" y="286" font-size="12" fill="#6b7280" text-anchor="middle">Час до виклику: S₂ − R</text>
+
+  <line x1="480" y1="266" x2="710" y2="266" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+  <text x="595" y="286" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Залишковий інтервал R (HOLB)</text>
+
+  <line x1="724" y1="266" x2="850" y2="266" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="787" y="286" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Час обробки: S₁</text>
+
+  <!-- Нижні картки пояснень -->
+  <!-- Картка 1: Причина (непереривність) -->
+  <rect x="30" y="324" width="290" height="114" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="344" font-size="13" font-weight="bold" fill="#1a1a1a">1. Непереривний пріоритет</text>
+  <text x="44" y="364" font-size="12" fill="#1a1a1a">• Ядро не перериває транзакцію фону</text>
+  <text x="44" y="382" font-size="12" fill="#1a1a1a">• Пріоритетний запит стає в чергу</text>
+  <text x="44" y="400" font-size="12" fill="#6b7280">• Виникає блокування початку черги</text>
+  <text x="44" y="418" font-size="12" fill="#6b7280">• Head-of-line blocking блокує ядро</text>
+
+  <!-- Картка 2: Механізм (формула R) -->
+  <rect x="335" y="324" width="290" height="114" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="349" y="344" font-size="13" font-weight="bold" fill="#c0392b">2. Залишковий час R (renewal)</text>
+  <text x="349" y="364" font-size="12" fill="#c0392b">• R = ½·λ₁·S̄₁² + ½·λ₂·((S̄₂)² + σ₂²)</text>
+  <text x="349" y="382" font-size="12" fill="#1a1a1a">• Дисперсія фону σ₂² роздуває час R</text>
+  <text x="349" y="400" font-size="12" fill="#1a1a1a">• Очікування запиту: W₁ = R / (1 − ρ₁)</text>
+  <text x="349" y="418" font-size="12" fill="#6b7280">• Затримка зростає з 2 мс до 1089 мс</text>
+
+  <!-- Картка 3: Архітектурний розв'язок -->
+  <rect x="640" y="324" width="290" height="114" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="654" y="344" font-size="13" font-weight="bold" fill="#27ae60">3. Архітектурний висновок</text>
+  <text x="654" y="364" font-size="12" fill="#27ae60">• Черга пріоритетів НЕ рятує SLA</text>
+  <text x="654" y="382" font-size="12" fill="#1a1a1a">• Швидкий запит чекає чужий фон</text>
+  <text x="654" y="400" font-size="12" fill="#1a1a1a">• Хвостові затримки p₉₅ / p₉₉ деградують</text>
+  <text x="654" y="418" font-size="12" fill="#27ae60">• Вихід: фізично ізольовані пули ядер</text>
+</svg>

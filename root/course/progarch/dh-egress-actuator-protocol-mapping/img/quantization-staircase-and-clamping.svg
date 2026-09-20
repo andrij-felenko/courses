@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Квантування розрядної сітки та арифметика насичення (Clamping)</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Сходинки з кроком Δx дискретизують фізичну величину, смуга ±Δx/2 обмежує похибку, а насичення усуває переповнення</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ГРАФІК КВАНТУВАННЯ ==================== -->
+  <rect x="25" y="75" width="600" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="325" y="98" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Характеристика квантування: неперервна шкала → дискретні коди</text>
+  <text x="325" y="116" font-size="12" text-anchor="middle" fill="#6b7280">Сходинки квантування Y, ідеальна пряма y_ideal та зони насичення sat()</text>
+
+  <!-- Зони виходу за межі: фонові прямокутники насичення -->
+  <!-- Ліва зона: x < x_min -->
+  <rect x="105" y="135" width="80" height="230" fill="#fdecea"/>
+  <text x="145" y="152" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">x &lt; x_min</text>
+
+  <!-- Права зона: x > x_max -->
+  <rect x="465" y="135" width="115" height="230" fill="#fdecea"/>
+  <text x="522" y="145" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">x &gt; x_max</text>
+
+  <!-- Робоча зона: [x_min, x_max] підкладка -->
+  <rect x="185" y="135" width="280" height="230" fill="#ffffff"/>
+
+  <!-- Смуга похибки округлення ±Δx/2 (коридор навколо ідеальної прямої) -->
+  <polygon points="185,345 465,145 465,185 185,385" fill="#eaf0fd" stroke="#b8d0f8" stroke-width="1"/>
+
+  <!-- Сітка значень Y (лише всередині робочої зони 185..465) -->
+  <line x1="185" y1="165" x2="465" y2="165" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="185" y1="215" x2="465" y2="215" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="185" y1="265" x2="465" y2="265" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="185" y1="315" x2="465" y2="315" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Вертикальні межі робочого діапазону x_min та x_max -->
+  <line x1="185" y1="135" x2="185" y2="365" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="185" y="128" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">x_min</text>
+
+  <line x1="465" y1="135" x2="465" y2="365" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="465" y="128" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">x_max</text>
+
+  <!-- Ідеальна неперервна лінійна характеристика y_ideal -->
+  <line x1="185" y1="365" x2="465" y2="165" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Підпис ідеальної прямої -->
+  <text x="430" y="152" font-size="12" font-weight="700" text-anchor="end" fill="#2457d6">y_ideal</text>
+
+  <!-- Сходинки квантування (Staircase) -->
+  <!-- Рівень 0 (код 0): від 185 до 220 -->
+  <line x1="185" y1="365" x2="220" y2="365" stroke="#1a1a1a" stroke-width="3.5"/>
+  <line x1="220" y1="365" x2="220" y2="315" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Рівень 1 (код 1): від 220 до 290 -->
+  <line x1="220" y1="315" x2="290" y2="315" stroke="#1a1a1a" stroke-width="3.5"/>
+  <line x1="290" y1="315" x2="290" y2="265" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Рівень 2 (код 2): від 290 до 360 -->
+  <line x1="290" y1="265" x2="360" y2="265" stroke="#1a1a1a" stroke-width="3.5"/>
+  <line x1="360" y1="265" x2="360" y2="215" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Рівень 3 (код 3): від 360 до 430 -->
+  <line x1="360" y1="215" x2="430" y2="215" stroke="#1a1a1a" stroke-width="3.5"/>
+  <line x1="430" y1="215" x2="430" y2="165" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Рівень 4 (код Y_max): від 430 до 465 -->
+  <line x1="430" y1="165" x2="465" y2="165" stroke="#1a1a1a" stroke-width="3.5"/>
+
+  <!-- Точки на ідеальній прямій у центрі кожного кванта -->
+  <circle cx="185" cy="365" r="3.5" fill="#2457d6"/>
+  <circle cx="255" cy="315" r="3.5" fill="#2457d6"/>
+  <circle cx="325" cy="265" r="3.5" fill="#2457d6"/>
+  <circle cx="395" cy="215" r="3.5" fill="#2457d6"/>
+  <circle cx="465" cy="165" r="3.5" fill="#2457d6"/>
+
+  <!-- ==================== ДІЛЯНКИ НАСИЧЕННЯ (CLAMPING PLATEAUS) ==================== -->
+  <!-- Ліва полиця насичення: Y = Y_min (0) при x <= x_min -->
+  <line x1="105" y1="365" x2="185" y2="365" stroke="#27ae60" stroke-width="4"/>
+  <text x="145" y="356" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">sat: Y = 0</text>
+
+  <!-- Небезпека wrap-around при x < x_min (червона стрілка переповнення) -->
+  <line x1="145" y1="340" x2="145" y2="230" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="145" y="198" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Без sat:</text>
+  <text x="145" y="214" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">wrap → 65535</text>
+
+  <!-- Права полиця насичення: Y = Y_max при x >= x_max -->
+  <line x1="465" y1="165" x2="570" y2="165" stroke="#27ae60" stroke-width="4"/>
+  <text x="522" y="182" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">sat: Y = Y_max</text>
+
+  <!-- Небезпека wrap-around при x > x_max (червона стрілка скидання в 0) -->
+  <line x1="522" y1="195" x2="522" y2="305" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="522" y="325" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Без sat:</text>
+  <text x="522" y="341" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">wrap → 0</text>
+
+  <!-- Картка смуги похибки округлення ±Δx/2 у вільному кутку графіка -->
+  <rect x="195" y="145" width="130" height="52" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="260" y="163" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Смуга ±Δx/2</text>
+  <text x="260" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">Похибка округлення</text>
+  <text x="260" y="191" font-size="12" fill="#6b7280" text-anchor="middle">ε ∈ [-Δx/2, +Δx/2]</text>
+
+  <!-- ==================== ОСІ КООРДИНАТ ==================== -->
+  <!-- Вісь Y -->
+  <line x1="105" y1="390" x2="105" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="105" y="128" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Код Y</text>
+
+  <!-- Засічки та підписи осі Y -->
+  <line x1="100" y1="165" x2="105" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="96" y="169" font-size="12" font-weight="700" text-anchor="end" fill="#1a1a1a">Y_max</text>
+
+  <line x1="100" y1="215" x2="105" y2="215" stroke="#6b7280" stroke-width="1"/>
+  <text x="96" y="219" font-size="12" text-anchor="end" fill="#6b7280">3</text>
+
+  <line x1="100" y1="265" x2="105" y2="265" stroke="#6b7280" stroke-width="1"/>
+  <text x="96" y="269" font-size="12" text-anchor="end" fill="#6b7280">2</text>
+
+  <line x1="100" y1="315" x2="105" y2="315" stroke="#6b7280" stroke-width="1"/>
+  <text x="96" y="319" font-size="12" text-anchor="end" fill="#6b7280">1</text>
+
+  <line x1="100" y1="365" x2="105" y2="365" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="96" y="369" font-size="12" font-weight="700" text-anchor="end" fill="#1a1a1a">Y_min (0)</text>
+
+  <!-- Вісь X -->
+  <line x1="105" y1="365" x2="585" y2="365" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Засічки осі X -->
+  <line x1="185" y1="365" x2="185" y2="373" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="255" y1="365" x2="255" y2="371" stroke="#6b7280" stroke-width="1"/>
+  <line x1="325" y1="365" x2="325" y2="371" stroke="#6b7280" stroke-width="1"/>
+  <line x1="395" y1="365" x2="395" y2="371" stroke="#6b7280" stroke-width="1"/>
+  <line x1="465" y1="365" x2="465" y2="373" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Позначення крок квантування Δx між x_1 та x_2 на осі X -->
+  <line x1="255" y1="375" x2="255" y2="392" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="325" y1="375" x2="325" y2="392" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="255" y1="388" x2="325" y2="388" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="290" y="384" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Δx</text>
+
+  <!-- Підписи засічок осі X -->
+  <text x="185" y="405" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">x_min</text>
+  <text x="255" y="405" font-size="12" text-anchor="middle" fill="#6b7280">x_1</text>
+  <text x="325" y="405" font-size="12" text-anchor="middle" fill="#6b7280">x_2</text>
+  <text x="395" y="405" font-size="12" text-anchor="middle" fill="#6b7280">x_3</text>
+  <text x="465" y="405" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">x_max</text>
+
+  <!-- Підпис осі X внизу -->
+  <text x="335" y="426" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Вхідна фізична величина домену x</text>
+  <text x="335" y="444" font-size="12" text-anchor="middle" fill="#6b7280">Робочий інтервал [x_min, x_max] квантується сіткою 2ᴺ - 1 рівнів</text>
+
+  <!-- ==================== ПРАВІ КАРТКИ ==================== -->
+  <!-- Картка 1: Дискретизація та крок сітки -->
+  <rect x="645" y="75" width="290" height="115" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="660" y="97" font-size="13" font-weight="700" fill="#1a1a1a">1. Дискретизація та крок сітки Δx</text>
+  <text x="660" y="117" font-size="12" font-weight="700" fill="#2457d6">• Крок квантування сітки:</text>
+  <text x="672" y="133" font-size="12" font-weight="700" fill="#1a1a1a">Δx = (x_max - x_min) / (2ᴺ - 1)</text>
+  <text x="660" y="152" font-size="12" fill="#1a1a1a">• 1 LSB: крок регістра (код ΔY = 1)</text>
+  <text x="660" y="170" font-size="12" fill="#6b7280">• Допуск точності: ε_max ≤ ε_req</text>
+
+  <!-- Картка 2: Смуга похибки округлення -->
+  <rect x="645" y="205" width="290" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="660" y="227" font-size="13" font-weight="700" fill="#2457d6">2. Смуга похибки округлення ±Δx/2</text>
+  <text x="660" y="248" font-size="12" fill="#1a1a1a"><tspan font-weight="700">• Похибка: </tspan>ε_max = ±Δx / 2</text>
+  <text x="660" y="267" font-size="12" fill="#1a1a1a"><tspan font-weight="700">• Коридор: </tspan>y_ideal всередині ±0.5 LSB</text>
+  <text x="660" y="286" font-size="12" fill="#6b7280">• Зона нечутливості: deadband = Δx</text>
+  <text x="660" y="303" font-size="12" fill="#6b7280">• Запобігає автоколиванням (hunting)</text>
+
+  <!-- Картка 3: Арифметика насичення -->
+  <rect x="645" y="335" width="290" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="660" y="357" font-size="13" font-weight="700" fill="#27ae60">3. Арифметика насичення (sat)</text>
+  <text x="660" y="377" font-size="12" fill="#1a1a1a"><tspan font-weight="700">• sat(x): </tspan>відсікання поза [x_min, x_max]</text>
+  <text x="660" y="395" font-size="12" fill="#1a1a1a">• x &lt; x_min → Y = 0 (без underflow)</text>
+  <text x="660" y="413" font-size="12" fill="#1a1a1a">• x &gt; x_max → Y = Y_max (без overflow)</text>
+  <text x="660" y="432" font-size="12" font-weight="700" fill="#27ae60">• Гарантує інваріант Y ∈ [0..2ᴺ-1]</text>
+</svg>

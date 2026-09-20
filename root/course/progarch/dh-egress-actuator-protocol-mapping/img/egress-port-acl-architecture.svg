@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Архітектура керованого вихідного порту та антикорупційного шару</text>
+  <text x="480" y="48" font-size="13" text-anchor="middle" fill="#6b7280">Домен керує наміром через Value Objects, а вихідний адаптер та ACL ізолюють вендорний протокол і збої</text>
+
+  <!-- КОЛОНКА 1: ДОМЕННЕ ЯДРО -->
+  <rect x="24" y="66" width="276" height="432" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="36" y="88" font-size="14" font-weight="700" fill="#1a1a1a">1. ДОМЕННЕ ЯДРО (ДОМЕН)</text>
+  <text x="36" y="104" font-size="12" fill="#6b7280">Семантичний намір і чистота коду</text>
+
+  <!-- Блок 1.1: Доменний клієнт -->
+  <rect x="36" y="116" width="252" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="134" font-size="13" font-weight="700" fill="#1a1a1a">ClimateControlService</text>
+  <text x="48" y="152" font-size="12" fill="#1a1a1a"><tspan font-weight="700">ValveId</tspan>(&quot;valve-01&quot;)</text>
+  <text x="48" y="170" font-size="12" fill="#2457d6"><tspan font-weight="700">OpeningPercentage</tspan>(40.0%)</text>
+  <text x="48" y="188" font-size="12" fill="#6b7280">VO інваріант: суворо [0..100]%</text>
+  <text x="48" y="206" font-size="12" fill="#1a1a1a"><tspan font-weight="700">CancellationToken</tspan> (дедлайн 15 с)</text>
+
+  <!-- Стрілка 1.1 -> 1.2 -->
+  <line x1="162" y1="222" x2="162" y2="236" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 1.2: Керований вихідний порт -->
+  <rect x="36" y="236" width="252" height="96" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="48" y="254" font-size="13" font-weight="700" fill="#2457d6">«interface» IHeatingValveActuator</text>
+  <text x="48" y="272" font-size="12" font-weight="700" fill="#1a1a1a">+ SetPositionAsync(valve, op, ct)</text>
+  <text x="48" y="292" font-size="12" font-weight="700" fill="#2457d6">  ➔ Result&lt;Report, ActuatorError&gt;</text>
+  <text x="48" y="312" font-size="12" fill="#6b7280">Керований порт (належить ядру)</text>
+
+  <!-- Стрілка 1.2 -> 1.3 -->
+  <line x1="162" y1="332" x2="162" y2="346" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 1.3: Опрацювання Result -->
+  <rect x="36" y="346" width="252" height="140" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="48" y="366" font-size="13" font-weight="700" fill="#27ae60">Обробка Result (match)</text>
+  <text x="48" y="384" font-size="12" font-weight="700" fill="#27ae60">Ok(Report) ➔</text>
+  <text x="60" y="400" font-size="12" fill="#1a1a1a">FinalPosition: 40.0%, 3.2 с</text>
+  <text x="48" y="418" font-size="12" font-weight="700" fill="#c0392b">Err(ActuatorError) ➔</text>
+  <text x="60" y="434" font-size="12" fill="#c0392b">DeviceOffline | Stall | Fault</text>
+  <text x="48" y="456" font-size="12" font-weight="700" fill="#27ae60">✓ 100% захист: без винятків</text>
+  <text x="48" y="472" font-size="12" fill="#6b7280">Повна ізоляція від SDK і шини</text>
+
+  <!-- КОЛОНКА 2: ВИХІДНИЙ АДАПТЕР ТА ШАР ACL -->
+  <rect x="320" y="66" width="328" height="432" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="332" y="88" font-size="14" font-weight="700" fill="#2457d6">2. ВИХІДНИЙ АДАПТЕР ТА ШАР ACL</text>
+  <text x="332" y="104" font-size="12" fill="#6b7280">Трансляція семантики й бар'єр винятків</text>
+
+  <!-- Блок 2.1: Клас адаптера -->
+  <rect x="332" y="116" width="304" height="72" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="344" y="136" font-size="13" font-weight="700" fill="#1a1a1a">HeatingValveModbusAdapter</text>
+  <text x="344" y="154" font-size="12" font-weight="700" fill="#2457d6">implements IHeatingValveActuator</text>
+  <text x="344" y="172" font-size="12" fill="#6b7280">Реалізація порту в інфраструктурі (DIP)</text>
+
+  <!-- Блок 2.2: ACL Трансляція моделей -->
+  <rect x="332" y="200" width="304" height="126" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="344" y="220" font-size="13" font-weight="700" fill="#2457d6">ACL: Трансляція моделей (Намір ➔ Залізо)</text>
+  <text x="344" y="240" font-size="12" fill="#1a1a1a">• <tspan font-weight="700">OpeningPercentage</tspan>(40.0%)</text>
+  <text x="356" y="258" font-size="12" fill="#1a1a1a">➔ Афінна шкала: 0..100% ➔ 0..1000</text>
+  <text x="356" y="276" font-size="12" font-weight="700" fill="#2457d6">➔ Регістр уставки: 400 (0x0190)</text>
+  <text x="344" y="296" font-size="12" fill="#1a1a1a">• <tspan font-weight="700">ValveId</tspan> ➔ Slave 0x03, Reg 0x0028</text>
+  <text x="344" y="314" font-size="12" fill="#6b7280">Вендорні адреси сховані всередині ACL</text>
+
+  <!-- Блок 2.3: ACL Бар'єр винятків -->
+  <rect x="332" y="338" width="304" height="148" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="344" y="358" font-size="13" font-weight="700" fill="#c0392b">ACL: Бар'єр ізоляції збоїв (Catch &amp; Map)</text>
+  <text x="344" y="376" font-size="12" fill="#c0392b">TimeoutException / Обрив зв'язку ➔</text>
+  <text x="356" y="392" font-size="12" font-weight="700" fill="#c0392b">Err(ActuatorError.DeviceOffline)</text>
+  <text x="344" y="410" font-size="12" fill="#c0392b">Струм &gt; I_max / Клин редуктора ➔</text>
+  <text x="356" y="426" font-size="12" font-weight="700" fill="#c0392b">Err(ActuatorError.MechanicalStall)</text>
+  <text x="344" y="444" font-size="12" fill="#c0392b">Modbus Exception 0x02 / 0x04 ➔</text>
+  <text x="356" y="460" font-size="12" font-weight="700" fill="#c0392b">Err(ActuatorError.HardwareFault)</text>
+  <text x="344" y="476" font-size="12" fill="#6b7280">Вендорні винятки не протікають</text>
+
+  <!-- КОЛОНКА 3: ДРАЙВЕР ТА ОБЛАДНАННЯ -->
+  <rect x="668" y="66" width="268" height="432" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="680" y="88" font-size="14" font-weight="700" fill="#1a1a1a">3. ДРАЙВЕР ТА ОБЛАДНАННЯ</text>
+  <text x="680" y="104" font-size="12" fill="#6b7280">Вендорний SDK, шина та актуатор</text>
+
+  <!-- Блок 3.1: Протокольний драйвер шини -->
+  <rect x="680" y="116" width="244" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="692" y="134" font-size="13" font-weight="700" fill="#1a1a1a">ModbusRtuDriver (Шинний SDK)</text>
+  <text x="692" y="152" font-size="12" fill="#6b7280">Формування бінарного кадру:</text>
+  <text x="692" y="170" font-size="12" font-weight="700" fill="#1a1a1a">[03 06 00 28 01 90]</text>
+  <text x="692" y="188" font-size="12" fill="#1a1a1a">CRC-16: <tspan font-weight="700">0x088E</tspan> | Slave 3</text>
+  <text x="692" y="206" font-size="12" fill="#6b7280">Таймаут відповіді: 1500 мс</text>
+
+  <!-- Стрілка 3.1 -> 3.2 -->
+  <line x1="802" y1="222" x2="802" y2="236" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 3.2: Промислова шина RS-485 -->
+  <rect x="680" y="236" width="244" height="96" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="692" y="254" font-size="13" font-weight="700" fill="#2457d6">Польова шина RS-485</text>
+  <text x="692" y="272" font-size="12" fill="#1a1a1a">Диференціальна лінія A / B</text>
+  <text x="692" y="292" font-size="12" fill="#6b7280">9600 bps, RTU framing (t_3.5)</text>
+  <text x="692" y="312" font-size="12" fill="#c0392b">Джерело обривів і таймаутів</text>
+
+  <!-- Стрілка 3.2 -> 3.3 -->
+  <line x1="802" y1="332" x2="802" y2="346" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 3.3: Фізичний актуатор -->
+  <rect x="680" y="346" width="244" height="140" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="692" y="366" font-size="13" font-weight="700" fill="#1a1a1a">Привод клапана опалення</text>
+  <text x="692" y="384" font-size="12" fill="#1a1a1a">• Кроковий двигун + редуктор</text>
+  <text x="692" y="402" font-size="12" fill="#1a1a1a">• Повний хід штока: 120 секунд</text>
+  <text x="692" y="420" font-size="12" fill="#1a1a1a">• Датчик зворотного зв'язку</text>
+  <text x="692" y="442" font-size="12" font-weight="700" fill="#c0392b">⚡ Апаратні відмови:</text>
+  <text x="704" y="458" font-size="12" fill="#c0392b">клин штока, знеструмлення</text>
+  <text x="692" y="474" font-size="12" fill="#6b7280">Сирі збої фізичного світу</text>
+
+  <!-- ЗВ'ЯЗКИ ТА СТРІЛКИ МІЖ КОЛОНКАМИ -->
+  <!-- 1 -> 2: Виклик порту через межу -->
+  <line x1="288" y1="265" x2="328" y2="265" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 2 -> 1: Повернення типізованого Result -->
+  <line x1="332" y1="400" x2="292" y2="400" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- 2 -> 3: Виклик драйвера шини (запис регістру) -->
+  <line x1="636" y1="165" x2="676" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- 3 -> 2: Апаратні збої / таймаут шини в ACL -->
+  <line x1="680" y1="400" x2="640" y2="400" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+</svg>

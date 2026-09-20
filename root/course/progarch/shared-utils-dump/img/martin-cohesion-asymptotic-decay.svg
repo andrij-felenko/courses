@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Реляційна згуртованість Роберта Мартіна: H = (R + 1) / N</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Без внутрішніх викликів (R = 0) згуртованість utils спадає в нуль; у згуртованому модулі (R ∝ N) тримається вище 1.5</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Координатний графік -->
+  <rect x="24" y="72" width="570" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок лівої панелі -->
+  <text x="44" y="94" font-size="14" font-weight="700" fill="#1a1a1a">Залежність реляційної згуртованості H від розміру пакета N</text>
+  <text x="44" y="112" font-size="12" fill="#6b7280">Метрика Роберта Мартіна: H = (R + 1) / N. Поріг збалансованості H = 1.0</text>
+
+  <!-- Вісь Y -->
+  <line x1="85" y1="375" x2="85" y2="130" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="95" y="130" font-size="12" font-weight="700" fill="#1a1a1a">H (реляційна згуртованість)</text>
+
+  <!-- Засічки осі Y -->
+  <line x1="79" y1="140" x2="85" y2="140" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="79" y1="198" x2="85" y2="198" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="79" y1="257" x2="85" y2="257" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="79" y1="316" x2="85" y2="316" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="79" y1="375" x2="85" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Числа осі Y -->
+  <text x="74" y="144" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">2.0</text>
+  <text x="74" y="202" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">1.5</text>
+  <text x="74" y="261" text-anchor="end" font-size="12" font-weight="700" fill="#6b7280">1.0</text>
+  <text x="74" y="320" text-anchor="end" font-size="12" font-weight="700" fill="#6b7280">0.5</text>
+  <text x="74" y="379" text-anchor="end" font-size="12" font-weight="700" fill="#6b7280">0.0</text>
+
+  <!-- Пунктирна лінія порогу H = 1.0 -->
+  <line x1="85" y1="257" x2="380" y2="257" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4 4"/>
+  <text x="390" y="261" font-size="12" fill="#6b7280">Поріг збалансованості (H = 1.0)</text>
+
+  <!-- Вісь X -->
+  <line x1="85" y1="375" x2="565" y2="375" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Засічки осі X -->
+  <line x1="90" y1="375" x2="90" y2="381" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="140" y1="375" x2="140" y2="381" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="190" y1="375" x2="190" y2="381" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="240" y1="375" x2="240" y2="381" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="290" y1="375" x2="290" y2="381" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="340" y1="375" x2="340" y2="381" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="390" y1="375" x2="390" y2="381" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="440" y1="375" x2="440" y2="381" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="490" y1="375" x2="490" y2="381" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="540" y1="375" x2="540" y2="381" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Числа осі X -->
+  <text x="90" y="396" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">1</text>
+  <text x="140" y="396" text-anchor="middle" font-size="12" fill="#6b7280">2</text>
+  <text x="190" y="396" text-anchor="middle" font-size="12" fill="#6b7280">3</text>
+  <text x="240" y="396" text-anchor="middle" font-size="12" fill="#6b7280">4</text>
+  <text x="290" y="396" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">5</text>
+  <text x="340" y="396" text-anchor="middle" font-size="12" fill="#6b7280">6</text>
+  <text x="390" y="396" text-anchor="middle" font-size="12" fill="#6b7280">7</text>
+  <text x="440" y="396" text-anchor="middle" font-size="12" fill="#6b7280">8</text>
+  <text x="490" y="396" text-anchor="middle" font-size="12" fill="#6b7280">9</text>
+  <text x="540" y="396" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">10</text>
+
+  <!-- Підпис осі X -->
+  <text x="315" y="418" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Кількість компонентів у пакеті (N)</text>
+
+  <!-- Крива сфокусованого модуля (R proportional N) -->
+  <polyline points="90,257 140,198 190,179 240,186 290,183 340,182 390,185 440,184 490,186 540,186" fill="none" stroke="#27ae60" stroke-width="2.8"/>
+  <circle cx="90" cy="257" r="4" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="140" cy="198" r="4" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="290" cy="183" r="4" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="540" cy="186" r="5" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Підписи кривої сфокусованого модуля -->
+  <text x="145" y="146" font-size="13" font-weight="700" fill="#27ae60">Згуртований модуль (R ∝ N)</text>
+  <text x="145" y="162" font-size="12" fill="#27ae60">H стабільно утримується &gt; 1.5</text>
+
+  <!-- Плашка значення N=10 для сфокусованого модуля -->
+  <rect x="440" y="136" width="115" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="497" y="150" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">H = 1.60 (R = 15)</text>
+  <text x="497" y="165" text-anchor="middle" font-size="12" fill="#1a1a1a">висока зв&apos;язність</text>
+
+  <!-- Крива утилітарного смітника (R = 0, H = 1/N) -->
+  <polyline points="90,257 140,316 190,336 240,346 290,351 340,355 390,358 440,360 490,362 540,363" fill="none" stroke="#c0392b" stroke-width="2.8"/>
+  <circle cx="90" cy="257" r="4" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="140" cy="316" r="4" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="290" cy="351" r="4" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="540" cy="363" r="5" fill="#c0392b" stroke="#ffffff" stroke-width="2"/>
+
+  <!-- Підписи кривої utils -->
+  <text x="145" y="284" font-size="13" font-weight="700" fill="#c0392b">Спільний utils (R = 0)</text>
+  <text x="145" y="300" font-size="12" fill="#c0392b">Гіпербола H = 1/N обвалюється в нуль</text>
+
+  <!-- Плашка значення N=10 для utils -->
+  <rect x="440" y="318" width="115" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="497" y="332" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">H = 0.10 (R = 0)</text>
+  <text x="497" y="347" text-anchor="middle" font-size="12" fill="#c0392b">спад у 16 разів</text>
+
+  <!-- ПРАВА ВЕРХНЯ ПАНЕЛЬ: Згуртований модуль -->
+  <rect x="610" y="72" width="326" height="170" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="622" y="84" width="302" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="773" y="103" font-size="13" font-weight="700" text-anchor="middle" fill="#27ae60">Згуртований модуль (R ∝ N)</text>
+
+  <text x="626" y="130" font-size="12" font-weight="700" fill="#1a1a1a">Формула Мартіна: H = (R + 1) / N</text>
+  <text x="626" y="150" font-size="12" fill="#1a1a1a">• Внутрішні виклики: R = 15 (для N = 10)</text>
+  <text x="626" y="170" font-size="12" font-weight="700" fill="#27ae60">• Розрахунок: H = (15 + 1) / 10 = 1.60</text>
+  <text x="626" y="190" font-size="12" fill="#6b7280">• Зв&apos;язки ростуть разом із кодом (H &gt; 1.0)</text>
+  <text x="626" y="210" font-size="12" font-weight="700" fill="#27ae60">✔ Спільна мета: висока згуртованість</text>
+  <text x="626" y="228" font-size="12" fill="#6b7280">• Сфокусований пакет не розпадається</text>
+
+  <!-- ПРАВА НИЖНЯ ПАНЕЛЬ: Утилітарне звалище -->
+  <rect x="610" y="258" width="326" height="180" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="622" y="270" width="302" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="773" y="289" font-size="13" font-weight="700" text-anchor="middle" fill="#c0392b">Спільний utils (Звалище, R = 0)</text>
+
+  <text x="626" y="316" font-size="12" font-weight="700" fill="#1a1a1a">Редукція у гіперболу: H = 1 / N</text>
+  <text x="626" y="336" font-size="12" fill="#1a1a1a">• Внутрішні виклики: R = 0 (ізольованість)</text>
+  <text x="626" y="356" font-size="12" font-weight="700" fill="#c0392b">• Розрахунок: H = (0 + 1) / 10 = 0.10</text>
+  <text x="626" y="376" font-size="12" fill="#6b7280">• При N → ∞ показник H → 0 (занепад)</text>
+  <text x="626" y="396" font-size="12" font-weight="700" fill="#c0392b">✖ Випадкова зв&apos;язність (coincidental)</text>
+  <text x="626" y="416" font-size="12" fill="#6b7280">• Кожен новий помічник розмиває модуль</text>
+</svg>

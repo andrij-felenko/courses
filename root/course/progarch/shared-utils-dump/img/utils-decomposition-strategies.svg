@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 535" width="960" height="535" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="535" fill="white"/>
+
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-problem" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Три вектори демонтажу спільного пакета utils</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Розподіл функцій за справжніми власниками усуває штучну зв'язність і дозволяє видалити звалище</text>
+
+  <!-- Вихідний стан: монолітний utils -->
+  <rect x="30" y="74" width="900" height="74" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="93" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Вихідний стан: монолітний пакет utils/ (антипатерн «спільне звалище» з випадковою зв'язністю)</text>
+
+  <!-- Три категорії утиліт усередині utils -->
+  <rect x="42" y="102" width="276" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="180" y="116" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Приховані бізнес-правила</text>
+  <text x="180" y="130" text-anchor="middle" font-size="12" fill="#6b7280">calcDiscount(), validateOrder()</text>
+
+  <rect x="342" y="102" width="276" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="116" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Одноразові приватні хелпери</text>
+  <text x="480" y="130" text-anchor="middle" font-size="12" fill="#6b7280">formatReportRow(), parseFilter()</text>
+
+  <rect x="642" y="102" width="276" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="780" y="116" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Алгоритми загального вжитку</text>
+  <text x="780" y="130" text-anchor="middle" font-size="12" fill="#6b7280">slugify(), base64Encode(), md5()</text>
+
+  <!-- Вектори-стрілки демонтажу -->
+  <line x1="173" y1="148" x2="173" y2="180" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+  <line x1="480" y1="148" x2="480" y2="180" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+  <line x1="787" y1="148" x2="787" y2="180" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+
+  <!-- ================= КОЛОНКА 1: Вектор 1 ================= -->
+  <rect x="30" y="182" width="286" height="269" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="40" y="192" width="266" height="30" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="173" y="212" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Вектор 1: Репатріація в домен</text>
+
+  <rect x="40" y="235" width="266" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="173" y="253" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Ціль: класи й агрегати домену</text>
+  <text x="173" y="269" text-anchor="middle" font-size="12" fill="#2457d6">Order.validate(), User.calcDiscount()</text>
+  <text x="173" y="285" text-anchor="middle" font-size="12" fill="#6b7280">Повернення логіки до своїх даних</text>
+
+  <rect x="40" y="306" width="266" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="173" y="324" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Дія: відновлення сутностей</text>
+  <text x="173" y="340" text-anchor="middle" font-size="12" fill="#6b7280">Вилучення інваріантів зі звалища</text>
+  <text x="173" y="356" text-anchor="middle" font-size="12" fill="#6b7280">і впровадження в багаті моделі</text>
+
+  <rect x="40" y="377" width="266" height="62" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="173" y="395" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Ефект: подолання анемічності</text>
+  <text x="173" y="412" text-anchor="middle" font-size="12" fill="#1a1a1a">Інкапсуляція бізнес-правил,</text>
+  <text x="173" y="428" text-anchor="middle" font-size="12" fill="#1a1a1a">чисті та виразні межі контексту</text>
+
+  <!-- ================= КОЛОНКА 2: Вектор 2 ================= -->
+  <rect x="337" y="182" width="286" height="269" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="347" y="192" width="266" height="30" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="212" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Вектор 2: Локалізація й інлайнінг</text>
+
+  <rect x="347" y="235" width="266" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="253" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Ціль: конкретний модуль-клієнт</text>
+  <text x="480" y="269" text-anchor="middle" font-size="12" fill="#2457d6">private formatRow() або inline-код</text>
+  <text x="480" y="285" text-anchor="middle" font-size="12" fill="#6b7280">Код живе за місцем свого виклику</text>
+
+  <rect x="347" y="306" width="266" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="324" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Дія: інлайнінг і правило Пайка</text>
+  <text x="480" y="340" text-anchor="middle" font-size="12" fill="#6b7280">1 споживач: сховати в клієнт;</text>
+  <text x="480" y="356" text-anchor="middle" font-size="12" fill="#6b7280">2 споживачі: свідоме дублювання</text>
+
+  <rect x="347" y="377" width="266" height="62" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="395" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Ефект: автономність модулів</text>
+  <text x="480" y="412" text-anchor="middle" font-size="12" fill="#1a1a1a">Усунення транзитивних зв'язків,</text>
+  <text x="480" y="428" text-anchor="middle" font-size="12" fill="#1a1a1a">дешева модифікація деталей</text>
+
+  <!-- ================= КОЛОНКА 3: Вектор 3 ================= -->
+  <rect x="644" y="182" width="286" height="269" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="654" y="192" width="266" height="30" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="787" y="212" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Вектор 3: Окрема міні-бібліотека</text>
+
+  <rect x="654" y="235" width="266" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="787" y="253" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Ціль: версіонований пакет</text>
+  <text x="787" y="269" text-anchor="middle" font-size="12" fill="#2457d6">@lib/slugify, @lib/crypto-hash</text>
+  <text x="787" y="285" text-anchor="middle" font-size="12" fill="#6b7280">Власний semver і життєвий цикл</text>
+
+  <rect x="654" y="306" width="266" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="787" y="324" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Дія: виділення загального коду</text>
+  <text x="787" y="340" text-anchor="middle" font-size="12" fill="#6b7280">Стабільні утиліти без домену</text>
+  <text x="787" y="356" text-anchor="middle" font-size="12" fill="#6b7280">отримують чіткий публічний API</text>
+
+  <rect x="654" y="377" width="266" height="62" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="787" y="395" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Ефект: принципи REP і CRP</text>
+  <text x="787" y="412" text-anchor="middle" font-size="12" fill="#1a1a1a">Одиниця вжитку = одиниця релізу,</text>
+  <text x="787" y="428" text-anchor="middle" font-size="12" fill="#1a1a1a">клієнт не тягне чужих оновлень</text>
+
+  <!-- Підсумок демонтажу -->
+  <rect x="30" y="464" width="900" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="483" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Підсумок демонтажу: пакет utils/ повністю спорожнюється і безповоротно видаляється</text>
+  <text x="480" y="501" text-anchor="middle" font-size="12" fill="#1a1a1a">Зіркова зв'язність ліквідована; правило dependency-cruiser у CI блокує рецидив створення звалищ</text>
+</svg>

@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Життєвий цикл повідомлення та мапінг відповідей ядра в черзі</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Внутрішній стан ядра однозначно визначає долю пакета: видалення через ACK, повтор через NACK чи ізоляція в DLQ</text>
+
+  <!-- ======================================================================= -->
+  <!-- КОЛОНКА 1: ДРАЙВУЮЧИЙ АДАПТЕР (ВХІДНИЙ ПОТІК) (x: 24..264, w=240)        -->
+  <!-- ======================================================================= -->
+  <rect x="24" y="72" width="240" height="444" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="34" y="80" width="220" height="26" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="144" y="97" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Вхідний потік і розбір</text>
+  <text x="144" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Драйвуючий адаптер черги</text>
+
+  <!-- Блок 1.1: Прийом і розбір пакета -->
+  <rect x="34" y="134" width="220" height="114" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="44" y="154" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Прийом і розбір пакета</text>
+  <text x="44" y="174" font-size="12" fill="#1a1a1a" text-anchor="start">• Черга: orders.incoming</text>
+  <text x="44" y="193" font-size="12" fill="#1a1a1a" text-anchor="start">• Метадані: tag = 0x4A2</text>
+  <text x="44" y="212" font-size="12" fill="#1a1a1a" text-anchor="start">• JSON-тіло розібрано у пам'яті</text>
+  <text x="44" y="231" font-size="12" fill="#6b7280" text-anchor="start">Збій парсингу ➔ одразу в DLQ</text>
+
+  <!-- Стрілка між 1.1 і 1.2 -->
+  <line x1="144" y1="248" x2="144" y2="264" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 1.2: Складання DTO та виклик порту -->
+  <rect x="34" y="264" width="220" height="114" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="44" y="284" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Складання DTO й виклик</text>
+  <text x="44" y="304" font-size="12" fill="#1a1a1a" text-anchor="start">• Створення ProcessOrderCmd</text>
+  <text x="44" y="323" font-size="12" fill="#1a1a1a" text-anchor="start">• Нуль транспорту черги в DTO</text>
+  <text x="44" y="342" font-size="12" fill="#2457d6" text-anchor="start">• port.Handle(command)</text>
+  <text x="44" y="361" font-size="12" fill="#6b7280" text-anchor="start">Очікування Result від ядра</text>
+
+  <!-- Блок 1.3: Бар'єр ізоляції -->
+  <rect x="34" y="394" width="220" height="114" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="44" y="414" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Ізоляція доменного ядра</text>
+  <text x="44" y="434" font-size="12" fill="#1a1a1a" text-anchor="start">• Двосторонній транслятор</text>
+  <text x="44" y="453" font-size="12" fill="#6b7280" text-anchor="start">• Ядро не знає про сигнали черг</text>
+  <text x="44" y="472" font-size="12" fill="#6b7280" text-anchor="start">• Бізнес-логіка повертає Result</text>
+  <text x="44" y="491" font-size="12" fill="#2457d6" text-anchor="start">• Адаптер визначає долю пакета</text>
+
+  <!-- ======================================================================= -->
+  <!-- КОЛОНКА 2: ПРИКЛАДНЕ ЯДРО (СТАНИ RESULT) (x: 304..600, w=296)           -->
+  <!-- ======================================================================= -->
+  <rect x="304" y="72" width="296" height="444" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="314" y="80" width="276" height="26" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="452" y="97" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Прикладне ядро (Вхідний порт)</text>
+  <text x="452" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Результат виконання: Result&lt;T, DomainError&gt;</text>
+
+  <!-- Блок 2.1: Успіх (Result::Ok) -->
+  <rect x="314" y="134" width="276" height="114" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="326" y="154" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">✓ Result::Ok(OrderCreated)</text>
+  <text x="326" y="174" font-size="12" fill="#1a1a1a" text-anchor="start">• Бізнес-інваріанти задоволено</text>
+  <text x="326" y="193" font-size="12" fill="#1a1a1a" text-anchor="start">• Стан агрегату збережено в базі</text>
+  <text x="326" y="212" font-size="12" fill="#1a1a1a" text-anchor="start">• Опубліковано внутрішні доменні події</text>
+  <text x="326" y="231" font-size="12" fill="#27ae60" text-anchor="start">Чистий результат без протокольного сміття</text>
+
+  <!-- Блок 2.2: Тимчасова помилка (Transient Error) -->
+  <rect x="314" y="264" width="276" height="114" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="326" y="284" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">⟳ Result::Err(TransientError)</text>
+  <text x="326" y="304" font-size="12" fill="#1a1a1a" text-anchor="start">• OptimisticLockConflict / Deadlock БД</text>
+  <text x="326" y="323" font-size="12" fill="#1a1a1a" text-anchor="start">• Тимчасовий таймаут зв'язку з репозиторієм</text>
+  <text x="326" y="342" font-size="12" fill="#1a1a1a" text-anchor="start">• Недоступність зовнішнього мікросервісу</text>
+  <text x="326" y="361" font-size="12" fill="#2457d6" text-anchor="start">Тимчасовий збій: повторна спроба доречна</text>
+
+  <!-- Блок 2.3: Фатальне порушення (Fatal Domain Error) -->
+  <rect x="314" y="394" width="276" height="114" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="326" y="414" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">✗ Result::Err(FatalDomainError)</text>
+  <text x="326" y="434" font-size="12" fill="#1a1a1a" text-anchor="start">• Несумісність інваріантів: OutOfStock</text>
+  <text x="326" y="453" font-size="12" fill="#1a1a1a" text-anchor="start">• Бізнес-відмова: рахунок закрито / ліміт</text>
+  <text x="326" y="472" font-size="12" fill="#1a1a1a" text-anchor="start">• Некоректні ідентифікатори клієнта</text>
+  <text x="326" y="491" font-size="12" fill="#c0392b" text-anchor="start">Фатальний збій: повтор призведе до петлі</text>
+
+  <!-- ======================================================================= -->
+  <!-- КОЛОНКА 3: МАПІНГ ТА ДОЛЯ В ЧЕРЗІ БРОКЕРА (x: 624..936, w=312)          -->
+  <!-- ======================================================================= -->
+  <rect x="624" y="72" width="312" height="444" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="634" y="80" width="292" height="26" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="780" y="97" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Мапінг і протокольні сигнали</text>
+  <text x="780" y="120" font-size="12" fill="#6b7280" text-anchor="middle">Директива адаптера та остаточна дія брокера</text>
+
+  <!-- Блок 3.1: ACK (Успіх) -->
+  <rect x="634" y="134" width="292" height="114" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="646" y="154" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Сигнал: ACK (Підтвердження)</text>
+  <text x="646" y="174" font-size="12" fill="#1a1a1a" text-anchor="start">• channel.BasicAck(delivery_tag)</text>
+  <text x="646" y="193" font-size="12" fill="#1a1a1a" text-anchor="start">• Дія брокера: остаточне видалення</text>
+  <text x="646" y="212" font-size="12" fill="#1a1a1a" text-anchor="start">• Фіксація зміщення (Commit offset)</text>
+  <text x="646" y="231" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">✓ Пакет успішно вилучено з черги</text>
+
+  <!-- Блок 3.2: NACK з requeue=true (Повтор) -->
+  <rect x="634" y="264" width="292" height="114" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="646" y="284" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Сигнал: NACK (requeue = true)</text>
+  <text x="646" y="304" font-size="12" fill="#1a1a1a" text-anchor="start">• channel.BasicNack(tag, requeue=true)</text>
+  <text x="646" y="323" font-size="12" fill="#1a1a1a" text-anchor="start">• Дія брокера: повернення в чергу</text>
+  <text x="646" y="342" font-size="12" fill="#1a1a1a" text-anchor="start">• Затримка повтору (Retry backoff delay)</text>
+  <text x="646" y="361" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">⟳ Повідомлення збережено для повтору</text>
+
+  <!-- Блок 3.3: NACK з requeue=false -> DLQ (Фатальна помилка) -->
+  <rect x="634" y="394" width="292" height="114" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="646" y="414" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Сигнал: NACK ➔ DLQ (requeue=false)</text>
+  <text x="646" y="434" font-size="12" fill="#1a1a1a" text-anchor="start">• channel.BasicNack(tag, requeue=false)</text>
+  <text x="646" y="453" font-size="12" fill="#1a1a1a" text-anchor="start">• Дія брокера: переміщення в DLQ</text>
+  <text x="646" y="472" font-size="12" fill="#1a1a1a" text-anchor="start">• Ізоляція отруйного пакета (Poison Pill)</text>
+  <text x="646" y="491" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">⛔ Воркер врятовано від нескінченного циклу</text>
+
+  <!-- ======================================================================= -->
+  <!-- СТРІЛКИ РОЗГАЛУЖЕННЯ: З КОЛОНКИ 1 У КОЛОНКУ 2                          -->
+  <!-- ======================================================================= -->
+  <!-- Вихід із Блоку 1.2 на рівні y=321 до шини x=284 -->
+  <line x1="254" y1="321" x2="284" y2="321" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Вертикальна шина розгалуження в каналі x=284 -->
+  <line x1="284" y1="191" x2="284" y2="451" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Гілка 1 (Вгору до Result::Ok) -->
+  <line x1="284" y1="191" x2="314" y2="191" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Гілка 2 (Прямо до Result::Err Transient) -->
+  <line x1="284" y1="321" x2="314" y2="321" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Гілка 3 (Вниз до Result::Err Fatal) -->
+  <line x1="284" y1="451" x2="314" y2="451" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- ======================================================================= -->
+  <!-- СТРІЛКИ МАПІНГУ: З КОЛОНКИ 2 У КОЛОНКУ 3                              -->
+  <!-- ======================================================================= -->
+  <!-- Потік успіху: Result::Ok ➔ ACK -->
+  <line x1="590" y1="191" x2="634" y2="191" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Потік тимчасового збою: Err(Transient) ➔ NACK requeue=true -->
+  <line x1="590" y1="321" x2="634" y2="321" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Потік фатального збою: Err(Fatal) ➔ NACK requeue=false (DLQ) -->
+  <line x1="590" y1="451" x2="634" y2="451" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+</svg>

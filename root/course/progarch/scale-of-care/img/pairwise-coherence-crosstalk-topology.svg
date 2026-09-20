@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+  <text x="480" y="36" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Топологія попарної когерентності: квадратичне зростання зв'язків</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Кількість каналів узгодження зростає як N(N−1)/2 — службовий трафік лавиноподібно витісняє корисну роботу</text>
+  <!-- Панель N=3 -->
+  <rect x="24" y="76" width="288" height="344" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="168" y="102" font-size="16" font-weight="700" fill="#27ae60" text-anchor="middle">N = 3 вузли</text>
+  <rect x="98" y="112" width="140" height="22" rx="11" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="168" y="127" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">3 канали зв'язку</text>
+  <line x1="168.0" y1="150.0" x2="221.7" y2="243.0" stroke="#27ae60" stroke-width="2" stroke-opacity="0.85"/>
+  <line x1="168.0" y1="150.0" x2="114.3" y2="243.0" stroke="#27ae60" stroke-width="2" stroke-opacity="0.85"/>
+  <line x1="221.7" y1="243.0" x2="114.3" y2="243.0" stroke="#27ae60" stroke-width="2" stroke-opacity="0.85"/>
+  <circle cx="168.0" cy="150.0" r="14" fill="white" stroke="#27ae60" stroke-width="2"/>
+  <text x="168.0" y="154.0" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">1</text>
+  <circle cx="221.7" cy="243.0" r="14" fill="white" stroke="#27ae60" stroke-width="2"/>
+  <text x="221.7" y="247.0" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">2</text>
+  <circle cx="114.3" cy="243.0" r="14" fill="white" stroke="#27ae60" stroke-width="2"/>
+  <text x="114.3" y="247.0" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">3</text>
+  <rect x="36" y="300" width="264" height="108" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="46" y="320" font-size="12" font-weight="700" fill="#27ae60">Канали: N(N−1)/2 = 3</text>
+  <text x="46" y="342" font-size="12" fill="#1a1a1a">• Спрямовані обміни: 6 (6κ)</text>
+  <text x="46" y="364" font-size="12" fill="#1a1a1a">• Службовий трафік: базовий оверхед</text>
+  <text x="46" y="386" font-size="12" font-weight="700" fill="#27ae60">• Стан: лінійне прискорення</text>
+  <!-- Панель N=5 -->
+  <rect x="336" y="76" width="288" height="344" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="102" font-size="16" font-weight="700" fill="#2457d6" text-anchor="middle">N = 5 вузлів</text>
+  <rect x="410" y="112" width="140" height="22" rx="11" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="127" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">10 каналів зв'язку</text>
+  <line x1="480.0" y1="146.0" x2="542.8" y2="191.6" stroke="#2457d6" stroke-width="1.4" stroke-opacity="0.85"/>
+  <line x1="480.0" y1="146.0" x2="518.8" y2="265.4" stroke="#2457d6" stroke-width="1.4" stroke-opacity="0.85"/>
+  <line x1="480.0" y1="146.0" x2="441.2" y2="265.4" stroke="#2457d6" stroke-width="1.4" stroke-opacity="0.85"/>
+  <line x1="480.0" y1="146.0" x2="417.2" y2="191.6" stroke="#2457d6" stroke-width="1.4" stroke-opacity="0.85"/>
+  <line x1="542.8" y1="191.6" x2="518.8" y2="265.4" stroke="#2457d6" stroke-width="1.4" stroke-opacity="0.85"/>
+  <line x1="542.8" y1="191.6" x2="441.2" y2="265.4" stroke="#2457d6" stroke-width="1.4" stroke-opacity="0.85"/>
+  <line x1="542.8" y1="191.6" x2="417.2" y2="191.6" stroke="#2457d6" stroke-width="1.4" stroke-opacity="0.85"/>
+  <line x1="518.8" y1="265.4" x2="441.2" y2="265.4" stroke="#2457d6" stroke-width="1.4" stroke-opacity="0.85"/>
+  <line x1="518.8" y1="265.4" x2="417.2" y2="191.6" stroke="#2457d6" stroke-width="1.4" stroke-opacity="0.85"/>
+  <line x1="441.2" y1="265.4" x2="417.2" y2="191.6" stroke="#2457d6" stroke-width="1.4" stroke-opacity="0.85"/>
+  <circle cx="480.0" cy="146.0" r="13" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="480.0" y="150.0" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">1</text>
+  <circle cx="542.8" cy="191.6" r="13" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="542.8" y="195.6" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">2</text>
+  <circle cx="518.8" cy="265.4" r="13" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="518.8" y="269.4" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">3</text>
+  <circle cx="441.2" cy="265.4" r="13" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="441.2" y="269.4" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">4</text>
+  <circle cx="417.2" cy="191.6" r="13" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="417.2" y="195.6" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">5</text>
+  <rect x="348" y="300" width="264" height="108" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="358" y="320" font-size="12" font-weight="700" fill="#2457d6">Канали: N(N−1)/2 = 10</text>
+  <text x="358" y="342" font-size="12" fill="#1a1a1a">• Спрямовані обміни: 20 (20κ)</text>
+  <text x="358" y="364" font-size="12" fill="#1a1a1a">• Службовий трафік: зростання у 3,3×</text>
+  <text x="358" y="386" font-size="12" font-weight="700" fill="#2457d6">• Стан: початок насичення USL</text>
+  <!-- Панель N=9 -->
+  <rect x="648" y="76" width="288" height="344" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="792" y="102" font-size="16" font-weight="700" fill="#c0392b" text-anchor="middle">N = 9 вузлів</text>
+  <rect x="722" y="112" width="140" height="22" rx="11" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="792" y="127" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">36 каналів зв'язку</text>
+  <line x1="792.0" y1="142.0" x2="837.0" y2="158.4" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="792.0" y1="142.0" x2="860.9" y2="199.8" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="792.0" y1="142.0" x2="852.6" y2="247.0" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="792.0" y1="142.0" x2="815.9" y2="277.8" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="792.0" y1="142.0" x2="768.1" y2="277.8" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="792.0" y1="142.0" x2="731.4" y2="247.0" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="792.0" y1="142.0" x2="723.1" y2="199.8" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="792.0" y1="142.0" x2="747.0" y2="158.4" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="837.0" y1="158.4" x2="860.9" y2="199.8" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="837.0" y1="158.4" x2="852.6" y2="247.0" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="837.0" y1="158.4" x2="815.9" y2="277.8" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="837.0" y1="158.4" x2="768.1" y2="277.8" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="837.0" y1="158.4" x2="731.4" y2="247.0" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="837.0" y1="158.4" x2="723.1" y2="199.8" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="837.0" y1="158.4" x2="747.0" y2="158.4" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="860.9" y1="199.8" x2="852.6" y2="247.0" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="860.9" y1="199.8" x2="815.9" y2="277.8" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="860.9" y1="199.8" x2="768.1" y2="277.8" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="860.9" y1="199.8" x2="731.4" y2="247.0" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="860.9" y1="199.8" x2="723.1" y2="199.8" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="860.9" y1="199.8" x2="747.0" y2="158.4" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="852.6" y1="247.0" x2="815.9" y2="277.8" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="852.6" y1="247.0" x2="768.1" y2="277.8" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="852.6" y1="247.0" x2="731.4" y2="247.0" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="852.6" y1="247.0" x2="723.1" y2="199.8" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="852.6" y1="247.0" x2="747.0" y2="158.4" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="815.9" y1="277.8" x2="768.1" y2="277.8" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="815.9" y1="277.8" x2="731.4" y2="247.0" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="815.9" y1="277.8" x2="723.1" y2="199.8" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="815.9" y1="277.8" x2="747.0" y2="158.4" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="768.1" y1="277.8" x2="731.4" y2="247.0" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="768.1" y1="277.8" x2="723.1" y2="199.8" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="768.1" y1="277.8" x2="747.0" y2="158.4" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="731.4" y1="247.0" x2="723.1" y2="199.8" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="731.4" y1="247.0" x2="747.0" y2="158.4" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <line x1="723.1" y1="199.8" x2="747.0" y2="158.4" stroke="#d9534f" stroke-width="1" stroke-opacity="0.85"/>
+  <circle cx="792.0" cy="142.0" r="12" fill="white" stroke="#c0392b" stroke-width="2"/>
+  <text x="792.0" y="146.0" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">1</text>
+  <circle cx="837.0" cy="158.4" r="12" fill="white" stroke="#c0392b" stroke-width="2"/>
+  <text x="837.0" y="162.4" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">2</text>
+  <circle cx="860.9" cy="199.8" r="12" fill="white" stroke="#c0392b" stroke-width="2"/>
+  <text x="860.9" y="203.8" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">3</text>
+  <circle cx="852.6" cy="247.0" r="12" fill="white" stroke="#c0392b" stroke-width="2"/>
+  <text x="852.6" y="251.0" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">4</text>
+  <circle cx="815.9" cy="277.8" r="12" fill="white" stroke="#c0392b" stroke-width="2"/>
+  <text x="815.9" y="281.8" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">5</text>
+  <circle cx="768.1" cy="277.8" r="12" fill="white" stroke="#c0392b" stroke-width="2"/>
+  <text x="768.1" y="281.8" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">6</text>
+  <circle cx="731.4" cy="247.0" r="12" fill="white" stroke="#c0392b" stroke-width="2"/>
+  <text x="731.4" y="251.0" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">7</text>
+  <circle cx="723.1" cy="199.8" r="12" fill="white" stroke="#c0392b" stroke-width="2"/>
+  <text x="723.1" y="203.8" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">8</text>
+  <circle cx="747.0" cy="158.4" r="12" fill="white" stroke="#c0392b" stroke-width="2"/>
+  <text x="747.0" y="162.4" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">9</text>
+  <rect x="660" y="300" width="264" height="108" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="670" y="320" font-size="12" font-weight="700" fill="#c0392b">Канали: N(N−1)/2 = 36</text>
+  <text x="670" y="342" font-size="12" fill="#1a1a1a">• Спрямовані обміни: 72 (72κ)</text>
+  <text x="670" y="364" font-size="12" fill="#1a1a1a">• Службовий трафік: оверхед зростає у 12×</text>
+  <text x="670" y="386" font-size="12" font-weight="700" fill="#c0392b">• Стан: ретроградний колапс (κ·N²)</text>
+  <!-- Підсумковий висновок USL -->
+  <rect x="24" y="430" width="912" height="48" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="450" font-size="12" text-anchor="middle">
+    <tspan font-weight="700" fill="#1a1a1a">Фізичний зміст члена κ·N·(N−1) в USL: </tspan>
+    <tspan fill="#6b7280">кожен із N вузлів надсилає стан (N−1) сусідам по окремих каналах</tspan>
+  </text>
+  <text x="480" y="468" font-size="12" text-anchor="middle">
+    <tspan font-weight="700" fill="#c0392b">Квадратичний штраф когерентності: </tspan>
+    <tspan fill="#1a1a1a">лавина з N(N−1) службових повідомлень витісняє роботу й обвалює пропускну здатність</tspan>
+  </text>
+</svg>

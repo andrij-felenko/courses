@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Компонування фронтів: спільний процес проти роздільних бінарників</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Прикладне ядро однакове: спільний процес спрощує запуск, а бінарники ізолюють збої та ресурси</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Модель А (Єдиний процес) -->
+  <rect x="24" y="74" width="444" height="462" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="246" y="96" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модель А: Єдиний монолітний процес</text>
+  <text x="246" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Один OS-процес daemon зі спільним середовищем</text>
+
+  <!-- Лівий Composition Root -->
+  <rect x="44" y="128" width="404" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="246" y="146" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Спільний Composition Root (main)</text>
+  <text x="246" y="163" font-size="12" fill="#1a1a1a" text-anchor="middle">Монтує слухачів, ініціалізує спільний пул БД і кеш у RAM</text>
+
+  <!-- Стрілки від Root до трьох слухачів -->
+  <line x1="107" y1="174" x2="107" y2="190" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="246" y1="174" x2="246" y2="190" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="385" y1="174" x2="385" y2="190" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Три паралельні слухачі -->
+  <rect x="44" y="194" width="126" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="107" y="213" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">HTTP / Web API</text>
+  <text x="107" y="231" font-size="12" fill="#6b7280" text-anchor="middle">REST контролер</text>
+  <text x="107" y="249" font-size="12" fill="#2457d6" text-anchor="middle">порт :8080</text>
+
+  <rect x="183" y="194" width="126" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="246" y="213" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Queue Worker</text>
+  <text x="246" y="231" font-size="12" fill="#6b7280" text-anchor="middle">AMQP / Kafka</text>
+  <text x="246" y="249" font-size="12" fill="#2457d6" text-anchor="middle">фоновий цикл</text>
+
+  <rect x="322" y="194" width="126" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="385" y="213" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">CLI / Daemon</text>
+  <text x="385" y="231" font-size="12" fill="#6b7280" text-anchor="middle">Unix сокет / REPL</text>
+  <text x="385" y="249" font-size="12" fill="#2457d6" text-anchor="middle">сервісний канал</text>
+
+  <!-- Стрілки від слухачів до вхідних портів -->
+  <line x1="107" y1="268" x2="107" y2="282" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="246" y1="268" x2="246" y2="282" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="385" y1="268" x2="385" y2="282" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Вхідні порти (Driving Ports) -->
+  <rect x="44" y="286" width="404" height="42" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="246" y="303" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вхідні порти (Driving Ports / Use Cases)</text>
+  <text x="246" y="319" font-size="12" fill="#6b7280" text-anchor="middle">Типізовані команди (DTO) та нейтральний CallContext</text>
+
+  <!-- Стрілка від портів до ядра -->
+  <line x1="246" y1="328" x2="246" y2="342" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Спільне ядро в пам'яті процесу -->
+  <rect x="44" y="346" width="404" height="64" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="246" y="367" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Спільне прикладне ядро (Domain &amp; Services)</text>
+  <text x="246" y="385" font-size="12" fill="#1a1a1a" text-anchor="middle">Єдине джерело бізнес-правил та інваріантів у RAM</text>
+  <text x="246" y="401" font-size="12" fill="#6b7280" text-anchor="middle">Спільна купа пам&apos;яті (Heap) та спільний пул з&apos;єднань БД</text>
+
+  <!-- Картки властивостей Моделі А -->
+  <rect x="44" y="422" width="404" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="56" y="440" font-size="12" font-weight="700" fill="#27ae60">Перевага:</text>
+  <text x="126" y="440" font-size="12" fill="#1a1a1a">1 артефакт, спільний RAM-кеш, простий запуск</text>
+  <text x="56" y="456" font-size="12" fill="#6b7280">Мінімум операційної складності для невеликих систем</text>
+
+  <rect x="44" y="480" width="404" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="56" y="498" font-size="12" font-weight="700" fill="#c0392b">Ризик:</text>
+  <text x="104" y="498" font-size="12" fill="#1a1a1a">Конкуренція за CPU/пул БД, брак ізоляції відмов</text>
+  <text x="56" y="514" font-size="12" fill="#6b7280">OOM або падіння у воркері зупиняє весь веб-сервіс</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Модель Б (Роздільні бінарники) -->
+  <rect x="492" y="74" width="444" height="462" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="714" y="96" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модель Б: Роздільні бінарники (незалежні процеси)</text>
+  <text x="714" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Ядро як внутрішня бібліотека, незалежні артефакти</text>
+
+  <!-- Бінарник 1: Web -->
+  <rect x="512" y="128" width="126" height="182" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="518" y="134" width="114" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="575" y="151" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">bin/web-api</text>
+  <text x="575" y="167" font-size="12" fill="#6b7280" text-anchor="middle">ОС-процес 1</text>
+
+  <rect x="518" y="186" width="114" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="575" y="203" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Web Root</text>
+  <text x="575" y="219" font-size="12" fill="#6b7280" text-anchor="middle">власний пул БД</text>
+
+  <rect x="518" y="240" width="114" height="62" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="575" y="257" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">HTTP Адаптер</text>
+  <text x="575" y="273" font-size="12" fill="#2457d6" text-anchor="middle">Вхідні порти</text>
+  <text x="575" y="289" font-size="12" fill="#6b7280" text-anchor="middle">Web Use Cases</text>
+
+  <!-- Бінарник 2: Worker -->
+  <rect x="651" y="128" width="126" height="182" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="657" y="134" width="114" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="714" y="151" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">bin/worker</text>
+  <text x="714" y="167" font-size="12" fill="#6b7280" text-anchor="middle">ОС-процес 2</text>
+
+  <rect x="657" y="186" width="114" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="714" y="203" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Worker Root</text>
+  <text x="714" y="219" font-size="12" fill="#6b7280" text-anchor="middle">власний пул БД</text>
+
+  <rect x="657" y="240" width="114" height="62" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="714" y="257" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Queue Адаптер</text>
+  <text x="714" y="273" font-size="12" fill="#2457d6" text-anchor="middle">Вхідні порти</text>
+  <text x="714" y="289" font-size="12" fill="#6b7280" text-anchor="middle">Worker Use Cases</text>
+
+  <!-- Бінарник 3: CLI -->
+  <rect x="790" y="128" width="126" height="182" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="796" y="134" width="114" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="853" y="151" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">bin/cli</text>
+  <text x="853" y="167" font-size="12" fill="#6b7280" text-anchor="middle">ОС-процес 3</text>
+
+  <rect x="796" y="186" width="114" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="853" y="203" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">CLI Root</text>
+  <text x="853" y="219" font-size="12" fill="#6b7280" text-anchor="middle">без фонових пулів</text>
+
+  <rect x="796" y="240" width="114" height="62" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="853" y="257" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">CLI Адаптер</text>
+  <text x="853" y="273" font-size="12" fill="#2457d6" text-anchor="middle">Вхідні порти</text>
+  <text x="853" y="289" font-size="12" fill="#6b7280" text-anchor="middle">Admin Use Cases</text>
+
+  <!-- Стрілки зв'язку бінарників зі спільною бібліотекою ядра -->
+  <line x1="575" y1="310" x2="575" y2="342" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="714" y1="310" x2="714" y2="342" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="853" y1="310" x2="853" y2="342" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Спільна бібліотека ядра -->
+  <rect x="512" y="346" width="404" height="64" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="714" y="367" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Спільна бібліотека ядра (internal/core)</text>
+  <text x="714" y="385" font-size="12" fill="#1a1a1a" text-anchor="middle">import &quot;myproject/core&quot; — лінкується в кожен бінарник</text>
+  <text x="714" y="401" font-size="12" fill="#6b7280" text-anchor="middle">Окремий екземпляр ядра в незалежній пам&apos;яті кожного процесу</text>
+
+  <!-- Картки властивостей Моделі Б -->
+  <rect x="512" y="422" width="404" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="524" y="440" font-size="12" font-weight="700" fill="#27ae60">Перевага:</text>
+  <text x="594" y="440" font-size="12" fill="#1a1a1a">Ізоляція відмов (10 Web-подів, 2 Worker, CLI off)</text>
+  <text x="524" y="456" font-size="12" fill="#6b7280">Падіння воркера через OOM не впливає на HTTP-трафік</text>
+
+  <rect x="512" y="480" width="404" height="44" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="524" y="498" font-size="12" font-weight="700" fill="#1a1a1a">Компроміс:</text>
+  <text x="604" y="498" font-size="12" fill="#1a1a1a">Окремі збірки CI/CD, складніший моніторинг</text>
+  <text x="524" y="514" font-size="12" fill="#6b7280">Спільний стан і кеш вимагають зовнішнього Redis/БД</text>
+</svg>

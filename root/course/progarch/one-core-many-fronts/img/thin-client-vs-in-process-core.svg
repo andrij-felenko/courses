@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="490" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Архітектурні моделі уніфікації: тонкий клієнт проти спільного ядра</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Логіка не дублюється: єдині правила зосереджені за мережевим API або в кодовому рушії</text>
+
+  <!-- ==================== ЛІВА КОЛОНКА: ТОНКИЙ КЛІЄНТ ДО API ==================== -->
+  <rect x="24" y="74" width="444" height="394" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок лівої панелі -->
+  <text x="44" y="98" font-size="14" font-weight="700" fill="#1a1a1a">Модель 1: Тонкий CLI-клієнт до API-сервера</text>
+  <text x="44" y="116" font-size="12" fill="#6b7280">Клієнт і демон — окремі процеси ОС (Docker, Kubernetes)</text>
+
+  <!-- Джерела викликів -->
+  <!-- Клієнт 1: Термінал (людина) -->
+  <rect x="44" y="132" width="194" height="52" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="141" y="152" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Термінал інженера</text>
+  <text x="141" y="170" font-size="12" fill="#1a1a1a" text-anchor="middle">docker run / kubectl apply</text>
+
+  <!-- Клієнт 2: Автоматизація (машина) -->
+  <rect x="254" y="132" width="194" height="52" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="351" y="152" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Автоматизація / CI/CD</text>
+  <text x="351" y="170" font-size="12" fill="#1a1a1a" text-anchor="middle">HTTP REST / gRPC запити</text>
+
+  <!-- Стрілки від джерел до мережевого шару -->
+  <line x1="141" y1="184" x2="141" y2="198" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="351" y1="184" x2="351" y2="198" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Мережева межа / Сокет -->
+  <rect x="44" y="200" width="404" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="246" y="220" font-size="12" font-weight="600" fill="#2457d6" text-anchor="middle">Мережева межа: Unix-сокет / HTTP REST / gRPC</text>
+
+  <!-- Стрілки від мережевої межі до сервера -->
+  <line x1="141" y1="230" x2="141" y2="242" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="351" y1="230" x2="351" y2="242" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Демон / API Сервер -->
+  <rect x="44" y="244" width="404" height="142" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="58" y="264" font-size="13" font-weight="700" fill="#27ae60">Процес демона (dockerd / kube-apiserver)</text>
+
+  <!-- Вхідний шлюз демона -->
+  <rect x="58" y="276" width="376" height="44" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="246" y="294" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Єдиний вхідний API-шлюз</text>
+  <text x="246" y="310" font-size="12" fill="#6b7280" text-anchor="middle">Автентифікація • Авторизація (RBAC) • Валідація схеми</text>
+
+  <!-- Стрілка до ядра -->
+  <line x1="246" y1="320" x2="246" y2="330" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Спільне ядро демона -->
+  <rect x="58" y="332" width="376" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="246" y="350" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Спільне доменне ядро демона</text>
+  <text x="246" y="366" font-size="12" fill="#1a1a1a" text-anchor="middle">Оркестрація контейнерів, стан кластера, бізнес-правила</text>
+
+  <!-- Висновок лівої моделі -->
+  <rect x="44" y="398" width="404" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="246" y="418" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Властивість: нуль привілеїв у CLI-клієнта</text>
+  <text x="246" y="438" font-size="12" fill="#1a1a1a" text-anchor="middle">Термінал підпорядкований тим самим API-політикам і RBAC</text>
+
+  <!-- ==================== ПРАВА КОЛОНКА: СИМЕТРИЧНІ АДАПТЕРИ (VAULT) ==================== -->
+  <rect x="492" y="74" width="444" height="394" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок правої панелі -->
+  <text x="512" y="98" font-size="14" font-weight="700" fill="#1a1a1a">Модель 2: Симетричні адаптери в одному бінарнику</text>
+  <text x="512" y="116" font-size="12" fill="#6b7280">CLI та HTTP-сервер у межах одного процесу ОС (Vault)</text>
+
+  <!-- Джерела викликів -->
+  <!-- Джерело 1: Користувач CLI -->
+  <rect x="512" y="132" width="194" height="52" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="609" y="152" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Інженер у терміналі</text>
+  <text x="609" y="170" font-size="12" fill="#1a1a1a" text-anchor="middle">vault kv put / vault read</text>
+
+  <!-- Джерело 2: Мережеві клієнти -->
+  <rect x="722" y="132" width="194" height="52" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="819" y="152" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Зовнішні клієнти / додатки</text>
+  <text x="819" y="170" font-size="12" fill="#1a1a1a" text-anchor="middle">HTTP REST API запити</text>
+
+  <!-- Стрілки від джерел до бінарника -->
+  <line x1="609" y1="184" x2="609" y2="198" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="819" y1="184" x2="819" y2="198" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Єдиний бінарний процес -->
+  <rect x="512" y="200" width="404" height="186" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Шапка процесу Vault -->
+  <rect x="526" y="210" width="376" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="228" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Єдиний процес ОС: бінарний файл vault</text>
+
+  <!-- Стрілочки від шапки до адаптерів -->
+  <line x1="616" y1="236" x2="616" y2="246" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="812" y1="236" x2="812" y2="246" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Симетричні вхідні адаптери -->
+  <!-- Адаптер CLI -->
+  <rect x="526" y="248" width="180" height="54" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="616" y="266" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вхідний адаптер CLI</text>
+  <text x="616" y="282" font-size="12" fill="#6b7280" text-anchor="middle">Парсинг прапорців і stdin</text>
+  <text x="616" y="294" font-size="12" fill="#2457d6" text-anchor="middle">Вивід у stdout / stderr</text>
+
+  <!-- Адаптер HTTP -->
+  <rect x="722" y="248" width="180" height="54" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="812" y="266" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вхідний адаптер HTTP</text>
+  <text x="812" y="282" font-size="12" fill="#6b7280" text-anchor="middle">Маршрутизація REST URI</text>
+  <text x="812" y="294" font-size="12" fill="#2457d6" text-anchor="middle">Серіалізація JSON / статусів</text>
+
+  <!-- Стрілки від адаптерів до ядра в пам'яті -->
+  <line x1="616" y1="302" x2="616" y2="314" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="812" y1="302" x2="812" y2="314" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Спільне прикладне ядро в пам'яті -->
+  <rect x="526" y="316" width="376" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="714" y="334" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Спільне прикладне ядро (In-Process Core)</text>
+  <text x="714" y="350" font-size="12" fill="#1a1a1a" text-anchor="middle">Криптографічний рушій • Політики ACL • Сховище</text>
+  <text x="714" y="366" font-size="12" fill="#6b7280" text-anchor="middle">Виклики функцій мови Go в пам'яті (0 мс затримки)</text>
+
+  <!-- Висновок правої моделі -->
+  <rect x="512" y="398" width="404" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="714" y="418" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Властивість: симетрія портів та адаптерів</text>
+  <text x="714" y="438" font-size="12" fill="#1a1a1a" text-anchor="middle">Обидва адаптери викликають однаковий інтерфейс ядра</text>
+</svg>

@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="560" fill="white"/>
+
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+  </marker>
+</defs>
+
+<!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+<text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Матриця двосторонньої трансляції драйвуючих адаптерів</text>
+<text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Сценарій ядра залишається незмінним: мапінг намірів і відповідей ізольований в адаптерах</text>
+
+<!-- ======================================================================= -->
+<!-- КОЛОНКА 1: ТОЧКИ ВХОДУ / КЛІЄНТСЬКІ ФРОНТИ (x: 24..178, w=154)         -->
+<!-- ======================================================================= -->
+
+<!-- Ряд 1: HTTP-клієнт -->
+<rect x="24" y="72" width="154" height="144" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="32" y="80" width="138" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="101" y="96" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">HTTP-клієнт (Web)</text>
+<text x="34" y="118" font-size="12" font-weight="700" fill="#1a1a1a">POST /api/heating</text>
+<text x="34" y="134" font-size="12" fill="#6b7280">{ &quot;roomId&quot;: &quot;bed1&quot;,</text>
+<text x="34" y="148" font-size="12" fill="#6b7280">  &quot;temp&quot;: 22.5 }</text>
+<text x="34" y="164" font-size="12" fill="#6b7280">Header: Auth, TraceId</text>
+<text x="34" y="184" font-size="12" font-weight="700" fill="#1a1a1a">Очікує відповідь:</text>
+<text x="34" y="200" font-size="12" fill="#2457d6">HTTP-код + JSON</text>
+
+<!-- Ряд 2: Консоль (CLI) -->
+<rect x="24" y="234" width="154" height="144" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="32" y="242" width="138" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="101" y="258" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Термінал (CLI)</text>
+<text x="34" y="280" font-size="12" font-weight="700" fill="#1a1a1a">dh-cli heating set</text>
+<text x="34" y="296" font-size="12" fill="#6b7280">--room=bed1</text>
+<text x="34" y="310" font-size="12" fill="#6b7280">--temp=22.5</text>
+<text x="34" y="326" font-size="12" fill="#6b7280">ENV: USER, SIGINT</text>
+<text x="34" y="346" font-size="12" font-weight="700" fill="#1a1a1a">Очікує відповідь:</text>
+<text x="34" y="362" font-size="12" fill="#2457d6">stdout/err + Exit Code</text>
+
+<!-- Ряд 3: Черга (AMQP / Брокер) -->
+<rect x="24" y="396" width="154" height="144" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="32" y="404" width="138" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="101" y="420" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Брокер черг (AMQP)</text>
+<text x="34" y="442" font-size="12" font-weight="700" fill="#1a1a1a">heating.commands</text>
+<text x="34" y="458" font-size="12" fill="#6b7280">Payload: байти кадру</text>
+<text x="34" y="472" font-size="12" fill="#6b7280">Header: correlation_id</text>
+<text x="34" y="488" font-size="12" fill="#6b7280">delivery_tag, redeliv</text>
+<text x="34" y="508" font-size="12" font-weight="700" fill="#1a1a1a">Очікує відповідь:</text>
+<text x="34" y="524" font-size="12" fill="#2457d6">ACK / NACK / Reject</text>
+
+<!-- ======================================================================= -->
+<!-- КОЛОНКА 2: ДРАЙВУЮЧІ АДАПТЕРИ (ДВОСТОРОННЯ ТРАНСЛЯЦІЯ) (x: 206..700)    -->
+<!-- ======================================================================= -->
+
+<!-- РЯД 1: HTTP-адаптер -->
+<rect x="206" y="72" width="494" height="144" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="214" y="80" width="478" height="46" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="222" y="96" font-size="12" font-weight="700" fill="#2457d6">ВХІД: HTTP-контролер → JSON, CallContext (User, TraceId, Timeout)</text>
+<text x="222" y="114" font-size="12" fill="#1a1a1a">Синтаксична валідація → виклик execute(SetHeatingCmd, CallContext)</text>
+<rect x="214" y="132" width="478" height="76" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="222" y="146" font-size="12" font-weight="700" fill="#1a1a1a">ВИХІД: Мапінг доменного результату в протокольні відповіді HTTP:</text>
+<rect x="220" y="152" width="144" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="226" y="172" font-size="12" font-weight="700" fill="#27ae60">✓ Result.Ok</text>
+<text x="226" y="190" font-size="12" fill="#1a1a1a">200 OK (JSON)</text>
+<rect x="372" y="152" width="150" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="378" y="172" font-size="12" font-weight="700" fill="#c0392b">✗ Result.Error</text>
+<text x="378" y="190" font-size="12" fill="#1a1a1a">RFC 7807 (400/422)</text>
+<rect x="530" y="152" width="154" height="50" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+<text x="536" y="172" font-size="12" font-weight="700" fill="#6b7280">⚠ CoreException</text>
+<text x="536" y="190" font-size="12" fill="#1a1a1a">500 Server Error</text>
+
+<!-- РЯД 2: CLI-адаптер -->
+<rect x="206" y="234" width="494" height="144" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="214" y="242" width="478" height="46" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="222" y="258" font-size="12" font-weight="700" fill="#2457d6">ВХІД: CLI-адаптер → парсинг argv, CallContext (User, SIGINT дедлайн)</text>
+<text x="222" y="276" font-size="12" fill="#1a1a1a">Конвертація аргументів → виклик execute(SetHeatingCmd, CallContext)</text>
+<rect x="214" y="294" width="478" height="76" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="222" y="308" font-size="12" font-weight="700" fill="#1a1a1a">ВИХІД: Мапінг доменного результату в консольний вивід та коди виходу:</text>
+<rect x="220" y="314" width="144" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="226" y="334" font-size="12" font-weight="700" fill="#27ae60">✓ Result.Ok</text>
+<text x="226" y="352" font-size="12" fill="#1a1a1a">stdout, Exit Code 0</text>
+<rect x="372" y="314" width="150" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="378" y="334" font-size="12" font-weight="700" fill="#c0392b">✗ Result.Error</text>
+<text x="378" y="352" font-size="12" fill="#1a1a1a">stderr, Exit Code 1..2</text>
+<rect x="530" y="314" width="154" height="50" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+<text x="536" y="334" font-size="12" font-weight="700" fill="#6b7280">⚠ CoreException</text>
+<text x="536" y="352" font-size="12" fill="#1a1a1a">crash, Exit Code &gt; 2</text>
+
+<!-- РЯД 3: AMQP-адаптер -->
+<rect x="206" y="396" width="494" height="144" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="214" y="404" width="478" height="46" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="222" y="420" font-size="12" font-weight="700" fill="#2457d6">ВХІД: AMQP-воркер → розпакування кадру, CallContext (MessageId, TraceId)</text>
+<text x="222" y="438" font-size="12" fill="#1a1a1a">Десеріалізація payload → виклик execute(SetHeatingCmd, CallContext)</text>
+<rect x="214" y="456" width="478" height="76" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="222" y="470" font-size="12" font-weight="700" fill="#1a1a1a">ВИХІД: Мапінг результату в канальні директиви черги брокера:</text>
+<rect x="220" y="476" width="144" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="226" y="496" font-size="12" font-weight="700" fill="#27ae60">✓ Result.Ok</text>
+<text x="226" y="514" font-size="12" fill="#1a1a1a">ACK (підтверджено)</text>
+<rect x="372" y="476" width="150" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="378" y="496" font-size="12" font-weight="700" fill="#c0392b">✗ Result.Error</text>
+<text x="378" y="514" font-size="12" fill="#1a1a1a">NACK → скидання в DLQ</text>
+<rect x="530" y="476" width="154" height="50" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+<text x="536" y="496" font-size="12" font-weight="700" fill="#6b7280">⚠ CoreException</text>
+<text x="536" y="514" font-size="12" fill="#1a1a1a">RETRY (requeue=true)</text>
+
+<!-- ======================================================================= -->
+<!-- КОЛОНКА 3: СПІЛЬНЕ ПРИКЛАДНЕ ЯДРО (x: 728..936, w=208, h=468)           -->
+<!-- ======================================================================= -->
+<rect x="728" y="72" width="208" height="468" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+
+<!-- Бейдж заголовка ядра -->
+<rect x="736" y="80" width="192" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="832" y="98" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Єдине прикладне ядро</text>
+<text x="832" y="114" font-size="12" fill="#1a1a1a" text-anchor="middle">Протокольно-нейтральне</text>
+
+<!-- Вхідний порт Use Case -->
+<rect x="736" y="130" width="192" height="100" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+<text x="744" y="148" font-size="12" font-weight="700" fill="#2457d6">Контракт вхідного порту:</text>
+<text x="744" y="166" font-size="12" font-weight="700" fill="#1a1a1a">interface InboundPort</text>
+<text x="744" y="184" font-size="12" fill="#2457d6">execute(cmd, context):</text>
+<text x="744" y="202" font-size="12" fill="#6b7280">  Promise&lt;Result&lt;T, E&gt;&gt;</text>
+<text x="744" y="220" font-size="12" fill="#1a1a1a">чисті бізнес-типи</text>
+
+<!-- Бізнес-правила -->
+<rect x="736" y="238" width="192" height="98" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="744" y="256" font-size="12" font-weight="700" fill="#1a1a1a">Сценарій (Use Case)</text>
+<text x="744" y="276" font-size="12" fill="#1a1a1a">• Перевірка прав суб'єкта</text>
+<text x="744" y="294" font-size="12" fill="#1a1a1a">• Оцінка інваріантів зон</text>
+<text x="744" y="312" font-size="12" fill="#1a1a1a">• Мутація стану домену</text>
+<text x="744" y="328" font-size="12" fill="#6b7280">0 залежностей від мережі</text>
+
+<!-- Семантика результату -->
+<rect x="736" y="344" width="192" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="744" y="362" font-size="12" font-weight="700" fill="#1a1a1a">Семантика результату:</text>
+<text x="744" y="380" font-size="12" font-weight="700" fill="#27ae60">✓ Result.Ok(data)</text>
+<text x="752" y="396" font-size="12" fill="#6b7280">доменний успіх</text>
+<text x="744" y="416" font-size="12" font-weight="700" fill="#c0392b">✗ Result.Error(err)</text>
+<text x="752" y="432" font-size="12" fill="#6b7280">доменне відхилення</text>
+<text x="744" y="452" font-size="12" font-weight="700" fill="#6b7280">⚠ throw CoreException</text>
+<text x="752" y="466" font-size="12" fill="#6b7280">системна аварія</text>
+
+<!-- Підсумок внизу ядра -->
+<rect x="736" y="482" width="192" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="832" y="501" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Сценарій незмінний</text>
+<text x="832" y="519" font-size="12" fill="#1a1a1a" text-anchor="middle">0 правок при нових фронтах</text>
+
+<!-- ======================================================================= -->
+<!-- СТРІЛКИ ВЗАЄМОДІЇ МІЖ КОЛОНКАМИ                                         -->
+<!-- ======================================================================= -->
+
+<!-- РЯД 1 -->
+<line x1="178" y1="103" x2="204" y2="103" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<line x1="700" y1="103" x2="726" y2="103" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<line x1="728" y1="170" x2="702" y2="170" stroke="#6b7280" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+<line x1="206" y1="170" x2="180" y2="170" stroke="#6b7280" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+
+<!-- РЯД 2 -->
+<line x1="178" y1="265" x2="204" y2="265" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<line x1="700" y1="265" x2="726" y2="265" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<line x1="728" y1="332" x2="702" y2="332" stroke="#6b7280" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+<line x1="206" y1="332" x2="180" y2="332" stroke="#6b7280" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+
+<!-- РЯД 3 -->
+<line x1="178" y1="427" x2="204" y2="427" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<line x1="700" y1="427" x2="726" y2="427" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<line x1="728" y1="494" x2="702" y2="494" stroke="#6b7280" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+<line x1="206" y1="494" x2="180" y2="494" stroke="#6b7280" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-gray)"/>
+
+</svg>

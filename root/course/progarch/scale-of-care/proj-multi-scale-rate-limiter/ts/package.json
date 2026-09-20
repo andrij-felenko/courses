@@ -1,0 +1,26 @@
+{
+  "name": "edge-rate-limiter-token-lease",
+  "version": "1.0.0",
+  "description": "Високопродуктивний граничний обмежувач частоти запитів для Cloudflare Workers із механікою оренди блоків токенів (Token Lease) та Fail-Open деградацією",
+  "type": "module",
+  "main": "index.ts",
+  "scripts": {
+    "start": "node --experimental-strip-types index.ts",
+    "test": "node --experimental-strip-types index.ts"
+  },
+  "keywords": [
+    "cloudflare-workers",
+    "rate-limiting",
+    "token-lease",
+    "edge-computing",
+    "fail-open",
+    "eventual-consistency",
+    "v8-isolates"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Проєктування вихідних портів «зсередини назовні»</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Сценарії формують власні рольові порти (ISP), а єдиний вторинний адаптер відображає їх на схему збереження</text>
+
+  <!-- Вектор проєктування: банер -->
+  <rect x="24" y="66" width="912" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="82" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">ВЕКТОР «ЗСЕРЕДИНИ НАЗОВНІ»: Сценарій диктує намір ➔ Вузький порт (ISP) ➔ Адаптер транслює ➔ Таблиці БД</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ДОМЕННЕ ЯДРО ==================== -->
+  <rect x="24" y="98" width="436" height="418" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="38" y="120" font-size="14" font-weight="700" fill="#1a1a1a">1. ЯДРО ЗАСТОСУНКУ (ВСЕРЕДИНІ)</text>
+  <text x="38" y="136" font-size="12" fill="#6b7280">Вузькі рольові інтерфейси (ISP) за потребами бізнес-сценаріїв</text>
+
+  <!-- --- РЯДОК А: СЦЕНАРІЙ 1 ТА РОЛЬОВИЙ ПОРТ 1 --- -->
+  <!-- Сценарій 1 -->
+  <rect x="36" y="148" width="170" height="166" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="46" y="168" font-size="12" font-weight="700" fill="#1a1a1a">ActivateEcoModeUseCase</text>
+  <text x="46" y="184" font-size="12" fill="#6b7280">Сценарій енергозбереження</text>
+  <text x="46" y="204" font-size="12" fill="#1a1a1a">• Намір: екорежим дому</text>
+  <text x="46" y="222" font-size="12" fill="#6b7280">• Не знає про SQL чи БД</text>
+  <text x="46" y="242" font-size="12" font-weight="700" fill="#2457d6">Замовник порту:</text>
+  <text x="46" y="260" font-size="12" font-weight="700" fill="#2457d6">dev = registry.get(id)</text>
+  <text x="46" y="278" font-size="12" font-weight="700" fill="#2457d6">dev.activateEco()</text>
+  <text x="46" y="296" font-size="12" font-weight="700" fill="#2457d6">registry.update(dev)</text>
+
+  <!-- Стрілка 1: Сценарій 1 -> Порт 1 -->
+  <line x1="206" y1="231" x2="236" y2="231" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="221" y="224" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">виклик</text>
+
+  <!-- Порт 1 (Рольовий інтерфейс) -->
+  <rect x="238" y="148" width="210" height="166" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="248" y="168" font-size="12" fill="#2457d6">«interface»</text>
+  <text x="248" y="186" font-size="13" font-weight="700" fill="#2457d6">DeviceStateRegistry</text>
+  <text x="248" y="204" font-size="12" fill="#6b7280">Рольовий порт стану (ISP)</text>
+  <text x="248" y="226" font-size="12" font-weight="700" fill="#1a1a1a">+ get(id: DeviceId):</text>
+  <text x="260" y="244" font-size="12" font-weight="700" fill="#2457d6">SmartDevice</text>
+  <text x="248" y="264" font-size="12" font-weight="700" fill="#1a1a1a">+ update(device:</text>
+  <text x="260" y="282" font-size="12" font-weight="700" fill="#2457d6">SmartDevice): void</text>
+  <text x="248" y="302" font-size="12" font-weight="700" fill="#27ae60">✓ Без витоку ORM / CRUD</text>
+
+  <!-- --- РЯДОК Б: СЦЕНАРІЙ 2 ТА РОЛЬОВИЙ ПОРТ 2 --- -->
+  <!-- Сценарій 2 -->
+  <rect x="36" y="322" width="170" height="184" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="46" y="342" font-size="12" font-weight="700" fill="#1a1a1a">SyncScheduleUseCase</text>
+  <text x="46" y="358" font-size="12" fill="#6b7280">Сценарій клімат-розкладу</text>
+  <text x="46" y="378" font-size="12" fill="#1a1a1a">• Намір: графік уставки</text>
+  <text x="46" y="396" font-size="12" fill="#6b7280">• Не знає про стан сутності</text>
+  <text x="46" y="416" font-size="12" font-weight="700" fill="#2457d6">Замовник порту:</text>
+  <text x="46" y="434" font-size="12" font-weight="700" fill="#2457d6">plan = provider</text>
+  <text x="46" y="452" font-size="12" font-weight="700" fill="#2457d6">  .scheduleFor(id)</text>
+  <text x="46" y="472" font-size="12" fill="#1a1a1a">plan.applyTo(target)</text>
+  <text x="46" y="492" font-size="12" fill="#6b7280">✓ Ізоляція від стану</text>
+
+  <!-- Стрілка 2: Сценарій 2 -> Порт 2 -->
+  <line x1="206" y1="414" x2="236" y2="414" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="221" y="407" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">виклик</text>
+
+  <!-- Порт 2 (Рольовий інтерфейс) -->
+  <rect x="238" y="322" width="210" height="184" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="248" y="342" font-size="12" fill="#2457d6">«interface»</text>
+  <text x="248" y="360" font-size="13" font-weight="700" fill="#2457d6">ThermostatScheduleProvider</text>
+  <text x="248" y="378" font-size="12" fill="#6b7280">Рольовий порт графіків (ISP)</text>
+  <text x="248" y="400" font-size="12" font-weight="700" fill="#1a1a1a">+ scheduleFor(id:</text>
+  <text x="260" y="418" font-size="12" font-weight="700" fill="#2457d6">DeviceId):</text>
+  <text x="260" y="436" font-size="12" font-weight="700" fill="#2457d6">ClimateSchedule</text>
+  <text x="248" y="460" font-size="12" fill="#1a1a1a">• Чіткий бізнес-запит</text>
+  <text x="248" y="478" font-size="12" fill="#6b7280">• Без Pageable, Sort, SQL</text>
+  <text x="248" y="494" font-size="12" font-weight="700" fill="#27ae60">✓ Доменний предикат</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: ВТОРИННИЙ АДАПТЕР ==================== -->
+  <rect x="476" y="98" width="248" height="418" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="488" y="120" font-size="14" font-weight="700" fill="#2457d6">2. ВТОРИННИЙ АДАПТЕР</text>
+  <text x="488" y="136" font-size="12" fill="#6b7280">Консолідована реалізація та мапінг</text>
+
+  <!-- Картка адаптера -->
+  <rect x="486" y="148" width="228" height="358" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="168" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">DevicePersistenceAdapter</text>
+  <text x="600" y="184" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">implements обидва рольові порти</text>
+
+  <!-- Блок реалізації 1 (для Port 1) -->
+  <rect x="494" y="194" width="212" height="100" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="502" y="212" font-size="12" font-weight="700" fill="#2457d6">Реалізація DeviceStateRegistry:</text>
+  <text x="502" y="230" font-size="12" fill="#1a1a1a">• get(id) ➔ знімок ➔ агрегат</text>
+  <text x="502" y="248" font-size="12" fill="#1a1a1a">• update(dev) ➔ dev.toSnapshot()</text>
+  <text x="502" y="266" font-size="12" font-weight="700" fill="#2457d6">  ➔ UPDATE devices SET ...</text>
+  <text x="502" y="284" font-size="12" fill="#6b7280">• Транзакція Unit of Work</text>
+
+  <!-- Блок реалізації 2 (для Port 2) -->
+  <rect x="494" y="302" width="212" height="100" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="502" y="320" font-size="12" font-weight="700" fill="#2457d6">Реалізація ScheduleProvider:</text>
+  <text x="502" y="338" font-size="12" fill="#1a1a1a">• scheduleFor(id) ➔ SQL-запит</text>
+  <text x="502" y="356" font-size="12" font-weight="700" fill="#2457d6">  SELECT FROM schedules JOIN ...</text>
+  <text x="502" y="374" font-size="12" fill="#1a1a1a">• Трансляція рядків у модель</text>
+  <text x="502" y="392" font-size="12" fill="#6b7280">• Пагінація/курсори всередині</text>
+
+  <!-- Блок бар'єра ізоляції -->
+  <rect x="494" y="410" width="212" height="88" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="502" y="428" font-size="12" font-weight="700" fill="#27ae60">✓ Антикорупційний бар'єр</text>
+  <text x="502" y="446" font-size="12" fill="#1a1a1a">• Поглинає зміни схеми СКБД</text>
+  <text x="502" y="464" font-size="12" fill="#1a1a1a">• Retry-декоратор колізій tx</text>
+  <text x="502" y="482" font-size="12" fill="#6b7280">• Мапінг DeviceId ↔ UUID / FK</text>
+
+  <!-- ==================== ПАНЕЛЬ 3: ФІЗИЧНЕ СХОВИЩЕ ==================== -->
+  <rect x="740" y="98" width="196" height="418" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="752" y="120" font-size="14" font-weight="700" fill="#1a1a1a">3. СХОВИЩЕ ДАНИХ</text>
+  <text x="752" y="136" font-size="12" fill="#6b7280">Реляційні таблиці та СКБД</text>
+
+  <!-- Таблиця 1: devices -->
+  <rect x="748" y="148" width="180" height="148" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="748" y="148" width="180" height="26" rx="6" fill="#f4f6f8"/>
+  <text x="838" y="166" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">TABLE devices</text>
+  <text x="758" y="190" font-size="12" font-weight="700" fill="#2457d6">• id: UUID (PK)</text>
+  <text x="758" y="208" font-size="12" fill="#1a1a1a">• serial_no: VARCHAR(64)</text>
+  <text x="758" y="226" font-size="12" fill="#1a1a1a">• status: VARCHAR(32)</text>
+  <text x="758" y="244" font-size="12" fill="#1a1a1a">• target_temp: NUMERIC(4,1)</text>
+  <text x="758" y="262" font-size="12" fill="#6b7280">• version: BIGINT (tx lock)</text>
+  <text x="758" y="280" font-size="12" fill="#27ae60">INDEX (id, status)</text>
+
+  <!-- Таблиця 2: climate_schedules -->
+  <rect x="748" y="304" width="180" height="148" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="748" y="304" width="180" height="26" rx="6" fill="#f4f6f8"/>
+  <text x="838" y="322" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">TABLE climate_schedules</text>
+  <text x="758" y="346" font-size="12" font-weight="700" fill="#2457d6">• id: BIGINT (PK)</text>
+  <text x="758" y="364" font-size="12" font-weight="700" fill="#c0392b">• device_id: UUID (FK)</text>
+  <text x="758" y="382" font-size="12" fill="#1a1a1a">• cron_expr: VARCHAR(64)</text>
+  <text x="758" y="400" font-size="12" fill="#1a1a1a">• eco_setpoint: REAL</text>
+  <text x="758" y="418" font-size="12" fill="#6b7280">• active: BOOLEAN</text>
+  <text x="758" y="436" font-size="12" fill="#27ae60">FOREIGN KEY (device_id)</text>
+
+  <!-- Плашка СКБД -->
+  <rect x="748" y="460" width="180" height="46" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="838" y="478" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">PostgreSQL / СКБД</text>
+  <text x="838" y="494" font-size="12" fill="#6b7280" text-anchor="middle">Фізичні диски та індекси</text>
+
+  <!-- ==================== СТРІЛКИ ЗВ'ЯЗКУ МІЖ ЗОНАМИ ==================== -->
+  <!-- Адаптер реалізує Порт 1 (implements) -->
+  <line x1="486" y1="231" x2="448" y2="231" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+
+  <!-- Адаптер реалізує Порт 2 (implements) -->
+  <line x1="486" y1="414" x2="448" y2="414" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+
+  <!-- Адаптер виконує SQL до Таблиці 1 -->
+  <line x1="714" y1="231" x2="748" y2="231" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="731" y="224" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">SQL</text>
+
+  <!-- Адаптер виконує SQL до Таблиці 2 -->
+  <line x1="714" y1="378" x2="748" y2="378" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="731" y="371" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">SQL</text>
+</svg>

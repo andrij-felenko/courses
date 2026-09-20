@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green-start" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M7,1 L0,4 L7,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-end" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аварійний відкат актуатора: захисне знеструмлення при заклинюванні вала</text>
+  <text x="480" y="53" font-size="13" fill="#6b7280" text-anchor="middle">Зняття ШІМ та витримка t_dead перед затиском гальма захищають ключі й блокують перезапуск</text>
+
+  <!-- Фазові зони зверху (просвіт між блоками 14 px) -->
+  <rect x="188" y="70" width="128" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="252" y="85" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Рух вала</text>
+
+  <rect x="330" y="70" width="126" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="393" y="85" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Стрибок I</text>
+
+  <rect x="470" y="70" width="126" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="533" y="85" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Мертвий час</text>
+
+  <rect x="610" y="70" width="126" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="673" y="85" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">4. Спуск гальма</text>
+
+  <rect x="750" y="70" width="160" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="830" y="85" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">5. Апаратний Latch</text>
+
+  <!-- Фізичні інтервали часу -->
+  <!-- Інтервал 2: Δt_trip <= 5 ms -->
+  <text x="400" y="104" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Δt_trip ≤ 5 ms</text>
+  <line x1="334" y1="112" x2="466" y2="112" stroke="#c0392b" stroke-width="1.2" marker-start="url(#arr-red-start)" marker-end="url(#arr-red-end)"/>
+
+  <!-- Інтервал 3: t_dead ≈ 15 ms -->
+  <text x="540" y="104" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_dead ≈ 15 ms</text>
+  <line x1="474" y1="112" x2="606" y2="112" stroke="#c0392b" stroke-width="1.2" marker-start="url(#arr-red-start)" marker-end="url(#arr-red-end)"/>
+
+  <!-- Інтервал 4: t_brake ≈ 20 ms -->
+  <text x="680" y="104" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_brake ≈ 20 ms</text>
+  <line x1="614" y1="112" x2="746" y2="112" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue-start)" marker-end="url(#arr-blue-end)"/>
+
+  <!-- Інтервал 5: t_lock <= 10 ms -->
+  <text x="830" y="104" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_safe (Latch)</text>
+  <line x1="754" y1="112" x2="906" y2="112" stroke="#27ae60" stroke-width="1.2" marker-start="url(#arr-green-start)" marker-end="url(#arr-green-end)"/>
+
+  <!-- Вертикальні розділові лінії меж подій (зупиняються на y=356, щоб не перетинати підписи) -->
+  <line x1="330" y1="116" x2="330" y2="356" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="470" y1="116" x2="470" y2="356" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="610" y1="116" x2="610" y2="356" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="750" y1="116" x2="750" y2="356" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+  <!-- ==================== ТРЕК 1: СТРУМ МОТОРА I_motor ==================== -->
+  <text x="175" y="142" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Струм I_motor</text>
+  <text x="175" y="158" font-size="12" fill="#6b7280" text-anchor="end">I_trip = 3.5 A</text>
+
+  <!-- Базова лінія 0 А -->
+  <line x1="185" y1="172" x2="910" y2="172" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Поріг відсічки I_trip (пунктир) -->
+  <line x1="185" y1="138" x2="470" y2="138" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+  <!-- Хвиля струму: норма -> стрибок при заклинюванні -> експоненційний спад до 0 -->
+  <path d="M 185,156 L 210,154 L 235,157 L 260,155 L 285,157 L 310,154 L 330,156 L 355,147 L 380,138 L 420,126 L 470,122 L 490,146 L 520,165 L 560,172 L 910,172" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Позначки на графіку струму -->
+  <text x="200" y="132" font-size="12" font-weight="bold" fill="#c0392b">I_trip = 3.5 A (поріг відсічки)</text>
+  <text x="200" y="168" font-size="12" fill="#2457d6">I_nom = 1.2 A (робочий струм)</text>
+  <text x="485" y="132" font-size="12" font-weight="bold" fill="#c0392b">Відсічка ШІМ при I &gt; I_trip</text>
+  <text x="540" y="160" font-size="12" fill="#6b7280">Спад струму (decay)</text>
+
+  <!-- ==================== ТРЕК 2: ШІМ МОТОРА V_pwm ==================== -->
+  <text x="175" y="198" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">ШІМ мотора V_pwm</text>
+  <text x="175" y="214" font-size="12" fill="#6b7280" text-anchor="end">H-міст 24 В</text>
+
+  <line x1="185" y1="218" x2="910" y2="218" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- ШІМ імпульси до t2 (470), далі 0 В -->
+  <path d="M 185,190 L 197,190 L 197,218 L 202,218 L 202,190 L 217,190 L 217,218 L 222,218 L 222,190 L 237,190 L 237,218 L 242,218 L 242,190 L 257,190 L 257,218 L 262,218 L 262,190 L 277,190 L 277,218 L 282,218 L 282,190 L 297,190 L 297,218 L 302,218 L 302,190 L 317,190 L 317,218 L 322,218 L 322,190 L 337,190 L 337,218 L 342,218 L 342,190 L 357,190 L 357,218 L 362,218 L 362,190 L 377,190 L 377,218 L 382,218 L 382,190 L 397,190 L 397,218 L 402,218 L 402,190 L 417,190 L 417,218 L 422,218 L 422,190 L 437,190 L 437,218 L 442,218 L 442,190 L 457,190 L 457,218 L 462,218 L 462,190 L 470,190 L 470,218 L 910,218" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <text x="500" y="210" font-size="12" font-weight="bold" fill="#c0392b">0 В (Ключі моста розімкнено, Hi-Z)</text>
+
+  <!-- ==================== ТРЕК 3: ГАЛЬМО Brake ==================== -->
+  <text x="175" y="244" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Гальмо Brake</text>
+  <text x="175" y="260" font-size="12" fill="#6b7280" text-anchor="end">соленоїд 24 В</text>
+
+  <line x1="185" y1="264" x2="910" y2="264" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Гальмо увімкнене (24 В, відпущене) до t3 (610), потім спадає до 0 В (затиснуто) -->
+  <path d="M 185,236 L 610,236 L 610,264 L 910,264" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+
+  <text x="210" y="230" font-size="12" fill="#2457d6">24 В: Відпущено (котушка під напругою)</text>
+  <text x="495" y="230" font-size="12" font-weight="bold" fill="#c0392b">Витримка під напругою у t_dead</text>
+  <text x="640" y="258" font-size="12" font-weight="bold" fill="#27ae60">0 В: Затиснуто пружиною (вал стопориться)</text>
+
+  <!-- ==================== ТРЕК 4: ЗАПОБІЖНИК Safety Interlock ==================== -->
+  <text x="175" y="290" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Safety Interlock</text>
+  <text x="175" y="306" font-size="12" fill="#6b7280" text-anchor="end">контактор реле</text>
+
+  <line x1="185" y1="310" x2="910" y2="310" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Норма до t4 (750), далі LATCHED TRIP (0 В / розімкнено) -->
+  <path d="M 185,282 L 750,282 L 750,310 L 910,310" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+
+  <text x="210" y="276" font-size="12" fill="#27ae60">CLOSED (силовий ланцюг дозволено)</text>
+  <text x="765" y="304" font-size="12" font-weight="bold" fill="#c0392b">TRIPPED (Latch: блокування пуску)</text>
+
+  <!-- ==================== ТРЕК 5: СТАН АДАПТЕРА ==================== -->
+  <text x="175" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Стан порту</text>
+
+  <!-- Блоки станів порту (просвіти >= 14 px) -->
+  <rect x="188" y="324" width="128" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="252" y="339" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">MOVING</text>
+
+  <rect x="330" y="324" width="126" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="393" y="339" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">STALL TRIP</text>
+
+  <rect x="470" y="324" width="126" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="533" y="339" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">DISCHARGE</text>
+
+  <rect x="610" y="324" width="126" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="673" y="339" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">BRAKING</text>
+
+  <rect x="750" y="324" width="160" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="830" y="339" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SAFE LATCHED</text>
+
+  <!-- ==================== ВІСЬ ЧАСУ ==================== -->
+  <line x1="185" y1="356" x2="905" y2="356" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="912" y="360" font-size="12" font-weight="bold" fill="#1a1a1a">t</text>
+
+  <!-- Засічки часу -->
+  <line x1="188" y1="353" x2="188" y2="359" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="188" y="372" font-size="12" fill="#6b7280" text-anchor="middle">t0 = 0</text>
+
+  <line x1="330" y1="353" x2="330" y2="359" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="330" y="372" font-size="12" fill="#6b7280" text-anchor="middle">t1 (заклинювання)</text>
+
+  <line x1="470" y1="353" x2="470" y2="359" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="470" y="372" font-size="12" fill="#6b7280" text-anchor="middle">t2 (зняття ШІМ)</text>
+
+  <line x1="610" y1="353" x2="610" y2="359" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="610" y="372" font-size="12" fill="#6b7280" text-anchor="middle">t3 (спуск гальма)</text>
+
+  <line x1="750" y1="353" x2="750" y2="359" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="750" y="372" font-size="12" fill="#6b7280" text-anchor="middle">t4 (interlock trip)</text>
+
+  <!-- ==================== НИЖНІ КАРТКИ З ПОЯСНЕННЯМ ==================== -->
+  <!-- Каркаси карток: 3 штуки, ширина 286 px, просвіт 26 px -->
+  <rect x="24" y="386" width="286" height="52" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="405" font-size="12" font-weight="bold" fill="#c0392b">1. Захисна відсічка (Δt ≤ 5 ms)</text>
+  <text x="36" y="423" font-size="12" fill="#1a1a1a">Зняття ШІМ рятує ключі H-моста від теплового пробою</text>
+
+  <rect x="336" y="386" width="286" height="52" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="348" y="405" font-size="12" font-weight="bold" fill="#2457d6">2. Мертвий час (t_dead ≈ 15 ms)</text>
+  <text x="348" y="423" font-size="12" fill="#1a1a1a">Спад струму запобігає дузі перед накладанням гальма</text>
+
+  <rect x="648" y="386" width="286" height="52" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="660" y="405" font-size="12" font-weight="bold" fill="#27ae60">3. Апаратний Safety Interlock</text>
+  <text x="660" y="423" font-size="12" fill="#1a1a1a">Блокує повторний пуск до очищення збою ядром</text>
+</svg>

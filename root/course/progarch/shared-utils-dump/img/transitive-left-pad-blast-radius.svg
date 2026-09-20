@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="480" fill="white"/>
+
+<defs>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+</defs>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Транзитивне дерево залежностей та радіус ураження left-pad</text>
+<text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Видалення одного 11-рядкового листка викликає помилку HTTP 404 і каскадний параліч світових збірок</text>
+
+<!-- ==========================================
+     РІВЕНЬ 1: ВЕРШИНИ ВЕРХНЬОГО РІВНЯ
+     ========================================== -->
+<!-- Вузол 1: React та застосунки -->
+<rect x="40" y="74" width="260" height="72" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="170" y="96" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">React та веб-застосунки</text>
+<text x="170" y="116" font-size="12" fill="#1a1a1a" text-anchor="middle">Використання JSX у тисячах проєктів</text>
+<text x="170" y="134" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Крах збірки: BUILD FAILED</text>
+
+<!-- Вузол 2: Babel CLI -->
+<rect x="350" y="74" width="260" height="72" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="480" y="96" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Babel CLI</text>
+<text x="480" y="116" font-size="12" fill="#1a1a1a" text-anchor="middle">Компілятор стандарту ES6 у ES5</text>
+<text x="480" y="134" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Крах збірки: BUILD FAILED</text>
+
+<!-- Вузол 3: Корпоративні CI/CD -->
+<rect x="660" y="74" width="260" height="72" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="790" y="96" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Корпоративні CI/CD</text>
+<text x="790" y="116" font-size="12" fill="#1a1a1a" text-anchor="middle">Автоматичні чисті збірки з мережі</text>
+<text x="790" y="134" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Крах збірки: BUILD FAILED</text>
+
+<!-- Зв'язки: Рівень 1 -> Рівень 2 -->
+<!-- Від React: вниз (залежність), вгору (відмова) -->
+<line x1="220" y1="146" x2="360" y2="176" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+<line x1="380" y1="176" x2="240" y2="146" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+
+<!-- Від Babel CLI: вниз (залежність), вгору (відмова) -->
+<line x1="470" y1="146" x2="470" y2="176" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+<line x1="490" y1="176" x2="490" y2="146" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+
+<!-- Від CI/CD: вниз (залежність), вгору (відмова) -->
+<line x1="740" y1="146" x2="600" y2="176" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+<line x1="580" y1="176" x2="720" y2="146" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+
+<!-- ==========================================
+     ЛІВА ПАНЕЛЬ: ПОТІК ЗАЛЕЖНОСТЕЙ
+     ========================================== -->
+<rect x="40" y="176" width="230" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="48" y="184" width="214" height="30" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="155" y="204" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Потік залежностей (npm)</text>
+
+<text x="54" y="230" font-size="12" font-weight="700" fill="#1a1a1a">1. Делегування коду</text>
+<text x="54" y="246" font-size="12" fill="#6b7280">Кожна ланка делегує дію глибше</text>
+
+<text x="54" y="274" font-size="12" font-weight="700" fill="#1a1a1a">2. Культура мікропакетів</text>
+<text x="54" y="290" font-size="12" fill="#6b7280">Винесення 11 рядків у реєстр</text>
+
+<text x="54" y="318" font-size="12" font-weight="700" fill="#1a1a1a">3. Відсутність lockfile</text>
+<text x="54" y="334" font-size="12" fill="#6b7280">npm v3 не фіксував хеш-суми</text>
+
+<text x="54" y="362" font-size="12" font-weight="700" fill="#1a1a1a">4. Сліпа довіра до графа</text>
+<text x="54" y="378" font-size="12" fill="#6b7280">Чиста збірка качає все з нуля</text>
+
+<text x="54" y="406" font-size="12" font-weight="700" fill="#c0392b">5. Прихована точка SPOF</text>
+<text x="54" y="422" font-size="12" fill="#6b7280">Крах листка ламає все дерево</text>
+
+<!-- ==========================================
+     ПРАВА ПАНЕЛЬ: РАДІУС УРАЖЕННЯ
+     ========================================== -->
+<rect x="690" y="176" width="230" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<rect x="698" y="184" width="214" height="30" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="805" y="204" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Радіус ураження (колапс)</text>
+
+<text x="704" y="230" font-size="12" font-weight="700" fill="#1a1a1a">1. npm unpublish</text>
+<text x="704" y="246" font-size="12" fill="#6b7280">Кочулу вилучив 273 пакети</text>
+
+<text x="704" y="274" font-size="12" font-weight="700" fill="#c0392b">2. Помилка HTTP 404</text>
+<text x="704" y="290" font-size="12" fill="#6b7280">Реєстр не знайшов left-pad</text>
+
+<text x="704" y="318" font-size="12" font-weight="700" fill="#c0392b">3. Каскадний колапс</text>
+<text x="704" y="334" font-size="12" fill="#6b7280">Збій line-numbers і babel-core</text>
+
+<text x="704" y="362" font-size="12" font-weight="700" fill="#c0392b">4. Зупинка світових CI/CD</text>
+<text x="704" y="378" font-size="12" fill="#6b7280">Мільйони доларів простою</text>
+
+<text x="704" y="406" font-size="12" font-weight="700" fill="#2457d6">5. Ручне втручання npm</text>
+<text x="704" y="422" font-size="12" fill="#6b7280">Примусове повернення пакета</text>
+
+<!-- ==========================================
+     РІВЕНЬ 2: babel-core (проміжна ланка)
+     ========================================== -->
+<rect x="300" y="176" width="360" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="480" y="197" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">babel-core@6.7.4 (проміжна ланка)</text>
+<text x="480" y="217" font-size="12" fill="#1a1a1a" text-anchor="middle">Ядро компілятора синтаксису JavaScript</text>
+<text x="480" y="236" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Збій компілятора: нерозв'язана залежність</text>
+
+<!-- Зв'язки: Рівень 2 -> Рівень 3 -->
+<line x1="465" y1="244" x2="465" y2="274" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+<line x1="495" y1="274" x2="495" y2="244" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+<text x="450" y="263" font-size="12" fill="#2457d6" text-anchor="end">залежність</text>
+<text x="510" y="263" font-size="12" fill="#c0392b" text-anchor="start">відмова</text>
+
+<!-- ==========================================
+     РІВЕНЬ 3: line-numbers (проміжна ланка)
+     ========================================== -->
+<rect x="320" y="274" width="320" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="480" y="295" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">line-numbers@0.3.1 (проміжна ланка)</text>
+<text x="480" y="315" font-size="12" fill="#1a1a1a" text-anchor="middle">Форматування номерів рядків у логах</text>
+<text x="480" y="334" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Помилка: відсутній модуль left-pad</text>
+
+<!-- Зв'язки: Рівень 3 -> Рівень 4 -->
+<line x1="465" y1="342" x2="465" y2="372" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+<line x1="495" y1="372" x2="495" y2="342" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-red)"/>
+<text x="450" y="361" font-size="12" fill="#2457d6" text-anchor="end">залежність</text>
+<text x="510" y="361" font-size="12" fill="#c0392b" text-anchor="start">відмова</text>
+
+<!-- ==========================================
+     РІВЕНЬ 4: left-pad (єдиний листовий вузол)
+     ========================================== -->
+<rect x="300" y="372" width="360" height="84" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+<text x="480" y="394" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">left-pad@0.0.3 (листовий вузол: 11 рядків)</text>
+<text x="480" y="413" font-size="12" fill="#1a1a1a" text-anchor="middle">Тривіальне доповнення рядка символами зліва</text>
+<text x="480" y="431" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">npm unpublish --force → HTTP 404 Not Found</text>
+<text x="480" y="447" font-size="12" fill="#c0392b" text-anchor="middle">Пакет видалено з публічного реєстру npm</text>
+</svg>

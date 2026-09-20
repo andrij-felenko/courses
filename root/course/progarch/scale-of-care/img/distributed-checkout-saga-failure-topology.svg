@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-danger" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Топологія відмов розподіленої саги оформлення замовлення (Checkout)</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Мережеві RPC-шви перетворюють збій сервісу на каскад таймаутів, компенсацій та неузгоджених станів</text>
+
+  <!-- Зона клієнта -->
+  <rect x="35" y="80" width="150" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="110" y="107" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Клієнт (Web / App)</text>
+  <text x="110" y="129" text-anchor="middle" font-size="12" fill="#6b7280">POST /checkout</text>
+
+  <!-- Стрілка Клієнт -> Оркестратор -->
+  <line x1="185" y1="115" x2="207" y2="115" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+
+  <!-- Оркестратор саги -->
+  <rect x="215" y="80" width="490" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="460" y="107" text-anchor="middle" font-size="14" font-weight="700" fill="#2457d6">Оркестратор саги (Checkout Saga Coordinator)</text>
+  <text x="460" y="129" text-anchor="middle" font-size="12" fill="#1a1a1a">Послідовні RPC-виклики мікросервісів та координація компенсацій при збої</text>
+
+  <!-- Блок загального статусу / затримки -->
+  <rect x="725" y="80" width="200" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="825" y="103" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Наслідок для клієнта</text>
+  <text x="825" y="122" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">&#931; Latency &gt; 4500 ms</text>
+  <text x="825" y="139" text-anchor="middle" font-size="12" fill="#6b7280">Стан: НЕВИЗНАЧЕНИЙ</text>
+
+  <!-- Стрілка Оркестратор -> Блок затримки -->
+  <line x1="705" y1="115" x2="717" y2="115" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-danger)"/>
+
+  <!-- Мережевий прошарок: RPC виклики та точки відмов -->
+  <!-- 1. Cart Service (x=35, w=200, центр=135) -->
+  <path d="M 260 150 L 260 190 L 135 190 L 135 247" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="195" y="177" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">1. get_cart() [45 ms]</text>
+
+  <!-- 2. Order Service (x=265, w=200, центр=365) -->
+  <line x1="335" y1="150" x2="335" y2="247" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="325" y="190" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">2. create()</text>
+  <text x="325" y="207" text-anchor="end" font-size="12" fill="#6b7280">[80 ms]</text>
+
+  <line x1="395" y1="247" x2="395" y2="158" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-danger)"/>
+  <text x="405" y="190" text-anchor="start" font-size="12" font-weight="700" fill="#c0392b">6. cancel()</text>
+  <text x="405" y="207" text-anchor="start" font-size="12" fill="#c0392b">Pending!</text>
+
+  <!-- 3. Inventory Service (x=495, w=200, центр=595) -->
+  <line x1="565" y1="150" x2="565" y2="247" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="555" y="190" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">3. reserve()</text>
+  <text x="555" y="207" text-anchor="end" font-size="12" fill="#6b7280">[110 ms]</text>
+
+  <line x1="625" y1="247" x2="625" y2="158" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-danger)"/>
+  <text x="635" y="190" text-anchor="start" font-size="12" font-weight="700" fill="#c0392b">5. unlock()</text>
+  <text x="635" y="207" text-anchor="start" font-size="12" font-weight="700" fill="#c0392b">&#9888; Збій retry</text>
+
+  <!-- 4. Payment Service (x=725, w=200, центр=825) -->
+  <path d="M 680 150 L 680 190 L 780 190 L 780 247" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-danger)"/>
+  <text x="730" y="177" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">4. pay() [Timeout &gt; 3s]</text>
+
+  <!-- Маркер відмови RPC поруч зі стрілкою -->
+  <rect x="795" y="210" width="125" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="857" y="229" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">&#9888; Таймаут RPC</text>
+
+  <!-- Картки 4 мікросервісів (y=255..380, h=125) -->
+  <!-- Cart Service -->
+  <rect x="35" y="255" width="200" height="125" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="135" y="278" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Cart Service</text>
+  <text x="135" y="297" text-anchor="middle" font-size="12" fill="#6b7280">Очищення кошика</text>
+  <rect x="55" y="309" width="160" height="24" rx="4" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="135" y="325" text-anchor="middle" font-size="12" fill="#2457d6">DB: Cart (ізольована)</text>
+  <text x="135" y="357" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">&#10003; Стан: Очищено</text>
+
+  <!-- Order Service -->
+  <rect x="265" y="255" width="200" height="125" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="365" y="278" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Order Service</text>
+  <text x="365" y="297" text-anchor="middle" font-size="12" fill="#6b7280">Створення замовлення</text>
+  <rect x="285" y="309" width="160" height="24" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="365" y="325" text-anchor="middle" font-size="12" fill="#c0392b">DB: Orders (ізольована)</text>
+  <text x="365" y="357" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">&#9888; Зависло у PENDING</text>
+
+  <!-- Inventory Service -->
+  <rect x="495" y="255" width="200" height="125" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="595" y="278" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Inventory Service</text>
+  <text x="595" y="297" text-anchor="middle" font-size="12" fill="#6b7280">Резервування залишків</text>
+  <rect x="515" y="309" width="160" height="24" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="595" y="325" text-anchor="middle" font-size="12" fill="#c0392b">DB: Stock (ізольована)</text>
+  <text x="595" y="357" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">&#9888; Витік: товар замкнено</text>
+
+  <!-- Payment Service -->
+  <rect x="725" y="255" width="200" height="125" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="825" y="278" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Payment Service</text>
+  <text x="825" y="297" text-anchor="middle" font-size="12" fill="#6b7280">Списання коштів</text>
+  <rect x="735" y="309" width="180" height="24" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="825" y="325" text-anchor="middle" font-size="12" fill="#c0392b">Зовнішній платіжний шлюз</text>
+  <text x="825" y="357" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">&#10007; Таймаут виклику (504)</text>
+
+  <!-- Легенда потоків (y=398) -->
+  <line x1="35" y1="398" x2="65" y2="398" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="75" y="402" font-size="12" fill="#2457d6">Прямий хід саги (RPC)</text>
+
+  <line x1="220" y1="398" x2="250" y2="398" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-danger)"/>
+  <text x="260" y="402" font-size="12" fill="#c0392b">Компенсації при збої</text>
+
+  <text x="560" y="402" font-size="12" font-weight="700" fill="#c0392b">&#9888; Точки частинних відмов та випадкової складності</text>
+
+  <!-- Нижні 3 картки: Анатомія випадкової складності (y=418..533, h=115) -->
+  <!-- Картка 1: Часткові відмови -->
+  <rect x="35" y="418" width="280" height="115" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="175" y="441" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Часткові відмови та таймаути</text>
+  <text x="47" y="465" font-size="12" fill="#1a1a1a">&#8226; Кожен RPC-крок має шанс збою мережі</text>
+  <text x="47" y="487" font-size="12" fill="#1a1a1a">&#8226; Невідомо, чи транзакцію виконано в БД</text>
+  <text x="47" y="509" font-size="12" fill="#6b7280">&#8226; Потребує Circuit Breaker та Retries</text>
+
+  <!-- Картка 2: Накопичення затримок -->
+  <rect x="340" y="418" width="280" height="115" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="441" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Накопичення затримок (Latency)</text>
+  <text x="352" y="465" font-size="12" fill="#1a1a1a">&#8226; Затримка = сума RPC + таймаути мережі</text>
+  <text x="352" y="487" font-size="12" fill="#1a1a1a">&#8226; Замість 5 ms у моноліті маємо &gt; 4500 ms</text>
+  <text x="352" y="509" font-size="12" fill="#6b7280">&#8226; Зворотні компенсації блокують потік</text>
+
+  <!-- Картка 3: Неузгодженість даних -->
+  <rect x="645" y="418" width="280" height="115" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="785" y="441" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Неузгодженість станів</text>
+  <text x="657" y="465" font-size="12" fill="#1a1a1a">&#8226; Збій компенсації лишає «зомбі-стан»</text>
+  <text x="657" y="487" font-size="12" fill="#1a1a1a">&#8226; Склад заблоковано, замовлення зависло</text>
+  <text x="657" y="509" font-size="12" fill="#6b7280">&#8226; Відсутність єдиної ACID-транзакції</text>
+</svg>

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Зіставлення предикатів ArchUnit із сигнатурою порту</text>
+  <text x="480" y="55" font-size="13" text-anchor="middle" fill="#6b7280">Предикати аналізують байт-код сигнатури: анотації, тип повернення та типи параметрів</text>
+
+  <!-- Верхня панель: Сигнатура методу порту -->
+  <rect x="35" y="74" width="890" height="130" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="94" font-size="12" font-weight="700" fill="#1a1a1a">КОНТРАКТ ПОРТУ: DeviceStatePort.findActive(...)</text>
+  <text x="905" y="94" font-size="12" text-anchor="end" fill="#6b7280">байт-код дескриптор методу</text>
+
+  <!-- Вузол 1: Метадані -->
+  <rect x="45" y="108" width="250" height="84" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="170" y="126" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">ВУЗОЛ 1: МЕТАДАНІ</text>
+  <text x="170" y="150" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">@Transactional</text>
+  <text x="170" y="172" font-size="12" text-anchor="middle" fill="#c0392b">витік інфраструктури JPA/TX</text>
+
+  <!-- Вузол 2: Тип повернення -->
+  <rect x="355" y="108" width="250" height="84" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="126" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">ВУЗОЛ 2: ТИП ПОВЕРНЕННЯ</text>
+  <text x="480" y="150" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Page&lt;Device&gt;</text>
+  <text x="480" y="172" font-size="12" text-anchor="middle" fill="#c0392b">витік типу Spring Data</text>
+
+  <!-- Вузол 3: Типи параметрів -->
+  <rect x="665" y="108" width="250" height="84" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="790" y="126" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">ВУЗОЛ 3: ТИПИ ПАРАМЕТРІВ</text>
+  <text x="790" y="150" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">(Pageable, DeviceId)</text>
+  <text x="790" y="172" font-size="12" text-anchor="middle" fill="#c0392b">витік аргументу збереження</text>
+
+  <!-- Стрілки інспекції від предикатів до вузлів -->
+  <line x1="170" y1="250" x2="170" y2="208" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="182" y="233" font-size="12" font-weight="700" fill="#2457d6">інспектує</text>
+
+  <line x1="480" y1="250" x2="480" y2="208" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="492" y="233" font-size="12" font-weight="700" fill="#2457d6">інспектує</text>
+
+  <line x1="790" y1="250" x2="790" y2="208" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="802" y="233" font-size="12" font-weight="700" fill="#2457d6">інспектує</text>
+
+  <!-- Нижня картка 1: beAnnotatedWith -->
+  <rect x="35" y="250" width="270" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="274" font-size="14" font-weight="700" text-anchor="middle" fill="#2457d6">beAnnotatedWith(...)</text>
+  <text x="170" y="296" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Контроль метаданих методу</text>
+  <text x="170" y="320" font-size="12" text-anchor="middle" fill="#1a1a1a">methods().should()</text>
+  <text x="170" y="338" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">.notBeAnnotatedWith(...)</text>
+  <text x="170" y="360" font-size="12" text-anchor="middle" fill="#6b7280">Таблиця RuntimeAnnotations</text>
+  <rect x="47" y="376" width="246" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="170" y="394" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Захист від витоку JPA / TX</text>
+  <text x="170" y="412" font-size="12" text-anchor="middle" fill="#1a1a1a">чисті анотації домену</text>
+
+  <!-- Нижня картка 2: haveRawReturnType -->
+  <rect x="345" y="250" width="270" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="274" font-size="14" font-weight="700" text-anchor="middle" fill="#2457d6">haveRawReturnType(...)</text>
+  <text x="480" y="296" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Контроль результату методу</text>
+  <text x="480" y="320" font-size="12" text-anchor="middle" fill="#1a1a1a">methods().should()</text>
+  <text x="480" y="338" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">.notHaveRawReturnType(...)</text>
+  <text x="480" y="360" font-size="12" text-anchor="middle" fill="#6b7280">Дескриптор повернення методу</text>
+  <rect x="357" y="376" width="246" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="394" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Заборона Spring Data Page</text>
+  <text x="480" y="412" font-size="12" text-anchor="middle" fill="#1a1a1a">повернення доменних сутностей</text>
+
+  <!-- Нижня картка 3: haveRawParameterTypes -->
+  <rect x="655" y="250" width="270" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="274" font-size="14" font-weight="700" text-anchor="middle" fill="#2457d6">haveRawParameterTypes(...)</text>
+  <text x="790" y="296" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Контроль аргументів виклику</text>
+  <text x="790" y="320" font-size="12" text-anchor="middle" fill="#1a1a1a">methods().should()</text>
+  <text x="790" y="338" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">.notHaveRawParameterTypes(...)</text>
+  <text x="790" y="360" font-size="12" text-anchor="middle" fill="#6b7280">Сигнатура параметрів у байт-коді</text>
+  <rect x="667" y="376" width="246" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="394" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Заборона Spring Pageable</text>
+  <text x="790" y="412" font-size="12" text-anchor="middle" fill="#1a1a1a">лише доменні фільтри та ID</text>
+</svg>

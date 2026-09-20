@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="35" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Розсіювання бізнес-правил між точками входу</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Дублювання логіки у клієнтських адаптерах спричиняє дрейф правил і руйнування інваріантів у сховищі</text>
+
+  <!-- ТОЧКА ВХОДУ 1: HTTP-КОНТРОЛЕР -->
+  <rect x="30" y="70" width="280" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="92" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">HTTP-контролер</text>
+  <text x="170" y="108" font-size="12" fill="#6b7280" text-anchor="middle">Веб-інтерфейс та REST API</text>
+
+  <rect x="44" y="118" width="252" height="94" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="135" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Власна копія валідацій</text>
+  <text x="54" y="153" font-size="12" fill="#1a1a1a">• Перевірка: вікна зачинені</text>
+  <text x="54" y="171" font-size="12" fill="#1a1a1a">• Ліміт нагріву: T ≤ 30 °C</text>
+  <text x="54" y="189" font-size="12" fill="#1a1a1a">• Валідація схеми JSON</text>
+
+  <text x="170" y="230" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Логіка зашита в контролер</text>
+  <text x="170" y="246" font-size="12" fill="#6b7280" text-anchor="middle">Недоступна іншим точкам входу</text>
+
+  <!-- ТОЧКА ВХОДУ 2: CLI-УТИЛІТА -->
+  <rect x="340" y="70" width="280" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="92" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">CLI-утиліта</text>
+  <text x="480" y="108" font-size="12" fill="#6b7280" text-anchor="middle">Сервісний термінал монтажника</text>
+
+  <rect x="354" y="118" width="252" height="94" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="480" y="135" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Скопійовано зі змінами</text>
+  <text x="364" y="153" font-size="12" fill="#c0392b">• Перевірку вікон пропущено</text>
+  <text x="364" y="171" font-size="12" fill="#c0392b">• Ліміт знято: дозволено 40 °C</text>
+  <text x="364" y="189" font-size="12" fill="#1a1a1a">• Розбір прапорців термінала</text>
+
+  <text x="480" y="230" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Дрейф: ризик перегріву</text>
+  <text x="480" y="246" font-size="12" fill="#6b7280" text-anchor="middle">Ігнорування ліміту безпеки</text>
+
+  <!-- ТОЧКА ВХОДУ 3: ВОРКЕР ЧЕРГИ -->
+  <rect x="650" y="70" width="280" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="92" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Воркер черги</text>
+  <text x="790" y="108" font-size="12" fill="#6b7280" text-anchor="middle">Фоновий робітник телеметрії</text>
+
+  <rect x="664" y="118" width="252" height="94" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="790" y="135" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Застаріла версія правил</text>
+  <text x="674" y="153" font-size="12" fill="#c0392b">• Правило вікон невідоме</text>
+  <text x="674" y="171" font-size="12" fill="#c0392b">• Відсутній захист блокування</text>
+  <text x="674" y="189" font-size="12" fill="#1a1a1a">• Розпакування кадру брокера</text>
+
+  <text x="790" y="230" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Дрейф: затирання стану</text>
+  <text x="790" y="246" font-size="12" fill="#6b7280" text-anchor="middle">Перезапис параметрів у БД</text>
+
+  <!-- ЛІНІЇ ПРЯМОГО ДОСТУПУ ДО СХОВИЩА -->
+  <line x1="170" y1="255" x2="170" y2="320" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="182" y="284" font-size="12" font-weight="700" fill="#c0392b">Прямий запис у БД</text>
+  <text x="182" y="302" font-size="12" fill="#6b7280">(окремий SQL-запит)</text>
+
+  <line x1="480" y1="255" x2="480" y2="320" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="492" y="284" font-size="12" font-weight="700" fill="#c0392b">Прямий запис у БД</text>
+  <text x="492" y="302" font-size="12" fill="#6b7280">(запис без лімітів)</text>
+
+  <line x1="790" y1="255" x2="790" y2="320" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="802" y="284" font-size="12" font-weight="700" fill="#c0392b">Прямий запис у БД</text>
+  <text x="802" y="302" font-size="12" fill="#6b7280">(сліпий перезапис)</text>
+
+  <!-- СПІЛЬНЕ СХОВИЩЕ (БАЗА ДАНИХ) -->
+  <rect x="30" y="325" width="900" height="110" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="347" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Спільне сховище (База даних) — руйнування інваріантів та неузгодженість стану</text>
+
+  <rect x="45" y="360" width="266" height="62" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="178" y="382" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Правила діють лише для Вебу</text>
+  <text x="178" y="401" font-size="12" fill="#6b7280" text-anchor="middle">БД безсила захистити інваріанти</text>
+
+  <rect x="347" y="360" width="266" height="62" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="480" y="382" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Порушення: котел нагріто до 40 °C</text>
+  <text x="480" y="401" font-size="12" fill="#c0392b" text-anchor="middle">Ігнорування безпекового ліміту 30 °C</text>
+
+  <rect x="649" y="360" width="266" height="62" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="782" y="382" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Конфлікт: затирання параметрів</text>
+  <text x="782" y="401" font-size="12" fill="#c0392b" text-anchor="middle">Нагрів увімкнено при відкритих вікнах</text>
+</svg>

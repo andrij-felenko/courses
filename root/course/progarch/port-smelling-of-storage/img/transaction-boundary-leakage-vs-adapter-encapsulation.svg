@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Транзакційні межі: витік у домен проти інкапсуляції в адаптері</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Охоплення юзкейсу фізичною сесією прив'язує ядро до БД; Unit of Work в адаптері повністю ізолює домен</text>
+
+  <!-- ================= ЛІВА ПАНЕЛЬ: ВИТІК МЕЖІ В ДОМЕН (АНТИПАТЕРН) ================= -->
+  <rect x="24" y="74" width="444" height="448" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Плашка заголовка лівої панелі -->
+  <rect x="36" y="86" width="420" height="26" rx="4" fill="#c0392b"/>
+  <text x="246" y="103" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">АНТИПАТЕРН: ВИТІК ТРАНЗАКЦІЇ В ДОМЕН</text>
+  <text x="246" y="126" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">@Transactional підпорядковує доменне ядро життєвому циклу БД</text>
+
+  <!-- Область фізичної транзакції (Dashed boundary) -->
+  <rect x="36" y="138" width="420" height="210" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- Бейдж межі транзакції -->
+  <rect x="48" y="146" width="396" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="161" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">МЕЖА СЕСІЇ БД: @Transactional (початок tx → кінець tx)</text>
+
+  <!-- Сценарій використання (Use Case) -->
+  <rect x="48" y="176" width="396" height="60" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="60" y="194" font-size="13" font-weight="700" fill="#c0392b">@Transactional PlaceOrderUseCase.execute()</text>
+  <text x="60" y="211" font-size="12" fill="#1a1a1a">доменна логіка (order.calc) виконується всередині транзакції</text>
+  <text x="60" y="227" font-size="12" fill="#6b7280">сесія БД та блокування утримуються під час усіх обчислень</text>
+
+  <!-- Стрілка Use Case -> Port -->
+  <line x1="246" y1="236" x2="246" y2="246" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Вихідний порт (Leaky Port) -->
+  <rect x="48" y="248" width="396" height="44" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="60" y="265" font-size="12" font-weight="700" fill="#1a1a1a">Вихідний порт: <tspan font-weight="400" fill="#c0392b">OrderRepository.save() + flush()</tspan></text>
+  <text x="60" y="282" font-size="12" fill="#6b7280">протікання: контракт вимагає активної сесії та керування кешем</text>
+
+  <!-- Стрілка Port -> Adapter -->
+  <line x1="246" y1="292" x2="246" y2="302" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Вторинний адаптер та БД -->
+  <rect x="48" y="304" width="396" height="34" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="246" y="325" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Вторинний адаптер (ORM / JDBC) → PostgreSQL (СУБД)</text>
+
+  <!-- Підсумок лівої панелі -->
+  <rect x="36" y="358" width="420" height="152" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="48" y="378" font-size="12" font-weight="700" fill="#c0392b">Наслідки витоку транзакційної межі в домен:</text>
+  <text x="48" y="400" font-size="12" fill="#1a1a1a">• Інфікування ядра: домен прив'язаний до анотацій фреймворку</text>
+  <text x="48" y="422" font-size="12" fill="#1a1a1a">• Довгі блокування: сесія БД утримується під час бізнес-логіки</text>
+  <text x="48" y="444" font-size="12" fill="#1a1a1a">• Витік винятків: низькорівневі помилки SQL б'ють по юзкейсу</text>
+  <text x="48" y="466" font-size="12" fill="#1a1a1a">• Складна заміна: підміна репозиторію ламає транзакційний контекст</text>
+  <text x="48" y="488" font-size="12" font-weight="700" fill="#c0392b">• Важке тестування: тести ядра вимагають емуляції транзакцій БД</text>
+
+  <!-- ================= ПРАВА ПАНЕЛЬ: ІНКАПСУЛЯЦІЯ В АДАПТЕРІ ================= -->
+  <rect x="492" y="74" width="444" height="448" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Плашка заголовка правої панелі -->
+  <rect x="504" y="86" width="420" height="26" rx="4" fill="#27ae60"/>
+  <text x="714" y="103" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ГЕКСАГОНАЛЬНИЙ РОЗВ'ЯЗОК: ІНКАПСУЛЯЦІЯ</text>
+  <text x="714" y="126" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Юзкейс вільний від БД; Unit of Work інкапсульовано в адаптері</text>
+
+  <!-- Сценарій використання (Use Case) — чистий домен -->
+  <rect x="504" y="138" width="420" height="60" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="516" y="156" font-size="13" font-weight="700" fill="#27ae60">Чистий PlaceOrderUseCase (без @Transactional)</text>
+  <text x="516" y="173" font-size="12" fill="#1a1a1a">автономні доменні обчислення в пам'яті (чисті POJO / Entity)</text>
+  <text x="516" y="189" font-size="12" fill="#6b7280">нуль інфраструктурних залежностей; сесія БД ще навіть не існує</text>
+
+  <!-- Стрілка Use Case -> Port -->
+  <line x1="714" y1="198" x2="714" y2="208" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Вихідний порт (Clean Port) -->
+  <rect x="504" y="210" width="420" height="44" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="516" y="227" font-size="12" font-weight="700" fill="#1a1a1a">Вихідний порт: <tspan font-weight="400" fill="#27ae60">OrderPort.save(orderAggregate)</tspan></text>
+  <text x="516" y="244" font-size="12" fill="#6b7280">чистий контракт: виражає бізнес-намір збереження агрегату</text>
+
+  <!-- Стрілка Port -> Adapter -->
+  <line x1="714" y1="254" x2="714" y2="262" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Вторинний адаптер з Unit of Work (Dashed boundary) -->
+  <rect x="504" y="264" width="420" height="84" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- Бейдж межі транзакції всередині адаптера -->
+  <rect x="514" y="272" width="400" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="287" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">МЕЖА ТРАНЗАКЦІЇ (Unit of Work замкнено всередині адаптера)</text>
+
+  <text x="516" y="314" font-size="12" font-weight="700" fill="#1a1a1a">Вторинний адаптер: <tspan font-weight="400" fill="#27ae60">BeginTx → UnitOfWork.commit() → БД</tspan></text>
+  <text x="516" y="332" font-size="12" fill="#6b7280">фізична сесія активна лише мілісекунди запису зміненого стану</text>
+
+  <!-- Підсумок правої панелі -->
+  <rect x="504" y="358" width="420" height="152" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="516" y="378" font-size="12" font-weight="700" fill="#27ae60">Переваги інкапсуляції транзакцій в адаптері:</text>
+  <text x="516" y="400" font-size="12" fill="#1a1a1a">• Автономне ядро: домен повністю ізольований від БД, ORM та сесій</text>
+  <text x="516" y="422" font-size="12" fill="#1a1a1a">• Короткі блокування: сесія відкривається лише на час запису I/O</text>
+  <text x="516" y="444" font-size="12" fill="#1a1a1a">• Трансляція збоїв: технічні помилки БД ізолюються й мапляться в адаптері</text>
+  <text x="516" y="466" font-size="12" fill="#1a1a1a">• Легка заміна: підміна сховища не зачіпає сценарій використання</text>
+  <text x="516" y="488" font-size="12" font-weight="700" fill="#27ae60">• Миттєві тести ядра: швидкі юніт-тести в пам'яті без БД і моків</text>
+</svg>

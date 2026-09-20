@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Кадрування польової шини та часова діаграма трифазного секвенсера</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Компонування бінарного кадру Modbus RTU та часове розгортання доменної команди в серію шинних операцій</text>
+
+  <!-- ПАНЕЛЬ 1: СТРУКТУРА БІНАРНОГО КАДРУ -->
+  <rect x="24" y="66" width="912" height="156" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="86" font-size="14" font-weight="700" fill="#1a1a1a">1. Структура бінарного кадру (Modbus RTU Master Request)</text>
+  <text x="40" y="102" font-size="12" fill="#6b7280">Компонування полів: прямий порядок (Big-Endian) для уставки та Little-Endian для контрольної суми CRC-16</text>
+
+  <!-- Поля кадру -->
+  <!-- 0. Пауза t_3.5 -->
+  <rect x="40" y="112" width="100" height="58" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="90" y="130" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">Пауза t_3.5</text>
+  <text x="90" y="146" font-size="12" text-anchor="middle" fill="#1a1a1a">≥ 3.5 симв.</text>
+  <text x="90" y="162" font-size="12" text-anchor="middle" fill="#6b7280">4.01 мс тиші</text>
+
+  <!-- 1. Адреса пристрою -->
+  <rect x="148" y="112" width="125" height="58" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="210" y="130" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Адреса вузла</text>
+  <text x="210" y="146" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">0x01 (1 байт)</text>
+  <text x="210" y="162" font-size="12" text-anchor="middle" fill="#6b7280">Slave ID (привід)</text>
+
+  <!-- 2. Код функції Modbus -->
+  <rect x="281" y="112" width="125" height="58" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="343" y="130" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Код функції</text>
+  <text x="343" y="146" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">0x06 (1 байт)</text>
+  <text x="343" y="162" font-size="12" text-anchor="middle" fill="#6b7280">Write Register</text>
+
+  <!-- 3. Зміщення регістра -->
+  <rect x="414" y="112" width="145" height="58" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="486" y="130" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Зміщення регістра</text>
+  <text x="486" y="146" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">0x0064 (2 байти)</text>
+  <text x="486" y="162" font-size="12" text-anchor="middle" fill="#6b7280">Hi: 0x00, Lo: 0x64</text>
+
+  <!-- 4. Байти даних -->
+  <rect x="567" y="112" width="185" height="58" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="659" y="130" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Байти даних (уставка)</text>
+  <text x="659" y="146" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">0x1D7E = 7550 (2 B)</text>
+  <text x="659" y="162" font-size="12" text-anchor="middle" fill="#6b7280">Hi: 0x1D, Lo: 0x7E (75.5%)</text>
+
+  <!-- 5. Контрольна сума CRC-16 -->
+  <rect x="760" y="112" width="160" height="58" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="840" y="130" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Контрольна сума CRC</text>
+  <text x="840" y="146" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">CRC-Lo, CRC-Hi (2 B)</text>
+  <text x="840" y="162" font-size="12" text-anchor="middle" fill="#6b7280">0x2A, 0xB4 (Little-E)</text>
+
+  <!-- Підписи під полями кадру -->
+  <text x="42" y="188" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#2457d6">• Узгодження Endianness:</tspan> CPU Host (Little-Endian: 0x7E, 0x1D) ➔ трансляція в адаптері ➔ Прямий порядок на шині (Big-Endian: 0x1D, 0x7E)</text>
+  <text x="42" y="206" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#27ae60">• Контроль цілісності:</tspan> CRC-16 охоплює всі байти кадру; передача зворотним порядком (Lo/Hi); приймач відкидає пакет при розбіжності</text>
+
+  <!-- ПАНЕЛЬ 2: ЧАСОВА ДІАГРАМА ТРИФАЗНОГО СЕКВЕНСЕРА -->
+  <rect x="24" y="236" width="912" height="300" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="256" font-size="14" font-weight="700" fill="#1a1a1a">2. Часова діаграма трифазного секвенсера та арбітраж шини RS-485</text>
+  <text x="40" y="272" font-size="12" fill="#6b7280">Доменний намір розгортається у послідовність шинних операцій із короткочасним захопленням Mutex</text>
+
+  <!-- Три фази (картки) -->
+  <!-- Фаза 1: Перевірка готовності -->
+  <rect x="40" y="284" width="280" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="180" y="301" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">ФАЗА 1: ПЕРЕВІРКА ГОТОВНОСТІ</text>
+  <rect x="40" y="316" width="280" height="98" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="332" font-size="12" font-weight="700" fill="#1a1a1a">1. Захоплення Mutex шини</text>
+  <text x="50" y="350" font-size="12" fill="#1a1a1a">2. Кадр: Читання Status Word (0x03)</text>
+  <text x="50" y="368" font-size="12" fill="#27ae60">3. Відповідь: READY (біт 0 = 1)</text>
+  <text x="50" y="386" font-size="12" fill="#1a1a1a">4. Звільнення Mutex шини</text>
+  <text x="50" y="404" font-size="12" font-weight="700" fill="#27ae60">✓ Механіка вільна, аварій немає</text>
+
+  <!-- Стрілка Фаза 1 -> Фаза 2 -->
+  <line x1="322" y1="297" x2="335" y2="297" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Фаза 2: Надсилання команди увімкнення -->
+  <rect x="338" y="284" width="284" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="301" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">ФАЗА 2: КОМАНДА УВІМКНЕННЯ</text>
+  <rect x="338" y="316" width="284" height="98" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="348" y="332" font-size="12" font-weight="700" fill="#1a1a1a">1. Захоплення Mutex шини</text>
+  <text x="348" y="350" font-size="12" fill="#2457d6">2. Передача бінарного кадру 0x06:</text>
+  <text x="360" y="368" font-size="12" fill="#1a1a1a">Setpoint = 7550 (0x1D7E) + дозвіл руху</text>
+  <text x="348" y="386" font-size="12" fill="#27ae60">3. Прийом ACK ➔ пуск двигуна</text>
+  <text x="348" y="404" font-size="12" font-weight="700" fill="#2457d6">4. ЗВІЛЬНЕННЯ MUTEX на час ходу!</text>
+
+  <!-- Стрілка Фаза 2 -> Фаза 3 -->
+  <line x1="624" y1="297" x2="637" y2="297" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Фаза 3: Циклічний моніторинг -->
+  <rect x="640" y="284" width="280" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="780" y="301" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">ФАЗА 3: ЦИКЛІЧНИЙ МОНІТОРИНГ</text>
+  <rect x="640" y="316" width="280" height="98" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="650" y="332" font-size="12" fill="#1a1a1a">1. Опитування Status Word (кожні Δt):</text>
+  <text x="662" y="350" font-size="12" fill="#6b7280">• Опитування 1: MOVING (рух штока)</text>
+  <text x="662" y="368" font-size="12" fill="#6b7280">• Опитування 2..N: перевірка аварій</text>
+  <text x="662" y="386" font-size="12" fill="#27ae60">• Опитування k: TARGET_REACHED</text>
+  <text x="650" y="404" font-size="12" font-weight="700" fill="#27ae60">2. Повернення Result::Ok(Success)</text>
+
+  <!-- Часова шкала та арбітраж шини -->
+  <!-- Смуга 1: Шина RS-485 -->
+  <text x="40" y="448" font-size="12" font-weight="700" fill="#1a1a1a">Шина RS-485:</text>
+
+  <rect x="140" y="432" width="85" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="182" y="448" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Запит (3 мс)</text>
+
+  <rect x="231" y="432" width="94" height="24" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="2,2" stroke-width="1"/>
+  <text x="278" y="448" font-size="12" text-anchor="middle" fill="#6b7280">Вільна</text>
+
+  <rect x="331" y="432" width="134" height="24" rx="3" fill="#2457d6" stroke="#2457d6" stroke-width="1"/>
+  <text x="398" y="448" font-size="12" font-weight="700" text-anchor="middle" fill="#ffffff">Кадр команди (4 мс)</text>
+
+  <rect x="471" y="432" width="244" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="593" y="448" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Шина вільна: телеметрія (~20 с)</text>
+
+  <rect x="721" y="432" width="69" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="755" y="448" font-size="12" text-anchor="middle" fill="#2457d6">Опит. 2 мс</text>
+
+  <rect x="796" y="432" width="44" height="24" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="2,2" stroke-width="1"/>
+  <text x="818" y="448" font-size="12" text-anchor="middle" fill="#6b7280">Δt</text>
+
+  <rect x="846" y="432" width="70" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="881" y="448" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Звіт (Ok)</text>
+
+  <!-- Смуга 2: Стан приводу -->
+  <text x="40" y="484" font-size="12" font-weight="700" fill="#1a1a1a">Стан приводу:</text>
+
+  <rect x="140" y="468" width="325" height="24" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="302" y="484" font-size="12" text-anchor="middle" fill="#6b7280">Очікування / готовність (0.0%)</text>
+
+  <rect x="471" y="468" width="369" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="655" y="484" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Хід штока: 0.0% ➔ 75.5% (рух двигуна)</text>
+
+  <rect x="846" y="468" width="70" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="881" y="484" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">75.5% (OK)</text>
+
+  <!-- Часова вісь -->
+  <line x1="140" y1="506" x2="880" y2="506" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="892" y="509" font-size="12" fill="#6b7280">t</text>
+
+  <!-- Позначки на часовій осі -->
+  <text x="140" y="522" font-size="12" fill="#6b7280">t₀ (команда)</text>
+  <text x="398" y="522" font-size="12" text-anchor="middle" fill="#2457d6">t₁ (пуск)</text>
+  <text x="593" y="522" font-size="12" text-anchor="middle" fill="#27ae60">t₂ (хід: шина вільна)</text>
+  <text x="881" y="522" font-size="12" text-anchor="middle" fill="#27ae60">t₃ (Result::Ok)</text>
+</svg>

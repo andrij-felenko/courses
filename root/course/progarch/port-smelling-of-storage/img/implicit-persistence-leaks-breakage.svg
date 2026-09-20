@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Розрив невидимих зв'язків ядра при підміні адаптера сховища</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Нейтральний контракт порту приховує очікування ядра; заміна на NoSQL руйнує ACID, блокування та зв'язки</text>
+
+  <!-- ==================== ВЕРХНЯ ПАНЕЛЬ: НЕЙТРАЛЬНИЙ ВИХІДНИЙ ПОРТ ==================== -->
+  <rect x="24" y="70" width="912" height="72" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Заголовок верхньої панелі та плашка стану -->
+  <text x="40" y="89" font-size="12" font-weight="700" fill="#1a1a1a">ВИДИМА ПОВЕРХНЯ: НЕЙТРАЛЬНИЙ ВИХІДНИЙ ПОРТ (ФОРМАЛЬНО ОДНАКОВИЙ ДЛЯ БУДЬ-ЯКОЇ СКБД)</text>
+  <rect x="716" y="76" width="208" height="20" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="820" y="90" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">ІЛЮЗІЯ ВЗАЄМОЗАМІННОСТІ</text>
+
+  <!-- Картка 1: Доменний сценарій -->
+  <rect x="40" y="100" width="370" height="32" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="120" font-size="12" fill="#1a1a1a">Доменне ядро: <tspan font-weight="700" fill="#2457d6">DeviceService.updateSettings(id, data)</tspan></text>
+
+  <!-- Стрілка Use Case -> Port -->
+  <line x1="416" y1="116" x2="434" y2="116" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Картка 2: Нейтральний вихідний порт -->
+  <rect x="440" y="100" width="484" height="32" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="452" y="120" font-size="12" fill="#1a1a1a">Вихідний порт: <tspan font-weight="700" fill="#2457d6">interface DevicePort { save(device); findById(id); }</tspan></text>
+
+  <!-- Стрілки від порту до колонок -->
+  <line x1="246" y1="142" x2="246" y2="152" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="714" y1="142" x2="714" y2="152" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- ==================== ЛІВА КОЛОНКА: РЕЛЯЦІЙНА СКБД (SQL) ==================== -->
+  <rect x="24" y="154" width="444" height="386" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Плашка заголовка лівої колонки -->
+  <rect x="36" y="166" width="420" height="26" rx="4" fill="#27ae60"/>
+  <text x="246" y="183" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ПОЧАТКОВИЙ АДАПТЕР: РЕЛЯЦІЙНА СКБД (SQL)</text>
+  <text x="246" y="205" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Невидимі очікування ядра задовольняються рушієм СКБД</text>
+
+  <!-- Рядок 1: Міжтабличні ACID-транзакції -->
+  <rect x="36" y="214" width="420" height="68" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="46" y="222" width="224" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="54" y="236" font-size="12" font-weight="700" fill="#27ae60">1. Міжтабличні ACID-транзакції</text>
+  <rect x="306" y="222" width="140" height="20" rx="10" fill="#27ae60"/>
+  <text x="376" y="236" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">✓ ЗВ'ЯЗОК ЦІЛІСНИЙ</text>
+  <text x="46" y="256" font-size="12" fill="#1a1a1a">• Охоплює дві таблиці: оновлення приладу + аудит-лог</text>
+  <text x="46" y="272" font-size="12" fill="#6b7280">  Атомарність СКБД: при збої відкочуються обидва записи</text>
+
+  <!-- Рядок 2: Блокування рядків -->
+  <rect x="36" y="290" width="420" height="68" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="46" y="298" width="224" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="54" y="312" font-size="12" font-weight="700" fill="#27ae60">2. Блокування рядків (ізоляція)</text>
+  <rect x="306" y="298" width="140" height="20" rx="10" fill="#27ae60"/>
+  <text x="376" y="312" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">✓ ЗВ'ЯЗОК ЦІЛІСНИЙ</text>
+  <text x="46" y="332" font-size="12" fill="#1a1a1a">• Песимістичне блокування рядка: SELECT FOR UPDATE</text>
+  <text x="46" y="348" font-size="12" fill="#6b7280">  Захист від гонитви: конкурентні запити стають у чергу</text>
+
+  <!-- Рядок 3: Ліниві зв'язки -->
+  <rect x="36" y="366" width="420" height="68" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="46" y="374" width="224" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="54" y="388" font-size="12" font-weight="700" fill="#27ae60">3. Ліниві реляційні зв'язки</text>
+  <rect x="306" y="374" width="140" height="20" rx="10" fill="#27ae60"/>
+  <text x="376" y="388" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">✓ ЗВ'ЯЗОК ЦІЛІСНИЙ</text>
+  <text x="46" y="408" font-size="12" fill="#1a1a1a">• Зовнішні ключі (FK) та активна сесія ORM</text>
+  <text x="46" y="424" font-size="12" fill="#6b7280">  Виклик device.getSensors() прозоро підвантажує дані</text>
+
+  <!-- Підсумок лівої колонки -->
+  <rect x="36" y="444" width="420" height="84" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="48" y="464" font-size="12" font-weight="700" fill="#27ae60">Чому працювало: невидимі підпори СКБД</text>
+  <text x="48" y="482" font-size="12" fill="#1a1a1a">• Доменне ядро неявно спиралося на гарантії реляційного рушія</text>
+  <text x="48" y="500" font-size="12" fill="#1a1a1a">• Бізнес-інваріанти виконувалися завдяки сесії БД, а не коду ядра</text>
+  <text x="48" y="518" font-size="12" fill="#6b7280">  Справжньої незалежності від сховища не існувало — лише ілюзія</text>
+
+  <!-- ==================== ПРАВА КОЛОНКА: NoSQL / MONGODB ==================== -->
+  <rect x="492" y="154" width="444" height="386" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Плашка заголовка правої колонки -->
+  <rect x="504" y="166" width="420" height="26" rx="4" fill="#c0392b"/>
+  <text x="714" y="183" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ПІДМІНА НА NoSQL: ДОКУМЕНТНА БАЗА (MONGODB)</text>
+  <text x="714" y="205" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Розрив зв'язків: руйнування інваріантів домену</text>
+
+  <!-- Рядок 1: Міжтабличні ACID-транзакції -->
+  <rect x="504" y="214" width="420" height="68" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <rect x="514" y="222" width="224" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="522" y="236" font-size="12" font-weight="700" fill="#c0392b">1. Міжтабличні ACID-транзакції</text>
+  <rect x="756" y="222" width="158" height="20" rx="10" fill="#c0392b"/>
+  <text x="835" y="236" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">⚡ РОЗРИВ: НЕМАЄ ACID</text>
+  <text x="514" y="256" font-size="12" fill="#c0392b">• Атомарність лише в межах ОДНОГО документа колекції</text>
+  <text x="514" y="272" font-size="12" fill="#1a1a1a">  Прилад збережено, аудит впав → розірваний суперечливий стан</text>
+
+  <!-- Рядок 2: Блокування рядків -->
+  <rect x="504" y="290" width="420" height="68" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <rect x="514" y="298" width="224" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="522" y="312" font-size="12" font-weight="700" fill="#c0392b">2. Блокування рядків (ізоляція)</text>
+  <rect x="756" y="298" width="158" height="20" rx="10" fill="#c0392b"/>
+  <text x="835" y="312" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">⚡ РОЗРИВ: СТАН ГОНИТВИ</text>
+  <text x="514" y="332" font-size="12" fill="#c0392b">• Відсутність блокувань рядків: режим Last-Write-Wins</text>
+  <text x="514" y="348" font-size="12" fill="#1a1a1a">  Одночасні оновлення затирають одне одного без попередження</text>
+
+  <!-- Рядок 3: Ліниві зв'язки -->
+  <rect x="504" y="366" width="420" height="68" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <rect x="514" y="374" width="224" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="522" y="388" font-size="12" font-weight="700" fill="#c0392b">3. Ліниві реляційні зв'язки</text>
+  <rect x="756" y="374" width="158" height="20" rx="10" fill="#c0392b"/>
+  <text x="835" y="388" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">⚡ РОЗРИВ: ОБРИВ ГРАФА</text>
+  <text x="514" y="408" font-size="12" fill="#c0392b">• Документне сховище не підтримує реляційні FK і проксі</text>
+  <text x="514" y="424" font-size="12" fill="#1a1a1a">  LazyInitializationException або лавина запитів N+1 руйнує ядро</text>
+
+  <!-- Підсумок правої колонки -->
+  <rect x="504" y="444" width="420" height="84" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="516" y="464" font-size="12" font-weight="700" fill="#c0392b">Крах підміни: формальний порт не рятує</text>
+  <text x="516" y="482" font-size="12" font-weight="700" fill="#c0392b">• Контракт скомпільовано, але семантику сховища зламано</text>
+  <text x="516" y="500" font-size="12" fill="#1a1a1a">• Втрата транзакцій і блокувань тихо пошкоджує бізнес-дані</text>
+  <text x="516" y="518" font-size="12" font-weight="700" fill="#c0392b">• Висновок: заміна СКБД вимагає перебудови моделі агрегатів!</text>
+</svg>

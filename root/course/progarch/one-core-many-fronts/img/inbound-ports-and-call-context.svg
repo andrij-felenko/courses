@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Архітектурна межа вхідних портів і контекст виклику</text>
+  <text x="480" y="53" text-anchor="middle" font-size="13" fill="#6b7280">Драйвуючі адаптери транслюють стимули протоколів у чисті команди та CallContext для єдиного порту ядра</text>
+  <!-- ЛІВА ПАНЕЛЬ: ДРАЙВУЮЧІ АДАПТЕРИ (ТРАНСПОРТНИЙ ШАР) -->
+  <rect x="24" y="74" width="402" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="86" width="186" height="22" rx="4" fill="#2457d6"/>
+  <text x="129" y="101" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ДРАЙВУЮЧІ АДАПТЕРИ</text>
+  <text x="232" y="101" font-size="12" fill="#6b7280">Транспортні фронти системи</text>
+  <!-- Блок 1: Web REST API -->
+  <rect x="36" y="118" width="170" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="137" font-size="12" font-weight="700" fill="#1a1a1a">Веб-клієнт (HTTP API)</text>
+  <text x="46" y="156" font-size="12" fill="#6b7280">POST /heat {temp: 22}</text>
+  <text x="46" y="174" font-size="12" fill="#6b7280">Header: Bearer, Trace</text>
+  <line x1="206" y1="155" x2="226" y2="155" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="230" y="118" width="184" height="74" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="240" y="137" font-size="12" font-weight="700" fill="#2457d6">HttpHeatingController</text>
+  <text x="240" y="156" font-size="12" fill="#1a1a1a">• Валідація JSON-схеми</text>
+  <text x="240" y="174" font-size="12" fill="#1a1a1a">• Витяг токена й trace_id</text>
+  <!-- Блок 2: CLI Terminal -->
+  <rect x="36" y="204" width="170" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="223" font-size="12" font-weight="700" fill="#1a1a1a">Термінал (CLI Tool)</text>
+  <text x="46" y="242" font-size="12" fill="#6b7280">$ heat-cli --temp 22</text>
+  <text x="46" y="260" font-size="12" fill="#6b7280">Env: UID=1000 USER=op</text>
+  <line x1="206" y1="241" x2="226" y2="241" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="230" y="204" width="184" height="74" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="240" y="223" font-size="12" font-weight="700" fill="#2457d6">CliHeatingCommand</text>
+  <text x="240" y="242" font-size="12" fill="#1a1a1a">• Розбір argv та ключів</text>
+  <text x="240" y="260" font-size="12" fill="#1a1a1a">• Читання системного UID</text>
+  <!-- Блок 3: Queue Consumer -->
+  <rect x="36" y="290" width="170" height="74" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="309" font-size="12" font-weight="700" fill="#1a1a1a">Воркер черги (AMQP)</text>
+  <text x="46" y="328" font-size="12" fill="#6b7280">msg: {temp: 22, id: 1}</text>
+  <text x="46" y="346" font-size="12" fill="#6b7280">attr: correlation_id</text>
+  <line x1="206" y1="327" x2="226" y2="327" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="230" y="290" width="184" height="74" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="240" y="309" font-size="12" font-weight="700" fill="#2457d6">HeatingQueueConsumer</text>
+  <text x="240" y="328" font-size="12" fill="#1a1a1a">• Розпакування payload</text>
+  <text x="240" y="346" font-size="12" fill="#1a1a1a">• Читання метаданих кадру</text>
+  <!-- Обов'язки адаптерів -->
+  <rect x="36" y="376" width="378" height="76" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="394" font-size="12" font-weight="700" fill="#1a1a1a">Обов'язки тонкого драйвуючого адаптера:</text>
+  <text x="46" y="412" font-size="12" fill="#6b7280">1. Валідація протоколу (відсікання браку на межі)</text>
+  <text x="46" y="430" font-size="12" fill="#6b7280">2. Збирання Command і CallContext без правил</text>
+  <text x="46" y="448" font-size="12" fill="#6b7280">3. Зворотний переклад Result у статус протоколу</text>
+  <!-- ВХІДНА МЕЖА ЯДРА -->
+  <line x1="440" y1="84" x2="440" y2="456" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4"/>
+  <rect x="454" y="86" width="124" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="516" y="101" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">ВХІДНА МЕЖА</text>
+  <!-- Стрілки виклику через межу -->
+  <path d="M414,155 L448,155" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M414,241 L430,241 L430,175 L448,175" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M414,327 L430,327 L430,285 L448,285" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- Картка 1: Command DTO -->
+  <rect x="454" y="118" width="124" height="98" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="454" y="118" width="124" height="20" rx="4" fill="#2457d6"/>
+  <text x="516" y="132" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">Command DTO</text>
+  <text x="462" y="153" font-size="12" font-weight="600" fill="#1a1a1a">SetHeatingCmd</text>
+  <text x="462" y="171" font-size="12" fill="#6b7280">• roomId: str</text>
+  <text x="462" y="189" font-size="12" fill="#6b7280">• targetTemp: 22</text>
+  <text x="462" y="207" font-size="12" fill="#27ae60">• чистий намір</text>
+  <!-- Картка 2: CallContext -->
+  <rect x="454" y="228" width="124" height="118" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="454" y="228" width="124" height="20" rx="4" fill="#2457d6"/>
+  <text x="516" y="242" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">CallContext</text>
+  <text x="462" y="263" font-size="12" fill="#1a1a1a">• initiator_id</text>
+  <text x="462" y="281" font-size="12" fill="#1a1a1a">• trace_id: str</text>
+  <text x="462" y="299" font-size="12" fill="#1a1a1a">• cancel_token</text>
+  <text x="462" y="317" font-size="12" fill="#1a1a1a">• timestamp</text>
+  <text x="462" y="335" font-size="12" fill="#2457d6">• метадані</text>
+  <!-- Картка 3: Result -->
+  <rect x="454" y="358" width="124" height="94" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="454" y="358" width="124" height="20" rx="4" fill="#27ae60"/>
+  <text x="516" y="372" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">Result&lt;T, Error&gt;</text>
+  <text x="462" y="394" font-size="12" fill="#27ae60">Ok(void)</text>
+  <text x="462" y="412" font-size="12" fill="#c0392b">Err(Violation)</text>
+  <text x="462" y="430" font-size="12" fill="#6b7280">Err(NotFound)</text>
+  <text x="462" y="446" font-size="12" fill="#27ae60">• нейтральний</text>
+  <!-- Зворотна стрілка результату через межу -->
+  <line x1="454" y1="412" x2="420" y2="412" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <!-- Стрілки від DTO і Context в порт ядра -->
+  <line x1="578" y1="167" x2="600" y2="167" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M578,287 L588,287 L588,185 L600,185" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- ПРАВА ПАНЕЛЬ: ПРИКЛАДНЕ ЯДРО -->
+  <rect x="596" y="74" width="340" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="608" y="86" width="160" height="22" rx="4" fill="#27ae60"/>
+  <text x="688" y="101" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ПРИКЛАДНЕ ЯДРО</text>
+  <text x="780" y="101" font-size="12" fill="#6b7280">Чистий домен</text>
+  <!-- Вхідний порт Use Case -->
+  <rect x="608" y="118" width="316" height="102" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="620" y="138" font-size="12" font-weight="700" fill="#27ae60">Вхідний порт (Driving Port Contract)</text>
+  <text x="620" y="157" font-size="12" font-weight="600" fill="#1a1a1a">interface SetTargetTemperaturePort</text>
+  <text x="620" y="176" font-size="12" fill="#2457d6">execute(cmd: Command, ctx: CallContext)</text>
+  <text x="620" y="194" font-size="12" fill="#6b7280">• Програмний контракт на межі ядра</text>
+  <text x="620" y="212" font-size="12" fill="#27ae60">• Спільна точка входу для всіх фронтів</text>
+  <line x1="766" y1="220" x2="766" y2="232" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <!-- Сценарій Use Case Interactor -->
+  <rect x="608" y="234" width="316" height="110" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="620" y="254" font-size="12" font-weight="700" fill="#1a1a1a">Сценарій (Use Case Interactor)</text>
+  <text x="620" y="273" font-size="12" font-weight="600" fill="#2457d6">SetTargetTemperatureUseCase</text>
+  <text x="620" y="292" font-size="12" fill="#1a1a1a">• Єдине джерело бізнес-правил</text>
+  <text x="620" y="311" font-size="12" fill="#c0392b">• Інваріант: заборона нагріву за відкритих вікон</text>
+  <text x="620" y="330" font-size="12" fill="#27ae60">• Гарантія цілісності стану системи</text>
+  <!-- Стрілка передавання результату в Result DTO -->
+  <path d="M608,300 L592,300 L592,412 L584,412" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <!-- Зворотний переклад -->
+  <rect x="608" y="356" width="316" height="96" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="620" y="373" font-size="12" font-weight="700" fill="#1a1a1a">Зворотна трансляція адаптерами:</text>
+  <text x="620" y="391" font-size="12" fill="#6b7280">Кожен адаптер перекладає Result у свій протокол:</text>
+  <text x="620" y="409" font-size="12" fill="#1a1a1a">• Web: 200 OK або 409 Conflict</text>
+  <text x="620" y="427" font-size="12" fill="#1a1a1a">• CLI: exit code 0 або exit code 1</text>
+  <text x="620" y="445" font-size="12" fill="#1a1a1a">• Queue: broker.ack() або nack() -&gt; DLQ</text>
+</svg>

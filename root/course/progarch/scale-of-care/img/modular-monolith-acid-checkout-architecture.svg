@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Архітектура модульного моноліту: локальна ACID-транзакція та події в пам'яті</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Ліквідація мережевих швів: атомарність через спільний BEGIN–COMMIT і фонові побічні ефекти</text>
+
+  <!-- ЗОВНІШНЯ МЕЖА: ЄДИНИЙ ПРОЦЕС ОС -->
+  <rect x="24" y="72" width="912" height="350" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- ШАПКА ПРОЦЕСУ -->
+  <rect x="36" y="82" width="224" height="24" rx="4" fill="#2457d6"/>
+  <text x="148" y="98" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ЄДИНИЙ ПРОЦЕС ОС (МОНОЛІТ)</text>
+  <text x="272" y="98" font-size="12" fill="#6b7280">Спільний адресний простір • Нульова мережева затримка (0 мс) • Без RPC-серіалізації</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: ТРАНЗАКЦІЙНИЙ КОНТУР CHECKOUT -->
+  <rect x="36" y="114" width="552" height="296" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="50" y="134" font-size="13" font-weight="700" fill="#27ae60">Транзакційний контур (ACID Checkout)</text>
+  <text x="330" y="134" font-size="12" fill="#6b7280">Спільний контекст транзакції tx</text>
+
+  <!-- МОДУЛЬ ЗАМОВЛЕННЯ (ORDER) -->
+  <rect x="50" y="146" width="524" height="62" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="64" y="166" font-size="13" font-weight="700" fill="#2457d6">Модуль Замовлення (Order)</text>
+  <text x="250" y="166" font-size="12" fill="#1a1a1a">Вхідна точка: POST /checkout • Відкриває tx = db.BeginTx()</text>
+  <text x="64" y="192" font-size="12" fill="#6b7280">Координує доменні методи через пам'ять: tx.Reserve() ➔ tx.Charge() ➔ tx.Clear()</text>
+
+  <!-- ВЕРТИКАЛЬНІ СТРІЛКИ ВІД ORDER ДО 3 МОДУЛІВ -->
+  <line x1="132" y1="208" x2="132" y2="222" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="312" y1="208" x2="312" y2="222" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="492" y1="208" x2="492" y2="222" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- МОДУЛЬ СКЛАДУ (INVENTORY) -->
+  <rect x="50" y="224" width="164" height="72" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="132" y="244" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модуль Складу</text>
+  <text x="132" y="262" font-size="12" fill="#2457d6" text-anchor="middle">Inventory.Reserve(tx)</text>
+  <text x="132" y="280" font-size="12" fill="#6b7280" text-anchor="middle">Перевірка залишків</text>
+
+  <!-- МОДУЛЬ ПЛАТЕЖІВ (PAYMENT) -->
+  <rect x="230" y="224" width="164" height="72" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="312" y="244" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модуль Платежів</text>
+  <text x="312" y="262" font-size="12" fill="#2457d6" text-anchor="middle">Payment.Process(tx)</text>
+  <text x="312" y="280" font-size="12" fill="#6b7280" text-anchor="middle">Фіксація списання</text>
+
+  <!-- МОДУЛЬ КОШИКА (CART) -->
+  <rect x="410" y="224" width="164" height="72" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="492" y="244" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модуль Кошика</text>
+  <text x="492" y="262" font-size="12" fill="#2457d6" text-anchor="middle">Cart.Clear(tx)</text>
+  <text x="492" y="280" font-size="12" fill="#6b7280" text-anchor="middle">Очищення сесії</text>
+
+  <!-- ВЕРТИКАЛЬНІ СТРІЛКИ ВІД 3 МОДУЛІВ ДО СПІЛЬНОГО ТРАНЗАКЦІЙНОГО БЛОКУ -->
+  <line x1="132" y1="296" x2="132" y2="310" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="312" y1="296" x2="312" y2="310" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="492" y1="296" x2="492" y2="310" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- СПІЛЬНИЙ БЛОК ЛОКАЛЬНОЇ ТРАНЗАКЦІЇ -->
+  <rect x="50" y="312" width="524" height="82" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="64" y="332" font-size="13" font-weight="700" fill="#27ae60">Спільний блок: BEGIN TRANSACTION ──[ Атомарний скоуп tx ]── COMMIT</text>
+  <text x="64" y="356" font-size="12" fill="#1a1a1a">Усі 4 модулі пишуть через одне SQL-з'єднання • Строгі інваріанти на рівні СУБД</text>
+  <text x="64" y="378" font-size="12" fill="#c0392b" font-weight="600">Відмова на будь-якому кроці ➔ миттєвий ROLLBACK (0 компенсувальних дій, 0 саг)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: ФОНОВИЙ АСИНХРОННИЙ КОНТУР -->
+  <rect x="604" y="114" width="320" height="296" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="618" y="134" font-size="13" font-weight="700" fill="#2457d6">Фоновий контур (In-Memory Bus)</text>
+  <text x="618" y="152" font-size="12" fill="#27ae60">Виконання strictly після успішного COMMIT</text>
+
+  <!-- КАРТКА ШИНИ ПОДІЙ -->
+  <rect x="618" y="166" width="292" height="66" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="764" y="186" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Шина подій у пам'яті</text>
+  <text x="764" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">eventBus.Publish(OrderPlaced)</text>
+  <text x="764" y="222" font-size="12" fill="#6b7280" text-anchor="middle">Go channels / кільцевий буфер • 0 мс на брокер</text>
+
+  <!-- СТРІЛКА ВІД COMMIT ДО ШИНИ ПОДІЙ -->
+  <path d="M 574 330 H 596 V 199 H 616" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+
+  <!-- СТРІЛКИ ВІД ШИНИ ПОДІЙ ДО ПІДПИСНИКІВ -->
+  <line x1="688" y1="232" x2="688" y2="248" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="840" y1="232" x2="840" y2="248" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- МОДУЛЬ СПОВІЩЕНЬ (NOTIFICATION) -->
+  <rect x="618" y="250" width="140" height="74" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="688" y="270" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Сповіщення</text>
+  <text x="688" y="288" font-size="12" fill="#2457d6" text-anchor="middle">Email / SMS</text>
+  <text x="688" y="306" font-size="12" fill="#6b7280" text-anchor="middle">Фоновий воркер</text>
+
+  <!-- МОДУЛЬ АНАЛІТИКИ (ANALYTICS) -->
+  <rect x="770" y="250" width="140" height="74" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="840" y="270" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Аналітика</text>
+  <text x="840" y="288" font-size="12" fill="#2457d6" text-anchor="middle">Метрики / BI</text>
+  <text x="840" y="306" font-size="12" fill="#6b7280" text-anchor="middle">Дашборди продажів</text>
+
+  <!-- КАРТКА ІЗОЛЯЦІЇ ПОБІЧНИХ ЕФЕКТІВ -->
+  <rect x="618" y="336" width="292" height="64" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="764" y="356" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Ізоляція побічних ефектів</text>
+  <text x="764" y="374" font-size="12" fill="#1a1a1a" text-anchor="middle">Збій у пошті чи аналітиці НЕ руйнує замовлення</text>
+  <text x="764" y="390" font-size="12" fill="#6b7280" text-anchor="middle">Немає зовнішнього брокера (Kafka / RabbitMQ)</text>
+
+  <!-- НИЖНІЙ ЯРУС: СУБД (ЛІВОРУЧ) -->
+  <rect x="24" y="434" width="564" height="102" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="40" y="454" font-size="13" font-weight="700" fill="#2457d6">Спільна реляційна СУБД (PostgreSQL / RDBMS)</text>
+  <text x="572" y="454" font-size="12" fill="#6b7280" text-anchor="end">Єдина транзакційна межа даних</text>
+
+  <!-- ТАБЛИЦІ БАЗИ ДАНИХ -->
+  <rect x="40" y="464" width="124" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="102" y="481" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">orders</text>
+  <text x="102" y="497" font-size="12" fill="#6b7280" text-anchor="middle">status, amount</text>
+
+  <rect x="176" y="464" width="124" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="238" y="481" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">stock_items</text>
+  <text x="238" y="497" font-size="12" fill="#6b7280" text-anchor="middle">quantity, locks</text>
+
+  <rect x="312" y="464" width="124" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="374" y="481" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">payments</text>
+  <text x="374" y="497" font-size="12" fill="#6b7280" text-anchor="middle">tx_id, receipt</text>
+
+  <rect x="448" y="464" width="124" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="510" y="481" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">cart_items</text>
+  <text x="510" y="497" font-size="12" fill="#6b7280" text-anchor="middle">user_id, sku</text>
+
+  <text x="306" y="524" font-size="12" fill="#27ae60" font-weight="600" text-anchor="middle">Гарантії ACID: Атомарність • Узгодженість • Ізольованість • Довговічність</text>
+
+  <!-- СТРІЛКА ВІД ТРАНЗАКЦІЙНОГО БЛОКУ ДО СУБД -->
+  <line x1="306" y1="394" x2="306" y2="432" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- НИЖНІЙ ЯРУС: АРХІТЕКТУРНІ ВИГОДИ (ПРАВОРУЧ) -->
+  <rect x="604" y="434" width="332" height="102" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="618" y="454" font-size="13" font-weight="700" fill="#27ae60">Архітектурні вигоди згортання</text>
+  <text x="618" y="474" font-size="12" fill="#1a1a1a">✔ Строга атомарність: єдиний BEGIN–COMMIT</text>
+  <text x="618" y="494" font-size="12" fill="#1a1a1a">✔ Нуль мережевих швів: виклики методів у пам'яті (0 мс)</text>
+  <text x="618" y="514" font-size="12" fill="#1a1a1a">✔ Ліквідація саги: немає компенсувальних дій та таймаутів</text>
+</svg>

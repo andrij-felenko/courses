@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Радіус ураження та транзитивне поширення збою в графі залежностей</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Локальна правка у спільному вузлі U транслюється проти стрілок імпорту й уражає 100% споживачів</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ЛОКАЛІЗОВАНИЙ РАДІУС ==================== -->
+  <rect x="24" y="74" width="390" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="219" y="98" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Локалізований радіус (прямий імпорт)</text>
+  <text x="219" y="116" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Автономні модулі: R(h₂) = 1 (25% системи)</text>
+
+  <!-- Червоний контур ураження навколо v2 та h2 -->
+  <rect x="150" y="128" width="252" height="76" rx="8" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="276" y="218" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Червоний контур: R(h₂) = 1 (лише v₂)</text>
+
+  <!-- Вузли Панелі 1 -->
+  <!-- v1: API (безпечний) -->
+  <rect x="38" y="142" width="96" height="28" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="86" y="161" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">v₁: API</text>
+
+  <!-- v2: Білінг (уражений) -->
+  <rect x="158" y="142" width="92" height="28" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="204" y="161" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">v₂: Білінг</text>
+
+  <!-- h2: Хелпер білінгу (епіцентр) -->
+  <rect x="296" y="142" width="98" height="28" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="345" y="161" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">h₂: Хелпер</text>
+
+  <!-- Стрілки між v2 та h2 -->
+  <!-- Імпорт v2 -> h2 -->
+  <line x1="250" y1="150" x2="294" y2="150" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <!-- Дефект h2 -> v2 -->
+  <line x1="294" y1="162" x2="250" y2="162" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-red)"/>
+
+  <!-- Позначка епіцентру в h2 -->
+  <text x="345" y="188" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">💥 Зміна в h₂</text>
+
+  <!-- v3: Телеметрія (безпечний) -->
+  <rect x="38" y="242" width="96" height="28" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="86" y="261" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">v₃: Телеметрія</text>
+
+  <!-- v4: Сховище (безпечний) -->
+  <rect x="158" y="242" width="92" height="28" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="204" y="261" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">v₄: Сховище</text>
+
+  <!-- Підпис зони безпеки -->
+  <text x="146" y="292" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Зона безпеки: v₁, v₃, v₄ ізольовані</text>
+  <text x="146" y="308" font-size="12" fill="#6b7280" text-anchor="middle">Нуль шляхів досяжності до h₂ (R = 0)</text>
+
+  <!-- Картка аналізу Панелі 1 -->
+  <rect x="36" y="332" width="366" height="158" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="219" y="352" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Локалізація точки відмови</text>
+
+  <text x="50" y="374" font-size="12" font-weight="700" fill="#1a1a1a">● Пряма залежність: v₂ → h₂</text>
+  <text x="64" y="392" font-size="12" fill="#6b7280">Хелпер h₂ не розділяється з іншими модулями</text>
+
+  <text x="50" y="414" font-size="12" font-weight="700" fill="#27ae60">● Топологічний радіус ураження:</text>
+  <text x="64" y="432" font-size="12" fill="#1a1a1a">R(h₂) = |{ v | v ⇝ h₂ }| = 1 (25% системи)</text>
+
+  <text x="50" y="454" font-size="12" font-weight="700" fill="#1a1a1a">● Стан решти сервісів:</text>
+  <text x="64" y="472" font-size="12" fill="#27ae60" font-weight="700">Модулі v₁, v₃, v₄ стабільні, збірки не падають</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: ТРАНЗИТИВНА ХВИЛЯ УРАЖЕННЯ ==================== -->
+  <rect x="432" y="74" width="504" height="430" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="684" y="98" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">2. Транзитивна хвиля ураження (вузол U)</text>
+  <text x="684" y="116" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Спільний вузол utils: R(U) = |V| - 1 = 4 (100% споживачів)</text>
+
+  <!-- Червоний контур: охоплює всі модулі споживачів v1..v4 -->
+  <rect x="440" y="128" width="488" height="178" rx="8" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- Вузли споживачів Панелі 2 (усі уражені) -->
+  <!-- v1: API -->
+  <rect x="448" y="142" width="108" height="28" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="502" y="161" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">v₁: API</text>
+
+  <!-- v3: Телеметрія -->
+  <rect x="448" y="210" width="108" height="28" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="502" y="229" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">v₃: Телеметрія</text>
+
+  <!-- v2: Білінг -->
+  <rect x="812" y="142" width="108" height="28" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="866" y="161" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">v₂: Білінг</text>
+
+  <!-- v4: Сховище -->
+  <rect x="812" y="210" width="108" height="28" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="866" y="229" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">v₄: Сховище</text>
+
+  <!-- Центральний вузол U (спільні utils) -->
+  <rect x="619" y="166" width="130" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="684" y="186" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">U: спільні utils</text>
+
+  <!-- Вузол зовнішньої бібліотеки L_ext -->
+  <rect x="614" y="234" width="140" height="28" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="684" y="252" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">L_ext: Зовнішня ліба</text>
+
+  <!-- Ребро U -> L_ext -->
+  <line x1="684" y1="198" x2="684" y2="234" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Позначка епіцентру біля L_ext -->
+  <text x="684" y="284" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">💥 Епіцентр: оновлення L_ext (Ce = 1)</text>
+
+  <!-- Ребра та зворотні вектори між споживачами та U -->
+  <!-- v1 <-> U -->
+  <line x1="556" y1="152" x2="617" y2="174" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <line x1="617" y1="182" x2="556" y2="160" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr-red)"/>
+
+  <!-- v3 <-> U -->
+  <line x1="556" y1="216" x2="617" y2="192" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <line x1="617" y1="186" x2="556" y2="224" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr-red)"/>
+
+  <!-- v2 <-> U -->
+  <line x1="812" y1="152" x2="751" y2="174" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <line x1="751" y1="182" x2="812" y2="160" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr-red)"/>
+
+  <!-- v4 <-> U -->
+  <line x1="812" y1="216" x2="751" y2="192" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <line x1="751" y1="186" x2="812" y2="224" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr-red)"/>
+
+  <!-- Підпис червоного контуру -->
+  <text x="684" y="322" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Червоний контур: R(U) = |V| - 1 = 4 (100% уражених вершин)</text>
+
+  <!-- Картка аналізу Панелі 2 -->
+  <rect x="444" y="332" width="480" height="158" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="684" y="352" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Невідповідність: локальна дія vs глобальний радіус</text>
+
+  <text x="458" y="374" font-size="12" font-weight="700" fill="#1a1a1a">● Локальна дія (епіцентр):</text>
+  <text x="472" y="392" font-size="12" fill="#6b7280">Правка 1 функції в U або bump версії L_ext (Δcode &lt; 1%)</text>
+
+  <text x="458" y="414" font-size="12" font-weight="700" fill="#2457d6">● Зворотний вектор ураження:</text>
+  <text x="472" y="432" font-size="12" fill="#1a1a1a">Дефект іде проти стрілок виклику вздовж шляхів досяжності v ⇝ U</text>
+
+  <text x="458" y="454" font-size="12" font-weight="700" fill="#c0392b">● Топологічний радіус: R(U) = |V| - 1 = 4 (100% модулів)</text>
+  <text x="472" y="472" font-size="12" fill="#c0392b" font-weight="700">Будь-яка зміна утиліти ламає збірки й тести абсолютно всіх споживачів</text>
+</svg>

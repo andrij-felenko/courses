@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Чотири прірви Волдо: локальний виклик проти розподіленого</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Фізичні бар'єри пам'яті, часу й відмов: чому єдина об'єктна модель неспроможна</text>
+
+  <!-- ЛІВА КОЛОНКА: ЛОКАЛЬНИЙ ВИКЛИК -->
+  <rect x="30" y="74" width="425" height="466" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="30" y="74" width="425" height="34" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="242" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">ЛОКАЛЬНИЙ ВИКЛИК (В МЕЖАХ ПРОЦЕСУ)</text>
+
+  <!-- Ліва картка 1: Пам'ять -->
+  <rect x="42" y="118" width="401" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="135" font-size="12" font-weight="bold" fill="#27ae60">1. Пам'ять: спільний адресний простір і вказівники</text>
+  <rect x="54" y="147" width="74" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="91" y="165" text-anchor="middle" font-size="12" fill="#1a1a1a">Клієнт</text>
+  <line x1="128" y1="161" x2="156" y2="161" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <rect x="162" y="147" width="124" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="224" y="165" text-anchor="middle" font-size="12" fill="#27ae60">ptr (0x7FFE... RAM)</text>
+  <line x1="286" y1="161" x2="312" y2="161" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <rect x="318" y="147" width="114" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="375" y="165" text-anchor="middle" font-size="12" fill="#1a1a1a">Об'єкт у пам'яті</text>
+
+  <!-- Ліва картка 2: Латентність -->
+  <rect x="42" y="202" width="401" height="74" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="219" font-size="12" font-weight="bold" fill="#27ae60">2. Латентність: наносекунди процесора (1–10 нс)</text>
+  <rect x="54" y="229" width="116" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="112" y="244" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">~1–10 нс</text>
+  <text x="112" y="258" text-anchor="middle" font-size="12" fill="#1a1a1a">Кеш CPU, RAM</text>
+  <text x="180" y="244" font-size="12" fill="#1a1a1a">Прямий машинний виклик у пам'яті</text>
+  <text x="180" y="260" font-size="12" fill="#6b7280">Детермінований час виконання інструкцій</text>
+
+  <!-- Ліва картка 3: Відмови -->
+  <rect x="42" y="288" width="401" height="148" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="305" font-size="12" font-weight="bold" fill="#27ae60">3. Відмови: бінарне виживання процесу (Fate-Sharing)</text>
+  <rect x="54" y="316" width="377" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="66" y="334" font-size="12" font-weight="bold" fill="#27ae60">Бінарний стан:</text>
+  <text x="162" y="334" font-size="12" fill="#1a1a1a">результат АБО виняток</text>
+  <text x="66" y="352" font-size="12" fill="#6b7280">Стек відомий процесу, проміжний стан детермінований</text>
+  <rect x="54" y="374" width="377" height="50" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="66" y="392" font-size="12" font-weight="bold" fill="#1a1a1a">Спільна доля:</text>
+  <text x="158" y="392" font-size="12" fill="#1a1a1a">крах вбиває весь процес цілком</text>
+  <text x="66" y="410" font-size="12" fill="#6b7280">Не буває зависання: або все працює, або процес зник</text>
+
+  <!-- Ліва картка 4: Конкурентність -->
+  <rect x="42" y="448" width="401" height="80" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="465" font-size="12" font-weight="bold" fill="#27ae60">4. Конкурентність: локальні блокування і спільний час</text>
+  <text x="54" y="483" font-size="12" fill="#1a1a1a">• Єдиний тактовий генератор CPU: чіткий глобальний порядок</text>
+  <text x="54" y="501" font-size="12" fill="#1a1a1a">• Локальні примітиви: м'ютекси, атоміки, бар'єри пам'яті</text>
+  <text x="54" y="519" font-size="12" fill="#6b7280">• Передбачуваний локальний стан і керований доступ</text>
+
+  <!-- ПРАВА КОЛОНКА: РОЗПОДІЛЕНИЙ ВИКЛИК -->
+  <rect x="485" y="74" width="445" height="466" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="485" y="74" width="445" height="34" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="707" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">РОЗПОДІЛЕНИЙ ВИКЛИК (ЧОТИРИ ПРІРВИ ВОЛДО)</text>
+
+  <!-- Права картка 1: Пам'ять і серіалізація -->
+  <rect x="497" y="118" width="421" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="509" y="135" font-size="12" font-weight="bold" fill="#c0392b">1. Пам'ять: розділені простори й серіалізація</text>
+  <rect x="507" y="147" width="52" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="533" y="165" text-anchor="middle" font-size="12" fill="#1a1a1a">Клієнт</text>
+  <line x1="559" y1="161" x2="569" y2="161" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <rect x="574" y="147" width="84" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="616" y="165" text-anchor="middle" font-size="12" fill="#c0392b">Серіалізація</text>
+  <line x1="658" y1="161" x2="668" y2="161" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <rect x="673" y="147" width="56" height="28" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="701" y="165" text-anchor="middle" font-size="12" fill="#1a1a1a">Мережа</text>
+  <line x1="729" y1="161" x2="739" y2="161" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <rect x="744" y="147" width="94" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="791" y="165" text-anchor="middle" font-size="12" fill="#c0392b">Десеріалізація</text>
+  <line x1="838" y1="161" x2="848" y2="161" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <rect x="853" y="147" width="56" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="881" y="165" text-anchor="middle" font-size="12" fill="#1a1a1a">Сервер</text>
+
+  <!-- Права картка 2: Латентність -->
+  <rect x="497" y="202" width="421" height="74" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="509" y="219" font-size="12" font-weight="bold" fill="#c0392b">2. Латентність: мілісекунди мережі (розрив у 10⁶ разів)</text>
+  <rect x="509" y="229" width="138" height="36" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="578" y="244" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">~1–10 мс (10⁶ нс)</text>
+  <text x="578" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">×1 000 000 повільніше</text>
+  <text x="656" y="244" font-size="12" fill="#1a1a1a">Комутатори, черги ОС, затримка лінії</text>
+  <text x="656" y="260" font-size="12" fill="#c0392b">Недетермінований мережевий джитер</text>
+
+  <!-- Права картка 3: Часткові відмови й тризначна логіка -->
+  <rect x="497" y="288" width="421" height="148" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="509" y="305" font-size="12" font-weight="bold" fill="#c0392b">3. Часткові відмови: тризначна логіка й таймаути</text>
+
+  <!-- Стан 1: Втрата запиту -->
+  <rect x="509" y="318" width="120" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="569" y="334" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">1. Втрата запиту</text>
+  <text x="569" y="350" text-anchor="middle" font-size="12" fill="#6b7280">Дія не почалася</text>
+
+  <!-- Центр: TIMEOUT -->
+  <rect x="641" y="318" width="132" height="44" rx="4" fill="#1a1a1a" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="707" y="334" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">? TIMEOUT ?</text>
+  <text x="707" y="350" text-anchor="middle" font-size="12" fill="#fdecea">Сліпа зона клієнта</text>
+
+  <!-- Стан 2: Збій сервера -->
+  <rect x="785" y="318" width="122" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="846" y="334" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">2. Збій сервера</text>
+  <text x="846" y="350" text-anchor="middle" font-size="12" fill="#6b7280">Дія не завершена</text>
+
+  <!-- Стрілки до TIMEOUT -->
+  <line x1="629" y1="340" x2="637" y2="340" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="785" y1="340" x2="777" y2="340" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Стан 3: Втрата відповіді -->
+  <rect x="509" y="374" width="398" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="708" y="392" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">3. Втрата відповіді: дію виконано на сервері!</text>
+  <text x="708" y="410" text-anchor="middle" font-size="12" fill="#6b7280">Повтор (retry) без ідемпотентності створить дублікат</text>
+  <line x1="707" y1="374" x2="707" y2="366" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Права картка 4: Конкурентність -->
+  <rect x="497" y="448" width="421" height="80" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="509" y="465" font-size="12" font-weight="bold" fill="#c0392b">4. Конкурентність: фізичний паралелізм без єдиного часу</text>
+  <text x="509" y="483" font-size="12" fill="#1a1a1a">• Незалежні фізичні вузли: годинниковий дрифт (Clock Drift)</text>
+  <text x="509" y="501" font-size="12" fill="#1a1a1a">• Неможливо знати хронологію без розподіленого консенсусу</text>
+  <text x="509" y="519" font-size="12" fill="#c0392b">• Непередбачувані затримки пакетів і загроза Split-Brain</text>
+</svg>

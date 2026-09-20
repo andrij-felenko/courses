@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Арбітраж напівдуплексної шини RS-485: черга, м'ютекс і транзакції</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Серіалізація паралельних викликів усуває колізії, тиша t3.5 розділяє кадри, а таймаут звільняє порт</text>
+
+  <!-- ПАНЕЛЬ 1: Часова діаграма арбітражу шини -->
+  <rect x="24" y="68" width="912" height="352" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="90" font-size="13" font-weight="bold" fill="#1a1a1a">Часова шкала серіалізації: клієнтські виклики → черга FIFO → м'ютекс → шина RS-485</text>
+
+  <line x1="216" y1="100" x2="216" y2="372" stroke="#d0d7de" stroke-width="1.5"/>
+  <!-- Доріжка 1: Сценарії виклику -->
+  <text x="40" y="118" font-size="12" font-weight="bold" fill="#1a1a1a">1. Виклики сервісів</text>
+  <text x="40" y="134" font-size="12" fill="#6b7280">Паралельні потоки</text>
+  <rect x="230" y="104" width="418" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="236" y="118" font-size="12" font-weight="bold" fill="#2457d6">Сценарій 1 (Опалення):</text>
+  <text x="372" y="118" font-size="12" fill="#1a1a1a">SetValve(80%) → очікування відповіді порту</text>
+  <rect x="660" y="104" width="84" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="702" y="118" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Успіх (OK)</text>
+  <rect x="380" y="128" width="268" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="386" y="142" font-size="12" font-weight="bold" fill="#c0392b">Сценарій 2:</text>
+  <text x="456" y="142" font-size="12" fill="#c0392b">SetValve(100%) → ЗАБЛОКОВАНО у FIFO</text>
+  <rect x="660" y="128" width="244" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="666" y="142" font-size="12" font-weight="bold" fill="#2457d6">Сценарій 2:</text>
+  <text x="736" y="142" font-size="12" fill="#1a1a1a">початок обробки транзакції 2</text>
+  <line x1="40" y1="152" x2="920" y2="152" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <!-- Доріжка 2: Черга команд -->
+  <text x="40" y="172" font-size="12" font-weight="bold" fill="#1a1a1a">2. Черга команд FIFO</text>
+  <text x="40" y="188" font-size="12" fill="#6b7280">Буферизація викликів</text>
+  <rect x="230" y="160" width="38" height="26" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="249" y="177" font-size="12" fill="#6b7280" text-anchor="middle">[ ∅ ]</text>
+  <rect x="280" y="160" width="88" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="324" y="177" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Cmd 1 → Pop</text>
+  <rect x="380" y="160" width="268" height="26" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="514" y="177" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Елемент у черзі: [ Cmd 2 : Клапан №2, 100% ]</text>
+  <rect x="660" y="160" width="100" height="26" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="177" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Dequeue Cmd 2</text>
+  <line x1="40" y1="198" x2="920" y2="198" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <!-- Доріжка 3: М'ютекс послідовного порту -->
+  <text x="40" y="218" font-size="12" font-weight="bold" fill="#1a1a1a">3. М'ютекс порту</text>
+  <text x="40" y="234" font-size="12" fill="#6b7280">Монополія на UART</text>
+  <rect x="230" y="206" width="38" height="26" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="249" y="223" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вільний</text>
+  <rect x="280" y="206" width="368" height="26" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="464" y="223" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">LOCKED : Транзакція 1 (монополія до RX або T_timeout)</text>
+  <rect x="660" y="206" width="244" height="26" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="782" y="223" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">LOCKED : Транзакція 2</text>
+  <line x1="40" y1="244" x2="920" y2="244" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <!-- Доріжка 4: Керування приймачем/передавачем DE -->
+  <text x="40" y="264" font-size="12" font-weight="bold" fill="#1a1a1a">4. Драйвер DE / RE</text>
+  <text x="40" y="280" font-size="12" fill="#6b7280">1=TX, 0=RX / High-Z</text>
+  <rect x="230" y="252" width="88" height="24" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="274" y="268" font-size="12" fill="#6b7280" text-anchor="middle">DE=0 (тиша t3.5)</text>
+  <rect x="330" y="252" width="138" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="399" y="268" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DE=1 (TX: передача)</text>
+  <rect x="480" y="252" width="228" height="24" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="594" y="268" font-size="12" fill="#6b7280" text-anchor="middle">DE=0 (RX: прослуховування лінії та відповідь)</text>
+  <rect x="720" y="252" width="160" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="800" y="268" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DE=1 (TX: передача 2)</text>
+  <line x1="40" y1="288" x2="920" y2="288" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <!-- Доріжка 5: Кадри та інтервали на шині RS-485 -->
+  <text x="40" y="316" font-size="12" font-weight="bold" fill="#1a1a1a">5. Шина RS-485</text>
+  <text x="40" y="332" font-size="12" fill="#6b7280">t3.5 / TX / RX</text>
+  <text x="40" y="348" font-size="12" fill="#6b7280">Таймаут T_timeout</text>
+  <rect x="280" y="296" width="38" height="54" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="299" y="320" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Тиша</text>
+  <text x="299" y="336" font-size="12" fill="#6b7280" text-anchor="middle">t3.5</text>
+  <rect x="330" y="296" width="138" height="54" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="399" y="316" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">TX: Запит Modbus RTU</text>
+  <text x="399" y="332" font-size="12" fill="#1a1a1a" text-anchor="middle">ID:01 | FC:06 | Reg:0002</text>
+  <text x="399" y="346" font-size="12" fill="#6b7280" text-anchor="middle">Val:0x0320 (80%) | CRC</text>
+  <rect x="480" y="296" width="48" height="54" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="504" y="320" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">t_proc</text>
+  <text x="504" y="336" font-size="12" fill="#6b7280" text-anchor="middle">привід</text>
+  <rect x="540" y="296" width="108" height="54" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="594" y="316" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">RX: Відповідь клапана</text>
+  <text x="594" y="332" font-size="12" fill="#1a1a1a" text-anchor="middle">ID:01 | FC:06 | 0320</text>
+  <text x="594" y="346" font-size="12" fill="#27ae60" text-anchor="middle">CRC-16 OK</text>
+  <rect x="660" y="296" width="48" height="54" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="684" y="320" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Тиша</text>
+  <text x="684" y="336" font-size="12" fill="#6b7280" text-anchor="middle">t3.5</text>
+  <rect x="720" y="296" width="160" height="54" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="800" y="316" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">TX: Запит Modbus RTU 2</text>
+  <text x="800" y="332" font-size="12" fill="#1a1a1a" text-anchor="middle">ID:02 | FC:06 | Reg:0002</text>
+  <text x="800" y="346" font-size="12" fill="#6b7280" text-anchor="middle">Val:0x03E8 (100%) | CRC</text>
+  <!-- Доріжка 6: Часова шкала -->
+  <line x1="220" y1="376" x2="904" y2="376" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="914" y="380" font-size="12" font-weight="bold" fill="#1a1a1a">t</text>
+  <line x1="236" y1="372" x2="236" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="236" y="394" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">t0</text>
+  <line x1="280" y1="372" x2="280" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="280" y="394" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t1</text>
+  <line x1="330" y1="372" x2="330" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="330" y="394" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">t1+t3.5</text>
+  <line x1="380" y1="372" x2="380" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="380" y="394" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t2</text>
+  <line x1="540" y1="372" x2="540" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="540" y="394" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t3</text>
+  <line x1="648" y1="372" x2="648" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="648" y="394" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">t4</text>
+  <line x1="720" y1="372" x2="720" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="720" y="394" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t5</text>
+  <line x1="880" y1="372" x2="880" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="880" y="394" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">t6</text>
+
+  <!-- ПАНЕЛЬ 2: Архітектурне порівняння -->
+  <rect x="24" y="432" width="446" height="106" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="40" y="452" font-size="13" font-weight="bold" fill="#c0392b">⚠ Без арбітражу: прямий паралельний доступ до UART</text>
+  <text x="40" y="472" font-size="12" fill="#1a1a1a">• Одночасна передача: Сценарій 2 вмикає DE=1 під час транзакції 1</text>
+  <text x="40" y="490" font-size="12" fill="#1a1a1a">• Електрична колізія: драйвери тягнуть пару A/B у протилежні стани</text>
+  <text x="40" y="508" font-size="12" fill="#1a1a1a">• Наслідок: биті байти, відхилення CRC-16, втрата контролю клапана</text>
+  <text x="40" y="526" font-size="12" font-weight="bold" fill="#c0392b">Результат: аварійний збій через витік фізичних обмежень у домен</text>
+  <rect x="490" y="432" width="446" height="106" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="506" y="452" font-size="13" font-weight="bold" fill="#27ae60">✓ З чергою та м'ютексом: напівдуплексний арбітраж в ACL</text>
+  <text x="506" y="472" font-size="12" fill="#1a1a1a">• Потокобезпечна черга: буферизує виклики без блокування клієнтів</text>
+  <text x="506" y="490" font-size="12" fill="#1a1a1a">• М'ютекс порту: утримує монополію на весь цикл (t3.5 + TX + RX)</text>
+  <text x="506" y="508" font-size="12" fill="#1a1a1a">• Таймаут T_timeout: запобігає зависанню і звільняє шину у разі збою</text>
+  <text x="506" y="526" font-size="12" font-weight="bold" fill="#27ae60">Результат: чисте доменне ядро, нуль колізій і надійна доставка</text>
+
+</svg>

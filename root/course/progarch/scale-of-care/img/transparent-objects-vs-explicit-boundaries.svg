@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прозорість розташування проти явних меж компонентів</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Маскування мережі веде до каскадних блокувань; явні рубежі контролюють латентність і відмови</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Оманлива прозорість -->
+  <rect x="24" y="76" width="444" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="38" y="90" width="416" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="246" y="111" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">ОМАНЛИВА ПРОЗОРІСТЬ РОЗТАШУВАННЯ (CORBA / DCOM)</text>
+  <text x="246" y="138" font-size="12" fill="#6b7280" text-anchor="middle">Ілюзія: «Віддалений виклик ідентичний до виклику методу в пам'яті»</text>
+
+  <!-- Лівий вузол: Клієнт -->
+  <rect x="38" y="154" width="160" height="250" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="44" y="160" width="148" height="22" rx="4" fill="#fdecea"/>
+  <text x="118" y="175" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Клієнтський потік</text>
+
+  <rect x="44" y="188" width="148" height="62" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="204" font-size="12" fill="#1a1a1a">for (id in items):</text>
+  <text x="52" y="220" font-size="12" fill="#1a1a1a">  obj.getPrice(id)</text>
+  <text x="52" y="240" font-size="12" font-weight="bold" fill="#c0392b">Дрібні виклики (N×)</text>
+
+  <rect x="44" y="256" width="148" height="64" rx="4" fill="#ffffff" stroke="#c0392b" stroke-dasharray="4,3" stroke-width="1.5"/>
+  <text x="118" y="274" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Невидимий ORB-стаб</text>
+  <text x="118" y="292" font-size="12" fill="#6b7280" text-anchor="middle">Приховує мережу під ОП</text>
+  <text x="118" y="308" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Таймаут: ∞ (відсутній)</text>
+
+  <rect x="44" y="326" width="148" height="70" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="118" y="346" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зависання потоку</text>
+  <text x="118" y="364" font-size="12" fill="#c0392b" text-anchor="middle">Синхронне блокування</text>
+  <text x="118" y="382" font-size="12" fill="#6b7280" text-anchor="middle">Пул потоків вичерпано</text>
+
+  <!-- Середина ліворуч: Мережева зона (маскування) -->
+  <text x="246" y="170" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Мережа</text>
+  <text x="246" y="184" font-size="12" fill="#c0392b" text-anchor="middle">(замаскована)</text>
+  <line x1="246" y1="192" x2="246" y2="204" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <line x1="194" y1="214" x2="292" y2="214" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="246" y="228" font-size="12" fill="#c0392b" text-anchor="middle">запит 1..N</text>
+
+  <line x1="194" y1="248" x2="246" y2="248" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <circle cx="254" cy="248" r="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="251.5" y1="245.5" x2="256.5" y2="250.5" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="256.5" y1="245.5" x2="251.5" y2="250.5" stroke="#c0392b" stroke-width="1.2"/>
+
+  <rect x="204" y="268" width="84" height="66" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="286" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">N × RTT</text>
+  <text x="246" y="304" font-size="12" fill="#c0392b" text-anchor="middle">Втрата пакетів</text>
+  <text x="246" y="320" font-size="12" fill="#6b7280" text-anchor="middle">або обрив</text>
+
+  <text x="246" y="358" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Немає</text>
+  <text x="246" y="374" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">відповіді</text>
+  <line x1="246" y1="384" x2="246" y2="404" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <!-- Правий вузол у лівій панелі: Віддалений сервер -->
+  <rect x="294" y="154" width="160" height="250" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="300" y="160" width="148" height="22" rx="4" fill="#fdecea"/>
+  <text x="374" y="175" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Віддалений вузол</text>
+
+  <rect x="300" y="188" width="148" height="62" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="374" y="206" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CORBA-об'єкт</text>
+  <text x="374" y="224" font-size="12" fill="#6b7280" text-anchor="middle">Дрібнозернистий API</text>
+  <text x="374" y="240" font-size="12" fill="#c0392b" text-anchor="middle">Перевантаження черги</text>
+
+  <rect x="300" y="256" width="148" height="64" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="374" y="274" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Часткова відмова</text>
+  <text x="374" y="292" font-size="12" fill="#c0392b" text-anchor="middle">Збій процесу / OOM</text>
+  <text x="374" y="308" font-size="12" fill="#6b7280" text-anchor="middle">Стан невідомий</text>
+
+  <rect x="300" y="326" width="148" height="70" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="374" y="346" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Прірва адресного простору</text>
+  <text x="374" y="364" font-size="12" fill="#6b7280" text-anchor="middle">Вказівники не працюють</text>
+  <text x="374" y="382" font-size="12" fill="#c0392b" text-anchor="middle">Дані неузгоджені</text>
+
+  <!-- Підсумок лівої панелі -->
+  <rect x="38" y="418" width="416" height="76" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="48" y="436" font-size="12" font-weight="bold" fill="#c0392b">Наслідки маскування мережі:</text>
+  <text x="48" y="454" font-size="12" fill="#1a1a1a">• N×RTT: лавина дрібних викликів множить мережеву латентність</text>
+  <text x="48" y="470" font-size="12" fill="#1a1a1a">• Без таймаутів: зависання одного вузла паралізує пул потоків клієнта</text>
+  <text x="48" y="486" font-size="12" fill="#c0392b">• Катастрофічна невідомість: чи виконано метод перед розривом зв'язку?</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Явні межі -->
+  <rect x="492" y="76" width="444" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="506" y="90" width="416" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="714" y="111" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ПРОЄКТУВАННЯ З ЯВНИМИ МЕЖАМИ (EXPLICIT BOUNDARIES)</text>
+  <text x="714" y="138" font-size="12" fill="#6b7280" text-anchor="middle">Реальність: «Мережа ненадійна — часткові відмови ізолюються в коді»</text>
+
+  <!-- Лівий вузол у правій панелі: Клієнтський сервіс -->
+  <rect x="506" y="154" width="160" height="250" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="512" y="160" width="148" height="22" rx="4" fill="#e9f7ef"/>
+  <text x="586" y="175" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Клієнтський сервіс</text>
+
+  <rect x="512" y="188" width="148" height="62" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="204" font-size="12" fill="#1a1a1a">batch = fetch(ids)</text>
+  <text x="520" y="220" font-size="12" fill="#2457d6">key = "tx-98214"</text>
+  <text x="520" y="240" font-size="12" font-weight="bold" fill="#27ae60">Пакетний запит (1×)</text>
+
+  <rect x="512" y="256" width="148" height="64" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="586" y="274" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Circuit Breaker</text>
+  <text x="586" y="292" font-size="12" fill="#2457d6" text-anchor="middle">Бюджет: 250 мс</text>
+  <text x="586" y="308" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Стан: Closed (ОК)</text>
+
+  <rect x="512" y="326" width="148" height="70" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="586" y="346" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ізоляція потоків</text>
+  <text x="586" y="364" font-size="12" fill="#27ae60" text-anchor="middle">Швидка відмова (Fast-Fail)</text>
+  <text x="586" y="382" font-size="12" fill="#6b7280" text-anchor="middle">Пул не блокується</text>
+
+  <!-- Середина праворуч: Явний мережевий рубіж -->
+  <text x="714" y="170" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Явний рубіж</text>
+  <text x="714" y="184" font-size="12" fill="#27ae60" text-anchor="middle">(HTTP / gRPC)</text>
+  <line x1="714" y1="192" x2="714" y2="204" stroke="#2457d6" stroke-width="2"/>
+
+  <line x1="662" y1="214" x2="760" y2="214" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="714" y="228" font-size="12" fill="#27ae60" text-anchor="middle">пакет N-в-1</text>
+
+  <line x1="760" y1="248" x2="666" y2="248" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <rect x="672" y="268" width="84" height="66" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="714" y="286" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1 × RTT</text>
+  <text x="714" y="304" font-size="12" fill="#2457d6" text-anchor="middle">Таймаут: 250мс</text>
+  <text x="714" y="320" font-size="12" fill="#6b7280" text-anchor="middle">Контроль затримки</text>
+
+  <text x="714" y="358" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ключ</text>
+  <text x="714" y="374" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">tx-98214</text>
+  <line x1="714" y1="384" x2="714" y2="404" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Правий вузол у правій панелі: Віддалений сервіс -->
+  <rect x="762" y="154" width="160" height="250" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="768" y="160" width="148" height="22" rx="4" fill="#e9f7ef"/>
+  <text x="842" y="175" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Віддалений сервіс</text>
+
+  <rect x="768" y="188" width="148" height="62" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="842" y="206" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Batch Endpoint</text>
+  <text x="842" y="224" font-size="12" fill="#2457d6" text-anchor="middle">POST /items/batch</text>
+  <text x="842" y="240" font-size="12" fill="#27ae60" text-anchor="middle">Один прохід парсингу</text>
+
+  <rect x="768" y="256" width="148" height="64" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="842" y="274" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Дедуплікація</text>
+  <text x="842" y="292" font-size="12" fill="#1a1a1a" text-anchor="middle">Перевірка ключа tx</text>
+  <text x="842" y="308" font-size="12" fill="#27ae60" text-anchor="middle">Захист від дублікатів</text>
+
+  <rect x="768" y="326" width="148" height="70" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="842" y="346" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Керовані збої</text>
+  <text x="842" y="364" font-size="12" fill="#27ae60" text-anchor="middle">Коди: 200 / 503</text>
+  <text x="842" y="382" font-size="12" fill="#6b7280" text-anchor="middle">Ізоляція відмов</text>
+
+  <!-- Підсумок правої панелі -->
+  <rect x="506" y="418" width="416" height="76" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="516" y="436" font-size="12" font-weight="bold" fill="#27ae60">Переваги інженерного контролю меж:</text>
+  <text x="516" y="454" font-size="12" fill="#1a1a1a">• 1×RTT: пакетний контракт скорочує мережеву затримку в десятки разів</text>
+  <text x="516" y="470" font-size="12" fill="#1a1a1a">• Таймаут і Circuit Breaker: миттєве звільнення клієнтських потоків</text>
+  <text x="516" y="486" font-size="12" fill="#27ae60">• Ключ ідемпотентності: безпечний повтор без ризику подвійного списання</text>
+</svg>

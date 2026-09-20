@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Часова діаграма фаз життєвого циклу драйвуючого адаптера</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Сигнал Stop миттєво відсікає новий вхідний трафік, доки активні in-flight операції добігають кінця за тайм-аутом</text>
+
+  <!-- ================= ОСНОВНА ПАНЕЛЬ ЧАСОВОЇ ДІАГРАМИ ================= -->
+  <rect x="24" y="66" width="912" height="306" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Фазові плашки вгорі діаграми -->
+  <rect x="196" y="74" width="122" height="24" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="257" y="90" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Фаза Start()</text>
+
+  <rect x="326" y="74" width="218" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="435" y="90" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">2. Фаза Listen() [Serving]</text>
+
+  <rect x="552" y="74" width="242" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="673" y="90" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">3. Stop() &amp; GracefulShutdown(t)</text>
+
+  <rect x="802" y="74" width="122" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="863" y="90" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">4. Стан Stopped</text>
+
+  <!-- ================= ТРЕК 1: СИГНАЛИ ТА ПОДІЇ ОС ================= -->
+  <!-- Назва треку зліва -->
+  <text x="36" y="126" font-size="12" font-weight="700" fill="#1a1a1a">Сигнали ОС / API</text>
+  <text x="36" y="144" font-size="12" fill="#6b7280">Керуючі події</text>
+
+  <!-- Подія запуску -->
+  <circle cx="206" cy="132" r="3.5" fill="#1a1a1a"/>
+  <text x="216" y="136" font-size="12" font-weight="700" fill="#1a1a1a">main()</text>
+
+  <!-- Подія Listen() -->
+  <circle cx="322" cy="132" r="3.5" fill="#2457d6"/>
+  <text x="330" y="126" font-size="12" font-weight="700" fill="#2457d6">Listen()</text>
+
+  <!-- Плашка події SIGTERM -->
+  <rect x="502" y="112" width="96" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="550" y="127" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">SIGTERM</text>
+  <line x1="550" y1="134" x2="550" y2="152" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="558" y="148" font-size="12" font-weight="700" fill="#c0392b">Stop()</text>
+
+  <!-- Інтервал захисного тайм-ауту t_grace -->
+  <line x1="554" y1="123" x2="790" y2="123" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="554" y1="118" x2="554" y2="128" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="790" y1="118" x2="790" y2="128" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="672" y="118" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Бюджет тайм-ауту t_grace</text>
+
+  <!-- Завершення процесу -->
+  <circle cx="854" cy="132" r="3.5" fill="#27ae60"/>
+  <text x="864" y="136" font-size="12" font-weight="700" fill="#27ae60">exit(0)</text>
+
+  <!-- Горизонтальний розділювач між треками 1 і 2 -->
+  <line x1="36" y1="158" x2="924" y2="158" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- ================= ТРЕК 2: ВХІДНИЙ СОКЕТ І ТРАФІК ================= -->
+  <!-- Назва треку зліва -->
+  <text x="36" y="186" font-size="12" font-weight="700" fill="#1a1a1a">Вхідний сокет</text>
+  <text x="36" y="204" font-size="12" fill="#6b7280">Мережевий трафік</text>
+
+  <!-- Рівень сигналу сокета: Start (LOW) -->
+  <line x1="196" y1="210" x2="322" y2="210" stroke="#6b7280" stroke-width="2"/>
+  <text x="257" y="202" font-size="12" fill="#6b7280" text-anchor="middle">Закрито (0 запитів)</text>
+
+  <!-- Фронт відкриття сокета -->
+  <line x1="322" y1="210" x2="322" y2="176" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Рівень сигналу сокета: Listen (HIGH) -->
+  <line x1="322" y1="176" x2="550" y2="176" stroke="#2457d6" stroke-width="2"/>
+  <rect x="324" y="177" width="224" height="33" fill="#eaf0fd" fill-opacity="0.6"/>
+  <text x="435" y="197" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">ВІДКРИТО: прийом запитів</text>
+
+  <!-- Стрілочки запитів під час Listen -->
+  <line x1="355" y1="162" x2="355" y2="172" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <line x1="410" y1="162" x2="410" y2="172" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <line x1="465" y1="162" x2="465" y2="172" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <line x1="515" y1="162" x2="515" y2="172" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+  <!-- Фронт закриття сокета: МИТТЄВЕ ВІДСІКАННЯ -->
+  <line x1="550" y1="172" x2="550" y2="216" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Рівень сокета після Stop: LOW -->
+  <line x1="550" y1="210" x2="924" y2="210" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- Плашка відсікання нових запитів -->
+  <rect x="562" y="170" width="220" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="672" y="187" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Новий трафік ВІДСІЧЕНО (RST / 503)</text>
+
+  <!-- Спроба нового запиту після Stop - відхилено -->
+  <line x1="585" y1="162" x2="585" y2="169" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+  <text x="798" y="202" font-size="12" fill="#c0392b">0 нових з'єднань</text>
+
+  <!-- Горизонтальний розділювач між треками 2 і 3 -->
+  <line x1="36" y1="224" x2="924" y2="224" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- ================= ТРЕК 3: IN-FLIGHT ОПЕРАЦІЇ В ЯДРІ ================= -->
+  <!-- Назва треку зліва -->
+  <text x="36" y="250" font-size="12" font-weight="700" fill="#1a1a1a">In-flight задачі</text>
+  <text x="36" y="268" font-size="12" fill="#6b7280">Лічильник N_active</text>
+
+  <!-- Завершені запити під час Listen -->
+  <rect x="350" y="234" width="56" height="18" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="378" y="247" font-size="12" fill="#2457d6" text-anchor="middle">req 1 ✓</text>
+
+  <rect x="395" y="256" width="56" height="18" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="423" y="269" font-size="12" fill="#2457d6" text-anchor="middle">req 2 ✓</text>
+
+  <!-- In-flight запит 3: стартував у Listen, завершується у GracefulShutdown -->
+  <rect x="460" y="234" width="180" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="550" y="247" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">in-flight req 3 → 200 OK</text>
+
+  <!-- In-flight запит 4: стартував перед Stop, доопрацьовується до t3 -->
+  <rect x="510" y="256" width="220" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="620" y="269" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">in-flight req 4 → ACK (успіх)</text>
+
+  <!-- Позначка завершення всіх операцій (N = 0) -->
+  <rect x="742" y="234" width="156" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="820" y="250" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">N = 0 (Дно пулу)</text>
+  <text x="820" y="266" font-size="12" fill="#27ae60" text-anchor="middle">Усі in-flight завершено</text>
+
+  <!-- Горизонтальний розділювач між треками 3 і 4 -->
+  <line x1="36" y1="286" x2="924" y2="286" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- ================= ТРЕК 4: СТАНИ АДАПТЕРА ТА ВІСЬ ЧАСУ ================= -->
+  <!-- Назва треку зліва -->
+  <text x="36" y="312" font-size="12" font-weight="700" fill="#1a1a1a">Стан адаптера</text>
+  <text x="36" y="330" font-size="12" fill="#6b7280">Вісь часу t</text>
+
+  <!-- Стан Starting -> Started -->
+  <text x="257" y="310" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Starting → Started</text>
+
+  <!-- Стан Serving -->
+  <text x="435" y="310" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Serving (Активний)</text>
+
+  <!-- Стан Stopping -->
+  <text x="665" y="310" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Stopping (Доопрацювання)</text>
+
+  <!-- Стан Stopped -->
+  <text x="860" y="310" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Stopped</text>
+
+  <!-- Лінія осі часу t -->
+  <line x1="196" y1="338" x2="920" y2="338" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="926" y="342" font-size="12" font-weight="700" fill="#1a1a1a">t</text>
+
+  <!-- Засічки на осі часу -->
+  <line x1="206" y1="334" x2="206" y2="342" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="206" y="356" font-size="12" fill="#6b7280" text-anchor="middle">t0: Старт</text>
+
+  <line x1="322" y1="334" x2="322" y2="342" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="322" y="356" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">t1: Listen</text>
+
+  <line x1="550" y1="334" x2="550" y2="342" stroke="#c0392b" stroke-width="2"/>
+  <text x="550" y="356" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">t2: Stop</text>
+
+  <line x1="730" y1="334" x2="730" y2="342" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="730" y="356" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">t3: N = 0</text>
+
+  <line x1="794" y1="334" x2="794" y2="342" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="794" y="356" font-size="12" fill="#c0392b" text-anchor="middle">t_grace</text>
+
+  <line x1="854" y1="334" x2="854" y2="342" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="854" y="356" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">exit(0)</text>
+
+  <!-- ================= ПОЯСНЮВАЛЬНІ КАРТКИ ВНИЗУ ================= -->
+  <!-- Картка 1: Фази Start і Listen -->
+  <rect x="24" y="382" width="292" height="116" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="32" y="390" width="276" height="22" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="406" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Фази Start() та Listen()</text>
+  <text x="38" y="428" font-size="12" fill="#1a1a1a">• Start(): прогрів кешів, конфігурація</text>
+  <text x="38" y="446" font-size="12" fill="#6b7280">• Сокети закриті: нуль вхідного трафіку</text>
+  <text x="38" y="464" font-size="12" fill="#2457d6">• Listen(): відкриття TCP або каналу черги</text>
+  <text x="38" y="482" font-size="12" fill="#27ae60">• Інваріант: Serving лише після готовності</text>
+
+  <!-- Картка 2: Сигнал Stop -->
+  <rect x="334" y="382" width="292" height="116" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="342" y="390" width="276" height="22" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="406" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">2. Сигнал Stop() [SIGTERM]</text>
+  <text x="348" y="428" font-size="12" fill="#c0392b">• Реакція: миттєве закриття сокета</text>
+  <text x="348" y="446" font-size="12" fill="#1a1a1a">• Новий трафік: негайне відсікання (RST)</text>
+  <text x="348" y="464" font-size="12" fill="#6b7280">• Захист: нові запити не потрапляють в ядро</text>
+  <text x="348" y="482" font-size="12" fill="#c0392b">• Інваріант: перехід Serving → Stopping</text>
+
+  <!-- Картка 3: GracefulShutdown -->
+  <rect x="644" y="382" width="292" height="116" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <rect x="652" y="390" width="276" height="22" rx="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="406" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">3. GracefulShutdown(t_grace)</text>
+  <text x="658" y="428" font-size="12" fill="#1a1a1a">• Доопрацювання: in-flight задачі тривають</text>
+  <text x="658" y="446" font-size="12" fill="#6b7280">• Ліміт t_grace: захисний бюджет очікування</text>
+  <text x="658" y="464" font-size="12" fill="#27ae60">• Дно пулу (N = 0): безпечне звільнення БД</text>
+  <text x="658" y="482" font-size="12" fill="#27ae60">• Результат: чистий вихід із кодом 0</text>
+</svg>

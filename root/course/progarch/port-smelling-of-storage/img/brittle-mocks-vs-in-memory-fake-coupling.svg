@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="35" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Ланцюжки моків інфраструктури проти автономного In-Memory Fake</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Автономний фейк перевіряє стан і звільняє тести від прив'язки до деталей сесій і БД</text>
+
+  <!-- Ліва панель: Проблема (Хиткі моки) -->
+  <rect x="28" y="75" width="442" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="44" y="90" width="410" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="249" y="111" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">ХИТКІ МОКИ: ПРИВ'ЯЗКА ДО ДЕТАЛЕЙ СХОВИЩА</text>
+
+  <!-- Тест зліва -->
+  <rect x="74" y="136" width="350" height="46" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="249" y="154" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модульний тест сценарію</text>
+  <text x="249" y="170" font-size="12" fill="#c0392b" text-anchor="middle">жорстко прописує послідовність викликів</text>
+
+  <line x1="249" y1="182" x2="249" y2="200" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Ланцюжок моків -->
+  <rect x="74" y="200" width="350" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="249" y="215" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">1. when(session.beginTransaction())</text>
+  <text x="249" y="229" font-size="12" fill="#6b7280" text-anchor="middle">налаштування моку сесії та транзакції</text>
+
+  <line x1="249" y1="236" x2="249" y2="252" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="74" y="252" width="350" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="249" y="267" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">2. verify(port.save(order, session))</text>
+  <text x="249" y="281" font-size="12" fill="#6b7280" text-anchor="middle">витік деталей сесії БД у сигнатуру порту</text>
+
+  <line x1="249" y1="288" x2="249" y2="304" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <rect x="74" y="304" width="350" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="249" y="319" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">3. verify(tx.commit()) &amp; session.close()</text>
+  <text x="249" y="333" font-size="12" fill="#6b7280" text-anchor="middle">жорсткий контроль послідовності викликів</text>
+
+  <!-- Підсумок зліва -->
+  <rect x="44" y="358" width="410" height="98" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="60" y="376" font-size="12" font-weight="700" fill="#c0392b">Наслідок: зв'язність із реалізацією сховища</text>
+  <text x="60" y="396" font-size="12" fill="#1a1a1a">• Тест перевіряє ЯК влаштоване збереження, а не ЩО зроблено</text>
+  <text x="60" y="414" font-size="12" fill="#1a1a1a">• Зміна сесій, транзакцій або SQL ламає ланцюжок моків</text>
+  <text x="60" y="432" font-size="12" fill="#1a1a1a">• Рефакторинг блокується хибними падіннями тестів</text>
+
+  <!-- Права панель: Розв'язок (In-Memory Fake) -->
+  <rect x="490" y="75" width="442" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="506" y="90" width="410" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="711" y="111" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">IN-MEMORY FAKE: ВЕРИФІКАЦІЯ СТАНУ</text>
+
+  <!-- Тест справа -->
+  <rect x="536" y="136" width="350" height="46" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="711" y="154" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модульний тест сценарію</text>
+  <text x="711" y="170" font-size="12" fill="#27ae60" text-anchor="middle">перевіряє поведінку та підсумковий стан</text>
+
+  <!-- Зв'язки тесту з доменом і фейком -->
+  <line x1="560" y1="182" x2="560" y2="214" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="568" y="202" font-size="12" fill="#2457d6">1. execute()</text>
+
+  <line x1="760" y1="182" x2="760" y2="214" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="768" y="202" font-size="12" fill="#27ae60">2. assert стан</text>
+
+  <!-- Доменне ядро -->
+  <rect x="516" y="214" width="185" height="126" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="608" y="234" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Доменне ядро</text>
+  <text x="608" y="254" font-size="12" fill="#1a1a1a" text-anchor="middle">Сценарій замовлення</text>
+  <text x="608" y="278" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Чистий порт:</text>
+  <text x="608" y="296" font-size="12" fill="#1a1a1a" text-anchor="middle">save(order)</text>
+  <text x="608" y="314" font-size="12" fill="#6b7280" text-anchor="middle">без сесій і SQL</text>
+
+  <!-- Зв'язок домену з фейком -->
+  <line x1="701" y1="278" x2="721" y2="278" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- In-Memory Fake -->
+  <rect x="721" y="214" width="185" height="126" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="814" y="234" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">In-Memory Fake</text>
+  <text x="814" y="254" font-size="12" fill="#1a1a1a" text-anchor="middle">Реалізація порту</text>
+  <text x="814" y="278" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Сховище в пам'яті:</text>
+  <text x="814" y="296" font-size="12" fill="#1a1a1a" text-anchor="middle">Map&lt;Id, Order&gt;</text>
+  <text x="814" y="314" font-size="12" fill="#6b7280" text-anchor="middle">автономний стан</text>
+
+  <!-- Підсумок справа -->
+  <rect x="506" y="358" width="410" height="98" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="522" y="376" font-size="12" font-weight="700" fill="#27ae60">Перевага: автономність і стійкість тесту</text>
+  <text x="522" y="396" font-size="12" fill="#1a1a1a">• Тест перевіряє кінцевий стан і результат (WHAT)</text>
+  <text x="522" y="414" font-size="12" fill="#1a1a1a">• Нуль моків сесій, транзакцій та низькорівневих викликів</text>
+  <text x="522" y="432" font-size="12" fill="#1a1a1a">• Зміна схеми БД чи оптимізація SQL не ламають тест</text>
+</svg>

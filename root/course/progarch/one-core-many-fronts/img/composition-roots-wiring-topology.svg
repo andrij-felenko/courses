@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- БІЛА ПІДКЛАДКА НА ВСЕ ПОЛОТНО -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Топологія композиційних коренів: ізольовані точки входу навколо єдиного ядра</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Кожен периметр монтує власний граф адаптерів, захищаючи ядро та сусідні фронти від сторонніх залежностей</text>
+
+  <!-- ==================== КОЛОНКА 1: CLI-УТИЛІТА ==================== -->
+  <!-- Зовнішній периметр CLI: x=24..316, y=72..334, w=292, h=262 -->
+  <rect x="24" y="72" width="292" height="262" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка периметра 1 -->
+  <rect x="36" y="82" width="268" height="24" rx="4" fill="#2457d6"/>
+  <text x="170" y="98" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ПЕРИМЕТР 1: CLI-БІНАРНИК (cmd/cli)</text>
+
+  <!-- Вхідний адаптер CLI -->
+  <rect x="36" y="112" width="268" height="44" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="170" y="129" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вхідний адаптер: CliAdapter</text>
+  <text x="170" y="146" font-size="12" fill="#6b7280" text-anchor="middle">Парсер pflag • stdout • Коди POSIX 0/1</text>
+
+  <!-- Стрілка всередині периметра CLI: від вхідного адаптера до композиційного кореня -->
+  <line x1="170" y1="156" x2="170" y2="167" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Композиційний корінь CLI -->
+  <rect x="36" y="168" width="268" height="46" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="186" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Композиційний корінь (main.go)</text>
+  <text x="170" y="203" font-size="12" fill="#2457d6" text-anchor="middle">Збирання: new Core(FileConfigRepo)</text>
+
+  <!-- Стрілка всередині периметра CLI: від композиційного кореня до вихідного адаптера -->
+  <line x1="170" y1="214" x2="170" y2="225" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Вихідний адаптер CLI -->
+  <rect x="36" y="226" width="268" height="44" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="170" y="243" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Вихідний адаптер: FileConfigRepo</text>
+  <text x="170" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Локальний JSON/YAML файл • Без мережі</text>
+
+  <!-- Плашка ізоляції CLI -->
+  <rect x="36" y="278" width="268" height="46" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="170" y="296" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">✔ Ізоляція: 0 мережевих бібліотек</text>
+  <text x="170" y="313" font-size="12" fill="#1a1a1a" text-anchor="middle">Старт &lt; 20 мс • Пам'ять 12 МБ • Без сокетів</text>
+
+  <!-- ==================== КОЛОНКА 2: ВЕБ-СЛУЖБА ==================== -->
+  <!-- Зовнішній периметр Web: x=334..626, y=72..334, w=292, h=262 -->
+  <rect x="334" y="72" width="292" height="262" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка периметра 2 -->
+  <rect x="346" y="82" width="268" height="24" rx="4" fill="#2457d6"/>
+  <text x="480" y="98" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ПЕРИМЕТР 2: ВЕБ-СЛУЖБА (cmd/web)</text>
+
+  <!-- Вхідний адаптер Web -->
+  <rect x="346" y="112" width="268" height="44" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="480" y="129" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вхідний адаптер: HttpAdapter</text>
+  <text x="480" y="146" font-size="12" fill="#6b7280" text-anchor="middle">Роутер Gin • Валідація JSON DTO • RFC 7807</text>
+
+  <!-- Стрілка всередині периметра Web: від вхідного адаптера до композиційного кореня -->
+  <line x1="480" y1="156" x2="480" y2="167" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Композиційний корінь Web -->
+  <rect x="346" y="168" width="268" height="46" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="186" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Композиційний корінь (main.go)</text>
+  <text x="480" y="203" font-size="12" fill="#2457d6" text-anchor="middle">Збирання: new Core(PgPoolRepo)</text>
+
+  <!-- Стрілка всередині периметра Web: від композиційного кореня до вихідного адаптера -->
+  <line x1="480" y1="214" x2="480" y2="225" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Вихідний адаптер Web -->
+  <rect x="346" y="226" width="268" height="44" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="480" y="243" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Вихідний адаптер: PgPoolRepo</text>
+  <text x="480" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Пул PostgreSQL • OAuth2 клієнт</text>
+
+  <!-- Плашка ізоляції Web -->
+  <rect x="346" y="278" width="268" height="46" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="480" y="296" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">✔ Ізоляція: власний пул з'єднань</text>
+  <text x="480" y="313" font-size="12" fill="#1a1a1a" text-anchor="middle">Порт :8080 • 20 з'єднань • Graceful stop</text>
+
+  <!-- ==================== КОЛОНКА 3: ВОРКЕР ЧЕРГИ ==================== -->
+  <!-- Зовнішній периметр Worker: x=644..936, y=72..334, w=292, h=262 -->
+  <rect x="644" y="72" width="292" height="262" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка периметра 3 -->
+  <rect x="656" y="82" width="268" height="24" rx="4" fill="#2457d6"/>
+  <text x="790" y="98" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ПЕРИМЕТР 3: ВОРКЕР ЧЕРГИ (cmd/worker)</text>
+
+  <!-- Вхідний адаптер Worker -->
+  <rect x="656" y="112" width="268" height="44" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="790" y="129" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вхідний адаптер: QueueAdapter</text>
+  <text x="790" y="146" font-size="12" fill="#6b7280" text-anchor="middle">AMQP/RabbitMQ споживач • ACK/NACK/DLQ</text>
+
+  <!-- Стрілка всередині периметра Worker: від вхідного адаптера до композиційного кореня -->
+  <line x1="790" y1="156" x2="790" y2="167" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Композиційний корінь Worker -->
+  <rect x="656" y="168" width="268" height="46" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="790" y="186" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Композиційний корінь (main.go)</text>
+  <text x="790" y="203" font-size="12" fill="#2457d6" text-anchor="middle">Збирання: new Core(TimescaleRepo)</text>
+
+  <!-- Стрілка всередині периметра Worker: від композиційного кореня до вихідного адаптера -->
+  <line x1="790" y1="214" x2="790" y2="225" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Вихідний адаптер Worker -->
+  <rect x="656" y="226" width="268" height="44" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="790" y="243" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Вихідний адаптер: TimescaleRepo</text>
+  <text x="790" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Пакетний запис • DLQ-паблішер</text>
+
+  <!-- Плашка ізоляції Worker -->
+  <rect x="656" y="278" width="268" height="46" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="790" y="296" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">✔ Ізоляція: квоти CPU та пам'яті</text>
+  <text x="790" y="313" font-size="12" fill="#1a1a1a" text-anchor="middle">cgroups 1024MB • Не блокує HTTP-трафік</text>
+
+  <!-- ==================== ВЕРТИКАЛЬНІ СТРІЛКИ ЗВ'ЯЗУВАННЯ (WIRING) ==================== -->
+  <!-- Зв'язування CLI -> Core: синій (виклик порту), зелений пунктир (SPI) -->
+  <line x1="110" y1="334" x2="110" y2="363" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="230" y1="364" x2="230" y2="335" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+  <!-- Зв'язування Web -> Core -->
+  <line x1="420" y1="334" x2="420" y2="363" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="540" y1="364" x2="540" y2="335" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+  <!-- Зв'язування Worker -> Core -->
+  <line x1="730" y1="334" x2="730" y2="363" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="850" y1="364" x2="850" y2="335" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+  <!-- ==================== СПІЛЬНЕ ЯДРО-БІБЛІОТЕКА ==================== -->
+  <!-- Панель ядра: x=24..936, y=364..478, w=912, h=114 -->
+  <rect x="24" y="364" width="912" height="114" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Шапка ядра -->
+  <rect x="36" y="372" width="888" height="24" rx="4" fill="#2457d6"/>
+  <text x="480" y="388" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ЄДИНА ВНУТРІШНЯ БІБЛІОТЕКА: ПРИКЛАДНЕ ЯДРО (internal/core — без main, без зовнішніх фреймворків)</text>
+
+  <!-- Порти для CLI -->
+  <rect x="36" y="402" width="268" height="66" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="170" y="420" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вхідний: CalibrateSensorsPort</text>
+  <text x="170" y="437" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Вихідний (SPI): IConfigStorage</text>
+  <text x="170" y="454" font-size="12" fill="#6b7280" text-anchor="middle">Сценарій: Калібрування сенсорів</text>
+
+  <!-- Порти для Web -->
+  <rect x="346" y="402" width="268" height="66" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="480" y="420" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вхідний: ManageClimatePort</text>
+  <text x="480" y="437" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Вихідний (SPI): IClimateStateRepo</text>
+  <text x="480" y="454" font-size="12" fill="#6b7280" text-anchor="middle">Сценарій: Керування кліматом оселі</text>
+
+  <!-- Порти для Worker -->
+  <rect x="656" y="402" width="268" height="66" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="790" y="420" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Вхідний: ProcessTelemetryPort</text>
+  <text x="790" y="437" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Вихідний (SPI): ITelemetryBatchRepo</text>
+  <text x="790" y="454" font-size="12" fill="#6b7280" text-anchor="middle">Сценарій: Пакетний аналіз телеметрії</text>
+
+  <!-- ==================== ПІДСУМКОВА ПЛАШКА ==================== -->
+  <!-- x=24..936, y=490..536, w=912, h=46 -->
+  <rect x="24" y="490" width="912" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="508" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">✔ Повна ізоляція сторонніх залежностей та незалежність точок входу</text>
+  <text x="480" y="525" font-size="12" fill="#1a1a1a" text-anchor="middle">Кожен артефакт підключає лише необхідні бібліотеки: CLI не тягне веб-стек, а збій воркера не шкодить HTTP API</text>
+</svg>

@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Конвеєр аналізу байт-коду в бібліотеці ArchUnit</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">ClassFileImporter розгортає класи в граф JavaClasses для перевірки меж портів без запуску JVM</text>
+
+  <!-- ==================== ЕТАП 1: Байт-код ==================== -->
+  <rect x="25" y="78" width="170" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="110" y="103" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">1. Байт-код (.class)</text>
+  <text x="110" y="121" text-anchor="middle" font-size="12" fill="#6b7280">артефакти компіляції</text>
+
+  <!-- Файл 1: Інтерфейс порту -->
+  <rect x="37" y="136" width="146" height="76" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="47" y="158" font-size="13" font-weight="700" fill="#1a1a1a">OrderPort.class</text>
+  <text x="47" y="178" font-size="12" fill="#2457d6">інтерфейс порту</text>
+  <text x="47" y="197" font-size="12" fill="#6b7280">пакет domain.port</text>
+
+  <!-- Файл 2: Сторонній тип / JPA -->
+  <rect x="37" y="224" width="146" height="76" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="47" y="246" font-size="13" font-weight="700" fill="#1a1a1a">PageRequest.class</text>
+  <text x="47" y="266" font-size="12" fill="#c0392b">витік інфраструктури</text>
+  <text x="47" y="285" font-size="12" fill="#6b7280">Spring Data / JPA</text>
+
+  <!-- Підвал блоку 1: Джерело даних -->
+  <rect x="37" y="312" width="146" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="47" y="334" font-size="12" font-weight="700" fill="#1a1a1a">Джерела файлів:</text>
+  <text x="47" y="356" font-size="12" fill="#6b7280">• target/classes</text>
+  <text x="47" y="377" font-size="12" fill="#6b7280">• build/classes</text>
+  <text x="47" y="398" font-size="12" fill="#6b7280">• JAR-залежності</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="195" y1="250" x2="236" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ==================== ЕТАП 2: ClassFileImporter ==================== -->
+  <rect x="240" y="78" width="185" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="332" y="103" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">2. ClassFileImporter</text>
+  <text x="332" y="121" text-anchor="middle" font-size="12" fill="#6b7280">читання байт-коду (ASM)</text>
+
+  <!-- Код виклику -->
+  <rect x="252" y="136" width="161" height="76" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="262" y="157" font-size="12" font-weight="700" fill="#2457d6">ClassFileImporter()</text>
+  <text x="262" y="177" font-size="12" fill="#1a1a1a">.importPackages(</text>
+  <text x="270" y="197" font-size="12" fill="#6b7280">"com.app.domain.."</text>
+
+  <!-- Кроки роботи парсера -->
+  <rect x="252" y="224" width="161" height="198" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="262" y="246" font-size="12" font-weight="700" fill="#1a1a1a">Розбір структури (ASM):</text>
+  <text x="262" y="271" font-size="12" fill="#6b7280">1. Сканування .class</text>
+  <text x="262" y="296" font-size="12" fill="#6b7280">2. Таблиця Constant Pool</text>
+  <text x="262" y="321" font-size="12" fill="#6b7280">3. Оголошення методів</text>
+  <text x="262" y="346" font-size="12" fill="#6b7280">4. Типи аргументів</text>
+  <text x="262" y="371" font-size="12" fill="#6b7280">5. Типи повернення</text>
+  <text x="262" y="396" font-size="12" fill="#6b7280">6. Анотації (@Entity)</text>
+
+  <!-- Стрілка 2 -> 3 -->
+  <line x1="425" y1="250" x2="466" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ==================== ЕТАП 3: Граф JavaClasses ==================== -->
+  <rect x="470" y="78" width="255" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="597" y="103" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">3. Граф JavaClasses</text>
+  <text x="597" y="121" text-anchor="middle" font-size="12" fill="#6b7280">вузли: класи, методи, типи</text>
+
+  <!-- Вузол 1: JavaClass (порт) -->
+  <rect x="484" y="136" width="227" height="58" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="496" y="158" font-size="13" font-weight="700" fill="#2457d6">Вузол: JavaClass</text>
+  <text x="496" y="178" font-size="12" fill="#1a1a1a">OrderPort (інтерфейс порту)</text>
+
+  <!-- Сполучна лінія від Class до Method -->
+  <line x1="597" y1="194" x2="597" y2="216" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="607" y="209" font-size="12" fill="#6b7280">оголошує</text>
+
+  <!-- Вузол 2: JavaMethod -->
+  <rect x="484" y="220" width="227" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="496" y="241" font-size="12" font-weight="700" fill="#1a1a1a">Вузол: JavaMethod</text>
+  <text x="496" y="262" font-size="12" fill="#6b7280">fetchOrders(PageRequest)</text>
+
+  <!-- Сполучні лінії від Method до двох JavaType -->
+  <line x1="537" y1="278" x2="537" y2="308" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="658" y1="278" x2="658" y2="308" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Вузол 3a: JavaType (чистий домен) -->
+  <rect x="484" y="312" width="106" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="494" y="333" font-size="12" font-weight="700" fill="#27ae60">JavaType</text>
+  <text x="494" y="355" font-size="12" font-weight="700" fill="#1a1a1a">Order (домен)</text>
+  <text x="494" y="377" font-size="12" fill="#6b7280">тип виходу</text>
+  <text x="494" y="405" font-size="12" font-weight="700" fill="#27ae60">дозволено</text>
+
+  <!-- Вузол 3b: JavaType (забруднений/витік сховища) -->
+  <rect x="605" y="312" width="106" height="110" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="615" y="333" font-size="12" font-weight="700" fill="#c0392b">JavaType</text>
+  <text x="615" y="355" font-size="12" font-weight="700" fill="#1a1a1a">PageRequest</text>
+  <text x="615" y="377" font-size="12" fill="#6b7280">тип аргументу</text>
+  <text x="615" y="405" font-size="12" font-weight="700" fill="#c0392b">витік сховища</text>
+
+  <!-- Стрілка 3 -> 4 -->
+  <line x1="725" y1="250" x2="766" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ==================== ЕТАП 4: ArchRule ==================== -->
+  <rect x="770" y="78" width="165" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="852" y="103" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">4. ArchRule</text>
+  <text x="852" y="121" text-anchor="middle" font-size="12" fill="#6b7280">інспекція вузлів графа</text>
+
+  <!-- Декларація ArchRule -->
+  <rect x="781" y="136" width="143" height="112" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="791" y="157" font-size="12" font-weight="700" fill="#1a1a1a">Перевірка зв'язків:</text>
+  <text x="791" y="177" font-size="12" font-weight="700" fill="#2457d6">noClasses()</text>
+  <text x="791" y="197" font-size="12" fill="#1a1a1a">.that().resideIn(..)</text>
+  <text x="791" y="217" font-size="12" fill="#1a1a1a">.should().dependOn(</text>
+  <text x="799" y="237" font-size="12" font-weight="700" fill="#c0392b">"..persistence..")</text>
+
+  <!-- Результат: PASS -->
+  <rect x="781" y="260" width="143" height="72" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="791" y="281" font-size="12" font-weight="700" fill="#27ae60">✓ Домен чистий</text>
+  <text x="791" y="301" font-size="12" fill="#1a1a1a">Order без залежностей</text>
+  <text x="791" y="321" font-size="12" font-weight="700" fill="#27ae60">Тест: PASS</text>
+
+  <!-- Результат: FAIL -->
+  <rect x="781" y="344" width="143" height="78" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="791" y="365" font-size="12" font-weight="700" fill="#c0392b">✗ Збій ізоляції</text>
+  <text x="791" y="385" font-size="12" fill="#1a1a1a">PageRequest у порті</text>
+  <text x="791" y="405" font-size="12" font-weight="700" fill="#c0392b">Помилка збірки: FAIL</text>
+</svg>

@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Мультиплікація затримок на хвості при розгалуженні (fan-out)</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Рідкісний сплеск вузла (p = 0.01) через паралельне очікування N = 100 затримує 63.4% запитів: P = 1 - (1 - p)^N</text>
+
+  <!-- ========================================================================= -->
+  <!-- LEFT COLUMN: FAN-OUT STRUCTURAL SCHEME                                    -->
+  <!-- ========================================================================= -->
+  <rect x="20" y="70" width="410" height="430" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="225" y="94" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">Паралельне розгалуження (fan-out на N = 100)</text>
+  <text x="225" y="112" text-anchor="middle" font-size="12" fill="#6b7280">Клієнт очікує на відповідь найповільнішого вузла</text>
+
+  <!-- Gateway Box -->
+  <rect x="85" y="126" width="280" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="225" y="143" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Клієнт / Вхідний API-шлюз</text>
+  <text x="225" y="158" text-anchor="middle" font-size="12" fill="#1a1a1a">Паралельний запит до N = 100 вузлів</text>
+
+  <!-- Request Branching Bus -->
+  <line x1="85" y1="147" x2="48" y2="147" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="48" y1="147" x2="48" y2="380" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="48" y1="204" x2="58" y2="204" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="48" y1="244" x2="58" y2="244" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="48" y1="315" x2="58" y2="315" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="48" y1="380" x2="58" y2="380" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Node 1 -->
+  <rect x="60" y="190" width="330" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="75" y="209" font-size="12" font-weight="700" fill="#27ae60">Вузол 1</text>
+  <text x="135" y="209" font-size="12" fill="#1a1a1a">відповідь за 10 мс (норма)</text>
+  <text x="375" y="209" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">✓ p50</text>
+
+  <!-- Node 2 -->
+  <rect x="60" y="230" width="330" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="75" y="249" font-size="12" font-weight="700" fill="#27ae60">Вузол 2</text>
+  <text x="135" y="249" font-size="12" fill="#1a1a1a">відповідь за 12 мс (норма)</text>
+  <text x="375" y="249" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">✓ p50</text>
+
+  <!-- Dots 1 -->
+  <text x="225" y="276" text-anchor="middle" font-size="12" fill="#6b7280">· · ·  паралельні запити до решти вузлів  · · ·</text>
+
+  <!-- Node k (Slow tail spike) -->
+  <rect x="60" y="294" width="330" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="75" y="311" font-size="12" font-weight="700" fill="#c0392b">Вузол k (сплеск!): 150 мс</text>
+  <text x="75" y="326" font-size="12" fill="#c0392b">GC-пауза / ретрансмісія пакета (p = 0.01)</text>
+  <text x="375" y="318" text-anchor="end" font-size="13" font-weight="700" fill="#c0392b">! p99</text>
+
+  <!-- Dots 2 -->
+  <text x="225" y="352" text-anchor="middle" font-size="12" fill="#6b7280">· · ·  ще 90+ швидких вузлів (10–15 мс)  · · ·</text>
+
+  <!-- Node 100 -->
+  <rect x="60" y="366" width="330" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="75" y="385" font-size="12" font-weight="700" fill="#27ae60">Вузол 100</text>
+  <text x="145" y="385" font-size="12" fill="#1a1a1a">відповідь за 11 мс (норма)</text>
+  <text x="375" y="385" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">✓ p50</text>
+
+  <!-- Response Return Bus -->
+  <line x1="390" y1="204" x2="400" y2="204" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="390" y1="244" x2="400" y2="244" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="390" y1="315" x2="400" y2="315" stroke="#c0392b" stroke-width="2"/>
+  <line x1="390" y1="380" x2="400" y2="380" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="400" y1="204" x2="400" y2="412" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Aggregator / Response Summary -->
+  <rect x="35" y="414" width="380" height="70" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="225" y="433" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Підсумок: T_sys = max(T_1, T_2, ..., T_100)</text>
+  <text x="225" y="452" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Затримка клієнта: 150 мс (застряг на хвості вузла k)</text>
+  <text x="225" y="470" text-anchor="middle" font-size="12" fill="#6b7280">99 швидких відповідей блокуються однією повільною</text>
+
+  <!-- ========================================================================= -->
+  <!-- RIGHT TOP: SINGLE CALL LATENCY DISTRIBUTION (N = 1)                       -->
+  <!-- ========================================================================= -->
+  <rect x="450" y="70" width="490" height="200" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="470" y="93" font-size="14" font-weight="700" fill="#1a1a1a">1. Розподіл затримок одного вузла (одиничний виклик)</text>
+  <text x="470" y="110" font-size="12" fill="#6b7280">Сплески затримки на 99-му перцентилі трапляються лише в p = 1% випадків</text>
+
+  <!-- Single Call Axes -->
+  <line x1="495" y1="222" x2="880" y2="222" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="888" y="226" font-size="12" fill="#6b7280">t (мс)</text>
+  <line x1="495" y1="222" x2="495" y2="128" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="495" y="120" font-size="12" fill="#6b7280">Щільність f(t)</text>
+
+  <!-- Single Call Distribution Areas & Curve -->
+  <path d="M 500,222 C 506,190 516,142 525,142 C 536,142 555,190 580,212 C 630,218 700,219 760,219 L 760,222 Z" fill="#e9f7ef"/>
+  <path d="M 760,219 C 790,219 840,220 890,221 L 890,222 L 760,222 Z" fill="#fdecea"/>
+  <path d="M 500,222 C 506,190 516,142 525,142 C 536,142 555,190 580,212 C 630,218 700,219 760,219 C 790,219 840,220 890,221" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Single Call Labels -->
+  <text x="575" y="165" font-size="12" font-weight="700" fill="#27ae60">99% запитів у нормі</text>
+  <text x="575" y="180" font-size="12" fill="#6b7280">швидка відповідь (≤ 100 мс)</text>
+
+  <text x="775" y="165" font-size="12" font-weight="700" fill="#c0392b">Хвіст: p = 0.01</text>
+  <text x="775" y="180" font-size="12" fill="#c0392b">лише 1% сплесків</text>
+  <line x1="815" y1="186" x2="815" y2="214" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+
+  <!-- Single Call Ticks -->
+  <line x1="525" y1="222" x2="525" y2="226" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="525" y="238" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">10</text>
+  <text x="525" y="252" text-anchor="middle" font-size="12" fill="#27ae60">p50 (медіана)</text>
+
+  <line x1="760" y1="135" x2="760" y2="222" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="760" y1="222" x2="760" y2="226" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="760" y="238" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">100</text>
+  <text x="760" y="252" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">p99 (поріг 1%)</text>
+
+  <!-- ========================================================================= -->
+  <!-- RIGHT BOTTOM: AGGREGATED RESPONSE LATENCY DISTRIBUTION (N = 100)          -->
+  <!-- ========================================================================= -->
+  <rect x="450" y="284" width="490" height="216" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="470" y="306" font-size="14" font-weight="700" fill="#1a1a1a">2. Підсумкова відповідь клієнту (N = 100 вузлів у віялі)</text>
+  <text x="470" y="323" font-size="12" fill="#6b7280">Модель Діна: затримка на хвості стає домінуючим правилом для 63.4% запитів</text>
+
+  <!-- Aggregated Call Axes -->
+  <line x1="495" y1="412" x2="880" y2="412" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="888" y="416" font-size="12" fill="#6b7280">t (мс)</text>
+  <line x1="495" y1="412" x2="495" y2="340" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="495" y="333" font-size="12" fill="#6b7280">Щільність f_sys(t)</text>
+
+  <!-- Aggregated Distribution Areas & Curve (Peak shifted to the tail!) -->
+  <path d="M 495,412 L 650,412 C 690,412 730,405 760,380 L 760,412 Z" fill="#e9f7ef"/>
+  <path d="M 760,380 C 775,368 795,368 815,372 C 845,380 870,400 890,410 L 890,412 L 760,412 Z" fill="#fdecea"/>
+  <path d="M 495,412 L 650,412 C 690,412 730,405 760,380 C 775,368 795,368 815,372 C 845,380 870,400 890,410" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Aggregated Call Labels -->
+  <text x="615" y="358" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Лише 36.6% у нормі</text>
+  <text x="615" y="373" text-anchor="middle" font-size="12" fill="#6b7280">шанс, що всі 100 швидкі</text>
+
+  <text x="840" y="338" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">63.4% запитів затримано</text>
+  <text x="840" y="352" text-anchor="middle" font-size="12" fill="#c0392b">хвіст став домінуючим</text>
+
+  <!-- Aggregated Ticks -->
+  <line x1="525" y1="412" x2="525" y2="416" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="525" y="427" text-anchor="middle" font-size="12" fill="#6b7280">10</text>
+
+  <line x1="760" y1="365" x2="760" y2="412" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="760" y1="412" x2="760" y2="416" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="760" y="427" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">100</text>
+
+  <!-- Bottom Math & Takeaway Card -->
+  <rect x="466" y="438" width="460" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="580" y="457" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Формула Діна: P = 1 - (1 - p)ᴺ</text>
+  <text x="580" y="474" text-anchor="middle" font-size="12" fill="#2457d6">1 - 0.99¹⁰⁰ = 1 - 0.366 = 63.4%</text>
+
+  <line x1="695" y1="444" x2="695" y2="482" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="810" y="457" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Стрибок затримки: 1% → 63.4%</text>
+  <text x="810" y="474" text-anchor="middle" font-size="12" fill="#c0392b">Рідкісний сплеск став правилом</text>
+</svg>

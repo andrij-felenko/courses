@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура керування актуаторами: пряме зчеплення vs декомпозиція FBW</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Детермінована шина та блоки ACE відокремлюють семантичний намір від фізики гідроклапанів</text>
+
+  <!-- ==================== ВЕРХНЯ ПАНЕЛЬ: ПРЯМЕ ЗЧЕПЛЕННЯ (ПРОБЛЕМА) ==================== -->
+  <rect x="24" y="68" width="912" height="225" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Бейдж верхньої панелі -->
+  <rect x="40" y="80" width="310" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="195" y="96" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Наївне пряме зчеплення (монолітний аналоговий контур)</text>
+  <text x="366" y="96" font-size="12" fill="#6b7280">Висока маса проводки, вразливість до шумів EMI, ядро комп'ютера керує струмом клапана</text>
+
+  <!-- Блок 1: Польотний комп'ютер (FCC) -->
+  <rect x="40" y="116" width="226" height="162" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="48" y="124" width="210" height="22" rx="4" fill="#fdecea"/>
+  <text x="153" y="139" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Польотний комп'ютер (FCC)</text>
+
+  <text x="54" y="162" font-size="12" fill="#1a1a1a">• Закони керування літаком</text>
+  <text x="54" y="180" font-size="12" fill="#1a1a1a">• Розрахунок струму I_valve</text>
+  <text x="54" y="198" font-size="12" fill="#1a1a1a">• Демодуляція AC сигналу LVDT</text>
+
+  <rect x="48" y="214" width="210" height="52" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="153" y="233" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Жорстке зчеплення з приводом</text>
+  <text x="153" y="253" font-size="12" fill="#c0392b" text-anchor="middle">Ядро завантажене циклом струму</text>
+
+  <!-- Блок 2: Аналоговий кабельний джгут -->
+  <rect x="288" y="116" width="298" height="162" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="5,4"/>
+  <text x="437" y="136" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Важкий мідний джгут (30–50 м через планер)</text>
+
+  <!-- Пряма лінія: струм клапана -->
+  <line x1="266" y1="168" x2="602" y2="168" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="437" y="158" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Аналоговий струм I_valve (±40 mA)</text>
+  <text x="437" y="185" font-size="12" fill="#c0392b" text-anchor="middle">⚠ Шум EMI, спотворення на довгих лініях</text>
+
+  <!-- Зворотна лінія: сигнал LVDT -->
+  <line x1="604" y1="224" x2="274" y2="224" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-red)"/>
+  <text x="437" y="214" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Аналоговий зворотний зв'язок LVDT</text>
+  <text x="437" y="244" font-size="12" fill="#6b7280" text-anchor="middle">4–6 екранованих жил на привід • велика маса</text>
+  <text x="437" y="264" font-size="12" fill="#6b7280" text-anchor="middle">Складне калібрування нульового зміщення</text>
+
+  <!-- Блок 3: Гідропривід і кермова поверхня -->
+  <rect x="608" y="116" width="312" height="162" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="616" y="124" width="296" height="22" rx="4" fill="#fdecea"/>
+  <text x="764" y="139" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Гідропривід та кермова поверхня</text>
+
+  <!-- Клапан EHSV -->
+  <rect x="618" y="154" width="136" height="52" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="686" y="174" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Клапан EHSV</text>
+  <text x="686" y="194" font-size="12" fill="#6b7280" text-anchor="middle">Струм котушки</text>
+
+  <!-- Гідропотік до циліндра -->
+  <line x1="754" y1="180" x2="768" y2="180" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Циліндр і руль -->
+  <rect x="772" y="154" width="138" height="52" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="841" y="174" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шток циліндра</text>
+  <text x="841" y="194" font-size="12" fill="#2457d6" text-anchor="middle">Елерон / руль</text>
+
+  <!-- Давач LVDT -->
+  <rect x="618" y="218" width="292" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="764" y="236" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Давач положення штока (LVDT)</text>
+  <text x="764" y="254" font-size="12" fill="#c0392b" text-anchor="middle">Немає локального контуру — сигнал іде 40 м у FCC</text>
+
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: ДВОРІВНЕВА ДЕКОМПОЗИЦІЯ (РОЗВ'ЯЗОК) ==================== -->
+  <rect x="24" y="307" width="912" height="225" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Бейдж нижньої панелі -->
+  <rect x="40" y="319" width="310" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="195" y="335" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Дворівнева декомпозиція FBW (Airbus A320)</text>
+  <text x="366" y="335" font-size="12" fill="#27ae60">Семантичний намір польоту відокремлено від фізики гідроприводу через шину ARINC 429</text>
+
+  <!-- Блок 1: FCC / ELAC (Доменне ядро) -->
+  <rect x="40" y="355" width="226" height="162" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="48" y="363" width="210" height="22" rx="4" fill="#e9f7ef"/>
+  <text x="153" y="378" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">FCC / ELAC (Ядро керування)</text>
+
+  <text x="54" y="401" font-size="12" fill="#1a1a1a">• Доменний намір польоту:</text>
+  <text x="66" y="419" font-size="12" font-weight="bold" fill="#2457d6">n_z (G), кутові швидкості p, q, r</text>
+  <text x="54" y="439" font-size="12" fill="#1a1a1a">• Не знає про тиск і струм I_valve</text>
+
+  <rect x="48" y="453" width="210" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="153" y="472" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихідний порт (Flight Intent)</text>
+  <text x="153" y="492" font-size="12" fill="#27ae60" text-anchor="middle">Трансляція в цифрові слова шини</text>
+
+  <!-- Блок 2: Детермінована цифрова шина ARINC 429 -->
+  <rect x="288" y="355" width="298" height="162" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="298" y="363" width="278" height="22" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="437" y="378" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Цифрова шина ARINC 429 (вита пара)</text>
+
+  <!-- Пряма передача: Слово наміру -->
+  <line x1="266" y1="411" x2="602" y2="411" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="437" y="402" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Слово команди: δ_cmd, n_z (32 біти)</text>
+  <text x="437" y="428" font-size="12" fill="#1a1a1a" text-anchor="middle">Детермінований такт • захист парністю</text>
+
+  <!-- Зворотна передача: Статус і BITE -->
+  <line x1="604" y1="465" x2="274" y2="465" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-green)"/>
+  <text x="437" y="456" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Телеметрія: стан BITE + позиція штока</text>
+  <text x="437" y="484" font-size="12" fill="#6b7280" text-anchor="middle">Цифровий пакет без аналогових шумів</text>
+  <text x="437" y="504" font-size="12" fill="#2457d6" text-anchor="middle">Маса проводки знижена в 5–8 разів</text>
+
+  <!-- Блок 3: Локальний ACE + Гідропривід -->
+  <rect x="608" y="355" width="312" height="162" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="616" y="363" width="296" height="22" rx="4" fill="#e9f7ef"/>
+  <text x="764" y="378" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Локальний блок ACE + Привід (у крилі)</text>
+
+  <!-- Внутрішній блок ACE (Actuator Control Electronics) -->
+  <rect x="618" y="393" width="144" height="114" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="690" y="411" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Локальний ACE</text>
+  <text x="626" y="432" font-size="12" fill="#1a1a1a">• Декодування шини</text>
+  <text x="626" y="450" font-size="12" fill="#1a1a1a">• Швидкий ШІМ / I_valve</text>
+  <text x="626" y="468" font-size="12" fill="#1a1a1a">• Замикає LVDT (&lt;0.5 м)</text>
+  <text x="626" y="488" font-size="12" font-weight="bold" fill="#27ae60">• Ізоляція збоїв BITE</text>
+
+  <!-- Сигнали між ACE та приводом -->
+  <line x1="762" y1="430" x2="774" y2="430" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="776" y1="470" x2="764" y2="470" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Привід та поверхня -->
+  <rect x="778" y="393" width="134" height="114" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="845" y="411" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Привід та руль</text>
+  <text x="845" y="434" font-size="12" fill="#1a1a1a" text-anchor="middle">Клапан EHSV</text>
+  <text x="845" y="454" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Елерон / руль</text>
+  <text x="845" y="474" font-size="12" fill="#1a1a1a" text-anchor="middle">Давач LVDT</text>
+  <text x="845" y="496" font-size="12" fill="#27ae60" text-anchor="middle">Короткий контур</text>
+</svg>

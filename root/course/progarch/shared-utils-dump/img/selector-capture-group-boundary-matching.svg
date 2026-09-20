@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-ok" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-err" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Взаємна ізоляція модулів через зворотне посилання $1 у dependency-cruiser</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Група ([^/]+) фіксує модуль джерела, а $1 у pathNot дозволяє внутрішні імпорти й блокує міжмодульні</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Декларативне правило -->
+  <rect x="24" y="76" width="418" height="424" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="44" y="102" font-size="14" font-weight="700" fill="#1a1a1a">Конфігурація правила (.dependency-cruiser.js)</text>
+
+  <!-- Блок коду правила -->
+  <rect x="40" y="116" width="386" height="216" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="56" y="138" font-size="12" fill="#6b7280">forbidden: [</text>
+  <text x="56" y="156" font-size="12" fill="#1a1a1a">  {</text>
+  <text x="56" y="174" font-size="12" fill="#1a1a1a">    name: 'isolate-parallel-modules',</text>
+  <text x="56" y="192" font-size="12" font-weight="700" fill="#c0392b">    severity: 'error',</text>
+  <text x="56" y="212" font-size="12" fill="#1a1a1a">    from: { path: '^src/modules/<tspan fill="#2457d6" font-weight="700">([^/]+)</tspan>/' },</text>
+  <text x="56" y="232" font-size="12" fill="#1a1a1a">    to: {</text>
+  <text x="56" y="252" font-size="12" fill="#1a1a1a">      path: '^src/modules/',</text>
+  <text x="56" y="272" font-size="12" fill="#1a1a1a">      pathNot: '^src/modules/<tspan fill="#2457d6" font-weight="700">$1</tspan>/'</text>
+  <text x="56" y="292" font-size="12" fill="#1a1a1a">    }</text>
+  <text x="56" y="310" font-size="12" fill="#1a1a1a">  }</text>
+  <text x="56" y="324" font-size="12" fill="#6b7280">]</text>
+
+  <!-- Пояснення механізму захоплення та $1 -->
+  <rect x="40" y="344" width="386" height="142" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="56" y="366" font-size="12" font-weight="700" fill="#2457d6">Механізм динамічного зіставлення:</text>
+  <text x="56" y="388" font-size="12" fill="#1a1a1a">• from: ([^/]+) виділяє назву каталогу джерела</text>
+  <text x="56" y="408" font-size="12" fill="#1a1a1a">• to: змінна $1 динамічно підставляє це ім'я в pathNot</text>
+  <text x="56" y="428" font-size="12" fill="#1a1a1a">• pathNot: дозволяє імпорт лише в межах каталогу $1</text>
+  <line x1="56" y1="442" x2="410" y2="442" stroke="#d0d7de" stroke-width="1"/>
+  <text x="56" y="462" font-size="12" font-weight="700" fill="#2457d6">➔ O(1) правил захищає довільну кількість N модулів</text>
+  <text x="56" y="478" font-size="12" fill="#6b7280">Не потрібно вручну перелічувати N×(N-1) заборонених пар</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Зіставлення ребер графа -->
+  <rect x="458" y="76" width="478" height="424" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="478" y="102" font-size="14" font-weight="700" fill="#1a1a1a">Зіставлення ребер графа (приклад: модуль «billing»)</text>
+
+  <!-- Джерело імпорту -->
+  <rect x="474" y="116" width="446" height="76" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="490" y="136" font-size="12" font-weight="700" fill="#1a1a1a">Джерело: src/modules/billing/service.ts</text>
+  <text x="490" y="156" font-size="12" fill="#6b7280">from.path: ^src/modules/<tspan fill="#2457d6" font-weight="700">([^/]+)</tspan>/ ──► захоплено: <tspan fill="#2457d6" font-weight="700">$1 = "billing"</tspan></text>
+  <text x="490" y="176" font-size="12" fill="#1a1a1a">Підстановка в ціль: <tspan fill="#2457d6" font-weight="700">to.pathNot = ^src/modules/billing/</tspan></text>
+
+  <!-- Випадок 1: Внутрішній імпорт (ДОЗВОЛЕНО) -->
+  <rect x="474" y="202" width="446" height="136" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="490" y="224" font-size="13" font-weight="700" fill="#27ae60">Внутрішній імпорт (у межах модуля)</text>
+  <text x="904" y="224" font-size="12" font-weight="700" text-anchor="end" fill="#27ae60">✓ ДОЗВОЛЕНО</text>
+
+  <!-- Міні-граф для випадку 1 -->
+  <rect x="490" y="236" width="130" height="22" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="555" y="251" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">service.ts</text>
+  <line x1="624" y1="247" x2="682" y2="247" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-ok)"/>
+  <rect x="686" y="236" width="130" height="22" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="751" y="251" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">calc.ts</text>
+
+  <text x="490" y="278" font-size="12" fill="#1a1a1a">Ціль: <tspan font-weight="700">src/modules/billing/calc.ts</tspan> (import { calcTax } from './calc')</text>
+  <text x="490" y="298" font-size="12" fill="#1a1a1a">to.pathNot: ^src/modules/<tspan fill="#2457d6" font-weight="700">billing</tspan>/ ──► <tspan fill="#27ae60" font-weight="700">ЗБІГ ($1)</tspan> (шлях містить billing)</text>
+  <text x="490" y="320" font-size="12" font-weight="700" fill="#27ae60">➔ Виняток спрацював: правило не активується, імпорт валідний</text>
+
+  <!-- Випадок 2: Міжмодульний імпорт (ЗАБЛОКОВАНО) -->
+  <rect x="474" y="350" width="446" height="138" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="490" y="372" font-size="13" font-weight="700" fill="#c0392b">Міжмодульний імпорт (витік контексту)</text>
+  <text x="904" y="372" font-size="12" font-weight="700" text-anchor="end" fill="#c0392b">✗ ЗАБЛОКОВАНО</text>
+
+  <!-- Міні-граф для випадку 2 -->
+  <rect x="490" y="384" width="130" height="22" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="555" y="399" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">service.ts</text>
+  <line x1="624" y1="395" x2="682" y2="395" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="4,3" marker-end="url(#arr-err)"/>
+  <rect x="686" y="384" width="130" height="22" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="751" y="399" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">sensors.ts</text>
+
+  <text x="490" y="426" font-size="12" fill="#1a1a1a">Ціль: <tspan font-weight="700">src/modules/telemetry/sensors.ts</tspan> (import { read } from '../telemetry')</text>
+  <text x="490" y="446" font-size="12" fill="#1a1a1a">to.pathNot: ^src/modules/<tspan fill="#2457d6" font-weight="700">billing</tspan>/ ──► <tspan fill="#c0392b" font-weight="700">НЕ ЗБІГАЄТЬСЯ</tspan> (ціль у telemetry)</text>
+  <text x="490" y="468" font-size="12" font-weight="700" fill="#c0392b">➔ Порушення pathNot: активується severity: error (збірку зупинено)</text>
+</svg>

@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Часова діаграма найгіршого часу виконання (WCET) та бюджет дедлайну</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Розгортання послідовності K спроб у часі: фази арбітражу, передачі й таймауту формують WCET ≤ T_deadline із запасом Slack</text>
+
+  <!-- ПАНЕЛЬ 1: Компоненти одиничної спроби та мікропаузи -->
+  <rect x="24" y="66" width="912" height="58" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="83" font-size="12" font-weight="700" fill="#1a1a1a">Складові одиничної спроби: T_attempt = T_arb + T_tx + T_ack_timeout та мікропауза T_backoff(i)</text>
+  <rect x="40" y="90" width="185" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="132" y="107" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">T_arb : арбітраж шини</text>
+  <rect x="237" y="90" width="185" height="26" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="329" y="107" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">T_tx : відправка кадру</text>
+  <rect x="434" y="90" width="235" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="551" y="107" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">T_ack_timeout : таймаут ACK</text>
+  <rect x="681" y="90" width="239" height="26" rx="4" fill="#ffffff" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="800" y="107" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">T_backoff(i) : мікропауза</text>
+
+  <!-- ПАНЕЛЬ 2: Розгортання спроб на часовій шкалі -->
+  <rect x="24" y="136" width="912" height="224" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="154" font-size="13" font-weight="700" fill="#1a1a1a">Розгортання у часі послідовності K спроб до жорсткого дедлайну (WCET ≤ T_deadline)</text>
+  <text x="125" y="171" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Спроба 1 (втрата ACK)</text>
+  <text x="239" y="171" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">Backoff 1</text>
+  <text x="353" y="171" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Спроба 2 (збій кадру)</text>
+  <text x="476" y="171" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">Backoff 2</text>
+  <text x="599" y="171" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Спроба K (успіх / фінал)</text>
+  <text x="755" y="171" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Часовий запас (Slack)</text>
+  <rect x="44" y="178" width="40" height="48" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="64" y="206" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">T_arb</text>
+  <rect x="88" y="178" width="34" height="48" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="105" y="206" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">T_tx</text>
+  <rect x="126" y="178" width="82" height="48" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="167" y="199" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">T_ack</text>
+  <text x="167" y="215" font-size="12" text-anchor="middle" fill="#c0392b">timeout</text>
+  <rect x="218" y="184" width="42" height="36" rx="3" fill="#ffffff" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="239" y="199" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">T_back</text>
+  <text x="239" y="213" font-size="12" text-anchor="middle" fill="#6b7280">(1)</text>
+  <rect x="272" y="178" width="40" height="48" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="292" y="206" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">T_arb</text>
+  <rect x="316" y="178" width="34" height="48" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="333" y="206" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">T_tx</text>
+  <rect x="354" y="178" width="82" height="48" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="395" y="199" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">T_ack</text>
+  <text x="395" y="215" font-size="12" text-anchor="middle" fill="#c0392b">timeout</text>
+  <rect x="446" y="184" width="60" height="36" rx="3" fill="#ffffff" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="476" y="199" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">T_back</text>
+  <text x="476" y="213" font-size="12" text-anchor="middle" fill="#6b7280">(2)</text>
+  <rect x="518" y="178" width="40" height="48" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="538" y="206" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">T_arb</text>
+  <rect x="562" y="178" width="34" height="48" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="579" y="206" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">T_tx</text>
+  <rect x="600" y="178" width="80" height="48" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="640" y="199" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">T_ack</text>
+  <text x="640" y="215" font-size="12" text-anchor="middle" fill="#c0392b">timeout</text>
+  <rect x="692" y="178" width="126" height="48" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="755" y="199" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">T_slack</text>
+  <text x="755" y="215" font-size="12" text-anchor="middle" fill="#27ae60">безпечний запас</text>
+  <line x1="680" y1="174" x2="680" y2="236" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="830" y1="162" x2="830" y2="350" stroke="#c0392b" stroke-width="2.5"/>
+  <rect x="836" y="178" width="88" height="44" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="880" y="195" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">T_deadline</text>
+  <text x="880" y="211" font-size="12" text-anchor="middle" fill="#c0392b">дедлайн</text>
+  <line x1="44" y1="236" x2="906" y2="236" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="44" y="252" font-size="12" font-weight="700" fill="#6b7280">t = 0</text>
+  <text x="680" y="252" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">t = WCET</text>
+  <text x="824" y="252" font-size="12" font-weight="700" text-anchor="end" fill="#c0392b">t = T_deadline</text>
+  <text x="912" y="240" font-size="12" font-weight="700" fill="#6b7280">Час t</text>
+  <line x1="44" y1="276" x2="676" y2="276" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <line x1="44" y1="270" x2="44" y2="282" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="678" y1="270" x2="678" y2="282" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="294" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Найгірший час виконання: WCET(K) = K · T_attempt + ∑ T_backoff(i)</text>
+  <line x1="684" y1="276" x2="826" y2="276" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <line x1="828" y1="270" x2="828" y2="282" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="755" y="294" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">T_slack</text>
+  <line x1="44" y1="318" x2="826" y2="318" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <line x1="44" y1="312" x2="44" y2="324" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="435" y="336" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Повний допустимий доменний бюджет: T_deadline = WCET + T_slack</text>
+
+  <rect x="24" y="372" width="446" height="64" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="40" y="392" font-size="13" font-weight="700" fill="#27ae60">Умова реального часу: WCET ≤ T_deadline (запас T_slack ≥ 0)</text>
+  <text x="40" y="410" font-size="12" fill="#1a1a1a">Контур зберігає стійкість: команда гарантовано доставляється до дедлайну</text>
+  <text x="40" y="425" font-size="12" fill="#6b7280">Запас Slack компенсує джиттер черги та затримки планувальника ОС</text>
+  <rect x="490" y="372" width="446" height="64" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="506" y="392" font-size="13" font-weight="700" fill="#c0392b">Порушення бюджету: якщо WCET &gt; T_deadline (дефіцит часу)</text>
+  <text x="506" y="410" font-size="12" fill="#1a1a1a">Запізніла дія дестабілізує контур: перехід у режим Fail-Fast</text>
+  <text x="506" y="425" font-size="12" fill="#6b7280">Потрібне підвищення Baud rate шини або зменшення таймауту ACK</text>
+</svg>

@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двоетапний конвеєр перевірки системи за ДеРемером і Кроном</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Контроль архітектурної цілісності графа зв'язків передує трансляції алгоритмів у модулях</text>
+
+  <!-- ПАНЕЛЬ 1: Етап I — Програмування у великому -->
+  <rect x="24" y="66" width="912" height="166" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="74" width="290" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="46" y="90" font-size="12" font-weight="bold" fill="#2457d6">ЕТАП I: ПРОГРАМУВАННЯ У ВЕЛИКОМУ</text>
+  <text x="338" y="90" font-size="12" fill="#6b7280">Статичний контроль архітектурної цілісності системи</text>
+
+  <!-- Блок 1: Специфікація MIL -->
+  <rect x="40" y="110" width="244" height="110" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="52" y="130" font-size="12" font-weight="bold" fill="#2457d6">1. Специфікація структури (MIL)</text>
+  <line x1="40" y1="138" x2="284" y2="138" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="156" font-size="12" font-family="Consolas, monospace" fill="#1a1a1a">MODULE M1 PROVIDES R1;</text>
+  <text x="52" y="174" font-size="12" font-family="Consolas, monospace" fill="#1a1a1a">MODULE M2 REQUIRES R1;</text>
+  <text x="52" y="192" font-size="12" fill="#6b7280">• Декларація модулів та меж</text>
+  <text x="52" y="208" font-size="12" fill="#6b7280">• Без алгоритмів та внутрішнього коду</text>
+
+  <!-- Стрілка 1 -> 2 -->
+  <line x1="284" y1="165" x2="318" y2="165" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 2: Процесор зв'язків -->
+  <rect x="324" y="110" width="280" height="110" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="336" y="130" font-size="12" font-weight="bold" fill="#2457d6">2. Процесор зв'язків (MIL)</text>
+  <line x1="324" y1="138" x2="604" y2="138" stroke="#d0d7de" stroke-width="1"/>
+  <text x="336" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">• Побудова графа залежностей</text>
+  <text x="336" y="174" font-size="12" fill="#1a1a1a">• Звірка: кожен REQUIRES ↔ PROVIDES</text>
+  <text x="336" y="192" font-size="12" fill="#1a1a1a">• Контроль типів та прав видимості</text>
+  <text x="336" y="208" font-size="12" fill="#6b7280">• Виявлення розривів архітектури</text>
+
+  <!-- Стрілка 2 -> 3 (Блокування) -->
+  <line x1="604" y1="165" x2="638" y2="165" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Блок 3: Дефект зв'язків / Блокування -->
+  <rect x="644" y="110" width="276" height="110" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="656" y="130" font-size="12" font-weight="bold" fill="#c0392b">✗ Дефект структури: зупинка</text>
+  <line x1="644" y1="138" x2="920" y2="138" stroke="#c0392b" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="656" y="156" font-size="12" font-weight="bold" fill="#c0392b">Збірку системи зупинено!</text>
+  <text x="656" y="174" font-size="12" fill="#1a1a1a">• Ресурс не надано або доступ закрито</text>
+  <text x="656" y="192" font-size="12" fill="#6b7280">• Помилка на рівні архітектурних меж</text>
+  <text x="656" y="208" font-size="12" font-weight="bold" fill="#c0392b">• Компілятори модулів НЕ викликаються</text>
+
+  <!-- Вертикальний конектор: Каркас валідовано -->
+  <line x1="464" y1="220" x2="464" y2="306" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="474" y="240" width="380" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="484" y="255" font-size="12" font-weight="bold" fill="#27ae60">✓ Граф узгоджено: каркас відкриває допуск до компіляції</text>
+
+  <!-- ПАНЕЛЬ 2: Етап II — Програмування у малому -->
+  <rect x="24" y="268" width="912" height="166" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="276" width="290" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="46" y="292" font-size="12" font-weight="bold" fill="#27ae60">ЕТАП II: ПРОГРАМУВАННЯ У МАЛОМУ</text>
+  <text x="644" y="292" font-size="12" fill="#6b7280">Компіляція алгоритмів та компонування</text>
+
+  <!-- Блок 4: Алгоритмічний код модулів -->
+  <rect x="40" y="312" width="244" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="52" y="332" font-size="12" font-weight="bold" fill="#1a1a1a">3. Алгоритмічний код модулів</text>
+  <line x1="40" y1="340" x2="284" y2="340" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="358" font-size="12" font-family="Consolas, monospace" fill="#2457d6">while (idx &lt; count) { ... }</text>
+  <text x="52" y="376" font-size="12" fill="#1a1a1a">• Функції, цикли, локальні типи</text>
+  <text x="52" y="394" font-size="12" fill="#6b7280">• Внутрішня алгоритмічна логіка</text>
+  <text x="52" y="410" font-size="12" fill="#6b7280">• Окремі вихідні файли модулів</text>
+
+  <!-- Стрілка 3 -> 4 -->
+  <line x1="284" y1="367" x2="318" y2="367" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Блок 5: Компілятори модулів -->
+  <rect x="324" y="312" width="280" height="110" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="336" y="332" font-size="12" font-weight="bold" fill="#27ae60">4. Компілятори окремих модулів</text>
+  <line x1="324" y1="340" x2="604" y2="340" stroke="#d0d7de" stroke-width="1"/>
+  <text x="336" y="358" font-size="12" font-weight="bold" fill="#1a1a1a">• Трансляція коду в машинний вигляд</text>
+  <text x="336" y="376" font-size="12" fill="#1a1a1a">• Компіляція за специфікацією MIL</text>
+  <text x="336" y="394" font-size="12" fill="#6b7280">• Зміна алгоритму не руйнує каркас</text>
+  <text x="336" y="410" font-size="12" fill="#6b7280">• Генерація об'єктних блоків (.obj)</text>
+
+  <!-- Стрілка 4 -> 5 -->
+  <line x1="604" y1="367" x2="638" y2="367" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 6: Системне компонування -->
+  <rect x="644" y="312" width="276" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="656" y="332" font-size="12" font-weight="bold" fill="#27ae60">5. Системне компонування (Linker)</text>
+  <line x1="644" y1="340" x2="920" y2="340" stroke="#27ae60" stroke-width="1" stroke-opacity="0.3"/>
+  <text x="656" y="358" font-size="12" font-weight="bold" fill="#27ae60">Цілісна виконувана система</text>
+  <text x="656" y="376" font-size="12" fill="#1a1a1a">• Збирання модулів за каркасом MIL</text>
+  <text x="656" y="394" font-size="12" fill="#1a1a1a">• Усунено «сліпе компонування»</text>
+  <text x="656" y="410" font-size="12" fill="#6b7280">• Відсутність прихованих побічних дій</text>
+</svg>

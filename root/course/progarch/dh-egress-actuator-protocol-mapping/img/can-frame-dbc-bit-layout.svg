@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Побайтова та побітова карта кадру CAN за специфікацією DBC</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Розкладка 64 бітів корисного навантаження: порядок Little/Big-Endian, накладання масок та поля цілісності</text>
+
+  <!-- ПАНЕЛЬ 1: СТРУКТУРА 64-БІТНОГО НАВАНТАЖЕННЯ -->
+  <rect x="24" y="68" width="912" height="216" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="90" font-size="14" font-weight="700" fill="#1a1a1a">1. Структура 64-бітного корисного навантаження (CAN Payload: Data Bytes 0..7)</text>
+  <text x="40" y="106" font-size="12" fill="#6b7280">Взаємне розміщення сигналів сервоприводу заслінки з межами байтів та бітовими масками</text>
+
+  <!-- 8 БАЙТІВ КАДРУ (ширина 99 px, просвіт 12 px) -->
+  <!-- Byte 0: Цільовий кут LSB -->
+  <rect x="42" y="118" width="99" height="106" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="91" y="136" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Byte 0 [7:0]</text>
+  <text x="91" y="154" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Кут (Angle)</text>
+  <text x="91" y="172" font-size="12" text-anchor="middle" fill="#2457d6">LSB [7:0]</text>
+  <text x="91" y="190" font-size="12" text-anchor="middle" fill="#1a1a1a">Маска 0x00FF</text>
+  <text x="91" y="208" font-size="12" text-anchor="middle" fill="#6b7280">Intel (LE)</text>
+
+  <!-- Byte 1: Цільовий кут MSB -->
+  <rect x="153" y="118" width="99" height="106" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="202" y="136" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Byte 1 [15:8]</text>
+  <text x="202" y="154" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Кут (Angle)</text>
+  <text x="202" y="172" font-size="12" text-anchor="middle" fill="#2457d6">MSB [15:8]</text>
+  <text x="202" y="190" font-size="12" text-anchor="middle" fill="#1a1a1a">Маска 0xFF00</text>
+  <text x="202" y="208" font-size="12" text-anchor="middle" fill="#6b7280">Intel (LE)</text>
+
+  <!-- Byte 2: Цільова швидкість MSB -->
+  <rect x="264" y="118" width="99" height="106" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="313" y="136" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Byte 2 [23:16]</text>
+  <text x="313" y="154" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Швидкість</text>
+  <text x="313" y="172" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">MSB [15:8]</text>
+  <text x="313" y="190" font-size="12" text-anchor="middle" fill="#1a1a1a">Маска 0xFF00</text>
+  <text x="313" y="208" font-size="12" text-anchor="middle" fill="#6b7280">Motorola (BE)</text>
+
+  <!-- Byte 3: Цільова швидкість LSB -->
+  <rect x="375" y="118" width="99" height="106" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="424" y="136" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Byte 3 [31:24]</text>
+  <text x="424" y="154" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Швидкість</text>
+  <text x="424" y="172" font-size="12" text-anchor="middle" fill="#c0392b">LSB [7:0]</text>
+  <text x="424" y="190" font-size="12" text-anchor="middle" fill="#1a1a1a">Маска 0x00FF</text>
+  <text x="424" y="208" font-size="12" text-anchor="middle" fill="#6b7280">Motorola (BE)</text>
+
+  <!-- Byte 4: Режим заслінки та прапорці -->
+  <rect x="486" y="118" width="99" height="106" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="535" y="136" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Byte 4 [39:32]</text>
+  <text x="535" y="154" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Режим (Mode)</text>
+  <text x="535" y="172" font-size="12" text-anchor="middle" fill="#2457d6">Mode [3:0]</text>
+  <text x="535" y="190" font-size="12" text-anchor="middle" fill="#6b7280">Flags [7:4]</text>
+  <text x="535" y="208" font-size="12" text-anchor="middle" fill="#6b7280">Маска 0x0F</text>
+
+  <!-- Byte 5: Резерв -->
+  <rect x="597" y="118" width="99" height="106" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="646" y="136" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">Byte 5 [47:40]</text>
+  <text x="646" y="154" font-size="12" font-weight="700" text-anchor="middle" fill="#6b7280">Резерв</text>
+  <text x="646" y="172" font-size="12" text-anchor="middle" fill="#6b7280">0x00</text>
+  <text x="646" y="190" font-size="12" text-anchor="middle" fill="#6b7280">Фіксов. нуль</text>
+  <text x="646" y="208" font-size="12" text-anchor="middle" fill="#6b7280">DLC=8</text>
+
+  <!-- Byte 6: Rolling Counter -->
+  <rect x="708" y="118" width="99" height="106" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="757" y="136" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Byte 6 [55:48]</text>
+  <text x="757" y="154" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Rolling Cnt</text>
+  <text x="757" y="172" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">4 біти [3:0]</text>
+  <text x="757" y="190" font-size="12" text-anchor="middle" fill="#1a1a1a">Маска 0x0F</text>
+  <text x="757" y="208" font-size="12" text-anchor="middle" fill="#6b7280">Echo [7:4]</text>
+
+  <!-- Byte 7: CRC-8 Checksum -->
+  <rect x="819" y="118" width="99" height="106" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="868" y="136" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Byte 7 [63:56]</text>
+  <text x="868" y="154" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">CRC-8</text>
+  <text x="868" y="172" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">8 бітів [7:0]</text>
+  <text x="868" y="190" font-size="12" text-anchor="middle" fill="#1a1a1a">Маска 0xFF</text>
+  <text x="868" y="208" font-size="12" text-anchor="middle" fill="#6b7280">SAE J1850</text>
+
+  <!-- Пояснення під байтами -->
+  <text x="40" y="248" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#2457d6">• Порядок байтів:</tspan> Кут — Little-Endian (LSB у Byte 0); Швидкість — Big-Endian (MSB у Byte 2, вимагає інверсії)</text>
+  <text x="40" y="266" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#27ae60">• Захист цілісності:</tspan> Rolling Counter (маска 0x0F) виявляє зависання; CRC-8 (Byte 7) верифікує байти 0..6</text>
+
+  <!-- ПАНЕЛЬ 2: МЕХАНІЗМИ ТРАНСЛЯЦІЇ ТА МАСКУВАННЯ -->
+  <rect x="24" y="298" width="912" height="242" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="320" font-size="14" font-weight="700" fill="#1a1a1a">2. Механізми трансляції: контраст Endianness та накладання бітових масок</text>
+  <text x="40" y="336" font-size="12" fill="#6b7280">Як вихідний адаптер готує сирі байти для шини CAN без витоку бітових операцій у доменне ядро</text>
+
+  <!-- Ліва картка: Endianness (ширина 432 px) -->
+  <rect x="42" y="350" width="432" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="258" y="367" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">ПОРЯДОК БАЙТІВ: INTEL ПРОТИ MOTOROLA</text>
+  <rect x="42" y="376" width="432" height="148" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="394" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#2457d6">Little-Endian (Intel):</tspan> Кут 45.00° (Raw 4500 = 0x1194)</text>
+  <text x="54" y="412" font-size="12" fill="#1a1a1a">• Byte 0 (LSB): 0x94 = raw &amp; 0x00FF (молодший байт)</text>
+  <text x="54" y="430" font-size="12" fill="#1a1a1a">• Byte 1 (MSB): 0x11 = (raw &gt;&gt; 8) &amp; 0x00FF (старший байт)</text>
+  <text x="54" y="452" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#c0392b">Big-Endian (Motorola):</tspan> Швидкість (Raw 1000 = 0x03E8)</text>
+  <text x="54" y="470" font-size="12" fill="#1a1a1a">• Byte 2 (MSB): 0x03 = (raw &gt;&gt; 8) &amp; 0x00FF [інверсія!]</text>
+  <text x="54" y="488" font-size="12" fill="#1a1a1a">• Byte 3 (LSB): 0xE8 = raw &amp; 0x00FF (молодший байт)</text>
+  <text x="54" y="508" font-size="12" font-weight="700" fill="#c0392b">⚠ Помилка порядку дасть 0xE803 (59395) замість 1000!</text>
+
+  <!-- Права картка: Маскування та CRC (ширина 432 px, просвіт 12 px) -->
+  <rect x="486" y="350" width="432" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="702" y="367" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">ПОБІТОВЕ МАСКУВАННЯ ТА ЦІЛІСНІСТЬ</text>
+  <rect x="486" y="376" width="432" height="148" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="498" y="394" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#27ae60">Rolling Counter (4 біти):</tspan> захист послідовності кадру</text>
+  <text x="498" y="412" font-size="12" fill="#1a1a1a">• Маска 0x0F: frame[6] = (sub_id &lt;&lt; 4) | (cnt &amp; 0x0F)</text>
+  <text x="498" y="430" font-size="12" fill="#1a1a1a">• Інкремент: cnt = (cnt + 1) &amp; 0x0F [цикл 0..15 ➔ 0]</text>
+  <text x="498" y="448" font-size="12" fill="#6b7280">• Актуатор фіксує пропуск і блокує застиглі команди</text>
+  <text x="498" y="470" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#27ae60">CRC-8 Checksum (8 бітів):</tspan> захист від завад на шині</text>
+  <text x="498" y="488" font-size="12" fill="#1a1a1a">• Поліном SAE J1850: frame[7] = crc8(&amp;frame[0], 7)</text>
+  <text x="498" y="508" font-size="12" font-weight="700" fill="#27ae60">✓ Приймач верифікує байти 0..6 і відкидає битий пакет</text>
+</svg>

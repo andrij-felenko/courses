@@ -23,14 +23,14 @@ local function mock_call(cmd, ...)
     if command == 'ZREMRANGEBYSCORE' then
         local key = args[1]
         local min_val = args[2]
-        local max_val = tonumber(args[3])
+        local max_arg = args[3]
         local zset = redis_mock.data[key] or {}
 
         local new_zset = {}
         local removed = 0
         for _, item in ipairs(zset) do
             local matches_min = (min_val == '-inf') or (item.score >= tonumber(min_val))
-            local matches_max = (item.score <= max_val)
+            local matches_max = (max_arg == '+inf') or (item.score <= tonumber(max_arg))
             if matches_min and matches_max then
                 removed = removed + 1
             else
@@ -124,7 +124,15 @@ local function load_sliding_window()
     local filename = "sliding_window.lua"
     local file = io.open(filename, "r")
     if not file then
-        local dir = arg and arg[0] and arg[0]:match("^(.*[/\])") or ""
+        local dir = ""
+        if arg and arg[0] then
+            dir = arg[0]:match("^(.*[/\\])") or ""
+        elseif debug and debug.getinfo then
+            local info = debug.getinfo(1, "S")
+            if info and info.source then
+                dir = info.source:match("^@?(.*[/\\])") or ""
+            end
+        end
         file = io.open(dir .. filename, "r")
     end
 
@@ -265,7 +273,29 @@ local function run_suite()
         print("[PASS] Тест 5: Поновлення PEXPIRE запобігає витокам пам'яті в Redis.")
     end
 
-    -- Тест 6: Захист від некоректних аргументів
+    -- Тест 6: Захист від граничного сплеску трафіку (перевага ковзного вікна над фіксованим)
+    do
+        redis_mock.reset()
+        local key = "rate:burst_protection"
+        local window = 1000
+        local limit = 3
+
+        -- Сплеск із 3 запитів наприкінці першої секунди
+        assert_equal(execute_limiter(key, 900, window, limit, "b1")[1], 1, "Сплеск 1 дозволено")
+        assert_equal(execute_limiter(key, 950, window, limit, "b2")[1], 1, "Сплеск 2 дозволено")
+        assert_equal(execute_limiter(key, 990, window, limit, "b3")[1], 1, "Сплеск 3 дозволено")
+
+        -- У фіксованому вікні на t=1010 лічильник скинувся б, дозволивши ще 3 запити (подвоєння на стику).
+        -- У ковзному вікні події 900, 950, 990 все ще активні (1010 - 1000 = 10 < 900).
+        local burst_next = execute_limiter(key, 1010, window, limit, "b4")
+        assert_equal(burst_next[1], 0, "Ковзне вікно блокує граничний сплеск на початку наступної секунди")
+        assert_equal(burst_next[3], 900 + 1000 - 1010, "Час очікування до звільнення найдавнішого запису (890 мс)")
+
+        passed_tests = passed_tests + 1
+        print("[PASS] Тест 6: Захист від подвоєння ліміту на стику інтервалів успішно підтверджено.")
+    end
+
+    -- Тест 7: Захист від некоректних аргументів
     do
         _G.KEYS = {}
         _G.ARGV = {}
@@ -274,7 +304,7 @@ local function run_suite()
         assert_equal(res_err.err ~= nil, true, "Повинно бути зафіксовано повідомлення про помилку")
 
         passed_tests = passed_tests + 1
-        print("[PASS] Тест 6: Некоректні параметри відхиляються без аварійного завершення.")
+        print("[PASS] Тест 7: Некоректні параметри відхиляються без аварійного завершення.")
     end
 
     print(string.format("=== Усі %d тестів успішно виконано! ===", passed_tests))

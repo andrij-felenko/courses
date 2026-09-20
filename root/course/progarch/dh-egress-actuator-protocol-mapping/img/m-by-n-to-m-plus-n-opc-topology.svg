@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Топології зв'язку систем: пряме зчеплення M × N проти моделі OPC M + N</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Заміна M × N монолітних драйверів на уніфікований OPC Client та N серверів-адаптерів (ACL)</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Топологія M x N (Пряме зчеплення) -->
+  <rect x="24" y="68" width="444" height="472" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="92" font-size="14" font-weight="700" fill="#1a1a1a">Пряме зчеплення: топологія M × N</text>
+  <text x="40" y="110" font-size="12" fill="#6b7280">Кожна програма містить окремий драйвер під кожен протокол</text>
+  <rect x="340" y="78" width="112" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="396" y="93" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">ХАОС (M × N)</text>
+
+  <!-- Рівень SCADA (Ліворуч) -->
+  <rect x="40" y="126" width="124" height="50" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="102" y="146" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">SCADA-1</text>
+  <text x="102" y="164" font-size="12" text-anchor="middle" fill="#c0392b">3 драйвери</text>
+
+  <rect x="184" y="126" width="124" height="50" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="246" y="146" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">SCADA-2</text>
+  <text x="246" y="164" font-size="12" text-anchor="middle" fill="#c0392b">3 драйвери</text>
+
+  <rect x="328" y="126" width="124" height="50" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="390" y="146" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">SCADA-3</text>
+  <text x="390" y="164" font-size="12" text-anchor="middle" fill="#c0392b">3 драйвери</text>
+
+  <!-- Заплутана мережа зв'язків M x N (9 ліній) -->
+  <line x1="82" y1="176" x2="82" y2="326" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="102" y1="176" x2="226" y2="326" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="122" y1="176" x2="370" y2="326" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <line x1="226" y1="176" x2="102" y2="326" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="246" y1="176" x2="246" y2="326" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="266" y1="176" x2="390" y2="326" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <line x1="370" y1="176" x2="122" y2="326" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="390" y1="176" x2="266" y2="326" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="410" y1="176" x2="410" y2="326" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Рівень пристроїв (Ліворуч) -->
+  <rect x="40" y="326" width="124" height="50" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="102" y="346" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Клапан Modbus</text>
+  <text x="102" y="364" font-size="12" text-anchor="middle" fill="#6b7280">RS-485 / RTU</text>
+
+  <rect x="184" y="326" width="124" height="50" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="246" y="346" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Profibus DP</text>
+  <text x="246" y="364" font-size="12" text-anchor="middle" fill="#6b7280">привід / шина</text>
+
+  <rect x="328" y="326" width="124" height="50" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="390" y="346" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Data Highway</text>
+  <text x="390" y="364" font-size="12" text-anchor="middle" fill="#6b7280">вузол Allen-B</text>
+
+  <!-- Плашка формули M x N -->
+  <rect x="40" y="388" width="412" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="410" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">M × N = 3 × 3 = 9 драйверів (комбінаторний вибух зв'язків)</text>
+
+  <!-- Картка висновків (Ліворуч) -->
+  <rect x="40" y="434" width="412" height="94" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="453" font-size="12" font-weight="700" fill="#c0392b">Вади монолітного протокольного зчеплення:</text>
+  <text x="54" y="471" font-size="12" fill="#1a1a1a">• Протікання заліза: SCADA знає адреси регістрів і CRC шини</text>
+  <text x="54" y="489" font-size="12" fill="#1a1a1a">• Параліч замін: заміна пристрою ламає код усіх M систем</text>
+  <text x="54" y="507" font-size="12" fill="#6b7280">• Витрати: до 70% бюджету розробки йде на підтримку драйверів</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Топологія M + N (Архітектура OPC) -->
+  <rect x="492" y="68" width="444" height="472" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="508" y="92" font-size="14" font-weight="700" fill="#1a1a1a">Архітектура OPC: топологія M + N</text>
+  <text x="508" y="110" font-size="12" fill="#6b7280">Розв'язання через уніфікований клієнт та сервери-адаптери</text>
+  <rect x="808" y="78" width="112" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="864" y="93" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">НОРМА (M + N)</text>
+
+  <!-- Рівень SCADA (Праворуч) -->
+  <rect x="508" y="126" width="124" height="50" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="570" y="146" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">SCADA-1</text>
+  <text x="570" y="164" font-size="12" text-anchor="middle" fill="#2457d6">порт OPC Client</text>
+
+  <rect x="652" y="126" width="124" height="50" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="714" y="146" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">SCADA-2</text>
+  <text x="714" y="164" font-size="12" text-anchor="middle" fill="#2457d6">порт OPC Client</text>
+
+  <rect x="796" y="126" width="124" height="50" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="858" y="146" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">SCADA-3</text>
+  <text x="858" y="164" font-size="12" text-anchor="middle" fill="#2457d6">порт OPC Client</text>
+
+  <!-- Стрілки від SCADA до шини OPC -->
+  <line x1="570" y1="176" x2="570" y2="194" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="714" y1="176" x2="714" y2="194" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="858" y1="176" x2="858" y2="194" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Стандартизована шина OPC DA (COM/OLE) -->
+  <rect x="508" y="194" width="412" height="44" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="714" y="212" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Стандарт OPC Data Access (двійковий контракт COM/OLE)</text>
+  <text x="714" y="228" font-size="12" text-anchor="middle" fill="#1a1a1a">Інтерфейси: IOPCServer, IOPCItemMgt • Теги VQT</text>
+
+  <!-- Стрілки від шини OPC до OPC Servers -->
+  <line x1="570" y1="238" x2="570" y2="254" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="714" y1="238" x2="714" y2="254" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="858" y1="238" x2="858" y2="254" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Рівень OPC Server (Вихідні адаптери / ACL) -->
+  <rect x="508" y="254" width="124" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="570" y="272" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">OPC Server 1</text>
+  <text x="570" y="289" font-size="12" text-anchor="middle" fill="#1a1a1a">Вихідний адаптер</text>
+  <text x="570" y="304" font-size="12" text-anchor="middle" fill="#6b7280">ACL над Modbus</text>
+
+  <rect x="652" y="254" width="124" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="714" y="272" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">OPC Server 2</text>
+  <text x="714" y="289" font-size="12" text-anchor="middle" fill="#1a1a1a">Вихідний адаптер</text>
+  <text x="714" y="304" font-size="12" text-anchor="middle" fill="#6b7280">ACL над Profibus</text>
+
+  <rect x="796" y="254" width="124" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="858" y="272" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">OPC Server 3</text>
+  <text x="858" y="289" font-size="12" text-anchor="middle" fill="#1a1a1a">Вихідний адаптер</text>
+  <text x="858" y="304" font-size="12" text-anchor="middle" fill="#6b7280">ACL над DH</text>
+
+  <!-- Стрілки від OPC Server до пристроїв -->
+  <line x1="570" y1="312" x2="570" y2="326" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="714" y1="312" x2="714" y2="326" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="858" y1="312" x2="858" y2="326" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Рівень пристроїв (Праворуч) -->
+  <rect x="508" y="326" width="124" height="50" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="570" y="346" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Клапан Modbus</text>
+  <text x="570" y="364" font-size="12" text-anchor="middle" fill="#6b7280">RS-485 / RTU</text>
+
+  <rect x="652" y="326" width="124" height="50" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="714" y="346" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Profibus DP</text>
+  <text x="714" y="364" font-size="12" text-anchor="middle" fill="#6b7280">привід / шина</text>
+
+  <rect x="796" y="326" width="124" height="50" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="858" y="346" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Data Highway</text>
+  <text x="858" y="364" font-size="12" text-anchor="middle" fill="#6b7280">вузол Allen-B</text>
+
+  <!-- Плашка формули M + N -->
+  <rect x="508" y="388" width="412" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="410" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">M + N = 3 + 3 = 6 модулів (розв'язана лінійна топологія)</text>
+
+  <!-- Картка висновків (Праворуч) -->
+  <rect x="508" y="434" width="412" height="94" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="522" y="453" font-size="12" font-weight="700" fill="#27ae60">Архітектурні переваги моделі OPC (M + N):</text>
+  <text x="522" y="471" font-size="12" fill="#1a1a1a">• Чистий порт: SCADA бачить лише канонічні теги VQT, а не шини</text>
+  <text x="522" y="489" font-size="12" fill="#1a1a1a">• Сервер як ACL: поглинає порядок байтів і специфіку протоколу</text>
+  <text x="522" y="507" font-size="12" fill="#6b7280">• Легка заміна: новий актуатор потребує лише свого OPC Server</text>
+</svg>

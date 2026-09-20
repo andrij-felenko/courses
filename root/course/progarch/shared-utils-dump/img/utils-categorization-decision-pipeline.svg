@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Алгоритм категоризації функцій у пакетах-звалищах (utils / helpers)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Покрокова перевірка споживання та сигнатур розподіляє код за 4 кошиками рефакторингу згідно з CRP і REP</text>
+
+  <!-- Left Container Panel: Analysis Pipeline -->
+  <rect x="40" y="80" width="400" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="240" y="104" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">КОНВЕЄР АНАЛІЗУ ТА ПЕРЕВІРОК</text>
+
+  <!-- Right Container Panel: Refactoring Buckets -->
+  <rect x="500" y="80" width="420" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="104" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ЦІЛЬОВІ КОШИКИ РЕФАКТОРИНГУ</text>
+
+  <!-- Input Node -->
+  <rect x="70" y="118" width="340" height="54" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="240" y="138" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхід: Функція з пакета utils / helpers</text>
+  <text x="240" y="156" font-size="12" fill="#6b7280" text-anchor="middle">AST-аналіз та побудова графа імпортів</text>
+
+  <!-- Arrow Start -> Decision 1 -->
+  <line x1="240" y1="172" x2="240" y2="192" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Decision 1 Box -->
+  <rect x="70" y="192" width="340" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="222" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">КРОК 1: Кількість викликів N_call = 0?</text>
+  <text x="240" y="244" font-size="12" fill="#6b7280" text-anchor="middle">Чи є бодай один виклик у проєкті?</text>
+
+  <!-- Branch Decision 1 -> Bucket 1 (Yes) -->
+  <line x1="410" y1="228" x2="510" y2="228" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="460" y="218" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Так (0 викликів)</text>
+
+  <!-- Branch Decision 1 -> Decision 2 (No) -->
+  <line x1="240" y1="264" x2="240" y2="282" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="248" y="276" font-size="11" fill="#6b7280" text-anchor="start">Ні (N_call ≥ 1)</text>
+
+  <!-- Decision 2 Box -->
+  <rect x="70" y="282" width="340" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="312" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">КРОК 2: Кількість споживачів N_call = 1?</text>
+  <text x="240" y="334" font-size="12" fill="#6b7280" text-anchor="middle">Чи викликається лише з одного модуля?</text>
+
+  <!-- Branch Decision 2 -> Bucket 2 (Yes) -->
+  <line x1="410" y1="318" x2="510" y2="318" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="460" y="308" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Так (1 споживач)</text>
+
+  <!-- Branch Decision 2 -> Decision 3 (No) -->
+  <line x1="240" y1="354" x2="240" y2="372" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="248" y="366" font-size="11" fill="#6b7280" text-anchor="start">Ні (N_call &gt; 1)</text>
+
+  <!-- Decision 3 Box -->
+  <rect x="70" y="372" width="340" height="72" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="402" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">КРОК 3: Доменні типи у сигнатурі?</text>
+  <text x="240" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Чи залежить сигнатура від сутностей домену?</text>
+
+  <!-- Branch Decision 3 -> Bucket 3 (Yes) -->
+  <line x1="410" y1="408" x2="510" y2="408" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="460" y="398" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Так (є витік)</text>
+
+  <!-- Branch Decision 3 -> Bucket 4 (No) -->
+  <path d="M 240,444 L 240,494 L 510,494" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="248" y="465" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">Ні (без витоку)</text>
+
+  <!-- Legend Box in Left Panel -->
+  <rect x="65" y="472" width="160" height="46" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="145" y="488" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">Аналітичне правило:</text>
+  <text x="145" y="504" font-size="11" fill="#1a1a1a" text-anchor="middle">CRP &amp; REP фільтрація</text>
+
+  <!-- Bucket 1 Card -->
+  <rect x="520" y="192" width="380" height="72" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="535" y="214" font-size="13" font-weight="bold" fill="#c0392b">1. МЕРТВИЙ КОД (Dead Code)</text>
+  <text x="535" y="233" font-size="12" fill="#1a1a1a">• Дія: Видалити функцію з кодової бази</text>
+  <text x="535" y="250" font-size="12" fill="#6b7280">• Принцип: Ліквідація непотрібного баласту</text>
+
+  <!-- Bucket 2 Card -->
+  <rect x="520" y="282" width="380" height="72" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="535" y="304" font-size="13" font-weight="bold" fill="#2457d6">2. ЛОКАЛЬНИЙ ХЕЛПЕР (Single Consumer)</text>
+  <text x="535" y="323" font-size="12" fill="#1a1a1a">• Дія: Інлайнінг або перенесення у модуль-споживач</text>
+  <text x="535" y="340" font-size="12" fill="#6b7280">• Принцип: Заборона передчасної абстракції (REP)</text>
+
+  <!-- Bucket 3 Card -->
+  <rect x="520" y="372" width="380" height="72" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="535" y="394" font-size="13" font-weight="bold" fill="#c0392b">3. ВИТІК ДОМЕННОЇ ЛОГІКИ (Domain Leak)</text>
+  <text x="535" y="413" font-size="12" fill="#1a1a1a">• Дія: Репатріація в доменну модель / сервіс</text>
+  <text x="535" y="430" font-size="12" fill="#6b7280">• Принцип: Common Reuse Principle (CRP)</text>
+
+  <!-- Bucket 4 Card -->
+  <rect x="520" y="458" width="380" height="72" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="535" y="480" font-size="13" font-weight="bold" fill="#27ae60">4. СПРАВЖНЯ УТИЛІТА (Generic Utility)</text>
+  <text x="535" y="499" font-size="12" fill="#1a1a1a">• Дія: Залишити в utils або винести в окрему lib</text>
+  <text x="535" y="516" font-size="12" fill="#6b7280">• Принцип: Дотримано вимоги CRP та REP</text>
+</svg>

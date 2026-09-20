@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок для потоків викликів та поширення зв'язків -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Поліморфізм сховищ проти автономності домену</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Порт потрібен не для підміни бази даних, а для ізоляції бізнес-правил та швидкого тестування</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: МІФ ПРО ЗАМІНУ СКБД ==================== -->
+  <rect x="24" y="68" width="444" height="472" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="44" y="94" font-size="14" font-weight="bold" fill="#c0392b">Ілюзія взаємозамінності СКБД</text>
+  <rect x="308" y="78" width="144" height="22" rx="11" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="380" y="93" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">МІФ ПРО ПІДМІНУ</text>
+
+  <!-- Блок 1: Доменне ядро -->
+  <rect x="44" y="112" width="404" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="132" font-size="13" font-weight="bold" fill="#1a1a1a">Доменне ядро (сценарій застосунку)</text>
+  <text x="60" y="152" font-size="12" fill="#6b7280">Викликає технічний CRUD: repo.save(entity), findById(id)</text>
+
+  <!-- Стрілка виклику до порту -->
+  <line x1="246" y1="170" x2="246" y2="194" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Блок 2: CRUD-порт -->
+  <rect x="44" y="196" width="404" height="74" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="60" y="216" font-size="13" font-weight="bold" fill="#c0392b">Вихідний порт: IGenericRepository&lt;T&gt;</text>
+  <text x="60" y="236" font-size="12" fill="#1a1a1a">Універсальний фасад: add(), update(), delete(), getById()</text>
+  <text x="60" y="254" font-size="12" fill="#c0392b">Витік деталей: неявні транзакції ACID, блокування, FK</text>
+
+  <!-- Стрілка реалізації -->
+  <line x1="246" y1="270" x2="246" y2="294" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Блок 3: Спроба заміни адаптерів -->
+  <rect x="44" y="296" width="404" height="114" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="316" font-size="12" font-weight="bold" fill="#1a1a1a">Спроба заміни адаптера СКБД у конфігурації:</text>
+
+  <rect x="56" y="328" width="184" height="70" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="148" y="348" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SQL (PostgreSQL / Oracle)</text>
+  <text x="148" y="366" font-size="12" fill="#6b7280" text-anchor="middle">ACID • зовнішні ключі</text>
+  <text x="148" y="384" font-size="12" fill="#6b7280" text-anchor="middle">Песимістичні блокування</text>
+
+  <rect x="252" y="328" width="184" height="70" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="344" y="348" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">NoSQL (MongoDB / Cass.)</text>
+  <text x="344" y="366" font-size="12" fill="#c0392b" text-anchor="middle">Немає ACID між табл.</text>
+  <text x="344" y="384" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Крах під навантаженням ✕</text>
+
+  <!-- Блок 4: Висновок лівої панелі -->
+  <rect x="44" y="424" width="404" height="102" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="60" y="444" font-size="13" font-weight="bold" fill="#c0392b">Крах ілюзії: абстракція неминуче протікає</text>
+  <text x="60" y="464" font-size="12" fill="#1a1a1a">• Підміна СКБД на практиці майже ніколи не трапляється</text>
+  <text x="60" y="482" font-size="12" fill="#1a1a1a">• Ядро неявно спирається на семантику первинної бази</text>
+  <text x="60" y="500" font-size="12" fill="#c0392b">• Зміна сховища ламає модель узгодженості та агрегати</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: АВТОНОМНІСТЬ ДОМЕНУ ==================== -->
+  <rect x="492" y="68" width="444" height="472" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="512" y="94" font-size="14" font-weight="bold" fill="#27ae60">Автономність доменного ядра</text>
+  <rect x="760" y="78" width="156" height="22" rx="11" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="838" y="93" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">СПРАВЖНЯ МЕТА ПОРТУ</text>
+
+  <!-- Блок 1: Доменне ядро -->
+  <rect x="512" y="112" width="404" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="528" y="132" font-size="13" font-weight="bold" fill="#1a1a1a">Доменне ядро (сценарій застосунку)</text>
+  <text x="528" y="152" font-size="12" fill="#6b7280">Висловлює намір сценарію: port.recordSchedule(plan)</text>
+
+  <!-- Стрілка виклику до порту -->
+  <line x1="714" y1="170" x2="714" y2="194" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Блок 2: Семантичний порт -->
+  <rect x="512" y="196" width="404" height="74" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="528" y="216" font-size="13" font-weight="bold" fill="#27ae60">Вихідний порт: DeviceSchedulePort</text>
+  <text x="528" y="236" font-size="12" fill="#1a1a1a">Контракт наміру: findActiveDevices(), recordPlan()</text>
+  <text x="528" y="254" font-size="12" fill="#27ae60">Нуль витоків сховища: чиста мова предметної області</text>
+
+  <!-- Стрілка реалізації -->
+  <line x1="714" y1="270" x2="714" y2="294" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 3: Дві реалізації -->
+  <rect x="512" y="296" width="404" height="114" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="528" y="316" font-size="12" font-weight="bold" fill="#1a1a1a">Два адаптери під реальні інженерні потреби:</text>
+
+  <rect x="524" y="328" width="184" height="70" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="616" y="348" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Промисловий адаптер</text>
+  <text x="616" y="366" font-size="12" fill="#6b7280" text-anchor="middle">Оптимізований під СКБД</text>
+  <text x="616" y="384" font-size="12" fill="#6b7280" text-anchor="middle">Інкапсулює SQL і транзакції</text>
+
+  <rect x="720" y="328" width="184" height="70" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="812" y="348" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">In-Memory Fake (двійник)</text>
+  <text x="812" y="366" font-size="12" fill="#27ae60" text-anchor="middle">Звичайна мапа / список</text>
+  <text x="812" y="384" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Тести за &lt;5 мс без БД ✓</text>
+
+  <!-- Блок 4: Висновок правої панелі -->
+  <rect x="512" y="424" width="404" height="102" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="528" y="444" font-size="13" font-weight="bold" fill="#27ae60">Автономність бізнес-правил та ізоляція I/O</text>
+  <text x="528" y="464" font-size="12" fill="#1a1a1a">• Бізнес-правила вільні від деталей сховища й бібліотек</text>
+  <text x="528" y="482" font-size="12" fill="#1a1a1a">• Адаптер використовує можливості СКБД без обмежень</text>
+  <text x="528" y="500" font-size="12" fill="#27ae60">• Щоденне миттєве тестування сценаріїв у пам'яті</text>
+</svg>

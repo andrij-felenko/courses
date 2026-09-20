@@ -18,10 +18,10 @@ local key = KEYS[1]
 local now = tonumber(ARGV[1])
 local window = tonumber(ARGV[2])
 local limit = tonumber(ARGV[3])
-local req_id = ARGV[4] or tostring(now)
+local req_id = ARGV[4]
 
 -- Перевірка валідності вхідних параметрів
-if not key then
+if not key or key == "" then
     return redis.error_reply("KEYS[1] (ключ лімітера) є обов'язковим")
 end
 
@@ -38,13 +38,14 @@ local window_start = now - window
 redis.call('ZREMRANGEBYSCORE', key, '-inf', window_start)
 
 -- 3. Зчитуємо поточну кількість актуальних запитів у вікні
-local current_requests = tonumber(redis.call('ZCARD', key))
+local current_requests = tonumber(redis.call('ZCARD', key)) or 0
 
 if current_requests < limit then
     -- Ліміт не перевищено: реєструємо новий запит у ZSET.
-    -- Score — мітка часу для сортування й очищення; Member — унікальний ідентифікатор події,
-    -- який унеможливлює перезапис запитів, якщо вони надійшли в одну й ту саму мілісекунду.
-    local member = now .. ":" .. req_id
+    -- Якщо унікальний request_id не передано, формуємо суфікс із лічильника активних запитів,
+    -- що гарантує унікальність елемента й запобігає колізіям однакових міток часу.
+    local unique_suffix = (req_id and req_id ~= "") and req_id or tostring(current_requests + 1)
+    local member = now .. ":" .. unique_suffix
     redis.call('ZADD', key, now, member)
 
     -- Поновлюємо час життя ключа на розмір вікна (PEXPIRE у мс),
@@ -61,11 +62,15 @@ else
 
     if oldest and #oldest >= 2 then
         local oldest_time = tonumber(oldest[2])
-        local slot_freed_at = oldest_time + window
-        if slot_freed_at > now then
-            retry_after = slot_freed_at - now
+        if oldest_time then
+            local slot_freed_at = oldest_time + window
+            if slot_freed_at > now then
+                retry_after = slot_freed_at - now
+            else
+                retry_after = 1
+            end
         else
-            retry_after = 1
+            retry_after = window
         end
     else
         -- Запобіжник на випадок граничних умов

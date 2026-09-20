@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Рефакторинг архітектурної межі: від CRUD до рольового порту</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Винесення ORM, блокувань і пагінації з ядра в адаптер захищає сценарій замовлення від змін сховища</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ДО РЕФАКТОРИНГУ ==================== -->
+  <rect x="24" y="74" width="444" height="464" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок лівої панелі та бейдж -->
+  <text x="40" y="97" font-size="14" font-weight="700" fill="#c0392b">ДО: Зчеплення ядра з CRUD-інтерфейсом</text>
+  <rect x="312" y="81" width="144" height="22" rx="11" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="384" y="96" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ЗАПАХ СХОВИЩА</text>
+
+  <!-- Ліва панель: Доменне ядро -->
+  <rect x="38" y="114" width="416" height="178" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="50" y="132" font-size="13" font-weight="700" fill="#c0392b">ДОМЕННЕ ЯДРО: Сценарій замовлення</text>
+  <text x="50" y="148" font-size="12" fill="#6b7280">Сценарій напряму залежить від технічного репозиторію</text>
+
+  <!-- Сценарій замовлення (ліворуч) -->
+  <rect x="48" y="156" width="396" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="58" y="172" font-size="12" font-weight="700" fill="#1a1a1a">FulfillOrderUseCase (сценарій):</text>
+  <text x="58" y="190" font-size="12" font-weight="700" fill="#c0392b">  order = repo.findByIdForUpdate(orderId); // lock!</text>
+
+  <!-- CRUD-інтерфейс (ліворуч) -->
+  <rect x="48" y="214" width="396" height="70" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="58" y="230" font-size="12" font-weight="700" fill="#c0392b">«interface» OrderRepository (калька таблиці orders)</text>
+  <text x="58" y="246" font-size="12" fill="#1a1a1a">+ findByIdForUpdate(id: Long): OrderEntity // витік lock</text>
+  <text x="58" y="262" font-size="12" fill="#1a1a1a">+ findAll(page: Pageable): Page&lt;OrderEntity&gt; // витік SQL</text>
+  <text x="58" y="278" font-size="12" fill="#1a1a1a">+ save(order: OrderEntity): void // витік ORM-сутності</text>
+
+  <!-- Ліва панель: Порушена межа -->
+  <rect x="38" y="302" width="416" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="317" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ПОРУШЕНА МЕЖА: ВИТІК ДЕТАЛЕЙ БД У ЯДРО</text>
+
+  <!-- Ліва панель: Інфраструктура -->
+  <rect x="38" y="336" width="416" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="354" font-size="13" font-weight="700" fill="#1a1a1a">ІНФРАСТРУКТУРА: Прохідний адаптер та БД</text>
+  <text x="50" y="370" font-size="12" fill="#6b7280">Тонкий passthrough транслює виклики без захисного шару</text>
+
+  <!-- Прохідний адаптер -->
+  <rect x="48" y="378" width="396" height="46" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="58" y="396" font-size="12" font-weight="700" fill="#1a1a1a">OrderDatabaseAdapter (passthrough):</text>
+  <text x="58" y="412" font-size="12" fill="#c0392b">• Прямо прокидає типи ORM та блокування рядків у ядро</text>
+
+  <!-- Таблиця orders ліворуч -->
+  <rect x="48" y="434" width="396" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="58" y="451" font-size="12" font-weight="700" fill="#c0392b">TABLE orders (реляційна схема СКБД):</text>
+  <text x="58" y="467" font-size="12" fill="#1a1a1a">• id BIGINT (PK), status VARCHAR, lock_version BIGINT</text>
+
+  <!-- Ліва плашка наслідку -->
+  <rect x="38" y="500" width="416" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="517" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Зміна схеми БД чи блокувань ламає сценарій замовлення</text>
+
+  <!-- Стрілка рефакторингу в центрі між межами -->
+  <line x1="472" y1="313" x2="486" y2="313" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ПІСЛЯ РЕФАКТОРИНГУ ==================== -->
+  <rect x="492" y="74" width="444" height="464" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок правої панелі та бейдж -->
+  <text x="508" y="97" font-size="14" font-weight="700" fill="#27ae60">ПІСЛЯ: Рольовий порт і адаптер</text>
+  <rect x="780" y="81" width="144" height="22" rx="11" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="852" y="96" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">ЧИСТА МЕЖА ЯДРА</text>
+
+  <!-- Права панель: Доменне ядро -->
+  <rect x="506" y="114" width="416" height="178" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="518" y="132" font-size="13" font-weight="700" fill="#27ae60">ДОМЕННЕ ЯДРО: Сценарій замовлення</text>
+  <text x="518" y="148" font-size="12" fill="#6b7280">Сценарій диктує рольовий контракт від бізнес-наміру</text>
+
+  <!-- Сценарій замовлення (праворуч) -->
+  <rect x="516" y="156" width="396" height="48" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="526" y="172" font-size="12" font-weight="700" fill="#1a1a1a">FulfillOrderUseCase (сценарій):</text>
+  <text x="526" y="190" font-size="12" font-weight="700" fill="#27ae60">  order = registry.get(orderId); order.fulfill();</text>
+
+  <!-- Рольовий порт OrderFulfillmentRegistry -->
+  <rect x="516" y="214" width="396" height="70" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="526" y="230" font-size="12" font-weight="700" fill="#2457d6">«interface» OrderFulfillmentRegistry (рольовий порт)</text>
+  <text x="526" y="246" font-size="12" fill="#1a1a1a">+ get(id: OrderId): Order // чистий Value Object OrderId</text>
+  <text x="526" y="262" font-size="12" fill="#1a1a1a">+ saveFulfilled(order: Order): void // бізнес-намір</text>
+  <text x="526" y="278" font-size="12" fill="#1a1a1a">+ findPending(): List&lt;Order&gt; // доменний критерій</text>
+
+  <!-- Права панель: Чиста межа -->
+  <rect x="506" y="302" width="416" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="714" y="317" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">ЧИСТА АРХІТЕКТУРНА МЕЖА: ДОМЕН ІЗОЛЬОВАНО</text>
+
+  <!-- Права панель: Вторинний адаптер -->
+  <rect x="506" y="336" width="416" height="152" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="518" y="354" font-size="13" font-weight="700" fill="#27ae60">ВТОРИННИЙ АДАПТЕР (Антикорупційний шар)</text>
+  <text x="518" y="370" font-size="12" fill="#6b7280">Поглинає складність СКБД та ізолює доменне ядро</text>
+
+  <!-- Вторинний адаптер -->
+  <rect x="516" y="378" width="396" height="52" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="526" y="395" font-size="12" font-weight="700" fill="#1a1a1a">SqlOrderFulfillmentAdapter implements Registry:</text>
+  <text x="526" y="411" font-size="12" fill="#27ae60">• Мапінг: Order ↔ OrderEntity (Memento) • Unit of Work</text>
+  <text x="526" y="425" font-size="12" fill="#27ae60">• Блокування: SELECT ... FOR UPDATE та retry колізій</text>
+
+  <!-- Таблиця orders праворуч -->
+  <rect x="516" y="440" width="396" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="526" y="457" font-size="12" font-weight="700" fill="#1a1a1a">TABLE orders (реляційна схема СКБД):</text>
+  <text x="526" y="471" font-size="12" fill="#6b7280">• id BIGINT, status, lock_version — ядро про це не знає</text>
+
+  <!-- Права плашка наслідку -->
+  <rect x="506" y="500" width="416" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="517" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Зміни схеми СКБД поглинаються адаптером: ядро незмінне</text>
+</svg>

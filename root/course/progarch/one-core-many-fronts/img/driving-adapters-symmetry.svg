@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Симетрія рушійних адаптерів: єдиний вхідний порт ядра</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Віконна форма, автотест і консоль транслюють різнорідні стимули в однаковий виклик бізнес-методу</text>
+
+  <!-- ЗОНА АДАПТЕРІВ: 3 РІВНОПРАВНІ РУШІЇ -->
+
+  <!-- Адаптер 1: Віконна форма (GUI) -->
+  <rect x="24" y="76" width="316" height="106" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="86" width="156" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="44" y="101" font-size="12" font-weight="700" fill="#2457d6">ВІКОННА ФОРМА (GUI)</text>
+  <text x="328" y="101" font-size="12" fill="#6b7280" text-anchor="end">Delphi / Web-форма</text>
+  <text x="36" y="126" font-size="12" fill="#1a1a1a"><tspan font-weight="700">Стимул:</tspan> OnClick(btnSubmit) у вікні форми</text>
+  <text x="36" y="146" font-size="12" fill="#6b7280">Витягує дані полів ➔ валідує UI</text>
+  <text x="36" y="168" font-size="12" font-weight="700" fill="#2457d6">Вихід: cmd = NewOrder(id, qty)</text>
+
+  <!-- Адаптер 2: Автоматичний тест -->
+  <rect x="24" y="196" width="316" height="106" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="206" width="164" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="44" y="221" font-size="12" font-weight="700" fill="#2457d6">АВТОМАТИЧНИЙ ТЕСТ</text>
+  <text x="328" y="221" font-size="12" fill="#6b7280" text-anchor="end">CI / Test Suite</text>
+  <text x="36" y="246" font-size="12" fill="#1a1a1a"><tspan font-weight="700">Стимул:</tspan> testPlaceOrder() у раннері</text>
+  <text x="36" y="266" font-size="12" fill="#6b7280">Створює тестову фікстуру в пам'яті</text>
+  <text x="36" y="288" font-size="12" font-weight="700" fill="#2457d6">Вихід: cmd = NewOrder(id, qty)</text>
+
+  <!-- Адаптер 3: Консольний скрипт -->
+  <rect x="24" y="316" width="316" height="106" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="326" width="164" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="44" y="341" font-size="12" font-weight="700" fill="#2457d6">КОНСОЛЬНИЙ СКРИПТ</text>
+  <text x="328" y="341" font-size="12" fill="#6b7280" text-anchor="end">CLI / Cron / Batch</text>
+  <text x="36" y="366" font-size="12" fill="#1a1a1a"><tspan font-weight="700">Стимул:</tspan> ./cli --id=42 --qty=5 у терміналі</text>
+  <text x="36" y="386" font-size="12" fill="#6b7280">Парсить аргументи argv та прапорці</text>
+  <text x="36" y="408" font-size="12" font-weight="700" fill="#2457d6">Вихід: cmd = NewOrder(id, qty)</text>
+
+  <!-- 3 СИМЕТРИЧНІ СТРІЛКИ ВІД АДАПТЕРІВ ДО ВХІДНОГО ПОРТУ -->
+  <!-- Стрілка 1 -->
+  <line x1="340" y1="129" x2="464" y2="129" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="402" y="118" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">placeOrder(cmd)</text>
+
+  <!-- Пояснення між стрілками 1 і 2 -->
+  <text x="402" y="180" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Симетричний виклик</text>
+  <text x="402" y="196" font-size="12" fill="#6b7280" text-anchor="middle">той самий DTO команди</text>
+
+  <!-- Стрілка 2 -->
+  <line x1="340" y1="249" x2="464" y2="249" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="402" y="238" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">placeOrder(cmd)</text>
+
+  <!-- Пояснення між стрілками 2 і 3 -->
+  <text x="402" y="300" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Нейтральний вхід</text>
+  <text x="402" y="316" font-size="12" fill="#6b7280" text-anchor="middle">немає специфіки UI / CLI</text>
+
+  <!-- Стрілка 3 -->
+  <line x1="340" y1="369" x2="464" y2="369" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="402" y="358" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">placeOrder(cmd)</text>
+
+  <!-- КОНТЕЙНЕР: МЕЖА ЗАСТОСУНКУ ТА ЯДРО -->
+  <rect x="456" y="76" width="480" height="346" rx="8" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- ШАПКА МЕЖІ ЗАСТОСУНКУ -->
+  <rect x="468" y="86" width="220" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="478" y="101" font-size="12" font-weight="700" fill="#27ae60">МЕЖА ЗАСТОСУНКУ (APPLICATION)</text>
+  <text x="696" y="101" font-size="12" fill="#6b7280">Гексагональний контур ізоляції</text>
+
+  <!-- ВХІДНИЙ ПОРТ (DRIVING PORT) -->
+  <rect x="468" y="118" width="182" height="290" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="478" y="128" width="162" height="22" rx="3" fill="#2457d6"/>
+  <text x="559" y="143" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ВХІДНИЙ ПОРТ</text>
+
+  <!-- Вузли підключення (гнізда порту) -->
+  <circle cx="474" cy="129" r="5" fill="#2457d6"/>
+  <circle cx="474" cy="249" r="5" fill="#2457d6"/>
+  <circle cx="474" cy="369" r="5" fill="#2457d6"/>
+
+  <!-- Внутрішня шина об'єднання трьох гнізд -->
+  <path d="M 479 129 L 496 129 L 496 369 L 479 369 M 496 249 L 512 249" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <text x="574" y="172" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">PlaceOrderPort</text>
+  <text x="574" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Інтерфейс ядра</text>
+
+  <text x="574" y="228" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Нейтральний метод:</text>
+  <rect x="514" y="238" width="124" height="24" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="576" y="254" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">placeOrder(cmd)</text>
+
+  <text x="574" y="286" font-size="12" fill="#6b7280" text-anchor="middle">Спільна точка входу</text>
+  <text x="574" y="304" font-size="12" fill="#6b7280" text-anchor="middle">для всіх адаптерів</text>
+
+  <text x="574" y="340" font-size="12" fill="#27ae60" font-weight="700" text-anchor="middle">0 методів під UI/CLI</text>
+  <text x="574" y="358" font-size="12" fill="#6b7280" text-anchor="middle">Порт не розрізняє</text>
+  <text x="574" y="376" font-size="12" fill="#6b7280" text-anchor="middle">походження запиту</text>
+
+  <!-- СТРІЛКА ВІД ПОРТУ ДО ДОМЕННОЇ СЛУЖБИ -->
+  <line x1="650" y1="249" x2="668" y2="249" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ДОМЕННЕ ЯДРО: ЛОГІКА ТА ІНВАРІАНТИ -->
+  <rect x="670" y="118" width="254" height="290" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок ядра -->
+  <rect x="680" y="128" width="180" height="22" rx="3" fill="#27ae60"/>
+  <text x="770" y="143" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ДОМЕННЕ ЯДРО (CORE)</text>
+
+  <!-- Картка сценарію -->
+  <rect x="680" y="162" width="234" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="690" y="181" font-size="12" font-weight="700" fill="#1a1a1a">Сценарій: OrderPlacementService</text>
+  <text x="690" y="199" font-size="12" fill="#2457d6">Виконує команду: execute(cmd)</text>
+
+  <!-- Картка доменних правил -->
+  <rect x="680" y="224" width="234" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="690" y="243" font-size="12" font-weight="700" fill="#1a1a1a">Чисті доменні інваріанти:</text>
+  <text x="690" y="263" font-size="12" fill="#6b7280">• Валідація лімітів та наявності</text>
+  <text x="690" y="283" font-size="12" fill="#6b7280">• Розрахунок цін і знижок клієнта</text>
+
+  <!-- ПІДСУМКОВА ПАНЕЛЬ: ГОЛОВНИЙ ВИСНОВОК (КРИТЕРІЙ КОКБЕРНА) -->
+  <rect x="680" y="308" width="234" height="90" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="797" y="326" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Первинний критерій Кокберна</text>
+  <text x="797" y="347" font-size="12" fill="#1a1a1a" text-anchor="middle">Ядро не знає про джерело виклику.</text>
+  <text x="797" y="365" font-size="12" fill="#1a1a1a" text-anchor="middle">Результат і транзакція 100% ідентичні</text>
+  <text x="797" y="383" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">як для форми, так і для тесту чи CLI</text>
+</svg>

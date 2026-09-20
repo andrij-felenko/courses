@@ -1,0 +1,240 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зіркове виродження графа залежностей та матриця транзитивного замикання</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Спільний вузол utils із залежністю L_ext створює стовпчики одиниць у M = A⁺ для всіх модулів кодової бази</text>
+
+  <!-- ПАНЕЛЬ 1: Розріджений ієрархічний граф і матриця A -->
+  <rect x="24" y="76" width="288" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="168" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Розріджена ієрархія (DAG)</text>
+  <text x="168" y="118" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Автономні модулі V (щільність 25%)</text>
+
+  <!-- Граф V: Вузли -->
+  <!-- v1: API контролер -->
+  <rect x="113" y="136" width="110" height="28" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="168" y="155" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₁: API контролер</text>
+
+  <!-- v2: Білінг -->
+  <rect x="42" y="196" width="105" height="28" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="94" y="215" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₂: Білінг</text>
+
+  <!-- v3: Телеметрія -->
+  <rect x="189" y="196" width="105" height="28" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="241" y="215" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₃: Телеметрія</text>
+
+  <!-- v4: Сховище -->
+  <rect x="113" y="256" width="110" height="28" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="168" y="275" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₄: Сховище даних</text>
+
+  <!-- Граф V: Ребра -->
+  <line x1="140" y1="164" x2="110" y2="196" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="196" y1="164" x2="226" y2="196" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="110" y1="224" x2="140" y2="256" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="226" y1="224" x2="196" y2="256" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Заголовок Матриці A -->
+  <text x="168" y="312" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Матриця суміжності A</text>
+  <text x="168" y="328" font-size="12" fill="#6b7280" text-anchor="middle">A[i, j] = 1 лише за прямого виклику</text>
+
+  <!-- Матриця A: Контейнер -->
+  <rect x="88" y="340" width="160" height="116" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Горизонтальні розділювачі -->
+  <line x1="88" y1="363" x2="248" y2="363" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="88" y1="386" x2="248" y2="386" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="88" y1="409" x2="248" y2="409" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="88" y1="432" x2="248" y2="432" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Вертикальний розділювач заголовка рядків -->
+  <line x1="120" y1="340" x2="120" y2="456" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовки стовпчиків A -->
+  <text x="104" y="357" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">A</text>
+  <text x="136" y="357" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₁</text>
+  <text x="168" y="357" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₂</text>
+  <text x="200" y="357" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₃</text>
+  <text x="232" y="357" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₄</text>
+
+  <!-- Рядок v1 -->
+  <text x="104" y="380" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₁</text>
+  <text x="136" y="380" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="168" y="380" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1</text>
+  <text x="200" y="380" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1</text>
+  <text x="232" y="380" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- Рядок v2 -->
+  <text x="104" y="403" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₂</text>
+  <text x="136" y="403" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="168" y="403" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="200" y="403" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="232" y="403" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1</text>
+
+  <!-- Рядок v3 -->
+  <text x="104" y="426" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₃</text>
+  <text x="136" y="426" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="168" y="426" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="200" y="426" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="232" y="426" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1</text>
+
+  <!-- Рядок v4 -->
+  <text x="104" y="449" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₄</text>
+  <text x="136" y="449" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="168" y="449" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="200" y="449" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="232" y="449" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- Підсумок панелі 1 -->
+  <text x="168" y="475" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">|E| = 4, нульове взаємне зачеплення</text>
+  <text x="168" y="493" font-size="12" fill="#6b7280" text-anchor="middle">v₂ та v₃ не мають спільних шляхів</text>
+
+  <!-- Стрілка переходу 1 -> 2 -->
+  <line x1="316" y1="240" x2="330" y2="240" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- ПАНЕЛЬ 2: Зіркове виродження -->
+  <rect x="336" y="76" width="288" height="430" rx="8" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="100" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Зіркове виродження (U)</text>
+  <text x="480" y="118" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ca(U) = |V|-1 = 4,  Ce(U) = 1 (L_ext)</text>
+
+  <!-- Вузли модулів навколо U -->
+  <!-- v1 (Top-Left) -->
+  <rect x="355" y="134" width="90" height="28" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="400" y="153" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₁: API</text>
+
+  <!-- v2 (Top-Right) -->
+  <rect x="515" y="134" width="90" height="28" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="560" y="153" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₂: Білінг</text>
+
+  <!-- Вузол U (Центр зірки) -->
+  <rect x="420" y="206" width="120" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="480" y="228" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">U: спільні utils</text>
+
+  <!-- v3 (Bottom-Left) -->
+  <rect x="355" y="278" width="90" height="28" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="400" y="297" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₃: Телеметрія</text>
+
+  <!-- v4 (Bottom-Right) -->
+  <rect x="515" y="278" width="90" height="28" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="560" y="297" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₄: Сховище</text>
+
+  <!-- Зовнішня залежність L_ext -->
+  <rect x="410" y="342" width="140" height="28" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="480" y="361" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">L_ext: Зовнішня ліба</text>
+
+  <!-- Ребра зірки: v_i -> U -->
+  <line x1="425" y1="162" x2="455" y2="206" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="535" y1="162" x2="505" y2="206" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="425" y1="278" x2="455" y2="240" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="535" y1="278" x2="505" y2="240" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Зовнішнє ребро: U -> L_ext -->
+  <line x1="480" y1="240" x2="480" y2="342" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Пояснювальний блок панелі 2 -->
+  <rect x="348" y="388" width="264" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="408" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зірковий концентратор руйнує DAG</text>
+  <text x="360" y="428" font-size="12" fill="#1a1a1a">1. Усі 4 модулі залежать від U: Ca(U) = 4</text>
+  <text x="360" y="448" font-size="12" fill="#1a1a1a">2. Вузол U залежить від L_ext: Ce(U) = 1</text>
+  <text x="360" y="468" font-size="12" font-weight="bold" fill="#c0392b">3. Ланцюг v_i → U → L_ext прошиває все</text>
+  <text x="360" y="486" font-size="12" fill="#6b7280">Ізоляція рівнів нівельована до пласкої зірки</text>
+
+  <!-- Стрілка переходу 2 -> 3 -->
+  <line x1="628" y1="240" x2="642" y2="240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+
+  <!-- ПАНЕЛЬ 3: Матриця транзитивного замикання M = A⁺ -->
+  <rect x="648" y="76" width="288" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="792" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Замикання M = A⁺</text>
+  <text x="792" y="118" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Стовпчики U та L_ext — тотальні одиниці</text>
+
+  <!-- Підсвітка стовпчиків U та L_ext у матриці -->
+  <rect x="834" y="136" width="60" height="122" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Матриця M: Контейнер -->
+  <rect x="668" y="136" width="248" height="122" rx="4" fill="none" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Горизонтальні розділювачі -->
+  <line x1="668" y1="160" x2="916" y2="160" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="668" y1="184" x2="916" y2="184" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="668" y1="208" x2="916" y2="208" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="668" y1="232" x2="916" y2="232" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Вертикальний розділювач заголовка рядків -->
+  <line x1="698" y1="136" x2="698" y2="258" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Вертикальний розділювач між модулями та U/L_ext -->
+  <line x1="834" y1="136" x2="834" y2="258" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Заголовки стовпчиків M -->
+  <text x="683" y="154" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">M</text>
+  <text x="715" y="154" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₁</text>
+  <text x="749" y="154" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₂</text>
+  <text x="783" y="154" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₃</text>
+  <text x="817" y="154" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₄</text>
+  <text x="849" y="154" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">U</text>
+  <text x="879" y="154" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">L_ext</text>
+
+  <!-- Рядок v1 -->
+  <text x="683" y="177" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₁</text>
+  <text x="715" y="177" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="749" y="177" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="783" y="177" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="817" y="177" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="849" y="177" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1</text>
+  <text x="879" y="177" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1</text>
+
+  <!-- Рядок v2 -->
+  <text x="683" y="201" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₂</text>
+  <text x="715" y="201" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="749" y="201" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="783" y="201" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="817" y="201" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="849" y="201" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1</text>
+  <text x="879" y="201" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1</text>
+
+  <!-- Рядок v3 -->
+  <text x="683" y="225" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₃</text>
+  <text x="715" y="225" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="749" y="225" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="783" y="225" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="817" y="225" font-size="12" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="849" y="225" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1</text>
+  <text x="879" y="225" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1</text>
+
+  <!-- Рядок v4 -->
+  <text x="683" y="249" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v₄</text>
+  <text x="715" y="249" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="749" y="249" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="783" y="249" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="817" y="249" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="849" y="249" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1</text>
+  <text x="879" y="249" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1</text>
+
+  <!-- Формула замикання -->
+  <text x="792" y="284" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M = ⋁_{k=1}^{|V|-1} A^k = A⁺</text>
+  <text x="792" y="302" font-size="12" fill="#6b7280" text-anchor="middle">Транзитивне замикання графа</text>
+
+  <!-- Картка аналізу наслідків -->
+  <rect x="660" y="316" width="264" height="178" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="792" y="336" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Топологічний злам системи</text>
+
+  <text x="672" y="358" font-size="12" font-weight="bold" fill="#c0392b">● Стовпчик U = [1, 1, 1, 1]ᵀ:</text>
+  <text x="684" y="376" font-size="12" fill="#1a1a1a">R(U) = |V|-1 = 100% модулів коду</text>
+
+  <text x="672" y="400" font-size="12" font-weight="bold" fill="#c0392b">● Стовпчик L_ext = [1, 1, 1, 1]ᵀ:</text>
+  <text x="684" y="418" font-size="12" fill="#1a1a1a">Шлях v_i → U → L_ext для всіх v_i</text>
+
+  <text x="672" y="442" font-size="12" font-weight="bold" fill="#1a1a1a">● Каскадний радіус ураження:</text>
+  <text x="684" y="460" font-size="12" fill="#c0392b" font-weight="bold">Будь-який дефект у L_ext або U</text>
+  <text x="684" y="478" font-size="12" fill="#c0392b" font-weight="bold">гарантовано ламає всю систему</text>
+</svg>

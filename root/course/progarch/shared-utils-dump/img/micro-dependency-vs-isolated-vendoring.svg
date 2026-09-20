@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Мікрозалежність у публічному реєстрі проти локального вендорингу</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Зовнішня утиліта створює критичну точку відмови; вендоринг і lock-файл гарантують автономність</text>
+
+  <!-- ЛІВА КОЛОНКА: ЗОВНІШНЯ МІКРОЗАЛЕЖНІСТЬ (ПРОБЛЕМА) -->
+  <rect x="30" y="70" width="435" height="446" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок лівої колонки -->
+  <rect x="45" y="84" width="405" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247.5" y="106" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Зовнішня мікрозалежність (npm)</text>
+
+  <!-- Дерево проєкту ліворуч -->
+  <rect x="45" y="128" width="405" height="126" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="148" font-size="12" font-weight="700" fill="#1a1a1a">Дерево коду проєкту</text>
+
+  <rect x="60" y="158" width="375" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247.5" y="179" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Застосунок (App / Babel / React)</text>
+
+  <line x1="247.5" y1="190" x2="247.5" y2="202" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <rect x="60" y="204" width="375" height="36" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247.5" y="226" font-size="12" fill="#1a1a1a" text-anchor="middle">Транзитивні залежності: dep-a → dep-b → left-pad</text>
+
+  <!-- Потік завантаження з мережі -->
+  <line x1="120" y1="254" x2="120" y2="280" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="135" y="271" font-size="12" font-weight="700" fill="#c0392b">динамічний мережевий запит під час збірки</text>
+
+  <!-- Блок публічного реєстру -->
+  <rect x="45" y="284" width="405" height="120" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="60" y="304" font-size="12" font-weight="700" fill="#c0392b">Публічний реєстр npm (зовнішня точка відмови)</text>
+
+  <rect x="60" y="316" width="375" height="52" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="337" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Мікропакет left-pad (11 рядків коду)</text>
+  <text x="247.5" y="356" font-size="12" fill="#c0392b" text-anchor="middle">⚠ Пакет видалено автором (unpublish) → HTTP 404</text>
+
+  <text x="247.5" y="390" font-size="12" fill="#6b7280" text-anchor="middle">Сліпа довіра до незмінності зовнішнього реєстру</text>
+
+  <!-- Підсумок ліворуч: збірку зірвано -->
+  <rect x="45" y="416" width="405" height="88" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="60" y="437" font-size="13" font-weight="700" fill="#c0392b">Збірку зірвано: крихкий ланцюг постачання</text>
+  <text x="60" y="462" font-size="12" fill="#1a1a1a">• Єдина точка відмови: зникнення 11 рядків ламає CI/CD</text>
+  <text x="60" y="484" font-size="12" fill="#1a1a1a">• Транзитивна вразливість паралізує зовнішні інструменти</text>
+
+
+  <!-- ПРАВА КОЛОНКА: ЛОКАЛЬНИЙ ВЕНДОРИНГ (РОЗВ'ЯЗОК) -->
+  <rect x="495" y="70" width="435" height="446" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок правої колонки -->
+  <rect x="510" y="84" width="405" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="106" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">Ізольоване дерево з вендорингом</text>
+
+  <!-- Дерево проєкту праворуч -->
+  <rect x="510" y="128" width="405" height="126" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="148" font-size="12" font-weight="700" fill="#1a1a1a">Дерево коду проєкту (автономне)</text>
+
+  <rect x="525" y="158" width="375" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712.5" y="179" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Застосунок (App / модуль)</text>
+
+  <line x1="712.5" y1="190" x2="712.5" y2="202" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="525" y="204" width="375" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712.5" y="226" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">vendor/pad.js (локальне копіювання: 11 рядків утиліти)</text>
+
+  <!-- Потік локального контролю -->
+  <line x1="585" y1="254" x2="585" y2="280" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="600" y="271" font-size="12" font-weight="700" fill="#27ae60">локальний контур: нуль запитів до мережі</text>
+
+  <!-- Блок захисту ланцюга -->
+  <rect x="510" y="284" width="405" height="120" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="304" font-size="12" font-weight="700" fill="#27ae60">Захист ланцюга постачання (локальний контроль)</text>
+
+  <!-- Дві картки всередині блоку захисту -->
+  <rect x="525" y="316" width="180" height="74" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="615" y="337" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">package-lock.json</text>
+  <text x="615" y="356" font-size="12" fill="#1a1a1a" text-anchor="middle">Фіксація версій</text>
+  <text x="615" y="375" font-size="12" fill="#6b7280" text-anchor="middle">Хеші SHA-512 (цілісність)</text>
+
+  <rect x="720" y="316" width="180" height="74" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="810" y="337" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Локальний кеш / vendor</text>
+  <text x="810" y="356" font-size="12" fill="#1a1a1a" text-anchor="middle">Офлайн-дзеркало</text>
+  <text x="810" y="375" font-size="12" fill="#6b7280" text-anchor="middle">Автономність від реєстру</text>
+
+  <!-- Підсумок праворуч: збірка успішна -->
+  <rect x="510" y="416" width="405" height="88" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="437" font-size="13" font-weight="700" fill="#27ae60">Збірка успішна: детермінізм і стабільність</text>
+  <text x="525" y="462" font-size="12" fill="#1a1a1a">• Правило: «Трохи копіювання краще за зайву залежність»</text>
+  <text x="525" y="484" font-size="12" fill="#1a1a1a">• Повна ізоляція: видалення з npm не ламає локальну збірку</text>
+</svg>

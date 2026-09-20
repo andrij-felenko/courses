@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Чотирикутник чи шестикутник: походження форми Кокберна</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Шість граней виникли для зручного розведення адаптерів на дошці, а не як норма шести модулів</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: ЧОТИРИКУТНИК (ПРОБЛЕМА СКУПЧЕННЯ) -->
+  <rect x="24" y="72" width="444" height="364" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка лівої панелі -->
+  <rect x="36" y="84" width="220" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="44" y="99" font-size="12" font-weight="700" fill="#c0392b">ЧОТИРИКУТНИК НА ДОШЦІ</text>
+  <text x="456" y="99" font-size="12" fill="#6b7280" text-anchor="end">Скупчення на 4 гранях</text>
+
+  <!-- Підзаголовки колонок лівої панелі -->
+  <text x="83" y="122" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Драйвуючі</text>
+  <rect x="166" y="112" width="160" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="126" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Скупчення &amp; перетин</text>
+  <text x="409" y="122" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">Керовані</text>
+
+  <!-- Адаптери зліва (Драйвуючі) -->
+  <rect x="36" y="140" width="94" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="83" y="156" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Віконний GUI</text>
+  <text x="83" y="171" font-size="12" fill="#6b7280" text-anchor="middle">Delphi / Web</text>
+
+  <rect x="36" y="225" width="94" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="83" y="241" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Автотести</text>
+  <text x="83" y="256" font-size="12" fill="#6b7280" text-anchor="middle">xUnit / CI</text>
+
+  <rect x="36" y="310" width="94" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="83" y="326" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Консоль CLI</text>
+  <text x="83" y="341" font-size="12" fill="#6b7280" text-anchor="middle">скрипти / cron</text>
+
+  <!-- Ядро застосунку (Прямокутник) -->
+  <rect x="186" y="190" width="120" height="110" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="246" y="232" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">ЯДРО</text>
+  <text x="246" y="250" font-size="12" fill="#6b7280" text-anchor="middle">доменна логіка</text>
+  <text x="246" y="268" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">4 грані</text>
+
+  <!-- Точки підключення (порти) на лівій грані -->
+  <circle cx="186" cy="210" r="4" fill="#c0392b"/>
+  <circle cx="186" cy="245" r="4" fill="#c0392b"/>
+  <circle cx="186" cy="280" r="4" fill="#c0392b"/>
+
+  <!-- Стрілки драйвуючих адаптерів (перетинаються через брак граней) -->
+  <line x1="130" y1="160" x2="180" y2="245" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <line x1="130" y1="245" x2="180" y2="210" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <line x1="130" y1="330" x2="180" y2="280" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+
+  <!-- Точки підключення (порти) на правій грані -->
+  <circle cx="306" cy="210" r="4" fill="#c0392b"/>
+  <circle cx="306" cy="245" r="4" fill="#c0392b"/>
+  <circle cx="306" cy="280" r="4" fill="#c0392b"/>
+
+  <!-- Адаптери справа (Керовані) -->
+  <rect x="362" y="140" width="94" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="409" y="156" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Черга MQ</text>
+  <text x="409" y="171" font-size="12" fill="#6b7280" text-anchor="middle">брокер подій</text>
+
+  <rect x="362" y="225" width="94" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="409" y="241" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Сховище DB</text>
+  <text x="409" y="256" font-size="12" fill="#6b7280" text-anchor="middle">SQL / база</text>
+
+  <rect x="362" y="310" width="94" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="409" y="326" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Пошта / API</text>
+  <text x="409" y="341" font-size="12" fill="#6b7280" text-anchor="middle">SMTP / шлюз</text>
+
+  <!-- Стрілки керованих адаптерів (перетинаються) -->
+  <line x1="312" y1="245" x2="356" y2="160" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <line x1="312" y1="210" x2="356" y2="245" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <line x1="312" y1="280" x2="356" y2="330" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+
+  <!-- Підсумковий банер лівої панелі -->
+  <rect x="36" y="376" width="420" height="44" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="246" y="394" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">4 граней бракує для розведення багатьох адаптерів</text>
+  <text x="246" y="410" font-size="12" fill="#6b7280" text-anchor="middle">Адаптери скупчуються на двох боках, лінії перетинаються на дошці</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: ШЕСТИКУТНИК (ПРОСТОРОВА ЗРУЧНІСТЬ) -->
+  <rect x="492" y="72" width="444" height="364" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка правої панелі -->
+  <rect x="504" y="84" width="220" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="512" y="99" font-size="12" font-weight="700" fill="#27ae60">ШЕСТИКУТНИК НА ДОШЦІ</text>
+  <text x="924" y="99" font-size="12" fill="#6b7280" text-anchor="end">Окремі грані під адаптери</text>
+
+  <!-- Підзаголовки колонок правої панелі -->
+  <text x="551" y="122" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Драйвуючі</text>
+  <rect x="634" y="112" width="160" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="126" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Окремі грані ядра</text>
+  <text x="877" y="122" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Керовані</text>
+
+  <!-- Адаптери зліва (Драйвуючі) -->
+  <rect x="504" y="140" width="94" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="551" y="156" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Автотести</text>
+  <text x="551" y="171" font-size="12" fill="#6b7280" text-anchor="middle">xUnit / CI</text>
+
+  <rect x="504" y="225" width="94" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="551" y="241" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Віконний GUI</text>
+  <text x="551" y="256" font-size="12" fill="#6b7280" text-anchor="middle">Delphi / Web</text>
+
+  <rect x="504" y="310" width="94" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="551" y="326" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Консоль CLI</text>
+  <text x="551" y="341" font-size="12" fill="#6b7280" text-anchor="middle">скрипти / cron</text>
+
+  <!-- Ядро застосунку (Шестикутник) -->
+  <polygon points="714,177 655,211 655,279 714,313 773,279 773,211" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="714" y="232" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">ЯДРО</text>
+  <text x="714" y="250" font-size="12" fill="#6b7280" text-anchor="middle">доменна логіка</text>
+  <text x="714" y="268" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">6 граней</text>
+
+  <!-- Порти на гранях шестикутника (Драйвуючі порти зліва) -->
+  <circle cx="675" cy="199" r="4" fill="#2457d6"/>
+  <circle cx="655" cy="245" r="4" fill="#2457d6"/>
+  <circle cx="675" cy="291" r="4" fill="#2457d6"/>
+
+  <!-- Стрілки драйвуючих адаптерів (прямі, без жодних перетинів) -->
+  <line x1="598" y1="160" x2="669" y2="196" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <line x1="598" y1="245" x2="649" y2="245" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <line x1="598" y1="330" x2="669" y2="294" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Порти на гранях шестикутника (Керовані порти справа) -->
+  <circle cx="753" cy="199" r="4" fill="#27ae60"/>
+  <circle cx="773" cy="245" r="4" fill="#27ae60"/>
+  <circle cx="753" cy="291" r="4" fill="#27ae60"/>
+
+  <!-- Адаптери справа (Керовані) -->
+  <rect x="830" y="140" width="94" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="877" y="156" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Черга MQ</text>
+  <text x="877" y="171" font-size="12" fill="#6b7280" text-anchor="middle">брокер подій</text>
+
+  <rect x="830" y="225" width="94" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="877" y="241" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Сховище DB</text>
+  <text x="877" y="256" font-size="12" fill="#6b7280" text-anchor="middle">SQL / база</text>
+
+  <rect x="830" y="310" width="94" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="877" y="326" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Пошта / API</text>
+  <text x="877" y="341" font-size="12" fill="#6b7280" text-anchor="middle">SMTP / шлюз</text>
+
+  <!-- Стрілки керованих адаптерів (прямі, без жодних перетинів) -->
+  <line x1="757" y1="196" x2="824" y2="162" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <line x1="779" y1="245" x2="824" y2="245" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <line x1="757" y1="294" x2="824" y2="328" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+
+  <!-- Підсумковий банер правої панелі -->
+  <rect x="504" y="376" width="420" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="714" y="394" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Шестикутник — це просторова зручність малювання на дошці</text>
+  <text x="714" y="410" font-size="12" fill="#6b7280" text-anchor="middle">Грані розводять порти на дошці: це не вимога мати рівно 6 шарів</text>
+</svg>

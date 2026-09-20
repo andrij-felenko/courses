@@ -1,0 +1,194 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Масштабування, квантування та обмеження діапазону величин актуатора</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Вихідний адаптер транслює фізичну шкалу в регістри Modbus, квантує сходинками й захищає від переповнення</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ШКАЛИ ТРАНСЛЯЦІЇ ==================== -->
+  <rect x="24" y="70" width="450" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="249" y="94" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Шкала перетворення: домен → регістр Modbus</text>
+  <text x="249" y="112" font-size="12" text-anchor="middle" fill="#6b7280">Робочий діапазон [0..100%] та зони безпечного насичення sat(x)</text>
+
+  <!-- Легенда кривих графіка 1 -->
+  <rect x="115" y="185" width="170" height="66" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="125" y1="202" x2="147" y2="202" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="153" y="206" font-size="12" fill="#1a1a1a">Лінійне (y = 100 · x)</text>
+  <line x1="125" y1="222" x2="147" y2="222" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="5,3"/>
+  <text x="153" y="226" font-size="12" fill="#1a1a1a">Еквіпроцентне Q(h)</text>
+  <line x1="125" y1="240" x2="147" y2="240" stroke="#2457d6" stroke-width="4"/>
+  <text x="153" y="244" font-size="12" fill="#1a1a1a">Полиці насичення sat()</text>
+
+  <!-- Пунктирні лінії меж діапазону -->
+  <line x1="405" y1="395" x2="405" y2="175" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="75" y1="175" x2="405" y2="175" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Вісь Y (початок x=75) -->
+  <line x1="75" y1="415" x2="75" y2="140" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="75" y="132" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Регістр (uint16)</text>
+
+  <!-- Позначки осі Y (x=65, end) -->
+  <line x1="69" y1="395" x2="75" y2="395" stroke="#6b7280" stroke-width="1"/>
+  <text x="65" y="399" font-size="12" text-anchor="end" fill="#6b7280">0</text>
+
+  <line x1="69" y1="340" x2="75" y2="340" stroke="#6b7280" stroke-width="1"/>
+  <text x="65" y="344" font-size="12" text-anchor="end" fill="#6b7280">2500</text>
+
+  <line x1="69" y1="285" x2="75" y2="285" stroke="#6b7280" stroke-width="1"/>
+  <text x="65" y="289" font-size="12" text-anchor="end" fill="#6b7280">5000</text>
+
+  <line x1="69" y1="230" x2="75" y2="230" stroke="#6b7280" stroke-width="1"/>
+  <text x="65" y="234" font-size="12" text-anchor="end" fill="#6b7280">7500</text>
+
+  <line x1="67" y1="175" x2="75" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="65" y="179" font-size="12" font-weight="700" text-anchor="end" fill="#1a1a1a">10000</text>
+
+  <!-- Вісь X (від x=75 до 455) -->
+  <line x1="75" y1="395" x2="455" y2="395" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="430" y="420" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Відкриття x (%)</text>
+
+  <!-- Позначки осі X -->
+  <line x1="105" y1="395" x2="105" y2="403" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="105" y="415" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">0%</text>
+
+  <line x1="180" y1="395" x2="180" y2="401" stroke="#6b7280" stroke-width="1"/>
+  <text x="180" y="415" font-size="12" text-anchor="middle" fill="#6b7280">25%</text>
+
+  <line x1="255" y1="395" x2="255" y2="401" stroke="#6b7280" stroke-width="1"/>
+  <text x="255" y="415" font-size="12" text-anchor="middle" fill="#6b7280">50%</text>
+
+  <line x1="330" y1="395" x2="330" y2="401" stroke="#6b7280" stroke-width="1"/>
+  <text x="330" y="415" font-size="12" text-anchor="middle" fill="#6b7280">75%</text>
+
+  <line x1="405" y1="395" x2="405" y2="403" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="405" y="415" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">100%</text>
+
+  <!-- Криві: Лінійне відображення з полицями sat() -->
+  <line x1="75" y1="395" x2="105" y2="395" stroke="#2457d6" stroke-width="3.5"/>
+  <line x1="105" y1="395" x2="405" y2="175" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="405" y1="175" x2="445" y2="175" stroke="#2457d6" stroke-width="3.5"/>
+
+  <text x="90" y="385" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">sat: 0</text>
+  <text x="425" y="165" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">sat: 10000</text>
+
+  <!-- Еквіпроцентна крива -->
+  <path d="M 105,390.6 L 135,388.5 L 165,385.4 L 195,380.7 L 225,373.9 L 255,363.9 L 285,349.1 L 315,327.2 L 345,295.0 L 375,247.0 L 405,175.0" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6,3"/>
+
+  <!-- Позначка фрагмента Zoom на крайовій точці 0% -->
+  <circle cx="105" cy="395" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="135" y="378" font-size="12" font-weight="700" text-anchor="start" fill="#2457d6">Zoom (край 0%)</text>
+
+  <!-- Підпис внизу панелі 1 -->
+  <text x="249" y="455" font-size="12" text-anchor="middle" fill="#1a1a1a">Оператор sat(x, 0, 100) гарантує y ∈ [0..10000] та блокує переповнення</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: ВИНОСНИЙ МАСШТАБ З НАСИЧЕННЯМ ==================== -->
+  <rect x="486" y="70" width="450" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="711" y="94" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Виносний масштаб: сходинки квантування й насичення</text>
+  <text x="711" y="112" font-size="12" text-anchor="middle" fill="#6b7280">Перехід сходинок у полицю sat() на межі робочого діапазону x = 0%</text>
+
+  <!-- Вісь Y виносного масштабу -->
+  <line x1="515" y1="230" x2="515" y2="125" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="515" y="118" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Код</text>
+
+  <!-- Позначки кодів на осі Y -->
+  <line x1="510" y1="210" x2="515" y2="210" stroke="#6b7280" stroke-width="1"/>
+  <text x="506" y="214" font-size="12" text-anchor="end" fill="#6b7280">0</text>
+
+  <line x1="510" y1="175" x2="515" y2="175" stroke="#6b7280" stroke-width="1"/>
+  <text x="506" y="179" font-size="12" text-anchor="end" fill="#6b7280">1</text>
+
+  <line x1="510" y1="140" x2="515" y2="140" stroke="#6b7280" stroke-width="1"/>
+  <text x="506" y="144" font-size="12" text-anchor="end" fill="#6b7280">2</text>
+
+  <!-- Межа x = 0% -->
+  <line x1="600" y1="230" x2="600" y2="135" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="600" y="128" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Межа x = 0%</text>
+
+  <!-- Картка Зона насичення (x < 0) -->
+  <rect x="525" y="132" width="70" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="560" y="147" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">Полиця sat</text>
+  <text x="560" y="161" font-size="12" text-anchor="middle" fill="#2457d6">y = 0</text>
+
+  <!-- Горизонтальна полиця насичення y = 0 при x < 0 -->
+  <line x1="515" y1="210" x2="600" y2="210" stroke="#2457d6" stroke-width="3.5"/>
+
+  <!-- Наївне переповнення uint16 (червона лінія вниз зі стрілкою) -->
+  <line x1="560" y1="210" x2="560" y2="245" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="560" y="260" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Наївне: 65535</text>
+
+  <!-- Сходинки квантування при x >= 0 -->
+  <!-- Сходинка 0 (код 0) -->
+  <line x1="600" y1="210" x2="660" y2="210" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="660" y1="210" x2="660" y2="175" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Сходинка 1 (код 1) -->
+  <line x1="660" y1="175" x2="730" y2="175" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="730" y1="175" x2="730" y2="140" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Сходинка 2 (код 2) -->
+  <line x1="730" y1="140" x2="800" y2="140" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Неперервна ідеальна пряма y_ideal при x >= 0 (від 600,210 до 810,135) -->
+  <line x1="600" y1="210" x2="810" y2="135" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="818" y="138" font-size="12" font-weight="700" text-anchor="start" fill="#2457d6">y_ideal</text>
+
+  <!-- Позначення крок квантування Δx -->
+  <line x1="660" y1="175" x2="660" y2="245" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="730" y1="175" x2="730" y2="245" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="660" y1="240" x2="730" y2="240" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="695" y="258" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">Δx (квант = 0.01%)</text>
+
+  <!-- Позначення кроку регістра Δy = 1 LSB -->
+  <line x1="800" y1="140" x2="830" y2="140" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="730" y1="175" x2="830" y2="175" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="820" y1="175" x2="820" y2="140" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="835" y="162" font-size="12" font-weight="700" text-anchor="start" fill="#1a1a1a">Δy = 1 LSB</text>
+
+  <!-- Картка Похибка квантування та нечутливість -->
+  <rect x="830" y="180" width="98" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="879" y="196" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">ε_max = ±Δx/2</text>
+  <text x="879" y="212" font-size="12" text-anchor="middle" fill="#6b7280">похибка</text>
+  <text x="879" y="226" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Deadband</text>
+
+  <!-- ==================== ПАНЕЛЬ 3: АЛГОРИТМ ЗАХИСТУ ==================== -->
+  <rect x="486" y="292" width="450" height="188" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="711" y="314" font-size="14" font-weight="700" text-anchor="middle" fill="#1a1a1a">Алгоритм захисту від переповнення розрядної сітки</text>
+  <text x="711" y="332" font-size="12" text-anchor="middle" fill="#6b7280">Арифметика насичення (Clamping) vs циклічне переповнення (Wrap-around)</text>
+
+  <!-- Картка 1: Проблема -->
+  <rect x="498" y="344" width="208" height="124" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="602" y="364" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Наївне приведення типів</text>
+  <text x="602" y="384" font-size="12" text-anchor="middle" fill="#1a1a1a">y = (uint16_t)(100.0 · x)</text>
+  <text x="602" y="404" font-size="12" text-anchor="middle" fill="#6b7280">Перерегулювання: x = -0.2%</text>
+  <text x="602" y="424" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">-20 → 65535 у Modbus!</text>
+  <text x="602" y="444" font-size="12" text-anchor="middle" fill="#1a1a1a">Клапан миттєво відкриється</text>
+  <text x="602" y="460" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Аварія: тепловий удар і розрив</text>
+
+  <!-- Картка 2: Розв'язок -->
+  <rect x="718" y="344" width="208" height="124" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="822" y="364" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Арифметика насичення (ACL)</text>
+  <text x="822" y="384" font-size="12" text-anchor="middle" fill="#1a1a1a">y = sat(round(100·sat(x)), 0, 10000)</text>
+  <text x="822" y="404" font-size="12" text-anchor="middle" fill="#6b7280">Вхід x = -0.2% → sat(x) = 0.0%</text>
+  <text x="822" y="424" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">y = 0 (клапан перекрито)</text>
+  <text x="822" y="444" font-size="12" text-anchor="middle" fill="#1a1a1a">Строгий інваріант: y ∈ [0..10000]</text>
+  <text x="822" y="460" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Захист: переповнення усунуто</text>
+</svg>

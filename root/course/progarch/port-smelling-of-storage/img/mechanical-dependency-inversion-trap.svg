@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Пастка механічної інверсії залежностей</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Ключове слово interface у домені не усуває семантичної залежності від моделі збереження</text>
+
+  <!-- ЛІВА КОЛОНКА: Механічна інверсія (проблема) -->
+  <rect x="28" y="72" width="442" height="466" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="249" y="96" text-anchor="middle" font-size="14" font-weight="700" fill="#c0392b">Механічна інверсія: замаскований DAO</text>
+  <text x="249" y="114" text-anchor="middle" font-size="12" fill="#6b7280">Сигнатури методів продиктовані реляційними запитами</text>
+
+  <!-- Ліва колонка: Доменне ядро -->
+  <rect x="42" y="126" width="414" height="188" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="56" y="144" font-size="12" font-weight="700" fill="#1a1a1a">ЯДРО ДОМЕНУ (DOMAIN)</text>
+
+  <!-- Ліва колонка: Інтерфейс репозиторію -->
+  <rect x="56" y="154" width="386" height="148" rx="4" fill="#f4f6f8" stroke="#c0392b" stroke-width="1"/>
+  <text x="249" y="172" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">«interface» OrderRepository</text>
+  <line x1="56" y1="182" x2="442" y2="182" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="200" font-size="12" fill="#1a1a1a">+ findByCustomerIdAndStatus(custId, status)</text>
+  <text x="70" y="218" font-size="12" fill="#1a1a1a">+ findWithPagination(offset, limit, sortBy)</text>
+  <text x="70" y="236" font-size="12" fill="#1a1a1a">+ updateStatusById(orderId, newStatus)</text>
+  <text x="70" y="254" font-size="12" fill="#1a1a1a">+ existsByTaxNumber(taxNumber)</text>
+  <text x="249" y="286" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">⚠ Калька SQL: пагінація, фільтри полів, ID замість агрегату</text>
+
+  <!-- Ліва колонка: Зв'язки між доменом та інфраструктурою -->
+  <!-- Формальна залежність у коді (DIP) -->
+  <line x1="140" y1="368" x2="140" y2="322" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+  <text x="80" y="340" text-anchor="middle" font-size="12" fill="#1a1a1a">implements</text>
+  <text x="80" y="354" text-anchor="middle" font-size="12" fill="#6b7280">код залежить ↑</text>
+
+  <!-- Фактичний семантичний витік -->
+  <line x1="280" y1="322" x2="280" y2="362" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="292" y="338" font-size="12" font-weight="700" fill="#c0392b">Семантичний витік ↓</text>
+  <text x="292" y="354" font-size="12" fill="#c0392b">домен прив'язаний до SQL</text>
+
+  <!-- Ліва колонка: Інфраструктура -->
+  <rect x="42" y="370" width="414" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="56" y="388" font-size="12" font-weight="700" fill="#1a1a1a">ІНФРАСТРУКТУРА (INFRASTRUCTURE)</text>
+  <rect x="56" y="396" width="386" height="46" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="249" y="414" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">SqlOrderRepository</text>
+  <text x="249" y="432" text-anchor="middle" font-size="12" fill="#6b7280">Пряме виконання: SELECT ... FROM orders WHERE status = ?</text>
+
+  <!-- Ліва колонка: Підсумок -->
+  <rect x="42" y="460" width="414" height="64" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="56" y="482" font-size="12" font-weight="700" fill="#c0392b">Синтаксично: DIP виконано (код компілюється в домен)</text>
+  <text x="56" y="504" font-size="12" fill="#1a1a1a">Семантично: ядро просякнуте мисленням таблиць і запитів</text>
+
+  <!-- ПРАВА КОЛОНКА: Справжній доменний порт (розв'язок) -->
+  <rect x="490" y="72" width="442" height="466" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="711" y="96" text-anchor="middle" font-size="14" font-weight="700" fill="#27ae60">Справжній порт: абстракція колекції</text>
+  <text x="711" y="114" text-anchor="middle" font-size="12" fill="#6b7280">Контракт виражає намір агрегату без огляду на сховище</text>
+
+  <!-- Права колонка: Доменне ядро -->
+  <rect x="504" y="126" width="414" height="188" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="518" y="144" font-size="12" font-weight="700" fill="#1a1a1a">ЯДРО ДОМЕНУ (DOMAIN)</text>
+
+  <!-- Права колонка: Інтерфейс порту -->
+  <rect x="518" y="154" width="386" height="148" rx="4" fill="#f4f6f8" stroke="#27ae60" stroke-width="1"/>
+  <text x="711" y="172" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">«interface» Orders</text>
+  <line x1="518" y1="182" x2="904" y2="182" stroke="#d0d7de" stroke-width="1"/>
+  <text x="532" y="200" font-size="12" fill="#1a1a1a">+ add(order: Order): void</text>
+  <text x="532" y="218" font-size="12" fill="#1a1a1a">+ get(id: OrderId): Order</text>
+  <text x="532" y="236" font-size="12" fill="#1a1a1a">+ activeFor(customer: Customer): Set&lt;Order&gt;</text>
+  <text x="532" y="254" font-size="12" fill="#1a1a1a">+ nextIdentity(): OrderId</text>
+  <text x="711" y="286" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">✓ Семантика колекції в пам'яті: оперує цілим агрегатом Order</text>
+
+  <!-- Права колонка: Зв'язки між доменом та інфраструктурою -->
+  <!-- Залежність у коді (DIP) -->
+  <line x1="590" y1="368" x2="590" y2="322" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="545" y="340" text-anchor="middle" font-size="12" fill="#27ae60">implements</text>
+  <text x="545" y="354" text-anchor="middle" font-size="12" fill="#6b7280">код залежить ↑</text>
+
+  <!-- Ізоляція -->
+  <text x="760" y="338" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Повна семантична ізоляція ✓</text>
+  <text x="760" y="354" text-anchor="middle" font-size="12" fill="#27ae60">адаптер приховує схему БД</text>
+
+  <!-- Права колонка: Інфраструктура -->
+  <rect x="504" y="370" width="414" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="518" y="388" font-size="12" font-weight="700" fill="#1a1a1a">ІНФРАСТРУКТУРА (INFRASTRUCTURE)</text>
+  <rect x="518" y="396" width="386" height="46" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="711" y="414" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">PostgresOrdersAdapter</text>
+  <text x="711" y="432" text-anchor="middle" font-size="12" fill="#6b7280">Мапить агрегат на таблиці: orders, order_items, payments</text>
+
+  <!-- Права колонка: Підсумок -->
+  <rect x="504" y="460" width="414" height="64" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="518" y="482" font-size="12" font-weight="700" fill="#27ae60">Синтаксично: порт є повноцінним контрактом ядра</text>
+  <text x="518" y="504" font-size="12" fill="#1a1a1a">Семантично: домен повністю ізольовано від реляційної моделі</text>
+</svg>

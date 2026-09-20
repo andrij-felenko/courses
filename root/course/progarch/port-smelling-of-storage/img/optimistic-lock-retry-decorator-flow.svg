@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="560" fill="white"/>
+
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+</defs>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Автоматичний повтор при оптимістичному блокуванні: перехоплення колізій</text>
+<text x="480" y="53" font-size="13" fill="#6b7280" text-anchor="middle">Вторинний адаптер детектує змагання за версію, а декоратор прозоро перезавантажує стан без витоку в ядро</text>
+
+<!-- Межі архітектурних зон -->
+<rect x="30" y="66" width="285" height="20" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="172" y="80" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">ДОМЕННЕ ПРИКЛАДНЕ ЯДРО (USE CASES)</text>
+
+<rect x="330" y="66" width="600" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+<text x="630" y="80" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">МЕЖА ІНФРАСТРУКТУРИ (ПЕРСИСТЕНТНІСТЬ ТА СХОВИЩЕ)</text>
+
+<!-- Заголовки учасників -->
+<rect x="30" y="94" width="135" height="36" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="98" y="109" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Потік A: Користувач</text>
+<text x="98" y="123" font-size="12" fill="#6b7280" text-anchor="middle">setTarget(22°C)</text>
+
+<rect x="180" y="94" width="135" height="36" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="248" y="109" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Потік B: Розклад</text>
+<text x="248" y="123" font-size="12" fill="#6b7280" text-anchor="middle">setTarget(24°C)</text>
+
+<rect x="330" y="94" width="175" height="36" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="418" y="109" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Декоратор повторів</text>
+<text x="418" y="123" font-size="12" fill="#2457d6" text-anchor="middle">RetryableClimateAdapter</text>
+
+<rect x="520" y="94" width="185" height="36" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="612" y="109" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вторинний адаптер</text>
+<text x="612" y="123" font-size="12" fill="#6b7280" text-anchor="middle">SqliteAdapter + Unit of Work</text>
+
+<rect x="720" y="94" width="210" height="36" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+<text x="825" y="109" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">База даних SQLite</text>
+<text x="825" y="123" font-size="12" fill="#6b7280" text-anchor="middle">таблиця climate_zones (v)</text>
+
+<!-- Лінії життя -->
+<line x1="98" y1="130" x2="98" y2="508" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="248" y1="130" x2="248" y2="508" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="418" y1="130" x2="418" y2="508" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="612" y1="130" x2="612" y2="508" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="825" y1="130" x2="825" y2="508" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="4,4"/>
+
+<!-- ФАЗА 1: Паралельний старт -->
+<line x1="30" y1="136" x2="930" y2="136" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,4"/>
+
+<text x="35" y="152" font-size="12" font-weight="700" fill="#2457d6">ФАЗА 1: t₀</text>
+<text x="35" y="166" font-size="12" fill="#6b7280">Паралельний старт</text>
+
+<line x1="98" y1="150" x2="410" y2="150" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arr-blue)"/>
+<text x="173" y="144" font-size="12" fill="#2457d6" text-anchor="middle">1a. findById(id) [Потік A]</text>
+
+<line x1="248" y1="168" x2="410" y2="168" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arr-blue)"/>
+<text x="333" y="162" font-size="12" fill="#2457d6" text-anchor="middle">1b. findById(id) [Потік B]</text>
+
+<line x1="418" y1="159" x2="817" y2="159" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arr-blue)"/>
+<text x="615" y="153" font-size="12" fill="#2457d6" text-anchor="middle">SELECT temp, version FROM climate_zones WHERE id = 1</text>
+
+<line x1="825" y1="184" x2="426" y2="184" stroke="#2457d6" stroke-width="1.4" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+<text x="620" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">Повертає рядок: temp = 20°C, version = 1</text>
+
+<line x1="418" y1="192" x2="106" y2="192" stroke="#2457d6" stroke-width="1.4" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+<text x="262" y="186" font-size="12" fill="#1a1a1a" text-anchor="middle">Обидва потоки отримують початковий стан із версією v = 1</text>
+
+<!-- ФАЗА 2: Потік A зберігає першим -->
+<line x1="30" y1="202" x2="930" y2="202" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,4"/>
+
+<text x="35" y="218" font-size="12" font-weight="700" fill="#27ae60">ФАЗА 2: t₁</text>
+<text x="35" y="232" font-size="12" fill="#6b7280">Потік A фіксує</text>
+
+<line x1="98" y1="216" x2="604" y2="216" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arr)"/>
+<text x="350" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">2. save(zone) [ціль: 22°C, очікувана версія v = 1]</text>
+
+<line x1="612" y1="236" x2="817" y2="236" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arr-blue)"/>
+<text x="718" y="230" font-size="12" fill="#2457d6" text-anchor="middle">UPDATE ... SET temp=22, version=2 WHERE id=1 AND version=1</text>
+
+<line x1="825" y1="256" x2="620" y2="256" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arr-green)"/>
+<text x="722" y="250" font-size="12" fill="#27ae60" text-anchor="middle">rows_affected = 1 (успіх! стан у базі: temp = 22°C, v = 2)</text>
+
+<line x1="612" y1="274" x2="106" y2="274" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+<text x="350" y="268" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Result::Ok → 200 OK (Потік A завершено успішно без конфліктів)</text>
+
+<!-- ФАЗА 3: Потік B відстає, колізія та ретрай -->
+<line x1="30" y1="286" x2="930" y2="286" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,4"/>
+
+<text x="35" y="304" font-size="12" font-weight="700" fill="#c0392b">ФАЗА 3: t₂–t₃</text>
+<text x="35" y="318" font-size="12" fill="#6b7280">Колізія Потоку B</text>
+<text x="35" y="332" font-size="12" fill="#6b7280">та ретрай</text>
+
+<line x1="248" y1="308" x2="604" y2="308" stroke="#1a1a1a" stroke-width="1.4" marker-end="url(#arr)"/>
+<text x="430" y="302" font-size="12" fill="#1a1a1a" text-anchor="middle">3. save(zone) [ціль: 24°C, очікувана застаріла версія v = 1]</text>
+
+<line x1="612" y1="328" x2="817" y2="328" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arr-red)"/>
+<text x="718" y="322" font-size="12" fill="#c0392b" text-anchor="middle">UPDATE ... SET temp=24, version=2 WHERE id=1 AND version=1</text>
+
+<line x1="825" y1="348" x2="620" y2="348" stroke="#c0392b" stroke-width="1.4" marker-end="url(#arr-red)"/>
+<text x="722" y="342" font-size="12" fill="#c0392b" text-anchor="middle">rows_affected = 0 (колізія! у базі вже v = 2)</text>
+
+<line x1="612" y1="368" x2="426" y2="368" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+<text x="515" y="362" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Err(VersionConflict) [не витікає у домен!]</text>
+
+<!-- Плашка перехоплення в декораторі -->
+<rect x="335" y="380" width="166" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+<text x="418" y="395" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Декоратор: reload &amp; retry</text>
+
+<!-- Повторне зчитування свіжого агрегату -->
+<line x1="418" y1="412" x2="817" y2="412" stroke="#2457d6" stroke-width="1.4" marker-end="url(#arr-blue)"/>
+<text x="620" y="406" font-size="12" fill="#2457d6" text-anchor="middle">4. SELECT * (декоратор зчитує свіжий агрегат із бази)</text>
+
+<line x1="825" y1="432" x2="426" y2="432" stroke="#2457d6" stroke-width="1.4" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+<text x="620" y="426" font-size="12" fill="#1a1a1a" text-anchor="middle">Свіжий стан: { temp: 22°C, v = 2 } → повторне накладання 24°C</text>
+
+<!-- Повторний запис з актуальною версією -->
+<line x1="418" y1="454" x2="817" y2="454" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arr-green)"/>
+<text x="620" y="448" font-size="12" fill="#27ae60" text-anchor="middle">5. UPDATE ... SET temp=24, version=3 WHERE id=1 AND version=2</text>
+
+<line x1="825" y1="474" x2="426" y2="474" stroke="#27ae60" stroke-width="1.4" marker-end="url(#arr-green)"/>
+<text x="620" y="468" font-size="12" fill="#27ae60" text-anchor="middle">rows_affected = 1 (успішно збережено версію v = 3)</text>
+
+<line x1="418" y1="492" x2="256" y2="492" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+<text x="337" y="486" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Result::Ok → 200 OK (прозорий успіх)</text>
+
+<!-- Підсумковий банер -->
+<rect x="30" y="512" width="900" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+<text x="480" y="528" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">ВИСНОВОК: Декоратор ізолює домен від колізій; контракт порту залишається чистим без винятків СКБД</text>
+
+</svg>

@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Анемічна модель і вимивання домену в спільний utils</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Відчуження бізнес-правил у хелпери руйнує інкапсуляцію: стан мутується в обхід інваріантів</text>
+
+  <!-- Ліва панель: Анемічна доменна сутність -->
+  <rect x="24" y="74" width="388" height="212" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="86" width="130" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="101" y="101" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">АНЕМІЧНА МОДЕЛЬ</text>
+  <text x="178" y="101" font-size="13" font-weight="bold" fill="#1a1a1a">domain/entities/SmartLock.ts</text>
+  <text x="36" y="122" font-size="12" fill="#6b7280">Пасивний мішок даних (Data Bag) без методів</text>
+
+  <!-- Внутрішня картка сутності -->
+  <rect x="36" y="132" width="364" height="112" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="150" font-size="12" font-weight="bold" fill="#2457d6">interface <tspan fill="#1a1a1a">SmartLock</tspan> {</text>
+  <text x="60" y="168" font-size="12" fill="#1a1a1a">id: string;</text>
+  <text x="60" y="186" font-size="12" font-weight="bold" fill="#c0392b">isLocked: boolean;</text>
+  <text x="206" y="186" font-size="12" fill="#6b7280">// відкрите для мутації</text>
+  <text x="60" y="204" font-size="12" fill="#1a1a1a">batteryLevel: number;</text>
+  <text x="60" y="222" font-size="12" fill="#1a1a1a">tamperAlert: boolean;</text>
+  <text x="48" y="238" font-size="12" font-weight="bold" fill="#2457d6">}</text>
+
+  <!-- Плашка попередження сутності -->
+  <rect x="36" y="252" width="364" height="24" rx="4" fill="#fdecea"/>
+  <text x="218" y="268" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Поведінка відсутня: нуль методів, нуль захисту</text>
+
+  <!-- Зв'язки між модулями (по центру) -->
+  <line x1="416" y1="162" x2="542" y2="162" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="480" y="136" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вимивання</text>
+  <text x="480" y="150" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">правил ➔</text>
+
+  <line x1="542" y1="218" x2="416" y2="218" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="192" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зворотна</text>
+  <text x="480" y="206" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">залежність</text>
+
+  <!-- Права панель: Спільний утилітарний пакет -->
+  <rect x="548" y="74" width="388" height="212" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="560" y="86" width="126" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="623" y="101" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">СПІЛЬНИЙ ПАКЕТ</text>
+  <text x="698" y="101" font-size="13" font-weight="bold" fill="#1a1a1a">shared/utils/LockUtils.ts</text>
+  <text x="560" y="122" font-size="12" fill="#6b7280">Тіньова бізнес-логіка (статичні хелпери)</text>
+
+  <!-- Внутрішня картка утиліти -->
+  <rect x="560" y="132" width="364" height="112" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="572" y="150" font-size="12" font-weight="bold" fill="#2457d6">class <tspan fill="#1a1a1a">LockUtils</tspan> {</text>
+  <text x="584" y="168" font-size="12" font-weight="bold" fill="#1a1a1a">static canChangeLockState(lock, thr): boolean</text>
+  <text x="596" y="186" font-size="12" fill="#c0392b">// if (lock.tamperAlert) return false;</text>
+  <text x="584" y="204" font-size="12" font-weight="bold" fill="#1a1a1a">static unlock(lock: SmartLock): void</text>
+  <text x="596" y="222" font-size="12" fill="#6b7280">// if (canChangeLockState) lock.isLocked = false;</text>
+  <text x="572" y="238" font-size="12" font-weight="bold" fill="#2457d6">}</text>
+
+  <!-- Плашка витоку утиліти -->
+  <rect x="560" y="252" width="364" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="742" y="268" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Витік домену: утиліта знає тип SmartLock</text>
+
+  <!-- Нижня панель: Руйнування інкапсуляції -->
+  <rect x="24" y="298" width="912" height="142" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="318" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Наслідок для клієнтського коду: руйнування інкапсуляції та обхід інваріантів</text>
+
+  <!-- Ліва картка внизу: Пряма мутація -->
+  <rect x="36" y="330" width="426" height="96" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="46" y="338" width="168" height="20" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="130" y="352" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ПРЯМА МУТАЦІЯ (ОБХІД)</text>
+  <text x="224" y="352" font-size="12" fill="#6b7280">Будь-який сервіс (SyncService)</text>
+  <text x="46" y="374" font-size="12" font-weight="bold" fill="#c0392b">lock.isLocked = false;</text>
+  <text x="206" y="374" font-size="12" fill="#6b7280">// прямий запис у відкрите поле</text>
+  <text x="46" y="392" font-size="12" fill="#1a1a1a">• Перевірку утиліти оминуто: сутність не захищає свій стан</text>
+  <text x="46" y="410" font-size="12" font-weight="bold" fill="#c0392b">• Інваріант порушено: відмикання при tamperAlert == true!</text>
+
+  <!-- Права картка внизу: Виклик хелпера -->
+  <rect x="498" y="330" width="426" height="96" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="508" y="338" width="164" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="590" y="352" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ВИКЛИК ЧЕРЕЗ ХЕЛПЕР</text>
+  <text x="682" y="352" font-size="12" fill="#6b7280">Дисциплінований клієнт</text>
+  <text x="508" y="374" font-size="12" font-weight="bold" fill="#1a1a1a">LockUtils.unlock(lock);</text>
+  <text x="670" y="374" font-size="12" fill="#6b7280">// виклик зовнішнього класу</text>
+  <text x="508" y="392" font-size="12" fill="#1a1a1a">• Інваріант перевірено: враховано tamperAlert та batteryLevel</text>
+  <text x="508" y="410" font-size="12" fill="#6b7280">• Захист крихкий: тримається лише на дисципліні розробника</text>
+</svg>

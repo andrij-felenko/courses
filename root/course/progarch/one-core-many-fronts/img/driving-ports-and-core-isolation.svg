@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Вхідні порти та ізоляція ядра: єдиний сценарій для трьох фронтів</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Адаптери перетворюють стимули на незмінний DTO; ядро повертає Result без залежності від транспорту</text>
+
+  <!-- ==================== КОЛОНКА 1: ДРАЙВУЮЧІ АДАПТЕРИ ==================== -->
+  <rect x="24" y="74" width="300" height="384" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="86" width="160" height="22" rx="4" fill="#2457d6"/>
+  <text x="116" y="101" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ДРАЙВУЮЧІ АДАПТЕРИ</text>
+  <text x="206" y="101" font-size="12" fill="#6b7280">Фронти системи</text>
+
+  <!-- Адаптер 1: HTTP REST -->
+  <rect x="36" y="116" width="276" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="134" font-size="12" font-weight="700" fill="#2457d6">HttpHeatingController (REST API)</text>
+  <text x="46" y="153" font-size="12" fill="#1a1a1a">Вхід: POST /rooms/living/temp (JSON)</text>
+  <text x="46" y="171" font-size="12" fill="#6b7280">Дія: десеріалізація &amp; валідація схеми</text>
+  <text x="46" y="189" font-size="12" font-weight="700" fill="#2457d6">Вихід: формує Command DTO</text>
+  <text x="46" y="207" font-size="12" fill="#27ae60">Мапінг: Result ➔ HTTP 200 / 422</text>
+
+  <!-- Адаптер 2: CLI Утиліта -->
+  <rect x="36" y="230" width="276" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="248" font-size="12" font-weight="700" fill="#2457d6">CliHeatingCommand (Консоль / CLI)</text>
+  <text x="46" y="267" font-size="12" fill="#1a1a1a">Вхід: ./heat --room living --temp 21.5</text>
+  <text x="46" y="285" font-size="12" fill="#6b7280">Дія: парсинг argv, ключів і прапорців</text>
+  <text x="46" y="303" font-size="12" font-weight="700" fill="#2457d6">Вихід: формує Command DTO</text>
+  <text x="46" y="321" font-size="12" fill="#27ae60">Мапінг: Result ➔ exit code 0 / 1</text>
+
+  <!-- Адаптер 3: Черга повідомлень -->
+  <rect x="36" y="344" width="276" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="362" font-size="12" font-weight="700" fill="#2457d6">HeatingQueueConsumer (Черга / AMQP)</text>
+  <text x="46" y="381" font-size="12" fill="#1a1a1a">Вхід: AMQP message: {"room": "living"}</text>
+  <text x="46" y="399" font-size="12" fill="#6b7280">Дія: розпакування payload і метаданих</text>
+  <text x="46" y="417" font-size="12" font-weight="700" fill="#2457d6">Вихід: формує Command DTO</text>
+  <text x="46" y="435" font-size="12" fill="#27ae60">Мапінг: Result ➔ basic.ack / nack</text>
+
+  <!-- ==================== КОЛОНКА 2: ВХІДНИЙ ПОРТ ТА МЕЖА ==================== -->
+  <rect x="340" y="74" width="280" height="384" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+  <rect x="352" y="86" width="176" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="440" y="101" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">ВХІДНИЙ ДРАЙВУЮЧИЙ ПОРТ</text>
+  <text x="536" y="101" font-size="12" fill="#6b7280">Межа ядра</text>
+
+  <!-- Блок 1: Незмінний Command DTO -->
+  <rect x="352" y="116" width="256" height="102" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="352" y="116" width="256" height="22" rx="4" fill="#2457d6"/>
+  <text x="480" y="131" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">Незмінний Command DTO</text>
+  <text x="362" y="153" font-size="12" font-weight="700" fill="#1a1a1a">SetTargetTemperatureCommand</text>
+  <text x="362" y="171" font-size="12" fill="#6b7280">• roomId: string = "living"</text>
+  <text x="362" y="189" font-size="12" fill="#6b7280">• targetTemperature: float = 21.5</text>
+  <text x="362" y="207" font-size="12" font-weight="700" fill="#27ae60">• Чистий намір без деталей транспорту</text>
+
+  <!-- Блок 2: Контракт вхідного порту -->
+  <rect x="352" y="230" width="256" height="102" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="352" y="230" width="256" height="22" rx="4" fill="#2457d6"/>
+  <text x="480" y="245" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">Контракт порту: Driving Port</text>
+  <text x="362" y="267" font-size="12" font-weight="700" fill="#2457d6">interface SetTargetTemperaturePort</text>
+  <text x="362" y="285" font-size="12" font-weight="700" fill="#1a1a1a">execute(command): Result&lt;T, Error&gt;</text>
+  <text x="362" y="303" font-size="12" fill="#6b7280">• Єдина нейтральна точка входу</text>
+  <text x="362" y="321" font-size="12" font-weight="700" fill="#27ae60">• Гарантує однаковий запуск для всіх</text>
+
+  <!-- Блок 3: Чистий Result (Повернення результату) -->
+  <rect x="352" y="344" width="256" height="102" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="352" y="344" width="256" height="22" rx="4" fill="#27ae60"/>
+  <text x="480" y="359" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">Чистий Result (Повернення)</text>
+  <text x="362" y="381" font-size="12" font-weight="700" fill="#27ae60">Result&lt;Success, DomainError&gt;</text>
+  <text x="362" y="399" font-size="12" fill="#27ae60">Ok(TemperatureApplied)</text>
+  <text x="362" y="417" font-size="12" fill="#c0392b">Err(WindowIsOpen | LimitsExceeded)</text>
+  <text x="362" y="435" font-size="12" fill="#6b7280">• Доменні типи, 0 статусів протоколів</text>
+
+  <!-- ==================== КОЛОНКА 3: ПРИКЛАДНЕ ЯДРО ==================== -->
+  <rect x="636" y="74" width="300" height="384" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="648" y="86" width="176" height="22" rx="4" fill="#27ae60"/>
+  <text x="736" y="101" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ПРИКЛАДНЕ ЯДРО (CORE)</text>
+  <text x="832" y="101" font-size="12" fill="#6b7280">Чистий домен</text>
+
+  <!-- Блок 1: Правило залежностей -->
+  <rect x="648" y="116" width="276" height="102" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="648" y="116" width="276" height="22" rx="4" fill="#27ae60"/>
+  <text x="786" y="131" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ПРАВИЛО ЗАЛЕЖНОСТЕЙ</text>
+  <text x="658" y="153" font-size="12" font-weight="700" fill="#27ae60">Напрямок: строго всередину</text>
+  <text x="658" y="171" font-size="12" font-weight="700" fill="#1a1a1a">Адаптери ➔ Вхідний порт ➔ Ядро</text>
+  <text x="658" y="189" font-size="12" fill="#1a1a1a">• Зовнішній шар знає контракт ядра</text>
+  <text x="658" y="207" font-size="12" font-weight="700" fill="#27ae60">• Ядро НЕ знає про жоден адаптер</text>
+
+  <!-- Блок 2: Сценарій Use Case Interactor -->
+  <rect x="648" y="230" width="276" height="102" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="648" y="230" width="276" height="22" rx="4" fill="#27ae60"/>
+  <text x="786" y="245" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">Сценарій: Use Case Interactor</text>
+  <text x="658" y="267" font-size="12" font-weight="700" fill="#1a1a1a">SetTargetTemperatureUseCase</text>
+  <text x="658" y="285" font-size="12" fill="#2457d6">implements SetTargetTemperaturePort</text>
+  <text x="658" y="303" font-size="12" fill="#1a1a1a">• Інваріант: перевірка відкритих вікон</text>
+  <text x="658" y="321" font-size="12" font-weight="700" fill="#27ae60">• Контроль граничної температури (≤30°C)</text>
+
+  <!-- Блок 3: Ізоляція від транспорту -->
+  <rect x="648" y="344" width="276" height="102" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="648" y="344" width="276" height="22" rx="4" fill="#c0392b"/>
+  <text x="786" y="359" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ІЗОЛЯЦІЯ: 0 ЗВОРОТНОГО ЗВ'ЯЗКУ</text>
+  <text x="658" y="381" font-size="12" font-weight="700" fill="#c0392b">⛔ 0 імпортів транспорту в ядрі:</text>
+  <text x="658" y="399" font-size="12" font-weight="700" fill="#1a1a1a">немає express, fastapi, argparse, amqp</text>
+  <text x="658" y="417" font-size="12" fill="#1a1a1a">• Ядро не має залежностей від мережі</text>
+  <text x="658" y="435" font-size="12" font-weight="700" fill="#27ae60">• 100% тестів запускаються в пам'яті</text>
+
+  <!-- ==================== СТРІЛКИ ВЗАЄМОДІЇ ТА ПОТОКІВ ==================== -->
+  <!-- Стрілка 1: шина від 3 адаптерів до Command DTO -->
+  <line x1="312" y1="167" x2="332" y2="167" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="312" y1="281" x2="332" y2="281" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="312" y1="395" x2="332" y2="395" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="332" y1="167" x2="332" y2="395" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="332" cy="167" r="3" fill="#2457d6"/>
+  <circle cx="332" cy="281" r="3" fill="#2457d6"/>
+  <circle cx="332" cy="395" r="3" fill="#2457d6"/>
+  <line x1="332" y1="167" x2="350" y2="167" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Стрілка 2: від Command DTO до порту execute(cmd) -->
+  <line x1="480" y1="218" x2="480" y2="228" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Стрілка 3: від Вхідного порту до Use Case (виклик сценарію) -->
+  <line x1="608" y1="281" x2="646" y2="281" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Стрілка 4: від Use Case до Result DTO (повернення результату) -->
+  <path d="M648,310 L628,310 L628,395 L610,395" fill="none" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+
+  <!-- Стрілка 5: зворотний потік Result до адаптерів для мапінгу -->
+  <line x1="352" y1="395" x2="314" y2="395" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+</svg>

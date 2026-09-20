@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Репозиторій як колекція агрегатів проти табличного DAO</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Ізоляція доменної моделі бар'єром агрегату замість прямого CRUD над реляційними таблицями</text>
+
+  <!-- Ліва панель: АНТИПАТЕРН DAO -->
+  <rect x="24" y="72" width="436" height="426" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок лівої панелі -->
+  <rect x="38" y="84" width="408" height="34" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="242" y="106" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">ТАБЛИЧНИЙ DAO: витік реляційної схеми</text>
+
+  <!-- Бізнес-сервіс у лівій моделі -->
+  <rect x="38" y="132" width="408" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="242" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Бізнес-сервіс (знає про структуру БД)</text>
+  <text x="54" y="174" text-anchor="start" font-size="12" fill="#c0392b">• Координує окремі DAO: OrderDAO, ItemDAO, PaymentDAO</text>
+  <text x="54" y="194" text-anchor="start" font-size="12" fill="#6b7280">• Керує зовнішніми ключами, транзакцією та збереженням рядків</text>
+
+  <!-- Стрілки від сервісу до DAO -->
+  <line x1="103" y1="212" x2="103" y2="248" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="242" y1="212" x2="242" y2="248" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <line x1="381" y1="212" x2="381" y2="248" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Блоки DAO -->
+  <rect x="44" y="250" width="118" height="56" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="103" y="272" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">OrderDAO</text>
+  <text x="103" y="292" text-anchor="middle" font-size="12" fill="#6b7280">CRUD рядків</text>
+
+  <rect x="183" y="250" width="118" height="56" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="242" y="272" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">OrderItemDAO</text>
+  <text x="242" y="292" text-anchor="middle" font-size="12" fill="#6b7280">CRUD рядків</text>
+
+  <rect x="322" y="250" width="118" height="56" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="381" y="272" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">PaymentDAO</text>
+  <text x="381" y="292" text-anchor="middle" font-size="12" fill="#6b7280">CRUD рядків</text>
+
+  <!-- Стрілки від DAO до таблиць -->
+  <line x1="103" y1="306" x2="103" y2="342" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="242" y1="306" x2="242" y2="342" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="381" y1="306" x2="381" y2="342" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Таблиці БД у лівій моделі -->
+  <rect x="44" y="344" width="118" height="56" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="103" y="366" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">таблиця orders</text>
+  <text x="103" y="386" text-anchor="middle" font-size="12" fill="#6b7280">id, date, status</text>
+
+  <rect x="183" y="344" width="118" height="56" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="242" y="366" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">order_items</text>
+  <text x="242" y="386" text-anchor="middle" font-size="12" fill="#6b7280">id, order_id, sku</text>
+
+  <rect x="322" y="344" width="118" height="56" rx="5" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="381" y="366" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">payments</text>
+  <text x="381" y="386" text-anchor="middle" font-size="12" fill="#6b7280">id, order_id, sum</text>
+
+  <!-- Підсумок проблеми -->
+  <rect x="38" y="418" width="408" height="68" rx="6" fill="#fdecea" stroke="#c0392b" stroke-dasharray="4 3" stroke-width="1.2"/>
+  <text x="242" y="438" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Проблема: відсутність захисного бар'єра</text>
+  <text x="242" y="456" text-anchor="middle" font-size="12" fill="#1a1a1a">Бізнес-код вручну координує таблиці, FK і транзакції.</text>
+  <text x="242" y="474" text-anchor="middle" font-size="12" fill="#6b7280">Інваріанти агрегату розмиті по окремих DAO</text>
+
+  <!-- Розділювач між колонками -->
+  <line x1="480" y1="72" x2="480" y2="498" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <!-- Права панель: РЕПОЗИТОРІЙ DDD -->
+  <rect x="500" y="72" width="436" height="426" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок правої панелі -->
+  <rect x="514" y="84" width="408" height="34" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="718" y="106" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">DDD РЕПОЗИТОРІЙ: захисний бар'єр агрегату</text>
+
+  <!-- Корінь агрегату -->
+  <rect x="514" y="132" width="408" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="718" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">Доменна модель: Корінь агрегату (Order)</text>
+  <text x="530" y="174" text-anchor="start" font-size="12" fill="#1a1a1a">• Неподільний корінь: інкапсулює Items та Payments</text>
+  <text x="530" y="194" text-anchor="start" font-size="12" fill="#2457d6">• Бачить сховище як звичайну колекцію об'єктів у пам'яті</text>
+
+  <!-- Стрілка від агрегату до порту -->
+  <line x1="718" y1="212" x2="718" y2="230" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Порт: OrderRepository -->
+  <rect x="514" y="232" width="408" height="54" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="718" y="252" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Порт: OrderRepository (колекція агрегатів у пам'яті)</text>
+  <text x="718" y="272" text-anchor="middle" font-size="12" fill="#1a1a1a">orderRepo.add(order) | orderRepo.get(orderId)</text>
+
+  <!-- Стрілка від порту до адаптера та позначки бар'єра -->
+  <line x1="718" y1="286" x2="718" y2="316" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="530" y="305" text-anchor="start" font-size="12" font-weight="700" fill="#2457d6">Захисний бар'єр домену</text>
+  <text x="730" y="305" text-anchor="start" font-size="12" fill="#27ae60">реалізує порт (інверсія)</text>
+
+  <!-- Адаптер сховища -->
+  <rect x="514" y="318" width="408" height="82" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="718" y="338" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Адаптер сховища (SqlOrderRepository)</text>
+  <text x="530" y="358" text-anchor="start" font-size="12" fill="#1a1a1a">• Інкапсулює розбиття агрегату на рядки таблиць і транзакцію</text>
+  <text x="530" y="376" text-anchor="start" font-size="12" fill="#1a1a1a">• get(id): збирає повний об'єктний граф агрегату з бази даних</text>
+  <text x="530" y="394" text-anchor="start" font-size="12" fill="#27ae60">• Повністю приховує SQL, FK і реляційну структуру від домену</text>
+
+  <!-- Стрілка від адаптера до БД -->
+  <line x1="718" y1="400" x2="718" y2="416" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- База даних у правій моделі -->
+  <rect x="514" y="418" width="408" height="68" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="718" y="438" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Реляційна БД (таблиці orders, order_items, payments)</text>
+  <text x="718" y="456" text-anchor="middle" font-size="12" fill="#27ae60">Розбиття на таблиці інкапсульоване всередині адаптера</text>
+  <text x="718" y="474" text-anchor="middle" font-size="12" fill="#6b7280">Домен оперує сутністю, не знаючи про фізичне збереження</text>
+</svg>

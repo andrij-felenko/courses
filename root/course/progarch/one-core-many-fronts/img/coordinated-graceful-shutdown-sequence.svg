@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Часова послідовність скоординованої безпечної зупинки</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Відсікання вхідних адаптерів, злив активних транзакцій та закриття пулу БД унеможливлюють втрату даних</text>
+
+  <!-- Заголовки фаз (Timeline Headers) -->
+  <rect x="216" y="74" width="130" height="34" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="281" y="95" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Звичайна робота</text>
+
+  <rect x="358" y="74" width="160" height="34" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="438" y="89" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Відсікання входу</text>
+  <text x="438" y="102" font-size="12" fill="#6b7280" text-anchor="middle">t_0: SIGTERM / SIGINT</text>
+
+  <rect x="530" y="74" width="236" height="34" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="648" y="89" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Дренаж робіт (Drain)</text>
+  <text x="648" y="102" font-size="12" fill="#6b7280" text-anchor="middle">t_drain &lt;= t_max (таймаут)</text>
+
+  <rect x="778" y="74" width="158" height="34" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="857" y="89" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Закриття і вихід</text>
+  <text x="857" y="102" font-size="12" fill="#6b7280" text-anchor="middle">t_3: exit(0) без втрат</text>
+
+  <!-- Стрілки між фазами угорі -->
+  <line x1="347" y1="91" x2="356" y2="91" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="519" y1="91" x2="528" y2="91" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="767" y1="91" x2="776" y2="91" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Вертикальні розділювальні лінії часових меж -->
+  <line x1="352" y1="112" x2="352" y2="444" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="524" y1="112" x2="524" y2="444" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="772" y1="112" x2="772" y2="444" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- ТРЕК 1: HTTP-адаптер -->
+  <rect x="24" y="120" width="180" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="34" y="144" font-size="13" font-weight="bold" fill="#1a1a1a">HTTP-адаптер</text>
+  <text x="34" y="162" font-size="12" fill="#2457d6">REST API (listen_fd)</text>
+  <text x="34" y="178" font-size="12" fill="#6b7280">Драйвуючий веб-фронт</text>
+
+  <rect x="216" y="120" width="130" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="281" y="144" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Прийом TCP / HTTP</text>
+  <text x="281" y="162" font-size="12" fill="#1a1a1a" text-anchor="middle">Потік запитів</text>
+  <text x="281" y="178" font-size="12" fill="#6b7280" text-anchor="middle">Порт 8080 слухає</text>
+
+  <rect x="358" y="120" width="160" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="438" y="142" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Відсікання нових HTTP</text>
+  <text x="438" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">close(listen_fd)</text>
+  <text x="438" y="174" font-size="12" fill="#c0392b" text-anchor="middle">⛔ Код 503 / скидання</text>
+
+  <rect x="530" y="120" width="236" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="648" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Доопрацювання in-flight</text>
+  <text x="648" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">200 OK + Connection: close</text>
+  <text x="648" y="174" font-size="12" fill="#6b7280" text-anchor="middle">Плавне згасання сокетів</text>
+
+  <rect x="778" y="120" width="158" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="857" y="144" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Адаптер зупинено</text>
+  <text x="857" y="162" font-size="12" fill="#1a1a1a" text-anchor="middle">0 активних сокетів</text>
+  <text x="857" y="178" font-size="12" fill="#27ae60" text-anchor="middle">✓ Чистий фінал</text>
+
+  <!-- ТРЕК 2: Адаптер черги -->
+  <rect x="24" y="202" width="180" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="34" y="226" font-size="13" font-weight="bold" fill="#1a1a1a">Адаптер черги</text>
+  <text x="34" y="244" font-size="12" fill="#2457d6">Worker (AMQP / Kafka)</text>
+  <text x="34" y="260" font-size="12" fill="#6b7280">Драйвуючий воркер</text>
+
+  <rect x="216" y="202" width="130" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="281" y="226" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вибірка з черги</text>
+  <text x="281" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">basic.consume</text>
+  <text x="281" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Постійний pull</text>
+
+  <rect x="358" y="202" width="160" height="70" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="438" y="224" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пауза вибірки черги</text>
+  <text x="438" y="240" font-size="12" fill="#1a1a1a" text-anchor="middle">basic.cancel()</text>
+  <text x="438" y="256" font-size="12" fill="#c0392b" text-anchor="middle">⛔ Задачі у брокері</text>
+
+  <rect x="530" y="202" width="236" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="648" y="224" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Докрутка взятих задач</text>
+  <text x="648" y="240" font-size="12" fill="#1a1a1a" text-anchor="middle">Обробка → basic.ack брокеру</text>
+  <text x="648" y="256" font-size="12" fill="#6b7280" text-anchor="middle">Жодне повідомлення не зникає</text>
+
+  <rect x="778" y="202" width="158" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="857" y="226" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Воркер зупинено</text>
+  <text x="857" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">Канал AMQP закрито</text>
+  <text x="857" y="260" font-size="12" fill="#27ae60" text-anchor="middle">✓ Буфер порожній</text>
+
+  <!-- ТРЕК 3: Прикладне ядро -->
+  <rect x="24" y="284" width="180" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="34" y="308" font-size="13" font-weight="bold" fill="#1a1a1a">Прикладне ядро</text>
+  <text x="34" y="326" font-size="12" fill="#2457d6">Application Core</text>
+  <text x="34" y="342" font-size="12" fill="#6b7280">Спільні сценарії</text>
+
+  <rect x="216" y="284" width="130" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="281" y="308" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Активні сценарії</text>
+  <text x="281" y="326" font-size="12" fill="#1a1a1a" text-anchor="middle">N_active &gt; 0</text>
+  <text x="281" y="342" font-size="12" fill="#6b7280" text-anchor="middle">Бізнес-потік ядра</text>
+
+  <rect x="358" y="284" width="160" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="438" y="306" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фіксація робіт ядра</text>
+  <text x="438" y="322" font-size="12" fill="#1a1a1a" text-anchor="middle">Старт таймера t_drain</text>
+  <text x="438" y="338" font-size="12" fill="#2457d6" text-anchor="middle">Блокування входу</text>
+
+  <rect x="530" y="284" width="236" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="648" y="306" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Злив: N_active → 0</text>
+  <text x="648" y="322" font-size="12" fill="#1a1a1a" text-anchor="middle">Усі активні сценарії завершено</text>
+  <text x="648" y="338" font-size="12" fill="#27ae60" text-anchor="middle">✓ Захист: WaitGroup.Wait()</text>
+
+  <rect x="778" y="284" width="158" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="857" y="308" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ядро дреновано</text>
+  <text x="857" y="326" font-size="12" fill="#1a1a1a" text-anchor="middle">N_active = 0</text>
+  <text x="857" y="342" font-size="12" fill="#27ae60" text-anchor="middle">✓ Дозвіл закрити БД</text>
+
+  <!-- ТРЕК 4: Пул з&apos;єднань БД -->
+  <rect x="24" y="366" width="180" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="34" y="390" font-size="13" font-weight="bold" fill="#1a1a1a">Пул з&apos;єднань БД</text>
+  <text x="34" y="408" font-size="12" fill="#2457d6">Connection Pool</text>
+  <text x="34" y="424" font-size="12" fill="#6b7280">Керований адаптер</text>
+
+  <rect x="216" y="366" width="130" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="281" y="390" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пул відкритий</text>
+  <text x="281" y="408" font-size="12" fill="#1a1a1a" text-anchor="middle">З&apos;єднання активні</text>
+  <text x="281" y="424" font-size="12" fill="#6b7280" text-anchor="middle">Обслуговує ядро</text>
+
+  <rect x="358" y="366" width="160" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="438" y="388" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Утримання пулу БД</text>
+  <text x="438" y="404" font-size="12" fill="#1a1a1a" text-anchor="middle">Пул лишається active</text>
+  <text x="438" y="420" font-size="12" fill="#27ae60" text-anchor="middle">Підтримка in-flight</text>
+
+  <rect x="530" y="366" width="236" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="648" y="388" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фіксація in-flight транзакцій</text>
+  <text x="648" y="404" font-size="12" fill="#1a1a1a" text-anchor="middle">Пул обслуговує COMMIT / ROLLBACK</text>
+  <text x="648" y="420" font-size="12" fill="#27ae60" text-anchor="middle">✓ Захист від втрати даних</text>
+
+  <rect x="778" y="366" width="158" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="857" y="388" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">dbPool.Close()</text>
+  <text x="857" y="404" font-size="12" fill="#1a1a1a" text-anchor="middle">Пул закрито (idle = 0)</text>
+  <text x="857" y="420" font-size="12" fill="#27ae60" text-anchor="middle">✓ Чистий вихід exit(0)</text>
+
+  <!-- Стрілка тригера закриття БД від ядра: після N_active = 0 -->
+  <line x1="857" y1="355" x2="857" y2="364" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Нижня панель: Порівняння та архітектурний висновок -->
+  <rect x="24" y="450" width="912" height="88" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <rect x="36" y="458" width="434" height="72" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="48" y="478" font-size="12" font-weight="bold" fill="#27ae60">✓ Скоординована послідовність (захист даних):</text>
+  <text x="48" y="496" font-size="12" fill="#1a1a1a">1. Відсікти вхідні адаптери → 2. Злити транзакції (WaitAll)</text>
+  <text x="48" y="514" font-size="12" fill="#27ae60">3. Закрити пул БД після зливу → нуль втрачених операцій</text>
+
+  <rect x="490" y="458" width="434" height="72" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="502" y="478" font-size="12" font-weight="bold" fill="#c0392b">⛔ Помилка без координації (раптовий Hard Abort):</text>
+  <text x="502" y="496" font-size="12" fill="#1a1a1a">Закриття пулу БД одразу після SIGTERM ламає виклики ядра:</text>
+  <text x="502" y="514" font-size="12" fill="#c0392b">Клієнти бачать HTTP 500, черга втрачає стан і транзакції</text>
+</svg>

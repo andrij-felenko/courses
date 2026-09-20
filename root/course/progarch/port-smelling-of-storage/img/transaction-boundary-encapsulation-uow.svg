@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Ізоляція транзакційних меж: @Transactional проти Unit of Work</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Замикання транзакції в адаптері звільняє доменний сценарій від утримання з'єднання з БД</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: АНТИПАТЕРН -->
+  <rect x="24" y="68" width="444" height="448" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Лівий бейдж -->
+  <rect x="40" y="82" width="412" height="46" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="101" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">НЕ ТАК: @Transactional на сценарії використання</text>
+  <text x="246" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Фізична транзакція протікає в бізнес-логіку</text>
+
+  <!-- Ліва транзакційна межа (пунктир) -->
+  <rect x="40" y="140" width="412" height="240" rx="8" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="54" y="159" font-size="12" font-weight="700" fill="#c0392b">Транзакційна межа (@Transactional огортає Use Case)</text>
+
+  <!-- Use Case (ліворуч) -->
+  <rect x="54" y="172" width="384" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="192" font-size="13" font-weight="700" fill="#1a1a1a">Сценарій використання (Use Case)</text>
+  <text x="70" y="210" font-size="12" fill="#c0392b">• Відкриває транзакцію та утримує з'єднання з БД</text>
+  <text x="70" y="227" font-size="12" fill="#1a1a1a">• Бізнес-перевірки та розрахунки під активним замком</text>
+  <text x="70" y="244" font-size="12" fill="#6b7280">• Домен зчеплений з інфраструктурою збереження</text>
+
+  <!-- Стрілка виклику порту -->
+  <line x1="246" y1="252" x2="246" y2="278" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="258" y="269" font-size="12" fill="#2457d6">Вихідний порт: save(order)</text>
+
+  <!-- Адаптер (ліворуч) -->
+  <rect x="54" y="284" width="384" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="70" y="304" font-size="13" font-weight="700" fill="#1a1a1a">Вторинний адаптер (Сховище JPA / SQL)</text>
+  <text x="70" y="322" font-size="12" fill="#6b7280">• Виконує SQL у вже відкритій ззовні транзакції</text>
+  <text x="70" y="339" font-size="12" fill="#c0392b">• Конфлікти оптимістичного блокування летять у Use Case</text>
+  <text x="70" y="356" font-size="12" fill="#6b7280">• Немає ізольованого механізму повторів (retry)</text>
+
+  <!-- Лівий таймлайн з'єднання -->
+  <text x="40" y="398" font-size="12" font-weight="700" fill="#1a1a1a">Життєвий цикл фізичного з'єднання з БД:</text>
+  <rect x="40" y="408" width="412" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="427" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">З'єднання з БД утримується протягом УСЬОГО сценарію</text>
+
+  <!-- Наслідки зліва -->
+  <rect x="40" y="448" width="412" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="468" font-size="12" fill="#c0392b">⛔ Довгі блокування рядків у БД під час бізнес-обчислень</text>
+  <text x="52" y="486" font-size="12" fill="#6b7280">⛔ Ризик вичерпання пулу з'єднань під навантаженням</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: РОЗВ'ЯЗОК -->
+  <rect x="492" y="68" width="444" height="448" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Правий бейдж -->
+  <rect x="508" y="82" width="412" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="101" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">ЯК ТРЕБА: Ізоляція в адаптері через Unit of Work</text>
+  <text x="714" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Транзакція замкнена в адаптері; Use Case чистий</text>
+
+  <!-- Use Case (праворуч, поза транзакцією) -->
+  <rect x="522" y="140" width="384" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="538" y="160" font-size="13" font-weight="700" fill="#1a1a1a">Сценарій використання (Use Case)</text>
+  <text x="538" y="178" font-size="12" fill="#27ae60">• Чиста доменна логіка: POJO без анотацій СКБД</text>
+  <text x="538" y="195" font-size="12" fill="#1a1a1a">• Робота в пам'яті: ЖОДНОГО з'єднання з БД під час логіки</text>
+  <text x="538" y="212" font-size="12" fill="#6b7280">• Викликає вихідний порт лише для збереження агрегату</text>
+
+  <!-- Стрілка виклику порту -->
+  <line x1="714" y1="220" x2="714" y2="246" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="726" y="237" font-size="12" fill="#2457d6">Вихідний порт: save(order)</text>
+
+  <!-- Права транзакційна межа (пунктир лише навколо адаптера) -->
+  <rect x="508" y="252" width="412" height="128" rx="8" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="524" y="271" font-size="12" font-weight="700" fill="#27ae60">Транзакційна межа (інкапсульована в адаптері)</text>
+
+  <!-- Адаптер + Unit of Work (праворуч) -->
+  <rect x="522" y="284" width="384" height="84" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="538" y="304" font-size="13" font-weight="700" fill="#1a1a1a">Вторинний адаптер + Unit of Work</text>
+  <text x="538" y="322" font-size="12" fill="#27ae60">• Відкриває коротку транзакцію лише на час запису</text>
+  <text x="538" y="339" font-size="12" fill="#1a1a1a">• Unit of Work батчем скидає зміни й робить швидкий commit</text>
+  <text x="538" y="356" font-size="12" fill="#27ae60">• Перехоплює OptimisticLockException і робить retry</text>
+
+  <!-- Правий таймлайн з'єднання -->
+  <text x="508" y="398" font-size="12" font-weight="700" fill="#1a1a1a">Життєвий цикл фізичного з'єднання з БД:</text>
+  <rect x="508" y="408" width="264" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="640" y="427" text-anchor="middle" font-size="12" fill="#6b7280">Без з'єднання (пул вільний)</text>
+
+  <rect x="784" y="408" width="136" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="852" y="427" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Запис (UoW)</text>
+
+  <!-- Переваги справа -->
+  <rect x="508" y="448" width="412" height="50" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="468" font-size="12" fill="#27ae60">✓ Домен ізольований від СКБД, транзакцій та блокувань</text>
+  <text x="520" y="486" font-size="12" fill="#1a1a1a">✓ З'єднання береться на лічені мілісекунди лише для flush</text>
+</svg>

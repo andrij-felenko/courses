@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розсинхронізація правил між точками входу (Logic Drift)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Термінальні скрипти оминають валідацію сервісу, спричиняючи аварійні збої в CI/CD</text>
+
+  <!-- ==================== ШЛЯХ 1: ВЕРХНІЙ РЯД (CLI / ОБХІД) ==================== -->
+
+  <!-- Блок 1.1: Термінальний скрипт -->
+  <rect x="24" y="76" width="236" height="156" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="88" width="90" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="81" y="103" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ШЛЯХ 1: CLI</text>
+
+  <text x="36" y="128" font-size="14" font-weight="bold" fill="#1a1a1a">Локальний термінал</text>
+  <text x="36" y="146" font-size="12" fill="#6b7280">Інженер виконує скрипти</text>
+
+  <rect x="36" y="156" width="212" height="26" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="173" font-size="12" fill="#1a1a1a" font-family="monospace">&gt; ./deploy.sh --skip-checks</text>
+
+  <rect x="36" y="190" width="136" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="104" y="206" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Локально: УСПІХ</text>
+
+  <!-- Стрілка 1 -> 2 (Верх) -->
+  <text x="288" y="144" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Обхід API</text>
+  <line x1="260" y1="154" x2="310" y2="154" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- Блок 1.2: Обхід валідації -->
+  <rect x="320" y="76" width="310" height="156" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="475" y="102" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Оминання валідації</text>
+  <text x="475" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Прямий SQL / ad-hoc доступ до ресурсів</text>
+
+  <text x="336" y="144" font-size="12" fill="#1a1a1a">• Бізнес-правила застосунку проігноровано</text>
+  <text x="336" y="164" font-size="12" fill="#1a1a1a">• Контроль схеми та статусів вимкнено</text>
+  <text x="336" y="184" font-size="12" fill="#1a1a1a">• Журнал аудиту не записано</text>
+
+  <rect x="336" y="194" width="278" height="24" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="475" y="210" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ Неконтрольована зміна інфраструктури</text>
+
+  <!-- Стрілка 2 -> 3 (Верх) -->
+  <text x="655" y="144" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Запис</text>
+  <line x1="630" y1="154" x2="680" y2="154" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- Блок 1.3: Спільний стан (БД) -->
+  <rect x="690" y="76" width="246" height="156" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="813" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Спільний стан (БД / Хмара)</text>
+  <text x="813" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Цільове середовище системи</text>
+
+  <text x="704" y="146" font-size="12" fill="#1a1a1a">• Порушено цілісність інваріантів</text>
+  <text x="704" y="166" font-size="12" fill="#1a1a1a">• Частковий або застарілий формат</text>
+
+  <rect x="704" y="184" width="218" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="813" y="204" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Стан: Порушено інваріанти</text>
+
+  <!-- ==================== ШЛЯХ 2: НИЖНІЙ РЯД (API / CI/CD) ==================== -->
+
+  <!-- Блок 2.1: Автоматизація CI/CD -->
+  <rect x="24" y="268" width="236" height="156" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="280" width="90" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="81" y="295" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ШЛЯХ 2: API</text>
+
+  <text x="36" y="320" font-size="14" font-weight="bold" fill="#1a1a1a">Автоматизація CI/CD</text>
+  <text x="36" y="338" font-size="12" fill="#6b7280">Пайплайн або віддалений runner</text>
+
+  <rect x="36" y="348" width="212" height="26" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="365" font-size="12" fill="#1a1a1a" font-family="monospace">&gt; curl -X POST /api/deploy</text>
+
+  <rect x="36" y="382" width="168" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="120" y="398" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Офіційний канал зв'язку</text>
+
+  <!-- Стрілка 1 -> 2 (Низ) -->
+  <text x="288" y="336" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Виклик API</text>
+  <line x1="260" y1="346" x2="310" y2="346" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 2.2: Веб-інтерфейс та API -->
+  <rect x="320" y="268" width="310" height="156" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="475" y="294" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Веб-інтерфейс та API</text>
+  <text x="475" y="314" font-size="12" fill="#6b7280" text-anchor="middle">Сервіс із повною валідацією ядра</text>
+
+  <text x="336" y="336" font-size="12" fill="#1a1a1a">• Сувора перевірка типів і схеми payload</text>
+  <text x="336" y="356" font-size="12" fill="#1a1a1a">• Валідація переходів станів і правил</text>
+  <text x="336" y="376" font-size="12" fill="#1a1a1a">• Авторизація та повний аудит дій</text>
+
+  <rect x="336" y="388" width="278" height="24" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="475" y="404" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">🛡️ Обов'язкова перевірка інваріантів</text>
+
+  <!-- Стрілка 2 -> 3 (Низ) -->
+  <text x="658" y="336" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Відхилено</text>
+  <line x1="630" y1="346" x2="680" y2="346" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Вертикальна стрілка між БД та збоєм CI/CD -->
+  <text x="822" y="250" font-size="12" font-weight="bold" fill="#c0392b">Конфлікт стану</text>
+  <line x1="813" y1="232" x2="813" y2="258" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- Блок 2.3: Аварійна розбіжність -->
+  <rect x="690" y="268" width="246" height="156" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="813" y="294" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">💥 Аварійний збій у CI/CD</text>
+  <text x="813" y="314" font-size="12" fill="#6b7280" text-anchor="middle">Розсинхронізація правил (Logic Drift)</text>
+
+  <text x="704" y="336" font-size="12" fill="#1a1a1a">• 422: Стан не відповідає правилам</text>
+  <text x="704" y="356" font-size="12" fill="#1a1a1a">• Пайплайн аварійно зупинено</text>
+
+  <rect x="704" y="370" width="218" height="42" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="813" y="388" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Розбіжність: у CLI успіх,</text>
+  <text x="813" y="402" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">а в автоматизації — падіння!</text>
+
+</svg>

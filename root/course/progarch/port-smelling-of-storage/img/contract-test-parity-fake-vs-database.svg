@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок для викликів та перевірок -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Паритет поведінки: контрактне тестування двійника та бази даних</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Єдиний набір тестів гарантує повну ідентичність поведінки In-Memory Fake та SQL-адаптера</text>
+
+  <!-- ==================== ВЕРХНІЙ БЛОК: ЄДИНИЙ КОНТРАКТНИЙ НАБІР ТЕСТІВ ==================== -->
+  <rect x="120" y="74" width="720" height="140" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Бейдж набору тестів -->
+  <rect x="136" y="86" width="296" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="146" y="102" font-size="12" font-weight="bold" fill="#2457d6">ТИПІЗОВАНИЙ КОНТРАКТНИЙ НАБІР ТЕСТІВ</text>
+
+  <!-- Базовий тестовий клас -->
+  <text x="136" y="126" font-size="13" font-weight="bold" fill="#1a1a1a">abstract class DeviceRepositoryContractTests&lt;T extends DeviceRepository&gt;</text>
+
+  <!-- Точка поліморфізму -->
+  <text x="136" y="146" font-size="12" fill="#2457d6">• Фабричний метод: protected abstract T createRepository()</text>
+
+  <!-- Контрактні інваріанти порту -->
+  <text x="136" y="165" font-size="12" fill="#1a1a1a">• testSaveAndFind(): <tspan fill="#6b7280">збереження та вибірка повертають незмінний стан агрегату</tspan></text>
+  <text x="136" y="184" font-size="12" fill="#1a1a1a">• testMissingReturnsEmpty(): <tspan fill="#6b7280">запит неіснуючого id повертає Optional.empty() замість помилки</tspan></text>
+  <text x="136" y="203" font-size="12" fill="#1a1a1a">• testStateIsolation(): <tspan fill="#6b7280">мутація повернутого об'єкта не спотворює стан усередині сховища</tspan></text>
+
+  <!-- Стрілки спадкування до конкретних тестових реалізацій -->
+  <line x1="246" y1="214" x2="246" y2="246" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="256" y="234" font-size="12" fill="#2457d6">інстанціація для Fake</text>
+
+  <line x1="714" y1="214" x2="714" y2="246" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="724" y="234" font-size="12" fill="#2457d6">інстанціація для SQL</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: IN-MEMORY FAKE ==================== -->
+  <rect x="24" y="250" width="444" height="186" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="40" y="274" font-size="14" font-weight="bold" fill="#2457d6">In-Memory Fake (двійник у пам'яті)</text>
+  <rect x="326" y="260" width="126" height="20" rx="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="389" y="274" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ТЕСТУВАННЯ СТАНУ</text>
+
+  <!-- Картка тестового класу двійника -->
+  <rect x="40" y="288" width="412" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="308" font-size="13" font-weight="bold" fill="#1a1a1a">InMemoryDeviceRepositoryTest</text>
+  <text x="52" y="327" font-size="12" fill="#2457d6">• override createRepository() =&gt; new InMemoryDeviceRepository()</text>
+  <text x="52" y="345" font-size="12" fill="#1a1a1a">• Сховище: Map&lt;DeviceId, SmartDevice&gt; в пам'яті процесу</text>
+  <text x="52" y="362" font-size="12" fill="#6b7280">• Семантика: глибоке клонування агрегатів під час save() та get()</text>
+
+  <!-- Плашка результату тесту -->
+  <rect x="40" y="378" width="412" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="52" y="396" font-size="12" font-weight="bold" fill="#27ae60">Результат: Усі контрактні інваріанти виконано ✓</text>
+  <text x="52" y="414" font-size="12" fill="#1a1a1a">Час виконання &lt; 1 мс • Використовується швидкими тестами ядра</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ПРОДУКТОВИЙ SQL-АДАПТЕР ==================== -->
+  <rect x="492" y="250" width="444" height="186" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="508" y="274" font-size="14" font-weight="bold" fill="#1a1a1a">SQL-адаптер сховища (продуктовий)</text>
+  <rect x="794" y="260" width="126" height="20" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="857" y="274" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">ПРОДАКШЕН БД</text>
+
+  <!-- Картка тестового класу SQL-адаптера -->
+  <rect x="508" y="288" width="412" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="308" font-size="13" font-weight="bold" fill="#1a1a1a">SqlDeviceRepositoryTest</text>
+  <text x="520" y="327" font-size="12" fill="#2457d6">• override createRepository() =&gt; new SqlDeviceRepository(dataSource)</text>
+  <text x="520" y="345" font-size="12" fill="#1a1a1a">• Сховище: реляційна СКБД (SQLite / PostgreSQL), SQL-схема</text>
+  <text x="520" y="362" font-size="12" fill="#6b7280">• Семантика: серіалізація Memento-знімків, таблиці та транзакції</text>
+
+  <!-- Плашка результату тесту -->
+  <rect x="508" y="378" width="412" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="520" y="396" font-size="12" font-weight="bold" fill="#27ae60">Результат: Усі контрактні інваріанти виконано ✓</text>
+  <text x="520" y="414" font-size="12" fill="#1a1a1a">Час виконання ~150 мс • Виконується на CI для контролю схеми</text>
+
+  <!-- ==================== СТРІЛКИ ДО ПАНЕЛІ ПАРИТЕТУ ==================== -->
+  <line x1="246" y1="436" x2="246" y2="448" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="714" y1="436" x2="714" y2="448" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: АРХІТЕКТУРНИЙ ВИСНОВОК ==================== -->
+  <rect x="24" y="450" width="912" height="86" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <text x="44" y="472" font-size="13" font-weight="bold" fill="#27ae60">АРХІТЕКТУРНИЙ ПАРИТЕТ: ПОВНА ІДЕНТИЧНІСТЬ ПОВЕДІНКИ (BEHAVIORAL PARITY)</text>
+  <text x="44" y="494" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">1. Надійне швидке тестування:</tspan> сценарії ядра безпечно тестуються на двійнику без ризику хибних результатів</text>
+  <text x="44" y="514" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">2. Стійкість до рефакторингу:</tspan> зміни в SQL-схемі, типах колонок чи індексах негайно валідуються контрактним набором</text>
+</svg>

@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Архітектура тестового драйвера-адаптера</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Предметний DSL ізольований від сигнатур use case і керує in-memory стендом через адаптер</text>
+
+  <!-- Підписи меж -->
+  <text x="292" y="67" font-size="12" font-weight="bold" text-anchor="middle" fill="#6b7280">Межа DSL</text>
+  <text x="632" y="67" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Межа ядра</text>
+
+  <!-- ==================== КОЛОНКА 1: ТЕСТОВИЙ ШАР (DSL) ==================== -->
+  <rect x="20" y="74" width="260" height="422" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Тестовий сценарій</text>
+  <text x="36" y="114" font-size="12" fill="#6b7280">Високорівневий предметний DSL</text>
+
+  <!-- Блок коду DSL -->
+  <rect x="32" y="128" width="236" height="170" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="148" font-size="12" font-weight="bold" fill="#2457d6">Acceptance-тест (Специфікація)</text>
+
+  <text x="44" y="166" font-size="12" font-weight="bold" fill="#6b7280">// Given: передумова стану</text>
+  <text x="44" y="182" font-size="12" fill="#1a1a1a">fixture.GivenBalance(acc, 500);</text>
+
+  <text x="44" y="200" font-size="12" font-weight="bold" fill="#2457d6">// When: стимул системи</text>
+  <text x="44" y="216" font-size="12" font-weight="bold" fill="#2457d6">fixture.PlaceOrder(acc, items);</text>
+
+  <text x="44" y="236" font-size="12" font-weight="bold" fill="#27ae60">// Then: очікувані факти</text>
+  <text x="44" y="252" font-size="12" fill="#1a1a1a">fixture.AssertOrderCreated();</text>
+  <text x="44" y="268" font-size="12" fill="#1a1a1a">fixture.AssertEvent(&quot;OrderPlaced&quot;);</text>
+
+  <line x1="44" y1="278" x2="256" y2="278" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="44" y="292" font-size="12" fill="#27ae60">&#x2713; Чиста мова бізнес-експертів</text>
+
+  <!-- Блок переваги ізоляції -->
+  <rect x="32" y="318" width="236" height="166" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="44" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">Ізоляція від низького рівня</text>
+
+  <text x="44" y="356" font-size="12" font-weight="bold" fill="#c0392b">&#x26D4; Без адаптера (пряма залежність):</text>
+  <text x="44" y="372" font-size="12" fill="#6b7280">&#x2022; Зміна DTO ламає всі 200+ тестів</text>
+  <text x="44" y="388" font-size="12" fill="#6b7280">&#x2022; Тести знають низькорівневий use case</text>
+
+  <line x1="44" y1="400" x2="256" y2="400" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <text x="44" y="416" font-size="12" font-weight="bold" fill="#27ae60">&#x2713; З драйвером-адаптером:</text>
+  <text x="44" y="432" font-size="12" fill="#1a1a1a">&#x2022; Змінюється лише один адаптер</text>
+  <text x="44" y="448" font-size="12" fill="#6b7280">&#x2022; Сценарії DSL лишаються чистими</text>
+  <text x="44" y="468" font-size="12" font-weight="bold" fill="#27ae60">&#x2713; Виконання &lt; 5 мс без мережі й HTTP</text>
+
+  <!-- Вертикальна лінія межі DSL -->
+  <line x1="292" y1="74" x2="292" y2="486" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- ==================== КОЛОНКА 2: ТЕСТОВИЙ ДРАЙВЕР-АДАПТЕР ==================== -->
+  <rect x="304" y="74" width="316" height="422" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="320" y="98" font-size="14" font-weight="bold" fill="#2457d6">Тестовий драйвер-адаптер</text>
+  <text x="320" y="114" font-size="12" fill="#6b7280">In-memory клієнт: трансляція DSL і зв&apos;язування</text>
+
+  <!-- Підпанель 1: Драйвер Use Case -->
+  <rect x="316" y="128" width="292" height="170" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="328" y="148" font-size="12" font-weight="bold" fill="#2457d6">1. Драйвер сценарію (Driving Adapter)</text>
+  <text x="328" y="168" font-size="12" fill="#6b7280">Трансляція виклику DSL у команду:</text>
+
+  <rect x="328" y="178" width="268" height="56" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="0.8"/>
+  <text x="336" y="196" font-size="12" font-weight="bold" fill="#2457d6">PlaceOrder(acc, items) ──&gt;</text>
+  <text x="336" y="212" font-size="12" fill="#1a1a1a">cmd = new PlaceOrderCommand(acc, items);</text>
+  <text x="336" y="228" font-size="12" fill="#6b7280">ctx = CallContext.SyntheticUser();</text>
+
+  <text x="328" y="250" font-size="12" fill="#6b7280">Виклик драйвуючого порту в пам&apos;яті:</text>
+  <text x="328" y="266" font-size="12" font-weight="bold" fill="#2457d6">corePort.Execute(cmd, ctx);</text>
+  <text x="328" y="286" font-size="12" fill="#27ae60">&#x2713; Єдина точка прив&apos;язки до сигнатур ядра</text>
+
+  <!-- Підпанель 2: Контролер фікстури стенда -->
+  <rect x="316" y="318" width="292" height="166" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="328" y="338" font-size="12" font-weight="bold" fill="#27ae60">2. Контролер пам&apos;яттєвого стенда</text>
+
+  <text x="328" y="358" font-size="12" font-weight="bold" fill="#1a1a1a">Given: конфігурація стану (Seed)</text>
+  <text x="328" y="376" font-size="12" fill="#6b7280">&#x2022; inMemoryRepo.SeedAccount(acc, 500);</text>
+
+  <line x1="328" y1="390" x2="596" y2="390" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <text x="328" y="408" font-size="12" font-weight="bold" fill="#1a1a1a">Then: перевірка фактів і шпигунів</text>
+  <text x="328" y="426" font-size="12" fill="#6b7280">&#x2022; eventSpy.AssertEmitted(&quot;OrderPlaced&quot;);</text>
+  <text x="328" y="444" font-size="12" fill="#6b7280">&#x2022; inMemoryRepo.FindById(orderId);</text>
+  <text x="328" y="466" font-size="12" font-weight="bold" fill="#27ae60">&#x2713; Синхронна перевірка без sleep/таймаутів</text>
+
+  <!-- Вертикальна лінія межі ядра -->
+  <line x1="632" y1="74" x2="632" y2="486" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- ==================== КОЛОНКА 3: ПРИКЛАДНЕ ЯДРО ТА ДУБЛЕРИ ==================== -->
+  <rect x="644" y="74" width="296" height="422" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="660" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Прикладне ядро та дублери</text>
+  <text x="660" y="114" font-size="12" fill="#6b7280">Чиста бізнес-логіка та пам&apos;ять (In-Memory)</text>
+
+  <!-- Підпанель 1: Доменне ядро -->
+  <rect x="656" y="128" width="272" height="170" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="668" y="148" font-size="12" font-weight="bold" fill="#2457d6">Доменне ядро (Application Core)</text>
+
+  <text x="668" y="168" font-size="12" font-weight="bold" fill="#1a1a1a">Доменна логіка (Order Aggregate):</text>
+  <text x="668" y="186" font-size="12" fill="#6b7280">&#x2022; Чисті інваріанти й розрахунок сум</text>
+  <text x="668" y="204" font-size="12" fill="#6b7280">&#x2022; Нуль залежностей від БД і мережі</text>
+
+  <text x="668" y="230" font-size="12" font-weight="bold" fill="#1a1a1a">Вхідний драйвуючий порт (Driving):</text>
+  <text x="668" y="248" font-size="12" fill="#6b7280">Виклик сценарію через інтерфейс:</text>
+  <text x="668" y="266" font-size="12" font-weight="bold" fill="#2457d6">IPlaceOrderUseCase.Execute(cmd, ctx)</text>
+  <text x="668" y="286" font-size="12" font-weight="bold" fill="#27ae60">Вихідні порти (Driven): IOrderRepo, IEventBus</text>
+
+  <!-- Підпанель 2: Пам'яттєві дублери -->
+  <rect x="656" y="318" width="272" height="166" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="668" y="338" font-size="12" font-weight="bold" fill="#27ae60">Пам&apos;яттєві дублери (In-Memory)</text>
+
+  <text x="668" y="358" font-size="12" font-weight="bold" fill="#1a1a1a">InMemoryOrderRepository</text>
+  <text x="668" y="376" font-size="12" fill="#6b7280">&#x2022; Реалізує IOrderRepository (Map/Dict)</text>
+
+  <text x="668" y="398" font-size="12" font-weight="bold" fill="#1a1a1a">SpyEventPublisher</text>
+  <text x="668" y="416" font-size="12" fill="#6b7280">&#x2022; Реалізує IEventPublisher (List)</text>
+
+  <text x="668" y="438" font-size="12" fill="#2457d6">&#x2022; Нуль I/O та БД: виконання &lt; 2 мс</text>
+  <text x="668" y="458" font-size="12" font-weight="bold" fill="#27ae60">&#x2713; 100% передбачуваність без мережі</text>
+
+  <!-- ==================== СТРІЛКИ ВЗАЄМОДІЇ ==================== -->
+  <!-- DSL -> Use Case Driver (When) -->
+  <line x1="268" y1="216" x2="312" y2="216" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Use Case Driver -> Core Port -->
+  <line x1="608" y1="266" x2="652" y2="266" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Core Driven Ports -> In-Memory Doubles (вертикальний потік викликів ядра) -->
+  <line x1="740" y1="298" x2="740" y2="314" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="840" y1="298" x2="840" y2="314" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Fixture Controller -> In-Memory Doubles (пряме керування і перевірка) -->
+  <line x1="608" y1="376" x2="652" y2="376" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <line x1="608" y1="426" x2="652" y2="426" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+
+</svg>

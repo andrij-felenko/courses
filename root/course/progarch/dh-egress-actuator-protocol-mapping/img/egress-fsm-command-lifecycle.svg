@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-danger" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Скінченний автомат Мілі життєвого циклу команди вихідного адаптера</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Фази арбітражу, передачі та очікування ACK ізолюють збої шини й обмежують повтори лічильником k</text>
+
+  <!-- ==================== СТАНИ АВТОМАТА (7 СТАНІВ) ==================== -->
+
+  <!-- Початковий покажчик на стан спокою s₀ -->
+  <circle cx="26" cy="202" r="5" fill="#1a1a1a"/>
+  <line x1="31" y1="202" x2="48" y2="202" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- 1. IDLE (Початковий стан) -->
+  <rect x="50" y="170" width="130" height="64" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+  <text x="115" y="196" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">IDLE</text>
+  <text x="115" y="218" font-size="12" fill="#6b7280" text-anchor="middle">Стан спокою (s₀)</text>
+
+  <!-- 2. ARBITRATION (Арбітраж шини) -->
+  <rect x="245" y="90" width="130" height="64" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="310" y="116" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">ARBITRATION</text>
+  <text x="310" y="138" font-size="12" fill="#1a1a1a" text-anchor="middle">Арбітраж шини</text>
+
+  <!-- 3. TRANSMIT (Передача кадру) -->
+  <rect x="525" y="90" width="130" height="64" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="590" y="116" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">TRANSMIT</text>
+  <text x="590" y="138" font-size="12" fill="#1a1a1a" text-anchor="middle">Передача кадру</text>
+
+  <!-- 4. AWAIT_ACK (Очікування квитування) -->
+  <rect x="525" y="240" width="130" height="64" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="590" y="266" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">AWAIT_ACK</text>
+  <text x="590" y="288" font-size="12" fill="#1a1a1a" text-anchor="middle">Очікування ACK</text>
+
+  <!-- 5. BACKOFF (Пауза відступу) -->
+  <rect x="245" y="240" width="130" height="64" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="310" y="266" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">BACKOFF</text>
+  <text x="310" y="288" font-size="12" fill="#1a1a1a" text-anchor="middle">Пауза відступу</text>
+
+  <!-- 6. SUCCESS (Успішне завершення) -->
+  <rect x="780" y="120" width="135" height="64" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="847" y="146" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">SUCCESS</text>
+  <text x="847" y="168" font-size="12" fill="#1a1a1a" text-anchor="middle">Result.Success</text>
+
+  <!-- 7. FAILURE (Аварійне завершення) -->
+  <rect x="780" y="265" width="135" height="64" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="847" y="291" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">FAILURE</text>
+  <text x="847" y="313" font-size="12" fill="#1a1a1a" text-anchor="middle">Result.Failure</text>
+
+  <!-- ==================== ПЕРЕХОДИ ТА ПОДІЇ / ДІЇ ==================== -->
+
+  <!-- Перехід 1: IDLE -> ARBITRATION -->
+  <path d="M180,185 L215,185 L215,122 L237,122" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-accent)"/>
+  <text x="210" y="148" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">CMD [k := 1]</text>
+  <text x="210" y="163" font-size="12" fill="#2457d6" text-anchor="end">/ ACQUIRE_BUS</text>
+
+  <!-- Перехід 2: ARBITRATION -> TRANSMIT -->
+  <path d="M375,122 L517,122" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-accent)"/>
+  <text x="450" y="105" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">BUS_FREE</text>
+  <text x="450" y="119" font-size="12" fill="#2457d6" text-anchor="middle">/ SEND_FRAME</text>
+
+  <!-- Перехід 3: TRANSMIT -> AWAIT_ACK -->
+  <path d="M590,154 L590,232" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-accent)"/>
+  <text x="600" y="190" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">TX_DONE</text>
+  <text x="600" y="206" font-size="12" fill="#2457d6" text-anchor="start">/ START_ACK_TIMER(T_ack)</text>
+
+  <!-- Перехід 4: AWAIT_ACK -> BACKOFF (Повторна спроба при таймауті) -->
+  <path d="M525,272 L383,272" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-accent)"/>
+  <text x="450" y="255" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">TIMEOUT [k &lt; K_max]</text>
+  <text x="450" y="269" font-size="12" fill="#2457d6" text-anchor="middle">/ k ← k + 1, START_BACKOFF(T_backoff)</text>
+
+  <!-- Перехід 5: BACKOFF -> ARBITRATION (Вихід на нову спробу) -->
+  <path d="M310,240 L310,162" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-accent)"/>
+  <text x="300" y="196" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">BACKOFF_DONE</text>
+  <text x="300" y="212" font-size="12" fill="#2457d6" text-anchor="end">/ ACQUIRE_BUS</text>
+
+  <!-- Перехід 6: AWAIT_ACK -> SUCCESS (Успішне квитування) -->
+  <path d="M655,255 L715,255 L715,152 L772,152" fill="none" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-success)"/>
+  <text x="723" y="186" font-size="12" font-weight="700" fill="#27ae60" text-anchor="start">ACK</text>
+  <text x="723" y="202" font-size="12" fill="#27ae60" text-anchor="start">/ RELEASE_BUS,</text>
+  <text x="723" y="218" font-size="12" fill="#27ae60" text-anchor="start">  NOTIFY_SUCCESS</text>
+
+  <!-- Перехід 7: AWAIT_ACK -> FAILURE (Вичерпання спроб) -->
+  <path d="M655,285 L772,285" fill="none" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-danger)"/>
+  <text x="717" y="306" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">TIMEOUT [k ≥ K_max]</text>
+  <text x="717" y="322" font-size="12" fill="#c0392b" text-anchor="middle">/ RELEASE_BUS, NOTIFY_FAIL</text>
+
+  <!-- Спільний зворотний контур: SUCCESS і FAILURE -> IDLE -->
+  <path d="M915,152 L932,152 L932,360 L115,360 L115,242" fill="none" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 4" marker-end="url(#arr-gray)"/>
+  <path d="M915,297 L932,297" fill="none" stroke="#6b7280" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <text x="525" y="352" font-size="12" fill="#6b7280" text-anchor="middle">RESET / готовність до нової команди CMD (скидання транзакції в s₀)</text>
+
+  <!-- ==================== ПАНЕЛЬ ПОЯСНЕНЬ (ЛЕГЕНДА) ==================== -->
+  <rect x="35" y="380" width="890" height="135" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Колонка 1: Модель Мілі -->
+  <text x="55" y="404" font-size="13" font-weight="700" fill="#1a1a1a">Модель Мілі: Подія [Умова] / Дія</text>
+  <text x="55" y="424" font-size="12" fill="#1a1a1a">• Вихідні дії прив'язані до переходів фаз</text>
+  <text x="55" y="442" font-size="12" fill="#1a1a1a">• Входи: <tspan font-weight="700">CMD</tspan>, <tspan font-weight="700">BUS_FREE</tspan>, <tspan font-weight="700">TX_DONE</tspan>, <tspan font-weight="700">ACK</tspan>, <tspan font-weight="700">TIMEOUT</tspan></text>
+  <text x="55" y="460" font-size="12" fill="#1a1a1a">• Виходи: захоплення шини, кадри, таймери</text>
+  <text x="55" y="478" font-size="12" fill="#2457d6">Гарантія: детермінована обробка без гонок станів</text>
+
+  <!-- Колонка 2: Лічильник k -->
+  <text x="355" y="404" font-size="13" font-weight="700" fill="#1a1a1a">Лічильник повторів k та надійність</text>
+  <text x="355" y="424" font-size="12" fill="#1a1a1a">• Старт: <tspan font-weight="700">k := 1</tspan> при прийомі команди домену</text>
+  <text x="355" y="442" font-size="12" fill="#1a1a1a">• Інкремент: <tspan font-weight="700">k ← k + 1</tspan> за таймаутом ACK</text>
+  <text x="355" y="460" font-size="12" fill="#1a1a1a">• Умова: <tspan font-weight="700">k &lt; K_max</tspan> — повтор; <tspan font-weight="700">k ≥ K_max</tspan> — відмова</text>
+  <text x="355" y="478" font-size="12" fill="#2457d6">Межа: K_min = ⌈ln(ε) / ln(1 - q)⌉ (Бернуллі)</text>
+
+  <!-- Колонка 3: Таймаути та WCET -->
+  <text x="660" y="404" font-size="13" font-weight="700" fill="#1a1a1a">Фіксація таймаутів та бюджет WCET</text>
+  <text x="660" y="424" font-size="12" fill="#1a1a1a">• <tspan font-weight="700">T_ack</tspan> — таймаут відповіді (AWAIT_ACK)</text>
+  <text x="660" y="442" font-size="12" fill="#1a1a1a">• <tspan font-weight="700">T_backoff</tspan> — пауза відступу з jitter (BACKOFF)</text>
+  <text x="660" y="460" font-size="12" fill="#1a1a1a">• <tspan font-weight="700">WCET</tspan> = K_max·T_ack + (K_max-1)·T_backoff + T_tx</text>
+  <text x="660" y="478" font-size="12" fill="#2457d6">Захист: перевірка дедлайну CancellationToken</text>
+
+</svg>

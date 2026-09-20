@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розмежування масштабів: «у малому» та «у великому»</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">ДеРемер і Крон (1975): внутрішній код модулів і системна конфігурація вимагають різних понять і мов</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Програмування у малому -->
+  <rect x="24" y="68" width="400" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="78" width="220" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="46" y="95" font-size="13" font-weight="bold" fill="#2457d6">ПРОГРАМУВАННЯ У МАЛОМУ</text>
+  <text x="268" y="95" font-size="12" fill="#6b7280">Внутрішній світ модуля</text>
+
+  <!-- Модуль як прозора скринька -->
+  <rect x="36" y="116" width="376" height="190" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="36" y1="140" x2="412" y2="140" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="132" font-size="12" font-weight="bold" fill="#2457d6">Модуль M (прозора скринька реалізації)</text>
+  <text x="320" y="132" font-size="12" fill="#6b7280">код і структури</text>
+
+  <!-- Блок: Змінні та структури даних -->
+  <rect x="46" y="148" width="170" height="68" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">Змінні та структури:</text>
+  <text x="54" y="184" font-size="12" fill="#2457d6">int head, tail, count;</text>
+  <text x="54" y="203" font-size="12" fill="#6b7280">struct Node { val, *next };</text>
+
+  <!-- Блок: Алгоритми та цикли -->
+  <rect x="232" y="148" width="170" height="68" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="240" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">Алгоритми та цикли:</text>
+  <text x="240" y="184" font-size="12" fill="#2457d6">while (idx &lt; count) { ... }</text>
+  <text x="240" y="203" font-size="12" fill="#6b7280">quick_sort(data, 0, N-1);</text>
+
+  <!-- Блок: Покрокове виконання -->
+  <rect x="46" y="226" width="356" height="70" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="242" font-size="12" font-weight="bold" fill="#1a1a1a">Покрокове виконання інструкцій алгоритму:</text>
+
+  <rect x="54" y="249" width="94" height="40" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="101" y="265" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зчитування</text>
+  <text x="101" y="280" font-size="12" fill="#6b7280" text-anchor="middle">зі змінних</text>
+
+  <line x1="150" y1="269" x2="173" y2="269" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="177" y="249" width="94" height="40" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="224" y="265" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обчислення</text>
+  <text x="224" y="280" font-size="12" fill="#6b7280" text-anchor="middle">крок циклу</text>
+
+  <line x1="273" y1="269" x2="296" y2="269" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="300" y="249" width="94" height="40" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="347" y="265" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оновлення</text>
+  <text x="347" y="280" font-size="12" fill="#6b7280" text-anchor="middle">стану в пам'яті</text>
+
+  <!-- Ліва картка підсумку -->
+  <rect x="36" y="318" width="376" height="108" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="337" font-size="12" font-weight="bold" fill="#1a1a1a">Одиниця мислення:</text>
+  <text x="175" y="337" font-size="12" fill="#2457d6">Змінні, цикли, структури даних</text>
+  <text x="48" y="357" font-size="12" font-weight="bold" fill="#1a1a1a">Мова розробки:</text>
+  <text x="175" y="357" font-size="12" fill="#1a1a1a">Алгоритмічна мова (C, Pascal, Java)</text>
+  <text x="48" y="377" font-size="12" font-weight="bold" fill="#1a1a1a">Основна мета:</text>
+  <text x="175" y="377" font-size="12" fill="#1a1a1a">Коректність алгоритму й час O(N)</text>
+
+  <rect x="44" y="390" width="360" height="28" rx="4" fill="#eaf0fd"/>
+  <text x="52" y="408" font-size="12" font-weight="bold" fill="#2457d6">Фокус: ЯК модуль працює зсередини</text>
+
+  <!-- ЦЕНТРАЛЬНИЙ БАР'ЄР: ДеРемер і Крон (1975) -->
+  <line x1="480" y1="72" x2="480" y2="120" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,4"/>
+
+  <rect x="436" y="132" width="88" height="166" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="152" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">БАР'ЄР</text>
+  <text x="480" y="170" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Якісний розрив</text>
+  <text x="480" y="186" font-size="12" fill="#6b7280" text-anchor="middle">(1975 рік)</text>
+
+  <line x1="446" y1="195" x2="514" y2="195" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <text x="480" y="212" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Різні мови:</text>
+  <text x="480" y="228" font-size="12" fill="#1a1a1a" text-anchor="middle">Код ≠ MIL</text>
+  <text x="480" y="248" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Масштаб:</text>
+  <text x="480" y="264" font-size="12" fill="#1a1a1a" text-anchor="middle">Логіка ≠ Граф</text>
+  <text x="480" y="284" font-size="12" fill="#6b7280" text-anchor="middle">ДеРемер і Крон</text>
+
+  <line x1="480" y1="308" x2="480" y2="322" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,4"/>
+
+  <rect x="436" y="334" width="88" height="92" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="352" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ПАСТКА</text>
+  <text x="480" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">Архітектурні</text>
+  <text x="480" y="386" font-size="12" fill="#1a1a1a" text-anchor="middle">проблеми не</text>
+  <text x="480" y="402" font-size="12" fill="#1a1a1a" text-anchor="middle">вирішуються</text>
+  <text x="480" y="418" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">кодом!</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Програмування у великому -->
+  <rect x="536" y="68" width="400" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="548" y="78" width="236" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="558" y="95" font-size="13" font-weight="bold" fill="#27ae60">ПРОГРАМУВАННЯ У ВЕЛИКОМУ</text>
+  <text x="796" y="95" font-size="12" fill="#6b7280">Системний рівень</text>
+
+  <!-- Граф контрактів між чорними скриньками -->
+  <rect x="548" y="116" width="376" height="190" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="548" y1="140" x2="924" y2="140" stroke="#d0d7de" stroke-width="1"/>
+  <text x="560" y="132" font-size="12" font-weight="bold" fill="#27ae60">Граф контрактів між модулями (MIL)</text>
+  <text x="815" y="132" font-size="12" fill="#6b7280">чорні скриньки</text>
+
+  <!-- Модуль A (Чорна скринька) -->
+  <rect x="560" y="150" width="96" height="48" rx="4" fill="#1a1a1a"/>
+  <text x="608" y="170" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Модуль A</text>
+  <text x="608" y="187" font-size="12" fill="#d0d7de" text-anchor="middle">чорна скринька</text>
+
+  <!-- Модуль B (Чорна скринька) -->
+  <rect x="818" y="150" width="96" height="48" rx="4" fill="#1a1a1a"/>
+  <text x="866" y="170" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Модуль B</text>
+  <text x="866" y="187" font-size="12" fill="#d0d7de" text-anchor="middle">чорна скринька</text>
+
+  <!-- Модуль C (Чорна скринька) -->
+  <rect x="688" y="244" width="98" height="48" rx="4" fill="#1a1a1a"/>
+  <text x="737" y="264" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Модуль C</text>
+  <text x="737" y="281" font-size="12" fill="#d0d7de" text-anchor="middle">чорна скринька</text>
+
+  <!-- Контракт K1 між Модулем A та Модулем B -->
+  <circle cx="656" cy="174" r="4.5" fill="#27ae60"/>
+  <circle cx="818" cy="174" r="4.5" fill="#2457d6"/>
+  <line x1="662" y1="174" x2="810" y2="174" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="737" y="162" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Контракт K1 (I_calc)</text>
+
+  <!-- Легенда інтерфейсів/портів -->
+  <rect x="676" y="188" width="122" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="687" cy="199" r="4" fill="#27ae60"/>
+  <text x="696" y="203" font-size="12" fill="#1a1a1a">Provides (експорт)</text>
+  <circle cx="687" cy="217" r="4" fill="#2457d6"/>
+  <text x="696" y="221" font-size="12" fill="#1a1a1a">Requires (імпорт)</text>
+
+  <!-- Контракт K2: Модуль A до Модуля C -->
+  <circle cx="632" cy="198" r="4.5" fill="#27ae60"/>
+  <circle cx="688" cy="256" r="4.5" fill="#2457d6"/>
+  <path d="M 632,204 L 632,256 L 680,256" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <rect x="560" y="234" width="58" height="40" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="589" y="251" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">K2</text>
+  <text x="589" y="266" font-size="12" fill="#1a1a1a" text-anchor="middle">I_data</text>
+
+  <!-- Контракт K3: Модуль C до Модуля B -->
+  <circle cx="786" cy="256" r="4.5" fill="#27ae60"/>
+  <circle cx="844" cy="198" r="4.5" fill="#2457d6"/>
+  <path d="M 786,256 L 844,256 L 844,206" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <rect x="858" y="234" width="58" height="40" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="887" y="251" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">K3</text>
+  <text x="887" y="266" font-size="12" fill="#1a1a1a" text-anchor="middle">I_evt</text>
+
+  <!-- Права картка підсумку -->
+  <rect x="548" y="318" width="376" height="108" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="560" y="337" font-size="12" font-weight="bold" fill="#1a1a1a">Одиниця мислення:</text>
+  <text x="687" y="337" font-size="12" fill="#27ae60">Модулі, інтерфейси, контракти</text>
+  <text x="560" y="357" font-size="12" font-weight="bold" fill="#1a1a1a">Мова конфігурації:</text>
+  <text x="687" y="357" font-size="12" fill="#1a1a1a">MIL (DeRemer &amp; Kron), ADL</text>
+  <text x="560" y="377" font-size="12" font-weight="bold" fill="#1a1a1a">Основна мета:</text>
+  <text x="687" y="377" font-size="12" fill="#1a1a1a">Топологія зв'язків та архітектура</text>
+
+  <rect x="556" y="390" width="360" height="28" rx="4" fill="#e9f7ef"/>
+  <text x="564" y="408" font-size="12" font-weight="bold" fill="#27ae60">Фокус: ЯК модулі зв'язані в єдине ціле</text>
+</svg>

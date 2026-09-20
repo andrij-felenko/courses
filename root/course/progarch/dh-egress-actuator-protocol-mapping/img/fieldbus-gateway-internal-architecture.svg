@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня функціональна архітектура промислового шлюзу</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Буферизація FIFO згладжує розрив швидкостей, а гальванічний бар'єр і TVS захищають хост від завад шини</text>
+
+  <!-- Зовнішній контур корпусу шлюзу -->
+  <rect x="24" y="74" width="912" height="426" rx="8" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="36" y="92" font-size="12" font-weight="bold" fill="#6b7280">Апаратний корпус шлюзу (Ethernet / USB to RS-485 / CAN)</text>
+
+  <!-- ================= ХОСТОВИЙ ДОМЕН (НЕІЗОЛЬОВАНИЙ) ================= -->
+  <rect x="32" y="102" width="416" height="388" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="120" font-size="12" font-weight="bold" fill="#2457d6">ХОСТОВИЙ ДОМЕН (НЕІЗОЛЬОВАНИЙ, GND_HOST)</text>
+
+  <!-- Вхідний хостовий порт (RJ-45 / USB) -->
+  <rect x="42" y="134" width="76" height="190" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="80" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхід хоста</text>
+  <text x="80" y="170" font-size="12" fill="#1a1a1a" text-anchor="middle">RJ-45 / USB</text>
+  <text x="80" y="198" font-size="12" fill="#6b7280" text-anchor="middle">Ethernet</text>
+  <text x="80" y="214" font-size="12" fill="#2457d6" text-anchor="middle">100 Мбіт/с</text>
+  <text x="80" y="242" font-size="12" fill="#6b7280" text-anchor="middle">або USB 2.0</text>
+  <text x="80" y="258" font-size="12" fill="#2457d6" text-anchor="middle">480 Мбіт/с</text>
+  <text x="80" y="292" font-size="12" fill="#1a1a1a" text-anchor="middle">Потік байтів</text>
+  <text x="80" y="308" font-size="12" fill="#6b7280" text-anchor="middle">TCP/IP / CDC</text>
+
+  <!-- Стрілка від порту хоста до Мережевого контролера -->
+  <line x1="118" y1="210" x2="130" y2="210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 1: Хостовий мережевий контролер -->
+  <rect x="130" y="134" width="112" height="190" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="186" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мережевий</text>
+  <text x="186" y="168" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">контролер</text>
+  <text x="186" y="186" font-size="12" fill="#6b7280" text-anchor="middle">MAC / PHY / USB</text>
+  <text x="186" y="212" font-size="12" fill="#1a1a1a" text-anchor="middle">Депакетизація</text>
+  <text x="186" y="228" font-size="12" fill="#1a1a1a" text-anchor="middle">кадрів TCP/IP</text>
+  <text x="186" y="254" font-size="12" fill="#2457d6" text-anchor="middle">Фільтрація MAC</text>
+  <text x="186" y="270" font-size="12" fill="#2457d6" text-anchor="middle">Виділення PDU</text>
+  <text x="186" y="296" font-size="12" fill="#6b7280" text-anchor="middle">Внутрішня шина</text>
+  <text x="186" y="312" font-size="12" fill="#6b7280" text-anchor="middle">DMA / FSMC</text>
+
+  <!-- Стрілка від контролера до MCU -->
+  <line x1="242" y1="210" x2="254" y2="210" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 2: Обчислювальний мікропроцесор трансляції -->
+  <rect x="254" y="134" width="184" height="190" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="346" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікропроцесор трансляції (MCU)</text>
+
+  <!-- Вкладений підблок 2A: Буфери FIFO й черги -->
+  <rect x="264" y="160" width="164" height="74" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="346" y="176" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Буфери FIFO та черги (SRAM)</text>
+  <text x="346" y="194" font-size="12" fill="#1a1a1a" text-anchor="middle">RX черга: згладжування сплесків</text>
+  <text x="346" y="210" font-size="12" fill="#c0392b" text-anchor="middle">TX черга: ризик переповнення</text>
+  <text x="346" y="226" font-size="12" fill="#6b7280" text-anchor="middle">Причина прихованих затримок</text>
+
+  <!-- Вкладений підблок 2B: Трансляція протоколів -->
+  <rect x="264" y="240" width="164" height="74" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="346" y="256" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рушій протокольної трансляції</text>
+  <text x="346" y="274" font-size="12" fill="#1a1a1a" text-anchor="middle">Парсинг кадру: MBAP ➔ RTU</text>
+  <text x="346" y="292" font-size="12" fill="#2457d6" text-anchor="middle">Розрахунок контрольної CRC-16</text>
+  <text x="346" y="308" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратний таймер паузи t3.5</text>
+
+  <!-- Джерело живлення хоста (нижня частина хостового домену) -->
+  <rect x="42" y="338" width="200" height="74" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="142" y="358" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Живлення хоста (V_IN)</text>
+  <text x="142" y="376" font-size="12" fill="#6b7280" text-anchor="middle">+5 В / USB / PoE (GND_HOST)</text>
+  <text x="142" y="396" font-size="12" fill="#1a1a1a" text-anchor="middle">Живить контролер і процесор</text>
+
+  <!-- Лінія живлення до процесора -->
+  <line x1="242" y1="360" x2="330" y2="360" stroke="#1a1a1a" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <line x1="330" y1="360" x2="330" y2="324" stroke="#1a1a1a" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+
+  <!-- Лінія живлення від джерела хоста до DC-DC перетворювача -->
+  <line x1="242" y1="386" x2="456" y2="386" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- ================= БАР'ЄР ГАЛЬВАНІЧНОЇ ІЗОЛЯЦІЇ ================= -->
+  <line x1="482" y1="104" x2="482" y2="480" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="482" y="118" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">БАР'ЄР ІЗОЛЯЦІЇ</text>
+  <text x="482" y="132" font-size="12" fill="#6b7280" text-anchor="middle">1.5 – 3 кВ</text>
+
+  <!-- Блок 3A: Цифрові ізолятори сигналів даних -->
+  <rect x="456" y="150" width="52" height="158" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="482" y="168" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Цифрові</text>
+  <text x="482" y="184" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ізолятори</text>
+  <text x="482" y="208" font-size="12" fill="#2457d6" text-anchor="middle">TXD ➔</text>
+  <text x="482" y="240" font-size="12" fill="#2457d6" text-anchor="middle">⬅ RXD</text>
+  <text x="482" y="272" font-size="12" fill="#27ae60" text-anchor="middle">TX_DET</text>
+  <text x="482" y="296" font-size="12" fill="#6b7280" text-anchor="middle">Оптика/EM</text>
+
+  <!-- Лінії зв'язку від MCU через ізолятори до трансивера -->
+  <!-- TXD -->
+  <line x1="438" y1="204" x2="456" y2="204" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="508" y1="204" x2="524" y2="204" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <!-- RXD -->
+  <line x1="456" y1="236" x2="438" y2="236" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+  <line x1="524" y1="236" x2="508" y2="236" stroke="#2457d6" stroke-width="1.2"/>
+  <!-- TX_DET / DIR -->
+  <line x1="438" y1="268" x2="456" y2="268" stroke="#27ae60" stroke-width="1.2"/>
+  <line x1="508" y1="268" x2="524" y2="268" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 3B: Ізольований DC-DC перетворювач живлення -->
+  <rect x="456" y="348" width="52" height="74" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="482" y="368" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ізольов.</text>
+  <text x="482" y="384" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">DC-DC</text>
+  <text x="482" y="404" font-size="12" fill="#6b7280" text-anchor="middle">1.5–3 кВ</text>
+
+  <!-- Лінія ізольованого живлення від DC-DC на польовий бік -->
+  <line x1="508" y1="386" x2="524" y2="386" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- ================= ПОЛЬОВИЙ ДОМЕН (ІЗОЛЬОВАНИЙ) ================= -->
+  <rect x="514" y="102" width="416" height="388" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="526" y="120" font-size="12" font-weight="bold" fill="#27ae60">ПОЛЬОВИЙ ДОМЕН (ІЗОЛЬОВАНИЙ, GND_ISO)</text>
+
+  <!-- Блок 4: Трансивер польової шини з Auto-Direction -->
+  <rect x="524" y="134" width="166" height="190" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="607" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Трансивер шини (RS-485 / CAN)</text>
+
+  <!-- Вкладений підблок 4A: Auto-Direction Control -->
+  <rect x="534" y="160" width="146" height="74" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="607" y="176" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Auto-Direction Control</text>
+  <text x="607" y="194" font-size="12" fill="#1a1a1a" text-anchor="middle">Детектор активності TXD</text>
+  <text x="607" y="210" font-size="12" fill="#27ae60" text-anchor="middle">Апаратне перемикання DE / !RE</text>
+  <text x="607" y="226" font-size="12" fill="#6b7280" text-anchor="middle">Мікросекундний таймінг шини</text>
+
+  <!-- Вкладений підблок 4B: Диференціальний каскад -->
+  <rect x="534" y="240" width="146" height="74" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="607" y="256" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Диференціальний трансивер</text>
+  <text x="607" y="274" font-size="12" fill="#1a1a1a" text-anchor="middle">Драйвер передавача TX (A / B)</text>
+  <text x="607" y="292" font-size="12" fill="#1a1a1a" text-anchor="middle">Приймач лінії RX (диф. пара)</text>
+  <text x="607" y="308" font-size="12" fill="#6b7280" text-anchor="middle">Швидкість: 9.6 – 115.2 кбіт/с</text>
+
+  <!-- Стрілки від трансивера до захисного каскаду -->
+  <line x1="690" y1="260" x2="702" y2="260" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="690" y1="288" x2="702" y2="288" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 5: Вихідний каскад із захистом від перенапруг -->
+  <rect x="702" y="134" width="144" height="190" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="774" y="152" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Каскад захисту лінії</text>
+
+  <!-- Вкладений підблок 5A: Fail-Safe Biasing -->
+  <rect x="712" y="160" width="124" height="74" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="774" y="176" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Fail-Safe Biasing</text>
+  <text x="774" y="194" font-size="12" fill="#1a1a1a" text-anchor="middle">Підтяжка A до V_ISO</text>
+  <text x="774" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">Стяжка B до GND_ISO</text>
+  <text x="774" y="226" font-size="12" fill="#6b7280" text-anchor="middle">Стабільний Idle стан лінії</text>
+
+  <!-- Вкладений підблок 5B: TVS-захист від сплесків -->
+  <rect x="712" y="240" width="124" height="74" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="774" y="256" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">TVS-супресори</text>
+  <text x="774" y="274" font-size="12" fill="#c0392b" text-anchor="middle">ESD захист до 15 кВ</text>
+  <text x="774" y="292" font-size="12" fill="#1a1a1a" text-anchor="middle">Самовідновні PPTC</text>
+  <text x="774" y="308" font-size="12" fill="#6b7280" text-anchor="middle">Захист від перенапруг</text>
+
+  <!-- Стрілки від захисного каскаду до вихідних клем -->
+  <line x1="846" y1="260" x2="858" y2="260" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="846" y1="288" x2="858" y2="288" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 6: Вихідні клеми шини -->
+  <rect x="858" y="134" width="62" height="190" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="889" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Клеми</text>
+  <text x="889" y="168" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RS-485</text>
+
+  <!-- Клема A (+) -->
+  <rect x="866" y="184" width="46" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="889" y="200" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">A (+)</text>
+
+  <!-- Клема B (-) -->
+  <rect x="866" y="218" width="46" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="889" y="234" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">B (-)</text>
+
+  <!-- Клема GND_ISO / Shield -->
+  <rect x="866" y="252" width="46" height="24" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="889" y="268" font-size="12" fill="#6b7280" text-anchor="middle">SHLD</text>
+
+  <text x="889" y="296" font-size="12" fill="#1a1a1a" text-anchor="middle">До шини</text>
+  <text x="889" y="312" font-size="12" fill="#6b7280" text-anchor="middle">приводів</text>
+
+  <!-- Ізольоване живлення польового боку -->
+  <rect x="524" y="338" width="200" height="74" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="624" y="358" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ізольоване живлення (V_ISO)</text>
+  <text x="624" y="376" font-size="12" fill="#6b7280" text-anchor="middle">+5 В_ISO / GND_ISO (ізольована)</text>
+  <text x="624" y="396" font-size="12" fill="#1a1a1a" text-anchor="middle">Живить трансивер і зміщення</text>
+
+  <!-- Лінії живлення від ізольованого блоку до трансивера та зміщення -->
+  <line x1="580" y1="338" x2="580" y2="324" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+  <line x1="680" y1="338" x2="740" y2="324" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+  <!-- Нижні порівняльні смуги доменів -->
+  <rect x="42" y="424" width="396" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="444" font-size="12" font-weight="bold" fill="#2457d6">Швидкісний нежорсткий час (Host Domain):</text>
+  <text x="52" y="462" font-size="12" fill="#6b7280">100 Мбіт/с Ethernet, буфери FIFO запобігають втратам</text>
+
+  <rect x="524" y="424" width="396" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="534" y="444" font-size="12" font-weight="bold" fill="#27ae60">Детермінований жорсткий час (Field Domain):</text>
+  <text x="534" y="462" font-size="12" fill="#6b7280">115.2 кбіт/с RS-485, паузи t3.5, нуль земляних петель</text>
+</svg>

@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-problem" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Спільний пакет «utils» як джерело неявного зачеплення</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Локальна зміна форматування для телеметрії ламає фінансовий аудит і блокує реліз хаба</text>
+
+  <!-- КОЛОНКА 1: Телеметрія (Ініціатор) -->
+  <rect x="24" y="90" width="240" height="320" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="144" y="114" text-anchor="middle" font-size="15" font-weight="700" fill="#2457d6">Телеметрія (Cloud)</text>
+  <text x="144" y="134" text-anchor="middle" font-size="12" fill="#6b7280">Джерело зміни формату</text>
+
+  <rect x="36" y="146" width="216" height="96" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="168" font-size="12" font-weight="700" fill="#1a1a1a">Потреба команди:</text>
+  <text x="48" y="188" font-size="12" fill="#1a1a1a">Перехід на структуру JSON</text>
+  <text x="48" y="206" font-size="12" fill="#1a1a1a">для хмарних дашбордів</text>
+  <text x="48" y="224" font-size="12" fill="#6b7280">і потокової аналітики</text>
+
+  <rect x="36" y="256" width="216" height="136" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="48" y="278" font-size="12" font-weight="700" fill="#2457d6">Локальне рішення:</text>
+  <text x="48" y="298" font-size="12" fill="#1a1a1a">Пряме редагування утиліти</text>
+  <text x="48" y="318" font-size="12" fill="#1a1a1a">у спільному пакеті:</text>
+  <text x="48" y="340" font-size="12" font-weight="700" fill="#2457d6">formatLogMessage()</text>
+  <text x="48" y="360" font-size="12" fill="#6b7280">«Зручно, не треба новий пакет»</text>
+  <text x="48" y="380" font-size="12" font-weight="700" fill="#2457d6">➔ Коміт без версіонування</text>
+
+  <!-- Стрілка 1: Телеметрія -> utils -->
+  <line x1="264" y1="285" x2="308" y2="285" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-accent)"/>
+
+  <!-- КОЛОНКА 2: utils (Спільний вузол) -->
+  <rect x="310" y="90" width="340" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="114" text-anchor="middle" font-size="15" font-weight="700" fill="#1a1a1a">Спільний пакет «@dh/utils»</text>
+  <text x="480" y="134" text-anchor="middle" font-size="12" fill="#6b7280">Безіменне звалище (випадкове зчеплення)</text>
+
+  <rect x="324" y="146" width="312" height="196" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="338" y="168" font-size="13" font-weight="700" fill="#1a1a1a">Функція formatLogMessage(level, msg)</text>
+  <line x1="338" y1="176" x2="622" y2="176" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- БУЛО -->
+  <rect x="336" y="184" width="288" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="348" y="202" font-size="12" font-weight="700" fill="#27ae60">БУЛО (текст):</text>
+  <text x="438" y="202" font-size="12" fill="#1a1a1a">"[INFO] Подія в системі"</text>
+  <text x="348" y="222" font-size="12" fill="#6b7280">✔ Сумісний контракт для всіх сервісів</text>
+
+  <!-- СТАЛО -->
+  <rect x="336" y="244" width="288" height="86" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="348" y="264" font-size="12" font-weight="700" fill="#c0392b">СТАЛО (структурований JSON):</text>
+  <text x="348" y="284" font-size="12" fill="#c0392b">{"level":"INFO","payload":"..."}</text>
+  <text x="348" y="304" font-size="12" font-weight="700" fill="#c0392b">⚠ Неоголошена зміна типу повернення</text>
+  <text x="348" y="322" font-size="12" fill="#6b7280">Порушення принципів стабільності (REP/CRP)</text>
+
+  <!-- Підсумок утиліт -->
+  <rect x="324" y="354" width="312" height="44" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="480" y="372" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Радіус ураження охоплює всіх споживачів</text>
+  <text x="480" y="389" text-anchor="middle" font-size="12" fill="#1a1a1a">Зміна для хмари потрапляє в білінг і прошивку хаба</text>
+
+  <!-- Стрілки з utils до жертв -->
+  <line x1="650" y1="164" x2="694" y2="164" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-problem)"/>
+  <line x1="650" y1="335" x2="694" y2="335" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-problem)"/>
+
+  <!-- КОЛОНКА 3 (Верх): Білінг -->
+  <rect x="696" y="90" width="240" height="148" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="816" y="114" text-anchor="middle" font-size="15" font-weight="700" fill="#c0392b">Служба білінгу</text>
+  <text x="816" y="133" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Жертва 1: Регресія аудиту</text>
+
+  <rect x="708" y="144" width="216" height="84" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="720" y="164" font-size="12" fill="#1a1a1a">Імпорт formatLogMessage()</text>
+  <text x="720" y="182" font-size="12" fill="#6b7280">Очікував: /^\[(\w+)\]/</text>
+  <text x="720" y="200" font-size="12" font-weight="700" fill="#c0392b">💥 Regex error: отримано «{»</text>
+  <text x="720" y="218" font-size="12" font-weight="700" fill="#c0392b">Нічний розрахунок упав</text>
+
+  <!-- КОЛОНКА 3 (Низ): Хаб Digital Homes -->
+  <rect x="696" y="252" width="240" height="158" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="816" y="276" text-anchor="middle" font-size="15" font-weight="700" fill="#c0392b">Хаб Digital Homes</text>
+  <text x="816" y="295" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Жертва 2: Блокування релізу</text>
+
+  <rect x="708" y="306" width="216" height="92" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="720" y="326" font-size="12" fill="#1a1a1a">Залежність від @dh/utils</text>
+  <text x="720" y="344" font-size="12" fill="#6b7280">Готовий хотфікс замків (OTA)</text>
+  <text x="720" y="364" font-size="12" font-weight="700" fill="#c0392b">⛔ Тести utils/billing упали</text>
+  <text x="720" y="384" font-size="12" font-weight="700" fill="#c0392b">Реліз прошивки заблоковано</text>
+</svg>

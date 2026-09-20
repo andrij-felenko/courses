@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Мапінг команд актуатора: Control Word та квантування Setpoint</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Побітова упаковка дискретних команд та масштабування неперервної уставки в 16-бітні регістри Modbus</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Control Word -->
+  <rect x="24" y="76" width="448" height="348" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="102" font-size="14" font-weight="700" fill="#1a1a1a">16-бітний Control Word (Регістр 40101)</text>
+  <text x="40" y="120" font-size="12" fill="#6b7280">Побітові маски керування та прапорці режиму</text>
+
+  <!-- Блоки бітів Control Word -->
+  <rect x="40" y="130" width="124" height="58" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="102" y="147" font-size="12" text-anchor="middle" fill="#6b7280">Біти 15..5</text>
+  <text x="102" y="163" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">RESERVED</text>
+  <text x="102" y="179" font-size="12" text-anchor="middle" fill="#6b7280">0xFFE0</text>
+
+  <rect x="176" y="130" width="64" height="58" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="208" y="147" font-size="12" text-anchor="middle" fill="#2457d6">Біти 4..3</text>
+  <text x="208" y="163" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">MODE</text>
+  <text x="208" y="179" font-size="12" text-anchor="middle" fill="#6b7280">0x0018</text>
+
+  <rect x="252" y="130" width="64" height="58" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="284" y="147" font-size="12" text-anchor="middle" fill="#2457d6">Біт 2</text>
+  <text x="284" y="163" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">RESET</text>
+  <text x="284" y="179" font-size="12" text-anchor="middle" fill="#6b7280">0x0004</text>
+
+  <rect x="328" y="130" width="64" height="58" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="360" y="147" font-size="12" text-anchor="middle" fill="#c0392b">Біт 1</text>
+  <text x="360" y="163" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Q_STOP</text>
+  <text x="360" y="179" font-size="12" text-anchor="middle" fill="#6b7280">0x0002</text>
+
+  <rect x="404" y="130" width="52" height="58" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="430" y="147" font-size="12" text-anchor="middle" fill="#27ae60">Біт 0</text>
+  <text x="430" y="163" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">ENABLE</text>
+  <text x="430" y="179" font-size="12" text-anchor="middle" fill="#6b7280">0x0001</text>
+
+  <!-- Опис поведінки бітів -->
+  <rect x="40" y="202" width="416" height="140" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="223" font-size="12" font-weight="700" fill="#27ae60">Біт 0 (ENABLE):</text>
+  <text x="170" y="223" font-size="12" fill="#1a1a1a">1 = дозвіл руху та силового моста (0 = вимкнено)</text>
+
+  <text x="52" y="249" font-size="12" font-weight="700" fill="#c0392b">Біт 1 (QUICK_STOP):</text>
+  <text x="188" y="249" font-size="12" fill="#1a1a1a">0 = екстрене гальмування (вищий пріоритет)</text>
+
+  <text x="52" y="275" font-size="12" font-weight="700" fill="#2457d6">Біт 2 (FAULT_RESET):</text>
+  <text x="194" y="275" font-size="12" fill="#1a1a1a">перехід 0 → 1 квитує аварійний стан</text>
+
+  <text x="52" y="301" font-size="12" font-weight="700" fill="#2457d6">Біти 3–4 (MODE):</text>
+  <text x="174" y="301" font-size="12" fill="#1a1a1a">00 = за уставкою Setpoint, 01 = ручний доїзд</text>
+
+  <text x="52" y="327" font-size="12" fill="#6b7280">Біти 5–15 (RESERVED): зарезервовано виробником (значення 0)</text>
+
+  <!-- Приклад зібраного Control Word -->
+  <rect x="40" y="354" width="416" height="56" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="52" y="374" font-size="12" font-weight="700" fill="#2457d6">Сформована команда (пуск за уставкою):</text>
+  <text x="52" y="394" font-size="12" fill="#1a1a1a">Код: <tspan font-weight="700">0x0003</tspan> (0000 0000 0000 0011₂) → ENABLE=1, QUICK_STOP=1</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Квантування Setpoint -->
+  <rect x="488" y="76" width="448" height="348" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="504" y="102" font-size="14" font-weight="700" fill="#1a1a1a">Квантування уставки Setpoint (Регістр 40102)</text>
+  <text x="504" y="120" font-size="12" fill="#6b7280">Перетворення інженерного значення в ціле число для шини</text>
+
+  <!-- Крок 1: Вхідна величина -->
+  <rect x="504" y="130" width="416" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="520" y="150" font-size="12" font-weight="700" fill="#1a1a1a">1. Доменне значення: <tspan fill="#2457d6">S = 42.5 %</tspan> (інженерне положення)</text>
+  <text x="520" y="166" font-size="12" fill="#6b7280">Діапазон: 0.0 % … 100.0 % (тип float у доменній моделі)</text>
+  <text x="520" y="180" font-size="12" fill="#c0392b">Ризик float на шині: невизначений порядок слів (endianness)</text>
+
+  <!-- Стрілка 1 -->
+  <line x1="712" y1="190" x2="712" y2="226" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="724" y="212" font-size="12" font-weight="700" fill="#2457d6">Масштаб K = 100 (крок 0.01 %)</text>
+
+  <!-- Крок 2: Формула квантування -->
+  <rect x="504" y="230" width="416" height="70" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="520" y="250" font-size="12" font-weight="700" fill="#2457d6">2. Формула цілочисельного квантування:</text>
+  <text x="520" y="269" font-size="13" font-weight="700" fill="#1a1a1a">R = round(S × K) = round(42.5 × 100) = 4250</text>
+  <text x="520" y="286" font-size="12" fill="#6b7280">Дискретизація: неперервна шкала → 10 000 дискретних квантів</text>
+
+  <!-- Стрілка 2 -->
+  <line x1="712" y1="300" x2="712" y2="336" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="724" y="322" font-size="12" font-weight="700" fill="#27ae60">Кодування в 16-бітне ціле</text>
+
+  <!-- Крок 3: Вихід на шину -->
+  <rect x="504" y="340" width="416" height="70" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="520" y="360" font-size="12" font-weight="700" fill="#27ae60">3. Значення для шини Modbus RTU:</text>
+  <text x="520" y="379" font-size="13" font-weight="700" fill="#1a1a1a">Setpoint = 4250 d = 0x109A (Holding Register 40102)</text>
+  <text x="520" y="397" font-size="12" fill="#6b7280">Шкала: 0 … 10 000 (uint16), однаковий порядок байтів на шині</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Атомарний груповий запис -->
+  <rect x="24" y="438" width="912" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="456" font-size="13" font-weight="700" fill="#1a1a1a">Груповий запис у шину Modbus RTU: функція 0x10 (Write Multiple Registers)</text>
+  <text x="560" y="456" font-size="12" fill="#2457d6">Атомарна посилка: Control Word + Setpoint в одному кадрі</text>
+
+  <!-- Поля кадру Modbus RTU -->
+  <rect x="48" y="468" width="76" height="34" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="86" y="481" font-size="12" text-anchor="middle" fill="#6b7280">Slave</text>
+  <text x="86" y="495" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">0x01</text>
+
+  <rect x="136" y="468" width="76" height="34" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="174" y="481" font-size="12" text-anchor="middle" fill="#6b7280">Функція</text>
+  <text x="174" y="495" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">0x10</text>
+
+  <rect x="224" y="468" width="88" height="34" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="268" y="481" font-size="12" text-anchor="middle" fill="#6b7280">Старт. рег.</text>
+  <text x="268" y="495" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">0x0064</text>
+
+  <rect x="324" y="468" width="76" height="34" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="362" y="481" font-size="12" text-anchor="middle" fill="#6b7280">Кількість</text>
+  <text x="362" y="495" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">0x0002</text>
+
+  <rect x="412" y="468" width="68" height="34" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="446" y="481" font-size="12" text-anchor="middle" fill="#6b7280">Байтів</text>
+  <text x="446" y="495" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">0x04</text>
+
+  <rect x="492" y="468" width="176" height="34" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="580" y="481" font-size="12" text-anchor="middle" fill="#2457d6">Рег. 40101 (Control Word)</text>
+  <text x="580" y="495" font-size="12" font-weight="700" text-anchor="middle" fill="#2457d6">0x0003 (ENABLE + Q_STOP)</text>
+
+  <rect x="680" y="468" width="168" height="34" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="764" y="481" font-size="12" text-anchor="middle" fill="#27ae60">Рег. 40102 (Setpoint)</text>
+  <text x="764" y="495" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">0x109A (4250 = 42.5 %)</text>
+
+  <rect x="860" y="468" width="64" height="34" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="892" y="481" font-size="12" text-anchor="middle" fill="#6b7280">CRC16</text>
+  <text x="892" y="495" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">2 байти</text>
+
+  <!-- Пояснення внизу -->
+  <text x="480" y="524" font-size="12" text-anchor="middle" fill="#2457d6">✓ Атомарний груповий запис 0x10 унеможливлює розсинхронізацію: привід рушає з новою уставкою лише за дозволеного стану</text>
+</svg>

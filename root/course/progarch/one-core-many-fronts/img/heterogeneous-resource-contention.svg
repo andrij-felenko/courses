@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Взаємне блокування ресурсів у спільному ядрі</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Тривалі задачі воркера насичують пули потоків і з'єднань БД, спричиняючи сплеск p99 HTTP-запитів</text>
+
+  <!-- ================= КОЛОНКА 1: ДВА ГЕТЕРОГЕННІ ФРОНТИ ================= -->
+  <rect x="20" y="68" width="210" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Плашка заголовка колонки 1 -->
+  <rect x="30" y="78" width="190" height="26" rx="4" fill="#2457d6"/>
+  <text x="125" y="95" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ТОЧКИ ВХОДУ (ФРОНТИ)</text>
+
+  <!-- Блок 1: Інтерактивний фронт -->
+  <rect x="30" y="116" width="190" height="150" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="38" y="124" width="174" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="125" y="140" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">HTTP API (Веб / Mobile)</text>
+
+  <text x="42" y="164" font-size="12" font-weight="700" fill="#1a1a1a">Характер трафіку:</text>
+  <text x="42" y="182" font-size="12" fill="#6b7280">• Сотні запитів/с (OLTP)</text>
+  <text x="42" y="200" font-size="12" fill="#6b7280">• Час роботи: τ ≈ 15 мс</text>
+  <text x="42" y="218" font-size="12" fill="#6b7280">• Ціль: p99 &lt; 50 мс</text>
+  <text x="42" y="244" font-size="12" font-weight="700" fill="#c0392b">Вразливий до затримок</text>
+
+  <!-- Блок 2: Фоновий воркер -->
+  <rect x="30" y="278" width="190" height="190" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="38" y="286" width="174" height="24" rx="4" fill="#fdecea"/>
+  <text x="125" y="302" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Фоновий воркер (Queue)</text>
+
+  <text x="42" y="328" font-size="12" font-weight="700" fill="#1a1a1a">Характер задач:</text>
+  <text x="42" y="346" font-size="12" fill="#6b7280">• Важкі пакетні джоби</text>
+  <text x="42" y="364" font-size="12" fill="#6b7280">• Час роботи: τ ≈ 10–60 с</text>
+  <text x="42" y="382" font-size="12" fill="#6b7280">• Експорт, звіти, sync</text>
+  <text x="42" y="408" font-size="12" font-weight="700" fill="#c0392b">Тривалі транзакції БД</text>
+  <text x="42" y="426" font-size="12" fill="#c0392b">Утримує ресурси ядра</text>
+  <text x="42" y="444" font-size="12" fill="#6b7280">в спільній пам'яті процесу</text>
+
+  <!-- Стрілки від фронтів до ядра -->
+  <line x1="220" y1="180" x2="242" y2="180" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <line x1="220" y1="360" x2="242" y2="360" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+
+  <!-- ================= КОЛОНКА 2: СПІЛЬНЕ ЯДРО ================= -->
+  <rect x="246" y="68" width="454" height="410" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Плашка заголовка колонки 2 -->
+  <rect x="256" y="78" width="434" height="26" rx="4" fill="#c0392b"/>
+  <text x="473" y="95" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">СПІЛЬНЕ ЯДРО: ДВА ДЕФІЦИТНІ ПУЛИ В ОДНОМУ ПРОЦЕСІ</text>
+
+  <!-- Ресурс 1: Пул потоків -->
+  <rect x="256" y="114" width="434" height="148" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="264" y="122" width="418" height="22" rx="3" fill="#fdecea"/>
+  <text x="473" y="137" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">1. Пул потоків (Worker Threads): НАСИЧЕННЯ (Thread Starvation)</text>
+
+  <!-- Черга задач до пулу потоків -->
+  <rect x="266" y="152" width="102" height="98" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="317" y="168" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Черга задач</text>
+  <text x="317" y="186" font-size="12" fill="#c0392b" text-anchor="middle">HTTP req #3</text>
+  <text x="317" y="204" font-size="12" fill="#c0392b" text-anchor="middle">HTTP req #2</text>
+  <text x="317" y="222" font-size="12" fill="#c0392b" text-anchor="middle">HTTP req #1</text>
+  <text x="317" y="240" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Блокування</text>
+
+  <!-- Потоки -->
+  <rect x="378" y="152" width="302" height="21" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="384" y="167" font-size="12" font-weight="700" fill="#c0392b">Потік 1:</text>
+  <text x="444" y="167" font-size="12" fill="#1a1a1a">Воркер — звіт PDF (зайнято 42 с)</text>
+
+  <rect x="378" y="177" width="302" height="21" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="384" y="192" font-size="12" font-weight="700" fill="#c0392b">Потік 2:</text>
+  <text x="444" y="192" font-size="12" fill="#1a1a1a">Воркер — імпорт CSV (зайнято 28 с)</text>
+
+  <rect x="378" y="202" width="302" height="21" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="384" y="217" font-size="12" font-weight="700" fill="#c0392b">Потік 3:</text>
+  <text x="444" y="217" font-size="12" fill="#1a1a1a">Воркер — sync залишків (зайнято 19 с)</text>
+
+  <rect x="378" y="227" width="302" height="21" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="384" y="242" font-size="12" font-weight="700" fill="#c0392b">Потік 4:</text>
+  <text x="444" y="242" font-size="12" font-weight="700" fill="#c0392b">HTTP req #0 — завис на пулі БД!</text>
+
+  <!-- Пунктирний зв'язок: Потік 4 заблоковано на пулі БД -->
+  <line x1="530" y1="249" x2="530" y2="273" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- Ресурс 2: Пул з'єднань БД -->
+  <rect x="256" y="276" width="434" height="190" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="264" y="284" width="418" height="22" rx="3" fill="#fdecea"/>
+  <text x="473" y="299" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">2. Пул з'єднань БД (Connection Pool): БЛОКУВАННЯ (Exhaustion)</text>
+
+  <!-- Стан черги до БД -->
+  <rect x="264" y="314" width="106" height="142" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="317" y="332" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Черга до БД</text>
+  <text x="317" y="352" font-size="12" fill="#1a1a1a" text-anchor="middle">Потік 4 чекає:</text>
+  <text x="317" y="372" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">0 вільних із N</text>
+  <text x="317" y="396" font-size="12" fill="#6b7280" text-anchor="middle">Час очікування:</text>
+  <text x="317" y="416" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">T_wait &gt; 5 с</text>
+  <text x="317" y="440" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Pool Timeout!</text>
+
+  <!-- Слоти з'єднань -->
+  <rect x="378" y="314" width="302" height="34" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="384" y="327" font-size="12" font-weight="700" fill="#c0392b">З'єднання 1:</text>
+  <text x="472" y="327" font-size="12" fill="#c0392b">[Захоплено воркером]</text>
+  <text x="384" y="342" font-size="12" fill="#1a1a1a">BEGIN ... тривала транзакція (35 с)</text>
+
+  <rect x="378" y="352" width="302" height="34" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="384" y="365" font-size="12" font-weight="700" fill="#c0392b">З'єднання 2:</text>
+  <text x="472" y="365" font-size="12" fill="#c0392b">[Захоплено воркером]</text>
+  <text x="384" y="380" font-size="12" fill="#1a1a1a">Масовий INSERT / імпорт каталогу (22 с)</text>
+
+  <rect x="378" y="390" width="302" height="34" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="384" y="403" font-size="12" font-weight="700" fill="#c0392b">З'єднання 3:</text>
+  <text x="472" y="403" font-size="12" fill="#c0392b">[Захоплено воркером]</text>
+  <text x="384" y="418" font-size="12" fill="#1a1a1a">SELECT FOR UPDATE — блокування (18 с)</text>
+
+  <rect x="378" y="428" width="302" height="34" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="384" y="441" font-size="12" font-weight="700" fill="#c0392b">З'єднання 4:</text>
+  <text x="472" y="441" font-size="12" fill="#c0392b">[Захоплено воркером]</text>
+  <text x="384" y="456" font-size="12" fill="#1a1a1a">Агрегація аналітики для звіту (54 с)</text>
+
+  <!-- Стрілки від ядра до наслідків -->
+  <line x1="700" y1="180" x2="714" y2="180" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+  <line x1="700" y1="360" x2="714" y2="360" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+
+  <!-- ================= КОЛОНКА 3: НАСЛІДОК (p99 СПЛЕСК) ================= -->
+  <rect x="716" y="68" width="224" height="410" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Плашка заголовка колонки 3 -->
+  <rect x="726" y="78" width="204" height="26" rx="4" fill="#c0392b"/>
+  <text x="828" y="95" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">НАСЛІДКИ ДЛЯ HTTP SLA</text>
+
+  <!-- Підпанель 1: Сплеск перцентилів -->
+  <rect x="726" y="116" width="204" height="150" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="734" y="124" width="188" height="22" rx="3" fill="#fdecea"/>
+  <text x="828" y="139" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Сплеск затримки p99</text>
+
+  <text x="736" y="162" font-size="12" font-weight="700" fill="#27ae60">Без воркера (норма):</text>
+  <text x="736" y="178" font-size="12" fill="#1a1a1a">• p50: 8 мс · p90: 14 мс</text>
+  <text x="736" y="194" font-size="12" font-weight="700" fill="#27ae60">• p99: 22 мс (SLA дотримано)</text>
+
+  <line x1="734" y1="203" x2="922" y2="203" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="736" y="218" font-size="12" font-weight="700" fill="#c0392b">Конкуренція за ресурси:</text>
+  <text x="736" y="234" font-size="12" fill="#1a1a1a">• p50: 16 мс (прості запити)</text>
+  <text x="736" y="252" font-size="12" font-weight="700" fill="#c0392b">• p99: 8 500 мс (сплеск!)</text>
+
+  <!-- Підпанель 2: Деградація інтерфейсу -->
+  <rect x="726" y="278" width="204" height="190" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="734" y="286" width="188" height="22" rx="3" fill="#fdecea"/>
+  <text x="828" y="301" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Деградація інтерфейсу</text>
+
+  <text x="736" y="324" font-size="12" font-weight="700" fill="#c0392b">1. Тайм-аут запитів:</text>
+  <text x="736" y="340" font-size="12" fill="#1a1a1a">HTTP 504 Gateway Timeout</text>
+  <text x="736" y="356" font-size="12" fill="#6b7280">клієнт розриває з'єднання</text>
+
+  <text x="736" y="378" font-size="12" font-weight="700" fill="#c0392b">2. Head-of-Line Blocking:</text>
+  <text x="736" y="394" font-size="12" fill="#1a1a1a">черга вичерпує backlog</text>
+  <text x="736" y="410" font-size="12" fill="#6b7280">нові запити відкидаються</text>
+
+  <text x="736" y="432" font-size="12" font-weight="700" fill="#c0392b">3. Спільний колапс:</text>
+  <text x="736" y="448" font-size="12" fill="#1a1a1a">Воркер з'їв ресурси ядра,</text>
+  <text x="736" y="462" font-size="12" fill="#1a1a1a">інтерактив паралізовано</text>
+</svg>

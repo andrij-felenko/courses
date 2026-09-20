@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Топологічне згортання графа взаємодії зі сховищем</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Заміна ланцюжка CRUD-операцій атомарним портом усуває факторіальну комбінаторику O(k!) у тестах</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: ПРОБЛЕМА (CRUD-ПОРТ) -->
+  <rect x="24" y="78" width="416" height="418" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Заголовок лівої панелі -->
+  <rect x="40" y="94" width="384" height="30" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="232" y="114" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">CRUD-ПОРТ: ЗАПАХ СХОВИЩА (ТЕХНІЧНИЙ КОНТРАКТ)</text>
+
+  <!-- Use Case зліва -->
+  <rect x="56" y="138" width="352" height="36" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="232" y="161" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Бізнес-сценарій (Use Case)</text>
+
+  <!-- Стрілки викликів від Use Case до 4 операцій -->
+  <path d="M90,174 L90,214" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <path d="M178,174 L178,214" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <path d="M266,174 L266,214" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <path d="M354,174 L354,214" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Зона графа операцій CRUD -->
+  <rect x="40" y="222" width="384" height="148" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="232" y="242" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Граф викликів персистенції: довжина k кроків</text>
+
+  <!-- 4 вузли операцій -->
+  <!-- Вузол 1 -->
+  <rect x="52" y="254" width="76" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="90" y="271" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">v₁: find()</text>
+  <text x="90" y="287" font-size="12" fill="#6b7280" text-anchor="middle">DTO_in</text>
+
+  <!-- Вузол 2 -->
+  <rect x="140" y="254" width="76" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="178" y="271" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">v₂: lock()</text>
+  <text x="178" y="287" font-size="12" fill="#6b7280" text-anchor="middle">Version</text>
+
+  <!-- Вузол 3 -->
+  <rect x="228" y="254" width="76" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="266" y="271" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">v₃: write()</text>
+  <text x="266" y="287" font-size="12" fill="#6b7280" text-anchor="middle">RowDTO</text>
+
+  <!-- Вузол 4 -->
+  <rect x="316" y="254" width="76" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="354" y="271" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">v_k: flush()</text>
+  <text x="354" y="287" font-size="12" fill="#6b7280" text-anchor="middle">TxCommit</text>
+
+  <!-- Послідовні стрілки між вузлами -->
+  <path d="M128,275 L138,275" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <path d="M216,275 L226,275" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <path d="M304,275 L314,275" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Підписи комбінаторики під вузлами -->
+  <text x="232" y="324" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Шляхи верифікації в моках: O(k!) перестановок</text>
+  <text x="232" y="344" font-size="12" fill="#6b7280" text-anchor="middle">Комбінаторика проміжних параметрів: O(mᵏ)</text>
+
+  <!-- Нижня картка наслідків зліва -->
+  <rect x="40" y="384" width="384" height="98" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="232" y="405" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Наслідок: крихкість тестів і вибух підтримки</text>
+  <text x="56" y="427" font-size="12" fill="#1a1a1a">• Тест жорстко зв'язаний з послідовністю CRUD-викликів</text>
+  <text x="56" y="447" font-size="12" fill="#1a1a1a">• Рефакторинг сховища призводить до помилкових падінь</text>
+  <text x="56" y="467" font-size="12" fill="#6b7280">• Експоненційне зростання тестових станів для покриття помилок</text>
+
+  <!-- ЦЕНТРАЛЬНИЙ БЛОК: ТОПОЛОГІЧНЕ ЗГОРТАННЯ -->
+  <text x="480" y="238" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Топологічне</text>
+  <text x="480" y="256" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">згортання</text>
+  <path d="M448,274 L512,274" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="480" y="296" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">→ O(1)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: РОЗВ'ЯЗОК (ДОМЕННИЙ ПОРТ) -->
+  <rect x="520" y="78" width="416" height="418" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Заголовок правої панелі -->
+  <rect x="536" y="94" width="384" height="30" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="728" y="114" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">ДОМЕННИЙ ПОРТ: ОРІЄНТАЦІЯ НА НАМІР (ЧИСТИЙ КОНТРАКТ)</text>
+
+  <!-- Use Case справа -->
+  <rect x="552" y="138" width="352" height="36" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="728" y="161" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Бізнес-сценарій (Use Case)</text>
+
+  <!-- Єдина стрілка виклику до доменного порту з підписом -->
+  <path d="M728,174 L728,214" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="742" y="198" font-size="12" font-weight="700" fill="#27ae60">1 атомарний виклик</text>
+
+  <!-- Вузол Доменного порту -->
+  <rect x="568" y="222" width="320" height="48" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="728" y="242" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Атомарний доменний метод: confirmPayment(cmd)</text>
+  <text x="728" y="259" font-size="12" fill="#1a1a1a" text-anchor="middle">1 намір · 0 проміжних станів персистенції</text>
+
+  <!-- Стрілка до адаптера -->
+  <path d="M728,270 L728,284" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Зона Інфраструктурного адаптера -->
+  <rect x="536" y="290" width="384" height="80" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="728" y="310" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Інфраструктурний адаптер (деталі персистенції)</text>
+
+  <!-- Внутрішній конвеєр сховища, захований в адаптері -->
+  <rect x="552" y="322" width="352" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="728" y="343" font-size="12" fill="#6b7280" text-anchor="middle">Інкапсульовано: find → lock → update → flush (поза тестом)</text>
+
+  <!-- Нижня картка переваг справа -->
+  <rect x="536" y="384" width="384" height="98" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="728" y="405" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Перевага: незламні тести та константна складність</text>
+  <text x="552" y="427" font-size="12" fill="#1a1a1a">• Мок верифікує лише 1 цільовий виклик: складність O(1)</text>
+  <text x="552" y="447" font-size="12" fill="#1a1a1a">• Повна ізоляція: зміни SQL чи ORM не зачіпають тест ядра</text>
+  <text x="552" y="467" font-size="12" fill="#6b7280">• Рефакторинг сховища не викликає помилкових спрацьовувань</text>
+</svg>

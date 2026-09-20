@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="33" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Топологія «зірка» навколо utils та радіус ураження</text>
+  <text x="480" y="53" font-size="13" fill="#6b7280" text-anchor="middle">Граничне вхідне зачеплення Ca і транзитивні бібліотеки піддають ризику 100% модулів (порушення CRP)</text>
+
+  <!-- Червоний контур: радіус ураження 100% модулів системи -->
+  <rect x="25" y="75" width="630" height="405" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="2" stroke-dasharray="8 5"/>
+
+  <!-- Плашка радіуса ураження -->
+  <rect x="40" y="87" width="225" height="24" rx="4" fill="#c0392b"/>
+  <text x="152" y="103" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">РАДІУС УРАЖЕННЯ: 100% МОДУЛІВ</text>
+  <text x="280" y="103" font-size="12" font-weight="700" fill="#c0392b">R(utils) = |V| − 1 = 5 / 5 модулів у зоні ризику</text>
+
+  <!-- Вузол: Модуль «Auth» -->
+  <rect x="65" y="125" width="140" height="54" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="135" y="146" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модуль «Auth»</text>
+  <text x="135" y="165" font-size="12" fill="#2457d6" text-anchor="middle">треба лише: hashToken()</text>
+
+  <!-- Вузол: Модуль «Orders» -->
+  <rect x="485" y="125" width="140" height="54" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="555" y="146" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модуль «Orders»</text>
+  <text x="555" y="165" font-size="12" fill="#2457d6" text-anchor="middle">треба лише: generateId()</text>
+
+  <!-- Вузол: Модуль «Reports» -->
+  <rect x="45" y="245" width="140" height="54" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="115" y="266" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модуль «Reports»</text>
+  <text x="115" y="285" font-size="12" fill="#2457d6" text-anchor="middle">треба лише: formatDate()</text>
+
+  <!-- Вузол: Модуль «Billing» -->
+  <rect x="65" y="365" width="140" height="54" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="135" y="386" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модуль «Billing»</text>
+  <text x="135" y="405" font-size="12" fill="#2457d6" text-anchor="middle">треба лише: formatMoney()</text>
+
+  <!-- Вузол: Модуль «Hub» -->
+  <rect x="485" y="365" width="140" height="54" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="555" y="386" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модуль «Hub»</text>
+  <text x="555" y="405" font-size="12" fill="#2457d6" text-anchor="middle">треба лише: calcCRC16()</text>
+
+  <!-- Центральний вузол: shared / utils -->
+  <rect x="250" y="235" width="190" height="74" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="345" y="254" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">shared / utils</text>
+  <text x="345" y="273" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Ca = 5 (вхідне зачеплення)</text>
+  <text x="345" y="292" font-size="12" fill="#c0392b" text-anchor="middle">епіцентр ураження</text>
+
+  <!-- Ребра залежностей: модулі -> utils (топологія зірки) -->
+  <line x1="185" y1="179" x2="275" y2="235" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="505" y1="179" x2="415" y2="235" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="185" y1="272" x2="250" y2="272" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="185" y1="365" x2="275" y2="309" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="505" y1="365" x2="415" y2="309" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Порушення CRP (нижня плашка контуру) -->
+  <rect x="40" y="442" width="600" height="26" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="50" y="459" font-size="12" font-weight="700" fill="#c0392b">Порушення CRP:</text>
+  <text x="155" y="459" font-size="12" fill="#1a1a1a">модулі змушені залежати від чужого коду та релізитись через чужі правки</text>
+
+  <!-- Права панель: транзитивні бібліотеки -->
+  <rect x="675" y="75" width="260" height="405" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок правої панелі -->
+  <rect x="690" y="87" width="230" height="24" rx="4" fill="#2457d6"/>
+  <text x="805" y="103" font-size="12" font-weight="700" fill="#ffffff" text-anchor="middle">ТРАНЗИТИВНІ БІБЛІОТЕКИ</text>
+
+  <!-- Зовнішня бібліотека 1 -->
+  <rect x="695" y="125" width="220" height="46" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="708" y="144" font-size="13" font-weight="700" fill="#1a1a1a">xml-parser</text>
+  <text x="708" y="161" font-size="12" fill="#6b7280">парсер XML (транзитивна ліба)</text>
+
+  <!-- Зовнішня бібліотека 2 -->
+  <rect x="695" y="185" width="220" height="46" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="708" y="204" font-size="13" font-weight="700" fill="#1a1a1a">crypto-core</text>
+  <text x="708" y="221" font-size="12" fill="#6b7280">криптографія та хешування</text>
+
+  <!-- Зовнішня бібліотека 3 -->
+  <rect x="695" y="245" width="220" height="46" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="708" y="264" font-size="13" font-weight="700" fill="#1a1a1a">date-fns</text>
+  <text x="708" y="281" font-size="12" fill="#6b7280">робота з датами та часом</text>
+
+  <!-- Зв'язок utils -> транзитивні бібліотеки -->
+  <path d="M 440,272 L 648,272" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 648,148 L 648,268" stroke="#2457d6" stroke-width="2"/>
+  <line x1="648" y1="148" x2="695" y2="148" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="648" y1="208" x2="695" y2="208" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="648" y1="268" x2="695" y2="268" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="544" y="262" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Ce = 3 (транзитивні ліби)</text>
+
+  <!-- Підсумок каскадного ефекту -->
+  <rect x="695" y="307" width="220" height="161" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="708" y="326" font-size="12" font-weight="700" fill="#c0392b">Каскадний ефект звалища:</text>
+
+  <text x="708" y="348" font-size="12" font-weight="700" fill="#1a1a1a">1. Транзитивний баласт</text>
+  <text x="708" y="364" font-size="12" fill="#6b7280">Усі 5 модулів тягнуть ці ліби,</text>
+  <text x="708" y="380" font-size="12" fill="#6b7280">хоч жоден не просив увесь стек.</text>
+
+  <text x="708" y="403" font-size="12" font-weight="700" fill="#1a1a1a">2. Чужі цикли випусків (REP)</text>
+  <text x="708" y="419" font-size="12" fill="#6b7280">Патч у лібі чи правка в Hub</text>
+  <text x="708" y="435" font-size="12" fill="#6b7280">змушує релізити навіть Billing.</text>
+
+  <text x="708" y="456" font-size="12" font-weight="700" fill="#c0392b">Радіус ураження = 100%</text>
+</svg>

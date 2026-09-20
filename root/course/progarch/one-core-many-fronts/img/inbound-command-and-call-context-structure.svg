@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Анатомія вхідної межі сценарію</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Адаптер розщеплює стимул на команду й нейтральний контекст, блокуючи транспорт поза ядром</text>
+
+  <!-- Ліва панель: Вхідний адаптер -->
+  <rect x="20" y="72" width="482" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Клієнтський адаптер точки входу (Inbound Adapter)</text>
+  <text x="36" y="112" font-size="12" fill="#6b7280">Транспортний шар: розбір зовнішнього стимулу, трансляція та розщеплення</text>
+
+  <!-- Підпанель: Зовнішній стимул -->
+  <rect x="36" y="126" width="164" height="298" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="146" font-size="12" font-weight="bold" fill="#1a1a1a">Зовнішній стимул</text>
+
+  <!-- Стимул: Секція 1 (Бізнес-дані) -->
+  <text x="46" y="168" font-size="12" font-weight="bold" fill="#2457d6">Бізнес-навантаження</text>
+  <text x="46" y="184" font-size="12" fill="#1a1a1a">JSON Body / CLI params:</text>
+  <text x="46" y="200" font-size="12" fill="#6b7280">{ &quot;sku&quot;: &quot;KB-9&quot;, &quot;qty&quot;: 2 }</text>
+
+  <line x1="46" y1="214" x2="190" y2="214" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Стимул: Секція 2 (Метадані) -->
+  <text x="46" y="232" font-size="12" font-weight="bold" fill="#27ae60">Наскрізні метадані</text>
+  <text x="46" y="248" font-size="12" fill="#1a1a1a">Headers / Token / Signal:</text>
+  <text x="46" y="264" font-size="12" fill="#6b7280">Bearer, traceparent, abort</text>
+
+  <line x1="46" y1="278" x2="190" y2="278" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Стимул: Секція 3 (Транспортні типи) -->
+  <text x="46" y="296" font-size="12" font-weight="bold" fill="#c0392b">Транспортний контекст</text>
+  <text x="46" y="312" font-size="12" fill="#1a1a1a">Сирі типи середовища:</text>
+  <text x="46" y="328" font-size="12" fill="#6b7280">• HttpContext, HttpRequest</text>
+  <text x="46" y="344" font-size="12" fill="#6b7280">• ClaimsPrincipal, Cookies</text>
+  <text x="46" y="360" font-size="12" fill="#6b7280">• TCP Socket, TLS сесія</text>
+  <text x="46" y="376" font-size="12" fill="#6b7280">• W3C raw headers</text>
+
+  <!-- Блоки обробки в адаптері -->
+  <rect x="226" y="126" width="262" height="84" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="238" y="146" font-size="12" font-weight="bold" fill="#2457d6">1. Виділення бізнес-наміру</text>
+  <text x="238" y="164" font-size="12" fill="#1a1a1a">Парсинг та валідація полів DTO</text>
+  <text x="238" y="182" font-size="12" fill="#6b7280">Конвертація типів: string/int →</text>
+  <text x="238" y="198" font-size="12" fill="#2457d6">типізований об&apos;єкт Command DTO</text>
+
+  <rect x="226" y="222" width="262" height="84" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="238" y="242" font-size="12" font-weight="bold" fill="#27ae60">2. Побудова CallContext</text>
+  <text x="238" y="260" font-size="12" fill="#1a1a1a">Екстракція наскрізних атрибутів</text>
+  <text x="238" y="278" font-size="12" fill="#6b7280">Токен → Subject, заголовок → TraceId,</text>
+  <text x="238" y="294" font-size="12" fill="#27ae60">AbortSignal → CancellationToken</text>
+
+  <rect x="226" y="318" width="262" height="106" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="238" y="338" font-size="12" font-weight="bold" fill="#c0392b">3. Повне відсікання транспорту</text>
+  <text x="238" y="356" font-size="12" fill="#1a1a1a">Блокування інфраструктурних типів:</text>
+  <text x="238" y="374" font-size="12" fill="#c0392b">HttpContext, Headers, Claims, Socket</text>
+  <text x="238" y="392" font-size="12" fill="#1a1a1a">Знищуються в адаптері точки входу;</text>
+  <text x="238" y="408" font-size="12" font-weight="bold" fill="#c0392b">⛔ заборонено проникнення в ядро</text>
+
+  <!-- Стрілки від стимулу до блоків адаптера -->
+  <line x1="200" y1="168" x2="224" y2="168" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="200" y1="264" x2="224" y2="264" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="200" y1="371" x2="224" y2="371" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Межа ядра з написом угорі -->
+  <line x1="522" y1="72" x2="522" y2="82" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="522" y="96" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Межа</text>
+  <text x="522" y="110" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">ядра</text>
+  <line x1="522" y1="116" x2="522" y2="440" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,4"/>
+
+  <!-- Бар&apos;єр відсікання для рядка 3 -->
+  <line x1="488" y1="371" x2="502" y2="371" stroke="#c0392b" stroke-width="2"/>
+  <line x1="504" y1="334" x2="504" y2="408" stroke="#c0392b" stroke-width="3"/>
+  <line x1="500" y1="367" x2="508" y2="375" stroke="#c0392b" stroke-width="2"/>
+  <line x1="500" y1="375" x2="508" y2="367" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Права панель: Прикладне ядро -->
+  <rect x="542" y="72" width="398" height="368" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="558" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Прикладне ядро (Application Core)</text>
+  <text x="558" y="112" font-size="12" fill="#6b7280">Драйвуючий порт: чисті структури та ізольований сценарій</text>
+
+  <!-- Стрілки перетину межі -->
+  <line x1="488" y1="168" x2="554" y2="168" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="488" y1="264" x2="554" y2="264" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Ядро: Рядок 1: Command DTO -->
+  <rect x="556" y="126" width="370" height="84" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="568" y="146" font-size="12" font-weight="bold" fill="#2457d6">Command DTO (Об&apos;єкт бізнес-наміру)</text>
+  <text x="568" y="164" font-size="12" fill="#1a1a1a">PlaceOrderCommand { Sku: Sku, Quantity: int }</text>
+  <text x="568" y="182" font-size="12" fill="#6b7280">• Чисті скаляри та об&apos;єкти-значення (Value Objects)</text>
+  <text x="568" y="198" font-size="12" fill="#2457d6">• Нуль прив&apos;язок до протоколу HTTP чи брокера</text>
+
+  <!-- Ядро: Рядок 2: CallContext -->
+  <rect x="556" y="222" width="370" height="84" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="568" y="242" font-size="12" font-weight="bold" fill="#27ae60">CallContext (Контекст виклику)</text>
+  <text x="568" y="260" font-size="12" fill="#1a1a1a">CallContext { Subject, TraceId, CancellationToken }</text>
+  <text x="568" y="278" font-size="12" fill="#6b7280">• Наскрізні метадані: суб&apos;єкт дії та кореляція</text>
+  <text x="568" y="294" font-size="12" fill="#27ae60">• Універсальний для всіх фронтів; чистий токен</text>
+
+  <!-- Ядро: Рядок 3: Вхідний драйвуючий порт -->
+  <rect x="556" y="318" width="370" height="106" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="568" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">Контракт драйвуючого порту (Driving Port)</text>
+  <text x="568" y="356" font-size="12" font-weight="bold"><tspan fill="#1a1a1a">Result&lt;OrderId&gt; Handle(</tspan><tspan fill="#2457d6">PlaceOrderCommand cmd</tspan><tspan fill="#1a1a1a">, </tspan><tspan fill="#27ae60">CallContext ctx</tspan><tspan fill="#1a1a1a">)</tspan></text>
+  <text x="568" y="374" font-size="12" fill="#1a1a1a">• Приймає виключно пару: (Command DTO, CallContext)</text>
+  <text x="568" y="392" font-size="12" fill="#27ae60">• Гарантована ізоляція: нові фронти не змінюють ядро</text>
+  <text x="568" y="408" font-size="12" fill="#6b7280">• Повертає типізований Result без HTTP-статусів</text>
+</svg>

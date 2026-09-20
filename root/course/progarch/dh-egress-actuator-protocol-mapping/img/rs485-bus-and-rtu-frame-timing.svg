@@ -1,0 +1,202 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фізичний рівень RS-485 та часові інтервали кадру Modbus RTU</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Узгодження 120 Ом усуває відбиття сигналу, а тиша t1.5 і t3.5 детектує межі та цілісність кадру</text>
+
+  <!-- ================================================================= -->
+  <!-- СЕКЦІЯ 1: Топологія шини RS-485 та узгодження лінії               -->
+  <!-- ================================================================= -->
+  <rect x="24" y="68" width="912" height="228" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="44" y="88" font-size="14" font-weight="bold" fill="#1a1a1a">1. Топологія шини RS-485 та узгодження лінії (диференційна пара)</text>
+
+  <!-- Позначення ліній зліва (поза лініями шини) -->
+  <text x="60" y="124" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">A (D+)</text>
+  <text x="60" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">B (D−)</text>
+
+  <!-- Магістральні диференційні лінії -->
+  <line x1="68" y1="120" x2="580" y2="120" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="68" y1="148" x2="580" y2="148" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Лівий термінальний резистор Rт1 = 120 Ом -->
+  <line x1="68" y1="120" x2="68" y2="127" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="62" y="127" width="12" height="14" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="68" y1="141" x2="68" y2="148" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="68" cy="120" r="3.5" fill="#2457d6"/>
+  <circle cx="68" cy="148" r="3.5" fill="#1a1a1a"/>
+  <text x="68" y="108" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Rт = 120 Ω</text>
+  <text x="68" y="168" font-size="12" fill="#27ae60" text-anchor="middle">Термінатор</text>
+
+  <!-- Правий термінальний резистор Rт2 = 120 Ом -->
+  <line x1="580" y1="120" x2="580" y2="127" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="574" y="127" width="12" height="14" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="580" y1="141" x2="580" y2="148" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="580" cy="120" r="3.5" fill="#2457d6"/>
+  <circle cx="580" cy="148" r="3.5" fill="#1a1a1a"/>
+  <text x="580" y="108" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Rт = 120 Ω</text>
+  <text x="580" y="168" font-size="12" fill="#27ae60" text-anchor="middle">Термінатор</text>
+
+  <!-- Вузли відгалуження до Адаптера хоста -->
+  <circle cx="135" cy="120" r="3.5" fill="#2457d6"/>
+  <circle cx="165" cy="148" r="3.5" fill="#1a1a1a"/>
+  <line x1="135" y1="120" x2="135" y2="186" stroke="#2457d6" stroke-width="2"/>
+  <line x1="165" y1="148" x2="165" y2="186" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Блок: Адаптер хоста (Master) -->
+  <rect x="100" y="186" width="125" height="92" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="135" y="200" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">A</text>
+  <text x="165" y="200" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B</text>
+  <text x="162" y="222" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Адаптер хоста</text>
+  <text x="162" y="238" font-size="12" fill="#6b7280" text-anchor="middle">RS-485 Master</text>
+  <text x="162" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">Вихідний порт</text>
+  <text x="162" y="271" font-size="12" fill="#6b7280" text-anchor="middle">UART / Тransceiver</text>
+
+  <!-- Вузли відгалуження до Актуатора 1 -->
+  <circle cx="290" cy="120" r="3.5" fill="#2457d6"/>
+  <circle cx="320" cy="148" r="3.5" fill="#1a1a1a"/>
+  <line x1="290" y1="120" x2="290" y2="186" stroke="#2457d6" stroke-width="2"/>
+  <line x1="320" y1="148" x2="320" y2="186" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Блок: Шинний актуатор 1 (Slave 1) -->
+  <rect x="255" y="186" width="125" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="290" y="200" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">A</text>
+  <text x="320" y="200" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B</text>
+  <text x="317" y="222" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шинний актуатор 1</text>
+  <text x="317" y="238" font-size="12" fill="#2457d6" text-anchor="middle">Slave ID: 0x01</text>
+  <text x="317" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">Holding Registers</text>
+  <text x="317" y="271" font-size="12" fill="#6b7280" text-anchor="middle">Клапан / Привід</text>
+
+  <!-- Розрив шини між пристроями -->
+  <text x="400" y="238" font-size="14" font-weight="bold" fill="#6b7280" text-anchor="middle">···</text>
+
+  <!-- Вузли відгалуження до Актуатора N -->
+  <circle cx="450" cy="120" r="3.5" fill="#2457d6"/>
+  <circle cx="480" cy="148" r="3.5" fill="#1a1a1a"/>
+  <line x1="450" y1="120" x2="450" y2="186" stroke="#2457d6" stroke-width="2"/>
+  <line x1="480" y1="148" x2="480" y2="186" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Блок: Шинний актуатор N (Slave N) -->
+  <rect x="420" y="186" width="125" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="450" y="200" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">A</text>
+  <text x="480" y="200" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B</text>
+  <text x="482" y="222" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шинний актуатор N</text>
+  <text x="482" y="238" font-size="12" fill="#2457d6" text-anchor="middle">Slave ID: 0x0A</text>
+  <text x="482" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">Holding Registers</text>
+  <text x="482" y="271" font-size="12" fill="#6b7280" text-anchor="middle">Насос / Дозатор</text>
+
+  <!-- Панель 1-А: Сигнал з узгодженням (Rт = 120 Ом) -->
+  <rect x="616" y="92" width="304" height="86" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="628" y="110" font-size="12" font-weight="bold" fill="#27ae60">✓ Узгоджена шина (Rт = 120 Ом)</text>
+  <path d="M 632,152 L 656,152 L 656,128 L 686,128 L 686,152 L 716,152 L 716,128 L 746,128" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="762" y="132" font-size="12" font-weight="bold" fill="#27ae60">Чистий фронт</text>
+  <text x="762" y="148" font-size="12" fill="#1a1a1a">Немає відбиттів</text>
+  <text x="762" y="164" font-size="12" fill="#6b7280">Стійке зчитування</text>
+
+  <!-- Панель 1-Б: Сигнал без узгодження (неузгоджена лінія) -->
+  <rect x="616" y="190" width="304" height="86" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="628" y="208" font-size="12" font-weight="bold" fill="#c0392b">✗ Без термінаторів (неузгоджено)</text>
+  <path d="M 632,250 L 654,250 L 656,220 L 662,236 L 668,222 L 676,226 L 686,226 L 688,258 L 694,242 L 700,254 L 708,250 L 716,250 L 718,220 L 724,236 L 730,222 L 738,226 L 746,226" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="762" y="230" font-size="12" font-weight="bold" fill="#c0392b">Дзвін і викиди</text>
+  <text x="762" y="246" font-size="12" fill="#c0392b">Хибні переходи</text>
+  <text x="762" y="262" font-size="12" fill="#6b7280">Помилки в даних кадру</text>
+
+  <!-- ================================================================= -->
+  <!-- СЕКЦІЯ 2: Часова діаграма кадру Modbus RTU та інтервали тиші       -->
+  <!-- ================================================================= -->
+  <rect x="24" y="308" width="912" height="232" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="44" y="330" font-size="14" font-weight="bold" fill="#1a1a1a">2. Часова діаграма кадру Modbus RTU: межі t3.5 та неперервність t1.5</text>
+
+  <!-- Блок 2-1: Початкова міжкадрова тиша t3.5 -->
+  <rect x="40" y="344" width="118" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="99" y="366" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Тиша ≥ 3.5 симв.</text>
+  <text x="99" y="384" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтервал t3.5</text>
+  <text x="99" y="401" font-size="12" fill="#6b7280" text-anchor="middle">Шина вільна (MARK)</text>
+  <text x="99" y="416" font-size="12" fill="#27ae60" text-anchor="middle">Старт прийому</text>
+
+  <!-- Блок 2-2: Тіло кадру Modbus RTU -->
+  <rect x="172" y="344" width="476" height="80" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="410" y="360" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кадр Modbus RTU (міжсимвольний інтервал ≤ 1.5 t_char)</text>
+
+  <!-- Поле 1: Адреса веденого -->
+  <rect x="180" y="368" width="70" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="215" y="388" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Адреса</text>
+  <text x="215" y="404" font-size="12" fill="#6b7280" text-anchor="middle">1 байт</text>
+
+  <!-- Проміжок t1.5 №1 -->
+  <text x="271" y="382" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t1.5</text>
+  <line x1="256" y1="400" x2="284" y2="400" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Поле 2: Код функції -->
+  <rect x="292" y="368" width="78" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="331" y="388" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Функція</text>
+  <text x="331" y="404" font-size="12" fill="#6b7280" text-anchor="middle">1 байт</text>
+
+  <!-- Проміжок t1.5 №2 -->
+  <text x="391" y="382" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t1.5</text>
+  <line x1="376" y1="400" x2="404" y2="400" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Поле 3: Дані (Регістри / Уставка) -->
+  <rect x="412" y="368" width="116" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="470" y="388" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Поле даних</text>
+  <text x="470" y="404" font-size="12" fill="#6b7280" text-anchor="middle">Регістри / Уставка</text>
+
+  <!-- Проміжок t1.5 №3 -->
+  <text x="549" y="382" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t1.5</text>
+  <line x1="534" y1="400" x2="562" y2="400" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Поле 4: Контрольна сума CRC-16 -->
+  <rect x="570" y="368" width="68" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="604" y="388" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CRC-16</text>
+  <text x="604" y="404" font-size="12" fill="#6b7280" text-anchor="middle">2 байти</text>
+
+  <!-- Блок 2-3: Завершальна міжкадрова тиша t3.5 -->
+  <rect x="662" y="344" width="118" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="721" y="366" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Тиша ≥ 3.5 симв.</text>
+  <text x="721" y="384" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтервал t3.5</text>
+  <text x="721" y="401" font-size="12" fill="#6b7280" text-anchor="middle">Кінець посилки</text>
+  <text x="721" y="416" font-size="12" fill="#2457d6" text-anchor="middle">Обчислення CRC</text>
+
+  <!-- Блок 2-4: Наступний кадр / відповідь актуатора -->
+  <rect x="794" y="344" width="126" height="80" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="857" y="366" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Відповідь актуатора</text>
+  <text x="857" y="384" font-size="12" fill="#1a1a1a" text-anchor="middle">або новий запит</text>
+  <text x="857" y="401" font-size="12" fill="#6b7280" text-anchor="middle">Лише після t3.5</text>
+  <text x="857" y="416" font-size="12" fill="#27ae60" text-anchor="middle">Безпечна шина</text>
+
+  <!-- Картка пояснення: Правило t3.5 (Розділювач кадрів) -->
+  <rect x="36" y="438" width="434" height="88" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="48" y="456" font-size="12" font-weight="bold" fill="#2457d6">Правило t3.5: міжкадрова тиша (пауза ≥ 3.5 t_char)</text>
+  <text x="48" y="474" font-size="12" font-weight="bold" fill="#1a1a1a">• Детектор меж:</text>
+  <text x="162" y="474" font-size="12" fill="#6b7280">тиша сигналізує завершення кадру й старт нового</text>
+  <text x="48" y="492" font-size="12" font-weight="bold" fill="#27ae60">• Валідація кадру:</text>
+  <text x="170" y="492" font-size="12" fill="#27ae60">після t3.5 приймач рахує CRC і парсить команду</text>
+  <text x="48" y="510" font-size="12" font-weight="bold" fill="#c0392b">• Порушення (тиша &lt; t3.5):</text>
+  <text x="232" y="510" font-size="12" fill="#c0392b">кадри зливаються, помилка CRC</text>
+
+  <!-- Картка пояснення: Правило t1.5 (Неперервність байтів) -->
+  <rect x="490" y="438" width="434" height="88" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="502" y="456" font-size="12" font-weight="bold" fill="#2457d6">Правило t1.5: неперервність байтів (пауза ≤ 1.5 t_char)</text>
+  <text x="502" y="474" font-size="12" font-weight="bold" fill="#1a1a1a">• Допуск посилки:</text>
+  <text x="626" y="474" font-size="12" fill="#6b7280">максимальна пауза між сусідніми байтами в кадрі</text>
+  <text x="502" y="492" font-size="12" font-weight="bold" fill="#27ae60">• Нормальний стан:</text>
+  <text x="636" y="492" font-size="12" fill="#27ae60">байти передаються щільним безперервним потоком</text>
+  <text x="502" y="510" font-size="12" font-weight="bold" fill="#c0392b">• Порушення (пауза &gt; t1.5):</text>
+  <text x="686" y="510" font-size="12" fill="#c0392b">тайм-аут, неповний кадр відкидається</text>
+</svg>

@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Універсальний закон масштабованості: криві та ретроградний пік</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Квадратичний штраф узгодженості κ формує точку піку N*, за якою кластер обвалює швидкодію</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Графік залежностей C(N) -->
+  <rect x="24" y="72" width="580" height="386" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Зона корисного масштабування (тло зліва) -->
+  <path d="M 90,72 L 258.7,72 L 258.7,390 L 90,390 Z" fill="#e9f7ef" opacity="0.4"/>
+  <!-- Зона ретроградного колапсу (тло справа) -->
+  <path d="M 258.7,72 L 574,72 L 574,390 L 258.7,390 Z" fill="#fdecea" opacity="0.45"/>
+
+  <!-- Підписи зон угорі графіка -->
+  <text x="174" y="94" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Корисне масштабування</text>
+  <text x="174" y="110" font-size="12" fill="#27ae60" text-anchor="middle">Нахил dC/dN &gt; 0 (ріст)</text>
+
+  <text x="416" y="94" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона ретроградного колапсу</text>
+  <text x="416" y="110" font-size="12" fill="#c0392b" text-anchor="middle">Нахил dC/dN &lt; 0 (деградація)</text>
+
+  <!-- Шкала осі Y: засічки та значення -->
+  <line x1="85" y1="315.0" x2="90" y2="315.0" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="80" y="319.0" font-size="12" fill="#6b7280" text-anchor="end">10</text>
+
+  <line x1="85" y1="240.0" x2="90" y2="240.0" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="80" y="244.0" font-size="12" fill="#6b7280" text-anchor="end">20</text>
+
+  <line x1="85" y1="165.0" x2="90" y2="165.0" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="80" y="169.0" font-size="12" fill="#6b7280" text-anchor="end">30</text>
+
+  <!-- Плато насичення закону Амдала 1/σ = 33.33 -->
+  <line x1="260" y1="140.0" x2="565" y2="140.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="416" y="130" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Плато Амдала: 1/σ ≈ 33.3 (насичення)</text>
+
+  <!-- Засічки осі X -->
+  <line x1="166.7" y1="390" x2="166.7" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="166.7" y="408" font-size="12" fill="#6b7280" text-anchor="middle">20</text>
+
+  <line x1="396.7" y1="390" x2="396.7" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="396.7" y="408" font-size="12" fill="#6b7280" text-anchor="middle">80</text>
+
+  <line x1="550.0" y1="390" x2="550.0" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="550.0" y="408" font-size="12" fill="#6b7280" text-anchor="middle">120</text>
+
+  <!-- Осі координат -->
+  <line x1="90" y1="390" x2="574" y2="390" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr)"/>
+  <line x1="90" y1="390" x2="90" y2="94" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr)"/>
+  <text x="80" y="394" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="80" y="88" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">C(N)</text>
+  <text x="572" y="426" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Кількість вузлів N →</text>
+
+  <!-- Пунктирні проєкції піку N* на осі -->
+  <line x1="258.7" y1="288.0" x2="258.7" y2="390.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="90.0" y1="288.0" x2="258.7" y2="288.0" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="258.7" y="408" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">N* ≈ 44</text>
+  <text x="80" y="292.0" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">13.6</text>
+
+  <!-- 1. Лінійне масштабування C(N) = N -->
+  <line x1="90" y1="390" x2="225" y2="126" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="98" y="140" font-size="12" font-weight="bold" fill="#27ae60">C(N) = N</text>
+  <text x="98" y="154" font-size="12" fill="#27ae60">(ідеал)</text>
+
+  <!-- 2. Крива закону Амдала (насичення) -->
+  <polyline points="93.8,382.5 101.5,368.8 109.2,356.5 116.8,345.5 124.5,335.6 132.2,326.5 139.8,318.3 147.5,310.8 155.2,303.9 162.8,297.5 170.5,291.6 178.2,286.1 185.8,281.0 193.5,276.2 201.2,271.8 208.8,267.6 216.5,263.7 224.2,260.0 231.8,256.6 239.5,253.3 247.2,250.2 254.8,247.3 262.5,244.5 270.2,241.9 277.8,239.4 285.5,237.0 293.2,234.7 300.8,232.6 308.5,230.5 316.2,228.5 323.8,226.6 331.5,224.8 339.2,223.0 346.8,221.4 354.5,219.8 362.2,218.2 369.8,216.7 377.5,215.3 385.2,213.9 392.8,212.6 400.5,211.3 408.2,210.1 415.8,208.9 423.5,207.7 431.2,206.6 438.8,205.5 446.5,204.5 454.2,203.5 461.8,202.5 469.5,201.5 477.2,200.6 484.8,199.7 492.5,198.9 500.2,198.0 507.8,197.2 515.5,196.4 523.2,195.6 530.8,194.9 538.5,194.1 546.2,193.4" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <text x="350" y="172" font-size="12" font-weight="bold" fill="#2457d6">Закон Амдала (κ = 0)</text>
+  <text x="350" y="188" font-size="12" fill="#6b7280">черги σ = 0.03, плато 1/σ</text>
+
+  <!-- 3. Крива USL Ґюнтера -->
+  <polyline points="93.8,382.5 101.5,368.8 109.2,356.8 116.8,346.3 124.5,337.1 132.2,329.1 139.8,322.2 147.5,316.2 155.2,311.1 162.8,306.7 170.5,303.0 178.2,299.8 185.8,297.2 193.5,295.0 201.2,293.2 208.8,291.7 216.5,290.5 224.2,289.6 231.8,288.9 239.5,288.5 247.2,288.2 254.8,288.0 262.5,288.0 270.2,288.2 277.8,288.4 285.5,288.7 293.2,289.1 300.8,289.5 308.5,290.0 316.2,290.6 323.8,291.2 331.5,291.8 339.2,292.5 346.8,293.2 354.5,293.9 362.2,294.7 369.8,295.4 377.5,296.2 385.2,296.9 392.8,297.7 400.5,298.5 408.2,299.3 415.8,300.1 423.5,300.9 431.2,301.7 438.8,302.4 446.5,303.2 454.2,304.0 461.8,304.8 469.5,305.5 477.2,306.3 484.8,307.1 492.5,307.8 500.2,308.5 507.8,309.3 515.5,310.0 523.2,310.7 530.8,311.4 538.5,312.1 546.2,312.8" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="258.7" cy="288.0" r="5" fill="#c0392b"/>
+
+  <!-- Позначення піку USL -->
+  <text x="272" y="260" font-size="12" font-weight="bold" fill="#c0392b">Пік USL (N*, C_max)</text>
+  <text x="272" y="276" font-size="12" fill="#c0392b">N* ≈ 44, C_max ≈ 13.6</text>
+
+  <!-- Пояснення в ретроградній зоні -->
+  <text x="420" y="342" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Квадратичний штраф: κ · N · (N - 1)</text>
+  <text x="420" y="360" font-size="12" fill="#6b7280" text-anchor="middle">Витрати на узгодженість стану між вузлами</text>
+  <text x="420" y="376" font-size="12" fill="#6b7280" text-anchor="middle">спалюють більше часу, ніж дають нові сервери</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: 4 картки аналізу режимів -->
+
+  <!-- Картка 1: Лінійний ідеал -->
+  <rect x="620" y="72" width="316" height="86" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="634" y="92" font-size="13" font-weight="bold" fill="#27ae60">1. Лінійне масштабування (ідеал)</text>
+  <text x="634" y="110" font-size="12" font-weight="bold" fill="#1a1a1a">C(N) = N  (σ = 0, κ = 0)</text>
+  <text x="634" y="128" font-size="12" fill="#6b7280">• Повна незалежність (Shared Nothing)</text>
+  <text x="634" y="144" font-size="12" fill="#6b7280">• Подвоєння вузлів подвоює швидкість</text>
+
+  <!-- Картка 2: Закон Амдала -->
+  <rect x="620" y="170" width="316" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="634" y="190" font-size="13" font-weight="bold" fill="#2457d6">2. Закон Амдала (насичення)</text>
+  <text x="634" y="208" font-size="12" font-weight="bold" fill="#1a1a1a">C(N) = N / [1 + σ · (N - 1)]</text>
+  <text x="634" y="226" font-size="12" fill="#1a1a1a">• Лінійний штраф черг σ (конкуренція)</text>
+  <text x="634" y="242" font-size="12" fill="#6b7280">• Насичення: C(N) → 1/σ при N → ∞</text>
+  <text x="634" y="258" font-size="12" fill="#6b7280">• Швидкість не падає, але ріст згасає</text>
+
+  <!-- Картка 3: Закон Ґюнтера USL -->
+  <rect x="620" y="282" width="316" height="118" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="634" y="302" font-size="13" font-weight="bold" fill="#c0392b">3. Закон Ґюнтера USL (колапс)</text>
+  <text x="634" y="320" font-size="12" font-weight="bold" fill="#c0392b">C(N) = N / [1 + σ(N-1) + κ·N(N-1)]</text>
+  <text x="634" y="338" font-size="12" font-weight="bold" fill="#c0392b">• Пік: N* = √((1 - σ) / κ) ≈ 44</text>
+  <text x="634" y="354" font-size="12" fill="#1a1a1a">• Квадратичний штраф узгодженості κ</text>
+  <text x="634" y="370" font-size="12" fill="#6b7280">• При N &gt; N*: спад через обмін станом</text>
+  <text x="634" y="386" font-size="12" font-weight="bold" fill="#c0392b">➔ Ретроградний колапс: dC/dN &lt; 0!</text>
+
+  <!-- Картка 4: Архітектурний висновок -->
+  <rect x="620" y="412" width="316" height="44" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="634" y="428" font-size="12" font-weight="bold" fill="#1a1a1a">Архітектурний висновок:</text>
+  <text x="634" y="444" font-size="12" fill="#27ae60">Зменшуй координацію κ, а не заливай CPU!</text>
+</svg>
