@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 526" width="960" height="526" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="526" fill="white"/>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Теплові межі блокування мікромотора та механічний демпфер Servo Saver</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Заклинювання вала понад 3–4 с спалює колектор, а пружний важіль компенсує ударні піки навантаження</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: ТЕПЛОВИЙ РЕЖИМ -->
+  <rect x="24" y="68" width="446" height="434" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="38" y="78" width="418" height="26" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="247" y="96" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Нагрів колектора при блокуванні (I_stall ≈ 1.2 A, 5 В)</text>
+
+  <!-- ГРАФІЧНИЙ БОКС (ЛІВИЙ) -->
+  <rect x="38" y="118" width="418" height="232" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- ОСІ ГРАФІКА -->
+  <line x1="95" y1="310" x2="95" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="95" y1="310" x2="435" y2="310" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="65" y="134" font-size="12" font-weight="700" fill="#1a1a1a">T, °C</text>
+  <text x="280" y="340" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">t, с (тривалість заклинювання вала)</text>
+
+  <!-- ПОЗНАЧКИ НА ОСІ Y -->
+  <line x1="91" y1="178" x2="95" y2="178" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="88" y="182" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">130°</text>
+  <line x1="91" y1="214" x2="95" y2="214" stroke="#6b7280" stroke-width="1"/>
+  <text x="88" y="218" font-size="12" fill="#6b7280" text-anchor="end">100°</text>
+  <line x1="91" y1="262" x2="95" y2="262" stroke="#27ae60" stroke-width="1"/>
+  <text x="88" y="266" font-size="12" fill="#27ae60" text-anchor="end">60°</text>
+  <line x1="91" y1="304" x2="95" y2="304" stroke="#6b7280" stroke-width="1"/>
+  <text x="88" y="308" font-size="12" fill="#6b7280" text-anchor="end">25°</text>
+
+  <!-- ПОЗНАЧКИ НА ОСІ X -->
+  <line x1="95" y1="310" x2="95" y2="314" stroke="#6b7280" stroke-width="1"/>
+  <text x="95" y="326" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <line x1="145" y1="310" x2="145" y2="314" stroke="#6b7280" stroke-width="1"/>
+  <text x="145" y="326" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+  <line x1="195" y1="310" x2="195" y2="314" stroke="#6b7280" stroke-width="1"/>
+  <text x="195" y="326" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+  <line x1="245" y1="310" x2="245" y2="314" stroke="#6b7280" stroke-width="1"/>
+  <text x="245" y="326" font-size="12" fill="#6b7280" text-anchor="middle">3</text>
+  <line x1="295" y1="310" x2="295" y2="314" stroke="#6b7280" stroke-width="1"/>
+  <text x="295" y="326" font-size="12" fill="#6b7280" text-anchor="middle">4</text>
+  <line x1="345" y1="310" x2="345" y2="314" stroke="#6b7280" stroke-width="1"/>
+  <text x="345" y="326" font-size="12" fill="#6b7280" text-anchor="middle">5</text>
+  <line x1="395" y1="310" x2="395" y2="314" stroke="#6b7280" stroke-width="1"/>
+  <text x="395" y="326" font-size="12" fill="#6b7280" text-anchor="middle">6</text>
+
+  <!-- ЛІНІЯ КРИТИЧНОЇ ТЕМПЕРАТУРИ 130 °C -->
+  <line x1="95" y1="178" x2="265" y2="178" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,4"/>
+  <text x="102" y="172" font-size="12" font-weight="700" fill="#c0392b">T_крит = 130 °C</text>
+
+  <!-- ВЕРТИКАЛЬНА МЕЖА ЧАСУ ТЕПЛОВОГО ПРОБОЮ 3.5 c -->
+  <line x1="270" y1="310" x2="270" y2="185" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,4"/>
+
+  <!-- ЗОНА АВАРІЙНОГО DETACH (t < 0.2 c) -->
+  <line x1="105" y1="310" x2="105" y2="280" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="102" y="152" font-size="12" font-weight="700" fill="#27ae60">t_cut ≤ 0.2 с (detach)</text>
+
+  <!-- НАПИСИ В ЗОНІ ПРОБОЮ (праворуч від x=275) -->
+  <text x="278" y="206" font-size="12" font-weight="700" fill="#c0392b">t &gt; 3.5 с: термопробій</text>
+  <text x="278" y="222" font-size="12" fill="#c0392b">• Плавлення тримача</text>
+  <text x="278" y="238" font-size="12" fill="#c0392b">• Відпал щіток і КЗ</text>
+  <text x="278" y="254" font-size="12" fill="#c0392b">• Вигоряння якоря</text>
+
+  <!-- КРИВА НАГРІВУ КОЛЕКТОРА T(t) -->
+  <path d="M 95,304 C 135,300 175,260 225,215 S 295,155 355,136" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="180" y="212" font-size="12" font-weight="700" fill="#c0392b">T(t)</text>
+
+  <!-- ТОЧКИ НА КРИВІЙ -->
+  <circle cx="105" cy="301" r="3" fill="#27ae60"/>
+  <circle cx="270" cy="178" r="4" fill="#c0392b"/>
+
+  <!-- КАРТКА ТЕПЛОВИХ ВИСНОВКІВ (ЛІВА НИЖНЯ) -->
+  <rect x="38" y="364" width="418" height="126" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="50" y="384" font-size="13" font-weight="700" fill="#c0392b">Теплова динаміка заблокованого якоря:</text>
+  <text x="50" y="404" font-size="12" fill="#1a1a1a">• Струм блокування: якір стоїть, проти-ЕРС відсутня (E_emf = 0 В)</text>
+  <text x="50" y="422" font-size="12" fill="#1a1a1a">• Вся потужність P = I_stall² · R ≈ 5–6 Вт виділяється на колекторі</text>
+  <text x="50" y="440" font-size="12" fill="#c0392b">• За 3–4 с ламелі сягають 130 °C → плавиться пластиковий тримач</text>
+  <text x="50" y="458" font-size="12" fill="#27ae60">• Захист: моніторинг струму та виклик detach() за t &lt; 200 мс</text>
+  <text x="50" y="476" font-size="12" fill="#6b7280">• Статичне утримання: зниження моменту M_hold ≤ 0.35 · M_stall</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: SERVO SAVER -->
+  <rect x="490" y="68" width="446" height="434" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="504" y="78" width="418" height="26" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="713" y="96" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Кінематика демпфера Servo Saver (захист редуктора)</text>
+
+  <!-- ДІАГРАМНИЙ БОКС (ПРАВИЙ) -->
+  <rect x="504" y="118" width="418" height="232" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- СУБ-ПАНЕЛЬ 1: ШТАТНИЙ РУХ -->
+  <rect x="514" y="126" width="398" height="100" rx="5" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+  <text x="524" y="142" font-size="12" font-weight="700" fill="#27ae60">1. Штатний рух (M &lt; M_пор): жорсткий зв'язок, передача 1:1</text>
+
+  <!-- Вал сервопривода (штатний) -->
+  <circle cx="555" cy="182" r="14" fill="#cbd5e1" stroke="#475569" stroke-width="1.2"/>
+  <circle cx="555" cy="182" r="6" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+  <circle cx="555" cy="182" r="2.5" fill="#475569"/>
+  <text x="555" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Вал</text>
+
+  <!-- Первинна і вторинна ланки разом (штатний) -->
+  <path d="M 569,178 L 720,178 L 720,186 L 569,186 Z" fill="#e2e8f0" stroke="#475569" stroke-width="1.2"/>
+  <circle cx="720" cy="182" r="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Пружина попереднього натягу (штатна) -->
+  <path d="M 610,170 L 616,162 L 624,178 L 632,162 L 640,178 L 648,162 L 656,178 L 662,170" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="636" y="156" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Пружина (F_0)</text>
+
+  <!-- Стрілка тяги -->
+  <line x1="724" y1="182" x2="774" y2="182" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="749" y="174" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">F_тяг</text>
+
+  <!-- Текстова колонка стану 1 -->
+  <text x="804" y="164" font-size="12" font-weight="700" fill="#27ae60">Δα = 0°</text>
+  <text x="804" y="180" font-size="12" fill="#1a1a1a">Нульовий люфт</text>
+  <text x="804" y="196" font-size="12" fill="#1a1a1a">Пружина в спокої</text>
+  <text x="804" y="212" font-size="12" fill="#27ae60">Пряма передача</text>
+
+  <!-- СУБ-ПАНЕЛЬ 2: УДАРНЕ ПЕРЕВАНТАЖЕННЯ -->
+  <rect x="514" y="240" width="398" height="100" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="524" y="256" font-size="12" font-weight="700" fill="#c0392b">2. Ударне навантаження (F_удар &gt; F_0): пружна деформація</text>
+
+  <!-- Вал сервопривода (при ударі) -->
+  <circle cx="555" cy="296" r="14" fill="#cbd5e1" stroke="#475569" stroke-width="1.2"/>
+  <circle cx="555" cy="296" r="6" fill="#94a3b8" stroke="#334155" stroke-width="1"/>
+  <circle cx="555" cy="296" r="2.5" fill="#475569"/>
+  <text x="555" y="324" font-size="12" fill="#6b7280" text-anchor="middle">Вал</text>
+
+  <!-- Первинна ланка на валу (нерухома) -->
+  <path d="M 569,293 L 670,293 L 670,299 L 569,299 Z" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+
+  <!-- Вторинна ланка (відхилена ударом угору на Δα) -->
+  <path d="M 568,290 L 712,266 L 714,274 L 566,298 Z" fill="#fecaca" stroke="#c0392b" stroke-width="1.2"/>
+  <circle cx="713" cy="270" r="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+
+  <!-- Кут відхилення Δα -->
+  <path d="M 640,296 A 80 80 0 0 0 635,278" fill="none" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="648" y="290" font-size="12" font-weight="700" fill="#c0392b">Δα</text>
+
+  <!-- Стиснута пружина -->
+  <path d="M 606,282 L 610,274 L 616,288 L 622,274 L 628,288 L 634,274 L 640,288 L 644,282" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="618" y="268" font-size="12" font-weight="700" fill="#c0392b">Стиск Δx</text>
+
+  <!-- Стрілка сили удару (справа наліво) -->
+  <line x1="774" y1="270" x2="724" y2="270" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="749" y="262" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">F_удар</text>
+
+  <!-- Текстова колонка стану 2 -->
+  <text x="804" y="276" font-size="12" font-weight="700" fill="#c0392b">M ≤ M_пруж</text>
+  <text x="804" y="292" font-size="12" fill="#27ae60">Зуби цілі (без зрізу)</text>
+  <text x="804" y="308" font-size="12" fill="#1a1a1a">Енергія гаситься</text>
+  <text x="804" y="324" font-size="12" fill="#27ae60">E = ½ k·Δx²</text>
+
+  <!-- КАРТКА ПРИНЦИПУ ДІЇ СЕЙВЕРА (ПРАВА НИЖНЯ) -->
+  <rect x="504" y="364" width="418" height="126" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="516" y="384" font-size="13" font-weight="700" fill="#27ae60">Кінематичний захист редуктора (Servo Saver):</text>
+  <text x="516" y="404" font-size="12" fill="#1a1a1a">• Двохланковий важіль з'єднує шліци вала з тягою через пружину</text>
+  <text x="516" y="422" font-size="12" fill="#1a1a1a">• Попередній натяг F_0 утримує нульовий люфт у робочому діапазоні</text>
+  <text x="516" y="440" font-size="12" fill="#27ae60">• При ударі (F_удар &gt; F_0) ланки провертаються на кут Δα</text>
+  <text x="516" y="458" font-size="12" fill="#27ae60">• Пружина поглинає імпульс: піковий момент M &lt;&lt; M_зрізу зубів</text>
+  <text x="516" y="476" font-size="12" fill="#6b7280">• Обов'язковий у кермових трапеціях коліс та опорних лапах роботів</text>
+</svg>

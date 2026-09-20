@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Анатомічне порівняння оригінального привода Tower Pro та дешевої репліки</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Приховані дефекти підробок: пластикова шестерня, втулка замість підшипника та стоншені дроти</text>
+
+  <!-- Заголовки колонок -->
+  <rect x="24" y="70" width="444" height="34" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="246" y="92" text-anchor="middle" font-size="14" font-weight="700" fill="#27ae60">ОРИГІНАЛ TOWER PRO (MG90S)</text>
+
+  <rect x="492" y="70" width="444" height="34" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="714" y="92" text-anchor="middle" font-size="14" font-weight="700" fill="#c0392b">ДЕШЕВА РЕПЛІКА (Контрафакт)</text>
+
+  <!-- РЯДОК 1: Опора вала -->
+  <!-- Ліва картка (Оригінал) -->
+  <rect x="24" y="116" width="444" height="94" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="34" y="124" width="80" height="78" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Графіка: кулькопідшипник -->
+  <circle cx="74" cy="163" r="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="74" cy="163" r="19" fill="none" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <circle cx="93" cy="163" r="3.5" fill="#27ae60" stroke="#1e7e34" stroke-width="1"/>
+  <circle cx="87.4" cy="149.6" r="3.5" fill="#27ae60" stroke="#1e7e34" stroke-width="1"/>
+  <circle cx="74" cy="144" r="3.5" fill="#27ae60" stroke="#1e7e34" stroke-width="1"/>
+  <circle cx="60.6" cy="149.6" r="3.5" fill="#27ae60" stroke="#1e7e34" stroke-width="1"/>
+  <circle cx="55" cy="163" r="3.5" fill="#27ae60" stroke="#1e7e34" stroke-width="1"/>
+  <circle cx="60.6" cy="176.4" r="3.5" fill="#27ae60" stroke="#1e7e34" stroke-width="1"/>
+  <circle cx="74" cy="182" r="3.5" fill="#27ae60" stroke="#1e7e34" stroke-width="1"/>
+  <circle cx="87.4" cy="176.4" r="3.5" fill="#27ae60" stroke="#1e7e34" stroke-width="1"/>
+  <circle cx="74" cy="163" r="12" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="74" cy="163" r="6" fill="#cbd5e1" stroke="#64748b" stroke-width="1"/>
+  <!-- Текст картки 1 зліва -->
+  <text x="126" y="136" font-size="13" font-weight="700" fill="#27ae60">Вузол 1: Прецизійний кулькопідшипник</text>
+  <text x="126" y="155" font-size="12" fill="#1a1a1a">• Верхня опора вихідного вала — кулькова вальниця</text>
+  <text x="126" y="173" font-size="12" fill="#1a1a1a">• Радіальне биття &lt; 0.05 мм, нульовий люфт осі</text>
+  <text x="126" y="191" font-size="12" fill="#6b7280">• Захист посадкового місця кришки від розбивання</text>
+
+  <!-- Права картка (Репліка) -->
+  <rect x="492" y="116" width="444" height="94" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="502" y="124" width="80" height="78" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Графіка: пластикова втулка -->
+  <circle cx="542" cy="163" r="26" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="542" cy="163" r="17" fill="#fee2e2" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2"/>
+  <circle cx="545" cy="160" r="10" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.5"/>
+  <path d="M528,155 Q526,163 528,171" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <path d="M558,155 Q560,163 558,171" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <!-- Текст картки 1 справа -->
+  <text x="594" y="136" font-size="13" font-weight="700" fill="#c0392b">Вузол 1: Пластикова втулка ковзання</text>
+  <text x="594" y="155" font-size="12" fill="#1a1a1a">• Підшипник відсутній: вал спирається на пластик</text>
+  <text x="594" y="173" font-size="12" fill="#1a1a1a">• Швидке розбивання гнізда радіальними силами</text>
+  <text x="594" y="191" font-size="12" fill="#c0392b">• Наслідок: перекіс вала, заклинювання редуктора</text>
+
+  <!-- РЯДОК 2: Шестерні редуктора -->
+  <!-- Ліва картка (Оригінал) -->
+  <rect x="24" y="222" width="444" height="94" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="34" y="230" width="80" height="78" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Графіка: металеві шестерні -->
+  <circle cx="80" cy="256" r="20" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="80" cy="256" r="13" fill="#fef3c7" stroke="#b45309" stroke-width="1" stroke-dasharray="2,2"/>
+  <circle cx="80" cy="256" r="5" fill="#ffffff" stroke="#b45309" stroke-width="1"/>
+  <circle cx="56" cy="280" r="16" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+  <circle cx="56" cy="280" r="10" fill="#cbd5e1" stroke="#334155" stroke-width="1" stroke-dasharray="2,2"/>
+  <circle cx="56" cy="280" r="4" fill="#ffffff" stroke="#334155" stroke-width="1"/>
+  <circle cx="48" cy="250" r="8" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="48" cy="250" r="3" fill="#1a1a1a"/>
+  <!-- Текст картки 2 зліва -->
+  <text x="126" y="242" font-size="13" font-weight="700" fill="#27ae60">Вузол 2: Повністю металевий редуктор</text>
+  <text x="126" y="261" font-size="12" fill="#1a1a1a">• Усі ступені передачі: сплав латуні та алюмінію</text>
+  <text x="126" y="279" font-size="12" fill="#1a1a1a">• Зуби витримують крутний момент до 2.2 кг·см</text>
+  <text x="126" y="297" font-size="12" fill="#6b7280">• Стійкість зубів до ударів і перевантажень</text>
+
+  <!-- Права картка (Репліка) -->
+  <rect x="492" y="222" width="444" height="94" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="502" y="230" width="80" height="78" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Графіка: прихована пластикова шестерня -->
+  <circle cx="548" cy="256" r="20" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="548" cy="256" r="13" fill="#fef3c7" stroke="#b45309" stroke-width="1" stroke-dasharray="2,2"/>
+  <circle cx="548" cy="256" r="5" fill="#ffffff" stroke="#b45309" stroke-width="1"/>
+  <circle cx="524" cy="280" r="16" fill="#ffffff" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2"/>
+  <line x1="519" y1="275" x2="529" y2="285" stroke="#c0392b" stroke-width="2"/>
+  <line x1="529" y1="275" x2="519" y2="285" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="516" cy="250" r="8" fill="#e2e8f0" stroke="#475569" stroke-width="1.5"/>
+  <circle cx="516" cy="250" r="3" fill="#1a1a1a"/>
+  <!-- Текст картки 2 справа -->
+  <text x="594" y="242" font-size="13" font-weight="700" fill="#c0392b">Вузол 2: Прихована пластикова шестерня</text>
+  <text x="594" y="261" font-size="12" fill="#1a1a1a">• Первинна проміжна шестерня — з білого нейлону</text>
+  <text x="594" y="279" font-size="12" fill="#1a1a1a">• Метал нанесено лише на вихідний вал для омани</text>
+  <text x="594" y="297" font-size="12" fill="#c0392b">• Наслідок: зрізання пластикових зубів при ударі</text>
+
+  <!-- РЯДОК 3: Плата керування -->
+  <!-- Ліва картка (Оригінал) -->
+  <rect x="24" y="328" width="444" height="94" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="34" y="336" width="80" height="78" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Графіка: повноцінна плата -->
+  <rect x="42" y="344" width="64" height="62" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="48" y="356" width="22" height="24" rx="2" fill="#1a1a1a"/>
+  <rect x="45" y="359" width="3" height="3" fill="#94a3b8"/>
+  <rect x="45" y="367" width="3" height="3" fill="#94a3b8"/>
+  <rect x="45" y="375" width="3" height="3" fill="#94a3b8"/>
+  <path d="M70,362 L78,362 L78,354" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M70,374 L78,374 L78,382" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="76" y="348" width="16" height="10" rx="1" fill="#d97706" stroke="#92400e" stroke-width="1"/>
+  <rect x="76" y="378" width="16" height="10" rx="1" fill="#2457d6" stroke="#1d4ed8" stroke-width="1"/>
+  <!-- Текст картки 3 зліва -->
+  <text x="126" y="348" font-size="13" font-weight="700" fill="#27ae60">Вузол 3: Повноцінна плата з фільтрацією</text>
+  <text x="126" y="367" font-size="12" fill="#1a1a1a">• Повний набір блокувальних конденсаторів (LC/RC)</text>
+  <text x="126" y="385" font-size="12" fill="#1a1a1a">• Якісний резистивний шар потенціометра</text>
+  <text x="126" y="403" font-size="12" fill="#6b7280">• Стабільне утримання кута без шуму та джитеру</text>
+
+  <!-- Права картка (Репліка) -->
+  <rect x="492" y="328" width="444" height="94" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="502" y="336" width="80" height="78" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Графіка: спрощена схема без фільтрації -->
+  <rect x="510" y="344" width="64" height="62" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="530" cy="370" r="12" fill="#1a1a1a"/>
+  <rect x="548" y="350" width="14" height="8" rx="1" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <rect x="548" y="374" width="14" height="8" rx="1" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <polyline points="516,396 524,392 532,400 540,390 548,398 556,392 564,396" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Текст картки 3 справа -->
+  <text x="594" y="348" font-size="13" font-weight="700" fill="#c0392b">Вузол 3: Спрощена плата без фільтрації</text>
+  <text x="594" y="367" font-size="12" fill="#1a1a1a">• Відсутні конденсатори фільтрації живлення</text>
+  <text x="594" y="385" font-size="12" fill="#1a1a1a">• Тонкий графіт потенціометра швидко стирається</text>
+  <text x="594" y="403" font-size="12" fill="#c0392b">• Наслідок: збої схеми, тремтіння та джитер вала</text>
+
+  <!-- РЯДОК 4: Кабель і дроти -->
+  <!-- Ліва картка (Оригінал) -->
+  <rect x="24" y="434" width="444" height="94" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="34" y="442" width="80" height="78" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Графіка: товсті мідні дроти -->
+  <rect x="42" y="452" width="64" height="14" rx="3" fill="#78350f" stroke="#451a03" stroke-width="1"/>
+  <rect x="86" y="455" width="16" height="8" rx="2" fill="#d97706"/>
+  <rect x="42" y="474" width="64" height="14" rx="3" fill="#dc2626" stroke="#991b1b" stroke-width="1"/>
+  <rect x="86" y="477" width="16" height="8" rx="2" fill="#d97706"/>
+  <rect x="42" y="496" width="64" height="14" rx="3" fill="#ea580c" stroke="#9a3412" stroke-width="1"/>
+  <rect x="86" y="499" width="16" height="8" rx="2" fill="#d97706"/>
+  <!-- Текст картки 4 зліва -->
+  <text x="126" y="454" font-size="13" font-weight="700" fill="#27ae60">Вузол 4: Мідні жили нормального перерізу</text>
+  <text x="126" y="473" font-size="12" fill="#1a1a1a">• Калібр 26–28 AWG із чистої багатожильної міді (Cu)</text>
+  <text x="126" y="491" font-size="12" fill="#1a1a1a">• Опір R &lt; 0.08 Ом, просідання ΔU &lt; 0.08 В</text>
+  <text x="126" y="509" font-size="12" fill="#6b7280">• Стабільне живлення схеми при струмах 1.2 А</text>
+
+  <!-- Права картка (Репліка) -->
+  <rect x="492" y="434" width="444" height="94" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="502" y="442" width="80" height="78" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Графіка: тонкі CCA дроти -->
+  <rect x="510" y="452" width="64" height="14" rx="3" fill="#334155" stroke="#1e293b" stroke-width="1"/>
+  <rect x="554" y="457" width="16" height="4" rx="1" fill="#cbd5e1"/>
+  <rect x="510" y="474" width="64" height="14" rx="3" fill="#7f1d1d" stroke="#450a0a" stroke-width="1"/>
+  <rect x="554" y="479" width="16" height="4" rx="1" fill="#cbd5e1"/>
+  <rect x="510" y="496" width="64" height="14" rx="3" fill="#9a3412" stroke="#431407" stroke-width="1"/>
+  <rect x="554" y="501" width="16" height="4" rx="1" fill="#cbd5e1"/>
+  <!-- Текст картки 4 справа -->
+  <text x="594" y="454" font-size="13" font-weight="700" fill="#c0392b">Вузол 4: Стоншений обміднений дріт (CCA)</text>
+  <text x="594" y="473" font-size="12" fill="#1a1a1a">• Жили 30–32 AWG (обміднений алюміній або сталь)</text>
+  <text x="594" y="491" font-size="12" fill="#1a1a1a">• Високий опір: падіння напруги ΔU = 0.5–0.8 В</text>
+  <text x="594" y="509" font-size="12" fill="#c0392b">• Наслідок: просідання 5 В і скидання (Brownout)</text>
+</svg>

@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-axis" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Робочий цикл, нагрівання та пускові струми помпи RS-360SH</text>
+  <text x="480" y="55" font-size="13" text-anchor="middle" fill="#6b7280">Безперервна робота спалює мотор, а відсутність фільтрів живлення призводить до збою електроніки</text>
+
+  <!-- Ліва панель: Тепловий режим -->
+  <rect x="40" y="80" width="420" height="350" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="250" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Тепловий режим двигуна</text>
+  
+  <!-- Осі лівої панелі -->
+  <path d="M 80,390 L 430,390" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <path d="M 80,390 L 80,130" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="420" y="415" font-size="12" fill="#6b7280" text-anchor="end">Час роботи, хв</text>
+  <text x="80" y="120" font-size="12" fill="#6b7280" text-anchor="start">Температура корпуса, °C</text>
+
+  <!-- Критична межа -->
+  <path d="M 80,200 L 430,200" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="90" y="178" font-size="12" fill="#c0392b">
+    <tspan x="90" dy="0">Критична температура</tspan>
+    <tspan x="90" dy="14">(руйнування ізоляції)</tspan>
+  </text>
+
+  <!-- Графік 100% -->
+  <path d="M 80,370 Q 200,370 300,150" stroke="#c0392b" stroke-width="3" fill="none"/>
+  <text x="310" y="160" font-size="13" fill="#c0392b" text-anchor="start">Цикл 100%</text>
+  <text x="310" y="176" font-size="13" fill="#c0392b" text-anchor="start">(без обдуву)</text>
+
+  <!-- Графік 10% -->
+  <path d="M 80,370 Q 150,330 420,330" stroke="#27ae60" stroke-width="3" fill="none"/>
+  <text x="250" y="320" font-size="13" fill="#27ae60" text-anchor="start">Цикл 10% (рекомендовано)</text>
+
+  <!-- Права панель: Осцилограма пуску -->
+  <rect x="500" y="80" width="420" height="350" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <text x="710" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Осцилограма пуску</text>
+  
+  <!-- Осі правої панелі -->
+  <path d="M 540,390 L 890,390" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <path d="M 540,390 L 540,130" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-axis)"/>
+  <text x="880" y="415" font-size="12" fill="#6b7280" text-anchor="end">Час, мс</text>
+  <text x="540" y="120" font-size="12" fill="#6b7280" text-anchor="start">Струм та Напруга</text>
+
+  <!-- Графік струму -->
+  <path d="M 540,370 L 545,370 C 550,370 552,170 560,170 C 568,170 575,330 590,330 L 880,330" stroke="#c0392b" stroke-width="3" fill="none"/>
+  <text x="570" y="165" font-size="13" fill="#c0392b" text-anchor="start">Пусковий струм до 3 А</text>
+  <text x="870" y="322" font-size="13" fill="#c0392b" text-anchor="end">Номінальний (0.5 А)</text>
+
+  <!-- Графік напруги -->
+  <path d="M 540,230 L 545,230 C 550,230 552,290 560,290 C 568,290 575,230 590,230 L 880,230" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <text x="575" y="302" font-size="13" fill="#2457d6" text-anchor="start">Просідання напруги</text>
+  <text x="870" y="222" font-size="13" fill="#2457d6" text-anchor="end">Шина живлення (5 В)</text>
+</svg>

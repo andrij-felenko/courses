@@ -1,0 +1,260 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-alert" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Габаритні та монтажні розміри двигуна 130 і схема пресування шестерні</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Базування за лисками 15 мм, фланцеві гвинти М2 (l ≤ 1.5 мм) та розвантаження вала під час запресовування</text>
+
+  <!-- ВЕРХНЯ ПАНЕЛЬ: Розміри корпусу та фланця -->
+  <rect x="24" y="70" width="912" height="220" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="44" y="92" font-size="14" font-weight="bold" fill="#1a1a1a">1. Конструктивні розміри корпусу 130 та геометрія переднього фланця</text>
+
+  <!-- 1.1 ФЛАНЕЦЬ (Вигляд спереду) -->
+  <text x="145" y="108" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Вигляд спереду (фланець)</text>
+
+  <!-- Розмірна лінія лисок 15.0 мм -->
+  <line x1="111" y1="165" x2="111" y2="128" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="179" y1="165" x2="179" y2="128" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="111" y1="130" x2="179" y2="130" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="145" y="125" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">15.0 мм (лиски)</text>
+
+  <!-- Розмірна лінія діаметра дуг ⌀20.0 мм -->
+  <line x1="135" y1="154" x2="78" y2="154" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="135" y1="244" x2="78" y2="244" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="80" y1="154" x2="80" y2="244" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="74" y="203" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">⌀20.0 мм</text>
+
+  <!-- Контур фланця зі скошеними гранями -->
+  <path d="M 111.25 169.25 A 45 45 0 0 1 178.75 169.25 L 178.75 228.75 A 45 45 0 0 1 111.25 228.75 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.8"/>
+
+  <!-- Буртик підшипника ⌀6.0 мм -->
+  <circle cx="145" cy="199" r="13.5" fill="#cbd5e1" stroke="#334155" stroke-width="1.2"/>
+
+  <!-- Вихідний вал ⌀2.0 мм -->
+  <circle cx="145" cy="199" r="4.5" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Різьбові отвори 2×M2 -->
+  <circle cx="122.5" cy="199" r="4.5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="167.5" cy="199" r="4.5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <path d="M 119 199 A 6 6 0 1 1 122.5 205" fill="none" stroke="#6b7280" stroke-width="1"/>
+  <path d="M 164 199 A 6 6 0 1 1 167.5 205" fill="none" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Осьові штрихпунктирні лінії -->
+  <line x1="89" y1="199" x2="201" y2="199" stroke="#94a3b8" stroke-width="1" stroke-dasharray="6 3 2 3"/>
+  <line x1="145" y1="143" x2="145" y2="255" stroke="#94a3b8" stroke-width="1" stroke-dasharray="6 3 2 3"/>
+
+  <!-- Виноска буртика та вала -->
+  <line x1="155" y1="190" x2="195" y2="164" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-gray)"/>
+  <text x="199" y="161" font-size="12" font-weight="bold" fill="#1a1a1a">Буртик ⌀6.0 мм</text>
+  <text x="199" y="177" font-size="12" fill="#2457d6">Вал ⌀2.0 мм</text>
+
+  <!-- Розмірна лінія між отворами 10.0 мм -->
+  <line x1="122.5" y1="205" x2="122.5" y2="263" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="167.5" y1="205" x2="167.5" y2="263" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="122.5" y1="261" x2="167.5" y2="261" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-accent)" marker-end="url(#arr-accent)"/>
+  <text x="145" y="277" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">10.0 мм (2×М2)</text>
+
+
+  <!-- 1.2 ВИГЛЯД ЗБОКУ (Габаритні розміри) -->
+  <text x="440" y="108" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Вигляд збоку (габаритні розміри корпусу)</text>
+
+  <!-- Довжина сталевого корпусу 25.0 мм -->
+  <line x1="385" y1="151" x2="385" y2="128" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="497.5" y1="151" x2="497.5" y2="128" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="385" y1="130" x2="497.5" y2="130" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="441" y="125" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">25.0 мм (сталевий корпус)</text>
+
+  <!-- Виліт вала 9.0 мм -->
+  <line x1="505.6" y1="191" x2="505.6" y2="158" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="546.1" y1="191" x2="546.1" y2="158" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="505.6" y1="160" x2="546.1" y2="160" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-accent)" marker-end="url(#arr-accent)"/>
+  <text x="526" y="154" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">9.0 мм</text>
+
+  <!-- Висота буртика 1.8 мм -->
+  <line x1="501.5" y1="181" x2="501.5" y2="148" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="486" y="144" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1.8 мм</text>
+
+  <!-- Сталевий корпус мотора -->
+  <path d="M 385 154 L 497.5 154 L 497.5 244 L 385 244 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="385" y1="169.25" x2="497.5" y2="169.25" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 2"/>
+  <line x1="385" y1="228.75" x2="497.5" y2="228.75" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 2"/>
+
+  <!-- Задня пластикова кришка -->
+  <path d="M 367 169.25 L 385 169.25 L 385 228.75 L 367 228.75 Z" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M 362 193 L 367 193 L 367 205 L 362 205 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.2"/>
+
+  <!-- Тильний виступ сталевого вала -->
+  <path d="M 356 194.5 L 362 194.5 L 362 203.5 L 356 203.5 Z" fill="#cbd5e1" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Контактні пелюстки -->
+  <path d="M 346 175 L 367 175 L 367 181 L 346 181 Z" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+  <path d="M 346 217 L 367 217 L 367 223 L 346 223 Z" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+
+  <!-- Буртик переднього фланця -->
+  <path d="M 497.5 185.5 L 505.6 185.5 L 505.6 212.5 L 497.5 212.5 Z" fill="#cbd5e1" stroke="#334155" stroke-width="1.2"/>
+
+  <!-- Передній вихідний вал ⌀2.0 мм -->
+  <path d="M 505.6 194.5 L 546.1 194.5 L 546.1 203.5 L 505.6 203.5 Z" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Виноска вала ⌀2.0 мм -->
+  <line x1="535" y1="204" x2="558" y2="223" stroke="#2457d6" stroke-width="1" marker-start="url(#arr-accent)"/>
+  <text x="562" y="227" font-size="12" font-weight="bold" fill="#2457d6">Вал ⌀2.0 мм</text>
+
+  <!-- Виноска тильного торця вала -->
+  <line x1="356" y1="199" x2="318" y2="199" stroke="#2457d6" stroke-width="1" marker-start="url(#arr-accent)"/>
+  <text x="314" y="203" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Тильний торець</text>
+
+  <!-- Довжина з кришкою 29.0 мм -->
+  <line x1="367" y1="231" x2="367" y2="263" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="497.5" y1="246" x2="497.5" y2="263" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="367" y1="261" x2="497.5" y2="261" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr)" marker-end="url(#arr)"/>
+  <text x="432" y="277" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">29.0 мм (з кришкою)</text>
+
+
+  <!-- 1.3 ВНУТРІШНЄ ОБМЕЖЕННЯ ГВИНТІВ М2 -->
+  <rect x="645" y="82" width="275" height="194" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="782" y="99" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">⚠️ Монтаж фланця: гвинти М2</text>
+  <text x="782" y="115" font-size="12" fill="#6b7280" text-anchor="middle">Глибина загвинчування l ≤ 1.5 мм</text>
+
+  <!-- Кронштейн -->
+  <path d="M 660 138 L 678 138 L 678 200 L 660 200 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.2"/>
+
+  <!-- Стінка корпусу -->
+  <path d="M 678 138 L 690 138 L 690 200 L 678 200 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="678" y="132" font-size="12" fill="#1a1a1a" text-anchor="middle">Фланець</text>
+
+  <!-- Мідна обмотка ротора -->
+  <path d="M 708 138 L 749 138 L 749 196 L 708 196 Z" fill="#ffedd5" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="728" y="132" font-size="12" font-weight="bold" fill="#ea580c" text-anchor="middle">Якір</text>
+  <text x="728" y="167" font-size="12" fill="#ea580c" text-anchor="middle">витки</text>
+
+  <!-- Гвинт М2 -->
+  <path d="M 651 160 L 660 160 L 660 172 L 651 172 Z" fill="#94a3b8" stroke="#334155" stroke-width="1.2"/>
+  <path d="M 660 163 L 702 163 L 702 169 L 660 169 Z" fill="#94a3b8" stroke="#334155" stroke-width="1.2"/>
+
+  <!-- Зазор і небезпека -->
+  <line x1="708" y1="138" x2="708" y2="200" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3 2"/>
+  <line x1="702" y1="166" x2="715" y2="166" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-alert)"/>
+
+  <!-- Опис на картці -->
+  <text x="834" y="148" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Штатно: l ≤ 1.5 мм</text>
+  <text x="834" y="164" font-size="12" fill="#6b7280" text-anchor="middle">безпечний зазор</text>
+  <text x="834" y="184" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">l &gt; 1.5 мм: заклинює якір</text>
+
+  <rect x="655" y="210" width="255" height="54" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="782" y="227" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Довший гвинт здирає лак витків!</text>
+  <text x="782" y="243" font-size="12" fill="#6b7280" text-anchor="middle">Спричиняє КЗ або механічно блокує ротор</text>
+  <text x="782" y="258" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Захист: пружинна шайба або підбір l</text>
+
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Пресова посадка шестерні -->
+  <rect x="24" y="302" width="912" height="236" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="44" y="324" font-size="14" font-weight="bold" fill="#1a1a1a">2. Схема пресової посадки шестерні на вал ⌀2.0 мм (осьове навантаження F > 60 Н)</text>
+
+  <!-- 2.1 ПОМИЛКА: Упор у корпус -->
+  <rect x="44" y="334" width="432" height="192" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="260" y="354" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">❌ Помилка: упор у корпус або задню кришку</text>
+
+  <!-- Упор у пластикову кришку (помилковий) -->
+  <path d="M 105 395 L 138 395 L 138 455 L 105 455 Z" fill="#cbd5e1" stroke="#334155" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <text x="121" y="390" font-size="12" fill="#c0392b" text-anchor="middle">Упор у кришку</text>
+
+  <!-- Мотор: задня кришка під навантаженням -->
+  <path d="M 138 400 L 160 400 L 160 450 L 138 450 Z" fill="#fee2e2" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Тріщина кришки -->
+  <path d="M 138 421 L 143 425 L 139 429 L 144 433" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <line x1="140" y1="425" x2="168" y2="385" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-alert)"/>
+  <text x="172" y="382" font-size="12" font-weight="bold" fill="#c0392b">Продавлювання кришки</text>
+
+  <!-- Мотор: корпус -->
+  <path d="M 160 400 L 265 400 L 265 450 L 160 450 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 265 415 L 273 415 L 273 435 L 265 435 Z" fill="#cbd5e1" stroke="#334155" stroke-width="1.2"/>
+
+  <!-- Вал ротора -->
+  <path d="M 273 421 L 345 421 L 345 429 L 273 429 Z" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Шестерня -->
+  <path d="M 315 410 L 335 410 L 335 440 L 315 440 Z" fill="#fed7aa" stroke="#d97706" stroke-width="1.2"/>
+  <text x="325" y="405" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">Шестерня</text>
+
+  <!-- Пуансон преса -->
+  <path d="M 345 413 L 375 413 L 375 437 L 345 437 Z" fill="#94a3b8" stroke="#334155" stroke-width="1.2"/>
+
+  <!-- Сила запресовування F > 60 Н -->
+  <line x1="415" y1="425" x2="380" y2="425" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-alert)"/>
+  <text x="398" y="415" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">F &gt; 60 Н</text>
+
+  <!-- Небезпечне навантаження на втулки -->
+  <line x1="268" y1="425" x2="245" y2="468" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-alert)"/>
+  <text x="245" y="474" font-size="12" fill="#c0392b">Руйнування втулок ковзання</text>
+
+  <text x="260" y="496" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Осьове зусилля F проходить крізь підшипники й ротор</text>
+  <text x="260" y="514" font-size="12" fill="#6b7280" text-anchor="middle">Результат: тріщина кришки, деформація втулок, заклинювання</text>
+
+
+  <!-- 2.2 НОРМА: Упор у торець вала -->
+  <rect x="488" y="334" width="432" height="192" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="704" y="354" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">✅ Штатно: жорсткий упор у тильний торець вала</text>
+
+  <!-- Жорсткий сталевий упор преса -->
+  <path d="M 536 415 L 572 415 L 572 435 L 536 435 Z" fill="#94a3b8" stroke="#334155" stroke-width="1.5"/>
+  <text x="554" y="408" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Упор</text>
+
+  <!-- Зазор до задньої кришки -->
+  <line x1="578" y1="433" x2="558" y2="458" stroke="#27ae60" stroke-width="1" marker-start="url(#arr-success)"/>
+  <text x="558" y="470" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зазор (без тиску на кришку)</text>
+
+  <!-- Мотор: задня кришка -->
+  <path d="M 584 400 L 606 400 L 606 450 L 584 450 Z" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <path d="M 578 418 L 584 418 L 584 432 L 578 432 Z" fill="#e2e8f0" stroke="#64748b" stroke-width="1.2"/>
+
+  <!-- Тильний торець вала впирається в упор -->
+  <path d="M 572 421 L 578 421 L 578 429 L 572 429 Z" fill="#cbd5e1" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Мотор: корпус -->
+  <path d="M 606 400 L 711 400 L 711 450 L 606 450 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 711 415 L 719 415 L 719 435 L 711 435 Z" fill="#cbd5e1" stroke="#334155" stroke-width="1.2"/>
+
+  <!-- Вихідний вал ротора -->
+  <path d="M 719 421 L 791 421 L 791 429 L 719 429 Z" fill="#e2e8f0" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Лінія замикання зусилля всередині сталевого вала -->
+  <line x1="575" y1="425" x2="788" y2="425" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="5 2"/>
+
+  <!-- Шестерня -->
+  <path d="M 761 410 L 781 410 L 781 440 L 761 440 Z" fill="#fed7aa" stroke="#d97706" stroke-width="1.2"/>
+  <text x="771" y="405" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">Шестерня</text>
+
+  <!-- Пуансон преса -->
+  <path d="M 791 413 L 821 413 L 821 437 L 791 437 Z" fill="#94a3b8" stroke="#334155" stroke-width="1.2"/>
+
+  <!-- Сила запресовування F > 60 Н -->
+  <line x1="861" y1="425" x2="826" y2="425" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-success)"/>
+  <text x="844" y="415" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">F &gt; 60 Н</text>
+
+  <!-- Позначки розвантаження підшипників -->
+  <text x="655" y="374" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Навантаження на корпус F = 0 Н (захист втулок)</text>
+  <text x="655" y="390" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">F стиску замикається суто у валу</text>
+
+  <text x="704" y="496" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Жорсткий упор у торець вала захищає підшипники</text>
+  <text x="704" y="514" font-size="12" fill="#6b7280" text-anchor="middle">Втулки ковзання, якір і задня кришка повністю розвантажені</text>
+
+</svg>

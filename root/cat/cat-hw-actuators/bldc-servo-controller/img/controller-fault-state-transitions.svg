@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Діаграма переходів станів сервоконтролера й обробка аварій</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Апаратні тригери миттєво блокують силовий каскад, а вихід із Fault можливий лише через Disarmed</text>
+
+  <!-- СТАН 1: DISARMED -->
+  <rect x="40" y="85" width="220" height="120" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="150" y="110" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">DISARMED</text>
+  <text x="150" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Силовий міст знеструмлено</text>
+  <text x="52" y="150" font-size="12" fill="#1a1a1a">• Ключі у High-Z (ШІМ 0%)</text>
+  <text x="52" y="168" font-size="12" fill="#1a1a1a">• Вільний вибіг ротора</text>
+  <text x="52" y="186" font-size="12" fill="#6b7280">• Безпечний вихідний стан</text>
+
+  <!-- СТАН 2: ARMED -->
+  <rect x="370" y="85" width="220" height="120" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="110" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">ARMED</text>
+  <text x="480" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Готовність до комутації</text>
+  <text x="382" y="150" font-size="12" fill="#1a1a1a">• Драйвер ключів активний</text>
+  <text x="382" y="168" font-size="12" fill="#1a1a1a">• Заданий струм Iq = 0</text>
+  <text x="382" y="186" font-size="12" fill="#6b7280">• Очікування контуру керування</text>
+
+  <!-- СТАН 3: CLOSED-LOOP -->
+  <rect x="700" y="85" width="220" height="120" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="810" y="110" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">CLOSED-LOOP</text>
+  <text x="810" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Замкнений контур FOC</text>
+  <text x="712" y="150" font-size="12" fill="#1a1a1a">• Регулювання Iq, ω, θ</text>
+  <text x="712" y="168" font-size="12" fill="#1a1a1a">• Активна модуляція ШІМ</text>
+  <text x="712" y="186" font-size="12" fill="#6b7280">• Повний робочий момент</text>
+
+  <!-- ПЕРЕХОДИ МІЖ DISARMED ТА ARMED -->
+  <line x1="260" y1="118" x2="368" y2="118" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="315" y="110" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">CAN: Arm</text>
+
+  <line x1="370" y1="172" x2="262" y2="172" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="315" y="192" font-size="12" fill="#1a1a1a" text-anchor="middle">CAN: Disarm</text>
+
+  <!-- ПЕРЕХОДИ МІЖ ARMED ТА CLOSED-LOOP -->
+  <line x1="590" y1="118" x2="698" y2="118" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-accent)"/>
+  <text x="645" y="110" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Enable Loop</text>
+
+  <line x1="700" y1="172" x2="592" y2="172" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="645" y="192" font-size="12" fill="#1a1a1a" text-anchor="middle">Stop / Disarm</text>
+
+  <!-- ЛІНІЯ АВАРІЙНОГО ТРИГЕРА: CLOSED-LOOP -> FAULT -->
+  <line x1="760" y1="205" x2="760" y2="273" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="770" y="232" font-size="12" font-weight="700" fill="#c0392b">Апаратна аварія</text>
+  <text x="770" y="248" font-size="12" fill="#6b7280">Миттєве відключення ШІМ</text>
+  <text x="770" y="264" font-size="12" fill="#6b7280">Фіксація бітів у регістрі</text>
+
+  <!-- ПАНЕЛЬ FAULT (НИЗ ПРАВОРУЧ) -->
+  <rect x="495" y="275" width="425" height="220" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="707" y="300" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">СТАН FAULT (АВАРІЙНЕ БЛОКУВАННЯ)</text>
+  <text x="707" y="318" font-size="12" fill="#6b7280" text-anchor="middle">ШІМ миттєво вимкнено • Ключі у High-Z • Рух заблоковано</text>
+
+  <!-- Вкладений блок: Апаратні тригери аварій -->
+  <rect x="507" y="328" width="401" height="64" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="517" y="345" font-size="12" font-weight="700" fill="#c0392b">• Струм:</text>
+  <text x="575" y="345" font-size="12" fill="#1a1a1a">I_фази &gt; I_max (компаратор шунта / захист від КЗ)</text>
+  <text x="517" y="364" font-size="12" font-weight="700" fill="#c0392b">• Напруга:</text>
+  <text x="585" y="364" font-size="12" fill="#1a1a1a">V_bus &gt; V_max (сплеск напруги при гальмуванні)</text>
+  <text x="517" y="383" font-size="12" font-weight="700" fill="#c0392b">• Температура:</text>
+  <text x="615" y="383" font-size="12" fill="#1a1a1a">T_mosfet &gt; T_max (перегрів силового каскаду)</text>
+
+  <!-- Вкладений блок: Регістр помилок -->
+  <rect x="507" y="398" width="401" height="88" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="517" y="414" font-size="12" font-weight="700" fill="#1a1a1a">Регістр помилок (Fault Register):</text>
+  <text x="735" y="414" font-size="12" font-weight="700" fill="#c0392b">[Засувка / Latched]</text>
+
+  <!-- Бітові поля регістра -->
+  <rect x="517" y="424" width="120" height="54" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="577" y="442" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Bit 0: Overcurrent</text>
+  <text x="577" y="462" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">1 (Зафіксовано)</text>
+
+  <rect x="647" y="424" width="120" height="54" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="707" y="442" font-size="12" fill="#6b7280" text-anchor="middle">Bit 1: Overvoltage</text>
+  <text x="707" y="462" font-size="12" fill="#6b7280" text-anchor="middle">0 (Норма)</text>
+
+  <rect x="777" y="424" width="120" height="54" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="837" y="442" font-size="12" fill="#6b7280" text-anchor="middle">Bit 2: Overtemp</text>
+  <text x="837" y="462" font-size="12" fill="#6b7280" text-anchor="middle">0 (Норма)</text>
+
+  <!-- З'ЄДНАННЯ FAULT -> ОЧИЩЕННЯ ХОСТОМ -->
+  <line x1="495" y1="380" x2="467" y2="380" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- ПАНЕЛЬ ОЧИЩЕННЯ ХОСТОВИМ ДРАЙВЕРОМ (НИЗ ЛІВОРУЧ) -->
+  <rect x="40" y="275" width="425" height="220" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="252" y="300" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">ОЧИЩЕННЯ АВАРІЇ ХОСТОВИМ ДРАЙВЕРОМ</text>
+  <text x="252" y="318" font-size="12" fill="#6b7280" text-anchor="middle">Послідовність виходу зі стану блокування по шині CAN</text>
+
+  <!-- Вкладений блок: Кроки процедури -->
+  <rect x="52" y="328" width="401" height="104" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="62" y="348" font-size="12" font-weight="700" fill="#1a1a1a">1. Телеметрія:</text>
+  <text x="156" y="348" font-size="12" fill="#1a1a1a">Хост зчитує статус Fault та біти аварії (0x01)</text>
+
+  <text x="62" y="370" font-size="12" font-weight="700" fill="#1a1a1a">2. Нормалізація:</text>
+  <text x="170" y="370" font-size="12" fill="#1a1a1a">Спад струму до 0, охолодження моста (T &lt; T_safe)</text>
+
+  <text x="62" y="392" font-size="12" font-weight="700" fill="#2457d6">3. Clear Faults:</text>
+  <text x="166" y="392" font-size="12" fill="#1a1a1a">Хостовий драйвер надсилає команду скидання</text>
+
+  <text x="62" y="414" font-size="12" font-weight="700" fill="#27ae60">4. Скидання бітів:</text>
+  <text x="176" y="414" font-size="12" fill="#1a1a1a">Регістр помилок = 0x00 → перехід у Disarmed</text>
+
+  <!-- Вкладений блок: Попередження про безпеку -->
+  <rect x="52" y="438" width="401" height="48" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="252" y="456" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">⛔ Захист: прямий перехід Fault → Closed-Loop заборонено</text>
+  <text x="252" y="473" font-size="12" fill="#1a1a1a" text-anchor="middle">Після Clear Faults обов'язковий новий цикл Arm → Enable</text>
+
+  <!-- ЛІНІЯ ПОВЕРНЕННЯ В DISARMED -->
+  <line x1="120" y1="275" x2="120" y2="207" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="132" y="236" font-size="12" font-weight="700" fill="#27ae60">Clear Faults: успіх</text>
+  <text x="132" y="254" font-size="12" fill="#1a1a1a">Скидання у Disarmed</text>
+</svg>

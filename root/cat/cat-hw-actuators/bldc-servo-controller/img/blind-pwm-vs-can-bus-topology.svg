@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Радіальний ШІМ проти послідовного шлейфу шини CAN</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Шлейф CAN замінює пучок окремих дротів єдиною шиною з повною телеметрією</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Радіальний ШІМ -->
+  <rect x="24" y="66" width="444" height="434" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="80" width="132" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="106" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">РАДІАЛЬНИЙ ШІМ</text>
+  <text x="182" y="96" font-size="13" font-weight="700" fill="#1a1a1a">Керування «наосліп»</text>
+  <text x="40" y="118" font-size="12" fill="#6b7280">Окремий кабель до кожного привода без зворотного зв'язку</text>
+
+  <!-- Хост-контролер ШІМ -->
+  <rect x="40" y="136" width="100" height="176" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="90" y="156" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Хост (MCU)</text>
+  <text x="90" y="172" text-anchor="middle" font-size="12" fill="#6b7280">Таймери ШІМ</text>
+  <text x="132" y="204" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">ШІМ 1</text>
+  <text x="132" y="240" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">ШІМ 2</text>
+  <text x="132" y="276" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">ШІМ 3</text>
+  <text x="90" y="300" text-anchor="middle" font-size="12" fill="#6b7280">3 канали ШІМ</text>
+
+  <!-- Сервоприводи ШІМ -->
+  <rect x="330" y="140" width="122" height="44" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="391" y="158" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Сервопривід 1</text>
+  <text x="391" y="174" text-anchor="middle" font-size="12" fill="#6b7280">ШІМ-вхід (кут)</text>
+
+  <rect x="330" y="202" width="122" height="44" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="391" y="220" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Сервопривід 2</text>
+  <text x="391" y="236" text-anchor="middle" font-size="12" fill="#6b7280">ШІМ-вхід (кут)</text>
+
+  <rect x="330" y="264" width="122" height="44" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="391" y="282" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Сервопривід 3</text>
+  <text x="391" y="298" text-anchor="middle" font-size="12" fill="#6b7280">ШІМ-вхід (кут)</text>
+
+  <!-- Лінії зв'язку ШІМ (радіальний джгут) -->
+  <path d="M 140 200 L 175 200 L 205 162 L 322 162" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <path d="M 140 236 L 175 236 L 205 224 L 322 224" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <path d="M 140 272 L 175 272 L 205 286 L 322 286" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Позначення джгута проводів -->
+  <path d="M 175 190 L 180 190 L 180 282 L 175 282" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="255" y="150" text-anchor="middle" font-size="12" fill="#c0392b">Імпульс 1–2 мс →</text>
+  <text x="255" y="195" text-anchor="middle" font-size="12" fill="#6b7280">Окремий 3-жильний кабель</text>
+  <text x="255" y="312" text-anchor="middle" font-size="12" fill="#c0392b">Зворотний зв'язок відсутній</text>
+
+  <!-- Картка обмежень ШІМ -->
+  <rect x="40" y="328" width="412" height="158" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="56" y="352" font-size="13" font-weight="700" fill="#c0392b">Обмеження радіальної топології ШІМ:</text>
+  <text x="56" y="376" font-size="12" fill="#1a1a1a">• Пучок дротів: N приводів потребують 3×N окремих жил</text>
+  <text x="56" y="400" font-size="12" fill="#1a1a1a">• Робота наосліп: відсутній зв'язок за положенням і швидкістю</text>
+  <text x="56" y="424" font-size="12" fill="#1a1a1a">• Нуль діагностики: струм фаз і температура ключів невідомі</text>
+  <text x="56" y="448" font-size="12" fill="#1a1a1a">• Ресурс MCU: кожен мотор займає окремий апаратний таймер</text>
+  <text x="56" y="472" font-size="12" font-weight="700" fill="#c0392b">✖ Аварії: заклинювання чи перегрів не фіксуються хостом</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Шина CAN -->
+  <rect x="492" y="66" width="444" height="434" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="508" y="80" width="124" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="570" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">ШИНА CAN BUS</text>
+  <text x="640" y="96" font-size="13" font-weight="700" fill="#1a1a1a">Послідовний шлейф</text>
+  <text x="508" y="118" font-size="12" fill="#6b7280">Спільна цифрова шина з повною двосторонньою телеметрією</text>
+
+  <!-- Хост CAN -->
+  <rect x="508" y="136" width="100" height="176" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="558" y="156" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Хост (MCU)</text>
+  <text x="558" y="172" text-anchor="middle" font-size="12" fill="#6b7280">CAN-драйвер</text>
+
+  <rect x="518" y="194" width="80" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="558" y="210" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">120 Ом (терм.)</text>
+
+  <text x="558" y="244" text-anchor="middle" font-size="12" fill="#6b7280">1 спільний порт</text>
+  <text x="558" y="264" text-anchor="middle" font-size="12" fill="#6b7280">на всі вузли</text>
+  <text x="558" y="292" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">1 Мбіт/с</text>
+
+  <!-- BLDC Сервоприводи CAN -->
+  <rect x="780" y="140" width="140" height="44" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="850" y="158" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">BLDC Серво 1</text>
+  <text x="850" y="174" text-anchor="middle" font-size="12" fill="#6b7280">ID: 0x01 (шлейф)</text>
+
+  <rect x="780" y="202" width="140" height="44" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="850" y="220" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">BLDC Серво 2</text>
+  <text x="850" y="236" text-anchor="middle" font-size="12" fill="#6b7280">ID: 0x02 (шлейф)</text>
+
+  <rect x="780" y="264" width="140" height="44" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="850" y="282" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">BLDC Серво 3</text>
+  <text x="850" y="298" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">ID: 0x03 + 120 Ом</text>
+
+  <!-- Лінія від Хоста до Серво 1 (горизонтальна) -->
+  <line x1="608" y1="158" x2="772" y2="158" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="772" y1="166" x2="616" y2="166" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- З'єднання між сервоприводами (послідовний шлейф) -->
+  <line x1="835" y1="184" x2="835" y2="198" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="865" y1="202" x2="865" y2="188" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <line x1="835" y1="246" x2="835" y2="260" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="865" y1="264" x2="865" y2="250" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Підписи на шині CAN між Хостом і Серво 1 -->
+  <text x="690" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Команди (ID, Pos, Spd) →</text>
+  <text x="690" y="184" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">← Телеметрія (Pos, I, t°)</text>
+
+  <!-- Інформаційна плашка про шлейф -->
+  <rect x="616" y="212" width="148" height="96" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="690" y="232" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Шлейф (Daisy-chain)</text>
+  <text x="690" y="254" text-anchor="middle" font-size="12" fill="#6b7280">• Вита пара CAN_H / L</text>
+  <text x="690" y="274" text-anchor="middle" font-size="12" fill="#6b7280">• Наскрізні роз'єми плат</text>
+  <text x="690" y="294" text-anchor="middle" font-size="12" fill="#2457d6">• Термінатори: 2×120 Ом</text>
+
+  <!-- Картка переваг CAN -->
+  <rect x="508" y="328" width="412" height="158" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="524" y="352" font-size="13" font-weight="700" fill="#27ae60">Переваги шинної топології CAN:</text>
+  <text x="524" y="376" font-size="12" fill="#1a1a1a">• Компактний шлейф: 2 дроти шини об'єднують до сотні вузлів</text>
+  <text x="524" y="400" font-size="12" fill="#1a1a1a">• Адресація: арбітражні ID розділяють команди між приводами</text>
+  <text x="524" y="424" font-size="12" fill="#1a1a1a">• Повна телеметрія: зворотний зв'язок за кутом, Iq, напругою та t°</text>
+  <text x="524" y="448" font-size="12" fill="#1a1a1a">• Економія портів MCU: потрібен лише 1 апаратний CAN-контролер</text>
+  <text x="524" y="472" font-size="12" font-weight="700" fill="#27ae60">✔ Надійність: хост своєчасно бачить аварії та скидає помилки</text>
+</svg>

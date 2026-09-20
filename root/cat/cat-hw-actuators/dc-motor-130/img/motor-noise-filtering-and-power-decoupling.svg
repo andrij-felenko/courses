@@ -1,0 +1,232 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Придушення комутаційних завад та розв'язка живлення двигуна 130</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Фільтр 3×C гасить іскріння щіток, а C_bulk і Star GND захищають мікроконтролер від пускових просідань</text>
+
+  <!-- ==================== ЗОНА 1: ЖИВЛЕННЯ ТА ЛОГІКА ==================== -->
+  <rect x="24" y="74" width="256" height="344" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="36" y="86" width="232" height="26" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="152" y="104" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Живлення та цифрова логіка</text>
+
+  <!-- Блок: Батарея / Джерело живлення -->
+  <rect x="38" y="122" width="104" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="90" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">БЖ / Батарея</text>
+  <text x="90" y="159" font-size="12" fill="#6b7280" text-anchor="middle">V_bat: 6–9 В</text>
+  <text x="90" y="177" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+V_bat | 0 В</text>
+
+  <!-- Точка Star GND (зіркова земля) -->
+  <circle cx="184" cy="172" r="5.5" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="184" y="162" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Star GND</text>
+
+  <!-- З'єднання від 0 В батареї до Star GND -->
+  <line x1="142" y1="172" x2="178" y2="172" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Блок: LDO Стабілізатор 3.3 В -->
+  <rect x="38" y="214" width="104" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="90" y="234" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">LDO 3.3 В</text>
+  <text x="90" y="252" font-size="12" fill="#6b7280" text-anchor="middle">Стабілізатор</text>
+  <text x="90" y="268" font-size="12" fill="#27ae60" text-anchor="middle">V_logic = 3.3 В</text>
+
+  <!-- Блок: Мікроконтролер MCU -->
+  <rect x="166" y="214" width="102" height="106" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="217" y="234" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">МК (MCU)</text>
+  <text x="217" y="252" font-size="12" fill="#6b7280" text-anchor="middle">Логіка 3.3 В</text>
+  <text x="217" y="280" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">GND_мк</text>
+  <text x="217" y="306" font-size="12" fill="#6b7280" text-anchor="middle">Захист від BOR</text>
+
+  <!-- Провідник V_bat до входу LDO -->
+  <path d="M 64,188 L 64,214" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Провідник V_logic (3.3 В) від LDO до MCU -->
+  <line x1="142" y1="244" x2="166" y2="244" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+
+  <!-- Чиста земля GND_мк від Star GND до MCU та LDO -->
+  <path d="M 184,178 L 184,214" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 184,198 L 116,198 L 116,214" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Пояснення в зоні 1 -->
+  <text x="152" y="356" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Чиста земля GND_мк: I ≈ 0 А</text>
+  <text x="152" y="376" font-size="12" fill="#6b7280" text-anchor="middle">Струм комутації di/dt не проходить</text>
+  <text x="152" y="394" font-size="12" fill="#6b7280" text-anchor="middle">крізь логічні ланцюги процесора</text>
+
+  <!-- ==================== ЗОНА 2: H-МІСТ ТА C_BULK ==================== -->
+  <rect x="294" y="74" width="278" height="344" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="306" y="86" width="254" height="26" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="433" y="104" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Силовий H-міст та C_bulk</text>
+
+  <!-- Напис над конденсаторами розв'язки -->
+  <text x="368" y="128" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Буферна розв'язка біля моста</text>
+
+  <!-- Силова шина +V_bat до C_bulk і V_m H-моста -->
+  <path d="M 142,142 L 444,142 L 444,176" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="142" cy="142" r="3.5" fill="#2457d6"/>
+  <circle cx="334" cy="142" r="3.5" fill="#2457d6"/>
+  <circle cx="396" cy="142" r="3.5" fill="#2457d6"/>
+  <text x="214" y="136" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+V_bat</text>
+
+  <!-- Силова земля PGND від Star GND до C_bulk і H-моста -->
+  <path d="M 184,172 L 206,172 L 206,210 L 444,210" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="334" cy="210" r="3.5" fill="#1a1a1a"/>
+  <circle cx="396" cy="210" r="3.5" fill="#1a1a1a"/>
+  <text x="240" y="204" font-size="12" font-weight="bold" fill="#1a1a1a">PGND</text>
+
+  <!-- Конденсатор C_bulk (електролітичний) -->
+  <line x1="334" y1="142" x2="334" y2="170" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="326" y1="170" x2="342" y2="170" stroke="#2457d6" stroke-width="2.2"/>
+  <line x1="326" y1="176" x2="342" y2="176" stroke="#2457d6" stroke-width="2.2"/>
+  <line x1="334" y1="176" x2="334" y2="210" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="345" y="167" font-size="12" font-weight="bold" fill="#2457d6">+</text>
+  <text x="322" y="163" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">C_bulk</text>
+  <text x="322" y="179" font-size="12" fill="#1a1a1a" text-anchor="end">470 мкФ</text>
+  <text x="322" y="195" font-size="12" fill="#6b7280" text-anchor="end">Low-ESR</text>
+
+  <!-- Конденсатор C_dec (керамічний ВЧ) -->
+  <line x1="396" y1="142" x2="396" y2="170" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="388" y1="170" x2="404" y2="170" stroke="#2457d6" stroke-width="2"/>
+  <line x1="388" y1="176" x2="404" y2="176" stroke="#2457d6" stroke-width="2"/>
+  <line x1="396" y1="176" x2="396" y2="210" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="408" y="163" font-size="12" font-weight="bold" fill="#2457d6">C_dec</text>
+  <text x="408" y="179" font-size="12" fill="#1a1a1a">100 нФ</text>
+  <text x="408" y="195" font-size="12" fill="#6b7280">Кераміка</text>
+
+  <!-- Блок: Драйвер H-моста -->
+  <rect x="444" y="122" width="120" height="174" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="504" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">H-міст (Драйвер)</text>
+  <text x="504" y="158" font-size="12" fill="#6b7280" text-anchor="middle">L9110 / DRV8833</text>
+  <text x="504" y="228" font-size="12" fill="#2457d6" text-anchor="middle">4× ключі</text>
+
+  <!-- Входи H-моста -->
+  <text x="450" y="180" font-size="12" font-weight="bold" fill="#2457d6">V_m</text>
+  <text x="450" y="214" font-size="12" font-weight="bold" fill="#1a1a1a">PGND</text>
+  <text x="450" y="254" font-size="12" fill="#2457d6">IN1</text>
+  <text x="450" y="280" font-size="12" fill="#2457d6">IN2</text>
+
+  <!-- Виходи H-моста -->
+  <text x="558" y="200" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">OUT1</text>
+  <text x="558" y="246" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">OUT2</text>
+
+  <!-- Керувальні лінії ШІМ та DIR від MCU до H-моста -->
+  <line x1="268" y1="250" x2="444" y2="250" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="356" y="244" font-size="12" fill="#2457d6" text-anchor="middle">ШІМ (PWM) швидкість</text>
+
+  <line x1="268" y1="276" x2="444" y2="276" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="356" y="270" font-size="12" fill="#2457d6" text-anchor="middle">DIR напрямок</text>
+
+  <!-- Пояснення в зоні 2 -->
+  <text x="433" y="324" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Локальний контур комутації струму</text>
+  <text x="433" y="344" font-size="12" fill="#6b7280" text-anchor="middle">C_bulk миттєво віддає струм пуску,</text>
+  <text x="433" y="362" font-size="12" fill="#6b7280" text-anchor="middle">не допускаючи падіння напруги на БЖ</text>
+  <text x="433" y="380" font-size="12" fill="#27ae60" text-anchor="middle">Окрема траса PGND захищає МК від V_bounce</text>
+
+  <!-- ==================== ЗОНА 3: ФІЛЬТР 3×C НА ДВИГУНІ 130 ==================== -->
+  <rect x="586" y="74" width="350" height="344" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="598" y="86" width="326" height="26" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="761" y="104" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Монтаж фільтра ЕМЗ 3×C на двигун 130</text>
+
+  <!-- Напис над корпусом двигуна -->
+  <text x="752" y="136" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двигун 130 (металевий корпус)</text>
+
+  <!-- Лінії від H-моста до двигуна OUT1 та OUT2 -->
+  <line x1="564" y1="196" x2="636" y2="196" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="564" y1="242" x2="636" y2="242" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Металевий корпус двигуна 130 -->
+  <rect x="636" y="148" width="236" height="142" rx="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Вал двигуна -->
+  <rect x="872" y="211" width="30" height="16" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="887" y="202" font-size="12" fill="#6b7280" text-anchor="middle">Вал</text>
+  <text x="887" y="242" font-size="12" fill="#2457d6" text-anchor="middle">2 мм</text>
+
+  <!-- Клеми живлення двигуна M1 і M2 -->
+  <circle cx="636" cy="196" r="4.5" fill="#1a1a1a"/>
+  <circle cx="636" cy="242" r="4.5" fill="#1a1a1a"/>
+  <text x="614" y="192" font-size="12" font-weight="bold" fill="#1a1a1a">M1</text>
+  <text x="614" y="254" font-size="12" font-weight="bold" fill="#1a1a1a">M2</text>
+
+  <!-- Внутрішній контур ротора й щіток -->
+  <circle cx="792" cy="219" r="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="792" y="223" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">M</text>
+  <rect x="788" y="199" width="8" height="4" fill="#1a1a1a"/>
+  <rect x="788" y="235" width="8" height="4" fill="#1a1a1a"/>
+  <line x1="752" y1="196" x2="788" y2="196" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="752" y1="242" x2="788" y2="242" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="814" y="215" font-size="12" font-weight="bold" fill="#c0392b">Іскри</text>
+  <text x="814" y="229" font-size="12" fill="#c0392b">щіток</text>
+
+  <!-- Конденсатор C1 (диференціальний між клемами) -->
+  <line x1="664" y1="196" x2="664" y2="216" stroke="#27ae60" stroke-width="1.8"/>
+  <line x1="656" y1="216" x2="672" y2="216" stroke="#27ae60" stroke-width="2"/>
+  <line x1="656" y1="222" x2="672" y2="222" stroke="#27ae60" stroke-width="2"/>
+  <line x1="664" y1="222" x2="664" y2="242" stroke="#27ae60" stroke-width="1.8"/>
+  <circle cx="664" cy="196" r="3" fill="#27ae60"/>
+  <circle cx="664" cy="242" r="3" fill="#27ae60"/>
+  <text x="664" y="184" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">C1: 10–100 нФ</text>
+  <text x="664" y="258" font-size="12" fill="#27ae60" text-anchor="middle">диференційний</text>
+
+  <!-- Конденсатор C2 (синфазний від M1 на корпус) -->
+  <line x1="724" y1="196" x2="724" y2="178" stroke="#27ae60" stroke-width="1.8"/>
+  <line x1="716" y1="178" x2="732" y2="178" stroke="#27ae60" stroke-width="2"/>
+  <line x1="716" y1="172" x2="732" y2="172" stroke="#27ae60" stroke-width="2"/>
+  <line x1="724" y1="172" x2="724" y2="148" stroke="#27ae60" stroke-width="1.8"/>
+  <circle cx="724" cy="196" r="3" fill="#27ae60"/>
+  <circle cx="724" cy="148" r="4" fill="#27ae60"/>
+  <text x="736" y="168" font-size="12" font-weight="bold" fill="#27ae60">C2: 10–47 нФ</text>
+  <text x="736" y="182" font-size="12" fill="#27ae60">(на корпус)</text>
+
+  <!-- Конденсатор C3 (синфазний від M2 на корпус) -->
+  <line x1="724" y1="242" x2="724" y2="262" stroke="#27ae60" stroke-width="1.8"/>
+  <line x1="716" y1="262" x2="732" y2="262" stroke="#27ae60" stroke-width="2"/>
+  <line x1="716" y1="268" x2="732" y2="268" stroke="#27ae60" stroke-width="2"/>
+  <line x1="724" y1="268" x2="724" y2="290" stroke="#27ae60" stroke-width="1.8"/>
+  <circle cx="724" cy="242" r="3" fill="#27ae60"/>
+  <circle cx="724" cy="290" r="4" fill="#27ae60"/>
+  <text x="736" y="266" font-size="12" font-weight="bold" fill="#27ae60">C3: 10–47 нФ</text>
+  <text x="736" y="280" font-size="12" fill="#27ae60">(на корпус)</text>
+
+  <!-- Заземлення корпусу двигуна -->
+  <line x1="826" y1="290" x2="826" y2="304" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="818" y1="304" x2="834" y2="304" stroke="#27ae60" stroke-width="2"/>
+  <line x1="821" y1="308" x2="831" y2="308" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="824" y1="312" x2="828" y2="312" stroke="#27ae60" stroke-width="1"/>
+  <text x="840" y="310" font-size="12" fill="#27ae60">Шасі / GND</text>
+
+  <!-- Пояснення в зоні 3 -->
+  <text x="761" y="340" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">C1 шунтує іскри щіток між клемами</text>
+  <text x="761" y="360" font-size="12" fill="#6b7280" text-anchor="middle">C2 і C3 замикають синфазний шум на метал корпусу</text>
+  <text x="761" y="380" font-size="12" fill="#1a1a1a" text-anchor="middle">Корпус екранує обмотки й не випромінює завади</text>
+
+  <!-- ==================== НИЖНІ ПІДСУМКОВІ КАРТКИ ==================== -->
+  <!-- Картка 1 -->
+  <rect x="24" y="430" width="292" height="76" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="170" y="450" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">✔ Зіркова земля (Star GND)</text>
+  <text x="170" y="470" font-size="12" fill="#1a1a1a" text-anchor="middle">Траси PGND та GND_мк сходяться в одній точці:</text>
+  <text x="170" y="488" font-size="12" fill="#6b7280" text-anchor="middle">di/dt мотора не викликає стрибка Ground Bounce</text>
+
+  <!-- Картка 2 -->
+  <rect x="334" y="430" width="292" height="76" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="480" y="450" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">✔ Буферний C_bulk біля моста</text>
+  <text x="480" y="470" font-size="12" fill="#1a1a1a" text-anchor="middle">Електроліт 100–470 мкФ компенсує струм пуску,</text>
+  <text x="480" y="488" font-size="12" fill="#6b7280" text-anchor="middle">запобігаючи скиданню процесора через Brown-Out</text>
+
+  <!-- Картка 3 -->
+  <rect x="644" y="430" width="292" height="76" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="790" y="450" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">✔ Фільтр 3×C на двигуні 130</text>
+  <text x="790" y="470" font-size="12" fill="#1a1a1a" text-anchor="middle">Диференційний C1 + синфазні C2, C3 на корпус</text>
+  <text x="790" y="488" font-size="12" fill="#6b7280" text-anchor="middle">придушують радіозавади безпосередньо у джерелі</text>
+</svg>

@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="560" fill="white"/>
+
+<defs>
+  <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+</defs>
+
+<!-- Header -->
+<text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Автомат станів C++ драйвера сервопривода: життєвий цикл та аварійний захист</text>
+<text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Миттєве блокування за таймаутом чи перевантаженням та 3-крокове безпечне відновлення</text>
+
+<!-- ================= ROW 1: NORMAL OPERATION ================= -->
+
+<!-- Start indicator -->
+<circle cx="33" cy="122" r="4" fill="#1a1a1a"/>
+<line x1="37" y1="122" x2="50" y2="122" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+<text x="33" y="110" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пуск</text>
+
+<!-- Node 1: UNINITIALIZED -->
+<rect x="50" y="75" width="150" height="95" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="125" y="99" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">UNINITIALIZED</text>
+<text x="125" y="120" font-size="12" fill="#1a1a1a" text-anchor="middle">Об'єкт створено</text>
+<text x="125" y="138" font-size="12" fill="#6b7280" text-anchor="middle">Зв'язок неактивний</text>
+<text x="125" y="156" font-size="12" fill="#6b7280" text-anchor="middle">Ліміти не задано</text>
+
+<!-- Transition 1 -> 2: configure() -->
+<line x1="200" y1="122" x2="290" y2="122" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+<text x="245" y="110" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">configure()</text>
+<text x="245" y="138" font-size="12" fill="#6b7280" text-anchor="middle">ліміти I, ω</text>
+<text x="245" y="154" font-size="12" fill="#6b7280" text-anchor="middle">soft limits</text>
+
+<!-- Node 2: CONFIGURED -->
+<rect x="290" y="75" width="150" height="95" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+<text x="365" y="99" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">CONFIGURED</text>
+<text x="365" y="120" font-size="12" fill="#1a1a1a" text-anchor="middle">Параметри валідні</text>
+<text x="365" y="138" font-size="12" fill="#6b7280" text-anchor="middle">Ліміти в пам'яті</text>
+<text x="365" y="156" font-size="12" fill="#6b7280" text-anchor="middle">Очікує init()</text>
+
+<!-- Transition 2 -> 3: init() -->
+<line x1="440" y1="122" x2="530" y2="122" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+<text x="485" y="110" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">init()</text>
+<text x="485" y="138" font-size="12" fill="#6b7280" text-anchor="middle">зв'язок OK</text>
+<text x="485" y="154" font-size="12" fill="#6b7280" text-anchor="middle">регістри sync</text>
+
+<!-- Node 3: READY -->
+<rect x="530" y="75" width="150" height="95" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+<text x="605" y="99" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">READY</text>
+<text x="605" y="120" font-size="12" fill="#1a1a1a" text-anchor="middle">Готовий до руху</text>
+<text x="605" y="138" font-size="12" fill="#6b7280" text-anchor="middle">ШІМ вимкнено (I=0)</text>
+<text x="605" y="156" font-size="12" fill="#6b7280" text-anchor="middle">Телеметрія активна</text>
+
+<!-- Transition 3 <-> 4: enable() / disable() -->
+<line x1="680" y1="107" x2="770" y2="107" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+<text x="725" y="97" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">enable()</text>
+
+<line x1="770" y1="143" x2="680" y2="143" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+<text x="725" y="159" font-size="12" fill="#6b7280" text-anchor="middle">disable()</text>
+
+<!-- Node 4: ACTIVE -->
+<rect x="770" y="75" width="165" height="95" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+<text x="852" y="99" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ACTIVE</text>
+<text x="852" y="120" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Замкнений FOC</text>
+<text x="852" y="138" font-size="12" fill="#1a1a1a" text-anchor="middle">pos / vel / torque</text>
+<text x="852" y="156" font-size="12" fill="#6b7280" text-anchor="middle">Watchdog скидається</text>
+
+<!-- ================= ROW 2: FAULT & EMERGENCY ================= -->
+
+<!-- Node 5: FAULT (Left) -->
+<rect x="50" y="270" width="220" height="95" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+<text x="160" y="294" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">FAULT</text>
+<text x="160" y="315" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аварійне блокування</text>
+<text x="160" y="333" font-size="12" fill="#6b7280" text-anchor="middle">Заборона команд руху</text>
+<text x="160" y="351" font-size="12" fill="#6b7280" text-anchor="middle">Очікує квитування</text>
+
+<!-- Hard reset transition: FAULT -> UNINITIALIZED -->
+<line x1="125" y1="270" x2="125" y2="170" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+<text x="115" y="210" font-size="12" fill="#6b7280" text-anchor="end">reset()</text>
+<text x="115" y="228" font-size="12" fill="#6b7280" text-anchor="end">апаратний скид</text>
+
+<!-- Node 6: EMERGENCY_STOP (Center) -->
+<rect x="370" y="270" width="235" height="95" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+<text x="487" y="294" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">EMERGENCY_STOP</text>
+<text x="487" y="315" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Активне гальмування / Hi-Z</text>
+<text x="487" y="333" font-size="12" fill="#6b7280" text-anchor="middle">Дингальмування: ω → 0</text>
+<text x="487" y="351" font-size="12" fill="#6b7280" text-anchor="middle">Вибіг: знеструмлення фаз</text>
+
+<!-- Transition: EMERGENCY_STOP -> FAULT -->
+<line x1="370" y1="317" x2="270" y2="317" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-red)"/>
+<text x="320" y="305" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ω = 0 / Hi-Z</text>
+<text x="320" y="333" font-size="12" fill="#6b7280" text-anchor="middle">вал зупинено</text>
+<text x="320" y="349" font-size="12" fill="#6b7280" text-anchor="middle">інвертор вимк</text>
+
+<!-- Transition: ACTIVE -> EMERGENCY_STOP with triggers -->
+<path d="M 852,170 L 852,317 L 605,317" stroke="#c0392b" stroke-width="2" fill="none" marker-end="url(#arr-red)"/>
+<text x="838" y="195" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">emergencyStop() [E-STOP]</text>
+<text x="838" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Watchdog timeout &gt; 50 ms</text>
+<text x="838" y="235" font-size="12" fill="#c0392b" text-anchor="end">Stall: |θ_err| &gt; ε при I_max</text>
+<text x="838" y="255" font-size="12" fill="#c0392b" text-anchor="end">Fault reg: I_peak, U_bus, T_inv</text>
+<text x="838" y="275" font-size="12" fill="#6b7280" text-anchor="end">Тригери аварійної зупинки</text>
+
+<!-- Direct return from Step 3 to READY -->
+<path d="M 715,427 L 715,380 L 635,380 L 635,170" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+<text x="625" y="200" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">rearmed</text>
+<text x="625" y="216" font-size="12" fill="#27ae60" text-anchor="end">[відновлено]</text>
+
+<!-- Transition: FAULT -> Step 1 (Safe Recovery) -->
+<line x1="160" y1="365" x2="160" y2="427" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+<text x="170" y="385" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">rearm_req</text>
+
+<!-- ================= ROW 3: SAFE RECOVERY SEQUENCE ================= -->
+<!-- Container panel -->
+<rect x="50" y="395" width="885" height="145" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+<text x="492" y="414" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">ПОСЛІДОВНІСТЬ БЕЗПЕЧНОГО ВІДНОВЛЕННЯ (SAFE RECOVERY PROTOCOL)</text>
+
+<!-- Step 1 Card -->
+<rect x="65" y="427" width="245" height="98" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="187" y="449" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. clearFaults()</text>
+<text x="187" y="469" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Квитування помилок</text>
+<text x="187" y="487" font-size="12" fill="#6b7280" text-anchor="middle">Опитування fault-регістра</text>
+<text x="187" y="505" font-size="12" fill="#6b7280" text-anchor="middle">Обнулення інтеграторів ПІД</text>
+
+<!-- Gap 1 -> 2 arrow -->
+<line x1="310" y1="476" x2="365" y2="476" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+<text x="337" y="466" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">OK</text>
+
+<!-- Step 2 Card -->
+<rect x="365" y="427" width="260" height="98" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+<text x="495" y="449" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">2. target_pos = actual_pos</text>
+<text x="495" y="469" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Синхронізація вала</text>
+<text x="495" y="487" font-size="12" fill="#6b7280" text-anchor="middle">Зчитування телеметрії</text>
+<text x="495" y="505" font-size="12" fill="#6b7280" text-anchor="middle">Запобігання ривку вала</text>
+
+<!-- Gap 2 -> 3 arrow -->
+<line x1="625" y1="476" x2="680" y2="476" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+<text x="652" y="466" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">OK</text>
+
+<!-- Step 3 Card -->
+<rect x="680" y="427" width="240" height="98" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+<text x="800" y="449" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">3. rearm()</text>
+<text x="800" y="469" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Взяття під контроль</text>
+<text x="800" y="487" font-size="12" fill="#1a1a1a" text-anchor="middle">Замикання контуру в точці</text>
+<text x="800" y="505" font-size="12" fill="#2457d6" text-anchor="middle">Перехід у READY →</text>
+
+</svg>

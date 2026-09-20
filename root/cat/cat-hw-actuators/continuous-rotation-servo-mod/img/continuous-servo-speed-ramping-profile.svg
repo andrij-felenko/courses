@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перехідний процес швидкості при реверсі: пряма команда vs керований рампінг</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Обмеження dω/dt усуває руйнівні стрибки струму й моменту, захищаючи редуктор</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: МИТТЄВИЙ РЕВЕРС ==================== -->
+  <rect x="24" y="68" width="444" height="424" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка лівої панелі -->
+  <rect x="36" y="80" width="420" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="246" y="101" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Миттєвий реверс: без обмеження прискорення</text>
+
+  <!-- Графік 1 (ліворуч): Швидкість ω(t) -->
+  <text x="40" y="130" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Швидкість вала ω(t)</text>
+  <line x1="220" y1="126" x2="245" y2="126" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="250" y="130" font-size="12" fill="#2457d6" text-anchor="start">v_cmd (±1.0)</text>
+  <line x1="360" y1="126" x2="385" y2="126" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="390" y="130" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Вал ω(t)</text>
+
+  <!-- Сітка графіка 1 (ліворуч) -->
+  <line x1="92" y1="145" x2="442" y2="145" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="92" y1="188" x2="442" y2="188" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="92" y1="231" x2="442" y2="231" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="92" y1="236" x2="92" y2="140" stroke="#6b7280" stroke-width="1"/>
+  <text x="92" y="136" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ω</text>
+
+  <!-- Підписи осі ω (ліворуч) -->
+  <text x="86" y="149" font-size="12" fill="#6b7280" text-anchor="end">+1.0</text>
+  <text x="86" y="192" font-size="12" fill="#6b7280" text-anchor="end">0.0</text>
+  <text x="86" y="235" font-size="12" fill="#6b7280" text-anchor="end">-1.0</text>
+
+  <!-- Лінія кроку команди v_cmd (ліворуч) -->
+  <path d="M 92,145 L 162,145 L 162,231 L 442,231" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="162" y1="145" x2="162" y2="231" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="162" y="247" font-size="12" fill="#2457d6" text-anchor="middle">t_step</text>
+
+  <!-- Крива реальної швидкості ω(t) (ліворуч) -->
+  <path d="M 92,145 L 162,145 C 166,145 170,236 182,236 C 190,236 195,231 205,231 L 442,231" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Пояснення до графіка швидкості (ліворуч) -->
+  <text x="235" y="163" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Миттєвий розрив швидкості</text>
+  <text x="235" y="179" font-size="12" fill="#6b7280" text-anchor="start">Ударний реверс без рампінгу</text>
+  <text x="435" y="202" font-size="12" fill="#6b7280" text-anchor="end">Час t →</text>
+
+  <!-- Графік 2 (ліворуч): Струм I(t) -->
+  <text x="40" y="260" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Струм двигуна I(t) та момент на валу</text>
+
+  <!-- Сітка графіка 2 (ліворуч) -->
+  <line x1="92" y1="356" x2="442" y2="356" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="92" y1="332" x2="442" y2="332" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+  <line x1="92" y1="306" x2="205" y2="306" stroke="#fdecea" stroke-dasharray="3,3"/>
+  <line x1="92" y1="358" x2="92" y2="275" stroke="#6b7280" stroke-width="1"/>
+  <text x="92" y="271" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">I</text>
+
+  <!-- Підписи осі I (ліворуч) -->
+  <text x="86" y="284" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">2×I_st</text>
+  <text x="86" y="310" font-size="12" fill="#6b7280" text-anchor="end">I_stall</text>
+  <text x="86" y="336" font-size="12" fill="#6b7280" text-anchor="end">I_nom</text>
+  <text x="86" y="360" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Затінення аварійного піка струму (ліворуч) -->
+  <path d="M 162,356 L 162,332 L 170,280 L 185,312 L 205,332 L 205,356 Z" fill="#fdecea"/>
+
+  <!-- Крива струму I(t) (ліворуч) -->
+  <path d="M 92,332 L 162,332 L 170,280 L 185,312 L 205,332 L 442,332" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Пояснення до графіка струму (ліворуч) -->
+  <text x="215" y="288" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Кидок струму (до 2×I_stall)</text>
+  <text x="215" y="304" font-size="12" fill="#c0392b" text-anchor="start">Ударний динамічний момент M_shock</text>
+  <text x="215" y="320" font-size="12" fill="#6b7280" text-anchor="start">Просідання VDD → ризик збою MCU</text>
+  <text x="435" y="370" font-size="12" fill="#6b7280" text-anchor="end">Час t →</text>
+
+  <!-- Картка наслідків (ліворуч) -->
+  <rect x="36" y="384" width="420" height="94" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="48" y="404" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">⚠ Наслідки миттєвого реверсу:</text>
+  <text x="48" y="424" font-size="12" fill="#1a1a1a" text-anchor="start">• Ударне перевантаження та зрізання зубів редуктора</text>
+  <text x="48" y="442" font-size="12" fill="#1a1a1a" text-anchor="start">• Імпульсний струм перегріває вихідні ключі H-моста</text>
+  <text x="48" y="460" font-size="12" fill="#1a1a1a" text-anchor="start">• Глибоке просідання шини живлення (brownout reset)</text>
+
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ПРОГРАМНИЙ РАМПІНГ ==================== -->
+  <rect x="492" y="68" width="444" height="424" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка правої панелі -->
+  <rect x="504" y="80" width="420" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="714" y="101" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Програмний рампінг: обмеження |dω/dt| ≤ a_max</text>
+
+  <!-- Графік 1 (праворуч): Швидкість ω(t) -->
+  <text x="508" y="130" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Швидкість вала ω(t)</text>
+  <line x1="688" y1="126" x2="713" y2="126" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="718" y="130" font-size="12" fill="#2457d6" text-anchor="start">v_cmd (±1.0)</text>
+  <line x1="828" y1="126" x2="853" y2="126" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="858" y="130" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Вал ω(t)</text>
+
+  <!-- Мертва зона (deadband навколо нуля) -->
+  <rect x="560" y="184" width="350" height="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="0.75" stroke-dasharray="2,2"/>
+
+  <!-- Сітка графіка 1 (праворуч) -->
+  <line x1="560" y1="145" x2="910" y2="145" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="560" y1="188" x2="910" y2="188" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="560" y1="231" x2="910" y2="231" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="560" y1="236" x2="560" y2="140" stroke="#6b7280" stroke-width="1"/>
+  <text x="560" y="136" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ω</text>
+
+  <!-- Підписи осі ω (праворуч) -->
+  <text x="554" y="149" font-size="12" fill="#6b7280" text-anchor="end">+1.0</text>
+  <text x="554" y="192" font-size="12" fill="#6b7280" text-anchor="end">0.0</text>
+  <text x="554" y="235" font-size="12" fill="#6b7280" text-anchor="end">-1.0</text>
+
+  <!-- Лінія кроку команди v_cmd (праворуч) -->
+  <path d="M 560,145 L 630,145 L 630,231 L 910,231" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="630" y1="145" x2="630" y2="231" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="630" y="247" font-size="12" fill="#2457d6" text-anchor="middle">t_step</text>
+
+  <!-- Крива швидкості з рампінгом ω(t) (праворуч) -->
+  <path d="M 560,145 L 630,145 L 695,184 L 715,192 L 780,231 L 910,231" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Пояснення до графіка швидкості (праворуч) -->
+  <text x="735" y="163" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Керований нахил dω/dt</text>
+  <text x="735" y="177" font-size="12" fill="#2457d6" text-anchor="start">Мертва зона: стоп вала (ω=0)</text>
+  <text x="903" y="202" font-size="12" fill="#6b7280" text-anchor="end">Час t →</text>
+
+  <!-- Графік 2 (праворуч): Струм I(t) -->
+  <text x="508" y="260" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Струм двигуна I(t) без пікових перевантажень</text>
+
+  <!-- Сітка графіка 2 (праворуч) -->
+  <line x1="560" y1="356" x2="910" y2="356" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="560" y1="332" x2="910" y2="332" stroke="#e5e7eb" stroke-dasharray="3,3"/>
+  <line x1="560" y1="306" x2="625" y2="306" stroke="#fdecea" stroke-dasharray="3,3"/>
+  <line x1="560" y1="358" x2="560" y2="275" stroke="#6b7280" stroke-width="1"/>
+  <text x="560" y="271" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">I</text>
+
+  <!-- Підписи осі I (праворуч) -->
+  <text x="554" y="310" font-size="12" fill="#c0392b" text-anchor="end">I_stall</text>
+  <text x="554" y="324" font-size="12" fill="#27ae60" text-anchor="end">I_accel</text>
+  <text x="554" y="336" font-size="12" fill="#6b7280" text-anchor="end">I_nom</text>
+  <text x="554" y="360" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Затінення безпечного струму (праворуч) -->
+  <path d="M 630,356 L 630,332 L 638,320 L 688,320 L 695,356 Z" fill="#e9f7ef"/>
+  <path d="M 715,356 L 722,320 L 772,320 L 780,332 L 780,356 Z" fill="#e9f7ef"/>
+
+  <!-- Крива струму I(t) з рампінгом (праворуч) -->
+  <path d="M 560,332 L 630,332 L 638,320 L 688,320 L 695,356 L 715,356 L 722,320 L 772,320 L 780,332 L 910,332" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Пояснення до графіка струму (праворуч) -->
+  <text x="635" y="285" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Струм без піків: I ≤ I_accel ≪ I_stall</text>
+  <text x="635" y="300" font-size="12" fill="#6b7280" text-anchor="start">Плавне наростання моменту, VDD стабільна</text>
+  <text x="705" y="370" font-size="12" fill="#2457d6" text-anchor="middle">I = 0 в мертвій зоні</text>
+  <text x="903" y="370" font-size="12" fill="#6b7280" text-anchor="end">Час t →</text>
+
+  <!-- Картка переваг (праворуч) -->
+  <rect x="504" y="384" width="420" height="94" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="516" y="404" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">✓ Переваги керованого рампінгу:</text>
+  <text x="516" y="424" font-size="12" fill="#1a1a1a" text-anchor="start">• Захист зубів редуктора від ударного гальмівного моменту</text>
+  <text x="516" y="442" font-size="12" fill="#1a1a1a" text-anchor="start">• Безударний перехід через мертву зону (нульовий струм)</text>
+  <text x="516" y="460" font-size="12" fill="#1a1a1a" text-anchor="start">• Стабільна напруга живлення VDD: відсутність brownout reset</text>
+</svg>

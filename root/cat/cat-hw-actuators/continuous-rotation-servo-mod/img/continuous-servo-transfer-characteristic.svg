@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Передавальна характеристика сервопривода постійного обертання</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Симетричний deadband гарантує спокій, вузький лінійний діапазон переходить у насичення, а stiction зсуває рушання</text>
+
+  <!-- ==================== ГОЛОВНА ВЕЛИКА ПАНЕЛЬ ГРАФІКА ==================== -->
+  <rect x="24" y="68" width="912" height="344" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Верхні банери 5 робочих областей -->
+  <!-- Область 1: Насичення CCW (110..268) -->
+  <rect x="110" y="76" width="158" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="189" y="92" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Насичення CCW</text>
+
+  <!-- Область 2: Лінійна CCW (282..408) -->
+  <rect x="282" y="76" width="126" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="345" y="92" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Лінійна CCW</text>
+
+  <!-- Область 3: Мертва зона (422..538) -->
+  <rect x="422" y="76" width="116" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="92" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Зона спокою</text>
+
+  <!-- Область 4: Лінійна CW (552..678) -->
+  <rect x="552" y="76" width="126" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="615" y="92" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">4. Лінійна CW</text>
+
+  <!-- Область 5: Насичення CW (692..850) -->
+  <rect x="692" y="76" width="158" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="771" y="92" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">5. Насичення CW</text>
+
+  <!-- Внутрішня рамка графіка -->
+  <rect x="44" y="106" width="872" height="294" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Центральна інформаційна плашка про мертву зону та сухе тертя -->
+  <rect x="350" y="116" width="260" height="88" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="134" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Мертва зона: |Δt| ≤ Δt_db (спокій)</text>
+  <text x="480" y="152" font-size="12" fill="#1a1a1a" text-anchor="middle">H-міст знеструмлено, шпаруватість D = 0%</text>
+  <text x="480" y="172" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">±Δt_stict: поріг рушання через сухе тертя</text>
+  <text x="480" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Тертя редуктора розширює зону спокою</text>
+
+  <!-- Осі координат -->
+  <!-- Горизонтальна вісь t_in (y = 250) -->
+  <line x1="70" y1="250" x2="884" y2="250" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="884" y="240" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">t_in (мкс) →</text>
+
+  <!-- Вертикальна вісь швидкості ω (x = 96) -->
+  <line x1="96" y1="384" x2="96" y2="120" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="104" y="126" font-size="12" font-weight="bold" fill="#1a1a1a">ω (рад/с) ↑</text>
+
+  <!-- Позначки на осі швидкості ω -->
+  <!-- +ω_max (y = 160) -->
+  <line x1="90" y1="160" x2="96" y2="160" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="86" y="164" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">+ω_max</text>
+
+  <!-- 0 (y = 250) -->
+  <text x="86" y="254" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0</text>
+
+  <!-- −ω_max (y = 340) -->
+  <line x1="90" y1="340" x2="96" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="86" y="344" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">−ω_max</text>
+
+  <!-- Пунктирні горизонтальні орієнтири швидкостей -->
+  <line x1="96" y1="160" x2="680" y2="160" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <line x1="96" y1="340" x2="280" y2="340" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+
+  <!-- ТЕОРЕТИЧНА КРИВА БЕЗ ТЕРТЯ (тонкий пунктир) -->
+  <!-- Від 280,340 до 455,250 -->
+  <line x1="280" y1="340" x2="455" y2="250" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.5"/>
+  <!-- Від 505,250 до 680,160 -->
+  <line x1="505" y1="250" x2="680" y2="160" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.5"/>
+
+  <!-- РЕАЛЬНА ПЕРЕДАВАЛЬНА ХАРАКТЕРИСТИКА (жирна лінія) -->
+  <!-- 1. Насичення CCW: 110..280, y=340 -->
+  <line x1="110" y1="340" x2="280" y2="340" stroke="#c0392b" stroke-width="3"/>
+  <!-- 2. Лінійне регулювання CCW: 280,340 .. 425,264 -->
+  <line x1="280" y1="340" x2="425" y2="264" stroke="#c0392b" stroke-width="3"/>
+  <!-- Стрибок рушання CCW: 425,264 до 425,250 -->
+  <line x1="425" y1="264" x2="425" y2="250" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <!-- 3. Зона спокою (Deadband + Stiction): 425..535, y=250 -->
+  <line x1="425" y1="250" x2="535" y2="250" stroke="#27ae60" stroke-width="5"/>
+  <!-- Стрибок рушання CW: 535,250 до 535,236 -->
+  <line x1="535" y1="250" x2="535" y2="236" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <!-- 4. Лінійне регулювання CW: 535,236 .. 680,160 -->
+  <line x1="535" y1="236" x2="680" y2="160" stroke="#2457d6" stroke-width="3"/>
+  <!-- 5. Насичення CW: 680..850, y=160 -->
+  <line x1="680" y1="160" x2="850" y2="160" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Ключові точки на характеристиці -->
+  <circle cx="280" cy="340" r="4" fill="#c0392b"/>
+  <circle cx="425" cy="264" r="3.5" fill="#c0392b"/>
+  <circle cx="425" cy="250" r="3.5" fill="#27ae60"/>
+  <circle cx="455" cy="250" r="3.5" fill="#27ae60"/>
+  <circle cx="480" cy="250" r="4.5" fill="#27ae60"/>
+  <circle cx="505" cy="250" r="3.5" fill="#27ae60"/>
+  <circle cx="535" cy="250" r="3.5" fill="#27ae60"/>
+  <circle cx="535" cy="236" r="3.5" fill="#2457d6"/>
+  <circle cx="680" cy="160" r="4" fill="#2457d6"/>
+
+  <!-- CW Описи (верхній правий квадрант) -->
+  <text x="765" y="132" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Полиця насичення +ω_max</text>
+  <text x="765" y="148" font-size="12" fill="#6b7280" text-anchor="middle">H-міст: 100% ШІМ (D = 100%)</text>
+
+  <text x="765" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Нахил K_ω = Δω / Δt</text>
+  <text x="765" y="202" font-size="12" fill="#6b7280" text-anchor="middle">Пропорційне регулювання CW</text>
+  <text x="765" y="220" font-size="12" fill="#2457d6" text-anchor="middle">Прямий хід вала (t_in &gt; t_0)</text>
+
+  <!-- CCW Описи (нижній лівий квадрант) -->
+  <text x="195" y="282" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Нахил K_ω = Δω / Δt</text>
+  <text x="195" y="300" font-size="12" fill="#6b7280" text-anchor="middle">Пропорційне регулювання CCW</text>
+  <text x="195" y="318" font-size="12" fill="#c0392b" text-anchor="middle">Реверс вала (t_in &lt; t_0)</text>
+
+  <text x="195" y="358" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Полиця насичення −ω_max</text>
+  <text x="195" y="374" font-size="12" fill="#6b7280" text-anchor="middle">H-міст: 100% ШІМ (реверс)</text>
+
+  <!-- Позначки та засічки на осі t_in -->
+  <!-- 1000 мкс (y = 268) -->
+  <line x1="120" y1="246" x2="120" y2="254" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="120" y="268" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1000 мкс</text>
+
+  <!-- Точка насичення CCW: -Δt_sat (y = 240) -->
+  <line x1="280" y1="246" x2="280" y2="254" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="280" y="240" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">−Δt_sat</text>
+
+  <!-- Поріг рушання CCW: -Δt_stict (y = 268) -->
+  <line x1="425" y1="246" x2="425" y2="254" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="415" y="268" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">−Δt_stict</text>
+
+  <!-- Межа мертвої зони CCW: -Δt_db (y = 280) -->
+  <line x1="455" y1="246" x2="455" y2="254" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="450" y="280" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">−Δt_db</text>
+
+  <!-- Центральна точка: t_0 та 1500 мкс -->
+  <line x1="480" y1="244" x2="480" y2="256" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="268" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_0</text>
+  <text x="480" y="284" font-size="12" fill="#27ae60" text-anchor="middle">1500 мкс</text>
+
+  <!-- Межа мертвої зони CW: +Δt_db (y = 280) -->
+  <line x1="505" y1="246" x2="505" y2="254" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="510" y="280" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">+Δt_db</text>
+
+  <!-- Поріг рушання CW: +Δt_stict (y = 268) -->
+  <line x1="535" y1="246" x2="535" y2="254" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="545" y="268" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">+Δt_stict</text>
+
+  <!-- Точка насичення CW: +Δt_sat (y = 240) -->
+  <line x1="680" y1="246" x2="680" y2="254" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="680" y="240" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+Δt_sat</text>
+
+  <!-- 2000 мкс (y = 268) -->
+  <line x1="840" y1="246" x2="840" y2="254" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="840" y="268" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2000 мкс</text>
+
+  <!-- ==================== НИЖНІ ІНФОРМАЦІЙНІ КАРТКИ ==================== -->
+  <!-- Картка 1: Насичення (x = 24..316) -->
+  <rect x="24" y="424" width="292" height="98" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="36" y="444" font-size="12" font-weight="bold" fill="#1a1a1a">1 &amp; 5. Зони насичення H-моста</text>
+  <text x="36" y="462" font-size="12" fill="#1a1a1a">• |Δt| ≥ Δt_sat: 100% шпаруватість ШІМ</text>
+  <text x="36" y="480" font-size="12" fill="#1a1a1a">• Гранична кутова швидкість: ±ω_max</text>
+  <text x="36" y="498" font-size="12" fill="#6b7280">• Подальше збільшення імпульсу не діє</text>
+
+  <!-- Картка 2: Лінійне регулювання (x = 332..628) -->
+  <rect x="332" y="424" width="296" height="98" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="344" y="444" font-size="12" font-weight="bold" fill="#1a1a1a">2 &amp; 4. Лінійне регулювання (K_ω)</text>
+  <text x="344" y="462" font-size="12" fill="#1a1a1a">• Нахил K_ω = ω_max / (Δt_sat − Δt_db)</text>
+  <text x="344" y="480" font-size="12" fill="#1a1a1a">• Пропорційне керування напругою мотора</text>
+  <text x="344" y="498" font-size="12" fill="#6b7280">• CW: t_in &gt; t_0; CCW: t_in &lt; t_0 (реверс)</text>
+
+  <!-- Картка 3: Deadband та Stiction (x = 644..936) -->
+  <rect x="644" y="424" width="292" height="98" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="656" y="444" font-size="12" font-weight="bold" fill="#27ae60">3. Мертва зона та сухе тертя</text>
+  <text x="656" y="462" font-size="12" fill="#1a1a1a">• Deadband |Δt| ≤ Δt_db: H-міст закритий</text>
+  <text x="656" y="480" font-size="12" fill="#1a1a1a">• Stiction |Δt| ≤ Δt_stict: тертя редуктора</text>
+  <text x="656" y="498" font-size="12" fill="#6b7280">• Δt_stict &gt; Δt_db: звужує робочий діапазон</text>
+</svg>

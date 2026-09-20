@@ -1,0 +1,266 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Перерозподіл енергії при регенерації та стрибок напруги DC-шини</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Односпрямований БЖ блокує зворотний струм: рекуперований заряд стікає в C_bus і піднімає напругу від V_nom до піку V_max</text>
+
+  <!-- ==================== ВЕРХНЯ ПАНЕЛЬ: ПРИНЦИПОВА СХЕМА ==================== -->
+  <rect x="24" y="68" width="912" height="226" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі схеми -->
+  <text x="40" y="90" font-size="14" font-weight="700" fill="#1a1a1a">1. Схема рекуперації: трифазний міст як випрямляч і запертий вихід блока живлення</text>
+  <text x="40" y="106" font-size="12" fill="#6b7280">Зворотна ЕРС мотора відкриває антипаралельні діоди MOSFET; вихідний діод БЖ закривається зворотним потенціалом</text>
+
+  <!-- ==================== 1. БЛОК ЖИВЛЕННЯ (PSU) ==================== -->
+  <rect x="42" y="122" width="128" height="154" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="106" y="137" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Блок живлення</text>
+
+  <!-- Внутрішнє коло БЖ та вихідний діод D_out (на одній осі з +V_bus y=142) -->
+  <line x1="54" y1="142" x2="80" y2="142" stroke="#6b7280" stroke-width="1.5"/>
+  <!-- Діод D_out (анод на x=80, катод на x=94, y=142) -->
+  <polygon points="80,135 80,149 94,142" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="94" y1="134" x2="94" y2="150" stroke="#c0392b" stroke-width="2"/>
+  <!-- Хрестик блокування діода -->
+  <line x1="82" y1="134" x2="96" y2="150" stroke="#c0392b" stroke-width="1.8"/>
+  <line x1="82" y1="150" x2="96" y2="134" stroke="#c0392b" stroke-width="1.8"/>
+  <!-- Дріт від катода до виходу БЖ -->
+  <line x1="94" y1="142" x2="170" y2="142" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+  <text x="106" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">D_out запертий</text>
+  <text x="106" y="177" text-anchor="middle" font-size="12" fill="#6b7280">V_bus &gt; V_nom</text>
+  <text x="106" y="192" text-anchor="middle" font-size="12" fill="#1a1a1a">DC PSU (+24 В)</text>
+
+  <!-- Блок статусу БЖ -->
+  <rect x="52" y="206" width="108" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="106" y="222" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">⛔ I_PSU = 0</text>
+  <text x="106" y="236" text-anchor="middle" font-size="12" fill="#c0392b">БЖ ізольований</text>
+
+  <!-- Земля БЖ -->
+  <line x1="54" y1="262" x2="170" y2="262" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- ==================== DC-ШИНА ТА КОНДЕНСАТОР C_BUS ==================== -->
+  <!-- +V_bus шина -->
+  <line x1="170" y1="142" x2="430" y2="142" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="180" y="134" font-size="12" font-weight="700" fill="#c0392b">+V_bus (зростає до V_max)</text>
+
+  <!-- Стрілка рекуперативного струму на шині (тече вліво від інвертора до конденсатора) -->
+  <line x1="410" y1="142" x2="340" y2="142" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="375" y="134" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">I_regen ←</text>
+
+  <!-- GND шина -->
+  <line x1="170" y1="262" x2="430" y2="262" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="180" y="278" font-size="12" font-weight="700" fill="#1a1a1a">GND (0 В)</text>
+
+  <!-- Конденсатор C_bus -->
+  <!-- Струм в конденсатор -->
+  <line x1="250" y1="142" x2="250" y2="178" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="260" y="162" font-size="12" font-weight="700" fill="#2457d6">I_ch ↓</text>
+  <!-- Пластини C_bus -->
+  <line x1="234" y1="188" x2="266" y2="188" stroke="#2457d6" stroke-width="3"/>
+  <line x1="234" y1="196" x2="266" y2="196" stroke="#2457d6" stroke-width="3"/>
+  <line x1="250" y1="196" x2="250" y2="262" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Позначення C_bus -->
+  <text x="274" y="186" font-size="12" font-weight="700" fill="#2457d6">C_bus</text>
+  <text x="274" y="200" font-size="12" fill="#6b7280">470–1000 мкФ</text>
+  <text x="274" y="215" font-size="12" font-weight="700" fill="#c0392b">Акумулює ΔQ</text>
+  <text x="274" y="230" font-size="12" fill="#1a1a1a">ΔE = ½ C·ΔV²</text>
+
+  <!-- ==================== 2. ТРИФАЗНИЙ МІСТ ІНВЕРТОРА ==================== -->
+  <rect x="430" y="122" width="250" height="154" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="555" y="138" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Трифазний міст інвертора (випрямляч)</text>
+
+  <!-- Шини всередині інвертора -->
+  <line x1="430" y1="142" x2="670" y2="142" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="430" y1="262" x2="670" y2="262" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- ФАЗА U (x = 485) -->
+  <!-- Верхній діод D1 (АКТИВНИЙ ЗЕЛЕНИЙ: проводить регенерацію у шину +V_bus) -->
+  <line x1="485" y1="142" x2="485" y2="162" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="477" y1="162" x2="493" y2="162" stroke="#27ae60" stroke-width="2"/>
+  <polygon points="477,176 493,176 485,162" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="485" y1="176" x2="485" y2="202" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="485" y1="194" x2="485" y2="178" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="470" y="172" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">D1</text>
+  <!-- Вузол U -->
+  <circle cx="485" cy="202" r="3.5" fill="#27ae60"/>
+  <text x="470" y="206" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">U</text>
+  <!-- Нижній діод D2 (закритий) -->
+  <line x1="485" y1="202" x2="485" y2="226" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="477" y1="226" x2="493" y2="226" stroke="#9ca3af" stroke-width="1.5"/>
+  <polygon points="477,240 493,240 485,226" fill="#f4f6f8" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="485" y1="240" x2="485" y2="262" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="470" y="238" text-anchor="end" font-size="12" fill="#6b7280">D2</text>
+
+  <!-- ФАЗА V (x = 555) -->
+  <!-- Верхній діод D3 (закритий) -->
+  <line x1="555" y1="142" x2="555" y2="162" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="547" y1="162" x2="563" y2="162" stroke="#9ca3af" stroke-width="1.5"/>
+  <polygon points="547,176 563,176 555,162" fill="#f4f6f8" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="555" y1="176" x2="555" y2="202" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="540" y="172" text-anchor="end" font-size="12" fill="#6b7280">D3</text>
+  <!-- Вузол V -->
+  <circle cx="555" cy="202" r="3.5" fill="#27ae60"/>
+  <text x="540" y="206" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">V</text>
+  <!-- Нижній діод D4 (АКТИВНИЙ ЗЕЛЕНИЙ: повернення струму через GND) -->
+  <line x1="555" y1="202" x2="555" y2="226" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="547" y1="226" x2="563" y2="226" stroke="#27ae60" stroke-width="2"/>
+  <polygon points="547,240 563,240 555,226" fill="#27ae60" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="555" y1="240" x2="555" y2="262" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="555" y1="258" x2="555" y2="242" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="540" y="238" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">D4</text>
+
+  <!-- ФАЗА W (x = 625) -->
+  <!-- Верхній діод D5 (закритий) -->
+  <line x1="625" y1="142" x2="625" y2="162" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="617" y1="162" x2="633" y2="162" stroke="#9ca3af" stroke-width="1.5"/>
+  <polygon points="617,176 633,176 625,162" fill="#f4f6f8" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="625" y1="176" x2="625" y2="202" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="610" y="172" text-anchor="end" font-size="12" fill="#6b7280">D5</text>
+  <!-- Вузол W -->
+  <circle cx="625" cy="202" r="3.5" fill="#1a1a1a"/>
+  <text x="610" y="206" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">W</text>
+  <!-- Нижній діод D6 (закритий) -->
+  <line x1="625" y1="202" x2="625" y2="226" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="617" y1="226" x2="633" y2="226" stroke="#9ca3af" stroke-width="1.5"/>
+  <polygon points="617,240 633,240 625,226" fill="#f4f6f8" stroke="#9ca3af" stroke-width="1.5"/>
+  <line x1="625" y1="240" x2="625" y2="262" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="610" y="238" text-anchor="end" font-size="12" fill="#6b7280">D6</text>
+
+  <!-- Стрілка зворотного повернення по GND -->
+  <line x1="280" y1="262" x2="410" y2="262" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="345" y="278" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Контур повернення GND →</text>
+
+  <!-- ==================== 3. BLDC МОТОР-ГЕНЕРАТОР ==================== -->
+  <!-- Фазні лінії від моста до мотора: U (y=176), V (y=202), W (y=228) -->
+  <line x1="485" y1="176" x2="745" y2="176" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="485" y1="202" x2="485" y2="176" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="735" y1="176" x2="705" y2="176" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="720" y="168" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">I_U ←</text>
+
+  <line x1="555" y1="202" x2="745" y2="202" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="705" y1="202" x2="735" y2="202" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="720" y="194" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">→ I_V</text>
+
+  <line x1="625" y1="228" x2="745" y2="228" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="625" y1="202" x2="625" y2="228" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Мотор BLDC -->
+  <circle cx="835" cy="202" r="38" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="835" cy="202" r="20" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="821" y="192" width="14" height="20" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="828" y="207" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">N</text>
+  <rect x="835" y="192" width="14" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="842" y="207" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">S</text>
+  <path d="M 815,182 A 25 25 0 0 1 855,182" fill="none" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr)"/>
+  <text x="835" y="176" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">ω ↓</text>
+
+  <!-- Підписи мотора -->
+  <text x="835" y="138" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">BLDC Мотор</text>
+  <text x="835" y="153" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">ГЕНЕРАТОР</text>
+  <text x="835" y="255" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">E_kin = ½ J·ω²</text>
+  <text x="835" y="270" text-anchor="middle" font-size="12" fill="#6b7280">Гальмування: ЕРС &gt; V_nom</text>
+
+
+  <!-- ==================== НИЖНЯ ЛІВА ПАНЕЛЬ: ГРАФІК НАПРУГИ ==================== -->
+  <rect x="24" y="308" width="456" height="192" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі графіка -->
+  <text x="40" y="328" font-size="14" font-weight="700" fill="#1a1a1a">2. Динаміка напруги V_bus на C_bus під час гальмування</text>
+  <text x="40" y="344" font-size="12" fill="#6b7280">Накопичений заряд піднімає напругу вище гранично допустимої V_allow</text>
+
+  <!-- Осі координат -->
+  <!-- Вісь t -->
+  <line x1="110" y1="466" x2="315" y2="466" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="323" y="470" font-size="12" font-weight="700" fill="#1a1a1a">t</text>
+  <!-- Вісь V -->
+  <line x1="110" y1="466" x2="110" y2="356" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="110" y="352" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">V_bus</text>
+
+  <!-- Порогові рівні -->
+  <!-- V_max (катастрофічний пік) -->
+  <line x1="110" y1="372" x2="300" y2="372" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="105" y="376" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">V_max (пік)</text>
+
+  <!-- V_allow (поріг пробою компонентів) -->
+  <line x1="110" y1="410" x2="300" y2="410" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="105" y="414" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">V_allow (40 В)</text>
+
+  <!-- V_nom (номінал джерела) -->
+  <line x1="110" y1="442" x2="300" y2="442" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="105" y="446" text-anchor="end" font-size="12" fill="#6b7280">V_nom (24 В)</text>
+
+  <!-- Часові позначки на осі t -->
+  <line x1="135" y1="466" x2="135" y2="471" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="135" y="483" text-anchor="middle" font-size="12" fill="#6b7280">t₀</text>
+
+  <line x1="235" y1="466" x2="235" y2="471" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="235" y="483" text-anchor="middle" font-size="12" fill="#6b7280">t₁</text>
+
+  <!-- Стрілка інтервалу гальмування t_brake -->
+  <line x1="138" y1="480" x2="232" y2="480" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="185" y="495" text-anchor="middle" font-size="12" fill="#6b7280">t_brake (гальмування)</text>
+
+  <!-- Крива напруги V_bus(t) -->
+  <path d="M 110,442 L 135,442 C 160,442 195,376 235,372 L 295,372" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Розмірна лінія стрибка напруги ΔV -->
+  <line x1="248" y1="438" x2="248" y2="376" stroke="#c0392b" stroke-width="1.5"/>
+  <polygon points="245,436 251,436 248,442" fill="#c0392b"/>
+  <polygon points="245,378 251,378 248,372" fill="#c0392b"/>
+  <text x="254" y="407" font-size="12" font-weight="700" fill="#c0392b">ΔV</text>
+
+  <!-- Інформаційні картки поруч із графіком -->
+  <rect x="332" y="362" width="136" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="340" y="378" font-size="12" font-weight="700" fill="#c0392b">НЕБЕЗПЕЧНА ЗОНА</text>
+  <text x="340" y="393" font-size="12" fill="#c0392b">V_max &gt; V_allow</text>
+  <text x="340" y="405" font-size="12" fill="#c0392b">Пробій MOSFET!</text>
+
+  <rect x="332" y="420" width="136" height="46" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="340" y="436" font-size="12" font-weight="700" fill="#2457d6">Акумуляція заряду</text>
+  <text x="340" y="450" font-size="12" fill="#2457d6">ΔQ = ∫ I_regen dt</text>
+  <text x="340" y="461" font-size="12" fill="#6b7280">у буферній ємності C_bus</text>
+
+
+  <!-- ==================== НИЖНЯ ПРАВА ПАНЕЛЬ: ФІЗИКА ТА ГЕОМЕТРІЯ ==================== -->
+  <rect x="496" y="308" width="440" height="192" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок панелі фізики -->
+  <text x="512" y="328" font-size="14" font-weight="700" fill="#1a1a1a">3. Фізичний та геометричний зміст стрибка напруги</text>
+  <text x="512" y="344" font-size="12" fill="#6b7280">Математичний зв'язок кінетичної енергії та стрибка напруги DC-шини</text>
+
+  <!-- Пункт 1: Рекуперація -->
+  <text x="512" y="366" font-size="12" font-weight="700" fill="#2457d6">1. Кінетична енергія переходить у регенерацію:</text>
+  <text x="512" y="381" font-size="12" fill="#1a1a1a">E_regen = ½ (J_m + J_load) · (ω₀² - ω₁²) · η_mech · η_elec</text>
+  <text x="512" y="395" font-size="12" fill="#6b7280">Сповільнення ротора генерує зворотний струм через боді-діоди інвертора.</text>
+
+  <!-- Пункт 2: Односпрямованість БЖ -->
+  <text x="512" y="415" font-size="12" font-weight="700" fill="#c0392b">2. Нездатність БЖ поглинати зворотну енергію:</text>
+  <text x="512" y="430" font-size="12" fill="#1a1a1a">Односпрямований вихід БЖ замикається: I_PSU = 0, шлях у мережу закритий.</text>
+  <text x="512" y="444" font-size="12" fill="#6b7280">Весь заряд ΔQ вимушено накопичується в буферній батареї C_bus.</text>
+
+  <!-- Пункт 3: Формула стрибка -->
+  <text x="512" y="464" font-size="12" font-weight="700" fill="#27ae60">3. Аналітичний розрахунок амплітуди V_max:</text>
+  <text x="512" y="479" font-size="12" font-weight="700" fill="#1a1a1a">V_max = √(V_nom² + 2 · E_regen / C_bus)</text>
+  <text x="512" y="493" font-size="12" fill="#6b7280">За C_bus = 470 мкФ навіть E = 8 Дж піднімає 24 В до 184 В (катастрофа!).</text>
+</svg>

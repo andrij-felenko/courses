@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Багаторівнева архітектура C++ драйвера сервоконтролера</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Прикладний код взаємодіє з кінцевим автоматом через API, а ITransport абстрагує цифрові шини</text>
+
+  <!-- ================= РІВЕНЬ 1: ПРИКЛАДНИЙ КОД ================= -->
+  <rect x="35" y="74" width="890" height="62" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Плашка ліворуч -->
+  <rect x="48" y="84" width="210" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="153" y="101" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Прикладний рівень</text>
+  <text x="153" y="117" font-size="12" fill="#6b7280" text-anchor="middle">Головний цикл / RTOS-задачі</text>
+
+  <!-- Картка команд -->
+  <rect x="270" y="84" width="320" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="430" y="101" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Керування у величинах SI</text>
+  <text x="430" y="117" font-size="12" fill="#1a1a1a" text-anchor="middle">Команди: кут rad, швидкість rad/s, момент N·m</text>
+
+  <!-- Картка телеметрії -->
+  <rect x="605" y="84" width="305" height="42" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="757" y="101" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Асинхронний моніторинг</text>
+  <text x="757" y="117" font-size="12" fill="#1a1a1a" text-anchor="middle">Опитування: телеметрія, стан FSM, коди помилок</text>
+
+  <!-- Стрілки між Рівнем 1 і API -->
+  <line x1="430" y1="136" x2="430" y2="146" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="757" y1="148" x2="757" y2="138" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- ================= МЕЖА: ВИСОКОРІВНЕВИЙ C++ API ================= -->
+  <rect x="65" y="148" width="830" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="167" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Високорівневий C++ API:   init()   ·   setTarget()   ·   getTelemetry()   ·   emergencyStop()</text>
+
+  <!-- Стрілки між API і Рівнем 2 -->
+  <line x1="430" y1="176" x2="430" y2="186" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="757" y1="188" x2="757" y2="178" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- ================= РІВЕНЬ 2: ЯДРО ДРАЙВЕРА ================= -->
+  <rect x="35" y="188" width="890" height="158" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="52" y="207" font-size="13" font-weight="700" fill="#1a1a1a">Ядро C++ драйвера: клас BldcServoDriver</text>
+  <text x="330" y="207" font-size="12" fill="#6b7280">Інкапсуляція безпеки, кінцевого автомата та перетворення фізичних одиниць</text>
+
+  <!-- Підблок 1: Валідація -->
+  <rect x="48" y="218" width="244" height="116" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="170" y="237" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Валідація та межі (Safety)</text>
+  <text x="60" y="258" font-size="12" fill="#1a1a1a">• Soft limits: [θ_min .. θ_max]</text>
+  <text x="60" y="277" font-size="12" fill="#1a1a1a">• Ліміт струму: I_cont / I_peak</text>
+  <text x="60" y="296" font-size="12" fill="#1a1a1a">• Обмеження швидкості: ω_max</text>
+  <text x="60" y="315" font-size="12" fill="#6b7280">• float (SI) ↔ fixed-point коди</text>
+
+  <!-- Підблок 2: Кінцевий автомат станів -->
+  <rect x="304" y="218" width="352" height="116" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="237" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Кінцевий автомат драйвера (FSM)</text>
+
+  <!-- Стан UNINIT -->
+  <rect x="316" y="250" width="94" height="30" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="363" y="269" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">UNINIT</text>
+
+  <line x1="410" y1="265" x2="427" y2="265" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+
+  <!-- Стан READY -->
+  <rect x="430" y="250" width="94" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="477" y="269" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">READY</text>
+
+  <line x1="524" y1="265" x2="541" y2="265" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+  <!-- Стан ACTIVE -->
+  <rect x="544" y="250" width="100" height="30" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="594" y="269" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">ACTIVE</text>
+
+  <!-- Стан FAULT -->
+  <rect x="370" y="292" width="220" height="30" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="480" y="311" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">FAULT (аварійний захист)</text>
+
+  <!-- Підблок 3: Буфери та черги -->
+  <rect x="668" y="218" width="244" height="116" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="790" y="237" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Неблокуючий ввід / вивід</text>
+  <text x="680" y="258" font-size="12" fill="#1a1a1a">• TX Queue: черга команд</text>
+  <text x="680" y="277" font-size="12" fill="#1a1a1a">• RX Buffer: черга телеметрії</text>
+  <text x="680" y="296" font-size="12" fill="#1a1a1a">• Watchdog: таймаут зв'язку</text>
+  <text x="680" y="315" font-size="12" fill="#6b7280">• Без очікувань у loop()</text>
+
+  <!-- Стрілки між Рівнем 2 і ITransport -->
+  <line x1="480" y1="346" x2="480" y2="356" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="790" y1="358" x2="790" y2="348" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- ================= МЕЖА: АБСТРАКТНИЙ ІНТЕРФЕЙС ITransport ================= -->
+  <rect x="65" y="358" width="830" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="377" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Абстрактний C++ інтерфейс: class ITransport  { sendFrame(),  readFrame(),  isTxReady() }</text>
+
+  <!-- Стрілка вниз до Рівня 3 -->
+  <line x1="480" y1="386" x2="480" y2="396" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- ================= РІВЕНЬ 3: КОНКРЕТНІ РЕАЛІЗАЦІЇ ШИН ================= -->
+  <rect x="35" y="398" width="890" height="74" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="52" y="415" font-size="12" font-weight="700" fill="#1a1a1a">Рівень апаратної передачі: конкретні реалізації ITransport (HAL)</text>
+
+  <!-- Модуль CAN -->
+  <rect x="48" y="422" width="274" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="185" y="439" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">CanTransport : public ITransport</text>
+  <text x="185" y="455" font-size="12" fill="#6b7280" text-anchor="middle">CAN 2.0B / CAN-FD · апаратні фільтри ID</text>
+
+  <!-- Модуль UART -->
+  <rect x="343" y="422" width="274" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="480" y="439" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">UartTransport : public ITransport</text>
+  <text x="480" y="455" font-size="12" fill="#6b7280" text-anchor="middle">UART + DMA · кільцевий буфер, кадри CRC</text>
+
+  <!-- Модуль SPI -->
+  <rect x="638" y="422" width="274" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="775" y="439" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">SpiTransport : public ITransport</text>
+  <text x="775" y="455" font-size="12" fill="#6b7280" text-anchor="middle">Повнодуплексний SPI · апаратна лінія CS</text>
+
+  <!-- Стрілки вниз до Рівня 4 -->
+  <line x1="185" y1="472" x2="185" y2="482" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="480" y1="472" x2="480" y2="482" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="775" y1="472" x2="775" y2="482" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- ================= РІВЕНЬ 4: ФІЗИЧНИЙ СЕРВОКОНТРОЛЕР ================= -->
+  <rect x="35" y="484" width="890" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="502" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Апаратний рівень: Інтегральний сервоконтролер (FOC, інвертор, магнітний енкодер)</text>
+  <text x="480" y="520" font-size="12" fill="#1a1a1a" text-anchor="middle">Фізичні цифрові шини зв'язку: виконання контурів струму/швидкості/позиції та телеметрія</text>
+</svg>

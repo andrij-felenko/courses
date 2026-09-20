@@ -1,0 +1,241 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратна архітектура інтегрального BLDC-сервоконтролера</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Цифрове ядро замикає контури струму та положення через силовий інвертор і магнітний енкодер</text>
+
+  <!-- ==================== ЗОНА 1: ВХІДНИЙ ФІЛЬТР ЖИВЛЕННЯ ==================== -->
+  <rect x="20" y="70" width="202" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="121" y="88" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний фільтр живлення</text>
+
+  <!-- Клеми живлення -->
+  <rect x="28" y="98" width="82" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="69" y="116" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхід V_IN</text>
+  <text x="69" y="134" font-size="12" fill="#6b7280" text-anchor="middle">+12...48 В DC</text>
+  <text x="69" y="152" font-size="12" fill="#6b7280" text-anchor="middle">Лінія GND</text>
+
+  <!-- Фільтрація і захист -->
+  <rect x="124" y="98" width="90" height="72" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="169" y="116" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">TVS-захист</text>
+  <text x="169" y="134" font-size="12" fill="#1a1a1a" text-anchor="middle">LC-фільтр</text>
+  <text x="169" y="152" font-size="12" fill="#27ae60" text-anchor="middle">Банк C_bulk</text>
+
+  <!-- ==================== ЗОНА 1: МІКРОКОНТРОЛЕР (MCU) ==================== -->
+  <rect x="20" y="194" width="202" height="346" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="121" y="212" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер (MCU)</text>
+
+  <!-- 1. Шини зв'язку -->
+  <rect x="28" y="222" width="186" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="121" y="238" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина зв'язку: CAN / UART</text>
+  <text x="121" y="254" font-size="12" fill="#6b7280" text-anchor="middle">Команди: позиція θ*, швидкість ω*</text>
+
+  <!-- 2. Обчислювальне ядро FOC -->
+  <rect x="28" y="274" width="186" height="54" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="121" y="292" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Обчислювальне ядро FOC</text>
+  <text x="121" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">Clarke / Park + 3 контури PI</text>
+
+  <!-- 3. ШІМ-генератор -->
+  <rect x="28" y="338" width="186" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="121" y="356" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ШІМ-генератор (PWM)</text>
+  <text x="121" y="372" font-size="12" fill="#2457d6" text-anchor="middle">6 каналів + Dead Time</text>
+
+  <!-- 4. АЦП -->
+  <rect x="28" y="394" width="186" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="121" y="412" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Багатоканальний АЦП (ADC)</text>
+  <text x="121" y="428" font-size="12" fill="#27ae60" text-anchor="middle">Вимірювання I_u, I_v, I_w</text>
+
+  <!-- 5. Інтерфейс енкодера -->
+  <rect x="28" y="450" width="186" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="121" y="468" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інтерфейс енкодера (SPI)</text>
+  <text x="121" y="484" font-size="12" fill="#6b7280" text-anchor="middle">Абсолютний кут ротора θ</text>
+
+  <!-- Підпис внизу MCU -->
+  <text x="121" y="522" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Цифровий контур керування</text>
+
+  <!-- ==================== ЗОНА 2: ДРАЙВЕРИ ЗАТВОРІВ ==================== -->
+  <rect x="254" y="140" width="128" height="278" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="318" y="158" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Драйвери затворів</text>
+  <text x="318" y="174" font-size="12" fill="#6b7280" text-anchor="middle">Gate Drivers IC</text>
+
+  <!-- Канал U -->
+  <rect x="264" y="184" width="108" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="318" y="202" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Драйвер фази U</text>
+  <text x="318" y="218" font-size="12" fill="#6b7280" text-anchor="middle">GH_U / GL_U</text>
+
+  <!-- Канал V -->
+  <rect x="264" y="238" width="108" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="318" y="256" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Драйвер фази V</text>
+  <text x="318" y="272" font-size="12" fill="#6b7280" text-anchor="middle">GH_V / GL_V</text>
+
+  <!-- Канал W -->
+  <rect x="264" y="292" width="108" height="44" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="318" y="310" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Драйвер фази W</text>
+  <text x="318" y="326" font-size="12" fill="#6b7280" text-anchor="middle">GH_W / GL_W</text>
+
+  <!-- Бутстрепний вузол -->
+  <rect x="264" y="346" width="108" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="318" y="364" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Бутстрепні кола</text>
+  <text x="318" y="382" font-size="12" fill="#1a1a1a" text-anchor="middle">C_boot + D_boot</text>
+  <text x="318" y="398" font-size="12" fill="#6b7280" text-anchor="middle">Живлення HS-затворів</text>
+
+  <!-- Лінія V_BUS над драйверами -->
+  <line x1="214" y1="105" x2="410" y2="105" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="318" y="96" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Шина V_BUS (12–48 В)</text>
+
+  <!-- Лінія ШІМ від MCU до драйверів -->
+  <line x1="214" y1="360" x2="254" y2="360" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="238" y="352" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">PWM</text>
+
+  <!-- ==================== ЗОНА 3: СИЛОВИЙ ІНВЕРТОР ==================== -->
+  <rect x="410" y="70" width="280" height="408" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="550" y="92" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Трифазний силовий інвертор</text>
+  <text x="550" y="108" font-size="12" fill="#6b7280" text-anchor="middle">6 MOSFET-ключів + шунти струму</text>
+
+  <!-- Стійка фази U -->
+  <rect x="418" y="118" width="264" height="74" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="428" y="134" font-size="12" font-weight="bold" fill="#2457d6">Стійка U</text>
+  <rect x="426" y="142" width="70" height="42" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="461" y="159" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q1 (HS)</text>
+  <text x="461" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">MOSFET</text>
+  <rect x="512" y="142" width="70" height="42" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="547" y="159" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q2 (LS)</text>
+  <text x="547" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">MOSFET</text>
+  <rect x="598" y="142" width="76" height="42" rx="3" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="636" y="159" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вихід U</text>
+  <text x="636" y="174" font-size="12" fill="#6b7280" text-anchor="middle">Фаза A</text>
+
+  <!-- Стійка фази V -->
+  <rect x="418" y="202" width="264" height="74" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="428" y="218" font-size="12" font-weight="bold" fill="#2457d6">Стійка V</text>
+  <rect x="426" y="226" width="70" height="42" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="461" y="243" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q3 (HS)</text>
+  <text x="461" y="258" font-size="12" fill="#1a1a1a" text-anchor="middle">MOSFET</text>
+  <rect x="512" y="226" width="70" height="42" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="547" y="243" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q4 (LS)</text>
+  <text x="547" y="258" font-size="12" fill="#1a1a1a" text-anchor="middle">MOSFET</text>
+  <rect x="598" y="226" width="76" height="42" rx="3" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="636" y="243" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вихід V</text>
+  <text x="636" y="258" font-size="12" fill="#6b7280" text-anchor="middle">Фаза B</text>
+
+  <!-- Стійка фази W -->
+  <rect x="418" y="286" width="264" height="74" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="428" y="302" font-size="12" font-weight="bold" fill="#2457d6">Стійка W</text>
+  <rect x="426" y="310" width="70" height="42" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="461" y="327" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q5 (HS)</text>
+  <text x="461" y="342" font-size="12" fill="#1a1a1a" text-anchor="middle">MOSFET</text>
+  <rect x="512" y="310" width="70" height="42" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="547" y="327" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Q6 (LS)</text>
+  <text x="547" y="342" font-size="12" fill="#1a1a1a" text-anchor="middle">MOSFET</text>
+  <rect x="598" y="310" width="76" height="42" rx="3" fill="#f4f6f8" stroke="#2457d6" stroke-width="1"/>
+  <text x="636" y="327" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вихід W</text>
+  <text x="636" y="342" font-size="12" fill="#6b7280" text-anchor="middle">Фаза C</text>
+
+  <!-- Блок шунтів струму -->
+  <rect x="418" y="370" width="264" height="96" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="550" y="388" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Шунти фазних струмів (Low-Side Sense)</text>
+  <rect x="426" y="398" width="70" height="56" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="461" y="418" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Rs_U</text>
+  <text x="461" y="434" font-size="12" fill="#1a1a1a" text-anchor="middle">Шунт U</text>
+  <text x="461" y="448" font-size="12" fill="#6b7280" text-anchor="middle">0.01 Ом</text>
+
+  <rect x="512" y="398" width="70" height="56" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="547" y="418" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Rs_V</text>
+  <text x="547" y="434" font-size="12" fill="#1a1a1a" text-anchor="middle">Шунт V</text>
+  <text x="547" y="448" font-size="12" fill="#6b7280" text-anchor="middle">0.01 Ом</text>
+
+  <rect x="598" y="398" width="76" height="56" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="636" y="418" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Rs_W</text>
+  <text x="636" y="434" font-size="12" fill="#1a1a1a" text-anchor="middle">Шунт W</text>
+  <text x="636" y="448" font-size="12" fill="#6b7280" text-anchor="middle">0.01 Ом</text>
+
+  <!-- Керування затворами: лінії від драйвера до інвертора -->
+  <line x1="382" y1="163" x2="418" y2="163" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="382" y1="247" x2="418" y2="247" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="382" y1="331" x2="418" y2="331" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ==================== ЗОНА 4: BLDC ДВИГУН ТА ЕНКОДЕР ==================== -->
+  <rect x="720" y="70" width="220" height="470" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="830" y="92" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">BLDC двигун та енкодер</text>
+  <text x="830" y="108" font-size="12" fill="#6b7280" text-anchor="middle">Виконавчий орган і датчик</text>
+
+  <!-- Корпус двигуна (статор) -->
+  <rect x="728" y="118" width="204" height="268" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="830" y="136" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Безколекторний мотор</text>
+
+  <!-- Обмотки статора -->
+  <rect x="736" y="144" width="76" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="774" y="161" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Обмотка U</text>
+  <text x="774" y="176" font-size="12" fill="#6b7280" text-anchor="middle">Статор</text>
+
+  <rect x="736" y="228" width="76" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="774" y="245" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Обмотка V</text>
+  <text x="774" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Статор</text>
+
+  <rect x="736" y="312" width="76" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="774" y="329" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Обмотка W</text>
+  <text x="774" y="344" font-size="12" fill="#6b7280" text-anchor="middle">Статор</text>
+
+  <!-- Ротор і магніти -->
+  <rect x="826" y="144" width="96" height="230" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="874" y="162" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ротор мотора</text>
+
+  <rect x="836" y="174" width="76" height="28" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="874" y="193" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Полюс N</text>
+
+  <rect x="836" y="212" width="76" height="28" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="874" y="231" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Полюс S</text>
+
+  <!-- Вал двигуна -->
+  <rect x="864" y="250" width="20" height="114" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="856" y="305" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Вал</text>
+
+  <!-- Фазні лінії від інвертора до мотора -->
+  <line x1="682" y1="163" x2="728" y2="163" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="705" y="157" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">U</text>
+  <line x1="682" y1="247" x2="728" y2="247" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="705" y="241" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V</text>
+  <line x1="682" y1="331" x2="728" y2="331" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="705" y="325" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">W</text>
+
+  <!-- Модуль енкодера -->
+  <rect x="728" y="398" width="204" height="132" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="830" y="416" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Магнітний енкодер</text>
+
+  <!-- Діаметральний магніт -->
+  <rect x="844" y="428" width="30" height="24" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="859" y="445" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">N</text>
+  <rect x="874" y="428" width="30" height="24" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="889" y="445" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S</text>
+  <text x="834" y="444" font-size="12" fill="#1a1a1a" text-anchor="end">Магніт вала</text>
+
+  <!-- Мікросхема сенсора -->
+  <rect x="736" y="464" width="188" height="56" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="830" y="484" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сенсор кута (TMR / Hall IC)</text>
+  <text x="830" y="504" font-size="12" fill="#1a1a1a" text-anchor="middle">Абсолютний кут θ (14–16 біт)</text>
+
+  <!-- ==================== ЗВОРОТНІ ЗВ'ЯЗКИ (FEEDBACK LOOPS) ==================== -->
+  <!-- 1. Зворотний зв'язок по струму (від шунтів до АЦП) -->
+  <path d="M 418 426 L 392 426 L 392 494 L 236 494 L 236 426 L 222 426" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="314" y="486" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Струми I_u, I_v, I_w</text>
+
+  <!-- 2. Зворотний зв'язок по положенню (від енкодера до MCU) -->
+  <path d="M 728 492 L 704 492 L 704 524 L 236 524 L 236 472 L 222 472" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="470" y="516" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зворотний зв'язок: кут ротора θ (SPI / SSI)</text>
+</svg>

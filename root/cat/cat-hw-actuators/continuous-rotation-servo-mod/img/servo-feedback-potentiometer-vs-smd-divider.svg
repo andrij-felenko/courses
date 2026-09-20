@@ -1,0 +1,217 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<defs>
+  <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+</defs>
+
+<!-- Біла підкладка полотна -->
+<rect x="0" y="0" width="960" height="540" fill="white"/>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фіксація нейтралі сервопривода: штатний потенціометр проти SMD-дільника</text>
+<text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Симетричний дільник VCC/2 усуває температурний дрейф вала та чутливість до вібрацій</text>
+
+<!-- ========================================================================= -->
+<!-- ЛІВА КАРТКА: ВАРІАНТ А (ШТАТНИЙ ПОТЕНЦІОМЕТР ІЗ КЛЕЄМ)                   -->
+<!-- ========================================================================= -->
+<rect x="24" y="72" width="444" height="444" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Шапка варіанта А -->
+<text x="40" y="95" font-size="14" font-weight="bold" fill="#1a1a1a">Варіант А: Фіксація потенціометра клеєм</text>
+<rect x="318" y="78" width="136" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="386" y="94" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Дрейф нейтралі</text>
+
+<!-- Панель 1 (Ліва): Принципова схема зворотного зв'язку -->
+<rect x="36" y="114" width="420" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="48" y="132" font-size="12" font-weight="bold" fill="#6b7280">СХЕМА КОНТУРУ ЗВОРОТНОГО ЗВ'ЯЗКУ</text>
+
+<!-- Шина VCC -->
+<text x="48" y="159" font-size="12" font-weight="bold" fill="#c0392b">VCC</text>
+<line x1="80" y1="155" x2="140" y2="155" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="140" y1="155" x2="140" y2="168" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- Потенціометр R_pot -->
+<rect x="132" y="168" width="16" height="54" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="124" y="191" font-size="12" fill="#1a1a1a" text-anchor="end">R_pot</text>
+<text x="124" y="207" font-size="12" fill="#6b7280" text-anchor="end">5 кОм</text>
+
+<!-- Повзунок зі стрілкою та крапля клею -->
+<line x1="148" y1="195" x2="226" y2="195" stroke="#2457d6" stroke-width="1.5"/>
+<polygon points="148,195 155,191 155,199" fill="#2457d6"/>
+
+<!-- Крапля клею (блокування повзунка) -->
+<circle cx="140" cy="195" r="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="162" y="184" font-size="12" font-weight="bold" fill="#c0392b">Клей</text>
+
+<!-- Шина GND -->
+<line x1="140" y1="222" x2="140" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="80" y1="235" x2="140" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="48" y="239" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+
+<!-- Контролер сервопривода (IC) -->
+<rect x="236" y="142" width="208" height="110" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="340" y="160" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сервопідсилювач (IC)</text>
+
+<!-- Вхід FB на контролері -->
+<line x1="226" y1="195" x2="244" y2="195" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+<text x="252" y="179" font-size="12" font-weight="bold" fill="#2457d6">Вхід компаратора FB</text>
+<text x="252" y="196" font-size="12" fill="#c0392b">V_FB = 2.5V ± ΔV</text>
+<text x="252" y="212" font-size="12" fill="#6b7280">ΔV від нагріву й вібрацій</text>
+<text x="252" y="232" font-size="12" fill="#c0392b">Н-міст: дрейф вала при 1500 мкс</text>
+
+<!-- Панель 2 (Ліва): Топологія та механічна фіксація -->
+<rect x="36" y="278" width="420" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="48" y="296" font-size="12" font-weight="bold" fill="#6b7280">ТОПОЛОГІЯ ПАЙКИ ТА МЕХАНІКА</text>
+
+<!-- Плата PCB з контактними майданчиками -->
+<rect x="48" y="310" width="102" height="98" rx="4" fill="#eef2ea" stroke="#4a7c59" stroke-width="1.5"/>
+<text x="99" y="326" font-size="12" font-weight="bold" fill="#2e5a38" text-anchor="middle">Плата (PCB)</text>
+
+<!-- Майданчики на платі -->
+<circle cx="136" cy="342" r="5" fill="#d4af37" stroke="#1a1a1a" stroke-width="1"/>
+<circle cx="136" cy="342" r="2.5" fill="#bdc3c7"/>
+<text x="124" y="346" font-size="12" fill="#1a1a1a" text-anchor="end">VCC</text>
+
+<circle cx="136" cy="364" r="5" fill="#d4af37" stroke="#1a1a1a" stroke-width="1"/>
+<circle cx="136" cy="364" r="2.5" fill="#bdc3c7"/>
+<text x="124" y="368" font-size="12" fill="#1a1a1a" text-anchor="end">FB</text>
+
+<circle cx="136" cy="386" r="5" fill="#d4af37" stroke="#1a1a1a" stroke-width="1"/>
+<circle cx="136" cy="386" r="2.5" fill="#bdc3c7"/>
+<text x="124" y="390" font-size="12" fill="#1a1a1a" text-anchor="end">GND</text>
+
+<!-- Дроти до потенціометра -->
+<line x1="141" y1="342" x2="186" y2="342" stroke="#c0392b" stroke-width="1.5"/>
+<line x1="141" y1="364" x2="186" y2="364" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="141" y1="386" x2="186" y2="386" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- Корпус потенціометра -->
+<rect x="186" y="328" width="64" height="64" rx="32" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+<circle cx="218" cy="360" r="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="218" y1="348" x2="218" y2="372" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- Крапля клею на осі -->
+<circle cx="218" cy="360" r="9" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+<text x="218" y="408" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Крапля клею</text>
+
+<!-- Текстові пояснення праворуч -->
+<text x="268" y="335" font-size="12" font-weight="bold" fill="#c0392b">Механічні вади:</text>
+<text x="268" y="353" font-size="12" fill="#6b7280">• Клей пливе від тепла</text>
+<text x="268" y="370" font-size="12" fill="#6b7280">• Вібрації руйнують шов</text>
+<text x="268" y="387" font-size="12" fill="#6b7280">• Люфт вала в гнізді</text>
+<text x="268" y="405" font-size="12" font-weight="bold" fill="#c0392b">• Паразитичний дрейф</text>
+
+<!-- Панель 3 (Ліва): Підсумок -->
+<rect x="36" y="442" width="420" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="48" y="463" font-size="12" font-weight="bold" fill="#c0392b">ПРОБЛЕМА: Нестабільний стан спокою</text>
+<text x="48" y="483" font-size="12" fill="#1a1a1a">При сигналі 1500 мкс вал самовільно повзе; потрібне тримування</text>
+
+<!-- ========================================================================= -->
+<!-- ПРАВА КАРТКА: ВАРІАНТ Б (ПРЕЦИЗІЙНИЙ SMD-ДІЛЬНИК)                          -->
+<!-- ========================================================================= -->
+<rect x="492" y="72" width="444" height="444" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+<!-- Шапка варіанта Б -->
+<text x="508" y="95" font-size="14" font-weight="bold" fill="#1a1a1a">Варіант Б: Прецизійний SMD-дільник</text>
+<rect x="786" y="78" width="138" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="855" y="94" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Стабільні 1500 мкс</text>
+
+<!-- Панель 1 (Права): Принципова схема дільника -->
+<rect x="504" y="114" width="420" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="516" y="132" font-size="12" font-weight="bold" fill="#6b7280">СХЕМА КОНТУРУ ЗВОРОТНОГО ЗВ'ЯЗКУ</text>
+
+<!-- Шина VCC -->
+<text x="516" y="159" font-size="12" font-weight="bold" fill="#27ae60">VCC</text>
+<line x1="550" y1="155" x2="610" y2="155" stroke="#27ae60" stroke-width="1.5"/>
+<line x1="610" y1="155" x2="610" y2="166" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<!-- Резистор R1 -->
+<rect x="602" y="166" width="16" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="594" y="183" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">R1 = 2.2k (1%)</text>
+
+<!-- Середня точка FB -->
+<line x1="610" y1="192" x2="610" y2="202" stroke="#1a1a1a" stroke-width="1.5"/>
+<circle cx="610" cy="197" r="3.5" fill="#27ae60"/>
+<line x1="610" y1="197" x2="694" y2="197" stroke="#27ae60" stroke-width="2"/>
+
+<!-- Резистор R2 -->
+<rect x="602" y="202" width="16" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="594" y="219" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">R2 = 2.2k (1%)</text>
+
+<!-- Шина GND -->
+<line x1="610" y1="228" x2="610" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+<line x1="550" y1="235" x2="610" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+<text x="516" y="239" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+
+<!-- Контролер сервопривода (IC) -->
+<rect x="704" y="142" width="208" height="110" rx="5" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+<text x="808" y="160" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сервопідсилювач (IC)</text>
+
+<!-- Вхід FB на контролері -->
+<line x1="694" y1="197" x2="712" y2="197" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+<text x="720" y="179" font-size="12" font-weight="bold" fill="#27ae60">Вхід компаратора FB</text>
+<text x="720" y="196" font-size="12" font-weight="bold" fill="#27ae60">V_FB = VCC / 2 = 2.50V</text>
+<text x="720" y="212" font-size="12" fill="#6b7280">Повна симетрія: R1 = R2</text>
+<text x="720" y="232" font-size="12" font-weight="bold" fill="#27ae60">Н-міст: нульова зона (СТОП)</text>
+
+<!-- Панель 2 (Права): Топологія SMD на платі -->
+<rect x="504" y="278" width="420" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="516" y="296" font-size="12" font-weight="bold" fill="#6b7280">ТОПОЛОГІЯ МОНТАЖУ SMD НА МАЙДАНЧИКАХ</text>
+
+<!-- Плата PCB -->
+<rect x="516" y="310" width="166" height="98" rx="4" fill="#eef2ea" stroke="#4a7c59" stroke-width="1.5"/>
+<text x="599" y="326" font-size="12" font-weight="bold" fill="#2e5a38" text-anchor="middle">Плата (потенціометр знято)</text>
+
+<!-- 3 контактні майданчики на платі -->
+<rect x="556" y="338" width="16" height="11" rx="2" fill="#d4af37" stroke="#1a1a1a" stroke-width="1"/>
+<text x="548" y="347" font-size="12" fill="#1a1a1a" text-anchor="end">VCC</text>
+
+<rect x="556" y="361" width="16" height="11" rx="2" fill="#d4af37" stroke="#1a1a1a" stroke-width="1"/>
+<text x="548" y="370" font-size="12" fill="#1a1a1a" text-anchor="end">FB</text>
+
+<rect x="556" y="384" width="16" height="11" rx="2" fill="#d4af37" stroke="#1a1a1a" stroke-width="1"/>
+<text x="548" y="393" font-size="12" fill="#1a1a1a" text-anchor="end">GND</text>
+
+<!-- SMD Резистор R1 -->
+<rect x="586" y="338" width="28" height="14" rx="2" fill="#2c3e50" stroke="#1a1a1a" stroke-width="1"/>
+<rect x="586" y="338" width="5" height="14" fill="#bdc3c7"/>
+<rect x="609" y="338" width="5" height="14" fill="#bdc3c7"/>
+<!-- Пайка: Pad VCC до лівого контакту R1 -->
+<line x1="572" y1="343" x2="586" y2="343" stroke="#7f8c8d" stroke-width="3"/>
+<!-- Пайка: Pad FB до правого контакту R1 -->
+<path d="M572,364 L580,364 L609,352" fill="none" stroke="#7f8c8d" stroke-width="2"/>
+<text x="622" y="350" font-size="12" font-weight="bold" fill="#27ae60">R1 (0805)</text>
+
+<!-- SMD Резистор R2 -->
+<rect x="586" y="380" width="28" height="14" rx="2" fill="#2c3e50" stroke="#1a1a1a" stroke-width="1"/>
+<rect x="586" y="380" width="5" height="14" fill="#bdc3c7"/>
+<rect x="609" y="380" width="5" height="14" fill="#bdc3c7"/>
+<!-- Пайка: Pad GND до лівого контакту R2 -->
+<line x1="572" y1="389" x2="586" y2="389" stroke="#7f8c8d" stroke-width="3"/>
+<!-- Пайка: Pad FB до правого контакту R2 -->
+<path d="M572,368 L580,368 L609,380" fill="none" stroke="#7f8c8d" stroke-width="2"/>
+<text x="622" y="392" font-size="12" font-weight="bold" fill="#27ae60">R2 (0805)</text>
+
+<!-- Текстові переваги праворуч -->
+<text x="696" y="335" font-size="12" font-weight="bold" fill="#27ae60">Переваги модифікації:</text>
+<text x="696" y="353" font-size="12" fill="#6b7280">• Потенціометр випаяно</text>
+<text x="696" y="370" font-size="12" fill="#6b7280">• 100% захист від вібрацій</text>
+<text x="696" y="387" font-size="12" fill="#6b7280">• Дрейф R1 і R2 однаковий</text>
+<text x="696" y="405" font-size="12" font-weight="bold" fill="#27ae60">• Чітка зупинка на 1500 мкс</text>
+
+<!-- Панель 3 (Права): Підсумок -->
+<rect x="504" y="442" width="420" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="516" y="463" font-size="12" font-weight="bold" fill="#27ae60">ПЕРЕВАГА: Апаратна стабільність нейтралі</text>
+<text x="516" y="483" font-size="12" fill="#1a1a1a">Гарантована зупинка при 1500 мкс без калібрування й тримування</text>
+
+</svg>

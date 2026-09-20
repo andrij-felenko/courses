@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-axis" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Робоча точка водяної помпи</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Перетин характеристик помпи та магістралі визначає фактичну витрату рідини</text>
+
+  <path d="M 220 380 L 800 380" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-axis)"/>
+  <path d="M 220 380 L 220 60" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-axis)"/>
+
+  <text x="790" y="415" font-size="13" fill="#1a1a1a" text-anchor="end">Витрата рідини, Q</text>
+  <text x="235" y="75" font-size="13" fill="#1a1a1a" text-anchor="start">Напір, H</text>
+
+  <path d="M 220 150 Q 520 150 720 380" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <path d="M 220 380 Q 445 380 670 187" stroke="#27ae60" stroke-width="3" fill="none"/>
+  <path d="M 220 380 Q 310 380 400 80" stroke="#c0392b" stroke-width="3" fill="none"/>
+
+  <path d="M 570 380 L 570 263 L 220 263" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="5 5" fill="none"/>
+  <path d="M 370 380 L 370 171 L 220 171" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="5 5" fill="none"/>
+
+  <circle cx="570" cy="263" r="5" fill="#1a1a1a"/>
+  <circle cx="370" cy="171" r="5" fill="#1a1a1a"/>
+
+  <text x="580" y="255" font-size="13" fill="#1a1a1a" text-anchor="start">Робоча точка 1</text>
+  <text x="380" y="160" font-size="13" fill="#1a1a1a" text-anchor="start">Робоча точка 2</text>
+
+  <text x="210" y="267" font-size="13" fill="#1a1a1a" text-anchor="end">H₁</text>
+  <text x="210" y="175" font-size="13" fill="#1a1a1a" text-anchor="end">H₂</text>
+  <text x="570" y="400" font-size="13" fill="#1a1a1a" text-anchor="middle">Q₁</text>
+  <text x="370" y="400" font-size="13" fill="#1a1a1a" text-anchor="middle">Q₂</text>
+
+  <text x="710" y="360" font-size="13" fill="#2457d6" text-anchor="end">Характеристика помпи</text>
+  <text x="680" y="180" font-size="13" fill="#27ae60" text-anchor="start">Магістраль (нормальна)</text>
+  <text x="410" y="90" font-size="13" fill="#c0392b" text-anchor="start">Магістраль (звужена)</text>
+
+  <path d="M 550 360 L 390 360" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)" fill="none"/>
+  <text x="470" y="345" font-size="12" fill="#c0392b" text-anchor="middle">Зменшення витрати</text>
+
+  <path d="M 240 245 L 240 190" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)" fill="none"/>
+  <text x="250" y="222" font-size="12" fill="#c0392b" text-anchor="start">Зростання</text>
+  <text x="250" y="238" font-size="12" fill="#c0392b" text-anchor="start">напору</text>
+</svg>

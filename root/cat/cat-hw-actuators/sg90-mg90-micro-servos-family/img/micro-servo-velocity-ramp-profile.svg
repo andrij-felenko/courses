@@ -1,0 +1,253 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Динаміка позиціювання мікросервопривода: стрибок проти рампи</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Трапецеїдальний профіль усуває сплеск струму I_stall, стабілізує напругу живлення та береже редуктор</text>
+
+  <!-- ======================================================== -->
+  <!-- ЛІВА ПАНЕЛЬ: СТУПІНЧАСТИЙ ПУСК (ПРОБЛЕМА)                 -->
+  <!-- ======================================================== -->
+  <rect x="24" y="66" width="444" height="474" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка лівої панелі -->
+  <rect x="36" y="76" width="420" height="26" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="246" y="94" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Ступінчастий пуск (Step): пряма зміна кута</text>
+
+  <!-- ГРАФІК 1 (ЗЛІВА): Кут вала theta(t) -->
+  <text x="86" y="118" font-size="12" font-weight="700" fill="#1a1a1a">Кут повороту вала θ (°):</text>
+  <text x="430" y="118" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">Overshoot +12° (удар)</text>
+  <line x1="86" y1="178" x2="440" y2="178" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="86" y1="178" x2="86" y2="126" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="446" y="182" font-size="12" fill="#1a1a1a">t</text>
+
+  <line x1="82" y1="144" x2="86" y2="144" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="78" y="148" text-anchor="end" font-size="12" fill="#6b7280">90°</text>
+  <line x1="82" y1="178" x2="86" y2="178" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="78" y="182" text-anchor="end" font-size="12" fill="#6b7280">0°</text>
+  <line x1="86" y1="144" x2="430" y2="144" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Цільова команда ступенем -->
+  <polyline points="86,178 130,178 130,144 430,144" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="260" y="162" font-size="12" fill="#2457d6">θ_cmd = 90°</text>
+
+  <!-- Реальний кут вала з перельотом і коливаннями -->
+  <path d="M 86,178 L 130,178 Q 146,176 156,142 Q 164,132 174,132 Q 186,132 196,148 Q 206,154 216,144 Q 226,141 236,144 L 430,144" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+  <circle cx="174" cy="132" r="3" fill="#c0392b"/>
+
+  <!-- Пунктирна лінія події t0 всередині графіка 1 -->
+  <line x1="130" y1="130" x2="130" y2="178" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- ГРАФІК 2 (ЗЛІВА): Швидкість omega(t) -->
+  <text x="86" y="202" font-size="12" font-weight="700" fill="#1a1a1a">Кутова швидкість ω (°/с):</text>
+  <text x="430" y="202" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">Ривок: dω/dt → max</text>
+  <line x1="86" y1="262" x2="440" y2="262" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="86" y1="272" x2="86" y2="210" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="446" y="266" font-size="12" fill="#1a1a1a">t</text>
+
+  <line x1="82" y1="220" x2="86" y2="220" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="78" y="224" text-anchor="end" font-size="12" fill="#6b7280">ω_max</text>
+  <line x1="82" y1="262" x2="86" y2="262" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="78" y="266" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+
+  <!-- Крива швидкості зі стрибком прискорення -->
+  <path d="M 86,262 L 130,262 L 134,220 Q 146,220 156,242 Q 166,262 174,270 Q 182,278 192,266 Q 202,260 214,262 L 430,262" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+  <circle cx="134" cy="220" r="3" fill="#c0392b"/>
+
+  <!-- Пунктирна лінія події t0 всередині графіка 2 -->
+  <line x1="130" y1="212" x2="130" y2="262" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- ГРАФІК 3 (ЗЛІВА): Струм I(t) -->
+  <text x="86" y="292" font-size="12" font-weight="700" fill="#1a1a1a">Струм двигуна I (А):</text>
+  <text x="430" y="292" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">Пік I_stall ≈ 1.2 А!</text>
+  <line x1="86" y1="352" x2="440" y2="352" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="86" y1="352" x2="86" y2="300" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="446" y="356" font-size="12" fill="#1a1a1a">t</text>
+
+  <line x1="82" y1="306" x2="86" y2="306" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="78" y="310" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">1.2 А</text>
+  <line x1="82" y1="330" x2="86" y2="330" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="78" y="334" text-anchor="end" font-size="12" fill="#6b7280">0.5 А</text>
+  <line x1="82" y1="352" x2="86" y2="352" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="78" y="356" text-anchor="end" font-size="12" fill="#6b7280">0 А</text>
+
+  <line x1="86" y1="330" x2="430" y2="330" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 2"/>
+  <text x="428" y="322" text-anchor="end" font-size="12" fill="#c0392b">Межа шини (0.5 А)</text>
+
+  <!-- Сплеск струму блокування -->
+  <polyline points="86,350 130,350 130,306" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M 130,306 Q 146,322 166,344 Q 176,348 190,348 L 430,348" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="130" cy="306" r="3.5" fill="#c0392b"/>
+
+  <!-- Пунктирна лінія події t0 всередині графіка 3 -->
+  <line x1="130" y1="302" x2="130" y2="352" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- ГРАФІК 4 (ЗЛІВА): Напруга живлення V_cc(t) -->
+  <text x="86" y="376" font-size="12" font-weight="700" fill="#1a1a1a">Напруга логіки V_cc (В):</text>
+  <text x="430" y="376" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">Провал до 3.6 В (Crash!)</text>
+  <line x1="86" y1="438" x2="440" y2="438" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="86" y1="438" x2="86" y2="384" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="446" y="442" font-size="12" fill="#1a1a1a">t</text>
+
+  <line x1="82" y1="394" x2="86" y2="394" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="78" y="398" text-anchor="end" font-size="12" fill="#6b7280">5.0 В</text>
+  <line x1="82" y1="416" x2="86" y2="416" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="78" y="420" text-anchor="end" font-size="12" fill="#6b7280">4.2 В</text>
+  <line x1="82" y1="438" x2="86" y2="438" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="78" y="442" text-anchor="end" font-size="12" fill="#6b7280">3.0 В</text>
+
+  <line x1="86" y1="416" x2="430" y2="416" stroke="#c0392b" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="428" y="408" text-anchor="end" font-size="12" fill="#c0392b">Поріг скидання BOR (4.2 В)</text>
+
+  <!-- Провал напруги нижче BOR -->
+  <polyline points="86,394 130,394" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+  <path d="M 130,394 Q 138,430 148,430 Q 162,430 180,396 L 430,394" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+  <circle cx="148" cy="430" r="3" fill="#c0392b"/>
+
+  <!-- Пунктирна лінія події t0 всередині графіка 4 -->
+  <line x1="130" y1="388" x2="130" y2="438" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="130" y1="438" x2="130" y2="442" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="130" y="456" text-anchor="middle" font-size="12" fill="#1a1a1a">t_0</text>
+
+  <!-- Підсумкова картка наслідків (зліва) -->
+  <rect x="36" y="468" width="420" height="60" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="48" y="484" font-size="12" font-weight="700" fill="#c0392b">• Струм: стрибок блокування I_stall ≈ 1.2 А (перевантаження)</text>
+  <text x="48" y="501" font-size="12" fill="#1a1a1a">• Живлення: глибокий спад V_cc &lt; 4.2 В, апаратний скид MCU (BOR)</text>
+  <text x="48" y="518" font-size="12" fill="#6b7280">• Механіка: ударне прискорення зубів, небезпека зрізання редуктора</text>
+
+  <!-- ======================================================== -->
+  <!-- ПРАВА ПАНЕЛЬ: ТРАПЕЦЕЇДАЛЬНИЙ ПРОФІЛЬ (РОЗВ'ЯЗОК)         -->
+  <!-- ======================================================== -->
+  <rect x="492" y="66" width="444" height="474" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка правої панелі -->
+  <rect x="504" y="76" width="420" height="26" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="714" y="94" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Плавний профіль (Ramp): контроль dθ/dt і d²θ/dt²</text>
+
+  <!-- ГРАФІК 1 (СПРАВА): Кут вала theta(t) -->
+  <text x="554" y="118" font-size="12" font-weight="700" fill="#1a1a1a">Кут повороту вала θ (°):</text>
+  <text x="896" y="118" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">Overshoot = 0% (плавно)</text>
+  <line x1="554" y1="178" x2="908" y2="178" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="554" y1="178" x2="554" y2="126" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="914" y="182" font-size="12" fill="#1a1a1a">t</text>
+
+  <line x1="550" y1="144" x2="554" y2="144" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="546" y="148" text-anchor="end" font-size="12" fill="#6b7280">90°</text>
+  <line x1="550" y1="178" x2="554" y2="178" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="546" y="182" text-anchor="end" font-size="12" fill="#6b7280">0°</text>
+  <line x1="554" y1="144" x2="898" y2="144" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Плавна S-крива кута без перельоту -->
+  <polyline points="554,178 598,178" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+  <path d="M 598,178 Q 628,178 648,166 L 738,154 Q 758,144 788,144 L 898,144" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+  <circle cx="788" cy="144" r="3" fill="#27ae60"/>
+
+  <!-- Пунктирні лінії подій у графіку 1 -->
+  <line x1="598" y1="130" x2="598" y2="178" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="788" y1="130" x2="788" y2="178" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- ГРАФІК 2 (СПРАВА): Швидкість omega(t) -->
+  <text x="554" y="202" font-size="12" font-weight="700" fill="#1a1a1a">Кутова швидкість ω (°/с):</text>
+  <text x="896" y="202" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">Трапецеїдальний профіль</text>
+  <line x1="554" y1="262" x2="908" y2="262" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="554" y1="272" x2="554" y2="210" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="914" y="266" font-size="12" fill="#1a1a1a">t</text>
+
+  <line x1="550" y1="230" x2="554" y2="230" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="546" y="234" text-anchor="end" font-size="12" fill="#27ae60">ω_max</text>
+  <line x1="550" y1="262" x2="554" y2="262" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="546" y="266" text-anchor="end" font-size="12" fill="#6b7280">0</text>
+  <line x1="554" y1="230" x2="898" y2="230" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Трапеція швидкості: розгін, полиця, гальмування -->
+  <polyline points="554,262 598,262 648,230 738,230 788,262 898,262" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+  <circle cx="648" cy="230" r="3" fill="#27ae60"/>
+  <circle cx="738" cy="230" r="3" fill="#27ae60"/>
+  <text x="606" y="222" font-size="12" fill="#27ae60">+a_max</text>
+  <text x="693" y="222" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">ω_limit</text>
+  <text x="746" y="222" font-size="12" fill="#27ae60">−a_max</text>
+
+  <!-- Пунктирні лінії подій у графіку 2 -->
+  <line x1="598" y1="212" x2="598" y2="262" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="788" y1="212" x2="788" y2="262" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- ГРАФІК 3 (СПРАВА): Струм I(t) -->
+  <text x="554" y="292" font-size="12" font-weight="700" fill="#1a1a1a">Струм двигуна I (А):</text>
+  <text x="896" y="292" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">I_max ≈ 0.22 А (норма)</text>
+  <line x1="554" y1="352" x2="908" y2="352" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="554" y1="352" x2="554" y2="300" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="914" y="356" font-size="12" fill="#1a1a1a">t</text>
+
+  <line x1="550" y1="306" x2="554" y2="306" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="546" y="310" text-anchor="end" font-size="12" fill="#6b7280">1.2 А</text>
+  <line x1="550" y1="330" x2="554" y2="330" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="546" y="334" text-anchor="end" font-size="12" fill="#27ae60">0.5 А</text>
+  <line x1="550" y1="352" x2="554" y2="352" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="546" y="356" text-anchor="end" font-size="12" fill="#6b7280">0 А</text>
+
+  <line x1="554" y1="330" x2="898" y2="330" stroke="#27ae60" stroke-width="1" stroke-dasharray="4 2"/>
+  <text x="680" y="322" text-anchor="middle" font-size="12" fill="#27ae60">Безпечна зона (&lt; 0.5 А)</text>
+
+  <!-- Контрольований струм рампи -->
+  <polyline points="554,350 598,350" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 598,350 Q 618,340 648,340 L 738,344 Q 768,350 788,350 L 898,350" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="648" cy="340" r="3" fill="#27ae60"/>
+
+  <!-- Пунктирні лінії подій у графіку 3 (тільки t0) -->
+  <line x1="598" y1="302" x2="598" y2="352" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- ГРАФІК 4 (СПРАВА): Напруга живлення V_cc(t) -->
+  <text x="554" y="376" font-size="12" font-weight="700" fill="#1a1a1a">Напруга логіки V_cc (В):</text>
+  <text x="896" y="376" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">Стабільні 5.0 В (ΔV ≈ 0)</text>
+  <line x1="554" y1="438" x2="908" y2="438" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="554" y1="438" x2="554" y2="384" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="914" y="442" font-size="12" fill="#1a1a1a">t</text>
+
+  <line x1="550" y1="394" x2="554" y2="394" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="546" y="398" text-anchor="end" font-size="12" fill="#27ae60">5.0 В</text>
+  <line x1="550" y1="416" x2="554" y2="416" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="546" y="420" text-anchor="end" font-size="12" fill="#6b7280">4.2 В</text>
+  <line x1="550" y1="438" x2="554" y2="438" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="546" y="442" text-anchor="end" font-size="12" fill="#6b7280">3.0 В</text>
+
+  <line x1="554" y1="416" x2="898" y2="416" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="896" y="408" text-anchor="end" font-size="12" fill="#6b7280">Поріг BOR (4.2 В)</text>
+
+  <!-- Стабільна лінія напруги -->
+  <line x1="554" y1="394" x2="898" y2="394" stroke="#27ae60" stroke-width="2.2"/>
+  <circle cx="693" cy="394" r="3" fill="#27ae60"/>
+
+  <!-- Пунктирні лінії подій у графіку 4 -->
+  <line x1="598" y1="388" x2="598" y2="438" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="598" y1="438" x2="598" y2="442" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="598" y="456" text-anchor="middle" font-size="12" fill="#1a1a1a">t_0</text>
+
+  <line x1="788" y1="388" x2="788" y2="438" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="788" y1="438" x2="788" y2="442" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="788" y="456" text-anchor="middle" font-size="12" fill="#1a1a1a">t_target</text>
+
+  <!-- Підсумкова картка наслідків (справа) -->
+  <rect x="504" y="468" width="420" height="60" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="516" y="484" font-size="12" font-weight="700" fill="#27ae60">• Струм: I_max ≈ 0.22 А (у 5 разів нижче за струм блокування)</text>
+  <text x="516" y="501" font-size="12" fill="#1a1a1a">• Живлення: лінія 5.0 В непохитна, захист від скидань BOR</text>
+  <text x="516" y="518" font-size="12" fill="#6b7280">• Механіка: плавне наростання моменту без ударів об шестерні</text>
+</svg>

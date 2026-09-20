@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Анатомія перероблення RC-серви на постійне обертання</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Зрізання упору шестерні та заміна потенціометра дільником 50/50 розмикають контур позиціювання</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Механічна модифікація -->
+  <rect x="24" y="74" width="444" height="444" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="246" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Механічна частина: редуктор і вихідний вал</text>
+
+  <!-- Графічний блок механіки -->
+  <rect x="38" y="112" width="416" height="268" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Підпис редуктора -->
+  <text x="110" y="148" font-size="12" fill="#6b7280" text-anchor="middle">Зубчастий редуктор</text>
+  <text x="110" y="162" font-size="12" fill="#6b7280" text-anchor="middle">(i ≈ 200:1)</text>
+
+  <!-- DC Двигун -->
+  <rect x="48" y="260" width="56" height="80" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="76" y="280" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мотор DC</text>
+  <circle cx="76" cy="305" r="14" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="76" y="310" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+
+  <!-- Вал мотора і тягова шестерня 1 -->
+  <line x1="76" y1="260" x2="76" y2="242" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="76" cy="235" r="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Проміжний блок шестерень 1 -->
+  <circle cx="108" cy="225" r="22" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="108" cy="225" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="76" y1="235" x2="108" y2="225" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Проміжний блок шестерень 2 -->
+  <circle cx="152" cy="195" r="24" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="152" cy="195" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="108" y1="225" x2="152" y2="195" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Зачеплення з вихідною шестернею -->
+  <line x1="152" y1="195" x2="240" y2="185" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Велика вихідна шестерня -->
+  <circle cx="240" cy="185" r="46" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="240" cy="185" r="18" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="240" y="190" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вал</text>
+
+  <!-- Вихідний вал і качалка вгору -->
+  <line x1="240" y1="185" x2="240" y2="134" stroke="#2457d6" stroke-width="4"/>
+  <rect x="226" y="124" width="28" height="12" rx="2" fill="#2457d6"/>
+  <text x="214" y="133" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Вал / качалка</text>
+
+  <!-- Кругова стрілка обертання 360° -->
+  <path d="M 268,138 A 22,22 0 1,1 254,120" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="282" y="130" font-size="12" font-weight="bold" fill="#27ae60">360° вільний рух</text>
+
+  <!-- Стопорний зуб (зрізаний) -->
+  <rect x="282" y="176" width="14" height="14" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="280" y1="174" x2="298" y2="192" stroke="#c0392b" stroke-width="2"/>
+  <line x1="298" y1="174" x2="280" y2="192" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Виноска до стопорного зуба -->
+  <line x1="298" y1="183" x2="326" y2="183" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="332" y="175" font-size="12" font-weight="bold" fill="#c0392b">Стопорний зуб</text>
+  <text x="332" y="190" font-size="12" fill="#c0392b">зрізано кусачками</text>
+  <text x="332" y="204" font-size="12" fill="#6b7280">(знято ліміт 180°)</text>
+
+  <!-- Механічне роз'єднання з віссю потенціометра -->
+  <line x1="240" y1="203" x2="240" y2="236" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="3,2"/>
+  
+  <!-- Символ розриву зв'язку -->
+  <line x1="230" y1="246" x2="250" y2="236" stroke="#c0392b" stroke-width="2"/>
+  <line x1="230" y1="252" x2="250" y2="242" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Потенціометр унизу -->
+  <rect x="208" y="266" width="64" height="46" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="240" y="286" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Потенціометр</text>
+  <text x="240" y="302" font-size="12" fill="#6b7280" text-anchor="middle">(вісь нерухома)</text>
+
+  <!-- Виноска роз'єднання валів -->
+  <line x1="250" y1="241" x2="286" y2="241" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="292" y="236" font-size="12" font-weight="bold" fill="#c0392b">Роз'єднання вала з віссю</text>
+  <text x="292" y="251" font-size="12" fill="#1a1a1a">висвердлено гніздо шестерні,</text>
+  <text x="292" y="265" font-size="12" fill="#6b7280">вал не обертає резистор</text>
+
+  <!-- Нижня інформаційна картка лівої панелі -->
+  <rect x="38" y="394" width="416" height="112" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="46" y="402" width="400" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="246" y="418" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Підсумок механічної модифікації</text>
+
+  <circle cx="56" cy="442" r="3" fill="#c0392b"/>
+  <text x="66" y="446" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">Зрізання упору:</tspan> прибирає фізичний обмежувач кута (180°)</text>
+
+  <circle cx="56" cy="466" r="3" fill="#c0392b"/>
+  <text x="66" y="470" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">Роз'єднання вала:</tspan> усуває механічний зв'язок редуктора з датчиком</text>
+
+  <circle cx="56" cy="490" r="3" fill="#27ae60"/>
+  <text x="66" y="494" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">Результат:</tspan> редуктор тепер здатний на нескінченне обертання 360°</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Електрична модифікація -->
+  <rect x="492" y="74" width="444" height="444" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="714" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Електрична частина: контур керування та дільник</text>
+
+  <!-- Графічний блок електрики -->
+  <rect x="506" y="112" width="416" height="268" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Вхідний PWM сигнал -->
+  <text x="516" y="132" font-size="12" font-weight="bold" fill="#2457d6">Вхідний PWM</text>
+  <text x="516" y="146" font-size="12" fill="#6b7280">1.0–2.0 мс</text>
+
+  <path d="M 514,166 L 526,166 L 526,152 L 548,152 L 548,166 L 560,166" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="560" y1="166" x2="608" y2="166" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Сервоконтролер (IC) -->
+  <rect x="610" y="128" width="168" height="152" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="694" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сервоконтролер (IC)</text>
+
+  <!-- Внутрішній компаратор помилки -->
+  <rect x="620" y="156" width="148" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="694" y="172" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Детектор помилки</text>
+  <text x="694" y="188" font-size="12" fill="#2457d6" text-anchor="middle">Δt = t_вх − t_оп</text>
+
+  <!-- Внутрішній H-міст -->
+  <rect x="620" y="214" width="148" height="46" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="694" y="232" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">H-міст (драйвер)</text>
+  <text x="694" y="248" font-size="12" fill="#6b7280" text-anchor="middle">вихідна напруга на мотор</text>
+
+  <line x1="694" y1="198" x2="694" y2="214" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Дільник напруги 50/50 замість потенціометра -->
+  <rect x="514" y="194" width="86" height="18" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="557" y="207" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Дільник 50/50</text>
+
+  <!-- Шина живлення Vcc -->
+  <line x1="535" y1="230" x2="565" y2="230" stroke="#2457d6" stroke-width="2"/>
+  <text x="550" y="225" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+Vcc</text>
+
+  <!-- Резистор R1 -->
+  <line x1="550" y1="230" x2="550" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="542" y="240" width="16" height="20" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="536" y="255" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">R1</text>
+
+  <!-- Середня точка дільника -->
+  <line x1="550" y1="260" x2="550" y2="278" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="550" cy="269" r="3.5" fill="#27ae60"/>
+
+  <!-- Резистор R2 -->
+  <rect x="542" y="278" width="16" height="20" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="536" y="293" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">R2</text>
+  <line x1="550" y1="298" x2="550" y2="308" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Шина GND -->
+  <line x1="535" y1="308" x2="565" y2="308" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="550" y="322" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <!-- Провід від дільника до входу опорного сигналу IC -->
+  <line x1="550" y1="269" x2="600" y2="269" stroke="#27ae60" stroke-width="2"/>
+  <line x1="600" y1="269" x2="600" y2="186" stroke="#27ae60" stroke-width="2"/>
+  <line x1="600" y1="186" x2="618" y2="186" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="557" y="340" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">U_оп = 2.5 В</text>
+  <text x="557" y="354" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">(t_оп ≡ 1.5 мс)</text>
+
+  <!-- Вихід на DC мотор -->
+  <line x1="768" y1="237" x2="820" y2="237" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Мотор на схемі -->
+  <rect x="822" y="210" width="76" height="54" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="860" cy="237" r="15" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="860" y="242" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+  <text x="860" y="202" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мотор DC</text>
+
+  <!-- Розімкнений зворотний зв'язок -->
+  <path d="M 860,264 L 860,344 L 620,344" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <line x1="730" y1="336" x2="750" y2="352" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="750" y1="336" x2="730" y2="352" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="740" y="362" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зворотний зв'язок РОЗІМКНЕНО</text>
+  <text x="740" y="376" font-size="12" fill="#6b7280" text-anchor="middle">помилка Δt не обнуляється при русі</text>
+
+  <!-- Нижня інформаційна картка правої панелі -->
+  <rect x="506" y="394" width="416" height="112" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="514" y="402" width="400" height="24" rx="4" fill="#eaf0fd"/>
+  <text x="714" y="418" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Логіка реверсивного керування швидкістю</text>
+
+  <circle cx="524" cy="442" r="3" fill="#c0392b"/>
+  <text x="534" y="446" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">t_вх &lt; 1.5 мс</tspan> (1.0 мс): Δt &lt; 0 → безперервний реверс (CCW)</text>
+
+  <circle cx="524" cy="466" r="3" fill="#27ae60"/>
+  <text x="534" y="470" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">t_вх = 1.5 мс</tspan> (±мертва зона): Δt = 0 → двигун зупинено (СТОП)</text>
+
+  <circle cx="524" cy="490" r="3" fill="#2457d6"/>
+  <text x="534" y="494" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">t_вх &gt; 1.5 мс</tspan> (2.0 мс): Δt &gt; 0 → безперервний хід уперед (CW)</text>
+</svg>

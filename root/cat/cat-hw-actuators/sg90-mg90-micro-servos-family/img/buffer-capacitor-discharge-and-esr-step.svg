@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="26" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Розряд буферного конденсатора: стрибок на ESR та ємнісний спад</text>
+  <text x="480" y="47" text-anchor="middle" font-size="13" fill="#6b7280">Стрибок ΔV_ESR та нахил розряду ΔV_C визначають мінімум шини та запас V_margin над порогом V_BOR</text>
+
+  <!-- ================= ЛІВА ПАНЕЛЬ: ЧАСОВІ ДІАГРАМИ ================= -->
+  <rect x="24" y="66" width="620" height="434" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="334" y="90" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">ЧАСОВІ ДІАГРАМИ ПУСКОВОГО РОЗРЯДУ БУФЕРНОЇ ЄМНОСТІ</text>
+  <text x="334" y="106" text-anchor="middle" font-size="12" fill="#6b7280">Синхронізовані в часі імпульс струму I_pulse та просідання шини живлення V_bus</text>
+
+  <!-- ВЕРХНІЙ ГРАФІК: СТРУМ НАВАНТАЖЕННЯ I(t) -->
+  <!-- Осі струму -->
+  <line x1="136" y1="196" x2="136" y2="124" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="136" y1="196" x2="596" y2="196" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="130" y="128" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">I (А)</text>
+  <text x="604" y="200" text-anchor="start" font-size="12" font-weight="700" fill="#1a1a1a">t</text>
+
+  <!-- Позначки осі струму -->
+  <line x1="132" y1="146" x2="136" y2="146" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="130" y="150" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">I_pulse = 1.2 А</text>
+  <text x="130" y="194" text-anchor="end" font-size="12" fill="#6b7280">0 А</text>
+
+  <!-- Тривалість імпульсу delta t зверху -->
+  <line x1="190" y1="131" x2="190" y2="139" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="430" y1="131" x2="430" y2="139" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="190" y1="135" x2="210" y2="135" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="410" y1="135" x2="430" y2="135" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="310" y="139" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Δt (імпульс пуску 20–50 мс)</text>
+
+  <!-- Заливка та лінія імпульсу струму -->
+  <polygon points="190,196 190,146 430,146 430,196" fill="#fdecea" opacity="0.6"/>
+  <polyline points="136,196 190,196 190,146 430,146 430,196 586,196" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="310" y="166" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Пусковий імпульс струму I_pulse</text>
+  <text x="310" y="182" text-anchor="middle" font-size="12" fill="#6b7280">розгін ротора сервопривода</text>
+
+  <!-- Вертикальні лінії синхронізації часу між графіками -->
+  <line x1="190" y1="196" x2="190" y2="250" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="430" y1="196" x2="430" y2="300" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- НИЖНІЙ ГРАФІК: НАПРУГА ШИНИ V_bus(t) -->
+  <!-- Зона Brown-out Reset (скидання MCU) -->
+  <rect x="136" y="395" width="454" height="60" fill="#fdecea" opacity="0.75"/>
+  <line x1="136" y1="395" x2="590" y2="395" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="363" y="426" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">НЕБЕЗПЕЧНА ЗОНА: V &lt; V_BOR → АПАРАТНЕ СКИДАННЯ MCU (BOR)</text>
+  <text x="363" y="442" text-anchor="middle" font-size="12" fill="#c0392b">Просідання нижче порога викликає раптове перезавантаження процесора</text>
+
+  <!-- Зона безпечного запасу V_margin -->
+  <rect x="136" y="345" width="454" height="50" fill="#e9f7ef" opacity="0.6"/>
+  <line x1="136" y1="345" x2="430" y2="345" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="363" y="374" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Запас завадостійкості V_margin ≥ 200 мВ (стабільна робота MCU)</text>
+
+  <!-- Осі напруги -->
+  <line x1="136" y1="455" x2="136" y2="230" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="136" y1="455" x2="596" y2="455" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="130" y="234" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">V_bus (В)</text>
+  <text x="604" y="459" text-anchor="start" font-size="12" font-weight="700" fill="#1a1a1a">t</text>
+
+  <!-- Позначки на осі напруги -->
+  <line x1="132" y1="250" x2="136" y2="250" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="254" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">V_nom = 5.0 В</text>
+  <line x1="132" y1="345" x2="136" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="130" y="349" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">V_min = 4.5 В</text>
+  <line x1="132" y1="395" x2="136" y2="395" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="130" y="399" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">V_BOR = 4.3 В</text>
+
+  <!-- Хвиля напруги шини живлення -->
+  <path d="M136,250 L190,250 L190,295 L430,345 L430,300 Q460,250 540,250 L586,250" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Розмірний маркер стрибка Delta V_ESR -->
+  <line x1="205" y1="250" x2="205" y2="295" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="200" y1="250" x2="210" y2="250" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="200" y1="295" x2="210" y2="295" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="215" y="268" text-anchor="start" font-size="12" font-weight="700" fill="#c0392b">ΔV_ESR = I_pulse · R_ESR</text>
+  <text x="215" y="284" text-anchor="start" font-size="12" fill="#6b7280">(миттєвий омічний стрибок)</text>
+
+  <!-- Розмірний маркер ємнісного спаду Delta V_C -->
+  <line x1="210" y1="295" x2="425" y2="295" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="420" y1="295" x2="420" y2="345" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="415" y1="295" x2="425" y2="295" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="415" y1="345" x2="425" y2="345" stroke="#2457d6" stroke-width="1.2"/>
+
+  <!-- Точка мінімуму та напис Delta V_C -->
+  <circle cx="430" cy="345" r="4" fill="#c0392b"/>
+  <text x="440" y="324" text-anchor="start" font-size="12" font-weight="700" fill="#2457d6">ΔV_C = (I_pulse · Δt) / C</text>
+  <text x="440" y="340" text-anchor="start" font-size="12" fill="#6b7280">(похилий спад заряду)</text>
+
+  <!-- Позначки часу внизу осі -->
+  <line x1="190" y1="455" x2="190" y2="462" stroke="#6b7280" stroke-width="1.2"/>
+  <line x1="430" y1="455" x2="430" y2="462" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="190" y="480" text-anchor="middle" font-size="12" fill="#6b7280">t_0 (пуск)</text>
+  <text x="430" y="480" text-anchor="middle" font-size="12" fill="#6b7280">t_1 (вихід на оберти)</text>
+
+  <!-- ================= ПРАВА ПАНЕЛЬ: СХЕМА ТА РОЗРАХУНОК ================= -->
+  <rect x="656" y="66" width="280" height="434" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- КАРТКА 1: Еквівалентна схема буфера -->
+  <rect x="668" y="78" width="256" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="796" y="96" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">ЕКВІВАЛЕНТНА СХЕМА</text>
+  <text x="796" y="112" text-anchor="middle" font-size="12" fill="#6b7280">Модель буфера та навантаження</text>
+
+  <!-- Шина живлення зверху -->
+  <line x1="684" y1="128" x2="908" y2="128" stroke="#c0392b" stroke-width="2"/>
+  <text x="684" y="123" text-anchor="start" font-size="12" font-weight="700" fill="#c0392b">+V_bus</text>
+
+  <!-- Стрілка струму навантаження до мотора -->
+  <line x1="786" y1="128" x2="826" y2="128" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="806" y="123" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">I_pulse</text>
+
+  <!-- Гілка буферного конденсатора -->
+  <line x1="740" y1="128" x2="740" y2="142" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="740" cy="128" r="3" fill="#c0392b"/>
+
+  <!-- Резистор R_ESR -->
+  <rect x="726" y="142" width="28" height="16" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="760" y="155" text-anchor="start" font-size="12" font-weight="700" fill="#c0392b">R_ESR</text>
+
+  <line x1="740" y1="158" x2="740" y2="172" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Пластини ємності C -->
+  <line x1="728" y1="172" x2="752" y2="172" stroke="#2457d6" stroke-width="2"/>
+  <line x1="728" y1="178" x2="752" y2="178" stroke="#2457d6" stroke-width="2"/>
+  <text x="760" y="179" text-anchor="start" font-size="12" font-weight="700" fill="#2457d6">C_буфер</text>
+
+  <line x1="740" y1="178" x2="740" y2="194" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Гілка навантаження (двигун) -->
+  <line x1="872" y1="128" x2="872" y2="147" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="872" cy="128" r="3" fill="#c0392b"/>
+  <circle cx="872" cy="161" r="14" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="872" y="165" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">M</text>
+  <line x1="872" y1="175" x2="872" y2="194" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="872" y="123" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Двигун</text>
+
+  <!-- Шина GND знизу -->
+  <line x1="684" y1="194" x2="908" y2="194" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="740" cy="194" r="3" fill="#1a1a1a"/>
+  <circle cx="872" cy="194" r="3" fill="#1a1a1a"/>
+  <text x="684" y="210" text-anchor="start" font-size="12" font-weight="700" fill="#1a1a1a">GND</text>
+
+  <text x="796" y="218" text-anchor="middle" font-size="12" fill="#6b7280">Два елементи у послідовному колі</text>
+
+  <!-- КАРТКА 2: Аналітичні блоки -->
+  <rect x="668" y="242" width="256" height="246" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Блок 1: Стрибок ESR -->
+  <rect x="678" y="252" width="236" height="62" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="688" y="270" font-size="12" font-weight="700" fill="#c0392b">1. Стрибок падіння на ESR:</text>
+  <text x="688" y="288" font-size="12" font-weight="700" fill="#1a1a1a">ΔV_ESR = I_pulse · R_ESR</text>
+  <text x="688" y="304" font-size="12" fill="#6b7280">Безінерційний стрибок (наносекунди)</text>
+
+  <!-- Блок 2: Спад ємності -->
+  <rect x="678" y="328" width="236" height="62" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="688" y="346" font-size="12" font-weight="700" fill="#2457d6">2. Спад заряду ємності:</text>
+  <text x="688" y="364" font-size="12" font-weight="700" fill="#1a1a1a">ΔV_C = (I_pulse · Δt) / C</text>
+  <text x="688" y="380" font-size="12" fill="#6b7280">Похилий розряд за час розгону Δt</text>
+
+  <!-- Блок 3: Критерій BOR -->
+  <rect x="678" y="404" width="236" height="74" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="688" y="422" font-size="12" font-weight="700" fill="#27ae60">3. Критерій стійкості BOR:</text>
+  <text x="688" y="440" font-size="12" font-weight="700" fill="#1a1a1a">V_bus_min ≥ V_BOR + V_margin</text>
+  <text x="688" y="456" font-size="12" fill="#1a1a1a">ΔV_total = ΔV_ESR + ΔV_C ≤ 0.5 В</text>
+  <text x="688" y="470" font-size="12" fill="#27ae60">Захист мікроконтролера від скидання</text>
+</svg>

@@ -1,0 +1,218 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Перехідні процеси двигуна DC 130: прямий пуск проти обмеження slew-rate</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Лінійна рампа ШІМ усуває ударний пік струму I_stall та захищає ключі H-моста від перевантаження</text>
+
+  <!-- ======================================================== -->
+  <!-- ЛІВА ПАНЕЛЬ: ПРЯМИЙ ПУСК (ПРОБЛЕМА)                      -->
+  <!-- ======================================================== -->
+  <rect x="24" y="68" width="444" height="472" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок лівої панелі -->
+  <rect x="36" y="80" width="420" height="32" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="246" y="101" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Ступінчастий пуск (Step): стрибок D = 0% → 100%</text>
+
+  <!-- ГРАФІК 1 (ЗЛІВА): ШІМ D(t) -->
+  <text x="86" y="128" font-size="12" font-weight="700" fill="#2457d6">Шпаруватість ШІМ D (%):</text>
+  <line x1="86" y1="184" x2="440" y2="184" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="86" y1="184" x2="86" y2="136" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="444" y="188" font-size="12" fill="#1a1a1a">t</text>
+
+  <!-- Засічки осі Y (ШІМ) -->
+  <line x1="82" y1="144" x2="86" y2="144" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="78" y="148" text-anchor="end" font-size="12" fill="#6b7280">100%</text>
+  <line x1="82" y1="184" x2="86" y2="184" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="78" y="188" text-anchor="end" font-size="12" fill="#6b7280">0%</text>
+
+  <!-- Лінія 100% пунктиром -->
+  <line x1="86" y1="144" x2="430" y2="144" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Крива ШІМ (миттєвий стрибок) -->
+  <polyline points="86,184 130,184 130,144 430,144" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+  <circle cx="130" cy="144" r="3" fill="#2457d6"/>
+  <text x="145" y="160" font-size="12" font-weight="700" fill="#c0392b">Стрибок за 1 такт</text>
+
+  <!-- ГРАФІК 2 (ЗЛІВА): Струм I(t) -->
+  <text x="86" y="210" font-size="12" font-weight="700" fill="#1a1a1a">Струм двигуна I (А):</text>
+  <line x1="86" y1="320" x2="440" y2="320" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="86" y1="320" x2="86" y2="218" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="444" y="324" font-size="12" fill="#1a1a1a">t</text>
+
+  <!-- Безпечна межа ключів (1.0 А) -->
+  <line x1="86" y1="264" x2="430" y2="264" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="426" y="260" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">Межа драйвера (1.0 А)</text>
+
+  <!-- Засічки осі Y (Струм) -->
+  <line x1="82" y1="230" x2="86" y2="230" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="78" y="234" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">1.8 А</text>
+
+  <line x1="82" y1="264" x2="86" y2="264" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="78" y="268" text-anchor="end" font-size="12" fill="#c0392b">1.0 А</text>
+
+  <line x1="82" y1="305" x2="86" y2="305" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="78" y="309" text-anchor="end" font-size="12" fill="#6b7280">0.3 А</text>
+
+  <line x1="82" y1="320" x2="86" y2="320" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="78" y="324" text-anchor="end" font-size="12" fill="#6b7280">0 А</text>
+
+  <!-- Крива струму (пусковий ударний пік) -->
+  <polyline points="86,320 130,320 130,230" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M 130,230 Q 165,245 200,285 Q 240,305 300,305 L 430,305" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="130" cy="230" r="3.5" fill="#c0392b"/>
+
+  <!-- Пояснення піку струму -->
+  <text x="145" y="238" font-size="12" font-weight="700" fill="#c0392b">Пік I_stall ≈ 1.8 А (Inrush!)</text>
+  <text x="310" y="300" font-size="12" fill="#6b7280">I_nom ≈ 0.3 А</text>
+
+  <!-- ГРАФІК 3 (ЗЛІВА): Швидкість вала omega(t) -->
+  <text x="86" y="348" font-size="12" font-weight="700" fill="#1a1a1a">Швидкість вала ω (% від номіналу):</text>
+  <line x1="86" y1="432" x2="440" y2="432" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="86" y1="432" x2="86" y2="356" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="444" y="436" font-size="12" fill="#1a1a1a">t</text>
+
+  <!-- Засічки осі Y (Швидкість) -->
+  <line x1="82" y1="376" x2="86" y2="376" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="78" y="380" text-anchor="end" font-size="12" fill="#6b7280">100%</text>
+  <line x1="82" y1="432" x2="86" y2="432" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="78" y="436" text-anchor="end" font-size="12" fill="#6b7280">0%</text>
+
+  <!-- Лінія 100% швидкості -->
+  <line x1="86" y1="376" x2="430" y2="376" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Крива швидкості (експоненційне наростання) -->
+  <polyline points="86,432 130,432" fill="none" stroke="#1a1a1a" stroke-width="2.2"/>
+  <path d="M 130,432 Q 155,395 210,380 L 430,376" fill="none" stroke="#1a1a1a" stroke-width="2.2"/>
+  <text x="230" y="402" font-size="12" font-weight="700" fill="#c0392b">Різкий стрибок швидкості</text>
+  <text x="230" y="418" font-size="12" fill="#6b7280">Ударний момент (τ_m ≈ 50 мс)</text>
+
+  <!-- Засічка часу t0 -->
+  <line x1="130" y1="184" x2="130" y2="436" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="130" y="448" text-anchor="middle" font-size="12" fill="#1a1a1a">t_0</text>
+
+  <!-- Підсумкова картка наслідків (зліва) -->
+  <rect x="36" y="462" width="420" height="66" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="48" y="481" font-size="12" font-weight="700" fill="#c0392b">• Пусковий струм I_stall ≈ 1.8 А (у 6 разів вище норми)</text>
+  <text x="48" y="499" font-size="12" fill="#1a1a1a">• Наслідки: ризик пробою ключів H-моста, BOR мікроконтролера</text>
+  <text x="48" y="517" font-size="12" fill="#6b7280">• Механіка: ударний пусковий момент, ерозія щіток колектора</text>
+
+  <!-- ======================================================== -->
+  <!-- ПРАВА ПАНЕЛЬ: ПЛАВНИЙ ПУСК (РОЗВ'ЯЗОК)                   -->
+  <!-- ======================================================== -->
+  <rect x="492" y="68" width="444" height="472" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок правої панелі -->
+  <rect x="504" y="80" width="420" height="32" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="714" y="101" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">Плавний пуск (Soft-Start): рампа dD/dt = const</text>
+
+  <!-- ГРАФІК 1 (СПРАВА): ШІМ D(t) -->
+  <text x="554" y="128" font-size="12" font-weight="700" fill="#2457d6">Шпаруватість ШІМ D (%):</text>
+  <line x1="554" y1="184" x2="908" y2="184" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="554" y1="184" x2="554" y2="136" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="912" y="188" font-size="12" fill="#1a1a1a">t</text>
+
+  <!-- Засічки осі Y (ШІМ) -->
+  <line x1="550" y1="144" x2="554" y2="144" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="546" y="148" text-anchor="end" font-size="12" fill="#6b7280">100%</text>
+  <line x1="550" y1="184" x2="554" y2="184" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="546" y="188" text-anchor="end" font-size="12" fill="#6b7280">0%</text>
+
+  <!-- Лінія 100% пунктиром -->
+  <line x1="554" y1="144" x2="898" y2="144" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Крива ШІМ (лінійна рампа) -->
+  <polyline points="554,184 598,184 738,144 898,144" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+  <circle cx="598" cy="184" r="3" fill="#2457d6"/>
+  <circle cx="738" cy="144" r="3" fill="#2457d6"/>
+  <!-- Напис праворуч угорі від рампи, щоб не перетинатися -->
+  <text x="750" y="136" font-size="12" font-weight="700" fill="#27ae60">Рампа slew-rate</text>
+
+  <!-- ГРАФІК 2 (СПРАВА): Струм I(t) -->
+  <text x="554" y="210" font-size="12" font-weight="700" fill="#1a1a1a">Струм двигуна I (А):</text>
+  <line x1="554" y1="320" x2="908" y2="320" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="554" y1="320" x2="554" y2="218" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="912" y="324" font-size="12" fill="#1a1a1a">t</text>
+
+  <!-- Безпечна межа ключів (1.0 А) -->
+  <line x1="554" y1="264" x2="898" y2="264" stroke="#27ae60" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="894" y="260" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">Безпечна зона (&lt; 1.0 А)</text>
+
+  <!-- Засічки осі Y (Струм) -->
+  <line x1="550" y1="230" x2="554" y2="230" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="546" y="234" text-anchor="end" font-size="12" fill="#6b7280">1.8 А</text>
+
+  <line x1="550" y1="264" x2="554" y2="264" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="546" y="268" text-anchor="end" font-size="12" fill="#27ae60">1.0 А</text>
+
+  <line x1="550" y1="298" x2="554" y2="298" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="546" y="302" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">0.45 А</text>
+
+  <line x1="550" y1="320" x2="554" y2="320" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="546" y="324" text-anchor="end" font-size="12" fill="#6b7280">0 А</text>
+
+  <!-- Крива струму (плавний розгін без піку) -->
+  <polyline points="554,320 598,320" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <path d="M 598,320 Q 618,298 640,298 L 728,298 Q 748,305 770,305 L 898,305" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="640" cy="298" r="3" fill="#27ae60"/>
+
+  <!-- Пояснення струму рампи -->
+  <text x="618" y="286" font-size="12" font-weight="700" fill="#27ae60">I_accel ≈ 0.45 А (без викиду!)</text>
+  <text x="780" y="300" font-size="12" fill="#6b7280">I_nom ≈ 0.3 А</text>
+
+  <!-- ГРАФІК 3 (СПРАВА): Швидкість вала omega(t) -->
+  <text x="554" y="348" font-size="12" font-weight="700" fill="#1a1a1a">Швидкість вала ω (% від номіналу):</text>
+  <line x1="554" y1="432" x2="908" y2="432" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="554" y1="432" x2="554" y2="356" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="912" y="436" font-size="12" fill="#1a1a1a">t</text>
+
+  <!-- Засічки осі Y (Швидкість) -->
+  <line x1="550" y1="376" x2="554" y2="376" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="546" y="380" text-anchor="end" font-size="12" fill="#6b7280">100%</text>
+  <line x1="550" y1="432" x2="554" y2="432" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="546" y="436" text-anchor="end" font-size="12" fill="#6b7280">0%</text>
+
+  <!-- Лінія 100% швидкості -->
+  <line x1="554" y1="376" x2="898" y2="376" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Крива швидкості (плавне лінійне наростання) -->
+  <polyline points="554,432 598,432" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+  <path d="M 598,432 Q 612,428 630,418 L 728,382 Q 740,376 755,376 L 898,376" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+  <text x="760" y="398" font-size="12" font-weight="700" fill="#27ae60">Синхронний розгін</text>
+  <text x="760" y="414" font-size="12" fill="#6b7280">dω/dt = const (без ударів)</text>
+
+  <!-- Засічки часу t0 та t_ramp -->
+  <line x1="598" y1="184" x2="598" y2="436" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="598" y="448" text-anchor="middle" font-size="12" fill="#1a1a1a">t_0</text>
+
+  <line x1="738" y1="144" x2="738" y2="436" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="738" y="448" text-anchor="middle" font-size="12" fill="#1a1a1a">t_1</text>
+
+  <!-- Підпис тривалості рампи між t0 та t1 -->
+  <text x="668" y="448" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">t_ramp ≈ 80 мс</text>
+
+  <!-- Підсумкова картка наслідків (справа) -->
+  <rect x="504" y="462" width="420" height="66" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="516" y="481" font-size="12" font-weight="700" fill="#27ae60">• Струм під контролем: I_max ≈ 0.45 А (у безпечній зоні)</text>
+  <text x="516" y="499" font-size="12" fill="#1a1a1a">• Переваги: шина 5 В стабільна, відсутні провали BOR для MCU</text>
+  <text x="516" y="517" font-size="12" fill="#6b7280">• Механіка: плавний розгін, захист редуктора і ресурсу щіток</text>
+</svg>

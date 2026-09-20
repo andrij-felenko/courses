@@ -1,0 +1,195 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Кінематична схема підвісу Pan-Tilt: розвантаження валів опорними підшипниками</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Зовнішній підшипник панорами та шарнір нахилу замикають радіальні й згинальні сили на корпус</text>
+
+  <!-- ЛІВА ГОЛОВНА ПАНЕЛЬ: КІНЕМАТИЧНА СХЕМА -->
+  <rect x="24" y="72" width="536" height="424" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="96" font-size="14" font-weight="700" fill="#1a1a1a">Двоосьовий кінематичний вузол у розрізі</text>
+  <text x="44" y="114" font-size="12" fill="#6b7280">Передача ваги й згинальних моментів повз вали приводів MG90S та SG90</text>
+
+  <!-- ВНУТРІШНЄ ПОЛЕ СХЕМИ -->
+  <rect x="38" y="126" width="508" height="354" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- ==================== ОСЬОВІ ЛІНІЇ ==================== -->
+  <line x1="292" y1="130" x2="292" y2="148" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="292" y1="288" x2="292" y2="330" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="302" y="142" font-size="12" fill="#94a3b8">Вісь Pan (Z)</text>
+
+  <!-- ==================== СТАНИНА (BASE) ==================== -->
+  <rect x="180" y="420" width="224" height="36" rx="4" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="292" y="443" font-size="12" font-weight="700" fill="#475569" text-anchor="middle">Станина (Base)</text>
+  <!-- Опорне штрихування станини -->
+  <line x1="170" y1="456" x2="414" y2="456" stroke="#64748b" stroke-width="1.5"/>
+  <line x1="185" y1="456" x2="177" y2="464" stroke="#64748b" stroke-width="1.2"/>
+  <line x1="215" y1="456" x2="207" y2="464" stroke="#64748b" stroke-width="1.2"/>
+  <line x1="245" y1="456" x2="237" y2="464" stroke="#64748b" stroke-width="1.2"/>
+  <line x1="275" y1="456" x2="267" y2="464" stroke="#64748b" stroke-width="1.2"/>
+  <line x1="305" y1="456" x2="297" y2="464" stroke="#64748b" stroke-width="1.2"/>
+  <line x1="335" y1="456" x2="327" y2="464" stroke="#64748b" stroke-width="1.2"/>
+  <line x1="365" y1="456" x2="357" y2="464" stroke="#64748b" stroke-width="1.2"/>
+  <line x1="395" y1="456" x2="387" y2="464" stroke="#64748b" stroke-width="1.2"/>
+
+  <!-- ==================== ПРИВОД PAN: MG90S ==================== -->
+  <rect x="258" y="378" width="68" height="40" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="292" y="395" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">MG90S</text>
+  <text x="292" y="410" font-size="12" fill="#6b7280" text-anchor="middle">13.4 г, метал</text>
+  <!-- Вал MG90S -->
+  <rect x="287" y="356" width="10" height="22" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <!-- Торсійна муфта -->
+  <rect x="284" y="342" width="16" height="12" rx="2" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+
+  <!-- ==================== ЗОВНІШНІЙ ПІДШИПНИК PAN ==================== -->
+  <!-- Ліва частина -->
+  <rect x="206" y="350" width="40" height="26" fill="#cbd5e1" stroke="#475569" stroke-width="1.2"/>
+  <circle cx="226" cy="363" r="7" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"/>
+  <circle cx="226" cy="363" r="2.5" fill="#1e293b"/>
+  <!-- Права частина -->
+  <rect x="338" y="350" width="40" height="26" fill="#cbd5e1" stroke="#475569" stroke-width="1.2"/>
+  <circle cx="358" cy="363" r="7" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"/>
+  <circle cx="358" cy="363" r="2.5" fill="#1e293b"/>
+
+  <!-- ==================== ПОВОРОТНА ВИЛКА (U-YOKE) ==================== -->
+  <!-- Нижня полиця вилки -->
+  <rect x="194" y="332" width="196" height="10" rx="2" fill="#e2e8f0" stroke="#475569" stroke-width="1.2"/>
+  <!-- Ліва вертикальна стійка -->
+  <rect x="140" y="174" width="14" height="158" rx="2" fill="#e2e8f0" stroke="#475569" stroke-width="1.2"/>
+  <!-- Права вертикальна стійка -->
+  <rect x="430" y="174" width="14" height="158" rx="2" fill="#e2e8f0" stroke="#475569" stroke-width="1.2"/>
+  <!-- З'єднувальні кути вилки -->
+  <line x1="154" y1="337" x2="194" y2="337" stroke="#475569" stroke-width="4"/>
+  <line x1="390" y1="337" x2="430" y2="337" stroke="#475569" stroke-width="4"/>
+
+  <!-- ==================== ВІСЬ TILT: ЛІВИЙ ДОПОМІЖНИЙ ШАРНІР ==================== -->
+  <rect x="154" y="184" width="28" height="28" fill="#cbd5e1" stroke="#475569" stroke-width="1.2"/>
+  <circle cx="168" cy="198" r="7" fill="#ffffff" stroke="#1e293b" stroke-width="1.5"/>
+  <circle cx="168" cy="198" r="2.5" fill="#1e293b"/>
+  <!-- Палець шарніра -->
+  <rect x="182" y="194" width="12" height="8" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+
+  <!-- ==================== ВІСЬ TILT: ПРАВИЙ ПРИВОД SG90 ==================== -->
+  <rect x="396" y="178" width="34" height="42" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Вихідна втулка SG90 -->
+  <rect x="382" y="194" width="14" height="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+
+  <!-- ==================== КОЛИСКА ТА КАМЕРА ==================== -->
+  <!-- Колиска камери (U-подібна рамка) -->
+  <path d="M194,198 L214,198 L214,240 L370,240 L370,198 L382,198" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Камера (корисне навантаження) -->
+  <rect x="236" y="156" width="112" height="74" rx="4" fill="#f8fafc" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="292" cy="193" r="22" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="292" cy="193" r="13" fill="#2457d6"/>
+  <circle cx="292" cy="193" r="4" fill="#ffffff"/>
+  <text x="292" y="148" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Камера / сенсор</text>
+
+  <!-- Вектор ваги F_cam -->
+  <line x1="292" y1="240" x2="292" y2="274" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="302" y="266" font-size="12" font-weight="700" fill="#c0392b">F_cam</text>
+
+  <!-- ==================== СИЛОВІ ПОТОКИ (LOAD PATHS) ==================== -->
+  <!-- Реакція шарніра R1 -->
+  <line x1="168" y1="230" x2="168" y2="216" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <!-- Реакція кронштейна R2 -->
+  <line x1="416" y1="230" x2="416" y2="222" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Потоки сил вниз по стійках вилки -->
+  <line x1="147" y1="236" x2="147" y2="296" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <line x1="437" y1="236" x2="437" y2="296" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+
+  <!-- Замикання ваги через підшипник Pan у станину -->
+  <line x1="226" y1="376" x2="226" y2="418" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <line x1="358" y1="376" x2="358" y2="418" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Крутний момент вала Pan -->
+  <path d="M308,350 A16,16 0 0,0 276,350" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="304" y="322" font-size="12" font-weight="700" fill="#2457d6">τ_pan</text>
+
+  <!-- Крутний момент вала Tilt -->
+  <path d="M388,186 A10,10 0 0,0 388,210" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ==================== ПІДПИСИ ТА ПОЗНАЧКИ ЛІВОЇ ПАНЕЛІ ==================== -->
+  <!-- Шарнір Tilt (вгорі ліворуч) -->
+  <text x="46" y="162" font-size="12" font-weight="700" fill="#27ae60">Шарнір Tilt:</text>
+  <text x="46" y="178" font-size="12" fill="#6b7280">пасивна опора</text>
+  <text x="46" y="194" font-size="12" fill="#27ae60">R₁ ≈ F_cam / 2</text>
+  <line x1="126" y1="184" x2="152" y2="194" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+
+  <!-- Блок розвантаження вала SG90 (посередині ліворуч) -->
+  <rect x="44" y="244" width="86" height="70" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="50" y="260" font-size="12" font-weight="700" fill="#27ae60">Вал SG90:</text>
+  <text x="50" y="276" font-size="12" fill="#1a1a1a">без згину</text>
+  <text x="50" y="292" font-size="12" fill="#1a1a1a">F_rad ≈ 0</text>
+  <text x="50" y="308" font-size="12" fill="#27ae60">M_bend = 0</text>
+
+  <!-- Зовнішній підшипник Pan (внизу ліворуч) -->
+  <text x="46" y="356" font-size="12" font-weight="700" fill="#27ae60">Підшипник Pan:</text>
+  <text x="46" y="372" font-size="12" fill="#6b7280">зовнішня опора</text>
+  <text x="46" y="388" font-size="12" fill="#27ae60">F_z + M_bend</text>
+  <line x1="138" y1="368" x2="202" y2="363" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+
+  <!-- Блок розвантаження вала MG90S (у самому низу ліворуч) -->
+  <rect x="44" y="412" width="86" height="54" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="50" y="428" font-size="12" font-weight="700" fill="#2457d6">Вал MG90S:</text>
+  <text x="50" y="444" font-size="12" fill="#1a1a1a">лише τ_pan</text>
+  <text x="50" y="460" font-size="12" fill="#27ae60">F_rad = 0</text>
+
+  <!-- Підписи праворуч від вузла Tilt (SG90) -->
+  <text x="450" y="188" font-size="12" font-weight="700" fill="#2457d6">SG90 (Tilt):</text>
+  <text x="450" y="204" font-size="12" fill="#6b7280">нейлон 9 г</text>
+  <text x="450" y="220" font-size="12" fill="#2457d6">τ_tilt (момент)</text>
+  <text x="450" y="236" font-size="12" fill="#27ae60">R₂ ≈ F_cam / 2</text>
+
+  <!-- Підписи праворуч від вузла Pan -->
+  <text x="412" y="368" font-size="12" font-weight="700" fill="#27ae60">Замикання сил:</text>
+  <text x="412" y="384" font-size="12" fill="#6b7280">вага F_z у станину</text>
+  <text x="412" y="400" font-size="12" fill="#6b7280">момент M_bend</text>
+
+  <!-- ==================== ПРАВА ВЕРХНЯ ПАНЕЛЬ: ВІСЬ PAN ==================== -->
+  <rect x="576" y="72" width="360" height="206" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="596" y="96" font-size="14" font-weight="700" fill="#1a1a1a">1. Вісь панорамування (Pan) — опора MG90S</text>
+  <text x="596" y="114" font-size="12" fill="#6b7280">Розвантаження привода зовнішнім кулькопідшипником</text>
+
+  <rect x="592" y="126" width="328" height="140" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="604" y="146" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#2457d6">• Привод MG90S:</tspan> металевий редуктор тримає крутний момент</text>
+  <text x="604" y="165" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#27ae60">• Зовнішній підшипник:</tspan> замикає F_z (вагу) та момент M_bend</text>
+  <text x="604" y="184" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#1a1a1a">• Вихідний вал:</tspan> передає виключно крутний момент τ_pan</text>
+  <text x="604" y="203" font-size="12" fill="#27ae60">• Навантаження вала: F_rad ≈ 0, радіальний згин усунено</text>
+
+  <rect x="604" y="222" width="304" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="756" y="239" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">✓ Станина замикає всі консольні сили осі Pan</text>
+
+  <!-- ==================== ПРАВА НИЖНЯ ПАНЕЛЬ: ВІСЬ TILT ==================== -->
+  <rect x="576" y="290" width="360" height="206" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="596" y="314" font-size="14" font-weight="700" fill="#1a1a1a">2. Вісь нахилу (Tilt) — опора SG90</text>
+  <text x="596" y="332" font-size="12" fill="#6b7280">Двоопорна вилка та мінімізація моменту інерції</text>
+
+  <rect x="592" y="344" width="328" height="140" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="604" y="364" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#2457d6">• Привод SG90:</tspan> маса 9 г знижує момент інерції J_pan вузла</text>
+  <text x="604" y="383" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#27ae60">• Допоміжний шарнір:</tspan> створює парну симетричну опору</text>
+  <text x="604" y="402" font-size="12" fill="#1a1a1a"><tspan font-weight="700" fill="#1a1a1a">• Розподіл сил:</tspan> реакції R₁ ≈ R₂ ділять вагу камери навпіл</text>
+  <text x="604" y="421" font-size="12" fill="#27ae60">• Навантаження вала: F_rad ≈ 0, діє лише момент τ_tilt</text>
+
+  <rect x="604" y="440" width="304" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="756" y="457" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">✓ Нейлонові шестерні SG90 захищені від зрізання</text>
+</svg>

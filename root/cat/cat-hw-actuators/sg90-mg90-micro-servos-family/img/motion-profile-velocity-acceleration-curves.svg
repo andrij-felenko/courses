@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Профілі руху сервопривода: кут, швидкість і прискорення</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Обмеження ривка усуває розриви прискорення та запобігає ударному зносу редуктора</text>
+  <!-- Column 1 -->
+  <rect x="24" y="70" width="294" height="468" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="34" y="80" width="274" height="30" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="171" y="100" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">1. Стрибок (без профілювання)</text>
+  <text x="171" y="124" font-size="12" fill="#6b7280" text-anchor="middle">Миттєва сходинка цільового кута</text>
+  <line x1="68" y1="208" x2="276" y2="208" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="68" y1="208" x2="68" y2="144" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="284" y="212" font-size="12" fill="#6b7280">t</text>
+  <text x="58" y="146" font-size="12" fill="#6b7280" text-anchor="end">θ</text>
+  <line x1="68" y1="162" x2="270" y2="162" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="62" y="166" font-size="12" fill="#6b7280" text-anchor="end">θ₁</text>
+  <text x="62" y="212" font-size="12" fill="#6b7280" text-anchor="end">θ₀</text>
+  <line x1="68" y1="304" x2="276" y2="304" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="68" y1="304" x2="68" y2="240" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="284" y="308" font-size="12" fill="#6b7280">t</text>
+  <text x="58" y="242" font-size="12" fill="#6b7280" text-anchor="end">ω</text>
+  <line x1="68" y1="258" x2="270" y2="258" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="62" y="262" font-size="12" fill="#6b7280" text-anchor="end">ωₘ</text>
+  <text x="62" y="308" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <line x1="68" y1="390" x2="276" y2="390" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="68" y1="434" x2="68" y2="342" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="284" y="394" font-size="12" fill="#6b7280">t</text>
+  <text x="58" y="344" font-size="12" fill="#6b7280" text-anchor="end">α</text>
+  <line x1="68" y1="366" x2="270" y2="366" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="68" y1="414" x2="270" y2="414" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="62" y="370" font-size="12" fill="#6b7280" text-anchor="end">+αₘ</text>
+  <text x="62" y="394" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="62" y="418" font-size="12" fill="#6b7280" text-anchor="end">−αₘ</text>
+  <rect x="34" y="452" width="274" height="74" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="171" y="471" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Негативний ефект:</text>
+  <text x="171" y="490" font-size="12" fill="#1a1a1a" text-anchor="middle">Ударні згинальні навантаження,</text>
+  <text x="171" y="509" font-size="12" fill="#1a1a1a" text-anchor="middle">кидки струму живлення та вібрація</text>
+  <path d="M 68 208 L 86 208 L 86 162 L 270 162" fill="none" stroke="#9ca3af" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <path d="M 68 208 L 86 208 L 148 162 Q 154 156 160 162 Q 166 167 172 162 Q 178 159 184 162 L 270 162" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="224" y="150" font-size="12" fill="#c0392b" text-anchor="middle">Коливання (дзвін)</text>
+  <path d="M 68 304 L 86 304 L 86 258 L 148 258 L 148 304 Q 154 308 160 304 L 270 304" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="166" y="282" font-size="12" fill="#c0392b">Стрибок швидкості</text>
+  <line x1="68" y1="390" x2="270" y2="390" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="86" y1="390" x2="86" y2="350" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="96" y="358" font-size="12" font-weight="700" fill="#c0392b">Сплеск +∞</text>
+  <line x1="148" y1="390" x2="148" y2="430" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="158" y="430" font-size="12" font-weight="700" fill="#c0392b">Сплеск −∞</text>
+  <!-- Column 2 -->
+  <rect x="333" y="70" width="294" height="468" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="343" y="80" width="274" height="30" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="100" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">2. Трапецеїдальний профіль</text>
+  <text x="480" y="124" font-size="12" fill="#6b7280" text-anchor="middle">Лінійний розгін і гальмування (a = const)</text>
+  <line x1="377" y1="208" x2="585" y2="208" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="377" y1="208" x2="377" y2="144" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="593" y="212" font-size="12" fill="#6b7280">t</text>
+  <text x="367" y="146" font-size="12" fill="#6b7280" text-anchor="end">θ</text>
+  <line x1="377" y1="162" x2="579" y2="162" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="371" y="166" font-size="12" fill="#6b7280" text-anchor="end">θ₁</text>
+  <text x="371" y="212" font-size="12" fill="#6b7280" text-anchor="end">θ₀</text>
+  <line x1="377" y1="304" x2="585" y2="304" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="377" y1="304" x2="377" y2="240" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="593" y="308" font-size="12" fill="#6b7280">t</text>
+  <text x="367" y="242" font-size="12" fill="#6b7280" text-anchor="end">ω</text>
+  <line x1="377" y1="258" x2="579" y2="258" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="371" y="262" font-size="12" fill="#6b7280" text-anchor="end">ωₘ</text>
+  <text x="371" y="308" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <line x1="377" y1="390" x2="585" y2="390" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="377" y1="434" x2="377" y2="342" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="593" y="394" font-size="12" fill="#6b7280">t</text>
+  <text x="367" y="344" font-size="12" fill="#6b7280" text-anchor="end">α</text>
+  <line x1="377" y1="366" x2="579" y2="366" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="377" y1="414" x2="579" y2="414" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="371" y="370" font-size="12" fill="#6b7280" text-anchor="end">+αₘ</text>
+  <text x="371" y="394" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="371" y="418" font-size="12" fill="#6b7280" text-anchor="end">−αₘ</text>
+  <rect x="343" y="452" width="274" height="74" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="471" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Компромісний ефект:</text>
+  <text x="480" y="490" font-size="12" fill="#1a1a1a" text-anchor="middle">Швидкість обмежена, але стрибки</text>
+  <text x="480" y="509" font-size="12" fill="#1a1a1a" text-anchor="middle">прискорення збуджують коливання</text>
+  <path d="M 377 208 L 393 208 Q 415 208 437 191 L 505 179 Q 527 162 549 162 L 579 162" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="471" y="150" font-size="12" fill="#2457d6" text-anchor="middle">Кусково-параболічний кут</text>
+  <path d="M 377 304 L 393 304 L 437 258 L 505 258 L 549 304 L 579 304" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="471" y="282" font-size="12" fill="#2457d6" text-anchor="middle">Трапеція ω(t)</text>
+  <path d="M 377 390 L 393 390 L 393 366 L 437 366 L 437 390 L 505 390 L 505 414 L 549 414 L 549 390 L 579 390" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="471" y="352" font-size="12" fill="#2457d6" text-anchor="middle">Розриви ступенів Δα</text>
+  <!-- Column 3 -->
+  <rect x="642" y="70" width="294" height="468" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="652" y="80" width="274" height="30" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="789" y="100" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">3. Згладжений S-профіль</text>
+  <text x="789" y="124" font-size="12" fill="#6b7280" text-anchor="middle">Обмежений ривок (|j| ≤ jₘ, C²-гладкість)</text>
+  <line x1="686" y1="208" x2="894" y2="208" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="686" y1="208" x2="686" y2="144" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="902" y="212" font-size="12" fill="#6b7280">t</text>
+  <text x="676" y="146" font-size="12" fill="#6b7280" text-anchor="end">θ</text>
+  <line x1="686" y1="162" x2="888" y2="162" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="680" y="166" font-size="12" fill="#6b7280" text-anchor="end">θ₁</text>
+  <text x="680" y="212" font-size="12" fill="#6b7280" text-anchor="end">θ₀</text>
+  <line x1="686" y1="304" x2="894" y2="304" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="686" y1="304" x2="686" y2="240" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="902" y="308" font-size="12" fill="#6b7280">t</text>
+  <text x="676" y="242" font-size="12" fill="#6b7280" text-anchor="end">ω</text>
+  <line x1="686" y1="258" x2="888" y2="258" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="680" y="262" font-size="12" fill="#6b7280" text-anchor="end">ωₘ</text>
+  <text x="680" y="308" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <line x1="686" y1="390" x2="894" y2="390" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <line x1="686" y1="434" x2="686" y2="342" stroke="#9ca3af" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="902" y="394" font-size="12" fill="#6b7280">t</text>
+  <text x="676" y="344" font-size="12" fill="#6b7280" text-anchor="end">α</text>
+  <line x1="686" y1="366" x2="888" y2="366" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="686" y1="414" x2="888" y2="414" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <text x="680" y="370" font-size="12" fill="#6b7280" text-anchor="end">+αₘ</text>
+  <text x="680" y="394" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="680" y="418" font-size="12" fill="#6b7280" text-anchor="end">−αₘ</text>
+  <rect x="652" y="452" width="274" height="74" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="789" y="471" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Оптимальний ефект:</text>
+  <text x="789" y="490" font-size="12" fill="#1a1a1a" text-anchor="middle">Відсутність ударів і стрибків струму,</text>
+  <text x="789" y="509" font-size="12" fill="#1a1a1a" text-anchor="middle">захист зубів MG90/SG90 від зрізання</text>
+  <path d="M 686 208 L 702 208 C 737 208 747 185 780 185 C 813 185 823 162 858 162 L 888 162" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="780" y="150" font-size="12" fill="#27ae60" text-anchor="middle">Гладка траєкторія (C²)</text>
+  <path d="M 686 304 L 702 304 C 720 304 738 258 756 258 L 804 258 C 822 258 840 304 858 304 L 888 304" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="780" y="282" font-size="12" fill="#27ae60" text-anchor="middle">Згладжена S-крива</text>
+  <path d="M 686 390 L 702 390 L 720 366 L 738 366 L 756 390 L 804 390 L 822 414 L 840 414 L 858 390 L 888 390" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="780" y="352" font-size="12" fill="#27ae60" text-anchor="middle">Неперервне прискорення</text>
+</svg>

@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-ok" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-err" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Алгоритм безаварійного керування помпою RS-360SH: плавний пуск, дозування та реверс</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Soft-start усуває просідання живлення (BOR), імпульс реверсу втягує краплю, а таймаут блокує сухий хід</text>
+
+  <!-- Головна панель діаграми -->
+  <rect x="24" y="68" width="912" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Вертикальний розділювач між колонкою назв каналів та сигналами -->
+  <line x1="220" y1="74" x2="220" y2="412" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Горизонтальна смуга фаз угорі (y: 76..100) -->
+  <rect x="236" y="76" width="150" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="311" y="92" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Плавний пуск t_ramp</text>
+
+  <rect x="396" y="76" width="250" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="521" y="92" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Каліброване нагнітання t_dose</text>
+
+  <rect x="656" y="76" width="30" height="24" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="671" y="92" font-size="12" fill="#6b7280" text-anchor="middle">t_d</text>
+
+  <rect x="696" y="76" width="60" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="726" y="92" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Реверс</text>
+
+  <rect x="766" y="76" width="40" height="24" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="786" y="92" font-size="12" fill="#6b7280" text-anchor="middle">Стоп</text>
+
+  <rect x="816" y="76" width="108" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="870" y="92" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">4. Watchdog t_max</text>
+
+  <!-- Фонова зона аварійного таймауту від x=816 до x=924 на всю висоту сигналів -->
+  <rect x="816" y="104" width="108" height="270" fill="#fdecea" fill-opacity="0.35" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="870" y="210" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Ліміт Watchdog</text>
+  <text x="870" y="228" font-size="12" fill="#c0392b" text-anchor="middle">Аварійний стоп</text>
+  <text x="870" y="244" font-size="12" fill="#c0392b" text-anchor="middle">Захист від</text>
+  <text x="870" y="260" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">сухого ходу</text>
+
+  <!-- Доріжка 1: IN1 Прямий хід -->
+  <text x="36" y="126" font-size="13" font-weight="bold" fill="#1a1a1a">1. IN1 (Прямий хід)</text>
+  <text x="36" y="142" font-size="12" fill="#6b7280">ШІМ: пуск + нагнітання</text>
+  <text x="36" y="156" font-size="12" fill="#6b7280">Ключі моста H1, H4</text>
+
+  <line x1="226" y1="156" x2="812" y2="156" stroke="#d0d7de" stroke-width="0.75"/>
+  <text x="214" y="130" font-size="12" fill="#6b7280" text-anchor="end">12V</text>
+  <text x="214" y="160" font-size="12" fill="#6b7280" text-anchor="end">0V</text>
+
+  <path d="M 226,156 L 236,156 L 236,124 L 242,124 L 242,156 L 266,156 L 266,124 L 278,124 L 278,156 L 296,156 L 296,124 L 314,124 L 314,156 L 326,156 L 326,124 L 350,124 L 350,156 L 356,156 L 356,124 L 384,124 L 384,156 L 386,156 L 386,124 L 646,124 L 646,156 L 816,156" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="311" y="116" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D: 0% → 100% (Soft-start)</text>
+  <text x="516" y="116" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">100% ШІМ (Постійне нагнітання дози)</text>
+  <text x="731" y="150" font-size="12" fill="#6b7280" text-anchor="middle">0V (Вимкнено)</text>
+
+  <line x1="36" y1="168" x2="812" y2="168" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Доріжка 2: IN2 Реверс -->
+  <text x="36" y="190" font-size="13" font-weight="bold" fill="#1a1a1a">2. IN2 (Реверс моста)</text>
+  <text x="36" y="206" font-size="12" fill="#6b7280">Втягування краплі</text>
+  <text x="36" y="220" font-size="12" fill="#6b7280">Ключі моста H2, H3</text>
+
+  <line x1="226" y1="220" x2="812" y2="220" stroke="#d0d7de" stroke-width="0.75"/>
+  <text x="214" y="192" font-size="12" fill="#6b7280" text-anchor="end">12V</text>
+  <text x="214" y="224" font-size="12" fill="#6b7280" text-anchor="end">0V</text>
+
+  <path d="M 226,220 L 686,220 L 686,188 L 756,188 L 756,220 L 816,220" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="516" y="214" font-size="12" fill="#6b7280" text-anchor="middle">IN2 = 0V (Блоковано під час прямого ходу)</text>
+  <text x="671" y="214" font-size="12" fill="#6b7280" text-anchor="middle">t_d</text>
+  <text x="721" y="180" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_rev (50мс)</text>
+
+  <line x1="36" y1="232" x2="812" y2="232" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Доріжка 3: Струм електродвигуна -->
+  <text x="36" y="254" font-size="13" font-weight="bold" fill="#1a1a1a">3. Струм мотора I_m</text>
+  <text x="36" y="270" font-size="12" fill="#6b7280">Запобігання Brown-out</text>
+  <text x="36" y="284" font-size="12" fill="#6b7280">I_ном vs I_пуск</text>
+
+  <line x1="226" y1="300" x2="812" y2="300" stroke="#d0d7de" stroke-width="0.75"/>
+  <text x="214" y="260" font-size="12" fill="#c0392b" text-anchor="end">3.8A</text>
+  <text x="214" y="284" font-size="12" fill="#2457d6" text-anchor="end">0.6A</text>
+  <text x="214" y="304" font-size="12" fill="#6b7280" text-anchor="end">0A</text>
+
+  <path d="M 236,300 L 242,256 C 255,256 270,280 296,280" fill="none" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3,3"/>
+  <text x="246" y="246" font-size="12" font-weight="bold" fill="#c0392b">⚠ I_stall &gt; 3.5 A (Hard-start)</text>
+
+  <path d="M 226,300 L 236,300 C 276,300 326,280 386,280 L 646,280 L 656,300 L 686,300 L 692,274 L 750,274 L 756,300 L 816,300" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="516" y="272" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I_ном ≈ 0.6 А (V_bus = 12 В стабільне)</text>
+  <text x="726" y="268" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">I_rev</text>
+
+  <line x1="36" y1="312" x2="812" y2="312" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Доріжка 4: Гідродинаміка потоку -->
+  <text x="36" y="334" font-size="13" font-weight="bold" fill="#1a1a1a">4. Потік рідини Q(t)</text>
+  <text x="36" y="350" font-size="12" fill="#6b7280">Каліброване дозування</text>
+  <text x="36" y="364" font-size="12" fill="#6b7280">Антикрапельна відсічка</text>
+
+  <line x1="226" y1="360" x2="812" y2="360" stroke="#d0d7de" stroke-width="0.75"/>
+  <text x="214" y="338" font-size="12" fill="#2457d6" text-anchor="end">+Q</text>
+  <text x="214" y="364" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <text x="214" y="378" font-size="12" fill="#27ae60" text-anchor="end">-Q</text>
+
+  <path d="M 236,360 C 276,360 326,334 386,334 L 646,334 L 656,360 Z" fill="#eaf0fd" fill-opacity="0.6"/>
+  <path d="M 226,360 L 236,360 C 276,360 326,334 386,334 L 646,334 L 656,360 L 686,360 C 696,360 706,374 721,374 C 736,374 746,360 756,360 L 816,360" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="311" y="326" font-size="12" fill="#2457d6" text-anchor="middle">Плавний підйом</text>
+  <text x="516" y="348" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Об'єм дози V = Q_ном · t_dose</text>
+  <text x="721" y="390" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Втягування</text>
+
+  <!-- Часова вісь t -->
+  <line x1="226" y1="402" x2="920" y2="402" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="926" y="406" font-size="12" font-weight="bold" fill="#1a1a1a">t</text>
+
+  <line x1="236" y1="398" x2="236" y2="406" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="236" y="416" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0</text>
+  <line x1="386" y1="398" x2="386" y2="406" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="386" y="416" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_ramp</text>
+  <line x1="646" y1="398" x2="646" y2="406" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="646" y="416" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_dose</text>
+  <line x1="686" y1="398" x2="686" y2="406" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="686" y="416" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_d</text>
+  <line x1="756" y1="398" x2="756" y2="406" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="756" y="416" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_done</text>
+  <line x1="816" y1="398" x2="816" y2="406" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="816" y="416" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_max</text>
+
+  <!-- ПАНЕЛЬ 2: Порівняльні картки підсумку -->
+  <rect x="24" y="430" width="446" height="94" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="40" y="450" font-size="13" font-weight="bold" fill="#c0392b">⚠ Без алгоритму: стрибок струму, збій дози, сухий хід</text>
+  <text x="40" y="470" font-size="12" fill="#1a1a1a">• Прямий старт: I_stall &gt; 3.5 А просаджує V_bus → скидання MCU (BOR)</text>
+  <text x="40" y="488" font-size="12" fill="#1a1a1a">• Без реверсу: гравітаційне скапування крапель спотворює дозу на ±20%</text>
+  <text x="40" y="506" font-size="12" fill="#1a1a1a">• Без watchdog: сухий хід руйнує пластикові шестерні камери за 30–60 с</text>
+
+  <rect x="490" y="430" width="446" height="94" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="506" y="450" font-size="13" font-weight="bold" fill="#27ae60">✓ Безаварійний цикл: захищене та прецизійне дозування</text>
+  <text x="506" y="470" font-size="12" fill="#1a1a1a">• Soft-start: розгін ШІМ утримує струм I_m &lt; 0.7 А — V_bus стабільне</text>
+  <text x="506" y="488" font-size="12" fill="#1a1a1a">• Реверс t_rev: втягує меніск рідини в сопло — нуль скапування крапель</text>
+  <text x="506" y="506" font-size="12" fill="#1a1a1a">• Сторожовий таймаут t_max: примусово зупиняє помпу при нестачі води</text>
+</svg>

@@ -1,0 +1,194 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Юстування магнітного енкодера та допуски монтажу на валу</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Повітряний зазор 0.5–1.5 мм і биття Δr ≤ 0.1–0.2 мм формують однорідне поле на кристалі сенсора</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ОСЬОВИЙ ПЕРЕРІЗ ВУЗЛА ==================== -->
+  <rect x="20" y="70" width="560" height="430" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="94" font-size="14" font-weight="bold" fill="#1a1a1a">Осьовий переріз: плата контролера, сенсор і вал ротора</text>
+  <text x="40" y="112" font-size="12" fill="#6b7280">Взаємне просторове положення мікросхеми енкодера та циліндричного магніту</text>
+
+  <!-- Плата контролера (PCB) -->
+  <text x="50" y="132" font-size="12" font-weight="bold" fill="#2457d6">Друкована плата контролера (PCB)</text>
+  <rect x="50" y="138" width="420" height="14" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="50" y1="138" x2="470" y2="138" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Мікросхема енкодера (корпус на платі) -->
+  <rect x="220" y="152" width="80" height="22" rx="2" fill="#1a1a1a"/>
+  <!-- Виводи мікросхеми -->
+  <rect x="213" y="156" width="7" height="4" fill="#d0d7de"/>
+  <rect x="213" y="164" width="7" height="4" fill="#d0d7de"/>
+  <rect x="300" y="156" width="7" height="4" fill="#d0d7de"/>
+  <rect x="300" y="164" width="7" height="4" fill="#d0d7de"/>
+
+  <!-- Кристал сенсора всередині корпусу -->
+  <rect x="240" y="156" width="40" height="14" rx="1" fill="#f4f6f8"/>
+  <rect x="246" y="159" width="28" height="8" rx="1" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <!-- Чутливі елементи моста Холла / AMR -->
+  <rect x="250" y="161" width="4" height="4" fill="#c0392b"/>
+  <rect x="266" y="161" width="4" height="4" fill="#2457d6"/>
+
+  <!-- Підпис до сенсора -->
+  <line x1="307" y1="163" x2="345" y2="163" stroke="#6b7280" stroke-width="1"/>
+  <text x="352" y="160" font-size="12" font-weight="bold" fill="#1a1a1a">Мікросхема енкодера (QFN / SOIC)</text>
+  <text x="352" y="174" font-size="12" fill="#6b7280">Кристал сенсора з чутливими мостами</text>
+
+  <!-- Силові лінії магнітного поля B (від N до S крізь кристал) -->
+  <path d="M 246,220 C 246,192 274,192 274,220" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <path d="M 236,220 C 236,163 284,163 284,220" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <path d="M 226,220 C 226,145 294,145 294,220" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 2"/>
+
+  <!-- Стрілочки напрямку поля B на вершинах дуг -->
+  <line x1="257" y1="199" x2="263" y2="199" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="257" y1="177" x2="263" y2="177" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="257" y1="163" x2="263" y2="163" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Підпис до ліній поля B -->
+  <line x1="289" y1="195" x2="345" y2="195" stroke="#2457d6" stroke-width="1"/>
+  <text x="352" y="193" font-size="12" font-weight="bold" fill="#2457d6">Силові лінії магнітного поля B</text>
+  <text x="352" y="207" font-size="12" fill="#6b7280">Пронизують площину чутливих елементів</text>
+
+  <!-- Повітряний зазор z (розмірні лінії ліворуч) -->
+  <line x1="210" y1="174" x2="160" y2="174" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 2"/>
+  <line x1="215" y1="220" x2="160" y2="220" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 2"/>
+  <line x1="166" y1="176" x2="166" y2="190" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)"/>
+  <line x1="166" y1="204" x2="166" y2="218" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="156" y="195" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">z = 0.5–1.5 мм</text>
+  <text x="156" y="209" font-size="12" fill="#6b7280" text-anchor="end">(повітряний зазор)</text>
+
+  <!-- Допуски зазору z (текст ліворуч у межах x=35..205) -->
+  <text x="35" y="240" font-size="12" font-weight="bold" fill="#c0392b">Критичні межі зазору z:</text>
+  <text x="35" y="256" font-size="12" fill="#c0392b">• &lt; 0.5 мм: насичення мостів</text>
+  <text x="35" y="272" font-size="12" fill="#c0392b">• &gt; 1.5 мм: слабке поле B &lt; 30 мТл</text>
+  <text x="35" y="288" font-size="12" fill="#6b7280">  (шум квантування і збої)</text>
+
+  <!-- Діаметральний циліндричний магніт -->
+  <!-- Полюс N (ліворуч) -->
+  <rect x="220" y="220" width="40" height="34" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="240" y="242" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">N</text>
+  <!-- Полюс S (праворуч) -->
+  <rect x="260" y="220" width="40" height="34" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="280" y="242" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">S</text>
+
+  <!-- Підпис до магніту -->
+  <line x1="300" y1="237" x2="345" y2="237" stroke="#6b7280" stroke-width="1"/>
+  <text x="352" y="234" font-size="12" font-weight="bold" fill="#1a1a1a">Діаметральний магніт NdFeB</text>
+  <text x="352" y="248" font-size="12" fill="#6b7280">Закріплений на торці вала (Ø 6×2.5 мм)</text>
+
+  <!-- Вал ротора мотора -->
+  <rect x="210" y="254" width="100" height="160" rx="2" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="352" y="326" font-size="12" font-weight="bold" fill="#1a1a1a">Вал ротора двигуна</text>
+  <text x="352" y="340" font-size="12" fill="#6b7280">Сталевий прецизійний шпиндель</text>
+
+  <!-- Стрілка обертання вала -->
+  <path d="M 235,355 A 25 8 0 0 0 285,355" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="295" y="359" font-size="12" font-weight="bold" fill="#1a1a1a">ω (обертання)</text>
+
+  <!-- Осьові лінії: номінальна вісь та вісь зі зміщенням (биттям) -->
+  <!-- Номінальна вісь сенсора -->
+  <line x1="260" y1="120" x2="260" y2="150" stroke="#2457d6" stroke-width="1" stroke-dasharray="5 2"/>
+  <line x1="260" y1="256" x2="260" y2="414" stroke="#2457d6" stroke-width="1" stroke-dasharray="6 3 2 3"/>
+
+  <!-- Зміщена вісь обертання магніту (ексцентриситет) -->
+  <line x1="272" y1="256" x2="272" y2="310" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 2"/>
+  <line x1="260" y1="278" x2="272" y2="278" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+
+  <!-- Підпис до радіального биття -->
+  <line x1="272" y1="278" x2="345" y2="278" stroke="#c0392b" stroke-width="1"/>
+  <text x="352" y="275" font-size="12" font-weight="bold" fill="#c0392b">Радіальне биття Δr ≤ 0.1–0.2 мм</text>
+  <text x="352" y="289" font-size="12" fill="#6b7280">Допустимий ексцентриситет осі магніту</text>
+
+  <!-- Наслідки радіального зсуву -->
+  <text x="352" y="380" font-size="12" font-weight="bold" fill="#c0392b">⛔ При зміщенні Δr &gt; 0.2 мм:</text>
+  <text x="352" y="396" font-size="12" fill="#6b7280">паразитні вищі гармоніки в куті ротора,</text>
+  <text x="352" y="412" font-size="12" fill="#6b7280">пульсації моменту й зрив синхронізму FOC</text>
+
+  <!-- Нижній підсумковий статус-блок панелі 1 -->
+  <rect x="40" y="438" width="520" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="52" y="462" font-size="12" font-weight="bold" fill="#27ae60">✓ Оптимальне юстування:</text>
+  <text x="215" y="462" font-size="12" fill="#1a1a1a">z = 1.0 мм, Δr &lt; 0.05 мм → нелінійність кута &lt; 0.2°</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: ВИГЛЯД ЗВЕРХУ (ПОЛЕ B_xy) ==================== -->
+  <rect x="596" y="70" width="344" height="205" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="612" y="94" font-size="14" font-weight="bold" fill="#1a1a1a">Вигляд зверху: поле B_xy на кристалі</text>
+  <text x="612" y="112" font-size="12" fill="#6b7280">Вектор індукції в площині чутливих елементів</text>
+
+  <!-- Торцевий диск магніту: полюси N і S -->
+  <path d="M 695,140 A 45 45 0 0 0 695,230 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="670" y="190" font-size="16" font-weight="bold" fill="#c0392b" text-anchor="middle">N</text>
+
+  <path d="M 695,140 A 45 45 0 0 1 695,230 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="720" y="190" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">S</text>
+
+  <!-- Роздільна лінія між полюсами -->
+  <line x1="695" y1="140" x2="695" y2="230" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+  <!-- Контур кристала сенсора в центрі -->
+  <rect x="681" y="171" width="28" height="28" rx="2" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="2 2"/>
+  <circle cx="695" cy="177" r="2.5" fill="#2457d6"/>
+  <circle cx="695" cy="193" r="2.5" fill="#2457d6"/>
+  <circle cx="687" cy="185" r="2.5" fill="#c0392b"/>
+  <circle cx="703" cy="185" r="2.5" fill="#c0392b"/>
+
+  <!-- Коло допустимого радіального биття -->
+  <circle cx="695" cy="185" r="10" fill="none" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="2 2"/>
+
+  <!-- Стрілка обертання навколо магніту -->
+  <path d="M 748,170 A 52 52 0 0 1 743,208" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="756" y="194" font-size="12" font-weight="bold" fill="#1a1a1a">ω</text>
+
+  <!-- Описи в правій частині панелі 2 -->
+  <text x="768" y="145" font-size="12" font-weight="bold" fill="#2457d6">B_xy: 30–70 мТл</text>
+  <text x="768" y="161" font-size="12" fill="#6b7280">Однорідний вектор</text>
+
+  <text x="768" y="185" font-size="12" font-weight="bold" fill="#27ae60">Зона биття Δr</text>
+  <text x="768" y="201" font-size="12" fill="#6b7280">Радіус ≤ 0.1 мм</text>
+
+  <text x="768" y="225" font-size="12" font-weight="bold" fill="#1a1a1a">θ = arctan(By/Bx)</text>
+  <text x="768" y="241" font-size="12" fill="#6b7280">Кут вала ротора</text>
+
+  <!-- ==================== ПАНЕЛЬ 3: МОНТАЖНІ ДОПУСКИ ==================== -->
+  <rect x="596" y="290" width="344" height="210" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="612" y="314" font-size="14" font-weight="bold" fill="#1a1a1a">Монтажні допуски та вимоги юстування</text>
+  <text x="612" y="332" font-size="12" fill="#6b7280">Критичні межі параметрів для безпомилкового FOC</text>
+
+  <!-- Рядок 1: Зазор z -->
+  <rect x="612" y="344" width="312" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="612" y="344" width="4" height="42" fill="#2457d6"/>
+  <text x="624" y="361" font-size="12" font-weight="bold" fill="#2457d6">Повітряний зазор z:</text>
+  <text x="755" y="361" font-size="12" font-weight="bold" fill="#1a1a1a">0.5 – 1.5 мм (тип. 1.0 мм)</text>
+  <text x="624" y="377" font-size="12" fill="#6b7280">B = 30–70 мТл; межі: 0.5 мм (насичення), 1.5 мм (шум)</text>
+
+  <!-- Рядок 2: Биття Δr -->
+  <rect x="612" y="394" width="312" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="612" y="394" width="4" height="42" fill="#27ae60"/>
+  <text x="624" y="411" font-size="12" font-weight="bold" fill="#27ae60">Радіальне биття Δr:</text>
+  <text x="755" y="411" font-size="12" font-weight="bold" fill="#1a1a1a">≤ 0.1 – 0.2 мм</text>
+  <text x="624" y="427" font-size="12" fill="#6b7280">Перевищення створює гармоніки та пульсації моменту</text>
+
+  <!-- Рядок 3: Магніт -->
+  <rect x="612" y="444" width="312" height="46" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="612" y="444" width="4" height="46" fill="#c0392b"/>
+  <text x="624" y="461" font-size="12" font-weight="bold" fill="#c0392b">Тип магніту:</text>
+  <text x="710" y="461" font-size="12" font-weight="bold" fill="#1a1a1a">NdFeB, діаметральне поле</text>
+  <text x="624" y="479" font-size="12" fill="#6b7280">Монтаж на торець вала: термостійкий клей / запресовка</text>
+</svg>

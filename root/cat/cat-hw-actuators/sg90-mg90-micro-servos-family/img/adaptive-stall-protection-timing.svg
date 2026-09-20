@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма адаптивного захисту сервопривода від заклинювання</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Маскування пуску запобігає хибним тригерам, а своєчасне скидання ШІМ рятує двигун від перегріву</text>
+
+  <!-- Ліва інформаційна панель: Траса 1 (Струм) -->
+  <rect x="22" y="74" width="170" height="158" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="32" y="104" font-size="13" font-weight="bold" fill="#1a1a1a">Струм привода I(t)</text>
+  <text x="32" y="124" font-size="12" fill="#6b7280">Вимірювання на шунті</text>
+  <text x="32" y="144" font-size="12" fill="#6b7280">RC-фільтрація шумів</text>
+  <text x="32" y="180" font-size="13" font-weight="bold" fill="#c0392b">Поріг перевантаження</text>
+  <text x="32" y="200" font-size="12" fill="#c0392b">I_th = 450 мА (захист)</text>
+
+  <!-- Ліва інформаційна панель: Траса 2 (ШІМ) -->
+  <rect x="22" y="248" width="170" height="148" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="32" y="278" font-size="13" font-weight="bold" fill="#1a1a1a">Керування ШІМ (PWM)</text>
+  <text x="32" y="298" font-size="12" fill="#6b7280">Імпульси кута 50 Гц</text>
+  <text x="32" y="318" font-size="12" fill="#6b7280">Шпаруватість τ = 1–2 мс</text>
+  <text x="32" y="352" font-size="13" font-weight="bold" fill="#27ae60">Утримувальне зусилля</text>
+  <text x="32" y="372" font-size="12" fill="#27ae60">Момент на валу M_hold</text>
+
+  <!-- Траса 1: Поле осцилограми струму -->
+  <rect x="246" y="74" width="684" height="158" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Тло фази маскування пуску -->
+  <rect x="260" y="75" width="130" height="156" fill="#eaf0fd" fill-opacity="0.6"/>
+  <!-- Тло фази підтвердження заклинювання -->
+  <rect x="530" y="75" width="160" height="156" fill="#fdecea" fill-opacity="0.6"/>
+  <!-- Тло фази захисного розвантаження -->
+  <rect x="690" y="75" width="230" height="156" fill="#e9f7ef" fill-opacity="0.6"/>
+
+  <!-- Траса 2: Поле сигналів ШІМ та моменту -->
+  <rect x="246" y="248" width="684" height="148" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Тло фази маскування пуску (ШІМ) -->
+  <rect x="260" y="249" width="130" height="146" fill="#eaf0fd" fill-opacity="0.6"/>
+  <!-- Тло фази підтвердження заклинювання (ШІМ) -->
+  <rect x="530" y="249" width="160" height="146" fill="#fdecea" fill-opacity="0.6"/>
+  <!-- Тло фази захисного розвантаження (ШІМ) -->
+  <rect x="690" y="249" width="230" height="146" fill="#e9f7ef" fill-opacity="0.6"/>
+
+  <!-- Вертикальні межі фаз -->
+  <line x1="260" y1="74" x2="260" y2="416" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1" stroke-opacity="0.6"/>
+  <line x1="390" y1="74" x2="390" y2="416" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1" stroke-opacity="0.6"/>
+  <line x1="530" y1="74" x2="530" y2="416" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1" stroke-opacity="0.6"/>
+  <line x1="690" y1="74" x2="690" y2="416" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Траса 1: Шкала Y струму -->
+  <text x="240" y="99" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="end">750 мА</text>
+  <text x="240" y="149" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="end">450 мА</text>
+  <text x="240" y="189" font-size="12" fill="#6b7280" text-anchor="end">180 мА</text>
+  <text x="240" y="219" font-size="12" fill="#6b7280" text-anchor="end">0 мА</text>
+
+  <!-- Траса 1: Горизонтальні опорні лінії рівнів струму -->
+  <line x1="246" y1="216" x2="920" y2="216" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="246" y1="186" x2="530" y2="186" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="246" y1="146" x2="690" y2="146" stroke="#c0392b" stroke-dasharray="4,4" stroke-width="1.5"/>
+  <line x1="530" y1="96" x2="690" y2="96" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- Траса 1: Хвиля струму привода I(t) -->
+  <!-- 1. Спокій -> Пусковий сплеск -> Спадання до робочого струму -->
+  <path d="M 246 213 L 260 213 C 268 213, 276 130, 285 130 C 298 130, 318 186, 350 186 L 530 186" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- 2. Наростання при заклинюванні вала до 750 мА -->
+  <path d="M 530 186 C 542 186, 552 146, 560 146 C 570 146, 580 96, 595 96 L 690 96" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <!-- 3. Спад при спрацюванні захисту до безпечного рівня спокою -->
+  <path d="M 690 96 L 690 213 L 920 213" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Траса 1: Підписи станів струму -->
+  <!-- Фаза 1 (Маскування пуску) -->
+  <text x="325" y="94" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Маскування пуску t_mask</text>
+  <text x="325" y="108" font-size="12" fill="#2457d6" text-anchor="middle">(стрибок до 550 мА)</text>
+  <text x="325" y="122" font-size="12" fill="#6b7280" text-anchor="middle">захист заблоковано</text>
+
+  <!-- Фаза 2 (Штатний рух) -->
+  <text x="460" y="168" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Штатний рух важеля</text>
+  <text x="460" y="206" font-size="12" fill="#6b7280" text-anchor="middle">I_run ≈ 180 мА</text>
+
+  <!-- Фаза 3 (Заклинювання) -->
+  <text x="610" y="124" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Заклинювання вала</text>
+  <text x="610" y="138" font-size="12" fill="#c0392b" text-anchor="middle">I &gt; I_th (перевантаження)</text>
+  <text x="610" y="174" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Витримка t_confirm</text>
+  <text x="610" y="190" font-size="12" fill="#6b7280" text-anchor="middle">таймер валідації 80 мс</text>
+
+  <!-- Фаза 4 (Розвантаження) -->
+  <text x="805" y="112" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Спрацювання захисту (t_trip)</text>
+  <text x="805" y="132" font-size="12" fill="#27ae60" text-anchor="middle">Струм спадає до I_safe ≈ 15 мА</text>
+  <text x="805" y="152" font-size="12" fill="#6b7280" text-anchor="middle">Двигун захищено від перегріву</text>
+
+  <!-- Траса 2: Шкала Y напруги ШІМ -->
+  <text x="240" y="285" font-size="12" fill="#6b7280" text-anchor="end">5 В</text>
+  <text x="240" y="323" font-size="12" fill="#6b7280" text-anchor="end">0 В</text>
+
+  <!-- Траса 2: Імпульси ШІМ керування сервоприводом -->
+  <path d="M 246 318 L 254 318 L 254 278 L 264 278 L 264 318 L 286 318 L 286 278 L 296 278 L 296 318 L 318 318 L 318 278 L 328 278 L 328 318 L 350 318 L 350 278 L 360 278 L 360 318 L 382 318 L 382 278 L 392 278 L 392 318 L 414 318 L 414 278 L 424 278 L 424 318 L 446 318 L 446 278 L 456 278 L 456 318 L 478 318 L 478 278 L 488 278 L 488 318 L 510 318 L 510 278 L 520 278 L 520 318 L 530 318" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 530 318 L 542 318 L 542 278 L 552 278 L 552 318 L 574 318 L 574 278 L 584 278 L 584 318 L 606 318 L 606 278 L 616 278 L 616 318 L 638 318 L 638 278 L 648 278 L 648 318 L 670 318 L 670 278 L 680 278 L 680 318 L 690 318" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <line x1="690" y1="318" x2="920" y2="318" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Траса 2: Підписи зусилля та стану ШІМ -->
+  <text x="325" y="352" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ШІМ: пуск кроку</text>
+  <text x="325" y="370" font-size="12" fill="#6b7280" text-anchor="middle">Зусилля розгону</text>
+
+  <text x="460" y="352" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Нормальне утримання</text>
+  <text x="460" y="370" font-size="12" fill="#6b7280" text-anchor="middle">Момент M_hold ≈ 30%</text>
+
+  <text x="610" y="352" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Спроба подолання</text>
+  <text x="610" y="370" font-size="12" fill="#c0392b" text-anchor="middle">Піковий момент 100%</text>
+
+  <text x="805" y="352" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Скидання ШІМ (0 В / M = 0)</text>
+  <text x="805" y="370" font-size="12" fill="#27ae60" text-anchor="middle">Податливий стан важеля ноги</text>
+
+  <!-- Часова вісь t -->
+  <line x1="246" y1="416" x2="916" y2="416" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="926" y="420" font-size="12" font-weight="bold" fill="#1a1a1a">t</text>
+
+  <!-- Засічки часу -->
+  <line x1="260" y1="412" x2="260" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="390" y1="412" x2="390" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="530" y1="412" x2="530" y2="416" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="690" y1="412" x2="690" y2="416" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Підписи фаз процесу під віссю t -->
+  <text x="325" y="438" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пуск (t_mask)</text>
+  <text x="460" y="438" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Штатний рух</text>
+  <text x="610" y="438" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Блокування (t_confirm)</text>
+  <text x="805" y="438" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Захист / Розвантаження (t_trip)</text>
+</svg>

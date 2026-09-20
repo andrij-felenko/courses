@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Бітова структура CAN-ідентифікатора та безконфліктний арбітраж</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Домінантний нуль надає апаратний пріоритет аварійним кадрам над телеметрією без колізій і затримок</text>
+
+  <!-- ==================== СЕКЦІЯ 1: БІТОВА СТРУКТУРА ІДЕНТИФІКАТОРА ==================== -->
+  <rect x="24" y="70" width="912" height="180" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="40" y="93" font-size="14" font-weight="700" fill="#1a1a1a">1. Структура CAN-ідентифікаторів (11 та 29 бітів)</text>
+  <text x="920" y="93" font-size="12" fill="#6b7280" text-anchor="end">Менший числовий ID = вищий апаратний пріоритет</text>
+
+  <!-- Підпанель А: Стандартний 11-бітний ідентифікатор -->
+  <rect x="40" y="106" width="880" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="127" font-size="13" font-weight="700" fill="#1a1a1a">Стандартний (11 бітів):</text>
+  <text x="52" y="145" font-size="12" fill="#6b7280">CAN 2.0A (Base frame)</text>
+
+  <!-- Поле Command ID (11 біт) -->
+  <rect x="220" y="113" width="310" height="44" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="375" y="131" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Command ID / Пріоритет (5 бітів, [10:6])</text>
+  <text x="375" y="148" font-size="12" fill="#1a1a1a" text-anchor="middle">Код команди: 0x00..0x1F (0x01 Аварія, 0x08 Телеметрія)</text>
+
+  <!-- Поле Node ID (11 біт) -->
+  <rect x="542" y="113" width="366" height="44" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="725" y="131" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Node ID (6 бітів, [5:0])</text>
+  <text x="725" y="148" font-size="12" fill="#1a1a1a" text-anchor="middle">Апаратна адреса сервопривода (1..63, 0 = хост-майстер)</text>
+
+  <!-- Підпанель B: Розширений 29-бітний ідентифікатор -->
+  <rect x="40" y="176" width="880" height="58" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="197" font-size="13" font-weight="700" fill="#1a1a1a">Розширений (29 бітів):</text>
+  <text x="52" y="215" font-size="12" fill="#6b7280">CAN 2.0B (Extended frame)</text>
+
+  <!-- Поле Priority (29 біт) -->
+  <rect x="220" y="183" width="145" height="44" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="292" y="201" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Priority (5 б, [28:24])</text>
+  <text x="292" y="218" font-size="12" fill="#1a1a1a" text-anchor="middle">0=E-Stop, 7=Фон</text>
+
+  <!-- Поле Command ID (29 біт) -->
+  <rect x="377" y="183" width="175" height="44" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="464" y="201" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Command ID (8 б, [23:16])</text>
+  <text x="464" y="218" font-size="12" fill="#1a1a1a" text-anchor="middle">Тип кадру / функція FOC</text>
+
+  <!-- Поле Source Node ID (29 біт) -->
+  <rect x="564" y="183" width="165" height="44" rx="5" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="646" y="201" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">Source ID (8 б, [15:8])</text>
+  <text x="646" y="218" font-size="12" fill="#1a1a1a" text-anchor="middle">Вузол-відправник (1..255)</text>
+
+  <!-- Поле Dest Node ID (29 біт) -->
+  <rect x="741" y="183" width="167" height="44" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="824" y="201" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Dest ID (8 б, [7:0])</text>
+  <text x="824" y="218" font-size="12" fill="#1a1a1a" text-anchor="middle">Адреса серво (0xFF=all)</text>
+
+  <!-- ==================== СЕКЦІЯ 2: АПАРАТНИЙ АРБІТРАЖ ЗА ДОМІНАНТНИМ НУЛЕМ ==================== -->
+  <rect x="24" y="266" width="912" height="274" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="40" y="289" font-size="14" font-weight="700" fill="#1a1a1a">2. Побітовий арбітраж: колізія аварії та телеметрії</text>
+  <text x="920" y="289" font-size="12" fill="#6b7280" text-anchor="end">Домінантний «0» пригнічує «1» (монтажне «І»)</text>
+
+  <!-- Картки фізичного рівня -->
+  <rect x="40" y="304" width="276" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="178" y="322" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Домінантний стан: логічний «0»</text>
+  <text x="178" y="339" font-size="12" fill="#1a1a1a" text-anchor="middle">CANH=3.5 В, CANL=1.5 В (диференціал ΔV ≈ 2 В)</text>
+
+  <rect x="328" y="304" width="276" height="48" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="466" y="322" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">Рецесивний стан: логічна «1»</text>
+  <text x="466" y="339" font-size="12" fill="#1a1a1a" text-anchor="middle">CANH=2.5 В, CANL=2.5 В (диференціал ΔV ≈ 0 В)</text>
+
+  <rect x="616" y="304" width="304" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="768" y="322" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Монтажне «І» (Wired-AND)</text>
+  <text x="768" y="339" font-size="12" fill="#1a1a1a" text-anchor="middle">«0» + «1» на лінії = «0» (домінантний перемагає)</text>
+
+  <!-- Таблиця побітового змагання на шині -->
+  <rect x="40" y="364" width="880" height="114" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Виділена колонка Bit 9 (Арбітраж) -->
+  <rect x="338" y="368" width="132" height="106" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Заголовки стовпців -->
+  <text x="56" y="384" font-size="12" font-weight="700" fill="#6b7280">Вузол / Кадр CAN</text>
+  <text x="250" y="384" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">SOF</text>
+  <text x="302" y="384" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">Bit 10</text>
+  <text x="404" y="384" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Bit 9 (Арбітраж)</text>
+  <text x="506" y="384" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">Bit 8</text>
+  <text x="575" y="384" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">Біти [7:0]</text>
+  <text x="626" y="384" font-size="12" font-weight="700" fill="#6b7280">Результат арбітражу / Стан передавача</text>
+
+  <!-- Рядок 1: Вузол 1 (Аварія) -->
+  <text x="56" y="408" font-size="12" font-weight="700" fill="#2457d6">Вузол 1 (Аварія 0x045)</text>
+  <text x="250" y="408" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="302" y="408" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="404" y="408" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">0 (домінантний)</text>
+  <text x="506" y="408" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="575" y="408" font-size="12" fill="#1a1a1a" text-anchor="middle">01000101</text>
+  <text x="626" y="408" font-size="12" font-weight="700" fill="#27ae60">Tx активний: виграв арбітраж, передає далі</text>
+
+  <!-- Рядок 2: Вузол 2 (Телеметрія) -->
+  <text x="56" y="434" font-size="12" font-weight="700" fill="#c0392b">Вузол 2 (Телем. 0x205)</text>
+  <text x="250" y="434" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="302" y="434" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="404" y="434" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">1 (рецесивний)</text>
+  <text x="506" y="434" font-size="12" fill="#6b7280" text-anchor="middle">—</text>
+  <text x="575" y="434" font-size="12" fill="#6b7280" text-anchor="middle">—</text>
+  <text x="626" y="434" font-size="12" font-weight="700" fill="#c0392b">Колізія! Tx вимкнено, чекає шину в режимі Rx</text>
+
+  <!-- Рядок 3: Шина CAN -->
+  <text x="56" y="460" font-size="12" font-weight="700" fill="#1a1a1a">Шина CAN (Wired-AND)</text>
+  <text x="250" y="460" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="302" y="460" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="404" y="460" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">0 (домінантний)</text>
+  <text x="506" y="460" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="575" y="460" font-size="12" fill="#1a1a1a" text-anchor="middle">01000101</text>
+  <text x="626" y="460" font-size="12" font-weight="700" fill="#1a1a1a">Аварійний кадр транслюється без жодних затримок</text>
+
+  <!-- Підсумковий банер -->
+  <rect x="40" y="490" width="880" height="38" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="480" y="506" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Апаратний результат арбітражу за домінантним нулем:</text>
+  <text x="480" y="521" font-size="12" fill="#1a1a1a" text-anchor="middle">Аварія негайно захоплює шину з нульовою затримкою; телеметрія не пошкоджує лінію та повторює передачу після звільнення</text>
+</svg>

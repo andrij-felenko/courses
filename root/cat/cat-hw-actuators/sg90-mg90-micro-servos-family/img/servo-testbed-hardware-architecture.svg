@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратна архітектура та механічне компонування стенда сервоприводів</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Роздільне живлення усуває збої MCU, вимірювач у розриві V_servo фіксує упор, а муфта з енкодером — кут</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: ЕЛЕКТРОНІКА ТА ЖИВЛЕННЯ -->
+  <rect x="20" y="66" width="430" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="235" y="88" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. СХЕМОТЕХНІКА: РОЗДІЛЬНЕ ЖИВЛЕННЯ ТА ВИМІРЮВАННЯ СТРУМУ</text>
+  <text x="235" y="104" font-size="12" fill="#6b7280" text-anchor="middle">High-Side сенсор INA219 у розриві силової лінії; спільна точка GND</text>
+
+  <!-- Блок: Логічне джерело -->
+  <rect x="32" y="116" width="190" height="74" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="127" y="134" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Джерело логіки: +5 В (USB)</text>
+  <text x="127" y="152" font-size="12" fill="#6b7280" text-anchor="middle">Живить MCU Core та сенсори</text>
+  <text x="127" y="170" font-size="12" fill="#27ae60" text-anchor="middle">Чиста шина без сильних просідань</text>
+
+  <!-- Блок: Силове джерело -->
+  <rect x="238" y="116" width="200" height="74" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="338" y="134" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Силове джерело: +5..6 В DC</text>
+  <text x="338" y="152" font-size="12" fill="#6b7280" text-anchor="middle">Струм 2..3 А (окремий канал)</text>
+  <text x="338" y="170" font-size="12" fill="#1a1a1a" text-anchor="middle">C_bulk: 470 мкФ (демпфер піків)</text>
+
+  <!-- З'єднання живлення від джерел вниз до блоків -->
+  <line x1="60" y1="190" x2="60" y2="202" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="338" y1="190" x2="338" y2="202" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Блок: MCU -->
+  <rect x="32" y="202" width="190" height="152" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="127" y="222" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер (MCU)</text>
+  <text x="127" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Таймер ШІМ та шина I2C</text>
+  <text x="42" y="262" font-size="12" font-weight="bold" fill="#2457d6">VDD (+5V)</text>
+  <text x="42" y="282" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <text x="212" y="262" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">PWM_OUT (50 Гц)</text>
+  <text x="212" y="282" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">I2C: SCL (тактування)</text>
+  <text x="212" y="302" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">I2C: SDA (дані)</text>
+  <text x="127" y="334" font-size="12" fill="#1a1a1a" text-anchor="middle">Задає імпульс 1.0..2.0 мс</text>
+
+  <!-- Блок: INA219 Датчик струму -->
+  <rect x="238" y="202" width="200" height="152" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="338" y="222" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Вимірювач струму INA219</text>
+  <text x="338" y="238" font-size="12" fill="#6b7280" text-anchor="middle">High-Side у розриві +5..6 В</text>
+  <rect x="290" y="248" width="96" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="338" y="263" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">R_shunt 0.1 Ω</text>
+  <text x="248" y="244" font-size="12" font-weight="bold" fill="#c0392b">V_IN+</text>
+  <text x="430" y="244" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">V_IN-</text>
+  <text x="338" y="288" font-size="12" fill="#1a1a1a" text-anchor="middle">• I_idle: 10..20 мА (спокій)</text>
+  <text x="338" y="306" font-size="12" fill="#1a1a1a" text-anchor="middle">• I_run: 150..300 мА (рух)</text>
+  <text x="338" y="324" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">• I_stall: 0.8..1.5 А (упор)</text>
+  <text x="338" y="342" font-size="12" fill="#27ae60" text-anchor="middle">Шина I2C (SDA / SCL до MCU)</text>
+
+  <!-- Схемні з'єднання всередині INA219: лінія живлення крізь шунт -->
+  <line x1="338" y1="202" x2="250" y2="202" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="250" y1="202" x2="250" y2="230" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="250" y1="254" x2="250" y2="258" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="250" y1="258" x2="290" y2="258" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="386" y1="258" x2="486" y2="258" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- З'єднання шини I2C між MCU та INA219 -->
+  <line x1="222" y1="282" x2="238" y2="282" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="222" y1="302" x2="238" y2="302" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Сигнал PWM від MCU до сервоприводу -->
+  <path d="M 222,262 L 230,262 L 230,196 L 460,196 L 460,226 L 486,226" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок: Шина GND -->
+  <rect x="32" y="366" width="406" height="58" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="44" y="386" font-size="12" font-weight="bold" fill="#1a1a1a">Шина GND: єдина зіркова точка (Star Ground)</text>
+  <text x="44" y="404" font-size="12" fill="#6b7280">Об'єднує мінус логіки, силове джерело, привід та енкодер</text>
+  <text x="44" y="418" font-size="12" fill="#27ae60">Усуває падіння напруги на загальному проводі та хибні спрацьовування</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: МЕХАНІКА ТА ВУЗОЛ СТЕНДА -->
+  <rect x="470" y="66" width="470" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="705" y="88" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. МЕХАНІЧНЕ КОМПОНУВАННЯ: КОАКСІАЛЬНИЙ ВУЗОЛ СТЕНДА</text>
+  <text x="705" y="104" font-size="12" fill="#6b7280" text-anchor="middle">Сервопривод SG90/MG90S, безлюфтова муфта та 12-бітний магнітний енкодер</text>
+
+  <!-- Підписи компонентів над вузлом (рознесені по висоті) -->
+  <text x="628" y="146" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Безлюфтова муфта</text>
+  <text x="628" y="162" font-size="12" fill="#27ae60" text-anchor="middle">Люфт Δθ = 0°</text>
+
+  <text x="704" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Магніт N-S</text>
+  <text x="704" y="162" font-size="12" fill="#6b7280" text-anchor="middle">діаметральний</text>
+
+  <!-- Сервопривод DUT -->
+  <rect x="486" y="176" width="82" height="82" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.6"/>
+  <rect x="478" y="184" width="8" height="16" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <circle cx="482" cy="192" r="2" fill="#ffffff" stroke="#2457d6"/>
+  <rect x="478" y="234" width="8" height="16" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <circle cx="482" cy="242" r="2" fill="#ffffff" stroke="#2457d6"/>
+  <text x="527" y="194" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SG90 / MG90</text>
+  <text x="527" y="210" font-size="12" fill="#6b7280" text-anchor="middle">DUT (привід)</text>
+  <rect x="494" y="218" width="66" height="32" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="527" y="232" font-size="12" fill="#1a1a1a" text-anchor="middle">Редуктор</text>
+  <text x="527" y="244" font-size="12" fill="#6b7280" text-anchor="middle">і двигун</text>
+
+  <!-- Вал сервоприводу -->
+  <rect x="568" y="202" width="12" height="20" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.4"/>
+  <rect x="580" y="206" width="16" height="12" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.4"/>
+  <line x1="584" y1="206" x2="584" y2="218" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="588" y1="206" x2="588" y2="218" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="592" y1="206" x2="592" y2="218" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Безлюфтова муфта -->
+  <rect x="596" y="196" width="64" height="32" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.6"/>
+  <rect x="596" y="196" width="15" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <circle cx="603" cy="202" r="2.5" fill="#ffffff" stroke="#2457d6"/>
+  <rect x="645" y="196" width="15" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <circle cx="653" cy="202" r="2.5" fill="#ffffff" stroke="#2457d6"/>
+  <line x1="617" y1="198" x2="622" y2="226" stroke="#2457d6" stroke-width="1.4"/>
+  <line x1="626" y1="198" x2="631" y2="226" stroke="#2457d6" stroke-width="1.4"/>
+  <line x1="635" y1="198" x2="640" y2="226" stroke="#2457d6" stroke-width="1.4"/>
+
+  <!-- Вал енкодера та підшипник (розділені rect без накладання) -->
+  <rect x="660" y="206" width="12" height="12" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.4"/>
+  <rect x="672" y="192" width="16" height="40" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="680" cy="212" r="5" fill="#ffffff" stroke="#1a1a1a"/>
+  <rect x="688" y="206" width="8" height="12" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.4"/>
+
+  <!-- Магніт N-S (висота кожного 14px, щоб не перетинати текст полюсів) -->
+  <rect x="696" y="198" width="16" height="14" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="704" y="209" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">N</text>
+  <rect x="696" y="212" width="16" height="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="704" y="223" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S</text>
+
+  <!-- Зазор delta -->
+  <text x="719" y="170" font-size="12" fill="#6b7280" text-anchor="middle">δ ≈ 1 мм</text>
+
+  <!-- Плата датчика AS5600 -->
+  <rect x="726" y="206" width="6" height="12" rx="1" fill="#1a1a1a"/>
+  <rect x="732" y="176" width="12" height="72" rx="2" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="744" y="164" width="82" height="96" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="785" y="184" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Енкодер AS5600</text>
+  <text x="785" y="200" font-size="12" fill="#1a1a1a" text-anchor="middle">Датчик Холла</text>
+  <text x="785" y="216" font-size="12" fill="#6b7280" text-anchor="middle">12 біт (0.088°)</text>
+  <text x="785" y="232" font-size="12" fill="#27ae60" text-anchor="middle">Вихід: I2C шина</text>
+  <text x="785" y="248" font-size="12" fill="#6b7280" text-anchor="middle">θ_actual кут</text>
+
+  <!-- Осьова лінія коаксіальності крізь весь механічний вузол -->
+  <line x1="472" y1="212" x2="486" y2="212" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <line x1="568" y1="212" x2="596" y2="212" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <line x1="596" y1="212" x2="660" y2="212" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <line x1="660" y1="212" x2="696" y2="212" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <line x1="712" y1="212" x2="726" y2="212" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <line x1="826" y1="212" x2="856" y2="212" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="862" y="208" font-size="12" font-weight="bold" fill="#2457d6">Коаксіальна</text>
+  <text x="862" y="224" font-size="12" font-weight="bold" fill="#2457d6">вісь θ</text>
+
+  <!-- Жорстка станина стенда -->
+  <rect x="478" y="268" width="348" height="14" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.4"/>
+  <circle cx="482" cy="275" r="2" fill="#1a1a1a"/>
+  <circle cx="560" cy="275" r="2" fill="#1a1a1a"/>
+  <circle cx="680" cy="275" r="2" fill="#1a1a1a"/>
+  <circle cx="740" cy="275" r="2" fill="#1a1a1a"/>
+  <circle cx="810" cy="275" r="2" fill="#1a1a1a"/>
+  <text x="652" y="298" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Жорстка станина стенда (усуває взаємний люфт та перекоси валів)</text>
+
+  <!-- Нижня діагностична картка (2 колонки: ключ та значення з запасом) -->
+  <rect x="484" y="318" width="442" height="106" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.4"/>
+  <text x="705" y="338" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">МЕТОДИКА ТЕСТУВАННЯ: СИНХРОННЕ ПОРІВНЯННЯ ТА ВІДБІР</text>
+  <text x="496" y="356" font-size="12" font-weight="bold" fill="#1a1a1a">• Мертва зона (Deadband):</text>
+  <text x="664" y="356" font-size="12" fill="#6b7280">мінімальний крок ШІМ для страгування</text>
+  <text x="496" y="374" font-size="12" font-weight="bold" fill="#1a1a1a">• Джитер позиціонування:</text>
+  <text x="664" y="374" font-size="12" fill="#6b7280">паразитна вібрація вала в утриманні</text>
+  <text x="496" y="392" font-size="12" font-weight="bold" fill="#1a1a1a">• Фізичні межі ходу:</text>
+  <text x="664" y="392" font-size="12" fill="#c0392b">сплеск струму I_stall у точках упору</text>
+  <text x="496" y="410" font-size="12" font-weight="bold" fill="#1a1a1a">• Знос та нелінійність:</text>
+  <text x="664" y="410" font-size="12" fill="#27ae60">порівняння кута θ_actual із заданим ШІМ</text>
+
+</svg>

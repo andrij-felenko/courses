@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Профіль струму споживання та визначення мертвої зони сервопривода</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Стрибок струму на порогах рушання Tcw і Tccw фіксує ширину мертвої зони Wdb, розрахунковий центр Tcenter та зміщення ΔT від 1500 мкс</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ГРАФІК СКАНУВАННЯ СТРУМУ ==================== -->
+  <rect x="20" y="66" width="596" height="374" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="36" y="90" font-size="14" font-weight="700" fill="#1a1a1a">Характеристика струму споживання: I = f(T_pulse)</text>
+  <text x="36" y="106" font-size="12" fill="#6b7280">Діагностика зони нечутливості стендом за моментом рушання ротора</text>
+
+  <!-- Рамка графіка (біла підкладка всередині лівої панелі) -->
+  <rect x="36" y="118" width="564" height="242" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Підкладка мертвої зони (Deadband) завширшки 54 мкс (x: 218..461, y: 154..325) -->
+  <path d="M 218,154 L 461,154 L 461,325 L 218,325 Z" fill="#e9f7ef"/>
+
+  <!-- Розмірні лінії над графіком: Wdb та Delta_T -->
+  <!-- 1. Розмірна лінія ширини мертвої зони Wdb = 54 мкс (x: 218..461, y = 136) -->
+  <line x1="218" y1="136" x2="461" y2="136" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-rev)" marker-end="url(#arr-green)"/>
+  <line x1="218" y1="130" x2="218" y2="154" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="461" y1="130" x2="461" y2="154" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="340" y="132" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Ширина мертвої зони Wdb = 54 мкс</text>
+
+  <!-- 2. Розмірна лінія зміщення нуля Delta_T = +11 мкс (x: 290..340, y = 150) -->
+  <line x1="290" y1="150" x2="340" y2="150" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+  <text x="315" y="162" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ΔT = +11 мкс</text>
+
+  <!-- Вертикальні орієнтири всередині графіка (розбиті на сегменти, щоб не перетинати напис deadband у центрі 245..285) -->
+  <!-- Номінал 1500 мкс (сірий пунктир x = 290) -->
+  <line x1="290" y1="172" x2="290" y2="242" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="290" y1="290" x2="290" y2="325" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Розрахунковий центр Tcenter = 1511 мкс (зелений штрихпунктир x = 340) -->
+  <line x1="340" y1="172" x2="340" y2="242" stroke="#27ae60" stroke-width="2" stroke-dasharray="4 2"/>
+  <line x1="340" y1="290" x2="340" y2="325" stroke="#27ae60" stroke-width="2" stroke-dasharray="4 2"/>
+
+  <!-- Осі координат -->
+  <!-- Вісь струму I (x = 88, y: 325 -> 146) -->
+  <line x1="88" y1="325" x2="88" y2="146" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="96" y="142" font-size="12" font-weight="700" fill="#1a1a1a">I (мА)</text>
+
+  <!-- Вісь тривалості імпульсу T_pulse (y = 325, x: 88 -> 580) -->
+  <line x1="88" y1="325" x2="580" y2="325" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="578" y="320" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">T_pulse (мкс) →</text>
+
+  <!-- Позначки на осі струму -->
+  <line x1="84" y1="325" x2="88" y2="325" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="80" y="329" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <line x1="84" y1="314" x2="88" y2="314" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="80" y="318" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">10</text>
+
+  <line x1="84" y1="265" x2="88" y2="265" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="80" y="269" font-size="12" fill="#6b7280" text-anchor="end">50</text>
+
+  <line x1="84" y1="205" x2="88" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="80" y="209" font-size="12" fill="#6b7280" text-anchor="end">100</text>
+
+  <!-- Пунктирна лінія струму спокою I_idle = 10 мА (y = 314) -->
+  <line x1="88" y1="314" x2="218" y2="314" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="461" y1="314" x2="560" y2="314" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Крива струму споживання -->
+  <!-- 1. Зона обертання CW (x: 100..218) -->
+  <path d="M 100,230 L 140,235 L 180,225 L 218,198" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- 2. Стрибок струму на порозі Tcw = 1484 мкс (від 10 мА y=314 до 110 мА y=198) -->
+  <line x1="218" y1="198" x2="218" y2="314" stroke="#2457d6" stroke-width="3"/>
+  <!-- 3. Мертва зона (x: 218..461, y = 314, струм спокою I_idle = 10 мА) -->
+  <line x1="218" y1="314" x2="461" y2="314" stroke="#27ae60" stroke-width="3.5"/>
+  <!-- 4. Стрибок струму на порозі Tccw = 1538 мкс (від 10 мА y=314 до 110 мА y=198) -->
+  <line x1="461" y1="314" x2="461" y2="198" stroke="#c0392b" stroke-width="3"/>
+  <!-- 5. Зона обертання CCW (x: 461..560) -->
+  <path d="M 461,198 L 490,225 L 530,235 L 560,230" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Маркерні точки на графіку -->
+  <circle cx="218" cy="198" r="4" fill="#2457d6"/>
+  <circle cx="218" cy="314" r="3.5" fill="#27ae60"/>
+  <circle cx="290" cy="314" r="3.5" fill="#6b7280"/>
+  <circle cx="340" cy="314" r="4.5" fill="#27ae60"/>
+  <circle cx="461" cy="314" r="3.5" fill="#27ae60"/>
+  <circle cx="461" cy="198" r="4" fill="#c0392b"/>
+
+  <!-- Підписи піків струму та ділянок графіка -->
+  <!-- Стрибок CW -->
+  <text x="210" y="184" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">Стрибок струму CW</text>
+  <text x="210" y="196" font-size="12" fill="#6b7280" text-anchor="end">рушання ротора (~110 мА)</text>
+
+  <!-- Стрибок CCW -->
+  <text x="469" y="184" font-size="12" font-weight="700" fill="#c0392b" text-anchor="start">Стрибок струму CCW</text>
+  <text x="469" y="196" font-size="12" fill="#6b7280" text-anchor="start">рушання ротора (~110 мА)</text>
+
+  <!-- Пояснення мертвої зони всередині зеленого поля (y = 260, 276 — у вікні між сегментами ліній 242 і 290) -->
+  <text x="340" y="260" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Зона нечутливості (Deadband)</text>
+  <text x="340" y="276" font-size="12" fill="#27ae60" text-anchor="middle">I_idle ≈ 10 мА (H-міст закрито, ротор нерухомий)</text>
+
+  <!-- Позначки на осі X (тривалості імпульсу внизу графіка) -->
+  <!-- Tcw = 1484 мкс (x = 218) -->
+  <line x1="218" y1="325" x2="218" y2="331" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="218" y="344" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Tcw = 1484</text>
+
+  <!-- Tcenter = 1511 мкс (x = 340) -->
+  <line x1="340" y1="325" x2="340" y2="331" stroke="#27ae60" stroke-width="2"/>
+  <text x="340" y="344" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Tcenter = 1511</text>
+
+  <!-- Номінал 1500 мкс (x = 290, опущений на y = 356, щоб не перетинатися з Tcenter) -->
+  <line x1="290" y1="325" x2="290" y2="346" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="290" y="356" font-size="12" font-weight="700" fill="#6b7280" text-anchor="middle">1500</text>
+
+  <!-- Tccw = 1538 мкс (x = 461) -->
+  <line x1="461" y1="325" x2="461" y2="331" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="461" y="344" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Tccw = 1538</text>
+
+  <!-- Нижні картки станів ротора під графіком -->
+  <!-- Картка CW (x: 36..206, y: 372..428, w = 170) -->
+  <rect x="36" y="372" width="170" height="56" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="46" y="390" font-size="12" font-weight="700" fill="#c0392b">⟳ Рух CW (T &lt; 1484 мкс)</text>
+  <text x="46" y="406" font-size="12" fill="#1a1a1a">• Обертання за стрілкою</text>
+  <text x="46" y="420" font-size="12" fill="#6b7280">• Робочий струм 80–120 мА</text>
+
+  <!-- Картка СТОП (x: 218..461, y: 372..428, w = 243) -->
+  <rect x="218" y="372" width="243" height="56" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="228" y="390" font-size="12" font-weight="700" fill="#27ae60">■ Спокій (1484...1538 мкс)</text>
+  <text x="228" y="406" font-size="12" fill="#1a1a1a">• H-міст знеструмлено, вал стоїть</text>
+  <text x="228" y="420" font-size="12" fill="#6b7280">• Запас до Tcw: 16 мкс, до Tccw: 38 мкс</text>
+
+  <!-- Картка CCW (x: 473..596, y: 372..428, w = 123) -->
+  <rect x="473" y="372" width="123" height="56" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="483" y="390" font-size="12" font-weight="700" fill="#2457d6">⟲ Рух CCW</text>
+  <text x="483" y="406" font-size="12" fill="#1a1a1a">• Проти стрілки</text>
+  <text x="483" y="420" font-size="12" fill="#6b7280">• I = 80–120 мА</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ПАРАМЕТРИ КАЛІБРУВАННЯ ==================== -->
+  <rect x="628" y="66" width="312" height="374" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="644" y="90" font-size="14" font-weight="700" fill="#1a1a1a">Параметри калібрування стенда</text>
+  <text x="644" y="106" font-size="12" fill="#6b7280">Результати автоматичного сканування</text>
+
+  <!-- Картка 1: Виміряні пороги -->
+  <rect x="640" y="118" width="288" height="88" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="652" y="136" font-size="12" font-weight="700" fill="#1a1a1a">1. Виміряні пороги рушання:</text>
+  <text x="652" y="154" font-size="12" fill="#1a1a1a">• Поріг CW: <tspan font-weight="700" fill="#2457d6">Tcw = 1484 мкс</tspan> (рух за стрілкою)</text>
+  <text x="652" y="172" font-size="12" fill="#1a1a1a">• Поріг CCW: <tspan font-weight="700" fill="#c0392b">Tccw = 1538 мкс</tspan> (проти стрілки)</text>
+  <text x="652" y="190" font-size="12" fill="#6b7280">• Струм спокою: I_idle ≈ 10 мА | пік: 110 мА</text>
+
+  <!-- Картка 2: Розрахунок геометрії -->
+  <rect x="640" y="218" width="288" height="98" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="652" y="236" font-size="12" font-weight="700" fill="#1a1a1a">2. Розрахунок геометрії зони:</text>
+  <text x="652" y="254" font-size="12" fill="#1a1a1a">• Центр: <tspan font-weight="700" fill="#27ae60">Tcenter = (Tcw + Tccw)/2 = 1511 мкс</tspan></text>
+  <text x="652" y="272" font-size="12" fill="#1a1a1a">• Ширина: <tspan font-weight="700" fill="#1a1a1a">Wdb = Tccw − Tcw = 54 мкс</tspan></text>
+  <text x="652" y="290" font-size="12" fill="#1a1a1a">• Зсув нуля: <tspan font-weight="700" fill="#c0392b">ΔT = Tcenter − 1500 = +11 мкс</tspan></text>
+  <text x="652" y="306" font-size="12" fill="#6b7280">  (симетричний коридор: ±27 мкс від Tcenter)</text>
+
+  <!-- Картка 3: Інженерний висновок -->
+  <rect x="640" y="328" width="288" height="98" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="652" y="346" font-size="12" font-weight="700" fill="#1a1a1a">3. Інженерний висновок стенда:</text>
+  <text x="652" y="364" font-size="12" fill="#c0392b">• При 1500 мкс запас до Tcw лише 16 мкс</text>
+  <text x="652" y="382" font-size="12" fill="#27ae60">• Програмний нуль Tcenter = 1511 мкс знімає дрейф</text>
+  <text x="652" y="400" font-size="12" fill="#1a1a1a">• Коефіцієнти Tcenter і Wdb пишуться в EEPROM</text>
+  <text x="652" y="416" font-size="12" fill="#6b7280">  (гарантія надійної фіксації спокою ротора)</text>
+
+</svg>

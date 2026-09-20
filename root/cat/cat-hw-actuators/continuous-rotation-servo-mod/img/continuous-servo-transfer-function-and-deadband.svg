@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Передавальна характеристика сервопривода постійного обертання</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Ширина імпульсу ШІМ (50 Гц) визначає швидкість і напрямок; смуга 1500 ± 25 мкс гарантує спокій</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ГРАФІК ПЕРЕДАВАЛЬНОЇ ФУНКЦІЇ ==================== -->
+  <rect x="24" y="74" width="480" height="426" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="44" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Передавальна функція кутової швидкості: ω = f(t_pulse)</text>
+  <text x="44" y="116" font-size="12" fill="#6b7280">Кусочно-лінійна характеристика: мертва зона спокою та полиці насичення</text>
+
+  <!-- Рамка графіка -->
+  <rect x="40" y="128" width="448" height="262" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Підкладка мертвої зони (Deadband): починається нижче тексту, щоб не різати написи -->
+  <rect x="255" y="180" width="40" height="160" fill="#e9f7ef"/>
+
+  <!-- Межі та підписи зон -->
+  <!-- Осі координат -->
+  <!-- Вісь швидкості ω -->
+  <line x1="85" y1="350" x2="85" y2="152" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="92" y="146" font-size="12" font-weight="bold" fill="#1a1a1a">ω (швидкість)</text>
+
+  <!-- Позначки на осі ω -->
+  <line x1="80" y1="175" x2="85" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="76" y="179" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">+ω_max</text>
+
+  <line x1="80" y1="250" x2="85" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="76" y="254" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0</text>
+
+  <line x1="80" y1="325" x2="85" y2="325" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="76" y="329" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">−ω_max</text>
+
+  <!-- Вісь нульової швидкості / тривалості імпульсу -->
+  <line x1="85" y1="250" x2="470" y2="250" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="468" y="242" font-size="12" fill="#1a1a1a" text-anchor="end">t_pulse →</text>
+
+  <!-- Пунктирні орієнтири полиць насичення (лише біля полиць, не через увесь графік) -->
+  <line x1="415" y1="175" x2="415" y2="250" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="135" y1="250" x2="135" y2="325" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+
+  <!-- Пунктирні межі deadband усередині зони -->
+  <line x1="255" y1="180" x2="255" y2="340" stroke="#27ae60" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="295" y1="180" x2="295" y2="340" stroke="#27ae60" stroke-dasharray="2 2" stroke-width="1"/>
+
+  <!-- Крива передавальної функції -->
+  <!-- 1. Полиця насичення CCW: 85..135, y=325 -->
+  <line x1="85" y1="325" x2="135" y2="325" stroke="#c0392b" stroke-width="3"/>
+  <!-- 2. Зона розгону CCW: 135,325 .. 255,250 -->
+  <line x1="135" y1="325" x2="255" y2="250" stroke="#c0392b" stroke-width="3"/>
+  <!-- 3. Мертва зона (deadband): 255..295, y=250 -->
+  <line x1="255" y1="250" x2="295" y2="250" stroke="#27ae60" stroke-width="4"/>
+  <!-- 4. Зона розгону CW: 295,250 .. 415,175 -->
+  <line x1="295" y1="250" x2="415" y2="175" stroke="#2457d6" stroke-width="3"/>
+  <!-- 5. Полиця насичення CW: 415..465, y=175 -->
+  <line x1="415" y1="175" x2="465" y2="175" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Точки на кривій -->
+  <circle cx="135" cy="325" r="4" fill="#c0392b"/>
+  <circle cx="255" cy="250" r="3.5" fill="#27ae60"/>
+  <circle cx="275" cy="250" r="4" fill="#27ae60"/>
+  <circle cx="295" cy="250" r="3.5" fill="#27ae60"/>
+  <circle cx="415" cy="175" r="4" fill="#2457d6"/>
+
+  <!-- Підписи полиць насичення -->
+  <text x="442" y="166" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Полиця +ω_max</text>
+  <text x="110" y="342" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Полиця −ω_max</text>
+
+  <!-- Пояснення ділянок у вільних квадрантах (без перетинів із лініями) -->
+  <!-- Верхній лівий квадрант: опис CCW (y <= 220, жодна лінія сюди не заходить) -->
+  <text x="96" y="196" font-size="12" font-weight="bold" fill="#c0392b">Реверс CCW (t ≤ 1475 мкс)</text>
+  <text x="96" y="214" font-size="12" fill="#6b7280">• Крутий розгін до −ω_max</text>
+  <text x="96" y="232" font-size="12" fill="#6b7280">• Насичення при t ≤ 1000 мкс</text>
+
+  <!-- Центр зверху: Deadband (y <= 170, вище за межі rect та ліній 180) -->
+  <text x="275" y="146" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Deadband: 1500 ± 25 мкс</text>
+  <text x="275" y="162" font-size="12" fill="#27ae60" text-anchor="middle">Вал зупинено (ω = 0)</text>
+  <line x1="257" y1="172" x2="293" y2="172" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="257" y1="169" x2="257" y2="175" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="293" y1="169" x2="293" y2="175" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Нижні правий квадрант: опис CW -->
+  <text x="310" y="280" font-size="12" font-weight="bold" fill="#2457d6">Прямий хід CW (t ≥ 1525 мкс)</text>
+  <text x="310" y="298" font-size="12" fill="#6b7280">• Крутий розгін до +ω_max</text>
+  <text x="310" y="316" font-size="12" fill="#6b7280">• Насичення при t ≥ 2000 мкс</text>
+
+  <!-- Позначки на осі часу / тривалості знизу -->
+  <line x1="135" y1="344" x2="135" y2="352" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="135" y="366" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1000 мкс</text>
+
+  <line x1="275" y1="344" x2="275" y2="352" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="275" y="366" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1500 мкс</text>
+
+  <line x1="415" y1="344" x2="415" y2="352" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="415" y="366" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2000 мкс</text>
+
+  <!-- Нижня картка лівої панелі: опис фізики перетворення -->
+  <rect x="40" y="404" width="448" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="424" font-size="12" font-weight="bold" fill="#1a1a1a">Особливості характеристики привода 360°:</text>
+  <text x="52" y="442" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#27ae60">Deadband (±15...40 мкс):</tspan> гарантований спокій вала попри джиттер таймера</text>
+  <text x="52" y="460" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#2457d6">Круті зони розгону:</tspan> вузький діапазон пропорційного регулювання швидкості</text>
+  <text x="52" y="478" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#6b7280">Полиці насичення:</tspan> за межами 1000 та 2000 мкс швидкість залишається граничною</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ЧАСОВІ ДІАГРАМИ ШІМ ==================== -->
+  <rect x="516" y="74" width="420" height="426" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="536" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Кадри керувального сигналу ШІМ (50 Гц, T = 20 мс)</text>
+  <text x="536" y="116" font-size="12" fill="#6b7280">Ширина імпульсу визначає напрямок і кутову швидкість вала</text>
+
+  <!-- Картка 1: Реверс CCW (1.0 мс) -->
+  <rect x="532" y="130" width="388" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="544" y="148" font-size="12" font-weight="bold" fill="#1a1a1a">t_pulse = 1,0 мс (1000 мкс)</text>
+  <rect x="740" y="136" width="168" height="20" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="824" y="150" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⟲ Реверс CCW (−ω_max)</text>
+
+  <!-- Осцилограма 1: імпульс 1.0 мс -->
+  <path d="M 544,198 L 560,198 L 560,174 L 590,174 L 590,198 L 896,198 L 896,174 L 908,174" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="602" y="188" font-size="12" font-weight="bold" fill="#c0392b">1,0 мс (D = 5%)</text>
+  <text x="888" y="188" font-size="12" fill="#6b7280" text-anchor="end">пауза 19,0 мс</text>
+  <text x="544" y="208" font-size="12" fill="#6b7280">0 В</text>
+
+  <!-- Картка 2: Нейтраль / Спокій (1.5 мс) -->
+  <rect x="532" y="228" width="388" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="544" y="246" font-size="12" font-weight="bold" fill="#1a1a1a">t_pulse = 1,5 мс (1500 мкс)</text>
+  <rect x="740" y="234" width="168" height="20" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="824" y="248" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">■ СТОП: утримання (ω = 0)</text>
+
+  <!-- Осцилограма 2: імпульс 1.5 мс -->
+  <path d="M 544,296 L 560,296 L 560,272 L 605,272 L 605,296 L 896,296 L 896,272 L 908,272" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="617" y="286" font-size="12" font-weight="bold" fill="#27ae60">1,5 мс (D = 7,5%)</text>
+  <text x="888" y="286" font-size="12" fill="#6b7280" text-anchor="end">пауза 18,5 мс</text>
+  <text x="544" y="306" font-size="12" fill="#6b7280">0 В</text>
+
+  <!-- Картка 3: Прямий хід CW (2.0 мс) -->
+  <rect x="532" y="326" width="388" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="544" y="344" font-size="12" font-weight="bold" fill="#1a1a1a">t_pulse = 2,0 мс (2000 мкс)</text>
+  <rect x="740" y="332" width="168" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="824" y="346" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">⟳ Прямий CW (+ω_max)</text>
+
+  <!-- Осцилограма 3: імпульс 2.0 мс -->
+  <path d="M 544,394 L 560,394 L 560,370 L 620,370 L 620,394 L 896,394 L 896,370 L 908,370" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="632" y="384" font-size="12" font-weight="bold" fill="#2457d6">2,0 мс (D = 10%)</text>
+  <text x="888" y="384" font-size="12" fill="#6b7280" text-anchor="end">пауза 18,0 мс</text>
+  <text x="544" y="404" font-size="12" fill="#6b7280">0 В</text>
+
+  <!-- Нижня картка правої панелі: параметри кадру -->
+  <rect x="532" y="424" width="388" height="64" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="544" y="446" font-size="12" font-weight="bold" fill="#1a1a1a">Часові параметри стандарту RC-сервоприводів:</text>
+  <text x="544" y="464" font-size="12" fill="#1a1a1a">• Період кадру T = 20 мс (частота оновлення f = 50 Гц)</text>
+  <text x="544" y="480" font-size="12" fill="#1a1a1a">• Знак відхилення від 1,5 мс задає реверс, величина — швидкість</text>
+</svg>

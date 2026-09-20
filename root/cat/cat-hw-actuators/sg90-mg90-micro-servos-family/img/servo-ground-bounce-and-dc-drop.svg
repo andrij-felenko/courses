@@ -1,0 +1,175 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Паразитний опір кабелю та зміщення землі (Ground Bounce) у сервоприводі</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Зворотний струм I_stall крізь R_GND зміщує локальну землю та зменшує завадостійкість ШІМ</text>
+
+  <!-- ================= ВЕРХНЯ ЧАСТИНА: СХЕМА РОЗПОДІЛУ ЖИВЛЕННЯ ================= -->
+
+  <!-- Панель 1: Контролер і джерело -->
+  <rect x="24" y="76" width="180" height="220" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="114" y="98" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">КОНТРОЛЕР І ДЖЕРЕЛО</text>
+  <text x="114" y="114" text-anchor="middle" font-size="12" fill="#6b7280">MCU + Живлення 5 В</text>
+
+  <!-- Клеми Panel 1 -->
+  <rect x="36" y="133" width="156" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="114" y="150" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">+5.0 В (VCC Джерела)</text>
+
+  <rect x="36" y="175" width="156" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="114" y="192" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">ШІМ вихід (3.3 В)</text>
+
+  <rect x="36" y="217" width="156" height="26" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="114" y="234" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">GND_MCU = 0.0 В</text>
+
+  <text x="114" y="268" text-anchor="middle" font-size="12" fill="#6b7280">Еталонний нуль системи</text>
+
+  <!-- Панель 2: Кабельний шлейф із паразитною моделлю -->
+  <rect x="220" y="76" width="342" height="220" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="391" y="98" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">КАБЕЛЬНИЙ ШЛЕЙФ (30 см, 28 AWG)</text>
+  <text x="391" y="114" text-anchor="middle" font-size="12" fill="#6b7280">Паразитні активні опори ліній зв'язку</text>
+
+  <!-- Провід 1: VCC (+5.0 В) -->
+  <line x1="192" y1="146" x2="326" y2="146" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="240" y1="146" x2="276" y2="146" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="258" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">I_stall →</text>
+
+  <!-- Резистор R_VCC -->
+  <rect x="326" y="137" width="56" height="18" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="354" y="131" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">R_VCC = 0.17 Ом</text>
+  <line x1="382" y1="146" x2="578" y2="146" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Провід 2: PWM / SIG -->
+  <line x1="192" y1="188" x2="578" y2="188" stroke="#2457d6" stroke-width="2"/>
+  <line x1="240" y1="188" x2="276" y2="188" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="391" y="180" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Цифровий сигнал ШІМ (I_sig ≈ 0)</text>
+
+  <!-- Провід 3: GND -->
+  <line x1="192" y1="230" x2="326" y2="230" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="276" y1="230" x2="240" y2="230" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Резистор R_GND -->
+  <rect x="326" y="221" width="56" height="18" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="354" y="215" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">R_GND = 0.17 Ом</text>
+
+  <line x1="382" y1="230" x2="578" y2="230" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="480" y1="230" x2="444" y2="230" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="462" y="215" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">← I_stall</text>
+
+  <!-- Бейдж зміщення землі ΔV_GND -->
+  <rect x="228" y="254" width="326" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="391" y="272" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">ΔV_GND = I_stall · R_GND ≈ 0.20–0.34 В (Зсув GND)</text>
+
+  <!-- Панель 3: Мікросервопривод -->
+  <rect x="578" y="76" width="358" height="220" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="757" y="98" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">МІКРОСЕРВОПРИВОД (SG90 / MG90S)</text>
+  <text x="757" y="114" text-anchor="middle" font-size="12" fill="#6b7280">Внутрішні силові та логічні кола</text>
+
+  <!-- Блок двигуна та H-моста -->
+  <rect x="756" y="128" width="166" height="126" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="839" y="146" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">ДВИГУН І H-МІСТ</text>
+  <circle cx="839" cy="182" r="20" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="839" y="187" text-anchor="middle" font-size="14" font-weight="700" fill="#c0392b">M</text>
+  <text x="839" y="218" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">I_stall ≈ 1.2 А</text>
+  <text x="839" y="234" text-anchor="middle" font-size="12" fill="#6b7280">Пусковий струм</text>
+
+  <!-- Підведення живлення до двигуна -->
+  <path d="M578,146 L756,146" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M756,230 L578,230" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Блок компаратора ШІМ -->
+  <rect x="592" y="152" width="144" height="62" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="664" y="172" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">КОМПАРАТОР ШІМ</text>
+  <line x1="578" y1="188" x2="602" y2="188" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="602" cy="188" r="3" fill="#2457d6"/>
+  <text x="664" y="204" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Опора: GND_servo</text>
+
+  <!-- Опорне з'єднання компаратора з локальною землею -->
+  <line x1="664" y1="214" x2="664" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="664" cy="230" r="3.5" fill="#c0392b"/>
+
+  <!-- Напис зміщеної землі під сервом -->
+  <text x="664" y="256" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">GND_servo = 0 В + ΔV_GND</text>
+  <text x="664" y="272" text-anchor="middle" font-size="12" fill="#c0392b">(локальна земля підскочила)</text>
+
+
+  <!-- ================= НИЖНЯ ЧАСТИНА: ДІАГРАМА ТА ВИСНОВКИ ================= -->
+
+  <!-- Ліва нижня панель: Діаграма рівнів ШІМ -->
+  <rect x="24" y="316" width="538" height="216" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="293" y="338" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">ДЕГРАДАЦІЯ ЗАВАДОСТІЙКОСТІ ШІМ НА ВХОДІ СЕРВОПРИВОДА</text>
+  <text x="293" y="354" text-anchor="middle" font-size="12" fill="#6b7280">Зсув вхідної напруги V_sig = V_MCU - ΔV_GND відносно порогів V_IH та V_IL</text>
+
+  <!-- Зона невизначеності логіки (між V_IL та V_IH) -->
+  <rect x="140" y="394" width="390" height="56" fill="#fdecea"/>
+  <text x="435" y="418" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">ЗОНА НЕВИЗНАЧЕНОСТІ ЛОГІКИ</text>
+  <text x="435" y="434" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">V_sig &lt; V_IH → ЗРИВ РОЗПІЗНАВАННЯ</text>
+
+  <!-- Лінії порогів -->
+  <line x1="140" y1="394" x2="530" y2="394" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="140" y1="450" x2="530" y2="450" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="140" y1="480" x2="530" y2="480" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Осі напруги та часу -->
+  <line x1="140" y1="500" x2="140" y2="368" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="140" y1="500" x2="536" y2="500" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="134" y="376" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">U (В)</text>
+  <text x="542" y="504" font-size="12" font-weight="700" fill="#1a1a1a">t</text>
+
+  <!-- Позначки на осі напруг -->
+  <text x="134" y="398" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">V_IH = 3.5 В</text>
+  <text x="134" y="420" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">V_OH = 3.3 В</text>
+  <text x="134" y="454" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">V_IL = 1.5 В</text>
+  <text x="134" y="484" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">+ΔV_GND (0.3 В)</text>
+  <text x="134" y="504" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">0 В (GND)</text>
+
+  <!-- Хвиля 1: Чистий ШІМ MCU (синій пунктир) -->
+  <polyline points="145,500 185,500 185,416 305,416 305,500 335,500" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,4"/>
+  <text x="245" y="384" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Імпульс ШІМ на виході MCU (3.3 В)</text>
+
+  <!-- Хвиля 2: Сигнал на вході серва відносно GND_servo (червона суцільна лінія) -->
+  <polyline points="145,480 156,480 162,460 168,480 174,470 180,480 190,480 190,438 310,438 310,480 335,480" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Стрілка та напис зсуву амплітуди -->
+  <line x1="198" y1="418" x2="198" y2="434" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="204" y="428" font-size="12" font-weight="700" fill="#c0392b">-ΔV_GND</text>
+
+  <!-- Пояснення внизу графіка -->
+  <text x="340" y="520" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Комутаційний дзвін L·(di/dt) та зсув -ΔV_GND спотворюють тривалість ШІМ</text>
+
+  <!-- Права нижня панель: Фізичний механізм та розв'язок -->
+  <rect x="578" y="316" width="358" height="216" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="757" y="338" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">ФІЗИЧНИЙ МЕХАНІЗМ ТА РОЗВ'ЯЗОК</text>
+  <text x="757" y="354" text-anchor="middle" font-size="12" fill="#6b7280">Причинно-наслідковий ланцюг завади</text>
+
+  <!-- Пункт 1: Спільний дріт -->
+  <rect x="590" y="366" width="334" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="602" y="382" font-size="12" font-weight="700" fill="#c0392b">1. Спільний силовий і сигнальний GND:</text>
+  <text x="602" y="398" font-size="12" fill="#1a1a1a">Струм I_stall (1.2 А) створює спад ΔV_GND на R_GND</text>
+
+  <!-- Пункт 2: Зсув порогів -->
+  <rect x="590" y="422" width="334" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="602" y="438" font-size="12" font-weight="700" fill="#c0392b">2. Спотворення логіки керування:</text>
+  <text x="602" y="454" font-size="12" fill="#1a1a1a">V_sig = V_MCU - ΔV_GND &lt; V_IH → джитер вала</text>
+
+  <!-- Пункт 3: Інженерний захист -->
+  <rect x="590" y="478" width="334" height="44" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="602" y="494" font-size="12" font-weight="700" fill="#27ae60">3. Інженерний захист лінії:</text>
+  <text x="602" y="510" font-size="12" fill="#1a1a1a">Зіркова земля (Star GND), дріт 22 AWG, буфер C_BULK</text>
+</svg>

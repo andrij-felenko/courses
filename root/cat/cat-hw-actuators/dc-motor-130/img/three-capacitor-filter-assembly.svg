@@ -1,0 +1,180 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Триконденсаторний фільтр ЕМЗ колекторного двигуна 130</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">C_diff гасить іскріння між щітками, а C_cm замикають синфазні завади на зачищений корпус статора</text>
+
+  <!-- ================= ЛІВА ПАНЕЛЬ: ЕЛЕКТРИЧНА СХЕМА ================= -->
+  <rect x="24" y="68" width="444" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="36" y="78" width="420" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="246" y="94" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Принципова схема та шляхи стікання ВЧ-струмів</text>
+
+  <!-- Контур I_diff у верхній частині схеми -->
+  <line x1="140" y1="116" x2="355" y2="116" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <text x="246" y="112" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Контур I_diff (замикання іскрових струмів щіток)</text>
+
+  <!-- Шини живлення M+ та M- -->
+  <line x1="50" y1="135" x2="395" y2="135" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="50" y1="275" x2="395" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="50" cy="135" r="3.5" fill="#2457d6"/>
+  <circle cx="50" cy="275" r="3.5" fill="#2457d6"/>
+  <text x="58" y="131" font-size="12" font-weight="bold" fill="#2457d6">Клема M+</text>
+  <text x="58" y="289" font-size="12" font-weight="bold" fill="#2457d6">Клема M-</text>
+
+  <!-- Конденсатор C1 (диференціальний) -->
+  <line x1="115" y1="135" x2="115" y2="201" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="105" y1="201" x2="125" y2="201" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="105" y1="209" x2="125" y2="209" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="115" y1="209" x2="115" y2="275" stroke="#2457d6" stroke-width="1.8"/>
+  <circle cx="115" cy="135" r="3" fill="#2457d6"/>
+  <circle cx="115" cy="275" r="3" fill="#2457d6"/>
+  <text x="98" y="201" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">C1 (C_diff)</text>
+  <text x="98" y="215" font-size="12" fill="#6b7280" text-anchor="end">10–100 нФ</text>
+
+  <!-- Конденсатор C2 (синфазний, M+ на корпус) -->
+  <line x1="185" y1="135" x2="185" y2="166" stroke="#27ae60" stroke-width="1.8"/>
+  <line x1="175" y1="166" x2="195" y2="166" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="175" y1="174" x2="195" y2="174" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="185" y1="174" x2="185" y2="205" stroke="#27ae60" stroke-width="1.8"/>
+  <circle cx="185" cy="135" r="3" fill="#27ae60"/>
+  <circle cx="185" cy="205" r="3" fill="#27ae60"/>
+  <text x="202" y="166" font-size="12" font-weight="bold" fill="#27ae60">C2: 10–47 нФ</text>
+  <text x="202" y="180" font-size="12" fill="#6b7280">синфазний</text>
+
+  <!-- Шина корпусу та заземлення -->
+  <line x1="185" y1="205" x2="365" y2="205" stroke="#27ae60" stroke-width="1.8"/>
+  <line x1="235" y1="205" x2="235" y2="216" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="227" y1="216" x2="243" y2="216" stroke="#27ae60" stroke-width="2"/>
+  <line x1="230" y1="220" x2="240" y2="220" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="233" y1="224" x2="237" y2="224" stroke="#27ae60" stroke-width="1"/>
+  <text x="235" y="199" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Корпус / GND</text>
+
+  <!-- Конденсатор C3 (синфазний, корпус на M-) -->
+  <line x1="290" y1="205" x2="290" y2="236" stroke="#27ae60" stroke-width="1.8"/>
+  <line x1="280" y1="236" x2="300" y2="236" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="280" y1="244" x2="300" y2="244" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="290" y1="244" x2="290" y2="275" stroke="#27ae60" stroke-width="1.8"/>
+  <circle cx="290" cy="205" r="3" fill="#27ae60"/>
+  <circle cx="290" cy="275" r="3" fill="#27ae60"/>
+  <text x="274" y="244" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">C3: 10–47 нФ</text>
+  <text x="274" y="258" font-size="12" fill="#6b7280" text-anchor="end">синфазний</text>
+
+  <!-- Схематичний двигун 130 -->
+  <rect x="365" y="125" width="85" height="160" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="407" y="142" font-size="12" fill="#6b7280" text-anchor="middle">Статор</text>
+  <circle cx="395" cy="205" r="20" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="395" y="210" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">M</text>
+  <rect x="389" y="172" width="12" height="6" fill="#1a1a1a"/>
+  <rect x="389" y="232" width="12" height="6" fill="#1a1a1a"/>
+  <line x1="395" y1="135" x2="395" y2="172" stroke="#1a1a1a" stroke-width="1.8"/>
+  <line x1="395" y1="238" x2="395" y2="275" stroke="#1a1a1a" stroke-width="1.8"/>
+  <circle cx="365" cy="205" r="3" fill="#27ae60"/>
+  <text x="410" y="170" font-size="12" fill="#c0392b">Іскри</text>
+  <text x="410" y="244" font-size="12" fill="#c0392b">Іскри</text>
+
+  <!-- Підсумок у панелі 1 -->
+  <rect x="36" y="298" width="420" height="40" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="246" y="314" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">• C1 замкнений на щітки — гасить диференціальну заваду</text>
+  <text x="246" y="330" font-size="12" fill="#6b7280" text-anchor="middle">• C2, C3 скидають синфазний ВЧ-шум на екран статора</text>
+
+  <!-- ================= ПРАВА ПАНЕЛЬ: ПРОСТОРОВИЙ МОНТАЖ ================= -->
+  <rect x="492" y="68" width="444" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="504" y="78" width="420" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="94" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Просторове розміщення та пайка на торці мотора 130</text>
+
+  <!-- Напис та стрілка до зачищеної зони статора -->
+  <text x="714" y="118" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зачищена зона сталі (пайка на корпус)</text>
+  <line x1="714" y1="121" x2="714" y2="134" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Корпус двигуна 130 (задній торець зі скошеними площинами) -->
+  <rect x="614" y="135" width="200" height="120" rx="28" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Зачищена зона під пайку на металевому корпусі -->
+  <rect x="690" y="137" width="48" height="10" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="714" cy="142" r="4" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Пластикова задня кришка (щіткотримач) -->
+  <rect x="654" y="155" width="120" height="80" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="714" cy="195" r="14" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="714" cy="195" r="5" fill="#1a1a1a"/>
+  <text x="714" y="222" font-size="12" fill="#6b7280" text-anchor="middle">Втулка</text>
+
+  <!-- Пелюсткові виводи M+ та M- -->
+  <rect x="638" y="185" width="16" height="20" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="646" cy="195" r="4" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="630" y="199" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">M+</text>
+
+  <rect x="774" y="185" width="16" height="20" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="782" cy="195" r="4" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="798" y="199" font-size="12" font-weight="bold" fill="#2457d6">M-</text>
+
+  <!-- Виводи C1 (диференціальний) -->
+  <path d="M 646,195 Q 670,242 703,242" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 782,195 Q 758,242 725,242" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="714" cy="242" r="11" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="714" y="246" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">C1</text>
+  <text x="714" y="270" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">C1: 100 нФ (диференціальний)</text>
+  <text x="714" y="286" font-size="12" fill="#27ae60" text-anchor="middle">Пряма пайка між пелюстками (виводи &lt; 3 мм)</text>
+
+  <!-- Конденсатор C2 (синфазний, M+ на корпус) -->
+  <path d="M 646,195 L 665,160" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 674,147 L 709,142" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="665" cy="150" r="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="665" y="154" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">C2</text>
+  <text x="595" y="146" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">C2: 10–47 нФ</text>
+  <text x="595" y="160" font-size="12" fill="#6b7280" text-anchor="end">на корпус</text>
+
+  <!-- Конденсатор C3 (синфазний, M- на корпус) -->
+  <path d="M 782,195 L 763,160" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 754,147 L 719,142" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="763" cy="150" r="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="763" y="154" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">C3</text>
+  <text x="833" y="146" font-size="12" font-weight="bold" fill="#27ae60">C3: 10–47 нФ</text>
+  <text x="833" y="160" font-size="12" fill="#6b7280">на корпус</text>
+  <!-- Підсумок у панелі 2 -->
+  <rect x="504" y="298" width="420" height="40" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="714" y="314" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">• Зачистити нікель/лак до чистої сталі для надійної пайки C2, C3</text>
+  <text x="714" y="330" font-size="12" fill="#6b7280" text-anchor="middle">• Мінімальна довжина виводів (&lt; 3 мм) усуває випромінювальні антени</text>
+
+  <!-- ================= НИЖНІ ПІДСУМКОВІ КАРТКИ ================= -->
+  <!-- Картка 1: Диференційний C1 -->
+  <rect x="24" y="360" width="292" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="34" y="368" width="272" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="170" y="383" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Диференційний контур (C1)</text>
+  <text x="36" y="407" font-size="12" font-weight="bold" fill="#1a1a1a">• Ємність: <tspan font-weight="normal" fill="#6b7280">10–100 нФ (кераміка X7R)</tspan></text>
+  <text x="36" y="425" font-size="12" fill="#1a1a1a">• Шунтує ВЧ-дугу між щітками</text>
+  <text x="36" y="443" font-size="12" fill="#6b7280">  Замикає струм комутації в петлі &lt; 10 мм</text>
+
+  <!-- Картка 2: Синфазні C2, C3 -->
+  <rect x="334" y="360" width="292" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="344" y="368" width="272" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="383" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Синфазні контури (C2, C3)</text>
+  <text x="346" y="407" font-size="12" font-weight="bold" fill="#1a1a1a">• Ємність: <tspan font-weight="normal" fill="#6b7280">10–47 нФ (на корпус статора)</tspan></text>
+  <text x="346" y="425" font-size="12" fill="#1a1a1a">• Скидає синфазний шум на метал</text>
+  <text x="346" y="443" font-size="12" fill="#6b7280">  Корпус слугує екраном і не фонить в ефір</text>
+
+  <!-- Картка 3: Монтаж і тепловий захист -->
+  <rect x="644" y="360" width="292" height="100" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="654" y="368" width="272" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="383" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Правила фізичного монтажу</text>
+  <text x="656" y="407" font-size="12" font-weight="bold" fill="#1a1a1a">• Виводи: <tspan font-weight="normal" fill="#6b7280">&lt; 3 мм (L_паразитна &lt; 3 нГн)</tspan></text>
+  <text x="656" y="425" font-size="12" fill="#1a1a1a">• Зачистка корпусу: <tspan font-weight="normal" fill="#6b7280">зняти нікель до сталі</tspan></text>
+  <text x="656" y="443" font-size="12" fill="#6b7280">• Швидка пайка: &le; 2 с (не плавити кришку)</text>
+</svg>

@@ -1,0 +1,209 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Безпечна схема підключення сервопривода постійного обертання до MCU</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Виділене силове живлення, Star GND та LC-фільтрація виключають скидання логіки від стрибків струму</text>
+
+  <!-- ПАНЕЛЬ 1: МІКРОКОНТРОЛЕР (MCU) -->
+  <rect x="24" y="70" width="224" height="424" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="136" y="94" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">МІКРОКОНТРОЛЕР (MCU)</text>
+  <text x="136" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Керуюча логіка 3.3 В / 5 В TTL</text>
+
+  <!-- Внутрішній блок чіпа MCU -->
+  <rect x="42" y="130" width="188" height="176" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="110" y="152" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">MCU Core</text>
+  <text x="110" y="168" font-size="12" fill="#6b7280" text-anchor="middle">Таймер ШІМ</text>
+
+  <!-- Піни MCU -->
+  <text x="52" y="210" font-size="12" fill="#6b7280">V_DD (3.3V/5V)</text>
+  <text x="52" y="226" font-size="12" fill="#6b7280">USB / LDO</text>
+
+  <text x="218" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">GPIO</text>
+  <circle cx="230" cy="180" r="3.5" fill="#2457d6"/>
+
+  <text x="136" y="254" font-size="12" fill="#1a1a1a" text-anchor="middle">f = 50 Гц (T = 20 мс)</text>
+  <text x="136" y="272" font-size="12" fill="#6b7280" text-anchor="middle">1000..2000 мкс (Стоп = 1500)</text>
+
+  <text x="218" y="294" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND</text>
+  <circle cx="230" cy="290" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Блок пояснення захисту MCU внизу Панелі 1 -->
+  <rect x="38" y="324" width="196" height="154" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="136" y="346" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Захист логіки MCU</text>
+  <text x="48" y="368" font-size="12" fill="#c0392b">• Пусковий струм мотора</text>
+  <text x="56" y="386" font-size="12" fill="#6b7280">досягає 1.2–2.0 А (stall)</text>
+  <text x="48" y="408" font-size="12" fill="#c0392b">• Спільне живлення</text>
+  <text x="56" y="426" font-size="12" fill="#6b7280">викликає Brown-out Reset</text>
+  <text x="48" y="448" font-size="12" fill="#27ae60">✓ Виділений БЖ + Star GND</text>
+  <text x="56" y="466" font-size="12" fill="#27ae60">гарантують стабільність</text>
+
+  <!-- ПАНЕЛЬ 2: СИЛОВЕ ЖИВЛЕННЯ ТА ФІЛЬТРАЦІЯ -->
+  <rect x="266" y="70" width="380" height="424" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="456" y="94" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">СИЛОВЕ ЖИВЛЕННЯ ТА ФІЛЬТРАЦІЯ</text>
+  <text x="456" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Виділене джерело 5–6 В, локальні C_bulk / C_hf та Star GND</text>
+
+  <!-- Сигнальна лінія від MCU GPIO через R_s на рівні y = 180 -->
+  <line x1="230" y1="180" x2="302" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <!-- Резистор R_s (302..342 на y = 180) -->
+  <rect x="302" y="172" width="40" height="16" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="322" y="162" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_s = 330 Ом</text>
+  <text x="322" y="204" font-size="12" fill="#6b7280" text-anchor="middle">струмообмеження</text>
+  <line x1="342" y1="180" x2="684" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="500" y="162" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Керуючий сигнал ШІМ (50 Гц, 1000–2000 мкс)</text>
+  <text x="500" y="204" font-size="12" fill="#6b7280" text-anchor="middle">Сумісний з логічними рівнями 3.3 В та 5 В TTL</text>
+
+  <!-- Блок зовнішнього силового джерела PSU (284..394, y = 222..342) -->
+  <rect x="284" y="222" width="110" height="120" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="339" y="242" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ДЖЕРЕЛО 5 В / 6 В</text>
+  <text x="339" y="258" font-size="12" fill="#1a1a1a" text-anchor="middle">Виділений БЖ / АКБ</text>
+  <text x="339" y="274" font-size="12" fill="#6b7280" text-anchor="middle">4.8–6.0 В DC</text>
+  <text x="339" y="292" font-size="12" fill="#6b7280" text-anchor="middle">I_ном ≥ 2–3 А</text>
+  <text x="339" y="310" font-size="12" fill="#c0392b" text-anchor="middle">(Stall Current)</text>
+
+  <!-- Клеми PSU -->
+  <circle cx="394" cy="245" r="3.5" fill="#c0392b"/>
+  <text x="386" y="249" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="end">+</text>
+
+  <circle cx="394" cy="315" r="3.5" fill="#1a1a1a"/>
+  <text x="386" y="319" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="end">−</text>
+
+  <!-- Лінія живлення +5V / +6V від PSU (x = 394, y = 245) до роз'єму (x = 684, y = 245) -->
+  <line x1="394" y1="245" x2="684" y2="245" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="420" y="235" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+5 В / +6 В</text>
+
+  <!-- Шина GND живлення (y = 345, від x = 415 до x = 684) -->
+  <line x1="415" y1="345" x2="684" y2="345" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Конденсатор C_bulk (електролітичний) на x = 415 між y = 245 та y = 345 -->
+  <circle cx="415" cy="245" r="3.5" fill="#c0392b"/>
+  <circle cx="415" cy="345" r="3.5" fill="#1a1a1a"/>
+  <line x1="415" y1="245" x2="415" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="415" y1="298" x2="415" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Пластини C_bulk -->
+  <line x1="403" y1="290" x2="427" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="403" y1="298" x2="427" y2="298" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="399" y="288" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">+</text>
+
+  <text x="431" y="278" font-size="12" font-weight="bold" fill="#1a1a1a">C_bulk</text>
+  <text x="431" y="294" font-size="12" font-weight="bold" fill="#2457d6">1000 мкФ</text>
+  <text x="431" y="310" font-size="12" fill="#6b7280">електроліт</text>
+  <text x="431" y="326" font-size="12" fill="#27ae60">пусковий буфер</text>
+
+  <!-- Конденсатор C_hf (керамічний) на x = 540 між y = 245 та y = 345 -->
+  <circle cx="540" cy="245" r="3.5" fill="#c0392b"/>
+  <circle cx="540" cy="345" r="3.5" fill="#1a1a1a"/>
+  <line x1="540" y1="245" x2="540" y2="291" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="540" y1="299" x2="540" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Пластини C_hf -->
+  <line x1="529" y1="291" x2="551" y2="291" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="529" y1="299" x2="551" y2="299" stroke="#1a1a1a" stroke-width="2"/>
+
+  <text x="556" y="278" font-size="12" font-weight="bold" fill="#1a1a1a">C_hf</text>
+  <text x="556" y="294" font-size="12" font-weight="bold" fill="#2457d6">0.1 мкФ</text>
+  <text x="556" y="310" font-size="12" fill="#6b7280">кераміка</text>
+  <text x="556" y="326" font-size="12" fill="#27ae60">фільтр ВЧ</text>
+
+  <!-- ЛІНІЇ ЗАЗЕМЛЕННЯ ТА ТОЧКА STAR GND -->
+  <!-- GND від MCU: (230, 290) -> (250, 290) -> (250, 444) -> (415, 444) -->
+  <line x1="230" y1="290" x2="250" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="250" y1="290" x2="250" y2="444" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="250" y1="444" x2="415" y2="444" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="320" y="434" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND мікроконтролера</text>
+
+  <!-- GND від мінуса PSU: (394, 315) -> (394, 444) -->
+  <line x1="394" y1="315" x2="394" y2="444" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- GND від сервопривода: (415, 345) -> (415, 444) -->
+  <line x1="415" y1="345" x2="415" y2="444" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Вузол Star GND на (415, 444) -->
+  <circle cx="415" cy="444" r="9" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="415" cy="444" r="4" fill="#27ae60"/>
+
+  <text x="432" y="434" font-size="12" font-weight="bold" fill="#27ae60">Точка Star GND (спільна «Зірка»)</text>
+  <text x="432" y="452" font-size="12" fill="#6b7280">Об'єднання шин в одній точці</text>
+  <text x="432" y="470" font-size="12" fill="#6b7280">усуває спільні завади струму</text>
+
+  <!-- ПАНЕЛЬ 3: СЕРВОПРИВІД ПОСТІЙНОГО ОБЕРТАННЯ -->
+  <rect x="664" y="70" width="272" height="424" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="800" y="94" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">СЕРВОПРИВІД (360° SERVO)</text>
+  <text x="800" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Апаратний роз'єм JR/Futaba та механіка</text>
+
+  <!-- Блок роз'єму 3-pin (676..744, y = 142..368) -->
+  <rect x="676" y="142" width="68" height="226" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="162" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Роз'єм 3-pin</text>
+
+  <!-- Пін 1 (SIG) -->
+  <rect x="684" y="170" width="52" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="710" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SIG</text>
+
+  <!-- Пін 2 (V+) -->
+  <rect x="684" y="235" width="52" height="20" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="710" y="249" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">V+</text>
+
+  <!-- Пін 3 (GND) -->
+  <rect x="684" y="335" width="52" height="20" rx="4" fill="#f4f6f8" stroke="#1a1a1a"/>
+  <text x="710" y="349" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GND</text>
+
+  <!-- З'єднання від роз'єму всередину сервопривода -->
+  <line x1="736" y1="180" x2="764" y2="180" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="736" y1="245" x2="764" y2="245" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="736" y1="345" x2="764" y2="345" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Внутрішній корпус сервопривода (754..924, y = 142..354) -->
+  <rect x="754" y="142" width="170" height="212" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Внутрішня плата сервопідсилювача -->
+  <rect x="764" y="154" width="150" height="70" rx="4" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="839" y="172" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сервопідсилювач IC</text>
+  <text x="839" y="190" font-size="12" fill="#1a1a1a" text-anchor="middle">Дільник R1=R2 (2.5 В)</text>
+  <text x="839" y="208" font-size="12" fill="#6b7280" text-anchor="middle">Замість потенціометра</text>
+
+  <!-- Внутрішній мотор, редуктор і вал -->
+  <rect x="764" y="234" width="150" height="108" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <circle cx="794" cy="272" r="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="794" y="278" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">M</text>
+
+  <text x="856" y="262" font-size="12" font-weight="bold" fill="#1a1a1a">Редуктор</text>
+  <text x="856" y="278" font-size="12" fill="#6b7280">без упору</text>
+  <text x="856" y="294" font-size="12" font-weight="bold" fill="#2457d6">Вал 360°</text>
+  <text x="839" y="324" font-size="12" fill="#27ae60" text-anchor="middle">Постійне обертання</text>
+
+  <!-- Панель колірного маркування JR / Futaba внизу Панелі 3 -->
+  <rect x="676" y="380" width="248" height="104" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="800" y="398" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кольори дротів: JR / Futaba</text>
+
+  <!-- Заголовки колонок -->
+  <text x="686" y="416" font-size="12" font-weight="bold" fill="#6b7280">Сигнал</text>
+  <text x="752" y="416" font-size="12" font-weight="bold" fill="#6b7280">JR</text>
+  <text x="834" y="416" font-size="12" font-weight="bold" fill="#6b7280">Futaba</text>
+
+  <!-- Рядок 1: PWM -->
+  <text x="686" y="434" font-size="12" font-weight="bold" fill="#2457d6">PWM</text>
+  <text x="752" y="434" font-size="12" fill="#1a1a1a">Помаранчевий</text>
+  <text x="834" y="434" font-size="12" fill="#1a1a1a">Білий</text>
+
+  <!-- Рядок 2: V+ -->
+  <text x="686" y="452" font-size="12" font-weight="bold" fill="#c0392b">V+ (5–6В)</text>
+  <text x="752" y="452" font-size="12" fill="#1a1a1a">Червоний</text>
+  <text x="834" y="452" font-size="12" fill="#1a1a1a">Червоний</text>
+
+  <!-- Рядок 3: GND -->
+  <text x="686" y="470" font-size="12" font-weight="bold" fill="#1a1a1a">GND (0В)</text>
+  <text x="752" y="470" font-size="12" fill="#1a1a1a">Коричневий</text>
+  <text x="834" y="470" font-size="12" fill="#1a1a1a">Чорний</text>
+</svg>

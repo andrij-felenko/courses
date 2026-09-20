@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Характеристика швидкості сервопривода та температурний дрейф нуля</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Вузька пропорційна зона (±40...50 мкс) викликає раннє насичення, а нагрів зміщує нейтраль</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: ПОВНИЙ ДІАПАЗОН ШІМ ==================== -->
+  <rect x="24" y="68" width="444" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="246" y="92" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Повний діапазон сигналу керування (1000...2000 мкс)</text>
+  <text x="246" y="110" font-size="12" fill="#6b7280" text-anchor="middle">85% шкали — зони насичення; робоча зона вкрай вузька</text>
+
+  <!-- Зони насичення та активна зона -->
+  <rect x="100" y="145" width="135" height="125" fill="#fdecea" fill-opacity="0.5"/>
+  <rect x="235" y="145" width="30" height="125" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,2"/>
+  <rect x="265" y="145" width="135" height="125" fill="#fdecea" fill-opacity="0.5"/>
+
+  <!-- Підписи зон у лівому графіку -->
+  <text x="167" y="172" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Насичення CCW</text>
+  <text x="167" y="188" font-size="12" fill="#c0392b" text-anchor="middle">−100% обертів</text>
+
+  <text x="250" y="137" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Активна зона</text>
+
+  <text x="332" y="242" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Насичення CW</text>
+  <text x="332" y="258" font-size="12" fill="#c0392b" text-anchor="middle">+100% обертів</text>
+
+  <!-- Осі координат лівого графіка -->
+  <line x1="75" y1="210" x2="422" y2="210" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="428" y="214" font-size="12" fill="#6b7280">t, мкс</text>
+
+  <line x1="80" y1="275" x2="80" y2="142" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="80" y="132" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ω, %</text>
+
+  <!-- Засічки осі Y (ліва) -->
+  <line x1="75" y1="150" x2="80" y2="150" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="71" y="154" font-size="12" fill="#1a1a1a" text-anchor="end">+100</text>
+
+  <line x1="75" y1="210" x2="80" y2="210" stroke="#6b7280" stroke-width="1"/>
+  <text x="71" y="214" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <line x1="75" y1="270" x2="80" y2="270" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="71" y="274" font-size="12" fill="#1a1a1a" text-anchor="end">−100</text>
+
+  <!-- Характеристична крива (ліва) -->
+  <path d="M 100,270 L 235,270 L 246,210 L 254,210 L 265,150 L 400,150" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Засічки осі X унизу (ліва) -->
+  <line x1="80" y1="278" x2="410" y2="278" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="100" y1="278" x2="100" y2="283" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="100" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">1000</text>
+
+  <line x1="250" y1="278" x2="250" y2="283" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="250" y="295" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1500</text>
+
+  <line x1="400" y1="278" x2="400" y2="283" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="400" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">2000</text>
+
+  <!-- Картка висновків лівої панелі -->
+  <rect x="36" y="306" width="420" height="140" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="326" font-size="12" font-weight="bold" fill="#1a1a1a">Наслідки авіамодельного походження схеми:</text>
+  <text x="48" y="346" font-size="12" fill="#1a1a1a">• Сервопідсилювач має гранично високий коефіцієнт K_p</text>
+  <text x="48" y="366" font-size="12" fill="#c0392b">• Насичення 100% настає вже при відхиленні імпульсу на 50 мкс</text>
+  <text x="48" y="386" font-size="12" fill="#1a1a1a">• Діапазон 1000...2000 мкс діє майже як трипозиційний ключ</text>
+  <text x="48" y="406" font-size="12" fill="#2457d6">• Пропорційне регулювання швидкості стиснуте в смугу ~100 мкс</text>
+  <text x="48" y="426" font-size="12" fill="#6b7280">• Прецизійне керування обертами без енкодера неможливе</text>
+
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ДЕТАЛІЗАЦІЯ І ДРЕЙФ ==================== -->
+  <rect x="492" y="68" width="444" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="714" y="92" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Збільшено: мертва зона спокою та температурний дрейф</text>
+  <text x="714" y="110" font-size="12" fill="#6b7280" text-anchor="middle">Нагрів зміщує характеристику, викликаючи самовільне обертання</text>
+
+  <!-- Легенда кривих -->
+  <line x1="560" y1="124" x2="582" y2="124" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="588" y="128" font-size="12" font-weight="bold" fill="#2457d6">25°C (холодний)</text>
+
+  <line x1="785" y1="124" x2="807" y2="124" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="813" y="128" font-size="12" font-weight="bold" fill="#c0392b">50°C (нагрітий)</text>
+
+  <!-- Позначення мертвої зони вгорі -->
+  <line x1="680" y1="142" x2="760" y2="142" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="680" y1="138" x2="680" y2="146" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="760" y1="138" x2="760" y2="146" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="720" y="136" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Мертва зона (40 мкс)</text>
+
+  <!-- Мертва зона (підкладка навколо осі спокою) -->
+  <rect x="680" y="196" width="80" height="28" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,2"/>
+
+  <!-- Осі координат правого графіка -->
+  <line x1="545" y1="210" x2="892" y2="210" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <text x="898" y="214" font-size="12" fill="#6b7280">t, мкс</text>
+
+  <line x1="550" y1="275" x2="550" y2="142" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="550" y="132" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ω, %</text>
+
+  <!-- Засічки осі Y (права) -->
+  <line x1="545" y1="150" x2="550" y2="150" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="541" y="154" font-size="12" fill="#1a1a1a" text-anchor="end">+100</text>
+
+  <line x1="545" y1="210" x2="550" y2="210" stroke="#6b7280" stroke-width="1"/>
+  <text x="541" y="214" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <line x1="545" y1="270" x2="550" y2="270" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="541" y="274" font-size="12" fill="#1a1a1a" text-anchor="end">−100</text>
+
+  <!-- Засічки осі X унизу (права) -->
+  <line x1="550" y1="278" x2="885" y2="278" stroke="#d0d7de" stroke-width="1"/>
+
+  <line x1="600" y1="278" x2="600" y2="283" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="600" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">1440</text>
+
+  <line x1="680" y1="278" x2="680" y2="283" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="680" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">1480</text>
+
+  <line x1="720" y1="278" x2="720" y2="283" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="720" y="295" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1500</text>
+
+  <line x1="760" y1="278" x2="760" y2="283" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="760" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">1520</text>
+
+  <line x1="840" y1="278" x2="840" y2="283" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="840" y="295" font-size="12" fill="#1a1a1a" text-anchor="middle">1560</text>
+
+  <!-- Крива 1: Номінальна при 25°C -->
+  <path d="M 560,270 L 600,270 L 680,210 L 760,210 L 840,150 L 880,150" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Крива 2: Зміщена при 50°C (дрейф ліворуч на 35 мкс = 70 px) -->
+  <path d="M 560,248 L 610,210 L 690,210 L 770,150 L 880,150" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3"/>
+
+  <!-- Стрілка теплового зсуву характеристики -->
+  <line x1="720" y1="165" x2="658" y2="165" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="686" y="159" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зсув Δt ≈ 35 мкс</text>
+
+  <!-- Точка номінального спокою при 1500 мкс (T1) -->
+  <circle cx="720" cy="210" r="4.5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="720" y="240" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Спокій (T1)</text>
+
+  <!-- Маркер паразитного обертання при 1500 мкс (T2) -->
+  <line x1="720" y1="210" x2="720" y2="191" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <circle cx="720" cy="187" r="4.5" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Виноска паразитного обертання у вільній зоні зліва -->
+  <line x1="662" y1="185" x2="712" y2="187" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+  <text x="560" y="180" font-size="12" font-weight="bold" fill="#c0392b">Самовільний рух (дрейф)</text>
+  <text x="560" y="195" font-size="12" fill="#c0392b">ω ≈ +38% при 1500 мкс</text>
+
+  <!-- Картка висновків правої панелі -->
+  <rect x="504" y="306" width="420" height="140" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="326" font-size="12" font-weight="bold" fill="#1a1a1a">Фізика температурного дрейфу нуля:</text>
+  <text x="516" y="346" font-size="12" fill="#1a1a1a">• Нагрів сервопривода змінює опір дільника (TCR) та RC-ланцюг</text>
+  <text x="516" y="366" font-size="12" fill="#c0392b">• Зсув Δt_drift виштовхує 1500 мкс за межі мертвої зони</text>
+  <text x="516" y="386" font-size="12" fill="#1a1a1a">• Мотор розкручується, коли робот повинен нерухомо стояти</text>
+  <text x="516" y="406" font-size="12" fill="#27ae60">• Апаратне усунення: підлаштування тримера викруткою</text>
+  <text x="516" y="426" font-size="12" fill="#27ae60">• Програмне усунення: автокалібрування зміщення в коді</text>
+</svg>

@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кусочно-лінійне відображення швидкості у тривалість ШІМ-імпульсу</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Калібрована точка neutral_us усуває дрейф, а виключення deadband_us забезпечує лінійний відгук</text>
+
+  <!-- Головна панель графіка (880x384 >= 70% площі полотна) -->
+  <rect x="40" y="76" width="880" height="384" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок осі Y (тривалість імпульсу) -->
+  <text x="170" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тривалість ШІМ-імпульсу T_pulse (мкс)</text>
+
+  <!-- Зона мертвої смуги (deadband_us) -->
+  <rect x="170" y="230" width="640" height="40" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Сітка графіка -->
+  <!-- Горизонтальні лінії граничних рівнів -->
+  <line x1="170" y1="120" x2="810" y2="120" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="170" y1="380" x2="810" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Лінія нейтралі (розривна, щоб не перетинати написи) -->
+  <line x1="170" y1="250" x2="178" y2="250" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="465" y1="250" x2="490" y2="250" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="755" y1="250" x2="810" y2="250" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Вертикальні лінії сітки швидкості -->
+  <line x1="170" y1="120" x2="170" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="490" y1="120" x2="490" y2="230" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="490" y1="270" x2="490" y2="380" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="810" y1="120" x2="810" y2="380" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Стрибок через мертву зону на осі v = 0 -->
+  <line x1="490" y1="230" x2="490" y2="270" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+
+  <!-- Робоча ділянка: рух вперед (CW) -->
+  <line x1="490" y1="230" x2="810" y2="120" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="490" cy="230" r="4.5" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="810" cy="120" r="5" fill="#2457d6"/>
+
+  <!-- Робоча ділянка: рух назад (CCW) -->
+  <line x1="490" y1="270" x2="170" y2="380" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="490" cy="270" r="4.5" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="170" cy="380" r="5" fill="#2457d6"/>
+
+  <!-- Центральна калібрована точка спокою neutral_us -->
+  <circle cx="490" cy="250" r="9" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="490" cy="250" r="5.5" fill="#27ae60"/>
+
+  <!-- Позначки осі Y ліворуч -->
+  <text x="160" y="119" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">max_pulse_us</text>
+  <text x="160" y="133" font-size="12" fill="#6b7280" text-anchor="end">2000 мкс</text>
+
+  <text x="160" y="249" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">neutral_us</text>
+  <text x="160" y="263" font-size="12" fill="#6b7280" text-anchor="end">1500 мкс</text>
+
+  <text x="160" y="379" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">min_pulse_us</text>
+  <text x="160" y="393" font-size="12" fill="#6b7280" text-anchor="end">1000 мкс</text>
+
+  <!-- Розмірні лінії та позначення deadband_us праворуч -->
+  <line x1="814" y1="230" x2="824" y2="230" stroke="#6b7280" stroke-width="1"/>
+  <line x1="814" y1="270" x2="824" y2="270" stroke="#6b7280" stroke-width="1"/>
+  <line x1="819" y1="230" x2="819" y2="270" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="830" y="246" font-size="12" font-weight="bold" fill="#1a1a1a">deadband_us</text>
+  <text x="830" y="260" font-size="12" fill="#6b7280">±20 мкс (40 мкс)</text>
+
+  <!-- Пояснення точки спокою та мертвої зони всередині смуги -->
+  <text x="506" y="246" font-size="12" font-weight="bold" fill="#27ae60">Точка спокою neutral_us</text>
+  <text x="506" y="262" font-size="12" fill="#6b7280">v = 0 → вал знеструмлений (0 об/хв)</text>
+
+  <text x="180" y="246" font-size="12" font-weight="bold" fill="#6b7280">Мертва смуга deadband_us</text>
+  <text x="180" y="262" font-size="12" fill="#6b7280">Гарантована нульова швидкість</text>
+
+  <!-- Картка: Робоча ділянка руху назад (CCW) у лівому верхньому кутку -->
+  <rect x="180" y="126" width="280" height="74" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="192" y="144" font-size="12" font-weight="bold" fill="#2457d6">Рух назад (CCW, проти годинникової)</text>
+  <text x="192" y="160" font-size="12" fill="#1a1a1a">v ∈ [-1.0 ... 0) → T ∈ [1000 ... 1480] мкс</text>
+  <text x="192" y="176" font-size="12" fill="#6b7280">Розмах: ΔT_rev = 480 мкс (симетрично до CW)</text>
+  <text x="192" y="192" font-size="12" fill="#2457d6">T_pulse = (neutral_us - DB/2) + v · ΔT_rev</text>
+
+  <!-- Картка: Робоча ділянка руху вперед (CW) у правому нижньому кутку -->
+  <rect x="520" y="286" width="280" height="74" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="532" y="304" font-size="12" font-weight="bold" fill="#2457d6">Рух вперед (CW, за годинниковою)</text>
+  <text x="532" y="320" font-size="12" fill="#1a1a1a">v ∈ (0 ... +1.0] → T ∈ [1520 ... 2000] мкс</text>
+  <text x="532" y="336" font-size="12" fill="#6b7280">Розмах: ΔT_fwd = 480 мкс (симетрично до CCW)</text>
+  <text x="532" y="352" font-size="12" fill="#2457d6">T_pulse = (neutral_us + DB/2) + v · ΔT_fwd</text>
+
+  <!-- Пояснення стрибка через deadband -->
+  <text x="478" y="212" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Стрибок через deadband</text>
+  <text x="478" y="225" font-size="12" fill="#c0392b" text-anchor="end">виключає мертвий хід вала</text>
+
+  <!-- Засічки осі X знизу -->
+  <line x1="170" y1="380" x2="170" y2="386" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="170" y="401" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">-1.0</text>
+  <text x="170" y="415" font-size="12" fill="#6b7280" text-anchor="middle">макс. реверс</text>
+
+  <line x1="330" y1="380" x2="330" y2="386" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="330" y="401" font-size="12" fill="#6b7280" text-anchor="middle">-0.5</text>
+
+  <line x1="490" y1="380" x2="490" y2="386" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="490" y="401" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0.0</text>
+  <text x="490" y="415" font-size="12" fill="#6b7280" text-anchor="middle">спокій</text>
+
+  <line x1="650" y1="380" x2="650" y2="386" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="650" y="401" font-size="12" fill="#6b7280" text-anchor="middle">+0.5</text>
+
+  <line x1="810" y1="380" x2="810" y2="386" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="810" y="401" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+1.0</text>
+  <text x="810" y="415" font-size="12" fill="#6b7280" text-anchor="middle">макс. вперед</text>
+
+  <!-- Заголовок осі X -->
+  <text x="490" y="442" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідне нормалізоване значення кутової швидкості: speed ∈ [-1.0 ... +1.0]</text>
+</svg>

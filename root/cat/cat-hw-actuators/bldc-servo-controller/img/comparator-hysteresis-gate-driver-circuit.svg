@@ -1,0 +1,297 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Аналогова схема керування Brake Chopper: гістерезис і двотактний драйвер</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Компаратор із TL431 формує пороги Von і Voff, а драйвер затвора запобігає перегріву MOSFET у лінійному режимі</text>
+
+  <!-- Main Schematic Container -->
+  <rect x="24" y="68" width="912" height="356" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- ==================== POWER RAILS ==================== -->
+  <!-- +V_bus rail -->
+  <line x1="45" y1="98" x2="915" y2="98" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="48" y="88" font-size="12" font-weight="bold" fill="#c0392b">+V_bus (Шина живлення DC: +24...28 В)</text>
+
+  <!-- +V_CC rail for logic and driver -->
+  <line x1="185" y1="130" x2="520" y2="130" stroke="#2457d6" stroke-width="2"/>
+  <text x="188" y="122" font-size="12" font-weight="bold" fill="#2457d6">+V_CC (+12 В, живлення логіки й драйвера)</text>
+
+  <!-- GND rail -->
+  <line x1="45" y1="395" x2="915" y2="395" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="48" y="412" font-size="12" font-weight="bold" fill="#1a1a1a">GND (Спільний провід, 0 В)</text>
+
+  <!-- ==================== STAGE 1: DC BUS VOLTAGE DIVIDER ==================== -->
+  <!-- Wire from +V_bus to R1 -->
+  <circle cx="85" cy="98" r="3.5" fill="#c0392b"/>
+  <line x1="85" y1="98" x2="85" y2="160" stroke="#1a1a1a" stroke-width="1.8"/>
+
+  <!-- Resistor R1 -->
+  <rect x="77" y="160" width="16" height="42" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="100" y="178" font-size="12" font-weight="bold" fill="#1a1a1a">R1</text>
+  <text x="100" y="194" font-size="12" fill="#6b7280">100 кОм</text>
+
+  <!-- Wire between R1 and R2 -->
+  <line x1="85" y1="202" x2="85" y2="275" stroke="#1a1a1a" stroke-width="1.8"/>
+
+  <!-- Sense node V_sense -->
+  <circle cx="85" cy="245" r="3.5" fill="#2457d6"/>
+  <text x="75" y="240" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">V_sense</text>
+  <text x="75" y="254" text-anchor="end" font-size="12" fill="#6b7280">(дільник)</text>
+
+  <!-- Resistor R2 -->
+  <rect x="77" y="275" width="16" height="42" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="100" y="293" font-size="12" font-weight="bold" fill="#1a1a1a">R2</text>
+  <text x="100" y="309" font-size="12" fill="#6b7280">10 кОм</text>
+
+  <!-- Wire from R2 to GND -->
+  <line x1="85" y1="317" x2="85" y2="395" stroke="#1a1a1a" stroke-width="1.8"/>
+  <circle cx="85" cy="395" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Threshold values near divider -->
+  <text x="100" y="342" font-size="12" font-weight="bold" fill="#c0392b">Von = 28.0 В</text>
+  <text x="100" y="358" font-size="12" font-weight="bold" fill="#27ae60">Voff = 25.5 В</text>
+  <text x="100" y="374" font-size="12" fill="#2457d6">ΔV = 2.5 В</text>
+
+  <!-- Sense line from node to non-inverting input (+) -->
+  <line x1="85" y1="245" x2="280" y2="245" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="280" y1="245" x2="280" y2="290" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="280" y1="290" x2="330" y2="290" stroke="#2457d6" stroke-width="1.8"/>
+  <circle cx="280" cy="290" r="3.5" fill="#2457d6"/>
+
+  <!-- ==================== STAGE 2: VOLTAGE REFERENCE TL431 ==================== -->
+  <!-- Wire from +V_CC to R_bias -->
+  <circle cx="195" cy="130" r="3.5" fill="#2457d6"/>
+  <line x1="195" y1="130" x2="195" y2="160" stroke="#1a1a1a" stroke-width="1.8"/>
+
+  <!-- Resistor R_bias -->
+  <rect x="187" y="160" width="16" height="42" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="210" y="178" font-size="12" font-weight="bold" fill="#1a1a1a">R_bias</text>
+  <text x="210" y="194" font-size="12" fill="#6b7280">4.7 кОм</text>
+
+  <!-- Wire between R_bias and TL431 -->
+  <line x1="195" y1="202" x2="195" y2="250" stroke="#1a1a1a" stroke-width="1.8"/>
+
+  <!-- V_ref Node -->
+  <circle cx="195" cy="226" r="3.5" fill="#27ae60"/>
+  <text x="185" y="222" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">V_ref = 2.50 В</text>
+
+  <!-- TL431 IC Package / Shunt Symbol -->
+  <rect x="175" y="250" width="40" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.8"/>
+  <text x="195" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">TL431</text>
+  <text x="195" y="286" text-anchor="middle" font-size="12" fill="#1a1a1a">Опора</text>
+  <text x="195" y="301" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">2.50 В</text>
+
+  <!-- REF terminal connected to Cathode (2.50V shunt mode) -->
+  <path d="M 175,280 L 160,280 L 160,226 L 195,226" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="156" y="260" text-anchor="end" font-size="12" fill="#27ae60">REF-K</text>
+
+  <!-- Anode to GND -->
+  <line x1="195" y1="310" x2="195" y2="395" stroke="#1a1a1a" stroke-width="1.8"/>
+  <circle cx="195" cy="395" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Reference wire to Inverting input (-) -->
+  <line x1="195" y1="226" x2="245" y2="226" stroke="#27ae60" stroke-width="1.8"/>
+  <line x1="245" y1="226" x2="245" y2="250" stroke="#27ae60" stroke-width="1.8"/>
+  <line x1="245" y1="250" x2="330" y2="250" stroke="#27ae60" stroke-width="1.8"/>
+
+  <!-- ==================== STAGE 3: HYSTERESIS COMPARATOR ==================== -->
+  <!-- Comparator Triangle Body -->
+  <polygon points="330,230 330,310 390,270" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="310" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">LM393</text>
+
+  <!-- Input symbols inside triangle -->
+  <text x="340" y="254" font-size="14" font-weight="bold" fill="#6b7280">−</text>
+  <text x="340" y="294" font-size="14" font-weight="bold" fill="#2457d6">+</text>
+
+  <!-- Hysteresis icon inside triangle -->
+  <path d="M 356,274 L 366,274 L 366,266 M 370,266 L 360,266 L 360,274" fill="none" stroke="#2457d6" stroke-width="1.6"/>
+
+  <!-- Comparator Power supply connections (short stubs) -->
+  <line x1="360" y1="230" x2="360" y2="130" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="360" cy="130" r="3.5" fill="#2457d6"/>
+  <!-- Ground connection stub with standard GND symbol -->
+  <line x1="360" y1="310" x2="360" y2="322" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="353" y1="322" x2="367" y2="322" stroke="#1a1a1a" stroke-width="1.8"/>
+  <line x1="356" y1="325" x2="364" y2="325" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="358" y1="328" x2="362" y2="328" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Output wire -->
+  <line x1="390" y1="270" x2="425" y2="270" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="425" cy="270" r="3.5" fill="#2457d6"/>
+
+  <!-- Pull-up resistor R_pull to +V_CC -->
+  <line x1="425" y1="270" x2="425" y2="202" stroke="#1a1a1a" stroke-width="1.8"/>
+  <rect x="417" y="160" width="16" height="42" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <line x1="425" y1="160" x2="425" y2="130" stroke="#2457d6" stroke-width="1.8"/>
+  <circle cx="425" cy="130" r="3.5" fill="#2457d6"/>
+  <text x="408" y="178" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">R_pull</text>
+  <text x="408" y="194" text-anchor="end" font-size="12" fill="#6b7280">2.2 кОм</text>
+
+  <!-- Positive Feedback Loop (Hysteresis) via R_hys -->
+  <line x1="425" y1="270" x2="425" y2="350" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="425" y1="350" x2="375" y2="350" stroke="#2457d6" stroke-width="1.8"/>
+  <rect x="330" y="342" width="45" height="16" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="352" y="336" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R_hys = 470 кОм</text>
+  <text x="352" y="374" text-anchor="middle" font-size="12" fill="#2457d6">Зворотний зв'язок</text>
+  <line x1="330" y1="350" x2="280" y2="350" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="280" y1="350" x2="280" y2="290" stroke="#2457d6" stroke-width="1.8"/>
+
+  <!-- ==================== STAGE 4: PUSH-PULL GATE DRIVER ==================== -->
+  <!-- Wire from comparator output node to push-pull base junction -->
+  <line x1="425" y1="270" x2="480" y2="270" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="480" cy="270" r="3.5" fill="#2457d6"/>
+
+  <!-- Wire splitting to base of Q1 and base of Q2 -->
+  <line x1="480" y1="270" x2="480" y2="225" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="480" y1="225" x2="500" y2="225" stroke="#2457d6" stroke-width="1.8"/>
+
+  <line x1="480" y1="270" x2="480" y2="315" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="480" y1="315" x2="500" y2="315" stroke="#2457d6" stroke-width="1.8"/>
+
+  <!-- Transistor Q1 (NPN) -->
+  <line x1="500" y1="210" x2="500" y2="240" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Collector lead to +V_CC -->
+  <line x1="500" y1="216" x2="520" y2="200" stroke="#1a1a1a" stroke-width="1.8"/>
+  <line x1="520" y1="200" x2="520" y2="130" stroke="#2457d6" stroke-width="1.8"/>
+  <circle cx="520" cy="130" r="3.5" fill="#2457d6"/>
+  <!-- Emitter lead with NPN arrow pointing down-right -->
+  <line x1="500" y1="234" x2="520" y2="250" stroke="#1a1a1a" stroke-width="1.8"/>
+  <polygon points="513,241 521,251 510,248" fill="#1a1a1a"/>
+  <line x1="520" y1="250" x2="520" y2="270" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="528" y="178" font-size="12" font-weight="bold" fill="#27ae60">Q1 (NPN, BD139)</text>
+  <text x="528" y="194" font-size="12" fill="#27ae60">Заряд затвора</text>
+
+  <!-- Transistor Q2 (PNP) -->
+  <line x1="500" y1="300" x2="500" y2="330" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Emitter lead with PNP arrow pointing up-left -->
+  <line x1="520" y1="290" x2="500" y2="306" stroke="#1a1a1a" stroke-width="1.8"/>
+  <polygon points="506,304 499,307 504,312" fill="#1a1a1a"/>
+  <line x1="520" y1="270" x2="520" y2="290" stroke="#1a1a1a" stroke-width="1.8"/>
+  <!-- Collector lead to GND -->
+  <line x1="500" y1="324" x2="520" y2="340" stroke="#1a1a1a" stroke-width="1.8"/>
+  <line x1="520" y1="340" x2="520" y2="395" stroke="#1a1a1a" stroke-width="1.8"/>
+  <circle cx="520" cy="395" r="3.5" fill="#1a1a1a"/>
+  <text x="528" y="358" font-size="12" font-weight="bold" fill="#2457d6">Q2 (PNP, BD140)</text>
+  <text x="528" y="374" font-size="12" fill="#2457d6">Розряд затвора</text>
+
+  <!-- Driver Emitters Common Node -->
+  <circle cx="520" cy="270" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Gate Resistor R_G -->
+  <line x1="520" y1="270" x2="550" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="550" y="262" width="36" height="16" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="568" y="254" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R_G = 10 Ом</text>
+  <text x="568" y="292" text-anchor="middle" font-size="12" fill="#6b7280">Демпфування LC</text>
+  <line x1="586" y1="270" x2="620" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Pulldown Resistor R_GS -->
+  <circle cx="620" cy="270" r="3.5" fill="#1a1a1a"/>
+  <line x1="620" y1="270" x2="620" y2="310" stroke="#1a1a1a" stroke-width="1.8"/>
+  <rect x="612" y="310" width="16" height="42" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="635" y="328" font-size="12" font-weight="bold" fill="#1a1a1a">R_GS</text>
+  <text x="635" y="344" font-size="12" fill="#6b7280">10 кОм</text>
+  <line x1="620" y1="352" x2="620" y2="395" stroke="#1a1a1a" stroke-width="1.8"/>
+  <circle cx="620" cy="395" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Line from R_G/R_GS node to MOSFET Gate -->
+  <line x1="620" y1="270" x2="705" y2="270" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="662" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">I_gate (±1.5 А)</text>
+
+  <!-- ==================== STAGE 5: POWER BRAKE STAGE ==================== -->
+  <!-- Buffer capacitor C_bus -->
+  <circle cx="665" cy="98" r="3.5" fill="#c0392b"/>
+  <line x1="665" y1="98" x2="665" y2="175" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="655" y1="175" x2="675" y2="175" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="655" y1="183" x2="675" y2="183" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="665" y1="183" x2="665" y2="395" stroke="#2457d6" stroke-width="1.8"/>
+  <circle cx="665" cy="395" r="3.5" fill="#1a1a1a"/>
+  <text x="650" y="172" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">+</text>
+  <text x="650" y="185" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">C_bus</text>
+  <text x="650" y="199" text-anchor="end" font-size="12" fill="#6b7280">1000 мкФ</text>
+
+  <!-- Brake Resistor R_brake -->
+  <circle cx="735" cy="98" r="3.5" fill="#c0392b"/>
+  <line x1="735" y1="98" x2="735" y2="135" stroke="#c0392b" stroke-width="2.5"/>
+  <rect x="723" y="135" width="24" height="55" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <!-- Heatsink fins -->
+  <line x1="711" y1="145" x2="723" y2="145" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="711" y1="155" x2="723" y2="155" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="711" y1="165" x2="723" y2="165" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="711" y1="175" x2="723" y2="175" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="711" y1="142" x2="711" y2="178" stroke="#6b7280" stroke-width="1.5"/>
+
+  <text x="754" y="148" font-size="12" font-weight="bold" fill="#c0392b">R_brake = 2.2 Ом</text>
+  <text x="754" y="164" font-size="12" fill="#6b7280">50...100 Вт дротяний</text>
+  <text x="754" y="179" font-size="12" fill="#6b7280">Монтаж на радіатор</text>
+  <text x="754" y="195" font-size="12" font-weight="bold" fill="#c0392b">♨ Скидання енергії</text>
+
+  <!-- Wire between R_brake and MOSFET Drain -->
+  <line x1="735" y1="190" x2="735" y2="245" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="735" y1="205" x2="735" y2="225" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="754" y="218" font-size="12" font-weight="bold" fill="#27ae60">I_brake ≈ 12.7 А</text>
+
+  <!-- Power N-MOSFET Q_brake -->
+  <!-- Drain lead -->
+  <line x1="735" y1="245" x2="727" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="727" y1="245" x2="727" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Channel segments -->
+  <line x1="727" y1="250" x2="727" y2="260" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="727" y1="266" x2="727" y2="276" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="727" y1="282" x2="727" y2="292" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Bulk arrow (N-channel points inward) -->
+  <line x1="717" y1="271" x2="727" y2="271" stroke="#1a1a1a" stroke-width="1.8"/>
+  <polygon points="726,271 720,267 720,275" fill="#1a1a1a"/>
+
+  <!-- Gate plate -->
+  <line x1="717" y1="250" x2="717" y2="292" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="705" y1="270" x2="717" y2="270" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Source lead -->
+  <line x1="727" y1="287" x2="735" y2="287" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="727" y1="271" x2="735" y2="271" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="735" y1="271" x2="735" y2="287" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="735" y1="287" x2="735" y2="395" stroke="#1a1a1a" stroke-width="2.5"/>
+  <circle cx="735" cy="395" r="3.5" fill="#1a1a1a"/>
+
+  <!-- MOSFET Labels -->
+  <text x="754" y="256" font-size="12" font-weight="bold" fill="#1a1a1a">Q_brake (N-MOSFET)</text>
+  <text x="754" y="272" font-size="12" fill="#6b7280">IRFB4110 (100 В, 180 А)</text>
+  <text x="754" y="288" font-size="12" fill="#6b7280">R_DS(on) = 3.7 мОм</text>
+  <text x="754" y="304" font-size="12" fill="#2457d6">C_iss ≈ 3.2 нФ (Міллер)</text>
+  <text x="754" y="320" font-size="12" font-weight="bold" fill="#27ae60">t_sw &lt; 50 нс (форсоване)</text>
+  <text x="754" y="336" font-size="12" font-weight="bold" fill="#27ae60">Лінійний режим усунуто!</text>
+
+  <!-- ==================== BOTTOM EXPLANATION PANELS ==================== -->
+  <!-- Left Panel: Thresholds & Hysteresis -->
+  <rect x="24" y="438" width="450" height="102" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="40" y="458" font-size="13" font-weight="bold" fill="#2457d6">Схемотехнічне задання порогів (Гістерезис)</text>
+  <text x="40" y="478" font-size="12" fill="#1a1a1a">• Поріг увімкнення: Von = 28.0 В (V_sense ≥ 2.50 В)</text>
+  <text x="40" y="496" font-size="12" fill="#1a1a1a">• Поріг вимкнення: Voff = 25.5 В (петля через R_hys)</text>
+  <text x="40" y="514" font-size="12" fill="#2457d6">• Вікно ΔV = 2.5 В усуває високочастотний брязкіт</text>
+
+  <!-- Right Panel: Push-Pull Driver & Gate Charging -->
+  <rect x="486" y="438" width="450" height="102" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="502" y="458" font-size="13" font-weight="bold" fill="#27ae60">Форсований перезаряд затвора (Драйвер)</text>
+  <text x="502" y="478" font-size="12" fill="#1a1a1a">• Двотактний повторювач Q1/Q2 дає струм до ±1.5 А</text>
+  <text x="502" y="496" font-size="12" fill="#1a1a1a">• Перемикання за &lt;50 нс усуває поличку Міллера</text>
+  <text x="502" y="514" font-size="12" fill="#27ae60">• Захист кристала MOSFET від лінійного перегріву</text>
+</svg>

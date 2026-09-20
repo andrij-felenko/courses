@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мертва смуга контролера та часовий зсув нейтралі сервопривода</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Допуск резисторів 5% (±25 мкс) виходить за поріг спокою (±18 мкс) і спричиняє повзуче обертання вала</text>
+
+  <!-- Головна панель порівняння часових інтервалів -->
+  <rect x="24" y="70" width="912" height="282" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="480" y="92" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шкала керувального імпульсу сервопривода (t_PWM, мкс) навколо точки нейтралі</text>
+
+  <!-- Горизонтальна часова вісь -->
+  <line x1="250" y1="120" x2="890" y2="120" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="900" y="124" font-size="12" font-weight="bold" fill="#6b7280">мкс</text>
+
+  <!-- Засічки осі часу (y = 115..120), підписи вище осі (y = 110) -->
+  <line x1="250" y1="115" x2="250" y2="120" stroke="#6b7280" stroke-width="1"/>
+  <text x="250" y="110" font-size="12" fill="#6b7280" text-anchor="middle">1460</text>
+
+  <line x1="330" y1="115" x2="330" y2="120" stroke="#6b7280" stroke-width="1"/>
+  <text x="330" y="110" font-size="12" fill="#6b7280" text-anchor="middle">1470</text>
+
+  <line x1="410" y1="115" x2="410" y2="120" stroke="#6b7280" stroke-width="1"/>
+  <text x="410" y="110" font-size="12" fill="#6b7280" text-anchor="middle">1480</text>
+
+  <line x1="490" y1="115" x2="490" y2="120" stroke="#6b7280" stroke-width="1"/>
+  <text x="490" y="110" font-size="12" fill="#6b7280" text-anchor="middle">1490</text>
+
+  <line x1="570" y1="112" x2="570" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="570" y="110" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1500 (нейтраль)</text>
+
+  <line x1="650" y1="115" x2="650" y2="120" stroke="#6b7280" stroke-width="1"/>
+  <text x="650" y="110" font-size="12" fill="#6b7280" text-anchor="middle">1510</text>
+
+  <line x1="730" y1="115" x2="730" y2="120" stroke="#6b7280" stroke-width="1"/>
+  <text x="730" y="110" font-size="12" fill="#6b7280" text-anchor="middle">1520</text>
+
+  <line x1="810" y1="115" x2="810" y2="120" stroke="#6b7280" stroke-width="1"/>
+  <text x="810" y="110" font-size="12" fill="#6b7280" text-anchor="middle">1530</text>
+
+  <line x1="890" y1="115" x2="890" y2="120" stroke="#6b7280" stroke-width="1"/>
+  <text x="890" y="110" font-size="12" fill="#6b7280" text-anchor="middle">1540</text>
+
+  <!-- Підписи зон під віссю (y = 136) -->
+  <text x="340" y="136" font-size="12" fill="#c0392b" text-anchor="middle">◄ Зона обертання CCW</text>
+  <text x="570" y="136" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зона спокою вала (мертва смуга: 1482...1518 мкс)</text>
+  <text x="800" y="136" font-size="12" fill="#c0392b" text-anchor="middle">Зона обертання CW ►</text>
+
+  <!-- РЯДОК 1: Мертва смуга контролера (1482...1518 мкс, ширина 288 px) -->
+  <text x="46" y="162" font-size="13" font-weight="bold" fill="#27ae60">Мертва смуга IC</text>
+  <text x="46" y="177" font-size="12" fill="#6b7280">Поріг: ±18 мкс (36 мкс)</text>
+  <rect x="426" y="146" width="288" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="570" y="168" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Мертва смуга: спокій вала (H-міст OFF)</text>
+
+  <!-- Пунктирні вертикальні маркери меж мертвої смуги між Рядком 1 та Рядком 2 -->
+  <line x1="426" y1="180" x2="426" y2="194" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <line x1="714" y1="180" x2="714" y2="194" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- РЯДОК 2: Допуск 5% (1475...1525 мкс, ширина 400 px, вихід за межі) -->
+  <text x="46" y="210" font-size="13" font-weight="bold" fill="#c0392b">Дільник 5% (E24)</text>
+  <text x="46" y="225" font-size="12" fill="#6b7280">Похибка: ΔT = ±25 мкс</text>
+
+  <!-- Вихід зліва (1475...1482 мкс) -->
+  <rect x="370" y="194" width="54" height="34" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="397" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">−7 мкс</text>
+  <text x="360" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Вал повзе CCW ◄</text>
+
+  <!-- Центральна частина 5% -->
+  <rect x="430" y="194" width="280" height="34" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="570" y="216" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ΔT = ±25 мкс: вихід за смугу спокою</text>
+
+  <!-- Вихід справа (1518...1525 мкс) -->
+  <rect x="716" y="194" width="54" height="34" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="743" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+7 мкс</text>
+  <text x="778" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">► Вал повзе CW</text>
+
+  <!-- РЯДОК 3: Допуск 1% (1495...1505 мкс, ширина 80 px) -->
+  <text x="46" y="258" font-size="13" font-weight="bold" fill="#2457d6">Дільник 1% (E96)</text>
+  <text x="46" y="273" font-size="12" fill="#6b7280">Похибка: ΔT = ±5 мкс</text>
+  <rect x="530" y="242" width="80" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="570" y="264" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">±5 мкс</text>
+  <text x="625" y="264" font-size="12" fill="#2457d6">У межах смуги (запас 13 мкс) → вал нерухомий</text>
+
+  <!-- РЯДОК 4: Допуск 0.1% (1499.5...1500.5 мкс, ширина 8 px) -->
+  <text x="46" y="306" font-size="13" font-weight="bold" fill="#27ae60">Дільник 0.1% (E192)</text>
+  <text x="46" y="321" font-size="12" fill="#6b7280">Похибка: ΔT = ±0.5 мкс</text>
+  <rect x="566" y="290" width="8" height="34" rx="2" fill="#27ae60" stroke="#27ae60" stroke-width="1"/>
+  <text x="590" y="312" font-size="12" fill="#27ae60">Прецизійний центр: дрейф відсутній (запас 17.5 мкс)</text>
+
+  <!-- Нижні інформаційні картки -->
+  <rect x="24" y="364" width="446" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="384" font-size="12" font-weight="bold" fill="#1a1a1a">Причина повзучого обертання вала (дрейфу):</text>
+  <text x="40" y="404" font-size="12" fill="#c0392b">• Допуск 5% зміщує напругу дільника: зсув ΔT = ±25 мкс</text>
+  <text x="40" y="422" font-size="12" fill="#1a1a1a">• Зсув 25 мкс > 18 мкс: вихід за межі мертвої смуги</text>
+  <text x="40" y="440" font-size="12" fill="#6b7280">• H-міст вмикає мотор — виникає повзуче обертання</text>
+
+  <rect x="490" y="364" width="446" height="92" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="506" y="384" font-size="12" font-weight="bold" fill="#1a1a1a">Апаратні умови забезпечення спокою вала:</text>
+  <text x="506" y="404" font-size="12" fill="#2457d6">• Резистори 1% (ΔT = ±5 мкс): запас 13 мкс до межі смуги</text>
+  <text x="506" y="422" font-size="12" fill="#27ae60">• Резистори 0.1% (ΔT = ±0.5 мкс): гарантований спокій вала</text>
+  <text x="506" y="440" font-size="12" fill="#6b7280">• Для 5% обов'язковий підлаштовний тример або зсув у коді</text>
+</svg>

@@ -1,0 +1,213 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок -->
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-gray-rev" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- ==================== ЗАГОЛОВОК І ПІДЗАГОЛОВОК ==================== -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Частотне розділення каскадних контурів BLDC-сервопривода</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Рознесення смуг зрізу в 5–10 разів усуває динамічний резонанс і запобігає автоколиванням</text>
+
+  <!-- ==================== ГРАФІК 1: ЛАЧХ (АМПЛІТУДА |L|) ==================== -->
+  <!-- Фоновий прямокутник графіка ЛАЧХ -->
+  <rect x="70" y="76" width="630" height="182" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок осі Y для ЛАЧХ -->
+  <text x="64" y="90" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">|L|, дБ</text>
+
+  <!-- Горизонтальні лінії сітки ЛАЧХ -->
+  <line x1="70" y1="96" x2="700" y2="96" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="64" y="100" font-size="12" fill="#6b7280" text-anchor="end">+40</text>
+
+  <line x1="70" y1="131" x2="700" y2="131" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="64" y="135" font-size="12" fill="#6b7280" text-anchor="end">+20</text>
+
+  <!-- Лінія 0 дБ (одиничне підсилення) -->
+  <line x1="70" y1="167" x2="700" y2="167" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="64" y="171" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0 дБ</text>
+
+  <line x1="70" y1="203" x2="700" y2="203" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="64" y="207" font-size="12" fill="#6b7280" text-anchor="end">-20</text>
+
+  <line x1="70" y1="239" x2="700" y2="239" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="64" y="243" font-size="12" fill="#6b7280" text-anchor="end">-40</text>
+
+  <!-- Вертикальні лінії сітки декад на ЛАЧХ -->
+  <line x1="70" y1="76" x2="70" y2="258" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="196" y1="76" x2="196" y2="258" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="322" y1="76" x2="322" y2="258" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="448" y1="76" x2="448" y2="258" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="574" y1="76" x2="574" y2="258" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="700" y1="76" x2="700" y2="258" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- ==================== КРИВІ ЛАЧХ ТРЬОХ КОНТУРІВ ==================== -->
+  <!-- 1. Контур положення θ (зелений) -->
+  <!-- Перетин 0 дБ на 15 Гц: x = 218, y = 167 -->
+  <path d="M 70,126 C 120,137 170,149 218,167 C 255,181 285,210 340,252" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- 2. Контур швидкості ω (синій) -->
+  <!-- Перетин 0 дБ на 150 Гц: x = 344, y = 167 -->
+  <path d="M 70,90 C 140,107 240,134 344,167 C 395,183 430,207 480,234 C 510,250 530,256 550,258" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- 3. Контур струму i (бордовий) -->
+  <!-- Перетин 0 дБ на 1.5 кГц: x = 470, y = 167 -->
+  <path d="M 70,92 C 180,96 280,109 370,129 C 420,141 450,154 470,167 C 510,193 560,224 620,248 C 650,255 675,257 700,258" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Точки частот зрізу (0 дБ) на ЛАЧХ -->
+  <circle cx="218" cy="167" r="4.5" fill="#27ae60"/>
+  <circle cx="344" cy="167" r="4.5" fill="#2457d6"/>
+  <circle cx="470" cy="167" r="4.5" fill="#c0392b"/>
+
+  <!-- Позначки частот зрізу біля точок на ЛАЧХ -->
+  <text x="224" y="158" font-size="12" font-weight="bold" fill="#27ae60">ω_c,θ: 15 Гц</text>
+  <text x="350" y="158" font-size="12" font-weight="bold" fill="#2457d6">ω_c,ω: 150 Гц</text>
+  <text x="476" y="158" font-size="12" font-weight="bold" fill="#c0392b">ω_c,i: 1.5 кГц</text>
+
+  <!-- Стрілки частотного рознесення в 10 разів -->
+  <line x1="226" y1="112" x2="336" y2="112" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="281" y="106" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">10× рознесення</text>
+
+  <line x1="352" y1="112" x2="462" y2="112" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="407" y="106" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">10× рознесення</text>
+
+  <line x1="478" y1="112" x2="610" y2="112" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-start="url(#arr-gray-rev)" marker-end="url(#arr-gray)"/>
+  <text x="544" y="106" font-size="12" fill="#6b7280" text-anchor="middle">≥10× до ШІМ</text>
+
+  <!-- ШІМ частота (межа перемикання 20 кГц) -->
+  <line x1="618" y1="76" x2="618" y2="258" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="624" y="158" font-size="12" fill="#6b7280">f_pwm: 20 кГц</text>
+
+  <!-- Підписи зон зрізу та спаду амплітуди -->
+  <text x="80" y="197" font-size="12" fill="#27ae60">Контур кута</text>
+  <text x="80" y="212" font-size="12" fill="#6b7280">Спад -20 дБ/дек</text>
+
+  <!-- ==================== ГРАФІК 2: ЛФЧХ (ФАЗА ∠L) ==================== -->
+  <!-- Фоновий прямокутник графіка ЛФЧХ -->
+  <rect x="70" y="280" width="630" height="182" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовок осі Y для ЛФЧХ -->
+  <text x="64" y="294" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">∠L, град</text>
+
+  <!-- Горизонтальні лінії сітки ЛФЧХ -->
+  <line x1="70" y1="300" x2="700" y2="300" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="64" y="304" font-size="12" fill="#6b7280" text-anchor="end">0°</text>
+
+  <line x1="70" y1="336" x2="700" y2="336" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="64" y="340" font-size="12" fill="#6b7280" text-anchor="end">-45°</text>
+
+  <line x1="70" y1="372" x2="700" y2="372" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="64" y="376" font-size="12" fill="#6b7280" text-anchor="end">-90°</text>
+
+  <!-- Лінія межі стійкості (-180°) -->
+  <line x1="70" y1="444" x2="700" y2="444" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="64" y="448" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">-180°</text>
+  <text x="76" y="437" font-size="12" font-weight="bold" fill="#c0392b">Критична межа стійкості (-180°)</text>
+
+  <!-- Вертикальні лінії сітки декад на ЛФЧХ -->
+  <line x1="70" y1="280" x2="70" y2="462" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="196" y1="280" x2="196" y2="462" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="322" y1="280" x2="322" y2="462" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="448" y1="280" x2="448" y2="462" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="574" y1="280" x2="574" y2="462" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,3"/>
+  <line x1="700" y1="280" x2="700" y2="462" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- ==================== КРИВІ ЛФЧХ ТРЬОХ КОНТУРІВ ==================== -->
+  <!-- 1. Контур положення θ (зелений): на 15 Гц (x=218) фаза -105° (y=384) -->
+  <path d="M 70,370 C 120,372 170,376 218,384 C 260,394 300,420 350,448" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- 2. Контур швидкості ω (синій): на 150 Гц (x=344) фаза -130° (y=404) -> PM = 50° -->
+  <path d="M 70,372 C 160,374 260,380 310,388 C 330,394 338,399 344,404 C 380,422 420,446 470,458" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- 3. Контур струму i (бордовий): на 1.5 кГц (x=470) фаза -120° (y=396) -> PM = 60° -->
+  <path d="M 70,372 C 220,372 340,374 410,380 C 445,386 460,391 470,396 C 510,412 550,438 618,458" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Вертикальні лінії зв'язку частот зрізу від ЛАЧХ до ЛФЧХ -->
+  <line x1="218" y1="172" x2="218" y2="384" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="344" y1="172" x2="344" y2="404" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="470" y1="172" x2="470" y2="396" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Точки на ЛФЧХ -->
+  <circle cx="218" cy="384" r="4.5" fill="#27ae60"/>
+  <circle cx="344" cy="404" r="4.5" fill="#2457d6"/>
+  <circle cx="470" cy="396" r="4.5" fill="#c0392b"/>
+
+  <!-- Вертикальні стрілки запасів за фазою -->
+  <!-- Запас контуру швидкості: від y=408 до y=440 (PM = 50°) -->
+  <line x1="344" y1="408" x2="344" y2="440" stroke="#2457d6" stroke-width="2" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="350" y="426" font-size="12" font-weight="bold" fill="#2457d6">PM_ω = 50°</text>
+
+  <!-- Запас контуру струму: від y=400 до y=440 (PM = 60°) -->
+  <line x1="470" y1="400" x2="470" y2="440" stroke="#c0392b" stroke-width="2" marker-start="url(#arr-red-rev)" marker-end="url(#arr-red)"/>
+  <text x="464" y="426" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">PM_i = 60°</text>
+
+  <!-- ==================== ШКАЛА ЧАСТОТ (X) ==================== -->
+  <!-- Підписи декад осі X -->
+  <text x="70" y="478" font-size="12" fill="#6b7280" text-anchor="middle">1 Гц</text>
+  <text x="196" y="478" font-size="12" fill="#6b7280" text-anchor="middle">10 Гц</text>
+  <text x="322" y="478" font-size="12" fill="#6b7280" text-anchor="middle">100 Гц</text>
+  <text x="448" y="478" font-size="12" fill="#6b7280" text-anchor="middle">1 кГц</text>
+  <text x="574" y="478" font-size="12" fill="#6b7280" text-anchor="middle">10 кГц</text>
+  <text x="700" y="478" font-size="12" fill="#6b7280" text-anchor="middle">100 кГц</text>
+
+  <text x="385" y="498" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Частота f (логарифмічний масштаб)</text>
+
+  <!-- ==================== ПРАВА ПАНЕЛЬ: ХАРАКТЕРИСТИКИ КОНТУРІВ ==================== -->
+  <!-- БЛОК 1: Контур струму -->
+  <rect x="716" y="76" width="224" height="116" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="726" y="96" font-size="13" font-weight="bold" fill="#c0392b">1. Внутрішній: струм i</text>
+  <text x="726" y="114" font-size="12" fill="#1a1a1a">• Смуга: ω_c,i = 1–2 кГц</text>
+  <text x="726" y="130" font-size="12" fill="#1a1a1a">• Запас стійкості: PM_i = 60°</text>
+  <text x="726" y="146" font-size="12" fill="#1a1a1a">• Цикл FOC: T_i = 50–100 мкс</text>
+  <text x="726" y="162" font-size="12" fill="#6b7280">Компенсує параметри R та L</text>
+  <text x="726" y="178" font-size="12" fill="#6b7280">Швидке гасіння збурень струму</text>
+
+  <!-- БЛОК 2: Контур швидкості -->
+  <rect x="716" y="204" width="224" height="116" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="726" y="224" font-size="13" font-weight="bold" fill="#2457d6">2. Проміжний: швидкість ω</text>
+  <text x="726" y="242" font-size="12" fill="#1a1a1a">• Смуга: ω_c,ω = 100–200 Гц</text>
+  <text x="726" y="258" font-size="12" fill="#1a1a1a">• Запас стійкості: PM_ω = 50°</text>
+  <text x="726" y="274" font-size="12" fill="#1a1a1a">• Період циклу: T_ω = 0.5–1 мс</text>
+  <text x="726" y="290" font-size="12" fill="#6b7280">Компенсує інерцію ротора J</text>
+  <text x="726" y="306" font-size="12" fill="#6b7280">Струмовий контур безінерційний</text>
+
+  <!-- БЛОК 3: Контур положення -->
+  <rect x="716" y="332" width="224" height="116" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="726" y="352" font-size="13" font-weight="bold" fill="#27ae60">3. Зовнішній: кут θ</text>
+  <text x="726" y="370" font-size="12" fill="#1a1a1a">• Смуга: ω_c,θ = 10–20 Гц</text>
+  <text x="726" y="386" font-size="12" fill="#1a1a1a">• Запас за фазою: PM_θ ≥ 60°</text>
+  <text x="726" y="402" font-size="12" fill="#1a1a1a">• Період циклу: T_θ = 1–2 мс</text>
+  <text x="726" y="418" font-size="12" fill="#6b7280">Точне відпрацювання кута</text>
+  <text x="726" y="434" font-size="12" fill="#6b7280">Спад амплітуди гасить шуми</text>
+
+  <!-- БЛОК 4: Інженерне правило розв'язання контурів -->
+  <rect x="716" y="460" width="224" height="66" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="726" y="478" font-size="12" font-weight="bold" fill="#1a1a1a">Частотна умова стійкості:</text>
+  <text x="726" y="496" font-size="12" font-weight="bold" fill="#2457d6">ω_c,i ≥ 10·ω_c,ω ≥ 100·ω_c,θ</text>
+  <text x="726" y="512" font-size="12" fill="#6b7280">Запобігає резонансу в каскаді</text>
+</svg>

@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія та диференціальна кінематика колісної платформи</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Співвідношення швидкостей коліс v_L і v_R визначає ICC, а винос опори стабілізує центр мас</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Головна схема -->
+  <rect x="24" y="68" width="536" height="446" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="292" y="92" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрична схема шасі та миттєвий центр обертання (ICC)</text>
+
+  <!-- Радіуси та дуги обертання від ICC -->
+  <path d="M 296,310 A 216,216 0 0,0 236,158" fill="none" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,4"/>
+  <path d="M 366,310 A 286,286 0 0,0 286,110" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <path d="M 436,310 A 356,356 0 0,0 336,75" fill="none" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,4"/>
+
+  <!-- Миттєвий центр обертання (ICC) -->
+  <circle cx="80" cy="310" r="5" fill="#2457d6"/>
+  <circle cx="80" cy="310" r="9" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="80" y="332" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">ICC</text>
+  <text x="80" y="346" font-size="12" fill="#6b7280" text-anchor="middle">(центр дуги)</text>
+
+  <!-- Спільна вісь коліс від ICC до лівого колеса (не перетинає написи) -->
+  <line x1="92" y1="310" x2="286" y2="310" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Корпус робота -->
+  <rect x="316" y="165" width="100" height="175" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+
+  <!-- Сервоприводи (розташовані вище осі y=310, щоб вісь не перетинала написи) -->
+  <rect x="322" y="278" width="38" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="341" y="295" font-size="12" fill="#2457d6" text-anchor="middle">Серво</text>
+
+  <rect x="372" y="278" width="38" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="391" y="295" font-size="12" fill="#2457d6" text-anchor="middle">Серво</text>
+
+  <!-- Вісь між колесами -->
+  <line x1="306" y1="310" x2="426" y2="310" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Трикутник стійкості (колеса + кастер) -->
+  <line x1="296" y1="310" x2="366" y2="190" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <line x1="436" y1="310" x2="366" y2="190" stroke="#94a3b8" stroke-width="1.2" stroke-dasharray="4,3"/>
+
+  <!-- Пасивна кулькова опора (кастер) -->
+  <circle cx="366" cy="190" r="14" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="366" cy="190" r="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="366" cy="190" r="2.5" fill="#2457d6"/>
+  <text x="366" y="132" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пасивна кулькова опора (кастер)</text>
+  <text x="366" y="148" font-size="12" fill="#6b7280" text-anchor="middle">3-тя точка опори платформи</text>
+
+  <!-- Центр мас CM -->
+  <circle cx="366" cy="245" r="7" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 366,238 A 7,7 0 0,1 373,245 L 366,245 Z" fill="#c0392b"/>
+  <path d="M 366,252 A 7,7 0 0,1 359,245 L 366,245 Z" fill="#c0392b"/>
+  <circle cx="366" cy="245" r="1.5" fill="#c0392b"/>
+
+  <!-- Винос підпису CM праворуч -->
+  <line x1="376" y1="245" x2="466" y2="238" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="472" y="238" font-size="12" font-weight="bold" fill="#c0392b">CM (центр мас)</text>
+  <text x="472" y="252" font-size="12" fill="#6b7280">зсув до тягової осі</text>
+
+  <!-- Ліве колесо -->
+  <rect x="286" y="265" width="20" height="90" rx="4" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="286" y1="280" x2="306" y2="280" stroke="#ffffff" stroke-width="1.5"/>
+  <line x1="286" y1="295" x2="306" y2="295" stroke="#ffffff" stroke-width="1.5"/>
+  <line x1="286" y1="310" x2="306" y2="310" stroke="#ffffff" stroke-width="1.5"/>
+  <line x1="286" y1="325" x2="306" y2="325" stroke="#ffffff" stroke-width="1.5"/>
+  <line x1="286" y1="340" x2="306" y2="340" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="296" cy="310" r="3" fill="#ffffff"/>
+
+  <!-- Праве колесо -->
+  <rect x="426" y="265" width="20" height="90" rx="4" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="426" y1="280" x2="446" y2="280" stroke="#ffffff" stroke-width="1.5"/>
+  <line x1="426" y1="295" x2="446" y2="295" stroke="#ffffff" stroke-width="1.5"/>
+  <line x1="426" y1="310" x2="446" y2="310" stroke="#ffffff" stroke-width="1.5"/>
+  <line x1="426" y1="325" x2="446" y2="325" stroke="#ffffff" stroke-width="1.5"/>
+  <line x1="426" y1="340" x2="446" y2="340" stroke="#ffffff" stroke-width="1.5"/>
+  <circle cx="436" cy="310" r="3" fill="#ffffff"/>
+
+  <!-- Вектори швидкості коліс -->
+  <!-- v_L -->
+  <line x1="296" y1="310" x2="296" y2="238" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="290" y="232" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">v_L</text>
+
+  <!-- v (центр шасі) -->
+  <line x1="366" y1="310" x2="366" y2="215" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr)"/>
+  <text x="366" y="210" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">v</text>
+
+  <!-- v_R -->
+  <line x1="436" y1="310" x2="436" y2="190" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="442" y="186" font-size="12" font-weight="bold" fill="#2457d6">v_R</text>
+
+  <!-- Радіус колеса R -->
+  <line x1="454" y1="310" x2="454" y2="265" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="448" y1="265" x2="460" y2="265" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="448" y1="310" x2="460" y2="310" stroke="#94a3b8" stroke-width="1"/>
+  <text x="466" y="286" font-size="12" font-weight="bold" fill="#1a1a1a">R (радіус коліс)</text>
+  <text x="466" y="300" font-size="12" fill="#6b7280">v_i = ω_серво · R</text>
+
+  <!-- Колія шасі b -->
+  <line x1="296" y1="366" x2="436" y2="366" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <line x1="296" y1="355" x2="296" y2="372" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="436" y1="355" x2="436" y2="372" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="366" y="358" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Колія шасі b</text>
+
+  <!-- Радіус кривини R_c -->
+  <line x1="80" y1="398" x2="366" y2="398" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <line x1="80" y1="352" x2="80" y2="404" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="366" y1="372" x2="366" y2="404" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="223" y="416" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_c (радіус дуги до центру платформи)</text>
+
+  <!-- Плашка кінематичних рівнянь -->
+  <rect x="36" y="440" width="512" height="58" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="46" y="458" font-size="12" font-weight="bold" fill="#2457d6">Кінематичні рівняння диференціального приводу:</text>
+  <text x="46" y="474" font-size="12" fill="#1a1a1a">Швидкість шасі: v = (v_R + v_L) / 2 ,   Кутова швидкість: ω = (v_R − v_L) / b</text>
+  <text x="46" y="490" font-size="12" fill="#1a1a1a">Радіус кривини: R_c = v / ω = (b / 2) · (v_R + v_L) / (v_R − v_L)</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: 3 КАРТКИ РЕЖИМІВ РУХУ -->
+  <!-- Картка 1: Прямолінійний рух -->
+  <rect x="576" y="68" width="360" height="140" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="592" y="90" font-size="13" font-weight="bold" fill="#27ae60">1. Прямолінійний рух (v_L = v_R)</text>
+
+  <!-- Міні-робот 1 -->
+  <rect x="616" y="132" width="36" height="40" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+  <circle cx="634" cy="128" r="4" fill="#6b7280"/>
+  <rect x="606" y="136" width="8" height="28" rx="2" fill="#2457d6"/>
+  <rect x="654" y="136" width="8" height="28" rx="2" fill="#2457d6"/>
+  <line x1="614" y1="150" x2="654" y2="150" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="610" y1="136" x2="610" y2="110" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="658" y1="136" x2="658" y2="110" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="610" y="104" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">v_L</text>
+  <text x="658" y="104" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">v_R</text>
+
+  <!-- Опис 1 -->
+  <text x="686" y="112" font-size="12" font-weight="bold" fill="#2457d6">v_L = v_R = v</text>
+  <text x="686" y="130" font-size="12" fill="#1a1a1a">Кутова швидкість: ω = 0 рад/с</text>
+  <text x="686" y="148" font-size="12" fill="#1a1a1a">Центр повороту: ICC → ∞</text>
+  <text x="686" y="166" font-size="12" fill="#6b7280">Траєкторія: строго пряма лінія</text>
+  <text x="686" y="184" font-size="12" fill="#27ae60">Синхронне обертання обох серв</text>
+
+  <!-- Картка 2: Поворот по дузі -->
+  <rect x="576" y="220" width="360" height="140" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="592" y="242" font-size="13" font-weight="bold" fill="#2457d6">2. Поворот по дузі (v_R &gt; v_L)</text>
+
+  <!-- Міні-робот 2 (зсунуто нижче, щоб вектори не налізали на заголовок) -->
+  <rect x="616" y="286" width="36" height="40" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+  <circle cx="634" cy="282" r="4" fill="#6b7280"/>
+  <rect x="606" y="290" width="8" height="28" rx="2" fill="#2457d6"/>
+  <rect x="654" y="290" width="8" height="28" rx="2" fill="#2457d6"/>
+  <line x1="614" y1="304" x2="654" y2="304" stroke="#94a3b8" stroke-width="1"/>
+  <line x1="610" y1="290" x2="610" y2="274" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="658" y1="290" x2="658" y2="258" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="610" y="268" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">v_L</text>
+  <text x="658" y="252" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">v_R</text>
+
+  <!-- Дугова стрілка обертання для повороту ліворуч -->
+  <path d="M 648,340 A 14,14 0 0,0 622,334" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <text x="635" y="352" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ω &gt; 0</text>
+
+  <!-- Опис 2 -->
+  <text x="686" y="264" font-size="12" font-weight="bold" fill="#2457d6">v_R &gt; v_L &gt; 0  (поворот ліворуч)</text>
+  <text x="686" y="282" font-size="12" fill="#1a1a1a">Кутова швидкість: ω = (v_R − v_L) / b</text>
+  <text x="686" y="300" font-size="12" fill="#1a1a1a">Радіус дуги: R_c = (b/2)·(v_R+v_L)/(v_R−v_L)</text>
+  <text x="686" y="318" font-size="12" fill="#6b7280">ICC ліворуч на продовженні осі</text>
+  <text x="686" y="336" font-size="12" fill="#2457d6">Плавна дугова траєкторія</text>
+
+  <!-- Картка 3: Розворот на місці -->
+  <rect x="576" y="372" width="360" height="142" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="592" y="394" font-size="13" font-weight="bold" fill="#c0392b">3. Розворот на місці (v_L = −v_R)</text>
+
+  <!-- Міні-робот 3 -->
+  <rect x="616" y="432" width="36" height="40" rx="5" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+  <circle cx="634" cy="428" r="4" fill="#6b7280"/>
+  <rect x="606" y="436" width="8" height="28" rx="2" fill="#2457d6"/>
+  <rect x="654" y="436" width="8" height="28" rx="2" fill="#2457d6"/>
+  <line x1="614" y1="450" x2="654" y2="450" stroke="#94a3b8" stroke-width="1"/>
+  <circle cx="634" cy="450" r="3" fill="#c0392b"/>
+  <line x1="610" y1="450" x2="610" y2="474" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="658" y1="450" x2="658" y2="426" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="610" y="488" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">−v_R</text>
+  <text x="658" y="420" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">v_R</text>
+
+  <!-- Опис 3 -->
+  <text x="686" y="416" font-size="12" font-weight="bold" fill="#c0392b">v_L = −v_R  (протилежний напрямок)</text>
+  <text x="686" y="434" font-size="12" fill="#1a1a1a">Швидкість центру: v = 0</text>
+  <text x="686" y="452" font-size="12" fill="#1a1a1a">Кутова швидкість: ω = 2 · v_R / b</text>
+  <text x="686" y="470" font-size="12" fill="#6b7280">ICC у центрі осі коліс (R_c = 0)</text>
+  <text x="686" y="488" font-size="12" fill="#c0392b">Обертання навколо власної осі</text>
+</svg>

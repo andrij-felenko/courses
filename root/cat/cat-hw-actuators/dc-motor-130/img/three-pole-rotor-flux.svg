@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Магнітна система двигуна 130: усунення мертвої точки триполюсним якорем</text>
+  <text x="480" y="53" font-size="13" fill="#6b7280" text-anchor="middle">Кутовий зсув полюсів на 120° забезпечує ненульовий момент M &gt; 0 і впевнений пуск у будь-якому положенні</text>
+
+  <!-- ================= ЛІВА ПАНЕЛЬ: ДВОПОЛЮСНИЙ РОТОР (ПРОБЛЕМА) ================= -->
+  <rect x="24" y="70" width="444" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="246" y="95" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Двополюсний ротор (180°): застрягання в мертвій точці</text>
+  <text x="246" y="115" font-size="12" fill="#6b7280" text-anchor="middle">Осі полів статора і ротора збігаються — плече сили d = 0</text>
+
+  <!-- Підписи статора ліворуч -->
+  <text x="246" y="140" font-size="12" fill="#6b7280" text-anchor="middle">Сталевий корпус 15 мм (статор)</text>
+  <text x="246" y="160" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Магнітне поле статора B</text>
+
+  <!-- Корпус 130 ліворуч -->
+  <rect x="162" y="166" width="168" height="140" rx="24" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+
+  <!-- Індикатор результату ліворуч (зовні корпусу) -->
+  <rect x="42" y="210" width="104" height="52" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="94" y="231" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">M = 0</text>
+  <text x="94" y="249" font-size="12" fill="#c0392b" text-anchor="middle">стопор</text>
+
+  <!-- Феритові магніти ліворуч -->
+  <polygon points="170,190 198,202 198,270 170,282" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="184" y="241" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">N</text>
+
+  <polygon points="322,190 294,202 294,270 322,282" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="308" y="241" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">S</text>
+
+  <!-- Лінії поля B ліворуч -->
+  <line x1="206" y1="182" x2="286" y2="182" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <line x1="206" y1="290" x2="286" y2="290" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Двополюсний ротор -->
+  <line x1="204" y1="236" x2="288" y2="236" stroke="#1a1a1a" stroke-width="14" stroke-linecap="square"/>
+  <rect x="214" y="226" width="16" height="20" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="262" y="226" width="16" height="20" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+
+  <!-- Вал і 2-секційний колектор ліворуч -->
+  <circle cx="246" cy="236" r="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="246" y1="226" x2="246" y2="246" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="246" cy="236" r="4" fill="#6b7280"/>
+
+  <!-- Щітки на зазорі -->
+  <line x1="246" y1="216" x2="246" y2="226" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="246" y1="246" x2="246" y2="256" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Радіальні сили d = 0 -->
+  <line x1="204" y1="236" x2="192" y2="236" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <line x1="288" y1="236" x2="300" y2="236" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <text x="246" y="208" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Сила F вздовж осі: d = 0</text>
+  <text x="246" y="274" font-size="12" fill="#c0392b" text-anchor="middle">Щітки на зазорі: струм вимкнено</text>
+
+  <!-- Підсумкова плашка ліворуч -->
+  <rect x="40" y="360" width="412" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="246" y="383" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Мертва точка: вектор сили проходить крізь вісь вала (d = 0)</text>
+  <text x="246" y="403" font-size="12" fill="#c0392b" text-anchor="middle">Пусковий момент M = 0 — мотор блокується без ручного поштовху</text>
+
+
+  <!-- ================= ПРАВА ПАНЕЛЬ: ТРИПОЛЮСНИЙ ЯКІР МАБУЧІ (РОЗВ'ЯЗОК) ================= -->
+  <rect x="492" y="70" width="444" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="714" y="95" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">Триполюсний якір 130 (120°): усунення мертвої точки</text>
+  <text x="714" y="115" font-size="12" fill="#6b7280" text-anchor="middle">Момент комутації: струм у 2 обмотках створює момент M &gt; 0</text>
+
+  <!-- Підписи статора праворуч -->
+  <text x="714" y="140" font-size="12" fill="#6b7280" text-anchor="middle">Сталевий корпус 15 мм (статор)</text>
+  <text x="714" y="160" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Магнітне поле статора B</text>
+
+  <!-- Корпус 130 праворуч -->
+  <rect x="630" y="166" width="168" height="140" rx="24" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+
+  <!-- Індикатор результату праворуч (зовні корпусу) -->
+  <rect x="814" y="210" width="104" height="52" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="866" y="231" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">M &gt; 0</text>
+  <text x="866" y="249" font-size="12" fill="#27ae60" text-anchor="middle">пуск</text>
+
+  <!-- Феритові магніти праворуч -->
+  <polygon points="638,190 666,202 666,270 638,282" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="652" y="241" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">N</text>
+
+  <polygon points="790,190 762,202 762,270 790,282" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="776" y="241" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">S</text>
+
+  <!-- Лінії поля B праворуч -->
+  <line x1="674" y1="182" x2="754" y2="182" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <line x1="674" y1="290" x2="754" y2="290" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Триполюсний якір (промені 120°) -->
+  <!-- Полюс 1 (вгору 90°) -->
+  <line x1="714" y1="236" x2="714" y2="194" stroke="#1a1a1a" stroke-width="12" stroke-linecap="square"/>
+  <rect x="706" y="200" width="16" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+
+  <!-- Полюс 2 (210°: вниз-ліворуч) -->
+  <line x1="714" y1="236" x2="678" y2="257" stroke="#1a1a1a" stroke-width="12" stroke-linecap="square"/>
+  <rect x="684" y="238" width="18" height="16" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+
+  <!-- Полюс 3 (330°: вниз-праворуч) -->
+  <line x1="714" y1="236" x2="750" y2="257" stroke="#1a1a1a" stroke-width="12" stroke-linecap="square"/>
+  <rect x="726" y="238" width="18" height="16" rx="2" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+
+  <!-- Тангенційна сила F_тяга на Полюсі 1 (горизонтальна) -->
+  <line x1="714" y1="188" x2="748" y2="188" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="754" y="184" font-size="12" font-weight="700" fill="#27ae60">F_тяга</text>
+
+  <!-- Плече сили d на Полюсі 1 -->
+  <line x1="700" y1="188" x2="700" y2="236" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="696" y1="188" x2="704" y2="188" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="696" y1="236" x2="704" y2="236" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="692" y="216" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">d &gt; 0</text>
+
+  <!-- Кут 120° між полюсами -->
+  <polyline points="726,220 732,230 730,242" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="738" y="228" font-size="12" font-weight="700" fill="#1a1a1a">120°</text>
+
+  <!-- Вал і 3-секційний колектор праворуч -->
+  <circle cx="714" cy="236" r="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="714" y1="236" x2="723" y2="231" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="714" y1="236" x2="705" y2="231" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="714" y1="236" x2="714" y2="246" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="714" cy="236" r="4" fill="#6b7280"/>
+
+  <!-- Щітка (+) вгорі -->
+  <line x1="714" y1="216" x2="714" y2="226" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Щітка (-) внизу комутує стик ламелей -->
+  <line x1="714" y1="246" x2="714" y2="256" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Стрілка крутного моменту M > 0 навколо колектора -->
+  <path d="M 726,226 A 14 14 0 0,1 726,246" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Пояснення комутації праворуч -->
+  <text x="714" y="274" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Комутація: 2 котушки створюють момент</text>
+
+  <!-- Підсумкова плашка праворуч -->
+  <rect x="508" y="360" width="412" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="714" y="383" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Кутовий зсув 120°: завжди є полюс із плечем сили d &gt; 0</text>
+  <text x="714" y="403" font-size="12" fill="#27ae60" text-anchor="middle">Сумарний момент M &gt; 0 — гарантований пуск із будь-якого кута</text>
+</svg>

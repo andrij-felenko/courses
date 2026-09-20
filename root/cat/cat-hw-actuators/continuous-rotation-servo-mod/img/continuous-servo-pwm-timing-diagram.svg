@@ -1,0 +1,223 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма керування та характеристика сервопривода постійного обертання</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Кадр 20 мс (50 Гц): тривалість 1000–2000 мкс задає швидкість і напрямок, 1500 мкс — зона спокою</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Часові діаграми -->
+  <rect x="24" y="64" width="444" height="436" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="246" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часові діаграми керувального сигналу PWM</text>
+
+  <!-- Осцилограма (білий блок) -->
+  <rect x="36" y="102" width="420" height="260" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Період кадру T = 20 мс (розмірна лінія) -->
+  <text x="270" y="117" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Період кадру T = 20 мс (частота 50 Гц)</text>
+  <line x1="145" y1="123" x2="395" y2="123" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <line x1="145" y1="119" x2="145" y2="127" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="395" y1="119" x2="395" y2="127" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- ТРЕК 1: 1000 мкс (Реверс) -->
+  <text x="44" y="152" font-size="12" font-weight="bold" fill="#1a1a1a">1000 мкс</text>
+  <text x="44" y="167" font-size="12" fill="#c0392b">Макс. реверс</text>
+  <text x="44" y="181" font-size="12" fill="#6b7280">(CCW, −100%)</text>
+
+  <!-- Імпульс 1000 мкс -->
+  <path d="M 136,180 L 145,180 L 145,155 L 215,155 L 215,180 L 360,180" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <line x1="360" y1="175" x2="365" y2="185" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="365" y1="175" x2="370" y2="185" stroke="#6b7280" stroke-width="1.5"/>
+  <path d="M 370,180 L 395,180 L 395,155 L 420,155" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Розмір імпульсу 1 -->
+  <line x1="145" y1="147" x2="215" y2="147" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="180" y="142" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1.0 мс</text>
+
+  <!-- ТРЕК 2: 1500 мкс (Зупинка / deadband) -->
+  <text x="44" y="217" font-size="12" font-weight="bold" fill="#1a1a1a">1500 мкс</text>
+  <text x="44" y="232" font-size="12" fill="#27ae60">Зупинка</text>
+  <text x="44" y="246" font-size="12" fill="#6b7280">(Deadband)</text>
+
+  <!-- Мертва смуга навколо 1500 мкс -->
+  <rect x="242" y="210" width="16" height="40" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Імпульс 1500 мкс -->
+  <path d="M 136,245 L 145,245 L 145,220 L 250,220 L 250,245 L 360,245" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <line x1="360" y1="240" x2="365" y2="250" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="365" y1="240" x2="370" y2="250" stroke="#6b7280" stroke-width="1.5"/>
+  <path d="M 370,245 L 395,245 L 395,220 L 420,220" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Розмір імпульсу 2 -->
+  <line x1="145" y1="212" x2="250" y2="212" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="197" y="207" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1.5 мс</text>
+
+  <!-- Підпис мертвої смуги -->
+  <text x="264" y="234" font-size="12" font-weight="bold" fill="#27ae60">±20 мкс (стоп)</text>
+
+  <!-- ТРЕК 3: 2000 мкс (Прямий хід) -->
+  <text x="44" y="282" font-size="12" font-weight="bold" fill="#1a1a1a">2000 мкс</text>
+  <text x="44" y="297" font-size="12" fill="#2457d6">Макс. прямий</text>
+  <text x="44" y="311" font-size="12" fill="#6b7280">(CW, +100%)</text>
+
+  <!-- Імпульс 2000 мкс -->
+  <path d="M 136,310 L 145,310 L 145,285 L 285,285 L 285,310 L 360,310" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="360" y1="305" x2="365" y2="315" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="365" y1="305" x2="370" y2="315" stroke="#6b7280" stroke-width="1.5"/>
+  <path d="M 370,310 L 395,310 L 395,285 L 420,285" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Розмір імпульсу 3 -->
+  <line x1="145" y1="277" x2="285" y2="277" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+  <text x="215" y="272" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2.0 мс</text>
+
+  <!-- Часова шкала внизу осцилограми -->
+  <line x1="145" y1="330" x2="425" y2="330" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="145" y1="326" x2="145" y2="334" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="145" y="347" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <line x1="215" y1="326" x2="215" y2="334" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="215" y="347" font-size="12" fill="#6b7280" text-anchor="middle">1.0 мс</text>
+
+  <line x1="250" y1="326" x2="250" y2="334" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="250" y="347" font-size="12" fill="#6b7280" text-anchor="middle">1.5 мс</text>
+
+  <line x1="285" y1="326" x2="285" y2="334" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="285" y="347" font-size="12" fill="#6b7280" text-anchor="middle">2.0 мс</text>
+
+  <line x1="395" y1="326" x2="395" y2="334" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="395" y="347" font-size="12" fill="#6b7280" text-anchor="middle">20 мс</text>
+
+  <text x="432" y="334" font-size="12" font-weight="bold" fill="#1a1a1a">t</text>
+
+  <!-- Вертикальні пунктири узгодження -->
+  <line x1="145" y1="127" x2="145" y2="143" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="145" y1="182" x2="145" y2="208" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="145" y1="247" x2="145" y2="273" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="145" y1="312" x2="145" y2="326" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <line x1="215" y1="182" x2="215" y2="326" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="250" y1="247" x2="250" y2="326" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="285" y1="312" x2="285" y2="326" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="395" y1="127" x2="395" y2="326" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Нижня інформаційна плашка лівої панелі -->
+  <rect x="36" y="374" width="420" height="114" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="44" y="382" width="404" height="26" rx="4" fill="#eaf0fd"/>
+  <text x="246" y="399" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Електричні параметри керувального сигналу</text>
+
+  <circle cx="54" cy="424" r="3" fill="#2457d6"/>
+  <text x="64" y="428" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Логічні рівні:</tspan> сумісний з 3.3 В та 5 В TTL (активний HIGH)</text>
+
+  <circle cx="54" cy="446" r="3" fill="#2457d6"/>
+  <text x="64" y="450" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Частота кадрів:</tspan> номінал 50 Гц (допустимо 40–100 Гц)</text>
+
+  <circle cx="54" cy="468" r="3" fill="#2457d6"/>
+  <text x="64" y="472" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Шпаруватість:</tspan> імпульс 1.0–2.0 мс займає лише 5–10% періоду 20 мс</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Передатна характеристика -->
+  <rect x="492" y="64" width="444" height="436" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="714" y="88" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Характеристика швидкості від тривалості імпульсу</text>
+
+  <!-- Графік (білий блок) -->
+  <rect x="504" y="102" width="420" height="260" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Зона мертвої смуги (підкладка графіка) -->
+  <rect x="702" y="132" width="24" height="176" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="714" y="125" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Deadband</text>
+
+  <!-- Вісь Y: швидкість -->
+  <line x1="550" y1="315" x2="550" y2="122" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="550" y="116" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Швидкість ω</text>
+
+  <!-- Позначки осі Y -->
+  <line x1="546" y1="145" x2="550" y2="145" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="542" y="149" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">+100%</text>
+
+  <line x1="550" y1="145" x2="880" y2="145" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="888" y="149" font-size="12" fill="#6b7280">CW</text>
+
+  <line x1="546" y1="220" x2="550" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="542" y="224" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">0</text>
+
+  <line x1="546" y1="295" x2="550" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="542" y="299" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">−100%</text>
+
+  <line x1="550" y1="295" x2="880" y2="295" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="888" y="299" font-size="12" fill="#6b7280">CCW</text>
+
+  <!-- Вісь X: тривалість імпульсу -->
+  <line x1="550" y1="220" x2="895" y2="220" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="902" y="224" font-size="12" font-weight="bold" fill="#1a1a1a">t_w</text>
+
+  <!-- Крива передатної характеристики -->
+  <!-- Насичення реверсу (550..614) -->
+  <line x1="550" y1="295" x2="614" y2="295" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Лінійна зона реверсу (614..702) -->
+  <line x1="614" y1="295" x2="702" y2="220" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Мертва смуга (702..726) -->
+  <line x1="702" y1="220" x2="726" y2="220" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Лінійна зона прямого ходу (726..814) -->
+  <line x1="726" y1="220" x2="814" y2="145" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Насичення прямого ходу (814..875) -->
+  <line x1="814" y1="145" x2="875" y2="145" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Опорні точки та підписи на графіку -->
+  <circle cx="614" cy="295" r="4" fill="#c0392b"/>
+  <line x1="614" y1="220" x2="614" y2="295" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="614" y="212" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1000 мкс</text>
+  <text x="614" y="325" font-size="12" fill="#c0392b" text-anchor="middle">Макс. CCW</text>
+
+  <circle cx="714" cy="220" r="4" fill="#27ae60"/>
+  <text x="714" y="325" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1500 мкс (стоп)</text>
+
+  <circle cx="814" cy="145" r="4" fill="#2457d6"/>
+  <line x1="814" y1="145" x2="814" y2="220" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="814" y="236" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2000 мкс</text>
+  <text x="814" y="136" font-size="12" fill="#2457d6" text-anchor="middle">Макс. CW</text>
+
+  <!-- Плашки зон регулювання в порожніх квадрантах -->
+  <!-- Верхній лівий квадрант: Реверс -->
+  <rect x="562" y="142" width="128" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="626" y="158" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона реверсу (CCW)</text>
+  <text x="626" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Плавний реверс: 100%→0%</text>
+
+  <!-- Нижній правий квадрант: Прямий хід -->
+  <rect x="746" y="248" width="134" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="813" y="264" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Прямий хід (CW)</text>
+  <text x="813" y="280" font-size="12" fill="#1a1a1a" text-anchor="middle">Плавний хід: 0%→100%</text>
+
+  <!-- Позначки зон насичення -->
+  <text x="554" y="283" font-size="12" fill="#6b7280">Насичення</text>
+  <text x="836" y="165" font-size="12" fill="#6b7280">Насичення</text>
+
+  <!-- Нижня інформаційна плашка правої панелі -->
+  <rect x="504" y="374" width="420" height="114" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="512" y="382" width="404" height="26" rx="4" fill="#eaf0fd"/>
+  <text x="714" y="399" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Робота внутрішнього диференційного підсилювача</text>
+
+  <circle cx="522" cy="424" r="3" fill="#2457d6"/>
+  <text x="532" y="428" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Нейтраль (1500 мкс):</tspan> збіг із внутрішнім дільником, H-міст вимкнено</text>
+
+  <circle cx="522" cy="446" r="3" fill="#2457d6"/>
+  <text x="532" y="450" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Мертва смуга (deadband):</tspan> захист від шуму та дрейфу нуля (±10...30 мкс)</text>
+
+  <circle cx="522" cy="468" r="3" fill="#2457d6"/>
+  <text x="532" y="472" font-size="12" fill="#1a1a1a"><tspan font-weight="bold">Швидкість:</tspan> пропорційна відхиленню Δt від 1500 мкс аж до насичення</text>
+</svg>

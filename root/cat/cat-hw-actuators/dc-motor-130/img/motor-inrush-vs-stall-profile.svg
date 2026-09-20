@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Часова діаграма струму двигуна 130: пуск, сталий рух та заклинювання</text>
+  <text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Часове маскування пуску усуває хибні спрацьовування, а витримка заклинювання відсікає ШІМ</text>
+
+  <!-- Легенда графіка -->
+  <line x1="115" y1="74" x2="145" y2="74" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="153" y="78" font-size="12" fill="#1a1a1a">Миттєвий струм I(t)</text>
+
+  <line x1="330" y1="74" x2="360" y2="74" stroke="#27ae60" stroke-width="2" stroke-dasharray="5 3"/>
+  <text x="368" y="78" font-size="12" fill="#1a1a1a">Фільтрований струм Ifilt (цифровий ФНЧ)</text>
+
+  <line x1="680" y1="74" x2="710" y2="74" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <text x="718" y="78" font-size="12" fill="#1a1a1a">Поріг аварії Itrip = 800 мА</text>
+
+  <!-- Фонове виділення зон осцилограми -->
+  <rect x="115" y="98" width="130" height="272" fill="#eaf0fd" fill-opacity="0.5"/>
+  <rect x="545" y="98" width="135" height="272" fill="#fdecea" fill-opacity="0.45"/>
+
+  <!-- Горизонтальні лінії сітки (за винятком порогової) -->
+  <line x1="105" y1="170" x2="845" y2="170" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 4"/>
+  <line x1="105" y1="310" x2="845" y2="310" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 4"/>
+
+  <!-- Червона лінія аварійного порогу Itrip = 800 мА (y = 220) -->
+  <line x1="105" y1="220" x2="845" y2="220" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+  <!-- Вертикальні роздільники фаз -->
+  <line x1="245" y1="98" x2="245" y2="370" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="545" y1="98" x2="545" y2="370" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="680" y1="98" x2="680" y2="370" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Крива миттєвого струму I(t) -->
+  <path d="M 115,370 L 117,290 L 121,180 L 126,125 L 129,115 L 133,130 L 140,185 L 150,235 L 165,275 L 185,305 L 210,322 L 230,327 L 245,328 L 252,324 L 259,332 L 266,325 L 273,331 L 280,326 L 287,333 L 294,324 L 301,332 L 308,326 L 315,331 L 322,325 L 329,332 L 336,324 L 343,333 L 350,326 L 357,331 L 364,325 L 371,332 L 378,326 L 385,333 L 392,325 L 399,331 L 406,324 L 413,332 L 420,326 L 427,331 L 434,325 L 441,333 L 448,324 L 455,332 L 462,326 L 469,331 L 476,325 L 483,333 L 490,326 L 497,331 L 504,324 L 511,332 L 518,326 L 525,331 L 532,325 L 539,332 L 545,328 L 548,295 L 553,220 L 560,170 L 570,145 L 585,140 L 595,142 L 605,139 L 615,143 L 625,140 L 635,142 L 645,139 L 655,143 L 665,140 L 675,142 L 680,140 L 681,250 L 683,340 L 685,370 L 845,370" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+
+  <!-- Крива фільтрованого струму Ifilt -->
+  <path d="M 115,370 L 129,330 L 150,290 L 175,285 L 205,308 L 230,322 L 255,328 L 545,328 L 555,310 L 570,285 L 590,260 L 615,240 L 640,225 L 665,220 L 680,215 L 690,280 L 710,335 L 735,362 L 760,370 L 845,370" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="5 3"/>
+
+  <!-- Точки-маркери ключових подій -->
+  <circle cx="129" cy="115" r="4" fill="#2457d6"/>
+  <circle cx="680" cy="215" r="5" fill="#c0392b" stroke="white" stroke-width="2"/>
+
+  <!-- Написи та винесення на графіку -->
+  <!-- 1. Зона маскування -->
+  <text x="180" y="93" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зона маскування tmask = 100 мс</text>
+  <text x="142" y="145" font-size="12" font-weight="bold" fill="#2457d6">Inrush peak (1300 мА)</text>
+  <text x="142" y="161" font-size="12" fill="#6b7280">Відсутня проти-ЕРС (ω = 0)</text>
+
+  <!-- 2. Сталий рух -->
+  <text x="395" y="260" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Сталий рух: Inom ≈ 220 мА</text>
+  <text x="395" y="278" font-size="12" fill="#6b7280" text-anchor="middle">Проти-ЕРС e = ke·ω компенсує напругу живлення</text>
+
+  <!-- 3. Блокування вала / заклинювання -->
+  <text x="612" y="93" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Заклинювання (Stall)</text>
+
+  <!-- Відрізок часу фільтрації tdelay -->
+  <line x1="545" y1="112" x2="680" y2="112" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="545" y1="108" x2="545" y2="116" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="680" y1="108" x2="680" y2="116" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="612" y="108" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">tdelay = 70 мс</text>
+  <text x="612" y="185" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Istall ≈ 1250 мА</text>
+
+  <!-- Поріг Itrip підпис над лінією -->
+  <text x="535" y="212" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Поріг Itrip = 800 мА</text>
+
+  <!-- Картка вимкнення FAULT -->
+  <rect x="696" y="125" width="160" height="58" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="776" y="143" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">АВАРІЙНЕ ВІДСІКАННЯ</text>
+  <text x="776" y="159" font-size="12" fill="#1a1a1a" text-anchor="middle">Вимкнення ШІМ (0%)</text>
+  <text x="776" y="173" font-size="12" fill="#6b7280" text-anchor="middle">Зубці редуктора врятовано</text>
+  <line x1="715" y1="183" x2="688" y2="210" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Осі координат -->
+  <line x1="105" y1="98" x2="105" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="105" y1="370" x2="855" y2="370" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Підписи осей -->
+  <text x="96" y="88" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">I (мА)</text>
+  <text x="865" y="374" font-size="12" font-weight="bold" fill="#1a1a1a">t (мс)</text>
+
+  <!-- Засічки та підписи осі Y -->
+  <line x1="100" y1="125" x2="105" y2="125" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="96" y="129" font-size="12" fill="#6b7280" text-anchor="end">1300</text>
+
+  <line x1="100" y1="170" x2="105" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="96" y="174" font-size="12" fill="#6b7280" text-anchor="end">1000</text>
+
+  <line x1="100" y1="220" x2="105" y2="220" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="96" y="224" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">800</text>
+
+  <line x1="100" y1="310" x2="105" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="96" y="314" font-size="12" fill="#6b7280" text-anchor="end">300</text>
+
+  <line x1="100" y1="370" x2="105" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="96" y="374" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Засічки та підписи осі X -->
+  <line x1="115" y1="370" x2="115" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="115" y="389" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <line x1="245" y1="370" x2="245" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="245" y="389" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+
+  <line x1="395" y1="370" x2="395" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="395" y="389" font-size="12" fill="#6b7280" text-anchor="middle">200</text>
+
+  <line x1="545" y1="370" x2="545" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="545" y="389" font-size="12" fill="#6b7280" text-anchor="middle">300</text>
+
+  <line x1="680" y1="370" x2="680" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="680" y="389" font-size="12" fill="#6b7280" text-anchor="middle">400</text>
+
+  <line x1="825" y1="370" x2="825" y2="375" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="825" y="389" font-size="12" fill="#6b7280" text-anchor="middle">500</text>
+
+  <!-- Панель станів алгоритму захисту -->
+  <text x="96" y="428" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">ШІМ / Стан:</text>
+
+  <rect x="115" y="408" width="120" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="175" y="422" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Маскування</text>
+  <text x="175" y="435" font-size="12" fill="#6b7280" text-anchor="middle">ШІМ 100% (пуск)</text>
+
+  <rect x="247" y="408" width="286" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="390" y="422" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Штатний рух (Норма)</text>
+  <text x="390" y="435" font-size="12" fill="#6b7280" text-anchor="middle">ШІМ активний, моніторинг Itrip</text>
+
+  <rect x="545" y="408" width="123" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="606" y="422" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Заклинювання</text>
+  <text x="606" y="435" font-size="12" fill="#6b7280" text-anchor="middle">Таймер tdelay</text>
+
+  <rect x="680" y="408" width="150" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="755" y="422" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Відсікання (STOP)</text>
+  <text x="755" y="435" font-size="12" fill="#6b7280" text-anchor="middle">ШІМ = 0%, міст у Hi-Z</text>
+
+  <!-- Підсумкові інженерні картки порівняння -->
+  <rect x="40" y="458" width="280" height="60" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="52" y="478" font-size="12" font-weight="bold" fill="#2457d6">1. Пусковий сплеск (Inrush)</text>
+  <text x="52" y="496" font-size="12" fill="#1a1a1a">Ipeak сягає 1300 мА; tпуск ≈ 40 мс</text>
+  <text x="52" y="510" font-size="12" fill="#6b7280">tпуск &lt; tmask → хибне спрацьовування знято</text>
+
+  <rect x="340" y="458" width="280" height="60" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="352" y="478" font-size="12" font-weight="bold" fill="#27ae60">2. Комутаційний шум щіток</text>
+  <text x="352" y="496" font-size="12" fill="#1a1a1a">Пульсації струму Inom ≈ 220 ± 20 мА</text>
+  <text x="352" y="510" fill="#6b7280" font-size="12">Згладжуються цифровим фільтром АЦП</text>
+
+  <rect x="640" y="458" width="280" height="60" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="652" y="478" font-size="12" font-weight="bold" fill="#c0392b">3. Заклинювання коліс (Stall)</text>
+  <text x="652" y="496" font-size="12" fill="#1a1a1a">Istall ≈ 1250 мА триває понад tdelay (70 мс)</text>
+  <text x="652" y="510" font-size="12" fill="#c0392b">ШІМ знімається до зрізання зубців редуктора</text>
+</svg>

@@ -1,0 +1,229 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Механічна модифікація редуктора сервопривода для неперервного обертання</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Видалення стопора та розсвердлювання вала усувають кутове обмеження 180° для вільного руху на 360°</text>
+
+  <!-- ==================== ЛІВА ПАНЕЛЬ: Редуктор у розрізі ==================== -->
+  <rect x="24" y="68" width="440" height="472" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="94" font-size="14" font-weight="700" fill="#1a1a1a">Кінематична схема редуктора (пошаровий розріз)</text>
+  <text x="40" y="112" font-size="12" fill="#6b7280">Передача обертання від мотора до вихідного вала та потенціометра</text>
+
+  <!-- Внутрішня біла область для механізму -->
+  <rect x="36" y="124" width="416" height="404" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Контур корпусу (кришка зверху та стінки) -->
+  <!-- Ліва частина кришки -->
+  <line x1="48" y1="174" x2="276" y2="174" stroke="#6b7280" stroke-width="2"/>
+  <!-- Права частина кришки -->
+  <line x1="324" y1="174" x2="440" y2="174" stroke="#6b7280" stroke-width="2"/>
+  <!-- Стінки корпусу вниз -->
+  <line x1="48" y1="174" x2="48" y2="500" stroke="#6b7280" stroke-width="2"/>
+  <line x1="440" y1="174" x2="440" y2="500" stroke="#6b7280" stroke-width="2"/>
+  <!-- Дно корпусу -->
+  <line x1="48" y1="500" x2="440" y2="500" stroke="#6b7280" stroke-width="2"/>
+  <!-- Проміжна перегородка/поличка під редуктором -->
+  <line x1="120" y1="284" x2="250" y2="284" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Підпис кришки корпусу -->
+  <text x="56" y="166" font-size="12" fill="#6b7280">Верхня кришка корпусу</text>
+
+  <!-- Двигун постійного струму (DC Motor) -->
+  <rect x="56" y="320" width="56" height="156" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="84" y="394" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Мотор</text>
+  <text x="84" y="412" text-anchor="middle" font-size="12" fill="#2457d6">DC</text>
+
+  <!-- Вал мотора -->
+  <rect x="80" y="272" width="8" height="48" fill="#94a3b8" stroke="#4b5563" stroke-width="1"/>
+  <!-- Піньйон мотора (латунь) -->
+  <rect x="74" y="246" width="20" height="26" rx="2" fill="#d4a373" stroke="#8c5825" stroke-width="1.5"/>
+  <text x="52" y="238" font-size="12" fill="#1a1a1a">Піньйон</text>
+
+  <!-- Сталева вісь 1 для Шестерні 1 -->
+  <line x1="144" y1="222" x2="144" y2="284" stroke="#64748b" stroke-width="3"/>
+
+  <!-- Проміжна шестерня 1 (двоступінчаста) -->
+  <!-- Нижній великий вінець -->
+  <rect x="92" y="252" width="104" height="14" rx="2" fill="#e1e4e8" stroke="#4b5563" stroke-width="1"/>
+  <!-- Верхній малий вінець (піньйон) -->
+  <rect x="132" y="228" width="24" height="24" rx="2" fill="#cbd5e1" stroke="#4b5563" stroke-width="1"/>
+  <text x="144" y="214" text-anchor="middle" font-size="12" fill="#1a1a1a">Шестерня 1</text>
+
+  <!-- Сталева вісь 2 для Шестерні 2 -->
+  <line x1="210" y1="202" x2="210" y2="284" stroke="#64748b" stroke-width="3"/>
+
+  <!-- Проміжна шестерня 2 (двоступінчаста) -->
+  <!-- Нижній великий вінець -->
+  <rect x="154" y="232" width="112" height="14" rx="2" fill="#e1e4e8" stroke="#4b5563" stroke-width="1"/>
+  <!-- Верхній малий вінець (піньйон) -->
+  <rect x="198" y="208" width="24" height="24" rx="2" fill="#cbd5e1" stroke="#4b5563" stroke-width="1"/>
+  <text x="210" y="194" text-anchor="middle" font-size="12" fill="#1a1a1a">Шестерня 2</text>
+
+  <!-- ВИХІДНА ШЕСТЕРНЯ ТА ВАЛ -->
+  <!-- Вихідний вал (виходить крізь отвір кришки) -->
+  <rect x="286" y="144" width="28" height="60" rx="2" fill="#94a3b8" stroke="#4b5563" stroke-width="1.5"/>
+  <!-- Шліци на верхівці вала -->
+  <line x1="292" y1="144" x2="292" y2="158" stroke="#4b5563" stroke-width="1"/>
+  <line x1="298" y1="144" x2="298" y2="158" stroke="#4b5563" stroke-width="1"/>
+  <line x1="304" y1="144" x2="304" y2="158" stroke="#4b5563" stroke-width="1"/>
+  <text x="300" y="136" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Вихідний вал</text>
+
+  <!-- Зубчастий вінець вихідної шестерні -->
+  <rect x="220" y="204" width="160" height="18" rx="2" fill="#d0d7de" stroke="#374151" stroke-width="1.5"/>
+  <!-- Підпис вихідної шестерні праворуч у вільному місці -->
+  <text x="330" y="166" font-size="12" fill="#1a1a1a">Вихідна шестерня</text>
+
+  <!-- Зона 1: Стопорний виступ на вихідній шестерні -->
+  <rect x="362" y="222" width="14" height="18" fill="#c0392b" stroke="#991b1b" stroke-width="1.5"/>
+  <!-- Упор у кришці корпусу -->
+  <rect x="362" y="240" width="14" height="16" fill="#6b7280" stroke="#374151" stroke-width="1.5"/>
+
+  <!-- Червона рамка виділення Зони 1 -->
+  <rect x="354" y="216" width="30" height="44" rx="4" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="390" y="234" font-size="12" font-weight="700" fill="#c0392b">Зона 1</text>
+  <text x="390" y="250" font-size="12" fill="#c0392b">Стопор</text>
+
+  <!-- Потенціометр зворотного зв'язку (під вихідним валом) -->
+  <rect x="274" y="324" width="52" height="54" rx="4" fill="#f4f6f8" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="300" y="348" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Потенціо-</text>
+  <text x="300" y="364" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">метр</text>
+
+  <!-- Вісь потенціометра, що заходить у вал -->
+  <rect x="294" y="222" width="12" height="102" fill="#d97706" stroke="#8c5825" stroke-width="1.5"/>
+
+  <!-- Червона рамка виділення Зони 2 (з'єднання вала з віссю) -->
+  <rect x="286" y="214" width="28" height="34" rx="4" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Блок пояснення Зони 2 в центральній відкритій зоні -->
+  <text x="200" y="328" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Зона 2: Отвір вала</text>
+  <text x="200" y="344" text-anchor="middle" font-size="12" fill="#6b7280">Шліц обертає вісь</text>
+  <line x1="260" y1="324" x2="284" y2="236" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Дроти від потенціометра до плати -->
+  <line x1="284" y1="378" x2="284" y2="456" stroke="#4b5563" stroke-width="1.5"/>
+  <line x1="300" y1="378" x2="300" y2="456" stroke="#4b5563" stroke-width="1.5"/>
+  <line x1="316" y1="378" x2="316" y2="456" stroke="#4b5563" stroke-width="1.5"/>
+
+  <!-- Плата сервопривода -->
+  <rect x="260" y="456" width="80" height="24" rx="2" fill="#1e293b" stroke="#0f172a" stroke-width="1"/>
+  <text x="300" y="472" text-anchor="middle" font-size="12" fill="#ffffff">Плата серво</text>
+
+
+  <!-- ==================== ПРАВА ВЕРХНЯ ПАНЕЛЬ: Модифікація 1 ==================== -->
+  <rect x="480" y="68" width="456" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="496" y="94" font-size="14" font-weight="700" fill="#1a1a1a">1. Видалення механічного упору шестерні (Зона 1)</text>
+  <text x="496" y="112" font-size="12" fill="#6b7280">Зрізання виступу вихідного колеса для зняття бар'єра 180°</text>
+
+  <!-- Картка ДО (Стопор) -->
+  <rect x="496" y="124" width="210" height="162" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="506" y="134" width="94" height="20" rx="3" fill="#c0392b"/>
+  <text x="553" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ДО: упор 180°</text>
+
+  <!-- Креслення шестерні зі стопором -->
+  <rect x="520" y="190" width="80" height="14" rx="2" fill="#d0d7de" stroke="#4b5563" stroke-width="1"/>
+  <rect x="548" y="166" width="24" height="24" rx="1" fill="#94a3b8" stroke="#4b5563" stroke-width="1"/>
+  <!-- Стопорний виступ -->
+  <rect x="584" y="204" width="14" height="16" fill="#c0392b" stroke="#991b1b" stroke-width="1.5"/>
+  <!-- Упор у корпусі -->
+  <rect x="584" y="226" width="14" height="14" fill="#6b7280" stroke="#374151" stroke-width="1.5"/>
+  <!-- Лінія різу (пунктир) -->
+  <line x1="578" y1="204" x2="604" y2="204" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,2"/>
+
+  <!-- Пояснення в картці ДО (Стопор) -->
+  <text x="614" y="174" font-size="12" font-weight="700" fill="#c0392b">Лінія різу</text>
+  <text x="614" y="216" font-size="12" fill="#c0392b">Стопорний зуб</text>
+  <text x="614" y="238" font-size="12" fill="#6b7280">Упор кришки</text>
+  <text x="601" y="262" text-anchor="middle" font-size="12" fill="#c0392b">Впирається при кутах 0° та 180°</text>
+  <text x="601" y="278" text-anchor="middle" font-size="12" fill="#6b7280">(механічний стопор блокує рух)</text>
+
+  <!-- Картка ПІСЛЯ (Стопор) -->
+  <rect x="716" y="124" width="210" height="162" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <rect x="726" y="134" width="112" height="20" rx="3" fill="#27ae60"/>
+  <text x="782" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ПІСЛЯ: вільні 360°</text>
+
+  <!-- Креслення шестерні без стопора -->
+  <rect x="740" y="190" width="80" height="14" rx="2" fill="#d0d7de" stroke="#4b5563" stroke-width="1"/>
+  <rect x="768" y="166" width="24" height="24" rx="1" fill="#94a3b8" stroke="#4b5563" stroke-width="1"/>
+  <!-- Спиляно врівень -->
+  <line x1="740" y1="204" x2="820" y2="204" stroke="#27ae60" stroke-width="2.5"/>
+  <!-- Упор у корпусі залишається, але не контактує -->
+  <rect x="804" y="226" width="14" height="14" fill="#6b7280" stroke="#374151" stroke-width="1.5"/>
+
+  <!-- Стрілка вільного обертання 360 -->
+  <path d="M 760 178 A 20 20 0 1 1 796 186" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Пояснення в картці ПІСЛЯ (Стопор) -->
+  <text x="828" y="174" font-size="12" font-weight="700" fill="#27ae60">Зрізано</text>
+  <text x="828" y="206" font-size="12" fill="#27ae60">Врівень</text>
+  <text x="828" y="238" font-size="12" fill="#6b7280">Зазор &gt; 1 мм</text>
+  <text x="821" y="262" text-anchor="middle" font-size="12" fill="#27ae60">Вільний повний оберт вала</text>
+  <text x="821" y="278" text-anchor="middle" font-size="12" fill="#6b7280">(не торкається упору кришки)</text>
+
+
+  <!-- ==================== ПРАВА НИЖНЯ ПАНЕЛЬ: Модифікація 2 ==================== -->
+  <rect x="480" y="310" width="456" height="230" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="496" y="334" font-size="14" font-weight="700" fill="#1a1a1a">2. Розсвердлювання отвору вала (Зона 2)</text>
+  <text x="496" y="352" font-size="12" fill="#6b7280">Розрив зв'язку вала з потенціометром для усунення блокування</text>
+
+  <!-- Картка ДО (Отвір вала) -->
+  <rect x="496" y="364" width="210" height="164" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="506" y="374" width="124" height="20" rx="3" fill="#c0392b"/>
+  <text x="568" y="388" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ДО: зв'язок із віссю</text>
+
+  <!-- Креслення вузла вал-потенціометр ДО -->
+  <!-- Стінки вала з вузьким фасонним пазом -->
+  <rect x="532" y="408" width="16" height="40" rx="1" fill="#94a3b8" stroke="#4b5563" stroke-width="1"/>
+  <rect x="564" y="408" width="16" height="40" rx="1" fill="#94a3b8" stroke="#4b5563" stroke-width="1"/>
+  <rect x="548" y="408" width="16" height="8" fill="#94a3b8" stroke="#4b5563" stroke-width="1"/>
+  <!-- Вісь потенціометра (щільно заходить у паз 548..564) -->
+  <rect x="550" y="416" width="12" height="50" fill="#d97706" stroke="#8c5825" stroke-width="1.5"/>
+  <!-- Корпус потенціометра -->
+  <rect x="536" y="466" width="40" height="20" rx="2" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Пояснення в картці ДО (Отвір вала) -->
+  <text x="590" y="420" font-size="12" font-weight="700" fill="#c0392b">Фасонний паз</text>
+  <text x="590" y="438" font-size="12" fill="#c0392b">Шліц затискає вісь</text>
+  <text x="590" y="478" font-size="12" fill="#6b7280">Потенціометр</text>
+  <text x="601" y="506" text-anchor="middle" font-size="12" fill="#c0392b">Кут обмежено потенціометром</text>
+  <text x="601" y="522" text-anchor="middle" font-size="12" fill="#6b7280">(внутрішній упор резистора)</text>
+
+  <!-- Картка ПІСЛЯ (Отвір вала) -->
+  <rect x="716" y="364" width="210" height="164" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <rect x="726" y="374" width="132" height="20" rx="3" fill="#27ae60"/>
+  <text x="792" y="388" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">ПІСЛЯ: розсвердлено</text>
+
+  <!-- Креслення вузла вал-потенціометр ПІСЛЯ -->
+  <!-- Стінки вала з розсвердленим циліндричним отвором -->
+  <rect x="748" y="408" width="12" height="40" rx="1" fill="#94a3b8" stroke="#4b5563" stroke-width="1"/>
+  <rect x="784" y="408" width="12" height="40" rx="1" fill="#94a3b8" stroke="#4b5563" stroke-width="1"/>
+  <rect x="760" y="408" width="24" height="8" fill="#94a3b8" stroke="#4b5563" stroke-width="1"/>
+  <!-- Вісь потенціометра (вільно стоїть у центрі, зазори по боках) -->
+  <rect x="766" y="416" width="12" height="50" fill="#d97706" stroke="#8c5825" stroke-width="1.5"/>
+  <!-- Корпус потенціометра -->
+  <rect x="752" y="466" width="40" height="20" rx="2" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Пояснення в картці ПІСЛЯ (Отвір вала) -->
+  <text x="812" y="420" font-size="12" font-weight="700" fill="#27ae60">Отвір Ø 2.5 мм</text>
+  <text x="812" y="438" font-size="12" fill="#27ae60">Вільний зазор</text>
+  <text x="812" y="478" font-size="12" fill="#6b7280">Вісь у нейтралі</text>
+  <text x="821" y="506" text-anchor="middle" font-size="12" fill="#27ae60">Вал вільно ковзає навколо осі</text>
+  <text x="821" y="522" text-anchor="middle" font-size="12" fill="#6b7280">(не передає крутний момент)</text>
+
+</svg>

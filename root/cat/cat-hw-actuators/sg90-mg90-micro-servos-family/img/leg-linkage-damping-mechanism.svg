@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Кінематика триланкової кінцівки: демпфування удару об ґрунт</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Еластомірна вставка гомілки поглинає піковий крутний момент і захищає зуби редуктора сервопривода</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: КІНЕМАТИЧНА СХЕМА -->
+  <rect x="24" y="74" width="446" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="100" font-size="14" font-weight="700" fill="#1a1a1a">Триланковий шарнірний модуль кінцівки</text>
+  <text x="44" y="118" font-size="12" fill="#6b7280">Передача реакції ґрунту F_impact через важіль L_arm</text>
+
+  <!-- БАЗА РОБОТА -->
+  <line x1="80" y1="140" x2="150" y2="140" stroke="#6b7280" stroke-width="2"/>
+  <line x1="86" y1="134" x2="94" y2="140" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="102" y1="134" x2="110" y2="140" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="118" y1="134" x2="126" y2="140" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="134" y1="134" x2="142" y2="140" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="115" y="128" font-size="12" fill="#6b7280" text-anchor="middle">Корпус робота</text>
+
+  <!-- ШАРНІР 1 (J1) -->
+  <circle cx="115" cy="160" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="115" cy="160" r="3" fill="#2457d6"/>
+  <text x="134" y="164" font-size="12" font-weight="700" fill="#2457d6">J₁ (таз)</text>
+
+  <!-- ЛАНКА 1: СТЕГНО (L1) -->
+  <line x1="115" y1="160" x2="245" y2="210" stroke="#2457d6" stroke-width="5" stroke-linecap="round"/>
+  <text x="175" y="172" font-size="12" fill="#1a1a1a" text-anchor="middle">Стегно (L₁)</text>
+
+  <!-- ШАРНІР 2 (J2: КОЛІНО) -->
+  <circle cx="245" cy="210" r="11" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="245" cy="210" r="4" fill="#2457d6"/>
+  <text x="265" y="206" font-size="12" font-weight="700" fill="#2457d6">J₂ (сервопривід коліна)</text>
+
+  <!-- КРУТНИЙ МОМЕНТ НА ШАРНІРІ J2 -->
+  <path d="M266,198 A24,24 0 0,1 258,230" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="272" y="234" font-size="12" font-weight="700" fill="#c0392b">M_impact = F_impact · L_arm</text>
+
+  <!-- ГОМІЛКА: ВЕРХНІЙ СЕГМЕНТ -->
+  <line x1="245" y1="210" x2="225" y2="251" stroke="#2457d6" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- ДЕМПФЕР TPU В ГОМІЛЦІ -->
+  <rect x="206" y="251" width="34" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <path d="M211,265 Q216,258 223,265 T235,265" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="252" y="265" font-size="12" font-weight="700" fill="#27ae60">Пружний демпфер TPU</text>
+  <text x="252" y="280" font-size="12" fill="#27ae60">(кутова податливість Δθ)</text>
+  <line x1="248" y1="265" x2="241" y2="265" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- ГОМІЛКА: НИЖНІЙ СЕГМЕНТ -->
+  <line x1="216" y1="279" x2="165" y2="375" stroke="#2457d6" stroke-width="4" stroke-linecap="round"/>
+  <text x="75" y="325" font-size="12" fill="#1a1a1a">Гомілка (L₂)</text>
+
+  <!-- СТОПА І ОПОРНА ПОВЕРХНЯ -->
+  <circle cx="165" cy="375" r="7" fill="#1a1a1a"/>
+  <line x1="70" y1="375" x2="310" y2="375" stroke="#6b7280" stroke-width="2"/>
+  <line x1="85" y1="375" x2="77" y2="383" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="115" y1="375" x2="107" y2="383" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="145" y1="375" x2="137" y2="383" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="195" y1="375" x2="187" y2="383" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="225" y1="375" x2="217" y2="383" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="255" y1="375" x2="247" y2="383" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="285" y1="375" x2="277" y2="383" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="75" y="366" font-size="12" fill="#6b7280">Опорний ґрунт</text>
+
+  <!-- ВЕКТОР УДАРНОЇ РЕАКЦІЇ -->
+  <line x1="165" y1="426" x2="165" y2="387" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="178" y="408" font-size="12" font-weight="700" fill="#c0392b">F_impact</text>
+  <text x="178" y="422" font-size="12" fill="#c0392b">(реакція ґрунту)</text>
+
+  <!-- ПЛЕЧЕ ВАЖЕЛЯ L_arm -->
+  <line x1="245" y1="225" x2="245" y2="355" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="165" y1="365" x2="165" y2="355" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="172" y1="355" x2="238" y2="355" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="166,355 174,352 174,358" fill="#6b7280"/>
+  <polygon points="244,355 236,352 236,358" fill="#6b7280"/>
+  <text x="205" y="345" font-size="12" fill="#6b7280" text-anchor="middle">Плече L_arm</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: ПОГЛИНАННЯ МОМЕНТУ -->
+  <rect x="486" y="74" width="450" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="506" y="100" font-size="14" font-weight="700" fill="#1a1a1a">Поглинання пікового моменту еластоміром</text>
+  <text x="506" y="118" font-size="12" fill="#6b7280">Захист зубів редуктора перед вихідним валом сервопривода</text>
+
+  <!-- ВЕРХНІЙ БЛОК: ЛАНЦЮГ ПЕРЕДАЧІ -->
+  <rect x="502" y="130" width="418" height="102" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="514" y="148" font-size="12" font-weight="700" fill="#1a1a1a">Ланцюг передачі зусилля до редуктора:</text>
+
+  <!-- Блок 1: Гомілка -->
+  <rect x="514" y="156" width="76" height="38" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="552" y="172" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Гомілка</text>
+  <text x="552" y="186" font-size="12" fill="#c0392b" text-anchor="middle">Пік M_peak</text>
+
+  <line x1="590" y1="175" x2="608" y2="175" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Блок 2: Демпфер -->
+  <rect x="612" y="156" width="108" height="38" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="666" y="172" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Демпфер TPU</text>
+  <text x="666" y="186" font-size="12" fill="#27ae60" text-anchor="middle">Кут Δθ, поглинання</text>
+
+  <line x1="720" y1="175" x2="736" y2="175" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 3: Вал/Серво-ріг -->
+  <rect x="740" y="156" width="84" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="782" y="172" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Серво-ріг</text>
+  <text x="782" y="186" font-size="12" fill="#2457d6" text-anchor="middle">Вал привода</text>
+
+  <line x1="824" y1="175" x2="840" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок 4: Редуктор -->
+  <rect x="844" y="156" width="66" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="877" y="172" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Редуктор</text>
+  <text x="877" y="186" font-size="12" fill="#27ae60" text-anchor="middle">Безпека</text>
+
+  <text x="514" y="218" font-size="12" fill="#27ae60" font-weight="700">Поглинання енергії E = ∫ M dθ знижує пік: M_servo &lt; M_limit</text>
+
+  <!-- НИЖНІЙ БЛОК: ГРАФІК ДИНАМІКИ МОМЕНТУ -->
+  <rect x="502" y="244" width="418" height="184" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="514" y="264" font-size="12" font-weight="700" fill="#1a1a1a">Динаміка моменту на редукторі під час контакту з ґрунтом:</text>
+
+  <!-- ОСІ ГРАФІКА -->
+  <line x1="544" y1="390" x2="880" y2="390" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="884" y="394" font-size="12" fill="#1a1a1a">t</text>
+
+  <line x1="556" y1="398" x2="556" y2="280" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="550" y="280" font-size="12" fill="#1a1a1a" text-anchor="end">M</text>
+
+  <!-- МЕЖА МІЦНОСТІ ШЕСТЕРЕНЬ M_limit -->
+  <line x1="556" y1="336" x2="700" y2="336" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="550" y="340" font-size="12" fill="#6b7280" text-anchor="end">M_limit</text>
+
+  <!-- КРИВА 1: БЕЗ ДЕМПФЕРА (ЖОРСТКИЙ ВАЖІЛЬ) -->
+  <path d="M565,390 L575,390 Q595,390 605,296 Q610,290 615,296 Q625,390 645,390 L660,390" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="610" y="282" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">M_peak</text>
+
+  <!-- КРИВА 2: З ДЕМПФЕРОМ TPU -->
+  <path d="M565,390 L575,390 Q600,390 635,360 Q660,354 685,360 Q720,390 755,390 L850,390" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="660" y="350" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">M_servo</text>
+
+  <!-- ЛЕГЕНДА ГРАФІКА -->
+  <line x1="726" y1="288" x2="746" y2="288" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="752" y="292" font-size="12" font-weight="700" fill="#c0392b">Без демпфера</text>
+  <text x="752" y="306" font-size="12" fill="#c0392b">Пік перевищує M_limit</text>
+
+  <line x1="726" y1="322" x2="746" y2="322" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="752" y="326" font-size="12" font-weight="700" fill="#27ae60">З демпфером TPU</text>
+  <text x="752" y="340" font-size="12" fill="#27ae60">Безпечний момент M &lt; M_limit</text>
+</svg>

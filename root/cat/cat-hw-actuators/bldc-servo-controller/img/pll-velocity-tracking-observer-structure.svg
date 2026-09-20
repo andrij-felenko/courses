@@ -1,0 +1,216 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6.5" refY="3.5" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L7,3.5 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Дискретний слідкуючий спостережник швидкості на базі контуру ФАПЧ</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Замкнена модель руху усуває шум квантування енкодера без фазового запізнення</text>
+
+  <!-- ВЕРХНЯ ПАНЕЛЬ: БЛОК-СХЕМА СПОСТЕРЕЖНИКА (PLL OBSERVER) -->
+  <rect x="24" y="70" width="912" height="196" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="94" font-size="14" font-weight="700" fill="#1a1a1a">Структура дискретного контуру ФАПЧ (тип 2)</text>
+  <text x="44" y="110" font-size="12" fill="#6b7280">Зведення похибки e_θ = θ_m − θ̂ до нуля</text>
+
+  <!-- Блок: Енкодер положення -->
+  <rect x="44" y="140" width="96" height="54" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="92" y="162" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Енкодер</text>
+  <text x="92" y="179" font-size="12" fill="#6b7280" text-anchor="middle">N біт (Δθ_LSB)</text>
+
+  <!-- Стрілка від енкодера до вузла віднімання -->
+  <line x1="140" y1="167" x2="182" y2="167" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="156" y="154" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">θ_m[k]</text>
+
+  <!-- Вузол віднімання (Phase Detector) -->
+  <circle cx="202" cy="167" r="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="192" y1="167" x2="212" y2="167" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="202" y1="157" x2="202" y2="177" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="187" y="157" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">+</text>
+  <text x="214" y="196" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">−</text>
+
+  <!-- Стрілка помилки неузгодженості e_θ[k] -->
+  <line x1="218" y1="167" x2="265" y2="167" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="242" y="156" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">e_θ[k]</text>
+
+  <!-- Блок: ПІ-регулятор контуру ФАПЧ -->
+  <rect x="268" y="132" width="234" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="385" y="152" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">ПІ-регулятор контуру ФАПЧ</text>
+  <text x="385" y="172" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">γ_p + γ_i · T_s / (z − 1)</text>
+  <text x="385" y="189" font-size="12" fill="#6b7280" text-anchor="middle">v_i[k] = v_i[k-1] + T_s · γ_i · e_θ[k]</text>
+
+  <!-- Лінія від ПІ до інтегратора моделі з відгалуженням швидкості -->
+  <line x1="502" y1="167" x2="601" y2="167" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <!-- Точка розгалуження швидкості -->
+  <circle cx="550" cy="167" r="3.5" fill="#27ae60"/>
+  <text x="550" y="184" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">ω̂[k]</text>
+
+  <!-- Відгалуження оцінки швидкості вгору -->
+  <line x1="550" y1="167" x2="550" y2="128" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <rect x="446" y="100" width="208" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="550" y="117" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Оцінка швидкості ω̂[k] → контур FOC</text>
+
+  <!-- Блок: Інтегратор моделі руху (кінематика) -->
+  <rect x="604" y="132" width="168" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="688" y="152" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Модель руху (кінематика)</text>
+  <text x="688" y="172" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">T_s / (z − 1)</text>
+  <text x="688" y="189" font-size="12" fill="#6b7280" text-anchor="middle">θ̂[k+1] = θ̂[k] + T_s · ω̂[k]</text>
+
+  <!-- Лінія від інтегратора до виходу кута -->
+  <line x1="772" y1="167" x2="816" y2="167" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <circle cx="794" cy="167" r="3.5" fill="#2457d6"/>
+
+  <!-- Вихідний блок відновленого кута -->
+  <rect x="819" y="152" width="102" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="870" y="171" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">θ̂[k] → Park / dq</text>
+
+  <!-- Лінія зворотного зв'язку (Feedback) -->
+  <line x1="794" y1="167" x2="794" y2="234" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="794" y1="234" x2="550" y2="234" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  
+  <!-- Блок одиничної затримки z^-1 -->
+  <rect x="472" y="220" width="76" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="510" y="238" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">z⁻¹ (T_s)</text>
+
+  <line x1="472" y1="234" x2="202" y2="234" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="202" y1="234" x2="202" y2="186" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="672" y="227" font-size="12" fill="#6b7280" text-anchor="middle">зворотний зв'язок: відновлений кут положення θ̂[k]</text>
+
+
+  <!-- НИЖНЯ ПАНЕЛЬ: ЧАСОВІ ДІАГРАМИ (COMPARISON) -->
+  <rect x="24" y="278" width="912" height="262" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="44" y="302" font-size="14" font-weight="700" fill="#1a1a1a">Часові діаграми: квантування, числова похідна та спостережник ФАПЧ</text>
+  <text x="44" y="318" font-size="12" fill="#6b7280">Диференціювання сходинок дає шум; ФНЧ дає запізнення; лише ФАПЧ дає гладку швидкість без затримки</text>
+
+  <!-- ЛІВА СУБ-ПАНЕЛЬ: ПРОБЛЕМА ЧИСЛОВОГО ДИФЕРЕНЦІЮВАННЯ -->
+  <rect x="38" y="330" width="434" height="196" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Банер проблеми -->
+  <rect x="48" y="338" width="414" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="255" y="354" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">ПРОБЛЕМА: числова похідна ω = Δθ / T_s</text>
+
+  <!-- Графік кута енкодера (Track 1) -->
+  <!-- Вісь t -->
+  <line x1="80" y1="416" x2="444" y2="416" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="438" y1="416" x2="446" y2="416" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="72" y="394" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">θ</text>
+  <text x="446" y="411" font-size="12" fill="#6b7280" text-anchor="end">t</text>
+
+  <!-- Реальний плавний кут (пунктир) -->
+  <line x1="85" y1="414" x2="425" y2="374" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <text x="90" y="398" font-size="12" fill="#6b7280">θ_іст(t)</text>
+
+  <!-- Східчастий квантований кут енкодера -->
+  <path d="M 85,414 L 145,414 L 145,404 L 205,404 L 205,394 L 265,394 L 265,384 L 325,384 L 325,374 L 385,374 L 385,364 L 425,364" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="280" y="378" font-size="12" font-weight="700" fill="#2457d6">θ_m[k]</text>
+
+  <!-- Позначка кванту LSB -->
+  <line x1="148" y1="414" x2="148" y2="404" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="154" y="398" font-size="12" font-weight="700" fill="#2457d6">Δθ_LSB</text>
+
+  <!-- Графік швидкості диференціювання (Track 2) -->
+  <!-- Вісь t -->
+  <line x1="80" y1="482" x2="444" y2="482" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="438" y1="482" x2="446" y2="482" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="72" y="462" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">ω_num</text>
+  <text x="446" y="477" font-size="12" fill="#6b7280" text-anchor="end">t</text>
+
+  <!-- Реальна середня швидкість (пунктир) -->
+  <line x1="85" y1="468" x2="425" y2="468" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="90" y="463" font-size="12" fill="#6b7280">ω_іст</text>
+
+  <!-- Лінія нульової похідної між сходинками -->
+  <line x1="85" y1="482" x2="145" y2="482" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="145" y1="482" x2="205" y2="482" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="205" y1="482" x2="265" y2="482" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="265" y1="482" x2="325" y2="482" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="325" y1="482" x2="385" y2="482" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="385" y1="482" x2="425" y2="482" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Імпульсні викиди похідної на стрибках квантування -->
+  <line x1="145" y1="482" x2="145" y2="442" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="145" cy="442" r="3" fill="#c0392b"/>
+
+  <line x1="205" y1="482" x2="205" y2="442" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="205" cy="442" r="3" fill="#c0392b"/>
+
+  <line x1="265" y1="482" x2="265" y2="442" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="265" cy="442" r="3" fill="#c0392b"/>
+
+  <line x1="325" y1="482" x2="325" y2="442" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="325" cy="442" r="3" fill="#c0392b"/>
+
+  <line x1="385" y1="482" x2="385" y2="442" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="385" cy="442" r="3" fill="#c0392b"/>
+
+  <text x="330" y="440" font-size="12" font-weight="700" fill="#c0392b">+Δθ/T_s</text>
+  <text x="160" y="478" font-size="12" fill="#6b7280">0</text>
+
+  <!-- Підсумковий напис проблеми -->
+  <rect x="48" y="496" width="414" height="24" rx="3" fill="#fdecea"/>
+  <text x="255" y="512" font-size="12" fill="#c0392b" text-anchor="middle">Високочастотні викиди шуму збуджують коливання струму й нагрів</text>
+
+
+  <!-- ПРАВА СУБ-ПАНЕЛЬ: РОЗВ'ЯЗОК СПОСТЕРЕЖНИКОМ ФАПЧ -->
+  <rect x="488" y="330" width="434" height="196" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Банер розв'язку -->
+  <rect x="498" y="338" width="414" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="705" y="354" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">РОЗВ'ЯЗОК: відновлена швидкість спостережника ФАПЧ</text>
+
+  <!-- Графік відновленого кута (Track 1) -->
+  <!-- Вісь t -->
+  <line x1="530" y1="416" x2="894" y2="416" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="888" y1="416" x2="896" y2="416" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="522" y="394" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">θ̂</text>
+  <text x="896" y="411" font-size="12" fill="#6b7280" text-anchor="end">t</text>
+
+  <!-- Східчастий квантований кут (напівпрозорий фон) -->
+  <path d="M 535,414 L 595,414 L 595,404 L 655,404 L 655,394 L 715,394 L 715,384 L 775,384 L 775,374 L 835,374 L 835,364 L 875,364" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Відновлений кут θ_hat (плавна лінія крізь сходинки) -->
+  <line x1="535" y1="414" x2="875" y2="364" stroke="#27ae60" stroke-width="2.2"/>
+  <text x="580" y="380" font-size="12" font-weight="700" fill="#27ae60">θ̂[k]</text>
+  <text x="612" y="380" font-size="12" fill="#1a1a1a">безперервне слідкування за кутом</text>
+
+  <!-- Графік швидкості: порівняння ФАПЧ vs ФНЧ (Track 2) -->
+  <!-- Вісь t -->
+  <line x1="530" y1="482" x2="894" y2="482" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="888" y1="482" x2="896" y2="482" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+  <text x="522" y="462" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">ω̂</text>
+  <text x="896" y="477" font-size="12" fill="#6b7280" text-anchor="end">t</text>
+
+  <!-- Зміна швидкості (сходинка розгону від ω1 до ω2) -->
+  <!-- Справжня швидкість ω_true (пунктир) -->
+  <path d="M 535,472 L 670,472 L 710,450 L 875,450" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <text x="540" y="465" font-size="12" fill="#6b7280">ω_іст(t)</text>
+
+  <!-- Відгук звичайного фільтра низьких частот (ФНЧ) — відставання за фазою! -->
+  <path d="M 535,472 L 670,472 C 700,472 730,465 750,455 C 770,452 790,450 875,450" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="762" y="465" font-size="12" fill="#c0392b">ФНЧ: затримка Δt</text>
+
+  <!-- Відновлена швидкість спостережника ФАПЧ — гладка і без затримки! -->
+  <path d="M 535,472 L 670,472 C 685,472 698,452 715,450 L 875,450" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="668" y="438" font-size="12" font-weight="700" fill="#27ae60">ω̂[k] (ФАПЧ)</text>
+  <text x="752" y="438" font-size="12" fill="#27ae60">нульова усталена похибка</text>
+
+  <!-- Підсумковий напис розв'язку -->
+  <rect x="498" y="496" width="414" height="24" rx="3" fill="#e9f7ef"/>
+  <text x="705" y="512" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Нульове фазове запізнення зберігає запас стійкості контуру FOC</text>
+</svg>

@@ -1,0 +1,262 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="33" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Включення струмового шунта H-моста та RC-фільтр для АЦП</text>
+  <text x="480" y="53" font-size="13" fill="#6b7280" text-anchor="middle">Силовий контур замикається через шунт на батарею, а RC-фільтр захищає АЦП від комутаційних завад</text>
+
+  <!-- ================= ГОЛОВНА СХЕМОТЕХНІЧНА ПАНЕЛЬ ================= -->
+  <rect x="24" y="68" width="912" height="298" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="88" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Принципова схема підключення силового моста, струмового шунта та фільтра АЦП</text>
+
+  <!-- ================= 1. ДЖЕРЕЛО ЖИВЛЕННЯ (БАТАРЕЯ) ================= -->
+  <rect x="36" y="132" width="68" height="98" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="70" y="154" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Батарея</text>
+  <text x="70" y="171" font-size="12" fill="#6b7280" text-anchor="middle">2S Li-Ion</text>
+  <text x="70" y="190" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">+7,4 В</text>
+  <text x="70" y="212" font-size="12" fill="#2457d6" text-anchor="middle">V_BAT</text>
+
+  <!-- Клема (+) батареї -->
+  <circle cx="70" cy="132" r="3" fill="#c0392b"/>
+  <line x1="70" y1="132" x2="70" y2="108" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="70" y1="108" x2="200" y2="108" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="70" cy="108" r="2.5" fill="#c0392b"/>
+
+  <!-- Підпис шини живлення -->
+  <text x="120" y="102" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">+V_BAT (+7,4 В)</text>
+
+  <!-- Клема (-) батареї -->
+  <circle cx="70" cy="230" r="3" fill="#1a1a1a"/>
+  <line x1="70" y1="230" x2="70" y2="335" stroke="#1a1a1a" stroke-width="2.5"/>
+  <circle cx="70" cy="335" r="3" fill="#1a1a1a"/>
+
+  <!-- ================= ФІЛЬТРИ ЖИВЛЕННЯ (C_bulk, C_dec) ================= -->
+  <!-- C_bulk (470 мкФ) at x=120 -->
+  <line x1="120" y1="108" x2="120" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="112" y1="195" x2="128" y2="195" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="112" y1="203" x2="128" y2="203" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="120" y1="203" x2="120" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="120" cy="108" r="2.5" fill="#c0392b"/>
+  <circle cx="120" cy="335" r="2.5" fill="#1a1a1a"/>
+  <text x="112" y="192" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">+</text>
+  <text x="133" y="170" font-size="12" font-weight="700" fill="#2457d6">C_bulk</text>
+  <text x="133" y="185" font-size="12" fill="#6b7280">470 мкФ</text>
+
+  <!-- C_dec (100 нФ) at x=168 -->
+  <line x1="168" y1="108" x2="168" y2="195" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="160" y1="195" x2="176" y2="195" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="160" y1="203" x2="176" y2="203" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="168" y1="203" x2="168" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="168" cy="108" r="2.5" fill="#c0392b"/>
+  <circle cx="168" cy="335" r="2.5" fill="#1a1a1a"/>
+  <text x="160" y="225" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">C_dec</text>
+  <text x="160" y="240" font-size="12" fill="#6b7280" text-anchor="end">100 нФ</text>
+
+  <!-- ================= 2. СИЛОВИЙ H-МІСТ ТА ДВИГУН ================= -->
+  <!-- Контур H-моста від x=202 до x=505 (ширина 303) -->
+  <rect x="202" y="98" width="303" height="160" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="355" y="114" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Силовий H-міст (керування двигуном)</text>
+
+  <!-- Верхня шина +V_M у мості -->
+  <line x1="202" y1="126" x2="480" y2="126" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="280" cy="126" r="2.5" fill="#c0392b"/>
+  <circle cx="480" cy="126" r="2.5" fill="#c0392b"/>
+
+  <!-- Ключ Q1 (Верхній лівий) at x=280 -->
+  <line x1="280" y1="126" x2="280" y2="140" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="280" cy="140" r="2.5" fill="#1a1a1a"/>
+  <circle cx="280" cy="162" r="2.5" fill="#1a1a1a"/>
+  <line x1="280" y1="162" x2="280" y2="140" stroke="#2457d6" stroke-width="2.5"/> <!-- замкнутий ключ Q1 -->
+  <line x1="280" y1="162" x2="280" y2="192" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="270" y="153" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">Q1 (ВКЛ)</text>
+
+  <!-- Ключ Q2 (Верхній правий) at x=480 -->
+  <line x1="480" y1="126" x2="480" y2="140" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="480" cy="140" r="2.5" fill="#1a1a1a"/>
+  <circle cx="480" cy="162" r="2.5" fill="#1a1a1a"/>
+  <line x1="480" y1="162" x2="472" y2="142" stroke="#6b7280" stroke-width="2"/> <!-- розімкнутий ключ Q2 -->
+  <line x1="480" y1="162" x2="480" y2="192" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="470" y="153" font-size="12" font-weight="700" fill="#6b7280" text-anchor="end">Q2 (ВИКЛ)</text>
+
+  <!-- Вузли OUT1 та OUT2 -->
+  <line x1="280" y1="192" x2="330" y2="192" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="400" y1="192" x2="480" y2="192" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="280" cy="192" r="2.5" fill="#1a1a1a"/>
+  <circle cx="480" cy="192" r="2.5" fill="#1a1a1a"/>
+  <text x="290" y="186" font-size="12" font-weight="700" fill="#1a1a1a">OUT1</text>
+  <text x="470" y="186" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">OUT2</text>
+
+  <!-- Колекторний двигун 130 at x=365 -->
+  <rect x="330" y="168" width="70" height="48" rx="6" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.2"/>
+  <rect x="334" y="187" width="6" height="10" fill="#1a1a1a"/>
+  <rect x="390" y="187" width="6" height="10" fill="#1a1a1a"/>
+  <circle cx="365" cy="192" r="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="365" y="197" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">M</text>
+  <text x="365" y="162" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Двигун 130</text>
+
+  <!-- Ключ Q3 (Нижній лівий) at x=280 -->
+  <line x1="280" y1="192" x2="280" y2="214" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="280" cy="214" r="2.5" fill="#1a1a1a"/>
+  <circle cx="280" cy="236" r="2.5" fill="#1a1a1a"/>
+  <line x1="280" y1="236" x2="272" y2="216" stroke="#6b7280" stroke-width="2"/> <!-- розімкнутий ключ Q3 -->
+  <line x1="280" y1="236" x2="280" y2="252" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="280" cy="252" r="2.5" fill="#1a1a1a"/>
+  <text x="270" y="227" font-size="12" font-weight="700" fill="#6b7280" text-anchor="end">Q3 (ВИКЛ)</text>
+
+  <!-- Ключ Q4 (Нижній правий) at x=480 -->
+  <line x1="480" y1="192" x2="480" y2="214" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="480" cy="214" r="2.5" fill="#1a1a1a"/>
+  <circle cx="480" cy="236" r="2.5" fill="#1a1a1a"/>
+  <line x1="480" y1="236" x2="480" y2="214" stroke="#2457d6" stroke-width="2.5"/> <!-- замкнутий ключ Q4 (ШІМ) -->
+  <line x1="480" y1="236" x2="480" y2="252" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="480" cy="252" r="2.5" fill="#1a1a1a"/>
+  <text x="470" y="227" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">Q4 (ШІМ)</text>
+
+  <!-- Нижня мінусова шина H-моста -->
+  <line x1="280" y1="252" x2="480" y2="252" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="365" cy="252" r="3" fill="#1a1a1a"/>
+  <text x="320" y="247" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Мінусова шина моста</text>
+
+  <!-- ================= 3. ВИМІРЮВАЛЬНИЙ ШУНТ R_shunt ================= -->
+  <!-- Провідник від мінусової шини до шунта -->
+  <line x1="365" y1="252" x2="365" y2="284" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Резистор R_shunt (0.1 Ом) -->
+  <rect x="357" y="284" width="16" height="30" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <line x1="365" y1="314" x2="365" y2="335" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Підписи R_shunt -->
+  <text x="347" y="296" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">R_shunt (0,1 Ом)</text>
+  <text x="347" y="312" font-size="12" fill="#6b7280" text-anchor="end">2 Вт, 1% (Low-side)</text>
+
+  <!-- Вузол V_shunt над шунтом -->
+  <circle cx="365" cy="280" r="3.5" fill="#c0392b"/>
+  <text x="435" y="274" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">V_shunt (сигнал струму)</text>
+
+  <!-- ================= СИЛОВИЙ СТРУМ: ШЛЯХ ТА СТРІЛКИ ================= -->
+  <!-- Стрілка струму через мотор -->
+  <line x1="290" y1="184" x2="320" y2="184" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="410" y1="184" x2="440" y2="184" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Силова шина PGND повернення через R_shunt прямо в батарею (-) -->
+  <line x1="365" y1="335" x2="70" y2="335" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="260" y1="335" x2="210" y2="335" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="180" y="352" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Силова шина PGND (до 2,5 А)</text>
+
+  <!-- ================= ТОЧКА ЗІРКОВОГО ЗАЗЕМЛЕННЯ ================= -->
+  <circle cx="365" cy="335" r="5.5" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="365" y="358" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Star GND</text>
+
+  <!-- ================= 4. RC-ФІЛЬТР НИЗЬКИХ ЧАСТОТ ================= -->
+  <!-- Зона RC-фільтра від x=530 до x=705 (просвіт 25 px від моста) -->
+  <rect x="530" y="244" width="175" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <text x="617" y="258" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">RC-фільтр НЧ (f_c ≈ 1,6 кГц)</text>
+
+  <!-- Сигнальна лінія від V_shunt до R_f -->
+  <line x1="365" y1="280" x2="555" y2="280" stroke="#2457d6" stroke-width="1.8"/>
+  <circle cx="555" cy="280" r="2.5" fill="#2457d6"/>
+
+  <!-- Резистор R_f (1 кОм) -->
+  <rect x="555" y="274" width="28" height="12" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="569" y="271" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">R_f (1 кОм)</text>
+
+  <!-- З'єднання від R_f до вузла фільтра -->
+  <line x1="583" y1="280" x2="635" y2="280" stroke="#2457d6" stroke-width="1.8"/>
+  <circle cx="635" cy="280" r="3" fill="#2457d6"/>
+
+  <!-- Конденсатор C_f (100 нФ) на AGND -->
+  <line x1="635" y1="280" x2="635" y2="296" stroke="#2457d6" stroke-width="1.8"/>
+  <line x1="626" y1="296" x2="644" y2="296" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="626" y1="303" x2="644" y2="303" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="635" y1="303" x2="635" y2="335" stroke="#27ae60" stroke-width="1.8"/>
+  <circle cx="635" cy="335" r="2.5" fill="#27ae60"/>
+  <text x="650" y="299" font-size="12" font-weight="700" fill="#2457d6">C_f</text>
+  <text x="650" y="314" font-size="12" fill="#6b7280">100 нФ</text>
+
+  <!-- Сигнальний вихід на АЦП -->
+  <line x1="635" y1="280" x2="735" y2="280" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="688" y="274" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">V_ADC</text>
+
+  <!-- ================= СИГНАЛЬНА ЗЕМЛЯ (AGND) ================= -->
+  <!-- Чиста сигнальна лінія від Star GND до MCU -->
+  <line x1="371" y1="335" x2="740" y2="335" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="740" cy="335" r="3" fill="#27ae60"/>
+  <text x="545" y="352" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Сигнальна земля AGND (нуль завад)</text>
+
+  <!-- ================= 5. МІКРОКОНТРОЛЕР (MCU) ================= -->
+  <rect x="740" y="108" width="180" height="236" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.8"/>
+  <rect x="748" y="116" width="164" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="830" y="135" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Мікроконтролер (MCU)</text>
+  <text x="830" y="158" font-size="12" fill="#6b7280" text-anchor="middle">Вбудований АЦП та логіка</text>
+
+  <!-- Керуючі сигнали ШІМ від MCU до моста -->
+  <line x1="740" y1="180" x2="510" y2="180" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <circle cx="740" cy="180" r="2.5" fill="#2457d6"/>
+  <text x="750" y="184" font-size="12" font-weight="700" fill="#1a1a1a">PWM1 / IN1</text>
+  <text x="625" y="174" font-size="12" fill="#6b7280" text-anchor="middle">ШІМ-керування ключами</text>
+
+  <line x1="740" y1="208" x2="510" y2="208" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <circle cx="740" cy="208" r="2.5" fill="#2457d6"/>
+  <text x="750" y="212" font-size="12" font-weight="700" fill="#1a1a1a">PWM2 / IN2</text>
+
+  <!-- Вхід АЦП -->
+  <circle cx="740" cy="280" r="3" fill="#2457d6"/>
+  <text x="750" y="284" font-size="12" font-weight="700" fill="#2457d6">ADC_IN</text>
+  <text x="835" y="284" font-size="12" fill="#6b7280">(Канал АЦП)</text>
+
+  <!-- Вивід AGND -->
+  <text x="750" y="331" font-size="12" font-weight="700" fill="#27ae60">AGND</text>
+  <text x="835" y="331" font-size="12" fill="#6b7280">(Опорна земля)</text>
+
+  <!-- Блок логіки всередині MCU -->
+  <rect x="752" y="224" width="156" height="34" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="830" y="239" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Обробка струму I_mot</text>
+  <text x="830" y="252" font-size="12" fill="#27ae60" text-anchor="middle">Захист від заклинювання</text>
+
+  <!-- ================= ТРИ ІНФОРМАЦІЙНІ БЛОКИ ВНИЗУ ================= -->
+  <!-- БЛОК 1: Low-side вимірювальний шунт -->
+  <rect x="24" y="380" width="292" height="126" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="34" y="388" width="272" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="170" y="404" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">1. Low-side шунт R_shunt (0,1 Ом)</text>
+  <text x="38" y="427" font-size="12" font-weight="700" fill="#1a1a1a">• Падіння: <tspan font-weight="400" fill="#6b7280">U_shunt = I · R_shunt</tspan></text>
+  <text x="38" y="445" font-size="12" fill="#1a1a1a">  При I_stall = 2,5 А сигнал сягає 250 мВ</text>
+  <text x="38" y="463" font-size="12" font-weight="700" fill="#1a1a1a">• Безпека АЦП: <tspan font-weight="400" fill="#6b7280">сигнал у межах 0...0,3 В</tspan></text>
+  <text x="38" y="481" font-size="12" fill="#6b7280">  Пряме підключення без ОП високої напруги</text>
+  <text x="38" y="499" font-size="12" fill="#6b7280">  Розсіювання потужності: P &lt; 0,63 Вт (2512)</text>
+
+  <!-- БЛОК 2: RC-фільтр завад комутації -->
+  <rect x="334" y="380" width="292" height="126" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="344" y="388" width="272" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="404" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">2. Фільтрація завад (R_f, C_f)</text>
+  <text x="348" y="427" font-size="12" font-weight="700" fill="#1a1a1a">• Частота зрізу: <tspan font-weight="400" fill="#6b7280">f_c = 1/(2π·R·C) ≈ 1,6 кГц</tspan></text>
+  <text x="348" y="445" font-size="12" fill="#1a1a1a">  Придушує шум ШІМ (10–20 кГц) та щіток</text>
+  <text x="348" y="463" font-size="12" font-weight="700" fill="#1a1a1a">• Захист порту: <tspan font-weight="400" fill="#6b7280">R_f = 1 кОм</tspan></text>
+  <text x="348" y="481" font-size="12" fill="#6b7280">  Обмежує струм у захисні ESD-діоди АЦП</text>
+  <text x="348" y="499" font-size="12" fill="#6b7280">  АЦП вимірює стабільне середнє значення</text>
+
+  <!-- БЛОК 3: Топологія Star GND -->
+  <rect x="644" y="380" width="292" height="126" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="654" y="388" width="272" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="404" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">3. Топологія Star GND</text>
+  <text x="658" y="427" font-size="12" font-weight="700" fill="#1a1a1a">• Розділення шин: <tspan font-weight="400" fill="#6b7280">силова PGND і чиста AGND</tspan></text>
+  <text x="658" y="445" font-size="12" fill="#1a1a1a">  Струм мотора тече в батарею повз плату МК</text>
+  <text x="658" y="463" font-size="12" font-weight="700" fill="#1a1a1a">• Без Ground Bounce: <tspan font-weight="400" fill="#6b7280">ΔU = 0 В на сигналі</tspan></text>
+  <text x="658" y="481" font-size="12" fill="#6b7280">  Виключає паразитичні скидання MCU (BOR)</text>
+  <text x="658" y="499" font-size="12" fill="#6b7280">  Єдина точка з'єднання — мінус шунта</text>
+</svg>

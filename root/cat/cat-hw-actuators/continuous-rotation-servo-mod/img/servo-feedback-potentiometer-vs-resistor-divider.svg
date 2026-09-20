@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зворотний зв'язок сервопривода: штатний потенціометр проти дільника</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Заміна змінного резистора парою однакових SMD-опорів фіксує напругу VCC/2 і задає стан спокою</text>
+
+  <!-- ================= ЛІВА ПАНЕЛЬ: ШТАТНЕ ПІДКЛЮЧЕННЯ ================= -->
+  <rect x="24" y="76" width="444" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="246" y="102" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Штатне підключення: змінний потенціометр</text>
+  <text x="246" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Контур зворотного зв'язку за кутовим положенням вала</text>
+
+  <!-- Вал редуктора та механічний зв'язок -->
+  <text x="72" y="176" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вал редуктора</text>
+  <text x="72" y="194" font-size="12" fill="#2457d6" text-anchor="middle">обертає вісь</text>
+  <circle cx="72" cy="235" r="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="64" y1="235" x2="80" y2="235" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="72" y1="227" x2="72" y2="243" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 55,221 A 24 24 0 0 1 89,221" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="72" y="276" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Стопор 180°</text>
+  <text x="72" y="294" font-size="12" fill="#6b7280" text-anchor="middle">обмежує кут</text>
+
+  <!-- Механічний зв'язок (пунктир до повзунка) -->
+  <line x1="90" y1="235" x2="127" y2="235" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Потенціометр -->
+  <rect x="127" y="195" width="16" height="80" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="135" y1="155" x2="135" y2="195" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="135" y1="275" x2="135" y2="315" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="135" cy="155" r="3.5" fill="#2457d6"/>
+  <circle cx="135" cy="315" r="3.5" fill="#2457d6"/>
+
+  <!-- Рухомий контакт (повзунок / wiper) -->
+  <polygon points="143,235 152,230 152,240" fill="#2457d6"/>
+
+  <!-- Електричні лінії живлення та сигналу лівої панелі -->
+  <line x1="135" y1="155" x2="300" y2="155" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="152" y1="235" x2="300" y2="235" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="135" y1="315" x2="300" y2="315" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Підписи параметрів потенціометра -->
+  <text x="162" y="178" font-size="12" font-weight="bold" fill="#1a1a1a">R_pot = 5..10 кОм</text>
+  <text x="162" y="196" font-size="12" fill="#6b7280">Штатний резистор</text>
+  <text x="162" y="215" font-size="12" font-weight="bold" fill="#2457d6">V_fb = f(θ)</text>
+
+  <text x="162" y="256" font-size="12" font-weight="bold" fill="#1a1a1a">0 В ... VCC</text>
+  <text x="162" y="274" font-size="12" fill="#6b7280">Діапазон напруги</text>
+  <text x="162" y="293" font-size="12" fill="#6b7280">t_ref = 1..2 мс</text>
+
+  <!-- Блок сервопідсилювача (IC) лівої панелі -->
+  <rect x="300" y="140" width="144" height="190" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="372" y="162" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Сервопідсилювач</text>
+
+  <circle cx="300" cy="155" r="3.5" fill="#2457d6"/>
+  <text x="308" y="159" font-size="12" font-weight="bold" fill="#1a1a1a">VCC</text>
+
+  <circle cx="300" cy="235" r="3.5" fill="#2457d6"/>
+  <text x="308" y="227" font-size="12" font-weight="bold" fill="#2457d6">FB</text>
+
+  <circle cx="300" cy="315" r="3.5" fill="#2457d6"/>
+  <text x="308" y="319" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <rect x="332" y="195" width="102" height="80" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="300" y1="235" x2="332" y2="235" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="383" y="220" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Одновібратор</text>
+  <text x="383" y="240" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_ref = f(V_fb)</text>
+  <text x="383" y="258" font-size="12" fill="#6b7280" text-anchor="middle">1000..2000 мкс</text>
+
+  <!-- Нижня картка лівої панелі -->
+  <rect x="40" y="356" width="412" height="84" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="52" y="376" font-size="13" font-weight="bold" fill="#1a1a1a">Штатний режим: кутове позиціонування</text>
+  <text x="52" y="396" font-size="12" fill="#1a1a1a">• Напруга V_fb змінюється синхронно з кутом повороту вала θ</text>
+  <text x="52" y="413" font-size="12" fill="#6b7280">• Стан спокою лише коли вхідний t_in дорівнює внутрішньому t_ref</text>
+  <text x="52" y="430" font-size="12" fill="#c0392b">• Недоліки: знос резистивного шару, вібрації, тепловий дрейф нуля</text>
+
+  <!-- ================= ПРАВА ПАНЕЛЬ: РЕЗИСТИВНИЙ ДІЛЬНИК ================= -->
+  <rect x="492" y="76" width="444" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="714" y="102" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Модифікація: симетричний резистивний дільник</text>
+  <text x="714" y="122" font-size="12" fill="#6b7280" text-anchor="middle">Формування віртуальної нейтралі VCC/2 для постійного обертання</text>
+
+  <!-- Вал 360° та розірваний зв'язок -->
+  <text x="540" y="176" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вал 360°</text>
+  <text x="540" y="194" font-size="12" fill="#1a1a1a" text-anchor="middle">вільний рух</text>
+  <circle cx="540" cy="235" r="18" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="532" y1="235" x2="548" y2="235" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="540" y1="227" x2="540" y2="243" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M 516,235 A 24 24 0 1 1 540,259" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="540" y="276" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Без стопора</text>
+  <text x="540" y="294" font-size="12" fill="#6b7280" text-anchor="middle">вал від'єднано</text>
+
+  <!-- Розірваний механічний зв'язок із червоним хрестиком -->
+  <line x1="558" y1="235" x2="572" y2="235" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="582" y1="235" x2="595" y2="235" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="573" y1="231" x2="581" y2="239" stroke="#c0392b" stroke-width="2"/>
+  <line x1="573" y1="239" x2="581" y2="231" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Резистивний дільник R1 та R2 -->
+  <rect x="595" y="175" width="16" height="40" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="603" y1="155" x2="603" y2="175" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="603" y1="215" x2="603" y2="235" stroke="#27ae60" stroke-width="1.5"/>
+
+  <rect x="595" y="255" width="16" height="40" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="603" y1="235" x2="603" y2="255" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="603" y1="295" x2="603" y2="315" stroke="#27ae60" stroke-width="1.5"/>
+
+  <circle cx="603" cy="155" r="3.5" fill="#27ae60"/>
+  <circle cx="603" cy="315" r="3.5" fill="#27ae60"/>
+  <circle cx="603" cy="235" r="4.5" fill="#27ae60"/>
+
+  <!-- Електричні лінії живлення та сигналу правої панелі -->
+  <line x1="603" y1="155" x2="768" y2="155" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="603" y1="235" x2="768" y2="235" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="603" y1="315" x2="768" y2="315" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Підписи параметрів дільника -->
+  <text x="626" y="178" font-size="12" font-weight="bold" fill="#1a1a1a">R₁ = 5.1 кОм (1%)</text>
+  <text x="626" y="196" font-size="12" fill="#6b7280">Верхнє плече SMD</text>
+  <text x="626" y="215" font-size="12" font-weight="bold" fill="#27ae60">V_mid = VCC / 2</text>
+
+  <text x="626" y="256" font-size="12" font-weight="bold" fill="#27ae60">t_ref = 1500 мкс</text>
+  <text x="626" y="274" font-size="12" font-weight="bold" fill="#1a1a1a">R₂ = 5.1 кОм (1%)</text>
+  <text x="626" y="293" font-size="12" fill="#6b7280">Нижнє плече SMD</text>
+
+  <!-- Блок сервопідсилювача (IC) правої панелі -->
+  <rect x="768" y="140" width="144" height="190" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="840" y="162" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Сервопідсилювач</text>
+
+  <circle cx="768" cy="155" r="3.5" fill="#27ae60"/>
+  <text x="776" y="159" font-size="12" font-weight="bold" fill="#1a1a1a">VCC</text>
+
+  <circle cx="768" cy="235" r="3.5" fill="#27ae60"/>
+  <text x="776" y="227" font-size="12" font-weight="bold" fill="#27ae60">FB</text>
+
+  <circle cx="768" cy="315" r="3.5" fill="#27ae60"/>
+  <text x="776" y="319" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <rect x="800" y="195" width="102" height="80" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <line x1="768" y1="235" x2="800" y2="235" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="851" y="220" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Одновібратор</text>
+  <text x="851" y="240" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_ref = 1500 мкс</text>
+  <text x="851" y="258" font-size="12" fill="#6b7280" text-anchor="middle">фіксована нейтраль</text>
+
+  <!-- Нижня картка правої панелі -->
+  <rect x="508" y="356" width="412" height="84" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="520" y="376" font-size="13" font-weight="bold" fill="#27ae60">Модифікований режим: постійне обертання</text>
+  <text x="520" y="396" font-size="12" font-weight="bold" fill="#1a1a1a">• Дільник: V_mid = VCC · R₂ / (R₁ + R₂) = VCC / 2 (при R₁ = R₂)</text>
+  <text x="520" y="413" font-size="12" fill="#1a1a1a">• Опорний імпульс одновібратора фіксовано на рівні 1500 мкс</text>
+  <text x="520" y="430" font-size="12" fill="#27ae60">• Сигнал 1.5 мс зупиняє привід; відхилення задає швидкість</text>
+</svg>

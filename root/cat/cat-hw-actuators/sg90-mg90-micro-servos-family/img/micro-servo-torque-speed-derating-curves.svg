@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+</defs>
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="35" font-size="18" font-weight="700" text-anchor="middle" fill="#1a1a1a">Електромеханічна характеристика ω(M) та теплові межі мікросервопривода</text>
+<text x="480" y="55" font-size="13" text-anchor="middle" fill="#6b7280">Кутова швидкість лінійно спадає до нуля при M_stall; тривале утримання безпечне лише до 20–25% навантаження</text>
+<!-- Фонове зонування графіка -->
+<rect x="85" y="95" width="75.6" height="285" fill="#e9f7ef"/>
+<rect x="320" y="95" width="185" height="285" fill="#fdecea"/>
+<line x1="160.6" y1="118" x2="160.6" y2="380" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="320" y1="105" x2="320" y2="380" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+<!-- Осі координат -->
+<line x1="85" y1="380" x2="85" y2="78" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="85" y="68" font-size="12" font-weight="700" text-anchor="middle" fill="#1a1a1a">ω (°/с)</text>
+<line x1="85" y1="380" x2="525" y2="380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="295" y="436" font-size="13" font-weight="700" text-anchor="middle" fill="#1a1a1a">Крутний момент M (кг·см)</text>
+<line x1="79" y1="128" x2="85" y2="128" stroke="#2457d6" stroke-width="1"/>
+<text x="74" y="132" font-size="12" font-weight="700" text-anchor="end" fill="#2457d6">600</text>
+<line x1="79" y1="170" x2="85" y2="170" stroke="#1a1a1a" stroke-width="1"/>
+<text x="74" y="174" font-size="12" font-weight="700" text-anchor="end" fill="#1a1a1a">500</text>
+<line x1="79" y1="212" x2="85" y2="212" stroke="#6b7280" stroke-width="1"/>
+<text x="74" y="216" font-size="12" text-anchor="end" fill="#6b7280">400</text>
+<line x1="79" y1="254" x2="85" y2="254" stroke="#6b7280" stroke-width="1"/>
+<text x="74" y="258" font-size="12" text-anchor="end" fill="#6b7280">300</text>
+<line x1="79" y1="296" x2="85" y2="296" stroke="#6b7280" stroke-width="1"/>
+<text x="74" y="300" font-size="12" text-anchor="end" fill="#6b7280">200</text>
+<line x1="79" y1="338" x2="85" y2="338" stroke="#6b7280" stroke-width="1"/>
+<text x="74" y="342" font-size="12" text-anchor="end" fill="#6b7280">100</text>
+<line x1="85" y1="380" x2="85" y2="386" stroke="#6b7280" stroke-width="1.5"/>
+<text x="85" y="401" font-size="12" text-anchor="middle" fill="#6b7280">0</text>
+<line x1="160.6" y1="380" x2="160.6" y2="386" stroke="#27ae60" stroke-width="1.5"/>
+<text x="160.6" y="401" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">0.45</text>
+<line x1="253.0" y1="380" x2="253.0" y2="386" stroke="#6b7280" stroke-width="1.5"/>
+<text x="253.0" y="401" font-size="12" text-anchor="middle" fill="#6b7280">1.0</text>
+<line x1="337.0" y1="380" x2="337.0" y2="386" stroke="#6b7280" stroke-width="1.5"/>
+<text x="337.0" y="401" font-size="12" text-anchor="middle" fill="#6b7280">1.5</text>
+<line x1="387.4" y1="380" x2="387.4" y2="386" stroke="#c0392b" stroke-width="1.5"/>
+<text x="387.4" y="401" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">1.8</text>
+<line x1="454.6" y1="380" x2="454.6" y2="386" stroke="#c0392b" stroke-width="1.5"/>
+<text x="454.6" y="401" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">2.2</text>
+<line x1="505.0" y1="380" x2="505.0" y2="386" stroke="#6b7280" stroke-width="1.5"/>
+<text x="505.0" y="401" font-size="12" text-anchor="middle" fill="#6b7280">2.5</text>
+<text x="160.6" y="418" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">k_derate</text>
+<text x="421" y="418" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">M_stall (блокування)</text>
+<!-- Характеристики швидкості ω(M) -->
+<line x1="85" y1="128" x2="454.6" y2="380" stroke="#2457d6" stroke-width="2.5"/>
+<line x1="85" y1="170" x2="387.4" y2="380" stroke="#1a1a1a" stroke-width="2.5"/>
+<circle cx="85" cy="128" r="4.5" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+<circle cx="85" cy="170" r="4.5" fill="#1a1a1a" stroke="white" stroke-width="1.5"/>
+<text x="92" y="104" font-size="12" font-weight="700" fill="#1a1a1a">Холостий хід (M = 0)</text>
+<circle cx="160.6" cy="222.5" r="4.5" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+<circle cx="177.4" cy="191.0" r="4.5" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+<circle cx="387.4" cy="380" r="4.5" fill="#c0392b" stroke="white" stroke-width="1.5"/>
+<circle cx="454.6" cy="380" r="4.5" fill="#c0392b" stroke="white" stroke-width="1.5"/>
+<!-- Підписи всередині безпечної зони -->
+<text x="123" y="270" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Номінал</text>
+<text x="123" y="286" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">(derating)</text>
+<text x="123" y="306" font-size="12" text-anchor="middle" fill="#1a1a1a">k_derate</text>
+<text x="123" y="322" font-size="12" text-anchor="middle" fill="#6b7280">20–25%</text>
+<!-- Легенда кривих -->
+<rect x="200" y="102" width="112" height="52" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<line x1="208" y1="117" x2="226" y2="117" stroke="#2457d6" stroke-width="2.5"/>
+<text x="232" y="121" font-size="12" font-weight="700" fill="#2457d6">6.0 В</text>
+<text x="264" y="121" font-size="12" fill="#6b7280">(0.10 с)</text>
+<line x1="208" y1="139" x2="226" y2="139" stroke="#1a1a1a" stroke-width="2.5"/>
+<text x="232" y="143" font-size="12" font-weight="700" fill="#1a1a1a">4.8 В</text>
+<text x="264" y="143" font-size="12" fill="#6b7280">(0.12 с)</text>
+<!-- Позначки зон -->
+<text x="123" y="88" font-size="12" font-weight="700" text-anchor="middle" fill="#27ae60">Безпечна зона</text>
+<text x="412" y="88" font-size="12" font-weight="700" text-anchor="middle" fill="#c0392b">Зона аварійного перегріву</text>
+<!-- Права колонка: Інформаційні панелі -->
+<rect x="550" y="75" width="385" height="108" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<text x="565" y="97" font-size="13" font-weight="700" fill="#27ae60">1. Номінальний режим і derating (20–25%)</text>
+<text x="565" y="117" font-size="12" fill="#1a1a1a">Номінальне навантаження: M_nom ≤ 0.45 кг·см (4.8 В)</text>
+<text x="565" y="136" font-size="12" fill="#1a1a1a">Тепловтрати обмоток: P_heat = I_hold² · R_coil ≤ 0.35 Вт</text>
+<text x="565" y="155" font-size="12" fill="#1a1a1a">Безперервний тепловий баланс безвентиляторного корпусу</text>
+<text x="565" y="172" font-size="12" font-weight="700" fill="#27ae60">Безпечне статичне утримання без ризику деградації</text>
+<rect x="550" y="195" width="385" height="108" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="565" y="217" font-size="13" font-weight="700" fill="#2457d6">2. Робоча динамічна зона (маневрування)</text>
+<text x="565" y="237" font-size="12" fill="#1a1a1a">Лінійне падіння швидкості: ω(M) = ω_0 · (1 − M / M_stall)</text>
+<text x="565" y="256" font-size="12" fill="#1a1a1a">Під 80% навантаження час маневру зростає в 5 разів</text>
+<text x="565" y="275" font-size="12" fill="#1a1a1a">Прискорення вимагає динамічного моменту M_dyn = J · ε</text>
+<text x="565" y="292" font-size="12" font-weight="700" fill="#2457d6">Допустимо лише для короткочасного руху важеля</text>
+<rect x="550" y="315" width="385" height="120" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<text x="565" y="337" font-size="13" font-weight="700" fill="#c0392b">3. Аварійна зона: перегрів і заклинювання</text>
+<text x="565" y="357" font-size="12" fill="#1a1a1a">Струм заклинювання: I_stall ≈ 650–800 мА (при ω = 0)</text>
+<text x="565" y="376" font-size="12" fill="#1a1a1a">Тепловтрати P_heat > 2 Вт перевищують норму в 5–7 разів</text>
+<text x="565" y="395" font-size="12" fill="#1a1a1a">Нагрів понад 100 °C руйнує лак обмоток і плавить нейлон</text>
+<text x="565" y="415" font-size="12" font-weight="700" fill="#c0392b">Заборонено тривало утримувати понад 25% M_stall!</text>
+</svg>

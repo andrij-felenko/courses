@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Лінійне відображення кута в імпульс ШІМ та зона софт-лімітів</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Програмні межі (soft limits) звужують діапазон вала та усувають удар об механічні упори</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Графік характеристик -->
+  <rect x="24" y="72" width="576" height="366" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="94" font-size="14" font-weight="700" fill="#1a1a1a">Характеристика t_pulse(θ) та межі безпечного руху</text>
+  <text x="40" y="110" font-size="12" fill="#6b7280">Лінійна інтерполяція в секторі soft limits та горизонтальний клемпінг на межах</text>
+
+  <!-- Зона лівого механічного упору (θ &lt; 0°) -->
+  <rect x="155" y="150" width="20" height="182" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="165" y="138" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Упор 0°</text>
+
+  <!-- Дозволена зона soft limits (5° .. 175°) -->
+  <rect x="200" y="150" width="284" height="182" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" stroke-dasharray="4 3"/>
+
+  <!-- Зона правого механічного упору (θ &gt; 180°) -->
+  <rect x="509" y="150" width="20" height="182" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="519" y="138" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Упор 180°</text>
+
+  <!-- Текстові блоки всередині дозволеної зони (у вільних кутах графіка) -->
+  <text x="212" y="174" font-size="12" font-weight="700" fill="#27ae60">Дозволений сектор</text>
+  <text x="212" y="190" font-size="12" fill="#27ae60">soft limits: [5° .. 175°]</text>
+  <text x="212" y="206" font-size="12" fill="#6b7280">t_pulse(θ) = min + Δt · k</text>
+
+  <text x="465" y="278" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">Робочий режим</text>
+  <text x="465" y="294" font-size="12" fill="#1a1a1a" text-anchor="end">Струм: 150–250 мА</text>
+  <text x="465" y="310" font-size="12" fill="#6b7280" text-anchor="end">Зуби редуктора захищено</text>
+
+  <!-- Буферні стрілки та підписи (5° захисний буфер) -->
+  <text x="187" y="236" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">5°</text>
+  <text x="187" y="250" font-size="12" fill="#6b7280" text-anchor="middle">буфер</text>
+
+  <text x="496" y="236" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">5°</text>
+  <text x="496" y="250" font-size="12" fill="#6b7280" text-anchor="middle">буфер</text>
+
+  <!-- Пунктирні лінії прив'язки до нейтралі та меж -->
+  <line x1="155" y1="241" x2="342" y2="241" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="342" y1="241" x2="342" y2="352" stroke="#2457d6" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <line x1="200" y1="322" x2="200" y2="352" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="484" y1="160" x2="484" y2="352" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Теоретична пряма без клемпінгу (небезпечний вихід на упори) -->
+  <line x1="175" y1="332" x2="200" y2="322" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <line x1="484" y1="160" x2="509" y2="150" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Дійсна характеристика драйвера: горизонтальний клемпінг на софт-лімітах -->
+  <line x1="155" y1="322" x2="200" y2="322" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="200" y1="322" x2="484" y2="160" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="484" y1="160" x2="529" y2="160" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Точки на графіку -->
+  <circle cx="175" cy="332" r="3.5" fill="#c0392b"/>
+  <circle cx="200" cy="322" r="4" fill="#27ae60"/>
+  <circle cx="342" cy="241" r="4.5" fill="#2457d6"/>
+  <circle cx="484" cy="160" r="4" fill="#27ae60"/>
+  <circle cx="509" cy="150" r="3.5" fill="#c0392b"/>
+
+  <!-- Осі координат графіка -->
+  <!-- Вісь Y: t_pulse (мкс) -->
+  <line x1="155" y1="352" x2="155" y2="132" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="155" y="126" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">t_pulse (мкс)</text>
+
+  <!-- Позначки на осі Y -->
+  <line x1="151" y1="150" x2="155" y2="150" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="146" y="146" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">max_pulse_us</text>
+  <text x="146" y="160" font-size="12" fill="#6b7280" text-anchor="end">2460 мкс</text>
+
+  <line x1="151" y1="241" x2="155" y2="241" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="146" y="237" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">neutral_pulse_us</text>
+  <text x="146" y="251" font-size="12" fill="#6b7280" text-anchor="end">1500 мкс</text>
+
+  <line x1="151" y1="332" x2="155" y2="332" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="146" y="328" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">min_pulse_us</text>
+  <text x="146" y="342" font-size="12" fill="#6b7280" text-anchor="end">540 мкс</text>
+
+  <!-- Вісь X: θ (градуси) -->
+  <line x1="155" y1="352" x2="546" y2="352" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="552" y="356" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">θ (°)</text>
+
+  <!-- Позначки на осі X (рознесені за висотою для уникнення злипання) -->
+  <line x1="175" y1="352" x2="175" y2="357" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="175" y="370" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">0°</text>
+  <text x="175" y="384" font-size="12" fill="#6b7280" text-anchor="middle">min_angle</text>
+
+  <line x1="200" y1="352" x2="200" y2="357" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="200" y="400" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">5° (soft_limit_min)</text>
+
+  <line x1="342" y1="352" x2="342" y2="357" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="342" y="370" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">90°</text>
+  <text x="342" y="384" font-size="12" fill="#6b7280" text-anchor="middle">нейтраль</text>
+
+  <line x1="484" y1="352" x2="484" y2="357" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="484" y="400" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">175° (soft_limit_max)</text>
+
+  <line x1="509" y1="352" x2="509" y2="357" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="509" y="370" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">180°</text>
+  <text x="509" y="384" font-size="12" fill="#6b7280" text-anchor="middle">max_angle</text>
+
+  <!-- ПРАВА ВЕРХНЯ ПАНЕЛЬ: Формули та клемпінг -->
+  <rect x="612" y="72" width="324" height="176" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="626" y="94" font-size="13" font-weight="700" fill="#1a1a1a">Математична модель драйвера</text>
+  <text x="626" y="110" font-size="12" fill="#6b7280">Формула інтерполяції та клемпінг команди</text>
+
+  <rect x="624" y="118" width="300" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="636" y="134" font-size="12" font-weight="700" fill="#2457d6">1. Клемпінг кута (clamping):</text>
+  <text x="636" y="150" font-size="12" fill="#1a1a1a">θ_safe = clamp(θ, soft_limit_min, soft_limit_max)</text>
+
+  <rect x="624" y="168" width="300" height="66" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="636" y="186" font-size="12" font-weight="700" fill="#2457d6">2. Розрахунок тривалості імпульсу:</text>
+  <text x="636" y="204" font-size="12" fill="#1a1a1a">t_pulse = min_pulse + (θ_safe - θ_min) · k</text>
+  <text x="636" y="222" font-size="12" fill="#6b7280">де k = (max_pulse - min_pulse) / (θ_max - θ_min)</text>
+
+  <!-- ПРАВА НИЖНЯ ПАНЕЛЬ: Апаратні ризики та захист -->
+  <rect x="612" y="260" width="324" height="178" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="626" y="282" font-size="13" font-weight="700" fill="#1a1a1a">Апаратні ризики та захист редуктора</text>
+  <text x="626" y="298" font-size="12" fill="#6b7280">Чому заборонено виходити на фізичні упори</text>
+
+  <rect x="624" y="306" width="300" height="54" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="636" y="322" font-size="12" font-weight="700" fill="#c0392b">Без софт-лімітів (удар об упор):</text>
+  <text x="636" y="338" font-size="12" fill="#1a1a1a">• I_stall &gt; 1.0–1.2 А → просідання 5 В (BOR)</text>
+  <text x="636" y="352" font-size="12" fill="#1a1a1a">• Зрізання зубів пластикового редуктора SG90</text>
+
+  <rect x="624" y="372" width="300" height="54" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="636" y="388" font-size="12" font-weight="700" fill="#27ae60">Із захистом soft limits (клемпінг):</text>
+  <text x="636" y="404" font-size="12" fill="#1a1a1a">• Буфер 5° усуває удар при заносі за інерцією</text>
+  <text x="636" y="418" font-size="12" fill="#1a1a1a">• Струм 150–250 мА, редуктор повністю цілий</text>
+</svg>

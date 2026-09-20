@@ -1,0 +1,192 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-acc" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-ok" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-err" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-sec" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Векторна декомпозиція струму FOC та втрати моменту при похибці кута ротора</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Похибка нуля Δθ_e дає квадратичний спад тяги cos(Δθ_e) та лінійно збуджує розмагнічуючий струм sin(Δθ_e)</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Векторна діаграма d-q -->
+  <rect x="24" y="72" width="444" height="404" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="246" y="96" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Векторна діаграма в обертовій системі d-q</text>
+  <text x="246" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Проєкція вектора струму I_cmd на справжні осі ротора при похибці Δθ_e</text>
+
+  <!-- Координатні осі d-q ротора -->
+  <!-- Горизонтальна вісь d (постійні магніти ротора) -->
+  <line x1="90" y1="262" x2="400" y2="262" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="408" y="256" font-size="13" font-weight="700" fill="#1a1a1a">+d</text>
+  <text x="355" y="256" font-size="12" fill="#6b7280" text-anchor="middle">Потік Ψ_m</text>
+
+  <!-- Символ постійного магніту ротора вздовж осі +d -->
+  <rect x="250" y="274" width="30" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="265" y="290" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">S</text>
+
+  <rect x="284" y="274" width="30" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="299" y="290" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">N</text>
+
+  <text x="282" y="312" font-size="12" fill="#6b7280" text-anchor="middle">Магніт ротора</text>
+
+  <!-- Стрілка магнітного потоку Ψ_m від магніту -->
+  <line x1="318" y1="285" x2="352" y2="285" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="362" y="289" font-size="12" font-weight="700" fill="#1a1a1a">Ψ_m</text>
+
+  <!-- Вертикальна вісь q (ідеальний напрям струму) -->
+  <line x1="230" y1="278" x2="230" y2="134" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="230" y="126" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">+q (вісь моменту)</text>
+
+  <!-- Уявна вісь q_est контролера (повернута на кут Δθ_e) -->
+  <line x1="230" y1="262" x2="161.2" y2="107.8" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-acc)"/>
+  <text x="155.2" y="103.8" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">q_est</text>
+
+  <!-- Дуга кута похибки Δθ_e -->
+  <path d="M 230.0,214.0 A 48 48 0 0 0 210.5,218.1" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="215" y="206" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Δθ_e</text>
+
+  <!-- Пунктирні лінії проєкцій -->
+  <line x1="179.2" y1="147.8" x2="230" y2="147.8" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="179.2" y1="147.8" x2="179.2" y2="262" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Вектор струму I_cmd (заданий струм вздовж q_est) -->
+  <line x1="230" y1="262" x2="179.2" y2="147.8" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-acc)"/>
+  <text x="167.2" y="161.8" font-size="13" font-weight="700" fill="#2457d6" text-anchor="end">I_cmd</text>
+
+  <!-- Вектор корисної поперечної складової Iq -->
+  <line x1="230" y1="262" x2="230" y2="147.8" stroke="#27ae60" stroke-width="3.5" marker-end="url(#arr-ok)"/>
+  <text x="240" y="198" font-size="12" font-weight="700" fill="#27ae60">I_q = I_cmd · cos(Δθ_e)</text>
+  <text x="240" y="214" font-size="12" fill="#27ae60">Корисний момент T</text>
+
+  <!-- Вектор паразитної поздовжньої складової Id -->
+  <line x1="230" y1="262" x2="179.2" y2="262" stroke="#c0392b" stroke-width="3.5" marker-end="url(#arr-err)"/>
+  <text x="206" y="280" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">I_d = -I_cmd · sin(Δθ_e)</text>
+  <text x="206" y="296" font-size="12" fill="#c0392b" text-anchor="end">Розмагнічування магнітів</text>
+
+  <!-- Центр координат O -->
+  <circle cx="230" cy="262" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Картка 1 лівої панелі: Корисний момент -->
+  <rect x="38" y="338" width="416" height="56" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="50" y="354" font-size="12" font-weight="700" fill="#27ae60">Корисний крутний момент: T = T_max · cos(Δθ_e)</text>
+  <text x="50" y="370" font-size="12" fill="#1a1a1a">Тангенційне зусилля ротора генерується виключно складовою I_q.</text>
+  <text x="50" y="385" font-size="12" fill="#1a1a1a">При малих похибках спад тяги квадратичний: ΔT / T_max ≈ (Δθ_e)² / 2.</text>
+
+  <!-- Картка 2 лівої панелі: Паразитний струм -->
+  <rect x="38" y="406" width="416" height="56" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="50" y="422" font-size="12" font-weight="700" fill="#c0392b">Паразитний струм осі d: I_d = -I_cmd · sin(Δθ_e)</text>
+  <text x="50" y="438" font-size="12" fill="#1a1a1a">Струм I_d не створює моменту, а розсіює джоулеве тепло за законом I_d²·R.</text>
+  <text x="50" y="453" font-size="12" fill="#1a1a1a">Потік осі d спрямований проти поля ротора й загрожує розмагнічуванням.</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Аналітичні графіки -->
+  <rect x="492" y="72" width="444" height="404" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="714" y="96" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Аналітичні залежності: тяга та паразитний струм</text>
+  <text x="714" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Втрата відносного моменту cos(Δθ_e) та ріст струму розмагнічування sin(Δθ_e)</text>
+
+  <!-- Легенда кривих -->
+  <line x1="556" y1="133" x2="578" y2="133" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="584" y="137" font-size="12" font-weight="700" fill="#27ae60">T / T_max = cos(Δθ_e)</text>
+
+  <line x1="755" y1="133" x2="777" y2="133" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="783" y="137" font-size="12" font-weight="700" fill="#c0392b">|I_d| / I_cmd = sin(Δθ_e)</text>
+
+  <!-- Осі координат графіка -->
+  <!-- Горизонтальні пунктирні рівні 1.0 та 0.5 -->
+  <line x1="556" y1="152" x2="886" y2="152" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="556" y1="222.0" x2="886" y2="222.0" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Пунктирні проєкції для точки 45 градусів -->
+  <line x1="721.0" y1="292" x2="721.0" y2="193.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="556" y1="193.0" x2="721.0" y2="193.0" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Пунктирна лінія для 30 градусів -->
+  <line x1="666.0" y1="292" x2="666.0" y2="170.8" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Вісь Y -->
+  <line x1="556" y1="292" x2="556" y2="142" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <!-- Засічки та підписи осі Y -->
+  <line x1="552" y1="152" x2="556" y2="152" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="548" y="156" font-size="12" fill="#6b7280" text-anchor="end">1.0</text>
+
+  <line x1="552" y1="193.0" x2="556" y2="193.0" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="548" y="197.0" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">0.707</text>
+
+  <line x1="552" y1="222.0" x2="556" y2="222.0" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="548" y="226.0" font-size="12" fill="#6b7280" text-anchor="end">0.50</text>
+
+  <line x1="552" y1="292" x2="556" y2="292" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="548" y="296" font-size="12" fill="#6b7280" text-anchor="end">0.0</text>
+
+  <!-- Вісь X -->
+  <line x1="556" y1="292" x2="900" y2="292" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <!-- Засічки та підписи осі X -->
+  <line x1="556" y1="292" x2="556" y2="296" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="556" y="308" font-size="12" fill="#6b7280" text-anchor="middle">0°</text>
+
+  <line x1="611" y1="292" x2="611" y2="296" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="611" y="308" font-size="12" fill="#6b7280" text-anchor="middle">15°</text>
+
+  <line x1="666.0" y1="292" x2="666.0" y2="296" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="666.0" y="308" font-size="12" fill="#6b7280" text-anchor="middle">30°</text>
+
+  <line x1="721.0" y1="292" x2="721.0" y2="297" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="721.0" y="308" font-size="12" fill="#2457d6" font-weight="700" text-anchor="middle">45°</text>
+
+  <line x1="776" y1="292" x2="776" y2="296" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="776" y="308" font-size="12" fill="#6b7280" text-anchor="middle">60°</text>
+
+  <line x1="831" y1="292" x2="831" y2="296" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="831" y="308" font-size="12" fill="#6b7280" text-anchor="middle">75°</text>
+
+  <line x1="886" y1="292" x2="886" y2="296" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="886" y="308" font-size="12" fill="#6b7280" text-anchor="middle">90°</text>
+
+  <text x="721.0" y="324" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Похибка вирівнювання електричного кута Δθ_e</text>
+
+  <!-- Криві -->
+  <!-- Зелена крива: T / T_max = cos(Δθ_e) -->
+  <path d="M 556.0,152.0 L 559.7,152.0 L 563.3,152.1 L 567.0,152.2 L 570.7,152.3 L 574.3,152.5 L 578.0,152.8 L 581.7,153.0 L 585.3,153.4 L 589.0,153.7 L 592.7,154.1 L 596.3,154.6 L 600.0,155.1 L 603.7,155.6 L 607.3,156.2 L 611.0,156.8 L 614.7,157.4 L 618.3,158.1 L 622.0,158.9 L 625.7,159.6 L 629.3,160.4 L 633.0,161.3 L 636.7,162.2 L 640.3,163.1 L 644.0,164.1 L 647.7,165.1 L 651.3,166.2 L 655.0,167.3 L 658.7,168.4 L 662.3,169.6 L 666.0,170.8 L 669.7,172.0 L 673.3,173.3 L 677.0,174.6 L 680.7,175.9 L 684.3,177.3 L 688.0,178.7 L 691.7,180.2 L 695.3,181.7 L 699.0,183.2 L 702.7,184.8 L 706.3,186.3 L 710.0,188.0 L 713.7,189.6 L 717.3,191.3 L 721.0,193.0 L 724.7,194.7 L 728.3,196.5 L 732.0,198.3 L 735.7,200.2 L 739.3,202.0 L 743.0,203.9 L 746.7,205.8 L 750.3,207.7 L 754.0,209.7 L 757.7,211.7 L 761.3,213.7 L 765.0,215.8 L 768.7,217.8 L 772.3,219.9 L 776.0,222.0 L 779.7,224.1 L 783.3,226.3 L 787.0,228.4 L 790.7,230.6 L 794.3,232.8 L 798.0,235.1 L 801.7,237.3 L 805.3,239.6 L 809.0,241.8 L 812.7,244.1 L 816.3,246.4 L 820.0,248.7 L 823.7,251.1 L 827.3,253.4 L 831.0,255.8 L 834.7,258.1 L 838.3,260.5 L 842.0,262.9 L 845.7,265.3 L 849.3,267.7 L 853.0,270.1 L 856.7,272.5 L 860.3,274.9 L 864.0,277.4 L 867.7,279.8 L 871.3,282.2 L 875.0,284.7 L 878.7,287.1 L 882.3,289.6 L 886.0,292.0" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Червона крива: |I_d| / I_cmd = sin(Δθ_e) -->
+  <path d="M 556.0,292.0 L 559.7,289.6 L 563.3,287.1 L 567.0,284.7 L 570.7,282.2 L 574.3,279.8 L 578.0,277.4 L 581.7,274.9 L 585.3,272.5 L 589.0,270.1 L 592.7,267.7 L 596.3,265.3 L 600.0,262.9 L 603.7,260.5 L 607.3,258.1 L 611.0,255.8 L 614.7,253.4 L 618.3,251.1 L 622.0,248.7 L 625.7,246.4 L 629.3,244.1 L 633.0,241.8 L 636.7,239.6 L 640.3,237.3 L 644.0,235.1 L 647.7,232.8 L 651.3,230.6 L 655.0,228.4 L 658.7,226.3 L 662.3,224.1 L 666.0,222.0 L 669.7,219.9 L 673.3,217.8 L 677.0,215.8 L 680.7,213.7 L 684.3,211.7 L 688.0,209.7 L 691.7,207.7 L 695.3,205.8 L 699.0,203.9 L 702.7,202.0 L 706.3,200.2 L 710.0,198.3 L 713.7,196.5 L 717.3,194.7 L 721.0,193.0 L 724.7,191.3 L 728.3,189.6 L 732.0,188.0 L 735.7,186.3 L 739.3,184.8 L 743.0,183.2 L 746.7,181.7 L 750.3,180.2 L 754.0,178.7 L 757.7,177.3 L 761.3,175.9 L 765.0,174.6 L 768.7,173.3 L 772.3,172.0 L 776.0,170.8 L 779.7,169.6 L 783.3,168.4 L 787.0,167.3 L 790.7,166.2 L 794.3,165.1 L 798.0,164.1 L 801.7,163.1 L 805.3,162.2 L 809.0,161.3 L 812.7,160.4 L 816.3,159.6 L 820.0,158.9 L 823.7,158.1 L 827.3,157.4 L 831.0,156.8 L 834.7,156.2 L 838.3,155.6 L 842.0,155.1 L 845.7,154.6 L 849.3,154.1 L 853.0,153.7 L 856.7,153.4 L 860.3,153.0 L 864.0,152.8 L 867.7,152.5 L 871.3,152.3 L 875.0,152.2 L 878.7,152.1 L 882.3,152.0 L 886.0,152.0" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Характерні точки на графіку -->
+  <!-- Точка 0 градусів -->
+  <circle cx="556" cy="152" r="4" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+
+  <!-- Точка 30 градусів -->
+  <circle cx="666.0" cy="170.8" r="4" fill="#27ae60" stroke="white" stroke-width="1.5"/>
+  <circle cx="666.0" cy="222.0" r="4" fill="#c0392b" stroke="white" stroke-width="1.5"/>
+  <text x="658.0" y="216.0" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">30°: |I_d| = 50%</text>
+
+  <!-- Точка перетину при 45 градусах -->
+  <circle cx="721.0" cy="193.0" r="5" fill="#2457d6" stroke="white" stroke-width="1.5"/>
+  <text x="729.0" y="185.0" font-size="12" font-weight="700" fill="#2457d6">45°: T = |I_d| ≈ 0.707</text>
+
+  <!-- Картка 1 правої панелі: Зона малих похибок -->
+  <rect x="506" y="338" width="416" height="56" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="518" y="354" font-size="12" font-weight="700" fill="#2457d6">Зона малих похибок (Δθ_e ≤ 10°): асиметрія ефектів</text>
+  <text x="518" y="370" font-size="12" fill="#1a1a1a">Момент падає квадратично: cos(Δθ_e) ≈ 1 − (Δθ_e)² / 2 (втрата &lt; 1.5%).</text>
+  <text x="518" y="385" font-size="12" fill="#1a1a1a">Паразитний струм зростає лінійно: sin(Δθ_e) ≈ Δθ_e (до 17.4% струму!).</text>
+
+  <!-- Картка 2 правої панелі: Небезпечна зона -->
+  <rect x="506" y="406" width="416" height="56" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="518" y="422" font-size="12" font-weight="700" fill="#c0392b">Критична зона (Δθ_e ≥ 30°): деградація тяги та перегрів</text>
+  <text x="518" y="438" font-size="12" fill="#1a1a1a">Втрата тяги сягає 13.4%, а поздовжній струм I_d становить 50% від I_cmd.</text>
+  <text x="518" y="453" font-size="12" fill="#1a1a1a">Потужність нагріву I_d²·R марнує батарею та загрожує зупинкою мотора.</text>
+</svg>

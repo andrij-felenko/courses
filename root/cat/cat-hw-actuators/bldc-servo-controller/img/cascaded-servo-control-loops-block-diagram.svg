@@ -1,0 +1,228 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Каскадна структура контурів цифрового регулювання BLDC-сервопривода</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Ієрархія смуг пропускання: швидкі внутрішні контури усувають збурення до реакції зовнішніх</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: КОНТУР ПОЛОЖЕННЯ ==================== -->
+  <rect x="20" y="68" width="210" height="376" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="125" y="88" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Контур положення</text>
+  <rect x="30" y="98" width="190" height="22" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="125" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Частота: 1 кГц | Смуга: 20–40 Гц</text>
+
+  <!-- Планувальник траєкторії руху -->
+  <rect x="28" y="126" width="194" height="34" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="125" y="141" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Профіль траєкторії</text>
+  <text x="125" y="154" font-size="12" fill="#6b7280" text-anchor="middle">Завдання: θ*(t), ω_ff(t), ε(t)</text>
+
+  <!-- Сигнал завдання позиції θ* -->
+  <line x1="64" y1="160" x2="64" y2="199" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="74" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">θ*</text>
+
+  <!-- Вузол порівняння позиції Σ1 -->
+  <circle cx="64" cy="212" r="11" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="64" y="216" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Σ</text>
+  <text x="50" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">+</text>
+  <text x="50" y="228" font-size="12" fill="#1a1a1a" text-anchor="middle">−</text>
+
+  <!-- Помилка кута e_θ -->
+  <line x1="75" y1="212" x2="92" y2="212" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="84" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">e_θ</text>
+
+  <!-- Регулятор положення -->
+  <rect x="94" y="168" width="128" height="90" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="158" y="186" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Регулятор кута</text>
+  <text x="158" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">П / ПІ-алгоритм</text>
+  <text x="158" y="218" font-size="12" fill="#6b7280" text-anchor="middle">K_p · e_θ</text>
+  <rect x="98" y="226" width="120" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="158" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Anti-windup: ±ω_lim</text>
+
+  <!-- Вихід на контур швидкості -->
+  <line x1="222" y1="212" x2="251" y2="212" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="236" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">ω_cmd</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: КОНТУР ШВИДКОСТІ ==================== -->
+  <rect x="244" y="68" width="215" height="376" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="351" y="88" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Контур швидкості</text>
+  <rect x="256" y="98" width="190" height="22" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="351" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Частота: 1–5 кГц | Смуга: 100–200 Гц</text>
+
+  <!-- Лінія feedforward швидкості -->
+  <line x1="222" y1="143" x2="264" y2="143" stroke="#2457d6" stroke-width="2"/>
+  <line x1="264" y1="143" x2="264" y2="199" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="272" y="166" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">+ω_ff</text>
+  <text x="272" y="180" font-size="12" fill="#6b7280" text-anchor="start">випередження</text>
+
+  <!-- Вузол додавання feedforward швидкості -->
+  <circle cx="264" cy="212" r="11" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="264" y="216" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Σ</text>
+
+  <!-- Цільова швидкість ω* -->
+  <line x1="275" y1="212" x2="299" y2="212" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="287" y="204" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ω*</text>
+
+  <!-- Вузол порівняння швидкості Σ2 -->
+  <circle cx="312" cy="212" r="11" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="312" y="216" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Σ</text>
+  <text x="301" y="228" font-size="12" fill="#1a1a1a" text-anchor="middle">−</text>
+
+  <!-- Помилка швидкості e_ω -->
+  <line x1="323" y1="212" x2="342" y2="212" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="333" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">e_ω</text>
+
+  <!-- Регулятор швидкості -->
+  <rect x="344" y="168" width="110" height="90" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="399" y="186" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ПІ швидкості</text>
+  <text x="399" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">K_p + K_i / s</text>
+  <text x="399" y="218" font-size="12" fill="#6b7280" text-anchor="middle">інтегрування e_ω</text>
+  <rect x="348" y="226" width="102" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="399" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Anti-windup: I_lim</text>
+
+  <!-- Вихід на контур струму -->
+  <line x1="454" y1="212" x2="480" y2="212" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="467" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">I_q,cmd</text>
+
+  <!-- ==================== ПАНЕЛЬ 3: КОНТУР СТРУМУ ==================== -->
+  <rect x="473" y="68" width="225" height="376" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="585" y="88" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Контур струму (FOC)</text>
+  <rect x="485" y="98" width="200" height="22" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="585" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Частота: 20–40 кГц | Смуга: 1–2 кГц</text>
+
+  <!-- Лінія feedforward моменту/струму -->
+  <line x1="264" y1="143" x2="493" y2="143" stroke="#2457d6" stroke-width="2"/>
+  <line x1="493" y1="143" x2="493" y2="199" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="378" y="134" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Feedforward моменту: I_q,ff = (J · ε) / k_t</text>
+  <text x="501" y="166" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">+I_q,ff</text>
+  <text x="501" y="180" font-size="12" fill="#6b7280" text-anchor="start">компенсація J</text>
+
+  <!-- Вузол додавання feedforward струму -->
+  <circle cx="493" cy="212" r="11" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="493" y="216" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Σ</text>
+
+  <!-- Цільовий струм I_q* -->
+  <line x1="504" y1="212" x2="529" y2="212" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="517" y="204" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">I_q*</text>
+
+  <!-- Вузол порівняння струму Σ3 -->
+  <circle cx="542" cy="212" r="11" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="542" y="216" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Σ</text>
+  <text x="531" y="228" font-size="12" fill="#1a1a1a" text-anchor="middle">−</text>
+
+  <!-- Помилка струму e_I -->
+  <line x1="553" y1="212" x2="570" y2="212" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="562" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">e_I</text>
+
+  <!-- Регулятор струму FOC -->
+  <rect x="572" y="168" width="120" height="90" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="632" y="186" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ПІ струму FOC</text>
+  <text x="632" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">u_q = PI(e_I)</text>
+  <text x="632" y="218" font-size="12" fill="#6b7280" text-anchor="middle">утримання I_d = 0</text>
+  <rect x="576" y="226" width="112" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="632" y="242" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Anti-windup: u_sat</text>
+
+  <!-- Вихід на інвертор -->
+  <line x1="692" y1="212" x2="718" y2="212" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="705" y="204" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">u_q,d</text>
+
+  <!-- ==================== ПАНЕЛЬ 4: ПРИВОД, МОТОР І МЕХАНІКА ==================== -->
+  <rect x="712" y="68" width="228" height="376" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="826" y="88" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Інвертор, мотор і механіка</text>
+  <rect x="724" y="98" width="204" height="22" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="826" y="114" font-size="12" fill="#6b7280" text-anchor="middle">ШІМ: 20–40 кГц | Фази U, V, W</text>
+
+  <!-- Інвертор SVPWM -->
+  <rect x="720" y="168" width="94" height="90" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="767" y="186" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інвертор SVPWM</text>
+  <text x="767" y="202" font-size="12" fill="#2457d6" text-anchor="middle">6 ключів MOSFET</text>
+  <text x="767" y="218" font-size="12" fill="#6b7280" text-anchor="middle">Мертвий час dt</text>
+  <text x="767" y="242" font-size="12" fill="#c0392b" text-anchor="middle">Шина V_bus</text>
+
+  <!-- Фази мотора -->
+  <line x1="814" y1="212" x2="832" y2="212" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="823" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">u,v,w</text>
+
+  <!-- BLDC Мотор і механіка вала -->
+  <rect x="834" y="168" width="98" height="90" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="883" y="186" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">BLDC-мотор</text>
+  <text x="883" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">Момент M_e</text>
+  <text x="883" y="218" font-size="12" fill="#6b7280" text-anchor="middle">Інерція ротора J</text>
+  <text x="883" y="242" font-size="12" fill="#27ae60" text-anchor="middle">Рух: ω(t), θ(t)</text>
+
+  <!-- Зовнішнє збурення моменту (Disturbance) -->
+  <rect x="834" y="128" width="98" height="24" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="883" y="144" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Збурення M_load</text>
+  <line x1="883" y1="152" x2="883" y2="166" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Вимірювання струму фаз (шунти) -->
+  <line x1="767" y1="258" x2="767" y2="272" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <rect x="720" y="274" width="94" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="767" y="290" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шунти струму</text>
+  <text x="767" y="304" font-size="12" fill="#6b7280" text-anchor="middle">Clarke / Park: I_q</text>
+
+  <!-- Магнітний енкодер кута вала -->
+  <line x1="883" y1="258" x2="883" y2="272" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="834" y="274" width="98" height="38" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="883" y="290" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Енкодер ротора</text>
+  <text x="883" y="304" font-size="12" fill="#6b7280" text-anchor="middle">Кут положення θ</text>
+
+  <!-- Оцінка швидкості d/dt -->
+  <rect x="720" y="360" width="94" height="36" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="767" y="375" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Диференціатор</text>
+  <text x="767" y="389" font-size="12" fill="#6b7280" text-anchor="middle">ω = dθ / dt</text>
+
+  <!-- ==================== ЛІНІЇ ЗВОРОТНОГО ЗВ'ЯЗКУ (FEEDBACK) ==================== -->
+  <!-- 1. Зворотний зв'язок струму I_q (Найшвидший контур) -->
+  <line x1="767" y1="312" x2="767" y2="328" stroke="#2457d6" stroke-width="2"/>
+  <line x1="767" y1="328" x2="542" y2="328" stroke="#2457d6" stroke-width="2"/>
+  <line x1="542" y1="328" x2="542" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="635" y="322" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зворотний зв'язок струму I_q (20–40 кГц)</text>
+
+  <!-- 2. Зворотний зв'язок швидкості ω (Проміжний контур) -->
+  <line x1="883" y1="312" x2="883" y2="378" stroke="#2457d6" stroke-width="2"/>
+  <line x1="883" y1="378" x2="816" y2="378" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="720" y1="378" x2="312" y2="378" stroke="#2457d6" stroke-width="2"/>
+  <line x1="312" y1="378" x2="312" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="470" y="372" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зворотний зв'язок швидкості ω (1–5 кГц)</text>
+
+  <!-- 3. Зворотний зв'язок положення θ (Зовнішній контур) -->
+  <line x1="883" y1="378" x2="883" y2="424" stroke="#2457d6" stroke-width="2"/>
+  <line x1="883" y1="424" x2="64" y2="424" stroke="#2457d6" stroke-width="2"/>
+  <line x1="64" y1="424" x2="64" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="300" y="418" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зворотний зв'язок положення θ (1 кГц)</text>
+
+  <!-- ==================== НИЖНЯ ПАНЕЛЬ: ІЄРАРХІЯ СМУГ ТА ЗБУРЕННЯ ==================== -->
+  <rect x="20" y="458" width="920" height="78" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="476" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ієрархія смуг пропускання та придушення збурень</text>
+
+  <!-- Картка 1: Положення -->
+  <rect x="30" y="484" width="280" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="501" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контур кута: смуга 20–40 Гц</text>
+  <text x="170" y="517" font-size="12" fill="#6b7280" text-anchor="middle">Плавна траєкторія без перерегулювання</text>
+
+  <!-- Картка 2: Швидкість -->
+  <rect x="326" y="484" width="294" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="473" y="501" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контур швидкості: смуга 100–200 Гц</text>
+  <text x="473" y="517" font-size="12" fill="#6b7280" text-anchor="middle">Смуга у 5× ширша: демпфування коливань вала</text>
+
+  <!-- Картка 3: Струм -->
+  <rect x="636" y="484" width="294" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="783" y="501" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Контур струму: смуга 1–2 кГц</text>
+  <text x="783" y="517" font-size="12" fill="#1a1a1a" text-anchor="middle">Смуга у 10× ширша: миттєве придушення M_load</text>
+</svg>

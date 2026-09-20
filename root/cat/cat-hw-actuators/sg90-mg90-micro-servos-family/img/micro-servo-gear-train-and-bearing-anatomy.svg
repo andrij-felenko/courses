@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 524" width="960" height="524" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="524" fill="white"/>
+  <!-- ЗАГОЛОВОК І ПІДЗАГОЛОВОК -->
+  <text x="480" y="30" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Кінематична анатомія редуктора й опори вала: SG90 проти MG90S / MG90D</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Опорний кулькопідшипник MG90S компенсує радіальне навантаження, усуваючи перекіс і зрізання зубів</text>
+  <!-- ЛІВА ПАНЕЛЬ: SG90 -->
+  <rect x="24" y="66" width="446" height="438" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="38" y="76" width="418" height="26" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="247" y="94" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">SG90: втулка ковзання та нейлоновий ряд шестерень</text>
+  <!-- ПРАВА ПАНЕЛЬ: MG90S / MG90D -->
+  <rect x="490" y="66" width="446" height="438" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="504" y="76" width="418" height="26" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="713" y="94" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">MG90S / MG90D: опорний кулькопідшипник і металевий ряд</text>
+  <!-- ДІАГРАМНІ БОКСИ -->
+  <rect x="38" y="116" width="418" height="262" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="504" y="116" width="418" height="262" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <!-- SG90: Корпус та втулка -->
+  <path d="M 46,168 L 94,168 L 94,192 L 46,192 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+  <path d="M 118,168 L 244,168 L 244,192 L 118,192 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+  <polygon points="94,168 98,168 94,192" fill="#fdecea" stroke="#c0392b" stroke-width="0.8"/>
+  <polygon points="118,168 114,192 118,192" fill="#fdecea" stroke="#c0392b" stroke-width="0.8"/>
+  <!-- SG90: Потенціометр -->
+  <path d="M 80,268 L 126,268 L 126,300 L 80,300 Z" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+  <text x="103" y="288" font-size="12" fill="#6b7280" text-anchor="middle">Потенц.</text>
+  <!-- SG90: Нахилений вихідний вал -->
+  <polygon points="103,126 117,126 108,268 94,268" fill="#cbd5e1" stroke="#475569" stroke-width="1.2"/>
+  <line x1="106" y1="126" x2="106" y2="135" stroke="#475569" stroke-width="1"/>
+  <line x1="110" y1="126" x2="110" y2="135" stroke="#475569" stroke-width="1"/>
+  <line x1="114" y1="126" x2="114" y2="135" stroke="#475569" stroke-width="1"/>
+  <line x1="106" y1="122" x2="106" y2="216" stroke="#94a3b8" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="68" y="146" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">θ ≈ 3°</text>
+  <!-- SG90: Важіль -->
+  <polygon points="98,135 174,139 174,147 98,143" fill="#f1f5f9" stroke="#64748b" stroke-width="1.2"/>
+  <circle cx="168" cy="143" r="2.5" fill="#ffffff" stroke="#64748b" stroke-width="1"/>
+  <line x1="168" y1="143" x2="214" y2="143" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="191" y="135" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">F_rad</text>
+  <!-- SG90: Вихідна шестерня -->
+  <polygon points="78,226 128,222 128,234 78,238" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+  <polygon points="128,222 135,221 135,229 128,230" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+  <!-- SG90: Проміжна шестерня 3 -->
+  <line x1="154" y1="196" x2="154" y2="260" stroke="#94a3b8" stroke-width="1.5"/>
+  <path d="M 134,222 L 174,222 L 174,232 L 161,232 L 161,248 L 147,248 L 147,232 L 134,232 Z" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+  <circle cx="134" cy="222" r="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="134" cy="222" r="2" fill="#c0392b"/>
+  <!-- SG90: Проміжна шестерня 2 -->
+  <line x1="184" y1="206" x2="184" y2="260" stroke="#94a3b8" stroke-width="1.5"/>
+  <path d="M 169,214 L 199,214 L 199,222 L 189,222 L 189,240 L 179,240 L 179,222 L 169,222 Z" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+  <path d="M 201,218 L 211,218 L 211,234 L 201,234 Z" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+  <!-- SG90: Мотор -->
+  <path d="M 194,238 L 218,238 L 218,286 L 194,286 Z" fill="#f1f5f9" stroke="#64748b" stroke-width="1.2"/>
+  <text x="206" y="258" font-size="12" fill="#1a1a1a" text-anchor="middle">DC</text>
+  <text x="206" y="274" font-size="12" fill="#6b7280" text-anchor="middle">M</text>
+  <text x="206" y="299" font-size="12" fill="#6b7280" text-anchor="middle">15 000 об/хв</text>
+  <!-- SG90 Картка 1: Опора -->
+  <rect x="252" y="124" width="194" height="80" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="262" y="142" font-size="12" font-weight="700" fill="#c0392b">1. Опора: втулка ковзання</text>
+  <text x="262" y="159" font-size="12" fill="#1a1a1a">• Опори кочення немає</text>
+  <text x="262" y="176" font-size="12" fill="#c0392b">• Вибитий пластик: люфт Δr</text>
+  <text x="262" y="193" font-size="12" fill="#c0392b">• Нахил осі вала θ_tilt ≈ 3°</text>
+  <!-- SG90 Картка 2: Зубці -->
+  <rect x="252" y="216" width="194" height="84" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="262" y="234" font-size="12" font-weight="700" fill="#c0392b">2. Зубці: концентрація σ</text>
+  <text x="262" y="251" font-size="12" fill="#1a1a1a">• Контакт лише на кутку зуба</text>
+  <text x="262" y="268" font-size="12" fill="#c0392b">• Площа зачеплення спадає</text>
+  <text x="262" y="285" font-size="12" fill="#c0392b">• Пік σ_max зрізає нейлон</text>
+  <!-- SG90 Нижня плашка -->
+  <rect x="48" y="314" width="398" height="52" rx="5" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+  <text x="58" y="332" font-size="12" font-weight="700" fill="#1a1a1a">Кінематика: 4 щаблі нейлонового ряду (i ≈ 1:300)</text>
+  <text x="58" y="350" font-size="12" fill="#c0392b">⚠ Перекіс вала зменшує контактну площу зуба на 80% → зрізання</text>
+  <!-- MG90S: Корпус та підшипниковий вузол -->
+  <path d="M 512,168 L 552,168 L 552,192 L 512,192 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+  <path d="M 592,168 L 710,168 L 710,192 L 592,192 Z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/>
+  <path d="M 552,168 L 592,168 L 592,192 L 552,192 Z" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <path d="M 564,168 L 580,168 L 580,192 L 564,192 Z" fill="#94a3b8"/>
+  <circle cx="558" cy="180" r="4" fill="#ffffff" stroke="#1e293b" stroke-width="1.2"/>
+  <circle cx="586" cy="180" r="4" fill="#ffffff" stroke="#1e293b" stroke-width="1.2"/>
+  <line x1="602" y1="180" x2="592" y2="180" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="604" y="164" font-size="12" font-weight="700" fill="#27ae60">R_bear</text>
+  <!-- MG90S: Потенціометр -->
+  <path d="M 549,268 L 595,268 L 595,300 L 549,300 Z" fill="#f8fafc" stroke="#94a3b8" stroke-width="1"/>
+  <text x="572" y="288" font-size="12" fill="#6b7280" text-anchor="middle">Потенц.</text>
+  <!-- MG90S: Вертикальний металевий вал -->
+  <path d="M 565,126 L 579,126 L 579,268 L 565,268 Z" fill="#94a3b8" stroke="#334155" stroke-width="1.2"/>
+  <line x1="568" y1="126" x2="568" y2="135" stroke="#334155" stroke-width="1"/>
+  <line x1="572" y1="126" x2="572" y2="135" stroke="#334155" stroke-width="1"/>
+  <line x1="576" y1="126" x2="576" y2="135" stroke="#334155" stroke-width="1"/>
+  <!-- MG90S: Важіль -->
+  <path d="M 560,137 L 640,137 L 640,147 L 560,147 Z" fill="#f1f5f9" stroke="#64748b" stroke-width="1.2"/>
+  <circle cx="634" cy="142" r="2.5" fill="#ffffff" stroke="#64748b" stroke-width="1"/>
+  <line x1="634" y1="142" x2="680" y2="142" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="657" y="134" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">F_rad</text>
+  <!-- MG90S: Вихідна шестерня -->
+  <path d="M 546,224 L 598,224 L 598,236 L 546,236 Z" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+  <path d="M 598,222 L 605,222 L 605,238 L 598,238 Z" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+  <!-- MG90S: Проміжна шестерня 3 -->
+  <line x1="620" y1="196" x2="620" y2="260" stroke="#475569" stroke-width="1.5"/>
+  <path d="M 605,222 L 645,222 L 645,234 L 626,234 L 626,248 L 614,248 L 614,234 L 605,234 Z" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+  <path d="M 604,222 L 607,222 L 607,238 L 604,238 Z" fill="#27ae60"/>
+  <!-- MG90S: Проміжна шестерня 2 -->
+  <line x1="650" y1="206" x2="650" y2="260" stroke="#475569" stroke-width="1.5"/>
+  <path d="M 635,214 L 665,214 L 665,222 L 655,222 L 655,240 L 645,240 L 645,222 L 635,222 Z" fill="#fef3c7" stroke="#d97706" stroke-width="1.2"/>
+  <path d="M 667,218 L 677,218 L 677,234 L 667,234 Z" fill="#ffffff" stroke="#94a3b8" stroke-width="1.2"/>
+  <!-- MG90S: Мотор -->
+  <path d="M 660,238 L 684,238 L 684,286 L 660,286 Z" fill="#f1f5f9" stroke="#64748b" stroke-width="1.2"/>
+  <text x="672" y="258" font-size="12" fill="#1a1a1a" text-anchor="middle">DC</text>
+  <text x="672" y="274" font-size="12" fill="#6b7280" text-anchor="middle">M</text>
+  <text x="672" y="299" font-size="12" fill="#6b7280" text-anchor="middle">15 000 об/хв</text>
+  <!-- MG90S Картка 1: Опора -->
+  <rect x="718" y="124" width="194" height="80" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="728" y="142" font-size="12" font-weight="700" fill="#27ae60">1. Опора: кулькопідшипник</text>
+  <text x="728" y="159" font-size="12" fill="#1a1a1a">• Опорний кулькопідшипник</text>
+  <text x="728" y="176" font-size="12" fill="#27ae60">• Реакція R_bear гасить F_rad</text>
+  <text x="728" y="193" font-size="12" fill="#27ae60">• Співвісність: θ_tilt = 0°</text>
+  <!-- MG90S Картка 2: Зубці -->
+  <rect x="718" y="216" width="194" height="84" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="728" y="234" font-size="12" font-weight="700" fill="#27ae60">2. Зубці: повний контакт b</text>
+  <text x="728" y="251" font-size="12" fill="#1a1a1a">• Паралельність вінців шестерень</text>
+  <text x="728" y="268" font-size="12" fill="#27ae60">• Напруження σ &lt; [σ_латунь]</text>
+  <text x="728" y="285" font-size="12" fill="#27ae60">• Відсутність крайових сколів</text>
+  <!-- MG90S Нижня плашка -->
+  <rect x="514" y="314" width="398" height="52" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="524" y="332" font-size="12" font-weight="700" fill="#27ae60">Кінематика: латунь та алюміній (i ≈ 1:300, щабель 1 — пластик)</text>
+  <text x="524" y="350" font-size="12" fill="#1a1a1a">✓ Опора вала зберігає 100% зачеплення зубів під ударними навантаженнями</text>
+  <!-- ПІДСУМКОВІ КАРТКИ -->
+  <rect x="38" y="392" width="418" height="98" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="50" y="410" font-size="13" font-weight="700" fill="#c0392b">Характеристики редуктора SG90:</text>
+  <text x="50" y="428" font-size="12" fill="#1a1a1a">• Опора вала: отвір у кришці корпусу (втулка ковзання)</text>
+  <text x="50" y="446" font-size="12" fill="#1a1a1a">• Зубчастий ряд: білий нейлон (низька границя зсуву)</text>
+  <text x="50" y="464" font-size="12" fill="#c0392b">• Відмова: розбиття гнізда, перекіс осі, крайове зрізання зубів</text>
+  <text x="50" y="480" font-size="12" fill="#6b7280">• Граничний момент: M_max ≈ 1.6–1.8 кг·см (боїться ударів)</text>
+  <rect x="504" y="392" width="418" height="98" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="516" y="410" font-size="13" font-weight="700" fill="#27ae60">Характеристики редуктора MG90S / MG90D:</text>
+  <text x="516" y="428" font-size="12" fill="#1a1a1a">• Опора вала: кульковий підшипник кочення (загартована сталь)</text>
+  <text x="516" y="446" font-size="12" fill="#1a1a1a">• Зубчастий ряд: латунь та загартований алюмінієвий сплав</text>
+  <text x="516" y="464" font-size="12" fill="#27ae60">• Надійність: нульовий люфт, паралельність осей, контакт по всій ширині b</text>
+  <text x="516" y="480" font-size="12" fill="#6b7280">• Граничний момент: M_max ≈ 2.2–2.5 кг·см (витримує удари)</text>
+</svg>

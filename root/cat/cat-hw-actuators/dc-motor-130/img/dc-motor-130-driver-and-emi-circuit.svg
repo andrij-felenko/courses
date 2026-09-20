@@ -1,0 +1,271 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="33" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Підключення двигуна 130 до силового H-моста та EMI-фільтр</text>
+  <text x="480" y="53" font-size="13" fill="#6b7280" text-anchor="middle">Захист ключів зворотними діодами від індуктивних сплесків та триконденсаторне пригнічення завад колектора</text>
+
+  <!-- ================= СИЛОВА СХЕМА (ГОЛОВНА ПАНЕЛЬ) ================= -->
+  <rect x="24" y="68" width="912" height="262" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="89" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Принципова електрична схема комутації та триконденсаторної фільтрації</text>
+
+  <!-- ШИНА ЖИВЛЕННЯ +V_M (3,0...6,0 В) -->
+  <line x1="50" y1="112" x2="775" y2="112" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="52" y="103" font-size="12" font-weight="700" fill="#c0392b">+V_M (+3,0...6,0 В)</text>
+
+  <!-- ШИНА ЗЕМЛІ GND (0 В) -->
+  <line x1="50" y1="308" x2="775" y2="308" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="68" y="324" font-size="12" font-weight="700" fill="#1a1a1a">GND (0 В)</text>
+  <!-- Символ GND ліворуч -->
+  <line x1="52" y1="308" x2="52" y2="316" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="44" y1="316" x2="60" y2="316" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="47" y1="320" x2="57" y2="320" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="50" y1="324" x2="54" y2="324" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- ================= БЛОКУВАЛЬНІ КОНДЕНСАТОРИ ================= -->
+  <!-- C_bulk (470 мкФ) -->
+  <line x1="95" y1="112" x2="95" y2="206" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="87" y1="206" x2="103" y2="206" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="87" y1="214" x2="103" y2="214" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="95" y1="214" x2="95" y2="308" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="95" cy="112" r="2.5" fill="#c0392b"/>
+  <circle cx="95" cy="308" r="2.5" fill="#1a1a1a"/>
+  <text x="89" y="198" font-size="12" font-weight="700" fill="#2457d6">+</text>
+  <text x="110" y="206" font-size="12" font-weight="700" fill="#2457d6">C_bulk</text>
+  <text x="110" y="221" font-size="12" fill="#6b7280">470 мкФ</text>
+
+  <!-- C_dec (100 нФ) -->
+  <line x1="165" y1="112" x2="165" y2="206" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="157" y1="206" x2="173" y2="206" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="157" y1="214" x2="173" y2="214" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="165" y1="214" x2="165" y2="308" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="165" cy="112" r="2.5" fill="#c0392b"/>
+  <circle cx="165" cy="308" r="2.5" fill="#1a1a1a"/>
+  <text x="180" y="206" font-size="12" font-weight="700" fill="#2457d6">C_dec</text>
+  <text x="180" y="221" font-size="12" fill="#6b7280">100 нФ</text>
+
+  <!-- ================= ЛІВЕ ПЛЕЧЕ H-МОСТА (OUT1 / Клема A) ================= -->
+  <!-- Вузли +V_M -->
+  <circle cx="230" cy="112" r="2.5" fill="#c0392b"/>
+  <circle cx="280" cy="112" r="2.5" fill="#c0392b"/>
+
+  <!-- Діод D1 (Шотткі, паралельно Q1) -->
+  <line x1="230" y1="112" x2="230" y2="152" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="222,168 238,168 230,152" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <path d="M222,156 L222,152 L238,152 L238,148" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="230" y1="168" x2="230" y2="210" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="214" y="156" font-size="12" font-weight="700" fill="#6b7280" text-anchor="end">D1</text>
+  <text x="214" y="171" font-size="12" fill="#6b7280" text-anchor="end">Шотткі</text>
+
+  <!-- Ключ Q1 (Верхній лівий) -->
+  <line x1="280" y1="112" x2="280" y2="148" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="280" cy="148" r="2.5" fill="#1a1a1a"/>
+  <circle cx="280" cy="174" r="2.5" fill="#1a1a1a"/>
+  <line x1="280" y1="174" x2="272" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="280" y1="174" x2="280" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="296" y="156" font-size="12" font-weight="700" fill="#1a1a1a">Q1</text>
+  <text x="296" y="171" font-size="12" fill="#6b7280">Верхній</text>
+
+  <!-- Вузол OUT1 (Node A) -->
+  <line x1="230" y1="210" x2="280" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="230" cy="210" r="2.5" fill="#1a1a1a"/>
+  <circle cx="280" cy="210" r="3" fill="#2457d6"/>
+  <text x="274" y="200" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">OUT1</text>
+
+  <!-- Діод D3 (Шотткі, паралельно Q3) -->
+  <line x1="230" y1="210" x2="230" y2="250" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="222,266 238,266 230,250" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <path d="M222,254 L222,250 L238,250 L238,246" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="230" y1="266" x2="230" y2="308" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="230" cy="308" r="2.5" fill="#1a1a1a"/>
+  <text x="214" y="254" font-size="12" font-weight="700" fill="#6b7280" text-anchor="end">D3</text>
+  <text x="214" y="269" font-size="12" fill="#6b7280" text-anchor="end">Шотткі</text>
+
+  <!-- Ключ Q3 (Нижній лівий) -->
+  <line x1="280" y1="210" x2="280" y2="246" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="280" cy="246" r="2.5" fill="#1a1a1a"/>
+  <circle cx="280" cy="272" r="2.5" fill="#1a1a1a"/>
+  <line x1="280" y1="272" x2="272" y2="248" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="280" y1="272" x2="280" y2="308" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="280" cy="308" r="2.5" fill="#1a1a1a"/>
+  <text x="296" y="254" font-size="12" font-weight="700" fill="#1a1a1a">Q3</text>
+  <text x="296" y="269" font-size="12" fill="#6b7280">Нижній</text>
+
+  <!-- ================= СЕРЕДНЯ СЕКЦІЯ: ДВИГУН 130 ТА EMI-ФІЛЬТР ================= -->
+  <!-- Лінія OUT1 від ключа до щітки мотора -->
+  <line x1="280" y1="210" x2="448" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Лінія OUT2 від правої щітки мотора до ключа -->
+  <line x1="512" y1="210" x2="675" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Сталевий корпус двигуна (електромагнітний екран) -->
+  <rect x="432" y="168" width="96" height="80" rx="8" fill="#ffffff" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="480" y="183" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Двигун 130</text>
+
+  <!-- Щітки мотора -->
+  <rect x="448" y="205" width="12" height="10" fill="#1a1a1a"/>
+  <rect x="500" y="205" width="12" height="10" fill="#1a1a1a"/>
+
+  <!-- Коло мотора (r=20) -->
+  <circle cx="480" cy="210" r="20" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="480" y="216" font-size="15" font-weight="700" fill="#2457d6" text-anchor="middle">M</text>
+
+  <!-- Точки пайки клем на задній кришці -->
+  <circle cx="448" cy="210" r="3" fill="#f59e0b" stroke="#b45309" stroke-width="1"/>
+  <circle cx="512" cy="210" r="3" fill="#f59e0b" stroke="#b45309" stroke-width="1"/>
+
+  <!-- ================= C1: ДИФЕРЕНЦІАЛЬНИЙ ФІЛЬТР (МІЖ КЛЕМАМИ) ================= -->
+  <circle cx="350" cy="210" r="2.5" fill="#1a1a1a"/>
+  <line x1="350" y1="210" x2="350" y2="156" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="350" y1="156" x2="474" y2="156" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Пластини C1 -->
+  <line x1="474" y1="148" x2="474" y2="164" stroke="#e67e22" stroke-width="2.5"/>
+  <line x1="486" y1="148" x2="486" y2="164" stroke="#e67e22" stroke-width="2.5"/>
+  <line x1="486" y1="156" x2="610" y2="156" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="610" y1="156" x2="610" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="610" cy="210" r="2.5" fill="#1a1a1a"/>
+  <!-- Підпис C1 -->
+  <text x="480" y="126" font-size="12" fill="#6b7280" text-anchor="middle">Диференціальний фільтр (іскріння щіток)</text>
+  <text x="480" y="142" font-size="12" font-weight="700" fill="#e67e22" text-anchor="middle">C1 (100 нФ, кераміка)</text>
+
+  <!-- ================= C2, C3: СИНФАЗНІ ФІЛЬТРИ НА КОРПУС ================= -->
+  <!-- Відвід OUT1 на C2 -->
+  <circle cx="370" cy="210" r="2.5" fill="#1a1a1a"/>
+  <line x1="370" y1="210" x2="370" y2="264" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="370" y1="264" x2="402" y2="264" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Пластини C2 (центр x=408) -->
+  <line x1="402" y1="256" x2="402" y2="272" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="414" y1="256" x2="414" y2="272" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="414" y1="264" x2="480" y2="264" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Відвід OUT2 на C3 -->
+  <circle cx="590" cy="210" r="2.5" fill="#1a1a1a"/>
+  <line x1="590" y1="210" x2="590" y2="264" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="590" y1="264" x2="558" y2="264" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Пластини C3 (центр x=552) -->
+  <line x1="558" y1="256" x2="558" y2="272" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="546" y1="256" x2="546" y2="272" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="546" y1="264" x2="480" y2="264" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Центральна точка на сталевий корпус -->
+  <circle cx="480" cy="264" r="2.5" fill="#1a1a1a"/>
+  <line x1="480" y1="248" x2="480" y2="264" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="480" y1="264" x2="480" y2="279" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Шасі / корпусний контакт -->
+  <line x1="472" y1="279" x2="488" y2="279" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="473" y1="284" x2="477" y2="279" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="479" y1="284" x2="483" y2="279" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="485" y1="284" x2="489" y2="279" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Підписи C2, C3 та корпусу -->
+  <text x="408" y="284" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">C2 (10–100 нФ)</text>
+  <text x="552" y="284" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">C3 (10–100 нФ)</text>
+  <text x="480" y="299" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Металевий корпус двигуна (шасі / екран)</text>
+
+  <!-- ================= ПРАВЕ ПЛЕЧЕ H-МОСТА (OUT2 / Клема B) ================= -->
+  <!-- Вузли +V_M -->
+  <circle cx="675" cy="112" r="2.5" fill="#c0392b"/>
+  <circle cx="725" cy="112" r="2.5" fill="#c0392b"/>
+
+  <!-- Ключ Q2 (Верхній правий) -->
+  <line x1="675" y1="112" x2="675" y2="148" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="675" cy="148" r="2.5" fill="#1a1a1a"/>
+  <circle cx="675" cy="174" r="2.5" fill="#1a1a1a"/>
+  <line x1="675" y1="174" x2="667" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="675" y1="174" x2="675" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="659" y="156" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">Q2</text>
+  <text x="659" y="171" font-size="12" fill="#6b7280" text-anchor="end">Верхній</text>
+
+  <!-- Діод D2 (Шотткі, паралельно Q2) -->
+  <line x1="725" y1="112" x2="725" y2="152" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="717,168 733,168 725,152" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <path d="M717,156 L717,152 L733,152 L733,148" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="725" y1="168" x2="725" y2="210" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="741" y="156" font-size="12" font-weight="700" fill="#6b7280">D2</text>
+  <text x="741" y="171" font-size="12" fill="#6b7280">Шотткі</text>
+
+  <!-- Вузол OUT2 (Node B) -->
+  <line x1="675" y1="210" x2="725" y2="210" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="675" cy="210" r="3" fill="#2457d6"/>
+  <circle cx="725" cy="210" r="2.5" fill="#1a1a1a"/>
+  <text x="681" y="200" font-size="12" font-weight="700" fill="#2457d6">OUT2</text>
+
+  <!-- Ключ Q4 (Нижній правий) -->
+  <line x1="675" y1="210" x2="675" y2="246" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="675" cy="246" r="2.5" fill="#1a1a1a"/>
+  <circle cx="675" cy="272" r="2.5" fill="#1a1a1a"/>
+  <line x1="675" y1="272" x2="667" y2="248" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="675" y1="272" x2="675" y2="308" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="675" cy="308" r="2.5" fill="#1a1a1a"/>
+  <text x="659" y="254" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">Q4</text>
+  <text x="659" y="269" font-size="12" fill="#6b7280" text-anchor="end">Нижній</text>
+
+  <!-- Діод D4 (Шотткі, паралельно Q4) -->
+  <line x1="725" y1="210" x2="725" y2="250" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="717,266 733,266 725,250" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <path d="M717,254 L717,250 L733,250 L733,246" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="725" y1="266" x2="725" y2="308" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="725" cy="308" r="2.5" fill="#1a1a1a"/>
+  <text x="741" y="254" font-size="12" font-weight="700" fill="#6b7280">D4</text>
+  <text x="741" y="269" font-size="12" fill="#6b7280">Шотткі</text>
+
+  <!-- ================= СИГНАЛИ КЕРУВАННЯ (БЛОК ДРАЙВЕРА) ================= -->
+  <rect x="800" y="132" width="120" height="156" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="860" y="152" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">ДРАЙВЕР / МК</text>
+  <text x="860" y="167" font-size="12" fill="#6b7280" text-anchor="middle">Керуюча логіка</text>
+  <line x1="810" y1="175" x2="910" y2="175" stroke="#d0d7de" stroke-width="1"/>
+
+  <line x1="800" y1="195" x2="755" y2="195" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="860" y="193" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">IN1 (ШІМ / Dir)</text>
+  <text x="860" y="208" font-size="12" fill="#6b7280" text-anchor="middle">Керує Q1, Q3</text>
+
+  <line x1="800" y1="235" x2="755" y2="235" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="860" y="233" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">IN2 (ШІМ / Dir)</text>
+  <text x="860" y="248" font-size="12" fill="#6b7280" text-anchor="middle">Керує Q2, Q4</text>
+
+  <text x="860" y="274" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Dead-Time захист</text>
+
+
+  <!-- ================= ТРИ ІНФОРМАЦІЙНІ БЛОКИ ВНИЗУ ================= -->
+  <!-- БЛОК 1: Силовий H-міст та діоди -->
+  <rect x="24" y="344" width="292" height="112" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="34" y="352" width="272" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="170" y="368" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Захисні діоди D1–D4 та ключі</text>
+  <text x="36" y="392" font-size="12" font-weight="700" fill="#1a1a1a">• Діоди Шотткі: <tspan font-weight="400" fill="#6b7280">зрізання проти-ЕРС</tspan></text>
+  <text x="36" y="410" font-size="12" fill="#1a1a1a">  Скидають сплески -L·di/dt у шини V_M та GND</text>
+  <text x="36" y="428" font-size="12" font-weight="700" fill="#1a1a1a">• Струм блокування: <tspan font-weight="400" fill="#6b7280">I_stall до 2,5 А</tspan></text>
+  <text x="36" y="446" font-size="12" fill="#6b7280">  Ключі Q1–Q4 підбирають із запасом (≥ 3,0 А)</text>
+
+  <!-- БЛОК 2: Триконденсаторний EMI-фільтр -->
+  <rect x="334" y="344" width="292" height="112" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="344" y="352" width="272" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="368" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Триконденсаторний EMI-фільтр</text>
+  <text x="346" y="392" font-size="12" font-weight="700" fill="#1a1a1a">• C1 (100 нФ): <tspan font-weight="400" fill="#6b7280">диференціальний шум</tspan></text>
+  <text x="346" y="410" font-size="12" fill="#1a1a1a">  Шунтує високочастотне іскріння щіток</text>
+  <text x="346" y="428" font-size="12" font-weight="700" fill="#1a1a1a">• C2, C3 (10–100 нФ): <tspan font-weight="400" fill="#6b7280">синфазний шум</tspan></text>
+  <text x="346" y="446" font-size="12" fill="#6b7280">  Скидають завади на сталевий екран корпусу</text>
+
+  <!-- БЛОК 3: Вимоги монтажу -->
+  <rect x="644" y="344" width="292" height="112" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="654" y="352" width="272" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="368" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Вимоги монтажу двигуна 130</text>
+  <text x="656" y="392" font-size="12" font-weight="700" fill="#1a1a1a">• Виводи фільтра: <tspan font-weight="400" fill="#6b7280">довжина &lt; 5 мм</tspan></text>
+  <text x="656" y="410" font-size="12" fill="#1a1a1a">  Паразитна L ≈ 1 нГн/мм перетворює ніжки на антени</text>
+  <text x="656" y="428" font-size="12" font-weight="700" fill="#1a1a1a">• Тепловий ліміт: <tspan font-weight="400" fill="#6b7280">T_кришки &le; 70 °C</tspan></text>
+  <text x="656" y="446" font-size="12" fill="#6b7280">  Швидка пайка без перегріву щіткотримача</text>
+</svg>

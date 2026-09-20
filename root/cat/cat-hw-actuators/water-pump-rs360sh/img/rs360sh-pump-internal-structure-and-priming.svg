@@ -1,0 +1,198 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-flow" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня будова помпи RS-360SH та механізм самовсмоктування</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Циклічна зміна об'єму порожнин створює розрідження на вході та нагнітає потік на виході</text>
+
+  <!-- ================= ЛІВА ПАНЕЛЬ: ПОЗДОВЖНІЙ РОЗРІЗ ================= -->
+  <rect x="24" y="72" width="446" height="384" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка лівої панелі -->
+  <rect x="36" y="82" width="422" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="98" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Поздовжній розріз: будова приводу в зборі</text>
+  <text x="247" y="113" font-size="12" fill="#6b7280" text-anchor="middle">Колекторний мотор RS-360SH + муфта + герметична головка</text>
+
+  <!-- Схема помпи в зборі -->
+  <!-- Клеми живлення -->
+  <rect x="40" y="196" width="14" height="8" rx="1" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="35" y="193" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">+</text>
+
+  <rect x="40" y="256" width="14" height="8" rx="1" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="35" y="275" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">-</text>
+
+  <!-- Задня пластикова кришка мотора -->
+  <rect x="54" y="174" width="14" height="112" rx="3" fill="#eef2f8" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Сталевий корпус двигуна RS-360SH -->
+  <rect x="68" y="164" width="140" height="132" rx="4" fill="#f8fafc" stroke="#1a1a1a" stroke-width="1.8"/>
+
+  <!-- Статор: верхній і нижній постійні магніти -->
+  <rect x="74" y="168" width="128" height="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="138" y="181" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Магніт статора (N)</text>
+
+  <rect x="74" y="274" width="128" height="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="138" y="287" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Магніт статора (S)</text>
+
+  <!-- Вал мотора (лінія 5px зі сталевим кольором) -->
+  <line x1="62" y1="230" x2="238" y2="230" stroke="#1a1a1a" stroke-width="4"/>
+
+  <!-- Колекторний вузол -->
+  <rect x="80" y="221" width="16" height="18" rx="1" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <!-- Щітки -->
+  <rect x="84" y="207" width="8" height="14" fill="#1a1a1a"/>
+  <rect x="84" y="239" width="8" height="14" fill="#1a1a1a"/>
+
+  <!-- Ротор / якір з обмотками -->
+  <rect x="106" y="196" width="86" height="68" rx="4" fill="#fff5eb" stroke="#d97706" stroke-width="1.4"/>
+  <text x="149" y="214" font-size="12" font-weight="700" fill="#b45309" text-anchor="middle">Якір (обмотки)</text>
+  <text x="149" y="252" font-size="12" fill="#6b7280" text-anchor="middle">Ротор 3-полюсний</text>
+
+  <!-- Передній фланець / підшипник мотора -->
+  <rect x="196" y="221" width="12" height="18" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="208" y="174" width="14" height="112" rx="2" fill="#eef2f8" stroke="#1a1a1a" stroke-width="1.4"/>
+
+  <!-- З'єднувальний кронштейн / муфта + сальник -->
+  <rect x="222" y="196" width="46" height="68" rx="3" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+
+  <!-- Муфта вала -->
+  <rect x="228" y="222" width="20" height="16" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+  <line x1="238" y1="222" x2="238" y2="238" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Сальник манжетний -->
+  <rect x="252" y="217" width="10" height="26" rx="1" fill="#c0392b" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Підпис муфти та сальника вгорі -->
+  <text x="245" y="148" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Муфта + сальник</text>
+  <line x1="245" y1="152" x2="245" y2="194" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+
+  <!-- Насосна головка -->
+  <rect x="268" y="164" width="140" height="132" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+
+  <!-- Порожнина камери витіснення -->
+  <rect x="280" y="176" width="116" height="108" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.4" stroke-dasharray="4 2"/>
+
+  <!-- Шестерні в розрізі (боковий вигляд) -->
+  <rect x="306" y="184" width="64" height="42" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+  <text x="338" y="209" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Шестерня 1</text>
+
+  <rect x="306" y="234" width="64" height="42" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.4"/>
+  <text x="338" y="259" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Шестерня 2</text>
+
+  <!-- Випускний штуцер (вгору) -->
+  <rect x="326" y="136" width="24" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="322" y1="144" x2="354" y2="144" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="322" y1="152" x2="354" y2="152" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="338" y1="146" x2="338" y2="128" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-flow)"/>
+  <text x="370" y="144" font-size="12" font-weight="700" fill="#2457d6">Вихід</text>
+  <text x="370" y="160" font-size="12" fill="#6b7280">(напір)</text>
+
+  <!-- Впускний штуцер (вниз) -->
+  <rect x="326" y="296" width="24" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="322" y1="304" x2="354" y2="304" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="322" y1="312" x2="354" y2="312" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="338" y1="336" x2="338" y2="316" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-flow)"/>
+  <text x="370" y="316" font-size="12" font-weight="700" fill="#2457d6">Вхід</text>
+  <text x="370" y="332" font-size="12" fill="#6b7280">(всмоктування)</text>
+
+  <!-- Нижні картки лівої панелі -->
+  <rect x="36" y="362" width="202" height="78" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="380" font-size="12" font-weight="700" fill="#1a1a1a">Колекторний мотор RS-360SH</text>
+  <text x="48" y="398" font-size="12" fill="#1a1a1a">• Напруга живлення: 12 В DC</text>
+  <text x="48" y="416" font-size="12" fill="#6b7280">• Оберти до 12 000 об/хв холості</text>
+
+  <rect x="246" y="362" width="212" height="78" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="258" y="380" font-size="12" font-weight="700" fill="#2457d6">Герметизація та зчеплення</text>
+  <text x="258" y="398" font-size="12" fill="#1a1a1a">• Муфта вала передає момент</text>
+  <text x="258" y="416" font-size="12" fill="#6b7280">• Сальник блокує прорив води</text>
+
+
+  <!-- ================= ПРАВА ПАНЕЛЬ: ПОПЕРЕЧНИЙ РОЗРІЗ ================= -->
+  <rect x="490" y="72" width="446" height="384" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Шапка правої панелі -->
+  <rect x="502" y="82" width="422" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="713" y="98" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Поперечний розріз: механізм витіснення</text>
+  <text x="713" y="113" font-size="12" fill="#6b7280" text-anchor="middle">Розчеплення зубців створює вакуум, зачеплення — стискає потік</text>
+
+  <!-- Підпис перенесення рідини над камерою -->
+  <text x="713" y="137" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Перенесення рідини у западинах зубців вздовж стінок</text>
+
+  <!-- Зовнішній корпус робочої камери (профіль «вісімки») -->
+  <rect x="640" y="148" width="146" height="184" rx="36" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.8"/>
+
+  <!-- Канал вхідного штуцера зліва -->
+  <rect x="510" y="224" width="130" height="32" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.4"/>
+  <line x1="524" y1="220" x2="524" y2="260" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="538" y1="220" x2="538" y2="260" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="504" y1="240" x2="548" y2="240" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Канал вихідного штуцера справа -->
+  <rect x="786" y="224" width="130" height="32" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.4"/>
+  <line x1="886" y1="220" x2="886" y2="260" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="900" y1="220" x2="900" y2="260" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="878" y1="240" x2="922" y2="240" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Внутрішня порожнина камери -->
+  <circle cx="713" cy="204" r="48" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <circle cx="713" cy="276" r="48" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3 3"/>
+
+  <!-- Шестерні (полігони зубців) -->
+  <polygon points="751.4,215.2 748.1,223.3 733.3,220.3 729.3,224.3 732.3,239.1 724.2,242.4 715.9,229.8 710.1,229.8 701.8,242.4 693.7,239.1 696.7,224.3 692.7,220.3 677.9,223.3 674.6,215.2 687.2,206.9 687.2,201.1 674.6,192.8 677.9,184.7 692.7,187.7 696.7,183.7 693.7,168.9 701.8,165.6 710.1,178.2 715.9,178.2 724.2,165.6 732.3,168.9 729.3,183.7 733.3,187.7 748.1,184.7 751.4,192.8 738.8,201.1 738.8,206.9" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="713" cy="204" r="10" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.4"/>
+  <circle cx="713" cy="204" r="3" fill="#1a1a1a"/>
+
+  <polygon points="752.8,271.6 752.8,280.4 738.0,283.3 735.8,288.5 744.2,301.0 738.0,307.2 725.5,298.8 720.3,301.0 717.4,315.8 708.6,315.8 705.7,301.0 700.5,298.8 688.0,307.2 681.8,301.0 690.2,288.5 688.0,283.3 673.2,280.4 673.2,271.6 688.0,268.7 690.2,263.5 681.8,251.0 688.0,244.8 700.5,253.2 705.7,251.0 708.6,236.2 717.4,236.2 720.3,251.0 725.5,253.2 738.0,244.8 744.2,251.0 735.8,263.5 738.0,268.7" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="713" cy="276" r="10" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.4"/>
+  <circle cx="713" cy="276" r="3" fill="#1a1a1a"/>
+
+  <!-- Стрілки обертання шестерень -->
+  <!-- Верхня шестерня: за годинниковою стрілкою (CW) -->
+  <path d="M 696 172 A 22 22 0 0 1 730 172" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-flow)"/>
+  <text x="736" y="168" font-size="12" font-weight="700" fill="#2457d6">ω_1 (CW)</text>
+
+  <!-- Нижня шестерня: проти годинникової стрілки (CCW) -->
+  <path d="M 696 308 A 22 22 0 0 0 730 308" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-flow)"/>
+  <text x="736" y="318" font-size="12" font-weight="700" fill="#2457d6">ω_2 (CCW)</text>
+
+  <!-- Стрілки периферичного перенесення рідини -->
+  <path d="M 654 190 A 62 62 0 0 1 772 190" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-flow)"/>
+  <path d="M 654 290 A 62 62 0 0 0 772 290" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3" marker-end="url(#arr-flow)"/>
+
+  <!-- Написи на вході та виході -->
+  <text x="560" y="152" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Впускний штуцер</text>
+  <text x="560" y="168" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Розрідження P_in &lt; P_atm</text>
+  <text x="560" y="184" font-size="12" fill="#6b7280" text-anchor="middle">Зубці розходяться: ΔV &gt; 0</text>
+  <text x="560" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Сухе самовсмоктування</text>
+
+  <text x="866" y="152" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Випускний штуцер</text>
+  <text x="866" y="168" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Напір P_out &gt; P_atm</text>
+  <text x="866" y="184" font-size="12" fill="#6b7280" text-anchor="middle">Зубці сходяться: ΔV &lt; 0</text>
+  <text x="866" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Виштовхування в лінію</text>
+
+  <!-- Нижні картки правої панелі -->
+  <rect x="502" y="362" width="206" height="78" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="514" y="380" font-size="12" font-weight="700" fill="#c0392b">Всмоктування (Inlet)</text>
+  <text x="514" y="398" font-size="12" fill="#1a1a1a">• Зубці виходять із зачеплення</text>
+  <text x="514" y="416" font-size="12" fill="#6b7280">• Вакуум піднімає стовп води</text>
+
+  <rect x="718" y="362" width="206" height="78" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="730" y="380" font-size="12" font-weight="700" fill="#27ae60">Нагнітання (Outlet)</text>
+  <text x="730" y="398" font-size="12" fill="#1a1a1a">• Зубці стискають порожнину</text>
+  <text x="730" y="416" font-size="12" fill="#6b7280">• Контакт зубців блокує витік</text>
+</svg>

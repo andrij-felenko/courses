@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Скінченний автомат станів драйвера помпи</text>
+  <text x="480" y="65" font-size="13" fill="#6b7280" text-anchor="middle">Аварійні стани блокують роботу приводу до явного виклику скидання помилки</text>
+
+  <!-- 1) READY -> PUMPING -->
+  <path d="M460,160 L460,260" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <text x="445" y="215" font-size="13" fill="#1a1a1a" text-anchor="end">Запуск дозування</text>
+
+  <!-- 2) PUMPING -> READY -->
+  <path d="M500,260 L500,160" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <text x="515" y="215" font-size="13" fill="#1a1a1a" text-anchor="start">Завершення дозування</text>
+
+  <!-- 3) PUMPING -> FAULT_TIMEOUT -->
+  <path d="M570,290 L700,290" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <text x="635" y="260" font-size="13" fill="#1a1a1a" text-anchor="middle">Перевищення</text>
+  <text x="635" y="275" font-size="13" fill="#1a1a1a" text-anchor="middle">тайм-ауту</text>
+
+  <!-- 4) FAULT_TIMEOUT -> READY -->
+  <path d="M790,260 L790,130 L570,130" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <text x="680" y="115" font-size="13" fill="#1a1a1a" text-anchor="middle">Скидання помилки</text>
+
+  <!-- 5) PUMPING -> FAULT_EMERGENCY -->
+  <path d="M390,290 L260,290" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <text x="325" y="275" font-size="13" fill="#1a1a1a" text-anchor="middle">Аварійна зупинка</text>
+
+  <!-- 6) FAULT_EMERGENCY -> READY -->
+  <path d="M170,260 L170,130 L390,130" stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+  <text x="280" y="115" font-size="13" fill="#1a1a1a" text-anchor="middle">Скидання помилки</text>
+
+  <!-- READY -->
+  <rect x="390" y="100" width="180" height="60" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="136" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">READY</text>
+
+  <!-- PUMPING -->
+  <rect x="390" y="260" width="180" height="60" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="296" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PUMPING</text>
+
+  <!-- FAULT_EMERGENCY -->
+  <rect x="80" y="260" width="180" height="60" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="170" y="296" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FAULT_EMERGENCY</text>
+
+  <!-- FAULT_TIMEOUT -->
+  <rect x="700" y="260" width="180" height="60" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="790" y="296" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">FAULT_TIMEOUT</text>
+</svg>

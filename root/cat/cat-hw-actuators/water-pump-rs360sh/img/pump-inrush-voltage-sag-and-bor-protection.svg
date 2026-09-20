@@ -1,0 +1,76 @@
+<svg viewBox="0 0 960 560" width="960" height="560" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Пусковий струм помпи та захист мікроконтролера</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Буферний конденсатор утримує напругу живлення МК вище порогу BOR під час просідання загальної шини</text>
+
+  <!-- Осі графіка струму -->
+  <line x1="120" y1="260" x2="860" y2="260" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="120" y1="260" x2="120" y2="90" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="120" y="70" font-size="12" fill="#1a1a1a" text-anchor="middle">Струм I</text>
+  <text x="850" y="284" font-size="12" fill="#1a1a1a" text-anchor="end">Час t</text>
+
+  <!-- Осі графіка напруги -->
+  <line x1="120" y1="480" x2="860" y2="480" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="120" y1="480" x2="120" y2="310" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="120" y="290" font-size="12" fill="#1a1a1a" text-anchor="middle">Напруга V</text>
+  <text x="850" y="504" font-size="12" fill="#1a1a1a" text-anchor="end">Час t</text>
+
+  <!-- Маркер початку пуску -->
+  <line x1="145" y1="120" x2="145" y2="480" stroke="#6b7280" stroke-dasharray="4 4" stroke-width="1"/>
+  <text x="145" y="504" font-size="12" fill="#6b7280" text-anchor="middle">Пуск</text>
+
+  <!-- Мітки Y струму -->
+  <text x="108" y="124" font-size="12" fill="#1a1a1a" text-anchor="end">I_stall</text>
+  <text x="108" y="204" font-size="12" fill="#1a1a1a" text-anchor="end">I_run</text>
+  <text x="108" y="276" font-size="12" fill="#1a1a1a" text-anchor="end">0</text>
+
+  <!-- Мітки Y напруги -->
+  <text x="108" y="344" font-size="12" fill="#1a1a1a" text-anchor="end">V_nom</text>
+  <text x="108" y="444" font-size="12" fill="#c0392b" text-anchor="end">V_BOR</text>
+  <text x="108" y="484" font-size="12" fill="#1a1a1a" text-anchor="end">0</text>
+
+  <!-- Графік струму -->
+  <path d="M 120 260 L 140 260 L 145 120 C 250 120, 350 200, 550 200 L 840 200" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="600" y="188" font-size="12" fill="#2457d6">I_pump (струм мотора)</text>
+  
+  <line x1="240" y1="130" x2="180" y2="125" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="252" y="135" font-size="12" fill="#2457d6">Пусковий надструм</text>
+
+  <!-- Графіки напруги -->
+  <line x1="120" y1="440" x2="840" y2="440" stroke="#c0392b" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="850" y="428" font-size="12" fill="#c0392b" text-anchor="end">Поріг BOR (Brown-out Reset)</text>
+
+  <path d="M 120 340 L 140 340 L 145 460 C 250 460, 350 340, 550 340 L 840 340" fill="none" stroke="#6b7280" stroke-width="2"/>
+  <text x="850" y="328" font-size="12" fill="#6b7280" text-anchor="end">V_bus (загальна шина)</text>
+
+  <path d="M 120 355 L 145 355 Q 220 380 350 380 C 400 380, 450 355, 550 355 L 840 355" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="850" y="379" font-size="12" fill="#27ae60" text-anchor="end">V_mcu (живлення МК)</text>
+
+  <line x1="195" y1="490" x2="160" y2="465" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="195" y="506" font-size="12" fill="#c0392b">Просідання V_bus</text>
+
+  <line x1="335" y1="360" x2="290" y2="375" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="347" y="360" font-size="12" fill="#27ae60">Розряд C_buf</text>
+
+  <line x1="250" y1="410" x2="250" y2="380" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="250" y1="410" x2="250" y2="435" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="262" y="423" font-size="12" fill="#27ae60">Безпечний запас</text>
+
+</svg>

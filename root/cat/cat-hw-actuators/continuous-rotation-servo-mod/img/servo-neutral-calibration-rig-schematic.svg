@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Принципова електрична схема стенда калібрування сервопривода</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Розділені шини живлення, Star GND, датчик струму в розриві V_SERVO та прецизійний ШІМ</text>
+
+  <!-- 1. Поворотний енкодер (Top-Left) -->
+  <rect x="24" y="75" width="206" height="155" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="34" y="85" width="186" height="22" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="127" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">ПОВОРОТНИЙ ЕНКОДЕР</text>
+  <text x="127" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Крок налаштування 1 мкс</text>
+  <text x="195" y="145" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">CLK</text>
+  <text x="195" y="172" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">DT</text>
+  <text x="195" y="199" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">SW</text>
+  <text x="127" y="221" text-anchor="middle" font-size="12" fill="#6b7280">Живл: V_LOGIC / DGND</text>
+
+  <!-- 2. OLED-дисплей (Bottom-Left) -->
+  <rect x="24" y="250" width="206" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="34" y="260" width="186" height="22" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="127" y="275" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">OLED-ДИСПЛЕЙ (I2C)</text>
+  <!-- Екран дисплея -->
+  <rect x="34" y="290" width="132" height="96" rx="4" fill="#1a1a1a" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="42" y="310" font-size="12" font-weight="700" fill="#2457d6">T: 1523 мкс</text>
+  <text x="42" y="332" font-size="12" font-weight="700" fill="#27ae60">I: 12 мА [НЕЙТР]</text>
+  <text x="42" y="354" font-size="12" fill="#d0d7de">CW:1542 CCW:1496</text>
+  <text x="42" y="376" font-size="12" font-weight="700" fill="#c0392b">ΔT = +19 мкс</text>
+  <text x="195" y="332" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">SCL</text>
+  <text x="195" y="362" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">SDA</text>
+  <text x="127" y="415" text-anchor="middle" font-size="12" fill="#6b7280">Адреса I2C: 0x3C (SSD1306)</text>
+
+  <!-- 3. Мікроконтролер (Center) -->
+  <rect x="270" y="75" width="240" height="360" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <rect x="282" y="85" width="216" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="390" y="101" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">МІКРОКОНТРОЛЕР (MCU)</text>
+  <text x="390" y="123" text-anchor="middle" font-size="12" fill="#6b7280">ATmega328P / 16 МГц</text>
+
+  <!-- Піни MCU ліворуч -->
+  <text x="282" y="145" font-size="12" font-weight="700" fill="#2457d6">D2 (INT0)</text>
+  <text x="282" y="172" font-size="12" font-weight="700" fill="#2457d6">D3 (INT1)</text>
+  <text x="282" y="199" font-size="12" font-weight="700" fill="#1a1a1a">D4 (SW)</text>
+  <text x="282" y="332" font-size="12" font-weight="700" fill="#2457d6">A5 (SCL)</text>
+  <text x="282" y="362" font-size="12" font-weight="700" fill="#2457d6">A4 (SDA)</text>
+
+  <!-- Внутрішній блок алгоритмів -->
+  <rect x="282" y="215" width="216" height="88" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="390" y="234" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">16-бітний Timer1 Fast PWM</text>
+  <text x="390" y="253" text-anchor="middle" font-size="12" fill="#2457d6">Апаратний крок 1 мкс</text>
+  <text x="390" y="272" text-anchor="middle" font-size="12" fill="#1a1a1a">Автосканування мертвої зони</text>
+  <text x="390" y="291" text-anchor="middle" font-size="12" fill="#6b7280">Профіль у пам'ять EEPROM</text>
+
+  <!-- Піни MCU праворуч -->
+  <text x="498" y="150" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">A5 (SCL)</text>
+  <text x="498" y="180" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">A4 (SDA)</text>
+  <text x="498" y="340" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">D9 (OC1A)</text>
+  <text x="390" y="415" text-anchor="middle" font-size="12" fill="#6b7280">Живлення: DVDD (+5V), DGND</text>
+
+  <!-- З'єднання: Енкодер -> MCU -->
+  <line x1="205" y1="141" x2="270" y2="141" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <line x1="205" y1="168" x2="270" y2="168" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <line x1="205" y1="195" x2="270" y2="195" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- З'єднання: OLED -> MCU -->
+  <line x1="205" y1="328" x2="270" y2="328" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <line x1="205" y1="358" x2="270" y2="358" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- 4. Датчик струму INA219 (Top-Middle-Right) -->
+  <rect x="550" y="75" width="165" height="155" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="560" y="85" width="145" height="22" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="632" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">ДАТЧИК СТРУМУ</text>
+  <text x="632" y="120" text-anchor="middle" font-size="12" fill="#2457d6">INA219 (I2C / 0x40)</text>
+
+  <!-- Шунт датчика -->
+  <rect x="612" y="132" width="40" height="16" rx="2" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="632" y="128" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">R_sh</text>
+  <text x="632" y="162" text-anchor="middle" font-size="12" fill="#1a1a1a">0.1 Ом (1%)</text>
+  <text x="560" y="150" font-size="12" font-weight="700" fill="#2457d6">SCL</text>
+  <text x="560" y="180" font-size="12" font-weight="700" fill="#2457d6">SDA</text>
+  <text x="696" y="145" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">VIN+</text>
+  <text x="632" y="218" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">VIN- (до привода)</text>
+
+  <!-- З'єднання MCU -> INA219 (I2C) -->
+  <line x1="510" y1="146" x2="550" y2="146" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <line x1="510" y1="176" x2="550" y2="176" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- 5. Силове живлення та Star GND (Top-Far-Right) -->
+  <rect x="755" y="75" width="181" height="155" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="765" y="85" width="161" height="22" rx="4" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="845" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">СИЛОВЕ ЖИВЛЕННЯ</text>
+  
+  <text x="845" y="122" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">V_SERVO (+5..6 В)</text>
+  
+  <!-- Фільтри C_BULK та C_CER -->
+  <line x1="885" y1="130" x2="715" y2="130" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="735" y="122" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">V_SERVO</text>
+
+  <!-- C_BULK 1000 мкФ -->
+  <line x1="810" y1="130" x2="810" y2="140" stroke="#c0392b" stroke-width="2"/>
+  <rect x="802" y="140" width="16" height="4" fill="#c0392b"/>
+  <rect x="802" y="147" width="16" height="4" fill="#1a1a1a"/>
+  <line x1="810" y1="151" x2="810" y2="180" stroke="#27ae60" stroke-width="2"/>
+  <text x="798" y="146" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">C_BULK</text>
+  <text x="798" y="160" text-anchor="end" font-size="12" fill="#6b7280">1000 мкФ</text>
+
+  <!-- C_CER 0.1 мкФ -->
+  <line x1="850" y1="130" x2="850" y2="140" stroke="#c0392b" stroke-width="2"/>
+  <rect x="842" y="140" width="16" height="4" fill="#2457d6"/>
+  <rect x="842" y="147" width="16" height="4" fill="#2457d6"/>
+  <line x1="850" y1="151" x2="850" y2="180" stroke="#27ae60" stroke-width="2"/>
+  <text x="856" y="146" font-size="12" font-weight="700" fill="#2457d6">C_CER</text>
+  <text x="856" y="160" font-size="12" fill="#6b7280">0.1 мкФ</text>
+
+  <!-- Шина землі фільтрів до Star GND -->
+  <line x1="810" y1="180" x2="885" y2="180" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Точка Star GND -->
+  <circle cx="885" cy="180" r="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="885" cy="180" r="3.5" fill="#27ae60"/>
+  <text x="872" y="198" text-anchor="end" font-size="12" font-weight="700" fill="#27ae60">STAR GND</text>
+  <text x="872" y="214" text-anchor="end" font-size="12" fill="#6b7280">Спільна точка 0 В</text>
+
+  <!-- 6. Сервопривід постійного обертання 360° (Bottom-Right) -->
+  <rect x="550" y="260" width="386" height="175" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="560" y="270" width="366" height="22" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="743" y="285" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">СЕРВОПРИВІД 360° (CONTINUOUS ROTATION)</text>
+
+  <!-- Піни сервопривода -->
+  <text x="560" y="340" font-size="12" font-weight="700" fill="#2457d6">SIG (PWM)</text>
+  <text x="632" y="310" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">VCC (+5..6 В)</text>
+  <text x="885" y="310" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">GND (PGND)</text>
+
+  <!-- Внутрішня структура сервопривода -->
+  <rect x="565" y="325" width="170" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="650" y="344" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Аналоговий підсилювач</text>
+  <text x="650" y="362" text-anchor="middle" font-size="12" fill="#1a1a1a">SMD-дільник нейтралі</text>
+
+  <rect x="750" y="325" width="172" height="55" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="836" y="344" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">H-міст і DC-мотор</text>
+  <text x="836" y="362" text-anchor="middle" font-size="12" fill="#6b7280">Редуктор 360° без упору</text>
+
+  <!-- Рядок стану детектування -->
+  <rect x="565" y="392" width="357" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="743" y="412" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Спокій: I = 10..15 мА | Рушання ротора: стрибок до 150..200 мА</text>
+
+  <!-- З'єднання: MCU D9 -> Серво SIG -->
+  <line x1="510" y1="336" x2="550" y2="336" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- З'єднання: INA219 VIN- -> Серво VCC -->
+  <line x1="632" y1="230" x2="632" y2="295" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- З'єднання: Star GND -> Серво GND (PGND) -->
+  <line x1="885" y1="190" x2="885" y2="295" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Нижні пояснювальні картки -->
+  <rect x="24" y="455" width="285" height="72" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="36" y="474" font-size="12" font-weight="700" fill="#27ae60">1. Заземлення Star GND (єдина точка):</text>
+  <text x="36" y="493" font-size="12" fill="#1a1a1a">Силова PGND і цифрова DGND з'єднані</text>
+  <text x="36" y="511" font-size="12" fill="#6b7280">в одній точці джерела — нуль наведень на MCU.</text>
+
+  <rect x="324" y="455" width="312" height="72" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="336" y="474" font-size="12" font-weight="700" fill="#2457d6">2. Роздільне живлення та буфери:</text>
+  <text x="336" y="493" font-size="12" fill="#1a1a1a">C_BULK (1000 мкФ) живить пускові кидки струму,</text>
+  <text x="336" y="511" font-size="12" fill="#6b7280">виключаючи просідання VDD і скидання Brown-Out.</text>
+
+  <rect x="651" y="455" width="285" height="72" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="663" y="474" font-size="12" font-weight="700" fill="#c0392b">3. Датчик струму в розриві шини:</text>
+  <text x="663" y="493" font-size="12" fill="#1a1a1a">INA219 фіксує стрибок струму споживання при</text>
+  <text x="663" y="511" font-size="12" fill="#6b7280">виході ротора з мертвої зони нечутливості.</text>
+</svg>

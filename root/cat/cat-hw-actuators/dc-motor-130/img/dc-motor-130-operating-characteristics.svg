@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Тло полотна -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Робочі характеристики колекторного двигуна типорозміру 130</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Енергоефективна зона — 10–30% M_stall (максимум ККД η); пік потужності P_мех — при M_stall / 2</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Графік характеристик -->
+  <rect x="24" y="74" width="588" height="422" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="44" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Залежності величин від крутного моменту навантаження M</text>
+
+  <!-- ПРАВА КОЛОНКА: Три картки -->
+  <!-- Картка 1: Позначення 4 кривих -->
+  <rect x="628" y="74" width="308" height="134" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="644" y="96" font-size="13" font-weight="bold" fill="#1a1a1a">Робочі криві (напруга U = const)</text>
+  <line x1="644" y1="112" x2="668" y2="112" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="676" y="116" font-size="12" font-weight="bold" fill="#2457d6">ω(M) — кутова швидкість ротора</text>
+  <line x1="644" y1="132" x2="668" y2="132" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="676" y="136" font-size="12" font-weight="bold" fill="#c0392b">I(M) — електричний струм якоря</text>
+  <line x1="644" y1="152" x2="668" y2="152" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="676" y="156" font-size="12" font-weight="bold" fill="#1a1a1a">P_мех(M) — корисна потужність</text>
+  <line x1="644" y1="172" x2="668" y2="172" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="676" y="176" font-size="12" font-weight="bold" fill="#27ae60">η(M) — коефіцієнт корисної дії</text>
+  <text x="644" y="196" font-size="12" fill="#6b7280">P_мех = M · ω(M);   η = P_мех / (U · I)</text>
+
+  <!-- Картка 2: Енергоефективна зона -->
+  <rect x="628" y="222" width="308" height="126" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="644" y="244" font-size="13" font-weight="bold" fill="#27ae60">Безпечна зона (10–30% M_stall)</text>
+  <text x="644" y="264" font-size="12" fill="#1a1a1a">• Максимум ККД: η_max ≈ 55–60%</text>
+  <text x="644" y="282" font-size="12" fill="#1a1a1a">• Помірний робочий струм I ≤ 0.35 · I_stall</text>
+  <text x="644" y="300" font-size="12" fill="#1a1a1a">• Мінімальне теплове навантаження I²R</text>
+  <text x="644" y="318" font-size="12" fill="#1a1a1a">• Рекомендовано для тривалого руху</text>
+
+  <!-- Картка 3: Зона перевантаження -->
+  <rect x="628" y="362" width="308" height="134" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="644" y="384" font-size="13" font-weight="bold" fill="#c0392b">Зона нагріву й заклинювання</text>
+  <text x="644" y="404" font-size="12" fill="#1a1a1a">• Пік P_мех при M_stall / 2: ККД &lt; 50%</text>
+  <text x="644" y="422" font-size="12" fill="#1a1a1a">• Спад швидкості: ω(M_stall / 2) = ω₀ / 2</text>
+  <text x="644" y="440" font-size="12" fill="#1a1a1a">• При блокуванні вала: струм сягає I_stall</text>
+  <text x="644" y="458" font-size="12" fill="#1a1a1a">• Уся потужність іде в нагрів: P_втрат = U · I</text>
+  <text x="644" y="476" font-size="12" fill="#1a1a1a">• Небезпека плавлення щіткового вузла</text>
+
+  <!-- Зони на графіку (затінення) -->
+  <rect x="129" y="154" width="88" height="256" fill="#e9f7ef" stroke="none"/>
+  <rect x="305" y="154" width="220" height="256" fill="#fdecea" stroke="none"/>
+
+  <!-- Лінії сітки графіка -->
+  <line x1="85" y1="154" x2="525" y2="154" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="85" y1="218" x2="525" y2="218" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="85" y1="282" x2="525" y2="282" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="85" y1="346" x2="525" y2="346" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Вертикальні орієнтири зон -->
+  <line x1="129" y1="154" x2="129" y2="410" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="217" y1="154" x2="217" y2="410" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <!-- Лінія піка потужності: від низу підпису до осі X -->
+  <line x1="305" y1="205" x2="305" y2="410" stroke="#1a1a1a" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="525" y1="154" x2="525" y2="410" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+  <!-- Підписи зон над графіком -->
+  <text x="173" y="140" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Безпечна зона</text>
+  <text x="415" y="140" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона перевантаження та нагріву</text>
+
+  <!-- 4 РОБОЧІ КРИВІ -->
+  <!-- 1. Кутова швидкість ω(M): лінія від (85, 154) до (525, 410) -->
+  <line x1="85" y1="154" x2="525" y2="410" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="96" y="186" font-size="12" font-weight="bold" fill="#2457d6">ω(M)</text>
+
+  <!-- 2. Струм якоря I(M): лінія від (85, 384) до (525, 154) -->
+  <line x1="85" y1="384" x2="525" y2="154" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="475" y="206" font-size="12" font-weight="bold" fill="#c0392b">I(M)</text>
+
+  <!-- 3. Корисна потужність P_мех(M): парабола -->
+  <path d="M 85,410 C 158.3,242.7 231.7,154 305,154 C 378.3,154 451.7,242.7 525,410" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="305" y="176" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">P_мех(M)</text>
+  <text x="305" y="192" font-size="12" fill="#6b7280" text-anchor="middle">пік P_max</text>
+
+  <!-- 4. ККД η(M): крива ККД -->
+  <path d="M 85,410 C 105,312 145,263 173,263 C 215,263 265,287 305,303 C 365,327 445,370 525,410" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="173" y="302" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">η(M)</text>
+  <text x="173" y="318" font-size="12" fill="#27ae60" text-anchor="middle">пік η_max</text>
+
+  <!-- Характерні точки (кола) -->
+  <circle cx="173" cy="263" r="4.5" fill="#27ae60"/>
+  <circle cx="305" cy="154" r="4.5" fill="#1a1a1a"/>
+  <circle cx="85" cy="154" r="4.5" fill="#2457d6"/>
+  <circle cx="85" cy="384" r="4.5" fill="#c0392b"/>
+  <circle cx="525" cy="154" r="4.5" fill="#c0392b"/>
+  <circle cx="525" cy="410" r="4.5" fill="#2457d6"/>
+
+  <!-- Вісь X -->
+  <line x1="85" y1="410" x2="550" y2="410" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="555" y="414" font-size="13" font-weight="bold" fill="#1a1a1a">M</text>
+  <line x1="85" y1="410" x2="85" y2="415" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="85" y="428" font-size="12" fill="#1a1a1a" text-anchor="middle">0 (XX)</text>
+  <line x1="129" y1="410" x2="129" y2="415" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="129" y="428" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0.1</text>
+  <line x1="217" y1="410" x2="217" y2="415" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="217" y="428" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0.3</text>
+  <line x1="305" y1="410" x2="305" y2="415" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="305" y="428" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0.5 (M_stall / 2)</text>
+  <line x1="525" y1="410" x2="525" y2="415" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="525" y="428" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">M_stall</text>
+  <text x="305" y="452" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крутний момент навантаження M (від 0 до M_stall)</text>
+  <text x="305" y="474" font-size="12" fill="#6b7280" text-anchor="middle">Робочий діапазон: безпечна зона 10–30% M_stall забезпечує найвищий ККД без перегріву</text>
+
+  <!-- Ліва вісь Y: ω, η -->
+  <line x1="85" y1="410" x2="85" y2="125" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="80" y="120" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">ω, η</text>
+  <line x1="80" y1="154" x2="85" y2="154" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="76" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">ω₀</text>
+  <text x="76" y="162" font-size="12" fill="#6b7280" text-anchor="end">100%</text>
+  <line x1="80" y1="282" x2="85" y2="282" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="76" y="286" font-size="12" fill="#6b7280" text-anchor="end">50%</text>
+  <line x1="80" y1="384" x2="85" y2="384" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="76" y="388" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">I₀</text>
+  <text x="76" y="414" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Права вісь Y: I, P_мех -->
+  <line x1="525" y1="410" x2="525" y2="125" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="530" y="120" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">I, P_мех</text>
+  <line x1="525" y1="154" x2="530" y2="154" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="534" y="148" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">I_stall</text>
+  <text x="534" y="162" font-size="12" fill="#6b7280" text-anchor="start">100%</text>
+  <line x1="525" y1="282" x2="530" y2="282" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="534" y="286" font-size="12" fill="#6b7280" text-anchor="start">50%</text>
+  <text x="534" y="414" font-size="12" fill="#6b7280" text-anchor="start">0</text>
+</svg>

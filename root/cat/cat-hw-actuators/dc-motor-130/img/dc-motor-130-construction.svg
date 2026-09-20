@@ -1,0 +1,191 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-alert" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-bronze" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#b45309"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструкція двигуна 130: безгвинтова посадка та зони зношування</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Скошені грані 15 мм блокують обертання в шасі, а листові щітки та втулки ковзання обмежують ресурс</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Поперечний профіль та посадка -->
+  <rect x="24" y="70" width="396" height="332" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="222" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Поперечний профіль: безгвинтова посадка</text>
+  <text x="222" y="110" font-size="12" fill="#6b7280" text-anchor="middle">Скошені грані завширшки 15 мм фіксують корпус у пластику</text>
+
+  <!-- Розмірна лінія 15.0 мм (напис вище, лінія нижче) -->
+  <text x="222" y="127" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">15.0 мм (ширина граней)</text>
+  <line x1="177" y1="138" x2="267" y2="138" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-accent)" marker-end="url(#arr-accent)"/>
+  <line x1="177" y1="174" x2="177" y2="138" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="267" y1="174" x2="267" y2="138" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Пластикове гніздо шасі (ложемент із упорами) -->
+  <rect x="156" y="174" width="18" height="88" rx="3" fill="#e2e8f0" stroke="#64748b" stroke-width="1.2"/>
+  <rect x="270" y="174" width="18" height="88" rx="3" fill="#e2e8f0" stroke="#64748b" stroke-width="1.2"/>
+  <path d="M 156 262 L 156 286 L 288 286 L 288 262 L 270 262 L 270 278 A 63 63 0 0 1 174 278 L 174 262 Z" fill="#cbd5e1" stroke="#64748b" stroke-width="1.2"/>
+  <polygon points="156,174 177,174 173,180 156,180" fill="#64748b"/>
+  <polygon points="288,174 267,174 271,180 288,180" fill="#64748b"/>
+
+  <!-- Сталевий корпус мотора 130 -->
+  <path d="M 177 178 A 60 60 0 0 1 267 178 L 267 258 A 60 60 0 0 1 177 258 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.8"/>
+
+  <!-- Ферити статора (N вгорі, S внизу) -->
+  <path d="M 181 180 A 55 55 0 0 1 263 180 L 253 192 A 42 42 0 0 0 191 192 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <path d="M 181 256 A 55 55 0 0 0 263 256 L 253 244 A 42 42 0 0 1 191 244 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+
+  <!-- 3-полюсний якір -->
+  <circle cx="222" cy="218" r="14" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <!-- Полюс 1 (вгору) -->
+  <path d="M 216 193 L 228 193 L 228 208 L 216 208 Z" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <polygon points="212,196 232,196 232,206 212,206" fill="#fed7aa" stroke="#d97706" stroke-width="1"/>
+  <!-- Полюс 2 (вниз-вправо) -->
+  <polygon points="229,224 246,234 240,242 223,232" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <polygon points="232,226 244,233 239,240 227,233" fill="#fed7aa" stroke="#d97706" stroke-width="1"/>
+  <!-- Полюс 3 (вниз-вліво) -->
+  <polygon points="215,224 198,234 204,242 221,232" fill="#cbd5e1" stroke="#475569" stroke-width="1"/>
+  <polygon points="212,226 200,233 205,240 217,233" fill="#fed7aa" stroke="#d97706" stroke-width="1"/>
+
+  <!-- Вал по центру -->
+  <circle cx="222" cy="218" r="5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Крутний момент і утримання -->
+  <path d="M 210 207 A 16 16 0 0 1 234 207" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-accent)"/>
+  <text x="222" y="217" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">M</text>
+
+  <!-- Підписи лівої панелі -->
+  <text x="36" y="184" font-size="12" font-weight="bold" fill="#1a1a1a">Пластиковий паз</text>
+  <text x="36" y="200" font-size="12" fill="#6b7280">безгвинтова кліпса</text>
+  <line x1="130" y1="188" x2="154" y2="188" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+
+  <text x="36" y="238" font-size="12" font-weight="bold" fill="#27ae60">Блокування крену</text>
+  <text x="36" y="254" font-size="12" fill="#1a1a1a">плоска грань тримає</text>
+  <text x="36" y="270" font-size="12" fill="#1a1a1a">реактивний момент M</text>
+  <line x1="140" y1="244" x2="168" y2="244" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-success)"/>
+
+  <text x="298" y="184" font-size="12" font-weight="bold" fill="#c0392b">Статор: ферити</text>
+  <text x="298" y="200" font-size="12" fill="#6b7280">дугові магніти N / S</text>
+  <line x1="296" y1="188" x2="265" y2="188" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-alert)"/>
+
+  <text x="298" y="238" font-size="12" font-weight="bold" fill="#1a1a1a">Триполюсний якір</text>
+  <text x="298" y="254" font-size="12" fill="#6b7280">120° між пазами —</text>
+  <text x="298" y="270" font-size="12" fill="#6b7280">пуск із будь-якого кута</text>
+  <line x1="296" y1="248" x2="252" y2="238" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+
+  <!-- Нижня картка лівої панелі -->
+  <rect x="36" y="324" width="372" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="344" font-size="12" font-weight="bold" fill="#2457d6">Перевага безгвинтової посадки:</text>
+  <text x="48" y="362" font-size="12" fill="#1a1a1a">· Замикання в пластик (snap-fit) заощаджує час конвеєра</text>
+  <text x="48" y="378" font-size="12" fill="#1a1a1a">· Грані 15 мм фіксують мотор без кріпильних гвинтів M2</text>
+
+  <!-- ПРАВА ПАНЕЛЬ: Поздовжній розріз і вразливі зони -->
+  <rect x="432" y="70" width="504" height="332" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="684" y="93" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Поздовжній розріз: вузли тертя та іскріння</text>
+  <text x="684" y="110" font-size="12" fill="#6b7280" text-anchor="middle">Листові бронзові щітки та втулки ковзання — компроміс собівартості</text>
+
+  <!-- Плашки вразливих зон угорі правої панелі -->
+  <rect x="444" y="124" width="226" height="42" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="454" y="140" font-size="12" font-weight="bold" fill="#c0392b">Вразлива зона: іскріння щіток</text>
+  <text x="454" y="156" font-size="12" fill="#1a1a1a">Електроерозія бронзи, завади ЕМЗ</text>
+
+  <rect x="696" y="124" width="228" height="42" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="706" y="140" font-size="12" font-weight="bold" fill="#c0392b">Вразлива зона: втулки вала</text>
+  <text x="706" y="156" font-size="12" fill="#1a1a1a">Сухе тертя, люфт під шестернею</text>
+
+  <!-- Сталевий вал ⌀2.0 мм (path замість rect щоб не перетинати блоки) -->
+  <path d="M 476 236 L 886 236 L 886 244 L 476 244 Z" fill="#cbd5e1" stroke="#334155" stroke-width="1.2"/>
+  <text x="850" y="226" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вал ⌀2.0 мм</text>
+
+  <!-- Задня пластикова кришка -->
+  <rect x="478" y="190" width="38" height="100" rx="2" fill="#f1f5f9" stroke="#64748b" stroke-width="1.5"/>
+  <text x="497" y="306" font-size="12" fill="#6b7280" text-anchor="middle">Пластик</text>
+
+  <!-- Задня бронзова втулка ковзання -->
+  <rect x="484" y="230" width="18" height="20" fill="#fef08a" stroke="#b45309" stroke-width="1.5"/>
+  <text x="497" y="222" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">Втулка</text>
+
+  <!-- Клеми живлення -->
+  <rect x="444" y="202" width="34" height="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
+  <rect x="444" y="272" width="34" height="6" fill="#fef3c7" stroke="#b45309" stroke-width="1.2"/>
+
+  <!-- Сталевий корпус-гільза -->
+  <rect x="516" y="190" width="244" height="7" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="516" y="283" width="244" height="7" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="760" y="190" width="20" height="100" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="780" y="225" width="22" height="30" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Передня втулка ковзання -->
+  <rect x="782" y="230" width="18" height="20" fill="#fef08a" stroke="#b45309" stroke-width="1.5"/>
+  <text x="791" y="272" font-size="12" font-weight="bold" fill="#b45309" text-anchor="middle">Втулка</text>
+  <text x="791" y="288" font-size="12" fill="#6b7280" text-anchor="middle">бронза</text>
+
+  <!-- Колектор (3 мідні ламелі) -->
+  <path d="M 544 232 L 572 232 L 572 248 L 544 248 Z" fill="#94a3b8" stroke="#475569" stroke-width="1"/>
+  <rect x="544" y="228" width="28" height="4" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <rect x="544" y="248" width="28" height="4" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+
+  <!-- Пружні листові бронзові щітки -->
+  <path d="M 495 208 L 532 216 L 552 227" fill="none" stroke="#b45309" stroke-width="2.2"/>
+  <path d="M 495 272 L 532 264 L 552 253" fill="none" stroke="#b45309" stroke-width="2.2"/>
+  <text x="544" y="184" font-size="12" font-weight="bold" fill="#b45309" text-anchor="end">Листова щітка</text>
+  <text x="544" y="198" font-size="12" fill="#6b7280" text-anchor="end">пружна бронза</text>
+
+  <!-- Іскри на колекторі -->
+  <polygon points="556,222 559,216 562,222 568,222 563,226 566,232 560,228 555,232 557,226" fill="#f59e0b" stroke="#c0392b" stroke-width="0.8"/>
+  <polygon points="556,252 559,246 562,252 568,252 563,256 566,262 560,258 555,262 557,256" fill="#f59e0b" stroke="#c0392b" stroke-width="0.8"/>
+
+  <!-- Вказівники від плашок до зон -->
+  <line x1="556" y1="166" x2="556" y2="212" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arr-alert)"/>
+  <line x1="791" y1="166" x2="791" y2="222" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="3 3" marker-end="url(#arr-alert)"/>
+
+  <!-- Магніти статора -->
+  <rect x="600" y="197" width="144" height="15" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <rect x="600" y="268" width="144" height="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+
+  <!-- Якір (осердя й обмотки) -->
+  <rect x="608" y="214" width="128" height="52" rx="2" fill="#ffedd5" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="672" y="236" font-size="12" font-weight="bold" fill="#ea580c" text-anchor="middle">Обмотка якоря</text>
+  <text x="672" y="252" font-size="12" fill="#1a1a1a" text-anchor="middle">шихтоване осердя</text>
+
+  <!-- Нижня картка правої панелі -->
+  <rect x="444" y="324" width="480" height="66" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="456" y="344" font-size="12" font-weight="bold" fill="#c0392b">Технічні компроміси дешевої конструкції:</text>
+  <text x="456" y="362" font-size="12" fill="#1a1a1a">· Листові бронзові щітки перетираються та іскрять (ресурс 20–50 годин)</text>
+  <text x="456" y="378" font-size="12" fill="#1a1a1a">· Втулки ковзання зношуються від радіальної сили F шестерні редуктора</text>
+
+  <!-- НИЖНЯ ПАНЕЛЬ: Інженерний аналіз та підсумок -->
+  <rect x="24" y="414" width="912" height="90" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="433" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Інженерний баланс конструкції 130: масова технологічність проти ресурсу</text>
+
+  <!-- Блок 1 -->
+  <rect x="38" y="444" width="284" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="48" y="463" font-size="12" font-weight="bold" fill="#27ae60">1. Геометрія: стандарт 15 мм</text>
+  <text x="48" y="481" font-size="12" fill="#1a1a1a">Безгвинтовий монтаж у пластик шасі</text>
+
+  <!-- Блок 2 -->
+  <rect x="338" y="444" width="284" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="348" y="463" font-size="12" font-weight="bold" fill="#2457d6">2. Якір: 3 полюси та ферити</text>
+  <text x="348" y="481" font-size="12" fill="#1a1a1a">Надійний самопуск із будь-якого кута</text>
+
+  <!-- Блок 3 -->
+  <rect x="638" y="444" width="284" height="50" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="648" y="463" font-size="12" font-weight="bold" fill="#c0392b">3. Зношування: щітки та втулки</text>
+  <text x="648" y="481" font-size="12" fill="#1a1a1a">Механічне тертя, іскріння, шум ЕМЗ</text>
+</svg>

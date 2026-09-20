@@ -1,0 +1,217 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок для різних кольорів -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Динаміка реверсу сервопривода: ударний злам зубців проти рампінгу</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Миттєва зміна сигналу зрізає шестерні інерцією колеса, а обмеження |dω/dt| безпечно розсіює енергію</text>
+
+  <!-- ==================== СЦЕНАРІЙ А: МИТТЄВИЙ РЕВЕРС (ЛІВА КОЛОНКА) ==================== -->
+  <rect x="24" y="72" width="444" height="468" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Плашка заголовка сценарію А -->
+  <rect x="36" y="84" width="420" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="246" y="106" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Сценарій А: Миттєвий реверс (без захисту)</text>
+
+  <!-- ГРАФІК 1А: Сигнал керування W(t) -->
+  <text x="80" y="136" font-size="12" font-weight="700" fill="#1a1a1a">Сигнал ШІМ: стрибок тривалості імпульсу τ</text>
+
+  <!-- Осі Графіка 1А -->
+  <line x1="80" y1="144" x2="80" y2="208" stroke="#6b7280" stroke-width="1"/>
+  <line x1="80" y1="208" x2="445" y2="208" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="450" y="212" font-size="12" fill="#6b7280">t</text>
+
+  <!-- Позначки рівнів на осі Y (Графік 1А) -->
+  <text x="74" y="152" font-size="12" fill="#6b7280" text-anchor="end">2000 мкс</text>
+  <text x="74" y="176" font-size="12" fill="#6b7280" text-anchor="end">1500 мкс</text>
+  <text x="74" y="200" font-size="12" fill="#6b7280" text-anchor="end">1000 мкс</text>
+
+  <!-- Горизонтальні лінії рівнів -->
+  <line x1="80" y1="148" x2="210" y2="148" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="80" y1="172" x2="210" y2="172" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="80" y1="196" x2="210" y2="196" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Засічка реверсу на осі часу -->
+  <line x1="210" y1="205" x2="210" y2="211" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="210" y="224" font-size="12" fill="#c0392b" text-anchor="middle">t_rev</text>
+
+  <!-- Крива сигналу 1А (стрибок) -->
+  <path d="M80,148 L210,148 L210,196 L435,196" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="220" y="166" font-size="12" font-weight="700" fill="#c0392b">Стрибок 2000 → 1000 мкс</text>
+  <text x="220" y="182" font-size="12" fill="#6b7280">(миттєва зміна полярності)</text>
+
+  <!-- ГРАФІК 2А: Механічні зусилля M(t) та швидкість ω(t) -->
+  <text x="80" y="246" font-size="12" font-weight="700" fill="#1a1a1a">Реакція редуктора: інерція колеса та зрізання зубців</text>
+
+  <!-- Осі Графіка 2А -->
+  <line x1="80" y1="256" x2="80" y2="370" stroke="#6b7280" stroke-width="1"/>
+  <line x1="80" y1="370" x2="445" y2="370" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="450" y="374" font-size="12" fill="#6b7280">t</text>
+
+  <!-- Позначки осей Графіка 2А -->
+  <text x="74" y="264" font-size="12" fill="#2457d6" text-anchor="end">+ω_max</text>
+  <text x="74" y="294" font-size="12" fill="#c0392b" text-anchor="end">M_крит</text>
+  <text x="74" y="334" font-size="12" fill="#6b7280" text-anchor="end">M_ном</text>
+  <text x="74" y="366" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Лінія критичного моменту зламу зубців [M_крит] -->
+  <line x1="80" y1="290" x2="245" y2="290" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="260" y="284" font-size="12" font-weight="700" fill="#c0392b">Границя зрізання [M_крит]</text>
+
+  <!-- Зона вибирання люфту -->
+  <rect x="210" y="256" width="35" height="114" fill="#fdecea" opacity="0.6"/>
+  <text x="227" y="364" font-size="12" fill="#c0392b" text-anchor="middle">Люфт δ</text>
+
+  <!-- Крива швидкості колеса ω(t) -->
+  <path d="M80,260 L245,260 Q260,262 280,285 Q330,325 435,335" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="100" y="274" font-size="12" font-weight="700" fill="#2457d6">Швидкість колеса ω(t)</text>
+
+  <!-- Крива механічного моменту на зубцях M(t) з руйнівним ударним піком -->
+  <path d="M80,330 L210,330 L212,366 L244,366 L248,252 L252,366 L435,366" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="248" cy="252" r="4" fill="#c0392b"/>
+  <text x="256" y="254" font-size="12" font-weight="700" fill="#c0392b">Ударний пік M_удар >> M_крит!</text>
+  <text x="256" y="268" font-size="12" fill="#c0392b">Зрізання зубців (gear stripping)</text>
+
+  <!-- КАРТКА ФІЗИКИ ЗРІЗАННЯ ЗУБЦІВ (Сценарій А) -->
+  <rect x="36" y="396" width="420" height="132" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+
+  <!-- Зубець ведучий (ротор) -->
+  <path d="M56,430 L80,430 L88,455 L68,455 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="56" y="422" font-size="12" fill="#1a1a1a">Ротор</text>
+  <path d="M84,424 L94,432" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Зубець ведений (колесо) -->
+  <path d="M106,485 L84,485 L76,460 L98,460 Z" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="96" y="504" font-size="12" fill="#1a1a1a">Колесо</text>
+  <path d="M74,494 L64,484" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Тріщина/злам на ніжці зубця -->
+  <path d="M76,460 L84,463 L80,468 L90,471" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="96" y="452" font-size="12" font-weight="700" fill="#c0392b">Злам!</text>
+
+  <!-- Опис фізики зрізання -->
+  <text x="156" y="420" font-size="13" font-weight="700" fill="#c0392b">Фізика руйнування в зачепленні</text>
+  <text x="156" y="442" font-size="12" fill="#1a1a1a">• Ротор розганяється на холостому ході в люфті δ</text>
+  <text x="156" y="464" font-size="12" fill="#1a1a1a">• Зіткнення назустріч кінетичній енергії шасі J_k</text>
+  <text x="156" y="486" font-size="12" fill="#1a1a1a">• Механічне напруження σ_конт > σ_міцності</text>
+  <text x="156" y="510" font-size="12" font-weight="700" fill="#c0392b">➔ Зрізання зубців пластикового редуктора</text>
+
+
+  <!-- ==================== СЦЕНАРІЙ Б: ПРОГРАМНИЙ РАМПІНГ (ПРАВА КОЛОНКА) ==================== -->
+  <rect x="492" y="72" width="444" height="468" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Плашка заголовка сценарію Б -->
+  <rect x="504" y="84" width="420" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="714" y="106" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">Сценарій Б: Програмний рампінг швидкості</text>
+
+  <!-- ГРАФІК 1Б: Сигнал керування з рампінгом -->
+  <text x="548" y="136" font-size="12" font-weight="700" fill="#1a1a1a">Сигнал ШІМ: плавна зміна ширини імпульсу dτ/dt</text>
+
+  <!-- Осі Графіка 1Б -->
+  <line x1="548" y1="144" x2="548" y2="208" stroke="#6b7280" stroke-width="1"/>
+  <line x1="548" y1="208" x2="913" y2="208" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="918" y="212" font-size="12" fill="#6b7280">t</text>
+
+  <!-- Позначки рівнів на осі Y (Графік 1Б) -->
+  <text x="542" y="152" font-size="12" fill="#6b7280" text-anchor="end">2000 мкс</text>
+  <text x="542" y="176" font-size="12" fill="#6b7280" text-anchor="end">1500 мкс</text>
+  <text x="542" y="200" font-size="12" fill="#6b7280" text-anchor="end">1000 мкс</text>
+
+  <!-- Горизонтальні лінії рівнів -->
+  <line x1="548" y1="148" x2="640" y2="148" stroke="#e5e7eb" stroke-width="1"/>
+  <line x1="548" y1="172" x2="700" y2="172" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="548" y1="196" x2="760" y2="196" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Засічки рампінгу на осі часу -->
+  <line x1="640" y1="205" x2="640" y2="211" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="640" y="224" font-size="12" fill="#27ae60" text-anchor="middle">t_1</text>
+
+  <line x1="700" y1="205" x2="700" y2="211" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="700" y="224" font-size="12" fill="#27ae60" text-anchor="middle">t_0</text>
+
+  <line x1="760" y1="205" x2="760" y2="211" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="760" y="224" font-size="12" fill="#27ae60" text-anchor="middle">t_2</text>
+
+  <!-- Крива сигналу 1Б (рампінг) -->
+  <path d="M548,148 L640,148 L760,196 L900,196" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="700" cy="172" r="3.5" fill="#27ae60"/>
+
+  <!-- Підпис до рампінгу праворуч у вільній зоні -->
+  <text x="770" y="162" font-size="12" font-weight="700" fill="#27ae60">Плавний рампінг dτ/dt</text>
+  <text x="770" y="178" font-size="12" fill="#6b7280">Прохід через 1500 мкс</text>
+
+  <!-- ГРАФІК 2Б: Механічні зусилля M(t) та швидкість ω(t) при рампінгу -->
+  <text x="548" y="246" font-size="12" font-weight="700" fill="#1a1a1a">Динаміка привода: безпечне гальмування та розгін</text>
+
+  <!-- Осі Графіка 2Б -->
+  <line x1="548" y1="256" x2="548" y2="370" stroke="#6b7280" stroke-width="1"/>
+  <line x1="548" y1="370" x2="913" y2="370" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="918" y="374" font-size="12" fill="#6b7280">t</text>
+
+  <!-- Позначки осей Графіка 2Б -->
+  <text x="542" y="264" font-size="12" fill="#2457d6" text-anchor="end">+ω_max</text>
+  <text x="542" y="294" font-size="12" fill="#c0392b" text-anchor="end">M_крит</text>
+  <text x="542" y="324" font-size="12" fill="#27ae60" text-anchor="end">M_доп</text>
+  <text x="542" y="366" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+
+  <!-- Лінія критичного моменту [M_крит] -->
+  <line x1="548" y1="290" x2="740" y2="290" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="746" y="294" font-size="12" font-weight="700" fill="#c0392b">Границя [M_крит]</text>
+
+  <!-- Безпечна зона моменту [M_доп] -->
+  <line x1="548" y1="320" x2="908" y2="320" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="556" y="315" font-size="12" fill="#27ae60">Допустимий момент [M_доп]</text>
+
+  <!-- Крива швидкості колеса ω(t) з обмеженням dω/dt -->
+  <path d="M548,260 L640,260 L700,340 L760,360 L900,360" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="700" cy="340" r="3.5" fill="#2457d6"/>
+  <text x="580" y="300" font-size="12" font-weight="700" fill="#2457d6">|dω/dt| ≤ a_max</text>
+  <text x="620" y="354" font-size="12" fill="#2457d6">ω = 0 (зупинка)</text>
+
+  <!-- Крива моменту M(t) при рампінгу: помірний постійний момент гальмування -->
+  <path d="M548,350 L640,350 L645,325 L755,325 L760,350 L900,350" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="768" y="334" font-size="12" font-weight="700" fill="#27ae60">M_гальм &lt; [M_доп]</text>
+
+  <!-- КАРТКА ФІЗИКИ ЗБЕРЕЖЕННЯ РЕДУКТОРА (Сценарій Б) -->
+  <rect x="504" y="396" width="420" height="132" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+
+  <!-- Зубець ведучий (ротор) при плавному зачепленні -->
+  <path d="M524,430 L548,430 L556,455 L536,455 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="524" y="422" font-size="12" fill="#1a1a1a">Ротор</text>
+  <path d="M552,426 L560,434" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Зубець ведений (колесо) при плавному зачепленні -->
+  <path d="M574,485 L552,485 L544,460 L566,460 Z" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="564" y="504" font-size="12" fill="#1a1a1a">Колесо</text>
+  <path d="M542,492 L534,484" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Плавний контакт без тріщин -->
+  <circle cx="550" cy="458" r="4" fill="#27ae60"/>
+  <text x="566" y="454" font-size="12" font-weight="700" fill="#27ae60">Контакт</text>
+
+  <!-- Опис фізики рампінгу -->
+  <text x="624" y="420" font-size="13" font-weight="700" fill="#27ae60">Фізика безпечного переходу</text>
+  <text x="624" y="442" font-size="12" fill="#1a1a1a">• Контрольоване зменшення кроку сигналу Δτ щокадру</text>
+  <text x="624" y="464" font-size="12" fill="#1a1a1a">• Повне розсіювання енергії руху колеса до зупинки</text>
+  <text x="624" y="486" font-size="12" fill="#1a1a1a">• Навантаження в зачепленні не перевищує норму</text>
+  <text x="624" y="510" font-size="12" font-weight="700" fill="#27ae60">➔ Зубці цілі, повний захист редуктора від зрізання</text>
+</svg>

@@ -1,0 +1,266 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструктивний розріз монолітного привода та фізичні конфлікти компонування</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Інтеграція в єдиному шасі: баланс між компактністю QDD, термодинамікою обмоток, наводками dI/dt і ударами</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: КОНСТРУКТИВНИЙ РОЗРІЗ ==================== -->
+  <rect x="20" y="65" width="580" height="475" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="90" font-size="14" font-weight="bold" fill="#1a1a1a">Поздовжній розріз сервомодуля QDD та зони взаємодії</text>
+  <text x="40" y="108" font-size="12" fill="#6b7280">Взаємне розташування редуктора, статора, ротора, порожнистого вала та інвертора</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: КАРТА КОНФЛІКТІВ ТА РОЗВ'ЯЗКІВ ==================== -->
+  <rect x="615" y="65" width="325" height="475" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="630" y="90" font-size="14" font-weight="bold" fill="#1a1a1a">Карта фізичних конфліктів компонування</text>
+  <text x="630" y="108" font-size="12" fill="#6b7280">Три бар'єри монолітної інтеграції та їх розв'язання</text>
+
+  <!-- Картка 1: Термодинамічний бар'єр -->
+  <rect x="630" y="120" width="295" height="116" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="642" y="138" font-size="12" font-weight="bold" fill="#c0392b">1. ТЕРМОДИНАМІЧНИЙ БАР'ЄР (ТЕПЛО)</text>
+  <text x="642" y="156" font-size="12" fill="#1a1a1a">• Обмотки статора: робочий нагрів 120–150 °C</text>
+  <text x="642" y="172" font-size="12" fill="#1a1a1a">• Кристали MOSFET: деградація при 85–105 °C</text>
+  <text x="642" y="188" font-size="12" fill="#6b7280">• Спільний алюмінієвий корпус скидає тепло на плату</text>
+  <text x="642" y="206" font-size="12" font-weight="bold" fill="#27ae60">Розв'язок: тепловий бар'єр + відведення на шасі</text>
+  <text x="642" y="222" font-size="12" fill="#27ae60">і програмний бектрекінг струму (thermal throttling)</text>
+
+  <!-- Картка 2: Електромагнітні завади -->
+  <rect x="630" y="248" width="295" height="116" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="642" y="266" font-size="12" font-weight="bold" fill="#c0392b">2. ЕЛЕКТРОМАГНІТНІ ЗАВАДИ (EMI)</text>
+  <text x="642" y="284" font-size="12" fill="#1a1a1a">• Комутація 20–40 кГц, dI/dt до 100 А/мкс</text>
+  <text x="642" y="300" font-size="12" fill="#1a1a1a">• Стрибки dV/dt наводять шум на шунти (10–50 мВ)</text>
+  <text x="642" y="316" font-size="12" fill="#6b7280">• Поруч на платі: чутливий сенсор кута Холла</text>
+  <text x="642" y="334" font-size="12" font-weight="bold" fill="#27ae60">Розв'язок: суцільні шари GND, диференційні лінії</text>
+  <text x="642" y="350" font-size="12" fill="#27ae60">шунтів, екранування плати та Low-ESR ємності</text>
+
+  <!-- Картка 3: Ударні вібрації та розвантаження -->
+  <rect x="630" y="376" width="295" height="116" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="642" y="394" font-size="12" font-weight="bold" fill="#2457d6">3. УДАРНІ НАВАНТАЖЕННЯ ТА ПІДШИПНИКИ</text>
+  <text x="642" y="412" font-size="12" fill="#1a1a1a">• Контакт ноги з ґрунтом: пікові прискорення > 20 g</text>
+  <text x="642" y="428" font-size="12" fill="#1a1a1a">• Небезпека: скіл зубів сателітів і зсув енкодера</text>
+  <text x="642" y="444" font-size="12" fill="#6b7280">• Шлях удару: фланець → підшипник → корпус</text>
+  <text x="642" y="462" font-size="12" font-weight="bold" fill="#27ae60">Розв'язок: дворядний підшипник розвантажує вал,</text>
+  <text x="642" y="478" font-size="12" fill="#27ae60">редуктор і плату від радіальних та осьових сил</text>
+
+  <!-- Легенда / підсумок внизу правої панелі -->
+  <rect x="630" y="502" width="295" height="26" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="777" y="519" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Архітектура QDD: баланс механіки й напівпровідників</text>
+
+  <!-- Верхні бейджі конфліктів у панелі 1 -->
+  <!-- Бейдж 3: Розвантаження підшипника -->
+  <rect x="35" y="125" width="165" height="25" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="117" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Розвантаження F_удар</text>
+
+  <!-- Бейдж 1: Тепловий потік та конфлікт температур -->
+  <rect x="215" y="125" width="315" height="25" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="372" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Потік Q_th: обмотки 120–150 °C → MOSFET ≤ 85 °C</text>
+
+  <!-- Вектор сили F_удар -->
+  <line x1="32" y1="184" x2="68" y2="184" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="50" y="174" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">F_удар</text>
+
+  <!-- Шлях розвантаження сили через підшипник у корпус -->
+  <path d="M 75,184 L 105,184 L 105,170 L 160,170" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="4 2" marker-end="url(#arr-blue)" fill="none"/>
+
+  <!-- Вектор теплового потоку Q_th від обмоток до MOSFET через спільний корпус -->
+  <path d="M 300,165 C 340,154 395,154 435,175" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5 3" marker-end="url(#arr-red)" fill="none"/>
+
+  <!-- Контур електромагнітних завад (dI/dt, dV/dt) на шунти та енкодер -->
+  <path d="M 435,208 C 420,214 420,220 432,224" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3 2" fill="none"/>
+  <path d="M 435,208 C 410,230 410,255 430,274" stroke="#c0392b" stroke-width="1.8" stroke-dasharray="3 2" fill="none"/>
+  <text x="550" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">dI/dt, dV/dt</text>
+  <text x="550" y="214" text-anchor="middle" font-size="12" fill="#6b7280">шум шунтів</text>
+  <text x="550" y="272" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Завади EMI</text>
+  <text x="550" y="286" text-anchor="middle" font-size="12" fill="#6b7280">на енкодер</text>
+
+  <!-- ==================== МЕХАНІЧНА КОНСТРУКЦІЯ (РОЗРІЗ) ==================== -->
+  <line x1="55" y1="305" x2="525" y2="305" stroke="#6b7280" stroke-width="1" stroke-dasharray="8 4 2 4"/>
+
+  <!-- Наскрізний отвір порожнистого вала -->
+  <rect x="70" y="295" width="425" height="20" fill="#ffffff" stroke="none"/>
+
+  <!-- Стінки порожнистого вала -->
+  <rect x="70" y="287" width="425" height="8" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="70" y="315" width="425" height="8" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Нерухомий зовнішній корпус (шасі) -->
+  <rect x="115" y="165" width="375" height="11" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="115" y="434" width="375" height="11" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Вихідний фланець (кріплення ланки/ноги) -->
+  <rect x="70" y="185" width="35" height="102" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="70" y="323" width="35" height="102" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="78" cy="192" r="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="78" cy="418" r="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Головний опорний підшипник вихідного вала -->
+  <rect x="92" y="170" width="28" height="28" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="106" cy="184" r="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="92" y="412" width="28" height="28" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="106" cy="426" r="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Планетарний редуктор: Зубчастий вінець (епіцикл) на корпусі -->
+  <rect x="120" y="198" width="75" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="120" y="392" width="75" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="126" y1="212" x2="132" y2="218" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="126" y1="398" x2="132" y2="392" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="140" y1="212" x2="146" y2="218" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="140" y1="398" x2="146" y2="392" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="154" y1="212" x2="160" y2="218" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="154" y1="398" x2="160" y2="392" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="168" y1="212" x2="174" y2="218" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="168" y1="398" x2="174" y2="392" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="182" y1="212" x2="188" y2="218" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="182" y1="398" x2="188" y2="392" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Планетарний редуктор: Сателіти -->
+  <rect x="135" y="218" width="50" height="47" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="160" cy="241.5" r="7" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="135" y="345" width="50" height="47" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <circle cx="160" cy="368.5" r="7" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <!-- Планетарний редуктор: Водило сателітів (передає момент на фланець) -->
+  <rect x="105" y="236" width="30" height="11" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="105" y="363" width="30" height="11" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <!-- Планетарний редуктор: Сонячна шестерня на валу ротора -->
+  <rect x="125" y="265" width="70" height="22" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="125" y="323" width="70" height="22" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="132" y1="265" x2="137" y2="271" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="132" y1="345" x2="137" y2="339" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="145" y1="265" x2="150" y2="271" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="145" y1="345" x2="150" y2="339" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="158" y1="265" x2="163" y2="271" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="158" y1="345" x2="163" y2="339" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="171" y1="265" x2="176" y2="271" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="171" y1="345" x2="176" y2="339" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="184" y1="265" x2="189" y2="271" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="184" y1="345" x2="189" y2="339" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Центральний нерухомий алюмінієвий хаб статора -->
+  <rect x="195" y="260" width="195" height="27" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="195" y="323" width="195" height="27" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Опорні підшипники ротора на хабі -->
+  <rect x="200" y="263" width="18" height="21" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="209" cy="273.5" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="200" y="326" width="18" height="21" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="209" cy="336.5" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+
+  <rect x="368" y="263" width="18" height="21" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="377" cy="273.5" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="368" y="326" width="18" height="21" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="377" cy="336.5" r="4.5" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Статор: Зубчасте магнітом'яке осердя -->
+  <rect x="218" y="205" width="150" height="55" fill="#d0d7de" stroke="#6b7280" stroke-width="1.2"/>
+  <rect x="218" y="350" width="150" height="55" fill="#d0d7de" stroke="#6b7280" stroke-width="1.2"/>
+
+  <!-- Статор: Мідні обмотки (гаряче джерело 120–150 °C) -->
+  <rect x="228" y="210" width="130" height="42" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="228" y="358" width="130" height="42" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="236" y1="210" x2="236" y2="252" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <line x1="236" y1="358" x2="236" y2="400" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <line x1="252" y1="210" x2="252" y2="252" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <line x1="252" y1="358" x2="252" y2="400" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <line x1="268" y1="210" x2="268" y2="252" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <line x1="268" y1="358" x2="268" y2="400" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <line x1="284" y1="210" x2="284" y2="252" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <line x1="284" y1="358" x2="284" y2="400" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <line x1="300" y1="210" x2="300" y2="252" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <line x1="300" y1="358" x2="300" y2="400" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <line x1="316" y1="210" x2="316" y2="252" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <line x1="316" y1="358" x2="316" y2="400" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <line x1="332" y1="210" x2="332" y2="252" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <line x1="332" y1="358" x2="332" y2="400" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="2 2"/>
+
+  <!-- Ротор: Сталеве ярмо ротора (чаша) -->
+  <rect x="195" y="176" width="185" height="13" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="195" y="421" width="185" height="13" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Ротор: Постійні магніти NdFeB (чергування полюсів N-S) -->
+  <rect x="220" y="189" width="23" height="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="220" y="409" width="23" height="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="244" y="189" width="23" height="12" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="244" y="409" width="23" height="12" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="268" y="189" width="23" height="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="268" y="409" width="23" height="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="292" y="189" width="23" height="12" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="292" y="409" width="23" height="12" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="316" y="189" width="23" height="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="316" y="409" width="23" height="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="340" y="189" width="23" height="12" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <rect x="340" y="409" width="23" height="12" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+
+  <!-- Тепловий та електромагнітний екран відсіку інвертора -->
+  <rect x="390" y="176" width="12" height="111" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <rect x="390" y="323" width="12" height="111" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+
+  <!-- Кругла друкована плата інвертора (PCB) -->
+  <rect x="445" y="176" width="11" height="109" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="445" y="325" width="11" height="109" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Силові MOSFET-транзистори (N-канальні) -->
+  <rect x="432" y="182" width="13" height="26" rx="2" fill="#1a1a1a" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="432" y="402" width="13" height="26" rx="2" fill="#1a1a1a" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Шунти фазних струмів (1–5 мОм) -->
+  <rect x="435" y="218" width="10" height="14" rx="1" fill="#2457d6" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="435" y="378" width="10" height="14" rx="1" fill="#2457d6" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Мікроконтролер керування (MCU FOC) -->
+  <rect x="456" y="220" width="15" height="30" rx="2" fill="#1a1a1a" stroke="#2457d6" stroke-width="1.2"/>
+
+  <!-- Мікросхема магнітного енкодера кута -->
+  <rect x="434" y="270" width="11" height="15" rx="1" fill="#1a1a1a" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="434" y="325" width="11" height="15" rx="1" fill="#1a1a1a" stroke="#2457d6" stroke-width="1.2"/>
+
+  <!-- Магнітне кільце енкодера на валу ротора -->
+  <rect x="418" y="270" width="12" height="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <rect x="418" y="325" width="12" height="15" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+
+  <!-- Тильна алюмінієва кришка-радіатор -->
+  <rect x="485" y="165" width="18" height="280" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="503" y1="175" x2="516" y2="175" stroke="#1a1a1a" stroke-width="1.8"/>
+  <line x1="503" y1="195" x2="516" y2="195" stroke="#1a1a1a" stroke-width="1.8"/>
+  <line x1="503" y1="215" x2="516" y2="215" stroke="#1a1a1a" stroke-width="1.8"/>
+  <line x1="503" y1="395" x2="516" y2="395" stroke="#1a1a1a" stroke-width="1.8"/>
+  <line x1="503" y1="415" x2="516" y2="415" stroke="#1a1a1a" stroke-width="1.8"/>
+  <line x1="503" y1="435" x2="516" y2="435" stroke="#1a1a1a" stroke-width="1.8"/>
+
+  <!-- ==================== АНАТОМІЧНІ ПІДПИСИ ЗОН ВНИЗУ ==================== -->
+  <text x="100" y="476" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Редуктор і фланець</text>
+  <text x="100" y="492" text-anchor="middle" font-size="12" fill="#2457d6">N = 6:1 ... 9:1</text>
+  <text x="100" y="508" text-anchor="middle" font-size="12" fill="#27ae60">захист від ударів</text>
+  <text x="100" y="524" text-anchor="middle" font-size="12" fill="#6b7280">опорний підшипник</text>
+
+  <!-- Порожнистий вал та Статор -->
+  <text x="240" y="476" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Статор і обмотки</text>
+  <text x="240" y="492" text-anchor="middle" font-size="12" fill="#c0392b">нагрів 120–150 °C</text>
+  <text x="240" y="508" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Порожнистий вал</text>
+  <text x="240" y="524" text-anchor="middle" font-size="12" fill="#6b7280">канал Ø 20 мм</text>
+
+  <text x="375" y="476" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Зовнішній ротор</text>
+  <text x="375" y="492" text-anchor="middle" font-size="12" fill="#2457d6">Магніти NdFeB</text>
+  <text x="375" y="508" text-anchor="middle" font-size="12" fill="#1a1a1a">пари полюсів N-S</text>
+  <text x="375" y="524" text-anchor="middle" font-size="12" fill="#6b7280">високий момент</text>
+
+  <text x="510" y="476" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Плата та енкодер</text>
+  <text x="510" y="492" text-anchor="middle" font-size="12" fill="#2457d6">Кругла плата PCB</text>
+  <text x="510" y="508" text-anchor="middle" font-size="12" fill="#1a1a1a">MOSFET + MCU FOC</text>
+  <text x="510" y="524" text-anchor="middle" font-size="12" fill="#6b7280">кільце енкодера</text>
+
+</svg>

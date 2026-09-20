@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Схема роздільного живлення мікроконтролера та мікросервоприводів</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Зіркова точка Star GND, буферні конденсатори та захисний діод усувають осідання напруги й сплески ЕРС</text>
+
+  <!-- ==================== ПАНЕЛЬ 1: ДЖЕРЕЛА ТА STAR GND ==================== -->
+  <rect x="24" y="66" width="200" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="124" y="88" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">ДЖЕРЕЛА ТА STAR GND</text>
+  <text x="124" y="104" font-size="12" fill="#6b7280" text-anchor="middle">Ізольовані лінії живлення</text>
+
+  <rect x="36" y="116" width="176" height="66" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="124" y="134" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">БЖ ЛОГІКИ (MCU)</text>
+  <text x="124" y="150" font-size="12" fill="#1a1a1a" text-anchor="middle">USB 5.0 В / LDO 3.3 В</text>
+  <text x="124" y="166" font-size="12" fill="#6b7280" text-anchor="middle">I_mcu &lt; 150 мА (стабільне)</text>
+
+  <rect x="36" y="194" width="176" height="72" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="124" y="212" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">СИЛОВИЙ БЖ СЕРВ</text>
+  <text x="124" y="228" font-size="12" fill="#1a1a1a" text-anchor="middle">DC 4.8–6.0 В / BEC 3–5 А</text>
+  <text x="124" y="244" font-size="12" fill="#c0392b" text-anchor="middle">Піковий струм I_stall до 3 А</text>
+  <text x="124" y="258" font-size="12" fill="#6b7280" text-anchor="middle">Імпульсний шум мотора</text>
+
+  <rect x="36" y="278" width="176" height="126" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="124" y="296" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">ВУЗОЛ «STAR GROUND»</text>
+  <text x="124" y="312" font-size="12" fill="#1a1a1a" text-anchor="middle">Центральний нуль 0 В</text>
+  <text x="124" y="328" font-size="12" fill="#6b7280" text-anchor="middle">R_спільний = 0 Ом</text>
+  <circle cx="124" cy="356" r="10" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="124" cy="356" r="4.5" fill="#27ae60"/>
+  <text x="124" y="388" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Шляхи струмів розв&apos;язані</text>
+
+  <!-- ==================== ПАНЕЛЬ 2: МІКРОКОНТРОЛЕР ==================== -->
+  <rect x="238" y="66" width="698" height="142" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="250" y="74" width="310" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="405" y="90" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">ЛОГІЧНИЙ КОНТУР: МІКРОКОНТРОЛЕР (MCU)</text>
+
+  <rect x="250" y="104" width="224" height="94" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="362" y="122" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Мікроконтролер (MCU)</text>
+  <text x="256" y="144" font-size="12" font-weight="700" fill="#2457d6">VDD</text>
+  <text x="256" y="178" font-size="12" font-weight="700" fill="#27ae60">GND</text>
+  <text x="468" y="142" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">GPIO / PWM 1</text>
+  <text x="468" y="176" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">GPIO / PWM 2</text>
+  <text x="362" y="150" font-size="12" fill="#27ae60" text-anchor="middle">Чисте VDD без осідань</text>
+  <text x="362" y="166" font-size="12" fill="#6b7280" text-anchor="middle">Захист BOR: U &gt; 2.7 В</text>
+
+  <rect x="488" y="104" width="436" height="94" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="560" y="122" font-size="12" font-weight="700" fill="#2457d6">Імпульсний сигнал керування PWM (50 Гц):</text>
+  <text x="560" y="140" font-size="12" fill="#1a1a1a">Імпульс 1.0–2.0 мс (кут 0°–180°), період T = 20 мс</text>
+  <text x="560" y="158" font-size="12" fill="#6b7280">R_pwm демпфує дзвін лінії та захищає вихід GPIO</text>
+  <text x="560" y="176" font-size="12" fill="#27ae60">Поріг V_IH &gt; 2.0 В: сумісність із логікою 3.3 В</text>
+
+  <rect x="500" y="132" width="34" height="14" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="517" y="126" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">R_pwm1</text>
+  <text x="517" y="160" font-size="12" fill="#6b7280" text-anchor="middle">220 Ом</text>
+  <rect x="500" y="168" width="34" height="14" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="517" y="196" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">R_pwm2</text>
+
+  <!-- ==================== ПАНЕЛЬ 3: СИЛОВИЙ КОНТУР ТА СЕРВИ ==================== -->
+  <rect x="238" y="218" width="698" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="250" y="226" width="390" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="445" y="242" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">СИЛОВИЙ КОНТУР: БУФЕРИЗАЦІЯ, ЗАХИСТ І СЕРВОПРИВОДИ</text>
+
+  <rect x="250" y="254" width="310" height="152" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="405" y="268" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">ФІЛЬТРАЦІЯ ТА ЗАХИСТ ВІД ЗВОРОТНОЇ ЕРС</text>
+
+  <text x="306" y="318" font-size="12" font-weight="700" fill="#c0392b">D_prot</text>
+  <text x="306" y="334" font-size="12" fill="#1a1a1a">1N5819</text>
+  <text x="306" y="350" font-size="12" fill="#6b7280">Гасіння ЕРС</text>
+  <line x1="290" y1="280" x2="290" y2="322" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="280" y1="322" x2="300" y2="322" stroke="#c0392b" stroke-width="2"/>
+  <polygon points="290,322 280,336 300,336" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="290" y1="336" x2="290" y2="394" stroke="#27ae60" stroke-width="1.5"/>
+
+  <text x="396" y="318" font-size="12" font-weight="700" fill="#2457d6">C_bulk</text>
+  <text x="396" y="334" font-size="12" fill="#1a1a1a">1000 мкФ</text>
+  <text x="396" y="350" font-size="12" fill="#6b7280">Low-ESR</text>
+  <line x1="380" y1="280" x2="380" y2="326" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="368" y1="326" x2="392" y2="326" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="358" y="324" font-size="12" font-weight="700" fill="#c0392b">+</text>
+  <line x1="368" y1="332" x2="392" y2="332" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="380" y1="332" x2="380" y2="394" stroke="#27ae60" stroke-width="1.5"/>
+
+  <text x="486" y="318" font-size="12" font-weight="700" fill="#2457d6">C_hf</text>
+  <text x="486" y="334" font-size="12" fill="#1a1a1a">100 нФ</text>
+  <text x="486" y="350" font-size="12" fill="#6b7280">Кераміка</text>
+  <line x1="470" y1="280" x2="470" y2="326" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="458" y1="326" x2="482" y2="326" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="458" y1="332" x2="482" y2="332" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="470" y1="332" x2="470" y2="394" stroke="#27ae60" stroke-width="1.5"/>
+
+  <line x1="212" y1="280" x2="560" y2="280" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="254" y="274" font-size="12" font-weight="700" fill="#c0392b">+V_SERVO (4.8–6.0 В)</text>
+  <line x1="212" y1="394" x2="560" y2="394" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="254" y="404" font-size="12" font-weight="700" fill="#27ae60">GND_SERVO (силове повернення)</text>
+
+  <circle cx="290" cy="280" r="3" fill="#c0392b"/>
+  <circle cx="290" cy="394" r="3" fill="#27ae60"/>
+  <circle cx="380" cy="280" r="3" fill="#c0392b"/>
+  <circle cx="380" cy="394" r="3" fill="#27ae60"/>
+  <circle cx="470" cy="280" r="3" fill="#c0392b"/>
+  <circle cx="470" cy="394" r="3" fill="#27ae60"/>
+  <circle cx="574" cy="260" r="3" fill="#c0392b"/>
+  <circle cx="574" cy="412" r="3" fill="#27ae60"/>
+
+  <rect x="580" y="270" width="158" height="136" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="659" y="290" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Сервопривід MG90S</text>
+  <text x="659" y="304" font-size="12" fill="#6b7280" text-anchor="middle">Метал / вал 21T 4.8 мм</text>
+  <rect x="586" y="314" width="30" height="16" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="601" y="326" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">SIG</text>
+  <text x="622" y="326" font-size="12" fill="#6b7280">Жовтий</text>
+
+  <rect x="586" y="340" width="30" height="16" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="601" y="352" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">VCC</text>
+  <text x="622" y="352" font-size="12" fill="#6b7280">Червон.</text>
+
+  <rect x="586" y="366" width="30" height="16" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="601" y="378" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">GND</text>
+  <text x="622" y="378" font-size="12" fill="#6b7280">Коричн.</text>
+
+  <circle cx="698" cy="344" r="16" fill="#eaf0fd" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="698" y="349" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">M</text>
+  <text x="659" y="396" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">I_stall = 1.0–1.2 А</text>
+
+  <rect x="760" y="270" width="158" height="136" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="839" y="290" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Сервопривід SG90</text>
+  <text x="839" y="304" font-size="12" fill="#6b7280" text-anchor="middle">Нейлон / вал 21T 4.8 мм</text>
+  <rect x="766" y="314" width="30" height="16" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="781" y="326" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">SIG</text>
+  <text x="802" y="326" font-size="12" fill="#6b7280">Помаранч.</text>
+
+  <rect x="766" y="340" width="30" height="16" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="781" y="352" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">VCC</text>
+  <text x="802" y="352" fill="#6b7280" font-size="12">Червон.</text>
+
+  <rect x="766" y="366" width="30" height="16" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="781" y="378" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">GND</text>
+  <text x="802" y="378" font-size="12" fill="#6b7280">Чорний</text>
+
+  <circle cx="878" cy="344" r="16" fill="#fdecea" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="878" y="349" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">M</text>
+  <text x="839" y="396" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">I_stall = 0.6–0.8 А</text>
+
+  <line x1="212" y1="140" x2="250" y2="140" stroke="#2457d6" stroke-width="2"/>
+
+  <path d="M134,356 L226,356 L226,174 L250,174" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="216" y="196" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">GND_лог (0 В)</text>
+
+  <path d="M196,266 L196,350 L134,350" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <path d="M42,182 L42,356 L114,356" fill="none" stroke="#27ae60" stroke-width="1.8"/>
+
+  <path d="M212,228 L228,228 L228,280 L250,280" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <path d="M134,362 L228,362 L228,394 L250,394" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <path d="M560,280 L570,280 L570,260 L750,260" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <path d="M574,260 L574,348 L586,348" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <path d="M750,260 L754,260 L754,348 L766,348" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <path d="M560,394 L570,394 L570,412 L750,412" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M574,412 L574,374 L586,374" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <path d="M750,412 L754,412 L754,374 L766,374" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <line x1="474" y1="139" x2="500" y2="139" stroke="#2457d6" stroke-width="1.8"/>
+  <path d="M534,139 L564,139 L564,322 L586,322" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <line x1="474" y1="175" x2="500" y2="175" stroke="#2457d6" stroke-width="1.8"/>
+  <path d="M534,175 L554,175 L554,212 L744,212 L744,322 L766,322" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- ==================== НИЖНІ КАРТКИ ПРАВИЛ ==================== -->
+  <rect x="24" y="430" width="292" height="84" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="36" y="450" font-size="12" font-weight="700" fill="#2457d6">1. Фізичне розділення шин живлення:</text>
+  <text x="36" y="468" font-size="12" fill="#1a1a1a">Логіка MCU та сервоприводи живляться від</text>
+  <text x="36" y="486" font-size="12" fill="#1a1a1a">окремих ліній (+3.3V/5V та +V_SERVO 5–6V).</text>
+  <text x="36" y="502" font-size="12" fill="#6b7280">Стрибки струму мотора не просаджують VDD.</text>
+
+  <rect x="334" y="430" width="292" height="84" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="346" y="450" font-size="12" font-weight="700" fill="#27ae60">2. Єдина точка «Star Ground» (0 В):</text>
+  <text x="346" y="468" font-size="12" fill="#1a1a1a">Землі сходяться в одній точці на клемах БЖ.</text>
+  <text x="346" y="486" font-size="12" fill="#1a1a1a">Силові зворотні струми не протікають крізь</text>
+  <text x="346" y="502" font-size="12" fill="#6b7280">землю MCU, що запобігає ground bounce.</text>
+
+  <rect x="644" y="430" width="292" height="84" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="656" y="450" font-size="12" font-weight="700" fill="#c0392b">3. Буферизація та відсікання ЕРС:</text>
+  <text x="656" y="468" font-size="12" fill="#1a1a1a">C_bulk (1000 мкФ) згладжує пускові піки 1.2 А,</text>
+  <text x="656" y="486" font-size="12" fill="#1a1a1a">C_hf (100 нФ) шунтує високочастотний шум,</text>
+  <text x="656" y="502" font-size="12" fill="#6b7280">а D_prot гасить імпульси самоіндукції обмоток.</text>
+</svg>

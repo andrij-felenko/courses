@@ -1,0 +1,198 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок схеми -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Комутаційні перехідні процеси помпи RS-360SH: пуск і зупинка</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Пусковий струм 3 А просаджує шину до скидання MCU (BOR), а розмикання індуктивності загрожує пробоєм ключа</text>
+
+  <!-- ======================================================== -->
+  <!-- ЛІВА ПАНЕЛЬ: ПУСК ПОМПИ (INRUSH ТА BROWNOUT)             -->
+  <!-- ======================================================== -->
+  <rect x="24" y="66" width="444" height="474" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Плашка заголовка лівої панелі -->
+  <rect x="36" y="76" width="420" height="28" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="246" y="95" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Пуск: сплеск струму 3 А та просідання шини (BOR)</text>
+
+  <!-- Екран осцилографа лівої панелі -->
+  <rect x="36" y="118" width="420" height="250" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Вертикальна лінія синхронізації (t_start) -->
+  <line x1="140" y1="124" x2="140" y2="350" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="140" y="364" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">t_start</text>
+
+  <!-- --- КАНАЛ 1 (ЛІВОРУЧ): Струм помпи I(t) --- -->
+  <!-- Підпис каналу струму -->
+  <text x="80" y="132" font-size="12" font-weight="700" fill="#2457d6">Струм помпи I (А):</text>
+
+  <!-- Вісь Y струму -->
+  <line x1="76" y1="222" x2="76" y2="136" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <!-- Базова лінія 0 А -->
+  <line x1="76" y1="222" x2="446" y2="222" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Засічки осі Y струму -->
+  <line x1="72" y1="142" x2="76" y2="142" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="70" y="146" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">3 А</text>
+
+  <line x1="72" y1="195" x2="76" y2="195" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="70" y="199" text-anchor="end" font-size="12" fill="#6b7280">1 А</text>
+
+  <line x1="72" y1="222" x2="76" y2="222" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="70" y="226" text-anchor="end" font-size="12" fill="#6b7280">0 А</text>
+
+  <!-- Заливка пускового піку струму -->
+  <path d="M 140,222 L 144,142 Q 160,146 185,176 Q 215,198 255,198 L 255,222 Z" fill="#eaf0fd"/>
+
+  <!-- Хвиля струму CH1 -->
+  <path d="M 76,222 L 140,222 L 144,142 Q 160,146 185,176 Q 215,198 255,198 L 265,196 L 275,200 L 285,196 L 295,200 L 305,196 L 315,200 L 325,197 L 335,200 L 345,196 L 355,199 L 365,196 L 375,200 L 385,197 L 395,199 L 405,196 L 415,199 L 425,197 L 435,199 L 444,198" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+  <circle cx="144" cy="142" r="3" fill="#c0392b"/>
+
+  <!-- Написи для струму -->
+  <text x="154" y="142" font-size="12" font-weight="700" fill="#c0392b">Пік I_start = 3.0 А (e_b = 0)</text>
+  <text x="270" y="184" font-size="12" font-weight="700" fill="#2457d6">I_nom ≈ 0.9 А</text>
+  <text x="270" y="214" font-size="12" fill="#6b7280">ВЧ-іскріння щіток (EMI)</text>
+
+  <!-- --- КАНАЛ 2 (ЛІВОРУЧ): Напруга живлення V(t) --- -->
+  <!-- Підпис каналу напруги -->
+  <text x="80" y="246" font-size="12" font-weight="700" fill="#c0392b">Напруга шини VCC (В):</text>
+
+  <!-- Вісь Y напруги -->
+  <line x1="76" y1="352" x2="76" y2="250" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Засічки осі Y напруги -->
+  <line x1="72" y1="258" x2="76" y2="258" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="70" y="262" text-anchor="end" font-size="12" fill="#1a1a1a">5.0 В</text>
+
+  <line x1="72" y1="294" x2="76" y2="294" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="70" y="298" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">2.9 В</text>
+
+  <line x1="72" y1="352" x2="76" y2="352" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="70" y="356" text-anchor="end" font-size="12" fill="#6b7280">0 В</text>
+
+  <!-- Пунктирна лінія порогу BOR 2.9 В -->
+  <line x1="76" y1="294" x2="446" y2="294" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="245" y="288" font-size="12" font-weight="700" fill="#c0392b">Поріг Brown-out Reset (2.9 В)</text>
+
+  <!-- Заливка критичної зони Brownout нижче 2.9 В -->
+  <path d="M 152,294 Q 166,316 182,316 Q 212,316 236,294 Z" fill="#fdecea"/>
+
+  <!-- Хвиля напруги шини V(t) -->
+  <path d="M 76,258 L 140,258 Q 148,258 158,298 Q 172,316 188,316 Q 214,316 240,268 L 255,258 L 265,256 L 275,260 L 285,257 L 295,259 L 305,256 L 315,260 L 325,257 L 335,259 L 345,256 L 355,260 L 365,257 L 375,259 L 385,256 L 395,260 L 405,257 L 415,259 L 425,257 L 435,259 L 444,258" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+
+  <!-- Позначення точки просідання напруги -->
+  <circle cx="184" cy="316" r="3" fill="#c0392b"/>
+  <text x="200" y="328" font-size="12" font-weight="700" fill="#c0392b">V_min ≈ 2.4 В (Провал шини!)</text>
+  <text x="200" y="344" font-size="12" fill="#c0392b">Аварійне скидання MCU (Reset)</text>
+
+  <!-- Картка аналізу лівої панелі -->
+  <rect x="36" y="382" width="420" height="148" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="48" y="404" font-size="13" font-weight="700" fill="#c0392b">Фізика збою: пусковий надструм та колапс живлення</text>
+  <text x="48" y="426" font-size="12" fill="#1a1a1a">• Причина: ротор нерухомий → e_b = 0 → I_start = U / R_a = 3.0 А</text>
+  <text x="48" y="446" font-size="12" fill="#1a1a1a">• Падіння VCC: надструм 3 А обвалює спільну лінію живлення</text>
+  <text x="48" y="466" font-size="12" fill="#c0392b">• Аварія BOR: напруга &lt; 2.9 В викликає циклічний ребут MCU</text>
+  <text x="48" y="486" font-size="12" fill="#1a1a1a">• Шум комутатора: іскріння щіток збиває опитування датчиків</text>
+  <text x="48" y="508" font-size="12" font-weight="700" fill="#27ae60">Розв'язок: плавний пуск (soft-start) + розв'язка живлення</text>
+
+  <!-- ======================================================== -->
+  <!-- ПРАВА ПАНЕЛЬ: ЗУПИНКА ПОМПИ (ІНДУКТИВНИЙ ВИКИД)          -->
+  <!-- ======================================================== -->
+  <rect x="492" y="66" width="444" height="474" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Плашка заголовка правої панелі -->
+  <rect x="504" y="76" width="420" height="28" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="714" y="95" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">Зупинка: розмикання кола та викид самоіндукції</text>
+
+  <!-- Екран осцилографа правої панелі -->
+  <rect x="504" y="118" width="420" height="250" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Вертикальна лінія синхронізації (t_stop) -->
+  <line x1="608" y1="124" x2="608" y2="350" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="608" y="364" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">t_stop</text>
+
+  <!-- --- КАНАЛ 1 (СПРАВА): Струм помпи I(t) --- -->
+  <!-- Підпис каналу струму -->
+  <text x="548" y="132" font-size="12" font-weight="700" fill="#2457d6">Струм помпи I (А):</text>
+
+  <!-- Вісь Y струму -->
+  <line x1="544" y1="222" x2="544" y2="136" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <!-- Базова лінія 0 А -->
+  <line x1="544" y1="222" x2="914" y2="222" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Засічки осі Y струму -->
+  <line x1="540" y1="175" x2="544" y2="175" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="538" y="179" text-anchor="end" font-size="12" fill="#6b7280">1 А</text>
+
+  <line x1="540" y1="222" x2="544" y2="222" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="538" y="226" text-anchor="end" font-size="12" fill="#6b7280">0 А</text>
+
+  <!-- Хвиля струму CH1 при зупинці -->
+  <path d="M 544,177 L 555,175 L 565,179 L 575,176 L 585,178 L 595,175 L 605,178 L 608,177 L 611,222 L 914,222" fill="none" stroke="#2457d6" stroke-width="2.2"/>
+
+  <!-- Написи струму зупинки -->
+  <text x="620" y="195" font-size="12" font-weight="700" fill="#c0392b">Обрив струму: di/dt &lt; 0</text>
+
+  <!-- --- КАНАЛ 2 (СПРАВА): Напруга на ключі V_DS(t) --- -->
+  <!-- Підпис каналу напруги ключа -->
+  <text x="548" y="244" font-size="12" font-weight="700" fill="#c0392b">Напруга на ключі V_DS (В):</text>
+
+  <!-- Вісь Y напруги V_DS -->
+  <line x1="544" y1="352" x2="544" y2="248" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Засічки осі Y напруги V_DS -->
+  <line x1="540" y1="250" x2="544" y2="250" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="538" y="254" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">75 В</text>
+
+  <line x1="540" y1="311" x2="544" y2="311" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="538" y="315" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">30 В</text>
+
+  <line x1="540" y1="336" x2="544" y2="336" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="538" y="340" text-anchor="end" font-size="12" fill="#1a1a1a">12 В</text>
+
+  <line x1="540" y1="352" x2="544" y2="352" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="538" y="356" text-anchor="end" font-size="12" fill="#6b7280">0 В</text>
+
+  <!-- Пунктирна лінія межі MOSFET 30 В -->
+  <line x1="544" y1="311" x2="914" y2="311" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="690" y="306" font-size="12" font-weight="700" fill="#c0392b">Межа ключа V_DS(max) = 30 В</text>
+
+  <!-- Заливка небезпечної зони перевищення напруги ключа -->
+  <path d="M 610,311 L 614,250 L 622,275 L 630,260 L 642,311 Z" fill="#fdecea"/>
+
+  <!-- Хвиля напруги V_DS без діода (високовольтний викид) -->
+  <path d="M 544,352 L 608,352 L 614,250 L 622,275 L 630,260 L 642,311 L 652,328 L 665,336 L 914,336" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+  <circle cx="614" cy="250" r="3.5" fill="#c0392b"/>
+
+  <!-- Захисна траєкторія з діодом (зелений пунктир) -->
+  <path d="M 608,352 L 611,334 L 645,334 L 655,336 L 914,336" fill="none" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4 3"/>
+
+  <!-- Написи для напруги V_DS -->
+  <text x="626" y="250" font-size="12" font-weight="700" fill="#c0392b">Викид проти-ЕРС: e_L ≈ +75 В</text>
+  <text x="670" y="270" font-size="12" font-weight="700" fill="#c0392b">Лавинний пробій транзистора!</text>
+  <text x="675" y="330" font-size="12" font-weight="700" fill="#27ae60">З діодом: фіксація на 12.7 В</text>
+  <text x="730" y="350" font-size="12" fill="#6b7280">Статична напруга шини 12 В</text>
+
+  <!-- Картка аналізу правої панелі -->
+  <rect x="504" y="382" width="420" height="148" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="516" y="404" font-size="13" font-weight="700" fill="#c0392b">Фізика загрози: індуктивний викид самоіндукції</text>
+  <text x="516" y="426" font-size="12" fill="#1a1a1a">• Причина: індуктивність L_a генерує сплеск e_L = -L_a · (di/dt)</text>
+  <text x="516" y="446" font-size="12" fill="#1a1a1a">• Амплітуда: сплеск напруги сягає 60–80 В за частки мікросекунди</text>
+  <text x="516" y="466" font-size="12" fill="#c0392b">• Наслідок: лавинний пробій транзистора при V_DS &gt; V_max</text>
+  <text x="516" y="486" font-size="12" fill="#1a1a1a">• Ризик без захисту: термічне руйнування кристала MOSFET</text>
+  <text x="516" y="508" font-size="12" font-weight="700" fill="#27ae60">Розв'язок: швидкий діод Шотткі паралельно клемам мотора</text>
+</svg>

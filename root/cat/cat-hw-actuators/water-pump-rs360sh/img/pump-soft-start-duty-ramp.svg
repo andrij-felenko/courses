@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Запуск водяної помпи: миттєве ввімкнення проти Soft-start</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Плавне наростання шпаруватості ШІМ обмежує пусковий струм, захищаючи шину живлення від аварійного просідання</text>
+
+  <!-- Left Panel -->
+  <rect x="40" y="80" width="420" height="350" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <path d="M 40 88 A 8 8 0 0 1 48 80 L 452 80 A 8 8 0 0 1 460 88 L 460 120 L 40 120 Z" fill="#fdecea"/>
+  <path d="M 40 120 L 460 120" fill="none" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="105" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Миттєве ввімкнення (аварійний режим)</text>
+
+  <text x="75" y="135" font-size="13" fill="#6b7280">Шпаруватість D (%)</text>
+  <path d="M 70 200 L 430 200" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <path d="M 70 200 L 70 140" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="420" y="190" font-size="13" fill="#6b7280" text-anchor="end">t</text>
+  
+  <text x="65" y="145" font-size="12" fill="#1a1a1a" text-anchor="end">100%</text>
+  <text x="65" y="198" font-size="12" fill="#1a1a1a" text-anchor="end">0%</text>
+  
+  <path d="M 70 140 L 420 140" fill="none" stroke="#d0d7de" stroke-dasharray="4 4"/>
+  <path d="M 70 198 L 150 198 L 150 140 L 410 140" fill="none" stroke="#2457d6" stroke-width="2.5" />
+  
+  <path d="M 150 140 L 150 410" fill="none" stroke="#d0d7de" stroke-dasharray="4 4"/>
+  <text x="150" y="425" font-size="13" fill="#6b7280" text-anchor="middle">t0</text>
+
+  <text x="75" y="235" font-size="13" fill="#6b7280">I, U</text>
+  <path d="M 70 400 L 430 400" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <path d="M 70 400 L 70 240" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="420" y="390" font-size="13" fill="#6b7280" text-anchor="end">t</text>
+
+  <path d="M 70 295 L 420 295" fill="none" stroke="#d0d7de" stroke-dasharray="2 4"/>
+  <path d="M 70 340 L 420 340" fill="none" stroke="#d0d7de" stroke-dasharray="2 4"/>
+
+  <path d="M 70 280 L 150 280 L 160 380 Q 180 295 230 295 L 410 295" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 70 398 L 150 398 L 155 240 Q 170 340 200 340 L 410 340" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <text x="165" y="250" font-size="13" fill="#c0392b">Пусковий струм!</text>
+  <text x="175" y="390" font-size="13" fill="#c0392b">Просідання напруги</text>
+  
+  <text x="410" y="335" font-size="13" fill="#c0392b" text-anchor="end">I (Струм)</text>
+  <text x="410" y="290" font-size="13" fill="#2457d6" text-anchor="end">U (Напруга)</text>
+
+  <!-- Right Panel -->
+  <rect x="500" y="80" width="420" height="350" fill="#f4f6f8" stroke="#d0d7de" rx="8"/>
+  <path d="M 500 88 A 8 8 0 0 1 508 80 L 912 80 A 8 8 0 0 1 920 88 L 920 120 L 500 120 Z" fill="#e9f7ef"/>
+  <path d="M 500 120 L 920 120" fill="none" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="105" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Плавний пуск Soft-start (штатний режим)</text>
+
+  <text x="535" y="135" font-size="13" fill="#6b7280">Шпаруватість D (%)</text>
+  <path d="M 530 200 L 890 200" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <path d="M 530 200 L 530 140" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="880" y="190" font-size="13" fill="#6b7280" text-anchor="end">t</text>
+  
+  <text x="525" y="145" font-size="12" fill="#1a1a1a" text-anchor="end">100%</text>
+  <text x="525" y="198" font-size="12" fill="#1a1a1a" text-anchor="end">0%</text>
+
+  <path d="M 530 140 L 880 140" fill="none" stroke="#d0d7de" stroke-dasharray="4 4"/>
+  <path d="M 530 198 L 610 198 L 810 140 L 870 140" fill="none" stroke="#2457d6" stroke-width="2.5" />
+  
+  <text x="710" y="160" font-size="13" fill="#2457d6" text-anchor="middle">Soft-start ramp</text>
+
+  <path d="M 610 140 L 610 410" fill="none" stroke="#d0d7de" stroke-dasharray="4 4"/>
+  <text x="610" y="425" font-size="13" fill="#6b7280" text-anchor="middle">t0</text>
+  <path d="M 810 140 L 810 410" fill="none" stroke="#d0d7de" stroke-dasharray="4 4"/>
+  <text x="810" y="425" font-size="13" fill="#6b7280" text-anchor="middle">t1</text>
+
+  <text x="535" y="235" font-size="13" fill="#6b7280">I, U</text>
+  <path d="M 530 400 L 890 400" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <path d="M 530 400 L 530 240" fill="none" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="880" y="390" font-size="13" fill="#6b7280" text-anchor="end">t</text>
+
+  <path d="M 530 295 L 880 295" fill="none" stroke="#d0d7de" stroke-dasharray="2 4"/>
+  <path d="M 530 340 L 880 340" fill="none" stroke="#d0d7de" stroke-dasharray="2 4"/>
+
+  <path d="M 530 280 L 610 280 C 660 280, 760 295, 810 295 L 870 295" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <path d="M 530 398 L 610 398 C 660 398, 760 340, 810 340 L 870 340" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <text x="710" y="275" font-size="13" fill="#2457d6" text-anchor="middle">U стабільна</text>
+  <text x="750" y="385" font-size="13" fill="#27ae60">Без пускового удару</text>
+  
+  <text x="870" y="335" font-size="13" fill="#27ae60" text-anchor="end">I (Струм)</text>
+  <text x="870" y="290" font-size="13" fill="#2457d6" text-anchor="end">U (Напруга)</text>
+
+</svg>

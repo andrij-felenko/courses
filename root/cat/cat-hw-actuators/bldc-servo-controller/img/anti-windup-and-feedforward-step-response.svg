@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-bad" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Перехідні процеси сервопривода: захист Anti-Windup та зв'язок Feedforward</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Зворотний перерахунок знімає перерегулювання при насиченні, а випередження усуває динамічне відставання</text>
+  <rect x="24" y="74" width="446" height="464" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="96" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">1. Сходинка положення: ефект Anti-Windup</text>
+  <rect x="490" y="74" width="446" height="464" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="713" y="96" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">2. S-подібна траєкторія: випередження Feedforward</text>
+  <rect x="38" y="108" width="418" height="132" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="124" font-size="12" font-weight="700" fill="#1a1a1a">Відпрацювання сходинки: кутове положення θ(t)</text>
+  <line x1="76" y1="218" x2="440" y2="218" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="76" y1="218" x2="76" y2="132" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="70" y="136" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">θ</text>
+  <text x="442" y="232" font-size="12" fill="#6b7280" text-anchor="end">t (мс)</text>
+  <text x="70" y="222" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <line x1="73" y1="176" x2="76" y2="176" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="70" y="180" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">1.0</text>
+  <line x1="76" y1="176" x2="430" y2="176" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="430" y="170" font-size="12" fill="#2457d6" text-anchor="end">θ_ref (уставка)</text>
+  <line x1="73" y1="146" x2="76" y2="146" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="70" y="150" font-size="12" fill="#c0392b" text-anchor="end">1.7</text>
+  <line x1="76" y1="146" x2="195" y2="146" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <path d="M 76,218 C 95,218 115,195 130,176 C 150,152 165,146 185,146 C 210,146 225,190 245,190 C 270,190 285,172 305,172 C 330,172 350,178 380,176 L 430,176" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="195" y1="174" x2="195" y2="150" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-bad)"/>
+  <text x="202" y="163" font-size="12" font-weight="700" fill="#c0392b">σ = +72% (windup)</text>
+  <path d="M 76,218 C 100,218 125,195 145,182 C 165,177 180,176 205,176 L 430,176" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="210" y="208" font-size="12" font-weight="700" fill="#27ae60">З Anti-Windup: перерегулювання 0%</text>
+  <text x="130" y="232" font-size="12" fill="#6b7280" text-anchor="middle">20</text>
+  <text x="190" y="232" font-size="12" fill="#6b7280" text-anchor="middle">40</text>
+  <text x="250" y="232" font-size="12" fill="#6b7280" text-anchor="middle">60</text>
+  <text x="310" y="232" font-size="12" fill="#6b7280" text-anchor="middle">80</text>
+  <rect x="38" y="254" width="418" height="132" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="48" y="270" font-size="12" font-weight="700" fill="#1a1a1a">Керуюча напруга інвертора U_q(t)</text>
+  <line x1="76" y1="320" x2="440" y2="320" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="76" y1="366" x2="76" y2="276" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="70" y="280" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">U</text>
+  <text x="442" y="334" font-size="12" fill="#6b7280" text-anchor="end">t (мс)</text>
+  <line x1="73" y1="288" x2="76" y2="288" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="70" y="292" font-size="12" fill="#6b7280" text-anchor="end">+U_max</text>
+  <line x1="76" y1="288" x2="430" y2="288" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="70" y="324" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <line x1="73" y1="352" x2="76" y2="352" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="70" y="356" font-size="12" fill="#6b7280" text-anchor="end">−U_max</text>
+  <line x1="76" y1="352" x2="430" y2="352" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <path d="M 76,320 L 78,288 L 175,288 C 185,288 195,352 210,352 L 235,352 C 255,352 265,308 285,308 C 305,308 315,320 335,320 L 430,320" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="182" y="304" font-size="12" font-weight="700" fill="#c0392b">Затяжне насичення (windup)</text>
+  <path d="M 76,320 L 78,288 L 120,288 C 135,288 150,316 175,320 L 430,320" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="182" y="338" font-size="12" font-weight="700" fill="#27ae60">Своєчасний плавний скид</text>
+  <text x="130" y="374" font-size="12" fill="#6b7280" text-anchor="middle">20</text>
+  <text x="190" y="374" font-size="12" fill="#6b7280" text-anchor="middle">40</text>
+  <text x="250" y="374" font-size="12" fill="#6b7280" text-anchor="middle">60</text>
+  <text x="310" y="374" font-size="12" fill="#6b7280" text-anchor="middle">80</text>
+  <rect x="38" y="400" width="418" height="56" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="48" y="420" font-size="12" font-weight="700" fill="#c0392b">Класичний каскад (без захисту від насичення):</text>
+  <text x="48" y="440" font-size="12" fill="#1a1a1a">Насичення ШІМ → накопичення ∫e dt → перерегулювання σ &gt; 70%</text>
+  <rect x="38" y="470" width="418" height="56" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="48" y="490" font-size="12" font-weight="700" fill="#27ae60">Оптимізований каскад (зворотний перерахунок anti-windup):</text>
+  <text x="48" y="510" font-size="12" fill="#1a1a1a">Корекція інтегратора (u−v)/Tt → миттєвий скид → викид 0%</text>
+  <rect x="504" y="108" width="418" height="132" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="124" font-size="12" font-weight="700" fill="#1a1a1a">Стеження за S-кривою: кутове положення θ(t)</text>
+  <line x1="542" y1="218" x2="906" y2="218" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="542" y1="218" x2="542" y2="132" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="536" y="136" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">θ</text>
+  <text x="908" y="232" font-size="12" fill="#6b7280" text-anchor="end">t (мс)</text>
+  <text x="536" y="222" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <line x1="539" y1="156" x2="542" y2="156" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="536" y="160" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">θ_k</text>
+  <line x1="542" y1="156" x2="896" y2="156" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="896" y="150" font-size="12" fill="#2457d6" text-anchor="end">θ_ref(t) S-траєкторія</text>
+  <path d="M 542,218 L 570,218 C 630,218 670,156 780,156 L 896,156" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3"/>
+  <path d="M 542,218 L 600,218 C 660,218 700,156 815,156 C 825,156 832,150 845,150 C 855,150 865,156 896,156" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M 542,218 L 570,218 C 630,218 670,156 780,156 L 896,156" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="675" y1="187" x2="708" y2="187" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-bad)"/>
+  <text x="716" y="191" font-size="12" font-weight="700" fill="#c0392b">Відставання Δθ_lag</text>
+  <text x="590" y="170" font-size="12" font-weight="700" fill="#27ae60">З Feedforward: точне стеження</text>
+  <text x="610" y="232" font-size="12" fill="#6b7280" text-anchor="middle">25</text>
+  <text x="690" y="232" font-size="12" fill="#6b7280" text-anchor="middle">50</text>
+  <text x="770" y="232" font-size="12" fill="#6b7280" text-anchor="middle">75</text>
+  <text x="850" y="232" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+  <rect x="504" y="254" width="418" height="132" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="516" y="270" font-size="12" font-weight="700" fill="#1a1a1a">Динамічна похибка стеження: e(t) = θ_ref − θ</text>
+  <line x1="542" y1="320" x2="906" y2="320" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="542" y1="366" x2="542" y2="276" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr)"/>
+  <text x="536" y="280" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">e</text>
+  <text x="908" y="334" font-size="12" fill="#6b7280" text-anchor="end">t (мс)</text>
+  <line x1="539" y1="292" x2="542" y2="292" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="536" y="296" font-size="12" fill="#c0392b" text-anchor="end">+e_max</text>
+  <text x="536" y="324" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+  <line x1="539" y1="348" x2="542" y2="348" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="536" y="352" font-size="12" fill="#c0392b" text-anchor="end">−e_max</text>
+  <path d="M 542,320 L 570,320 C 600,320 615,292 645,292 C 675,292 700,348 740,348 C 765,348 785,320 820,320 L 896,320" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="645" y="282" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Похибка без FF (запізнення)</text>
+  <line x1="542" y1="320" x2="896" y2="320" stroke="#27ae60" stroke-width="2.8"/>
+  <text x="635" y="340" font-size="12" font-weight="700" fill="#27ae60">З випередженням FF: e(t) ≈ 0 (без відставання)</text>
+  <text x="610" y="374" font-size="12" fill="#6b7280" text-anchor="middle">25</text>
+  <text x="690" y="374" font-size="12" fill="#6b7280" text-anchor="middle">50</text>
+  <text x="770" y="374" font-size="12" fill="#6b7280" text-anchor="middle">75</text>
+  <text x="850" y="374" font-size="12" fill="#6b7280" text-anchor="middle">100</text>
+  <rect x="504" y="400" width="418" height="56" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="514" y="420" font-size="12" font-weight="700" fill="#c0392b">Лише зворотний зв'язок (FB без випередження):</text>
+  <text x="514" y="440" font-size="12" fill="#1a1a1a">Реакція лише на помилку → інерція ротора J створює відставання Δθ</text>
+  <rect x="504" y="470" width="418" height="56" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="514" y="490" font-size="12" font-weight="700" fill="#27ae60">Випередження за швидкістю та прискоренням (FF):</text>
+  <text x="514" y="510" font-size="12" fill="#1a1a1a">Струм i_ff = (J/Kt)·α компенсує інерцію наперед → Δθ_дин = 0</text>
+</svg>

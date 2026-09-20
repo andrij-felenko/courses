@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="500" fill="white"/>
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+</defs>
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Електромеханічні характеристики двигуна типорозміру 130</text>
+<text x="480" y="54" font-size="13" text-anchor="middle" fill="#6b7280">Проти-ЕРС лінійно зростає з обертами, обмежуючи струм: пік потужності — на 50% n₀, пік ККД — на 75–85% n₀</text>
+<!-- Аварійна зона заклинювання (Stall) -->
+<rect x="80" y="105" width="55" height="300" fill="#fdecea"/>
+<line x1="135" y1="105" x2="135" y2="405" stroke="#c0392b" stroke-width="1.2" stroke-dasharray="4,3"/>
+<!-- Зона оптимального ККД -->
+<rect x="440" y="105" width="48" height="300" fill="#e9f7ef"/>
+<line x1="440" y1="105" x2="440" y2="405" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4,3"/>
+<line x1="488" y1="105" x2="488" y2="405" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4,3"/>
+<!-- Сітка координат -->
+<line x1="80" y1="180" x2="560" y2="180" stroke="#e1e4e8" stroke-dasharray="3,3"/>
+<line x1="80" y1="255" x2="560" y2="255" stroke="#e1e4e8" stroke-dasharray="3,3"/>
+<line x1="80" y1="330" x2="560" y2="330" stroke="#e1e4e8" stroke-dasharray="3,3"/>
+<line x1="200" y1="105" x2="200" y2="405" stroke="#e1e4e8" stroke-dasharray="3,3"/>
+<line x1="320" y1="155" x2="320" y2="405" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,4"/>
+<line x1="560" y1="105" x2="560" y2="405" stroke="#d0d7de"/>
+<!-- Осі координат -->
+<line x1="80" y1="405" x2="80" y2="92" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+<line x1="80" y1="405" x2="572" y2="405" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+<!-- Шкала Y -->
+<text x="75" y="82" font-size="12" font-weight="bold" fill="#1a1a1a">Значення величин, %</text>
+<line x1="75" y1="105" x2="80" y2="105" stroke="#1a1a1a" stroke-width="1"/>
+<text x="70" y="109" font-size="12" text-anchor="end" fill="#6b7280">100%</text>
+<line x1="75" y1="180" x2="80" y2="180" stroke="#1a1a1a" stroke-width="1"/>
+<text x="70" y="184" font-size="12" text-anchor="end" fill="#6b7280">75%</text>
+<line x1="75" y1="255" x2="80" y2="255" stroke="#1a1a1a" stroke-width="1"/>
+<text x="70" y="259" font-size="12" text-anchor="end" fill="#6b7280">50%</text>
+<line x1="75" y1="330" x2="80" y2="330" stroke="#1a1a1a" stroke-width="1"/>
+<text x="70" y="334" font-size="12" text-anchor="end" fill="#6b7280">25%</text>
+<line x1="75" y1="405" x2="80" y2="405" stroke="#1a1a1a" stroke-width="1"/>
+<text x="70" y="409" font-size="12" text-anchor="end" fill="#6b7280">0%</text>
+<!-- Шкала X -->
+<line x1="80" y1="405" x2="80" y2="410" stroke="#1a1a1a" stroke-width="1"/>
+<text x="80" y="424" font-size="12" text-anchor="middle" fill="#6b7280">0</text>
+<line x1="200" y1="405" x2="200" y2="410" stroke="#1a1a1a" stroke-width="1"/>
+<text x="200" y="424" font-size="12" text-anchor="middle" fill="#6b7280">25%</text>
+<line x1="320" y1="405" x2="320" y2="410" stroke="#1a1a1a" stroke-width="1"/>
+<text x="320" y="424" font-size="12" text-anchor="middle" fill="#6b7280">50%</text>
+<line x1="440" y1="405" x2="440" y2="410" stroke="#1a1a1a" stroke-width="1"/>
+<text x="440" y="424" font-size="12" text-anchor="middle" fill="#6b7280">75%</text>
+<line x1="560" y1="405" x2="560" y2="410" stroke="#1a1a1a" stroke-width="1"/>
+<text x="560" y="424" font-size="12" text-anchor="middle" fill="#6b7280">100% n₀</text>
+<text x="320" y="445" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Частота обертання вала n (% від холостого ходу n₀)</text>
+<!-- Легенда кривих -->
+<line x1="80" y1="472" x2="105" y2="472" stroke="#2457d6" stroke-width="2.5"/>
+<text x="112" y="476" font-size="12" font-weight="bold" fill="#2457d6">E: проти-ЕРС</text>
+<line x1="210" y1="472" x2="235" y2="472" stroke="#c0392b" stroke-width="2.5"/>
+<text x="242" y="476" font-size="12" font-weight="bold" fill="#c0392b">I: струм якоря</text>
+<line x1="340" y1="472" x2="365" y2="472" stroke="#1a1a1a" stroke-width="2.5" stroke-dasharray="6,3"/>
+<text x="372" y="476" font-size="12" font-weight="bold" fill="#1a1a1a">P_mex: потужність</text>
+<line x1="475" y1="472" x2="500" y2="472" stroke="#27ae60" stroke-width="2.5"/>
+<text x="507" y="476" font-size="12" font-weight="bold" fill="#27ae60">η: ККД</text>
+<!-- Крива 1: Проти-ЕРС E(n) -->
+<line x1="80" y1="405" x2="560" y2="120" stroke="#2457d6" stroke-width="2.5"/>
+<!-- Крива 2: Струм якоря I(n) -->
+<line x1="80" y1="105" x2="560" y2="390" stroke="#c0392b" stroke-width="2.5"/>
+<!-- Крива 3: Механічна потужність P_mex(n) -->
+<polyline points="80.0,405.0 100.0,364.3 120.0,327.1 140.0,293.4 160.0,263.3 180.0,236.8 200.0,213.8 220.0,194.3 240.0,178.3 260.0,165.9 280.0,157.1 300.0,151.8 320.0,150.0 340.0,151.8 360.0,157.1 380.0,165.9 400.0,178.3 420.0,194.3 440.0,213.8 460.0,236.8 480.0,263.3 500.0,293.4 520.0,327.1 540.0,364.3 560.0,405.0" fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-dasharray="6,3"/>
+<!-- Крива 4: ККД η(n) -->
+<polyline points="80.0,405.0 100.0,392.8 120.0,380.6 140.0,368.5 160.0,356.5 180.0,344.5 200.0,332.7 220.0,321.0 240.0,309.4 260.0,298.0 280.0,286.8 300.0,275.8 320.0,265.2 340.0,254.9 360.0,245.0 380.0,235.8 400.0,227.4 420.0,220.0 440.0,214.2 460.0,210.6 480.0,210.5 500.0,216.4 520.0,233.6 540.0,276.8 560.0,405.0" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+<circle cx="80" cy="105" r="4.5" fill="#c0392b"/>
+<text x="88" y="100" font-size="12" font-weight="bold" fill="#c0392b">I_stall (макс)</text>
+<circle cx="80" cy="405" r="4.5" fill="#2457d6"/>
+<circle cx="320" cy="150" r="4.5" fill="#1a1a1a"/>
+<circle cx="456" cy="210" r="4.5" fill="#27ae60"/>
+<circle cx="560" cy="120" r="4" fill="#2457d6"/>
+<text x="552" y="112" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">E ≈ U</text>
+<circle cx="560" cy="390" r="4" fill="#c0392b"/>
+<text x="552" y="384" font-size="12" font-weight="bold" text-anchor="end" fill="#c0392b">I₀ (холостий)</text>
+<!-- Анотації зони Stall -->
+<text x="107" y="215" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">STALL</text>
+<text x="107" y="232" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">(Стопор)</text>
+<text x="107" y="275" font-size="12" text-anchor="middle" fill="#c0392b">E = 0</text>
+<text x="107" y="291" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">I = I_max</text>
+<!-- Анотація точки макс. потужності -->
+<text x="320" y="125" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">P_max (50% n₀)</text>
+<text x="320" y="141" font-size="12" text-anchor="middle" fill="#6b7280">ККД = 50%</text>
+<!-- Анотація зони оптимального ККД -->
+<text x="464" y="125" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">η_max</text>
+<text x="464" y="141" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">60–65%</text>
+<text x="464" y="157" font-size="12" text-anchor="middle" fill="#27ae60">75–85%</text>
+<!-- Права панель 1: Фізичні рівняння кривих -->
+<rect x="595" y="80" width="345" height="180" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<line x1="595" y1="110" x2="940" y2="110" stroke="#d0d7de" stroke-width="1"/>
+<text x="610" y="101" font-size="14" font-weight="bold" fill="#2457d6">Електромеханічні криві та фізика</text>
+<text x="610" y="126" font-size="12" font-weight="bold" fill="#2457d6">• Проти-ЕРС: <tspan font-weight="normal" fill="#1a1a1a">E = k · ω</tspan></text>
+<text x="625" y="142" font-size="12" fill="#6b7280">лінійно зростає з обертами ротора</text>
+<text x="610" y="161" font-size="12" font-weight="bold" fill="#c0392b">• Струм якоря: <tspan font-weight="normal" fill="#1a1a1a">I = (U − E) / R</tspan></text>
+<text x="625" y="177" font-size="12" fill="#6b7280">саморегуляція: падіння E збільшує струм</text>
+<text x="610" y="196" font-size="12" font-weight="bold" fill="#1a1a1a">• Мех. потужність: <tspan font-weight="normal" fill="#1a1a1a">P_mex = M · ω</tspan></text>
+<text x="625" y="212" font-size="12" fill="#6b7280">параболічна крива з піком при 50% n₀</text>
+<text x="610" y="231" font-size="12" font-weight="bold" fill="#27ae60">• ККД системи: <tspan font-weight="normal" fill="#1a1a1a">η = P_mex / P_ел</tspan></text>
+<text x="625" y="247" font-size="12" fill="#6b7280">максимум 60–65% зміщений у зону 75–85% n₀</text>
+<!-- Права панель 2: Характерні режими роботи -->
+<rect x="595" y="272" width="345" height="220" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<line x1="595" y1="302" x2="940" y2="302" stroke="#d0d7de" stroke-width="1"/>
+<text x="610" y="293" font-size="14" font-weight="bold" fill="#1a1a1a">Характерні режими роботи двигуна</text>
+<text x="610" y="322" font-size="12" font-weight="bold" fill="#c0392b">• Заклинювання / Стопор (Stall, n = 0):</text>
+<text x="625" y="338" font-size="12" fill="#6b7280">E = 0 → I_stall = U / R ≈ 2 А (струм ×15–20)</text>
+<text x="625" y="354" font-size="12" font-weight="bold" fill="#c0392b">P_тепл ≈ 6 Вт: вигоряння обмотки за 3–5 с</text>
+<text x="610" y="378" font-size="12" font-weight="bold" fill="#1a1a1a">• Максимальна потужність (P_max, 50% n₀):</text>
+<text x="625" y="394" font-size="12" fill="#6b7280">Пік механічної віддачі, але ККД лише 50%:</text>
+<text x="625" y="410" font-size="12" fill="#1a1a1a">50% енергії йде в тепло (режим короткочасний)</text>
+<text x="610" y="434" font-size="12" font-weight="bold" fill="#27ae60">• Оптимальна зона ККД (75–85% n₀):</text>
+<text x="625" y="450" font-size="12" fill="#6b7280">ККД = 60–65%, помірний робочий струм 0.3–0.5 А</text>
+<text x="625" y="466" font-size="12" font-weight="bold" fill="#27ae60">Номінальна тривала зона роботи привода</text>
+</svg>

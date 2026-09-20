@@ -1,0 +1,328 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Силовий каскад BLDC-сервоконтролера та коло гальмування</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Виносний Low-ESR конденсатор, зіркова точка PGND/AGND та чоппер скидання рекуперації</text>
+
+  <!-- ПАНЕЛЬ 1: ВХІД ЖИВЛЕННЯ ТА ЗІРКОВА ЗЕМЛЯ -->
+  <rect x="24" y="72" width="196" height="372" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="34" y="80" width="176" height="22" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="122" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">ВХІД ТА ЗІРКОВА ЗЕМЛЯ</text>
+
+  <!-- Клеми живлення -->
+  <rect x="36" y="112" width="62" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="67" y="128" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">V_IN +</text>
+  <text x="67" y="148" text-anchor="middle" font-size="12" fill="#6b7280">+24..48 В</text>
+
+  <rect x="36" y="328" width="62" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="67" y="344" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">GND_IN</text>
+  <text x="67" y="364" text-anchor="middle" font-size="12" fill="#6b7280">0 В джерело</text>
+
+  <!-- Дроти шини живлення в панелі 1 -->
+  <line x1="98" y1="124" x2="220" y2="124" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="155" cy="124" r="3.5" fill="#c0392b"/>
+
+  <!-- Тандем конденсаторів C_EXT та C_CER -->
+  <line x1="155" y1="124" x2="155" y2="158" stroke="#c0392b" stroke-width="2"/>
+  <line x1="135" y1="158" x2="178" y2="158" stroke="#c0392b" stroke-width="2"/>
+  
+  <!-- C_EXT (Low-ESR електроліт) -->
+  <line x1="135" y1="158" x2="135" y2="178" stroke="#c0392b" stroke-width="2"/>
+  <line x1="124" y1="178" x2="146" y2="178" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="124" y1="185" x2="146" y2="185" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="135" y1="185" x2="135" y2="240" stroke="#27ae60" stroke-width="2"/>
+  <text x="114" y="176" text-anchor="end" font-size="12" font-weight="700" fill="#c0392b">+</text>
+  <text x="118" y="196" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">C_EXT</text>
+  <text x="118" y="210" text-anchor="end" font-size="12" fill="#6b7280">Low-ESR</text>
+  <text x="118" y="224" text-anchor="end" font-size="12" fill="#6b7280">1000 мкФ</text>
+
+  <!-- C_CER (Кераміка MLCC) -->
+  <line x1="178" y1="158" x2="178" y2="178" stroke="#c0392b" stroke-width="2"/>
+  <line x1="170" y1="178" x2="186" y2="178" stroke="#2457d6" stroke-width="2"/>
+  <line x1="170" y1="185" x2="186" y2="185" stroke="#2457d6" stroke-width="2"/>
+  <line x1="178" y1="185" x2="178" y2="240" stroke="#27ae60" stroke-width="2"/>
+  <text x="194" y="196" font-size="12" font-weight="700" fill="#2457d6">C_CER</text>
+  <text x="194" y="210" font-size="12" fill="#6b7280">10 мкФ</text>
+  <text x="194" y="224" font-size="12" fill="#6b7280">MLCC</text>
+
+  <!-- З'єднання конденсаторів до точки зірка -->
+  <line x1="135" y1="240" x2="178" y2="240" stroke="#27ae60" stroke-width="2"/>
+  <line x1="155" y1="240" x2="155" y2="340" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Вузол Star Ground -->
+  <line x1="98" y1="340" x2="155" y2="340" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="155" y1="340" x2="220" y2="340" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="155" cy="340" r="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="155" cy="340" r="4" fill="#27ae60"/>
+
+  <!-- Вхід лінії AGND до Star Ground -->
+  <line x1="220" y1="370" x2="155" y2="370" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+  <line x1="155" y1="370" x2="155" y2="350" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="210" y="364" text-anchor="end" font-size="12" font-weight="700" fill="#2457d6">AGND</text>
+
+  <!-- Бейдж точки Star Ground -->
+  <rect x="34" y="394" width="176" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="122" y="410" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">ТОЧКА «STAR GROUND»</text>
+  <text x="122" y="425" text-anchor="middle" font-size="12" fill="#1a1a1a">Єдине зведення земель 0 В</text>
+
+  <!-- ПАНЕЛЬ 2: ГАЛЬМІВНИЙ ЧОППЕР -->
+  <rect x="232" y="72" width="164" height="372" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="242" y="80" width="144" height="22" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="314" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">ГАЛЬМІВНИЙ ЧОППЕР</text>
+
+  <!-- Шина V_BUS через панель 2 -->
+  <line x1="220" y1="124" x2="408" y2="124" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="314" y="114" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">V_BUS (+24..48 В)</text>
+  <circle cx="314" cy="124" r="3.5" fill="#c0392b"/>
+
+  <!-- Гальмівний баластний резистор R_BRAKE -->
+  <line x1="314" y1="124" x2="314" y2="145" stroke="#c0392b" stroke-width="2"/>
+  <rect x="304" y="145" width="20" height="44" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="330" y="158" font-size="12" font-weight="700" fill="#1a1a1a">R_BRAKE</text>
+  <text x="330" y="172" font-size="12" fill="#6b7280">5..10 Ом</text>
+  <text x="330" y="186" font-size="12" fill="#c0392b">Баласт</text>
+
+  <!-- Захисний зворотний діод D_BRK -->
+  <line x1="314" y1="136" x2="264" y2="136" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="264" y1="136" x2="264" y2="154" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="256" y1="154" x2="272" y2="154" stroke="#1a1a1a" stroke-width="1.5"/>
+  <polygon points="256,172 272,172 264,154" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="264" y1="172" x2="264" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="264" y1="200" x2="314" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="248" y="168" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">D_BRK</text>
+
+  <!-- З'єднання після резистора -->
+  <line x1="314" y1="189" x2="314" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="314" cy="200" r="3" fill="#1a1a1a"/>
+
+  <!-- Стрілка струму скидання I_brake -->
+  <line x1="334" y1="130" x2="334" y2="148" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="342" y="142" font-size="12" font-weight="700" fill="#c0392b">I_brk</text>
+
+  <!-- Транзисторний ключ Q_BRK (Brake Chopper FET) -->
+  <rect x="300" y="220" width="28" height="34" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="314" y1="220" x2="314" y2="254" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="300" y1="237" x2="282" y2="237" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="334" y="234" font-size="12" font-weight="700" fill="#1a1a1a">Q_BRK</text>
+  <text x="334" y="248" font-size="12" fill="#6b7280">N-MOSFET</text>
+  <text x="334" y="262" font-size="12" fill="#2457d6">Brake Chopper</text>
+
+  <!-- Керування затвором чоппера -->
+  <rect x="242" y="278" width="80" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="282" y="294" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Brake ШІМ</text>
+  <line x1="282" y1="278" x2="282" y2="237" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="282" y="318" text-anchor="middle" font-size="12" fill="#c0392b">ON при V &gt; 54 В</text>
+
+  <!-- Дріт від ключа до PGND -->
+  <line x1="314" y1="254" x2="314" y2="340" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="314" cy="340" r="3.5" fill="#27ae60"/>
+
+  <!-- Шина PGND через панель 2 -->
+  <line x1="220" y1="340" x2="408" y2="340" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Шина AGND через панель 2 -->
+  <line x1="220" y1="370" x2="408" y2="370" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- Бейдж панелі 2 -->
+  <rect x="242" y="394" width="144" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="314" y="410" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">ЗАХИСТ ВІД РЕКУПЕРАЦІЇ</text>
+  <text x="314" y="425" text-anchor="middle" font-size="12" fill="#1a1a1a">Скидання енергії на баласт</text>
+
+  <!-- ПАНЕЛЬ 3: СИЛОВИЙ 3-ФАЗНИЙ МІСТ -->
+  <rect x="408" y="72" width="336" height="372" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="418" y="80" width="316" height="22" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="576" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">ТРИФАЗНИЙ СИЛОВИЙ МІСТ (INVERTER)</text>
+
+  <!-- Шина V_BUS через панель 3 -->
+  <line x1="408" y1="124" x2="680" y2="124" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="576" y="114" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Шина живлення напівмостів V_BUS</text>
+  <circle cx="468" cy="124" r="3.5" fill="#c0392b"/>
+  <circle cx="568" cy="124" r="3.5" fill="#c0392b"/>
+  <circle cx="668" cy="124" r="3.5" fill="#c0392b"/>
+
+  <!-- ВЕРХНІ КЛЮЧІ (HIGH-SIDE MOSFETs) -->
+  <!-- Фаза U (Q1) -->
+  <line x1="468" y1="124" x2="468" y2="140" stroke="#c0392b" stroke-width="2"/>
+  <rect x="454" y="140" width="28" height="34" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="468" y1="140" x2="468" y2="174" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="454" y1="157" x2="442" y2="157" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="436" y="152" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">Q1</text>
+  <text x="436" y="166" text-anchor="end" font-size="12" fill="#6b7280">HS_U</text>
+
+  <!-- Фаза V (Q3) -->
+  <line x1="568" y1="124" x2="568" y2="140" stroke="#c0392b" stroke-width="2"/>
+  <rect x="554" y="140" width="28" height="34" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="568" y1="140" x2="568" y2="174" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="554" y1="157" x2="542" y2="157" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="536" y="152" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">Q3</text>
+  <text x="536" y="166" text-anchor="end" font-size="12" fill="#6b7280">HS_V</text>
+
+  <!-- Фаза W (Q5) -->
+  <line x1="668" y1="124" x2="668" y2="140" stroke="#c0392b" stroke-width="2"/>
+  <rect x="654" y="140" width="28" height="34" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="668" y1="140" x2="668" y2="174" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="654" y1="157" x2="642" y2="157" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="636" y="152" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">Q5</text>
+  <text x="636" y="166" text-anchor="end" font-size="12" fill="#6b7280">HS_W</text>
+
+  <!-- ВИХОДИ ФАЗ U, V, W ТА ДРОТИ ДО МОТОРА -->
+  <!-- Фаза U (y=198) -->
+  <line x1="468" y1="174" x2="468" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="468" cy="198" r="3.5" fill="#2457d6"/>
+  <line x1="468" y1="198" x2="756" y2="198" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="502" y="193" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Фаза U</text>
+
+  <!-- Фаза V (y=222) -->
+  <line x1="568" y1="174" x2="568" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="568" cy="222" r="3.5" fill="#27ae60"/>
+  <line x1="568" y1="222" x2="756" y2="222" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="602" y="217" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Фаза V</text>
+
+  <!-- Фаза W (y=246) -->
+  <line x1="668" y1="174" x2="668" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="668" cy="246" r="3.5" fill="#8b5cf6"/>
+  <line x1="668" y1="246" x2="756" y2="246" stroke="#8b5cf6" stroke-width="2.5"/>
+  <text x="702" y="241" text-anchor="middle" font-size="12" font-weight="700" fill="#8b5cf6">Фаза W</text>
+
+  <!-- НИЖНІ КЛЮЧІ (LOW-SIDE MOSFETs) -->
+  <!-- Фаза U (Q2) -->
+  <rect x="454" y="260" width="28" height="34" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="468" y1="260" x2="468" y2="294" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="454" y1="277" x2="442" y2="277" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="436" y="272" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">Q2</text>
+  <text x="436" y="286" text-anchor="end" font-size="12" fill="#6b7280">LS_U</text>
+
+  <!-- Фаза V (Q4) -->
+  <rect x="554" y="260" width="28" height="34" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="568" y1="260" x2="568" y2="294" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="554" y1="277" x2="542" y2="277" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="536" y="272" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">Q4</text>
+  <text x="536" y="286" text-anchor="end" font-size="12" fill="#6b7280">LS_V</text>
+
+  <!-- Фаза W (Q6) -->
+  <rect x="654" y="260" width="28" height="34" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="668" y1="260" x2="668" y2="294" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="654" y1="277" x2="642" y2="277" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="636" y="272" text-anchor="end" font-size="12" font-weight="700" fill="#1a1a1a">Q6</text>
+  <text x="636" y="286" text-anchor="end" font-size="12" fill="#6b7280">LS_W</text>
+
+  <!-- Струмові шунти R_sh -->
+  <line x1="468" y1="294" x2="468" y2="308" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="460" y="308" width="16" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="468" y1="324" x2="468" y2="340" stroke="#27ae60" stroke-width="2"/>
+  <text x="482" y="321" font-size="12" fill="#6b7280">R_sh1</text>
+
+  <line x1="568" y1="294" x2="568" y2="308" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="560" y="308" width="16" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="568" y1="324" x2="568" y2="340" stroke="#27ae60" stroke-width="2"/>
+  <text x="582" y="321" font-size="12" fill="#6b7280">R_sh2</text>
+
+  <line x1="668" y1="294" x2="668" y2="308" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="660" y="308" width="16" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.2"/>
+  <line x1="668" y1="324" x2="668" y2="340" stroke="#27ae60" stroke-width="2"/>
+  <text x="682" y="321" font-size="12" fill="#6b7280">R_sh3</text>
+
+  <!-- Шина PGND в панелі 3 -->
+  <line x1="408" y1="340" x2="680" y2="340" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="468" cy="340" r="3.5" fill="#27ae60"/>
+  <circle cx="568" cy="340" r="3.5" fill="#27ae60"/>
+  <circle cx="668" cy="340" r="3.5" fill="#27ae60"/>
+  <text x="576" y="356" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Силова земля PGND (струми інвертора до 50 А)</text>
+
+  <!-- Сигнальний блок: Драйвери затворів та АЦП (AGND) -->
+  <rect x="418" y="376" width="316" height="58" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="576" y="394" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">СИГНАЛЬНИЙ БЛОК: MCU, GATE DRIVERS, CSA</text>
+  <text x="576" y="410" text-anchor="middle" font-size="12" fill="#1a1a1a">Підсилювачі струму CSA прив'язані до чистої AGND</text>
+  <text x="576" y="424" text-anchor="middle" font-size="12" fill="#6b7280">Окрема траса AGND до точки «Зірка» без силових струмів</text>
+
+  <!-- Дріт AGND з панелі 3 -->
+  <line x1="418" y1="370" x2="408" y2="370" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- ПАНЕЛЬ 4: BLDC ДВИГУН -->
+  <rect x="756" y="72" width="180" height="372" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="766" y="80" width="160" height="22" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="846" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">BLDC ДВИГУН</text>
+
+  <text x="846" y="125" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Трифазний статор</text>
+  <text x="846" y="141" text-anchor="middle" font-size="12" fill="#6b7280">Обмотки «Зірка» (Y)</text>
+  <text x="846" y="157" text-anchor="middle" font-size="12" fill="#2457d6">Комутація U, V, W</text>
+
+  <!-- Клеми фаз U, V, W на вході мотора -->
+  <rect x="760" y="188" width="22" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="771" y="203" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">U</text>
+
+  <rect x="760" y="212" width="22" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="771" y="227" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">V</text>
+
+  <rect x="760" y="236" width="22" height="20" rx="3" fill="#ffffff" stroke="#8b5cf6" stroke-width="1.5"/>
+  <text x="771" y="251" text-anchor="middle" font-size="12" font-weight="700" fill="#8b5cf6">W</text>
+
+  <!-- Корпус статора та обмотки -->
+  <circle cx="856" cy="222" r="48" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Дроти фаз до статора мотора (зупиняються на периметрі статора) -->
+  <line x1="782" y1="198" x2="816" y2="198" stroke="#2457d6" stroke-width="2"/>
+  <line x1="816" y1="198" x2="834" y2="186" stroke="#2457d6" stroke-width="2"/>
+
+  <line x1="782" y1="222" x2="808" y2="222" stroke="#27ae60" stroke-width="2"/>
+
+  <line x1="782" y1="246" x2="816" y2="246" stroke="#8b5cf6" stroke-width="2"/>
+  <line x1="816" y1="246" x2="834" y2="258" stroke="#8b5cf6" stroke-width="2"/>
+
+  <!-- Ротор з постійними магнітами N / S -->
+  <circle cx="856" cy="222" r="18" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M856,204 A18,18 0 0,0 856,240 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="847" y="226" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">N</text>
+  <path d="M856,204 A18,18 0 0,1 856,240 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="865" y="226" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">S</text>
+
+  <!-- Блок опису рекуперації при гальмуванні -->
+  <rect x="766" y="288" width="160" height="84" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="846" y="306" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">РЕКУПЕРАЦІЯ</text>
+  <text x="846" y="322" text-anchor="middle" font-size="12" fill="#1a1a1a">Мотор як генератор:</text>
+  <text x="846" y="338" text-anchor="middle" font-size="12" fill="#6b7280">струм вертається в міст</text>
+  <line x1="880" y1="354" x2="812" y2="354" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="846" y="367" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Сплеск V_BUS</text>
+
+  <!-- Бейдж панелі 4 -->
+  <rect x="766" y="394" width="160" height="40" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="846" y="410" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">РОТОР З МАГНІТАМИ</text>
+  <text x="846" y="425" text-anchor="middle" font-size="12" fill="#6b7280">BLDC / PMSM мотор</text>
+
+  <!-- НИЖНІ КАРТКИ З ПРАВИЛАМИ СХЕМОТЕХНІКИ -->
+  <!-- Картка 1: Low-ESR -->
+  <rect x="24" y="458" width="296" height="78" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="36" y="478" font-size="12" font-weight="700" fill="#2457d6">1. Виносний Low-ESR тандем:</text>
+  <text x="36" y="495" font-size="12" fill="#1a1a1a">Електроліт 1000 мкФ + кераміка 10 мкФ гасять</text>
+  <text x="36" y="511" font-size="12" fill="#6b7280">імпульсні струми комутації ШІМ (20–40 кГц).</text>
+  <text x="36" y="526" font-size="12" fill="#6b7280">Монтаж — мінімальна довжина провідників.</text>
+
+  <!-- Картка 2: Star Ground -->
+  <rect x="332" y="458" width="296" height="78" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="344" y="478" font-size="12" font-weight="700" fill="#27ae60">2. Зіркова земля (Star Ground):</text>
+  <text x="344" y="495" font-size="12" fill="#1a1a1a">PGND і AGND з'єднуються в єдиній точці на C_EXT.</text>
+  <text x="344" y="511" font-size="12" fill="#1a1a1a">Силові струми до 50 А не течуть через AGND,</text>
+  <text x="344" y="526" font-size="12" fill="#6b7280">запобігаючи збоям чутливих сенсорів та MCU.</text>
+
+  <!-- Картка 3: Brake Chopper -->
+  <rect x="640" y="458" width="296" height="78" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="652" y="478" font-size="12" font-weight="700" fill="#c0392b">3. Гальмівний чоппер (Brake):</text>
+  <text x="652" y="495" font-size="12" fill="#1a1a1a">При гальмуванні мотор заряджає V_BUS.</text>
+  <text x="652" y="511" font-size="12" fill="#c0392b">Ключ Q_BRK скидає надлишок на резистор R_brk,</text>
+  <text x="652" y="526" font-size="12" fill="#6b7280">захищаючи ключі моста від перенапруги.</text>
+</svg>

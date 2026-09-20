@@ -1,0 +1,221 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема баластного ключа та гістерезисне скидання енергії гальмування</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Компаратор із гістерезисом вмикає баласт при V_brake_on та вимикає при V_brake_off, захищаючи ключі від V_allow</text>
+
+  <!-- ==================== LEFT PANEL: CIRCUIT SCHEMATIC ==================== -->
+  <rect x="24" y="74" width="440" height="426" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="244" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Принципова схема баластного контуру (Brake Chopper)</text>
+  <text x="244" y="116" text-anchor="middle" font-size="12" fill="#6b7280">Скидання регенеративної енергії інвертора в гальмівний резистор</text>
+
+  <!-- Power Rails -->
+  <!-- +V_bus rail -->
+  <line x1="44" y1="145" x2="444" y2="145" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="44" y="136" font-size="12" font-weight="bold" fill="#c0392b">+V_bus (Шина DC)</text>
+
+  <!-- GND rail -->
+  <line x1="44" y1="415" x2="444" y2="415" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="44" y="430" font-size="12" font-weight="bold" fill="#1a1a1a">GND (0 В)</text>
+
+  <!-- Inverter Regen Input Arrow -->
+  <line x1="44" y1="145" x2="78" y2="145" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="64" y="166" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">I_regen</text>
+  <text x="64" y="180" text-anchor="middle" font-size="11" fill="#6b7280">(регенерація)</text>
+
+  <!-- Buffer Capacitor C_bus -->
+  <circle cx="115" cy="145" r="3.5" fill="#1a1a1a"/>
+  <line x1="115" y1="145" x2="115" y2="260" stroke="#2457d6" stroke-width="2"/>
+  <line x1="103" y1="260" x2="127" y2="260" stroke="#2457d6" stroke-width="3"/>
+  <line x1="103" y1="268" x2="127" y2="268" stroke="#2457d6" stroke-width="3"/>
+  <line x1="115" y1="268" x2="115" y2="415" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="115" cy="415" r="3.5" fill="#1a1a1a"/>
+  <text x="125" y="254" font-size="12" font-weight="bold" fill="#2457d6">+</text>
+  <text x="96" y="264" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">C_bus</text>
+  <text x="96" y="278" text-anchor="end" font-size="11" fill="#6b7280">Буферна</text>
+  <text x="96" y="291" text-anchor="end" font-size="11" fill="#6b7280">ємність</text>
+
+  <!-- Hysteresis Comparator Sub-panel -->
+  <rect x="144" y="190" width="198" height="180" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="243" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Гістерезисний компаратор</text>
+  <text x="243" y="225" text-anchor="middle" font-size="11" fill="#6b7280">(Детектор рівня перенапруги)</text>
+
+  <!-- Sense line from +V_bus down to comparator -->
+  <circle cx="166" cy="145" r="3.5" fill="#1a1a1a"/>
+  <line x1="166" y1="145" x2="166" y2="252" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="166" y1="252" x2="182" y2="252" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="174" y="172" font-size="11" font-weight="bold" fill="#2457d6">V_bus</text>
+
+  <!-- Comparator Symbol (Triangle) -->
+  <polygon points="182,238 182,306 238,272" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Schmitt Trigger / Hysteresis icon inside triangle -->
+  <path d="M202,279 L214,279 L214,265 M218,265 L206,265 L206,279" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Inverting Input V_ref -->
+  <line x1="166" y1="292" x2="182" y2="292" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="162" y="296" text-anchor="end" font-size="11" font-weight="bold" fill="#6b7280">V_ref</text>
+
+  <!-- Comparator Output to Gate -->
+  <line x1="238" y1="272" x2="352" y2="272" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="352" y1="272" x2="352" y2="315" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="352" y1="315" x2="378" y2="315" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="290" y="264" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">V_gate (Керування)</text>
+
+  <!-- Thresholds description inside comparator box -->
+  <text x="243" y="328" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Увімк: V_bus ≥ V_brake_on</text>
+  <text x="243" y="344" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">Вимк:  V_bus ≤ V_brake_off</text>
+  <text x="243" y="360" text-anchor="middle" font-size="11" fill="#2457d6">Гістерезис: ΔV = V_on − V_off</text>
+
+  <!-- Brake Branch (R_brake + Q_brake) -->
+  <circle cx="395" cy="145" r="3.5" fill="#1a1a1a"/>
+  <line x1="395" y1="145" x2="395" y2="175" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Resistor R_brake Body -->
+  <rect x="384" y="175" width="22" height="55" rx="2" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <line x1="384" y1="188" x2="406" y2="188" stroke="#fdecea" stroke-width="1"/>
+  <line x1="384" y1="202" x2="406" y2="202" stroke="#fdecea" stroke-width="1"/>
+  <line x1="384" y1="216" x2="406" y2="216" stroke="#fdecea" stroke-width="1"/>
+  <!-- Resistor labels on the right -->
+  <text x="412" y="194" font-size="12" font-weight="bold" fill="#c0392b">R_brake</text>
+  <text x="412" y="209" font-size="11" fill="#6b7280">Гальмівний</text>
+  <text x="412" y="222" font-size="11" fill="#6b7280">резистор</text>
+
+  <!-- Wire between Resistor and Transistor with current arrow -->
+  <line x1="395" y1="230" x2="395" y2="285" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="395" y1="240" x2="395" y2="265" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="412" y="256" font-size="11" font-weight="bold" fill="#27ae60">I_brake</text>
+
+  <!-- MOSFET Q_brake -->
+  <!-- Drain lead -->
+  <line x1="395" y1="285" x2="386" y2="285" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Source lead -->
+  <line x1="386" y1="345" x2="395" y2="345" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="395" y1="345" x2="395" y2="415" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="395" cy="415" r="3.5" fill="#1a1a1a"/>
+  <!-- Channel plate segments -->
+  <line x1="386" y1="280" x2="386" y2="295" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="386" y1="305" x2="386" y2="325" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="386" y1="335" x2="386" y2="350" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Gate plate -->
+  <line x1="378" y1="280" x2="378" y2="350" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- Transistor labels on the right -->
+  <text x="412" y="312" font-size="12" font-weight="bold" fill="#1a1a1a">Q_brake</text>
+  <text x="412" y="327" font-size="11" fill="#6b7280">Силовий</text>
+  <text x="412" y="340" font-size="11" fill="#6b7280">MOSFET</text>
+
+  <!-- Left Bottom Banner -->
+  <rect x="36" y="440" width="416" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="244" y="459" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Принцип захисту шини живлення від перенапруги:</text>
+  <text x="244" y="475" text-anchor="middle" font-size="11" fill="#1a1a1a">E_кін ротора → струм регенерації I_regen → скидання тепла в R_brake</text>
+
+  <!-- ==================== RIGHT PANEL: TIMING DIAGRAMS ==================== -->
+  <rect x="484" y="74" width="452" height="426" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <text x="710" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Часові діаграми гістерезисного регулювання</text>
+  <text x="710" y="116" text-anchor="middle" font-size="12" fill="#6b7280">Динаміка напруги шини V_bus(t) та імпульсів струму баласту I_brake(t)</text>
+
+  <!-- GRAPH 1: V_bus(t) -->
+  <!-- Danger zone band above V_allow -->
+  <rect x="580" y="136" width="300" height="16" fill="#fdecea"/>
+  <text x="730" y="148" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Небезпечна зона: пробій інвертора (V &gt; V_allow)</text>
+
+  <!-- Threshold lines -->
+  <!-- V_allow line -->
+  <line x1="580" y1="152" x2="880" y2="152" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="572" y="156" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">V_allow</text>
+
+  <!-- Safe margin banner between V_allow and V_brake_on -->
+  <text x="730" y="171" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Запас безпеки: V_bus завжди нижче V_allow</text>
+
+  <!-- V_brake_on line -->
+  <line x1="580" y1="180" x2="880" y2="180" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="572" y="184" text-anchor="end" font-size="11" font-weight="bold" fill="#2457d6">V_brake_on</text>
+
+  <!-- Hysteresis band fill -->
+  <rect x="580" y="180" width="300" height="35" fill="#eaf0fd" opacity="0.6"/>
+  <text x="860" y="201" text-anchor="end" font-size="11" font-weight="bold" fill="#2457d6">ΔV_hys</text>
+
+  <!-- V_brake_off line -->
+  <line x1="580" y1="215" x2="880" y2="215" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="572" y="219" text-anchor="end" font-size="11" font-weight="bold" fill="#27ae60">V_brake_off</text>
+
+  <!-- V_nom line -->
+  <line x1="580" y1="250" x2="880" y2="250" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="572" y="254" text-anchor="end" font-size="11" fill="#6b7280">V_nom</text>
+
+  <!-- V_bus Vertical Axis -->
+  <line x1="580" y1="265" x2="580" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="572" y="134" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">V_bus</text>
+
+  <!-- V_bus Curve -->
+  <path d="M580,250 L610,250 Q630,225 645,180 L675,215 L705,180 L735,215 L765,180 L795,215 Q820,240 845,250 L880,250" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- GRAPH 2: I_brake(t) -->
+  <!-- I_peak line -->
+  <line x1="580" y1="330" x2="880" y2="330" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <text x="572" y="334" text-anchor="end" font-size="11" font-weight="bold" fill="#27ae60">I_peak</text>
+
+  <!-- Zero current level -->
+  <text x="572" y="389" text-anchor="end" font-size="11" fill="#6b7280">0</text>
+
+  <!-- Pulse Shading Fills -->
+  <rect x="645" y="330" width="30" height="55" fill="#e9f7ef"/>
+  <rect x="705" y="330" width="30" height="55" fill="#e9f7ef"/>
+  <rect x="765" y="330" width="30" height="55" fill="#e9f7ef"/>
+
+  <!-- Pulse Waveform -->
+  <path d="M580,385 L645,385 L645,330 L675,330 L675,385 L705,385 L705,330 L735,330 L735,385 L765,385 L765,330 L795,330 L795,385 L880,385" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- I_brake Vertical Axis -->
+  <line x1="580" y1="395" x2="580" y2="305" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="572" y="304" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">I_brake</text>
+
+  <!-- Time Horizontal Axis -->
+  <line x1="580" y1="385" x2="895" y2="385" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="900" y="389" font-size="12" font-weight="bold" fill="#1a1a1a">t</text>
+
+  <!-- Pulse annotations on the right -->
+  <text x="815" y="325" font-size="11" font-weight="bold" fill="#27ae60">Імпульси скидання:</text>
+  <text x="815" y="340" font-size="11" fill="#1a1a1a">I_peak = V_on / R_brake</text>
+  <text x="815" y="356" font-size="11" fill="#6b7280">t_on: розряд C_bus</text>
+  <text x="815" y="371" font-size="11" fill="#6b7280">t_off: пауза (накопичення)</text>
+
+  <!-- Callout above pulses -->
+  <text x="720" y="318" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Періодичне розсіювання енергії гальмування</text>
+
+  <!-- Time Milestones -->
+  <line x1="610" y1="385" x2="610" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="610" y="402" text-anchor="middle" font-size="11" fill="#6b7280">t_гальм</text>
+
+  <line x1="645" y1="385" x2="645" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="645" y="415" text-anchor="middle" font-weight="bold" fill="#2457d6">t_1 (ON)</text>
+
+  <line x1="675" y1="385" x2="675" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="675" y="402" text-anchor="middle" font-weight="bold" fill="#27ae60">t_2 (OFF)</text>
+
+  <line x1="795" y1="385" x2="795" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="795" y="402" text-anchor="middle" font-size="11" fill="#6b7280">t_кінець</text>
+
+  <!-- Right Bottom Banner -->
+  <rect x="496" y="440" width="428" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="710" y="459" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Результат гістерезисного керування баластом:</text>
+  <text x="710" y="475" text-anchor="middle" font-size="11" fill="#1a1a1a">V_bus надійно обмежено нижче V_allow; MOSFET працює в безпечному режимі</text>
+</svg>

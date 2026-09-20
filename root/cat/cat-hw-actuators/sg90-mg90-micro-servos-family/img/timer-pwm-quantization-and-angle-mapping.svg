@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+<rect x="0" y="0" width="960" height="560" fill="white"/>
+
+<defs>
+  <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-rev" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+  </marker>
+  <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+  </marker>
+  <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+  </marker>
+  <marker id="arr-gray-rev" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M8,0 L0,4 L8,8 Z" fill="#6b7280"/>
+  </marker>
+  <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+  </marker>
+  <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+  </marker>
+</defs>
+
+<!-- Заголовок і підзаголовок -->
+<text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Квантування ШІМ таймера та кутова дискретність сервопривода</text>
+<text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">16-бітний таймер забезпечує субградусний крок 0.09°, тоді як 8-бітний обмежує точність стрибками понад 7°</text>
+
+<!-- ========================================== -->
+<!-- ПАНЕЛЬ 1: Формування ШІМ апаратним таймером -->
+<!-- ========================================== -->
+<rect x="20" y="64" width="920" height="134" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="36" y="83" font-size="13" font-weight="700" fill="#1a1a1a">1. Апаратний таймер: лічильник CNT, поріг ARR (період 20 мс) та регістр CCR (активний імпульс tw)</text>
+
+<!-- Ліва вісь таймера -->
+<text x="125" y="104" font-size="12" fill="#6b7280" text-anchor="end">ARR (20 мс)</text>
+<text x="125" y="129" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">CCR (tw)</text>
+<text x="125" y="144" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+<line x1="135" y1="96" x2="135" y2="144" stroke="#6b7280" stroke-width="1.5"/>
+
+<!-- Поріг ARR і поріг CCR -->
+<line x1="135" y1="100" x2="650" y2="100" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,3"/>
+<line x1="135" y1="129" x2="280" y2="129" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+<line x1="135" y1="140" x2="650" y2="140" stroke="#6b7280" stroke-width="1"/>
+
+<!-- Пилоподібний сигнал лічильника CNT -->
+<line x1="135" y1="140" x2="650" y2="100" stroke="#1a1a1a" stroke-width="2"/>
+<circle cx="280" cy="129" r="3.5" fill="#2457d6"/>
+<line x1="280" y1="129" x2="280" y2="156" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+<line x1="650" y1="100" x2="650" y2="140" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="2,2"/>
+<text x="645" y="93" font-size="12" fill="#6b7280" text-anchor="end">скидання в 0</text>
+
+<!-- Сигнал ШІМ -->
+<text x="125" y="167" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">ШІМ 1</text>
+<text x="125" y="181" font-size="12" fill="#6b7280" text-anchor="end">0</text>
+<rect x="135" y="156" width="145" height="18" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+<text x="207" y="169" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">tw = 0.5 ... 2.5 мс</text>
+<line x1="280" y1="174" x2="650" y2="174" stroke="#2457d6" stroke-width="1.5"/>
+<line x1="650" y1="174" x2="650" y2="156" stroke="#2457d6" stroke-width="1.5"/>
+
+<!-- Стрілка періоду T = 20 мс -->
+<line x1="300" y1="188" x2="380" y2="188" stroke="#6b7280" stroke-width="1" marker-start="url(#arr-gray-rev)"/>
+<text x="465" y="191" font-size="12" fill="#6b7280" text-anchor="middle">Період T = 20 мс (50 Гц)</text>
+<line x1="550" y1="188" x2="650" y2="188" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+
+<!-- Блок логіки порівняння праворуч -->
+<rect x="680" y="88" width="246" height="98" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="692" y="106" font-size="12" font-weight="700" fill="#1a1a1a">Логіка таймера:</text>
+<text x="692" y="124" font-size="12" fill="#2457d6">• CNT &lt; CCR ⇒ вихід = 1 (HIGH)</text>
+<text x="692" y="142" font-size="12" fill="#6b7280">• CNT ≥ CCR ⇒ вихід = 0 (LOW)</text>
+<text x="692" y="160" font-size="12" fill="#1a1a1a">• CNT = ARR ⇒ скидання в 0</text>
+<text x="692" y="176" font-size="12" fill="#6b7280">  tw = CCR × t_tick (тривалість)</text>
+
+<!-- ========================================== -->
+<!-- ПАНЕЛЬ 2: Масштабування імпульсу та кут    -->
+<!-- ========================================== -->
+<rect x="20" y="210" width="920" height="158" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+<text x="36" y="229" font-size="13" font-weight="700" fill="#1a1a1a">2. Масштабування tw: квантування дискретними кроками t_tick та проєціювання на кут вала θ</text>
+
+<!-- Проєкційні лінії масштабування від Панелі 1 до Панелі 2 -->
+<line x1="135" y1="198" x2="110" y2="246" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+<line x1="280" y1="198" x2="850" y2="246" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+
+<!-- Шкала тривалості імпульсу tw -->
+<text x="96" y="261" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">tw [мс]</text>
+<rect x="110" y="246" width="740" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+<!-- Риски на шкалі часу -->
+<text x="120" y="260" font-size="12" font-weight="700" fill="#2457d6">0.5 мс (CCR_min)</text>
+<text x="480" y="260" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">1.5 мс (CCR_mid)</text>
+<text x="840" y="260" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">2.5 мс (CCR_max)</text>
+
+<!-- Стрілки проєціювання часу на кут по краях -->
+<line x1="120" y1="270" x2="120" y2="308" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+<line x1="840" y1="270" x2="840" y2="308" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+<!-- Текстові пояснення прив'язки між шкалами -->
+<text x="300" y="284" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Робоче вікно тривалості Δt = 2.0 мс (2000 мкс)</text>
+<text x="660" y="284" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Кутовий діапазон вала Δθ = 180°</text>
+<text x="480" y="301" font-size="12" fill="#1a1a1a" text-anchor="middle">Лінійне перетворення: θ = (CCR - CCR_min) × 180° / (CCR_max - CCR_min)</text>
+
+<!-- Шкала кута вала -->
+<text x="96" y="327" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">Кут θ [°]</text>
+<rect x="110" y="312" width="740" height="20" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+<text x="120" y="326" font-size="12" font-weight="700" fill="#1a1a1a">0° (лівий упор)</text>
+<text x="480" y="326" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">90° (нейтральне положення)</text>
+<text x="840" y="326" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">180° (правий упор)</text>
+
+<text x="480" y="352" font-size="12" fill="#6b7280" text-anchor="middle">Кутова дискретність: K = N_span / 180° [тіків/°]  │  Кутовий крок квантування: Δθ = 180° / N_span [°/тік]</text>
+
+<!-- ========================================== -->
+<!-- ПАНЕЛІ 3 і 4: Порівняння 8-біт і 16-біт     -->
+<!-- ========================================== -->
+<!-- Ліва панель: 8-бітний таймер -->
+<rect x="20" y="380" width="450" height="160" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+<rect x="32" y="392" width="426" height="24" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+<text x="245" y="408" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">8-бітний таймер (ARR = 255): грубе квантування</text>
+
+<text x="40" y="430" font-size="12" fill="#1a1a1a">• Період 20 мс / 256 рівнів ⇒ крок тіка t_tick ≈ 78.1 мкс</text>
+<text x="40" y="447" font-size="12" fill="#1a1a1a">• Тіків у вікні 2000 мкс: N = 2000 / 78.1 ≈ 25 тіків на 180°</text>
+<text x="40" y="464" font-size="12" font-weight="700" fill="#c0392b">• Дискретність: K ≈ 0.14 тіка/° ⇒ крок кута Δθ ≈ 7.2°/тік</text>
+
+<!-- Дискретні комірки 8-біт -->
+<rect x="36" y="476" width="418" height="34" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="44" y="497" font-size="12" fill="#c0392b" font-weight="700">Кроки:</text>
+<rect x="94" y="482" width="44" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="116" y="497" font-size="12" fill="#c0392b" font-weight="700" text-anchor="middle">0°</text>
+<rect x="144" y="482" width="50" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="169" y="497" font-size="12" fill="#c0392b" font-weight="700" text-anchor="middle">7.2°</text>
+<rect x="200" y="482" width="56" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="228" y="497" font-size="12" fill="#c0392b" font-weight="700" text-anchor="middle">14.4°</text>
+<rect x="262" y="482" width="56" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+<text x="290" y="497" font-size="12" fill="#c0392b" font-weight="700" text-anchor="middle">21.6°</text>
+<text x="326" y="497" font-size="12" fill="#6b7280">... лише 25 кроків</text>
+
+<text x="245" y="528" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">⛔ Крок 7.2° у 14 разів більший за deadband (~0.5°): серва сіпається</text>
+
+<!-- Права панель: 16-бітний таймер -->
+<rect x="490" y="380" width="450" height="160" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+<rect x="502" y="392" width="426" height="24" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+<text x="715" y="408" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">16-бітний таймер (f = 1 МГц, ARR = 19 999): висока точність</text>
+
+<text x="510" y="430" font-size="12" fill="#1a1a1a">• Тактування 1 МГц (переддільник PSC) ⇒ t_tick = 1.0 мкс</text>
+<text x="510" y="447" font-size="12" fill="#1a1a1a">• Тіків у вікні 2000 мкс: N = 2000 / 1.0 = 2000 тіків на 180°</text>
+<text x="510" y="464" font-size="12" font-weight="700" fill="#27ae60">• Дискретність: K = 11.1 тіка/° ⇒ крок кута Δθ = 0.09°/тік</text>
+
+<!-- Плавна шкала 16-біт -->
+<rect x="506" y="476" width="418" height="34" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+<text x="514" y="497" font-size="12" fill="#27ae60" font-weight="700">Шкала:</text>
+<rect x="566" y="482" width="220" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+<text x="676" y="497" font-size="12" fill="#27ae60" font-weight="700" text-anchor="middle">0.00° │ 0.09° │ 0.18° │ 0.27° ...</text>
+<text x="794" y="497" font-size="12" fill="#27ae60" font-weight="700">2000 кроків</text>
+
+<text x="715" y="528" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">✓ Крок 0.09° у 5 разів менший за deadband (~0.5°): рух ідеально плавний</text>
+</svg>
