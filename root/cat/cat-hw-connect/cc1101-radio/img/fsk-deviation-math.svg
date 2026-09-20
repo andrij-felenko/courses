@@ -1,0 +1,63 @@
+<svg width="960" height="460" viewBox="0 0 960 460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Titles -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Частотна маніпуляція (FSK)</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Базова частота відхиляється на величину девіації залежно від переданого біта (0 або 1)</text>
+
+  <!-- Axes -->
+  <line x1="150" y1="380" x2="890" y2="380" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="150" y1="380" x2="150" y2="110" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  
+  <text x="900" y="385" font-size="14" fill="#1a1a1a" text-anchor="start">Час, <tspan font-style="italic">t</tspan></text>
+  <text x="150" y="95" font-size="14" fill="#1a1a1a" text-anchor="middle">Частота, <tspan font-style="italic">f</tspan></text>
+
+  <!-- Grid lines (Horizontal) -->
+  <line x1="150" y1="250" x2="870" y2="250" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <line x1="150" y1="180" x2="870" y2="180" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="150" y1="320" x2="870" y2="320" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Y labels -->
+  <text x="140" y="254" font-size="14" fill="#1a1a1a" text-anchor="end"><tspan font-style="italic">f</tspan><tspan dy="4" font-size="11">c</tspan></text>
+  <text x="140" y="184" font-size="14" fill="#1a1a1a" text-anchor="end"><tspan font-style="italic">f</tspan><tspan dy="4" font-size="11">c</tspan><tspan dy="-4"> + </tspan><tspan font-style="italic">f</tspan><tspan dy="4" font-size="11">dev</tspan></text>
+  <text x="140" y="324" font-size="14" fill="#1a1a1a" text-anchor="end"><tspan font-style="italic">f</tspan><tspan dy="4" font-size="11">c</tspan><tspan dy="-4"> - </tspan><tspan font-style="italic">f</tspan><tspan dy="4" font-size="11">dev</tspan></text>
+
+  <!-- Grid lines (Vertical, Bit separators) -->
+  <line x1="290" y1="150" x2="290" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="430" y1="150" x2="430" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="570" y1="150" x2="570" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="710" y1="150" x2="710" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Bit labels -->
+  <text x="220" y="140" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Біт 1</text>
+  <text x="360" y="140" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Біт 0</text>
+  <text x="500" y="140" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Біт 1</text>
+  <text x="640" y="140" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Біт 1</text>
+  <text x="780" y="140" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Біт 0</text>
+
+  <!-- Signal Trace -->
+  <path d="M 150 180 L 290 180 L 290 320 L 430 320 L 430 180 L 710 180 L 710 320 L 850 320" fill="none" stroke="#2457d6" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- Deviation Dimensions -->
+  <line x1="870" y1="250" x2="870" y2="188" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="870" y1="250" x2="870" y2="312" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="880" y="219" font-size="14" fill="#6b7280" text-anchor="start">+ <tspan font-style="italic">f</tspan><tspan dy="4" font-size="11">dev</tspan></text>
+  <text x="880" y="289" font-size="14" fill="#6b7280" text-anchor="start">- <tspan font-style="italic">f</tspan><tspan dy="4" font-size="11">dev</tspan></text>
+
+  <!-- Time Dimension -->
+  <line x1="150" y1="405" x2="150" y2="415" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="290" y1="405" x2="290" y2="415" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="220" y1="410" x2="158" y2="410" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="220" y1="410" x2="282" y2="410" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="220" y="430" font-size="13" fill="#6b7280" text-anchor="middle"><tspan font-style="italic">T</tspan> (час біта)</text>
+
+</svg>

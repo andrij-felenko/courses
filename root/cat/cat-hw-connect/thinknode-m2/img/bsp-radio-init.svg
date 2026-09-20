@@ -1,0 +1,77 @@
+<svg viewBox="0 0 960 700" width="960" height="700" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="700" fill="white"/>
+
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ініціалізація радіомодуля через BSP</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Виклик bsp_radio_init() абстрагує налаштування SPI та базові команди SX1262</text>
+
+  <line x1="120" y1="100" x2="120" y2="680" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="360" y1="100" x2="360" y2="680" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="600" y1="100" x2="600" y2="680" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="840" y1="100" x2="840" y2="680" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6 4"/>
+
+  <rect x="60" y="70" width="120" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="120" y="90" font-size="14" fill="#1a1a1a" text-anchor="middle">Додаток</text>
+
+  <rect x="300" y="70" width="120" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="360" y="90" font-size="14" fill="#1a1a1a" text-anchor="middle">BSP</text>
+
+  <rect x="540" y="70" width="120" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="600" y="90" font-size="14" fill="#1a1a1a" text-anchor="middle">Шина SPI</text>
+
+  <rect x="780" y="70" width="120" height="30" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="840" y="90" font-size="14" fill="#1a1a1a" text-anchor="middle">SX1262</text>
+
+  <text x="240" y="132" font-size="14" fill="#1a1a1a" text-anchor="middle">bsp_radio_init()</text>
+  <line x1="120" y1="140" x2="350" y2="140" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <text x="480" y="182" font-size="14" fill="#2457d6" text-anchor="middle">Апаратне скидання</text>
+  <line x1="360" y1="190" x2="830" y2="190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <text x="480" y="232" font-size="14" fill="#1a1a1a" text-anchor="middle">spi_bus_initialize()</text>
+  <line x1="360" y1="240" x2="590" y2="240" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <text x="480" y="272" font-size="14" fill="#6b7280" text-anchor="middle">шину налаштовано</text>
+  <line x1="600" y1="280" x2="370" y2="280" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arr-gray)"/>
+
+  <text x="480" y="322" font-size="14" fill="#1a1a1a" text-anchor="middle">Команда SetStandby</text>
+  <line x1="360" y1="330" x2="590" y2="330" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <text x="720" y="362" font-size="14" fill="#1a1a1a" text-anchor="middle">CS↓ MOSI: 0x80 CS↑</text>
+  <line x1="600" y1="370" x2="830" y2="370" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <text x="720" y="402" font-size="14" fill="#6b7280" text-anchor="middle">MISO: статус</text>
+  <line x1="840" y1="410" x2="610" y2="410" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arr-gray)"/>
+
+  <text x="480" y="442" font-size="14" fill="#6b7280" text-anchor="middle">передачу завершено</text>
+  <line x1="600" y1="450" x2="370" y2="450" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arr-gray)"/>
+
+  <text x="480" y="492" font-size="14" fill="#1a1a1a" text-anchor="middle">SetPacketType(LoRa)</text>
+  <line x1="360" y1="500" x2="590" y2="500" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <text x="720" y="532" font-size="14" fill="#1a1a1a" text-anchor="middle">CS↓ 0x8A 0x01 CS↑</text>
+  <line x1="600" y1="540" x2="830" y2="540" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <text x="720" y="572" font-size="14" fill="#6b7280" text-anchor="middle">MISO: статус</text>
+  <line x1="840" y1="580" x2="610" y2="580" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arr-gray)"/>
+
+  <text x="480" y="612" font-size="14" fill="#6b7280" text-anchor="middle">передачу завершено</text>
+  <line x1="600" y1="620" x2="370" y2="620" stroke="#6b7280" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arr-gray)"/>
+
+  <text x="240" y="652" font-size="14" fill="#27ae60" text-anchor="middle">ESP_OK</text>
+  <line x1="360" y1="660" x2="130" y2="660" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+</svg>

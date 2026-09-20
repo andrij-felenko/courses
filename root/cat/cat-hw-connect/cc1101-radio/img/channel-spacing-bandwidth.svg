@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Поділ спектра на канали: смуга пропускання та крок сітки</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Щоб уникнути завад, смуга пропускання (RX BW) має бути меншою за крок між каналами (Channel Spacing)</text>
+
+  <!-- Panel 1: Correct Config -->
+  <rect x="40" y="90" width="880" height="195" fill="#f4f6f8" rx="8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="115" font-size="14" font-weight="bold" fill="#27ae60">Нормальний режим (BW &lt; Spacing)</text>
+  <text x="60" y="135" font-size="13" fill="#6b7280">Канали надійно розділені, взаємних завад немає</text>
+
+  <line x1="60" y1="250" x2="880" y2="250" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="880" y="270" font-size="13" fill="#1a1a1a" text-anchor="end">Частота, f</text>
+
+  <path d="M 170 250 C 210 250 210 150 250 150 C 290 150 290 250 330 250" fill="#eaf0fd" fill-opacity="0.8" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 400 250 C 440 250 440 150 480 150 C 520 150 520 250 560 250" fill="#eaf0fd" fill-opacity="0.8" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 630 250 C 670 250 670 150 710 150 C 750 150 750 250 790 250" fill="#eaf0fd" fill-opacity="0.8" stroke="#2457d6" stroke-width="2"/>
+
+  <line x1="250" y1="150" x2="250" y2="250" stroke="#2457d6" stroke-dasharray="4 4" stroke-width="1"/>
+  <text x="250" y="270" font-size="13" fill="#1a1a1a" text-anchor="middle">f<tspan dy="3" font-size="10">0</tspan></text>
+  <line x1="480" y1="150" x2="480" y2="250" stroke="#2457d6" stroke-dasharray="4 4" stroke-width="1"/>
+  <text x="480" y="270" font-size="13" fill="#1a1a1a" text-anchor="middle">f<tspan dy="3" font-size="10">1</tspan></text>
+  <line x1="710" y1="150" x2="710" y2="250" stroke="#2457d6" stroke-dasharray="4 4" stroke-width="1"/>
+  <text x="710" y="270" font-size="13" fill="#1a1a1a" text-anchor="middle">f<tspan dy="3" font-size="10">2</tspan></text>
+
+  <line x1="250" y1="130" x2="250" y2="115" stroke="#6b7280" stroke-width="1"/>
+  <line x1="480" y1="130" x2="480" y2="115" stroke="#6b7280" stroke-width="1"/>
+  <line x1="365" y1="120" x2="254" y2="120" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="365" y1="120" x2="476" y2="120" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="365" y="112" font-size="13" fill="#1a1a1a" text-anchor="middle">Channel Spacing (крок)</text>
+
+  <line x1="630" y1="250" x2="630" y2="115" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="790" y1="250" x2="790" y2="115" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="710" y1="120" x2="634" y2="120" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-blue)"/>
+  <line x1="710" y1="120" x2="786" y2="120" stroke="#2457d6" stroke-width="1" marker-end="url(#arr-blue)"/>
+  <text x="710" y="112" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">RX BW</text>
+  <text x="710" y="136" font-size="12" fill="#6b7280" text-anchor="middle">(смуга пропускання)</text>
+
+  <!-- Panel 2: Incorrect Config -->
+  <rect x="40" y="300" width="880" height="235" fill="#f4f6f8" rx="8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="325" font-size="14" font-weight="bold" fill="#c0392b">Помилка налаштування (BW &gt; Spacing)</text>
+  <text x="60" y="345" font-size="13" fill="#6b7280">Смуга пропускання занадто широка, сигнали сусідніх каналів накладаються</text>
+
+  <line x1="60" y1="480" x2="880" y2="480" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="880" y="500" font-size="13" fill="#1a1a1a" text-anchor="end">Частота, f</text>
+
+  <path d="M 110 480 C 180 480 180 370 250 370 C 320 370 320 480 390 480" fill="#fdecea" fill-opacity="0.7" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 340 480 C 410 480 410 370 480 370 C 550 370 550 480 620 480" fill="#fdecea" fill-opacity="0.7" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 570 480 C 640 480 640 370 710 370 C 780 370 780 480 850 480" fill="#fdecea" fill-opacity="0.7" stroke="#c0392b" stroke-width="2"/>
+
+  <line x1="250" y1="370" x2="250" y2="480" stroke="#c0392b" stroke-dasharray="4 4" stroke-width="1"/>
+  <text x="250" y="500" font-size="13" fill="#1a1a1a" text-anchor="middle">f<tspan dy="3" font-size="10">0</tspan></text>
+  <line x1="480" y1="370" x2="480" y2="480" stroke="#c0392b" stroke-dasharray="4 4" stroke-width="1"/>
+  <text x="480" y="500" font-size="13" fill="#1a1a1a" text-anchor="middle">f<tspan dy="3" font-size="10">1</tspan></text>
+  <line x1="710" y1="370" x2="710" y2="480" stroke="#c0392b" stroke-dasharray="4 4" stroke-width="1"/>
+  <text x="710" y="500" font-size="13" fill="#1a1a1a" text-anchor="middle">f<tspan dy="3" font-size="10">2</tspan></text>
+
+  <line x1="365" y1="390" x2="365" y2="445" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="365" y="380" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Перекриття</text>
+  <text x="365" y="515" font-size="12" fill="#c0392b" text-anchor="middle">Взаємні завади</text>
+
+  <line x1="595" y1="390" x2="595" y2="445" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="595" y="380" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Перекриття</text>
+  <text x="595" y="515" font-size="12" fill="#c0392b" text-anchor="middle">Взаємні завади</text>
+
+  <line x1="250" y1="340" x2="250" y2="315" stroke="#6b7280" stroke-width="1"/>
+  <line x1="480" y1="340" x2="480" y2="315" stroke="#6b7280" stroke-width="1"/>
+  <line x1="365" y1="320" x2="254" y2="320" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <line x1="365" y1="320" x2="476" y2="320" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="365" y="312" font-size="13" fill="#1a1a1a" text-anchor="middle">Channel Spacing (крок)</text>
+
+  <line x1="570" y1="480" x2="570" y2="315" stroke="#c0392b" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="850" y1="480" x2="850" y2="315" stroke="#c0392b" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="710" y1="320" x2="574" y2="320" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-red)"/>
+  <line x1="710" y1="320" x2="846" y2="320" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-red)"/>
+  <text x="710" y="312" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Надмірна RX BW</text>
+  <text x="710" y="336" font-size="12" fill="#c0392b" text-anchor="middle">(смуга пропускання)</text>
+</svg>

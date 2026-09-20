@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="45" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Принципова схема адаптера живлення для nRF24L01</text>
+  <text x="480" y="65" text-anchor="middle" font-size="13" fill="#6b7280">Сигнальні лінії проходять транзитом, а напруга живлення стабілізується</text>
+
+  <!-- Блок входу -->
+  <rect x="40" y="100" width="120" height="340" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="100" y="85" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Роз'єм від МК</text>
+  
+  <text x="100" y="145" text-anchor="middle" font-size="14" fill="#1a1a1a">VCC (5V)</text>
+  <text x="100" y="185" text-anchor="middle" font-size="14" fill="#1a1a1a">GND</text>
+  <text x="100" y="255" text-anchor="middle" font-size="14" fill="#1a1a1a">CE</text>
+  <text x="100" y="285" text-anchor="middle" font-size="14" fill="#1a1a1a">CSN</text>
+  <text x="100" y="315" text-anchor="middle" font-size="14" fill="#1a1a1a">SCK</text>
+  <text x="100" y="345" text-anchor="middle" font-size="14" fill="#1a1a1a">MOSI</text>
+  <text x="100" y="375" text-anchor="middle" font-size="14" fill="#1a1a1a">MISO</text>
+  <text x="100" y="405" text-anchor="middle" font-size="14" fill="#1a1a1a">IRQ</text>
+
+  <!-- Блок виходу -->
+  <rect x="800" y="100" width="120" height="340" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="860" y="85" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Гніздо nRF24L01</text>
+  
+  <text x="860" y="145" text-anchor="middle" font-size="14" fill="#1a1a1a">3.3V</text>
+  <text x="860" y="185" text-anchor="middle" font-size="14" fill="#1a1a1a">GND</text>
+  <text x="860" y="255" text-anchor="middle" font-size="14" fill="#1a1a1a">CE</text>
+  <text x="860" y="285" text-anchor="middle" font-size="14" fill="#1a1a1a">CSN</text>
+  <text x="860" y="315" text-anchor="middle" font-size="14" fill="#1a1a1a">SCK</text>
+  <text x="860" y="345" text-anchor="middle" font-size="14" fill="#1a1a1a">MOSI</text>
+  <text x="860" y="375" text-anchor="middle" font-size="14" fill="#1a1a1a">MISO</text>
+  <text x="860" y="405" text-anchor="middle" font-size="14" fill="#1a1a1a">IRQ</text>
+
+  <!-- Плата адаптера -->
+  <rect x="210" y="95" width="540" height="345" fill="none" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6 4" rx="8"/>
+  <text x="220" y="115" text-anchor="start" font-size="14" font-weight="bold" fill="#6b7280">Плата адаптера</text>
+
+  <!-- LDO Стабілізатор -->
+  <rect x="420" y="115" width="120" height="50" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="480" y="135" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">AMS1117</text>
+  <text x="480" y="155" text-anchor="middle" font-size="13" fill="#27ae60">LDO 3.3V</text>
+  <text x="430" y="135" text-anchor="start" font-size="12" fill="#27ae60">IN</text>
+  <text x="530" y="135" text-anchor="end" font-size="12" fill="#27ae60">OUT</text>
+
+  <!-- Лінії живлення -->
+  <line x1="160" y1="140" x2="412" y2="140" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="540" y1="140" x2="792" y2="140" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="160" y1="180" x2="800" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <line x1="480" y1="165" x2="480" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="480" cy="180" r="4" fill="#1a1a1a"/>
+
+  <!-- Конденсатор C1 -->
+  <line x1="280" y1="140" x2="280" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="265" y1="155" x2="295" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="265" y1="165" x2="295" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="280" y1="165" x2="280" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="280" cy="140" r="4" fill="#1a1a1a"/>
+  <circle cx="280" cy="180" r="4" fill="#1a1a1a"/>
+  <text x="255" y="165" text-anchor="end" font-size="13" fill="#1a1a1a">C1</text>
+  <text x="255" y="180" text-anchor="end" font-size="12" fill="#6b7280">фільтр</text>
+
+  <!-- Конденсатор C2 -->
+  <line x1="680" y1="140" x2="680" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="665" y1="155" x2="695" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="665" y1="165" x2="695" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="680" y1="165" x2="680" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="680" cy="140" r="4" fill="#1a1a1a"/>
+  <circle cx="680" cy="180" r="4" fill="#1a1a1a"/>
+  <text x="705" y="165" text-anchor="start" font-size="13" fill="#1a1a1a">C2</text>
+  <text x="705" y="180" text-anchor="start" font-size="12" fill="#6b7280">фільтр</text>
+
+  <!-- Сигнальні лінії -->
+  <text x="480" y="235" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Прямий транзит сигнальних ліній</text>
+
+  <line x1="160" y1="250" x2="792" y2="250" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="160" y1="280" x2="792" y2="280" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="160" y1="310" x2="792" y2="310" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="160" y1="340" x2="792" y2="340" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  
+  <line x1="800" y1="370" x2="168" y2="370" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="800" y1="400" x2="168" y2="400" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Контактні точки -->
+  <circle cx="160" cy="140" r="4" fill="#1a1a1a"/>
+  <circle cx="160" cy="180" r="4" fill="#1a1a1a"/>
+  <circle cx="160" cy="250" r="4" fill="#1a1a1a"/>
+  <circle cx="160" cy="280" r="4" fill="#1a1a1a"/>
+  <circle cx="160" cy="310" r="4" fill="#1a1a1a"/>
+  <circle cx="160" cy="340" r="4" fill="#1a1a1a"/>
+  <circle cx="160" cy="370" r="4" fill="#1a1a1a"/>
+  <circle cx="160" cy="400" r="4" fill="#1a1a1a"/>
+
+  <circle cx="800" cy="140" r="4" fill="#1a1a1a"/>
+  <circle cx="800" cy="180" r="4" fill="#1a1a1a"/>
+  <circle cx="800" cy="250" r="4" fill="#1a1a1a"/>
+  <circle cx="800" cy="280" r="4" fill="#1a1a1a"/>
+  <circle cx="800" cy="310" r="4" fill="#1a1a1a"/>
+  <circle cx="800" cy="340" r="4" fill="#1a1a1a"/>
+  <circle cx="800" cy="370" r="4" fill="#1a1a1a"/>
+  <circle cx="800" cy="400" r="4" fill="#1a1a1a"/>
+</svg>

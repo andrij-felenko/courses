@@ -1,0 +1,49 @@
+<svg viewBox="0 0 720 460" width="720" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="720" height="460" fill="white"/>
+
+  <text x="360" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Тривимірна діаграма направленості штирьової антени</text>
+  <text x="360" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Випромінювання максимальне перпендикулярно осі та відсутнє вздовж неї</text>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Antenna connector -->
+  <rect x="354" y="400" width="12" height="15" fill="#1a1a1a" />
+  <rect x="350" y="415" width="20" height="15" fill="#d0d7de" />
+
+  <!-- Antenna rod -->
+  <line x1="360" y1="110" x2="360" y2="400" stroke="#1a1a1a" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- Radiation pattern (Torus) -->
+  <g opacity="0.9">
+    <path d="
+      M 540 270 A 180 120 0 1 1 180 270 A 180 120 0 1 1 540 270
+      M 390 270 A 30 15 0 1 0 330 270 A 30 15 0 1 0 390 270
+    " fill="#eaf0fd" fill-rule="evenodd" stroke="#2457d6" stroke-width="2"/>
+    
+    <!-- 3D equator lines -->
+    <ellipse cx="360" cy="270" rx="180" ry="60" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6"/>
+    <ellipse cx="360" cy="270" rx="30" ry="8" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6"/>
+    
+    <!-- Inner hole depth -->
+    <path d="M 325 265 A 35 18 0 0 0 395 265" fill="none" stroke="#2457d6" stroke-width="1.5" opacity="0.6"/>
+  </g>
+
+  <!-- Max radiation arrows and text -->
+  <line x1="270" y1="270" x2="30" y2="270" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)" stroke-dasharray="4 4"/>
+  <text x="100" y="255" font-size="14" fill="#2457d6" font-weight="bold">Форма тора</text>
+
+  <line x1="450" y1="270" x2="690" y2="270" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)" stroke-dasharray="4 4"/>
+  <text x="550" y="255" font-size="14" fill="#2457d6" font-weight="bold">Максимальний сигнал</text>
+
+  <!-- Dead zone arrow and text -->
+  <line x1="360" y1="100" x2="360" y2="70" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="380" y="80" font-size="14" fill="#c0392b" font-weight="bold">Мертва зона</text>
+  <text x="380" y="98" font-size="13" fill="#c0392b">сигнал відсутній</text>
+</svg>

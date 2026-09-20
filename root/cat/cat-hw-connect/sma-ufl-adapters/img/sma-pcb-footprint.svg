@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Посадкове місце роз'єму SMA</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Оптимальні зазори, прошивка землею та узгодження імпедансу</text>
+
+  <!-- Земляний полігон плати -->
+  <rect x="250" y="150" width="600" height="260" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Зазор (anti-pad) -->
+  <polygon points="250,245 345,245 345,255 850,255 850,305 345,305 345,315 250,315" fill="white" stroke="#6b7280" stroke-width="1" stroke-dasharray="4"/>
+
+  <!-- Прошивка перехідними отворами (Solution) -->
+  <g fill="#e9f7ef" stroke="#27ae60" stroke-width="2">
+    <!-- Верхній ряд -->
+    <circle cx="370" cy="235" r="4"/>
+    <circle cx="420" cy="235" r="4"/>
+    <circle cx="470" cy="235" r="4"/>
+    <circle cx="520" cy="235" r="4"/>
+    <circle cx="570" cy="235" r="4"/>
+    <circle cx="620" cy="235" r="4"/>
+    <circle cx="670" cy="235" r="4"/>
+    <circle cx="720" cy="235" r="4"/>
+    <circle cx="770" cy="235" r="4"/>
+    <circle cx="820" cy="235" r="4"/>
+    <!-- Нижній ряд -->
+    <circle cx="370" cy="325" r="4"/>
+    <circle cx="420" cy="325" r="4"/>
+    <circle cx="470" cy="325" r="4"/>
+    <circle cx="520" cy="325" r="4"/>
+    <circle cx="570" cy="325" r="4"/>
+    <circle cx="620" cy="325" r="4"/>
+    <circle cx="670" cy="325" r="4"/>
+    <circle cx="720" cy="325" r="4"/>
+    <circle cx="770" cy="325" r="4"/>
+    <circle cx="820" cy="325" r="4"/>
+    <!-- Навколо майданчика -->
+    <circle cx="290" cy="235" r="4"/>
+    <circle cx="330" cy="235" r="4"/>
+    <circle cx="290" cy="325" r="4"/>
+    <circle cx="330" cy="325" r="4"/>
+  </g>
+
+  <!-- Сигнальний майданчик і лінія -->
+  <polygon points="250,260 330,260 330,270 850,270 850,290 330,290 330,300 250,300" fill="#2457d6"/>
+
+  <!-- Роз'єм SMA -->
+  <rect x="60" y="240" width="50" height="80" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+  <g stroke="#6b7280" stroke-width="2">
+    <line x1="60" y1="250" x2="110" y2="250"/>
+    <line x1="60" y1="260" x2="110" y2="260"/>
+    <line x1="60" y1="270" x2="110" y2="270"/>
+    <line x1="60" y1="280" x2="110" y2="280"/>
+    <line x1="60" y1="290" x2="110" y2="290"/>
+    <line x1="60" y1="300" x2="110" y2="300"/>
+    <line x1="60" y1="310" x2="110" y2="310"/>
+  </g>
+  <rect x="110" y="180" width="140" height="200" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="262" y="180" width="60" height="45" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="262" y="335" width="60" height="45" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="250" y="276" width="30" height="8" fill="#1a1a1a"/>
+
+  <!-- Виноски (лінії зі стрілками) -->
+  <g stroke="#1a1a1a" stroke-width="1.5" fill="none" marker-end="url(#arr)">
+    <line x1="150" y1="114" x2="150" y2="180"/>
+    <line x1="290" y1="144" x2="290" y2="260"/>
+    <line x1="480" y1="149" x2="480" y2="252"/>
+    <line x1="800" y1="129" x2="800" y2="165"/>
+    <line x1="650" y1="229" x2="650" y2="270"/>
+    <line x1="150" y1="422" x2="292" y2="380"/>
+    <line x1="650" y1="415" x2="670" y2="335"/>
+    <line x1="630" y1="415" x2="620" y2="335"/>
+    <line x1="670" y1="415" x2="720" y2="335"/>
+  </g>
+
+  <!-- Підписи (текст) -->
+  <text x="150" y="100" font-size="14" fill="#1a1a1a" text-anchor="middle">Корпус SMA роз'єму</text>
+  
+  <text x="290" y="130" font-size="14" fill="#1a1a1a" text-anchor="middle">Сигнальний майданчик</text>
+  
+  <text x="480" y="115" font-size="14" fill="#1a1a1a" text-anchor="middle">Зазор (anti-pad) для</text>
+  <text x="480" y="135" font-size="14" fill="#1a1a1a" text-anchor="middle">узгодження імпедансу</text>
+  
+  <text x="800" y="115" font-size="14" fill="#1a1a1a" text-anchor="middle">Земляний полігон</text>
+  
+  <text x="650" y="215" font-size="14" fill="#1a1a1a" text-anchor="middle">50-омна лінія (CPWG)</text>
+
+  <text x="150" y="450" font-size="14" fill="#1a1a1a" text-anchor="middle">Земляний вивід</text>
+  
+  <text x="650" y="445" font-size="14" fill="#1a1a1a" text-anchor="middle">Прошивка перехідними отворами</text>
+  <text x="650" y="463" font-size="14" fill="#1a1a1a" text-anchor="middle">(відстань &lt; λ/10)</text>
+</svg>

@@ -1,0 +1,47 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+<rect x="0" y="0" width="960" height="460" fill="white"/>
+<defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+        <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+        <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+</defs>
+
+<text x="480" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішні з'єднання модуля ThinkNode M2</text>
+<text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Зв'язок між ESP32-S3 та SX1262 по SPI, лініях переривань та керування</text>
+
+<rect x="150" y="100" width="200" height="310" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="250" y="130" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ESP32-S3</text>
+<text x="250" y="150" font-size="13" fill="#6b7280" text-anchor="middle">Мікроконтролер</text>
+
+<rect x="610" y="100" width="200" height="310" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+<text x="710" y="130" font-size="16" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SX1262</text>
+<text x="710" y="150" font-size="13" fill="#6b7280" text-anchor="middle">LoRa трансивер</text>
+
+<text x="480" y="160" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Шина SPI</text>
+
+<path d="M 350 180 L 602 180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<text x="480" y="174" font-size="13" fill="#2457d6" text-anchor="middle">SCK</text>
+
+<path d="M 350 210 L 602 210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<text x="480" y="204" font-size="13" fill="#2457d6" text-anchor="middle">MOSI</text>
+
+<path d="M 610 240 L 358 240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<text x="480" y="234" font-size="13" fill="#2457d6" text-anchor="middle">MISO</text>
+
+<path d="M 350 270 L 602 270" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+<text x="480" y="264" font-size="13" fill="#2457d6" text-anchor="middle">NSS (CS)</text>
+
+<text x="480" y="304" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Переривання та керування</text>
+
+<path d="M 610 324 L 358 324" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+<text x="480" y="318" font-size="13" fill="#1a1a1a" text-anchor="middle">DIO1 (Interrupt)</text>
+
+<path d="M 610 354 L 358 354" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+<text x="480" y="348" font-size="13" fill="#1a1a1a" text-anchor="middle">BUSY</text>
+
+<path d="M 350 384 L 602 384" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+<text x="480" y="378" font-size="13" fill="#1a1a1a" text-anchor="middle">NRESET</text>
+</svg>

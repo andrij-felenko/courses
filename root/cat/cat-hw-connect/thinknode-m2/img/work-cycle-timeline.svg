@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Робочий цикл автономного датчика</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Короткочасна активність на фоні довгого сну забезпечує роки роботи від батареї</text>
+
+  <!-- Сітка (горизонтальні лінії) -->
+  <line x1="90" y1="90" x2="910" y2="90" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="90" y1="270" x2="910" y2="270" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="90" y1="300" x2="910" y2="300" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="90" y1="330" x2="910" y2="330" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Заливка графіка -->
+  <path d="M 110,350 L 110,330 L 310,330 L 310,270 L 390,270 L 390,300 L 470,300 L 470,90 L 650,90 L 650,330 L 890,330 L 890,350 Z" fill="#eaf0fd"/>
+  
+  <!-- Лінія графіка -->
+  <polyline points="110,330 310,330 310,270 390,270 390,300 470,300 470,90 650,90 650,330 890,330" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Осі координат -->
+  <line x1="90" y1="350" x2="930" y2="350" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="90" y1="350" x2="90" y2="50" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Підписи осей -->
+  <text x="910" y="375" text-anchor="middle" font-size="14" fill="#1a1a1a">Час, t</text>
+  <text x="90" y="35" text-anchor="middle" font-size="14" fill="#1a1a1a">Струм, I</text>
+
+  <!-- Засічки на осі Y -->
+  <line x1="85" y1="90" x2="90" y2="90" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="85" y1="270" x2="90" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="85" y1="300" x2="90" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="85" y1="330" x2="90" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Значення струму на осі Y -->
+  <text x="75" y="94" text-anchor="end" font-size="13" fill="#1a1a1a">120 мА</text>
+  <text x="75" y="274" text-anchor="end" font-size="13" fill="#1a1a1a">30 мА</text>
+  <text x="75" y="304" text-anchor="end" font-size="13" fill="#1a1a1a">15 мА</text>
+  <text x="75" y="334" text-anchor="end" font-size="13" fill="#1a1a1a">15 мкА</text>
+
+  <!-- Засічки на осі X -->
+  <line x1="110" y1="350" x2="110" y2="355" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="310" y1="350" x2="310" y2="355" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="390" y1="350" x2="390" y2="355" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="470" y1="350" x2="470" y2="355" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="650" y1="350" x2="650" y2="355" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="890" y1="350" x2="890" y2="355" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Етапи роботи на осі X -->
+  <text x="210" y="375" text-anchor="middle" font-size="13" fill="#1a1a1a">Сон</text>
+  <text x="350" y="375" text-anchor="middle" font-size="13" fill="#1a1a1a">Пробудження</text>
+  <text x="430" y="375" text-anchor="middle" font-size="13" fill="#1a1a1a">Зчитування</text>
+  <text x="560" y="375" text-anchor="middle" font-size="13" fill="#1a1a1a">Передача LoRa</text>
+  <text x="770" y="375" text-anchor="middle" font-size="13" fill="#1a1a1a">Сон</text>
+
+  <!-- Розмірні лінії для тривалості етапів -->
+  <line x1="110" y1="405" x2="110" y2="415" stroke="#6b7280" stroke-width="1"/>
+  <line x1="310" y1="405" x2="310" y2="415" stroke="#6b7280" stroke-width="1"/>
+  <line x1="650" y1="405" x2="650" y2="415" stroke="#6b7280" stroke-width="1"/>
+  <line x1="890" y1="405" x2="890" y2="415" stroke="#6b7280" stroke-width="1"/>
+  
+  <line x1="110" y1="410" x2="310" y2="410" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="310" y1="410" x2="650" y2="410" stroke="#6b7280" stroke-width="1"/>
+  <line x1="650" y1="410" x2="890" y2="410" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Тексти для розмірних ліній -->
+  <text x="210" y="430" text-anchor="middle" font-size="13" fill="#6b7280">Сон (від хвилин до годин)</text>
+  <text x="480" y="430" text-anchor="middle" font-size="13" fill="#6b7280">Активний режим (кілька секунд)</text>
+  <text x="770" y="430" text-anchor="middle" font-size="13" fill="#6b7280">Сон (від хвилин до годин)</text>
+</svg>

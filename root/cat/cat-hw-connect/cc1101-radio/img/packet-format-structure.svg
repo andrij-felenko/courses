@@ -1,0 +1,39 @@
+<svg viewBox="0 0 960 360" width="960" height="360" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="360" fill="white"/>
+
+  <text x="480" y="50" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структура пакета даних CC1101</text>
+  <text x="480" y="75" text-anchor="middle" font-size="13" fill="#6b7280">Службові дані додаються і перевіряються трансивером автоматично</text>
+
+  <!-- Преамбула -->
+  <rect x="61" y="140" width="150" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="136" y="175" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Преамбула</text>
+  <text x="136" y="195" text-anchor="middle" font-size="12" fill="#6b7280">1–8 байтів</text>
+
+  <!-- Синхроворд -->
+  <rect x="223" y="140" width="150" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="298" y="175" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Синхроворд</text>
+  <text x="298" y="195" text-anchor="middle" font-size="12" fill="#6b7280">2–4 байти</text>
+
+  <!-- Довжина -->
+  <rect x="385" y="140" width="110" height="80" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="440" y="175" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Довжина</text>
+  <text x="440" y="195" text-anchor="middle" font-size="12" fill="#6b7280">1 байт</text>
+
+  <!-- Дані -->
+  <rect x="507" y="140" width="230" height="80" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="622" y="175" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Дані</text>
+  <text x="622" y="195" text-anchor="middle" font-size="12" fill="#6b7280">до 255 байтів</text>
+
+  <!-- CRC -->
+  <rect x="749" y="140" width="150" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="824" y="175" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">CRC</text>
+  <text x="824" y="195" text-anchor="middle" font-size="12" fill="#6b7280">2 байти</text>
+
+  <!-- Легенда -->
+  <rect x="298" y="270" width="20" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="328" y="285" font-size="13" fill="#1a1a1a">Апаратне формування</text>
+
+  <rect x="503" y="270" width="20" height="20" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="533" y="285" font-size="13" fill="#1a1a1a">Дані з буфера FIFO</text>
+
+</svg>

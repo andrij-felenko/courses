@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CC1101 (QFN-20)</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Призначення виводів, шини та допустимі рівні напруг</text>
+
+  <!-- Корпус чипа -->
+  <rect x="380" y="130" width="200" height="200" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <circle cx="400" cy="150" r="6" fill="#d0d7de"/>
+  <text x="480" y="225" font-size="20" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CC1101</text>
+  <text x="480" y="245" font-size="14" fill="#6b7280" text-anchor="middle">QFN-20</text>
+  <text x="480" y="270" font-size="12" fill="#6b7280" text-anchor="middle">Основа (Pad) = GND</text>
+
+  <!-- Лінії та підписи виводів (Ліва сторона) -->
+  <path d="M 440,130 L 440,95 L 350,95" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="340" y="99" font-size="14" fill="#1a1a1a" text-anchor="end">19 GND [Земля]</text>
+
+  <path d="M 410,130 L 410,120 L 350,120" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="340" y="124" font-size="14" fill="#1a1a1a" text-anchor="end">20 SI [Вхід SPI]</text>
+
+  <path d="M 380,170 L 350,170" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="340" y="174" font-size="14" fill="#1a1a1a" text-anchor="end">1 SCLK [Вхід SPI]</text>
+
+  <path d="M 380,200 L 350,200" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="340" y="204" font-size="14" fill="#1a1a1a" text-anchor="end">2 SO / GDO1 [Вихід SPI / GPIO]</text>
+
+  <path d="M 380,230 L 350,230" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="340" y="234" font-size="14" fill="#1a1a1a" text-anchor="end">3 GDO2 [GPIO]</text>
+
+  <path d="M 380,260 L 350,260" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="340" y="264" font-size="14" fill="#1a1a1a" text-anchor="end">4 DVDD [Живлення логіки]</text>
+
+  <path d="M 380,290 L 350,290" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="340" y="294" font-size="14" fill="#1a1a1a" text-anchor="end">5 DCOUPL [Вихід стаб. 1.8 В]</text>
+
+  <path d="M 410,330 L 410,340 L 350,340" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="340" y="344" font-size="14" fill="#1a1a1a" text-anchor="end">6 GDO0 [GPIO]</text>
+
+  <path d="M 440,330 L 440,365 L 350,365" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="340" y="369" font-size="14" fill="#1a1a1a" text-anchor="end">7 CSn [Вибір чипа SPI]</text>
+
+  <!-- Лінії та підписи виводів (Права сторона) -->
+  <path d="M 470,130 L 470,70 L 610,70" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="620" y="74" font-size="14" fill="#1a1a1a" text-anchor="start">18 DGUARD [Екран]</text>
+
+  <path d="M 500,130 L 500,95 L 610,95" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="620" y="99" font-size="14" fill="#1a1a1a" text-anchor="start">17 RBIAS [Резистор зміщення]</text>
+
+  <path d="M 530,130 L 530,120 L 610,120" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="620" y="124" font-size="14" fill="#1a1a1a" text-anchor="start">16 GND [Земля]</text>
+
+  <path d="M 580,170 L 610,170" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="620" y="174" font-size="14" fill="#1a1a1a" text-anchor="start">15 AVDD [Аналог. живлення]</text>
+
+  <path d="M 580,200 L 610,200" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="620" y="204" font-size="14" fill="#1a1a1a" text-anchor="start">14 AVDD [Аналог. живлення]</text>
+
+  <path d="M 580,230 L 610,230" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="620" y="234" font-size="14" fill="#1a1a1a" text-anchor="start">13 RF_N [РЧ-сигнал −]</text>
+
+  <path d="M 580,260 L 610,260" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="620" y="264" font-size="14" fill="#1a1a1a" text-anchor="start">12 RF_P [РЧ-сигнал +]</text>
+
+  <path d="M 580,290 L 610,290" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="620" y="294" font-size="14" fill="#1a1a1a" text-anchor="start">11 AVDD [Аналог. живлення]</text>
+
+  <path d="M 530,330 L 530,340 L 610,340" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="620" y="344" font-size="14" fill="#1a1a1a" text-anchor="start">10 XOSC_Q2 [Кварц]</text>
+
+  <path d="M 500,330 L 500,365 L 610,365" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="620" y="369" font-size="14" fill="#1a1a1a" text-anchor="start">9 AVDD [Аналог. живлення]</text>
+
+  <path d="M 470,330 L 470,390 L 610,390" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="620" y="394" font-size="14" fill="#1a1a1a" text-anchor="start">8 XOSC_Q1 [Кварц]</text>
+
+  <!-- Блоки з додатковою інформацією -->
+  <rect x="30" y="390" width="300" height="45" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="42" y="408" font-size="13" font-weight="bold" fill="#c0392b">УВАГА: Рівні логіки 1.8–3.6 В!</text>
+  <text x="42" y="425" font-size="13" fill="#1a1a1a">Не толерантні до 5 В (згорить)</text>
+
+  <rect x="610" y="405" width="280" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="622" y="425" font-size="13" font-weight="bold" fill="#2457d6">RF-виводи потребують балуна</text>
+</svg>

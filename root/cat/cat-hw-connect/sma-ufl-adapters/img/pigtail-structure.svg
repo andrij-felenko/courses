@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" width="720" height="360" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="720" height="360" fill="white"/>
+
+  <text x="360" y="40" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура пігтейла</text>
+  <text x="360" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Кабельна збірка для переходу між U.FL (на платі) та SMA (для зовнішньої антени)</text>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <path d="M 150 200 C 250 250, 450 150, 550 200" fill="none" stroke="#1a1a1a" stroke-width="6"/>
+
+  <rect x="110" y="195" width="40" height="10" fill="#f4f6f8" rx="2" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="120" cy="200" r="14" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="120" cy="200" r="4" fill="#1a1a1a"/>
+
+  <rect x="550" y="193" width="40" height="14" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+  
+  <rect x="590" y="185" width="8" height="30" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+  
+  <rect x="598" y="190" width="8" height="20" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+  <line x1="602" y1="190" x2="602" y2="210" stroke="#6b7280" stroke-width="2"/>
+  
+  <rect x="606" y="185" width="4" height="30" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <rect x="610" y="181" width="12" height="38" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2" rx="1"/>
+  <line x1="610" y1="193" x2="622" y2="193" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="610" y1="207" x2="622" y2="207" stroke="#1a1a1a" stroke-width="1"/>
+  
+  <rect x="622" y="190" width="16" height="20" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+  <line x1="626" y1="190" x2="626" y2="210" stroke="#6b7280" stroke-width="2"/>
+  <line x1="632" y1="190" x2="632" y2="210" stroke="#6b7280" stroke-width="2"/>
+  
+  <rect x="638" y="198" width="6" height="4" fill="#1a1a1a"/>
+
+  <line x1="120" y1="160" x2="120" y2="182" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="120" y="130" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конектор U.FL</text>
+  <text x="120" y="148" font-size="13" fill="#6b7280" text-anchor="middle">До гнізда на платі</text>
+
+  <line x1="350" y1="260" x2="350" y2="225" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="350" y="278" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Коаксіальний кабель</text>
+  <text x="350" y="296" font-size="13" fill="#6b7280" text-anchor="middle">Тонкий провідник сигналу</text>
+
+  <line x1="610" y1="160" x2="610" y2="177" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="610" y="130" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конектор SMA</text>
+  <text x="610" y="148" font-size="13" fill="#6b7280" text-anchor="middle">Для зовнішньої антени</text>
+
+</svg>

@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="25" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CC1101: Діаграма станів кінцевого автомата</text>
+  <text x="480" y="45" font-size="13" fill="#6b7280" text-anchor="middle">Основні режими роботи трансивера та команди для переходу між ними</text>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <g fill="none" stroke-width="2">
+    <!-- IDLE to SLEEP (Blue) -->
+    <path d="M 470 140 L 470 110" stroke="#2457d6" marker-end="url(#arr-blue)"/>
+    <!-- SLEEP to IDLE (Gray) -->
+    <path d="M 490 100 L 490 130" stroke="#6b7280" marker-end="url(#arr-gray)"/>
+
+    <!-- IDLE to RX (Blue) -->
+    <path d="M 400 160 L 300 230" stroke="#2457d6" marker-end="url(#arr-blue)"/>
+    <!-- RX to IDLE (Blue) -->
+    <path d="M 260 240 L 420 175" stroke="#2457d6" marker-end="url(#arr-blue)"/>
+
+    <!-- IDLE to TX (Blue) -->
+    <path d="M 560 160 L 660 230" stroke="#2457d6" marker-end="url(#arr-blue)"/>
+    <!-- TX to IDLE (Blue) -->
+    <path d="M 700 240 L 540 175" stroke="#2457d6" marker-end="url(#arr-blue)"/>
+
+    <!-- IDLE to CALIBRATE (Blue) -->
+    <path d="M 480 180 L 480 230" stroke="#2457d6" marker-end="url(#arr-blue)"/>
+    <!-- CALIBRATE to SETTLING (Gray) -->
+    <path d="M 480 280 L 480 330" stroke="#6b7280" marker-end="url(#arr-gray)"/>
+
+    <!-- SETTLING to RX (Gray) -->
+    <path d="M 400 350 L 300 280" stroke="#6b7280" marker-end="url(#arr-gray)"/>
+    <!-- SETTLING to TX (Gray) -->
+    <path d="M 560 350 L 660 280" stroke="#6b7280" marker-end="url(#arr-gray)"/>
+    <!-- SETTLING to IDLE (Gray) -->
+    <path d="M 410 340 Q 340 260 410 180" stroke="#6b7280" marker-end="url(#arr-gray)"/>
+
+    <!-- RX to RX_OVF (Gray) -->
+    <path d="M 240 280 L 240 330" stroke="#6b7280" marker-end="url(#arr-gray)"/>
+    <!-- TX to TX_UNF (Gray) -->
+    <path d="M 720 280 L 720 330" stroke="#6b7280" marker-end="url(#arr-gray)"/>
+
+    <!-- RX_OVF to IDLE (Blue) -->
+    <path d="M 160 360 Q 100 360 100 260 Q 100 160 390 160" stroke="#2457d6" marker-end="url(#arr-blue)"/>
+    <!-- TX_UNF to IDLE (Blue) -->
+    <path d="M 800 360 Q 860 360 860 260 Q 860 160 570 160" stroke="#2457d6" marker-end="url(#arr-blue)"/>
+  </g>
+
+  <!-- Labels for paths -->
+  <g font-size="13">
+    <!-- SLEEP/IDLE -->
+    <text x="460" y="130" fill="#1a1a1a" font-weight="bold" text-anchor="end">SPWD</text>
+    <text x="500" y="120" fill="#6b7280" text-anchor="start">CSn = 0</text>
+
+    <!-- IDLE/RX -->
+    <text x="340" y="180" fill="#1a1a1a" font-weight="bold" text-anchor="end">SRX</text>
+    <text x="350" y="215" fill="#1a1a1a" font-weight="bold" text-anchor="start">SIDLE</text>
+    <text x="350" y="230" fill="#6b7280" text-anchor="start">або Авто</text>
+
+    <!-- IDLE/TX -->
+    <text x="620" y="180" fill="#1a1a1a" font-weight="bold" text-anchor="start">STX</text>
+    <text x="610" y="215" fill="#1a1a1a" font-weight="bold" text-anchor="end">SIDLE</text>
+    <text x="610" y="230" fill="#6b7280" text-anchor="end">або Авто</text>
+
+    <!-- CALIBRATE / SETTLING -->
+    <text x="490" y="210" fill="#1a1a1a" font-weight="bold" text-anchor="start">SCAL</text>
+    <text x="490" y="310" fill="#6b7280" text-anchor="start">Авто</text>
+    <text x="350" y="335" fill="#6b7280" text-anchor="end">Авто</text>
+    <text x="610" y="335" fill="#6b7280" text-anchor="start">Авто</text>
+    <text x="365" y="265" fill="#6b7280" text-anchor="end">Авто</text>
+
+    <!-- OVF/UNF -->
+    <text x="230" y="310" fill="#6b7280" text-anchor="end">Переповнення</text>
+    <text x="730" y="310" fill="#6b7280" text-anchor="start">Спустошення</text>
+    <text x="90" y="265" fill="#1a1a1a" font-weight="bold" text-anchor="end">SIDLE</text>
+    <text x="870" y="265" fill="#1a1a1a" font-weight="bold" text-anchor="start">SIDLE</text>
+  </g>
+
+  <!-- State Rectangles -->
+  <g font-weight="bold" font-size="14" fill="#1a1a1a" text-anchor="middle">
+    <rect x="400" y="60" width="160" height="40" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="480" y="85">SLEEP</text>
+
+    <rect x="400" y="140" width="160" height="40" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="480" y="165">IDLE</text>
+
+    <rect x="160" y="240" width="160" height="40" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="240" y="265">RX</text>
+
+    <rect x="400" y="240" width="160" height="40" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="480" y="265">CALIBRATE</text>
+
+    <rect x="640" y="240" width="160" height="40" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="720" y="265">TX</text>
+
+    <rect x="160" y="340" width="160" height="40" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="240" y="354">RXFIFO_<tspan x="240" y="372">OVERFLOW</tspan></text>
+
+    <rect x="400" y="340" width="160" height="40" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="480" y="365">SETTLING</text>
+
+    <rect x="640" y="340" width="160" height="40" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="720" y="354">TXFIFO_<tspan x="720" y="372">UNDERFLOW</tspan></text>
+  </g>
+</svg>

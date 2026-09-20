@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" width="720" height="360" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+    <rect x="0" y="0" width="720" height="360" fill="white"/>
+    
+    <defs>
+        <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+        </marker>
+    </defs>
+
+    <!-- Заголовок -->
+    <text x="360" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Діаграма станів трансивера CC1101</text>
+    <text x="360" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Шляхи переходу між режимами очікування, прийому та передачі за допомогою команд-стробів</text>
+
+    <!-- Зв'язки (Лінії зі стрілками) -->
+    <!-- IDLE -> RX -->
+    <path d="M 320 180 Q 270 210 238 240" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+    <text x="270" y="195" text-anchor="end" font-size="13" fill="#6b7280">Строб SRX</text>
+
+    <!-- RX -> IDLE -->
+    <path d="M 260 240 Q 300 210 340 180" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+    <text x="270" y="225" text-anchor="end" font-size="13" fill="#6b7280">Строб SIDLE</text>
+
+    <!-- IDLE -> TX -->
+    <path d="M 400 180 Q 450 210 482 240" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+    <text x="450" y="195" text-anchor="start" font-size="13" fill="#6b7280">Строб STX</text>
+
+    <!-- TX -> IDLE -->
+    <path d="M 460 240 Q 420 210 380 180" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+    <text x="450" y="225" text-anchor="start" font-size="13" fill="#6b7280">Строб SIDLE</text>
+
+    <!-- RX -> TX -->
+    <path d="M 290 260 L 430 260" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+    <text x="360" y="252" text-anchor="middle" font-size="13" fill="#6b7280">Строб STX</text>
+
+    <!-- TX -> RX -->
+    <path d="M 430 280 L 290 280" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+    <text x="360" y="298" text-anchor="middle" font-size="13" fill="#6b7280">Строб SRX</text>
+
+    <!-- Вузли (Прямокутники) -->
+    <!-- IDLE -->
+    <rect x="280" y="120" width="160" height="60" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+    <text x="360" y="155" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">IDLE</text>
+
+    <!-- RX -->
+    <rect x="130" y="240" width="160" height="60" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <text x="210" y="275" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">RX (Прийом)</text>
+
+    <!-- TX -->
+    <rect x="430" y="240" width="160" height="60" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+    <text x="510" y="275" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">TX (Передача)</text>
+</svg>

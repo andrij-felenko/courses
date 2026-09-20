@@ -1,0 +1,79 @@
+<svg viewBox="0 0 960 460" width="960" height="460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="40" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Блок-схема радіовузла ThinkNode M2</text>
+  <text x="480" y="60" font-size="13" text-anchor="middle" fill="#6b7280">Трансивер жорстко прив'язаний до мікроконтролера через шину SPI та кілька ліній керування</text>
+
+  <!-- Power Block -->
+  <rect x="380" y="80" width="200" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" />
+  <text x="480" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Живлення (3.3 В)</text>
+
+  <!-- Power Lines -->
+  <path d="M 430,120 L 430,130 L 250,130 L 250,138" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)" />
+  <path d="M 530,120 L 530,130 L 670,130 L 670,138" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)" />
+  <text x="340" y="125" font-size="12" text-anchor="middle" fill="#1a1a1a">3.3 В</text>
+  <text x="600" y="125" font-size="12" text-anchor="middle" fill="#1a1a1a">3.3 В</text>
+
+  <!-- ESP32-S3 Block -->
+  <rect x="140" y="140" width="220" height="280" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" />
+  <text x="250" y="165" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">ESP32-S3</text>
+  <text x="250" y="180" font-size="12" text-anchor="middle" fill="#6b7280">(Мікроконтролер)</text>
+
+  <!-- SX1262 Block -->
+  <rect x="560" y="140" width="220" height="280" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" />
+  <text x="670" y="165" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">SX1262</text>
+  <text x="670" y="180" font-size="12" text-anchor="middle" fill="#6b7280">(LoRa-трансивер)</text>
+
+  <!-- Group Labels -->
+  <text x="460" y="195" font-size="13" font-weight="bold" text-anchor="middle" fill="#6b7280">SPI</text>
+  <text x="460" y="325" font-size="13" font-weight="bold" text-anchor="middle" fill="#6b7280">Керування</text>
+
+  <!-- SPI Connections -->
+  <!-- CS -->
+  <line x1="360" y1="210" x2="558" y2="210" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)" />
+  <text x="350" y="205" font-size="13" text-anchor="end" fill="#1a1a1a">CS</text>
+  <text x="570" y="205" font-size="13" text-anchor="start" fill="#1a1a1a">NSS</text>
+  
+  <!-- SCK -->
+  <line x1="360" y1="240" x2="558" y2="240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)" />
+  <text x="350" y="235" font-size="13" text-anchor="end" fill="#1a1a1a">SCK</text>
+  <text x="570" y="235" font-size="13" text-anchor="start" fill="#1a1a1a">SCK</text>
+
+  <!-- MOSI -->
+  <line x1="360" y1="270" x2="558" y2="270" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)" />
+  <text x="350" y="265" font-size="13" text-anchor="end" fill="#1a1a1a">MOSI</text>
+  <text x="570" y="265" font-size="13" text-anchor="start" fill="#1a1a1a">MOSI</text>
+
+  <!-- MISO -->
+  <line x1="560" y1="300" x2="362" y2="300" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)" />
+  <text x="350" y="295" font-size="13" text-anchor="end" fill="#1a1a1a">MISO</text>
+  <text x="570" y="295" font-size="13" text-anchor="start" fill="#1a1a1a">MISO</text>
+
+  <!-- Control Connections -->
+  <!-- RST -->
+  <line x1="360" y1="340" x2="558" y2="340" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)" />
+  <text x="350" y="335" font-size="13" text-anchor="end" fill="#1a1a1a">RST</text>
+  <text x="570" y="335" font-size="13" text-anchor="start" fill="#1a1a1a">NRESET</text>
+
+  <!-- BUSY -->
+  <line x1="560" y1="370" x2="362" y2="370" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)" />
+  <text x="350" y="365" font-size="13" text-anchor="end" fill="#1a1a1a">BUSY</text>
+  <text x="570" y="365" font-size="13" text-anchor="start" fill="#1a1a1a">BUSY</text>
+
+  <!-- DIO1 -->
+  <line x1="560" y1="400" x2="362" y2="400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)" />
+  <text x="350" y="395" font-size="13" text-anchor="end" fill="#1a1a1a">DIO1</text>
+  <text x="570" y="395" font-size="13" text-anchor="start" fill="#1a1a1a">DIO1</text>
+
+  <!-- Antenna -->
+  <line x1="780" y1="220" x2="840" y2="220" stroke="#1a1a1a" stroke-width="1.5" />
+  <path d="M 840,220 L 840,180 M 840,180 L 830,170 M 840,180 L 850,170 M 840,180 L 840,165" fill="none" stroke="#1a1a1a" stroke-width="1.5" />
+  <text x="840" y="240" font-size="13" text-anchor="middle" fill="#1a1a1a">Антена</text>
+  <text x="770" y="215" font-size="13" text-anchor="end" fill="#1a1a1a">RF</text>
+</svg>

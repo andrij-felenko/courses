@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-sig" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-pwr" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Підключення nRF24L01 через адаптер живлення</text>
+  <text x="480" y="65" text-anchor="middle" font-size="13" fill="#6b7280">Адаптер стабілізує напругу до 3,3 В і транслює сигнали SPI без змін</text>
+
+  <!-- Blocks -->
+  <rect x="60" y="120" width="160" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="140" y="150" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Мікроконтролер</text>
+
+  <rect x="380" y="120" width="200" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="480" y="150" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Адаптер живлення</text>
+
+  <rect x="740" y="120" width="160" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="820" y="150" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Радіомодуль</text>
+  <text x="820" y="170" text-anchor="middle" font-size="13" fill="#6b7280">nRF24L01</text>
+
+  <!-- Inner Adapter Details -->
+  <rect x="455" y="175" width="50" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="194" text-anchor="middle" font-size="12" fill="#2457d6">LDO</text>
+  <line x1="480" y1="205" x2="480" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="480" cy="220" r="3" fill="#1a1a1a"/>
+
+  <!-- Inner Adapter Paths -->
+  <line x1="450" y1="190" x2="455" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="505" y1="190" x2="535" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="450" y1="220" x2="535" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="450" y1="250" x2="535" y2="250" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="450" y1="280" x2="535" y2="280" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="450" y1="310" x2="535" y2="310" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="450" y1="340" x2="535" y2="340" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="535" y1="370" x2="450" y2="370" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <line x1="535" y1="400" x2="450" y2="400" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- External Lines: MCU to Adapter -->
+  <line x1="220" y1="190" x2="378" y2="190" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-pwr)"/>
+  <line x1="220" y1="220" x2="378" y2="220" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-pwr)"/>
+  <line x1="220" y1="250" x2="378" y2="250" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-sig)"/>
+  <line x1="220" y1="280" x2="378" y2="280" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-sig)"/>
+  <line x1="220" y1="310" x2="378" y2="310" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-sig)"/>
+  <line x1="220" y1="340" x2="378" y2="340" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-sig)"/>
+  <line x1="380" y1="370" x2="222" y2="370" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-sig)"/>
+  <line x1="380" y1="400" x2="222" y2="400" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-sig)"/>
+
+  <!-- External Lines: Adapter to nRF24 -->
+  <line x1="580" y1="190" x2="738" y2="190" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-pwr)"/>
+  <line x1="580" y1="220" x2="738" y2="220" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-pwr)"/>
+  <line x1="580" y1="250" x2="738" y2="250" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-sig)"/>
+  <line x1="580" y1="280" x2="738" y2="280" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-sig)"/>
+  <line x1="580" y1="310" x2="738" y2="310" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-sig)"/>
+  <line x1="580" y1="340" x2="738" y2="340" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-sig)"/>
+  <line x1="740" y1="370" x2="582" y2="370" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-sig)"/>
+  <line x1="740" y1="400" x2="582" y2="400" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-sig)"/>
+
+  <!-- Pin Labels: MCU -->
+  <text x="210" y="194" text-anchor="end" font-size="13" fill="#1a1a1a">5V</text>
+  <text x="210" y="224" text-anchor="end" font-size="13" fill="#1a1a1a">GND</text>
+  <text x="210" y="254" text-anchor="end" font-size="13" fill="#1a1a1a">CE</text>
+  <text x="210" y="284" text-anchor="end" font-size="13" fill="#1a1a1a">CSN</text>
+  <text x="210" y="314" text-anchor="end" font-size="13" fill="#1a1a1a">SCK</text>
+  <text x="210" y="344" text-anchor="end" font-size="13" fill="#1a1a1a">MOSI</text>
+  <text x="210" y="374" text-anchor="end" font-size="13" fill="#1a1a1a">MISO</text>
+  <text x="210" y="404" text-anchor="end" font-size="13" fill="#1a1a1a">IRQ</text>
+
+  <!-- Pin Labels: Adapter Left -->
+  <text x="390" y="194" text-anchor="start" font-size="13" fill="#1a1a1a">VCC (5V)</text>
+  <text x="390" y="224" text-anchor="start" font-size="13" fill="#1a1a1a">GND</text>
+  <text x="390" y="254" text-anchor="start" font-size="13" fill="#1a1a1a">CE</text>
+  <text x="390" y="284" text-anchor="start" font-size="13" fill="#1a1a1a">CSN</text>
+  <text x="390" y="314" text-anchor="start" font-size="13" fill="#1a1a1a">SCK</text>
+  <text x="390" y="344" text-anchor="start" font-size="13" fill="#1a1a1a">MOSI</text>
+  <text x="390" y="374" text-anchor="start" font-size="13" fill="#1a1a1a">MISO</text>
+  <text x="390" y="404" text-anchor="start" font-size="13" fill="#1a1a1a">IRQ</text>
+
+  <!-- Pin Labels: Adapter Right -->
+  <text x="570" y="194" text-anchor="end" font-size="13" fill="#1a1a1a">3.3V</text>
+  <text x="570" y="224" text-anchor="end" font-size="13" fill="#1a1a1a">GND</text>
+  <text x="570" y="254" text-anchor="end" font-size="13" fill="#1a1a1a">CE</text>
+  <text x="570" y="284" text-anchor="end" font-size="13" fill="#1a1a1a">CSN</text>
+  <text x="570" y="314" text-anchor="end" font-size="13" fill="#1a1a1a">SCK</text>
+  <text x="570" y="344" text-anchor="end" font-size="13" fill="#1a1a1a">MOSI</text>
+  <text x="570" y="374" text-anchor="end" font-size="13" fill="#1a1a1a">MISO</text>
+  <text x="570" y="404" text-anchor="end" font-size="13" fill="#1a1a1a">IRQ</text>
+
+  <!-- Pin Labels: nRF24 -->
+  <text x="750" y="194" text-anchor="start" font-size="13" fill="#1a1a1a">VCC</text>
+  <text x="750" y="224" text-anchor="start" font-size="13" fill="#1a1a1a">GND</text>
+  <text x="750" y="254" text-anchor="start" font-size="13" fill="#1a1a1a">CE</text>
+  <text x="750" y="284" text-anchor="start" font-size="13" fill="#1a1a1a">CSN</text>
+  <text x="750" y="314" text-anchor="start" font-size="13" fill="#1a1a1a">SCK</text>
+  <text x="750" y="344" text-anchor="start" font-size="13" fill="#1a1a1a">MOSI</text>
+  <text x="750" y="374" text-anchor="start" font-size="13" fill="#1a1a1a">MISO</text>
+  <text x="750" y="404" text-anchor="start" font-size="13" fill="#1a1a1a">IRQ</text>
+</svg>

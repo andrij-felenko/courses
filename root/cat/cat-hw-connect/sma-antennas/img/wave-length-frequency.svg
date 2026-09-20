@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <text x="480" y="45" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зв'язок частоти та довжини хвилі</text>
+  <text x="480" y="75" font-size="13" fill="#6b7280" text-anchor="middle">За однакової швидкості поширення (c), вища частота означає пропорційно коротшу хвилю</text>
+
+  <!-- Вертикальні межі відстані -->
+  <line x1="200" y1="130" x2="200" y2="485" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="920" y1="130" x2="920" y2="485" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6 4"/>
+
+  <!-- ВЕРХНЯ ХВИЛЯ (Низька частота) -->
+  <text x="180" y="205" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="end">Низька частота f</text>
+  <text x="180" y="225" font-size="13" fill="#6b7280" text-anchor="end">Довша хвиля λ</text>
+
+  <path d="M 200 135 L 200 125 M 560 135 L 560 125 M 200 130 L 560 130" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="380" y="115" font-size="14" fill="#2457d6" text-anchor="middle">Довжина хвилі (λ)</text>
+
+  <line x1="200" y1="210" x2="935" y2="210" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="945" y="215" font-size="13" font-style="italic" fill="#6b7280" text-anchor="start">d</text>
+
+  <path d="M 200 210 Q 290 90 380 210 T 560 210 T 740 210 T 920 210" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- НИЖНЯ ХВИЛЯ (Висока частота) -->
+  <text x="180" y="405" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="end">Висока частота 2f</text>
+  <text x="180" y="425" font-size="13" fill="#6b7280" text-anchor="end">Коротша хвиля λ/2</text>
+
+  <path d="M 200 335 L 200 325 M 380 335 L 380 325 M 200 330 L 380 330" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="290" y="315" font-size="14" fill="#c0392b" text-anchor="middle">Довжина хвилі (λ/2)</text>
+
+  <line x1="200" y1="410" x2="935" y2="410" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="945" y="415" font-size="13" font-style="italic" fill="#6b7280" text-anchor="start">d</text>
+
+  <path d="M 200 410 Q 245 290 290 410 T 380 410 T 470 410 T 560 410 T 650 410 T 740 410 T 830 410 T 920 410" fill="none" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- НИЖНІЙ ПІДПИС ВІДСТАНІ -->
+  <path d="M 200 485 L 200 495 M 920 485 L 920 495 M 200 490 L 920 490" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="560" y="525" font-size="14" fill="#1a1a1a" text-anchor="middle">Відстань, яку обидва радіосигнали долають за однаковий час (швидкість світла c)</text>
+</svg>

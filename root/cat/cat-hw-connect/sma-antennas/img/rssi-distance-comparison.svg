@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" width="760" height="360" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="760" height="360" fill="white"/>
+
+  <defs>
+    <marker id="arr-axis" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="380" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння рівня сигналу (RSSI) для 433 МГц та 2.4 ГГц</text>
+  <text x="380" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Сигнал 2.4 ГГц загасає в стінах значно швидше за 433 МГц</text>
+
+  <!-- Рамки стін (перешкод) -->
+  <rect x="340" y="90" width="20" height="210" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="350" y="80" font-size="12" fill="#6b7280" text-anchor="middle">Стіна 1</text>
+
+  <rect x="540" y="90" width="20" height="210" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="550" y="80" font-size="12" fill="#6b7280" text-anchor="middle">Стіна 2</text>
+
+  <!-- Сітка -->
+  <line x1="95" y1="250" x2="650" y2="250" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="95" y1="200" x2="650" y2="200" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="95" y1="150" x2="650" y2="150" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="95" y1="100" x2="650" y2="100" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Осі -->
+  <line x1="100" y1="300" x2="100" y2="80" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-axis)"/>
+  <line x1="100" y1="300" x2="660" y2="300" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-axis)"/>
+
+  <!-- Зарубки на осі X -->
+  <line x1="100" y1="300" x2="100" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="200" y1="300" x2="200" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="300" y1="300" x2="300" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="400" y1="300" x2="400" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="500" y1="300" x2="500" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="600" y1="300" x2="600" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Підписи осі Y -->
+  <text x="90" y="304" font-size="12" fill="#6b7280" text-anchor="end">-100</text>
+  <text x="90" y="254" font-size="12" fill="#6b7280" text-anchor="end">-80</text>
+  <text x="90" y="204" font-size="12" fill="#6b7280" text-anchor="end">-60</text>
+  <text x="90" y="154" font-size="12" fill="#6b7280" text-anchor="end">-40</text>
+  <text x="90" y="104" font-size="12" fill="#6b7280" text-anchor="end">-20</text>
+  <text x="90" y="75" font-size="12" fill="#1a1a1a" text-anchor="end">RSSI, dBm</text>
+
+  <!-- Підписи осі X -->
+  <text x="100" y="320" font-size="12" fill="#6b7280" text-anchor="middle">0 м</text>
+  <text x="200" y="320" font-size="12" fill="#6b7280" text-anchor="middle">10 м</text>
+  <text x="300" y="320" font-size="12" fill="#6b7280" text-anchor="middle">20 м</text>
+  <text x="400" y="320" font-size="12" fill="#6b7280" text-anchor="middle">30 м</text>
+  <text x="500" y="320" font-size="12" fill="#6b7280" text-anchor="middle">40 м</text>
+  <text x="600" y="320" font-size="12" fill="#6b7280" text-anchor="middle">50 м</text>
+  <text x="660" y="335" font-size="12" fill="#1a1a1a" text-anchor="end">Відстань</text>
+
+  <!-- Графік 433 МГц -->
+  <path d="M100,150 L340,180 L360,200 L540,230 L560,245 L650,260" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="100" cy="150" r="4" fill="#2457d6"/>
+  <circle cx="340" cy="180" r="3" fill="#2457d6"/>
+  <circle cx="360" cy="200" r="3" fill="#2457d6"/>
+  <circle cx="540" cy="230" r="3" fill="#2457d6"/>
+  <circle cx="560" cy="245" r="3" fill="#2457d6"/>
+  <circle cx="650" cy="260" r="4" fill="#2457d6"/>
+  <text x="660" y="264" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="start">433 МГц</text>
+
+  <!-- Графік 2.4 ГГц -->
+  <path d="M100,160 L340,195 L360,245 L540,275 L560,300" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="100" cy="160" r="4" fill="#c0392b"/>
+  <circle cx="340" cy="195" r="3" fill="#c0392b"/>
+  <circle cx="360" cy="245" r="3" fill="#c0392b"/>
+  <circle cx="540" cy="275" r="3" fill="#c0392b"/>
+  <circle cx="560" cy="300" r="4" fill="#c0392b"/>
+  <text x="570" y="295" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="start">2.4 ГГц</text>
+
+</svg>

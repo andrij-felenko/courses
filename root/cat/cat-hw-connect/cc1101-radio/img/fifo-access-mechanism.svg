@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Доступ до буферів TX/RX FIFO трансивера CC1101</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Рух даних через інтерфейс SPI та апаратний контроль переповнення за допомогою порогів і виводів GDOx</text>
+
+  <!-- MCU Box -->
+  <rect x="40" y="100" width="160" height="310" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="4"/>
+  <text x="120" y="125" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер (MCU)</text>
+
+  <rect x="60" y="140" width="120" height="70" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="2"/>
+  <text x="120" y="165" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SPI Master</text>
+  <text x="120" y="180" font-size="12" fill="#6b7280" text-anchor="middle">Передавання</text>
+  <text x="120" y="195" font-size="12" fill="#6b7280" text-anchor="middle">(Burst Write)</text>
+
+  <rect x="60" y="240" width="120" height="40" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="2"/>
+  <text x="120" y="258" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обробник INT</text>
+  <text x="120" y="273" font-size="12" fill="#6b7280" text-anchor="middle">GPIO</text>
+
+  <rect x="60" y="310" width="120" height="70" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="2"/>
+  <text x="120" y="335" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SPI Master</text>
+  <text x="120" y="350" font-size="12" fill="#6b7280" text-anchor="middle">Приймання</text>
+  <text x="120" y="365" font-size="12" fill="#6b7280" text-anchor="middle">(Burst Read)</text>
+
+  <!-- CC1101 Box -->
+  <rect x="290" y="100" width="420" height="310" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="4"/>
+  <text x="460" y="125" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Трансивер CC1101</text>
+
+  <rect x="300" y="140" width="80" height="240" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="340" y="165" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логіка</text>
+  <text x="340" y="180" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SPI / GDO</text>
+
+  <!-- TX FIFO -->
+  <rect x="420" y="140" width="280" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="2"/>
+  <text x="490" y="210" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">TX FIFO (64 байти)</text>
+  <path d="M 450 140 L 450 190 M 480 140 L 480 190 M 510 140 L 510 190 M 540 140 L 540 190 M 570 140 L 570 190" stroke="#2457d6" stroke-width="0.5" stroke-dasharray="2 2"/>
+  <line x1="590" y1="130" x2="590" y2="200" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="590" y="125" font-size="12" fill="#c0392b" text-anchor="middle">THR (поріг)</text>
+
+  <rect x="615" y="105" width="80" height="24" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="2"/>
+  <text x="655" y="122" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">UNDERFLOW</text>
+  <path d="M 655 129 L 655 140" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-red)"/>
+
+  <!-- RX FIFO -->
+  <rect x="420" y="320" width="280" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="2"/>
+  <text x="490" y="310" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">RX FIFO (64 байти)</text>
+  <path d="M 450 320 L 450 370 M 480 320 L 480 370 M 510 320 L 510 370 M 540 320 L 540 370 M 570 320 L 570 370" stroke="#2457d6" stroke-width="0.5" stroke-dasharray="2 2"/>
+  <line x1="590" y1="310" x2="590" y2="380" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="590" y="305" font-size="12" fill="#c0392b" text-anchor="middle">THR (поріг)</text>
+
+  <rect x="615" y="385" width="80" height="24" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="2"/>
+  <text x="655" y="402" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">OVERFLOW</text>
+  <path d="M 655 385 L 655 370" stroke="#c0392b" stroke-width="1" marker-end="url(#arr-red)"/>
+
+  <!-- FSM Controller -->
+  <rect x="420" y="225" width="280" height="60" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="2"/>
+  <text x="560" y="248" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний контроль (FSM)</text>
+  <text x="560" y="268" font-size="12" fill="#6b7280" text-anchor="middle">Моніторинг порогів та переповнення</text>
+
+  <line x1="560" y1="190" x2="560" y2="225" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="565" y="212" font-size="12" fill="#6b7280" text-anchor="start">Стан TX</text>
+
+  <line x1="560" y1="320" x2="560" y2="285" stroke="#6b7280" stroke-width="1" marker-end="url(#arr-gray)"/>
+  <text x="565" y="307" font-size="12" fill="#6b7280" text-anchor="start">Стан RX</text>
+
+  <line x1="420" y1="260" x2="380" y2="260" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arr)"/>
+  <text x="400" y="250" font-size="12" fill="#1a1a1a" text-anchor="middle">Стан</text>
+
+  <!-- RF Box -->
+  <rect x="790" y="100" width="150" height="310" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="4"/>
+  <text x="865" y="125" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Радіоканал</text>
+
+  <rect x="805" y="140" width="120" height="70" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="2"/>
+  <text x="865" y="165" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Модулятор</text>
+  <text x="865" y="185" font-size="12" fill="#6b7280" text-anchor="middle">Передавання</text>
+
+  <rect x="805" y="310" width="120" height="70" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="2"/>
+  <text x="865" y="335" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Демодулятор</text>
+  <text x="865" y="355" font-size="12" fill="#6b7280" text-anchor="middle">Приймання</text>
+
+  <!-- Flow Lines -->
+  <!-- MCU to CC1101 -->
+  <line x1="180" y1="175" x2="300" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="245" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">TX (MOSI)</text>
+
+  <line x1="300" y1="205" x2="180" y2="205" stroke="#6b7280" stroke-width="2" stroke-dasharray="4 2" marker-end="url(#arr-gray)"/>
+  <text x="245" y="195" font-size="12" fill="#6b7280" text-anchor="middle">Статус (MISO)</text>
+
+  <line x1="300" y1="260" x2="180" y2="260" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="245" y="250" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">GDOx (INT)</text>
+
+  <line x1="300" y1="345" x2="180" y2="345" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="245" y="335" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RX (MISO)</text>
+
+  <!-- Inside CC1101 (Logic to FIFO) -->
+  <line x1="380" y1="175" x2="420" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="420" y1="345" x2="380" y2="345" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- CC1101 to RF -->
+  <line x1="700" y1="175" x2="805" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="755" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пакет TX</text>
+
+  <line x1="805" y1="345" x2="700" y2="345" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="755" y="335" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пакет RX</text>
+
+</svg>

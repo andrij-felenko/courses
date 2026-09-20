@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <text x="480" y="40" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Залежність довжини антени від частоти</text>
+  <text x="480" y="65" text-anchor="middle" font-size="13" fill="#6b7280">Чвертьхвильова антена (λ/4) для 433 МГц фізично довша, ніж для 2.4 ГГц</text>
+
+  <!-- 433 MHz Section -->
+  <text x="75" y="75" font-size="18" font-weight="bold" fill="#1a1a1a">433 МГц</text>
+  
+  <!-- Dimension line for 433 MHz Antenna -->
+  <line x1="186.5" y1="95" x2="100" y2="95" stroke="#1a1a1a" marker-end="url(#arr)"/>
+  <line x1="186.5" y1="95" x2="273" y2="95" stroke="#1a1a1a" marker-end="url(#arr)"/>
+  <line x1="100" y1="90" x2="100" y2="110" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="186.5" y="85" text-anchor="middle" font-size="13" fill="#1a1a1a">λ/4 = 17.3 см</text>
+
+  <!-- 433 MHz Antenna (SMA + Whip) -->
+  <rect x="75" y="113" width="25" height="14" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <rect x="70" y="116" width="5" height="8" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <rect x="100" y="112" width="12" height="16" rx="2" fill="#1a1a1a"/>
+  <rect x="112" y="116" width="161" height="8" rx="3" fill="#1a1a1a"/>
+
+  <!-- Guideline connecting 433 MHz antenna to wave -->
+  <line x1="273" y1="90" x2="273" y2="220" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4 4"/>
+
+  <!-- 433 MHz Wave -->
+  <line x1="90" y1="220" x2="820" y2="220" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
+  <path d="M 100 220 Q 273 120 446 220 T 792 220" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Dimension line for 433 MHz Wavelength -->
+  <line x1="446" y1="270" x2="100" y2="270" stroke="#1a1a1a" marker-end="url(#arr)"/>
+  <line x1="446" y1="270" x2="792" y2="270" stroke="#1a1a1a" marker-end="url(#arr)"/>
+  <line x1="100" y1="220" x2="100" y2="280" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="792" y1="220" x2="792" y2="280" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="446" y="290" text-anchor="middle" font-size="14" fill="#1a1a1a">Довжина хвилі (λ) ≈ 69.2 см</text>
+
+
+  <!-- 2.4 GHz Section -->
+  <text x="75" y="285" font-size="18" font-weight="bold" fill="#1a1a1a">2.4 ГГц</text>
+
+  <!-- Dimension line for 2.4 GHz Antenna -->
+  <line x1="115.6" y1="305" x2="100" y2="305" stroke="#1a1a1a" marker-end="url(#arr)"/>
+  <line x1="115.6" y1="305" x2="131.25" y2="305" stroke="#1a1a1a" marker-end="url(#arr)"/>
+  <line x1="100" y1="300" x2="100" y2="320" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="135" y="310" text-anchor="start" font-size="13" fill="#1a1a1a">λ/4 = 3.1 см</text>
+
+  <!-- 2.4 GHz Antenna (SMA + Whip) -->
+  <rect x="75" y="323" width="25" height="14" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <rect x="70" y="326" width="5" height="8" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  <rect x="100" y="322" width="8" height="16" rx="2" fill="#1a1a1a"/>
+  <rect x="108" y="326" width="23.25" height="8" rx="3" fill="#1a1a1a"/>
+
+  <!-- Guideline connecting 2.4 GHz antenna to wave -->
+  <line x1="131.25" y1="300" x2="131.25" y2="400" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4 4"/>
+
+  <!-- 2.4 GHz Wave -->
+  <line x1="90" y1="400" x2="860" y2="400" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 4"/>
+  <path d="M 100 400
+           Q 131.25 300 162.5 400 T 225 400 
+           T 287.5 400 T 350 400 T 412.5 400 
+           T 475 400 T 537.5 400 T 600 400 
+           T 662.5 400 T 725 400 T 787.5 400 
+           T 850 400" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Dimension line for 2.4 GHz Wavelength -->
+  <line x1="162.5" y1="440" x2="100" y2="440" stroke="#1a1a1a" marker-end="url(#arr)"/>
+  <line x1="162.5" y1="440" x2="225" y2="440" stroke="#1a1a1a" marker-end="url(#arr)"/>
+  <line x1="100" y1="400" x2="100" y2="450" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="225" y1="400" x2="225" y2="450" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="2 2"/>
+  <text x="162.5" y="460" text-anchor="middle" font-size="14" fill="#1a1a1a">λ ≈ 12.5 см</text>
+
+</svg>

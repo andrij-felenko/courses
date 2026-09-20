@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" width="960" height="360" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+  
+  <rect x="0" y="0" width="960" height="360" fill="white"/>
+  
+  <text x="480" y="45" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обробка пакетів у шлюзі: від прийому LoRa до відправки по Wi-Fi</text>
+  <text x="480" y="70" font-size="13" fill="#6b7280" text-anchor="middle">Буфер повідомлень розв'язує радіоінтерфейс та мережевий стек, запобігаючи взаємному блокуванню</text>
+  
+  <!-- Вузол -->
+  <rect x="20" y="150" width="70" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="4"/>
+  <text x="55" y="185" font-size="14" fill="#1a1a1a" text-anchor="middle">Вузол</text>
+  
+  <path d="M90,180 L126,180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="110" y="170" font-size="12" fill="#2457d6" text-anchor="middle">LoRa</text>
+  
+  <!-- SX1262 -->
+  <rect x="130" y="140" width="100" height="80" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="4"/>
+  <text x="180" y="170" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SX1262</text>
+  <text x="180" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Приймач</text>
+  <text x="180" y="205" font-size="12" fill="#6b7280" text-anchor="middle">LoRa</text>
+  
+  <!-- SPI & IRQ Arrows -->
+  <path d="M230,170 L306,170" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="255" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">SPI</text>
+
+  <path d="M230,205 L306,205" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr-gray)"/>
+  <text x="255" y="193" font-size="12" fill="#6b7280" text-anchor="middle">DIO1</text>
+  <text x="255" y="222" font-size="12" fill="#6b7280" text-anchor="middle">(IRQ)</text>
+  
+  <!-- ESP32-S3 -->
+  <rect x="280" y="100" width="550" height="150" fill="none" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6,4" rx="6"/>
+  <text x="555" y="125" font-size="14" font-weight="bold" fill="#6b7280" text-anchor="middle">Мікроконтролер ESP32-S3</text>
+  
+  <!-- Task 1 -->
+  <rect x="310" y="140" width="120" height="80" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="4"/>
+  <text x="370" y="165" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Task 1</text>
+  <text x="370" y="185" font-size="12" fill="#6b7280" text-anchor="middle">Зчитування</text>
+  <text x="370" y="200" font-size="12" fill="#6b7280" text-anchor="middle">даних</text>
+
+  <!-- Arrow to Queue -->
+  <path d="M430,180 L496,180" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="465" y="170" font-size="12" fill="#1a1a1a" text-anchor="middle">В чергу</text>
+  
+  <!-- Queue -->
+  <rect x="500" y="140" width="120" height="80" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="560" y="170" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Буфер</text>
+  <text x="560" y="190" font-size="12" fill="#2457d6" text-anchor="middle">(Queue)</text>
+
+  <!-- Arrow to Task 2 -->
+  <path d="M620,180 L686,180" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="655" y="170" font-size="12" fill="#1a1a1a" text-anchor="middle">З черги</text>
+  
+  <!-- Task 2 -->
+  <rect x="690" y="140" width="120" height="80" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="4"/>
+  <text x="750" y="165" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Task 2</text>
+  <text x="750" y="185" font-size="12" fill="#6b7280" text-anchor="middle">Мережевий</text>
+  <text x="750" y="200" font-size="12" fill="#6b7280" text-anchor="middle">стек LwIP</text>
+  
+  <!-- Arrow to Server -->
+  <path d="M810,180 L866,180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="840" y="170" font-size="12" fill="#2457d6" text-anchor="middle">Wi-Fi</text>
+  
+  <!-- Server -->
+  <rect x="870" y="150" width="70" height="60" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="4"/>
+  <text x="905" y="185" font-size="14" fill="#1a1a1a" text-anchor="middle">Сервер</text>
+</svg>
