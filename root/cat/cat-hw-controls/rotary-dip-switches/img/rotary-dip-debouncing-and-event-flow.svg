@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма неблокуючої фільтрації брязкоту Rotary DIP</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Сигнал з брязкотом витримується впродовж t_debounce до фіксації нового коду та виклику події</text>
+
+  <!-- TIMELINE VERTICAL DASHED LINES -->
+  <line x1="380" y1="78" x2="380" y2="366" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="500" y1="78" x2="500" y2="366" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="660" y1="78" x2="660" y2="366" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- TIME ANNOTATIONS TOP -->
+  <text x="440" y="73" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">t_bounce (1-5 ms)</text>
+  <text x="580" y="73" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">t_debounce (10 ms)</text>
+
+  <!-- ROW 1: RAW INPUT -->
+  <g id="row-raw">
+    <rect x="30" y="78" width="900" height="66" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="45" y="105" font-size="12" font-weight="bold" fill="#2457d6">1. Сирий вхідний сигнал</text>
+    <text x="45" y="125" font-size="11" fill="#6b7280">(GPIO Bit з брязкотом)</text>
+
+    <!-- Raw Waveform -->
+    <path d="M 230,128 L 380,128 L 380,98 L 395,128 L 410,98 L 430,128 L 450,98 L 470,128 L 500,98 L 900,98" stroke="#c0392b" stroke-width="2" fill="none"/>
+  </g>
+
+  <!-- ROW 2: DEBOUNCE TIMER -->
+  <g id="row-timer">
+    <rect x="30" y="152" width="900" height="66" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="45" y="179" font-size="12" font-weight="bold" fill="#2457d6">2. Таймер фільтра t_debounce</text>
+    <text x="45" y="199" font-size="11" fill="#6b7280">(Перезапуск при завадах)</text>
+
+    <!-- Timer Ramp Waveform -->
+    <path d="M 230,202 L 500,202 L 660,172 L 660,202 L 900,202" stroke="#2457d6" stroke-width="2" fill="none"/>
+    <text x="655" y="168" text-anchor="end" font-size="11" font-weight="bold" fill="#2457d6">Поріг t_debounce</text>
+  </g>
+
+  <!-- ROW 3: DEBOUNCED CODE OUTPUT -->
+  <g id="row-output">
+    <rect x="30" y="226" width="900" height="66" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="45" y="253" font-size="12" font-weight="bold" fill="#2457d6">3. Фільтрований код</text>
+    <text x="45" y="273" font-size="11" fill="#6b7280">(Стабільне значення)</text>
+
+    <!-- Code Waveform -->
+    <path d="M 230,273 L 660,273 L 660,246 L 900,246" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+    <text x="280" y="266" font-size="11" font-weight="bold" fill="#6b7280">Старий код (2)</text>
+    <text x="700" y="261" font-size="11" font-weight="bold" fill="#2457d6">Новий код (5)</text>
+  </g>
+
+  <!-- ROW 4: EVENT FLAG -->
+  <g id="row-event">
+    <rect x="30" y="300" width="900" height="66" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="45" y="327" font-size="12" font-weight="bold" fill="#27ae60">4. Прапор події зміни</text>
+    <text x="45" y="347" font-size="11" fill="#6b7280">(EVENT_CHANGED Pulse)</text>
+
+    <!-- Event Pulse Waveform -->
+    <path d="M 230,347 L 660,347 L 660,320 L 730,320 L 730,347 L 900,347" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+    <text x="670" y="315" font-size="11" font-weight="bold" fill="#27ae60">Виклик Callback</text>
+  </g>
+
+  <!-- SUMMARY DIAGNOSTIC INFO BOX -->
+  <rect x="30" y="374" width="900" height="62" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="396" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ НЕБЛОКУЮЧА ФІЛЬТРАЦІЯ: Код оновлюється лише після завершення стабільної витримки t_debounce</text>
+  <text x="480" y="420" text-anchor="middle" font-size="11" fill="#1a1a1a">Прапор події (Event Flag) генерується одноразово в момент фіксації нового коду для виклику прикладного callback.</text>
+</svg>

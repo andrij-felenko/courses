@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="510" viewBox="0 0 960 510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="510" fill="#ffffff"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Геометричне порівняння моделей мертвих зон джойстика</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Вплив геометричної моделі на неперервність градієнта та лінійність відхилення осей X-Y</text>
+
+  <!-- ================= ПАНЕЛЬ 1: ОСЬОВА (AXIAL) ================= -->
+  <rect x="30" y="75" width="280" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="170" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Осьова мертва зона (Axial)</text>
+  <rect x="55" y="110" width="230" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="0.8"/>
+  <text x="170" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Викривлення &amp; прилипання</text>
+
+  <!-- Діаграма 1 -->
+  <circle cx="170" cy="235" r="70" fill="#ffffff" stroke="#94a3b8" stroke-dasharray="4,3"/>
+  <line x1="90" y1="235" x2="250" y2="235" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="170" y1="155" x2="170" y2="315" stroke="#cbd5e1" stroke-width="1"/>
+  
+  <rect x="158" y="165" width="24" height="140" fill="#fdecea" fill-opacity="0.85" stroke="#c0392b" stroke-dasharray="2,2"/>
+  <rect x="100" y="223" width="140" height="24" fill="#fdecea" fill-opacity="0.85" stroke="#c0392b" stroke-dasharray="2,2"/>
+
+  <path d="M 225,190 Q 225,220 225,220" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-red)"/>
+  <path d="M 125,195 Q 155,195 155,195" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arr-red)"/>
+
+  <text x="154" y="220" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">0</text>
+  <text x="242" y="218" text-anchor="start" font-size="12" fill="#6b7280">+1</text>
+  <text x="170" y="150" text-anchor="middle" font-size="12" fill="#6b7280">+1</text>
+  <text x="210" y="180" text-anchor="start" font-size="12" font-style="italic" fill="#c0392b">snapping</text>
+
+  <text x="170" y="348" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Смуги |x| &lt; d та |y| &lt; d</text>
+  <text x="170" y="374" text-anchor="middle" font-size="12" fill="#1a1a1a">• Прилипання до осей (snapping)</text>
+  <text x="170" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">• Викривлення векторів у кутах</text>
+  <text x="170" y="418" text-anchor="middle" font-size="12" fill="#1a1a1a">• Ефект "зрізання кутів" квадратів</text>
+  <text x="170" y="444" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Нелінійна діагональ</text>
+
+
+  <!-- ================= ПАНЕЛЬ 2: ПРОСТА РАДІАЛЬНА (RADIAL) ================= -->
+  <rect x="340" y="75" width="280" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Проста радіальна (Radial)</text>
+  <rect x="365" y="110" width="230" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="0.8"/>
+  <text x="480" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Стрибок вихідного значення</text>
+
+  <!-- Діаграма 2 -->
+  <circle cx="480" cy="235" r="70" fill="#ffffff" stroke="#94a3b8" stroke-dasharray="4,3"/>
+  <circle cx="480" cy="235" r="24" fill="#fdecea" fill-opacity="0.9" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="400" y1="235" x2="560" y2="235" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="480" y1="155" x2="480" y2="315" stroke="#cbd5e1" stroke-width="1"/>
+
+  <line x1="480" y1="235" x2="504" y2="235" stroke="#6b7280" stroke-width="2"/>
+  <line x1="504" y1="235" x2="504" y2="195" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+  <line x1="504" y1="195" x2="550" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="504" y1="195" x2="520" y2="157" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <text x="472" y="225" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">0</text>
+  <text x="504" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">r = d</text>
+  <text x="552" y="218" text-anchor="start" font-size="12" fill="#6b7280">+1</text>
+  <text x="525" y="152" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">Стрибок d!</text>
+
+  <text x="480" y="348" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Кругова зона r &lt; d</text>
+  <text x="480" y="374" text-anchor="middle" font-size="12" fill="#1a1a1a">• Раптовий стрибок від 0 до d</text>
+  <text x="480" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">• Неможливо робити дрібні рухи</text>
+  <text x="480" y="418" text-anchor="middle" font-size="12" fill="#1a1a1a">• Втрата чутливості біля центру</text>
+  <text x="480" y="444" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Розривна функція відгуку</text>
+
+
+  <!-- ================= ПАНЕЛЬ 3: МАСШТАБОВАНА РАДІАЛЬНА (SCALED RADIAL) ================= -->
+  <rect x="650" y="75" width="280" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">3. Масштабована (Scaled Radial)</text>
+  <rect x="675" y="110" width="230" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="0.8"/>
+  <text x="790" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Плавний градієнт 0.0 .. 1.0</text>
+
+  <!-- Діаграма 3 -->
+  <circle cx="790" cy="235" r="70" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="790" cy="235" r="54" fill="none" stroke="#27ae60" stroke-width="1" stroke-opacity="0.4"/>
+  <circle cx="790" cy="235" r="38" fill="none" stroke="#27ae60" stroke-width="1" stroke-opacity="0.3"/>
+  <circle cx="790" cy="235" r="24" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="710" y1="235" x2="870" y2="235" stroke="#cbd5e1" stroke-width="1"/>
+  <line x1="790" y1="155" x2="790" y2="315" stroke="#cbd5e1" stroke-width="1"/>
+
+  <line x1="814" y1="235" x2="855" y2="235" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="807" y1="218" x2="835" y2="190" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="773" y1="218" x2="745" y2="190" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <text x="782" y="225" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">0</text>
+  <text x="814" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">r = d</text>
+  <text x="862" y="218" text-anchor="start" font-size="12" fill="#6b7280">+1</text>
+  <text x="835" y="152" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">0.0 → 1.0</text>
+
+  <text x="790" y="348" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Формула: (r - d) / (1 - d)</text>
+  <text x="790" y="374" text-anchor="middle" font-size="12" fill="#1a1a1a">• Неперервне наростання від 0.0</text>
+  <text x="790" y="396" text-anchor="middle" font-size="12" fill="#1a1a1a">• Точне збереження напрямку 360°</text>
+  <text x="790" y="418" text-anchor="middle" font-size="12" fill="#1a1a1a">• Прецизійні мікровідхилення</text>
+  <text x="790" y="444" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Професійний стандарт вводу</text>
+</svg>

@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехніка дубльованого підключення органів дозволу (NC+NC та NO+NC)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Контроль перехресного замикання жилових ліній тестовими імпульсами T1/T2 та виявлення часової неузгодженості</text>
+
+  <!-- BLOCK 1: NC+NC Dual Channel with Pulse Testing -->
+  <rect x="40" y="75" width="880" height="195" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Sub-header 1 -->
+  <rect x="52" y="87" width="856" height="28" rx="4" fill="#eaf0fd"/>
+  <text x="480" y="106" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Конфігурація 1: Симетричні канали NC1 / NC2 та перехресне тестове опитування (T1 / T2)</text>
+
+  <!-- Safety Controller 1 -->
+  <rect x="60" y="125" width="240" height="130" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="145" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль безпеки (PLC / Safety Relay)</text>
+
+  <text x="75" y="168" font-size="11" fill="#1a1a1a">Вихід T1 (24V + Імпульс 1)</text>
+  <text x="75" y="188" font-size="11" fill="#1a1a1a">Вхід I1 (Канал 1)</text>
+  <text x="75" y="210" font-size="11" fill="#1a1a1a">Вихід T2 (24V + Імпульс 2)</text>
+  <text x="75" y="230" font-size="11" fill="#1a1a1a">Вхід I2 (Канал 2)</text>
+
+  <!-- Fault Indicator (Cross Short) -->
+  <rect x="410" y="130" width="120" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="470" y="146" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">КЗ між жилами</text>
+  <line x1="470" y1="154" x2="470" y2="210" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Enabling Switch 1 -->
+  <rect x="640" y="125" width="260" height="130" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="770" y="145" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кнопка дозволу (Вхідний вузол)</text>
+
+  <!-- Contact NC1 -->
+  <line x1="660" y1="178" x2="695" y2="178" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="695" cy="178" r="3" fill="#27ae60"/>
+  <line x1="695" y1="178" x2="735" y2="171" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="735" cy="178" r="3" fill="#27ae60"/>
+  <line x1="735" y1="178" x2="760" y2="178" stroke="#27ae60" stroke-width="2"/>
+  <text x="770" y="182" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Контакт 1 (NC1)</text>
+
+  <!-- Contact NC2 -->
+  <line x1="660" y1="220" x2="695" y2="220" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="695" cy="220" r="3" fill="#27ae60"/>
+  <line x1="695" y1="220" x2="735" y2="213" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="735" cy="220" r="3" fill="#27ae60"/>
+  <line x1="735" y1="220" x2="760" y2="220" stroke="#27ae60" stroke-width="2"/>
+  <text x="770" y="224" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Контакт 2 (NC2)</text>
+
+  <!-- Wires for Channel 1 -->
+  <path d="M 300 165 L 660 165" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 660 185 L 300 185" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Wires for Channel 2 -->
+  <path d="M 300 207 L 660 207" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M 660 227 L 300 227" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- BLOCK 2: NO+NC Asymmetric Dual Channel -->
+  <rect x="40" y="285" width="880" height="195" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Sub-header 2 -->
+  <rect x="52" y="297" width="856" height="28" rx="4" fill="#eaf0fd"/>
+  <text x="480" y="316" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Конфігурація 2: Асиметричні канали NO1 / NC2 та контроль часового вікна (t_discrepancy)</text>
+
+  <!-- Safety Controller 2 -->
+  <rect x="60" y="335" width="240" height="130" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="355" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль безпеки (Логіка порівняння)</text>
+
+  <text x="75" y="389" font-size="11" fill="#1a1a1a">Вхід CH1 (Канал NO1)</text>
+  <text x="75" y="441" font-size="11" fill="#1a1a1a">Вхід CH2 (Канал NC2)</text>
+
+  <!-- Enabling Switch 2 -->
+  <rect x="640" y="335" width="260" height="130" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="770" y="355" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кнопка дозволу (Асиметрична)</text>
+
+  <!-- Contact NO1 (Normally Open) -->
+  <line x1="660" y1="385" x2="695" y2="385" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="695" cy="385" r="3" fill="#27ae60"/>
+  <line x1="695" y1="385" x2="733" y2="373" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="735" cy="385" r="3" fill="#27ae60"/>
+  <line x1="735" y1="385" x2="760" y2="385" stroke="#27ae60" stroke-width="2"/>
+  <text x="770" y="389" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Контакт 1 (NO1)</text>
+
+  <!-- Contact NC2 (Normally Closed) -->
+  <line x1="660" y1="437" x2="695" y2="437" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="695" cy="437" r="3" fill="#27ae60"/>
+  <line x1="695" y1="437" x2="735" y2="430" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="735" cy="437" r="3" fill="#27ae60"/>
+  <line x1="735" y1="437" x2="760" y2="437" stroke="#27ae60" stroke-width="2"/>
+  <text x="770" y="441" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Контакт 2 (NC2)</text>
+
+  <!-- Wires Config 2 -->
+  <path d="M 660 385 L 300 385" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 660 437 L 300 437" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Center Logic Explanation Box -->
+  <rect x="330" y="396" width="280" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="470" y="411" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Контроль стану: NO1 ≠ NC2</text>
+  <text x="470" y="424" font-size="11" fill="#1a1a1a" text-anchor="middle">При NO1 = NC2 понад t_discrepancy — прапор Fault</text>
+</svg>

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Еволюція корпусного захисту та монтажу барабанних модулів</text>
+  <text x="480" y="56" font-size="13" text-anchor="middle" fill="#6b7280">Шлях від відкритих гвинтових елементів до модульних блоків із засувками та ущільненням IP65</text>
+
+  <!-- STAGE 1 BOX -->
+  <rect x="30" y="80" width="280" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="80" width="280" height="40" rx="8" fill="#fdecea"/>
+  <text x="45" y="105" font-size="14" font-weight="bold" fill="#c0392b">1. Відкритий модуль (IP40)</text>
+
+  <!-- Stage 1 Artwork -->
+  <rect x="50" y="140" width="240" height="130" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="70" y="160" width="200" height="90" fill="#f4f6f8" stroke="#9ca3af" stroke-width="1.5"/>
+  <rect x="135" y="170" width="70" height="70" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <circle cx="170" cy="165" r="3.5" fill="#c0392b"/>
+  <circle cx="170" cy="245" r="3.5" fill="#c0392b"/>
+  <text x="180" y="168" font-size="11" fill="#c0392b">Гвинти</text>
+  <text x="170" y="209" font-size="11" font-weight="bold" text-anchor="middle" fill="#6b7280">Виріз</text>
+  <text x="170" y="285" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Без ущільнень (IP40)</text>
+
+  <!-- Stage 1 Bullets -->
+  <text x="45" y="320" font-size="12" fill="#1a1a1a">• Окреме гвинтове кріплення</text>
+  <text x="45" y="345" font-size="12" fill="#1a1a1a">• Індивідуальні вирізи в щиті</text>
+  <text x="45" y="370" font-size="12" fill="#1a1a1a">• Відсутність міжмодульних засувок</text>
+  <text x="45" y="395" font-size="12" fill="#c0392b">• Чутливість до пилу та завад</text>
+
+  <!-- ARROW 1 -> 2 -->
+  <line x1="315" y1="270" x2="332" y2="270" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- STAGE 2 BOX -->
+  <rect x="340" y="80" width="280" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="340" y="80" width="280" height="40" rx="8" fill="#eaf0fd"/>
+  <text x="355" y="105" font-size="14" font-weight="bold" fill="#2457d6">2. Блок із засувками (IP54)</text>
+
+  <!-- Stage 2 Artwork -->
+  <rect x="360" y="140" width="240" height="130" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="155" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">Засувки Snap-in</text>
+  <rect x="380" y="160" width="200" height="90" fill="#f4f6f8" stroke="#9ca3af" stroke-width="1.5"/>
+  <rect x="420" y="170" width="120" height="70" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="424" y="174" width="36" height="62" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="462" y="174" width="36" height="62" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <rect x="500" y="174" width="36" height="62" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="442" y="210" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">1</text>
+  <text x="480" y="210" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">2</text>
+  <text x="518" y="210" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">3</text>
+  <polygon points="414,205 420,200 420,210" fill="#2457d6"/>
+  <polygon points="546,205 540,200 540,210" fill="#2457d6"/>
+  <text x="480" y="285" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Блок із 3 модулів (IP54)</text>
+
+  <!-- Stage 2 Bullets -->
+  <text x="355" y="320" font-size="12" fill="#1a1a1a">• Модульне збирання у блок</text>
+  <text x="355" y="345" font-size="12" fill="#1a1a1a">• Пружинні бічні засувки (Snap-in)</text>
+  <text x="355" y="370" font-size="12" fill="#1a1a1a">• Єдиний прямокутний виріз</text>
+  <text x="355" y="395" font-size="12" fill="#2457d6">• Частковий пилозахисний фланець</text>
+
+  <!-- ARROW 2 -> 3 -->
+  <line x1="625" y1="270" x2="642" y2="270" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- STAGE 3 BOX -->
+  <rect x="650" y="80" width="280" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="650" y="80" width="280" height="40" rx="8" fill="#e9f7ef"/>
+  <text x="665" y="105" font-size="14" font-weight="bold" fill="#27ae60">3. Герметичний блок (IP65)</text>
+
+  <!-- Stage 3 Artwork -->
+  <rect x="670" y="140" width="240" height="130" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="790" y="155" font-size="11" font-weight="bold" text-anchor="middle" fill="#27ae60">Гумова прокладка (O-ring)</text>
+  <rect x="690" y="160" width="200" height="90" fill="#f4f6f8" stroke="#9ca3af" stroke-width="1.5"/>
+  <rect x="724" y="164" width="132" height="82" fill="none" stroke="#27ae60" stroke-width="3" rx="4"/>
+  <rect x="730" y="170" width="120" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="770" y1="170" x2="770" y2="240" stroke="#27ae60" stroke-width="2" stroke-dasharray="3,2"/>
+  <line x1="810" y1="170" x2="810" y2="240" stroke="#27ae60" stroke-width="2" stroke-dasharray="3,2"/>
+  <circle cx="750" cy="205" r="8" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="750" y="209" font-size="11" font-weight="bold" text-anchor="middle" fill="#27ae60">+</text>
+  <circle cx="790" cy="205" r="8" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="790" y="209" font-size="11" font-weight="bold" text-anchor="middle" fill="#27ae60">+</text>
+  <circle cx="830" cy="205" r="8" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="830" y="209" font-size="11" font-weight="bold" text-anchor="middle" fill="#27ae60">+</text>
+  <text x="790" y="285" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Шви та манжети IP65</text>
+
+  <!-- Stage 3 Bullets -->
+  <text x="665" y="320" font-size="12" fill="#1a1a1a">• Периметральний ущільнювач IP65</text>
+  <text x="665" y="345" font-size="12" fill="#1a1a1a">• Внутрішні манжети кнопок/валів</text>
+  <text x="665" y="370" font-size="12" fill="#1a1a1a">• Міжмодульні герметичні шви</text>
+  <text x="665" y="395" font-size="12" fill="#27ae60">• Захист від струменів води й олив</text>
+
+  <!-- BOTTOM SUMMARY BAR -->
+  <rect x="30" y="475" width="900" height="32" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="496" font-size="12" text-anchor="middle" fill="#1a1a1a">Сучасний стандарт: швидкий безінструментальний монтаж засувками та надійний захист IP65 для важких умов</text>
+</svg>

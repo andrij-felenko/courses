@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двоканальна схема підключення контактних блоків кнопки E-Stop</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Примусове розмикання (NC 11-12, 21-22) та контроль міжканального короткого замикання (T1/T2)</text>
+
+  <!-- Panel 1: Safety Relay (Left) -->
+  <rect x="40" y="85" width="240" height="405" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="160" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Реле безпеки / ПЛК</text>
+  <text x="160" y="130" font-size="12" fill="#6b7280" text-anchor="middle">(Safety Controller)</text>
+
+  <!-- Channel 1 Generator Box -->
+  <rect x="55" y="150" width="210" height="150" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="160" y="173" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Тестовий канал 1 (T1)</text>
+  <text x="160" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">Вихід T1 / Вхід S12</text>
+  <text x="160" y="215" font-size="12" fill="#6b7280" text-anchor="middle">Імпульси T1 (Фаза A)</text>
+  <!-- Terminals T1 / S12 -->
+  <circle cx="265" cy="235" r="5" fill="#2457d6"/>
+  <text x="250" y="239" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">S12</text>
+  <circle cx="265" cy="275" r="5" fill="#2457d6"/>
+  <text x="250" y="279" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">T1</text>
+
+  <!-- Channel 2 Generator Box -->
+  <rect x="55" y="320" width="210" height="150" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="160" y="343" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Тестовий канал 2 (T2)</text>
+  <text x="160" y="365" font-size="12" fill="#1a1a1a" text-anchor="middle">Вихід T2 / Вхід S22</text>
+  <text x="160" y="385" font-size="12" fill="#6b7280" text-anchor="middle">Імпульси T2 (Фаза B)</text>
+  <!-- Terminals T2 / S22 -->
+  <circle cx="265" cy="405" r="5" fill="#27ae60"/>
+  <text x="250" y="409" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">S22</text>
+  <circle cx="265" cy="445" r="5" fill="#27ae60"/>
+  <text x="250" y="449" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">T2</text>
+
+  <!-- Panel 2: E-Stop Mushroom Button (Center) -->
+  <rect x="320" y="85" width="360" height="405" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="10"/>
+  <text x="500" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кнопка аварійної зупинки E-Stop</text>
+
+  <!-- Mushroom Cap Actuator -->
+  <rect x="420" y="125" width="160" height="34" fill="#c0392b" rx="17"/>
+  <text x="500" y="147" font-size="13" font-weight="bold" fill="white" text-anchor="middle">E-STOP (ГРИБОК)</text>
+
+  <!-- Mechanical Shaft -->
+  <rect x="496" y="159" width="8" height="310" fill="#1a1a1a"/>
+  <!-- Forced Opening Shaft Arrow -->
+  <line x1="535" y1="180" x2="535" y2="240" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="545" y="205" font-size="12" font-weight="bold" fill="#c0392b">Шток примусового</text>
+  <text x="545" y="222" font-size="12" font-weight="bold" fill="#c0392b">розмикання (→)</text>
+
+  <!-- Contact Block 1 (NC 11-12) -->
+  <rect x="345" y="200" width="135" height="110" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="412" y="222" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Блок 1 (NC 11-12)</text>
+  <!-- Terminals 11 and 12 -->
+  <circle cx="360" cy="275" r="5" fill="#2457d6"/>
+  <text x="360" y="263" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">11</text>
+  <circle cx="465" cy="275" r="5" fill="#2457d6"/>
+  <text x="465" y="263" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">12</text>
+  <!-- NC Contact bridge -->
+  <line x1="365" y1="275" x2="400" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="430" y1="275" x2="460" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="395" y1="270" x2="435" y2="270" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="412" y="295" font-size="12" fill="#6b7280" text-anchor="middle">NC Канал 1</text>
+
+  <!-- Contact Block 2 (NC 21-22) -->
+  <rect x="345" y="370" width="135" height="110" fill="white" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="412" y="392" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Блок 2 (NC 21-22)</text>
+  <!-- Terminals 21 and 22 -->
+  <circle cx="360" cy="445" r="5" fill="#27ae60"/>
+  <text x="360" y="433" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">21</text>
+  <circle cx="465" cy="445" r="5" fill="#27ae60"/>
+  <text x="465" y="433" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">22</text>
+  <!-- NC Contact bridge -->
+  <line x1="365" y1="445" x2="400" y2="445" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="430" y1="445" x2="460" y2="445" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="395" y1="440" x2="435" y2="440" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="412" y="465" font-size="12" fill="#6b7280" text-anchor="middle">NC Канал 2</text>
+
+  <!-- Panel 3: Diagnostic Info (Right) -->
+  <rect x="700" y="85" width="220" height="405" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="810" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діагностика T1/T2</text>
+
+  <rect x="715" y="140" width="190" height="160" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="810" y="165" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Контроль замикань</text>
+  <text x="810" y="190" font-size="12" fill="#1a1a1a" text-anchor="middle">При КЗ між каналами</text>
+  <text x="810" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">T1 та T2 імпульси</text>
+  <text x="810" y="230" font-size="12" fill="#1a1a1a" text-anchor="middle">перекриваються.</text>
+  <text x="810" y="260" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Реле блокує пуск!</text>
+
+  <rect x="715" y="320" width="190" height="150" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="810" y="345" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Примусовий розрив</text>
+  <text x="810" y="370" font-size="12" fill="#1a1a1a" text-anchor="middle">Зварювання контактів</text>
+  <text x="810" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">долається прямим</text>
+  <text x="810" y="410" font-size="12" fill="#1a1a1a" text-anchor="middle">тиском на шток.</text>
+  <text x="810" y="440" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">IEC 60947-5-1 (→)</text>
+
+  <!-- Wires for Channel 1 -->
+  <!-- T1 to Terminal 11 -->
+  <path d="M 265 275 L 360 275" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <!-- Terminal 12 back to S12 -->
+  <path d="M 465 275 L 490 275 L 490 170 L 290 170 L 290 235 L 265 235" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arr-blue)"/>
+
+  <!-- Wires for Channel 2 -->
+  <!-- T2 to Terminal 21 -->
+  <path d="M 265 445 L 360 445" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <!-- Terminal 22 back to S22 -->
+  <path d="M 465 445 L 490 445 L 490 475 L 290 475 L 290 405 L 265 405" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#arr-green)"/>
+
+  <!-- Footer Banner -->
+  <rect x="40" y="505" width="880" height="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="480" y="530" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Нормативний стандарт IEC 60947-5-5: Двоканальне розмикання NC + примусовий розрив (→) гарантують безпеку</text>
+</svg>

@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часові діаграми протоколів SSI та BiSS-C</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Синхронізація тактування CLK, перехід у монофлоп t_m (SSI) та кадрування з CRC (BiSS-C)</text>
+
+  <!-- PANEL 1: SSI PROTOCOL -->
+  <rect x="30" y="75" width="900" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Протокол SSI (Synchronous Serial Interface)</text>
+  <text x="50" y="116" font-size="12" fill="#6b7280">Спадаючий фронт CLK фіксує значення, пауза монофлопа t_m блокує повторне зчитування</text>
+
+  <!-- SSI Signal Labels -->
+  <text x="50" y="162" font-size="13" font-weight="bold" fill="#2457d6">CLK (MA)</text>
+  <text x="50" y="222" font-size="13" font-weight="bold" fill="#1a1a1a">DATA (SL)</text>
+
+  <!-- SSI Grid Lines (dashed faint background) -->
+  <line x1="130" y1="140" x2="130" y2="265" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="160" y1="140" x2="160" y2="265" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="208" y1="140" x2="208" y2="265" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="264" y1="140" x2="264" y2="265" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="308" y1="140" x2="308" y2="265" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="348" y1="140" x2="348" y2="265" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="378" y1="140" x2="378" y2="265" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="430" y1="140" x2="430" y2="265" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="650" y1="140" x2="650" y2="265" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- SSI CLK Waveform -->
+  <path d="M 130,150 L 160,150 L 160,175 L 175,175 L 175,150 L 195,150 L 195,175 L 208,208 L 208,150 M 195,175 L 208,175 L 208,150 L 230,150 L 230,175 L 245,175 L 245,150 L 268,150 L 268,175 L 283,175 L 283,150 L 308,150 L 308,175 L 323,175 L 323,150 L 348,150 M 378,150 L 390,150 L 390,175 L 405,175 L 405,150 L 430,150 L 430,175 L 445,175 L 445,150 L 670,150 L 670,175 L 685,175 L 685,150 L 710,150 L 710,175 L 725,175 L 725,150 L 880,150" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- SSI DATA Bit Boxes (drawn in DATA zone y=200..230) -->
+  <!-- Start Bit -->
+  <rect x="160" y="200" width="40" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="180" y="219" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Start</text>
+
+  <!-- D12 (MSB) -->
+  <rect x="208" y="200" width="52" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="234" y="219" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">D12 (MSB)</text>
+
+  <!-- D11 -->
+  <rect x="268" y="200" width="36" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="286" y="219" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">D11</text>
+
+  <!-- D10 -->
+  <rect x="312" y="200" width="36" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="330" y="219" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">D10</text>
+
+  <!-- Dots ... -->
+  <text x="362" y="219" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">...</text>
+
+  <!-- D0 (LSB) -->
+  <rect x="380" y="200" width="48" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="404" y="219" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">D0 (LSB)</text>
+
+  <!-- Monoflop Pause t_m Box -->
+  <rect x="436" y="200" width="214" height="30" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="543" y="219" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Пауза монофлопа t_m (10...30 мкс)</text>
+
+  <!-- Idle Data continuation -->
+  <line x1="650" y1="200" x2="880" y2="200" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Monoflop Arrow t_m -->
+  <line x1="440" y1="250" x2="645" y2="250" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="543" y="268" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Інтервал паузи t_m (Monoflop Timeout)</text>
+
+
+  <!-- PANEL 2: BISS-C PROTOCOL -->
+  <rect x="30" y="300" width="900" height="235" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="323" font-size="14" font-weight="bold" fill="#1a1a1a">Протокол BiSS-C (Bidirectional Serial Synchronous)</text>
+  <text x="50" y="341" font-size="12" fill="#6b7280">Двонаправлений зв'язок з підтвердженням ACK, бітами помилки (E), попередження (W) та CRC-6</text>
+
+  <!-- BiSS-C Signal Labels -->
+  <text x="50" y="387" font-size="13" font-weight="bold" fill="#2457d6">MA (Master)</text>
+  <text x="50" y="447" font-size="13" font-weight="bold" fill="#1a1a1a">SLO (Slave)</text>
+
+  <!-- MA Clock Signal Line (Continuous clock pulses during frame) -->
+  <path d="M 130,375 L 160,375 L 160,395 L 175,395 L 175,375 L 190,375 L 190,395 L 205,395 L 205,375 L 220,375 L 220,395 L 235,395 L 235,375 L 250,375 L 250,395 L 265,395 L 265,375 L 280,375 L 280,395 L 295,395 L 295,375 L 310,375 L 310,395 L 325,395 L 325,375 L 340,375 L 340,395 L 355,395 L 355,375 M 355,375 L 530,375 L 530,395 L 545,395 L 545,375 L 560,375 L 560,395 L 575,395 L 575,375 L 590,375 L 590,395 L 605,395 L 605,375 L 620,375 L 620,395 L 635,395 L 635,375 L 650,375 L 650,395 L 665,395 L 665,375 L 680,375 L 680,395 L 695,395 L 695,375 L 710,375 L 710,395 L 725,395 L 725,375 L 740,375 L 740,395 L 755,395 L 755,375 L 880,375" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- BiSS-C Frame Bit Blocks (SLO Payload Field) -->
+
+  <!-- ACK Field -->
+  <rect x="160" y="425" width="60" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="190" y="445" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">ACK</text>
+
+  <!-- Start Bit (S) -->
+  <rect x="226" y="425" width="40" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="246" y="445" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Start</text>
+
+  <!-- Control Data Slave (CDS) -->
+  <rect x="272" y="425" width="40" height="32" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="292" y="445" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">CDS</text>
+
+  <!-- Position Data Payload -->
+  <rect x="318" y="425" width="230" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="433" y="445" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Дані положення (12...32 біт)</text>
+
+  <!-- Error Bit (E) -->
+  <rect x="554" y="425" width="36" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="572" y="445" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">E</text>
+
+  <!-- Warning Bit (W) -->
+  <rect x="596" y="425" width="36" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="614" y="445" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">W</text>
+
+  <!-- CRC-6 Field -->
+  <rect x="638" y="425" width="110" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="693" y="445" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">CRC-6 (6 біт)</text>
+
+  <!-- Stop / Timeout Field -->
+  <rect x="754" y="425" width="66" height="32" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="787" y="445" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">Stop</text>
+
+  <!-- BiSS-C Field Footnotes / Callouts (y=480) -->
+  <text x="190" y="480" font-size="11" fill="#6b7280" text-anchor="middle">Затримка</text>
+  <text x="269" y="480" font-size="11" fill="#6b7280" text-anchor="middle">Синхронізація</text>
+  <text x="433" y="480" font-size="11" fill="#6b7280" text-anchor="middle">Координата (Gray/Bin)</text>
+  <text x="593" y="480" font-size="11" fill="#6b7280" text-anchor="middle">Статус (E, W)</text>
+  <text x="693" y="480" font-size="11" fill="#6b7280" text-anchor="middle">Контроль CRC</text>
+  <text x="787" y="480" font-size="11" fill="#6b7280" text-anchor="middle">Завершення</text>
+</svg>

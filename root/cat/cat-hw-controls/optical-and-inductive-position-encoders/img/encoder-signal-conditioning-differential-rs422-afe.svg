@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехніка аналогового фронтенду (AFE) та первинної обробки сигналів</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Формування TTL-квадратури компаратором, диференціальна передача RS-422 та демодуляція RVDT</text>
+
+  <!-- ПАНЕЛЬ 1: Формування квадратури (тригер Шмітта) -->
+  <rect x="24" y="70" width="296" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="172" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Тригер Шмітта (TTL)</text>
+  <text x="172" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Формування прямокутних імпульсів A/B</text>
+
+  <!-- Схема компаратора -->
+  <rect x="36" y="132" width="272" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Вхідний сигнал -->
+  <text x="44" y="156" font-size="12" font-weight="bold" fill="#2457d6">Vin (Оптика)</text>
+  <path d="M 44 175 C 55 155, 65 195, 75 175 C 85 155, 95 195, 105 175" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="105" y1="175" x2="130" y2="175" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Трикутний символ компаратора -->
+  <polygon points="135,145 135,205 195,175" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Входи + та - -->
+  <text x="141" y="163" font-size="12" font-weight="bold" fill="#2457d6">+</text>
+  <text x="141" y="195" font-size="12" font-weight="bold" fill="#2457d6">–</text>
+
+  <!-- Символ петлі гістерезису всередині компаратора -->
+  <path d="M 157 170 L 173 170 L 173 180 L 157 180 Z" fill="none" stroke="#2457d6" stroke-width="1"/>
+  <path d="M 154 175 L 176 175" fill="none" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Зворотний зв'язок гістерезису (Rh) -->
+  <path d="M 195 175 L 210 175 L 210 220 L 190 220" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+  <rect x="160" y="213" width="30" height="14" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="175" y="206" font-size="12" fill="#1a1a1a" text-anchor="middle">Rh</text>
+  <path d="M 160 220 L 140 220 L 140 198" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+
+  <!-- Вихід прямокутний -->
+  <line x1="195" y1="175" x2="230" y2="175" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <text x="280" y="160" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихід A/B</text>
+  <path d="M 240 190 L 255 190 L 255 168 L 275 168 L 275 190 L 295 190" fill="none" stroke="#27ae60" stroke-width="1.8"/>
+
+  <!-- Графік порогів гістерезису -->
+  <rect x="36" y="294" width="272" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="314" font-size="12" font-weight="bold" fill="#1a1a1a">Пороги спрацьовування (ΔVh):</text>
+
+  <!-- Порогові лінії -->
+  <line x1="46" y1="340" x2="296" y2="340" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="290" y="336" font-size="12" fill="#c0392b" text-anchor="end">Vth+</text>
+
+  <line x1="46" y1="375" x2="296" y2="375" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="290" y="387" font-size="12" fill="#2457d6" text-anchor="end">Vth–</text>
+
+  <!-- Зашумлений сигнал і очищений вихід -->
+  <path d="M 50 360 Q 75 320, 100 355 T 150 330 T 200 385 T 250 350" fill="none" stroke="#6b7280" stroke-width="1.2"/>
+
+  <!-- Картка підсумку 1 -->
+  <rect x="36" y="420" width="272" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="46" y="440" font-size="12" font-weight="bold" fill="#27ae60">✓ Захист від завад:</text>
+  <text x="46" y="458" font-size="12" fill="#1a1a1a">• Гістерезис ΔVh відсікає шум та</text>
+  <text x="46" y="474" font-size="12" fill="#6b7280">усуває брязкот на межі фронтів.</text>
+
+
+  <!-- ПАНЕЛЬ 2: Диференціальна лінійка RS-422 -->
+  <rect x="332" y="70" width="296" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Лінія RS-422 (Diff)</text>
+  <text x="480" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Придушення синфазної завади (CMRR)</text>
+
+  <!-- Схема передавач - кручена пара - приймач -->
+  <rect x="344" y="132" width="272" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Передавач (Driver) -->
+  <polygon points="352,155 352,215 390,185" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="189" font-size="12" font-weight="bold" fill="#2457d6">Tx</text>
+
+  <!-- Кручена пара дротів A+ та A- -->
+  <line x1="390" y1="170" x2="520" y2="170" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="455" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">A+</text>
+
+  <line x1="390" y1="200" x2="520" y2="200" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="455" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">A–</text>
+
+  <!-- Термінатор Rt = 120 Ом -->
+  <rect x="512" y="177" width="16" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="520" y="209" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Rt</text>
+
+  <!-- Приймач (Receiver) -->
+  <polygon points="530,155 530,215 568,185" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="538" y="189" font-size="12" font-weight="bold" fill="#2457d6">Rx</text>
+
+  <!-- Вихід приймача -->
+  <line x1="568" y1="185" x2="600" y2="185" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <text x="585" y="210" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Data</text>
+
+  <!-- Синфазна завада (Vnoise) -->
+  <rect x="344" y="294" width="272" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="354" y="314" font-size="12" font-weight="bold" fill="#1a1a1a">Математика придушення завади:</text>
+
+  <text x="354" y="340" font-size="12" fill="#2457d6">V+(t) = Vsignal + Vnoise</text>
+  <text x="354" y="360" font-size="12" fill="#c0392b">V–(t) = –Vsignal + Vnoise</text>
+
+  <line x1="354" y1="370" x2="600" y2="370" stroke="#d0d7de" stroke-width="1"/>
+  <text x="354" y="392" font-size="12" font-weight="bold" fill="#27ae60">Vdiff = V+ – V– = 2 · Vsignal (Vnoise = 0)</text>
+
+  <!-- Картка підсумку 2 -->
+  <rect x="344" y="420" width="272" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="354" y="440" font-size="12" font-weight="bold" fill="#2457d6">✓ Перевага RS-422:</text>
+  <text x="354" y="458" font-size="12" fill="#1a1a1a">• Повне віднімання синфазного</text>
+  <text x="354" y="474" font-size="12" fill="#6b7280">мережевого шуму на довгих кабелях.</text>
+
+
+  <!-- ПАНЕЛЬ 3: Синхронний демодулятор RVDT -->
+  <rect x="640" y="70" width="296" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="788" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Демодулятор RVDT</text>
+  <text x="788" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Синхронне виділення огинаючої Sin/Cos</text>
+
+  <!-- Схема перемножувача та ФНЧ -->
+  <rect x="652" y="132" width="272" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Вхід RVDT -->
+  <text x="660" y="156" font-size="12" font-weight="bold" fill="#2457d6">Vrvdt(t)</text>
+  <line x1="660" y1="175" x2="710" y2="175" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Коло перемножувача / ключа (Множник X) -->
+  <circle cx="725" cy="175" r="15" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="725" y="180" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">×</text>
+
+  <!-- Опорна несуча (Ref sin(wt)) -->
+  <line x1="725" y1="222" x2="725" y2="190" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="725" y="240" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Ref: sin(ωt)</text>
+
+  <!-- Вихід перемножувача до ФНЧ -->
+  <line x1="740" y1="175" x2="780" y2="175" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Блок ФНЧ (Low-Pass Filter) -->
+  <rect x="785" y="155" width="55" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="812" y="179" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ФНЧ</text>
+
+  <!-- Вихід огинаючої -->
+  <line x1="840" y1="175" x2="880" y2="175" stroke="#27ae60" stroke-width="1.8" marker-end="url(#arr-green)"/>
+  <text x="880" y="156" font-size="12" font-weight="bold" fill="#27ae60">sin(θ)</text>
+  <path d="M 885 175 Q 900 160, 915 175 T 945 175" fill="none" stroke="#27ae60" stroke-width="1.8"/>
+
+  <!-- Сигнали до і після ФНЧ -->
+  <rect x="652" y="294" width="272" height="115" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="662" y="314" font-size="12" font-weight="bold" fill="#1a1a1a">Форма сигналів демодуляції:</text>
+
+  <text x="662" y="338" font-size="12" fill="#2457d6">• Вхід: sin(θ) · sin(ωt) [ВЧ несуча]</text>
+  <text x="662" y="358" font-size="12" fill="#1a1a1a">• Після ×: sin(θ) · sin²(ωt) [двопівпер.]</text>
+  <text x="662" y="388" font-size="12" font-weight="bold" fill="#27ae60">• Вихід ФНЧ: ½ · sin(θ) [огинаюча кута]</text>
+
+  <!-- Картка підсумку 3 -->
+  <rect x="652" y="420" width="272" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="662" y="440" font-size="12" font-weight="bold" fill="#27ae60">✓ Точність демодуляції:</text>
+  <text x="662" y="458" font-size="12" fill="#1a1a1a">• Синхронний детектор придушує</text>
+  <text x="662" y="474" font-size="12" fill="#6b7280">паразитні квадратурні завади несучої.</text>
+</svg>

@@ -1,0 +1,107 @@
+<svg width="960" height="560" viewBox="0 0 960 560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Граф транзитних кодових завад (Hazard States) при переключенні BCD</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Несинхронність механічних контактів створює тимчасові фантомні BCD-вектори під час обертання</text>
+
+  <!-- ==================== LEFT PANEL: TRANSITION HAZARD GRAPH ==================== -->
+  <rect x="30" y="65" width="530" height="475" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="295" y="88" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Множина транзитних станів при зміні 3 («0011») → 4 («0100»)</text>
+  <text x="295" y="106" font-size="12" fill="#6b7280" text-anchor="middle">Одночасна зміна 3 бітів викликає механічний skew контактів</text>
+
+  <!-- 1. Start Node: Code "3" (0011) -->
+  <rect x="55" y="235" width="90" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="100" y="256" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Код "3"</text>
+  <text x="100" y="273" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">[0011]</text>
+
+  <!-- 2. Intermediate Hazard Nodes -->
+  <!-- Hazard Node 1: 0111 (7) -->
+  <rect x="215" y="140" width="160" height="46" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="295" y="158" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">7 [0111] (Ранній біт 4)</text>
+  <text x="295" y="174" font-size="10" fill="#6b7280" text-anchor="middle">Хибний сплеск</text>
+
+  <!-- Hazard Node 2: 0010 (2) -->
+  <rect x="215" y="200" width="160" height="46" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="295" y="218" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">2 [0010] (Рано розімкн. 1)</text>
+  <text x="295" y="234" font-size="10" fill="#6b7280" text-anchor="middle">Проміжний стан</text>
+
+  <!-- Hazard Node 3: 0110 (6) -->
+  <rect x="215" y="260" width="160" height="46" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="295" y="278" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">6 [0110] (Частковий зсув)</text>
+  <text x="295" y="294" font-size="10" fill="#6b7280" text-anchor="middle">Проміжний стан</text>
+
+  <!-- Hazard Node 4: 0000 (0) -->
+  <rect x="215" y="320" width="160" height="46" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="295" y="338" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0 [0000] (Розрив кола)</text>
+  <text x="295" y="354" font-size="10" fill="#6b7280" text-anchor="middle">Пауза контактів</text>
+
+  <!-- 3. End Node: Code "4" (0100) -->
+  <rect x="445" y="235" width="90" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="490" y="256" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Код "4"</text>
+  <text x="490" y="273" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">[0100]</text>
+
+  <!-- Directed Hazard Transition Edges (Red Dashed) -->
+  <path d="M 145,250 L 215,163" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <path d="M 145,255 L 215,223" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <path d="M 145,265 L 215,283" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <path d="M 145,270 L 215,343" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <path d="M 375,163 L 445,250" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <path d="M 375,223 L 445,255" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <path d="M 375,283 L 445,265" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <path d="M 375,343 L 445,270" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- Ideal Direct Transition Path (Green Curve at bottom) -->
+  <path d="M 145,278 Q 295,395 445,278" stroke="#27ae60" stroke-width="2.5" fill="none" marker-end="url(#arr-green)"/>
+  <text x="295" y="388" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Ідеальний перехід (одночасне перемикання)</text>
+
+  <!-- Left Panel Summary Box -->
+  <rect x="45" y="410" width="500" height="110" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="295" y="430" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Фізична причина виникнення Hazard-станів</text>
+  <text x="295" y="450" font-size="12" fill="#1a1a1a" text-anchor="middle">Механічний зсув (skew) щіток перемикача триває від 1 до 15 мс</text>
+  <text x="295" y="468" font-size="12" fill="#1a1a1a" text-anchor="middle">Мікроконтролер при миттєвому опитуванні зчитує фантомне значення</text>
+  <text x="295" y="490" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Потрібна програмна затримка (Debounce) або кодування Ґрея</text>
+
+
+  <!-- ==================== RIGHT PANEL: HAZARD MITIGATION METHODS ==================== -->
+  <rect x="580" y="65" width="350" height="475" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="755" y="88" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Методи усунення кодових завад</text>
+  <text x="755" y="106" font-size="12" fill="#6b7280" text-anchor="middle">Апаратні та програмні рішення</text>
+
+  <!-- Card 1: Gray Code -->
+  <rect x="595" y="125" width="320" height="105" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="610" y="145" font-size="12" font-weight="bold" fill="#27ae60">1. Кодування Ґрея (Одиничний зсув)</text>
+  <text x="610" y="165" font-size="12" fill="#1a1a1a">Зміна лише 1 біта при кожному кроці</text>
+  <text x="610" y="183" font-size="12" fill="#1a1a1a">Приклад: 3 («0010») → 4 («0110»)</text>
+  <text x="610" y="205" font-size="11" font-weight="bold" fill="#27ae60">Повна відсутність Hazard-станів (0%)</text>
+
+  <!-- Card 2: Software Debouncing -->
+  <rect x="595" y="242" width="320" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="610" y="262" font-size="12" font-weight="bold" fill="#2457d6">2. Алгоритм подвійного зчитування</text>
+  <text x="610" y="282" font-size="12" fill="#1a1a1a">Зчитування BCD-порту 2 рази з паузою Δt</text>
+  <text x="610" y="300" font-size="12" fill="#1a1a1a">Якщо Code(t1) ≠ Code(t2) → нестійкість</text>
+  <text x="610" y="318" font-size="12" fill="#1a1a1a">Прийняття даних лише при стабільності</text>
+  <text x="610" y="340" font-size="11" font-weight="bold" fill="#2457d6">Затримка Δt = 20...50 мс гарантує точність</text>
+
+  <!-- Card 3: Validation Mask -->
+  <rect x="595" y="369" width="320" height="151" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="610" y="389" font-size="12" font-weight="bold" fill="#1a1a1a">3. Валідація BCD-вектора</text>
+  <text x="610" y="409" font-size="12" fill="#1a1a1a">Заборонені BCD-коди (&gt; 9, тобто 10...15)</text>
+  <text x="610" y="427" font-size="12" fill="#c0392b">Автоматичне відкидання станів &gt; 1001</text>
+  <rect x="610" y="438" width="290" height="34" rx="4" fill="#fdecea"/>
+  <text x="755" y="459" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">If (BCD_Code &gt; 9) Reject();</text>
+  <text x="610" y="495" font-size="11" font-weight="bold" fill="#27ae60">Захист від збоїв обчислень</text>
+</svg>

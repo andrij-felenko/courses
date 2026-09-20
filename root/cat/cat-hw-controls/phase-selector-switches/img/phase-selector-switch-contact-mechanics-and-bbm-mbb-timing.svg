@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-green-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-red-left" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Механіка кулачкових контактів та порівняння BBM / MBB</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Перемикання BBM запобігає міжфазному КЗ через затримку t_dead, тоді як MBB створює аварійне перекриття</text>
+
+  <!-- LEFT PANEL: Mechanical Assembly -->
+  <rect x="25" y="70" width="425" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="237" y="94" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">1. Механізм кулачкової контактної групи</text>
+  <text x="237" y="112" text-anchor="middle" font-size="12" fill="#6b7280">Профіль кулачкового вала, штовхач та куліса розмикання</text>
+
+  <!-- Cam Shaft & Lobe -->
+  <circle cx="135" cy="215" r="32" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="135" cy="215" r="10" fill="#2457d6"/>
+  <path d="M 135 183 A 32 32 0 1 0 135 247 C 175 240 195 230 195 215 C 195 200 175 190 135 183 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Follower / Pusher -->
+  <rect x="195" y="205" width="45" height="20" rx="3" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="195" cy="215" r="6" fill="#d0d7de" stroke="#1a1a1a"/>
+
+  <!-- Compression Spring -->
+  <path d="M 240 215 L 246 207 L 254 223 L 262 207 L 270 223 L 276 215 L 280 215" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Moving Contact Bridge -->
+  <rect x="277" y="160" width="6" height="110" rx="2" fill="#2457d6"/>
+  <circle cx="280" cy="170" r="5" fill="#2457d6"/>
+  <circle cx="280" cy="260" r="5" fill="#2457d6"/>
+
+  <!-- Fixed Contacts L1 & L2 -->
+  <rect x="330" y="160" width="35" height="20" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="325" cy="170" r="5" fill="#1a1a1a"/>
+  <text x="347" y="174" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">L1</text>
+
+  <rect x="330" y="250" width="35" height="20" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="325" cy="260" r="5" fill="#1a1a1a"/>
+  <text x="347" y="264" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">L2</text>
+
+  <!-- Gap Dimension -->
+  <line x1="287" y1="148" x2="323" y2="148" stroke="#2457d6" stroke-dasharray="2,2" stroke-width="1.5"/>
+  <text x="305" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Зазор δ</text>
+
+  <!-- Callout Labels -->
+  <text x="50" y="145" font-size="12" font-weight="bold" fill="#1a1a1a">Кулачковий вал</text>
+  <line x1="95" y1="150" x2="125" y2="195" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+
+  <text x="50" y="275" font-size="12" font-weight="bold" fill="#2457d6">Профіль кулачка</text>
+  <line x1="110" y1="265" x2="160" y2="235" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+  <text x="175" y="175" font-size="12" font-weight="bold" fill="#1a1a1a">Штовхач</text>
+  <line x1="210" y1="180" x2="210" y2="202" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+
+  <text x="235" y="275" font-size="12" font-weight="bold" fill="#1a1a1a">Пружина F_pr</text>
+  <line x1="260" y1="263" x2="260" y2="227" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-gray)"/>
+
+  <text x="375" y="215" font-size="12" font-weight="bold" fill="#2457d6">Рухомий місток</text>
+  <line x1="370" y1="215" x2="288" y2="215" stroke="#2457d6" stroke-width="1.2" marker-end="url(#arr-blue)"/>
+
+  <!-- Explanatory Box -->
+  <rect x="40" y="315" width="395" height="205" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="338" font-size="13" font-weight="bold" fill="#1a1a1a">Принцип примусового розмикання:</text>
+  <text x="55" y="362" font-size="12" fill="#1a1a1a">• Обертання кулачка штовхає місток проти пружини</text>
+  <text x="55" y="386" font-size="12" fill="#1a1a1a">• Швидкість розмикання v = dδ / dt запобігає дузі</text>
+  <text x="55" y="410" font-size="12" fill="#1a1a1a">• Повітряний зазор δ гарантує діелектричну міцність</text>
+  <text x="55" y="434" font-size="12" fill="#1a1a1a">• Срібні наплавки AgNi знижують контактний опір R_c</text>
+  <text x="55" y="458" font-size="12" fill="#1a1a1a">• Дугогасна камера деіонізує плазмовий шнур</text>
+  <text x="55" y="492" font-size="12" font-weight="bold" fill="#27ae60">Забезпечує гарантований механічний розрив кола</text>
+
+  <!-- RIGHT TOP PANEL: BBM -->
+  <rect x="470" y="70" width="465" height="225" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="490" y="94" font-size="14" font-weight="bold" fill="#27ae60">2. BBM (Break-Before-Make) — З розривом кола</text>
+  <text x="490" y="112" font-size="12" fill="#27ae60">Гарантована безнапругова пауза t_dead виключає міжфазне КЗ</text>
+
+  <!-- BBM Timing Chart -->
+  <line x1="560" y1="245" x2="905" y2="245" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="912" y="249" font-size="12" font-weight="bold" fill="#1a1a1a">t</text>
+
+  <!-- Waveform L1 -->
+  <text x="490" y="150" font-size="12" font-weight="bold" fill="#2457d6">Фаза L1</text>
+  <path d="M 560 140 L 660 140 L 660 175 L 895 175" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="610" y="130" font-size="12" font-weight="bold" fill="#2457d6">ЗАКРИТО</text>
+  <text x="810" y="168" font-size="12" fill="#6b7280">ВІДКРИТО</text>
+
+  <!-- Waveform L2 -->
+  <text x="490" y="210" font-size="12" font-weight="bold" fill="#27ae60">Фаза L2</text>
+  <path d="M 560 220 L 760 220 L 760 190 L 895 190" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="610" y="238" font-size="12" fill="#6b7280">ВІДКРИТО</text>
+  <text x="810" y="182" font-size="12" font-weight="bold" fill="#27ae60">ЗАКРИТО</text>
+
+  <!-- Dead-Time Zone -->
+  <rect x="660" y="128" width="100" height="105" fill="#27ae60" fill-opacity="0.15" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="660" y1="134" x2="760" y2="134" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green-left)" marker-end="url(#arr-green)"/>
+  <text x="710" y="124" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">t_dead &gt; t_arc</text>
+  <text x="710" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Безнапругова</text>
+  <text x="710" y="166" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">пауза</text>
+
+  <text x="490" y="278" font-size="12" font-weight="bold" fill="#27ae60">✓ Безпечно: Дуга загашена до ввімкнення фази L2 (КЗ повністю виключено)</text>
+
+  <!-- RIGHT BOTTOM PANEL: MBB -->
+  <rect x="470" y="310" width="465" height="225" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="490" y="334" font-size="14" font-weight="bold" fill="#c0392b">3. MBB (Make-Before-Break) — Без розриву кола</text>
+  <text x="490" y="352" font-size="12" fill="#c0392b">L2 замикається до розмикання L1 — утворення міжфазного мосту</text>
+
+  <!-- MBB Timing Chart -->
+  <line x1="560" y1="485" x2="905" y2="485" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="912" y="489" font-size="12" font-weight="bold" fill="#1a1a1a">t</text>
+
+  <!-- Waveform L1 -->
+  <text x="490" y="390" font-size="12" font-weight="bold" fill="#2457d6">Фаза L1</text>
+  <path d="M 560 380 L 760 380 L 760 415 L 895 415" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="610" y="370" font-size="12" font-weight="bold" fill="#2457d6">ЗАКРИТО</text>
+  <text x="810" y="408" font-size="12" fill="#6b7280">ВІДКРИТО</text>
+
+  <!-- Waveform L2 -->
+  <text x="490" y="450" font-size="12" font-weight="bold" fill="#c0392b">Фаза L2</text>
+  <path d="M 560 460 L 660 460 L 660 430 L 895 430" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="610" y="476" font-size="12" fill="#6b7280">ВІДКРИТО</text>
+  <text x="810" y="422" font-size="12" font-weight="bold" fill="#c0392b">ЗАКРИТО</text>
+
+  <!-- Overlap Zone -->
+  <rect x="660" y="368" width="100" height="105" fill="#c0392b" fill-opacity="0.2" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="660" y1="374" x2="760" y2="374" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-left)" marker-end="url(#arr-red)"/>
+  <text x="710" y="364" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Перекриття t_ovlp</text>
+  <text x="710" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⚠ МІЖФАЗНЕ</text>
+  <text x="710" y="416" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">КЗ (380 В)</text>
+
+  <text x="490" y="518" font-size="12" font-weight="bold" fill="#c0392b">✖ Аварійний режим: Категорично заборонено для комутації фаз!</text>
+</svg>

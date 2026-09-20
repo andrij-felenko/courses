@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція давачів кутового положення: від потенціометра до RVDT та резольвера</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Перехід від механічного контакту до фазово-амплітудної модуляції індуктивних давачів</text>
+
+  <!-- Card 1: Potentiometer -->
+  <rect x="25" y="75" width="290" height="460" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="35" y="85" width="270" height="32" rx="4" fill="#c0392b"/>
+  <text x="170" y="106" font-size="14" font-weight="bold" fill="white" text-anchor="middle">1. Потенціометр (Реостатний)</text>
+
+  <!-- Card 1 Diagram -->
+  <text x="50" y="145" font-size="12" font-weight="bold" fill="#1a1a1a">+V_dc</text>
+  <line x1="85" y1="141" x2="115" y2="141" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 115 141 L 115 170 L 110 175 L 120 185 L 110 195 L 120 205 L 110 215 L 120 225 L 115 230 L 115 260" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="115" y1="260" x2="115" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="100" y1="280" x2="130" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="105" y1="285" x2="125" y2="285" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="110" y1="290" x2="120" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="75" y="295" font-size="11" fill="#6b7280">GND</text>
+
+  <line x1="175" y1="200" x2="122" y2="200" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="185" y="195" font-size="12" font-weight="bold" fill="#c0392b">Повзунок</text>
+  <text x="185" y="210" font-size="11" fill="#6b7280">Кут θ (механічний)</text>
+
+  <line x1="115" y1="200" x2="70" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="70" y1="200" x2="70" y2="235" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="70" y="252" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_out(θ)</text>
+
+  <rect x="45" y="305" width="250" height="40" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="170" y="322" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_out = V_dc · (θ / θ_max)</text>
+  <text x="170" y="338" font-size="11" fill="#6b7280" text-anchor="middle">Постійний струм (DC)</text>
+
+  <rect x="45" y="355" width="250" height="165" rx="6" fill="white" stroke="#c0392b" stroke-dasharray="3 3"/>
+  <text x="55" y="375" font-size="12" font-weight="bold" fill="#c0392b">Обмеження технології:</text>
+  <text x="55" y="398" font-size="11" fill="#1a1a1a">• Механічний контакт і зношування</text>
+  <text x="55" y="418" font-size="11" fill="#1a1a1a">• Шум контактної доріжки (CRV)</text>
+  <text x="55" y="438" font-size="11" fill="#1a1a1a">• Чутливість до пилу та бруду</text>
+  <text x="55" y="458" font-size="11" fill="#1a1a1a">• Обмежений ресурс (10⁶–10⁷ циклів)</text>
+  <text x="55" y="478" font-size="11" fill="#1a1a1a">• Дрейф опору від температури</text>
+  <text x="55" y="498" font-size="11" fill="#1a1a1a">• Брязкіт при вібраціях</text>
+
+  <!-- Card 2: RVDT -->
+  <rect x="335" y="75" width="290" height="460" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="345" y="85" width="270" height="32" rx="4" fill="#2457d6"/>
+  <text x="480" y="106" font-size="14" font-weight="bold" fill="white" text-anchor="middle">2. Трансформатор RVDT</text>
+
+  <!-- Card 2 Diagram -->
+  <text x="355" y="145" font-size="11" font-weight="bold" fill="#2457d6">Первинна обмотка</text>
+  <path d="M 370 160 C 370 150, 390 150, 390 160 C 390 150, 410 150, 410 160 C 410 150, 430 150, 430 160" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="400" y="180" font-size="11" fill="#1a1a1a" text-anchor="middle">V_exc · sin(ωt)</text>
+
+  <rect x="445" y="152" width="70" height="16" rx="3" fill="#6b7280"/>
+  <text x="480" y="164" font-size="10" font-weight="bold" fill="white" text-anchor="middle">Осердя θ</text>
+  <path d="M 480 140 A 15 15 0 0 1 495 152" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <text x="535" y="145" font-size="11" font-weight="bold" fill="#2457d6">Вторинні S1, S2</text>
+  <path d="M 535 160 C 535 150, 555 150, 555 160 C 555 150, 575 150, 575 160" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 535 190 C 535 180, 555 180, 555 190 C 555 180, 575 180, 575 190" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="590" y="164" font-size="11" fill="#1a1a1a">S1</text>
+  <text x="590" y="194" font-size="11" fill="#1a1a1a">S2</text>
+  <line x1="575" y1="160" x2="575" y2="190" stroke="#1a1a1a" stroke-dasharray="2 2"/>
+
+  <text x="480" y="230" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ΔV = V_S1 - V_S2</text>
+
+  <rect x="355" y="305" width="250" height="40" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="480" y="322" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_out = k · θ · sin(ωt)</text>
+  <text x="480" y="338" font-size="11" fill="#6b7280" text-anchor="middle">Амплітудна модуляція несучої</text>
+
+  <rect x="355" y="355" width="250" height="165" rx="6" fill="white" stroke="#2457d6"/>
+  <text x="365" y="375" font-size="12" font-weight="bold" fill="#2457d6">Переваги RVDT:</text>
+  <text x="365" y="398" font-size="11" fill="#1a1a1a">• Безконтактний вимір (без зносу)</text>
+  <text x="365" y="418" font-size="11" fill="#1a1a1a">• Висока лінійність біля нуля (±40°)</text>
+  <text x="365" y="438" font-size="11" fill="#1a1a1a">• Нескінченна роздільна здатність</text>
+  <text x="365" y="458" font-size="11" fill="#1a1a1a">• Стійкість до ударів і вібрацій</text>
+  <text x="365" y="478" font-size="11" fill="#1a1a1a">• Робоча температура до +200°C</text>
+  <text x="365" y="498" font-size="11" fill="#1a1a1a">• Стандарт для авіації (Fly-by-Wire)</text>
+
+  <!-- Card 3: Resolver -->
+  <rect x="645" y="75" width="290" height="460" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="655" y="85" width="270" height="32" rx="4" fill="#27ae60"/>
+  <text x="790" y="106" font-size="14" font-weight="bold" fill="white" text-anchor="middle">3. Двофазний Резольвер</text>
+
+  <!-- Card 3 Diagram -->
+  <circle cx="790" cy="180" r="30" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <line x1="770" y1="180" x2="810" y2="180" stroke="#27ae60" stroke-width="2"/>
+  <text x="790" y="175" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">Ротор R1-R2</text>
+  <text x="790" y="193" font-size="10" fill="#6b7280" text-anchor="middle">V_exc · sin(ωt)</text>
+
+  <line x1="790" y1="135" x2="790" y2="148" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="790" y="130" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">S1-S3 (Sin)</text>
+
+  <line x1="822" y1="180" x2="835" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="880" y="184" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">S2-S4 (Cos)</text>
+
+  <path d="M 802 180 A 12 12 0 0 0 790 168" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="810" y="165" font-size="10" fill="#27ae60">90°</text>
+
+  <text x="665" y="240" font-size="11" font-weight="bold" fill="#1a1a1a">V_sin = V_exc · sin(θ) · sin(ωt)</text>
+  <text x="665" y="260" font-size="11" font-weight="bold" fill="#1a1a1a">V_cos = V_exc · cos(θ) · sin(ωt)</text>
+  <text x="665" y="280" font-size="11" fill="#27ae60">θ = arctan2(V_sin / V_cos)</text>
+
+  <rect x="665" y="305" width="250" height="40" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="790" y="322" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Абсолютний кут 0°...360°</text>
+  <text x="790" y="338" font-size="11" fill="#6b7280" text-anchor="middle">Квадратурна квадратура фаз</text>
+
+  <rect x="665" y="355" width="250" height="165" rx="6" fill="white" stroke="#27ae60"/>
+  <text x="675" y="375" font-size="12" font-weight="bold" fill="#27ae60">Переваги резольвера:</text>
+  <text x="675" y="398" font-size="11" fill="#1a1a1a">• Вимірювання повного оберту (360°)</text>
+  <text x="675" y="418" font-size="11" fill="#1a1a1a">• Абсолютне положення при включенні</text>
+  <text x="675" y="438" font-size="11" fill="#1a1a1a">• Екстремальна надійність (Heavy Duty)</text>
+  <text x="675" y="458" font-size="11" fill="#1a1a1a">• Стійкість до агресивного середовища</text>
+  <text x="675" y="478" font-size="11" fill="#1a1a1a">• Проста інтеграція з RDC декодерами</text>
+  <text x="675" y="498" font-size="11" fill="#1a1a1a">• Стандарт для сервоприводів та ЧПК</text>
+
+</svg>

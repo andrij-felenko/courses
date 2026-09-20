@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схеми підключення DIP-перемикача: Pull-Up та Pull-Down</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Порівняння логічних рівнів (active-LOW та active-HIGH) при розімкненому й замкненому станах контакту</text>
+
+  <!-- LEFT PANEL: PULL-UP -->
+  <rect x="40" y="75" width="420" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">Схема Pull-Up (active-LOW)</text>
+  <text x="250" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Вхід підтягнуто до VCC через R_pull</text>
+
+  <!-- Left Circuit Diagram -->
+  <!-- VCC Rail -->
+  <line x1="105" y1="155" x2="165" y2="155" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="135" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">VCC (+5V)</text>
+  <line x1="135" y1="155" x2="135" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Resistor R_pull -->
+  <rect x="120" y="175" width="30" height="50" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="120" y1="200" x2="150" y2="200" stroke="#d0d7de" stroke-width="1"/>
+  <text x="110" y="202" text-anchor="end" font-size="11" font-weight="bold" fill="#1a1a1a">R_pull</text>
+  <text x="110" y="216" text-anchor="end" font-size="10" fill="#6b7280">10 kΩ</text>
+  <line x1="135" y1="225" x2="135" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Junction & Output Wire -->
+  <circle cx="135" cy="255" r="4" fill="#1a1a1a"/>
+  <line x1="135" y1="255" x2="215" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="222" y="250" text-anchor="start" font-size="11" font-weight="bold" fill="#2457d6">Вхід GPIO</text>
+  <text x="222" y="265" text-anchor="start" font-size="10" fill="#6b7280">active-LOW</text>
+
+  <!-- DIP Switch -->
+  <line x1="135" y1="255" x2="135" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="105" y="275" width="60" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="135" y="291" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">DIP SW</text>
+  <circle cx="135" cy="301" r="3" fill="#1a1a1a"/>
+  <circle cx="135" cy="323" r="3" fill="#1a1a1a"/>
+  <line x1="135" y1="323" x2="148" y2="301" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- GND Rail -->
+  <line x1="135" y1="335" x2="135" y2="360" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="120" y1="360" x2="150" y2="360" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="126" y1="365" x2="144" y2="365" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="132" y1="370" x2="138" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="135" y="388" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">GND (0V)</text>
+
+  <!-- Left State Cards -->
+  <!-- Box OFF -->
+  <rect x="290" y="150" width="155" height="110" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="368" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Контакт OFF (Розімк)</text>
+  <text x="368" y="196" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вихід = VCC (Лог. 1)</text>
+  <text x="368" y="220" text-anchor="middle" font-size="10" fill="#6b7280">Струм через R_pull = 0</text>
+  <text x="368" y="242" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">Пасивний стан = HIGH</text>
+
+  <!-- Box ON -->
+  <rect x="290" y="275" width="155" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="368" y="297" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Контакт ON (Замкн)</text>
+  <text x="368" y="321" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Вихід = GND (Лог. 0)</text>
+  <text x="368" y="345" text-anchor="middle" font-size="10" fill="#6b7280">Струм I = VCC / R_pull</text>
+  <text x="368" y="367" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Активний стан = LOW</text>
+  <text x="368" y="390" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Логіка: active-LOW</text>
+
+  <!-- RIGHT PANEL: PULL-DOWN -->
+  <rect x="500" y="75" width="420" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">Схема Pull-Down (active-HIGH)</text>
+  <text x="710" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Вхід підтягнуто до GND через R_pull</text>
+
+  <!-- Right Circuit Diagram -->
+  <!-- VCC Rail -->
+  <line x1="565" y1="155" x2="625" y2="155" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="595" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">VCC (+5V)</text>
+  <line x1="595" y1="155" x2="595" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- DIP Switch -->
+  <rect x="565" y="175" width="60" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="595" y="191" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">DIP SW</text>
+  <circle cx="595" cy="201" r="3" fill="#1a1a1a"/>
+  <circle cx="595" cy="223" r="3" fill="#1a1a1a"/>
+  <line x1="595" y1="223" x2="608" y2="201" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="595" y1="235" x2="595" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Junction & Output Wire -->
+  <circle cx="595" cy="255" r="4" fill="#1a1a1a"/>
+  <line x1="595" y1="255" x2="675" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="682" y="250" text-anchor="start" font-size="11" font-weight="bold" fill="#2457d6">Вхід GPIO</text>
+  <text x="682" y="265" text-anchor="start" font-size="10" fill="#6b7280">active-HIGH</text>
+
+  <!-- Resistor R_pull -->
+  <line x1="595" y1="255" x2="595" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="580" y="280" width="30" height="50" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="580" y1="305" x2="610" y2="305" stroke="#d0d7de" stroke-width="1"/>
+  <text x="570" y="307" text-anchor="end" font-size="11" font-weight="bold" fill="#1a1a1a">R_pull</text>
+  <text x="570" y="321" text-anchor="end" font-size="10" fill="#6b7280">10 kΩ</text>
+
+  <!-- GND Rail -->
+  <line x1="595" y1="330" x2="595" y2="360" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="580" y1="360" x2="610" y2="360" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="586" y1="365" x2="604" y2="365" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="592" y1="370" x2="598" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="595" y="388" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">GND (0V)</text>
+
+  <!-- Right State Cards -->
+  <!-- Box OFF -->
+  <rect x="750" y="150" width="155" height="110" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="828" y="172" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Контакт OFF (Розімк)</text>
+  <text x="828" y="196" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Вихід = GND (Лог. 0)</text>
+  <text x="828" y="220" text-anchor="middle" font-size="10" fill="#6b7280">Струм через R_pull = 0</text>
+  <text x="828" y="242" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">Пасивний стан = LOW</text>
+
+  <!-- Box ON -->
+  <rect x="750" y="275" width="155" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="828" y="297" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Контакт ON (Замкн)</text>
+  <text x="828" y="321" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вихід = VCC (Лог. 1)</text>
+  <text x="828" y="345" text-anchor="middle" font-size="10" fill="#6b7280">Струм I = VCC / R_pull</text>
+  <text x="828" y="367" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Активний стан = HIGH</text>
+  <text x="828" y="390" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Логіка: active-HIGH</text>
+</svg>

@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Кінематика 3-позиційного вимикача дозволу</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Послідовність станів контактора: відпущено (OFF) → дозволено (ON) → панічно перетиснуто (OFF)</text>
+
+  <!-- CARD 1: POSITION 1 (RELEASED / OFF) -->
+  <rect x="24" y="75" width="290" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="169" y="98" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Позиція 1: Відпущено</text>
+  <text x="169" y="116" text-anchor="middle" font-size="12" fill="#6b7280">Режим очікування (Released)</text>
+
+  <!-- Diagram Box 1 -->
+  <rect x="44" y="132" width="250" height="185" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="64" y="142" width="210" height="135" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  
+  <!-- Plunger & Spring 1 -->
+  <rect x="149" y="148" width="40" height="28" rx="3" fill="#6b7280"/>
+  <text x="169" y="167" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">OFF</text>
+  <path d="M169,176 L169,208" stroke="#6b7280" stroke-width="2" stroke-dasharray="3,3"/>
+  
+  <!-- Bridge Contact & Terminals 1 -->
+  <path d="M134,208 L204,208" stroke="#6b7280" stroke-width="4" stroke-linecap="round"/>
+  <rect x="119" y="230" width="20" height="35" rx="2" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <rect x="199" y="230" width="20" height="35" rx="2" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+
+  <!-- Status Pill 1 -->
+  <rect x="74" y="285" width="190" height="22" rx="11" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="169" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Коло розімкнено (OFF)</text>
+
+  <!-- Badges 1 -->
+  <rect x="44" y="330" width="250" height="45" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="348" font-size="12" font-weight="bold" fill="#1a1a1a">Сила натискання: F = 0 H</text>
+  <text x="54" y="364" font-size="12" fill="#6b7280">Клавіша утримана пружиною</text>
+
+  <rect x="44" y="385" width="250" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="54" y="403" font-size="12" font-weight="bold" fill="#2457d6">Безпечний стан (Fail-safe)</text>
+  <text x="54" y="419" font-size="12" fill="#1a1a1a">Силові приводи знеструмлені</text>
+
+  <!-- CARD 2: POSITION 2 (ENGAGED / ON) -->
+  <rect x="335" y="75" width="290" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="98" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Позиція 2: Дозволено</text>
+  <text x="480" y="116" text-anchor="middle" font-size="12" fill="#6b7280">Робочий режим (Engaged)</text>
+
+  <!-- Diagram Box 2 -->
+  <rect x="355" y="132" width="250" height="185" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="375" y="142" width="210" height="135" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  
+  <!-- Plunger & Spring 2 -->
+  <rect x="460" y="165" width="40" height="28" rx="3" fill="#27ae60"/>
+  <text x="480" y="184" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">ON</text>
+  <path d="M480,193 L480,230" stroke="#27ae60" stroke-width="2"/>
+  
+  <!-- Bridge Contact & Terminals 2 -->
+  <path d="M445,230 L515,230" stroke="#27ae60" stroke-width="4" stroke-linecap="round"/>
+  <rect x="430" y="230" width="20" height="35" rx="2" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <rect x="510" y="230" width="20" height="35" rx="2" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+
+  <!-- Status Pill 2 -->
+  <rect x="385" y="285" width="190" height="22" rx="11" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Коло замкнено (ENABLE)</text>
+
+  <!-- Badges 2 -->
+  <rect x="355" y="330" width="250" height="45" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="365" y="348" font-size="12" font-weight="bold" fill="#27ae60">Помірне зусилля натискання</text>
+  <text x="365" y="364" font-size="12" fill="#1a1a1a">Робоча точка між фіксаторами</text>
+
+  <rect x="355" y="385" width="250" height="45" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="365" y="403" font-size="12" font-weight="bold" fill="#27ae60">Дозвіл руху (Manual Speed)</text>
+  <text x="365" y="419" font-size="12" fill="#1a1a1a">Дозволено рух маніпулятора</text>
+
+  <!-- CARD 3: POSITION 3 (PANIC OFF / OVER-PRESSED) -->
+  <rect x="646" y="75" width="290" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="791" y="98" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Позиція 3: Перетиснуто</text>
+  <text x="791" y="116" text-anchor="middle" font-size="12" fill="#6b7280">Аварійний режим (Panic Squeeze)</text>
+
+  <!-- Diagram Box 3 -->
+  <rect x="666" y="132" width="250" height="185" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="686" y="142" width="210" height="135" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  
+  <!-- Plunger & Wedge Cam 3 -->
+  <rect x="771" y="182" width="40" height="28" rx="3" fill="#c0392b"/>
+  <text x="791" y="201" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">OFF</text>
+  <path d="M791,210 L791,222 L781,232 L801,232 Z" fill="#c0392b" stroke="#991b1b" stroke-width="1"/>
+  
+  <!-- Bridge Contact Forced Open 3 -->
+  <path d="M756,215 L826,215" stroke="#c0392b" stroke-width="4" stroke-linecap="round"/>
+  <rect x="741" y="230" width="20" height="35" rx="2" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <rect x="821" y="230" width="20" height="35" rx="2" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+
+  <!-- Status Pill 3 -->
+  <rect x="696" y="285" width="190" height="22" rx="11" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="791" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Примусове розмикання (OFF)</text>
+
+  <!-- Badges 3 -->
+  <rect x="666" y="330" width="250" height="45" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="676" y="348" font-size="12" font-weight="bold" fill="#c0392b">Надмірне зусилля (Паніка)</text>
+  <text x="676" y="364" font-size="12" fill="#1a1a1a">Судомне стискання рукоятки</text>
+
+  <rect x="666" y="385" width="250" height="45" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="676" y="403" font-size="12" font-weight="bold" fill="#c0392b">Positive Opening Mechanism</text>
+  <text x="676" y="419" font-size="12" fill="#1a1a1a">Прямий механічний розрив кола</text>
+
+  <!-- BOTTOM BANNER: HYSTERESIS & RESET LOGIC -->
+  <rect x="24" y="455" width="912" height="60" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="477" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Захист від повторного включення (Механічний гістерезис)</text>
+  <text x="480" y="496" text-anchor="middle" font-size="12" fill="#6b7280">При поверненні з Позиції 3 у Позицію 1 контакти залишаються розімкненими під час проходження Позиції 2</text>
+</svg>

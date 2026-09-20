@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Схема комутації силової панелі та монтаж крімпових наконечників Faston</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Підключення 4-пінового рокера з запобіжником і варистором MOV проти покрокового обтискання Faston IP67</text>
+
+  <!-- ========================================== -->
+  <!-- ЛІВА ПАНЕЛЬ: Принципова електрична схема   -->
+  <!-- ========================================== -->
+  <rect x="24" y="66" width="444" height="434" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок лівої панелі -->
+  <rect x="36" y="78" width="420" height="32" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="246" y="99" text-anchor="middle" font-size="13" font-weight="700" fill="#2457d6">1. СХЕМА ПІДКТЮЧЕННЯ 4-ПІНОВОГО РОКЕРА</text>
+
+  <!-- Лінія шини живлення (L / +V) -->
+  <line x1="45" y1="140" x2="95" y2="140" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="40" y="132" font-size="12" font-weight="700" fill="#c0392b">L (+12V)</text>
+
+  <!-- Блок Запобіжника Fuse F1 -->
+  <rect x="95" y="130" width="45" height="20" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="95" y1="140" x2="140" y2="140" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="117" y="124" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">F1 (10A)</text>
+  <line x1="140" y1="140" x2="170" y2="140" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Блок 4-пінового рокерного перемикача -->
+  <rect x="170" y="120" width="175" height="156" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="257" y="138" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a1a">Рокер 4-Pin (IP67)</text>
+
+  <!-- Піни рокера -->
+  <!-- Пін 1: Line IN -->
+  <circle cx="195" cy="165" r="5" fill="#c0392b"/>
+  <text x="185" y="184" font-size="12" font-weight="700" fill="#c0392b">Пін 1 (IN)</text>
+
+  <!-- Пін 2: Load OUT -->
+  <circle cx="320" cy="165" r="5" fill="#27ae60"/>
+  <text x="330" y="184" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">Пін 2 (OUT)</text>
+
+  <!-- Внутрішній контактний ключ (SW1) -->
+  <line x1="195" y1="165" x2="315" y2="165" stroke="#27ae60" stroke-width="2" stroke-dasharray="4 2"/>
+
+  <!-- Внутрішня підсвічувальна лампа / LED -->
+  <circle cx="257" cy="215" r="10" fill="#fef9e7" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="257" y="219" text-anchor="middle" font-size="12" font-weight="700" fill="#e67e22">LED</text>
+
+  <!-- Пін 3: Neutral/GND -->
+  <circle cx="195" cy="245" r="5" fill="#2457d6"/>
+  <text x="185" y="266" font-size="12" font-weight="700" fill="#2457d6">Пін 3 (GND)</text>
+
+  <!-- Пін 4: Lamp Status -->
+  <circle cx="320" cy="245" r="5" fill="#e67e22"/>
+  <text x="330" y="266" font-size="12" font-weight="700" fill="#e67e22" text-anchor="end">Пін 4 (Lamp)</text>
+
+  <line x1="320" y1="245" x2="267" y2="215" stroke="#e67e22" stroke-width="1.2"/>
+  <line x1="195" y1="245" x2="247" y2="215" stroke="#2457d6" stroke-width="1.2"/>
+
+  <!-- Лінія виходу до навантаження (від Піна 2) -->
+  <line x1="320" y1="165" x2="385" y2="165" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="385" y1="165" x2="385" y2="300" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Блок Навантаження Load L1 -->
+  <rect x="345" y="300" width="80" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="385" y="324" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Навантаж. L1</text>
+
+  <!-- Варистор MOV1 паралельно навантаженню -->
+  <text x="385" y="356" text-anchor="middle" font-size="12" font-weight="700" fill="#e67e22">MOV1 (Varistor)</text>
+  <rect x="325" y="362" width="120" height="24" rx="3" fill="#fef9e7" stroke="#e67e22" stroke-width="1.5"/>
+
+  <!-- Лінії підключення варистора -->
+  <line x1="345" y1="320" x2="300" y2="320" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="300" y1="320" x2="300" y2="374" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="300" y1="374" x2="325" y2="374" stroke="#27ae60" stroke-width="1.5"/>
+
+  <line x1="425" y1="320" x2="455" y2="320" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="455" y1="320" x2="455" y2="374" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="455" y1="374" x2="445" y2="374" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Лінія нейтралі / землі GND по правому краю без перетину блоків -->
+  <line x1="195" y1="245" x2="195" y2="410" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="455" y1="374" x2="455" y2="410" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="45" y1="410" x2="455" y2="410" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="40" y="405" font-size="12" font-weight="700" fill="#2457d6">N / GND (0V)</text>
+
+  <!-- Підсумок лівої панелі -->
+  <rect x="36" y="432" width="420" height="54" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="246" y="452" text-anchor="middle" font-size="12" font-weight="700" fill="#2457d6">Захист: Запобіжник F1 та Варистор MOV1</text>
+  <text x="246" y="470" text-anchor="middle" font-size="12" fill="#1a1a1a">Варистор поглинає індуктивні сплески комутації, зберігаючи контакти.</text>
+
+  <!-- ========================================== -->
+  <!-- ПРАВА ПАНЕЛЬ: Покроковий крімпінг Faston   -->
+  <!-- ========================================== -->
+  <rect x="492" y="66" width="444" height="434" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок правої панелі -->
+  <rect x="504" y="78" width="420" height="32" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="714" y="99" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">2. ПОКРОКОВИЙ МОНТАЖ НАКОНЕЧНИКА FASTON (IP67)</text>
+
+  <!-- Крок 1: Зачищення провідника -->
+  <rect x="516" y="122" width="396" height="74" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="528" y="142" font-size="12" font-weight="700" fill="#1a1a1a">Крок 1: Зачищення жили кабелю (Stripping L = 6 мм)</text>
+  <!-- Малюнок кабелю з зачищеною жилою -->
+  <rect x="530" y="156" width="140" height="18" rx="3" fill="#2457d6"/>
+  <rect x="670" y="160" width="35" height="10" fill="#f39c12"/>
+  <text x="600" y="169" text-anchor="middle" font-size="12" fill="#ffffff">Ізоляція 2.5 мм²</text>
+  <text x="687" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="#f39c12">6 мм</text>
+
+  <!-- Крок 2: Опресування крімпером -->
+  <rect x="516" y="206" width="396" height="74" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="528" y="226" font-size="12" font-weight="700" fill="#2457d6">Крок 2: Обтискання Faston 6.3 мм (B-crimp профіль)</text>
+  <!-- Малюнок наконечника Faston -->
+  <rect x="530" y="240" width="100" height="18" rx="3" fill="#2457d6"/>
+  <rect x="630" y="242" width="35" height="14" fill="#9ca3af"/>
+  <path d="M 665,238 L 710,238 L 710,260 L 665,260 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="687" y="253" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">Faston</text>
+
+  <!-- Крок 3: Термоусадка IP67 -->
+  <rect x="516" y="290" width="396" height="74" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="528" y="310" font-size="12" font-weight="700" fill="#27ae60">Крок 3: Клейова термоусадка (Герметизація IP67)</text>
+  <!-- Малюнок термоусадки з клеєм -->
+  <rect x="530" y="324" width="100" height="18" rx="3" fill="#2457d6"/>
+  <rect x="625" y="321" width="60" height="24" rx="4" fill="#27ae60" opacity="0.8"/>
+  <path d="M 685,324 L 720,324 L 720,342 L 685,342 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="655" y="337" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff">IP67 Клей</text>
+
+  <!-- Підсумок правої панелі -->
+  <rect x="516" y="378" width="396" height="108" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="714" y="398" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Критерії якості силового крімпування:</text>
+  <text x="530" y="418" font-size="12" fill="#1a1a1a">• Газонепроникний контакт жили з клемою (опір &lt; 0.5 мОм)</text>
+  <text x="530" y="436" font-size="12" fill="#1a1a1a">• Механічна міцність на розрив &gt; 150 Н за DIN EN 60352-2</text>
+  <text x="530" y="454" font-size="12" fill="#27ae60">• Клейовий шар термоусадки виключає корозію у вологому середовищі</text>
+  <text x="530" y="472" font-size="12" fill="#6b7280">• Чітке фіксувальне клацання при насаджуванні на плоский клейм рокера</text>
+</svg>

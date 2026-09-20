@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-accent" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-danger" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Відмова одноканального кола керування та зварювання контактів</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Одноканальна схема втрачає функцію аварійного зупину при зварюванні контакту або КЗ в колі вводу</text>
+
+  <!-- ================= PANEL A: WELDED CONTACT ================= -->
+  <rect x="30" y="75" width="435" height="385" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="247" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Сценарій 1: Зварювання контакту K1 (Welded Contact)</text>
+
+  <!-- Circuit Container A -->
+  <rect x="45" y="110" width="405" height="195" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="60" y="128" font-size="12" font-weight="bold" fill="#1a1a1a">Коло вводу та силовий ланцюг двигуна:</text>
+
+  <!-- +24V Rail Segment to E-Stop -->
+  <line x1="60" y1="155" x2="135" y2="155" stroke="#2457d6" stroke-width="2"/>
+  <text x="60" y="148" font-size="12" font-weight="bold" fill="#2457d6">+24V</text>
+
+  <!-- E-Stop Button S1 (Pressed / Open) -->
+  <circle cx="135" cy="155" r="3" fill="#c0392b"/>
+  <circle cx="175" cy="155" r="3" fill="#c0392b"/>
+  <line x1="135" y1="155" x2="170" y2="140" stroke="#c0392b" stroke-width="2"/>
+  <text x="155" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">E-Stop (Натиснуто)</text>
+  <text x="155" y="175" text-anchor="middle" font-size="12" fill="#6b7280">Коло розімкнено</text>
+
+  <!-- Relay Coil K1 Wire -->
+  <line x1="175" y1="155" x2="245" y2="155" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <rect x="245" y="140" width="40" height="30" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="265" y="159" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">K1</text>
+  <line x1="285" y1="155" x2="330" y2="155" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="265" y="186" text-anchor="middle" font-size="12" fill="#6b7280">0 В (Знеструмлена)</text>
+
+  <!-- Separator Line -->
+  <line x1="55" y1="204" x2="440" y2="204" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Power Line L1 -->
+  <line x1="60" y1="245" x2="135" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="60" y="225" font-size="12" font-weight="bold" fill="#1a1a1a">L1 (230 В)</text>
+
+  <!-- Welded Contact K1 (Split around spark box) -->
+  <circle cx="135" cy="245" r="3.5" fill="#c0392b"/>
+  <circle cx="215" cy="245" r="3.5" fill="#c0392b"/>
+  <line x1="135" y1="245" x2="164" y2="245" stroke="#c0392b" stroke-width="3"/>
+  <line x1="186" y1="245" x2="215" y2="245" stroke="#c0392b" stroke-width="3"/>
+  
+  <!-- Weld Spark Box -->
+  <rect x="164" y="233" width="22" height="24" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="175" y="249" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⚡</text>
+  <text x="210" y="225" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">СПЕЧЕНИЙ КОНТАКТ!</text>
+
+  <!-- Wire to Motor -->
+  <line x1="215" y1="245" x2="345" y2="245" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-danger)"/>
+  <text x="305" y="225" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Струм іде!</text>
+
+  <!-- Motor M -->
+  <circle cx="375" cy="245" r="18" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="375" y="250" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">M</text>
+  <text x="375" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Двигун НЕ ЗУПИНЯЄТЬСЯ!</text>
+
+  <!-- Risk Card A -->
+  <rect x="45" y="315" width="405" height="135" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="60" y="336" font-size="13" font-weight="bold" fill="#c0392b">⚠️ ВТРАТА ФУНКЦІЇ БЕЗПЕКИ:</text>
+  <text x="60" y="360" font-size="12" fill="#1a1a1a">• Котушка K1 знеструмлена кнопкою E-Stop (0 В).</text>
+  <text x="60" y="382" font-size="12" fill="#1a1a1a">• Силовий контакт фізично приварився через дугу.</text>
+  <text x="60" y="404" font-size="12" fill="#1a1a1a">• Одноканальне реле НЕ виявляє зварювання контактів.</text>
+  <text x="60" y="426" font-size="12" font-weight="bold" fill="#c0392b">• Результат: аварійна зупинка НЕ працює!</text>
+
+  <!-- ================= PANEL B: SHORT CIRCUIT ================= -->
+  <rect x="495" y="75" width="435" height="385" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="712" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Сценарій 2: Замикання лінії кнопки (Short Circuit)</text>
+
+  <!-- Circuit Container B -->
+  <rect x="510" y="110" width="405" height="195" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="525" y="128" font-size="12" font-weight="bold" fill="#1a1a1a">Коло вводу із коротком замиканням кабелю:</text>
+
+  <!-- +24V Rail Segment to E-Stop -->
+  <line x1="525" y1="155" x2="595" y2="155" stroke="#2457d6" stroke-width="2"/>
+  <text x="525" y="148" font-size="12" font-weight="bold" fill="#2457d6">+24V</text>
+
+  <!-- E-Stop Button S1 (Pressed / Open) -->
+  <circle cx="595" cy="155" r="3" fill="#c0392b"/>
+  <circle cx="635" cy="155" r="3" fill="#c0392b"/>
+  <line x1="595" y1="155" x2="630" y2="140" stroke="#c0392b" stroke-width="2"/>
+  <text x="615" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">E-Stop (Натиснуто)</text>
+
+  <!-- Short Circuit Path -->
+  <path d="M 555 155 L 555 178 L 665 178 L 665 155" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="610" y="173" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">КЗ на +24В (обхід кнопки)</text>
+
+  <!-- Relay Coil K1 (Energized!) -->
+  <line x1="665" y1="155" x2="715" y2="155" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-danger)"/>
+  <rect x="715" y="140" width="40" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="735" y="159" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">K1</text>
+  <line x1="755" y1="155" x2="795" y2="155" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="785" y="186" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">+24 В (ПІД НАПРУГОЮ!)</text>
+
+  <!-- Separator Line -->
+  <line x1="520" y1="204" x2="905" y2="204" stroke="#e5e7eb" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Power Line L1 -->
+  <line x1="525" y1="245" x2="595" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="525" y="225" font-size="12" font-weight="bold" fill="#1a1a1a">L1 (230 В)</text>
+
+  <!-- Contact K1 Closed by Coil -->
+  <circle cx="595" cy="245" r="3.5" fill="#c0392b"/>
+  <circle cx="675" cy="245" r="3.5" fill="#c0392b"/>
+  <line x1="595" y1="245" x2="675" y2="245" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="670" y="225" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Контакт K1 ЗАМКНЕНИЙ</text>
+
+  <!-- Wire to Motor -->
+  <line x1="675" y1="245" x2="810" y2="245" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-danger)"/>
+  <text x="770" y="225" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Струм іде!</text>
+
+  <!-- Motor M -->
+  <circle cx="840" cy="245" r="18" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="840" y="250" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">M</text>
+  <text x="840" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Двигун ОБЕРТАЄТЬСЯ!</text>
+
+  <!-- Risk Card B -->
+  <rect x="510" y="315" width="405" height="135" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="525" y="336" font-size="13" font-weight="bold" fill="#c0392b">⚠️ ШУНТУВАННЯ ОРГАНУ ВВОДУ:</text>
+  <text x="525" y="360" font-size="12" fill="#1a1a1a">• Струм від КЗ живить котушку K1 в обхід кнопки.</text>
+  <text x="525" y="382" font-size="12" fill="#1a1a1a">• Натискання E-Stop розмикає кнопку, але не котушку.</text>
+  <text x="525" y="404" font-size="12" fill="#1a1a1a">• Одноканальне реле не має тестових пульсів (T1/T2).</text>
+  <text x="525" y="426" font-size="12" font-weight="bold" fill="#c0392b">• Висновок: Потрібні Cat 3/4 та резервовані схеми!</text>
+</svg>

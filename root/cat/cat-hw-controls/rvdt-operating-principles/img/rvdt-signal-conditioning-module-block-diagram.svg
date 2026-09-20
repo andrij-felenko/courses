@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Структурна схема вимірювального модуля RVDT</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Взаємодія генератора збудження, RVDT-давача, фільтрів, демодулятора та RDC-конвертера</text>
+
+  <!-- Block 1: Excitation Generator -->
+  <rect x="40" y="85" width="190" height="130" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="135" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Генератор збудження</text>
+  <text x="135" y="130" text-anchor="middle" font-size="12" fill="#6b7280">DDS / Міст Віна</text>
+  <text x="135" y="155" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">V_p = V_0 sin(ω t)</text>
+  <text x="135" y="178" text-anchor="middle" font-size="11" fill="#6b7280">f = 400 Гц .. 10 кГц</text>
+
+  <!-- Block 2: RVDT Sensor Assembly -->
+  <rect x="270" y="85" width="220" height="205" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="380" y="110" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Давач RVDT (Sensor)</text>
+
+  <!-- Primary Winding -->
+  <rect x="290" y="135" width="75" height="125" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="327.5" y="185" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Первинна</text>
+  <text x="327.5" y="205" text-anchor="middle" font-size="11" fill="#2457d6">PRI (V_p)</text>
+
+  <!-- Ferromagnetic Rotor Line -->
+  <line x1="380" y1="125" x2="380" y2="270" stroke="#6b7280" stroke-width="2.5" stroke-dasharray="4,2"/>
+  <text x="380" y="282" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">Ротор (θ)</text>
+
+  <!-- Secondary Windings -->
+  <rect x="395" y="135" width="80" height="55" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="435" y="158" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Вторинна 1</text>
+  <text x="435" y="176" text-anchor="middle" font-size="11" fill="#27ae60">V_s1</text>
+
+  <rect x="395" y="205" width="80" height="55" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="435" y="228" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Вторинна 2</text>
+  <text x="435" y="246" text-anchor="middle" font-size="11" fill="#27ae60">V_s2</text>
+
+  <!-- Block 3: Bandpass Filter (BPF) -->
+  <rect x="530" y="120" width="170" height="150" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="615" y="145" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Смуговий фільтр (BPF)</text>
+  <text x="615" y="167" text-anchor="middle" font-size="12" fill="#6b7280">Активна фільтрація</text>
+  <text x="615" y="195" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">V_s1, V_s2 (Диференційні)</text>
+  <text x="615" y="217" text-anchor="middle" font-size="11" fill="#6b7280">Придушення завад</text>
+
+  <!-- Block 4: Phase-Sensitive Demodulator -->
+  <rect x="740" y="120" width="180" height="150" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="830" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Фазочутливий демодулятор</text>
+  <text x="830" y="167" text-anchor="middle" font-size="11" fill="#6b7280">Схема AD598 / AD698</text>
+  <text x="830" y="195" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">V_ratio = (V1-V2)/(V1+V2)</text>
+  <text x="830" y="217" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Компенсація дрейфу</text>
+
+  <!-- Block 5: Low-Pass Filter (LPF) -->
+  <rect x="740" y="315" width="180" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="830" y="340" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Фільтр ФНЧ (LPF)</text>
+  <text x="830" y="362" text-anchor="middle" font-size="12" fill="#6b7280">Виділення обвідної (DC)</text>
+  <text x="830" y="390" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Аналоговий сигнал V_out(θ)</text>
+
+  <!-- Block 6: RDC / ADC Converter -->
+  <rect x="450" y="315" width="240" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="570" y="340" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">RDC-конвертер / АЦП</text>
+  <text x="570" y="362" text-anchor="middle" font-size="12" fill="#6b7280">Оцифровування кута (12..16 біт)</text>
+  <text x="570" y="390" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Перетворення в код кута θ</text>
+
+  <!-- Block 7: MCU Controller -->
+  <rect x="140" y="315" width="250" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="265" y="340" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Цифровий мікроконтролер (MCU)</text>
+  <text x="265" y="362" text-anchor="middle" font-size="12" fill="#6b7280">Інтерфейс SPI / Parallel / CAN</text>
+  <text x="265" y="390" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Декодування уставу кута</text>
+
+  <!-- Signal Arrows -->
+  <!-- Excitation Generator -> Primary Winding -->
+  <line x1="230" y1="160" x2="288" y2="160" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="260" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">V_p</text>
+
+  <!-- Reference Clock Arrow (Generator -> Demodulator) -->
+  <path d="M 135 215 L 135 300 L 830 300 L 830 272" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arr-gray)"/>
+  <text x="480" y="295" text-anchor="middle" font-size="11" fill="#6b7280">Опорний такт (Ref Clock)</text>
+
+  <!-- Secondary 1 & 2 -> Bandpass Filter -->
+  <line x1="475" y1="160" x2="528" y2="160" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="500" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">V_s1</text>
+
+  <line x1="475" y1="232" x2="528" y2="232" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="500" y="224" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">V_s2</text>
+
+  <!-- Bandpass Filter -> Demodulator -->
+  <line x1="700" y1="195" x2="738" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Demodulator -> Low-Pass Filter -->
+  <line x1="830" y1="270" x2="830" y2="313" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="850" y="295" font-size="11" font-weight="bold" fill="#2457d6">V_ratio</text>
+
+  <!-- Low-Pass Filter -> RDC / ADC -->
+  <line x1="740" y1="370" x2="692" y2="370" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="715" y="362" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">V_out(θ)</text>
+
+  <!-- RDC / ADC -> MCU Controller -->
+  <line x1="450" y1="370" x2="392" y2="370" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="420" y="362" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Код кута θ</text>
+</svg>

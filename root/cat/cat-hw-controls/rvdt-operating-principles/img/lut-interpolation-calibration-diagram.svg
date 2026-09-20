@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Підкладка полотна -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <!-- Маркери стрілок -->
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кусочно-лінійна LUT-інтерполяція калібрувальної характеристики RVDT</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Обчислення точного кута y_out за вхідним виміром x_in між вузлами P_i та P_i+1</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: ГРАФІК ІНТЕРПОЛЯЦІЇ -->
+  <rect x="30" y="75" width="570" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="315" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Графік кусочно-лінійної апроксимації</text>
+
+  <!-- Затінений активний робочий інтервал [x_i, x_i+1] -->
+  <rect x="290" y="140" width="130" height="280" fill="#eaf0fd" opacity="0.6"/>
+
+  <!-- Пунктирні лінії робочого інтервалу -->
+  <line x1="290" y1="140" x2="290" y2="420" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="420" y1="140" x2="420" y2="420" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Осі координат -->
+  <line x1="80" y1="420" x2="570" y2="420" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="90" y1="430" x2="90" y2="125" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Назви осей -->
+  <text x="560" y="445" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Сирий сигнал x (Ratio)</text>
+  <text x="95" y="115" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Калібрований кут y (град)</text>
+
+  <!-- Сира нелінійна крива RVDT (червоний пунктир) -->
+  <path d="M 120,390 Q 210,335 290,260 Q 355,200 420,180 Q 470,165 520,145" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,4" opacity="0.8"/>
+
+  <!-- Лінійно-інтерпольована крива LUT (синя суцільна) -->
+  <path d="M 120,390 L 200,330 L 290,260 L 420,180 L 520,145" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Прямокутний трикутник нахилу (dx, dy) -->
+  <line x1="290" y1="260" x2="420" y2="260" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="420" y1="260" x2="420" y2="180" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="355" y="279" font-size="11" fill="#6b7280" text-anchor="middle">dx = x[i+1] - x[i]</text>
+  <text x="430" y="225" font-size="11" fill="#6b7280" text-anchor="start">dy = y[i+1] - y[i]</text>
+
+  <!-- Проекційні лінії для поточної точки P_out (x_in, y_out) -->
+  <line x1="355" y1="420" x2="355" y2="220" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="90" y1="220" x2="355" y2="220" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Засічки та підписи на осі X -->
+  <line x1="200" y1="420" x2="200" y2="425" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="200" y="440" font-size="11" fill="#6b7280" text-anchor="middle">x[i-1]</text>
+
+  <line x1="290" y1="420" x2="290" y2="426" stroke="#2457d6" stroke-width="2"/>
+  <text x="290" y="440" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">x[i]</text>
+
+  <line x1="355" y1="420" x2="355" y2="428" stroke="#27ae60" stroke-width="2"/>
+  <text x="355" y="443" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">x_in</text>
+
+  <line x1="420" y1="420" x2="420" y2="426" stroke="#2457d6" stroke-width="2"/>
+  <text x="420" y="440" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">x[i+1]</text>
+
+  <line x1="520" y1="420" x2="520" y2="425" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="520" y="440" font-size="11" fill="#6b7280" text-anchor="middle">x[i+2]</text>
+
+  <!-- Засічки та підписи на осі Y -->
+  <text x="82" y="334" font-size="11" fill="#6b7280" text-anchor="end">y[i-1]</text>
+  <text x="82" y="264" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">y[i]</text>
+  <text x="82" y="224" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">y_out</text>
+  <text x="82" y="184" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">y[i+1]</text>
+  <text x="82" y="149" font-size="11" fill="#6b7280" text-anchor="end">y[i+2]</text>
+
+  <!-- Вузли таблиці LUT (точки на графіку) -->
+  <circle cx="120" cy="390" r="4" fill="#6b7280"/>
+
+  <circle cx="200" cy="330" r="4" fill="#6b7280"/>
+  <text x="200" y="318" font-size="11" fill="#6b7280" text-anchor="middle">P[i-1]</text>
+
+  <circle cx="290" cy="260" r="6" fill="#2457d6" stroke="#ffffff" stroke-width="2"/>
+  <text x="280" y="250" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">P_i (x[i], y[i])</text>
+
+  <circle cx="420" cy="180" r="6" fill="#2457d6" stroke="#ffffff" stroke-width="2"/>
+  <text x="410" y="165" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">P_i+1 (x[i+1], y[i+1])</text>
+
+  <circle cx="520" cy="145" r="4" fill="#6b7280"/>
+  <text x="520" y="133" font-size="11" fill="#6b7280" text-anchor="middle">P[i+2]</text>
+
+  <!-- Поточна вирахована точка (зелений маркер та підпис) -->
+  <circle cx="355" cy="220" r="6" fill="#27ae60" stroke="#ffffff" stroke-width="2"/>
+  <text x="430" y="200" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">P_out (x_in, y_out)</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: СТРУКТУРА LUT ТА АЛГОРИТМ -->
+  <rect x="625" y="75" width="305" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="777.5" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура LUT та алгоритм</text>
+
+  <!-- Блок 1: Таблична структура C/C++ -->
+  <rect x="637" y="115" width="281" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="777.5" y="133" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура LUT (rvdt_calib_lut_t)</text>
+
+  <!-- Підсвічений робочий сегмент у таблиці -->
+  <rect x="645" y="159" width="265" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+
+  <text x="655" y="153" font-size="11" fill="#6b7280">Node 0  :  (x[0], y[0])</text>
+  <text x="655" y="172" font-size="11" font-weight="bold" fill="#2457d6">Node i  :  (x[i], y[i])</text>
+  <text x="655" y="188" font-size="11" font-weight="bold" fill="#2457d6">Node i+1:  (x[i+1], y[i+1])</text>
+  <text x="655" y="207" font-size="11" fill="#6b7280">...</text>
+  <text x="655" y="223" font-size="11" fill="#6b7280">Node N-1:  (x[N-1], y[N-1])</text>
+
+  <!-- Блок 2: Алгоритм обчислення -->
+  <rect x="637" y="248" width="281" height="125" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="777.5" y="268" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Алгоритм обчислення C/C++</text>
+
+  <text x="650" y="288" font-size="11" fill="#1a1a1a">1. Пошук: x[i] &lt;= x_in &lt; x[i+1]</text>
+  <text x="650" y="308" font-size="11" fill="#1a1a1a">2. Нахил: k = dy / dx</text>
+  <text x="662" y="324" font-size="11" fill="#6b7280">k = (y[i+1]-y[i]) / (x[i+1]-x[i])</text>
+  <text x="650" y="344" font-size="11" fill="#1a1a1a">3. Інтерполяція:</text>
+  <text x="662" y="360" font-size="11" font-weight="bold" fill="#2457d6">y_out = y[i] + k * (x_in - x[i])</text>
+
+  <!-- Блок 3: Ефективність корекції -->
+  <rect x="637" y="385" width="281" height="73" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="777.5" y="403" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ефективність корекції</text>
+  <text x="777.5" y="423" font-size="11" fill="#1a1a1a" text-anchor="middle">Зменшення нелінійності з ±1.5° до ±0.05°</text>
+  <text x="777.5" y="440" font-size="11" fill="#27ae60" text-anchor="middle">Повна компенсація асиметрії обмоток</text>
+
+
+  <!-- НИЖНЯ ПАНЕЛЬ ЛЕГЕНДИ -->
+  <rect x="30" y="485" width="900" height="35" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Елемент 1: LUT сегменти -->
+  <line x1="45" y1="502" x2="65" y2="502" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="55" cy="502" r="3" fill="#2457d6"/>
+  <text x="72" y="506" font-size="11" fill="#1a1a1a">LUT апроксимація</text>
+
+  <!-- Елемент 2: Сира крива -->
+  <line x1="195" y1="502" x2="215" y2="502" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="222" y="506" font-size="11" fill="#1a1a1a">Сира нелінійність RVDT</text>
+
+  <!-- Елемент 3: Інтерпольована точка -->
+  <circle cx="380" cy="502" r="5" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="392" y="506" font-size="11" fill="#1a1a1a">Інтерпольована точка P_out</text>
+
+  <!-- Елемент 4: Робочий інтервал -->
+  <rect x="575" y="496" width="12" height="12" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="592" y="506" font-size="11" fill="#1a1a1a">Робочий інтервал [x_i, x_i+1]</text>
+
+  <!-- Елемент 5: Формула -->
+  <text x="805" y="506" font-size="11" font-weight="bold" fill="#2457d6">y = y_i + k * dx</text>
+</svg>

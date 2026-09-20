@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Реакція інкрементального та абсолютного енкодера на збій живлення</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Інкрементальний енкодер втрачає лічильник і вимагає Homing; абсолютний зберігає точні координати</text>
+
+  <!-- LEFT PANEL: Incremental Encoder -->
+  <rect x="25" y="70" width="435" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="242" y="93" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Інкрементальний енкодер (Incremental)</text>
+
+  <!-- Timeline Line Left Panel -->
+  <line x1="45" y1="210" x2="435" y2="210" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="435" y="230" text-anchor="end" font-size="11" fill="#6b7280">Час (t)</text>
+
+  <!-- Power Loss Event Tag (Above Timeline) -->
+  <rect x="155" y="98" width="90" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="200" y="113" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Збій VCC</text>
+  <line x1="200" y1="124" x2="200" y2="215" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- States Left Panel -->
+  <!-- State 1: Before Power Loss -->
+  <rect x="45" y="130" width="110" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="100" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Робота</text>
+  <text x="100" y="170" text-anchor="middle" font-size="11" fill="#1a1a1a">N_cnt = 1425</text>
+  <line x1="100" y1="190" x2="100" y2="210" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- State 2: Power Restored - Lost Position -->
+  <rect x="240" y="130" width="130" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="305" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Скидання RAM</text>
+  <text x="305" y="170" text-anchor="middle" font-size="11" fill="#c0392b">N_cnt = 0 (Втрачено)</text>
+  <line x1="305" y1="190" x2="305" y2="210" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Consequence Box Left Panel -->
+  <rect x="45" y="245" width="395" height="230" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="268" font-size="12" font-weight="bold" fill="#c0392b">Втрата кутової координати:</text>
+  <text x="60" y="291" font-size="11" fill="#1a1a1a">• Лічильник імпульсів квадратури обнуляється при знеструмленні</text>
+  <text x="60" y="314" font-size="11" fill="#1a1a1a">• Механічний зсув вала під час паузи не відстежується</text>
+  <text x="60" y="337" font-size="11" fill="#c0392b">• Обов'язкова процедура Homing (пошук реперного датчика Z)</text>
+  <text x="60" y="360" font-size="11" fill="#1a1a1a">• Ризик пошкодження механізму при випадковому русі</text>
+  <text x="60" y="383" font-size="11" fill="#1a1a1a">• Затримка старту технологічного процесу на виконання Homing</text>
+  <text x="60" y="450" font-size="12" font-weight="bold" fill="#c0392b">Критичний недолік для робототехніки та ЧПК</text>
+
+  <!-- RIGHT PANEL: Absolute Encoder -->
+  <rect x="480" y="70" width="455" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="707" y="93" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Абсолютний енкодер (Absolute Encoder)</text>
+
+  <!-- Timeline Line Right Panel -->
+  <line x1="500" y1="210" x2="890" y2="210" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="890" y="230" text-anchor="end" font-size="11" fill="#6b7280">Час (t)</text>
+
+  <!-- Power Loss Event Tag Right Panel -->
+  <rect x="615" y="98" width="90" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="660" y="113" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Збій VCC</text>
+  <line x1="660" y1="124" x2="660" y2="215" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- States Right Panel -->
+  <!-- State 1: Before Power Loss -->
+  <rect x="500" y="130" width="110" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="555" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Робота</text>
+  <text x="555" y="170" text-anchor="middle" font-size="11" fill="#1a1a1a">Код = 142.5°</text>
+  <line x1="555" y1="190" x2="555" y2="210" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- State 2: Power Restored - Position Saved! -->
+  <rect x="710" y="130" width="130" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="775" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Зчитування коду</text>
+  <text x="775" y="170" text-anchor="middle" font-size="11" fill="#27ae60">Код = 142.5° (Точно)</text>
+  <line x1="775" y1="190" x2="775" y2="210" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Advantage Box Right Panel -->
+  <rect x="500" y="245" width="415" height="230" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="515" y="268" font-size="12" font-weight="bold" fill="#27ae60">Енергонезалежна точність позиції:</text>
+  <text x="515" y="291" font-size="11" fill="#1a1a1a">• Кожен кутовий сектор має індивідуальний оптичний/магнітний код</text>
+  <text x="515" y="314" font-size="11" fill="#1a1a1a">• Координата зчитується негайно при ввімкненні живлення</text>
+  <text x="515" y="337" font-size="11" fill="#27ae60">• Процедура Homing ПОВНІСТЮ НЕПОТРІБНА</text>
+  <text x="515" y="360" font-size="11" fill="#1a1a1a">• Багатооборотний облік через редуктор або давач Віґанда</text>
+  <text x="515" y="383" font-size="11" fill="#1a1a1a">• Безперервний контроль позиції при вимкненій автоматиці</text>
+  <text x="515" y="450" font-size="12" font-weight="bold" fill="#27ae60">Миттєвий старт сервоприводів та маніпуляторів</text>
+</svg>

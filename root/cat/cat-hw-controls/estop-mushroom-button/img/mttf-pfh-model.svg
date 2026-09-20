@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Моделі надійності безпекових кіл: Single-Channel vs Dual-Channel</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Двоканальна архітектура із рівнем DC = 99% знижує ймовірність відмови PFHd до PL e (SIL 3)</text>
+
+  <!-- Left Panel: Single-Channel -->
+  <rect x="40" y="90" width="420" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="250" y="118" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Одноканальне коло (Cat. 1 / PL c)</text>
+  <text x="250" y="136" text-anchor="middle" font-size="12" fill="#6b7280">(Без дублювання та діагностики, DC = 0%)</text>
+
+  <!-- Blocks Single Channel -->
+  <rect x="60" y="165" width="100" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="110" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Кнопка S1</text>
+  <text x="110" y="206" text-anchor="middle" font-size="12" fill="#6b7280">(1 NC)</text>
+
+  <line x1="160" y1="192" x2="200" y2="192" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="200" y="165" width="100" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Реле</text>
+  <text x="250" y="206" text-anchor="middle" font-size="12" fill="#6b7280">(1 канал)</text>
+
+  <line x1="300" y1="192" x2="340" y2="192" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="340" y="165" width="100" height="55" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="390" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Контактор K1</text>
+  <text x="390" y="206" text-anchor="middle" font-size="12" fill="#6b7280">(Силовий)</text>
+
+  <!-- Single Fault Danger Box -->
+  <rect x="60" y="235" width="380" height="50" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="250" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Одна відмова (зварювання контакту S1 чи K1)</text>
+  <text x="250" y="272" text-anchor="middle" font-size="12" fill="#c0392b">призводить до повної втрати функції безпеки!</text>
+
+  <!-- Single Channel Formulas Box -->
+  <rect x="60" y="300" width="380" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Розрахунок надійності (Single-Channel):</text>
+  <text x="250" y="348" text-anchor="middle" font-size="12" fill="#1a1a1a">MTTFd = B10d / (0.1 · nop)</text>
+  <text x="250" y="374" text-anchor="middle" font-size="12" fill="#1a1a1a">PFHd ≈ 1 / (10 · MTTFd)</text>
+  <text x="250" y="405" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">PFHd ≈ 1.2 × 10⁻⁶ 1/год  →  Рівень PL c</text>
+
+  <!-- Right Panel: Dual-Channel -->
+  <rect x="500" y="90" width="420" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="710" y="118" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Двоканальне коло (Cat. 4 / PL e)</text>
+  <text x="710" y="136" text-anchor="middle" font-size="12" fill="#27ae60">(Дублювання + Тести T1/T2, DC = 99%)</text>
+
+  <!-- Channel 1 -->
+  <rect x="520" y="155" width="90" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="565" y="178" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">S1 (NC1)</text>
+
+  <line x1="610" y1="174" x2="650" y2="174" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="650" y="155" width="90" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="695" y="178" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Канал 1</text>
+
+  <line x1="740" y1="174" x2="780" y2="174" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="780" y="155" width="100" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="830" y="178" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Контактор K1</text>
+
+  <!-- Channel 2 -->
+  <rect x="520" y="198" width="90" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="565" y="221" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">S1 (NC2)</text>
+
+  <line x1="610" y1="217" x2="650" y2="217" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="650" y="198" width="90" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="695" y="221" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Канал 2</text>
+
+  <line x1="740" y1="217" x2="780" y2="217" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <rect x="780" y="198" width="100" height="38" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="830" y="221" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Контактор K2</text>
+
+  <!-- Diagnostic Line T1/T2 -->
+  <line x1="695" y1="193" x2="695" y2="198" stroke="#27ae60" stroke-width="2" stroke-dasharray="2 2"/>
+
+  <!-- Dual Channel Safety Box -->
+  <rect x="520" y="242" width="380" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="262" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Будь-яка одинична відмова виявляється діагностикою T1/T2</text>
+  <text x="710" y="279" text-anchor="middle" font-size="12" fill="#27ae60">Другий канал гарантує безпечне вимкнення навантаження!</text>
+
+  <!-- Dual Channel Formulas Box -->
+  <rect x="520" y="300" width="380" height="130" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="322" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Розрахунок надійності (Dual-Channel + DC):</text>
+  <text x="710" y="348" text-anchor="middle" font-size="12" fill="#1a1a1a">DCavg = 99% (високий рівень покриття)</text>
+  <text x="710" y="374" text-anchor="middle" font-size="12" fill="#1a1a1a">PFHd ≈ (1 - DC) / (2 · MTTFd)</text>
+  <text x="710" y="405" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">PFHd ≈ 2.5 × 10⁻⁸ 1/год  →  Рівень PL e (SIL 3)</text>
+</svg>

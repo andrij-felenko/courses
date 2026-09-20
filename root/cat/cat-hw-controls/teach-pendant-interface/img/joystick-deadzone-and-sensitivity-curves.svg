@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Titles -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Обробка сигналів 3D-джойстика Teach Pendant</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Радіальна мертва зона та нелінійне нормування швидкості v = f(r)</text>
+
+  <!-- LEFT PANEL: 2D Radial Deadzone -->
+  <g id="panel-deadzone">
+    <rect x="30" y="75" width="420" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="240" y="98" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">1. Радіальна мертва зона (Radial Deadzone)</text>
+    <text x="240" y="116" text-anchor="middle" font-size="12" fill="#6b7280">Усунення дрейфу осей у площині відхилення (Rx, Ry)</text>
+
+    <!-- Outer Circle (Max Deflection r_max) -->
+    <circle cx="240" cy="275" r="130" fill="#ffffff" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="5,4"/>
+
+    <!-- Active Zone Ring (between r_dead and r_max) -->
+    <circle cx="240" cy="275" r="130" fill="#eaf0fd" opacity="0.4"/>
+
+    <!-- Inner Circle (Deadzone r_dead) -->
+    <circle cx="240" cy="275" r="48" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+    <!-- X Axis (Split around deadzone circle) -->
+    <line x1="80" y1="275" x2="190" y2="275" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="290" y1="275" x2="395" y2="275" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-black)"/>
+    <text x="408" y="279" font-size="12" font-weight="bold" fill="#1a1a1a">Rx</text>
+
+    <!-- Y Axis (Split around deadzone circle) -->
+    <line x1="240" y1="425" x2="240" y2="325" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="240" y1="225" x2="240" y2="148" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-black)"/>
+    <text x="240" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Ry</text>
+
+    <!-- Vector r (Raw deflection) from edge of deadzone to r_max -->
+    <line x1="274" y1="241" x2="330" y2="185" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+    <text x="340" y="180" font-size="11" font-weight="bold" fill="#2457d6">r = √(Rx² + Ry²)</text>
+
+    <!-- Deadzone Radius Callout Line -->
+    <line x1="240" y1="275" x2="274" y2="309" stroke="#c0392b" stroke-width="1.5"/>
+    <circle cx="274" cy="309" r="3" fill="#c0392b"/>
+    <text x="278" y="322" font-size="11" font-weight="bold" fill="#c0392b">r_dead</text>
+
+    <!-- Deadzone Fill Text -->
+    <text x="240" y="258" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Мертва зона</text>
+    <text x="240" y="272" text-anchor="middle" font-size="11" fill="#c0392b">(v = 0, дрейф 0)</text>
+
+    <!-- Active Zone Text -->
+    <text x="315" y="325" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Робоча зона</text>
+    <text x="315" y="339" text-anchor="middle" font-size="11" fill="#2457d6">r_dead ≤ r ≤ r_max</text>
+
+    <!-- Max Radius Label -->
+    <text x="365" y="260" font-size="11" font-weight="bold" fill="#6b7280">r_max = 1.0</text>
+
+    <!-- Left Bottom Banner -->
+    <rect x="45" y="435" width="390" height="38" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+    <text x="240" y="452" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Формула нормування радіуса:</text>
+    <text x="240" y="466" text-anchor="middle" font-size="11" fill="#2457d6">r_norm = (r - r_dead) / (r_max - r_dead)</text>
+  </g>
+
+  <!-- RIGHT PANEL: Sensitivity Curves -->
+  <g id="panel-curves">
+    <rect x="470" y="75" width="460" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="700" y="98" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">2. Криві чутливості швидкості v(r)</text>
+    <text x="700" y="116" text-anchor="middle" font-size="12" fill="#6b7280">Масштабування відхилення в швидкість маніпулятора</text>
+
+    <!-- Chart Axes -->
+    <!-- X Axis (r) -->
+    <line x1="530" y1="390" x2="900" y2="390" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+    <text x="912" y="394" font-size="12" font-weight="bold" fill="#1a1a1a">r</text>
+
+    <!-- Y Axis (v) -->
+    <line x1="530" y1="390" x2="530" y2="140" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+    <text x="530" y="128" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">v</text>
+
+    <!-- Dashed Grid Lines -->
+    <!-- r_dead line (stops at y=300 to avoid boxes) -->
+    <line x1="600" y1="390" x2="600" y2="300" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="600" y="406" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">r_dead</text>
+
+    <!-- r_max line -->
+    <line x1="860" y1="390" x2="860" y2="150" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="860" y="406" text-anchor="middle" font-size="11" fill="#6b7280">r_max = 1.0</text>
+
+    <!-- v_max line (drawn from x=725 to x=860 to clear Legend Box) -->
+    <line x1="530" y1="170" x2="540" y2="170" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <line x1="725" y1="170" x2="860" y2="170" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="515" y="174" text-anchor="end" font-size="11" font-weight="bold" fill="#1a1a1a">v_max</text>
+
+    <!-- Origin label 0 -->
+    <text x="520" y="404" font-size="11" fill="#6b7280">0</text>
+
+    <!-- Curves -->
+    <!-- Deadzone segment (v = 0 from 530 to 600) -->
+    <line x1="530" y1="390" x2="600" y2="390" stroke="#c0392b" stroke-width="3"/>
+
+    <!-- Linear response curve (gamma = 1.0) -->
+    <line x1="600" y1="390" x2="860" y2="170" stroke="#2457d6" stroke-width="2.5"/>
+
+    <!-- Gamma response curve (gamma = 2.0) -->
+    <path d="M 600,390 Q 730,390 860,170" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+    <!-- Progressive S-Curve (gamma = 3.0) -->
+    <path d="M 600,390 Q 770,390 860,170" fill="none" stroke="#d97706" stroke-width="2.5" stroke-dasharray="6,3"/>
+
+    <!-- Legend Box (Positioned cleanly in open area x=545..715, y=140..232) -->
+    <rect x="545" y="140" width="170" height="92" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+
+    <line x1="555" y1="160" x2="580" y2="160" stroke="#2457d6" stroke-width="2.5"/>
+    <text x="588" y="164" font-size="11" font-weight="bold" fill="#2457d6">Лінійна (γ = 1.0)</text>
+
+    <line x1="555" y1="185" x2="580" y2="185" stroke="#27ae60" stroke-width="2.5"/>
+    <text x="588" y="189" font-size="11" font-weight="bold" fill="#27ae60">Параболічна (γ = 2.0)</text>
+
+    <line x1="555" y1="210" x2="580" y2="210" stroke="#d97706" stroke-width="2.5" stroke-dasharray="6,3"/>
+    <text x="588" y="214" font-size="11" font-weight="bold" fill="#d97706">Кубічна (γ = 3.0)</text>
+
+    <!-- Microstep region callout (Positioned cleanly in open area x=545..715, y=245..289) -->
+    <rect x="545" y="245" width="170" height="44" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+    <text x="630" y="262" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Мікрокроковий режим</text>
+    <text x="630" y="278" text-anchor="middle" font-size="11" fill="#1a1a1a">Висока точність при r ~ r_dead</text>
+
+    <!-- Pointer to microstep area -->
+    <line x1="630" y1="289" x2="630" y2="378" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#arr-green)"/>
+
+    <!-- Right Bottom Banner -->
+    <rect x="485" y="435" width="430" height="38" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+    <text x="700" y="452" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Загальне рівняння вихідної швидкості:</text>
+    <text x="700" y="466" text-anchor="middle" font-size="11" fill="#27ae60">v(r) = v_max · (r_norm)^γ ,  де γ ≥ 1.0</text>
+  </g>
+</svg>

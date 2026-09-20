@@ -1,0 +1,128 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішній устрій декадного барабанного модуля</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Механічна взаємодія роторного диска, берилієвих щіток, тактильного фіксатора та плати-статора</text>
+
+  <!-- Panel 1: Rotor -->
+  <rect x="30" y="75" width="280" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="90" width="250" height="30" rx="5" fill="#2457d6"/>
+  <text x="170" y="110" font-size="14" font-weight="bold" fill="white" text-anchor="middle">1. Барабанний ротор</text>
+
+  <!-- Rotor Wheel Graphic -->
+  <g transform="translate(0, 5)">
+    <!-- Serrated Outer Edge Teeth -->
+    <path d="M 170 135 L 173 129 L 167 129 Z M 205 145 L 211 141 L 207 136 Z M 230 170 L 236 170 L 234 164 Z M 235 205 L 241 209 L 236 212 Z M 220 238 L 224 244 L 218 244 Z M 185 258 L 187 264 L 181 264 Z M 150 258 L 148 264 L 154 264 Z M 120 238 L 115 244 L 121 244 Z M 105 205 L 99 209 L 104 212 Z M 110 170 L 104 170 L 106 164 Z M 135 145 L 129 141 L 133 136 Z" fill="#2457d6"/>
+    
+    <!-- Main Wheel Body -->
+    <circle cx="170" cy="195" r="62" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+    <circle cx="170" cy="195" r="42" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <circle cx="170" cy="195" r="18" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+    <!-- Digits around wheel rim -->
+    <text x="170" y="147" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0</text>
+    <text x="198" y="156" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1</text>
+    <text x="217" y="178" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2</text>
+    <text x="220" y="204" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3</text>
+    <text x="207" y="227" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4</text>
+    <text x="183" y="243" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">5</text>
+    <text x="157" y="243" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">6</text>
+    <text x="133" y="227" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">7</text>
+    <text x="120" y="204" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">8</text>
+    <text x="123" y="178" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">9</text>
+
+    <!-- Inspection Window Overlay -->
+    <rect x="148" y="123" width="44" height="26" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+    <text x="170" y="141" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">7</text>
+  </g>
+
+  <!-- Panel 1 Text Description -->
+  <text x="45" y="308" font-size="13" font-weight="bold" fill="#1a1a1a">• Рифлений обід колеса</text>
+  <text x="55" y="326" font-size="12" fill="#6b7280">Ширина 4–6 мм, насечка 1.5 мм</text>
+  <text x="45" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">• Оцифрований ротор</text>
+  <text x="55" y="366" font-size="12" fill="#6b7280">Відображення 0–9 у фронтальному вікні</text>
+  <text x="45" y="388" font-size="13" font-weight="bold" fill="#1a1a1a">• Зчеплення для рукавичок</text>
+  <text x="55" y="406" font-size="12" fill="#6b7280">Зусилля повороту запобігає зсувам</text>
+
+  <!-- Arrow Panel 1 -> Panel 2 -->
+  <path d="M 312 200 L 336 200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 2: Wiper & Detent -->
+  <rect x="340" y="75" width="280" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="355" y="90" width="250" height="30" rx="5" fill="#2457d6"/>
+  <text x="480" y="110" font-size="14" font-weight="bold" fill="white" text-anchor="middle">2. Щітки та фіксатор</text>
+
+  <!-- Detent & Wiper Graphic -->
+  <g transform="translate(0, 5)">
+    <!-- Detent Spring & Wedge -->
+    <path d="M 440 135 L 480 135 L 480 152" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+    <path d="M 474 152 L 480 160 L 486 152 Z" fill="#c0392b"/>
+    <text x="425" y="132" font-size="11" font-weight="bold" fill="#c0392b">Фіксатор (2.5–3.2 Н)</text>
+
+    <!-- Indexing Wheel -->
+    <circle cx="480" cy="195" r="34" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="480" cy="195" r="12" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+    <!-- Indexing Slots -->
+    <path d="M 480 161 L 480 167 M 504 169 L 500 173 M 514 195 L 508 195 M 504 221 L 500 217 M 480 229 L 480 223 M 456 221 L 460 217 M 446 195 L 452 195 M 456 169 L 460 173" stroke="#1a1a1a" stroke-width="2"/>
+
+    <!-- Beryllium Bronze Wiper Contacts -->
+    <path d="M 472 207 L 450 252 M 480 207 L 480 255 M 488 207 L 510 252" stroke="#d4af37" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="450" cy="252" r="3.5" fill="#f39c12"/>
+    <circle cx="480" cy="255" r="3.5" fill="#f39c12"/>
+    <circle cx="510" cy="252" r="3.5" fill="#f39c12"/>
+    <text x="522" y="245" font-size="11" font-weight="bold" fill="#d4af37">Щітки CuBe</text>
+  </g>
+
+  <!-- Panel 2 Text Description -->
+  <text x="355" y="308" font-size="13" font-weight="bold" fill="#1a1a1a">• Пружинний фіксатор</text>
+  <text x="365" y="326" font-size="12" fill="#6b7280">Тактильний клік із кутом 36°</text>
+  <text x="355" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">• Берилієва бронза (CuBe)</text>
+  <text x="365" y="366" font-size="12" fill="#6b7280">Висока пружність та стійкість</text>
+  <text x="355" y="388" font-size="13" font-weight="bold" fill="#1a1a1a">• Підпружинені контакти</text>
+  <text x="365" y="406" font-size="12" fill="#6b7280">Постійний тиск на доріжки статора</text>
+
+  <!-- Arrow Panel 2 -> Panel 3 -->
+  <path d="M 622 200 L 646 200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 3: Stator PCB -->
+  <rect x="650" y="75" width="280" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="665" y="90" width="250" height="30" rx="5" fill="#2457d6"/>
+  <text x="790" y="110" font-size="14" font-weight="bold" fill="white" text-anchor="middle">3. Плата-статор BCD</text>
+
+  <!-- Stator PCB Graphic -->
+  <g transform="translate(0, 5)">
+    <rect x="680" y="133" width="220" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="690" y="150" font-size="11" font-weight="bold" fill="#27ae60">Текстолітова плата-статор</text>
+
+    <!-- Gold Tracks -->
+    <path d="M 700 166 H 855" stroke="#d4af37" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M 700 186 H 855" stroke="#d4af37" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M 700 206 H 855" stroke="#d4af37" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M 700 226 H 855" stroke="#d4af37" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M 700 246 H 855" stroke="#d4af37" stroke-width="4.5" stroke-linecap="round"/>
+
+    <!-- Track Labels -->
+    <text x="865" y="170" font-size="11" font-weight="bold" fill="#1a1a1a">COM</text>
+    <text x="865" y="190" font-size="11" font-weight="bold" fill="#1a1a1a">8</text>
+    <text x="865" y="210" font-size="11" font-weight="bold" fill="#1a1a1a">4</text>
+    <text x="865" y="230" font-size="11" font-weight="bold" fill="#1a1a1a">2</text>
+    <text x="865" y="250" font-size="11" font-weight="bold" fill="#1a1a1a">1</text>
+  </g>
+
+  <!-- Panel 3 Text Description -->
+  <text x="665" y="308" font-size="13" font-weight="bold" fill="#1a1a1a">• Тверде золото (0.5–1.0 мкм)</text>
+  <text x="675" y="326" font-size="12" fill="#6b7280">Поверх нікелю (1.5–3.0 мкм)</text>
+  <text x="665" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">• Опір контакту &lt; 50 мОм</text>
+  <text x="675" y="366" font-size="12" fill="#6b7280">Захист від оксидів і зносу</text>
+  <text x="665" y="388" font-size="13" font-weight="bold" fill="#1a1a1a">• Виходи BCD (8-4-2-1)</text>
+  <text x="675" y="406" font-size="12" fill="#6b7280">Апаратне формування коду</text>
+</svg>

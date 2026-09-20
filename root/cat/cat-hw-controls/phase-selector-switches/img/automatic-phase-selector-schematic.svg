@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема узгодження вимірювальних кіл напруги 230 В з АЦП мікроконтролера</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Дільник, ізолюючий підсилювач та RC-фільтр перетворюють 230 В AC у безпечний діапазон 0..3.3 В DC</text>
+
+  <!-- Panel 1: High Voltage Zone -->
+  <rect x="40" y="85" width="230" height="385" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="155" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Високовольтна зона (230 В AC)</text>
+  <text x="155" y="128" text-anchor="middle" font-size="12" fill="#c0392b">Дільник R1/R2 &amp; Входи фаз</text>
+
+  <!-- Panel 2: Galvanic Isolation Barrier -->
+  <rect x="290" y="85" width="180" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="380" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Опторозв'язка</text>
+  <text x="380" y="128" text-anchor="middle" font-size="12" fill="#6b7280">Бар'єр 2.5 kV (Ізоляція)</text>
+
+  <!-- Panel 3: Low Voltage Conditioning -->
+  <rect x="490" y="85" width="220" height="385" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="600" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Нормування 0..3.3 В</text>
+  <text x="600" y="128" text-anchor="middle" font-size="12" fill="#27ae60">RC-фільтр &amp; Захист ADC</text>
+
+  <!-- Panel 4: MCU ADC Inputs -->
+  <rect x="730" y="85" width="190" height="385" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="825" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Мікроконтролер</text>
+  <text x="825" y="128" text-anchor="middle" font-size="12" fill="#2457d6">Входи АЦП (ADC_IN)</text>
+
+  <!-- Channel 1 (Phase L1, y_center = 185) -->
+  <!-- L1 Terminal -->
+  <rect x="55" y="165" width="45" height="40" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="77" y="189" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">L1</text>
+
+  <!-- R1 Resistor -->
+  <line x1="100" y1="185" x2="115" y2="185" stroke="#c0392b" stroke-width="2"/>
+  <rect x="115" y="177" width="50" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="140" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R1 (200k)</text>
+
+  <!-- Divider Node & R2 -->
+  <line x1="165" y1="185" x2="200" y2="185" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="195" cy="185" r="3" fill="#c0392b"/>
+  <line x1="195" y1="185" x2="195" y2="198" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="187" y="198" width="16" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="210" y="214" text-anchor="start" font-size="12" fill="#1a1a1a">R2 (2.2k)</text>
+  <line x1="195" y1="222" x2="195" y2="232" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="195" y="244" text-anchor="middle" font-size="12" fill="#6b7280">N</text>
+
+  <!-- Line to Optocoupler U1 -->
+  <line x1="200" y1="185" x2="315" y2="185" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Optocoupler U1 Box -->
+  <rect x="315" y="155" width="130" height="60" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="380" y="177" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Оптопара U1</text>
+  <text x="380" y="195" text-anchor="middle" font-size="12" fill="#2457d6">Гальванорозв'язка</text>
+
+  <!-- Line from Optocoupler to Low Voltage Conditioning -->
+  <line x1="445" y1="185" x2="510" y2="185" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Rf Filter Resistor -->
+  <rect x="510" y="177" width="45" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="532" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Rf (1k)</text>
+  <line x1="555" y1="185" x2="650" y2="185" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Cf Filter Capacitor -->
+  <circle cx="590" cy="185" r="3" fill="#27ae60"/>
+  <line x1="590" y1="185" x2="590" y2="198" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="582" y1="198" x2="598" y2="198" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="582" y1="203" x2="598" y2="203" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="590" y1="203" x2="590" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="604" y="211" text-anchor="start" font-size="12" fill="#1a1a1a">Cf (100nF)</text>
+  <text x="590" y="227" text-anchor="middle" font-size="12" fill="#6b7280">GND</text>
+
+  <!-- Clamping Diodes D1/D2 -->
+  <rect x="650" y="165" width="45" height="40" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="672" y="189" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D1/D2</text>
+  <text x="672" y="158" text-anchor="middle" font-size="12" fill="#27ae60">Захист 3.3V</text>
+
+  <!-- Line to MCU ADC_IN1 -->
+  <line x1="695" y1="185" x2="750" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ADC_IN1 Box -->
+  <rect x="750" y="160" width="150" height="50" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="825" y="180" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">ADC_IN1 (L1)</text>
+  <text x="825" y="198" text-anchor="middle" font-size="12" fill="#27ae60">Сигнал: 0..3.3 В DC</text>
+
+
+  <!-- Channel 2 (Phase L2, y_center = 285) -->
+  <!-- L2 Terminal -->
+  <rect x="55" y="265" width="45" height="40" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="77" y="289" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">L2</text>
+
+  <!-- R1 Resistor & Divider -->
+  <line x1="100" y1="285" x2="115" y2="285" stroke="#c0392b" stroke-width="2"/>
+  <rect x="115" y="277" width="50" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="140" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R1 (200k)</text>
+  <line x1="165" y1="285" x2="315" y2="285" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Optocoupler U2 Box -->
+  <rect x="315" y="255" width="130" height="60" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="380" y="277" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Оптопара U2</text>
+  <text x="380" y="295" text-anchor="middle" font-size="12" fill="#2457d6">Гальванорозв'язка</text>
+
+  <!-- Line from U2 to Low Voltage & MCU -->
+  <line x1="445" y1="285" x2="510" y2="285" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="510" y="277" width="45" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="532" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Rf (1k)</text>
+  <line x1="555" y1="285" x2="650" y2="285" stroke="#27ae60" stroke-width="2"/>
+  <rect x="650" y="265" width="45" height="40" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="672" y="289" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D1/D2</text>
+
+  <line x1="695" y1="285" x2="750" y2="285" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ADC_IN2 Box -->
+  <rect x="750" y="260" width="150" height="50" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="825" y="280" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">ADC_IN2 (L2)</text>
+  <text x="825" y="298" text-anchor="middle" font-size="12" fill="#27ae60">Сигнал: 0..3.3 В DC</text>
+
+
+  <!-- Channel 3 (Phase L3, y_center = 385) -->
+  <!-- L3 Terminal -->
+  <rect x="55" y="365" width="45" height="40" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="77" y="389" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">L3</text>
+
+  <!-- R1 Resistor & Divider -->
+  <line x1="100" y1="385" x2="115" y2="385" stroke="#c0392b" stroke-width="2"/>
+  <rect x="115" y="377" width="50" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="140" y="370" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R1 (200k)</text>
+  <line x1="165" y1="385" x2="315" y2="385" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Optocoupler U3 Box -->
+  <rect x="315" y="355" width="130" height="60" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="380" y="377" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Оптопара U3</text>
+  <text x="380" y="395" text-anchor="middle" font-size="12" fill="#2457d6">Гальванорозв'язка</text>
+
+  <!-- Line from U3 to Low Voltage & MCU -->
+  <line x1="445" y1="385" x2="510" y2="385" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="510" y="377" width="45" height="16" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="532" y="370" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Rf (1k)</text>
+  <line x1="555" y1="385" x2="650" y2="385" stroke="#27ae60" stroke-width="2"/>
+  <rect x="650" y="365" width="45" height="40" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="672" y="389" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D1/D2</text>
+
+  <line x1="695" y1="385" x2="750" y2="385" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- ADC_IN3 Box -->
+  <rect x="750" y="360" width="150" height="50" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="825" y="380" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">ADC_IN3 (L3)</text>
+  <text x="825" y="398" text-anchor="middle" font-size="12" fill="#27ae60">Сигнал: 0..3.3 В DC</text>
+
+
+  <!-- Bottom Summary Legend Panel -->
+  <rect x="40" y="485" width="880" height="55" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="155" y="508" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">1. Вхідна напруга</text>
+  <text x="155" y="526" text-anchor="middle" font-size="12" fill="#1a1a1a">230 В AC (325 В ампл.)</text>
+
+  <text x="380" y="508" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">2. Гальванічна розв'язка</text>
+  <text x="380" y="526" text-anchor="middle" font-size="12" fill="#6b7280">Пробійна міцність &gt; 2.5 kV</text>
+
+  <text x="600" y="508" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">3. Фільтрація &amp; Захист</text>
+  <text x="600" y="526" text-anchor="middle" font-size="12" fill="#1a1a1a">f_cutoff ≈ 1.6 kHz, D1/D2</text>
+
+  <text x="825" y="508" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">4. АЦП Мікроконтролера</text>
+  <text x="825" y="526" text-anchor="middle" font-size="12" fill="#1a1a1a">12-біт RMS розрахунок</text>
+</svg>

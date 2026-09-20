@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Квадратурний фазовий зсув (90°) та визначення напрямку обертання</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">При прямому обертанні (CW) канал A випереджає B на 90°, а при зворотному (CCW) — відстає</text>
+
+  <!-- Left Panel: Forward Rotation CW -->
+  <rect x="40" y="75" width="430" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="75" width="430" height="33" rx="8" fill="#eaf0fd"/>
+  <text x="255" y="96" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Пряме обертання (CW / Clockwise)</text>
+
+  <!-- Phase Shift Marker Above -->
+  <line x1="110" y1="136" x2="110" y2="275" stroke="#6b7280" stroke-dasharray="3 3" stroke-width="1"/>
+  <line x1="150" y1="136" x2="150" y2="275" stroke="#6b7280" stroke-dasharray="3 3" stroke-width="1"/>
+  <line x1="110" y1="132" x2="150" y2="132" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="126" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Δφ = 90° (T/4)</text>
+
+  <!-- Waveform A Plot -->
+  <text x="55" y="162" font-size="13" font-weight="bold" fill="#2457d6">Канал A</text>
+  <path d="M110,145 L190,145 L190,185 L270,185 L270,145 L350,145 L350,185 L430,185" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+
+  <!-- Waveform B Plot -->
+  <text x="55" y="242" font-size="13" font-weight="bold" fill="#2457d6">Канал B</text>
+  <path d="M110,265 L150,265 L150,225 L230,225 L230,265 L310,265 L310,225 L390,225 L390,265 L430,265" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+
+  <!-- State Flow Box CW -->
+  <rect x="60" y="295" width="390" height="215" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="255" y="318" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність станів (AB)</text>
+  <text x="255" y="344" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Напрямок CW (за стрілкою):</text>
+
+  <!-- State Boxes CW -->
+  <rect x="100" y="362" width="55" height="35" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="127.5" y="384" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">10</text>
+
+  <line x1="160" y1="379.5" x2="185" y2="379.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="190" y="362" width="55" height="35" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="217.5" y="384" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">11</text>
+
+  <line x1="250" y1="379.5" x2="275" y2="379.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="280" y="362" width="55" height="35" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="307.5" y="384" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">01</text>
+
+  <line x1="340" y1="379.5" x2="365" y2="379.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="370" y="362" width="55" height="35" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="397.5" y="384" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">00</text>
+
+  <!-- Rules Text CW -->
+  <text x="80" y="428" font-size="12" fill="#1a1a1a">• При фронті ↑A: канал B = LOW (0)</text>
+  <text x="80" y="453" font-size="12" fill="#1a1a1a">• Результат декодування: Обертання ВПЕРЕД</text>
+  <text x="80" y="483" font-size="12" font-weight="bold" fill="#27ae60">✓ Лічильник позиції: ІНКРЕМЕНТ (+1)</text>
+
+  <!-- Right Panel: Reverse Rotation CCW -->
+  <rect x="490" y="75" width="430" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="490" y="75" width="430" height="33" rx="8" fill="#fdecea"/>
+  <text x="705" y="96" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Зворотне обертання (CCW / Counter-Clockwise)</text>
+
+  <!-- Phase Shift Marker Above CCW -->
+  <line x1="560" y1="136" x2="560" y2="275" stroke="#6b7280" stroke-dasharray="3 3" stroke-width="1"/>
+  <line x1="600" y1="136" x2="600" y2="275" stroke="#6b7280" stroke-dasharray="3 3" stroke-width="1"/>
+  <line x1="560" y1="132" x2="600" y2="132" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="580" y="126" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Δφ = -90° (T/4)</text>
+
+  <!-- Waveform A Plot CCW -->
+  <text x="505" y="162" font-size="13" font-weight="bold" fill="#c0392b">Канал A</text>
+  <path d="M560,145 L640,145 L640,185 L720,185 L720,145 L800,145 L800,185 L880,185" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+
+  <!-- Waveform B Plot CCW -->
+  <text x="505" y="242" font-size="13" font-weight="bold" fill="#c0392b">Канал B</text>
+  <path d="M560,225 L600,225 L600,265 L680,265 L680,225 L760,225 L760,265 L840,265 L840,225 L880,225" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+
+  <!-- State Flow Box CCW -->
+  <rect x="510" y="295" width="390" height="215" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="705" y="318" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність станів (AB)</text>
+  <text x="705" y="344" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Напрямок CCW (проти стрілки):</text>
+
+  <!-- State Boxes CCW -->
+  <rect x="550" y="362" width="55" height="35" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="577.5" y="384" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">10</text>
+
+  <line x1="610" y1="379.5" x2="635" y2="379.5" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <rect x="640" y="362" width="55" height="35" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="667.5" y="384" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">00</text>
+
+  <line x1="700" y1="379.5" x2="725" y2="379.5" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <rect x="730" y="362" width="55" height="35" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="757.5" y="384" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">01</text>
+
+  <line x1="790" y1="379.5" x2="815" y2="379.5" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <rect x="820" y="362" width="55" height="35" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="847.5" y="384" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">11</text>
+
+  <!-- Rules Text CCW -->
+  <text x="530" y="428" font-size="12" fill="#1a1a1a">• При фронті ↑A: канал B = HIGH (1)</text>
+  <text x="530" y="453" font-size="12" fill="#1a1a1a">• Результат декодування: Обертання НАЗАД</text>
+  <text x="530" y="483" font-size="12" font-weight="bold" fill="#c0392b">✗ Лічильник позиції: ДЕКРЕМЕНТ (-1)</text>
+</svg>

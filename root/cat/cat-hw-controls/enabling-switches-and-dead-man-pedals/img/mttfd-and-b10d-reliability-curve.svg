@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Залежність середнього часу до відмови MTTFd від інтенсивності комутацій n_op</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Розрахунок за ISO 13849-1: MTTFd = B10d / (0.1 · n_op) із нормативним порогом 100 років</text>
+
+  <!-- Zone Background Panels -->
+  <rect x="150" y="78" width="220" height="272" fill="#e9f7ef" rx="6" opacity="0.35"/>
+  <rect x="390" y="78" width="470" height="272" fill="#fdecea" rx="6" opacity="0.35"/>
+
+  <!-- Zone Headers -->
+  <text x="280" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Нормативна зона (MTTFd = 100 років)</text>
+  <text x="625" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Зона зносової деградації (механічний знос)</text>
+
+  <!-- Grid lines (horizontal) -->
+  <line x1="140" y1="100" x2="860" y2="100" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="140" y1="185" x2="860" y2="185" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="140" y1="270" x2="860" y2="270" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Axes -->
+  <line x1="140" y1="355" x2="880" y2="355" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="140" y1="355" x2="140" y2="78" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Axis Titles -->
+  <text x="145" y="72" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Середній час до відмови MTTFd (років)</text>
+  <text x="880" y="380" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">Інтенсивність n_op (циклів/рік)</text>
+
+  <!-- Y-Axis Ticks -->
+  <text x="130" y="104" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">100 років</text>
+  <text x="130" y="189" text-anchor="end" font-size="12" fill="#6b7280">60 років</text>
+  <text x="130" y="274" text-anchor="end" font-size="12" fill="#6b7280">30 років</text>
+
+  <!-- X-Axis Ticks -->
+  <text x="140" y="375" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+  <text x="320" y="375" text-anchor="middle" font-size="12" fill="#6b7280">10⁵</text>
+  <text x="500" y="375" text-anchor="middle" font-size="12" fill="#6b7280">5·10⁵</text>
+  <text x="680" y="375" text-anchor="middle" font-size="12" fill="#6b7280">10⁶</text>
+  <text x="840" y="375" text-anchor="middle" font-size="12" fill="#6b7280">2·10⁶</text>
+
+  <!-- Short vertical transition ticks near x-axis -->
+  <line x1="250" y1="345" x2="250" y2="355" stroke="#d0d7de" stroke-width="1.5"/>
+  <line x1="450" y1="345" x2="450" y2="355" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Characteristic Reliability Curves -->
+  <!-- Curve 1: High Durability (B10d = 2*10^6) -->
+  <path d="M 140 100 L 450 100 C 580 100 660 180 840 280" fill="none" stroke="#2457d6" stroke-width="3.5"/>
+
+  <!-- Curve 2: Standard Durability (B10d = 5*10^5) -->
+  <path d="M 140 100 L 250 100 C 320 100 370 140 450 220 C 520 290 650 330 840 345" fill="none" stroke="#c0392b" stroke-width="3.5"/>
+
+  <!-- Transition Point Markers -->
+  <circle cx="250" cy="100" r="5" fill="#c0392b" stroke="white" stroke-width="2"/>
+  <circle cx="450" cy="100" r="5" fill="#2457d6" stroke="white" stroke-width="2"/>
+
+  <!-- Zone Callouts & Boxes -->
+  <!-- Callout 1: Normative Limit -->
+  <rect x="160" y="125" width="200" height="48" fill="white" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="170" y="143" font-size="12" font-weight="bold" fill="#27ae60">Плато обмеження ISO</text>
+  <text x="170" y="161" font-size="12" fill="#1a1a1a">MTTFd_cap = 100 років</text>
+
+  <!-- Callout 2: Wear-out Transition -->
+  <rect x="420" y="135" width="190" height="48" fill="white" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="430" y="153" font-size="12" font-weight="bold" fill="#c0392b">Зносова деградація</text>
+  <text x="430" y="171" font-size="12" fill="#1a1a1a">Падіння при n_op > n_crit</text>
+
+  <!-- Callout 3: Legend Box -->
+  <rect x="640" y="110" width="200" height="62" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <line x1="655" y1="130" x2="680" y2="130" stroke="#2457d6" stroke-width="3"/>
+  <text x="688" y="134" font-size="12" font-weight="bold" fill="#2457d6">B10d = 2·10⁶ циклів</text>
+  <line x1="655" y1="153" x2="680" y2="153" stroke="#c0392b" stroke-width="3"/>
+  <text x="688" y="157" font-size="12" font-weight="bold" fill="#c0392b">B10d = 5·10⁵ циклів</text>
+
+  <!-- Bottom Summary Cards -->
+  <rect x="140" y="395" width="350" height="48" fill="#fdecea" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="152" y="413" font-size="12" font-weight="bold" fill="#c0392b">Вплив високої частоти комутацій (n_op ↑)</text>
+  <text x="152" y="431" font-size="12" fill="#1a1a1a">Викликає прискорене зношення контактів B10d</text>
+
+  <rect x="510" y="395" width="370" height="48" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="522" y="413" font-size="12" font-weight="bold" fill="#27ae60">Оптимізація надійності (PL e / SIL 3)</text>
+  <text x="522" y="431" font-size="12" fill="#1a1a1a">Підбір вимикачів із високим B10d та DC_avg ≥ 99%</text>
+</svg>

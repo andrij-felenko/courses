@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Уніфікований інтерфейс функціонального блоку PLCopen Safety</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Стандартизовані входи, виходи статусів та типи даних (BOOL, WORD) за специфікацією PLCopen</text>
+
+  <!-- Left Panel: Input Signals -->
+  <rect x="30" y="95" width="225" height="365" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="95" width="225" height="36" rx="6" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="142" y="118" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхідні сигнали [Inputs]</text>
+  <line x1="30" y1="131" x2="255" y2="131" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Panel Items -->
+  <text x="245" y="169" font-size="12" fill="#1a1a1a" text-anchor="end">Activate (Вмикання ФБ)</text>
+  <text x="245" y="209" font-size="12" fill="#1a1a1a" text-anchor="end">S_StartReset (Пуск при старті)</text>
+  <text x="245" y="249" font-size="12" fill="#1a1a1a" text-anchor="end">S_AutoReset (Авто-скидання)</text>
+  <text x="245" y="289" font-size="12" fill="#1a1a1a" text-anchor="end">Reset (Ручний перезапуск)</text>
+  <text x="245" y="344" font-size="12" fill="#27ae60" text-anchor="end">S_EStopIn (Канал 1 OSSD)</text>
+  <text x="245" y="384" font-size="12" fill="#1a1a1a" text-anchor="end">S_DiDiagIn (Зворотний зв'язок)</text>
+  <text x="245" y="424" font-size="12" fill="#27ae60" text-anchor="end">S_EStopIn2 (Канал 2 OSSD)</text>
+
+  <!-- Input Connecting Lines -->
+  <line x1="255" y1="165" x2="330" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="255" y1="205" x2="330" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="255" y1="245" x2="330" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="255" y1="285" x2="330" y2="285" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="255" y1="340" x2="330" y2="340" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="255" y1="380" x2="330" y2="380" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="255" y1="420" x2="330" y2="420" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Function Block Rectangle -->
+  <rect x="330" y="95" width="300" height="365" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <rect x="330" y="95" width="300" height="45" rx="6" fill="#2457d6"/>
+  <line x1="330" y1="140" x2="630" y2="140" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="116" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">SF_EmergencyStop</text>
+  <text x="480" y="133" font-size="11" fill="#eaf0fd" text-anchor="middle">PLCopen Safety Function Block</text>
+
+  <!-- Category Divider inside FB -->
+  <line x1="335" y1="315" x2="625" y2="315" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Pins Left side inside FB -->
+  <text x="340" y="169" font-size="12" font-weight="bold" fill="#1a1a1a">Activate</text>
+  <text x="395" y="169" font-size="11" fill="#2457d6">: BOOL</text>
+
+  <text x="340" y="209" font-size="12" font-weight="bold" fill="#1a1a1a">S_StartReset</text>
+  <text x="420" y="209" font-size="11" fill="#2457d6">: BOOL</text>
+
+  <text x="340" y="249" font-size="12" font-weight="bold" fill="#1a1a1a">S_AutoReset</text>
+  <text x="415" y="249" font-size="11" fill="#2457d6">: BOOL</text>
+
+  <text x="340" y="289" font-size="12" font-weight="bold" fill="#1a1a1a">Reset</text>
+  <text x="378" y="289" font-size="11" fill="#2457d6">: BOOL</text>
+
+  <text x="340" y="344" font-size="12" font-weight="bold" fill="#27ae60">S_EStopIn</text>
+  <text x="403" y="344" font-size="11" fill="#27ae60">: BOOL</text>
+
+  <text x="340" y="384" font-size="12" font-weight="bold" fill="#1a1a1a">S_DiDiagIn</text>
+  <text x="408" y="384" font-size="11" fill="#2457d6">: BOOL</text>
+
+  <text x="340" y="424" font-size="12" font-weight="bold" fill="#27ae60">S_EStopIn2</text>
+  <text x="410" y="424" font-size="11" fill="#27ae60">: BOOL</text>
+
+  <!-- Pins Right side inside FB -->
+  <text x="620" y="169" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Ready</text>
+  <text x="575" y="169" font-size="11" fill="#2457d6" text-anchor="end">BOOL :</text>
+
+  <text x="620" y="209" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">S_SafetyDemand</text>
+  <text x="510" y="209" font-size="11" fill="#2457d6" text-anchor="end">BOOL :</text>
+
+  <text x="620" y="249" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">S_ResetRequest</text>
+  <text x="510" y="249" font-size="11" fill="#2457d6" text-anchor="end">BOOL :</text>
+
+  <text x="620" y="344" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">S_EStopOut</text>
+  <text x="545" y="344" font-size="11" fill="#27ae60" text-anchor="end">BOOL :</text>
+
+  <text x="620" y="384" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">Error</text>
+  <text x="580" y="384" font-size="11" fill="#c0392b" text-anchor="end">BOOL :</text>
+
+  <text x="620" y="424" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">DiagCode</text>
+  <text x="555" y="424" font-size="11" fill="#c0392b" text-anchor="end">WORD :</text>
+
+  <!-- Output Connecting Lines -->
+  <line x1="630" y1="165" x2="705" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="630" y1="205" x2="705" y2="205" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="630" y1="245" x2="705" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="630" y1="340" x2="705" y2="340" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="630" y1="380" x2="705" y2="380" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <line x1="630" y1="420" x2="705" y2="420" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Right Panel: Output Signals -->
+  <rect x="705" y="95" width="225" height="365" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="705" y="95" width="225" height="36" rx="6" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="817" y="118" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вихідні сигнали [Outputs]</text>
+  <line x1="705" y1="131" x2="930" y2="131" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Right Panel Items -->
+  <text x="715" y="169" font-size="12" fill="#1a1a1a">Ready (ФБ готовий до роботи)</text>
+  <text x="715" y="209" font-size="12" fill="#2457d6">S_SafetyDemand (Запит захисту)</text>
+  <text x="715" y="249" font-size="12" fill="#1a1a1a">S_ResetRequest (Запит скидання)</text>
+  <text x="715" y="344" font-size="12" fill="#27ae60">S_EStopOut (Дозвіл роботи)</text>
+  <text x="715" y="384" font-size="12" fill="#c0392b">Error (Прапорець помилки)</text>
+  <text x="715" y="424" font-size="12" fill="#c0392b">DiagCode (16-бітний код)</text>
+
+  <!-- Bottom Legend Panel -->
+  <rect x="30" y="475" width="900" height="35" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="160" y="497" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">■ Сигнали керування (BOOL)</text>
+  <text x="480" y="497" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">■ Ланцюги безпеки (Safety BOOL)</text>
+  <text x="800" y="497" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">■ Статус помилки (BOOL / WORD)</text>
+</svg>

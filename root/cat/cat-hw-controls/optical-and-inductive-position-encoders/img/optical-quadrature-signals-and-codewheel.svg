@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Принцип оптичного зчитування та квадратурні сигнали A, B, Z</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Растровий диск модулює світловий потік, формуючи сигнали A і B із зсувом 90° та один індексний імпульс Z на оберт</text>
+
+  <!-- Left Panel -->
+  <rect x="24" y="75" width="440" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="244" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Фізична схема оптичного зчитування</text>
+
+  <!-- LED Emitter Box -->
+  <rect x="144" y="120" width="200" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="244" y="146" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">ІЧ-випромінювачі (LED)</text>
+
+  <!-- Light Rays -->
+  <line x1="184" y1="162" x2="184" y2="350" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="244" y1="162" x2="244" y2="350" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="304" y1="162" x2="304" y2="350" stroke="#e67e22" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- Rotation Label & Curved Arrow -->
+  <text x="244" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Растровий кодовий диск (обертання ω)</text>
+  <path d="M 120,215 Q 244,195 360,215" fill="none" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+
+  <!-- Codewheel Disk Surface -->
+  <rect x="54" y="225" width="380" height="65" rx="6" fill="#34495e" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Track A Slots -->
+  <rect x="170" y="235" width="28" height="45" fill="white" stroke="#d0d7de"/>
+  <rect x="110" y="235" width="28" height="45" fill="white" stroke="#d0d7de"/>
+  <!-- Track B Slots -->
+  <rect x="230" y="235" width="28" height="45" fill="white" stroke="#d0d7de"/>
+  <rect x="350" y="235" width="28" height="45" fill="white" stroke="#d0d7de"/>
+  <!-- Track Z Index Slot -->
+  <rect x="296" y="235" width="16" height="45" fill="#fef5e7" stroke="#e67e22" stroke-width="1.5"/>
+
+  <!-- Photodiode Receiver Assembly -->
+  <rect x="124" y="350" width="240" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="244" y="368" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Масив фотоприймачів</text>
+
+  <!-- Photodiodes A, B, Z -->
+  <rect x="164" y="378" width="40" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="184" y="401" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">A</text>
+
+  <rect x="224" y="378" width="40" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="244" y="401" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">B</text>
+
+  <rect x="284" y="378" width="40" height="36" rx="4" fill="#fef5e7" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="304" y="401" text-anchor="middle" font-size="12" font-weight="bold" fill="#e67e22">Z</text>
+
+  <!-- Left Panel Footers -->
+  <text x="244" y="465" text-anchor="middle" font-size="12" fill="#6b7280">Зсув елементів A і B на 1/4 періоду (90° ел.)</text>
+  <text x="244" y="490" text-anchor="middle" font-size="12" fill="#1a1a1a">Сигнал Z — окремий індексний трек</text>
+
+  <!-- Right Panel -->
+  <rect x="496" y="75" width="440" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="716" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Квадратурні часові діаграми сигналів</text>
+
+  <!-- Dimension line for Period T -->
+  <line x1="600" y1="110" x2="760" y2="110" stroke="#1a1a1a" stroke-width="1.2" marker-start="url(#arr-main)" marker-end="url(#arr-main)"/>
+  <text x="680" y="106" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Період T (360° ел.)</text>
+
+  <!-- Dimension line for Phase Shift 90° -->
+  <line x1="600" y1="126" x2="640" y2="126" stroke="#2457d6" stroke-width="1.2" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="620" y="123" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">90° (T/4)</text>
+
+  <!-- Grid Vertical Guidelines -->
+  <line x1="600" y1="130" x2="600" y2="440" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="640" y1="130" x2="640" y2="440" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="680" y1="130" x2="680" y2="440" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="720" y1="130" x2="720" y2="440" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="760" y1="130" x2="760" y2="440" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="800" y1="130" x2="800" y2="440" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="840" y1="130" x2="840" y2="440" stroke="#d0d7de" stroke-dasharray="3,3"/>
+
+  <!-- Channel A Waveform -->
+  <text x="515" y="168" font-size="13" font-weight="bold" fill="#2457d6">Канал A</text>
+  <line x1="550" y1="190" x2="880" y2="190" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <path d="M 550,190 L 600,190 L 600,140 L 680,140 L 680,190 L 760,190 L 760,140 L 840,140 L 840,190 L 880,190" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Channel B Waveform -->
+  <text x="515" y="268" font-size="13" font-weight="bold" fill="#27ae60">Канал B</text>
+  <line x1="550" y1="290" x2="880" y2="290" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <path d="M 550,290 L 640,290 L 640,240 L 720,240 L 720,290 L 800,290 L 800,240 L 880,240" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Channel Z Waveform -->
+  <text x="515" y="368" font-size="13" font-weight="bold" fill="#e67e22">Канал Z</text>
+  <line x1="550" y1="390" x2="880" y2="390" stroke="#d0d7de" stroke-dasharray="2,2"/>
+  <path d="M 550,390 L 760,390 L 760,340 L 800,340 L 800,390 L 880,390" fill="none" stroke="#e67e22" stroke-width="2.5"/>
+
+  <!-- Time Axis Line -->
+  <line x1="550" y1="440" x2="895" y2="440" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="910" y="444" font-size="12" font-weight="bold" fill="#6b7280">t</text>
+
+  <!-- Quadrature State Labels below Time Axis -->
+  <text x="575" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">00</text>
+  <text x="620" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">10</text>
+  <text x="660" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">11</text>
+  <text x="700" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">01</text>
+  <text x="740" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">00</text>
+  <text x="780" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#e67e22">10</text>
+
+  <!-- Right Panel Footers / Callouts -->
+  <text x="716" y="488" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">A випереджає B: обертання за годинниковою стрілкою (CW)</text>
+  <text x="716" y="508" text-anchor="middle" font-size="12" fill="#6b7280">Імпульс Z збігається з квадратурним станом (Z=1)</text>
+</svg>

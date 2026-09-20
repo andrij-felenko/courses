@@ -1,0 +1,335 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема модуля вибору мережевої адреси на двох ротаційних DIP-перемикачах</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Формування 8-бітної адреси вузла (Node ID) для CAN / RS-485 через GPIO з Pull-Up та RC-фільтрами</text>
+
+  <!-- БЛОК 1: ДВА РОТАЦІЙНІ DIP-ПЕРЕМИКАЧІ (Ліворуч x=30..210) -->
+  <g id="dip-switches">
+    <!-- SW1: High / Tens -->
+    <rect x="30" y="85" width="180" height="155" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+    <path d="M 30,110 L 30,91 Q 30,85 36,85 L 204,85 Q 210,85 210,91 L 210,110 Z" fill="#eaf0fd"/>
+    <line x1="30" y1="110" x2="210" y2="110" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="120" y="101" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">SW1: High / Tens (0..F)</text>
+
+    <!-- Спільна шина GND SW1 -->
+    <line x1="60" y1="120" x2="60" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="45" y1="225" x2="75" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="60" y1="210" x2="60" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="60" y="240" text-anchor="middle" font-size="11" fill="#1a1a1a">GND</text>
+
+    <!-- Канали SW1 (Bits 4..7) -->
+    <!-- Bit 4 -->
+    <line x1="60" y1="120" x2="85" y2="120" stroke="#1a1a1a" stroke-width="1.2"/>
+    <line x1="85" y1="120" x2="110" y2="114" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="85" cy="120" r="2" fill="#1a1a1a"/>
+    <circle cx="115" cy="120" r="2" fill="#1a1a1a"/>
+    <line x1="115" y1="120" x2="210" y2="120" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="175" y="116" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Bit 4 (16)</text>
+
+    <!-- Bit 5 -->
+    <line x1="60" y1="150" x2="85" y2="150" stroke="#1a1a1a" stroke-width="1.2"/>
+    <line x1="85" y1="150" x2="110" y2="144" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="85" cy="150" r="2" fill="#1a1a1a"/>
+    <circle cx="115" cy="150" r="2" fill="#1a1a1a"/>
+    <line x1="115" y1="150" x2="210" y2="150" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="175" y="146" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Bit 5 (32)</text>
+
+    <!-- Bit 6 -->
+    <line x1="60" y1="180" x2="85" y2="180" stroke="#1a1a1a" stroke-width="1.2"/>
+    <line x1="85" y1="180" x2="110" y2="174" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="85" cy="180" r="2" fill="#1a1a1a"/>
+    <circle cx="115" cy="180" r="2" fill="#1a1a1a"/>
+    <line x1="115" y1="180" x2="210" y2="180" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="175" y="176" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Bit 6 (64)</text>
+
+    <!-- Bit 7 -->
+    <line x1="60" y1="210" x2="85" y2="210" stroke="#1a1a1a" stroke-width="1.2"/>
+    <line x1="85" y1="210" x2="110" y2="204" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="85" cy="210" r="2" fill="#1a1a1a"/>
+    <circle cx="115" cy="210" r="2" fill="#1a1a1a"/>
+    <line x1="115" y1="210" x2="210" y2="210" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="175" y="206" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Bit 7 (128)</text>
+
+
+    <!-- SW2: Low / Units -->
+    <rect x="30" y="265" width="180" height="155" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+    <path d="M 30,290 L 30,271 Q 30,265 36,265 L 204,265 Q 210,265 210,271 L 210,290 Z" fill="#eaf0fd"/>
+    <line x1="30" y1="290" x2="210" y2="290" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="120" y="281" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">SW2: Low / Units (0..F)</text>
+
+    <!-- Спільна шина GND SW2 -->
+    <line x1="60" y1="300" x2="60" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="45" y1="405" x2="75" y2="405" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="60" y1="390" x2="60" y2="405" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="60" y="420" text-anchor="middle" font-size="11" fill="#1a1a1a">GND</text>
+
+    <!-- Канали SW2 (Bits 0..3) -->
+    <!-- Bit 0 -->
+    <line x1="60" y1="300" x2="85" y2="300" stroke="#1a1a1a" stroke-width="1.2"/>
+    <line x1="85" y1="300" x2="110" y2="294" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="85" cy="300" r="2" fill="#1a1a1a"/>
+    <circle cx="115" cy="300" r="2" fill="#1a1a1a"/>
+    <line x1="115" y1="300" x2="210" y2="300" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="175" y="296" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Bit 0 (1)</text>
+
+    <!-- Bit 1 -->
+    <line x1="60" y1="330" x2="85" y2="330" stroke="#1a1a1a" stroke-width="1.2"/>
+    <line x1="85" y1="330" x2="110" y2="324" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="85" cy="330" r="2" fill="#1a1a1a"/>
+    <circle cx="115" cy="330" r="2" fill="#1a1a1a"/>
+    <line x1="115" y1="330" x2="210" y2="330" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="175" y="326" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Bit 1 (2)</text>
+
+    <!-- Bit 2 -->
+    <line x1="60" y1="360" x2="85" y2="360" stroke="#1a1a1a" stroke-width="1.2"/>
+    <line x1="85" y1="360" x2="110" y2="354" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="85" cy="360" r="2" fill="#1a1a1a"/>
+    <circle cx="115" cy="360" r="2" fill="#1a1a1a"/>
+    <line x1="115" y1="360" x2="210" y2="360" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="175" y="356" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Bit 2 (4)</text>
+
+    <!-- Bit 3 -->
+    <line x1="60" y1="390" x2="85" y2="390" stroke="#1a1a1a" stroke-width="1.2"/>
+    <line x1="85" y1="390" x2="110" y2="384" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="85" cy="390" r="2" fill="#1a1a1a"/>
+    <circle cx="115" cy="390" r="2" fill="#1a1a1a"/>
+    <line x1="115" y1="390" x2="210" y2="390" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="175" y="386" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Bit 3 (8)</text>
+  </g>
+
+  <!-- БЛОК 2: СХЕМА ПІДТЯЖКИ ТА RC-ФІЛЬТРІВ (Центр x=240..630) -->
+  <g id="rc-filter">
+    <!-- Шина VCC (+3.3V) -->
+    <line x1="250" y1="75" x2="450" y2="75" stroke="#c0392b" stroke-width="2"/>
+    <text x="250" y="67" font-size="11" font-weight="bold" fill="#c0392b">+3.3V (VCC)</text>
+    <line x1="300" y1="75" x2="300" y2="390" stroke="#c0392b" stroke-width="1.2"/>
+
+    <!-- Шина GND -->
+    <line x1="250" y1="440" x2="570" y2="440" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="250" y="455" font-size="11" font-weight="bold" fill="#1a1a1a">GND (0V)</text>
+
+    <!-- RC Бейдж -->
+    <rect x="470" y="70" width="165" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="552" y="87" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">τ = Rf × Cf = 1 ms</text>
+    <text x="552" y="103" text-anchor="middle" font-size="11" fill="#6b7280">(Поглинання брязкоту 1..5 ms)</text>
+
+    <!-- 8 КАНАЛІВ ОБРОБКИ -->
+
+    <!-- Канал 4 (SW1 Bit 4) -->
+    <line x1="210" y1="120" x2="300" y2="120" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="295" y="90" width="10" height="18" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+    <text x="288" y="102" text-anchor="end" font-size="11" fill="#c0392b">10k</text>
+    <circle cx="300" cy="120" r="2.5" fill="#1a1a1a"/>
+    <line x1="300" y1="120" x2="335" y2="120" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="335" y="115" width="20" height="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="345" y="111" text-anchor="middle" font-size="11" fill="#2457d6">10k</text>
+    <line x1="355" y1="120" x2="390" y2="120" stroke="#27ae60" stroke-width="1.5"/>
+    <circle cx="390" cy="120" r="2.5" fill="#1a1a1a"/>
+    <line x1="390" y1="120" x2="390" y2="132" stroke="#2457d6" stroke-width="1"/>
+    <line x1="382" y1="132" x2="398" y2="132" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="382" y1="136" x2="398" y2="136" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="390" y1="136" x2="390" y2="440" stroke="#1a1a1a" stroke-width="1"/>
+    <text x="402" y="140" font-size="11" fill="#2457d6">100n</text>
+    <line x1="390" y1="120" x2="660" y2="120" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+    <!-- Канал 5 (SW1 Bit 5) -->
+    <line x1="210" y1="150" x2="300" y2="150" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="295" y="125" width="10" height="18" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+    <text x="288" y="137" text-anchor="end" font-size="11" fill="#c0392b">10k</text>
+    <circle cx="300" cy="150" r="2.5" fill="#1a1a1a"/>
+    <line x1="300" y1="150" x2="335" y2="150" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="335" y="145" width="20" height="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="345" y="141" text-anchor="middle" font-size="11" fill="#2457d6">10k</text>
+    <line x1="355" y1="150" x2="390" y2="150" stroke="#27ae60" stroke-width="1.5"/>
+    <circle cx="390" cy="150" r="2.5" fill="#1a1a1a"/>
+    <line x1="390" y1="150" x2="390" y2="162" stroke="#2457d6" stroke-width="1"/>
+    <line x1="382" y1="162" x2="398" y2="162" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="382" y1="166" x2="398" y2="166" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="390" y1="166" x2="390" y2="440" stroke="#1a1a1a" stroke-width="1"/>
+    <text x="402" y="170" font-size="11" fill="#2457d6">100n</text>
+    <line x1="390" y1="150" x2="660" y2="150" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+    <!-- Канал 6 (SW1 Bit 6) -->
+    <line x1="210" y1="180" x2="300" y2="180" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="295" y="155" width="10" height="18" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+    <text x="288" y="167" text-anchor="end" font-size="11" fill="#c0392b">10k</text>
+    <circle cx="300" cy="180" r="2.5" fill="#1a1a1a"/>
+    <line x1="300" y1="180" x2="335" y2="180" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="335" y="175" width="20" height="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="345" y="171" text-anchor="middle" font-size="11" fill="#2457d6">10k</text>
+    <line x1="355" y1="180" x2="390" y2="180" stroke="#27ae60" stroke-width="1.5"/>
+    <circle cx="390" cy="180" r="2.5" fill="#1a1a1a"/>
+    <line x1="390" y1="180" x2="390" y2="192" stroke="#2457d6" stroke-width="1"/>
+    <line x1="382" y1="192" x2="398" y2="192" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="382" y1="196" x2="398" y2="196" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="390" y1="196" x2="390" y2="440" stroke="#1a1a1a" stroke-width="1"/>
+    <text x="402" y="200" font-size="11" fill="#2457d6">100n</text>
+    <line x1="390" y1="180" x2="660" y2="180" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+    <!-- Канал 7 (SW1 Bit 7) -->
+    <line x1="210" y1="210" x2="300" y2="210" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="295" y="185" width="10" height="18" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+    <text x="288" y="197" text-anchor="end" font-size="11" fill="#c0392b">10k</text>
+    <circle cx="300" cy="210" r="2.5" fill="#1a1a1a"/>
+    <line x1="300" y1="210" x2="335" y2="210" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="335" y="205" width="20" height="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="345" y="201" text-anchor="middle" font-size="11" fill="#2457d6">10k</text>
+    <line x1="355" y1="210" x2="390" y2="210" stroke="#27ae60" stroke-width="1.5"/>
+    <circle cx="390" cy="210" r="2.5" fill="#1a1a1a"/>
+    <line x1="390" y1="210" x2="390" y2="222" stroke="#2457d6" stroke-width="1"/>
+    <line x1="382" y1="222" x2="398" y2="222" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="382" y1="226" x2="398" y2="226" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="390" y1="226" x2="390" y2="440" stroke="#1a1a1a" stroke-width="1"/>
+    <text x="402" y="230" font-size="11" fill="#2457d6">100n</text>
+    <line x1="390" y1="210" x2="660" y2="210" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+
+    <!-- Канал 0 (SW2 Bit 0) -->
+    <line x1="210" y1="300" x2="300" y2="300" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="295" y="275" width="10" height="18" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+    <text x="288" y="287" text-anchor="end" font-size="11" fill="#c0392b">10k</text>
+    <circle cx="300" cy="300" r="2.5" fill="#1a1a1a"/>
+    <line x1="300" y1="300" x2="335" y2="300" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="335" y="295" width="20" height="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="345" y="291" text-anchor="middle" font-size="11" fill="#2457d6">10k</text>
+    <line x1="355" y1="300" x2="390" y2="300" stroke="#27ae60" stroke-width="1.5"/>
+    <circle cx="390" cy="300" r="2.5" fill="#1a1a1a"/>
+    <line x1="390" y1="300" x2="390" y2="312" stroke="#2457d6" stroke-width="1"/>
+    <line x1="382" y1="312" x2="398" y2="312" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="382" y1="316" x2="398" y2="316" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="390" y1="316" x2="390" y2="440" stroke="#1a1a1a" stroke-width="1"/>
+    <text x="402" y="320" font-size="11" fill="#2457d6">100n</text>
+    <line x1="390" y1="300" x2="660" y2="300" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+    <!-- Канал 1 (SW2 Bit 1) -->
+    <line x1="210" y1="330" x2="300" y2="330" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="295" y="305" width="10" height="18" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+    <text x="288" y="317" text-anchor="end" font-size="11" fill="#c0392b">10k</text>
+    <circle cx="300" cy="330" r="2.5" fill="#1a1a1a"/>
+    <line x1="300" y1="330" x2="335" y2="330" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="335" y="325" width="20" height="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="345" y="321" text-anchor="middle" font-size="11" fill="#2457d6">10k</text>
+    <line x1="355" y1="330" x2="390" y2="330" stroke="#27ae60" stroke-width="1.5"/>
+    <circle cx="390" cy="330" r="2.5" fill="#1a1a1a"/>
+    <line x1="390" y1="330" x2="390" y2="342" stroke="#2457d6" stroke-width="1"/>
+    <line x1="382" y1="342" x2="398" y2="342" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="382" y1="346" x2="398" y2="346" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="390" y1="346" x2="390" y2="440" stroke="#1a1a1a" stroke-width="1"/>
+    <text x="402" y="350" font-size="11" fill="#2457d6">100n</text>
+    <line x1="390" y1="330" x2="660" y2="330" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+    <!-- Канал 2 (SW2 Bit 2) -->
+    <line x1="210" y1="360" x2="300" y2="360" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="295" y="335" width="10" height="18" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+    <text x="288" y="347" text-anchor="end" font-size="11" fill="#c0392b">10k</text>
+    <circle cx="300" cy="360" r="2.5" fill="#1a1a1a"/>
+    <line x1="300" y1="360" x2="335" y2="360" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="335" y="355" width="20" height="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="345" y="351" text-anchor="middle" font-size="11" fill="#2457d6">10k</text>
+    <line x1="355" y1="360" x2="390" y2="360" stroke="#27ae60" stroke-width="1.5"/>
+    <circle cx="390" cy="360" r="2.5" fill="#1a1a1a"/>
+    <line x1="390" y1="360" x2="390" y2="372" stroke="#2457d6" stroke-width="1"/>
+    <line x1="382" y1="372" x2="398" y2="372" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="382" y1="376" x2="398" y2="376" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="390" y1="376" x2="390" y2="440" stroke="#1a1a1a" stroke-width="1"/>
+    <text x="402" y="380" font-size="11" fill="#2457d6">100n</text>
+    <line x1="390" y1="360" x2="660" y2="360" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+    <!-- Канал 3 (SW2 Bit 3) -->
+    <line x1="210" y1="390" x2="300" y2="390" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="295" y="365" width="10" height="18" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+    <text x="288" y="377" text-anchor="end" font-size="11" fill="#c0392b">10k</text>
+    <circle cx="300" cy="390" r="2.5" fill="#1a1a1a"/>
+    <line x1="300" y1="390" x2="335" y2="390" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="335" y="385" width="20" height="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="345" y="381" text-anchor="middle" font-size="11" fill="#2457d6">10k</text>
+    <line x1="355" y1="390" x2="390" y2="390" stroke="#27ae60" stroke-width="1.5"/>
+    <circle cx="390" cy="390" r="2.5" fill="#1a1a1a"/>
+    <line x1="390" y1="390" x2="390" y2="402" stroke="#2457d6" stroke-width="1"/>
+    <line x1="382" y1="402" x2="398" y2="402" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="382" y1="406" x2="398" y2="406" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="390" y1="406" x2="390" y2="440" stroke="#1a1a1a" stroke-width="1"/>
+    <text x="402" y="410" font-size="11" fill="#2457d6">100n</text>
+    <line x1="390" y1="390" x2="660" y2="390" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  </g>
+
+  <!-- БЛОК 3: МІКРОКОНТРОЛЕР (Праворуч x=660..930) -->
+  <g id="mcu">
+    <rect x="660" y="70" width="270" height="370" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+    <path d="M 660,95 L 660,76 Q 660,70 666,70 L 924,70 Q 930,70 930,76 L 930,95 Z" fill="#eaf0fd"/>
+    <line x1="660" y1="95" x2="930" y2="95" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="795" y="86" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Мікроконтролер (MCU)</text>
+
+    <!-- Входи SW1 (High / Tens) -->
+    <!-- Bit 4 -->
+    <polygon points="675,112 675,128 698,120" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="705" y="124" font-size="11" font-weight="bold" fill="#1a1a1a">PA4 (Bit 4)</text>
+
+    <!-- Bit 5 -->
+    <polygon points="675,142 675,158 698,150" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="705" y="154" font-size="11" font-weight="bold" fill="#1a1a1a">PA5 (Bit 5)</text>
+
+    <!-- Bit 6 -->
+    <polygon points="675,172 675,188 698,180" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="705" y="184" font-size="11" font-weight="bold" fill="#1a1a1a">PA6 (Bit 6)</text>
+
+    <!-- Bit 7 -->
+    <polygon points="675,202 675,218 698,210" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="705" y="214" font-size="11" font-weight="bold" fill="#1a1a1a">PA7 (Bit 7)</text>
+
+    <!-- Входи SW2 (Low / Units) -->
+    <!-- Bit 0 -->
+    <polygon points="675,292 675,308 698,300" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="705" y="304" font-size="11" font-weight="bold" fill="#1a1a1a">PA0 (Bit 0)</text>
+
+    <!-- Bit 1 -->
+    <polygon points="675,322 675,338 698,330" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="705" y="334" font-size="11" font-weight="bold" fill="#1a1a1a">PA1 (Bit 1)</text>
+
+    <!-- Bit 2 -->
+    <polygon points="675,352 675,368 698,360" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="705" y="364" font-size="11" font-weight="bold" fill="#1a1a1a">PA2 (Bit 2)</text>
+
+    <!-- Bit 3 -->
+    <polygon points="675,382 675,398 698,390" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="705" y="394" font-size="11" font-weight="bold" fill="#1a1a1a">PA3 (Bit 3)</text>
+
+    <!-- Блок обчислення адреси всередині MCU -->
+    <rect x="795" y="125" width="120" height="280" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="855" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">NODE ID</text>
+    <text x="855" y="168" text-anchor="middle" font-size="11" fill="#6b7280">Мережевий ID</text>
+
+    <line x1="805" y1="180" x2="905" y2="180" stroke="#d0d7de" stroke-width="1"/>
+
+    <text x="855" y="205" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Обчислення:</text>
+    <text x="855" y="228" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Node ID =</text>
+    <text x="855" y="248" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">(SW1 &lt;&lt; 4)</text>
+    <text x="855" y="268" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">| SW2</text>
+
+    <line x1="805" y1="285" x2="905" y2="285" stroke="#d0d7de" stroke-width="1"/>
+
+    <text x="855" y="310" text-anchor="middle" font-size="11" fill="#6b7280">Діапазон адреси:</text>
+    <text x="855" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">0x00 .. 0xFF</text>
+    <text x="855" y="348" text-anchor="middle" font-size="11" fill="#1a1a1a">(0 .. 255)</text>
+
+    <text x="855" y="380" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">CAN / RS-485</text>
+  </g>
+
+  <!-- НИЖНІЙ ПІДСУМКОВИЙ БАНЕР -->
+  <rect x="30" y="475" width="900" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="497" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">✓ ФОРМУВАННЯ МЕРЕЖЕВОЇ АДРЕСИ: SW1 задає старший нібл (High Nibble / Tens), SW2 — молодший (Low Nibble / Units)</text>
+  <text x="480" y="516" text-anchor="middle" font-size="12" fill="#1a1a1a">RC-ланцюги (10k/100nF) усувають брязкіт при виборі адреси, а GPIO-зчитування при Power-On ініціалізує CAN/Modbus stack</text>
+</svg>

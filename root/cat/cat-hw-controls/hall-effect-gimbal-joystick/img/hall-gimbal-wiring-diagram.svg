@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема підключення підвісу Холла (Gimbal) до мікроконтролера</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Фільтрація живлення (100 нФ + 10 мкФ), RC-ланцюги осей X/Y та підключення до аналогових входів АЦП</text>
+
+  <!-- LEFT BOX: HALL GIMBAL MODULE -->
+  <rect x="40" y="90" width="200" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M40,98 A8,8 0 0,1 48,90 L232,90 A8,8 0 0,1 240,98 L240,120 L40,120 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="108" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Підвіс Холла (Gimbal)</text>
+
+  <!-- Module Terminals & Labels -->
+  <circle cx="240" cy="130" r="4" fill="#c0392b"/>
+  <text x="230" y="134" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">VCC</text>
+
+  <rect x="60" y="185" width="80" height="30" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="100" y="204" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Hall X</text>
+  <line x1="140" y1="200" x2="240" y2="200" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="240" cy="200" r="4" fill="#2457d6"/>
+  <text x="230" y="194" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">X_OUT</text>
+
+  <rect x="60" y="275" width="80" height="30" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="100" y="294" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Hall Y</text>
+  <line x1="140" y1="290" x2="240" y2="290" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="240" cy="290" r="4" fill="#27ae60"/>
+  <text x="230" y="284" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Y_OUT</text>
+
+  <circle cx="240" cy="370" r="4" fill="#1a1a1a"/>
+  <text x="230" y="374" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">GND</text>
+
+
+  <!-- RIGHT BOX: MICROCONTROLLER MCU -->
+  <rect x="720" y="90" width="200" height="320" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M720,98 A8,8 0 0,1 728,90 L912,90 A8,8 0 0,1 920,98 L920,120 L720,120 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="820" y="108" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер (MCU)</text>
+
+  <!-- MCU Terminals & Labels -->
+  <circle cx="720" cy="130" r="4" fill="#c0392b"/>
+  <text x="730" y="134" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">VCC / 3.3V</text>
+
+  <circle cx="720" cy="200" r="4" fill="#2457d6"/>
+  <text x="730" y="204" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">ADC0 (Вісь X)</text>
+
+  <circle cx="720" cy="290" r="4" fill="#27ae60"/>
+  <text x="730" y="294" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">ADC1 (Вісь Y)</text>
+
+  <circle cx="720" cy="370" r="4" fill="#1a1a1a"/>
+  <text x="730" y="374" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">AGND (Аналог)</text>
+
+
+  <!-- MIDDLE WIRING & FILTERS -->
+
+  <!-- VCC Line (Red) -->
+  <line x1="240" y1="130" x2="720" y2="130" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- VCC Bypass Capacitor C1 (100nF) -->
+  <circle cx="310" cy="130" r="3" fill="#c0392b"/>
+  <line x1="310" y1="130" x2="310" y2="210" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="298" y1="210" x2="322" y2="210" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="298" y1="218" x2="322" y2="218" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="310" y1="218" x2="310" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="310" cy="370" r="3" fill="#1a1a1a"/>
+  <text x="290" y="218" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="end">C1 100nF</text>
+
+  <!-- VCC Bypass Capacitor C2 (10uF) -->
+  <circle cx="370" cy="130" r="3" fill="#c0392b"/>
+  <line x1="370" y1="130" x2="370" y2="210" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="358" y1="210" x2="382" y2="210" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="358" y1="218" x2="382" y2="218" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="370" y1="218" x2="370" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="370" cy="370" r="3" fill="#1a1a1a"/>
+  <text x="390" y="218" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">C2 10µF</text>
+
+  <!-- X_OUT Filter Line (Blue) -->
+  <line x1="240" y1="200" x2="430" y2="200" stroke="#2457d6" stroke-width="2"/>
+  <rect x="430" y="193" width="40" height="14" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="450" y="185" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">R1 1kΩ</text>
+  <line x1="470" y1="200" x2="720" y2="200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Shunt Capacitor C3 (100nF) for X_OUT -->
+  <circle cx="540" cy="200" r="3" fill="#2457d6"/>
+  <line x1="540" y1="200" x2="540" y2="235" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="528" y1="235" x2="552" y2="235" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="528" y1="243" x2="552" y2="243" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="540" y1="243" x2="540" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="540" cy="370" r="3" fill="#1a1a1a"/>
+  <text x="560" y="243" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">C3 100nF</text>
+
+  <!-- Y_OUT Filter Line (Green) -->
+  <line x1="240" y1="290" x2="430" y2="290" stroke="#27ae60" stroke-width="2"/>
+  <rect x="430" y="283" width="40" height="14" fill="white" stroke="#27ae60" stroke-width="2"/>
+  <text x="450" y="275" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">R2 1kΩ</text>
+  <line x1="470" y1="290" x2="720" y2="290" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Shunt Capacitor C4 (100nF) for Y_OUT -->
+  <circle cx="620" cy="290" r="3" fill="#27ae60"/>
+  <line x1="620" y1="290" x2="620" y2="320" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="608" y1="320" x2="632" y2="320" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="608" y1="328" x2="632" y2="328" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="620" y1="328" x2="620" y2="370" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="620" cy="370" r="3" fill="#1a1a1a"/>
+  <text x="640" y="328" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">C4 100nF</text>
+
+  <!-- Ground Line (AGND) -->
+  <line x1="240" y1="370" x2="720" y2="370" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="340" y1="370" x2="340" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="328" y1="385" x2="352" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="332" y1="390" x2="348" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="336" y1="395" x2="344" y2="395" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="340" y="412" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">AGND (Аналогова земля)</text>
+</svg>

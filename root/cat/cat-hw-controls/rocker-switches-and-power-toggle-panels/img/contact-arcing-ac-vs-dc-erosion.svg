@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Електрична дуга та ерозія контактів: змінний струм (AC) проти постійного (DC)</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Перехід AC через нуль самостійно гасить дугу, тоді як стійка дуга DC викликає кратероутворення й переношення металу</text>
+
+  <!-- LEFT PANEL: AC SWITCHING -->
+  <rect x="30" y="68" width="435" height="372" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247.5" y="94" font-size="15" font-weight="700" fill="#27ae60" text-anchor="middle">Комутація змінного струму (AC)</text>
+
+  <!-- AC Waveform Sub-panel -->
+  <rect x="45" y="108" width="405" height="145" rx="6" ry="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247.5" y="126" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Осцилограма дуги AC (Самогасіння при I = 0)</text>
+
+  <!-- Axis AC -->
+  <line x1="60" y1="185" x2="435" y2="185" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="80" y1="235" x2="80" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="75" y="132" font-size="12" fill="#6b7280" text-anchor="end">i(t)</text>
+  <text x="440" y="189" font-size="12" fill="#6b7280" text-anchor="start">t</text>
+
+  <!-- AC Current Sine Wave & Arc extinction -->
+  <path d="M 80 185 Q 125 135 170 185 Q 215 235 260 185 Q 305 135 350 185" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <!-- Arc start at x=170 (contact break at peak/decay) -->
+  <line x1="170" y1="140" x2="170" y2="230" stroke="#6b7280" stroke-dasharray="3 3"/>
+  <text x="170" y="136" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Розмикання</text>
+
+  <!-- Zero crossing point -->
+  <circle cx="260" cy="185" r="5" fill="#27ae60"/>
+  <line x1="260" y1="140" x2="260" y2="230" stroke="#27ae60" stroke-dasharray="3 3"/>
+  <text x="260" y="136" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Гасіння при I = 0</text>
+
+  <!-- Arc duration bracket -->
+  <line x1="170" y1="210" x2="260" y2="210" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="215" y="226" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">t_arc &lt; 10 мс</text>
+
+  <!-- AC Contact Erosion Sub-panel -->
+  <rect x="45" y="263" width="405" height="162" rx="6" ry="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247.5" y="281" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Механізм ерозії контактів AC</text>
+
+  <!-- Contact Left & Right AC -->
+  <rect x="90" y="305" width="45" height="40" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="135" y="310" width="15" height="30" rx="2" fill="#2457d6"/>
+
+  <rect x="345" y="305" width="45" height="40" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="330" y="310" width="15" height="30" rx="2" fill="#2457d6"/>
+
+  <!-- Small arc spark between contacts -->
+  <path d="M 150 325 Q 240 310 330 325" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="2 2"/>
+  <text x="240" y="318" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Короткочасна іскра</text>
+
+  <!-- AC Result Badge -->
+  <rect x="65" y="365" width="365" height="45" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="247.5" y="384" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Рівномірне та незначне зношування</text>
+  <text x="247.5" y="401" font-size="12" fill="#1a1a1a" text-anchor="middle">Відсутнє спрямоване переношення металу</text>
+
+
+  <!-- RIGHT PANEL: DC SWITCHING -->
+  <rect x="495" y="68" width="435" height="372" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712.5" y="94" font-size="15" font-weight="700" fill="#c0392b" text-anchor="middle">Комутація постійного струму (DC)</text>
+
+  <!-- DC Waveform Sub-panel -->
+  <rect x="510" y="108" width="405" height="145" rx="6" ry="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712.5" y="126" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Осцилограма дуги DC (Безперервне горіння)</text>
+
+  <!-- Axis DC -->
+  <line x1="525" y1="185" x2="900" y2="185" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="545" y1="235" x2="545" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="540" y="132" font-size="12" fill="#6b7280" text-anchor="end">i(t)</text>
+  <text x="905" y="189" font-size="12" fill="#6b7280" text-anchor="start">t</text>
+
+  <!-- DC Current Line & Arc Plateau -->
+  <line x1="545" y1="155" x2="635" y2="155" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="635" y1="140" x2="635" y2="230" stroke="#6b7280" stroke-dasharray="3 3"/>
+  <text x="635" y="136" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Розмикання</text>
+
+  <!-- Arc Prolonged Current Line -->
+  <path d="M 635 155 L 650 165 L 850 165 L 870 185 L 900 185" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Prolonged Arc duration bracket -->
+  <line x1="635" y1="210" x2="870" y2="210" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="752.5" y="226" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">t_arc &gt;&gt; 10 мс (Стійка дуга)</text>
+
+  <!-- DC Contact Erosion Sub-panel -->
+  <rect x="510" y="263" width="405" height="162" rx="6" ry="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712.5" y="281" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Механізм ерозії контактів DC</text>
+
+  <!-- Contact Anode (+, crater) & Cathode (-, cone) -->
+  <!-- Anode (+) Left -->
+  <rect x="555" y="305" width="45" height="40" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Anode facing tip with crater -->
+  <path d="M 600 310 L 610 310 Q 604 325 610 340 L 600 340 Z" fill="#c0392b"/>
+  <text x="577.5" y="299" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Анод (+)</text>
+  <text x="607" y="356" font-size="12" fill="#c0392b" text-anchor="middle">Кратер</text>
+
+  <!-- Cathode (-) Right -->
+  <rect x="810" y="305" width="45" height="40" rx="3" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Cathode facing tip with mound/cone -->
+  <path d="M 810 310 L 798 325 L 810 340 Z" fill="#2457d6"/>
+  <text x="832.5" y="299" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Катод (-)</text>
+  <text x="800" y="356" font-size="12" fill="#2457d6" text-anchor="middle">Наплив</text>
+
+  <!-- Heavy Arc Plasma Line & Material Transfer Arrow -->
+  <path d="M 610 325 L 798 325" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <line x1="620" y1="320" x2="785" y2="320" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="702.5" y="314" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Перенос металу</text>
+
+  <!-- DC Result Badge -->
+  <rect x="530" y="365" width="365" height="45" rx="4" ry="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="712.5" y="384" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Кратероутворення та зварювання контактів</text>
+  <text x="712.5" y="401" font-size="12" fill="#1a1a1a" text-anchor="middle">Потрібен дерейтинг по струму та напрузі</text>
+
+</svg>

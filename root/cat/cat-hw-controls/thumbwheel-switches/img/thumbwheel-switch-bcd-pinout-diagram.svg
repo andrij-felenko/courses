@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Цокольовка та внутрішня топологія BCD декадного перемикача</text>
+  <text x="480" y="48" text-anchor="middle" font-size="13" fill="#6b7280">Розпіновка виводів (COM, 1, 2, 4, 8) та принципова схема контактної групи BCD</text>
+
+  <!-- Left Panel: PCB Pad Layout -->
+  <rect x="40" y="70" width="400" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Розміщення виводів на друкованій платі (PCB Layout)</text>
+
+  <!-- Switch Body Outline -->
+  <rect x="110" y="115" width="260" height="355" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  
+  <!-- Thumbwheel Dial Display -->
+  <rect x="170" y="130" width="140" height="45" rx="4" fill="#2457d6"/>
+  <text x="240" y="161" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffffff">7</text>
+  <text x="240" y="193" text-anchor="middle" font-size="12" fill="#6b7280">Декадний барабан</text>
+
+  <!-- PCB Pad Pins List -->
+  <!-- Pin COM -->
+  <text x="195" y="234" text-anchor="end" font-size="13" font-weight="bold" fill="#2457d6">COM (Спільний)</text>
+  <circle cx="220" cy="230" r="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="220" y="234" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">C</text>
+  <line x1="232" y1="230" x2="325" y2="230" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- Pin 1 -->
+  <text x="195" y="284" text-anchor="end" font-size="13" fill="#1a1a1a">Біт 1 (2⁰)</text>
+  <circle cx="220" cy="280" r="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="220" y="284" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">1</text>
+  <line x1="232" y1="280" x2="325" y2="280" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Pin 2 -->
+  <text x="195" y="334" text-anchor="end" font-size="13" fill="#1a1a1a">Біт 2 (2¹)</text>
+  <circle cx="220" cy="330" r="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="220" y="334" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">2</text>
+  <line x1="232" y1="330" x2="325" y2="330" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Pin 4 -->
+  <text x="195" y="384" text-anchor="end" font-size="13" fill="#1a1a1a">Біт 4 (2²)</text>
+  <circle cx="220" cy="380" r="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="220" y="384" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">4</text>
+  <line x1="232" y1="380" x2="325" y2="380" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Pin 8 -->
+  <text x="195" y="434" text-anchor="end" font-size="13" fill="#1a1a1a">Біт 8 (2³)</text>
+  <circle cx="220" cy="430" r="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="220" y="434" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">8</text>
+  <line x1="232" y1="430" x2="325" y2="430" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Terminal Block Header -->
+  <rect x="325" y="210" width="26" height="240" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="338" y="465" text-anchor="middle" font-size="12" fill="#6b7280">Роз'єм DIL</text>
+
+  <!-- Right Panel: Schematic & Truth Table -->
+  <rect x="480" y="70" width="440" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="700" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Принципова схема та таблиця істинності BCD</text>
+
+  <!-- Common Bus (COM) Line -->
+  <text x="515" y="144" text-anchor="end" font-size="13" font-weight="bold" fill="#2457d6">COM</text>
+  <line x1="520" y1="140" x2="860" y2="140" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Switch 1 (CLOSED) -->
+  <line x1="570" y1="140" x2="570" y2="170" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="570" cy="170" r="4" fill="#2457d6"/>
+  <line x1="570" y1="170" x2="570" y2="200" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="570" cy="200" r="4" fill="#27ae60"/>
+  <line x1="570" y1="200" x2="570" y2="250" stroke="#27ae60" stroke-width="2"/>
+  <text x="582" y="220" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">ВВІМК (1)</text>
+  <circle cx="570" cy="262" r="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="570" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1</text>
+
+  <!-- Switch 2 (CLOSED) -->
+  <line x1="650" y1="140" x2="650" y2="170" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="650" cy="170" r="4" fill="#2457d6"/>
+  <line x1="650" y1="170" x2="650" y2="200" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="650" cy="200" r="4" fill="#27ae60"/>
+  <line x1="650" y1="200" x2="650" y2="250" stroke="#27ae60" stroke-width="2"/>
+  <text x="662" y="220" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">ВВІМК (1)</text>
+  <circle cx="650" cy="262" r="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="650" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">2</text>
+
+  <!-- Switch 4 (CLOSED) -->
+  <line x1="730" y1="140" x2="730" y2="170" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="730" cy="170" r="4" fill="#2457d6"/>
+  <line x1="730" y1="170" x2="730" y2="200" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="730" cy="200" r="4" fill="#27ae60"/>
+  <line x1="730" y1="200" x2="730" y2="250" stroke="#27ae60" stroke-width="2"/>
+  <text x="742" y="220" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">ВВІМК (1)</text>
+  <circle cx="730" cy="262" r="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="730" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">4</text>
+
+  <!-- Switch 8 (OPEN) -->
+  <line x1="810" y1="140" x2="810" y2="170" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="810" cy="170" r="4" fill="#2457d6"/>
+  <line x1="810" y1="170" x2="825" y2="195" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="810" cy="200" r="4" fill="#c0392b"/>
+  <line x1="810" y1="200" x2="810" y2="250" stroke="#c0392b" stroke-width="2"/>
+  <text x="822" y="220" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">ВИМК (0)</text>
+  <circle cx="810" cy="262" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="810" y="266" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">8</text>
+
+  <!-- Truth Table Box -->
+  <rect x="500" y="295" width="400" height="180" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="500" y="295" width="400" height="30" rx="6" fill="#eaf0fd"/>
+  
+  <!-- Header Row -->
+  <text x="540" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Позиція</text>
+  <text x="610" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">COM</text>
+  <text x="670" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">8 (2³)</text>
+  <text x="730" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">4 (2²)</text>
+  <text x="790" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2 (2¹)</text>
+  <text x="850" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1 (2⁰)</text>
+
+  <!-- Row 0 -->
+  <text x="540" y="345" text-anchor="middle" font-size="12" fill="#1a1a1a">0</text>
+  <text x="610" y="345" text-anchor="middle" font-size="12" fill="#2457d6">C</text>
+  <text x="670" y="345" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+  <text x="730" y="345" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+  <text x="790" y="345" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+  <text x="850" y="345" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+
+  <!-- Row 3 -->
+  <text x="540" y="375" text-anchor="middle" font-size="12" fill="#1a1a1a">3</text>
+  <text x="610" y="375" text-anchor="middle" font-size="12" fill="#2457d6">C</text>
+  <text x="670" y="375" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+  <text x="730" y="375" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+  <text x="790" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1</text>
+  <text x="850" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1</text>
+
+  <!-- Row 7 (Highlighted) -->
+  <rect x="505" y="390" width="390" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="540" y="407" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">7</text>
+  <text x="610" y="407" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">C</text>
+  <text x="670" y="407" text-anchor="middle" font-size="12" fill="#c0392b">0</text>
+  <text x="730" y="407" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1</text>
+  <text x="790" y="407" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1</text>
+  <text x="850" y="407" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1</text>
+
+  <!-- Row 9 -->
+  <text x="540" y="435" text-anchor="middle" font-size="12" fill="#1a1a1a">9</text>
+  <text x="610" y="435" text-anchor="middle" font-size="12" fill="#2457d6">C</text>
+  <text x="670" y="435" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1</text>
+  <text x="730" y="435" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+  <text x="790" y="435" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+  <text x="850" y="435" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">1</text>
+
+  <!-- Footer note -->
+  <text x="700" y="463" text-anchor="middle" font-size="12" fill="#6b7280">Замикання контакту = Логічна 1 (з'єднання з COM)</text>
+</svg>

@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Еволюція оптичних растрових енкодерів: від лампових до дифракційних</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Перехід від ламп і масивних растрів до LED-матриць підвищив роздільну здатність у сотні разів</text>
+
+  <!-- ПАНЕЛЬ 1: РАННІЙ ФОТОЕЛЕКТРИЧНИЙ ДИСК (1950-ті рр.) -->
+  <g id="panel-early">
+    <!-- Тло панелі 1 -->
+    <rect x="30" y="75" width="435" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Заголовок панелі 1 -->
+    <rect x="42" y="87" width="411" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="247.5" y="109" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">1. Ранній фотоелектричний диск (1950-ті рр.)</text>
+
+    <!-- Світловий конус розсіювання лампи -->
+    <polygon points="112,215 112,245 375,260 375,200" fill="#fdecea" opacity="0.5" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+
+    <!-- Джерело світла: Лампа розжарювання -->
+    <circle cx="90" cy="230" r="22" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <path d="M 83,235 L 90,222 L 97,235" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+    <line x1="90" y1="237" x2="90" y2="248" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="90" y="198" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Лампа розжарювання</text>
+    <text x="90" y="270" text-anchor="middle" font-size="11" fill="#6b7280">(Теплове випромінювання)</text>
+
+    <!-- Ранній диск із великогабаритними прорізами -->
+    <circle cx="247.5" cy="230" r="75" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="247.5" cy="230" r="22" fill="#6b7280"/>
+
+    <!-- Великогабаритні растрові прорізи (Coarse slots) -->
+    <path d="M 247.5,155 L 247.5,208 M 247.5,252 L 247.5,305" stroke="#1a1a1a" stroke-width="8"/>
+    <path d="M 172.5,230 L 225.5,230 M 269.5,230 L 322.5,230" stroke="#1a1a1a" stroke-width="8"/>
+    <path d="M 194.5,177 L 232,214.5 M 263,245.5 L 300.5,283" stroke="#1a1a1a" stroke-width="8"/>
+    <path d="M 194.5,283 L 232,245.5 M 263,214.5 L 300.5,177" stroke="#1a1a1a" stroke-width="8"/>
+
+    <text x="247.5" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Низька дискретність (N ≈ 36–100 імп/об)</text>
+
+    <!-- Фотоелемент (Одиничний вакуумний/напівпровідниковий фотодіод) -->
+    <rect x="375" y="205" width="30" height="50" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <circle cx="390" cy="230" r="8" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="390" y="198" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Один фотоелемент</text>
+
+    <!-- Підсумок для панелі 1 -->
+    <rect x="42" y="390" width="411" height="45" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="247.5" y="410" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Обмеження: низька точність, знос лампи,</text>
+    <text x="247.5" y="426" text-anchor="middle" font-size="11" fill="#c0392b">широкий світловий пучок, температурний дрейф</text>
+  </g>
+
+  <!-- ПАНЕЛЬ 2: СУЧАСНИЙ РАСТРОВИЙ ЕНКОДЕР (LED + Opto-Array) -->
+  <g id="panel-modern">
+    <!-- Тло панелі 2 -->
+    <rect x="495" y="75" width="435" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Заголовок панелі 2 -->
+    <rect x="507" y="87" width="411" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="712.5" y="109" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">2. Сучасний растровий енкодер (LED + Opto-Array)</text>
+
+    <!-- Колімований світловий промінь LED -->
+    <polygon points="570,222 570,238 840,238 840,222" fill="#eaf0fd" opacity="0.7" stroke="#2457d6" stroke-width="1.5"/>
+
+    <!-- Точковий LED-світлодіод -->
+    <rect x="540" y="215" width="30" height="30" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="555" cy="230" r="5" fill="#2457d6"/>
+    <text x="555" y="198" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">LED-світлодіод</text>
+    <text x="555" y="265" text-anchor="middle" font-size="11" fill="#2457d6">(Колімований промінь)</text>
+
+    <!-- Диск із прецизійним мікрорастром та дифракційними ґратками -->
+    <circle cx="712.5" cy="230" r="75" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="712.5" cy="230" r="62" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="2,2"/>
+    <circle cx="712.5" cy="230" r="22" fill="#2457d6"/>
+
+    <text x="712.5" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Висока дискретність (N = 1024–65536 імп/об)</text>
+
+    <!-- Матричний датчик (Opto-ASIC зі слідом дифракції) -->
+    <rect x="840" y="205" width="30" height="50" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <!-- Матриця фотодіодів -->
+    <rect x="845" y="212" width="20" height="8" fill="#27ae60" opacity="0.8"/>
+    <rect x="845" y="226" width="20" height="8" fill="#27ae60" opacity="0.8"/>
+    <rect x="845" y="240" width="20" height="8" fill="#27ae60" opacity="0.8"/>
+    <text x="855" y="198" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Opto-ASIC матриця</text>
+
+    <!-- Підсумок для панелі 2 -->
+    <rect x="507" y="390" width="411" height="45" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="712.5" y="410" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ Переваги: висока роздільна здатність, довговічність,</text>
+    <text x="712.5" y="426" text-anchor="middle" font-size="11" fill="#27ae60">диференціальне шумоприглушення, інтерполяція сигналів</text>
+  </g>
+</svg>

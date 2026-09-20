@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Принцип роботи пружинного механізму миттєвої дії (Snap Action)</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Накопичення пружинної енергії при повільному повороті рукоятки та її миттєве вивільнення для гасіння дуги</text>
+
+  <!-- PANEL 1: Initial State -->
+  <rect x="30" y="75" width="280" height="400" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="90" width="250" height="28" rx="5" fill="#2457d6"/>
+  <text x="170" y="109" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">1. ПОЧАТКОВИЙ СТАН</text>
+
+  <!-- Panel 1 Diagram -->
+  <!-- Pivot point -->
+  <circle cx="95" cy="170" r="5" fill="#1a1a1a"/>
+  <!-- Follower Arm -->
+  <line x1="95" y1="170" x2="170" y2="190" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="170" y1="190" x2="245" y2="240" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Roller -->
+  <circle cx="170" cy="190" r="12" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Cam Shaft -->
+  <circle cx="170" cy="245" r="35" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 135,245 A 35,35 0 0,1 205,245 A 15,15 0 0,1 170,270 A 15,15 0 0,1 135,245 Z" fill="#2457d6" opacity="0.3"/>
+  <circle cx="170" cy="245" r="7" fill="#1a1a1a"/>
+
+  <!-- Spring in initial tension -->
+  <path d="M 95,170 C 85,150 105,140 95,130 C 85,120 105,110 95,100 L 95,90" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="80" y1="90" x2="110" y2="90" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Contacts (Closed) -->
+  <rect x="235" y="240" width="20" height="8" rx="2" fill="#27ae60"/>
+  <rect x="235" y="250" width="20" height="8" rx="2" fill="#27ae60"/>
+  <text x="245" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ЗАМКНЕНО</text>
+
+  <!-- Panel 1 Callouts -->
+  <rect x="45" y="380" width="250" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="402" font-size="12" fill="#1a1a1a">• Пружина у стані спокою</text>
+  <text x="55" y="422" font-size="12" fill="#1a1a1a">• Ролик лежить у западині кулачка</text>
+  <text x="55" y="442" font-size="12" fill="#27ae60" font-weight="bold">• Надійний контакт, R_c ≈ 0</text>
+
+
+  <!-- PANEL 2: Energy Storage / Over-center -->
+  <rect x="340" y="75" width="280" height="400" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="355" y="90" width="250" height="28" rx="5" fill="#c0392b"/>
+  <text x="480" y="109" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">2. НАКОПИЧЕННЯ ЕНЕРГІЇ</text>
+
+  <!-- Panel 2 Diagram -->
+  <circle cx="405" cy="150" r="5" fill="#1a1a1a"/>
+
+  <!-- Cam Shaft Rotated -->
+  <circle cx="480" cy="245" r="35" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <!-- Lobe pushes follower UP -->
+  <path d="M 480,210 A 35,35 0 0,1 515,245 A 35,35 0 0,1 480,280 A 15,15 0 0,1 465,245 Z" fill="#c0392b" opacity="0.3"/>
+  <circle cx="480" cy="245" r="7" fill="#1a1a1a"/>
+
+  <!-- Rotation Arrow -->
+  <path d="M 450,215 A 40,40 0 0,1 480,200" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="440" y="195" font-size="12" font-weight="bold" fill="#c0392b">Поворот</text>
+
+  <!-- Follower Arm Pushed Up -->
+  <line x1="405" y1="150" x2="480" y2="165" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="480" y1="165" x2="555" y2="240" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Roller at peak of cam lobe -->
+  <circle cx="480" cy="165" r="12" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Spring Compressed Tightly -->
+  <path d="M 405,150 C 398,140 412,135 405,130 C 398,125 412,120 405,115 L 405,110" fill="none" stroke="#c0392b" stroke-width="3.5"/>
+  <line x1="390" y1="110" x2="420" y2="110" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Contacts STILL Closed under pre-load -->
+  <rect x="545" y="240" width="20" height="8" rx="2" fill="#c0392b"/>
+  <rect x="545" y="250" width="20" height="8" rx="2" fill="#c0392b"/>
+  <text x="555" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ТИСК ПРУЖИНИ</text>
+
+  <!-- Panel 2 Callouts -->
+  <rect x="355" y="380" width="250" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="365" y="402" font-size="12" fill="#1a1a1a">• Повільне обертання вала оператором</text>
+  <text x="365" y="422" font-size="12" fill="#1a1a1a">• Пружина максимально стискається</text>
+  <text x="365" y="442" font-size="12" fill="#c0392b" font-weight="bold">• Мертва точка (Over-Center)</text>
+
+
+  <!-- PANEL 3: Snap Release Action -->
+  <rect x="650" y="75" width="280" height="400" rx="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="665" y="90" width="250" height="28" rx="5" fill="#27ae60"/>
+  <text x="790" y="109" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">3. МИТТЄВИЙ СТРИБОК (SNAP)</text>
+
+  <!-- Panel 3 Diagram -->
+  <circle cx="715" cy="170" r="5" fill="#1a1a1a"/>
+
+  <!-- Cam Shaft Past TDC -->
+  <circle cx="790" cy="245" r="35" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 790,280 A 35,35 0 0,1 755,245 A 35,35 0 0,1 790,210 A 15,15 0 0,1 805,245 Z" fill="#27ae60" opacity="0.3"/>
+  <circle cx="790" cy="245" r="7" fill="#1a1a1a"/>
+
+  <!-- Follower Snapped Up Rapidly -->
+  <line x1="715" y1="170" x2="790" y2="150" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="790" y1="150" x2="865" y2="200" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Roller Snapped into next valley -->
+  <circle cx="790" cy="150" r="12" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Snap Motion Arrow -->
+  <path d="M 850,225 L 850,205" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="862" y="218" font-size="12" font-weight="bold" fill="#27ae60">SNAP!</text>
+
+  <!-- Spring Released -->
+  <path d="M 715,170 C 705,150 725,140 715,130 C 705,120 725,110 715,100 L 715,90" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="700" y1="90" x2="730" y2="90" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Contacts OPEN with wide gap + Arc extinguished -->
+  <rect x="855" y="200" width="20" height="8" rx="2" fill="#27ae60"/>
+  <rect x="855" y="250" width="20" height="8" rx="2" fill="#6b7280"/>
+
+  <!-- Arc symbol -->
+  <path d="M 865,215 L 860,225 L 870,230 L 865,242" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <line x1="855" y1="215" x2="875" y2="242" stroke="#c0392b" stroke-width="2"/>
+
+  <text x="865" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">РОЗМІЩЕНО (&lt; 2 ms)</text>
+
+  <!-- Panel 3 Callouts -->
+  <rect x="665" y="380" width="250" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="675" y="402" font-size="12" fill="#1a1a1a">• Перехід мертвої точки (TDC)</text>
+  <text x="675" y="422" font-size="12" fill="#1a1a1a">• Швидкість t &lt; 2 ms не залежить від руки</text>
+  <text x="675" y="442" font-size="12" fill="#27ae60" font-weight="bold">• Електрична дуга швидко згасає</text>
+
+</svg>

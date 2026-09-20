@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Осцилограми перехідного процесу при розмиканні індуктивного навантаження</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">ЕРС самоіндукції e = -L(di/dt) викликає пік перенапруги U_peak та дуговий розряд тривалістю t_arc</text>
+
+  <!-- Time vertical guides -->
+  <line x1="280" y1="75" x2="280" y2="420" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1.5"/>
+  <line x1="580" y1="75" x2="580" y2="420" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1.5"/>
+
+  <text x="280" y="70" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">t0: Розмикання контактів</text>
+  <text x="580" y="70" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">t1: Гасіння дуги</text>
+
+  <!-- Arc Interval Highlight -->
+  <rect x="280" y="80" width="300" height="340" fill="#eaf0fd" fill-opacity="0.35"/>
+  <text x="430" y="98" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Дуговий інтервал (t_arc)</text>
+
+  <!-- CHART 1: VOLTAGE u(t) -->
+  <!-- Axis Y -->
+  <line x1="90" y1="240" x2="90" y2="100" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="80" y="95" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">u(t) [V]</text>
+
+  <!-- Axis X Voltage zero -->
+  <line x1="90" y1="220" x2="900" y2="220" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="910" y="224" font-size="12" fill="#6b7280" text-anchor="start">t</text>
+
+  <!-- Horizontal reference lines for Voltage -->
+  <!-- 0V line label -->
+  <text x="80" y="224" font-size="12" fill="#6b7280" text-anchor="end">0V</text>
+
+  <!-- U_S (Supply Voltage) -->
+  <line x1="90" y1="185" x2="900" y2="185" stroke="#6b7280" stroke-dasharray="2 2" stroke-width="1"/>
+  <text x="80" y="189" font-size="12" font-weight="700" fill="#6b7280" text-anchor="end">U_S</text>
+
+  <!-- U_arc (Arc Voltage Plateau) -->
+  <line x1="280" y1="145" x2="580" y2="145" stroke="#2457d6" stroke-dasharray="2 2" stroke-width="1"/>
+  <text x="272" y="149" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">U_arc</text>
+
+  <!-- U_peak (Overvoltage Spike) -->
+  <line x1="90" y1="110" x2="310" y2="110" stroke="#c0392b" stroke-dasharray="2 2" stroke-width="1"/>
+  <text x="80" y="114" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">U_peak</text>
+
+  <!-- Voltage Waveform u(t) Path -->
+  <path d="M 90 220 L 280 220 L 292 110 L 305 155 L 320 145 L 580 145 L 585 185 L 900 185" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Peak Overvoltage Annotation -->
+  <circle cx="292" cy="110" r="4" fill="#c0392b"/>
+  <rect x="305" y="102" width="165" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="387.5" y="118" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Пік перенапруги U_peak</text>
+
+  <!-- CHART 2: CURRENT i(t) -->
+  <!-- Axis Y -->
+  <line x1="90" y1="420" x2="90" y2="270" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="80" y="265" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="end">i(t) [A]</text>
+
+  <!-- Axis X Current zero -->
+  <line x1="90" y1="400" x2="900" y2="400" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="910" y="404" font-size="12" fill="#6b7280" text-anchor="start">t</text>
+
+  <!-- Horizontal reference lines for Current -->
+  <text x="80" y="404" font-size="12" fill="#6b7280" text-anchor="end">0A</text>
+
+  <!-- I_0 (Nominal Current) -->
+  <line x1="90" y1="310" x2="280" y2="310" stroke="#27ae60" stroke-dasharray="2 2" stroke-width="1"/>
+  <text x="80" y="314" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">I_0</text>
+
+  <!-- Current Waveform i(t) Path -->
+  <path d="M 90 310 L 280 310 L 580 400 L 900 400" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Energy Box (Bottom Right Panel) -->
+  <rect x="620" y="270" width="270" height="110" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="755" y="292" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="middle">Параметри розмикання</text>
+  <text x="635" y="316" font-size="12" font-weight="700" fill="#c0392b">ЕРС: e = -L · (di/dt)</text>
+  <text x="635" y="338" font-size="12" fill="#1a1a1a">Енергія дуги: W_arc = ∫ u_arc · i dt</text>
+  <text x="635" y="360" font-size="12" fill="#2457d6">Захист: RC-демпфер / Варистор</text>
+
+  <!-- t_arc indicator arrow at bottom -->
+  <line x1="280" y1="432" x2="580" y2="432" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="430" y="448" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">t_arc — тривалість горіння дуги</text>
+
+</svg>

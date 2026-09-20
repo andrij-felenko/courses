@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікропроцесорний селектор фаз АВР</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Безперервний моніторинг мережі та безобривна комутація на пріоритетну фазу</text>
+
+  <!-- 1. Input Mains Lines (Left) -->
+  <path d="M 25 100 L 140 100" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="25" cy="100" r="5" fill="#27ae60"/>
+  <text x="35" y="90" font-size="13" font-weight="bold" fill="#27ae60">Фаза L1 (230 В)</text>
+
+  <path d="M 25 145 L 140 145" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="25" cy="145" r="5" fill="#c0392b"/>
+  <text x="35" y="135" font-size="13" font-weight="bold" fill="#c0392b">Фаза L2 (160 В)</text>
+
+  <path d="M 25 190 L 140 190" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="25" cy="190" r="5" fill="#6b7280"/>
+  <text x="35" y="180" font-size="13" font-weight="bold" fill="#6b7280">Фаза L3 (228 В)</text>
+
+  <path d="M 25 225 L 935 225" stroke="#6b7280" stroke-width="2" stroke-dasharray="6,4"/>
+  <circle cx="25" cy="225" r="5" fill="#6b7280"/>
+  <text x="35" y="215" font-size="13" font-weight="bold" fill="#6b7280">Нейтраль N</text>
+
+  <!-- 2. Voltage Sensors Panel (TV1-TV3) -->
+  <rect x="140" y="80" width="160" height="140" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="220" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Датчики напруги TV</text>
+
+  <rect x="150" y="108" width="140" height="26" fill="white" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="220" y="125" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">TV1: 230 В (Норма)</text>
+
+  <rect x="143" y="143" width="154" height="26" fill="white" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="220" y="160" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">TV2: 160 В (Зниж.)</text>
+
+  <rect x="150" y="178" width="140" height="26" fill="white" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="220" y="195" font-size="12" fill="#6b7280" text-anchor="middle">TV3: 228 В (Резерв)</text>
+
+  <!-- Power lines from TV Panel to SSR Switches -->
+  <path d="M 300 120 L 540 120" stroke="#27ae60" stroke-width="3"/>
+  <path d="M 300 156 L 540 156" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 300 191 L 540 191" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- 3. Solid-State Switches Panel (VS1-VS3) -->
+  <rect x="540" y="80" width="200" height="140" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="8"/>
+  <text x="640" y="98" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Силові ключі (SSR)</text>
+
+  <rect x="550" y="108" width="180" height="26" fill="white" stroke="#27ae60" stroke-width="2" rx="4"/>
+  <text x="640" y="125" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">VS1 (L1) [УВІМКНЕНО]</text>
+
+  <rect x="550" y="143" width="180" height="26" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="640" y="160" font-size="12" fill="#c0392b" text-anchor="middle">VS2 (L2) [ВИМКНЕНО]</text>
+
+  <rect x="550" y="178" width="180" height="26" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="640" y="195" font-size="12" fill="#6b7280" text-anchor="middle">VS3 (L3) [ВИМКНЕНО]</text>
+
+  <!-- 4. Output Bus & Load Panel -->
+  <path d="M 740 120 L 780 120" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <path d="M 740 156 L 780 156" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M 740 191 L 780 191" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <path d="M 780 120 L 780 191 L 810 191" stroke="#27ae60" stroke-width="3" fill="none" marker-end="url(#arr-green)"/>
+  <text x="780" y="96" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Шина L_out</text>
+
+  <rect x="810" y="80" width="125" height="140" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="6"/>
+  <text x="872" y="105" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Однофазне</text>
+  <text x="872" y="123" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">навантаження</text>
+  <text x="872" y="150" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Живлення L1</text>
+  <text x="872" y="170" font-size="12" fill="#2457d6" text-anchor="middle">230 В / 50 Гц</text>
+  <text x="872" y="195" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">[БЕЗПЕРЕРВНО]</text>
+
+  <!-- 5. Inter-block Signals and Control Connections -->
+  <!-- Voltage Measurement Line (TV to MCU) -->
+  <path d="M 220 220 L 220 285" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="200" y="235" width="115" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="257" y="252" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнали U1..U3</text>
+
+  <!-- Switch Control Line (MCU to SSR Switches) -->
+  <path d="M 640 285 L 640 220" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="630" y="235" width="130" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="695" y="252" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Імпульси керування</text>
+
+  <!-- 6. Microprocessor Controller Panel (MCU, Bottom) -->
+  <rect x="140" y="285" width="600" height="220" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="440" y="310" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікропроцесорний блок керування (MCU)</text>
+
+  <!-- Sub-block A -->
+  <rect x="160" y="330" width="170" height="110" fill="white" stroke="#d0d7de" rx="6"/>
+  <text x="245" y="355" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхідний АЦП</text>
+  <text x="245" y="380" font-size="12" fill="#6b7280" text-anchor="middle">Обчислення True RMS</text>
+  <text x="245" y="405" font-size="12" fill="#6b7280" text-anchor="middle">Аналіз частоти та фаз</text>
+  <text x="245" y="425" font-size="12" fill="#6b7280" text-anchor="middle">Семплювання 10 кГц</text>
+
+  <!-- Sub-block B -->
+  <rect x="355" y="330" width="170" height="110" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="440" y="355" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Логіка вибору</text>
+  <text x="440" y="380" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Обрано L1 (Пріоритет)</text>
+  <text x="440" y="405" font-size="12" fill="#1a1a1a" text-anchor="middle">195 В &lt; U &lt; 253 В</text>
+  <text x="440" y="425" font-size="12" fill="#6b7280" text-anchor="middle">Гістерезис 5 В</text>
+
+  <!-- Sub-block C -->
+  <rect x="550" y="330" width="170" height="110" fill="white" stroke="#d0d7de" rx="6"/>
+  <text x="635" y="355" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Драйвер ключів</text>
+  <text x="635" y="380" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Захист від КЗ</text>
+  <text x="635" y="405" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Час комутації &lt; 10 мс</text>
+  <text x="635" y="425" font-size="12" fill="#6b7280" text-anchor="middle">Опторозв'язка 5 кВ</text>
+
+  <!-- Internal MCU Flow Arrows -->
+  <path d="M 330 385 L 355 385" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <path d="M 525 385 L 550 385" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- MCU Footer -->
+  <text x="440" y="475" font-size="12" fill="#6b7280" text-anchor="middle">Алгоритм перемикання: Пріоритетний режим з аналізом переходу через нуль (Zero-Crossing)</text>
+
+</svg>

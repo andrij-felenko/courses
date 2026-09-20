@@ -1,0 +1,236 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="100%" height="100%" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехніка ESD-захисту TVS-діодами та розв'язки живлення енкодера</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Двоступеневий захист сигнальних ліній від перенапруг та LC/RC-фільтрація кола живлення VCC/GND</text>
+
+  <!-- ==================== LEFT PANEL: SIGNAL LINES ESD PROTECTION ==================== -->
+  <rect x="24" y="68" width="444" height="452" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  
+  <!-- Left Panel Header -->
+  <rect x="36" y="80" width="420" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="246" y="101" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Захист сигнальних ліній (RS-422 / SSI / BiSS-C)</text>
+
+  <!-- Cable Connector Input Label -->
+  <text x="45" y="132" font-size="12" font-weight="bold" fill="#1a1a1a">Кабель енкодера</text>
+  <text x="45" y="148" font-size="11" fill="#6b7280">(Вхід ліній)</text>
+
+  <!-- Line MA+ / SLO+ -->
+  <text x="100" y="160" font-size="11" font-weight="bold" fill="#2457d6">MA+ / SLO+</text>
+  <line x1="45" y1="170" x2="375" y2="170" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="45" cy="170" r="4" fill="#2457d6"/>
+
+  <!-- Line MA- / SLO- -->
+  <text x="100" y="270" font-size="11" font-weight="bold" fill="#2457d6">MA- / SLO-</text>
+  <line x1="45" y1="280" x2="375" y2="280" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="45" cy="280" r="4" fill="#2457d6"/>
+
+  <!-- ESD Discharge Impulse Indicator -->
+  <rect x="42" y="200" width="85" height="50" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="84.5" y="217" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">ESD-імпульс</text>
+  <text x="84.5" y="231" font-size="10" fill="#c0392b" text-anchor="middle">8 кВ контакт</text>
+  <text x="84.5" y="243" font-size="10" fill="#c0392b" text-anchor="middle">15 кВ повітря</text>
+
+  <path d="M 60 178 L 72 178 L 68 188 L 78 188 L 62 200 L 66 190 L 58 190 Z" fill="#c0392b"/>
+
+  <!-- Stage 1: Series Limiting Resistors R_S (10 Ohm / PTC) -->
+  <!-- Upper Resistor R_S1 -->
+  <rect x="150" y="162" width="34" height="16" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="167" y="156" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_S1</text>
+  <text x="167" y="193" font-size="10" fill="#6b7280" text-anchor="middle">10 Ом</text>
+
+  <!-- Lower Resistor R_S2 -->
+  <rect x="150" y="272" width="34" height="16" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="167" y="266" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_S2</text>
+  <text x="167" y="303" font-size="10" fill="#6b7280" text-anchor="middle">10 Ом</text>
+
+  <!-- Stage 2: Low-Capacitance Bidirectional TVS Diode Array (ESD7004 / SMBJ5.0CA) -->
+  <line x1="230" y1="170" x2="230" y2="192" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="230" y1="212" x2="230" y2="238" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="230" y1="258" x2="230" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- Upper TVS Symbol (Line 1 to Center) -->
+  <g>
+    <polygon points="222,192 238,192 230,202" fill="#c0392b" stroke="#c0392b"/>
+    <polygon points="222,212 238,212 230,202" fill="#c0392b" stroke="#c0392b"/>
+    <line x1="222" y1="202" x2="238" y2="202" stroke="#c0392b" stroke-width="1.5"/>
+  </g>
+
+  <!-- Lower TVS Symbol (Line 2 to Center) -->
+  <g>
+    <polygon points="222,238 238,238 230,248" fill="#c0392b" stroke="#c0392b"/>
+    <polygon points="222,258 238,258 230,248" fill="#c0392b" stroke="#c0392b"/>
+    <line x1="222" y1="248" x2="238" y2="248" stroke="#c0392b" stroke-width="1.5"/>
+  </g>
+
+  <!-- TVS GND Connection Point -->
+  <line x1="230" y1="225" x2="260" y2="225" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Ground Symbol at x=260 -->
+  <line x1="260" y1="215" x2="260" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="264" y1="219" x2="264" y2="231" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="268" y1="222" x2="268" y2="228" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- PE / GND Text placed safely below ground symbol without overlapping R_T or ground lines -->
+  <text x="264" y="248" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">PE / GND</text>
+
+  <!-- TVS Header Label -->
+  <text x="230" y="138" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">TVS-масив</text>
+  <text x="230" y="152" font-size="10" fill="#c0392b" text-anchor="middle">C_TVS &lt; 2 пФ</text>
+
+  <!-- Stage 3: Differential Termination Resistor R_T (120 Ohm) -->
+  <line x1="320" y1="170" x2="320" y2="210" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="320" y1="240" x2="320" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <rect x="312" y="210" width="16" height="30" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="334" y="222" font-size="11" font-weight="bold" fill="#1a1a1a">R_T</text>
+  <text x="334" y="235" font-size="10" fill="#6b7280">120 Ом</text>
+
+  <!-- Transceiver IC (RS-422 / BiSS-C Driver/Receiver) -->
+  <rect x="375" y="145" width="75" height="160" fill="white" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="412.5" y="175" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RS-422</text>
+  <text x="412.5" y="193" font-size="11" fill="#1a1a1a" text-anchor="middle">Трансивер</text>
+  <text x="412.5" y="210" font-size="10" fill="#6b7280" text-anchor="middle">(MAX3095 /</text>
+  <text x="412.5" y="222" font-size="10" fill="#6b7280" text-anchor="middle">SN65HVD)</text>
+
+  <text x="380" y="166" font-size="10" font-weight="bold" fill="#2457d6">A (+)</text>
+  <text x="380" y="276" font-size="10" font-weight="bold" fill="#2457d6">B (-)</text>
+
+  <!-- Panel 1 Explanatory Card -->
+  <rect x="36" y="325" width="420" height="182" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="50" y="346" font-size="12" font-weight="bold" fill="#1a1a1a">Ключові принципи захисту сигнальних ліній:</text>
+  
+  <text x="50" y="368" font-size="11" fill="#1a1a1a">• <tspan font-weight="bold" fill="#c0392b">TVS-діоди з малою ємністю (&lt; 2 пФ):</tspan> зрізають ESD-імпульси</text>
+  <text x="60" y="383" font-size="11" fill="#1a1a1a">напругою до 15 кВ за час &lt; 1 нс, не спотворюючи сигнали МГц.</text>
+  
+  <text x="50" y="405" font-size="11" fill="#1a1a1a">• <tspan font-weight="bold" fill="#1a1a1a">Обмежувальні резистори R_S (10 Ом):</tspan> розсіюють піковий струм</text>
+  <text x="60" y="420" font-size="11" fill="#1a1a1a">імпульсу та захищають діоди TVS від термічного перевантаження.</text>
+
+  <text x="50" y="442" font-size="11" fill="#1a1a1a">• <tspan font-weight="bold" fill="#2457d6">Термінатор R_T (120 Ом):</tspan> узгоджує хвильовий опір витої пари,</text>
+  <text x="60" y="457" font-size="11" fill="#1a1a1a">усуваючи відбиття сигналу на довгих трасах до 1200 м.</text>
+
+  <text x="50" y="479" font-size="11" fill="#1a1a1a">• <tspan font-weight="bold" fill="#27ae60">Заземлення PE:</tspan> високовольтний розряд скидається на корпус.</text>
+
+
+  <!-- ==================== RIGHT PANEL: POWER SUPPLY FILTERING & DECOUPLING ==================== -->
+  <rect x="492" y="68" width="444" height="452" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  
+  <!-- Right Panel Header -->
+  <rect x="504" y="80" width="420" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="714" y="101" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Фільтрація та розв'язка живлення (VCC/GND)</text>
+
+  <!-- Power Input Label -->
+  <text x="512" y="132" font-size="12" font-weight="bold" fill="#1a1a1a">Вхід живлення</text>
+  <text x="512" y="148" font-size="11" fill="#6b7280">+24V / +5V DC</text>
+
+  <!-- Main VCC Line (Top) -->
+  <text x="512" y="165" font-size="11" font-weight="bold" fill="#c0392b">VCC</text>
+  <line x1="512" y1="170" x2="880" y2="170" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="512" cy="170" r="4" fill="#c0392b"/>
+
+  <!-- Main GND Line (Bottom) -->
+  <text x="512" y="298" font-size="11" font-weight="bold" fill="#1a1a1a">GND (0V)</text>
+  <line x1="512" y1="280" x2="880" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="512" cy="280" r="4" fill="#1a1a1a"/>
+
+  <!-- Element 1: Reverse Polarity Protection Diode D_R (Schottky) -->
+  <g>
+    <polygon points="555,164 570,170 555,176" fill="#27ae60" stroke="#27ae60"/>
+    <line x1="570" y1="162" x2="570" y2="178" stroke="#27ae60" stroke-width="2"/>
+    <line x1="570" y1="162" x2="567" y2="162" stroke="#27ae60" stroke-width="1.5"/>
+    <line x1="570" y1="178" x2="573" y2="178" stroke="#27ae60" stroke-width="1.5"/>
+  </g>
+  <text x="562.5" y="138" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">D_R (Schottky)</text>
+  <text x="562.5" y="152" font-size="10" fill="#6b7280" text-anchor="middle">Захист переполюсовки</text>
+
+  <!-- Element 2: Power Surge TVS Diode D_TVS (SMAJ24A) -->
+  <line x1="610" y1="170" x2="610" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="610" y1="235" x2="610" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <g>
+    <polygon points="602,217 618,217 610,230" fill="#c0392b" stroke="#c0392b"/>
+    <line x1="602" y1="230" x2="618" y2="230" stroke="#c0392b" stroke-width="2"/>
+    <line x1="602" y1="230" x2="600" y2="226" stroke="#c0392b" stroke-width="1.5"/>
+    <line x1="618" y1="230" x2="620" y2="234" stroke="#c0392b" stroke-width="1.5"/>
+  </g>
+  <text x="625" y="222" font-size="11" font-weight="bold" fill="#c0392b">D_TVS</text>
+  <text x="625" y="235" font-size="10" fill="#6b7280">SMAJ24A</text>
+
+  <!-- Element 3: Ferrite Bead L_FB (High Frequency Noise Attenuation) -->
+  <g>
+    <rect x="670" y="163" width="30" height="14" fill="#2457d6" rx="3"/>
+    <text x="685" y="138" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">L_FB</text>
+    <text x="685" y="152" font-size="10" fill="#6b7280" text-anchor="middle">100 Ом @ 100 МГц</text>
+  </g>
+
+  <!-- Element 4: Multi-Tier Decoupling Capacitors (Bulk + HF Ceramic) -->
+  
+  <!-- C1: Bulk Capacitor 22 uF (x=730) -->
+  <line x1="730" y1="170" x2="730" y2="218" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="730" y1="228" x2="730" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="722" y1="218" x2="738" y2="218" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="722" y1="228" x2="738" y2="228" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="741" y="214" font-size="10" font-weight="bold" fill="#c0392b">+</text>
+  <text x="717" y="218" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="end">C_1</text>
+  <text x="717" y="232" font-size="10" fill="#1a1a1a" text-anchor="end">22 мкФ</text>
+  <text x="717" y="244" font-size="10" fill="#6b7280" text-anchor="end">НЧ-буфер</text>
+
+  <!-- C2: Ceramic MLCC 100 nF (x=785) -->
+  <line x1="785" y1="170" x2="785" y2="218" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="785" y1="228" x2="785" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="777" y1="218" x2="793" y2="218" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="777" y1="228" x2="793" y2="228" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="772" y="218" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="end">C_2</text>
+  <text x="772" y="232" font-size="10" fill="#1a1a1a" text-anchor="end">100 нФ</text>
+  <text x="772" y="244" font-size="10" fill="#6b7280" text-anchor="end">ВЧ-шуми</text>
+
+  <!-- C3: Ceramic MLCC 1 nF (x=850) -->
+  <line x1="850" y1="170" x2="850" y2="218" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="850" y1="228" x2="850" y2="280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="842" y1="218" x2="858" y2="218" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="842" y1="228" x2="858" y2="228" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="837" y="218" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="end">C_3</text>
+  <text x="837" y="232" font-size="10" fill="#1a1a1a" text-anchor="end">1 нФ</text>
+  <text x="837" y="244" font-size="10" fill="#6b7280" text-anchor="end">RF-байпас</text>
+
+  <!-- Target IC Pins (Encoder Controller IC / Sensor Core) -->
+  <rect x="880" y="145" width="44" height="160" fill="white" stroke="#27ae60" stroke-width="2" rx="4"/>
+  <text x="902" y="195" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">ЧИП</text>
+  <text x="902" y="210" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">ЕНКО-</text>
+  <text x="902" y="225" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">ДЕРА</text>
+
+  <text x="884" y="166" font-size="10" font-weight="bold" fill="#c0392b">VDD</text>
+  <text x="884" y="276" font-size="10" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <!-- Panel 2 Explanatory Card -->
+  <rect x="504" y="325" width="420" height="182" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="518" y="346" font-size="12" font-weight="bold" fill="#1a1a1a">Структура розв'язувальних кіл живлення:</text>
+  
+  <text x="518" y="368" font-size="11" fill="#1a1a1a">• <tspan font-weight="bold" fill="#27ae60">Діод Шотткі D_R:</tspan> захищає схему від випадкової зміни полярності</text>
+  <text x="528" y="383" font-size="11" fill="#1a1a1a">живлення (переполюсовки) з мінімальним падінням напруги.</text>
+
+  <text x="518" y="405" font-size="11" fill="#1a1a1a">• <tspan font-weight="bold" fill="#2457d6">Ферритовий фільтр L_FB (100 Ом):</tspan> створює високий опір для</text>
+  <text x="528" y="420" font-size="11" fill="#1a1a1a">високочастотних шуми (10-100 МГц), не обмежуючи постійний струм.</text>
+
+  <text x="518" y="442" font-size="11" fill="#1a1a1a">• <tspan font-weight="bold" fill="#1a1a1a">Багатоступенева ємнісна розв'язка (C_1, C_2, C_3):</tspan></text>
+  <text x="528" y="457" font-size="11" fill="#1a1a1a">C_1 (22 мкФ) — буфер низькочастотних пульсацій джерела;</text>
+  <text x="528" y="472" font-size="11" fill="#1a1a1a">C_2 (100 нФ) та C_3 (1 нФ) — розміщуються безпосередньо біля</text>
+  <text x="528" y="487" font-size="11" fill="#1a1a1a">виводів живлення чипа для фільтрації ВЧ та РФ наводок.</text>
+
+</svg>

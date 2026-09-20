@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%">
+  <rect width="800" height="400" fill="#1e1e2e" rx="12"/>
+  <text x="400" y="35" fill="#cba6f7" font-family="sans-serif" font-size="18" font-weight="bold" text-anchor="middle">Принципова схема 3-фазного автоматичного селектора живлення</text>
+
+  <g transform="translate(50, 80)">
+    <text x="0" y="30" fill="#f38ba8" font-family="sans-serif" font-size="14" font-weight="bold">Phase L1</text>
+    <line x1="80" y1="25" x2="200" y2="25" stroke="#f38ba8" stroke-width="2"/>
+
+    <text x="0" y="110" fill="#fab387" font-family="sans-serif" font-size="14" font-weight="bold">Phase L2</text>
+    <line x1="80" y1="105" x2="200" y2="105" stroke="#fab387" stroke-width="2"/>
+
+    <text x="0" y="190" fill="#a6e3a1" font-family="sans-serif" font-size="14" font-weight="bold">Phase L3</text>
+    <line x1="80" y1="185" x2="200" y2="185" stroke="#a6e3a1" stroke-width="2"/>
+  </g>
+
+  <g transform="translate(250, 60)">
+    <rect x="0" y="20" width="120" height="60" fill="#181825" stroke="#89b4fa" stroke-width="2" rx="6"/>
+    <text x="60" y="55" fill="#89b4fa" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">KM1 (L1)</text>
+
+    <rect x="0" y="100" width="120" height="60" fill="#181825" stroke="#89b4fa" stroke-width="2" rx="6"/>
+    <text x="60" y="135" fill="#89b4fa" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">KM2 (L2)</text>
+
+    <rect x="0" y="180" width="120" height="60" fill="#181825" stroke="#89b4fa" stroke-width="2" rx="6"/>
+    <text x="60" y="215" fill="#89b4fa" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">KM3 (L3)</text>
+  </g>
+
+  <g transform="translate(420, 60)">
+    <rect width="180" height="240" fill="#313244" stroke="#f9e2af" stroke-width="1.5" stroke-dasharray="4" rx="8"/>
+    <text x="90" y="30" fill="#f9e2af" font-family="sans-serif" font-size="13" font-weight="bold" text-anchor="middle">Перехресне блокування</text>
+    <text x="90" y="60" fill="#bac2de" font-family="sans-serif" font-size="11" text-anchor="middle">21NC-22NC KM2/KM3</text>
+    <text x="90" y="140" fill="#bac2de" font-family="sans-serif" font-size="11" text-anchor="middle">21NC-22NC KM1/KM3</text>
+    <text x="90" y="220" fill="#bac2de" font-family="sans-serif" font-size="11" text-anchor="middle">21NC-22NC KM1/KM2</text>
+  </g>
+
+  <g transform="translate(650, 80)">
+    <line x1="0" y1="25" x2="0" y2="185" stroke="#cba6f7" stroke-width="4"/>
+    <line x1="0" y1="105" x2="80" y2="105" stroke="#cba6f7" stroke-width="3"/>
+    <text x="85" y="110" fill="#cba6f7" font-family="sans-serif" font-size="14" font-weight="bold">Вихід 220 В</text>
+  </g>
+</svg>

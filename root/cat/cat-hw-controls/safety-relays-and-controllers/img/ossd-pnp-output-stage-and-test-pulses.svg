@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Електрична схема та часові діаграми виходів OSSD (PNP)</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Тестові імпульси самодіагностики (t_test ≤ 500 мкс) не викликають вимкнення контакторів K1/K2</text>
+
+  <!-- LEFT PANEL: SCHEMATIC OF OSSD PNP STAGE -->
+  <g id="panel-schematic">
+    <rect x="30" y="75" width="420" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="240" y="98" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">1. Схемотехніка PNP-каскаду OSSD</text>
+
+    <!-- Power Supply Rails -->
+    <line x1="50" y1="120" x2="430" y2="120" stroke="#2457d6" stroke-width="2"/>
+    <text x="55" y="114" font-size="11" font-weight="bold" fill="#2457d6">+24V DC</text>
+
+    <line x1="50" y1="400" x2="430" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="55" y="415" font-size="11" fill="#6b7280">GND (0V)</text>
+
+    <!-- MCU & Test Generator Block -->
+    <rect x="50" y="145" width="90" height="220" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="95" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Мікро-</text>
+    <text x="95" y="253" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">контролер</text>
+    <text x="95" y="271" text-anchor="middle" font-size="11" fill="#6b7280">і тест-</text>
+    <text x="95" y="287" text-anchor="middle" font-size="11" fill="#6b7280">генератор</text>
+
+    <!-- OSSD Channel 1 Key (PNP) -->
+    <rect x="170" y="145" width="110" height="95" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="225" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">OSSD1 Key</text>
+    <text x="225" y="190" text-anchor="middle" font-size="11" fill="#1a1a1a">PNP High-Side</text>
+    <text x="225" y="208" text-anchor="middle" font-size="11" fill="#6b7280">+24V / 0.5A</text>
+
+    <!-- MCU to OSSD1 Line -->
+    <line x1="140" y1="180" x2="170" y2="180" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <!-- +24V to OSSD1 Line -->
+    <line x1="225" y1="120" x2="225" y2="145" stroke="#2457d6" stroke-width="2"/>
+
+    <!-- OSSD Channel 2 Key (PNP) -->
+    <rect x="170" y="270" width="110" height="95" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="225" y="295" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">OSSD2 Key</text>
+    <text x="225" y="315" text-anchor="middle" font-size="11" fill="#1a1a1a">PNP High-Side</text>
+    <text x="225" y="333" text-anchor="middle" font-size="11" fill="#6b7280">+24V / 0.5A</text>
+
+    <!-- MCU to OSSD2 Line -->
+    <line x1="140" y1="315" x2="170" y2="315" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <!-- +24V to OSSD2 Line -->
+    <path d="M 265 120 L 265 270" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+    <!-- Contactor K1 Coil (Load 1) -->
+    <rect x="315" y="170" width="105" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="367" y="193" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Котушка K1</text>
+    <text x="367" y="211" text-anchor="middle" font-size="11" fill="#6b7280">(Навантаження)</text>
+
+    <!-- OSSD1 to K1 Line -->
+    <line x1="280" y1="195" x2="315" y2="195" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <!-- K1 to GND Line -->
+    <path d="M 420 195 L 430 195 L 430 400" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+
+    <!-- Contactor K2 Coil (Load 2) -->
+    <rect x="315" y="295" width="105" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="367" y="318" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Котушка K2</text>
+    <text x="367" y="336" text-anchor="middle" font-size="11" fill="#6b7280">(Навантаження)</text>
+
+    <!-- OSSD2 to K2 Line -->
+    <line x1="280" y1="320" x2="315" y2="320" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <!-- K2 to GND Line -->
+    <path d="M 420 320 L 430 320" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  </g>
+
+  <!-- RIGHT PANEL: WAVEFORM TIMING DIAGRAMS -->
+  <g id="panel-timing">
+    <rect x="480" y="75" width="450" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="705" y="98" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">2. Часові діаграми тестових провалів (OSSD)</text>
+
+    <!-- Axis Line -->
+    <line x1="540" y1="350" x2="900" y2="350" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+    <text x="905" y="354" font-size="12" font-weight="bold" fill="#1a1a1a">Час t</text>
+
+    <!-- Waveform 1: OSSD1 -->
+    <text x="495" y="142" font-size="12" font-weight="bold" fill="#2457d6">U_OSSD1</text>
+    <text x="495" y="157" font-size="10" fill="#6b7280">(Канал 1)</text>
+
+    <line x1="540" y1="165" x2="890" y2="165" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+    <path d="M 540 130 L 600 130 L 600 165 L 620 165 L 620 130 L 890 130" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+    <!-- Test Pulse 1 Annotation -->
+    <line x1="600" y1="125" x2="600" y2="175" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="620" y1="125" x2="620" y2="175" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+    <text x="610" y="190" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">t_test ≤ 500 мкс</text>
+
+    <!-- Waveform 2: OSSD2 -->
+    <text x="495" y="222" font-size="12" font-weight="bold" fill="#2457d6">U_OSSD2</text>
+    <text x="495" y="237" font-size="10" fill="#6b7280">(Канал 2)</text>
+
+    <line x1="540" y1="245" x2="890" y2="245" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+    <path d="M 540 210 L 720 210 L 720 245 L 740 245 L 740 210 L 890 210" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+    <!-- Test Pulse 2 Annotation (Phase Shift) -->
+    <line x1="720" y1="205" x2="720" y2="255" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+    <line x1="740" y1="205" x2="740" y2="255" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+    <text x="730" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Зсув фази (Phase Shift)</text>
+
+    <!-- Waveform 3: Contactor State K1/K2 -->
+    <text x="495" y="302" font-size="12" font-weight="bold" fill="#27ae60">Стан K1/K2</text>
+    <text x="495" y="317" font-size="10" fill="#6b7280">(Контактори)</text>
+
+    <line x1="540" y1="305" x2="890" y2="305" stroke="#27ae60" stroke-width="3"/>
+    <text x="715" y="322" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">БЕЗПЕРЕРВНО ЗАМКНЕНО (ON)</text>
+
+    <!-- Bottom Badge Box Panel 2 -->
+    <rect x="495" y="370" width="420" height="45" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="705" y="388" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">✓ Інерція котушок контакторів утримує контакти під час t_test</text>
+    <text x="705" y="406" text-anchor="middle" font-size="11" fill="#1a1a1a">Виявлення міжжильних та коротких замикань без зупинки лінії</text>
+  </g>
+</svg>

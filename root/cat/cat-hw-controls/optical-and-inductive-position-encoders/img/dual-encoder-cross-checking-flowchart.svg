@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Алгоритм перехресного порівняння (Cross-Checking) двох каналів енкодерів</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Виявлення раптових стрибків, повільного дрейфу та арбітраж прихованих відмов оптичного й RVDT сенсорів</text>
+
+  <!-- STAGE 1: INPUT SOURCES -->
+  <!-- Channel 1: Optical Encoder -->
+  <rect x="60" y="80" width="380" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="75" y="100" font-size="13" font-weight="bold" fill="#2457d6">Канал 1: Оптичний інкрементальний енкодер</text>
+  <text x="75" y="122" font-size="12" fill="#1a1a1a">Зчитування позиції θ_opt через апаратний лічильник</text>
+
+  <!-- Channel 2: RVDT Sensor -->
+  <rect x="520" y="80" width="380" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="535" y="100" font-size="13" font-weight="bold" fill="#27ae60">Канал 2: Аналоговий RVDT давач</text>
+  <text x="535" y="122" font-size="12" fill="#1a1a1a">Зчитування позиції θ_rvdt через АЦП (arctan)</text>
+
+  <!-- Connectors: Stage 1 -> Stage 2 -->
+  <line x1="250" y1="145" x2="250" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="710" y1="145" x2="710" y2="165" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- STAGE 2: DIFFERENTIAL PROCESSING -->
+  <rect x="60" y="165" width="840" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="75" y="188" font-size="13" font-weight="bold" fill="#1a1a1a">1. Обчислення неузгодженості та швидкості зміни: Δθ = |θ_opt - θ_rvdt|</text>
+  <text x="75" y="212" font-size="12" font-weight="bold" fill="#2457d6">Перевірка порогових обмежень: Δθ > Δθ_max (2.5°) ?</text>
+
+  <!-- Connectors: Stage 2 -> Stage 3 -->
+  <line x1="255" y1="235" x2="255" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="705" y1="235" x2="705" y2="255" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- STAGE 3: CHECKS -->
+  <!-- Left Check: Jump Fault Check -->
+  <rect x="60" y="255" width="390" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="75" y="275" font-size="13" font-weight="bold" fill="#c0392b">Перевірка раптового стрибка:</text>
+  <text x="75" y="295" font-size="12" fill="#1a1a1a">Умова: d(Δθ)/dt > Threshold_jump</text>
+  <text x="75" y="315" font-size="12" fill="#6b7280">Збій оптичного лічильника / завада</text>
+
+  <!-- Right Check: Drift Check -->
+  <rect x="510" y="255" width="390" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="525" y="275" font-size="13" font-weight="bold" fill="#c0392b">Перевірка накопиченого дрейфу:</text>
+  <text x="525" y="295" font-size="12" fill="#1a1a1a">Умова: ∫ Δθ dt > Threshold_drift</text>
+  <text x="525" y="315" font-size="12" fill="#6b7280">Температурний зсув / дрейф нуля AFE</text>
+
+  <!-- Connectors: Stage 3 -> Stage 4 -->
+  <!-- Left Check -> Hard Fault -->
+  <line x1="190" y1="330" x2="190" y2="350" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="196" y="344" font-size="12" font-weight="bold" fill="#c0392b">ТАК</text>
+
+  <!-- Left Check -> Normal Operation -->
+  <line x1="480" y1="330" x2="480" y2="350" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="486" y="344" font-size="12" font-weight="bold" fill="#27ae60">НІ</text>
+
+  <!-- Right Check -> Drift Warning -->
+  <line x1="770" y1="330" x2="770" y2="350" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="776" y="344" font-size="12" font-weight="bold" fill="#c0392b">ТАК</text>
+
+  <!-- STAGE 4: OUTCOMES -->
+  <!-- Left Outcome: Hard Fault -->
+  <rect x="60" y="350" width="260" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="70" y="370" font-size="13" font-weight="bold" fill="#c0392b">Аварія: Раптовий збій</text>
+  <text x="70" y="390" font-size="12" fill="#1a1a1a">Стрибок координати</text>
+  <text x="70" y="410" font-size="12" fill="#6b7280">Фіксація HARD_FAULT</text>
+  <text x="70" y="430" font-size="12" font-weight="bold" fill="#c0392b">Блокування виходу</text>
+
+  <!-- Middle Outcome: Normal Operation -->
+  <rect x="350" y="350" width="260" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="360" y="370" font-size="13" font-weight="bold" fill="#27ae60">Норма: Координати OK</text>
+  <text x="360" y="390" font-size="12" fill="#1a1a1a">Δθ &lt; 2.5° (штатний стан)</text>
+  <text x="360" y="410" font-size="12" fill="#6b7280">Комплементарний фільтр</text>
+  <text x="360" y="430" font-size="12" font-weight="bold" fill="#27ae60">θ_out = α·θ_opt + (1-α)·θ_rvdt</text>
+
+  <!-- Right Outcome: Drift Warning -->
+  <rect x="640" y="350" width="260" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="650" y="370" font-size="13" font-weight="bold" fill="#c0392b">Попередження: Дрейф</text>
+  <text x="650" y="390" font-size="12" fill="#1a1a1a">Повільний вихід нуля</text>
+  <text x="650" y="410" font-size="12" fill="#6b7280">Фіксація DRIFT_WARN</text>
+  <text x="650" y="430" font-size="12" font-weight="bold" fill="#c0392b">Вимога калібрування</text>
+
+  <!-- STAGE 5: BOTTOM SUMMARY BANNER -->
+  <rect x="60" y="465" width="840" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="488" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">✓ БЕЗПЕКА ТА АРБІТРАЖ: Автоматичне відключення позиціонування при критичній неузгодженості</text>
+  <text x="480" y="510" font-size="12" fill="#1a1a1a" text-anchor="middle">Забезпечення вимог стандарту ISO 13849-1 (Category 3 / PL d) для органів ручного вводу</text>
+</svg>

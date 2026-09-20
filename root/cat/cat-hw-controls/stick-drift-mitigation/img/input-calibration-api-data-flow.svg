@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Потік даних API калібрування та нормалізації органів вводу</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Послідовність перетворення сирих відліків АЦП у нормований вектор [-1.0..+1.0] з радіальною мертвою зоною</text>
+
+  <!-- PANEL 1: RAW ADC INPUT -->
+  <rect x="30" y="80" width="190" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="125" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Сирий сигнал АЦП</text>
+  
+  <rect x="45" y="125" width="160" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="125" y="150" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">ADC_RAW (X, Y)</text>
+  <text x="125" y="170" text-anchor="middle" font-size="12" fill="#6b7280">Діапазон 0..4095</text>
+
+  <text x="125" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">adc_read_channels()</text>
+  <text x="125" y="235" text-anchor="middle" font-size="12" fill="#6b7280">(x_raw, y_raw)</text>
+
+  <rect x="45" y="265" width="160" height="55" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="125" y="288" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⚠️ Проблема</text>
+  <text x="125" y="306" text-anchor="middle" font-size="12" fill="#c0392b">Дрейф нуля та шум</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="220" y1="210" x2="252" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- PANEL 2: NORMALIZATION & CALIBRATION -->
+  <rect x="260" y="80" width="210" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="365" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Нормалізація осей</text>
+
+  <text x="365" y="132" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">stick_normalize_axis()</text>
+  <text x="365" y="150" text-anchor="middle" font-size="12" fill="#6b7280">(x - x_center) / span</text>
+
+  <rect x="275" y="170" width="180" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="365" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">CalibrationProfile</text>
+  <text x="365" y="210" text-anchor="middle" font-size="12" fill="#6b7280">center, min, max (X/Y)</text>
+  <text x="365" y="238" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">EEPROM / CRC16</text>
+
+  <rect x="275" y="270" width="180" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="365" y="292" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Прямокутник [-1..+1]</text>
+  <text x="365" y="308" text-anchor="middle" font-size="12" fill="#6b7280">Кусково-лінійний</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="470" y1="210" x2="502" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- PANEL 3: SCALED RADIAL DEADZONE -->
+  <rect x="510" y="80" width="210" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="615" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">3. Мертва зона</text>
+
+  <text x="615" y="132" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">stick_apply_deadzone()</text>
+  <text x="615" y="150" text-anchor="middle" font-size="12" fill="#27ae60">r_norm = (r-dz)/(1-dz)</text>
+
+  <rect x="525" y="170" width="180" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="615" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Scaled Radial Deadzone</text>
+  <text x="615" y="217" text-anchor="middle" font-size="12" fill="#1a1a1a">r &lt; dz → (0, 0)</text>
+  <text x="615" y="237" text-anchor="middle" font-size="12" fill="#27ae60">Плавність у 360°</text>
+
+  <text x="615" y="295" text-anchor="middle" font-size="12" fill="#6b7280">Без притягання до осей</text>
+  <text x="615" y="315" text-anchor="middle" font-size="12" fill="#6b7280">та без стрибків сили</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="720" y1="210" x2="752" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- PANEL 4: OUTPUT VECTOR -->
+  <rect x="760" y="80" width="170" height="260" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="845" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">4. Вихідний вектор</text>
+
+  <rect x="775" y="130" width="140" height="90" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="845" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">NormalizedVector</text>
+  <text x="845" y="174" text-anchor="middle" font-size="12" fill="#1a1a1a">v_x: [-1.0 .. +1.0]</text>
+  <text x="845" y="194" text-anchor="middle" font-size="12" fill="#1a1a1a">v_y: [-1.0 .. +1.0]</text>
+  <text x="845" y="210" text-anchor="middle" font-size="12" fill="#27ae60">mag: 0.0 .. 1.0</text>
+
+  <text x="845" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">stick_get_vector()</text>
+  <text x="845" y="285" text-anchor="middle" font-size="12" fill="#1a1a1a">Готовий вектор</text>
+  <text x="845" y="305" text-anchor="middle" font-size="12" fill="#6b7280">для приводу / роботи</text>
+
+
+  <!-- BOTTOM API SUMMARY CARD -->
+  <rect x="30" y="360" width="900" height="75" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="385" font-size="13" font-weight="bold" fill="#1a1a1a">Послідовність виклику методів API в циклі контролера (Loop Execution):</text>
+  
+  <text x="45" y="415" font-size="12" font-weight="bold" fill="#2457d6">1. stick_init(&amp;prof)</text>
+  <text x="235" y="415" font-size="12" font-weight="bold" fill="#2457d6">→ 2. stick_calibrate_zero()</text>
+  <text x="480" y="415" font-size="12" font-weight="bold" fill="#2457d6">→ 3. stick_process(x, y)</text>
+  <text x="715" y="415" font-size="12" font-weight="bold" fill="#27ae60">→ 4. stick_get_vector()</text>
+</svg>

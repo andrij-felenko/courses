@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Примусове механічне розмикання контактів (IEC 60947-5-1)</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Порівняння пружинного розмикання та жорсткого штока кнопки E-Stop під час зварювання контактів</text>
+
+  <!-- Left Panel: Standard Button -->
+  <rect x="40" y="75" width="420" height="360" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="250" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">1. Звичайна кнопка (пружинне розмикання)</text>
+  <text x="250" y="120" text-anchor="middle" font-size="12" fill="#6b7280">Сили пружини недостатньо для розриву звареного шва</text>
+
+  <!-- Plunger & Spring (Left) -->
+  <rect x="210" y="140" width="80" height="24" rx="4" fill="#e74c3c" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="250" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Кнопка</text>
+  <rect x="242" y="164" width="16" height="70" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+  
+  <!-- Spring representation -->
+  <path d="M 235 174 L 265 182 L 235 190 L 265 198 L 235 206 L 265 214 L 235 222" fill="none" stroke="#7f8c8d" stroke-width="2"/>
+  <path d="M 250 215 L 250 185" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="345" y="200" text-anchor="middle" font-size="12" fill="#c0392b">F_пружини (слабка)</text>
+
+  <!-- Fixed Terminals (Left) -->
+  <rect x="120" y="270" width="65" height="16" rx="2" fill="#f39c12" stroke="#d35400" stroke-width="1"/>
+  <rect x="315" y="270" width="65" height="16" rx="2" fill="#f39c12" stroke="#d35400" stroke-width="1"/>
+  <text x="152" y="304" text-anchor="middle" font-size="12" fill="#1a1a1a">Клема 1</text>
+  <text x="347" y="304" text-anchor="middle" font-size="12" fill="#1a1a1a">Клема 2</text>
+
+  <!-- Moving Contact Bridge (Left - Stuck Closed) -->
+  <rect x="145" y="254" width="210" height="12" rx="2" fill="#bdc3c7" stroke="#7f8c8d" stroke-width="1"/>
+  <circle cx="160" cy="268" r="7" fill="#c0392b" opacity="0.8"/>
+  <text x="250" y="244" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Зварений місток (дуга)</text>
+
+  <!-- Status Badge Left -->
+  <rect x="60" y="380" width="380" height="36" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="250" y="403" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">❌ ЗБІЙ РОЗМИКАННЯ: Коло лишилося замкненим!</text>
+
+  <!-- Right Panel: E-Stop Button -->
+  <rect x="500" y="75" width="420" height="360" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">2. Кнопка E-Stop IEC 60947-5-5 (примусове розмикання)</text>
+  <text x="710" y="120" text-anchor="middle" font-size="12" fill="#6b7280">Жорсткий шток передає зусилля руки і зрізає місток (→)</text>
+
+  <!-- Hand Force Vector -->
+  <path d="M 710 90 L 710 128" fill="none" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="795" y="112" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">F_руки (натиск)</text>
+
+  <!-- Mushroom Plunger & Rigid Shaft (Right) -->
+  <path d="M 660 152 C 660 135 760 135 760 152 Z" fill="#c0392b" stroke="#962d22" stroke-width="2"/>
+  <rect x="680" y="152" width="60" height="10" fill="#f1c40f" stroke="#f39c12" stroke-width="1"/>
+  <text x="710" y="147" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Грибок</text>
+
+  <!-- Rigid Shaft & Wedge -->
+  <rect x="702" y="162" width="16" height="85" fill="#2c3e50" stroke="#1a252f" stroke-width="1.5"/>
+  <path d="M 698 247 L 722 247 L 710 262 Z" fill="#2c3e50"/>
+
+  <!-- Fixed Terminals (Right) -->
+  <rect x="580" y="270" width="65" height="16" rx="2" fill="#f39c12" stroke="#d35400" stroke-width="1"/>
+  <rect x="775" y="270" width="65" height="16" rx="2" fill="#f39c12" stroke="#d35400" stroke-width="1"/>
+  <text x="612" y="304" text-anchor="middle" font-size="12" fill="#1a1a1a">Клема 11 (NC)</text>
+  <text x="807" y="304" text-anchor="middle" font-size="12" fill="#1a1a1a">Клема 12 (NC)</text>
+
+  <!-- Moving Contact Bridge Tilted Open (Right) -->
+  <g transform="rotate(10, 710, 280)">
+    <rect x="605" y="276" width="210" height="12" rx="2" fill="#bdc3c7" stroke="#7f8c8d" stroke-width="1"/>
+  </g>
+  <path d="M 595 264 L 602 278 M 600 270 L 607 274" stroke="#c0392b" stroke-width="2"/>
+  <text x="585" y="248" font-size="12" font-weight="bold" fill="#27ae60">Місток зрізано штоком!</text>
+
+  <!-- Positive Opening Symbol (→) Badge -->
+  <circle cx="850" cy="180" r="18" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 838 180 L 858 180 M 852 174 L 858 180 L 852 186" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+  <circle cx="848" cy="180" r="11" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="850" y="212" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Символ (→)</text>
+
+  <!-- Status Badge Right -->
+  <rect x="520" y="380" width="380" height="36" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="403" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">✓ БЕЗУМОВНИЙ РОЗРИВ: Коло апаратно розімкнено!</text>
+</svg>

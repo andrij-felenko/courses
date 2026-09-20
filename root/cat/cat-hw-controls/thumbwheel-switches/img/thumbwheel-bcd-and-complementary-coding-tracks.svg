@@ -1,0 +1,153 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія контактних доріжок плат кодування</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння плат прямого BCD (8-4-2-1), інверсного BCD та позиційного коду 1-з-10</text>
+
+  <!-- Panel 1: Direct BCD -->
+  <rect x="30" y="75" width="280" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="90" width="250" height="30" rx="5" fill="#2457d6"/>
+  <text x="170" y="110" font-size="14" font-weight="bold" fill="white" text-anchor="middle">1. Прямий BCD (8-4-2-1)</text>
+
+  <!-- Stator PCB Graphic Panel 1 -->
+  <g transform="translate(0, 5)">
+    <rect x="50" y="133" width="240" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="60" y="150" font-size="11" font-weight="bold" fill="#27ae60">Плата прямого BCD</text>
+
+    <!-- Tracks (COM, 8, 4, 2, 1) -->
+    <!-- COM Track -->
+    <line x1="70" y1="168" x2="250" y2="168" stroke="#d4af37" stroke-width="4.5" stroke-linecap="round"/>
+    <!-- Bit 8 Track (Open for '7') -->
+    <line x1="70" y1="188" x2="140" y2="188" stroke="#d4af37" stroke-width="4.5" stroke-dasharray="4 4" stroke-linecap="round"/>
+    <line x1="180" y1="188" x2="250" y2="188" stroke="#d4af37" stroke-width="4.5" stroke-dasharray="4 4" stroke-linecap="round"/>
+    <!-- Bit 4 Track (Closed for '7') -->
+    <line x1="70" y1="208" x2="250" y2="208" stroke="#d4af37" stroke-width="4.5" stroke-linecap="round"/>
+    <!-- Bit 2 Track (Closed for '7') -->
+    <line x1="70" y1="228" x2="250" y2="228" stroke="#d4af37" stroke-width="4.5" stroke-linecap="round"/>
+    <!-- Bit 1 Track (Closed for '7') -->
+    <line x1="70" y1="248" x2="250" y2="248" stroke="#d4af37" stroke-width="4.5" stroke-linecap="round"/>
+
+    <!-- Track Labels -->
+    <text x="260" y="172" font-size="11" font-weight="bold" fill="#1a1a1a">COM</text>
+    <text x="260" y="192" font-size="11" font-weight="bold" fill="#6b7280">8 (0)</text>
+    <text x="260" y="212" font-size="11" font-weight="bold" fill="#2457d6">4 (1)</text>
+    <text x="260" y="232" font-size="11" font-weight="bold" fill="#2457d6">2 (1)</text>
+    <text x="260" y="252" font-size="11" font-weight="bold" fill="#2457d6">1 (1)</text>
+
+    <!-- Wiper Contact Bridge for Digit 7 -->
+    <line x1="160" y1="168" x2="160" y2="248" stroke="#2457d6" stroke-width="2.5"/>
+    <circle cx="160" cy="168" r="4" fill="#2457d6"/>
+    <circle cx="160" cy="208" r="4" fill="#2457d6"/>
+    <circle cx="160" cy="228" r="4" fill="#2457d6"/>
+    <circle cx="160" cy="248" r="4" fill="#2457d6"/>
+  </g>
+
+  <!-- Panel 1 Text Description -->
+  <text x="45" y="308" font-size="13" font-weight="bold" fill="#1a1a1a">• Активний високий (1)</text>
+  <text x="55" y="326" font-size="12" fill="#6b7280">COM з'єднується з бітами 1, 2, 4, 8</text>
+  <text x="45" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">• Стан для цифри 7: 0111</text>
+  <text x="55" y="366" font-size="12" fill="#6b7280">Замкнені виходи 1, 2 та 4</text>
+  <text x="45" y="388" font-size="13" font-weight="bold" fill="#1a1a1a">• Безпосередній ввод</text>
+  <text x="55" y="406" font-size="12" fill="#6b7280">Пряма подача на контролер</text>
+
+  <!-- Panel 2: Complementary BCD -->
+  <rect x="340" y="75" width="280" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="355" y="90" width="250" height="30" rx="5" fill="#c0392b"/>
+  <text x="480" y="110" font-size="14" font-weight="bold" fill="white" text-anchor="middle">2. Інверсний BCD (¬BCD)</text>
+
+  <!-- Stator PCB Graphic Panel 2 -->
+  <g transform="translate(0, 5)">
+    <rect x="360" y="133" width="240" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="370" y="150" font-size="11" font-weight="bold" fill="#c0392b">Плата інверсного BCD</text>
+
+    <!-- Tracks (COM, 8, 4, 2, 1) -->
+    <!-- COM Track -->
+    <line x1="380" y1="168" x2="560" y2="168" stroke="#d4af37" stroke-width="4.5" stroke-linecap="round"/>
+    <!-- Bit 8 Track (Closed for '7' since ¬0 = 1) -->
+    <line x1="380" y1="188" x2="560" y2="188" stroke="#d4af37" stroke-width="4.5" stroke-linecap="round"/>
+    <!-- Bit 4 Track (Open for '7') -->
+    <line x1="380" y1="208" x2="450" y2="208" stroke="#d4af37" stroke-width="4.5" stroke-dasharray="4 4" stroke-linecap="round"/>
+    <line x1="490" y1="208" x2="560" y2="208" stroke="#d4af37" stroke-width="4.5" stroke-dasharray="4 4" stroke-linecap="round"/>
+    <!-- Bit 2 Track (Open for '7') -->
+    <line x1="380" y1="228" x2="450" y2="228" stroke="#d4af37" stroke-width="4.5" stroke-dasharray="4 4" stroke-linecap="round"/>
+    <line x1="490" y1="228" x2="560" y2="228" stroke="#d4af37" stroke-width="4.5" stroke-dasharray="4 4" stroke-linecap="round"/>
+    <!-- Bit 1 Track (Open for '7') -->
+    <line x1="380" y1="248" x2="450" y2="248" stroke="#d4af37" stroke-width="4.5" stroke-dasharray="4 4" stroke-linecap="round"/>
+    <line x1="490" y1="248" x2="560" y2="248" stroke="#d4af37" stroke-width="4.5" stroke-dasharray="4 4" stroke-linecap="round"/>
+
+    <!-- Track Labels -->
+    <text x="570" y="172" font-size="11" font-weight="bold" fill="#1a1a1a">COM</text>
+    <text x="570" y="192" font-size="11" font-weight="bold" fill="#c0392b">¬8 (1)</text>
+    <text x="570" y="212" font-size="11" font-weight="bold" fill="#6b7280">¬4 (0)</text>
+    <text x="570" y="232" font-size="11" font-weight="bold" fill="#6b7280">¬2 (0)</text>
+    <text x="570" y="252" font-size="11" font-weight="bold" fill="#6b7280">¬1 (0)</text>
+
+    <!-- Wiper Contact Bridge for Digit 7 -->
+    <line x1="470" y1="168" x2="470" y2="188" stroke="#c0392b" stroke-width="2.5"/>
+    <circle cx="470" cy="168" r="4" fill="#c0392b"/>
+    <circle cx="470" cy="188" r="4" fill="#c0392b"/>
+  </g>
+
+  <!-- Panel 2 Text Description -->
+  <text x="355" y="308" font-size="13" font-weight="bold" fill="#1a1a1a">• Активний низький (0)</text>
+  <text x="365" y="326" font-size="12" fill="#6b7280">Інверсне замикання бітів (15 - D)</text>
+  <text x="355" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">• Стан для цифри 7: 1000</text>
+  <text x="365" y="366" font-size="12" fill="#6b7280">Замкнено лише вихід біта 8</text>
+  <text x="355" y="388" font-size="13" font-weight="bold" fill="#1a1a1a">• Схеми з підтяжками</text>
+  <text x="365" y="406" font-size="12" fill="#6b7280">Сумісність із DTL/TTL логікою</text>
+
+  <!-- Panel 3: Decimal 1-of-10 -->
+  <rect x="650" y="75" width="280" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="665" y="90" width="250" height="30" rx="5" fill="#27ae60"/>
+  <text x="790" y="110" font-size="14" font-weight="bold" fill="white" text-anchor="middle">3. Десятковий (1-з-10)</text>
+
+  <!-- Stator PCB Graphic Panel 3 -->
+  <g transform="translate(0, 5)">
+    <rect x="670" y="133" width="240" height="135" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="680" y="150" font-size="11" font-weight="bold" fill="#2457d6">Плата десяткового коду</text>
+
+    <!-- COM Track -->
+    <line x1="690" y1="168" x2="870" y2="168" stroke="#d4af37" stroke-width="4.5" stroke-linecap="round"/>
+    <text x="880" y="172" font-size="11" font-weight="bold" fill="#1a1a1a">COM</text>
+
+    <!-- 10 Separate Output Pads (Represented symbolically) -->
+    <!-- Open Pads 0..6 -->
+    <circle cx="700" cy="208" r="4" fill="#d0d7de"/>
+    <circle cx="720" cy="208" r="4" fill="#d0d7de"/>
+    <circle cx="740" cy="208" r="4" fill="#d0d7de"/>
+    <circle cx="760" cy="208" r="4" fill="#d0d7de"/>
+    <circle cx="780" cy="208" r="4" fill="#d0d7de"/>
+    <circle cx="800" cy="208" r="4" fill="#d0d7de"/>
+    <circle cx="820" cy="208" r="4" fill="#d0d7de"/>
+    
+    <!-- Active Closed Pad 7 -->
+    <circle cx="840" cy="208" r="5" fill="#27ae60"/>
+
+    <!-- Open Pads 8..9 -->
+    <circle cx="860" cy="208" r="4" fill="#d0d7de"/>
+    <circle cx="880" cy="208" r="4" fill="#d0d7de"/>
+
+    <!-- Labels for pads -->
+    <text x="840" y="228" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Вивід 7</text>
+
+    <!-- Wiper Contact Bridge to Pad 7 -->
+    <line x1="840" y1="168" x2="840" y2="203" stroke="#27ae60" stroke-width="2.5"/>
+    <circle cx="840" cy="168" r="4" fill="#27ae60"/>
+  </g>
+
+  <!-- Panel 3 Text Description -->
+  <text x="665" y="308" font-size="13" font-weight="bold" fill="#1a1a1a">• Позиційне кодування</text>
+  <text x="675" y="326" font-size="12" fill="#6b7280">10 окремих сигнальних ліній (0–9)</text>
+  <text x="665" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">• Стан для цифри 7</text>
+  <text x="675" y="366" font-size="12" fill="#6b7280">Замкнено виключно вивід 7</text>
+  <text x="665" y="388" font-size="13" font-weight="bold" fill="#1a1a1a">• Пряма комутація</text>
+  <text x="675" y="406" font-size="12" fill="#6b7280">Вибір каналів без дешифратора</text>
+</svg>

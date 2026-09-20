@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Main Titles -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двоканальна схема підключення 3-позиційного пристрою дозволу</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Перехресні тестові імпульси та опторозв'язка виявляють замикання між каналами</text>
+
+  <!-- Panel 1: Safety Controller (MCU) -->
+  <rect x="25" y="85" width="200" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="125" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контролер безпеки (MCU)</text>
+
+  <!-- MCU Pins & Labels -->
+  <!-- OUT1 Pin -->
+  <circle cx="215" cy="140" r="5" fill="#2457d6"/>
+  <text x="40" y="144" font-size="12" fill="#2457d6">OUT1 (Тест 1)</text>
+
+  <!-- IN1 Pin -->
+  <circle cx="215" cy="230" r="5" fill="#2457d6"/>
+  <text x="40" y="234" font-size="12" fill="#2457d6">IN1 (Сигнал 1)</text>
+
+  <!-- OUT2 Pin -->
+  <circle cx="215" cy="300" r="5" fill="#27ae60"/>
+  <text x="40" y="304" font-size="12" fill="#27ae60">OUT2 (Тест 2)</text>
+
+  <!-- IN2 Pin -->
+  <circle cx="215" cy="380" r="5" fill="#27ae60"/>
+  <text x="40" y="384" font-size="12" fill="#27ae60">IN2 (Сигнал 2)</text>
+
+  <!-- MCU Logic Block -->
+  <rect x="35" y="435" width="180" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="455" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Алгоритм перехресного</text>
+  <text x="125" y="473" font-size="12" fill="#2457d6" text-anchor="middle">опитування каналів</text>
+
+
+  <!-- Panel 2: Optocoupler Board -->
+  <rect x="265" y="85" width="210" height="425" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="370" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Блок опторозв'язки</text>
+
+  <!-- OPTO 1 Box -->
+  <rect x="280" y="135" width="180" height="135" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="370" y="155" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Оптопара OPTO 1</text>
+
+  <!-- OPTO 1 LED -->
+  <path d="M 395,190 L 415,200 L 395,210 Z" fill="#2457d6"/>
+  <line x1="415" y1="190" x2="415" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <text x="405" y="230" font-size="12" fill="#6b7280" text-anchor="middle">Світлодіод</text>
+
+  <!-- OPTO 1 Phototransistor -->
+  <circle cx="330" cy="230" r="14" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="324" y1="222" x2="324" y2="238" stroke="#2457d6" stroke-width="2"/>
+  <line x1="324" y1="226" x2="336" y2="220" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="324" y1="234" x2="336" y2="240" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="330" y="256" font-size="12" fill="#6b7280" text-anchor="middle">Транзистор</text>
+
+  <!-- OPTO 2 Box -->
+  <rect x="280" y="295" width="180" height="135" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="370" y="315" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Оптопара OPTO 2</text>
+
+  <!-- OPTO 2 LED -->
+  <path d="M 395,350 L 415,360 L 395,370 Z" fill="#27ae60"/>
+  <line x1="415" y1="350" x2="415" y2="370" stroke="#27ae60" stroke-width="2"/>
+  <text x="405" y="390" font-size="12" fill="#6b7280" text-anchor="middle">Світлодіод</text>
+
+  <!-- OPTO 2 Phototransistor -->
+  <circle cx="330" cy="380" r="14" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="324" y1="372" x2="324" y2="388" stroke="#27ae60" stroke-width="2"/>
+  <line x1="324" y1="376" x2="336" y2="370" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="324" y1="384" x2="336" y2="390" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="330" y="406" font-size="12" fill="#6b7280" text-anchor="middle">Транзистор</text>
+
+
+  <!-- Short Circuit Callout Box (Міжканальне замикання) -->
+  <rect x="510" y="235" width="150" height="90" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="585" y="258" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Помилка: Замикання</text>
+  <text x="585" y="276" font-size="12" fill="#c0392b" text-anchor="middle">між каналами CH1/CH2</text>
+  <text x="585" y="294" font-size="12" fill="#c0392b" text-anchor="middle">(Short Circuit)</text>
+
+
+  <!-- Panel 3: 3-Position Enabling Switch & Pedal -->
+  <rect x="700" y="85" width="235" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="817" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кнопка / Педаль</text>
+
+  <!-- Contact CH1 Section -->
+  <text x="817" y="145" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Контакт 1 (CH1)</text>
+  <circle cx="725" cy="170" r="5" fill="#2457d6"/>
+  <circle cx="815" cy="195" r="5" fill="#2457d6"/>
+  <line x1="725" y1="170" x2="810" y2="190" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="725" cy="200" r="5" fill="#2457d6"/>
+  <text x="835" y="190" font-size="12" fill="#1a1a1a">Вхід/Вихід CH1</text>
+
+  <!-- Mechanical Coupling Line -->
+  <line x1="780" y1="190" x2="780" y2="340" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="840" y="265" font-size="12" fill="#6b7280">Спільна механіка</text>
+
+  <!-- Contact CH2 Section -->
+  <text x="817" y="300" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Контакт 2 (CH2)</text>
+  <circle cx="725" cy="320" r="5" fill="#27ae60"/>
+  <circle cx="815" cy="345" r="5" fill="#27ae60"/>
+  <line x1="725" y1="320" x2="810" y2="340" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="725" cy="360" r="5" fill="#27ae60"/>
+  <text x="835" y="340" font-size="12" fill="#1a1a1a">Вхід/Вихід CH2</text>
+
+  <!-- Mechanical Position Status Box -->
+  <rect x="715" y="435" width="205" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="817" y="455" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механічні позиції</text>
+  <text x="817" y="473" font-size="12" fill="#27ae60" text-anchor="middle">Поз 2 (ON): замкнено</text>
+
+
+  <!-- Wires & Signal Paths -->
+
+  <!-- CH1 OUT1 Wire: MCU OUT1 -> Top Bypass -> Switch CH1 In -->
+  <path d="M 215,140 L 240,140 L 240,74 L 685,74 L 685,170 L 725,170" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- CH1 Return Wire: Switch CH1 Out -> OPTO 1 LED Anode -->
+  <path d="M 725,200 L 415,200" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- OPTO 1 Transistor -> MCU IN1 -->
+  <path d="M 316,230 L 215,230" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+
+  <!-- CH2 OUT2 Wire: MCU OUT2 -> Bottom Bypass -> Switch CH2 In -->
+  <path d="M 215,300 L 240,300 L 240,525 L 685,525 L 685,320 L 725,320" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- CH2 Return Wire: Switch CH2 Out -> OPTO 2 LED Anode -->
+  <path d="M 725,360 L 415,360" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- OPTO 2 Transistor -> MCU IN2 -->
+  <path d="M 316,380 L 215,380" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+
+  <!-- Fault Line connecting CH1 and CH2 return wires -->
+  <path d="M 585,200 L 585,235 M 585,325 L 585,360" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4,4" marker-end="url(#arr-red)"/>
+
+</svg>

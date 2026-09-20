@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Еволюція АВР: від електромеханічного контактора до мікропроцесорного селектора</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Заміна повільної механіки на безконтактну симисторну комутацію під контролем мікроконтролера</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Класичний електромеханічний АВР -->
+  <rect x="20" y="70" width="445" height="430" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="20" y="70" width="445" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="242" y="91" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Електромеханічний блок АВР (Повільна механіка)</text>
+
+  <!-- Входи фаз (Ліва панель) -->
+  <text x="80" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фаза L1</text>
+  <text x="242" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фаза L2</text>
+  <text x="405" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фаза L3</text>
+
+  <!-- Контактори KM1, KM2, KM3 -->
+  <rect x="40" y="135" width="80" height="80" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="80" y="155" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Контактор KM1</text>
+  <line x1="80" y1="162" x2="80" y2="182" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="80" y="200" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Увімкнено</text>
+
+  <rect x="202" y="135" width="80" height="80" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="242" y="155" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Контактор KM2</text>
+  <line x1="230" y1="162" x2="254" y2="182" stroke="#6b7280" stroke-width="2"/>
+  <text x="242" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Вимкнено</text>
+
+  <rect x="365" y="135" width="80" height="80" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="405" y="155" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Контактор KM3</text>
+  <line x1="393" y1="162" x2="417" y2="182" stroke="#6b7280" stroke-width="2"/>
+  <text x="405" y="200" font-size="12" fill="#6b7280" text-anchor="middle">Вимкнено</text>
+
+  <!-- Механічне блокування -->
+  <line x1="80" y1="230" x2="405" y2="230" stroke="#c0392b" stroke-dasharray="4,4" stroke-width="2"/>
+  <text x="242" y="248" font-size="12" fill="#c0392b" text-anchor="middle">Механічне блокування (Захист від КЗ)</text>
+
+  <!-- Аналогові реле контролю -->
+  <rect x="40" y="265" width="405" height="70" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="242" y="290" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електромеханічні реле контролю напруги</text>
+  <text x="242" y="315" font-size="12" fill="#6b7280" text-anchor="middle">(Аналогові реле з механічними пружинами)</text>
+
+  <!-- Недоліки -->
+  <rect x="35" y="355" width="415" height="130" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="50" y="377" font-size="12" font-weight="bold" fill="#c0392b">Недоліки класичного АВР:</text>
+  <text x="50" y="401" font-size="12" fill="#1a1a1a">• Час перемикання: 100–200 мс (знеструмлення)</text>
+  <text x="50" y="425" font-size="12" fill="#1a1a1a">• Електрична дуга, знос контакторів</text>
+  <text x="50" y="449" font-size="12" fill="#1a1a1a">• Шуми, подрібнювання та ризик заклинювання</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Сучасний мікропроцесорний АВФ -->
+  <rect x="495" y="70" width="445" height="430" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="495" y="70" width="445" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="717" y="91" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Мікропроцесорний симисторний селектор фаз</text>
+
+  <!-- Входи фаз (Права панель) -->
+  <text x="555" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фаза L1</text>
+  <text x="717" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фаза L2</text>
+  <text x="880" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фаза L3</text>
+
+  <!-- Блок вимірювання та MCU -->
+  <rect x="515" y="135" width="405" height="75" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="717" y="157" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролерний блок вимірювання True-RMS</text>
+  <text x="717" y="177" font-size="12" fill="#6b7280" text-anchor="middle">(Безперервний цифровий аналіз L1, L2, L3)</text>
+  <text x="717" y="197" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Час виявлення аварії &lt; 2 мс</text>
+
+  <!-- Симисторні ключі -->
+  <rect x="515" y="225" width="405" height="110" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="717" y="245" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Силові напівпровідникові ключі (Симистори / Тиристори)</text>
+
+  <rect x="545" y="260" width="100" height="60" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="595" y="280" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Симистор VS1</text>
+  <text x="595" y="302" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">АКТИВНИЙ</text>
+
+  <rect x="667" y="260" width="100" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="717" y="280" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Симистор VS2</text>
+  <text x="717" y="302" font-size="12" fill="#6b7280" text-anchor="middle">Закрито</text>
+
+  <rect x="790" y="260" width="100" height="60" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="840" y="280" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Симистор VS3</text>
+  <text x="840" y="302" font-size="12" fill="#6b7280" text-anchor="middle">Закрито</text>
+
+  <!-- Переваги -->
+  <rect x="510" y="355" width="415" height="130" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="525" y="377" font-size="12" font-weight="bold" fill="#27ae60">Переваги мікропроцесорного АВФ:</text>
+  <text x="525" y="401" font-size="12" fill="#1a1a1a">• Перемикання фази за 10 мс (без розриву)</text>
+  <text x="525" y="425" font-size="12" fill="#1a1a1a">• Повна відсутність дуги та механічного зносу</text>
+  <text x="525" y="449" font-size="12" fill="#1a1a1a">• Програмне Dead-Time блокування міжфазного КЗ</text>
+
+</svg>

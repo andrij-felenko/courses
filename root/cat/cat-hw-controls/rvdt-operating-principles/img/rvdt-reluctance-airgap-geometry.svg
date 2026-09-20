@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія повітряного зазору та магнітного опору RVDT</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Поворот ротора змінює зазори δ₁(θ) та δ₂(θ), модулюючи магнітні потоки Φ₁ і Φ₂ та вихідні напруги V₁ і V₂</text>
+
+  <!-- Panel 1: Cross-Section Diagram of RVDT Magnetic Circuit -->
+  <rect x="40" y="85" width="510" height="370" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="295" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Магнітна система та розподіл потоків (кут θ > 0)</text>
+
+  <!-- Primary Winding Label (Top, clear of outer ring) -->
+  <text x="295" y="123" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Первинна обмотка V_exc</text>
+
+  <!-- Stator Core Ring -->
+  <circle cx="295" cy="270" r="135" fill="none" stroke="#d0d7de" stroke-width="18"/>
+  <circle cx="295" cy="270" r="144" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="295" cy="270" r="126" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Stator Salient Poles -->
+  <!-- Top Pole (Primary Excitation) -->
+  <rect x="275" y="165" width="40" height="40" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5" rx="3"/>
+  <rect x="263" y="175" width="12" height="20" fill="#2457d6" rx="2"/>
+  <rect x="315" y="175" width="12" height="20" fill="#2457d6" rx="2"/>
+
+  <!-- Left Pole (Secondary 1) -->
+  <rect x="190" y="250" width="40" height="40" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5" rx="3"/>
+  <rect x="200" y="238" width="20" height="12" fill="#27ae60" rx="2"/>
+  <rect x="200" y="290" width="20" height="12" fill="#27ae60" rx="2"/>
+  <text x="145" y="274" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Вторинна 1 (V₁)</text>
+
+  <!-- Right Pole (Secondary 2) -->
+  <rect x="360" y="250" width="40" height="40" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5" rx="3"/>
+  <rect x="370" y="238" width="20" height="12" fill="#c0392b" rx="2"/>
+  <rect x="370" y="290" width="20" height="12" fill="#c0392b" rx="2"/>
+  <text x="443" y="274" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Вторинна 2 (V₂)</text>
+
+  <!-- Bottom Pole (Return Path) -->
+  <rect x="275" y="335" width="40" height="40" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5" rx="3"/>
+  <text x="295" y="426" font-size="12" fill="#6b7280" text-anchor="middle">Магнітопровід статора</text>
+
+  <!-- Profiled Cam Rotor (Rotated) -->
+  <path d="M 295,270 M 234,270 C 234,235 270,215 295,215 C 320,215 348,245 348,270 C 348,295 320,325 295,325 C 270,325 234,305 234,270 Z" fill="#2457d6" fill-opacity="0.12" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Shaft Center -->
+  <circle cx="295" cy="270" r="14" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="295" cy="270" r="4" fill="white"/>
+
+  <!-- Zero Reference & Rotated Axis Lines -->
+  <line x1="295" y1="270" x2="295" y2="200" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="295" y1="270" x2="315" y2="203" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 295,218 A 52,52 0 0,1 310,221" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="326" y="212" font-size="12" font-weight="bold" fill="#2457d6">Кут θ</text>
+
+  <!-- Air Gap Callout Indicators (Left Side - Small Air Gap δ₁) -->
+  <line x1="148" y1="200" x2="232" y2="262" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="145" y="185" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Малий зазор δ₁</text>
+  <text x="145" y="202" font-size="12" fill="#27ae60" text-anchor="end">R_g1 = min</text>
+  <text x="145" y="219" font-size="12" fill="#27ae60" text-anchor="end">Φ₁ = max</text>
+
+  <!-- Air Gap Callout Indicators (Right Side - Large Air Gap δ₂) -->
+  <line x1="440" y1="200" x2="358" y2="262" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="443" y="185" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">Великий зазор δ₂</text>
+  <text x="443" y="202" font-size="12" fill="#c0392b" text-anchor="start">R_g2 = max</text>
+  <text x="443" y="219" font-size="12" fill="#c0392b" text-anchor="start">Φ₂ = min</text>
+
+  <!-- Flux Loops (Dashed lines representing flux paths) -->
+  <!-- Flux 1 Loop (Left - Strong) -->
+  <path d="M 280,205 C 240,205 220,220 220,250" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+
+  <!-- Flux 2 Loop (Right - Weak) -->
+  <path d="M 310,205 C 350,205 370,220 370,250" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- Panel 1 Bottom Summary Note -->
+  <text x="295" y="444" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вихідна різниця: V₁ - V₂ > 0 (при θ > 0)</text>
+
+  <!-- Panel 2: Mathematical Model & Ratiometric Processing -->
+  <rect x="570" y="85" width="350" height="370" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="745" y="108" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Математична модель та логометрія</text>
+
+  <!-- Card 1: Air Gap & Reluctance Equations -->
+  <rect x="585" y="122" width="320" height="75" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="745" y="140" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Геометрія зазорів та магнітні опори</text>
+  <text x="745" y="162" font-size="12" fill="#27ae60" text-anchor="middle">δ₁(θ) = δ₀ - k_g · θ  ⇒  R_g1(θ) = R_g0 (1 - k · θ)</text>
+  <text x="745" y="184" font-size="12" fill="#c0392b" text-anchor="middle">δ₂(θ) = δ₀ + k_g · θ  ⇒  R_g2(θ) = R_g0 (1 + k · θ)</text>
+
+  <!-- Card 2: Flux & Induced Voltage Equations -->
+  <rect x="585" y="212" width="320" height="85" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="745" y="230" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Магнітні потоки та амплітуди ЕРС</text>
+  <text x="745" y="254" font-size="12" fill="#27ae60" text-anchor="middle">V₁(θ) = V_m (1 + k_m · θ) · sin(ωt)</text>
+  <text x="745" y="278" font-size="12" fill="#c0392b" text-anchor="middle">V₂(θ) = V_m (1 - k_m · θ) · sin(ωt)</text>
+
+  <!-- Card 3: Ratiometric Signal Processing Card -->
+  <rect x="585" y="312" width="320" height="130" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="745" y="332" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Логометричний метод (Ratiometric)</text>
+  <text x="745" y="360" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Ratio = (V₁ - V₂) / (V₁ + V₂) = K · θ</text>
+  <text x="745" y="388" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Повна компенсація нестабільності V_exc, частоти ω</text>
+  <text x="745" y="412" font-size="12" fill="#6b7280" text-anchor="middle">та температурного дрейфу опору обмоток</text>
+</svg>

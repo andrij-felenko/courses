@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема підключення двовісного стіка Холла до мікроконтролера</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Блокувальні конденсатори живлення та RC-фільтри осей усувають завади й дрейф координат</text>
+
+  <!-- Left Panel: Hall Gimbal Module -->
+  <rect x="40" y="90" width="260" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="170" y="118" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Стік на давачах Холла</text>
+  <text x="170" y="136" text-anchor="middle" font-size="12" fill="#6b7280">(Hall Effect Gimbal Module)</text>
+
+  <!-- Internal Sensor Blocks -->
+  <rect x="60" y="160" width="130" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Давач Холла X</text>
+
+  <rect x="60" y="240" width="130" height="60" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="125" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Давач Холла Y</text>
+
+  <!-- Internal Wires to Terminals (Routed at x=200 to give clearance to text) -->
+  <line x1="190" y1="190" x2="200" y2="190" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="200" y1="190" x2="200" y2="300" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="200" y1="300" x2="300" y2="300" stroke="#2457d6" stroke-width="2"/>
+
+  <line x1="190" y1="270" x2="210" y2="270" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="210" y1="270" x2="210" y2="370" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="210" y1="370" x2="300" y2="370" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Module Output Terminal Labels (Placed ABOVE lines with 10px clearance) -->
+  <text x="285" y="150" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">VCC</text>
+  <text x="285" y="210" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <text x="285" y="290" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">X_OUT</text>
+  <text x="285" y="360" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">Y_OUT</text>
+
+  <!-- Output Terminal Dots -->
+  <circle cx="300" cy="160" r="4" fill="#c0392b"/>
+  <circle cx="300" cy="220" r="4" fill="#1a1a1a"/>
+  <circle cx="300" cy="300" r="4" fill="#2457d6"/>
+  <circle cx="300" cy="370" r="4" fill="#2457d6"/>
+
+  <!-- Right Panel: Microcontroller (MCU) -->
+  <rect x="660" y="90" width="260" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="790" y="118" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Мікроконтролер</text>
+  <text x="790" y="136" text-anchor="middle" font-size="12" fill="#6b7280">(MCU / ADC Subsystem)</text>
+
+  <!-- MCU Input Pin Dots -->
+  <circle cx="660" cy="160" r="4" fill="#c0392b"/>
+  <circle cx="660" cy="220" r="4" fill="#1a1a1a"/>
+  <circle cx="660" cy="300" r="4" fill="#2457d6"/>
+  <circle cx="660" cy="370" r="4" fill="#2457d6"/>
+
+  <!-- MCU Pin Labels (Placed ABOVE lines with 10px clearance) -->
+  <text x="675" y="150" font-size="12" font-weight="bold" fill="#c0392b">VDD (+3.3V)</text>
+  <text x="675" y="210" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+  <text x="675" y="290" font-size="12" font-weight="bold" fill="#2457d6">ADC_IN0 (Вісь X)</text>
+  <text x="675" y="360" font-size="12" font-weight="bold" fill="#2457d6">ADC_IN1 (Вісь Y)</text>
+
+  <!-- ADC Internal Block -->
+  <rect x="790" y="260" width="110" height="140" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="845" y="325" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">12-біт АЦП</text>
+  <text x="845" y="345" text-anchor="middle" font-size="12" fill="#6b7280">(ADC Module)</text>
+
+  <!-- Internal Wires MCU to ADC -->
+  <line x1="775" y1="300" x2="790" y2="300" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="775" y1="370" x2="790" y2="370" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Middle Interconnection Lines & Components -->
+
+  <!-- 1. VCC Power Line -->
+  <line x1="300" y1="160" x2="660" y2="160" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="480" y="148" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Живлення VCC (+3.3V / +5V)</text>
+
+  <!-- 2. GND Ground Line -->
+  <line x1="300" y1="220" x2="660" y2="220" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="480" y="238" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Спільна земля (GND)</text>
+
+  <!-- 3. Decoupling Capacitor C1 (across VCC and GND) -->
+  <circle cx="370" cy="160" r="3.5" fill="#c0392b"/>
+  <circle cx="370" cy="220" r="3.5" fill="#1a1a1a"/>
+  <line x1="370" y1="160" x2="370" y2="184" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="362" y1="184" x2="378" y2="184" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="362" y1="196" x2="378" y2="196" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="370" y1="196" x2="370" y2="220" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="352" y="192" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">C1 (100 нФ)</text>
+
+  <!-- 4. Signal Line X_OUT with R1 & C2 -->
+  <line x1="300" y1="300" x2="400" y2="300" stroke="#2457d6" stroke-width="2"/>
+  <!-- Resistor R1 -->
+  <rect x="400" y="293" width="50" height="14" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="425" y="284" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R1 (1 кОм)</text>
+  <line x1="450" y1="300" x2="615" y2="300" stroke="#2457d6" stroke-width="2"/>
+  <line x1="615" y1="300" x2="655" y2="300" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Shunt Capacitor C2 (X_OUT to GND) -->
+  <circle cx="520" cy="300" r="3.5" fill="#2457d6"/>
+  <line x1="520" y1="300" x2="520" y2="318" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="512" y1="318" x2="528" y2="318" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="512" y1="330" x2="528" y2="330" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="520" y1="330" x2="520" y2="344" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Ground Symbol for C2 -->
+  <line x1="512" y1="344" x2="528" y2="344" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="515" y1="348" x2="525" y2="348" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="518" y1="352" x2="522" y2="352" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="538" y="328" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">C2 (100 нФ)</text>
+
+  <!-- 5. Signal Line Y_OUT with R2 & C3 -->
+  <line x1="300" y1="370" x2="400" y2="370" stroke="#2457d6" stroke-width="2"/>
+  <!-- Resistor R2 -->
+  <rect x="400" y="363" width="50" height="14" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="425" y="354" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R2 (1 кОм)</text>
+  <line x1="450" y1="370" x2="615" y2="370" stroke="#2457d6" stroke-width="2"/>
+  <line x1="615" y1="370" x2="655" y2="370" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Shunt Capacitor C3 (Y_OUT to GND) -->
+  <circle cx="520" cy="370" r="3.5" fill="#2457d6"/>
+  <line x1="520" y1="370" x2="520" y2="388" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="512" y1="388" x2="528" y2="388" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="512" y1="400" x2="528" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="520" y1="400" x2="520" y2="414" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Ground Symbol for C3 -->
+  <line x1="512" y1="414" x2="528" y2="414" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="515" y1="418" x2="525" y2="418" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="518" y1="422" x2="522" y2="422" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="538" y="398" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">C3 (100 нФ)</text>
+
+  <!-- Bottom Summary Note -->
+  <text x="480" y="446" text-anchor="middle" font-size="12" fill="#27ae60">ФНЧ (f_c ≈ 1.6 кГц) придушує високочастотні наводки й шум АЦП</text>
+</svg>

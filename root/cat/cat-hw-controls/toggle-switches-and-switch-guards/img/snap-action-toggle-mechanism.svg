@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Внутрішній механізм перекидання тумблера (Snap-Action Toggle)</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Пружинний плунжер переходить мертву точку, викликаючи миттєве стрибкоподібне перемикання контактів</text>
+
+  <!-- Panel 1: State 1 (Left Tilt / Contact A ON) -->
+  <rect x="40" y="90" width="420" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="250" y="118" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Стан 1: Замкнено контакт A</text>
+  <text x="250" y="136" text-anchor="middle" font-size="12" fill="#6b7280">(Важіль відхилено ліворуч)</text>
+
+  <!-- Mechanical Housing Outline Panel 1 -->
+  <rect x="130" y="175" width="240" height="110" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Toggle Lever Pivot & Shaft (Tilted Left) -->
+  <circle cx="250" cy="195" r="7" fill="#6b7280"/>
+  <line x1="250" y1="195" x2="195" y2="148" stroke="#1a1a1a" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="195" cy="148" r="10" fill="#1a1a1a"/>
+
+  <!-- Plunger & Spring Sleeve -->
+  <line x1="250" y1="195" x2="205" y2="250" stroke="#6b7280" stroke-width="5"/>
+  <circle cx="205" cy="250" r="5" fill="#1a1a1a"/>
+
+  <!-- V-Rocker (Коромисло) -->
+  <path d="M 160,282 L 250,295 L 340,265" fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linejoin="round"/>
+  <circle cx="250" cy="295" r="5" fill="#1a1a1a"/>
+
+  <!-- Contact Terminals Panel 1 -->
+  <!-- Terminal A (Closed contact) -->
+  <rect x="150" y="298" width="20" height="32" fill="#27ae60" rx="2"/>
+  <line x1="160" y1="330" x2="160" y2="360" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Terminal B (Open contact) -->
+  <rect x="330" y="298" width="20" height="32" fill="#c0392b" rx="2"/>
+  <line x1="340" y1="330" x2="340" y2="360" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Common COM Terminal -->
+  <line x1="250" y1="295" x2="250" y2="360" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Callout Labels Panel 1 -->
+  <text x="55" y="148" font-size="12" fill="#1a1a1a">Важіль</text>
+  <line x1="105" y1="148" x2="182" y2="148" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <text x="55" y="208" font-size="12" fill="#6b7280">
+    <tspan x="55" y="208">Пружинний</tspan>
+    <tspan x="55" y="222">плунжер</tspan>
+  </text>
+  <line x1="128" y1="215" x2="200" y2="238" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <text x="55" y="262" font-size="12" fill="#1a1a1a">
+    <tspan x="55" y="262">Рухоме</tspan>
+    <tspan x="55" y="276">коромисло</tspan>
+  </text>
+  <line x1="122" y1="270" x2="175" y2="285" stroke="#6b7280" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Bottom Labels Panel 1 -->
+  <text x="150" y="378" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Контакт A (ON)</text>
+  <text x="250" y="378" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вивід COM</text>
+  <text x="350" y="378" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Контакт B (OFF)</text>
+  <text x="250" y="415" text-anchor="middle" font-size="12" fill="#27ae60">Струм тече через контакт A</text>
+
+  <!-- Panel 2: State 2 (Right Snap / Contact B ON) -->
+  <rect x="500" y="90" width="420" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="710" y="118" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Стан 2: Перекидання в контакт B</text>
+  <text x="710" y="136" text-anchor="middle" font-size="12" fill="#6b7280">(Важіль переведено праворуч)</text>
+
+  <!-- Mechanical Housing Outline Panel 2 -->
+  <rect x="590" y="175" width="240" height="110" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Toggle Lever Pivot & Shaft (Tilted Right) -->
+  <circle cx="710" cy="195" r="7" fill="#6b7280"/>
+  <line x1="710" y1="195" x2="765" y2="148" stroke="#1a1a1a" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="765" cy="148" r="10" fill="#1a1a1a"/>
+
+  <!-- Lever Action Arrow -->
+  <path d="M 720,138 Q 745,128 770,136" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="785" y="140" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Сила перемикання</text>
+
+  <!-- Plunger & Spring Sleeve (Pushed Past Dead Center) -->
+  <line x1="710" y1="195" x2="755" y2="250" stroke="#6b7280" stroke-width="5"/>
+  <circle cx="755" cy="250" r="5" fill="#2457d6"/>
+
+  <!-- V-Rocker (Коромисло snapped right) -->
+  <path d="M 620,265 L 710,295 L 800,282" fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linejoin="round"/>
+  <circle cx="710" cy="295" r="5" fill="#1a1a1a"/>
+
+  <!-- Contact Terminals Panel 2 -->
+  <!-- Terminal A (Open contact) -->
+  <rect x="610" y="298" width="20" height="32" fill="#c0392b" rx="2"/>
+  <line x1="620" y1="330" x2="620" y2="360" stroke="#c0392b" stroke-width="3"/>
+
+  <!-- Terminal B (Closed contact) -->
+  <rect x="790" y="298" width="20" height="32" fill="#2457d6" rx="2"/>
+  <line x1="800" y1="330" x2="800" y2="360" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Common COM Terminal -->
+  <line x1="710" y1="295" x2="710" y2="360" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Callout Labels Panel 2 -->
+  <text x="510" y="205" font-size="12" fill="#6b7280">
+    <tspan x="510" y="205">Мертва точка</tspan>
+    <tspan x="510" y="219">пройдена:</tspan>
+    <tspan x="510" y="235" font-weight="bold" fill="#2457d6">миттєвий</tspan>
+    <tspan x="510" y="249" font-weight="bold" fill="#2457d6">розрив!</tspan>
+  </text>
+  <line x1="580" y1="242" x2="745" y2="242" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Bottom Labels Panel 2 -->
+  <text x="610" y="378" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Контакт A (OFF)</text>
+  <text x="710" y="378" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вивід COM</text>
+  <text x="810" y="378" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Контакт B (ON)</text>
+  <text x="710" y="415" text-anchor="middle" font-size="12" fill="#2457d6">Струм переключено на контакт B</text>
+</svg>

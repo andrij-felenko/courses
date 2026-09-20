@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Механізм фіксації та ручного квитування (Reset) за IEC 60947-5-5</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">Примусове механічне заблокування контактної групи до натискання кнопки скидання</text>
+
+  <!-- ПАНЕЛЬ 1: Робочий стан -->
+  <rect x="30" y="75" width="435" height="445" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="100" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">1. Робочий стан (Armed / Готовність)</text>
+  <text x="247" y="118" font-size="12" text-anchor="middle" fill="#6b7280">Контакти NC замкнені, засувка чекає спрацьовування</text>
+
+  <!-- Корпус вимикача Панелі 1 -->
+  <rect x="60" y="145" width="375" height="170" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Кнопка Reset у нормальному стані -->
+  <rect x="195" y="125" width="24" height="20" rx="3" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="207" y="139" font-size="11" font-weight="bold" fill="white" text-anchor="middle">Reset</text>
+
+  <!-- Пружина та засувка (піднята) -->
+  <path d="M 207 148 L 207 165 M 202 152 L 212 152 M 202 156 L 212 156 M 202 160 L 212 160" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 200 165 L 214 165 L 214 195 L 207 202 L 200 195 Z" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="222" y="180" font-size="11" fill="#6b7280">Засувка</text>
+
+  <!-- Шток із виїмкою -->
+  <rect x="80" y="210" width="220" height="16" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 195 210 L 202 218 L 213 218 L 220 210 Z" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Кільце троса ліворуч -->
+  <circle cx="70" cy="218" r="8" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="45" y1="218" x2="62" y2="218" stroke="#c0392b" stroke-width="4"/>
+  <text x="70" y="240" font-size="11" text-anchor="middle" fill="#1a1a1a">Трос</text>
+
+  <!-- Пружина повернення штока -->
+  <path d="M 85 218 L 95 218 L 100 210 L 108 226 L 116 210 L 124 226 L 130 218 L 140 218" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <!-- Контактний місток NC (замкнений) -->
+  <rect x="290" y="226" width="55" height="8" rx="2" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="280" y="240" width="16" height="24" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="339" y="240" width="16" height="24" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="288" y1="234" x2="288" y2="240" stroke="#27ae60" stroke-width="3"/>
+  <line x1="347" y1="234" x2="347" y2="240" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Статус контакту Панелі 1 -->
+  <rect x="280" y="275" width="75" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="317" y="290" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">NC Замкнено</text>
+
+  <!-- Інформаційний блок Панелі 1 -->
+  <rect x="45" y="325" width="405" height="180" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">Особливості нормального стану:</text>
+  <text x="60" y="373" font-size="12" fill="#1a1a1a">1. Трос знаходиться під номінальним робочим натягом</text>
+  <text x="60" y="395" font-size="12" fill="#1a1a1a">2. Фіксувальна засувка піднята над виїмкою штока</text>
+  <text x="60" y="417" font-size="12" fill="#1a1a1a">3. Рухомий місток замикає контакти безпекового кола NC</text>
+  <text x="60" y="439" font-size="12" fill="#27ae60">✔ Коло дозволу замкнене — обладнання працює</text>
+  <text x="60" y="461" font-size="12" fill="#6b7280">✔ Кнопка Reset знаходиться в утопленому стані</text>
+
+  <!-- ПАНЕЛЬ 2: Аварійне заблокування -->
+  <rect x="495" y="75" width="435" height="445" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="100" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">2. Аварійне заблокування (Latched / Reset)</text>
+  <text x="712" y="118" font-size="12" text-anchor="middle" fill="#6b7280">Контакти розімкнені, механічне заблокування засувкою</text>
+
+  <!-- Корпус вимикача Панелі 2 -->
+  <rect x="525" y="145" width="375" height="170" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Стрілка потягу/обриву троса -->
+  <path d="M 505 218 L 540 218" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="510" y="202" font-size="11" font-weight="bold" fill="#c0392b">Потяг/Обрив</text>
+
+  <!-- Кнопка Reset у піднятому стані (вискочила) -->
+  <rect x="640" y="115" width="24" height="24" rx="3" fill="#c0392b" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="652" y="131" font-size="11" font-weight="bold" fill="white" text-anchor="middle">Reset</text>
+  <path d="M 652 140 L 652 165" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Засувка заскочила у виїмку штока -->
+  <path d="M 645 170 L 660 170 L 660 210 L 652 218 L 645 210 Z" fill="#c0392b" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 670 175 L 670 195" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="676" y="188" font-size="11" font-weight="bold" fill="#c0392b">Заскочила!</text>
+
+  <!-- Переміщений шток -->
+  <rect x="560" y="210" width="220" height="16" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 640 210 L 647 218 L 658 218 L 665 210 Z" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Примусово розімкнений контактний місток NC -->
+  <rect x="755" y="250" width="55" height="8" rx="2" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="745" y="240" width="16" height="24" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="804" y="240" width="16" height="24" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Символ примусового розмикання IEC (стрілка в кружечку) -->
+  <circle cx="782" cy="233" r="7" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="777" y1="233" x2="787" y2="233" stroke="#c0392b" stroke-width="2"/>
+  <line x1="782" y1="228" x2="782" y2="238" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Статус контакту Панелі 2 -->
+  <rect x="740" y="275" width="95" height="22" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="787" y="290" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">NC Розімкнено (→)</text>
+
+  <!-- Інформаційний блок Панелі 2 -->
+  <rect x="510" y="325" width="405" height="180" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">Вимоги стандарту IEC 60947-5-5:</text>
+  <text x="525" y="373" font-size="12" fill="#c0392b">1. Засувка механічно заклинює шток у розімкненому стані</text>
+  <text x="525" y="395" font-size="12" fill="#c0392b">2. Відновлення натягу троса НЕ повертає контакти самостійно</text>
+  <text x="525" y="417" font-size="12" fill="#1a1a1a">3. Примусове розмикання (→) розриває приварені контакти</text>
+  <text x="525" y="439" font-size="12" fill="#2457d6">✔ Обов'язкова ручна дія оператора: натискання/потяг Reset</text>
+  <text x="525" y="461" font-size="12" fill="#27ae60">✔ Запобігає самовільному повторному запуску конвеєра</text>
+</svg>

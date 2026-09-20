@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діагностична машина станів та порогові рівні RVDT</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Контроль суми напруг вторинних обмоток V_sum дозволяє достовірно виявляти обрив та КЗ</text>
+
+  <!-- PANEL 1: State Machine FSM (Left) -->
+  <rect x="20" y="70" width="460" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="250" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Граф станів діагностики RVDT</text>
+
+  <!-- State 1: INIT -->
+  <rect x="50" y="120" width="130" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="5"/>
+  <text x="115" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Ініціалізація</text>
+  <text x="115" y="158" font-size="11" fill="#6b7280" text-anchor="middle">Самотестування</text>
+
+  <!-- State 2: NORMAL (OK) -->
+  <rect x="40" y="240" width="165" height="65" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="5"/>
+  <text x="122.5" y="265" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Норма (NORMAL)</text>
+  <text x="122.5" y="287" font-size="11" fill="#1a1a1a" text-anchor="middle">V_min &lt;= V_sum &lt;= V_max</text>
+
+  <!-- State 3: FAULT OPEN -->
+  <rect x="265" y="180" width="195" height="65" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="5"/>
+  <text x="362.5" y="205" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Помилка: Обрив</text>
+  <text x="362.5" y="227" font-size="11" fill="#c0392b" text-anchor="middle">V_sum &lt; V_min_th</text>
+
+  <!-- State 4: FAULT SHORT -->
+  <rect x="265" y="320" width="195" height="65" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="5"/>
+  <text x="362.5" y="345" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">4. Помилка: КЗ</text>
+  <text x="362.5" y="367" font-size="11" fill="#c0392b" text-anchor="middle">V_sum &gt; V_max_th</text>
+
+  <!-- Transitions -->
+  <!-- 1 -> 2 -->
+  <line x1="115" y1="170" x2="115" y2="238" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="122" y="204" font-size="11" fill="#2457d6">Init OK</text>
+
+  <!-- 2 -> 3 -->
+  <path d="M 205,255 L 263,220" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="220" y="222" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">Обрив</text>
+
+  <!-- 2 -> 4 -->
+  <path d="M 205,285 L 263,330" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="220" y="325" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">КЗ</text>
+
+  <!-- Info Box Debounce inside Panel 1 -->
+  <rect x="40" y="420" width="420" height="75" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="250" y="442" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фільтрація брязкоту станів (Debounce Filter)</text>
+  <text x="250" y="462" font-size="11" fill="#6b7280" text-anchor="middle">Фіксація аварії після N послідовних хибних відліків (N &gt;= 5)</text>
+  <text x="250" y="480" font-size="11" fill="#2457d6" text-anchor="middle">Захист від випадкових коротких завад у кабелі</text>
+
+
+  <!-- PANEL 2: Voltage Threshold Diagram (Right) -->
+  <rect x="500" y="70" width="440" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="720" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діапазони напруги V_sum = V_S1 + V_S2</text>
+
+  <!-- Vertical Voltage Scale (Axis V_sum) -->
+  <line x1="560" y1="460" x2="560" y2="125" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="560" y="118" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_sum (В)</text>
+
+  <!-- Zone 1: High Fault (Short Circuit) -->
+  <rect x="600" y="135" width="325" height="80" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="762.5" y="157" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ЗОНА КЗ / ПЕРЕНАСИЧЕННЯ</text>
+  <text x="762.5" y="179" font-size="11" fill="#c0392b" text-anchor="middle">V_sum &gt; V_max_th (перевищення норми)</text>
+  <text x="762.5" y="199" font-size="11" fill="#6b7280" text-anchor="middle">Причина: міжвиткове КЗ або пробій кола</text>
+
+  <!-- Threshold Line V_max_th -->
+  <line x1="545" y1="215" x2="925" y2="215" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="540" y="219" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="end">V_max_th</text>
+
+  <!-- Zone 2: Normal Operating Range -->
+  <rect x="600" y="230" width="325" height="120" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="4"/>
+  <text x="762.5" y="255" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">НОРМАЛЬНА РОБОЧА ЗОНА</text>
+  <text x="762.5" y="280" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_min_th &lt;= V_sum &lt;= V_max_th</text>
+  <text x="762.5" y="305" font-size="11" fill="#27ae60" text-anchor="middle">Раціометрична сума стала (V_S1 + V_S2 ≈ const)</text>
+  <text x="762.5" y="327" font-size="11" fill="#6b7280" text-anchor="middle">Розрахунок кута: θ = K × (V_S1 - V_S2) / V_sum</text>
+
+  <!-- Threshold Line V_min_th -->
+  <line x1="545" y1="350" x2="925" y2="350" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="540" y="354" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="end">V_min_th</text>
+
+  <!-- Zone 3: Low Fault (Open Circuit) -->
+  <rect x="600" y="365" width="325" height="80" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="762.5" y="387" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ЗОНА ОБРИВУ ОБМОТКИ</text>
+  <text x="762.5" y="409" font-size="11" fill="#c0392b" text-anchor="middle">V_sum &lt; V_min_th (падіння напруги)</text>
+  <text x="762.5" y="429" font-size="11" fill="#6b7280" text-anchor="middle">Причина: обрив кабелю / первинної обмотки</text>
+</svg>

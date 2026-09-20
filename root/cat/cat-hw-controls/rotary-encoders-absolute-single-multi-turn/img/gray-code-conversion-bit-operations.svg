@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пряме та зворотне перетворення коду Ґрея</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Пряме формування Gᵢ = Bᵢ ⊕ Bᵢ₊₁ та каскадне відновлення Bᵢ = Gᵢ ⊕ Bᵢ₊₁</text>
+
+  <!-- ================= LEFT PANEL: Direct Conversion ================= -->
+  <rect x="30" y="75" width="435" height="455" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пряме перетворення (двійковий → Ґрей)</text>
+  <text x="247" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Кожен біт Ґрея обчислюється паралельно: Gᵢ = Bᵢ ⊕ Bᵢ₊₁</text>
+
+  <!-- Binary Inputs (Top) -->
+  <rect x="60" y="135" width="44" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="82" y="154" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">B₃</text>
+  <text x="82" y="172" font-size="12" fill="#6b7280" text-anchor="middle">b₃ = 1</text>
+
+  <rect x="155" y="135" width="44" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="177" y="154" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">B₂</text>
+  <text x="177" y="172" font-size="12" fill="#6b7280" text-anchor="middle">b₂ = 1</text>
+
+  <rect x="250" y="135" width="44" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="272" y="154" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">B₁</text>
+  <text x="272" y="172" font-size="12" fill="#6b7280" text-anchor="middle">b₁ = 0</text>
+
+  <rect x="345" y="135" width="44" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="367" y="154" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">B₀</text>
+  <text x="367" y="172" font-size="12" fill="#6b7280" text-anchor="middle">b₀ = 1</text>
+
+  <!-- XOR Gates (Middle) -->
+  <!-- Gate G2 -->
+  <circle cx="177" cy="290" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="177" y="295" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">⊕</text>
+
+  <!-- Gate G1 -->
+  <circle cx="272" cy="290" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="272" y="295" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">⊕</text>
+
+  <!-- Gate G0 -->
+  <circle cx="367" cy="290" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="367" y="295" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">⊕</text>
+
+  <!-- Signal Lines Left Panel -->
+  <!-- B3 Pass-through line -->
+  <line x1="82" y1="181" x2="82" y2="420" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-green)"/>
+  <circle cx="82" cy="220" r="3.5" fill="#2457d6"/>
+  <!-- Branch B3 to XOR 2 -->
+  <path d="M 82,220 L 177,220 L 177,274" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- B2 line to XOR 2 -->
+  <line x1="177" y1="181" x2="177" y2="274" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <circle cx="177" cy="220" r="3.5" fill="#2457d6"/>
+  <!-- Branch B2 to XOR 1 -->
+  <path d="M 177,220 L 272,220 L 272,274" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- B1 line to XOR 1 -->
+  <line x1="272" y1="181" x2="272" y2="274" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <circle cx="272" cy="220" r="3.5" fill="#2457d6"/>
+  <!-- Branch B1 to XOR 0 -->
+  <path d="M 272,220 L 367,220 L 367,274" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- B0 line to XOR 0 -->
+  <line x1="367" y1="181" x2="367" y2="274" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Outputs from XOR gates to Gray boxes -->
+  <line x1="177" y1="306" x2="177" y2="420" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="272" y1="306" x2="272" y2="420" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="367" y1="306" x2="367" y2="420" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Gray Outputs (Bottom Left) -->
+  <rect x="60" y="420" width="44" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="82" y="439" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">G₃</text>
+  <text x="82" y="457" font-size="12" fill="#27ae60" text-anchor="middle">g₃ = 1</text>
+
+  <rect x="155" y="420" width="44" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="177" y="439" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">G₂</text>
+  <text x="177" y="457" font-size="12" fill="#27ae60" text-anchor="middle">g₂ = 0</text>
+
+  <rect x="250" y="420" width="44" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="272" y="439" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">G₁</text>
+  <text x="272" y="457" font-size="12" fill="#27ae60" text-anchor="middle">g₁ = 1</text>
+
+  <rect x="345" y="420" width="44" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="367" y="439" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">G₀</text>
+  <text x="367" y="457" font-size="12" fill="#27ae60" text-anchor="middle">g₀ = 1</text>
+
+  <!-- Summary Left -->
+  <rect x="130" y="490" width="235" height="26" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="247" y="507" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Результат: 1101₂ → 1011_G</text>
+
+  <!-- ================= RIGHT PANEL: Inverse Recovery ================= -->
+  <rect x="495" y="75" width="435" height="455" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зворотне перетворення (Ґрей → двійковий)</text>
+  <text x="712" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Каскадне відновлення розрядів від старшого біта</text>
+
+  <!-- Gray Inputs (Top Right) -->
+  <rect x="525" y="135" width="44" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="547" y="154" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">G₃</text>
+  <text x="547" y="172" font-size="12" fill="#6b7280" text-anchor="middle">g₃ = 1</text>
+
+  <rect x="620" y="135" width="44" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="642" y="154" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">G₂</text>
+  <text x="642" y="172" font-size="12" fill="#6b7280" text-anchor="middle">g₂ = 0</text>
+
+  <rect x="715" y="135" width="44" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="737" y="154" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">G₁</text>
+  <text x="737" y="172" font-size="12" fill="#6b7280" text-anchor="middle">g₁ = 1</text>
+
+  <rect x="810" y="135" width="44" height="46" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="832" y="154" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">G₀</text>
+  <text x="832" y="172" font-size="12" fill="#6b7280" text-anchor="middle">g₀ = 1</text>
+
+  <!-- Cascading XOR Gates (Staggered) -->
+  <!-- XOR Gate 2 (G2 XOR B3) -->
+  <circle cx="642" cy="245" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="642" y="250" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">⊕</text>
+
+  <!-- XOR Gate 1 (G1 XOR B2) -->
+  <circle cx="737" cy="305" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="737" y="310" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">⊕</text>
+
+  <!-- XOR Gate 0 (G0 XOR B1) -->
+  <circle cx="832" cy="365" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="832" y="370" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">⊕</text>
+
+  <!-- Signal Lines Right Panel -->
+  <!-- G3 Pass-through line -->
+  <line x1="547" y1="181" x2="547" y2="420" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <circle cx="547" cy="245" r="3.5" fill="#2457d6"/>
+  <!-- Feedback B3 to XOR 2 -->
+  <line x1="547" y1="245" x2="624" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="586" y="235" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">B₃</text>
+
+  <!-- G2 line down to XOR 2 -->
+  <line x1="642" y1="181" x2="642" y2="227" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <!-- Output B2 from XOR 2 down to B2 box -->
+  <line x1="642" y1="261" x2="642" y2="420" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <circle cx="642" cy="305" r="3.5" fill="#2457d6"/>
+  <!-- Feedback B2 to XOR 1 -->
+  <line x1="642" y1="305" x2="719" y2="305" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="681" y="295" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">B₂</text>
+
+  <!-- G1 line down to XOR 1 -->
+  <line x1="737" y1="181" x2="737" y2="287" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <!-- Output B1 from XOR 1 down to B1 box -->
+  <line x1="737" y1="321" x2="737" y2="420" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <circle cx="737" cy="365" r="3.5" fill="#2457d6"/>
+  <!-- Feedback B1 to XOR 0 -->
+  <line x1="737" y1="365" x2="814" y2="365" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="776" y="355" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">B₁</text>
+
+  <!-- G0 line down to XOR 0 -->
+  <line x1="832" y1="181" x2="832" y2="347" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <!-- Output B0 from XOR 0 down to B0 box -->
+  <line x1="832" y1="381" x2="832" y2="420" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Binary Outputs (Bottom Right) -->
+  <rect x="525" y="420" width="44" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="547" y="439" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">B₃</text>
+  <text x="547" y="457" font-size="12" fill="#2457d6" text-anchor="middle">b₃ = 1</text>
+
+  <rect x="620" y="420" width="44" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="642" y="439" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">B₂</text>
+  <text x="642" y="457" font-size="12" fill="#2457d6" text-anchor="middle">b₂ = 1</text>
+
+  <rect x="715" y="420" width="44" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="737" y="439" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">B₁</text>
+  <text x="737" y="457" font-size="12" fill="#2457d6" text-anchor="middle">b₁ = 0</text>
+
+  <rect x="810" y="420" width="44" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="832" y="439" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">B₀</text>
+  <text x="832" y="457" font-size="12" fill="#2457d6" text-anchor="middle">b₀ = 1</text>
+
+  <!-- Summary Right -->
+  <rect x="595" y="490" width="235" height="26" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="712" y="507" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Відновлено: 1011_G → 1101₂</text>
+</svg>

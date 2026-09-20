@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Моніторинг фази: гістерезис порогів напруги та часові затримки</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Гістерезис ΔU запобігає брязкоту на межі порогу, а затримка t_delay відсікає короткочасні просідання</text>
+
+  <!-- Main Chart Panel -->
+  <rect x="15" y="70" width="930" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Hysteresis Band (Between U_on=200 and U_off=230) -->
+  <rect x="105" y="200" width="785" height="30" fill="#e9f7ef" opacity="0.7"/>
+
+  <!-- Grid / Threshold Lines -->
+  <!-- U_max (253V) at Y=105 -->
+  <line x1="105" y1="105" x2="890" y2="105" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <!-- U_nom (230V) at Y=150 -->
+  <line x1="105" y1="150" x2="890" y2="150" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+  <!-- U_on (198V) at Y=200 -->
+  <line x1="105" y1="200" x2="890" y2="200" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="5,5"/>
+  <!-- U_off (187V) at Y=230 -->
+  <line x1="105" y1="230" x2="890" y2="230" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,5"/>
+
+  <!-- Threshold Labels (Left Axis) -->
+  <text x="97" y="88" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Напруга U</text>
+  <text x="97" y="109" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">U_max (253В)</text>
+  <text x="97" y="154" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">U_nom (230В)</text>
+  <text x="97" y="204" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">U_on (198В)</text>
+  <text x="97" y="234" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">U_off (187В)</text>
+
+  <!-- Voltage Axis (Y) & Time Axis (X) -->
+  <line x1="105" y1="350" x2="105" y2="80" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="105" y1="350" x2="890" y2="350" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="898" y="354" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">t</text>
+
+  <!-- Event Vertical Marker Lines -->
+  <!-- Fault drop below U_off at X=380 -->
+  <line x1="380" y1="150" x2="380" y2="350" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- Trip delay expired at X=480 -->
+  <line x1="480" y1="150" x2="480" y2="405" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <!-- Recovery threshold U_on reached at X=660 -->
+  <line x1="660" y1="150" x2="660" y2="350" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- Recovery delay expired at X=740 -->
+  <line x1="740" y1="150" x2="740" y2="405" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Voltage Curve U_phase(t) -->
+  <path d="M 105,150 L 190,150 C 205,150 215,245 225,245 C 235,245 245,160 260,160 L 370,160 C 375,160 380,245 400,245 L 550,245 C 580,245 620,230 660,200 C 690,177 710,150 750,150 L 880,150" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <text x="310" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">U_phase(t)</text>
+
+  <!-- Callout 1: Short Dip (Ignored) -->
+  <rect x="180" y="80" width="140" height="38" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="250" y="96" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Просідання &lt; t_delay</text>
+  <text x="250" y="111" text-anchor="middle" font-size="10" fill="#6b7280">без вимкнення</text>
+  <line x1="225" y1="118" x2="225" y2="225" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Callout 2: Off Delay t_delay -->
+  <rect x="380" y="260" width="100" height="36" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="430" y="276" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">t_delay = 1.5 с</text>
+  <text x="430" y="290" text-anchor="middle" font-size="10" fill="#c0392b">пауза вимкнення</text>
+
+  <!-- Callout 3: Hysteresis Band Label (Placed clearly above Y=200 without intersection) -->
+  <line x1="810" y1="200" x2="810" y2="230" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-green)" marker-end="url(#arr-green)"/>
+  <text x="810" y="188" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">ΔU = 11 В</text>
+
+  <!-- Callout 4: On Delay t_rec -->
+  <rect x="655" y="260" width="90" height="36" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="700" y="276" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">t_rec = 3.0 с</text>
+  <text x="700" y="290" text-anchor="middle" font-size="10" fill="#27ae60">пауза ввімкнення</text>
+
+  <!-- Relay Output State Track (Bottom) -->
+  <text x="97" y="392" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Реле фази</text>
+
+  <!-- Relay Baseline -->
+  <line x1="105" y1="395" x2="880" y2="395" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Relay State Waveform -->
+  <!-- State 1: ON (Y=370) from X=105 to X=480 -->
+  <line x1="105" y1="370" x2="480" y2="370" stroke="#27ae60" stroke-width="3"/>
+  <text x="240" y="365" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">НОРМА (УВІМК)</text>
+
+  <!-- State 2: Transition OFF at X=480 -->
+  <line x1="480" y1="370" x2="480" y2="415" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- State 3: OFF (Y=415) from X=480 to X=740 -->
+  <line x1="480" y1="415" x2="740" y2="415" stroke="#c0392b" stroke-width="3"/>
+  <text x="610" y="410" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">АВАРІЯ (ВИМКНЕНО)</text>
+
+  <!-- State 4: Transition ON at X=740 -->
+  <line x1="740" y1="415" x2="740" y2="370" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- State 5: ON (Y=370) from X=740 to X=880 -->
+  <line x1="740" y1="370" x2="880" y2="370" stroke="#27ae60" stroke-width="3"/>
+  <text x="810" y="365" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">УВІМК</text>
+</svg>

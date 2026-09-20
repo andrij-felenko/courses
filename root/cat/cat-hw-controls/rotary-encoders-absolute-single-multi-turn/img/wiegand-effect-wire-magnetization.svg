@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Ефект Віганда: лавиноподібне перемагнічування та генерація імпульсу</text>
+  <text x="480" y="50" font-size="13" text-anchor="middle" fill="#6b7280">Швидке перемикання магнітного ядра Vicalloy створює електричний імпульс живлення</text>
+
+  <!-- Panel 1: Sensor Physical Structure -->
+  <rect x="40" y="90" width="260" height="390" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="170" y="115" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Сенсор Віганда</text>
+
+  <!-- Rotating Magnet -->
+  <path d="M 125,150 A 45,45 0 0,1 215,150" fill="none" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="170" y="140" font-size="12" font-weight="bold" text-anchor="middle" fill="#6b7280">Обертання ω</text>
+  <circle cx="170" cy="180" r="32" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="138" y="166" width="32" height="28" fill="#c0392b" rx="2"/>
+  <text x="154" y="185" font-size="12" font-weight="bold" text-anchor="middle" fill="white">N</text>
+  <rect x="170" y="166" width="32" height="28" fill="#2457d6" rx="2"/>
+  <text x="186" y="185" font-size="12" font-weight="bold" text-anchor="middle" fill="white">S</text>
+  <text x="170" y="224" font-size="12" text-anchor="middle" fill="#6b7280">Обертовий постійний магніт</text>
+
+  <!-- Wiegand Wire Structure & Pick-up Coil -->
+  <text x="170" y="255" font-size="12" font-weight="bold" text-anchor="middle" fill="#6b7280">Тверда оболонка (Vicalloy)</text>
+
+  <!-- Outer Shell & Soft Core Rectangles -->
+  <rect x="65" y="265" width="210" height="38" fill="#d0d7de" stroke="#6b7280" stroke-width="1" rx="4"/>
+  <rect x="65" y="279" width="210" height="10" fill="#2457d6" rx="2"/>
+
+  <!-- Coil Winding Loops (around the wire, without touching text) -->
+  <path d="M 95,260 C 95,255 105,255 105,265 L 100,308 M 115,260 C 115,255 125,255 125,265 L 120,308 M 135,260 C 135,255 145,255 145,265 L 140,308 M 155,260 C 155,255 165,255 165,265 L 160,308 M 175,260 C 175,255 185,255 185,265 L 180,308 M 195,260 C 195,255 205,255 205,265 L 200,308 M 215,260 C 215,255 225,255 225,265 L 220,308 M 235,260 C 235,255 245,255 245,265 L 240,308" stroke="#27ae60" stroke-width="2" fill="none"/>
+
+  <!-- Wire & Coil Labels Below Assembly -->
+  <text x="170" y="322" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">М'якомагнітне ядро Віганда</text>
+  <text x="170" y="342" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Котушка зчитування N витків</text>
+
+  <!-- Output Leads -->
+  <line x1="100" y1="308" x2="100" y2="390" stroke="#27ae60" stroke-width="2"/>
+  <line x1="240" y1="308" x2="240" y2="390" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Output Voltage Box -->
+  <rect x="70" y="390" width="200" height="60" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="170" y="413" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Вихідна напруга e(t)</text>
+  <text x="170" y="433" font-size="12" text-anchor="middle" fill="#1a1a1a">Короткий імпульс ~10 мкс</text>
+
+  <!-- Panel 2: Barkhausen Mechanism -->
+  <rect x="320" y="90" width="300" height="390" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="470" y="115" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">Механізм перемагнічування</text>
+
+  <!-- Step 1 -->
+  <rect x="335" y="135" width="270" height="85" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="470" y="157" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">1. Зростання поля H_ext</text>
+  <text x="470" y="177" font-size="12" text-anchor="middle" fill="#6b7280">Повільне накопичення енергії</text>
+  <text x="470" y="197" font-size="12" text-anchor="middle" fill="#6b7280">Оболонка утримує стан ядра</text>
+
+  <!-- Step 2 -->
+  <rect x="335" y="235" width="270" height="110" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="470" y="257" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">2. Досягнення порогу H_c</text>
+  <text x="470" y="277" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Лавиноподібний стрибок Баркхаузена</text>
+  <text x="470" y="297" font-size="12" text-anchor="middle" fill="#2457d6">Миттєвий розворот доменів (~10 мкс)</text>
+  <text x="470" y="325" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Високе dΦ/dt при будь-якій RPM!</text>
+
+  <!-- Step 3 -->
+  <rect x="335" y="360" width="270" height="90" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="470" y="382" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">3. Генерація ЕРС індукції</text>
+  <text x="470" y="407" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">e(t) = -N · (dΦ / dt)</text>
+  <text x="470" y="430" font-size="12" text-anchor="middle" fill="#1a1a1a">Імпульс не залежить від RPM</text>
+
+  <!-- Panel 3: Output Pulse & Energy Harvesting -->
+  <rect x="640" y="90" width="280" height="390" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="780" y="115" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Вихідний імпульс та енергія</text>
+
+  <!-- Waveform Plot Box -->
+  <rect x="655" y="135" width="250" height="205" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+
+  <!-- Plot Axes -->
+  <line x1="675" y1="285" x2="885" y2="285" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="690" y1="310" x2="690" y2="155" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="892" y="289" font-size="12" fill="#6b7280">t</text>
+  <text x="690" y="148" font-size="12" text-anchor="middle" fill="#6b7280">V</text>
+
+  <!-- Baseline & Pulse Curve -->
+  <line x1="690" y1="285" x2="885" y2="285" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <path d="M 690,285 L 740,285 Q 750,285 755,175 Q 760,170 765,285 Q 770,310 775,285 L 880,285" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Annotations on Plot -->
+  <line x1="690" y1="175" x2="755" y2="175" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="770" y="179" font-size="12" font-weight="bold" fill="#27ae60">V_peak ≈ 3...5 В</text>
+
+  <line x1="745" y1="300" x2="775" y2="300" stroke="#2457d6" stroke-width="1"/>
+  <text x="760" y="318" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">τ ≈ 10 мкс</text>
+
+  <!-- Energy Harvesting Box -->
+  <rect x="655" y="355" width="250" height="105" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="780" y="377" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Автономне живлення (Energy Harvesting)</text>
+  <text x="780" y="398" font-size="12" text-anchor="middle" fill="#1a1a1a">Енергія імпульсу: ~50 нДж</text>
+  <text x="780" y="419" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Живить FRAM без батареї!</text>
+
+  <!-- Bottom Legend Banner -->
+  <rect x="40" y="495" width="880" height="35" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <circle cx="65" cy="512" r="6" fill="#2457d6"/>
+  <text x="80" y="516" font-size="12" text-anchor="start" fill="#1a1a1a">М'якомагнітне ядро (Vicalloy)</text>
+
+  <circle cx="350" cy="512" r="6" fill="#6b7280"/>
+  <text x="365" y="516" font-size="12" text-anchor="start" fill="#1a1a1a">Твердомагнітна оболонка</text>
+
+  <circle cx="630" cy="512" r="6" fill="#27ae60"/>
+  <text x="645" y="516" font-size="12" text-anchor="start" fill="#1a1a1a">Сформований індукційний імпульс</text>
+</svg>

@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Потік обробки даних у драйвері джойстика на датчиках Холла</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Послідовне перетворення сирих відліків АЦП через фільтрацію, калібрування та deadzone у нормовані координати</text>
+
+  <!-- Block 1: АЦП відліки -->
+  <rect x="30" y="90" width="150" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="30" y="90" width="150" height="34" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="105" y="112" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. АЦП відліки</text>
+  <text x="105" y="145" font-size="12" fill="#1a1a1a" text-anchor="middle">Канал X: ADC_X</text>
+  <text x="105" y="165" font-size="12" fill="#1a1a1a" text-anchor="middle">Канал Y: ADC_Y</text>
+  <text x="105" y="195" font-size="12" fill="#6b7280" text-anchor="middle">Розрядність: 12-bit</text>
+  <text x="105" y="215" font-size="12" fill="#6b7280" text-anchor="middle">Діапазон: 0..4095</text>
+  <text x="105" y="245" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сирі координати</text>
+  <text x="105" y="265" font-size="12" fill="#2457d6" text-anchor="middle">Raw_X , Raw_Y</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <path d="M 180,190 L 210,190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="195" y="180" font-size="12" fill="#2457d6" text-anchor="middle">Raw</text>
+
+  <!-- Block 2: Фільтрація -->
+  <rect x="215" y="90" width="155" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="215" y="90" width="155" height="34" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="292" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Фільтрація</text>
+  <text x="292" y="145" font-size="12" fill="#1a1a1a" text-anchor="middle">Фільтр EMA / Калмана</text>
+  <text x="292" y="170" font-size="12" fill="#2457d6" text-anchor="middle">y[n] = α·x[n] +</text>
+  <text x="292" y="190" font-size="12" fill="#2457d6" text-anchor="middle">(1-α)·y[n-1]</text>
+  <text x="292" y="225" font-size="12" fill="#6b7280" text-anchor="middle">Пригнічення шуму</text>
+  <text x="292" y="245" font-size="12" fill="#6b7280" text-anchor="middle">наводок й АЦП-завад</text>
+  <text x="292" y="270" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Flt_X , Flt_Y</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <path d="M 370,190 L 400,190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="385" y="180" font-size="12" fill="#2457d6" text-anchor="middle">Flt</text>
+
+  <!-- Block 3: Калібрування -->
+  <rect x="405" y="90" width="155" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="405" y="90" width="155" height="34" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="482" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Калібрування</text>
+  <text x="482" y="145" font-size="12" fill="#1a1a1a" text-anchor="middle">Зсув центра (Center)</text>
+  <text x="482" y="168" font-size="12" fill="#1a1a1a" text-anchor="middle">Масштаб (Min / Max)</text>
+  <text x="482" y="198" font-size="12" fill="#2457d6" text-anchor="middle">X' = (Flt_X - Center)</text>
+  <text x="482" y="218" font-size="12" fill="#2457d6" text-anchor="middle">/ Scale</text>
+  <text x="482" y="245" font-size="12" fill="#6b7280" text-anchor="middle">Зведення до [-1, 1]</text>
+  <text x="482" y="270" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Cal_X , Cal_Y</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <path d="M 560,190 L 590,190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="575" y="180" font-size="12" fill="#2457d6" text-anchor="middle">Cal</text>
+
+  <!-- Block 4: Мертва зона -->
+  <rect x="595" y="90" width="155" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="595" y="90" width="155" height="34" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="672" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Мертва зона</text>
+  <text x="672" y="145" font-size="12" fill="#1a1a1a" text-anchor="middle">Inner Deadzone</text>
+  <text x="672" y="165" font-size="12" fill="#6b7280" text-anchor="middle">|val| &lt; dz =&gt; 0.0</text>
+  <text x="672" y="195" font-size="12" fill="#1a1a1a" text-anchor="middle">Outer Limit Clamp</text>
+  <text x="672" y="215" font-size="12" fill="#6b7280" text-anchor="middle">clamp(val,-1.0,1.0)</text>
+  <text x="672" y="245" font-size="12" fill="#6b7280" text-anchor="middle">Відсічення дрейфу</text>
+  <text x="672" y="270" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Out_X , Out_Y</text>
+
+  <!-- Arrow 4 -> 5 -->
+  <path d="M 750,190 L 780,190" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="765" y="180" font-size="12" fill="#27ae60" text-anchor="middle">Final</text>
+
+  <!-- Block 5: Вихідний стан -->
+  <rect x="785" y="90" width="145" height="200" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="785" y="90" width="145" height="34" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="857" y="112" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">5. Вихідний стан</text>
+  <text x="857" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">X_norm: [-1.0..1.0]</text>
+  <text x="857" y="170" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Y_norm: [-1.0..1.0]</text>
+  <text x="857" y="205" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Status:</text>
+  <text x="857" y="225" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">STATUS_OK</text>
+  <text x="857" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Передача в FSM /</text>
+  <text x="857" y="278" font-size="12" fill="#6b7280" text-anchor="middle">USB HID Драйвер</text>
+
+  <!-- Panel A: Діагностика апаратних помилок АЦП -->
+  <rect x="30" y="320" width="340" height="135" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="45" y="343" font-size="13" font-weight="bold" fill="#c0392b">Діагностика апаратних помилок АЦП</text>
+  <text x="45" y="368" font-size="12" fill="#1a1a1a">Перевірка рівня напруги сенсорів (0.1 В – 3.2 В):</text>
+  <text x="45" y="390" font-size="12" fill="#c0392b">• &lt; 0.1 V (124) =&gt; Коротке на GND (ERR_SHORT_GND)</text>
+  <text x="45" y="412" font-size="12" fill="#c0392b">• &gt; 3.2 V (3970) =&gt; Обрив / Перенапруга (ERR_OPEN)</text>
+  <text x="45" y="434" font-size="12" fill="#6b7280">При помилці: статус змінюється на ERR_SENSOR</text>
+
+  <!-- Arrow down to Panel A -->
+  <path d="M 105,290 L 105,320" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="115" y="308" font-size="12" fill="#c0392b">Fault check</text>
+
+  <!-- Panel B: Конфігурація та Калібрувальні коефіцієнти -->
+  <rect x="395" y="320" width="535" height="135" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="410" y="343" font-size="13" font-weight="bold" fill="#2457d6">Конфігурація та Калібрувальні коефіцієнти (Flash / EEPROM)</text>
+  <text x="410" y="368" font-size="12" fill="#1a1a1a">• Center_X, Center_Y : сирі точки нуля</text>
+  <text x="410" y="390" font-size="12" fill="#1a1a1a">• Min_X, Max_X / Min_Y, Max_Y : граничні амплітуди</text>
+  <text x="410" y="412" font-size="12" fill="#1a1a1a">• Deadzone_Radius : радіус мертвої зони (3..5%)</text>
+  <text x="730" y="368" font-size="12" fill="#6b7280">Ініціалізація: gimb_init()</text>
+  <text x="730" y="390" font-size="12" fill="#6b7280">Запис калібровки: gimb_save()</text>
+  <text x="730" y="412" font-size="12" fill="#27ae60">Стабільне керування</text>
+
+  <!-- Arrows up from Panel B -->
+  <path d="M 482,320 L 482,290" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+  <text x="492" y="308" font-size="12" fill="#2457d6">Calib data</text>
+
+  <path d="M 672,320 L 672,290" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+  <text x="682" y="308" font-size="12" fill="#2457d6">DZ params</text>
+</svg>

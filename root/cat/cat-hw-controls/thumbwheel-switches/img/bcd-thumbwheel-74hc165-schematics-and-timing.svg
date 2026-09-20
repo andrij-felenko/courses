@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" width="960" height="580" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="580" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема підключення BCD-перемикачів до 74HC165 та часові діаграми</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Паралельне фіксування BCD-коду сигналом PL і послідовне зчитування тактами CP</text>
+
+  <!-- TOP PANEL: Schematic -->
+  <rect x="30" y="65" width="900" height="235" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="85" font-size="13" font-weight="bold" fill="#2457d6">Апаратна схемотехніка підключення (2 декади BCD → 74HC165 → MCU)</text>
+
+  <!-- VCC Rail line and label -->
+  <line x1="48" y1="90" x2="48" y2="231" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="48" y1="131" x2="53" y2="131" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="48" y1="231" x2="53" y2="231" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="53" y="90" font-size="11" font-weight="bold" fill="#c0392b">+5V (VCC)</text>
+
+  <!-- BCD Switch 1 (Units) -->
+  <rect x="45" y="98" width="145" height="92" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="98" width="145" height="22" rx="6" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="117" y="113" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Декада #1 (Одиниці)</text>
+  
+  <text x="53" y="132" font-size="11" font-weight="bold" fill="#c0392b">C (+5V)</text>
+  
+  <text x="180" y="134" text-anchor="end" font-size="11" fill="#1a1a1a">1 (D0)</text>
+  <text x="180" y="149" text-anchor="end" font-size="11" fill="#1a1a1a">2 (D1)</text>
+  <text x="180" y="164" text-anchor="end" font-size="11" fill="#1a1a1a">4 (D2)</text>
+  <text x="180" y="179" text-anchor="end" font-size="11" fill="#1a1a1a">8 (D3)</text>
+
+  <!-- BCD Switch 2 (Tens) -->
+  <rect x="45" y="198" width="145" height="92" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="198" width="145" height="22" rx="6" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="117" y="213" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Декада #2 (Десятки)</text>
+  
+  <text x="53" y="232" font-size="11" font-weight="bold" fill="#c0392b">C (+5V)</text>
+  
+  <text x="180" y="234" text-anchor="end" font-size="11" fill="#1a1a1a">1 (D4)</text>
+  <text x="180" y="249" text-anchor="end" font-size="11" fill="#1a1a1a">2 (D5)</text>
+  <text x="180" y="264" text-anchor="end" font-size="11" fill="#1a1a1a">4 (D6)</text>
+  <text x="180" y="279" text-anchor="end" font-size="11" fill="#1a1a1a">8 (D7)</text>
+
+  <!-- Lines from Switch 1 to 74HC165 -->
+  <line x1="190" y1="131" x2="495" y2="131" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="190" y1="146" x2="495" y2="146" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="190" y1="161" x2="495" y2="161" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="190" y1="176" x2="495" y2="176" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Lines from Switch 2 to 74HC165 -->
+  <line x1="190" y1="231" x2="495" y2="231" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="190" y1="246" x2="495" y2="246" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="190" y1="261" x2="495" y2="261" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="190" y1="276" x2="495" y2="276" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Pull-down Resistor Array Label Box (above data lines) -->
+  <rect x="315" y="93" width="135" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="382" y="108" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">8× 10k R_pd → GND</text>
+
+  <!-- Pull-down Resistor taps down to GND line -->
+  <line x1="340" y1="131" x2="340" y2="286" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="350" y1="146" x2="350" y2="286" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="360" y1="161" x2="360" y2="286" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="370" y1="176" x2="370" y2="286" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="380" y1="231" x2="380" y2="286" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="390" y1="246" x2="390" y2="286" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="400" y1="261" x2="400" y2="286" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="410" y1="276" x2="410" y2="286" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="330" y1="286" x2="420" y2="286" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- 74HC165 IC Box -->
+  <rect x="495" y="95" width="220" height="195" rx="6" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <rect x="495" y="95" width="220" height="28" rx="6" fill="#2457d6"/>
+  <text x="605" y="114" text-anchor="middle" font-size="13" font-weight="bold" fill="white">74HC165 (Зсувний регістр)</text>
+
+  <!-- 74HC165 Left Pin Labels -->
+  <text x="505" y="135" font-size="11" font-weight="bold" fill="#1a1a1a">D0</text>
+  <text x="505" y="150" font-size="11" font-weight="bold" fill="#1a1a1a">D1</text>
+  <text x="505" y="165" font-size="11" font-weight="bold" fill="#1a1a1a">D2</text>
+  <text x="505" y="180" font-size="11" font-weight="bold" fill="#1a1a1a">D3</text>
+  <text x="505" y="235" font-size="11" font-weight="bold" fill="#1a1a1a">D4</text>
+  <text x="505" y="250" font-size="11" font-weight="bold" fill="#1a1a1a">D5</text>
+  <text x="505" y="265" font-size="11" font-weight="bold" fill="#1a1a1a">D6</text>
+  <text x="505" y="280" font-size="11" font-weight="bold" fill="#1a1a1a">D7</text>
+
+  <!-- 74HC165 Right Pin Labels -->
+  <text x="705" y="145" text-anchor="end" font-size="11" font-weight="bold" fill="#2457d6">/PL (pin 1)</text>
+  <text x="705" y="180" text-anchor="end" font-size="11" font-weight="bold" fill="#2457d6">CP (pin 2)</text>
+  <text x="705" y="212" text-anchor="end" font-size="11" fill="#6b7280">/CE (GND)</text>
+  <text x="705" y="247" text-anchor="end" font-size="11" font-weight="bold" fill="#27ae60">Q7 (pin 9)</text>
+
+  <!-- Ground Connection for /CE -->
+  <line x1="715" y1="210" x2="735" y2="210" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="735" y1="210" x2="735" y2="222" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="727" y1="222" x2="743" y2="222" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="730" y1="225" x2="740" y2="225" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="733" y1="228" x2="737" y2="228" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Control lines between 74HC165 and MCU -->
+  <!-- PL line -->
+  <line x1="775" y1="143" x2="724" y2="143" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <!-- CP line -->
+  <line x1="775" y1="178" x2="724" y2="178" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <!-- Q7 line -->
+  <line x1="715" y1="245" x2="766" y2="245" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- MCU Box -->
+  <rect x="775" y="95" width="135" height="195" rx="6" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="775" y="95" width="135" height="28" rx="6" fill="#1a1a1a"/>
+  <text x="842" y="114" text-anchor="middle" font-size="13" font-weight="bold" fill="white">MCU / GPIO</text>
+
+  <text x="785" y="148" font-size="11" font-weight="bold" fill="#2457d6">GPIO_PL</text>
+  <text x="785" y="183" font-size="11" font-weight="bold" fill="#2457d6">SPI_SCK</text>
+  <text x="785" y="250" font-size="11" font-weight="bold" fill="#27ae60">SPI_MISO</text>
+
+
+  <!-- BOTTOM PANEL: Timing Diagram -->
+  <rect x="30" y="315" width="900" height="245" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="338" font-size="13" font-weight="bold" fill="#2457d6">Часова діаграма сигналів керування та зсуву даних</text>
+
+  <!-- Signal Labels Left -->
+  <text x="45" y="375" font-size="12" font-weight="bold" fill="#2457d6">/PL (Latch)</text>
+  <text x="45" y="445" font-size="12" font-weight="bold" fill="#1a1a1a">CP (Clock)</text>
+  <text x="45" y="505" font-size="12" font-weight="bold" fill="#27ae60">Q7 (Data Out)</text>
+
+  <!-- Vertical dashed grid lines ONLY between CP waveform and Data Out (y=452 to 484) -->
+  <line x1="310" y1="452" x2="310" y2="484" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="364" y1="452" x2="364" y2="484" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="418" y1="452" x2="418" y2="484" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="472" y1="452" x2="472" y2="484" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="526" y1="452" x2="526" y2="484" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="580" y1="452" x2="580" y2="484" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="634" y1="452" x2="634" y2="484" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+  <line x1="688" y1="452" x2="688" y2="484" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2 2"/>
+
+  <!-- Waveform /PL -->
+  <path d="M 160,365 L 220,365 L 220,395 L 270,395 L 270,365 L 860,365" fill="none" stroke="#2457d6" stroke-width="2"/>
+  
+  <!-- Pulse Width Annotation inside the /PL LOW pulse -->
+  <text x="245" y="384" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">t_w(PL)</text>
+
+  <!-- Waveform CP -->
+  <path d="M 160,450 L 310,450 L 310,430 L 334,430 L 334,450 L 364,450 L 364,430 L 388,430 L 388,450 L 418,450 L 418,430 L 442,430 L 442,450 L 472,450 L 472,430 L 496,430 L 496,450 L 526,450 L 526,430 L 550,430 L 550,450 L 580,450 L 580,430 L 604,430 L 604,450 L 634,450 L 634,430 L 658,430 L 658,450 L 688,450 L 688,430 L 712,430 L 712,450 L 860,450" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Pulse numbers above CP pulses (y=422) -->
+  <text x="322" y="422" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">1</text>
+  <text x="376" y="422" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">2</text>
+  <text x="430" y="422" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">3</text>
+  <text x="484" y="422" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">4</text>
+  <text x="538" y="422" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">5</text>
+  <text x="592" y="422" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">6</text>
+  <text x="646" y="422" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">7</text>
+  <text x="700" y="422" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">8</text>
+
+  <!-- Waveform Q7 Data Blocks -->
+  <!-- Idle segment -->
+  <rect x="160" y="488" width="60" height="26" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="190" y="505" text-anchor="middle" font-size="11" fill="#6b7280">Z / idle</text>
+
+  <!-- Decade 2 Bits (D7..D4) -->
+  <rect x="220" y="488" width="90" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="265" y="505" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">D7 (MSB)</text>
+
+  <rect x="310" y="488" width="54" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="337" y="505" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">D6</text>
+
+  <rect x="364" y="488" width="54" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="391" y="505" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">D5</text>
+
+  <rect x="418" y="488" width="54" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="445" y="505" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">D4</text>
+
+  <!-- Decade 1 Bits (D3..D0) -->
+  <rect x="472" y="488" width="54" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="499" y="505" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">D3</text>
+
+  <rect x="526" y="488" width="54" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="553" y="505" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">D2</text>
+
+  <rect x="580" y="488" width="54" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="607" y="505" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">D1</text>
+
+  <rect x="634" y="488" width="54" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="661" y="505" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">D0</text>
+
+  <!-- Tail segment -->
+  <rect x="688" y="488" width="172" height="26" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="774" y="505" text-anchor="middle" font-size="11" fill="#6b7280">Idle / Z</text>
+
+  <!-- Data Bus Decade Labels below data blocks -->
+  <text x="346" y="538" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Декада #2 (Десятки: D7..D4)</text>
+  <text x="580" y="538" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Декада #1 (Одиниці: D3..D0)</text>
+</svg>

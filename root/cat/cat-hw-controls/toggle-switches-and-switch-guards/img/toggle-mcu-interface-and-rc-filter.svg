@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратне пригнічення брязкоту контактів тумблера RC-фільтром та тригером Шмітта</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Пасивний RC-ланцюг згладжує брязкотливі сплески, а тригер Шмітта формує чіткі цифрові фронти для GPIO МК</text>
+
+  <!-- PANEL A: Circuit Diagram -->
+  <rect x="30" y="75" width="900" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="98" font-size="14" font-weight="bold" fill="#2457d6">1. Принципова схема апаратного RC-фільтра</text>
+
+  <!-- Switch SW1 -->
+  <circle cx="110" cy="185" r="5" fill="#1a1a1a"/>
+  <circle cx="150" cy="185" r="5" fill="#1a1a1a"/>
+  <line x1="110" y1="185" x2="145" y2="165" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="60" y1="185" x2="105" y2="185" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="60" y1="185" x2="60" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- GND for switch -->
+  <line x1="45" y1="205" x2="75" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="50" y1="209" x2="70" y2="209" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="55" y1="213" x2="65" y2="213" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="125" y="235" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тумблер SW1</text>
+
+  <!-- Wire SW1 to Net V_SW -->
+  <line x1="155" y1="185" x2="220" y2="185" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="220" cy="185" r="4" fill="#c0392b"/>
+  <text x="220" y="172" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">V_SW</text>
+
+  <!-- Pull-up Resistor R_PU to +3.3V -->
+  <line x1="220" y1="185" x2="220" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="212" y="130" width="16" height="35" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="220" y1="130" x2="220" y2="115" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- V_CC Power Symbol -->
+  <line x1="208" y1="115" x2="232" y2="115" stroke="#2457d6" stroke-width="2"/>
+  <text x="220" y="105" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">+3.3V (V_CC)</text>
+  <text x="240" y="150" font-size="12" fill="#1a1a1a">R_PU = 10 кОм</text>
+
+  <!-- Series Resistor R_F -->
+  <line x1="220" y1="185" x2="255" y2="185" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="255" y="177" width="40" height="16" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="295" y1="185" x2="350" y2="185" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="275" y="167" font-size="12" fill="#1a1a1a" text-anchor="middle">R_F = 1 кОм</text>
+
+  <!-- Net V_C Junction & Shunt Capacitor C_F -->
+  <circle cx="350" cy="185" r="4" fill="#2457d6"/>
+  <text x="350" y="172" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_C</text>
+
+  <line x1="350" y1="185" x2="350" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="338" y1="205" x2="362" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="338" y1="211" x2="362" y2="211" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="350" y1="211" x2="350" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- GND for Capacitor -->
+  <line x1="338" y1="225" x2="362" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="343" y1="229" x2="357" y2="229" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="347" y1="233" x2="353" y2="233" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="370" y="213" font-size="12" fill="#1a1a1a">C_F = 100 нФ</text>
+
+  <!-- Wire to Schmitt Trigger -->
+  <line x1="350" y1="185" x2="460" y2="185" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Schmitt Trigger Buffer Symbol -->
+  <polygon points="460,160 460,210 520,185" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <!-- Hysteresis symbol inside triangle -->
+  <path d="M 478,189 L 488,189 L 488,181 L 498,181 M 488,189 L 478,189 M 488,181 L 498,181" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+  <text x="490" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Тригер Шмітта</text>
+  <text x="490" y="228" font-size="12" fill="#6b7280" text-anchor="middle">V_IH = 2.0V , V_IL = 0.8V</text>
+
+  <!-- Wire Schmitt Trigger to MCU -->
+  <line x1="520" y1="185" x2="660" y2="185" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="590" y="175" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_OUT</text>
+
+  <!-- MCU Panel Box -->
+  <rect x="660" y="110" width="240" height="135" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="780" y="135" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер (MCU)</text>
+  <text x="780" y="160" font-size="12" fill="#1a1a1a" text-anchor="middle">Вхідний порт GPIO</text>
+  <text x="780" y="190" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Чистий цифровий сигнал</text>
+  <text x="780" y="215" font-size="12" fill="#6b7280" text-anchor="middle">Без хибних переривань</text>
+
+  <!-- PANEL B: Waveforms -->
+  <rect x="30" y="280" width="900" height="220" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="303" font-size="14" font-weight="bold" fill="#1a1a1a">2. Часові діаграми сигналу під час перемикання (t_bounce ≈ 2…10 мс)</text>
+
+  <!-- Track 1: V_SW (Red - Bounce) -->
+  <text x="45" y="335" font-size="12" font-weight="bold" fill="#c0392b">V_SW (На контактах)</text>
+  <text x="45" y="352" font-size="12" fill="#6b7280">Брязкіт: сплески 0V…3.3V</text>
+
+  <line x1="260" y1="325" x2="850" y2="325" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="260" y1="360" x2="850" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- Signal V_SW -->
+  <path d="M 260,325 L 380,325 L 385,360 L 392,325 L 398,360 L 404,325 L 410,360 L 418,325 L 425,360 L 850,360" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="860" y="329" font-size="12" fill="#6b7280">3.3 V</text>
+  <text x="860" y="364" font-size="12" fill="#6b7280">0 V</text>
+
+  <!-- Track 2: V_C (Blue - RC Exponential Decay) -->
+  <text x="45" y="398" font-size="12" font-weight="bold" fill="#2457d6">V_C (Після RC-фільтра)</text>
+  <text x="45" y="415" font-size="12" fill="#6b7280">Експоненціальний спад</text>
+
+  <line x1="260" y1="380" x2="850" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- Thresholds V_IH and V_IL -->
+  <line x1="260" y1="395" x2="730" y2="395" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="740" y="399" font-size="12" fill="#2457d6">V_IH = 2.0 V</text>
+
+  <line x1="260" y1="415" x2="730" y2="415" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="740" y="419" font-size="12" fill="#2457d6">V_IL = 0.8 V</text>
+
+  <!-- Signal V_C curve -->
+  <path d="M 260,380 L 380,380 C 410,380 430,400 470,416 C 500,424 540,425 850,425" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Track 3: V_OUT (Green - Clean Digital Edge) -->
+  <text x="45" y="458" font-size="12" font-weight="bold" fill="#27ae60">V_OUT (Вхід GPIO МК)</text>
+  <text x="45" y="475" font-size="12" fill="#6b7280">Ідеальний чистий фронт</text>
+
+  <!-- Signal V_OUT -->
+  <path d="M 260,445 L 470,445 L 470,480 L 850,480" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="860" y="449" font-size="12" fill="#27ae60">HIGH</text>
+  <text x="860" y="484" font-size="12" fill="#27ae60">LOW</text>
+
+  <!-- Time Axis -->
+  <line x1="260" y1="492" x2="850" y2="492" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="860" y="496" font-size="12" font-weight="bold" fill="#6b7280">Час t</text>
+</svg>

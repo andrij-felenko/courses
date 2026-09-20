@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діаграма станів (FSM) квадратурного декодера енкодера</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Послідовні переходи суміжних станів (1 біт) визначають напрямок, а діагональні стрибки (2 біти) — помилку</text>
+
+  <!-- Left Container Panel -->
+  <rect x="40" y="75" width="490" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="75" width="490" height="33" rx="8" fill="#eaf0fd"/>
+  <text x="285" y="96" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Кільцевий автомат станів (4 фази квадратури)</text>
+
+  <!-- Outer CW Transition Arcs (Green) -->
+  <path d="M 323,150 Q 435,150 435,276" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="405" y="135" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">CW (+1)</text>
+
+  <path d="M 425,324 Q 425,450 323,450" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="440" y="405" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">CW (+1)</text>
+
+  <path d="M 247,450 Q 135,450 135,324" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="160" y="475" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">CW (+1)</text>
+
+  <path d="M 145,276 Q 145,150 247,150" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="135" y="135" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">CW (+1)</text>
+
+  <!-- Inner CCW Transition Arcs (Blue Dashed) -->
+  <path d="M 260,184 Q 195,195 183,280" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+  <text x="195" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">CCW (-1)</text>
+
+  <path d="M 183,320 Q 195,405 260,416" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+  <text x="200" y="385" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">CCW (-1)</text>
+
+  <path d="M 310,416 Q 375,405 387,320" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+  <text x="320" y="385" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">CCW (-1)</text>
+
+  <path d="M 387,280 Q 375,195 310,184" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+  <text x="320" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">CCW (-1)</text>
+
+  <!-- Central Error Circle Badge -->
+  <circle cx="285" cy="300" r="26" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="285" y="304" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ПОМИЛКА</text>
+
+  <!-- Diagonal Invalid Jump Lines (Red Dashed) -->
+  <line x1="285" y1="184" x2="285" y2="274" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arr-red)" marker-start="url(#arr-red)"/>
+  <line x1="285" y1="326" x2="285" y2="416" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arr-red)" marker-start="url(#arr-red)"/>
+  <line x1="183" y1="300" x2="259" y2="300" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arr-red)" marker-start="url(#arr-red)"/>
+  <line x1="311" y1="300" x2="387" y2="300" stroke="#c0392b" stroke-width="2" stroke-dasharray="5 3" marker-end="url(#arr-red)" marker-start="url(#arr-red)"/>
+
+  <!-- State Node Cards & Labels -->
+  <!-- Top Node: 00 -->
+  <rect x="247" y="136" width="76" height="48" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="285" y="156" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">00</text>
+  <text x="285" y="174" font-size="12" fill="#6b7280" text-anchor="middle">S₀ (0,0)</text>
+
+  <!-- Right Node: 01 -->
+  <rect x="387" y="276" width="76" height="48" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="425" y="296" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">01</text>
+  <text x="425" y="314" font-size="12" fill="#6b7280" text-anchor="middle">S₁ (0,1)</text>
+
+  <!-- Bottom Node: 11 -->
+  <rect x="247" y="416" width="76" height="48" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="285" y="436" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">11</text>
+  <text x="285" y="454" font-size="12" fill="#6b7280" text-anchor="middle">S₂ (1,1)</text>
+
+  <!-- Left Node: 10 -->
+  <rect x="107" y="276" width="76" height="48" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="145" y="296" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">10</text>
+  <text x="145" y="314" font-size="12" fill="#6b7280" text-anchor="middle">S₃ (1,0)</text>
+
+  <!-- Right Container Panel -->
+  <rect x="550" y="75" width="370" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Card 1: Valid Transitions -->
+  <rect x="565" y="95" width="340" height="195" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="735" y="120" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Допустимі фазові переходи (1 біт)</text>
+
+  <text x="580" y="148" font-size="13" font-weight="bold" fill="#27ae60">Пряме обертання (CW / +1):</text>
+  <text x="580" y="170" font-size="12" fill="#1a1a1a">00 → 01 → 11 → 10 → 00</text>
+
+  <text x="580" y="202" font-size="13" font-weight="bold" fill="#2457d6">Зворотне обертання (CCW / -1):</text>
+  <text x="580" y="224" font-size="12" fill="#1a1a1a">00 → 10 → 11 → 01 → 00</text>
+
+  <text x="580" y="258" font-size="12" font-style="italic" fill="#6b7280">Принцип: зміна лише одного біта (Код Ґрея)</text>
+
+  <!-- Card 2: Invalid Transitions -->
+  <rect x="565" y="310" width="340" height="200" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="735" y="335" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Аномальні переходи (2 біти)</text>
+
+  <text x="580" y="365" font-size="13" font-weight="bold" fill="#c0392b">• Заборонені пари: 00 ↔ 11 та 01 ↔ 10</text>
+
+  <text x="580" y="395" font-size="12" fill="#1a1a1a">Причини: брязкіт контактів або пропуск</text>
+  <text x="580" y="415" font-size="12" fill="#1a1a1a">імпульсу через високу швидкість обертання</text>
+
+  <text x="580" y="450" font-size="12" font-weight="bold" fill="#c0392b">Реакція FSM: лічильник не змінюється,</text>
+  <text x="580" y="470" font-size="12" font-weight="bold" fill="#c0392b">генерується прапор помилки (Error Flag)</text>
+</svg>

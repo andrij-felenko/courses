@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механізм засувки IEC 60947-5-5 та ручне розблокування</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">При спрацьовуванні контактна група примусово розмикається й блокується у відкритому стані</text>
+
+  <!-- Panel 1: Normal State -->
+  <rect x="30" y="75" width="435" height="420" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="30" y="75" width="435" height="34" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="247.5" y="97" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">1. Нормальний стан (Трос натягнуто)</text>
+
+  <!-- Panel 1 Mechanical Schematic -->
+  <text x="105" y="140" font-size="12" fill="#2457d6" text-anchor="middle">Натяг F_norm</text>
+  <line x1="45" y1="165" x2="165" y2="165" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="45" y1="150" x2="45" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 50 165 Q 60 157, 70 165 T 90 165 T 110 165 T 130 165" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <line x1="130" y1="165" x2="155" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Cam Box -->
+  <rect x="165" y="145" width="130" height="40" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="230" y="169" font-size="12" fill="#1a1a1a" text-anchor="middle">Кулачок із пазом</text>
+  <path d="M 220 185 L 230 195 L 240 185 Z" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Roller & Actuator Rod -->
+  <circle cx="230" cy="197" r="7" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="225" y="204" width="10" height="120" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  
+  <!-- Springs & Pawl -->
+  <path d="M 240 230 L 255 235 L 240 240 L 255 245 L 240 250" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="265" y="242" font-size="12" fill="#6b7280" text-anchor="start">Пружина фіксатора</text>
+  
+  <path d="M 300 270 L 240 270 L 245 262 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="310" y="274" font-size="12" fill="#6b7280" text-anchor="start">Фіксатор (зведений)</text>
+
+  <!-- Panel 1 Contact Box -->
+  <rect x="50" y="335" width="395" height="105" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="247.5" y="355" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контактна група NC (Примусове розмикання)</text>
+  
+  <!-- Stationary Contacts -->
+  <rect x="90" y="375" width="24" height="16" fill="#2457d6" rx="2"/>
+  <text x="102" y="407" font-size="12" fill="#6b7280" text-anchor="middle">Контакт 1</text>
+
+  <rect x="380" y="375" width="24" height="16" fill="#2457d6" rx="2"/>
+  <text x="392" y="407" font-size="12" fill="#6b7280" text-anchor="middle">Контакт 2</text>
+
+  <!-- Moving Contact Bridge -->
+  <rect x="80" y="363" width="335" height="12" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5" rx="3"/>
+  <text x="247.5" y="428" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">КОНТАКТИ ЗАМКНУТІ (NC)</text>
+
+  <!-- Panel 1 Status Badge -->
+  <rect x="50" y="450" width="395" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="247.5" y="470" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Норма: ланцюг живлення дозволений</text>
+
+
+  <!-- Panel 2: Tripped & Latched State -->
+  <rect x="495" y="75" width="435" height="420" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <rect x="495" y="75" width="435" height="34" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="712.5" y="97" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">2. Заблокований стан (Latch-In) та скидання</text>
+
+  <!-- Panel 2 Mechanical Schematic -->
+  <!-- Cable Trigger Force Arrow -->
+  <text x="560" y="140" font-size="12" fill="#c0392b" text-anchor="middle">F &gt; F_max або F = 0</text>
+  <line x1="510" y1="165" x2="575" y2="165" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Shifted Cam Box -->
+  <rect x="580" y="145" width="120" height="40" fill="#ffffff" stroke="#c0392b" stroke-width="2" rx="4"/>
+  <text x="640" y="169" font-size="12" fill="#c0392b" text-anchor="middle">Зміщений кулачок</text>
+
+  <!-- Roller & Dropped Actuator Rod -->
+  <circle cx="640" cy="207" r="7" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="635" y="214" width="10" height="116" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  
+  <!-- Direct Opening Indicator -->
+  <text x="565" y="295" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Примусове розмикання</text>
+  <line x1="565" y1="230" x2="565" y2="278" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Latch Pawl Snap (Latch-In) -->
+  <path d="M 700 260 L 642 268 L 700 276 Z" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="710" y="268" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Фіксатор (Latch-In)</text>
+  <text x="710" y="286" font-size="12" fill="#6b7280" text-anchor="start">Блокує повернення</text>
+
+  <!-- Reset Button & Linkage -->
+  <rect x="780" y="145" width="135" height="90" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <circle cx="847.5" cy="173" r="15" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="847.5" y="177" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">RESET</text>
+  <text x="847.5" y="202" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ручне скидання</text>
+  <text x="847.5" y="220" font-size="12" fill="#6b7280" text-anchor="middle">потягнути / повернути</text>
+
+  <!-- Linkage Arrow from Reset button to Latch Pawl -->
+  <path d="M 847.5 235 L 847.5 245 Q 847.5 255 710 255" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+  <text x="750" y="238" font-size="12" fill="#2457d6" text-anchor="start">Відведення засувки</text>
+
+  <!-- Panel 2 Contact Box -->
+  <rect x="515" y="335" width="395" height="105" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="712.5" y="355" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контактна група NC (Розімкнено)</text>
+
+  <!-- Plunger line connecting rod to dropped bridge -->
+  <line x1="640" y1="330" x2="640" y2="405" stroke="#c0392b" stroke-width="2" stroke-dasharray="3 3"/>
+
+  <rect x="555" y="375" width="24" height="16" fill="#2457d6" rx="2"/>
+  <text x="567" y="369" font-size="12" fill="#6b7280" text-anchor="middle">Контакт 1</text>
+
+  <rect x="845" y="375" width="24" height="16" fill="#2457d6" rx="2"/>
+  <text x="857" y="369" font-size="12" fill="#6b7280" text-anchor="middle">Контакт 2</text>
+
+  <!-- Moving Contact Bridge Dropped -->
+  <rect x="545" y="405" width="335" height="12" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5" rx="3"/>
+  <text x="712.5" y="392" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зазор &gt; 3 мм (IEC 60947-5-5)</text>
+  <text x="712.5" y="428" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">КОНТАКТИ ПРИМУСОВО РОЗІМКНУТІ</text>
+
+  <!-- Panel 2 Status Badge -->
+  <rect x="515" y="450" width="395" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="712.5" y="470" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Аварія: заблоковано до ручного скидання</text>
+</svg>

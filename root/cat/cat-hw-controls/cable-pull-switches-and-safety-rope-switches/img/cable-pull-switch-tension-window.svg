@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Оглядове вікно контролю натягу троса (Tension Inspection Window)</text>
+  <text x="480" y="58" font-size="13" text-anchor="middle" fill="#6b7280">Нормальний натяг утримує покажчик штока точно по центру зеленої робочої зони</text>
+
+  <!-- PANEL 1: TRIP / SLACK (LACK OF TENSION) -->
+  <rect x="40" y="95" width="270" height="285" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="175" y="120" font-size="14" font-weight="bold" text-anchor="middle" fill="#c0392b">1. Трос недотягнуто</text>
+  <text x="175" y="140" font-size="12" text-anchor="middle" fill="#6b7280">Послаблення або обрив</text>
+
+  <!-- Window Frame Panel 1 -->
+  <rect x="65" y="165" width="220" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Scale Zones Panel 1 -->
+  <rect x="75" y="190" width="55" height="40" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="135" y="190" width="80" height="40" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="220" y="190" width="55" height="40" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Scale Zone Labels Panel 1 -->
+  <text x="102.5" y="182" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">ОБРИВ</text>
+  <text x="175" y="182" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">НОРМА</text>
+  <text x="247.5" y="182" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">ТЯГА</text>
+
+  <!-- Shaft & Pointer Panel 1 (Position: Left / Red) -->
+  <line x1="75" y1="210" x2="275" y2="210" stroke="#4a5568" stroke-width="6"/>
+  <line x1="102.5" y1="186" x2="102.5" y2="244" stroke="#c0392b" stroke-width="3"/>
+  <polygon points="96.5,186 108.5,186 102.5,196" fill="#c0392b"/>
+  <polygon points="96.5,244 108.5,244 102.5,234" fill="#c0392b"/>
+  <circle cx="102.5" cy="210" r="6" fill="#ffffff" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Badge & Status Panel 1 -->
+  <rect x="65" y="278" width="220" height="30" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="175" y="298" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">NC-контакти: РОЗІМКНЕНІ</text>
+  <text x="175" y="325" font-size="12" text-anchor="middle" fill="#1a1a1a">Трос обірвано або послаблено</text>
+  <text x="175" y="345" font-size="12" text-anchor="middle" fill="#6b7280">Пружина втягла шток ліворуч</text>
+  <text x="175" y="365" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Аварійне зупинення конвеєра</text>
+
+  <!-- PANEL 2: NORMAL WORKING TENSION (HIGHLIGHTED SOLUTION) -->
+  <rect x="345" y="95" width="270" height="285" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="480" y="120" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">2. Робочий натяг</text>
+  <text x="480" y="140" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Норма (Юстування OK)</text>
+
+  <!-- Window Frame Panel 2 -->
+  <rect x="370" y="165" width="220" height="100" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Scale Zones Panel 2 -->
+  <rect x="380" y="190" width="55" height="40" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="440" y="190" width="80" height="40" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <rect x="525" y="190" width="55" height="40" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Scale Zone Labels Panel 2 -->
+  <text x="407.5" y="182" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">ОБРИВ</text>
+  <text x="480" y="182" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">НОРМА</text>
+  <text x="552.5" y="182" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">ТЯГА</text>
+
+  <!-- Shaft & Pointer Panel 2 (Position: Center / Green) -->
+  <line x1="380" y1="210" x2="580" y2="210" stroke="#4a5568" stroke-width="6"/>
+  <line x1="480" y1="186" x2="480" y2="244" stroke="#2457d6" stroke-width="3"/>
+  <polygon points="474,186 486,186 480,196" fill="#2457d6"/>
+  <polygon points="474,244 486,244 480,234" fill="#2457d6"/>
+  <circle cx="480" cy="210" r="6" fill="#ffffff" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Badge & Status Panel 2 -->
+  <rect x="370" y="278" width="220" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="480" y="298" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">NC-контакти: ЗАМКНЕНІ</text>
+  <text x="480" y="325" font-size="12" text-anchor="middle" fill="#1a1a1a">Трос натягнуто правильно</text>
+  <text x="480" y="345" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Покажчик у центрі зеленого поля</text>
+  <text x="480" y="365" font-size="12" text-anchor="middle" fill="#1a1a1a">Конвеєр у робочому стані</text>
+
+  <!-- PANEL 3: TRIP / PULL (EXCESS TENSION) -->
+  <rect x="650" y="95" width="270" height="285" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="785" y="120" font-size="14" font-weight="bold" text-anchor="middle" fill="#c0392b">3. Трос перетягнуто</text>
+  <text x="785" y="140" font-size="12" text-anchor="middle" fill="#6b7280">Аварійне потягування</text>
+
+  <!-- Window Frame Panel 3 -->
+  <rect x="675" y="165" width="220" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Scale Zones Panel 3 -->
+  <rect x="685" y="190" width="55" height="40" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="745" y="190" width="80" height="40" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="830" y="190" width="55" height="40" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Scale Zone Labels Panel 3 -->
+  <text x="712.5" y="182" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">ОБРИВ</text>
+  <text x="785" y="182" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">НОРМА</text>
+  <text x="857.5" y="182" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">ТЯГА</text>
+
+  <!-- Shaft & Pointer Panel 3 (Position: Right / Red) -->
+  <line x1="685" y1="210" x2="885" y2="210" stroke="#4a5568" stroke-width="6"/>
+  <line x1="857.5" y1="186" x2="857.5" y2="244" stroke="#c0392b" stroke-width="3"/>
+  <polygon points="851.5,186 863.5,186 857.5,196" fill="#c0392b"/>
+  <polygon points="851.5,244 863.5,244 857.5,234" fill="#c0392b"/>
+  <circle cx="857.5" cy="210" r="6" fill="#ffffff" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Badge & Status Panel 3 -->
+  <rect x="675" y="278" width="220" height="30" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="785" y="298" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">NC-контакти: РОЗІМКНЕНІ</text>
+  <text x="785" y="325" font-size="12" text-anchor="middle" fill="#1a1a1a">Оператор потягнув за трос</text>
+  <text x="785" y="345" font-size="12" text-anchor="middle" fill="#6b7280">Шток зміщено праворуч</text>
+  <text x="785" y="365" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Аварійне блокування (Латч)</text>
+
+  <!-- BOTTOM INSTRUCTION STRIP -->
+  <rect x="40" y="395" width="880" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="420" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Регулювання при монтажі: обертанням талрепа покажчик штока виводять чітко в зелену зону (Стан 2).</text>
+</svg>

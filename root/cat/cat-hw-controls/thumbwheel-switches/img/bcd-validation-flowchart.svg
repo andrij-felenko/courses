@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <!-- Default / Accent Arrow -->
+    <marker id="arr-default" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <!-- Success Arrow -->
+    <marker id="arr-success" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <!-- Error Arrow -->
+    <marker id="arr-error" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Алгоритм валідації BCD-тетрад та конвертації в ціле число</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Перевірка на невалідні коди 10–15 та позиційна акумуляція значення</text>
+
+  <!-- Node 1: Start / Init -->
+  <rect x="350" y="80" width="260" height="42" rx="21" ry="21" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="106" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Початок: Result = 0, i = 0</text>
+
+  <!-- Arrow Node 1 -> Node 2 -->
+  <path d="M 480 122 L 480 155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-default)" fill="none"/>
+
+  <!-- Node 2: Loop Condition i < N ? -->
+  <polygon points="480,155 570,190 480,225 390,190" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="195" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">i &lt; N ?</text>
+
+  <!-- Branch NO: Node 2 -> Success Exit -->
+  <path d="M 390 190 L 310 190" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-success)" fill="none"/>
+  <text x="350" y="182" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ні</text>
+
+  <!-- Node 6: Success Exit Box -->
+  <rect x="90" y="165" width="220" height="50" rx="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="200" y="187" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Успішне завершення</text>
+  <text x="200" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">Повернення Result (ОК)</text>
+
+  <!-- Branch YES: Node 2 -> Node 3 -->
+  <path d="M 480 225 L 480 260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-default)" fill="none"/>
+  <text x="495" y="246" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Так</text>
+
+  <!-- Node 3: Read Nibble -->
+  <rect x="350" y="260" width="260" height="42" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="286" font-size="13" fill="#1a1a1a" text-anchor="middle">Зчитування тетради B = Nibble[i]</text>
+
+  <!-- Arrow Node 3 -> Node 4 -->
+  <path d="M 480 302 L 480 335" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-default)" fill="none"/>
+
+  <!-- Node 4: Validation Check B > 9 ? -->
+  <polygon points="480,335 570,370 480,405 390,370" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="480" y="375" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">B &gt; 9 (10…15) ?</text>
+
+  <!-- Branch YES: Node 4 -> Error Exit -->
+  <path d="M 570 370 L 650 370" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-error)" fill="none"/>
+  <text x="610" y="362" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Так</text>
+
+  <!-- Node 7: Error Exit Box -->
+  <rect x="650" y="345" width="220" height="50" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="760" y="367" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Помилка BCD-коду</text>
+  <text x="760" y="384" font-size="12" fill="#1a1a1a" text-anchor="middle">Код: BCD_INVALID_CODE</text>
+
+  <!-- Branch NO: Node 4 -> Node 5 -->
+  <path d="M 480 405 L 480 435" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-default)" fill="none"/>
+  <text x="495" y="423" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Ні (0…9)</text>
+
+  <!-- Node 5: Accumulate & Increment -->
+  <rect x="330" y="435" width="300" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="454" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Result = (Result × 10) + B</text>
+  <text x="480" y="471" font-size="12" fill="#6b7280" text-anchor="middle">i = i + 1  (перехід до наступного розряду)</text>
+
+  <!-- Loop-back Path Node 5 -> Node 2 -->
+  <path d="M 480 481 L 480 515 L 40 515 L 40 135 L 472 135" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,4" fill="none"/>
+  <text x="260" y="507" font-size="11" fill="#6b7280" text-anchor="middle">Наступна ітерація циклу</text>
+
+</svg>

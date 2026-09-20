@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Логічна схема каскадного декодування коду Ґрея у двійковий код</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Послідовне обчислення розрядів двійкового коду B_i через операцію XOR (сумування за модулем 2)</text>
+
+  <!-- Main Panel -->
+  <rect x="30" y="65" width="900" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="85" font-size="13" font-weight="bold" fill="#2457d6">4-розрядний каскадний перетворювач (G3..G0 → B3..B0)</text>
+
+  <!-- Input Boxes (Gray Code Bits G3..G0) -->
+  <rect x="90" y="95" width="60" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="120" y="114" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">G3 (MSB)</text>
+
+  <rect x="310" y="95" width="60" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="340" y="114" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">G2</text>
+
+  <rect x="530" y="95" width="60" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="560" y="114" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">G1</text>
+
+  <rect x="730" y="95" width="60" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="760" y="114" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">G0 (LSB)</text>
+
+  <!-- Bit 3 (MSB) Direct Path: G3 -> B3 -->
+  <line x1="120" y1="125" x2="120" y2="394" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="132" y="155" font-size="11" font-weight="bold" fill="#27ae60">B3 = G3</text>
+
+  <!-- Branch B3 to Gate 1 -->
+  <circle cx="120" cy="180" r="3.5" fill="#2457d6"/>
+  <line x1="120" y1="180" x2="310" y2="180" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- G2 Input Line to Gate 1 -->
+  <line x1="340" y1="125" x2="340" y2="164" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-dark)"/>
+
+  <!-- XOR Gate 1 (Bit 2) -->
+  <rect x="310" y="165" width="60" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="340" y="184" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">XOR</text>
+
+  <!-- B2 Output Line -->
+  <line x1="340" y1="195" x2="340" y2="394" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="352" y="215" font-size="11" font-weight="bold" fill="#2457d6">B2 = B3 ⊕ G2</text>
+
+  <!-- Branch B2 to Gate 2 -->
+  <circle cx="340" cy="240" r="3.5" fill="#2457d6"/>
+  <line x1="340" y1="240" x2="530" y2="240" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- G1 Input Line to Gate 2 -->
+  <line x1="560" y1="125" x2="560" y2="224" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-dark)"/>
+
+  <!-- XOR Gate 2 (Bit 1) -->
+  <rect x="530" y="225" width="60" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="560" y="244" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">XOR</text>
+
+  <!-- B1 Output Line -->
+  <line x1="560" y1="255" x2="560" y2="394" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="572" y="275" font-size="11" font-weight="bold" fill="#2457d6">B1 = B2 ⊕ G1</text>
+
+  <!-- Branch B1 to Gate 3 -->
+  <circle cx="560" cy="300" r="3.5" fill="#2457d6"/>
+  <line x1="560" y1="300" x2="730" y2="300" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- G0 Input Line to Gate 3 -->
+  <line x1="760" y1="125" x2="760" y2="284" stroke="#c0392b" stroke-width="1.8" marker-end="url(#arr-dark)"/>
+
+  <!-- XOR Gate 3 (Bit 0) -->
+  <rect x="730" y="285" width="60" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="760" y="304" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">XOR</text>
+
+  <!-- B0 Output Line -->
+  <line x1="760" y1="315" x2="760" y2="394" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="772" y="335" font-size="11" font-weight="bold" fill="#2457d6">B0 = B1 ⊕ G0</text>
+
+  <!-- Output Boxes (Binary Code Bits B3..B0) -->
+  <rect x="90" y="395" width="60" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="120" y="414" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">B3 (MSB)</text>
+
+  <rect x="310" y="395" width="60" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="340" y="414" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">B2</text>
+
+  <rect x="530" y="395" width="60" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="560" y="414" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">B1</text>
+
+  <rect x="730" y="395" width="60" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="760" y="414" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">B0 (LSB)</text>
+</svg>

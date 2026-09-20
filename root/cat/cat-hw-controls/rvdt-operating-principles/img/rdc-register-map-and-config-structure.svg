@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Карта конфігураційних регістрів RDC-конвертера (AD2S1210)</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Структура бітів налаштування розрядності, частоти збудження RVDT та діагностики помилок</text>
+
+  <!-- Панель 1: CONTROL Register (0x80) -->
+  <rect x="40" y="75" width="880" height="135" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="98" font-size="14" font-weight="bold" fill="#1a1a1a">Регістр налаштування CONTROL (Адреса 0x80 / Запис-Читання)</text>
+
+  <!-- Бітові комірки Control Register -->
+  <!-- D7: ADDR -->
+  <rect x="55" y="110" width="60" height="35" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="85" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">D7</text>
+  <text x="85" y="139" text-anchor="middle" font-size="12" fill="#1a1a1a">1 (REG)</text>
+
+  <!-- D6-D5: RES1, RES0 -->
+  <rect x="120" y="110" width="125" height="35" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="182" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">D6 : D5</text>
+  <text x="182" y="139" text-anchor="middle" font-size="12" fill="#1a1a1a">RES[1:0]</text>
+
+  <!-- D4-D1: FREQ4..FREQ1 -->
+  <rect x="250" y="110" width="220" height="35" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">D4 : D3 : D2 : D1</text>
+  <text x="360" y="139" text-anchor="middle" font-size="12" fill="#1a1a1a">FREQ[3:0]</text>
+
+  <!-- D0: EN_PH -->
+  <rect x="475" y="110" width="85" height="35" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="517" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">D0</text>
+  <text x="517" y="139" text-anchor="middle" font-size="12" fill="#1a1a1a">EN_PH</text>
+
+  <!-- Пояснювальні блоки для RES та FREQ -->
+  <rect x="580" y="105" width="160" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="590" y="123" font-size="12" font-weight="bold" fill="#2457d6">Розрядність RDC (RES):</text>
+  <text x="590" y="141" font-size="12" fill="#1a1a1a">00: 10 біт (макс. швидкість)</text>
+  <text x="590" y="157" font-size="12" fill="#1a1a1a">01: 12 біт | 10: 14 біт</text>
+  <text x="590" y="173" font-size="12" fill="#1a1a1a">11: 16 біт (макс. точність)</text>
+
+  <rect x="750" y="105" width="155" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="760" y="123" font-size="12" font-weight="bold" fill="#2457d6">Частота збудження:</text>
+  <text x="760" y="141" font-size="12" fill="#1a1a1a">FREQ[3:0] налаштовує</text>
+  <text x="760" y="157" font-size="12" fill="#1a1a1a">частоту автогенератора</text>
+  <text x="760" y="173" font-size="12" fill="#1a1a1a">в діапазоні 2...20 kHz</text>
+
+  <!-- Стрілки зв'язку від бітів до блоків -->
+  <path d="M182,145 L182,180 L580,180" fill="none" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <path d="M360,145 L360,190 L750,190" fill="none" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,3"/>
+
+  <!-- Панель 2: Excitation Frequency Register (0x91) -->
+  <rect x="40" y="225" width="425" height="140" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="248" font-size="14" font-weight="bold" fill="#1a1a1a">Регістр частоти збудження RVDT (Адреса 0x91)</text>
+
+  <!-- 8 бітів комірок для 0x91 -->
+  <g>
+    <rect x="55" y="260" width="48" height="35" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="79" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">B7</text>
+
+    <rect x="107" y="260" width="48" height="35" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="131" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">B6</text>
+
+    <rect x="159" y="260" width="48" height="35" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="183" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">B5</text>
+
+    <rect x="211" y="260" width="48" height="35" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="235" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">B4</text>
+
+    <rect x="263" y="260" width="48" height="35" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="287" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">B3</text>
+
+    <rect x="315" y="260" width="48" height="35" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="339" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">B2</text>
+
+    <rect x="367" y="260" width="48" height="35" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="391" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">B1</text>
+
+    <rect x="419" y="260" width="40" height="35" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="439" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">B0</text>
+  </g>
+  <text x="55" y="315" font-size="12" font-weight="bold" fill="#1a1a1a">Точне програмування синусоїди первинної обмотки</text>
+  <text x="55" y="333" font-size="12" fill="#6b7280">Формула частоти: f_EXC = (EXC_FREQ × f_CLK) / 2¹⁵</text>
+  <text x="55" y="350" font-size="12" fill="#6b7280">Дозволяє точно узгодити зсув фази та резонанс RVDT</text>
+
+  <!-- Панель 3: Fault / Status Register (0xFF) -->
+  <rect x="495" y="225" width="425" height="140" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="510" y="248" font-size="14" font-weight="bold" fill="#c0392b">Регістр діагностики та аварій FAULT (Адреса 0xFF / Read-Only)</text>
+
+  <!-- Біти помилок -->
+  <g>
+    <!-- LOT -->
+    <rect x="510" y="260" width="48" height="35" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="534" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">LOT</text>
+
+    <!-- DOS -->
+    <rect x="562" y="260" width="48" height="35" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="586" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">DOS</text>
+
+    <!-- LOS -->
+    <rect x="614" y="260" width="48" height="35" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="638" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">LOS</text>
+
+    <!-- LOL -->
+    <rect x="666" y="260" width="48" height="35" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="690" y="282" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">LOL</text>
+
+    <!-- FS4..FS1 -->
+    <rect x="718" y="260" width="190" height="35" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="813" y="282" text-anchor="middle" font-size="12" fill="#1a1a1a">FS[4:1] (Амплітуда / Фаза)</text>
+  </g>
+  <text x="510" y="315" font-size="12" font-weight="bold" fill="#c0392b">Критичні апаратні прапорці стану тракту:</text>
+  <text x="510" y="333" font-size="12" fill="#1a1a1a">LOS: Розрив ліній сигналу RVDT | LOL: Втрата захоплення фази</text>
+  <text x="510" y="350" font-size="12" fill="#1a1a1a">DOS: Деградація / Вихід амплітуди обмоток за межі норм</text>
+
+  <!-- Панель 4: SPI Protocol Transfer Flow -->
+  <rect x="40" y="380" width="880" height="125" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="403" font-size="14" font-weight="bold" fill="#1a1a1a">Послідовність зчитування та керування RDC через SPI шину</text>
+
+  <!-- Блок 1 -->
+  <rect x="55" y="415" width="220" height="75" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="65" y="435" font-size="12" font-weight="bold" fill="#2457d6">1. Передача адреси</text>
+  <text x="65" y="453" font-size="12" fill="#1a1a1a">Кадр SPI: [WR/RD] + [ADDR]</text>
+  <text x="65" y="471" font-size="12" fill="#6b7280">Вибір 0x80, 0x91 або 0xFF</text>
+
+  <!-- Стрілка 1 -->
+  <line x1="275" y1="452" x2="315" y2="452" stroke="#2457d6" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Блок 2 -->
+  <rect x="325" y="415" width="250" height="75" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="335" y="435" font-size="12" font-weight="bold" fill="#2457d6">2. Обмін даними / Конфігурація</text>
+  <text x="335" y="453" font-size="12" fill="#1a1a1a">Запис бітів RES, FREQ у 0x80/0x91</text>
+  <text x="335" y="471" font-size="12" fill="#1a1a1a">або читання байта FAULT (0xFF)</text>
+
+  <!-- Стрілка 2 -->
+  <line x1="575" y1="452" x2="615" y2="452" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Блок 3 -->
+  <rect x="625" y="415" width="280" height="75" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="635" y="435" font-size="12" font-weight="bold" fill="#27ae60">3. Готові дані кута RVDT</text>
+  <text x="635" y="453" font-size="12" fill="#1a1a1a">Зчитування 10...16-бітної позиції</text>
+  <text x="635" y="471" font-size="12" fill="#1a1a1a">та кутової швидкості у реальному часі</text>
+</svg>

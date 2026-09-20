@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура кадру та часова діаграма протоколів BiSS-C / EnDat</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Послідовна передача містить позиційні біти обертів і кута, прапорці помилок та 6-бітну CRC</text>
+
+  <!-- TOP PANEL: Timing Diagram -->
+  <rect x="30" y="75" width="900" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="96" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма передачі даних за тактовими імпульсами Clock</text>
+
+  <!-- Signal 1: Clock (MA) Label and Waveform -->
+  <text x="45" y="142" font-size="12" font-weight="bold" fill="#2457d6">Clock (MA)</text>
+
+  <!-- Clock Pulses Path -->
+  <path d="M120,145 L135,145 L135,125 L150,125 L150,145 L165,145 L165,125 L180,125 L180,145 L195,145 L195,125 L210,125 L210,145 L225,145 L225,125 L240,125 L240,145 L255,145 L255,125 L270,125 L270,145 L285,145 L285,125 L300,125 L300,145 L315,145 L315,125 L330,125 L330,145 L345,145 L345,125 L360,125 L360,145 L375,145 L375,125 L390,125 L390,145 L405,145 L405,125 L420,125 L420,145 L435,145 L435,125 L450,125 L450,145 L465,145 L465,125 L480,125 L480,145 L495,145 L495,125 L510,125 L510,145 L525,145 L525,125 L540,125 L540,145 L555,145 L555,125 L570,125 L570,145 L585,145 L585,125 L600,125 L600,145 L615,145 L615,125 L630,125 L630,145 L645,145 L645,125 L660,125 L660,145 L675,145 L675,125 L690,125 L690,145 L705,145 L705,125 L720,125 L720,145 L735,145 L735,125 L750,125 L750,145 L765,145 L765,125 L780,125 L780,145 L795,145 L795,125 L810,125 L810,145 L825,145 L825,125 L840,125 L840,145 L855,145 L855,125 L870,125 L870,145 L915,145" stroke="#2457d6" stroke-width="1.8" fill="none"/>
+
+  <!-- Signal 2: Data (SL) Label and Sequence Blocks -->
+  <text x="45" y="208" font-size="12" font-weight="bold" fill="#27ae60">Data (SL)</text>
+
+  <!-- ACK Block -->
+  <rect x="120" y="190" width="30" height="30" fill="white" stroke="#6b7280" stroke-width="1"/>
+  <text x="135" y="209" font-size="10" fill="#6b7280" text-anchor="middle">ACK</text>
+
+  <!-- START Block -->
+  <rect x="150" y="190" width="30" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="165" y="209" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">ST</text>
+
+  <!-- CDS Block -->
+  <rect x="180" y="190" width="30" height="30" fill="white" stroke="#6b7280" stroke-width="1"/>
+  <text x="195" y="209" font-size="10" fill="#6b7280" text-anchor="middle">CDS</text>
+
+  <!-- Multi-turn Data Block -->
+  <rect x="210" y="190" width="170" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="295" y="209" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Multi-turn (M11..M0)</text>
+
+  <!-- Single-turn Data Block -->
+  <rect x="380" y="190" width="300" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="530" y="209" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Single-turn (S17..S0)</text>
+
+  <!-- Error / Warning Block -->
+  <rect x="680" y="190" width="80" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="720" y="209" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">nE / nW</text>
+
+  <!-- CRC Block -->
+  <rect x="760" y="190" width="110" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="815" y="209" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">CRC (C5..C0)</text>
+
+  <!-- Timeout Block -->
+  <rect x="870" y="190" width="45" height="30" fill="#f4f6f8" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="892" y="209" font-size="10" fill="#6b7280" text-anchor="middle">t_timeout</text>
+
+  <!-- Vertical Timing Dotted Guidelines -->
+  <line x1="210" y1="125" x2="210" y2="225" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="380" y1="125" x2="380" y2="225" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="680" y1="125" x2="680" y2="225" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="760" y1="125" x2="760" y2="225" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="870" y1="125" x2="870" y2="225" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- MIDDLE PANEL: Bit Field Structure Map -->
+  <rect x="30" y="275" width="900" height="100" rx="8" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="295" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Розподіл бітових полів кадру BiSS-C / EnDat</text>
+
+  <!-- ACK / ST Box -->
+  <rect x="45" y="310" width="70" height="45" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1"/>
+  <text x="80" y="330" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Службові</text>
+  <text x="80" y="346" font-size="10" fill="#6b7280" text-anchor="middle">ACK + ST</text>
+
+  <!-- Multi-turn Box -->
+  <rect x="127" y="310" width="170" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="212" y="330" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кількість обертів</text>
+  <text x="212" y="346" font-size="11" fill="#1a1a1a" text-anchor="middle">12 бітів (0..4095)</text>
+
+  <!-- Single-turn Box -->
+  <rect x="309" y="310" width="300" height="45" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="459" y="330" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Кутове положення вала</text>
+  <text x="459" y="346" font-size="11" fill="#1a1a1a" text-anchor="middle">18 бітів (0..262143 відліків)</text>
+
+  <!-- Status Box -->
+  <rect x="621" y="310" width="110" height="45" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="676" y="330" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Статуси</text>
+  <text x="676" y="346" font-size="11" fill="#c0392b" text-anchor="middle">nE + nW</text>
+
+  <!-- CRC-6 Box -->
+  <rect x="743" y="310" width="172" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="829" y="330" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Контрольна сума</text>
+  <text x="829" y="346" font-size="11" fill="#1a1a1a" text-anchor="middle">6 бітів (CRC-6)</text>
+
+  <!-- BOTTOM PANEL: Specification Summary -->
+  <rect x="30" y="390" width="285" height="105" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="172" y="412" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Висока роздільна здатність</text>
+  <text x="45" y="435" font-size="11" fill="#1a1a1a">• Повний кадр: 30 бітів даних.</text>
+  <text x="45" y="455" font-size="11" fill="#1a1a1a">• Дискретність: 1.37 кутових секунд.</text>
+  <text x="45" y="475" font-size="11" font-weight="bold" fill="#2457d6">• Швидкість: до 10 Мбіт/с.</text>
+
+  <rect x="337" y="390" width="285" height="105" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="479" y="412" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Безперервна самодіагностика</text>
+  <text x="352" y="435" font-size="11" fill="#1a1a1a">• nE (Error): обрив/перегрів оптики.</text>
+  <text x="352" y="455" font-size="11" fill="#1a1a1a">• nW (Warning): забруднення диска.</text>
+  <text x="352" y="475" font-size="11" font-weight="bold" fill="#c0392b">• Інверсна логіка (0 = Аварія).</text>
+
+  <rect x="645" y="390" width="285" height="105" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="787" y="412" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Апаратний захист CRC-6</text>
+  <text x="660" y="435" font-size="11" fill="#1a1a1a">• Поліном: P(x) = x⁶ + x + 1.</text>
+  <text x="660" y="455" font-size="11" fill="#1a1a1a">• Виявляє понад 99.9% спотворень.</text>
+  <text x="660" y="475" font-size="11" font-weight="bold" fill="#27ae60">• Обчислення у схемі LFSR.</text>
+</svg>

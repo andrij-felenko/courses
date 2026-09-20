@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Метрики функціональної безпеки (ISO 13849-1) та ISO 13855</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Залежність PFHd від MTTFd/DC та формула розрахунку безпечної відстані S = K · T + C</text>
+
+  <!-- ПАНЕЛЬ 1: ГРАФІК PFHd ВІД MTTFd ТА DC -->
+  <g id="panel-metrics">
+    <!-- Тло панелі 1 -->
+    <rect x="30" y="80" width="435" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Заголовок панелі 1 -->
+    <rect x="42" y="92" width="411" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="247.5" y="114" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Залежність PFHd від MTTFd та покриття DC</text>
+
+    <!-- Осі координат -->
+    <line x1="90" y1="330" x2="420" y2="330" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+    <line x1="90" y1="330" x2="90" y2="150" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+    <!-- Підписи осей -->
+    <text x="420" y="352" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">MTTFd (років)</text>
+    <text x="90" y="142" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">PFHd (1/год)</text>
+
+    <!-- Позначки та лінії рівнів на осі Y -->
+    <line x1="85" y1="170" x2="380" y2="170" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="82" y="174" text-anchor="end" font-size="12" fill="#6b7280">10⁻⁵ (PL c)</text>
+
+    <line x1="85" y1="230" x2="380" y2="230" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="82" y="234" text-anchor="end" font-size="12" fill="#6b7280">10⁻⁶ (PL d)</text>
+
+    <line x1="85" y1="290" x2="380" y2="290" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="82" y="294" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">10⁻⁷ (PL e)</text>
+
+    <!-- Позначки на осі X -->
+    <line x1="130" y1="330" x2="130" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="130" y="348" text-anchor="middle" font-size="12" fill="#6b7280">3</text>
+
+    <line x1="250" y1="330" x2="250" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="250" y="348" text-anchor="middle" font-size="12" fill="#6b7280">30</text>
+
+    <line x1="380" y1="330" x2="380" y2="335" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="380" y="348" text-anchor="middle" font-size="12" fill="#6b7280">100</text>
+
+    <!-- Криві розрахунку PFHd для різних рівнів DC -->
+    <!-- Крива 1: DC = 0% (Без діагностики) -->
+    <path d="M 110,165 Q 200,210 380,240" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+    <text x="385" y="244" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">DC = 0%</text>
+
+    <!-- Крива 2: DC = 60% (Низьке покриття) -->
+    <path d="M 110,210 Q 200,250 380,275" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+    <text x="385" y="278" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">DC = 60%</text>
+
+    <!-- Крива 3: DC = 99% (Високе покриття) -->
+    <path d="M 110,260 Q 200,295 380,315" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+    <text x="385" y="318" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">DC = 99%</text>
+
+    <!-- Підсумок для панелі 1 -->
+    <rect x="42" y="380" width="411" height="38" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="247.5" y="403" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Високий DC (99%) та MTTFd гарантують SIL 3 / PL e (PFHd &lt; 10⁻⁷)</text>
+  </g>
+
+  <!-- ПАНЕЛЬ 2: ЧАСОВА ДІАГРАМА ТА ВІДСТАНЬ БЕЗПЕКИ S = K * T + C -->
+  <g id="panel-timing">
+    <!-- Тло панелі 2 -->
+    <rect x="495" y="80" width="435" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Заголовок панелі 2 -->
+    <rect x="507" y="92" width="411" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="712.5" y="114" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Відстань безпеки S = K · (t₁ + t₂) + C (ISO 13855)</text>
+
+    <!-- Вертикальні пунктирні лінії подій -->
+    <line x1="600" y1="140" x2="600" y2="280" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="600" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t₀: Спрацювання</text>
+
+    <line x1="710" y1="140" x2="710" y2="280" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="870" y1="140" x2="870" y2="280" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="870" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">t₂: Повна зупинка</text>
+
+    <!-- Назви сигналів часової діаграми -->
+    <text x="505" y="165" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Датчик</text>
+    <text x="505" y="205" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Реле (OSSD)</text>
+    <text x="505" y="245" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Привід (v)</text>
+
+    <!-- Часові діаграми сигналів -->
+    <!-- Сигнал 1: Датчик / Завіса -->
+    <path d="M 580,155 H 600 V 170 H 900" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+    <!-- Сигнал 2: Виходи реле OSSD -->
+    <path d="M 580,195 H 710 V 210 H 900" stroke="#27ae60" stroke-width="2" fill="none"/>
+
+    <!-- Сигнал 3: Швидкість руху приводу -->
+    <path d="M 580,235 H 710 L 870,260 H 900" stroke="#c0392b" stroke-width="2" fill="none"/>
+
+    <!-- Вісь часу t -->
+    <line x1="580" y1="280" x2="910" y2="280" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+    <text x="915" y="284" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">t</text>
+
+    <!-- Інтервали часу t1 та t2 -->
+    <line x1="600" y1="310" x2="710" y2="310" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+    <text x="655" y="304" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t₁ (реле)</text>
+
+    <line x1="710" y1="310" x2="870" y2="310" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+    <text x="790" y="304" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">t₂ (привід)</text>
+
+    <!-- Підсумок / Формула для панелі 2 -->
+    <rect x="507" y="335" width="411" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="712.5" y="355" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Формула відстані безпеки: S = K · (t₁ + t₂) + C</text>
+    <text x="712.5" y="373" text-anchor="middle" font-size="12" fill="#6b7280">K = 1600...2000 мм/с (швидкість наближення)</text>
+    <text x="712.5" y="391" text-anchor="middle" font-size="12" fill="#2457d6">t₁ = час реакції реле | t₂ = час зупинки приводу</text>
+    <text x="712.5" y="409" text-anchor="middle" font-size="12" fill="#6b7280">C = додатковий зазор проникнення (ISO 13855)</text>
+  </g>
+</svg>

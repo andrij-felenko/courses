@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Автомат станів та часова діаграма фільтрації BCD-перемикача</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Відфільтровування контактного брязкоту та транзитних завад до фіксації стабільного значення</text>
+
+  <!-- Left Panel: FSM Diagram -->
+  <rect x="30" y="85" width="440" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">1. Автомат станів драйвера (FSM)</text>
+
+  <!-- FSM Node 1: STABLE -->
+  <rect x="60" y="140" width="160" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="140" y="163" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">1. STABLE</text>
+  <text x="140" y="183" text-anchor="middle" font-size="12" fill="#1a1a1a">Фіксований BCD (3)</text>
+
+  <!-- FSM Node 2: TRANSITION -->
+  <rect x="280" y="140" width="160" height="60" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="360" y="163" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">2. TRANSITION</text>
+  <text x="360" y="183" text-anchor="middle" font-size="12" fill="#1a1a1a">Брязкіт / проміжний код</text>
+
+  <!-- FSM Node 3: DEBOUNCE -->
+  <rect x="280" y="260" width="160" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="283" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">3. DEBOUNCE</text>
+  <text x="360" y="303" text-anchor="middle" font-size="12" fill="#6b7280">Відлік t_deb (15 мс)</text>
+
+  <!-- FSM Node 4: VALIDATE -->
+  <rect x="60" y="260" width="160" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="283" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">4. VALIDATION</text>
+  <text x="140" y="303" text-anchor="middle" font-size="12" fill="#6b7280">BCD ∈ [0…9]?</text>
+
+  <!-- FSM Node 5: NEW STABLE -->
+  <rect x="170" y="380" width="160" height="60" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="250" y="403" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">5. NEW STABLE</text>
+  <text x="250" y="423" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Оновлено BCD (4)</text>
+
+  <!-- FSM Transitions -->
+  <!-- 1 -> 2 -->
+  <line x1="220" y1="170" x2="272" y2="170" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="250" y="162" text-anchor="middle" font-size="12" fill="#c0392b">зміна BCD</text>
+
+  <!-- 2 -> 3 -->
+  <line x1="360" y1="200" x2="360" y2="252" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="367" y="235" text-anchor="start" font-size="12" fill="#2457d6">старт t_deb</text>
+
+  <!-- 3 -> 4 -->
+  <line x1="280" y1="290" x2="228" y2="290" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="250" y="282" text-anchor="middle" font-size="12" fill="#2457d6">t_deb збіг</text>
+
+  <!-- 4 -> 5 -->
+  <path d="M 140 320 L 140 410 L 162 410" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+  <text x="105" y="370" text-anchor="middle" font-size="12" fill="#27ae60">так (0..9)</text>
+
+  <!-- 4 -> 2 Invalid Retry -->
+  <path d="M 140 260 L 140 220 L 272 220" stroke="#c0392b" stroke-dasharray="3 3" stroke-width="1.5" fill="none" marker-end="url(#arr-red)"/>
+  <text x="200" y="212" text-anchor="middle" font-size="12" fill="#c0392b">ні (&gt;9)</text>
+
+
+  <!-- Right Panel: Timing Diagram -->
+  <rect x="490" y="85" width="440" height="385" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="110" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">2. Часова діаграма сигналів</text>
+
+  <!-- Signal 1: Raw Contacts -->
+  <text x="520" y="135" font-size="12" font-weight="bold" fill="#c0392b">Сирий сигнал контактів (з завадами)</text>
+  <line x1="520" y1="170" x2="900" y2="170" stroke="#cbd5e1" stroke-dasharray="2 2"/>
+  <path d="M 520 160 L 610 160 L 610 180 L 620 150 L 630 185 L 640 145 L 650 180 L 670 140 L 690 185 L 710 160 L 900 160" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <text x="560" y="195" font-size="12" fill="#27ae60" text-anchor="middle">BCD = 3</text>
+  <rect x="615" y="195" width="90" height="24" fill="#fdecea" stroke="#c0392b" rx="3"/>
+  <text x="660" y="211" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Брязкіт / [0xF]</text>
+  <text x="800" y="195" font-size="12" fill="#27ae60" text-anchor="middle">BCD = 4</text>
+
+  <!-- Signal 2: Debounce Timer -->
+  <text x="520" y="232" font-size="12" font-weight="bold" fill="#2457d6">Таймер фільтрації (t_deb = 15 мс)</text>
+  <line x1="520" y1="270" x2="900" y2="270" stroke="#cbd5e1" stroke-dasharray="2 2"/>
+  <path d="M 520 270 L 610 270 L 610 240 L 730 240 L 730 270 L 900 270" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <line x1="610" y1="285" x2="730" y2="285" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="670" y="300" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Інтервал блокування t_deb</text>
+
+  <!-- Signal 3: Filtered Output -->
+  <text x="520" y="338" font-size="12" font-weight="bold" fill="#27ae60">Стабілізований вихідний BCD</text>
+  <line x1="520" y1="380" x2="900" y2="380" stroke="#cbd5e1" stroke-dasharray="2 2"/>
+  <path d="M 520 380 L 730 380 L 730 350 L 900 350" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <text x="630" y="405" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Значення: 3</text>
+  <line x1="730" y1="240" x2="730" y2="380" stroke="#27ae60" stroke-dasharray="3 3" stroke-width="1.5"/>
+  <text x="815" y="405" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Оновлено на значення: 4</text>
+</svg>

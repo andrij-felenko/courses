@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Еволюція кодових перемикачів: від щитових модулів до ротаційних DIP</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Зменшення розмірів та перехід від панельного щитового монтажу до рішень для друкованих плат</text>
+
+  <!-- STAGE 1: Panel Thumbwheel Switch -->
+  <rect x="35" y="75" width="255" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="162" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Щитовий Thumbwheel</text>
+  <text x="162" y="116" text-anchor="middle" font-size="12" fill="#6b7280">1950–1960-ті рр. (EECO, Digitran)</text>
+
+  <!-- Stage 1 Graphic Illustration -->
+  <rect x="65" y="132" width="195" height="125" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="85" y="145" width="155" height="100" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <!-- Bezel Screws -->
+  <circle cx="97" cy="157" r="3" fill="#2457d6"/>
+  <circle cx="228" cy="157" r="3" fill="#2457d6"/>
+  <circle cx="97" cy="233" r="3" fill="#2457d6"/>
+  <circle cx="228" cy="233" r="3" fill="#2457d6"/>
+  <!-- Digit Wheel Window -->
+  <rect x="140" y="160" width="45" height="70" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="162" y="204" font-size="28" font-weight="bold" fill="#2457d6" text-anchor="middle">7</text>
+  <!-- Serrated Teeth top/bottom -->
+  <line x1="145" y1="154" x2="180" y2="154" stroke="#2457d6" stroke-width="3" stroke-dasharray="3,2"/>
+  <line x1="145" y1="236" x2="180" y2="236" stroke="#2457d6" stroke-width="3" stroke-dasharray="3,2"/>
+
+  <!-- Stage 1 Details -->
+  <text x="50" y="280" font-size="12" fill="#1a1a1a">• Монтаж: Панельний щит</text>
+  <text x="50" y="302" font-size="12" fill="#1a1a1a">• Габарити: ~33×10×40 мм</text>
+  <text x="50" y="324" font-size="12" fill="#1a1a1a">• Опитування: Обертання колеса</text>
+  <text x="50" y="346" font-size="12" fill="#6b7280">• З'єднання: Гвинтові шпильки</text>
+  <text x="50" y="368" font-size="12" fill="#6b7280">• Кодування: BCD / 1-з-10</text>
+  <text x="50" y="390" font-size="12" fill="#6b7280">• Застосування: Авіоніка, ЧПУ</text>
+
+  <!-- EVOLUTION ARROW 1 -->
+  <line x1="300" y1="240" x2="343" y2="240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="322" y="225" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Поштовхи</text>
+  <text x="322" y="256" font-size="10" fill="#6b7280" text-anchor="middle">«+» / «-»</text>
+
+  <!-- STAGE 2: Pushwheel Switch -->
+  <rect x="352" y="75" width="255" height="345" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Важеляний Pushwheel</text>
+  <text x="480" y="116" text-anchor="middle" font-size="12" fill="#6b7280">1970-ті рр. (Поштовховий ввід)</text>
+
+  <!-- Stage 2 Graphic Illustration -->
+  <rect x="382" y="132" width="195" height="125" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.2"/>
+  <rect x="402" y="145" width="155" height="100" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <!-- (+) Button -->
+  <rect x="460" y="152" width="40" height="22" rx="3" fill="#2457d6"/>
+  <text x="480" y="168" font-size="16" font-weight="bold" fill="white" text-anchor="middle">+</text>
+  <!-- Digit Window -->
+  <rect x="460" y="180" width="40" height="30" rx="2" fill="white" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="202" font-size="22" font-weight="bold" fill="#1a1a1a" text-anchor="middle">7</text>
+  <!-- (-) Button -->
+  <rect x="460" y="215" width="40" height="22" rx="3" fill="#6b7280"/>
+  <text x="480" y="231" font-size="16" font-weight="bold" fill="white" text-anchor="middle">-</text>
+
+  <!-- Stage 2 Details -->
+  <text x="367" y="280" font-size="12" fill="#1a1a1a">• Монтаж: Щит / Плата</text>
+  <text x="367" y="302" font-size="12" fill="#1a1a1a">• Габарити: ~24×6×30 мм</text>
+  <text x="367" y="324" font-size="12" fill="#1a1a1a">• Опитування: Кнопки «+» і «-»</text>
+  <text x="367" y="346" font-size="12" fill="#2457d6">• Перевага: Робота в рукавицях</text>
+  <text x="367" y="368" font-size="12" fill="#6b7280">• Фіксація: Кроковий важіль</text>
+  <text x="367" y="390" font-size="12" fill="#6b7280">• Застосування: Промисловість</text>
+
+  <!-- EVOLUTION ARROW 2 -->
+  <line x1="617" y1="240" x2="660" y2="240" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="638" y="225" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">На PCB</text>
+  <text x="638" y="256" font-size="10" fill="#6b7280" text-anchor="middle">Крок 2.54 мм</text>
+
+  <!-- STAGE 3: Rotary DIP Switch -->
+  <rect x="670" y="75" width="255" height="345" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="797" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">3. Ротаційний DIP</text>
+  <text x="797" y="116" text-anchor="middle" font-size="12" fill="#6b7280">1980-ті рр. – сучасність (DIP/SMD)</text>
+
+  <!-- Stage 3 Graphic Illustration -->
+  <rect x="700" y="132" width="195" height="125" rx="6" fill="white" stroke="#27ae60" stroke-width="1.2"/>
+  <!-- DIP Housing body -->
+  <rect x="740" y="150" width="115" height="90" rx="5" fill="#1a1a1a" stroke="#d0d7de"/>
+  <!-- Rotor Dial circle -->
+  <circle cx="797" cy="195" r="32" fill="#27ae60"/>
+  <!-- Screwdriver slot in center -->
+  <rect x="782" y="192" width="30" height="6" fill="white" rx="1"/>
+  <!-- IC Pins -->
+  <line x1="725" y1="165" x2="740" y2="165" stroke="#6b7280" stroke-width="3"/>
+  <line x1="725" y1="185" x2="740" y2="185" stroke="#6b7280" stroke-width="3"/>
+  <line x1="725" y1="205" x2="740" y2="205" stroke="#6b7280" stroke-width="3"/>
+  <line x1="725" y1="225" x2="740" y2="225" stroke="#6b7280" stroke-width="3"/>
+  <line x1="855" y1="165" x2="870" y2="165" stroke="#6b7280" stroke-width="3"/>
+  <line x1="855" y1="185" x2="870" y2="185" stroke="#6b7280" stroke-width="3"/>
+  <line x1="855" y1="205" x2="870" y2="205" stroke="#6b7280" stroke-width="3"/>
+  <line x1="855" y1="225" x2="870" y2="225" stroke="#6b7280" stroke-width="3"/>
+
+  <!-- Stage 3 Details -->
+  <text x="685" y="280" font-size="12" fill="#1a1a1a">• Монтаж: Друкована плата (PCB)</text>
+  <text x="685" y="302" font-size="12" fill="#27ae60" font-weight="bold">• Габарити: 10×10×5 мм</text>
+  <text x="685" y="324" font-size="12" fill="#1a1a1a">• Опитування: Викрутка / ротор</text>
+  <text x="685" y="346" font-size="12" fill="#6b7280">• Корпус: DIP-4 / DIP-8 / SMD</text>
+  <text x="685" y="368" font-size="12" fill="#27ae60" font-weight="bold">• Економія об'єму: у ~40 разів</text>
+  <text x="685" y="390" font-size="12" fill="#6b7280">• Застосування: Налаштування плат</text>
+
+  <!-- BOTTOM SUMMARY BAR -->
+  <rect x="35" y="435" width="890" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="480" y="456" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Підсумок еволюції: Зменшення об'єму елемента у ~40 разів та перехід від ручного панельного щита до конфігурування друкованих плат (PCB)</text>
+</svg>

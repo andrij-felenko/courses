@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Небезпека затискання в робочій зоні та панічна реакція оператора</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">При судомному стисканні (Panic Contraction) звичайна 2-позиційна кнопка не вимикає привід, призводячи до травмування</text>
+
+  <!-- ================= PANEL 1: STANDARD 2-POSITION SWITCH HAZARD ================= -->
+  <rect x="25" y="75" width="440" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 25 83 A 8 8 0 0 1 33 75 H 457 A 8 8 0 0 1 465 83 V 103 H 25 Z" fill="#c0392b"/>
+  <text x="245" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="white">1. 2-Позиційна кнопка (Судомне стискання)</text>
+
+  <!-- Hazard Setup Box -->
+  <rect x="40" y="115" width="410" height="165" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="135" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона налагодження та затискання</text>
+
+  <!-- Robot Base & Arm -->
+  <rect x="65" y="200" width="55" height="45" rx="4" fill="#2457d6"/>
+  <text x="92" y="227" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Робот</text>
+  
+  <path d="M 120 215 L 175 195 L 225 215" fill="none" stroke="#2457d6" stroke-width="4" stroke-linejoin="round"/>
+  <circle cx="175" cy="195" r="5" fill="#1a1a1a"/>
+  <circle cx="225" cy="215" r="6" fill="#c0392b"/>
+
+  <!-- Motion Vector Arrow -->
+  <line x1="140" y1="180" x2="215" y2="180" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="177" y="172" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Рух маніпулятора (v)</text>
+
+  <!-- Operator & Hand -->
+  <circle cx="285" cy="180" r="14" fill="#f59e0b"/>
+  <path d="M 285 194 L 285 240 L 265 255" fill="none" stroke="#f59e0b" stroke-width="3"/>
+  <text x="285" y="160" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оператор</text>
+
+  <!-- 2-Pos Button Squeezed in Hand -->
+  <rect x="250" y="210" width="22" height="14" rx="2" fill="#c0392b"/>
+  <text x="245" y="200" font-size="12" fill="#c0392b" font-weight="bold">Панічний тиск!</text>
+
+  <!-- Worktable / Pinch Hazard Line -->
+  <rect x="345" y="165" width="85" height="80" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="387" y="195" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Точка</text>
+  <text x="387" y="215" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">затискання!</text>
+
+  <!-- Switch Behavior Box -->
+  <rect x="40" y="295" width="410" height="90" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="245" y="315" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Поведінка 2-позиційної кнопки</text>
+  <text x="245" y="338" font-size="12" fill="#1a1a1a" text-anchor="middle">Поз. 1 (OFF, відпущено) → Поз. 2 (ON, повністю натиснуто)</text>
+  <text x="245" y="362" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">При паніці оператор тисне сильніше → Контакт ЗАМКНУТО!</text>
+
+  <!-- Panel 1 Summary -->
+  <rect x="40" y="400" width="410" height="115" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="245" y="422" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Результат: КРИТИЧНА АВАРІЯ</text>
+  <text x="245" y="445" font-size="12" fill="#1a1a1a" text-anchor="middle">Людина не здатна свідомо розтиснути руку під час ляку.</text>
+  <text x="245" y="468" font-size="12" fill="#1a1a1a" text-anchor="middle">Маніпулятор продовжує рух і травмує оператора.</text>
+  <text x="245" y="495" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Заборонено стандартами ISO 10218 / EN 775</text>
+
+
+  <!-- ================= PANEL 2: 3-POSITION ENABLING SWITCH PROTECTION ================= -->
+  <rect x="495" y="75" width="440" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 495 83 A 8 8 0 0 1 503 75 H 927 A 8 8 0 0 1 935 83 V 103 H 495 Z" fill="#27ae60"/>
+  <text x="715" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="white">2. 3-Позиційна кнопка дозволу (Захист від паніки)</text>
+
+  <!-- Safety Kinematics Box -->
+  <rect x="510" y="115" width="410" height="165" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="135" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">3-Позиційний кінематичний механізм</text>
+
+  <!-- Position 1 Card -->
+  <rect x="525" y="152" width="115" height="75" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="582" y="172" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Позиція 1</text>
+  <text x="582" y="192" font-size="12" fill="#6b7280" text-anchor="middle">Відпущено</text>
+  <text x="582" y="214" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">OFF (Стоп)</text>
+
+  <!-- Transition Arrow 1 -> 2 -->
+  <line x1="642" y1="190" x2="655" y2="190" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Position 2 Card -->
+  <rect x="657" y="152" width="115" height="75" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="715" y="172" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Позиція 2</text>
+  <text x="715" y="192" font-size="12" fill="#1a1a1a" text-anchor="middle">Центр (Дозвіл)</text>
+  <text x="715" y="214" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ON (Робота)</text>
+
+  <!-- Transition Arrow 2 -> 3 -->
+  <line x1="774" y1="190" x2="788" y2="190" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Position 3 Card -->
+  <rect x="790" y="152" width="115" height="75" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="847" y="172" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Позиція 3</text>
+  <text x="847" y="192" font-size="12" fill="#c0392b" text-anchor="middle">Панічний тиск</text>
+  <text x="847" y="214" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">OFF (Аварія)</text>
+
+  <text x="715" y="255" font-size="12" fill="#1a1a1a" text-anchor="middle">При паніці миттєвий перехід у Поз. 3 розмикає коло!</text>
+
+  <!-- Switch Logic Box -->
+  <rect x="510" y="295" width="410" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="315" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Реакція на судомне стискання</text>
+  <text x="715" y="338" font-size="12" fill="#1a1a1a" text-anchor="middle">Судоми м'язів стискають кнопку далі в Позицію 3.</text>
+  <text x="715" y="362" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Примусове відкриття силових контактів (IEC 60947-5-1)</text>
+
+  <!-- Panel 2 Summary -->
+  <rect x="510" y="400" width="410" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="715" y="422" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат: ПОВНА БЕЗПЕКА</text>
+  <text x="715" y="445" font-size="12" fill="#1a1a1a" text-anchor="middle">Миттєве відключення приводу маніпулятора.</text>
+  <text x="715" y="468" font-size="12" fill="#1a1a1a" text-anchor="middle">Зупинка приводу до моменту контакту з людиною.</text>
+  <text x="715" y="495" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Відповідає ISO 10218-1 / ANSI/RIA R15.06</text>
+</svg>

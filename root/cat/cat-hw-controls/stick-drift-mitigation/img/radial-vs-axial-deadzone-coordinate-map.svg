@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порівняння осьової та радіальної мертвих зон стіка</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Вплив геометричної карти відсікання дрейфу на плавність нормованого вектора (X, Y)</text>
+
+  <!-- PANEL 1: AXIAL DEADZONE (LEFT) -->
+  <rect x="25" y="75" width="440" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Осьова мертва зона (Axial Deadzone)</text>
+
+  <!-- Axial Deadzone Strips -->
+  <rect x="135" y="251" width="220" height="28" fill="#fdecea" stroke="#c0392b" stroke-dasharray="2,2"/>
+  <rect x="231" y="155" width="28" height="220" fill="#fdecea" stroke="#c0392b" stroke-dasharray="2,2"/>
+
+  <!-- Outer Physical Range Circle -->
+  <circle cx="245" cy="265" r="110" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- X & Y Axes Panel 1 -->
+  <line x1="90" y1="265" x2="390" y2="265" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <line x1="245" y1="385" x2="245" y2="145" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="395" y="269" font-size="12" font-weight="bold" fill="#1a1a1a">+X</text>
+  <text x="245" y="134" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">+Y</text>
+
+  <!-- Physical Boundary Label -->
+  <text x="130" y="145" text-anchor="end" font-size="12" fill="#6b7280">Межа r = 1.0</text>
+
+  <!-- Deadzone Strip Dimension Label -->
+  <text x="303" y="235" font-size="12" font-weight="bold" fill="#c0392b">d_axial</text>
+
+  <!-- Zero Drift Point & Leader Line -->
+  <circle cx="252" cy="260" r="4" fill="#c0392b"/>
+  <path d="M252,260 L310,240 L365,240" fill="none" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="370" y="236" font-size="12" font-weight="bold" fill="#c0392b">Дрейф нуля</text>
+  <text x="370" y="252" font-size="12" fill="#c0392b">(обнуляється)</text>
+
+  <!-- Panel 1 Summary Badge -->
+  <rect x="45" y="425" width="400" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="444" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Осьовий захист: примусове «прилипання» до осей</text>
+  <text x="245" y="460" text-anchor="middle" font-size="12" fill="#6b7280">Викривляє діагональні траєкторії руху ручки</text>
+
+  <!-- PANEL 2: RADIAL DEADZONE (RIGHT) -->
+  <rect x="495" y="75" width="440" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="715" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Радіальна мертва зона (Radial Deadzone)</text>
+
+  <!-- Outer Full-scale Range Circle -->
+  <circle cx="715" cy="265" r="110" fill="#eaf0fd" fill-opacity="0.3" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Inner Radial Deadzone Circle -->
+  <circle cx="715" cy="265" r="40" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- X & Y Axes Panel 2 -->
+  <line x1="560" y1="265" x2="860" y2="265" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <line x1="715" y1="385" x2="715" y2="145" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="865" y="269" font-size="12" font-weight="bold" fill="#1a1a1a">+X</text>
+  <text x="715" y="134" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">+Y</text>
+
+  <!-- Outer Circle Label Panel 2 -->
+  <text x="605" y="145" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">Межа r_max = 1.0</text>
+
+  <!-- Inner Deadzone Circle Leader Line & Split Label -->
+  <path d="M680,255 L630,240 L603,240" fill="none" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="598" y="234" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">r_dead</text>
+  <text x="598" y="250" text-anchor="end" font-size="12" fill="#c0392b">(Зона 0.0)</text>
+
+  <!-- Active Output Vector Arrow -->
+  <line x1="715" y1="265" x2="785" y2="185" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <circle cx="785" cy="185" r="4" fill="#27ae60"/>
+
+  <!-- Vector Labels Panel 2 -->
+  <text x="795" y="175" font-size="12" font-weight="bold" fill="#27ae60">Вектор v_norm</text>
+  <text x="795" y="191" font-size="12" fill="#27ae60">(плавний напрямок)</text>
+
+  <!-- Panel 2 Summary Badge -->
+  <rect x="515" y="425" width="400" height="45" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="444" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Радіальний захист: плавна кругова зона</text>
+  <text x="715" y="460" text-anchor="middle" font-size="12" fill="#1a1a1a">Збереження 360° лінійності: v = (r - r_dead)/(1 - r_dead)</text>
+</svg>

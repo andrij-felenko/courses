@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Послідовність неблокуючого опитування API інкрементального енкодера</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Неблокуюче виконання main loop з періодичною фіксацією Δpos, ω та стану кнопки без затримок</text>
+
+  <!-- Panel 1: Main Application Loop -->
+  <rect x="40" y="90" width="260" height="390" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="170" y="118" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цикл застосунку (Main Loop)</text>
+
+  <rect x="60" y="140" width="220" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="170" y="164" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Циклічний виклик API</text>
+  <text x="170" y="184" font-size="12" fill="#1a1a1a" text-anchor="middle">Period Δt = 10 ms</text>
+
+  <rect x="60" y="245" width="220" height="65" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="170" y="270" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обробка GUI та інших задач</text>
+  <text x="170" y="292" font-size="12" fill="#6b7280" text-anchor="middle">Виконання без затримок O(1)</text>
+
+  <rect x="60" y="355" width="220" height="95" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="170" y="380" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Обробка подій оновлення</text>
+  <text x="170" y="402" font-size="12" fill="#1a1a1a" text-anchor="middle">Оновлення позиції Δpos та ω</text>
+  <text x="170" y="422" font-size="12" fill="#1a1a1a" text-anchor="middle">Детекція нуля Index Z</text>
+  <text x="170" y="438" font-size="12" fill="#1a1a1a" text-anchor="middle">Прес/клик кнопки Sw</text>
+
+  <!-- Panel 2: Encoder Driver API Layer -->
+  <rect x="340" y="90" width="280" height="390" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="480" y="118" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Драйвер API (Driver Layer)</text>
+
+  <rect x="360" y="140" width="240" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="480" y="164" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">encoder_update(&amp;enc)</text>
+  <text x="480" y="184" font-size="12" fill="#1a1a1a" text-anchor="middle">Неблокуюче опитування стану</text>
+
+  <rect x="360" y="230" width="240" height="100" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="375" y="254" font-size="12" font-weight="bold" fill="#1a1a1a">Обчислення різниці та швидкості:</text>
+  <text x="375" y="276" font-size="12" fill="#2457d6">ΔCNT = CNT_now - CNT_prev</text>
+  <text x="375" y="296" font-size="12" fill="#2457d6">ω = (ΔCNT × K_scale) / Δt</text>
+  <text x="375" y="316" font-size="12" fill="#6b7280">Фільтрація брязкоту Sw</text>
+
+  <rect x="360" y="355" width="240" height="95" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="375" y="378" font-size="12" font-weight="bold" fill="#1a1a1a">Функції доступу до даних:</text>
+  <text x="375" y="398" font-size="12" fill="#27ae60">encoder_get_position()</text>
+  <text x="375" y="418" font-size="12" fill="#27ae60">encoder_get_velocity()</text>
+  <text x="375" y="438" font-size="12" fill="#27ae60">encoder_get_button_event()</text>
+
+  <!-- Panel 3: Hardware Peripheral Layer -->
+  <rect x="660" y="90" width="260" height="390" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="790" y="118" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратна периферія MCU</text>
+
+  <rect x="680" y="140" width="220" height="75" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="790" y="164" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Quadrature Encoder Mode</text>
+  <text x="790" y="184" font-size="12" fill="#2457d6" text-anchor="middle">Регістр TIMx-&gt;CNT</text>
+  <text x="790" y="202" font-size="12" fill="#6b7280" text-anchor="middle">Декодер 1X / 2X / 4X</text>
+
+  <rect x="680" y="245" width="220" height="65" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="790" y="268" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вхід індексу Z (Index)</text>
+  <text x="790" y="290" font-size="12" fill="#6b7280" text-anchor="middle">Апаратне скидання лічильника</text>
+
+  <rect x="680" y="340" width="220" height="110" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="790" y="364" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">GPIO вхід кнопки Sw</text>
+  <text x="790" y="384" font-size="12" fill="#6b7280" text-anchor="middle">Зчитування регістру IDR</text>
+  <text x="790" y="404" font-size="12" fill="#c0392b" text-anchor="middle">Детекція пропуску фаз</text>
+  <text x="790" y="424" font-size="12" fill="#c0392b" text-anchor="middle">Прапор помилки завад ERR</text>
+
+  <!-- Connectors / Flow Lines -->
+  <!-- Call update: Main -> Driver -->
+  <line x1="280" y1="170" x2="350" y2="170" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="315" y="162" font-size="12" fill="#2457d6" text-anchor="middle">1. update()</text>
+
+  <!-- Read TIM CNT: Driver -> Hardware -->
+  <line x1="600" y1="162" x2="670" y2="162" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="640" y="154" font-size="12" fill="#2457d6" text-anchor="middle">2. Read CNT</text>
+
+  <!-- Return TIM CNT: Hardware -> Driver -->
+  <line x1="680" y1="190" x2="610" y2="190" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="645" y="184" font-size="12" fill="#27ae60" text-anchor="middle">O(1) data</text>
+
+  <!-- Internal Driver Computation Flow -->
+  <line x1="480" y1="200" x2="480" y2="220" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <line x1="480" y1="330" x2="480" y2="345" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Return Event: Driver -> Main -->
+  <line x1="360" y1="400" x2="290" y2="400" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="325" y="392" font-size="12" fill="#27ae60" text-anchor="middle">Return true</text>
+
+  <!-- Main loop internal arrows -->
+  <line x1="170" y1="200" x2="170" y2="235" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="170" y1="310" x2="170" y2="345" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+</svg>

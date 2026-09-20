@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топології резистивних атенюаторів L-pad, T-pad та H-pad</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Симетричне та асиметричне узгодження імпедансів Z_in = Z_out = Z₀ для сталого опору</text>
+
+  <!-- COLUMN 1: L-PAD TOPOLOGY -->
+  <rect x="50" y="85" width="270" height="435" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="185" y="111" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія L-pad</text>
+  <rect x="105" y="123" width="160" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="185" y="140" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Асиметрична (2 елементи)</text>
+
+  <!-- Schematic Container 1 -->
+  <rect x="60" y="165" width="250" height="140" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <!-- Terminals & Lines -->
+  <text x="92" y="199" font-size="11" fill="#6b7280" text-anchor="end">In+</text>
+  <circle cx="100" cy="195" r="3" fill="#2457d6"/>
+  <text x="92" y="254" font-size="11" fill="#6b7280" text-anchor="end">In-</text>
+  <circle cx="100" cy="250" r="3" fill="#6b7280"/>
+
+  <text x="278" y="199" font-size="11" fill="#6b7280">Out+</text>
+  <circle cx="270" cy="195" r="3" fill="#2457d6"/>
+  <text x="278" y="254" font-size="11" fill="#6b7280">Out-</text>
+  <circle cx="270" cy="250" r="3" fill="#6b7280"/>
+
+  <!-- Top Series Path -->
+  <line x1="103" y1="195" x2="135" y2="195" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="135" y="189" width="35" height="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="152" y="183" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R₁</text>
+  <line x1="170" y1="195" x2="267" y2="195" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Node & Shunt Path -->
+  <circle cx="200" cy="195" r="2.5" fill="#1a1a1a"/>
+  <line x1="200" y1="195" x2="200" y2="208" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="194" y="208" width="12" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="215" y="227" font-size="12" font-weight="bold" fill="#2457d6">R₂</text>
+  <line x1="200" y1="238" x2="200" y2="250" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Bottom Common Rail -->
+  <line x1="103" y1="250" x2="267" y2="250" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="200" cy="250" r="2.5" fill="#1a1a1a"/>
+
+  <text x="185" y="290" font-size="12" fill="#6b7280" text-anchor="middle">Одностороннє узгодження</text>
+
+  <!-- Formula Panel 1 -->
+  <rect x="60" y="317" width="250" height="190" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="75" y="335" font-size="13" font-weight="bold" fill="#1a1a1a">Розрахунок параметрів L-pad:</text>
+  <text x="75" y="358" font-size="12" fill="#2457d6">K = V_out / V_in  (дільник)</text>
+  <text x="75" y="380" font-size="12" fill="#1a1a1a">R₁ = Z₀ · (1 - K)</text>
+  <text x="75" y="402" font-size="12" fill="#1a1a1a">R₂ = Z₀ · K / (1 - K)</text>
+  <line x1="75" y1="414" x2="295" y2="414" stroke="#d0d7de" stroke-width="1"/>
+  <text x="75" y="434" font-size="12" fill="#1a1a1a">• Проста схема (2 опори)</text>
+  <text x="75" y="456" font-size="12" fill="#6b7280">• Змінний вхідний опір</text>
+  <text x="75" y="478" font-size="12" fill="#6b7280">• Несиметричний сигнал</text>
+  <text x="75" y="498" font-size="12" fill="#6b7280">• Прості акустичні системи</text>
+
+
+  <!-- COLUMN 2: T-PAD TOPOLOGY -->
+  <rect x="345" y="85" width="270" height="435" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="480" y="111" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія T-pad</text>
+  <rect x="400" y="123" width="160" height="26" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="480" y="140" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Асиметрична (3 елементи)</text>
+
+  <!-- Schematic Container 2 -->
+  <rect x="355" y="165" width="250" height="140" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <!-- Terminals & Lines -->
+  <text x="387" y="199" font-size="11" fill="#6b7280" text-anchor="end">In+</text>
+  <circle cx="395" cy="195" r="3" fill="#2457d6"/>
+  <text x="387" y="254" font-size="11" fill="#6b7280" text-anchor="end">In-</text>
+  <circle cx="395" cy="250" r="3" fill="#6b7280"/>
+
+  <text x="573" y="199" font-size="11" fill="#6b7280">Out+</text>
+  <circle cx="565" cy="195" r="3" fill="#2457d6"/>
+  <text x="573" y="254" font-size="11" fill="#6b7280">Out-</text>
+  <circle cx="565" cy="250" r="3" fill="#6b7280"/>
+
+  <!-- Top Series Path R1 and R2 -->
+  <line x1="398" y1="195" x2="420" y2="195" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <rect x="420" y="189" width="30" height="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="435" y="183" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R₁</text>
+
+  <line x1="450" y1="195" x2="490" y2="195" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="490" y="189" width="30" height="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="505" y="183" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R₂</text>
+  <line x1="520" y1="195" x2="562" y2="195" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Central Shunt Path R3 -->
+  <circle cx="470" cy="195" r="2.5" fill="#1a1a1a"/>
+  <line x1="470" y1="195" x2="470" y2="208" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="464" y="208" width="12" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="2"/>
+  <text x="485" y="227" font-size="12" font-weight="bold" fill="#2457d6">R₃</text>
+  <line x1="470" y1="238" x2="470" y2="250" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Bottom Common Rail -->
+  <line x1="398" y1="250" x2="562" y2="250" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="470" cy="250" r="2.5" fill="#1a1a1a"/>
+
+  <text x="480" y="290" font-size="12" fill="#6b7280" text-anchor="middle">Двостороннє узгодження (R₁ = R₂)</text>
+
+  <!-- Formula Panel 2 -->
+  <rect x="355" y="317" width="250" height="190" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="370" y="335" font-size="13" font-weight="bold" fill="#1a1a1a">Розрахунок T-осередку (Z₀):</text>
+  <text x="370" y="358" font-size="12" fill="#2457d6">N = 10^(dB / 20)  [коефіцієнт]</text>
+  <text x="370" y="380" font-size="12" fill="#1a1a1a">R₁ = R₂ = Z₀ · (N - 1) / (N + 1)</text>
+  <text x="370" y="402" font-size="12" fill="#1a1a1a">R₃ = Z₀ · 2N / (N² - 1)</text>
+  <line x1="370" y1="414" x2="590" y2="414" stroke="#d0d7de" stroke-width="1"/>
+  <text x="370" y="434" font-size="12" fill="#1a1a1a">• Сталий імпеданс Z_in = Z_out</text>
+  <text x="370" y="456" font-size="12" fill="#27ae60" font-weight="bold">• Ідеальне узгодження лінії</text>
+  <text x="370" y="478" font-size="12" fill="#6b7280">• Комутація 2 галетами</text>
+  <text x="370" y="498" font-size="12" fill="#6b7280">• Вимірювальні прилади та RF</text>
+
+
+  <!-- COLUMN 3: H-PAD TOPOLOGY -->
+  <rect x="640" y="85" width="270" height="435" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="775" y="111" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія H-pad</text>
+  <rect x="695" y="123" width="160" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="775" y="140" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Збалансована (4 елементи)</text>
+
+  <!-- Schematic Container 3 -->
+  <rect x="650" y="165" width="250" height="140" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <!-- Terminals & Lines -->
+  <text x="682" y="196" font-size="11" fill="#6b7280" text-anchor="end">In+</text>
+  <circle cx="690" cy="192" r="3" fill="#27ae60"/>
+  <text x="682" y="257" font-size="11" fill="#6b7280" text-anchor="end">In-</text>
+  <circle cx="690" cy="253" r="3" fill="#27ae60"/>
+
+  <text x="868" y="196" font-size="11" fill="#6b7280">Out+</text>
+  <circle cx="860" cy="192" r="3" fill="#27ae60"/>
+  <text x="868" y="257" font-size="11" fill="#6b7280">Out-</text>
+  <circle cx="860" cy="253" r="3" fill="#27ae60"/>
+
+  <!-- Top Series Path R1/2 -->
+  <line x1="693" y1="192" x2="715" y2="192" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <rect x="715" y="186" width="30" height="12" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="2"/>
+  <text x="730" y="180" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">R₁/2</text>
+
+  <line x1="745" y1="192" x2="785" y2="192" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="785" y="186" width="30" height="12" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="2"/>
+  <text x="800" y="180" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">R₁/2</text>
+  <line x1="815" y1="192" x2="857" y2="192" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Central Shunt Path R2 -->
+  <circle cx="760" cy="192" r="2.5" fill="#1a1a1a"/>
+  <line x1="760" y1="192" x2="760" y2="208" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="754" y="208" width="12" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="2"/>
+  <text x="774" y="227" font-size="12" font-weight="bold" fill="#27ae60">R₂</text>
+  <line x1="760" y1="238" x2="760" y2="253" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="760" cy="253" r="2.5" fill="#1a1a1a"/>
+
+  <!-- Bottom Series Path R1/2 -->
+  <line x1="693" y1="253" x2="715" y2="253" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <rect x="715" y="247" width="30" height="12" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="2"/>
+  <text x="730" y="270" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">R₁/2</text>
+
+  <line x1="745" y1="253" x2="785" y2="253" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="785" y="247" width="30" height="12" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="2"/>
+  <text x="800" y="270" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">R₁/2</text>
+  <line x1="815" y1="253" x2="857" y2="253" stroke="#27ae60" stroke-width="1.5"/>
+
+  <text x="775" y="290" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Симетрична балансна лінія</text>
+
+  <!-- Formula Panel 3 -->
+  <rect x="650" y="317" width="250" height="190" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="665" y="335" font-size="13" font-weight="bold" fill="#1a1a1a">Балансний H-осередок (Z₀):</text>
+  <text x="665" y="358" font-size="12" fill="#27ae60">R_плеча = R₁ / 2  (симетрія)</text>
+  <text x="665" y="380" font-size="12" fill="#1a1a1a">R₁/2 = Z₀/2 · (N - 1) / (N + 1)</text>
+  <text x="665" y="402" font-size="12" fill="#1a1a1a">R₂ = Z₀ · 2N / (N² - 1)</text>
+  <line x1="665" y1="414" x2="885" y2="414" stroke="#d0d7de" stroke-width="1"/>
+  <text x="665" y="434" font-size="12" fill="#1a1a1a">• Повна синфазна завадостійкість</text>
+  <text x="665" y="456" font-size="12" fill="#27ae60" font-weight="bold">• Балансні канали XLR / дріт</text>
+  <text x="665" y="478" font-size="12" fill="#6b7280">• Комутація 4 галетами</text>
+  <text x="665" y="498" font-size="12" fill="#6b7280">• Професійне студійне аудіо</text>
+</svg>

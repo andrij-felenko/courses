@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма комутації BBM (Break-Before-Make) та програмна фільтрація</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Розмикання контакту 1, фаза плаваючих контактів t_BBM та придушення брязкоту t_debounce</text>
+
+  <!-- Main Container Panel -->
+  <rect x="25" y="75" width="910" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- BBM Phase Highlight Box -->
+  <rect x="400" y="125" width="120" height="215" fill="#eaf0fd" opacity="0.5" stroke="#2457d6" stroke-dasharray="4,2"/>
+  <text x="460" y="96" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_BBM</text>
+  <text x="460" y="112" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Фаза плавання</text>
+
+  <!-- Break Bounce Highlight Box -->
+  <rect x="340" y="128" width="60" height="38" fill="#fdecea" opacity="0.6" stroke="#c0392b" stroke-dasharray="2,2"/>
+  <text x="370" y="120" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">t_bounce1</text>
+
+  <!-- Make Bounce Highlight Box -->
+  <rect x="520" y="202" width="80" height="44" fill="#fdecea" opacity="0.6" stroke="#c0392b" stroke-dasharray="2,2"/>
+  <text x="560" y="194" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">t_bounce2</text>
+
+  <!-- Debounce Filter Highlight Box -->
+  <rect x="600" y="375" width="120" height="42" fill="#e9f7ef" stroke="#27ae60" stroke-dasharray="3,2"/>
+  <text x="660" y="392" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">t_debounce</text>
+  <text x="660" y="406" text-anchor="middle" font-size="10" fill="#27ae60">Фільтр брязкоту</text>
+
+  <!-- SIGNAL TRACE 1: CONTACT 1 -->
+  <text x="40" y="138" font-size="13" font-weight="bold" fill="#1a1a1a">Контакт 1 (Pos 1)</text>
+  <text x="40" y="154" font-size="11" fill="#6b7280">Замкнено -> Розімкнено</text>
+  <path d="M 220,135 L 340,135 L 350,160 L 360,135 L 375,160 L 385,142 L 400,160 L 880,160" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- SIGNAL TRACE 2: CONTACT 2 -->
+  <text x="40" y="222" font-size="13" font-weight="bold" fill="#1a1a1a">Контакт 2 (Pos 2)</text>
+  <text x="40" y="238" font-size="11" fill="#6b7280">Розімкнено -> Замкнено</text>
+  <path d="M 220,240 L 520,240 L 535,210 L 550,240 L 565,210 L 580,230 L 600,210 L 880,210" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- SIGNAL TRACE 3: ADC VOLTAGE VIN -->
+  <text x="40" y="312" font-size="13" font-weight="bold" fill="#1a1a1a">Сигнал АЦП V_in</text>
+  <text x="40" y="328" font-size="11" fill="#6b7280">Напруга дільника</text>
+  <path d="M 220,290 L 340,290 L 350,325 L 360,290 L 375,325 L 385,300 L 400,325 L 520,325 L 535,295 L 550,340 L 565,305 L 580,340 L 600,340 L 880,340" fill="none" stroke="#d97706" stroke-width="2.5"/>
+
+  <!-- SIGNAL TRACE 4: DECODED DRIVER STATE -->
+  <text x="40" y="412" font-size="13" font-weight="bold" fill="#27ae60">Декодований стан</text>
+  <text x="40" y="428" font-size="11" fill="#6b7280">Логіка драйвера</text>
+
+  <!-- State 1 Box -->
+  <rect x="220" y="425" width="180" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="310" y="445" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Стан: Позиція 1</text>
+
+  <!-- State Hold (BBM + Debounce) Box -->
+  <rect x="400" y="425" width="320" height="30" rx="4" fill="#fffbe6" stroke="#d97706" stroke-width="1.5"/>
+  <text x="560" y="445" text-anchor="middle" font-size="11" font-weight="bold" fill="#d97706">Утримується Поз. 1 (BBM &amp; Debounce)</text>
+
+  <!-- State 2 Verified Box -->
+  <rect x="720" y="425" width="160" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="800" y="445" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Стан: Позиція 2</text>
+
+  <!-- TIME AXIS BOTTOM -->
+  <line x1="220" y1="472" x2="880" y2="472" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="890" y="476" font-size="12" font-weight="bold" fill="#1a1a1a">Час t</text>
+
+  <!-- Time Ticks -->
+  <line x1="240" y1="469" x2="240" y2="475" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="240" y="490" text-anchor="middle" font-size="11" fill="#6b7280">t0</text>
+
+  <line x1="340" y1="469" x2="340" y2="475" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="340" y="490" text-anchor="middle" font-size="11" fill="#6b7280">t1 (Break)</text>
+
+  <line x1="520" y1="469" x2="520" y2="475" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="520" y="490" text-anchor="middle" font-size="11" fill="#6b7280">t2 (Make)</text>
+
+  <line x1="720" y1="469" x2="720" y2="475" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="720" y="490" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">t3 (Підтверджено)</text>
+</svg>

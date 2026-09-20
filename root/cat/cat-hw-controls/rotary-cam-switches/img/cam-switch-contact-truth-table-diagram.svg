@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <!-- Header Section -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Комутаційна діаграма (розгортка) кулачкового перемикача</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Графічна матриця хрестиків («X») та ліній підтверджує стан контактних груп для кожної кутової позиції вала</text>
+
+  <!-- Left Container: Knob & Contact Positions -->
+  <rect x="30" y="85" width="350" height="330" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="85" width="350" height="35" rx="6" fill="#eaf0fd"/>
+  <rect x="30" y="110" width="350" height="10" fill="#eaf0fd"/>
+  <text x="205" y="107" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Поворотна шкала та контакти</text>
+
+  <!-- Dial Dial Representation -->
+  <circle cx="205" cy="195" r="50" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="205" cy="195" r="16" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 205,195 L 180,165" stroke="#2457d6" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Dial Position Labels -->
+  <text x="205" y="132" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="135" y="160" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1 (-45°)</text>
+  <text x="275" y="160" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">2 (+45°)</text>
+
+  <!-- Contact Package Summary Box -->
+  <rect x="45" y="260" width="320" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="205" y="280" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Контактна група (Схема 4-х пакетів)</text>
+  <text x="60" y="305" font-size="11" font-weight="bold" fill="#2457d6">Пакет 1 (1-2):</text>
+  <text x="170" y="305" font-size="11" fill="#1a1a1a">Замкнений у Поз 1</text>
+  <text x="60" y="328" font-size="11" font-weight="bold" fill="#27ae60">Пакет 2 (3-4):</text>
+  <text x="170" y="328" font-size="11" fill="#1a1a1a">Замкнений у Поз 2</text>
+  <text x="60" y="351" font-size="11" font-weight="bold" fill="#1a1a1a">Пакет 3 (5-6):</text>
+  <text x="170" y="351" font-size="11" fill="#1a1a1a">Замкнений у Поз 1 та 2</text>
+  <text x="60" y="374" font-size="11" font-weight="bold" fill="#c0392b">Пакет 4 (7-8):</text>
+  <text x="170" y="374" font-size="11" fill="#c0392b">Випереджальне (●—●)</text>
+
+  <!-- Right Container: Unfolded Contact Truth Table -->
+  <rect x="400" y="85" width="530" height="330" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="400" y="85" width="530" height="35" rx="6" fill="#eaf0fd"/>
+  <rect x="400" y="110" width="530" height="10" fill="#eaf0fd"/>
+  <text x="665" y="107" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Таблиця розгортки контактів (Truth Table)</text>
+
+  <!-- Matrix Header Row -->
+  <rect x="415" y="135" width="100" height="40" fill="#eaf0fd" stroke="#d0d7de"/>
+  <text x="465" y="159" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Пакет №</text>
+
+  <rect x="515" y="135" width="90" height="40" fill="#eaf0fd" stroke="#d0d7de"/>
+  <text x="560" y="159" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Виводи</text>
+
+  <rect x="605" y="135" width="100" height="40" fill="#eaf0fd" stroke="#d0d7de"/>
+  <text x="655" y="152" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Позиція 1</text>
+  <text x="655" y="167" font-size="10" fill="#6b7280" text-anchor="middle">(-45°)</text>
+
+  <rect x="705" y="135" width="100" height="40" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="755" y="152" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">Позиція 0</text>
+  <text x="755" y="167" font-size="10" fill="#6b7280" text-anchor="middle">(0°)</text>
+
+  <rect x="805" y="135" width="110" height="40" fill="#e9f7ef" stroke="#d0d7de"/>
+  <text x="860" y="152" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Позиція 2</text>
+  <text x="860" y="167" font-size="10" fill="#6b7280" text-anchor="middle">(+45°)</text>
+
+  <!-- Row 1: Pack 1 (1-2) -->
+  <rect x="415" y="175" width="100" height="50" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="465" y="204" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пакет 1</text>
+  <rect x="515" y="175" width="90" height="50" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="560" y="204" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1 — 2</text>
+  <rect x="605" y="175" width="100" height="50" fill="#eaf0fd" stroke="#d0d7de"/>
+  <text x="655" y="206" font-size="18" font-weight="bold" fill="#2457d6" text-anchor="middle">X</text>
+  <rect x="705" y="175" width="100" height="50" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="755" y="204" font-size="16" fill="#d0d7de" text-anchor="middle">—</text>
+  <rect x="805" y="175" width="110" height="50" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="860" y="204" font-size="16" fill="#d0d7de" text-anchor="middle">—</text>
+
+  <!-- Row 2: Pack 2 (3-4) -->
+  <rect x="415" y="225" width="100" height="50" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="465" y="254" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пакет 2</text>
+  <rect x="515" y="225" width="90" height="50" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="560" y="254" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3 — 4</text>
+  <rect x="605" y="225" width="100" height="50" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="655" y="254" font-size="16" fill="#d0d7de" text-anchor="middle">—</text>
+  <rect x="705" y="225" width="100" height="50" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="755" y="254" font-size="16" fill="#d0d7de" text-anchor="middle">—</text>
+  <rect x="805" y="225" width="110" height="50" fill="#e9f7ef" stroke="#d0d7de"/>
+  <text x="860" y="256" font-size="18" font-weight="bold" fill="#27ae60" text-anchor="middle">X</text>
+
+  <!-- Row 3: Pack 3 (5-6) -->
+  <rect x="415" y="275" width="100" height="50" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="465" y="304" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пакет 3</text>
+  <rect x="515" y="275" width="90" height="50" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="560" y="304" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">5 — 6</text>
+  <rect x="605" y="275" width="100" height="50" fill="#eaf0fd" stroke="#d0d7de"/>
+  <text x="655" y="306" font-size="18" font-weight="bold" fill="#2457d6" text-anchor="middle">X</text>
+  <rect x="705" y="275" width="100" height="50" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="755" y="304" font-size="16" fill="#d0d7de" text-anchor="middle">—</text>
+  <rect x="805" y="275" width="110" height="50" fill="#e9f7ef" stroke="#d0d7de"/>
+  <text x="860" y="306" font-size="18" font-weight="bold" fill="#27ae60" text-anchor="middle">X</text>
+
+  <!-- Row 4: Pack 4 (7-8) - Early-make / Continuous Contact -->
+  <rect x="415" y="325" width="100" height="50" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="465" y="354" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пакет 4</text>
+  <rect x="515" y="325" width="90" height="50" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="560" y="354" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">7 — 8</text>
+  <rect x="605" y="325" width="100" height="50" fill="#fdecea" stroke="#d0d7de"/>
+  <rect x="705" y="325" width="100" height="50" fill="#fdecea" stroke="#d0d7de"/>
+  <rect x="805" y="325" width="110" height="50" fill="#fdecea" stroke="#d0d7de"/>
+
+  <!-- Continuous Line Bar across Positions -->
+  <line x1="635" y1="350" x2="885" y2="350" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="655" cy="350" r="5" fill="#c0392b"/>
+  <circle cx="755" cy="350" r="5" fill="#c0392b"/>
+  <circle cx="860" cy="350" r="5" fill="#c0392b"/>
+
+  <!-- Bottom Legend Panel -->
+  <rect x="30" y="425" width="900" height="36" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="448" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">■ Позначка «X»: Контакт замкнений</text>
+  <text x="480" y="448" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">■ Позначка «●—●»: Перекриття / випередження</text>
+  <text x="790" y="448" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">■ Позначка «—»: Контакт розімкнений</text>
+</svg>

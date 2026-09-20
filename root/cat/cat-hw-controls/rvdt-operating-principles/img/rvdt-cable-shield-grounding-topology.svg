@@ -1,0 +1,129 @@
+<svg viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія заземлення екрана кабельного джгута RVDT</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Одноточкове заземлення у кондиціонері сигналів усуває паразитні контури струму заземлення I_loop</text>
+
+  <!-- SECTION 1: BAD TOPOLOGY (DUAL GROUNDING) -->
+  <rect x="40" y="80" width="880" height="210" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="55" y="103" font-size="14" font-weight="bold" fill="#c0392b">1. Неправильно: Двоточкове заземлення (утворення паразитного контуру I_loop)</text>
+
+  <!-- RVDT Sensor Block (Left) -->
+  <rect x="65" y="120" width="160" height="140" rx="6" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="145" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Давач RVDT</text>
+  <text x="145" y="160" font-size="12" fill="#6b7280" text-anchor="middle">(Корпус давача)</text>
+  
+  <!-- Ground 1 at RVDT -->
+  <line x1="145" y1="205" x2="145" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <line x1="135" y1="230" x2="155" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <line x1="139" y1="234" x2="151" y2="234" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="143" y1="238" x2="147" y2="238" stroke="#c0392b" stroke-width="1"/>
+  <text x="145" y="252" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">GND_1</text>
+
+  <!-- Shield Cable Box (Middle) -->
+  <rect x="255" y="125" width="450" height="110" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="480" y="142" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Екран кабельного джгута (проводить струм заземлення)</text>
+
+  <!-- Wires inside Shield -->
+  <!-- Primary -->
+  <line x1="225" y1="165" x2="735" y2="165" stroke="#2457d6" stroke-width="2"/>
+  <text x="265" y="160" font-size="12" font-weight="bold" fill="#2457d6">Primary Pair (PRI_HI / PRI_LO)</text>
+  <!-- Secondary 1 -->
+  <line x1="225" y1="190" x2="735" y2="190" stroke="#27ae60" stroke-width="2"/>
+  <text x="265" y="185" font-size="12" font-weight="bold" fill="#27ae60">Sec 1 Pair (SEC1_HI / SEC1_LO)</text>
+  <!-- Secondary 2 -->
+  <line x1="225" y1="215" x2="735" y2="215" stroke="#c0392b" stroke-width="2"/>
+  <text x="265" y="210" font-size="12" font-weight="bold" fill="#c0392b">Sec 2 Pair (SEC2_HI / SEC2_LO)</text>
+
+  <!-- Connection Shield to GND1 (Left) -->
+  <line x1="255" y1="180" x2="225" y2="180" stroke="#c0392b" stroke-width="2"/>
+  <line x1="225" y1="180" x2="225" y2="215" stroke="#c0392b" stroke-width="2"/>
+  <line x1="225" y1="215" x2="145" y2="215" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Signal Conditioner / MCU Block (Right) -->
+  <rect x="735" y="120" width="160" height="140" rx="6" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="815" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Блок обробки (MCU)</text>
+  <text x="815" y="160" font-size="12" fill="#6b7280" text-anchor="middle">(Плата кондиціонера)</text>
+
+  <!-- Ground 2 at MCU -->
+  <line x1="815" y1="205" x2="815" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <line x1="805" y1="230" x2="825" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <line x1="809" y1="234" x2="821" y2="234" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="813" y1="238" x2="817" y2="238" stroke="#c0392b" stroke-width="1"/>
+  <text x="815" y="252" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">GND_2</text>
+
+  <!-- Connection Shield to GND2 (Right) -->
+  <line x1="705" y1="180" x2="735" y2="180" stroke="#c0392b" stroke-width="2"/>
+  <line x1="735" y1="180" x2="735" y2="215" stroke="#c0392b" stroke-width="2"/>
+  <line x1="735" y1="215" x2="815" y2="215" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Loop Current I_loop path indicator -->
+  <path d="M 160,230 Q 480,265 800,230" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="480" y="278" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Паразитний струм контуру I_loop через різницю потенціалів ΔV_GND = GND_1 - GND_2</text>
+
+
+  <!-- SECTION 2: GOOD TOPOLOGY (SINGLE-POINT GROUNDING) -->
+  <rect x="40" y="305" width="880" height="210" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="55" y="328" font-size="14" font-weight="bold" fill="#27ae60">2. Правильно: Одноточкове заземлення екрана на боці блоку обробки</text>
+
+  <!-- RVDT Sensor Block (Left) -->
+  <rect x="65" y="345" width="160" height="140" rx="6" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="145" y="367" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Давач RVDT</text>
+  <text x="145" y="385" font-size="12" fill="#6b7280" text-anchor="middle">(Корпус давача)</text>
+
+  <!-- Isolated Shield marker at Sensor -->
+  <circle cx="240" cy="405" r="9" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="240" y="409" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">X</text>
+  <text x="145" y="475" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Екран ізольовано (I_loop = 0)</text>
+
+  <!-- Local Ground 1 at RVDT Chassis (not connected to shield) -->
+  <line x1="145" y1="430" x2="145" y2="450" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="137" y1="450" x2="153" y2="450" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="141" y1="454" x2="149" y2="454" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Shield Cable Box (Middle) -->
+  <rect x="255" y="350" width="450" height="110" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="367" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Суцільний електростатичний екран (захист від завад)</text>
+
+  <!-- Wires inside Shield -->
+  <!-- Primary -->
+  <line x1="225" y1="390" x2="735" y2="390" stroke="#2457d6" stroke-width="2"/>
+  <text x="265" y="385" font-size="12" font-weight="bold" fill="#2457d6">Primary Pair (PRI_HI / PRI_LO)</text>
+  <!-- Secondary 1 -->
+  <line x1="225" y1="415" x2="735" y2="415" stroke="#27ae60" stroke-width="2"/>
+  <text x="265" y="410" font-size="12" font-weight="bold" fill="#27ae60">Sec 1 Pair (SEC1_HI / SEC1_LO)</text>
+  <!-- Secondary 2 -->
+  <line x1="225" y1="440" x2="735" y2="440" stroke="#c0392b" stroke-width="2"/>
+  <text x="265" y="435" font-size="12" font-weight="bold" fill="#c0392b">Sec 2 Pair (SEC2_HI / SEC2_LO)</text>
+
+  <!-- Signal Conditioner / MCU Block (Right) -->
+  <rect x="735" y="345" width="160" height="140" rx="6" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="815" y="367" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Блок обробки (MCU)</text>
+  <text x="815" y="385" font-size="12" fill="#6b7280" text-anchor="middle">(Плата кондиціонера)</text>
+
+  <!-- Single-Point Ground Connection at MCU Side -->
+  <line x1="705" y1="405" x2="815" y2="405" stroke="#27ae60" stroke-width="2"/>
+  <line x1="815" y1="405" x2="815" y2="445" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  
+  <line x1="805" y1="450" x2="825" y2="450" stroke="#27ae60" stroke-width="2"/>
+  <line x1="809" y1="454" x2="821" y2="454" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="813" y1="458" x2="817" y2="458" stroke="#27ae60" stroke-width="1"/>
+  <text x="815" y="475" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">GND_S (Єдина точка)</text>
+
+  <!-- Final Summary Note -->
+  <text x="480" y="503" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Одноточкове заземлення гарантує відсутність розрізних струмів та мінімальний рівень фазових шумок</text>
+</svg>

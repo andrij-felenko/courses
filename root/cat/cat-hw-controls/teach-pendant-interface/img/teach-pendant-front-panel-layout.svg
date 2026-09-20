@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Компонування органів керування пульта налагодження (Teach Pendant)</text>
+  <text x="480" y="50" font-size="13" text-anchor="middle" fill="#6b7280">Відокремлення апаратних ліній безпеки від графічного дисплея та органів поосьового вводу</text>
+
+  <!-- Protective Outer Bumper -->
+  <rect x="210" y="68" width="540" height="442" rx="36" ry="36" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="8 4"/>
+
+  <!-- Main Pendant Body -->
+  <rect x="220" y="78" width="520" height="422" rx="28" ry="28" fill="#f4f6f8" stroke="#d0d7de" stroke-width="3"/>
+
+  <!-- Enabling Switch Tabs (Left & Right Side of Pendant) -->
+  <rect x="198" y="240" width="18" height="85" rx="5" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+  <rect x="744" y="240" width="18" height="85" rx="5" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+
+  <!-- TOP HEADER AREA OF PENDANT -->
+
+  <!-- E-STOP Button (Top Left) -->
+  <circle cx="275" cy="125" r="25" fill="#fef9e7" stroke="#f1c40f" stroke-width="3"/>
+  <circle cx="275" cy="125" r="18" fill="#c0392b" stroke="#922b21" stroke-width="2"/>
+  <text x="275" y="129" font-size="10" font-weight="bold" fill="white" text-anchor="middle">E-STOP</text>
+
+  <!-- Status LEDs (Top Center) -->
+  <rect x="420" y="105" width="120" height="36" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <circle cx="440" cy="123" r="6" fill="#27ae60"/>
+  <text x="452" y="127" font-size="11" fill="#1a1a1a">PWR</text>
+  <circle cx="485" cy="123" r="6" fill="#2457d6"/>
+  <text x="497" y="127" font-size="11" fill="#1a1a1a">BUS</text>
+
+  <!-- Mode Selector Switch (Top Right) -->
+  <circle cx="685" cy="125" r="20" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="681" y="110" width="8" height="30" rx="3" fill="#1a1a1a"/>
+  <text x="655" y="112" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="end">T1</text>
+  <text x="685" y="98" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">T2</text>
+  <text x="715" y="112" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="start">AUTO</text>
+
+  <!-- DISPLAY AREA (Center) -->
+  <rect x="310" y="160" width="340" height="185" rx="8" fill="#1e293b" stroke="#475569" stroke-width="2"/>
+  <rect x="318" y="168" width="324" height="169" rx="4" fill="#0f172a"/>
+  
+  <!-- Screen Header -->
+  <rect x="318" y="168" width="324" height="24" fill="#1e293b"/>
+  <text x="326" y="184" font-size="11" font-weight="bold" fill="#38bdf8">ROBOT MOTION CONTROL [TCP: WORLD]</text>
+
+  <!-- Screen Content: Left Box (Coords) -->
+  <rect x="326" y="200" width="150" height="75" rx="4" fill="#1e293b" stroke="#334155"/>
+  <text x="334" y="217" font-size="11" fill="#94a3b8">X:  +540.2 mm</text>
+  <text x="334" y="233" font-size="11" fill="#94a3b8">Y:  -120.5 mm</text>
+  <text x="334" y="249" font-size="11" fill="#94a3b8">Z:  +830.0 mm</text>
+  <text x="334" y="265" font-size="11" fill="#38bdf8">Speed: 100 mm/s (T1)</text>
+
+  <!-- Screen Content: Right Box (Trajectory) -->
+  <rect x="484" y="200" width="150" height="75" rx="4" fill="#1e293b" stroke="#334155"/>
+  <path d="M 495 255 Q 530 215 560 235 T 620 215" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="620" cy="215" r="4" fill="#38bdf8"/>
+  <text x="492" y="215" font-size="10" fill="#27ae60">Trajectory OK</text>
+
+  <!-- Screen Footer Status -->
+  <rect x="318" y="313" width="324" height="24" fill="#1e293b"/>
+  <text x="326" y="329" font-size="11" fill="#27ae60">● ENABLING SWITCH: READY (STAGE 2)</text>
+
+  <!-- LOWER CONTROLS AREA -->
+
+  <!-- Membrane Keypad (Bottom Left) -->
+  <rect x="245" y="360" width="220" height="125" rx="10" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="355" y="377" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ПООСЬОВИЙ ВВІД / JOG</text>
+
+  <rect x="255" y="387" width="58" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="284" y="404" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">X+ / J1</text>
+  <rect x="326" y="387" width="58" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="355" y="404" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Y+ / J2</text>
+  <rect x="397" y="387" width="58" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="426" y="404" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Z+ / J3</text>
+
+  <rect x="255" y="420" width="58" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="284" y="437" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">X- / J1</text>
+  <rect x="326" y="420" width="58" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="355" y="437" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Y- / J2</text>
+  <rect x="397" y="420" width="58" height="26" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="426" y="437" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Z- / J3</text>
+
+  <rect x="255" y="453" width="200" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="355" y="469" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">RECORD POINT (TEACH)</text>
+
+  <!-- 3D Joystick Panel (Bottom Right) -->
+  <rect x="495" y="360" width="220" height="125" rx="10" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <text x="605" y="377" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">6-ОСЬОВИЙ 3D-ДЖОЙСТИК</text>
+
+  <circle cx="605" cy="430" r="38" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <circle cx="605" cy="430" r="24" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+  <circle cx="605" cy="430" r="14" fill="#2457d6" stroke="#1d4ed8" stroke-width="2"/>
+  <circle cx="605" cy="430" r="5" fill="#ffffff"/>
+
+  <!-- Joystick Direction Arrows -->
+  <path d="M 605 398 L 605 388 M 602 391 L 605 388 L 608 391" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+  <path d="M 605 462 L 605 472 M 602 469 L 605 472 L 608 469" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+  <path d="M 573 430 L 563 430 M 566 427 L 563 430 L 566 433" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+  <path d="M 637 430 L 647 430 M 644 427 L 647 430 L 644 433" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+
+  <!-- Cable Entry Bottom Center -->
+  <rect x="465" y="500" width="30" height="15" fill="#6b7280" rx="2"/>
+  <path d="M 480 515 L 480 545" fill="none" stroke="#1a1a1a" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- ANNOTATION CALLOUT BOXES (OUTSIDE MAIN PENDANT BODY) -->
+
+  <!-- Top Left Callout: E-Stop -->
+  <path d="M 275 100 L 190 100" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="25" y="75" width="165" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="35" y="95" font-size="12" font-weight="bold" fill="#c0392b">Апаратний E-Stop</text>
+  <text x="35" y="112" font-size="11" fill="#1a1a1a">Подвійні NC-контакти</text>
+  <text x="35" y="127" font-size="11" fill="#6b7280">Примусове розмикання</text>
+
+  <!-- Top Right Callout: Mode Switch -->
+  <path d="M 685 105 L 765 105" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="765" y="75" width="170" height="65" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="775" y="95" font-size="12" font-weight="bold" fill="#2457d6">Перемикач режимів</text>
+  <text x="775" y="112" font-size="11" fill="#1a1a1a">Ключ T1 (250 мм/с) / T2</text>
+  <text x="775" y="127" font-size="11" fill="#6b7280">Двоканальне зчитування</text>
+
+  <!-- Left Center Callout: Enabling Switch -->
+  <path d="M 198 280 L 180 280" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="25" y="240" width="165" height="80" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="35" y="260" font-size="12" font-weight="bold" fill="#27ae60">3-Позиційні кнопки</text>
+  <text x="35" y="277" font-size="11" fill="#1a1a1a">Захист "Мертвої руки"</text>
+  <text x="35" y="294" font-size="11" fill="#1a1a1a">Стан 1: Відпущено (Off)</text>
+  <text x="35" y="309" font-size="11" fill="#27ae60">Стан 2: Утримання (RUN)</text>
+
+  <!-- Right Center Callout: Touch Screen UI -->
+  <path d="M 650 250 L 765 250" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="765" y="220" width="170" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="775" y="240" font-size="12" font-weight="bold" fill="#1a1a1a">Сенсорний екран</text>
+  <text x="775" y="257" font-size="11" fill="#1a1a1a">Візуалізація TCP та стан</text>
+  <text x="775" y="272" font-size="11" fill="#6b7280">Відокремлений від E-Stop</text>
+
+  <!-- Bottom Left Callout: Membrane Keypad -->
+  <path d="M 355 485 L 355 520 L 190 520" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="25" y="480" width="165" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="35" y="500" font-size="12" font-weight="bold" fill="#2457d6">Мембранна панель</text>
+  <text x="35" y="517" font-size="11" fill="#1a1a1a">Поосьове зміщення J1-J6</text>
+  <text x="35" y="532" font-size="11" fill="#6b7280">Запис точок (Teach)</text>
+
+  <!-- Bottom Right Callout: Cable Harness -->
+  <path d="M 480 530 L 765 530" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="765" y="480" width="170" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="775" y="500" font-size="12" font-weight="bold" fill="#1a1a1a">Кабельний шлейф</text>
+  <text x="775" y="517" font-size="11" fill="#1a1a1a">Екранована скрутка IP65</text>
+  <text x="775" y="532" font-size="11" fill="#6b7280">Лінії Safety A/B + Data</text>
+
+</svg>

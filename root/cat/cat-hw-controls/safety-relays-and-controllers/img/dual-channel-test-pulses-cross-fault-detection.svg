@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двоканальне підключення (S11–S22) та виявлення перехресного замикання</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Зсунуті за фазою імпульси T1 і T2 дозволяють логіці виявити міжжильне КЗ та заблокувати запуск</text>
+
+  <!-- Left Panel: Circuit Diagram -->
+  <rect x="40" y="75" width="520" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="60" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Схемотехніка двоканального контуру безпеки</text>
+
+  <!-- Safety Relay Module -->
+  <rect x="60" y="125" width="220" height="385" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <rect x="60" y="125" width="220" height="35" rx="6" fill="#eaf0fd"/>
+  <text x="170" y="147" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Модуль безпеки</text>
+
+  <!-- Generators inside Relay -->
+  <rect x="80" y="170" width="75" height="35" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="117" y="192" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ген. T1</text>
+
+  <rect x="80" y="465" width="75" height="35" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="117" y="487" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Ген. T2</text>
+
+  <!-- Logic Block -->
+  <rect x="80" y="230" width="110" height="210" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="135" y="315" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Блок логіки</text>
+  <text x="135" y="335" font-size="12" fill="#6b7280" text-anchor="middle">моніторингу</text>
+  <text x="135" y="355" font-size="12" fill="#6b7280" text-anchor="middle">(MCU / ASIC)</text>
+
+  <!-- Relay Terminals and Labels (Placed ABOVE lines) -->
+  <circle cx="280" cy="187" r="5" fill="#2457d6"/>
+  <text x="270" y="178" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">T1 (S11)</text>
+
+  <circle cx="280" cy="250" r="5" fill="#2457d6"/>
+  <text x="270" y="241" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">S12</text>
+
+  <circle cx="280" cy="350" r="5" fill="#2457d6"/>
+  <text x="270" y="341" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">T2 (S21)</text>
+
+  <circle cx="280" cy="420" r="5" fill="#2457d6"/>
+  <text x="270" y="411" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">S22</text>
+
+  <!-- Internal Wiring inside Relay -->
+  <line x1="155" y1="187" x2="280" y2="187" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="117" y1="205" x2="117" y2="230" stroke="#2457d6" stroke-width="1.5"/>
+
+  <line x1="190" y1="250" x2="280" y2="250" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="190" y1="420" x2="280" y2="420" stroke="#2457d6" stroke-width="1.5"/>
+
+  <line x1="155" y1="482" x2="280" y2="350" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="117" y1="465" x2="117" y2="440" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- E-Stop Button Box -->
+  <rect x="435" y="125" width="110" height="385" rx="8" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="435" y="125" width="110" height="35" rx="8" fill="#eaf0fd"/>
+  <text x="490" y="147" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кнопка E-Stop</text>
+
+  <!-- NC Contact 1 -->
+  <text x="490" y="172" font-size="12" fill="#6b7280" text-anchor="middle">Контакт 1 (NC)</text>
+  <circle cx="455" cy="187" r="4" fill="#1a1a1a"/>
+  <circle cx="525" cy="187" r="4" fill="#1a1a1a"/>
+  <line x1="455" y1="187" x2="522" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- NC Contact 2 -->
+  <text x="490" y="335" font-size="12" fill="#6b7280" text-anchor="middle">Контакт 2 (NC)</text>
+  <circle cx="455" cy="350" r="4" fill="#1a1a1a"/>
+  <circle cx="525" cy="350" r="4" fill="#1a1a1a"/>
+  <line x1="455" y1="350" x2="522" y2="343" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- External Field Wires -->
+  <!-- Wire 1 Out (T1 -> NC1) -->
+  <path d="M280,187 L455,187" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <!-- Wire 1 Return (NC1 -> S12) -->
+  <path d="M525,187 L545,187 L545,250 L280,250" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Wire 2 Out (T2 -> NC2) -->
+  <path d="M280,350 L455,350" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+  <!-- Wire 2 Return (NC2 -> S22) -->
+  <path d="M525,350 L545,350 L545,420 L280,420" stroke="#2457d6" stroke-width="2" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Short Circuit Fault Box & Lightning -->
+  <rect x="310" y="300" width="120" height="55" rx="4" fill="#fdecea" stroke="#c0392b" stroke-dasharray="4 3" stroke-width="1.5"/>
+  <line x1="325" y1="250" x2="325" y2="420" stroke="#c0392b" stroke-width="2" stroke-dasharray="3 3" marker-end="url(#arr-red)"/>
+  <polygon points="325,312 319,324 326,324 322,336 331,322 324,322" fill="#c0392b"/>
+  <text x="335" y="323" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Міжжильне КЗ</text>
+  <text x="335" y="341" font-size="12" fill="#c0392b" text-anchor="start">Витік T1 в S22</text>
+
+  <!-- Right Panel: Timing & Logic -->
+  <rect x="580" y="75" width="340" height="455" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="600" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Діаграми такт-імпульсів T1 / T2</text>
+
+  <!-- Plot 1: T1 -->
+  <text x="595" y="140" font-size="12" font-weight="bold" fill="#2457d6">T1</text>
+  <line x1="630" y1="120" x2="630" y2="160" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="630" y1="155" x2="890" y2="155" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M630,130 L675,130 L675,152 L690,152 L690,130 L765,130 L765,152 L780,152 L780,130 L885,130" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <text x="682" y="122" font-size="12" fill="#2457d6" text-anchor="middle">t1</text>
+  <text x="772" y="122" font-size="12" fill="#2457d6" text-anchor="middle">t1</text>
+
+  <!-- Plot 2: T2 -->
+  <text x="595" y="210" font-size="12" font-weight="bold" fill="#2457d6">T2</text>
+  <line x1="630" y1="190" x2="630" y2="230" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="630" y1="225" x2="890" y2="225" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M630,200 L720,200 L720,222 L735,222 L735,200 L810,200 L810,222 L825,222 L825,200 L885,200" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <text x="727" y="192" font-size="12" fill="#2457d6" text-anchor="middle">t2</text>
+  <text x="817" y="192" font-size="12" fill="#2457d6" text-anchor="middle">t2</text>
+
+  <!-- Plot 3: S22 during Cross Fault -->
+  <text x="595" y="280" font-size="12" font-weight="bold" fill="#c0392b">S22</text>
+  <line x1="630" y1="260" x2="630" y2="300" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="630" y1="295" x2="890" y2="295" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M630,270 L675,270 L675,292 L690,292 L690,270 L720,270 L720,292 L735,292 L735,270 L765,270 L765,292 L780,292 L780,270 L810,270 L810,292 L825,292 L825,270 L885,270" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <!-- Red pulse highlight text -->
+  <text x="682" y="260" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Чужий t1!</text>
+
+  <!-- Logic Decision Box -->
+  <rect x="600" y="325" width="300" height="185" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="615" y="350" font-size="13" font-weight="bold" fill="#c0392b">Виявлення аномалії логікою:</text>
+
+  <text x="615" y="375" font-size="12" fill="#1a1a1a">1. На вході S22 очікується лише імпульс t2.</text>
+  <text x="615" y="398" font-size="12" fill="#1a1a1a">2. Поява чужого імпульсу t1 фіксує міжжильне</text>
+  <text x="615" y="416" font-size="12" fill="#1a1a1a">   коротке замикання між S12 та S22.</text>
+  <text x="615" y="442" font-size="12" font-weight="bold" fill="#c0392b">3. Негайне розмикання силових виходів K1/K2.</text>
+  <text x="615" y="468" font-size="12" font-weight="bold" fill="#27ae60">4. Блокування повторного пуску (Fault Lockout).</text>
+  <text x="615" y="492" font-size="12" fill="#6b7280">   (Пуск можливий лише після скидання / Reset)</text>
+</svg>

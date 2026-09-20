@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зчитування 74HC165 / GPIO та нормалізація конфігураційного байта</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Послідовне тактування, інверсія Active-LOW логіки, фільтрація брязкоту та маскування полів</text>
+
+  <!-- Panel 1: Data Source -->
+  <rect x="25" y="75" width="275" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="162" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Джерело даних (74HC165 / GPIO)</text>
+
+  <!-- DIP Switches Box -->
+  <rect x="45" y="115" width="235" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="162" y="135" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">DIP-перемикачі D0..D7</text>
+  <text x="162" y="155" font-size="12" fill="#6b7280" text-anchor="middle">Підтяжка Pull-Up до VCC (+3.3V)</text>
+  <rect x="55" y="168" width="215" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="162" y="187" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D7  D6  D5  D4  D3  D2  D1  D0</text>
+  <text x="162" y="213" font-size="12" fill="#c0392b" text-anchor="middle">Active-LOW: ON = 0, OFF = 1</text>
+
+  <!-- 74HC165 Controller Box -->
+  <rect x="45" y="240" width="235" height="150" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="162" y="260" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зсувний регістр 74HC165</text>
+  
+  <text x="55" y="283" font-size="12" font-weight="bold" fill="#1a1a1a">PL:</text>
+  <text x="85" y="283" font-size="12" fill="#6b7280">фіксація паралельних D0..D7</text>
+  
+  <text x="55" y="308" font-size="12" font-weight="bold" fill="#1a1a1a">CP:</text>
+  <text x="85" y="308" font-size="12" fill="#6b7280">8 імпульсів тактування</text>
+  
+  <text x="55" y="333" font-size="12" font-weight="bold" fill="#1a1a1a">Q7:</text>
+  <text x="85" y="333" font-size="12" fill="#6b7280">послідовне виведення бітів</text>
+  
+  <rect x="55" y="348" width="215" height="32" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="162" y="369" font-size="12" fill="#2457d6" text-anchor="middle">Зсув бітів B7 → B6 → ... → B0</text>
+
+  <!-- Panel 1 Output -->
+  <rect x="45" y="405" width="235" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="162" y="425" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Послідовний бітовий потік</text>
+  <text x="162" y="445" font-size="12" fill="#1a1a1a" text-anchor="middle">SPI або програмний Bit-Bang</text>
+  <text x="162" y="470" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">raw_byte = 0b10110100</text>
+  <text x="162" y="493" font-size="12" fill="#6b7280" text-anchor="middle">(Сирі фізичні рівні)</text>
+
+  <!-- Connection Arrow 1 -> 2 -->
+  <line x1="280" y1="462" x2="338" y2="462" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 2: Normalization & Filtering -->
+  <rect x="320" y="75" width="320" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Нормалізація та фільтрація</text>
+
+  <!-- Step 1 Box -->
+  <rect x="340" y="115" width="280" height="105" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="135" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крок 1: Інверсія Active-LOW</text>
+  <text x="480" y="155" font-size="12" fill="#6b7280" text-anchor="middle">Перетворення 0=ON, 1=OFF у 1=ON, 0=OFF</text>
+  <rect x="355" y="168" width="250" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="185" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">norm_byte = ~raw_byte</text>
+  <text x="480" y="200" font-size="12" fill="#1a1a1a" text-anchor="middle">norm_byte = 0b01001011</text>
+
+  <!-- Arrow Step 1 -> Step 2 -->
+  <line x1="480" y1="220" x2="480" y2="238" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Step 2 Box -->
+  <rect x="340" y="240" width="280" height="145" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="260" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Крок 2: Фільтрація брязкоту</text>
+  <text x="480" y="280" font-size="12" fill="#6b7280" text-anchor="middle">N послідовних збігів масиву зчитувань</text>
+  <rect x="355" y="292" width="250" height="42" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="310" font-size="12" fill="#1a1a1a" text-anchor="middle">Read[0] == Read[1] == ... == Read[N-1]</text>
+  <text x="480" y="326" font-size="12" fill="#27ae60" text-anchor="middle">Захист від перехідних процесів</text>
+  <text x="480" y="352" font-size="12" fill="#6b7280" text-anchor="middle">Час стабілізації: t_debounce ≈ 5..10 мс</text>
+  <text x="480" y="372" font-size="12" fill="#1a1a1a" text-anchor="middle">Результат: підтверджений стан</text>
+
+  <!-- Arrow Step 2 -> Output -->
+  <line x1="480" y1="385" x2="480" y2="403" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Panel 2 Output -->
+  <rect x="340" y="405" width="280" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="425" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Стабільний нормалізований байт</text>
+  <text x="480" y="445" font-size="12" fill="#1a1a1a" text-anchor="middle">Готовий до програмного маскування</text>
+  <text x="480" y="470" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">stable_byte = 0b01001011</text>
+  <text x="480" y="493" font-size="12" fill="#27ae60" text-anchor="middle">(Валідовані логічні значення)</text>
+
+  <!-- Connection Arrow 2 -> 3 -->
+  <line x1="620" y1="462" x2="673" y2="462" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Panel 3: Field Extraction -->
+  <rect x="655" y="75" width="280" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="795" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Виділення полів налаштувань</text>
+
+  <!-- Field 1 Box -->
+  <rect x="672" y="115" width="246" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="795" y="133" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Поле 1: I2C/CAN адреса (0..2)</text>
+  <text x="795" y="152" font-size="12" fill="#1a1a1a" text-anchor="middle">addr = stable_byte &amp; 0x07</text>
+  <text x="795" y="172" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Значення: 0b011 = 3 (0x03)</text>
+
+  <!-- Field 2 Box -->
+  <rect x="672" y="210" width="246" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="795" y="228" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Поле 2: Режим роботи (3..4)</text>
+  <text x="795" y="247" font-size="12" fill="#1a1a1a" text-anchor="middle">mode = (stable_byte &gt;&gt; 3) &amp; 0x03</text>
+  <text x="795" y="267" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Значення: 0b01 = 1 (MODE_FAST)</text>
+
+  <!-- Field 3 Box -->
+  <rect x="672" y="305" width="246" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="795" y="323" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Поле 3: Швидкість / Конфіг (5..7)</text>
+  <text x="795" y="342" font-size="12" fill="#1a1a1a" text-anchor="middle">cfg = (stable_byte &gt;&gt; 5) &amp; 0x07</text>
+  <text x="795" y="362" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Значення: 0b010 = 2 (115200 bps)</text>
+
+  <!-- C Structure Output -->
+  <rect x="672" y="405" width="246" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="795" y="425" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">C-структура sys_config_t</text>
+  <text x="795" y="445" font-size="12" fill="#1a1a1a" text-anchor="middle">{.address = 3,</text>
+  <text x="795" y="465" font-size="12" fill="#1a1a1a" text-anchor="middle"> .mode = MODE_FAST,</text>
+  <text x="795" y="485" font-size="12" fill="#1a1a1a" text-anchor="middle"> .baudrate = 115200}</text>
+</svg>

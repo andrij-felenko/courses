@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Характеристики RVDT та логометрична компенсація дрейфу</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Логометрична функція R(θ) = (V1 - V2)/(V1 + V2) забезпечує повну інваріантність до дрейфу напруги V_exc</text>
+
+  <!-- Panel 1: Secondary Voltages & Difference -->
+  <rect x="25" y="68" width="445" height="255" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="84" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Вторинні напруги V1(θ), V2(θ) та V1-V2</text>
+
+  <!-- Panel 1 Linear Zone Shading -->
+  <rect x="125" y="105" width="240" height="155" fill="#e9f7ef" opacity="0.6"/>
+  <line x1="125" y1="105" x2="125" y2="260" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="365" y1="105" x2="365" y2="260" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="245" y="122" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Лінійна зона ±40°</text>
+
+  <!-- Panel 1 Plot Axes -->
+  <line x1="55" y1="260" x2="435" y2="260" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+  <line x1="245" y1="260" x2="245" y2="95" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+  <text x="435" y="250" font-size="12" fill="#1a1a1a" text-anchor="end">Кут повороту θ</text>
+  <text x="250" y="102" font-size="12" fill="#1a1a1a" text-anchor="start">Напруга V (В)</text>
+
+  <!-- Panel 1 Ticks (Placed cleanly below X-axis at y=278) -->
+  <text x="125" y="278" font-size="12" fill="#6b7280" text-anchor="middle">-40°</text>
+  <text x="245" y="278" font-size="12" fill="#6b7280" text-anchor="middle">0°</text>
+  <text x="365" y="278" font-size="12" fill="#6b7280" text-anchor="middle">+40°</text>
+
+  <!-- Panel 1 Curves -->
+  <!-- V1(theta) Blue -->
+  <path d="M 65,245 C 95,242 125,235 125,235 L 365,145 C 365,145 395,138 425,135" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="420" y="130" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">V1(θ)</text>
+
+  <!-- V2(theta) Gray dashed -->
+  <path d="M 65,135 C 95,138 125,145 125,145 L 365,235 C 365,235 395,242 425,245" fill="none" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="420" y="250" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">V2(θ)</text>
+
+  <!-- V1 - V2 Orange -->
+  <path d="M 65,252 C 95,250 125,245 125,245 L 365,155 C 365,155 395,150 425,148" fill="none" stroke="#d97706" stroke-width="2"/>
+  <text x="375" y="150" font-size="12" font-weight="bold" fill="#d97706" text-anchor="start">V1 - V2</text>
+
+  <!-- Panel 1 Legend -->
+  <text x="45" y="305" font-size="12" fill="#2457d6" text-anchor="start">— V1(θ)</text>
+  <text x="160" y="305" font-size="12" fill="#6b7280" text-anchor="start">- - V2(θ)</text>
+  <text x="280" y="305" font-size="12" fill="#d97706" text-anchor="start">— (V1 - V2)</text>
+
+  <!-- Panel 2: Ratiometric Curve & Drift Immunity -->
+  <rect x="490" y="68" width="445" height="255" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="505" y="84" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Логометрична функція R(θ) та дрейф</text>
+
+  <!-- Panel 2 Linear Zone Shading -->
+  <rect x="590" y="105" width="240" height="155" fill="#e9f7ef" opacity="0.6"/>
+  <line x1="590" y1="105" x2="590" y2="260" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="830" y1="105" x2="830" y2="260" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="710" y="122" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Інваріантність логометричної кривої</text>
+
+  <!-- Panel 2 Plot Axes -->
+  <line x1="520" y1="260" x2="900" y2="260" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+  <line x1="710" y1="260" x2="710" y2="95" stroke="#6b7280" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+  <text x="900" y="250" font-size="12" fill="#1a1a1a" text-anchor="end">Кут повороту θ</text>
+  <text x="717" y="102" font-size="12" fill="#1a1a1a" text-anchor="start">Сигнал / R(θ)</text>
+
+  <!-- Panel 2 Ticks (Placed cleanly below X-axis at y=278) -->
+  <text x="590" y="278" font-size="12" fill="#6b7280" text-anchor="middle">-40°</text>
+  <text x="710" y="278" font-size="12" fill="#6b7280" text-anchor="middle">0°</text>
+  <text x="830" y="278" font-size="12" fill="#6b7280" text-anchor="middle">+40°</text>
+
+  <!-- Panel 2 Curves -->
+  <!-- Non-ratiometric difference with 20% V_exc drop Red dashed -->
+  <path d="M 530,242 L 590,236 L 830,164 L 890,158" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3"/>
+  <text x="835" y="172" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">V_diff (-20%)</text>
+
+  <!-- Ratiometric function R(theta) Green solid -->
+  <path d="M 530,256 C 560,254 590,250 590,250 L 830,150 C 830,150 860,146 890,144" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="835" y="138" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">R(θ)</text>
+
+  <!-- Panel 2 Legend -->
+  <text x="505" y="305" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">— R(θ) (інваріантна)</text>
+  <text x="710" y="305" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">- - (V1-V2) (дрейф)</text>
+
+  <!-- Panel 3: Mathematical proof and comparison -->
+  <rect x="25" y="338" width="910" height="184" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="354" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">Математичне обґрунтування логометричної компенсації RVDT</text>
+  <text x="40" y="370" font-size="12" fill="#6b7280" text-anchor="start">Порівняльний аналіз прямого знімання різницевої напруги та логометричного обчислення</text>
+
+  <!-- Sub-box 1: Non-ratiometric problem -->
+  <rect x="40" y="380" width="420" height="130" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="55" y="398" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Пряма різницева напруга (V1 - V2)</text>
+  <text x="55" y="418" font-size="12" fill="#1a1a1a" text-anchor="start">V_diff(θ) = K · V_exc · sin(ω t) · θ</text>
+  <text x="55" y="438" font-size="12" fill="#1a1a1a" text-anchor="start">Залежить від напруги збудження V_exc та частоти ω</text>
+  <text x="55" y="458" font-size="12" fill="#1a1a1a" text-anchor="start">Температурний дрейф опору обмоток змінює крутизну S_rvdt</text>
+  <text x="55" y="485" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">⛔ Похибка вимірювання кута Δθ ∝ ΔV_exc</text>
+
+  <!-- Sub-box 2: Ratiometric solution -->
+  <rect x="475" y="380" width="445" height="130" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="490" y="398" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Логометрична функція R(θ) = (V1 - V2) / (V1 + V2)</text>
+  <text x="490" y="418" font-size="12" fill="#1a1a1a" text-anchor="start">R(θ) = (K · V_exc · θ) / (K · V_exc · θ_0) = S_lin · θ</text>
+  <text x="490" y="438" font-size="12" fill="#1a1a1a" text-anchor="start">V_exc повністю скорочується в чисельнику та знаменнику</text>
+  <text x="490" y="458" font-size="12" fill="#1a1a1a" text-anchor="start">Автоматичне знешкодження температурного дрейфу й старіння</text>
+  <text x="490" y="485" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">✓ Повна інваріантність і висока авіаційна надійність</text>
+</svg>

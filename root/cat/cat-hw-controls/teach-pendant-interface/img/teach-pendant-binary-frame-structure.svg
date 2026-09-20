@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура бінарного кадру пульта налагодження (Teach Pendant)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Кадр фіксованої довжини (16 байтів) передає стан органів керування та кіл безпеки з CRC-16</text>
+
+  <!-- Byte Ruler Labels -->
+  <text x="95" y="73" font-size="11" fill="#6b7280" text-anchor="middle">Byte 0..1</text>
+  <text x="177" y="73" font-size="11" fill="#6b7280" text-anchor="middle">Byte 2</text>
+  <text x="232" y="73" font-size="11" fill="#6b7280" text-anchor="middle">Byte 3</text>
+  <text x="287" y="73" font-size="11" fill="#6b7280" text-anchor="middle">Byte 4</text>
+  <text x="425" y="73" font-size="11" fill="#6b7280" text-anchor="middle">Byte 5..8</text>
+  <text x="587" y="73" font-size="11" fill="#6b7280" text-anchor="middle">Byte 9..10</text>
+  <text x="672" y="73" font-size="11" fill="#6b7280" text-anchor="middle">Byte 11</text>
+  <text x="755" y="73" font-size="11" fill="#6b7280" text-anchor="middle">Byte 12..13</text>
+  <text x="865" y="73" font-size="11" fill="#6b7280" text-anchor="middle">Byte 14..15</text>
+
+  <!-- Byte Bar Outer Frame -->
+  <rect x="40" y="80" width="880" height="56" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+
+  <!-- Byte Bar Sub-blocks -->
+  <!-- Block 1: SOF -->
+  <rect x="43" y="83" width="104" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="95" y="103" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SOF (2B)</text>
+  <text x="95" y="121" font-size="11" fill="#1a1a1a" text-anchor="middle">0xAA55</text>
+
+  <!-- Block 2: MsgID -->
+  <rect x="150" y="83" width="52" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="176" y="103" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">ID (1B)</text>
+  <text x="176" y="121" font-size="11" fill="#1a1a1a" text-anchor="middle">0x01</text>
+
+  <!-- Block 3: Length -->
+  <rect x="205" y="83" width="52" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="231" y="103" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">LEN (1B)</text>
+  <text x="231" y="121" font-size="11" fill="#1a1a1a" text-anchor="middle">0x10</text>
+
+  <!-- Block 4: Safety -->
+  <rect x="260" y="83" width="52" height="50" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="286" y="103" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">SAFE(1B)</text>
+  <text x="286" y="121" font-size="11" fill="#1a1a1a" text-anchor="middle">E-Stop</text>
+
+  <!-- Block 5: Joysticks -->
+  <rect x="315" y="83" width="220" height="50" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="425" y="103" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">JOYSTICK AXES (4B)</text>
+  <text x="425" y="121" font-size="11" fill="#1a1a1a" text-anchor="middle">X, Y, Z, W (int8_t x 4)</text>
+
+  <!-- Block 6: Keypad & Mode -->
+  <rect x="538" y="83" width="100" height="50" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="588" y="103" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">KEYS &amp; MODE</text>
+  <text x="588" y="121" font-size="11" fill="#1a1a1a" text-anchor="middle">12 кноп. + Mode</text>
+
+  <!-- Block 7: Seq Counter -->
+  <rect x="641" y="83" width="55" height="50" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="668" y="103" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">SEQ (1B)</text>
+  <text x="668" y="121" font-size="11" fill="#1a1a1a" text-anchor="middle">0..255</text>
+
+  <!-- Block 8: CRC-16 -->
+  <rect x="700" y="83" width="110" height="50" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="755" y="103" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">CRC-16 (2B)</text>
+  <text x="755" y="121" font-size="11" fill="#1a1a1a" text-anchor="middle">Modbus Poly</text>
+
+  <!-- Block 9: EOF -->
+  <rect x="813" y="83" width="104" height="50" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5" rx="4"/>
+  <text x="865" y="103" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">EOF (2B)</text>
+  <text x="865" y="121" font-size="11" fill="#1a1a1a" text-anchor="middle">0x0D0A (\r\n)</text>
+
+  <!-- Arrow Connectors to Cards -->
+  <line x1="150" y1="137" x2="150" y2="155" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="480" y1="137" x2="480" y2="155" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="785" y1="137" x2="785" y2="155" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Card 1: Header Breakdown -->
+  <rect x="40" y="160" width="270" height="272" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <path d="M 40,166 A 6,6 0 0,1 46,160 L 304,160 A 6,6 0 0,1 310,166 L 310,190 L 40,190 Z" fill="#eaf0fd"/>
+  <text x="175" y="180" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Заголовок кадру (Header)</text>
+
+  <rect x="52" y="198" width="246" height="42" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="62" y="215" font-size="12" font-weight="bold" fill="#2457d6">SOF [0..1]: 0xAA55</text>
+  <text x="62" y="232" font-size="11" fill="#6b7280">Синхронізація початку кадру</text>
+
+  <rect x="52" y="248" width="246" height="42" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="62" y="265" font-size="12" font-weight="bold" fill="#2457d6">MsgID [2]: 0x01</text>
+  <text x="62" y="282" font-size="11" fill="#6b7280">Тип кадру: Телеметрія TP</text>
+
+  <rect x="52" y="298" width="246" height="42" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="62" y="315" font-size="12" font-weight="bold" fill="#2457d6">Length [3]: 0x10 (16B)</text>
+  <text x="62" y="332" font-size="11" fill="#6b7280">Фіксована довжина пакета</text>
+
+  <rect x="52" y="348" width="246" height="72" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="3,3" rx="4"/>
+  <text x="62" y="366" font-size="11" font-weight="bold" fill="#2457d6">Особливість HW-прийому:</text>
+  <text x="62" y="384" font-size="11" fill="#1a1a1a">Преамбула 0xAA55 дозволяє DMA</text>
+  <text x="62" y="402" font-size="11" fill="#1a1a1a">фільтрувати сміття в UART</text>
+
+  <!-- Card 2: Payload Breakdown -->
+  <rect x="325" y="160" width="310" height="272" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <path d="M 325,166 A 6,6 0 0,1 331,160 L 629,160 A 6,6 0 0,1 635,166 L 635,190 L 325,190 Z" fill="#e9f7ef"/>
+  <text x="480" y="180" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Карта регістрів (Payload)</text>
+
+  <rect x="337" y="198" width="286" height="42" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="347" y="215" font-size="12" font-weight="bold" fill="#27ae60">Safety Status [4]: 1 байт</text>
+  <text x="347" y="232" font-size="11" fill="#6b7280">Bit 0: E-Stop | Bit 1..2: Enabling Switch</text>
+
+  <rect x="337" y="248" width="286" height="42" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="347" y="265" font-size="12" font-weight="bold" fill="#27ae60">Joystick Axes [5..8]: 4 байти</text>
+  <text x="347" y="282" font-size="11" fill="#6b7280">Осі X, Y, Z, W (значення int8_t ±127)</text>
+
+  <rect x="337" y="298" width="286" height="42" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="347" y="315" font-size="12" font-weight="bold" fill="#27ae60">Keypad &amp; Mode [9..10]: 2 байти</text>
+  <text x="347" y="332" font-size="11" fill="#6b7280">12 кнопок вводу + Селектор Auto/Teach</text>
+
+  <rect x="337" y="348" width="286" height="38" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="347" y="364" font-size="12" font-weight="bold" fill="#27ae60">Sequence ID [11]: 1 байт</text>
+  <text x="347" y="379" font-size="11" fill="#6b7280">Циклічний лічильник кадрів (0..255)</text>
+
+  <rect x="337" y="392" width="286" height="30" fill="#e9f7ef" stroke="#27ae60" stroke-dasharray="3,3" rx="4"/>
+  <text x="347" y="411" font-size="11" font-weight="bold" fill="#27ae60">Частота відправки телеметрії: 100 Гц (10 мс)</text>
+
+  <!-- Card 3: Footer Breakdown -->
+  <rect x="650" y="160" width="270" height="272" fill="#f4f6f8" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <path d="M 650,166 A 6,6 0 0,1 656,160 L 914,160 A 6,6 0 0,1 920,166 L 920,190 L 650,190 Z" fill="#fdecea"/>
+  <text x="785" y="180" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">3. Цілісність кадру (Footer)</text>
+
+  <rect x="662" y="198" width="246" height="42" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="672" y="215" font-size="12" font-weight="bold" fill="#c0392b">CRC-16 [12..13]: 2 байти</text>
+  <text x="672" y="232" font-size="11" fill="#6b7280">Поліном Modbus 0x8005 (Little-Endian)</text>
+
+  <rect x="662" y="248" width="246" height="42" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="672" y="265" font-size="12" font-weight="bold" fill="#6b7280">EOF [14..15]: 0x0D0A</text>
+  <text x="672" y="282" font-size="11" fill="#6b7280">Маркер завершення пакету (\r\n)</text>
+
+  <rect x="662" y="298" width="246" height="42" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="672" y="315" font-size="12" font-weight="bold" fill="#c0392b">Watchdog Timer: 50 мс</text>
+  <text x="672" y="332" font-size="11" fill="#6b7280">Автоматичний зупин при обриві</text>
+
+  <rect x="662" y="348" width="246" height="72" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3" rx="4"/>
+  <text x="672" y="366" font-size="11" font-weight="bold" fill="#c0392b">Реакція на помилку CRC:</text>
+  <text x="672" y="384" font-size="11" fill="#1a1a1a">Ігнорування каду. При 3+</text>
+  <text x="672" y="402" font-size="11" fill="#1a1a1a">помилках поспіль — E-Stop</text>
+
+  <!-- Bottom Summary Panel -->
+  <rect x="40" y="448" width="880" height="72" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="55" y="468" font-size="12" font-weight="bold" fill="#1a1a1a">Вимоги до реалізації драйвера обміну (C/C++ Rules):</text>
+  <text x="55" y="487" font-size="11" fill="#6b7280">• Вирівнювання: #pragma pack(push, 1)  • Порядок байтів: Little-Endian  • Період опитування: 10 мс (100 Гц)</text>
+  <text x="55" y="504" font-size="11" fill="#6b7280">• CRC-16 обчислюється для байтів [0..11]  • При затримці пакетів &gt; 50 мс контролер активує зупин Категорії 0</text>
+</svg>

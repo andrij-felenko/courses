@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Двоканальне підключення тросового вимикача 2×NC</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Дубльовані лінії S11-S12 та S21-S22 у контурі реле безпеки з ручним скиданням Reset (Cat 4 / SIL 3)</text>
+
+  <!-- Стрілки визначені в defs -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- ЛІВИЙ БЛОК: ТРОСОВИЙ ВИМИКАЧ -->
+  <rect x="40" y="80" width="280" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="40" y="80" width="280" height="40" rx="6" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="180" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Тросовий вимикач (2×NC)</text>
+
+  <!-- Пунктирна лінія механічного зв'язку -->
+  <text x="180" y="145" text-anchor="middle" font-size="12" fill="#6b7280">Шток примусового розмикання</text>
+  <line x1="180" y1="150" x2="180" y2="168" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="180" y1="190" x2="180" y2="202" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="180" y1="222" x2="180" y2="268" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="180" y1="290" x2="180" y2="302" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,4"/>
+  <line x1="180" y1="322" x2="180" y2="355" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <!-- Контакт NC 1 (11-12) -->
+  <line x1="85" y1="180" x2="155" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <line x1="195" y1="180" x2="275" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <line x1="155" y1="180" x2="195" y2="168" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="80" cy="180" r="5" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="280" cy="180" r="5" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="68" y="176" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">11</text>
+  <text x="268" y="176" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">12</text>
+  <text x="180" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">NC Контакт 1 (Канал 1)</text>
+
+  <!-- Контакт NC 2 (21-22) -->
+  <line x1="85" y1="280" x2="155" y2="280" stroke="#27ae60" stroke-width="2"/>
+  <line x1="195" y1="280" x2="275" y2="280" stroke="#27ae60" stroke-width="2"/>
+  <line x1="155" y1="280" x2="195" y2="268" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="80" cy="280" r="5" fill="white" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="280" cy="280" r="5" fill="white" stroke="#27ae60" stroke-width="2"/>
+  <text x="68" y="276" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">21</text>
+  <text x="268" y="276" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">22</text>
+  <text x="180" y="318" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">NC Контакт 2 (Канал 2)</text>
+
+  <!-- Блок механічного засува -->
+  <rect x="70" y="355" width="220" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="180" y="374" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Механічний засув (Latch)</text>
+  <text x="180" y="392" text-anchor="middle" font-size="12" fill="#1a1a1a">Фіксація при натягу та обриві</text>
+
+  <!-- ЛІНІЇ КОМУТАЦІЇ В СЕРЕДИНІ -->
+  <!-- Канал 1: S11 -> 11 -->
+  <path d="M 620 160 L 590 160 L 590 130 L 80 130 L 80 175" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="335" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Канал 1: S11 ➔ Клема 11 (Тест T1)</text>
+
+  <!-- Канал 1: 12 -> S12 -->
+  <path d="M 285 180 L 350 180 L 350 200 L 615 200" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="192" text-anchor="middle" font-size="12" fill="#2457d6">Клема 12 ➔ S12 (Вхід Канал 1)</text>
+
+  <!-- Канал 2: 22 -> S22 -->
+  <path d="M 285 280 L 350 280 L 350 300 L 615 300" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="292" text-anchor="middle" font-size="12" fill="#27ae60">Клема 22 ➔ S22 (Вхід Канал 2)</text>
+
+  <!-- Канал 2: S21 -> 21 -->
+  <path d="M 620 260 L 590 260 L 590 350 L 80 350 L 80 295" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="335" y="365" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Канал 2: S21 ➔ Клема 21 (Тест T2)</text>
+
+  <!-- ПРАВИЙ БЛОК: РЕЛЕ БЕЗПЕКИ -->
+  <rect x="620" y="80" width="300" height="350" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <rect x="620" y="80" width="300" height="40" rx="6" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="770" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Реле безпеки (Safety Relay)</text>
+
+  <!-- Клеми реле ліворуч -->
+  <circle cx="620" cy="160" r="5" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="635" y="164" font-size="12" font-weight="bold" fill="#1a1a1a">S11</text>
+
+  <circle cx="620" cy="200" r="5" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="635" y="204" font-size="12" font-weight="bold" fill="#1a1a1a">S12</text>
+
+  <circle cx="620" cy="260" r="5" fill="white" stroke="#27ae60" stroke-width="2"/>
+  <text x="635" y="264" font-size="12" font-weight="bold" fill="#1a1a1a">S21</text>
+
+  <circle cx="620" cy="300" r="5" fill="white" stroke="#27ae60" stroke-width="2"/>
+  <text x="635" y="304" font-size="12" font-weight="bold" fill="#1a1a1a">S22</text>
+
+  <!-- Внутрішній модуль логіки реле -->
+  <rect x="715" y="135" width="190" height="175" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="810" y="158" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Логіка безпеки</text>
+  <text x="810" y="178" text-anchor="middle" font-size="12" fill="#1a1a1a">Контроль КЗ каналів</text>
+
+  <!-- Вихідні контакти силові -->
+  <rect x="730" y="195" width="160" height="50" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="810" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Виходи 13-14 / 23-24</text>
+  <text x="810" y="233" text-anchor="middle" font-size="12" fill="#1a1a1a">Силове вимкнення</text>
+
+  <rect x="730" y="255" width="160" height="45" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="810" y="273" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Категорія безпеки</text>
+  <text x="810" y="291" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Cat 4 / SIL 3 / PL e</text>
+
+  <!-- Кнопка Reset (S33-S34) -->
+  <circle cx="640" cy="370" r="5" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="640" y="356" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">S33</text>
+
+  <circle cx="740" cy="370" r="5" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="740" y="356" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">S34</text>
+
+  <!-- Кнопка Reset NO contact -->
+  <line x1="640" y1="370" x2="665" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="665" cy="370" r="3" fill="#1a1a1a"/>
+  <line x1="715" y1="370" x2="740" y2="370" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="715" cy="370" r="3" fill="#1a1a1a"/>
+  <line x1="665" y1="363" x2="715" y2="363" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="690" y1="363" x2="690" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="675" y="345" width="30" height="5" rx="1" fill="#2457d6"/>
+  <text x="690" y="405" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Кнопка Reset (Скид)</text>
+</svg>

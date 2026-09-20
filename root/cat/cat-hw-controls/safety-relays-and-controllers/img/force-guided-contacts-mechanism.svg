@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Механізм примусово спрямованих контактів (Force-guided contacts)</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Жорсткий механічний зв'язок унеможливлює замикання НЗ-контакту при приварюванні НВ-контакту</text>
+
+  <!-- ПАНЕЛЬ 1: НОРМАЛЬНИЙ СТАН -->
+  <g id="panel-normal">
+    <!-- Тло панелі 1 -->
+    <rect x="30" y="80" width="435" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Заголовок панелі 1 -->
+    <rect x="42" y="92" width="411" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="247.5" y="114" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">1. Нормальний стан (Котушка знеструмлена)</text>
+
+    <!-- Котушка реле -->
+    <rect x="65" y="140" width="100" height="28" rx="4" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="115" y="158" text-anchor="middle" font-size="12" fill="#6b7280">Котушка OFF</text>
+    <line x1="165" y1="154" x2="238" y2="154" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+    <!-- Пружина повернення -->
+    <line x1="247.5" y1="155" x2="247.5" y2="135" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="262" y="148" text-anchor="start" font-size="12" fill="#27ae60">Пружина</text>
+
+    <!-- Жорстка механічна планка -->
+    <rect x="238" y="155" width="19" height="180" rx="4" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="247.5" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Жорстка механічна планка</text>
+
+    <!-- НВ контакт (Normally Open) - Розкритий -->
+    <path d="M 55,200 H 155 V 190" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
+    <circle cx="155" cy="200" r="5" fill="#2457d6"/>
+    <text x="55" y="185" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">НВ (NO)</text>
+
+    <path d="M 238,230 H 155" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+    <circle cx="155" cy="230" r="5" fill="#2457d6"/>
+
+    <!-- Лінії вимірювання зазору НВ -->
+    <line x1="125" y1="211" x2="125" y2="200" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <line x1="125" y1="219" x2="125" y2="230" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <text x="115" y="219" text-anchor="end" font-size="12" fill="#2457d6">Відкритий</text>
+
+    <!-- НЗ контакт (Normally Closed) - Замкнений -->
+    <path d="M 440,285 H 340 V 275" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
+    <circle cx="340" cy="285" r="5" fill="#27ae60"/>
+    <text x="440" y="265" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">НЗ (NC)</text>
+
+    <path d="M 257,285 H 340" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+    <circle cx="340" cy="285" r="5" fill="#27ae60"/>
+    <text x="355" y="305" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Замкнений</text>
+
+    <!-- Підсумок для нормального стану -->
+    <rect x="42" y="380" width="411" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="247.5" y="403" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">✓ Норма: НВ відкритий, НЗ замкнений</text>
+  </g>
+
+  <!-- ПАНЕЛЬ 2: АВАРІЙНИЙ СТАН (ЗВАРЮВАННЯ) -->
+  <g id="panel-fault">
+    <!-- Тло панелі 2 -->
+    <rect x="495" y="80" width="435" height="350" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+    <!-- Заголовок панелі 2 -->
+    <rect x="507" y="92" width="411" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="712.5" y="114" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">2. Аварія: Приварювання НВ-контакту</text>
+
+    <!-- Котушка реле -->
+    <rect x="530" y="140" width="100" height="28" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="580" y="158" text-anchor="middle" font-size="12" fill="#c0392b">Котушка OFF</text>
+    <line x1="630" y1="154" x2="703" y2="154" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+    <!-- Стрілка зусилля пружини (заблокована) -->
+    <line x1="712.5" y1="125" x2="712.5" y2="137" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+    <text x="727" y="133" text-anchor="start" font-size="12" fill="#c0392b">Блокування</text>
+
+    <!-- Жорстка механічна планка (утримана привареним контактом) -->
+    <rect x="703" y="125" width="19" height="180" rx="4" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="712.5" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Планка заблокована</text>
+
+    <!-- НВ контакт - Приварений -->
+    <path d="M 520,200 H 620 V 190" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
+    <text x="520" y="185" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">НВ (NO)</text>
+
+    <path d="M 703,200 H 620" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+    <circle cx="620" cy="200" r="5" fill="#c0392b"/>
+
+    <!-- Графіка приварювання -->
+    <circle cx="620" cy="200" r="12" fill="#c0392b" opacity="0.25"/>
+    <path d="M 612,192 L 628,208 M 612,208 L 628,192" stroke="#c0392b" stroke-width="2"/>
+    <text x="620" y="228" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ПРИВАРЕНО!</text>
+
+    <!-- НЗ контакт - Примусово відкритий через жорстку планку -->
+    <path d="M 905,285 H 805 V 275" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
+    <circle cx="805" cy="285" r="5" fill="#2457d6"/>
+    <text x="905" y="265" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">НЗ (NC)</text>
+
+    <path d="M 722,255 H 805" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+    <circle cx="805" cy="255" r="5" fill="#2457d6"/>
+
+    <!-- Лінії вимірювання гарантованого зазору НЗ -->
+    <line x1="820" y1="266" x2="820" y2="255" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <line x1="820" y1="274" x2="820" y2="285" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <text x="830" y="274" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">d ≥ 0,5 мм</text>
+
+    <!-- Підсумок для аварійного стану -->
+    <rect x="507" y="380" width="411" height="36" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="712.5" y="403" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">⚠ НЗ не може замкнутися! Захисне відключення збережено</text>
+  </g>
+</svg>

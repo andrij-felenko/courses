@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Алгоритм декодування коду Ґрея у двійковий код (XOR-Shift Flow)</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Послідовне обчислення розрядів двійкового коду через XOR-зсув: b_i = b_{i+1} ⊕ g_i</text>
+
+  <!-- PANEL A: BITWISE CASCADE XOR LOGIC -->
+  <g id="panel-bitwise">
+    <rect x="40" y="75" width="420" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="250" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. ПОРОЗРЯДНИЙ КАСКАД XOR (ПРИКЛАД: G = 1101₂)</text>
+    <line x1="40" y1="108" x2="460" y2="108" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Gray Code Input Row -->
+    <text x="250" y="124" text-anchor="middle" font-size="12" fill="#6b7280">Вхідний код Ґрея (Gray Code)</text>
+
+    <!-- Bit 3 (MSB) -->
+    <rect x="78" y="132" width="44" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="100" y="149" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">g₃ = 1</text>
+
+    <!-- Bit 2 -->
+    <rect x="168" y="132" width="44" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="190" y="149" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">g₂ = 1</text>
+
+    <!-- Bit 1 -->
+    <rect x="258" y="132" width="44" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="280" y="149" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">g₁ = 0</text>
+
+    <!-- Bit 0 (LSB) -->
+    <rect x="348" y="132" width="44" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="370" y="149" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">g₀ = 1</text>
+
+    <!-- Vertical & Branch Lines -->
+    <!-- Bit 3 (MSB) Direct Line -->
+    <line x1="100" y1="158" x2="100" y2="340" stroke="#2457d6" stroke-width="2"/>
+    <line x1="100" y1="210" x2="176" y2="210" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+    <text x="138" y="204" text-anchor="middle" font-size="11" fill="#2457d6">b₃ = 1</text>
+
+    <!-- Bit 2 Line & XOR 1 -->
+    <line x1="190" y1="158" x2="190" y2="196" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <circle cx="190" cy="210" r="14" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="190" y="214" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">⊕</text>
+    <line x1="190" y1="224" x2="190" y2="340" stroke="#2457d6" stroke-width="2"/>
+    <line x1="190" y1="255" x2="266" y2="255" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+    <text x="228" y="249" text-anchor="middle" font-size="11" fill="#2457d6">b₂ = 0</text>
+
+    <!-- Bit 1 Line & XOR 2 -->
+    <line x1="280" y1="158" x2="280" y2="241" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <circle cx="280" cy="255" r="14" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="280" y="259" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">⊕</text>
+    <line x1="280" y1="269" x2="280" y2="340" stroke="#2457d6" stroke-width="2"/>
+    <line x1="280" y1="300" x2="356" y2="300" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+    <text x="318" y="294" text-anchor="middle" font-size="11" fill="#2457d6">b₁ = 0</text>
+
+    <!-- Bit 0 Line & XOR 3 -->
+    <line x1="370" y1="158" x2="370" y2="286" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <circle cx="370" cy="300" r="14" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="370" y="304" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">⊕</text>
+    <line x1="370" y1="314" x2="370" y2="340" stroke="#2457d6" stroke-width="2"/>
+
+    <!-- Binary Code Output Row -->
+    <rect x="78" y="340" width="44" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="100" y="357" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">b₃ = 1</text>
+
+    <rect x="168" y="340" width="44" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="190" y="357" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">b₂ = 0</text>
+
+    <rect x="258" y="340" width="44" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="280" y="357" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">b₁ = 0</text>
+
+    <rect x="348" y="340" width="44" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="370" y="357" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">b₀ = 1</text>
+
+    <!-- Result Label -->
+    <text x="250" y="386" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Результат: Binary = 1001₂ (9₁₀)</text>
+
+    <!-- Status Badge Panel A -->
+    <rect x="60" y="398" width="380" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="250" y="414" text-anchor="middle" font-size="12" fill="#2457d6">Формула: b[i] = b[i+1] ⊕ g[i] (від MSB до LSB)</text>
+  </g>
+
+  <!-- PANEL B: PARALLEL BIT SHIFT & XOR MCU ALGORITHM -->
+  <g id="panel-algorithm">
+    <rect x="480" y="75" width="440" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="700" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. ПРОГРАМНИЙ АЛГОРИТМ ЗСУВУ (C/C++ CODE)</text>
+    <line x1="480" y1="108" x2="920" y2="108" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Step 0 Box -->
+    <rect x="500" y="120" width="400" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="515" y="140" font-size="12" font-weight="bold" fill="#1a1a1a">Крок 0:</text>
+    <text x="565" y="140" font-size="12" font-family="monospace" fill="#2457d6">uint8_t b = g; // Вхід: G = 1101₂</text>
+    <text x="515" y="166" font-size="12" fill="#6b7280">Значення b:</text>
+    <rect x="610" y="150" width="26" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="623" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1</text>
+    <rect x="642" y="150" width="26" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="655" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1</text>
+    <rect x="674" y="150" width="26" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="687" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">0</text>
+    <rect x="706" y="150" width="26" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="719" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1</text>
+
+    <!-- Step 1 Box -->
+    <rect x="500" y="198" width="400" height="87" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="515" y="218" font-size="12" font-weight="bold" fill="#1a1a1a">Крок 1:</text>
+    <text x="565" y="218" font-size="12" font-family="monospace" fill="#2457d6">b = b ^ (b &gt;&gt; 1); // Зсув на 1 біт</text>
+
+    <text x="515" y="240" font-size="12" fill="#6b7280">b:</text>
+    <rect x="570" y="228" width="26" height="20" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="583" y="243" text-anchor="middle" font-size="11" fill="#1a1a1a">1</text>
+    <rect x="602" y="228" width="26" height="20" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="615" y="243" text-anchor="middle" font-size="11" fill="#1a1a1a">1</text>
+    <rect x="634" y="228" width="26" height="20" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="647" y="243" text-anchor="middle" font-size="11" fill="#1a1a1a">0</text>
+    <rect x="666" y="228" width="26" height="20" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="679" y="243" text-anchor="middle" font-size="11" fill="#1a1a1a">1</text>
+
+    <text x="515" y="266" font-size="12" fill="#6b7280">b &gt;&gt; 1:</text>
+    <rect x="570" y="254" width="26" height="20" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="583" y="269" text-anchor="middle" font-size="11" fill="#6b7280">0</text>
+    <rect x="602" y="254" width="26" height="20" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="615" y="269" text-anchor="middle" font-size="11" fill="#1a1a1a">1</text>
+    <rect x="634" y="254" width="26" height="20" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="647" y="269" text-anchor="middle" font-size="11" fill="#1a1a1a">1</text>
+    <rect x="666" y="254" width="26" height="20" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="679" y="269" text-anchor="middle" font-size="11" fill="#1a1a1a">0</text>
+
+    <path d="M 702,240 L 725,240" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <text x="735" y="244" font-size="12" font-weight="bold" fill="#2457d6">b = 1011₂</text>
+
+    <!-- Step 2 Box -->
+    <rect x="500" y="298" width="400" height="87" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="515" y="318" font-size="12" font-weight="bold" fill="#1a1a1a">Крок 2:</text>
+    <text x="565" y="318" font-size="12" font-family="monospace" fill="#2457d6">b = b ^ (b &gt;&gt; 2); // Зсув на 2 біти</text>
+
+    <text x="515" y="340" font-size="12" fill="#6b7280">b:</text>
+    <rect x="570" y="328" width="26" height="20" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="583" y="343" text-anchor="middle" font-size="11" fill="#1a1a1a">1</text>
+    <rect x="602" y="328" width="26" height="20" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="615" y="343" text-anchor="middle" font-size="11" fill="#1a1a1a">0</text>
+    <rect x="634" y="328" width="26" height="20" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="647" y="343" text-anchor="middle" font-size="11" fill="#1a1a1a">1</text>
+    <rect x="666" y="328" width="26" height="20" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="679" y="343" text-anchor="middle" font-size="11" fill="#1a1a1a">1</text>
+
+    <text x="515" y="366" font-size="12" fill="#6b7280">b &gt;&gt; 2:</text>
+    <rect x="570" y="354" width="26" height="20" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="583" y="369" text-anchor="middle" font-size="11" fill="#6b7280">0</text>
+    <rect x="602" y="354" width="26" height="20" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="615" y="369" text-anchor="middle" font-size="11" fill="#6b7280">0</text>
+    <rect x="634" y="354" width="26" height="20" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="647" y="369" text-anchor="middle" font-size="11" fill="#1a1a1a">1</text>
+    <rect x="666" y="354" width="26" height="20" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="679" y="369" text-anchor="middle" font-size="11" fill="#1a1a1a">0</text>
+
+    <path d="M 702,340 L 725,340" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+    <text x="735" y="344" font-size="12" font-weight="bold" fill="#27ae60">b = 1001₂ (9)</text>
+
+    <!-- Status Badge Panel B -->
+    <rect x="500" y="398" width="400" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="700" y="414" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ Результат збігається з двійковим кодом! (N біт за log₂ N)</text>
+  </g>
+</svg>

@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 550" width="960" height="550" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="550" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінематика трьох станів трипозиційної кнопки дозволу</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Перехід OFF–ON–OFF забезпечує розмикання як при відпусканні, так і при панічному стисканні</text>
+
+  <!-- Column 1: Released (Position 1) -->
+  <rect x="50" y="85" width="270" height="315" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="185" y="111" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Положення 1: Відпущено</text>
+  <rect x="115" y="123" width="140" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="185" y="140" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">OFF (Розімкнено)</text>
+
+  <!-- Schematic 1 -->
+  <rect x="105" y="165" width="160" height="130" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <!-- Button cap -->
+  <rect x="160" y="175" width="50" height="18" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="185" y="188" font-size="11" fill="#2457d6" text-anchor="middle">F = 0 Н</text>
+  <!-- Stem -->
+  <rect x="180" y="193" width="10" height="25" fill="#2457d6"/>
+  <!-- Contact bridge -->
+  <rect x="155" y="218" width="60" height="6" fill="#1a1a1a" rx="1"/>
+  <!-- Fixed contacts -->
+  <rect x="125" y="235" width="25" height="8" fill="#6b7280" rx="1"/>
+  <rect x="210" y="235" width="25" height="8" fill="#6b7280" rx="1"/>
+  <!-- Contact Gap Lines -->
+  <line x1="137" y1="224" x2="137" y2="235" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="222" y1="224" x2="222" y2="235" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="185" y="283" font-size="12" fill="#6b7280" text-anchor="middle">Контакти відкриті (s = 0)</text>
+
+  <!-- Bullets 1 -->
+  <text x="70" y="323" font-size="12" fill="#1a1a1a">• Початковий стан спокою</text>
+  <text x="70" y="343" font-size="12" fill="#1a1a1a">• Оператор не тисне на кнопку</text>
+  <text x="70" y="363" font-size="12" fill="#6b7280">• Привід вимкнено (OFF)</text>
+  <text x="70" y="383" font-size="12" fill="#c0392b" font-weight="bold">• Коло безпеки РОЗІМКНЕНЕ</text>
+
+
+  <!-- Column 2: Pressed (Position 2) -->
+  <rect x="345" y="85" width="270" height="315" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="480" y="111" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Положення 2: Робоче</text>
+  <rect x="410" y="123" width="140" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="480" y="140" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ON (Замкнено)</text>
+
+  <!-- Schematic 2 -->
+  <rect x="400" y="165" width="160" height="130" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <!-- Force arrow -->
+  <line x1="480" y1="170" x2="480" y2="188" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="502" y="182" font-size="11" fill="#27ae60">F_роб</text>
+  <!-- Button cap pressed -->
+  <rect x="455" y="192" width="50" height="18" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="3"/>
+  <!-- Stem -->
+  <rect x="475" y="210" width="10" height="25" fill="#27ae60"/>
+  <!-- Contact bridge closed -->
+  <rect x="450" y="235" width="60" height="6" fill="#27ae60" rx="1"/>
+  <!-- Fixed contacts -->
+  <rect x="420" y="235" width="32" height="8" fill="#27ae60" rx="1"/>
+  <rect x="508" y="235" width="32" height="8" fill="#27ae60" rx="1"/>
+  <text x="480" y="283" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Контакти замкнені (s₁ ≤ s ≤ s₂)</text>
+
+  <!-- Bullets 2 -->
+  <text x="365" y="323" font-size="12" fill="#1a1a1a">• Натиснуто до клацання (точка 1)</text>
+  <text x="365" y="343" font-size="12" fill="#1a1a1a">• Контрольоване утримання</text>
+  <text x="365" y="363" font-size="12" fill="#27ae60">• Дозвіл руху обладнання (ON)</text>
+  <text x="365" y="383" font-size="12" fill="#27ae60" font-weight="bold">• Коло безпеки ЗАМКНЕНЕ</text>
+
+
+  <!-- Column 3: Panic (Position 3) -->
+  <rect x="640" y="85" width="270" height="315" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="775" y="111" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Положення 3: Паніка</text>
+  <rect x="705" y="123" width="140" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="775" y="140" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">OFF (Розімкнено)</text>
+
+  <!-- Schematic 3 -->
+  <rect x="695" y="165" width="160" height="130" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <!-- Double panic force arrow -->
+  <line x1="775" y1="170" x2="775" y2="195" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="795" y="185" font-size="11" font-weight="bold" fill="#c0392b">F_паніка</text>
+  <!-- Button cap fully pressed -->
+  <rect x="750" y="200" width="50" height="18" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="3"/>
+  <!-- Stem -->
+  <rect x="770" y="218" width="10" height="32" fill="#c0392b"/>
+  <!-- Fixed contacts -->
+  <rect x="715" y="235" width="25" height="8" fill="#6b7280" rx="1"/>
+  <rect x="810" y="235" width="25" height="8" fill="#6b7280" rx="1"/>
+  <!-- Contact bridge pushed below terminals -->
+  <rect x="745" y="250" width="60" height="6" fill="#c0392b" rx="1"/>
+  <!-- Panic Gap Lines -->
+  <line x1="727" y1="243" x2="727" y2="250" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="822" y1="243" x2="822" y2="250" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="775" y="283" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Аварійний проскок (s > s₂)</text>
+
+  <!-- Bullets 3 -->
+  <text x="660" y="323" font-size="12" fill="#1a1a1a">• Надмірне стискання (паніка)</text>
+  <text x="660" y="343" font-size="12" fill="#1a1a1a">• Механічне розмикання кола</text>
+  <text x="660" y="363" font-size="12" fill="#c0392b">• Аварійна зупинка (OFF)</text>
+  <text x="660" y="383" font-size="12" fill="#c0392b" font-weight="bold">• Повернення лише через OFF-1</text>
+
+
+  <!-- Bottom Panel: State Diagram against travel (s) -->
+  <rect x="50" y="415" width="860" height="115" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="70" y="438" font-size="14" font-weight="bold" fill="#1a1a1a">Діаграма станів контактів залежно від ходу штока (s):</text>
+
+  <!-- Zone 1 Box -->
+  <rect x="240" y="452" width="170" height="35" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="325" y="474" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона 1: OFF (Відпущено)</text>
+
+  <!-- Zone 2 Box -->
+  <rect x="425" y="452" width="240" height="35" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="545" y="474" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Зона 2: ON (Дозвіл роботи)</text>
+
+  <!-- Zone 3 Box -->
+  <rect x="680" y="452" width="210" height="35" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="785" y="474" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона 3: OFF (Паніка)</text>
+
+  <!-- Travel Axis Line -->
+  <line x1="240" y1="500" x2="890" y2="500" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Ticks -->
+  <line x1="240" y1="494" x2="240" y2="504" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="425" y1="494" x2="425" y2="504" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="680" y1="494" x2="680" y2="504" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Tick Labels -->
+  <text x="240" y="520" font-size="12" fill="#6b7280" text-anchor="middle">s = 0 мм</text>
+  <text x="425" y="520" font-size="12" fill="#6b7280" text-anchor="middle">s₁ (натискання)</text>
+  <text x="680" y="520" font-size="12" fill="#6b7280" text-anchor="middle">s₂ (панічний поріг)</text>
+  <text x="890" y="520" font-size="12" fill="#6b7280" text-anchor="end">s_max</text>
+</svg>

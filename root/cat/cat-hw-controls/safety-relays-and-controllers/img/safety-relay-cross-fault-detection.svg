@@ -1,0 +1,169 @@
+<svg viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+  
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема такт-імпульсного контролю та виявлення перехресних замикань</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Фазовий зсув імпульсів T1 та T2 виявляє короткі замикання між каналами S11-S12 та S21-S22</text>
+
+  <!-- LEFT PANEL: NORMAL OPERATION -->
+  <g id="normal-operation">
+    <rect x="30" y="68" width="435" height="28" rx="4" fill="#27ae60"/>
+    <text x="247" y="87" font-size="13" font-weight="bold" fill="white" text-anchor="middle">1. Нормальний режим (Канали розділені)</text>
+    <rect x="30" y="96" width="435" height="344" rx="6" fill="#f4f6f8" stroke="#27ae60" stroke-width="2"/>
+
+    <!-- Safety Relay Box -->
+    <rect x="42" y="112" width="130" height="210" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="107" y="130" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Реле безпеки</text>
+    
+    <!-- Gen T1 -->
+    <rect x="50" y="145" width="55" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="77" y="163" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">T1 (0°)</text>
+
+    <!-- Gen T2 -->
+    <rect x="50" y="240" width="55" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="77" y="258" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">T2 (180°)</text>
+
+    <!-- Relay Terminals -->
+    <circle cx="172" cy="160" r="4" fill="#2457d6"/>
+    <text x="164" y="156" font-size="11" fill="#2457d6" text-anchor="end">S11</text>
+    
+    <circle cx="172" cy="190" r="4" fill="#2457d6"/>
+    <text x="164" y="186" font-size="11" fill="#2457d6" text-anchor="end">S12</text>
+    
+    <circle cx="172" cy="255" r="4" fill="#27ae60"/>
+    <text x="164" y="251" font-size="11" fill="#27ae60" text-anchor="end">S21</text>
+    
+    <circle cx="172" cy="285" r="4" fill="#27ae60"/>
+    <text x="164" y="281" font-size="11" fill="#27ae60" text-anchor="end">S22</text>
+
+    <!-- E-Stop Box -->
+    <rect x="330" y="132" width="122" height="175" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+    <path d="M 371 124 C 371 113, 411 113, 411 124 Z" fill="#c0392b"/>
+    <rect x="386" y="124" width="10" height="8" fill="#6b7280"/>
+    <text x="391" y="150" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кнопка E-Stop</text>
+
+    <!-- NC1 Contact -->
+    <circle cx="350" cy="175" r="3" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="390" cy="175" r="3" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="347" y1="172" x2="393" y2="172" stroke="#2457d6" stroke-width="2"/>
+    <text x="370" y="167" font-size="11" fill="#6b7280" text-anchor="middle">NC1</text>
+
+    <!-- NC2 Contact -->
+    <circle cx="350" cy="270" r="3" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+    <circle cx="390" cy="270" r="3" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+    <line x1="347" y1="267" x2="393" y2="267" stroke="#27ae60" stroke-width="2"/>
+    <text x="370" y="262" font-size="11" fill="#6b7280" text-anchor="middle">NC2</text>
+
+    <!-- Wires Channel 1 & 2 -->
+    <path d="M 172 160 L 335 160 L 335 175 L 350 175" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <path d="M 390 175 L 412 175 L 412 190 L 172 190" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+    <path d="M 172 255 L 320 255 L 320 270 L 350 270" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <path d="M 390 270 L 425 270 L 425 285 L 172 285" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+    <!-- Waveforms Normal -->
+    <text x="230" y="208" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">T1 імпульс (0°)</text>
+    <path d="M 195 222 L 205 222 L 205 212 L 220 212 L 220 222 L 235 222 L 235 212 L 250 212 L 250 222 L 260 222" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+    <text x="230" y="300" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">T2 імпульс (180°)</text>
+    <path d="M 195 304 L 205 304 L 205 314 L 220 314 L 220 304 L 235 304 L 235 314 L 250 314 L 250 304 L 260 304" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+
+    <!-- Status Box Normal -->
+    <rect x="42" y="332" width="411" height="96" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="247" y="353" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">✓ Сигнали S12 = T1 та S22 = T2 розрізнені й збігаються</text>
+    <text x="247" y="373" font-size="11" fill="#1a1a1a" text-anchor="middle">Немає перехресного витоку або накладення імпульсів між каналами</text>
+    <text x="247" y="395" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">СТАТУС: РЕЛЕ ЗАМКНЕНО (НОРМА)</text>
+  </g>
+
+  <!-- RIGHT PANEL: CROSS-FAULT CONDITION -->
+  <g id="cross-fault-condition">
+    <rect x="495" y="68" width="435" height="28" rx="4" fill="#c0392b"/>
+    <text x="712" y="87" font-size="13" font-weight="bold" fill="white" text-anchor="middle">2. Перехресне замикання (КЗ між каналами)</text>
+    <rect x="495" y="96" width="435" height="344" rx="6" fill="#f4f6f8" stroke="#c0392b" stroke-width="2"/>
+
+    <!-- Safety Relay Box -->
+    <rect x="507" y="112" width="130" height="210" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="572" y="130" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Реле безпеки</text>
+
+    <!-- Gen T1 -->
+    <rect x="515" y="145" width="55" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="542" y="163" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">T1 (0°)</text>
+
+    <!-- Gen T2 -->
+    <rect x="515" y="240" width="55" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="542" y="258" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">T2 (180°)</text>
+
+    <!-- Relay Terminals -->
+    <circle cx="637" cy="160" r="4" fill="#2457d6"/>
+    <text x="629" y="156" font-size="11" fill="#2457d6" text-anchor="end">S11</text>
+    
+    <circle cx="637" cy="190" r="4" fill="#c0392b"/>
+    <text x="629" y="186" font-size="11" fill="#c0392b" text-anchor="end">S12</text>
+    
+    <circle cx="637" cy="255" r="4" fill="#27ae60"/>
+    <text x="629" y="251" font-size="11" fill="#27ae60" text-anchor="end">S21</text>
+    
+    <circle cx="637" cy="285" r="4" fill="#c0392b"/>
+    <text x="629" y="281" font-size="11" fill="#c0392b" text-anchor="end">S22</text>
+
+    <!-- E-Stop Box -->
+    <rect x="795" y="132" width="122" height="175" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+    <path d="M 836 124 C 836 113, 876 113, 876 124 Z" fill="#c0392b"/>
+    <rect x="851" y="124" width="10" height="8" fill="#6b7280"/>
+    <text x="856" y="150" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кнопка E-Stop</text>
+
+    <!-- NC1 Contact -->
+    <circle cx="815" cy="175" r="3" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="855" cy="175" r="3" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="812" y1="172" x2="858" y2="172" stroke="#2457d6" stroke-width="2"/>
+    <text x="835" y="167" font-size="11" fill="#6b7280" text-anchor="middle">NC1</text>
+
+    <!-- NC2 Contact -->
+    <circle cx="815" cy="270" r="3" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+    <circle cx="855" cy="270" r="3" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+    <line x1="812" y1="267" x2="858" y2="267" stroke="#27ae60" stroke-width="2"/>
+    <text x="835" y="262" font-size="11" fill="#6b7280" text-anchor="middle">NC2</text>
+
+    <!-- Wires Channel 1 & 2 -->
+    <path d="M 637 160 L 800 160 L 800 175 L 815 175" fill="none" stroke="#2457d6" stroke-width="2"/>
+    <path d="M 855 175 L 877 175 L 877 190 L 637 190" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+    <path d="M 637 255 L 785 255 L 785 270 L 815 270" fill="none" stroke="#27ae60" stroke-width="2"/>
+    <path d="M 855 270 L 890 270 L 890 285 L 637 285" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+    <!-- Cross-Fault Connection Line -->
+    <line x1="680" y1="190" x2="680" y2="226" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4 2"/>
+    <line x1="680" y1="249" x2="680" y2="285" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4 2"/>
+    <circle cx="680" cy="190" r="4" fill="#c0392b"/>
+    <circle cx="680" cy="285" r="4" fill="#c0392b"/>
+
+    <!-- Cross-Fault Badge -->
+    <rect x="625" y="226" width="110" height="23" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="680" y="242" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">⚡ Перехресне КЗ</text>
+
+    <!-- Waveforms Fault -->
+    <text x="735" y="206" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">T1 + T2 (Накладення)</text>
+    <path d="M 700 218 L 710 218 L 710 208 L 720 208 L 720 218 L 730 218 L 730 208 L 740 208 L 740 218 L 750 218 L 750 208 L 760 208" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+    <text x="735" y="298" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">T1 + T2 (Накладення)</text>
+    <path d="M 700 310 L 710 310 L 710 300 L 720 300 L 720 310 L 730 310 L 730 300 L 740 300 L 740 310 L 750 310 L 750 300 L 760 300" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+    <!-- Status Box Fault -->
+    <rect x="507" y="332" width="411" height="96" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="712" y="353" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">✗ Накладення чужих імпульсів T1/T2 на входах</text>
+    <text x="712" y="373" font-size="11" fill="#1a1a1a" text-anchor="middle">Вхід S12 приймає фазу T2 через коротке замикання між дротами</text>
+    <text x="712" y="395" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">СТАТУС: АВАРІЙНЕ БЛОКУВАННЯ (FAULT)</text>
+  </g>
+</svg>

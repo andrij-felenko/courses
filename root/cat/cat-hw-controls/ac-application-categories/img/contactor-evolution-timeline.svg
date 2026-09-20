@@ -1,0 +1,69 @@
+<svg viewBox="0 0 960 460" width="960" height="460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Еволюція контакторних матеріалів та гасіння дуги</text>
+  <text x="480" y="62" text-anchor="middle" font-size="13" fill="#6b7280">Розвиток деіонних дугогасних камер та металлокерамічних контактів у XX столітті</text>
+
+  <!-- Timeline Main Line -->
+  <line x1="60" y1="130" x2="890" y2="130" stroke="#2457d6" stroke-width="4" marker-end="url(#arr)"/>
+
+  <!-- Timeline Nodes -->
+  <circle cx="140" cy="130" r="8" fill="#c0392b"/>
+  <circle cx="360" cy="130" r="8" fill="#27ae60"/>
+  <circle cx="580" cy="130" r="8" fill="#2457d6"/>
+  <circle cx="800" cy="130" r="8" fill="#1a1a1a"/>
+
+  <!-- Connecting Lines -->
+  <line x1="140" y1="138" x2="140" y2="170" stroke="#c0392b" stroke-width="2"/>
+  <line x1="360" y1="138" x2="360" y2="170" stroke="#27ae60" stroke-width="2"/>
+  <line x1="580" y1="138" x2="580" y2="170" stroke="#2457d6" stroke-width="2"/>
+  <line x1="800" y1="138" x2="800" y2="170" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Card 1: 1900-1920 -->
+  <rect x="40" y="170" width="200" height="240" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="140" y="200" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">1900–1920-ті</text>
+  <text x="140" y="228" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Мідні рубильники</text>
+  <text x="55" y="265" font-size="12" fill="#1a1a1a">• Ручне розмикання</text>
+  <text x="55" y="290" font-size="12" fill="#1a1a1a">• Зварювання міді</text>
+  <text x="55" y="315" font-size="12" fill="#1a1a1a">• Стійка дуга</text>
+  <text x="55" y="340" font-size="12" fill="#1a1a1a">• Ризик пожежі</text>
+  <text x="55" y="365" font-size="12" fill="#c0392b">• Низький ресурс</text>
+
+  <!-- Card 2: 1930-1950 -->
+  <rect x="260" y="170" width="200" height="240" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="360" y="200" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">1930–1950-ті</text>
+  <text x="360" y="228" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Дугогасні камери</text>
+  <text x="275" y="265" font-size="12" fill="#1a1a1a">• Деіонні решітки</text>
+  <text x="275" y="290" font-size="12" fill="#1a1a1a">• Розбиття дуги</text>
+  <text x="275" y="315" font-size="12" fill="#1a1a1a">• Сталеві пластини</text>
+  <text x="275" y="340" font-size="12" fill="#1a1a1a">• Швидке охолодження</text>
+  <text x="275" y="365" font-size="12" fill="#27ae60">• Автоматизація</text>
+
+  <!-- Card 3: 1960-1980 -->
+  <rect x="480" y="170" width="200" height="240" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="580" y="200" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">1960–1980-ті</text>
+  <text x="580" y="228" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Композити AgCdO</text>
+  <text x="495" y="265" font-size="12" fill="#1a1a1a">• Срібло-кадмій</text>
+  <text x="495" y="290" font-size="12" fill="#1a1a1a">• Металокераміка</text>
+  <text x="495" y="315" font-size="12" fill="#1a1a1a">• Високий ресурс</text>
+  <text x="495" y="340" font-size="12" fill="#1a1a1a">• Захист від зварювання</text>
+  <text x="495" y="365" font-size="12" fill="#2457d6">• Оптимізація</text>
+
+  <!-- Card 4: 1990+ -->
+  <rect x="700" y="170" width="220" height="240" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="200" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1990-ті — дотепер</text>
+  <text x="810" y="228" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">AgSnO2 та IEC 60947</text>
+  <text x="715" y="265" font-size="12" fill="#1a1a1a">• Безкадмієвий AgSnO2</text>
+  <text x="715" y="290" font-size="12" fill="#1a1a1a">• Стандарт IEC 60947</text>
+  <text x="715" y="315" font-size="12" fill="#1a1a1a">• Категорії AC-1..AC-4</text>
+  <text x="715" y="340" font-size="12" fill="#1a1a1a">• Екологічність</text>
+  <text x="715" y="365" font-size="12" fill="#1a1a1a">• Точний розрахунок</text>
+</svg>

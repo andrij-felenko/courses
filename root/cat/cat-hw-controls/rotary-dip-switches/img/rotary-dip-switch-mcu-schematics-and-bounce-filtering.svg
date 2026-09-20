@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення 4-бітного ротаційного DIP-перемикача та діаграма брязкоту</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Апаратна підтяжка (Pull-up) крізь R_pull до GPIO-входів MCU та часова осцилограма брязкоту контактів (Bounce)</text>
+
+  <!-- LEFT PANEL: Schematics -->
+  <rect x="24" y="75" width="446" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="40" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Схемотехніка підключення (MCU + Rotary DIP Switch)</text>
+
+  <!-- Rotary DIP Switch Box -->
+  <rect x="44" y="120" width="140" height="380" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="114" y="142" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Rotary DIP Switch</text>
+  <text x="114" y="158" font-size="12" fill="#6b7280" text-anchor="middle">(4-bit BCD / HEX)</text>
+
+  <!-- DIP Switch Terminals -->
+  <rect x="144" y="190" width="40" height="20" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="164" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">Pin 1</text>
+  <text x="54" y="204" font-size="12" fill="#6b7280">Bit 0 (1)</text>
+
+  <rect x="144" y="260" width="40" height="20" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="164" y="274" font-size="12" fill="#1a1a1a" text-anchor="middle">Pin 2</text>
+  <text x="54" y="274" font-size="12" fill="#6b7280">Bit 1 (2)</text>
+
+  <rect x="144" y="330" width="40" height="20" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="164" y="344" font-size="12" fill="#1a1a1a" text-anchor="middle">Pin 4</text>
+  <text x="54" y="344" font-size="12" fill="#6b7280">Bit 2 (4)</text>
+
+  <rect x="144" y="400" width="40" height="20" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="164" y="414" font-size="12" fill="#1a1a1a" text-anchor="middle">Pin 8</text>
+  <text x="54" y="414" font-size="12" fill="#6b7280">Bit 3 (8)</text>
+
+  <!-- Common GND Terminal -->
+  <line x1="114" y1="440" x2="114" y2="470" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="84" y="470" width="60" height="20" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="114" y="484" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">COM</text>
+  <line x1="114" y1="490" x2="114" y2="495" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="104" y1="495" x2="124" y2="495" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="108" y1="498" x2="120" y2="498" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="111" y1="501" x2="117" y2="501" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- MCU Box -->
+  <rect x="310" y="120" width="140" height="380" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="380" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Microcontroller</text>
+  <text x="380" y="158" font-size="12" fill="#6b7280" text-anchor="middle">(MCU / PLC)</text>
+
+  <!-- MCU GPIO Pins -->
+  <rect x="310" y="190" width="40" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="330" y="204" font-size="12" fill="#1a1a1a" text-anchor="middle">PA0</text>
+  <text x="360" y="204" font-size="12" fill="#6b7280">GPIO 0</text>
+
+  <rect x="310" y="260" width="40" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="330" y="274" font-size="12" fill="#1a1a1a" text-anchor="middle">PA1</text>
+  <text x="360" y="274" font-size="12" fill="#6b7280">GPIO 1</text>
+
+  <rect x="310" y="330" width="40" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="330" y="344" font-size="12" fill="#1a1a1a" text-anchor="middle">PA2</text>
+  <text x="360" y="344" font-size="12" fill="#6b7280">GPIO 2</text>
+
+  <rect x="310" y="400" width="40" height="20" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="330" y="414" font-size="12" fill="#1a1a1a" text-anchor="middle">PA3</text>
+  <text x="360" y="414" font-size="12" fill="#6b7280">GPIO 3</text>
+
+  <!-- VCC Line for Pull-ups -->
+  <line x1="247" y1="150" x2="247" y2="165" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247" y="144" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">+VCC (+3.3V/+5V)</text>
+  <line x1="247" y1="165" x2="247" y2="410" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2"/>
+
+  <!-- Signal Lines & Pull-up Resistors -->
+  <!-- Line 0 -->
+  <line x1="184" y1="200" x2="310" y2="200" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <circle cx="247" cy="200" r="3" fill="#1a1a1a"/>
+  <rect x="241" y="172" width="12" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="247" y1="165" x2="247" y2="172" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="247" y1="192" x2="247" y2="200" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="235" y="186" font-size="12" fill="#6b7280" text-anchor="end">10 kΩ</text>
+
+  <!-- Line 1 -->
+  <line x1="184" y1="270" x2="310" y2="270" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <circle cx="247" cy="270" r="3" fill="#1a1a1a"/>
+  <rect x="241" y="242" width="12" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="247" y1="200" x2="247" y2="242" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="247" y1="262" x2="247" y2="270" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="235" y="256" font-size="12" fill="#6b7280" text-anchor="end">10 kΩ</text>
+
+  <!-- Line 2 -->
+  <line x1="184" y1="340" x2="310" y2="340" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <circle cx="247" cy="340" r="3" fill="#1a1a1a"/>
+  <rect x="241" y="312" width="12" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="247" y1="270" x2="247" y2="312" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="247" y1="332" x2="247" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="235" y="326" font-size="12" fill="#6b7280" text-anchor="end">10 kΩ</text>
+
+  <!-- Line 3 -->
+  <line x1="184" y1="410" x2="310" y2="410" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <circle cx="247" cy="410" r="3" fill="#1a1a1a"/>
+  <rect x="241" y="382" width="12" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <line x1="247" y1="340" x2="247" y2="382" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="247" y1="402" x2="247" y2="410" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="235" y="396" font-size="12" fill="#6b7280" text-anchor="end">10 kΩ</text>
+
+  <!-- RIGHT PANEL: Waveform / Bounce Timing -->
+  <rect x="490" y="75" width="446" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="506" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">Осцилограма брязкоту контактів (Bounce Dynamics)</text>
+
+  <!-- Box 1: Raw Unfiltered Waveform -->
+  <rect x="510" y="120" width="406" height="175" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="525" y="138" font-size="13" font-weight="bold" fill="#c0392b">Сигнал на вхідному піні GPIO (без фільтрації)</text>
+
+  <!-- Grid Voltage Lines -->
+  <line x1="605" y1="170" x2="890" y2="170" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="525" y="174" font-size="12" fill="#6b7280">VCC (HIGH)</text>
+
+  <line x1="605" y1="240" x2="890" y2="240" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="525" y="244" font-size="12" fill="#6b7280">0 V (LOW)</text>
+
+  <!-- Highlight Box for Bounce Region -->
+  <rect x="630" y="160" width="110" height="90" fill="#fdecea" opacity="0.6" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="685" y="152" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Брязкіт t_bounce (1–5 мс)</text>
+
+  <!-- Unfiltered Waveform Trace -->
+  <path d="M 595,170 L 630,170 L 630,240 L 645,240 L 645,170 L 660,170 L 660,240 L 675,240 L 675,170 L 690,170 L 690,240 L 705,240 L 705,170 L 725,170 L 725,240 L 880,240" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Transition Point marker t_0 -->
+  <line x1="630" y1="160" x2="630" y2="255" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="630" y="275" font-size="12" fill="#1a1a1a" text-anchor="middle">t_0 (Комутація)</text>
+
+  <!-- Time Axis -->
+  <line x1="550" y1="260" x2="880" y2="260" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arrow)"/>
+  <text x="885" y="264" font-size="12" fill="#6b7280">Час t</text>
+
+  <!-- Box 2: Debounced / Filtered Waveform -->
+  <rect x="510" y="315" width="406" height="185" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="525" y="335" font-size="13" font-weight="bold" fill="#27ae60">Сигнал після RC-фільтра або програмного дебаунсу</text>
+
+  <!-- Grid Voltage Lines -->
+  <line x1="605" y1="365" x2="890" y2="365" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="525" y="369" font-size="12" fill="#6b7280">VCC</text>
+
+  <line x1="605" y1="435" x2="890" y2="435" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="525" y="439" font-size="12" fill="#6b7280">0 V</text>
+
+  <!-- Highlight Box for Debounce Window -->
+  <rect x="630" y="355" width="120" height="95" fill="#e9f7ef" opacity="0.6" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="690" y="350" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Затримка t_filter &gt; t_bounce</text>
+
+  <!-- Filtered Waveform Trace -->
+  <path d="M 595,365 L 750,365 L 750,435 L 880,435" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Valid State transition marker -->
+  <line x1="750" y1="355" x2="750" y2="455" stroke="#27ae60" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="750" y="470" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фіксація стану</text>
+
+  <!-- Time Axis -->
+  <line x1="550" y1="455" x2="880" y2="455" stroke="#1a1a1a" stroke-width="1" marker-end="url(#arrow)"/>
+  <text x="885" y="459" font-size="12" fill="#6b7280">Час t</text>
+
+  <!-- Summary Note at Bottom of Box 2 -->
+  <text x="525" y="493" font-size="12" fill="#1a1a1a">Усунення хибних перемикань адреси MCU при зміні позиції</text>
+</svg>

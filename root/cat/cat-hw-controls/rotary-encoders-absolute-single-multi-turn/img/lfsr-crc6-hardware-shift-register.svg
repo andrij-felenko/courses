@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" width="960" height="440" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="440" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний зсувний регістр LFSR для обчислення CRC-6</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Реалізація генераторного полінома P(x) = x⁶ + x¹ + 1 (0x43) у протоколі BiSS-C</text>
+
+  <!-- Main Panel -->
+  <rect x="30" y="65" width="900" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="85" font-size="13" font-weight="bold" fill="#2457d6">Структурна схема 6-бітного LFSR (Linear Feedback Shift Register)</text>
+
+  <!-- Feedback Line Label -->
+  <text x="490" y="120" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Лінія зворотного зв'язку (Feedback = c0 ⊕ Data_In)</text>
+  <!-- Feedback Bus Line -->
+  <path d="M 835,222.5 L 850,222.5 L 850,135 L 145,135 L 145,201" fill="none" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  
+  <!-- Branch to x1 Tap -->
+  <line x1="740" y1="135" x2="740" y2="201" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+  <circle cx="740" cy="135" r="3.5" fill="#2457d6"/>
+  <text x="752" y="168" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="start">Відвод x¹</text>
+
+  <!-- Data In Label and Line -->
+  <text x="45" y="210" font-size="11" font-weight="bold" fill="#1a1a1a">Вхід даних (Data In)</text>
+  <line x1="45" y1="222.5" x2="124" y2="222.5" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-dark)"/>
+
+  <!-- XOR Gate 1 (Input Feedback XOR) -->
+  <circle cx="145" cy="222.5" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="145" y="227" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">⊕</text>
+  <line x1="159" y1="222.5" x2="203" y2="222.5" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage c5 (MSB) -->
+  <rect x="210" y="200" width="55" height="45" rx="4" fill="white" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="237.5" y="222" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">c5</text>
+  <text x="237.5" y="238" font-size="10" fill="#6b7280" text-anchor="middle">(MSB)</text>
+  <line x1="265" y1="222.5" x2="313" y2="222.5" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-dark)"/>
+
+  <!-- Stage c4 -->
+  <rect x="320" y="200" width="55" height="45" rx="4" fill="white" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="347.5" y="227" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">c4</text>
+  <line x1="375" y1="222.5" x2="423" y2="222.5" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-dark)"/>
+
+  <!-- Stage c3 -->
+  <rect x="430" y="200" width="55" height="45" rx="4" fill="white" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="457.5" y="227" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">c3</text>
+  <line x1="485" y1="222.5" x2="533" y2="222.5" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-dark)"/>
+
+  <!-- Stage c2 -->
+  <rect x="540" y="200" width="55" height="45" rx="4" fill="white" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="567.5" y="227" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">c2</text>
+  <line x1="595" y1="222.5" x2="643" y2="222.5" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-dark)"/>
+
+  <!-- Stage c1 -->
+  <rect x="650" y="200" width="55" height="45" rx="4" fill="white" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="677.5" y="227" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">c1</text>
+  <line x1="705" y1="222.5" x2="719" y2="222.5" stroke="#1a1a1a" stroke-width="1.8" marker-end="url(#arr-dark)"/>
+
+  <!-- XOR Gate 2 (Tap x1) -->
+  <circle cx="740" cy="222.5" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="740" y="227" font-size="16" font-weight="bold" fill="#2457d6" text-anchor="middle">⊕</text>
+  <line x1="754" y1="222.5" x2="773" y2="222.5" stroke="#2457d6" stroke-width="1.8" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage c0 (LSB) -->
+  <rect x="780" y="200" width="55" height="45" rx="4" fill="white" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="807.5" y="222" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">c0</text>
+  <text x="807.5" y="238" font-size="10" fill="#6b7280" text-anchor="middle">(LSB)</text>
+
+  <!-- Output Line CRC-6 Out -->
+  <line x1="835" y1="222.5" x2="890" y2="222.5" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="895" y="210" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="end">CRC-6 Out</text>
+
+  <!-- Explanatory Summary Box -->
+  <rect x="45" y="285" width="870" height="110" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="308" font-size="12" font-weight="bold" fill="#1a1a1a">Алгоритм обчислення контрольної суми BiSS-C CRC-6:</text>
+  <text x="60" y="330" font-size="11" fill="#1a1a1a">• 1. Початковий стан регістра c5..c0 ініціалізується значенням 0x00 (або 0x3F у інверсному режимі).</text>
+  <text x="60" y="350" font-size="11" fill="#1a1a1a">• 2. Біти кадру надходять послідовно через Data In; на кожному такті зсуву виконується XOR з поліномом 0x43 (x⁶ + x¹ + 1).</text>
+  <text x="60" y="372" font-size="11" font-weight="bold" fill="#27ae60">• 3. Після обробки всіх бітів кадру накопичений 6-бітний залишок c5..c0 є готовою контрольною сумою CRC-6.</text>
+</svg>

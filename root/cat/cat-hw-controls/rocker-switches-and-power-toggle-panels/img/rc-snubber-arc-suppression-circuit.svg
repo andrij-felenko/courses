@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Схема RC-снабера та обмеження сплеску перенапруги dv/dt</text>
+  <text x="480" y="52" font-size="13" text-anchor="middle" fill="#6b7280">RC-ланцюжок поглинає енергію індуктивності, запобігаючи виникненню дуги на контактах</text>
+
+  <!-- LEFT PANEL: Electrical Circuit Schematic -->
+  <rect x="30" y="75" width="420" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="240" y="96" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Схема комутації індуктивного навантаження</text>
+
+  <!-- Switch S1 Label & State -->
+  <text x="160" y="115" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">S1 (Клавішний перемикач)</text>
+
+  <!-- Snubber Box Highlight (Positioned x=190..320, Wire at x=265) -->
+  <rect x="190" y="185" width="130" height="185" rx="6" fill="#eaf0fd" fill-opacity="0.5" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="5 3"/>
+  <text x="198" y="202" font-size="12" font-weight="bold" text-anchor="start" fill="#2457d6">RC-снабер</text>
+
+  <!-- Schematic Wires -->
+  <!-- Top Wire -->
+  <path d="M 80 150 L 130 150" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 190 150 L 380 150" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Switch S1 Contacts -->
+  <circle cx="130" cy="150" r="4" fill="#1a1a1a"/>
+  <circle cx="190" cy="150" r="4" fill="#1a1a1a"/>
+  <!-- Switch Arm (Open) -->
+  <line x1="130" y1="150" x2="180" y2="126" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Arc Spark Symbol -->
+  <path d="M 145 147 L 155 140 L 152 146 L 165 138" fill="none" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="160" y="172" font-size="11" text-anchor="middle" fill="#c0392b">Розмикання контактів</text>
+
+  <!-- Power Source Vin (Left Vertical) -->
+  <path d="M 80 150 L 80 268" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 80 312 L 80 430" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="80" cy="290" r="22" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="80" y="295" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">V_in</text>
+  <text x="110" y="294" font-size="11" text-anchor="start" fill="#6b7280">Джерело 230V</text>
+
+  <!-- Snubber Branch (Parallel across Load at x=265) -->
+  <path d="M 265 150 L 265 220" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <!-- Resistor R_s -->
+  <rect x="257" y="220" width="16" height="45" fill="white" stroke="#2457d6" stroke-width="2"/>
+  <text x="280" y="248" font-size="13" font-weight="bold" text-anchor="start" fill="#2457d6">R_s</text>
+
+  <path d="M 265 265 L 265 305" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <!-- Capacitor C_s -->
+  <line x1="252" y1="305" x2="278" y2="305" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="252" y1="315" x2="278" y2="315" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="280" y="318" font-size="13" font-weight="bold" text-anchor="start" fill="#2457d6">C_s</text>
+
+  <path d="M 265 315 L 265 430" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <!-- Junction Dots -->
+  <circle cx="265" cy="150" r="4" fill="#2457d6"/>
+  <circle cx="265" cy="430" r="4" fill="#2457d6"/>
+
+  <!-- Load Branch (Right Vertical at x=380) -->
+  <path d="M 380 150 L 380 205" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Inductor L_load Coil -->
+  <path d="M 380 205 C 395 205, 395 220, 380 220 C 395 220, 395 235, 380 235 C 395 235, 395 250, 380 250 C 395 250, 395 265, 380 265" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="398" y="242" font-size="13" font-weight="bold" text-anchor="start" fill="#1a1a1a">L_load</text>
+
+  <path d="M 380 265 L 380 325" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Resistor R_load -->
+  <rect x="372" y="325" width="16" height="45" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="398" y="352" font-size="13" font-weight="bold" text-anchor="start" fill="#1a1a1a">R_load</text>
+
+  <path d="M 380 370 L 380 430" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="380" cy="150" r="4" fill="#1a1a1a"/>
+  <circle cx="380" cy="430" r="4" fill="#1a1a1a"/>
+
+  <!-- Bottom Wire -->
+  <path d="M 380 430 L 80 430" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Left Panel Bottom Summary Card -->
+  <rect x="42" y="440" width="396" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="240" y="458" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Параметри: R_s = 10..100 Ом, C_s = 0.1..0.47 мкФ</text>
+  <text x="240" y="476" font-size="11" text-anchor="middle" fill="#1a1a1a">Швидкість наростання напруги: dv/dt = I_0 / C_s</text>
+
+
+  <!-- RIGHT PANEL: Oscillogram Waveforms -->
+  <rect x="480" y="75" width="450" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="705" y="96" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Перехідний процес напруги при розмиканні контактів</text>
+
+  <!-- Oscillogram Grid Box -->
+  <rect x="510" y="115" width="390" height="268" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Faint Background Grid Lines -->
+  <line x1="510" y1="170" x2="900" y2="170" stroke="#f0f3f6" stroke-width="1"/>
+  <line x1="510" y1="225" x2="900" y2="225" stroke="#f0f3f6" stroke-width="1"/>
+  <line x1="510" y1="280" x2="900" y2="280" stroke="#f0f3f6" stroke-width="1"/>
+  <line x1="600" y1="115" x2="600" y2="383" stroke="#f0f3f6" stroke-width="1"/>
+  <line x1="690" y1="115" x2="690" y2="383" stroke="#f0f3f6" stroke-width="1"/>
+  <line x1="780" y1="115" x2="780" y2="383" stroke="#f0f3f6" stroke-width="1"/>
+
+  <!-- Reference Voltage Levels -->
+  <!-- V_arc (Breakdown limit) -->
+  <line x1="540" y1="168" x2="880" y2="168" stroke="#c0392b" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="532" y="172" font-size="12" font-weight="bold" text-anchor="end" fill="#c0392b">V_arc</text>
+
+  <!-- V_in (Nominal supply) -->
+  <line x1="540" y1="280" x2="880" y2="280" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="532" y="284" font-size="12" font-weight="bold" text-anchor="end" fill="#6b7280">V_in</text>
+
+  <!-- t_0 (Switch open moment) -->
+  <line x1="600" y1="130" x2="600" y2="335" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <text x="600" y="352" font-size="11" text-anchor="middle" fill="#6b7280">t_0 (розмикання)</text>
+
+  <!-- Axes -->
+  <path d="M 540 330 L 880 330" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="880" y="350" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">Час t</text>
+
+  <path d="M 540 330 L 540 128" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="548" y="132" font-size="12" font-weight="bold" text-anchor="start" fill="#1a1a1a">Напруга V</text>
+
+  <!-- Waveform 1: WITHOUT Snubber (Red / Ringing Arc Spike) -->
+  <path d="M 540 280 L 600 280 L 604 140 L 612 320 L 620 160 L 628 300 L 638 210 L 650 295 L 666 265 L 686 285 L 720 280 L 870 280" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Waveform 2: WITH Snubber (Green / Damped Curve) -->
+  <path d="M 540 280 L 600 280 C 620 280, 635 210, 665 210 C 700 210, 730 280, 780 280 L 870 280" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Waveform Callout 1 (Red Spike) -->
+  <path d="M 608 142 L 630 135" stroke="#c0392b" stroke-width="1" marker-start="url(#arr-red)"/>
+  <text x="635" y="142" font-size="12" font-weight="bold" text-anchor="start" fill="#c0392b">Сплеск без снабера</text>
+  <text x="635" y="158" font-size="11" text-anchor="start" fill="#c0392b">Дуга, V_max &gt; 800V</text>
+
+  <!-- Waveform Callout 2 (Green Curve) -->
+  <path d="M 665 210 L 672 205" stroke="#27ae60" stroke-width="1" marker-start="url(#arr-green)"/>
+  <text x="675" y="215" font-size="12" font-weight="bold" text-anchor="start" fill="#27ae60">З згладжуванням (RC)</text>
+  <text x="675" y="231" font-size="11" text-anchor="start" fill="#27ae60">V_max &lt; V_arc (без дуги)</text>
+
+  <!-- Right Panel Comparison Cards -->
+  <!-- Left Card (Problem - Without Snubber) -->
+  <rect x="510" y="398" width="190" height="88" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="605" y="416" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Без демпфера</text>
+  <text x="520" y="435" font-size="11" text-anchor="start" fill="#1a1a1a">• Електрична дуга</text>
+  <text x="520" y="452" font-size="11" text-anchor="start" fill="#1a1a1a">• Ерозія контактів</text>
+  <text x="520" y="469" font-size="11" text-anchor="start" fill="#1a1a1a">• ВЧ-перешкоди (EMI)</text>
+
+  <!-- Right Card (Solution - With Snubber) -->
+  <rect x="710" y="398" width="190" height="88" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="805" y="416" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">З RC-снабером</text>
+  <text x="720" y="435" font-size="11" text-anchor="start" fill="#1a1a1a">• Гасіння дуги (dv/dt)</text>
+  <text x="720" y="452" font-size="11" text-anchor="start" fill="#1a1a1a">• Захист контактів S1</text>
+  <text x="720" y="469" font-size="11" text-anchor="start" fill="#1a1a1a">• Тривалий ресурс</text>
+</svg>

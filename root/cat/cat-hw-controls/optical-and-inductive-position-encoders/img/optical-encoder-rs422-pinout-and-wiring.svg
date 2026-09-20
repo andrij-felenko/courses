@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#8e44ad"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення оптичного енкодера до трансивера RS-422</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Узгодження диференціальних пар A/Ā, B/B̄, Z/Z̄ екранованою крученою парою з термінаторами R_T = 120 Ом</text>
+
+  <!-- LEFT PANEL: Optical Encoder -->
+  <rect x="30" y="75" width="230" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8" ry="8"/>
+  <text x="145" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оптичний енкодер</text>
+  <text x="145" y="118" font-size="12" fill="#6b7280" text-anchor="middle">(Роз'єм M12 / DB9)</text>
+
+  <!-- Pinout Labels (Right aligned to x=225) -->
+  <text x="225" y="154" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">1: VCC (+5V)</text>
+  <text x="225" y="194" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">2: GND</text>
+  <text x="225" y="244" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">3: Signal A</text>
+  <text x="225" y="274" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">4: Signal Ā</text>
+  <text x="225" y="324" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">5: Signal B</text>
+  <text x="225" y="354" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">6: Signal B̄</text>
+  <text x="225" y="404" font-size="12" font-weight="bold" fill="#8e44ad" text-anchor="end">7: Signal Z</text>
+  <text x="225" y="434" font-size="12" font-weight="bold" fill="#8e44ad" text-anchor="end">8: Signal Z̄</text>
+  <text x="225" y="479" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="end">9: SHIELD (Екран)</text>
+
+  <!-- Pin connector dots -->
+  <circle cx="235" cy="150" r="4" fill="#c0392b"/>
+  <circle cx="235" cy="190" r="4" fill="#1a1a1a"/>
+  <circle cx="235" cy="240" r="4" fill="#2457d6"/>
+  <circle cx="235" cy="270" r="4" fill="#2457d6"/>
+  <circle cx="235" cy="320" r="4" fill="#27ae60"/>
+  <circle cx="235" cy="350" r="4" fill="#27ae60"/>
+  <circle cx="235" cy="400" r="4" fill="#8e44ad"/>
+  <circle cx="235" cy="430" r="4" fill="#8e44ad"/>
+  <circle cx="235" cy="475" r="4" fill="#6b7280"/>
+
+  <!-- MIDDLE PANEL: Shielded Twisted Pair Cable Zone -->
+  <rect x="280" y="85" width="380" height="425" fill="#eaf0fd" fill-opacity="0.3" stroke="#2457d6" stroke-dasharray="5,5" stroke-width="1.5" rx="10" ry="10"/>
+  <text x="470" y="115" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Екранована кручена пара (STP, Z_0 = 120 Ом)</text>
+
+  <text x="470" y="142" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Жилення VCC / GND</text>
+  <text x="470" y="230" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Пара A / Ā</text>
+  <text x="470" y="310" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Пара B / B̄</text>
+  <text x="470" y="390" font-size="11" font-weight="bold" fill="#8e44ad" text-anchor="middle">Пара Z / Z̄ (Індекс)</text>
+  <text x="470" y="470" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">Захисний екран (360° Заземлення)</text>
+
+  <!-- Wiring lines from Encoder (x=235) through Cable (x=280..660) to Receiver (x=700) -->
+  <!-- VCC Line -->
+  <line x1="239" y1="150" x2="696" y2="150" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- GND Line -->
+  <line x1="239" y1="190" x2="696" y2="190" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- Pair A / Abar -->
+  <line x1="239" y1="240" x2="696" y2="240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="239" y1="270" x2="696" y2="270" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Pair B / Bbar -->
+  <line x1="239" y1="320" x2="696" y2="320" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="239" y1="350" x2="696" y2="350" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-green)"/>
+
+  <!-- Pair Z / Zbar -->
+  <line x1="239" y1="400" x2="696" y2="400" stroke="#8e44ad" stroke-width="2" marker-end="url(#arr-purple)"/>
+  <line x1="239" y1="430" x2="696" y2="430" stroke="#8e44ad" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-purple)"/>
+
+  <!-- Shield Line -->
+  <line x1="239" y1="475" x2="696" y2="475" stroke="#6b7280" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+
+  <!-- RIGHT PANEL: RS-422 Transceiver / Receiver -->
+  <rect x="700" y="75" width="230" height="445" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8" ry="8"/>
+  <text x="815" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Приймач RS-422 / ПЛК</text>
+  <text x="815" y="118" font-size="12" fill="#6b7280" text-anchor="middle">(Термінація та повторювачі)</text>
+
+  <!-- Terminating Resistors (120 Ohm) -->
+  <!-- Pair A Terminator -->
+  <line x1="725" y1="240" x2="725" y2="270" stroke="#27ae60" stroke-width="2"/>
+  <rect x="717" y="247" width="16" height="16" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="740" y="259" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">R_T = 120 Ом</text>
+
+  <!-- Pair B Terminator -->
+  <line x1="725" y1="320" x2="725" y2="350" stroke="#27ae60" stroke-width="2"/>
+  <rect x="717" y="327" width="16" height="16" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="740" y="339" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">R_T = 120 Ом</text>
+
+  <!-- Pair Z Terminator -->
+  <line x1="725" y1="400" x2="725" y2="430" stroke="#27ae60" stroke-width="2"/>
+  <rect x="717" y="407" width="16" height="16" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="740" y="419" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">R_T = 120 Ом</text>
+
+  <!-- RS-422 Differential Receivers (Triangles) -->
+  <!-- Receiver A -->
+  <polygon points="830,235 830,275 860,255" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="700" y1="240" x2="830" y2="240" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="700" y1="270" x2="830" y2="270" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="860" y1="255" x2="870" y2="255" stroke="#2457d6" stroke-width="2"/>
+  <text x="875" y="259" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="start">A_OUT</text>
+
+  <!-- Receiver B -->
+  <polygon points="830,315 830,355 860,335" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="700" y1="320" x2="830" y2="320" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="700" y1="350" x2="830" y2="350" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="860" y1="335" x2="870" y2="335" stroke="#27ae60" stroke-width="2"/>
+  <text x="875" y="339" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">B_OUT</text>
+
+  <!-- Receiver Z -->
+  <polygon points="830,395 830,435 860,415" fill="#f4f6f8" stroke="#8e44ad" stroke-width="1.5"/>
+  <line x1="700" y1="400" x2="830" y2="400" stroke="#8e44ad" stroke-width="1.5"/>
+  <line x1="700" y1="430" x2="830" y2="430" stroke="#8e44ad" stroke-width="1.5"/>
+  <line x1="860" y1="415" x2="870" y2="415" stroke="#8e44ad" stroke-width="2"/>
+  <text x="875" y="419" font-size="11" font-weight="bold" fill="#8e44ad" text-anchor="start">Z_OUT</text>
+
+  <!-- Shield Ground connection at Receiver -->
+  <line x1="700" y1="475" x2="815" y2="475" stroke="#6b7280" stroke-width="2"/>
+  <line x1="815" y1="475" x2="815" y2="490" stroke="#6b7280" stroke-width="2"/>
+  <!-- Earth Ground PE symbol -->
+  <line x1="803" y1="490" x2="827" y2="490" stroke="#6b7280" stroke-width="2"/>
+  <line x1="807" y1="494" x2="823" y2="494" stroke="#6b7280" stroke-width="2"/>
+  <line x1="811" y1="498" x2="819" y2="498" stroke="#6b7280" stroke-width="2"/>
+  <text x="815" y="514" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">Заземлення PE</text>
+</svg>

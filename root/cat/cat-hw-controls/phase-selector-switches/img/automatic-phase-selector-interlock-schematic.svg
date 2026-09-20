@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема автоматичного перемикача фаз із подвійним блокуванням</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Електричні NC-контакти та механічне блокування унеможливлюють міжфазне КЗ</text>
+
+  <!-- Input Supply Bar -->
+  <rect x="40" y="80" width="880" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="105" font-size="14" font-weight="bold" fill="#1a1a1a">Вхід 3-фазної мережі:</text>
+  <text x="220" y="105" font-size="14" font-weight="bold" fill="#c0392b">L1 (Фаза A)</text>
+  <text x="420" y="105" font-size="14" font-weight="bold" fill="#2457d6">L2 (Фаза B)</text>
+  <text x="620" y="105" font-size="14" font-weight="bold" fill="#27ae60">L3 (Фаза C)</text>
+  <text x="820" y="105" font-size="14" font-weight="bold" fill="#6b7280">N (Нейтраль)</text>
+
+  <!-- Phase Selector Relay Block -->
+  <rect x="40" y="140" width="880" height="90" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="165" text-anchor="middle" font-size="15" font-weight="bold" fill="#2457d6">Мікроконтролерне реле вибору фази (PSR / АВР)</text>
+  <text x="480" y="185" text-anchor="middle" font-size="12" fill="#6b7280">Контроль напруг U_L1, U_L2, U_L3 | Вибір пріоритетної та активної фази з затримкою t_on/t_off</text>
+  
+  <rect x="140" y="195" width="160" height="25" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="220" y="212" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вихід вибору L1</text>
+
+  <rect x="400" y="195" width="160" height="25" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="480" y="212" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вихід вибору L2</text>
+
+  <rect x="660" y="195" width="160" height="25" rx="4" fill="#ffffff" stroke="#2457d6"/>
+  <text x="740" y="212" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вихід вибору L3</text>
+
+  <!-- Channels: KM1, KM2, KM3 -->
+
+  <!-- Channel 1: KM1 -->
+  <rect x="40" y="250" width="270" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="175" y="275" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Контактор KM1 (Фаза L1)</text>
+  
+  <rect x="60" y="290" width="230" height="35" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="175" y="312" text-anchor="middle" font-size="12" fill="#1a1a1a">Силовий контакт <tspan font-weight="bold" fill="#c0392b">KM1 (NO)</tspan></text>
+
+  <rect x="60" y="335" width="230" height="45" rx="4" fill="#fdecea" stroke="#c0392b" stroke-dasharray="4,3"/>
+  <text x="175" y="353" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Котушка KM1 [A1-A2]</text>
+  <text x="175" y="370" text-anchor="middle" font-size="12" fill="#6b7280">через KM2.NC та KM3.NC</text>
+
+  <text x="175" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Електричне блокування</text>
+  <text x="175" y="420" text-anchor="middle" font-size="12" fill="#6b7280">KM2.NC ➔ KM3.NC</text>
+
+  <!-- Channel 2: KM2 -->
+  <rect x="345" y="250" width="270" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="275" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Контактор KM2 (Фаза L2)</text>
+
+  <rect x="365" y="290" width="230" height="35" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="312" text-anchor="middle" font-size="12" fill="#1a1a1a">Силовий контакт <tspan font-weight="bold" fill="#2457d6">KM2 (NO)</tspan></text>
+
+  <rect x="365" y="335" width="230" height="45" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-dasharray="4,3"/>
+  <text x="480" y="353" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Котушка KM2 [A1-A2]</text>
+  <text x="480" y="370" text-anchor="middle" font-size="12" fill="#6b7280">через KM1.NC та KM3.NC</text>
+
+  <text x="480" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Електричне блокування</text>
+  <text x="480" y="420" text-anchor="middle" font-size="12" fill="#6b7280">KM1.NC ➔ KM3.NC</text>
+
+  <!-- Channel 3: KM3 -->
+  <rect x="650" y="250" width="270" height="185" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="785" y="275" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Контактор KM3 (Фаза L3)</text>
+
+  <rect x="670" y="290" width="230" height="35" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="785" y="312" text-anchor="middle" font-size="12" fill="#1a1a1a">Силовий контакт <tspan font-weight="bold" fill="#27ae60">KM3 (NO)</tspan></text>
+
+  <rect x="670" y="335" width="230" height="45" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-dasharray="4,3"/>
+  <text x="785" y="353" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Котушка KM3 [A1-A2]</text>
+  <text x="785" y="370" text-anchor="middle" font-size="12" fill="#6b7280">через KM1.NC та KM2.NC</text>
+
+  <text x="785" y="402" text-anchor="middle" font-size="12" fill="#27ae60">Електричне блокування</text>
+  <text x="785" y="420" text-anchor="middle" font-size="12" fill="#6b7280">KM1.NC ➔ KM2.NC</text>
+
+  <!-- Mechanical Interlock Bar -->
+  <line x1="175" y1="452" x2="785" y2="452" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="480" y="468" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Механічне міжконтакторне блокування (Mechanical Interlock Unit)</text>
+
+  <!-- Output Busbar -->
+  <rect x="40" y="485" width="880" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="507" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Вихідна шина живлення однофазного навантаження (L_out, N)</text>
+  <text x="480" y="525" text-anchor="middle" font-size="12" fill="#1a1a1a">Захищено від одночасного ввімкнення двох або трьох контакторів</text>
+</svg>

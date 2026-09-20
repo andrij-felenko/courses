@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Ратіометричне підключення джойстика та одноточкове заземлення (AGND / DGND)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Спільна напруга VREF компенсує пульсації живлення, а Star GND біля АЦП усуває аналогові шуми</text>
+
+  <!-- LEFT PANEL: Joystick / Gimbal Analog Block -->
+  <rect x="30" y="78" width="320" height="370" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="42" y="90" width="296" height="26" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="190" y="107" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Аналоговий підвіс (Потенціометр)</text>
+
+  <!-- Potentiometer R_stick -->
+  <!-- Top connection dot -->
+  <circle cx="120" cy="155" r="4" fill="#2457d6"/>
+  <line x1="120" y1="155" x2="120" y2="175" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Resistor Body -->
+  <rect x="110" y="175" width="20" height="90" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="98" y="224" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">R_stick</text>
+  
+  <!-- Bottom connection dot -->
+  <line x1="120" y1="265" x2="120" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="120" cy="295" r="4" fill="#2457d6"/>
+  
+  <!-- Wiper Arm -->
+  <line x1="130" y1="220" x2="155" y2="220" stroke="#27ae60" stroke-width="2.5" marker-start="url(#arr-green)"/>
+  <circle cx="155" cy="220" r="3.5" fill="#27ae60"/>
+
+  <!-- Filter Capacitor C_filter -->
+  <line x1="230" y1="220" x2="230" y2="250" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Capacitor plates -->
+  <line x1="218" y1="250" x2="242" y2="250" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="218" y1="256" x2="242" y2="256" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="230" y1="256" x2="230" y2="295" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="230" cy="295" r="3.5" fill="#2457d6"/>
+  <text x="250" y="257" font-size="12" fill="#6b7280">C_filter</text>
+  <text x="250" y="273" font-size="11" fill="#6b7280">10..100 nF</text>
+
+  <!-- Internal Wiring inside Left Box -->
+  <!-- VREF to Top Dot -->
+  <line x1="50" y1="155" x2="120" y2="155" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- AGND Rail inside Box -->
+  <line x1="50" y1="295" x2="350" y2="295" stroke="#2457d6" stroke-width="2.5"/>
+  
+  <!-- Info badge in Left Box -->
+  <rect x="42" y="330" width="296" height="100" rx="6" ry="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="190" y="352" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Захист від шумів на маніпуляторі:</text>
+  <text x="54" y="375" font-size="11" fill="#6b7280">• Окремі провідники VREF та AGND</text>
+  <text x="54" y="395" font-size="11" fill="#6b7280">• Фільтрувальний керамічний C_filter</text>
+  <text x="54" y="415" font-size="11" fill="#6b7280">• Екранування сигнальної лінії V_OUT</text>
+
+  <!-- INTER-BOX BUS WIRING -->
+  <!-- VREF Line (Top Blue Bus) -->
+  <line x1="50" y1="155" x2="610" y2="155" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="480" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Шина живлення VREF</text>
+
+  <!-- Signal V_OUT Line (Middle Green Bus) -->
+  <line x1="155" y1="220" x2="610" y2="220" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="480" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Аналоговий сигнал V_OUT (AIN0)</text>
+
+  <!-- AGND Line (Bottom Blue Bus) -->
+  <text x="480" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Окрема шина AGND (чиста земля)</text>
+
+  <!-- RIGHT PANEL: Microcontroller / ADC Block -->
+  <rect x="610" y="78" width="320" height="370" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="622" y="90" width="296" height="26" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="770" y="107" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Мікроконтролер (MCU / ADC)</text>
+
+  <!-- Pins on MCU -->
+  <!-- VREF Pin -->
+  <circle cx="610" cy="155" r="4.5" fill="#2457d6"/>
+  <text x="624" y="148" font-size="12" font-weight="bold" fill="#2457d6">VREF</text>
+
+  <!-- AIN0 Pin -->
+  <circle cx="610" cy="220" r="4.5" fill="#27ae60"/>
+  <text x="624" y="213" font-size="12" font-weight="bold" fill="#27ae60">AIN0</text>
+
+  <!-- AGND Pin -->
+  <circle cx="610" cy="295" r="4.5" fill="#2457d6"/>
+  <text x="624" y="288" font-size="12" font-weight="bold" fill="#2457d6">AGND</text>
+
+  <!-- DGND Pin -->
+  <circle cx="610" cy="390" r="4.5" fill="#1a1a1a"/>
+  <text x="624" y="383" font-size="12" font-weight="bold" fill="#6b7280">DGND</text>
+
+  <!-- Internal ADC Block -->
+  <rect x="760" y="140" width="150" height="175" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="835" y="165" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Модуль АЦП</text>
+  <line x1="770" y1="175" x2="900" y2="175" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Formula inside ADC -->
+  <text x="835" y="198" text-anchor="middle" font-size="11" fill="#6b7280">Формула відліку:</text>
+  <text x="835" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">N = (V_OUT / VREF) · 2^N</text>
+
+  <rect x="770" y="235" width="130" height="65" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="835" y="253" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Ратіометричність:</text>
+  <text x="835" y="270" text-anchor="middle" font-size="11" fill="#27ae60">Пульсації VREF</text>
+  <text x="835" y="287" text-anchor="middle" font-size="11" fill="#27ae60">взаємно скорочуються!</text>
+
+  <!-- Connections from MCU pins into ADC block -->
+  <line x1="610" y1="155" x2="760" y2="155" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="610" y1="220" x2="760" y2="220" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- STAR GROUND SINGLE-POINT NODE (Одноточкове заземлення) -->
+  <!-- Connecting line from AGND Pin to Star Point -->
+  <line x1="610" y1="295" x2="610" y2="345" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- Connecting line from DGND Pin to Star Point -->
+  <line x1="610" y1="390" x2="610" y2="345" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Star Point Node Circle -->
+  <circle cx="610" cy="345" r="6" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Callout box pointing to Star Node -->
+  <line x1="616" y1="345" x2="660" y2="345" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <rect x="660" y="325" width="250" height="95" rx="6" ry="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="785" y="345" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Одноточкове з'єднання (Star GND)</text>
+  <text x="670" y="367" font-size="11" fill="#1a1a1a">• AGND та DGND з'єднані В ОДНІЙ ТОЧЦІ</text>
+  <text x="670" y="386" font-size="11" fill="#1a1a1a">• Запобігає протіканню цифрових</text>
+  <text x="670" y="405" font-size="11" fill="#1a1a1a">  імпульсних струмів через шину AGND</text>
+
+</svg>

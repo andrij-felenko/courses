@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="35" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Обмеження двопозиційного захисту «мертвої руки» (Dead-Man Control)</text>
+  <text x="480" y="55" font-size="13" fill="#6b7280" text-anchor="middle">Двопозиційний важіль (ON/OFF) захищає при відпусканні, але безпорадий при панічному стисканні</text>
+
+  <!-- Top Panel: Normal Operating State -->
+  <rect x="40" y="75" width="880" height="75" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="97" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Штатний режим: Оператор свідомо утримує важіль у робочому положенні (ON)</text>
+  <text x="480" y="120" font-size="12" fill="#1a1a1a" text-anchor="middle">Електричний контакт замкнений пружинним зусиллям руки. Обладнання працює в режимі супроводу.</text>
+
+  <!-- Scenario A: Release / Fainting (Left Column) -->
+  <rect x="40" y="165" width="425" height="275" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  
+  <rect x="52" y="177" width="401" height="32" rx="5" fill="#27ae60"/>
+  <text x="252" y="198" font-size="14" font-weight="bold" fill="white" text-anchor="middle">Сценарій A: Знепритомнення (Відпускання)</text>
+
+  <rect x="65" y="220" width="375" height="40" rx="5" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="252" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">Втрата свідомості / Знепритомнення оператора</text>
+
+  <line x1="252" y1="260" x2="252" y2="278" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="65" y="280" width="375" height="40" rx="5" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="252" y="304" font-size="12" fill="#1a1a1a" text-anchor="middle">М'язи розслабляються — важіль повертається (OFF)</text>
+
+  <line x1="252" y1="320" x2="252" y2="338" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <rect x="65" y="340" width="375" height="85" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="252" y="363" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">РЕЗУЛЬТАТ: БЕЗПЕЧНЕ ЗУПИНЕННЯ</text>
+  <text x="252" y="385" font-size="12" fill="#1a1a1a" text-anchor="middle">Контакти розмикаються під дією поворотної пружини.</text>
+  <text x="252" y="405" font-size="12" fill="#1a1a1a" text-anchor="middle">Живлення приводу миттєво вимикається.</text>
+
+  <!-- Scenario B: Panic Grip (Right Column) -->
+  <rect x="495" y="165" width="425" height="275" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="507" y="177" width="401" height="32" rx="5" fill="#c0392b"/>
+  <text x="707" y="198" font-size="14" font-weight="bold" fill="white" text-anchor="middle">Сценарій B: Панічний рефлекс (Судомне стискання)</text>
+
+  <rect x="520" y="220" width="375" height="40" rx="5" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="707" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">Раптова небезпека / Переляк / Судома м'язів</text>
+
+  <line x1="707" y1="260" x2="707" y2="278" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <rect x="520" y="280" width="375" height="40" rx="5" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="707" y="304" font-size="12" fill="#1a1a1a" text-anchor="middle">Оператор рефлекторно стискає важіль до упору (ON)</text>
+
+  <line x1="707" y1="320" x2="707" y2="338" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <rect x="520" y="340" width="375" height="85" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="707" y="363" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">РЕЗУЛЬТАТ: НЕБЕЗПЕЧНА ВІДМОВА ЗАХИСТУ</text>
+  <text x="707" y="385" font-size="12" fill="#1a1a1a" text-anchor="middle">Двопозиційні контакти залишаються замкненими.</text>
+  <text x="707" y="405" font-size="12" fill="#1a1a1a" text-anchor="middle">Привід продовжує рух, створюючи загрозу аварії.</text>
+</svg>

@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+  <defs>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Осцилограма перехідного процесу пускового струму (Inrush Current)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Замикання ємнісного навантаження спричиняє піковий струм I_inrush з експоненціальним згасанням i(t)</text>
+
+  <!-- Left / Main Panel: Waveform Plot -->
+  <rect x="25" y="72" width="630" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Plot Grid Lines -->
+  <line x1="85" y1="120" x2="630" y2="120" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="85" y1="210" x2="630" y2="210" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="85" y1="300" x2="630" y2="300" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="85" y1="350" x2="630" y2="350" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <line x1="175" y1="90" x2="175" y2="430" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="285" y1="90" x2="285" y2="430" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="395" y1="90" x2="395" y2="430" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="505" y1="90" x2="505" y2="430" stroke="#e1e4e8" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Plot Axes -->
+  <line x1="85" y1="430" x2="85" y2="90" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="75" y1="410" x2="640" y2="410" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Axis Labels -->
+  <text x="80" y="82" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">i(t)</text>
+  <text x="645" y="426" font-size="12" font-weight="bold" fill="#1a1a1a">t</text>
+
+  <!-- Y-Axis Reference Levels -->
+  <!-- Peak Current Level I_inrush -->
+  <line x1="80" y1="120" x2="85" y2="120" stroke="#c0392b" stroke-width="2"/>
+  <text x="76" y="124" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">I_inrush</text>
+
+  <!-- Nominal Current Level I_nom -->
+  <line x1="80" y1="350" x2="85" y2="350" stroke="#2457d6" stroke-width="2"/>
+  <text x="76" y="354" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">I_nom</text>
+
+  <!-- Zero Level 0 -->
+  <text x="76" y="414" text-anchor="end" font-size="11" fill="#6b7280">0</text>
+
+  <!-- Time Labels on X-Axis -->
+  <text x="175" y="426" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">t_0 (Замикання)</text>
+  <text x="285" y="426" text-anchor="middle" font-size="11" fill="#2457d6">t_0 + τ</text>
+  <text x="505" y="426" text-anchor="middle" font-size="11" fill="#6b7280">Усталений режим</text>
+
+  <!-- Shaded Area under Inrush Waveform (Energy Dissipation) -->
+  <path d="M175,410 L175,120 Q195,120 210,160 T285,265 T505,350 L620,350 L620,410 Z" fill="#eaf0fd" fill-opacity="0.5"/>
+
+  <!-- Main Inrush Current Waveform Line -->
+  <!-- Before t0: i=0 (y=410) -->
+  <line x1="85" y1="410" x2="175" y2="410" stroke="#2457d6" stroke-width="2.5"/>
+  <!-- Sharp Switch Closing Step to Peak I_inrush (y=120) with bounce micro-spikes -->
+  <path d="M175,410 L175,120 L180,135 L185,115 L190,128 L195,120 Q220,170 285,265 T505,350 L630,350" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Peak Height Dimension Arrow (I_inrush vs I_nom) -->
+  <line x1="140" y1="350" x2="140" y2="120" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <rect x="90" y="220" width="100" height="34" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="140" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Пік I_inrush</text>
+  <text x="140" y="249" text-anchor="middle" font-size="11" fill="#c0392b">до 10..50 · I_nom</text>
+
+  <!-- Contact Bounce Callout -->
+  <line x1="185" y1="110" x2="215" y2="95" stroke="#6b7280" stroke-width="1.5"/>
+  <rect x="215" y="80" width="145" height="30" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="287.5" y="99" text-anchor="middle" font-size="11" fill="#1a1a1a">Брязкіт контактів t_bounce</text>
+
+  <!-- Exponential Decay Time Constant tau Marker -->
+  <!-- At t0 + tau (x=285), current drops by 63.2% of peak to y=265 -->
+  <line x1="175" y1="265" x2="285" y2="265" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <line x1="285" y1="265" x2="285" y2="410" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2,2"/>
+  
+  <!-- Dimension Arrow for tau -->
+  <line x1="175" y1="280" x2="285" y2="280" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  
+  <!-- Tau Info Badge positioned SAFELY BELOW the dimension line and curve, in area x=185..290, y=320..354 -->
+  <rect x="185" y="320" width="105" height="34" fill="#ffffff" stroke="#2457d6" rx="4"/>
+  <text x="237.5" y="335" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Постійна часу τ</text>
+  <text x="237.5" y="349" text-anchor="middle" font-size="11" fill="#2457d6">i(τ) ≈ 36.8% піка</text>
+
+  <!-- Exponential Formula Callout on Waveform -->
+  <rect x="365" y="160" width="220" height="42" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="475" y="178" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">i(t) = I_nom + (I_inrush - I_nom) · e^(-t/τ)</text>
+  <text x="475" y="194" text-anchor="middle" font-size="11" fill="#6b7280">Експоненціальне згасання заряду C_load</text>
+
+
+  <!-- Right Panel: Circuit & Parameters -->
+  <rect x="670" y="72" width="265" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="802.5" y="94" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Параметри комутації</text>
+  <text x="802.5" y="112" text-anchor="middle" font-size="12" fill="#2457d6">Ємнісне навантаження</text>
+
+  <!-- Circuit Diagram Box -->
+  <rect x="685" y="125" width="235" height="110" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="802.5" y="143" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">ЕКВІВАЛЕНТНА СХЕМА</text>
+
+  <!-- Switch S -->
+  <circle cx="715" cy="175" r="3.5" fill="#1a1a1a"/>
+  <line x1="715" y1="175" x2="745" y2="162" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="750" cy="175" r="3.5" fill="#1a1a1a"/>
+  <text x="732.5" y="158" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">SW</text>
+
+  <!-- Resistor ESR -->
+  <rect x="770" y="169" width="30" height="12" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="785" y="162" text-anchor="middle" font-size="10" fill="#1a1a1a">R_ESR</text>
+
+  <!-- Capacitor C_load -->
+  <line x1="835" y1="165" x2="835" y2="185" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="843" y1="165" x2="843" y2="185" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="839" y="158" text-anchor="middle" font-size="10" fill="#1a1a1a">C_load</text>
+
+  <!-- Circuit Wires -->
+  <line x1="695" y1="175" x2="711.5" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="753.5" y1="175" x2="770" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="800" y1="175" x2="835" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="843" y1="175" x2="905" y2="175" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="695" y1="175" x2="695" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="905" y1="175" x2="905" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="695" y1="215" x2="905" y2="215" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="800" y="210" text-anchor="middle" font-size="11" fill="#2457d6">Джерело живлення Vin</text>
+
+  <!-- Formula Cards -->
+  <!-- Card 1: I_inrush formula -->
+  <rect x="685" y="245" width="235" height="52" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="802.5" y="265" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">I_inrush = Vin / (R_ESR + R_line)</text>
+  <text x="802.5" y="284" text-anchor="middle" font-size="11" fill="#6b7280">Обмежено лише опором ESR та дротів</text>
+
+  <!-- Card 2: Tau formula -->
+  <rect x="685" y="307" width="235" height="52" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="802.5" y="327" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">τ = (R_ESR + R_line) · C_load</text>
+  <text x="802.5" y="346" text-anchor="middle" font-size="11" fill="#6b7280">Тривалість протікання пускового струму</text>
+
+  <!-- Card 3: Hazard / Impact -->
+  <rect x="685" y="369" width="235" height="92" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="802.5" y="388" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">РИЗИК ДЛЯ КОНТАКТІВ:</text>
+  <text x="802.5" y="406" text-anchor="middle" font-size="11" fill="#1a1a1a">• Ерозія та мікрозварювання ламелей</text>
+  <text x="802.5" y="422" text-anchor="middle" font-size="11" fill="#1a1a1a">• Локальний перегрів контактних точок</text>
+  <text x="802.5" y="438" text-anchor="middle" font-size="11" fill="#c0392b">Вимога: Сплави AgSnO2 / AgCdO</text>
+
+</svg>

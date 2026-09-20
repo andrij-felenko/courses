@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема опрацювання сигналів RVDT двоканальним АЦП та MCU</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Ратіометрична функція R(θ) = (V1 - V2) / (V1 + V2) забезпечує інваріантність до дрейфу збудження та температури</text>
+
+  <!-- COLUMN 1: RVDT & EXCITATION -->
+  <rect x="30" y="85" width="180" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="120" y="108" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. RVDT та збудження</text>
+
+  <!-- Sub-block 1: Excitation Generator -->
+  <rect x="40" y="120" width="160" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="120" y="140" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Генератор збудження</text>
+  <text x="120" y="158" font-size="11" fill="#6b7280" text-anchor="middle">V_exc = V_p · sin(ωt)</text>
+
+  <!-- Sub-block 2: RVDT Sensor Windings -->
+  <rect x="40" y="188" width="160" height="142" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="120" y="208" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Первинна обмотка P</text>
+  <text x="120" y="226" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">[ Ротор RVDT (кут θ) ]</text>
+  <line x1="48" y1="236" x2="192" y2="236" stroke="#d0d7de" stroke-width="1"/>
+  <text x="120" y="254" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Вторинна S1: V_s1(θ)</text>
+  <text x="120" y="274" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Вторинна S2: V_s2(θ)</text>
+  <text x="120" y="302" font-size="11" fill="#6b7280" text-anchor="middle">V_s = V_p·(1 ± kθ)·sin(ωt)</text>
+
+  <!-- Connection lines from Col 1 to Col 2 -->
+  <path d="M200,250 L225,250 L225,170 L244,170" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+  <path d="M200,270 L225,270 L225,280 L244,280" stroke="#27ae60" stroke-width="1.5" fill="none" marker-end="url(#arr-green)"/>
+  <text x="225" y="163" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">V_s1</text>
+  <text x="225" y="293" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">V_s2</text>
+
+  <!-- COLUMN 2: ANALOG FRONT-END (AFE) -->
+  <rect x="250" y="85" width="200" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="350" y="108" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Аналоговий фронтенд AFE</text>
+
+  <!-- Ch1 AFE -->
+  <rect x="262" y="125" width="176" height="92" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="350" y="143" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Канал 1 (S1)</text>
+  <text x="350" y="161" font-size="11" fill="#1a1a1a" text-anchor="middle">Синхронний демодулятор</text>
+  <text x="350" y="179" font-size="11" fill="#1a1a1a" text-anchor="middle">Фільтр низьких частот (ФНЧ)</text>
+  <text x="350" y="200" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихід: DC рівень V1(θ)</text>
+
+  <!-- Ch2 AFE -->
+  <rect x="262" y="235" width="176" height="92" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="350" y="253" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Канал 2 (S2)</text>
+  <text x="350" y="271" font-size="11" fill="#1a1a1a" text-anchor="middle">Синхронний демодулятор</text>
+  <text x="350" y="289" font-size="11" fill="#1a1a1a" text-anchor="middle">Фільтр низьких частот (ФНЧ)</text>
+  <text x="350" y="310" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихід: DC рівень V2(θ)</text>
+
+  <!-- Connection lines from Col 2 to Col 3 -->
+  <path d="M438,171 L474,171" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <path d="M438,281 L474,281" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="456" y="163" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">V1(DC)</text>
+  <text x="456" y="273" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">V2(DC)</text>
+
+  <!-- COLUMN 3: DUAL-CHANNEL ADC -->
+  <rect x="480" y="85" width="170" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="565" y="108" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Двоканальний АЦП</text>
+
+  <!-- Sub-block 1: S/H -->
+  <rect x="492" y="125" width="146" height="52" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="565" y="143" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Синхронна вибірка</text>
+  <text x="565" y="161" font-size="11" fill="#6b7280" text-anchor="middle">(S/H для Ch1 та Ch2)</text>
+
+  <!-- Sub-block 2: ADC Core -->
+  <rect x="492" y="188" width="146" height="139" rx="4" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="565" y="208" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2× ADC (12…16 біт)</text>
+  <line x1="500" y1="218" x2="630" y2="218" stroke="#d0d7de" stroke-width="1"/>
+  <text x="565" y="238" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Ch1 ADC -&gt; Відлік N1</text>
+  <text x="565" y="258" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Ch2 ADC -&gt; Відлік N2</text>
+  <text x="565" y="283" font-size="11" fill="#6b7280" text-anchor="middle">N1,2 = K_adc · V1,2</text>
+  <text x="565" y="304" font-size="11" fill="#6b7280" text-anchor="middle">(Двійковий код N1, N2)</text>
+
+  <!-- Connection lines from Col 3 to Col 4 -->
+  <path d="M638,248 L674,248" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="656" y="240" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">N1, N2</text>
+
+  <!-- COLUMN 4: MCU RATIOMETRIC PROCESSING -->
+  <rect x="680" y="85" width="250" height="260" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="805" y="108" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">4. Обчислення в MCU / DSP</text>
+
+  <!-- Step 1: Digital Filter -->
+  <rect x="692" y="125" width="226" height="45" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="805" y="143" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цифрова фільтрація відліків</text>
+  <text x="805" y="159" font-size="11" fill="#6b7280" text-anchor="middle">Усереднення / КІХ (FIR) фільтр</text>
+
+  <!-- Step 2: Ratiometric Engine (Highlighted) -->
+  <rect x="692" y="178" width="226" height="62" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="805" y="196" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Ратіометрична функція R(θ):</text>
+  <text x="805" y="222" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">R(θ) = (N1 - N2) / (N1 + N2)</text>
+
+  <!-- Step 3: Linearization -->
+  <rect x="692" y="248" width="226" height="52" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="805" y="266" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Лінеаризація та масштабування</text>
+  <text x="805" y="286" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">θ = k_rvdt · R(θ) + θ_0</text>
+
+  <!-- Output Badge -->
+  <text x="805" y="325" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихід: Кутове положення θ [°]</text>
+
+  <!-- BOTTOM PANEL: BENEFIT & PROOF CARDS -->
+  <rect x="30" y="360" width="900" height="135" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="383" font-size="13" font-weight="bold" fill="#1a1a1a">Математичне обґрунтування компенсації завад та температурного дрейфу</text>
+
+  <!-- Card 1: Amplitude Cancellation -->
+  <rect x="50" y="395" width="280" height="85" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="65" y="415" font-size="11" font-weight="bold" fill="#2457d6">1. Скорочення амплітуди V_p</text>
+  <text x="65" y="433" font-size="11" fill="#1a1a1a">R(θ) = V_p·k·θ / (V_p·K_sum)</text>
+  <text x="65" y="451" font-size="11" fill="#1a1a1a">Амплітуда збудження V_p скорочується</text>
+  <text x="65" y="469" font-size="11" fill="#6b7280">Коливання V_p не впливають на кут θ</text>
+
+  <!-- Card 2: Temperature Compensation -->
+  <rect x="340" y="395" width="280" height="85" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="355" y="415" font-size="11" font-weight="bold" fill="#27ae60">2. Компенсація температури</text>
+  <text x="355" y="433" font-size="11" fill="#1a1a1a">Зміна опору R_cu(T) однакова в S1, S2</text>
+  <text x="355" y="451" font-size="11" fill="#1a1a1a">Температурний зсув компенсується</text>
+  <text x="355" y="469" font-size="11" fill="#6b7280">Нульовий дрейф у робочому діапазоні</text>
+
+  <!-- Card 3: ADC Requirements -->
+  <rect x="630" y="395" width="285" height="85" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="645" y="415" font-size="11" font-weight="bold" fill="#1a1a1a">3. Вимоги до вимірювання</text>
+  <text x="645" y="433" font-size="11" fill="#1a1a1a">Одночасне зчитування S/H за 1 такт</text>
+  <text x="645" y="451" font-size="11" fill="#1a1a1a">Ефективна розрядність ENOB ≥ 12 біт</text>
+  <text x="645" y="469" font-size="11" fill="#6b7280">Придушення квадратурного шуму в AFE</text>
+</svg>

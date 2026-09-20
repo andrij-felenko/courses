@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схемотехнічна структура аналогового фронтенду (AFE) давача RVDT</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Формування опорного збудження V_exc та синхронне демодулювання сигналів V_sin/V_cos з виділенням огинаючої</text>
+
+  <!-- PANEL 1: EXCITATION GENERATOR -->
+  <rect x="30" y="75" width="260" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="96" font-size="14" font-weight="bold" fill="#2457d6">Каскад збудження (Excitation)</text>
+
+  <!-- Sub-block 1.1: Sine Generator -->
+  <rect x="45" y="115" width="230" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="133" font-size="13" font-weight="bold" fill="#2457d6">DDS / ШІМ синус-генератор</text>
+  <text x="55" y="153" font-size="12" fill="#1a1a1a">Опорний синус f = 5...10 кГц</text>
+  <text x="55" y="173" font-size="12" fill="#6b7280">Тактова частота f_clk</text>
+
+  <!-- Sub-block 1.2: Power Driver -->
+  <rect x="45" y="205" width="230" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="223" font-size="13" font-weight="bold" fill="#1a1a1a">Підсилювач потужності</text>
+  <text x="55" y="243" font-size="12" fill="#1a1a1a">Вихід V_exc = 7 V_rms (AC)</text>
+  <text x="55" y="263" font-size="12" fill="#6b7280">Низький вихідний імпеданс</text>
+
+  <!-- Sub-block 1.3: Reference Sync -->
+  <rect x="45" y="300" width="230" height="110" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="55" y="318" font-size="13" font-weight="bold" fill="#2457d6">Формувач опорної фази</text>
+  <text x="55" y="338" font-size="12" fill="#1a1a1a">Компаратор переходу через 0</text>
+  <text x="55" y="358" font-size="12" font-weight="bold" fill="#2457d6">Меандр V_ref_sync (0/1)</text>
+  <text x="55" y="378" font-size="12" fill="#6b7280">Тактування демодулятора</text>
+  <text x="55" y="398" font-size="12" font-weight="bold" fill="#2457d6">V_exc = V_m · sin(ωt)</text>
+
+  <!-- Internal Wire 1.1 -> 1.2 -->
+  <line x1="160" y1="190" x2="160" y2="205" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <!-- Internal Wire 1.1 -> 1.3 -->
+  <path d="M 275,152.5 L 285,152.5 L 285,355 L 275,355" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- PANEL 2: RVDT SENSOR -->
+  <rect x="320" y="75" width="280" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="335" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Давач RVDT (Трансформатор)</text>
+
+  <!-- Sub-block 2.1: Primary Winding -->
+  <rect x="335" y="115" width="250" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="345" y="133" font-size="13" font-weight="bold" fill="#2457d6">Первинна обмотка (Primary)</text>
+  <text x="345" y="153" font-size="12" fill="#1a1a1a">Вхід збудження V_exc (AC)</text>
+  <text x="345" y="173" font-size="12" fill="#6b7280">Електромагнітне поле</text>
+
+  <!-- Sub-block 2.2: Secondary Windings -->
+  <rect x="335" y="205" width="250" height="105" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="345" y="223" font-size="13" font-weight="bold" fill="#27ae60">Вторинні обмотки (Sec1, Sec2)</text>
+  <text x="345" y="243" font-size="12" font-weight="bold" fill="#2457d6">V_sec1 = V_m·sin(θ)·sin(ωt)</text>
+  <text x="345" y="263" font-size="12" font-weight="bold" fill="#27ae60">V_sec2 = V_m·cos(θ)·sin(ωt)</text>
+  <text x="345" y="283" font-size="12" fill="#6b7280">Амплітудна модуляція (AM)</text>
+
+  <!-- Sub-block 2.3: Rotor Angle -->
+  <rect x="335" y="325" width="250" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="345" y="343" font-size="13" font-weight="bold" fill="#27ae60">Профільований ротор кута θ</text>
+  <text x="345" y="363" font-size="12" fill="#1a1a1a">Механічний кут вводу ±60°</text>
+  <text x="345" y="383" font-size="12" font-weight="bold" fill="#27ae60">Зміна взаємоіндуктивності</text>
+
+  <!-- PANEL 3: DEMODULATOR & AFE PROCESSING -->
+  <rect x="630" y="75" width="300" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="645" y="96" font-size="14" font-weight="bold" fill="#27ae60">Демодулятор та АЦП (AFE Processing)</text>
+
+  <!-- Sub-block 3.1: Synchronous Demodulator -->
+  <rect x="645" y="115" width="270" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="655" y="133" font-size="13" font-weight="bold" fill="#2457d6">Синхронний демодулятор</text>
+  <text x="655" y="153" font-size="12" fill="#1a1a1a">Ключі фазового інвертування</text>
+  <text x="655" y="173" font-size="12" fill="#6b7280">Керування від V_ref_sync</text>
+  <text x="655" y="193" font-size="12" font-weight="bold" fill="#2457d6">V_rect = |V_sec|·|sin(ωt)|</text>
+
+  <!-- Sub-block 3.2: LPF Filter -->
+  <rect x="645" y="220" width="270" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="655" y="238" font-size="13" font-weight="bold" fill="#27ae60">Активний ФНЧ (Low-Pass Filter)</text>
+  <text x="655" y="258" font-size="12" fill="#1a1a1a">Фільтрація пульсацій 10 кГц</text>
+  <text x="655" y="278" font-size="12" fill="#6b7280">Виділення постійної огинаючої</text>
+  <text x="655" y="298" font-size="12" font-weight="bold" fill="#27ae60">V_out_DC = K·sin(θ), K·cos(θ)</text>
+
+  <!-- Sub-block 3.3: ADC & MCU Core -->
+  <rect x="645" y="325" width="270" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="655" y="343" font-size="13" font-weight="bold" fill="#27ae60">Диференціальний АЦП / МК</text>
+  <text x="655" y="363" font-size="12" fill="#1a1a1a">Зчитування DC напруг V_sin / V_cos</text>
+  <text x="655" y="383" font-size="12" font-weight="bold" fill="#27ae60">Кут θ = arctan(V_sin / V_cos)</text>
+
+  <!-- Inter-Panel Wires -->
+  <!-- Excitation Output Wire (Power Driver -> Primary Winding) -->
+  <path d="M 275,245 L 305,245 L 305,155 L 335,155" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="293" y="195" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">V_exc</text>
+
+  <!-- Reference Sync Wire (Reference Sync -> Demodulator) -->
+  <path d="M 275,355 L 310,355 L 310,425 L 620,425 L 620,162 L 645,162" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <text x="465" y="420" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Синхросигнал V_ref_sync</text>
+
+  <!-- Secondary Winding Output Wire (Sec Windings -> Demodulator) -->
+  <path d="M 585,257 L 615,257 L 615,142 L 645,142" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="600" y="200" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">V_sec1,2</text>
+
+  <!-- Internal Wires in Demod Panel -->
+  <line x1="780" y1="210" x2="780" y2="220" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="780" y1="315" x2="780" y2="325" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+</svg>

@@ -1,0 +1,107 @@
+<svg viewBox="0 0 960 460" width="960" height="460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння пружинного контакту та примусового розмикання (Positive Opening)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Пружина не здатна розімкнути зварені контакти, тоді як примусовий механізм IEC 60947-5-5 розриває їх прямою силою руки</text>
+
+  <!-- Left Panel: Problem / Standard Spring Contact -->
+  <rect x="35" y="75" width="425" height="360" rx="8" ry="8" fill="#fdecea" stroke="#f5c6cb" stroke-width="1.5"/>
+  <rect x="50" y="90" width="395" height="30" rx="4" fill="#c0392b"/>
+  <text x="247.5" y="110" font-size="14" font-weight="bold" fill="white" text-anchor="middle">1. Звичайний контакт (Пружинний розрив)</text>
+
+  <!-- Left Actuator & Spring -->
+  <line x1="247.5" y1="124" x2="247.5" y2="134" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="260" y="128" font-size="12" font-weight="bold" fill="#c0392b">F_push</text>
+  <rect x="200" y="136" width="95" height="24" rx="4" fill="#6b7280"/>
+  <text x="247.5" y="152" font-size="12" fill="white" font-weight="bold" text-anchor="middle">Штовхач</text>
+
+  <path d="M 247.5 160 L 247.5 167 L 235 172 L 260 178 L 235 184 L 260 190 L 235 196 L 247.5 201 L 247.5 208" fill="none" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="270" y="188" font-size="12" fill="#6b7280">Пружина</text>
+
+  <!-- Left Contact Bridge & Terminals -->
+  <rect x="170" y="208" width="155" height="12" rx="2" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Terminals Left -->
+  <rect x="170" y="240" width="30" height="35" fill="#95a5a6"/>
+  <rect x="295" y="240" width="30" height="35" fill="#95a5a6"/>
+
+  <!-- Contact Pads Left -->
+  <rect x="175" y="235" width="20" height="6" fill="#e67e22"/>
+  <rect x="300" y="235" width="20" height="6" fill="#e67e22"/>
+  <rect x="175" y="220" width="20" height="6" fill="#e67e22"/>
+  <rect x="300" y="220" width="20" height="6" fill="#e67e22"/>
+
+  <!-- Micro-weld highlight -->
+  <ellipse cx="185" cy="227" rx="9" ry="6" fill="#e74c3c" opacity="0.85"/>
+  <line x1="155" y1="227" x2="175" y2="227" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="70" y="231" font-size="12" font-weight="bold" fill="#c0392b">Зварний місток</text>
+
+  <!-- Left Explanation Box -->
+  <rect x="50" y="290" width="395" height="130" rx="6" fill="white" stroke="#f5c6cb" stroke-width="1"/>
+  <text x="65" y="312" font-size="13" font-weight="bold" fill="#c0392b">Механізм відмови:</text>
+  <text x="65" y="332" font-size="12" fill="#1a1a1a">1. Електрична дуга зварює контакти між собою.</text>
+  <text x="65" y="352" font-size="12" fill="#1a1a1a">2. Сила повернення пружини F_spring занадто слабка.</text>
+  <text x="65" y="372" font-size="12" font-weight="bold" fill="#c0392b">3. F_spring &lt; F_weld — пружина лише стискається!</text>
+  <text x="65" y="396" font-size="12" font-weight="bold" fill="#c0392b">Результат: Коло не розмикається при натиску!</text>
+
+  <!-- Right Panel: Solution / Positive Opening Operation -->
+  <rect x="500" y="75" width="425" height="360" rx="8" ry="8" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1.5"/>
+  <rect x="515" y="90" width="395" height="30" rx="4" fill="#27ae60"/>
+  <text x="712.5" y="110" font-size="14" font-weight="bold" fill="white" text-anchor="middle">2. Примусове розмикання (IEC 60947-5-5)</text>
+
+  <!-- Right Actuator & Rigid Link -->
+  <line x1="712.5" y1="120" x2="712.5" y2="133" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  <text x="725" y="128" font-size="12" font-weight="bold" fill="#27ae60">F_hand (Пряма дія)</text>
+  <rect x="665" y="136" width="95" height="24" rx="4" fill="#c0392b"/>
+  <text x="712.5" y="152" font-size="12" fill="white" font-weight="bold" text-anchor="middle">Аварійний грибок</text>
+
+  <!-- Solid Mechanical Plunger -->
+  <rect x="700" y="160" width="25" height="48" fill="#2c3e50" rx="2"/>
+  <text x="733" y="188" font-size="12" font-weight="bold" fill="#2c3e50">Жорсткий штовхач</text>
+
+  <!-- Right Contact Bridge (tilted/forced open) -->
+  <polygon points="635,210 788,198 790,210 637,222" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Terminals Right -->
+  <rect x="635" y="240" width="30" height="35" fill="#95a5a6"/>
+  <rect x="760" y="240" width="30" height="35" fill="#95a5a6"/>
+
+  <!-- Contact Pads Right -->
+  <rect x="640" y="235" width="20" height="6" fill="#e67e22"/>
+  <rect x="765" y="235" width="20" height="6" fill="#e67e22"/>
+  <rect x="640" y="209" width="20" height="6" fill="#e67e22"/>
+  <rect x="765" y="197" width="20" height="6" fill="#e67e22"/>
+
+  <!-- Fracture / Break highlight -->
+  <path d="M 645 220 L 655 231 M 655 220 L 645 231" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="585" y1="225" x2="635" y2="225" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="508" y="229" font-size="12" font-weight="bold" fill="#27ae60">Силовий розрив!</text>
+
+  <!-- Standard IEC Symbol Box -->
+  <circle cx="865" cy="180" r="18" fill="white" stroke="#27ae60" stroke-width="2"/>
+  <line x1="855" y1="180" x2="872" y2="180" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <line x1="857" y1="172" x2="857" y2="188" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="865" y="210" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Символ IEC</text>
+
+  <!-- Right Explanation Box -->
+  <rect x="515" y="290" width="395" height="130" rx="6" fill="white" stroke="#c3e6cb" stroke-width="1"/>
+  <text x="530" y="312" font-size="13" font-weight="bold" fill="#27ae60">Принцип безпеки (IEC 60947-5-5):</text>
+  <text x="530" y="332" font-size="12" fill="#1a1a1a">1. Жорсткий механічний зв'язок без пружин у ланцюзі.</text>
+  <text x="530" y="352" font-size="12" fill="#1a1a1a">2. Сила руки оператора F_hand передається прямо на контакт.</text>
+  <text x="530" y="372" font-size="12" font-weight="bold" fill="#27ae60">3. F_hand &gt;&gt; F_weld — зварний місток силово зрізається!</text>
+  <text x="530" y="396" font-size="12" font-weight="bold" fill="#27ae60">Результат: Гарантоване аварійне розмикання кола!</text>
+</svg>

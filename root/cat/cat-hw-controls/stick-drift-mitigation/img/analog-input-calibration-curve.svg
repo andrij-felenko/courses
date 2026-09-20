@@ -1,0 +1,88 @@
+<svg viewBox="0 0 960 460" width="960" height="460" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка полотна -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Калібрувальна крива аналогового органу вводу</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Двосегментна нормалізація сирих значень АЦП з компенсацією асиметрії ходу та центральною мертвою зоною</text>
+
+  <!-- Основна панель фігури -->
+  <rect x="50" y="70" width="860" height="365" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Підпис некаліброваної характеристики (верхній лівий кут) -->
+  <text x="165" y="105" text-anchor="start" font-size="12" fill="#6b7280">Лінійна характеристика без калібрування</text>
+
+  <!-- Плашка компенсації асиметрії (верхній правий кут) -->
+  <rect x="560" y="78" width="320" height="40" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="575" y="94" font-size="12" font-weight="bold" fill="#27ae60">✓ Компенсація асиметрії ходу</text>
+  <text x="575" y="109" font-size="12" fill="#1a1a1a">Окремі коефіцієнти для лівого й правого плечей</text>
+
+  <!-- Підкладка та заголовок області мертвої зони -->
+  <rect x="440" y="120" width="60" height="240" fill="#fdecea" opacity="0.75" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <rect x="425" y="84" width="90" height="22" rx="4" fill="#c0392b"/>
+  <text x="470" y="99" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Мертва зона</text>
+
+  <!-- Сітка та орієнтири -->
+  <!-- Горизонтальні лінії рівня -->
+  <line x1="160" y1="120" x2="840" y2="120" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="160" y1="240" x2="840" y2="240" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="160" y1="360" x2="840" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Вертикальні лінії прив'язки -->
+  <line x1="160" y1="120" x2="160" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="440" y1="120" x2="440" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="470" y1="120" x2="470" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="500" y1="120" x2="500" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="840" y1="120" x2="840" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Ідеальна некалібрована лінія (для порівняння) -->
+  <line x1="160" y1="360" x2="840" y2="120" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Осі координат -->
+  <!-- Вісь Y (Нормований вихід) -->
+  <line x1="160" y1="375" x2="160" y2="95" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="160" y="82" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Нормований вихід (Axis_out)</text>
+
+  <!-- Позначки Y -->
+  <text x="148" y="124" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">+1.0</text>
+  <text x="148" y="244" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">0.0</text>
+  <text x="148" y="364" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">-1.0</text>
+
+  <!-- Вісь X (Сирі значення АЦП) -->
+  <line x1="155" y1="360" x2="870" y2="360" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="870" y="415" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">Сире значення АЦП (ADC_raw)</text>
+
+  <!-- Калібрована двосегментна крива перетворення -->
+  <path d="M 160 360 L 440 240 L 500 240 L 840 120" fill="none" stroke="#2457d6" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Характерні точки на криві -->
+  <circle cx="160" cy="360" r="5" fill="#2457d6"/>
+  <circle cx="440" cy="240" r="5" fill="#c0392b"/>
+  <circle cx="470" cy="240" r="4" fill="#6b7280"/>
+  <circle cx="500" cy="240" r="5" fill="#c0392b"/>
+  <circle cx="840" cy="120" r="5" fill="#2457d6"/>
+
+  <!-- Блоки формул сегментів -->
+  <!-- Сегмент 1 (Лівий крок) — розміщено над лівою частиною графіку -->
+  <rect x="190" y="155" width="225" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="302" y="174" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Сегмент 1 (Лівий крок)</text>
+  <text x="302" y="191" text-anchor="middle" font-size="12" fill="#1a1a1a">k_left = -1.0 / (ADC_dead_min - ADC_min)</text>
+
+  <!-- Сегмент 2 (Правий крок) — розміщено під правою частиною графіку -->
+  <rect x="535" y="270" width="240" height="46" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="655" y="289" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Сегмент 2 (Правий крок)</text>
+  <text x="655" y="306" text-anchor="middle" font-size="12" fill="#1a1a1a">k_right = +1.0 / (ADC_max - ADC_dead_max)</text>
+
+  <!-- Позначки Х-осі -->
+  <text x="160" y="388" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ADC_min</text>
+  <text x="430" y="410" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">ADC_dead_min</text>
+  <text x="470" y="388" text-anchor="middle" font-size="12" fill="#6b7280">ADC_center</text>
+  <text x="510" y="410" text-anchor="start" font-size="12" font-weight="bold" fill="#c0392b">ADC_dead_max</text>
+  <text x="840" y="388" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ADC_max</text>
+</svg>

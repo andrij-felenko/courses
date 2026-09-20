@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <!-- Arrow heads -->
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Кінематика підпружиненого кулачка тросового вимикача подвійної дії</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Три стани кулачка: робоче вікно натягу (Run), обрив троса та аварійний натяг (Stop)</text>
+
+  <!-- ==================== PANEL 1: ОБРИВ ТРОСА ==================== -->
+  <g id="panel-1">
+    <!-- Panel Body -->
+    <rect x="30" y="75" width="284" height="367" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+    <!-- Header -->
+    <rect x="30" y="75" width="284" height="40" rx="6" fill="#fdecea" stroke="#c0392b"/>
+    <text x="172" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">1. ОБРИВ ТРОСА (F = 0)</text>
+
+    <!-- Cable & Force Label -->
+    <path d="M 40,175 Q 52,187 64,175 Q 74,163 85,175" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4 2"/>
+    <text x="75" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">F = 0 (Обрив)</text>
+
+    <!-- Spring -->
+    <path d="M 195,175 L 203,167 L 213,183 L 223,167 L 233,183 L 243,167 L 253,183 L 263,167 L 273,183 L 283,167 L 290,175" fill="none" stroke="#6b7280" stroke-width="2"/>
+    <text x="250" y="145" text-anchor="middle" font-size="12" fill="#6b7280">Пружина F_пр</text>
+    <!-- Displacement arrow -->
+    <line x1="172" y1="130" x2="140" y2="130" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+    <!-- Slider Bar (Shifted Left) -->
+    <path d="M 85,160 L 195,160 L 195,190 L 158,190 L 152,170 L 128,170 L 122,190 L 85,190 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <!-- Slider Center Marker -->
+    <line x1="140" y1="160" x2="140" y2="190" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2"/>
+
+    <!-- Axis Guide Line -->
+    <line x1="172" y1="122" x2="172" y2="285" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3 3"/>
+
+    <!-- Roller (Pushed Down on Flat) -->
+    <circle cx="172" cy="199" r="9" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- Plunger Shaft -->
+    <line x1="172" y1="208" x2="172" y2="258" stroke="#1a1a1a" stroke-width="3"/>
+
+    <!-- Fixed Terminals (Drawn as Paths to avoid rect collision) -->
+    <path d="M 142,234 L 160,234 L 160,242 L 142,242 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+    <path d="M 184,234 L 202,234 L 202,242 L 184,242 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+    <!-- Contact Bridge (Path line, Lowered -> GAP) -->
+    <path d="M 145,260 L 199,260" stroke="#c0392b" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Status Label -->
+    <text x="172" y="294" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Контакти NC: РОЗМКНЕНІ</text>
+
+    <!-- Status Badge -->
+    <rect x="50" y="308" width="244" height="40" rx="4" fill="#fdecea" stroke="#c0392b"/>
+    <text x="172" y="326" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Аварійне зупинення (Stop)</text>
+    <text x="172" y="342" text-anchor="middle" font-size="12" fill="#1a1a1a">Спрацювання на обрив</text>
+
+    <!-- Summary Box -->
+    <rect x="42" y="364" width="260" height="64" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+    <text x="172" y="380" text-anchor="middle" font-size="12" fill="#1a1a1a">• Втрата натягу троса</text>
+    <text x="172" y="397" text-anchor="middle" font-size="12" fill="#1a1a1a">• Шток зміщується вліво</text>
+    <text x="172" y="414" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">• Ролик виходить з паза</text>
+  </g>
+
+  <!-- ==================== PANEL 2: РОБОЧИЙ НАТЯГ ==================== -->
+  <g id="panel-2">
+    <!-- Panel Body -->
+    <rect x="338" y="75" width="284" height="367" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+    <!-- Header -->
+    <rect x="338" y="75" width="284" height="40" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="480" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">2. РОБОЧИЙ НАТЯГ (F = F₀)</text>
+
+    <!-- Cable & Force Arrow -->
+    <line x1="348" y1="175" x2="425" y2="175" stroke="#27ae60" stroke-width="3"/>
+    <line x1="410" y1="175" x2="375" y2="175" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="388" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Тяга F₀</text>
+
+    <!-- Spring -->
+    <path d="M 535,175 L 543,167 L 553,183 L 563,167 L 573,183 L 583,167 L 591,175" fill="none" stroke="#6b7280" stroke-width="2"/>
+    <text x="565" y="145" text-anchor="middle" font-size="12" fill="#6b7280">Пружина F_пр</text>
+    <!-- Equilibrium Indicator -->
+    <text x="480" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Рівновага F₀ = F_пр</text>
+
+    <!-- Slider Bar (Centered) -->
+    <path d="M 425,160 L 535,160 L 535,190 L 498,190 L 492,170 L 468,170 L 462,190 L 425,190 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+    <!-- Slider Center Marker -->
+    <line x1="480" y1="160" x2="480" y2="190" stroke="#27ae60" stroke-width="1" stroke-dasharray="2 2"/>
+
+    <!-- Axis Guide Line -->
+    <line x1="480" y1="122" x2="480" y2="285" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3 3"/>
+
+    <!-- Roller (In Central Notch - Raised) -->
+    <circle cx="480" cy="179" r="9" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+    <!-- Plunger Shaft -->
+    <line x1="480" y1="188" x2="480" y2="236" stroke="#27ae60" stroke-width="3"/>
+
+    <!-- Fixed Terminals (Drawn as Paths) -->
+    <path d="M 450,234 L 468,234 L 468,242 L 450,242 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+    <path d="M 492,234 L 510,234 L 510,242 L 492,242 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+    <!-- Contact Bridge (Path line, Raised -> TOUCHES) -->
+    <path d="M 453,237 L 507,237" stroke="#27ae60" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Status Label -->
+    <text x="480" y="294" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Контакти NC: ЗАМКНЕНІ</text>
+
+    <!-- Status Badge -->
+    <rect x="358" y="308" width="244" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="480" y="326" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Нормальна робота (Run)</text>
+    <text x="480" y="342" text-anchor="middle" font-size="12" fill="#1a1a1a">Робоче вікно натягу</text>
+
+    <!-- Summary Box -->
+    <rect x="350" y="364" width="260" height="64" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+    <text x="480" y="380" text-anchor="middle" font-size="12" fill="#1a1a1a">• Натяг у межах норми</text>
+    <text x="480" y="397" text-anchor="middle" font-size="12" fill="#1a1a1a">• Шток у центральному стані</text>
+    <text x="480" y="414" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">• Ролик у центральному пазу</text>
+  </g>
+
+  <!-- ==================== PANEL 3: АВАРІЙНИЙ НАТЯГ ==================== -->
+  <g id="panel-3">
+    <!-- Panel Body -->
+    <rect x="646" y="75" width="284" height="367" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+    <!-- Header -->
+    <rect x="646" y="75" width="284" height="40" rx="6" fill="#fdecea" stroke="#c0392b"/>
+    <text x="788" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">3. АВАРІЙНИЙ НАТЯГ (F > F_max)</text>
+
+    <!-- Cable & Heavy Force Arrow -->
+    <line x1="656" y1="175" x2="765" y2="175" stroke="#c0392b" stroke-width="4"/>
+    <line x1="720" y1="175" x2="675" y2="175" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+    <text x="696" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">F > F_max (Тяга)</text>
+
+    <!-- Compressed/Stretched Spring -->
+    <path d="M 875,175 L 880,167 L 886,183 L 892,167 L 898,183 L 904,167 L 910,175" fill="none" stroke="#6b7280" stroke-width="2"/>
+    <text x="873" y="145" text-anchor="middle" font-size="12" fill="#6b7280">Стиснута F_пр</text>
+    <!-- Displacement arrow -->
+    <line x1="788" y1="130" x2="820" y2="130" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+    <!-- Slider Bar (Shifted Right) -->
+    <path d="M 765,160 L 875,160 L 875,190 L 838,190 L 832,170 L 808,170 L 802,190 L 765,190 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+    <!-- Slider Center Marker -->
+    <line x1="820" y1="160" x2="820" y2="190" stroke="#2457d6" stroke-width="1" stroke-dasharray="2 2"/>
+
+    <!-- Axis Guide Line -->
+    <line x1="788" y1="122" x2="788" y2="285" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3 3"/>
+
+    <!-- Roller (Pushed Down on Flat) -->
+    <circle cx="788" cy="199" r="9" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- Plunger Shaft -->
+    <line x1="788" y1="208" x2="788" y2="258" stroke="#1a1a1a" stroke-width="3"/>
+
+    <!-- Fixed Terminals (Drawn as Paths) -->
+    <path d="M 758,234 L 776,234 L 776,242 L 758,242 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+    <path d="M 800,234 L 818,234 L 818,242 L 800,242 Z" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+    <!-- Contact Bridge (Path line, Lowered -> GAP) -->
+    <path d="M 761,260 L 815,260" stroke="#c0392b" stroke-width="5" stroke-linecap="round"/>
+
+    <!-- Status Label -->
+    <text x="788" y="294" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Контакти NC: РОЗМКНЕНІ</text>
+
+    <!-- Status Badge -->
+    <rect x="666" y="308" width="244" height="40" rx="4" fill="#fdecea" stroke="#c0392b"/>
+    <text x="788" y="326" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Аварійне зупинення (Stop)</text>
+    <text x="788" y="342" text-anchor="middle" font-size="12" fill="#1a1a1a">Спрацювання на натяг</text>
+
+    <!-- Summary Box -->
+    <rect x="658" y="364" width="260" height="64" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+    <text x="788" y="380" text-anchor="middle" font-size="12" fill="#1a1a1a">• Перетягування троса</text>
+    <text x="788" y="397" text-anchor="middle" font-size="12" fill="#1a1a1a">• Шток зміщується вправо</text>
+    <text x="788" y="414" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">• Ролик виходить з паза</text>
+  </g>
+
+  <!-- ==================== BOTTOM LEGEND BANNER ==================== -->
+  <rect x="30" y="456" width="900" height="66" rx="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="480" y="478" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Принцип кулачка подвійної дії (IEC 60947-5-5 / EN 60947-5-5)</text>
+  <text x="480" y="500" text-anchor="middle" font-size="12" fill="#6b7280">Відхилення штока від нейтралі (обрив чи надмірний натяг) виштовхує ролик, розмикаючи контакти NC з засувкою Reset</text>
+</svg>

@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема аналогового фронтенду RVDT та обробки сигналів у мікроконтролері</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Синхронна демодуляція та раціометричне АЦП-перетворення придушують завади</text>
+
+  <!-- PANEL 1: Generator & RVDT Sensor -->
+  <rect x="25" y="75" width="250" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="150" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Генератор та давач RVDT</text>
+
+  <!-- Sine Generator Block -->
+  <rect x="40" y="120" width="220" height="85" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="150" y="142" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Синусоїдальний генератор</text>
+  <text x="150" y="164" font-size="12" fill="#6b7280" text-anchor="middle">Міст Віна / PWM-фільтр</text>
+  <text x="150" y="186" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_exc · sin(ω_exc · t)</text>
+
+  <!-- Connection Wire between Sine Generator and RVDT Block Top -->
+  <line x1="150" y1="205" x2="150" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- RVDT Windings Block -->
+  <rect x="40" y="225" width="220" height="225" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="150" y="248" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Обмотки давача RVDT</text>
+
+  <!-- Primary Winding W_p -->
+  <rect x="50" y="260" width="200" height="45" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="150" y="287" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Первинна W_p (Збудження)</text>
+
+  <!-- Secondary Winding W_s1 -->
+  <rect x="50" y="315" width="200" height="55" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="150" y="336" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вторинна W_s1 (SIN)</text>
+  <text x="150" y="356" font-size="12" fill="#6b7280" text-anchor="middle">V_s1 = (k_0 + k_θ·θ)·V_exc</text>
+
+  <!-- Secondary Winding W_s2 -->
+  <rect x="50" y="380" width="200" height="55" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="150" y="401" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вторинна W_s2 (COS)</text>
+  <text x="150" y="421" font-size="12" fill="#6b7280" text-anchor="middle">V_s2 = (k_0 - k_θ·θ)·V_exc</text>
+
+  <!-- Panel 1 Footer Status -->
+  <text x="150" y="495" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Частота f_exc: 400 Гц – 10 кГц</text>
+
+
+  <!-- PANEL 2: Synchronous Demodulator -->
+  <rect x="295" y="75" width="350" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="470" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Аналоговий синхронний демодулятор</text>
+
+  <!-- SIN Channel Demodulator Block -->
+  <rect x="310" y="120" width="320" height="165" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="325" y="142" font-size="13" font-weight="bold" fill="#2457d6">Канал V_s1 (SIN)</text>
+
+  <!-- Multiplier / Switch -->
+  <rect x="325" y="160" width="130" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="390" y="184" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Множник × ±1</text>
+  <text x="390" y="204" font-size="12" fill="#6b7280" text-anchor="middle">Синхр. перемикач</text>
+
+  <!-- Arrow between Multiplier and Filter -->
+  <line x1="455" y1="190" x2="480" y2="190" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Active LPF -->
+  <rect x="480" y="160" width="135" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="547" y="184" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Активний ФНЧ</text>
+  <text x="547" y="204" font-size="12" fill="#6b7280" text-anchor="middle">Виділення огинаючої</text>
+
+  <!-- Status text SIN -->
+  <text x="470" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Огинаюча V_sin_env ~ (k_0 + k_θ·θ)</text>
+
+
+  <!-- COS Channel Demodulator Block -->
+  <rect x="310" y="300" width="320" height="165" fill="white" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="325" y="322" font-size="13" font-weight="bold" fill="#2457d6">Канал V_s2 (COS)</text>
+
+  <!-- Multiplier / Switch -->
+  <rect x="325" y="340" width="130" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="390" y="364" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Множник × ±1</text>
+  <text x="390" y="384" font-size="12" fill="#6b7280" text-anchor="middle">Синхр. перемикач</text>
+
+  <!-- Arrow between Multiplier and Filter -->
+  <line x1="455" y1="370" x2="480" y2="370" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Active LPF -->
+  <rect x="480" y="340" width="135" height="60" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="547" y="364" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Активний ФНЧ</text>
+  <text x="547" y="384" font-size="12" fill="#6b7280" text-anchor="middle">Виділення огинаючої</text>
+
+  <!-- Status text COS -->
+  <text x="470" y="440" font-size="12" fill="#6b7280" text-anchor="middle">Огинаюча V_cos_env ~ (k_0 - k_θ·θ)</text>
+
+  <!-- Panel 2 Footer Status -->
+  <text x="470" y="495" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Повне придушення квадратурного шуму</text>
+
+
+  <!-- PANEL 3: Microcontroller (MCU) -->
+  <rect x="665" y="75" width="270" height="440" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="800" y="100" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер (MCU)</text>
+
+  <!-- Block 1: Differential Dual ADC -->
+  <rect x="685" y="130" width="230" height="85" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="800" y="153" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двоканальний 12/16-біт АЦП</text>
+  <text x="800" y="175" font-size="12" fill="#2457d6" text-anchor="middle">Канал 1: ADC_SIN (V_sin)</text>
+  <text x="800" y="195" font-size="12" fill="#2457d6" text-anchor="middle">Канал 2: ADC_COS (V_cos)</text>
+
+  <!-- Arrow between ADC and Math DSP -->
+  <line x1="800" y1="215" x2="800" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 2: Ratiometric Math Algorithm -->
+  <rect x="685" y="245" width="230" height="85" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="800" y="268" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Раціометричний алгоритм</text>
+  <text x="800" y="290" font-size="12" fill="#2457d6" text-anchor="middle">R = (V_sin - V_cos)/(V_sin + V_cos)</text>
+  <text x="800" y="310" font-size="12" fill="#6b7280" text-anchor="middle">θ = atan2(V_diff, V_sum)</text>
+
+  <!-- Arrow between Math DSP and Result Output -->
+  <line x1="800" y1="330" x2="800" y2="360" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Block 3: Digital Angle Output -->
+  <rect x="685" y="360" width="230" height="75" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="6"/>
+  <text x="800" y="385" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Точний кут вала θ</text>
+  <text x="800" y="410" font-size="12" fill="#1a1a1a" text-anchor="middle">Шина CAN / UART / PWM</text>
+
+  <!-- Panel 3 Footer Status -->
+  <text x="800" y="495" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Стійкість до дрейфу V_exc</text>
+
+
+  <!-- Connecting Signal Wires between Panels -->
+  <!-- W_s1 signal to Demodulator SIN -->
+  <line x1="250" y1="342" x2="325" y2="190" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <!-- W_s2 signal to Demodulator COS -->
+  <line x1="250" y1="407" x2="325" y2="370" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <!-- SIN Demodulator Output to MCU ADC -->
+  <line x1="615" y1="190" x2="685" y2="175" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- COS Demodulator Output to MCU ADC -->
+  <line x1="615" y1="370" x2="685" y2="195" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+</svg>

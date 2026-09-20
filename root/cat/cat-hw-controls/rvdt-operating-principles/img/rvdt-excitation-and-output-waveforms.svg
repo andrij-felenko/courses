@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Форми сигналів збудження та вихідної напруги RVDT</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Залежність амплітуди та фази диференціального вихідного сигналу від кута повороту вала θ</text>
+
+  <!-- COLUMN 1: Negative Rotation (θ < 0) -->
+  <rect x="30" y="75" width="285" height="385" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+  <rect x="42" y="87" width="261" height="32" rx="4" fill="#c0392b"/>
+  <text x="172.5" y="108" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Поворот ліворуч (θ &lt; 0)</text>
+
+  <!-- Excitation Graph V_pri -->
+  <text x="54" y="142" font-size="11" font-weight="bold" fill="#2457d6">V_pri (Збудження)</text>
+  <line x1="54" y1="165" x2="295" y2="165" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M 60,165 Q 85,135 110,165 T 160,165 T 210,165 T 260,165" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Secondary Signals V_S1 and V_S2 -->
+  <text x="54" y="222" font-size="11" font-weight="bold" fill="#1a1a1a">Вторинні V_S1, V_S2</text>
+  <line x1="54" y1="245" x2="295" y2="245" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <!-- V_S1 (smaller amplitude) -->
+  <path d="M 60,245 Q 85,232 110,245 T 160,245 T 210,245 T 260,245" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- V_S2 (larger amplitude) -->
+  <path d="M 60,245 Q 85,217 110,245 T 160,245 T 210,245 T 260,245" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 2"/>
+
+  <!-- Differential Output Signal V_out (Inverted / 180° phase shift) -->
+  <text x="54" y="307" font-size="11" font-weight="bold" fill="#c0392b">V_out = V_S1 - V_S2</text>
+  <line x1="54" y1="330" x2="295" y2="330" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M 60,330 Q 85,355 110,330 T 160,330 T 210,330 T 260,330" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="172.5" y="362" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Протифаза (180°)</text>
+
+  <!-- Summary Box 1 -->
+  <rect x="42" y="380" width="261" height="68" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="54" y="398" font-size="11" fill="#1a1a1a">• Амплітуда: |V_out| ∝ |θ|</text>
+  <text x="54" y="415" font-size="11" font-weight="bold" fill="#c0392b">• Фаза: 180° (протифазно)</text>
+  <text x="54" y="432" font-size="11" fill="#6b7280">• Умова: V_S1 &lt; V_S2</text>
+
+
+  <!-- COLUMN 2: Neutral Position (θ = 0) -->
+  <rect x="337.5" y="75" width="285" height="385" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <rect x="349.5" y="87" width="261" height="32" rx="4" fill="#6b7280"/>
+  <text x="480" y="108" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Нуль / Баланс (θ = 0)</text>
+
+  <!-- Excitation Graph V_pri -->
+  <text x="360" y="142" font-size="11" font-weight="bold" fill="#2457d6">V_pri (Збудження)</text>
+  <line x1="360" y1="165" x2="600" y2="165" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M 366,165 Q 391,135 416,165 T 466,165 T 516,165 T 566,165" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Secondary Signals V_S1 = V_S2 -->
+  <text x="360" y="222" font-size="11" font-weight="bold" fill="#1a1a1a">Вторинні V_S1 = V_S2</text>
+  <line x1="360" y1="245" x2="600" y2="245" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <!-- V_S1 and V_S2 (equal amplitude) -->
+  <path d="M 366,245 Q 391,225 416,245 T 466,245 T 516,245 T 566,245" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <path d="M 366,245 Q 391,225 416,245 T 466,245 T 516,245 T 566,245" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 2"/>
+
+  <!-- Differential Output Signal V_out = 0 -->
+  <text x="360" y="307" font-size="11" font-weight="bold" fill="#6b7280">V_out = V_S1 - V_S2</text>
+  <line x1="360" y1="330" x2="600" y2="330" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="366" y1="330" x2="596" y2="330" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="480" y="362" font-size="11" font-weight="bold" fill="#6b7280" text-anchor="middle">V_out = 0 В (Нуль)</text>
+
+  <!-- Summary Box 2 -->
+  <rect x="349.5" y="380" width="261" height="68" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="360" y="398" font-size="11" fill="#1a1a1a">• Амплітуда: V_out = 0 В</text>
+  <text x="360" y="415" font-size="11" font-weight="bold" fill="#6b7280">• Фаза: неокреслена (нуль)</text>
+  <text x="360" y="432" font-size="11" fill="#6b7280">• Умова: V_S1 = V_S2</text>
+
+
+  <!-- COLUMN 3: Positive Rotation (θ > 0) -->
+  <rect x="645" y="75" width="285" height="385" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <rect x="657" y="87" width="261" height="32" rx="4" fill="#27ae60"/>
+  <text x="787.5" y="108" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">Поворот праворуч (θ &gt; 0)</text>
+
+  <!-- Excitation Graph V_pri -->
+  <text x="667" y="142" font-size="11" font-weight="bold" fill="#2457d6">V_pri (Збудження)</text>
+  <line x1="667" y1="165" x2="908" y2="165" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M 673,165 Q 698,135 723,165 T 773,165 T 823,165 T 873,165" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Secondary Signals V_S1 and V_S2 -->
+  <text x="667" y="222" font-size="11" font-weight="bold" fill="#1a1a1a">Вторинні V_S1, V_S2</text>
+  <line x1="667" y1="245" x2="908" y2="245" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <!-- V_S1 (larger amplitude) -->
+  <path d="M 673,245 Q 698,217 723,245 T 773,245 T 823,245 T 873,245" fill="none" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- V_S2 (smaller amplitude) -->
+  <path d="M 673,245 Q 698,232 723,245 T 773,245 T 823,245 T 873,245" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4 2"/>
+
+  <!-- Differential Output Signal V_out (In Phase / 0° phase shift) -->
+  <text x="667" y="307" font-size="11" font-weight="bold" fill="#27ae60">V_out = V_S1 - V_S2</text>
+  <line x1="667" y1="330" x2="908" y2="330" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3 3"/>
+  <path d="M 673,330 Q 698,305 723,330 T 773,330 T 823,330 T 873,330" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="787.5" y="362" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">У фазі з V_pri (0°)</text>
+
+  <!-- Summary Box 3 -->
+  <rect x="657" y="380" width="261" height="68" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="667" y="398" font-size="11" fill="#1a1a1a">• Амплітуда: V_out ∝ θ</text>
+  <text x="667" y="415" font-size="11" font-weight="bold" fill="#27ae60">• Фаза: 0° (синфазно)</text>
+  <text x="667" y="432" font-size="11" fill="#6b7280">• Умова: V_S1 &gt; V_S2</text>
+</svg>

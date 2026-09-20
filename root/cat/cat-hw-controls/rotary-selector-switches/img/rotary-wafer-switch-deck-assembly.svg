@@ -1,0 +1,174 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструкція модульного галетного перемикача (Rotary Wafer Assembly)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Нанизування керамічних галет (Deck 1..N) на спільний вал із кулачковим фіксатором позицій</text>
+
+  <!-- ==================== LEFT PANEL: SIDE ASSEMBLY VIEW ==================== -->
+  <rect x="30" y="75" width="540" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Header Badge Left -->
+  <rect x="45" y="87" width="370" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="230" y="104" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Складання секцій на спільній осі (Поздовжній розріз)</text>
+
+  <!-- Front Mounting Panel Plate -->
+  <rect x="100" y="140" width="10" height="240" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="105" y="130" font-size="12" fill="#6b7280" text-anchor="middle">Панель</text>
+
+  <!-- Bushing & Thread -->
+  <path d="M 85,235 H 125 V 285 H 85 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="90" y1="245" x2="120" y2="245" stroke="#6b7280" stroke-width="1"/>
+  <line x1="90" y1="275" x2="120" y2="275" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Central Drive Shaft -->
+  <rect x="50" y="253" width="480" height="14" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="75" y="243" font-size="12" font-weight="bold" fill="#2457d6">Вал ручки</text>
+
+  <!-- Detent Mechanism (Star Wheel & Spring Ball) -->
+  <rect x="155" y="180" width="25" height="160" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Detent Top Spring Housing & Ball -->
+  <rect x="148" y="145" width="40" height="32" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="168" cy="175" r="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Spring coils inside housing -->
+  <path d="M 168,148 L 164,153 L 172,158 L 164,163 L 168,168" stroke="#c0392b" stroke-width="1.5" fill="none"/>
+  <text x="168" y="136" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Фіксатор кроку</text>
+
+  <!-- Tie Rods (Top & Bottom) -->
+  <line x1="125" y1="170" x2="525" y2="170" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="125" y1="350" x2="525" y2="350" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Spacers between Decks (Tubular spacers) -->
+  <!-- Spacer 1 (Detent to Deck 1) -->
+  <rect x="180" y="165" width="75" height="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="180" y="345" width="75" height="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Spacer 2 (Deck 1 to Deck 2) -->
+  <rect x="285" y="165" width="80" height="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="285" y="345" width="80" height="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Spacer 3 (Deck 2 to Deck 3) -->
+  <rect x="395" y="165" width="80" height="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="395" y="345" width="80" height="10" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Tie Rod End Nuts -->
+  <rect x="525" y="163" width="8" height="14" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="525" y="343" width="8" height="14" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- WAFER DECK 1 -->
+  <rect x="255" y="155" width="30" height="210" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 260,235 H 280 V 285 H 260 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="265" y="135" width="10" height="20" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="265" y="365" width="10" height="20" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="270" y="125" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Галета 1</text>
+
+  <!-- WAFER DECK 2 -->
+  <rect x="365" y="155" width="30" height="210" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 370,235 H 390 V 285 H 370 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="375" y="135" width="10" height="20" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="375" y="365" width="10" height="20" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="380" y="125" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Галета 2</text>
+
+  <!-- WAFER DECK 3 -->
+  <rect x="475" y="155" width="30" height="210" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 480,235 H 500 V 285 H 480 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="485" y="135" width="10" height="20" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="485" y="365" width="10" height="20" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="490" y="125" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Галета 3</text>
+
+  <!-- Annotation: Tie Rods Callout -->
+  <line x1="335" y1="395" x2="335" y2="355" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="335" y="412" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стяжні шпильки та розпірні втулки</text>
+
+  <!-- Left Summary Box -->
+  <rect x="45" y="425" width="510" height="35" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="300" y="446" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Спільний вал обертає ротори всіх галет одночасно (Синхронна комутація N-кіл)</text>
+
+
+  <!-- ==================== RIGHT PANEL: FRONT DECK VIEW ==================== -->
+  <rect x="590" y="75" width="340" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Header Badge Right -->
+  <rect x="605" y="87" width="310" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="760" y="104" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Торцевий вигляд галети (Статор і Ротор)</text>
+
+  <!-- Ceramic Stator Disc -->
+  <circle cx="760" cy="260" r="95" fill="#ffffff" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Tie Rod Holes (Top & Bottom) -->
+  <circle cx="760" cy="173" r="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="760" y="160" font-size="12" fill="#6b7280" text-anchor="middle">Отвір шпильки</text>
+
+  <circle cx="760" cy="347" r="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Stationary Contact Lugs (Perimeter solder tabs) -->
+  <!-- Lug 1 (Top-Right, Active contact 30 deg) -->
+  <rect x="835" y="200" width="22" height="14" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="846" cy="207" r="3" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+
+  <!-- Lug 2 (Right, 0 deg) -->
+  <rect x="850" y="253" width="22" height="14" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="861" cy="260" r="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Lug 3 (Bottom-Right, 330 deg) -->
+  <rect x="835" y="306" width="22" height="14" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="846" cy="313" r="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Lug 4 (Bottom-Left, 210 deg) -->
+  <rect x="663" y="306" width="22" height="14" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="674" cy="313" r="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Lug 5 (Left, 180 deg) -->
+  <rect x="648" y="253" width="22" height="14" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="659" cy="260" r="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Lug 6 (Top-Left, 150 deg) -->
+  <rect x="663" y="200" width="22" height="14" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="674" cy="207" r="3" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Inner Rotating Rotor Disc -->
+  <circle cx="760" cy="260" r="48" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Center Shaft Keyway Hole (D-shape) -->
+  <path d="M 752,250 L 768,250 A 12,12 0 1,1 752,250 Z" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="760" y="264" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вал</text>
+
+  <!-- Spring Contact Wiper Blade (Rotor Wiper pointing to Lug 1) -->
+  <path d="M 775,250 L 840,207" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="840" cy="207" r="4" fill="#27ae60"/>
+
+  <!-- Right Callout Annotations -->
+  <!-- Stator Callout -->
+  <line x1="880" y1="145" x2="830" y2="175" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="880" y="140" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Керамічний статор</text>
+
+  <!-- Rotor Wiper Callout -->
+  <line x1="850" y1="230" x2="810" y2="230" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="855" y="234" font-size="12" font-weight="bold" fill="#27ae60">Рухомий контакт</text>
+
+  <!-- Solder Lug Callout -->
+  <line x1="850" y1="324" x2="830" y2="313" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="855" y="328" font-size="12" fill="#6b7280">Пелюстка (Клема)</text>
+
+  <!-- Right Summary Box -->
+  <rect x="605" y="425" width="310" height="35" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="760" y="446" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Посріблені контакти зменшують опір R_contact</text>
+
+
+  <!-- ==================== FOOTER ==================== -->
+  <rect x="30" y="482" width="900" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="500" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Модульна галетна конструкція дозволяє довільно нарощувати кількість комутованих кіл (Decks 1..N)</text>
+</svg>

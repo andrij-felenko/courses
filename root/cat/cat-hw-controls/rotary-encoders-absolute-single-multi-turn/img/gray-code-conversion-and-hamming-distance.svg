@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Пряме та зворотне перетворення коду Грея і відстань Гемінга</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Побітові операції XOR та гарантія одиничної гемінгової відстані (d_H = 1) для запобігання збоям</text>
+
+  <!-- Panel 1: Binary to Gray -->
+  <rect x="25" y="70" width="445" height="235" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="92" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="start">Пряме перетворення: Binary → Gray</text>
+  <text x="40" y="110" font-size="12" fill="#1a1a1a" text-anchor="start">Формула: G_MSB = B_MSB;   G_i = B_i ⊕ B_i+1</text>
+  <text x="40" y="130" font-size="12" fill="#6b7280" text-anchor="start">Вхідний двійковий код (B):</text>
+
+  <!-- Panel 1 Bit Boxes Input B -->
+  <rect x="65" y="140" width="65" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="97.5" y="160" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B3 = 0</text>
+
+  <rect x="165" y="140" width="65" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="197.5" y="160" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B2 = 1</text>
+
+  <rect x="265" y="140" width="65" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="297.5" y="160" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B1 = 1</text>
+
+  <rect x="365" y="140" width="65" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="397.5" y="160" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">B0 = 1</text>
+
+  <!-- Panel 1 XOR Gates -->
+  <circle cx="197.5" cy="205" r="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="197.5" y="210" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">⊕</text>
+
+  <circle cx="297.5" cy="205" r="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="297.5" y="210" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">⊕</text>
+
+  <circle cx="397.5" cy="205" r="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="397.5" y="210" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">⊕</text>
+
+  <!-- Panel 1 Signal Lines -->
+  <text x="90" y="208" font-size="11" fill="#6b7280" text-anchor="end">Прямо</text>
+  <line x1="97.5" y1="170" x2="97.5" y2="232" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <line x1="130" y1="155" x2="186" y2="201" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <line x1="197.5" y1="170" x2="197.5" y2="193" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="197.5" y1="217" x2="197.5" y2="232" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <line x1="230" y1="155" x2="286" y2="201" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <line x1="297.5" y1="170" x2="297.5" y2="193" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="297.5" y1="217" x2="297.5" y2="232" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <line x1="330" y1="155" x2="386" y2="201" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <line x1="397.5" y1="170" x2="397.5" y2="193" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="397.5" y1="217" x2="397.5" y2="232" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 1 Bit Boxes Output G -->
+  <rect x="65" y="240" width="65" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="97.5" y="260" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">G3 = 0</text>
+
+  <rect x="165" y="240" width="65" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="197.5" y="260" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">G2 = 1</text>
+
+  <rect x="265" y="240" width="65" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="297.5" y="260" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">G1 = 0</text>
+
+  <rect x="365" y="240" width="65" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="397.5" y="260" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">G0 = 0</text>
+
+  <text x="40" y="292" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Вихідний код Грея (G): 0100</text>
+
+  <!-- Panel 2: Gray to Binary -->
+  <rect x="490" y="70" width="445" height="235" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="505" y="92" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="start">Зворотне перетворення: Gray → Binary</text>
+  <text x="505" y="110" font-size="12" fill="#1a1a1a" text-anchor="start">Формула: B_MSB = G_MSB;   B_i = G_i ⊕ B_i+1</text>
+  <text x="505" y="130" font-size="12" fill="#6b7280" text-anchor="start">Вхідний код Грея (G):</text>
+
+  <!-- Panel 2 Bit Boxes Input G -->
+  <rect x="530" y="140" width="65" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="562.5" y="160" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">G3 = 0</text>
+
+  <rect x="630" y="140" width="65" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="662.5" y="160" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">G2 = 1</text>
+
+  <rect x="730" y="140" width="65" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="762.5" y="160" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">G1 = 0</text>
+
+  <rect x="830" y="140" width="65" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="862.5" y="160" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">G0 = 0</text>
+
+  <!-- Panel 2 XOR Gates -->
+  <circle cx="662.5" cy="205" r="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="662.5" y="210" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">⊕</text>
+
+  <circle cx="762.5" cy="205" r="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="762.5" y="210" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">⊕</text>
+
+  <circle cx="862.5" cy="205" r="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="862.5" y="210" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">⊕</text>
+
+  <!-- Panel 2 Signal Lines -->
+  <text x="555" y="208" font-size="11" fill="#6b7280" text-anchor="end">Прямо</text>
+  <line x1="562.5" y1="170" x2="562.5" y2="232" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <line x1="662.5" y1="170" x2="662.5" y2="193" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="562.5" y1="205" x2="650.5" y2="205" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <line x1="662.5" y1="217" x2="662.5" y2="232" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <line x1="762.5" y1="170" x2="762.5" y2="193" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="662.5" y1="205" x2="750.5" y2="205" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <line x1="762.5" y1="217" x2="762.5" y2="232" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <line x1="862.5" y1="170" x2="862.5" y2="193" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="762.5" y1="205" x2="850.5" y2="205" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <line x1="862.5" y1="217" x2="862.5" y2="232" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 2 Bit Boxes Output B -->
+  <rect x="530" y="240" width="65" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="562.5" y="260" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">B3 = 0</text>
+
+  <rect x="630" y="240" width="65" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="662.5" y="260" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">B2 = 1</text>
+
+  <rect x="730" y="240" width="65" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="762.5" y="260" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">B1 = 1</text>
+
+  <rect x="830" y="240" width="65" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="862.5" y="260" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">B0 = 1</text>
+
+  <text x="505" y="292" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Відновлений двійковий код (B): 0111</text>
+
+  <!-- Panel 3: Hamming Distance Physical Meaning -->
+  <rect x="25" y="318" width="910" height="202" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="338" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="start">Фізичний зміст одиничної відстані Гемінга (d_H = 1) при кутовому переході станів</text>
+  <text x="40" y="355" font-size="12" fill="#6b7280" text-anchor="start">Приклад переходу між сусідніми позиціями 7 (0111₂ / 0100_G) та 8 (1000₂ / 1100_G)</text>
+
+  <!-- Panel 3 Left Box: Binary Problem -->
+  <rect x="40" y="366" width="420" height="142" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="55" y="385" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">Двійковий код: Зміна 4 бітів одночасно (d_H = 4)</text>
+  <text x="55" y="408" font-size="12" fill="#1a1a1a" text-anchor="start">Позиція 7:  0 1 1 1   (07₁₀)</text>
+  <text x="55" y="426" font-size="12" fill="#1a1a1a" text-anchor="start">Позиція 8:  1 0 0 0   (08₁₀)</text>
+  <text x="55" y="444" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">Фронти бітів:  ▲ ▲ ▲ ▲   (усі 4 біти перемикаються!)</text>
+  <text x="55" y="466" font-size="11" fill="#1a1a1a" text-anchor="start">Через скіс затримок сигналів виникають хибні стани (напр. 1111 = 15)</text>
+  <text x="55" y="490" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">⛔ Небезпека: Критичний імпульсний збій позиціонування (Glitch)</text>
+
+  <!-- Panel 3 Right Box: Gray Solution -->
+  <rect x="480" y="366" width="440" height="142" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="495" y="385" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">Код Грея: Зміна лише 1 біта (d_H = 1)</text>
+  <text x="495" y="408" font-size="12" fill="#1a1a1a" text-anchor="start">Позиція 7:  0 1 0 0   (код Грея)</text>
+  <text x="495" y="426" font-size="12" fill="#1a1a1a" text-anchor="start">Позиція 8:  1 1 0 0   (код Грея)</text>
+  <text x="495" y="444" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">Фронти бітів:  ▲ = = =   (змінюється тільки біт 3)</text>
+  <text x="495" y="466" font-size="11" fill="#1a1a1a" text-anchor="start">Хибні проміжні значення неможливі за будь-яких затримок</text>
+  <text x="495" y="490" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">✓ Повна завадозахищеність та відсутність хибних спрацьовувань</text>
+</svg>

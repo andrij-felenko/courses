@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Діаграма натягу троса F(ΔT) та компенсація пружиною</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Пружина жорсткістю k утримує натяг у вікні [F_min…F_max] при температурному дрейфі ΔT</text>
+
+  <!-- Background Zones in Plot Area (x: 140..630) -->
+  <!-- Upper Alarm Zone -->
+  <rect x="140" y="100" width="490" height="80" fill="#fdecea"/>
+  <!-- Operating Window Zone -->
+  <rect x="140" y="180" width="490" height="130" fill="#e9f7ef"/>
+  <!-- Lower Alarm Zone -->
+  <rect x="140" y="310" width="490" height="100" fill="#fdecea"/>
+
+  <!-- Zone Text Labels -->
+  <text x="150" y="118" font-size="11" fill="#c0392b">Зона хибних тривог (Обрив / Перенатяг)</text>
+  <text x="150" y="200" font-size="12" font-weight="700" fill="#27ae60">Робоче вікно натягу [F_min ... F_max]</text>
+  <text x="150" y="375" font-size="11" fill="#c0392b">Зона хибних тривог (Ослаблення троса)</text>
+
+  <!-- Horizontal Tension Threshold Lines -->
+  <line x1="140" y1="180" x2="630" y2="180" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <line x1="140" y1="245" x2="630" y2="245" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <line x1="140" y1="310" x2="630" y2="310" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="5,4"/>
+
+  <!-- Vertical Reference Lines -->
+  <line x1="385" y1="100" x2="385" y2="410" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="225" y1="180" x2="225" y2="410" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" stroke-opacity="0.6"/>
+  <line x1="545" y1="310" x2="545" y2="410" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3" stroke-opacity="0.6"/>
+
+  <!-- Characteristic Curves -->
+  <!-- 1. Without spring (steep slope, orange/red dashed) -->
+  <line x1="310" y1="130" x2="460" y2="360" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <!-- 2. With spring (gentle slope, solid blue) -->
+  <line x1="165" y1="145" x2="605" y2="345" stroke="#2457d6" stroke-width="3.5"/>
+
+  <!-- Points on curves -->
+  <circle cx="385" cy="245" r="5" fill="#2457d6"/>
+  <text x="398" y="240" font-size="11" font-weight="700" fill="#1a1a1a">F_preload (T_0)</text>
+
+  <circle cx="225" cy="180" r="4.5" fill="#2457d6"/>
+  <circle cx="545" cy="310" r="4.5" fill="#2457d6"/>
+
+  <!-- Labels on curves -->
+  <!-- Without spring label -->
+  <text x="290" y="195" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">Без пружини</text>
+  <text x="290" y="210" font-size="11" fill="#c0392b" text-anchor="end">(вузький допуск ΔT)</text>
+
+  <!-- With spring label -->
+  <text x="475" y="275" font-size="12" font-weight="700" fill="#2457d6">З пружиною (k)</text>
+  <text x="475" y="290" font-size="11" fill="#2457d6">(компенсаційний діапазон)</text>
+
+  <!-- Delta T comp dimension arrow -->
+  <line x1="225" y1="395" x2="545" y2="395" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="385" y="388" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">Допустима компенсація ΔT_comp</text>
+
+  <!-- Plot Axes -->
+  <!-- Y Axis -->
+  <line x1="140" y1="410" x2="140" y2="95" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="130" y="115" font-size="13" font-weight="700" fill="#1a1a1a" text-anchor="end">Натяг F (Н)</text>
+  <text x="130" y="184" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">F_max</text>
+  <text x="130" y="249" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">F_preload</text>
+  <text x="130" y="314" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">F_min</text>
+
+  <!-- X Axis -->
+  <line x1="140" y1="410" x2="635" y2="410" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="225" y="428" font-size="11" fill="#1a1a1a" text-anchor="middle">–ΔT_max</text>
+  <text x="385" y="428" font-size="11" fill="#1a1a1a" text-anchor="middle">ΔT = 0 (T_0)</text>
+  <text x="545" y="428" font-size="11" fill="#1a1a1a" text-anchor="middle">+ΔT_max</text>
+
+  <text x="385" y="452" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Температурне відхилення ΔT (°C) / Подовження троса ΔL (мм)</text>
+
+  <!-- Side Card: Math & Rules (x: 660..940, width: 280, height: 410) -->
+  <rect x="660" y="90" width="280" height="410" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 660,126 L 660,98 A 8,8 0 0,1 668,90 L 932,90 A 8,8 0 0,1 940,98 L 940,126 Z" fill="#eaf0fd"/>
+  <line x1="660" y1="126" x2="940" y2="126" stroke="#d0d7de" stroke-width="1"/>
+  <text x="800" y="114" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">РОЗРАХУНКОВІ ФОРМУЛИ</text>
+
+  <!-- Section 1 -->
+  <text x="675" y="146" font-size="12" font-weight="700" fill="#1a1a1a">1. Температурне подовження:</text>
+  <text x="690" y="166" font-size="13" font-weight="700" fill="#2457d6">ΔL = α · L · ΔT</text>
+  <text x="690" y="182" font-size="11" fill="#6b7280">α — коеф. розширення (12·10⁻⁶ 1/K)</text>
+  <text x="690" y="197" font-size="11" fill="#6b7280">L — довжина тросової траси (м)</text>
+
+  <line x1="675" y1="208" x2="925" y2="208" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Section 2 -->
+  <text x="675" y="226" font-size="12" font-weight="700" fill="#1a1a1a">2. Зміна натягу троса:</text>
+  <text x="690" y="246" font-size="13" font-weight="700" fill="#2457d6">ΔF = k · ΔL = k · α · L · ΔT</text>
+  <text x="690" y="262" font-size="11" fill="#6b7280">k — жорсткість пружини (Н/мм)</text>
+
+  <line x1="675" y1="273" x2="925" y2="273" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Section 3 -->
+  <text x="675" y="291" font-size="12" font-weight="700" fill="#1a1a1a">3. Гранична довжина траси:</text>
+  <text x="690" y="311" font-size="12" font-weight="700" fill="#27ae60">L_max ≤ ΔF_вікна / (α · k · ΔT)</text>
+  <text x="690" y="327" font-size="11" fill="#6b7280">де ΔF_вікна = F_max - F_min</text>
+
+  <!-- Info Box -->
+  <rect x="672" y="342" width="256" height="146" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="800" y="360" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Вимоги стандарту ISO 13850:</text>
+  <text x="682" y="378" font-size="11" fill="#1a1a1a">• М'яка пружина (мале k)</text>
+  <text x="692" y="392" font-size="11" fill="#1a1a1a">розширює температурне вікно.</text>
+  <text x="682" y="410" font-size="11" fill="#1a1a1a">• F_preload ставлять в центрі вікна</text>
+  <text x="692" y="424" font-size="11" fill="#1a1a1a">(для однакового запасу ±ΔT).</text>
+  <text x="682" y="442" font-size="11" fill="#1a1a1a">• Прогину троса запобігають опори</text>
+  <text x="692" y="456" font-size="11" fill="#1a1a1a">через кожні 2–5 метрів.</text>
+</svg>

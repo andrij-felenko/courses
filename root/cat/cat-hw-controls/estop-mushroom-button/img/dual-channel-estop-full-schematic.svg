@@ -1,0 +1,195 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header Area -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Повна схема двоканального контуру аварійного стопу</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Двоканальна кнопка 2×NC, реле безпеки Cat 4/SIL 3, силові контактори з EDM та оптодіагностика</text>
+
+  <!-- Panel 1: E-Stop Button S1 -->
+  <rect x="35" y="80" width="170" height="400" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="120" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Кнопка E-Stop (S1)</text>
+  <text x="120" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Грибок 2×NC + Діагн.</text>
+  
+  <!-- Mushroom graphic -->
+  <path d="M95,142 C95,126 145,126 145,142 Z" fill="#c0392b"/>
+  <rect x="114" y="142" width="12" height="18" fill="#6b7280"/>
+  <rect x="100" y="160" width="40" height="6" fill="#1a1a1a"/>
+
+  <!-- Channel 1 NC contact -->
+  <rect x="50" y="180" width="140" height="65" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="120" y="198" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Канал 1 (NC1)</text>
+  <circle cx="65" cy="225" r="4" fill="#c0392b"/>
+  <circle cx="175" cy="225" r="4" fill="#c0392b"/>
+  <line x1="69" y1="225" x2="171" y2="225" stroke="#c0392b" stroke-width="2"/>
+  <text x="65" y="215" text-anchor="middle" font-size="11" fill="#c0392b">11</text>
+  <text x="175" y="215" text-anchor="middle" font-size="11" fill="#c0392b">12</text>
+
+  <!-- Channel 2 NC contact -->
+  <rect x="50" y="260" width="140" height="65" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="120" y="278" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Канал 2 (NC2)</text>
+  <circle cx="65" cy="305" r="4" fill="#2457d6"/>
+  <circle cx="175" cy="305" r="4" fill="#2457d6"/>
+  <line x1="69" y1="305" x2="171" y2="305" stroke="#2457d6" stroke-width="2"/>
+  <text x="65" y="295" text-anchor="middle" font-size="11" fill="#2457d6">21</text>
+  <text x="175" y="295" text-anchor="middle" font-size="11" fill="#2457d6">22</text>
+
+  <!-- AUX / Diagnostic contact -->
+  <rect x="50" y="340" width="140" height="125" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="120" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Діагностика (AUX)</text>
+  <text x="120" y="374" text-anchor="middle" font-size="11" fill="#6b7280">Гальванічна розв'язка</text>
+  <circle cx="65" cy="425" r="4" fill="#27ae60"/>
+  <circle cx="175" cy="425" r="4" fill="#27ae60"/>
+  <line x1="69" y1="425" x2="171" y2="425" stroke="#27ae60" stroke-width="2"/>
+  <text x="65" y="415" text-anchor="middle" font-size="11" fill="#27ae60">31</text>
+  <text x="175" y="415" text-anchor="middle" font-size="11" fill="#27ae60">32</text>
+  <text x="120" y="450" text-anchor="middle" font-size="11" fill="#27ae60">Оптопара / Сигнал</text>
+
+
+  <!-- Panel 2: Safety Relay K0 -->
+  <rect x="245" y="80" width="280" height="400" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="385" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Реле безпеки (K0)</text>
+  <text x="385" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Модуль Cat 4 / PL e / SIL 3</text>
+
+  <!-- Logic block inside Safety Relay -->
+  <rect x="300" y="140" width="170" height="170" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="385" y="162" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Логіка контролю</text>
+  <text x="385" y="180" text-anchor="middle" font-size="11" fill="#1a1a1a">Виявлення КЗ між CH1/CH2</text>
+  <text x="385" y="197" text-anchor="middle" font-size="11" fill="#1a1a1a">Контроль обриву шлейфу</text>
+  <text x="385" y="214" text-anchor="middle" font-size="11" fill="#1a1a1a">Перевірка стану EDM</text>
+  <text x="385" y="231" text-anchor="middle" font-size="11" fill="#1a1a1a">Авто / Ручний скид</text>
+  <rect x="320" y="248" width="130" height="48" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="385" y="267" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Вихідні реле R1, R2</text>
+  <text x="385" y="284" text-anchor="middle" font-size="11" fill="#6b7280">Примусове розмикання</text>
+
+  <!-- Terminals on Safety Relay -->
+  <!-- Left Side Terminals (Inputs from E-Stop) -->
+  <circle cx="255" cy="210" r="4" fill="#c0392b"/>
+  <text x="265" y="205" font-size="11" font-weight="bold" fill="#c0392b">S11</text>
+  <circle cx="255" cy="240" r="4" fill="#c0392b"/>
+  <text x="265" y="235" font-size="11" font-weight="bold" fill="#c0392b">S12</text>
+
+  <circle cx="255" cy="290" r="4" fill="#2457d6"/>
+  <text x="265" y="285" font-size="11" font-weight="bold" fill="#2457d6">S21</text>
+  <circle cx="255" cy="320" r="4" fill="#2457d6"/>
+  <text x="265" y="315" font-size="11" font-weight="bold" fill="#2457d6">S22</text>
+
+  <!-- Right Side Terminals (Outputs to Contactors) -->
+  <circle cx="515" cy="340" r="4" fill="#2457d6"/>
+  <text x="495" y="335" font-size="11" font-weight="bold" fill="#2457d6">13-14</text>
+  <circle cx="515" cy="380" r="4" fill="#2457d6"/>
+  <text x="495" y="375" font-size="11" font-weight="bold" fill="#2457d6">23-24</text>
+
+  <!-- Bottom Terminals for EDM Loop -->
+  <circle cx="340" cy="450" r="4" fill="#27ae60"/>
+  <text x="340" y="440" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">S33</text>
+  <circle cx="430" cy="450" r="4" fill="#27ae60"/>
+  <text x="430" y="440" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">S34</text>
+  <text x="385" y="468" text-anchor="middle" font-size="11" fill="#27ae60">Петля EDM (Зворотний зв'язок)</text>
+
+
+  <!-- Panel 3: Power Contactors K1 & K2 -->
+  <rect x="565" y="80" width="200" height="400" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="665" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Силові контактори</text>
+  <text x="665" y="122" text-anchor="middle" font-size="12" fill="#6b7280">K1 та K2 (Послідовні)</text>
+
+  <!-- Contactor K1 Block -->
+  <rect x="580" y="140" width="170" height="130" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="665" y="158" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Контактор K1</text>
+  <rect x="595" y="170" width="44" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="617" y="186" text-anchor="middle" font-size="11" fill="#2457d6">A1-A2</text>
+  <circle cx="605" cy="225" r="4" fill="#27ae60"/>
+  <circle cx="725" cy="225" r="4" fill="#27ae60"/>
+  <line x1="609" y1="225" x2="721" y2="225" stroke="#27ae60" stroke-width="2"/>
+  <text x="665" y="215" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">NC 21-22 (EDM K1)</text>
+  <text x="665" y="252" text-anchor="middle" font-size="11" fill="#1a1a1a">Силові контакти L1, L2, L3</text>
+
+  <!-- Contactor K2 Block -->
+  <rect x="580" y="290" width="170" height="130" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="665" y="308" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Контактор K2</text>
+  <rect x="595" y="320" width="44" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="617" y="336" text-anchor="middle" font-size="11" fill="#2457d6">A1-A2</text>
+  <circle cx="605" cy="375" r="4" fill="#27ae60"/>
+  <circle cx="725" cy="375" r="4" fill="#27ae60"/>
+  <line x1="609" y1="375" x2="721" y2="375" stroke="#27ae60" stroke-width="2"/>
+  <text x="665" y="365" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">NC 21-22 (EDM K2)</text>
+  <text x="665" y="402" text-anchor="middle" font-size="11" fill="#1a1a1a">Силові контакти L1, L2, L3</text>
+
+  <!-- Load Motor M3~ -->
+  <rect x="625" y="435" width="80" height="35" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="665" y="457" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Двигун M3~</text>
+
+
+  <!-- Panel 4: PLC Diagnostic Interface -->
+  <rect x="805" y="80" width="130" height="400" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="870" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">ПЛК / МК</text>
+  <text x="870" y="122" text-anchor="middle" font-size="12" fill="#6b7280">Моніторинг</text>
+
+  <rect x="820" y="340" width="100" height="125" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="870" y="360" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Вхід DI1</text>
+  <text x="870" y="378" text-anchor="middle" font-size="11" fill="#1a1a1a">Статус E-Stop</text>
+  <circle cx="870" cy="410" r="12" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="870" y="414" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">ОК</text>
+  <text x="870" y="445" text-anchor="middle" font-size="11" fill="#6b7280">Безпечний розрив</text>
+
+
+  <!-- Wires & Wiring Connections -->
+
+  <!-- CH1 Wires (Red #c0392b) -->
+  <!-- Relay S11 -> S1 term 11 -->
+  <path d="M255,210 L210,210 L210,225 L69,225" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <!-- S1 term 12 -> Relay S12 -->
+  <path d="M175,225 L230,225 L230,240 L251,240" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- CH2 Wires (Blue #2457d6) -->
+  <!-- Relay S21 -> S1 term 21 -->
+  <path d="M255,290 L210,290 L210,305 L69,305" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- S1 term 22 -> Relay S22 -->
+  <path d="M175,305 L230,305 L230,320 L251,320" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Output Wires (Relay 13-14 & 23-24 to K1 & K2 coils) -->
+  <path d="M515,340 L545,340 L545,182 L591,182" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M515,380 L555,380 L555,332 L591,332" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- EDM Loop Wires (Green #27ae60) -->
+  <!-- Safety Relay S33 -> K2 NC 21 -->
+  <path d="M340,450 L340,490 L605,490 L605,379" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <!-- K2 NC 22 -> K1 NC 22 -->
+  <path d="M725,371 L725,229" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <!-- K1 NC 21 -> Safety Relay S34 -->
+  <path d="M605,221 L605,115 L430,115 L430,446" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- AUX Diagnostic Wire (Green #27ae60) to PLC DI1 -->
+  <path d="M179,425 L816,425" fill="none" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arr-green)"/>
+
+
+  <!-- Legend at Bottom -->
+  <rect x="60" y="505" width="840" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="80" y1="525" x2="110" y2="525" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="120" y="529" font-size="12" fill="#1a1a1a">Шлейф CH1 (NC1)</text>
+
+  <line x1="260" y1="525" x2="290" y2="525" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="300" y="529" font-size="12" fill="#1a1a1a">Шлейф CH2 (NC2)</text>
+
+  <line x1="440" y1="525" x2="470" y2="525" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="480" y="529" font-size="12" fill="#1a1a1a">Петля EDM (K1+K2 NC)</text>
+
+  <line x1="660" y1="525" x2="690" y2="525" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="4,4"/>
+  <text x="700" y="529" font-size="12" fill="#1a1a1a">Діагностика ПЛК</text>
+
+</svg>

@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Header & Subheader -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Механізм апаратного блокування та квитування Reset</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Собачка-фіксатор заклинює кулачок у розімкненому стані до ручного повернення важеля</text>
+
+  <!-- ================= CARD 1: LATCHED STATE (LEFT) ================= -->
+  <rect x="30" y="75" width="435" height="410" rx="8" fill="#fdecea" stroke="#f5c6cb" stroke-width="1.5"/>
+  <rect x="45" y="85" width="405" height="28" rx="4" fill="#c0392b"/>
+  <text x="247.5" y="104" text-anchor="middle" font-size="13" font-weight="bold" fill="white">1. АПАРАТНЕ БЛОКУВАННЯ (LATCHED STATE)</text>
+
+  <!-- Inner diagram box 1 -->
+  <rect x="45" y="123" width="405" height="245" fill="white" stroke="#d0d7de" rx="6"/>
+
+  <!-- Housing outline 1 -->
+  <rect x="55" y="133" width="385" height="225" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5" rx="4"/>
+
+  <!-- Reset Lever (Blue) - Resting / Shifted Position -->
+  <line x1="135" y1="165" x2="195" y2="175" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="135" cy="165" r="7" fill="#2457d6"/>
+  <text x="75" y="152" font-size="11" font-weight="bold" fill="#2457d6">Важіль Reset</text>
+  <line x1="135" y1="154" x2="135" y2="158" stroke="#2457d6" stroke-width="1"/>
+
+  <!-- Latching Pawl (Engaged in V-Notch at x=200) -->
+  <!-- Spring above pawl -->
+  <path d="M 200 152 L 196 156 L 204 160 L 196 164 L 200 167" fill="none" stroke="#475569" stroke-width="1.5"/>
+  <!-- Pawl body -->
+  <path d="M 195 167 h 10 v 28 l -5 10 l -5 -10 z" fill="#c0392b" stroke="#900c3f" stroke-width="1.5"/>
+  <text x="275" y="152" font-size="12" font-weight="bold" fill="#c0392b">Собачка-фіксатор</text>
+  <line x1="270" y1="148" x2="210" y2="172" stroke="#c0392b" stroke-width="1.2" marker-end="url(#arr-red)"/>
+
+  <!-- Cam Slider with V-Notch (Shifted Left, Notch at x=200) -->
+  <path d="M 120 205 h 70 l 10 10 l 10 -10 h 150 v 22 h -240 z" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <!-- Tension Shift Force Arrow (Red) -->
+  <line x1="160" y1="216" x2="130" y2="216" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="275" y="198" font-size="11" fill="#475569">Кулачок (зсунуто)</text>
+
+  <!-- Status Indicator Window (Red Flag) -->
+  <rect x="365" y="160" width="55" height="26" rx="3" fill="white" stroke="#6b7280"/>
+  <circle cx="380" cy="173" r="6" fill="#c0392b"/>
+  <text x="392.5" y="198" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">БЛОК</text>
+
+  <!-- Fixed NC Terminals -->
+  <circle cx="185" cy="270" r="6" fill="#c0392b"/>
+  <circle cx="275" cy="270" r="6" fill="#c0392b"/>
+  <text x="185" y="256" text-anchor="middle" font-size="11" fill="#6b7280">NC1</text>
+  <text x="275" y="256" text-anchor="middle" font-size="11" fill="#6b7280">NC2</text>
+
+  <!-- Contact Actuator Rod & Bridge (Fallen DOWN to y=295) -->
+  <line x1="230" y1="227" x2="230" y2="295" stroke="#c0392b" stroke-width="2"/>
+  <rect x="170" y="295" width="120" height="8" rx="2" fill="#c0392b" stroke="#900c3f"/>
+
+  <!-- Contact Status Text -->
+  <text x="247.5" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">КОНТАКТИ РОЗІМКНЕНО</text>
+  <text x="247.5" y="340" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">ТА ЗАБЛОКОВАНО</text>
+
+  <!-- Summary text box 1 -->
+  <rect x="45" y="378" width="405" height="97" rx="6" fill="#fdecea" stroke="#f5c6cb"/>
+  <text x="247.5" y="396" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Геометричне заклинювання (LATCHED)</text>
+  <text x="247.5" y="415" text-anchor="middle" font-size="12" fill="#1a1a1a">Собачка заклинює кулачок у V-подібному пазі</text>
+  <text x="247.5" y="433" text-anchor="middle" font-size="12" fill="#1a1a1a">Повернення натягу троса НЕ замикає контакти</text>
+  <text x="247.5" y="451" text-anchor="middle" font-size="11" fill="#6b7280">Вимагає обов'язкового ручного квитування</text>
+
+  <!-- ================= CARD 2: RESET / UNLATCHED STATE (RIGHT) ================= -->
+  <rect x="495" y="75" width="435" height="410" rx="8" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1.5"/>
+  <rect x="510" y="85" width="405" height="28" rx="4" fill="#27ae60"/>
+  <text x="712.5" y="104" text-anchor="middle" font-size="13" font-weight="bold" fill="white">2. РУЧНЕ КВИТУВАННЯ ТА РОЗБЛОКУВАННЯ (RESET)</text>
+
+  <!-- Inner diagram box 2 -->
+  <rect x="510" y="123" width="405" height="245" fill="white" stroke="#d0d7de" rx="6"/>
+
+  <!-- Housing outline 2 -->
+  <rect x="520" y="133" width="385" height="225" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5" rx="4"/>
+
+  <!-- Reset Lever Rotation Action Text & Arc Arrow -->
+  <text x="540" y="152" font-size="11" font-weight="bold" fill="#2457d6">Поворот важеля Reset</text>
+  <!-- Curved green arrow indicating rotation -->
+  <path d="M 565 180 Q 575 160 590 162" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Reset Lever (Blue/Green) - Rotated Position -->
+  <line x1="600" y1="165" x2="650" y2="150" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="600" cy="165" r="7" fill="#2457d6"/>
+
+  <!-- Latching Pawl (Lifted UP out of notch) -->
+  <!-- Spring compressed -->
+  <path d="M 665 142 L 661 145 L 669 148 L 661 151 L 665 153" fill="none" stroke="#475569" stroke-width="1.5"/>
+  <!-- Pawl body lifted -->
+  <path d="M 660 153 h 10 v 28 l -5 9 l -5 -9 z" fill="#27ae60" stroke="#1e8449" stroke-width="1.5"/>
+  <!-- Upward motion arrow on pawl -->
+  <line x1="665" y1="188" x2="665" y2="175" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <text x="740" y="152" font-size="12" font-weight="bold" fill="#27ae60">Собачка виведена з паза</text>
+  <line x1="735" y1="148" x2="678" y2="170" stroke="#27ae60" stroke-width="1.2" marker-end="url(#arr-green)"/>
+
+  <!-- Cam Slider (Centered in working window, Notch at x=665) -->
+  <path d="M 585 205 h 70 l 10 10 l 10 -10 h 150 v 22 h -240 z" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <text x="740" y="198" font-size="11" fill="#475569">Нормальне вікно</text>
+
+  <!-- Status Indicator Window (Green Flag) -->
+  <rect x="830" y="160" width="55" height="26" rx="3" fill="white" stroke="#6b7280"/>
+  <circle cx="845" cy="173" r="6" fill="#27ae60"/>
+  <text x="857.5" y="198" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">НОРМА</text>
+
+  <!-- Fixed NC Terminals -->
+  <circle cx="650" cy="270" r="6" fill="#27ae60"/>
+  <circle cx="740" cy="270" r="6" fill="#27ae60"/>
+  <text x="650" y="256" text-anchor="middle" font-size="11" fill="#6b7280">NC1</text>
+  <text x="740" y="256" text-anchor="middle" font-size="11" fill="#6b7280">NC2</text>
+
+  <!-- Contact Actuator Rod & Bridge (Lifted UP to y=267..273) -->
+  <line x1="695" y1="227" x2="695" y2="267" stroke="#27ae60" stroke-width="2"/>
+  <rect x="635" y="267" width="120" height="6" rx="2" fill="#27ae60" stroke="#1e8449"/>
+
+  <!-- Contact Status Text -->
+  <text x="712.5" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">КОНТАКТИ ЗАМКНЕНО</text>
+  <text x="712.5" y="340" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">СИСТЕМУ ГОТОВО ДО РОБОТИ</text>
+
+  <!-- Summary text box 2 -->
+  <rect x="510" y="378" width="405" height="97" rx="6" fill="#e9f7ef" stroke="#c3e6cb"/>
+  <text x="712.5" y="396" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Відновлення готовності (RESET)</text>
+  <text x="712.5" y="415" text-anchor="middle" font-size="12" fill="#1a1a1a">Ручне зусилля виводить собачку з V-подібного паза</text>
+  <text x="712.5" y="433" text-anchor="middle" font-size="12" fill="#1a1a1a">Кулачок повертається у центральне робоче вікно</text>
+  <text x="712.5" y="451" text-anchor="middle" font-size="11" fill="#6b7280">NC-контакти замкнено, коло живлення відновлено</text>
+
+  <!-- Bottom Legend / Footnote -->
+  <text x="480" y="498" text-anchor="middle" font-size="12" fill="#6b7280">Відповідно до IEC 60947-5-5, скидання блокування можливе лише свідомою механічною дією оператора</text>
+</svg>

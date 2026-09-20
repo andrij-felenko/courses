@@ -1,0 +1,190 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background panel -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конструкція ротора та кодового диска BCD-перемикача</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Взаємодія механічного фіксатора, кодових ламелей ротора та таблиці BCD-замикань</text>
+
+  <!-- PANEL 1: Rotor & Detent Mechanism -->
+  <rect x="20" y="70" width="290" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="95" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1. Механізм ротора та фіксатора</text>
+
+  <!-- Outer Wheel (Drum Body) -->
+  <circle cx="165" cy="235" r="95" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <circle cx="165" cy="235" r="75" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="165" cy="235" r="30" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Digits on Outer Rim -->
+  <text x="165" y="160" text-anchor="middle" font-size="16" font-weight="bold" fill="#c0392b">3</text>
+  <text x="210" y="172" text-anchor="middle" font-size="13" fill="#6b7280">4</text>
+  <text x="240" y="205" text-anchor="middle" font-size="13" fill="#6b7280">5</text>
+  <text x="245" y="247" text-anchor="middle" font-size="13" fill="#6b7280">6</text>
+  <text x="220" y="287" text-anchor="middle" font-size="13" fill="#6b7280">7</text>
+  <text x="182" y="315" text-anchor="middle" font-size="13" fill="#6b7280">8</text>
+  <text x="145" y="315" text-anchor="middle" font-size="13" fill="#6b7280">9</text>
+  <text x="110" y="287" text-anchor="middle" font-size="13" fill="#6b7280">0</text>
+  <text x="85" y="247" text-anchor="middle" font-size="13" fill="#6b7280">1</text>
+  <text x="95" y="205" text-anchor="middle" font-size="13" fill="#6b7280">2</text>
+
+  <!-- Detent Lever & Spring -->
+  <path d="M75,135 L165,145" stroke="#2457d6" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="75" cy="135" r="5" fill="#2457d6"/>
+  <circle cx="165" cy="145" r="7" fill="#c0392b" stroke="#ffffff" stroke-width="1.5"/>
+  <path d="M75,135 Q60,150 75,165 Q60,180 75,195" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Labels in Panel 1 -->
+  <text x="165" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Фіксатор у позиції '3'</text>
+  <text x="35" y="160" text-anchor="start" font-size="12" fill="#2457d6">Пружина</text>
+  <text x="165" y="239" text-anchor="middle" font-size="12" fill="#6b7280">Осьовий хаб</text>
+
+  <!-- Panel 1 Description Box -->
+  <rect x="30" y="370" width="270" height="115" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="40" y="392" font-size="12" font-weight="bold" fill="#1a1a1a">• Механізм зубчастого ротора</text>
+  <text x="40" y="414" font-size="12" fill="#1a1a1a">• 10 пазів фіксатора під кутом 36°</text>
+  <text x="40" y="436" font-size="12" fill="#1a1a1a">• Фіксувальний ролик із пружиною</text>
+  <text x="40" y="458" font-size="12" fill="#1a1a1a">• Запобігає зупинці між цифрами</text>
+  <text x="40" y="476" font-size="12" font-weight="bold" fill="#c0392b">• Поточна вибрана уставка: 3</text>
+
+  <!-- PANEL 2: Rotor Code Disc PCB -->
+  <rect x="325" y="70" width="310" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="95" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">2. Друкована плата ротора (PCB)</text>
+
+  <!-- PCB Disc Base -->
+  <circle cx="480" cy="235" r="100" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="480" cy="235" r="18" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Concentric Code Tracks -->
+  <circle cx="480" cy="235" r="32" fill="none" stroke="#2457d6" stroke-width="7"/>
+  <circle cx="480" cy="235" r="50" fill="none" stroke="#eaf0fd" stroke-width="7"/>
+  <path d="M480,185 A50,50 0 0,1 527,218" fill="none" stroke="#27ae60" stroke-width="7"/>
+  <path d="M515,270 A50,50 0 0,1 465,283" fill="none" stroke="#27ae60" stroke-width="7"/>
+  <path d="M433,250 A50,50 0 0,1 433,220" fill="none" stroke="#27ae60" stroke-width="7"/>
+
+  <circle cx="480" cy="235" r="68" fill="none" stroke="#eaf0fd" stroke-width="7"/>
+  <path d="M480,167 A68,68 0 0,1 545,210" fill="none" stroke="#27ae60" stroke-width="7"/>
+  <path d="M415,210 A68,68 0 0,1 480,167" fill="none" stroke="#27ae60" stroke-width="7"/>
+
+  <circle cx="480" cy="235" r="84" fill="none" stroke="#eaf0fd" stroke-width="7"/>
+  <path d="M564,235 A84,84 0 0,1 480,319" fill="none" stroke="#d0d7de" stroke-width="7"/>
+
+  <circle cx="480" cy="235" r="96" fill="none" stroke="#eaf0fd" stroke-width="6"/>
+  <path d="M480,331 A96,96 0 0,1 384,235" fill="none" stroke="#d0d7de" stroke-width="6"/>
+
+  <!-- Wiper Contact Arm -->
+  <line x1="480" y1="235" x2="528" y2="187" stroke="#c0392b" stroke-width="3.5" stroke-linecap="round"/>
+  <circle cx="503" cy="212" r="4" fill="#c0392b"/>
+  <circle cx="515" cy="200" r="4" fill="#c0392b"/>
+  <circle cx="528" cy="187" r="4" fill="#c0392b"/>
+
+  <!-- Non-Intersecting Pointers/Labels for Tracks in Panel 2 -->
+  <text x="340" y="150" text-anchor="start" font-size="12" fill="#2457d6" font-weight="bold">Трек C (Спільний)</text>
+  <line x1="430" y1="158" x2="455" y2="205" stroke="#2457d6" stroke-dasharray="2,2"/>
+
+  <text x="620" y="150" text-anchor="end" font-size="12" fill="#27ae60" font-weight="bold">Ковзні контакти (Wiper)</text>
+  <line x1="540" y1="158" x2="515" y2="200" stroke="#27ae60" stroke-dasharray="2,2"/>
+
+  <!-- Panel 2 Description Box -->
+  <rect x="335" y="370" width="290" height="115" rx="6" fill="white" stroke="#d0d7de"/>
+  <text x="345" y="392" font-size="12" font-weight="bold" fill="#1a1a1a">• Доріжки C, 1 (2⁰), 2 (2¹), 4 (2²), 8 (2³)</text>
+  <text x="345" y="414" font-size="12" fill="#1a1a1a">• Контактний ротор перемикає ламелі</text>
+  <text x="345" y="436" font-size="12" fill="#27ae60" font-weight="bold">• Для '3': замкнено трек C з 1 та 2</text>
+  <text x="345" y="458" font-size="12" fill="#1a1a1a">• Доріжки 4 та 8 розімкнені (ізоляція)</text>
+  <text x="345" y="476" font-size="12" fill="#6b7280">• Золочене покриття зносостійкої плати</text>
+
+  <!-- PANEL 3: BCD Truth Table -->
+  <rect x="650" y="70" width="290" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="795" y="95" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">3. Таблиця кодування BCD 8-4-2-1</text>
+
+  <!-- Table Header -->
+  <rect x="660" y="115" width="270" height="24" rx="4" fill="#2457d6"/>
+  <text x="680" y="131" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Поз</text>
+  <text x="735" y="131" text-anchor="middle" font-size="12" font-weight="bold" fill="white">1 (2⁰)</text>
+  <text x="785" y="131" text-anchor="middle" font-size="12" font-weight="bold" fill="white">2 (2¹)</text>
+  <text x="835" y="131" text-anchor="middle" font-size="12" font-weight="bold" fill="white">4 (2²)</text>
+  <text x="885" y="131" text-anchor="middle" font-size="12" font-weight="bold" fill="white">8 (2³)</text>
+
+  <!-- Rows 0..9 -->
+  <text x="680" y="157" text-anchor="middle" font-size="12" fill="#1a1a1a">0</text>
+  <text x="735" y="157" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+  <text x="785" y="157" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+  <text x="835" y="157" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+  <text x="885" y="157" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+
+  <text x="680" y="178" text-anchor="middle" font-size="12" fill="#1a1a1a">1</text>
+  <text x="735" y="178" text-anchor="middle" font-size="12" fill="#27ae60">Замк</text>
+  <text x="785" y="178" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+  <text x="835" y="178" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+  <text x="885" y="178" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+
+  <text x="680" y="199" text-anchor="middle" font-size="12" fill="#1a1a1a">2</text>
+  <text x="735" y="199" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+  <text x="785" y="199" text-anchor="middle" font-size="12" fill="#27ae60">Замк</text>
+  <text x="835" y="199" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+  <text x="885" y="199" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+
+  <!-- Row 3 (ACTIVE HIGHLIGHT) -->
+  <rect x="660" y="206" width="270" height="21" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="680" y="221" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">3</text>
+  <text x="735" y="221" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Замк</text>
+  <text x="785" y="221" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Замк</text>
+  <text x="835" y="221" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+  <text x="885" y="221" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+
+  <text x="680" y="242" text-anchor="middle" font-size="12" fill="#1a1a1a">4</text>
+  <text x="735" y="242" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+  <text x="785" y="242" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+  <text x="835" y="242" text-anchor="middle" font-size="12" fill="#27ae60">Замк</text>
+  <text x="885" y="242" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+
+  <text x="680" y="263" text-anchor="middle" font-size="12" fill="#1a1a1a">5</text>
+  <text x="735" y="263" text-anchor="middle" font-size="12" fill="#27ae60">Замк</text>
+  <text x="785" y="263" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+  <text x="835" y="263" text-anchor="middle" font-size="12" fill="#27ae60">Замк</text>
+  <text x="885" y="263" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+
+  <text x="680" y="284" text-anchor="middle" font-size="12" fill="#1a1a1a">6</text>
+  <text x="735" y="284" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+  <text x="785" y="284" text-anchor="middle" font-size="12" fill="#27ae60">Замк</text>
+  <text x="835" y="284" text-anchor="middle" font-size="12" fill="#27ae60">Замк</text>
+  <text x="885" y="284" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+
+  <text x="680" y="305" text-anchor="middle" font-size="12" fill="#1a1a1a">7</text>
+  <text x="735" y="305" text-anchor="middle" font-size="12" fill="#27ae60">Замк</text>
+  <text x="785" y="305" text-anchor="middle" font-size="12" fill="#27ae60">Замк</text>
+  <text x="835" y="305" text-anchor="middle" font-size="12" fill="#27ae60">Замк</text>
+  <text x="885" y="305" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+
+  <text x="680" y="326" text-anchor="middle" font-size="12" fill="#1a1a1a">8</text>
+  <text x="735" y="326" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+  <text x="785" y="326" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+  <text x="835" y="326" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+  <text x="885" y="326" text-anchor="middle" font-size="12" fill="#27ae60">Замк</text>
+
+  <text x="680" y="347" text-anchor="middle" font-size="12" fill="#1a1a1a">9</text>
+  <text x="735" y="347" text-anchor="middle" font-size="12" fill="#27ae60">Замк</text>
+  <text x="785" y="347" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+  <text x="835" y="347" text-anchor="middle" font-size="12" fill="#6b7280">—</text>
+  <text x="885" y="347" text-anchor="middle" font-size="12" fill="#27ae60">Замк</text>
+
+  <!-- Panel 3 Description Box -->
+  <rect x="660" y="370" width="270" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="795" y="392" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вихідний код BCD для позиції '3'</text>
+  <text x="670" y="414" font-size="12" font-weight="bold" fill="#27ae60">• Логічний код BCD: 0011 (3)</text>
+  <text x="670" y="436" font-size="12" fill="#1a1a1a">• Лінія C-1: 0 (активна / замкнена)</text>
+  <text x="670" y="458" font-size="12" fill="#1a1a1a">• Лінія C-2: 0 (активна / замкнена)</text>
+  <text x="670" y="476" font-size="12" fill="#6b7280">• Лінії C-4 та C-8: 1 (підтягнуто)</text>
+</svg>

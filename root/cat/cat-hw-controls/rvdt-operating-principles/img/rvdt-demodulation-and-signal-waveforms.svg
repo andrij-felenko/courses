@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Marker Defs -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часові діаграми сигналів та фазочутливого демодулювання RVDT</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Зсув фази вторинної напруги на 180° при переході через нуль визначає полярність вихідної напруги</text>
+
+  <!-- PANEL 1: Negative Angle (theta < 0) -->
+  <rect x="25" y="65" width="290" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="35" y="75" width="270" height="32" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="170" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">θ &lt; 0° (Протифаза / -15°)</text>
+
+  <!-- Row 1: U_exc (Panel 1) -->
+  <text x="40" y="125" font-size="12" font-weight="bold" fill="#2457d6">1. U_exc(t) [Збудження]</text>
+  <line x1="65" y1="150" x2="305" y2="150" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <path d="M 65,150 C 81,128 109,128 125,150 C 141,172 169,172 185,150 C 201,128 229,128 245,150 C 261,172 289,172 305,150" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Row 2: U_S1-S2 (Panel 1) -->
+  <text x="40" y="215" font-size="12" font-weight="bold" fill="#8e44ad">2. U_S1-S2(t) [Диференційний]</text>
+  <text x="300" y="215" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Фаза 180°</text>
+  <line x1="65" y1="240" x2="305" y2="240" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <path d="M 65,240 C 81,260 109,260 125,240 C 141,220 169,220 185,240 C 201,260 229,260 245,240 C 261,220 289,220 305,240" fill="none" stroke="#8e44ad" stroke-width="2"/>
+
+  <!-- Row 3: U_rect (Panel 1) -->
+  <text x="40" y="305" font-size="12" font-weight="bold" fill="#c0392b">3. U_rect(t) [Демодульований]</text>
+  <line x1="65" y1="330" x2="305" y2="330" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <path d="M 65,330 C 81,350 109,350 125,330 C 141,350 169,350 185,330 C 201,350 229,350 245,330 C 261,350 289,350 305,330 Z" fill="#fdecea" opacity="0.6"/>
+  <path d="M 65,330 C 81,350 109,350 125,330 C 141,350 169,350 185,330 C 201,350 229,350 245,330 C 261,350 289,350 305,330" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Row 4: U_out (Panel 1) -->
+  <text x="40" y="395" font-size="12" font-weight="bold" fill="#c0392b">4. U_out [Постійна напруга ФНЧ]</text>
+  <line x1="65" y1="420" x2="305" y2="420" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <line x1="65" y1="438" x2="305" y2="438" stroke="#c0392b" stroke-width="2.5"/>
+  <rect x="40" y="475" width="260" height="28" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="170" y="494" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">U_out = -V_dc (Від'ємний вихід)</text>
+
+  <!-- PANEL 2: Null Position (theta = 0) -->
+  <rect x="335" y="65" width="290" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="345" y="75" width="270" height="32" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">θ = 0° (Нульове положення Null)</text>
+
+  <!-- Row 1: U_exc (Panel 2) -->
+  <text x="350" y="125" font-size="12" font-weight="bold" fill="#2457d6">1. U_exc(t) [Збудження]</text>
+  <line x1="375" y1="150" x2="615" y2="150" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <path d="M 375,150 C 391,128 419,128 435,150 C 451,172 479,172 495,150 C 511,128 539,128 555,150 C 571,172 599,172 615,150" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Row 2: U_S1-S2 (Panel 2) -->
+  <text x="350" y="215" font-size="12" font-weight="bold" fill="#6b7280">2. U_S1-S2(t) [Нуль]</text>
+  <text x="610" y="215" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">Амплітуда 0 В</text>
+  <line x1="375" y1="240" x2="615" y2="240" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Row 3: U_rect (Panel 2) -->
+  <text x="350" y="305" font-size="12" font-weight="bold" fill="#6b7280">3. U_rect(t) [Нуль]</text>
+  <line x1="375" y1="330" x2="615" y2="330" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Row 4: U_out (Panel 2) -->
+  <text x="350" y="395" font-size="12" font-weight="bold" fill="#6b7280">4. U_out = 0 В [Постійна напруга]</text>
+  <line x1="375" y1="420" x2="615" y2="420" stroke="#6b7280" stroke-width="2.5"/>
+  <rect x="350" y="475" width="260" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="494" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">U_out = 0.0 В (Нульовий вихід)</text>
+
+  <!-- PANEL 3: Positive Angle (theta > 0) -->
+  <rect x="645" y="65" width="290" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="655" y="75" width="270" height="32" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">θ &gt; 0° (Синфазно / +15°)</text>
+
+  <!-- Row 1: U_exc (Panel 3) -->
+  <text x="660" y="125" font-size="12" font-weight="bold" fill="#2457d6">1. U_exc(t) [Збудження]</text>
+  <line x1="685" y1="150" x2="925" y2="150" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <path d="M 685,150 C 701,128 729,128 745,150 C 761,172 789,172 805,150 C 821,128 849,128 865,150 C 881,172 909,172 925,150" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Row 2: U_S1-S2 (Panel 3) -->
+  <text x="660" y="215" font-size="12" font-weight="bold" fill="#8e44ad">2. U_S1-S2(t) [Диференційний]</text>
+  <text x="920" y="215" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">Фаза 0°</text>
+  <line x1="685" y1="240" x2="925" y2="240" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <path d="M 685,240 C 701,220 729,220 745,240 C 761,260 789,260 805,240 C 821,220 849,220 865,240 C 881,260 909,260 925,240" fill="none" stroke="#8e44ad" stroke-width="2"/>
+
+  <!-- Row 3: U_rect (Panel 3) -->
+  <text x="660" y="305" font-size="12" font-weight="bold" fill="#27ae60">3. U_rect(t) [Демодульований]</text>
+  <line x1="685" y1="330" x2="925" y2="330" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <path d="M 685,330 C 701,310 729,310 745,330 C 761,310 789,310 805,330 C 821,310 849,310 865,330 C 881,310 909,310 925,330 Z" fill="#e9f7ef" opacity="0.6"/>
+  <path d="M 685,330 C 701,310 729,310 745,330 C 761,310 789,310 805,330 C 821,310 849,310 865,330 C 881,310 909,310 925,330" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Row 4: U_out (Panel 3) -->
+  <text x="660" y="395" font-size="12" font-weight="bold" fill="#27ae60">4. U_out [Постійна напруга ФНЧ]</text>
+  <line x1="685" y1="420" x2="925" y2="420" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1"/>
+  <line x1="685" y1="402" x2="925" y2="402" stroke="#27ae60" stroke-width="2.5"/>
+  <rect x="660" y="475" width="260" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="494" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">U_out = +V_dc (Додатний вихід)</text>
+</svg>

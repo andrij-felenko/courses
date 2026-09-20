@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Граф станів кінцевого автомата (FSM) контролера безпеки</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Переходи між станами дозволу, панічного натискання, розсинхронізації та захисного блокування (Reset)</text>
+
+  <!-- FSM State Nodes -->
+  <!-- Node 1: ST_IDLE (Idle / Released) -->
+  <rect x="80" y="130" width="190" height="66" fill="#f4f6f8" stroke="#6b7280" stroke-width="2" rx="8"/>
+  <text x="175" y="153" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Вільна педаль (ST_IDLE)</text>
+  <text x="175" y="173" text-anchor="middle" font-size="12" fill="#6b7280">Вихід: Вимкнено (OFF)</text>
+
+  <!-- Node 2: ST_ENABLED (Enabled / Middle position) -->
+  <rect x="385" y="130" width="190" height="66" fill="#e9f7ef" stroke="#27ae60" stroke-width="2.5" rx="8"/>
+  <text x="480" y="153" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Дозвіл (ST_ENABLED)</text>
+  <text x="480" y="173" text-anchor="middle" font-size="12" fill="#1a1a1a">Вихід: Увімкнено (ON)</text>
+
+  <!-- Node 3: ST_PANIC (Panic / Fully pressed) -->
+  <rect x="690" y="130" width="190" height="66" fill="#fdecea" stroke="#c0392b" stroke-width="2" rx="8"/>
+  <text x="785" y="153" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Паніка (ST_PANIC)</text>
+  <text x="785" y="173" text-anchor="middle" font-size="12" fill="#1a1a1a">Вихід: Вимкнено (OFF)</text>
+
+  <!-- Node 4: ST_DISCREPANCY (Discrepancy Fault) -->
+  <rect x="230" y="300" width="200" height="66" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" rx="8"/>
+  <text x="330" y="323" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Розсинхронізація</text>
+  <text x="330" y="343" text-anchor="middle" font-size="12" fill="#1a1a1a">t_disc > T_sync (Помилка)</text>
+
+  <!-- Node 5: ST_LOCKOUT (Safety Lockout) -->
+  <rect x="530" y="300" width="220" height="66" fill="#fdecea" stroke="#c0392b" stroke-width="2.5" rx="8"/>
+  <text x="640" y="323" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Захисне блокування</text>
+  <text x="640" y="343" text-anchor="middle" font-size="12" fill="#1a1a1a">Очікування Reset = HIGH</text>
+
+  <!-- Transitions (Arrows and Text Labels) -->
+  <!-- Transition 1: Idle -> Enabled (Press to Pos 2) -->
+  <line x1="270" y1="150" x2="385" y2="150" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="327" y="142" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Натискання (Поз. 1→2)</text>
+
+  <!-- Transition 2: Enabled -> Idle (Release to Pos 1) -->
+  <line x1="385" y1="176" x2="270" y2="176" stroke="#6b7280" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="327" y="194" text-anchor="middle" font-size="12" fill="#6b7280">Відпускання (Поз. 2→1)</text>
+
+  <!-- Transition 3: Enabled -> Panic (Overpress to Pos 3) -->
+  <line x1="575" y1="163" x2="690" y2="163" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="632" y="155" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Перетискання (Поз. 2→3)</text>
+
+  <!-- Transition 4: Panic -> Lockout -->
+  <line x1="785" y1="196" x2="750" y2="300" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="800" y="250" text-anchor="start" font-size="12" fill="#c0392b">Аварійний зупин</text>
+
+  <!-- Transition 5: Enabled -> Discrepancy -->
+  <line x1="440" y1="196" x2="360" y2="300" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="385" y="250" text-anchor="end" font-size="12" fill="#c0392b">Розкерованість каналів</text>
+
+  <!-- Transition 6: Discrepancy -> Lockout -->
+  <line x1="430" y1="333" x2="530" y2="333" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="480" y="325" text-anchor="middle" font-size="12" fill="#c0392b">Таймаут</text>
+
+  <!-- Transition 7: Lockout -> Idle (Manual Reset) -->
+  <path d="M 530 350 C 350 400 150 350 160 196" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-blue)"/>
+  <text x="280" y="388" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Ручне скидання (Reset + Поз. 1)</text>
+
+  <!-- Bottom Summary Cards -->
+  <rect x="100" y="415" width="370" height="48" fill="#fdecea" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="112" y="433" font-size="12" font-weight="bold" fill="#c0392b">Аварійні та панічні стани (OFF)</text>
+  <text x="112" y="451" font-size="12" fill="#1a1a1a">Перетискання педалі або розсинхронізація каналів</text>
+
+  <rect x="490" y="415" width="370" height="48" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="502" y="433" font-size="12" font-weight="bold" fill="#27ae60">Безпечне відновлення роботи (Reset)</text>
+  <text x="502" y="451" font-size="12" fill="#1a1a1a">Повернення до ST_IDLE можливе лише за вільної педалі</text>
+</svg>

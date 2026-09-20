@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометричні моделі мертвих зон (Deadzone) аналогового стіка</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Осьова зона спотворює діагоналі, радіальна дає стрибок, масштабована забезпечує плавність</text>
+
+  <!-- Panel 1: Axial -->
+  <rect x="30" y="75" width="280" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="102" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Осьова зона (Axial)</text>
+  <text x="170" y="120" font-size="12" fill="#c0392b" text-anchor="middle">Фільтрація окремо по X та Y</text>
+
+  <circle cx="170" cy="230" r="80" fill="none" stroke="#d0d7de" stroke-dasharray="4,4"/>
+
+  <!-- Deadzone cross -->
+  <rect x="155" y="150" width="30" height="160" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <rect x="90" y="215" width="160" height="30" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Axes -->
+  <line x1="70" y1="230" x2="265" y2="230" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="170" y1="325" x2="170" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="272" y="234" font-size="12" font-weight="bold" fill="#1a1a1a">X</text>
+  <text x="170" y="128" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Y</text>
+
+  <!-- Labels Panel 1 -->
+  <text x="215" y="190" font-size="12" fill="#c0392b" text-anchor="middle">|X| &lt; d</text>
+  <text x="125" y="190" font-size="12" fill="#c0392b" text-anchor="middle">|Y| &lt; d</text>
+  <text x="170" y="355" font-size="12" fill="#c0392b" text-anchor="middle">Спричиняє «залипання» осей</text>
+  <text x="170" y="380" font-size="12" fill="#6b7280" text-anchor="middle">НЕЛІНІЙНЕ СПОТВОРЕННЯ</text>
+
+
+  <!-- Panel 2: Radial -->
+  <rect x="340" y="75" width="280" height="360" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="102" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Радіальна зона (Radial)</text>
+  <text x="480" y="120" font-size="12" fill="#2457d6" text-anchor="middle">Фільтрація за радіусом r</text>
+
+  <circle cx="480" cy="230" r="80" fill="none" stroke="#d0d7de" stroke-dasharray="4,4"/>
+  <circle cx="480" cy="230" r="40" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Axes -->
+  <line x1="380" y1="230" x2="575" y2="230" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="480" y1="325" x2="480" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="582" y="234" font-size="12" font-weight="bold" fill="#1a1a1a">X</text>
+  <text x="480" y="128" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Y</text>
+
+  <!-- Vector & Label -->
+  <line x1="480" y1="230" x2="508" y2="202" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="445" y="195" font-size="12" fill="#2457d6" text-anchor="middle">r_dead</text>
+
+  <!-- Labels Panel 2 -->
+  <text x="480" y="355" font-size="12" fill="#2457d6" text-anchor="middle">Стрибок сигналу на межі</text>
+  <text x="480" y="380" font-size="12" fill="#6b7280" text-anchor="middle">r = √(X² + Y²)</text>
+
+
+  <!-- Panel 3: Scaled Radial -->
+  <rect x="650" y="75" width="280" height="360" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="790" y="102" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Масштабована (Scaled)</text>
+  <text x="790" y="120" font-size="12" fill="#27ae60" text-anchor="middle">Плавне відгук-масштабування</text>
+
+  <circle cx="790" cy="230" r="80" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <circle cx="790" cy="230" r="40" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Axes -->
+  <line x1="690" y1="230" x2="885" y2="230" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <line x1="790" y1="325" x2="790" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="892" y="234" font-size="12" font-weight="bold" fill="#1a1a1a">X</text>
+  <text x="790" y="128" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Y</text>
+
+  <!-- Scaling Vector -->
+  <line x1="818" y1="202" x2="846" y2="174" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="750" y="195" font-size="12" fill="#27ae60" text-anchor="middle">0.0 → 1.0</text>
+
+  <!-- Labels Panel 3 -->
+  <text x="790" y="355" font-size="12" fill="#27ae60" text-anchor="middle">Плавна відгук-крива</text>
+  <text x="790" y="380" font-size="12" fill="#6b7280" text-anchor="middle">Без ступеневого розриву</text>
+</svg>

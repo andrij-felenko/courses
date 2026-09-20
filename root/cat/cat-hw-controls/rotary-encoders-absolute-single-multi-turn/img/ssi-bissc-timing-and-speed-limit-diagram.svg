@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    
+    <!-- Reverse Arrow Markers for Double-ended Arrows -->
+    <marker id="arr-blue-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark-rev" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тактування послідовного кадру SSI / BiSS-C та обмеження кутової швидкості вала</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Пауза t_timeout визначає граничну частоту опитування f_max та кутову швидкість вала ω_max без втрати розрядів</text>
+
+  <!-- TOP PANEL: Timing Diagram -->
+  <rect x="30" y="75" width="900" height="250" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="93" font-size="13" font-weight="bold" fill="#1a1a1a">1. Часова діаграма передачі кадру даних (SSI / BiSS-C)</text>
+
+  <!-- Shaded Area for Monoflop Timeout Delay t_timeout -->
+  <rect x="366" y="105" width="210" height="125" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="471" y="122" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Пауза монофлопа t_timeout</text>
+  <text x="471" y="138" font-size="12" fill="#c0392b" text-anchor="middle">(10…30 мкс для SSI)</text>
+
+  <!-- Monoflop double arrow -->
+  <path d="M372,160 L425,160" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red-rev)"/>
+  <rect x="430" y="150" width="82" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="471" y="164" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_timeout</text>
+  <path d="M517,160 L570,160" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <text x="471" y="192" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">⛔ Такти блокуються!</text>
+
+  <!-- Signal Labels -->
+  <text x="45" y="142" font-size="12" font-weight="bold" fill="#2457d6">CLK</text>
+  <text x="45" y="207" font-size="12" font-weight="bold" fill="#27ae60">DATA</text>
+
+  <!-- Dashed grid lines for timing alignment -->
+  <line x1="110" y1="105" x2="110" y2="230" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="154" y1="105" x2="154" y2="230" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="366" y1="105" x2="366" y2="230" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="576" y1="105" x2="576" y2="230" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="610" y1="105" x2="610" y2="230" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- T_clk double arrow marker -->
+  <path d="M114,116 L150,116" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)" marker-end="url(#arr-blue)"/>
+  <text x="132" y="110" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T_clk</text>
+
+  <!-- CLK Waveform Path -->
+  <!-- Idle HIGH at 130, LOW at 155 -->
+  <path d="M85,130 L110,130 L110,155 L132,155 L132,130 L154,130 L154,155 L176,155 L176,130 L198,130 L198,155 L220,155 L220,130 L242,130" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <!-- CLK ellipsis gap -->
+  <path d="M242,130 L278,130" stroke="#2457d6" stroke-width="2" stroke-dasharray="3,3" fill="none"/>
+  <!-- CLK remaining pulses -->
+  <path d="M278,130 L278,155 L300,155 L300,130 L322,130 L322,155 L344,155 L344,130 L366,130 L576,130 L610,130 L610,155 L632,155 L632,130 L655,130" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <!-- DATA Waveform Path -->
+  <!-- Idle HIGH at 190, LOW at 215 -->
+  <path d="M85,190 L110,190 L154,190 L154,215 L198,215 L198,190 L242,190" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <!-- DATA ellipsis gap -->
+  <path d="M242,190 L278,190" stroke="#27ae60" stroke-width="2" stroke-dasharray="3,3" fill="none"/>
+  <!-- DATA remaining bits and Monoflop Low -->
+  <path d="M278,215 L322,215 L322,190 L366,190 L366,215 L576,215 L576,190 L655,190" stroke="#27ae60" stroke-width="2" fill="none"/>
+
+  <!-- Data Bit Annotations -->
+  <text x="132" y="175" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">MSB</text>
+  <text x="176" y="175" font-size="12" fill="#6b7280" text-anchor="middle">D_N-2</text>
+  <text x="220" y="175" font-size="12" fill="#6b7280" text-anchor="middle">D_N-3</text>
+  <text x="260" y="175" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">•••</text>
+  <text x="300" y="175" font-size="12" fill="#6b7280" text-anchor="middle">D_1</text>
+  <text x="344" y="175" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">LSB</text>
+
+  <!-- Next Frame Ready Annotation -->
+  <path d="M576,120 L598,120" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="604" y="118" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">Наступний кадр</text>
+  <text x="604" y="134" font-size="12" fill="#27ae60" text-anchor="start">(Енкодер готовий)</text>
+
+  <!-- Frame N bits bracket -->
+  <path d="M110,250 L180,250" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue-rev)"/>
+  <rect x="185" y="240" width="106" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="238" y="254" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Передача N біт</text>
+  <path d="M296,250 L366,250" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Total Frame Period Arrow (T_frame) -->
+  <path d="M110,285 L225,285" stroke="#1a1a1a" stroke-width="1.5" marker-start="url(#arr-dark-rev)"/>
+  <rect x="230" y="274" width="226" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="343" y="289" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T_frame = N × T_clk + t_timeout</text>
+  <path d="M461,285 L576,285" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <!-- Parameters Summary Box on the right -->
+  <rect x="735" y="100" width="180" height="150" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="825" y="120" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Параметри інтерфейсу:</text>
+  <line x1="745" y1="127" x2="905" y2="127" stroke="#d0d7de" stroke-width="1"/>
+  <text x="745" y="145" font-size="12" fill="#1a1a1a">N = 13…25 біт (розряд.)</text>
+  <text x="745" y="167" font-size="12" fill="#1a1a1a">f_clk = 100 кГц…2 МГц</text>
+  <text x="745" y="189" font-size="12" fill="#1a1a1a">t_timeout = 10…30 мкс</text>
+  <text x="745" y="211" font-size="12" fill="#6b7280">t_p = затримка кабелю</text>
+  <text x="745" y="231" font-size="12" fill="#6b7280">(~5 нс на 1 метр)</text>
+
+  <!-- BOTTOM LEFT PANEL: Sampling Frequency Calculation -->
+  <rect x="30" y="345" width="440" height="170" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="50" y="368" font-size="13" font-weight="bold" fill="#1a1a1a">2. Гранична частота опитування (f_max)</text>
+
+  <!-- Box 1: T_frame -->
+  <rect x="50" y="382" width="400" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="65" y="399" font-size="12" font-weight="bold" fill="#2457d6">T_frame = N × T_clk + t_timeout + t_p</text>
+  <text x="65" y="416" font-size="12" fill="#6b7280">Мінімальний період між кадрами опитування</text>
+
+  <!-- Box 2: f_max -->
+  <rect x="50" y="432" width="400" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="65" y="449" font-size="12" font-weight="bold" fill="#2457d6">f_max = 1 / T_frame</text>
+  <text x="65" y="466" font-size="12" fill="#6b7280">Гранично допустима частота тактування</text>
+
+  <!-- Warning footer -->
+  <text x="50" y="498" font-size="12" font-weight="bold" fill="#c0392b">* При f &gt; f_max енкодер повертає спотворені дані</text>
+
+  <!-- BOTTOM RIGHT PANEL: Angular Speed Limit Calculation -->
+  <rect x="490" y="345" width="440" height="170" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="510" y="368" font-size="13" font-weight="bold" fill="#1a1a1a">3. Гранична кутова швидкість вала (ω_max)</text>
+
+  <!-- Box 1: Resolution -->
+  <rect x="510" y="382" width="400" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="399" font-size="12" font-weight="bold" fill="#27ae60">Δθ = 360° / 2^N</text>
+  <text x="525" y="416" font-size="12" fill="#6b7280">Дискретність вимірювання кута (ціна 1 LSB)</text>
+
+  <!-- Box 2: Speed Limit -->
+  <rect x="510" y="432" width="400" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="449" font-size="12" font-weight="bold" fill="#27ae60">ω_max &lt; Δθ / T_frame = 360° / (2^N × T_frame)</text>
+  <text x="525" y="466" font-size="12" fill="#6b7280">Максимальна швидкість без пропуску LSB</text>
+
+  <!-- Warning footer -->
+  <text x="510" y="498" font-size="12" font-weight="bold" fill="#c0392b">* При ω &gt; ω_max вал повертається &gt; 1 LSB за T_frame</text>
+</svg>

@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow Marker Dark -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <!-- Arrow Marker Red -->
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <!-- Arrow Marker Blue -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title Block -->
+  <text x="480" y="30" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Характеристика вихідної напруги RVDT від кута повороту</text>
+  <text x="480" y="50" font-size="13" text-anchor="middle" fill="#6b7280">Вихідна напруга лінійна в межах ±40°, а у нолі існує залишкова напруга V_null</text>
+
+  <!-- Region Headers (above plot y=78) -->
+  <text x="175" y="78" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Зона насичення</text>
+  <text x="350" y="78" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Лінійна робоча зона (±40°)</text>
+  <text x="525" y="78" font-size="12" font-weight="bold" text-anchor="middle" fill="#c0392b">Зона насичення</text>
+
+  <!-- Y-Axis Title (Placed above plot on the left) -->
+  <text x="90" y="95" font-size="12" font-weight="bold" text-anchor="start" fill="#1a1a1a">V_out (В)</text>
+
+  <!-- Region Shading (Background Panels) -->
+  <rect x="130" y="100" width="90" height="320" fill="#fdecea" fill-opacity="0.6"/>
+  <rect x="220" y="100" width="260" height="320" fill="#e9f7ef" fill-opacity="0.5"/>
+  <rect x="480" y="100" width="90" height="320" fill="#fdecea" fill-opacity="0.6"/>
+
+  <!-- Region Boundary Lines (Dashed) -->
+  <line x1="220" y1="100" x2="220" y2="420" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="480" y1="100" x2="480" y2="420" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Grid Lines -->
+  <line x1="130" y1="130" x2="570" y2="130" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="130" y1="390" x2="570" y2="390" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="285" y1="100" x2="285" y2="420" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="415" y1="100" x2="415" y2="420" stroke="#e2e8f0" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Plot Axes -->
+  <!-- Horizontal Axis X (Angle θ) -->
+  <line x1="90" y1="260" x2="600" y2="260" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="605" y="264" font-size="12" font-weight="bold" text-anchor="start" fill="#1a1a1a">Кут θ (°)</text>
+
+  <!-- Vertical Axis Y (Voltage V_out) -->
+  <line x1="350" y1="435" x2="350" y2="100" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+
+  <!-- Tick Marks & Axis Labels -->
+  <!-- X-Axis Ticks -->
+  <line x1="130" y1="256" x2="130" y2="264" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="130" y="282" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">-60°</text>
+
+  <line x1="220" y1="256" x2="220" y2="264" stroke="#27ae60" stroke-width="2"/>
+  <text x="220" y="282" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">-40°</text>
+
+  <line x1="285" y1="256" x2="285" y2="264" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="285" y="282" font-size="12" text-anchor="middle" fill="#6b7280">-20°</text>
+
+  <text x="340" y="282" font-size="12" font-weight="bold" text-anchor="end" fill="#1a1a1a">0°</text>
+
+  <line x1="415" y1="256" x2="415" y2="264" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="415" y="282" font-size="12" text-anchor="middle" fill="#6b7280">+20°</text>
+
+  <line x1="480" y1="256" x2="480" y2="264" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="282" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">+40°</text>
+
+  <line x1="570" y1="256" x2="570" y2="264" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="570" y="282" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">+60°</text>
+
+  <!-- Y-Axis Ticks (Labels positioned at y=120 and y=408, clear of grid lines y=130 and y=390) -->
+  <line x1="344" y1="130" x2="356" y2="130" stroke="#2457d6" stroke-width="2"/>
+  <text x="338" y="120" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">+V_max</text>
+
+  <line x1="344" y1="390" x2="356" y2="390" stroke="#2457d6" stroke-width="2"/>
+  <text x="338" y="408" font-size="12" font-weight="bold" text-anchor="end" fill="#2457d6">-V_max</text>
+
+  <!-- CURVES -->
+  <!-- 1. AC Amplitude Envelope |V_out(θ)| (Dashed Sky-Blue Curve) -->
+  <path d="M 130,110 C 165,110 190,118 220,130 L 350,252 L 480,130 C 510,118 535,110 570,110" fill="none" stroke="#0284c7" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- 2. Demodulated Output Voltage V_out(θ) (Solid Navy Curve) -->
+  <path d="M 130,410 C 165,410 190,402 220,390 L 480,130 C 510,118 535,110 570,110" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- INSET CALLOUT BOX: NULL VOLTAGE V_null & LEGEND -->
+  <rect x="655" y="95" width="275" height="325" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="792" y="118" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Залишкова напруга V_null у нолі (θ = 0°)</text>
+  <line x1="675" y1="128" x2="910" y2="128" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Inset Local Axes -->
+  <line x1="685" y1="210" x2="900" y2="210" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="905" y="214" font-size="12" text-anchor="start" fill="#6b7280">V=0</text>
+  <line x1="790" y1="138" x2="790" y2="225" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="790" y="236" font-size="12" text-anchor="middle" fill="#6b7280">θ = 0°</text>
+
+  <!-- Inset V-shape curve showing gap -->
+  <path d="M 720,160 L 790,195 L 860,160" fill="none" stroke="#0284c7" stroke-width="2" stroke-dasharray="4,3"/>
+  <circle cx="790" cy="195" r="4" fill="#c0392b"/>
+
+  <!-- Dimension Arrow for V_null -->
+  <line x1="790" y1="210" x2="790" y2="195" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="805" y="205" font-size="12" font-weight="bold" text-anchor="start" fill="#c0392b">V_null</text>
+
+  <text x="792" y="260" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">V_out(0°) = V_null ≠ 0</text>
+  <text x="792" y="278" font-size="12" text-anchor="middle" fill="#6b7280">1. Ємнісна й індуктивна наведеність</text>
+  <text x="792" y="294" font-size="12" text-anchor="middle" fill="#6b7280">2. Вищі гармоніки (3-тя гармоніка)</text>
+  <text x="792" y="310" font-size="12" text-anchor="middle" fill="#6b7280">3. Несиметрія вторинних обмоток</text>
+
+  <!-- Nested Legend Box inside Callout Box -->
+  <rect x="670" y="330" width="245" height="75" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <line x1="682" y1="352" x2="712" y2="352" stroke="#2457d6" stroke-width="3"/>
+  <text x="720" y="356" font-size="12" font-weight="bold" fill="#2457d6">V_out(θ) демодульована</text>
+  <line x1="682" y1="382" x2="712" y2="382" stroke="#0284c7" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="720" y="386" font-size="12" font-weight="bold" fill="#0284c7">|V_out(θ)| огидна АЦ</text>
+
+  <!-- BOTTOM SUMMARY CALLOUT PANEL -->
+  <rect x="30" y="450" width="900" height="70" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="45" y="470" font-size="12" font-weight="bold" text-anchor="start" fill="#27ae60">✔ Ключові властивості характеристики RVDT:</text>
+  <text x="45" y="488" font-size="12" text-anchor="start" fill="#1a1a1a">• Лінійність зберігається у вузькому діапазоні (типово ±40°...±60°), за яким настає магнітне насичення</text>
+  <text x="45" y="506" font-size="12" text-anchor="start" fill="#1a1a1a">• У точці балансу θ = 0° існує залишкова напруга V_null, яка компенсується фазочутливим демодулятором</text>
+</svg>

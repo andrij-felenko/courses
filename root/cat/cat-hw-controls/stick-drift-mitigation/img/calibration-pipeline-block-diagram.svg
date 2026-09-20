@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конвеєр обробки та калібрування сигналу АЦП</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Послідовне фільтрування шумів, компенсація дрейфу нуля та відсікання мертвих зон</text>
+
+  <!-- Stage 1 -->
+  <rect x="30" y="100" width="145" height="200" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="102" y="125" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Вхід АЦП</text>
+  <text x="102" y="145" font-size="12" fill="#6b7280" text-anchor="middle">Сирий сигнал</text>
+  <text x="102" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">Сенсор / Важіль</text>
+  <text x="102" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">Аподизація V_in</text>
+  <text x="102" y="235" font-size="12" fill="#c0392b" text-anchor="middle">Шуми та дрейф</text>
+  <text x="102" y="275" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ADC_raw</text>
+
+  <!-- Inter-stage 1-2 -->
+  <line x1="175" y1="200" x2="210" y2="200" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="192.5" y="188" font-size="12" fill="#1a1a1a" text-anchor="middle">S_raw</text>
+
+  <!-- Stage 2 -->
+  <rect x="210" y="100" width="150" height="200" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="285" y="125" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Фільтрація</text>
+  <text x="285" y="145" font-size="12" fill="#2457d6" text-anchor="middle">Придушення завад</text>
+  <text x="285" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">Фільтр НЧ / EMA</text>
+  <text x="285" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">Згладжування</text>
+  <text x="285" y="235" font-size="12" fill="#1a1a1a" text-anchor="middle">Усунення тремтіння</text>
+  <text x="285" y="275" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ADC_filt</text>
+
+  <!-- Inter-stage 2-3 -->
+  <line x1="360" y1="200" x2="395" y2="200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="377.5" y="188" font-size="12" fill="#2457d6" text-anchor="middle">S_filt</text>
+
+  <!-- Stage 3 -->
+  <rect x="395" y="100" width="160" height="200" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="475" y="125" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Зсув нейтралі</text>
+  <text x="475" y="145" font-size="12" fill="#c0392b" text-anchor="middle">Дрейф нуля</text>
+  <text x="475" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">ΔV = ADC - Center</text>
+  <text x="475" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">Віднімання нуля</text>
+  <text x="475" y="235" font-size="12" fill="#1a1a1a" text-anchor="middle">Центрування осі</text>
+  <text x="475" y="275" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">V_shift</text>
+
+  <!-- Inter-stage 3-4 -->
+  <line x1="555" y1="200" x2="590" y2="200" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="572.5" y="188" font-size="12" fill="#c0392b" text-anchor="middle">S_zero</text>
+
+  <!-- Stage 4 -->
+  <rect x="590" y="100" width="160" height="200" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="670" y="125" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4. Мертві зони</text>
+  <text x="670" y="145" font-size="12" fill="#27ae60" text-anchor="middle">Deadzone Clamp</text>
+  <text x="670" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">Внутрішня межа</text>
+  <text x="670" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">Зовнішній край</text>
+  <text x="670" y="235" font-size="12" fill="#1a1a1a" text-anchor="middle">Скалювання 0..1</text>
+  <text x="670" y="275" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">V_dead</text>
+
+  <!-- Inter-stage 4-5 -->
+  <line x1="750" y1="200" x2="785" y2="200" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="767.5" y="188" font-size="12" fill="#27ae60" text-anchor="middle">S_norm</text>
+
+  <!-- Stage 5 -->
+  <rect x="785" y="100" width="145" height="200" rx="6" fill="#f4f6f8" stroke="#2457d6" stroke-width="2"/>
+  <text x="857" y="125" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">5. Вихідний вектор</text>
+  <text x="857" y="145" font-size="12" fill="#2457d6" text-anchor="middle">Нормалізовано</text>
+  <text x="857" y="185" font-size="12" fill="#1a1a1a" text-anchor="middle">Координати X, Y</text>
+  <text x="857" y="210" font-size="12" fill="#1a1a1a" text-anchor="middle">Діапазон [-1, +1]</text>
+  <text x="857" y="235" font-size="12" fill="#1a1a1a" text-anchor="middle">Готово до API</text>
+  <text x="857" y="275" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">V_out</text>
+
+  <!-- EEPROM Profile Box -->
+  <rect x="340" y="340" width="380" height="85" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="530" y="363" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Енергонезалежна пам'ять (EEPROM / Flash)</text>
+  <text x="530" y="385" font-size="12" fill="#6b7280" text-anchor="middle">Профіль калібрування пристрою</text>
+  <text x="530" y="407" font-size="12" fill="#1a1a1a" text-anchor="middle">Константи: Center_XYZ, Inner_Deadzone, Outer_Deadzone, Axis_Gain</text>
+
+  <!-- Feed lines -->
+  <line x1="475" y1="340" x2="475" y2="300" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="465" y="325" font-size="12" fill="#c0392b" text-anchor="end">Center_val</text>
+
+  <line x1="670" y1="340" x2="670" y2="300" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="680" y="325" font-size="12" fill="#27ae60" text-anchor="start">Deadzone_cfg</text>
+</svg>

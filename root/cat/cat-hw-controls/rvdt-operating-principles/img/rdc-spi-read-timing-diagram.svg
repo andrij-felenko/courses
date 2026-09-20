@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма зчитування даних RDC-конвертера через SPI</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Синхронізація вибірки сигналом SAMPLE та послідовне зчитування кадрів кута й кутової швидкості</text>
+
+  <!-- Main Diagram Panel -->
+  <rect x="30" y="70" width="900" height="385" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+
+  <!-- Signal Labels (Left Column) -->
+  <text x="45" y="124" font-size="12" font-weight="bold" fill="#c0392b">SAMPLE</text>
+  <text x="45" y="179" font-size="12" font-weight="bold" fill="#2457d6">BUSY</text>
+  <text x="45" y="234" font-size="12" font-weight="bold" fill="#1a1a1a">CS_N (Chip Select)</text>
+  <text x="45" y="289" font-size="12" font-weight="bold" fill="#1a1a1a">SCLK</text>
+  <text x="45" y="349" font-size="12" font-weight="bold" fill="#27ae60">SDO (Data Out)</text>
+
+  <!-- Vertical Timing Reference Grid Lines (Dashed) -->
+  <line x1="200" y1="80" x2="200" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="270" y1="80" x2="270" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="310" y1="135" x2="310" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="340" y1="200" x2="340" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+  <line x1="780" y1="210" x2="780" y2="370" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Timing Annotations (Top) -->
+  <!-- t_sample -->
+  <line x1="200" y1="98" x2="270" y2="98" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="235" y="92" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_sample (≥20 ns)</text>
+
+  <!-- t_busy -->
+  <line x1="200" y1="153" x2="310" y2="153" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-blue)" marker-end="url(#arr-blue)"/>
+  <text x="255" y="147" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_busy (Засувка кута)</text>
+
+  <!-- t_cs -->
+  <line x1="310" y1="208" x2="340" y2="208" stroke="#6b7280" stroke-width="1.5" marker-start="url(#arr-gray)" marker-end="url(#arr-gray)"/>
+  <text x="325" y="204" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">t_cs</text>
+
+  <!-- 1. SAMPLE Signal (Active LOW) -->
+  <path d="M 170 110 L 200 110 L 200 130 L 270 130 L 270 110 L 880 110" stroke="#c0392b" stroke-width="2" fill="none"/>
+
+  <!-- 2. BUSY Signal (Active HIGH) -->
+  <path d="M 170 185 L 200 185 L 200 165 L 310 165 L 310 185 L 880 185" stroke="#2457d6" stroke-width="2" fill="none"/>
+
+  <!-- 3. CS_N Signal (Active LOW) -->
+  <path d="M 170 220 L 340 220 L 340 240 L 780 240 L 780 220 L 880 220" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <!-- 4. SCLK Signal (16 Clock Pulses during CS LOW) -->
+  <path d="M 170 275 L 360 275 L 360 295 L 380 295 L 380 275 L 405 275 L 405 295 L 425 295 L 425 275 L 450 275 L 450 295 L 470 295 L 470 275 L 500 275 M 500 285 L 530 285 M 540 275 L 625 275 L 625 295 L 645 295 L 645 275 L 670 275 L 670 295 L 690 295 L 690 275 L 715 275 L 715 295 L 735 295 L 735 275 L 760 275 L 760 295 L 775 295 L 775 275 L 880 275" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+  <!-- SCLK Toggling Pulses Detail (Clock Burst) -->
+  <path d="M 360 275 L 360 295 L 380 295 L 380 275 M 405 275 L 405 295 L 425 295 L 425 275 M 450 275 L 450 295 L 470 295 L 470 275 M 625 275 L 625 295 L 645 295 L 645 275 M 670 275 L 670 295 L 690 295 L 690 275 M 715 275 L 715 295 L 735 295 L 735 275 M 760 275 L 760 295 L 775 295 L 775 275" stroke="#1a1a1a" stroke-width="1.5" fill="none"/>
+
+  <!-- 5. SDO Serial Data Frames (16-bit Payload) -->
+  <!-- Idle High-Z before CS -->
+  <line x1="170" y1="345" x2="340" y2="345" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Data Packet Hex Cells -->
+  <!-- D15 MSB -->
+  <polygon points="340,345 350,330 415,330 425,345 415,360 350,360" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="382" y="349" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D15 (MSB)</text>
+
+  <!-- D14 -->
+  <polygon points="425,345 435,330 485,330 495,345 485,360 435,360" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="460" y="349" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">D14</text>
+
+  <!-- D13...D2 (14-bit Angle Data) -->
+  <polygon points="495,345 505,330 635,330 645,345 635,360 505,360" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="570" y="349" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">D13 ... D2 (Кут θ)</text>
+
+  <!-- D1 (Lock Status) -->
+  <polygon points="645,345 655,330 715,330 725,345 715,360 655,360" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="685" y="349" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">D1 (Lock)</text>
+
+  <!-- D0 (Fault Status) -->
+  <polygon points="725,345 735,330 795,330 805,345 795,360 735,360" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="765" y="349" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">D0 (Fault)</text>
+
+  <!-- Idle High-Z after CS -->
+  <line x1="805" y1="345" x2="880" y2="345" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Bottom Summary / Description Panel -->
+  <rect x="45" y="380" width="870" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="401" font-size="12" font-weight="bold" fill="#2457d6">• Сигнал SAMPLE фіксує миттєве значення кута ротора RVDT в регістрах вибірки RDC</text>
+  <text x="60" y="423" font-size="12" fill="#1a1a1a">• Кадр 16 біт: D15–D2 — 14-бітний кут θ, D1 — прапорець захоплення фази (Lock), D0 — статус обриву обмотки (Fault)</text>
+</svg>

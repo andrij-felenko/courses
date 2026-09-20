@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція кодових перемикачів: від планарних слайдерів до ротаційних DIP-перемикачів</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Ротаційні перемикачі (Rotary DIP) скорочують площу плати в 3-4 рази та формують BCD/Hex код 1 рухом</text>
+
+  <!-- LEFT PANEL: Planar Slider DIP -->
+  <rect x="30" y="75" width="435" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8" ry="8"/>
+  <text x="247" y="98" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Планарний слайдерний DIP-перемикач</text>
+  <text x="247" y="114" font-size="12" fill="#6b7280" text-anchor="middle">(4 окремі слайдерні секції, 8 виводів)</text>
+
+  <!-- Slider DIP Component Drawing -->
+  <rect x="137" y="138" width="220" height="130" fill="#c0392b" stroke="#1a1a1a" stroke-width="2" rx="6"/>
+  <text x="247" y="156" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">DIP-4 SLIDER</text>
+
+  <!-- Slider 1 (Bit 0 / Value 1) -->
+  <rect x="160" y="172" width="24" height="60" fill="#1a1a1a" rx="2"/>
+  <rect x="162" y="175" width="20" height="24" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="172" y="250" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">1</text>
+
+  <!-- Slider 2 (Bit 1 / Value 2) -->
+  <rect x="210" y="172" width="24" height="60" fill="#1a1a1a" rx="2"/>
+  <rect x="212" y="205" width="20" height="24" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="222" y="250" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">2</text>
+
+  <!-- Slider 3 (Bit 2 / Value 4) -->
+  <rect x="260" y="172" width="24" height="60" fill="#1a1a1a" rx="2"/>
+  <rect x="262" y="175" width="20" height="24" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="272" y="250" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">4</text>
+
+  <!-- Slider 4 (Bit 3 / Value 8) -->
+  <rect x="310" y="172" width="24" height="60" fill="#1a1a1a" rx="2"/>
+  <rect x="312" y="205" width="20" height="24" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="322" y="250" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">8</text>
+
+  <!-- Pins -->
+  <line x1="172" y1="268" x2="172" y2="282" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="222" y1="268" x2="222" y2="282" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="272" y1="268" x2="272" y2="282" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="322" y1="268" x2="322" y2="282" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Left Callout Box -->
+  <rect x="120" y="295" width="254" height="38" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="247" y="312" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Площа на платі S ≈ 250...300 мм²</text>
+  <text x="247" y="325" font-size="10" fill="#6b7280" text-anchor="middle">(вимагає 4 окремих підтягуючих ліній)</text>
+
+  <!-- Left Summary Box -->
+  <rect x="50" y="350" width="395" height="150" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6" ry="6"/>
+  <text x="247" y="372" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Обмеження планарних DIP-слайдерів:</text>
+  <text x="247" y="394" font-size="11" fill="#1a1a1a" text-anchor="middle">• Займає значну площу плати та ускладнює трасування</text>
+  <text x="247" y="414" font-size="11" fill="#1a1a1a" text-anchor="middle">• Вимагає ручного переведення 4 важелів для введення 1 числа</text>
+  <text x="247" y="434" font-size="11" fill="#6b7280" text-anchor="middle">• Висока ймовірність помилки двійкового кодування (напр. 5 = 0101)</text>
+  <text x="247" y="454" font-size="11" fill="#6b7280" text-anchor="middle">• Відкритий корпус вразливий до рідини та пилу (без IP67)</text>
+
+  <!-- RIGHT PANEL: Rotary DIP Switch -->
+  <rect x="495" y="75" width="435" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8" ry="8"/>
+  <text x="712" y="98" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Кодовий ротаційний DIP-перемикач</text>
+  <text x="712" y="114" font-size="12" fill="#6b7280" text-anchor="middle">(герметичний корпус IP67, BCD / Hex матриця)</text>
+
+  <!-- Rotary DIP Component Drawing -->
+  <rect x="632" y="135" width="160" height="145" fill="#27ae60" stroke="#1a1a1a" stroke-width="2" rx="8"/>
+  <circle cx="712" cy="205" r="52" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Rotor Dial Digits (Hex 0..F) -->
+  <text x="712" y="168" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="742" y="176" font-size="10" fill="#1a1a1a" text-anchor="middle">2</text>
+  <text x="752" y="209" font-size="10" fill="#1a1a1a" text-anchor="middle">4</text>
+  <text x="742" y="238" font-size="10" fill="#1a1a1a" text-anchor="middle">6</text>
+  <text x="712" y="248" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">8</text>
+  <text x="682" y="238" font-size="10" fill="#1a1a1a" text-anchor="middle">A</text>
+  <text x="672" y="209" font-size="10" fill="#1a1a1a" text-anchor="middle">C</text>
+  <text x="682" y="176" font-size="10" fill="#1a1a1a" text-anchor="middle">E</text>
+
+  <!-- Center Arrow / Screwdriver Slot -->
+  <circle cx="712" cy="205" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="702" y1="205" x2="722" y2="205" stroke="#2457d6" stroke-width="2"/>
+  <polygon points="706,205 718,205 712,175" fill="#2457d6"/>
+
+  <!-- Right Pins -->
+  <line x1="652" y1="280" x2="652" y2="292" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="712" y1="280" x2="712" y2="292" stroke="#1a1a1a" stroke-width="3"/>
+  <line x1="772" y1="280" x2="772" y2="292" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Right Callout Box -->
+  <rect x="585" y="295" width="254" height="38" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="712" y="312" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Площа на платі S ≈ 70...100 мм² (-70%)</text>
+  <text x="712" y="325" font-size="10" fill="#6b7280" text-anchor="middle">(апаратне формування BCD/Hex коду)</text>
+
+  <!-- Right Summary Box -->
+  <rect x="515" y="350" width="395" height="150" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6" ry="6"/>
+  <text x="712" y="372" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Переваги ротаційного DIP-перемикача:</text>
+  <text x="712" y="394" font-size="11" fill="#1a1a1a" text-anchor="middle">• Економія площі друкованої плати у 3-4 рази</text>
+  <text x="712" y="414" font-size="11" fill="#1a1a1a" text-anchor="middle">• Прямий вибір значення 0..9 (BCD) або 0..F (Hex) за 1 оберт</text>
+  <text x="712" y="434" font-size="11" fill="#6b7280" text-anchor="middle">• Внутрішній герметичний корпус IP67 (стійкий до миття плати)</text>
+  <text x="712" y="454" font-size="11" fill="#6b7280" text-anchor="middle">• Непомильне інтуїтивне задання адрес та апаратних режимів</text>
+</svg>

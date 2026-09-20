@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема підключення тумблера з підтяжкою та RC-фільтром брязкоту</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Підтягувальний резистор фіксує логічний рівень, а RC-ланцюжок та тригер Шмітта гасять брязкіт</text>
+
+  <!-- Left Panel: Toggle Switch Module -->
+  <rect x="40" y="90" width="220" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="150" y="118" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Тумблер (SPST)</text>
+  <text x="150" y="136" text-anchor="middle" font-size="12" fill="#6b7280">(Механічні контакти)</text>
+
+  <!-- Switch Graphic -->
+  <text x="150" y="235" text-anchor="middle" font-size="12" fill="#6b7280">Важіль тумблера</text>
+  <!-- Moving Lever -->
+  <line x1="150" y1="310" x2="190" y2="260" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="190" cy="260" r="5" fill="#6b7280"/>
+  <!-- Action Arrow -->
+  <path d="M 175,250 Q 185,240 195,252" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Switch Terminals -->
+  <circle cx="150" cy="310" r="4" fill="#1a1a1a"/>
+  <!-- Wire to GND -->
+  <line x1="150" y1="310" x2="150" y2="345" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Ground Symbol -->
+  <line x1="142" y1="345" x2="158" y2="345" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="145" y1="349" x2="155" y2="349" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="148" y1="353" x2="152" y2="353" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="150" y="372" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">GND</text>
+
+  <circle cx="200" cy="270" r="4" fill="#2457d6"/>
+  <line x1="200" y1="270" x2="260" y2="270" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Terminal Label SW_OUT (Placed ABOVE line with clearance) -->
+  <text x="245" y="260" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">SW_OUT</text>
+  <circle cx="260" cy="270" r="4" fill="#2457d6"/>
+
+  <!-- Right Panel: Microcontroller (MCU) -->
+  <rect x="660" y="90" width="260" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="790" y="118" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Мікроконтролер</text>
+  <text x="790" y="136" text-anchor="middle" font-size="12" fill="#6b7280">(Цифровий вхід GPIO)</text>
+
+  <!-- MCU Input Pin Dot -->
+  <circle cx="660" cy="270" r="4" fill="#2457d6"/>
+  <text x="675" y="260" font-size="12" font-weight="bold" fill="#2457d6">GPIO (Вхід)</text>
+
+  <!-- Internal Wire MCU Pin to Schmitt Trigger -->
+  <line x1="660" y1="270" x2="740" y2="270" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Internal Schmitt Trigger Block -->
+  <rect x="740" y="220" width="150" height="100" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="815" y="255" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Тригер Шмітта</text>
+  <text x="815" y="275" text-anchor="middle" font-size="12" fill="#6b7280">(Schmitt Trigger)</text>
+  <text x="815" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Гістерезис ΔV</text>
+
+  <!-- Internal Output Signal Note -->
+  <line x1="890" y1="270" x2="905" y2="270" stroke="#27ae60" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="790" y="380" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Чистий прямокутний сигнал</text>
+  <text x="790" y="398" text-anchor="middle" font-size="12" fill="#6b7280">без повторних спрацьовувань</text>
+
+  <!-- Middle Interconnection Lines & Pull-Up / RC Components -->
+
+  <!-- VCC Power Rail -->
+  <line x1="370" y1="150" x2="430" y2="150" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="400" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">VCC (+3.3V / +5V)</text>
+
+  <!-- Pull-Up Resistor R_pu -->
+  <circle cx="400" cy="150" r="3.5" fill="#c0392b"/>
+  <line x1="400" y1="150" x2="400" y2="185" stroke="#c0392b" stroke-width="2"/>
+  <rect x="393" y="185" width="14" height="40" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="382" y="209" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">R_pu (10 кОм)</text>
+  <line x1="400" y1="225" x2="400" y2="270" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="400" cy="270" r="3.5" fill="#2457d6"/>
+
+  <!-- Signal Line with Series Resistor R_f -->
+  <line x1="260" y1="270" x2="450" y2="270" stroke="#2457d6" stroke-width="2"/>
+  <rect x="450" y="263" width="50" height="14" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="475" y="252" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">R_f (1 кОм)</text>
+  <line x1="500" y1="270" x2="615" y2="270" stroke="#2457d6" stroke-width="2"/>
+  <line x1="615" y1="270" x2="655" y2="270" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Shunt Debounce Capacitor C_f -->
+  <circle cx="550" cy="270" r="3.5" fill="#2457d6"/>
+  <line x1="550" y1="270" x2="550" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="542" y1="305" x2="558" y2="305" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="542" y1="317" x2="558" y2="317" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="550" y1="317" x2="550" y2="340" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Ground Symbol for C_f -->
+  <line x1="542" y1="340" x2="558" y2="340" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="545" y1="344" x2="555" y2="344" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="548" y1="348" x2="552" y2="348" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="568" y="315" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">C_f (100 нФ)</text>
+
+  <!-- Bottom Summary & Calculation Notes -->
+  <text x="480" y="420" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Стала часу: τ = R_f · C_f = 0.1 мс  (t_delay ≈ 3·τ = 0.3 мс)</text>
+  <text x="480" y="438" text-anchor="middle" font-size="12" fill="#6b7280">RC-фільтр перетворює імпульси брязкоту на гладкий експоненціальний фронт</text>
+</svg>

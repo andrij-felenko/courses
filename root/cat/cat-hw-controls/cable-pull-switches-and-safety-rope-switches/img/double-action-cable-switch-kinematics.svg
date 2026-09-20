@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Кінематика тросового вимикача аварійного зупинення подвійної дії</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Кулачковий механізм вимушено розмикає контакти як при натягу, так і при обриві троса (IEC 60947-5-5)</text>
+
+  <!-- PANEL 1: STATE 1 (SLACK / CABLE BREAK) -->
+  <rect x="30" y="70" width="280" height="395" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="70" width="280" height="38" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="170" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">СТАН 1: ОБРИВ ТРОСА</text>
+
+  <text x="170" y="125" text-anchor="middle" font-size="12" fill="#6b7280">Трос ослаблено / обірвано</text>
+  <text x="170" y="143" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">T = 0 N (T &lt; T_norm)</text>
+
+  <!-- Mechanical Chamber Panel 1 -->
+  <rect x="45" y="160" width="250" height="185" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Cable & Tension Arrow (Left) -->
+  <text x="80" y="270" text-anchor="middle" font-size="11" fill="#c0392b">Обрив / T=0</text>
+  <line x1="45" y1="280" x2="110" y2="280" stroke="#c0392b" stroke-width="3" stroke-dasharray="4,3"/>
+
+  <!-- Spring expanded pushing left -->
+  <path d="M 45 280 L 55 272 L 65 288 L 75 272 L 85 288 L 95 272 L 105 288 L 110 280" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Slider Block & Cam Profile (pushed left to x=110) -->
+  <rect x="110" y="275" width="80" height="16" fill="#2457d6" rx="2"/>
+  <!-- Cam profile: ramp at x=140..170 rises to push roller up at x=170 -->
+  <path d="M 105 275 L 125 275 L 145 248 L 175 248 L 195 275 L 210 275" fill="none" stroke="#1a1a1a" stroke-width="3.5"/>
+
+  <!-- Follower Roller (pushed UP at x=170) -->
+  <circle cx="170" cy="235" r="9" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+  <circle cx="170" cy="235" r="3" fill="#1a1a1a"/>
+  <!-- Vertical Plunger Rod -->
+  <line x1="170" y1="226" x2="170" y2="182" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- NC Switch Contacts (OPEN GAP) -->
+  <line x1="150" y1="192" x2="160" y2="192" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="180" y1="192" x2="190" y2="192" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="160" cy="192" r="3" fill="#c0392b"/>
+  <circle cx="180" cy="192" r="3" fill="#c0392b"/>
+  <!-- Moving contact bridge raised UP to y=177 -->
+  <line x1="155" y1="177" x2="185" y2="177" stroke="#c0392b" stroke-width="3"/>
+  <text x="220" y="186" font-size="11" font-weight="bold" fill="#c0392b">ВІДКРИТО</text>
+
+  <!-- Panel 1 Badges -->
+  <rect x="45" y="360" width="250" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="170" y="381" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">КОНТАКТ РОЗІМКНЕНО (OFF)</text>
+  <text x="170" y="420" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Аварійне зупинення (TRIP)</text>
+
+
+  <!-- PANEL 2: STATE 2 (NOMINAL OPERATING TENSION) -->
+  <rect x="340" y="70" width="280" height="395" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="340" y="70" width="280" height="38" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">СТАН 2: РОБОЧА НОРМА</text>
+
+  <text x="480" y="125" text-anchor="middle" font-size="12" fill="#6b7280">Нормальний натяг троса</text>
+  <text x="480" y="143" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">T_norm = 150 N (Рівновага)</text>
+
+  <!-- Mechanical Chamber Panel 2 -->
+  <rect x="355" y="160" width="250" height="185" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Cable & Tension Arrow (Center) -->
+  <text x="395" y="270" text-anchor="middle" font-size="11" fill="#27ae60">T_norm = 150 N</text>
+  <line x1="355" y1="280" x2="440" y2="280" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+
+  <!-- Spring in equilibrium -->
+  <path d="M 355 280 L 367 274 L 379 286 L 391 274 L 403 286 L 415 274 L 427 286 L 440 280" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Slider Block & Cam Profile (centered at x=480) -->
+  <rect x="440" y="275" width="80" height="16" fill="#2457d6" rx="2"/>
+  <!-- Cam profile: V-notch centered at x=480 -->
+  <path d="M 435 248 L 455 248 L 470 275 L 490 275 L 505 248 L 525 248" fill="none" stroke="#1a1a1a" stroke-width="3.5"/>
+
+  <!-- Follower Roller (seated DOWN in V-notch at x=480, cy=260) -->
+  <circle cx="480" cy="260" r="9" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+  <circle cx="480" cy="260" r="3" fill="#1a1a1a"/>
+  <!-- Vertical Plunger Rod -->
+  <line x1="480" y1="251" x2="480" y2="195" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- NC Switch Contacts (CLOSED TOUCHING) -->
+  <line x1="460" y1="192" x2="470" y2="192" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="490" y1="192" x2="500" y2="192" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="470" cy="192" r="3" fill="#27ae60"/>
+  <circle cx="490" cy="192" r="3" fill="#27ae60"/>
+  <!-- Moving contact bridge resting DOWN on contacts at y=190 -->
+  <line x1="465" y1="190" x2="495" y2="190" stroke="#27ae60" stroke-width="3.5"/>
+  <text x="530" y="196" font-size="11" font-weight="bold" fill="#27ae60">ЗАМКНЕНО</text>
+
+  <!-- Panel 2 Badges -->
+  <rect x="355" y="360" width="250" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="381" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">КОНТАКТ ЗАМКНЕНО (ON)</text>
+  <text x="480" y="420" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Дозвіл роботи (RUN)</text>
+
+
+  <!-- PANEL 3: STATE 3 (OVER-TENSION / PULLED CABLE) -->
+  <rect x="650" y="70" width="280" height="395" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="650" y="70" width="280" height="38" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="790" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">СТАН 3: АВАРІЙНИЙ НАТЯГ</text>
+
+  <text x="790" y="125" text-anchor="middle" font-size="12" fill="#6b7280">Тягове зусилля (натяг троса)</text>
+  <text x="790" y="143" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">T &gt; T_norm (F_pull &gt; 200 N)</text>
+
+  <!-- Mechanical Chamber Panel 3 -->
+  <rect x="665" y="160" width="250" height="185" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Cable & Tension Arrow (Right) -->
+  <text x="725" y="270" text-anchor="middle" font-size="11" fill="#c0392b">Натяг / F_pull</text>
+  <line x1="665" y1="280" x2="780" y2="280" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+
+  <!-- Spring compressed rightward -->
+  <path d="M 665 280 L 678 275 L 691 285 L 704 275 L 717 285 L 730 275 L 743 285 L 756 275 L 769 285 L 780 280" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Slider Block & Cam Profile (pushed right to x=780) -->
+  <rect x="780" y="275" width="80" height="16" fill="#2457d6" rx="2"/>
+  <!-- Cam profile: left ramp at x=765..795 rises to push roller UP at x=790 -->
+  <path d="M 765 275 L 785 248 L 815 248 L 835 275 L 855 275" fill="none" stroke="#1a1a1a" stroke-width="3.5"/>
+
+  <!-- Follower Roller (pushed UP at x=790) -->
+  <circle cx="790" cy="235" r="9" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+  <circle cx="790" cy="235" r="3" fill="#1a1a1a"/>
+  <!-- Vertical Plunger Rod -->
+  <line x1="790" y1="226" x2="790" y2="182" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- NC Switch Contacts (OPEN GAP) -->
+  <line x1="770" y1="192" x2="780" y2="192" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="800" y1="192" x2="810" y2="192" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="780" cy="192" r="3" fill="#c0392b"/>
+  <circle cx="800" cy="192" r="3" fill="#c0392b"/>
+  <!-- Moving contact bridge raised UP to y=177 -->
+  <line x1="775" y1="177" x2="805" y2="177" stroke="#c0392b" stroke-width="3"/>
+  <text x="840" y="186" font-size="11" font-weight="bold" fill="#c0392b">ВІДКРИТО</text>
+
+  <!-- Panel 3 Badges -->
+  <rect x="665" y="360" width="250" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="790" y="381" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">КОНТАКТ РОЗІМКНЕНО (OFF)</text>
+  <text x="790" y="420" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Аварійне зупинення (TRIP)</text>
+
+
+  <!-- SUMMARY FOOTER BAR -->
+  <rect x="30" y="475" width="900" height="48" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="495" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Принцип подвійної дії (Double-Action): примусове розмикання NC-контактів (IEC 60947-5-5)</text>
+  <text x="480" y="513" text-anchor="middle" font-size="12" fill="#6b7280">Будь-яке відхилення від робочого натягу T_norm призводить до механічного підняття штока та розриву кола безпеки</text>
+</svg>

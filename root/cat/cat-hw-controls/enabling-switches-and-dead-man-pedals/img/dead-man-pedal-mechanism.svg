@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конструкція трипозиційної педалі пильності «мертвої руки»</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Три положення педалі (відпущено, дозвіл, перетиснено) та захисний кожух запобігають помилкам оператора</text>
+
+  <!-- ================= PANEL A: KINEMATICS & HOOD ================= -->
+  <rect x="25" y="75" width="440" height="315" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 25 83 A 8 8 0 0 1 33 75 H 457 A 8 8 0 0 1 465 83 V 103 H 25 Z" fill="#2457d6"/>
+  <text x="245" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Кінематична схема та захисний кожух</text>
+
+  <!-- Protective Hood (Guard Hood) -->
+  <path d="M 55 300 V 150 A 40 40 0 0 1 95 110 H 385 A 40 40 0 0 1 425 150 V 300" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,4"/>
+  <text x="170" y="128" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Захисний кожух (Hood)</text>
+
+  <!-- Foot Force Vector & Label (positioned cleanly to the right of line, below Hood line) -->
+  <line x1="280" y1="150" x2="280" y2="205" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="290" y="142" font-size="12" font-weight="bold" fill="#c0392b">F_foot (маса ноги)</text>
+
+  <!-- Baseplate & Ground Hatching -->
+  <rect x="45" y="300" width="400" height="12" fill="#6b7280" rx="2"/>
+  <line x1="60" y1="312" x2="50" y2="322" stroke="#475569" stroke-width="1.5"/>
+  <line x1="120" y1="312" x2="110" y2="322" stroke="#475569" stroke-width="1.5"/>
+  <line x1="180" y1="312" x2="170" y2="322" stroke="#475569" stroke-width="1.5"/>
+  <line x1="240" y1="312" x2="230" y2="322" stroke="#475569" stroke-width="1.5"/>
+  <line x1="300" y1="312" x2="290" y2="322" stroke="#475569" stroke-width="1.5"/>
+  <line x1="360" y1="312" x2="350" y2="322" stroke="#475569" stroke-width="1.5"/>
+  <line x1="420" y1="312" x2="410" y2="322" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Pivot Point -->
+  <circle cx="90" cy="285" r="8" fill="#1a1a1a"/>
+  <circle cx="90" cy="285" r="4" fill="white"/>
+
+  <!-- Position 1: Released (Dashed Red) -->
+  <line x1="90" y1="285" x2="305" y2="185" stroke="#c0392b" stroke-width="3" stroke-dasharray="4,3"/>
+  <text x="310" y="180" font-size="12" font-weight="bold" fill="#c0392b">1: Відпущено</text>
+
+  <!-- Position 2: Working / Enable (Solid Green) -->
+  <line x1="90" y1="285" x2="320" y2="235" stroke="#27ae60" stroke-width="4"/>
+  <text x="325" y="230" font-size="12" font-weight="bold" fill="#27ae60">2: Дозвіл (ON)</text>
+
+  <!-- Position 3: Over-pressed / Panic (Dashed Red) -->
+  <line x1="90" y1="285" x2="330" y2="280" stroke="#c0392b" stroke-width="3" stroke-dasharray="4,3"/>
+  <text x="335" y="275" font-size="12" font-weight="bold" fill="#c0392b">3: Перетиснено</text>
+
+  <!-- Return Spring / Counterweight -->
+  <path d="M 180 300 L 172 288 L 188 276 L 172 264 L 188 252 L 180 240" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="180" y="340" text-anchor="middle" font-size="12" fill="#27ae60">Пружина / противага</text>
+
+  <!-- Bottom Banner Panel A -->
+  <rect x="45" y="355" width="400" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="373" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Приймання сили: F_foot &gt; F_spring ⇒ примусовий STOP</text>
+
+  <!-- ================= PANEL B: OPERATING ZONES & CONTACTS ================= -->
+  <rect x="495" y="75" width="440" height="315" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 495 83 A 8 8 0 0 1 503 75 H 927 A 8 8 0 0 1 935 83 V 103 H 495 Z" fill="#2457d6"/>
+  <text x="715" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Діаграма робочих зон та контактів</text>
+
+  <!-- Box 1: Released -->
+  <rect x="515" y="125" width="115" height="115" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="572.5" y="147" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">1: Відпущено</text>
+  <text x="572.5" y="167" text-anchor="middle" font-size="12" fill="#c0392b">θ &lt; α1</text>
+  <line x1="535" y1="195" x2="610" y2="195" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="550" cy="195" r="4" fill="#c0392b"/>
+  <circle cx="595" cy="185" r="4" fill="#c0392b"/>
+  <line x1="550" y1="195" x2="592" y2="182" stroke="#c0392b" stroke-width="2"/>
+  <text x="572.5" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ВІДКРИТО (OFF)</text>
+
+  <!-- Box 2: Enable -->
+  <rect x="645" y="125" width="140" height="115" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="715" y="147" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">2: Дозвіл (ON)</text>
+  <text x="715" y="167" text-anchor="middle" font-size="12" fill="#27ae60">α1 ≤ θ ≤ α2</text>
+  <line x1="665" y1="195" x2="765" y2="195" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="680" cy="195" r="4" fill="#27ae60"/>
+  <circle cx="750" cy="195" r="4" fill="#27ae60"/>
+  <text x="715" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ЗАМКНЕНО (ENABLE)</text>
+
+  <!-- Box 3: Panic / Over-pressed -->
+  <rect x="800" y="125" width="115" height="115" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="857.5" y="147" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">3: Перетиснено</text>
+  <text x="857.5" y="167" text-anchor="middle" font-size="12" fill="#c0392b">θ &gt; α2</text>
+  <line x1="820" y1="195" x2="895" y2="195" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="835" cy="195" r="4" fill="#c0392b"/>
+  <circle cx="880" cy="205" r="4" fill="#c0392b"/>
+  <line x1="835" y1="195" x2="877" y2="208" stroke="#c0392b" stroke-width="2"/>
+  <text x="857.5" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">РОЗМІКНУТО (STOP)</text>
+
+  <!-- Cam Explanation Box -->
+  <rect x="515" y="255" width="400" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Кулачковий механізм примусового розмикання</text>
+  <text x="715" y="295" text-anchor="middle" font-size="12" fill="#6b7280">При куті θ &gt; α2 шток примусово розриває контакти</text>
+  <text x="715" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">IEC 60947-5-1 (Positive Opening Action ⌶)</text>
+
+  <!-- Bottom Banner Panel B -->
+  <rect x="515" y="355" width="400" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="373" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Подвійне коло безпеки: 2 × NC контакти на Safety PLC</text>
+
+  <!-- ================= BOTTOM FEATURE CARDS ================= -->
+  <!-- Card 1 -->
+  <rect x="25" y="405" width="285" height="55" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="167.5" y="426" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Стан 1: Відпущено (θ &lt; α1)</text>
+  <text x="167.5" y="446" text-anchor="middle" font-size="12" fill="#1a1a1a">Пружина повертає педаль — коло розімкнене</text>
+
+  <!-- Card 2 -->
+  <rect x="337.5" y="405" width="285" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="480" y="426" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Стан 2: Дозвіл (α1 ≤ θ ≤ α2)</text>
+  <text x="480" y="446" text-anchor="middle" font-size="12" fill="#1a1a1a">Легке натискання утримує коло безпеки ON</text>
+
+  <!-- Card 3 -->
+  <rect x="650" y="405" width="285" height="55" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="792.5" y="426" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Стан 3: Втрата свідомості (θ &gt; α2)</text>
+  <text x="792.5" y="446" text-anchor="middle" font-size="12" fill="#1a1a1a">Маса ноги перетискає педаль — аварійний стоп</text>
+</svg>

@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція конструкції ротора та розподілу магнітного потоку RVDT</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Від ранніх кулачкових роторів (1940-ві) до прецизійних пермалоєвих ексцентриків</text>
+
+  <!-- PANEL 1: EARLY CAM-ROTOR (1940s) -->
+  <rect x="30" y="72" width="435" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="85" width="405" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="106" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Ранні кулачкові ротори (1940-ві рр.)</text>
+
+  <!-- Panel 1 Stator and Cam Rotor Drawing -->
+  <!-- Outer Stator Circle -->
+  <circle cx="247.5" cy="210" r="95" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="247.5" cy="210" r="75" fill="none" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Stator Poles (Top Primary P, Bottom Primary P, Left S1, Right S2) -->
+  <!-- Top Pole P -->
+  <rect x="235" y="120" width="25" height="25" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247.5" y="136" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">P</text>
+
+  <!-- Bottom Pole P -->
+  <rect x="235" y="275" width="25" height="25" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247.5" y="291" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">P</text>
+
+  <!-- Left Pole S1 -->
+  <rect x="157" y="197.5" width="25" height="25" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="169.5" y="213.5" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">S1</text>
+
+  <!-- Right Pole S2 -->
+  <rect x="313" y="197.5" width="25" height="25" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="325.5" y="213.5" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">S2</text>
+
+  <!-- Cam Rotor Core (Tilted Cam shape) -->
+  <path d="M 225 210 C 225 175, 275 160, 270 210 C 265 245, 225 235, 225 210 Z" fill="#e5e7eb" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="247.5" cy="210" r="6" fill="#1a1a1a"/>
+
+  <!-- Magnetic Flux Lines Cam (Uneven) -->
+  <path d="M 247.5 145 C 215 160, 185 180, 182 210" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <path d="M 247.5 145 C 280 160, 310 180, 313 210" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <text x="145" y="160" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="end">Φ1 (нелінійний)</text>
+
+  <!-- Panel 1 Explanatory Text Box -->
+  <rect x="45" y="325" width="405" height="138" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="58" y="345" font-size="12" font-weight="bold" fill="#1a1a1a">Обмеження кулачкової конструкції:</text>
+  <text x="58" y="367" font-size="12" fill="#1a1a1a">• Обмежений вузький діапазон лінійності (±15°...±30°)</text>
+  <text x="58" y="389" font-size="12" fill="#1a1a1a">• Крайові ефекти локального насичення магнітопроводу</text>
+  <text x="58" y="413" font-size="12" font-weight="bold" fill="#c0392b">• Чутливість до радіального люфту вала</text>
+  <text x="58" y="435" font-size="11" font-weight="bold" fill="#c0392b">• Похибка лінійності: ~0.5%...1.0%</text>
+
+
+  <!-- PANEL 2: MODERN ECCENTRIC / CARDIOID PERMALLOY CORE -->
+  <rect x="495" y="72" width="435" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="85" width="405" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="106" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Сучасний ексцентриковий пермалой</text>
+
+  <!-- Panel 2 Stator and Eccentric Rotor Drawing -->
+  <!-- Outer Stator Circle -->
+  <circle cx="712.5" cy="210" r="95" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="712.5" cy="210" r="75" fill="none" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Stator Poles (Top Primary P, Bottom Primary P, Left S1, Right S2) -->
+  <!-- Top Pole P -->
+  <rect x="700" y="120" width="25" height="25" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="712.5" y="136" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">P</text>
+
+  <!-- Bottom Pole P -->
+  <rect x="700" y="275" width="25" height="25" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="712.5" y="291" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">P</text>
+
+  <!-- Left Pole S1 -->
+  <rect x="622" y="197.5" width="25" height="25" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="634.5" y="213.5" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">S1</text>
+
+  <!-- Right Pole S2 -->
+  <rect x="778" y="197.5" width="25" height="25" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790.5" y="213.5" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">S2</text>
+
+  <!-- Smooth Cardioid / Eccentric Rotor Core -->
+  <path d="M 660 210 C 660 160, 755 160, 765 210 C 765 260, 660 260, 660 210 Z" fill="#d1d5db" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="712.5" cy="210" r="6" fill="#1a1a1a"/>
+
+  <!-- Uniform Magnetic Flux Lines -->
+  <path d="M 712.5 145 C 680 160, 650 180, 647 210" fill="none" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+  <path d="M 712.5 145 C 745 160, 775 180, 778 210" fill="none" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <text x="610" y="160" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="end">Φ1 (лінійний)</text>
+
+  <!-- Panel 2 Explanatory Text Box -->
+  <rect x="510" y="325" width="405" height="138" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="523" y="345" font-size="12" font-weight="bold" fill="#1a1a1a">Переваги сучасних пермалоєвих RVDT:</text>
+  <text x="523" y="367" font-size="12" fill="#1a1a1a">• Розширений діапазон лінійності (до ±60°...±80°)</text>
+  <text x="523" y="389" font-size="12" fill="#1a1a1a">• Плавна зміна зазору без крайових точок насичення</text>
+  <text x="523" y="413" font-size="12" font-weight="bold" fill="#27ae60">• Матеріал: Високопроникний пермалой (Ni-Fe)</text>
+  <text x="523" y="435" font-size="11" font-weight="bold" fill="#27ae60">• Висока точність: похибка &lt; 0.1%...0.25% (Fly-by-Wire)</text>
+
+
+  <!-- BOTTOM SUMMARY BANNER -->
+  <rect x="30" y="488" width="900" height="38" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="512" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Результат еволюції: Повна відсутність контактного зносу та відповідність вимогам Fly-by-Wire (IEC/IEEE)</text>
+</svg>

@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Canvas Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Узгодження та опторозв'язка диференціальної лінії RS-422</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Термінатор 120 Ом пригнічує відбиття хвилі, а оптопара усуває різницю потенціалів земель</text>
+
+  <!-- MAIN SCHEMATIC PANEL (Top half: Y=70..365) -->
+  <rect x="20" y="70" width="920" height="295" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+
+  <!-- BLOCK 1: Transmitter (Encoder Side) -->
+  <rect x="40" y="90" width="220" height="255" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <rect x="50" y="100" width="200" height="28" fill="#eaf0fd" stroke="#2457d6" rx="3"/>
+  <text x="150" y="119" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Передавач енкодера (RS-422)</text>
+
+  <!-- RS-422 Driver Symbol (Triangle Buffer) -->
+  <polygon points="90,160 90,260 170,210" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="110" y="215" font-size="12" font-weight="bold" fill="#2457d6">TX</text>
+
+  <!-- Driver Outputs -->
+  <line x1="170" y1="190" x2="240" y2="190" stroke="#2457d6" stroke-width="2"/>
+  <text x="215" y="184" font-size="11" font-weight="bold" fill="#2457d6">DATA+</text>
+
+  <line x1="170" y1="230" x2="240" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <text x="215" y="246" font-size="11" font-weight="bold" fill="#c0392b">DATA-</text>
+
+  <text x="150" y="295" font-size="11" fill="#6b7280" text-anchor="middle">Земля енкодера (GND_enc)</text>
+  <line x1="150" y1="302" x2="150" y2="320" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="135" y1="320" x2="165" y2="320" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- BLOCK 2: Cable & Termination -->
+  <!-- Cable Shield Envelope -->
+  <rect x="290" y="155" width="310" height="110" fill="#ffffff" stroke="#9ca3af" stroke-dasharray="4,4" rx="4"/>
+  <text x="445" y="146" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Екранована вита пара (Z_0 = 120 Ом)</text>
+
+  <!-- Twisted Pair Wires -->
+  <path d="M 240,190 L 320,190 C 350,190 350,230 380,230 C 410,230 410,190 440,190 L 610,190" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 240,230 L 320,230 C 350,230 350,190 380,190 C 410,190 410,230 440,230 L 610,230" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Termination Resistor R_T = 120 Ohm -->
+  <line x1="570" y1="190" x2="570" y2="202" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="560" y="202" width="20" height="16" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="2"/>
+  <text x="570" y="214" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">R_T</text>
+  <line x1="570" y1="218" x2="570" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <text x="570" y="178" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">120 Ом</text>
+
+  <!-- Shield Grounding -->
+  <line x1="445" y1="265" x2="445" y2="290" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="445" y="305" font-size="11" fill="#6b7280" text-anchor="middle">Екран кабелю (PE / Shield)</text>
+
+  <!-- BLOCK 3: Optocoupler Receiver (Controller Side) -->
+  <rect x="630" y="90" width="290" height="255" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <rect x="645" y="100" width="260" height="28" fill="#e9f7ef" stroke="#27ae60" rx="3"/>
+  <text x="775" y="119" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ПЛК / Приймач із опторозв'язкою</text>
+
+  <!-- Optocoupler IC Box -->
+  <rect x="655" y="155" width="160" height="110" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="4"/>
+  <text x="735" y="172" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оптопара (6N137)</text>
+
+  <!-- Galvanic Barrier Text Top -->
+  <text x="710" y="145" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Бар'єр розв'язки</text>
+
+  <!-- LED Symbol (Input side of Optocoupler) -->
+  <line x1="610" y1="190" x2="675" y2="190" stroke="#2457d6" stroke-width="2"/>
+  <line x1="610" y1="230" x2="675" y2="230" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- LED Diode -->
+  <polygon points="675,182 675,198 690,190" fill="#2457d6" stroke="#2457d6"/>
+  <line x1="690" y1="182" x2="690" y2="198" stroke="#2457d6" stroke-width="2"/>
+  <line x1="690" y1="190" x2="705" y2="190" stroke="#2457d6" stroke-width="2"/>
+  <line x1="705" y1="190" x2="705" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <line x1="705" y1="230" x2="675" y2="230" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Light Arrows inside Optocoupler -->
+  <line x1="695" y1="200" x2="715" y2="200" stroke="#d97706" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="695" y1="208" x2="715" y2="208" stroke="#d97706" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Phototransistor & Logic Gate (Output side of Optocoupler) -->
+  <rect x="735" y="185" width="30" height="50" fill="#eaf0fd" stroke="#2457d6" rx="2"/>
+  <text x="750" y="214" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">Gate</text>
+
+  <!-- Galvanic Barrier Line -->
+  <line x1="710" y1="150" x2="710" y2="275" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- MCU Output Line -->
+  <line x1="815" y1="210" x2="895" y2="210" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="855" y="202" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">RxD до МК</text>
+
+  <!-- Isolated Ground for Controller -->
+  <text x="835" y="295" font-size="11" fill="#6b7280" text-anchor="middle">Земля ПЛК (GND_mcu)</text>
+  <line x1="835" y1="302" x2="835" y2="320" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="820" y1="320" x2="850" y2="320" stroke="#6b7280" stroke-width="1.5"/>
+
+
+  <!-- BOTTOM PANEL: WAVEFORM COMPARISON (Y=380..520) -->
+  <rect x="20" y="380" width="920" height="140" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="480" y="402" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Вплив термінатора 120 Ом на якість сигналу в лінії передачі</text>
+
+  <!-- Case A: Without Termination (Red Problem Box) -->
+  <rect x="40" y="415" width="425" height="92" fill="#ffffff" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="252.5" y="434" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Без термінатора R_T (Хвильове неузгодження)</text>
+
+  <!-- Bad Waveform with Ringing -->
+  <path d="M 65,480 L 105,480 L 110,440 L 118,465 L 124,445 L 130,458 L 135,450 L 195,450 L 200,485 L 208,472 L 214,482 L 285,482" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <line x1="60" y1="480" x2="295" y2="480" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <text x="375" y="458" font-size="11" fill="#c0392b" text-anchor="middle">Відбиття хвилі та брязкіт</text>
+  <text x="375" y="478" font-size="11" fill="#c0392b" text-anchor="middle">Ризик хибних бітів CRC</text>
+
+  <!-- Case B: With 120 Ohm Termination (Green Success Box) -->
+  <rect x="495" y="415" width="425" height="92" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="707.5" y="434" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Із термінатором R_T = 120 Ом (Узгоджена лінія)</text>
+
+  <!-- Clean Square Waveform -->
+  <path d="M 520,480 L 560,480 L 563,450 L 640,450 L 643,480 L 720,480" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <line x1="515" y1="480" x2="725" y2="480" stroke="#d0d7de" stroke-dasharray="2,2"/>
+
+  <text x="820" y="458" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Чисті круті фронти</text>
+  <text x="820" y="478" font-size="11" fill="#6b7280" text-anchor="middle">Нуль відбиттів сигналу</text>
+</svg>

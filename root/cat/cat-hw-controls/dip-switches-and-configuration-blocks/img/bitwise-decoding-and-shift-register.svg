@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зчитування DIP-перемикача через зсувний регістр 74HC165 та бітове декодування</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Паралельне завантаження 8-бітного стану, послідовна передача SPI/GPIO та побітове маскування полів C/C++</text>
+
+  <!-- Panel 1: DIP Switch Block -->
+  <rect x="30" y="95" width="270" height="335" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="165" y="118" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. 8-бітовий DIP-блок</text>
+
+  <rect x="45" y="135" width="240" height="165" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="165" y="155" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Паралельні виводи D0..D7</text>
+  <text x="165" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">D7..D4: [ON, OFF, ON, ON]</text>
+  <text x="165" y="198" font-size="12" fill="#1a1a1a" text-anchor="middle">D3..D0: [OFF, ON, OFF, ON]</text>
+  <text x="165" y="222" font-size="12" fill="#c0392b" text-anchor="middle">Інверсна логіка (Pull-Up)</text>
+  <text x="165" y="247" font-size="12" fill="#1a1a1a" text-anchor="middle">Зчитаний код = 0b01001010</text>
+  <text x="165" y="272" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Байт = 0b10110101 (0xB5)</text>
+
+  <rect x="45" y="312" width="240" height="103" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="165" y="333" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Паралельний вихід DIP</text>
+  <text x="165" y="355" font-size="12" fill="#1a1a1a" text-anchor="middle">8 ліній D0..D7 ідуть на регістр</text>
+  <text x="165" y="377" font-size="12" fill="#1a1a1a" text-anchor="middle">Замкнено = 0, Розімкнено = 1</text>
+  <text x="165" y="399" font-size="12" fill="#6b7280" text-anchor="middle">Підтяжка до VCC 10 кОм</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="300" y1="260" x2="335" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="317.5" y="248" font-size="12" fill="#2457d6" text-anchor="middle">D0..D7</text>
+
+  <!-- Panel 2: Shift Register 74HC165 -->
+  <rect x="335" y="95" width="280" height="335" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="475" y="118" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Зсувний регістр 74HC165</text>
+
+  <rect x="350" y="135" width="250" height="165" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="475" y="155" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікросхема PISO (74HC165)</text>
+  <text x="475" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">Сигнал PL: Паралельний засув</text>
+  <text x="475" y="198" font-size="12" fill="#1a1a1a" text-anchor="middle">Сигнал CP: Тактування зсуву</text>
+  <text x="475" y="222" font-size="12" fill="#1a1a1a" text-anchor="middle">Вихід Q7: Послідовні дані</text>
+  <text x="475" y="252" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">raw_byte = 0xB5</text>
+  <text x="475" y="272" font-size="12" fill="#6b7280" text-anchor="middle">8 бітів за 8 тактів SPI</text>
+
+  <rect x="350" y="312" width="250" height="103" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="475" y="333" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перетворення Parallel -> Serial</text>
+  <text x="475" y="355" font-size="12" fill="#1a1a1a" text-anchor="middle">Економія виводів мікроконтролера</text>
+  <text x="475" y="377" font-size="12" fill="#1a1a1a" text-anchor="middle">Підключення до шини SPI / GPIO</text>
+  <text x="475" y="399" font-size="12" fill="#6b7280" text-anchor="middle">Захист від брязкоту вхідних важелів</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="615" y1="260" x2="650" y2="260" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="632.5" y="248" font-size="12" fill="#27ae60" text-anchor="middle">DATA</text>
+
+  <!-- Panel 3: Bitwise C/C++ Decoding -->
+  <rect x="650" y="95" width="280" height="335" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="790" y="118" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3. Побітове декодування C/C++</text>
+
+  <rect x="665" y="132" width="250" height="80" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="153" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Адреса пристрою (Біти 7..4)</text>
+  <text x="790" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">addr = (raw_byte >> 4) &amp; 0x0F</text>
+  <text x="790" y="194" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат = 0x0B (11)</text>
+
+  <rect x="665" y="224" width="250" height="80" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="245" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Режим роботи (Біти 3..0)</text>
+  <text x="790" y="266" font-size="12" fill="#1a1a1a" text-anchor="middle">mode = raw_byte &amp; 0x0F</text>
+  <text x="790" y="286" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Результат = 0x05 (5)</text>
+
+  <rect x="665" y="316" width="250" height="99" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="790" y="337" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">C/C++ Структура конфігурації</text>
+  <text x="790" y="359" font-size="12" fill="#1a1a1a" text-anchor="middle">dev_cfg.address = 11</text>
+  <text x="790" y="379" font-size="12" fill="#1a1a1a" text-anchor="middle">dev_cfg.mode = 5</text>
+  <text x="790" y="399" font-size="12" fill="#27ae60" text-anchor="middle">dev_cfg.is_valid = true</text>
+</svg>

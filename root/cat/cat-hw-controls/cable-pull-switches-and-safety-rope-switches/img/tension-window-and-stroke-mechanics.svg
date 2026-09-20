@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header Title and Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Робоче вікно натягу та механіка ходу штока тросового вимикача</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">NC-контакти замкнені тільки у зеленому вікні натягу; обрив або надмірне натягування змушують контакти розітнутися</text>
+
+  <!-- Main Container Panel -->
+  <rect x="50" y="75" width="860" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Dotted Vertical Boundaries extending through diagram -->
+  <line x1="308" y1="100" x2="308" y2="320" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="480" y1="100" x2="480" y2="320" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="652" y1="100" x2="652" y2="320" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Zone 1: Cable Break (Alarm) -->
+  <rect x="80" y="105" width="216" height="180" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="188" y="132" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Зона обриву троса</text>
+  <text x="188" y="156" text-anchor="middle" font-size="12" fill="#1a1a1a">F &lt; 150 Н  |  x &lt; 4 мм</text>
+  <rect x="98" y="176" width="180" height="30" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="188" y="196" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">NC РОЗІМКНЕНІ</text>
+  <text x="188" y="228" text-anchor="middle" font-size="12" fill="#6b7280">Спрацьовування при обриві</text>
+  <text x="188" y="248" text-anchor="middle" font-size="12" fill="#6b7280">або ослабленні троса</text>
+
+  <!-- Zone 2: Normal Tension Window (OK) -->
+  <rect x="318" y="105" width="324" height="180" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="132" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Нормальне робоче вікно</text>
+  <text x="480" y="156" text-anchor="middle" font-size="12" fill="#1a1a1a">150 Н ≤ F ≤ 200 Н  |  4 мм ≤ x ≤ 10 мм</text>
+  <rect x="375" y="176" width="210" height="30" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="196" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">NC ЗАМКНЕНІ (Норма)</text>
+  <text x="480" y="228" text-anchor="middle" font-size="12" fill="#6b7280">Зелений очковий індикатор по центру</text>
+  <text x="480" y="248" text-anchor="middle" font-size="12" fill="#6b7280">Готовність до роботи лінії</text>
+
+  <!-- Zone 3: Emergency Pull (Alarm) -->
+  <rect x="664" y="105" width="216" height="180" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="772" y="132" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Зона аварійного ривку</text>
+  <text x="772" y="156" text-anchor="middle" font-size="12" fill="#1a1a1a">F &gt; 200 Н  |  x &gt; 10 мм</text>
+  <rect x="682" y="176" width="180" height="30" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="772" y="196" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">NC РОЗІМКНЕНІ</text>
+  <text x="772" y="228" text-anchor="middle" font-size="12" fill="#6b7280">Спрацьовування при ривку</text>
+  <text x="772" y="248" text-anchor="middle" font-size="12" fill="#6b7280">або натягуванні троса</text>
+
+  <!-- Horizontal Axis of Force & Stroke -->
+  <line x1="80" y1="320" x2="880" y2="320" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Ticks and Labels on Axis -->
+  <!-- Tick 1: F = 0 N -->
+  <line x1="80" y1="312" x2="80" y2="328" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="80" y="346" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">F = 0 Н</text>
+  <text x="80" y="364" text-anchor="middle" font-size="12" fill="#6b7280">Повний обрив</text>
+
+  <!-- Tick 2: F_min = 150 N -->
+  <line x1="308" y1="312" x2="308" y2="328" stroke="#c0392b" stroke-width="2"/>
+  <text x="308" y="346" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">F_min = 150 Н</text>
+  <text x="308" y="364" text-anchor="middle" font-size="12" fill="#6b7280">x = 4 мм (Межа)</text>
+
+  <!-- Tick 3: F_nom = 175 N -->
+  <line x1="480" y1="312" x2="480" y2="328" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="346" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">F_nom = 175 Н</text>
+  <text x="480" y="364" text-anchor="middle" font-size="12" fill="#6b7280">x = 7 мм (Оптимум)</text>
+
+  <!-- Tick 4: F_max = 200 N -->
+  <line x1="652" y1="312" x2="652" y2="328" stroke="#c0392b" stroke-width="2"/>
+  <text x="652" y="346" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">F_max = 200 Н</text>
+  <text x="652" y="364" text-anchor="middle" font-size="12" fill="#6b7280">x = 10 мм (Межа)</text>
+
+  <!-- Tick 5: F_trip >= 240 N -->
+  <line x1="860" y1="312" x2="860" y2="328" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="860" y="346" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">F_trip ≥ 240 Н</text>
+  <text x="860" y="364" text-anchor="middle" font-size="12" fill="#6b7280">x = 14 мм (Макс)</text>
+
+  <!-- Bottom Information Banner -->
+  <rect x="80" y="390" width="800" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="409" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Примусове розмикання NC-контактів засувається механічним блокуванням IEC 60947-5-5 із ручним скиданням (Reset)</text>
+</svg>

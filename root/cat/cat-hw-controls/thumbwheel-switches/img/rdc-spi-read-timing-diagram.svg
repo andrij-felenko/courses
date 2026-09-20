@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Outer Border Panel -->
+  <rect x="15" y="15" width="930" height="470" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Header Title and Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма опитування 16-бітного BCD-кадру (74HC165)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Засувка /PL завантажує паралельний BCD-код, після чого фронти CLK висувають біти D15…D0</text>
+
+  <!-- Waveform Area Panel -->
+  <rect x="150" y="80" width="780" height="300" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Pulse /PL Highlight Area -->
+  <rect x="180" y="85" width="40" height="290" fill="#eaf0fd" rx="2" opacity="0.6"/>
+
+  <!-- Signal Labels (Left Section) -->
+  <text x="25" y="130" font-size="14" font-weight="bold" fill="#2457d6">/PL (LOAD)</text>
+  <text x="25" y="148" font-size="12" fill="#6b7280">Засувка даних</text>
+
+  <text x="25" y="230" font-size="14" font-weight="bold" fill="#1a1a1a">CLK (CLOCK)</text>
+  <text x="25" y="248" font-size="12" fill="#6b7280">Такти SPI</text>
+
+  <text x="25" y="330" font-size="14" font-weight="bold" fill="#27ae60">Q7 (MISO)</text>
+  <text x="25" y="348" font-size="12" fill="#6b7280">Вихід даних</text>
+
+  <!-- Horizontal Reference Lines for Signals -->
+  <line x1="150" y1="170" x2="930" y2="170" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+  <line x1="150" y1="270" x2="930" y2="270" stroke="#d0d7de" stroke-dasharray="4 4" stroke-width="1"/>
+
+  <!-- Vertical Timing Grid Lines for CLK Rising Edges (x = 250, 290, 330 ... 850) -->
+  <line x1="250" y1="80" x2="250" y2="380" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="290" y1="80" x2="290" y2="380" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="330" y1="80" x2="330" y2="380" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="370" y1="80" x2="370" y2="380" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="410" y1="80" x2="410" y2="380" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="450" y1="80" x2="450" y2="380" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="490" y1="80" x2="490" y2="380" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="530" y1="80" x2="530" y2="380" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="570" y1="80" x2="570" y2="380" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="610" y1="80" x2="610" y2="380" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="650" y1="80" x2="650" y2="380" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="690" y1="80" x2="690" y2="380" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="730" y1="80" x2="730" y2="380" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="770" y1="80" x2="770" y2="380" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="810" y1="80" x2="810" y2="380" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+  <line x1="850" y1="80" x2="850" y2="380" stroke="#d0d7de" stroke-dasharray="2 2" stroke-width="1"/>
+
+  <!-- Signal 1: /PL Waveform -->
+  <path d="M 160 115 L 180 115 L 180 155 L 220 155 L 220 115 L 920 115" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <text x="200" y="102" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">t_load</text>
+  <text x="210" y="192" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Завантаження BCD</text>
+
+  <!-- Signal 2: CLK Waveform (16 pulses) -->
+  <path d="M 160 255 L 240 255 
+           L 240 215 L 260 215 L 260 255 L 280 255 
+           L 280 215 L 300 215 L 300 255 L 320 255 
+           L 320 215 L 340 215 L 340 255 L 360 255 
+           L 360 215 L 380 215 L 380 255 L 400 255 
+           L 400 215 L 420 215 L 420 255 L 440 255 
+           L 440 215 L 460 215 L 460 255 L 480 255 
+           L 480 215 L 500 215 L 500 255 L 520 255 
+           L 520 215 L 540 215 L 540 255 L 560 255 
+           L 560 215 L 580 215 L 580 255 L 600 255 
+           L 600 215 L 620 215 L 620 255 L 640 255 
+           L 640 215 L 660 215 L 660 255 L 680 255 
+           L 680 215 L 700 215 L 700 255 L 720 255 
+           L 720 215 L 740 215 L 740 255 L 760 255 
+           L 760 215 L 780 215 L 780 255 L 800 255 
+           L 800 215 L 820 215 L 820 255 L 840 255 
+           L 840 215 L 860 215 L 860 255 L 920 255" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
+
+  <!-- CLK Pulse Number Labels -->
+  <text x="250" y="205" text-anchor="middle" font-size="12" fill="#6b7280">1</text>
+  <text x="290" y="205" text-anchor="middle" font-size="12" fill="#6b7280">2</text>
+  <text x="330" y="205" text-anchor="middle" font-size="12" fill="#6b7280">3</text>
+  <text x="370" y="205" text-anchor="middle" font-size="12" fill="#6b7280">4</text>
+  <text x="410" y="205" text-anchor="middle" font-size="12" fill="#6b7280">5</text>
+  <text x="450" y="205" text-anchor="middle" font-size="12" fill="#6b7280">6</text>
+  <text x="490" y="205" text-anchor="middle" font-size="12" fill="#6b7280">7</text>
+  <text x="530" y="205" text-anchor="middle" font-size="12" fill="#6b7280">8</text>
+  <text x="570" y="205" text-anchor="middle" font-size="12" fill="#6b7280">9</text>
+  <text x="610" y="205" text-anchor="middle" font-size="12" fill="#6b7280">10</text>
+  <text x="650" y="205" text-anchor="middle" font-size="12" fill="#6b7280">11</text>
+  <text x="690" y="205" text-anchor="middle" font-size="12" fill="#6b7280">12</text>
+  <text x="730" y="205" text-anchor="middle" font-size="12" fill="#6b7280">13</text>
+  <text x="770" y="205" text-anchor="middle" font-size="12" fill="#6b7280">14</text>
+  <text x="810" y="205" text-anchor="middle" font-size="12" fill="#6b7280">15</text>
+  <text x="850" y="205" text-anchor="middle" font-size="12" fill="#6b7280">16</text>
+
+  <!-- Signal 3: Q7 Data Bus Waveform (Top y=315, Bottom y=355) -->
+  <!-- Upper line of bus -->
+  <path d="M 160 335 L 180 335 
+           L 183 315 L 247 315 L 253 355 L 287 355 L 293 315 L 327 315 L 333 355 L 367 355 L 373 315 L 407 315 L 413 355 L 447 355 L 453 315 L 487 315 L 493 355 L 527 355 L 533 315 L 567 315 L 573 355 L 607 355 L 613 315 L 647 315 L 653 355 L 687 355 L 693 315 L 727 315 L 733 355 L 767 355 L 773 315 L 807 315 L 813 355 L 847 355 L 853 335 L 920 335" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <!-- Lower line of bus -->
+  <path d="M 160 335 L 180 335 
+           L 183 355 L 247 355 L 253 315 L 287 315 L 293 355 L 327 355 L 333 315 L 367 315 L 373 355 L 407 355 L 413 315 L 447 315 L 453 355 L 487 355 L 493 315 L 527 315 L 533 355 L 567 355 L 573 315 L 607 315 L 613 355 L 647 355 L 653 315 L 687 315 L 693 355 L 727 355 L 733 315 L 767 315 L 773 355 L 807 355 L 813 315 L 847 315 L 853 335 L 920 335" stroke="#27ae60" stroke-width="2" fill="none"/>
+
+  <!-- Q7 Bit Labels Inside Data Bus -->
+  <text x="215" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D15</text>
+  <text x="270" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D14</text>
+  <text x="310" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D13</text>
+  <text x="350" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D12</text>
+  <text x="390" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D11</text>
+  <text x="430" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D10</text>
+  <text x="470" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D9</text>
+  <text x="510" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D8</text>
+  <text x="550" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D7</text>
+  <text x="590" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D6</text>
+  <text x="630" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D5</text>
+  <text x="670" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D4</text>
+  <text x="710" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D3</text>
+  <text x="750" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D2</text>
+  <text x="790" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D1</text>
+  <text x="830" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">D0</text>
+
+  <!-- BCD Digit Summary Cards (Bottom Area) -->
+  <!-- Card 1: BCD 4 -->
+  <rect x="175" y="400" width="160" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="255" y="420" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">BCD 4 (Тисячі): 8</text>
+  <text x="255" y="438" text-anchor="middle" font-size="12" fill="#1a1a1a">Біти D15…D12 (1000₂)</text>
+
+  <!-- Card 2: BCD 3 -->
+  <rect x="350" y="400" width="160" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="430" y="420" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">BCD 3 (Сотні): 4</text>
+  <text x="430" y="438" text-anchor="middle" font-size="12" fill="#1a1a1a">Біти D11…D8 (0100₂)</text>
+
+  <!-- Card 3: BCD 2 -->
+  <rect x="525" y="400" width="160" height="50" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="605" y="420" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">BCD 2 (Десятки): 2</text>
+  <text x="605" y="438" text-anchor="middle" font-size="12" fill="#1a1a1a">Біти D7…D4 (0010₂)</text>
+
+  <!-- Card 4: BCD 1 -->
+  <rect x="700" y="400" width="160" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="780" y="420" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">BCD 1 (Одиниці): 9</text>
+  <text x="780" y="438" text-anchor="middle" font-size="12" fill="#1a1a1a">Біти D3…D0 (1001₂)</text>
+
+  <!-- Final Result Summary Line -->
+  <text x="480" y="476" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Підсумковий 16-бітне BCD-значення: 8429 (байтовий кадр SPI: 0x84 0x29)</text>
+</svg>

@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Titles -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Спад струму та накопичення дугової енергії при розмиканні індуктивного кола</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Збільшення постійної часу τ = L/R подовжує час горіння дуги t_arc та підвищує енергію E_arc</text>
+
+  <!-- CHART AREA -->
+  <!-- Grid Lines -->
+  <line x1="110" y1="120" x2="580" y2="120" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+  <line x1="110" y1="200" x2="580" y2="200" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+  <line x1="110" y1="280" x2="580" y2="280" stroke="#e5e7eb" stroke-dasharray="2,2"/>
+
+  <!-- Shaded Arc Energy Area -->
+  <path d="M 110,380 C 220,340 380,200 540,140 L 540,380 Z" fill="#fdecea" opacity="0.4"/>
+  <text x="360" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b" opacity="0.8">Область дугової енергії E_arc</text>
+
+  <!-- Axes -->
+  <!-- Y-left Axis (Current i) -->
+  <line x1="110" y1="380" x2="110" y2="95" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="110" y="82" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Струм i(t) [A]</text>
+  <text x="95" y="124" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">I_0</text>
+  <line x1="105" y1="120" x2="115" y2="120" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Y-right Axis (Arc Energy E) -->
+  <line x1="580" y1="380" x2="580" y2="95" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="580" y="82" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Енергія E_arc [Дж]</text>
+
+  <!-- X Axis (Time t) -->
+  <line x1="110" y1="380" x2="610" y2="380" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="360" y="428" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Час після розмикання контактів t [мс]</text>
+
+  <!-- Curves -->
+  <!-- Active load fast decay (Dashed Blue) -->
+  <path d="M 110,120 C 140,260 200,360 260,380" fill="none" stroke="#93c5fd" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="140" y="260" font-size="12" fill="#6b7280">i(t) при L/R ≈ 0 (активне R)</text>
+
+  <!-- Inductive load current decay i(t) (Solid Blue) -->
+  <path d="M 110,120 C 220,150 360,240 540,380" fill="none" stroke="#2457d6" stroke-width="3"/>
+  <text x="340" y="252" font-size="12" font-weight="bold" fill="#2457d6">i(t) при L/R &gt;&gt; 0 (індуктивне L)</text>
+
+  <!-- Arc energy accumulation E_arc(t) (Solid Red) -->
+  <path d="M 110,380 C 220,340 380,200 540,140" fill="none" stroke="#c0392b" stroke-width="3"/>
+  <text x="360" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">E_arc(t) — накопичення енергії</text>
+
+  <!-- Time Ticks & Vertical Markers -->
+  <!-- t0 mark -->
+  <circle cx="110" cy="380" r="4" fill="#1a1a1a"/>
+  <text x="110" y="402" text-anchor="middle" font-size="12" fill="#1a1a1a">t_0 (розмикання)</text>
+
+  <!-- Time constant t = tau mark -->
+  <line x1="260" y1="120" x2="260" y2="380" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <circle cx="260" cy="240" r="4" fill="#27ae60"/>
+  <text x="260" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">t = τ (L/R)</text>
+  <!-- Label shifted right to x=280 y=210 to avoid curve line intersection -->
+  <text x="280" y="210" font-size="12" font-weight="bold" fill="#2457d6">i(τ) = 0.368 · I_0</text>
+
+  <!-- Arc extinction time t_arc mark -->
+  <line x1="540" y1="120" x2="540" y2="380" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <circle cx="540" cy="140" r="4" fill="#c0392b"/>
+  <circle cx="540" cy="380" r="4" fill="#c0392b"/>
+  <text x="540" y="402" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">t_arc (згасання дуги)</text>
+  <text x="530" y="130" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">E_arc,max</text>
+
+  <!-- RIGHT INFO PANEL -->
+  <rect x="650" y="75" width="280" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Фізика дугового розриву</text>
+
+  <!-- Card 1: Time Constant -->
+  <rect x="665" y="115" width="250" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="790" y="135" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Постійна часу кола:</text>
+  <text x="790" y="158" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">τ = L / R</text>
+  <text x="790" y="180" text-anchor="middle" font-size="12" fill="#1a1a1a">i(t) = I_0 · e^(-t / τ)</text>
+
+  <!-- Card 2: Arc Energy -->
+  <rect x="665" y="215" width="250" height="105" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Дугова енергія розриву:</text>
+  <text x="790" y="258" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">E_arc = ∫ u_arc(t) · i(t) dt</text>
+  <text x="790" y="280" text-anchor="middle" font-size="12" fill="#1a1a1a">E_mag = 1/2 · L · I_0²</text>
+  <text x="790" y="298" text-anchor="middle" font-size="12" fill="#6b7280">(накопичена енергія індуктивності)</text>
+
+  <!-- Card 3: Contact Wear Conclusion -->
+  <rect x="665" y="330" width="250" height="100" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="350" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Вплив на ресурс контактів:</text>
+  <text x="675" y="370" font-size="12" fill="#1a1a1a">• Вищий τ → довший час дуги t_arc</text>
+  <text x="675" y="388" font-size="12" fill="#1a1a1a">• Більша E_arc → термічна ерозія</text>
+  <text x="675" y="406" font-size="12" fill="#1a1a1a">• Потрібне зниження струму AC-3</text>
+</svg>

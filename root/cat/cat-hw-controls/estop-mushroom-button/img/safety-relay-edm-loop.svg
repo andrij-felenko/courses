@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема підключення кнопки E-Stop, реле безпеки та петлі EDM</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Двоканальний опитальний контур (2×NC) та моніторинг примусово ведених NC-контактів контакторів K1/K2</text>
+
+  <!-- Left Block: E-Stop Button -->
+  <rect x="40" y="75" width="180" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Кнопка E-Stop</text>
+  <text x="130" y="118" text-anchor="middle" font-size="12" fill="#6b7280">(2×NC блоки)</text>
+
+  <!-- Mushroom Top Graphic -->
+  <path d="M 95 140 C 95 125 165 125 165 140 Z" fill="#c0392b" stroke="#962d22" stroke-width="1.5"/>
+  <rect x="115" y="140" width="30" height="8" fill="#f1c40f"/>
+
+  <!-- NC Contact 1 (Top Channel) -->
+  <rect x="60" y="170" width="140" height="50" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="190" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Контакт NC 1</text>
+  <text x="75" y="210" font-size="12" fill="#1a1a1a">11</text>
+  <text x="175" y="210" font-size="12" fill="#1a1a1a">12</text>
+  <path d="M 85 206 L 120 206 M 135 206 L 170 206 M 120 206 L 137 198" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- NC Contact 2 (Bottom Channel) -->
+  <rect x="60" y="260" width="140" height="50" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Контакт NC 2</text>
+  <text x="75" y="300" font-size="12" fill="#1a1a1a">21</text>
+  <text x="175" y="300" font-size="12" fill="#1a1a1a">22</text>
+  <path d="M 85 296 L 120 296 M 135 296 L 170 296 M 120 296 L 137 288" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Positive Opening Symbol Badge -->
+  <circle cx="130" cy="355" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 120 355 L 140 355 M 134 350 L 140 355 L 134 360" stroke="#2457d6" stroke-width="2" fill="none"/>
+  <circle cx="128" cy="355" r="8" fill="none" stroke="#2457d6" stroke-width="1.2"/>
+
+  <!-- Middle Block: Safety Relay Module -->
+  <rect x="260" y="75" width="300" height="330" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="410" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Реле безпеки (Safety Relay)</text>
+  <text x="410" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Двоканальна діагностика (2oo2)</text>
+
+  <!-- Terminals Left -->
+  <rect x="270" y="165" width="36" height="22" rx="3" fill="#2457d6"/>
+  <text x="288" y="180" text-anchor="middle" font-size="12" font-weight="bold" fill="white">S11</text>
+  <rect x="270" y="195" width="36" height="22" rx="3" fill="#2457d6"/>
+  <text x="288" y="210" text-anchor="middle" font-size="12" font-weight="bold" fill="white">S12</text>
+
+  <rect x="270" y="255" width="36" height="22" rx="3" fill="#2457d6"/>
+  <text x="288" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="white">S21</text>
+  <rect x="270" y="285" width="36" height="22" rx="3" fill="#2457d6"/>
+  <text x="288" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="white">S22</text>
+
+  <!-- EDM Reset Terminal Bottom Left -->
+  <rect x="270" y="345" width="36" height="22" rx="3" fill="#27ae60"/>
+  <text x="288" y="360" text-anchor="middle" font-size="12" font-weight="bold" fill="white">S34</text>
+  <text x="315" y="360" font-size="12" font-weight="bold" fill="#27ae60">Вхід EDM</text>
+
+  <!-- Internal Logic Box -->
+  <rect x="340" y="150" width="130" height="230" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="405" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Логіка без-</text>
+  <text x="405" y="192" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">пеки (2oo2)</text>
+
+  <!-- Safety Relay Relays inside Logic -->
+  <rect x="360" y="215" width="90" height="40" rx="3" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="405" y="238" text-anchor="middle" font-size="12" fill="#1a1a1a">Реле K_S1/S2</text>
+
+  <!-- Terminals Right (Outputs) -->
+  <rect x="514" y="170" width="36" height="22" rx="3" fill="#c0392b"/>
+  <text x="532" y="185" text-anchor="middle" font-size="12" font-weight="bold" fill="white">14</text>
+  
+  <rect x="514" y="270" width="36" height="22" rx="3" fill="#c0392b"/>
+  <text x="532" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="white">24</text>
+
+  <!-- Output Switches inside Relay -->
+  <path d="M 470 181 L 514 181" stroke="#c0392b" stroke-width="2"/>
+  <path d="M 470 281 L 514 281" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Right Block: Contactors K1 and K2 -->
+  <rect x="600" y="75" width="320" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="760" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Силові контактори K1 та K2</text>
+  <text x="760" y="118" text-anchor="middle" font-size="12" fill="#6b7280">Подвійний розрив + дзеркальні NC</text>
+
+  <!-- Contactor K1 (Top Section) -->
+  <rect x="615" y="145" width="290" height="110" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="630" y="165" font-size="13" font-weight="bold" fill="#1a1a1a">Контактор K1</text>
+  
+  <!-- Coil K1 -->
+  <rect x="630" y="180" width="55" height="32" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="657" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">A1-A2</text>
+
+  <!-- Mirror NC Contact K1 (EDM) -->
+  <rect x="705" y="180" width="75" height="32" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="742" y="196" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">NC K1 (EDM)</text>
+  <text x="742" y="208" text-anchor="middle" font-size="11" fill="#6b7280">Дзеркальний</text>
+
+  <!-- Power NO Contacts K1 -->
+  <rect x="800" y="180" width="90" height="32" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="845" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">NO 3×Фази</text>
+
+  <!-- Contactor K2 (Bottom Section) -->
+  <rect x="615" y="275" width="290" height="110" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="630" y="295" font-size="13" font-weight="bold" fill="#1a1a1a">Контактор K2</text>
+  
+  <!-- Coil K2 -->
+  <rect x="630" y="310" width="55" height="32" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="657" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">A1-A2</text>
+
+  <!-- Mirror NC Contact K2 (EDM) -->
+  <rect x="705" y="310" width="75" height="32" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="742" y="326" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">NC K2 (EDM)</text>
+  <text x="742" y="338" text-anchor="middle" font-size="11" fill="#6b7280">Дзеркальний</text>
+
+  <!-- Power NO Contacts K2 -->
+  <rect x="800" y="310" width="90" height="32" rx="3" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="845" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">NO 3×Фази</text>
+
+  <!-- WIRING CONNECTIONS -->
+  
+  <!-- Ch 1 E-Stop Wiring (S11 -> 11 -> 12 -> S12) -->
+  <path d="M 270 176 L 200 176" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 200 210 L 270 210" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Ch 2 E-Stop Wiring (S21 -> 21 -> 22 -> S22) -->
+  <path d="M 270 266 L 200 266" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 200 300 L 270 300" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Control Outputs Wiring to Coils -->
+  <path d="M 550 181 L 630 181" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <path d="M 550 281 L 580 281 L 580 326 L 630 326" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- EDM Feedback Loop Wiring (24V -> NC K1 -> NC K2 -> S34) -->
+  <path d="M 742 180 L 742 165 L 742 150" stroke="#27ae60" stroke-width="2" fill="none"/>
+  <path d="M 742 212 L 742 310" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+  <path d="M 742 342 L 742 360 L 306 360" stroke="#27ae60" stroke-width="2" fill="none" marker-end="url(#arr-green)"/>
+
+  <!-- Bottom EDM Callout Badge -->
+  <rect x="40" y="425" width="880" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="448" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ ЛАНЦЮГ EDM (S34): Дзеркальні NC-контакти K1+K2 блокують скидання реле, якщо хоча б один силовик зварився!</text>
+</svg>

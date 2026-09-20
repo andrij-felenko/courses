@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 510" width="960" height="510" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="510" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Порівняння геометрії осьової (Axial) та радіальної (Radial) мертвих зон</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Осьове відсікання спотворює діагональний відгук (хрестоподібний зріз), а радіальне зберігає кругову симетрію</text>
+
+
+  <!-- PANEL 1: AXIAL DEADZONE -->
+  <rect x="30" y="70" width="440" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="94" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">1. Осьова мертва зона (Axial)</text>
+  <text x="250" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Незалежні пороги: |X| &lt; d_x, |Y| &lt; d_y</text>
+
+  <!-- Panel 1 Axes -->
+  <line x1="120" y1="215" x2="370" y2="215" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="382" y="219" font-size="12" font-weight="700" fill="#1a1a1a">+X</text>
+
+  <line x1="250" y1="310" x2="250" y2="125" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="250" y="116" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">+Y</text>
+
+  <!-- Outer Max Range Limit (Circle) -->
+  <circle cx="250" cy="215" r="90" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="345" y="140" font-size="12" fill="#6b7280">R_max = 1.0</text>
+
+  <!-- Axial Cross Deadzone Bands -->
+  <rect x="160" y="203" width="180" height="24" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <rect x="238" y="125" width="24" height="180" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Deadzone Labels -->
+  <text x="150" y="195" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">d_y</text>
+  <text x="226" y="295" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">d_x</text>
+
+  <!-- Distorted Trajectory Path -->
+  <path d="M 250 215 L 295 215 L 315 150" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+  <circle cx="295" cy="215" r="3" fill="#c0392b"/>
+  <text x="325" y="180" font-size="12" font-weight="700" fill="#c0392b">Злом діагоналі</text>
+
+  <!-- Panel 1 Summary Callout -->
+  <rect x="45" y="340" width="410" height="75" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="250" y="360" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Проблема: Втрата плавного руху під кутом</text>
+  <text x="250" y="380" font-size="12" fill="#1a1a1a" text-anchor="middle">• Притягує рух до осей X/Y, утворюючи «хрест»</text>
+  <text x="250" y="398" font-size="12" fill="#6b7280" text-anchor="middle">• Спотворює діагональний вектор руху</text>
+
+
+  <!-- PANEL 2: RADIAL DEADZONE -->
+  <rect x="490" y="70" width="440" height="360" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="94" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">2. Радіальна мертва зона (Radial)</text>
+  <text x="710" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Векторне відсікання: r = √(X² + Y²) &lt; d_r</text>
+
+  <!-- Panel 2 Axes -->
+  <line x1="580" y1="215" x2="830" y2="215" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="842" y="219" font-size="12" font-weight="700" fill="#1a1a1a">+X</text>
+
+  <line x1="710" y1="310" x2="710" y2="125" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="710" y="116" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">+Y</text>
+
+  <!-- Outer Max Range Limit (Circle) -->
+  <circle cx="710" cy="215" r="90" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="805" y="140" font-size="12" fill="#6b7280">R_max = 1.0</text>
+
+  <!-- Circular Deadzone -->
+  <circle cx="710" cy="215" r="28" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="668" y="195" font-size="12" font-weight="700" fill="#27ae60" text-anchor="end">r &lt; d_r</text>
+
+  <!-- Smooth Vector Arrow -->
+  <line x1="710" y1="215" x2="770" y2="155" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <path d="M 735 215 A 25 25 0 0 0 728 197" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="740" y="204" font-size="12" font-weight="700" fill="#2457d6">θ</text>
+  <text x="778" y="165" font-size="12" font-weight="700" fill="#2457d6">Вектор V</text>
+
+  <!-- Panel 2 Summary Callout -->
+  <rect x="505" y="340" width="410" height="75" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="710" y="360" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Перевага: Повна збереженість напрямку</text>
+  <text x="710" y="380" font-size="12" fill="#1a1a1a" text-anchor="middle">• Кут напрямку θ = atan2(Y, X) не спотворюється</text>
+  <text x="710" y="398" font-size="12" fill="#2457d6" text-anchor="middle">• Зберігає ідеальну кругову симетрію 360°</text>
+
+
+  <!-- Bottom Summary Banner -->
+  <rect x="30" y="445" width="900" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="463" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Рекомендація: Використовувати Scaled Radial Deadzone в точних маніпуляторах</text>
+  <text x="480" y="480" font-size="12" fill="#1a1a1a" text-anchor="middle">Радіальне масштабування виключає стрибок швидкості на межі відсікання та захищає від дрейфу</text>
+</svg>

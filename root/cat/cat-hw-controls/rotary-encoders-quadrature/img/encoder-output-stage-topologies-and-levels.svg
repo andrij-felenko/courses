@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топології вихідних каскадів та логічні рівні енкодерів</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Порівняння схемотехніки NPN Open Collector, Push-Pull та Line Driver (RS-422) для систем TTL (5V) і HTL (24V)</text>
+
+  <!-- Panel 1: Open Collector NPN -->
+  <rect x="30" y="95" width="285" height="365" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="95" width="285" height="35" rx="6" fill="#eaf0fd"/>
+  <rect x="30" y="120" width="285" height="10" fill="#eaf0fd"/>
+  <text x="172.5" y="117" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Відкритий колектор (NPN)</text>
+
+  <!-- Sub-box 1: Topology -->
+  <rect x="42" y="140" width="261" height="155" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="172.5" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зсув рівнів підтяжкою R_pull</text>
+  <text x="52" y="185" font-size="12" fill="#1a1a1a">• Вихід: NPN активний LOW</text>
+  <text x="52" y="207" font-size="12" fill="#1a1a1a">• Захист: потребує R_pull</text>
+  <text x="52" y="229" font-size="12" fill="#6b7280">• Струм витоку в режимі OFF</text>
+  <rect x="52" y="243" width="241" height="42" rx="4" fill="#eaf0fd"/>
+  <text x="172.5" y="260" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Формування імпульсів R_pull</text>
+  <text x="172.5" y="276" font-size="11" fill="#6b7280" text-anchor="middle">Гнучкий рівень напруги</text>
+
+  <!-- Sub-box 2: Levels & Application -->
+  <rect x="42" y="310" width="261" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="172.5" y="330" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Рівні напруг та застосування</text>
+  <text x="52" y="352" font-size="12" fill="#1a1a1a">• Напруга: 5V ... 24V DC</text>
+  <text x="52" y="374" font-size="12" fill="#1a1a1a">• Відстань ліній: до 10 м</text>
+  <rect x="52" y="390" width="241" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="172.5" y="412" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Сумісність із МК (3.3V / 5V)</text>
+
+  <!-- Panel 2: Push-Pull (HTL) -->
+  <rect x="337.5" y="95" width="285" height="365" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="337.5" y="95" width="285" height="35" rx="6" fill="#eaf0fd"/>
+  <rect x="337.5" y="120" width="285" height="10" fill="#eaf0fd"/>
+  <text x="480" y="117" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Каскад Push-Pull (HTL)</text>
+
+  <!-- Sub-box 1: Topology -->
+  <rect x="349.5" y="140" width="261" height="155" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="160" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Активний вихід HIGH / LOW</text>
+  <text x="359.5" y="185" font-size="12" fill="#1a1a1a">• Верхнє плече: Джерело V_CC</text>
+  <text x="359.5" y="207" font-size="12" fill="#1a1a1a">• Нижнє плече: Стік на GND</text>
+  <text x="359.5" y="229" font-size="12" fill="#6b7280">• Потужний двотактний вихід</text>
+  <rect x="359.5" y="243" width="241" height="42" rx="4" fill="#e9f7ef"/>
+  <text x="480" y="260" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Двотактне керування (HTL)</text>
+  <text x="480" y="276" font-size="11" fill="#6b7280" text-anchor="middle">Висока фронтова крутизна</text>
+
+  <!-- Sub-box 2: Levels & Application -->
+  <rect x="349.5" y="310" width="261" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="480" y="330" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">HTL Промисловий рівень</text>
+  <text x="359.5" y="352" font-size="12" fill="#1a1a1a">• HTL напруга: 10V ... 30V DC</text>
+  <text x="359.5" y="374" font-size="12" fill="#1a1a1a">• Відстань ліній: до 50 м</text>
+  <rect x="359.5" y="390" width="241" height="36" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="412" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Пряме підключення до ПЛК</text>
+
+  <!-- Panel 3: Line Driver RS-422 (TTL) -->
+  <rect x="645" y="95" width="285" height="365" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="645" y="95" width="285" height="35" rx="6" fill="#eaf0fd"/>
+  <rect x="645" y="120" width="285" height="10" fill="#eaf0fd"/>
+  <text x="787.5" y="117" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Диференційний RS-422 (TTL)</text>
+
+  <!-- Sub-box 1: Topology -->
+  <rect x="657" y="140" width="261" height="155" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="787.5" y="160" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Пара комплементарних ліній A / /A</text>
+  <text x="667" y="185" font-size="12" fill="#1a1a1a">• Диференційна напруга ±2V</text>
+  <text x="667" y="207" font-size="12" fill="#1a1a1a">• Придушення синфазних завад</text>
+  <text x="667" y="229" font-size="12" fill="#6b7280">• Узгоджений термінатор R_T</text>
+  <rect x="667" y="243" width="241" height="42" rx="4" fill="#eaf0fd"/>
+  <text x="787.5" y="260" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Передача по витій парі</text>
+  <text x="787.5" y="276" font-size="11" fill="#6b7280" text-anchor="middle">Частота сигналів до 1 МГц</text>
+
+  <!-- Sub-box 2: Levels & Application -->
+  <rect x="657" y="310" width="261" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="787.5" y="330" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">TTL / RS-422 Завадостійкість</text>
+  <text x="667" y="352" font-size="12" fill="#1a1a1a">• TTL напруга: 5V DC (RS-422)</text>
+  <text x="667" y="374" font-size="12" fill="#1a1a1a">• Відстань ліній: до 500 м</text>
+  <rect x="667" y="390" width="241" height="36" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="787.5" y="412" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Максимальна завадостійкість</text>
+
+  <!-- Bottom Legend Panel -->
+  <rect x="30" y="475" width="900" height="35" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="172.5" y="497" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">■ NPN: Зсув рівнів підтяжкою R_pull</text>
+  <text x="480" y="497" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">■ Push-Pull (HTL): 24V промислова шина</text>
+  <text x="787.5" y="497" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">■ RS-422 (TTL): Диференційна вита пара</text>
+</svg>

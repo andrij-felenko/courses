@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Архітектура програмного драйвера інкрементального енкодера</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Потік даних від апаратних периферійних вузлів MCU через конфігурацію до обробників API та подій</text>
+
+  <!-- COLUMN 1: HARDWARE PERIPHERALS -->
+  <g id="col-hardware">
+    <rect x="30" y="78" width="160" height="280" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="110" y="102" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Апаратна периферія</text>
+
+    <!-- Block 1: Timer Encoder Mode -->
+    <rect x="40" y="118" width="140" height="52" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="110" y="138" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">TIM Encoder Mode</text>
+    <text x="110" y="156" text-anchor="middle" font-size="11" fill="#6b7280">(Входи CH1 / CH2)</text>
+
+    <!-- Block 2: Index Z Pin -->
+    <rect x="40" y="198" width="140" height="52" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="110" y="218" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Вхід Index Z</text>
+    <text x="110" y="236" text-anchor="middle" font-size="11" fill="#6b7280">(EXTI / TIM_CH3)</text>
+
+    <!-- Block 3: Button GPIO -->
+    <rect x="40" y="278" width="140" height="52" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="110" y="298" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Кнопка SW</text>
+    <text x="110" y="316" text-anchor="middle" font-size="11" fill="#6b7280">(GPIO Input Pin)</text>
+  </g>
+
+  <!-- FLOW WIRES: COL 1 -> COL 2 -->
+  <line x1="180" y1="144" x2="215" y2="144" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="180" y1="224" x2="215" y2="224" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="180" y1="304" x2="215" y2="304" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- COLUMN 2: DRIVER CORE & CONFIG -->
+  <g id="col-core">
+    <rect x="215" y="78" width="240" height="280" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="335" y="102" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Ядро драйвера та конфігурація</text>
+
+    <!-- Config Struct -->
+    <rect x="225" y="118" width="220" height="52" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="335" y="138" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Структура EncoderConfig</text>
+    <text x="335" y="156" text-anchor="middle" font-size="11" fill="#6b7280">Режими 1X/2X/4X, CPR, Інверсія</text>
+
+    <!-- FSM & Speed Calc -->
+    <rect x="225" y="198" width="220" height="52" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="335" y="218" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Автомат станів та фільтр</text>
+    <text x="335" y="236" text-anchor="middle" font-size="11" fill="#6b7280">Розрахунок кута та швидкості</text>
+
+    <!-- Button Debouncer -->
+    <rect x="225" y="278" width="220" height="52" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="335" y="298" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Знебрязкувач кнопки SW</text>
+    <text x="335" y="316" text-anchor="middle" font-size="11" fill="#6b7280">Таймер заспокоєння контактів</text>
+  </g>
+
+  <!-- FLOW WIRES: COL 2 -> COL 3 -->
+  <line x1="455" y1="144" x2="490" y2="144" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="455" y1="224" x2="490" y2="224" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="455" y1="304" x2="490" y2="304" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- COLUMN 3: API FUNCTIONS -->
+  <g id="col-api">
+    <rect x="490" y="78" width="220" height="280" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="600" y="102" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Програмний API (C/C++)</text>
+
+    <!-- Position API -->
+    <rect x="498" y="118" width="204" height="52" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="600" y="138" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Encoder_GetPosition()</text>
+    <text x="600" y="156" text-anchor="middle" font-size="11" fill="#6b7280">Поточний кут та імпульси</text>
+
+    <!-- Velocity API -->
+    <rect x="498" y="198" width="204" height="52" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="600" y="218" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Encoder_GetVelocity()</text>
+    <text x="600" y="236" text-anchor="middle" font-size="11" fill="#6b7280">Кутова швидкість (об/хв)</text>
+
+    <!-- Button API -->
+    <rect x="498" y="278" width="204" height="52" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="600" y="298" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Encoder_GetButtonState()</text>
+    <text x="600" y="316" text-anchor="middle" font-size="11" fill="#6b7280">Стан натискання кнопки SW</text>
+  </g>
+
+  <!-- FLOW WIRES: COL 3 -> COL 4 -->
+  <line x1="710" y1="144" x2="740" y2="144" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="710" y1="224" x2="740" y2="224" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="710" y1="304" x2="740" y2="304" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- COLUMN 4: EVENT HANDLERS / CALLBACKS -->
+  <g id="col-events">
+    <rect x="740" y="78" width="190" height="280" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="835" y="102" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Обробники подій</text>
+
+    <!-- Index Callback -->
+    <rect x="748" y="118" width="174" height="52" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="835" y="138" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">on_index_pulse()</text>
+    <text x="835" y="156" text-anchor="middle" font-size="11" fill="#6b7280">Скидання нуля за міткою Z</text>
+
+    <!-- Error Callback -->
+    <rect x="748" y="198" width="174" height="52" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="835" y="218" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">on_overflow_error()</text>
+    <text x="835" y="236" text-anchor="middle" font-size="11" fill="#6b7280">Обробка переповнення</text>
+
+    <!-- Button Callback -->
+    <rect x="748" y="278" width="174" height="52" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="835" y="298" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">on_button_event()</text>
+    <text x="835" y="316" text-anchor="middle" font-size="11" fill="#6b7280">Події: Click / LongPress</text>
+  </g>
+
+  <!-- SUMMARY INFO BOX -->
+  <rect x="30" y="378" width="900" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ НЕБЛОКУЮЧА АРХІТЕКТУРА: Драйвер обробляє апаратні таймери та переривання без затримок циклу (Non-blocking API)</text>
+  <text x="480" y="422" text-anchor="middle" font-size="11" fill="#1a1a1a">Інкапсульований стан та зворотні виклики (Callbacks) забезпечують надійне декодування та інтеграцію з RTOS.</text>
+</svg>

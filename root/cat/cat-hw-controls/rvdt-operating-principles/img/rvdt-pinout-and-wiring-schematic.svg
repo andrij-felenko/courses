@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електрична схема підключення RVDT та правильне заземлення екрана</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Призначення виводів Primary H/L, Secondary 1/2 H/L та підключення Shield GND на боці контролера</text>
+
+  <!-- Left Panel: Controller / Demodulator Module -->
+  <rect x="25" y="70" width="250" height="355" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="38" y="92" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Контролер / Демодулятор RVDT</text>
+  <text x="38" y="108" font-size="11" fill="#6b7280" text-anchor="start">(RVDT Interface &amp; ADC Module)</text>
+
+  <!-- Controller Terminals -->
+  <!-- PRI_HI -->
+  <rect x="200" y="136" width="75" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="237.5" y="153" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">PRI_HI</text>
+
+  <!-- PRI_LO -->
+  <rect x="200" y="171" width="75" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="237.5" y="188" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">PRI_LO</text>
+
+  <!-- SEC1_HI -->
+  <rect x="200" y="221" width="75" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="237.5" y="238" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SEC1_HI</text>
+
+  <!-- SEC1_LO -->
+  <rect x="200" y="256" width="75" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="237.5" y="273" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SEC1_LO</text>
+
+  <!-- SEC2_HI -->
+  <rect x="200" y="306" width="75" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="237.5" y="323" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SEC2_HI</text>
+
+  <!-- SEC2_LO -->
+  <rect x="200" y="341" width="75" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="237.5" y="358" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SEC2_LO</text>
+
+  <!-- SHIELD_GND Terminal & Earth Connection -->
+  <rect x="180" y="382" width="95" height="26" rx="4" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="227.5" y="399" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SHIELD_GND</text>
+  <line x1="180" y1="395" x2="140" y2="395" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="140" y1="385" x2="140" y2="405" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="134" y1="390" x2="134" y2="400" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="128" y1="393" x2="128" y2="397" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="40" y="399" font-size="11" fill="#1a1a1a" text-anchor="start">Шина заземлення ⏚</text>
+
+  <!-- Middle Panel: Cable Harness (STP) -->
+  <rect x="300" y="70" width="360" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="315" y="92" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Бортовий екранований джгут (STP)</text>
+
+  <!-- Pair 1 Shield Box (Excitation) -->
+  <rect x="315" y="132" width="330" height="70" rx="10" fill="none" stroke="#6b7280" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="325" y="125" font-size="11" fill="#6b7280" text-anchor="start">Екран 1 (Збудження: 3–11.5 Vrms, 400Hz–10kHz)</text>
+  <text x="480" y="144" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">PRI_H (+)</text>
+  <line x1="275" y1="150" x2="685" y2="150" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="480" y="179" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">PRI_L (-)</text>
+  <line x1="275" y1="185" x2="685" y2="185" stroke="#991b1b" stroke-width="1.8"/>
+
+  <!-- Pair 2 Shield Box (Secondary 1) -->
+  <rect x="315" y="217" width="330" height="70" rx="10" fill="none" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="325" y="212" font-size="11" fill="#2457d6" text-anchor="start">Екран 2 (Сигнал V1)</text>
+  <text x="480" y="229" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">SEC1_H (+)</text>
+  <line x1="275" y1="235" x2="685" y2="235" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="480" y="264" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">SEC1_L (-)</text>
+  <line x1="275" y1="270" x2="685" y2="270" stroke="#1e3a8a" stroke-width="1.8"/>
+
+  <!-- Pair 3 Shield Box (Secondary 2) -->
+  <rect x="315" y="302" width="330" height="70" rx="10" fill="none" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="325" y="297" font-size="11" fill="#27ae60" text-anchor="start">Екран 3 (Сигнал V2)</text>
+  <text x="480" y="314" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">SEC2_H (+)</text>
+  <line x1="275" y1="320" x2="685" y2="320" stroke="#27ae60" stroke-width="1.8"/>
+  <text x="480" y="349" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">SEC2_L (-)</text>
+  <line x1="275" y1="355" x2="685" y2="355" stroke="#14532d" stroke-width="1.8"/>
+
+  <!-- Common Shield Drain Line to Controller GND -->
+  <path d="M 315,167 L 290,167 L 290,395 L 275,395" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M 315,252 L 290,252" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M 315,337 L 290,337" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <text x="480" y="395" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Екран ІЗОЛЬОВАНО на боці RVDT (без контактного заземлення)</text>
+
+  <!-- Right Panel: RVDT Sensor Transducer Body -->
+  <rect x="685" y="70" width="250" height="355" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="700" y="92" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Корпус давача RVDT</text>
+  <text x="700" y="108" font-size="11" fill="#6b7280" text-anchor="start">(Магнітопровід та обмотки)</text>
+
+  <!-- RVDT Internal Windings -->
+  <!-- Primary Winding P1/P2 -->
+  <path d="M 685,150 L 720,150 Q 730,140 730,150 Q 730,160 730,167 Q 730,175 730,185 L 685,185" fill="none" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="745" y="171" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">Первинна (PRI)</text>
+
+  <!-- Rotational Cam / Core -->
+  <ellipse cx="735" cy="252" rx="14" ry="28" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="735" y="215" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">θ (Кут)</text>
+  <path d="M 723,222 A 15,15 0 0 1 747,222" fill="none" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-dark)"/>
+
+  <!-- Secondary Winding 1 S11/S12 -->
+  <path d="M 685,235 L 770,235 Q 780,225 780,235 Q 780,245 780,252 Q 780,260 780,270 L 685,270" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="795" y="256" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="start">Вторинна 1 (SEC1)</text>
+
+  <!-- Secondary Winding 2 S21/S22 -->
+  <path d="M 685,320 L 770,320 Q 780,310 780,320 Q 780,330 780,337 Q 780,345 780,355 L 685,355" fill="none" stroke="#27ae60" stroke-width="1.8"/>
+  <text x="795" y="341" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">Вторинна 2 (SEC2)</text>
+
+  <text x="700" y="399" font-size="11" fill="#6b7280" text-anchor="start">Металевий корпус (Float)</text>
+
+  <!-- Bottom Panel: Grounding Rules & Safety Cards -->
+  <rect x="25" y="440" width="910" height="85" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Card A: Single-point grounding rule -->
+  <rect x="38" y="450" width="425" height="65" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="50" y="468" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">✓ Одноточкове заземлення екрана (Single-Point Grounding)</text>
+  <text x="50" y="486" font-size="11" fill="#1a1a1a" text-anchor="start">Екран кабелю заземлюється ЛИШЕ на шину SHIELD_GND контролера.</text>
+  <text x="50" y="504" font-size="11" fill="#1a1a1a" text-anchor="start">Усуває різницю потенціалів та паразитні наводки в лінії зв'язку.</text>
+
+  <!-- Card B: Ground loop hazard warning -->
+  <rect x="495" y="450" width="425" height="65" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="507" y="468" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">⛔ Заборона двоточкового заземлення (Ground Loop Hazard)</text>
+  <text x="507" y="486" font-size="11" fill="#1a1a1a" text-anchor="start">Заборонено підключати екран кабелю до корпусу RVDT.</text>
+  <text x="507" y="504" font-size="11" fill="#1a1a1a" text-anchor="start">Створює контур із протіканням струму завад, що спотворює V1 та V2.</text>
+</svg>

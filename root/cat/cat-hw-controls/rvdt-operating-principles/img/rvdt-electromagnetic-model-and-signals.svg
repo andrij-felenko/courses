@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електромагнітна модель та сигнали RVDT при кутовому зміщенні</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Зміна кута θ змінює взаємоіндуктивності M1(θ) та M2(θ) й амплітуди протифазних напруг V1 та V2</text>
+
+  <!-- LEFT PANEL: RVDT Electromagnetic Model -->
+  <rect x="30" y="80" width="420" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="240" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електромагнітна схема RVDT</text>
+  <text x="240" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Кут відхилення ротора θ &gt; 0</text>
+
+  <!-- Primary Winding -->
+  <rect x="50" y="145" width="160" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="130" y="170" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Первинна обмотка</text>
+  <text x="130" y="192" font-size="12" fill="#2457d6" text-anchor="middle">V_in(t) = V_m sin(ωt)</text>
+
+  <!-- Cam Rotor -->
+  <rect x="50" y="225" width="160" height="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="6"/>
+  <text x="130" y="250" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Кулачковий ротор</text>
+  <text x="130" y="270" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Поворот на кут θ</text>
+  <text x="130" y="292" font-size="12" fill="#1a1a1a" text-anchor="middle">M1(θ) &gt; M2(θ)</text>
+
+  <!-- Secondary Winding S1 -->
+  <rect x="240" y="145" width="195" height="75" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="337" y="168" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Обмотка S1 (Канал 1)</text>
+  <text x="337" y="188" font-size="12" fill="#c0392b" text-anchor="middle">V1(t) = (M0 + k·θ)·dI/dt</text>
+  <text x="337" y="206" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Амплітуда V1 зростає</text>
+
+  <!-- Secondary Winding S2 -->
+  <rect x="240" y="235" width="195" height="75" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="337" y="258" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Обмотка S2 (Канал 2)</text>
+  <text x="337" y="278" font-size="12" fill="#2457d6" text-anchor="middle">V2(t) = (M0 - k·θ)·dI/dt</text>
+  <text x="337" y="296" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Амплітуда V2 спадає</text>
+
+  <!-- Coupling Lines -->
+  <path d="M 210 177 L 240 177" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <path d="M 210 267 L 240 267" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Left Bottom Note Box -->
+  <rect x="50" y="325" width="385" height="100" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="65" y="347" font-size="12" font-weight="bold" fill="#1a1a1a">Диференціальна закономірність:</text>
+  <text x="65" y="367" font-size="12" fill="#1a1a1a">При θ &gt; 0 зазор зменшується для S1</text>
+  <text x="65" y="385" font-size="12" fill="#1a1a1a">та збільшується для S2.</text>
+  <text x="65" y="407" font-size="12" font-weight="bold" fill="#27ae60">Різниця напруг ΔV = V1 - V2 ∝ θ.</text>
+
+  <!-- RIGHT PANEL: Signal Waveforms -->
+  <rect x="480" y="80" width="450" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="705" y="105" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часові діаграми сигналів V1, V2 та (V1 - V2)</text>
+  <text x="705" y="123" font-size="12" fill="#6b7280" text-anchor="middle">Амплітудна модуляція сигналів при θ &gt; 0</text>
+
+  <!-- Waveform 1: V1(t) -->
+  <rect x="500" y="138" width="410" height="75" fill="white" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="515" y="158" font-size="12" font-weight="bold" fill="#c0392b">Сигнал V1(t) (Велика амплітуда)</text>
+  <line x1="515" y1="180" x2="830" y2="180" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <path d="M 530 180 Q 550 152 570 180 T 610 180 T 650 180 T 690 180 T 730 180 T 770 180 T 810 180" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="895" y="184" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">V1_m = V0 + ΔV</text>
+
+  <!-- Waveform 2: V2(t) -->
+  <rect x="500" y="225" width="410" height="75" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="515" y="245" font-size="12" font-weight="bold" fill="#2457d6">Сигнал V2(t) (Мала амплітуда)</text>
+  <line x1="515" y1="267" x2="830" y2="267" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <path d="M 530 267 Q 550 257 570 267 T 610 267 T 650 267 T 690 267 T 730 267 T 770 267 T 810 267" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="895" y="271" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">V2_m = V0 - ΔV</text>
+
+  <!-- Waveform 3: Differential Signal (V1 - V2) -->
+  <rect x="500" y="312" width="410" height="113" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="4"/>
+  <text x="515" y="332" font-size="12" font-weight="bold" fill="#27ae60">Різничний сигнал V_diff(t) = V1(t) - V2(t)</text>
+  <line x1="515" y1="365" x2="830" y2="365" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <path d="M 530 365 Q 550 340 570 365 T 610 365 T 650 365 T 690 365 T 730 365 T 770 365 T 810 365" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="515" y="398" font-size="12" font-weight="bold" fill="#27ae60">Амплітуда: V_diff_m = 2·ΔV ∝ θ</text>
+  <text x="515" y="416" font-size="12" fill="#1a1a1a">Фаза: 0° (при θ &gt; 0), 180° (при θ &lt; 0)</text>
+
+  <!-- BOTTOM SUMMARY / RATIOMETRIC FORMULA PANEL -->
+  <rect x="30" y="455" width="900" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="477" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Ратіометрична функція: R(θ) = (V1 - V2) / (V1 + V2) = k · θ</text>
+  <text x="480" y="498" font-size="12" fill="#1a1a1a" text-anchor="middle">Ділення на суму (V1 + V2) повністю компенсує коливання напруги збудження V_in та температурний дрейф опору обмоток.</text>
+
+</svg>

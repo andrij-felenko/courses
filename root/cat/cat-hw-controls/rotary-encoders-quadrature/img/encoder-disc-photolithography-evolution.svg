@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Еволюція технології виготовлення растрових кодових дисків</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Зростання роздільної здатності від штампованої перфорації до хромової літографії на склі</text>
+
+  <!-- ЕТАП 1: МЕТАЛЕВИЙ ПЕРФОРОВАНИЙ ДИСК -->
+  <g id="stage-metal-disc">
+    <!-- Рамка панелі 1 -->
+    <rect x="30" y="80" width="280" height="350" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+
+    <!-- Заголовок панелі 1 -->
+    <rect x="40" y="92" width="260" height="34" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="170" y="114" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">1. Металевий перфорований</text>
+
+    <!-- Схема перфорованого диска -->
+    <circle cx="170" cy="195" r="55" fill="#cbd5e1" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- Перфораційні прорізи по периметру -->
+    <rect x="165" y="143" width="10" height="12" fill="#fdecea" stroke="#1a1a1a" stroke-width="1"/>
+    <rect x="165" y="235" width="10" height="12" fill="#fdecea" stroke="#1a1a1a" stroke-width="1"/>
+    <rect x="118" y="190" width="12" height="10" fill="#fdecea" stroke="#1a1a1a" stroke-width="1"/>
+    <rect x="210" y="190" width="12" height="10" fill="#fdecea" stroke="#1a1a1a" stroke-width="1"/>
+    <!-- Отвір вала -->
+    <circle cx="170" cy="195" r="14" fill="#fdecea" stroke="#1a1a1a" stroke-width="1.5"/>
+
+    <!-- Текстові характеристики -->
+    <text x="170" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Роздільна здатність: N ≤ 100 PPR</text>
+    <text x="170" y="295" text-anchor="middle" font-size="12" fill="#6b7280">Матеріал: штампована сталь</text>
+    <text x="170" y="315" text-anchor="middle" font-size="12" fill="#6b7280">Крок растра: p ≈ 1...2 мм</text>
+
+    <!-- Бейдж недоліків -->
+    <rect x="40" y="375" width="260" height="42" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+    <text x="170" y="393" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">❌ Низька роздільна здатність</text>
+    <text x="170" y="409" text-anchor="middle" font-size="12" fill="#c0392b">Крайовий ефект і дифракція</text>
+  </g>
+
+  <!-- СТРІЛКА ЕВОЛЮЦІЇ 1 -> 2 -->
+  <line x1="312" y1="230" x2="338" y2="230" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- ЕТАП 2: СКЛЯНИЙ ДИСК З ХРОМОВИМ РАСТРОМ -->
+  <g id="stage-glass-disc">
+    <!-- Рамка панелі 2 -->
+    <rect x="340" y="80" width="280" height="350" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+    <!-- Заголовок панелі 2 -->
+    <rect x="350" y="92" width="260" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="480" y="114" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Хромовий маск на склі</text>
+
+    <!-- Схема скляного диска -->
+    <circle cx="480" cy="195" r="55" fill="#eaf0fd" opacity="0.9" stroke="#2457d6" stroke-width="2"/>
+    <circle cx="480" cy="195" r="48" fill="none" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="2,2"/>
+    <circle cx="480" cy="195" r="42" fill="none" stroke="#2457d6" stroke-width="1"/>
+    <!-- Отвір вала -->
+    <circle cx="480" cy="195" r="14" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+
+    <!-- Текстові характеристики -->
+    <text x="480" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Роздільна здатність: N ≤ 5000 PPR</text>
+    <text x="480" y="295" text-anchor="middle" font-size="12" fill="#6b7280">Матеріал: скло + хром (Cr)</text>
+    <text x="480" y="315" text-anchor="middle" font-size="12" fill="#6b7280">Крок растра: p ≈ 20...50 мкм</text>
+
+    <!-- Бейдж переваг -->
+    <rect x="350" y="375" width="260" height="42" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="480" y="393" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">✓ Висока оптична чіткість</text>
+    <text x="480" y="409" text-anchor="middle" font-size="12" fill="#2457d6">Термостабільний коефіцієнт</text>
+  </g>
+
+  <!-- СТРІЛКА ЕВОЛЮЦІЇ 2 -> 3 -->
+  <line x1="622" y1="230" x2="648" y2="230" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- ЕТАП 3: ПРЕЦИЗІЙНА ФОТОЛІТОГРАФІЯ ТА ІНДИКАТОРНА ҐРАТКА -->
+  <g id="stage-diffraction">
+    <!-- Рамка панелі 3 -->
+    <rect x="650" y="80" width="280" height="350" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+    <!-- Заголовок панелі 3 -->
+    <rect x="660" y="92" width="260" height="34" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="790" y="114" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">3. Дифракційна ґратка (Муар)</text>
+
+    <!-- Схема диска з індикаторною маскою -->
+    <circle cx="790" cy="195" r="55" fill="#e9f7ef" opacity="0.9" stroke="#27ae60" stroke-width="2"/>
+    <circle cx="790" cy="195" r="48" fill="none" stroke="#27ae60" stroke-width="1" stroke-dasharray="1.5,1.5"/>
+    <circle cx="790" cy="195" r="38" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+    <!-- Нульова мітка (Z-канал) -->
+    <rect x="788" y="155" width="4" height="4" fill="#27ae60"/>
+
+    <!-- Нерухома індикаторна ґратка (маска Моара) -->
+    <rect x="815" y="155" width="30" height="24" fill="#ffffff" opacity="0.9" stroke="#27ae60" stroke-width="1.5"/>
+    <line x1="822" y1="157" x2="822" y2="177" stroke="#27ae60" stroke-width="1"/>
+    <line x1="827" y1="157" x2="827" y2="177" stroke="#27ae60" stroke-width="1"/>
+    <line x1="832" y1="157" x2="832" y2="177" stroke="#27ae60" stroke-width="1"/>
+    <line x1="837" y1="157" x2="837" y2="177" stroke="#27ae60" stroke-width="1"/>
+
+    <!-- Отвір вала -->
+    <circle cx="790" cy="195" r="14" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+
+    <!-- Текстові характеристики -->
+    <text x="790" y="275" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Роздільна здатність: N &gt; 100 000 PPR</text>
+    <text x="790" y="295" text-anchor="middle" font-size="12" fill="#6b7280">Ситал / силікатно-хромовий маск</text>
+    <text x="790" y="315" text-anchor="middle" font-size="12" fill="#6b7280">Крок растра: p &lt; 4 мкм (інтерполяція)</text>
+
+    <!-- Бейдж переваг -->
+    <rect x="660" y="375" width="260" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="790" y="393" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ Субмікронна точність &amp; Муар</text>
+    <text x="790" y="409" text-anchor="middle" font-size="12" fill="#27ae60">Електронне помноження частоти</text>
+  </g>
+</svg>

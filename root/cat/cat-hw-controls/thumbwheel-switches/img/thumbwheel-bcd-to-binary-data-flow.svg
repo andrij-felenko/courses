@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Перетворення BCD-тетрад у бінарне число</text>
+  <text x="480" y="48" font-size="13" text-anchor="middle" fill="#6b7280">Ітеративне накопичення за схемою Горнера: Acc = Acc × 10 + Digit</text>
+
+  <!-- Section 1: Input BCD Decades -->
+  <!-- Decade 3 -->
+  <rect x="50" y="70" width="180" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="140" y="92" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Декада 3 (10³)</text>
+  <text x="140" y="112" font-size="12" text-anchor="middle" fill="#2457d6">BCD: 0011₂ (Цифра: 3)</text>
+  <text x="140" y="130" font-size="11" text-anchor="middle" fill="#6b7280">Вага: 1000</text>
+
+  <!-- Decade 2 -->
+  <rect x="270" y="70" width="180" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="360" y="92" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Декада 2 (10²)</text>
+  <text x="360" y="112" font-size="12" text-anchor="middle" fill="#2457d6">BCD: 1000₂ (Цифра: 8)</text>
+  <text x="360" y="130" font-size="11" text-anchor="middle" fill="#6b7280">Вага: 100</text>
+
+  <!-- Decade 1 -->
+  <rect x="490" y="70" width="180" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="580" y="92" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Декада 1 (10¹)</text>
+  <text x="580" y="112" font-size="12" text-anchor="middle" fill="#2457d6">BCD: 0101₂ (Цифра: 5)</text>
+  <text x="580" y="130" font-size="11" text-anchor="middle" fill="#6b7280">Вага: 10</text>
+
+  <!-- Decade 0 -->
+  <rect x="710" y="70" width="180" height="70" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="800" y="92" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Декада 0 (10⁰)</text>
+  <text x="800" y="112" font-size="12" text-anchor="middle" fill="#2457d6">BCD: 0010₂ (Цифра: 2)</text>
+  <text x="800" y="130" font-size="11" text-anchor="middle" fill="#6b7280">Вага: 1</text>
+
+  <!-- Vertical Arrows from Decades to Step Boxes -->
+  <line x1="140" y1="140" x2="140" y2="172" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="360" y1="140" x2="360" y2="172" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="580" y1="140" x2="580" y2="172" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="800" y1="140" x2="800" y2="172" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Section 2: Accumulator Pipeline Steps -->
+  <!-- Step 1 -->
+  <rect x="50" y="180" width="180" height="130" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="140" y="202" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Крок 1: Старт</text>
+  <text x="140" y="222" font-size="12" text-anchor="middle" fill="#6b7280">Acc = D3</text>
+  <rect x="65" y="236" width="150" height="30" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="140" y="256" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Acc = 3</text>
+  <text x="140" y="292" font-size="11" text-anchor="middle" fill="#6b7280">Завантаження D3</text>
+
+  <!-- Arrow Step 1 -> Step 2 -->
+  <line x1="230" y1="251" x2="262" y2="251" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="250" y="244" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">× 10</text>
+
+  <!-- Step 2 -->
+  <rect x="270" y="180" width="180" height="130" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="360" y="202" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Крок 2: + D2</text>
+  <text x="360" y="222" font-size="12" text-anchor="middle" fill="#6b7280">Acc = 3 × 10 + 8</text>
+  <rect x="285" y="236" width="150" height="30" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="360" y="256" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Acc = 38</text>
+  <text x="360" y="292" font-size="11" text-anchor="middle" fill="#6b7280">Накопичення D2</text>
+
+  <!-- Arrow Step 2 -> Step 3 -->
+  <line x1="450" y1="251" x2="482" y2="251" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="470" y="244" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">× 10</text>
+
+  <!-- Step 3 -->
+  <rect x="490" y="180" width="180" height="130" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="580" y="202" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Крок 3: + D1</text>
+  <text x="580" y="222" font-size="12" text-anchor="middle" fill="#6b7280">Acc = 38 × 10 + 5</text>
+  <rect x="505" y="236" width="150" height="30" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="580" y="256" font-size="13" font-weight="bold" text-anchor="middle" fill="#2457d6">Acc = 385</text>
+  <text x="580" y="292" font-size="11" text-anchor="middle" fill="#6b7280">Накопичення D1</text>
+
+  <!-- Arrow Step 3 -> Step 4 -->
+  <line x1="670" y1="251" x2="702" y2="251" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="690" y="244" font-size="11" font-weight="bold" text-anchor="middle" fill="#2457d6">× 10</text>
+
+  <!-- Step 4 -->
+  <rect x="710" y="180" width="180" height="130" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="800" y="202" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Крок 4: + D0</text>
+  <text x="800" y="222" font-size="12" text-anchor="middle" fill="#6b7280">Acc = 385 × 10 + 2</text>
+  <rect x="725" y="236" width="150" height="30" rx="4" fill="white" stroke="#27ae60"/>
+  <text x="800" y="256" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Acc = 3852</text>
+  <text x="800" y="292" font-size="11" text-anchor="middle" fill="#27ae60">Фінальний результат</text>
+
+  <!-- Vertical Arrow Step 4 -> Final Register Banner -->
+  <line x1="800" y1="310" x2="800" y2="338" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Section 3: Final Register Banner -->
+  <rect x="50" y="345" width="840" height="90" rx="8" fill="#f4f6f8" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="470" y="366" font-size="13" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Фінальне бінарне значення в регістрі МК (uint16_t)</text>
+
+  <!-- Sub-box Decimal -->
+  <rect x="75" y="378" width="230" height="44" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="190" y="395" font-size="11" text-anchor="middle" fill="#6b7280">Десятичність (Dec)</text>
+  <text x="190" y="413" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">3852</text>
+
+  <!-- Sub-box Hexadecimal -->
+  <rect x="345" y="378" width="230" height="44" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="460" y="395" font-size="11" text-anchor="middle" fill="#6b7280">Шістнадцятковий код (Hex)</text>
+  <text x="460" y="413" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">0x0F0C</text>
+
+  <!-- Sub-box Binary -->
+  <rect x="615" y="378" width="250" height="44" rx="4" fill="white" stroke="#27ae60"/>
+  <text x="740" y="395" font-size="11" text-anchor="middle" fill="#6b7280">Двійковий код (Bin 16-bit)</text>
+  <text x="740" y="413" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">0000 1111 0000 1100₂</text>
+</svg>

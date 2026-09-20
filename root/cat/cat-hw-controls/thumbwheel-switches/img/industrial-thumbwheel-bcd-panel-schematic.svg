@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема 4-розрядного BCD-блоку з регістром 74HC165</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Матричне підключення декад із діодами 1N4148, підтяжками 10 кОм та 3-провідним SPI-інтерфейсом</text>
+
+  <!-- PANEL 1: BCD SWITCHES (Left) -->
+  <rect x="40" y="85" width="220" height="405" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6" ry="6"/>
+  <text x="150" y="108" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Панель BCD (4 декади)</text>
+
+  <!-- SW1 Box -->
+  <rect x="50" y="125" width="200" height="75" fill="#ffffff" stroke="#6b7280" stroke-width="1" rx="4" ry="4"/>
+  <text x="60" y="145" font-size="12" font-weight="bold" fill="#1a1a1a">Декада 1 (SW1)</text>
+  <text x="60" y="170" font-size="12" fill="#6b7280">Виходи: 1, 2, 4, 8</text>
+
+  <!-- SW2 Box -->
+  <rect x="50" y="210" width="200" height="75" fill="#ffffff" stroke="#6b7280" stroke-width="1" rx="4" ry="4"/>
+  <text x="60" y="230" font-size="12" font-weight="bold" fill="#1a1a1a">Декада 2 (SW2)</text>
+  <text x="60" y="255" font-size="12" fill="#6b7280">Виходи: 1, 2, 4, 8</text>
+
+  <!-- SW3 Box -->
+  <rect x="50" y="295" width="200" height="75" fill="#ffffff" stroke="#6b7280" stroke-width="1" rx="4" ry="4"/>
+  <text x="60" y="315" font-size="12" font-weight="bold" fill="#1a1a1a">Декада 3 (SW3)</text>
+  <text x="60" y="340" font-size="12" fill="#6b7280">Виходи: 1, 2, 4, 8</text>
+
+  <!-- SW4 Box -->
+  <rect x="50" y="380" width="200" height="75" fill="#ffffff" stroke="#6b7280" stroke-width="1" rx="4" ry="4"/>
+  <text x="60" y="400" font-size="12" font-weight="bold" fill="#1a1a1a">Декада 4 (SW4)</text>
+  <text x="60" y="425" font-size="12" fill="#6b7280">Виходи: 1, 2, 4, 8</text>
+
+
+  <!-- PANEL 2: DIODE MATRIX & PULL-UPS (Middle-Left) -->
+  <rect x="280" y="85" width="210" height="405" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6" ry="6"/>
+  <text x="385" y="108" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діоди та підтяжка</text>
+
+  <!-- Diode Section -->
+  <rect x="295" y="125" width="180" height="90" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1" rx="4" ry="4"/>
+  <text x="385" y="155" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">4 × діоди 1N4148</text>
+  <text x="385" y="180" font-size="12" fill="#c0392b" text-anchor="middle">Захист від фантомних струмів</text>
+
+  <!-- Pull-up Section -->
+  <rect x="295" y="240" width="180" height="90" fill="#e9f7ef" stroke="#27ae60" stroke-dasharray="3,3" stroke-width="1" rx="4" ry="4"/>
+  <text x="385" y="270" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Підтяжки R_pull = 10 кОм</text>
+  <text x="385" y="295" font-size="12" fill="#27ae60" text-anchor="middle">Підключення до V_CC (5 В)</text>
+
+  <!-- Debounce Filter Section -->
+  <rect x="295" y="355" width="180" height="90" fill="#f4f6f8" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1" rx="4" ry="4"/>
+  <text x="385" y="385" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фільтри C_line = 100 пФ</text>
+  <text x="385" y="410" font-size="12" fill="#6b7280" text-anchor="middle">Пригнічення брязкоту</text>
+
+
+  <!-- PANEL 3: SHIFT REGISTERS 74HC165 (Middle-Right) -->
+  <rect x="510" y="85" width="200" height="405" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6" ry="6"/>
+  <text x="610" y="108" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Зсувні регістри 74HC165</text>
+
+  <!-- IC1 Box -->
+  <rect x="525" y="130" width="170" height="135" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4" ry="4"/>
+  <text x="610" y="152" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">74HC165 (#1)</text>
+  <text x="610" y="180" font-size="12" fill="#1a1a1a" text-anchor="middle">Входи D0...D7 (SW1, SW2)</text>
+  <text x="610" y="205" font-size="12" fill="#6b7280" text-anchor="middle">Вихід Q7 (Каскад)</text>
+  <text x="610" y="235" font-size="12" fill="#6b7280" text-anchor="middle">Піни: PL, CLK</text>
+
+  <!-- Cascading Arrow IC1 to IC2 -->
+  <line x1="610" y1="265" x2="610" y2="295" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- IC2 Box -->
+  <rect x="525" y="300" width="170" height="145" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="4" ry="4"/>
+  <text x="610" y="322" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">74HC165 (#2)</text>
+  <text x="610" y="350" font-size="12" fill="#1a1a1a" text-anchor="middle">Входи D0...D7 (SW3, SW4)</text>
+  <text x="610" y="375" font-size="12" fill="#6b7280" text-anchor="middle">Вхід SER (від IC1 Q7)</text>
+  <text x="610" y="415" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вихід Q7 -> MCU</text>
+
+
+  <!-- PANEL 4: MICROCONTROLLER (Right) -->
+  <rect x="740" y="85" width="180" height="405" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6" ry="6"/>
+  <text x="830" y="108" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер (MCU)</text>
+
+  <!-- MCU Chip Box -->
+  <rect x="755" y="150" width="150" height="285" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5" rx="6" ry="6"/>
+  <text x="830" y="180" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+
+  <!-- MCU GPIO Pins -->
+  <text x="830" y="225" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">GPIO_PL (Завантаження)</text>
+  <text x="830" y="285" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">GPIO_CLK (Тактування)</text>
+  <text x="830" y="345" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">GPIO_MISO (Дані SPI)</text>
+
+
+  <!-- SIGNAL BUS WIRES & CONNECTORS -->
+  <!-- BCD Bus line 1 (Switch panel to Diode matrix) -->
+  <line x1="250" y1="162" x2="295" y2="162" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="250" y1="337" x2="295" y2="337" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Matrix output to 74HC165 inputs -->
+  <line x1="475" y1="162" x2="525" y2="162" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="475" y1="337" x2="525" y2="337" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- MCU Control Wires to 74HC165 -->
+  <!-- PL Wire (Red) -->
+  <path d="M 755,225 L 725,225 L 725,235 L 695,235" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- CLK Wire (Green) -->
+  <path d="M 755,285 L 715,285 L 715,248 L 695,248" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Q7 Serial Data Line (Blue) -->
+  <path d="M 695,415 L 730,415 L 730,345 L 755,345" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+
+  <!-- BOTTOM SUMMARY LEGEND BOX -->
+  <rect x="40" y="495" width="880" height="35" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4" ry="4"/>
+  <text x="480" y="517" font-size="12" fill="#1a1a1a" text-anchor="middle">Сигнали: • PL (Завантаження) • CLK (Тактування) • Q7 (Послідовні дані) • 1N4148 (Захист зворотних струмів)</text>
+</svg>

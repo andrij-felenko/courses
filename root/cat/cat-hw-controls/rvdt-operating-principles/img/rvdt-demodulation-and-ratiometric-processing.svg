@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Синхронне пікове стробування АЦП та логометричний розрахунок RVDT</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Вибірка напруг V1 та V2 у вершинах синусоїди V_exc гарантує максимум завадостійкості та точності</text>
+
+  <!-- Panel 1: Chronogram (Peak ADC Sampling Timing) -->
+  <rect x="25" y="70" width="910" height="225" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="92" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">Хронограма пікового стробування вибірок АЦП (Synchronous Peak Sampling)</text>
+
+  <!-- Waveform Axes & Labels -->
+  <!-- Waveform 1: V_exc(t) -->
+  <line x1="160" y1="145" x2="890" y2="145" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="149" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">V_exc(t)</text>
+  <path d="M 180,145 Q 223.75,115 267.5,115 Q 311.25,115 355,145 Q 398.75,175 442.5,175 Q 486.25,175 530,145 Q 573.75,115 617.5,115 Q 661.25,115 705,145 Q 748.75,175 792.5,175 Q 836.25,175 880,145" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Waveform 2: Secondary Signals V1(t) & V2(t) -->
+  <line x1="160" y1="210" x2="890" y2="210" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="214" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">V1(t), V2(t)</text>
+  <!-- V1(t) Envelope -->
+  <path d="M 180,210 Q 223.75,186 267.5,186 Q 311.25,186 355,210 Q 398.75,234 442.5,234 Q 486.25,234 530,210 Q 573.75,186 617.5,186 Q 661.25,186 705,210 Q 748.75,234 792.5,234 Q 836.25,234 880,210" fill="none" stroke="#1e3a8a" stroke-width="1.8"/>
+  <!-- V2(t) Envelope -->
+  <path d="M 180,210 Q 223.75,196 267.5,196 Q 311.25,196 355,210 Q 398.75,224 442.5,224 Q 486.25,224 530,210 Q 573.75,196 617.5,196 Q 661.25,196 705,210 Q 748.75,224 792.5,224 Q 836.25,224 880,210" fill="none" stroke="#27ae60" stroke-width="1.8" stroke-dasharray="4,2"/>
+
+  <!-- Waveform 3: ADC Trigger Pulses -->
+  <line x1="160" y1="275" x2="890" y2="275" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="279" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">ADC_trig</text>
+
+  <rect x="262.5" y="252" width="10" height="23" fill="#27ae60" rx="2"/>
+  <rect x="612.5" y="252" width="10" height="23" fill="#27ae60" rx="2"/>
+
+  <!-- Vertical Alignment Lines for Sampling Instants -->
+  <line x1="267.5" y1="105" x2="267.5" y2="280" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <circle cx="267.5" cy="115" r="4" fill="#2457d6"/>
+  <circle cx="267.5" cy="186" r="4" fill="#1e3a8a"/>
+  <circle cx="267.5" cy="196" r="4" fill="#27ae60"/>
+  <text x="267.5" y="98" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вибірка 1 (t_p1)</text>
+  <text x="278" y="172" font-size="12" font-weight="bold" fill="#1e3a8a" text-anchor="start">V1_peak</text>
+  <text x="278" y="228" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">V2_peak</text>
+
+  <line x1="617.5" y1="105" x2="617.5" y2="280" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="3,3"/>
+  <circle cx="617.5" cy="115" r="4" fill="#2457d6"/>
+  <circle cx="617.5" cy="186" r="4" fill="#1e3a8a"/>
+  <circle cx="617.5" cy="196" r="4" fill="#27ae60"/>
+  <text x="617.5" y="98" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вибірка 2 (t_p2)</text>
+
+  <!-- Panel 2: Pipeline Diagram (Ratiometric Math Calculation) -->
+  <rect x="25" y="310" width="910" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="330" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">Математичний конвеєр логометричного обчислення кута в мікроконтролері</text>
+
+  <!-- Block 1: ADC Raw Sample Acquisition -->
+  <rect x="40" y="342" width="180" height="153" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="52" y="364" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">1. Вхідні вибірки АЦП</text>
+  <text x="52" y="386" font-size="12" fill="#1a1a1a" text-anchor="start">Отримано з пікового стробу:</text>
+  <text x="52" y="408" font-size="12" font-weight="bold" fill="#1e3a8a" text-anchor="start">V1_sample = V1(t_p)</text>
+  <text x="52" y="428" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">V2_sample = V2(t_p)</text>
+  <text x="52" y="452" font-size="12" fill="#6b7280" text-anchor="start">Захист від шумів dV/dt=0</text>
+  <text x="52" y="476" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">✓ Без фазових зсувів</text>
+
+  <line x1="220" y1="418" x2="242" y2="418" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 2: Difference & Sum Calculations -->
+  <rect x="250" y="342" width="190" height="153" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="262" y="364" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">2. Різниця та Сума</text>
+  <text x="262" y="386" font-size="12" fill="#1a1a1a" text-anchor="start">Обчислення компонент:</text>
+  <text x="262" y="408" font-size="12" font-weight="bold" fill="#d97706" text-anchor="start">V_diff = V1 - V2</text>
+  <text x="262" y="430" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">V_sum  = V1 + V2</text>
+  <text x="262" y="452" font-size="12" fill="#6b7280" text-anchor="start">Контроль обриву обмоток:</text>
+  <text x="262" y="476" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">V_sum &lt; V_min → Аварія!</text>
+
+  <line x1="440" y1="418" x2="462" y2="418" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 3: Ratiometric Function Evaluation -->
+  <rect x="470" y="342" width="200" height="153" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="482" y="364" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">3. Логометрична функція</text>
+  <text x="482" y="386" font-size="12" fill="#1a1a1a" text-anchor="start">Ділення виразів:</text>
+  <text x="482" y="408" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">R = V_diff / V_sum</text>
+  <text x="482" y="430" font-size="12" fill="#1a1a1a" text-anchor="start">R = (V1 - V2) / (V1 + V2)</text>
+  <text x="482" y="452" font-size="12" fill="#6b7280" text-anchor="start">Скорочення амплітуди V_exc</text>
+  <text x="482" y="476" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">✓ 100% компенсація дрейфу</text>
+
+  <line x1="670" y1="418" x2="692" y2="418" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 4: Calibration & Angle Output -->
+  <rect x="700" y="342" width="215" height="153" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="712" y="364" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">4. Масштабування та кут</text>
+  <text x="712" y="386" font-size="12" fill="#1a1a1a" text-anchor="start">Лінеаризація та офсет:</text>
+  <text x="712" y="408" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">θ = S_rvdt⁻¹ · R - θ_zero</text>
+  <text x="712" y="430" font-size="12" fill="#6b7280" text-anchor="start">Фільтрація: IIR / EMA</text>
+  <text x="712" y="452" font-size="12" fill="#1a1a1a" text-anchor="start">Вихідний кут положення:</text>
+  <text x="712" y="476" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">θ_out [°] (Точний кут)</text>
+</svg>

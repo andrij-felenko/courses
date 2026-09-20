@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діаграма станів драйвера та таймери Vigilance Control</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Переходи між станами Released, Enabled, Panic, Fault та часові інтервали t_hold, t_warn, t_react</text>
+
+  <!-- STATE 1: RELEASED -->
+  <rect x="40" y="95" width="180" height="115" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="130" y="125" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RELEASED</text>
+  <text x="130" y="147" font-size="12" fill="#6b7280" text-anchor="middle">Позиція 1: Відпущено</text>
+  <text x="130" y="167" font-size="12" fill="#1a1a1a" text-anchor="middle">CH1 = 0, CH2 = 0</text>
+  <text x="130" y="187" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ВИХІД: ЗУПИН</text>
+
+  <!-- STATE 2: ENABLED -->
+  <rect x="350" y="95" width="260" height="115" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="125" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">ENABLED</text>
+  <text x="480" y="147" font-size="12" fill="#6b7280" text-anchor="middle">Позиція 2: Серединний дозвіл</text>
+  <text x="480" y="167" font-size="12" fill="#1a1a1a" text-anchor="middle">CH1 = 1, CH2 = 1</text>
+  <text x="480" y="187" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ВИХІД: ДОЗВІЛ РУХУ</text>
+
+  <!-- STATE 3: PANIC -->
+  <rect x="740" y="95" width="180" height="115" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="830" y="125" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">PANIC</text>
+  <text x="830" y="147" font-size="12" fill="#6b7280" text-anchor="middle">Позиція 3: Перетиснуто</text>
+  <text x="830" y="167" font-size="12" fill="#1a1a1a" text-anchor="middle">CH1 = 0, CH2 = 0</text>
+  <text x="830" y="187" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">ВИХІД: АВАРІЙНИЙ ЗУПИН</text>
+
+  <!-- STATE 4: FAULT -->
+  <rect x="40" y="320" width="240" height="165" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="160" y="348" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">FAULT</text>
+  <text x="160" y="370" font-size="12" fill="#6b7280" text-anchor="middle">Апаратна несправність</text>
+  <text x="160" y="392" font-size="12" fill="#1a1a1a" text-anchor="middle">Розсинхронізм &gt; t_disc</text>
+  <text x="160" y="412" font-size="12" fill="#1a1a1a" text-anchor="middle">КЗ на живильні лінії</text>
+  <text x="160" y="435" font-size="12" fill="#1a1a1a" text-anchor="middle">Таймаут t_react вичерпано</text>
+  <text x="160" y="458" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">БЛОКУВАННЯ СИСТЕМИ</text>
+
+  <!-- TRANSITIONS IN MAIN FSM -->
+  <!-- 1. RELEASED -> ENABLED -->
+  <path d="M220,130 L350,130" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="285" y="120" font-size="12" fill="#27ae60" text-anchor="middle">Натискання (Поз. 2)</text>
+
+  <!-- 2. ENABLED -> RELEASED -->
+  <path d="M350,170 L220,170" fill="none" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="285" y="190" font-size="12" fill="#1a1a1a" text-anchor="middle">Відпущення</text>
+
+  <!-- 3. ENABLED -> PANIC -->
+  <path d="M610,130 L740,130" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="675" y="120" font-size="12" fill="#c0392b" text-anchor="middle">Перетискання (Поз. 3)</text>
+
+  <!-- 4. PANIC -> RELEASED (curved over top) -->
+  <path d="M830,95 Q830,70 480,70 Q130,70 130,95" fill="none" stroke="#1a1a1a" stroke-dasharray="4,4" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="480" y="66" font-size="12" fill="#6b7280" text-anchor="middle">Повне відпущення через Поз. 2 (Безпечна скидка)</text>
+
+  <!-- 5. FAULT transitions -->
+  <path d="M130,210 L130,320" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+  <text x="136" y="260" font-size="12" fill="#c0392b" text-anchor="start">t_disc &gt; limit</text>
+
+  <path d="M400,210 L280,320" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- VIGILANCE CONTROL SUBPANEL -->
+  <rect x="320" y="245" width="600" height="240" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="620" y="270" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Таймерний цикл пильності у стані ENABLED (Vigilance Control)</text>
+  <text x="620" y="290" font-size="12" fill="#6b7280" text-anchor="middle">Контроль активності оператора при утриманні педалі «мертвої руки»</text>
+
+  <!-- Timeline diagram inside subpanel -->
+  <rect x="350" y="325" width="540" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- t_hold section -->
+  <rect x="350" y="325" width="260" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="345" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">t_hold (напр. 30 с): Дозвіл руху</text>
+
+  <!-- t_warn section -->
+  <rect x="610" y="325" width="140" height="30" rx="4" fill="#fff9e6" stroke="#f39c12" stroke-width="1.5"/>
+  <text x="680" y="345" font-size="12" font-weight="bold" fill="#d35400" text-anchor="middle">t_warn: Сигнал</text>
+
+  <!-- t_react section -->
+  <rect x="750" y="325" width="140" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="820" y="345" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_react: Вікно реакції</text>
+
+  <!-- Reset action description -->
+  <rect x="350" y="375" width="540" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="365" y="398" font-size="12" fill="#1a1a1a" font-weight="bold">Поведінка таймерного контролю:</text>
+  <text x="365" y="420" font-size="12" fill="#27ae60">1. Натискання / Коротке короткочасне відпущення педалі → Скидання таймера до 0</text>
+  <text x="365" y="440" font-size="12" fill="#d35400">2. Закінчення t_hold → Увімкнення звукового/візуального сигналу warning (t_warn)</text>
+  <text x="365" y="460" font-size="12" fill="#c0392b">3. Закінчення t_react без скидання педалі → Перехід в FAULT / Аварійне вимкнення</text>
+</svg>

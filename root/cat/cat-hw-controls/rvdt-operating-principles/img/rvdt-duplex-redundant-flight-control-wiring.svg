@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення двоканального резервованого RVDT (Duplex RVDT)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Два ізольовані статорні блоки на спільному валу з крос-канальним моніторингом FCC</text>
+
+  <!-- COLUMN 1: Mechanical Input Shaft -->
+  <rect x="30" y="90" width="140" height="380" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="100" y="115" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механічний привід</text>
+  <text x="100" y="148" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кут повороту θ</text>
+  
+  <!-- Shaft Visual -->
+  <rect x="92" y="162" width="16" height="240" rx="4" fill="#d0d7de" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="100" y="422" font-size="12" fill="#6b7280" text-anchor="middle">Спільний вал</text>
+  <text x="100" y="440" font-size="12" fill="#6b7280" text-anchor="middle">(Жорсткий зв'язок)</text>
+
+  <!-- COLUMN 2: Duplex RVDT Housing -->
+  <rect x="200" y="90" width="280" height="380" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="340" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двоканальний давач (Duplex RVDT)</text>
+
+  <!-- Stator Block A -->
+  <rect x="215" y="125" width="250" height="150" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="340" y="145" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Статорний блок А (Канал A)</text>
+  
+  <rect x="230" y="155" width="105" height="40" rx="3" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="282" y="179" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Первинна EXC A</text>
+  
+  <rect x="225" y="208" width="125" height="52" rx="3" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="287" y="228" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вторинні S1_A/S2_A</text>
+  <text x="287" y="246" font-size="12" fill="#6b7280" text-anchor="middle">(Зсув фази 180°)</text>
+
+  <text x="455" y="179" font-size="12" fill="#2457d6" text-anchor="end">EXC_A+/EXC_A-</text>
+  <text x="455" y="237" font-size="12" fill="#2457d6" text-anchor="end">OUT_A (S1, S2)</text>
+
+  <!-- Stator Block B -->
+  <rect x="215" y="300" width="250" height="150" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="340" y="320" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Статорний блок B (Канал B)</text>
+
+  <rect x="230" y="330" width="105" height="40" rx="3" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="282" y="354" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Первинна EXC B</text>
+  
+  <rect x="225" y="383" width="125" height="52" rx="3" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="287" y="403" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вторинні S1_B/S2_B</text>
+  <text x="287" y="421" font-size="12" fill="#6b7280" text-anchor="middle">(Гальваніка 100%)</text>
+
+  <text x="455" y="354" font-size="12" fill="#27ae60" text-anchor="end">EXC_B+/EXC_B-</text>
+  <text x="455" y="412" font-size="12" fill="#27ae60" text-anchor="end">OUT_B (S1, S2)</text>
+
+  <!-- COLUMN 3: Flight Control Computer (FCC) -->
+  <rect x="520" y="90" width="410" height="380" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="725" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Політний комп'ютер (FCC — Flight Control Computer)</text>
+
+  <!-- FCC Lane A -->
+  <rect x="535" y="125" width="380" height="115" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="548" y="144" font-size="12" font-weight="bold" fill="#2457d6">Канал А обчислювача (Lane A)</text>
+  
+  <rect x="548" y="155" width="118" height="65" rx="3" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="607" y="176" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Генератор EXC A</text>
+  <text x="607" y="198" font-size="12" fill="#6b7280" text-anchor="middle">3...26 V / 400 Гц</text>
+
+  <rect x="682" y="155" width="122" height="65" rx="3" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="743" y="176" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RDC A (Демодулятор)</text>
+  <text x="743" y="198" font-size="12" fill="#2457d6" text-anchor="middle">atan2(S1, S2) → θ_A</text>
+
+  <rect x="820" y="167" width="82" height="40" rx="3" fill="#2457d6"/>
+  <text x="861" y="191" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Кут θ_A</text>
+
+  <!-- Cross-Channel Monitoring (CCM) -->
+  <rect x="548" y="250" width="354" height="74" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="725" y="268" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Крос-канальний порівнювач (CCM / BITE Voting)</text>
+  <text x="725" y="288" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Перевірка: |θ_A - θ_B| ≤ Δθ_max</text>
+  <text x="725" y="308" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Норма: Відсутність розсинхронізації каналів</text>
+
+  <!-- FCC Lane B -->
+  <rect x="535" y="335" width="380" height="115" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="548" y="354" font-size="12" font-weight="bold" fill="#27ae60">Канал B обчислювача (Lane B)</text>
+
+  <rect x="548" y="365" width="118" height="65" rx="3" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="607" y="386" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Генератор EXC B</text>
+  <text x="607" y="408" font-size="12" fill="#6b7280" text-anchor="middle">3...26 V / 400 Гц</text>
+
+  <rect x="682" y="365" width="122" height="65" rx="3" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="743" y="386" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">RDC B (Демодулятор)</text>
+  <text x="743" y="408" font-size="12" fill="#27ae60" text-anchor="middle">atan2(S1, S2) → θ_B</text>
+
+  <rect x="820" y="377" width="82" height="40" rx="3" fill="#27ae60"/>
+  <text x="861" y="401" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Кут θ_B</text>
+
+  <!-- Connection Wiring Lines -->
+  <!-- EXC A line: starts at 548 going left to 468 -->
+  <line x1="548" y1="179" x2="468" y2="179" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  
+  <!-- SEC A line: from 468, y=237 -> right to 743, y=237 -> up to 743, y=228 -->
+  <path d="M 468 237 L 743 237 L 743 228" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- EXC B line: from 548, y=389 -> left to 505, y=389 -> up to y=354 -> left to 468, y=354 -->
+  <path d="M 548 389 L 505 389 L 505 354 L 468 354" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+
+  <!-- SEC B line: from 468, y=412 -> right to 505, y=412 -> down to y=442 -> right to 743, y=442 -> up to 743, y=433 -->
+  <path d="M 468 412 L 505 412 L 505 442 L 743 442 L 743 433" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Angle A to CCM -->
+  <path d="M 861 207 L 861 242" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Angle B to CCM -->
+  <path d="M 861 377 L 861 332" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Bottom Legend Bar -->
+  <rect x="30" y="480" width="900" height="30" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="180" y="499" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Канал А: Незалежне живлення й обробка</text>
+  <text x="500" y="499" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Канал B: Резервне гальванічне коло</text>
+  <text x="780" y="499" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">BITE: Автоматичне виявлення несправностей</text>
+</svg>

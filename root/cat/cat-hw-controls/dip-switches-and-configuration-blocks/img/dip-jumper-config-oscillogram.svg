@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма зчитування конфігураційного байта з 74HC165</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Паралельне завантаження SH/LD, 8 імпульсів CLK та стабільне вибіркове зчитування без впливу брязкання контактів</text>
+
+  <!-- Головна панель осцилограми -->
+  <rect x="30" y="75" width="900" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Сітка часових інтервалів (пунктир) -->
+  <line x1="200" y1="90" x2="200" y2="360" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="320" y1="90" x2="320" y2="360" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="370" y1="90" x2="370" y2="360" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="410" y1="90" x2="410" y2="360" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="460" y1="90" x2="460" y2="360" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="510" y1="90" x2="510" y2="360" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="560" y1="90" x2="560" y2="360" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="610" y1="90" x2="610" y2="360" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="660" y1="90" x2="660" y2="360" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="710" y1="90" x2="710" y2="360" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="760" y1="90" x2="760" y2="360" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+  <line x1="810" y1="90" x2="810" y2="360" stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1"/>
+
+  <!-- ЛІВА ПАНЕЛЬ: Назви сигналів -->
+  <text x="40" y="125" font-size="13" font-weight="bold" fill="#c0392b">DIP RAW (Pin)</text>
+  <text x="40" y="142" font-size="11" fill="#6b7280">Вхід із брязканням</text>
+
+  <text x="40" y="185" font-size="13" font-weight="bold" fill="#2457d6">SH / LD</text>
+  <text x="40" y="202" font-size="11" fill="#6b7280">Завантаження (0V)</text>
+
+  <text x="40" y="250" font-size="13" font-weight="bold" fill="#1a1a1a">CLK</text>
+  <text x="40" y="267" font-size="11" fill="#6b7280">Тактові імпульси</text>
+
+  <text x="40" y="315" font-size="13" font-weight="bold" fill="#27ae60">DATA (Q7)</text>
+  <text x="40" y="332" font-size="11" fill="#6b7280">Послідовні дані</text>
+
+  <!-- СИГНАЛ 1: DIP RAW з брязканням -->
+  <path d="M 200 150 L 210 120 L 220 150 L 230 120 L 240 150 L 250 120 L 260 120 L 880 120" stroke="#c0392b" stroke-width="2" fill="none"/>
+  <!-- Плашка брязкання -->
+  <rect x="205" y="90" width="130" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="270" y="105" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Брязкання контактів</text>
+
+  <!-- СИГНАЛ 2: SH / LD (Низький рівень завантажує паралельні дані) -->
+  <path d="M 200 175 L 320 175 L 320 205 L 370 205 L 370 175 L 880 175" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+  <!-- Анотація імпульсу Load -->
+  <rect x="310" y="215" width="130" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="375" y="229" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Load: Фіксація байта</text>
+
+  <!-- СИГНАЛ 3: CLK (8 тактових імпульсів) -->
+  <path d="M 200 270 L 410 270 
+           L 410 240 L 430 240 L 430 270 L 460 270 
+           L 460 240 L 480 240 L 480 270 L 510 270 
+           L 510 240 L 530 240 L 530 270 L 560 270 
+           L 560 240 L 580 240 L 580 270 L 610 270 
+           L 610 240 L 630 240 L 630 270 L 660 270 
+           L 660 240 L 680 240 L 680 270 L 710 270 
+           L 710 240 L 730 240 L 730 270 L 760 270 
+           L 760 240 L 780 240 L 780 270 L 880 270" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+  <!-- Номери тактових імпульсів -->
+  <text x="420" y="235" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1</text>
+  <text x="470" y="235" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2</text>
+  <text x="520" y="235" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">3</text>
+  <text x="570" y="235" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">4</text>
+  <text x="620" y="235" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">5</text>
+  <text x="670" y="235" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">6</text>
+  <text x="720" y="235" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">7</text>
+  <text x="770" y="235" font-size="10" font-weight="bold" fill="#1a1a1a" text-anchor="middle">8</text>
+
+  <!-- СИГНАЛ 4: DATA / Q7 (Послідовний вихід бітів D7..D0: 1 0 1 1 0 1 0 0) -->
+  <path d="M 200 330 L 370 330 
+           L 370 300 L 410 300 
+           L 410 330 L 460 330 
+           L 460 300 L 560 300 
+           L 560 330 L 610 330 
+           L 610 300 L 660 300 
+           L 660 330 L 880 330" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+
+  <!-- Позначення бітів під сигналами DATA -->
+  <text x="390" y="348" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">D7=1</text>
+  <text x="435" y="348" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">D6=0</text>
+  <text x="485" y="348" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">D5=1</text>
+  <text x="535" y="348" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">D4=1</text>
+  <text x="585" y="348" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">D3=0</text>
+  <text x="635" y="348" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">D2=1</text>
+  <text x="685" y="348" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">D1=0</text>
+  <text x="745" y="348" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">D0=0</text>
+
+  <!-- Блок пояснення захисту від брязкання всередині панелі -->
+  <rect x="40" y="370" width="880" height="55" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="392" font-size="12" font-weight="bold" fill="#1a1a1a">Захист від брязкання контактів:</text>
+  <text x="55" y="412" font-size="11" fill="#27ae60">✔ Паралельне завантаження SH/LD запускається після завершення брязкання</text>
+  <text x="510" y="412" font-size="11" fill="#2457d6">✔ 74HC165 фіксує стабільне значення байта та передає його без збоїв</text>
+
+  <!-- Нижній підвальний блок підсумків -->
+  <rect x="30" y="465" width="900" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="490" font-size="12" font-weight="bold" fill="#c0392b">t_bounce: 1–5 мс (шум DIP)</text>
+  <text x="480" y="490" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SH/LD LOW: Фіксація байта D0..D7</text>
+  <text x="910" y="490" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">CLK 1..8: Зчитування 0b10110100</text>
+</svg>

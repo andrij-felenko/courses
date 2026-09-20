@@ -1,0 +1,213 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrowhead Markers -->
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема підключення 4-розрядного BCD-перемикача до 74HC165</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Матричне сканування розрядів із діодною розв'язкою 1N4148 запобігає зворотним струмам у шині</text>
+
+  <!-- Panel 1: Microcontroller / Scan Driver -->
+  <rect x="30" y="80" width="130" height="375" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="95" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Мікроконтролер</text>
+  <text x="95" y="123" text-anchor="middle" font-size="12" fill="#6b7280">(Сканування)</text>
+
+  <!-- Scan Lines Pins -->
+  <text x="145" y="160" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">DIG0</text>
+  <circle cx="154" cy="156" r="3" fill="#2457d6"/>
+
+  <text x="145" y="235" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">DIG1</text>
+  <circle cx="154" cy="231" r="3" fill="#6b7280"/>
+
+  <text x="145" y="310" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">DIG2</text>
+  <circle cx="154" cy="306" r="3" fill="#6b7280"/>
+
+  <text x="145" y="385" text-anchor="end" font-size="12" font-weight="bold" fill="#6b7280">DIG3</text>
+  <circle cx="154" cy="381" r="3" fill="#6b7280"/>
+
+  <!-- Panel 2: Thumbwheel Switch Block Header -->
+  <rect x="195" y="80" width="310" height="375" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="350" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Блок BCD-перемикачів (SW0...SW3)</text>
+
+  <!-- SW0 Module (Active Digit - Highlighted) -->
+  <rect x="210" y="125" width="280" height="70" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="220" y="145" font-size="12" font-weight="bold" fill="#2457d6">SW0 (Тисячі)</text>
+  <!-- Wheel Display -->
+  <rect x="330" y="140" width="36" height="24" rx="3" fill="#1a1a1a"/>
+  <text x="348" y="157" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">7</text>
+  <!-- COM pin -->
+  <circle cx="210" cy="156" r="3" fill="#2457d6"/>
+  <text x="218" y="168" font-size="12" font-weight="bold" fill="#2457d6">COM</text>
+  <!-- Outputs -->
+  <text x="480" y="138" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">1 (2⁰)</text>
+  <text x="480" y="153" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">2 (2¹)</text>
+  <text x="480" y="168" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">4 (2²)</text>
+  <text x="480" y="183" text-anchor="end" font-size="12" fill="#9ca3af">8 (2³)</text>
+
+  <!-- SW1 Module (Inactive) -->
+  <rect x="210" y="205" width="280" height="70" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="220" y="225" font-size="12" font-weight="bold" fill="#1a1a1a">SW1 (Сотні)</text>
+  <rect x="330" y="220" width="36" height="24" rx="3" fill="#4b5563"/>
+  <text x="348" y="237" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">3</text>
+  <circle cx="210" cy="236" r="3" fill="#6b7280"/>
+  <text x="218" y="248" font-size="12" fill="#6b7280">COM</text>
+  <text x="480" y="218" text-anchor="end" font-size="12" fill="#6b7280">1</text>
+  <text x="480" y="233" text-anchor="end" font-size="12" fill="#6b7280">2</text>
+  <text x="480" y="248" text-anchor="end" font-size="12" fill="#6b7280">4</text>
+  <text x="480" y="263" text-anchor="end" font-size="12" fill="#6b7280">8</text>
+
+  <!-- SW2 Module (Inactive) -->
+  <rect x="210" y="285" width="280" height="70" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="220" y="305" font-size="12" font-weight="bold" fill="#1a1a1a">SW2 (Десятки)</text>
+  <rect x="330" y="300" width="36" height="24" rx="3" fill="#4b5563"/>
+  <text x="348" y="317" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">5</text>
+  <circle cx="210" cy="316" r="3" fill="#6b7280"/>
+  <text x="218" y="328" font-size="12" fill="#6b7280">COM</text>
+  <text x="480" y="298" text-anchor="end" font-size="12" fill="#6b7280">1</text>
+  <text x="480" y="313" text-anchor="end" font-size="12" fill="#6b7280">2</text>
+  <text x="480" y="328" text-anchor="end" font-size="12" fill="#6b7280">4</text>
+  <text x="480" y="343" text-anchor="end" font-size="12" fill="#6b7280">8</text>
+
+  <!-- SW3 Module (Inactive) -->
+  <rect x="210" y="365" width="280" height="70" rx="5" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="220" y="385" font-size="12" font-weight="bold" fill="#1a1a1a">SW3 (Одиниці)</text>
+  <rect x="330" y="380" width="36" height="24" rx="3" fill="#4b5563"/>
+  <text x="348" y="397" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">9</text>
+  <circle cx="210" cy="396" r="3" fill="#6b7280"/>
+  <text x="218" y="408" font-size="12" fill="#6b7280">COM</text>
+  <text x="480" y="378" text-anchor="end" font-size="12" fill="#6b7280">1</text>
+  <text x="480" y="393" text-anchor="end" font-size="12" fill="#6b7280">2</text>
+  <text x="480" y="408" text-anchor="end" font-size="12" fill="#6b7280">4</text>
+  <text x="480" y="423" text-anchor="end" font-size="12" fill="#6b7280">8</text>
+
+  <!-- Scan Select Wire DIG0 -> SW0 COM (Active) -->
+  <path d="M154,156 L210,156" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- Inactive Scan Wires -->
+  <path d="M154,231 L210,231" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4"/>
+  <path d="M154,306 L210,306" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4"/>
+  <path d="M154,381 L210,381" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4"/>
+
+  <!-- Panel 3: Decoupling Diode Matrix & Shared BCD Bus Zone -->
+  <text x="615" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Діодна розв'язка 1N4148</text>
+
+  <!-- Active Output Lines from SW0 through Diodes to Bus -->
+  <!-- Line 1 (2^0) -->
+  <path d="M490,134 L540,134 L540,156 L550,156" stroke="#2457d6" stroke-width="2"/>
+  <!-- Diode 1 -->
+  <polygon points="550,150 562,156 550,162" fill="#2457d6"/>
+  <line x1="562" y1="149" x2="562" y2="163" stroke="#2457d6" stroke-width="2"/>
+  <path d="M562,156 L740,156" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="556" y="144" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">VD1</text>
+  <text x="630" y="150" font-size="12" font-weight="bold" fill="#2457d6">BUS 1 (2⁰)</text>
+
+  <!-- Line 2 (2^1) -->
+  <path d="M490,149 L530,149 L530,231 L550,231" stroke="#2457d6" stroke-width="2"/>
+  <!-- Diode 2 -->
+  <polygon points="550,225 562,231 550,237" fill="#2457d6"/>
+  <line x1="562" y1="224" x2="562" y2="238" stroke="#2457d6" stroke-width="2"/>
+  <path d="M562,231 L740,231" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="556" y="219" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">VD2</text>
+  <text x="630" y="225" font-size="12" font-weight="bold" fill="#2457d6">BUS 2 (2¹)</text>
+
+  <!-- Line 4 (2^2) -->
+  <path d="M490,164 L520,164 L520,306 L550,306" stroke="#2457d6" stroke-width="2"/>
+  <!-- Diode 3 -->
+  <polygon points="550,300 562,306 550,312" fill="#2457d6"/>
+  <line x1="562" y1="299" x2="562" y2="313" stroke="#2457d6" stroke-width="2"/>
+  <path d="M562,306 L740,306" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="556" y="294" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">VD3</text>
+  <text x="630" y="300" font-size="12" font-weight="bold" fill="#2457d6">BUS 4 (2²)</text>
+
+  <!-- Line 8 (2^3) Inactive -->
+  <path d="M490,378 L550,381" stroke="#9ca3af" stroke-width="1.5" stroke-dasharray="3"/>
+  <!-- Diode 4 -->
+  <polygon points="550,375 562,381 550,387" fill="#9ca3af"/>
+  <line x1="562" y1="374" x2="562" y2="388" stroke="#9ca3af" stroke-width="1.5"/>
+  <path d="M562,381 L740,381" stroke="#9ca3af" stroke-width="1.5"/>
+  <text x="556" y="369" text-anchor="middle" font-size="12" fill="#6b7280">VD4</text>
+  <text x="630" y="375" font-size="12" fill="#6b7280">BUS 8 (2³)</text>
+
+  <!-- Pull-Down Resistors (R_pd 10k) to GND -->
+  <!-- Pull-down node on BUS 1 -->
+  <circle cx="700" cy="156" r="3" fill="#2457d6"/>
+  <path d="M700,156 L700,175 M700,195 L700,205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="694" y="175" width="12" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Pull-down node on BUS 2 -->
+  <circle cx="700" cy="231" r="3" fill="#2457d6"/>
+  <path d="M700,231 L700,250 M700,270 L700,280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="694" y="250" width="12" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Pull-down node on BUS 4 -->
+  <circle cx="700" cy="306" r="3" fill="#2457d6"/>
+  <path d="M700,306 L700,325 M700,345 L700,355" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="694" y="325" width="12" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Pull-down node on BUS 8 -->
+  <circle cx="700" cy="381" r="3" fill="#6b7280"/>
+  <path d="M700,381 L700,400 M700,420 L700,430" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="694" y="400" width="12" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Common GND Line for Pull-downs -->
+  <path d="M700,205 L700,215 M700,280 L700,290 M700,355 L700,365 M700,430 L700,440 L710,440" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND Symbol -->
+  <line x1="710" y1="432" x2="710" y2="448" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="710" y1="440" x2="720" y2="440" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="720" y1="432" x2="720" y2="448" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="724" y1="435" x2="724" y2="445" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="728" y1="438" x2="728" y2="442" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="715" y="423" font-size="12" fill="#6b7280">R_pd 10k</text>
+
+  <!-- Panel 4: 74HC165 Shift Register -->
+  <rect x="740" y="80" width="190" height="375" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="835" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">74HC165</text>
+  <text x="835" y="123" text-anchor="middle" font-size="12" fill="#6b7280">(Зсувний регістр)</text>
+
+  <!-- Input pins D0..D3 -->
+  <circle cx="740" cy="156" r="3" fill="#2457d6"/>
+  <text x="748" y="160" font-size="12" font-weight="bold" fill="#2457d6">D0</text>
+
+  <circle cx="740" cy="231" r="3" fill="#2457d6"/>
+  <text x="748" y="235" font-size="12" font-weight="bold" fill="#2457d6">D1</text>
+
+  <circle cx="740" cy="306" r="3" fill="#2457d6"/>
+  <text x="748" y="310" font-size="12" font-weight="bold" fill="#2457d6">D2</text>
+
+  <circle cx="740" cy="381" r="3" fill="#6b7280"/>
+  <text x="748" y="385" font-size="12" font-weight="bold" fill="#6b7280">D3</text>
+
+  <!-- Control/Output Lines to MCU -->
+  <path d="M890,160 L920,160" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="885" y="155" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">Q7 (SPI Data)</text>
+
+  <path d="M920,235 L890,235" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="885" y="230" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">PL (Load)</text>
+
+  <path d="M920,310 L890,310" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="885" y="305" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">CLK (Clock)</text>
+
+  <!-- Bottom Explanatory Boxes -->
+  <!-- Box 1: Diode decoupling benefit -->
+  <rect x="30" y="475" width="435" height="60" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="45" y="494" font-size="12" font-weight="bold" fill="#27ae60">✔ Діодна розв'язка 1N4148</text>
+  <text x="45" y="511" font-size="12" fill="#1a1a1a">Пропускає струм лише від активного розряду (DIG0=HIGH) до шини BCD.</text>
+  <text x="45" y="526" font-size="12" fill="#6b7280">Блокує зворотний струм через неактивні перемикачі (усуває фантомні коди).</text>
+
+  <!-- Box 2: Shift register operation -->
+  <rect x="485" y="475" width="445" height="60" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="500" y="494" font-size="12" font-weight="bold" fill="#2457d6">ℹ Зчитування через 74HC165</text>
+  <text x="500" y="511" font-size="12" fill="#1a1a1a">Фіксує паралельний BCD-код 4 біт по імпульсу PL (Parallel Load).</text>
+  <text x="500" y="526" font-size="12" fill="#6b7280">Передає дані в мікроконтролер по послідовній шині SPI (CLK, Q7).</text>
+</svg>

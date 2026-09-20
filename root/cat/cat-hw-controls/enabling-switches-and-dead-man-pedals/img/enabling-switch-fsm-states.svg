@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Граф станів (FSM) 2-канального 3-позиційного вимикача дозволу</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Вихід у нормальний робочий стан дозволу можливий лише з Позиції 1 при узгодженій роботі двох каналів</text>
+
+  <!-- NODE 1: RELEASED -->
+  <rect x="50" y="110" width="230" height="135" rx="8" ry="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+  <rect x="62" y="122" width="206" height="28" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="165" y="141" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">STATE_RELEASED</text>
+  <text x="165" y="170" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стан 1: Відпущено</text>
+  <text x="165" y="190" font-size="12" fill="#6b7280" text-anchor="middle">Важіль у спокої (Pos 1)</text>
+  <text x="165" y="212" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вихід: ENABLE = 0</text>
+
+  <!-- NODE 2: ENABLED -->
+  <rect x="365" y="110" width="230" height="135" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2.5"/>
+  <rect x="377" y="122" width="206" height="28" rx="4" ry="4" fill="#27ae60"/>
+  <text x="480" y="141" font-size="13" font-weight="bold" fill="white" text-anchor="middle">STATE_ENABLED</text>
+  <text x="480" y="170" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стан 2: Робочий дозвіл</text>
+  <text x="480" y="190" font-size="12" fill="#27ae60" text-anchor="middle">Утримання центру (Pos 2)</text>
+  <text x="480" y="212" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихід: ENABLE = 1</text>
+
+  <!-- NODE 3: PANIC -->
+  <rect x="680" y="110" width="230" height="135" rx="8" ry="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <rect x="692" y="122" width="206" height="28" rx="4" ry="4" fill="#c0392b"/>
+  <text x="795" y="141" font-size="13" font-weight="bold" fill="white" text-anchor="middle">STATE_PANIC</text>
+  <text x="795" y="170" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стан 3: Панічний перетиск</text>
+  <text x="795" y="190" font-size="12" fill="#c0392b" text-anchor="middle">Глибоке стискання (Pos 3)</text>
+  <text x="795" y="212" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вихід: ENABLE = 0</text>
+
+  <!-- NODE 4: FAULT (CHANNEL DISCREPANCY / SHORT) -->
+  <rect x="365" y="340" width="230" height="135" rx="8" ry="8" fill="#fdecea" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,3"/>
+  <rect x="377" y="352" width="206" height="28" rx="4" ry="4" fill="#c0392b"/>
+  <text x="480" y="371" font-size="13" font-weight="bold" fill="white" text-anchor="middle">STATE_FAULT</text>
+  <text x="480" y="400" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Стан 4: Аварія каналів</text>
+  <text x="480" y="420" font-size="12" fill="#6b7280" text-anchor="middle">Розсинхронізація (t &gt; 50 ms)</text>
+  <text x="480" y="442" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Вихід: LOCKOUT (Аварія)</text>
+
+  <!-- TRANSITIONS -->
+  <!-- 1 -> 2 (Forward Normal Press) -->
+  <path d="M 280,155 L 355,155" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="317" y="147" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Натиск</text>
+
+  <!-- 2 -> 3 (Panic Overpress) -->
+  <path d="M 595,155 L 670,155" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="632" y="147" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Перетиск</text>
+
+  <!-- 2 -> 1 (Normal Release) -->
+  <path d="M 365,195 C 330,225 310,225 280,195" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="322" y="228" font-size="12" fill="#2457d6" text-anchor="middle">Відпускання</text>
+
+  <!-- 3 -> 1 (Panic Release Arc Over Top - Non Repeat Return) -->
+  <path d="M 795,110 C 795,70 165,70 165,110" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="5,4" marker-end="url(#arr-blue)"/>
+  <text x="480" y="82" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Скидання після паніки: повернення в Стан 1 БЕЗ активації Стану 2 (Non-repeat)</text>
+
+  <!-- Fault Transitions to Node 4 -->
+  <!-- Node 1 -> Node 4 -->
+  <path d="M 165,245 C 165,390 340,390 355,390" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <!-- Node 2 -> Node 4 -->
+  <path d="M 480,245 L 480,330" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="515" y="290" font-size="12" fill="#c0392b">Роззсув каналів</text>
+
+  <!-- Node 3 -> Node 4 -->
+  <path d="M 795,245 C 795,390 620,390 605,390" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+  <!-- Fault Reset Transition: Node 4 -> Node 1 -->
+  <path d="M 365,420 C 120,420 80,330 80,255" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="210" y="445" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Скидання аварії: Усунення роззсуву + Повне відпускання (Pos 1)</text>
+
+</svg>

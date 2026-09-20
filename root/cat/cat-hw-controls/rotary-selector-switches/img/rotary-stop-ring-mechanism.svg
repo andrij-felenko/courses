@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механізм обмежувального кільця (Stop Ring) поворотного перемикача</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Встановлення стопорного штифта в отвори 1..12 задає число робочих позицій та кут обертання вала</text>
+
+  <!-- ==================== LEFT PANEL: FRONT STRUCTURAL VIEW ==================== -->
+  <rect x="30" y="75" width="435" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Header Badge Left -->
+  <rect x="45" y="87" width="405" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247" y="104" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Фронтальний вигляд: Стопорний штифт у позиції 6</text>
+
+  <!-- Outer Bushing Collar Ring -->
+  <circle cx="247" cy="260" r="110" fill="#ffffff" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Allowed Rotation Arc (30 deg to 180 deg = 150 deg stroke) -->
+  <path d="M 321,217 A 85,85 0 0,1 247,345" fill="none" stroke="#27ae60" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- 12 Position Holes around Circle R=85 -->
+  <!-- Hole 12 (Top) -->
+  <circle cx="247" cy="175" r="5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="247" y="166" font-size="12" fill="#6b7280" text-anchor="middle">12</text>
+
+  <!-- Hole 1 -->
+  <circle cx="290" cy="186" r="5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="304" y="184" font-size="12" fill="#6b7280">1</text>
+
+  <!-- Hole 2 -->
+  <circle cx="321" cy="217" r="5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="335" y="215" font-size="12" fill="#6b7280">2</text>
+
+  <!-- Hole 3 (Right) -->
+  <circle cx="332" cy="260" r="5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="345" y="264" font-size="12" fill="#6b7280">3</text>
+
+  <!-- Hole 4 -->
+  <circle cx="321" cy="303" r="5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="335" y="307" font-size="12" fill="#6b7280">4</text>
+
+  <!-- Hole 5 -->
+  <circle cx="290" cy="334" r="5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="304" y="340" font-size="12" fill="#6b7280">5</text>
+
+  <!-- Hole 6 (Bottom, WITH STOP PIN INSERTED) -->
+  <circle cx="247" cy="345" r="7" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="247" cy="345" r="3.5" fill="#c0392b"/>
+  <text x="247" y="365" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">6 (Pin)</text>
+
+  <!-- Hole 7 -->
+  <circle cx="204" cy="334" r="5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="190" y="340" font-size="12" fill="#6b7280">7</text>
+
+  <!-- Hole 8 -->
+  <circle cx="173" cy="303" r="5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="159" y="307" font-size="12" fill="#6b7280">8</text>
+
+  <!-- Hole 9 (Left) -->
+  <circle cx="162" cy="260" r="5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="148" y="264" font-size="12" fill="#6b7280">9</text>
+
+  <!-- Hole 10 -->
+  <circle cx="173" cy="217" r="5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="155" y="215" font-size="12" fill="#6b7280">10</text>
+
+  <!-- Hole 11 -->
+  <circle cx="204" cy="186" r="5" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="188" y="184" font-size="12" fill="#6b7280">11</text>
+
+  <!-- Center Shaft & Rotating Stop Arm/Lug -->
+  <circle cx="247" cy="260" r="45" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="237" y="240" width="20" height="40" rx="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="237" y1="240" x2="257" y2="240" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Rotating Shaft Stop Arm pointing toward Hole 1 -->
+  <path d="M 247,260 L 285,238" stroke="#2457d6" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Left Callout Labels (Positioned in 4 Outer Corners) -->
+  <!-- Top-Left: Holes Callout -->
+  <text x="45" y="135" font-size="12" font-weight="bold" fill="#2457d6">Позиційні отвори (1..12)</text>
+  <line x1="180" y1="138" x2="235" y2="171" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Top-Right: Shaft Stop Arm Callout -->
+  <text x="445" y="135" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Упор вала (Stop Lug)</text>
+  <line x1="350" y1="138" x2="285" y2="230" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Bottom-Left: Stop Pin Callout -->
+  <text x="45" y="405" font-size="12" font-weight="bold" fill="#c0392b">Стопорний штифт (Pin 6)</text>
+  <line x1="180" y1="395" x2="240" y2="348" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Bottom-Right: Allowed Angle Callout -->
+  <text x="445" y="405" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Кут 150° (6 поз.)</text>
+  <line x1="330" y1="395" x2="290" y2="330" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Left Summary Box -->
+  <rect x="45" y="430" width="405" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="448" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Штифт спереду обмежує рух вала до 6 позицій (150°)</text>
+
+
+  <!-- ==================== RIGHT PANEL: EXPLODED / ASSEMBLY VIEW ==================== -->
+  <rect x="495" y="75" width="435" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Header Badge Right -->
+  <rect x="510" y="87" width="405" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712" y="104" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Порядок збирання: Нарізна втулка, кільце та гайка</text>
+
+  <!-- Internal Rotor Stop Arm Inside Housing -->
+  <rect x="525" y="195" width="10" height="60" fill="#2457d6"/>
+
+  <!-- Switch Front Plate Housing -->
+  <rect x="535" y="150" width="20" height="220" rx="2" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Central Drive Shaft -->
+  <rect x="515" y="253" width="365" height="14" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="840" y1="253" x2="880" y2="253" stroke="#2457d6" stroke-width="2"/>
+  <text x="860" y="240" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вал ручки</text>
+
+  <!-- Threaded Bushing Collar with Indexing Holes -->
+  <rect x="555" y="230" width="85" height="60" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Thread lines -->
+  <line x1="565" y1="230" x2="565" y2="290" stroke="#6b7280" stroke-width="1"/>
+  <line x1="585" y1="230" x2="585" y2="290" stroke="#6b7280" stroke-width="1"/>
+  <line x1="605" y1="230" x2="605" y2="290" stroke="#6b7280" stroke-width="1"/>
+  <line x1="625" y1="230" x2="625" y2="290" stroke="#6b7280" stroke-width="1"/>
+  <!-- Indexing Hole cutout on collar -->
+  <circle cx="635" cy="235" r="3" fill="#c0392b"/>
+
+  <!-- Stop Ring with Inward Tooth/Pin -->
+  <rect x="675" y="210" width="16" height="100" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <!-- Inward Pin extending toward collar hole -->
+  <rect x="645" y="231" width="30" height="8" fill="#c0392b"/>
+
+  <!-- Assembly Direction Arrow for Stop Ring -->
+  <line x1="710" y1="210" x2="650" y2="210" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Lock Washer -->
+  <rect x="725" y="220" width="10" height="80" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Hex Nut M10 -->
+  <rect x="760" y="225" width="25" height="70" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="772.5" y1="225" x2="772.5" y2="295" stroke="#6b7280" stroke-width="1"/>
+
+  <!-- Right Callout Labels -->
+  <!-- Rotor Stop Callout -->
+  <text x="530" y="135" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Упор ротора</text>
+  <line x1="530" y1="140" x2="530" y2="190" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Stop Ring Callout -->
+  <text x="675" y="135" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Стопорне кільце</text>
+  <line x1="675" y1="140" x2="675" y2="205" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Nut Callout -->
+  <text x="770" y="135" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Гайка M10</text>
+  <line x1="770" y1="140" x2="770" y2="220" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Installation Detail Callouts (Bottom) -->
+  <text x="635" y="380" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Штифт в отворі N</text>
+  <line x1="635" y1="365" x2="645" y2="242" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <text x="820" y="380" font-size="12" fill="#6b7280" text-anchor="middle">Гайка затискає кільце на панелі</text>
+  <line x1="820" y1="365" x2="775" y2="298" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Right Summary Box -->
+  <rect x="510" y="430" width="405" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="448" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Гайка міцно фіксує штифт у вибраному отворі після монтажу</text>
+
+
+  <!-- ==================== FOOTER ==================== -->
+  <rect x="30" y="482" width="900" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="500" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Перестановка штифта в отвори 1..12 дозволяє точно обмежити кількість позицій (2..12 pos)</text>
+</svg>

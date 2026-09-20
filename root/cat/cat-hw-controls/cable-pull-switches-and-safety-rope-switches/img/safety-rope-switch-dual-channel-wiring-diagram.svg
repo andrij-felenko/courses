@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="#ffffff"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Двоканальна схема підключення тросового вимикача до реле безпеки</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Резервовані NC-канали з контролем перехресного замикання та обриву троса (IEC 60947-5-5 / SIL 3)</text>
+
+  <!-- Left Panel: Safety Rope Switch -->
+  <rect x="30" y="75" width="400" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="230" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Тросовий вимикач аварійного зупинення</text>
+
+  <!-- Mechanical System Box inside Switch -->
+  <rect x="50" y="115" width="360" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="230" y="138" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Механічна система натягу троса (Snap-Action)</text>
+  <text x="230" y="158" font-size="12" fill="#1a1a1a" text-anchor="middle">Примусове розмикання при потягуванні й обриві троса</text>
+
+  <!-- Channel 1 Contact Box NC 11-12 -->
+  <rect x="50" y="190" width="360" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="215" font-size="13" font-weight="bold" fill="#2457d6">Канал 1: NC 11–12</text>
+  <text x="395" y="215" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="end">Примусове (→)</text>
+
+  <circle cx="90" cy="255" r="5" fill="#2457d6"/>
+  <text x="90" y="277" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">11</text>
+  <circle cx="370" cy="255" r="5" fill="#2457d6"/>
+  <text x="370" y="277" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">12</text>
+  <line x1="95" y1="255" x2="190" y2="255" stroke="#2457d6" stroke-width="2"/>
+  <line x1="190" y1="255" x2="270" y2="240" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="270" y1="255" x2="365" y2="255" stroke="#2457d6" stroke-width="2"/>
+  <text x="230" y="277" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Замкнено (Норма)</text>
+
+  <!-- Channel 2 Contact Box NC 21-22 -->
+  <rect x="50" y="305" width="360" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="330" font-size="13" font-weight="bold" fill="#27ae60">Канал 2: NC 21–22</text>
+  <text x="395" y="330" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="end">Примусове (→)</text>
+
+  <circle cx="90" cy="370" r="5" fill="#27ae60"/>
+  <text x="90" y="392" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">21</text>
+  <circle cx="370" cy="370" r="5" fill="#27ae60"/>
+  <text x="370" y="392" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">22</text>
+  <line x1="95" y1="370" x2="190" y2="370" stroke="#27ae60" stroke-width="2"/>
+  <line x1="190" y1="370" x2="270" y2="355" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="270" y1="370" x2="365" y2="370" stroke="#27ae60" stroke-width="2"/>
+  <text x="230" y="392" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Замкнено (Норма)</text>
+
+  <!-- Middle Badge: Category 4 -->
+  <rect x="440" y="85" width="80" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="105" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Category 4</text>
+  <text x="480" y="122" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">PL e / SIL 3</text>
+
+  <!-- Wires & Wire Labels (Routed around text to eliminate collisions) -->
+  <!-- Wire 1: S11 -> Terminal 11 -->
+  <path d="M 550 215 L 430 215 L 430 180 L 40 180 L 40 255 L 85 255" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="205" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Імпульс S11</text>
+
+  <!-- Wire 2: Terminal 12 -> S12 -->
+  <path d="M 370 255 L 545 255" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="245" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Сигнал S12 (NC1)</text>
+
+  <!-- Wire 3: S21 -> Terminal 21 -->
+  <path d="M 550 330 L 430 330 L 430 295 L 40 295 L 40 370 L 85 370" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="320" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Імпульс S21</text>
+
+  <!-- Wire 4: Terminal 22 -> S22 -->
+  <path d="M 370 370 L 545 370" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="360" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Сигнал S22 (NC2)</text>
+
+  <!-- Right Panel: Safety Relay Module -->
+  <rect x="530" y="75" width="400" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="730" y="100" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Реле безпеки (Safety Relay Module)</text>
+
+  <!-- Relay Terminals -->
+  <circle cx="550" cy="215" r="5" fill="#2457d6"/>
+  <text x="562" y="219" font-size="12" font-weight="bold" fill="#1a1a1a">S11</text>
+  <circle cx="550" cy="255" r="5" fill="#2457d6"/>
+  <text x="562" y="259" font-size="12" font-weight="bold" fill="#1a1a1a">S12</text>
+  <circle cx="550" cy="330" r="5" fill="#27ae60"/>
+  <text x="562" y="334" font-size="12" font-weight="bold" fill="#1a1a1a">S21</text>
+  <circle cx="550" cy="370" r="5" fill="#27ae60"/>
+  <text x="562" y="374" font-size="12" font-weight="bold" fill="#1a1a1a">S22</text>
+
+  <!-- Relay Microprocessor Logic Box -->
+  <rect x="620" y="115" width="295" height="290" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="767" y="138" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Внутрішня мікропроцесорна логіка</text>
+  <text x="635" y="163" font-size="12" fill="#1a1a1a">• Контроль обриву та натягу троса</text>
+  <text x="635" y="185" font-size="12" fill="#1a1a1a">• Моніторинг перехресних замикань</text>
+  <text x="635" y="207" font-size="12" fill="#1a1a1a">• Перевірка одночасності розмикання</text>
+  <text x="635" y="229" font-size="12" fill="#1a1a1a">• Вхід скидання та квитування (Reset S34)</text>
+
+  <!-- Output Safety Contacts Box inside Relay -->
+  <rect x="635" y="250" width="265" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="767" y="272" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Силові виходи безпеки</text>
+  <text x="767" y="297" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Канал 1: Контакти 13–14 (NC/NO)</text>
+  <text x="767" y="322" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Канал 2: Контакти 23–24 (NC/NO)</text>
+  <text x="767" y="347" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Допоміжний: Контакти 31–32</text>
+  <text x="767" y="372" font-size="11" fill="#6b7280" text-anchor="middle">(Відключення контактора двигуна)</text>
+
+  <!-- Bottom Legend Bar -->
+  <rect x="30" y="465" width="900" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="490" font-size="12" font-weight="bold" fill="#1a1a1a">[11-12 / 21-22] Замкнені при нормі натягу</text>
+  <text x="480" y="490" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">[S11..S22] Такт-імпульсний контроль КЗ</text>
+  <text x="910" y="490" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">[→] Примусове розмикання</text>
+</svg>

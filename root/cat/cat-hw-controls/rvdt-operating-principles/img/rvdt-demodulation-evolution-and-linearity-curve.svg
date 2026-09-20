@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція демодуляції сигналів RVDT та лінеаризація характеристики</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Перехід від діодної детекції до синхронного ратіометричного випрямлення усуває нелінійність та зону нечутливості</text>
+
+  <!-- ================= TOP SECTION: Evolution Stages ================= -->
+  <text x="480" y="90" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Етапи вдосконалення схемотехніки демодуляції</text>
+
+  <!-- Stage 1 Card: Passive Diode Rectifier -->
+  <rect x="30" y="105" width="275" height="180" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="167" y="128" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Пасивний діодний місток</text>
+  <text x="167" y="146" font-size="11" fill="#6b7280" text-anchor="middle">(1940-ві – 1960-ті рр.)</text>
+
+  <!-- Inner Schema Box 1 -->
+  <rect x="45" y="158" width="245" height="42" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="167" y="183" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">V_out = |V₁| - |V₂|</text>
+
+  <text x="167" y="218" font-size="11" fill="#1a1a1a" text-anchor="middle">• Поріг діода V_d ≈ 0.6 В</text>
+  <text x="167" y="236" font-size="11" fill="#1a1a1a" text-anchor="middle">• Зона нечутливості біля 0°</text>
+  <text x="167" y="254" font-size="11" fill="#1a1a1a" text-anchor="middle">• Відсутність знаку кута ±θ</text>
+  <text x="167" y="272" font-size="11" fill="#c0392b" font-weight="bold" text-anchor="middle">Висока нелінійність</text>
+
+  <!-- Flow Arrow 1 -> 2 -->
+  <line x1="307" y1="195" x2="338" y2="195" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- Stage 2 Card: Analog Synchronous Demodulator -->
+  <rect x="342" y="105" width="275" height="180" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="479" y="128" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Фазочутливий аналог</text>
+  <text x="479" y="146" font-size="11" fill="#6b7280" text-anchor="middle">(1970-ті – 1990-ті рр.)</text>
+
+  <!-- Inner Schema Box 2 -->
+  <rect x="357" y="158" width="245" height="42" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="479" y="183" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">V_out = (V_sec × V_ref) + ФНЧ</text>
+
+  <text x="479" y="218" font-size="11" fill="#1a1a1a" text-anchor="middle">• Точне визначення знаку ±θ</text>
+  <text x="479" y="236" font-size="11" fill="#1a1a1a" text-anchor="middle">• Усунення зони нечутливості</text>
+  <text x="479" y="254" font-size="11" fill="#1a1a1a" text-anchor="middle">• Дрейф від напруги збудження</text>
+  <text x="479" y="272" font-size="11" fill="#2457d6" font-weight="bold" text-anchor="middle">Залежність від V_exc і T°</text>
+
+  <!-- Flow Arrow 2 -> 3 -->
+  <line x1="619" y1="195" x2="650" y2="195" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <!-- Stage 3 Card: Digital Ratiometric RDC -->
+  <rect x="655" y="105" width="275" height="180" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="792" y="128" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Ратіометричний RDC</text>
+  <text x="792" y="146" font-size="11" fill="#6b7280" text-anchor="middle">(Сучасні DSP / RDC модулі)</text>
+
+  <!-- Inner Schema Box 3 -->
+  <rect x="670" y="158" width="245" height="42" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="792" y="183" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Ratio = (V₁ - V₂) / (V₁ + V₂)</text>
+
+  <text x="792" y="218" font-size="11" fill="#1a1a1a" text-anchor="middle">• Компенсація дрейфу V_exc</text>
+  <text x="792" y="236" font-size="11" fill="#1a1a1a" text-anchor="middle">• Інваріантність до T° обмоток</text>
+  <text x="792" y="254" font-size="11" fill="#1a1a1a" text-anchor="middle">• Суворо лінійний вихід K · θ</text>
+  <text x="792" y="272" font-size="11" fill="#27ae60" font-weight="bold" text-anchor="middle">Ідеальна стабільність</text>
+
+  <!-- ================= BOTTOM SECTION: Linearity Curve Graph ================= -->
+  <rect x="30" y="300" width="900" height="240" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="322" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняльний графік вихідних характеристик V_out(θ)</text>
+
+  <!-- Graph Plot Area Axis -->
+  <!-- X Axis (Angle theta) -->
+  <line x1="90" y1="430" x2="640" y2="430" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="645" y="434" font-size="12" font-weight="bold" fill="#1a1a1a">θ (°)</text>
+
+  <!-- X Ticks -->
+  <line x1="140" y1="426" x2="140" y2="434" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="140" y="448" font-size="11" fill="#6b7280" text-anchor="middle">-40°</text>
+
+  <line x1="250" y1="426" x2="250" y2="434" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="250" y="448" font-size="11" fill="#6b7280" text-anchor="middle">-20°</text>
+
+  <line x1="360" y1="426" x2="360" y2="434" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="360" y="448" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0°</text>
+
+  <line x1="470" y1="426" x2="470" y2="434" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="470" y="448" font-size="11" fill="#6b7280" text-anchor="middle">+20°</text>
+
+  <line x1="580" y1="426" x2="580" y2="434" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="580" y="448" font-size="11" fill="#6b7280" text-anchor="middle">+40°</text>
+
+  <!-- Y Axis (V_out) -->
+  <line x1="360" y1="515" x2="360" y2="340" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="360" y="334" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V_out (V)</text>
+
+  <!-- Y Ticks -->
+  <text x="350" y="355" font-size="11" fill="#6b7280" text-anchor="end">+V_max</text>
+  <text x="350" y="505" font-size="11" fill="#6b7280" text-anchor="end">-V_max</text>
+
+  <!-- Plot Curves -->
+  <!-- Curve 1: Red Dashed (Passive Diode with Dead Zone) -->
+  <path d="M 140,500 L 310,430 L 410,430 L 580,360" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4" fill="none"/>
+
+  <!-- Curve 2: Blue Dotted (Analog Synchronous with end saturation curvature) -->
+  <path d="M 140,508 C 220,490 300,450 360,430 C 420,410 500,370 580,352" stroke="#2457d6" stroke-width="2" stroke-dasharray="2,2" fill="none"/>
+
+  <!-- Curve 3: Green Solid Line (Modern Ratiometric Linear) -->
+  <line x1="140" y1="500" x2="580" y2="360" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Dead Zone Callout Box -->
+  <rect x="305" y="398" width="110" height="22" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="360" y="413" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона нечутливості 0°</text>
+
+  <!-- Graph Legend Box -->
+  <rect x="670" y="338" width="245" height="185" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="792" y="358" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Легенда характеристик</text>
+
+  <!-- Legend 1: Passive Diode -->
+  <line x1="685" y1="382" x2="715" y2="382" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="723" y="386" font-size="11" font-weight="bold" fill="#c0392b">Діодний випрямляч</text>
+  <text x="723" y="400" font-size="10" fill="#6b7280">(Поріг діода, зона нечутливості)</text>
+
+  <!-- Legend 2: Analog Synchronous -->
+  <line x1="685" y1="428" x2="715" y2="428" stroke="#2457d6" stroke-width="2" stroke-dasharray="2,2"/>
+  <text x="723" y="432" font-size="11" font-weight="bold" fill="#2457d6">Фазочутливий аналог</text>
+  <text x="723" y="446" font-size="10" fill="#6b7280">(Знакова детекція, дрейф V_exc)</text>
+
+  <!-- Legend 3: Ratiometric RDC -->
+  <line x1="685" y1="474" x2="715" y2="474" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="723" y="478" font-size="11" font-weight="bold" fill="#27ae60">Ратіометричний RDC</text>
+  <text x="723" y="492" font-size="10" fill="#6b7280">(Ідеально лінійний вихід K · θ)</text>
+</svg>

@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Принципова схема апаратного знебрязкування енкодера (RC + Тригер Шмітта)</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">RC-фільтр згладжує контактні завади, а тригер Шмітта формує чіткі фронти для GPIO мікроконтролера</text>
+
+  <!-- COLUMN 1: MECHANICAL ENCODER -->
+  <g id="encoder-panel">
+    <rect x="30" y="78" width="130" height="280" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="95" y="102" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Енкодер</text>
+
+    <!-- Channel A Switch -->
+    <rect x="45" y="118" width="100" height="34" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="95" y="139" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Контакт A</text>
+
+    <!-- Channel B Switch -->
+    <rect x="45" y="208" width="100" height="34" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="95" y="229" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Контакт B</text>
+
+    <!-- Button SW Switch -->
+    <rect x="45" y="298" width="100" height="34" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="95" y="319" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Кнопка SW</text>
+  </g>
+
+  <!-- VCC RAIL (+3.3V) -->
+  <text x="200" y="74" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">+3.3V (VCC)</text>
+  <line x1="205" y1="80" x2="270" y2="80" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- CHANNEL A FILTER (y_center = 135) -->
+  <g id="filter-ch-a">
+    <line x1="145" y1="135" x2="240" y2="135" stroke="#2457d6" stroke-width="1.5"/>
+    
+    <!-- Pull-up R1 (10k) -->
+    <line x1="240" y1="80" x2="240" y2="100" stroke="#c0392b" stroke-width="1.5"/>
+    <rect x="232" y="100" width="16" height="26" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="228" y="116" text-anchor="end" font-size="11" fill="#1a1a1a">R1 (10k)</text>
+    <line x1="240" y1="126" x2="240" y2="135" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="240" cy="135" r="3" fill="#2457d6"/>
+
+    <!-- Series R2 (1k) -->
+    <rect x="270" y="127" width="40" height="16" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="290" y="122" text-anchor="middle" font-size="11" fill="#1a1a1a">R2 (1k)</text>
+    <line x1="240" y1="135" x2="270" y2="135" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="310" y1="135" x2="370" y2="135" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="370" cy="135" r="3" fill="#2457d6"/>
+
+    <!-- Capacitor C1 (100nF) -->
+    <line x1="370" y1="135" x2="370" y2="148" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="360" y1="148" x2="380" y2="148" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="360" y1="154" x2="380" y2="154" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="370" y1="154" x2="370" y2="168" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="390" y="155" font-size="11" fill="#1a1a1a">C1 (100nF)</text>
+    
+    <!-- GND symbol -->
+    <line x1="362" y1="168" x2="378" y2="168" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="366" y1="172" x2="374" y2="172" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="368" y1="176" x2="372" y2="176" stroke="#6b7280" stroke-width="1.5"/>
+
+    <!-- Wire to Schmitt Trigger -->
+    <line x1="370" y1="135" x2="480" y2="135" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  </g>
+
+  <!-- SCHMITT TRIGGER A -->
+  <g id="schmitt-a">
+    <rect x="480" y="113" width="140" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="550" y="133" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Тригер Шмітта 74HC14</text>
+    <text x="550" y="148" text-anchor="middle" font-size="11" fill="#6b7280">(Гістерезис ΔV)</text>
+    <line x1="620" y1="135" x2="720" y2="135" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  </g>
+
+  <!-- CHANNEL B FILTER (y_center = 225) -->
+  <g id="filter-ch-b">
+    <line x1="145" y1="225" x2="240" y2="225" stroke="#2457d6" stroke-width="1.5"/>
+    
+    <!-- Pull-up R3 (10k) -->
+    <line x1="240" y1="80" x2="240" y2="190" stroke="#c0392b" stroke-width="1.5"/>
+    <rect x="232" y="190" width="16" height="26" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="228" y="206" text-anchor="end" font-size="11" fill="#1a1a1a">R3 (10k)</text>
+    <line x1="240" y1="216" x2="240" y2="225" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="240" cy="225" r="3" fill="#2457d6"/>
+
+    <!-- Series R4 (1k) -->
+    <rect x="270" y="217" width="40" height="16" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="290" y="212" text-anchor="middle" font-size="11" fill="#1a1a1a">R4 (1k)</text>
+    <line x1="240" y1="225" x2="270" y2="225" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="310" y1="225" x2="370" y2="225" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="370" cy="225" r="3" fill="#2457d6"/>
+
+    <!-- Capacitor C2 (100nF) -->
+    <line x1="370" y1="225" x2="370" y2="238" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="360" y1="238" x2="380" y2="238" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="360" y1="244" x2="380" y2="244" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="370" y1="244" x2="370" y2="258" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="390" y="245" font-size="11" fill="#1a1a1a">C2 (100nF)</text>
+    
+    <!-- GND symbol -->
+    <line x1="362" y1="258" x2="378" y2="258" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="366" y1="262" x2="374" y2="262" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="368" y1="266" x2="372" y2="266" stroke="#6b7280" stroke-width="1.5"/>
+
+    <!-- Wire to Schmitt Trigger -->
+    <line x1="370" y1="225" x2="480" y2="225" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  </g>
+
+  <!-- SCHMITT TRIGGER B -->
+  <g id="schmitt-b">
+    <rect x="480" y="203" width="140" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="550" y="223" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Тригер Шмітта 74HC14</text>
+    <text x="550" y="238" text-anchor="middle" font-size="11" fill="#6b7280">(Гістерезис ΔV)</text>
+    <line x1="620" y1="225" x2="720" y2="225" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  </g>
+
+  <!-- SWITCH SW FILTER (y_center = 315) -->
+  <g id="filter-ch-sw">
+    <line x1="145" y1="315" x2="240" y2="315" stroke="#2457d6" stroke-width="1.5"/>
+    
+    <!-- Pull-up R5 (10k) -->
+    <line x1="240" y1="260" x2="240" y2="280" stroke="#c0392b" stroke-width="1.5"/>
+    <rect x="232" y="280" width="16" height="26" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="228" y="296" text-anchor="end" font-size="11" fill="#1a1a1a">R5 (10k)</text>
+    <line x1="240" y1="306" x2="240" y2="315" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="240" cy="315" r="3" fill="#2457d6"/>
+
+    <!-- Series R6 (1k) -->
+    <rect x="270" y="307" width="40" height="16" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="290" y="302" text-anchor="middle" font-size="11" fill="#1a1a1a">R6 (1k)</text>
+    <line x1="240" y1="315" x2="270" y2="315" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="310" y1="315" x2="370" y2="315" stroke="#2457d6" stroke-width="1.5"/>
+    <circle cx="370" cy="315" r="3" fill="#2457d6"/>
+
+    <!-- Capacitor C3 (100nF) -->
+    <line x1="370" y1="315" x2="370" y2="328" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="360" y1="328" x2="380" y2="328" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="360" y1="334" x2="380" y2="334" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="370" y1="334" x2="370" y2="348" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="390" y="335" font-size="11" fill="#1a1a1a">C3 (100nF)</text>
+    
+    <!-- GND symbol -->
+    <line x1="362" y1="348" x2="378" y2="348" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="366" y1="352" x2="374" y2="352" stroke="#6b7280" stroke-width="1.5"/>
+    <line x1="368" y1="356" x2="372" y2="356" stroke="#6b7280" stroke-width="1.5"/>
+
+    <!-- Wire to Schmitt Trigger -->
+    <line x1="370" y1="315" x2="480" y2="315" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  </g>
+
+  <!-- SCHMITT TRIGGER SW -->
+  <g id="schmitt-sw">
+    <rect x="480" y="293" width="140" height="44" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="550" y="313" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Тригер Шмітта 74HC14</text>
+    <text x="550" y="328" text-anchor="middle" font-size="11" fill="#6b7280">(Гістерезис ΔV)</text>
+    <line x1="620" y1="315" x2="720" y2="315" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  </g>
+
+  <!-- COLUMN 4: MICROCONTROLLER (MCU) -->
+  <g id="mcu-panel">
+    <rect x="720" y="78" width="210" height="280" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="825" y="102" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Мікроконтролер (MCU)</text>
+
+    <!-- Pin PA0 (ENC_A) -->
+    <rect x="735" y="118" width="180" height="34" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="825" y="139" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">PA0 (TIM_CH1 / ENC_A)</text>
+
+    <!-- Pin PA1 (ENC_B) -->
+    <rect x="735" y="208" width="180" height="34" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="825" y="229" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">PA1 (TIM_CH2 / ENC_B)</text>
+
+    <!-- Pin PA2 (ENC_SW) -->
+    <rect x="735" y="298" width="180" height="34" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="825" y="319" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">PA2 (EXTI / ENC_SW)</text>
+  </g>
+
+  <!-- SUMMARY DIAGNOSTIC INFO BOX -->
+  <rect x="30" y="378" width="900" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ ПОСТІЙНА ЧАСУ ФІЛЬТРА: τ = R × C = 1 kΩ × 100 nF = 100 µs (поглинає брязкіт 1–5 ms)</text>
+  <text x="480" y="422" text-anchor="middle" font-size="11" fill="#1a1a1a">Тригер Шмітта з гістерезисом ΔV = 0.8V забезпечує круті фронти сигналів для апаратного квадратурного декодера MCU.</text>
+</svg>

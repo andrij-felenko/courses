@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструктивний розріз snap-in монтажу рокера з герметизацією IP67</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Фіксація пружинними засувками в панелі t_panel та стиснення силіконової ущільнювальної рамки</text>
+
+  <!-- CENTER DIAGRAM AREA -->
+
+  <!-- Panel Plate (Face Panel) Left & Right -->
+  <!-- Left Panel Plate -->
+  <rect x="275" y="210" width="90" height="30" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="2"/>
+  <!-- Right Panel Plate -->
+  <rect x="595" y="210" width="90" height="30" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="2"/>
+  <text x="640" y="258" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Лицьова панель</text>
+
+  <!-- Dimension line for t_panel -->
+  <line x1="290" y1="210" x2="290" y2="240" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="285" y1="210" x2="295" y2="210" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="285" y1="240" x2="295" y2="240" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="300" y="229" font-size="12" font-weight="bold" fill="#2457d6">t_panel</text>
+
+  <!-- ROCKER SWITCH COMPONENT -->
+
+  <!-- Rocker Actuator Button (Top) -->
+  <path d="M 350 180 L 480 145 L 610 180 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="480" y="172" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Клавіша (Rocker Actuator)</text>
+
+  <!-- Top Bezel Flange (Housing Flange) -->
+  <rect x="330" y="180" width="300" height="24" fill="#1a1a1a" rx="3"/>
+
+  <!-- Silicone IP67 Gasket (Compressed under Flange) -->
+  <!-- Left Gasket -->
+  <rect x="335" y="202" width="25" height="8" fill="#27ae60" stroke="#27ae60" rx="2"/>
+  <!-- Right Gasket -->
+  <rect x="600" y="202" width="25" height="8" fill="#27ae60" stroke="#27ae60" rx="2"/>
+
+  <!-- Main Switch Body Shell (Inside Cutout) -->
+  <rect x="365" y="210" width="230" height="170" fill="white" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <text x="480" y="325" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Корпус перемикача</text>
+  <text x="480" y="345" font-size="12" fill="#6b7280" text-anchor="middle">Термопластичний PBT</text>
+
+  <!-- Snap-In Retention Tabs (Flexible Latching Ears) -->
+  <!-- Left Snap Tab -->
+  <path d="M 365 240 L 340 240 L 365 265 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <!-- Right Snap Tab -->
+  <path d="M 595 240 L 620 240 L 595 265 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Faston Blade Terminals at Bottom -->
+  <!-- Terminal 1 -->
+  <rect x="415" y="380" width="12" height="60" fill="#1a1a1a" rx="1"/>
+  <!-- Terminal 2 -->
+  <rect x="474" y="380" width="12" height="60" fill="#1a1a1a" rx="1"/>
+  <!-- Terminal 3 -->
+  <rect x="533" y="380" width="12" height="60" fill="#1a1a1a" rx="1"/>
+
+  <!-- Faston Terminals Label -->
+  <text x="480" y="462" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Ножові клеми Faston 6.3 мм</text>
+
+  <!-- LEFT CALLOUT BOXES -->
+
+  <!-- Box 1: Silicone Gasket -->
+  <rect x="40" y="130" width="220" height="75" fill="#e9f7ef" stroke="#27ae60" rx="6"/>
+  <text x="50" y="150" font-size="12" font-weight="bold" fill="#27ae60">Ущільнювач IP67</text>
+  <text x="50" y="170" font-size="12" fill="#1a1a1a">Запобігає проникненню вологи</text>
+  <text x="50" y="190" font-size="12" fill="#1a1a1a">та пилу під фланець корпуса</text>
+  <line x1="260" y1="165" x2="330" y2="204" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Box 2: Snap-in Tab -->
+  <rect x="40" y="260" width="220" height="75" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="50" y="280" font-size="12" font-weight="bold" fill="#2457d6">Засувка (Snap-in Tab)</text>
+  <text x="50" y="300" font-size="12" fill="#1a1a1a">Фіксує корпус під панеллю</text>
+  <text x="50" y="320" font-size="12" fill="#1a1a1a">зусиллям пружного зачеплення</text>
+  <line x1="260" y1="295" x2="338" y2="254" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 3: Panel Thickness -->
+  <rect x="40" y="390" width="220" height="75" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="50" y="410" font-size="12" font-weight="bold" fill="#1a1a1a">Товщина панелі t_panel</text>
+  <text x="50" y="430" font-size="12" fill="#1a1a1a">Допустимий діапазон:</text>
+  <text x="50" y="450" font-size="12" font-weight="bold" fill="#2457d6">0.75 мм ≤ t_panel ≤ 3.0 мм</text>
+
+  <!-- RIGHT CALLOUT BOXES -->
+
+  <!-- Box 4: Actuator -->
+  <rect x="700" y="130" width="220" height="75" fill="#eaf0fd" stroke="#2457d6" rx="6"/>
+  <text x="710" y="150" font-size="12" font-weight="bold" fill="#2457d6">Клавіша перемикання</text>
+  <text x="710" y="170" font-size="12" fill="#1a1a1a">Кінематика snap-action</text>
+  <text x="710" y="190" font-size="12" fill="#1a1a1a">з виразним тактильним кликом</text>
+  <line x1="700" y1="165" x2="612" y2="165" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Box 5: Cutout Tolerance -->
+  <rect x="700" y="260" width="220" height="75" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="710" y="280" font-size="12" font-weight="bold" fill="#1a1a1a">Розмір вирізу панелі</text>
+  <text x="710" y="300" font-size="12" fill="#1a1a1a">Стандарт: 21.0 × 27.0 мм</text>
+  <text x="710" y="320" font-size="12" font-weight="bold" fill="#c0392b">Допуск: +0.2 / -0.0 мм</text>
+
+  <!-- Box 6: Faston Terminals -->
+  <rect x="700" y="390" width="220" height="75" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="710" y="410" font-size="12" font-weight="bold" fill="#1a1a1a">Ножові клеми Faston</text>
+  <text x="710" y="430" font-size="12" fill="#1a1a1a">Типорозмір 6.3 × 0.8 мм</text>
+  <text x="710" y="450" font-size="12" fill="#1a1a1a">Струм навантаження до 16 А</text>
+  <line x1="700" y1="420" x2="550" y2="410" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+</svg>

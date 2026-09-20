@@ -1,0 +1,165 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 450" width="960" height="450" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="450" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Будова прецизійного роторного атенюатора Hi-End аудіосигналу</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Дискретна резистивна матриця та позолочені контакти забезпечують точність регулювання до 0.1% без шумів</text>
+
+  <!-- Outer Container Card -->
+  <rect x="30" y="78" width="900" height="352" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- LEFT PANEL: Physical Wafer & Resistors Assembly -->
+  <text x="255" y="112" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Фізичне розташування елементів</text>
+
+  <!-- Ceramic Wafer Plate Base -->
+  <circle cx="200" cy="240" r="85" fill="#ffffff" stroke="#d0d7de" stroke-width="2"/>
+  <circle cx="200" cy="240" r="75" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Gold Rotor Hub -->
+  <circle cx="200" cy="240" r="22" fill="#eaf0fd" stroke="#d97706" stroke-width="2"/>
+  <text x="200" y="244" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">OUT</text>
+
+  <!-- 12 Gold Lugs around Circle (r=60) -->
+  <circle cx="200" cy="180" r="5" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <circle cx="230" cy="188" r="5" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <circle cx="252" cy="210" r="5" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <circle cx="260" cy="240" r="5" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <circle cx="252" cy="270" r="5" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <circle cx="230" cy="292" r="5" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <circle cx="200" cy="300" r="5" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <circle cx="170" cy="292" r="5" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <circle cx="148" cy="270" r="5" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <circle cx="140" cy="240" r="5" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <circle cx="148" cy="210" r="5" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <circle cx="170" cy="188" r="5" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+
+  <!-- Metal Film Resistors mounted between Lugs -->
+  <rect x="211" y="180" width="8" height="14" rx="2" transform="rotate(-25 215 187)" fill="#2457d6"/>
+  <rect x="238" y="195" width="8" height="14" rx="2" transform="rotate(25 242 202)" fill="#2457d6"/>
+  <rect x="253" y="222" width="8" height="14" rx="2" transform="rotate(70 257 229)" fill="#2457d6"/>
+  <rect x="253" y="252" width="8" height="14" rx="2" transform="rotate(110 257 259)" fill="#2457d6"/>
+  <rect x="238" y="278" width="8" height="14" rx="2" transform="rotate(155 242 285)" fill="#2457d6"/>
+  <rect x="211" y="293" width="8" height="14" rx="2" transform="rotate(200 215 300)" fill="#2457d6"/>
+  <rect x="181" y="293" width="8" height="14" rx="2" transform="rotate(-155 185 300)" fill="#2457d6"/>
+  <rect x="154" y="278" width="8" height="14" rx="2" transform="rotate(-110 158 285)" fill="#2457d6"/>
+  <rect x="139" y="252" width="8" height="14" rx="2" transform="rotate(-70 143 259)" fill="#2457d6"/>
+  <rect x="139" y="222" width="8" height="14" rx="2" transform="rotate(-25 143 229)" fill="#2457d6"/>
+  <rect x="154" y="195" width="8" height="14" rx="2" transform="rotate(25 158 202)" fill="#2457d6"/>
+
+  <!-- Rotating Gold Contact Blade (MBB Contact to Lug 3) -->
+  <polygon points="217,225 251,206 247,214 221,233" fill="#d97706" stroke="#b45309" stroke-width="1"/>
+  <circle cx="252" cy="210" r="7" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Callout Top Left: Gold Lugs -->
+  <rect x="295" y="130" width="160" height="65" rx="4" fill="#ffffff" stroke="#d97706" stroke-width="1.5"/>
+  <text x="375" y="150" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">Позолочені ламелі</text>
+  <text x="375" y="168" font-size="12" fill="#6b7280" text-anchor="middle">Покриття Au 3–5 мкм</text>
+  <text x="375" y="184" font-size="12" fill="#6b7280" text-anchor="middle">Опір r &lt; 10 мОм</text>
+  <line x1="295" y1="160" x2="236" y2="188" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <circle cx="236" cy="188" r="2.5" fill="#d97706"/>
+
+  <!-- Callout Bottom Left: Resistors -->
+  <rect x="295" y="285" width="160" height="65" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="375" y="305" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Металоплівкові R</text>
+  <text x="375" y="323" font-size="12" fill="#6b7280" text-anchor="middle">Ряд E96 (точність 0.1%)</text>
+  <text x="375" y="339" font-size="12" fill="#6b7280" text-anchor="middle">Низький ТКС (±15 ppm)</text>
+  <line x1="295" y1="315" x2="264" y2="285" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <circle cx="264" cy="285" r="2.5" fill="#2457d6"/>
+
+  <!-- Left Footer Card -->
+  <rect x="55" y="365" width="400" height="48" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="255" y="385" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Самоочисний роторний контакт</text>
+  <text x="255" y="402" font-size="12" fill="#6b7280" text-anchor="middle">Видаляє окисний шар та пил при повороті</text>
+
+
+  <!-- RIGHT PANEL: Schematic Diagram & Features -->
+  <text x="705" y="112" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Принципова схема дільника (Ladder)</text>
+
+  <!-- Input IN Line -->
+  <line x1="495" y1="140" x2="540" y2="140" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="495" y="132" font-size="12" font-weight="bold" fill="#c0392b">IN (Сигнал)</text>
+
+  <!-- Vertical Resistor Ladder -->
+  <line x1="540" y1="140" x2="540" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="532" y="150" width="16" height="20" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="525" y="164" font-size="12" fill="#6b7280" text-anchor="end">R1</text>
+
+  <line x1="540" y1="170" x2="540" y2="190" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="532" y="190" width="16" height="20" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="525" y="204" font-size="12" fill="#6b7280" text-anchor="end">R2</text>
+
+  <line x1="540" y1="210" x2="540" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="532" y="230" width="16" height="20" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="525" y="244" font-size="12" fill="#6b7280" text-anchor="end">R3</text>
+
+  <line x1="540" y1="250" x2="540" y2="270" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="532" y="270" width="16" height="20" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="525" y="284" font-size="12" fill="#6b7280" text-anchor="end">R4</text>
+
+  <line x1="540" y1="290" x2="540" y2="310" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="532" y="310" width="16" height="20" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="525" y="324" font-size="12" fill="#6b7280" text-anchor="end">RN</text>
+
+  <line x1="540" y1="330" x2="540" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- GND Ground Symbol -->
+  <line x1="528" y1="350" x2="552" y2="350" stroke="#2457d6" stroke-width="2"/>
+  <line x1="532" y1="354" x2="548" y2="354" stroke="#2457d6" stroke-width="2"/>
+  <line x1="536" y1="358" x2="544" y2="358" stroke="#2457d6" stroke-width="2"/>
+  <text x="520" y="354" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">GND</text>
+
+  <!-- Tap Lines to Switch Contacts -->
+  <line x1="540" y1="140" x2="610" y2="140" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="610" cy="140" r="3.5" fill="#1a1a1a"/>
+  <text x="610" y="132" font-size="12" fill="#6b7280" text-anchor="middle">1</text>
+
+  <line x1="540" y1="180" x2="610" y2="180" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="610" cy="180" r="3.5" fill="#1a1a1a"/>
+  <text x="610" y="172" font-size="12" fill="#6b7280" text-anchor="middle">2</text>
+
+  <line x1="540" y1="220" x2="610" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="610" cy="220" r="4.5" fill="#27ae60"/>
+  <text x="610" y="212" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">3</text>
+
+  <line x1="540" y1="260" x2="610" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="610" cy="260" r="3.5" fill="#1a1a1a"/>
+  <text x="610" y="252" font-size="12" fill="#6b7280" text-anchor="middle">4</text>
+
+  <line x1="540" y1="300" x2="610" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="610" cy="300" r="3.5" fill="#1a1a1a"/>
+  <text x="610" y="292" font-size="12" fill="#6b7280" text-anchor="middle">N</text>
+
+  <!-- Selector Knife Arm connected to Contact 3 -->
+  <line x1="670" y1="220" x2="614" y2="220" stroke="#d97706" stroke-width="3"/>
+  <circle cx="670" cy="220" r="5" fill="#d97706"/>
+
+  <!-- Output OUT Line -->
+  <line x1="670" y1="220" x2="740" y2="220" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="745" y="215" font-size="12" font-weight="bold" fill="#2457d6">OUT (Вихід)</text>
+
+  <!-- Right Advantages Card -->
+  <rect x="680" y="235" width="225" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="792" y="255" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Переваги схеми</text>
+  <text x="695" y="275" font-size="12" fill="#27ae60">• Відхилення каналів &lt; 0.05 дБ</text>
+  <text x="695" y="293" font-size="12" fill="#27ae60">• Нуль шумів та розбалансу</text>
+  <text x="695" y="311" font-size="12" fill="#27ae60">• Повна відсутність дрейфу</text>
+  <text x="695" y="329" font-size="12" fill="#27ae60">• Нескінченний ресурс (Au)</text>
+
+  <!-- Right Footer Card: MBB Feature -->
+  <rect x="495" y="365" width="410" height="48" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="700" y="385" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Контакти Make-Before-Break (MBB / Невипадаючі)</text>
+  <text x="700" y="402" font-size="12" fill="#6b7280" text-anchor="middle">Запобігають розриву кола та акустичному клацанню</text>
+</svg>

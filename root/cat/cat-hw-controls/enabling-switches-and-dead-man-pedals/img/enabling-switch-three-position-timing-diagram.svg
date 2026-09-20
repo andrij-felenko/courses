@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма перемикання 3-позиційної кнопки дозволу</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Двоканальний моніторинг (CH1/CH2) із допуском розсинхронізації Δt_discrepancy між контактами</text>
+
+  <!-- Position Phase Background Panels -->
+  <!-- Phase 1: Pos 1 Released -->
+  <rect x="180" y="80" width="180" height="280" fill="#f4f6f8" stroke="#d0d7de" stroke-dasharray="4,3" rx="4"/>
+  <text x="270" y="102" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Поз. 1: Відпущено (OFF)</text>
+
+  <!-- Phase 2: Pos 2 Enabled -->
+  <rect x="360" y="80" width="260" height="280" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" rx="4"/>
+  <text x="490" y="102" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Поз. 2: Дозвіл (ON)</text>
+
+  <!-- Phase 3: Pos 3 Panic -->
+  <rect x="620" y="80" width="260" height="280" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" rx="4"/>
+  <text x="750" y="102" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Поз. 3: Паніка (OFF)</text>
+
+  <!-- Signal Axis Labels (Left Column) -->
+  <text x="165" y="166" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">CH1 (Канал 1)</text>
+  <text x="165" y="246" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">CH2 (Канал 2)</text>
+  <text x="165" y="326" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">Safety Out (Дозвіл)</text>
+
+  <!-- Horizontal Grid Lines for Signals -->
+  <line x1="180" y1="180" x2="880" y2="180" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="180" y1="260" x2="880" y2="260" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="180" y1="345" x2="880" y2="345" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Desynchronization Zone Highlight (t1 to t2) -->
+  <rect x="360" y="135" width="40" height="135" fill="#eaf0fd" fill-opacity="0.7" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="360" y1="125" x2="400" y2="125" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="360" y1="120" x2="360" y2="130" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="400" y1="120" x2="400" y2="130" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="380" y="116" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Δt_discrepancy</text>
+
+  <!-- Signal Traces -->
+
+  <!-- CH1 Trace (Blue) -->
+  <path d="M 180,180 L 360,180 L 360,145 L 635,145 L 635,180 L 880,180" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- CH2 Trace (Blue) -->
+  <path d="M 180,260 L 400,260 L 400,225 L 665,225 L 665,260 L 880,260" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Safety Output Trace (Green / Red) -->
+  <path d="M 180,345 L 400,345 L 400,305 L 635,305 L 635,345 L 880,345" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- State Labels on Traces -->
+  <!-- CH1 States -->
+  <text x="270" y="172" font-size="12" fill="#6b7280" text-anchor="middle">OFF</text>
+  <text x="490" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ON (Замкнено)</text>
+  <text x="750" y="172" font-size="12" fill="#c0392b" text-anchor="middle">OFF (Розмикання)</text>
+
+  <!-- CH2 States -->
+  <text x="270" y="252" font-size="12" fill="#6b7280" text-anchor="middle">OFF</text>
+  <text x="490" y="218" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ON (Замкнено)</text>
+  <text x="750" y="252" font-size="12" fill="#c0392b" text-anchor="middle">OFF (Розмикання)</text>
+
+  <!-- Safety Output States -->
+  <text x="270" y="337" font-size="12" fill="#6b7280" text-anchor="middle">OFF (0 V)</text>
+  <text x="490" y="298" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">HIGH (24 V DC)</text>
+  <text x="750" y="337" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">OFF (Аварійне 0 V)</text>
+
+  <!-- Time Vertical Reference Lines -->
+  <line x1="360" y1="130" x2="360" y2="370" stroke="#2457d6" stroke-dasharray="3,2" stroke-width="1"/>
+  <line x1="400" y1="130" x2="400" y2="370" stroke="#2457d6" stroke-dasharray="3,2" stroke-width="1"/>
+  <line x1="635" y1="130" x2="635" y2="370" stroke="#c0392b" stroke-dasharray="3,2" stroke-width="1"/>
+  <line x1="665" y1="130" x2="665" y2="370" stroke="#c0392b" stroke-dasharray="3,2" stroke-width="1"/>
+
+  <!-- Time Axis (Bottom) -->
+  <line x1="180" y1="370" x2="890" y2="370" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="890" y="390" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">Час t</text>
+
+  <!-- Time Markers -->
+  <text x="360" y="388" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t₁</text>
+  <text x="400" y="388" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t₂</text>
+  <text x="635" y="388" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t₃</text>
+  <text x="665" y="388" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t₄</text>
+
+  <!-- Bottom Summary Callout Cards -->
+  <!-- Card 1: Discrepancy Control -->
+  <rect x="40" y="410" width="280" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="430" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Розсинхронізація: Δt = t₂ - t₁ ≤ Δt_max</text>
+
+  <!-- Card 2: Enable Logic -->
+  <rect x="340" y="410" width="300" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="490" y="430" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Умова дозволу: CH1 = ON ∧ CH2 = ON</text>
+
+  <!-- Card 3: Panic Tripping -->
+  <rect x="660" y="410" width="260" height="32" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="790" y="430" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Паніка: Миттєвий вимкнений стан</text>
+</svg>

@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схемотехніка диференціального підключення RS-422 для SSI / BiSS</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Узгодження імпедансу 120 Ом, захисне екранування та резистори Fail-Safe Biasing</text>
+
+  <!-- LEFT PANEL: Transmitter / Encoder Side -->
+  <rect x="20" y="65" width="250" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="72" width="230" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="145" y="90" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Передавач енкодера (TX)</text>
+
+  <!-- Input Data Signal Line into Driver -->
+  <line x1="35" y1="180" x2="70" y2="180" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+  <text x="52" y="172" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">Дані</text>
+
+  <!-- RS-422 Driver Symbol (Triangle) -->
+  <polygon points="70,140 140,180 70,220" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="98" y="174" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">RS-422</text>
+  <text x="98" y="188" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Driver</text>
+
+  <!-- Output Lines from Encoder Driver -->
+  <line x1="140" y1="165" x2="270" y2="165" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="140" cy="165" r="3" fill="#2457d6"/>
+  <text x="185" y="157" font-size="12" font-weight="bold" fill="#2457d6">TX+ (A)</text>
+
+  <line x1="140" y1="205" x2="270" y2="205" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="140" cy="205" r="3" fill="#c0392b"/>
+  <text x="185" y="223" font-size="12" font-weight="bold" fill="#c0392b">TX- (B)</text>
+
+  <!-- Ground Line from Encoder -->
+  <line x1="140" y1="275" x2="270" y2="275" stroke="#7f8c8d" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="185" y="267" font-size="12" fill="#7f8c8d">GND_ENC</text>
+
+  <!-- Encoder Information Card -->
+  <rect x="35" y="315" width="220" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="145" y="336" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Вихідний каскад: RS-422</text>
+  <text x="145" y="354" text-anchor="middle" font-size="11" fill="#6b7280">Диференціальний сигнал</text>
+
+
+  <!-- MIDDLE: Shielded Twisted Pair Cable -->
+  <rect x="300" y="115" width="330" height="185" rx="8" fill="#f8f9fa" stroke="#95a5a6" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="465" y="133" text-anchor="middle" font-size="12" font-weight="bold" fill="#7f8c8d">Екранована вита пара (STP)</text>
+  <text x="465" y="148" text-anchor="middle" font-size="11" fill="#7f8c8d">Хвильовий опір Z₀ = 120 Ом</text>
+
+  <!-- Differential Line Pair Cables -->
+  <line x1="270" y1="165" x2="660" y2="165" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="270" y1="205" x2="660" y2="205" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Cable Twisted Visualization -->
+  <path d="M 340,165 Q 360,185 380,205 M 340,205 Q 360,185 380,165" fill="none" stroke="#bdc3c7" stroke-width="1.5"/>
+  <path d="M 440,165 Q 460,185 480,205 M 440,205 Q 460,185 480,165" fill="none" stroke="#bdc3c7" stroke-width="1.5"/>
+  <path d="M 540,165 Q 560,185 580,205 M 540,205 Q 560,185 580,165" fill="none" stroke="#bdc3c7" stroke-width="1.5"/>
+
+  <!-- Ground Reference Wire in Cable -->
+  <line x1="270" y1="275" x2="660" y2="275" stroke="#7f8c8d" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="465" y="267" text-anchor="middle" font-size="11" fill="#7f8c8d">Спільна шина заземлення (GND Wire)</text>
+
+  <!-- Shield Grounding Connection to PE -->
+  <line x1="610" y1="300" x2="610" y2="345" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- PE Symbol at Receiver Side -->
+  <line x1="610" y1="345" x2="610" y2="368" stroke="#27ae60" stroke-width="2"/>
+  <line x1="598" y1="368" x2="622" y2="368" stroke="#27ae60" stroke-width="2"/>
+  <line x1="602" y1="372" x2="618" y2="372" stroke="#27ae60" stroke-width="2"/>
+  <line x1="606" y1="376" x2="614" y2="376" stroke="#27ae60" stroke-width="2"/>
+
+  <text x="592" y="332" text-anchor="end" font-size="11" font-weight="bold" fill="#27ae60">Екран заземлено з одного боку (PE)</text>
+  <text x="592" y="352" text-anchor="end" font-size="11" font-weight="bold" fill="#27ae60">PE / Корпус</text>
+
+
+  <!-- RIGHT PANEL: Receiver / PLC Controller Side -->
+  <rect x="660" y="65" width="280" height="330" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="670" y="72" width="260" height="26" rx="4" fill="#27ae60" opacity="0.15" stroke="#27ae60" stroke-width="1"/>
+  <text x="800" y="90" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e7e34">Приймач контролера (RX)</text>
+
+  <!-- Inputs RX+ and RX- -->
+  <circle cx="660" cy="165" r="3.5" fill="#2457d6"/>
+  <text x="672" y="157" font-size="12" font-weight="bold" fill="#2457d6">RX+ (A)</text>
+
+  <circle cx="660" cy="205" r="3.5" fill="#c0392b"/>
+  <text x="672" y="223" font-size="12" font-weight="bold" fill="#c0392b">RX- (B)</text>
+
+  <!-- Fail-Safe Pull-Up Resistor (R_A) to +VCC -->
+  <circle cx="725" cy="165" r="3" fill="#2457d6"/>
+  <line x1="725" y1="165" x2="725" y2="147" stroke="#2457d6" stroke-width="1.5"/>
+  <rect x="717" y="125" width="16" height="22" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="737" y="132" font-size="11" font-weight="bold" fill="#2457d6">R_A</text>
+  <text x="737" y="145" font-size="11" fill="#2457d6">560 Ω</text>
+  <line x1="725" y1="125" x2="725" y2="116" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="725" y="112" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">+VCC</text>
+
+  <!-- Differential Termination Resistor (R_T = 120 Ohm) -->
+  <circle cx="795" cy="165" r="3" fill="#1a1a1a"/>
+  <line x1="795" y1="165" x2="795" y2="174" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="787" y="174" width="16" height="22" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="808" y="181" font-size="11" font-weight="bold" fill="#1a1a1a">R_T</text>
+  <text x="808" y="194" font-size="11" fill="#1a1a1a">120 Ω</text>
+  <line x1="795" y1="196" x2="795" y2="205" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="795" cy="205" r="3" fill="#1a1a1a"/>
+
+  <!-- Fail-Safe Pull-Down Resistor (R_B) to GND -->
+  <circle cx="725" cy="205" r="3" fill="#c0392b"/>
+  <line x1="725" y1="205" x2="725" y2="220" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="717" y="220" width="16" height="22" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="737" y="228" font-size="11" font-weight="bold" fill="#c0392b">R_B</text>
+  <text x="737" y="241" font-size="11" fill="#c0392b">560 Ω</text>
+  <line x1="725" y1="242" x2="725" y2="252" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="715" y1="252" x2="735" y2="252" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="725" y="266" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">GND</text>
+
+  <!-- Lines from Termination/Biasing to Receiver -->
+  <line x1="795" y1="165" x2="855" y2="165" stroke="#2457d6" stroke-width="2"/>
+  <line x1="795" y1="205" x2="855" y2="205" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- RS-422 Receiver Symbol (Triangle) -->
+  <polygon points="855,145 915,185 855,225" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="878" y="179" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">RS-422</text>
+  <text x="878" y="193" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">RX</text>
+
+  <!-- Ground Connection at Controller -->
+  <line x1="660" y1="275" x2="725" y2="275" stroke="#7f8c8d" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="672" y="267" font-size="11" fill="#7f8c8d">GND_PLC</text>
+
+  <!-- Receiver Information Card -->
+  <rect x="672" y="300" width="256" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="800" y="318" text-anchor="middle" font-size="11" font-weight="bold" fill="#1e7e34">Параметри узгодження:</text>
+  <text x="800" y="336" text-anchor="middle" font-size="11" fill="#1a1a1a">R_T = 120 Ом (рівно Z₀)</text>
+  <text x="800" y="354" text-anchor="middle" font-size="11" fill="#6b7280">Fail-Safe: ΔV &gt; +200 мВ</text>
+
+  <!-- BOTTOM SUMMARY CARD -->
+  <rect x="20" y="410" width="920" height="75" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="32" y="430" font-size="12" font-weight="bold" fill="#1a1a1a">• Узгодження імпедансу: <tspan font-weight="normal">термінатор R_T = 120 Ом усуває відбиття сигналів при SSI/BiSS до 10 МГц</tspan></text>
+  <text x="32" y="449" font-size="12" font-weight="bold" fill="#2457d6">• Захист від обриву: <tspan font-weight="normal">схема Fail-Safe (R_A, R_B) тримає диференційну напругу V_A - V_B &gt; +200 мВ</tspan></text>
+  <text x="32" y="468" font-size="12" font-weight="bold" fill="#27ae60">• Екранування: <tspan font-weight="normal">екран витої пари заземлюється з одного боку (PE) для запобігання контурним струмам</tspan></text>
+</svg>

@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка на все полотно -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="700" fill="#1a1a1a">Діагностика часового вікна розсинхронізації каналів (Discrepancy Time Window)</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Нормальне перемикання каналів CH1/CH2 проти фіксації аварійної розбіжності при Δt > t_disc_max</text>
+
+  <!-- ========================================== -->
+  <!-- ЛІВА ПАНЕЛЬ: Нормальний режим (ОК)         -->
+  <!-- ========================================== -->
+  <rect x="24" y="66" width="444" height="394" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок лівої панелі -->
+  <rect x="36" y="78" width="420" height="32" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="246" y="99" text-anchor="middle" font-size="13" font-weight="700" fill="#27ae60">1. НОРМАЛЬНЕ ПЕРЕМИКАННЯ: Δt ≤ t_disc_max</text>
+
+  <!-- Вікно розсинхронізації (зелене тло) -->
+  <rect x="190" y="126" width="150" height="200" fill="#e9f7ef" opacity="0.7" stroke="#27ae60" stroke-dasharray="3 3"/>
+  <text x="265" y="144" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">t_disc_max = 100 мс</text>
+
+  <!-- Підписи сигналів лівої панелі -->
+  <text x="40" y="172" font-size="12" font-weight="700" fill="#1a1a1a">Канал 1 (CH1)</text>
+  <text x="40" y="218" font-size="12" font-weight="700" fill="#2457d6">Канал 2 (CH2)</text>
+  <text x="40" y="264" font-size="12" font-weight="700" fill="#6b7280">Таймер t_disc</text>
+  <text x="40" y="310" font-size="12" font-weight="700" fill="#27ae60">Вихід Safety OK</text>
+
+  <!-- Осцилограма CH1 (Перемикання в t1 = 200px) -->
+  <polyline points="130,176 200,176 200,160 430,160" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Осцилограма CH2 (Перемикання в t2 = 240px, Δt = 40px ~ 30 мс) -->
+  <polyline points="130,222 240,222 240,206 430,206" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Таймер розсинхронізації (наростає від t1 до t2, потім 0) -->
+  <polyline points="130,268 200,268 240,252 240,268 430,268" fill="none" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Вихід Safety OK (стає HIGH при підтвердженні обох каналів у t2) -->
+  <polyline points="130,314 240,314 240,298 430,298" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Вертикальні лінії моментів t1 та t2 -->
+  <line x1="200" y1="126" x2="200" y2="330" stroke="#1a1a1a" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <line x1="240" y1="126" x2="240" y2="330" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <line x1="340" y1="126" x2="340" y2="330" stroke="#27ae60" stroke-width="1.2" stroke-dasharray="2 2"/>
+
+  <!-- Стрілка затримки Δt -->
+  <line x1="200" y1="184" x2="240" y2="184" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="220" y="196" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Δt = 30 мс</text>
+
+  <!-- Часова вісь лівої панелі -->
+  <line x1="120" y1="330" x2="440" y2="330" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="200" y="346" text-anchor="middle" font-size="12" fill="#1a1a1a">t1</text>
+  <text x="240" y="346" text-anchor="middle" font-size="12" fill="#2457d6">t2</text>
+  <text x="340" y="346" text-anchor="middle" font-size="12" fill="#27ae60">100 мс</text>
+  <text x="430" y="346" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">час t</text>
+
+  <!-- Підсумок лівої панелі -->
+  <rect x="36" y="378" width="420" height="68" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="246" y="398" text-anchor="middle" font-size="12" font-weight="700" fill="#27ae60">Успішна активація: Δt (30 мс) &lt; t_disc_max (100 мс)</text>
+  <text x="246" y="416" text-anchor="middle" font-size="12" fill="#1a1a1a">Канали CH1 та CH2 замкнулися в межах допустимого вікна.</text>
+  <text x="246" y="434" text-anchor="middle" font-size="12" fill="#6b7280">Вихід безпеки замкнено, помилок не зафіксовано</text>
+
+  <!-- ========================================== -->
+  <!-- ПРАВА ПАНЕЛЬ: Аварійна розбіжність (Fault) -->
+  <!-- ========================================== -->
+  <rect x="492" y="66" width="444" height="394" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Заголовок правої панелі -->
+  <rect x="504" y="78" width="420" height="32" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="714" y="99" text-anchor="middle" font-size="13" font-weight="700" fill="#c0392b">2. ДІАГНОСТИЧНА ПОМИЛКА: Δt > t_disc_max</text>
+
+  <!-- Вікно розсинхронізації (червоне тло при перевищенні) -->
+  <rect x="650" y="126" width="150" height="200" fill="#fdecea" opacity="0.8" stroke="#c0392b" stroke-dasharray="3 3"/>
+  <text x="725" y="144" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">t_disc_max = 100 мс</text>
+
+  <!-- Підписи сигналів правої панелі -->
+  <text x="508" y="172" font-size="12" font-weight="700" fill="#1a1a1a">Канал 1 (CH1)</text>
+  <text x="508" y="218" font-size="12" font-weight="700" fill="#c0392b">Канал 2 (CH2)</text>
+  <text x="508" y="264" font-size="12" font-weight="700" fill="#6b7280">Таймер t_disc</text>
+  <text x="508" y="310" font-size="12" font-weight="700" fill="#c0392b">Аварія / Lockout</text>
+
+  <!-- Осцилограма CH1 (Перемикання в t1 = 660px) -->
+  <polyline points="590,176 660,176 660,160 890,160" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Осцилограма CH2 (НЕ замкнувся — обрив / заклинювання) -->
+  <polyline points="590,222 890,222" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="6 3"/>
+  <text x="830" y="214" text-anchor="middle" font-size="12" fill="#c0392b">немає відгуку!</text>
+
+  <!-- Таймер розсинхронізації (доходить до 100 мс у t = 800px і фіксує переповнення) -->
+  <polyline points="590,268 660,268 800,248 800,268 890,268" fill="none" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Аварійне блокування Safety Fault (активується точно на межі 100 мс) -->
+  <polyline points="590,314 800,314 800,298 890,298" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Вертикальні лінії моментів -->
+  <line x1="660" y1="126" x2="660" y2="330" stroke="#1a1a1a" stroke-width="1.2" stroke-dasharray="2 2"/>
+  <line x1="800" y1="126" x2="800" y2="330" stroke="#c0392b" stroke-width="1.8"/>
+
+  <!-- Позначка аварійного спрацьовування -->
+  <text x="725" y="196" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Спрацьовує захист!</text>
+
+  <!-- Часова вісь правої панелі -->
+  <line x1="580" y1="330" x2="900" y2="330" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="660" y="346" text-anchor="middle" font-size="12" fill="#1a1a1a">t1</text>
+  <text x="800" y="346" text-anchor="middle" font-size="12" fill="#c0392b">t1 + 100 мс</text>
+  <text x="890" y="346" text-anchor="middle" font-size="12" font-weight="700" fill="#1a1a1a">час t</text>
+
+  <!-- Підсумок правої панелі -->
+  <rect x="504" y="378" width="420" height="68" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="714" y="398" text-anchor="middle" font-size="12" font-weight="700" fill="#c0392b">Діагностична помилка: Перевищено вікно t_disc_max</text>
+  <text x="714" y="416" text-anchor="middle" font-size="12" fill="#1a1a1a">Канал CH2 не відповів за 100 мс (виявлено обрив чи зварювання).</text>
+  <text x="714" y="434" text-anchor="middle" font-size="12" fill="#c0392b">Система заблокована у безпечному стані (Discrepancy Fault)</text>
+</svg>

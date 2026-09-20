@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Порівняльний аналіз надійності при вібрації: Поворотний потенціометр проти RVDT</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Механічний знос та брязкіт ковзного контакту у потенціометрі проти нескінченного ресурсу безконтактного RVDT</text>
+
+  <!-- LEFT PANEL: Potentiometer (Problem) -->
+  <rect x="25" y="70" width="445" height="320" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="40" y="82" width="415" height="30" rx="4" fill="#c0392b" opacity="0.15" stroke="#c0392b" stroke-width="1"/>
+  <text x="247" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Контактний потенціометр (Механічне зношування)</text>
+
+  <!-- Potentiometer Mechanics Diagram -->
+  <rect x="45" y="145" width="220" height="24" rx="4" fill="#d0d7de" stroke="#6b7280"/>
+  <rect x="125" y="145" width="60" height="24" fill="#c0392b" opacity="0.3"/>
+  <text x="155" y="136" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Зношений шар</text>
+
+  <!-- Wiper Arm -->
+  <path d="M 140,215 L 140,173 L 135,169 M 140,173 L 145,169" stroke="#c0392b" stroke-width="2.5" fill="none"/>
+  <text x="115" y="234" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Повзунок / Щітка</text>
+
+  <!-- Vibration Arrow & Label -->
+  <line x1="230" y1="175" x2="230" y2="215" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="230" y="234" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Вібрація (20–30 g)</text>
+
+  <!-- Noise Oscillogram Box -->
+  <rect x="295" y="125" width="160" height="115" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="375" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Сигнал із випаданнями</text>
+  <path d="M 305,185 L 320,185 L 325,160 L 330,210 L 335,160 L 340,210 L 345,185 L 365,185 L 370,150 L 375,220 L 380,185 L 445,185" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="375" y="228" text-anchor="middle" font-size="12" fill="#c0392b">Брязкіт контакту та шум</text>
+
+  <!-- Left Panel Bottom Card -->
+  <rect x="40" y="250" width="415" height="125" rx="6" fill="#ffffff" stroke="#c0392b" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="50" y="272" font-size="12" fill="#1a1a1a">• Тертя щітки затирає резистивний шар та утворює стружку</text>
+  <text x="50" y="294" font-size="12" fill="#c0392b">• Вібраційний брязкіт викликає сплески та випадання сигналу</text>
+  <text x="50" y="316" font-size="12" fill="#6b7280">• Обмежений ресурс: менше 10⁶ циклів при високій вологості</text>
+  <text x="50" y="338" font-size="12" fill="#c0392b">• Ризик ривка автопілота через тимчасову втрату контакту</text>
+
+
+  <!-- RIGHT PANEL: RVDT (Solution) -->
+  <rect x="490" y="70" width="445" height="320" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="505" y="82" width="415" height="30" rx="4" fill="#27ae60" opacity="0.15" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e7e34">Безконтактний RVDT (Аерокосмічна надійність)</text>
+
+  <!-- RVDT Mechanics Diagram -->
+  <circle cx="605" cy="180" r="48" fill="#f4f6f8" stroke="#27ae60" stroke-width="2"/>
+  <path d="M 605,180 M 575,180 A 30,30 0 0,1 632,159 A 20,20 0 0,1 605,206 A 30,30 0 0,1 575,180 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="605" cy="180" r="4" fill="#27ae60"/>
+
+  <line x1="605" y1="126" x2="605" y2="138" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="605" y="121" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Повітряний зазор</text>
+  <text x="605" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e7e34">Безконтактне осердя</text>
+
+  <!-- Clean Signal Box -->
+  <rect x="760" y="125" width="165" height="115" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="842.5" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e7e34">Чиста огинаюча</text>
+  <path d="M 770,180 Q 785,155 800,180 T 830,180 T 860,180 T 890,180 T 915,180" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="842.5" y="228" text-anchor="middle" font-size="12" fill="#1e7e34">Безперервний сигнал</text>
+
+  <!-- Right Panel Bottom Card -->
+  <rect x="505" y="250" width="415" height="125" rx="6" fill="#ffffff" stroke="#27ae60" stroke-opacity="0.3" stroke-width="1"/>
+  <text x="515" y="272" font-size="12" fill="#1a1a1a">• Відсутній механічний контакт між ротором та статором</text>
+  <text x="515" y="294" font-size="12" fill="#27ae60">• Повна стійкість до ударів і вібрацій з прискоренням до 30 g</text>
+  <text x="515" y="316" font-size="12" fill="#1e7e34">• Напрацювання на відмову понад 500 000 годин біля двигуна</text>
+  <text x="515" y="338" font-size="12" fill="#6b7280">• Постійна точність у діапазоні від -55 °C до +200 °C</text>
+
+
+  <!-- BOTTOM SUMMARY CARD -->
+  <rect x="25" y="405" width="910" height="60" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="40" y="426" font-size="12" font-weight="bold" fill="#1a1a1a">• Висновок: <tspan font-weight="normal">RVDT усуває контактне зношення та вібраційний брязкіт, забезпечуючи абсолютну надійність у приводах</tspan></text>
+  <text x="40" y="448" font-size="12" font-weight="bold" fill="#27ae60">• Перевага: <tspan font-weight="normal">трансформаторний зв'язок у зазорі гарантує гладкий сигнал без випадань у жорсткому середовищі</tspan></text>
+</svg>

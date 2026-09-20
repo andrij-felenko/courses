@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-main" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Будова кулачкового механізму двосторонньої дії (IEC 60947-5-5)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Фіксація аварійного стану (Latch) та примусове розмикання NC-контактів при потягуванні й обриві троса</text>
+
+  <!-- COLUMN 1: Normal State -->
+  <rect x="25" y="75" width="290" height="385" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="35" y="85" width="270" height="30" rx="4" fill="#27ae60"/>
+  <text x="170" y="105" font-size="14" font-weight="bold" fill="white" text-anchor="middle">1. Робочий натяг (Норма)</text>
+
+  <!-- Col 1 Mechanical Diagram Box -->
+  <rect x="35" y="125" width="270" height="255" rx="6" fill="white" stroke="#d0d7de"/>
+
+  <!-- Rod & Notch Col 1 -->
+  <line x1="45" y1="210" x2="295" y2="210" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <path d="M 55 200 L 140 200 L 155 220 L 170 220 L 185 200 L 285 200 L 285 220 L 185 220 L 170 240 L 155 240 L 140 220 L 55 220 Z" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Springs Col 1 -->
+  <path d="M 55 210 Q 65 200 75 210 T 95 210 T 115 210 T 135 210 L 140 210" fill="none" stroke="#6b7280" stroke-width="2"/>
+  <path d="M 200 210 Q 210 200 220 210 T 240 210 T 260 210 T 280 210 L 285 210" fill="none" stroke="#6b7280" stroke-width="2"/>
+
+  <!-- Cam Follower Col 1 (Centered in notch) -->
+  <circle cx="162.5" cy="225" r="10" fill="#2457d6" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="162.5" y1="215" x2="162.5" y2="160" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Latch Col 1 (Disengaged) -->
+  <path d="M 145 155 L 180 155 L 180 148 L 195 148 L 195 162 L 145 162 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- NC Contacts Col 1 (CLOSED) -->
+  <rect x="90" y="300" width="145" height="60" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+  <line x1="110" y1="320" x2="140" y2="320" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="185" y1="320" x2="215" y2="320" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="135" y1="320" x2="190" y2="320" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="140" cy="320" r="3" fill="#27ae60"/>
+  <circle cx="185" cy="320" r="3" fill="#27ae60"/>
+  <text x="162.5" y="348" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">NC контакти: ЗАМКНЕНО</text>
+
+  <!-- Col 1 State Labels -->
+  <text x="170" y="395" font-size="12" fill="#1a1a1a" text-anchor="middle">Кулачок у центральній зазублині.</text>
+  <text x="170" y="415" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Латч відкритий, коло замкнене</text>
+  <text x="170" y="445" font-size="12" fill="#6b7280" text-anchor="middle">F_rope = F_spring (Рівновага)</text>
+
+  <!-- COLUMN 2: Pull State -->
+  <rect x="335" y="75" width="290" height="385" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="345" y="85" width="270" height="30" rx="4" fill="#c0392b"/>
+  <text x="480" y="105" font-size="14" font-weight="bold" fill="white" text-anchor="middle">2. Потягування троса (Аварія)</text>
+
+  <!-- Col 2 Mechanical Diagram Box -->
+  <rect x="345" y="125" width="270" height="255" rx="6" fill="white" stroke="#d0d7de"/>
+
+  <!-- Rod Shifted LEFT Col 2 -->
+  <line x1="355" y1="210" x2="605" y2="210" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <path d="M 330 200 L 415 200 L 430 220 L 445 220 L 460 200 L 560 200 L 560 220 L 460 220 L 445 240 L 430 240 L 415 220 L 330 220 Z" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Tension Arrow Left -->
+  <line x1="390" y1="180" x2="350" y2="180" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="370" y="172" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Потягування</text>
+
+  <!-- Cam Follower Col 2 (Pushed UP out of notch) -->
+  <circle cx="472.5" cy="195" r="10" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="472.5" y1="185" x2="472.5" y2="145" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Latch Col 2 (TRIPPED / LOCKED) -->
+  <path d="M 455 145 L 490 145 L 490 155 L 505 155 L 505 169 L 455 169 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="535" y="152" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Засув Latch!</text>
+
+  <!-- NC Contacts Col 2 (OPEN / TRIPPED) -->
+  <rect x="400" y="300" width="160" height="60" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <line x1="420" y1="315" x2="450" y2="315" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="495" y1="315" x2="525" y2="315" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="445" y1="335" x2="500" y2="335" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="450" cy="315" r="3" fill="#c0392b"/>
+  <circle cx="495" cy="315" r="3" fill="#c0392b"/>
+  <text x="480" y="348" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">NC контакти: РОЗІМКНЕНО</text>
+
+  <!-- Col 2 State Labels -->
+  <text x="480" y="395" font-size="12" fill="#1a1a1a" text-anchor="middle">Кулачок витиснуто зі скосу.</text>
+  <text x="480" y="415" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">Латч заклинено у стані аварії</text>
+  <text x="480" y="445" font-size="12" fill="#6b7280" text-anchor="middle">F_pull &gt; F_spring (Потягування)</text>
+
+  <!-- COLUMN 3: Breakage / Slack State -->
+  <rect x="645" y="75" width="290" height="385" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="655" y="85" width="270" height="30" rx="4" fill="#c0392b"/>
+  <text x="790" y="105" font-size="14" font-weight="bold" fill="white" text-anchor="middle">3. Обрив або послаблення</text>
+
+  <!-- Col 3 Mechanical Diagram Box -->
+  <rect x="655" y="125" width="270" height="255" rx="6" fill="white" stroke="#d0d7de"/>
+
+  <!-- Rod Shifted RIGHT Col 3 -->
+  <line x1="665" y1="210" x2="915" y2="210" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <path d="M 690 200 L 775 200 L 790 220 L 805 220 L 820 200 L 920 200 L 920 220 L 820 220 L 805 240 L 790 240 L 775 220 L 690 220 Z" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Broken Rope Symbol -->
+  <path d="M 665 210 L 680 205 M 685 215 L 700 210" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="682" y="195" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Обрив!</text>
+
+  <!-- Cam Follower Col 3 (Pushed UP out of opposite notch) -->
+  <circle cx="762.5" cy="195" r="10" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="762.5" y1="185" x2="762.5" y2="145" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Latch Col 3 (TRIPPED / LOCKED) -->
+  <path d="M 745 145 L 780 145 L 780 155 L 795 155 L 795 169 L 745 169 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="825" y="152" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Засув Latch!</text>
+
+  <!-- NC Contacts Col 3 (OPEN / TRIPPED) -->
+  <rect x="710" y="300" width="160" height="60" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <line x1="730" y1="315" x2="760" y2="315" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="805" y1="315" x2="835" y2="315" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="755" y1="335" x2="810" y2="335" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="760" cy="315" r="3" fill="#c0392b"/>
+  <circle cx="805" cy="315" r="3" fill="#c0392b"/>
+  <text x="790" y="348" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">NC контакти: РОЗІМКНЕНО</text>
+
+  <!-- Col 3 State Labels -->
+  <text x="790" y="395" font-size="12" fill="#1a1a1a" text-anchor="middle">Внутрішня пружина втягла шток.</text>
+  <text x="790" y="415" font-size="12" fill="#c0392b" font-weight="bold" text-anchor="middle">Латч заклинено у стані аварії</text>
+  <text x="790" y="445" font-size="12" fill="#6b7280" text-anchor="middle">F_rope = 0 (Втрата натягу)</text>
+</svg>

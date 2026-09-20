@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr_red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr_green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#117a65"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Механічні причини дрейфу нуля та апаратне калібрування тримером</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Люфт повертальних пружин і знос доріжки викликають зсув нейтралі, що компенсується підстроювальним резистором</text>
+
+  <!-- Panel 1: Mechanical Play -->
+  <rect x="30" y="85" width="280" height="445" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="170" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">1. Люфт повертальних пружин</text>
+  <text x="170" y="135" text-anchor="middle" font-size="12" fill="#6b7280">Механічне зміщення важеля</text>
+
+  <!-- Panel 1 Diagram -->
+  <line x1="170" y1="155" x2="170" y2="280" stroke="#95a5a6" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="180" y="168" font-size="12" fill="#7f8c8d">Ідеальний нуль 0°</text>
+
+  <line x1="170" y1="280" x2="130" y2="185" stroke="#c0392b" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="130" cy="185" r="14" fill="#c0392b"/>
+  <circle cx="170" cy="280" r="18" fill="#d0d7de" stroke="#7f8c8d" stroke-width="2"/>
+
+  <!-- Springs representation -->
+  <path d="M 60 250 Q 85 240 110 250 T 152 270" fill="none" stroke="#7f8c8d" stroke-width="2"/>
+  <path d="M 280 250 Q 255 240 230 250 T 188 270" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+  <text x="235" y="235" text-anchor="middle" font-size="12" fill="#c0392b">Зазор / люфт</text>
+
+  <text x="170" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Зсув нейтралі Δθ_play</text>
+  <text x="170" y="335" text-anchor="middle" font-size="12" fill="#6b7280">Неповернення важеля у 0°</text>
+
+  <!-- Panel 1 Inner Card -->
+  <rect x="45" y="360" width="250" height="150" rx="6" fill="white" stroke="#f5c6cb" stroke-width="1.5"/>
+  <text x="170" y="385" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Наслідок люфту пружини:</text>
+  <text x="170" y="410" text-anchor="middle" font-size="12" fill="#1a1a1a">Початковий відлік АЦП</text>
+  <text x="170" y="435" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ADC_boot ≠ ADC_center</text>
+  <text x="170" y="465" text-anchor="middle" font-size="12" fill="#6b7280">Постійне самовільне повзання</text>
+  <text x="170" y="485" text-anchor="middle" font-size="12" fill="#6b7280">виконавчого механізму</text>
+
+
+  <!-- Panel 2: Carbon Wear -->
+  <rect x="340" y="85" width="280" height="445" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="480" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">2. Знос вуглецевої доріжки</text>
+  <text x="480" y="135" text-anchor="middle" font-size="12" fill="#6b7280">Фрикційна деградація контакту</text>
+
+  <!-- Panel 2 Diagram -->
+  <rect x="365" y="160" width="230" height="35" rx="4" fill="#34495e"/>
+  <text x="480" y="182" text-anchor="middle" font-size="12" fill="white">Резистивний шар (вуглець)</text>
+  
+  <rect x="430" y="205" width="100" height="30" rx="3" fill="#7f8c8d"/>
+  <text x="480" y="225" text-anchor="middle" font-size="12" fill="white">Канавки зносу ΔS</text>
+
+  <line x1="480" y1="285" x2="480" y2="240" stroke="#d35400" stroke-width="4"/>
+  <circle cx="480" cy="240" r="5" fill="#e67e22"/>
+  <text x="480" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#d35400">Бронзова ламель (wiper)</text>
+
+  <circle cx="460" cy="220" r="3" fill="#f1c40f"/>
+  <circle cx="480" cy="220" r="3" fill="#f1c40f"/>
+  <circle cx="500" cy="220" r="3" fill="#f1c40f"/>
+
+  <text x="480" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Графітові містки струму</text>
+  <text x="480" y="342" text-anchor="middle" font-size="12" fill="#6b7280">Мікророзряди й абразивний пил</text>
+
+  <!-- Panel 2 Inner Card -->
+  <rect x="355" y="360" width="250" height="150" rx="6" fill="white" stroke="#f5c6cb" stroke-width="1.5"/>
+  <text x="480" y="385" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Наслідок тертя контакту:</text>
+  <text x="480" y="410" text-anchor="middle" font-size="12" fill="#1a1a1a">Скачки опору та джиттер</text>
+  <text x="480" y="435" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">ΔR_pot → ΔV_noise (шум)</text>
+  <text x="480" y="465" text-anchor="middle" font-size="12" fill="#6b7280">Хаотичне тремтіння та пробіг</text>
+  <text x="480" y="485" text-anchor="middle" font-size="12" fill="#6b7280">сигналу в зоні нейтралі</text>
+
+
+  <!-- Panel 3: Trimmer Setup -->
+  <rect x="650" y="85" width="280" height="445" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">3. Балансування тримером</text>
+  <text x="790" y="135" text-anchor="middle" font-size="12" fill="#6b7280">Апаратна корекція опору</text>
+
+  <!-- Panel 3 Diagram -->
+  <line x1="740" y1="165" x2="840" y2="165" stroke="#27ae60" stroke-width="2"/>
+  <text x="790" y="158" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">V_CC (+5V)</text>
+
+  <rect x="740" y="175" width="100" height="35" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="790" y="197" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">R_pot (основний)</text>
+
+  <line x1="790" y1="210" x2="790" y2="235" stroke="#27ae60" stroke-width="2"/>
+
+  <rect x="740" y="235" width="100" height="35" rx="3" fill="#27ae60" stroke="#1e8449" stroke-width="2"/>
+  <text x="790" y="257" text-anchor="middle" font-size="12" font-weight="bold" fill="white">R_trim (тример)</text>
+
+  <line x1="790" y1="270" x2="790" y2="295" stroke="#27ae60" stroke-width="2"/>
+  <text x="790" y="312" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">GND (0V)</text>
+
+  <text x="790" y="335" text-anchor="middle" font-size="12" fill="#27ae60">Регулювання нуля моста</text>
+
+  <!-- Panel 3 Inner Card -->
+  <rect x="665" y="360" width="250" height="150" rx="6" fill="white" stroke="#a9dfbf" stroke-width="1.5"/>
+  <text x="790" y="385" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Результат налаштування:</text>
+  <text x="790" y="410" text-anchor="middle" font-size="12" fill="#1a1a1a">Підстроювання опору кола</text>
+  <text x="790" y="435" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">R_total = R_pot + R_trim</text>
+  <text x="790" y="465" text-anchor="middle" font-size="12" fill="#6b7280">Повернення вихідної напруги</text>
+  <text x="790" y="485" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">V_out = V_CC / 2 у спокої</text>
+</svg>

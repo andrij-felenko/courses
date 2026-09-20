@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Діаграма бітового розпакування кадру BiSS-C/SSI та верифікації</text>
+  <text x="480" y="55" text-anchor="middle" font-size="13" fill="#6b7280">Зсув розрядів, маскування бітів, XOR-декодування коду Ґрея та верифікація полінома CRC</text>
+
+  <!-- Stage 1: Raw 56-bit Frame in uint64_t -->
+  <rect x="40" y="75" width="880" height="95" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Сирий кадр енкодера у буфері raw_frame (56 бітів)</text>
+
+  <!-- Bit-strip fields -->
+  <rect x="60" y="112" width="320" height="44" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="220" y="139" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Multiturn Data [55..32]</text>
+
+  <rect x="390" y="112" width="320" height="44" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="550" y="139" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Singleturn Gray Code [31..8]</text>
+
+  <rect x="720" y="112" width="160" height="44" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="800" y="139" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">E | W | CRC-6 [7..0]</text>
+
+  <!-- Flow Arrows to Processing Blocks -->
+  <line x1="220" y1="156" x2="170" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="550" y1="156" x2="480" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="800" y1="156" x2="790" y2="210" stroke="#c0392b" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Stage 2: Processing Blocks -->
+  <!-- Block 1: Multiturn Counter -->
+  <rect x="40" y="210" width="260" height="175" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="235" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Лічильник обертів</text>
+  <text x="170" y="265" text-anchor="middle" font-size="12" fill="#1a1a1a">Зсув: raw_frame &gt;&gt; 32</text>
+  <text x="170" y="295" text-anchor="middle" font-size="12" fill="#1a1a1a">Маска: &amp; ((1ULL &lt;&lt; 24) - 1)</text>
+  <rect x="55" y="322" width="230" height="45" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="170" y="349" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">raw_multiturn (24 біти)</text>
+
+  <!-- Block 2: Gray-to-Binary Decoding -->
+  <rect x="320" y="210" width="320" height="175" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="235" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Декодування коду Ґрея</text>
+  <text x="480" y="265" text-anchor="middle" font-size="12" fill="#1a1a1a">Виділення: (raw_frame &gt;&gt; 8) &amp; MASK</text>
+  <text x="480" y="295" text-anchor="middle" font-size="12" fill="#1a1a1a">Паралельний XOR: gray ^= (gray &gt;&gt; shift)</text>
+  <rect x="345" y="322" width="270" height="45" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="349" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">raw_singleturn (24 біти)</text>
+
+  <!-- Block 3: CRC & Status Control -->
+  <rect x="660" y="210" width="260" height="175" rx="8" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="790" y="235" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">3. Контроль CRC та статусу</text>
+  <text x="790" y="265" text-anchor="middle" font-size="12" fill="#1a1a1a">Поліном: P(x) = x⁶ + x + 1</text>
+  <text x="790" y="295" text-anchor="middle" font-size="12" fill="#1a1a1a">Статуси: err_bit / warn_bit</text>
+  <rect x="675" y="322" width="230" height="45" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="790" y="349" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Верифікація CRC та помилок</text>
+
+  <!-- Flow Arrows to Output Data Structure -->
+  <line x1="170" y1="385" x2="240" y2="415" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="480" y1="385" x2="480" y2="415" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="790" y1="385" x2="720" y2="415" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Stage 3: Output Data Structure -->
+  <rect x="40" y="415" width="880" height="115" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="480" y="438" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Сформована структура вихідних даних encoder_data_t</text>
+  <text x="480" y="468" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">full_position = (raw_multiturn &lt;&lt; 24) | raw_singleturn</text>
+  <text x="480" y="492" text-anchor="middle" font-size="12" fill="#1a1a1a">pos_rel = (full_position - zero_offset + P) mod P    [віртуальний нуль]</text>
+  <text x="480" y="515" text-anchor="middle" font-size="11" fill="#6b7280">error_flag = false | warning_flag = false | crc_error_count = 0</text>
+</svg>

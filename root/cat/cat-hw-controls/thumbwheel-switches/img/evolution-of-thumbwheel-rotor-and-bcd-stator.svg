@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Еволюція комутації: від галетного перемикача до роторного BCD-модуля</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Перехід від громіздкої 10-дротової схеми до компактного роторного диска з BCD-доріжками статора (4 лінії + C)</text>
+
+  <!-- LEFT PANEL: Traditional Switch -->
+  <rect x="30" y="75" width="430" height="400" rx="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="50" y="90" width="390" height="28" rx="5" fill="#c0392b"/>
+  <text x="245" y="109" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">ТРАДИЦІЙНА ГАЛЕТНА КОМУТАЦІЯ (1950-ті)</text>
+
+  <!-- Left Illustration: Wafer switch -->
+  <circle cx="170" cy="235" r="75" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="170" cy="235" r="12" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="170" y1="235" x2="225" y2="210" stroke="#c0392b" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- 10 contacts around circle -->
+  <circle cx="230" cy="235" r="5" fill="#c0392b"/>
+  <text x="242" y="239" font-size="12" font-weight="bold" fill="#1a1a1a">0</text>
+
+  <circle cx="218" cy="200" r="5" fill="#c0392b"/>
+  <circle cx="188" cy="178" r="5" fill="#c0392b"/>
+  <circle cx="151" cy="178" r="5" fill="#c0392b"/>
+  <circle cx="121" cy="200" r="5" fill="#c0392b"/>
+  <circle cx="110" cy="235" r="5" fill="#c0392b"/>
+  <circle cx="121" cy="270" r="5" fill="#c0392b"/>
+  <circle cx="151" cy="292" r="5" fill="#c0392b"/>
+  <circle cx="188" cy="292" r="5" fill="#c0392b"/>
+  <circle cx="218" cy="270" r="5" fill="#c0392b"/>
+
+  <!-- Common connection line -->
+  <line x1="170" y1="235" x2="170" y2="330" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="4,2"/>
+
+  <!-- Terminal Block (10+1) -->
+  <rect x="335" y="145" width="100" height="200" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="385" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">КЛЕМА (10+1)</text>
+
+  <!-- 10 Output Wires -->
+  <path d="M 230,235 C 270,235 280,185 335,185" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 218,200 C 260,200 280,197 335,197" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 188,178 C 240,178 280,209 335,209" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 151,178 C 220,178 280,221 335,221" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 121,200 C 200,200 280,233 335,233" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 110,235 C 190,235 280,245 335,245" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 121,270 C 200,270 280,257 335,257" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 151,292 C 220,292 280,269 335,269" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 188,292 C 240,292 280,281 335,281" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 218,270 C 260,270 280,293 335,293" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <path d="M 170,330 C 240,330 280,315 335,315" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+  <text x="385" y="360" text-anchor="middle" font-size="12" fill="#6b7280">Об'ємний джгут</text>
+  <text x="385" y="377" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">11 дротів</text>
+
+  <!-- Left panel bottom callouts -->
+  <rect x="50" y="390" width="390" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="410" font-size="12" fill="#1a1a1a">• Великі фізичні габарити: діаметр 35–50 мм, глибина 60 мм</text>
+  <text x="60" y="430" font-size="12" fill="#1a1a1a">• Складний монтаж та ризик помилок при розпаюванні 10 ліній</text>
+  <text x="60" y="450" font-size="12" fill="#c0392b" font-weight="bold">• Висока трудомісткість виготовлення та обслуговування</text>
+
+  <!-- TRANSITION ARROW (Middle) -->
+  <path d="M 465,250 L 490,250" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <rect x="461" y="220" width="38" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">BCD</text>
+
+  <!-- RIGHT PANEL: Modern Thumbwheel Switch -->
+  <rect x="500" y="75" width="430" height="400" rx="10" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="520" y="90" width="390" height="28" rx="5" fill="#27ae60"/>
+  <text x="715" y="109" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">РОТОРНИЙ БАРАБАННИЙ МОДУЛЬ З BCD-СТАТОРОМ</text>
+
+  <!-- Right Illustration: Thumbwheel Rotor & PCB Stator -->
+  <circle cx="630" cy="235" r="75" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Concentric PCB tracks -->
+  <circle cx="630" cy="235" r="65" fill="none" stroke="#2457d6" stroke-width="3" stroke-dasharray="30,10,50,15"/>
+  <circle cx="630" cy="235" r="50" fill="none" stroke="#2457d6" stroke-width="3" stroke-dasharray="20,15,40,10"/>
+  <circle cx="630" cy="235" r="35" fill="none" stroke="#2457d6" stroke-width="3" stroke-dasharray="40,20,10,15"/>
+  <circle cx="630" cy="235" r="20" fill="none" stroke="#27ae60" stroke-width="4"/>
+
+  <!-- Rotor wiper contacts -->
+  <line x1="630" y1="235" x2="630" y2="170" stroke="#1a1a1a" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="630" cy="170" r="4" fill="#27ae60"/>
+  <circle cx="630" cy="185" r="3" fill="#27ae60"/>
+  <circle cx="630" cy="200" r="3" fill="#27ae60"/>
+  <circle cx="630" cy="215" r="3" fill="#27ae60"/>
+
+  <!-- Track Label -->
+  <text x="630" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">D8 (8)</text>
+
+  <!-- PCB Output Connector -->
+  <rect x="795" y="185" width="105" height="120" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="847" y="205" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">BCD (4+C)</text>
+
+  <!-- 5 Output Wires -->
+  <line x1="695" y1="170" x2="795" y2="220" stroke="#2457d6" stroke-width="2"/>
+  <line x1="680" y1="185" x2="795" y2="235" stroke="#2457d6" stroke-width="2"/>
+  <line x1="665" y1="200" x2="795" y2="250" stroke="#2457d6" stroke-width="2"/>
+  <line x1="650" y1="215" x2="795" y2="265" stroke="#2457d6" stroke-width="2"/>
+  <line x1="630" y1="255" x2="795" y2="280" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Pin labels -->
+  <text x="805" y="224" font-size="12" font-weight="bold" fill="#1a1a1a">8 (2³)</text>
+  <text x="805" y="239" font-size="12" font-weight="bold" fill="#1a1a1a">4 (2²)</text>
+  <text x="805" y="254" font-size="12" font-weight="bold" fill="#1a1a1a">2 (2¹)</text>
+  <text x="805" y="269" font-size="12" font-weight="bold" fill="#1a1a1a">1 (2⁰)</text>
+  <text x="805" y="284" font-size="12" font-weight="bold" fill="#27ae60">C (Спільна)</text>
+
+  <text x="847" y="360" text-anchor="middle" font-size="12" fill="#6b7280">Компактний роз'єм</text>
+  <text x="847" y="377" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Лише 5 ліній</text>
+
+  <!-- Right panel bottom callouts -->
+  <rect x="520" y="390" width="390" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="530" y="410" font-size="12" fill="#1a1a1a">• Модульний корпус шириною 8–10 мм, легко стикується в блоки</text>
+  <text x="530" y="430" font-size="12" fill="#1a1a1a">• Пряме BCD-кодування скорочує кількість вихідних дротів у 2.2 раза</text>
+  <text x="530" y="450" font-size="12" fill="#27ae60" font-weight="bold">• Пряма підтримка цифрової логіки та мікроконтролерів</text>
+</svg>

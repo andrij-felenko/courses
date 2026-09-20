@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Подвійне взаємне блокування контакторів (Механічне + Електричне)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Фізичне коромисло та перехресні NC-контакти унеможливлюють міжфазне коротке замикання</text>
+
+  <!-- PANEL 1: MECHANICAL INTERLOCK ASSEMBLY -->
+  <rect x="30" y="72" width="435" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="85" width="405" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247.5" y="106" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Механічне блокування (Коромисло/Важіль)</text>
+
+  <!-- Contactor KM1 (Active / CLOSED) -->
+  <rect x="70" y="135" width="135" height="160" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="80" y="145" width="115" height="24" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="137.5" y="161" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">KM1: ЗАКРИТО (L1)</text>
+
+  <!-- Contacts KM1 Representation -->
+  <line x1="95" y1="180" x2="95" y2="230" stroke="#27ae60" stroke-width="2"/>
+  <line x1="137.5" y1="180" x2="137.5" y2="230" stroke="#27ae60" stroke-width="2"/>
+  <line x1="180" y1="180" x2="180" y2="230" stroke="#27ae60" stroke-width="2"/>
+  <!-- Plunger KM1 Down Position -->
+  <rect x="120" y="240" width="35" height="40" rx="2" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="137.5" y="264" font-size="11" font-weight="bold" fill="#ffffff" text-anchor="middle">ВКЛ</text>
+
+  <!-- Contactor KM2 (Inactive / LOCKED OPEN) -->
+  <rect x="290" y="135" width="135" height="160" rx="4" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="300" y="145" width="115" height="24" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="357.5" y="161" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">KM2: ВІДКРИТО (L2)</text>
+
+  <!-- Contacts KM2 Representation (Open Gaps) -->
+  <line x1="315" y1="180" x2="315" y2="200" stroke="#c0392b" stroke-width="2"/>
+  <line x1="315" y1="210" x2="315" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <line x1="357.5" y1="180" x2="357.5" y2="200" stroke="#c0392b" stroke-width="2"/>
+  <line x1="357.5" y1="210" x2="357.5" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <line x1="400" y1="180" x2="400" y2="200" stroke="#c0392b" stroke-width="2"/>
+  <line x1="400" y1="210" x2="400" y2="230" stroke="#c0392b" stroke-width="2"/>
+  <!-- Plunger KM2 UP (Locked) Position -->
+  <rect x="340" y="235" width="35" height="40" rx="2" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <text x="357.5" y="259" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">СТОП</text>
+
+  <!-- Mechanical Interlock Rocker Mechanism (Middle) -->
+  <!-- Rocker Pivot -->
+  <circle cx="247.5" cy="255" r="7" fill="#1a1a1a"/>
+  <!-- Rocker Bar Tilted -->
+  <line x1="155" y1="275" x2="340" y2="235" stroke="#1a1a1a" stroke-width="4"/>
+  <!-- Stopper Arrow on KM2 side -->
+  <line x1="340" y1="235" x2="340" y2="215" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+
+  <!-- Text Annotations for Mechanical Beam -->
+  <text x="247.5" y="195" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Коромисло блокування</text>
+  <text x="247.5" y="212" font-size="11" fill="#c0392b" text-anchor="middle">(Фізичний стопор KM2)</text>
+
+  <!-- Panel 1 Explanatory Text Box -->
+  <rect x="45" y="318" width="405" height="145" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="58" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">Принцип дії механічного блокування:</text>
+  <text x="58" y="360" font-size="12" fill="#1a1a1a">• Опускання якоря KM1 повертає коромисло блокування</text>
+  <text x="58" y="382" font-size="12" fill="#1a1a1a">• Протилежне плече коромисла фізично підпирає якір KM2</text>
+  <text x="58" y="406" font-size="12" font-weight="bold" fill="#27ae60">• Унеможливлює замикання контактора KM2 механічно</text>
+  <text x="58" y="428" font-size="11" font-weight="bold" fill="#c0392b">• Захищає при помилках розрахунку чи приварюванні контактів</text>
+
+
+  <!-- PANEL 2: ELECTRICAL INTERLOCK WIRING -->
+  <rect x="495" y="72" width="435" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="85" width="405" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712.5" y="106" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Електричне блокування (NC-контакти)</text>
+
+  <!-- Electrical Wiring Diagram -->
+  <!-- Control Phase L & Neutral N Lines -->
+  <line x1="535" y1="140" x2="890" y2="140" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="530" y="144" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">L (кер.)</text>
+
+  <line x1="535" y1="285" x2="890" y2="285" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="530" y="289" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">N</text>
+
+  <!-- Branch 1: KM1 Circuit -->
+  <line x1="600" y1="140" x2="600" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Switch S1 -->
+  <circle cx="600" cy="165" r="2.5" fill="#1a1a1a"/>
+  <line x1="600" y1="165" x2="592" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="600" cy="188" r="2.5" fill="#1a1a1a"/>
+  <text x="585" y="178" font-size="11" fill="#6b7280" text-anchor="end">S1 (L1)</text>
+
+  <!-- KM2.NC Contact (CLOSED, because KM2 is OFF) -->
+  <line x1="600" y1="188" x2="600" y2="198" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="592" y1="198" x2="608" y2="198" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="592" y1="208" x2="608" y2="208" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="604" y1="192" x2="596" y2="214" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="614" y="206" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">KM2.NC (ЗАМКН)</text>
+  <line x1="600" y1="208" x2="600" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- KM1 Coil Rect -->
+  <rect x="580" y="230" width="40" height="26" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="600" y="247" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">KM1</text>
+  <line x1="600" y1="256" x2="600" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Branch 2: KM2 Circuit -->
+  <line x1="790" y1="140" x2="790" y2="165" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Switch S2 -->
+  <circle cx="790" cy="165" r="2.5" fill="#1a1a1a"/>
+  <line x1="790" y1="165" x2="782" y2="185" stroke="#1a1a1a" stroke-width="1.5"/>
+  <circle cx="790" cy="188" r="2.5" fill="#1a1a1a"/>
+  <text x="775" y="178" font-size="11" fill="#6b7280" text-anchor="end">S2 (L2)</text>
+
+  <!-- KM1.NC Contact (OPEN, because KM1 is ON!) -->
+  <line x1="790" y1="188" x2="790" y2="198" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="782" y1="198" x2="798" y2="198" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="782" y1="208" x2="798" y2="208" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Open Gap Line -->
+  <line x1="798" y1="192" x2="790" y2="214" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="804" y="206" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">KM1.NC (РОЗІМКН)</text>
+  <line x1="790" y1="208" x2="790" y2="230" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- KM2 Coil Rect -->
+  <rect x="770" y="230" width="40" height="26" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="790" y="247" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">KM2</text>
+  <line x1="790" y1="256" x2="790" y2="285" stroke="#1a1a1a" stroke-width="1.5"/>
+
+
+  <!-- Panel 2 Explanatory Text Box -->
+  <rect x="510" y="318" width="405" height="145" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="523" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">Принцип електричного блокування:</text>
+  <text x="523" y="360" font-size="12" fill="#1a1a1a">• Контакт KM1.NC послідовно ввімкнено в коло котушки KM2</text>
+  <text x="523" y="382" font-size="12" fill="#1a1a1a">• Коли KM1 спрацьовує, контакт KM1.NC розмикається</text>
+  <text x="523" y="406" font-size="12" font-weight="bold" fill="#2457d6">• Подача струму на котушку KM2 стає неможливою</text>
+  <text x="523" y="428" font-size="11" font-weight="bold" fill="#27ae60">• Автоматично запобігає одночасному ввімкненню збірки</text>
+
+
+  <!-- BOTTOM SUMMARY BANNER -->
+  <rect x="30" y="488" width="900" height="38" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="512" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вимога стандарту IEC 60947-4-1: Обов'язкова комбінація механічного та електричного блокувань</text>
+</svg>

@@ -1,0 +1,214 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розташування та призначення клем реле безпеки (Pinout)</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Топологія підключення живлення (A1/A2), вхідних каналів (S11..S22), скидання/EDM (S34) та силових контактів</text>
+
+  <!-- ЦЕНТРАЛЬНИЙ МОДУЛЬ РЕЛЕ БЕЗПЕКИ -->
+  <g id="safety-relay-housing">
+    <!-- Корпус модуля -->
+    <rect x="350" y="75" width="260" height="375" rx="8" fill="#f4f6f8" stroke="#6b7280" stroke-width="2"/>
+
+    <!-- Заголовок модуля -->
+    <path d="M 350,83 A 8,8 0 0 1 358,75 H 602 A 8,8 0 0 1 610,83 V 111 H 350 Z" fill="#2457d6"/>
+    <text x="480" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="white">SAFETY RELAY MODULE</text>
+
+    <!-- Верхній блок клем (Inputs & Power) -->
+    <rect x="362" y="120" width="236" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="480" y="134" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">ВХОДИ ТА ЖИВЛЕННЯ</text>
+
+    <!-- Клеми верхнього ряду -->
+    <!-- A1 -->
+    <rect x="366" y="145" width="24" height="28" rx="3" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="378" y="163" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">A1</text>
+
+    <!-- A2 -->
+    <rect x="400" y="145" width="24" height="28" rx="3" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="412" y="163" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">A2</text>
+
+    <!-- S11 -->
+    <rect x="434" y="145" width="24" height="28" rx="3" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="446" y="163" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">S11</text>
+
+    <!-- S12 -->
+    <rect x="468" y="145" width="24" height="28" rx="3" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="480" y="163" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">S12</text>
+
+    <!-- S21 -->
+    <rect x="502" y="145" width="24" height="28" rx="3" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="514" y="163" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">S21</text>
+
+    <!-- S22 -->
+    <rect x="536" y="145" width="24" height="28" rx="3" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="548" y="163" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">S22</text>
+
+    <!-- S34 -->
+    <rect x="570" y="145" width="24" height="28" rx="3" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="582" y="163" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">S34</text>
+
+    <!-- Середня індикаційна панель -->
+    <rect x="362" y="205" width="236" height="125" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Світлодіоди -->
+    <circle cx="390" cy="230" r="6" fill="#27ae60"/>
+    <text x="404" y="234" text-anchor="start" font-size="11" fill="#1a1a1a">POWER</text>
+
+    <circle cx="390" cy="255" r="6" fill="#27ae60"/>
+    <text x="404" y="259" text-anchor="start" font-size="11" fill="#1a1a1a">CH1 (S12)</text>
+
+    <circle cx="390" cy="280" r="6" fill="#27ae60"/>
+    <text x="404" y="284" text-anchor="start" font-size="11" fill="#1a1a1a">CH2 (S22)</text>
+
+    <circle cx="390" cy="305" r="6" fill="#d0d7de"/>
+    <text x="404" y="309" text-anchor="start" font-size="11" fill="#6b7280">FAULT</text>
+
+    <!-- Внутрішній блок логіки -->
+    <rect x="495" y="220" width="90" height="95" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="540" y="255" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Логіка</text>
+    <text x="540" y="275" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">безпеки</text>
+    <text x="540" y="295" text-anchor="middle" font-size="11" fill="#6b7280">SIL 3 / PL e</text>
+
+    <!-- Нижній блок силових клем -->
+    <rect x="362" y="340" width="236" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="480" y="354" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">СИЛОВІ КОНТАКТИ ТА ДІАГНОСТИКА</text>
+
+    <!-- Клеми нижнього ряду -->
+    <!-- 13 -->
+    <rect x="366" y="365" width="24" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="378" y="383" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">13</text>
+    <text x="378" y="405" text-anchor="middle" font-size="10" fill="#27ae60">NO1</text>
+
+    <!-- 14 -->
+    <rect x="395" y="365" width="24" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="407" y="383" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">14</text>
+    <text x="407" y="405" text-anchor="middle" font-size="10" fill="#27ae60">NO1</text>
+
+    <!-- 23 -->
+    <rect x="424" y="365" width="24" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="436" y="383" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">23</text>
+    <text x="436" y="405" text-anchor="middle" font-size="10" fill="#27ae60">NO2</text>
+
+    <!-- 24 -->
+    <rect x="453" y="365" width="24" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="465" y="383" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">24</text>
+    <text x="465" y="405" text-anchor="middle" font-size="10" fill="#27ae60">NO2</text>
+
+    <!-- 33 -->
+    <rect x="482" y="365" width="24" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="494" y="383" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">33</text>
+    <text x="494" y="405" text-anchor="middle" font-size="10" fill="#27ae60">NO3</text>
+
+    <!-- 34 -->
+    <rect x="511" y="365" width="24" height="28" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="523" y="383" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">34</text>
+    <text x="523" y="405" text-anchor="middle" font-size="10" fill="#27ae60">NO3</text>
+
+    <!-- 41 -->
+    <rect x="540" y="365" width="24" height="28" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="552" y="383" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">41</text>
+    <text x="552" y="405" text-anchor="middle" font-size="10" fill="#6b7280">NC</text>
+
+    <!-- 42 / Y35 -->
+    <rect x="569" y="365" width="24" height="28" rx="3" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+    <text x="581" y="383" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">42</text>
+    <text x="581" y="405" text-anchor="middle" font-size="10" fill="#6b7280">NC</text>
+  </g>
+
+  <!-- ЛІВА СТОРОНА: ПОЯСНЕННЯ ВХІДНИХ ГРУП -->
+  <g id="left-cards">
+    <!-- Картка 1: Живлення A1 / A2 -->
+    <rect x="30" y="75" width="295" height="90" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="40" y="85" width="275" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="177.5" y="101" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Живлення (Power Supply)</text>
+    <text x="45" y="125" font-size="11" font-weight="bold" fill="#1a1a1a">• A1 (+24V DC):</text>
+    <text x="145" y="125" font-size="11" fill="#6b7280">Плюс живлення схеми</text>
+    <text x="45" y="145" font-size="11" font-weight="bold" fill="#1a1a1a">• A2 (0V GND):</text>
+    <text x="135" y="145" font-size="11" fill="#6b7280">Мінус / спільний провід</text>
+
+    <!-- Лінії зв'язку для Картки 1 -->
+    <line x1="325" y1="120" x2="366" y2="155" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+    <!-- Картка 2: Входи безпеки S11–S22 -->
+    <rect x="30" y="180" width="295" height="135" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="40" y="190" width="275" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="177.5" y="206" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Двоканальні входи (Inputs)</text>
+    <text x="45" y="228" font-size="11" font-weight="bold" fill="#1a1a1a">• S11 / S21:</text>
+    <text x="125" y="228" font-size="11" fill="#6b7280">Тестові імпульси T1/T2</text>
+    <text x="45" y="248" font-size="11" font-weight="bold" fill="#1a1a1a">• S12 / S22:</text>
+    <text x="125" y="248" font-size="11" fill="#6b7280">Входи Каналу 1 та Каналу 2</text>
+    <text x="45" y="268" font-size="11" font-weight="bold" fill="#1a1a1a">• Контроль KЗ:</text>
+    <text x="135" y="268" font-size="11" fill="#c0392b">Виявлення перехресних KЗ</text>
+    <text x="45" y="290" font-size="11" fill="#6b7280">(Кнопка аварійного стопу, завіса)</text>
+
+    <!-- Лінії зв'язку для Картки 2 -->
+    <line x1="325" y1="245" x2="434" y2="160" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+    <!-- Картка 3: Скидання та EDM S34 -->
+    <rect x="30" y="330" width="295" height="120" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="40" y="340" width="275" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="177.5" y="356" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Скидання та EDM (Reset / EDM)</text>
+    <text x="45" y="378" font-size="11" font-weight="bold" fill="#1a1a1a">• S34:</text>
+    <text x="90" y="378" font-size="11" fill="#6b7280">Вхід кнопки скидання (Reset)</text>
+    <text x="45" y="398" font-size="11" font-weight="bold" fill="#1a1a1a">• EDM Loop:</text>
+    <text x="120" y="398" font-size="11" fill="#6b7280">Послідовні НЗ-контакти K1/K2</text>
+    <text x="45" y="418" font-size="11" font-weight="bold" fill="#27ae60">✓ Запобігає запуску при зварюванні K1/K2</text>
+
+    <!-- Лінії зв'язку для Картки 3 -->
+    <line x1="325" y1="390" x2="570" y2="165" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  </g>
+
+  <!-- ПРАВА СТОРОНА: ПОЯСНЕННЯ СИЛОВИХ ТА ДІАГНОСТИЧНИХ КЛЕМ -->
+  <g id="right-cards">
+    <!-- Картка 4: Силові контакти 13–14, 23–24, 33–34 -->
+    <rect x="635" y="75" width="295" height="185" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <rect x="645" y="85" width="275" height="26" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+    <text x="782.5" y="102" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Силові контакти безпеки (NO)</text>
+    <text x="650" y="126" font-size="11" font-weight="bold" fill="#1a1a1a">• 13–14, 23–24, 33–34:</text>
+    <text x="790" y="126" font-size="11" fill="#1a1a1a">НВ (NO) контакти</text>
+    <text x="650" y="148" font-size="11" font-weight="bold" fill="#27ae60">• Примусово спрямовані:</text>
+    <text x="795" y="148" font-size="11" fill="#6b7280">Force-guided</text>
+    <text x="650" y="170" font-size="11" font-weight="bold" fill="#1a1a1a">• Функція:</text>
+    <text x="720" y="170" font-size="11" fill="#6b7280">Негайне знеструмлення котушок</text>
+    <text x="650" y="190" font-size="11" fill="#6b7280">головних контакторів (Stop Cat 0/1)</text>
+    <text x="650" y="212" font-size="11" font-weight="bold" fill="#27ae60">• Рівень безпеки:</text>
+    <text x="760" y="212" font-size="11" font-weight="bold" fill="#27ae60">Cat 4 / PL e / SIL 3</text>
+    <text x="650" y="234" font-size="11" font-weight="bold" fill="#6b7280">• Захист:</text>
+    <text x="710" y="234" font-size="11" fill="#6b7280">Запобіжники 6A gL/gG від зварювання</text>
+
+    <!-- Лінія зв'язку для Картки 4 -->
+    <line x1="635" y1="160" x2="523" y2="365" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-green)"/>
+
+    <!-- Картка 5: Діагностика 41–42 / Y35 -->
+    <rect x="635" y="270" width="295" height="180" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="645" y="280" width="275" height="26" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="782.5" y="297" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Діагностика та сигналізація</text>
+    <text x="650" y="322" font-size="11" font-weight="bold" fill="#1a1a1a">• 41–42 (NC):</text>
+    <text x="735" y="322" font-size="11" fill="#6b7280">Допоміжний НЗ контакт</text>
+    <text x="650" y="344" font-size="11" fill="#6b7280">сигналізації стану реле для ПЛК (PLC)</text>
+    <text x="650" y="368" font-size="11" font-weight="bold" fill="#1a1a1a">• Y35 (PNP 24V):</text>
+    <text x="755" y="368" font-size="11" fill="#6b7280">Напівпровідниковий</text>
+    <text x="650" y="388" font-size="11" fill="#6b7280">вихід діагностики (OSSD/Status)</text>
+    <text x="650" y="412" font-size="11" font-weight="bold" fill="#2457d6">✓ Відокремлення кола безпеки від PLC</text>
+
+    <!-- Лінія зв'язку для Картки 5 -->
+    <line x1="635" y1="360" x2="581" y2="380" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  </g>
+</svg>

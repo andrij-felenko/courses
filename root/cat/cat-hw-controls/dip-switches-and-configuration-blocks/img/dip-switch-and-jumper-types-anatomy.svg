@@ -1,0 +1,162 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 535" width="960" height="535" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="535" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Анатомія DIP-перемикачів та джамперних блоків</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Конструктивні розрізи: повзунковий механізм, піанінний важіль та джамперний селектор із зонами приплавлення</text>
+
+  <!-- ================= PANEL 1: SLIDE DIP SWITCH ================= -->
+  <rect x="30" y="85" width="280" height="325" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 30 93 A 8 8 0 0 1 38 85 H 302 A 8 8 0 0 1 310 93 V 115 H 30 Z" fill="#2457d6"/>
+  <text x="170" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Повзунковий DIP (Slide Type)</text>
+
+  <!-- Callout Top: Slider Actuator -->
+  <text x="170" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Повзунковий штовхач</text>
+  <line x1="170" y1="134" x2="170" y2="140" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Slider Knob -->
+  <rect x="145" y="140" width="50" height="28" rx="3" fill="#2457d6"/>
+  <text x="170" y="158" text-anchor="middle" font-size="12" font-weight="bold" fill="white">ON</text>
+
+  <!-- Housing Body -->
+  <rect x="75" y="182" width="190" height="135" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="115" y="182" width="110" height="14" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Plunger & Spring -->
+  <line x1="170" y1="190" x2="170" y2="215" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="3,2"/>
+  <path d="M 105 220 Q 170 210 235 220" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Gold Plating Pads & Terminals -->
+  <rect x="95" y="228" width="20" height="8" fill="#f59e0b" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="225" y="228" width="20" height="8" fill="#f59e0b" stroke="#1a1a1a" stroke-width="1"/>
+  <path d="M 105 236 V 355" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+  <path d="M 235 236 V 355" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Epoxy Seal Zone -->
+  <rect x="77" y="300" width="186" height="14" fill="#6b7280" opacity="0.3"/>
+  <text x="170" y="311" text-anchor="middle" font-size="11" font-weight="bold" fill="#475569">Епоксидний захист</text>
+
+  <!-- Callouts for Panel 1 -->
+  <text x="170" y="256" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Рухомий місток</text>
+  <line x1="170" y1="244" x2="170" y2="226" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <text x="170" y="284" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Контакти (Au)</text>
+  <line x1="135" y1="272" x2="112" y2="240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="205" y1="272" x2="228" y2="240" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="170" y="380" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Виводи DIP (крок 2.54 мм)</text>
+
+
+  <!-- ================= PANEL 2: PIANO DIP SWITCH ================= -->
+  <rect x="340" y="85" width="280" height="325" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 340 93 A 8 8 0 0 1 348 85 H 612 A 8 8 0 0 1 620 93 V 115 H 340 Z" fill="#2457d6"/>
+  <text x="480" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Піанінний DIP (Piano Type)</text>
+
+  <!-- Callout Top: Piano Lever -->
+  <text x="395" y="138" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Піанінний важіль</text>
+  <line x1="395" y1="142" x2="375" y2="166" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Housing Body -->
+  <rect x="385" y="182" width="190" height="135" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Piano Lever & Cam Assembly -->
+  <path d="M 435 210 L 365 170 L 355 182 L 425 222 Z" fill="#2457d6"/>
+  <circle cx="435" cy="215" r="7" fill="#1a1a1a"/>
+  <path d="M 435 215 L 470 235 L 455 245 Z" fill="#1a1a1a"/>
+
+  <!-- Leaf Spring Contact -->
+  <path d="M 535 285 Q 480 270 445 240" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <rect x="435" y="235" width="14" height="10" fill="#f59e0b" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="435" y="250" width="14" height="8" fill="#f59e0b" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Terminals -->
+  <path d="M 442 258 V 355" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+  <path d="M 535 285 V 355" fill="none" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Epoxy Seal Zone -->
+  <rect x="387" y="300" width="186" height="14" fill="#6b7280" opacity="0.3"/>
+  <text x="488" y="311" text-anchor="middle" font-size="11" font-weight="bold" fill="#475569">Епоксидний шар</text>
+
+  <!-- Callouts for Panel 2 -->
+  <text x="505" y="198" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Поворотний кулачок</text>
+  <line x1="475" y1="202" x2="455" y2="225" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="495" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">
+    <tspan x="495" dy="0">Пелюстковий</tspan>
+    <tspan x="495" dy="14">контакт</tspan>
+  </text>
+  <line x1="480" y1="266" x2="470" y2="252" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <text x="480" y="380" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Торцеві виводи (Piano)</text>
+
+
+  <!-- ================= PANEL 3: JUMPER SELECTOR ================= -->
+  <rect x="650" y="85" width="280" height="325" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 650 93 A 8 8 0 0 1 658 85 H 922 A 8 8 0 0 1 930 93 V 115 H 650 Z" fill="#2457d6"/>
+  <text x="790" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Джамперний селектор (Jumper Cap)</text>
+
+  <!-- Callout Top: Jumper Cap -->
+  <text x="790" y="132" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Знімний ковпачок</text>
+  <line x1="790" y1="136" x2="790" y2="146" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Jumper Outer Shell -->
+  <rect x="725" y="150" width="130" height="105" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Bronze Clip Inside Cap -->
+  <rect x="745" y="165" width="90" height="45" rx="3" fill="#f59e0b" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Gold Plated Header Pins (Drawn as path to avoid rect overlap) -->
+  <path d="M 755 180 h 18 v 160 h -18 z M 807 180 h 18 v 160 h -18 z" fill="#f59e0b" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Molded PLS Base -->
+  <rect x="720" y="295" width="140" height="22" rx="3" fill="#1a1a1a"/>
+  <text x="790" y="310" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Основа PLS (2.54 мм)</text>
+
+  <!-- Callouts for Panel 3 -->
+  <text x="675" y="185" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">
+    <tspan x="675" dy="0">Бронзова</tspan>
+    <tspan x="675" dy="14">пружина</tspan>
+  </text>
+  <line x1="708" y1="190" x2="742" y2="190" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <text x="862" y="235" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">
+    <tspan x="862" dy="0">Позолочені</tspan>
+    <tspan x="862" dy="14">штирі</tspan>
+  </text>
+  <line x1="855" y1="238" x2="828" y2="238" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+
+  <text x="790" y="380" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Паяльні виводи (PCB)</text>
+
+
+  <!-- ================= BOTTOM FEATURE CARDS ================= -->
+  <!-- Box 1 -->
+  <rect x="30" y="424" width="280" height="58" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="170" y="444" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Повзунковий проти піанінного</text>
+  <text x="170" y="463" text-anchor="middle" font-size="12" fill="#1a1a1a">Повзункові — зверху, піанінні — з торця</text>
+
+  <!-- Box 2 -->
+  <rect x="340" y="424" width="280" height="58" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="480" y="444" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Захист від окиснення</text>
+  <text x="480" y="463" text-anchor="middle" font-size="12" fill="#1a1a1a">Позолота гарантує контакт при мкА струмах</text>
+
+  <!-- Box 3 -->
+  <rect x="650" y="424" width="280" height="58" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="790" y="444" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Герметичність при паянні</text>
+  <text x="790" y="463" text-anchor="middle" font-size="12" fill="#1a1a1a">Епоксид та плівка захищають від флюсу</text>
+
+  <!-- Footnote -->
+  <text x="480" y="512" text-anchor="middle" font-size="12" fill="#6b7280">Конструкція контактних груп та термостійкі матеріали корпусу виключають хибні спрацьовування</text>
+</svg>

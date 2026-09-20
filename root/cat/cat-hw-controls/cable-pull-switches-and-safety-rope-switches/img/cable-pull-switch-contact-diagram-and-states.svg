@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Діаграма станів контактів тросового вимикача безбреки (IEC 60947-5-5)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7220" text-anchor="middle">Контакти безпеки (NC) замкнені лише у вікнѐ робочого натягу троса; при провисанні або потягуванні коло розмикаєтьс|/text>
+
+  <rect x="60" y="<0" width="260" height="70" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="190" y="105" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Провисання / Обрив</text>
+  <text x="190" y="125" font-size="12" fill="#6b7220" text-anchor="middle">F &lt; F_min (Трос ослаблено)</text>
+
+  <rect x="350" y="80" width="260" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="480" y="105" fcont-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Робочий натяг (ОК )</text>
+  <text x="480" y="125" font-size="12" fill="#6b7220" text-anchor="middle">F_min ≤ F ≤ F_max (Норма)</text>
+
+  <rect x="640" y="80" width="260" height="70" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="770" y="105" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Аварійне потягува�4щa</text>
+  <text x="770" y="125" fcont-size="12" fill="#6b7220" text-anchor="middle">F &gt; F_max (Потягнуто)</text>
+
+  <rect x="60" y="170" width="840" height="225" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+
+  <line x1="335" y1="170" x2="335" y2="395" stroke="#6b7220" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="335" y="190" font-size="12" font-weight="bold" fill="#6b7220" text-anchor="middle">F_min</text>
+
+  <line x1="625" y1="170" x2="625" y2="395" stroke="#6b7220" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="625" y="190" font-size="12" font-weight="bold" fill="#6b7220" text-anchor="middle">F_max</text>
+
+  <rect x="335" y="198" width="290" height="190" fill="#e9f7ef" fill-opacity="0.45"/>
+
+  <line x1="60" y1="262" x2="900" y2="262" stroke="#d0d7de" stroke-width="1"/>
+  <text x="75" y="235" font-size="13" font-weight="bold" fill="#1a1a1a">Контактів тросового вимикача безбреки (IEC 60947-5-5)</text>
+</svg>

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння часового відгуку медіанного фільтра та EMA</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Медіанний фільтр повністю відсікає поодинокі спайки; EMA ефективно придушує безперервний шум АЦП</text>
+
+  <!-- Панель 1: Відсікання поодинокого спайку -->
+  <rect x="40" y="85" width="425" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="252" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Реагування на поодинокий спайк (Spike)</text>
+
+  <!-- Осі координат Панелі 1 -->
+  <line x1="80" y1="300" x2="80" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="80" y1="300" x2="435" y2="300" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="72" y="126" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">V_out</text>
+  <text x="425" y="320" font-size="12" fill="#6b7280">Час t</text>
+
+  <!-- Сигнали Панелі 1 -->
+  <!-- Сирий сигнал зі спайком (червоний) -->
+  <path d="M 80,250 L 190,250 L 200,160 L 210,250 L 415,250" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="200" y="150" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Спайк АЦП</text>
+
+  <!-- Крива EMA (синя) -->
+  <path d="M 80,250 L 190,250 C 200,190 220,210 240,230 C 270,245 310,250 415,250" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6 3"/>
+  <text x="220" y="192" font-size="12" font-weight="bold" fill="#2457d6">EMA (α=0.2): розмиває спайк у хвіст</text>
+
+  <!-- Медіанна крива (зелена) -->
+  <path d="M 80,250 L 415,250" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <text x="240" y="272" font-size="12" font-weight="bold" fill="#27ae60">Медіана (N=3): ігнорує спайк</text>
+
+
+  <!-- Панель 2: Придушення шуму та ступеневий відгук -->
+  <rect x="495" y="85" width="425" height="260" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="707" y="110" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Придушення шуму АЦП та ступеневий відгук</text>
+
+  <!-- Осі координат Панелі 2 -->
+  <line x1="535" y1="300" x2="535" y2="135" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <line x1="535" y1="300" x2="890" y2="300" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="527" y="126" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">V_out</text>
+  <text x="880" y="320" font-size="12" fill="#6b7280">Час t</text>
+
+  <!-- Сирої зашумлений сигнал (червоний прозорий) -->
+  <path d="M 535,260 L 545,264 L 555,256 L 565,263 L 575,257 L 585,262 L 595,258 L 605,263 L 615,259 L 625,263 L 635,258 L 640,172 L 650,166 L 660,174 L 670,168 L 680,173 L 690,167 L 700,172 L 710,168 L 720,173 L 730,167 L 740,172 L 750,168 L 760,173 L 770,168 L 780,172 L 790,167 L 800,172 L 810,168 L 820,173 L 830,167 L 840,172 L 850,168 L 860,173 L 875,170" fill="none" stroke="#c0392b" stroke-width="1.2" opacity="0.65"/>
+  <text x="560" y="245" font-size="12" fill="#c0392b">Шум АЦП</text>
+
+  <!-- Медіанний ступеневий відгук (зелений) -->
+  <path d="M 535,260 L 640,260 L 640,170 L 875,170" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="650" y="152" font-size="12" font-weight="bold" fill="#27ae60">Медіана: чіткий фронт кроку</text>
+
+  <!-- Згладжений EMA відгук (синій) -->
+  <path d="M 535,260 L 640,260 C 660,210 700,175 760,170 L 875,170" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="680" y="235" font-size="12" font-weight="bold" fill="#2457d6">EMA: ідеальне згладжування шуму</text>
+
+
+  <!-- Нижня секція: Порівняльні картки -->
+  <rect x="40" y="360" width="880" height="150" rx="8" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="385" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зведене порівняння характеристик фільтрів для вбудованих систем</text>
+
+  <!-- Картка 1: Медіана -->
+  <rect x="60" y="400" width="265" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="75" y="422" font-size="13" font-weight="bold" fill="#27ae60">Медіанний фільтр (N = 3..5)</text>
+  <text x="75" y="444" font-size="12" fill="#1a1a1a">• 100% придушення імпульсних спайків</text>
+  <text x="75" y="462" font-size="12" fill="#1a1a1a">• Зберігає круті сигнальні фронти</text>
+  <text x="75" y="480" font-size="12" fill="#6b7280">• Потребує буферизації та сортування</text>
+
+  <!-- Картка 2: EMA -->
+  <rect x="347" y="400" width="265" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="362" y="422" font-size="13" font-weight="bold" fill="#2457d6">ЕКМА / EMA (α = 0.1..0.3)</text>
+  <text x="362" y="444" font-size="12" fill="#1a1a1a">• Ефективне згладжування шуму АЦП</text>
+  <text x="362" y="462" font-size="12" fill="#1a1a1a">• 100% детермінований (O(1) пам'яті)</text>
+  <text x="362" y="480" font-size="12" fill="#6b7280">• Вносить невисоку фазову затримку</text>
+
+  <!-- Картка 3: Каскад -->
+  <rect x="634" y="400" width="265" height="95" rx="6" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="649" y="422" font-size="13" font-weight="bold" fill="#1a1a1a">Рекомендований каскад</text>
+  <text x="649" y="444" font-size="12" font-weight="bold" fill="#1a1a1a">1 етап: Медіана відсікає спайки</text>
+  <text x="649" y="462" font-size="12" font-weight="bold" fill="#2457d6">2 етап: EMA пригнічує джиттер</text>
+  <text x="649" y="480" font-size="12" font-weight="bold" fill="#27ae60">Результат: чистий стабільний сигнал</text>
+</svg>

@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-left-blue" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-left-red" markerWidth="9" markerHeight="9" refX="1.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-right-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-right-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="34" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Двоканальна схема підключення трипозиційної кнопки дозволу</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Виявлення короткого замикання між каналами S11-S12 та S21-S22 за допомогою тестових імпульсів T1/T2</text>
+
+  <!-- PANEL 1: Пульт дозволу -->
+  <rect x="30" y="85" width="290" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="175" y="108" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Трипозиційна кнопка (SW1)</text>
+
+  <!-- SW1 Enclosure -->
+  <rect x="50" y="125" width="250" height="385" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="175" y="148" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Рукоятка дозволу (OFF-ON-OFF)</text>
+
+  <!-- Channel 1 -->
+  <text x="70" y="172" font-size="12" font-weight="700" fill="#2457d6">Канал 1 (CH1)</text>
+  <text x="95" y="195" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">S11</text>
+  <circle cx="95" cy="210" r="4" fill="#2457d6"/>
+  <line x1="95" y1="210" x2="255" y2="210" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="255" cy="210" r="4" fill="#2457d6"/>
+  <text x="255" y="195" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">S12</text>
+
+  <!-- Channel 2 -->
+  <text x="70" y="318" font-size="12" font-weight="700" fill="#c0392b">Канал 2 (CH2)</text>
+  <text x="95" y="341" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">S21</text>
+  <circle cx="95" cy="356" r="4" fill="#c0392b"/>
+  <line x1="95" y1="356" x2="255" y2="356" stroke="#27ae60" stroke-width="2.5"/>
+  <circle cx="255" cy="356" r="4" fill="#c0392b"/>
+  <text x="255" y="341" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">S22</text>
+
+  <!-- Mechanical Linkage -->
+  <line x1="140" y1="210" x2="140" y2="356" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <rect x="110" y="270" width="60" height="24" fill="#f4f6f8" stroke="#d0d7de" rx="3"/>
+  <text x="140" y="286" font-size="12" fill="#6b7280" text-anchor="middle">Зв'язок</text>
+
+  <!-- Cross-fault short circuit threat line -->
+  <line x1="220" y1="210" x2="220" y2="356" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+  <rect x="175" y="265" width="90" height="34" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="220" y="286" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">Перехресне КЗ!</text>
+
+  <!-- PANEL 2: Діагностика КЗ & Генератори імпульсів -->
+  <rect x="350" y="85" width="240" height="440" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="470" y="108" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Діагностика КЗ</text>
+
+  <!-- Generator T1 Box -->
+  <rect x="370" y="130" width="200" height="115" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="470" y="150" font-size="13" font-weight="700" fill="#2457d6" text-anchor="middle">Генератор T1</text>
+  <!-- Pulse Waveform T1 -->
+  <path d="M 400 185 L 420 185 L 420 165 L 440 165 L 440 185 L 460 185 L 460 165 L 480 165 L 480 185 L 500 185" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <text x="470" y="218" font-size="12" fill="#6b7280" text-anchor="middle">Імпульси T1 (Канал 1)</text>
+
+  <!-- Generator T2 Box -->
+  <rect x="370" y="265" width="200" height="115" fill="white" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="470" y="285" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">Генератор T2</text>
+  <!-- Pulse Waveform T2 (Phase shifted / inverted) -->
+  <path d="M 400 310 L 420 310 L 420 330 L 440 330 L 440 310 L 460 310 L 460 330 L 480 330 L 480 310 L 500 310" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="470" y="354" font-size="12" fill="#6b7280" text-anchor="middle">Імпульси T2 (Канал 2)</text>
+
+  <!-- Protection Note Box -->
+  <rect x="370" y="395" width="200" height="115" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="470" y="418" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">При КЗ між каналами</text>
+  <text x="470" y="438" font-size="12" fill="#1a1a1a" text-anchor="middle">T1 потрапляє в T2</text>
+  <text x="470" y="458" font-size="12" fill="#1a1a1a" text-anchor="middle">і реле негайно відключає</text>
+  <text x="470" y="478" font-size="12" font-weight="700" fill="#c0392b" text-anchor="middle">аварійне живлення!</text>
+
+  <!-- PANEL 3: Модуль реле безпеки -->
+  <rect x="620" y="85" width="310" height="440" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="8"/>
+  <text x="775" y="108" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">Модуль реле безпеки</text>
+
+  <!-- Controller Logic Box -->
+  <rect x="640" y="125" width="270" height="265" fill="white" stroke="#2457d6" stroke-width="2" rx="6"/>
+  <text x="775" y="148" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">MCU / Логіка контролю</text>
+
+  <!-- Input S12 / Logic A -->
+  <circle cx="640" cy="210" r="4" fill="#2457d6"/>
+  <text x="648" y="195" font-size="12" font-weight="700" fill="#2457d6">S12 (IN1)</text>
+  <rect x="710" y="185" width="185" height="45" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="802" y="212" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Аналізатор імпульсів T1</text>
+
+  <!-- Input S22 / Logic B -->
+  <circle cx="640" cy="356" r="4" fill="#c0392b"/>
+  <text x="648" y="341" font-size="12" font-weight="700" fill="#c0392b">S22 (IN2)</text>
+  <rect x="710" y="331" width="185" height="45" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="802" y="358" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Аналізатор імпульсів T2</text>
+
+  <!-- Cross-Check Logic Lines (Split around Comparison box) -->
+  <line x1="802" y1="230" x2="802" y2="268" stroke="#27ae60" stroke-width="2"/>
+  <line x1="802" y1="293" x2="802" y2="331" stroke="#27ae60" stroke-width="2"/>
+  <rect x="747" y="268" width="110" height="25" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="802" y="285" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Порівняння</text>
+
+  <!-- Output Relays K1/K2 -->
+  <rect x="640" y="405" width="270" height="105" fill="white" stroke="#27ae60" stroke-width="2" rx="6"/>
+  <text x="775" y="428" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">Вихідні контактори K1 / K2</text>
+  <text x="775" y="455" font-size="12" fill="#1a1a1a" text-anchor="middle">Розмикання кола живлення приводів</text>
+  <text x="775" y="482" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">[ КАТЕГОРІЯ 4 / SIL 3 / PL e ]</text>
+
+  <!-- BUS WIRES & ROUTING -->
+  <!-- Wire T1: Generator T1 -> S11 -->
+  <path d="M 370 165 L 330 165 L 330 210 L 102 210" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-left-blue)"/>
+  <text x="320" y="152" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">T1 Out</text>
+
+  <!-- Wire T2: Generator T2 -> S21 -->
+  <path d="M 370 300 L 330 300 L 330 356 L 102 356" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-left-red)"/>
+  <text x="320" y="288" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">T2 Out</text>
+
+  <!-- Wire S12 Data: S12 -> Relay IN1 -->
+  <line x1="255" y1="210" x2="633" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-right-blue)"/>
+  <text x="320" y="198" font-size="12" font-weight="700" fill="#2457d6" text-anchor="end">S12 Data</text>
+
+  <!-- Wire S22 Data: S22 -> Relay IN2 -->
+  <line x1="255" y1="356" x2="633" y2="356" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-right-red)"/>
+  <text x="320" y="344" font-size="12" font-weight="700" fill="#c0392b" text-anchor="end">S22 Data</text>
+</svg>

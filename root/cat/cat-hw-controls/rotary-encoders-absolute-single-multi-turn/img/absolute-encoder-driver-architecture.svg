@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура драйвера абсолютного енкодера</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Обробка кадрів SSI та BiSS-C від апаратної шини до прикладного API</text>
+
+  <!-- 1. Hardware Layer (Left) -->
+  <rect x="30" y="80" width="150" height="340" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+  <text x="105" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратний шар</text>
+
+  <!-- Block 1.1: Physical Encoder -->
+  <rect x="40" y="120" width="130" height="65" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="105" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Енкодер</text>
+  <text x="105" y="162" font-size="12" fill="#6b7280" text-anchor="middle">(SSI / BiSS-C)</text>
+
+  <!-- Arrow HW 1 to 2 -->
+  <path d="M 105 185 L 105 210" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+
+  <!-- Block 1.2: MCU Peripheral -->
+  <rect x="40" y="210" width="130" height="65" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="105" y="235" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Периферія МК</text>
+  <text x="105" y="252" font-size="12" fill="#6b7280" text-anchor="middle">(SPI / USART)</text>
+
+  <!-- Arrow HW 2 to 3 -->
+  <path d="M 105 275 L 105 300" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Block 1.3: Raw RAM Buffer -->
+  <rect x="40" y="300" width="130" height="65" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="105" y="325" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сирий кадр</text>
+  <text x="105" y="342" font-size="12" fill="#6b7280" text-anchor="middle">в буфері RAM</text>
+
+  <!-- Arrow from RAM Buffer to Driver Core -->
+  <path d="M 170 332 L 235 332" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="202" y="320" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Сирий кадр</text>
+
+  <!-- 2. Driver Processing Core (Middle Panel) -->
+  <rect x="220" y="80" width="490" height="340" fill="#eaf0fd" stroke="#2457d6" stroke-width="2" rx="8"/>
+  <text x="465" y="102" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Ядро драйвера енкодера (Middleware)</text>
+
+  <!-- Stage 1: Validation -->
+  <rect x="235" y="120" width="140" height="280" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="305" y="142" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Валідація</text>
+
+  <rect x="245" y="160" width="120" height="45" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="305" y="177" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Перевірка CRC</text>
+  <text x="305" y="193" font-size="12" fill="#27ae60" text-anchor="middle">(CRC-6 / CRC-8)</text>
+
+  <rect x="245" y="220" width="120" height="45" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="305" y="237" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Контроль парності</text>
+  <text x="305" y="253" font-size="12" fill="#c0392b" text-anchor="middle">та таймауту</text>
+
+  <rect x="245" y="280" width="120" height="45" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="305" y="297" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Статусні біти</text>
+  <text x="305" y="313" font-size="12" fill="#6b7280" text-anchor="middle">Error / Warning</text>
+
+  <text x="305" y="375" font-size="12" fill="#c0392b" text-anchor="middle">Контроль помилок</text>
+
+  <!-- Arrow Stage 1 to Stage 2 -->
+  <path d="M 375 240 L 395 240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage 2: Decoding -->
+  <rect x="395" y="120" width="140" height="280" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="465" y="142" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">2. Декодування</text>
+
+  <rect x="405" y="160" width="120" height="45" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="465" y="177" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Код Ґрея → Bin</text>
+  <text x="465" y="193" font-size="12" fill="#6b7280" text-anchor="middle">(XOR перетворення)</text>
+
+  <rect x="405" y="220" width="120" height="45" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="465" y="237" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кут (Singleturn)</text>
+  <text x="465" y="253" font-size="12" fill="#6b7280" text-anchor="middle">(Маскування бітів)</text>
+
+  <rect x="405" y="280" width="120" height="45" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="465" y="297" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Оберти (Multiturn)</text>
+  <text x="465" y="313" font-size="12" fill="#6b7280" text-anchor="middle">(Лічильник оборотів)</text>
+
+  <text x="465" y="375" font-size="12" fill="#2457d6" text-anchor="middle">Декодований код</text>
+
+  <!-- Arrow Stage 2 to Stage 3 -->
+  <path d="M 535 240 L 555 240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage 3: Normalization -->
+  <rect x="555" y="120" width="140" height="280" fill="white" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="625" y="142" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">3. Нормалізація</text>
+
+  <rect x="565" y="160" width="120" height="45" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="625" y="177" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Віртуальний нуль</text>
+  <text x="625" y="193" font-size="12" fill="#6b7280" text-anchor="middle">(Зсув Preset Offset)</text>
+
+  <rect x="565" y="220" width="120" height="45" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="625" y="237" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Переповнення</text>
+  <text x="625" y="253" font-size="12" fill="#6b7280" text-anchor="middle">(Wrap-around MT)</text>
+
+  <rect x="565" y="280" width="120" height="45" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="625" y="297" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Масштабування</text>
+  <text x="625" y="313" font-size="12" fill="#27ae60" text-anchor="middle">(Переведення в рад)</text>
+
+  <text x="625" y="375" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Готова координата</text>
+
+  <!-- Arrow Driver Core to Application API -->
+  <path d="M 695 240 L 750 240" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="722" y="226" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Готові дані</text>
+
+  <!-- 3. Application Layer / API (Right Panel) -->
+  <rect x="750" y="80" width="180" height="340" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="8"/>
+  <text x="840" y="102" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Прикладний рівень API</text>
+
+  <!-- API 1: Get Angle -->
+  <rect x="760" y="125" width="160" height="50" fill="white" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="840" y="145" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">encoder_get_angle()</text>
+  <text x="840" y="162" font-size="12" fill="#6b7280" text-anchor="middle">(Поточний кут, рад)</text>
+
+  <!-- API 2: Get Turns -->
+  <rect x="760" y="195" width="160" height="50" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="840" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">encoder_get_turns()</text>
+  <text x="840" y="232" font-size="12" fill="#6b7280" text-anchor="middle">(Кількість обертів)</text>
+
+  <!-- API 3: Set Zero -->
+  <rect x="760" y="265" width="160" height="50" fill="white" stroke="#d0d7de" rx="4"/>
+  <text x="840" y="285" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">encoder_set_zero()</text>
+  <text x="840" y="302" font-size="12" fill="#6b7280" text-anchor="middle">(Калібрування нуля)</text>
+
+  <!-- API 4: Get Status -->
+  <rect x="760" y="335" width="160" height="50" fill="white" stroke="#c0392b" rx="4"/>
+  <text x="840" y="355" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">encoder_get_status()</text>
+  <text x="840" y="372" font-size="12" fill="#c0392b" text-anchor="middle">(Діагностика й CRC)</text>
+
+</svg>

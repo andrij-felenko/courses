@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінематика 3-позиційного вимикача дозволу (Enabling Switch)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Дозвіл на роботу надається лише у Позиції 2; панічне стискання (Позиція 3) розмикає коло без замикання при відпусканні</text>
+
+  <!-- POSITION 1 BOX -->
+  <rect x="40" y="78" width="270" height="280" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="52" y="90" width="246" height="25" rx="4" ry="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="175" y="107" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Позиція 1: ВІДПУЩЕНО</text>
+
+  <!-- Pos 1 Mechanism Graphic -->
+  <!-- Button plunger (Resting - High: y=128..148) -->
+  <rect x="150" y="128" width="50" height="20" rx="3" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Switch Housing (y=164..284) -->
+  <rect x="100" y="164" width="150" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Plunger stem connecting plunger to housing -->
+  <line x1="175" y1="148" x2="175" y2="164" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Contact Gap (Open) -->
+  <circle cx="145" cy="225" r="5" fill="#c0392b"/>
+  <circle cx="205" cy="225" r="5" fill="#c0392b"/>
+  <line x1="145" y1="217" x2="190" y2="205" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/>
+  <!-- Labels -->
+  <text x="175" y="186" font-size="12" fill="#1a1a1a" text-anchor="middle">Стан спокою</text>
+  <text x="175" y="258" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Контакти: РОЗМІКНУТІ</text>
+  <text x="175" y="338" font-size="12" fill="#6b7280" text-anchor="middle">Сигнал дозволу: 0 (Вимкнено)</text>
+
+  <!-- POSITION 2 BOX -->
+  <rect x="345" y="78" width="270" height="280" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="357" y="90" width="246" height="25" rx="4" ry="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="107" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Позиція 2: ЦЕНТР (ДОЗВІЛ)</text>
+
+  <!-- Pos 2 Mechanism Graphic -->
+  <!-- Button plunger (Mid-Pressed: y=136..156) -->
+  <rect x="455" y="136" width="50" height="20" rx="3" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Switch Housing (y=172..292) -->
+  <rect x="405" y="172" width="150" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <!-- Plunger stem -->
+  <line x1="480" y1="156" x2="480" y2="172" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Contact Gap (Closed) -->
+  <circle cx="450" cy="225" r="5" fill="#27ae60"/>
+  <circle cx="510" cy="225" r="5" fill="#27ae60"/>
+  <line x1="450" y1="225" x2="510" y2="225" stroke="#27ae60" stroke-width="3.5" stroke-linecap="round"/>
+  <!-- Labels -->
+  <text x="480" y="194" font-size="12" fill="#1a1a1a" text-anchor="middle">Оператор тримає центр</text>
+  <text x="480" y="258" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Контакти: ЗАМІКНУТІ</text>
+  <text x="480" y="338" font-size="12" fill="#27ae60" text-anchor="middle">Сигнал дозволу: 1 (Норма)</text>
+
+  <!-- POSITION 3 BOX -->
+  <rect x="650" y="78" width="270" height="280" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="662" y="90" width="246" height="25" rx="4" ry="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="785" y="107" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Позиція 3: ПАНІКА (ПЕРЕТИСК)</text>
+
+  <!-- Pos 3 Mechanism Graphic -->
+  <!-- Button plunger (Deep-Pressed: y=144..164) -->
+  <rect x="760" y="144" width="50" height="20" rx="3" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Switch Housing (y=180..300) -->
+  <rect x="710" y="180" width="150" height="120" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Plunger stem -->
+  <line x1="785" y1="164" x2="785" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Contact Gap (Open / Pushed past) -->
+  <circle cx="755" cy="225" r="5" fill="#c0392b"/>
+  <circle cx="815" cy="225" r="5" fill="#c0392b"/>
+  <line x1="755" y1="233" x2="800" y2="245" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/>
+  <!-- Labels -->
+  <text x="785" y="202" font-size="12" fill="#1a1a1a" text-anchor="middle">М'язова судома / паніка</text>
+  <text x="785" y="258" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Контакти: РОЗМІКНУТІ</text>
+  <text x="785" y="338" font-size="12" fill="#6b7280" text-anchor="middle">Сигнал дозволу: 0 (Аварія)</text>
+
+  <!-- BOTTOM KINEMATIC TRAJECTORY & NON-REPEAT LATCHING PANEL -->
+  <rect x="40" y="375" width="880" height="125" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="396" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Траєкторії переходу та механізм блокування повторного ввімкнення (Non-repeat Return)</text>
+
+  <!-- Forward Transitions -->
+  <!-- Pos 1 -> Pos 2 -->
+  <path d="M 175,415 L 335,415" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="255" y="410" font-size="12" fill="#27ae60" text-anchor="middle">1 → 2: Натискання до центру</text>
+
+  <!-- Pos 2 -> Pos 3 -->
+  <path d="M 625,415 L 785,415" fill="none" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="705" y="410" font-size="12" fill="#c0392b" text-anchor="middle">2 → 3: Перетиск (Паніка)</text>
+
+  <!-- Return Transition (Pos 3 -> Pos 1 bypassing Pos 2 contact) -->
+  <path d="M 785,455 C 600,490 360,490 175,455" fill="none" stroke="#2457d6" stroke-width="2.5" stroke-dasharray="6,4" marker-end="url(#arr-blue)"/>
+  <text x="480" y="448" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Зворотний хід 3 → 1: Собачка куліси обходить контактну групу (без замикання в Позиції 2!)</text>
+  <text x="480" y="480" font-size="12" fill="#6b7280" text-anchor="middle">Повторний дозвіл можливий лише після повного скидання рукоятки в Позицію 1 (ISO 10218 / IEC 60204-1)</text>
+
+</svg>

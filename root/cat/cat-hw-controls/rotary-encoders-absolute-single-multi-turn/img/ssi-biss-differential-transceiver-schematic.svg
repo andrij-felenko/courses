@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схемотехніка трансиверів RS-422 для інтерфейсів SSI та BiSS-C</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Диференціальна передача тактування MA (Clock) та даних SLO (Data) з термінаторами 120 Ом</text>
+
+  <!-- LEFT PANEL: MCU Master Controller -->
+  <rect x="25" y="65" width="250" height="390" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="35" y="75" width="230" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="150" y="95" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Контролер / Мастер (MCU)</text>
+
+  <!-- 1. MA Clock Transmitter Driver (MCU -> Encoder) -->
+  <polygon points="70,125 150,155 70,185" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="95" y="159" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">TX (MA)</text>
+  <line x1="35" y1="155" x2="70" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="35" y="148" font-size="12" fill="#6b7280">SPI_CLK</text>
+
+  <!-- Outputs MA+ and MA- from MCU -->
+  <line x1="150" y1="140" x2="275" y2="140" stroke="#2457d6" stroke-width="2"/>
+  <text x="175" y="133" font-size="12" font-weight="bold" fill="#2457d6">MA+ (CLK+)</text>
+
+  <line x1="150" y1="170" x2="275" y2="170" stroke="#c0392b" stroke-width="2"/>
+  <text x="175" y="185" font-size="12" font-weight="bold" fill="#c0392b">MA- (CLK-)</text>
+
+  <!-- 2. SLO Data Receiver (Encoder -> MCU) -->
+  <polygon points="150,275 70,305 150,335" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="125" y="309" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">RX (SLO)</text>
+  <line x1="70" y1="305" x2="35" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="35" y="298" font-size="12" fill="#6b7280">SPI_MISO</text>
+
+  <!-- Inputs SLO+ and SLO- at MCU -->
+  <line x1="275" y1="290" x2="150" y2="290" stroke="#2457d6" stroke-width="2"/>
+  <text x="175" y="283" font-size="12" font-weight="bold" fill="#2457d6">SLO+ (DATA+)</text>
+
+  <line x1="275" y1="320" x2="150" y2="320" stroke="#c0392b" stroke-width="2"/>
+  <text x="175" y="335" font-size="12" font-weight="bold" fill="#c0392b">SLO- (DATA-)</text>
+
+  <!-- Termination Resistor RT2 (120 Ohm) at MCU Receiver -->
+  <line x1="205" y1="290" x2="205" y2="298" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="197" y="298" width="16" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="217" y="308" font-size="10" font-weight="bold" fill="#1a1a1a">R_T2=120Ω</text>
+  <line x1="205" y1="312" x2="205" y2="320" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Fail-Safe Biasing at MCU for SLO -->
+  <line x1="160" y1="290" x2="160" y2="265" stroke="#2457d6" stroke-width="1"/>
+  <rect x="154" y="250" width="12" height="15" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="160" y="243" text-anchor="middle" font-size="12" fill="#2457d6">+VCC</text>
+
+  <line x1="160" y1="320" x2="160" y2="345" stroke="#c0392b" stroke-width="1"/>
+  <rect x="154" y="345" width="12" height="15" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="160" y="372" text-anchor="middle" font-size="12" fill="#c0392b">GND</text>
+
+  <!-- MIDDLE: Shielded Cable & Line Pair Connections -->
+  <rect x="300" y="115" width="360" height="255" rx="8" fill="#f8f9fa" stroke="#95a5a6" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="480" y="132" text-anchor="middle" font-size="12" font-weight="bold" fill="#7f8c8d">Екранований кабель витих пар (Z₀ = 120 Ω)</text>
+
+  <!-- Pair 1: Clock Lines MA (MCU -> Encoder) -->
+  <line x1="275" y1="140" x2="685" y2="140" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="275" y1="170" x2="685" y2="170" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M 380,140 Q 400,155 420,170 M 380,170 Q 400,155 420,140 M 540,140 Q 560,155 580,170 M 540,170 Q 560,155 580,140" fill="none" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="480" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Тактування MA → (Master Clock)</text>
+
+  <!-- Pair 2: Data Lines SLO (Encoder -> MCU) -->
+  <line x1="275" y1="290" x2="685" y2="290" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="275" y1="320" x2="685" y2="320" stroke="#c0392b" stroke-width="2.5"/>
+  <path d="M 380,290 Q 400,305 420,320 M 380,320 Q 400,305 420,290 M 540,290 Q 560,305 580,320 M 540,320 Q 560,305 580,290" fill="none" stroke="#bdc3c7" stroke-width="1.5"/>
+  <text x="480" y="302" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">← Дані SLO (Slave Data)</text>
+
+  <!-- Shield Grounding Line to PE at MCU Side -->
+  <path d="M 640,360 L 640,390 L 150,390 L 150,405" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <!-- PE Ground Symbol -->
+  <line x1="150" y1="405" x2="150" y2="425" stroke="#27ae60" stroke-width="2"/>
+  <line x1="138" y1="425" x2="162" y2="425" stroke="#27ae60" stroke-width="2"/>
+  <line x1="142" y1="429" x2="158" y2="429" stroke="#27ae60" stroke-width="2"/>
+  <line x1="146" y1="433" x2="154" y2="433" stroke="#27ae60" stroke-width="2"/>
+  <text x="168" y="428" font-size="12" font-weight="bold" fill="#27ae60">PE / Захисне заземлення</text>
+  <text x="480" y="385" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Одноточкове заземлення екрана кабелю (PE)</text>
+
+  <!-- RIGHT PANEL: Absolute Encoder (Slave Device) -->
+  <rect x="685" y="65" width="250" height="390" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="695" y="75" width="230" height="30" rx="4" fill="#27ae60" opacity="0.15" stroke="#27ae60" stroke-width="1"/>
+  <text x="810" y="95" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e7e34">Абсолютний енкодер (Slave)</text>
+
+  <!-- 1. MA Clock Receiver (Encoder Side) -->
+  <polygon points="735,125 815,155 735,185" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="760" y="159" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">RX (MA)</text>
+  <line x1="815" y1="155" x2="850" y2="155" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="855" y="158" font-size="12" fill="#6b7280">Internal CLK</text>
+
+  <!-- Inputs MA+ and MA- at Encoder -->
+  <line x1="685" y1="140" x2="735" y2="140" stroke="#2457d6" stroke-width="2"/>
+  <line x1="685" y1="170" x2="735" y2="170" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Termination Resistor RT1 (120 Ohm) at Encoder Clock Input -->
+  <line x1="710" y1="140" x2="710" y2="148" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="702" y="148" width="16" height="14" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="710" y="133" text-anchor="middle" font-size="10" font-weight="bold" fill="#1a1a1a">R_T1=120Ω</text>
+  <line x1="710" y1="162" x2="710" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- 2. SLO Data Transmitter Driver (Encoder Side) -->
+  <polygon points="815,275 735,305 815,335" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="790" y="309" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">TX (SLO)</text>
+  <line x1="850" y1="305" x2="815" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="855" y="308" font-size="12" fill="#6b7280">Code Disc Data</text>
+
+  <!-- Outputs SLO+ and SLO- from Encoder -->
+  <line x1="735" y1="290" x2="685" y2="290" stroke="#2457d6" stroke-width="2"/>
+  <line x1="735" y1="320" x2="685" y2="320" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- BOTTOM SUMMARY CARD -->
+  <rect x="25" y="465" width="910" height="60" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="35" y="484" font-size="12" font-weight="bold" fill="#1a1a1a">• Узгодження імпедансу: Термінатор RT1 = 120 Ом на MA (боку енкодера) та RT2 = 120 Ом на SLO (боку контролера)</text>
+  <text x="35" y="503" font-size="12" fill="#2457d6">• Напрямок сигналів: Пара MA (Clock) передається від MCU до Encoder, пара SLO (Data) — від Encoder до MCU</text>
+  <text x="35" y="518" font-size="12" fill="#27ae60">• Завадостійкість: Диференційні лінії RS-422 компенсують синфазні завади та забезпечують роботу до 10 МГц</text>
+</svg>

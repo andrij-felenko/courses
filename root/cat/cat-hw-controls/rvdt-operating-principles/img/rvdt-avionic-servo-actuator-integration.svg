@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Інтеграція RVDT в авіаційний гідросервопривід та обробка 400 Гц</text>
+  <text x="480" y="50" font-size="13" text-anchor="middle" fill="#6b7280">Механічний зв'язок вала приводу з ротором RVDT формує зворотний зв'язок кута θ для демодулятора</text>
+
+  <!-- Panel 1: Avionic Hydraulic Servo-Actuator -->
+  <rect x="40" y="80" width="250" height="395" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="165" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Гідросервопривід</text>
+
+  <!-- Block A: Hydraulic Cylinder Block -->
+  <rect x="55" y="125" width="220" height="80" fill="white" stroke="#6b7280" stroke-width="1" rx="4"/>
+  <text x="165" y="142" font-size="12" font-weight="bold" text-anchor="middle" fill="#6b7280">Гідроциліндр приводу</text>
+  <rect x="70" y="150" width="190" height="30" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1" rx="2"/>
+  <rect x="150" y="152" width="16" height="26" fill="#2457d6" rx="2"/>
+  <line x1="166" y1="165" x2="255" y2="165" stroke="#1a1a1a" stroke-width="3"/>
+
+  <!-- Block B: Electro-Hydraulic Servo Valve (EHSV) -->
+  <line x1="110" y1="215" x2="110" y2="180" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <line x1="220" y1="215" x2="220" y2="180" stroke="#2457d6" stroke-dasharray="3,3" stroke-width="1.5"/>
+
+  <rect x="55" y="215" width="220" height="50" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="165" y="234" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Сервоклапан ЕГГП (EHSV)</text>
+  <text x="165" y="252" font-size="12" fill="#6b7280" text-anchor="middle">Керування тиском масла</text>
+
+  <!-- Block C: Mechanical Shaft Output -->
+  <rect x="55" y="275" width="220" height="65" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <line x1="165" y1="285" x2="165" y2="319" stroke="#1a1a1a" stroke-width="3"/>
+  <circle cx="165" cy="305" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="165" y="332" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кутовий вихід вала θ</text>
+
+  <!-- Block D: Control Surface (Aileron) -->
+  <rect x="55" y="390" width="220" height="55" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="165" y="422" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Кермова поверхня (Елерон)</text>
+
+  <!-- Panel 2: RVDT Sensor & 400 Hz Generator -->
+  <rect x="310" y="80" width="290" height="395" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="455" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#2457d6">Датчик RVDT та 400 Гц</text>
+
+  <!-- 400 Hz Generator -->
+  <rect x="325" y="125" width="260" height="60" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="455" y="148" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Авіаційний генератор 400 Гц</text>
+  <text x="455" y="170" font-size="12" text-anchor="middle" fill="#1a1a1a">V_exc = 26 V RMS (400 Гц)</text>
+
+  <!-- Connection: 400 Hz Gen -> RVDT Primary -->
+  <line x1="455" y1="185" x2="455" y2="218" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- RVDT Assembly Box -->
+  <rect x="325" y="210" width="260" height="145" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+
+  <!-- Primary Winding P -->
+  <rect x="340" y="220" width="230" height="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="3"/>
+  <text x="455" y="240" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Первинна обмотка P (400 Гц)</text>
+
+  <!-- RVDT Core -->
+  <circle cx="455" cy="285" r="15" fill="#2457d6"/>
+  <text x="455" y="289" font-size="11" font-weight="bold" text-anchor="middle" fill="white">RVDT</text>
+
+  <!-- Secondary Windings S1 & S2 -->
+  <rect x="340" y="310" width="230" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="3"/>
+  <text x="455" y="331" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Вторинні обмотки S₁ та S₂</text>
+
+  <!-- Mechanical Shaft Coupling (Hydraulic Shaft -> RVDT Core) -->
+  <line x1="275" y1="285" x2="338" y2="285" stroke="#1a1a1a" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr)"/>
+  <text x="306" y="272" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вал θ</text>
+
+  <!-- Connection: RVDT Secondaries -> Output Box -->
+  <line x1="455" y1="342" x2="455" y2="373" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Signal Output Box -->
+  <rect x="325" y="375" width="260" height="85" fill="white" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="455" y="396" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Диференційний AC-сигнал 400 Гц</text>
+  <text x="455" y="418" font-size="12" fill="#1a1a1a" text-anchor="middle">V_sec(t) = (V_S1 - V_S2) · sin(800π t)</text>
+  <text x="455" y="440" font-size="12" fill="#6b7280" text-anchor="middle">Амплітуда ∝ |θ|, Фаза ∝ sgn(θ)</text>
+
+  <!-- Panel 3: Phase-Sensitive Demodulator & FCC -->
+  <rect x="630" y="80" width="290" height="395" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="775" y="105" font-size="14" font-weight="bold" text-anchor="middle" fill="#27ae60">Демодулятор та ЕОМ польоту</text>
+
+  <!-- Reference Sync Line (400 Hz Gen -> PSD) -->
+  <line x1="585" y1="155" x2="643" y2="155" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <text x="614" y="145" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Ref</text>
+
+  <!-- Signal Line (Output Box -> PSD) -->
+  <path d="M 585,418 L 610,418 L 610,175 L 643,175" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="618" y="300" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">V_sec</text>
+
+  <!-- Synchronous Rectifier / Multiplier (PSD) -->
+  <rect x="645" y="125" width="260" height="70" fill="white" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="775" y="147" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Синхронний детектор (PSD)</text>
+  <text x="775" y="167" font-size="12" fill="#1a1a1a" text-anchor="middle">Множення V_sec на опорні 400 Гц</text>
+  <text x="775" y="185" font-size="12" fill="#6b7280" text-anchor="middle">Визначення знаку кута (±θ)</text>
+
+  <!-- Connection: PSD -> LPF -->
+  <line x1="775" y1="195" x2="775" y2="210" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Low-Pass Filter (LPF) -->
+  <rect x="645" y="210" width="260" height="50" fill="white" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="775" y="232" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">Фільтр низьких частот (ФНЧ)</text>
+  <text x="775" y="252" font-size="12" fill="#6b7280" text-anchor="middle">Придушення пульсацій 400 Гц</text>
+
+  <!-- Connection: LPF -> FCC -->
+  <line x1="775" y1="260" x2="775" y2="275" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- DC Output Voltage & Flight Control Computer (FCC) -->
+  <rect x="645" y="275" width="260" height="180" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" rx="4"/>
+  <text x="775" y="298" font-size="13" font-weight="bold" text-anchor="middle" fill="#27ae60">Аналогова напруга кута V_DC(θ)</text>
+  <text x="775" y="318" font-size="12" font-weight="bold" text-anchor="middle" fill="#1a1a1a">V_DC = ±10 V (пропорційно куту)</text>
+  <text x="775" y="340" font-size="12" font-weight="bold" text-anchor="middle" fill="#2457d6">Зворотний зв'язок ЕОМ польоту (FCC)</text>
+
+  <rect x="660" y="365" width="230" height="75" fill="white" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="775" y="388" font-size="12" font-weight="bold" text-anchor="middle" fill="#27ae60">Точність &lt; 0.1% FS</text>
+  <text x="775" y="408" font-size="12" fill="#6b7280" text-anchor="middle">Затримка відгуку ~2.5 мс</text>
+  <text x="775" y="426" font-size="11" fill="#6b7280" text-anchor="middle">Частота оновлення: безперервна</text>
+
+  <!-- Bottom Legend Banner -->
+  <rect x="40" y="490" width="880" height="35" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <circle cx="65" cy="507" r="6" fill="#1a1a1a"/>
+  <text x="80" y="511" font-size="12" text-anchor="start" fill="#1a1a1a">Механічний вал гідроприводу</text>
+
+  <circle cx="340" cy="507" r="6" fill="#2457d6"/>
+  <text x="355" y="511" font-size="12" text-anchor="start" fill="#1a1a1a">Опорний сигнал збудження 400 Гц</text>
+
+  <circle cx="670" cy="507" r="6" fill="#27ae60"/>
+  <text x="685" y="511" font-size="12" text-anchor="start" fill="#1a1a1a">Демодульована напруга кута (V_DC)</text>
+</svg>

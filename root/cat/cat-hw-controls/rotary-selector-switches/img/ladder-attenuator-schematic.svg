@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема східчастого атенюатора (Ladder Attenuator) на галетному перемикачі</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Дискретний дільник напруги з комутацією точок знімання сигналу U_out та постійним сумарним опором R_total</text>
+
+  <!-- SCHEMATIC DIAGRAM AREA (Left Half) -->
+
+  <!-- Input Terminals & Voltage Vector -->
+  <circle cx="60" cy="120" r="4" fill="#2457d6"/>
+  <text x="45" y="124" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">U_in</text>
+  
+  <circle cx="60" cy="390" r="4" fill="#6b7280"/>
+  <text x="45" y="394" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="end">GND</text>
+  
+  <!-- Voltage Arrow U_in -->
+  <line x1="60" y1="130" x2="60" y2="380" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Main Bus Line: Input to Resistors -->
+  <line x1="60" y1="120" x2="160" y2="120" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="60" y1="390" x2="490" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Resistor String (Vertical Ladder) -->
+  <!-- Vertical wire segments -->
+  <line x1="160" y1="120" x2="160" y2="135" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="160" y1="170" x2="160" y2="205" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="160" y1="240" x2="160" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="160" y1="310" x2="160" y2="340" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="160" y1="375" x2="160" y2="390" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Resistor 1 -->
+  <rect x="152" y="135" width="16" height="35" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5" rx="1"/>
+  <text x="135" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R₁</text>
+
+  <!-- Resistor 2 -->
+  <rect x="152" y="205" width="16" height="35" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5" rx="1"/>
+  <text x="135" y="222" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R₂</text>
+
+  <!-- Resistor 3 -->
+  <rect x="152" y="275" width="16" height="35" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5" rx="1"/>
+  <text x="135" y="292" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R₃</text>
+
+  <!-- Resistor 4 -->
+  <rect x="152" y="340" width="16" height="35" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5" rx="1"/>
+  <text x="135" y="357" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">R₄</text>
+
+  <!-- Nodes on Ladder String -->
+  <circle cx="160" cy="120" r="3.5" fill="#1a1a1a"/>
+  <circle cx="160" cy="190" r="3.5" fill="#1a1a1a"/>
+  <circle cx="160" cy="260" r="3.5" fill="#1a1a1a"/>
+  <circle cx="160" cy="330" r="3.5" fill="#1a1a1a"/>
+  <circle cx="160" cy="390" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Horizontal Taps to Rotary Contacts -->
+  <line x1="160" y1="120" x2="260" y2="120" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="160" y1="190" x2="260" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="160" y1="260" x2="260" y2="260" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="160" y1="330" x2="260" y2="330" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="160" y1="390" x2="260" y2="390" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Rotary Switch Contacts (Pos 1..5) -->
+  <!-- Contact 1 -->
+  <circle cx="260" cy="120" r="5" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="275" y="112" font-size="12" font-weight="bold" fill="#1a1a1a">Поз. 1 (0 dB)</text>
+
+  <!-- Contact 2 (Active Connected) -->
+  <circle cx="260" cy="190" r="6" fill="#2457d6" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="275" y="182" font-size="12" font-weight="bold" fill="#2457d6">Поз. 2 (-6 dB)</text>
+
+  <!-- Contact 3 -->
+  <circle cx="260" cy="260" r="5" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="275" y="252" font-size="12" fill="#6b7280">Поз. 3 (-12 dB)</text>
+
+  <!-- Contact 4 -->
+  <circle cx="260" cy="330" r="5" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="275" y="322" font-size="12" fill="#6b7280">Поз. 4 (-18 dB)</text>
+
+  <!-- Contact 5 (GND) -->
+  <circle cx="260" cy="390" r="5" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="275" y="380" font-size="12" fill="#6b7280">Поз. 5 (-∞ dB)</text>
+
+  <!-- Rotary Switch Wiper Arm (Rotor Contact) -->
+  <line x1="400" y1="255" x2="266" y2="190" stroke="#2457d6" stroke-width="3"/>
+  <circle cx="400" cy="255" r="6" fill="#2457d6" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="360" y="215" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Рухомий контакт</text>
+
+  <!-- Output Wire from Wiper to Output Terminal -->
+  <line x1="400" y1="255" x2="490" y2="255" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Output Terminals -->
+  <circle cx="490" cy="255" r="4" fill="#2457d6"/>
+  <text x="505" y="259" font-size="13" font-weight="bold" fill="#2457d6">U_out</text>
+
+  <circle cx="490" cy="390" r="4" fill="#6b7280"/>
+  <text x="505" y="394" font-size="13" font-weight="bold" fill="#6b7280">GND</text>
+
+  <!-- Ground Symbol -->
+  <line x1="160" y1="390" x2="160" y2="410" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="148" y1="410" x2="172" y2="410" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="153" y1="414" x2="167" y2="414" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="157" y1="418" x2="163" y2="418" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- FORMULA CARDS AREA (Right Half) -->
+
+  <!-- Card 1: Division Ratio -->
+  <rect x="570" y="105" width="350" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="585" y="130" font-size="13" font-weight="bold" fill="#2457d6">Коефіцієнт ділення K_v(k):</text>
+  <text x="585" y="155" font-size="12" font-weight="bold" fill="#1a1a1a">K_v(k) = U_out(k) / U_in = ( Σ_{i=k}^{n} R_i ) / R_total</text>
+  <text x="585" y="180" font-size="12" fill="#6b7280">де R_total = R₁ + R₂ + ... + R_n = const</text>
+
+  <!-- Card 2: Attenuation in dB -->
+  <rect x="570" y="220" width="350" height="95" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="585" y="245" font-size="13" font-weight="bold" fill="#1a1a1a">Ослаблення в децибелах A(k):</text>
+  <text x="585" y="270" font-size="12" font-weight="bold" fill="#2457d6">A(k) = 20 · lg( U_out(k) / U_in ) = 20 · lg( K_v(k) )  [dB]</text>
+  <text x="585" y="295" font-size="12" fill="#6b7280">Логарифмічний крок регулювання гучності</text>
+
+  <!-- Card 3: Resistor Sizing Formula -->
+  <rect x="570" y="335" width="350" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="585" y="360" font-size="13" font-weight="bold" fill="#27ae60">Розрахунок резисторів ступеня R_k:</text>
+  <text x="585" y="385" font-size="12" font-weight="bold" fill="#1a1a1a">R_k = R_total · [ K_v(k) - K_v(k+1) ]</text>
+  <text x="585" y="410" font-size="12" fill="#6b7280">Постійний вхідний імпеданс Z_in = R_total</text>
+</svg>

@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Механізм примусового розмикання промислового кулачкового перемикача</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Фасонний кулачок прямо долає зусилля пружини та примусово відпихає подвійний містковий контакт</text>
+
+  <!-- ==================== LEFT PANEL: STATE 1 (CLOSED CONTACT) ==================== -->
+  <rect x="30" y="75" width="435" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Header Badge Left -->
+  <rect x="45" y="87" width="405" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="247" y="104" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Стан 1: Контакт замкнений (Кулачок у западині)</text>
+
+  <!-- Fixed Terminals L1 & L2 -->
+  <!-- Terminal L1 (Left) -->
+  <rect x="75" y="145" width="90" height="25" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="165" cy="170" r="5" fill="#27ae60"/>
+  <text x="120" y="135" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Клема L1</text>
+
+  <!-- Terminal L2 (Right) -->
+  <rect x="305" y="145" width="90" height="25" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="305" cy="170" r="5" fill="#27ae60"/>
+  <text x="350" y="135" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Клема L2</text>
+
+  <!-- Current Path Line (Green active current flow) -->
+  <path d="M 75,157 L 165,157 L 165,170 L 305,170 L 305,157 L 395,157" stroke="#27ae60" stroke-width="2.5" fill="none" marker-end="url(#arr-green)"/>
+  
+  <!-- Label: Current Flow (Left Side) -->
+  <text x="45" y="195" font-size="12" font-weight="bold" fill="#27ae60">Струмовий шлях ON</text>
+  <line x1="160" y1="185" x2="172" y2="175" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Double-Break Contact Bridge (Closed Position) -->
+  <rect x="155" y="170" width="160" height="12" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  
+  <!-- Label: Bridge Contact (Right Side) -->
+  <text x="330" y="195" font-size="12" font-weight="bold" fill="#27ae60">Місток (Замкнено)</text>
+  <line x1="325" y1="185" x2="310" y2="176" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Insulated Plunger Stem -->
+  <rect x="241" y="182" width="12" height="143" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Compression Spring (Active, pushing bridge UP) -->
+  <path d="M 235,210 L 259,216 L 235,222 L 259,228 L 235,234 L 259,240 L 235,246 L 259,252 L 247,258" stroke="#27ae60" stroke-width="2" fill="none"/>
+  
+  <!-- Label: Compression Spring (Left Side) -->
+  <text x="45" y="235" font-size="12" font-weight="bold" fill="#27ae60">Пружина тиску</text>
+  <line x1="140" y1="231" x2="230" y2="231" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+
+  <!-- Label: Plunger Stem (Left Side) -->
+  <text x="45" y="270" font-size="12" font-weight="bold" fill="#1a1a1a">Штовхач</text>
+  <line x1="95" y1="264" x2="238" y2="264" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Rotating Cam Shaft & Profile (Low Recess Facing Up) -->
+  <circle cx="247" cy="370" r="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <!-- Cam Profile Outline (Lobe pointing down) -->
+  <path d="M 207,370 A 40,40 0 0,1 287,370 C 287,415 207,415 207,370 Z" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="247" cy="370" r="4" fill="#2457d6"/>
+
+  <!-- Cam Rotation Arrow -->
+  <path d="M 295,355 A 50,50 0 0,1 295,385" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="247" y="418" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Фасонний кулачок (Вал)</text>
+
+  <!-- Left Summary Box -->
+  <rect x="45" y="430" width="405" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="448" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Пружина забезпечує стабільний контактний тиск F_contact</text>
+
+
+  <!-- ==================== RIGHT PANEL: STATE 2 (FORCED OPENING) ==================== -->
+  <rect x="495" y="75" width="435" height="395" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Header Badge Right -->
+  <rect x="510" y="87" width="405" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="700" y="104" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Стан 2: Примусове розмикання (Кулачок тисне на штовхач)</text>
+
+  <!-- Fixed Terminals L1 & L2 -->
+  <!-- Terminal L1 (Left) -->
+  <rect x="540" y="145" width="90" height="25" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="630" cy="170" r="5" fill="#c0392b"/>
+  <text x="585" y="135" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Клема L1</text>
+
+  <!-- Terminal L2 (Right) -->
+  <rect x="770" y="145" width="90" height="25" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="770" cy="170" r="5" fill="#c0392b"/>
+  <text x="815" y="135" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Клема L2</text>
+
+  <!-- Double-Break Air Gaps (d_gap) -->
+  <!-- Left Gap Line & Arrow -->
+  <line x1="615" y1="170" x2="615" y2="205" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2 2" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="575" y="192" font-size="12" font-weight="bold" fill="#c0392b">d_gap</text>
+
+  <!-- Right Gap Line & Arrow -->
+  <line x1="785" y1="170" x2="785" y2="205" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2 2" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="795" y="192" font-size="12" font-weight="bold" fill="#c0392b">d_gap</text>
+
+  <!-- Double-Break Contact Bridge (Pushed Down / Open Position) -->
+  <rect x="620" y="205" width="160" height="12" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  
+  <!-- Label: Bridge Open Position (Right Side) -->
+  <text x="795" y="235" font-size="12" font-weight="bold" fill="#c0392b">Розрив контакту</text>
+  <line x1="790" y1="231" x2="782" y2="211" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Insulated Plunger Stem (Pushed DOWN by Cam Lobe) -->
+  <rect x="694" y="217" width="12" height="83" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Compression Spring (Compressed tight) -->
+  <path d="M 688,230 L 712,234 L 688,238 L 712,242 L 688,246 L 712,250 L 688,254 L 712,258 L 700,262" stroke="#c0392b" stroke-width="2" fill="none"/>
+  
+  <!-- Safety Positive Opening Callout Box (Left Side) -->
+  <rect x="510" y="245" width="165" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="592" y="262" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Примусове розривання</text>
+  <text x="592" y="277" font-size="12" fill="#c0392b" text-anchor="middle">(запобігає зварюванню)</text>
+  <line x1="675" y1="266" x2="691" y2="266" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+
+  <!-- Cam Force Arrow F_cam -->
+  <line x1="740" y1="330" x2="740" y2="280" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="750" y="310" font-size="12" font-weight="bold" fill="#c0392b">F_cam</text>
+
+  <!-- Rotating Cam Shaft & Profile (High Lobe Pointing UP) -->
+  <circle cx="700" cy="370" r="12" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <!-- Cam Profile Outline (Lobe pointing UP, pushing stem) -->
+  <path d="M 660,370 A 40,40 0 0,0 740,370 C 740,300 660,300 660,370 Z" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="700" cy="370" r="4" fill="#2457d6"/>
+
+  <text x="700" y="418" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Виступ кулачка (Примусовий штовхач)</text>
+
+  <!-- Right Summary Box -->
+  <rect x="510" y="430" width="405" height="30" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="700" y="448" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Гарантоване розмикання кола навіть при зварюванні контактів</text>
+
+
+  <!-- ==================== FOOTER ==================== -->
+  <rect x="30" y="482" width="900" height="28" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="500" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Подвійний містковий розрив згашує дугу, а кулачковий привід забезпечує примусове розмикання (IEC 60947-5-1)</text>
+</svg>

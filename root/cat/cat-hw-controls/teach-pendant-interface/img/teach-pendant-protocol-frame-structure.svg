@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Defs for Markers -->
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура бінарного кадру протоколу пульта налагодження (Teach Pendant)</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Впорядкування полів кадру (12 байтів) та часовий регламент сторожового таймера обриву зв'язку</text>
+
+  <!-- MAIN FRAME CONTAINER PANEL -->
+  <rect x="25" y="75" width="910" height="185" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8" ry="8"/>
+  <text x="480" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формат бінарного пакету даних RS-485 / CAN (12 байтів / 100 Гц)</text>
+
+  <!-- Field 1: SOF / Sync -->
+  <rect x="45" y="115" width="110" height="125" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="5" ry="5"/>
+  <text x="100" y="138" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SOF / Sync</text>
+  <text x="100" y="162" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0xAA 0x55</text>
+  <text x="100" y="186" font-size="12" fill="#6b7280" text-anchor="middle">2 байти</text>
+  <text x="100" y="210" font-size="12" fill="#2457d6" text-anchor="middle">Синхронізація</text>
+  <text x="100" y="228" font-size="12" fill="#6b7280" text-anchor="middle">Байт 0..1</text>
+
+  <!-- Field 2: Msg ID -->
+  <rect x="167" y="115" width="85" height="125" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="5" ry="5"/>
+  <text x="209.5" y="138" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">SEQ / ID</text>
+  <text x="209.5" y="162" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0x00..0xFF</text>
+  <text x="209.5" y="186" font-size="12" fill="#6b7280" text-anchor="middle">1 байт</text>
+  <text x="209.5" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Лічильник</text>
+  <text x="209.5" y="228" font-size="12" fill="#6b7280" text-anchor="middle">Байт 2</text>
+
+  <!-- Field 3: Safety -->
+  <rect x="264" y="115" width="110" height="125" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="5" ry="5"/>
+  <text x="319" y="138" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Безпека</text>
+  <text x="319" y="162" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Deadman+E-Stop</text>
+  <text x="319" y="186" font-size="12" fill="#6b7280" text-anchor="middle">1 байт (2-кан)</text>
+  <text x="319" y="210" font-size="12" fill="#c0392b" text-anchor="middle">Категорія 3/4</text>
+  <text x="319" y="228" font-size="12" fill="#6b7280" text-anchor="middle">Байт 3</text>
+
+  <!-- Field 4: Buttons -->
+  <rect x="386" y="115" width="120" height="125" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="5" ry="5"/>
+  <text x="446" y="138" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кнопки</text>
+  <text x="446" y="162" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Btn Mask</text>
+  <text x="446" y="186" font-size="12" fill="#6b7280" text-anchor="middle">2 байти (16 біт)</text>
+  <text x="446" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Матриця клавіш</text>
+  <text x="446" y="228" font-size="12" fill="#6b7280" text-anchor="middle">Байт 4..5</text>
+
+  <!-- Field 5: Joystick -->
+  <rect x="518" y="115" width="160" height="125" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="5" ry="5"/>
+  <text x="598" y="138" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Джойстик</text>
+  <text x="598" y="162" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">X, Y, Z (8-біт)</text>
+  <text x="598" y="186" font-size="12" fill="#6b7280" text-anchor="middle">3 байти (int8)</text>
+  <text x="598" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Осі позиціонування</text>
+  <text x="598" y="228" font-size="12" fill="#6b7280" text-anchor="middle">Байт 6..8</text>
+
+  <!-- Field 6: Status -->
+  <rect x="690" y="115" width="95" height="125" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="5" ry="5"/>
+  <text x="737.5" y="138" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Статус</text>
+  <text x="737.5" y="162" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Mode/Flags</text>
+  <text x="737.5" y="186" font-size="12" fill="#6b7280" text-anchor="middle">1 байт</text>
+  <text x="737.5" y="210" font-size="12" fill="#6b7280" text-anchor="middle">Режим робота</text>
+  <text x="737.5" y="228" font-size="12" fill="#6b7280" text-anchor="middle">Байт 9</text>
+
+  <!-- Field 7: CRC-16 -->
+  <rect x="797" y="115" width="120" height="125" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="5" ry="5"/>
+  <text x="857" y="138" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">CRC-16</text>
+  <text x="857" y="162" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Checksum</text>
+  <text x="857" y="186" font-size="12" fill="#6b7280" text-anchor="middle">2 байти (CCITT)</text>
+  <text x="857" y="210" font-size="12" fill="#27ae60" text-anchor="middle">Контроль помилок</text>
+  <text x="857" y="228" font-size="12" fill="#6b7280" text-anchor="middle">Байт 10..11</text>
+
+  <!-- BOTTOM LEFT PANEL: TIMING & WATCHDOG -->
+  <rect x="25" y="275" width="445" height="180" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8" ry="8"/>
+  <text x="247.5" y="297" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часовий регламент та Сторожовий таймер</text>
+
+  <!-- Axis -->
+  <line x1="55" y1="380" x2="415" y2="380" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="422" y="384" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">Час t</text>
+
+  <!-- Frame N -->
+  <rect x="65" y="352" width="45" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="87.5" y="370" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Кадр N</text>
+
+  <!-- Frame N+1 -->
+  <rect x="175" y="352" width="45" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="3"/>
+  <text x="197.5" y="370" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">N+1</text>
+
+  <!-- Lost Frame N+2 -->
+  <rect x="285" y="352" width="45" height="28" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" rx="3"/>
+  <text x="307.5" y="370" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Втрата!</text>
+
+  <!-- Cycle Interval Arrow -->
+  <line x1="65" y1="332" x2="175" y2="332" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="120" y="326" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T_cycle = 10 мс (100 Гц)</text>
+
+  <!-- Timeout Interval Arrow -->
+  <line x1="175" y1="412" x2="395" y2="412" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="285" y="432" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">t_timeout &lt;= 50 мс -&gt; Аварійний стоп</text>
+
+  <!-- BOTTOM RIGHT PANEL: SAFETY REQUIREMENTS -->
+  <rect x="490" y="275" width="445" height="180" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8" ry="8"/>
+  <text x="712.5" y="297" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вимоги надійності та безпеки протоколу</text>
+
+  <rect x="505" y="310" width="415" height="130" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6" ry="6"/>
+  <text x="712.5" y="330" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Критичні параметри передачі кадру:</text>
+  <text x="712.5" y="352" font-size="12" fill="#1a1a1a" text-anchor="middle">• Частота опитування: 100 Гц (період кадру 10 мс)</text>
+  <text x="712.5" y="374" font-size="12" fill="#2457d6" text-anchor="middle">• Контрольна сума: CRC-16-CCITT (поліном 0x1021)</text>
+  <text x="712.5" y="396" font-size="12" fill="#c0392b" text-anchor="middle">• Дублювання кнопок: 2-канальний зріз у кожному кадрі</text>
+  <text x="712.5" y="418" font-size="12" fill="#27ae60" text-anchor="middle">• Таймаут зв'язку: авто-Emergency Stop при t &gt; 50 мс</text>
+</svg>

@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Marker Defs -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часові діаграми та структура кадрів протоколів SSI та BiSS-C</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Тактування MA/SLO, виділення бітів положення, діагностики (E/W) та контрольної суми CRC</text>
+
+  <!-- SECTION 1: SSI PROTOCOL -->
+  <rect x="30" y="70" width="900" height="205" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="94" font-size="14" font-weight="bold" fill="#2457d6">1. Протокол SSI (Synchronous Serial Interface) — Односпрямоване тактування</text>
+
+  <!-- Signal Labels -->
+  <text x="50" y="128" font-size="12" font-weight="bold" fill="#1a1a1a">MA (Clock)</text>
+  <text x="50" y="158" font-size="12" font-weight="bold" fill="#1a1a1a">DATA (SLO)</text>
+
+  <!-- MA Clock Waveform -->
+  <path d="M 140,115 L 175,115 L 175,133 L 195,133 L 195,115 L 215,115 L 215,133 L 235,133 L 235,115 L 255,115 L 255,133 L 275,133 L 275,115 L 295,115 L 295,133 L 315,133 L 315,115 L 340,115 M 390,115 L 415,115 L 415,133 L 435,133 L 435,115 L 455,115 L 455,133 L 475,133 L 475,115 L 890,115" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="365" y="124" text-anchor="middle" font-size="12" fill="#6b7280">...</text>
+
+  <!-- DATA (SLO) Waveform -->
+  <path d="M 140,148 L 175,148 L 175,166 L 195,166 L 195,148 L 275,148 L 275,166 L 340,166 M 390,166 L 415,166 L 415,148 L 455,148 L 475,148 L 475,166 L 800,166 L 800,148 L 890,148" fill="none" stroke="#1a1a1a" stroke-width="1.8"/>
+
+  <!-- Monostable delay t_m indicator -->
+  <line x1="475" y1="138" x2="800" y2="138" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="637" y="132" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Пауза моностабільного таймера t_m (10..20 мкс)</text>
+
+  <!-- SSI Frame Bit Structure Header -->
+  <text x="50" y="195" font-size="12" font-weight="bold" fill="#6b7280">Структура кадру SSI:</text>
+
+  <!-- SSI Bit Blocks -->
+  <!-- Block 1: Idle -->
+  <rect x="160" y="205" width="60" height="40" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="190" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Idle</text>
+
+  <!-- Block 2: Position Data -->
+  <rect x="228" y="205" width="430" height="40" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="443" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Дані положення: 12–25 бітів (Код Ґрея / Binary)</text>
+
+  <!-- Block 3: Parity Bit -->
+  <rect x="666" y="205" width="80" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="706" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">P (Parity)</text>
+
+  <!-- Block 4: Pause -->
+  <rect x="754" y="205" width="136" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="822" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Пауза t_m (Timeout)</text>
+
+
+  <!-- SECTION 2: BISS-C PROTOCOL -->
+  <rect x="30" y="295" width="900" height="240" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="50" y="319" font-size="14" font-weight="bold" fill="#2457d6">2. Протокол BiSS-C (Bidirectional Synchronous Serial) — Двонаправлений цифровий кадр</text>
+
+  <!-- Signal Labels -->
+  <text x="50" y="353" font-size="12" font-weight="bold" fill="#1a1a1a">MA (Clock)</text>
+  <text x="50" y="383" font-size="12" font-weight="bold" fill="#1a1a1a">SLO (Data)</text>
+
+  <!-- MA Clock Waveform -->
+  <path d="M 140,340 L 160,340 L 160,358 L 180,358 L 180,340 L 200,340 L 200,358 L 220,358 L 220,340 L 240,340 L 240,358 L 260,358 L 260,340 L 280,340 L 280,358 L 300,358 L 300,340 L 320,340 M 360,340 L 380,340 L 380,358 L 400,358 L 400,340 L 420,340 L 420,358 L 440,358 L 440,340 L 890,340" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="340" y="349" text-anchor="middle" font-size="12" fill="#6b7280">...</text>
+
+  <!-- SLO (Data) Waveform -->
+  <path d="M 140,372 L 160,372 L 160,390 L 200,390 L 200,372 L 240,372 L 240,390 L 280,390 L 280,372 L 320,372 M 360,372 L 400,372 L 400,390 L 440,390 L 440,372 L 800,372 L 800,390 L 850,390 L 850,372 L 890,372" fill="none" stroke="#1a1a1a" stroke-width="1.8"/>
+
+  <!-- BiSS-C Frame Bit Structure Header -->
+  <text x="50" y="418" font-size="12" font-weight="bold" fill="#6b7280">Структура кадру BiSS-C (Point-to-Point):</text>
+
+  <!-- BiSS-C Bit Blocks -->
+  <!-- Block 1: ACK -->
+  <rect x="50" y="428" width="55" height="42" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="77" y="453" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">ACK</text>
+  <text x="77" y="488" text-anchor="middle" font-size="12" fill="#6b7280">0</text>
+
+  <!-- Block 2: START -->
+  <rect x="113" y="428" width="60" height="42" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="143" y="453" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">START</text>
+  <text x="143" y="488" text-anchor="middle" font-size="12" fill="#6b7280">1</text>
+
+  <!-- Block 3: CDS -->
+  <rect x="181" y="428" width="55" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="208" y="453" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">CDS</text>
+  <text x="208" y="488" text-anchor="middle" font-size="12" fill="#6b7280">Control</text>
+
+  <!-- Block 4: Multiturn -->
+  <rect x="244" y="428" width="150" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="319" y="453" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Multiturn (MT)</text>
+  <text x="319" y="488" text-anchor="middle" font-size="12" fill="#2457d6">12–16 бітів (Оберти)</text>
+
+  <!-- Block 5: Singleturn -->
+  <rect x="402" y="428" width="170" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="487" y="453" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Singleturn (ST)</text>
+  <text x="487" y="488" text-anchor="middle" font-size="12" fill="#2457d6">12–20 бітів (Кут)</text>
+
+  <!-- Block 6: Error -->
+  <rect x="580" y="428" width="60" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="610" y="453" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">nE</text>
+  <text x="610" y="488" text-anchor="middle" font-size="12" fill="#c0392b">Error</text>
+
+  <!-- Block 7: Warning -->
+  <rect x="648" y="428" width="60" height="42" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="678" y="453" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">nW</text>
+  <text x="678" y="488" text-anchor="middle" font-size="12" fill="#c0392b">Warn</text>
+
+  <!-- Block 8: CRC-6 -->
+  <rect x="716" y="428" width="110" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="771" y="453" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">CRC-6</text>
+  <text x="771" y="488" text-anchor="middle" font-size="12" fill="#27ae60">Поліном 0x43</text>
+
+  <!-- Block 9: Timeout -->
+  <rect x="834" y="428" width="76" height="42" rx="4" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="872" y="453" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Timeout</text>
+  <text x="872" y="488" text-anchor="middle" font-size="12" fill="#6b7280">Пауза t_b</text>
+</svg>

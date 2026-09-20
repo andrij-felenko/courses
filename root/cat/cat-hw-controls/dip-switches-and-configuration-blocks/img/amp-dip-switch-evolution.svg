@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінематична схема слайдерного DIP-перемикача AMP</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Конструкція повзункового контакту, корпусу з кроком 2.54 мм та механізму фіксації станів</text>
+
+  <!-- Left Main Panel: Cross Section -->
+  <rect x="40" y="95" width="540" height="335" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="310" y="116" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Поперечний розріз контактної комірки DIP-модуля</text>
+
+  <!-- Motion arrow above slider -->
+  <text x="310" y="136" font-size="12" fill="#2457d6" text-anchor="middle">Хід повзунка (ON / OFF)</text>
+  <line x1="250" y1="143" x2="370" y2="143" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="360" y1="143" x2="370" y2="143" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="260" y1="143" x2="250" y2="143" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Sliding Actuator Handle (above housing, y=150..185) -->
+  <rect x="280" y="150" width="60" height="35" rx="3" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- DIP Outer Housing (y=185..305) -->
+  <rect x="180" y="185" width="260" height="120" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Inner Cavity (drawn as path to avoid rect collision) -->
+  <path d="M 205 207 L 415 207 L 415 282 L 205 282 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Pin Terminal A (drawn with path & lines) -->
+  <path d="M 220 262 L 255 262 L 255 277 L 220 277 Z" fill="#2457d6"/>
+  <line x1="237" y1="277" x2="237" y2="368" stroke="#2457d6" stroke-width="8"/>
+
+  <!-- Right Pin Terminal B (drawn with path & lines) -->
+  <path d="M 365 262 L 400 262 L 400 277 L 365 277 Z" fill="#2457d6"/>
+  <line x1="382" y1="277" x2="382" y2="368" stroke="#2457d6" stroke-width="8"/>
+
+  <!-- Moving Spring Contact Wiper (path) -->
+  <path d="M 285 237 Q 310 262 335 237" fill="none" stroke="#27ae60" stroke-width="3"/>
+  <path d="M 290 249 L 330 249 L 330 261 L 290 261 Z" fill="#27ae60"/>
+
+  <!-- Callout Lines & Texts -->
+  <!-- Callout 1: Housing -->
+  <line x1="165" y1="197" x2="180" y2="197" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="50" y="201" font-size="12" fill="#1a1a1a" text-anchor="start">Термостійкий корпус</text>
+
+  <!-- Callout 2: Actuator -->
+  <line x1="455" y1="167" x2="345" y2="167" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="462" y="171" font-size="12" fill="#27ae60" text-anchor="start">Повзунок (Actuator)</text>
+
+  <!-- Callout 3: Contact Bridge -->
+  <line x1="455" y1="255" x2="335" y2="255" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="462" y="259" font-size="12" fill="#27ae60" text-anchor="start">Самоочисний місток</text>
+
+  <!-- Callout 4: THT Terminals -->
+  <line x1="165" y1="315" x2="232" y2="315" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="50" y="319" font-size="12" fill="#2457d6" text-anchor="start">Нерухомі пелюстки THT</text>
+
+  <!-- Dimension line at bottom of left panel -->
+  <line x1="237" y1="380" x2="382" y2="380" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="382" y1="380" x2="237" y2="380" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="310" y="405" font-size="12" fill="#6b7280" text-anchor="middle">Ширина ряду W = 7.62 мм / Крок P = 2.54 мм (0.1")</text>
+
+  <!-- Right Panel: Switching States & Specs -->
+  <rect x="600" y="95" width="320" height="335" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="760" y="118" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Стани комутації та параметри AMP</text>
+
+  <!-- State OFF Box (y=132..212) -->
+  <rect x="615" y="132" width="290" height="80" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="760" y="153" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Стан OFF (Розмикання)</text>
+  <text x="760" y="174" font-size="12" fill="#1a1a1a" text-anchor="middle">Повзунок відведений убік</text>
+  <text x="760" y="194" font-size="12" fill="#6b7280" text-anchor="middle">Високий імпеданс R_iso > 100 МОм</text>
+
+  <!-- State ON Box (y=226..306) -->
+  <rect x="615" y="226" width="290" height="80" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="760" y="247" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Стан ON (Замикання)</text>
+  <text x="760" y="268" font-size="12" fill="#1a1a1a" text-anchor="middle">Самоочищення проти оксидів (Wiping)</text>
+  <text x="760" y="288" font-size="12" fill="#6b7280" text-anchor="middle">Перехідний опір R_contact &lt; 50 мОм</text>
+
+  <!-- Parameters Box (y=320..415) -->
+  <rect x="615" y="320" width="290" height="95" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="760" y="341" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Конструкція AMP (1970-ті роки)</text>
+  <text x="760" y="362" font-size="12" fill="#1a1a1a" text-anchor="middle">Стандартний крок ніжок: P = 2.54 мм</text>
+  <text x="760" y="382" font-size="12" fill="#1a1a1a" text-anchor="middle">Пряме впаювання в плату (THT / DIP)</text>
+  <text x="760" y="402" font-size="12" fill="#6b7280" text-anchor="middle">Захисна плівка від проникнення флюсу</text>
+</svg>

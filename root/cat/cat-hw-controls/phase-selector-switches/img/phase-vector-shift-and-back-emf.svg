@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#8b5cf6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Векторна діаграма зсуву фаз та проти-ЕРС двигуна при комутації</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Перемикання на несинхронізовану фазу викликає кидок напруги до 1.73·U_nom та струмове перевантаження</text>
+
+  <!-- LEFT PANEL: Vector Diagram -->
+  <rect x="30" y="75" width="435" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">1. Векторна діаграма напруг і проти-ЕРС</text>
+
+  <!-- Reference Circle and Axes -->
+  <circle cx="245" cy="275" r="130" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="85" y1="275" x2="405" y2="275" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="245" y1="115" x2="245" y2="435" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Phase Vectors -->
+  <!-- Phase L1 (Up) -->
+  <line x1="245" y1="275" x2="245" y2="145" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="258" y="140" font-size="13" font-weight="bold" fill="#2457d6">U_L1 (Фаза L1)</text>
+
+  <!-- Phase L2 (Bottom-Right, +120 deg) -->
+  <line x1="245" y1="275" x2="357" y2="340" stroke="#d97706" stroke-width="3" marker-end="url(#arr-amber)"/>
+  <text x="368" y="355" font-size="12" font-weight="bold" fill="#d97706">U_L2 (Фаза L2)</text>
+
+  <!-- Phase L3 (Bottom-Left, -120 deg) -->
+  <line x1="245" y1="275" x2="133" y2="340" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arr-purple)"/>
+  <text x="120" y="365" font-size="12" fill="#8b5cf6" text-anchor="end">U_L3 (Фаза L3)</text>
+
+  <!-- Angle Arc 120 deg -->
+  <path d="M 245,235 A 40,40 0 0,1 280,295" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="290" y="260" font-size="12" fill="#6b7280">120°</text>
+
+  <!-- Motor Back-EMF Vector E_EMF (Decayed & Phase-Lagged) -->
+  <line x1="245" y1="275" x2="275" y2="165" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="5,3" marker-end="url(#arr-red)"/>
+  <text x="285" y="160" font-size="12" font-weight="bold" fill="#c0392b">E_ЕРС (двигун)</text>
+
+  <!-- Difference Vector Delta U (from E_EMF tip to U_L2 tip) -->
+  <line x1="275" y1="165" x2="357" y2="340" stroke="#c0392b" stroke-width="3" stroke-dasharray="6,3" marker-end="url(#arr-red)"/>
+  <text x="335" y="230" font-size="12" font-weight="bold" fill="#c0392b">ΔU ≈ 1.73·U_ном</text>
+
+  <!-- Panel 1 Legend Card -->
+  <rect x="45" y="425" width="405" height="90" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="445" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#2457d6">U_L1, U_L2, U_L3</tspan>: векторна потрійна система напруг мережі</text>
+  <text x="60" y="468" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#c0392b">E_ЕРС</tspan>: залишкове поле ротора (зсув фази за час паузи)</text>
+  <text x="60" y="491" font-size="12" fill="#1a1a1a">• <tspan font-weight="bold" fill="#c0392b">ΔU = U_L2 - E_ЕРС</tspan>: міжфазний стрибок напруги на контактах</text>
+
+  <!-- RIGHT PANEL: Waveform & Analysis -->
+  <rect x="495" y="75" width="435" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="510" y="100" font-size="14" font-weight="bold" fill="#1a1a1a">2. Часова діаграма та наслідки безпаузової комутації</text>
+
+  <!-- Waveform Graph Box -->
+  <rect x="510" y="115" width="405" height="175" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="520" y1="200" x2="905" y2="200" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Vertical Switching Line -->
+  <line x1="680" y1="145" x2="680" y2="280" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <text x="680" y="136" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Момент комутації (t_sw)</text>
+
+  <!-- Sine wave L1 before t_sw -->
+  <path d="M 520,200 Q 560,140 600,200 T 680,200" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="530" y="155" font-size="12" font-weight="bold" fill="#2457d6">U_L1</text>
+
+  <!-- Decaying Motor Back-EMF E_EMF after t_sw -->
+  <path d="M 680,200 Q 710,240 740,210 T 780,200" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="735" y="248" font-size="11" font-weight="bold" fill="#c0392b">E_ЕРС (загасання)</text>
+
+  <!-- New Phase L2 connected at t_sw with instantaneous step -->
+  <path d="M 680,145 Q 730,130 780,200 T 880,200" fill="none" stroke="#d97706" stroke-width="2.5"/>
+  <line x1="680" y1="200" x2="680" y2="145" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="680" cy="145" r="4" fill="#c0392b"/>
+  <text x="835" y="152" font-size="12" font-weight="bold" fill="#d97706">U_L2</text>
+  <text x="692" y="145" font-size="11" font-weight="bold" fill="#c0392b">Кидок ΔU</text>
+
+  <!-- Card 1: Problem / High Risk -->
+  <rect x="510" y="305" width="405" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="525" y="327" font-size="13" font-weight="bold" fill="#c0392b">⚡ Ризики несинхронного перемикання (Make-Before-Break):</text>
+  <text x="525" y="348" font-size="12" fill="#1a1a1a">• Пусковий струм <tspan font-weight="bold" fill="#c0392b">I_пуск = ΔU / Z_дв</tspan> сягає <tspan font-weight="bold" fill="#c0392b">(10...15)·I_ном</tspan></text>
+  <text x="525" y="368" font-size="12" fill="#1a1a1a">• Небезпека зварювання контактів та ударного моменту на валу</text>
+  <text x="525" y="388" font-size="12" fill="#1a1a1a">• Хибне спрацьовування захисних автоматів і зсув нейтралі N</text>
+
+  <!-- Card 2: Solution / Recommendations -->
+  <rect x="510" y="415" width="405" height="95" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="525" y="437" font-size="13" font-weight="bold" fill="#27ae60">✓ Захисні рішення та схемотехнічна норма:</text>
+  <text x="525" y="458" font-size="12" fill="#1a1a1a">• Пауза комутації (<tspan font-weight="bold">Break-Before-Make</tspan>, t_pause ≥ 50...100 мс)</text>
+  <text x="525" y="478" font-size="12" fill="#1a1a1a">• Повне загасання проти-ЕРС (<tspan font-weight="bold">E_ЕРС → 0</tspan>) до підключення L2</text>
+  <text x="525" y="498" font-size="12" fill="#1a1a1a">• Категорії застосування <tspan font-weight="bold">AC-3 / AC-31A</tspan> з блокуванням</text>
+</svg>

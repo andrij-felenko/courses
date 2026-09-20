@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Крайові помилки двійкового диска проти коду Грея</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Одночасна зміна 3 бітів у двійковому коді викликає хибні фантомні коди, а код Грея змінює лише 1 біт</text>
+
+  <!-- Left Panel: Binary Code Error -->
+  <rect x="30" y="70" width="440" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="95" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Двійковий диск: Крайовий збій бітів</text>
+
+  <!-- Bit track diagram for Binary (011 -> 100) -->
+  <rect x="50" y="115" width="400" height="150" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="250" y="135" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Перехід від Позиції 3 (011) до Позиції 4 (100)</text>
+
+  <!-- Bit Track 2 (MSB) -->
+  <text x="65" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">Біт 2:</text>
+  <rect x="110" y="150" width="130" height="22" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="175" y="165" text-anchor="middle" font-size="12" fill="#1a1a1a">0 (Темне)</text>
+  <rect x="240" y="150" width="130" height="22" fill="#2457d6"/>
+  <text x="305" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="white">1 (Прозоре)</text>
+
+  <!-- Bit Track 1 -->
+  <text x="65" y="195" font-size="12" font-weight="bold" fill="#1a1a1a">Біт 1:</text>
+  <rect x="110" y="180" width="130" height="22" fill="#2457d6"/>
+  <text x="175" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="white">1 (Прозоре)</text>
+  <rect x="240" y="180" width="130" height="22" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="305" y="195" text-anchor="middle" font-size="12" fill="#1a1a1a">0 (Темне)</text>
+
+  <!-- Bit Track 0 (LSB) -->
+  <text x="65" y="225" font-size="12" font-weight="bold" fill="#1a1a1a">Біт 0:</text>
+  <rect x="110" y="210" width="130" height="22" fill="#2457d6"/>
+  <text x="175" y="225" text-anchor="middle" font-size="12" font-weight="bold" fill="white">1 (Прозоре)</text>
+  <rect x="240" y="210" width="130" height="22" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="305" y="225" text-anchor="middle" font-size="12" fill="#1a1a1a">0 (Темне)</text>
+
+  <!-- Misalignment Boundary Line -->
+  <line x1="240" y1="140" x2="240" y2="245" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4,2"/>
+  <text x="240" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Межа зчитування (Перекос считувачів)</text>
+
+  <!-- Error Diagram Box -->
+  <rect x="50" y="280" width="400" height="215" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="250" y="305" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Результат: Механічний допуск / фантомний код</text>
+
+  <text x="70" y="335" font-size="12" fill="#1a1a1a">• Очікуваний стан:</text>
+  <text x="220" y="335" font-size="12" font-weight="bold" fill="#2457d6">011 (3)  →  100 (4)</text>
+
+  <text x="70" y="365" font-size="12" fill="#1a1a1a">• Кількість бітів, що змінюються:</text>
+  <text x="310" y="365" font-size="12" font-weight="bold" fill="#c0392b">3 біти одночасно!</text>
+
+  <text x="70" y="395" font-size="12" fill="#1a1a1a">• Можливе зчитування на межі:</text>
+  <text x="310" y="395" font-size="12" font-weight="bold" fill="#c0392b">111 (7) або 000 (0)</text>
+
+  <rect x="70" y="420" width="360" height="60" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="250" y="442" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">КРИТИЧНА ПОМИЛКА ПОЗИЦІОНУВАННЯ!</text>
+  <text x="250" y="464" text-anchor="middle" font-size="12" fill="#1a1a1a">Стрибок з позиції 3 на позицію 7 через неточність маски</text>
+
+
+  <!-- Right Panel: Gray Code Safe Transition -->
+  <rect x="490" y="70" width="440" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="95" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Код Грея: Гарантована завадостійкість</text>
+
+  <!-- Bit track diagram for Gray (010 -> 110) -->
+  <rect x="510" y="115" width="400" height="150" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="135" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Перехід від Позиції 3 (010_G) до Позиції 4 (110_G)</text>
+
+  <!-- Bit Track 2 (MSB) - CHANGES 0 -> 1 -->
+  <text x="525" y="165" font-size="12" font-weight="bold" fill="#1a1a1a">Біт 2:</text>
+  <rect x="570" y="150" width="130" height="22" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="635" y="165" text-anchor="middle" font-size="12" fill="#1a1a1a">0 (Темне)</text>
+  <rect x="700" y="150" width="130" height="22" fill="#27ae60"/>
+  <text x="765" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="white">1 (Зміна!)</text>
+
+  <!-- Bit Track 1 - UNCHANGED (1) -->
+  <text x="525" y="195" font-size="12" font-weight="bold" fill="#1a1a1a">Біт 1:</text>
+  <rect x="570" y="180" width="130" height="22" fill="#2457d6"/>
+  <text x="635" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="white">1 (Без змін)</text>
+  <rect x="700" y="180" width="130" height="22" fill="#2457d6"/>
+  <text x="765" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="white">1 (Без змін)</text>
+
+  <!-- Bit Track 0 - UNCHANGED (0) -->
+  <text x="525" y="225" font-size="12" font-weight="bold" fill="#1a1a1a">Біт 0:</text>
+  <rect x="570" y="210" width="130" height="22" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="635" y="225" text-anchor="middle" font-size="12" fill="#1a1a1a">0 (Без змін)</text>
+  <rect x="700" y="210" width="130" height="22" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="765" y="225" text-anchor="middle" font-size="12" fill="#1a1a1a">0 (Без змін)</text>
+
+  <!-- Boundary Line -->
+  <line x1="700" y1="140" x2="700" y2="245" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="700" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Безпечна межа (Зміна 1 біта)</text>
+
+  <!-- Safe Diagram Box -->
+  <rect x="510" y="280" width="400" height="215" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="305" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Результат: Гарантована безпомилковість</text>
+
+  <text x="530" y="335" font-size="12" fill="#1a1a1a">• Очікуваний стан:</text>
+  <text x="680" y="335" font-size="12" font-weight="bold" fill="#2457d6">010_G (3) → 110_G (4)</text>
+
+  <text x="530" y="365" font-size="12" fill="#1a1a1a">• Кількість бітів, що змінюються:</text>
+  <text x="770" y="365" font-size="12" font-weight="bold" fill="#27ae60">Лише 1 біт!</text>
+
+  <text x="530" y="395" font-size="12" fill="#1a1a1a">• Можливе зчитування на межі:</text>
+  <text x="770" y="395" font-size="12" font-weight="bold" fill="#27ae60">010_G (3) або 110_G (4)</text>
+
+  <rect x="530" y="420" width="360" height="60" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="710" y="442" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ПОВНА ВІДСУТНІСТЬ ФАНТОМНИХ КОДІВ!</text>
+  <text x="710" y="464" text-anchor="middle" font-size="12" fill="#1a1a1a">Похибка позиціонування обмежена максимум 1 LSB</text>
+</svg>

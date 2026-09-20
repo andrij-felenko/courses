@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Вектори натягу троса та компенсація температурного розширення</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Пружина k_spring утримує робочу точку у вікні Δs_window при коливаннях температури ΔT</text>
+
+  <!-- ================= PANEL A: PHYSICAL SETUP & VECTORS ================= -->
+  <rect x="25" y="75" width="440" height="315" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 25 83 A 8 8 0 0 1 33 75 H 457 A 8 8 0 0 1 465 83 V 103 H 25 Z" fill="#2457d6"/>
+  <text x="245" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Схема векторів сил та компенсатора</text>
+
+  <!-- Wall Mount -->
+  <rect x="40" y="130" width="15" height="120" fill="#6b7280" rx="2"/>
+  <line x1="32" y1="140" x2="40" y2="150" stroke="#475569" stroke-width="1.5"/>
+  <line x1="32" y1="170" x2="40" y2="180" stroke="#475569" stroke-width="1.5"/>
+  <line x1="32" y1="200" x2="40" y2="210" stroke="#475569" stroke-width="1.5"/>
+  <line x1="32" y1="230" x2="40" y2="240" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Compensation Spring (k_spring) -->
+  <path d="M 55 170 L 65 158 L 75 182 L 85 158 L 95 182 L 105 158 L 115 170" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="85" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Пружина k_spring</text>
+
+  <!-- Steel Cable Line & Sag -->
+  <line x1="115" y1="170" x2="290" y2="170" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M 115 170 Q 202 205 290 170" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="212" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Трос (довжина L)</text>
+  
+  <line x1="202" y1="170" x2="202" y2="205" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-dark)"/>
+  <text x="192" y="192" text-anchor="end" font-size="12" fill="#6b7280">Прогин f_sag</text>
+
+  <!-- Tension Vector (above arrow) -->
+  <line x1="280" y1="235" x2="210" y2="235" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="245" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">F_tension (натяг)</text>
+
+  <!-- Manual Pull Vector (below arrow) -->
+  <line x1="150" y1="170" x2="150" y2="235" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="150" y="260" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">F_pull (потягування)</text>
+
+  <!-- Plunger & Safety Switch Body (Seamless touching at x=310, zero overlapping rects!) -->
+  <rect x="290" y="164" width="20" height="12" rx="2" fill="#f59e0b" stroke="#1a1a1a" stroke-width="1"/>
+  <rect x="310" y="135" width="135" height="115" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <rect x="310" y="135" width="135" height="24" rx="6" fill="#2457d6"/>
+  <text x="377" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Вимикач безпеки</text>
+  <text x="377" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Шток (поз. s)</text>
+  <text x="377" y="218" text-anchor="middle" font-size="12" fill="#27ae60">Нормальний стан</text>
+
+  <!-- Elongation Equation Banner -->
+  <rect x="45" y="335" width="400" height="38" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Подовження троса: ΔL = α · L · ΔT</text>
+
+  <!-- ================= PANEL B: OPERATING WINDOW DIAGRAM ================= -->
+  <rect x="495" y="75" width="440" height="315" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M 495 83 A 8 8 0 0 1 503 75 H 927 A 8 8 0 0 1 935 83 V 103 H 495 Z" fill="#2457d6"/>
+  <text x="715" y="94" text-anchor="middle" font-size="13" font-weight="bold" fill="white">Діаграма робочого вікна та зсуву ΔT</text>
+
+  <!-- Zones -->
+  <!-- Left Red Zone: Slack / Trip -->
+  <rect x="515" y="130" width="90" height="120" fill="#fdecea" stroke="#c0392b" stroke-dasharray="4,3"/>
+  <text x="560" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Обрив</text>
+  <text x="560" y="172" text-anchor="middle" font-size="12" fill="#c0392b">s &lt; s_min</text>
+
+  <!-- Center Green Zone: Normal Operating Window -->
+  <rect x="605" y="130" width="220" height="120" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="715" y="152" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Робоче вікно Δs_window</text>
+
+  <!-- Right Red Zone: Pull / Trip -->
+  <rect x="825" y="130" width="90" height="120" fill="#fdecea" stroke="#c0392b" stroke-dasharray="4,3"/>
+  <text x="870" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Аварія</text>
+  <text x="870" y="172" text-anchor="middle" font-size="12" fill="#c0392b">s &gt; s_max</text>
+
+  <!-- Operating Points for Temperatures -->
+  <line x1="630" y1="200" x2="800" y2="200" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <circle cx="650" cy="200" r="5" fill="#c0392b"/>
+  <text x="650" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">T_max (+50°C)</text>
+
+  <circle cx="715" cy="200" r="6" fill="#27ae60"/>
+  <text x="715" y="232" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">T_nom (+20°C)</text>
+
+  <circle cx="780" cy="200" r="5" fill="#2457d6"/>
+  <text x="780" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">T_min (-25°C)</text>
+
+  <!-- Shift Range Subset Text -->
+  <text x="715" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Зсув Δs_T ⊂ Δs_window</text>
+
+  <!-- Boundary Markers -->
+  <text x="605" y="295" text-anchor="middle" font-size="12" fill="#6b7280">s_min</text>
+  <text x="825" y="295" text-anchor="middle" font-size="12" fill="#6b7280">s_max</text>
+
+  <!-- Formula Banner at bottom of Panel B -->
+  <rect x="515" y="335" width="400" height="38" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="358" text-anchor="middle" font-size="12" fill="#1a1a1a">Зсув зменшується: Δs_T = ΔL / (1 + k_rope / k_spring)</text>
+
+  <!-- ================= BOTTOM FEATURE CARDS ================= -->
+  <!-- Card 1 -->
+  <rect x="25" y="405" width="285" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="167.5" y="426" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Теплове розширення ΔL</text>
+  <text x="167.5" y="446" text-anchor="middle" font-size="12" fill="#1a1a1a">ΔL = α · L · ΔT (подовження троса)</text>
+
+  <!-- Card 2 -->
+  <rect x="337.5" y="405" width="285" height="55" rx="6" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="480" y="426" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Компенсація пружиною</text>
+  <text x="480" y="446" text-anchor="middle" font-size="12" fill="#1a1a1a">k_spring утримує точку в межах Δs_window</text>
+
+  <!-- Card 3 -->
+  <rect x="650" y="405" width="285" height="55" rx="6" fill="#fdecea" stroke="#c0392b"/>
+  <text x="792.5" y="426" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Захист від хибних стопів</text>
+  <text x="792.5" y="446" text-anchor="middle" font-size="12" fill="#1a1a1a">При обриві або потягуванні — вихід з вікна</text>
+</svg>

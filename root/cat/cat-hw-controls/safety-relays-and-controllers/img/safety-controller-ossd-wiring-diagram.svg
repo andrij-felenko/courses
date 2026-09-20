@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення OSSD-завіс та датчиків до контролера безпеки</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Тестові лінії T1/T2 та напівпровідникові OSSD1/OSSD2 виявляють КЗ й перехресні замикання</text>
+
+  <!-- Left Main Container: Safety Input Devices -->
+  <rect x="30" y="75" width="310" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="45" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Захисні пристрої осередку</text>
+
+  <!-- Device 1: OSSD Light Curtain -->
+  <rect x="45" y="110" width="280" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="128" font-size="13" font-weight="bold" fill="#2457d6">1. Світлова завіса (OSSD)</text>
+  <text x="55" y="145" font-size="12" fill="#6b7280">Самодіагностовані виходи PNP</text>
+  <text x="55" y="168" font-size="12" font-weight="bold" fill="#2457d6">OSSD1:</text>
+  <text x="110" y="168" font-size="12" fill="#1a1a1a">24 V PNP імпульс</text>
+  <text x="55" y="188" font-size="12" font-weight="bold" fill="#27ae60">OSSD2:</text>
+  <text x="110" y="188" font-size="12" fill="#1a1a1a">24 V PNP імпульс</text>
+
+  <!-- Device 2: E-Stop Button -->
+  <rect x="45" y="215" width="280" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="233" font-size="13" font-weight="bold" fill="#c0392b">2. Кнопка E-Stop (Dry Contacts)</text>
+  <text x="55" y="250" font-size="12" fill="#6b7280">Сухі NC-контакти з тестом T1/T2</text>
+  <text x="55" y="272" font-size="12" font-weight="bold" fill="#2457d6">NC1 (CH1):</text>
+  <text x="130" y="272" font-size="12" fill="#1a1a1a">Живлення від T1</text>
+  <text x="55" y="292" font-size="12" font-weight="bold" fill="#27ae60">NC2 (CH2):</text>
+  <text x="130" y="292" font-size="12" fill="#1a1a1a">Живлення від T2</text>
+
+  <!-- Device 3: RFID Interlock Switch -->
+  <rect x="45" y="320" width="280" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="338" font-size="13" font-weight="bold" fill="#27ae60">3. RFID-датчик дверці</text>
+  <text x="55" y="355" font-size="12" fill="#6b7280">Безконтактне блокування</text>
+  <text x="55" y="377" font-size="12" font-weight="bold" fill="#2457d6">Входи T1/T2:</text>
+  <text x="145" y="377" font-size="12" fill="#1a1a1a">Тактові імпульси</text>
+  <text x="55" y="397" font-size="12" font-weight="bold" fill="#27ae60">Виходи:</text>
+  <text x="115" y="397" font-size="12" fill="#1a1a1a">Канали на I5 / I6</text>
+
+  <!-- Center Main Container: Safety Controller (PLC) -->
+  <rect x="380" y="75" width="270" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="395" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Контролер безпеки (Safety PLC)</text>
+
+  <!-- Terminal Strip Panel inside Safety PLC -->
+  <rect x="395" y="110" width="75" height="310" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Test Outputs T1, T2 -->
+  <rect x="402" y="120" width="61" height="26" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <circle cx="412" cy="133" r="4" fill="#2457d6"/>
+  <text x="424" y="137" font-size="12" font-weight="bold" fill="#2457d6">T1</text>
+
+  <rect x="402" y="152" width="61" height="26" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <circle cx="412" cy="165" r="4" fill="#27ae60"/>
+  <text x="424" y="169" font-size="12" font-weight="bold" fill="#27ae60">T2</text>
+
+  <!-- Input Terminals I1..I6 Sub-panel -->
+  <rect x="402" y="190" width="61" height="220" rx="3" fill="#f8fafc" stroke="#d0d7de" stroke-width="1"/>
+
+  <circle cx="412" cy="210" r="4" fill="#2457d6"/>
+  <text x="424" y="214" font-size="12" font-weight="bold" fill="#2457d6">I1</text>
+
+  <circle cx="412" cy="245" r="4" fill="#27ae60"/>
+  <text x="424" y="249" font-size="12" font-weight="bold" fill="#27ae60">I2</text>
+
+  <circle cx="412" cy="280" r="4" fill="#2457d6"/>
+  <text x="424" y="284" font-size="12" font-weight="bold" fill="#2457d6">I3</text>
+
+  <circle cx="412" cy="315" r="4" fill="#27ae60"/>
+  <text x="424" y="319" font-size="12" font-weight="bold" fill="#27ae60">I4</text>
+
+  <circle cx="412" cy="350" r="4" fill="#2457d6"/>
+  <text x="424" y="354" font-size="12" font-weight="bold" fill="#2457d6">I5</text>
+
+  <circle cx="412" cy="385" r="4" fill="#27ae60"/>
+  <text x="424" y="389" font-size="12" font-weight="bold" fill="#27ae60">I6</text>
+
+  <!-- Safety Logic Core Block -->
+  <rect x="480" y="110" width="155" height="310" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="557" y="130" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Логічне ядро</text>
+  <text x="490" y="150" font-size="12" fill="#1a1a1a">• Двоканальний аналіз</text>
+  <text x="490" y="168" font-size="12" fill="#1a1a1a">• Контроль тесту T1/T2</text>
+  <text x="490" y="186" font-size="12" fill="#1a1a1a">• Детектування КЗ OSSD</text>
+  <text x="490" y="204" font-size="12" fill="#1a1a1a">• Контроль Muting</text>
+
+  <!-- Status & Delay Box inside logic -->
+  <rect x="490" y="220" width="135" height="185" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="557" y="240" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Стан: Безпечний</text>
+  <text x="557" y="258" font-size="12" fill="#1a1a1a" text-anchor="middle">Без перехресних КЗ</text>
+  <text x="557" y="276" font-size="12" fill="#6b7280" text-anchor="middle">Активація Q1 / Q2</text>
+  <text x="557" y="306" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Затримка Cat. 1</text>
+  <text x="557" y="324" font-size="12" fill="#1a1a1a" text-anchor="middle">Category 1 Stop</text>
+  <text x="557" y="342" font-size="12" fill="#6b7280" text-anchor="middle">t_delay = 500 мс</text>
+  <text x="557" y="360" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Команда на STO</text>
+
+  <!-- Right Main Container: Output Actuators -->
+  <rect x="680" y="75" width="250" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="695" y="96" font-size="14" font-weight="bold" fill="#1a1a1a">Виконавчі пристрої</text>
+
+  <!-- Output Q1 Block -->
+  <rect x="695" y="110" width="220" height="90" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="705" y="130" font-size="13" font-weight="bold" fill="#2457d6">Вихід Q1 (PNP 24V)</text>
+  <text x="705" y="150" font-size="12" fill="#1a1a1a">Силовий контактор K1</text>
+  <text x="705" y="170" font-size="12" fill="#6b7280">Вхід STO 1 інвертора</text>
+  <text x="705" y="190" font-size="12" font-weight="bold" fill="#2457d6">Канал A зупину</text>
+
+  <!-- Output Q2 Block -->
+  <rect x="695" y="215" width="220" height="90" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="705" y="235" font-size="13" font-weight="bold" fill="#27ae60">Вихід Q2 (PNP 24V)</text>
+  <text x="705" y="255" font-size="12" fill="#1a1a1a">Силовий контактор K2</text>
+  <text x="705" y="275" font-size="12" fill="#6b7280">Вхід STO 2 інвертора</text>
+  <text x="705" y="295" font-size="12" font-weight="bold" fill="#27ae60">Канал B зупину</text>
+
+  <!-- Diagnostic Interface Block -->
+  <rect x="695" y="320" width="220" height="100" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="705" y="340" font-size="13" font-weight="bold" fill="#1a1a1a">Діагностика шини</text>
+  <text x="705" y="360" font-size="12" fill="#1a1a1a">PROFINET / EtherCAT</text>
+  <text x="705" y="380" font-size="12" fill="#6b7280">Передача статусу на HMI</text>
+  <text x="705" y="400" font-size="12" font-weight="bold" fill="#27ae60">Категорія 1 (ISO 13849)</text>
+
+  <!-- Test Lines T1 / T2 to E-Stop & RFID -->
+  <path d="M 412,133 L 350,133 L 350,377 L 325,377 M 350,272 L 325,272" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <path d="M 412,165 L 365,165 L 365,397 L 325,397 M 365,292 L 325,292" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Device Signal Wires to Controller Inputs -->
+  <!-- OSSD1 to I1 -->
+  <path d="M 325,168 L 340,168 L 340,210 L 412,210" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <!-- OSSD2 to I2 -->
+  <path d="M 325,188 L 345,188 L 345,245 L 412,245" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- E-Stop Outputs to I3 / I4 -->
+  <path d="M 325,272 L 355,272 L 355,280 L 412,280" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 325,292 L 360,292 L 360,315 L 412,315" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- RFID Outputs to I5 / I6 -->
+  <path d="M 325,377 L 370,377 L 370,350 L 412,350" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 325,397 L 375,397 L 375,385 L 412,385" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Wires: Controller Outputs Q1 / Q2 / Diagnostic to Actuators -->
+  <path d="M 635,155 L 695,155" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M 635,260 L 695,260" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 635,370 L 695,370" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+
+</svg>

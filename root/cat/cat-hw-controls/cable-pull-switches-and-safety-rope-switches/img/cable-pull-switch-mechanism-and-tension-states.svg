@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Header & Subheader -->
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Механізм двонапрямленого контролю натягу троса</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Електричні NC-контакти замкнені лише у вузькому робочому вікні нормованого натягу</text>
+
+  <!-- ================= CARD 1: SLACK / CUT (LEFT) ================= -->
+  <rect x="30" y="85" width="290" height="395" rx="8" fill="#fdecea" stroke="#f5c6cb" stroke-width="1.5"/>
+  <rect x="40" y="95" width="270" height="30" rx="4" fill="#c0392b"/>
+  <text x="175" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="white">1. ОБРИВ / ПОСЛАБЛЕННЯ</text>
+
+  <!-- Inner diagram box 1 -->
+  <rect x="40" y="139" width="270" height="225" fill="white" stroke="#d0d7de" rx="6"/>
+
+  <!-- Housing outline -->
+  <rect x="50" y="152" width="250" height="165" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5" rx="4"/>
+
+  <!-- Cable label & slack line -->
+  <text x="95" y="170" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">T &lt; 50 N (Обрив)</text>
+  <path d="M 30 190 Q 50 198 70 190 T 115 190" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4,3"/>
+
+  <!-- Slider & Cam Lobe -->
+  <path d="M 115 182 h 110 v 16 h -110 z" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <path d="M 125 182 L 132 167 L 158 167 L 165 182 Z" fill="#2457d6" stroke="#1d4ed8" stroke-width="1.5"/>
+
+  <!-- Spring -->
+  <path d="M 225 190 L 232 183 L 239 197 L 246 183 L 253 197 L 260 183 L 267 197 L 274 183 L 281 197 L 290 190" fill="none" stroke="#475569" stroke-width="2"/>
+
+  <!-- Fixed NC Terminals -->
+  <circle cx="151" cy="252" r="6" fill="#c0392b"/>
+  <circle cx="199" cy="252" r="6" fill="#c0392b"/>
+  <text x="151" y="240" text-anchor="middle" font-size="10" fill="#6b7280">NC1</text>
+  <text x="199" y="240" text-anchor="middle" font-size="10" fill="#6b7280">NC2</text>
+
+  <!-- Follower Pin & Contact Bar -->
+  <path d="M 170 198 v 76 h -27 v 6 h 64 v -6 h -27 v -76 z" fill="#c0392b"/>
+
+  <!-- Contact status text -->
+  <text x="175" y="302" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">РОЗІМКНЕНО</text>
+
+  <!-- Summary text box 1 -->
+  <rect x="40" y="378" width="270" height="92" rx="6" fill="#fdecea" stroke="#f5c6cb"/>
+  <text x="175" y="396" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">NC-контакти РОЗІМКНЕНІ</text>
+  <text x="175" y="415" text-anchor="middle" font-size="12" fill="#1a1a1a">Сила натягу троса T &lt; 50 N</text>
+  <text x="175" y="433" text-anchor="middle" font-size="12" fill="#1a1a1a">Пружина виштовхує штовхач</text>
+  <text x="175" y="451" text-anchor="middle" font-size="12" fill="#6b7280">Коло живлення розірвано</text>
+
+  <!-- ================= CARD 2: NORMAL TENSION (MIDDLE) ================= -->
+  <rect x="335" y="85" width="290" height="395" rx="8" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1.5"/>
+  <rect x="345" y="95" width="270" height="30" rx="4" fill="#27ae60"/>
+  <text x="480" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="white">2. НОРМАЛЬНИЙ НАТЯГ</text>
+
+  <!-- Inner diagram box 2 -->
+  <rect x="345" y="139" width="270" height="225" fill="white" stroke="#d0d7de" rx="6"/>
+
+  <!-- Housing outline -->
+  <rect x="355" y="152" width="250" height="165" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5" rx="4"/>
+
+  <!-- Cable label & straight line -->
+  <text x="410" y="170" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">T = 80...150 N (Робочий)</text>
+  <line x1="335" y1="190" x2="425" y2="190" stroke="#2457d6" stroke-width="3"/>
+
+  <!-- Slider & Cam Lobe -->
+  <path d="M 425 182 h 110 v 16 h -110 z" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <path d="M 460 182 L 467 167 L 493 167 L 500 182 Z" fill="#2457d6" stroke="#1d4ed8" stroke-width="1.5"/>
+
+  <!-- Spring -->
+  <path d="M 535 190 L 541 183 L 547 197 L 553 183 L 559 197 L 565 183 L 571 197 L 577 183 L 583 197 L 590 190" fill="none" stroke="#475569" stroke-width="2"/>
+
+  <!-- Fixed NC Terminals -->
+  <circle cx="456" cy="252" r="6" fill="#27ae60"/>
+  <circle cx="504" cy="252" r="6" fill="#27ae60"/>
+  <text x="456" y="240" text-anchor="middle" font-size="10" fill="#6b7280">NC1</text>
+  <text x="504" y="240" text-anchor="middle" font-size="10" fill="#6b7280">NC2</text>
+
+  <!-- Follower Pin & Contact Bar -->
+  <path d="M 475 167 v 85 h -27 v 6 h 64 v -6 h -27 v -85 z" fill="#27ae60"/>
+
+  <!-- Contact status text -->
+  <text x="480" y="302" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ЗАМКНЕНО</text>
+
+  <!-- Summary text box 2 -->
+  <rect x="345" y="378" width="270" height="92" rx="6" fill="#e9f7ef" stroke="#c3e6cb"/>
+  <text x="480" y="396" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">NC-контакти ЗАМКНЕНІ</text>
+  <text x="480" y="415" text-anchor="middle" font-size="12" fill="#1a1a1a">Натяг у робочому вікні 80...150 N</text>
+  <text x="480" y="433" text-anchor="middle" font-size="12" fill="#1a1a1a">Кулачок утримує штовхач вгорі</text>
+  <text x="480" y="451" text-anchor="middle" font-size="12" fill="#6b7280">Нормальний режим роботи лінії</text>
+
+  <!-- ================= CARD 3: OPERATOR PULL (RIGHT) ================= -->
+  <rect x="640" y="85" width="290" height="395" rx="8" fill="#fdecea" stroke="#f5c6cb" stroke-width="1.5"/>
+  <rect x="650" y="95" width="270" height="30" rx="4" fill="#c0392b"/>
+  <text x="785" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="white">3. ПОТЯГУВАННЯ ОПЕРАТОРОМ</text>
+
+  <!-- Inner diagram box 3 -->
+  <rect x="650" y="139" width="270" height="225" fill="white" stroke="#d0d7de" rx="6"/>
+
+  <!-- Housing outline -->
+  <rect x="660" y="152" width="250" height="165" fill="#f4f6f8" stroke="#6b7280" stroke-width="1.5" rx="4"/>
+
+  <!-- Cable label & pulled line with arrow -->
+  <text x="715" y="170" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">T &gt; 200 N (Потягування)</text>
+  <line x1="735" y1="190" x2="645" y2="190" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+
+  <!-- Slider & Cam Lobe -->
+  <path d="M 735 182 h 110 v 16 h -110 z" fill="#cbd5e1" stroke="#475569" stroke-width="1.5"/>
+  <path d="M 740 182 L 747 167 L 773 167 L 780 182 Z" fill="#2457d6" stroke="#1d4ed8" stroke-width="1.5"/>
+
+  <!-- Spring -->
+  <path d="M 845 190 L 850 183 L 855 197 L 860 183 L 865 197 L 870 183 L 875 197 L 880 183 L 885 197 L 890 190" fill="none" stroke="#475569" stroke-width="2"/>
+
+  <!-- Fixed NC Terminals -->
+  <circle cx="761" cy="252" r="6" fill="#c0392b"/>
+  <circle cx="809" cy="252" r="6" fill="#c0392b"/>
+  <text x="761" y="240" text-anchor="middle" font-size="10" fill="#6b7280">NC1</text>
+  <text x="809" y="240" text-anchor="middle" font-size="10" fill="#6b7280">NC2</text>
+
+  <!-- Follower Pin & Contact Bar -->
+  <path d="M 780 198 v 76 h -27 v 6 h 64 v -6 h -27 v -76 z" fill="#c0392b"/>
+
+  <!-- Contact status text -->
+  <text x="785" y="302" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">РОЗІМКНЕНО</text>
+
+  <!-- Summary text box 3 -->
+  <rect x="650" y="378" width="270" height="92" rx="6" fill="#fdecea" stroke="#f5c6cb"/>
+  <text x="785" y="396" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">NC-контакти РОЗІМКНЕНІ</text>
+  <text x="785" y="415" text-anchor="middle" font-size="12" fill="#1a1a1a">Зусилля оператора T &gt; 200 N</text>
+  <text x="785" y="433" text-anchor="middle" font-size="12" fill="#1a1a1a">Примусове розмикання кулачком</text>
+  <text x="785" y="451" text-anchor="middle" font-size="12" fill="#6b7280">Аварійна зупинка транспортера</text>
+
+  <!-- Bottom Legend / Footnote -->
+  <text x="480" y="498" text-anchor="middle" font-size="12" fill="#6b7280">Примусове розмикання контактів (positive opening action) відбувається в обох крайніх станах механізму</text>
+</svg>

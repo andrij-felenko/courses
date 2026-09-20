@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+  
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Header Section -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Дерейтинг допустимого струму кулачкового перемикача від cos(φ)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">При зниженні cos(φ) індуктивна дуга збільшує знос контактів, вимагаючи зниження робочого струму I_le / I_n</text>
+
+  <!-- Left Container: Derating Chart -->
+  <rect x="30" y="85" width="590" height="330" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="85" width="590" height="35" rx="6" fill="#eaf0fd"/>
+  <rect x="30" y="110" width="590" height="10" fill="#eaf0fd"/>
+  <text x="325" y="107" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Залежність допустимого струму I_le / I_n від cos(φ)</text>
+
+  <!-- Chart Grid Lines (Horizontal) -->
+  <line x1="110" y1="130" x2="570" y2="130" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="110" y1="187.5" x2="570" y2="187.5" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="110" y1="245" x2="570" y2="245" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="110" y1="302.5" x2="570" y2="302.5" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Chart Grid Lines (Vertical) -->
+  <line x1="225" y1="130" x2="225" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="340" y1="130" x2="340" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="455" y1="130" x2="455" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+  <line x1="570" y1="130" x2="570" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Y-Axis Ticks & Labels -->
+  <text x="100" y="134" font-size="11" fill="#6b7280" text-anchor="end">100%</text>
+  <text x="100" y="191" font-size="11" fill="#6b7280" text-anchor="end">75%</text>
+  <text x="100" y="249" font-size="11" fill="#6b7280" text-anchor="end">50%</text>
+  <text x="100" y="306" font-size="11" fill="#6b7280" text-anchor="end">25%</text>
+  <text x="100" y="364" font-size="11" fill="#6b7280" text-anchor="end">0%</text>
+
+  <!-- X-Axis Ticks & Labels -->
+  <text x="110" y="375" font-size="11" fill="#6b7280" text-anchor="middle">0.2</text>
+  <text x="225" y="375" font-size="11" fill="#6b7280" text-anchor="middle">0.4</text>
+  <text x="340" y="375" font-size="11" fill="#6b7280" text-anchor="middle">0.6</text>
+  <text x="455" y="375" font-size="11" fill="#6b7280" text-anchor="middle">0.8</text>
+  <text x="570" y="375" font-size="11" fill="#6b7280" text-anchor="middle">1.0</text>
+
+  <!-- Main Axes -->
+  <line x1="110" y1="360" x2="575" y2="360" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="110" y1="360" x2="110" y2="120" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-blue)"/>
+  
+  <text x="340" y="398" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Коефіцієнт потужності, cos(φ)</text>
+  <text x="102" y="125" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="end">I_le / I_n (%)</text>
+
+  <!-- Derating Curve AC-1 (Resistive) -->
+  <path d="M 570,130 C 455,135 340,148 110,188" stroke="#27ae60" stroke-width="3" fill="none"/>
+  <text x="140" y="150" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">AC-1 (100% I_n)</text>
+
+  <!-- Derating Curve AC-3 (Motors) -->
+  <path d="M 570,153 C 455,170 368,187.5 110,279.5" stroke="#2457d6" stroke-width="3" fill="none"/>
+  <text x="490" y="150" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="start">AC-3</text>
+
+  <!-- Derating Curve AC-23A (Inductive) -->
+  <path d="M 570,176 C 455,195 340,233 110,302.5" stroke="#c0392b" stroke-width="3" fill="none"/>
+  <text x="490" y="174" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">AC-23A</text>
+
+  <!-- Point Annotations / Badges -->
+  <!-- AC-3 Operating Point Badge -->
+  <line x1="368" y1="187.5" x2="368" y2="360" stroke="#2457d6" stroke-width="1" stroke-dasharray="2,2"/>
+  <circle cx="368" cy="187.5" r="5" fill="#2457d6"/>
+  <rect x="380" y="260" width="135" height="24" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="447" y="276" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">AC-3: cos φ=0.65 (75%)</text>
+
+  <!-- AC-23A Operating Point Badge -->
+  <line x1="196" y1="272.6" x2="196" y2="360" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <circle cx="196" cy="272.6" r="5" fill="#c0392b"/>
+  <rect x="210" y="315" width="140" height="24" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="280" y="331" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">AC-23A: cos φ=0.35 (38%)</text>
+
+  <!-- Right Panel: Category Descriptions -->
+  <rect x="640" y="85" width="290" height="330" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="640" y="85" width="290" height="35" rx="6" fill="#eaf0fd"/>
+  <rect x="640" y="110" width="290" height="10" fill="#eaf0fd"/>
+  <text x="785" y="107" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Категорії застосування IEC 60947-3</text>
+
+  <!-- Sub-box AC-1 -->
+  <rect x="650" y="130" width="270" height="75" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="662" y="150" font-size="12" font-weight="bold" fill="#27ae60">AC-1: Резистивне навантаження</text>
+  <text x="662" y="169" font-size="11" fill="#1a1a1a">• cos(φ) ≥ 0.95 (нагрівачі, ТЕНи)</text>
+  <text x="662" y="187" font-size="11" fill="#6b7280">• I_le = 100% I_n (без дерейтингу)</text>
+
+  <!-- Sub-box AC-3 -->
+  <rect x="650" y="217" width="270" height="85" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="662" y="237" font-size="12" font-weight="bold" fill="#2457d6">AC-3: Короткозамкнені двигуни</text>
+  <text x="662" y="256" font-size="11" fill="#1a1a1a">• cos(φ) ≈ 0.65..0.80 (пуск / вимикання)</text>
+  <text x="662" y="274" font-size="11" fill="#1a1a1a">• Пусковий струм: I_start = 5..7 I_n</text>
+  <text x="662" y="292" font-size="11" fill="#6b7280">• Дерейтинг струму: ~75..85%</text>
+
+  <!-- Sub-box AC-23A -->
+  <rect x="650" y="314" width="270" height="88" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="662" y="334" font-size="12" font-weight="bold" fill="#c0392b">AC-23A: Високоіндуктивні кола</text>
+  <text x="662" y="353" font-size="11" fill="#1a1a1a">• cos(φ) ≈ 0.35..0.45 (важкий пуск)</text>
+  <text x="662" y="371" font-size="11" fill="#1a1a1a">• Енергія дуги W_arc = L·I²/2 max</text>
+  <text x="662" y="389" font-size="11" fill="#6b7280">• Дерейтинг струму: ~35..50%</text>
+
+  <!-- Bottom Legend Panel -->
+  <rect x="30" y="430" width="900" height="35" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="452" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">■ AC-1 (cos φ = 0.95..1.0)</text>
+  <text x="480" y="452" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">■ AC-3 (cos φ = 0.65..0.80)</text>
+  <text x="790" y="452" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">■ AC-23A (cos φ = 0.35..0.45)</text>
+</svg>

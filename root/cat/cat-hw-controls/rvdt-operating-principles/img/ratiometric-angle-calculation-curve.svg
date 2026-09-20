@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Характеристики вторинних напруг та раціометрична крива RVDT</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Залежність напруг V_S1, V_S2 та раціометричної функції (V_S1 - V_S2)/(V_S1 + V_S2) від кута повороту θ</text>
+
+  <!-- PANEL 1: SECONDARY VOLTAGE AMPLITUDES V_S1 AND V_S2 -->
+  <rect x="30" y="72" width="435" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="85" width="405" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247.5" y="106" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Амплітуди вторинних напруг V_S1 та V_S2</text>
+
+  <!-- Sum Header above Plot Area 1 -->
+  <text x="255" y="132" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">V_S1 + V_S2 ≈ Const</text>
+
+  <!-- Panel 1 Graph Plot Area -->
+  <rect x="90" y="140" width="330" height="170" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Axis Grid Lines -->
+  <line x1="90" y1="225" x2="420" y2="225" stroke="#f3f4f6" stroke-dasharray="2,2"/>
+  <line x1="255" y1="148" x2="255" y2="310" stroke="#d0d7de" stroke-dasharray="3,3"/>
+
+  <!-- Graph Axes Panel 1 -->
+  <!-- Y-Axis (Voltage V) -->
+  <line x1="90" y1="310" x2="90" y2="140" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="85" y="156" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="end">V (В)</text>
+  <text x="85" y="172" font-size="11" fill="#6b7280" text-anchor="end">V_max</text>
+
+  <!-- X-Axis (Angle theta) -->
+  <line x1="90" y1="310" x2="420" y2="310" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="415" y="304" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="end">θ (град)</text>
+
+  <!-- Angle Ticks -->
+  <text x="110" y="327" font-size="11" fill="#6b7280" text-anchor="middle">-60°</text>
+  <text x="182.5" y="327" font-size="11" fill="#6b7280" text-anchor="middle">-30°</text>
+  <text x="255" y="327" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">0°</text>
+  <text x="327.5" y="327" font-size="11" fill="#6b7280" text-anchor="middle">+30°</text>
+  <text x="400" y="327" font-size="11" fill="#6b7280" text-anchor="middle">+60°</text>
+
+  <!-- V_S1 Curve (Increasing, Green) -->
+  <path d="M 110 288 L 255 225 L 392 163" fill="none" stroke="#27ae60" stroke-width="2.2"/>
+  <text x="423" y="165" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">V_S1</text>
+
+  <!-- V_S2 Curve (Decreasing, Red) -->
+  <path d="M 110 163 L 255 225 L 392 288" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+  <text x="423" y="292" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">V_S2</text>
+
+  <!-- Null Point Marker -->
+  <circle cx="255" cy="225" r="4" fill="#2457d6"/>
+  <text x="282" y="237" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="start">Нуль (V_S1 = V_S2)</text>
+
+  <!-- Sum Line V_S1 + V_S2 (Constant Horizontal) -->
+  <line x1="110" y1="148" x2="390" y2="148" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Panel 1 Explanatory Text Box -->
+  <rect x="45" y="340" width="405" height="122" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="58" y="362" font-size="12" font-weight="bold" fill="#1a1a1a">Властивості вторинних напруг:</text>
+  <text x="58" y="384" font-size="11" fill="#1a1a1a">• Напруги V_S1 та V_S2 змінюються антифазно від кута θ</text>
+  <text x="58" y="406" font-size="11" fill="#1a1a1a">• У точці нульового кута (θ = 0°) напруги рівні: V_S1 = V_S2</text>
+  <text x="58" y="428" font-size="11" font-weight="bold" fill="#2457d6">• Сума напруг (V_S1 + V_S2) залишається практично сталою</text>
+
+
+  <!-- PANEL 2: RATIOMETRIC FUNCTION CURVE RATIO(THETA) -->
+  <rect x="495" y="72" width="445" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="85" width="415" height="32" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="717.5" y="106" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Раціометрична крива Ratio(θ)</text>
+
+  <!-- Linear Range Top Label (Above plot) -->
+  <text x="717.5" y="132" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Робоча лінійна зона (±40°)</text>
+
+  <!-- Panel 2 Graph Plot Area -->
+  <rect x="555" y="140" width="330" height="170" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- Linear Zone Highlight Box (-40 to +40 deg) -->
+  <rect x="603" y="140" width="234" height="170" fill="#e9f7ef" opacity="0.5"/>
+
+  <!-- Axis Grid Lines -->
+  <line x1="555" y1="225" x2="885" y2="225" stroke="#d0d7de" stroke-dasharray="3,3"/>
+  <line x1="720" y1="156" x2="720" y2="310" stroke="#d0d7de" stroke-dasharray="3,3"/>
+
+  <!-- Graph Axes Panel 2 -->
+  <!-- Y-Axis (Ratio) -->
+  <line x1="720" y1="310" x2="720" y2="140" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="710" y="168" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">Ratio</text>
+  <text x="710" y="182" font-size="11" fill="#6b7280" text-anchor="end">+1.0</text>
+  <text x="710" y="295" font-size="11" fill="#6b7280" text-anchor="end">-1.0</text>
+
+  <!-- X-Axis (Angle theta) -->
+  <line x1="555" y1="225" x2="885" y2="225" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="888" y="220" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">θ (град)</text>
+
+  <!-- Angle Ticks -->
+  <text x="575" y="242" font-size="11" fill="#6b7280" text-anchor="middle">-60°</text>
+  <text x="647.5" y="242" font-size="11" fill="#6b7280" text-anchor="middle">-30°</text>
+  <text x="728" y="242" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">0°</text>
+  <text x="792.5" y="242" font-size="11" fill="#6b7280" text-anchor="middle">+30°</text>
+  <text x="865" y="242" font-size="11" fill="#6b7280" text-anchor="middle">+60°</text>
+
+  <!-- Ratiometric Curve (Blue Line) -->
+  <path d="M 575 295 L 720 225 L 865 155" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Linear Range Top Marker Bar -->
+  <line x1="603" y1="150" x2="837" y2="150" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Panel 2 Explanatory Text Box -->
+  <rect x="510" y="340" width="415" height="122" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="523" y="362" font-size="12" font-weight="bold" fill="#1a1a1a">Переваги раціометричної функції:</text>
+  <text x="523" y="384" font-size="12" font-weight="bold" fill="#2457d6">Ratio = (V_S1 - V_S2) / (V_S1 + V_S2) = k · θ</text>
+  <text x="523" y="406" font-size="11" fill="#1a1a1a">• Повністю скасовує мультиплікативні похибки збудження</text>
+  <text x="523" y="428" font-size="11" font-weight="bold" fill="#27ae60">• Висока точність і стабільність позиціонування</text>
+
+  <!-- BOTTOM SUMMARY BANNER -->
+  <rect x="30" y="488" width="900" height="38" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="512" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Лінійна раціометрична залежність скасовує вплив температурних коливань та амплітудної нестабільності збудження</text>
+</svg>

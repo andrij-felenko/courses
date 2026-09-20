@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Топологія екранування кабелю S/FTP та одноточкове заземлення біля модуля RDC</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Заземлення загального екрана лише з боку аналогового обробника усуває струми земляних контурів</text>
+
+  <!-- ОСНОВНА ПАНЕЛЬ ТОПОЛОГІЇ -->
+  <rect x="25" y="70" width="910" height="275" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Корпус давача RVDT -->
+  <rect x="45" y="95" width="170" height="225" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="130" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Давач RVDT</text>
+  <text x="130" y="136" text-anchor="middle" font-size="12" fill="#6b7280">(металевий корпус)</text>
+
+  <!-- Контакти обмоток давача -->
+  <rect x="180" y="148" width="35" height="24" rx="3" stroke="#2457d6" stroke-width="1" fill="#eaf0fd"/>
+  <text x="197" y="164" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">EXC</text>
+
+  <rect x="180" y="196" width="35" height="24" rx="3" stroke="#2457d6" stroke-width="1" fill="#eaf0fd"/>
+  <text x="197" y="212" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">S1</text>
+
+  <rect x="180" y="244" width="35" height="24" rx="3" stroke="#2457d6" stroke-width="1" fill="#eaf0fd"/>
+  <text x="197" y="260" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">S2</text>
+
+  <!-- Ізоляція екрана біля давача -->
+  <circle cx="195" cy="290" r="7" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="190" y1="285" x2="200" y2="295" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="118" y="294" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Екран не заземлювати!</text>
+
+  <!-- Кабельна траса S/FTP -->
+  <rect x="245" y="105" width="440" height="200" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <text x="465" y="124" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Загальний плетений екран кабелю S/FTP</text>
+
+  <!-- Виті пари провідників із підписами ПОЗА рамками -->
+  <!-- Пара EXC -->
+  <text x="270" y="142" font-size="12" font-weight="bold" fill="#2457d6">Вита пара збудження (EXC+, EXC-)</text>
+  <rect x="260" y="146" width="410" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 270,160 Q 290,150 310,160 T 350,160 T 390,160 T 430,160 T 470,160 T 510,160 T 550,160 T 590,160 T 630,160 H 660" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <path d="M 270,160 Q 290,170 310,160 T 350,160 T 390,160 T 430,160 T 470,160 T 510,160 T 550,160 T 590,160 T 630,160 H 660" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+  <!-- Пара S1 -->
+  <text x="270" y="190" font-size="12" font-weight="bold" fill="#1a1a1a">Вита пара вторинна S1 (S1+, S1-)</text>
+  <rect x="260" y="194" width="410" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 270,208 Q 290,198 310,208 T 350,208 T 390,208 T 430,208 T 470,208 T 510,208 T 550,208 T 590,208 T 630,208 H 660" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 270,208 Q 290,218 310,208 T 350,208 T 390,208 T 430,208 T 470,208 T 510,208 T 550,208 T 590,208 T 630,208 H 660" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+  <!-- Пара S2 -->
+  <text x="270" y="238" font-size="12" font-weight="bold" fill="#1a1a1a">Вита пара вторинна S2 (S2+, S2-)</text>
+  <rect x="260" y="242" width="410" height="28" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 270,256 Q 290,246 310,256 T 350,256 T 390,256 T 430,256 T 470,256 T 510,256 T 550,256 T 590,256 T 630,256 H 660" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 270,256 Q 290,266 310,256 T 350,256 T 390,256 T 430,256 T 470,256 T 510,256 T 550,256 T 590,256 T 630,256 H 660" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+  <!-- Модуль приймача / RDC -->
+  <rect x="715" y="95" width="200" height="225" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="815" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Модуль RDC / AFE</text>
+  <text x="815" y="136" text-anchor="middle" font-size="12" fill="#6b7280">(приймальна плата)</text>
+
+  <!-- Клемник RDC -->
+  <rect x="725" y="145" width="45" height="135" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="747" y="164" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">EXC</text>
+  <text x="747" y="212" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">S1</text>
+  <text x="747" y="260" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">S2</text>
+
+  <!-- Лінія заземлення екрана біля RDC -->
+  <path d="M 685,205 H 705 V 290 H 765" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <circle cx="765" cy="290" r="4" fill="#27ae60"/>
+
+  <!-- Позначення точки одноточкового заземлення AGND -->
+  <line x1="765" y1="290" x2="765" y2="305" stroke="#27ae60" stroke-width="2"/>
+  <line x1="753" y1="305" x2="777" y2="305" stroke="#27ae60" stroke-width="2"/>
+  <line x1="757" y1="309" x2="773" y2="309" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="761" y1="313" x2="769" y2="313" stroke="#27ae60" stroke-width="1"/>
+  <text x="780" y="304" font-size="12" font-weight="bold" fill="#27ae60">Точка заземлення AGND</text>
+
+  <!-- НИЖНІ БЛОКИ-ПРИМІТКИ -->
+  <!-- Ліва примітка: Помилка -->
+  <rect x="25" y="355" width="445" height="105" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="247" y="377" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">⛔ ПОМИЛКА: Заземлення екрана з двох боків</text>
+  <text x="247" y="398" text-anchor="middle" font-size="12" fill="#1a1a1a">Створює земляний контур через різницю потенціалів ΔV_g.</text>
+  <text x="247" y="418" text-anchor="middle" font-size="12" fill="#1a1a1a">Струм вирівнювання індукує наводку на сигнальних жилах!</text>
+  <text x="247" y="440" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Результат: кутова похибка позиціонування та спотворення сигналу.</text>
+
+  <!-- Права примітка: Правило -->
+  <rect x="490" y="355" width="445" height="105" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712" y="377" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">✓ ПРАВИЛО: Одноточкове заземлення біля модуля RDC</text>
+  <text x="712" y="398" text-anchor="middle" font-size="12" fill="#1a1a1a">Екран підключають до AGND виключно на боці аналогового приймача.</text>
+  <text x="712" y="418" text-anchor="middle" font-size="12" fill="#1a1a1a">На боці давача RVDT екран залишають повністю ізольованим.</text>
+  <text x="712" y="440" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Результат: 100% усунення земляних контурів та максимальний CMRR.</text>
+</svg>

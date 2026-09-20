@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Еволюція панельного монтажу силових вимикачів</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Від трудомісткого гвинтового кріплення з вушками до миттєвої затискної фіксації snap-in</text>
+
+  <!-- ==================== LEFT PANEL: SCREW MOUNT ==================== -->
+  <rect x="35" y="75" width="415" height="395" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="50" y="90" width="385" height="28" rx="4" ry="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="242" y="109" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Традиційний гвинтовий монтаж (Screw Mount)</text>
+
+  <!-- Diagram Left: Screw Mount -->
+  <g transform="translate(65, 135)">
+    <rect x="0" y="0" width="355" height="180" rx="6" ry="6" fill="white" stroke="#d0d7de"/>
+
+    <!-- Panel Plate Section (Gray wall cut) -->
+    <rect x="130" y="20" width="16" height="140" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+    <!-- Screw holes in panel -->
+    <rect x="130" y="30" width="16" height="8" fill="white" stroke="#6b7280"/>
+    <rect x="130" y="142" width="16" height="8" fill="white" stroke="#6b7280"/>
+    <!-- Main panel cutout -->
+    <rect x="130" y="55" width="16" height="70" fill="white" stroke="none"/>
+    <text x="138" y="94" font-size="11" fill="#6b7280" text-anchor="middle">Панель</text>
+
+    <!-- Switch Housing with Flanges -->
+    <!-- Main body -->
+    <rect x="30" y="58" width="95" height="64" rx="3" ry="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="77" y="95" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Корпус рокера</text>
+
+    <!-- Top Mounting Ear (Flange) -->
+    <rect x="110" y="26" width="15" height="32" rx="2" ry="2" fill="#2457d6"/>
+    <circle cx="117.5" cy="34" r="3" fill="white"/>
+
+    <!-- Bottom Mounting Ear (Flange) -->
+    <rect x="110" y="122" width="15" height="32" rx="2" ry="2" fill="#2457d6"/>
+    <circle cx="117.5" cy="138" r="3" fill="white"/>
+
+    <!-- Screws entering -->
+    <!-- Top Screw -->
+    <path d="M 170 34 L 105 34" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+    <rect x="170" y="28" width="12" height="12" fill="#c0392b"/>
+    <!-- Bottom Screw -->
+    <path d="M 170 138 L 105 138" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+    <rect x="170" y="132" width="12" height="12" fill="#c0392b"/>
+
+    <!-- Annotations -->
+    <text x="235" y="38" font-size="11" font-weight="bold" fill="#c0392b">Гвинт M3</text>
+    <text x="235" y="142" font-size="11" font-weight="bold" fill="#c0392b">Гвинт M3</text>
+    <text x="65" y="20" font-size="11" fill="#2457d6" text-anchor="middle">Монтажні вушка</text>
+    <path d="M 65 24 L 110 30" fill="none" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  </g>
+
+  <!-- Left Text Details -->
+  <text x="70" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">• Отвору під корпус замало — потрібні виштамповки вушок</text>
+  <text x="70" y="358" font-size="12" fill="#1a1a1a">• Необхідне ручне закручування 2–4 гвинтів та гайок</text>
+  <text x="70" y="378" font-size="12" fill="#c0392b" font-weight="bold">• Ризик розкручування від вібрації та корозії металу</text>
+  <text x="70" y="398" font-size="12" fill="#6b7280">• Виступні гвинти погіршують зовнішній вигляд фасаду</text>
+  <text x="70" y="438" font-size="12" font-weight="bold" fill="#c0392b">Трудомісткий монтаж: 2–3 хв на один вимикач</text>
+  <text x="70" y="456" font-size="11" fill="#6b7280">(вимагає свердління отворів та роботи викруткою)</text>
+
+
+  <!-- ==================== RIGHT PANEL: SNAP-IN MOUNT ==================== -->
+  <rect x="510" y="75" width="415" height="395" rx="8" ry="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="525" y="90" width="385" height="28" rx="4" ry="4" fill="#27ae60"/>
+  <text x="717" y="109" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Сучасний затискний монтаж (Snap-In Mount)</text>
+
+  <!-- Diagram Right: Snap-In Mount -->
+  <g transform="translate(540, 135)">
+    <rect x="0" y="0" width="355" height="180" rx="6" ry="6" fill="white" stroke="#27ae60"/>
+
+    <!-- Panel Plate Section (Gray wall cut) -->
+    <rect x="170" y="20" width="16" height="40" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+    <rect x="170" y="120" width="16" height="40" fill="#d0d7de" stroke="#6b7280" stroke-width="1"/>
+    <!-- Clean rectangular cutout -->
+    <rect x="170" y="60" width="16" height="60" fill="white" stroke="none"/>
+    <text x="178" y="172" font-size="11" fill="#6b7280" text-anchor="middle">Панель</text>
+
+    <!-- Switch Housing with Snap-in Latches -->
+    <!-- Main body entering cutout -->
+    <rect x="50" y="62" width="115" height="56" rx="3" ry="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="100" y="95" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Корпус рокера</text>
+
+    <!-- Front Bezel Stop (Фланець лицьової рамки) -->
+    <rect x="40" y="54" width="10" height="72" rx="2" ry="2" fill="#1a1a1a"/>
+
+    <!-- Top Flexible Snap Latch -->
+    <path d="M 120 62 L 145 46 L 155 62 Z" fill="#27ae60" stroke="#1a1a1a" stroke-width="1"/>
+    <path d="M 130 35 L 148 48" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="100" y="32" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Пружна засувка</text>
+
+    <!-- Bottom Flexible Snap Latch -->
+    <path d="M 120 118 L 145 134 L 155 118 Z" fill="#27ae60" stroke="#1a1a1a" stroke-width="1"/>
+    <path d="M 130 145 L 148 132" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="100" y="152" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Заскочення в корпус</text>
+
+    <!-- Insertion Direction Arrow -->
+    <path d="M 10 90 L 32 90" fill="none" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+    <text x="21" y="80" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">Втискання</text>
+  </g>
+
+  <!-- Right Text Details -->
+  <text x="545" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">• Одноразова виштамповка прямокутного отвору в панелі</text>
+  <text x="545" y="358" font-size="12" fill="#1a1a1a">• Установлення «в один клік» без жодного інструменту</text>
+  <text x="545" y="378" font-size="12" fill="#27ae60" font-weight="bold">• Пружні ламелі компенсують товщину панелі (1–3 мм)</text>
+  <text x="545" y="398" font-size="12" fill="#6b7280">• Гладенький фасад пристрою без зовнішніх кріплень</text>
+  <text x="545" y="438" font-size="12" font-weight="bold" fill="#27ae60">Миттєве збирання: 3–5 с на один вимикач</text>
+  <text x="545" y="456" font-size="11" fill="#6b7280">(в 30 разів швидше за гвинтовий монтаж)</text>
+
+  <!-- Center Evolution Arrow -->
+  <path d="M 460 260 L 500 260" fill="none" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+
+</svg>

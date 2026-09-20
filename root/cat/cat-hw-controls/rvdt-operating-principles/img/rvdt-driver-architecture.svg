@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Main Title and Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Архітектура програмно-апаратного драйвера RVDT</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Синхронізація збудження V_exc, вибірок АЦП (V₁, V₂), демодуляції, логометрії та калібрування</text>
+
+  <!-- Panel 1: Excitation Subsystem -->
+  <rect x="25" y="85" width="265" height="375" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="6"/>
+  <text x="157.5" y="108" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Апаратне збудження</text>
+
+  <!-- Block 1A: Sine Generator -->
+  <rect x="45" y="125" width="225" height="70" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="157.5" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Генератор синуса (ШІМ / ЦАП)</text>
+  <text x="157.5" y="163" font-size="12" fill="#2457d6" text-anchor="middle">Синтез частоти f_exc (2..10 кГц)</text>
+  <text x="157.5" y="181" font-size="12" fill="#6b7280" text-anchor="middle">Апаратна таблиця Sine-LUT</text>
+
+  <!-- Block 1B: Power Driver -->
+  <rect x="45" y="215" width="225" height="60" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="157.5" y="237" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підсилювач збудження</text>
+  <text x="157.5" y="259" font-size="12" fill="#2457d6" text-anchor="middle">Вихід: V_exc = V_m · sin(ωt)</text>
+
+  <!-- Block 1C: ADC Trigger Generator -->
+  <rect x="45" y="295" width="225" height="70" fill="white" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="157.5" y="317" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Генератор тригера АЦП</text>
+  <text x="157.5" y="335" font-size="12" fill="#2457d6" text-anchor="middle">Тригер на піках sin(ωt) = ±1</text>
+  <text x="157.5" y="351" font-size="12" fill="#6b7280" text-anchor="middle">Максимальна чутливість dV/dt=0</text>
+
+  <!-- Internal Arrows Panel 1 -->
+  <line x1="157.5" y1="195" x2="157.5" y2="215" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <line x1="157.5" y1="275" x2="157.5" y2="295" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 2: Analog Front-End & Sensor -->
+  <rect x="310" y="85" width="265" height="375" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="442.5" y="108" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Аналоговий тракт і RVDT</text>
+
+  <!-- Block 2A: RVDT Sensor Windings -->
+  <rect x="330" y="125" width="225" height="90" fill="white" stroke="#6b7280" stroke-width="1" rx="4"/>
+  <text x="442.5" y="145" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Давач RVDT (Обмотки)</text>
+  <text x="345" y="167" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">Первинна: V_exc</text>
+  <text x="345" y="187" font-size="12" fill="#27ae60" text-anchor="start">Вторинна 1: V₁(θ)</text>
+  <text x="345" y="205" font-size="12" fill="#c0392b" text-anchor="start">Вторинна 2: V₂(θ)</text>
+
+  <!-- Block 2B: Analog Conditioning (AFE) -->
+  <rect x="330" y="235" width="225" height="60" fill="white" stroke="#6b7280" stroke-width="1" rx="4"/>
+  <text x="442.5" y="257" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Підсилення та ФНЧ (AFE)</text>
+  <text x="442.5" y="279" font-size="12" fill="#6b7280" text-anchor="middle">Фільтрація завад, захист від ОВ</text>
+
+  <!-- Block 2C: Dual Synchronous ADC -->
+  <rect x="330" y="315" width="225" height="65" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="442.5" y="335" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Двоканальний АЦП (Sync ADC)</text>
+  <text x="442.5" y="353" font-size="12" fill="#1a1a1a" text-anchor="middle">Одночасна вибірка Ch1, Ch2</text>
+  <text x="442.5" y="369" font-size="12" fill="#2457d6" text-anchor="middle">Вихід: вибірки V₁[k], V₂[k]</text>
+
+  <!-- Internal Arrows Panel 2 -->
+  <line x1="442.5" y1="215" x2="442.5" y2="235" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="442.5" y1="295" x2="442.5" y2="315" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Inter-Panel Connections: Panel 1 -> Panel 2 -->
+  <!-- Excitation Signal V_exc to Primary Winding -->
+  <path d="M 270,245 L 295,245 L 295,167 L 330,167" fill="none" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="298" y="206" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">V_exc</text>
+
+  <!-- ADC Trigger Signal -->
+  <line x1="270" y1="347" x2="330" y2="347" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <text x="300" y="340" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Тригер</text>
+
+  <!-- Panel 3: Software DSP Driver -->
+  <rect x="610" y="85" width="325" height="375" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="772.5" y="108" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">3. Програмний DSP-драйвер</text>
+
+  <!-- Block 3A: Phase Demodulation -->
+  <rect x="630" y="125" width="285" height="60" fill="white" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="772.5" y="147" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Демодуляція та огинаюча (PSD)</text>
+  <text x="772.5" y="169" font-size="12" fill="#27ae60" text-anchor="middle">Опрацювання знаку та огинаючої V₁, V₂</text>
+  <text x="638" y="142" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">V₁[k], V₂[k]</text>
+
+  <!-- Block 3B: Ratiometric Calculation -->
+  <rect x="630" y="205" width="285" height="65" fill="white" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="772.5" y="226" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Логометрія: Ratio = (V₁-V₂)/(V₁+V₂)</text>
+  <text x="772.5" y="250" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Компенсація дрейфу V_exc та T°</text>
+
+  <!-- Block 3C: Filtering & Calibration -->
+  <rect x="630" y="290" width="285" height="65" fill="white" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="772.5" y="310" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Фільтрація, Zero-Offset та Scale</text>
+  <text x="772.5" y="328" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Вихідний кут: θ = K · Ratio - θ_offset</text>
+  <text x="772.5" y="344" font-size="12" fill="#6b7280" text-anchor="middle">Цифровий ФНЧ (Moving Average / IIR)</text>
+
+  <!-- Block 3D: Fault Diagnostics -->
+  <rect x="630" y="375" width="285" height="70" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="772.5" y="395" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Діагностика та захист від аварій</text>
+  <text x="772.5" y="413" font-size="12" fill="#1a1a1a" text-anchor="middle">Контроль суми (V₁+V₂), обриву обмоток</text>
+  <text x="772.5" y="431" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Статус: NORMAL / FAULT_OPEN_CIRCUIT</text>
+
+  <!-- Internal Arrows Panel 3 -->
+  <line x1="772.5" y1="185" x2="772.5" y2="205" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="772.5" y1="270" x2="772.5" y2="290" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <line x1="772.5" y1="355" x2="772.5" y2="375" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- Inter-Panel Connections: Panel 2 -> Panel 3 -->
+  <!-- ADC Samples V1[k], V2[k] Line to Panel 3 -->
+  <path d="M 555,347 L 585,347 L 585,155 L 630,155" fill="none" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+</svg>

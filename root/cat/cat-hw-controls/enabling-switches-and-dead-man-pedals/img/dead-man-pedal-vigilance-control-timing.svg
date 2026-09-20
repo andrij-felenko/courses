@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Часова діаграма системи контролю пильності (Vigilance Control)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Примусове циклування педалі запобігає заклинюванню у робочому стані</text>
+
+  <!-- PANEL 1: Normal Operation -->
+  <rect x="30" y="70" width="435" height="445" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="94" font-size="14" font-weight="700" fill="#27ae60" text-anchor="middle">Нормальний режим: Підтвердження оператора</text>
+
+  <!-- Panel 1: Signal Labels (Left) -->
+  <text x="42" y="138" font-size="12" font-weight="700" fill="#1a1a1a">Педаль</text>
+  <text x="42" y="153" font-size="11" fill="#6b7280">(NC/NO)</text>
+  <text x="108" y="184" font-size="11" fill="#6b7280" text-anchor="end">OFF</text>
+  <text x="108" y="139" font-size="11" fill="#2457d6" text-anchor="end">ENABLE</text>
+
+  <text x="42" y="248" font-size="12" font-weight="700" fill="#1a1a1a">Звук / LED</text>
+  <text x="42" y="263" font-size="11" fill="#6b7280">(Сигнал)</text>
+  <text x="108" y="294" font-size="11" fill="#6b7280" text-anchor="end">OFF</text>
+  <text x="108" y="254" font-size="11" fill="#c0392b" text-anchor="end">WARN</text>
+
+  <text x="42" y="358" font-size="12" font-weight="700" fill="#1a1a1a">Вихід</text>
+  <text x="42" y="373" font-size="11" fill="#6b7280">(Дозвіл)</text>
+  <text x="108" y="404" font-size="11" fill="#c0392b" text-anchor="end">STOP</text>
+  <text x="108" y="364" font-size="11" fill="#27ae60" text-anchor="end">RUN</text>
+
+  <!-- Panel 1: Grid Lines -->
+  <line x1="120" y1="180" x2="435" y2="180" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="120" y1="135" x2="435" y2="135" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="120" y1="290" x2="435" y2="290" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="120" y1="250" x2="435" y2="250" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="120" y1="400" x2="435" y2="400" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="120" y1="360" x2="435" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Panel 1: Vertical Time Markers -->
+  <line x1="150" y1="110" x2="150" y2="440" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="250" y1="110" x2="250" y2="440" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="290" y1="110" x2="290" y2="440" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Panel 1: Waveforms -->
+  <!-- Signal 1: Pedal Position -->
+  <path d="M120,180 L150,180 L150,135 L270,135 L275,180 L285,180 L290,135 L435,135" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="280" y="122" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">Циклування</text>
+
+  <!-- Signal 2: Warning Buzzer -->
+  <path d="M120,290 L250,290 L250,250 L290,250 L290,290 L435,290" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Signal 3: Safety Output -->
+  <path d="M120,400 L150,400 L150,360 L435,360" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+  <!-- Panel 1: Time Window Annotations -->
+  <!-- Twarn arrow -->
+  <line x1="150" y1="455" x2="250" y2="455" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="150" y1="450" x2="150" y2="460" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="250" y1="450" x2="250" y2="460" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="200" y="470" font-size="11" fill="#2457d6" text-anchor="middle">T_warn (30 с)</text>
+
+  <!-- Treact arrow -->
+  <line x1="250" y1="455" x2="290" y2="455" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="290" y1="450" x2="290" y2="460" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="270" y="470" font-size="11" fill="#c0392b" text-anchor="middle">T_react</text>
+
+  <!-- Status Box Panel 1 -->
+  <rect x="150" y="480" width="195" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="247" y="496" font-size="11" font-weight="700" fill="#27ae60" text-anchor="middle">ОК: Оператор активний</text>
+
+
+  <!-- PANEL 2: Fault / Jamming Operation -->
+  <rect x="495" y="70" width="435" height="445" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="94" font-size="14" font-weight="700" fill="#c0392b" text-anchor="middle">Режим відмови: Заклинення педалі</text>
+
+  <!-- Panel 2: Signal Labels (Left) -->
+  <text x="507" y="138" font-size="12" font-weight="700" fill="#1a1a1a">Педаль</text>
+  <text x="507" y="153" font-size="11" fill="#c0392b">(Затиснута)</text>
+  <text x="573" y="184" font-size="11" fill="#6b7280" text-anchor="end">OFF</text>
+  <text x="573" y="139" font-size="11" fill="#2457d6" text-anchor="end">ENABLE</text>
+
+  <text x="507" y="248" font-size="12" font-weight="700" fill="#1a1a1a">Звук / LED</text>
+  <text x="507" y="263" font-size="11" fill="#6b7280">(Тривога)</text>
+  <text x="573" y="294" font-size="11" fill="#6b7280" text-anchor="end">OFF</text>
+  <text x="573" y="254" font-size="11" fill="#c0392b" text-anchor="end">ALARM</text>
+
+  <text x="507" y="358" font-size="12" font-weight="700" fill="#1a1a1a">Вихід</text>
+  <text x="507" y="373" font-size="11" fill="#6b7280">(Дозвіл)</text>
+  <text x="573" y="404" font-size="11" fill="#c0392b" text-anchor="end">STOP</text>
+  <text x="573" y="364" font-size="11" fill="#27ae60" text-anchor="end">RUN</text>
+
+  <!-- Panel 2: Grid Lines -->
+  <line x1="585" y1="180" x2="900" y2="180" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="585" y1="135" x2="900" y2="135" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="585" y1="290" x2="900" y2="290" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="585" y1="250" x2="900" y2="250" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="585" y1="400" x2="900" y2="400" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="585" y1="360" x2="900" y2="360" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Panel 2: Vertical Time Markers -->
+  <line x1="615" y1="110" x2="615" y2="440" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="715" y1="110" x2="715" y2="440" stroke="#9ca3af" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="775" y1="110" x2="775" y2="440" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Panel 2: Waveforms -->
+  <!-- Signal 1: Pedal Position (Static HIGH) -->
+  <path d="M585,180 L615,180 L615,135 L900,135" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="750" y="122" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">Залипання / Стяжка</text>
+
+  <!-- Signal 2: Warning Buzzer -> Alarm -->
+  <path d="M585,290 L715,290 L715,250 L900,250" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Signal 3: Safety Output -> TRIP -->
+  <path d="M585,400 L615,400 L615,360 L775,360 L775,400 L900,400" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="838" y="385" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">TRIP / ВІДКЛЮЧЕННЯ</text>
+
+  <!-- Panel 2: Time Window Annotations -->
+  <!-- Twarn arrow -->
+  <line x1="615" y1="455" x2="715" y2="455" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="615" y1="450" x2="615" y2="460" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="715" y1="450" x2="715" y2="460" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="665" y="470" font-size="11" fill="#2457d6" text-anchor="middle">T_warn (30 с)</text>
+
+  <!-- Exceeded Treact -->
+  <line x1="715" y1="455" x2="775" y2="455" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="775" y1="450" x2="775" y2="460" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="745" y="470" font-size="11" fill="#c0392b" text-anchor="middle">> T_react</text>
+
+  <!-- Status Box Panel 2 -->
+  <rect x="615" y="480" width="195" height="24" rx="4" fill="#fdecea" stroke="#c0392b"/>
+  <text x="712" y="496" font-size="11" font-weight="700" fill="#c0392b" text-anchor="middle">Аварія: Блокування приводу</text>
+</svg>

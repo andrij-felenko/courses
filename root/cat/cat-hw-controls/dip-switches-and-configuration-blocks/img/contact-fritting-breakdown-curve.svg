@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Залежність контактного опору R_c від напруги та поріг фриттингу</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">При досягненні V_fritting відбувається пробій оксидної плівки із різким падінням опору</text>
+
+  <!-- Zone Background Panels -->
+  <rect x="145" y="70" width="300" height="290" fill="#fdecea" rx="6" opacity="0.4"/>
+  <rect x="475" y="70" width="390" height="290" fill="#e9f7ef" rx="6" opacity="0.4"/>
+
+  <!-- Grid lines (horizontal) -->
+  <line x1="140" y1="150" x2="865" y2="150" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="140" y1="240" x2="865" y2="240" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="140" y1="330" x2="865" y2="330" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Axes -->
+  <line x1="135" y1="360" x2="880" y2="360" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="140" y1="365" x2="140" y2="70" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Axis Titles -->
+  <text x="145" y="65" text-anchor="start" font-size="13" font-weight="bold" fill="#1a1a1a">Контактний опір R_c (Ом)</text>
+  <text x="880" y="385" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">Напруга на контактах V (В)</text>
+
+  <!-- Y-Axis Ticks -->
+  <text x="130" y="154" text-anchor="end" font-size="12" fill="#6b7280">10⁵ Ом</text>
+  <text x="130" y="244" text-anchor="end" font-size="12" fill="#6b7280">10² Ом</text>
+  <text x="130" y="334" text-anchor="end" font-size="12" fill="#6b7280">10⁻² Ом</text>
+
+  <!-- X-Axis Ticks -->
+  <text x="140" y="380" text-anchor="middle" font-size="12" fill="#6b7280">0 В</text>
+
+  <!-- Fritting Threshold Line -->
+  <line x1="460" y1="70" x2="460" y2="360" stroke="#c0392b" stroke-width="2" stroke-dasharray="6,4"/>
+  <text x="460" y="380" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">V_fritting (0.1..1.5 В)</text>
+
+  <!-- Characteristic Breakdown Curve -->
+  <path d="M 140 150 L 390 150 C 430 150 445 180 460 240 C 475 300 490 330 530 330 L 865 330" fill="none" stroke="#2457d6" stroke-width="4"/>
+
+  <!-- Breakdown Point Marker -->
+  <circle cx="460" cy="240" r="7" fill="#c0392b" stroke="white" stroke-width="2"/>
+
+  <!-- Zone Callouts & Boxes -->
+  <!-- Callout 1: High Resistance Zone -->
+  <rect x="160" y="80" width="220" height="46" fill="white" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="170" y="98" font-size="12" font-weight="bold" fill="#c0392b">A-фриттинг (допробій)</text>
+  <text x="170" y="116" font-size="12" fill="#1a1a1a">Оксидна плівка ціла</text>
+
+  <!-- Callout 2: Breakdown Mechanics -->
+  <rect x="170" y="180" width="210" height="46" fill="white" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="180" y="198" font-size="12" font-weight="bold" fill="#2457d6">Електричний пробій</text>
+  <text x="180" y="216" font-size="12" fill="#1a1a1a">Напруженість E ≥ 10⁶ В/см</text>
+  <line x1="380" y1="203" x2="452" y2="236" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Callout 3: Low Resistance Zone -->
+  <rect x="580" y="80" width="240" height="46" fill="white" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="590" y="98" font-size="12" font-weight="bold" fill="#27ae60">B-фриттинг (металізація)</text>
+  <text x="590" y="116" font-size="12" fill="#1a1a1a">Формування містка</text>
+
+  <!-- Bottom Summary Cards -->
+  <rect x="140" y="398" width="350" height="46" fill="#fdecea" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="152" y="415" font-size="12" font-weight="bold" fill="#c0392b">Мікроструми без фриттингу (V &lt; V_fritting)</text>
+  <text x="152" y="432" font-size="12" fill="#1a1a1a">Плівка утримує опір, спричиняючи відмови</text>
+
+  <rect x="500" y="398" width="380" height="46" fill="#e9f7ef" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <text x="512" y="415" font-size="12" font-weight="bold" fill="#27ae60">Струм змочування (Wetting Current)</text>
+  <text x="512" y="432" font-size="12" fill="#1a1a1a">Гарантує руйнування плівки та стабільний контакт</text>
+</svg>

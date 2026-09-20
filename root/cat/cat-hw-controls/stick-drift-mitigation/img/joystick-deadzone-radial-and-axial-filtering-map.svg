@@ -1,0 +1,131 @@
+<svg viewBox="0 0 960 520" width="960" height="520" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Математичні моделі мертвих зон: осьова (Axial) та радіальна (Radial)</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Порівняння фільтрації дрейфу нейтралі між незалежною поосьовою та радіально-векторною обробкою</text>
+
+  <!-- LEFT PANEL: Axial Deadzone -->
+  <rect x="30" y="80" width="435" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Left Header -->
+  <text x="247" y="108" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">1. Осьова мертва зона (Axial Deadzone)</text>
+  <text x="247" y="126" text-anchor="middle" font-size="12" fill="#6b7280">Поосьова відсічка (|x| &lt; d_ax, |y| &lt; d_ax)</text>
+
+  <!-- Plot Area Left: Center (247, 265) -->
+  <rect x="137" y="155" width="220" height="220" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Axial Deadzone Cross Regions -->
+  <!-- Vertical Band -->
+  <rect x="222" y="155" width="50" height="220" fill="#fdecea" fill-opacity="0.7" stroke="#e74c3c" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- Horizontal Band -->
+  <rect x="137" y="240" width="220" height="50" fill="#fdecea" fill-opacity="0.7" stroke="#e74c3c" stroke-width="1" stroke-dasharray="3,3"/>
+  <!-- Overlap Square -->
+  <rect x="222" y="240" width="50" height="50" fill="#f5b7b1" fill-opacity="0.8" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Axes -->
+  <line x1="120" y1="265" x2="375" y2="265" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="247" y1="392" x2="247" y2="138" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Axis Labels -->
+  <text x="382" y="269" font-size="12" font-weight="bold" fill="#1a1a1a">X</text>
+  <text x="247" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Y</text>
+
+  <text x="130" y="280" text-anchor="middle" font-size="12" fill="#6b7280">-1.0</text>
+  <text x="364" y="280" text-anchor="middle" font-size="12" fill="#6b7280">+1.0</text>
+  <text x="235" y="386" text-anchor="end" font-size="12" fill="#6b7280">-1.0</text>
+  <text x="235" y="150" text-anchor="end" font-size="12" fill="#6b7280">+1.0</text>
+
+  <!-- Width dimension arrow for 2*d_ax -->
+  <line x1="222" y1="382" x2="272" y2="382" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-red)" marker-end="url(#arr-red)"/>
+  <text x="247" y="398" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">2 · d_ax</text>
+
+  <!-- Shifted Drift Center Dot -->
+  <circle cx="265" cy="250" r="5" fill="#c0392b"/>
+  <line x1="265" y1="250" x2="310" y2="195" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="315" y="190" font-size="12" font-weight="bold" fill="#c0392b">Дрейф нейтралі</text>
+  <text x="315" y="206" font-size="12" fill="#c0392b">(x_dr, y_dr)</text>
+
+  <!-- Corner Cutting indicator outside lines -->
+  <path d="M 285,280 Q 305,305 325,305" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="2,2" marker-end="url(#arr-red)"/>
+  <text x="330" y="310" font-size="12" fill="#c0392b">Зрізання кутів</text>
+
+  <!-- Problem Info Box -->
+  <rect x="45" y="420" width="405" height="60" rx="6" fill="#ffffff" stroke="#e74c3c" stroke-width="1.5"/>
+  <text x="60" y="440" font-size="12" font-weight="bold" fill="#c0392b">Недоліки осьового фільтра:</text>
+  <text x="60" y="456" font-size="12" fill="#1a1a1a">• Викликає "прилипання" руху до координатних осей</text>
+  <text x="60" y="472" font-size="12" fill="#1a1a1a">• Зрізає плавні діагоналі та викривляє траєкторії</text>
+
+
+  <!-- RIGHT PANEL: Radial Deadzone -->
+  <rect x="495" y="80" width="435" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Right Header -->
+  <text x="712" y="108" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">2. Радіальна мертва зона (Radial Deadzone)</text>
+  <text x="712" y="126" text-anchor="middle" font-size="12" fill="#6b7280">Векторна фільтрація: r = √(x² + y²) &lt; r_dead</text>
+
+  <!-- Plot Area Right: Center (712, 265) -->
+  <rect x="602" y="155" width="220" height="220" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+  <!-- Radial Deadzone Circle -->
+  <circle cx="712" cy="265" r="48" fill="#e9f7ef" stroke="#27ae60" stroke-width="2" stroke-dasharray="3,3"/>
+
+  <!-- Axes -->
+  <line x1="585" y1="265" x2="840" y2="265" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="712" y1="392" x2="712" y2="138" stroke="#475569" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Axis Labels -->
+  <text x="847" y="269" font-size="12" font-weight="bold" fill="#1a1a1a">X</text>
+  <text x="712" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Y</text>
+
+  <text x="595" y="280" text-anchor="middle" font-size="12" fill="#6b7280">-1.0</text>
+  <text x="829" y="280" text-anchor="middle" font-size="12" fill="#6b7280">+1.0</text>
+  <text x="700" y="386" text-anchor="end" font-size="12" fill="#6b7280">-1.0</text>
+  <text x="700" y="150" text-anchor="end" font-size="12" fill="#6b7280">+1.0</text>
+
+  <!-- Radial Radius Line & Label -->
+  <line x1="712" y1="265" x2="678" y2="231" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="672" y="225" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">r_dead</text>
+
+  <!-- Input Vector & Output Mapping -->
+  <!-- Vector inside deadzone (suppressed) -->
+  <line x1="712" y1="265" x2="746" y2="231" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <!-- Vector outside deadzone (active response) -->
+  <line x1="746" y1="231" x2="787" y2="190" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <circle cx="787" cy="190" r="4.5" fill="#2457d6"/>
+
+  <!-- Input Vector text -->
+  <text x="794" y="185" font-size="12" font-weight="bold" fill="#2457d6">Вхідний вектор</text>
+  <text x="794" y="201" font-size="12" fill="#6b7280">(r_raw &gt; r_dead)</text>
+
+  <!-- Drift Center inside circle (absorbed) -->
+  <circle cx="724" cy="258" r="4" fill="#c0392b"/>
+  <line x1="720" y1="262" x2="675" y2="290" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="670" y="294" text-anchor="end" font-size="12" fill="#c0392b">Дрейф придушено</text>
+
+  <!-- Scaled Formula below plot -->
+  <text x="712" y="398" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">r_out = (r_raw - r_dead) / (1 - r_dead)</text>
+
+  <!-- Advantage Info Box -->
+  <rect x="510" y="420" width="405" height="60" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="525" y="440" font-size="12" font-weight="bold" fill="#27ae60">Переваги радіального фільтра:</text>
+  <text x="525" y="456" font-size="12" fill="#1a1a1a">• Забезпечує ідеальну плавність 360° у всіх напрямках</text>
+  <text x="525" y="472" font-size="12" fill="#1a1a1a">• Повністю ізолює дрейф у колі без спотворення відгуку</text>
+</svg>

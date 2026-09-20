@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння схем підключення категорій безпеки (ISO 13849-1)</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Відмінності між Cat 2 (периодичний тест), Cat 3 (двоканальність) та Cat 4 (стробування T1/T2)</text>
+
+  <!-- Column 1: Category 2 -->
+  <rect x="30" y="75" width="290" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="175" y="100" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Категорія 2 (Cat 2)</text>
+
+  <rect x="45" y="115" width="260" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="135" font-size="12" font-weight="bold" fill="#1a1a1a">1-канальний вхід + Тестування</text>
+  <text x="55" y="153" font-size="12" fill="#6b7280">• Періодична перевірка (EDM)</text>
+  <text x="55" y="171" font-size="12" fill="#c0392b">• Одиничне КЗ розриває захист</text>
+
+  <rect x="45" y="200" width="260" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="55" y="220" font-size="12" font-weight="bold" fill="#1a1a1a">Одноканальний E-Stop:</text>
+  <text x="55" y="240" font-size="12" font-weight="bold" fill="#2457d6">24V -&gt; [S1-1 NC] -&gt; S12</text>
+  <text x="55" y="265" font-size="12" font-weight="bold" fill="#1a1a1a">Одиничний контактор:</text>
+  <text x="55" y="285" font-size="12" fill="#1a1a1a">Вихід 13-14 -&gt; Котушка K1</text>
+  <text x="55" y="310" font-size="12" fill="#27ae60">Тест перед кожним пуском</text>
+
+  <rect x="45" y="345" width="260" height="75" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="175" y="368" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Низька стійкість до відмов</text>
+  <text x="175" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">Втрата функції при пробої</text>
+  <text x="175" y="408" font-size="12" fill="#6b7280" text-anchor="middle">PL c / Cat 2 (DC ~ 60-90%)</text>
+
+  <!-- Column 2: Category 3 -->
+  <rect x="335" y="75" width="290" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="100" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Категорія 3 (Cat 3)</text>
+
+  <rect x="350" y="115" width="260" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="360" y="135" font-size="12" font-weight="bold" fill="#1a1a1a">2-канальний вхід (Дубльований)</text>
+  <text x="360" y="153" font-size="12" fill="#6b7280">• Захист при 1-й відмові</text>
+  <text x="360" y="171" font-size="12" fill="#c0392b">• КЗ між CH1 і CH2 НЕ виявляється</text>
+
+  <rect x="350" y="200" width="260" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="360" y="220" font-size="12" font-weight="bold" fill="#1a1a1a">Двоканальний E-Stop (24V):</text>
+  <text x="360" y="240" font-size="12" font-weight="bold" fill="#2457d6">CH1: 24V -&gt; [S1-1] -&gt; S12</text>
+  <text x="360" y="260" font-size="12" font-weight="bold" fill="#27ae60">CH2: 24V -&gt; [S1-2] -&gt; S22</text>
+  <text x="360" y="285" font-size="12" font-weight="bold" fill="#1a1a1a">Дубльовані контактори:</text>
+  <text x="360" y="308" font-size="12" fill="#1a1a1a">K1 (13-14) + K2 (23-24)</text>
+
+  <rect x="350" y="345" width="260" height="75" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="368" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Стійкість до 1-ї відмови</text>
+  <text x="480" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">Без детектування міжканального КЗ</text>
+  <text x="480" y="408" font-size="12" fill="#6b7280" text-anchor="middle">PL d / Cat 3 (DC ~ 60-90%)</text>
+
+  <!-- Column 3: Category 4 -->
+  <rect x="640" y="75" width="290" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="785" y="100" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Категорія 4 (Cat 4)</text>
+
+  <rect x="655" y="115" width="260" height="75" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="665" y="135" font-size="12" font-weight="bold" fill="#27ae60">2-канальний + Стробування T1/T2</text>
+  <text x="665" y="153" font-size="12" fill="#6b7280">• Повне виявлення коротких замикань</text>
+  <text x="665" y="171" font-size="12" fill="#27ae60">• Максимальний рівень надійності</text>
+
+  <rect x="655" y="200" width="260" height="135" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="665" y="220" font-size="12" font-weight="bold" fill="#1a1a1a">Стробовані лінії T1 / T2:</text>
+  <text x="665" y="240" font-size="12" font-weight="bold" fill="#2457d6">CH1: T1 (S11) -&gt; [S1-1] -&gt; S12</text>
+  <text x="665" y="260" font-size="12" font-weight="bold" fill="#27ae60">CH2: T2 (S21) -&gt; [S1-2] -&gt; S22</text>
+  <text x="665" y="285" font-size="12" font-weight="bold" fill="#1a1a1a">Повний дубльований вихід:</text>
+  <text x="665" y="308" font-size="12" fill="#27ae60">K1 (13-14) + K2 (23-24) + EDM</text>
+
+  <rect x="655" y="345" width="260" height="75" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="785" y="368" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Максимальний захист від відмов</text>
+  <text x="785" y="390" font-size="12" fill="#1a1a1a" text-anchor="middle">Виявлення КЗ між CH1 і CH2</text>
+  <text x="785" y="408" font-size="12" fill="#6b7280" text-anchor="middle">PL e / Cat 4 (DC ≥ 99%)</text>
+</svg>

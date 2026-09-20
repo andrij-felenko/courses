@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Header Area -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конвеєр цифрової обробки сигналів джойстика Холла</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Послідовна трансформація від сирих дрижачих відліків АЦП до нормованого вектора координат</text>
+
+  <!-- Block 1: Raw ADC -->
+  <rect x="30" y="90" width="156" height="330" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="108" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">1. АЦП (Raw ADC)</text>
+  <text x="108" y="132" text-anchor="middle" font-size="11" fill="#6b7280">Двоканальний давач</text>
+  
+  <rect x="42" y="142" width="132" height="85" rx="4" fill="white" stroke="#d0d7de"/>
+  <path d="M48,185 L58,165 L68,198 L78,152 L88,188 L98,158 L108,192 L118,168 L128,185 L138,158 L148,180 L158,162 L166,178" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  
+  <rect x="42" y="240" width="132" height="165" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="108" y="262" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Сигнал X та Y</text>
+  <text x="108" y="285" text-anchor="middle" font-size="11" fill="#1a1a1a">ADC_X, ADC_Y</text>
+  <text x="108" y="308" text-anchor="middle" font-size="11" fill="#1a1a1a">0 ... 4095 (12-bit)</text>
+  <text x="108" y="331" text-anchor="middle" font-size="11" fill="#c0392b">Шум: ±15..30 LSB</text>
+  <text x="108" y="354" text-anchor="middle" font-size="11" fill="#c0392b">Апаратний дрейф</text>
+
+  <!-- Connection Arrow 1 -->
+  <path d="M186,255 L207,255" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+
+  <!-- Block 2: EMA Filter -->
+  <rect x="211" y="90" width="156" height="330" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="289" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. Фільтр EMA</text>
+  <text x="289" y="132" text-anchor="middle" font-size="11" fill="#6b7280">Придушення шуму</text>
+  
+  <rect x="223" y="142" width="132" height="85" rx="4" fill="white" stroke="#d0d7de"/>
+  <path d="M229,185 L239,165 L249,198 L259,152 L269,188 L279,158 L289,192 L299,168 L309,185 L319,158 L329,180 L339,162 L347,178" fill="none" stroke="#fdecea" stroke-width="1.5"/>
+  <path d="M229,185 Q260,155 289,178 T347,165" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <rect x="223" y="240" width="132" height="165" rx="4" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="289" y="262" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Формула EMA</text>
+  <text x="289" y="285" text-anchor="middle" font-size="11" fill="#1a1a1a">y_k = α·x_k +</text>
+  <text x="289" y="304" text-anchor="middle" font-size="11" fill="#1a1a1a">(1 - α)·y_k-1</text>
+  <text x="289" y="331" text-anchor="middle" font-size="11" fill="#2457d6">α = 0.15 ... 0.25</text>
+  <text x="289" y="354" text-anchor="middle" font-size="11" fill="#2457d6">Затримка &lt; 5 ms</text>
+
+  <!-- Connection Arrow 2 -->
+  <path d="M367,255 L388,255" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+
+  <!-- Block 3: Offset & Calibration -->
+  <rect x="392" y="90" width="156" height="330" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="470" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">3. Калібрування</text>
+  <text x="470" y="132" text-anchor="middle" font-size="11" fill="#6b7280">Зсув нуля та масштаб</text>
+
+  <rect x="404" y="142" width="132" height="85" rx="4" fill="white" stroke="#d0d7de"/>
+  <line x1="414" y1="185" x2="526" y2="185" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="424" cy="185" r="4" fill="#c0392b"/>
+  <text x="424" y="172" text-anchor="middle" font-size="11" fill="#c0392b">Vmin</text>
+  <circle cx="470" cy="185" r="4" fill="#2457d6"/>
+  <text x="470" y="172" text-anchor="middle" font-size="11" fill="#2457d6">Vctr</text>
+  <circle cx="516" cy="185" r="4" fill="#27ae60"/>
+  <text x="516" y="172" text-anchor="middle" font-size="11" fill="#27ae60">Vmax</text>
+
+  <rect x="404" y="240" width="132" height="165" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="470" y="262" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Нормування осей</text>
+  <text x="470" y="285" text-anchor="middle" font-size="11" fill="#1a1a1a">x_norm = (x - x_ctr)</text>
+  <text x="470" y="304" text-anchor="middle" font-size="11" fill="#1a1a1a">/ (x_max - x_ctr)</text>
+  <text x="470" y="331" text-anchor="middle" font-size="11" fill="#1a1a1a">Центрування нуля</text>
+  <text x="470" y="354" text-anchor="middle" font-size="11" fill="#1a1a1a">Масштаб [-1, +1]</text>
+
+  <!-- Connection Arrow 3 -->
+  <path d="M548,255 L569,255" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+
+  <!-- Block 4: Radial Deadzone -->
+  <rect x="573" y="90" width="156" height="330" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="651" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">4. Deadzone</text>
+  <text x="651" y="132" text-anchor="middle" font-size="11" fill="#6b7280">Радіальне зрізання</text>
+
+  <rect x="585" y="142" width="132" height="85" rx="4" fill="white" stroke="#d0d7de"/>
+  <circle cx="651" cy="185" r="32" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="651" cy="185" r="14" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="651" cy="185" r="3" fill="#c0392b"/>
+  <text x="651" y="189" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">0</text>
+
+  <rect x="585" y="240" width="132" height="165" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <text x="651" y="262" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Мертва зона</text>
+  <text x="651" y="285" text-anchor="middle" font-size="11" fill="#1a1a1a">r = √(X² + Y²)</text>
+  <text x="651" y="308" text-anchor="middle" font-size="11" fill="#1a1a1a">Якщо r &lt; r_dead:</text>
+  <text x="651" y="327" text-anchor="middle" font-size="11" fill="#c0392b">(X, Y) = (0, 0)</text>
+  <text x="651" y="354" text-anchor="middle" font-size="11" fill="#1a1a1a">Усунення тремору</text>
+
+  <!-- Connection Arrow 4 -->
+  <path d="M729,255 L750,255" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+
+  <!-- Block 5: Normalized Output -->
+  <rect x="754" y="90" width="156" height="330" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="832" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">5. Вихідний вектор</text>
+  <text x="832" y="132" text-anchor="middle" font-size="11" fill="#6b7280">Кругова карта (X, Y)</text>
+
+  <rect x="766" y="142" width="132" height="85" rx="4" fill="white" stroke="#d0d7de"/>
+  <circle cx="832" cy="185" r="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <line x1="795" y1="185" x2="869" y2="185" stroke="#27ae60" stroke-width="1"/>
+  <line x1="832" y1="148" x2="832" y2="222" stroke="#27ae60" stroke-width="1"/>
+  <circle cx="852" cy="165" r="4" fill="#2457d6"/>
+  <text x="857" y="160" font-size="11" font-weight="bold" fill="#2457d6">(X, Y)</text>
+
+  <rect x="766" y="240" width="132" height="165" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="832" y="262" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Готовий вектор</text>
+  <text x="832" y="285" text-anchor="middle" font-size="11" fill="#1a1a1a">X ∈ [-1.0, +1.0]</text>
+  <text x="832" y="308" text-anchor="middle" font-size="11" fill="#1a1a1a">Y ∈ [-1.0, +1.0]</text>
+  <text x="832" y="331" text-anchor="middle" font-size="11" fill="#27ae60">Кругова межа r ≤ 1</text>
+  <text x="832" y="354" text-anchor="middle" font-size="11" fill="#27ae60">Готово для ПЛК</text>
+
+
+  <!-- Bottom Summary Bar -->
+  <rect x="30" y="440" width="880" height="40" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="470" y="465" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Результат: Чисті, відкалібровані координати (X, Y) без дрейфу нуля та дрижання джойстика</text>
+
+</svg>

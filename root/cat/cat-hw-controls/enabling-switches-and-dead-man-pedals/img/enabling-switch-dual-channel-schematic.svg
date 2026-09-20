@@ -1,0 +1,185 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#8e44ad"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схемотехніка двоканального підключення 3-позиційної кнопки дозволу</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Незалежна підтяжка VCC, RC-фільтрація брязкоту та тригери Шмітта для каналів CH1 і CH2</text>
+
+  <!-- BOX 1: ENABLING SWITCH (LEFT) -->
+  <rect x="25" y="80" width="225" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="137" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Кнопка дозволу</text>
+  <text x="137" y="123" text-anchor="middle" font-size="12" fill="#6b7280">3-позиційний механізм</text>
+
+  <!-- Position Indicators -->
+  <rect x="40" y="138" width="195" height="26" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="137" y="155" text-anchor="middle" font-size="12" fill="#6b7280">1: Відпущено (OFF)</text>
+
+  <rect x="40" y="170" width="195" height="26" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="137" y="187" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">2: Робочий дозвіл (ON)</text>
+
+  <rect x="40" y="202" width="195" height="26" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="137" y="219" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">3: Панічний натиск (OFF)</text>
+
+  <!-- Contact S1 (Channel 1) -->
+  <rect x="40" y="240" width="195" height="125" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="137" y="260" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Контакт S1 (Канал CH1)</text>
+  <!-- Terminals for S1 -->
+  <circle cx="65" cy="305" r="4" fill="#2457d6"/>
+  <circle cx="210" cy="305" r="4" fill="#2457d6"/>
+  <text x="65" y="323" text-anchor="middle" font-size="11" fill="#6b7280">IN1</text>
+  <text x="210" y="323" text-anchor="middle" font-size="11" fill="#6b7280">OUT1</text>
+  <!-- Switch Arm S1 -->
+  <path d="M69,305 L180,285" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="137" y="348" text-anchor="middle" font-size="11" fill="#2457d6">Нормально розімкнутий</text>
+
+  <!-- Contact S2 (Channel 2) -->
+  <rect x="40" y="380" width="195" height="135" rx="6" fill="#ffffff" stroke="#8e44ad" stroke-width="1.5"/>
+  <text x="137" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#8e44ad">Контакт S2 (Канал CH2)</text>
+  <!-- Terminals for S2 -->
+  <circle cx="65" cy="445" r="4" fill="#8e44ad"/>
+  <circle cx="210" cy="445" r="4" fill="#8e44ad"/>
+  <text x="65" y="463" text-anchor="middle" font-size="11" fill="#6b7280">IN2</text>
+  <text x="210" y="463" text-anchor="middle" font-size="11" fill="#6b7280">OUT2</text>
+  <!-- Switch Arm S2 -->
+  <path d="M69,445 L180,425" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="137" y="488" text-anchor="middle" font-size="11" fill="#8e44ad">Дубльований контакт</text>
+  <text x="137" y="504" text-anchor="middle" font-size="11" fill="#6b7280">Прямий зв'язок осей</text>
+
+  <!-- BOX 2: SIGNAL CONDITIONING (CENTER) -->
+  <rect x="270" y="80" width="420" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Каскади фільтрації та формування сигналів</text>
+
+  <!-- Channel 1 Filter Box -->
+  <rect x="285" y="122" width="390" height="188" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="298" y="138" font-size="12" font-weight="bold" fill="#2457d6">Канал CH1 (Основний)</text>
+
+  <!-- CH1 Circuit Elements -->
+  <!-- VCC Line -->
+  <line x1="335" y1="156" x2="335" y2="170" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="335" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">VCC (+3.3V)</text>
+  <!-- Pull-up R_pu1 -->
+  <rect x="325" y="170" width="20" height="32" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="317" y="186" text-anchor="end" font-size="11" fill="#1a1a1a">R_pu1</text>
+  <text x="317" y="198" text-anchor="end" font-size="10" fill="#6b7280">10 kΩ</text>
+  <line x1="335" y1="202" x2="335" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Input Wire from S1 -->
+  <path d="M210,305 L260,305 L260,225 L335,225" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="335" cy="225" r="3" fill="#1a1a1a"/>
+
+  <!-- Series Resistor R_flt1 -->
+  <line x1="335" y1="225" x2="365" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="365" y="215" width="35" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="382" y="208" text-anchor="middle" font-size="11" fill="#1a1a1a">R_flt1</text>
+  <text x="382" y="248" text-anchor="middle" font-size="10" fill="#6b7280">1 kΩ</text>
+  <line x1="400" y1="225" x2="445" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="445" cy="225" r="3" fill="#1a1a1a"/>
+
+  <!-- Shunt Capacitor C_flt1 -->
+  <line x1="445" y1="225" x2="445" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="435" y1="245" x2="455" y2="245" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="435" y1="250" x2="455" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="445" y1="250" x2="445" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- GND Symbol -->
+  <line x1="435" y1="265" x2="455" y2="265" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="439" y1="269" x2="451" y2="269" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="442" y1="273" x2="448" y2="273" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="462" y="247" font-size="11" fill="#1a1a1a">C_flt1</text>
+  <text x="462" y="259" font-size="10" fill="#6b7280">100 nF</text>
+
+  <!-- Schmitt Trigger Gate ST1 -->
+  <line x1="445" y1="225" x2="515" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="515" y="200" width="65" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="547" y="222" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">ST1</text>
+  <text x="547" y="238" text-anchor="middle" font-size="10" fill="#6b7280">74LVC14</text>
+  <text x="547" y="193" text-anchor="middle" font-size="11" fill="#6b7280">Тригер Шмітта</text>
+
+  <!-- Output Wire CH1 -->
+  <line x1="580" y1="225" x2="695" y2="225" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="635" y="217" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">CH1_IN</text>
+
+  <!-- Channel 2 Filter Box -->
+  <rect x="285" y="325" width="390" height="188" rx="6" fill="#ffffff" stroke="#8e44ad" stroke-width="1.5"/>
+  <text x="298" y="341" font-size="12" font-weight="bold" fill="#8e44ad">Канал CH2 (Дубльований)</text>
+
+  <!-- CH2 Circuit Elements -->
+  <!-- VCC Line -->
+  <line x1="335" y1="359" x2="335" y2="373" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="335" y="355" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">VCC (+3.3V)</text>
+  <!-- Pull-up R_pu2 -->
+  <rect x="325" y="373" width="20" height="32" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="317" y="389" text-anchor="end" font-size="11" fill="#1a1a1a">R_pu2</text>
+  <text x="317" y="401" text-anchor="end" font-size="10" fill="#6b7280">10 kΩ</text>
+  <line x1="335" y1="405" x2="335" y2="428" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Input Wire from S2 -->
+  <path d="M210,445 L260,445 L260,428 L335,428" fill="none" stroke="#8e44ad" stroke-width="2"/>
+  <circle cx="335" cy="428" r="3" fill="#1a1a1a"/>
+
+  <!-- Series Resistor R_flt2 -->
+  <line x1="335" y1="428" x2="365" y2="428" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="365" y="418" width="35" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="382" y="411" text-anchor="middle" font-size="11" fill="#1a1a1a">R_flt2</text>
+  <text x="382" y="451" text-anchor="middle" font-size="10" fill="#6b7280">1 kΩ</text>
+  <line x1="400" y1="428" x2="445" y2="428" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="445" cy="428" r="3" fill="#1a1a1a"/>
+
+  <!-- Shunt Capacitor C_flt2 -->
+  <line x1="445" y1="428" x2="445" y2="448" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="435" y1="448" x2="455" y2="448" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="435" y1="453" x2="455" y2="453" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="445" y1="453" x2="445" y2="468" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- GND Symbol -->
+  <line x1="435" y1="468" x2="455" y2="468" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="439" y1="472" x2="451" y2="472" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="442" y1="476" x2="448" y2="476" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="462" y="450" font-size="11" fill="#1a1a1a">C_flt2</text>
+  <text x="462" y="462" font-size="10" fill="#6b7280">100 nF</text>
+
+  <!-- Schmitt Trigger Gate ST2 -->
+  <line x1="445" y1="428" x2="515" y2="428" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="515" y="403" width="65" height="50" rx="4" fill="#f3e8ff" stroke="#8e44ad" stroke-width="1.5"/>
+  <text x="547" y="425" text-anchor="middle" font-size="12" font-weight="bold" fill="#8e44ad">ST2</text>
+  <text x="547" y="441" text-anchor="middle" font-size="10" fill="#6b7280">74LVC14</text>
+  <text x="547" y="396" text-anchor="middle" font-size="11" fill="#6b7280">Тригер Шмітта</text>
+
+  <!-- Output Wire CH2 -->
+  <line x1="580" y1="428" x2="695" y2="428" stroke="#8e44ad" stroke-width="2" marker-end="url(#arr-purple)"/>
+  <text x="635" y="420" text-anchor="middle" font-size="12" font-weight="bold" fill="#8e44ad">CH2_IN</text>
+
+  <!-- BOX 3: SAFETY RELAY / MCU (RIGHT) -->
+  <rect x="710" y="80" width="225" height="450" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="822" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Логіка безпеки</text>
+  <text x="822" y="123" text-anchor="middle" font-size="12" fill="#6b7280">Контролер / Реле</text>
+
+  <rect x="725" y="135" width="195" height="375" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Input Pin Badges -->
+  <text x="735" y="220" font-size="12" font-weight="bold" fill="#2457d6">Вхід GPIO 1</text>
+  <text x="735" y="423" font-size="12" font-weight="bold" fill="#8e44ad">Вхід GPIO 2</text>
+
+  <!-- Discrepancy Card -->
+  <rect x="735" y="245" width="175" height="120" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="822" y="267" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Контроль розсинхрону</text>
+  <text x="822" y="287" text-anchor="middle" font-size="11" fill="#1a1a1a">Discrepancy Evaluation</text>
+  <text x="822" y="307" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Δt ≤ 100–200 мс</text>
+  <text x="822" y="327" text-anchor="middle" font-size="11" fill="#1a1a1a">Перевірка узгодження</text>
+  <text x="822" y="343" text-anchor="middle" font-size="10" fill="#6b7280">Діагностика обриву/КЗ</text>
+
+  <!-- Enable Logic Badge -->
+  <rect x="735" y="435" width="175" height="60" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="822" y="458" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вихід дозволу</text>
+  <text x="822" y="478" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">ENABLE = CH1 ∧ CH2</text>
+</svg>

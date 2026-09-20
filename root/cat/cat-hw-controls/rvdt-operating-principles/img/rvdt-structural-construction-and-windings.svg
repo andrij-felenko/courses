@@ -1,0 +1,189 @@
+<svg width="960" height="560" viewBox="0 0 960 560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструкція та принцип роботи поворотного трансформатора RVDT</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Поворот профільованого ротора перерозподіляє магнітний потік між двома вторинними обмотками</text>
+
+  <!-- ==================== PANEL 1: LEFT ROTATION (-30°) ==================== -->
+  <rect x="30" y="65" width="280" height="475" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="88" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Поворот наліво (θ = -30°)</text>
+  <text x="170" y="106" font-size="12" fill="#6b7280" text-anchor="middle">Максимум індукції в обмотці S1</text>
+
+  <!-- RVDT Stator & Poles (Panel 1) -->
+  <circle cx="170" cy="210" r="65" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="170" cy="210" r="45" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Top Pole Primary (Panel 1) -->
+  <rect x="158" y="145" width="24" height="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="153" y="150" width="34" height="10" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="136" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Первинна P</text>
+
+  <!-- Left Pole Secondary S1 (Panel 1) -->
+  <rect x="105" y="198" width="20" height="24" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="110" y="193" width="10" height="34" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="40" y="210" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="start">Вторинна S1</text>
+
+  <!-- Right Pole Secondary S2 (Panel 1) -->
+  <rect x="215" y="198" width="20" height="24" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="220" y="193" width="10" height="34" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="300" y="210" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="end">Вторинна S2</text>
+
+  <!-- Bottom Pole (Panel 1) -->
+  <rect x="158" y="255" width="24" height="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Profiled Cam Rotor Tilted Left (-30°) -->
+  <g transform="rotate(-30, 170, 210)">
+    <path d="M 170,178 C 142,192 145,232 170,238 C 195,232 198,192 170,178 Z" fill="#b0b8c1" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="170" y1="210" x2="170" y2="182" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  </g>
+  <circle cx="170" cy="210" r="7" fill="#1a1a1a"/>
+
+  <!-- Magnetic Flux Lines (Panel 1) -->
+  <path d="M 160,165 C 135,175 125,190 125,198" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4,2"/>
+  <path d="M 180,165 C 205,175 215,190 215,198" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Air Gap & Flux Info (Panel 1) -->
+  <text x="170" y="298" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Зазор δ1 &lt; δ2 (малий зазор на S1)</text>
+  <text x="170" y="314" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Магнітний потік: Ф1 &gt; Ф2</text>
+
+  <!-- Voltages (Panel 1) -->
+  <text x="170" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V1 = 3.8 В,  V2 = 1.2 В</text>
+  <text x="170" y="356" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ΔV = V1 - V2 = +2.6 В</text>
+  <text x="170" y="372" font-size="11" fill="#6b7280" text-anchor="middle">Сигнал у фазі з збудженням (0°)</text>
+
+  <!-- Summary Box (Panel 1) -->
+  <rect x="42" y="395" width="256" height="125" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="170" y="416" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Від'ємний кут повороту</text>
+  <text x="170" y="436" font-size="11" fill="#1a1a1a" text-anchor="middle">Ротор виступає в бік полюса S1</text>
+  <text x="170" y="454" font-size="11" fill="#1a1a1a" text-anchor="middle">Збільшення взаємоіндуктивності M1</text>
+  <text x="170" y="472" font-size="11" fill="#1a1a1a" text-anchor="middle">Переважає амплітуда сигналу S1</text>
+  <text x="170" y="490" font-size="11" fill="#6b7280" text-anchor="middle">Результуючий код: -30°</text>
+  <text x="170" y="508" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">(V1 - V2) / (V1 + V2) &lt; 0</text>
+
+
+  <!-- ==================== PANEL 2: NEUTRAL POSITION (0°) ==================== -->
+  <rect x="340" y="65" width="280" height="475" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="88" font-size="15" font-weight="bold" fill="#2457d6" text-anchor="middle">Нейтраль (θ = 0°)</text>
+  <text x="480" y="106" font-size="12" fill="#6b7280" text-anchor="middle">Симетричний потік, V1 = V2</text>
+
+  <!-- RVDT Stator & Poles (Panel 2) -->
+  <circle cx="480" cy="210" r="65" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="480" cy="210" r="45" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Top Pole Primary (Panel 2) -->
+  <rect x="468" y="145" width="24" height="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="463" y="150" width="34" height="10" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="136" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Первинна P</text>
+
+  <!-- Left Pole Secondary S1 (Panel 2) -->
+  <rect x="415" y="198" width="20" height="24" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="420" y="193" width="10" height="34" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="350" y="210" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="start">Вторинна S1</text>
+
+  <!-- Right Pole Secondary S2 (Panel 2) -->
+  <rect x="525" y="198" width="20" height="24" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="530" y="193" width="10" height="34" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="610" y="210" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="end">Вторинна S2</text>
+
+  <!-- Bottom Pole (Panel 2) -->
+  <rect x="468" y="255" width="24" height="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Profiled Cam Rotor Symmetric (0°) -->
+  <g transform="rotate(0, 480, 210)">
+    <path d="M 480,178 C 452,192 455,232 480,238 C 505,232 508,192 480,178 Z" fill="#b0b8c1" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="480" y1="210" x2="480" y2="182" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  </g>
+  <circle cx="480" cy="210" r="7" fill="#1a1a1a"/>
+
+  <!-- Magnetic Flux Lines Symmetric (Panel 2) -->
+  <path d="M 470,165 C 445,175 435,190 435,198" fill="none" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="3,2"/>
+  <path d="M 490,165 C 515,175 525,190 525,198" fill="none" stroke="#2457d6" stroke-width="1.8" stroke-dasharray="3,2"/>
+
+  <!-- Air Gap & Flux Info (Panel 2) -->
+  <text x="480" y="298" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Зазор δ1 = δ2 (симетричні зазори)</text>
+  <text x="480" y="314" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Магнітний потік: Ф1 = Ф2</text>
+
+  <!-- Voltages (Panel 2) -->
+  <text x="480" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V1 = 2.5 В,  V2 = 2.5 В</text>
+  <text x="480" y="356" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">ΔV = V1 - V2 = 0 В (Нуль)</text>
+  <text x="480" y="372" font-size="11" fill="#6b7280" text-anchor="middle">Залишкова напруга V_null ≈ 2 мВ</text>
+
+  <!-- Summary Box (Panel 2) -->
+  <rect x="352" y="395" width="256" height="125" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="480" y="416" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Нульове положення (Баланс)</text>
+  <text x="480" y="436" font-size="11" fill="#1a1a1a" text-anchor="middle">Симетричний зазор між полюсами</text>
+  <text x="480" y="454" font-size="11" fill="#1a1a1a" text-anchor="middle">Рівні взаємні індуктивності M1=M2</text>
+  <text x="480" y="472" font-size="11" fill="#1a1a1a" text-anchor="middle">Різниця амплітуд дорівнює нулю</text>
+  <text x="480" y="490" font-size="11" fill="#6b7280" text-anchor="middle">Результуючий код: 0°</text>
+  <text x="480" y="508" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">(V1 - V2) / (V1 + V2) = 0</text>
+
+
+  <!-- ==================== PANEL 3: RIGHT ROTATION (+30°) ==================== -->
+  <rect x="650" y="65" width="280" height="475" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="88" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Поворот направо (θ = +30°)</text>
+  <text x="790" y="106" font-size="12" fill="#6b7280" text-anchor="middle">Максимум індукції в обмотці S2</text>
+
+  <!-- RVDT Stator & Poles (Panel 3) -->
+  <circle cx="790" cy="210" r="65" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="790" cy="210" r="45" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Top Pole Primary (Panel 3) -->
+  <rect x="778" y="145" width="24" height="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="773" y="150" width="34" height="10" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="790" y="136" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Первинна P</text>
+
+  <!-- Left Pole Secondary S1 (Panel 3) -->
+  <rect x="725" y="198" width="20" height="24" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="730" y="193" width="10" height="34" rx="2" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="660" y="210" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="start">Вторинна S1</text>
+
+  <!-- Right Pole Secondary S2 (Panel 3) -->
+  <rect x="835" y="198" width="20" height="24" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="840" y="193" width="10" height="34" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="920" y="210" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="end">Вторинна S2</text>
+
+  <!-- Bottom Pole (Panel 3) -->
+  <rect x="778" y="255" width="24" height="20" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Profiled Cam Rotor Tilted Right (+30°) -->
+  <g transform="rotate(30, 790, 210)">
+    <path d="M 790,178 C 762,192 765,232 790,238 C 815,232 818,192 790,178 Z" fill="#b0b8c1" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="790" y1="210" x2="790" y2="182" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  </g>
+  <circle cx="790" cy="210" r="7" fill="#1a1a1a"/>
+
+  <!-- Magnetic Flux Lines (Panel 3) -->
+  <path d="M 780,165 C 755,175 745,190 745,198" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <path d="M 800,165 C 825,175 835,190 835,198" fill="none" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="4,2"/>
+
+  <!-- Air Gap & Flux Info (Panel 3) -->
+  <text x="790" y="298" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Зазор δ1 &gt; δ2 (малий зазор на S2)</text>
+  <text x="790" y="314" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Магнітний потік: Ф1 &lt; Ф2</text>
+
+  <!-- Voltages (Panel 3) -->
+  <text x="790" y="338" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">V1 = 1.2 В,  V2 = 3.8 В</text>
+  <text x="790" y="356" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">ΔV = V1 - V2 = -2.6 В</text>
+  <text x="790" y="372" font-size="11" fill="#6b7280" text-anchor="middle">Сигнал у протифазі (180°)</text>
+
+  <!-- Summary Box (Panel 3) -->
+  <rect x="662" y="395" width="256" height="125" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="416" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Додатний кут повороту</text>
+  <text x="790" y="436" font-size="11" fill="#1a1a1a" text-anchor="middle">Ротор виступає в бік полюса S2</text>
+  <text x="790" y="454" font-size="11" fill="#1a1a1a" text-anchor="middle">Збільшення взаємоіндуктивності M2</text>
+  <text x="790" y="472" font-size="11" fill="#1a1a1a" text-anchor="middle">Переважає амплітуда сигналу S2</text>
+  <text x="790" y="490" font-size="11" fill="#6b7280" text-anchor="middle">Результуючий код: +30°</text>
+  <text x="790" y="508" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">(V1 - V2) / (V1 + V2) &gt; 0</text>
+</svg>

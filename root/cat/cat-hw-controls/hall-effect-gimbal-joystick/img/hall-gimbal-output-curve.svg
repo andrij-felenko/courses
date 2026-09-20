@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Залежність вихідної напруги V_out від кута відхилення стіка θ</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Лінійна робоча зона (10%–90% VCC), центральна мертва зона та крайове насичення сигналу</text>
+
+  <!-- Background Plot Panel -->
+  <rect x="30" y="75" width="600" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- Shaded Diagnostic Error Zones -->
+  <rect x="140" y="140" width="480" height="24" fill="#fdecea" opacity="0.6"/>
+  <text x="500" y="156" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">Зона помилки (&gt;90% VCC)</text>
+
+  <rect x="140" y="356" width="480" height="24" fill="#fdecea" opacity="0.6"/>
+  <text x="500" y="372" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">Зона помилки (&lt;10% VCC)</text>
+
+  <!-- Central Deadband Region -->
+  <rect x="364" y="140" width="32" height="240" fill="#eaf0fd" opacity="0.7"/>
+  <text x="380" y="210" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Мертва зона</text>
+
+  <!-- Grid Lines Y (Voltage) -->
+  <line x1="140" y1="140" x2="620" y2="140" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="130" y="136" font-size="12" fill="#6b7280" text-anchor="end">5.0 В (VCC)</text>
+
+  <line x1="140" y1="164" x2="620" y2="164" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="130" y="160" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">4.5 В</text>
+
+  <line x1="140" y1="260" x2="620" y2="260" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="130" y="256" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">2.5 В</text>
+
+  <line x1="140" y1="356" x2="620" y2="356" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="130" y="352" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">0.5 В</text>
+
+  <text x="130" y="395" font-size="12" fill="#6b7280" text-anchor="end">0.0 В (GND)</text>
+
+  <!-- Grid Lines X (Angle) -->
+  <line x1="220" y1="140" x2="220" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="220" y="400" font-size="12" fill="#1a1a1a" text-anchor="middle">-25°</text>
+
+  <text x="180" y="400" font-size="12" fill="#6b7280" text-anchor="middle">-30°</text>
+
+  <line x1="380" y1="140" x2="380" y2="380" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="380" y="400" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">0°</text>
+
+  <line x1="540" y1="140" x2="540" y2="380" stroke="#d0d7de" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="540" y="400" font-size="12" fill="#1a1a1a" text-anchor="middle">+25°</text>
+
+  <text x="580" y="400" font-size="12" fill="#6b7280" text-anchor="middle">+30°</text>
+
+  <!-- Axes Arrows -->
+  <line x1="140" y1="385" x2="140" y2="115" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="130" y="105" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">V_out (В)</text>
+
+  <line x1="135" y1="380" x2="625" y2="380" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-black)"/>
+  <text x="620" y="420" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Кут θ (°)</text>
+
+  <!-- Characteristic Curve V_out(θ) -->
+  <path d="M 180,368 C 200,365 220,356 220,356 L 364,260 L 396,260 L 540,164 C 540,164 560,155 580,152" fill="none" stroke="#27ae60" stroke-width="3.5"/>
+
+  <!-- Curve Key Points -->
+  <circle cx="380" cy="260" r="5" fill="#2457d6"/>
+  <circle cx="220" cy="356" r="5" fill="#27ae60"/>
+  <circle cx="540" cy="164" r="5" fill="#27ae60"/>
+
+
+  <!-- RIGHT SIDE INFO CARDS -->
+  <!-- Card 1: Deadband -->
+  <rect x="660" y="105" width="270" height="85" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="675" y="127" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="start">1. Центральна мертва зона</text>
+  <text x="675" y="148" font-size="12" fill="#1a1a1a" text-anchor="start">Діапазон |θ| &lt; 2° біля центру.</text>
+  <text x="675" y="168" font-size="12" fill="#6b7280" text-anchor="start">Усуває дрейф нуля від пружини.</text>
+
+  <!-- Card 2: Linear Working Range -->
+  <rect x="660" y="210" width="270" height="85" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="675" y="232" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">2. Робочий лінійний ділянка</text>
+  <text x="675" y="253" font-size="12" fill="#1a1a1a" text-anchor="start">V_out від 0.5 В до 4.5 В (10–90%).</text>
+  <text x="675" y="273" font-size="12" fill="#6b7280" text-anchor="start">Пряма пропорційність куту нахилу.</text>
+
+  <!-- Card 3: Diagnostic Fault Thresholds -->
+  <rect x="660" y="315" width="270" height="85" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="675" y="337" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="start">3. Апаратна діагностика</text>
+  <text x="675" y="358" font-size="12" fill="#1a1a1a" text-anchor="start">V_out &lt; 10% або &gt; 90% VCC.</text>
+  <text x="675" y="378" font-size="12" fill="#6b7280" text-anchor="start">Фіксація обриву провідника чи КЗ.</text>
+</svg>

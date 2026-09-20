@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Електричне блокування NC-контактами та матриця станів АВФ</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Перехресні NC-контакти виключають одночасне увімкнення контакторів двох фаз при перехідних процесах</text>
+
+  <!-- LEFT PANEL: Interlock Schematic Diagram -->
+  <rect x="30" y="75" width="440" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема електричного блокування (NC-Interlock)</text>
+
+  <!-- Channel 1: Phase L1 (Active) -->
+  <text x="45" y="130" font-size="12" font-weight="bold" fill="#2457d6">Фаза L1 (Сигнал L1 OK)</text>
+  <path d="M45,155 L180,155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  
+  <!-- NC2 Contact Box (CLOSED) -->
+  <rect x="180" y="135" width="100" height="40" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="230" y="152" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">NC2 (KM2)</text>
+  <text x="230" y="167" font-size="11" fill="#27ae60" text-anchor="middle">[ЗАМКНЕНИЙ]</text>
+
+  <path d="M280,155 L320,155" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Coil KM1 Box (ENERGIZED) -->
+  <rect x="320" y="135" width="110" height="40" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="375" y="152" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Котушка KM1</text>
+  <text x="375" y="167" font-size="11" fill="#27ae60" text-anchor="middle">УВІМКНЕНА</text>
+
+  <path d="M430,155 L455,155" stroke="#27ae60" stroke-width="2"/>
+  <text x="445" y="145" font-size="12" font-weight="bold" fill="#6b7280">N</text>
+
+  <!-- Channel 2: Phase L2 (Blocked) -->
+  <text x="45" y="245" font-size="12" font-weight="bold" fill="#c0392b">Фаза L2 (Команда L2)</text>
+  <path d="M45,270 L180,270" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- NC1 Contact Box (OPENED BY KM1) -->
+  <rect x="180" y="250" width="100" height="40" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="230" y="267" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">NC1 (KM1)</text>
+  <text x="230" y="282" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">[РОЗМКНЕНИЙ!]</text>
+
+  <!-- Broken Wire to Coil KM2 -->
+  <path d="M280,270 L320,270" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- Coil KM2 Box (DE-ENERGIZED) -->
+  <rect x="320" y="250" width="110" height="40" rx="4" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="375" y="267" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Котушка KM2</text>
+  <text x="375" y="282" font-size="11" fill="#c0392b" text-anchor="middle">ЗНЕСТРУМЛЕНА</text>
+
+  <path d="M430,270 L455,270" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="445" y="260" font-size="12" font-weight="bold" fill="#6b7280">N</text>
+
+  <!-- Mechanical Linkage Arrow (KM1 -> NC1) with Label Placed Positioned Above Line -->
+  <rect x="255" y="182" width="125" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="317" y="197" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Розмикає NC1 (KM1)</text>
+  <path d="M375,175 L375,210 L230,210 L230,246" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4" fill="none" marker-end="url(#arr-red)"/>
+
+  <!-- Left Callout Box -->
+  <rect x="45" y="325" width="410" height="165" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="250" y="347" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Фізика перехресного захисту (Interlock logic):</text>
+  <text x="60" y="372" font-size="12" fill="#1a1a1a">1. Коли котушка KM1 увімкнена, її допоміжний контакт NC1</text>
+  <text x="75" y="388" font-size="12" font-weight="bold" fill="#c0392b">примусово розмикає коло живлення котушки KM2.</text>
+  <text x="60" y="412" font-size="12" fill="#1a1a1a">2. Навіть при помилці контролера або одночасній появі</text>
+  <text x="75" y="428" font-size="12" fill="#1a1a1a">сигналів L1 і L2, увімкнути KM2 фізично неможливо.</text>
+  <text x="60" y="452" font-size="12" font-weight="bold" fill="#27ae60">3. Це на 100% виключає міжфазне коротке замикання L1–L2.</text>
+
+  <!-- RIGHT PANEL: State Matrix and Delays -->
+  <rect x="490" y="75" width="440" height="435" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="102" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Матриця станів та часові затримки АВФ</text>
+
+  <!-- State Matrix Table -->
+  <rect x="505" y="120" width="410" height="30" rx="4" fill="#2457d6"/>
+  <text x="575" y="140" font-size="12" font-weight="bold" fill="white" text-anchor="middle">Стан мережі</text>
+  <text x="685" y="140" font-size="12" font-weight="bold" fill="white" text-anchor="middle">KM1 (L1)</text>
+  <text x="775" y="140" font-size="12" font-weight="bold" fill="white" text-anchor="middle">KM2 (L2)</text>
+  <text x="865" y="140" font-size="12" font-weight="bold" fill="white" text-anchor="middle">KM3 (L3)</text>
+
+  <!-- Row 1 -->
+  <rect x="505" y="155" width="410" height="28" fill="white" stroke="#d0d7de"/>
+  <text x="575" y="173" font-size="12" fill="#1a1a1a" text-anchor="middle">L1 в нормі (Пріоритет)</text>
+  <text x="685" y="173" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">УВІМК</text>
+  <text x="775" y="173" font-size="12" fill="#6b7280" text-anchor="middle">ВИМК</text>
+  <text x="865" y="173" font-size="12" fill="#6b7280" text-anchor="middle">ВИМК</text>
+
+  <!-- Row 2 -->
+  <rect x="505" y="185" width="410" height="28" fill="#f4f6f8" stroke="#d0d7de"/>
+  <text x="575" y="203" font-size="12" fill="#1a1a1a" text-anchor="middle">L1 Аварія, L2 в нормі</text>
+  <text x="685" y="203" font-size="12" fill="#6b7280" text-anchor="middle">ВИМК</text>
+  <text x="775" y="203" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">УВІМК</text>
+  <text x="865" y="203" font-size="12" fill="#6b7280" text-anchor="middle">ВИМК</text>
+
+  <!-- Row 3 -->
+  <rect x="505" y="215" width="410" height="28" fill="white" stroke="#d0d7de"/>
+  <text x="575" y="233" font-size="12" fill="#1a1a1a" text-anchor="middle">L1, L2 Аварія, L3 OK</text>
+  <text x="685" y="233" font-size="12" fill="#6b7280" text-anchor="middle">ВИМК</text>
+  <text x="775" y="233" font-size="12" fill="#6b7280" text-anchor="middle">ВИМК</text>
+  <text x="865" y="233" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">УВІМК</text>
+
+  <!-- Row 4 (Forbidden state) -->
+  <rect x="505" y="245" width="410" height="28" fill="#fdecea" stroke="#c0392b"/>
+  <text x="575" y="263" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Спроба KM1 + KM2</text>
+  <text x="685" y="263" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">УВІМК</text>
+  <text x="775" y="263" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">БЛОК (NC1)</text>
+  <text x="865" y="263" font-size="12" fill="#6b7280" text-anchor="middle">ВИМК</text>
+
+  <!-- Timing Specs Box -->
+  <rect x="505" y="285" width="410" height="205" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="710" y="307" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часові затримки перемикання (Timing Specs):</text>
+
+  <!-- Item 1: T_off -->
+  <rect x="520" y="322" width="60" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="550" y="337" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T_off</text>
+  <text x="590" y="337" font-size="12" font-weight="bold" fill="#1a1a1a">10…20 мс</text>
+  <text x="670" y="337" font-size="12" fill="#6b7280">(Затримка відключення аварійної фази)</text>
+
+  <!-- Item 2: T_transfer -->
+  <rect x="520" y="355" width="85" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="562" y="370" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">T_transfer</text>
+  <text x="615" y="370" font-size="12" font-weight="bold" fill="#1a1a1a">50…100 мс</text>
+  <text x="520" y="393" font-size="12" font-weight="bold" fill="#27ae60">Пауза дугогасіння!</text>
+  <text x="635" y="393" font-size="12" fill="#6b7280">(Гасіння електричної дуги KM1)</text>
+
+  <!-- Item 3: T_on -->
+  <rect x="520" y="410" width="60" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="550" y="425" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">T_on</text>
+  <text x="590" y="425" font-size="12" font-weight="bold" fill="#1a1a1a">100…200 мс</text>
+  <text x="670" y="425" font-size="12" fill="#6b7280">(Затримка включення резерву)</text>
+
+  <!-- Bottom Note -->
+  <rect x="520" y="445" width="380" height="35" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="710" y="467" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Без затримки T_transfer дуга на KM1 викличе міжфазне КЗ на L2!</text>
+</svg>

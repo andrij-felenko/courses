@@ -1,0 +1,217 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Скінченний автомат квадратурного декодера енкодера</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Діаграма станів коду Ґрея та матриця дозволених (CW/CCW) і заборонених переходів</text>
+
+  <!-- LEFT PANEL: STATE DIAGRAM -->
+  <g id="panel-state-diagram">
+    <rect x="40" y="75" width="440" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <path d="M 40,107 L 40,83 Q 40,75 48,75 L 472,75 Q 480,75 480,83 L 480,107 Z" fill="#eaf0fd"/>
+    <line x1="40" y1="107" x2="480" y2="107" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="260" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. ДІАГРАМА СТАНІВ (STATE DIAGRAM)</text>
+
+    <!-- Forbidden Diagonal Transitions (Broken segments around center badge) -->
+    <!-- Diagonal S0 -> S2 -->
+    <line x1="171" y1="191" x2="210" y2="230" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <line x1="310" y1="310" x2="349" y2="349" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+    <!-- Diagonal S1 -> S3 -->
+    <line x1="349" y1="191" x2="310" y2="230" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <line x1="210" y1="310" x2="171" y2="349" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+    <!-- Center Error Badge -->
+    <rect x="205" y="258" width="110" height="24" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="260" y="274" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">ПОМИЛКА (2 біти)</text>
+
+    <!-- CW Outer Transitions (Green Lines) -->
+    <!-- S0 -> S1 (Top Outer) -->
+    <line x1="178" y1="140" x2="342" y2="140" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="260" y="128" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">+1 (CW)</text>
+
+    <!-- S1 -> S2 (Right Outer) -->
+    <line x1="410" y1="198" x2="410" y2="342" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="418" y="270" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">+1 (CW)</text>
+
+    <!-- S2 -> S3 (Bottom Outer) -->
+    <line x1="342" y1="400" x2="178" y2="400" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="260" y="418" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">+1 (CW)</text>
+
+    <!-- S3 -> S0 (Left Outer) -->
+    <line x1="110" y1="342" x2="110" y2="198" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="102" y="270" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">+1 (CW)</text>
+
+    <!-- CCW Inner Transitions (Blue Lines) -->
+    <!-- S1 -> S0 (Top Inner) -->
+    <line x1="342" y1="200" x2="178" y2="200" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="260" y="218" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">-1 (CCW)</text>
+
+    <!-- S2 -> S1 (Right Inner) -->
+    <line x1="340" y1="342" x2="340" y2="198" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="348" y="250" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">-1 (CCW)</text>
+
+    <!-- S3 -> S2 (Bottom Inner) -->
+    <line x1="178" y1="340" x2="342" y2="340" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="260" y="326" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">-1 (CCW)</text>
+
+    <!-- S0 -> S3 (Left Inner) -->
+    <line x1="180" y1="198" x2="180" y2="342" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="172" y="250" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">-1 (CCW)</text>
+
+    <!-- State Circles -->
+    <!-- State S0 (00) -->
+    <circle cx="150" cy="170" r="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+    <text x="150" y="164" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">S0</text>
+    <text x="150" y="181" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">(00)</text>
+
+    <!-- State S1 (01) -->
+    <circle cx="370" cy="170" r="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+    <text x="370" y="164" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">S1</text>
+    <text x="370" y="181" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">(01)</text>
+
+    <!-- State S2 (11) -->
+    <circle cx="370" cy="370" r="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+    <text x="370" y="364" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">S2</text>
+    <text x="370" y="381" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">(11)</text>
+
+    <!-- State S3 (10) -->
+    <circle cx="150" cy="370" r="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+    <text x="150" y="364" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">S3</text>
+    <text x="150" y="381" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">(10)</text>
+
+    <!-- Bottom Note Badge -->
+    <rect x="60" y="465" width="400" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="260" y="486" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Код Ґрея: за 1 крок змінюється лише 1 біт (AB)</text>
+    <text x="260" y="504" text-anchor="middle" font-size="12" fill="#1a1a1a">Одночасна зміна обох бітів фіксує пропуск / помилку</text>
+  </g>
+
+  <!-- RIGHT PANEL: LOOKUP TABLE / MATRIX -->
+  <g id="panel-matrix">
+    <rect x="500" y="75" width="420" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <path d="M 500,107 L 500,83 Q 500,75 508,75 L 912,75 Q 920,75 920,83 L 920,107 Z" fill="#eaf0fd"/>
+    <line x1="500" y1="107" x2="920" y2="107" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="710" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. МАТРИЦЯ ПЕРЕХОДІВ (LOOKUP TABLE)</text>
+
+    <!-- Matrix Header Annotation -->
+    <text x="750" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Поточний стан (A_curr B_curr)</text>
+
+    <!-- Table Grid Lines -->
+    <rect x="530" y="135" width="360" height="235" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Table Header Row Backgrounds -->
+    <rect x="530" y="135" width="360" height="35" fill="#f4f6f8"/>
+    <rect x="530" y="135" width="80" height="235" fill="#f4f6f8"/>
+    <line x1="530" y1="170" x2="890" y2="170" stroke="#d0d7de" stroke-width="1.5"/>
+    <line x1="610" y1="135" x2="610" y2="370" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Column Grid Lines -->
+    <line x1="680" y1="135" x2="680" y2="370" stroke="#d0d7de" stroke-width="1"/>
+    <line x1="750" y1="135" x2="750" y2="370" stroke="#d0d7de" stroke-width="1"/>
+    <line x1="820" y1="135" x2="820" y2="370" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Row Grid Lines -->
+    <line x1="530" y1="220" x2="890" y2="220" stroke="#d0d7de" stroke-width="1"/>
+    <line x1="530" y1="270" x2="890" y2="270" stroke="#d0d7de" stroke-width="1"/>
+    <line x1="530" y1="320" x2="890" y2="320" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Header Row Labels -->
+    <text x="570" y="152" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Попередній</text>
+    <text x="570" y="166" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">стан</text>
+    <text x="645" y="157" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">00</text>
+    <text x="715" y="157" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">01</text>
+    <text x="785" y="157" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">11</text>
+    <text x="855" y="157" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">10</text>
+
+    <!-- Row 1: Prev = 00 -->
+    <text x="570" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">00</text>
+    <!-- (00->00): 0 -->
+    <rect x="611" y="171" width="68" height="48" fill="#f4f6f8"/>
+    <text x="645" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">0</text>
+    <!-- (00->01): +1 -->
+    <rect x="681" y="171" width="68" height="48" fill="#e9f7ef"/>
+    <text x="715" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">+1 (CW)</text>
+    <!-- (00->11): ERR -->
+    <rect x="751" y="171" width="68" height="48" fill="#fdecea"/>
+    <text x="785" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ERR</text>
+    <!-- (00->10): -1 -->
+    <rect x="821" y="171" width="68" height="48" fill="#eaf0fd"/>
+    <text x="855" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">-1 (CCW)</text>
+
+    <!-- Row 2: Prev = 01 -->
+    <text x="570" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">01</text>
+    <!-- (01->00): -1 -->
+    <rect x="611" y="221" width="68" height="48" fill="#eaf0fd"/>
+    <text x="645" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">-1 (CCW)</text>
+    <!-- (01->01): 0 -->
+    <rect x="681" y="221" width="68" height="48" fill="#f4f6f8"/>
+    <text x="715" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">0</text>
+    <!-- (01->11): +1 -->
+    <rect x="751" y="221" width="68" height="48" fill="#e9f7ef"/>
+    <text x="785" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">+1 (CW)</text>
+    <!-- (01->10): ERR -->
+    <rect x="821" y="221" width="68" height="48" fill="#fdecea"/>
+    <text x="855" y="250" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ERR</text>
+
+    <!-- Row 3: Prev = 11 -->
+    <text x="570" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">11</text>
+    <!-- (11->00): ERR -->
+    <rect x="611" y="271" width="68" height="48" fill="#fdecea"/>
+    <text x="645" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ERR</text>
+    <!-- (11->01): -1 -->
+    <rect x="681" y="271" width="68" height="48" fill="#eaf0fd"/>
+    <text x="715" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">-1 (CCW)</text>
+    <!-- (11->11): 0 -->
+    <rect x="751" y="271" width="68" height="48" fill="#f4f6f8"/>
+    <text x="785" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">0</text>
+    <!-- (11->10): +1 -->
+    <rect x="821" y="271" width="68" height="48" fill="#e9f7ef"/>
+    <text x="855" y="300" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">+1 (CW)</text>
+
+    <!-- Row 4: Prev = 10 -->
+    <text x="570" y="350" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">10</text>
+    <!-- (10->00): +1 -->
+    <rect x="611" y="321" width="68" height="48" fill="#e9f7ef"/>
+    <text x="645" y="350" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">+1 (CW)</text>
+    <!-- (10->01): ERR -->
+    <rect x="681" y="321" width="68" height="48" fill="#fdecea"/>
+    <text x="715" y="350" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ERR</text>
+    <!-- (10->11): -1 -->
+    <rect x="751" y="321" width="68" height="48" fill="#eaf0fd"/>
+    <text x="785" y="350" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">-1 (CCW)</text>
+    <!-- (10->10): 0 -->
+    <rect x="821" y="321" width="68" height="48" fill="#f4f6f8"/>
+    <text x="855" y="350" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">0</text>
+
+    <!-- Legend Panel -->
+    <rect x="520" y="465" width="380" height="50" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Legend 1: CW -->
+    <rect x="535" y="480" width="20" height="20" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="545" y="495" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">+1</text>
+    <text x="560" y="495" font-size="12" fill="#1a1a1a">: CW (за часовою)</text>
+
+    <!-- Legend 2: CCW -->
+    <rect x="665" y="480" width="20" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="675" y="495" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">-1</text>
+    <text x="690" y="495" font-size="12" fill="#1a1a1a">: CCW (проти)</text>
+
+    <!-- Legend 3: ERR -->
+    <rect x="780" y="480" width="20" height="20" rx="3" fill="#fdecea" stroke="#c0392b"/>
+    <text x="790" y="495" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">X</text>
+    <text x="805" y="495" font-size="12" fill="#1a1a1a">: ERR (помилка)</text>
+  </g>
+</svg>

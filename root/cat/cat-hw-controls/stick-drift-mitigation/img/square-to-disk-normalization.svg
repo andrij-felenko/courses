@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Нормалізація прямокутного робочого поля в одиничне коло</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Математичне відображення (Square-to-Disk) усуває ефект «зрізання кутів»</text>
+
+  <!-- Left Panel: Problem State -->
+  <rect x="40" y="80" width="340" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="80" width="340" height="36" rx="8" fill="#fdecea"/>
+  <text x="210" y="103" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">1. Незалежна обробка осей (Квадрат)</text>
+
+  <!-- Left Diagram Elements -->
+  <!-- Square Boundary [-1, 1] -->
+  <rect x="125" y="175" width="170" height="170" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4"/>
+  <!-- Reference Unit Circle -->
+  <circle cx="210" cy="260" r="85" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <!-- Axes -->
+  <line x1="95" y1="260" x2="325" y2="260" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="210" y1="375" x2="210" y2="145" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="333" y="264" font-size="12" fill="#1a1a1a">X</text>
+  <text x="210" y="137" font-size="12" fill="#1a1a1a" text-anchor="middle">Y</text>
+  <!-- Problem Vector -->
+  <line x1="210" y1="260" x2="295" y2="175" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <circle cx="295" cy="175" r="4" fill="#c0392b"/>
+  <text x="250" y="165" font-size="12" fill="#c0392b" text-anchor="middle">|v| = √2 ≈ 1.41 (зрізання)</text>
+  <!-- Bottom Text -->
+  <text x="210" y="400" font-size="12" fill="#6b7280" text-anchor="middle">Кути квадрата виходять за r > 1.0</text>
+
+  <!-- Middle Transformation Box -->
+  <line x1="383" y1="260" x2="400" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="405" y="195" width="150" height="130" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="218" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Відображення</text>
+  <text x="480" y="236" font-size="12" fill="#2457d6" text-anchor="middle">Square-to-Disk</text>
+  <text x="480" y="265" font-size="12" fill="#1a1a1a" text-anchor="middle">u = x · √(1 - y²/2)</text>
+  <text x="480" y="290" font-size="12" fill="#1a1a1a" text-anchor="middle">v = y · √(1 - x²/2)</text>
+  <line x1="560" y1="260" x2="577" y2="260" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Right Panel: Solution State -->
+  <rect x="580" y="80" width="340" height="340" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="580" y="80" width="340" height="36" rx="8" fill="#e9f7ef"/>
+  <text x="750" y="103" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Одиничний диск (Коло)</text>
+
+  <!-- Right Diagram Elements -->
+  <!-- Unit Circle Domain -->
+  <circle cx="750" cy="260" r="85" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <!-- Axes -->
+  <line x1="635" y1="260" x2="865" y2="260" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <line x1="750" y1="375" x2="750" y2="145" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="873" y="264" font-size="12" fill="#1a1a1a">u</text>
+  <text x="750" y="137" font-size="12" fill="#1a1a1a" text-anchor="middle">v</text>
+  <!-- Normalized Vector -->
+  <line x1="750" y1="260" x2="810.1" y2="199.9" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <circle cx="810.1" cy="199.9" r="4" fill="#27ae60"/>
+  <text x="780" y="175" font-size="12" fill="#27ae60" text-anchor="middle">|v'| = 1.0 (нормовано)</text>
+  <!-- Bottom Text -->
+  <text x="750" y="400" font-size="12" fill="#6b7280" text-anchor="middle">Усі напрямки мають радіус r ≤ 1.0</text>
+</svg>

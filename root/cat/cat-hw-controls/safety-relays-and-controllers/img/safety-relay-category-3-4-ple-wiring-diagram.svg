@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Принципова схема підключення реле безпеки (Category 4 / PL e)</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Двоканальне опитування вхідних сенсорів (S11-S22), моніторинг EDM (S34) та дубльовані контактори K1/K2</text>
+
+  <!-- Left Section: Input Devices -->
+  <!-- E-Stop Mushroom Button Box -->
+  <rect x="30" y="90" width="180" height="170" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="6"/>
+  <text x="120" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Кнопка E-Stop</text>
+  <text x="120" y="133" text-anchor="middle" font-size="12" fill="#6b7280">2хNC (примусові)</text>
+
+  <!-- NC1 Channel 1 Contact -->
+  <rect x="50" y="145" width="140" height="40" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="120" y="169" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">NC1 (Канал 1)</text>
+
+  <!-- NC2 Channel 2 Contact -->
+  <rect x="50" y="200" width="140" height="40" fill="#ffffff" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="120" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">NC2 (Канал 2)</text>
+
+  <!-- Reset Button Box -->
+  <rect x="30" y="280" width="180" height="90" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="120" y="305" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Кнопка Reset</text>
+  <text x="120" y="323" text-anchor="middle" font-size="12" fill="#6b7280">NO контакт скидання</text>
+  <rect x="50" y="333" width="140" height="30" fill="#ffffff" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="120" y="353" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вхід у коло EDM</text>
+
+  <!-- Center Section: Safety Relay -->
+  <rect x="260" y="90" width="400" height="390" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="6"/>
+  <text x="460" y="118" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a1a">Реле безпеки (Safety Relay)</text>
+  <text x="460" y="136" text-anchor="middle" font-size="12" fill="#6b7280">Двоканальна логіка безпеки (DC ≥ 99%, PL e)</text>
+
+  <!-- Internal Logic Box inside Relay -->
+  <rect x="350" y="155" width="220" height="230" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="460" y="180" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Мікроконтролер безпеки</text>
+  <line x1="365" y1="190" x2="555" y2="190" stroke="#2457d6" stroke-width="1" opacity="0.3"/>
+  <text x="365" y="212" font-size="12" fill="#1a1a1a">• Генератор імпульсів T1/T2</text>
+  <text x="365" y="234" font-size="12" fill="#1a1a1a">• Контроль протифазності S12/S22</text>
+  <text x="365" y="256" font-size="12" fill="#1a1a1a">• Моніторинг EDM (S34)</text>
+  <text x="365" y="278" font-size="12" fill="#1a1a1a">• Виявлення коротких замикань</text>
+  <text x="365" y="300" font-size="12" font-weight="bold" fill="#27ae60">• Вихідні тригери CH1/CH2</text>
+  <text x="365" y="322" font-size="12" fill="#6b7280">• Таймер затримки та реле</text>
+
+  <!-- Left Terminals of Relay -->
+  <circle cx="260" cy="155" r="5" fill="#2457d6"/>
+  <text x="275" y="159" font-size="12" font-weight="bold" fill="#2457d6">S11 (T1)</text>
+
+  <circle cx="260" cy="180" r="5" fill="#2457d6"/>
+  <text x="275" y="184" font-size="12" font-weight="bold" fill="#2457d6">S12 (CH1)</text>
+
+  <circle cx="260" cy="210" r="5" fill="#2457d6"/>
+  <text x="275" y="214" font-size="12" font-weight="bold" fill="#2457d6">S21 (T2)</text>
+
+  <circle cx="260" cy="235" r="5" fill="#2457d6"/>
+  <text x="275" y="239" font-size="12" font-weight="bold" fill="#2457d6">S22 (CH2)</text>
+
+  <circle cx="260" cy="350" r="5" fill="#2457d6"/>
+  <text x="275" y="354" font-size="12" font-weight="bold" fill="#2457d6">S34 (EDM/Reset)</text>
+
+  <circle cx="260" cy="430" r="5" fill="#6b7280"/>
+  <text x="275" y="434" font-size="12" fill="#6b7280">A1 / A2 (24V DC)</text>
+
+  <!-- Right Terminals of Relay -->
+  <circle cx="660" cy="175" r="5" fill="#1a1a1a"/>
+  <text x="645" y="179" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">13</text>
+
+  <circle cx="660" cy="205" r="5" fill="#27ae60"/>
+  <text x="645" y="209" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">14 (Out 1)</text>
+
+  <circle cx="660" cy="295" r="5" fill="#1a1a1a"/>
+  <text x="645" y="299" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">23</text>
+
+  <circle cx="660" cy="325" r="5" fill="#27ae60"/>
+  <text x="645" y="329" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">24 (Out 2)</text>
+
+  <!-- Right Section: Actuator Contactors -->
+  <!-- Contactor K1 Box -->
+  <rect x="700" y="150" width="230" height="90" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="815" y="175" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Контактор K1</text>
+  <text x="815" y="195" text-anchor="middle" font-size="12" fill="#1a1a1a">Котушка A1-A2 (з виходу 14)</text>
+  <text x="815" y="215" text-anchor="middle" font-size="12" fill="#6b7280">Допоміжний NC1 контакт (21-22)</text>
+
+  <!-- Contactor K2 Box -->
+  <rect x="700" y="270" width="230" height="90" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="815" y="295" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Контактор K2</text>
+  <text x="815" y="315" text-anchor="middle" font-size="12" fill="#1a1a1a">Котушка A2-A2 (з виходу 24)</text>
+  <text x="815" y="335" text-anchor="middle" font-size="12" fill="#6b7280">Допоміжний NC2 контакт (21-22)</text>
+
+  <!-- Category 4 Summary Box -->
+  <rect x="700" y="380" width="230" height="100" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="815" y="405" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Особливості Category 4:</text>
+  <text x="715" y="425" font-size="12" fill="#6b7280">• Протифазні такт-імпульси T1/T2</text>
+  <text x="715" y="445" font-size="12" fill="#6b7280">• Контур моніторингу EDM (K1/K2)</text>
+  <text x="715" y="465" font-size="12" fill="#6b7280">• Стійкість до накопичення відмов</text>
+
+  <!-- Wires & Interconnections -->
+  <!-- Channel 1 Input Wires -->
+  <path d="M260,155 L190,155" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M190,175 L260,180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Channel 2 Input Wires -->
+  <path d="M260,210 L190,210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <path d="M190,230 L260,235" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Output Wires to Actuators -->
+  <path d="M660,205 L700,205" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M660,325 L700,325" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Reset / EDM Loop Wires -->
+  <path d="M210,350 L260,350" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- EDM Loop Feedback line from K1/K2 to Reset input -->
+  <path d="M930,215 L950,215 L950,345 L930,345" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4" fill="none"/>
+  <path d="M700,345 L120,370 L120,363" stroke="#2457d6" stroke-width="1.5" fill="none" marker-end="url(#arr-blue)"/>
+
+</svg>

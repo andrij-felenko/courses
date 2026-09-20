@@ -1,0 +1,307 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Зчитування 8-позиційного DIP-перемикача через зсувний регістр 74HC165</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Паралельне фіксування 8 ліній за сигналом PL та послідовна передача в мікроконтролер по 3 провідниках</text>
+
+  <!-- BLOCK 1: DIP Switch & Pull-up Network -->
+  <rect x="25" y="68" width="265" height="374" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="157.5" y="90" font-size="14" font-weight="700" fill="#1a1a1a" text-anchor="middle">Блок DIP-перемикачів і Pull-Up</text>
+
+  <!-- VCC Line -->
+  <line x1="45" y1="110" x2="275" y2="110" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="45" cy="110" r="4" fill="#c0392b"/>
+  <text x="45" y="104" font-size="12" font-weight="700" fill="#c0392b" text-anchor="start">+VCC (5V)</text>
+
+  <!-- GND Line -->
+  <line x1="45" y1="426" x2="275" y2="426" stroke="#1a1a1a" stroke-width="2.5"/>
+  <circle cx="45" cy="426" r="4" fill="#1a1a1a"/>
+  <text x="45" y="420" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="start">GND</text>
+
+  <!-- DIP Switch Body -->
+  <rect x="60" y="122" width="85" height="288" rx="4" ry="4" fill="#c0392b" stroke="#962d22" stroke-width="1.5"/>
+  <text x="102.5" y="139" font-size="12" font-weight="700" fill="white" text-anchor="middle">DIP SW (8P)</text>
+
+  <!-- Pull-Up Resistor Array (SIP-9) -->
+  <rect x="175" y="122" width="75" height="288" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="212.5" y="139" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Pull-Up 10kΩ</text>
+
+  <!-- VCC internal distribution bus for SIP-9 -->
+  <line x1="179" y1="110" x2="179" y2="384" stroke="#c0392b" stroke-dasharray="3 3" stroke-width="1.5"/>
+
+  <!-- 8 Channels D0..D7 -->
+
+  <!-- Ch 0 (D0) -->
+  <!-- DIP switch toggle button -->
+  <rect x="68" y="149" width="69" height="18" rx="2" fill="white"/>
+  <rect x="70" y="151" width="20" height="14" rx="2" fill="#27ae60"/>
+  <text x="102.5" y="162" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">SW1</text>
+  
+  <!-- Wire from GND to DIP switch -->
+  <line x1="45" y1="158" x2="68" y2="158" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- Wire from DIP switch to Pull-Up node -->
+  <line x1="137" y1="158" x2="183" y2="158" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- VCC tap to resistor -->
+  <line x1="179" y1="158" x2="183" y2="158" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Pull-Up resistor box -->
+  <rect x="183" y="149" width="58" height="18" rx="2" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="212" y="162" font-size="12" fill="#2457d6" text-anchor="middle">10k</text>
+
+  <!-- Line from Pull-Up node out to 74HC165 -->
+  <line x1="241" y1="158" x2="335" y2="158" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="288" y="154" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D0</text>
+
+  <!-- Ch 1 (D1) -->
+  <!-- DIP switch toggle button -->
+  <rect x="68" y="181" width="69" height="18" rx="2" fill="white"/>
+  <rect x="115" y="183" width="20" height="14" rx="2" fill="#6b7280"/>
+  <text x="102.5" y="194" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">SW2</text>
+  
+  <!-- Wire from GND to DIP switch -->
+  <line x1="45" y1="190" x2="68" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- Wire from DIP switch to Pull-Up node -->
+  <line x1="137" y1="190" x2="183" y2="190" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- VCC tap to resistor -->
+  <line x1="179" y1="190" x2="183" y2="190" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Pull-Up resistor box -->
+  <rect x="183" y="181" width="58" height="18" rx="2" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="212" y="194" font-size="12" fill="#2457d6" text-anchor="middle">10k</text>
+
+  <!-- Line from Pull-Up node out to 74HC165 -->
+  <line x1="241" y1="190" x2="335" y2="190" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="288" y="186" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D1</text>
+
+  <!-- Ch 2 (D2) -->
+  <!-- DIP switch toggle button -->
+  <rect x="68" y="213" width="69" height="18" rx="2" fill="white"/>
+  <rect x="70" y="215" width="20" height="14" rx="2" fill="#27ae60"/>
+  <text x="102.5" y="226" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">SW3</text>
+  
+  <!-- Wire from GND to DIP switch -->
+  <line x1="45" y1="222" x2="68" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- Wire from DIP switch to Pull-Up node -->
+  <line x1="137" y1="222" x2="183" y2="222" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- VCC tap to resistor -->
+  <line x1="179" y1="222" x2="183" y2="222" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Pull-Up resistor box -->
+  <rect x="183" y="213" width="58" height="18" rx="2" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="212" y="226" font-size="12" fill="#2457d6" text-anchor="middle">10k</text>
+
+  <!-- Line from Pull-Up node out to 74HC165 -->
+  <line x1="241" y1="222" x2="335" y2="222" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="288" y="218" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D2</text>
+
+  <!-- Ch 3 (D3) -->
+  <!-- DIP switch toggle button -->
+  <rect x="68" y="245" width="69" height="18" rx="2" fill="white"/>
+  <rect x="115" y="247" width="20" height="14" rx="2" fill="#6b7280"/>
+  <text x="102.5" y="258" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">SW4</text>
+  
+  <!-- Wire from GND to DIP switch -->
+  <line x1="45" y1="254" x2="68" y2="254" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- Wire from DIP switch to Pull-Up node -->
+  <line x1="137" y1="254" x2="183" y2="254" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- VCC tap to resistor -->
+  <line x1="179" y1="254" x2="183" y2="254" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Pull-Up resistor box -->
+  <rect x="183" y="245" width="58" height="18" rx="2" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="212" y="258" font-size="12" fill="#2457d6" text-anchor="middle">10k</text>
+
+  <!-- Line from Pull-Up node out to 74HC165 -->
+  <line x1="241" y1="254" x2="335" y2="254" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="288" y="250" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D3</text>
+
+  <!-- Ch 4 (D4) -->
+  <!-- DIP switch toggle button -->
+  <rect x="68" y="277" width="69" height="18" rx="2" fill="white"/>
+  <rect x="70" y="279" width="20" height="14" rx="2" fill="#27ae60"/>
+  <text x="102.5" y="290" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">SW5</text>
+  
+  <!-- Wire from GND to DIP switch -->
+  <line x1="45" y1="286" x2="68" y2="286" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- Wire from DIP switch to Pull-Up node -->
+  <line x1="137" y1="286" x2="183" y2="286" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- VCC tap to resistor -->
+  <line x1="179" y1="286" x2="183" y2="286" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Pull-Up resistor box -->
+  <rect x="183" y="277" width="58" height="18" rx="2" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="212" y="290" font-size="12" fill="#2457d6" text-anchor="middle">10k</text>
+
+  <!-- Line from Pull-Up node out to 74HC165 -->
+  <line x1="241" y1="286" x2="335" y2="286" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="288" y="282" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D4</text>
+
+  <!-- Ch 5 (D5) -->
+  <!-- DIP switch toggle button -->
+  <rect x="68" y="309" width="69" height="18" rx="2" fill="white"/>
+  <rect x="115" y="311" width="20" height="14" rx="2" fill="#6b7280"/>
+  <text x="102.5" y="322" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">SW6</text>
+  
+  <!-- Wire from GND to DIP switch -->
+  <line x1="45" y1="318" x2="68" y2="318" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- Wire from DIP switch to Pull-Up node -->
+  <line x1="137" y1="318" x2="183" y2="318" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- VCC tap to resistor -->
+  <line x1="179" y1="318" x2="183" y2="318" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Pull-Up resistor box -->
+  <rect x="183" y="309" width="58" height="18" rx="2" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="212" y="322" font-size="12" fill="#2457d6" text-anchor="middle">10k</text>
+
+  <!-- Line from Pull-Up node out to 74HC165 -->
+  <line x1="241" y1="318" x2="335" y2="318" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="288" y="314" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D5</text>
+
+  <!-- Ch 6 (D6) -->
+  <!-- DIP switch toggle button -->
+  <rect x="68" y="341" width="69" height="18" rx="2" fill="white"/>
+  <rect x="70" y="343" width="20" height="14" rx="2" fill="#27ae60"/>
+  <text x="102.5" y="354" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">SW7</text>
+  
+  <!-- Wire from GND to DIP switch -->
+  <line x1="45" y1="350" x2="68" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- Wire from DIP switch to Pull-Up node -->
+  <line x1="137" y1="350" x2="183" y2="350" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- VCC tap to resistor -->
+  <line x1="179" y1="350" x2="183" y2="350" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Pull-Up resistor box -->
+  <rect x="183" y="341" width="58" height="18" rx="2" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="212" y="354" font-size="12" fill="#2457d6" text-anchor="middle">10k</text>
+
+  <!-- Line from Pull-Up node out to 74HC165 -->
+  <line x1="241" y1="350" x2="335" y2="350" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="288" y="346" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D6</text>
+
+  <!-- Ch 7 (D7) -->
+  <!-- DIP switch toggle button -->
+  <rect x="68" y="373" width="69" height="18" rx="2" fill="white"/>
+  <rect x="115" y="375" width="20" height="14" rx="2" fill="#6b7280"/>
+  <text x="102.5" y="386" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">SW8</text>
+  
+  <!-- Wire from GND to DIP switch -->
+  <line x1="45" y1="382" x2="68" y2="382" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- Wire from DIP switch to Pull-Up node -->
+  <line x1="137" y1="382" x2="183" y2="382" stroke="#1a1a1a" stroke-width="1.5"/>
+  
+  <!-- VCC tap to resistor -->
+  <line x1="179" y1="382" x2="183" y2="382" stroke="#c0392b" stroke-width="1.5"/>
+
+  <!-- Pull-Up resistor box -->
+  <rect x="183" y="373" width="58" height="18" rx="2" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="212" y="386" font-size="12" fill="#2457d6" text-anchor="middle">10k</text>
+
+  <!-- Line from Pull-Up node out to 74HC165 -->
+  <line x1="241" y1="382" x2="335" y2="382" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="288" y="378" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D7</text>
+
+  <!-- BLOCK 2: 74HC165 Shift Register Chip -->
+  <rect x="335" y="68" width="265" height="374" rx="8" ry="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="467.5" y="94" font-size="16" font-weight="700" fill="#2457d6" text-anchor="middle">74HC165</text>
+  <text x="467.5" y="112" font-size="12" fill="#6b7280" text-anchor="middle">8-bit PISO Shift Register</text>
+
+  <!-- Left Pins (Parallel Inputs D0..D7) -->
+
+  <rect x="335" y="149" width="52" height="18" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="361" y="162" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D0 (p11)</text>
+
+  <rect x="335" y="181" width="52" height="18" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="361" y="194" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D1 (p12)</text>
+
+  <rect x="335" y="213" width="52" height="18" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="361" y="226" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D2 (p13)</text>
+
+  <rect x="335" y="245" width="52" height="18" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="361" y="258" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D3 (p14)</text>
+
+  <rect x="335" y="277" width="52" height="18" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="361" y="290" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D4 (p3)</text>
+
+  <rect x="335" y="309" width="52" height="18" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="361" y="322" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D5 (p4)</text>
+
+  <rect x="335" y="341" width="52" height="18" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="361" y="354" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D6 (p5)</text>
+
+  <rect x="335" y="373" width="52" height="18" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="361" y="386" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">D7 (p6)</text>
+
+  <!-- Bottom Control Pins on 74HC165 (CE to GND, DS to GND) -->
+  <line x1="467.5" y1="414" x2="467.5" y2="432" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="450" y1="432" x2="485" y2="432" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="467.5" y="408" font-size="12" fill="#6b7280" text-anchor="middle">CE=GND, DS=GND</text>
+
+  <!-- Right Signals out from 74HC165 to MCU -->
+  <!-- Signal 1: PL (Parallel Load / SH/LD - Pin 1) -->
+  <line x1="680" y1="175" x2="600" y2="175" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <rect x="540" y="165" width="60" height="20" fill="white" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="570" y="179" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">PL (p1)</text>
+  <text x="640" y="167" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">PL / SH_LD (Load)</text>
+
+  <!-- Signal 2: CP (Clock Pulse / CLK - Pin 2) -->
+  <line x1="680" y1="245" x2="600" y2="245" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="540" y="235" width="60" height="20" fill="white" stroke="#2457d6" stroke-width="1"/>
+  <text x="570" y="249" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">CP (p2)</text>
+  <text x="640" y="237" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">CP / CLK (Clock)</text>
+
+  <!-- Signal 3: Q7 (Serial Out / SO - Pin 9) -->
+  <line x1="600" y1="315" x2="680" y2="315" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <rect x="540" y="305" width="60" height="20" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="570" y="319" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Q7 (p9)</text>
+  <text x="640" y="307" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">Q7 / SO (Data Out)</text>
+
+  <!-- BLOCK 3: Microcontroller MCU -->
+  <rect x="680" y="68" width="255" height="374" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="807.5" y="94" font-size="16" font-weight="700" fill="#1a1a1a" text-anchor="middle">Мікроконтролер</text>
+  <text x="807.5" y="112" font-size="12" fill="#6b7280" text-anchor="middle">MCU / SPI Interface</text>
+
+  <!-- Pin Labels inside MCU -->
+  <rect x="680" y="165" width="82" height="20" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="721" y="179" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">GPIO_LOAD</text>
+
+  <rect x="680" y="235" width="82" height="20" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="721" y="249" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">GPIO_CLK</text>
+
+  <rect x="680" y="305" width="82" height="20" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="721" y="319" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">GPIO_DATA</text>
+
+  <!-- Note box at bottom of MCU -->
+  <rect x="695" y="350" width="225" height="50" rx="4" ry="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="807.5" y="371" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Зчитування 8-біт через 3 лінії</text>
+  <text x="807.5" y="388" font-size="12" fill="#1a1a1a" text-anchor="middle">Замість 8 виводів GPIO</text>
+
+</svg>

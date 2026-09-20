@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  <defs>
+    <marker id="arr-dark" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="34" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Алгоритм автокалібрування та структура профілю в EEPROM</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Від вимірювання шуму нейтралі та екстремумів до пакування структури з CRC16 і збереження в NVM</text>
+
+  <!-- Top Flowchart Container -->
+  <rect x="25" y="70" width="910" height="200" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="92" font-size="13" font-weight="bold" fill="#1a1a1a">Послідовність етапів автокалібрування</text>
+
+  <!-- Connecting Arrows Between Stage Cards -->
+  <line x1="235" y1="175" x2="265" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="460" y1="175" x2="490" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <line x1="685" y1="175" x2="715" y2="175" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Stage Card 1 -->
+  <rect x="40" y="105" width="195" height="140" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="137" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">1. Нейтраль і шум</text>
+  <text x="137" y="146" text-anchor="middle" font-size="11" fill="#1a1a1a">N вибірок у спокої</text>
+  <text x="137" y="166" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">V_zero = mean(V)</text>
+  <text x="137" y="186" text-anchor="middle" font-size="11" fill="#6b7280">V_noise = max|V - V_zero|</text>
+  <rect x="48" y="202" width="179" height="30" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="137" y="221" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Центр + Поріг шуму</text>
+
+  <!-- Stage Card 2 -->
+  <rect x="265" y="105" width="195" height="140" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="362" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">2. Екстремуми осей</text>
+  <text x="362" y="146" text-anchor="middle" font-size="11" fill="#1a1a1a">Повне коло важеля</text>
+  <text x="362" y="166" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">V_min = min(V_raw)</text>
+  <text x="362" y="186" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">V_max = max(V_raw)</text>
+  <rect x="273" y="202" width="179" height="30" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="362" y="221" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Фіксація меж осей</text>
+
+  <!-- Stage Card 3 -->
+  <rect x="490" y="105" width="195" height="140" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="587" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">3. Коефіцієнти</text>
+  <text x="587" y="146" text-anchor="middle" font-size="11" fill="#1a1a1a">R_dead = V_noise + margin</text>
+  <text x="587" y="166" text-anchor="middle" font-size="11" fill="#1a1a1a">K_neg = 1 / (V_zero - V_min)</text>
+  <text x="587" y="186" text-anchor="middle" font-size="11" fill="#1a1a1a">K_pos = 1 / (V_max - V_zero)</text>
+  <rect x="498" y="202" width="179" height="30" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="587" y="221" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Масштабування [-1..+1]</text>
+
+  <!-- Stage Card 4 -->
+  <rect x="715" y="105" width="195" height="140" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="812" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">4. Пакування й CRC</text>
+  <text x="812" y="146" text-anchor="middle" font-size="11" fill="#1a1a1a">Формування calib_data_t</text>
+  <text x="812" y="166" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">magic = 0xCAFE</text>
+  <text x="812" y="186" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">crc = crc16_ccitt(...)</text>
+  <rect x="723" y="202" width="179" height="30" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="812" y="221" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Запис в EEPROM</text>
+
+
+  <!-- Bottom EEPROM Memory Structure Container -->
+  <rect x="25" y="285" width="910" height="210" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="40" y="307" font-size="13" font-weight="bold" fill="#1a1a1a">Структура даних профілю в неенергозалежній пам'яті (EEPROM / Flash Memory Map)</text>
+
+  <!-- Vertical Arrow connecting Stage 4 to EEPROM Memory Map -->
+  <line x1="812" y1="245" x2="812" y2="325" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Memory Map Grid (struct calib_data_t) -->
+  <!-- Field 1: Magic -->
+  <rect x="40" y="325" width="130" height="65" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="4"/>
+  <text x="105" y="344" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">0x00: magic</text>
+  <text x="105" y="362" text-anchor="middle" font-size="11" fill="#1a1a1a">0xCAFE (2 B)</text>
+  <text x="105" y="379" text-anchor="middle" font-size="11" fill="#6b7280">Заголовок</text>
+
+  <!-- Field 2: Zeros -->
+  <rect x="180" y="325" width="160" height="65" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="260" y="344" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">0x02: x_zero, y_zero</text>
+  <text x="260" y="362" text-anchor="middle" font-size="11" fill="#6b7280">int16_t [2] (4 B)</text>
+  <text x="260" y="379" text-anchor="middle" font-size="11" fill="#1a1a1a">Зсув нейтралі</text>
+
+  <!-- Field 3: Deadzone -->
+  <rect x="350" y="325" width="150" height="65" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="425" y="344" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">0x06: deadzone</text>
+  <text x="425" y="362" text-anchor="middle" font-size="11" fill="#6b7280">uint16_t (2 B)</text>
+  <text x="425" y="379" text-anchor="middle" font-size="11" fill="#1a1a1a">Поріг шуму</text>
+
+  <!-- Field 4: Scale -->
+  <rect x="510" y="325" width="220" height="65" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="620" y="344" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">0x08: scale_x, scale_y</text>
+  <text x="620" y="362" text-anchor="middle" font-size="11" fill="#6b7280">float [2] (8 B)</text>
+  <text x="620" y="379" text-anchor="middle" font-size="11" fill="#1a1a1a">Масштаб осей</text>
+
+  <!-- Field 5: CRC16 -->
+  <rect x="740" y="325" width="170" height="65" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="825" y="344" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">0x10: crc16</text>
+  <text x="825" y="362" text-anchor="middle" font-size="11" fill="#1a1a1a">uint16_t (2 B)</text>
+  <text x="825" y="379" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">CRC16-CCITT</text>
+
+
+  <!-- Bottom Info Cards -->
+  <!-- Boot Validation Card -->
+  <rect x="40" y="405" width="420" height="75" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="250" y="424" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Перевірка цілісності при завантаженні (Boot Check):</text>
+  <text x="250" y="443" text-anchor="middle" font-size="11" fill="#2457d6">1. Перевірка заголовка magic == 0xCAFE</text>
+  <text x="250" y="462" text-anchor="middle" font-size="11" fill="#27ae60">2. Обчислення CRC16 байтів 0x00..0x0E == crc16</text>
+
+  <!-- Fail-Safe Recovery Card -->
+  <rect x="480" y="405" width="430" height="75" fill="#fdecea" stroke="#c0392b" rx="6"/>
+  <text x="695" y="424" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Захист від пошкодження пам'яті (Fail-Safe):</text>
+  <text x="695" y="443" text-anchor="middle" font-size="11" fill="#c0392b">При помилці CRC16 або magic -> скидання до дефолтів</text>
+  <text x="695" y="462" text-anchor="middle" font-size="11" fill="#6b7280">Запуск автокалібрування або генерація помилки</text>
+
+</svg>

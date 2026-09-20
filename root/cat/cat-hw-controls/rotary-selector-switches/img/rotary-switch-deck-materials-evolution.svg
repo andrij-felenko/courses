@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Еволюція матеріалів деків (галет) поворотних перемикачів</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Перехід від бакеліту до кераміки й PTFE підвищив опір ізоляції та знизив високочастотні втрати</text>
+
+  <!-- ==================== CARD 1: BAKELITE ==================== -->
+  <rect x="35" y="90" width="205" height="370" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <path d="M 41,90 L 234,90 A 6,6 0 0 1 240,96 L 240,140 L 35,140 L 35,96 A 6,6 0 0 1 41,90 Z" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="137.5" y="111" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">1. Бакеліт / Гетинакс</text>
+  <text x="137.5" y="127" text-anchor="middle" font-size="12" fill="#6b7280">1920–1940-ті рр.</text>
+
+  <!-- Wafer Graphic 1 -->
+  <circle cx="137.5" cy="180" r="28" fill="#8d6e63" stroke="#4e342e" stroke-width="2"/>
+  <rect x="132.5" y="175" width="10" height="10" fill="#4e342e"/>
+  <!-- Contacts -->
+  <circle cx="137.5" cy="157" r="3" fill="#d4a373" stroke="#4e342e"/>
+  <circle cx="157" cy="167" r="3" fill="#d4a373" stroke="#4e342e"/>
+  <circle cx="157" cy="193" r="3" fill="#d4a373" stroke="#4e342e"/>
+  <circle cx="137.5" cy="203" r="3" fill="#d4a373" stroke="#4e342e"/>
+  <circle cx="118" cy="193" r="3" fill="#d4a373" stroke="#4e342e"/>
+  <circle cx="118" cy="167" r="3" fill="#d4a373" stroke="#4e342e"/>
+  <text x="137.5" y="224" text-anchor="middle" font-size="12" fill="#6b7280">Фенольний папір</text>
+
+  <!-- Properties Box 1 -->
+  <rect x="45" y="238" width="185" height="135" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="53" y="258" font-size="12" font-weight="bold" fill="#1a1a1a">R_iso: <tspan fill="#c0392b">~ 10⁸ Ом</tspan></text>
+  <text x="53" y="285" font-size="12" font-weight="bold" fill="#1a1a1a">tan δ: <tspan fill="#c0392b">~ 0.050 (високі)</tspan></text>
+  <text x="53" y="312" font-size="12" font-weight="bold" fill="#1a1a1a">Волога: <tspan fill="#c0392b">1.0 – 3.0%</tspan></text>
+  <text x="53" y="339" font-size="12" font-weight="bold" fill="#1a1a1a">T_max: <tspan fill="#1a1a1a">до 100 °C</tspan></text>
+
+  <!-- App Box 1 -->
+  <rect x="45" y="385" width="185" height="63" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="53" y="405" font-size="12" font-weight="bold" fill="#c0392b">Схильність до витоків</text>
+  <text x="53" y="421" font-size="12" fill="#1a1a1a">і витоку струму. Перші</text>
+  <text x="53" y="437" font-size="12" fill="#1a1a1a">радіоприймачі та АТС.</text>
+
+
+  <!-- ==================== CARD 2: FR-4 ==================== -->
+  <rect x="260" y="90" width="205" height="370" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <path d="M 266,90 L 459,90 A 6,6 0 0 1 465,96 L 465,140 L 260,140 L 260,96 A 6,6 0 0 1 266,90 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="362.5" y="111" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">2. Склотекстоліт FR-4</text>
+  <text x="362.5" y="127" text-anchor="middle" font-size="12" fill="#6b7280">1950–1970-ті рр.</text>
+
+  <!-- Wafer Graphic 2 -->
+  <circle cx="362.5" cy="180" r="28" fill="#a5d6a7" stroke="#2e7d32" stroke-width="2"/>
+  <rect x="357.5" y="175" width="10" height="10" fill="#2e7d32"/>
+  <!-- Contacts -->
+  <circle cx="362.5" cy="157" r="3" fill="#ffe082" stroke="#2e7d32"/>
+  <circle cx="382" cy="167" r="3" fill="#ffe082" stroke="#2e7d32"/>
+  <circle cx="382" cy="193" r="3" fill="#ffe082" stroke="#2e7d32"/>
+  <circle cx="362.5" cy="203" r="3" fill="#ffe082" stroke="#2e7d32"/>
+  <circle cx="343" cy="193" r="3" fill="#ffe082" stroke="#2e7d32"/>
+  <circle cx="343" cy="167" r="3" fill="#ffe082" stroke="#2e7d32"/>
+  <text x="362.5" y="224" text-anchor="middle" font-size="12" fill="#6b7280">Епоксидний склопластик</text>
+
+  <!-- Properties Box 2 -->
+  <rect x="270" y="238" width="185" height="135" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="278" y="258" font-size="12" font-weight="bold" fill="#1a1a1a">R_iso: <tspan fill="#1a1a1a">~ 10¹⁰ Ом</tspan></text>
+  <text x="278" y="285" font-size="12" font-weight="bold" fill="#1a1a1a">tan δ: <tspan fill="#1a1a1a">~ 0.020 (середні)</tspan></text>
+  <text x="278" y="312" font-size="12" font-weight="bold" fill="#1a1a1a">Волога: <tspan fill="#1a1a1a">&lt; 0.2%</tspan></text>
+  <text x="278" y="339" font-size="12" font-weight="bold" fill="#1a1a1a">T_max: <tspan fill="#1a1a1a">до 130 °C</tspan></text>
+
+  <!-- App Box 2 -->
+  <rect x="270" y="385" width="185" height="63" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="278" y="405" font-size="12" font-weight="bold" fill="#1a1a1a">Покращена міцність</text>
+  <text x="278" y="421" font-size="12" fill="#1a1a1a">Промислові прилади</text>
+  <text x="278" y="437" fill="#1a1a1a">та вимірювачі НЧ.</text>
+
+
+  <!-- ==================== CARD 3: STEATITE CERAMIC ==================== -->
+  <rect x="485" y="90" width="205" height="370" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <path d="M 491,90 L 684,90 A 6,6 0 0 1 690,96 L 690,140 L 485,140 L 485,96 A 6,6 0 0 1 491,90 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="587.5" y="111" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">3. Кераміка (Стеатит)</text>
+  <text x="587.5" y="127" text-anchor="middle" font-size="12" fill="#6b7280">1960-ті — дотепер</text>
+
+  <!-- Wafer Graphic 3 -->
+  <circle cx="587.5" cy="180" r="28" fill="#ffffff" stroke="#90a4ae" stroke-width="2"/>
+  <rect x="582.5" y="175" width="10" height="10" fill="#90a4ae"/>
+  <!-- Contacts -->
+  <circle cx="587.5" cy="157" r="3" fill="#cfd8dc" stroke="#37474f"/>
+  <circle cx="607" cy="167" r="3" fill="#cfd8dc" stroke="#37474f"/>
+  <circle cx="607" cy="193" r="3" fill="#cfd8dc" stroke="#37474f"/>
+  <circle cx="587.5" cy="203" r="3" fill="#cfd8dc" stroke="#37474f"/>
+  <circle cx="568" cy="193" r="3" fill="#cfd8dc" stroke="#37474f"/>
+  <circle cx="568" cy="167" r="3" fill="#cfd8dc" stroke="#37474f"/>
+  <text x="587.5" y="224" text-anchor="middle" font-size="12" fill="#6b7280">Оксидна ВЧ-кераміка</text>
+
+  <!-- Properties Box 3 -->
+  <rect x="495" y="238" width="185" height="135" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="503" y="258" font-size="12" font-weight="bold" fill="#1a1a1a">R_iso: <tspan fill="#27ae60">≥ 10¹² Ом</tspan></text>
+  <text x="503" y="285" font-size="12" font-weight="bold" fill="#1a1a1a">tan δ: <tspan fill="#27ae60">~ 0.001 (низькі)</tspan></text>
+  <text x="503" y="312" font-size="12" font-weight="bold" fill="#1a1a1a">Волога: <tspan fill="#27ae60">0.00% (нульова)</tspan></text>
+  <text x="503" y="339" font-size="12" font-weight="bold" fill="#1a1a1a">T_max: <tspan fill="#27ae60">&gt; 300 °C</tspan></text>
+
+  <!-- App Box 3 -->
+  <rect x="495" y="385" width="185" height="63" fill="#e9f7ef" stroke="#27ae60" stroke-width="1" rx="4"/>
+  <text x="503" y="405" font-size="12" font-weight="bold" fill="#27ae60">Високовольтна міцність</text>
+  <text x="503" y="421" font-size="12" fill="#1a1a1a">ВЧ-комутація, авіоніка</text>
+  <text x="503" y="437" font-size="12" fill="#1a1a1a">та прецизійні деки.</text>
+
+
+  <!-- ==================== CARD 4: PTFE ==================== -->
+  <rect x="710" y="90" width="205" height="370" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <path d="M 716,90 L 909,90 A 6,6 0 0 1 915,96 L 915,140 L 710,140 L 710,96 A 6,6 0 0 1 716,90 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="812.5" y="111" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">4. Фторопласт (PTFE)</text>
+  <text x="812.5" y="127" text-anchor="middle" font-size="12" fill="#6b7280">1980-ті — дотепер</text>
+
+  <!-- Wafer Graphic 4 -->
+  <circle cx="812.5" cy="180" r="28" fill="#e3f2fd" stroke="#1e88e5" stroke-width="2"/>
+  <rect x="807.5" y="175" width="10" height="10" fill="#1e88e5"/>
+  <!-- Contacts -->
+  <circle cx="812.5" cy="157" r="3" fill="#ffd54f" stroke="#ff8f00"/>
+  <circle cx="832" cy="167" r="3" fill="#ffd54f" stroke="#ff8f00"/>
+  <circle cx="832" cy="193" r="3" fill="#ffd54f" stroke="#ff8f00"/>
+  <circle cx="812.5" cy="203" r="3" fill="#ffd54f" stroke="#ff8f00"/>
+  <circle cx="793" cy="193" r="3" fill="#ffd54f" stroke="#ff8f00"/>
+  <circle cx="793" cy="167" r="3" fill="#ffd54f" stroke="#ff8f00"/>
+  <text x="812.5" y="224" text-anchor="middle" font-size="12" fill="#6b7280">Тефлон / Фторополімер</text>
+
+  <!-- Properties Box 4 -->
+  <rect x="720" y="238" width="185" height="135" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="4"/>
+  <text x="728" y="258" font-size="12" font-weight="bold" fill="#1a1a1a">R_iso: <tspan fill="#2457d6">&gt; 10¹⁴ Ом</tspan></text>
+  <text x="728" y="285" font-size="12" font-weight="bold" fill="#1a1a1a">tan δ: <tspan fill="#2457d6">&lt; 0.0002 (мінім.)</tspan></text>
+  <text x="728" y="312" font-size="12" font-weight="bold" fill="#1a1a1a">Волога: <tspan fill="#2457d6">0.00% (гідроф.)</tspan></text>
+  <text x="728" y="339" font-size="12" font-weight="bold" fill="#1a1a1a">T_max: <tspan fill="#2457d6">до 260 °C</tspan></text>
+
+  <!-- App Box 4 -->
+  <rect x="720" y="385" width="185" height="63" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" rx="4"/>
+  <text x="728" y="405" font-size="12" font-weight="bold" fill="#2457d6">Гранично низькі втрати</text>
+  <text x="728" y="421" font-size="12" fill="#1a1a1a">Hi-End атенюатори,</text>
+  <text x="728" y="437" font-size="12" fill="#1a1a1a">електрометрія, НВЧ.</text>
+
+
+  <!-- ==================== BOTTOM EVOLUTION AXIS ==================== -->
+  <rect x="35" y="475" width="880" height="45" fill="#ffffff" stroke="#d0d7de" stroke-width="1" rx="6"/>
+  <line x1="45" y1="497" x2="905" y2="497" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="55" y="490" font-size="12" font-weight="bold" fill="#c0392b">Витоки струму, гігроскопічність</text>
+  <text x="475" y="490" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Зростання опору ізоляції R_iso та термостійкості T_max</text>
+  <text x="895" y="490" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">Надвисока ізоляція (10¹⁴ Ом)</text>
+
+</svg>

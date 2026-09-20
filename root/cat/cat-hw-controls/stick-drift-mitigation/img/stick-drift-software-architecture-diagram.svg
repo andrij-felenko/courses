@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Архітектура програмного конвеєра драйвера аналогового стіка</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Обробка від сирого АЦП до нормованого вектора [-1.0, 1.0] з компенсацією дрейфу нуля</text>
+
+  <!-- PANEL 1: Raw ADC -->
+  <rect x="30" y="70" width="205" height="330" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="132" y="94" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">1. АЦП та сирі дані</text>
+  <text x="132" y="112" font-size="12" fill="#6b7280" text-anchor="middle">X_raw, Y_raw (0..4095)</text>
+
+  <rect x="42" y="128" width="181" height="52" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="132" y="148" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Сенсори Холла / Потенц.</text>
+  <text x="132" y="166" font-size="12" fill="#6b7280" text-anchor="middle">Зчитування напруги V_in</text>
+
+  <line x1="132" y1="180" x2="132" y2="194" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <rect x="42" y="200" width="181" height="52" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="132" y="220" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Фільтрація шуму</text>
+  <text x="132" y="238" font-size="12" fill="#6b7280" text-anchor="middle">Скользяще середнє (EMA)</text>
+
+  <line x1="132" y1="252" x2="132" y2="266" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <rect x="42" y="272" width="181" height="114" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="52" y="294" font-size="12" font-weight="700" fill="#1a1a1a">Перевірка меж АЦП:</text>
+  <text x="52" y="316" font-size="12" fill="#1a1a1a">• ADC_RAW ∈ [50..4045]</text>
+  <text x="52" y="338" font-size="12" fill="#c0392b">• Якщо &lt;50 або &gt;4045:</text>
+  <text x="52" y="360" font-size="12" font-weight="700" fill="#c0392b">  ERR_SENSOR_FAULT</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="235" y1="235" x2="253" y2="235" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+
+  <!-- PANEL 2: Zero Offset -->
+  <rect x="260" y="70" width="205" height="330" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="362" y="94" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">2. Калібрування нуля</text>
+  <text x="362" y="112" font-size="12" fill="#6b7280" text-anchor="middle">NVM / Flash EEPROM</text>
+
+  <rect x="272" y="128" width="181" height="52" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="362" y="148" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Читання профілю NVM</text>
+  <text x="362" y="166" font-size="12" fill="#6b7280" text-anchor="middle">CRC16 контрольна сума</text>
+
+  <line x1="362" y1="180" x2="362" y2="194" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <rect x="272" y="200" width="181" height="52" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="362" y="220" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Віднімання нейтралі</text>
+  <text x="362" y="238" font-size="12" fill="#2457d6" text-anchor="middle">X_cnt = X_raw - X_zero</text>
+
+  <line x1="362" y1="252" x2="362" y2="266" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <rect x="272" y="272" width="181" height="114" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="282" y="294" font-size="12" font-weight="700" fill="#1a1a1a">Автовизначення нуля:</text>
+  <text x="282" y="316" font-size="12" fill="#1a1a1a">• 100 вибірок при старті</text>
+  <text x="282" y="338" font-size="12" fill="#27ae60">• Оновлення X_zero, Y_zero</text>
+  <text x="282" y="360" font-size="12" fill="#6b7280">• Захист від дрейфу нуля</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="465" y1="235" x2="483" y2="235" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+
+  <!-- PANEL 3: Deadband Engine -->
+  <rect x="490" y="70" width="205" height="330" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="592" y="94" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">3. Мертві зони</text>
+  <text x="592" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Осьова та радіальна</text>
+
+  <rect x="502" y="128" width="181" height="52" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="592" y="148" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Осьова зона (Axial)</text>
+  <text x="592" y="166" font-size="12" fill="#6b7280" text-anchor="middle">Фіксація осей X=0 / Y=0</text>
+
+  <line x1="592" y1="180" x2="592" y2="194" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <rect x="502" y="200" width="181" height="52" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="592" y="220" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Радіальна зона (Radial)</text>
+  <text x="592" y="238" font-size="12" fill="#2457d6" text-anchor="middle">r = √(X² + Y²) &lt; r_dead</text>
+
+  <line x1="592" y1="252" x2="592" y2="266" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <rect x="502" y="272" width="181" height="114" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="512" y="294" font-size="12" font-weight="700" fill="#1a1a1a">Масштабування зони:</text>
+  <text x="512" y="316" font-size="12" fill="#1a1a1a">• Відсікання r &lt; r_dead</text>
+  <text x="512" y="338" font-size="12" fill="#27ae60">• Згладжування виходу</text>
+  <text x="512" y="360" font-size="12" fill="#1a1a1a">• Обрізання r &gt; r_max</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="695" y1="235" x2="713" y2="235" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+
+  <!-- PANEL 4: Normalized Output -->
+  <rect x="720" y="70" width="205" height="330" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="822" y="94" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">4. Нормалізація</text>
+  <text x="822" y="112" font-size="12" fill="#6b7280" text-anchor="middle">Вектор V(X, Y) ∈ [-1, 1]</text>
+
+  <rect x="732" y="128" width="181" height="52" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="822" y="148" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Масштабування [-1, 1]</text>
+  <text x="822" y="166" font-size="12" fill="#6b7280" text-anchor="middle">Нормування по діапазону</text>
+
+  <line x1="822" y1="180" x2="822" y2="194" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <rect x="732" y="200" width="181" height="52" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="822" y="220" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Формування структури</text>
+  <text x="822" y="238" font-size="12" fill="#2457d6" text-anchor="middle">stick_vector_t</text>
+
+  <line x1="822" y1="252" x2="822" y2="266" stroke="#6b7280" stroke-width="2" marker-end="url(#arr-gray)"/>
+
+  <rect x="732" y="272" width="181" height="114" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="742" y="294" font-size="12" font-weight="700" fill="#27ae60">Вихідний результат:</text>
+  <text x="742" y="316" font-size="12" fill="#1a1a1a">• Float X: [-1.0 .. 1.0]</text>
+  <text x="742" y="338" font-size="12" fill="#1a1a1a">• Float Y: [-1.0 .. 1.0]</text>
+  <text x="742" y="360" font-size="12" font-weight="700" fill="#27ae60">• Status: STATUS_OK</text>
+
+
+  <!-- Bottom Summary Banner -->
+  <rect x="30" y="415" width="895" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="477" y="433" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Інтеграція в драйвер: driver_stick_update(&amp;config, &amp;raw_adc, &amp;out_vector)</text>
+  <text x="477" y="450" font-size="12" fill="#1a1a1a" text-anchor="middle">Гарантований захист від дрейфу нуля, плавний вихід у мертвих зонах та обробка помилок калібрування</text>
+</svg>

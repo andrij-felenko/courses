@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Принципова схема розводки силового комутаційного пульта 230 В</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Захист фази L запобіжником, паралельний нуль N та шина заземлення PE до 4-пінових рокерів</text>
+
+  <!-- PANEL 1: POWER ENTRY & FUSE (LEFT) -->
+  <rect x="25" y="75" width="220" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="135" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Вхід живлення 230 В</text>
+  <text x="135" y="115" text-anchor="middle" font-size="12" fill="#6b7280">Роз'єм C14 та запобіжник</text>
+
+  <!-- Input Terminals -->
+  <!-- Phase L -->
+  <circle cx="45" cy="165" r="4" fill="#c0392b"/>
+  <text x="45" y="151" font-size="12" font-weight="bold" fill="#c0392b">Фаза L</text>
+  <!-- Fuse -->
+  <line x1="49" y1="165" x2="90" y2="165" stroke="#c0392b" stroke-width="2.5"/>
+  <rect x="90" y="153" width="55" height="24" rx="3" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="97" y1="165" x2="138" y2="165" stroke="#c0392b" stroke-width="1"/>
+  <text x="117" y="145" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">FUSE 10A</text>
+  <line x1="145" y1="165" x2="250" y2="165" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Status / Safety Badge 1 -->
+  <rect x="35" y="195" width="200" height="50" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="135" y="215" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Плавкий запобіжник</text>
+  <text x="135" y="232" text-anchor="middle" font-size="11" fill="#1a1a1a">Захист від КЗ та перевантаження</text>
+
+  <!-- Neutral N -->
+  <circle cx="45" cy="285" r="4" fill="#2457d6"/>
+  <text x="45" y="271" font-size="12" font-weight="bold" fill="#2457d6">Нуль N</text>
+  <line x1="49" y1="285" x2="250" y2="285" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Status / Safety Badge 2 -->
+  <rect x="35" y="315" width="200" height="50" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="135" y="335" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Загальний провідник N</text>
+  <text x="135" y="352" text-anchor="middle" font-size="11" fill="#1a1a1a">Шлейфова шина підключення</text>
+
+  <!-- Earth PE -->
+  <circle cx="45" cy="440" r="4" fill="#27ae60"/>
+  <text x="45" y="426" font-size="12" font-weight="bold" fill="#27ae60">Земля PE</text>
+  <line x1="49" y1="440" x2="250" y2="440" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6,3"/>
+
+  <!-- PANEL 2: ROCKER SWITCHES (CENTER) -->
+  <rect x="265" y="75" width="430" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Блок 4-пінових клавішних перемикачів</text>
+
+  <!-- ROCKER 1 BOX -->
+  <rect x="280" y="115" width="400" height="170" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="295" y="132" font-size="12" font-weight="bold" fill="#2457d6">Клавішний перемикач SW1 (Канал 1)</text>
+
+  <!-- Main Phase Wire L Connection to SW1 -->
+  <line x1="250" y1="165" x2="326" y2="165" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Terminal 1 (L_in) -->
+  <circle cx="330" cy="165" r="4" fill="#c0392b"/>
+  <text x="330" y="151" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Pin 1 (L_in)</text>
+
+  <!-- Contact Arm SW1 Phase -->
+  <line x1="334" y1="165" x2="420" y2="157" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Terminal 2 (L_out) -->
+  <circle cx="450" cy="165" r="4" fill="#c0392b"/>
+  <text x="450" y="151" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Pin 2 (L_out)</text>
+
+  <!-- Output L1 Line -->
+  <line x1="454" y1="165" x2="715" y2="165" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="590" y="157" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">L1_LOAD</text>
+
+  <!-- Neutral Branch to SW1 Pin 3 -->
+  <line x1="250" y1="285" x2="290" y2="285" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="290" cy="285" r="3.5" fill="#2457d6"/>
+  <line x1="290" y1="285" x2="290" y2="255" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="290" y1="255" x2="326" y2="255" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Terminal 3 (N_in) -->
+  <circle cx="330" cy="255" r="4" fill="#2457d6"/>
+  <text x="335" y="271" text-anchor="start" font-size="11" font-weight="bold" fill="#2457d6">Pin 3 (N_in)</text>
+
+  <!-- Contact Arm SW1 Neutral -->
+  <line x1="334" y1="255" x2="420" y2="247" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Terminal 4 (N_out) -->
+  <circle cx="450" cy="255" r="4" fill="#2457d6"/>
+  <text x="450" y="271" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Pin 4 (N_out)</text>
+
+  <!-- Output N1 Line -->
+  <line x1="454" y1="255" x2="715" y2="255" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="590" y="247" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">N1_LOAD</text>
+
+  <!-- Internal Neon Lamp NE-2 Indicator (SW1) -->
+  <rect x="370" y="190" width="130" height="38" rx="4" fill="#fffbe6" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="390" cy="209" r="8" fill="#f59e0b"/>
+  <text x="390" y="213" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">Ne</text>
+  <text x="445" y="206" text-anchor="middle" font-size="11" font-weight="bold" fill="#d97706">Лампа NE-2</text>
+  <text x="445" y="220" text-anchor="middle" font-size="10" fill="#6b7280">з резистором Rb</text>
+  <!-- Internal Wires to Neon -->
+  <line x1="450" y1="169" x2="450" y2="190" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="330" y1="251" x2="330" y2="209" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="330" y1="209" x2="370" y2="209" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+  <!-- ROCKER 2 BOX -->
+  <rect x="280" y="305" width="400" height="170" rx="6" fill="#ffffff" stroke="#8e44ad" stroke-width="1.5"/>
+  <text x="295" y="322" font-size="12" font-weight="bold" fill="#8e44ad">Клавішний перемикач SW2 (Канал 2)</text>
+
+  <!-- Main Phase Wire L Branch to SW2 -->
+  <line x1="250" y1="165" x2="250" y2="355" stroke="#c0392b" stroke-width="2.5"/>
+  <line x1="250" y1="355" x2="326" y2="355" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="250" cy="165" r="3.5" fill="#c0392b"/>
+
+  <!-- Terminal 1 SW2 (L_in) -->
+  <circle cx="330" cy="355" r="4" fill="#c0392b"/>
+  <text x="330" y="341" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Pin 1 (L_in)</text>
+
+  <!-- Contact Arm SW2 Phase -->
+  <line x1="334" y1="355" x2="420" y2="347" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Terminal 2 SW2 (L_out) -->
+  <circle cx="450" cy="355" r="4" fill="#c0392b"/>
+  <text x="450" y="341" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Pin 2 (L_out)</text>
+
+  <!-- Output L2 Line -->
+  <line x1="454" y1="355" x2="715" y2="355" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="590" y="347" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">L2_LOAD</text>
+
+  <!-- Main Neutral Wire N Branch to SW2 -->
+  <line x1="290" y1="285" x2="290" y2="445" stroke="#2457d6" stroke-width="2.5"/>
+  <line x1="290" y1="445" x2="326" y2="445" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Terminal 3 SW2 (N_in) -->
+  <circle cx="330" cy="445" r="4" fill="#2457d6"/>
+  <text x="335" y="461" text-anchor="start" font-size="11" font-weight="bold" fill="#2457d6">Pin 3 (N_in)</text>
+
+  <!-- Contact Arm SW2 Neutral -->
+  <line x1="334" y1="445" x2="420" y2="437" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Terminal 4 SW2 (N_out) -->
+  <circle cx="450" cy="445" r="4" fill="#2457d6"/>
+  <text x="450" y="461" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Pin 4 (N_out)</text>
+
+  <!-- Output N2 Line -->
+  <line x1="454" y1="445" x2="715" y2="445" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="590" y="437" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">N2_LOAD</text>
+
+  <!-- Internal Neon Lamp NE-2 Indicator (SW2) -->
+  <rect x="370" y="380" width="130" height="38" rx="4" fill="#fffbe6" stroke="#d97706" stroke-width="1.5"/>
+  <circle cx="390" cy="399" r="8" fill="#f59e0b"/>
+  <text x="390" y="403" text-anchor="middle" font-size="10" font-weight="bold" fill="#ffffff">Ne</text>
+  <text x="445" y="396" text-anchor="middle" font-size="11" font-weight="bold" fill="#d97706">Лампа NE-2</text>
+  <text x="445" y="410" text-anchor="middle" font-size="10" fill="#6b7280">з резистором Rb</text>
+
+  <!-- Internal Wires to Neon SW2 -->
+  <line x1="450" y1="359" x2="450" y2="380" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="330" y1="441" x2="330" y2="399" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <line x1="330" y1="399" x2="370" y2="399" stroke="#d97706" stroke-width="1.5" stroke-dasharray="3,2"/>
+
+  <!-- PANEL 3: LOAD OUTLETS & PE BUS (RIGHT) -->
+  <rect x="715" y="75" width="220" height="425" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="825" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Розетки навантаження</text>
+
+  <!-- Outlet 1 Box -->
+  <rect x="730" y="115" width="190" height="170" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="825" y="135" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Розетка 1 (Навантаження)</text>
+  <circle cx="730" cy="165" r="4" fill="#c0392b"/>
+  <circle cx="730" cy="255" r="4" fill="#2457d6"/>
+
+  <rect x="748" y="180" width="154" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="825" y="198" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Канал 1 активний</text>
+  <text x="825" y="212" text-anchor="middle" font-size="11" fill="#1a1a1a">230 В / 5 А макс</text>
+
+  <!-- Outlet 2 Box -->
+  <rect x="730" y="305" width="190" height="170" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="825" y="325" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Розетка 2 (Навантаження)</text>
+  <circle cx="730" cy="355" r="4" fill="#c0392b"/>
+  <circle cx="730" cy="445" r="4" fill="#2457d6"/>
+
+  <rect x="748" y="370" width="154" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="825" y="388" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Канал 2 активний</text>
+  <text x="825" y="402" text-anchor="middle" font-size="11" fill="#1a1a1a">230 В / 5 А макс</text>
+
+  <!-- Earth PE Bus Line Connecting directly to Outlets -->
+  <line x1="250" y1="440" x2="250" y2="488" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <line x1="250" y1="488" x2="730" y2="488" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <line x1="730" y1="488" x2="730" y2="265" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <circle cx="730" cy="455" r="3.5" fill="#27ae60"/>
+  <circle cx="730" cy="265" r="3.5" fill="#27ae60"/>
+  <text x="480" y="520" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Захисна шина заземлення PE (Заземлення корпусу та розеток)</text>
+</svg>

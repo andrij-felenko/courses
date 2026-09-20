@@ -1,0 +1,281 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Цокольовка промислових роз'ємів M12 та M23 абсолютних енкодерів</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Призначення контактів вилок M12 (8-pin A-coded) та M23 (12-pin) для інтерфейсу SSI</text>
+
+  <!-- ================= LEFT PANEL: M12 8-pin A-coded ================= -->
+  <rect x="30" y="75" width="435" height="455" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вилка M12 (8-контактна, A-coded)</text>
+  <text x="247" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Вигляд з боку контактів вилки (Male / Pin View)</text>
+
+  <!-- M12 Connector Schematic Drawing -->
+  <!-- Outer Metal Shell -->
+  <circle cx="135" cy="300" r="75" fill="#ffffff" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="135" cy="300" r="62" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Key Notch at Top -->
+  <rect x="129" y="225" width="12" height="10" rx="2" fill="#2457d6"/>
+  <!-- Center Dot / Label -->
+  <text x="135" y="304" font-size="11" fill="#6b7280" font-weight="bold" text-anchor="middle">M12-8A</text>
+
+  <!-- 8 Pin Circles & Labels -->
+  <!-- Pin 1 -->
+  <circle cx="107" cy="255" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="107" y="259" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+
+  <!-- Pin 2 -->
+  <circle cx="135" cy="248" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="135" y="252" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">2</text>
+
+  <!-- Pin 3 -->
+  <circle cx="163" cy="255" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="163" y="259" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">3</text>
+
+  <!-- Pin 4 -->
+  <circle cx="180" cy="300" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="304" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">4</text>
+
+  <!-- Pin 5 -->
+  <circle cx="163" cy="345" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="163" y="349" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">5</text>
+
+  <!-- Pin 6 -->
+  <circle cx="135" cy="352" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="135" y="356" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">6</text>
+
+  <!-- Pin 7 -->
+  <circle cx="107" cy="345" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="107" y="349" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">7</text>
+
+  <!-- Pin 8 -->
+  <circle cx="90" cy="300" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="90" y="304" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">8</text>
+
+  <!-- M12 Pinout Table -->
+  <rect x="230" y="135" width="220" height="375" rx="8" fill="#ffffff" stroke="#d0d7de"/>
+  <!-- Table Header -->
+  <rect x="230" y="135" width="220" height="30" rx="8" fill="#eaf0fd"/>
+  <text x="245" y="155" font-size="12" font-weight="bold" fill="#2457d6">Pin</text>
+  <text x="280" y="155" font-size="12" font-weight="bold" fill="#2457d6">Сигнал (SSI)</text>
+  <text x="385" y="155" font-size="12" font-weight="bold" fill="#2457d6">Колір</text>
+
+  <!-- Row 1 -->
+  <line x1="230" y1="165" x2="450" y2="165" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="240" y="172" width="20" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="250" y="186" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="280" y="186" font-size="12" fill="#1a1a1a">GND (0 V)</text>
+  <text x="385" y="186" font-size="11" fill="#6b7280">Білий</text>
+
+  <!-- Row 2 -->
+  <line x1="230" y1="208" x2="450" y2="208" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="240" y="215" width="20" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="250" y="229" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">2</text>
+  <text x="280" y="229" font-size="12" fill="#1a1a1a">+Vcc (10..30V)</text>
+  <text x="385" y="229" font-size="11" fill="#6b7280">Коричн.</text>
+
+  <!-- Row 3 -->
+  <line x1="230" y1="251" x2="450" y2="251" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="240" y="258" width="20" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="250" y="272" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">3</text>
+  <text x="280" y="272" font-size="12" fill="#1a1a1a">Clock+ (CLK+)</text>
+  <text x="385" y="272" font-size="11" fill="#6b7280">Зелений</text>
+
+  <!-- Row 4 -->
+  <line x1="230" y1="294" x2="450" y2="294" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="240" y="301" width="20" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="250" y="315" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">4</text>
+  <text x="280" y="315" font-size="12" fill="#1a1a1a">Clock- (CLK-)</text>
+  <text x="385" y="315" font-size="11" fill="#6b7280">Жовтий</text>
+
+  <!-- Row 5 -->
+  <line x1="230" y1="337" x2="450" y2="337" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="240" y="344" width="20" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="250" y="358" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">5</text>
+  <text x="280" y="358" font-size="12" fill="#1a1a1a">Data+ (DATA+)</text>
+  <text x="385" y="358" font-size="11" fill="#6b7280">Сірий</text>
+
+  <!-- Row 6 -->
+  <line x1="230" y1="380" x2="450" y2="380" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="240" y="387" width="20" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="250" y="401" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">6</text>
+  <text x="280" y="401" font-size="12" fill="#1a1a1a">Data- (DATA-)</text>
+  <text x="385" y="401" font-size="11" fill="#6b7280">Рожевий</text>
+
+  <!-- Row 7 -->
+  <line x1="230" y1="423" x2="450" y2="423" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="240" y="430" width="20" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="250" y="444" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">7</text>
+  <text x="280" y="444" font-size="12" fill="#1a1a1a">Preset (Zero)</text>
+  <text x="385" y="444" font-size="11" fill="#6b7280">Синій</text>
+
+  <!-- Row 8 -->
+  <line x1="230" y1="466" x2="450" y2="466" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="240" y="473" width="20" height="20" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="250" y="487" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">8</text>
+  <text x="280" y="487" font-size="12" fill="#1a1a1a">DIR (Напрямок)</text>
+  <text x="385" y="487" font-size="11" fill="#6b7280">Червоний</text>
+
+
+  <!-- ================= RIGHT PANEL: M23 12-pin Male ================= -->
+  <rect x="495" y="75" width="435" height="455" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Вилка M23 (12-контактна, CW)</text>
+  <text x="712" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Вигляд з боку контактів вилки (Male / Pin View)</text>
+
+  <!-- M23 Connector Schematic Drawing -->
+  <!-- Outer Shell -->
+  <circle cx="600" cy="300" r="75" fill="#ffffff" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="600" cy="300" r="62" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Key Notch at Top -->
+  <rect x="594" y="225" width="12" height="10" rx="2" fill="#2457d6"/>
+
+  <!-- Center Pin 12 -->
+  <circle cx="600" cy="300" r="8.5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="304" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">12</text>
+
+  <!-- Outer 11 Pins -->
+  <!-- Pin 1 -->
+  <circle cx="576" cy="258" r="8.5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="576" y="262" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+
+  <!-- Pin 2 -->
+  <circle cx="600" cy="252" r="8.5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="256" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">2</text>
+
+  <!-- Pin 3 -->
+  <circle cx="624" cy="258" r="8.5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="624" y="262" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">3</text>
+
+  <!-- Pin 4 -->
+  <circle cx="640" cy="277" r="8.5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="640" y="281" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">4</text>
+
+  <!-- Pin 5 -->
+  <circle cx="645" cy="300" r="8.5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="645" y="304" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">5</text>
+
+  <!-- Pin 6 -->
+  <circle cx="640" cy="323" r="8.5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="640" y="327" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">6</text>
+
+  <!-- Pin 7 -->
+  <circle cx="624" cy="342" r="8.5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="624" y="346" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">7</text>
+
+  <!-- Pin 8 -->
+  <circle cx="600" cy="348" r="8.5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="352" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">8</text>
+
+  <!-- Pin 9 -->
+  <circle cx="576" cy="342" r="8.5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="576" y="346" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">9</text>
+
+  <!-- Pin 10 -->
+  <circle cx="560" cy="323" r="8.5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="560" y="327" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">10</text>
+
+  <!-- Pin 11 -->
+  <circle cx="555" cy="300" r="8.5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="555" y="304" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">11</text>
+
+  <!-- M23 Pinout Table -->
+  <rect x="695" y="135" width="220" height="375" rx="8" fill="#ffffff" stroke="#d0d7de"/>
+  <!-- Table Header -->
+  <rect x="695" y="135" width="220" height="26" rx="8" fill="#eaf0fd"/>
+  <text x="708" y="152" font-size="11" font-weight="bold" fill="#2457d6">Pin</text>
+  <text x="740" y="152" font-size="11" font-weight="bold" fill="#2457d6">Сигнал (SSI)</text>
+  <text x="840" y="152" font-size="11" font-weight="bold" fill="#2457d6">Призначення</text>
+
+  <!-- 12 Rows (height 29px each) -->
+  <!-- Row 1 -->
+  <line x1="695" y1="161" x2="915" y2="161" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="705" y="165" width="18" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="714" y="178" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="740" y="178" font-size="11" fill="#1a1a1a">GND (0 V)</text>
+  <text x="840" y="178" font-size="10" fill="#6b7280">Живлення 0 V</text>
+
+  <!-- Row 2 -->
+  <line x1="695" y1="190" x2="915" y2="190" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="705" y="194" width="18" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="714" y="207" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">2</text>
+  <text x="740" y="207" font-size="11" fill="#1a1a1a">+Vcc (10..30V)</text>
+  <text x="840" y="207" font-size="10" fill="#6b7280">Живлення +V</text>
+
+  <!-- Row 3 -->
+  <line x1="695" y1="219" x2="915" y2="219" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="705" y="223" width="18" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="714" y="236" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">3</text>
+  <text x="740" y="236" font-size="11" fill="#1a1a1a">Clock+</text>
+  <text x="840" y="236" font-size="10" fill="#6b7280">Тактування+</text>
+
+  <!-- Row 4 -->
+  <line x1="695" y1="248" x2="915" y2="248" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="705" y="252" width="18" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="714" y="265" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">4</text>
+  <text x="740" y="265" font-size="11" fill="#1a1a1a">Clock-</text>
+  <text x="840" y="265" font-size="10" fill="#6b7280">Тактування-</text>
+
+  <!-- Row 5 -->
+  <line x1="695" y1="277" x2="915" y2="277" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="705" y="281" width="18" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="714" y="294" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">5</text>
+  <text x="740" y="294" font-size="11" fill="#1a1a1a">Data+</text>
+  <text x="840" y="294" font-size="10" fill="#6b7280">Дані RS-422+</text>
+
+  <!-- Row 6 -->
+  <line x1="695" y1="306" x2="915" y2="306" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="705" y="310" width="18" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="714" y="323" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">6</text>
+  <text x="740" y="323" font-size="11" fill="#1a1a1a">Data-</text>
+  <text x="840" y="323" font-size="10" fill="#6b7280">Дані RS-422-</text>
+
+  <!-- Row 7 -->
+  <line x1="695" y1="335" x2="915" y2="335" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="705" y="339" width="18" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="714" y="352" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">7</text>
+  <text x="740" y="352" font-size="11" fill="#1a1a1a">Preset</text>
+  <text x="840" y="352" font-size="10" fill="#6b7280">Установка 0</text>
+
+  <!-- Row 8 -->
+  <line x1="695" y1="364" x2="915" y2="364" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="705" y="368" width="18" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="714" y="381" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">8</text>
+  <text x="740" y="381" font-size="11" fill="#1a1a1a">DIR</text>
+  <text x="840" y="381" font-size="10" fill="#6b7280">Напрямок</text>
+
+  <!-- Row 9 -->
+  <line x1="695" y1="393" x2="915" y2="393" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="705" y="397" width="18" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="714" y="410" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">9</text>
+  <text x="740" y="410" font-size="11" fill="#1a1a1a">NC</text>
+  <text x="840" y="410" font-size="10" fill="#6b7280">Резерв</text>
+
+  <!-- Row 10 -->
+  <line x1="695" y1="422" x2="915" y2="422" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="705" y="426" width="18" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="714" y="439" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">10</text>
+  <text x="740" y="439" font-size="11" fill="#1a1a1a">NC</text>
+  <text x="840" y="439" font-size="10" fill="#6b7280">Резерв</text>
+
+  <!-- Row 11 -->
+  <line x1="695" y1="451" x2="915" y2="451" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="705" y="455" width="18" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="714" y="468" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">11</text>
+  <text x="740" y="468" font-size="11" fill="#1a1a1a">NC</text>
+  <text x="840" y="468" font-size="10" fill="#6b7280">Резерв</text>
+
+  <!-- Row 12 -->
+  <line x1="695" y1="480" x2="915" y2="480" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="705" y="484" width="18" height="18" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="714" y="497" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">12</text>
+  <text x="740" y="497" font-size="11" fill="#1a1a1a">Shield</text>
+  <text x="840" y="497" font-size="10" fill="#6b7280">Екран кабелю</text>
+
+</svg>

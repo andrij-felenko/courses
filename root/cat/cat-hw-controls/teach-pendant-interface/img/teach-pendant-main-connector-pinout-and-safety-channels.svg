@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Розпіновка роз'єму пульта Teach Pendant та канали безпеки</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Дубльовані лінії Safety Channel A/B (E-Stop, Enabling) та коло живлення 24 V DC / Ethernet</text>
+
+  <!-- LEFT PANEL: CONNECTOR FACE DIAGRAM -->
+  <g id="panel-connector">
+    <rect x="40" y="75" width="340" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="210" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. РОЗПІНОВКА РОЗ'ЄМУ (16-PIN)</text>
+    <line x1="40" y1="108" x2="380" y2="108" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Connector Metal Shell -->
+    <circle cx="210" cy="220" r="95" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+    <circle cx="210" cy="220" r="85" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="205" y="125" width="10" height="12" fill="#1a1a1a"/>
+
+    <!-- Pins Safety Channel A (Red) -->
+    <circle cx="165" cy="165" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="165" y="169" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">1</text>
+
+    <circle cx="165" cy="200" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="165" y="204" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">2</text>
+
+    <circle cx="165" cy="235" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="165" y="239" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">3</text>
+
+    <circle cx="165" cy="270" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="165" y="274" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">4</text>
+
+    <!-- Pins Safety Channel B (Red) -->
+    <circle cx="255" cy="165" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="255" y="169" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">5</text>
+
+    <circle cx="255" cy="200" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="255" y="204" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">6</text>
+
+    <circle cx="255" cy="235" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="255" y="239" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">7</text>
+
+    <circle cx="255" cy="270" r="10" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="255" y="274" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">8</text>
+
+    <!-- Pins Power & Ground (Green) -->
+    <circle cx="195" cy="170" r="9" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="195" y="174" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">9</text>
+
+    <circle cx="225" cy="170" r="9" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="225" y="174" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">10</text>
+
+    <circle cx="195" cy="270" r="9" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="195" y="274" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">11</text>
+
+    <circle cx="225" cy="270" r="9" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="225" y="274" text-anchor="middle" font-size="10" font-weight="bold" fill="#27ae60">12</text>
+
+    <!-- Pins Data RS-422 (Blue) -->
+    <circle cx="195" cy="205" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="195" y="209" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">13</text>
+
+    <circle cx="225" cy="205" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="225" y="209" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">14</text>
+
+    <circle cx="195" cy="235" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="195" y="239" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">15</text>
+
+    <circle cx="225" cy="235" r="9" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="225" y="239" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">16</text>
+
+    <!-- Pin Group Legend Box -->
+    <rect x="55" y="330" width="310" height="60" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="70" y="347" font-size="11" font-weight="bold" fill="#c0392b">■ Pins 1–8: Канали безпеки Ch A / Ch B</text>
+    <text x="70" y="364" font-size="11" font-weight="bold" fill="#27ae60">■ Pins 9–12: Живлення 24V DC / PE Захист</text>
+    <text x="70" y="381" font-size="11" font-weight="bold" fill="#2457d6">■ Pins 13–16: Диференціальна шина RS-422</text>
+
+    <!-- Status Badge Left Panel -->
+    <rect x="60" y="398" width="300" height="24" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="210" y="414" text-anchor="middle" font-size="12" fill="#2457d6">Корпус роз'єму: IP67 / Металевий екран</text>
+  </g>
+
+  <!-- RIGHT PANEL: WIRING DIAGRAM & SAFETY CHANNELS -->
+  <g id="panel-wiring">
+    <rect x="400" y="75" width="520" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <text x="660" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. СХЕМА З'ЄДНАННЯ ТА КАНАЛИ БЕЗПЕКИ</text>
+    <line x1="400" y1="108" x2="920" y2="108" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Section 1: Safety Channel A -->
+    <rect x="420" y="120" width="480" height="85" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <rect x="420" y="120" width="480" height="22" rx="6" fill="#fdecea"/>
+    <text x="430" y="136" font-size="11" font-weight="bold" fill="#c0392b">Канал безпеки A (Safety Channel A — Канал 1)</text>
+
+    <text x="435" y="160" font-size="11" font-weight="bold" fill="#c0392b">Pin 1 (E-Stop A1) ──[ NC 1 ]── Pin 2 (A2) → Реле Ch1</text>
+    <text x="435" y="182" font-size="11" font-weight="bold" fill="#c0392b">Pin 3 (Enable A1) ──[ NO 1 ]── Pin 4 (A2) → Реле Ch1</text>
+
+    <!-- Section 2: Safety Channel B -->
+    <rect x="420" y="215" width="480" height="85" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <rect x="420" y="215" width="480" height="22" rx="6" fill="#fdecea"/>
+    <text x="430" y="231" font-size="11" font-weight="bold" fill="#c0392b">Канал безпеки B (Safety Channel B — Канал 2)</text>
+
+    <text x="435" y="255" font-size="11" font-weight="bold" fill="#c0392b">Pin 5 (E-Stop B1) ──[ NC 2 ]── Pin 6 (B2) → Реле Ch2</text>
+    <text x="435" y="277" font-size="11" font-weight="bold" fill="#c0392b">Pin 7 (Enable B1) ──[ NO 2 ]── Pin 8 (B2) → Реле Ch2</text>
+
+    <!-- Section 3: Power & Data Lines -->
+    <rect x="420" y="310" width="480" height="80" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <rect x="420" y="310" width="480" height="22" rx="6" fill="#eaf0fd"/>
+    <text x="430" y="326" font-size="11" font-weight="bold" fill="#2457d6">Лінії живлення 24 V DC та комунікаційна шина RS-422</text>
+
+    <text x="435" y="350" font-size="11" fill="#27ae60">Pins 9–10: +24V DC / GND  |  Pin 12: PE Shield (Екран)</text>
+    <text x="435" y="372" font-size="11" fill="#2457d6">Pins 13–16: Tx+/Tx-, Rx+/Rx- (120 Ом диференціальне узгодження)</text>
+
+    <!-- Status Badge Right Panel -->
+    <rect x="440" y="398" width="440" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="660" y="414" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ ДВОКАНАЛЬНА БЕЗПЕКА (Category 4 / PL e / SIL 3)</text>
+  </g>
+</svg>

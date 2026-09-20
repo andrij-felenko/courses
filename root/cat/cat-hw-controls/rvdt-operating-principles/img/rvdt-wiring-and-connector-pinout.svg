@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схеми підключення RVDT та цокольовка роз'єму MIL-DTL-38999</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Порівняння 4-провідної (ізольованої) та 5-провідної (зі спільною точкою) конфігурацій з екрануванням</text>
+
+  <!-- Left Block: 4-Wire Configuration -->
+  <rect x="40" y="75" width="420" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">4-Провідна схема (Ізольовані обмотки)</text>
+  <text x="250" y="120" text-anchor="middle" font-size="12" fill="#6b7280">Роздільні виводи вторинних обмоток V_S1 та V_S2</text>
+
+  <!-- Primary Coil (4-Wire) -->
+  <rect x="65" y="150" width="115" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="122.5" y="173" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Первинна (PRI)</text>
+  <text x="122.5" y="191" text-anchor="middle" font-size="11" fill="#2457d6">V_p (Збудження)</text>
+
+  <!-- Ferromagnetic Rotor Line (4-Wire) -->
+  <line x1="200" y1="145" x2="200" y2="295" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="200" y="310" text-anchor="middle" font-size="11" fill="#6b7280">Ротор</text>
+
+  <!-- Secondary Coils (4-Wire) -->
+  <rect x="220" y="150" width="95" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="267.5" y="173" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Вторинна 1</text>
+  <text x="267.5" y="191" text-anchor="middle" font-size="11" fill="#27ae60">V_s1</text>
+
+  <rect x="220" y="225" width="95" height="55" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="267.5" y="248" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Вторинна 2</text>
+  <text x="267.5" y="266" text-anchor="middle" font-size="11" fill="#27ae60">V_s2</text>
+
+  <!-- Connector MIL-38999 Map (4-Wire) -->
+  <rect x="330" y="145" width="115" height="175" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="387.5" y="163" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">MIL-DTL-38999</text>
+  <text x="340" y="183" font-size="11" fill="#2457d6">A: P1 (PRI+)</text>
+  <text x="340" y="201" font-size="11" fill="#2457d6">B: P2 (PRI-)</text>
+  <text x="340" y="223" font-size="11" fill="#27ae60">C: S11 (SEC1+)</text>
+  <text x="340" y="241" font-size="11" fill="#27ae60">D: S12 (SEC1-)</text>
+  <text x="340" y="263" font-size="11" fill="#27ae60">E: S21 (SEC2+)</text>
+  <text x="340" y="281" font-size="11" fill="#27ae60">F: S22 (SEC2-)</text>
+  <text x="340" y="305" font-size="11" font-weight="bold" fill="#6b7280">G: SHIELD (PE)</text>
+
+  <!-- Notes Box (4-Wire) -->
+  <rect x="55" y="335" width="390" height="130" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="70" y="357" font-size="12" font-weight="bold" fill="#2457d6">Особливості 4-провідної конфігурації:</text>
+  <text x="70" y="378" font-size="11" fill="#1a1a1a">• Повна гальванічна ізоляція двох вторинних обмоток</text>
+  <text x="70" y="398" font-size="11" fill="#1a1a1a">• Оптимально для прецизійних диференційних АЦП</text>
+  <text x="70" y="418" font-size="11" fill="#1a1a1a">• Вимагає окремих витих пар для кожної обмотки</text>
+  <text x="70" y="443" font-size="11" font-weight="bold" fill="#27ae60">• Одноточкове заземлення екрану на боці контролера</text>
+
+
+  <!-- Right Block: 5-Wire Configuration -->
+  <rect x="500" y="75" width="420" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="100" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">5-Провідна схема (Спільна точка / COM)</text>
+  <text x="710" y="120" text-anchor="middle" font-size="12" fill="#6b7280">Об'єднаний середній вивід вторинних обмоток (Center Tap)</text>
+
+  <!-- Primary Coil (5-Wire) -->
+  <rect x="525" y="150" width="115" height="55" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="582.5" y="173" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Первинна (PRI)</text>
+  <text x="582.5" y="191" text-anchor="middle" font-size="11" fill="#2457d6">V_p (Збудження)</text>
+
+  <!-- Ferromagnetic Rotor Line (5-Wire) -->
+  <line x1="660" y1="145" x2="660" y2="295" stroke="#6b7280" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="660" y="310" text-anchor="middle" font-size="11" fill="#6b7280">Ротор</text>
+
+  <!-- Secondary Coils with Center Tap (5-Wire) -->
+  <rect x="680" y="150" width="95" height="130" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="727.5" y="173" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Вторинна 1</text>
+  <text x="727.5" y="191" text-anchor="middle" font-size="11" fill="#27ae60">Сигнал S1</text>
+  <line x1="685" y1="215" x2="770" y2="215" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="727.5" y="211" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">COM (Спільний)</text>
+  <text x="727.5" y="253" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Вторинна 2</text>
+  <text x="727.5" y="271" text-anchor="middle" font-size="11" fill="#27ae60">Сигнал S2</text>
+
+  <!-- Connector MIL-38999 Map (5-Wire) -->
+  <rect x="790" y="145" width="115" height="175" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="847.5" y="163" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">MIL-DTL-38999</text>
+  <text x="800" y="183" font-size="11" fill="#2457d6">A: P1 (PRI+)</text>
+  <text x="800" y="201" font-size="11" fill="#2457d6">B: P2 (PRI-)</text>
+  <text x="800" y="226" font-size="11" fill="#27ae60">C: S1 (SEC1)</text>
+  <text x="800" y="248" font-size="11" fill="#27ae60">D: S2 (SEC2)</text>
+  <text x="800" y="270" font-size="11" font-weight="bold" fill="#1a1a1a">E: COM (Center)</text>
+  <text x="800" y="305" font-size="11" font-weight="bold" fill="#6b7280">F: SHIELD (PE)</text>
+
+  <!-- Notes Box (5-Wire) -->
+  <rect x="515" y="335" width="390" height="130" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="530" y="357" font-size="12" font-weight="bold" fill="#27ae60">Особливості 5-провідної конфігурацій:</text>
+  <text x="530" y="378" font-size="11" fill="#1a1a1a">• Економія 1 жили кабелю завдяки спільному виводу COM</text>
+  <text x="530" y="398" font-size="11" fill="#1a1a1a">• Зручне підключення до стандартних мікросхем (AD598/698)</text>
+  <text x="530" y="418" font-size="11" fill="#1a1a1a">• Використання спільних витих пар для сигналів S1/S2/COM</text>
+  <text x="530" y="443" font-size="11" font-weight="bold" fill="#27ae60">• Одноточкове заземлення екрану (запобігає ground loops)</text>
+</svg>

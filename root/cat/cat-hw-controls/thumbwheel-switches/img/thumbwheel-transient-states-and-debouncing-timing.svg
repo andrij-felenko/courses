@@ -1,0 +1,85 @@
+<svg width="960" height="540" viewBox="0 0 960 540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <marker id="arr-red" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма транзитних станів та дебаунсингу при перемиканні BCD-барабана</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Несинхронне спрацьовування щіток і брязкіт створюють некоректні коди hazard state, що фільтруються часовою витримкою τ > Δt_max</text>
+
+  <!-- Phase Background Rectangles -->
+  <rect x="150" y="75" width="170" height="435" fill="#f4f6f8" rx="6"/>
+  <rect x="320" y="75" width="300" height="435" fill="#fdecea" fill-opacity="0.5" stroke="#c0392b" stroke-dasharray="4,4" stroke-width="1.5" rx="6"/>
+  <rect x="620" y="75" width="300" height="435" fill="#e9f7ef" fill-opacity="0.5" stroke="#27ae60" stroke-dasharray="4,4" stroke-width="1.5" rx="6"/>
+
+  <!-- Phase Headers -->
+  <text x="235" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Усталений стан 3</text>
+
+  <text x="470" y="94" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зона брязкоту та транзитних завад</text>
+  <text x="470" y="108" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">(hazard states, тривалість Δt_max)</text>
+
+  <text x="770" y="98" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Усталений стан 4</text>
+
+  <!-- Signal Line Labels (Left Column) -->
+  <text x="135" y="148" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">b₃ (вага 8)</text>
+  <text x="135" y="208" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">b₂ (вага 4)</text>
+  <text x="135" y="268" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">b₁ (вага 2)</text>
+  <text x="135" y="328" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">b₀ (вага 1)</text>
+
+  <text x="135" y="393" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="end">Кодовий стан</text>
+  <text x="135" y="463" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">Дебаунс τ</text>
+
+  <!-- Grid Reference Lines for Signals -->
+  <line x1="150" y1="155" x2="920" y2="155" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="150" y1="215" x2="920" y2="215" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="150" y1="275" x2="920" y2="275" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="150" y1="335" x2="920" y2="335" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Waveform b3 (Weight 8): Low (0) -> Rises with bounce -> High (1) -->
+  <path d="M150,155 L340,155 L345,135 L355,135 L360,155 L365,155 L370,135 L920,135" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Waveform b2 (Weight 4): Low (0) -> Rises with bounce -> High (1) -->
+  <path d="M150,215 L370,215 L375,195 L385,195 L390,215 L400,215 L405,195 L920,195" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Waveform b1 (Weight 2): High (1) -> Drops with bounce -> Low (0) -->
+  <path d="M150,255 L450,255 L455,275 L465,275 L470,255 L480,255 L485,275 L920,275" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Waveform b0 (Weight 1): High (1) -> Drops with bounce -> Low (0) -->
+  <path d="M150,315 L490,315 L495,335 L505,335 L510,315 L520,315 L525,335 L920,335" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+
+  <!-- Code Row Boxes -->
+  <!-- Box 1: Initial 3 -->
+  <rect x="160" y="370" width="150" height="40" rx="5" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="235" y="394" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">0011₂ (цифра 3)</text>
+
+  <!-- Box 2: Hazard States -->
+  <rect x="330" y="370" width="280" height="40" rx="5" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="470" y="394" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">HAZARD: 0111₂ (7) → 0000₂ (0) → 0101₂ (5)</text>
+
+  <!-- Box 3: Valid 4 -->
+  <rect x="630" y="370" width="270" height="40" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="765" y="394" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">0100₂ (цифра 4)</text>
+
+  <!-- Timer Row & Debounce Strobe -->
+  <!-- Timer Bar -->
+  <rect x="330" y="440" width="280" height="30" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="470" y="460" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Часова витримка τ = 20 мс > Δt_max</text>
+
+  <!-- Strobe Vertical Line & Arrow -->
+  <line x1="645" y1="425" x2="645" y2="485" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Strobe Label Box -->
+  <rect x="660" y="440" width="240" height="45" rx="5" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="780" y="458" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Фіксація значення контролером</text>
+  <text x="780" y="475" font-size="12" fill="#1a1a1a" text-anchor="middle">Зчитано валідний код: 0100₂ (4)</text>
+</svg>

@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="460" viewBox="0 0 960 460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Принцип електромагнітного зв'язку та положення ротора RVDT</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Поворот феромагнітного ротора змінює магнітний опір та пропорційно перерозподіляє вихідні напруги вторинних обмоток</text>
+
+  <!-- LEFT PANEL: Neutral position -->
+  <rect x="30" y="75" width="435" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="247" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Нейтральне положення (θ = 0°)</text>
+  <text x="247" y="120" text-anchor="middle" font-size="12" fill="#6b7280">Симетричний повітряний зазор → V_S1 = V_S2</text>
+
+  <!-- Left RVDT Diagram -->
+  <circle cx="247" cy="215" r="75" fill="white" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Left Stator Poles -->
+  <!-- Top Pole S1 -->
+  <rect x="235" y="145" width="24" height="24" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247" y="161" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">S1</text>
+
+  <!-- Bottom Pole S2 -->
+  <rect x="235" y="261" width="24" height="24" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247" y="277" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">S2</text>
+
+  <!-- Left Pole P -->
+  <rect x="177" y="203" width="24" height="24" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="189" y="219" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">P</text>
+
+  <!-- Right Pole P -->
+  <rect x="293" y="203" width="24" height="24" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="305" y="219" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">P</text>
+
+  <!-- Symmetric Cam Rotor (0 deg) -->
+  <ellipse cx="247" cy="215" rx="42" ry="24" fill="#d0d7de" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="247" cy="215" r="5" fill="#1a1a1a"/>
+  <!-- Center Axis line -->
+  <line x1="247" y1="185" x2="247" y2="245" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Symmetric Flux Paths -->
+  <path d="M 189 203 Q 189 157 235 157" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+  <path d="M 189 227 Q 189 273 235 273" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="4 3" marker-end="url(#arr-blue)"/>
+
+  <!-- Left Voltage Summary Box -->
+  <rect x="45" y="315" width="405" height="105" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="60" y="340" font-size="13" font-weight="bold" fill="#2457d6">Магнітний потік: Φ_S1 = Φ_S2</text>
+  <text x="60" y="363" font-size="12" fill="#1a1a1a">Індуковані напруги: V_S1 = V_0 · sin(ωt),  V_S2 = V_0 · sin(ωt)</text>
+  <text x="60" y="393" font-size="13" font-weight="bold" fill="#27ae60">Вихідний різницевий сигнал: V_out = V_S1 - V_S2 = 0 В</text>
+
+  <!-- RIGHT PANEL: Rotated position -->
+  <rect x="495" y="75" width="435" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="712" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Повернуте положення (θ > 0°)</text>
+  <text x="712" y="120" text-anchor="middle" font-size="12" fill="#6b7280">Нерівномірний повітряний зазор → V_S1 > V_S2</text>
+
+  <!-- Right RVDT Diagram -->
+  <circle cx="712" cy="215" r="75" fill="white" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Right Stator Poles -->
+  <!-- Top Pole S1 -->
+  <rect x="700" y="145" width="24" height="24" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="712" y="161" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">S1</text>
+
+  <!-- Bottom Pole S2 -->
+  <rect x="700" y="261" width="24" height="24" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="712" y="277" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">S2</text>
+
+  <!-- Left Pole P -->
+  <rect x="642" y="203" width="24" height="24" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="654" y="219" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">P</text>
+
+  <!-- Right Pole P -->
+  <rect x="758" y="203" width="24" height="24" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="770" y="219" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">P</text>
+
+  <!-- Rotated Cam Rotor (-25 deg) -->
+  <g transform="rotate(-25 712 215)">
+    <ellipse cx="712" cy="215" rx="42" ry="24" fill="#b0b7be" stroke="#1a1a1a" stroke-width="2"/>
+    <circle cx="712" cy="215" r="5" fill="#1a1a1a"/>
+  </g>
+  <!-- Axis reference lines -->
+  <line x1="712" y1="185" x2="712" y2="245" stroke="#6b7280" stroke-width="1" stroke-dasharray="3 3"/>
+  <!-- Angle Arc -->
+  <path d="M 712 185 A 30 30 0 0 1 724 188" fill="none" stroke="#c0392b" stroke-width="1.5" marker-end="url(#arr-red)"/>
+  <text x="732" y="180" font-size="13" font-weight="bold" fill="#c0392b">θ</text>
+
+  <!-- Asymmetric Flux Paths -->
+  <!-- Stronger flux to S1 -->
+  <path d="M 654 203 Q 654 157 700 157" fill="none" stroke="#2457d6" stroke-width="3.5" stroke-dasharray="6 3" marker-end="url(#arr-blue)"/>
+  <!-- Weaker flux to S2 -->
+  <path d="M 654 227 Q 654 273 700 273" fill="none" stroke="#2457d6" stroke-width="1.2" opacity="0.6" stroke-dasharray="3 3" marker-end="url(#arr-blue)"/>
+
+  <!-- Right Voltage Summary Box -->
+  <rect x="510" y="315" width="405" height="105" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="525" y="340" font-size="13" font-weight="bold" fill="#2457d6">Магнітний потік: Φ_S1 > Φ_S2</text>
+  <text x="525" y="363" font-size="12" fill="#1a1a1a">Індуковані напруги: V_S1 > V_S2</text>
+  <text x="525" y="393" font-size="13" font-weight="bold" fill="#2457d6">Вихідний різницевий сигнал: V_out = k · θ · sin(ωt)</text>
+
+</svg>

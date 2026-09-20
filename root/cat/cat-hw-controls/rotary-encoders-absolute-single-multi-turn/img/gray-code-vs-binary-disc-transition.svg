@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Геометрія кодових дисків та усунення невизначеності переходу</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Оптичні доріжки двійкового диска та диска Ґрея на границі кутових секторів</text>
+
+  <!-- PANEL 1: NATURAL BINARY DISC GEOMETRY -->
+  <rect x="30" y="65" width="435" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="80" width="405" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="100" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Двійковий кодовий диск (3-бітний)</text>
+
+  <!-- Panel 1 Binary Disc Drawing -->
+  <!-- Disc Base Circle -->
+  <circle cx="247.5" cy="205" r="105" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  
+  <!-- Concentric Rings for Tracks (R0=30, R1=55, R2=80, R3=105) -->
+  <circle cx="247.5" cy="205" r="30" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="247.5" cy="205" r="55" fill="none" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="247.5" cy="205" r="80" fill="none" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="247.5" cy="205" r="105" fill="none" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Track Segments Binary: -->
+  <!-- Track 2 (MSB): 180 to 360 deg is dark -->
+  <path d="M 142.5,205 A 105,105 0 0,1 352.5,205 L 327.5,205 A 80,80 0 0,0 167.5,205 Z" fill="#1a1a1a"/>
+
+  <!-- Track 1: 90 to 180 and 270 to 360 deg are dark -->
+  <path d="M 247.5,285 A 80,80 0 0,1 167.5,205 L 192.5,205 A 55,55 0 0,0 247.5,260 Z" fill="#1a1a1a"/>
+  <path d="M 247.5,125 A 80,80 0 0,1 327.5,205 L 302.5,205 A 55,55 0 0,0 247.5,150 Z" fill="#1a1a1a"/>
+
+  <!-- Track 0 (LSB): 45 to 90, 135 to 180, 225 to 270, 315 to 360 deg are dark -->
+  <path d="M 286.4,243.9 A 55,55 0 0,1 247.5,260 L 247.5,235 A 30,30 0 0,0 268.7,226.2 Z" fill="#1a1a1a"/>
+  <path d="M 208.6,243.9 A 55,55 0 0,1 192.5,205 L 217.5,205 A 30,30 0 0,0 226.3,226.2 Z" fill="#1a1a1a"/>
+  <path d="M 208.6,166.1 A 55,55 0 0,1 247.5,150 L 247.5,175 A 30,30 0 0,0 226.3,183.8 Z" fill="#1a1a1a"/>
+  <path d="M 286.4,166.1 A 55,55 0 0,1 302.5,205 L 277.5,205 A 30,30 0 0,0 268.7,183.8 Z" fill="#1a1a1a"/>
+
+  <!-- Sector Dividing Lines -->
+  <line x1="247.5" y1="100" x2="247.5" y2="310" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="142.5" y1="205" x2="352.5" y2="205" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Highlight Critical Transition Line at 180 deg -->
+  <line x1="142.5" y1="205" x2="85" y2="205" stroke="#c0392b" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <circle cx="142.5" cy="205" r="4" fill="#c0392b"/>
+  <text x="45" y="185" font-size="11" font-weight="bold" fill="#c0392b">Межа 180° (3 → 4)</text>
+
+  <!-- Panel 1 Explanatory Text Box -->
+  <rect x="45" y="330" width="405" height="105" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="58" y="348" font-size="12" font-weight="bold" fill="#1a1a1a">Невизначеність двійкового кодового диска:</text>
+  <text x="58" y="368" font-size="11" fill="#1a1a1a">• На межі 180° змінюють колір ОДРАЗУ 3 доріжки!</text>
+  <text x="58" y="388" font-size="11" fill="#1a1a1a">• При найменшому зсуві зчитувальної лінійки детектується</text>
+  <text x="58" y="408" font-size="11" font-weight="bold" fill="#c0392b">  хибний кутовий код (000 або 111)</text>
+
+
+  <!-- PANEL 2: GRAY CODE DISC GEOMETRY -->
+  <rect x="495" y="65" width="435" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="80" width="405" height="30" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="100" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">Кодовий диск Ґрея (3-бітний)</text>
+
+  <!-- Panel 2 Gray Disc Drawing -->
+  <!-- Disc Base Circle -->
+  <circle cx="712.5" cy="205" r="105" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Concentric Rings for Tracks -->
+  <circle cx="712.5" cy="205" r="30" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="712.5" cy="205" r="55" fill="none" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="712.5" cy="205" r="80" fill="none" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="712.5" cy="205" r="105" fill="none" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Track Segments Gray Code: -->
+  <!-- Track 2 (MSB): 180 to 360 deg is dark -->
+  <path d="M 607.5,205 A 105,105 0 0,1 817.5,205 L 792.5,205 A 80,80 0 0,0 632.5,205 Z" fill="#1a1a1a"/>
+
+  <!-- Track 1: 90 to 270 deg is dark -->
+  <path d="M 712.5,285 A 80,80 0 0,1 712.5,125 L 712.5,150 A 55,55 0 0,0 712.5,260 Z" fill="#1a1a1a"/>
+
+  <!-- Track 0 (LSB): 45 to 135 and 225 to 315 deg are dark -->
+  <path d="M 751.4,243.9 A 55,55 0 0,1 673.6,243.9 L 691.3,226.2 A 30,30 0 0,0 733.7,226.2 Z" fill="#1a1a1a"/>
+  <path d="M 673.6,166.1 A 55,55 0 0,1 751.4,166.1 L 733.7,183.8 A 30,30 0 0,0 691.3,183.8 Z" fill="#1a1a1a"/>
+
+  <!-- Sector Dividing Lines -->
+  <line x1="712.5" y1="100" x2="712.5" y2="310" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="607.5" y1="205" x2="817.5" y2="205" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Highlight Safe Transition Line at 180 deg -->
+  <line x1="607.5" y1="205" x2="550" y2="205" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="4 3"/>
+  <circle cx="607.5" cy="205" r="4" fill="#27ae60"/>
+  <text x="510" y="185" font-size="11" font-weight="bold" fill="#27ae60">Межа 180° (1 біт)</text>
+
+  <!-- Panel 2 Explanatory Text Box -->
+  <rect x="510" y="330" width="405" height="105" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="523" y="348" font-size="12" font-weight="bold" fill="#1a1a1a">Гарантована точність диска Ґрея:</text>
+  <text x="523" y="368" font-size="11" fill="#1a1a1a">• На будь-якій межі змінює стан ТІЛЬКИ 1 доріжка!</text>
+  <text x="523" y="388" font-size="11" fill="#1a1a1a">• На межі 180° змінюється лише доріжка MSB (0 → 1)</text>
+  <text x="523" y="408" font-size="11" font-weight="bold" fill="#27ae60">  Повна відсутність неоднозначності зчитування</text>
+
+
+  <!-- BOTTOM SUMMARY BANNER -->
+  <rect x="30" y="450" width="900" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="473" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Математична гарантія: кодова відстань Хеммінга d_H = 1 виключає проміжні помилкові кутові значення</text>
+</svg>

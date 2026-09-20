@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема схемотехнічного підключення енкодера RS-422 (SSI / BiSS-C)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Диференційні пари Clock і Data з термінаторами 120 Ом пригнічують відбиття та синфазні завади</text>
+
+  <!-- LEFT PANEL: Absolute Encoder Board -->
+  <rect x="30" y="75" width="240" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="150" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Абсолютний енкодер (Slave)</text>
+
+  <!-- Encoder Clock Receiver (CLK RX) -->
+  <rect x="130" y="125" width="80" height="55" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="170" y="147" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RX RS-422</text>
+  <text x="170" y="165" font-size="12" fill="#6b7280" text-anchor="middle">(Тактування)</text>
+
+  <!-- Internal Termination Resistor across CLK at Slave Receiver -->
+  <rect x="235" y="138" width="20" height="29" rx="2" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="245" y="120" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">R_term 120 Ом</text>
+  <circle cx="245" cy="138" r="3" fill="#2457d6"/>
+  <circle cx="245" cy="167" r="3" fill="#2457d6"/>
+
+  <!-- Internal CLK Signal Wire to FPGA/Logic -->
+  <path d="M130,152.5 L50,152.5" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="90" y="144" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">CLK_in</text>
+
+  <!-- Encoder Data Transmitter (DATA TX) -->
+  <rect x="130" y="235" width="80" height="55" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="170" y="257" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">TX RS-422</text>
+  <text x="170" y="275" font-size="12" fill="#6b7280" text-anchor="middle">(Дані)</text>
+
+  <!-- Internal DATA Signal Wire from FPGA/Logic -->
+  <path d="M50,262.5 L130,262.5" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="90" y="254" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">DATA_out</text>
+
+  <!-- MIDDLE REGION: Shielded Twisted Pair Cable -->
+  <rect x="290" y="75" width="380" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="480" y="98" font-size="13" font-weight="bold" fill="#6b7280" text-anchor="middle">Екранована вита пара (Z₀ = 120 Ом, довжина до 100 м)</text>
+
+  <!-- Shield Boundary Box -->
+  <rect x="305" y="112" width="350" height="215" rx="6" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+  <text x="480" y="345" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">Спільний плетений екран (Shield_GND)</text>
+
+  <!-- CLK Pair Wires (Master TX -> Slave RX) -->
+  <path d="M750,138 L210,138" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="127" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Провідник CLK+ (MA+)</text>
+
+  <path d="M750,167 L210,167" stroke="#2457d6" stroke-width="2" stroke-dasharray="6,2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="182" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Провідник CLK- (MA-)</text>
+
+  <!-- DATA Pair Wires (Slave TX -> Master RX) -->
+  <path d="M210,248 L750,248" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="237" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Провідник DATA+ (SL+)</text>
+
+  <path d="M210,277 L750,277" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,2" marker-end="url(#arr-green)"/>
+  <text x="480" y="292" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Провідник DATA- (SL-)</text>
+
+  <!-- RIGHT PANEL: Master Board / Microcontroller -->
+  <rect x="690" y="75" width="240" height="300" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="810" y="98" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Плата контролера (Master)</text>
+
+  <!-- Master CLK Transmitter (CLK TX) -->
+  <rect x="750" y="125" width="80" height="55" rx="4" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="790" y="147" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">TX RS-422</text>
+  <text x="790" y="165" font-size="12" fill="#6b7280" text-anchor="middle">(Тактування)</text>
+
+  <!-- Master DATA Receiver (DATA RX) -->
+  <rect x="750" y="235" width="80" height="55" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="790" y="257" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">RX RS-422</text>
+  <text x="790" y="275" font-size="12" fill="#6b7280" text-anchor="middle">(Дані)</text>
+
+  <!-- Master Termination Resistor across DATA at Receiver -->
+  <rect x="705" y="248" width="20" height="29" rx="2" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="230" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">R_term 120 Ом</text>
+  <circle cx="715" cy="248" r="3" fill="#27ae60"/>
+  <circle cx="715" cy="277" r="3" fill="#27ae60"/>
+
+  <!-- MCU SPI / Controller Unit -->
+  <rect x="845" y="160" width="75" height="90" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="882.5" y="197" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">MCU SPI</text>
+  <text x="882.5" y="217" font-size="12" fill="#6b7280" text-anchor="middle">Периферія</text>
+
+  <!-- Master Internal Lines to MCU -->
+  <path d="M882.5,160 L882.5,145 L830,145" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="858" y="137" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">SPI_CLK</text>
+
+  <path d="M830,262.5 L882.5,262.5 L882.5,250" stroke="#27ae60" stroke-width="1.5" marker-end="url(#arr-green)"/>
+  <text x="858" y="280" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">SPI_MISO</text>
+
+  <!-- BOTTOM PANEL: Key Principles Callout Box -->
+  <rect x="30" y="390" width="900" height="115" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="480" y="413" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Ключові принципи узгодження та завадостійкості RS-422:</text>
+  <text x="50" y="437" font-size="12" font-weight="bold" fill="#1a1a1a">1. Хвильове узгодження:</text>
+  <text x="215" y="437" font-size="12" fill="#27ae60">Термінатори R_term = 120 Ом гасять відбиття сигнальних хвиль у лінії.</text>
+  <text x="50" y="460" font-size="12" font-weight="bold" fill="#1a1a1a">2. Синфазне пригнічення:</text>
+  <text x="215" y="460" font-size="12" fill="#1a1a1a">Диференціальний приймач реагує лише на різницю V_diff = (V+) - (V-), відсікаючи наводки.</text>
+  <text x="50" y="483" font-size="12" font-weight="bold" fill="#2457d6">3. Гарантія надійності:</text>
+  <text x="215" y="483" font-size="12" fill="#2457d6">Вита пара в екрані Shield_GND забезпечує передачу даних до 100 м на частоті 1-10 МГц.</text>
+</svg>

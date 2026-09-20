@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Canvas background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Діаграма комутації та таблиця замикань перемикача 1-0-2</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Відповідність стану контактних груп кутовим положенням кулачкового вала (режими 1, 0, 2)</text>
+
+  <!-- PANEL 1: Switching Table (Left) -->
+  <rect x="30" y="75" width="435" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Таблиця замикань контактів (1-0-2)</text>
+  <text x="247" y="120" text-anchor="middle" font-size="12" fill="#6b7280">Стандартизоване позначення замикань (X — замкнено)</text>
+
+  <!-- Table Header -->
+  <rect x="50" y="135" width="395" height="40" fill="#eaf0fd" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="190" y1="135" x2="190" y2="367" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="275" y1="135" x2="275" y2="367" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="360" y1="135" x2="360" y2="367" stroke="#d0d7de" stroke-width="1"/>
+
+  <text x="120" y="160" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Контакт / Клеми</text>
+  <text x="232" y="152" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Поз. 1</text>
+  <text x="232" y="167" text-anchor="middle" font-size="11" fill="#6b7280">(-45°)</text>
+
+  <text x="317" y="152" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Поз. 0</text>
+  <text x="317" y="167" text-anchor="middle" font-size="11" fill="#6b7280">(0°)</text>
+
+  <text x="402" y="152" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Поз. 2</text>
+  <text x="402" y="167" text-anchor="middle" font-size="11" fill="#6b7280">(+45°)</text>
+
+  <!-- Table Row 1 (Section 1) -->
+  <rect x="50" y="175" width="395" height="48" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="204" font-size="13" font-weight="bold" fill="#1a1a1a">Секція 1 (1–2)</text>
+  <rect x="205" y="185" width="55" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="232" y="204" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">X</text>
+  <text x="317" y="204" text-anchor="middle" font-size="14" fill="#6b7280">—</text>
+  <text x="402" y="204" text-anchor="middle" font-size="14" fill="#6b7280">—</text>
+
+  <!-- Table Row 2 (Section 2) -->
+  <rect x="50" y="223" width="395" height="48" fill="#fbfcfd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="252" font-size="13" font-weight="bold" fill="#1a1a1a">Секція 2 (3–4)</text>
+  <rect x="205" y="233" width="55" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="232" y="252" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">X</text>
+  <text x="317" y="252" text-anchor="middle" font-size="14" fill="#6b7280">—</text>
+  <text x="402" y="252" text-anchor="middle" font-size="14" fill="#6b7280">—</text>
+
+  <!-- Table Row 3 (Section 3) -->
+  <rect x="50" y="271" width="395" height="48" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="300" font-size="13" font-weight="bold" fill="#1a1a1a">Секція 3 (5–6)</text>
+  <text x="232" y="300" text-anchor="middle" font-size="14" fill="#6b7280">—</text>
+  <text x="317" y="300" text-anchor="middle" font-size="14" fill="#6b7280">—</text>
+  <rect x="375" y="281" width="55" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="402" y="300" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">X</text>
+
+  <!-- Table Row 4 (Section 4) -->
+  <rect x="50" y="319" width="395" height="48" fill="#fbfcfd" stroke="#d0d7de" stroke-width="1"/>
+  <text x="65" y="348" font-size="13" font-weight="bold" fill="#1a1a1a">Секція 4 (7–8)</text>
+  <text x="232" y="348" text-anchor="middle" font-size="14" fill="#6b7280">—</text>
+  <text x="317" y="348" text-anchor="middle" font-size="14" fill="#6b7280">—</text>
+  <rect x="375" y="329" width="55" height="28" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="402" y="348" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">X</text>
+
+  <!-- Legend Box Panel 1 -->
+  <rect x="50" y="380" width="395" height="90" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="70" cy="402" r="9" fill="#27ae60"/>
+  <text x="70" y="406" text-anchor="middle" font-size="11" font-weight="bold" fill="white">X</text>
+  <text x="88" y="406" font-size="12" font-weight="bold" fill="#1a1a1a">X — контактний місток замкнено</text>
+
+  <text x="70" y="432" text-anchor="middle" font-size="14" font-weight="bold" fill="#6b7280">—</text>
+  <text x="88" y="431" font-size="12" fill="#6b7280">— контактний місток розімкнено</text>
+
+  <text x="62" y="456" font-size="11" font-weight="bold" fill="#2457d6">Тип перемикання: BBM (Break-Before-Make)</text>
+
+  <!-- PANEL 2: Cam Mechanism Principle (Right) -->
+  <rect x="485" y="75" width="445" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="707" y="102" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Принцип механічної дії кулачка</text>
+  <text x="707" y="120" text-anchor="middle" font-size="12" fill="#6b7280">Вплив профілю вала на рухомий контакт</text>
+
+  <!-- Sub-panel A: Open State -->
+  <rect x="500" y="135" width="205" height="340" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="602" y="158" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Кулачок витискає штовхач</text>
+  <text x="602" y="174" text-anchor="middle" font-size="11" fill="#6b7280">(Контакт відкрито)</text>
+
+  <!-- Sub-panel A Diagram Drawing -->
+  <!-- Contact bridge lifted UP -->
+  <rect x="535" y="182" width="135" height="9" rx="2" fill="#c0392b" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Fixed contact terminals below bridge (21px clearance) -->
+  <rect x="520" y="212" width="35" height="10" rx="2" fill="#d0d7de" stroke="#1a1a1a"/>
+  <text x="537" y="234" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Клема 1</text>
+  <rect x="650" y="212" width="35" height="10" rx="2" fill="#d0d7de" stroke="#1a1a1a"/>
+  <text x="667" y="234" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Клема 2</text>
+
+  <!-- Push rod extending from bridge down to cam -->
+  <rect x="596" y="191" width="12" height="59" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Cam Shaft & Lobe pointing UP -->
+  <circle cx="602" cy="268" r="18" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 584,268 A 18,18 0 0,0 620,268 L 615,247 A 13,13 0 0,0 589,247 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="602" cy="268" r="4" fill="#1a1a1a"/>
+
+  <!-- Status Text below Cam Shaft (Clear of all lines) -->
+  <text x="602" y="304" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Зазор ΔS > 0</text>
+  <text x="602" y="319" text-anchor="middle" font-size="11" fill="#6b7280">(Струм не тече)</text>
+
+  <!-- Sub-panel A Description Box -->
+  <rect x="510" y="335" width="185" height="135" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="602" y="355" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Характеристики розмикання:</text>
+  <text x="520" y="377" font-size="11" fill="#1a1a1a">• Виступ піднімає штовхач</text>
+  <text x="520" y="398" font-size="11" fill="#1a1a1a">• Пружина стискається</text>
+  <text x="520" y="419" font-size="11" fill="#1a1a1a">• Відрив містка від клем</text>
+  <text x="520" y="440" font-size="11" fill="#1a1a1a">• Гарантований зазор (BBM)</text>
+  <text x="520" y="461" font-size="11" fill="#6b7280">• Струм перервано</text>
+
+  <!-- Sub-panel B: Closed State -->
+  <rect x="715" y="135" width="205" height="340" rx="6" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <text x="817" y="158" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Западина кулачка звільняє</text>
+  <text x="817" y="174" text-anchor="middle" font-size="11" fill="#6b7280">(Контакт замкнено)</text>
+
+  <!-- Sub-panel B Diagram Drawing -->
+  <!-- Contact bridge DOWN -->
+  <rect x="750" y="202" width="135" height="9" rx="2" fill="#27ae60" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Fixed contact terminals below bridge (1px clearance) -->
+  <rect x="735" y="212" width="35" height="10" rx="2" fill="#d0d7de" stroke="#1a1a1a"/>
+  <text x="752" y="234" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Клема 1</text>
+  <rect x="865" y="212" width="35" height="10" rx="2" fill="#d0d7de" stroke="#1a1a1a"/>
+  <text x="877" y="234" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Клема 2</text>
+
+  <!-- Contact pads connecting bridge and terminals -->
+  <circle cx="752" cy="211.5" r="3" fill="#27ae60"/>
+  <circle cx="877" cy="211.5" r="3" fill="#27ae60"/>
+
+  <!-- Push rod dropped down -->
+  <rect x="811" y="211" width="12" height="57" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Cam Shaft & Lobe pointing DOWN / AWAY -->
+  <circle cx="817" cy="268" r="18" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M 799,268 A 18,18 0 0,1 835,268 L 826,290 A 13,13 0 0,1 808,290 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <circle cx="817" cy="268" r="4" fill="#1a1a1a"/>
+
+  <!-- Status Text below Cam Shaft (Clear of all lines) -->
+  <text x="817" y="304" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Контакт замкнено</text>
+  <text x="817" y="319" text-anchor="middle" font-size="11" fill="#6b7280">(Струм протікає)</text>
+
+  <!-- Sub-panel B Description Box -->
+  <rect x="725" y="335" width="185" height="135" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="817" y="355" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Характеристики замикання:</text>
+  <text x="735" y="377" font-size="11" fill="#1a1a1a">• Западина опускає штовхач</text>
+  <text x="735" y="398" font-size="11" fill="#1a1a1a">• Пружина притискає місток</text>
+  <text x="735" y="419" font-size="11" fill="#1a1a1a">• Створено притискне зусилля</text>
+  <text x="735" y="440" font-size="11" fill="#1a1a1a">• Мінімальний опір контакту</text>
+  <text x="735" y="461" font-size="11" fill="#27ae60">• Прямий потік струму</text>
+</svg>

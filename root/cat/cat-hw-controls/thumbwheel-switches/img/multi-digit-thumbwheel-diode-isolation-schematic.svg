@@ -1,0 +1,181 @@
+<svg width="960" height="560" viewBox="0 0 960 560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="28" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема діодної розв'язки багатодекадного блоку BCD-перемикачів</text>
+  <text x="480" y="48" font-size="13" fill="#6b7280" text-anchor="middle">Розв'язувальні діоди блокують зворотні паразитичні струми (sneak paths) та усувають кодові фантоми</text>
+
+  <!-- ==================== LEFT PANEL: WITHOUT DIODES ==================== -->
+  <rect x="20" y="65" width="450" height="475" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="245" y="88" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Без діодів (паразитичний контур / Sneak Path)</text>
+  <text x="245" y="106" font-size="12" fill="#c0392b" text-anchor="middle">Зворотний струм через замкнені контакти створює фантомну «1»</text>
+
+  <!-- Decade 1 Box (Left) -->
+  <rect x="35" y="125" width="190" height="155" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="130" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Декада 1 (Опитується)</text>
+  <text x="130" y="162" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">COM_1 = +5 В (VCC)</text>
+  <circle cx="130" cy="172" r="3.5" fill="#2457d6"/>
+
+  <!-- Switch K_1.8 (Closed) at x=70 -->
+  <path d="M130,172 L70,185 L70,195" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="70" cy="195" r="3" fill="#2457d6"/>
+  <line x1="70" y1="195" x2="70" y2="225" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="70" cy="225" r="3" fill="#2457d6"/>
+  <line x1="70" y1="225" x2="70" y2="280" stroke="#2457d6" stroke-width="2"/>
+  <text x="76" y="202" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="start">K_1.8</text>
+  <text x="76" y="215" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="start">Замкнено</text>
+
+  <!-- Switch K_1.4 (Open) at x=190 -->
+  <path d="M130,172 L190,185 L190,195" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="190" cy="195" r="3" fill="#6b7280"/>
+  <line x1="190" y1="195" x2="198" y2="222" stroke="#6b7280" stroke-width="1.5"/>
+  <circle cx="190" cy="225" r="3" fill="#6b7280"/>
+  <line x1="190" y1="225" x2="190" y2="280" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="184" y="228" font-size="11" fill="#6b7280" text-anchor="end">K_1.4</text>
+  <text x="184" y="240" font-size="10" fill="#6b7280" text-anchor="end">Розімкнено</text>
+
+  <!-- Decade 2 Box (Left) -->
+  <rect x="245" y="125" width="190" height="155" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="340" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Декада 2 (Неопитувана)</text>
+  <text x="340" y="162" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">COM_2 = GND (0 В)</text>
+  <circle cx="340" cy="172" r="3.5" fill="#c0392b"/>
+
+  <!-- Switch K_2.8 (Closed) at x=280 -->
+  <path d="M340,172 L280,185 L280,195" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="280" cy="195" r="3" fill="#c0392b"/>
+  <line x1="280" y1="195" x2="280" y2="225" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="280" cy="225" r="3" fill="#c0392b"/>
+  <line x1="280" y1="225" x2="280" y2="280" stroke="#c0392b" stroke-width="2"/>
+  <text x="286" y="202" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">K_2.8</text>
+  <text x="286" y="215" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="start">Замкнено</text>
+
+  <!-- Switch K_2.4 (Closed) at x=400 -->
+  <path d="M340,172 L400,185 L400,195" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="400" cy="195" r="3" fill="#c0392b"/>
+  <line x1="400" y1="195" x2="400" y2="225" stroke="#c0392b" stroke-width="2"/>
+  <circle cx="400" cy="225" r="3" fill="#c0392b"/>
+  <line x1="400" y1="225" x2="400" y2="280" stroke="#c0392b" stroke-width="2"/>
+  <text x="394" y="228" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="end">K_2.4</text>
+  <text x="394" y="240" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="end">Замкнено</text>
+
+  <!-- Connecting Wires from Decades to Bus (Left) -->
+  <line x1="70" y1="280" x2="70" y2="370" stroke="#2457d6" stroke-width="2"/>
+  <line x1="190" y1="280" x2="190" y2="430" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="280" y1="280" x2="280" y2="370" stroke="#c0392b" stroke-width="2"/>
+  <line x1="400" y1="280" x2="400" y2="430" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Sneak Path Red Line (Left Panel) -->
+  <path d="M70,370 L280,370 L280,185 L340,172 L400,185 L400,430" fill="none" stroke="#c0392b" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-red)"/>
+
+  <!-- Label Box for Parasitic Current -->
+  <rect x="192" y="294" width="86" height="28" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="235" y="305" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">I_parasitic</text>
+  <text x="235" y="317" font-size="10" fill="#c0392b" text-anchor="middle">зворотний струм</text>
+
+  <!-- Data Bus Lines & Labels (Left) -->
+  <line x1="35" y1="370" x2="455" y2="370" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="130" y="345" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Шина [8]</text>
+  <text x="130" y="358" font-size="11" fill="#2457d6" text-anchor="middle">+5 В (сигнал 8)</text>
+
+  <line x1="35" y1="430" x2="455" y2="430" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="295" y="402" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Шина [4]: +2.5 В</text>
+  <text x="295" y="416" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">(ХИБНА ЛОГІЧНА «1»!)</text>
+
+  <!-- Status Box (Left Panel) -->
+  <rect x="35" y="455" width="420" height="75" rx="6" fill="#ffffff" stroke="#c0392b" stroke-width="1"/>
+  <text x="245" y="474" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">ПОМИЛКА: Скан-матричний «кодовий фантом»</text>
+  <text x="245" y="494" font-size="12" fill="#1a1a1a" text-anchor="middle">Декада 1 виставила код 8, але через замкнену Декаду 2</text>
+  <text x="245" y="512" font-size="12" fill="#1a1a1a" text-anchor="middle">струм протікає в шину 4 → контролер помилково зчитує 12</text>
+
+  <!-- ==================== RIGHT PANEL: WITH DIODES ==================== -->
+  <rect x="490" y="65" width="450" height="475" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="715" y="88" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">З діодною розв'язкою (Повний захист)</text>
+  <text x="715" y="106" font-size="12" fill="#27ae60" text-anchor="middle">Розв'язувальні діоди повністю блокують зворотні струми</text>
+
+  <!-- Decade 1 Box (Right) -->
+  <rect x="505" y="125" width="190" height="155" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="600" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Декада 1 (Опитується)</text>
+  <text x="600" y="162" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">COM_1 = +5 В (VCC)</text>
+  <circle cx="600" cy="172" r="3.5" fill="#2457d6"/>
+
+  <!-- Switch K_1.8 with Diode D1_8 at x=540 -->
+  <path d="M600,172 L540,185 L540,220" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <polygon points="534,220 546,220 540,232" fill="#27ae60"/>
+  <line x1="534" y1="232" x2="546" y2="232" stroke="#27ae60" stroke-width="2"/>
+  <line x1="540" y1="232" x2="540" y2="280" stroke="#27ae60" stroke-width="2"/>
+  <text x="546" y="202" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">D1_8</text>
+  <text x="546" y="215" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="start">Відкритий</text>
+
+  <!-- Switch K_1.4 with Diode D1_4 at x=660 -->
+  <path d="M600,172 L660,185 L660,195" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="660" y1="195" x2="668" y2="220" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="654,220 666,220 660,232" fill="#6b7280"/>
+  <line x1="654" y1="232" x2="666" y2="232" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="660" y1="232" x2="660" y2="280" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="654" y="228" font-size="11" fill="#6b7280" text-anchor="end">D1_4</text>
+  <text x="654" y="240" font-size="10" fill="#6b7280" text-anchor="end">Розімкнено</text>
+
+  <!-- Decade 2 Box (Right) -->
+  <rect x="715" y="125" width="190" height="155" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="810" y="145" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Декада 2 (Неопитувана)</text>
+  <text x="810" y="162" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">COM_2 = GND (0 В)</text>
+  <circle cx="810" cy="172" r="3.5" fill="#6b7280"/>
+
+  <!-- Switch K_2.8 with Diode D2_8 at x=750 -->
+  <path d="M810,172 L750,185 L750,220" fill="none" stroke="#6b7280" stroke-width="1.5"/>
+  <polygon points="744,220 756,220 750,232" fill="#6b7280"/>
+  <line x1="744" y1="232" x2="756" y2="232" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="750" y1="232" x2="750" y2="280" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="756" y="202" font-size="11" fill="#6b7280" text-anchor="start">D2_8</text>
+  <text x="756" y="215" font-size="10" fill="#6b7280" text-anchor="start">Без струму</text>
+
+  <!-- Switch K_2.4 with Diode D2_4 (BLOCKED) at x=870 -->
+  <path d="M810,172 L870,185 L870,220" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <polygon points="864,220 876,220 870,232" fill="#c0392b"/>
+  <line x1="864" y1="232" x2="876" y2="232" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="870" y1="232" x2="870" y2="280" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- Red Blocked Circle with Cross -->
+  <circle cx="870" cy="226" r="8" fill="#ffffff" stroke="#c0392b" stroke-width="2"/>
+  <line x1="865" y1="221" x2="875" y2="231" stroke="#c0392b" stroke-width="2"/>
+  <line x1="875" y1="221" x2="865" y2="231" stroke="#c0392b" stroke-width="2"/>
+  <text x="864" y="228" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="end">D2_4</text>
+  <text x="864" y="240" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="end">ЗАКРИТИЙ</text>
+
+  <!-- Connecting Wires from Decades to Bus (Right) -->
+  <line x1="540" y1="280" x2="540" y2="370" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <line x1="660" y1="280" x2="660" y2="430" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="750" y1="280" x2="750" y2="370" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="870" y1="280" x2="870" y2="430" stroke="#6b7280" stroke-width="1.5"/>
+
+  <!-- Isolation Label Box -->
+  <rect x="545" y="294" width="110" height="28" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="600" y="305" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">I_parasitic = 0 А</text>
+  <text x="600" y="317" font-size="10" fill="#27ae60" text-anchor="middle">(D2_4 закритий)</text>
+
+  <!-- Data Bus Lines & Labels (Right) -->
+  <line x1="505" y1="370" x2="925" y2="370" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="600" y="345" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Шина [8]: 4.3 В</text>
+  <text x="600" y="358" font-size="11" fill="#27ae60" text-anchor="middle">(сигнал 8 = «1»)</text>
+
+  <line x1="505" y1="430" x2="925" y2="430" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="765" y="402" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Шина [4]: 0 В</text>
+  <text x="765" y="416" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">(СТРОГА ЛОГІЧНА «0»)</text>
+
+  <!-- Status Box (Right Panel) -->
+  <rect x="505" y="455" width="420" height="75" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="474" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">УСПІХ: Повна електрична ізоляція декад</text>
+  <text x="715" y="494" font-size="12" fill="#1a1a1a" text-anchor="middle">Зворотна напруга надійно закриває діод D2_4</text>
+  <text x="715" y="512" font-size="12" fill="#1a1a1a" text-anchor="middle">контролер зчитує точний BCD-код 8 без фантомних сигналів</text>
+</svg>

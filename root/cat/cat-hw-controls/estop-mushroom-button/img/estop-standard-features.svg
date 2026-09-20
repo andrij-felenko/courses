@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Будова аварійного вимикача за стандартом IEC 60947-5-5</text>
+  <text x="480" y="60" font-size="13" fill="#6b7280" text-anchor="middle">Конструктивні елементи: червоний грибок, жовте фонове кільце, механізм фіксації та примусове розмикання</text>
+
+  <!-- LEFT PANEL: Diagram Container -->
+  <rect x="30" y="85" width="430" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="112" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Конструкція кнопкового поста аварійної зупинки</text>
+
+  <!-- Mushroom Cap (Red) -->
+  <path d="M 155 180 C 155 130, 335 130, 335 180 L 315 200 L 175 200 Z" fill="#c0392b" stroke="#962d22" stroke-width="2"/>
+  <text x="245" y="165" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Червоний штовхач (Ø 40/60 мм)</text>
+
+  <!-- Yellow Ring / Base (drawn using path to prevent rect overlap) -->
+  <path d="M 135 200 h 220 v 25 h -220 Z" fill="#f1c40f" stroke="#d4ac0d" stroke-width="2"/>
+  <text x="245" y="217" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Жовтий диск (RAL 1004)</text>
+
+  <!-- Panel Surface Line -->
+  <line x1="70" y1="225" x2="420" y2="225" stroke="#7f8c8d" stroke-width="3" stroke-dasharray="6,4"/>
+  <text x="70" y="242" font-size="11" fill="#7f8c8d">Панель (Ø 22 мм)</text>
+
+  <!-- Threaded Mounting Bushing (drawn using path) -->
+  <path d="M 195 225 h 100 v 70 h -100 Z" fill="#bdc3c7" stroke="#7f8c8d" stroke-width="2"/>
+  <line x1="195" y1="245" x2="295" y2="245" stroke="#95a5a6" stroke-width="1.5"/>
+  <line x1="195" y1="265" x2="295" y2="265" stroke="#95a5a6" stroke-width="1.5"/>
+  <line x1="195" y1="285" x2="295" y2="285" stroke="#95a5a6" stroke-width="1.5"/>
+
+  <!-- Shaft (drawn using path) -->
+  <path d="M 235 200 h 20 v 180 h -20 Z" fill="#7f8c8d" stroke="#34495e" stroke-width="1.5"/>
+
+  <!-- Latching Mechanism Graphics (drawn using path) -->
+  <path d="M 210 305 h 70 v 40 h -70 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 215 325 L 235 315 L 235 335 Z" fill="#2457d6"/>
+  <path d="M 275 325 L 255 315 L 255 335 Z" fill="#2457d6"/>
+  <!-- Latching text shifted left of shaft to avoid intersection -->
+  <text x="200" y="328" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="end">Засувка</text>
+
+  <!-- Contact Block Base (NC Positive Opening) -->
+  <path d="M 165 380 h 160 v 130 h -160 Z" fill="#ffffff" stroke="#27ae60" stroke-width="2"/>
+  <text x="245" y="402" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Блок NC-контактів</text>
+
+  <!-- NC Contact plunger mechanism -->
+  <line x1="205" y1="425" x2="285" y2="425" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="205" cy="450" r="5" fill="#c0392b"/>
+  <circle cx="285" cy="450" r="5" fill="#c0392b"/>
+  <!-- Contact bar forced down -->
+  <path d="M 205 445 L 285 445" stroke="#c0392b" stroke-width="3"/>
+  <line x1="245" y1="425" x2="245" y2="445" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr)"/>
+  <text x="245" y="472" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Примусове відкриття</text>
+  <text x="245" y="486" font-size="11" fill="#27ae60" text-anchor="middle">(Positive Opening)</text>
+  <text x="245" y="498" font-size="10" fill="#6b7280" text-anchor="middle">IEC 60947-5-1 Додаток K</text>
+
+  <!-- RIGHT PANEL: 4 Feature Cards -->
+
+  <!-- Card 1: Mushroom Head -->
+  <rect x="480" y="85" width="450" height="95" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="495" y="112" font-size="13" font-weight="bold" fill="#c0392b">1. Червоний грибоподібний штовхач (Mushroom Head)</text>
+  <text x="495" y="135" font-size="12" fill="#1a1a1a">Штовхач червоного кольору (RAL 3000) має опуклу форму</text>
+  <text x="495" y="153" font-size="12" fill="#1a1a1a">з куполом (Ø 40/60 мм) для натискання під будь-яким кутом.</text>
+
+  <!-- Card 2: Yellow Background -->
+  <rect x="480" y="195" width="450" height="95" rx="6" fill="#fcf3cf" stroke="#f39c12" stroke-width="1.5"/>
+  <text x="495" y="222" font-size="13" font-weight="bold" fill="#d35400">2. Жовтий контрастний фон (Yellow Background)</text>
+  <text x="495" y="245" font-size="12" fill="#1a1a1a">Обов'язкова жовта основа або контрастний диск</text>
+  <text x="495" y="263" font-size="12" fill="#1a1a1a">для миттєвої розпізнаваності кнопки оператором.</text>
+
+  <!-- Card 3: Latching Mechanism -->
+  <rect x="480" y="305" width="450" height="95" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="495" y="332" font-size="13" font-weight="bold" fill="#2457d6">3. Механічна засувка та фіксація (Latching Mechanism)</text>
+  <text x="495" y="355" font-size="12" fill="#1a1a1a">Механізм фіксує кнопку у вимкненому стані при натисканні.</text>
+  <text x="495" y="373" font-size="12" fill="#1a1a1a">Повернення здійснюється поворотом (Turn-Release) чи ключем.</text>
+
+  <!-- Card 4: Positive Opening -->
+  <rect x="480" y="415" width="450" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="495" y="438" font-size="13" font-weight="bold" fill="#27ae60">4. Примусове розмикання контактів (Positive Opening)</text>
+  <text x="495" y="458" font-size="12" fill="#1a1a1a">Прямий жорсткий зв'язок штовхача з NC-контактами</text>
+  <text x="495" y="476" font-size="12" fill="#1a1a1a">гарантує розрив кола навіть при зварюванні контактів</text>
+  <text x="495" y="494" font-size="11" fill="#6b7280">(відповідно до IEC 60947-5-1, Додаток K).</text>
+
+  <!-- Connecting Lines from Left Diagram to Right Cards -->
+  <line x1="335" y1="165" x2="475" y2="132" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <line x1="355" y1="212" x2="475" y2="242" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+  <line x1="280" y1="325" x2="475" y2="352" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+  <line x1="325" y1="440" x2="475" y2="462" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)"/>
+</svg>

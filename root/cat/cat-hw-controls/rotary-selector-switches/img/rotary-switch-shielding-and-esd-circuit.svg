@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrowhead Markers -->
+    <marker id="arr-black" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Екранування шасі та ESD-захист сигнальних кіл галетного перемикача</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Заземлення металевого вала скидає статичний розряд на GND, а TVS-діоди та RC-фільтри захищають входи MCU</text>
+
+  <!-- ==================== LEFT PANEL: MECHANICAL SHIELDING ==================== -->
+  <rect x="35" y="85" width="415" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="55" y="112" font-size="14" font-weight="bold" fill="#1a1a1a">1. Заземлення металевого вала та шасі</text>
+
+  <!-- ESD Spark Callout -->
+  <rect x="55" y="128" width="165" height="26" fill="#fdecea" stroke="#c0392b" stroke-width="1" rx="4"/>
+  <text x="137" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ESD розряд (до 15 кВ)</text>
+  
+  <!-- ESD Bolt Arrow -->
+  <path d="M 137,154 L 137,175" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arr-red)"/>
+
+  <!-- Switch Components: Knob, Shaft, Bushing, Enclosure -->
+  <!-- Knob -->
+  <rect x="55" y="180" width="45" height="70" fill="#6b7280" stroke="#1a1a1a" stroke-width="1.5" rx="5"/>
+  <text x="77" y="220" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Ручка</text>
+
+  <!-- Shaft -->
+  <rect x="100" y="195" width="80" height="40" fill="#e0e0e0" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="140" y="187" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Металевий вал</text>
+
+  <!-- Threaded Bushing / Panel Chassis -->
+  <rect x="180" y="170" width="40" height="90" fill="#b0bec5" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="200" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Шасі / Втулка</text>
+
+  <!-- Switch Enclosure (Wafer) -->
+  <rect x="220" y="160" width="210" height="110" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="325" y="178" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Корпус перемикача (Галета)</text>
+
+  <!-- Internal Switch Contacts Schematic -->
+  <!-- Common Terminal -->
+  <circle cx="245" cy="215" r="4" fill="#1a1a1a"/>
+  <text x="245" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">COM</text>
+  <!-- Rotor Contact Wiper -->
+  <line x1="245" y1="215" x2="310" y2="200" stroke="#1a1a1a" stroke-width="2.5"/>
+
+  <!-- Position P1 -->
+  <circle cx="315" cy="200" r="4" fill="#27ae60"/>
+  <text x="315" y="191" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">P1</text>
+
+  <!-- Position P2 -->
+  <circle cx="315" cy="225" r="4" fill="#6b7280"/>
+  <text x="335" y="229" font-size="12" fill="#6b7280">P2</text>
+
+  <!-- Position P3 -->
+  <circle cx="315" cy="250" r="4" fill="#6b7280"/>
+  <text x="335" y="254" font-size="12" fill="#6b7280">P3</text>
+
+  <!-- Signal Line Leaving Enclosure from P1 -->
+  <line x1="319" y1="200" x2="430" y2="200" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Chassis Ground Connection (Green Line) -->
+  <line x1="200" y1="260" x2="200" y2="330" stroke="#27ae60" stroke-width="3" marker-end="url(#arr-green)"/>
+  
+  <!-- Chassis Ground Symbol -->
+  <line x1="180" y1="330" x2="220" y2="330" stroke="#27ae60" stroke-width="3"/>
+  <line x1="187" y1="336" x2="213" y2="336" stroke="#27ae60" stroke-width="2.5"/>
+  <line x1="194" y1="342" x2="206" y2="342" stroke="#27ae60" stroke-width="2"/>
+  <line x1="198" y1="347" x2="202" y2="347" stroke="#27ae60" stroke-width="1.5"/>
+
+  <text x="225" y="295" font-size="12" font-weight="bold" fill="#27ae60">Захисний провідник GND</text>
+  <text x="225" y="312" font-size="12" fill="#6b7280">Низький індуктивний опір</text>
+
+  <!-- Left Green Note Box -->
+  <rect x="55" y="365" width="375" height="135" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <text x="70" y="388" font-size="13" font-weight="bold" fill="#27ae60">Захисний ефект екранування шасі:</text>
+  <text x="70" y="410" font-size="12" fill="#1a1a1a">• Металевий вал і втулка утворюють первинний</text>
+  <text x="80" y="426" font-size="12" fill="#1a1a1a">екран на шляху електростатичного розряду.</text>
+  <text x="70" y="448" font-size="12" fill="#1a1a1a">• ESD-струм скидається безпосередньо на GND</text>
+  <text x="80" y="464" font-size="12" fill="#1a1a1a">корпусу, не проникаючи до сигнальних</text>
+  <text x="80" y="480" font-size="12" fill="#1a1a1a">контактів та внутрішніх кіл приладу.</text>
+
+
+  <!-- ==================== RIGHT PANEL: ESD & RC PROTECTION CIRCUIT ==================== -->
+  <rect x="470" y="85" width="455" height="430" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1" rx="8"/>
+  <text x="490" y="112" font-size="14" font-weight="bold" fill="#1a1a1a">2. Схема захисту сигнальної лінії (TVS + RC)</text>
+
+  <!-- Input Wire Junction -->
+  <text x="480" y="175" font-size="12" font-weight="bold" fill="#1a1a1a">Сигнальна лінія</text>
+  <text x="480" y="190" font-size="12" fill="#6b7280">(від P1)</text>
+
+  <!-- Signal Main Line -->
+  <line x1="470" y1="210" x2="840" y2="210" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Junction 1: TVS Diode (D1) at x=570 -->
+  <circle cx="570" cy="210" r="4" fill="#2457d6"/>
+  <line x1="570" y1="210" x2="570" y2="235" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- TVS Diode Symbol (x=570, y=235..265) -->
+  <!-- Triangle -->
+  <polygon points="570,255 560,237 580,237" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Cathode Z-bar -->
+  <path d="M 556,255 L 560,255 L 580,255 L 584,255" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="560" y1="255" x2="557" y2="260" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="580" y1="255" x2="583" y2="250" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Anode line to GND -->
+  <line x1="570" y1="255" x2="570" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- TVS Diode Label -->
+  <text x="590" y="242" font-size="12" font-weight="bold" fill="#2457d6">TVS-діод D1</text>
+  <text x="590" y="258" font-size="12" fill="#6b7280">Обмеження V_clamp</text>
+
+
+  <!-- Series Resistor Rs (x=660 to x=715) -->
+  <rect x="660" y="200" width="55" height="20" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="687" y="188" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Rs = 100 Ω</text>
+  <text x="687" y="238" text-anchor="middle" font-size="12" fill="#6b7280">Обмеження I_peak</text>
+
+
+  <!-- Junction 2: Capacitor (Cf) at x=770 -->
+  <circle cx="770" cy="210" r="4" fill="#2457d6"/>
+  <line x1="770" y1="210" x2="770" y2="238" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Capacitor Plates -->
+  <line x1="758" y1="238" x2="782" y2="238" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="758" y1="246" x2="782" y2="246" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="770" y1="246" x2="770" y2="290" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Capacitor Label -->
+  <text x="790" y="242" font-size="12" font-weight="bold" fill="#2457d6">Cf = 10 nF</text>
+  <text x="790" y="258" font-size="12" fill="#6b7280">Фільтр брязкоту</text>
+
+
+  <!-- Target MCU Box -->
+  <rect x="840" y="170" width="70" height="80" fill="#ffffff" stroke="#2457d6" stroke-width="2" rx="4"/>
+  <path d="M 830,210 L 838,210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="875" y="205" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Вхід MCU</text>
+  <text x="875" y="223" text-anchor="middle" font-size="12" fill="#6b7280">(GPIO/ADC)</text>
+
+
+  <!-- System Ground Rail (GND) -->
+  <line x1="540" y1="290" x2="800" y2="290" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Ground Symbol Center -->
+  <line x1="670" y1="290" x2="670" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="655" y1="300" x2="685" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="660" y1="305" x2="680" y2="305" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="665" y1="310" x2="675" y2="310" stroke="#1a1a1a" stroke-width="1"/>
+  
+  <text x="670" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Шина системної землі (System GND)</text>
+
+
+  <!-- Right Blue Explanation Box -->
+  <rect x="485" y="365" width="425" height="135" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="500" y="388" font-size="13" font-weight="bold" fill="#2457d6">Принцип дії дворівневого захисту:</text>
+  <text x="500" y="410" font-size="12" fill="#1a1a1a">1. TVS-діод (D1): за &lt; 1 нс зрізає високовольтні</text>
+  <text x="515" y="426" font-size="12" fill="#1a1a1a">імпульси ESD до безпечного рівня V_clamp.</text>
+  <text x="500" y="448" font-size="12" fill="#1a1a1a">2. Резистор Rs: обмежує струм через діоди MCU.</text>
+  <text x="500" y="470" font-size="12" fill="#1a1a1a">3. Конденсатор Cf: поглинає брязкіт контактів</text>
+  <text x="515" y="486" font-size="12" fill="#1a1a1a">та ВЧ-завади на сигнальній лінії.</text>
+
+</svg>

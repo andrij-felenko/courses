@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Формування імпульсів у режимах декодування 1X, 2X та 4X</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Обробка фронтів прямокутних сигналів A і B помножує роздільну здатність енкодера CPR у 1, 2 або 4 рази</text>
+
+  <!-- Main Signal & Timing Panel -->
+  <rect x="30" y="72" width="900" height="315" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Vertical Phase Grid Lines & Labels -->
+  <g stroke="#d0d7de" stroke-dasharray="3,3" stroke-width="1">
+    <line x1="220" y1="92" x2="220" y2="375"/>
+    <line x1="295" y1="92" x2="295" y2="375"/>
+    <line x1="370" y1="92" x2="370" y2="375"/>
+    <line x1="445" y1="92" x2="445" y2="375"/>
+    <line x1="520" y1="92" x2="520" y2="375"/>
+    <line x1="595" y1="92" x2="595" y2="375"/>
+    <line x1="670" y1="92" x2="670" y2="375"/>
+    <line x1="745" y1="92" x2="745" y2="375"/>
+    <line x1="820" y1="92" x2="820" y2="375"/>
+  </g>
+
+  <g font-size="12" fill="#6b7280" text-anchor="middle">
+    <text x="220" y="88">0°</text>
+    <text x="295" y="88">90°</text>
+    <text x="370" y="88">180°</text>
+    <text x="445" y="88">270°</text>
+    <text x="520" y="88">360°</text>
+    <text x="595" y="88">450°</text>
+    <text x="670" y="88">540°</text>
+    <text x="745" y="88">630°</text>
+    <text x="820" y="88">720°</text>
+  </g>
+
+  <!-- Channel A Waveform -->
+  <text x="50" y="125" font-size="14" font-weight="bold" fill="#1a1a1a">Сигнал A</text>
+  <text x="50" y="141" font-size="12" fill="#6b7280">(Основний канал)</text>
+  <path d="M 170 145 L 220 145 L 220 105 L 370 105 L 370 145 L 520 145 L 520 105 L 670 105 L 670 145 L 820 145 L 820 105 L 850 105" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Channel B Waveform -->
+  <text x="50" y="190" font-size="14" font-weight="bold" fill="#1a1a1a">Сигнал B</text>
+  <text x="50" y="206" font-size="12" fill="#6b7280">(Зсув на 90°)</text>
+  <path d="M 170 210 L 295 210 L 295 170 L 445 170 L 445 210 L 595 210 L 595 170 L 745 170 L 745 210 L 850 210" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+  <!-- Divider Line -->
+  <line x1="45" y1="225" x2="885" y2="225" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Mode 1X Triggers -->
+  <text x="50" y="252" font-size="13" font-weight="bold" fill="#2457d6">Режим 1X (1×PPR)</text>
+  <text x="50" y="268" font-size="12" fill="#6b7280">Фронт A 0→1</text>
+  <g fill="#2457d6">
+    <circle cx="220" cy="256" r="6"/>
+    <circle cx="520" cy="256" r="6"/>
+    <circle cx="820" cy="256" r="6"/>
+  </g>
+  <g font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">
+    <text x="220" y="278">+1</text>
+    <text x="520" y="278">+1</text>
+    <text x="820" y="278">+1</text>
+  </g>
+
+  <!-- Mode 2X Triggers -->
+  <text x="50" y="302" font-size="13" font-weight="bold" fill="#d97706">Режим 2X (2×PPR)</text>
+  <text x="50" y="318" font-size="12" fill="#6b7280">Обидва фронти A</text>
+  <g fill="#d97706">
+    <circle cx="220" cy="306" r="6"/>
+    <circle cx="370" cy="306" r="6"/>
+    <circle cx="520" cy="306" r="6"/>
+    <circle cx="670" cy="306" r="6"/>
+    <circle cx="820" cy="306" r="6"/>
+  </g>
+  <g font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">
+    <text x="220" y="328">+1</text>
+    <text x="370" y="328">+1</text>
+    <text x="520" y="328">+1</text>
+    <text x="670" y="328">+1</text>
+    <text x="820" y="328">+1</text>
+  </g>
+
+  <!-- Mode 4X Triggers -->
+  <text x="50" y="352" font-size="13" font-weight="bold" fill="#27ae60">Режим 4X (4×PPR)</text>
+  <text x="50" y="368" font-size="12" fill="#6b7280">Усі фронти A та B</text>
+  <g fill="#27ae60">
+    <circle cx="220" cy="354" r="5"/>
+    <circle cx="295" cy="354" r="5"/>
+    <circle cx="370" cy="354" r="5"/>
+    <circle cx="445" cy="354" r="5"/>
+    <circle cx="520" cy="354" r="5"/>
+    <circle cx="595" cy="354" r="5"/>
+    <circle cx="670" cy="354" r="5"/>
+    <circle cx="745" cy="354" r="5"/>
+    <circle cx="820" cy="354" r="5"/>
+  </g>
+  <g font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">
+    <text x="220" y="374">+1</text>
+    <text x="295" y="374">+1</text>
+    <text x="370" y="374">+1</text>
+    <text x="445" y="374">+1</text>
+    <text x="520" y="374">+1</text>
+    <text x="595" y="374">+1</text>
+    <text x="670" y="374">+1</text>
+    <text x="745" y="374">+1</text>
+    <text x="820" y="374">+1</text>
+  </g>
+
+  <!-- Bottom Summary Cards -->
+  <g>
+    <!-- Card 1: 1X -->
+    <rect x="30" y="402" width="285" height="95" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="172" y="426" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Декодування 1X</text>
+    <text x="172" y="448" font-size="12" fill="#1a1a1a" text-anchor="middle">1 відлік на період (CPR = PPR)</text>
+    <text x="172" y="468" font-size="12" fill="#6b7280" text-anchor="middle">Крок Δθ = 360° / PPR</text>
+    <text x="172" y="486" font-size="12" fill="#6b7280" text-anchor="middle">Базова роздільна здатність</text>
+
+    <!-- Card 2: 2X -->
+    <rect x="337" y="402" width="285" height="95" rx="8" fill="#fff7ed" stroke="#d97706" stroke-width="1.5"/>
+    <text x="480" y="426" font-size="14" font-weight="bold" fill="#d97706" text-anchor="middle">Декодування 2X</text>
+    <text x="480" y="448" font-size="12" fill="#1a1a1a" text-anchor="middle">2 відліки на період (CPR = 2×PPR)</text>
+    <text x="480" y="468" font-size="12" fill="#6b7280" text-anchor="middle">Крок Δθ = 360° / (2×PPR)</text>
+    <text x="480" y="486" font-size="12" fill="#6b7280" text-anchor="middle">Подвоєна дискретність</text>
+
+    <!-- Card 3: 4X -->
+    <rect x="645" y="402" width="285" height="95" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="787" y="426" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Декодування 4X</text>
+    <text x="787" y="448" font-size="12" fill="#1a1a1a" text-anchor="middle">4 відліки на період (CPR = 4×PPR)</text>
+    <text x="787" y="468" font-size="12" fill="#6b7280" text-anchor="middle">Крок Δθ = 360° / (4×PPR)</text>
+    <text x="787" y="486" font-size="12" fill="#6b7280" text-anchor="middle">Максимальна точність</text>
+  </g>
+</svg>

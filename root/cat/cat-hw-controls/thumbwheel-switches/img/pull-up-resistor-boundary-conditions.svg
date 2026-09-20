@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Граничні умови розрахунку опору підтяжки (Pull-Up Resistor)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Еквівалентна схема шини з урахуванням витоків, паразитної ємності та обмежень струму</text>
+
+  <!-- PANEL 1: UPPER BOUND (SWITCH OPEN) -->
+  <rect x="30" y="75" width="435" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="90" width="405" height="34" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="247.5" y="112" font-size="14" font-weight="bold" fill="#c0392b" text-anchor="middle">Верхня межа: R_pull ≤ R_max (Розмикач ВІДКРИТИЙ)</text>
+
+  <!-- Panel 1 Circuit Schematic -->
+  <!-- VCC Rail & Symbol -->
+  <line x1="150" y1="150" x2="250" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="200" y1="145" x2="200" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="200" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+V_CC</text>
+
+  <!-- Resistor R_pull -->
+  <line x1="200" y1="150" x2="200" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="188" y="165" width="24" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="200" y1="205" x2="200" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="220" y="185" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">R_pull</text>
+
+  <!-- Leakage Current Arrow -->
+  <path d="M 175 160 L 175 220 L 360 220" fill="none" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+  <text x="165" y="185" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">I_leak</text>
+
+  <!-- Node A (V_line) -->
+  <circle cx="200" cy="230" r="4" fill="#1a1a1a"/>
+  <text x="185" y="218" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">V_line</text>
+
+  <!-- Switch SW1 (OPEN) -->
+  <line x1="200" y1="230" x2="200" y2="247" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="200" cy="250" r="3" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="200" y1="250" x2="215" y2="273" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="200" cy="280" r="3" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="200" y1="283" x2="200" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- GND SW -->
+  <line x1="190" y1="300" x2="210" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="194" y1="304" x2="206" y2="304" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="197" y1="308" x2="203" y2="308" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="180" y="268" font-size="12" fill="#6b7280" text-anchor="end">SW (ВІДКРИТИЙ)</text>
+
+  <!-- Bus Line Connection to MCU & C_line -->
+  <line x1="200" y1="230" x2="370" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Parasitic Capacitance C_line -->
+  <circle cx="290" cy="230" r="3" fill="#1a1a1a"/>
+  <line x1="290" y1="230" x2="290" y2="255" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="278" y1="255" x2="302" y2="255" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="278" y1="261" x2="302" y2="261" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="290" y1="261" x2="290" y2="300" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- GND C_line -->
+  <line x1="282" y1="300" x2="298" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="285" y1="304" x2="295" y2="304" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="308" y="278" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">C_line (паразитна)</text>
+
+  <!-- MCU Input Box -->
+  <rect x="370" y="205" width="60" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="400" y="234" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхід МК</text>
+
+  <!-- Panel 1 Formula Box -->
+  <rect x="45" y="315" width="405" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="58" y="338" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#c0392b">1. Статика:</tspan> R_pull ≤ (V_CC - V_IH,min) / I_leak</text>
+  <text x="58" y="362" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">2. Динаміка:</tspan> R_pull ≤ t_r,max / (2.3 · C_line)</text>
+  <text x="58" y="390" font-size="12" font-weight="bold" fill="#c0392b">Верхня межа R_max:</text>
+  <text x="58" y="414" font-size="12" font-weight="bold" fill="#c0392b">R_max = min( (V_CC - V_IH) / I_leak , t_r / (2.3 · C_line) )</text>
+
+
+  <!-- PANEL 2: LOWER BOUND (SWITCH CLOSED) -->
+  <rect x="495" y="75" width="435" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="90" width="405" height="34" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="712.5" y="112" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">Нижня межа: R_pull ≥ R_min (Розмикач ЗАМКНЕНИЙ)</text>
+
+  <!-- Panel 2 Circuit Schematic -->
+  <!-- VCC Rail & Symbol -->
+  <line x1="615" y1="150" x2="715" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="665" y1="145" x2="665" y2="150" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="665" y="142" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+V_CC</text>
+
+  <!-- Resistor R_pull -->
+  <line x1="665" y1="150" x2="665" y2="165" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="653" y="165" width="24" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="665" y1="205" x2="665" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="685" y="185" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="start">R_pull</text>
+
+  <!-- Switch Closed Current Arrow I_SW -->
+  <line x1="745" y1="160" x2="745" y2="295" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-green)"/>
+  <text x="755" y="195" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">I_SW (струм)</text>
+
+  <!-- Node B (V_line) -->
+  <circle cx="665" cy="230" r="4" fill="#1a1a1a"/>
+  <text x="650" y="218" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="end">V_line</text>
+
+  <!-- Switch SW1 (CLOSED) -->
+  <line x1="665" y1="230" x2="665" y2="247" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="665" cy="250" r="3" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="665" y1="250" x2="665" y2="280" stroke="#1a1a1a" stroke-width="2.5"/>
+  <circle cx="665" cy="280" r="3" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="665" y1="283" x2="665" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- GND SW -->
+  <line x1="655" y1="300" x2="675" y2="300" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="659" y1="304" x2="671" y2="304" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="662" y1="308" x2="668" y2="308" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="645" y="268" font-size="12" fill="#6b7280" text-anchor="end">R_SW (контакт)</text>
+
+  <!-- Bus Line Connection to MCU -->
+  <line x1="665" y1="230" x2="835" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- MCU Input Box -->
+  <rect x="835" y="205" width="60" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="865" y="234" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вхід МК</text>
+
+  <!-- Panel 2 Formula Box -->
+  <rect x="510" y="315" width="405" height="120" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="523" y="338" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">1. Рівень ноля:</tspan> V_line = V_CC · R_SW / R_pull ≤ V_IL,max</text>
+  <text x="523" y="362" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">2. Струм контакту:</tspan> I_SW = V_CC / R_pull ≤ I_OL,max</text>
+  <text x="523" y="390" font-size="12" font-weight="bold" fill="#27ae60">Нижня межа R_min:</text>
+  <text x="523" y="414" font-size="12" font-weight="bold" fill="#27ae60">R_min = (V_CC - V_IL,max) / I_OL,max</text>
+
+
+  <!-- BOTTOM SUMMARY BANNER -->
+  <rect x="30" y="465" width="900" height="55" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="482" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Допустимий робочий діапазон: R_min ≤ R_pull ≤ R_max (Типові значення: 2.2 кОм ... 10 кОм)</text>
+  <text x="480" y="508" font-size="12" fill="#27ae60" text-anchor="middle">Оптимальний вибір для перемикачів: 4.7 кОм або 10 кОм (баланс завадостійкості та енергоспоживання)</text>
+</svg>

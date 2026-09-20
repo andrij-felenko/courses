@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Підключення 4-декадного BCD-табло через зсувний регістр 74HC165</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">16 біт даних від 4 декад зчитуються у мікроконтролер послідовно через 3 виводи GPIO</text>
+
+  <!-- PANEL 1: 4-Decade Thumbwheel Switches -->
+  <rect x="30" y="75" width="430" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">4-декадний блок перемикачів BCD (8421)</text>
+
+  <!-- Decade 3 (Thousands) -->
+  <rect x="45" y="112" width="400" height="80" rx="5" fill="white" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="55" y="130" font-size="13" font-weight="bold" fill="#1a1a1a">Декада 3 (Тисячі)</text>
+  <text x="210" y="130" font-size="11" fill="#6b7280">Розв'язувальні діоди 1N4148</text>
+  
+  <!-- D15..D12 Lines & Diodes -->
+  <line x1="55" y1="144" x2="445" y2="144" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="325,140 335,144 325,148" fill="#1a1a1a"/>
+  <line x1="335" y1="140" x2="335" y2="148" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="440" y="139" font-size="10" text-anchor="end" fill="#6b7280">D15 (8)</text>
+
+  <line x1="55" y1="156" x2="445" y2="156" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="325,152 335,156 325,160" fill="#1a1a1a"/>
+  <line x1="335" y1="152" x2="335" y2="160" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="440" y="151" font-size="10" text-anchor="end" fill="#6b7280">D14 (4)</text>
+
+  <line x1="55" y1="168" x2="445" y2="168" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="325,164 335,168 325,172" fill="#1a1a1a"/>
+  <line x1="335" y1="164" x2="335" y2="172" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="440" y="163" font-size="10" text-anchor="end" fill="#6b7280">D13 (2)</text>
+
+  <line x1="55" y1="180" x2="445" y2="180" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="325,176 335,180 325,184" fill="#1a1a1a"/>
+  <line x1="335" y1="176" x2="335" y2="184" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="440" y="175" font-size="10" text-anchor="end" fill="#6b7280">D12 (1)</text>
+
+  <!-- Decade 2 (Hundreds) -->
+  <rect x="45" y="202" width="400" height="80" rx="5" fill="white" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="55" y="220" font-size="13" font-weight="bold" fill="#1a1a1a">Декада 2 (Сотні)</text>
+  <text x="210" y="220" font-size="11" fill="#6b7280">Розв'язувальні діоди 1N4148</text>
+
+  <!-- D11..D8 Lines & Diodes -->
+  <line x1="55" y1="234" x2="445" y2="234" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="325,230 335,234 325,238" fill="#1a1a1a"/>
+  <line x1="335" y1="230" x2="335" y2="238" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="440" y="229" font-size="10" text-anchor="end" fill="#6b7280">D11 (8)</text>
+
+  <line x1="55" y1="246" x2="445" y2="246" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="325,242 335,246 325,250" fill="#1a1a1a"/>
+  <line x1="335" y1="242" x2="335" y2="250" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="440" y="241" font-size="10" text-anchor="end" fill="#6b7280">D10 (4)</text>
+
+  <line x1="55" y1="258" x2="445" y2="258" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="325,254 335,258 325,262" fill="#1a1a1a"/>
+  <line x1="335" y1="254" x2="335" y2="262" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="440" y="253" font-size="10" text-anchor="end" fill="#6b7280">D9 (2)</text>
+
+  <line x1="55" y1="270" x2="445" y2="270" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="325,266 335,270 325,274" fill="#1a1a1a"/>
+  <line x1="335" y1="266" x2="335" y2="274" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="440" y="265" font-size="10" text-anchor="end" fill="#6b7280">D8 (1)</text>
+
+  <!-- Decade 1 (Tens) -->
+  <rect x="45" y="292" width="400" height="80" rx="5" fill="white" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="55" y="310" font-size="13" font-weight="bold" fill="#1a1a1a">Декада 1 (Десятки)</text>
+  <text x="210" y="310" font-size="11" fill="#6b7280">Розв'язувальні діоди 1N4148</text>
+
+  <!-- D7..D4 Lines & Diodes -->
+  <line x1="55" y1="324" x2="445" y2="324" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="325,320 335,324 325,328" fill="#1a1a1a"/>
+  <line x1="335" y1="320" x2="335" y2="328" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="440" y="319" font-size="10" text-anchor="end" fill="#6b7280">D7 (8)</text>
+
+  <line x1="55" y1="336" x2="445" y2="336" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="325,332 335,336 325,340" fill="#1a1a1a"/>
+  <line x1="335" y1="332" x2="335" y2="340" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="440" y="331" font-size="10" text-anchor="end" fill="#6b7280">D6 (4)</text>
+
+  <line x1="55" y1="348" x2="445" y2="348" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="325,344 335,348 325,352" fill="#1a1a1a"/>
+  <line x1="335" y1="344" x2="335" y2="352" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="440" y="343" font-size="10" text-anchor="end" fill="#6b7280">D5 (2)</text>
+
+  <line x1="55" y1="360" x2="445" y2="360" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="325,356 335,360 325,364" fill="#1a1a1a"/>
+  <line x1="335" y1="356" x2="335" y2="364" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="440" y="355" font-size="10" text-anchor="end" fill="#6b7280">D4 (1)</text>
+
+  <!-- Decade 0 (Units) -->
+  <rect x="45" y="382" width="400" height="80" rx="5" fill="white" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="55" y="400" font-size="13" font-weight="bold" fill="#1a1a1a">Декада 0 (Одиниці)</text>
+  <text x="210" y="400" font-size="11" fill="#6b7280">Розв'язувальні діоди 1N4148</text>
+
+  <!-- D3..D0 Lines & Diodes -->
+  <line x1="55" y1="414" x2="445" y2="414" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="325,410 335,414 325,418" fill="#1a1a1a"/>
+  <line x1="335" y1="410" x2="335" y2="418" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="440" y="409" font-size="10" text-anchor="end" fill="#6b7280">D3 (8)</text>
+
+  <line x1="55" y1="426" x2="445" y2="426" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="325,422 335,426 325,430" fill="#1a1a1a"/>
+  <line x1="335" y1="422" x2="335" y2="430" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="440" y="421" font-size="10" text-anchor="end" fill="#6b7280">D2 (4)</text>
+
+  <line x1="55" y1="438" x2="445" y2="438" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="325,434 335,438 325,442" fill="#1a1a1a"/>
+  <line x1="335" y1="434" x2="335" y2="442" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="440" y="433" font-size="10" text-anchor="end" fill="#6b7280">D1 (2)</text>
+
+  <line x1="55" y1="450" x2="445" y2="450" stroke="#1a1a1a" stroke-width="1.2"/>
+  <polygon points="325,446 335,450 325,454" fill="#1a1a1a"/>
+  <line x1="335" y1="446" x2="335" y2="454" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="440" y="445" font-size="10" text-anchor="end" fill="#6b7280">D0 (1)</text>
+
+  <!-- PANEL 2: 74HC165 Shift Register Module -->
+  <rect x="485" y="75" width="230" height="420" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Модуль 74HC165 (16 біт)</text>
+
+  <!-- U1 Chip (High Byte) -->
+  <rect x="500" y="112" width="195" height="165" rx="6" fill="white" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="597" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">U1: 74HC165 (Байт D8..D15)</text>
+  <text x="597" y="148" text-anchor="middle" font-size="11" fill="#6b7280">Підтяжки 10 kΩ до GND</text>
+
+  <!-- Inputs on U1 -->
+  <line x1="445" y1="162" x2="500" y2="162" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="450" y="155" font-size="10" fill="#2457d6">Шина D12..D15</text>
+
+  <line x1="445" y1="252" x2="500" y2="252" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="450" y="245" font-size="10" fill="#2457d6">Шина D8..D11</text>
+
+  <!-- Pins on U1 right side -->
+  <text x="688" y="177" font-size="11" text-anchor="end" fill="#1a1a1a">DS (з U2 Q7)</text>
+  <text x="688" y="202" font-size="11" font-weight="bold" text-anchor="end" fill="#27ae60">Q7 (Вихід)</text>
+  <text x="688" y="227" font-size="11" text-anchor="end" fill="#2457d6">PL (Load)</text>
+  <text x="688" y="252" font-size="11" text-anchor="end" fill="#2457d6">CP (Clock)</text>
+
+  <!-- U2 Chip (Low Byte) -->
+  <rect x="500" y="292" width="195" height="190" rx="6" fill="white" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="597" y="310" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">U2: 74HC165 (Байт D0..D7)</text>
+  <text x="597" y="328" text-anchor="middle" font-size="11" fill="#6b7280">Підтяжки 10 kΩ до GND</text>
+
+  <!-- Inputs on U2 -->
+  <line x1="445" y1="342" x2="500" y2="342" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="450" y="335" font-size="10" fill="#2457d6">Шина D4..D7</text>
+
+  <line x1="445" y1="432" x2="500" y2="432" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+  <text x="450" y="425" font-size="10" fill="#2457d6">Шина D0..D3</text>
+
+  <!-- Pins on U2 right side -->
+  <text x="688" y="357" font-size="11" text-anchor="end" fill="#6b7280">DS → GND</text>
+  <text x="688" y="382" font-size="11" font-weight="bold" text-anchor="end" fill="#2457d6">Q7 (Каскад)</text>
+  <text x="688" y="417" font-size="11" text-anchor="end" fill="#2457d6">PL (Load)</text>
+  <text x="688" y="447" font-size="11" text-anchor="end" fill="#2457d6">CP (Clock)</text>
+
+  <!-- PANEL 3: Microcontroller (MCU) -->
+  <rect x="760" y="75" width="170" height="420" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="845" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Мікроконтролер (MCU)</text>
+
+  <!-- MCU GPIO Pins -->
+  <!-- GPIO_PL -->
+  <rect x="770" y="140" width="80" height="24" rx="4" fill="white" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="810" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">GPIO_PL</text>
+
+  <!-- GPIO_CLK -->
+  <rect x="770" y="215" width="80" height="24" rx="4" fill="white" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="810" y="231" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">GPIO_CLK</text>
+
+  <!-- GPIO_DATA -->
+  <rect x="770" y="270" width="80" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="810" y="286" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">GPIO_DATA</text>
+
+  <!-- Processing Box inside MCU -->
+  <rect x="770" y="320" width="150" height="160" rx="6" fill="white" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="845" y="340" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Обробка в драйвері</text>
+  <text x="778" y="362" font-size="11" fill="#1a1a1a">1. Завантаження PL</text>
+  <text x="778" y="384" font-size="11" fill="#1a1a1a">2. Зсув 16 клоками</text>
+  <text x="778" y="406" font-size="11" fill="#1a1a1a">3. Фільтр брязкоту</text>
+  <text x="778" y="428" font-size="11" fill="#1a1a1a">4. Перевірка BCD ≤ 9</text>
+  <text x="778" y="450" font-size="11" font-weight="bold" fill="#27ae60">5. Отримання int</text>
+
+  <!-- WIRING & INTERCONNECTS -->
+  <!-- Serial Cascade line: U2 Q7 -> U1 DS -->
+  <path d="M695,387 L725,387 L725,182 L695,182" stroke="#2457d6" stroke-width="1.8" fill="none" marker-end="url(#arr-blue)"/>
+
+  <!-- Control Line PL (GPIO_PL -> U1 PL & U2 PL) -->
+  <path d="M770,152 L735,152 L735,232 L695,232 M735,232 L735,422 L695,422" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,2" fill="none"/>
+
+  <!-- Control Line CLK (GPIO_CLK -> U1 CP & U2 CP) -->
+  <path d="M770,227 L742,227 L742,257 L695,257 M742,257 L742,452 L695,452" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2,2" fill="none"/>
+
+  <!-- Serial Data Line (U1 Q7 -> MCU GPIO_DATA) -->
+  <path d="M695,207 L752,207 L752,282 L770,282" stroke="#27ae60" stroke-width="2.5" fill="none" marker-end="url(#arr-green)"/>
+</svg>

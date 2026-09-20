@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-grey" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#4b5563"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Titles -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Кінематика та три стани кнопки дозволу (Enabling Switch)</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Принцип захисту оператора від рефлекторного відпускання або панічного стискання у пультах Teach Pendant</text>
+
+  <!-- CARD 1: STATE 1 (RELEASED / OFF) -->
+  <rect x="30" y="75" width="270" height="370" rx="8" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="165" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#4b5563">Стан 1: Вільний (Off)</text>
+  <text x="165" y="116" text-anchor="middle" font-size="11" fill="#6b7280">Початкове положення z = 0 мм</text>
+
+  <!-- Button Plunger Graphic 1 -->
+  <rect x="85" y="140" width="160" height="110" rx="4" fill="white" stroke="#4b5563" stroke-width="1"/>
+  <!-- Plunger Cap (Top Position) -->
+  <rect x="135" y="145" width="60" height="28" rx="4" fill="#9ca3af" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="165" y="163" text-anchor="middle" font-size="10" font-weight="bold" fill="white">ВІЛЬНО</text>
+  <!-- Open Contacts -->
+  <circle cx="140" cy="200" r="4" fill="#c0392b"/>
+  <circle cx="190" cy="200" r="4" fill="#c0392b"/>
+  <line x1="140" y1="200" x2="180" y2="188" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="165" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Контакти РОЗІМКНУТІ</text>
+
+  <!-- Description Card 1 -->
+  <rect x="45" y="265" width="240" height="125" rx="4" fill="white" stroke="#4b5563"/>
+  <text x="165" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#4b5563">Причина розмикання:</text>
+  <text x="55" y="307" font-size="11" fill="#1a1a1a">• Рука відпущена</text>
+  <text x="55" y="325" font-size="11" fill="#1a1a1a">• Втрата свідомості / падіння</text>
+  <text x="55" y="343" font-size="11" fill="#1a1a1a">• Пасивна безпека</text>
+  <text x="165" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⛔ Робот ЗУПИНЕНИЙ</text>
+
+
+  <!-- CARD 2: STATE 2 (ENABLED / WORK) -->
+  <rect x="345" y="75" width="270" height="370" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Стан 2: Дозволено (Enable)</text>
+  <text x="480" y="116" text-anchor="middle" font-size="11" fill="#6b7280">Робоче натискання z = 3 мм</text>
+
+  <!-- Button Plunger Graphic 2 -->
+  <rect x="400" y="140" width="160" height="110" rx="4" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <!-- Plunger Cap (Middle Position) -->
+  <rect x="450" y="165" width="60" height="28" rx="4" fill="#10b981" stroke="#047857" stroke-width="1.5"/>
+  <text x="480" y="183" text-anchor="middle" font-size="10" font-weight="bold" fill="white">РОБОТА</text>
+  <!-- Closed Contacts -->
+  <circle cx="455" cy="205" r="4" fill="#27ae60"/>
+  <circle cx="505" cy="205" r="4" fill="#27ae60"/>
+  <line x1="455" y1="205" x2="505" y2="205" stroke="#27ae60" stroke-width="3"/>
+  <text x="480" y="235" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Контакти ЗАМКНУТІ</text>
+
+  <!-- Description Card 2 -->
+  <rect x="360" y="265" width="240" height="125" rx="4" fill="white" stroke="#27ae60"/>
+  <text x="480" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Робочий режим:</text>
+  <text x="370" y="307" font-size="11" fill="#1a1a1a">• Контрольоване утримання</text>
+  <text x="370" y="325" font-size="11" fill="#1a1a1a">• Фіксована точка клацання</text>
+  <text x="370" y="343" font-size="11" fill="#1a1a1a">• Налагодження на малій швидкості</text>
+  <text x="480" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✅ Рух ДОЗВОЛЕНО</text>
+
+
+  <!-- CARD 3: STATE 3 (PANIC STOP) -->
+  <rect x="660" y="75" width="270" height="370" rx="8" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="795" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">Стан 3: Паніка (Panic)</text>
+  <text x="795" y="116" text-anchor="middle" font-size="11" fill="#6b7280">Повне стискання z = 6 мм</text>
+
+  <!-- Button Plunger Graphic 3 -->
+  <rect x="715" y="140" width="160" height="110" rx="4" fill="white" stroke="#c0392b" stroke-width="1"/>
+  <!-- Plunger Cap (Bottom Position) -->
+  <rect x="765" y="185" width="60" height="28" rx="4" fill="#ef4444" stroke="#b91c1c" stroke-width="1.5"/>
+  <text x="795" y="203" text-anchor="middle" font-size="10" font-weight="bold" fill="white">ПАНІКА</text>
+  <!-- Positive Open Contacts -->
+  <circle cx="770" cy="215" r="4" fill="#c0392b"/>
+  <circle cx="820" cy="215" r="4" fill="#c0392b"/>
+  <line x1="770" y1="215" x2="810" y2="230" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="795" y="243" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Примусово РОЗІМКНУТІ</text>
+
+  <!-- Description Card 3 -->
+  <rect x="675" y="265" width="240" height="125" rx="4" fill="white" stroke="#c0392b"/>
+  <text x="795" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Рефлекторний захист:</text>
+  <text x="685" y="307" font-size="11" fill="#1a1a1a">• Судомне стискання кисті</text>
+  <text x="685" y="325" font-size="11" fill="#1a1a1a">• Пряме механічне розмикання</text>
+  <text x="685" y="343" font-size="11" fill="#1a1a1a">• Неможливо заблокувати</text>
+  <text x="795" y="375" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">⛔ АВАРІЙНИЙ СТОП</text>
+
+
+  <!-- TRANSITION ARROWS BETWEEN STATES -->
+  <!-- Arrow 1 -> 2 (F_work) -->
+  <path d="M 300,180 L 344,180" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="322" y="172" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">F_робоче</text>
+
+  <!-- Arrow 2 -> 3 (F_panic) -->
+  <path d="M 615,180 L 659,180" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="637" y="172" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">F_паніка</text>
+
+
+  <!-- BOTTOM SUMMARY BANNER -->
+  <rect x="30" y="455" width="900" height="35" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="477" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">При поверненні зі Стану 3 у Стан 1 контакти залишаються РОЗІМКНУТИМИ (захист від випадкового пуску)</text>
+</svg>

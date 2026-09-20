@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-purple" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#8e44ad"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Header -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Двоканальний контур дозволу з крос-моніторингом та тактовими імпульсами</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Тестові імпульси T1/T2 та перехресне опитування виявляють міжканальні КЗ та замкнені контакти</text>
+
+  <!-- Left Panel: Enabling Device (Switch / Pedal) -->
+  <rect x="25" y="72" width="415" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="232" y="94" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Трипозиційний пристрій дозволу</text>
+  <text x="232" y="112" text-anchor="middle" font-size="12" fill="#2457d6">Сухі контактні групи S1 та S2</text>
+
+  <!-- 3-Position Pedal States -->
+  <rect x="40" y="124" width="385" height="66" fill="#ffffff" stroke="#d0d7de" rx="6"/>
+  <text x="232" y="141" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">СТАНИ ТРИПОЗИЦІЙНОГО ПЕРЕМИКАЧА</text>
+  
+  <rect x="50" y="149" width="112" height="32" fill="#f4f6f8" stroke="#d0d7de" rx="4"/>
+  <text x="106" y="170" text-anchor="middle" font-size="11" fill="#6b7280">1: Вільний (OFF)</text>
+
+  <rect x="172" y="149" width="120" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="232" y="170" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">2: Натиснутий (ON)</text>
+
+  <rect x="302" y="149" width="112" height="32" fill="#fdecea" stroke="#c0392b" rx="4"/>
+  <text x="358" y="170" text-anchor="middle" font-size="11" fill="#c0392b">3: Паніка (OFF)</text>
+
+  <!-- Contact Group S1 (Channel 1) -->
+  <rect x="40" y="200" width="385" height="96" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="52" y="218" font-size="12" font-weight="bold" fill="#2457d6">Канал 1 (Контактна група S1)</text>
+  <text x="395" y="218" text-anchor="end" font-size="11" fill="#6b7280">NO (Позиція 2)</text>
+  
+  <!-- S1 Terminals & Schematic -->
+  <circle cx="70" cy="248" r="4.5" fill="#2457d6"/>
+  <text x="70" y="268" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">T1_in</text>
+  
+  <circle cx="395" cy="248" r="4.5" fill="#2457d6"/>
+  <text x="395" y="268" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">I1_out</text>
+
+  <!-- S1 Contact blade (Closed in Pos 2) -->
+  <line x1="74.5" y1="248" x2="160" y2="248" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="160" cy="248" r="3" fill="#2457d6"/>
+  <line x1="160" y1="248" x2="305" y2="236" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="305" cy="248" r="3" fill="#2457d6"/>
+  <line x1="305" y1="248" x2="390.5" y2="248" stroke="#2457d6" stroke-width="2"/>
+  <text x="232" y="284" text-anchor="middle" font-size="11" fill="#6b7280">Замкнено виключно в режимі дозволу</text>
+
+  <!-- Mechanical Link Line between S1 & S2 -->
+  <line x1="232" y1="296" x2="232" y2="307" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <rect x="142" y="307" width="180" height="22" fill="#ffffff" stroke="#d0d7de" rx="3"/>
+  <text x="232" y="322" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">Механічний зв'язок S1-S2</text>
+  <line x1="232" y1="329" x2="232" y2="340" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Contact Group S2 (Channel 2) -->
+  <rect x="40" y="340" width="385" height="96" fill="#ffffff" stroke="#8e44ad" stroke-width="1.5" rx="6"/>
+  <text x="52" y="358" font-size="12" font-weight="bold" fill="#8e44ad">Канал 2 (Контактна група S2)</text>
+  <text x="395" y="358" text-anchor="end" font-size="11" fill="#6b7280">NO (Позиція 2)</text>
+  
+  <!-- S2 Terminals & Schematic -->
+  <circle cx="70" cy="388" r="4.5" fill="#8e44ad"/>
+  <text x="70" y="408" text-anchor="middle" font-size="11" font-weight="bold" fill="#8e44ad">T2_in</text>
+  
+  <circle cx="395" cy="388" r="4.5" fill="#8e44ad"/>
+  <text x="395" y="408" text-anchor="middle" font-size="11" font-weight="bold" fill="#8e44ad">I2_out</text>
+
+  <!-- S2 Contact blade (Closed in Pos 2) -->
+  <line x1="74.5" y1="388" x2="160" y2="388" stroke="#8e44ad" stroke-width="2"/>
+  <circle cx="160" cy="388" r="3" fill="#8e44ad"/>
+  <line x1="160" y1="388" x2="305" y2="376" stroke="#8e44ad" stroke-width="2.5"/>
+  <circle cx="305" cy="388" r="3" fill="#8e44ad"/>
+  <line x1="305" y1="388" x2="390.5" y2="388" stroke="#8e44ad" stroke-width="2"/>
+  <text x="232" y="424" text-anchor="middle" font-size="11" fill="#6b7280">Дублюючий незалежний сухий контакт</text>
+
+  <!-- Bottom note left -->
+  <text x="232" y="484" text-anchor="middle" font-size="11" fill="#6b7280">Розмикання будь-якого контакту знімає дозвіл</text>
+
+  <!-- Right Panel: Safety Controller -->
+  <rect x="515" y="72" width="420" height="428" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="725" y="94" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Контролер / Реле безпеки</text>
+  <text x="725" y="112" text-anchor="middle" font-size="12" fill="#2457d6">Модуль аналізу сигналів та крос-моніторингу</text>
+
+  <!-- Test Pulse Generators & Inputs -->
+  <!-- Generator T1 -->
+  <rect x="535" y="126" width="130" height="66" fill="#ffffff" stroke="#2457d6" stroke-width="1.5" rx="6"/>
+  <text x="600" y="144" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Генератор T1</text>
+  <!-- Waveform T1 -->
+  <path d="M555,166 L565,166 L565,152 L578,152 L578,166 L591,166 L591,152 L604,152 L604,166 L617,166 L617,152 L630,152 L630,166 L640,166" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="600" y="182" text-anchor="middle" font-size="11" fill="#6b7280">Імпульс 100 Гц (T1)</text>
+
+  <!-- Receiver I1 -->
+  <rect x="535" y="206" width="130" height="52" fill="#ffffff" stroke="#2457d6" rx="6"/>
+  <text x="600" y="226" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Вхід опитування I1</text>
+  <text x="600" y="244" text-anchor="middle" font-size="11" fill="#1a1a1a">Детектор імпульсу 1</text>
+
+  <!-- Generator T2 -->
+  <rect x="535" y="272" width="130" height="66" fill="#ffffff" stroke="#8e44ad" stroke-width="1.5" rx="6"/>
+  <text x="600" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#8e44ad">Генератор T2</text>
+  <!-- Waveform T2 (Phase shifted) -->
+  <path d="M555,296 L565,296 L565,310 L578,310 L578,296 L591,296 L591,310 L604,310 L604,296 L617,296 L617,310 L630,310 L630,296 L640,296" fill="none" stroke="#8e44ad" stroke-width="1.5"/>
+  <text x="600" y="328" text-anchor="middle" font-size="11" fill="#6b7280">Зсув фази 180° (T2)</text>
+
+  <!-- Receiver I2 -->
+  <rect x="535" y="352" width="130" height="52" fill="#ffffff" stroke="#8e44ad" rx="6"/>
+  <text x="600" y="372" text-anchor="middle" font-size="11" font-weight="bold" fill="#8e44ad">Вхід опитування I2</text>
+  <text x="600" y="390" text-anchor="middle" font-size="11" fill="#1a1a1a">Детектор імпульсу 2</text>
+
+  <!-- Controller Terminals on Left Edge -->
+  <circle cx="515" cy="159" r="4.5" fill="#2457d6"/>
+  <circle cx="515" cy="232" r="4.5" fill="#2457d6"/>
+  <circle cx="515" cy="305" r="4.5" fill="#8e44ad"/>
+  <circle cx="515" cy="352" r="4.5" fill="#8e44ad"/>
+
+  <!-- Cross-Monitoring Logic Block (Right Sub-column) -->
+  <rect x="682" y="124" width="238" height="280" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" rx="6"/>
+  <text x="801" y="144" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Логіка аналізу та порівняння</text>
+
+  <!-- Logic Rule 1: Ch1 OK -->
+  <rect x="692" y="154" width="218" height="42" fill="#eaf0fd" stroke="#2457d6" rx="4"/>
+  <text x="801" y="171" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Канал 1: Збіг I1 = T1</text>
+  <text x="801" y="187" text-anchor="middle" font-size="11" fill="#1a1a1a">Перевірка цілісності колу S1</text>
+
+  <!-- Logic Rule 2: Ch2 OK -->
+  <rect x="692" y="204" width="218" height="42" fill="#f5eef8" stroke="#8e44ad" rx="4"/>
+  <text x="801" y="221" text-anchor="middle" font-size="11" font-weight="bold" fill="#8e44ad">Канал 2: Збіг I2 = T2</text>
+  <text x="801" y="237" text-anchor="middle" font-size="11" fill="#1a1a1a">Перевірка цілісності колу S2</text>
+
+  <!-- Logic Rule 3: Cross Short Detection -->
+  <rect x="692" y="254" width="218" height="62" fill="#fdecea" stroke="#c0392b" stroke-width="1.5" rx="4"/>
+  <text x="801" y="271" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Детекція міжканального КЗ:</text>
+  <text x="801" y="288" text-anchor="middle" font-size="11" fill="#c0392b">Якщо I1 = T2 або I2 = T1 → FAULT</text>
+  <text x="801" y="305" text-anchor="middle" font-size="11" fill="#6b7280">Виявлення замикання дротів T1-T2</text>
+
+  <!-- Output Safety Relays -->
+  <rect x="692" y="324" width="218" height="70" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="4"/>
+  <text x="801" y="343" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Вихідні реле безпеки (K1/K2)</text>
+  <text x="801" y="360" text-anchor="middle" font-size="11" fill="#1a1a1a">Замкнено: Обидва канали OK</text>
+  <text x="801" y="377" text-anchor="middle" font-size="11" fill="#c0392b">Розімкнено: КЗ / Несинхронність</text>
+
+  <!-- Bottom Note Right -->
+  <text x="725" y="484" text-anchor="middle" font-size="11" fill="#6b7280">Ручне скидання (Reset) можливе лише після усунення КЗ</text>
+
+  <!-- WIRING CONNECTIONS BETWEEN SWITCH AND CONTROLLER -->
+  <!-- Wire T1 (Blue) -->
+  <path d="M515,159 L430,159 L430,248 L399.5,248" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <rect x="475" y="137" width="36" height="18" fill="#ffffff" stroke="#2457d6" rx="2"/>
+  <text x="493" y="150" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">T1</text>
+
+  <!-- Wire I1 (Blue, dashed) -->
+  <path d="M395,248 L440,248 L440,232 L510.5,232" fill="none" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-blue)"/>
+  <rect x="475" y="211" width="34" height="18" fill="#ffffff" stroke="#2457d6" rx="2"/>
+  <text x="492" y="224" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">I1</text>
+
+  <!-- Wire T2 (Purple) -->
+  <path d="M515,305 L430,305 L430,388 L399.5,388" fill="none" stroke="#8e44ad" stroke-width="2" marker-end="url(#arr-purple)"/>
+  <rect x="475" y="283" width="36" height="18" fill="#ffffff" stroke="#8e44ad" rx="2"/>
+  <text x="493" y="296" text-anchor="middle" font-size="11" font-weight="bold" fill="#8e44ad">T2</text>
+
+  <!-- Wire I2 (Purple, dashed) -->
+  <path d="M395,388 L445,388 L445,352 L510.5,352" fill="none" stroke="#8e44ad" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr-purple)"/>
+  <rect x="475" y="331" width="34" height="18" fill="#ffffff" stroke="#8e44ad" rx="2"/>
+  <text x="492" y="344" text-anchor="middle" font-size="11" font-weight="bold" fill="#8e44ad">I2</text>
+
+  <!-- Cross Short Fault Overlay (Short circuit between Wire T1 at x=430 and Wire T2 at x=430) -->
+  <line x1="430" y1="165" x2="430" y2="240" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+  <circle cx="430" cy="254" r="14" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="430" y="258" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">КЗ</text>
+  <line x1="430" y1="268" x2="430" y2="380" stroke="#c0392b" stroke-width="2" stroke-dasharray="3,3"/>
+</svg>

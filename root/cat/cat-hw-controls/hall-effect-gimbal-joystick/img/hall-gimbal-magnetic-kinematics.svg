@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Магнітна кінематика підвісу Холла (Gimbal) та вектор індукції B</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Нахил важеля змінює кут і компоненту магнітного поля B, що перетворюється сенсором на напругу V_out</text>
+
+  <!-- PANEL 1: NEUTRAL POSITION -->
+  <rect x="30" y="75" width="435" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M30,83 A8,8 0 0,1 38,75 L457,75 A8,8 0 0,1 465,83 L465,111 L30,111 Z" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247" y="98" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">1. Нейтральний стан (Кут θ = 0°)</text>
+
+  <!-- Central Stick Assembly Panel 1 -->
+  <line x1="247" y1="130" x2="247" y2="240" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="247" cy="130" r="16" fill="#1a1a1a"/>
+  
+  <!-- Gimbal Pivot Bearing -->
+  <circle cx="247" cy="240" r="10" fill="#6b7280"/>
+  <line x1="227" y1="240" x2="267" y2="240" stroke="#6b7280" stroke-width="2" stroke-dasharray="3,3"/>
+
+  <!-- Centered Neodymium Magnet -->
+  <rect x="227" y="255" width="20" height="20" fill="#c0392b" rx="2"/>
+  <text x="237" y="270" font-size="12" font-weight="bold" fill="white" text-anchor="middle">N</text>
+  <rect x="247" y="255" width="20" height="20" fill="#2457d6" rx="2"/>
+  <text x="257" y="270" font-size="12" font-weight="bold" fill="white" text-anchor="middle">S</text>
+
+  <!-- Air Gap Indicator -->
+  <line x1="205" y1="275" x2="205" y2="315" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="200" y1="275" x2="210" y2="275" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="200" y1="315" x2="210" y2="315" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="195" y="298" font-size="11" fill="#6b7280" text-anchor="end">Зазор h</text>
+
+  <!-- Vector B_z Arrow -->
+  <path d="M 237,275 C 237,300 257,300 257,275" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <line x1="247" y1="280" x2="247" y2="308" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="265" y="298" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="start">B_z = B₀</text>
+
+  <!-- Hall Sensor IC Panel 1 -->
+  <rect x="217" y="315" width="60" height="18" fill="#1a1a1a" rx="3"/>
+  <text x="247" y="328" font-size="11" font-weight="bold" fill="white" text-anchor="middle">Hall IC</text>
+
+  <!-- Output Voltage Badge Panel 1 -->
+  <rect x="80" y="380" width="335" height="32" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="247" y="401" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">V_out = VCC / 2 = 2.50 В (Центр)</text>
+
+
+  <!-- PANEL 2: TILTED POSITION -->
+  <rect x="495" y="75" width="435" height="360" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <path d="M495,83 A8,8 0 0,1 503,75 L922,75 A8,8 0 0,1 930,83 L930,111 L495,111 Z" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712" y="98" font-size="14" font-weight="bold" fill="#27ae60" text-anchor="middle">2. Нахил важеля (Кут θ = +15°)</text>
+
+  <!-- Centerline Reference Panel 2 -->
+  <line x1="712" y1="130" x2="712" y2="330" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- Tilted Stick Assembly Panel 2 -->
+  <line x1="740" y1="134" x2="712" y2="240" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="740" cy="134" r="16" fill="#1a1a1a"/>
+
+  <!-- Angle Arc θ -->
+  <path d="M 712,180 A 60,60 0 0,1 727,182" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="735" y="172" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="start">θ</text>
+
+  <!-- Gimbal Pivot Bearing Panel 2 -->
+  <circle cx="712" cy="240" r="10" fill="#6b7280"/>
+  <line x1="692" y1="240" x2="732" y2="240" stroke="#6b7280" stroke-width="2" stroke-dasharray="3,3"/>
+
+  <!-- Tilted Magnet -->
+  <polygon points="693,253 712,258 712,278 693,273" fill="#c0392b"/>
+  <text x="702" y="269" font-size="12" font-weight="bold" fill="white" text-anchor="middle">N</text>
+  <polygon points="712,258 731,263 731,283 712,278" fill="#2457d6"/>
+  <text x="721" y="274" font-size="12" font-weight="bold" fill="white" text-anchor="middle">S</text>
+
+  <!-- Tilted Field Vector B Arrow -->
+  <line x1="712" y1="275" x2="690" y2="308" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <line x1="712" y1="275" x2="712" y2="308" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="645" y="295" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">B = B₀·cos(θ)</text>
+
+  <!-- Stationary Hall Sensor IC Panel 2 -->
+  <rect x="682" y="315" width="60" height="18" fill="#1a1a1a" rx="3"/>
+  <text x="712" y="328" font-size="11" font-weight="bold" fill="white" text-anchor="middle">Hall IC</text>
+
+  <!-- Output Voltage Badge Panel 2 -->
+  <rect x="545" y="380" width="335" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="712" y="401" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">V_out = 2.50 В + ΔV = 3.85 В (Зміщення)</text>
+</svg>

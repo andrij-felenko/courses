@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Принцип роботи безконтактного магнітного стіка Холла</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Визначення кута за зміною векторного магнітного поля B без механічного тертя та зносу</text>
+
+  <!-- PANEL 1: Kinematics & Magnetics -->
+  <rect x="30" y="70" width="440" height="330" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="250" y="94" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">Кінематика вимірювання (Давач Холла)</text>
+
+  <!-- Joystick Shaft & Knob -->
+  <line x1="250" y1="150" x2="225" y2="115" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="225" cy="115" r="10" fill="#2457d6"/>
+  <circle cx="250" cy="150" r="14" fill="#d0d7de" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="272" y="154" font-size="12" fill="#6b7280">Карданний шарнір</text>
+
+  <!-- Angle arc -->
+  <path d="M 250 128 A 22 22 0 0 0 234 131" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <text x="218" y="136" font-size="12" font-weight="700" fill="#2457d6">θ</text>
+
+  <!-- Rotor Shaft -->
+  <line x1="250" y1="164" x2="250" y2="208" stroke="#1a1a1a" stroke-width="4"/>
+
+  <!-- Permanent Magnet (N / S) -->
+  <rect x="218" y="208" width="32" height="22" rx="2" fill="#c0392b"/>
+  <text x="234" y="223" font-size="12" font-weight="700" fill="white" text-anchor="middle">N</text>
+
+  <rect x="250" y="208" width="32" height="22" rx="2" fill="#2457d6"/>
+  <text x="266" y="223" font-size="12" font-weight="700" fill="white" text-anchor="middle">S</text>
+
+  <text x="290" y="223" font-size="12" font-weight="700" fill="#1a1a1a">Магніт</text>
+
+  <!-- Magnetic Field Lines -->
+  <path d="M 234 230 C 224 256, 276 256, 266 230" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M 228 230 C 212 268, 288 268, 272 230" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <text x="295" y="254" font-size="12" font-weight="700" fill="#2457d6">Поле B</text>
+
+  <!-- Air Gap Indicator -->
+  <line x1="190" y1="230" x2="190" y2="264" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="185" y1="230" x2="195" y2="230" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="185" y1="264" x2="195" y2="264" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="62" y="251" font-size="12" font-weight="700" fill="#27ae60">Зазор d_gap (без тертя)</text>
+
+  <!-- IC Hall Sensor & PCB -->
+  <rect x="228" y="264" width="44" height="16" rx="2" fill="#27ae60" stroke="#1a1a1a"/>
+  <text x="250" y="276" font-size="12" font-weight="700" fill="white" text-anchor="middle">IC Hall</text>
+
+  <rect x="150" y="280" width="200" height="8" rx="2" fill="#d0d7de" stroke="#6b7280"/>
+  <text x="358" y="288" font-size="12" fill="#6b7280">Плата (PCB)</text>
+
+  <!-- Formula Callout Box -->
+  <rect x="45" y="325" width="410" height="60" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="250" y="347" font-size="12" font-weight="700" fill="#1a1a1a" text-anchor="middle">Рівняння Холла: V_H = K_H · I · B_perp(θ)</text>
+  <text x="250" y="369" font-size="12" fill="#2457d6" text-anchor="middle">Кут відхилення θ змінює перпендикулярну індукцію B_perp</text>
+
+
+  <!-- PANEL 2: Drift Reliability Comparison -->
+  <rect x="490" y="70" width="440" height="330" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="94" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">Причина стійкості до дрейфу нуля</text>
+
+  <!-- Potentiometer Wear Box -->
+  <rect x="505" y="115" width="410" height="125" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="710" y="137" font-size="13" font-weight="700" fill="#c0392b" text-anchor="middle">1. Резистивний потенціометр (Контактний)</text>
+  <text x="520" y="160" font-size="12" fill="#1a1a1a">• Конструкція: металевий повзунок тисне на вуглецеву доріжку</text>
+  <text x="520" y="182" font-size="12" fill="#c0392b">• Деградація: абразивний знос вуглецевої доріжки</text>
+  <text x="520" y="204" font-size="12" font-weight="700" fill="#c0392b">• Наслідок: зміна опору ΔR → незворотний дрейф нуля!</text>
+
+  <!-- Hall Sensor Non-Contact Box -->
+  <rect x="505" y="255" width="410" height="130" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="710" y="277" font-size="13" font-weight="700" fill="#27ae60" text-anchor="middle">2. Магнітний давач Холла (Безконтактний)</text>
+  <text x="520" y="300" font-size="12" fill="#1a1a1a">• Конструкція: магніт рознесений з ІС давача (зазор d_gap)</text>
+  <text x="520" y="322" font-size="12" fill="#27ae60">• Відсутність зносу: 0 механічного тертя у вузлі</text>
+  <text x="520" y="344" font-size="12" fill="#1a1a1a">• Стабільність: магнітний потік не деградує від тертя</text>
+  <text x="710" y="368" font-size="12" font-weight="700" fill="#27ae60" text-anchor="middle">✓ Гарантована відсутність дрейфу нуля через знос!</text>
+
+
+  <!-- Bottom Summary Banner -->
+  <rect x="30" y="415" width="900" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="433" font-size="12" font-weight="700" fill="#2457d6" text-anchor="middle">Висновок: Сенсори Холла повністю усувають механічну причину дрейфу нуля</text>
+  <text x="480" y="450" font-size="12" fill="#1a1a1a" text-anchor="middle">Відсутність зносу контактної пари гарантує стабільність нейтралі протягом всього терміну експлуатації</text>
+</svg>

@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 490" width="960" height="490" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="490" fill="white"/>
+
+  <defs>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння осьової та масштабованої радіальної мертвої зони</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Осьова зона викривляє діагональні вектори; радіальна зона зберігає кругову симетрію відклику</text>
+
+  <!-- Panel 1: Axial Deadzone (Left) -->
+  <rect x="40" y="75" width="425" height="395" rx="8" fill="#fdecea" stroke="#f5c6cb" stroke-width="1.5"/>
+  <text x="252" y="100" font-size="15" font-weight="bold" fill="#c0392b" text-anchor="middle">Осьова мертва зона (Axial Deadzone)</text>
+  <text x="252" y="120" font-size="12" fill="#c0392b" text-anchor="middle">Незалежне відсікання осей X та Y</text>
+
+  <!-- Left Coordinate System -->
+  <circle cx="252" cy="265" r="100" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  
+  <!-- Axial Cross Deadzone Region -->
+  <rect x="234" y="165" width="36" height="200" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <rect x="152" y="247" width="200" height="36" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <rect x="235" y="248" width="34" height="34" fill="#fdecea"/>
+
+  <!-- Axes -->
+  <line x1="125" y1="265" x2="379" y2="265" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="252" y1="138" x2="252" y2="392" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="375" y="260" font-size="12" fill="#6b7280" text-anchor="end">X</text>
+  <text x="257" y="148" font-size="12" fill="#6b7280" text-anchor="start">Y</text>
+
+  <!-- Deadzone Dimension Labels -->
+  <text x="261" y="240" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">d_x</text>
+  <text x="222" y="260" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">d_y</text>
+
+  <!-- Input Vector V_in (Dashed Line) -->
+  <line x1="252" y1="265" x2="329" y2="229.1" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-gray)"/>
+  <circle cx="329" cy="229.1" r="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="336" y="224" font-size="12" fill="#6b7280" text-anchor="start">V_in (вхідний)</text>
+
+  <!-- Distorted Output Vector V_out (Solid Red) -->
+  <line x1="252" y1="265" x2="324" y2="250" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <circle cx="324" cy="250" r="3.5" fill="#c0392b"/>
+  <text x="330" y="254" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">V_out (викривлений)</text>
+
+  <!-- Angle Distortion Arc & Label -->
+  <path d="M 295,244.6 A 47 47 0 0 1 298,255.4" fill="none" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="306" y="252" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="start">Δθ</text>
+
+  <!-- Left Bottom Summary Box -->
+  <rect x="60" y="405" width="385" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="252" y="424" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Характерна вада: кутове викривлення Δθ</text>
+  <text x="252" y="443" font-size="12" fill="#1a1a1a" text-anchor="middle">Вектор притягується до осей (Snap-to-axis)</text>
+
+  <!-- Panel 2: Scaled Radial Deadzone (Right) -->
+  <rect x="495" y="75" width="425" height="395" rx="8" fill="#e9f7ef" stroke="#c3e6cb" stroke-width="1.5"/>
+  <text x="707" y="100" font-size="15" font-weight="bold" fill="#27ae60" text-anchor="middle">Радіальна мертва зона (Scaled Radial)</text>
+  <text x="707" y="120" font-size="12" fill="#27ae60" text-anchor="middle">Кругове відсікання з масштабуванням вектора</text>
+
+  <!-- Right Coordinate System -->
+  <circle cx="707" cy="265" r="100" fill="#ffffff" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <circle cx="707" cy="265" r="30" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Axes -->
+  <line x1="580" y1="265" x2="834" y2="265" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="707" y1="138" x2="707" y2="392" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="830" y="260" font-size="12" fill="#6b7280" text-anchor="end">X</text>
+  <text x="712" y="148" font-size="12" fill="#6b7280" text-anchor="start">Y</text>
+
+  <!-- Deadzone Radius Label -->
+  <line x1="707" y1="265" x2="737" y2="265" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="722" y="258" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">r_dead</text>
+  <text x="807" y="258" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">R_max</text>
+
+  <!-- Inactive Ray inside Deadzone (Dashed Gray) -->
+  <line x1="707" y1="265" x2="734.2" y2="252.3" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <circle cx="734.2" cy="252.3" r="2.5" fill="#27ae60"/>
+
+  <!-- Scaled Output Vector (Solid Green Arrow along exact ray) -->
+  <line x1="734.2" y1="252.3" x2="778.2" y2="231.8" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <circle cx="778.2" cy="231.8" r="3.5" fill="#27ae60"/>
+
+  <!-- Input Vector Reference Tip (Dashed line extension) -->
+  <line x1="778.2" y1="231.8" x2="784" y2="229.1" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="2,2"/>
+  <circle cx="784" cy="229.1" r="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="790" y="224" font-size="12" fill="#6b7280" text-anchor="start">V_in (вхідний)</text>
+  <text x="784" y="246" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="start">V_out (масштабований)</text>
+
+  <!-- Preserved Angle Label -->
+  <text x="745" y="212" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">θ_out = θ_in</text>
+
+  <!-- Right Bottom Summary Box -->
+  <rect x="515" y="405" width="385" height="52" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="707" y="424" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Ключова перевага: кругова симетрія</text>
+  <text x="707" y="443" font-size="12" fill="#1a1a1a" text-anchor="middle">Напрямок повністю збережено (θ_out = θ_in)</text>
+</svg>

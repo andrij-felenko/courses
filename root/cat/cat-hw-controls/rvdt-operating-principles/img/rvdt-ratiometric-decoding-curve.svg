@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-black" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Характеристики вихідних напруг та ратіометричного декодування RVDT</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Формування відношення (V1 - V2) / (V1 + V2) компенсує дрейф збудження й температури та забезпечує лінійність</text>
+
+  <!-- Upper Panel: Raw Secondary Amplitudes & Sum/Diff -->
+  <rect x="80" y="72" width="800" height="215" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="95" y="92" font-size="13" font-weight="bold" fill="#1a1a1a">1. Амплітуди вторинних напруг V1, V2, їхня різниця (V1 - V2) та сума (V1 + V2)</text>
+
+  <!-- Linear Region Background Highlight in Upper Panel -->
+  <rect x="280" y="105" width="400" height="170" fill="#eaf0fd" opacity="0.4"/>
+  <line x1="280" y1="105" x2="280" y2="275" stroke="#2457d6" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="680" y1="105" x2="680" y2="275" stroke="#2457d6" stroke-dasharray="3,3" opacity="0.6"/>
+  <text x="580" y="116" font-size="12" fill="#2457d6" font-weight="bold" text-anchor="middle">Робоча лінійна зона (±40°)</text>
+
+  <!-- Y-Axis (Upper Panel) -->
+  <line x1="480" y1="255" x2="480" y2="122" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-black)"/>
+  <text x="470" y="116" font-size="12" fill="#1a1a1a" font-weight="bold" text-anchor="end">Амплітуда V</text>
+
+  <!-- Y-Axis Horizontal Grid / Level lines -->
+  <!-- V_sum level (y=132) -->
+  <line x1="120" y1="132" x2="775" y2="132" stroke="#27ae60" stroke-dasharray="4,4" stroke-width="1.2"/>
+  <text x="112" y="136" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="end">V_sum</text>
+
+  <!-- V0 null amplitude level (y=195) -->
+  <line x1="120" y1="195" x2="775" y2="195" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="1"/>
+  <text x="112" y="199" font-size="12" fill="#6b7280" text-anchor="end">V0 (нуль)</text>
+
+  <!-- X-Axis (Upper Panel) (y=255) -->
+  <line x1="120" y1="255" x2="845" y2="255" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="855" y="259" font-size="12" fill="#1a1a1a" font-weight="bold">θ (°)</text>
+
+  <!-- X-Axis Ticks & Labels (Upper) -->
+  <line x1="180" y1="252" x2="180" y2="258" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="180" y="273" font-size="12" fill="#6b7280" text-anchor="middle">-60°</text>
+
+  <line x1="330" y1="252" x2="330" y2="258" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="330" y="273" font-size="12" fill="#6b7280" text-anchor="middle">-30°</text>
+
+  <line x1="480" y1="252" x2="480" y2="258" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="480" y="273" font-size="12" fill="#1a1a1a" font-weight="bold" text-anchor="middle">0°</text>
+
+  <line x1="630" y1="252" x2="630" y2="258" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="630" y="273" font-size="12" fill="#6b7280" text-anchor="middle">+30°</text>
+
+  <line x1="780" y1="252" x2="780" y2="258" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="780" y="273" font-size="12" fill="#6b7280" text-anchor="middle">+60°</text>
+
+  <!-- Curve V1 - V2 (Difference) - Purple Dash -->
+  <path d="M 180 246 L 480 195 L 775 112" fill="none" stroke="#8e44ad" stroke-dasharray="6,4" stroke-width="2"/>
+  <text x="785" y="116" font-size="12" fill="#8e44ad" font-weight="bold">V1 - V2</text>
+
+  <!-- Curve V1 + V2 (Sum) - Green -->
+  <line x1="180" y1="132" x2="775" y2="132" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="785" y="136" font-size="12" fill="#27ae60" font-weight="bold">V1 + V2</text>
+
+  <!-- Curve V1(θ) - Blue -->
+  <path d="M 180 235 C 330 220, 630 170, 775 158" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="785" y="162" font-size="12" fill="#2457d6" font-weight="bold">V1(θ)</text>
+
+  <!-- Curve V2(θ) - Red -->
+  <path d="M 180 155 C 330 170, 630 220, 775 232" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="785" y="236" font-size="12" fill="#c0392b" font-weight="bold">V2(θ)</text>
+
+  <!-- Lower Panel: Ratiometric Output Curve -->
+  <rect x="80" y="300" width="800" height="177" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="95" y="318" font-size="13" font-weight="bold" fill="#1a1a1a">2. Підсумкова ратіометрична характеристика: f(θ) = (V1 - V2) / (V1 + V2)</text>
+
+  <!-- Linear Region Background Highlight in Lower Panel starting at y=335 -->
+  <rect x="280" y="335" width="400" height="135" fill="#eaf0fd" opacity="0.4"/>
+  <line x1="280" y1="335" x2="280" y2="470" stroke="#2457d6" stroke-dasharray="3,3" opacity="0.6"/>
+  <line x1="680" y1="335" x2="680" y2="470" stroke="#2457d6" stroke-dasharray="3,3" opacity="0.6"/>
+
+  <!-- Y-Axis (Lower Panel) (y=402 is 0.0) -->
+  <line x1="480" y1="458" x2="480" y2="336" stroke="#1a1a1a" stroke-width="1.2" marker-end="url(#arr-black)"/>
+  <text x="470" y="334" font-size="12" fill="#1a1a1a" font-weight="bold" text-anchor="end">Вихід f(θ)</text>
+
+  <!-- Y-Axis Levels (Lower Panel) -->
+  <line x1="120" y1="352" x2="775" y2="352" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="0.8"/>
+  <text x="112" y="356" font-size="12" fill="#6b7280" font-weight="bold" text-anchor="end">+1.0</text>
+
+  <line x1="120" y1="402" x2="775" y2="402" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="112" y="406" font-size="12" fill="#1a1a1a" font-weight="bold" text-anchor="end">0.0</text>
+
+  <line x1="120" y1="452" x2="775" y2="452" stroke="#6b7280" stroke-dasharray="3,3" stroke-width="0.8"/>
+  <text x="112" y="456" font-size="12" fill="#6b7280" font-weight="bold" text-anchor="end">-1.0</text>
+
+  <!-- X-Axis (Lower Panel) (y=402) -->
+  <line x1="120" y1="402" x2="845" y2="402" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-black)"/>
+  <text x="855" y="406" font-size="12" fill="#1a1a1a" font-weight="bold">θ (°)</text>
+
+  <!-- X-Axis Ticks & Labels (Lower) -->
+  <line x1="180" y1="399" x2="180" y2="405" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="180" y="420" font-size="12" fill="#6b7280" text-anchor="middle">-60°</text>
+
+  <line x1="330" y1="399" x2="330" y2="405" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="330" y="418" font-size="12" fill="#6b7280" text-anchor="middle">-30°</text>
+
+  <line x1="480" y1="399" x2="480" y2="405" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="495" y="418" font-size="12" fill="#1a1a1a" font-weight="bold">0°</text>
+
+  <line x1="630" y1="399" x2="630" y2="405" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="630" y="420" font-size="12" fill="#6b7280" text-anchor="middle">+30°</text>
+
+  <line x1="780" y1="399" x2="780" y2="405" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="780" y="420" font-size="12" fill="#6b7280" text-anchor="middle">+60°</text>
+
+  <!-- Ratiometric Linear Characteristic Line (Green solid) -->
+  <path d="M 180 450 C 230 448, 280 434, 280 432 L 680 372 C 680 370, 730 356, 780 354" fill="none" stroke="#27ae60" stroke-width="3"/>
+
+  <!-- Linear Ideal Reference Line (Dashed) -->
+  <line x1="180" y1="447" x2="780" y2="357" stroke="#6b7280" stroke-dasharray="4,4" stroke-width="1.2"/>
+
+  <!-- Point at Origin (0,0) -->
+  <circle cx="480" cy="402" r="4" fill="#27ae60" stroke="#ffffff" stroke-width="1.5"/>
+
+  <!-- Annotations in Lower Panel -->
+  <rect x="320" y="345" width="145" height="24" fill="#e9f7ef" stroke="#27ae60" rx="3"/>
+  <text x="392.5" y="361" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Ідеальна лінійність</text>
+
+  <text x="825" y="338" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Крайова нелінійність</text>
+  <line x1="825" y1="344" x2="780" y2="352" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Bottom Notes / Summary Box -->
+  <rect x="80" y="487" width="800" height="36" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="95" y="501" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#2457d6">Компенсація дрейфу:</tspan> ΔV_перв чи ΔR_темп однаково змінюють V1 та V2 ⇒ відношення (V1 - V2)/(V1 + V2) інваріантне до дрейфу.</text>
+  <text x="95" y="516" font-size="12" fill="#1a1a1a"><tspan font-weight="bold" fill="#27ae60">Лінеаризація:</tspan> Сума (V1 + V2) = const у робочому діапазоні (±40°), що забезпечує точне лінійне обчислення кута θ.</text>
+</svg>

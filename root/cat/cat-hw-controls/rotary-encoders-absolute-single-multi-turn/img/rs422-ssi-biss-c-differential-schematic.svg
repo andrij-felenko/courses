@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема диференційного підключення RS-422 (SSI / BiSS-C)</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Передача сигналів Такту (CLK) та Даних (DATA) через виті пари з термінуванням 120 Ом</text>
+
+  <!-- Left Block: Controller / Master -->
+  <rect x="40" y="80" width="280" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="180" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Контролер (Master)</text>
+  <text x="180" y="125" text-anchor="middle" font-size="12" fill="#6b7280">ПЛК / Мікроконтролер</text>
+
+  <!-- Master CLK Driver Sub-block -->
+  <rect x="60" y="145" width="240" height="100" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="167" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Передавач такту (CLK Driver)</text>
+  <rect x="80" y="180" width="75" height="48" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="117.5" y="209" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Tx RS-422</text>
+
+  <!-- Master DATA Receiver Sub-block -->
+  <rect x="60" y="265" width="240" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="287" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Приймач даних (DATA Receiver)</text>
+  <rect x="80" y="306" width="75" height="48" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="117.5" y="335" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Rx RS-422</text>
+
+  <!-- Master DATA Resistor 120 Ohm -->
+  <rect x="195" y="318" width="55" height="24" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="222.5" y="334" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">120 Ом</text>
+  <line x1="155" y1="318" x2="222.5" y2="318" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="222.5" y1="318" x2="222.5" y2="318" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="155" y1="342" x2="222.5" y2="342" stroke="#27ae60" stroke-width="1.5"/>
+  <line x1="222.5" y1="318" x2="222.5" y2="318" stroke="#27ae60" stroke-width="1.5"/>
+
+  <!-- Master Grounding Terminal -->
+  <rect x="60" y="400" width="240" height="45" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="180" y="427" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Заземлення екрану (PE / GND)</text>
+
+  <!-- Cable Shield Area -->
+  <rect x="340" y="130" width="280" height="270" rx="10" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="480" y="118" text-anchor="middle" font-size="12" font-weight="bold" fill="#6b7280">Екранована вита пара (Twisted Pair Cable)</text>
+
+  <!-- CLK Lines (Master -> Encoder) -->
+  <!-- CLK+ -->
+  <line x1="155" y1="192" x2="660" y2="192" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="184" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">CLK+ (Тактування +)</text>
+
+  <!-- CLK- -->
+  <line x1="155" y1="216" x2="660" y2="216" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arr-blue)"/>
+  <text x="480" y="232" text-anchor="middle" font-size="11" fill="#2457d6">CLK- (Тактування -)</text>
+
+  <!-- DATA Lines (Encoder -> Master) -->
+  <!-- DATA+ -->
+  <line x1="660" y1="318" x2="155" y2="318" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="480" y="310" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">DATA+ (Дані +)</text>
+
+  <!-- DATA- -->
+  <line x1="660" y1="342" x2="155" y2="342" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,2" marker-end="url(#arr-green)"/>
+  <text x="480" y="358" text-anchor="middle" font-size="11" fill="#27ae60">DATA- (Дані -)</text>
+
+  <!-- Shield Connection Line -->
+  <line x1="340" y1="422" x2="300" y2="422" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="480" y="427" text-anchor="middle" font-size="11" fill="#6b7280">Одноточкове заземлення екрану кабелю</text>
+
+  <!-- Right Block: Slave / Absolute Encoder -->
+  <rect x="640" y="80" width="280" height="380" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="780" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Енкодер (Slave)</text>
+  <text x="780" y="125" text-anchor="middle" font-size="12" fill="#6b7280">SSI / BiSS-C Інтерфейс</text>
+
+  <!-- Encoder CLK Receiver Sub-block -->
+  <rect x="660" y="145" width="240" height="120" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="780" y="167" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Приймач такту (CLK Receiver)</text>
+  <rect x="805" y="180" width="75" height="48" rx="4" fill="white" stroke="#2457d6"/>
+  <text x="842.5" y="209" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Rx RS-422</text>
+
+  <!-- Encoder CLK Resistor 120 Ohm -->
+  <rect x="710" y="192" width="55" height="24" rx="4" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="737.5" y="208" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">120 Ом</text>
+
+  <!-- Encoder DATA Driver Sub-block -->
+  <rect x="660" y="280" width="240" height="105" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="780" y="302" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Передавач даних (DATA Driver)</text>
+  <rect x="805" y="318" width="75" height="48" rx="4" fill="white" stroke="#27ae60"/>
+  <text x="842.5" y="347" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Tx RS-422</text>
+
+  <!-- Encoder Power Supply Terminal -->
+  <rect x="660" y="400" width="240" height="45" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="780" y="427" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Живлення: +5V / +10..30V DC</text>
+</svg>

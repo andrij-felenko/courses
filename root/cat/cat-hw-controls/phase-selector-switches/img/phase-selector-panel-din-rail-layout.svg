@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="560" viewBox="0 0 960 560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Компонування та монтажна схема щита вибору пріоритетної фази (АВФ)</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Розміщення обладнання на DIN-рейці з електричним і механічним блокуванням контакторів</text>
+
+  <!-- Зовнішній корпус електричного щита -->
+  <rect x="40" y="68" width="880" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+
+  <!-- Верхня DIN-рейка 1 (лінія металевого профілю) -->
+  <line x1="60" y1="150" x2="900" y2="150" stroke="#6b7280" stroke-width="6"/>
+  <text x="60" y="80" font-size="11" fill="#6b7280">DIN-рейка 1</text>
+
+  <!-- Автомат ввідний 3-полюсний (QF1) -->
+  <rect x="70" y="85" width="65" height="130" rx="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="102" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">QF1</text>
+  <text x="102" y="122" text-anchor="middle" font-size="11" fill="#6b7280">3-Полюсн.</text>
+  <rect x="78" y="136" width="49" height="30" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="102" y="155" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">3Ф Ввід</text>
+  <text x="102" y="195" text-anchor="middle" font-size="12" fill="#1a1a1a">63A</text>
+
+  <!-- Автомат захисту реле (QF2) -->
+  <rect x="147" y="85" width="38" height="130" rx="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="166" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">QF2</text>
+  <text x="166" y="122" text-anchor="middle" font-size="11" fill="#6b7280">1P</text>
+  <rect x="154" y="136" width="24" height="30" rx="2" fill="#f4f6f8" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="166" y="195" text-anchor="middle" font-size="12" fill="#1a1a1a">6A</text>
+
+  <!-- Модульне реле вибору фази (KV1) -->
+  <rect x="197" y="85" width="105" height="130" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="249" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">KV1</text>
+  <text x="249" y="122" text-anchor="middle" font-size="11" fill="#2457d6">Реле вибору фаз</text>
+  
+  <circle cx="212" cy="151" r="4" fill="#27ae60"/>
+  <text x="218" y="155" font-size="11" fill="#1a1a1a">L1</text>
+
+  <circle cx="240" cy="151" r="4" fill="#27ae60"/>
+  <text x="246" y="155" font-size="11" fill="#1a1a1a">L2</text>
+
+  <circle cx="268" cy="151" r="4" fill="#27ae60"/>
+  <text x="274" y="155" font-size="11" fill="#1a1a1a">L3</text>
+
+  <text x="249" y="195" text-anchor="middle" font-size="11" fill="#6b7280">Уставки U / t</text>
+
+  <!-- Силові контактори KM1, KM2, KM3 -->
+  <!-- KM1 -->
+  <rect x="314" y="85" width="85" height="130" rx="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="356" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">KM1</text>
+  <text x="356" y="122" text-anchor="middle" font-size="11" fill="#2457d6">Фаза L1</text>
+  <text x="356" y="195" text-anchor="middle" font-size="11" fill="#6b7280">AC-31 / 40A</text>
+
+  <!-- KM2 -->
+  <rect x="411" y="85" width="85" height="130" rx="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="453" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">KM2</text>
+  <text x="453" y="122" text-anchor="middle" font-size="11" fill="#2457d6">Фаза L2</text>
+  <text x="453" y="195" text-anchor="middle" font-size="11" fill="#6b7280">AC-31 / 40A</text>
+
+  <!-- KM3 -->
+  <rect x="508" y="85" width="85" height="130" rx="4" fill="white" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="550" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">KM3</text>
+  <text x="550" y="122" text-anchor="middle" font-size="11" fill="#2457d6">Фаза L3</text>
+  <text x="550" y="195" text-anchor="middle" font-size="11" fill="#6b7280">AC-31 / 40A</text>
+
+  <!-- Механічне блокування (розміщено строго ПІД контакторами без накладання) -->
+  <rect x="320" y="218" width="268" height="20" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="454" y="232" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Механічна куліса блокування KM1 - KM2 - KM3</text>
+
+  <!-- Вхідний клемник XT1 -->
+  <rect x="605" y="85" width="140" height="130" rx="4" fill="white" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="675" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">XT1 (Вхід 3Ф)</text>
+  <rect x="615" y="125" width="120" height="45" rx="2" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="630" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">L1</text>
+  <text x="658" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#d97706">L2</text>
+  <text x="686" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#2563eb">L3</text>
+  <text x="714" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#4b5563">N</text>
+
+  <!-- Вихідний клемник XT2 -->
+  <rect x="757" y="85" width="143" height="130" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="828" y="105" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">XT2 (Вихід 1Ф)</text>
+  <rect x="767" y="125" width="123" height="45" rx="2" fill="white" stroke="#27ae60" stroke-width="1"/>
+  <text x="787" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">L_out</text>
+  <text x="825" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#4b5563">N_out</text>
+  <text x="865" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#16a34a">PE</text>
+
+  <!-- Перфорований кабельний канал / Траса монтажу -->
+  <rect x="60" y="248" width="840" height="34" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <text x="480" y="270" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Перфорований кабельний канал (траса сигнального й силового монтажу)</text>
+
+  <!-- Нижня DIN-рейка 2 -->
+  <line x1="60" y1="300" x2="900" y2="300" stroke="#6b7280" stroke-width="6"/>
+  <text x="60" y="294" font-size="11" fill="#6b7280">DIN-рейка 2 (резервна / шина заземлення PE)</text>
+
+  <!-- Інформаційно-пояснювальні картки монтажних кіл -->
+  <!-- Картка 1: Вхідне живлення -->
+  <rect x="60" y="320" width="265" height="190" rx="6" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="60" y="320" width="265" height="32" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="192" y="341" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">1. Вхід та комутація живлення</text>
+  <text x="75" y="368" font-size="11" fill="#1a1a1a">• Трифазне вхідне коло L1, L2, L3</text>
+  <text x="75" y="390" font-size="11" fill="#1a1a1a">• Ввідний автомат QF1 (63A) захищає</text>
+  <text x="87" y="408" font-size="11" fill="#1a1a1a">силові лінії від КЗ та перевантаження</text>
+  <text x="75" y="430" font-size="11" fill="#1a1a1a">• Автомат QF2 (6A) забезпечує захист</text>
+  <text x="87" y="448" font-size="11" fill="#1a1a1a">сигнальних кіл реле KV1</text>
+  <text x="75" y="475" font-size="11" font-weight="bold" fill="#2457d6">• Гістерезисний контроль U_min/U_max</text>
+
+  <!-- Картка 2: Подвійне блокування -->
+  <rect x="347" y="320" width="265" height="190" rx="6" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <rect x="347" y="320" width="265" height="32" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="479" y="341" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">2. Подвійний перехресний захист</text>
+  <text x="362" y="368" font-size="11" fill="#1a1a1a">• Механічне блокування заклинює</text>
+  <text x="374" y="386" font-size="11" fill="#1a1a1a">важелі сусідніх контакторів KM</text>
+  <text x="362" y="408" font-size="11" fill="#1a1a1a">• Електричне блокування через NC-</text>
+  <text x="374" y="426" font-size="11" fill="#1a1a1a">контакти розмикає кола котушок</text>
+  <text x="362" y="455" font-size="11" font-weight="bold" fill="#c0392b">• Повністю унеможливлює міжфазне КЗ</text>
+  <text x="374" y="475" font-size="11" fill="#6b7280">при зварюванні силових контактів</text>
+
+  <!-- Картка 3: Однофазний вихід -->
+  <rect x="635" y="320" width="265" height="190" rx="6" fill="white" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="635" y="320" width="265" height="32" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="767" y="341" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">3. Однофазний вихід АВФ</text>
+  <text x="650" y="368" font-size="11" fill="#1a1a1a">• Об'єднана вихідна фазна шина</text>
+  <text x="662" y="386" font-size="11" fill="#1a1a1a">L_out підключається до XT2</text>
+  <text x="650" y="408" font-size="11" fill="#1a1a1a">• Автоматичний перехід на L2/L3</text>
+  <text x="662" y="426" font-size="11" fill="#1a1a1a">при просіданні пріоритетної L1</text>
+  <text x="650" y="455" font-size="11" font-weight="bold" fill="#27ae60">• Пауза T_transfer (50-100 мс)</text>
+  <text x="662" y="475" font-size="11" fill="#1a1a1a">гасить електричну дугу при зсуві</text>
+</svg>

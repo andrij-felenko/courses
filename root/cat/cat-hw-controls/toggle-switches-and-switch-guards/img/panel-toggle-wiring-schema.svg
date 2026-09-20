@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Принципова схема підключення тумблерного пульта керування</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Захищені тумблери Mollie та апаратні RC-фільтри з тригерами Шмітта формують чистий фронт</text>
+
+  <!-- Left Panel: Toggle Switch Panel -->
+  <rect x="30" y="90" width="220" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="140" y="118" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Панель тумблерів</text>
+  <text x="140" y="136" text-anchor="middle" font-size="12" fill="#6b7280">(Ковпачки Mollie)</text>
+
+  <!-- SW1 Box (Mollie Guarded E-Stop/Arm Switch) -->
+  <rect x="50" y="155" width="160" height="50" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="130" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">SW1 (ARM / Mollie)</text>
+  <text x="130" y="193" text-anchor="middle" font-size="11" fill="#6b7280">(Тумблер "АВАРІЯ")</text>
+
+  <!-- SW1 Terminal Label (positioned clear of box border above wire line) -->
+  <text x="240" y="176" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">SW1</text>
+  <circle cx="230" cy="190" r="4" fill="#2457d6"/>
+
+  <!-- SW2 Box (SPDT Mode Switch) -->
+  <rect x="50" y="275" width="160" height="110" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="298" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">SW2 (MODE / SPDT)</text>
+  <text x="130" y="316" text-anchor="middle" font-size="11" fill="#6b7280">(Перемикач режимів)</text>
+
+  <!-- SW2 Terminal A Label (positioned clear of box border) -->
+  <text x="240" y="266" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">A</text>
+  <circle cx="230" cy="280" r="4" fill="#27ae60"/>
+
+  <!-- SW2 Terminal B Label (positioned clear of box border) -->
+  <text x="240" y="356" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">B</text>
+  <circle cx="230" cy="370" r="4" fill="#2457d6"/>
+
+  <!-- Middle Panel: Hardware Debounce & Schmitt Triggers -->
+  <rect x="280" y="90" width="390" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="475" y="118" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Апаратні RC-фільтри та тригери Шмітта</text>
+  <text x="475" y="136" text-anchor="middle" font-size="12" fill="#6b7280">(Придушення брязкоту контактів і формування фронту)</text>
+
+  <!-- Channel 1 (SW1 Line at y=190) -->
+  <line x1="230" y1="190" x2="690" y2="190" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Pull-up Rp1 -->
+  <line x1="330" y1="160" x2="330" y2="190" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="330" cy="160" r="3" fill="#c0392b"/>
+  <text x="330" y="152" text-anchor="middle" font-size="11" fill="#c0392b">Rp1 = 10k (+3.3V)</text>
+  <circle cx="330" cy="190" r="3" fill="#2457d6"/>
+
+  <!-- Series Resistor R1 (drawn using path) -->
+  <path d="M 400,184 h 20 v 12 h -20 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="410" y="175" text-anchor="middle" font-size="11" fill="#1a1a1a">R1 = 1k</text>
+
+  <!-- Filter Capacitor C1 -->
+  <line x1="480" y1="190" x2="480" y2="202" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="470" y1="202" x2="490" y2="202" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="470" y1="208" x2="490" y2="208" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="480" y1="208" x2="480" y2="225" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="465" y1="225" x2="495" y2="225" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="480" cy="190" r="3" fill="#2457d6"/>
+  <text x="498" y="210" text-anchor="start" font-size="11" fill="#6b7280">C1 = 100nF</text>
+
+  <!-- Schmitt Trigger 1 (74HC14) -->
+  <path d="M 570,175 L 600,190 L 570,205 Z" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="603" cy="190" r="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="585" y="168" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">74HC14</text>
+
+  <!-- Channel 2 (SW2_A Line at y=280) -->
+  <line x1="230" y1="280" x2="690" y2="280" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Pull-up Rp2 -->
+  <line x1="330" y1="250" x2="330" y2="280" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="330" cy="250" r="3" fill="#c0392b"/>
+  <text x="330" y="242" text-anchor="middle" font-size="11" fill="#c0392b">Rp2 = 10k</text>
+  <circle cx="330" cy="280" r="3" fill="#27ae60"/>
+
+  <!-- Series Resistor R2 (drawn using path) -->
+  <path d="M 400,274 h 20 v 12 h -20 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="410" y="265" text-anchor="middle" font-size="11" fill="#1a1a1a">R2 = 1k</text>
+
+  <!-- Filter Capacitor C2 -->
+  <line x1="480" y1="280" x2="480" y2="292" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="470" y1="292" x2="490" y2="292" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="470" y1="298" x2="490" y2="298" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="480" y1="298" x2="480" y2="315" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="465" y1="315" x2="495" y2="315" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="480" cy="280" r="3" fill="#27ae60"/>
+  <text x="498" y="300" text-anchor="start" font-size="11" fill="#6b7280">C2 = 100nF</text>
+
+  <!-- Schmitt Trigger 2 (74HC14) -->
+  <path d="M 570,265 L 600,280 L 570,295 Z" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <circle cx="603" cy="280" r="3" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="585" y="258" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">74HC14</text>
+
+  <!-- Channel 3 (SW2_B Line at y=370) -->
+  <line x1="230" y1="370" x2="690" y2="370" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Pull-up Rp3 -->
+  <line x1="330" y1="340" x2="330" y2="370" stroke="#c0392b" stroke-width="1.5"/>
+  <circle cx="330" cy="340" r="3" fill="#c0392b"/>
+  <text x="330" y="332" text-anchor="middle" font-size="11" fill="#c0392b">Rp3 = 10k</text>
+  <circle cx="330" cy="370" r="3" fill="#2457d6"/>
+
+  <!-- Series Resistor R3 (drawn using path) -->
+  <path d="M 400,364 h 20 v 12 h -20 Z" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="410" y="355" text-anchor="middle" font-size="11" fill="#1a1a1a">R3 = 1k</text>
+
+  <!-- Filter Capacitor C3 -->
+  <line x1="480" y1="370" x2="480" y2="382" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="470" y1="382" x2="490" y2="382" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="470" y1="388" x2="490" y2="388" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="480" y1="388" x2="480" y2="405" stroke="#6b7280" stroke-width="1.5"/>
+  <line x1="465" y1="405" x2="495" y2="405" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="480" cy="370" r="3" fill="#2457d6"/>
+  <text x="498" y="390" text-anchor="start" font-size="11" fill="#6b7280">C3 = 100nF</text>
+
+  <!-- Schmitt Trigger 3 (74HC14) -->
+  <path d="M 570,355 L 600,370 L 570,385 Z" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <circle cx="603" cy="370" r="3" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="585" y="348" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">74HC14</text>
+
+  <!-- Right Panel: Microcontroller MCU -->
+  <rect x="690" y="90" width="240" height="350" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="810" y="118" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Мікроконтролер</text>
+  <text x="810" y="136" text-anchor="middle" font-size="12" fill="#6b7280">(Входи GPIO / C++)</text>
+
+  <circle cx="690" cy="190" r="4" fill="#2457d6"/>
+  <text x="710" y="195" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">GPIO 4 (ARM_SW)</text>
+
+  <circle cx="690" cy="280" r="4" fill="#27ae60"/>
+  <text x="710" y="285" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">GPIO 5 (MODE_A)</text>
+
+  <circle cx="690" cy="370" r="4" fill="#2457d6"/>
+  <text x="710" y="375" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">GPIO 6 (MODE_B)</text>
+
+  <text x="810" y="420" text-anchor="middle" font-size="11" fill="#27ae60">Чистий цифровий фронт без брязкоту</text>
+</svg>

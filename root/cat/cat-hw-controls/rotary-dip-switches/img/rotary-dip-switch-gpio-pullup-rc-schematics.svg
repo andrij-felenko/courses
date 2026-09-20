@@ -1,0 +1,227 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема підключення ротаційного DIP-перемикача до GPIO мікроконтролера</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Зовнішній Pull-Up (10 kΩ), ФНЧ RC-фільтр (τ = 1 ms) та входи з тригером Шмітта</text>
+
+  <!-- БЛОК 1: РОТАЦІЙНИЙ DIP-ПЕРЕМИКАЧ (Ліворуч x=40..210) -->
+  <g id="dip-switch">
+    <rect x="40" y="95" width="170" height="340" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+    <path d="M 40,127 L 40,103 Q 40,95 48,95 L 202,95 Q 210,95 210,103 L 210,127 Z" fill="#eaf0fd"/>
+    <line x1="40" y1="127" x2="210" y2="127" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="125" y="116" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Ротаційний DIP</text>
+
+    <!-- Спільний шина GND (Pin C) -->
+    <line x1="75" y1="165" x2="75" y2="385" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="75" y1="385" x2="75" y2="415" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="75" y="427" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Pin C (GND)</text>
+
+    <!-- Канал 0 (Bit 0 / 1) -->
+    <line x1="75" y1="170" x2="100" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="100" y1="170" x2="125" y2="162" stroke="#2457d6" stroke-width="2"/>
+    <circle cx="100" cy="170" r="2.5" fill="#1a1a1a"/>
+    <circle cx="130" cy="170" r="2.5" fill="#1a1a1a"/>
+    <line x1="130" y1="170" x2="210" y2="170" stroke="#2457d6" stroke-width="2"/>
+    <text x="175" y="162" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">1 (Bit 0)</text>
+
+    <!-- Канал 1 (Bit 1 / 2) -->
+    <line x1="75" y1="240" x2="100" y2="240" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="100" y1="240" x2="125" y2="232" stroke="#2457d6" stroke-width="2"/>
+    <circle cx="100" cy="240" r="2.5" fill="#1a1a1a"/>
+    <circle cx="130" cy="240" r="2.5" fill="#1a1a1a"/>
+    <line x1="130" y1="240" x2="210" y2="240" stroke="#2457d6" stroke-width="2"/>
+    <text x="175" y="232" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">2 (Bit 1)</text>
+
+    <!-- Канал 2 (Bit 2 / 4) -->
+    <line x1="75" y1="310" x2="100" y2="310" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="100" y1="310" x2="125" y2="302" stroke="#2457d6" stroke-width="2"/>
+    <circle cx="100" cy="310" r="2.5" fill="#1a1a1a"/>
+    <circle cx="130" cy="310" r="2.5" fill="#1a1a1a"/>
+    <line x1="130" y1="310" x2="210" y2="310" stroke="#2457d6" stroke-width="2"/>
+    <text x="175" y="302" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">4 (Bit 2)</text>
+
+    <!-- Канал 3 (Bit 3 / 8) -->
+    <line x1="75" y1="380" x2="100" y2="380" stroke="#1a1a1a" stroke-width="1.5"/>
+    <line x1="100" y1="380" x2="125" y2="372" stroke="#2457d6" stroke-width="2"/>
+    <circle cx="100" cy="380" r="2.5" fill="#1a1a1a"/>
+    <circle cx="130" cy="380" r="2.5" fill="#1a1a1a"/>
+    <line x1="130" y1="380" x2="210" y2="380" stroke="#2457d6" stroke-width="2"/>
+    <text x="175" y="372" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">8 (Bit 3)</text>
+  </g>
+
+  <!-- БЛОК 2: СХЕМА ПІДТЯЖКИ ТА RC-ФІЛЬТРАЦІЇ (Центр x=240..610) -->
+  <g id="rc-filter-stage">
+    <!-- Шина живлення +3.3V (VCC) -->
+    <line x1="250" y1="115" x2="470" y2="115" stroke="#c0392b" stroke-width="2"/>
+    <text x="250" y="107" font-size="12" font-weight="bold" fill="#c0392b">+3.3V (VCC)</text>
+
+    <!-- Вертикальна шина Pull-Up -->
+    <line x1="310" y1="115" x2="310" y2="380" stroke="#c0392b" stroke-width="1.5"/>
+
+    <!-- Шина Землі (GND) -->
+    <line x1="250" y1="430" x2="570" y2="430" stroke="#1a1a1a" stroke-width="2"/>
+    <text x="250" y="446" font-size="12" font-weight="bold" fill="#1a1a1a">GND (0V)</text>
+
+    <!-- Постійна часу RC бейдж -->
+    <rect x="490" y="100" width="135" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="557" y="117" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">τ = Rf × Cf</text>
+    <text x="557" y="133" text-anchor="middle" font-size="11" fill="#1a1a1a">= 10k × 100n = 1 ms</text>
+
+    <!-- КАНАЛ 0 (cy = 170) -->
+    <!-- Вхід від перемикача -->
+    <line x1="210" y1="170" x2="310" y2="170" stroke="#2457d6" stroke-width="2"/>
+    <!-- Pull-Up резистор Rpu0 -->
+    <rect x="304" y="132" width="12" height="22" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="295" y="147" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">Rpu 10k</text>
+    <circle cx="310" cy="170" r="3" fill="#1a1a1a"/>
+
+    <!-- Серійний резистор Rf0 -->
+    <line x1="310" y1="170" x2="345" y2="170" stroke="#2457d6" stroke-width="2"/>
+    <rect x="345" y="164" width="26" height="12" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="358" y="158" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Rf 10k</text>
+    <line x1="371" y1="170" x2="430" y2="170" stroke="#27ae60" stroke-width="2"/>
+    <circle cx="430" cy="170" r="3" fill="#1a1a1a"/>
+
+    <!-- Конденсатор Cf0 -->
+    <line x1="430" y1="170" x2="430" y2="186" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="420" y1="186" x2="440" y2="186" stroke="#2457d6" stroke-width="2"/>
+    <line x1="420" y1="192" x2="440" y2="192" stroke="#2457d6" stroke-width="2"/>
+    <line x1="430" y1="192" x2="430" y2="430" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="448" y="192" font-size="11" font-weight="bold" fill="#2457d6">Cf 100nF</text>
+
+    <!-- Вихід до MCU -->
+    <line x1="430" y1="170" x2="640" y2="170" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+
+    <!-- КАНАЛ 1 (cy = 240) -->
+    <!-- Вхід від перемикача -->
+    <line x1="210" y1="240" x2="310" y2="240" stroke="#2457d6" stroke-width="2"/>
+    <!-- Pull-Up резистор Rpu1 -->
+    <rect x="304" y="202" width="12" height="22" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="295" y="217" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">Rpu 10k</text>
+    <circle cx="310" cy="240" r="3" fill="#1a1a1a"/>
+
+    <!-- Серійний резистор Rf1 -->
+    <line x1="310" y1="240" x2="345" y2="240" stroke="#2457d6" stroke-width="2"/>
+    <rect x="345" y="234" width="26" height="12" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="358" y="228" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Rf 10k</text>
+    <line x1="371" y1="240" x2="430" y2="240" stroke="#27ae60" stroke-width="2"/>
+    <circle cx="430" cy="240" r="3" fill="#1a1a1a"/>
+
+    <!-- Конденсатор Cf1 -->
+    <line x1="430" y1="240" x2="430" y2="256" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="420" y1="256" x2="440" y2="256" stroke="#2457d6" stroke-width="2"/>
+    <line x1="420" y1="262" x2="440" y2="262" stroke="#2457d6" stroke-width="2"/>
+    <line x1="430" y1="262" x2="430" y2="430" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="448" y="262" font-size="11" font-weight="bold" fill="#2457d6">Cf 100nF</text>
+
+    <!-- Вихід до MCU -->
+    <line x1="430" y1="240" x2="640" y2="240" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+
+    <!-- КАНАЛ 2 (cy = 310) -->
+    <!-- Вхід від перемикача -->
+    <line x1="210" y1="310" x2="310" y2="310" stroke="#2457d6" stroke-width="2"/>
+    <!-- Pull-Up резистор Rpu2 -->
+    <rect x="304" y="272" width="12" height="22" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="295" y="287" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">Rpu 10k</text>
+    <circle cx="310" cy="310" r="3" fill="#1a1a1a"/>
+
+    <!-- Серійний резистор Rf2 -->
+    <line x1="310" y1="310" x2="345" y2="310" stroke="#2457d6" stroke-width="2"/>
+    <rect x="345" y="304" width="26" height="12" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="358" y="298" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Rf 10k</text>
+    <line x1="371" y1="310" x2="430" y2="310" stroke="#27ae60" stroke-width="2"/>
+    <circle cx="430" cy="310" r="3" fill="#1a1a1a"/>
+
+    <!-- Конденсатор Cf2 -->
+    <line x1="430" y1="310" x2="430" y2="326" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="420" y1="326" x2="440" y2="326" stroke="#2457d6" stroke-width="2"/>
+    <line x1="420" y1="332" x2="440" y2="332" stroke="#2457d6" stroke-width="2"/>
+    <line x1="430" y1="332" x2="430" y2="430" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="448" y="332" font-size="11" font-weight="bold" fill="#2457d6">Cf 100nF</text>
+
+    <!-- Вихід до MCU -->
+    <line x1="430" y1="310" x2="640" y2="310" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+
+    <!-- КАНАЛ 3 (cy = 380) -->
+    <!-- Вхід від перемикача -->
+    <line x1="210" y1="380" x2="310" y2="380" stroke="#2457d6" stroke-width="2"/>
+    <!-- Pull-Up резистор Rpu3 -->
+    <rect x="304" y="342" width="12" height="22" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="295" y="357" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">Rpu 10k</text>
+    <circle cx="310" cy="380" r="3" fill="#1a1a1a"/>
+
+    <!-- Серійний резистор Rf3 -->
+    <line x1="310" y1="380" x2="345" y2="380" stroke="#2457d6" stroke-width="2"/>
+    <rect x="345" y="374" width="26" height="12" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="358" y="368" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Rf 10k</text>
+    <line x1="371" y1="380" x2="430" y2="380" stroke="#27ae60" stroke-width="2"/>
+    <circle cx="430" cy="380" r="3" fill="#1a1a1a"/>
+
+    <!-- Конденсатор Cf3 -->
+    <line x1="430" y1="380" x2="430" y2="396" stroke="#2457d6" stroke-width="1.5"/>
+    <line x1="420" y1="396" x2="440" y2="396" stroke="#2457d6" stroke-width="2"/>
+    <line x1="420" y1="402" x2="440" y2="402" stroke="#2457d6" stroke-width="2"/>
+    <line x1="430" y1="402" x2="430" y2="430" stroke="#1a1a1a" stroke-width="1.5"/>
+    <text x="448" y="402" font-size="11" font-weight="bold" fill="#2457d6">Cf 100nF</text>
+
+    <!-- Вихід до MCU -->
+    <line x1="430" y1="380" x2="640" y2="380" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  </g>
+
+  <!-- БЛОК 3: МІКРОКОНТРОЛЕР (Праворуч x=640..920) -->
+  <g id="mcu">
+    <rect x="640" y="95" width="280" height="340" rx="8" fill="#f4f6f8" stroke="#2457d6" stroke-width="1.5"/>
+    <path d="M 640,127 L 640,103 Q 640,95 648,95 L 912,95 Q 920,95 920,103 L 920,127 Z" fill="#eaf0fd"/>
+    <line x1="640" y1="127" x2="920" y2="127" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="780" y="116" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Мікроконтролер (MCU)</text>
+
+    <!-- Канал 0 Input Pin -->
+    <polygon points="660,156 660,184 695,170" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <path d="M 668,166 L 676,166 L 676,174 M 670,166 L 670,174 L 678,174" fill="none" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="705" y="164" font-size="11" font-weight="bold" fill="#1a1a1a">GPIO0 (Bit 1)</text>
+    <text x="705" y="181" font-size="10" fill="#6b7280">Вхід із тригером Шмітта</text>
+
+    <!-- Канал 1 Input Pin -->
+    <polygon points="660,226 660,254 695,240" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <path d="M 668,236 L 676,236 L 676,244 M 670,236 L 670,244 L 678,244" fill="none" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="705" y="234" font-size="11" font-weight="bold" fill="#1a1a1a">GPIO1 (Bit 2)</text>
+    <text x="705" y="251" font-size="10" fill="#6b7280">Вхід із тригером Шмітта</text>
+
+    <!-- Канал 2 Input Pin -->
+    <polygon points="660,296 660,324 695,310" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <path d="M 668,306 L 676,306 L 676,314 M 670,306 L 670,314 L 678,314" fill="none" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="705" y="304" font-size="11" font-weight="bold" fill="#1a1a1a">GPIO2 (Bit 4)</text>
+    <text x="705" y="321" font-size="10" fill="#6b7280">Вхід із тригером Шмітта</text>
+
+    <!-- Канал 3 Input Pin -->
+    <polygon points="660,366 660,394 695,380" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <path d="M 668,376 L 676,376 L 676,384 M 670,376 L 670,384 L 678,384" fill="none" stroke="#2457d6" stroke-width="1.2"/>
+    <text x="705" y="374" font-size="11" font-weight="bold" fill="#1a1a1a">GPIO3 (Bit 8)</text>
+    <text x="705" y="391" font-size="10" fill="#6b7280">Вхід із тригером Шмітта</text>
+
+    <!-- Внутрішній блок декодера MCU -->
+    <rect x="830" y="150" width="75" height="250" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+    <text x="867" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">BCD / HEX</text>
+    <text x="867" y="286" text-anchor="middle" font-size="10" fill="#6b7280">Декодер</text>
+  </g>
+
+  <!-- НИЖНІЙ ПІДСУМКОВИЙ БАНЕР -->
+  <rect x="40" y="465" width="880" height="55" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="487" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">✓ ПРИНЦИП ФІЛЬТРАЦІЇ: Pull-Up задає вихідний рівень HIGH (3.3V). При замиканні контакту конденсатор Cf розряджається через Rf</text>
+  <text x="480" y="506" text-anchor="middle" font-size="12" fill="#1a1a1a">Постійна часу τ = 1 ms повністю поглинає апаратний брязкіт (2..5 ms), а гістерезис тригера Шмітта формує крутий цифровий фронт</text>
+</svg>

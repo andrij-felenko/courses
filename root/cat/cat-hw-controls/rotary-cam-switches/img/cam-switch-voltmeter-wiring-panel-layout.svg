@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-amber" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#d97706"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-grey" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#4b5563"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-darkgreen" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#166534"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Монтажна схема вольтметрового селектора та міжпакетних перемичок</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Топологія розводки фаз L1, L2, L3, N у силовій шафі для вимірювання лінійних та фазних напруг</text>
+
+  <!-- ЛІВА СЕКЦІЯ: Силові шини -->
+  <rect x="40" y="75" width="170" height="380" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="125" y="98" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Силові шини</text>
+
+  <!-- Шина L1 -->
+  <rect x="55" y="120" width="140" height="50" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="65" y="140" font-size="12" font-weight="bold" fill="#c0392b">L1</text>
+  <text x="65" y="156" font-size="11" fill="#1a1a1a">Фаза A (400 B)</text>
+
+  <!-- Шина L2 -->
+  <rect x="55" y="185" width="140" height="50" rx="4" fill="#fffbe6" stroke="#d97706" stroke-width="1.5"/>
+  <text x="65" y="205" font-size="12" font-weight="bold" fill="#d97706">L2</text>
+  <text x="65" y="221" font-size="11" fill="#1a1a1a">Фаза B (400 B)</text>
+
+  <!-- Шина L3 -->
+  <rect x="55" y="250" width="140" height="50" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="65" y="270" font-size="12" font-weight="bold" fill="#2457d6">L3</text>
+  <text x="65" y="286" font-size="11" fill="#1a1a1a">Фаза C (400 B)</text>
+
+  <!-- Шина N -->
+  <rect x="55" y="315" width="140" height="50" rx="4" fill="#f3f4f6" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="65" y="335" font-size="12" font-weight="bold" fill="#4b5563">N</text>
+  <text x="65" y="351" font-size="11" fill="#1a1a1a">Нейтраль (0 B)</text>
+
+  <text x="125" y="405" text-anchor="middle" font-size="11" fill="#6b7280">Захисні запобіжники FU</text>
+  <text x="125" y="423" text-anchor="middle" font-size="11" fill="#6b7280">(введення живлення)</text>
+
+
+  <!-- ЦЕНТРАЛЬНА СЕКЦІЯ: 4-пакетний кулачковий перемикач -->
+  <rect x="230" y="75" width="450" height="380" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5" rx="8"/>
+  <text x="455" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Кулачковий селектор вольтметра (4 пакети)</text>
+
+  <!-- Пакет 1 -->
+  <rect x="250" y="115" width="410" height="65" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="280" cy="147" r="11" fill="#c0392b"/>
+  <text x="280" y="151" text-anchor="middle" font-size="11" font-weight="bold" fill="white">1</text>
+  <rect x="365" y="132" width="180" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="455" y="151" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Пакет 1: Лінія L1-L2</text>
+  <circle cx="630" cy="147" r="11" fill="#27ae60"/>
+  <text x="630" y="151" text-anchor="middle" font-size="11" font-weight="bold" fill="white">2</text>
+
+  <!-- Пакет 2 -->
+  <rect x="250" y="190" width="410" height="65" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="280" cy="222" r="11" fill="#d97706"/>
+  <text x="280" y="226" text-anchor="middle" font-size="11" font-weight="bold" fill="white">3</text>
+  <rect x="365" y="207" width="180" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="455" y="226" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Пакет 2: Лінія L2-L3</text>
+  <circle cx="630" cy="222" r="11" fill="#27ae60"/>
+  <text x="630" y="226" text-anchor="middle" font-size="11" font-weight="bold" fill="white">4</text>
+
+  <!-- Пакет 3 -->
+  <rect x="250" y="265" width="410" height="65" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="280" cy="297" r="11" fill="#2457d6"/>
+  <text x="280" y="301" text-anchor="middle" font-size="11" font-weight="bold" fill="white">5</text>
+  <rect x="365" y="282" width="180" height="30" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="455" y="301" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Пакет 3: Лінія L3-L1</text>
+  <circle cx="630" cy="297" r="11" fill="#27ae60"/>
+  <text x="630" y="301" text-anchor="middle" font-size="11" font-weight="bold" fill="white">6</text>
+
+  <!-- Пакет 4 -->
+  <rect x="250" y="340" width="410" height="65" rx="4" fill="white" stroke="#d0d7de" stroke-width="1"/>
+  <circle cx="280" cy="372" r="11" fill="#4b5563"/>
+  <text x="280" y="376" text-anchor="middle" font-size="11" font-weight="bold" fill="white">7</text>
+  <rect x="365" y="357" width="180" height="30" rx="3" fill="#f3f4f6" stroke="#6b7280"/>
+  <text x="455" y="376" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Пакет 4: Фази L-N</text>
+  <circle cx="630" cy="372" r="11" fill="#27ae60"/>
+  <text x="630" y="376" text-anchor="middle" font-size="11" font-weight="bold" fill="white">8</text>
+
+  <!-- Міжпакетні силові перемички (розділені, щоб не перетинати клемник 4 та напис у ньому) -->
+  <line x1="630" y1="158" x2="630" y2="211" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="4,2"/>
+  <line x1="630" y1="233" x2="630" y2="286" stroke="#27ae60" stroke-width="2.5" stroke-dasharray="4,2"/>
+
+  <line x1="646" y1="233" x2="646" y2="361" stroke="#166534" stroke-width="2.5" stroke-dasharray="4,2"/>
+
+  <text x="455" y="425" text-anchor="middle" font-size="11" fill="#6b7280">Внутрішні фіксовані перемички та кулачки комутації</text>
+
+
+  <!-- ПРАВА СЕКЦІЯ: Щитовий вольтметр -->
+  <rect x="700" y="75" width="230" height="380" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5" rx="8"/>
+  <text x="815" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Щитовий вольтметр V</text>
+
+  <!-- Циферблат вольтметра -->
+  <rect x="720" y="115" width="190" height="135" fill="white" stroke="#27ae60" stroke-width="1.5" rx="6"/>
+  <path d="M 745,195 A 65,65 0 0 1 885,195" fill="none" stroke="#d0d7de" stroke-width="4"/>
+  <!-- Стрілка -->
+  <line x1="815" y1="205" x2="870" y2="160" stroke="#c0392b" stroke-width="3"/>
+  <circle cx="815" cy="205" r="5" fill="#1a1a1a"/>
+  <!-- Цифрове табло -->
+  <rect x="775" y="212" width="80" height="26" rx="4" fill="#15803d"/>
+  <text x="815" y="230" text-anchor="middle" font-size="13" font-weight="bold" fill="white">400 B</text>
+
+  <!-- Табличка режимів -->
+  <rect x="720" y="260" width="190" height="180" fill="white" stroke="#27ae60" stroke-width="1" rx="6"/>
+  <text x="815" y="280" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Режими вимірювання:</text>
+  <text x="730" y="302" font-size="11" font-weight="bold" fill="#15803d">• L1-L2 : 400 B (АКТИВНО)</text>
+  <text x="730" y="322" font-size="11" fill="#1a1a1a">• L2-L3 : 400 B</text>
+  <text x="730" y="342" font-size="11" fill="#1a1a1a">• L3-L1 : 400 B</text>
+  <text x="730" y="362" font-size="11" fill="#1a1a1a">• L1-N / L2-N / L3-N : 230 B</text>
+  <text x="730" y="382" font-size="11" fill="#6b7280">• 0 : Вимкнено</text>
+  <text x="815" y="415" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">✅ Безпечний перемикач</text>
+
+
+  <!-- ПРОВІДНИКИ ЖИВЛЕННЯ (Вхід від шин до перемикача) -->
+  <!-- Фаза L1 -->
+  <path d="M 195,145 L 269,145" fill="none" stroke="#c0392b" stroke-width="3" marker-end="url(#arr-red)"/>
+  <text x="232" y="137" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">L1</text>
+
+  <!-- Фаза L2 -->
+  <path d="M 195,220 L 269,220" fill="none" stroke="#d97706" stroke-width="3" marker-end="url(#arr-amber)"/>
+  <text x="232" y="212" text-anchor="middle" font-size="10" font-weight="bold" fill="#d97706">L2</text>
+
+  <!-- Фаза L3 -->
+  <path d="M 195,295 L 269,295" fill="none" stroke="#2457d6" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="232" y="287" text-anchor="middle" font-size="10" font-weight="bold" fill="#2457d6">L3</text>
+
+  <!-- Нейтраль N -->
+  <path d="M 195,370 L 269,370" fill="none" stroke="#4b5563" stroke-width="3" marker-end="url(#arr-grey)"/>
+  <text x="232" y="362" text-anchor="middle" font-size="10" font-weight="bold" fill="#4b5563">N</text>
+
+  <!-- ПРОВІДНИКИ ВИХОДУ (Від перемикача до вольтметра) -->
+  <!-- Лінія V+ -->
+  <path d="M 641,147 L 678,147 L 678,140 L 719,140" fill="none" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="670" y="132" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">V+</text>
+
+  <!-- Лінія V- -->
+  <path d="M 641,222 L 678,222 L 678,220 L 719,220" fill="none" stroke="#166534" stroke-width="2.5" marker-end="url(#arr-darkgreen)"/>
+  <text x="670" y="207" text-anchor="middle" font-size="11" font-weight="bold" fill="#166534">V-</text>
+</svg>

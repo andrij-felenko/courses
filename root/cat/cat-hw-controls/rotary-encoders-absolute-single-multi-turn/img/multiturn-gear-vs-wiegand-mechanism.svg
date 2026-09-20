@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+
+    <!-- Gradients -->
+    <linearGradient id="gear-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e0e6ed"/>
+      <stop offset="100%" stop-color="#b0bec5"/>
+    </linearGradient>
+    <linearGradient id="wiegand-wire-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#95a5a6"/>
+      <stop offset="50%" stop-color="#7f8c8d"/>
+      <stop offset="100%" stop-color="#34495e"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Механізми багатооборотного відліку: Редукторний vs Безбатарейний Віґанда</text>
+  <text x="480" y="53" text-anchor="middle" font-size="13" fill="#6b7280">Порівняння прецизійного мікроредуктора з кодовими дисками та безконтактного модуля на ефекті Віґанда</text>
+
+  <!-- LEFT PANEL: Mechanical Gear Train Multi-turn Encoder -->
+  <rect x="25" y="70" width="440" height="465" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="35" y="80" width="420" height="34" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="245" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">1. Механічний багатодисковий редуктор</text>
+
+  <!-- Left Illustration: Main shaft & gear stages -->
+  <!-- Main Axis line -->
+  <line x1="35" y1="170" x2="70" y2="170" stroke="#95a5a6" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="35" y="152" font-size="11" fill="#7f8c8d">Вісь</text>
+
+  <!-- Main Shaft & Disc 1 -->
+  <rect x="70" y="162" width="50" height="16" rx="2" fill="#7f8c8d"/>
+  <text x="95" y="152" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Вал</text>
+
+  <!-- Disc 1 (Single turn) -->
+  <rect x="120" y="130" width="12" height="80" rx="2" fill="#2457d6"/>
+  <text x="126" y="122" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Диск 1</text>
+  <text x="126" y="224" text-anchor="middle" font-size="11" fill="#6b7280">Single-turn</text>
+
+  <!-- Sensor 1 -->
+  <rect x="104" y="234" width="56" height="20" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="132" y="248" text-anchor="middle" font-size="11" fill="#2457d6">Оптика 1</text>
+
+  <!-- Gear Stage 1 (z1 -> z2) -->
+  <!-- Gear 1 -->
+  <circle cx="170" cy="170" r="22" fill="url(#gear-grad)" stroke="#7f8c8d" stroke-width="1.5"/>
+  <circle cx="170" cy="170" r="10" fill="#ffffff"/>
+  <text x="170" y="174" text-anchor="middle" font-size="11" font-weight="bold" fill="#2c3e50">z₁</text>
+
+  <!-- Vertical Gear Shaft 1 -->
+  <line x1="170" y1="192" x2="170" y2="248" stroke="#7f8c8d" stroke-width="3"/>
+
+  <!-- Gear 2 -->
+  <circle cx="170" cy="280" r="32" fill="url(#gear-grad)" stroke="#7f8c8d" stroke-width="1.5"/>
+  <circle cx="170" cy="280" r="10" fill="#ffffff"/>
+  <text x="170" y="284" text-anchor="middle" font-size="11" font-weight="bold" fill="#2c3e50">z₂</text>
+
+  <!-- Disc 2 (Multi-turn stage 1) -->
+  <rect x="225" y="240" width="10" height="80" rx="2" fill="#34495e"/>
+  <text x="230" y="232" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Диск 2</text>
+  <text x="230" y="334" text-anchor="middle" font-size="11" fill="#6b7280">Обороти 1</text>
+
+  <!-- Sensor 2 -->
+  <rect x="209" y="344" width="56" height="20" rx="3" fill="#ffffff" stroke="#7f8c8d" stroke-width="1"/>
+  <text x="237" y="358" text-anchor="middle" font-size="11" fill="#1a1a1a">Оптика 2</text>
+
+  <!-- Gear Stage 2 (z3 -> z4) -->
+  <!-- Gear 3 -->
+  <circle cx="275" cy="280" r="18" fill="url(#gear-grad)" stroke="#7f8c8d" stroke-width="1.5"/>
+  <circle cx="275" cy="280" r="9" fill="#ffffff"/>
+  <text x="275" y="284" text-anchor="middle" font-size="11" font-weight="bold" fill="#2c3e50">z₃</text>
+
+  <!-- Vertical Gear Shaft 2 -->
+  <line x1="275" y1="298" x2="275" y2="329" stroke="#7f8c8d" stroke-width="3"/>
+
+  <!-- Gear 4 -->
+  <circle cx="275" cy="355" r="26" fill="url(#gear-grad)" stroke="#7f8c8d" stroke-width="1.5"/>
+  <circle cx="275" cy="355" r="9" fill="#ffffff"/>
+  <text x="275" y="359" text-anchor="middle" font-size="11" font-weight="bold" fill="#2c3e50">z₄</text>
+
+  <!-- Disc 3 (Multi-turn stage 2) -->
+  <rect x="330" y="315" width="10" height="80" rx="2" fill="#34495e"/>
+  <text x="335" y="307" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Диск 3</text>
+  <text x="335" y="409" text-anchor="middle" font-size="11" fill="#6b7280">Обороти 2</text>
+
+  <!-- Sensor 3 -->
+  <rect x="314" y="418" width="56" height="20" rx="3" fill="#ffffff" stroke="#7f8c8d" stroke-width="1"/>
+  <text x="342" y="432" text-anchor="middle" font-size="11" fill="#1a1a1a">Оптика 3</text>
+
+  <!-- Left Panel Summary Card -->
+  <rect x="35" y="445" width="420" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="463" font-size="11" font-weight="bold" fill="#1a1a1a">• Принцип: Послідовність редукторних пар (z₁:z₂, z₃:z₄)</text>
+  <text x="45" y="480" font-size="11" fill="#27ae60">• Перевага: Енергонезалежний механічний підрахунок оборотів</text>
+  <text x="45" y="497" font-size="11" fill="#c0392b">• Недолік: Механічний знос, люфт шестерень, більші габарити</text>
+  <text x="45" y="514" font-size="11" fill="#6b7280">• Складність: Висока (потрібні додаткові диски й сенсори)</text>
+
+
+  <!-- RIGHT PANEL: Battery-free Wiegand Encoder -->
+  <rect x="495" y="70" width="440" height="465" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="505" y="80" width="420" height="34" rx="5" fill="#27ae60" fill-opacity="0.15" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="102" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e7e34">2. Безбатарейний модуль на ефекті Віґанда</text>
+
+  <!-- Right Illustration: Rotating Magnet & Wiegand Sensor Assembly -->
+  <!-- Main Shaft & Magnet -->
+  <rect x="515" y="167" width="50" height="16" rx="2" fill="#7f8c8d"/>
+  <text x="540" y="160" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Вал</text>
+
+  <!-- Permanent Magnet Rotor (2-pole N/S) -->
+  <rect x="565" y="140" width="30" height="70" rx="3" fill="#c0392b"/>
+  <text x="580" y="180" text-anchor="middle" font-size="14" font-weight="bold" fill="white">N</text>
+  <rect x="595" y="140" width="30" height="70" rx="3" fill="#2457d6"/>
+  <text x="610" y="180" text-anchor="middle" font-size="14" font-weight="bold" fill="white">S</text>
+
+  <!-- Rotation arrow and label above rotor -->
+  <path d="M 580,135 A 35,35 0 0,1 610,135" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="595" y="126" text-anchor="middle" font-size="11" fill="#27ae60">Обертання</text>
+
+  <!-- Magnetic Field lines -->
+  <path d="M 625,150 Q 665,135 705,150" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+  <path d="M 625,200 Q 665,215 705,200" fill="none" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Wiegand Sensor Assembly (Wire + Pickup Coil) -->
+  <rect x="705" y="130" width="105" height="80" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="757" y="146" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e7e34">Сенсор Віґанда</text>
+
+  <!-- Wiegand Vicalloy Wire in center -->
+  <rect x="720" y="167" width="75" height="8" rx="3" fill="url(#wiegand-wire-grad)"/>
+  <text x="757" y="162" text-anchor="middle" font-size="11" fill="#1a1a1a">Дріт Vicalloy</text>
+
+  <!-- Copper Induction Coil around wire -->
+  <path d="M 735,160 Q 738,182 741,160 M 745,160 Q 748,182 751,160 M 755,160 Q 758,182 761,160 M 765,160 Q 768,182 771,160 M 775,160 Q 778,182 781,160" fill="none" stroke="#d35400" stroke-width="2"/>
+
+  <text x="757" y="196" text-anchor="middle" font-size="11" fill="#d35400">Котушка індукції</text>
+
+  <!-- Output Pulse Waveform Box -->
+  <rect x="825" y="130" width="95" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="872" y="146" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Сплеск напруги</text>
+
+  <!-- Pulse graph axis & spike -->
+  <line x1="835" y1="190" x2="910" y2="190" stroke="#bdc3c7" stroke-width="1"/>
+  <path d="M 840,190 L 865,190 L 872,155 L 879,195 L 885,190 L 905,190" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <text x="872" y="204" text-anchor="middle" font-size="10" font-weight="bold" fill="#c0392b">&gt; 2-3 V (10-20 nJ)</text>
+
+  <!-- Signal & Power Flow Arrow from Wiegand to Electronics -->
+  <path d="M 872,215 L 872,250 L 715,250 L 715,270" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="793" y="243" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Енергетичний імпульс живлення</text>
+
+  <!-- Low Power Processing Unit & FRAM Memory -->
+  <rect x="515" y="275" width="400" height="155" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="715" y="297" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e7e34">Енергонезалежний електронний лічильник</text>
+
+  <!-- MCU Box -->
+  <rect x="540" y="310" width="160" height="60" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="620" y="333" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Ultra-Low-Power MCU</text>
+  <text x="620" y="353" text-anchor="middle" font-size="11" fill="#6b7280">Пробудження від імпульсу</text>
+
+  <!-- Arrow MCU -> FRAM -->
+  <line x1="700" y1="340" x2="730" y2="340" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="715" y="332" text-anchor="middle" font-size="11" fill="#27ae60">Запис</text>
+
+  <!-- FRAM Memory Box -->
+  <rect x="730" y="310" width="160" height="60" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="810" y="333" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">FRAM Пам'ять</text>
+  <text x="810" y="353" text-anchor="middle" font-size="11" fill="#6b7280">Енергонезалежний реєстр</text>
+
+  <!-- State flow description inside box -->
+  <rect x="540" y="380" width="350" height="38" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="715" y="403" text-anchor="middle" font-size="11" fill="#1a1a1a">Перемагнічування дроту → Імпульс напруги → Запис оборотів у FRAM</text>
+
+  <!-- Right Panel Summary Card -->
+  <rect x="505" y="445" width="420" height="80" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="515" y="463" font-size="11" font-weight="bold" fill="#1a1a1a">• Принцип: Стрибкоподібне перемагнічування осердя (Barkhausen jump)</text>
+  <text x="515" y="480" font-size="11" fill="#27ae60">• Перевага: Безбатарейність, відсутність тертя, зносу та шестерень</text>
+  <text x="515" y="497" font-size="11" fill="#2457d6">• Незалежність: Енергія імпульсу однакова на будь-якій швидкості вала</text>
+  <text x="515" y="514" font-size="11" fill="#6b7280">• Складність: Низька (компактна безконтактна конструкція)</text>
+</svg>

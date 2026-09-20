@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схемотехніка та часові діаграми фазочутливого демодулятора RVDT</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Синхронна перекомутація аналогових ключів за опорним сигналом відновлює знак кутового відхилення та профіль V_DC</text>
+
+  <!-- ================= LEFT PANEL: Schematic Diagram ================= -->
+  <rect x="30" y="75" width="435" height="455" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="247" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема демодуляції</text>
+  <text x="247" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Синхронне керування ключами SW1 за опорним сигналом збудження</text>
+
+  <!-- RVDT Secondary Source Block -->
+  <rect x="45" y="160" width="75" height="70" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="82" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">RVDT</text>
+  <text x="82" y="208" font-size="11" fill="#2457d6" text-anchor="middle">V_sec(t)</text>
+
+  <!-- Signal Path Lines -->
+  <!-- Direct non-inverting path (+V_sec) -->
+  <line x1="120" y1="180" x2="240" y2="180" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="180" y="173" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">+V_sec</text>
+
+  <!-- Inverting path (-V_sec) -->
+  <line x1="120" y1="210" x2="140" y2="210" stroke="#2457d6" stroke-width="2"/>
+  <line x1="140" y1="210" x2="140" y2="240" stroke="#2457d6" stroke-width="2"/>
+  <line x1="140" y1="240" x2="150" y2="240" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Inverter Block -->
+  <rect x="150" y="220" width="60" height="40" rx="4" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="244" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">Інвертор (-1)</text>
+
+  <line x1="210" y1="240" x2="240" y2="240" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="225" y="233" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">-V_sec</text>
+
+  <!-- Comparator Block (Reference Clock Generator) -->
+  <rect x="45" y="315" width="155" height="55" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="122" y="338" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Компаратор V_exc</text>
+  <text x="122" y="356" font-size="10" fill="#6b7280" text-anchor="middle">Формування CLK_ref</text>
+
+  <!-- Clock Line to SW1 -->
+  <path d="M 200,342 L 280,342 L 280,272" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#arr-blue)"/>
+  <text x="240" y="335" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">CLK_ref</text>
+
+  <!-- Analog Switch Block SW1 -->
+  <rect x="240" y="160" width="80" height="110" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="280" y="180" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">SW1 (CMOS)</text>
+
+  <!-- Terminal labels inside switch -->
+  <text x="250" y="198" font-size="10" fill="#2457d6">A</text>
+  <text x="250" y="244" font-size="10" fill="#2457d6">B</text>
+
+  <!-- Internal switch wiper graphic -->
+  <circle cx="310" cy="215" r="3" fill="#27ae60"/>
+  <line x1="255" y1="195" x2="307" y2="213" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Rectified output line to LPF -->
+  <line x1="320" y1="215" x2="350" y2="215" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="335" y="208" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">V_rect</text>
+
+  <!-- Active LPF Filter Block -->
+  <rect x="350" y="175" width="95" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="397" y="205" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">ФНЧ (LPF)</text>
+  <text x="397" y="225" font-size="10" fill="#6b7280" text-anchor="middle">Фільтр низьких</text>
+  <text x="397" y="240" font-size="10" fill="#6b7280" text-anchor="middle">частот RC</text>
+
+  <!-- Final DC Output Terminal -->
+  <line x1="445" y1="215" x2="460" y2="215" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="460" cy="215" r="3.5" fill="#2457d6"/>
+  <text x="445" y="205" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="end">V_DC</text>
+
+  <!-- Description Box at Bottom Left -->
+  <rect x="45" y="405" width="405" height="105" rx="6" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="55" y="425" font-size="11" font-weight="bold" fill="#1a1a1a">Принцип дії синхронного випрямлення:</text>
+  <text x="55" y="445" font-size="11" fill="#6b7280">1. При θ &gt; 0°: V_sec у фазі з V_exc → ключ SW1 подає +V_sec у</text>
+  <text x="55" y="463" font-size="11" fill="#6b7280">   додатний напівперіод і -V_sec у від'ємний → вихід +V_DC &gt; 0.</text>
+  <text x="55" y="481" font-size="11" fill="#6b7280">2. При θ &lt; 0°: V_sec у протифазі (180°) → перекомутація створює</text>
+  <text x="55" y="499" font-size="11" fill="#6b7280">   від'ємні імпульси → вихід -V_DC &lt; 0.</text>
+
+
+  <!-- ================= RIGHT PANEL: Timing Waveforms ================= -->
+  <rect x="495" y="75" width="435" height="455" rx="10" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="100" font-size="15" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часові діаграми сигналів</text>
+  <text x="712" y="118" font-size="12" fill="#6b7280" text-anchor="middle">Порівняння профілів при позитивному й від'ємному кутах</text>
+
+  <!-- Vertical Grid Lines for Timing -->
+  <line x1="540" y1="145" x2="540" y2="490" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="630" y1="145" x2="630" y2="490" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="720" y1="145" x2="720" y2="490" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="810" y1="145" x2="810" y2="490" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="900" y1="145" x2="900" y2="490" stroke="#d0d7de" stroke-width="1" stroke-dasharray="2,2"/>
+
+  <!-- Trace 1: Excitation V_exc(t) & CLK_ref -->
+  <text x="515" y="148" font-size="11" font-weight="bold" fill="#2457d6">V_exc(t) &amp; CLK</text>
+  <line x1="530" y1="170" x2="905" y2="170" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 540,170 Q 585,135 630,170 Q 675,205 720,170 Q 765,135 810,170 Q 855,205 900,170" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <!-- CLK_ref square wave -->
+  <path d="M 540,170 L 540,190 L 630,190 L 630,170 L 720,170 L 720,190 L 810,190 L 810,170 L 900,170" fill="none" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+  <!-- Trace 2: Secondary V_sec(t) (In-phase, theta > 0) -->
+  <text x="515" y="228" font-size="11" font-weight="bold" fill="#2457d6">V_sec(t) (θ &gt; 0°)</text>
+  <line x1="530" y1="250" x2="905" y2="250" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 540,250 Q 585,218 630,250 Q 675,282 720,250 Q 765,218 810,250 Q 855,282 900,250" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Trace 3: Rectified V_rect(t) & +V_DC (theta > 0) -->
+  <text x="515" y="318" font-size="11" font-weight="bold" fill="#27ae60">V_rect(t) &amp; +V_DC (θ &gt; 0°)</text>
+  <line x1="530" y1="340" x2="905" y2="340" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 540,340 Q 585,308 630,340 Q 675,308 720,340 Q 765,308 810,340 Q 855,308 900,340" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <!-- Filtered +V_DC line -->
+  <line x1="540" y1="322" x2="900" y2="322" stroke="#27ae60" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="905" y="326" font-size="11" font-weight="bold" fill="#27ae60">+V_DC</text>
+
+  <!-- Trace 4: Rectified V_rect(t) & -V_DC (theta < 0) -->
+  <text x="515" y="415" font-size="11" font-weight="bold" fill="#c0392b">V_rect(t) &amp; -V_DC (θ &lt; 0°)</text>
+  <line x1="530" y1="440" x2="905" y2="440" stroke="#d0d7de" stroke-width="1"/>
+  <path d="M 540,440 Q 585,472 630,440 Q 675,472 720,440 Q 765,472 810,440 Q 855,472 900,440" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <!-- Filtered -V_DC line -->
+  <line x1="540" y1="458" x2="900" y2="458" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,4"/>
+  <text x="905" y="462" font-size="11" font-weight="bold" fill="#c0392b">-V_DC</text>
+
+</svg>

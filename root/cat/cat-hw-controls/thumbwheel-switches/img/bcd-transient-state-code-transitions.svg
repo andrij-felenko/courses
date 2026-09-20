@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <defs>
+    <!-- Arrow Markers -->
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Динаміка кодових переходів BCD: Асинхронний брязкіт і проміжні стани</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Перехід 7 (0111₂) → 8 (1000₂) викликає тимчасову появу хибного стану 15 (1111₂) через асинхронність контактів</text>
+
+  <!-- LEFT PANEL: Timing Diagram of BCD Lines -->
+  <rect x="25" y="65" width="440" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="35" y="75" width="420" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="245" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">1. Часова діаграма сигнальних ліній BCD</text>
+
+  <!-- Transient / Glitch Zone Highlight Rect -->
+  <rect x="230" y="120" width="70" height="240" fill="#fdecea" stroke="#c0392b" stroke-dasharray="3,3" stroke-width="1.5"/>
+  <text x="265" y="140" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Δt (Брязкіт)</text>
+
+  <!-- Time Axis Lines & Labels -->
+  <!-- Line b3 (Weight 8) -->
+  <text x="45" y="175" font-size="12" font-weight="bold" fill="#1a1a1a">b₃ (Вага 8)</text>
+  <path d="M 120,185 L 230,185 L 230,155 L 430,155" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="175" y="180" text-anchor="middle" font-size="12" fill="#2457d6">0 (Низький)</text>
+  <text x="360" y="150" text-anchor="middle" font-size="12" fill="#2457d6">1 (Високий)</text>
+
+  <!-- Line b2 (Weight 4) -->
+  <text x="45" y="225" font-size="12" font-weight="bold" fill="#1a1a1a">b₂ (Вага 4)</text>
+  <path d="M 120,205 L 300,205 L 300,235 L 430,235" fill="none" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="175" y="200" text-anchor="middle" font-size="12" fill="#6b7280">1 (Високий)</text>
+  <text x="360" y="230" text-anchor="middle" font-size="12" fill="#6b7280">0 (Низький)</text>
+
+  <!-- Line b1 (Weight 2) -->
+  <text x="45" y="275" font-size="12" font-weight="bold" fill="#1a1a1a">b₁ (Вага 2)</text>
+  <path d="M 120,255 L 300,255 L 300,285 L 430,285" fill="none" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="175" y="250" text-anchor="middle" font-size="12" fill="#6b7280">1 (Високий)</text>
+  <text x="360" y="280" text-anchor="middle" font-size="12" fill="#6b7280">0 (Низький)</text>
+
+  <!-- Line b0 (Weight 1) -->
+  <text x="45" y="325" font-size="12" font-weight="bold" fill="#1a1a1a">b₀ (Вага 1)</text>
+  <path d="M 120,305 L 300,305 L 300,335 L 430,335" fill="none" stroke="#6b7280" stroke-width="2.5"/>
+  <text x="175" y="300" text-anchor="middle" font-size="12" fill="#6b7280">1 (Високий)</text>
+  <text x="360" y="330" text-anchor="middle" font-size="12" fill="#6b7280">0 (Низький)</text>
+
+  <!-- Vertical Timeline Guides -->
+  <line x1="120" y1="120" x2="120" y2="350" stroke="#bdc3c7" stroke-dasharray="2,2"/>
+  <text x="120" y="365" text-anchor="middle" font-size="12" fill="#6b7280">t₀ (Стан 7)</text>
+
+  <line x1="300" y1="120" x2="300" y2="350" stroke="#bdc3c7" stroke-dasharray="2,2"/>
+  <text x="300" y="365" text-anchor="middle" font-size="12" fill="#6b7280">t₁ (Стан 8)</text>
+
+  <!-- Resulting Code Value Bar -->
+  <rect x="35" y="380" width="420" height="125" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="400" font-size="12" font-weight="bold" fill="#1a1a1a">Зчитаний код на інтервалі часу:</text>
+  <text x="45" y="423" font-size="12" fill="#2457d6">• До перемикання (t &lt; t₀): Code = 0111₂ (7 десяткове) — Валідний</text>
+  <text x="45" y="446" font-size="12" font-weight="bold" fill="#c0392b">• Під час Δt (b₃ замкнувся раніше): Code = 1111₂ (15 / 0xF) — Невалідний BCD!</text>
+  <text x="45" y="469" font-size="12" fill="#27ae60">• Після стабілізації (t &gt; t₁): Code = 1000₂ (8 десяткове) — Валідний</text>
+  <text x="45" y="492" font-size="12" fill="#6b7280">• Причина хиби: Одночасна зміна 4 бітів (відстань Геммінга dH = 4)</text>
+
+
+  <!-- RIGHT PANEL: State Transition Graph & Mitigation -->
+  <rect x="495" y="65" width="440" height="455" rx="8" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="505" y="75" width="420" height="32" rx="4" fill="#27ae60" opacity="0.15" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="96" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e7e34">2. Дерево переходів станів та алгоритми фільтрації</text>
+
+  <!-- Start State Box -->
+  <rect x="635" y="125" width="160" height="35" rx="5" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="715" y="147" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Стан 7 (0111₂)</text>
+
+  <!-- Branching Arrows -->
+  <path d="M 680,160 L 595,195" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="615" y="178" text-anchor="end" font-size="12" fill="#c0392b">b₃ першим (+8)</text>
+
+  <path d="M 750,160 L 835,195" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="815" y="178" text-anchor="start" font-size="12" fill="#c0392b">b₀,b₁,b₂ першими (-7)</text>
+
+  <!-- Intermediate Glitched States -->
+  <!-- Glitch State 1 -->
+  <rect x="515" y="195" width="160" height="45" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="595" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Хиба: 15 (1111₂)</text>
+  <text x="595" y="231" text-anchor="middle" font-size="12" fill="#c0392b">Поза BCD (0xA...0xF)</text>
+
+  <!-- Glitch State 2 -->
+  <rect x="755" y="195" width="160" height="45" rx="5" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="835" y="214" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Хиба: 0 (0000₂)</text>
+  <text x="835" y="231" text-anchor="middle" font-size="12" fill="#c0392b">Хибний нуль при розмиканні</text>
+
+  <!-- Convergence Arrows to Target State -->
+  <path d="M 595,240 L 680,275" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <path d="M 835,240 L 750,275" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Target State Box -->
+  <rect x="635" y="275" width="160" height="35" rx="5" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="715" y="297" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Стан 8 (1000₂)</text>
+
+
+  <!-- Software & Hardware Mitigation Box -->
+  <rect x="505" y="330" width="420" height="175" rx="6" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="515" y="350" font-size="13" font-weight="bold" fill="#1e7e34">• Методи усунення асинхронних кодових помилок:</text>
+
+  <text x="515" y="373" font-size="12" font-weight="bold" fill="#1a1a1a">1. Програмне маскування BCD (Bitwise Masking):</text>
+  <text x="530" y="392" font-size="12" fill="#6b7280">Перевірка умови (b &amp; 0x08) &amp;&amp; (b &amp; 0x06) відкидає стани 10...15</text>
+
+  <text x="515" y="417" font-size="12" font-weight="bold" fill="#1a1a1a">2. Часова затримка та подвійний відлік (Debounce):</text>
+  <text x="530" y="436" font-size="12" fill="#6b7280">Опитування з паузою Δt = 5...10 мс для згасання брязкоту</text>
+
+  <text x="515" y="461" font-size="12" font-weight="bold" fill="#1a1a1a">3. Конструктивний захист (Код Грея / Gray Code):</text>
+  <text x="530" y="480" font-size="12" fill="#27ae60">Використання диска з кодом Грея змінює лише 1 біт на крок (dH = 1)</text>
+</svg>

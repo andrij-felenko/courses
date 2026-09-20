@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Автомат станів (FSM) квадратурного декодера енкодера</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Граф станів коду Ґрея та таблиця відсіювання завад брязкоту контактів</text>
+
+  <!-- LEFT PANEL: FSM STATE GRAPH -->
+  <g id="panel-state-graph">
+    <rect x="30" y="75" width="440" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <path d="M 30,107 L 30,83 Q 30,75 38,75 L 462,75 Q 470,75 470,83 L 470,107 Z" fill="#eaf0fd"/>
+    <line x1="30" y1="107" x2="470" y2="107" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="250" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. ГРАФ СТАНІВ (STATE DIAGRAM)</text>
+
+    <!-- Split Diagonal Illegal Jump Lines (Stopping Outside Center Badge) -->
+    <!-- Top-Left Segment -->
+    <line x1="171" y1="199" x2="220" y2="243" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-start="url(#arr-red)"/>
+    <!-- Bottom-Right Segment -->
+    <line x1="280" y1="297" x2="329" y2="341" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+    <!-- Top-Right Segment -->
+    <line x1="329" y1="199" x2="280" y2="243" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-start="url(#arr-red)"/>
+    <!-- Bottom-Left Segment -->
+    <line x1="220" y1="297" x2="171" y2="341" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
+
+    <!-- Center Warning Badge -->
+    <rect x="190" y="252" width="120" height="30" rx="4" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="250" y="271" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">ПОМИЛКА (2 біти)</text>
+
+    <!-- CW Outer Transitions (Green Lines) -->
+    <!-- S0 -> S1 (Top Outer) -->
+    <line x1="180" y1="140" x2="320" y2="140" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="250" y="128" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">CW (+1)</text>
+
+    <!-- S1 -> S2 (Right Outer) -->
+    <line x1="395" y1="210" x2="395" y2="330" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="405" y="274" text-anchor="start" font-size="11" font-weight="bold" fill="#27ae60">CW (+1)</text>
+
+    <!-- S2 -> S3 (Bottom Outer) -->
+    <line x1="320" y1="400" x2="180" y2="400" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="250" y="415" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">CW (+1)</text>
+
+    <!-- S3 -> S0 (Left Outer) -->
+    <line x1="105" y1="330" x2="105" y2="210" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="95" y="274" text-anchor="end" font-size="11" font-weight="bold" fill="#27ae60">CW (+1)</text>
+
+    <!-- CCW Inner Transitions (Blue Lines) -->
+    <!-- S1 -> S0 (Top Inner) -->
+    <line x1="320" y1="195" x2="180" y2="195" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="250" y="212" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">CCW (-1)</text>
+
+    <!-- S2 -> S1 (Right Inner) -->
+    <line x1="335" y1="330" x2="335" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="345" y="274" text-anchor="start" font-size="11" font-weight="bold" fill="#2457d6">CCW (-1)</text>
+
+    <!-- S3 -> S2 (Bottom Inner) -->
+    <line x1="180" y1="345" x2="320" y2="345" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="250" y="333" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">CCW (-1)</text>
+
+    <!-- S0 -> S3 (Left Inner) -->
+    <line x1="165" y1="210" x2="165" y2="330" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="155" y="274" text-anchor="end" font-size="11" font-weight="bold" fill="#2457d6">CCW (-1)</text>
+
+    <!-- State Circles -->
+    <!-- S0 (00) -->
+    <circle cx="150" cy="180" r="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+    <text x="150" y="174" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">S0</text>
+    <text x="150" y="190" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">(00)</text>
+
+    <!-- S1 (01) -->
+    <circle cx="350" cy="180" r="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+    <text x="350" y="174" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">S1</text>
+    <text x="350" y="190" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">(01)</text>
+
+    <!-- S2 (11) -->
+    <circle cx="350" cy="360" r="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+    <text x="350" y="354" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">S2</text>
+    <text x="350" y="370" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">(11)</text>
+
+    <!-- S3 (10) -->
+    <circle cx="150" cy="360" r="30" fill="#eaf0fd" stroke="#2457d6" stroke-width="2.5"/>
+    <text x="150" y="354" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">S3</text>
+    <text x="150" y="370" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">(10)</text>
+
+    <!-- Left Bottom Summary Badge -->
+    <rect x="50" y="470" width="400" height="48" rx="4" fill="#eaf0fd" stroke="#2457d6"/>
+    <text x="250" y="488" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">• 2-бітовий стрибок (00&lt;-&gt;11) розпізнається як ПОМИЛКА (ERR)</text>
+    <text x="250" y="505" text-anchor="middle" font-size="11" fill="#1a1a1a">• Брязкіт контакту не змінює стан лічильника позиції</text>
+  </g>
+
+  <!-- RIGHT PANEL: TRANSITION LOOKUP TABLE -->
+  <g id="panel-transition-table">
+    <rect x="490" y="75" width="440" height="460" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <path d="M 490,107 L 490,83 Q 490,75 498,75 L 922,75 Q 930,75 930,83 L 930,107 Z" fill="#eaf0fd"/>
+    <line x1="490" y1="107" x2="930" y2="107" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="710" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">2. ТАБЛИЦЯ ПЕРЕХОДІВ (LOOKUP TABLE)</text>
+
+    <!-- Table Title Header Annotation -->
+    <text x="750" y="122" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Поточний стан (A_curr B_curr)</text>
+
+    <!-- Table Outer Box -->
+    <rect x="510" y="130" width="400" height="240" fill="white" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Table Header Row Background & Lines -->
+    <rect x="510" y="130" width="400" height="40" fill="#eaf0fd"/>
+    <line x1="510" y1="170" x2="910" y2="170" stroke="#d0d7de" stroke-width="1.5"/>
+    <line x1="590" y1="130" x2="590" y2="370" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Vertical Column Lines -->
+    <line x1="670" y1="130" x2="670" y2="370" stroke="#d0d7de" stroke-width="1"/>
+    <line x1="750" y1="130" x2="750" y2="370" stroke="#d0d7de" stroke-width="1"/>
+    <line x1="830" y1="130" x2="830" y2="370" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Horizontal Row Lines -->
+    <line x1="510" y1="220" x2="910" y2="220" stroke="#d0d7de" stroke-width="1"/>
+    <line x1="510" y1="270" x2="910" y2="270" stroke="#d0d7de" stroke-width="1"/>
+    <line x1="510" y1="320" x2="910" y2="320" stroke="#d0d7de" stroke-width="1"/>
+
+    <!-- Header Labels -->
+    <text x="550" y="148" text-anchor="middle" font-size="10" font-weight="bold" fill="#6b7280">Попередній</text>
+    <text x="550" y="161" text-anchor="middle" font-size="10" font-weight="bold" fill="#6b7280">стан</text>
+
+    <text x="630" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">00</text>
+    <text x="710" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">01</text>
+    <text x="790" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">11</text>
+    <text x="870" y="156" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">10</text>
+
+    <!-- Row 1: Prev = 00 (S0) -->
+    <text x="550" y="199" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">S0 (00)</text>
+    <rect x="591" y="171" width="78" height="48" fill="#f4f6f8"/>
+    <text x="630" y="199" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">0</text>
+    <rect x="671" y="171" width="78" height="48" fill="#e9f7ef"/>
+    <text x="710" y="199" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">+1 (CW)</text>
+    <rect x="751" y="171" width="78" height="48" fill="#fdecea"/>
+    <text x="790" y="199" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">ERR</text>
+    <rect x="831" y="171" width="78" height="48" fill="#eaf0fd"/>
+    <text x="870" y="199" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">-1 (CCW)</text>
+
+    <!-- Row 2: Prev = 01 (S1) -->
+    <text x="550" y="249" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">S1 (01)</text>
+    <rect x="591" y="221" width="78" height="48" fill="#eaf0fd"/>
+    <text x="630" y="249" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">-1 (CCW)</text>
+    <rect x="671" y="221" width="78" height="48" fill="#f4f6f8"/>
+    <text x="710" y="249" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">0</text>
+    <rect x="751" y="221" width="78" height="48" fill="#e9f7ef"/>
+    <text x="790" y="249" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">+1 (CW)</text>
+    <rect x="831" y="221" width="78" height="48" fill="#fdecea"/>
+    <text x="870" y="249" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">ERR</text>
+
+    <!-- Row 3: Prev = 11 (S2) -->
+    <text x="550" y="299" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">S2 (11)</text>
+    <rect x="591" y="271" width="78" height="48" fill="#fdecea"/>
+    <text x="630" y="299" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">ERR</text>
+    <rect x="671" y="271" width="78" height="48" fill="#eaf0fd"/>
+    <text x="710" y="299" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">-1 (CCW)</text>
+    <rect x="751" y="271" width="78" height="48" fill="#f4f6f8"/>
+    <text x="790" y="299" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">0</text>
+    <rect x="831" y="271" width="78" height="48" fill="#e9f7ef"/>
+    <text x="870" y="299" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">+1 (CW)</text>
+
+    <!-- Row 4: Prev = 10 (S3) -->
+    <text x="550" y="349" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">S3 (10)</text>
+    <rect x="591" y="321" width="78" height="48" fill="#e9f7ef"/>
+    <text x="630" y="349" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">+1 (CW)</text>
+    <rect x="671" y="321" width="78" height="48" fill="#fdecea"/>
+    <text x="710" y="349" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">ERR</text>
+    <rect x="751" y="321" width="78" height="48" fill="#eaf0fd"/>
+    <text x="790" y="349" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">-1 (CCW)</text>
+    <rect x="831" y="321" width="78" height="48" fill="#f4f6f8"/>
+    <text x="870" y="349" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">0</text>
+
+    <!-- Right Panel Summary Legend Badge -->
+    <rect x="510" y="470" width="400" height="48" rx="4" fill="#f4f6f8" stroke="#d0d7de"/>
+    <text x="710" y="488" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">+1 : крок за годинниковою (CW) | -1 : проти (CCW)</text>
+    <text x="710" y="505" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">ERR : заборонений 2-бітовий стрибок (ігнорується)</text>
+  </g>
+</svg>

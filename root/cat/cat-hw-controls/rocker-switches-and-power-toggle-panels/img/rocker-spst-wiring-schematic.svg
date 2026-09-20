@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 450" width="960" height="450" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="450" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="34" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Схема підключення 3-контактного рокерного вимикача з залежною підсвіткою</text>
+  <text x="480" y="56" font-size="13" fill="#6b7280" text-anchor="middle">Фаза живить навантаження при ON, а нульовий вивід N необхідний виключно для вбудованої індикаторної лампи</text>
+
+  <!-- Outer Panel Container -->
+  <rect x="30" y="75" width="900" height="355" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+  <!-- LEFT BLOCK: Power Source -->
+  <rect x="50" y="110" width="160" height="230" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="130" y="135" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Джерело живлення</text>
+
+  <!-- L Terminal Source -->
+  <circle cx="180" cy="180" r="6" fill="#c0392b"/>
+  <text x="65" y="184" font-size="12" font-weight="bold" fill="#c0392b">Фаза L (LINE)</text>
+
+  <!-- N Terminal Source -->
+  <circle cx="180" cy="280" r="6" fill="#2457d6"/>
+  <text x="65" y="284" font-size="12" font-weight="bold" fill="#2457d6">Нуль N (NEUTRAL)</text>
+
+
+  <!-- MIDDLE BLOCK: 3-Pin Rocker Switch -->
+  <rect x="280" y="105" width="380" height="250" rx="8" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="470" y="130" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Рокерний вимикач SPST (3-Pin)</text>
+
+  <!-- Pin Labels Inside Switch -->
+  <text x="330" y="160" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Pin 1 (LINE IN)</text>
+  <text x="510" y="160" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Pin 2 (LOAD)</text>
+  <text x="580" y="332" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Pin 3 (N LAMP)</text>
+
+  <!-- Terminals Graphics -->
+  <!-- Pin 1 -->
+  <circle cx="330" cy="180" r="6" fill="#d97706" stroke="#b45309" stroke-width="1.5"/>
+  <!-- Pin 2 -->
+  <circle cx="510" cy="180" r="6" fill="#d97706" stroke="#b45309" stroke-width="1.5"/>
+  <!-- Pin 3 -->
+  <circle cx="580" cy="300" r="6" fill="#2457d6" stroke="#1d4ed8" stroke-width="1.5"/>
+
+  <!-- Switch Contact Blade Mechanism -->
+  <line x1="330" y1="180" x2="420" y2="180" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="420" y1="180" x2="495" y2="168" stroke="#c0392b" stroke-width="2.5"/>
+  <circle cx="510" cy="180" r="3" fill="#1a1a1a"/>
+  <text x="410" y="148" font-size="12" fill="#1a1a1a" text-anchor="middle">Силовий контакт</text>
+
+  <!-- Internal Indicator Lamp Circuit (Vertical Branch along x=580) -->
+  <line x1="510" y1="180" x2="580" y2="180" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="580" y1="180" x2="580" y2="200" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Resistor symbol -->
+  <rect x="572" y="200" width="16" height="24" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="580" y1="224" x2="580" y2="240" stroke="#2457d6" stroke-width="1.5"/>
+  <!-- Neon / LED Lamp Symbol -->
+  <circle cx="580" cy="250" r="10" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <line x1="573" y1="243" x2="587" y2="257" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="573" y1="257" x2="587" y2="243" stroke="#2457d6" stroke-width="1.2"/>
+  <line x1="580" y1="260" x2="580" y2="294" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Indicator Label & Connector -->
+  <text x="470" y="234" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Індикатор (Неон/LED)</text>
+  <path d="M 536,230 L 568,230" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+
+
+  <!-- RIGHT BLOCK: Load Device -->
+  <rect x="740" y="110" width="160" height="230" rx="6" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="820" y="135" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Навантаження</text>
+
+  <!-- Load Device Box -->
+  <rect x="765" y="170" width="110" height="80" rx="4" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="820" y="215" font-size="12" fill="#1a1a1a" text-anchor="middle">Прилад / Лампа</text>
+
+  <!-- Load Terminals -->
+  <circle cx="745" cy="180" r="6" fill="#c0392b"/>
+  <circle cx="745" cy="280" r="6" fill="#2457d6"/>
+  <line x1="745" y1="180" x2="765" y2="180" stroke="#c0392b" stroke-width="2"/>
+  <line x1="745" y1="280" x2="820" y2="280" stroke="#2457d6" stroke-width="2"/>
+  <line x1="820" y1="280" x2="820" y2="250" stroke="#2457d6" stroke-width="2"/>
+
+
+  <!-- EXTERNAL WIRES -->
+
+  <!-- Line L Wire: Source L -> Pin 1 -->
+  <line x1="186" y1="180" x2="324" y2="180" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="245" y="168" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Фаза L</text>
+
+  <!-- Switched Load Wire: Pin 2 -> Load L -->
+  <line x1="516" y1="180" x2="739" y2="180" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="650" y="168" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Комутована фаза</text>
+
+  <!-- Neutral N Wire: Source N -> Pin 3 & Load N -->
+  <line x1="186" y1="280" x2="739" y2="280" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <line x1="580" y1="280" x2="580" y2="294" stroke="#2457d6" stroke-width="2.5"/>
+  <circle cx="580" cy="280" r="4" fill="#2457d6"/>
+  <text x="245" y="298" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Робочий нуль N</text>
+
+
+  <!-- BOTTOM EXPLANATORY CARDS -->
+
+  <!-- Left Card: Logic -->
+  <rect x="40" y="370" width="430" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="255" y="390" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Логіка залежного підсвічування</text>
+  <text x="255" y="408" font-size="12" fill="#6b7280" text-anchor="middle">Індикатор живиться від Pin 2 та Pin 3 і світиться лише при ON</text>
+
+  <!-- Right Card: Safety Warning -->
+  <rect x="490" y="370" width="430" height="52" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="705" y="390" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Попередження про цокольовку</text>
+  <text x="705" y="408" font-size="12" fill="#c0392b" text-anchor="middle">Переплутування Pin 2 та Pin 3 викликає коротке замикання при ON!</text>
+</svg>

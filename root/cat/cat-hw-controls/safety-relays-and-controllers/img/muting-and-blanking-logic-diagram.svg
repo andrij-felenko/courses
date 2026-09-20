@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Логіка мутингу (Muting) та бланкінгу (Blanking) у світлових завісах безпеки</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Автоматичне маскування захисних променів при проходженні вантажу та селективне виключення зон</text>
+
+  <!-- ПАНЕЛЬ 1: ЧАСОВА ДІАГРАМА МУТИНГУ -->
+  <g id="panel-muting">
+    <!-- Тло панелі 1 -->
+    <rect x="30" y="75" width="435" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Заголовок панелі 1 -->
+    <rect x="42" y="87" width="411" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="247.5" y="109" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">1. Часова діаграма датчиків мутингу</text>
+
+    <!-- Позначки сигналів -->
+    <text x="48" y="155" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">MS1</text>
+    <text x="48" y="215" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">MS2</text>
+    <text x="48" y="275" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Muting</text>
+    <text x="48" y="335" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">OSSD</text>
+
+    <!-- Пунктирні лінії сітки часу -->
+    <line x1="180" y1="130" x2="180" y2="365" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="230" y1="130" x2="230" y2="365" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="310" y1="130" x2="310" y2="365" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="360" y1="130" x2="360" y2="365" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+
+    <!-- Часове вікно спрацьовування dt12 -->
+    <line x1="180" y1="132" x2="230" y2="132" stroke="#2457d6" stroke-width="1.5" marker-end="url(#arr-blue)"/>
+    <text x="205" y="127" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Δt₁₂</text>
+
+    <!-- Сигнал MS1 -->
+    <path d="M 120,160 H 180 V 140 H 310 V 160 H 425" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+    <!-- Сигнал MS2 -->
+    <path d="M 120,220 H 230 V 200 H 360 V 220 H 425" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+
+    <!-- Область активного мутингу -->
+    <rect x="230" y="260" width="80" height="20" fill="#eaf0fd" opacity="0.6"/>
+    <text x="270" y="254" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Muting ACTIVE</text>
+
+    <!-- Сигнал Muting State -->
+    <path d="M 120,280 H 230 V 260 H 310 V 280 H 425" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+
+    <!-- Сигнал OSSD (завжди активний безпечний стан) -->
+    <path d="M 120,320 H 425" stroke="#27ae60" stroke-width="2.5" fill="none"/>
+    <text x="360" y="314" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">OSSD = 1 (HIGH)</text>
+
+    <!-- Підписи часових міток -->
+    <text x="180" y="378" text-anchor="middle" font-size="11" fill="#6b7280">t₁</text>
+    <text x="230" y="378" text-anchor="middle" font-size="11" fill="#6b7280">t₂</text>
+    <text x="310" y="378" text-anchor="middle" font-size="11" fill="#6b7280">t₃</text>
+    <text x="360" y="378" text-anchor="middle" font-size="11" fill="#6b7280">t₄</text>
+
+    <!-- Підсумок для панелі 1 -->
+    <rect x="42" y="400" width="411" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="247.5" y="423" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">✓ OSSD = HIGH: Конвеєр не зупиняється при проході палети</text>
+  </g>
+
+  <!-- ПАНЕЛЬ 2: ЗОНУВАННЯ СВІТЛОВОЇ ЗАВІСИ (BLANKING) -->
+  <g id="panel-blanking">
+    <!-- Тло панелі 2 -->
+    <rect x="495" y="75" width="435" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Заголовок панелі 2 -->
+    <rect x="507" y="87" width="411" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="712.5" y="109" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">2. Зонування світлової завіси (Blanking)</text>
+
+    <!-- Колонки світлової завіси -->
+    <!-- Передавач (Tx) -->
+    <rect x="525" y="135" width="22" height="250" rx="3" fill="#1a1a1a" stroke="#6b7280" stroke-width="1"/>
+    <text x="536" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Tx</text>
+
+    <!-- Приймач (Rx) -->
+    <rect x="715" y="135" width="22" height="250" rx="3" fill="#1a1a1a" stroke="#6b7280" stroke-width="1"/>
+    <text x="726" y="130" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Rx</text>
+
+    <!-- Активна зона захисту (Active Guarded Zone) -->
+    <line x1="547" y1="155" x2="715" y2="155" stroke="#27ae60" stroke-width="2"/>
+    <circle cx="547" cy="155" r="3" fill="#27ae60"/>
+    <circle cx="715" cy="155" r="3" fill="#27ae60"/>
+
+    <line x1="547" y1="175" x2="715" y2="175" stroke="#27ae60" stroke-width="2"/>
+    <circle cx="547" cy="175" r="3" fill="#27ae60"/>
+    <circle cx="715" cy="175" r="3" fill="#27ae60"/>
+
+    <line x1="547" y1="195" x2="715" y2="195" stroke="#27ae60" stroke-width="2"/>
+    <circle cx="547" cy="195" r="3" fill="#27ae60"/>
+    <circle cx="715" cy="195" r="3" fill="#27ae60"/>
+
+    <line x1="547" y1="215" x2="715" y2="215" stroke="#27ae60" stroke-width="2"/>
+    <circle cx="547" cy="215" r="3" fill="#27ae60"/>
+    <circle cx="715" cy="215" r="3" fill="#27ae60"/>
+
+    <!-- Динамічний бланкінг (Floating Blanking) -->
+    <line x1="547" y1="245" x2="715" y2="245" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3"/>
+    <circle cx="547" cy="245" r="3" fill="#2457d6"/>
+    <circle cx="715" cy="245" r="3" fill="#2457d6"/>
+
+    <line x1="547" y1="265" x2="715" y2="265" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3"/>
+    <circle cx="547" cy="265" r="3" fill="#2457d6"/>
+    <circle cx="715" cy="265" r="3" fill="#2457d6"/>
+
+    <line x1="547" y1="285" x2="715" y2="285" stroke="#2457d6" stroke-width="2" stroke-dasharray="5,3"/>
+    <circle cx="547" cy="285" r="3" fill="#2457d6"/>
+    <circle cx="715" cy="285" r="3" fill="#2457d6"/>
+
+    <!-- Фіксований бланкінг (Fixed Blanking) -->
+    <line x1="547" y1="315" x2="715" y2="315" stroke="#6b7280" stroke-width="2" stroke-dasharray="2,2"/>
+    <circle cx="547" cy="315" r="3" fill="#6b7280"/>
+    <circle cx="715" cy="315" r="3" fill="#6b7280"/>
+
+    <line x1="547" y1="335" x2="715" y2="335" stroke="#6b7280" stroke-width="2" stroke-dasharray="2,2"/>
+    <circle cx="547" cy="335" r="3" fill="#6b7280"/>
+    <circle cx="715" cy="335" r="3" fill="#6b7280"/>
+
+    <line x1="547" y1="355" x2="715" y2="355" stroke="#6b7280" stroke-width="2" stroke-dasharray="2,2"/>
+    <circle cx="547" cy="355" r="3" fill="#6b7280"/>
+    <circle cx="715" cy="355" r="3" fill="#6b7280"/>
+
+    <!-- Стаціонарне перекриття у зоні Fixed Blanking -->
+    <rect x="610" y="310" width="40" height="55" fill="#d0d7de" stroke="#6b7280" stroke-width="1" opacity="0.9"/>
+    <text x="630" y="342" text-anchor="middle" font-size="11" fill="#1a1a1a">Конвеєр</text>
+
+    <!-- Дужки та підписи зон -->
+    <!-- Активна зона -->
+    <path d="M 742,150 H 748 V 220 H 742" stroke="#27ae60" stroke-width="1.5" fill="none"/>
+    <text x="755" y="177" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Активна зона</text>
+    <text x="755" y="193" text-anchor="start" font-size="11" fill="#27ae60">(Перекриття = STOP)</text>
+
+    <!-- Floating Blanking -->
+    <path d="M 742,240 H 748 V 290 H 742" stroke="#2457d6" stroke-width="1.5" fill="none"/>
+    <text x="755" y="260" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Floating Blanking</text>
+    <text x="755" y="276" text-anchor="start" font-size="11" fill="#2457d6">(Допуск 1–2 променів)</text>
+
+    <!-- Fixed Blanking -->
+    <path d="M 742,310 H 748 V 360 H 742" stroke="#6b7280" stroke-width="1.5" fill="none"/>
+    <text x="755" y="330" text-anchor="start" font-size="12" font-weight="bold" fill="#6b7280">Fixed Blanking</text>
+    <text x="755" y="346" text-anchor="start" font-size="11" fill="#6b7280">(Постійно вимкнені)</text>
+
+    <!-- Підсумок для панелі 2 -->
+    <rect x="507" y="400" width="411" height="36" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="712.5" y="423" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">✓ Селективна безпека: ігнорування деталей, захист оператора</text>
+  </g>
+</svg>

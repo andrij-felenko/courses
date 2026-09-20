@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+    <marker id="arr-left-red" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-left-blue" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-left-green" markerWidth="9" markerHeight="9" refX="0.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма перемикання фаз живлення (T_off, T_transfer, T_on)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Гарантована безаварійна пауза та електричне блокування за допомогою NC-контактів</text>
+
+  <!-- PANEL 1: INTERLOCKING SCHEME -->
+  <rect x="30" y="72" width="345" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="85" width="315" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="202.5" y="106" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Схема перехресного блокування</text>
+
+  <!-- Circuit Schematic Elements -->
+  <!-- Control Line L1 -->
+  <line x1="70" y1="140" x2="335" y2="140" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="65" y="144" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">L1</text>
+
+  <!-- Branch 1 (KM1 Coil Circuit with KM2.NC) -->
+  <line x1="120" y1="140" x2="120" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- KM2.NC Contact -->
+  <line x1="120" y1="170" x2="120" y2="182" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="112" y1="182" x2="128" y2="182" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="112" y1="192" x2="128" y2="192" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="124" y1="176" x2="116" y2="198" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="134" y="190" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="start">KM2.NC</text>
+  <line x1="120" y1="192" x2="120" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- KM1 Coil Rect -->
+  <rect x="100" y="220" width="40" height="26" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="120" y="237" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">KM1</text>
+  <line x1="120" y1="246" x2="120" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Branch 2 (KM2 Coil Circuit with KM1.NC) -->
+  <line x1="260" y1="140" x2="260" y2="170" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- KM1.NC Contact -->
+  <line x1="260" y1="170" x2="260" y2="182" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="252" y1="182" x2="268" y2="182" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="252" y1="192" x2="268" y2="192" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="264" y1="176" x2="256" y2="198" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="274" y="190" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">KM1.NC</text>
+  <line x1="260" y1="192" x2="260" y2="220" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- KM2 Coil Rect -->
+  <rect x="240" y="220" width="40" height="26" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="260" y="237" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="middle">KM2</text>
+  <line x1="260" y1="246" x2="260" y2="275" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Neutral Line N -->
+  <line x1="70" y1="275" x2="335" y2="275" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="65" y="279" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">N</text>
+
+  <!-- Panel 1 Explanatory Text Box -->
+  <rect x="45" y="305" width="315" height="158" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="58" y="325" font-size="12" font-weight="bold" fill="#1a1a1a">Логіка безаварійної паузи:</text>
+  <text x="58" y="347" font-size="12" fill="#1a1a1a">1. Вимкнення KM1 (час T_off):</text>
+  <text x="70" y="367" font-size="11" fill="#6b7280">• Гасіння дуги на силових контактах L1</text>
+  <text x="58" y="389" font-size="12" fill="#1a1a1a">2. Пауза переходу (T_transfer):</text>
+  <text x="70" y="409" font-size="11" fill="#6b7280">• Очікування замкнення контакта KM1.NC</text>
+  <text x="58" y="431" font-size="12" font-weight="bold" fill="#27ae60">3. Безпечне увімкнення KM2 (T_on)</text>
+  <text x="58" y="452" font-size="11" font-weight="bold" fill="#c0392b">• Виключає коротке замикання L1-L2!</text>
+
+
+  <!-- PANEL 2: TIMING DIAGRAM -->
+  <rect x="395" y="72" width="535" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="410" y="85" width="505" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="662.5" y="106" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Часова діаграма затримок комутації</text>
+
+  <!-- Timing Waveforms Grid -->
+  <!-- Row 1: Command Signal (Cmd: L1 -> L2) -->
+  <text x="405" y="152" font-size="11" font-weight="bold" fill="#1a1a1a" text-anchor="start">Команда (Cmd)</text>
+  <rect x="495" y="132" width="405" height="35" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+  <path d="M 495 142 L 560 142 L 560 157 L 900 157" fill="none" stroke="#1a1a1a" stroke-width="1.8"/>
+  <text x="525" y="139" font-size="10" fill="#c0392b" text-anchor="middle">L1</text>
+  <text x="730" y="153" font-size="10" fill="#27ae60" text-anchor="middle">L2</text>
+
+  <!-- Row 2: Power Contact KM1 (L1) -->
+  <text x="405" y="202" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="start">KM1 (Фаза L1)</text>
+  <rect x="495" y="182" width="405" height="35" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+  <path d="M 495 192 L 610 192 L 610 210 L 900 210" fill="none" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Row 3: Auxiliary Contact KM1.NC -->
+  <text x="405" y="252" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="start">Контакт KM1.NC</text>
+  <rect x="495" y="232" width="405" height="35" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+  <path d="M 495 260 L 650 260 L 650 242 L 900 242" fill="none" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Row 4: Power Contact KM2 (L2) -->
+  <text x="405" y="302" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="start">KM2 (Фаза L2)</text>
+  <rect x="495" y="282" width="405" height="35" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+  <path d="M 495 310 L 720 310 L 720 292 L 900 292" fill="none" stroke="#27ae60" stroke-width="2"/>
+
+  <!-- Vertical Event Markers (Dashed Lines - terminating at y=322 above text area) -->
+  <!-- t1: Command Change (x=560) -->
+  <line x1="560" y1="132" x2="560" y2="322" stroke="#9ca3af" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="560" y="335" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">t1</text>
+
+  <!-- t2: KM1 Power Disconnect (x=610) -->
+  <line x1="610" y1="182" x2="610" y2="322" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="610" y="335" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">t2</text>
+
+  <!-- t3: KM1.NC Closes (x=650) -->
+  <line x1="650" y1="232" x2="650" y2="322" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="650" y="335" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">t3</text>
+
+  <!-- t4: KM2 Power Connect (x=720) -->
+  <line x1="720" y1="282" x2="720" y2="322" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="720" y="335" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">t4</text>
+
+  <!-- Time Interval Annotations (Arrows in clean region y=350 to y=435) -->
+  <!-- T_off (between t1=560 and t2=610) -->
+  <line x1="560" y1="365" x2="610" y2="365" stroke="#c0392b" stroke-width="1.5" marker-start="url(#arr-left-red)" marker-end="url(#arr-red)"/>
+  <text x="585" y="360" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">T_off</text>
+  <text x="585" y="380" font-size="10" fill="#6b7280" text-anchor="middle">(50 мс)</text>
+
+  <!-- T_on (between t3=650 and t4=720) -->
+  <line x1="650" y1="365" x2="720" y2="365" stroke="#27ae60" stroke-width="1.5" marker-start="url(#arr-left-green)" marker-end="url(#arr-green)"/>
+  <text x="685" y="360" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">T_on</text>
+  <text x="685" y="380" font-size="10" fill="#6b7280" text-anchor="middle">(70 мс)</text>
+
+  <!-- T_transfer (between t2=610 and t4=720) -->
+  <line x1="610" y1="415" x2="720" y2="415" stroke="#2457d6" stroke-width="1.5" marker-start="url(#arr-left-blue)" marker-end="url(#arr-blue)"/>
+  <text x="665" y="410" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">T_transfer (безаварійна пауза перемикання)</text>
+  <text x="665" y="430" font-size="10" fill="#6b7280" text-anchor="middle">Гарантована затримка гасіння дуги (110 мс)</text>
+
+  <!-- Time Axis t -->
+  <line x1="495" y1="450" x2="900" y2="450" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="906" y="454" font-size="11" fill="#6b7280" text-anchor="start">Час (t)</text>
+
+
+  <!-- BOTTOM SUMMARY BANNER -->
+  <rect x="30" y="488" width="900" height="38" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="512" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Умова безпеки: T_transfer &gt; T_arc_extinction (Запобігає дуговому міжфазному замиканню)</text>
+</svg>

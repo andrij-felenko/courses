@@ -1,0 +1,231 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Заголовок і підзаголовок -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія абсолютного кодового диска та усунення міжкодових глітчів</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Код Ґрея змінює лише 1 біт між секторами, виключаючи хибні проміжні стани при несинхронному спрацюванні фотоприймачів</text>
+
+  <!-- ЛІВА ПАНЕЛЬ: Топологія доріжок диска -->
+  <rect x="24" y="70" width="440" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="244" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Топологія доріжок (код Ґрея, 4 біти)</text>
+  <text x="244" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Концентричні доріжки B0–B3 та оптична лінійка</text>
+
+  <!-- Диск (сектори) -->
+  <circle cx="230" cy="265" r="135" fill="none" stroke="#d0d7de" stroke-width="1.5"/>
+    <path d="M 230.00,220.00 L 230.00,200.00 A 65,65 0 0 1 254.87,204.95 L 247.22,223.43 A 45,45 0 0 0 230.00,220.00 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 247.22,223.43 L 254.87,204.95 A 65,65 0 0 1 275.96,219.04 L 261.82,233.18 A 45,45 0 0 0 247.22,223.43 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 261.82,233.18 L 275.96,219.04 A 65,65 0 0 1 290.05,240.13 L 271.57,247.78 A 45,45 0 0 0 261.82,233.18 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 271.57,247.78 L 290.05,240.13 A 65,65 0 0 1 295.00,265.00 L 275.00,265.00 A 45,45 0 0 0 271.57,247.78 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 275.00,265.00 L 295.00,265.00 A 65,65 0 0 1 290.05,289.87 L 271.57,282.22 A 45,45 0 0 0 275.00,265.00 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 271.57,282.22 L 290.05,289.87 A 65,65 0 0 1 275.96,310.96 L 261.82,296.82 A 45,45 0 0 0 271.57,282.22 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 261.82,296.82 L 275.96,310.96 A 65,65 0 0 1 254.87,325.05 L 247.22,306.57 A 45,45 0 0 0 261.82,296.82 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 247.22,306.57 L 254.87,325.05 A 65,65 0 0 1 230.00,330.00 L 230.00,310.00 A 45,45 0 0 0 247.22,306.57 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 230.00,310.00 L 230.00,330.00 A 65,65 0 0 1 205.13,325.05 L 212.78,306.57 A 45,45 0 0 0 230.00,310.00 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 212.78,306.57 L 205.13,325.05 A 65,65 0 0 1 184.04,310.96 L 198.18,296.82 A 45,45 0 0 0 212.78,306.57 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 198.18,296.82 L 184.04,310.96 A 65,65 0 0 1 169.95,289.87 L 188.43,282.22 A 45,45 0 0 0 198.18,296.82 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 188.43,282.22 L 169.95,289.87 A 65,65 0 0 1 165.00,265.00 L 185.00,265.00 A 45,45 0 0 0 188.43,282.22 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 185.00,265.00 L 165.00,265.00 A 65,65 0 0 1 169.95,240.13 L 188.43,247.78 A 45,45 0 0 0 185.00,265.00 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 188.43,247.78 L 169.95,240.13 A 65,65 0 0 1 184.04,219.04 L 198.18,233.18 A 45,45 0 0 0 188.43,247.78 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 198.18,233.18 L 184.04,219.04 A 65,65 0 0 1 205.13,204.95 L 212.78,223.43 A 45,45 0 0 0 198.18,233.18 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 212.78,223.43 L 205.13,204.95 A 65,65 0 0 1 230.00,200.00 L 230.00,220.00 A 45,45 0 0 0 212.78,223.43 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 230.00,198.00 L 230.00,178.00 A 87,87 0 0 1 263.29,184.62 L 255.64,203.10 A 67,67 0 0 0 230.00,198.00 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 255.64,203.10 L 263.29,184.62 A 87,87 0 0 1 291.52,203.48 L 277.38,217.62 A 67,67 0 0 0 255.64,203.10 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 277.38,217.62 L 291.52,203.48 A 87,87 0 0 1 310.38,231.71 L 291.90,239.36 A 67,67 0 0 0 277.38,217.62 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 291.90,239.36 L 310.38,231.71 A 87,87 0 0 1 317.00,265.00 L 297.00,265.00 A 67,67 0 0 0 291.90,239.36 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 297.00,265.00 L 317.00,265.00 A 87,87 0 0 1 310.38,298.29 L 291.90,290.64 A 67,67 0 0 0 297.00,265.00 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 291.90,290.64 L 310.38,298.29 A 87,87 0 0 1 291.52,326.52 L 277.38,312.38 A 67,67 0 0 0 291.90,290.64 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 277.38,312.38 L 291.52,326.52 A 87,87 0 0 1 263.29,345.38 L 255.64,326.90 A 67,67 0 0 0 277.38,312.38 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 255.64,326.90 L 263.29,345.38 A 87,87 0 0 1 230.00,352.00 L 230.00,332.00 A 67,67 0 0 0 255.64,326.90 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 230.00,332.00 L 230.00,352.00 A 87,87 0 0 1 196.71,345.38 L 204.36,326.90 A 67,67 0 0 0 230.00,332.00 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 204.36,326.90 L 196.71,345.38 A 87,87 0 0 1 168.48,326.52 L 182.62,312.38 A 67,67 0 0 0 204.36,326.90 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 182.62,312.38 L 168.48,326.52 A 87,87 0 0 1 149.62,298.29 L 168.10,290.64 A 67,67 0 0 0 182.62,312.38 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 168.10,290.64 L 149.62,298.29 A 87,87 0 0 1 143.00,265.00 L 163.00,265.00 A 67,67 0 0 0 168.10,290.64 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 163.00,265.00 L 143.00,265.00 A 87,87 0 0 1 149.62,231.71 L 168.10,239.36 A 67,67 0 0 0 163.00,265.00 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 168.10,239.36 L 149.62,231.71 A 87,87 0 0 1 168.48,203.48 L 182.62,217.62 A 67,67 0 0 0 168.10,239.36 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 182.62,217.62 L 168.48,203.48 A 87,87 0 0 1 196.71,184.62 L 204.36,203.10 A 67,67 0 0 0 182.62,217.62 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 204.36,203.10 L 196.71,184.62 A 87,87 0 0 1 230.00,178.00 L 230.00,198.00 A 67,67 0 0 0 204.36,203.10 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 230.00,176.00 L 230.00,156.00 A 109,109 0 0 1 271.71,164.30 L 264.06,182.77 A 89,89 0 0 0 230.00,176.00 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 264.06,182.77 L 271.71,164.30 A 109,109 0 0 1 307.07,187.93 L 292.93,202.07 A 89,89 0 0 0 264.06,182.77 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 292.93,202.07 L 307.07,187.93 A 109,109 0 0 1 330.70,223.29 L 312.23,230.94 A 89,89 0 0 0 292.93,202.07 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 312.23,230.94 L 330.70,223.29 A 109,109 0 0 1 339.00,265.00 L 319.00,265.00 A 89,89 0 0 0 312.23,230.94 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 319.00,265.00 L 339.00,265.00 A 109,109 0 0 1 330.70,306.71 L 312.23,299.06 A 89,89 0 0 0 319.00,265.00 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 312.23,299.06 L 330.70,306.71 A 109,109 0 0 1 307.07,342.07 L 292.93,327.93 A 89,89 0 0 0 312.23,299.06 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 292.93,327.93 L 307.07,342.07 A 109,109 0 0 1 271.71,365.70 L 264.06,347.23 A 89,89 0 0 0 292.93,327.93 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 264.06,347.23 L 271.71,365.70 A 109,109 0 0 1 230.00,374.00 L 230.00,354.00 A 89,89 0 0 0 264.06,347.23 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 230.00,354.00 L 230.00,374.00 A 109,109 0 0 1 188.29,365.70 L 195.94,347.23 A 89,89 0 0 0 230.00,354.00 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 195.94,347.23 L 188.29,365.70 A 109,109 0 0 1 152.93,342.07 L 167.07,327.93 A 89,89 0 0 0 195.94,347.23 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 167.07,327.93 L 152.93,342.07 A 109,109 0 0 1 129.30,306.71 L 147.77,299.06 A 89,89 0 0 0 167.07,327.93 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 147.77,299.06 L 129.30,306.71 A 109,109 0 0 1 121.00,265.00 L 141.00,265.00 A 89,89 0 0 0 147.77,299.06 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 141.00,265.00 L 121.00,265.00 A 109,109 0 0 1 129.30,223.29 L 147.77,230.94 A 89,89 0 0 0 141.00,265.00 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 147.77,230.94 L 129.30,223.29 A 109,109 0 0 1 152.93,187.93 L 167.07,202.07 A 89,89 0 0 0 147.77,230.94 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 167.07,202.07 L 152.93,187.93 A 109,109 0 0 1 188.29,164.30 L 195.94,182.77 A 89,89 0 0 0 167.07,202.07 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 195.94,182.77 L 188.29,164.30 A 109,109 0 0 1 230.00,156.00 L 230.00,176.00 A 89,89 0 0 0 195.94,182.77 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 230.00,154.00 L 230.00,134.00 A 131,131 0 0 1 280.13,143.97 L 272.48,162.45 A 111,111 0 0 0 230.00,154.00 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 272.48,162.45 L 280.13,143.97 A 131,131 0 0 1 322.63,172.37 L 308.49,186.51 A 111,111 0 0 0 272.48,162.45 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 308.49,186.51 L 322.63,172.37 A 131,131 0 0 1 351.03,214.87 L 332.55,222.52 A 111,111 0 0 0 308.49,186.51 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 332.55,222.52 L 351.03,214.87 A 131,131 0 0 1 361.00,265.00 L 341.00,265.00 A 111,111 0 0 0 332.55,222.52 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 341.00,265.00 L 361.00,265.00 A 131,131 0 0 1 351.03,315.13 L 332.55,307.48 A 111,111 0 0 0 341.00,265.00 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 332.55,307.48 L 351.03,315.13 A 131,131 0 0 1 322.63,357.63 L 308.49,343.49 A 111,111 0 0 0 332.55,307.48 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 308.49,343.49 L 322.63,357.63 A 131,131 0 0 1 280.13,386.03 L 272.48,367.55 A 111,111 0 0 0 308.49,343.49 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 272.48,367.55 L 280.13,386.03 A 131,131 0 0 1 230.00,396.00 L 230.00,376.00 A 111,111 0 0 0 272.48,367.55 Z" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="0.8"/>
+    <path d="M 230.00,376.00 L 230.00,396.00 A 131,131 0 0 1 179.87,386.03 L 187.52,367.55 A 111,111 0 0 0 230.00,376.00 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 187.52,367.55 L 179.87,386.03 A 131,131 0 0 1 137.37,357.63 L 151.51,343.49 A 111,111 0 0 0 187.52,367.55 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 151.51,343.49 L 137.37,357.63 A 131,131 0 0 1 108.97,315.13 L 127.45,307.48 A 111,111 0 0 0 151.51,343.49 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 127.45,307.48 L 108.97,315.13 A 131,131 0 0 1 99.00,265.00 L 119.00,265.00 A 111,111 0 0 0 127.45,307.48 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 119.00,265.00 L 99.00,265.00 A 131,131 0 0 1 108.97,214.87 L 127.45,222.52 A 111,111 0 0 0 119.00,265.00 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 127.45,222.52 L 108.97,214.87 A 131,131 0 0 1 137.37,172.37 L 151.51,186.51 A 111,111 0 0 0 127.45,222.52 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 151.51,186.51 L 137.37,172.37 A 131,131 0 0 1 179.87,143.97 L 187.52,162.45 A 111,111 0 0 0 151.51,186.51 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <path d="M 187.52,162.45 L 179.87,143.97 A 131,131 0 0 1 230.00,134.00 L 230.00,154.00 A 111,111 0 0 0 187.52,162.45 Z" fill="#ffffff" stroke="#d0d7de" stroke-width="0.8"/>
+    <line x1="230.00" y1="220.00" x2="230.00" y2="134.00" stroke="#d0d7de" stroke-width="0.5"/>
+    <line x1="247.22" y1="223.43" x2="280.13" y2="143.97" stroke="#d0d7de" stroke-width="0.5"/>
+    <line x1="261.82" y1="233.18" x2="322.63" y2="172.37" stroke="#d0d7de" stroke-width="0.5"/>
+    <line x1="271.57" y1="247.78" x2="351.03" y2="214.87" stroke="#d0d7de" stroke-width="0.5"/>
+    <line x1="271.57" y1="282.22" x2="351.03" y2="315.13" stroke="#d0d7de" stroke-width="0.5"/>
+    <line x1="261.82" y1="296.82" x2="322.63" y2="357.63" stroke="#d0d7de" stroke-width="0.5"/>
+    <line x1="247.22" y1="306.57" x2="280.13" y2="386.03" stroke="#d0d7de" stroke-width="0.5"/>
+    <line x1="230.00" y1="310.00" x2="230.00" y2="396.00" stroke="#d0d7de" stroke-width="0.5"/>
+    <line x1="212.78" y1="306.57" x2="179.87" y2="386.03" stroke="#d0d7de" stroke-width="0.5"/>
+    <line x1="198.18" y1="296.82" x2="137.37" y2="357.63" stroke="#d0d7de" stroke-width="0.5"/>
+    <line x1="188.43" y1="282.22" x2="108.97" y2="315.13" stroke="#d0d7de" stroke-width="0.5"/>
+    <line x1="185.00" y1="265.00" x2="99.00" y2="265.00" stroke="#d0d7de" stroke-width="0.5"/>
+    <line x1="188.43" y1="247.78" x2="108.97" y2="214.87" stroke="#d0d7de" stroke-width="0.5"/>
+    <line x1="198.18" y1="233.18" x2="137.37" y2="172.37" stroke="#d0d7de" stroke-width="0.5"/>
+    <line x1="212.78" y1="223.43" x2="179.87" y2="143.97" stroke="#d0d7de" stroke-width="0.5"/>
+
+  <!-- Центральний отвір (вал) -->
+  <circle cx="230" cy="265" r="43" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="230" y="269" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Вал</text>
+
+  <!-- Виносні підписи доріжок ліворуч -->
+  <!-- B3 (MSB) -->
+  <line x1="95" y1="150" x2="120" y2="160" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="35" y="154" font-size="12" font-weight="bold" fill="#1a1a1a">B3 (MSB)</text>
+
+  <!-- B2 -->
+  <line x1="60" y1="180" x2="140" y2="188" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="35" y="184" font-size="12" font-weight="bold" fill="#1a1a1a">B2</text>
+
+  <!-- B1 -->
+  <line x1="60" y1="210" x2="160" y2="214" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="35" y="214" font-size="12" font-weight="bold" fill="#1a1a1a">B1</text>
+
+  <!-- B0 (LSB) -->
+  <line x1="95" y1="240" x2="180" y2="240" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <text x="35" y="244" font-size="12" font-weight="bold" fill="#1a1a1a">B0 (LSB)</text>
+
+  <!-- Зчитувальна лінійка фотоприймачів (праворуч від диска) -->
+  <rect x="365" y="160" width="85" height="195" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="407" y="180" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">Блок давачів</text>
+
+  <!-- S3 (MSB) -->
+  <rect x="377" y="195" width="61" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="407" y="214" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S3 (MSB)</text>
+  <path d="M 377 210 L 331 210" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+
+  <!-- S2 -->
+  <rect x="377" y="233" width="61" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="407" y="252" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S2</text>
+  <path d="M 377 248 L 309 248" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+
+  <!-- S1 -->
+  <rect x="377" y="271" width="61" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="407" y="290" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S1</text>
+  <path d="M 377 286 L 287 286" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+
+  <!-- S0 (LSB) -->
+  <rect x="377" y="309" width="61" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="407" y="328" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">S0 (LSB)</text>
+  <path d="M 377 324 L 265 324" stroke="#2457d6" stroke-width="1.2" stroke-dasharray="3,2" marker-end="url(#arr-blue)"/>
+
+  <!-- Легенда лівої панелі -->
+  <rect x="40" y="420" width="408" height="65" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <rect x="52" y="433" width="16" height="12" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="76" y="444" font-size="12" fill="#1a1a1a">Прозорий сектор (Логічна 1)</text>
+
+  <rect x="240" y="433" width="16" height="12" rx="2" fill="#1a1a1a"/>
+  <text x="264" y="444" font-size="12" fill="#1a1a1a">Непрозорий сектор (Логічний 0)</text>
+
+  <text x="52" y="470" font-size="12" fill="#6b7280">• 16 секторів по 22.5°. Кожна доріжка задає відповідний розряд коду.</text>
+
+
+  <!-- ПРАВА ПАНЕЛЬ: Порівняльна таблиця та аналіз глітчів -->
+  <rect x="488" y="70" width="448" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="712" y="96" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Порівняння кодових переходів</text>
+  <text x="712" y="114" font-size="12" fill="#6b7280" text-anchor="middle">Аналіз міжкодових глітчів при переході секторів (7 → 8)</text>
+
+  <!-- Таблиця 4 рядків (сектори 6, 7, 8, 9) -->
+  <rect x="504" y="132" width="416" height="138" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Шапка таблиці -->
+  <path d="M 505 132 L 919 132 A 5 5 0 0 1 920 137 L 920 162 L 504 162 L 504 137 A 5 5 0 0 1 509 132 Z" fill="#eaf0fd"/>
+  <line x1="504" y1="162" x2="920" y2="162" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Розділювачі рядків -->
+  <line x1="504" y1="189" x2="920" y2="189" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="504" y1="216" x2="920" y2="216" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="504" y1="243" x2="920" y2="243" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Вертикальні розділювачі -->
+  <line x1="570" y1="132" x2="570" y2="270" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="680" y1="132" x2="680" y2="270" stroke="#d0d7de" stroke-width="1"/>
+  <line x1="790" y1="132" x2="790" y2="270" stroke="#d0d7de" stroke-width="1"/>
+
+  <!-- Заголовки колонок -->
+  <text x="537" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Сектор</text>
+  <text x="625" y="152" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Двійковий (Binary)</text>
+  <text x="735" y="152" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Код Ґрея (Gray)</text>
+  <text x="855" y="152" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Зміна бітів (Δbit)</text>
+
+  <!-- Рядок 1: Сектор 6 -->
+  <text x="537" y="179" font-size="12" fill="#1a1a1a" text-anchor="middle">6</text>
+  <text x="625" y="179" font-size="12" fill="#1a1a1a" text-anchor="middle">0110</text>
+  <text x="735" y="179" font-size="12" fill="#1a1a1a" text-anchor="middle">0101</text>
+  <text x="855" y="179" font-size="12" fill="#6b7280" text-anchor="middle">Δ = 1 біт</text>
+
+  <!-- Рядок 2: Сектор 7 (акцент підсвітка переходу) -->
+  <rect x="505" y="190" width="414" height="25" fill="#fdecea" opacity="0.6"/>
+  <text x="537" y="206" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">7</text>
+  <text x="625" y="206" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">0111</text>
+  <text x="735" y="206" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">0100</text>
+  <text x="855" y="206" font-size="12" fill="#6b7280" text-anchor="middle">Базовий стан</text>
+
+  <!-- Рядок 3: Сектор 8 (КРИТИЧНИЙ ПЕРЕХІД) -->
+  <rect x="505" y="217" width="414" height="25" fill="#fdecea"/>
+  <text x="537" y="233" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">8</text>
+  <text x="625" y="233" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">1000</text>
+  <text x="735" y="233" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1100</text>
+  <text x="855" y="233" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Bin: 4 ! | Gray: 1</text>
+
+  <!-- Рядок 4: Сектор 9 -->
+  <text x="537" y="260" font-size="12" fill="#1a1a1a" text-anchor="middle">9</text>
+  <text x="625" y="260" font-size="12" fill="#1a1a1a" text-anchor="middle">1001</text>
+  <text x="735" y="260" font-size="12" fill="#1a1a1a" text-anchor="middle">1101</text>
+  <text x="855" y="260" font-size="12" fill="#6b7280" text-anchor="middle">Δ = 1 біт</text>
+
+  <!-- Блок 1: Проблема Двійкового коду -->
+  <rect x="504" y="282" width="416" height="98" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="518" y="302" font-size="13" font-weight="bold" fill="#c0392b">⛔ Проблема двійкового коду: міжкодовий глітч</text>
+  <text x="518" y="322" font-size="12" fill="#1a1a1a">• При переході 0111 → 1000 змінюються <tspan font-weight="bold" fill="#c0392b">усі 4 біти</tspan> одночасно.</text>
+  <text x="518" y="340" font-size="12" fill="#1a1a1a">• Через опто-механічний перекіс сенсорів виникає стан <tspan font-weight="bold" fill="#c0392b">1111 (15)</tspan> або <tspan font-weight="bold" fill="#c0392b">0000 (0)</tspan>.</text>
+  <text x="518" y="358" font-size="12" fill="#c0392b" font-weight="bold">Результат: раптовий хибний стрибок обчисленої позиції на контролері.</text>
+
+  <!-- Блок 2: Перевага коду Ґрея -->
+  <rect x="504" y="392" width="416" height="98" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="518" y="412" font-size="13" font-weight="bold" fill="#27ae60">✓ Перевага коду Ґрея: відсутність глітчів (d = 1)</text>
+  <text x="518" y="432" font-size="12" fill="#1a1a1a">• При переході 0100 → 1100 змінюється <tspan font-weight="bold" fill="#27ae60">лише 1 біт</tspan> (MSB B3).</text>
+  <text x="518" y="450" font-size="12" fill="#1a1a1a">• Будь-яка затримка датчика залишає код у стані 0100 (7) або 1100 (8).</text>
+  <text x="518" y="468" font-size="12" font-weight="bold" fill="#27ae60">Результат: повністю виключено проміжні хибні значення позиції.</text>
+</svg>

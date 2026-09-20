@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 530" width="960" height="530" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background Canvas -->
+  <rect x="0" y="0" width="960" height="530" fill="white"/>
+
+  <!-- Main Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Конвеєр побітового розпаршування конфігураційного байта</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Послідовне застосування бітової маски (&amp;) та логічного зсуву (&gt;&gt;) для виділення суб-полів</text>
+
+  <!-- ================= STEP 1 PANEL ================= -->
+  <rect x="30" y="80" width="280" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="170" y="103" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Крок 1. Зчитане слово</text>
+  <text x="170" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">RAW_BYTE = 0xB6 (10110110₂)</text>
+
+  <!-- Bit labels B7..B0 -->
+  <text x="65" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B7</text>
+  <text x="95" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B6</text>
+  <text x="125" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B5</text>
+  <text x="155" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B4</text>
+  <text x="185" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B3</text>
+  <text x="215" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B2</text>
+  <text x="245" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B1</text>
+  <text x="275" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B0</text>
+
+  <!-- Bit Cells Panel 1 -->
+  <rect x="51" y="165" width="28" height="36" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="65" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">1</text>
+
+  <rect x="81" y="165" width="28" height="36" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="95" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">0</text>
+
+  <rect x="111" y="165" width="28" height="36" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="125" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">1</text>
+
+  <rect x="141" y="165" width="28" height="36" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="155" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">1</text>
+
+  <rect x="171" y="165" width="28" height="36" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="185" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">0</text>
+
+  <rect x="201" y="165" width="28" height="36" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="215" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#c0392b">1</text>
+
+  <rect x="231" y="165" width="28" height="36" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="245" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">1</text>
+
+  <rect x="261" y="165" width="28" height="36" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1.5"/>
+  <text x="275" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">0</text>
+
+  <!-- Legend Badges Panel 1 -->
+  <text x="170" y="225" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">Суб-поля у байті:</text>
+
+  <rect x="51" y="240" width="28" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="65" y="255" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">EN</text>
+
+  <rect x="81" y="240" width="88" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="125" y="255" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">ADDR [6:4]</text>
+
+  <rect x="171" y="240" width="58" height="22" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="200" y="255" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">MODE</text>
+
+  <rect x="231" y="240" width="58" height="22" rx="3" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="260" y="255" text-anchor="middle" font-size="11" font-weight="bold" fill="#1a1a1a">BAUD</text>
+
+  <text x="170" y="298" text-anchor="middle" font-size="11" fill="#6b7280">Ціль: виділити ADDR [6:4]</text>
+  <text x="170" y="314" text-anchor="middle" font-size="11" fill="#6b7280">Очікуване значення = 3</text>
+
+
+  <!-- Connecting Arrow 1 -> 2 -->
+  <line x1="312" y1="220" x2="334" y2="220" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+
+  <!-- ================= STEP 2 PANEL ================= -->
+  <rect x="340" y="80" width="280" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="103" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">Крок 2. Маскування І (&amp;)</text>
+  <text x="480" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">MASK = 0x70 (01110000₂)</text>
+
+  <!-- Bit labels B7..B0 Panel 2 -->
+  <text x="375" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B7</text>
+  <text x="405" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B6</text>
+  <text x="435" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B5</text>
+  <text x="465" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B4</text>
+  <text x="495" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B3</text>
+  <text x="525" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B2</text>
+  <text x="555" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B1</text>
+  <text x="585" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B0</text>
+
+  <!-- Bit Cells Panel 2 -->
+  <rect x="361" y="165" width="28" height="36" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="375" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#6b7280">0</text>
+
+  <rect x="391" y="165" width="28" height="36" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="405" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">0</text>
+
+  <rect x="421" y="165" width="28" height="36" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="435" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">1</text>
+
+  <rect x="451" y="165" width="28" height="36" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="465" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">1</text>
+
+  <rect x="481" y="165" width="28" height="36" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="495" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#6b7280">0</text>
+
+  <rect x="511" y="165" width="28" height="36" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="525" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#6b7280">0</text>
+
+  <rect x="541" y="165" width="28" height="36" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="555" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#6b7280">0</text>
+
+  <rect x="571" y="165" width="28" height="36" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="585" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#6b7280">0</text>
+
+  <text x="480" y="232" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">MASKED = 0x30 (00110000₂)</text>
+
+  <rect x="390" y="252" width="180" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="480" y="268" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">MASKED = RAW &amp; 0x70</text>
+
+  <text x="480" y="298" text-anchor="middle" font-size="11" fill="#6b7280">Побічні біти обнулено</text>
+  <text x="480" y="314" text-anchor="middle" font-size="11" fill="#6b7280">Збережено біти [6:4]</text>
+
+
+  <!-- Connecting Arrow 2 -> 3 -->
+  <line x1="622" y1="220" x2="644" y2="220" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+
+  <!-- ================= STEP 3 PANEL ================= -->
+  <rect x="650" y="80" width="280" height="280" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="790" y="103" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Крок 3. Зсув праворуч (&gt;&gt; 4)</text>
+  <text x="790" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">VALUE = MASKED &gt;&gt; 4</text>
+
+  <!-- Bit labels B7..B0 Panel 3 -->
+  <text x="685" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B7</text>
+  <text x="715" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B6</text>
+  <text x="745" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B5</text>
+  <text x="775" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B4</text>
+  <text x="805" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B3</text>
+  <text x="835" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B2</text>
+  <text x="865" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B1</text>
+  <text x="895" y="156" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">B0</text>
+
+  <!-- Bit Cells Panel 3 -->
+  <rect x="671" y="165" width="28" height="36" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="685" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#6b7280">0</text>
+
+  <rect x="701" y="165" width="28" height="36" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="715" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#6b7280">0</text>
+
+  <rect x="731" y="165" width="28" height="36" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="745" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#6b7280">0</text>
+
+  <rect x="761" y="165" width="28" height="36" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="775" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#6b7280">0</text>
+
+  <rect x="791" y="165" width="28" height="36" rx="3" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="805" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#6b7280">0</text>
+
+  <rect x="821" y="165" width="28" height="36" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="835" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">0</text>
+
+  <rect x="851" y="165" width="28" height="36" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="865" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">1</text>
+
+  <rect x="881" y="165" width="28" height="36" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="895" y="188" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">1</text>
+
+  <text x="790" y="232" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">VALUE = 0x03 (3 десяткове)</text>
+
+  <rect x="700" y="252" width="180" height="24" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="790" y="268" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">ADDR = 3 (00000011₂)</text>
+
+  <text x="790" y="298" text-anchor="middle" font-size="11" fill="#6b7280">Нормалізовано до [0..7]</text>
+  <text x="790" y="314" text-anchor="middle" font-size="11" fill="#6b7280">Готово для C-структури</text>
+
+
+  <!-- ================= BOTTOM PANEL: STRUCT MAPPING ================= -->
+  <rect x="30" y="380" width="900" height="115" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="480" y="402" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Результат: Пакування виділених суб-полів у C-структуру налаштувань</text>
+
+  <!-- Box 1: EN -->
+  <rect x="50" y="418" width="190" height="62" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.2"/>
+  <text x="145" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">config.enable = 1</text>
+  <text x="145" y="458" text-anchor="middle" font-size="11" fill="#6b7280">(RAW &amp; 0x80) &gt;&gt; 7</text>
+
+  <!-- Box 2: ADDR -->
+  <rect x="260" y="418" width="210" height="62" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="365" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">config.address = 3</text>
+  <text x="365" y="458" text-anchor="middle" font-size="11" fill="#1a1a1a">(RAW &amp; 0x70) &gt;&gt; 4</text>
+
+  <!-- Box 3: MODE -->
+  <rect x="490" y="418" width="200" height="62" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="590" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">config.mode = 1</text>
+  <text x="590" y="458" text-anchor="middle" font-size="11" fill="#1a1a1a">(RAW &amp; 0x0C) &gt;&gt; 2</text>
+
+  <!-- Box 4: BAUD -->
+  <rect x="710" y="418" width="200" height="62" rx="6" fill="#ffffff" stroke="#6b7280" stroke-width="1.2"/>
+  <text x="810" y="438" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">config.baud_rate = 2</text>
+  <text x="810" y="458" text-anchor="middle" font-size="11" fill="#6b7280">(RAW &amp; 0x03) &gt;&gt; 0</text>
+
+  <!-- Footnote -->
+  <text x="480" y="512" text-anchor="middle" font-size="12" fill="#6b7280">Побітові операції І та зсуви гарантують миттєву ізоляцію налаштувань за 2 інструкції</text>
+</svg>

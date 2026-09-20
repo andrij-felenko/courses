@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Механічне та електричне взаємне блокування контакторів АВР</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Подвійне блокування унеможливлює одночасне ввімкнення джерел Q1 і Q2</text>
+
+  <!-- Sources at top -->
+  <text x="145" y="85" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Джерело 1 (Вхід L1)</text>
+  <text x="815" y="85" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Джерело 2 (Вхід L2)</text>
+
+  <!-- Contactor Panel 1 (KM1) -->
+  <rect x="40" y="105" width="365" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="222" y="125" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Контактор KM1 (Джерело 1)</text>
+
+  <!-- Contactor Panel 2 (KM2) -->
+  <rect x="555" y="105" width="365" height="370" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2"/>
+  <text x="738" y="125" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Контактор KM2 (Джерело 2)</text>
+
+  <!-- KM1 Power Contacts (Closed) -->
+  <line x1="120" y1="92" x2="120" y2="155" stroke="#27ae60" stroke-width="3"/>
+  <circle cx="120" cy="155" r="5" fill="#27ae60"/>
+  <circle cx="120" cy="205" r="5" fill="#27ae60"/>
+  <line x1="120" y1="155" x2="120" y2="205" stroke="#27ae60" stroke-width="4"/>
+  <line x1="120" y1="205" x2="120" y2="495" stroke="#27ae60" stroke-width="3"/>
+  <text x="135" y="180" text-anchor="start" font-size="12" font-weight="bold" fill="#27ae60">Силові контакти: ЗІМКНУТО</text>
+
+  <!-- KM2 Power Contacts (Open) -->
+  <line x1="840" y1="92" x2="840" y2="155" stroke="#c0392b" stroke-dasharray="4,3" stroke-width="2"/>
+  <circle cx="840" cy="155" r="5" fill="#c0392b"/>
+  <circle cx="840" cy="205" r="5" fill="#c0392b"/>
+  <line x1="840" y1="155" x2="865" y2="190" stroke="#c0392b" stroke-width="4"/>
+  <line x1="840" y1="205" x2="840" y2="495" stroke="#6b7280" stroke-dasharray="4,3" stroke-width="2"/>
+  <text x="825" y="180" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">Силові контакти: РОЗЗІМКНУТО</text>
+
+  <!-- Aux NC Contact Box KM1_NC -->
+  <rect x="245" y="220" width="145" height="52" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="317" y="240" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Контакт KM1.NC</text>
+  <text x="317" y="258" text-anchor="middle" font-size="12" fill="#c0392b">РОЗЗІМКНУТО (Блок KM2)</text>
+
+  <!-- Aux NC Contact Box KM2_NC -->
+  <rect x="570" y="220" width="145" height="52" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <text x="642" y="240" text-anchor="middle" font-size="13" font-weight="bold" fill="#27ae60">Контакт KM2.NC</text>
+  <text x="642" y="258" text-anchor="middle" font-size="12" fill="#27ae60">ЗАМКНУТО (Дозволено)</text>
+
+  <!-- Wiring Labels for Electrical Interlock -->
+  <text x="480" y="278" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Коло KM1: Живлення через замкнений KM2.NC</text>
+  <text x="480" y="302" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Коло KM2: Розірвано розімкненим KM1.NC</text>
+
+  <!-- Electrical Interlock Wiring Lines -->
+  <!-- Control Line L_ctrl at top -->
+  <line x1="317" y1="200" x2="317" y2="220" stroke="#2457d6" stroke-width="2"/>
+  <line x1="642" y1="200" x2="642" y2="220" stroke="#2457d6" stroke-width="2"/>
+  <line x1="317" y1="200" x2="642" y2="200" stroke="#2457d6" stroke-dasharray="4,4" stroke-width="2"/>
+  <circle cx="480" cy="200" r="3" fill="#2457d6"/>
+
+  <!-- Active wire from KM2_NC bottom (642, 272) to KM1 Coil (317, 320) -->
+  <path d="M642,272 L642,285 L317,285 L317,320" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Blocked wire from KM1_NC bottom (317, 272) to KM2 Coil (642, 320) -->
+  <path d="M317,272 L317,310 L642,310 L642,320" fill="none" stroke="#c0392b" stroke-dasharray="4,3" stroke-width="2" marker-end="url(#arr-red)"/>
+
+  <!-- Coil Box KM1 -->
+  <rect x="245" y="320" width="145" height="52" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="317" y="340" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Котушка KM1</text>
+  <text x="317" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">ПІД НАПРУГОЮ</text>
+
+  <!-- Coil Box KM2 -->
+  <rect x="570" y="320" width="145" height="52" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <text x="642" y="340" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">Котушка KM2</text>
+  <text x="642" y="358" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">ЗНЕСТРУМЛЕНА</text>
+
+  <!-- Central Mechanical Interlock Mechanism -->
+  <!-- Background panel for center mechanism -->
+  <rect x="422" y="370" width="116" height="100" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+
+  <!-- Mechanical push rods from solenoids -->
+  <line x1="120" y1="395" x2="435" y2="415" stroke="#27ae60" stroke-width="3"/>
+  <line x1="840" y1="395" x2="525" y2="385" stroke="#c0392b" stroke-dasharray="4,3" stroke-width="2"/>
+
+  <!-- Rocker lever pivot -->
+  <polygon points="480,410 473,423 487,423" fill="#6b7280"/>
+  <circle cx="480" cy="403" r="4" fill="#1a1a1a"/>
+
+  <!-- Tilted Rocker Bar -->
+  <polygon points="435,410 525,380 525,390 435,420" fill="#2457d6" stroke="#1a1a1a" stroke-width="1"/>
+  <circle cx="435" cy="415" r="4" fill="#27ae60"/>
+  <circle cx="525" cy="385" r="4" fill="#c0392b"/>
+
+  <!-- Mechanical Stop Block on KM2 side (nested inside center panel x=422..538, y=370..470) -->
+  <rect x="518" y="376" width="14" height="14" fill="#c0392b" rx="2"/>
+  <text x="525" y="387" text-anchor="middle" font-size="12" font-weight="bold" fill="white">✕</text>
+
+  <!-- Mechanical Interlock Text inside box -->
+  <text x="480" y="445" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Механічне коромисло</text>
+  <text x="480" y="462" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Фізичний упор KM2</text>
+
+  <!-- Side Legend Box Panel 1 (KM1) -->
+  <rect x="55" y="390" width="165" height="75" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="137" y="407" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Стан Джерела 1</text>
+  <text x="63" y="424" text-anchor="start" font-size="12" fill="#27ae60">● KM1 під напругою</text>
+  <text x="63" y="440" text-anchor="start" font-size="12" fill="#27ae60">● Силові контакти ON</text>
+  <text x="63" y="456" text-anchor="start" font-size="12" fill="#c0392b">● KM1.NC розімкнено</text>
+
+  <!-- Side Legend Box Panel 2 (KM2) -->
+  <rect x="740" y="390" width="165" height="75" rx="5" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="822" y="407" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">Стан Джерела 2</text>
+  <text x="748" y="424" text-anchor="start" font-size="12" fill="#c0392b">● KM2 знеструмлено</text>
+  <text x="748" y="440" text-anchor="start" font-size="12" fill="#c0392b">● Механічний блок</text>
+  <text x="748" y="456" text-anchor="start" font-size="12" fill="#27ae60">● KM2.NC замкнено</text>
+
+  <!-- Load Bus at bottom -->
+  <line x1="60" y1="495" x2="900" y2="495" stroke="#1a1a1a" stroke-width="4"/>
+  <line x1="480" y1="495" x2="480" y2="522" stroke="#1a1a1a" stroke-width="3" marker-end="url(#arr-blue)"/>
+  <text x="480" y="540" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">До навантаження (Живлення від Джерела 1)</text>
+</svg>

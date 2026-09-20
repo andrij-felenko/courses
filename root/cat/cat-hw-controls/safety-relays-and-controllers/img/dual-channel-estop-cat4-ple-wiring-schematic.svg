@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Двоканальна схема аварійного зупинення (Cat.4 / PL e, ISO 13849-1)</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Підключення грибка E-Stop (S11-S22), дубльованих контакторів K1/K2 та контуру EDM/Reset</text>
+
+  <!-- PANEL 1: E-STOP BUTTON (S1) -->
+  <g id="panel-estop">
+    <rect x="40" y="85" width="190" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="40" y="85" width="190" height="36" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <rect x="40" y="105" width="190" height="16" fill="#eaf0fd"/>
+    <line x1="40" y1="121" x2="230" y2="121" stroke="#2457d6" stroke-width="1"/>
+    <text x="135" y="107" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">КНОПКА E-STOP (S1)</text>
+
+    <!-- Mushroom Cap Graphic -->
+    <rect x="95" y="135" width="80" height="24" rx="12" fill="#c0392b"/>
+    <text x="135" y="151" text-anchor="middle" font-size="11" font-weight="bold" fill="#ffffff">E-STOP</text>
+    <line x1="135" y1="159" x2="135" y2="395" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3,3"/>
+
+    <!-- Contact 1 (NC 11-12) -->
+    <circle cx="90" cy="190" r="4" fill="#2457d6"/>
+    <text x="80" y="182" text-anchor="end" font-size="11" fill="#6b7280">11</text>
+    <circle cx="90" cy="250" r="4" fill="#2457d6"/>
+    <text x="80" y="264" text-anchor="end" font-size="11" fill="#6b7280">12</text>
+    <line x1="90" y1="194" x2="90" y2="246" stroke="#2457d6" stroke-width="2"/>
+    <text x="145" y="216" font-size="12" font-weight="bold" fill="#2457d6">Канал 1</text>
+    <text x="145" y="232" font-size="11" fill="#6b7280">(NC 11-12)</text>
+
+    <!-- Contact 2 (NC 21-22) -->
+    <circle cx="90" cy="320" r="4" fill="#2457d6"/>
+    <text x="80" y="312" text-anchor="end" font-size="11" fill="#6b7280">21</text>
+    <circle cx="90" cy="380" r="4" fill="#2457d6"/>
+    <text x="80" y="394" text-anchor="end" font-size="11" fill="#6b7280">22</text>
+    <line x1="90" y1="324" x2="90" y2="376" stroke="#2457d6" stroke-width="2"/>
+    <text x="145" y="346" font-size="12" font-weight="bold" fill="#2457d6">Канал 2</text>
+    <text x="145" y="362" font-size="11" fill="#6b7280">(NC 21-22)</text>
+
+    <!-- Panel 1 Note Box -->
+    <rect x="50" y="425" width="170" height="75" rx="4" fill="#ffffff" stroke="#d0d7de"/>
+    <text x="60" y="445" font-size="11" fill="#1a1a1a">• Примусове розмикання</text>
+    <text x="60" y="465" font-size="11" fill="#1a1a1a">• Два незалежні канали</text>
+    <text x="60" y="485" font-size="11" font-weight="bold" fill="#2457d6">• Такт-імпульсний контроль</text>
+  </g>
+
+  <!-- PANEL 2: SAFETY RELAY -->
+  <g id="panel-relay">
+    <rect x="260" y="85" width="340" height="430" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="260" y="85" width="340" height="36" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <rect x="260" y="105" width="340" height="16" fill="#eaf0fd"/>
+    <line x1="260" y1="121" x2="600" y2="121" stroke="#2457d6" stroke-width="1"/>
+    <text x="430" y="107" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">РЕЛЕ БЕЗПЕКИ (SAFETY RELAY)</text>
+
+    <!-- Terminals Left -->
+    <circle cx="280" cy="190" r="5" fill="#2457d6"/>
+    <text x="295" y="182" font-size="11" font-weight="bold" fill="#2457d6">S11 (Тест Ch1)</text>
+
+    <circle cx="280" cy="250" r="5" fill="#2457d6"/>
+    <text x="295" y="242" font-size="11" font-weight="bold" fill="#2457d6">S12 (Вхід Ch1)</text>
+
+    <circle cx="280" cy="320" r="5" fill="#2457d6"/>
+    <text x="295" y="312" font-size="11" font-weight="bold" fill="#2457d6">S21 (Тест Ch2)</text>
+
+    <circle cx="280" cy="380" r="5" fill="#2457d6"/>
+    <text x="295" y="372" font-size="11" font-weight="bold" fill="#2457d6">S22 (Вхід Ch2)</text>
+
+    <!-- Internal Safety Logic Core -->
+    <rect x="390" y="150" width="80" height="260" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="430" y="270" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Логіка</text>
+    <text x="430" y="285" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">безпеки</text>
+    <text x="430" y="302" text-anchor="middle" font-size="10" fill="#6b7280">Cat.4 / PL e</text>
+
+    <!-- Terminals Right -->
+    <circle cx="580" cy="180" r="5" fill="#27ae60"/>
+    <text x="568" y="172" text-anchor="end" font-size="11" font-weight="bold" fill="#27ae60">13 (+24V)</text>
+
+    <circle cx="580" cy="220" r="5" fill="#27ae60"/>
+    <text x="568" y="212" text-anchor="end" font-size="11" font-weight="bold" fill="#27ae60">14 (Вихід K1)</text>
+
+    <circle cx="580" cy="270" r="5" fill="#27ae60"/>
+    <text x="568" y="262" text-anchor="end" font-size="11" font-weight="bold" fill="#27ae60">23 (+24V)</text>
+
+    <circle cx="580" cy="310" r="5" fill="#27ae60"/>
+    <text x="568" y="302" text-anchor="end" font-size="11" font-weight="bold" fill="#27ae60">24 (Вихід K2)</text>
+
+    <circle cx="580" cy="390" r="5" fill="#2457d6"/>
+    <text x="568" y="382" text-anchor="end" font-size="11" font-weight="bold" fill="#2457d6">S34 (EDM/Reset)</text>
+
+    <!-- Badge Box Panel 2 -->
+    <rect x="275" y="430" width="310" height="70" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="430" y="452" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">✓ КОНТРОЛЬ МІЖЖИЛЬНИХ КЗ: АКТИВНО</text>
+    <text x="430" y="470" text-anchor="middle" font-size="11" fill="#1a1a1a">Такт-імпульси S11/S21 мають зсув фаз</text>
+    <text x="430" y="488" text-anchor="middle" font-size="11" fill="#1a1a1a">Виявлення замикань між каналами</text>
+  </g>
+
+  <!-- PANEL 3: POWER ACTUATORS (K1, K2) -->
+  <g id="panel-contactors">
+    <rect x="630" y="85" width="290" height="225" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="630" y="85" width="290" height="36" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <rect x="630" y="105" width="290" height="16" fill="#eaf0fd"/>
+    <line x1="630" y1="121" x2="920" y2="121" stroke="#2457d6" stroke-width="1"/>
+    <text x="775" y="107" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">СИЛОВІ КОНТАКТОРИ (K1, K2)</text>
+
+    <!-- Contactor K1 Coil -->
+    <rect x="645" y="140" width="110" height="55" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="700" y="165" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Котушка K1</text>
+    <circle cx="645" cy="165" r="4" fill="#27ae60"/>
+    <text x="653" y="180" font-size="10" fill="#6b7280">A1</text>
+
+    <!-- Contactor K2 Coil -->
+    <rect x="645" y="210" width="110" height="55" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="700" y="235" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Котушка K2</text>
+    <circle cx="645" cy="235" r="4" fill="#27ae60"/>
+    <text x="653" y="250" font-size="10" fill="#6b7280">A1</text>
+
+    <!-- Power Line Box -->
+    <rect x="770" y="140" width="135" height="155" rx="4" fill="#e9f7ef" stroke="#27ae60"/>
+    <text x="837" y="162" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">СИЛОВЕ КОЛО</text>
+    <text x="837" y="184" text-anchor="middle" font-size="11" fill="#1a1a1a">3-фазна мережа L1-L3</text>
+    <text x="837" y="206" text-anchor="middle" font-size="11" fill="#1a1a1a">Послідовні NO K1+K2</text>
+    <text x="837" y="234" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Дубльований захист</text>
+    <text x="837" y="252" text-anchor="middle" font-size="11" fill="#1a1a1a">від зварювання</text>
+    <text x="837" y="278" text-anchor="middle" font-size="11" fill="#27ae60">Живлення приводу</text>
+  </g>
+
+  <!-- PANEL 4: EDM & RESET LOOP -->
+  <g id="panel-edm">
+    <rect x="630" y="325" width="290" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+    <rect x="630" y="325" width="290" height="36" rx="8" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <rect x="630" y="345" width="290" height="16" fill="#eaf0fd"/>
+    <line x1="630" y1="361" x2="920" y2="361" stroke="#2457d6" stroke-width="1"/>
+    <text x="775" y="347" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">КОНТУР EDM ТА СКИДАННЯ (S2)</text>
+
+    <!-- Auxiliary Contacts -->
+    <rect x="645" y="375" width="105" height="40" rx="4" fill="#ffffff" stroke="#2457d6"/>
+    <text x="697" y="399" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">K1 NC (21-22)</text>
+
+    <rect x="765" y="375" width="105" height="40" rx="4" fill="#ffffff" stroke="#2457d6"/>
+    <text x="817" y="399" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">K2 NC (21-22)</text>
+
+    <!-- Reset Button S2 -->
+    <rect x="670" y="430" width="180" height="38" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="760" y="454" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Кнопка Reset S2 (NO)</text>
+
+    <!-- Note Panel 4 -->
+    <text x="775" y="494" text-anchor="middle" font-size="11" fill="#6b7280">Пуск можливий лише за умови розмикання K1 і K2</text>
+  </g>
+
+  <!-- WIRING CONNECTIONS (LINES & ARROWS) -->
+
+  <!-- Channel 1 Test Pulse Wire: S11 -> E-Stop Contact 11 -->
+  <path d="M 280 190 L 90 190" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Channel 1 Return Wire: E-Stop Contact 12 -> S12 -->
+  <path d="M 90 250 L 280 250" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Channel 2 Test Pulse Wire: S21 -> E-Stop Contact 21 -->
+  <path d="M 280 320 L 90 320" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Channel 2 Return Wire: E-Stop Contact 22 -> S22 -->
+  <path d="M 90 380 L 280 380" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+
+  <!-- Safety Power Output 14 -> Contactor K1 Coil A1 -->
+  <path d="M 580 220 L 610 220 L 610 165 L 645 165" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Safety Power Output 24 -> Contactor K2 Coil A1 -->
+  <path d="M 580 310 L 620 310 L 620 235 L 645 235" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- EDM Loop Wire: K1 NC -> K2 NC -> Reset S2 -> S34 -->
+  <line x1="750" y1="395" x2="765" y2="395" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 870 395 L 895 395 L 895 449 L 850 449" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <path d="M 670 449 L 615 449 L 615 390 L 580 390" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+</svg>

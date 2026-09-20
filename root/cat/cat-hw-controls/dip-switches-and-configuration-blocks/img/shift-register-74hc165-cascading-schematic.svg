@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Принципова схема та часові діаграми каскаду 74HC165</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Каскадування двох 8-бітних регістрів (16 біт) через DS-Q7 із загальними лініями SH/LD та CLK</text>
+
+  <!-- Section 1: Schematic Container -->
+  <rect x="25" y="75" width="910" height="255" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="98" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">1. Принципова схема каскаду 74HC165 (16-бітний ввід)</text>
+
+  <!-- MCU Host Box -->
+  <rect x="45" y="115" width="135" height="200" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="112" y="135" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Мікроконтролер</text>
+  <text x="112" y="152" font-size="12" fill="#6b7280" text-anchor="middle">(MCU Host)</text>
+
+  <text x="55" y="188" font-size="12" font-weight="bold" fill="#2457d6">SH/LD</text>
+  <text x="120" y="188" font-size="12" fill="#6b7280">Out</text>
+
+  <text x="55" y="228" font-size="12" font-weight="bold" fill="#2457d6">CLK</text>
+  <text x="120" y="228" font-size="12" fill="#6b7280">Out</text>
+
+  <text x="55" y="268" font-size="12" font-weight="bold" fill="#27ae60">MISO</text>
+  <text x="120" y="268" font-size="12" fill="#6b7280">In</text>
+
+  <text x="112" y="300" font-size="12" fill="#1a1a1a" text-anchor="middle">3 лінії GPIO</text>
+
+  <!-- IC1 Box (Low Byte) -->
+  <rect x="230" y="115" width="210" height="200" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="335" y="135" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IC1: 74HC165 (Байт 0)</text>
+  
+  <rect x="245" y="148" width="180" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="335" y="168" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DIP #1: D0..D7 (Байт 0)</text>
+
+  <text x="245" y="195" font-size="12" fill="#1a1a1a">SH/LD</text>
+  <text x="245" y="235" font-size="12" fill="#1a1a1a">CLK</text>
+  <text x="245" y="275" font-size="12" fill="#6b7280">DS = GND (0)</text>
+
+  <text x="400" y="275" font-size="12" font-weight="bold" fill="#27ae60">Q7</text>
+
+  <!-- Cascade Connection IC1 -> IC2 -->
+  <line x1="420" y1="270" x2="518" y2="270" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="470" y="262" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">DS ← Q7</text>
+
+  <!-- IC2 Box (High Byte) -->
+  <rect x="520" y="115" width="210" height="200" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="625" y="135" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">IC2: 74HC165 (Байт 1)</text>
+
+  <rect x="535" y="148" width="180" height="30" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="625" y="168" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">DIP #2: D8..D15 (Байт 1)</text>
+
+  <text x="535" y="195" font-size="12" fill="#1a1a1a">SH/LD</text>
+  <text x="535" y="235" font-size="12" fill="#1a1a1a">CLK</text>
+  <text x="535" y="275" font-size="12" fill="#27ae60">DS (з IC1)</text>
+
+  <text x="690" y="275" font-size="12" font-weight="bold" fill="#27ae60">Q7</text>
+
+  <!-- Summary Output Box -->
+  <rect x="760" y="115" width="160" height="200" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="840" y="138" font-size="13" font-weight="bold" fill="#27ae60" text-anchor="middle">16-бітний потік</text>
+  <text x="840" y="160" font-size="12" fill="#1a1a1a" text-anchor="middle">Першим іде Байт 1,</text>
+  <text x="840" y="178" font-size="12" fill="#1a1a1a" text-anchor="middle">другим — Байт 0</text>
+  <rect x="770" y="195" width="140" height="42" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1"/>
+  <text x="840" y="213" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">B15..B8 → B7..B0</text>
+  <text x="840" y="228" font-size="12" fill="#6b7280" text-anchor="middle">Q7 IC2 → MISO</text>
+  <text x="840" y="275" font-size="12" fill="#27ae60" text-anchor="middle" font-weight="bold">Безперервний зсув</text>
+
+  <!-- Buses & Signals Lines -->
+  <!-- SH/LD Bus -->
+  <line x1="180" y1="190" x2="240" y2="190" stroke="#2457d6" stroke-width="2"/>
+  <line x1="285" y1="190" x2="530" y2="190" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- CLK Bus -->
+  <line x1="180" y1="230" x2="240" y2="230" stroke="#2457d6" stroke-width="2"/>
+  <line x1="270" y1="230" x2="530" y2="230" stroke="#2457d6" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- MISO Return Line from IC2 Q7 (710, 270) to MCU (180, 265) -->
+  <path d="M 710,270 L 740,270 L 740,295 L 180,295 L 180,265" fill="none" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+
+  <!-- Section 2: Timing Diagram Container -->
+  <rect x="25" y="345" width="910" height="190" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="368" font-size="14" font-weight="bold" fill="#1a1a1a" text-anchor="middle">2. Часові діаграми сигналів каскадованого зчитування</text>
+
+  <!-- Signal 1: SH/LD Waveform -->
+  <text x="45" y="402" font-size="12" font-weight="bold" fill="#2457d6">1. SH/LD (LOAD):</text>
+  <path d="M 160,394 L 200,394 L 200,410 L 240,410 L 240,394 L 900,394" fill="none" stroke="#c0392b" stroke-width="2"/>
+  <text x="220" y="388" font-size="12" fill="#c0392b" text-anchor="middle">t_load (фіксація D0..D15)</text>
+
+  <!-- Signal 2: CLK Waveform -->
+  <text x="45" y="445" font-size="12" font-weight="bold" fill="#2457d6">2. CLK (CLOCK):</text>
+  <path d="M 160,455 L 250,455 L 250,438 L 269,438 L 269,455 L 288,455 L 288,438 L 307,438 L 307,455 L 326,455 L 326,438 L 345,438 L 345,455 L 364,455 L 364,438 L 383,438 L 383,455 L 402,455 L 402,438 L 421,438 L 421,455 L 440,455 L 440,438 L 459,438 L 459,455 L 478,455 L 478,438 L 497,438 L 497,455 L 516,455 L 516,438 L 535,438 L 535,455 L 554,455 L 554,438 L 573,438 L 573,455 L 592,455 L 592,438 L 611,438 L 611,455 L 630,455 L 630,438 L 649,438 L 649,455 L 668,455 L 668,438 L 687,438 L 687,455 L 706,455 L 706,438 L 725,438 L 725,455 L 744,455 L 744,438 L 763,438 L 763,455 L 782,455 L 782,438 L 801,438 L 801,455 L 820,455 L 820,438 L 839,438 L 839,455 L 858,455 L 900,455" fill="none" stroke="#2457d6" stroke-width="1.8"/>
+  <text x="402" y="430" font-size="12" fill="#2457d6" text-anchor="middle">CP1..CP8 (Байт 1)</text>
+  <text x="706" y="430" font-size="12" fill="#2457d6" text-anchor="middle">CP9..CP16 (Байт 0)</text>
+
+  <!-- Signal 3: DATA (MISO) Bit Cells -->
+  <text x="45" y="492" font-size="12" font-weight="bold" fill="#27ae60">3. DATA (MISO):</text>
+
+  <!-- Bit Cells for Byte 1 (B15..B8) -->
+  <rect x="250" y="478" width="38" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="269" y="494" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">B15</text>
+
+  <rect x="288" y="478" width="38" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="307" y="494" font-size="12" fill="#27ae60" text-anchor="middle">B14</text>
+
+  <rect x="516" y="478" width="38" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="535" y="494" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">B8</text>
+
+  <!-- Bit Cells for Byte 0 (B7..B0) -->
+  <rect x="554" y="478" width="38" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="573" y="494" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">B7</text>
+
+  <rect x="592" y="478" width="38" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="611" y="494" font-size="12" fill="#2457d6" text-anchor="middle">B6</text>
+
+  <rect x="820" y="478" width="38" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="839" y="494" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">B0</text>
+
+  <text x="410" y="494" font-size="12" fill="#6b7280" text-anchor="middle">...</text>
+  <text x="706" y="494" font-size="12" fill="#6b7280" text-anchor="middle">...</text>
+
+  <!-- Timing Diagram Footer Note -->
+  <text x="480" y="522" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Повна передача 16 біт (2 байти) за 3 лінії GPIO без втрати швидкості</text>
+</svg>

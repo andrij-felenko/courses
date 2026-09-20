@@ -1,0 +1,280 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Карта регістрів стану та бітові поля пульта налагодження (Teach Pendant)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Структура 16-бітових регістрів телеметрії: безпека (SAFETY), кнопки (KEYBOARD) та 6D-джойстик (JOYSTICK)</text>
+
+  <!-- ==================== ROW 1: REGISTER 0x00 SAFETY_STATUS ==================== -->
+  <rect x="30" y="70" width="900" height="120" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="70" width="900" height="26" rx="6" fill="#eaf0fd"/>
+  <rect x="30" y="90" width="900" height="6" fill="#eaf0fd"/>
+  <text x="480" y="87" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Регістр 0x00: SAFETY_STATUS (16 біт - Статус безпеки та діагностики)</text>
+
+  <!-- Bit Numbers 15..0 for Row 1 -->
+  <!-- Bit 15 --> <text x="86.25" y="103" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">15</text>
+  <!-- Bit 14 --> <text x="138.75" y="103" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">14</text>
+  <!-- Bit 13 --> <text x="191.25" y="103" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">13</text>
+  <!-- Bit 12 --> <text x="243.75" y="103" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">12</text>
+  <!-- Bit 11 --> <text x="296.25" y="103" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">11</text>
+  <!-- Bit 10 --> <text x="348.75" y="103" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">10</text>
+  <!-- Bit 9 -->  <text x="401.25" y="103" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">9</text>
+  <!-- Bit 8 -->  <text x="453.75" y="103" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">8</text>
+  <!-- Bit 7 -->  <text x="506.25" y="103" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">7</text>
+  <!-- Bit 6 -->  <text x="558.75" y="103" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">6</text>
+  <!-- Bit 5 -->  <text x="611.25" y="103" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">5</text>
+  <!-- Bit 4 -->  <text x="663.75" y="103" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">4</text>
+  <!-- Bit 3 -->  <text x="716.25" y="103" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">3</text>
+  <!-- Bit 2 -->  <text x="768.75" y="103" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">2</text>
+  <!-- Bit 1 -->  <text x="821.25" y="103" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">1</text>
+  <!-- Bit 0 -->  <text x="873.75" y="103" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- Bit Cells Row 1 (y = 106..138, height 32) -->
+  <!-- Reserved (15..14) -->
+  <rect x="60" y="106" width="52.5" height="32" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="86.25" y="126" font-size="10" fill="#6b7280" text-anchor="middle">RSV</text>
+  <rect x="112.5" y="106" width="52.5" height="32" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="138.75" y="126" font-size="10" fill="#6b7280" text-anchor="middle">RSV</text>
+
+  <!-- Watchdog Error (13) -->
+  <rect x="165" y="106" width="52.5" height="32" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="191.25" y="126" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">WDG</text>
+
+  <!-- CRC Error (12) -->
+  <rect x="217.5" y="106" width="52.5" height="32" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="243.75" y="126" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">CRC</text>
+
+  <!-- MODE[1:0] (11..10) -->
+  <rect x="270" y="106" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="296.25" y="126" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">M1</text>
+  <rect x="322.5" y="106" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="348.75" y="126" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">M0</text>
+
+  <!-- EN_SW[1:0] (9..8) -->
+  <rect x="375" y="106" width="52.5" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="401.25" y="126" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">E1</text>
+  <rect x="427.5" y="106" width="52.5" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="453.75" y="126" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">E0</text>
+
+  <!-- ESTOP[1:0] (7..6) -->
+  <rect x="480" y="106" width="52.5" height="32" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="506.25" y="126" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">ES_A</text>
+  <rect x="532.5" y="106" width="52.5" height="32" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="558.75" y="126" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">ES_B</text>
+
+  <!-- DIAG[5:0] (5..0) -->
+  <rect x="585" y="106" width="52.5" height="32" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="611.25" y="126" font-size="10" fill="#2457d6" text-anchor="middle">D5</text>
+  <rect x="637.5" y="106" width="52.5" height="32" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="663.75" y="126" font-size="10" fill="#2457d6" text-anchor="middle">D4</text>
+  <rect x="690" y="106" width="52.5" height="32" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="716.25" y="126" font-size="10" fill="#2457d6" text-anchor="middle">D3</text>
+  <rect x="742.5" y="106" width="52.5" height="32" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="768.75" y="126" font-size="10" fill="#2457d6" text-anchor="middle">D2</text>
+  <rect x="795" y="106" width="52.5" height="32" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="821.25" y="126" font-size="10" fill="#2457d6" text-anchor="middle">D1</text>
+  <rect x="847.5" y="106" width="52.5" height="32" fill="#ffffff" stroke="#2457d6" stroke-width="1"/>
+  <text x="873.75" y="126" font-size="10" fill="#2457d6" text-anchor="middle">D0</text>
+
+  <!-- Badges Below Row 1 (y = 145..167) -->
+  <rect x="60" y="145" width="105" height="22" rx="3" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="112.5" y="160" font-size="10" fill="#6b7280" text-anchor="middle">Зарезервовано</text>
+
+  <rect x="165" y="145" width="52.5" height="22" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="191.25" y="160" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">WDG Err</text>
+
+  <rect x="217.5" y="145" width="52.5" height="22" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="243.75" y="160" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">CRC Err</text>
+
+  <rect x="270" y="145" width="105" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="322.5" y="160" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">MODE (AUTO/T1/T2)</text>
+
+  <rect x="375" y="145" width="105" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="427.5" y="160" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">EN_SW (OFF/EN/PANIC)</text>
+
+  <rect x="480" y="145" width="105" height="22" rx="3" fill="#fdecea" stroke="#c0392b"/>
+  <text x="532.5" y="160" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="middle">E-Stop (Канали A/B)</text>
+
+  <rect x="585" y="145" width="315" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="742.5" y="160" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">DIAG[5:0] (Самодіагностика вузлів)</text>
+
+
+  <!-- ==================== ROW 2: REGISTER 0x01 KEYBOARD_STATE ==================== -->
+  <rect x="30" y="200" width="900" height="120" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="200" width="900" height="26" rx="6" fill="#eaf0fd"/>
+  <rect x="30" y="220" width="900" height="6" fill="#eaf0fd"/>
+  <text x="480" y="217" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Регістр 0x01: KEYBOARD_STATE (16 біт - Стан кнопок та селекторів)</text>
+
+  <!-- Bit Numbers 15..0 for Row 2 -->
+  <!-- Bit 15 --> <text x="86.25" y="233" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">15</text>
+  <!-- Bit 14 --> <text x="138.75" y="233" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">14</text>
+  <!-- Bit 13 --> <text x="191.25" y="233" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">13</text>
+  <!-- Bit 12 --> <text x="243.75" y="233" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">12</text>
+  <!-- Bit 11 --> <text x="296.25" y="233" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">11</text>
+  <!-- Bit 10 --> <text x="348.75" y="233" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">10</text>
+  <!-- Bit 9 -->  <text x="401.25" y="233" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">9</text>
+  <!-- Bit 8 -->  <text x="453.75" y="233" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">8</text>
+  <!-- Bit 7 -->  <text x="506.25" y="233" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">7</text>
+  <!-- Bit 6 -->  <text x="558.75" y="233" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">6</text>
+  <!-- Bit 5 -->  <text x="611.25" y="233" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">5</text>
+  <!-- Bit 4 -->  <text x="663.75" y="233" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">4</text>
+  <!-- Bit 3 -->  <text x="716.25" y="233" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">3</text>
+  <!-- Bit 2 -->  <text x="768.75" y="233" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">2</text>
+  <!-- Bit 1 -->  <text x="821.25" y="233" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">1</text>
+  <!-- Bit 0 -->  <text x="873.75" y="233" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- Bit Cells Row 2 (y = 236..268, height 32) -->
+  <!-- FUNC[3:0] (15..12) -->
+  <rect x="60" y="236" width="52.5" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="86.25" y="256" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">F4</text>
+  <rect x="112.5" y="236" width="52.5" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="138.75" y="256" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">F3</text>
+  <rect x="165" y="236" width="52.5" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="191.25" y="256" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">F2</text>
+  <rect x="217.5" y="236" width="52.5" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="243.75" y="256" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">F1</text>
+
+  <!-- JOG_AXIS[3:0] (11..8) -->
+  <rect x="270" y="236" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="296.25" y="256" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">AX_R</text>
+  <rect x="322.5" y="236" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="348.75" y="256" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">AX_Z</text>
+  <rect x="375" y="236" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="401.25" y="256" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">AX_Y</text>
+  <rect x="427.5" y="236" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="453.75" y="256" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">AX_X</text>
+
+  <!-- JOG_DIR[3:0] (7..4) -->
+  <rect x="480" y="236" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="506.25" y="256" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">FAST</text>
+  <rect x="532.5" y="236" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="558.75" y="256" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">STEP</text>
+  <rect x="585" y="236" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="611.25" y="256" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">DIR-</text>
+  <rect x="637.5" y="236" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="663.75" y="256" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">DIR+</text>
+
+  <!-- SYS_CTRL[3:0] (3..0) -->
+  <rect x="690" y="236" width="52.5" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="716.25" y="256" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">SHFT</text>
+  <rect x="742.5" y="236" width="52.5" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="768.75" y="256" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">RST</text>
+  <rect x="795" y="236" width="52.5" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="821.25" y="256" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">HOLD</text>
+  <rect x="847.5" y="236" width="52.5" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="873.75" y="256" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">STRT</text>
+
+  <!-- Badges Below Row 2 (y = 275..297) -->
+  <rect x="60" y="275" width="210" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="165" y="290" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">FUNC[3:0] (Клавіші F1...F4)</text>
+
+  <rect x="270" y="275" width="210" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="375" y="290" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">JOG_AXIS (Осі X / Y / Z / R)</text>
+
+  <rect x="480" y="275" width="210" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="585" y="290" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">JOG_DIR (+ / - / Step / Fast)</text>
+
+  <rect x="690" y="275" width="210" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="795" y="290" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">SYS_CTRL (Start/Hold/Reset/Shift)</text>
+
+
+  <!-- ==================== ROW 3: REGISTER 0x02 JOYSTICK_AXIS ==================== -->
+  <rect x="30" y="330" width="900" height="120" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="330" width="900" height="26" rx="6" fill="#eaf0fd"/>
+  <rect x="30" y="350" width="900" height="6" fill="#eaf0fd"/>
+  <text x="480" y="347" font-size="13" font-weight="bold" fill="#2457d6" text-anchor="middle">Регістр 0x02: JOYSTICK_AXIS (16 біт - 6D-джойстик та аналогові осі)</text>
+
+  <!-- Bit Numbers 15..0 for Row 3 -->
+  <!-- Bit 15 --> <text x="86.25" y="363" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">15</text>
+  <!-- Bit 14 --> <text x="138.75" y="363" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">14</text>
+  <!-- Bit 13 --> <text x="191.25" y="363" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">13</text>
+  <!-- Bit 12 --> <text x="243.75" y="363" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">12</text>
+  <!-- Bit 11 --> <text x="296.25" y="363" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">11</text>
+  <!-- Bit 10 --> <text x="348.75" y="363" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">10</text>
+  <!-- Bit 9 -->  <text x="401.25" y="363" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">9</text>
+  <!-- Bit 8 -->  <text x="453.75" y="363" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">8</text>
+  <!-- Bit 7 -->  <text x="506.25" y="363" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">7</text>
+  <!-- Bit 6 -->  <text x="558.75" y="363" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">6</text>
+  <!-- Bit 5 -->  <text x="611.25" y="363" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">5</text>
+  <!-- Bit 4 -->  <text x="663.75" y="363" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">4</text>
+  <!-- Bit 3 -->  <text x="716.25" y="363" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">3</text>
+  <!-- Bit 2 -->  <text x="768.75" y="363" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">2</text>
+  <!-- Bit 1 -->  <text x="821.25" y="363" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">1</text>
+  <!-- Bit 0 -->  <text x="873.75" y="363" font-size="10" font-weight="bold" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- Bit Cells Row 3 (y = 366..398, height 32) -->
+  <!-- JOY_EN (15) -->
+  <rect x="60" y="366" width="52.5" height="32" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="86.25" y="386" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">EN</text>
+
+  <!-- DEADZONE (14) -->
+  <rect x="112.5" y="366" width="52.5" height="32" fill="#ffffff" stroke="#6b7280" stroke-width="1"/>
+  <text x="138.75" y="386" font-size="10" fill="#6b7280" text-anchor="middle">DZ</text>
+
+  <!-- AXIS_Z[5:0] (13..8) -->
+  <rect x="165" y="366" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="191.25" y="386" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">Z5</text>
+  <rect x="217.5" y="366" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="243.75" y="386" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">Z4</text>
+  <rect x="270" y="366" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="296.25" y="386" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">Z3</text>
+  <rect x="322.5" y="366" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="348.75" y="386" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">Z2</text>
+  <rect x="375" y="366" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="401.25" y="386" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">Z1</text>
+  <rect x="427.5" y="366" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="453.75" y="386" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">Z0</text>
+
+  <!-- AXIS_XY[7:0] (7..0) -->
+  <rect x="480" y="366" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="506.25" y="386" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">XY7</text>
+  <rect x="532.5" y="366" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="558.75" y="386" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">XY6</text>
+  <rect x="585" y="366" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="611.25" y="386" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">XY5</text>
+  <rect x="637.5" y="366" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="663.75" y="386" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">XY4</text>
+  <rect x="690" y="366" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="716.25" y="386" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">XY3</text>
+  <rect x="742.5" y="366" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="768.75" y="386" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">XY2</text>
+  <rect x="795" y="366" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="821.25" y="386" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">XY1</text>
+  <rect x="847.5" y="366" width="52.5" height="32" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="873.75" y="386" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">XY0</text>
+
+  <!-- Badges Below Row 3 (y = 405..427) -->
+  <rect x="60" y="405" width="52.5" height="22" rx="3" fill="#e9f7ef" stroke="#27ae60"/>
+  <text x="86.25" y="420" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="middle">JOY_EN</text>
+
+  <rect x="112.5" y="405" width="52.5" height="22" rx="3" fill="#ffffff" stroke="#6b7280"/>
+  <text x="138.75" y="420" font-size="10" fill="#6b7280" text-anchor="middle">DZ Flag</text>
+
+  <rect x="165" y="405" width="315" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="322.5" y="420" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">AXIS_Z[5:0] (Вісь обертання Z: -32...+31)</text>
+
+  <rect x="480" y="405" width="420" height="22" rx="3" fill="#eaf0fd" stroke="#2457d6"/>
+  <text x="690" y="420" font-size="10" font-weight="bold" fill="#2457d6" text-anchor="middle">AXIS_XY[7:0] (Вектор нахилу X/Y: 0...255)</text>
+
+
+  <!-- ==================== ROW 4: TELEMETRY FRAME SUMMARY ==================== -->
+  <rect x="30" y="460" width="900" height="45" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="478" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Структура пакета циклічної телеметрії Teach Pendant (8 байт):</text>
+  <text x="480" y="495" font-size="11" fill="#6b7280" text-anchor="middle">[0x55AA Преамбула (2B)] ➔ [Reg 0x00: SAFETY (2B)] ➔ [Reg 0x01: KEYBOARD (2B)] ➔ [Reg 0x02: JOYSTICK (2B)] ➔ [CRC-16 Modbus (2B)]</text>
+</svg>

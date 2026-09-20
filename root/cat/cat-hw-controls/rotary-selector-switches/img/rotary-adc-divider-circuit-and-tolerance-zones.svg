@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Marker Definitions -->
+  <defs>
+    <marker id="arr-main" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Схема резистивного дільника галетного перемикача та зони допусків АЦП</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Вплив контактного опору Rc та розрахунок порогів гістерезису декодера станів</text>
+
+  <!-- PANEL 1: ELECTRIC CIRCUIT (LEFT) -->
+  <rect x="25" y="75" width="440" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Електрична схема дільника</text>
+
+  <!-- VCC Rail Top -->
+  <text x="100" y="125" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">+Vcc (3.3V)</text>
+  <line x1="100" y1="130" x2="100" y2="145" stroke="#c0392b" stroke-width="2"/>
+
+  <!-- Resistor R1 -->
+  <rect x="90" y="145" width="20" height="35" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="68" y="167" font-size="12" font-weight="bold" fill="#1a1a1a">R1</text>
+  <line x1="100" y1="180" x2="100" y2="215" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="100" cy="215" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Resistor R2 -->
+  <rect x="90" y="215" width="20" height="35" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="68" y="237" font-size="12" font-weight="bold" fill="#1a1a1a">R2</text>
+  <line x1="100" y1="250" x2="100" y2="280" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="100" cy="280" r="3.5" fill="#1a1a1a"/>
+
+  <!-- Dots for resistor chain -->
+  <text x="100" y="302" text-anchor="middle" font-size="14" font-weight="bold" fill="#6b7280">⋮</text>
+
+  <!-- Resistor Rk -->
+  <line x1="100" y1="312" x2="100" y2="330" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="90" y="330" width="20" height="35" rx="2" fill="#ffffff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="68" y="352" font-size="12" font-weight="bold" fill="#1a1a1a">Rk</text>
+  <line x1="100" y1="365" x2="100" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Ground Bottom -->
+  <line x1="85" y1="400" x2="115" y2="400" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="90" y1="405" x2="110" y2="405" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="95" y1="410" x2="105" y2="410" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="100" y="424" text-anchor="middle" font-size="11" fill="#6b7280">GND</text>
+
+  <!-- Wiper Contact Arrow from Node 2 (y=280) -->
+  <line x1="100" y1="280" x2="185" y2="280" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="142" y="271" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Позиція k</text>
+
+  <!-- Contact Resistance Rc Box -->
+  <rect x="185" y="268" width="45" height="24" rx="3" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="207" y="258" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Rc</text>
+  <text x="207" y="306" text-anchor="middle" font-size="10" fill="#c0392b">Опір контакту</text>
+
+  <!-- Wire from Rc to MCU ADC Pin -->
+  <line x1="230" y1="280" x2="335" y2="280" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="282" y="271" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">V_in</text>
+
+  <!-- MCU Box -->
+  <rect x="335" y="240" width="105" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="387" y="275" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">АЦП МК</text>
+  <text x="387" y="295" text-anchor="middle" font-size="11" fill="#2457d6">Вхід ADC_IN</text>
+
+  <!-- Formula / Note Badge in Panel 1 -->
+  <rect x="45" y="435" width="400" height="42" rx="4" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="245" y="460" text-anchor="middle" font-size="12" fill="#1a1a1a">Зсув потенціалу вхідного сигналу: ΔVc = I_in · Rc</text>
+
+  <!-- PANEL 2: TOLERANCE ZONES & THRESHOLDS (RIGHT) -->
+  <rect x="495" y="75" width="440" height="415" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="715" y="98" text-anchor="middle" font-size="14" font-weight="bold" fill="#1a1a1a">Зони допусків та пороги гістерезису</text>
+
+  <!-- Y-Axis Vertical Line -->
+  <line x1="560" y1="400" x2="560" y2="125" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#arr-main)"/>
+  <text x="560" y="116" text-anchor="middle" font-size="12" font-weight="bold" fill="#1a1a1a">V_in (В)</text>
+
+  <!-- Position 3 (Top Level) -->
+  <rect x="575" y="130" width="280" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="715" y="144" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Допуск Позиції 3 (V3 ± ΔV)</text>
+  <line x1="560" y1="158" x2="860" y2="158" stroke="#2457d6" stroke-width="2"/>
+  <text x="552" y="162" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">V3</text>
+
+  <!-- Threshold 2-3 Line -->
+  <line x1="560" y1="205" x2="860" y2="205" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="552" y="209" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">V_th23</text>
+  <text x="865" y="209" text-anchor="start" font-size="11" fill="#c0392b">Поріг 2-3</text>
+
+  <!-- Position 2 (Middle Level) -->
+  <rect x="575" y="230" width="280" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="715" y="244" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Допуск Позиції 2 (V2 ± ΔV)</text>
+  <line x1="560" y1="258" x2="860" y2="258" stroke="#2457d6" stroke-width="2"/>
+  <text x="552" y="262" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">V2</text>
+
+  <!-- Shifted Signal Due to Rc Degradation -->
+  <line x1="575" y1="275" x2="860" y2="275" stroke="#c0392b" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="715" y="291" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Зсув рівнів через Rc (ΔVc)</text>
+
+  <!-- Threshold 1-2 Line -->
+  <line x1="560" y1="318" x2="860" y2="318" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="552" y="322" text-anchor="end" font-size="11" font-weight="bold" fill="#c0392b">V_th12</text>
+  <text x="865" y="322" text-anchor="start" font-size="11" fill="#c0392b">Поріг 1-2</text>
+
+  <!-- Position 1 (Bottom Level / 0V) -->
+  <rect x="575" y="340" width="280" height="28" fill="#eaf0fd" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="715" y="354" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Допуск Позиції 1 (V1 ± ΔV)</text>
+  <line x1="560" y1="368" x2="860" y2="368" stroke="#2457d6" stroke-width="2"/>
+  <text x="552" y="372" text-anchor="end" font-size="12" font-weight="bold" fill="#2457d6">V1 (0V)</text>
+
+  <!-- Summary Badge Panel 2 -->
+  <rect x="515" y="435" width="400" height="42" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="715" y="460" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">Запас завадостійкості: U_margin = |V_th - V_k| - ΔVc &gt; 0</text>
+</svg>

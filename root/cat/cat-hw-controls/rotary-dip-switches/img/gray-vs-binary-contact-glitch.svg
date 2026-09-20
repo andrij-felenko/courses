@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="460" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Перехідні завади (Glitches): Двійковий код vs Код Ґрея</text>
+  <text x="480" y="58" text-anchor="middle" font-size="13" fill="#6b7280">Багатобітова зміна в двійковому коді створює хибні голки, а код Ґрея (зміна 1 біта) виключає завади</text>
+
+  <!-- TOP PANEL: BINARY CODE GLITCHES -->
+  <g id="panel-binary">
+    <rect x="30" y="78" width="900" height="142" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="45" y="98" font-size="12" font-weight="bold" fill="#c0392b">1. Двійковий код (Standard Binary)</text>
+
+    <!-- Bit Labels -->
+    <text x="45" y="128" font-size="11" font-weight="bold" fill="#c0392b">Біт B2 (0 → 1)</text>
+    <text x="45" y="158" font-size="11" font-weight="bold" fill="#c0392b">Біт B1 (1 → 0)</text>
+    <text x="45" y="188" font-size="11" font-weight="bold" fill="#c0392b">Біт B0 (1 → 0)</text>
+
+    <!-- Waveforms -->
+    <!-- B2: 0 -> 1 at x=420 -->
+    <path d="M 160,135 L 420,135 L 420,115 L 500,115" stroke="#c0392b" stroke-width="2" fill="none"/>
+    
+    <!-- B1: 1 -> 0 early at x=380 -->
+    <path d="M 160,145 L 380,145 L 380,165 L 500,165" stroke="#c0392b" stroke-width="2" fill="none"/>
+    
+    <!-- B0: 1 -> 0 late at x=460 -->
+    <path d="M 160,175 L 460,175 L 460,195 L 500,195" stroke="#c0392b" stroke-width="2" fill="none"/>
+
+    <!-- Glitch highlight area -->
+    <rect x="380" y="110" width="80" height="90" fill="#fdecea" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="420" y="103" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Зона Δt</text>
+
+    <!-- Glitch Alert Box -->
+    <rect x="520" y="112" width="390" height="92" rx="4" fill="#ffffff" stroke="#c0392b" stroke-width="1.5"/>
+    <text x="715" y="136" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">АВАРІЙНА ГОЛКА (Glitch): 011 → [001] → [101] → 100</text>
+    <text x="715" y="158" text-anchor="middle" font-size="11" fill="#1a1a1a">Неодночасність контактів викликає зчитування хибних станів</text>
+    <text x="715" y="178" text-anchor="middle" font-size="11" font-weight="bold" fill="#c0392b">Позиція 1 та Позиція 5 виникають як завади!</text>
+  </g>
+
+  <!-- BOTTOM PANEL: GRAY CODE GLITCH-FREE -->
+  <g id="panel-gray">
+    <rect x="30" y="232" width="900" height="142" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="45" y="252" font-size="12" font-weight="bold" fill="#27ae60">2. Код Ґрея (Gray Code)</text>
+
+    <!-- Bit Labels -->
+    <text x="45" y="281" font-size="11" font-weight="bold" fill="#27ae60">Біт G2 (0 → 1)</text>
+    <text x="45" y="311" font-size="11" font-weight="bold" fill="#27ae60">Біт G1 (1 → 1)</text>
+    <text x="45" y="341" font-size="11" font-weight="bold" fill="#27ae60">Біт G0 (0 → 0)</text>
+
+    <!-- Waveforms -->
+    <!-- G2: 0 -> 1 at x=420 -->
+    <path d="M 160,288 L 420,288 L 420,268 L 500,268" stroke="#27ae60" stroke-width="2" fill="none"/>
+    
+    <!-- G1: stable HIGH -->
+    <path d="M 160,298 L 500,298" stroke="#27ae60" stroke-width="2" fill="none"/>
+    
+    <!-- G0: stable LOW -->
+    <path d="M 160,348 L 500,348" stroke="#27ae60" stroke-width="2" fill="none"/>
+
+    <!-- Gray Transition line -->
+    <line x1="420" y1="260" x2="420" y2="355" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="420" y="256" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Крок переходу</text>
+
+    <!-- Gray OK Box -->
+    <rect x="520" y="266" width="390" height="92" rx="4" fill="#ffffff" stroke="#27ae60" stroke-width="1.5"/>
+    <text x="715" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">ПЛАВНИЙ ПЕРЕХІД: 010 (Поз.3) → 110 (Поз.4)</text>
+    <text x="715" y="312" text-anchor="middle" font-size="11" fill="#1a1a1a">Змінюється лише 1 біт G2 (відстань Хеммінга d_H = 1)</text>
+    <text x="715" y="332" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Повна відсутність перехідних завад і хибних станів!</text>
+  </g>
+
+  <!-- SUMMARY DIAGNOSTIC INFO BOX -->
+  <rect x="30" y="386" width="900" height="54" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="407" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ МАТЕМАТИЧНА ПЕРЕВАГА КОДУ ҐРЕЯ: Відстань Хеммінга між сусідніми станами d_H = 1</text>
+  <text x="480" y="427" text-anchor="middle" font-size="11" fill="#1a1a1a">Код Ґрея гарантує відсутність сплесків та хибних спрацьовувань при механічному обертанні ротора DIP-перемикача.</text>
+</svg>

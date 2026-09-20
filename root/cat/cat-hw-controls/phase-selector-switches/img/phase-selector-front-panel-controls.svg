@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,1 L7,4 L0,7 Z" fill="#2457d6"/>
+    </marker>
+  </defs>
+
+  <!-- Background canvas -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Елементи керування та індикації фронтальної панелі селектора фаз</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Налаштування порогів U_min/U_max, затримок t_off/t_on та світлодіодний контроль стану фаз</text>
+
+  <!-- LEFT: DIN Module Enclosure -->
+  <rect x="100" y="75" width="320" height="435" fill="#f4f6f8" stroke="#d0d7de" stroke-width="2" rx="8"/>
+
+  <!-- Module Header Banner -->
+  <rect x="115" y="90" width="290" height="25" fill="#2457d6" rx="4"/>
+  <text x="260" y="107" font-size="13" fill="#ffffff" font-weight="bold" text-anchor="middle">СЕЛЕКТОР ФАЗ PEF-319</text>
+
+  <!-- Top Terminal Block -->
+  <rect x="115" y="123" width="290" height="30" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="260" y="143" font-size="12" fill="#1a1a1a" font-weight="bold" text-anchor="middle">Вхідні клеми мережі:  L1  |  L2  |  L3  |  N</text>
+
+  <!-- Digital Voltmeter Display -->
+  <rect x="135" y="163" width="250" height="45" fill="#1a1a1a" stroke="#d0d7de" rx="4"/>
+  <text x="210" y="193" font-size="22" fill="#27ae60" font-weight="bold">230 V</text>
+  <text x="310" y="190" font-size="12" fill="#27ae60" font-weight="bold">ФАЗА L1 (ОК)</text>
+
+  <!-- LED Indicator Panel on Device -->
+  <rect x="135" y="218" width="250" height="65" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="145" y="235" font-size="11" fill="#6b7280" font-weight="bold">Світлодіодна індикація:</text>
+
+  <circle cx="165" cy="255" r="8" fill="#27ae60" stroke="#1e8449"/>
+  <text x="180" y="259" font-size="11" fill="#27ae60" font-weight="bold">L1 (АКТИВ)</text>
+
+  <circle cx="250" cy="255" r="8" fill="#f39c12" stroke="#d68910"/>
+  <text x="265" y="259" font-size="11" fill="#f39c12" font-weight="bold">L2 (ГОТ)</text>
+
+  <circle cx="325" cy="255" r="8" fill="#c0392b" stroke="#922b21"/>
+  <text x="340" y="259" font-size="11" fill="#c0392b" font-weight="bold">L3 (АВАР)</text>
+
+  <!-- Potentiometer Trimmers Section -->
+  <rect x="135" y="293" width="250" height="110" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="145" y="310" font-size="11" fill="#6b7280" font-weight="bold">Уставки напруги та затримки:</text>
+
+  <!-- Trimmer 1: U_max -->
+  <circle cx="175" cy="345" r="14" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <line x1="175" y1="345" x2="167" y2="335" stroke="#2457d6" stroke-width="2.5"/>
+  <text x="175" y="373" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">U_max</text>
+  <text x="175" y="388" font-size="10" fill="#6b7280" text-anchor="middle">240..270V</text>
+
+  <!-- Trimmer 2: U_min -->
+  <circle cx="260" cy="345" r="14" fill="#fdecea" stroke="#c0392b" stroke-width="2"/>
+  <line x1="260" y1="345" x2="252" y2="355" stroke="#c0392b" stroke-width="2.5"/>
+  <text x="260" y="373" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">U_min</text>
+  <text x="260" y="388" font-size="10" fill="#6b7280" text-anchor="middle">160..210V</text>
+
+  <!-- Trimmer 3: t_on -->
+  <circle cx="345" cy="345" r="14" fill="#e9f7ef" stroke="#27ae60" stroke-width="2"/>
+  <line x1="345" y1="345" x2="355" y2="335" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="345" y="373" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">t_on</text>
+  <text x="345" y="388" font-size="10" fill="#6b7280" text-anchor="middle">1..300s</text>
+
+  <!-- DIP Switches Section -->
+  <rect x="135" y="413" width="250" height="50" fill="#ffffff" stroke="#d0d7de" rx="4"/>
+  <text x="145" y="427" font-size="11" fill="#6b7280" font-weight="bold">DIP-перемикачі режимів (SW1-SW4):</text>
+
+  <!-- Switch 1 -->
+  <rect x="155" y="433" width="30" height="18" fill="#2457d6" rx="2"/>
+  <rect x="157" y="435" width="12" height="14" fill="#ffffff" rx="1"/>
+  <text x="170" y="462" font-size="10" fill="#1a1a1a" text-anchor="middle">PRI</text>
+
+  <!-- Switch 2 -->
+  <rect x="210" y="433" width="30" height="18" fill="#2457d6" rx="2"/>
+  <rect x="226" y="435" width="12" height="14" fill="#ffffff" rx="1"/>
+  <text x="225" y="462" font-size="10" fill="#1a1a1a" text-anchor="middle">SEL</text>
+
+  <!-- Switch 3 -->
+  <rect x="265" y="433" width="30" height="18" fill="#2457d6" rx="2"/>
+  <rect x="267" y="435" width="12" height="14" fill="#ffffff" rx="1"/>
+  <text x="280" y="462" font-size="10" fill="#1a1a1a" text-anchor="middle">DEL</text>
+
+  <!-- Switch 4 -->
+  <rect x="320" y="433" width="30" height="18" fill="#2457d6" rx="2"/>
+  <rect x="336" y="435" width="12" height="14" fill="#ffffff" rx="1"/>
+  <text x="335" y="462" font-size="10" fill="#1a1a1a" text-anchor="middle">RST</text>
+
+  <!-- Bottom Terminal Block -->
+  <rect x="115" y="471" width="290" height="30" fill="#e9f7ef" stroke="#27ae60" rx="4"/>
+  <text x="260" y="491" font-size="12" fill="#27ae60" font-weight="bold" text-anchor="middle">Вихідні силові клеми:  1 (COM)  |  2 (OUT)</text>
+
+  <!-- RIGHT: FUNCTIONAL ANNOTATION CALLOUT PANELS -->
+
+  <!-- Panel 1: LED Status Control -->
+  <rect x="460" y="85" width="460" height="115" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="475" y="108" font-size="13" font-weight="bold" fill="#2457d6">1. Світлодіодний контроль стану мережі</text>
+
+  <circle cx="483" cy="126" r="6" fill="#27ae60"/>
+  <text x="496" y="130" font-size="12" fill="#1a1a1a">Зелений (L1): основна фаза у нормі, живить навантаження</text>
+
+  <circle cx="483" cy="146" r="6" fill="#f39c12"/>
+  <text x="496" y="150" font-size="12" fill="#1a1a1a">Жовтий (L2): резервна фаза справна, перебуває в режимі очікування</text>
+
+  <circle cx="483" cy="166" r="6" fill="#c0392b"/>
+  <text x="496" y="170" font-size="12" fill="#1a1a1a">Червоний (L3): аварія (напруга поза межами U_min/U_max або обрив)</text>
+
+  <!-- Pointer arrow 1 -->
+  <path d="M 385 250 L 425 250 L 440 142 L 460 142" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 2: Trimmers & Thresholds -->
+  <rect x="460" y="210" width="460" height="130" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="475" y="233" font-size="13" font-weight="bold" fill="#2457d6">2. Органі регулювання уставок напруги та затримки</text>
+  <text x="475" y="255" font-size="12" fill="#c0392b">• U_max (240–270 V): верхня межа вимкнення при перенапрузі</text>
+  <text x="475" y="277" font-size="12" fill="#c0392b">• U_min (160–210 V): нижня межа перемикання на резервну фазу</text>
+  <text x="475" y="299" font-size="12" fill="#27ae60">• t_on (1–300 s): затримка повернення на пріоритетну фазу L1</text>
+  <text x="475" y="321" font-size="11" fill="#6b7280">• Фіксований гістерезис ΔU = 5–6 V упереджує зворотно-хибні спрацьовування</text>
+
+  <!-- Pointer arrow 2 -->
+  <path d="M 385 348 L 425 348 L 440 275 L 460 275" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+
+  <!-- Panel 3: DIP Switches -->
+  <rect x="460" y="350" width="460" height="155" fill="#f4f6f8" stroke="#d0d7de" rx="6"/>
+  <text x="475" y="373" font-size="13" font-weight="bold" fill="#2457d6">3. Селектори режимів роботи (DIP-перемикачі)</text>
+  <text x="475" y="395" font-size="12" fill="#1a1a1a">• SW1 (PRIORITY): ON — режим з пріоритетом L1; OFF — без пріоритету</text>
+  <text x="475" y="417" font-size="12" fill="#1a1a1a">• SW2 (PHASE SEL): вибір пріоритетної фази (L1 або L2)</text>
+  <text x="475" y="439" font-size="12" fill="#1a1a1a">• SW3 (FAST DELAY): увімкнення прискореного вимкнення (0.2 s) при U &lt; 120 V</text>
+  <text x="475" y="461" font-size="12" fill="#1a1a1a">• SW4 (AUTO-RESET): автоматичний дозвіл повторного включення АПВ</text>
+  <text x="475" y="483" font-size="11" fill="#6b7280">• Безнапругова пауза перемикання t_off = 20–50 ms задана апаратно</text>
+
+  <!-- Pointer arrow 3 -->
+  <path d="M 385 438 L 425 438 L 440 425 L 460 425" fill="none" stroke="#2457d6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-blue)"/>
+</svg>

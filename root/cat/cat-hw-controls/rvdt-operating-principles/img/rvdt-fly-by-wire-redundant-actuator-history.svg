@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- White Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Arrow Markers -->
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Title and Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Резервована схема RVDT у сервоприводі системи Fly-by-Wire</text>
+  <text x="480" y="52" text-anchor="middle" font-size="13" fill="#6b7280">Дубльовані канали вимірювання (Ch A / Ch B) з перехресним моніторингом у політному комп'ютері FCC</text>
+
+  <!-- PANEL 1: MECHANICAL ACTUATOR & DUAL RVDT -->
+  <rect x="30" y="80" width="300" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="45" y="105" font-size="14" font-weight="bold" fill="#2457d6">1. Механічна частина та RVDT</text>
+
+  <!-- Common Shaft Box -->
+  <rect x="50" y="125" width="260" height="42" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="180" y="150" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Спільний вал сервопривода (θ)</text>
+
+  <!-- RVDT Channel A Box -->
+  <rect x="50" y="185" width="260" height="135" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="65" y="210" font-size="12" font-weight="bold" fill="#2457d6">RVDT Канал A (Первинний)</text>
+  <text x="240" y="210" font-size="12" font-weight="bold" fill="#27ae60">[Активний]</text>
+  <text x="65" y="240" font-size="12" fill="#6b7280">Збудження: V_exc · sin(ωt)</text>
+  <text x="65" y="270" font-size="12" fill="#1a1a1a">Виходи: V_s1_A, V_s2_A</text>
+  <text x="65" y="300" font-size="12" fill="#6b7280">Безконтактна трансформація</text>
+
+  <!-- RVDT Channel B Box -->
+  <rect x="50" y="340" width="260" height="135" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="65" y="365" font-size="12" font-weight="bold" fill="#2457d6">RVDT Канал B (Резервний)</text>
+  <text x="240" y="365" font-size="12" font-weight="bold" fill="#27ae60">[Активний]</text>
+  <text x="65" y="395" font-size="12" fill="#6b7280">Збудження: V_exc · sin(ωt)</text>
+  <text x="65" y="425" font-size="12" fill="#1a1a1a">Виходи: V_s1_B, V_s2_B</text>
+  <text x="65" y="455" font-size="12" fill="#6b7280">Безконтактна трансформація</text>
+
+
+  <!-- PANEL 2: SIGNAL CONDITIONING (AFE) -->
+  <rect x="350" y="80" width="260" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="365" y="105" font-size="14" font-weight="bold" fill="#2457d6">2. Демодуляція сигналів (AFE)</text>
+
+  <!-- AFE Channel A Box -->
+  <rect x="365" y="125" width="230" height="165" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="380" y="150" font-size="12" font-weight="bold" fill="#2457d6">Обробка Каналу A</text>
+  <text x="380" y="180" font-size="12" fill="#1a1a1a">Синхронна демодуляція</text>
+  <text x="380" y="210" font-size="12" fill="#1a1a1a">ФНЧ першого порядку</text>
+  <text x="380" y="240" font-size="12" font-weight="bold" fill="#1a1a1a">θ_A = (V_S1-V_S2)/(V_S1+V_S2)</text>
+  <text x="380" y="270" font-size="12" font-weight="bold" fill="#27ae60">Оцінка кута: θ_A</text>
+
+  <!-- AFE Channel B Box -->
+  <rect x="365" y="310" width="230" height="165" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="380" y="335" font-size="12" font-weight="bold" fill="#2457d6">Обробка Каналу B</text>
+  <text x="380" y="365" font-size="12" fill="#1a1a1a">Синхронна демодуляція</text>
+  <text x="380" y="395" font-size="12" fill="#1a1a1a">ФНЧ першого порядку</text>
+  <text x="380" y="425" font-size="12" font-weight="bold" fill="#1a1a1a">θ_B = (V_S1-V_S2)/(V_S1+V_S2)</text>
+  <text x="380" y="455" font-size="12" font-weight="bold" fill="#27ae60">Оцінка кута: θ_B</text>
+
+
+  <!-- PANEL 3: FLIGHT CONTROL COMPUTER (FCC) -->
+  <rect x="630" y="80" width="300" height="420" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  <text x="645" y="105" font-size="14" font-weight="bold" fill="#2457d6">3. Політний обчислювач (FCC)</text>
+
+  <!-- Cross-Channel Monitor Box -->
+  <rect x="645" y="125" width="270" height="180" rx="6" fill="white" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="660" y="150" font-size="12" font-weight="bold" fill="#2457d6">Перехресний монітор (CCM)</text>
+  <text x="660" y="180" font-size="12" font-weight="bold" fill="#1a1a1a">|θ_A - θ_B| &lt; Δθ_max</text>
+  <text x="660" y="210" font-size="12" fill="#6b7280">Порівняння розсуву каналів</text>
+  <text x="660" y="240" font-size="12" fill="#6b7280">Контроль: V_sum_min..max</text>
+  <text x="660" y="270" font-size="12" font-weight="bold" fill="#27ae60">Стан: Норма (Узгоджено)</text>
+  <text x="660" y="295" font-size="12" fill="#c0392b">Похибка &gt; Δθ -&gt; Аварія</text>
+
+  <!-- Fail-Safe Logic Box -->
+  <rect x="645" y="325" width="270" height="150" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="660" y="350" font-size="12" font-weight="bold" fill="#27ae60">Логіка перемикання (Fail-Safe)</text>
+  <text x="660" y="380" font-size="12" fill="#1a1a1a">• Робочий кут: θ = (θ_A + θ_B) / 2</text>
+  <text x="660" y="410" font-size="12" fill="#1a1a1a">• При відмові A -&gt; перехід на B</text>
+  <text x="660" y="445" font-size="12" font-weight="bold" fill="#2457d6">Контур керування приводом FBW</text>
+
+
+  <!-- CONNECTING LINES & ARROWS -->
+  <!-- RVDT A -> AFE A -->
+  <line x1="310" y1="210" x2="365" y2="210" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="337" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Ch A</text>
+
+  <!-- RVDT B -> AFE B -->
+  <line x1="310" y1="395" x2="365" y2="395" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="337" y="385" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Ch B</text>
+
+  <!-- AFE A -> FCC -->
+  <line x1="595" y1="210" x2="645" y2="210" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="620" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">θ_A</text>
+
+  <!-- AFE B -> FCC -->
+  <line x1="595" y1="395" x2="645" y2="395" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+  <text x="620" y="385" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">θ_B</text>
+</svg>

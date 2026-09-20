@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Внутрішня конструкція та принципи кодування ротаційного DIP-перемикача</text>
+  <text x="480" y="54" font-size="13" fill="#6b7280" text-anchor="middle">Поворотний ротор із друкованим кодовим диском замикає загальну лінію C з виводами ваги 1, 2, 4, 8</text>
+
+  <!-- Left Container Panel -->
+  <rect x="40" y="75" width="440" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="40" y="75" width="440" height="33" rx="8" fill="#eaf0fd"/>
+  <text x="260" y="96" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Будова кодового ротора та контактів</text>
+
+  <!-- Rotor Outer Body -->
+  <rect x="150" y="125" width="220" height="220" rx="16" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+
+  <!-- Code Disc Concentric Tracks -->
+  <!-- Common Track C -->
+  <circle cx="260" cy="235" r="85" fill="none" stroke="#d0d7de" stroke-width="6"/>
+  <!-- Track 8 (Bit 3) -->
+  <circle cx="260" cy="235" r="68" fill="none" stroke="#2457d6" stroke-width="5" stroke-dasharray="60 40"/>
+  <!-- Track 4 (Bit 2) -->
+  <circle cx="260" cy="235" r="50" fill="none" stroke="#2457d6" stroke-width="5" stroke-dasharray="45 25"/>
+  <!-- Track 2 (Bit 1) -->
+  <circle cx="260" cy="235" r="34" fill="none" stroke="#2457d6" stroke-width="5" stroke-dasharray="30 18"/>
+  <!-- Track 1 (Bit 0) -->
+  <circle cx="260" cy="235" r="18" fill="none" stroke="#2457d6" stroke-width="5" stroke-dasharray="18 10"/>
+
+  <!-- Center Shaft Knob -->
+  <circle cx="260" cy="235" r="10" fill="#2457d6"/>
+  <line x1="253" y1="235" x2="267" y2="235" stroke="#ffffff" stroke-width="3"/>
+
+  <!-- Bottom Pins -->
+  <rect x="170" y="345" width="12" height="40" fill="#6b7280"/>
+  <rect x="210" y="345" width="12" height="40" fill="#2457d6"/>
+  <rect x="250" y="345" width="12" height="40" fill="#2457d6"/>
+  <rect x="290" y="345" width="12" height="40" fill="#2457d6"/>
+  <rect x="330" y="345" width="12" height="40" fill="#2457d6"/>
+
+  <!-- Pin Labels -->
+  <text x="176" y="405" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="middle">C</text>
+  <text x="216" y="405" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="256" y="405" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">2</text>
+  <text x="296" y="405" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">4</text>
+  <text x="336" y="405" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">8</text>
+
+  <!-- Left Panel Note Card -->
+  <rect x="60" y="430" width="400" height="85" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="260" y="452" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Елементи конструкції ротаційного DIP:</text>
+  <text x="260" y="475" font-size="12" fill="#6b7280" text-anchor="middle">1. Шліцовий ротор  2. Кодовий диск  3. Ламелі C, 1, 2, 4, 8</text>
+  <text x="260" y="498" font-size="12" fill="#6b7280" text-anchor="middle">Герметичний корпус IP67 проти проникнення флюсу та пилу</text>
+
+  <!-- Right Container Panel -->
+  <rect x="500" y="75" width="420" height="455" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="500" y="75" width="420" height="33" rx="8" fill="#eaf0fd"/>
+  <text x="710" y="96" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Таблиця істинності кодування BCD та HEX</text>
+
+  <!-- Table Header -->
+  <rect x="515" y="118" width="390" height="26" fill="#2457d6" rx="4"/>
+  <text x="548" y="135" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">Поз.</text>
+  <text x="612" y="135" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">HEX</text>
+  <text x="675" y="135" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">8 (2³)</text>
+  <text x="735" y="135" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">4 (2²)</text>
+  <text x="795" y="135" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">2 (2¹)</text>
+  <text x="860" y="135" font-size="12" font-weight="bold" fill="#ffffff" text-anchor="middle">1 (2⁰)</text>
+
+  <!-- Table Data Rows -->
+  <!-- Row 0: Pos 0 -->
+  <rect x="515" y="146" width="390" height="24" fill="#ffffff"/>
+  <text x="548" y="162" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="612" y="162" font-size="12" fill="#1a1a1a" text-anchor="middle">0</text>
+  <text x="675" y="162" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="735" y="162" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="795" y="162" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="860" y="162" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- Row 1: Pos 3 -->
+  <rect x="515" y="172" width="390" height="24" fill="#f4f6f8"/>
+  <text x="548" y="188" font-size="12" fill="#1a1a1a" text-anchor="middle">3</text>
+  <text x="612" y="188" font-size="12" fill="#1a1a1a" text-anchor="middle">3</text>
+  <text x="675" y="188" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="735" y="188" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="795" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="860" y="188" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+
+  <!-- Row 2: Pos 7 -->
+  <rect x="515" y="198" width="390" height="24" fill="#ffffff"/>
+  <text x="548" y="214" font-size="12" fill="#1a1a1a" text-anchor="middle">7</text>
+  <text x="612" y="214" font-size="12" fill="#1a1a1a" text-anchor="middle">7</text>
+  <text x="675" y="214" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="735" y="214" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="795" y="214" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="860" y="214" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+
+  <!-- Row 3: Pos 9 (Max BCD) -->
+  <rect x="515" y="224" width="390" height="24" fill="#e9f7ef"/>
+  <text x="548" y="240" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">9</text>
+  <text x="612" y="240" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">9</text>
+  <text x="675" y="240" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1</text>
+  <text x="735" y="240" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="795" y="240" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="860" y="240" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">1</text>
+
+  <!-- Row 4: Pos 12 -->
+  <rect x="515" y="250" width="390" height="24" fill="#ffffff"/>
+  <text x="548" y="266" font-size="12" fill="#1a1a1a" text-anchor="middle">12</text>
+  <text x="612" y="266" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">C</text>
+  <text x="675" y="266" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="735" y="266" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="795" y="266" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+  <text x="860" y="266" font-size="12" fill="#6b7280" text-anchor="middle">0</text>
+
+  <!-- Row 5: Pos 15 (Max HEX) -->
+  <rect x="515" y="276" width="390" height="24" fill="#eaf0fd"/>
+  <text x="548" y="292" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">15</text>
+  <text x="612" y="292" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">F</text>
+  <text x="675" y="292" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="735" y="292" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="795" y="292" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+  <text x="860" y="292" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">1</text>
+
+  <!-- Right Panel Note Card -->
+  <rect x="515" y="320" width="390" height="195" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="710" y="343" font-size="13" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Особливості схемотехнічного читання:</text>
+
+  <text x="530" y="370" font-size="12" font-weight="bold" fill="#27ae60">Пряма логіка (Real Code):</text>
+  <text x="530" y="390" font-size="12" fill="#1a1a1a">Замкнений контакт дає стан ON (код відповідає позиції)</text>
+
+  <text x="530" y="420" font-size="12" font-weight="bold" fill="#2457d6">Доповняльна логіка (Complement Code):</text>
+  <text x="530" y="440" font-size="12" fill="#1a1a1a">Виходи інвертовані (замкнено = 0, розімкнено = 1)</text>
+
+  <text x="530" y="470" font-size="12" font-weight="bold" fill="#c0392b">Важливо для промислових шин адресації:</text>
+  <text x="530" y="490" font-size="12" fill="#6b7280">Перевіряти розпіновку (BCD 10 поз. чи HEX 16 поз.)</text>
+</svg>

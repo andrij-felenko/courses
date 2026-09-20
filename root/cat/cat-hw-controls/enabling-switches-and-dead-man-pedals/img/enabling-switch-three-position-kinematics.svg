@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <!-- Arrow markers -->
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="30" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Кінематика трипозиційної кнопки дозволу (Enabling Switch)</text>
+  <text x="480" y="50" font-size="13" fill="#6b7280" text-anchor="middle">Помірне утримання в Pos 2 — ENABLE; панічний дотиск у Pos 3 — розмикання OFF і скид у Pos 1</text>
+
+  <!-- ==================== TOP SECTION: THREE POSITIONS ==================== -->
+
+  <!-- POSITION 1 PANEL -->
+  <rect x="35" y="75" width="270" height="220" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="50" y="90" width="240" height="26" rx="4" ry="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="170" y="107" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Pos 1: ВІДПУЩЕНО (OFF)</text>
+
+  <!-- Lever diagram 1 -->
+  <g transform="translate(60, 128)">
+    <rect x="0" y="0" width="220" height="95" rx="4" ry="4" fill="white" stroke="#d0d7de"/>
+    <!-- Housing -->
+    <path d="M 20 75 L 20 20 L 70 20" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- Lever unpressed (0 deg) -->
+    <line x1="30" y1="20" x2="65" y2="10" stroke="#6b7280" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="65" cy="10" r="5" fill="#6b7280"/>
+    <!-- Spring -->
+    <path d="M 45 20 Q 40 32 45 45 Q 50 58 45 70" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+    <!-- Switch Contacts OPEN -->
+    <line x1="120" y1="48" x2="145" y2="48" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="165" y1="48" x2="190" y2="48" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="145" y1="48" x2="162" y2="33" stroke="#c0392b" stroke-width="2.5"/>
+    <circle cx="145" cy="48" r="3" fill="#1a1a1a"/>
+    <circle cx="165" cy="48" r="3" fill="#1a1a1a"/>
+    <text x="155" y="78" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Розмікнено</text>
+  </g>
+  <text x="170" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">Важіль у початковому стані</text>
+  <text x="170" y="262" font-size="12" fill="#6b7280" text-anchor="middle">Коло розімкнено пружиною</text>
+  <text x="170" y="280" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Стан системи: OFF</text>
+
+  <!-- ARROW 1 -> 2 -->
+  <path d="M 308 175 L 342 175" fill="none" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+  <text x="325" y="165" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Натиск</text>
+
+  <!-- POSITION 2 PANEL -->
+  <rect x="345" y="75" width="270" height="220" rx="6" ry="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <rect x="360" y="90" width="240" height="26" rx="4" ry="4" fill="#27ae60"/>
+  <text x="480" y="107" font-size="13" font-weight="bold" fill="white" text-anchor="middle">Pos 2: НАДОТИСНУТО (ENABLE)</text>
+
+  <!-- Lever diagram 2 -->
+  <g transform="translate(370, 128)">
+    <rect x="0" y="0" width="220" height="95" rx="4" ry="4" fill="white" stroke="#27ae60"/>
+    <!-- Housing -->
+    <path d="M 20 75 L 20 20 L 70 20" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- Lever mid-pressed -->
+    <line x1="30" y1="20" x2="65" y2="24" stroke="#27ae60" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="65" cy="24" r="5" fill="#27ae60"/>
+    <!-- Spring compressed -->
+    <path d="M 45 24 Q 40 36 45 48 Q 50 60 45 70" fill="none" stroke="#27ae60" stroke-width="2"/>
+    <!-- Switch Contacts CLOSED -->
+    <line x1="120" y1="48" x2="145" y2="48" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="165" y1="48" x2="190" y2="48" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="145" y1="48" x2="165" y2="48" stroke="#27ae60" stroke-width="3"/>
+    <circle cx="145" cy="48" r="3" fill="#27ae60"/>
+    <circle cx="165" cy="48" r="3" fill="#27ae60"/>
+    <text x="155" y="78" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Замкнено (ENABLE)</text>
+  </g>
+  <text x="480" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">Помірний тиск оператора</text>
+  <text x="480" y="262" font-size="12" fill="#6b7280" text-anchor="middle">Сигнал дозволу руху подано</text>
+  <text x="480" y="280" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Стан системи: ENABLE</text>
+
+  <!-- ARROW 2 -> 3 -->
+  <path d="M 618 175 L 652 175" fill="none" stroke="#c0392b" stroke-width="2" marker-end="url(#arr-red)"/>
+  <text x="635" y="165" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Дотиск</text>
+
+  <!-- POSITION 3 PANEL -->
+  <rect x="655" y="75" width="270" height="220" rx="6" ry="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="670" y="90" width="240" height="26" rx="4" ry="4" fill="#fdecea" stroke="#c0392b" stroke-width="1"/>
+  <text x="790" y="107" font-size="13" font-weight="bold" fill="#c0392b" text-anchor="middle">Pos 3: ПАНІКА / ПЕРЕТИСК (OFF)</text>
+
+  <!-- Lever diagram 3 -->
+  <g transform="translate(680, 128)">
+    <rect x="0" y="0" width="220" height="95" rx="4" ry="4" fill="white" stroke="#c0392b"/>
+    <!-- Housing -->
+    <path d="M 20 75 L 20 20 L 70 20" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+    <!-- Lever over-pressed -->
+    <line x1="30" y1="20" x2="65" y2="38" stroke="#c0392b" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="65" cy="38" r="5" fill="#c0392b"/>
+    <!-- Spring fully compressed -->
+    <path d="M 45 38 Q 40 47 45 56 Q 50 63 45 70" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+    <!-- Switch Contacts FORCIBLY OPEN (positive break) -->
+    <line x1="120" y1="48" x2="145" y2="48" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="165" y1="48" x2="190" y2="48" stroke="#1a1a1a" stroke-width="2"/>
+    <line x1="145" y1="48" x2="160" y2="63" stroke="#c0392b" stroke-width="2.5"/>
+    <circle cx="145" cy="48" r="3" fill="#1a1a1a"/>
+    <circle cx="165" cy="48" r="3" fill="#1a1a1a"/>
+    <text x="155" y="78" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Примусово розімкнено</text>
+  </g>
+  <text x="790" y="244" font-size="12" fill="#1a1a1a" text-anchor="middle">Панічне стискання / судома</text>
+  <text x="790" y="262" font-size="12" fill="#6b7280" text-anchor="middle">Пряме розмикання (Positive Break)</text>
+  <text x="790" y="280" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Стан системи: OFF</text>
+
+
+  <!-- ==================== BOTTOM SECTION: KINEMATIC RETURN & LATCH ==================== -->
+
+  <rect x="35" y="315" width="890" height="230" rx="8" ry="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="55" y="338" font-size="14" font-weight="bold" fill="#1a1a1a">Асиметрія зворотного ходу (Механізм блокування повторного ввімкнення)</text>
+  <text x="55" y="356" font-size="12" fill="#6b7280">При розслабленні руки з Pos 3 важіль проходить Pos 2 БЕЗ замикання контактів до повного скиду в Pos 1</text>
+
+  <!-- Left Block: Forward Path -->
+  <g transform="translate(55, 370)">
+    <rect x="0" y="0" width="410" height="160" rx="6" ry="6" fill="white" stroke="#d0d7de"/>
+    <text x="15" y="22" font-size="13" font-weight="bold" fill="#2457d6">1. Прямий хід (Натискання 1 → 2 → 3)</text>
+    <text x="20" y="45" font-size="12" fill="#1a1a1a">• Pos 1 → Pos 2: Кулачок зачіплює контактну групу</text>
+    <text x="32" y="63" font-size="12" font-weight="bold" fill="#27ae60">Замикання контактів — дозвіл роботи (ENABLE)</text>
+    <text x="20" y="86" font-size="12" fill="#1a1a1a">• Pos 2 → Pos 3: Судома/паніка долає поріг пружини</text>
+    <text x="32" y="104" font-size="12" font-weight="bold" fill="#c0392b">Скидання зачепу — примусове розмикання (OFF)</text>
+    <text x="32" y="124" font-size="11" fill="#6b7280">Механічний засув вискакує у відкритий стан</text>
+  </g>
+
+  <!-- Right Block: Return Path -->
+  <g transform="translate(485, 370)">
+    <rect x="0" y="0" width="425" height="160" rx="6" ry="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+    <text x="15" y="22" font-size="13" font-weight="bold" fill="#c0392b">2. Зворотний хід (Відпускання з Pos 3)</text>
+    <text x="20" y="45" font-size="12" fill="#1a1a1a">• Pos 3 → Pos 2: Важіль піднімається по обхідному пазу</text>
+    <text x="32" y="63" font-size="12" font-weight="bold" fill="#c0392b">Контакти ЛИШАЮТЬСЯ РОЗІМКНЕНИМИ (OFF)</text>
+    <text x="20" y="86" font-size="12" fill="#1a1a1a">• Pos 2 → Pos 1: Повне відпускання перезаводить зачіп</text>
+    <text x="32" y="104" font-size="12" font-weight="bold" fill="#27ae60">Скид засува в початкове положення</text>
+    <text x="32" y="124" font-size="11" font-weight="bold" fill="#1a1a1a">Умова відновлення: Повне відпускання до Pos 1,</text>
+    <text x="32" y="140" font-size="11" fill="#6b7280">після чого можливий новий натиск у Pos 2</text>
+  </g>
+
+</svg>

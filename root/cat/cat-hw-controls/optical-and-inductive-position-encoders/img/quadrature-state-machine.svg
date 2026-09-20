@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Біла підкладка -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Маркери стрілок -->
+  <defs>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Заголовок та підзаголовок -->
+  <text x="480" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Квадратурне декодування X4 та автомат станів</text>
+  <text x="480" y="54" text-anchor="middle" font-size="13" fill="#6b7280">Фазовий зсув 90° між каналами A і B дає змогу визначати напрямок обертання та потрійну роздільність 4X</text>
+
+  <!-- ПАНЕЛЬ 1: ЧАСОВА ДІАГРАМА КВАДРАТУРНИХ СИГНАЛІВ -->
+  <g id="panel-timing">
+    <!-- Тло панелі 1 -->
+    <rect x="30" y="75" width="435" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Заголовок панелі 1 -->
+    <rect x="42" y="87" width="411" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="247.5" y="109" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">1. Сигнали A і B та напрямок руху</text>
+
+    <!-- Позначки каналів -->
+    <text x="48" y="160" text-anchor="start" font-size="12" font-weight="bold" fill="#2457d6">Канал A</text>
+    <text x="48" y="240" text-anchor="start" font-size="12" font-weight="bold" fill="#1a1a1a">Канал B</text>
+
+    <!-- Вертикальні лінії фронтів -->
+    <line x1="140" y1="130" x2="140" y2="280" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="170" y1="130" x2="170" y2="280" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="200" y1="130" x2="200" y2="280" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="230" y1="130" x2="230" y2="280" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+
+    <line x1="295" y1="130" x2="295" y2="280" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="325" y1="130" x2="325" y2="280" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="355" y1="130" x2="355" y2="280" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+    <line x1="385" y1="130" x2="385" y2="280" stroke="#6b7280" stroke-width="1" stroke-dasharray="3,3"/>
+
+    <!-- Сигнал Каналу A -->
+    <path d="M 110,175 H 140 V 145 H 200 V 175 H 270 H 325 V 145 H 385 V 175 H 425" stroke="#2457d6" stroke-width="2.5" fill="none"/>
+
+    <!-- Сигнал Каналу B -->
+    <path d="M 110,255 H 170 V 225 H 230 V 255 H 270 H 295 V 225 H 355 V 255 H 425" stroke="#1a1a1a" stroke-width="2.5" fill="none"/>
+
+    <!-- Значення станів (A,B) під сигналами -->
+    <text x="125" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">00</text>
+    <text x="155" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">10</text>
+    <text x="185" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">11</text>
+    <text x="215" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">01</text>
+    <text x="245" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">00</text>
+
+    <text x="282" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">00</text>
+    <text x="310" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">01</text>
+    <text x="340" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">11</text>
+    <text x="370" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">10</text>
+    <text x="400" y="290" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">00</text>
+
+    <!-- Позначення напрямку -->
+    <rect x="120" y="298" width="130" height="22" rx="4" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="185" y="314" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Обертання CW (+1)</text>
+
+    <rect x="275" y="298" width="130" height="22" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="340" y="314" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Обертання CCW (-1)</text>
+
+    <!-- Підсумок для панелі 1 -->
+    <rect x="42" y="380" width="411" height="45" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+    <text x="247.5" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#27ae60">✓ Декодування X4 рахує кожен фронт (A і B),</text>
+    <text x="247.5" y="416" text-anchor="middle" font-size="11" fill="#27ae60">що збільшує точність вимірювання у 4 рази</text>
+  </g>
+
+  <!-- ПАНЕЛЬ 2: ГРАФ СТАНІВ КІНЦЕВОГО АВТОМАТА (FSM X4) -->
+  <g id="panel-fsm">
+    <!-- Тло панелі 2 -->
+    <rect x="495" y="75" width="435" height="375" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+
+    <!-- Заголовок панелі 2 -->
+    <rect x="507" y="87" width="411" height="34" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="712.5" y="109" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">2. Автомат станів квадратурного декодера</text>
+
+    <!-- Стрілки переходів CW (Ззовні, за годинниковою стрілкою) -->
+    <!-- 00 -> 10 -->
+    <line x1="628" y1="173" x2="792" y2="173" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="710" y="165" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">CW (+1)</text>
+
+    <!-- 10 -> 11 -->
+    <line x1="832" y1="213" x2="832" y2="297" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="842" y="259" text-anchor="start" font-size="11" font-weight="bold" fill="#27ae60">CW (+1)</text>
+
+    <!-- 11 -> 01 -->
+    <line x1="792" y1="337" x2="628" y2="337" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="710" y="353" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">CW (+1)</text>
+
+    <!-- 01 -> 00 -->
+    <line x1="588" y1="297" x2="588" y2="213" stroke="#27ae60" stroke-width="2" marker-end="url(#arr-green)"/>
+    <text x="578" y="259" text-anchor="end" font-size="11" font-weight="bold" fill="#27ae60">CW (+1)</text>
+
+    <!-- Стрілки переходів CCW (Всередині, проти годинникової стрілки) -->
+    <!-- 00 -> 01 -->
+    <line x1="612" y1="213" x2="612" y2="297" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="622" y="259" text-anchor="start" font-size="11" font-weight="bold" fill="#2457d6">CCW (-1)</text>
+
+    <!-- 01 -> 11 -->
+    <line x1="628" y1="313" x2="792" y2="313" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="710" y="305" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">CCW (-1)</text>
+
+    <!-- 11 -> 10 -->
+    <line x1="808" y1="297" x2="808" y2="213" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="798" y="259" text-anchor="end" font-size="11" font-weight="bold" fill="#2457d6">CCW (-1)</text>
+
+    <!-- 10 -> 00 -->
+    <line x1="792" y1="197" x2="628" y2="197" stroke="#2457d6" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <text x="710" y="213" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">CCW (-1)</text>
+
+    <!-- Вузли станів (Nodes) -->
+    <!-- Стан 00 -->
+    <circle cx="600" cy="185" r="24" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+    <text x="600" y="190" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">00</text>
+
+    <!-- Стан 10 -->
+    <circle cx="820" cy="185" r="24" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+    <text x="820" y="190" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">10</text>
+
+    <!-- Стан 11 -->
+    <circle cx="820" cy="325" r="24" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+    <text x="820" y="330" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">11</text>
+
+    <!-- Стан 01 -->
+    <circle cx="600" cy="325" r="24" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+    <text x="600" y="330" text-anchor="middle" font-size="14" font-weight="bold" fill="#2457d6">01</text>
+
+    <!-- Підсумок для панелі 2 -->
+    <rect x="507" y="380" width="411" height="45" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+    <text x="712.5" y="400" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">✓ Заборонені переходи (напр. 00 → 11):</text>
+    <text x="712.5" y="416" text-anchor="middle" font-size="11" fill="#c0392b">фіксуються як помилка пропуску кроку або збою</text>
+  </g>
+</svg>

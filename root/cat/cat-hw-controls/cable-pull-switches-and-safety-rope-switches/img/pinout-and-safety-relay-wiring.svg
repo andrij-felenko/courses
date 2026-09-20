@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="560" fill="#ffffff"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="36" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Цокольовка 2NC/2NO та двоканальне підключення тросового вимикача</text>
+  <text x="480" y="56" text-anchor="middle" font-size="13" fill="#6b7280">Примусове розмикання NC-контактів безпеки (11-12, 21-22) і контроль каналів у реле безпеки</text>
+
+  <!-- Left Panel: Terminal Pinout -->
+  <rect x="30" y="85" width="430" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="245" y="112" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Цокольовка клем корпусу (2NC / 2NO)</text>
+
+  <!-- Card 1: NC1 -->
+  <rect x="50" y="130" width="390" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="65" y="152" font-size="13" font-weight="bold" fill="#2457d6">Контакти 11 – 12 (NC1): примусове розмикання</text>
+  <circle cx="100" cy="180" r="7" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="100" y="184" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">11</text>
+  <line x1="107" y1="180" x2="135" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <line x1="135" y1="180" x2="213" y2="180" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="220" cy="180" r="7" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="220" y="184" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">12</text>
+  <text x="250" y="172" font-size="12" font-weight="bold" fill="#c0392b">→ (IEC 60947-5-1)</text>
+  <text x="250" y="192" font-size="11" fill="#1a1a1a">Примусове розмикання NC1</text>
+
+  <!-- Card 2: NC2 -->
+  <rect x="50" y="225" width="390" height="80" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="65" y="247" font-size="13" font-weight="bold" fill="#2457d6">Контакти 21 – 22 (NC2): примусове розмикання</text>
+  <circle cx="100" cy="275" r="7" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="100" y="279" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">21</text>
+  <line x1="107" y1="275" x2="135" y2="275" stroke="#2457d6" stroke-width="2"/>
+  <line x1="135" y1="275" x2="213" y2="275" stroke="#2457d6" stroke-width="2"/>
+  <circle cx="220" cy="275" r="7" fill="#ffffff" stroke="#2457d6" stroke-width="2"/>
+  <text x="220" y="279" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">22</text>
+  <text x="250" y="267" font-size="12" font-weight="bold" fill="#c0392b">→ (IEC 60947-5-1)</text>
+  <text x="250" y="287" font-size="11" fill="#1a1a1a">Дубльований канал NC2</text>
+
+  <!-- Card 3: NO1 -->
+  <rect x="50" y="320" width="390" height="80" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="65" y="342" font-size="13" font-weight="bold" fill="#1a1a1a">Контакти 33 – 34 (NO1): сигнальний замикальний</text>
+  <circle cx="100" cy="370" r="7" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
+  <text x="100" y="374" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">33</text>
+  <line x1="107" y1="370" x2="135" y2="370" stroke="#6b7280" stroke-width="2"/>
+  <line x1="135" y1="370" x2="205" y2="358" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="220" cy="370" r="7" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
+  <text x="220" y="374" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">34</text>
+  <text x="250" y="374" font-size="11" fill="#6b7280">Замикається при робочому натягу</text>
+
+  <!-- Card 4: NO2 & Glands info -->
+  <rect x="50" y="415" width="390" height="95" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="65" y="437" font-size="13" font-weight="bold" fill="#1a1a1a">Контакти 43 – 44 (NO2): аварійна індикація</text>
+  <circle cx="100" cy="465" r="7" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
+  <text x="100" y="469" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">43</text>
+  <line x1="107" y1="465" x2="135" y2="465" stroke="#6b7280" stroke-width="2"/>
+  <line x1="135" y1="465" x2="205" y2="453" stroke="#6b7280" stroke-width="2"/>
+  <circle cx="220" cy="465" r="7" fill="#ffffff" stroke="#6b7280" stroke-width="2"/>
+  <text x="220" y="469" text-anchor="middle" font-size="11" font-weight="bold" fill="#6b7280">44</text>
+  <text x="250" y="463" font-size="11" fill="#6b7280">Сигнал аварії на ПЛІС / світлодіод</text>
+  <text x="250" y="480" font-size="11" font-weight="bold" fill="#27ae60">Кабельні вводи: М20×1.5 / Pg13.5</text>
+
+  <!-- Right Panel: Dual Channel Safety Relay Wiring -->
+  <rect x="480" y="85" width="450" height="445" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="705" y="112" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a1a">Двоканальне підключення до реле безпеки</text>
+
+  <!-- Switch Component Box -->
+  <rect x="500" y="135" width="150" height="325" rx="6" fill="#ffffff" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="575" y="156" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Тросовий вимикач</text>
+
+  <circle cx="630" cy="195" r="6" fill="#2457d6"/>
+  <text x="512" y="199" font-size="11" font-weight="bold" fill="#1a1a1a">11 (NC1)</text>
+
+  <circle cx="630" cy="240" r="6" fill="#2457d6"/>
+  <text x="512" y="244" font-size="11" font-weight="bold" fill="#1a1a1a">12 (NC1)</text>
+  <line x1="630" y1="195" x2="630" y2="240" stroke="#2457d6" stroke-width="2"/>
+
+  <circle cx="630" cy="305" r="6" fill="#27ae60"/>
+  <text x="512" y="309" font-size="11" font-weight="bold" fill="#1a1a1a">21 (NC2)</text>
+
+  <circle cx="630" cy="350" r="6" fill="#27ae60"/>
+  <text x="512" y="354" font-size="11" font-weight="bold" fill="#1a1a1a">22 (NC2)</text>
+  <line x1="630" y1="305" x2="630" y2="350" stroke="#27ae60" stroke-width="2"/>
+
+  <circle cx="630" cy="404" r="6" fill="#6b7280"/>
+  <text x="512" y="408" font-size="11" font-weight="bold" fill="#6b7280">33 (NO1)</text>
+
+  <circle cx="630" cy="439" r="6" fill="#6b7280"/>
+  <text x="512" y="443" font-size="11" font-weight="bold" fill="#6b7280">34 (NO1)</text>
+
+  <!-- Safety Relay Component Box -->
+  <rect x="760" y="135" width="150" height="325" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="2"/>
+  <text x="835" y="156" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">Реле безпеки</text>
+  <text x="835" y="172" text-anchor="middle" font-size="11" fill="#6b7280">(Safety Relay)</text>
+
+  <circle cx="760" cy="195" r="6" fill="#2457d6"/>
+  <text x="772" y="199" font-size="11" font-weight="bold" fill="#2457d6">S11 (Out1)</text>
+
+  <circle cx="760" cy="240" r="6" fill="#2457d6"/>
+  <text x="772" y="244" font-size="11" font-weight="bold" fill="#2457d6">S12 (In1)</text>
+
+  <circle cx="760" cy="305" r="6" fill="#27ae60"/>
+  <text x="772" y="309" font-size="11" font-weight="bold" fill="#27ae60">S21 (Out2)</text>
+
+  <circle cx="760" cy="350" r="6" fill="#27ae60"/>
+  <text x="772" y="354" font-size="11" font-weight="bold" fill="#27ae60">S22 (In2)</text>
+
+  <circle cx="760" cy="404" r="6" fill="#6b7280"/>
+  <text x="772" y="408" font-size="11" font-weight="bold" fill="#6b7280">S34 (Reset)</text>
+
+  <text x="772" y="443" font-size="11" font-weight="bold" fill="#1a1a1a">13-14, 23-24</text>
+
+  <!-- Wiring Connections -->
+  <!-- Wire Ch1 Out: S11 -> 11 -->
+  <line x1="754" y1="195" x2="640" y2="195" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="697" y="187" text-anchor="middle" font-size="11" font-weight="bold" fill="#2457d6">Канал 1 (NC1)</text>
+
+  <!-- Wire Ch1 In: 12 -> S12 -->
+  <line x1="636" y1="240" x2="750" y2="240" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+
+  <!-- Wire Ch2 Out: S21 -> 21 -->
+  <line x1="754" y1="305" x2="640" y2="305" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+  <text x="697" y="297" text-anchor="middle" font-size="11" font-weight="bold" fill="#27ae60">Канал 2 (NC2)</text>
+
+  <!-- Wire Ch2 In: 22 -> S22 -->
+  <line x1="636" y1="350" x2="750" y2="350" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arr-green)"/>
+
+  <!-- Wire Signal: NO 34 -> PLC -->
+  <line x1="636" y1="439" x2="710" y2="439" stroke="#6b7280" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Bottom Explanatory Box -->
+  <rect x="500" y="475" width="410" height="42" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1"/>
+  <text x="512" y="493" font-size="11" font-weight="bold" fill="#27ae60">Контроль перехресного замикання (test pulse):</text>
+  <text x="512" y="508" font-size="11" fill="#1a1a1a">Виявляє КЗ між каналами, обрив та розсинхронізацію контактів</text>
+</svg>

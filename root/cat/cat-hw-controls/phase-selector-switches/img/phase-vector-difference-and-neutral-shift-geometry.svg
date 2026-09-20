@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 500" width="960" height="500" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="500" fill="white"/>
+
+  <!-- Title & Subtitle -->
+  <text x="480" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Векторна діаграма 3-фазної системи та геометрія зміщення нейтралі</text>
+  <text x="480" y="50" text-anchor="middle" font-size="13" fill="#6b7280">Міжфазна напруга U_L = √3 · U_ph при куті 120° та зміщення нейтралі U_N при асиметрії</text>
+
+  <!-- LEFT PANEL: Symmetrical 3-Phase System -->
+  <rect x="30" y="65" width="435" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="30" y="65" width="435" height="32" rx="8" fill="#eaf0fd"/>
+  <text x="247" y="86" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">1. Симетрична 3-фазна система (120°)</text>
+
+  <!-- Symmetrical Diagram Lines & Vectors -->
+  <!-- Outer Equilateral Triangle L1-L2-L3 (dashed) -->
+  <polygon points="240,130 145,295 335,295" fill="none" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- 120 degree angle arc between L1 and L2 -->
+  <path d="M 240,205 A 35 35 0 0 0 210,257.5" fill="none" stroke="#2457d6" stroke-width="1.5"/>
+  <text x="215" y="215" text-anchor="end" font-size="11" font-weight="bold" fill="#2457d6">120°</text>
+
+  <!-- Phase Vectors -->
+  <!-- U_L1 Vector (Up) -->
+  <line x1="240" y1="240" x2="240" y2="137" stroke="#2457d6" stroke-width="2.5" marker-end="url(#arr-blue)"/>
+  <text x="240" y="115" text-anchor="middle" font-size="13" font-weight="bold" fill="#2457d6">U_L1 (230 В)</text>
+
+  <!-- U_L2 Vector (Down-Left) -->
+  <line x1="240" y1="240" x2="149" y2="293" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr-dark)"/>
+  <text x="125" y="315" text-anchor="end" font-size="13" font-weight="bold" fill="#1a1a1a">U_L2 (230 В)</text>
+
+  <!-- U_L3 Vector (Down-Right) -->
+  <line x1="240" y1="240" x2="331" y2="293" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#arr-dark)"/>
+  <text x="350" y="315" font-size="13" font-weight="bold" fill="#1a1a1a">U_L3 (230 В)</text>
+
+  <!-- Line-to-Line Voltage Vector U_L12 (from L2 to L1) -->
+  <line x1="145" y1="295" x2="235" y2="137" stroke="#27ae60" stroke-width="2.2" marker-end="url(#arr-green)"/>
+  <text x="175" y="200" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">U_L12 = √3 · U_ph (400 В)</text>
+
+  <!-- Neutral Point N -->
+  <circle cx="240" cy="240" r="5" fill="#2457d6"/>
+  <text x="240" y="260" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">N (0 В)</text>
+
+  <!-- Left Panel Status / Formula Box -->
+  <rect x="45" y="380" width="405" height="48" rx="6" fill="#eaf0fd" stroke="#2457d6" stroke-width="1.2"/>
+  <text x="247" y="401" text-anchor="middle" font-size="12" font-weight="bold" fill="#2457d6">Міжфазна напруга: U_L = √3 · U_ph</text>
+  <text x="247" y="418" text-anchor="middle" font-size="11" fill="#2457d6">U_L = 1.732 × 230 В = 400 В (симетрія)</text>
+
+
+  <!-- RIGHT PANEL: Neutral Shift / Unbalance Geometry -->
+  <rect x="495" y="65" width="435" height="410" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="495" y="65" width="435" height="32" rx="8" fill="#fdecea"/>
+  <text x="712" y="86" text-anchor="middle" font-size="13" font-weight="bold" fill="#c0392b">2. Зміщення нейтралі N' при асиметрії / обриві</text>
+
+  <!-- Ideal Phase Circle reference (dashed) -->
+  <circle cx="705" cy="240" r="110" fill="none" stroke="#d0d7de" stroke-dasharray="3 3" stroke-width="1.2"/>
+
+  <!-- Ideal Neutral Point N -->
+  <circle cx="705" cy="240" r="4" fill="#2457d6"/>
+  <text x="695" y="235" text-anchor="end" font-size="11" font-weight="bold" fill="#2457d6">N (ідеал)</text>
+
+  <!-- Shifted Neutral Point N' -->
+  <circle cx="740" cy="270" r="5" fill="#c0392b"/>
+  <text x="755" y="280" font-size="11" font-weight="bold" fill="#c0392b">N' (зсув)</text>
+
+  <!-- Shift Vector U_N' (from N to N') -->
+  <line x1="705" y1="240" x2="734" y2="265" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="755" y="258" font-size="11" font-weight="bold" fill="#c0392b">U_N' (зсув)</text>
+
+  <!-- Phase Vectors from SHIFTED Neutral N' (740, 270) -->
+  <!-- U'_L1 (Overvoltage to L1 at 705, 130) -->
+  <line x1="740" y1="270" x2="707" y2="137" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arr-red)"/>
+  <text x="705" y="115" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">U'_L1 (&gt;300 В - Перенапруга!)</text>
+
+  <!-- U'_L2 (from N' to L2 at 610, 295) -->
+  <line x1="740" y1="270" x2="616" y2="293" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="590" y="315" text-anchor="end" font-size="12" font-weight="bold" fill="#1a1a1a">U'_L2 (зміна)</text>
+
+  <!-- U'_L3 (Undervoltage from N' to L3 at 800, 295) -->
+  <line x1="740" y1="270" x2="794" y2="293" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arr-dark)"/>
+  <text x="810" y="315" font-size="12" font-weight="bold" fill="#1a1a1a">U'_L3 (&lt;130 В)</text>
+
+  <!-- Right Panel Status / Formula Box -->
+  <rect x="510" y="380" width="405" height="48" rx="6" fill="#fdecea" stroke="#c0392b" stroke-width="1.2"/>
+  <text x="712" y="401" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Перенапруга на легких фазах при обриві N</text>
+  <text x="712" y="418" text-anchor="middle" font-size="11" fill="#c0392b">Зміщення нейтралі U_N' зміщує фазні напруги до міжфазних</text>
+</svg>

@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="520" fill="white"/>
+
+  <!-- Header -->
+  <text x="480" y="32" font-size="18" font-weight="700" fill="#1a1a1a" text-anchor="middle">Конфігурації та цокольовка поворотних галетних перемикачів</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Кількість полюсів (Poles) визначає число Com, а положень (Throws) — радіальні контакти на полюс</text>
+
+  <!-- PANEL 1: 1P12T -->
+  <rect x="30" y="70" width="290" height="430" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="175" y="94" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">1P12T: 1 Полюс · 12 Положень</text>
+  <text x="175" y="112" font-size="12" fill="#6b7280" text-anchor="middle">1 pole · 12 throws</text>
+
+  <!-- Panel 1 Diagram -->
+  <circle cx="175" cy="220" r="70" fill="none" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4,4"/>
+  <circle cx="175" cy="220" r="8" fill="#2457d6"/>
+  <text x="190" y="224" font-size="11" font-weight="700" fill="#2457d6">Com A</text>
+
+  <!-- Wiper line 1P12T -->
+  <line x1="175" y1="220" x2="175" y2="150" stroke="#2457d6" stroke-width="3.5" stroke-linecap="round"/>
+
+  <!-- Radial Pins 1P12T -->
+  <circle cx="175" cy="150" r="5" fill="#2457d6"/>
+  <text x="175" y="138" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">1</text>
+
+  <circle cx="210" cy="159" r="4" fill="#1a1a1a"/>
+  <circle cx="235" cy="185" r="4" fill="#1a1a1a"/>
+  <circle cx="245" cy="220" r="5" fill="#1a1a1a"/>
+  <text x="260" y="224" font-size="11" font-weight="700" fill="#1a1a1a">4</text>
+
+  <circle cx="235" cy="255" r="4" fill="#1a1a1a"/>
+  <circle cx="210" cy="281" r="4" fill="#1a1a1a"/>
+  <circle cx="175" cy="290" r="5" fill="#1a1a1a"/>
+  <text x="175" y="308" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="middle">7</text>
+
+  <circle cx="140" cy="281" r="4" fill="#1a1a1a"/>
+  <circle cx="115" cy="255" r="4" fill="#1a1a1a"/>
+  <circle cx="105" cy="220" r="5" fill="#1a1a1a"/>
+  <text x="90" y="224" font-size="11" font-weight="700" fill="#1a1a1a" text-anchor="end">10</text>
+
+  <circle cx="115" cy="185" r="4" fill="#1a1a1a"/>
+  <circle cx="140" cy="159" r="4" fill="#1a1a1a"/>
+
+  <!-- Panel 1 Summary Box -->
+  <rect x="45" y="325" width="260" height="160" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="55" y="347" font-size="12" font-weight="700" fill="#1a1a1a">Схемотехніка 1P12T:</text>
+  <text x="55" y="370" font-size="12" fill="#1a1a1a">• 1 спільний вивід (Com A)</text>
+  <text x="55" y="393" font-size="12" fill="#1a1a1a">• 12 радіальних контактів (1..12)</text>
+  <text x="55" y="416" font-size="12" fill="#1a1a1a">• Крок фіксатора: 30° (360° / 12)</text>
+  <text x="55" y="439" font-size="12" fill="#1a1a1a">• Однополюсний перемикач</text>
+  <rect x="55" y="452" width="240" height="22" rx="3" fill="#eaf0fd"/>
+  <text x="175" y="467" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">Пряме GPIO або драбина АЦП</text>
+
+
+  <!-- PANEL 2: 2P6T -->
+  <rect x="335" y="70" width="290" height="430" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="94" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">2P6T: 2 Полюси · 6 Положень</text>
+  <text x="480" y="112" font-size="12" fill="#6b7280" text-anchor="middle">2 poles · 6 throws each</text>
+
+  <!-- Panel 2 Diagram -->
+  <circle cx="480" cy="220" r="70" fill="none" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4,4"/>
+  
+  <circle cx="480" cy="195" r="7" fill="#2457d6"/>
+  <text x="495" y="199" font-size="11" font-weight="700" fill="#2457d6">Com A</text>
+
+  <circle cx="480" cy="245" r="7" fill="#27ae60"/>
+  <text x="495" y="249" font-size="11" font-weight="700" fill="#27ae60">Com B</text>
+
+  <!-- Wipers Panel 2 -->
+  <line x1="480" y1="195" x2="480" y2="150" stroke="#2457d6" stroke-width="3" stroke-linecap="round"/>
+  <line x1="480" y1="245" x2="480" y2="290" stroke="#27ae60" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Pole A Pins (Upper half) -->
+  <circle cx="480" cy="150" r="5" fill="#2457d6"/>
+  <circle cx="515" cy="159" r="4" fill="#2457d6"/>
+  <circle cx="535" cy="185" r="4" fill="#2457d6"/>
+  <circle cx="545" cy="220" r="5" fill="#2457d6"/>
+  <circle cx="535" cy="255" r="4" fill="#2457d6"/>
+  <circle cx="515" cy="281" r="4" fill="#2457d6"/>
+  <text x="555" y="160" font-size="11" font-weight="700" fill="#2457d6">A1..A6</text>
+
+  <!-- Pole B Pins (Lower half) -->
+  <circle cx="480" cy="290" r="5" fill="#27ae60"/>
+  <circle cx="445" cy="281" r="4" fill="#27ae60"/>
+  <circle cx="425" cy="255" r="4" fill="#27ae60"/>
+  <circle cx="415" cy="220" r="5" fill="#27ae60"/>
+  <circle cx="425" cy="185" r="4" fill="#27ae60"/>
+  <circle cx="445" cy="159" r="4" fill="#27ae60"/>
+  <text x="405" y="300" font-size="11" font-weight="700" fill="#27ae60" text-anchor="end">B1..B6</text>
+
+  <!-- Panel 2 Summary Box -->
+  <rect x="350" y="325" width="260" height="160" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="360" y="347" font-size="12" font-weight="700" fill="#1a1a1a">Схемотехніка 2P6T:</text>
+  <text x="360" y="370" font-size="12" fill="#1a1a1a">• 2 спільні виводи (Com A, Com B)</text>
+  <text x="360" y="393" font-size="12" fill="#1a1a1a">• 2 секції по 6 контактів (A1..6, B1..6)</text>
+  <text x="360" y="416" font-size="12" fill="#1a1a1a">• Спарене роторне перемикання</text>
+  <text x="360" y="439" font-size="12" fill="#1a1a1a">• Двополюсна комутація кіл</text>
+  <rect x="360" y="452" width="240" height="22" rx="3" fill="#eaf0fd"/>
+  <text x="480" y="467" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">Комутація сигнальних пар / стерео</text>
+
+
+  <!-- PANEL 3: 3P4T -->
+  <rect x="640" y="70" width="290" height="430" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="785" y="94" font-size="14" font-weight="700" fill="#2457d6" text-anchor="middle">3P4T: 3 Полюси · 4 Положень</text>
+  <text x="785" y="112" font-size="12" fill="#6b7280" text-anchor="middle">3 poles · 4 throws each</text>
+
+  <!-- Panel 3 Diagram -->
+  <circle cx="785" cy="220" r="70" fill="none" stroke="#d0d7de" stroke-width="2" stroke-dasharray="4,4"/>
+
+  <circle cx="785" cy="195" r="6" fill="#2457d6"/>
+  <text x="800" y="199" font-size="11" font-weight="700" fill="#2457d6">Com A</text>
+
+  <circle cx="765" cy="235" r="6" fill="#27ae60"/>
+  <text x="750" y="225" font-size="11" font-weight="700" fill="#27ae60" text-anchor="end">Com B</text>
+
+  <circle cx="805" cy="235" r="6" fill="#c0392b"/>
+  <text x="820" y="225" font-size="11" font-weight="700" fill="#c0392b">Com C</text>
+
+  <!-- Wipers Panel 3 -->
+  <line x1="785" y1="195" x2="785" y2="150" stroke="#2457d6" stroke-width="3" stroke-linecap="round"/>
+  <line x1="765" y1="235" x2="725" y2="255" stroke="#27ae60" stroke-width="3" stroke-linecap="round"/>
+  <line x1="805" y1="235" x2="845" y2="255" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Sector A Pins (Top) -->
+  <circle cx="785" cy="150" r="5" fill="#2457d6"/>
+  <circle cx="820" cy="159" r="4" fill="#2457d6"/>
+  <circle cx="840" cy="185" r="4" fill="#2457d6"/>
+  <circle cx="850" cy="220" r="4" fill="#2457d6"/>
+  <text x="860" y="160" font-size="11" font-weight="700" fill="#2457d6">A1..A4</text>
+
+  <!-- Sector B Pins (Bottom Left) -->
+  <circle cx="720" cy="220" r="4" fill="#27ae60"/>
+  <circle cx="725" cy="255" r="5" fill="#27ae60"/>
+  <circle cx="750" cy="281" r="4" fill="#27ae60"/>
+  <circle cx="785" cy="290" r="4" fill="#27ae60"/>
+  <text x="710" y="280" font-size="11" font-weight="700" fill="#27ae60" text-anchor="end">B1..B4</text>
+
+  <!-- Sector C Pins (Bottom Right) -->
+  <circle cx="845" cy="255" r="5" fill="#c0392b"/>
+  <circle cx="820" cy="281" r="4" fill="#c0392b"/>
+  <text x="860" y="280" font-size="11" font-weight="700" fill="#c0392b">C1..C4</text>
+
+  <!-- Panel 3 Summary Box -->
+  <rect x="655" y="325" width="260" height="160" rx="4" fill="white" stroke="#d0d7de"/>
+  <text x="665" y="347" font-size="12" font-weight="700" fill="#1a1a1a">Схемотехніка 3P4T:</text>
+  <text x="665" y="370" font-size="12" fill="#1a1a1a">• 3 спільні виводи (Com A..C)</text>
+  <text x="665" y="393" font-size="12" fill="#1a1a1a">• 3 секції по 4 контакти (A, B, C)</text>
+  <text x="665" y="416" font-size="12" fill="#1a1a1a">• Потрійне синхронне розведення</text>
+  <text x="665" y="444" font-size="12" fill="#1a1a1a">• Трифазна/триканальна комутація</text>
+  <rect x="665" y="452" width="240" height="22" rx="3" fill="#eaf0fd"/>
+  <text x="785" y="467" font-size="11" font-weight="700" fill="#2457d6" text-anchor="middle">Комутація 3 незалежних кіл</text>
+</svg>

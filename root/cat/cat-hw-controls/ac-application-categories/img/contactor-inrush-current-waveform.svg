@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="960" height="460" fill="#ffffff"/>
+  <text x="480" y="35" text-anchor="middle" font-size="18" font-weight="bold" fill="#1a1a1a">Часова діаграма пускового струму контактора</text>
+  <text x="480" y="60" text-anchor="middle" font-size="13" fill="#6b7280">Амплітудний кидок I_inrush = 5...8 · I_nom та експоненційне згасання за час t_start</text>
+  <rect x="100" y="90" width="760" height="300" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1"/>
+  
+  <!-- Axes -->
+  <line x1="120" y1="350" x2="840" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="840" y="380" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a1a1a">Час t (мс)</text>
+
+  <line x1="120" y1="100" x2="120" y2="350" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="75" y="110" font-size="13" font-weight="bold" fill="#1a1a1a">Струм I</text>
+
+  <!-- Inrush Peak Line -->
+  <line x1="120" y1="120" x2="840" y2="120" stroke="#c0392b" stroke-dasharray="4,4"/>
+  <text x="110" y="125" text-anchor="end" font-size="12" font-weight="bold" fill="#c0392b">I_inrush (6·I_nom)</text>
+
+  <!-- Nominal Line -->
+  <line x1="120" y1="280" x2="840" y2="280" stroke="#27ae60" stroke-dasharray="4,4"/>
+  <text x="110" y="285" text-anchor="end" font-size="12" font-weight="bold" fill="#27ae60">I_nom</text>
+
+  <!-- Current Waveform Path -->
+  <path d="M 120,350 Q 150,110 220,130 T 320,200 T 450,260 L 840,280" fill="none" stroke="#2457d6" stroke-width="3"/>
+
+  <rect x="550" y="130" width="280" height="70" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="690" y="155" text-anchor="middle" font-size="12" font-weight="bold" fill="#c0392b">Кидок струму при розгоні двигуна</text>
+  <text x="690" y="180" text-anchor="middle" font-size="12" fill="#6b7280">Викликає ерозію та зварювання контактів</text>
+</svg>

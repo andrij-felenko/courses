@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-gray" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#6b7280"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="540" fill="white"/>
+
+  <!-- Main Header -->
+  <text x="480" y="32" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Апаратне приглушення контактного дребезгу (RC-фільтр + 74HC14)</text>
+  <text x="480" y="52" font-size="13" fill="#6b7280" text-anchor="middle">Етапне перетворення механічного дребезгу в чистий цифровий сигнал з чіткими фронтами</text>
+
+  <!-- PANEL 1: HARDWARE CIRCUIT -->
+  <rect x="30" y="72" width="435" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="45" y="85" width="405" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="247.5" y="106" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Схемотехніка: Pull-up + RC-фільтр + 74HC14</text>
+
+  <!-- Circuit Diagram Elements -->
+  <!-- VCC Rail & Text -->
+  <line x1="90" y1="140" x2="150" y2="140" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="120" y1="135" x2="120" y2="140" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="120" y="128" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">+5V</text>
+
+  <!-- Pull-Up Resistor R_pull -->
+  <line x1="120" y1="140" x2="120" y2="155" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="108" y="155" width="24" height="40" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="120" y1="195" x2="120" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="140" y="180" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="start">R_pull (10 кОм)</text>
+
+  <!-- Mechanical Switch SW1 -->
+  <line x1="120" y1="230" x2="120" y2="247" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="120" cy="250" r="3" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="120" y1="250" x2="135" y2="273" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="120" cy="280" r="3" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="120" y1="283" x2="120" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Switch GND -->
+  <line x1="110" y1="295" x2="130" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="114" y1="299" x2="126" y2="299" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="117" y1="303" x2="123" y2="303" stroke="#1a1a1a" stroke-width="1"/>
+  <text x="102" y="268" font-size="12" fill="#6b7280" text-anchor="end">SW1 (кнопка)</text>
+
+  <!-- Node A (V_SW) -->
+  <circle cx="120" cy="230" r="4" fill="#c0392b"/>
+  <text x="105" y="222" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">A: V_SW</text>
+
+  <!-- Filter Resistor R_f -->
+  <line x1="120" y1="230" x2="170" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="170" y="218" width="40" height="24" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="190" y="210" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">R_f (10 кОм)</text>
+  <line x1="210" y1="230" x2="270" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+
+  <!-- Node B (V_C) -->
+  <circle cx="270" cy="230" r="4" fill="#2457d6"/>
+  <text x="270" y="218" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">B: V_C</text>
+
+  <!-- Filter Capacitor C_f -->
+  <line x1="270" y1="230" x2="270" y2="252" stroke="#1a1a1a" stroke-width="1.5"/>
+  <line x1="258" y1="252" x2="282" y2="252" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="258" y1="258" x2="282" y2="258" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="270" y1="258" x2="270" y2="295" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Capacitor GND -->
+  <line x1="262" y1="295" x2="278" y2="295" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="265" y1="299" x2="275" y2="299" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="290" y="260" font-size="12" font-weight="bold" fill="#6b7280" text-anchor="start">C_f (100 нФ)</text>
+
+  <!-- Schmitt Trigger Inverter 74HC14 -->
+  <line x1="270" y1="230" x2="320" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Triangle Inverter -->
+  <polygon points="320,205 320,255 365,230" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Hysteresis Symbol Inside -->
+  <path d="M 334 234 L 342 234 L 342 224 M 342 224 L 350 224 L 342 224 L 342 234" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+  <!-- Inverting Output Bubble -->
+  <circle cx="370" cy="230" r="5" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="342" y="198" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">74HC14</text>
+
+  <!-- Output Wire & Node C (V_out) -->
+  <line x1="375" y1="230" x2="435" y2="230" stroke="#1a1a1a" stroke-width="2"/>
+  <circle cx="420" cy="230" r="4" fill="#27ae60"/>
+  <text x="420" y="218" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">C: V_out</text>
+
+  <!-- Panel 1 Formula / Parameter Box -->
+  <rect x="45" y="318" width="405" height="145" rx="6" fill="#ffffff" stroke="#d0d7de" stroke-width="1"/>
+  <text x="58" y="338" font-size="12" font-weight="bold" fill="#1a1a1a">Параметри RC-фільтра та тригера Шмітта:</text>
+  <text x="58" y="360" font-size="12" fill="#1a1a1a">• Постійна часу: τ = R_f · C_f = 10 кОм · 100 нФ = 1 мс</text>
+  <text x="58" y="382" font-size="12" fill="#1a1a1a">• Тривалість дребезгу контактів: t_bounce ≈ 1...5 мс</text>
+  <text x="58" y="406" font-size="12" font-weight="bold" fill="#2457d6">Порогові напруги 74HC14 (при VCC = 5V):</text>
+  <text x="58" y="428" font-size="12" fill="#1a1a1a">• V_T+ ≈ 3.15 В,  V_T- ≈ 1.35 В  (Гістерезис ΔV ≈ 1.8 В)</text>
+  <text x="58" y="450" font-size="12" font-weight="bold" fill="#27ae60">• Забезпечує чітке перемикання без брязкоту</text>
+
+
+  <!-- PANEL 2: WAVEFORMS & TIMING DIAGRAMS -->
+  <rect x="495" y="72" width="435" height="405" rx="8" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <rect x="510" y="85" width="405" height="32" rx="4" fill="#eaf0fd" stroke="#2457d6" stroke-width="1"/>
+  <text x="712.5" y="106" font-size="14" font-weight="bold" fill="#2457d6" text-anchor="middle">Часові діаграми сигналів (Осцилограми)</text>
+
+  <!-- Graph 1: V_SW (Bounce Signal at Node A) -->
+  <rect x="560" y="132" width="345" height="65" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="550" y="155" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="end">V_SW</text>
+  <text x="550" y="170" font-size="11" fill="#6b7280" text-anchor="end">(вузол A)</text>
+  <!-- Grid lines -->
+  <line x1="560" y1="140" x2="905" y2="140" stroke="#f3f4f6" stroke-dasharray="2,2"/>
+  <line x1="560" y1="185" x2="905" y2="185" stroke="#f3f4f6" stroke-dasharray="2,2"/>
+  <!-- Bounce Waveform -->
+  <path d="M 560 185 L 610 185 L 610 140 L 618 185 L 624 140 L 630 172 L 636 140 L 642 185 L 648 140 L 654 168 L 660 140 L 895 140" fill="none" stroke="#c0392b" stroke-width="1.8"/>
+  <text x="635" y="127" font-size="11" font-weight="bold" fill="#c0392b" text-anchor="middle">Дребезг контактів</text>
+
+  <!-- Graph 2: V_C (RC Filter Output at Node B) -->
+  <rect x="560" y="225" width="345" height="85" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="550" y="255" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="end">V_C</text>
+  <text x="550" y="270" font-size="11" fill="#6b7280" text-anchor="end">(вузол B)</text>
+  <!-- Threshold lines -->
+  <line x1="560" y1="253" x2="905" y2="253" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="565" y="249" font-size="10" font-weight="bold" fill="#c0392b" text-anchor="start">V_T+ (3.15V)</text>
+  
+  <line x1="560" y1="287" x2="905" y2="287" stroke="#27ae60" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="565" y="299" font-size="10" font-weight="bold" fill="#27ae60" text-anchor="start">V_T- (1.35V)</text>
+
+  <!-- Smooth RC Exponential Curve -->
+  <path d="M 560 298 L 610 298 C 635 298, 665 258, 895 233" fill="none" stroke="#2457d6" stroke-width="2"/>
+  <!-- Threshold Crossing Point -->
+  <circle cx="668" cy="253" r="4" fill="#2457d6"/>
+
+  <!-- Graph 3: V_out (Schmitt Trigger Output at Node C) -->
+  <rect x="560" y="340" width="345" height="65" fill="#ffffff" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="550" y="365" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="end">V_out</text>
+  <text x="550" y="380" font-size="11" fill="#6b7280" text-anchor="end">(вузол C)</text>
+  <!-- Inverted Digital Pulse Waveform -->
+  <path d="M 560 348 L 668 348 L 668 393 L 895 393" fill="none" stroke="#27ae60" stroke-width="2"/>
+  <text x="780" y="375" font-size="11" font-weight="bold" fill="#27ae60" text-anchor="middle">Чистий цифровий фронт</text>
+
+  <!-- Trigger Vertical Projection Line -->
+  <line x1="668" y1="253" x2="668" y2="425" stroke="#2457d6" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Time Axis -->
+  <line x1="560" y1="425" x2="905" y2="425" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arr-gray)"/>
+  <text x="912" y="429" font-size="11" fill="#6b7280" text-anchor="start">t</text>
+  <text x="668" y="442" font-size="11" font-weight="bold" fill="#2457d6" text-anchor="middle">Спрацьовування (V_C = V_T+)</text>
+
+  <!-- BOTTOM SUMMARY BANNER -->
+  <rect x="30" y="488" width="900" height="38" rx="6" fill="#e9f7ef" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="480" y="512" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Результат: Повне усунення контактного дребезгу та формування стійкого цифрового сигналу</text>
+</svg>

@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2457d6"/>
+    </marker>
+    <marker id="arr-green" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-red" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-dark" markerWidth="9" markerHeight="9" refX="7.5" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="960" height="480" fill="white"/>
+
+  <!-- Titles -->
+  <text x="480" y="36" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Часова діаграма циклу контролю пильності (Vigilance Control)</text>
+  <text x="480" y="58" font-size="13" fill="#6b7280" text-anchor="middle">Інтервали t_hold та t_warn розпізнають заклинювання й автоматично вимикають привід</text>
+
+
+  <!-- Interval & Event Header Annotations (y=99) -->
+  <!-- Interval 1: t_hold -->
+  <rect x="240" y="85" width="170" height="18" fill="#eaf0fd" rx="3"/>
+  <text x="325" y="99" font-size="12" font-weight="bold" fill="#2457d6" text-anchor="middle">t_hold (Очікування)</text>
+
+  <!-- Interval 2: t_warn -->
+  <rect x="425" y="85" width="90" height="18" fill="#fef3c7" rx="3"/>
+  <text x="470" y="99" font-size="12" font-weight="bold" fill="#d97706" text-anchor="middle">t_warn</text>
+
+  <!-- Event 1: Trip -->
+  <text x="600" y="99" font-size="12" font-weight="bold" fill="#c0392b" text-anchor="middle">Зупинення (Trip)</text>
+
+  <!-- Event 2: Reset -->
+  <text x="830" y="99" font-size="12" font-weight="bold" fill="#27ae60" text-anchor="middle">Скидання (Reset)</text>
+
+
+  <!-- Left Y-Axis Signal Labels -->
+  <text x="25" y="125" font-size="12" font-weight="bold" fill="#2457d6">Педаль (ENABLE)</text>
+  <text x="25" y="195" font-size="12" font-weight="bold" fill="#1a1a1a">Таймер t</text>
+  <text x="25" y="265" font-size="12" font-weight="bold" fill="#d97706">Попередження (Warn)</text>
+  <text x="25" y="335" font-size="12" font-weight="bold" fill="#27ae60">Реле дозволу (Relay)</text>
+
+  <!-- Y-Axis Threshold Labels for Timer -->
+  <text x="200" y="155" font-size="12" fill="#c0392b" text-anchor="end">Поріг t_trip</text>
+  <text x="200" y="175" font-size="12" fill="#6b7280" text-anchor="end">Поріг t_hold</text>
+
+
+  <!-- Vertical Timeline Grid Lines (Dashed) -->
+  <line x1="240" y1="108" x2="240" y2="360" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="410" y1="108" x2="410" y2="360" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="530" y1="108" x2="530" y2="360" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="630" y1="108" x2="630" y2="360" stroke="#d0d7de" stroke-width="1.5" stroke-dasharray="4,4"/>
+  <line x1="830" y1="108" x2="830" y2="360" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="4,4"/>
+
+
+  <!-- Signal 1 Track: Pedal State -->
+  <line x1="205" y1="135" x2="910" y2="135" stroke="#f4f6f8" stroke-width="2"/>
+  <path d="M 210,135 L 240,135 L 240,115 L 630,115 L 630,135 L 710,135 L 710,115 L 830,115 L 830,135 L 845,135 L 845,115 L 900,115" fill="none" stroke="#2457d6" stroke-width="2.5"/>
+
+
+  <!-- Signal 2 Track: Inactivity Timer Ramp -->
+  <line x1="205" y1="210" x2="910" y2="210" stroke="#d0d7de" stroke-width="1"/>
+  <!-- Threshold Reference Lines -->
+  <line x1="205" y1="175" x2="910" y2="175" stroke="#6b7280" stroke-width="1" stroke-dasharray="2,2"/>
+  <line x1="205" y1="155" x2="910" y2="155" stroke="#c0392b" stroke-width="1" stroke-dasharray="2,2"/>
+  
+  <!-- Shaded Area Under Ramp -->
+  <polygon points="240,210 410,175 530,155 630,155 630,210" fill="#eaf0fd" opacity="0.6"/>
+  <polygon points="710,210 830,185 830,210" fill="#eaf0fd" opacity="0.6"/>
+  
+  <!-- Timer Ramp Path -->
+  <path d="M 210,210 L 240,210 L 410,175 L 530,155 L 630,155 L 630,210 L 710,210 L 830,185 L 830,210 L 845,210 L 900,195" fill="none" stroke="#1a1a1a" stroke-width="2"/>
+
+
+  <!-- Signal 3 Track: Warning Signal -->
+  <rect x="410" y="250" width="220" height="25" fill="#fef3c7" opacity="0.6"/>
+  <path d="M 210,275 L 410,275 L 410,255 L 630,255 L 630,275 L 900,275" fill="none" stroke="#d97706" stroke-width="2.5"/>
+
+
+  <!-- Signal 4 Track: Safety Relay Output -->
+  <path d="M 210,345 L 240,345 L 240,325 L 530,325 L 530,345 L 710,345 L 710,325 L 830,325 L 830,345 L 845,345 L 845,325 L 900,325" fill="none" stroke="#27ae60" stroke-width="2.5"/>
+
+
+  <!-- Summary Legend Panel at Bottom -->
+  <rect x="30" y="380" width="900" height="65" rx="6" fill="#f4f6f8" stroke="#d0d7de" stroke-width="1.5"/>
+  <text x="480" y="402" font-size="12" font-weight="bold" fill="#1a1a1a" text-anchor="middle">Логіка функціонування Vigilance Control:</text>
+  <text x="480" y="422" font-size="12" fill="#6b7280" text-anchor="middle">1. Утримання без руху понад t_hold вмикає попереджувальний сигнал.</text>
+  <text x="480" y="438" font-size="12" fill="#6b7280" text-anchor="middle">2. Відсутність скидання під час t_warn викликає зупинку (Trip). Скидання педалі вертає таймер на 0.</text>
+
+</svg>
