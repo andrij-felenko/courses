@@ -148,7 +148,12 @@
      лишається на темі полем `chap`, щоб сайдбар міг показати підзаголовок).
      Крок-`ref` не має slug — у рушій не йде (це вказівник, його малює renderGuide). */
   function adapt(man, groups, kindInfo, base) {
-    var files = function (a) { return (a || []).map(function (o) { return typeof o === "string" ? o : o.file; }); };
+    /* Вставка йде в рушій, лише коли її текст написано. `pending` у маніфесті означає «файла
+       ще нема» — рушій вантажив би 404 на кожну таку вставку готової теми. */
+    var files = function (a) {
+      return (a || []).filter(function (o) { return o && (typeof o === "string" || !o.status || _written(o.status)); })
+        .map(function (o) { return typeof o === "string" ? o : o.file; });
+    };
     return {
       title: man.title,
       shortTitle: man.title,

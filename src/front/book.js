@@ -189,7 +189,8 @@
     var h = '<a class="sb-link sb-sec" data-target="top" href="#ch=' + chap.slug + '&at=top' + vs + '">↑ Початок</a>';
     for (var i = 0; i < sections.length; i++) {
       var sec = sections[i];
-      h += '<a class="sb-link sb-sec" data-target="' + sec.id + '" href="#ch=' + chap.slug + "&at=" + sec.id + vs + '">§ ' + sec.num + " — " + escapeHtml(sec.title) + "</a>";
+      h += '<a class="sb-link sb-sec" data-target="' + sec.id + '" href="#ch=' + chap.slug + "&at=" + sec.id + vs + '">' +
+        (sec.num ? "§ " + sec.num + " — " : "") + escapeHtml(sec.title) + "</a>";
     }
     return h;
   }
@@ -259,12 +260,43 @@
   }
   function findChapterBySlug(slug) { return CH_BY_SLUG[slug] || null; }
 
+  // Той самий файл коду стоїть і в статті, і в клоні попапа, і в сусідній вкладці — один запит на всіх.
+  var fetchInflight = {};
   function fetchText(url) {
     if (textCache[url]) return Promise.resolve(textCache[url]);
-    return fetch(url, { cache: "no-cache" }).then(function (res) {
+    if (fetchInflight[url]) return fetchInflight[url];
+    return (fetchInflight[url] = fetch(url, { cache: "no-cache" }).then(function (res) {
       if (!res.ok) throw new Error(res.status + " " + res.statusText + " — " + url);
       return res.text();
-    }).then(function (t) { textCache[url] = t; return t; });
+    }).then(function (t) { textCache[url] = t; delete fetchInflight[url]; return t; },
+            function (e) { delete fetchInflight[url]; throw e; }));
+  }
+
+  /* ── Маркер словника @@<мова>|термін@@ ─────────────────────────────────────────
+     Показ — як задумано в writer_ua/checkers/lang.js: `<i lang="en">термін</i>`, щоб браузер
+     правильно переносив і читав уголос. Значення терміна живе лише в root/dictionary.json,
+     не в маркері; поки словника нема, рушій нічого понад це не показує. */
+  /* Пробіли біля риски допускаємо: розбір рядків плану за «|» у конвеєрі склеює частини через
+     « | », і маркер доїжджає як «@@en | Master@@». Латати файли — щоразу наново; рушій прощає раз. */
+  var RE_TERM = /@@([a-z]{2,4})\s*[|]\s*([^@\n]+?)\s*@@/gi;
+  var RE_TERM_PIPE = /@@[a-z]{2,4}\s*\|/gi;
+  // уламок маркера, що лишився без пари («driver@@», «@@en|» без закриття) — читачеві не показуємо
+  var RE_TERM_STRAY = /@@(?:[a-z]{2,4}\s*\|\s*)?/gi;
+  function termHtml(lg, w) { return '<i lang="' + lg.toLowerCase() + '">' + w + "</i>"; }
+  // Текст без розмітки — для сайдбару, заголовків попапів і якорів.
+  function plainText(s) {
+    return String(s || "").replace(RE_TERM, "$2").replace(RE_TERM_STRAY, "").replace(/\[([^\]]*)\]\([^)]*\)/g, "$1").replace(/\*\*|__|`/g, "");
+  }
+  // Якір розділу — дзеркало build-search-index.js (stripMd + slugify), інакше пошук веде повз заголовок.
+  function headingSlug(text) {
+    return slugify(String(text).replace(RE_TERM, "$2").replace(RE_TERM_STRAY, "").replace(/`[^`]*`/g, " ").replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
+      .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1").replace(/[*_~>#|]+/g, " ").replace(/\s+/g, " ").trim());
+  }
+  function uniqId(ctx, id) {
+    var used = ctx.usedIds || (ctx.usedIds = {}), k = id, n = 2;
+    while (used[k]) k = id + "-" + n++;
+    used[k] = 1;
+    return k;
   }
 
   /* ════════════════════════════════════════════════════════════════════
@@ -273,9 +305,29 @@
   function renderInline(s, ctx) {
     s = escapeHtml(s);
     var codes = [];
-    s = s.replace(/`([^`]+)`/g, function (m, c) { codes.push(c); return "@C" + (codes.length - 1) + "@"; });
+    // маркер словника в інлайн-коді (`@@en|MOSFET@@`) — лише саме слово: код не місце для підказки
+    // заглушка коду — керівні символи, а не «@C0@»: два коди поруч давали б «@@», який з'їсть RE_TERM_STRAY
+    s = s.replace(/`([^`]+)`/g, function (m, c) { codes.push(c.replace(RE_TERM, "$2")); return "" + (codes.length - 1) + ""; });
+    s = s.replace(RE_TERM, function (m, lg, w) { return termHtml(lg, w); });
+    s = s.replace(RE_TERM_STRAY, "");
     s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, function (m, txt, href) {
+      if (/^\s*root:new\//i.test(href)) return txt;   // тема, якої ще ніхто не завів: слова лишаються, лінка нема
       var r = resolveHref(href.trim(), txt, ctx);
+      var own = r.cross && ownInsert(r.cross, ctx);
+      /* Книга (усі види, крім курсу): посилання в реченні — лише слова, а тема чи вставка стає
+         блоком-карткою після абзацу. Так задумано від початку: попап просто з тексту — лише для
+         словника. Курс лишається як є; передумови (keepLinks) — список лінків. */
+      var block = !!(r.cross && ctx.blockRefs && !ctx.keepLinks);
+      if (own) {
+        /* Лінк на вставку ЦІЄЇ теми (links.md: root:<книга>/<тема>/<тип>-<ім'я>.md) закріплює її в
+           тексті так само, як колись виноска «> 📜 …»: після блоку з першою згадкою стає картка
+           вставки (renderTokens), а банер угорі лишається для незакріплених. */
+        if (ctx.attach) ctx.attach.push({ base: own, after: -1 });
+        if (block) { queueCard(ctx, "h:" + own, txt); return txt; }
+        if (!ctx.insert) queueCard(ctx, "h:" + own, txt);
+        return '<a class="xbook-link" href="#" data-hist="' + escapeAttr(own) + '">' + txt + "</a>";
+      }
+      if (block) { queueCard(ctx, "b:" + r.cross, txt); return txt; }
       if (r.cross) return '<a class="xbook-link" href="#" data-xbook="' + escapeAttr(r.cross) + '">' + txt + "</a>";
       var ext = r.external ? ' target="_blank" rel="noopener"' : "";
       return '<a href="' + escapeAttr(r.href) + '"' + ext + ">" + txt + "</a>";
@@ -284,8 +336,72 @@
     s = s.replace(/__([^_]+)__/g, "<strong>$1</strong>");
     s = s.replace(/\*([^*\n]+)\*/g, "<em>$1</em>");
     s = s.replace(/(^|[\s(«"])_([^_\n]+)_(?=[\s).,;:!?»"]|$)/g, "$1<em>$2</em>");
-    s = s.replace(/@C(\d+)@/g, function (m, i) { return "<code>" + codes[+i] + "</code>"; });
+    s = s.replace(/(\d+)/g, function (m, i) { return "<code>" + codes[+i] + "</code>"; });
     return s;
+  }
+
+  /* Черга карток-посилань поточного файла: «h:<base>» — вставка цієї теми, «b:<дескриптор>» —
+     інша тема чи її вставка. Одна картка на ціль — за першою згадкою; значення — слова з речення. */
+  function queueCard(ctx, key, label) {
+    var carded = ctx.carded || (ctx.carded = {});
+    if (carded[key]) return;
+    carded[key] = label || " ";
+    (ctx.cardQueue || (ctx.cardQueue = [])).push(key);
+  }
+  var SPEC_ICON = { hist: "📜", math: "🧮", comp: "🔌", proj: "⚙️", api: "📋" };
+  /* Картка з текстом на 1–2 рядки: іконка типу й кнопка ⤢ поруч, а не стовпчиком — стовпчик
+     іконок робив однорядкову картку вдвічі вищою за її текст. Міряємо вже з іконками поруч
+     (текст тоді трохи вужчий); вийшло понад два рядки — назад стовпчиком, як було. */
+  function fitTeaser(card) {
+    var body = card.querySelector(".callout-body");
+    if (!body || !card.offsetParent) return;   // прихована (вставка в закритій модалці) — поміряємо, коли відкриють
+    card.classList.add("ico-row");
+    var lh = parseFloat(getComputedStyle(body).lineHeight) || 24;
+    if (body.getBoundingClientRect().height > lh * 2.5) card.classList.remove("ico-row");
+  }
+  function fitTeasers(root) {
+    if (!root || !root.querySelectorAll) return;
+    requestAnimationFrame(function () { [].forEach.call(root.querySelectorAll("a.hist-teaser"), fitTeaser); });
+  }
+  // Картка на іншу тему (міст 🔗, як колишні «> 🔗») або на вставку іншої теми (іконка її типу).
+  function xrefCard(cross, label) {
+    var p = cross.split("|"), k = ((p[2] || "").match(/^(hist|math|comp|proj|api)-/) || [])[1];
+    return '<a class="callout ' + (k ? "callout-" + k : "callout-nav xref-teaser") + ' hist-teaser" href="#" data-xbook="' + escapeAttr(cross) +
+      '" data-xref-title="' + escapeAttr(cross) + '" title="Відкрити">' +
+      '<span class="callout-ico">' + (k ? SPEC_ICON[k] : "🔗") + '<span class="hist-expand" aria-hidden="true">⤢</span></span>' +
+      '<div class="callout-body">' + (label && label !== " " ? label : escapeHtml(p[1] || "")) + "</div>" +
+      '<span class="teaser-share" data-share-token="b:' + escapeAttr(cross) + '" role="button" tabindex="0" title="Копіювати посилання" aria-label="Копіювати посилання">🔗</span></a>';
+  }
+  // Назва теми чи вставки на картці замість слів із речення — щойно книга-ціль підвантажилась.
+  function hydrateXrefTitles(root) {
+    if (!root || !root.querySelectorAll || !window.loadBook) return;
+    [].forEach.call(root.querySelectorAll("[data-xref-title]"), function (card) {
+      var p = card.getAttribute("data-xref-title").split("|"), body = card.querySelector(".callout-body");
+      var done = function (title) {
+        if (title && body) { body.textContent = title; fitTeaser(card); }
+        card.removeAttribute("data-xref-title");
+      };
+      (p[0] === BOOK.bookSlug ? Promise.resolve(BOOK) : window.loadBook(p[0])).then(function (bk) {
+        var chap = bk && chapInBookAny(bk, p[1]);
+        if (!chap) return done("");
+        if (/^(hist|math|comp|proj|api)-/.test(p[2] || "")) {
+          return fetchText((bk.basePath || "") + chap.dir + "/" + p[2]).then(function (text) {
+            var h1 = /^#\s+(.+)$/m.exec(text);
+            done(h1 ? plainText(h1[1].replace(/^(📜|🧮|🔌|⚙️|⚙|📋)\s*/, "")).trim() : "");
+          });
+        }
+        done(chap.title);
+      }).catch(function () {});
+    });
+  }
+
+  // дескриптор крос-лінка «книга|тема|файл|якір» → base вставки поточної теми, якщо це вона
+  function ownInsert(cross, ctx) {
+    if (!ctx || !ctx.histBases || !ctx.histBases.size) return "";
+    var p = cross.split("|");
+    if (p[0] !== BOOK.bookSlug || p[1] !== ctx.currentSlug || !p[2]) return "";
+    var b = baseOf(p[2].split("/").pop());
+    return ctx.histBases.has(b) ? b : "";
   }
 
   /* Крос-посилання root:<книга>/<тема>[/<file>][#<anchor>] → дескриптор для popup (v7) */
@@ -338,9 +454,20 @@
   /* ════════════════════════════════════════════════════════════════════
      2) БЛОК-ПАРСЕР: рядки → токени
      ════════════════════════════════════════════════════════════════════ */
+  // «:::code <шлях від теки теми> [від-до]» — файл коду, написаний окремою одиницею (writer_ua/rules/code-in-text.md)
+  var RE_CODE_DIR = /^\s*:::code\s+(\S+)(?:\s+(\d+)\s*-\s*(\d+))?\s*$/;
+  function codeDirTok(m) {
+    return { type: "pre", file: m[1], from: m[2] ? +m[2] : 0, to: m[3] ? +m[3] : 0, lang: tagFromPath(m[1]), code: "" };
+  }
+
   function mdBlocks(text) {
     var lines = text.replace(/\r\n?/g, "\n").split("\n");
     var blocks = [], i = 0, n = lines.length;
+    /* Непарна кількість огорож — одна не закрита. Тоді, як і fixFences конвеєра, закриваємо її
+       на наступному H2: інакше блок коду з'їв би решту статті. У парному файлі «## » усередині
+       огорожі законний (приклад markdown), і там не чіпаємо. */
+    var fenceOdd = lines.filter(function (l) { return /^\s*```/.test(l); }).length % 2 === 1;
+    function fenceEnd(l) { return /^\s*```\s*$/.test(l) || (fenceOdd && /^##\s/.test(l)); }
     var reHeading = /^(#{1,6})\s+(.*)$/;
     var reHr = /^\s*(-{3,}|\*{3,}|_{3,})\s*$/;
     var reImg = /^\s*!\[([^\]]*)\]\(([^)]+)\)\s*$/;
@@ -366,36 +493,52 @@
         continue;
       }
 
-      // групи «те саме кількома мовами»: :::tabs … фенси з мовою … :::
+      var cdir = line.match(RE_CODE_DIR);
+      if (cdir) { blocks.push(codeDirTok(cdir)); i++; continue; }
+
+      // групи «те саме кількома мовами»: :::tabs … фенси з мовою чи директиви :::code … :::
       var tabsOpen = line.match(/^\s*:::\s*(?:tabs|code)\s*$/);
       if (tabsOpen) {
         i++;
         var tabsArr = [];
         while (i < n && !/^\s*:::\s*$/.test(lines[i])) {
+          var dm = lines[i].match(RE_CODE_DIR);
+          if (dm) { tabsArr.push(codeDirTok(dm)); i++; continue; }   // доти директиви мовчки пропускались — і вкладки виходили порожні
           var f = lines[i].match(/^\s*```(.*)$/);
           if (f) {
             var cbuf = []; i++;
-            while (i < n && !/^\s*```\s*$/.test(lines[i])) { cbuf.push(lines[i]); i++; }
-            i++; // закривний ```
+            while (i < n && !fenceEnd(lines[i])) { cbuf.push(lines[i]); i++; }
+            if (i < n && /^\s*```\s*$/.test(lines[i])) i++; // закривний ```
             tabsArr.push({ lang: f[1].trim(), code: cbuf.join("\n") });
           } else { i++; } // пропускаємо порожні/сторонні рядки між фенсами
         }
         i++; // закривний :::
         if (tabsArr.length > 1) blocks.push({ type: "codetabs", tabs: tabsArr });
-        else if (tabsArr.length === 1) blocks.push({ type: "pre", code: tabsArr[0].code, lang: tabsArr[0].lang });
+        else if (tabsArr.length === 1) blocks.push(Object.assign({}, tabsArr[0], { type: "pre" }));
         continue;
       }
 
       var fence = line.match(/^\s*```(.*)$/);
       if (fence) {
         var buf = []; i++;
-        while (i < n && !/^\s*```\s*$/.test(lines[i])) { buf.push(lines[i]); i++; }
-        i++;
+        while (i < n && !fenceEnd(lines[i])) { buf.push(lines[i]); i++; }
+        if (i < n && /^\s*```\s*$/.test(lines[i])) i++;
+        // писар загорнув директиви :::code в огорожу — це все одно директиви (unfenceDirectives конвеєра)
+        var dirLines = buf.filter(function (l) { return /\S/.test(l); });
+        if (dirLines.length && dirLines.every(function (l) { return RE_CODE_DIR.test(l); })) {
+          var dts = dirLines.map(function (l) { return codeDirTok(l.match(RE_CODE_DIR)); });
+          blocks.push(dts.length > 1 ? { type: "codetabs", tabs: dts } : dts[0]);
+          continue;
+        }
         blocks.push({ type: "pre", code: buf.join("\n"), lang: fence[1].trim() });
         continue;
       }
       var h = line.match(reHeading);
-      if (h) { blocks.push({ type: "heading", level: h[1].length, text: h[2].trim() }); i++; continue; }
+      if (h) {
+        // «## 1 | Назва» — рядок плану каркаса, що просочився в заголовок: читачеві лише назва
+        blocks.push({ type: "heading", level: h[1].length, text: h[2].trim().replace(/^\d+(?:\.\d+)*\s*\|\s*/, "") });
+        i++; continue;
+      }
       if (reHr.test(line)) { blocks.push({ type: "hr" }); i++; continue; }
 
       var img = line.match(reImg);
@@ -425,9 +568,10 @@
         blocks.push({ type: "list", ordered: ordered, items: items });
         continue;
       }
-      if (line.indexOf("|") >= 0 && i + 1 < n && /-/.test(lines[i + 1]) && /^\s*\|?[\s:|-]+$/.test(lines[i + 1])) {
+      // риска маркера словника (@@en|…@@) — не межа комірки
+      if (line.replace(RE_TERM_PIPE, "").indexOf("|") >= 0 && i + 1 < n && /-/.test(lines[i + 1]) && /^\s*\|?[\s:|-]+$/.test(lines[i + 1])) {
         var rows = [];
-        while (i < n && lines[i].indexOf("|") >= 0 && !/^\s*$/.test(lines[i])) { rows.push(lines[i]); i++; }
+        while (i < n && lines[i].replace(RE_TERM_PIPE, "").indexOf("|") >= 0 && !/^\s*$/.test(lines[i])) { rows.push(lines[i]); i++; }
         blocks.push({ type: "table", rows: rows });
         continue;
       }
@@ -442,7 +586,25 @@
       }
       blocks.push({ type: "para", text: pbuf.join(" ") });
     }
-    return blocks;
+    return groupAdjacentCode(blocks);
+  }
+
+  /* Кілька код-блоків різними мовами поспіль, між якими нема жодного слова, — це той самий
+     приклад кількома мовами (code-in-text.md: «кілька мов — вкладки»), навіть коли :::tabs
+     загубився. Показуємо вкладками, а не стосом однакових за змістом блоків. Формули не чіпаємо. */
+  function groupAdjacentCode(blocks) {
+    var out = [];
+    for (var k = 0; k < blocks.length; k++) {
+      var b = blocks[k];
+      if (b.type !== "pre" || isPlainLang(langKey(b.lang))) { out.push(b); continue; }
+      var run = [b];
+      while (k + 1 < blocks.length && blocks[k + 1].type === "pre" && !isPlainLang(langKey(blocks[k + 1].lang))) run.push(blocks[++k]);
+      var keys = {};
+      run.forEach(function (x) { keys[langKey(x.lang) + "|" + langPlatform(x.lang)] = 1; });
+      if (run.length > 1 && Object.keys(keys).length > 1) out.push({ type: "codetabs", tabs: run });
+      else out = out.concat(run);
+    }
+    return out;
   }
 
   /* ════════════════════════════════════════════════════════════════════
@@ -472,33 +634,98 @@
     arduino: "Arduino", ino: "Arduino",
     "esp-idf": "ESP-IDF", espidf: "ESP-IDF", esp32: "ESP-IDF",
     stm32: "STM32 HAL", "stm32-hal": "STM32 HAL", "stm32-ll": "STM32 LL",
-    zephyr: "Zephyr", "pico-sdk": "Pico SDK", avr: "AVR"
+    zephyr: "Zephyr", "pico-sdk": "Pico SDK", avr: "AVR",
+    powershell: "PowerShell", xml: "XML", ini: "INI", zig: "Zig", haskell: "Haskell", elixir: "Elixir",
+    awk: "AWK", sed: "sed", make: "Make", cmake: "CMake", dockerfile: "Dockerfile", dts: "Device Tree",
+    ld: "Linker script", proto: "Protobuf", graphql: "GraphQL", diff: "Diff", text: "Текст", txt: "Текст"
   };
+  /* Синоніми тегів → один ключ. Ключ іде в data-lang вкладки, і саме його порівнює
+     пріоритет мов (codelang.js: cpp · c · python · ts · js …): «```typescript» і «```ts»
+     мусять бути тією самою мовою, інакше обраний Топ-1 не спрацьовує. */
+  var LANG_ALIAS = {
+    py: "python", python3: "python", upy: "micropython", typescript: "ts", tsx: "ts", javascript: "js", jsx: "js", mjs: "js",
+    "c++": "cpp", cxx: "cpp", cc: "cpp", hpp: "cpp", hh: "cpp", h: "c", golang: "go", rs: "rust",
+    bash: "sh", zsh: "sh", shell: "sh", console: "sh", yml: "yaml", csharp: "cs", kt: "kotlin", rb: "ruby", ps1: "powershell"
+  };
+  // Мова файла директиви :::code — за розширенням; тека платформи (arduino/, esp-idf/ …) дає підпис вкладки.
+  var EXT_LANG = {
+    c: "c", h: "c", cpp: "cpp", cc: "cpp", cxx: "cpp", hpp: "cpp", hh: "cpp", hxx: "cpp", ino: "cpp",
+    py: "python", ts: "ts", tsx: "ts", js: "js", mjs: "js", cjs: "js", jsx: "js", go: "go", rs: "rust", lua: "lua",
+    java: "java", kt: "kotlin", cs: "cs", swift: "swift", rb: "ruby", php: "php", sh: "sh", bash: "sh", ps1: "powershell",
+    sql: "sql", yml: "yaml", yaml: "yaml", toml: "toml", json: "json", xml: "xml", html: "html", css: "css", ini: "ini",
+    awk: "awk", sed: "sed", dts: "dts", dtsi: "dts", dtso: "dts", ksy: "yaml", proto: "proto", ld: "ld",
+    s: "asm", asm: "asm", v: "verilog", sv: "verilog", vhd: "vhdl", vhdl: "vhdl", cmake: "cmake", mk: "make",
+    r: "r", scala: "scala", dart: "dart", zig: "zig", hs: "haskell", ex: "elixir", exs: "elixir", txt: "text"
+  };
+  var PLATFORM_DIRS = { arduino: 1, "esp-idf": 1, espidf: 1, esp32: 1, stm32: 1, "stm32-hal": 1, "stm32-ll": 1, zephyr: 1, "pico-sdk": 1, avr: 1 };
+  // Теки мов, які кладе конвеєр (<носій>/<мова>/…, writer_ua/lib/text.js LANGS) → ключ рушія.
+  var DIR_LANG = {
+    c: "c", cpp: "cpp", py: "python", python: "python", micropython: "micropython", ts: "ts", js: "js", go: "go",
+    rust: "rust", java: "java", cs: "cs", swift: "swift", kotlin: "kotlin", ruby: "ruby", lua: "lua", perl: "perl",
+    php: "php", dart: "dart", sh: "sh", sql: "sql", asm: "asm", verilog: "verilog", vhdl: "vhdl", cmake: "cmake", make: "make"
+  };
+  // decamp на збігу імен дописує платформу в ім'я: st7789-reset-esp-idf.c
+  var PLATFORM_SUFFIX = /-(arduino|esp-idf|espidf|esp32|stm32|stm32-hal|stm32-ll|zephyr|pico-sdk|avr)(?:-\d+)?\.[a-z0-9]+$/;
+  function tagFromPath(p) {
+    var segs = String(p).split("/"), name = (segs.pop() || "").toLowerCase();
+    var ext = (name.match(/\.([a-z0-9]+)$/) || [])[1] || "";
+    var extLang = EXT_LANG[ext] || (name === "makefile" ? "make" : name === "cmakelists.txt" ? "cmake" : name === "dockerfile" ? "dockerfile" : "");
+    var dirLang = "", plat = ext === "ino" ? "arduino" : "";
+    segs.forEach(function (s) {
+      s = s.toLowerCase();
+      if (!dirLang && DIR_LANG[s]) dirLang = DIR_LANG[s];
+      if (!plat && PLATFORM_DIRS[s]) plat = s;
+    });
+    var sm = name.match(PLATFORM_SUFFIX);
+    if (!plat && sm) plat = sm[1];
+    /* Розширення вирішує, де воно однозначне; «.h» — ні: cpp/estop_types.h належить C++-проєкту,
+       і вкладка мусить бути C++, а не C. Тека micropython/ уточнює .py. */
+    var lang = (ext === "h" || !extLang) ? (dirLang || extLang)
+      : (dirLang === "micropython" && extLang === "python" ? "micropython" : extLang);
+    return (lang || ext || "text") + (plat ? "|" + plat : "");
+  }
   // тег огорожі буває «мова|платформа» (наприклад c|esp-idf): ключ мови — до риски,
   // підпис вкладки — платформа після неї; без риски все як було.
-  function langKey(l) { return (l || "").toLowerCase().replace(/^./, "").split("|")[0].trim(); }
-  function langPlatform(l) { var p = (l || "").split("|")[1]; return p ? p.trim().toLowerCase() : ""; }
+  function langKey(l) {
+    var k = String(l || "").toLowerCase().split("|")[0].trim().split(/\s+/)[0].replace(/^\./, "");
+    return LANG_ALIAS[k] || k;
+  }
+  function langPlatform(l) { var p = String(l || "").split("|")[1]; return p ? p.trim().toLowerCase() : ""; }
   function langLabel(l) {
     var p = langPlatform(l);
     if (p) return LANG_LABELS[p] || p.charAt(0).toUpperCase() + p.slice(1);
     var k = langKey(l);
-    return LANG_LABELS[k] || (l ? l.charAt(0).toUpperCase() + l.slice(1) : "код");
+    return LANG_LABELS[k] || (k ? k.charAt(0).toUpperCase() + k.slice(1) : "Код");
+  }
+  function isPlainLang(k) { return !k || k === "text" || k === "txt" || k === "plaintext"; }
+
+  /* Огорожа без мови — формула чи покрокове обчислення (writer_ua/rules/formulas.md), не програма.
+     Тут нема ні рядків, ні ключових слів: апостроф у «м'який» не має відкривати «рядок» до кінця
+     блоку. Приглушуємо лише підпис кроку «[яке правило]», вирівняний пробілами в кінці рядка. */
+  function highlightPlain(src) {
+    return src.split("\n").map(function (ln) {
+      var m = ln.match(/^(.*?\S)(\s{2,})(\[[^\]]+\])\s*$/);
+      return m ? escapeHtml(m[1]) + m[2] + '<span class="tok-note">' + escapeHtml(m[3]) + "</span>" : escapeHtml(ln);
+    }).join("\n");
   }
 
   // регекс-токенайзер: коментарі / рядки / числа / ключові / виклики. Працює на сирому тексті,
   // кожен шматок екрануємо окремо (тому «<», «>» усередині коду не ламають розмітку).
   function highlight(src, lang) {
     var k = langKey(lang);
-    var hashCmt = /^(py|python|micropython|upy|sh|bash|zsh|rb|ruby|r|toml|yaml|yml)$/.test(k);
-    var semiCmt = /^(asm|llvm|ir)$/.test(k);
+    if (isPlainLang(k)) return highlightPlain(src);
+    var hashCmt = /^(python|micropython|sh|ruby|r|toml|yaml|awk|sed|make|cmake|dockerfile|powershell|elixir)$/.test(k);
+    var semiCmt = /^(asm|llvm|ir|ini)$/.test(k);
+    var dashCmt = /^(lua|sql|haskell|vhdl)$/.test(k);
     var out = "", i = 0, N = src.length;
     function span(cls, s) { return '<span class="tok-' + cls + '">' + escapeHtml(s) + "</span>"; }
     var wordCh = /[A-Za-z0-9_$]/, wordStart = /[A-Za-z_$]/, digit = /[0-9]/, numCh = /[0-9a-fA-FxXoObB_.]/;
     while (i < N) {
       var c = src[i], c2 = src[i + 1];
-      if (c === "/" && c2 === "/") { var j = src.indexOf("\n", i); if (j < 0) j = N; out += span("cmt", src.slice(i, j)); i = j; continue; }
+      if (c === "/" && c2 === "/" && !dashCmt) { var j = src.indexOf("\n", i); if (j < 0) j = N; out += span("cmt", src.slice(i, j)); i = j; continue; }
       if (hashCmt && c === "#") { var j = src.indexOf("\n", i); if (j < 0) j = N; out += span("cmt", src.slice(i, j)); i = j; continue; }
       if (semiCmt && c === ";") { var j = src.indexOf("\n", i); if (j < 0) j = N; out += span("cmt", src.slice(i, j)); i = j; continue; }
+      if (dashCmt && c === "-" && c2 === "-") { var j = src.indexOf("\n", i); if (j < 0) j = N; out += span("cmt", src.slice(i, j)); i = j; continue; }
       if (c === "/" && c2 === "*") { var j = src.indexOf("*/", i + 2); j = j < 0 ? N : j + 2; out += span("cmt", src.slice(i, j)); i = j; continue; }
       if (c === '"' || c === "'" || c === "`") {
         var q = c, j = i + 1;
@@ -525,15 +752,112 @@
   function renderCode(code, lang) {
     return '<pre class="code"><code class="lang-' + escapeHtml(langKey(lang)) + '">' + highlight(code, lang) + "</code></pre>";
   }
-  function renderCodeTabs(tabs) {
+
+  /* ── Файли коду (:::code): розмітка — заглушка з адресою, текст приїжджає окремим запитом ──
+     Адреса файла — від теки теми, як і в фігури; ctx.base є в крос-попапах (інша книга). */
+  function codeSrcUrl(file, ctx) {
+    if (/^\/root\//.test(file)) return SITE_ROOT + file.slice(1);
+    if (/^https?:|^\//.test(file)) return file;
+    return ((ctx && ctx.base != null) ? ctx.base : BASE) + ((ctx && ctx.dir) || "") + "/" + file;
+  }
+  // перший сегмент шляху — тека одиниці (proj-…/c/main.c): читачеві він нічого не каже
+  function fileShort(file) { var s = String(file).split("/"); return s.length > 2 ? s.slice(1).join("/") : s.join("/"); }
+  function rangeText(t) { return t.from ? "рядки " + t.from + (t.to && t.to !== t.from ? "–" + t.to : "") : ""; }
+  function codePre(t, ctx) {
+    if (!t.file) return renderCode(t.code, t.lang);
+    return '<pre class="code is-loading" data-code-src="' + escapeAttr(codeSrcUrl(t.file, ctx)) + '" data-file="' + escapeAttr(t.file) +
+      '" data-lang="' + escapeAttr(t.lang || "") + '"' + (t.from ? ' data-from="' + t.from + '"' : "") + (t.to ? ' data-to="' + t.to + '"' : "") +
+      "><code>Завантажуємо " + escapeHtml(fileShort(t.file)) + "…</code></pre>";
+  }
+  function fileMeta(t) {
+    if (!t.file) return "";
+    var r = rangeText(t);
+    return '<span class="code-file" title="' + escapeAttr(t.file) + '">' + escapeHtml(fileShort(t.file)) +
+      (r ? '<span class="code-range">' + escapeHtml(r) + "</span>" : "") + "</span>";
+  }
+  var COPY_BTN = '<button class="code-copy" type="button" title="Копіювати код" aria-label="Копіювати код">' +
+    '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 012-2h10"/></svg></button>';
+  // Один блок: шапка «мова · файл · копіювати». Формула без мови лишається голим блоком.
+  function renderCodeBlock(t, ctx) {
+    if (!t.file && isPlainLang(langKey(t.lang))) return renderCode(t.code, t.lang);
+    return '<div class="codeblock"><div class="code-bar"><span class="code-lang">' + escapeHtml(langLabel(t.lang)) + "</span>" +
+      fileMeta(t) + COPY_BTN + "</div>" + codePre(t, ctx) + "</div>";
+  }
+  /* Вкладка = мова (разом із платформою). Кілька файлів однієї мови в групі — це проєкт
+     (заголовок, реалізація, main): усередині вкладки рядок файлів, а не сім вкладок «C · …»
+     упереміш із «C++ · …». Пріоритет мов (data-lang) так і бачить одну вкладку на мову. */
+  function renderCodeTabs(tabs, ctx) {
+    var groups = [], byKey = {};
+    tabs.forEach(function (t) {
+      var key = langKey(t.lang) + "|" + langPlatform(t.lang);
+      if (!byKey[key]) groups.push(byKey[key] = { lang: t.lang, items: [] });
+      byKey[key].items.push(t);
+    });
+    if (groups.length === 1 && groups[0].items.length === 1) return renderCodeBlock(groups[0].items[0], ctx);
     var bar = "", body = "";
-    for (var k = 0; k < tabs.length; k++) {
-      var t = tabs[k], on = k === 0, lc = langKey(t.lang);
+    groups.forEach(function (g, k) {
+      var on = k === 0, cnt = g.items.length;
       bar += '<button class="codetabs__tab' + (on ? " on" : "") + '" type="button" role="tab" data-lang="' +
-        escapeHtml(lc) + '" aria-selected="' + (on ? "true" : "false") + '">' + escapeHtml(langLabel(t.lang)) + "</button>";
-      body += '<div class="codetabs__panel"' + (on ? "" : " hidden") + ' role="tabpanel">' + renderCode(t.code, t.lang) + "</div>";
+        escapeHtml(langKey(g.lang)) + '" aria-selected="' + (on ? "true" : "false") + '">' + escapeHtml(langLabel(g.lang)) +
+        (cnt > 1 ? '<span class="codetabs__n">' + cnt + "</span>" : "") + "</button>";
+      body += '<div class="codetabs__panel"' + (on ? "" : " hidden") + ' role="tabpanel">' + codeFilesPanel(g.items, ctx) + "</div>";
+    });
+    return '<div class="codetabs"><div class="codetabs__bar"><div class="codetabs__tabs" role="tablist">' + bar + "</div>" + COPY_BTN + "</div>" + body + "</div>";
+  }
+  function codeFilesPanel(items, ctx) {
+    if (items.length === 1) {
+      var t0 = items[0];
+      return (t0.file ? '<div class="code-bar code-bar-sub">' + fileMeta(t0) + "</div>" : "") + codePre(t0, ctx);
     }
-    return '<div class="codetabs"><div class="codetabs__bar" role="tablist">' + bar + "</div>" + body + "</div>";
+    var chips = "", subs = "";
+    items.forEach(function (t, i) {
+      var nm = t.file ? String(t.file).split("/").pop() : "фрагмент " + (i + 1);
+      if (t.file && t.from) nm += " · " + t.from + (t.to && t.to !== t.from ? "–" + t.to : "");
+      chips += '<button class="code-file-tab' + (i ? "" : " on") + '" type="button" data-file-idx="' + i + '" aria-selected="' + (i ? "false" : "true") +
+        '"' + (t.file ? ' title="' + escapeAttr(fileShort(t.file)) + '"' : "") + ">" + escapeHtml(nm) + "</button>";
+      subs += '<div class="code-sub"' + (i ? " hidden" : "") + ">" + codePre(t, ctx) + "</div>";
+    });
+    return '<div class="code-files" role="tablist">' + chips + "</div>" + subs;
+  }
+  function pickCodeFile(btn) {
+    var panel = btn.closest(".codetabs__panel");
+    if (!panel) return;
+    var idx = +btn.getAttribute("data-file-idx");
+    [].forEach.call(panel.querySelectorAll(".code-file-tab"), function (b, i) { b.classList.toggle("on", i === idx); b.setAttribute("aria-selected", i === idx ? "true" : "false"); });
+    [].forEach.call(panel.querySelectorAll(".code-sub"), function (s, i) { s.hidden = i !== idx; });
+  }
+  function dedent(lines) {
+    var min = Infinity;
+    lines.forEach(function (l) { if (/\S/.test(l)) min = Math.min(min, l.match(/^[ \t]*/)[0].length); });
+    return (min > 0 && min !== Infinity) ? lines.map(function (l) { return l.slice(min); }) : lines;
+  }
+  /* Заповнити заглушки файлів коду в межах root. Приховані вставки (.hist-modal[hidden]) не
+     чіпаємо: їх відкриває клон, і тоді hydrateCode кличуть уже на клоні — без зайвих запитів. */
+  function hydrateCode(root) {
+    if (!root || !root.querySelectorAll) return;
+    [].forEach.call(root.querySelectorAll("pre[data-code-src]"), function (pre) {
+      if (pre.closest && pre.closest(".hist-modal[hidden]")) return;
+      var url = pre.getAttribute("data-code-src"), file = pre.getAttribute("data-file") || url, lang = pre.getAttribute("data-lang") || "";
+      var from = +pre.getAttribute("data-from") || 0, to = +pre.getAttribute("data-to") || 0;
+      fetchText(url).then(function (src) {
+        var lines = src.replace(/\r\n?/g, "\n").replace(/\n+$/, "").split("\n");
+        if (from) lines = dedent(lines.slice(from - 1, to || lines.length));
+        pre.innerHTML = '<code class="lang-' + escapeAttr(langKey(lang)) + '">' + highlight(lines.join("\n"), lang) + "</code>";
+        pre.classList.remove("is-loading");
+      }, function () {
+        pre.innerHTML = "<code>Файл коду не знайдено: " + escapeHtml(file) + "</code>";
+        pre.classList.remove("is-loading"); pre.classList.add("is-missing");
+      }).then(function () { pre.removeAttribute("data-code-src"); });
+    });
+  }
+  function copyCode(btn) {
+    var box = btn.closest(".codetabs, .codeblock");
+    if (!box) return;
+    var pres = box.querySelectorAll("pre"), pre = null;
+    for (var i = 0; i < pres.length && !pre; i++) if (!pres[i].closest("[hidden]")) pre = pres[i];
+    if (!pre || pre.classList.contains("is-loading")) return;
+    copyText(pre.textContent, "Код скопійовано ✓");
+    btn.classList.add("done"); setTimeout(function () { btn.classList.remove("done"); }, 1400);
   }
 
   /* вибір мови коду — СПИСОК ПРІОРИТЕТІВ (топ-1/2/3), спільний на всю сторінку (й попапи),
@@ -595,9 +919,9 @@
         case "heading":
           html += renderHeading(t, ctx, sections); break;
         case "pre":
-          html += renderCode(t.code, t.lang); break;
+          html += renderCodeBlock(t, ctx); break;
         case "codetabs":
-          html += renderCodeTabs(t.tabs); break;
+          html += renderCodeTabs(t.tabs, ctx); break;
         case "hr":
           html += "<hr>"; break;
         case "figure":
@@ -608,6 +932,9 @@
           break;
         case "preknow":
           if (t.items.length) {
+            ctx.keepLinks = true;                  // передумови — перелік тем: лінки лишаються лінками
+            var pkItems = t.items.map(function (it) { return "<li>" + renderInline(it, ctx) + "</li>"; }).join("");
+            ctx.keepLinks = false;
             html += '<details class="preknow">' +
               '<summary class="preknow-sum">' +
                 '<svg class="preknow-ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5zM3 12l9 5 9-5M3 16.5l9 5 9-5"/></svg>' +
@@ -615,9 +942,7 @@
                 '<span class="preknow-count">' + t.items.length + '</span>' +
                 '<svg class="preknow-caret" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>' +
               '</summary>' +
-              '<ul class="preknow-list">' +
-              t.items.map(function (it) { return "<li>" + renderInline(it, ctx) + "</li>"; }).join("") +
-              '</ul></details>';
+              '<ul class="preknow-list">' + pkItems + '</ul></details>';
           }
           break;
         case "table":
@@ -626,6 +951,14 @@
           html += renderQuote(t, ctx, sections); break;
         case "para":
           html += "<p>" + renderInline(t.text, ctx) + "</p>"; break;
+      }
+      // картки вставок і тем, уперше згаданих лінком у цьому блоці, — одразу після нього
+      if (ctx.cardQueue && ctx.cardQueue.length) {
+        html += ctx.cardQueue.map(function (k) {
+          var d = k.slice(2);
+          return k.charAt(0) === "h" ? histTeaserCard(d, (ctx.insTitle && ctx.insTitle[d]) || d) : xrefCard(d, ctx.carded[k]);
+        }).join("");
+        ctx.cardQueue = [];
       }
     }
     return { html: html, sections: sections };
@@ -636,12 +969,16 @@
       var m = t.text.match(/^(\d+(?:\.\d+){1,2})\s+(.*)$/);   // «1.1 …» (embedded) або «1.2.3 …» (М.Р.Т)
       if (m) {
         var id = "sec-" + m[1].split(".").join("-");
-        sections.push({ num: m[1], title: m[2], id: id });
+        sections.push({ num: m[1], title: plainText(m[2]), id: id });
         return '<span id="' + id + '" class="anc"></span><h2 class="sec-h"><span class="sn">§ ' +
           m[1] + "</span>" + renderInline(m[2], ctx) + "</h2>";
       }
-      var hid = "h-" + slugify(t.text);
-      return '<span id="' + hid + '" class="anc"></span><h2 class="hist-h">' + renderInline(t.text, ctx) + "</h2>";
+      /* Розділ без номера — чинна форма (каркас: «назва стає H2»). Доти такий заголовок не
+         потрапляв у sections, і сайдбар зі scroll-spy мовчали в кожній новій статті. */
+      if (ctx.insert) return '<h2 class="art-h">' + renderInline(t.text, ctx) + "</h2>";   // у вставці якорі не потрібні й дублювали б статтю
+      var hid = uniqId(ctx, "h-" + headingSlug(t.text));
+      sections.push({ num: "", title: plainText(t.text), id: hid });
+      return '<span id="' + hid + '" class="anc"></span><h2 class="art-h">' + renderInline(t.text, ctx) + "</h2>";
     }
     if (t.level === 1) return '<h2 class="hist-h">' + renderInline(t.text, ctx) + "</h2>";
     var tg = t.level === 3 ? "h3" : "h4";
@@ -660,7 +997,7 @@
   function renderTable(rows, ctx) {
     var clean = rows.filter(function (r) { return r.trim(); });
     if (clean.length < 2) return "";
-    var split = function (r) { return r.replace(/^\s*\|/, "").replace(/\|\s*$/, "").split("|").map(function (c) { return c.trim(); }); };
+    var split = function (r) { return r.replace(/@@([a-z]{2,4})\s*\|/gi, "@@$1").replace(/^\s*\|/, "").replace(/\|\s*$/, "").split("|").map(function (c) { return c.trim(); }); };
     var head = split(clean[0]);
     var body = clean.slice(2).map(split);
     var h = "<table><thead><tr>" + head.map(function (c) { return "<th>" + renderInline(c, ctx) + "</th>"; }).join("") + "</tr></thead><tbody>";
@@ -758,14 +1095,14 @@
   function parseHistory(text, filename, baseCtx) {
     var blocks = mdBlocks(text), idx = 0, title = filename;
     if (blocks[0] && blocks[0].type === "heading" && blocks[0].level === 1) {
-      title = blocks[0].text.replace(/^(📜|🧮|🔌|⚙️|⚙)\s*/, "").trim(); idx = 1;
+      title = plainText(blocks[0].text.replace(/^(📜|🧮|🔌|⚙️|⚙|📋)\s*/, "")).trim(); idx = 1;
     }
+    var ctx = Object.assign({}, baseCtx, { attach: [], insert: true, carded: {}, cardQueue: [] });
     var introHtml = "";
     if (blocks[idx] && blocks[idx].type === "quote") {
       var qt = blocks[idx].lines.join("\n").trim();
-      if (!/^(🔧|📜|▶️|▶)/.test(qt)) { introHtml = renderInline(qt.replace(/\n+/g, " "), baseCtx); idx++; }
+      if (!/^(🔧|📜|▶️|▶)/.test(qt)) { introHtml = renderInline(qt.replace(/\n+/g, " "), ctx); idx++; }
     }
-    var ctx = Object.assign({}, baseCtx, { attach: [] });
     var r = renderTokens(blocks.slice(idx), ctx);
     return { base: baseOf(filename), title: title, introHtml: introHtml, bodyHtml: r.html };
   }
@@ -794,14 +1131,36 @@
     if (!textCache[mainUrl]) setContent('<div class="state"><div class="spinner"></div>Завантаження розділу…</div>');   // кеш є (напр., перемикання версій) → без спінера, миттєво, як stack
     var histFiles = chap.histories || [];
     var allFiles = histFiles.concat(chap.extras || []);   // історії + extras — усі як відкривні модалки
-    Promise.all([fetchText(mainUrl)].concat(allFiles.map(function (f) { return fetchText(BASE + dir + "/" + f); })))
+    // Версія є в маніфесті, а файла нема → друга версія, якщо вона є; тільки тоді помилка.
+    function fetchMain() {
+      return fetchText(mainUrl).catch(function (e) {
+        var alt = mainFile === chap.main ? (chap.hasDetailed ? chap.slug + "-d.md" : null) : (chap.hasBasic ? chap.main : null);
+        if (!alt) throw e;
+        return fetchText(BASE + dir + "/" + alt);
+      });
+    }
+    /* Вставка без файла НЕ валить статтю: доти один 404 (вставка ще pending, а тема вже done)
+       клав весь Promise.all, і читач бачив «Не вдалося завантажити розділ» замість готового тексту. */
+    Promise.all([fetchMain()].concat(allFiles.map(function (f) {
+      return fetchText(BASE + dir + "/" + f).catch(function () { return null; });
+    })))
       .then(function (texts) {
-        var mainText = texts[0], specTexts = texts.slice(1);
+        var mainText = texts[0], specTexts = [];
+        allFiles = allFiles.filter(function (f, k) {
+          if (texts[k + 1] == null) return false;
+          specTexts.push(texts[k + 1]); return true;
+        });
         var ctx = {
-          currentSlug: chap.slug, dir: dir, ver: ver,
+          currentSlug: chap.slug, dir: dir, ver: ver, usedIds: {}, blockRefs: isBookLike(),
           histBases: new Set(allFiles.map(baseOf)), attach: [],
           insQueue: (function () { var q = { hist: [], math: [], comp: [], proj: [], api: [] }; allFiles.forEach(function (f) { var b = baseOf(f); var k = (b.match(/^(hist|math|comp|proj|api)-/) || [])[1]; if (k && q[k]) q[k].push(b); }); return q; })()
         };
+        // назви вставок — для карток у тексті: картка стає там, де стаття вперше лінкує вставку
+        ctx.insTitle = {};
+        allFiles.forEach(function (f, k) {
+          var h1 = /^#\s+(.+)$/m.exec(specTexts[k] || "");
+          ctx.insTitle[baseOf(f)] = h1 ? plainText(h1[1].replace(/^(📜|🧮|🔌|⚙️|⚙|📋)\s*/, "")).trim() : baseOf(f);
+        });
         var pm = parseMain(mainText, ctx);
         var arts = allFiles.map(function (f, k) { var a = parseHistory(specTexts[k], f, ctx); a.type = specType(f); return a; });
 
@@ -818,7 +1177,8 @@
         var html = '<span id="top" class="anc"></span>';
         html += chapterHeader(chap, null, ver);
         var introBlock = (pm.introHtml && !isBookLike()) ? '<p class="ch-intro ch-intro-body">' + pm.introHtml + '</p>' : '';
-        html += '<div class="sec content-body">' + courseTopNav(chap) + introBlock + banner + pm.bodyHtml + courseBottomNav(chap) +
+        html += '<div class="sec content-body"' + (BOOK.accent ? ' style="--book-accent:' + BOOK.accent + '"' : "") + ">" +
+          courseTopNav(chap) + introBlock + banner + pm.bodyHtml + courseBottomNav(chap) +
           '<span id="read-end" class="read-sentinel" aria-hidden="true"></span></div>';
         arts.forEach(function (a) { html += histModal(a); });   // приховані popup-вікна (історії + extras)
         setContent(html);
@@ -828,6 +1188,7 @@
         setupScrollSpy();
         setupReadTracking(chap.slug);   // доскролив до #read-end → тема прочитана
         scrollToAnchor(pendingTarget); appliedAt = pendingTarget; pendingTarget = null;
+        paintProgress();
         syncModals(pendingTokens || []); pendingTokens = null;     // відновити стек попапів (deep-link / «назад-вперед»)
         if (chap.hasBasic && chap.hasDetailed) {                   // префетч іншої версії → перемикач зверху працює миттєво (обидві в кеші)
           fetchText(BASE + dir + "/" + (wantD ? chap.main : chap.slug + "-d.md")).catch(function () {});
@@ -908,8 +1269,8 @@
     s += '<hr class="sb-divider">';
 
     sections.forEach(function (sec, idx) {
-      s += '<a class="sb-link" data-target="' + sec.id + '" href="#ch=' + slug + "&at=" + sec.id + vs + '">§ ' +
-        sec.num + " — " + escapeHtml(sec.title) + "</a>";
+      s += '<a class="sb-link" data-target="' + sec.id + '" href="#ch=' + slug + "&at=" + sec.id + vs + '">' +
+        (sec.num ? "§ " + sec.num + " — " : "") + escapeHtml(sec.title) + "</a>";
       (attachedAfter[idx] || []).forEach(function (b) { s += subLink(b); });
     });
 
@@ -1418,6 +1779,7 @@
     var ci = token.indexOf(":"), kind = token.slice(0, ci), data = token.slice(ci + 1);
     var el = (kind === "h") ? histClone(data) : blankLayer();
     modalContainer().appendChild(el);
+    if (kind === "h") { hydrateCode(el); hydrateXrefTitles(el); fitTeasers(el); }   // код, назви й висота карток вставки — коли її справді відкрили
     modalStack.push({ token: token, kind: kind, el: el });
     if (kind === "b") fillXbook(el, data);
     refreshModalChrome();
@@ -1484,8 +1846,8 @@
       document.execCommand("copy"); document.body.removeChild(ta);
     } catch (e) { /* ignore */ }
   }
-  function copyText(text) {
-    var ok = function () { showToast("Посилання скопійовано ✓"); };
+  function copyText(text, msg) {
+    var ok = function () { showToast(msg || "Посилання скопійовано ✓"); };
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(ok, function () { fallbackCopy(text); ok(); });
     } else { fallbackCopy(text); ok(); }
@@ -1499,6 +1861,9 @@
   }
   function setLayerHtml(el, inner) {
     el.innerHTML = inner;
+    hydrateCode(el);                               // файли коду (:::code) з теки теми іншої книги
+    hydrateXrefTitles(el);
+    fitTeasers(el);
     syncCodeTabs();                                // вкладки коду в попапі — на збережену мову
     var sc = el.querySelector(".hist-modal-scroll"); if (sc) sc.scrollTop = 0;
     refreshModalChrome();                          // оновити кнопку «✕/←» уже після підвантаження
@@ -1549,6 +1914,7 @@
     }
     function show(head, inner) { setLayerHtml(el, xbookShell(reg, slug, frag, head, inner)); }
     loader.then(function (bk) {
+      if (bk && bk.title && !SUBJECT_META[id]) reg.label = bk.title;   // «Обчислюваність і складність», а не слуг computability
       var chap = bk && chapInBookAny(bk, slug);
       var base = bk ? (bk.basePath || "") : "";   // v7: basePath дає адаптер (root/<dir>/<book>/)
       var dir = chap && chap.dir;
@@ -1557,7 +1923,7 @@
       if (file && /^(hist|comp|math|proj|api)-/.test(file)) {
         if (!dir) { show("<h1>" + escapeHtml(slug.replace(/-/g, " ")) + "</h1>", "<p>📝 Вставку не знайдено.</p>"); return; }
         fetchText(base + dir + "/" + file).then(function (text) {
-          var ctx = { currentSlug: slug, dir: dir, base: base, histBases: new Set(), attach: [] };
+          var ctx = { currentSlug: slug, dir: dir, base: base, histBases: new Set(), attach: [], blockRefs: bk.kind !== "course" };
           var a = parseHistory(text, file, ctx);
           show("<h1>" + escapeHtml(a.title) + "</h1>", (a.introHtml ? '<div class="hist-intro">' + a.introHtml + "</div>" : "") + a.bodyHtml);
         }).catch(function (e) {
@@ -1578,7 +1944,7 @@
       var fname = _wantD ? (_hasD ? chap.main.replace(/\.md$/, "-d.md") : chap.main)
                          : (_hasB ? chap.main : chap.main.replace(/\.md$/, "-d.md"));
       fetchText(base + dir + "/" + fname).then(function (text) {
-        var ctx = { currentSlug: slug, dir: dir, base: base, histBases: new Set(), attach: [] };
+        var ctx = { currentSlug: slug, dir: dir, base: base, histBases: new Set(), attach: [], blockRefs: bk.kind !== "course" };
         var pm = parseMain(text, ctx);
         var body = pm.bodyHtml.replace(/src="(img\/[^"]+)"/g, 'src="' + base + dir + '/$1"');
         show("<h1>" + escapeHtml(chap.title) + "</h1>", body);
@@ -1619,7 +1985,7 @@
     if (up && up.parentNode !== document.body) document.body.appendChild(up);
     var rc = document.getElementById("reader-controls");               // те саме й для панелі кнопок: без цього
     if (rc && rc.parentNode !== document.body) document.body.appendChild(rc);   // шестерня зникала на кожному рендері
-    $content.innerHTML = html; syncCodeTabs();
+    $content.innerHTML = html; syncCodeTabs(); hydrateCode($content); hydrateXrefTitles($content); fitTeasers($content);
     placeUpBtn();                                                      // …і одразу назад у свіжу шапку — без блимання
   }
   function setSidebar(html) {
@@ -1629,8 +1995,33 @@
   }
   function closeMobileSidebar() { $sidebar.classList.remove("open"); }
 
+  /* ── Смужка прогресу читання: тонка лінія вгорі, скільки статті вже позаду ── */
+  var progressBar = null, progressTick = false;
+  function paintProgress() {
+    progressTick = false;
+    if (!progressBar) return;
+    var body = document.body.classList.contains("reading") && document.querySelector("#content .content-body");
+    if (!body) { progressBar.style.transform = "scaleX(0)"; return; }
+    var r = body.getBoundingClientRect(), total = r.height - window.innerHeight;
+    var p = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 1;
+    progressBar.style.transform = "scaleX(" + p.toFixed(4) + ")";
+  }
+  function onProgressScroll() { if (!progressTick) { progressTick = true; requestAnimationFrame(paintProgress); } }
+
   /* ── Глобальні елементи UI ──────────────────────────────────────────── */
   function initChrome() {
+    progressBar = document.createElement("div");
+    progressBar.id = "read-progress"; progressBar.setAttribute("aria-hidden", "true");
+    document.body.appendChild(progressBar);
+    window.addEventListener("scroll", onProgressScroll, { passive: true });
+    window.addEventListener("resize", onProgressScroll);
+    var fitT = null;   // ширина змінилась — рядки в картках теж: перерахувати, іконки поруч чи стовпчиком
+    window.addEventListener("resize", function () { clearTimeout(fitT); fitT = setTimeout(function () { fitTeasers(document); }, 150); });
+    // фігура, яку проза вже ставить, а одиниця fig ще малює: тиха заглушка замість битої картинки
+    document.addEventListener("error", function (e) {
+      var fig = e.target && e.target.tagName === "IMG" && e.target.closest && e.target.closest("figure");
+      if (fig) fig.classList.add("fig-missing");
+    }, true);
     if (isBookLike()) document.body.classList.add("book-mode");   // CSS-гачок: лагідні вставки без фону
     if (BOOK.course) document.body.classList.add("course-mode");
     var menu = document.getElementById("menu-btn");
@@ -1643,6 +2034,10 @@
     }
     // делеговані кліки: відкрити/закрити/поділитися попапом
     document.addEventListener("click", function (e) {
+      var cp = e.target.closest && e.target.closest(".code-copy");          // «копіювати» в шапці код-блоку
+      if (cp) { e.preventDefault(); copyCode(cp); return; }
+      var cf = e.target.closest && e.target.closest(".code-file-tab");      // файл проєкту всередині вкладки мови
+      if (cf) { e.preventDefault(); pickCodeFile(cf); return; }
       var ct = e.target.closest && e.target.closest(".codetabs__tab");       // вкладка мови в код-блоці
       if (ct) { e.preventDefault(); pickCodeLang(ct.getAttribute("data-lang")); return; }
       var mv = e.target.closest && e.target.closest("[data-map-view]");      // список ⇄ плитка (мапа книги)

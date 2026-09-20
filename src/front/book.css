@@ -452,7 +452,32 @@ h2.hist-h {
   color: var(--h2-color); margin: 2rem 0 0.5rem;
   padding-bottom: 0.4rem; border-bottom: 2px solid var(--hist-border);
 }
+/* Розділ статті без номера (чинна форма каркаса): тонка лінія на всю ширину + коротка риска
+   кольору книги. Доти ці заголовки носили клас історії й фіолетову лінію в кожній статті. */
+h2.art-h {
+  position: relative; font-size: 1.42rem; font-weight: 800; line-height: 1.3; letter-spacing: -0.005em;
+  color: var(--h2-color); margin: 2.7rem 0 0.85rem; padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+h2.art-h::after {
+  content: ""; position: absolute; left: 0; bottom: -2px; width: 2.8rem; height: 3px; border-radius: 2px;
+  background: var(--book-accent, var(--accent));
+}
+.content-body > h2.art-h:first-child, .content-body > .anc:first-child + h2.art-h { margin-top: 0.3rem; }
+.spec-hist h2.art-h::after { background: var(--hist-border); }
+.spec-math h2.art-h::after { background: var(--math); }
+.spec-comp h2.art-h::after { background: var(--comp); }
+.spec-proj h2.art-h::after { background: var(--proj); }
+.spec-api h2.art-h::after { background: var(--api); }
 .content-body h3 { font-size: 1.1rem; font-weight: 700; color: var(--h3-color); margin: 1.9rem 0 0.65rem; }
+
+/* Прогрес читання — тонка лінія по верхньому краю, лише поки відкрита стаття */
+#read-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 950; pointer-events: none;
+  transform: scaleX(0); transform-origin: 0 50%; background: var(--accent); opacity: 0; transition: opacity 0.2s;
+}
+body.reading #read-progress { opacity: 0.85; }
+body.modal-open #read-progress { opacity: 0; }
 .content-body h4 { font-size: 0.97rem; font-weight: 700; color: var(--accent); margin: 1.4rem 0 0.4rem; }
 
 .content-body p { margin-bottom: 1rem; }
@@ -512,13 +537,19 @@ figure { margin: 2rem 0; text-align: center; }
 figure img { max-width: 100%; height: auto; border-radius: 6px; box-shadow: var(--shadow); background: #fff; }
 figcaption { margin-top: 0.7rem; font-size: 0.86rem; color: var(--text-muted); line-height: 1.55; text-align: left; font-style: italic; }
 figcaption strong { font-style: normal; color: var(--text); }
+figure.fig-missing img { display: none; }
+figure.fig-missing::before {
+  content: "Фігура ще малюється"; display: flex; align-items: center; justify-content: center;
+  min-height: 7rem; border: 1px dashed var(--border); border-radius: 6px; background: var(--bg-alt);
+  color: var(--text-muted); font-size: 0.85rem; font-style: italic;
+}
 
 /* ─── Code ──────────────────────────────────────────────────────────────── */
 .content-body pre {
   background: var(--code-bg); color: var(--code-text);
   border-radius: 8px; padding: 1.2rem 1.5rem; overflow-x: auto;
   font-family: 'Cascadia Code', 'Fira Code', Consolas, 'Courier New', monospace;
-  font-size: 0.875rem; line-height: 1.75; margin: 1.2rem 0;
+  font-size: 0.875rem; line-height: 1.75; margin: 1.2rem 0; tab-size: 4;
 }
 .content-body code {
   background: var(--ic-bg); color: var(--ic-color);
@@ -537,10 +568,30 @@ figcaption strong { font-style: normal; color: var(--text); }
 /* вкладки «те саме кількома мовами» — перемикач зверху */
 .content-body .codetabs { margin: 1.2rem 0; border-radius: 8px; overflow: hidden; background: var(--code-bg); }
 .content-body .codetabs__bar {
-  display: flex; flex-wrap: wrap; gap: 0.15rem;
-  padding: 0.4rem 0.5rem 0; background: rgba(255,255,255,0.04);
+  display: flex; align-items: flex-end; gap: 0.4rem;
+  padding: 0.4rem 0.4rem 0 0.5rem; background: rgba(255,255,255,0.04);
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
+.content-body .codetabs__tabs { display: flex; flex-wrap: wrap; gap: 0.15rem; min-width: 0; }
+.content-body .codetabs__bar .code-copy { margin: 0 0 0.32rem auto; }
+.content-body .codetabs__n {
+  display: inline-block; margin-left: 0.4rem; padding: 0 0.38rem; border-radius: 999px;
+  font-size: 0.66rem; line-height: 1.35; background: rgba(255,255,255,0.12);
+}
+/* файли проєкту всередині вкладки мови */
+.content-body .code-files {
+  display: flex; flex-wrap: wrap; gap: 0.3rem; padding: 0.45rem 0.7rem;
+  border-bottom: 1px dashed rgba(255,255,255,0.08);
+}
+.content-body .code-file-tab {
+  font: inherit; font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace; font-size: 0.72rem;
+  padding: 0.16rem 0.55rem; border-radius: 5px; cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.12); background: transparent; color: var(--code-text); opacity: 0.6;
+  transition: opacity 0.14s, background 0.14s, border-color 0.14s;
+}
+.content-body .code-file-tab:hover { opacity: 0.9; }
+.content-body .code-file-tab.on { opacity: 1; background: rgba(255,255,255,0.08); border-color: var(--accent); }
+.content-body .code-sub > pre { margin: 0; border-radius: 0; }
 .content-body .codetabs__tab {
   font: inherit; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.01em;
   padding: 0.34rem 0.8rem; border: none; border-radius: 6px 6px 0 0; cursor: pointer;
@@ -550,6 +601,35 @@ figcaption strong { font-style: normal; color: var(--text); }
 .content-body .codetabs__tab:hover { opacity: 0.85; background: rgba(255,255,255,0.06); }
 .content-body .codetabs__tab.on { opacity: 1; background: var(--code-bg); box-shadow: inset 0 -2px 0 var(--accent); }
 .content-body .codetabs__panel > pre { margin: 0; border-radius: 0; }
+
+/* ── Шапка код-блоку: мова · файл (рядки) · «копіювати». Код на темному тлі в усіх темах ── */
+.content-body .codeblock { margin: 1.2rem 0; border-radius: 8px; overflow: hidden; background: var(--code-bg); }
+.content-body .codeblock > pre { margin: 0; border-radius: 0; }
+.content-body .code-bar {
+  display: flex; align-items: center; gap: 0.65rem; min-height: 2.15rem;
+  padding: 0.2rem 0.4rem 0.2rem 0.95rem; background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  font-size: 0.74rem; color: var(--code-text);
+}
+.content-body .code-bar-sub { min-height: 0; padding: 0.38rem 0.95rem; background: transparent; border-bottom: 1px dashed rgba(255,255,255,0.08); }
+.content-body .code-lang { font-weight: 700; letter-spacing: 0.02em; opacity: 0.85; white-space: nowrap; }
+.content-body .code-file {
+  min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font-family: 'Cascadia Code', 'Fira Code', Consolas, monospace; opacity: 0.6;
+}
+.content-body .code-lang + .code-file::before { content: "·"; margin-right: 0.65rem; opacity: 0.7; }
+.content-body .code-range { margin-left: 0.55rem; font-family: system-ui, sans-serif; opacity: 0.85; }
+.content-body .code-copy {
+  flex: none; margin-left: auto; width: 1.9rem; height: 1.7rem; padding: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; background: transparent;
+  color: var(--code-text); opacity: 0.55; cursor: pointer; transition: opacity 0.14s, background 0.14s, border-color 0.14s;
+}
+.content-body .code-copy:hover { opacity: 1; background: rgba(255,255,255,0.08); }
+.content-body .code-copy.done { opacity: 1; border-color: #a6e3a1; color: #a6e3a1; }
+.content-body pre.is-loading code { opacity: 0.45; font-style: italic; }
+.content-body pre.is-missing code { color: #f3a8a0; font-style: italic; }
+.content-body pre .tok-note { color: #7c8398; font-style: italic; }
 
 /* ─── Misc content ──────────────────────────────────────────────────────── */
 .content-body hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
@@ -618,6 +698,9 @@ a.hist-teaser:hover { transform: translateY(-1px); box-shadow: var(--shadow); te
 a.hist-teaser .callout-body { color: var(--text); align-self: center; }
 /* іконка-📜 + кнопка-розгортання під нею (є лише тоді, коли є повна вставка) */
 a.hist-teaser .callout-ico { display: flex; flex-direction: column; align-items: center; gap: 0.45rem; }
+/* текст на 1–2 рядки (book.js fitTeaser): іконка й ⤢ поруч — картка не вища за свій текст */
+a.hist-teaser.ico-row { align-items: center; }
+a.hist-teaser.ico-row .callout-ico { flex-direction: row; }
 .hist-expand {
   width: 1.6rem; height: 1.6rem; border-radius: 7px;
   background: var(--hist-border); color: #fff;

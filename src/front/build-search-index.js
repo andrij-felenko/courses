@@ -43,6 +43,9 @@ function slugify(s) {
 /* --- очищення markdown до плоского тексту ----------------------------------- */
 function stripMd(t) {
   return String(t)
+    .replace(/@@[a-z]{2,4}\s*\|\s*([^@\n]+?)\s*@@/gi, "$1")   // маркер словника → саме слово (дзеркало book.js, пробіли біля риски теж)
+    .replace(/@@(?:[a-z]{2,4}\s*\|\s*)?/gi, "")               // уламок маркера без пари
+    .replace(/^\s*:::.*$/gm, " ")             // :::code <шлях> / :::tabs — шляхи файлів, не текст
     .replace(/```[\s\S]*?```/g, " ")          // блоки коду
     .replace(/`[^`]*`/g, " ")                 // інлайн-код
     .replace(/\$\$[\s\S]*?\$\$/g, " ")        // блокові формули
@@ -73,7 +76,7 @@ function extractHeadings(md) {
     const m = ln.match(/^(#{1,4})\s+(.+?)\s*#*\s*$/);
     if (!m) continue;
     const level = m[1].length;
-    const text = stripMd(m[2]);
+    const text = stripMd(m[2].replace(/^\d+(?:\.\d+)*\s*\|\s*/, ""));   // «## 1 | Назва» — як рушій: лише назва
     if (!text || level === 1) continue;         // H1 = назва статті (вже маємо з маніфесту)
     let anchor = "";
     if (level === 2) {
@@ -148,6 +151,7 @@ function indexBook(kind, dir, slug) {
         const tdir = path.join(bookDir, t.slug);
         const inserts = []
           .concat((t.hist || []), (t.comp || []), (t.math || []), (t.proj || []), (t.api || []))
+          .filter((o) => o && (typeof o === "string" || !o.status || written(o.status)))   // як bookbuild.js: pending — файла ще нема
           .map((o) => (typeof o === "string" ? o : o && o.file))
           .filter((f) => f && typeof f === "string");
         // головний файл — базова, якщо є; інакше детальна (вона й буде тим, що читач бачить)
